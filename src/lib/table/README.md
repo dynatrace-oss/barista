@@ -101,6 +101,7 @@ problem indicators.
 | `formatter`          | `(displayValue: any) => string|DtFormattedValue`     | -       | The formatter function can be used to fomat the displayed value, with either prepared DtFormatter functions or custom functions. Can be used on top of the displayAccessor function or standalone. The function gets passed either the output from the displayAccessor or the fallback data. _(Optional)_                                                     |
 | `hasProblem<T>`      | `(data: T, name: string) => DtIndicatorThemePalette` | -       | The hasProblem function can be used to evaluate if a cell should add the `dtIndicator` and if it should display `error` or `warning`. The function gets passed the row data and the name of the current column, which allows for more generic functions. The function needs to return either `error` or `warning` if a problem should be active. _(Optional)_ |
 | `dtColumnProportion` | `number`                                             | -       | Exposes the dtColumnProportion of the dtCell directive for use with simple columns                                                                                                                                                                                                                                                                            |
+| `comparator<T>`      | `(left: T, right: T, name: string) => number`        | -       | The comparator function can be used to specify a custom comparator which is used to compare two rows. If this property is set, the sortAccessor for this column is ignored. This function must return `< 0` if left is logically smaller than right, `0` if they are equivalent, otherwise `> 0`. _(Optional)_                                                |
 
 #### Variants
 
@@ -412,6 +413,19 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 }
 ```
+
+The `DtTableDataSource` also exposes two functions, that let the user define
+custom comparators for named columns. This enables the user to leverage
+`DtTableDataSource` comparing without the use of `dt-simple-columns`. The
+function
+`addComparatorFunction(columnName: string, fn: DtColumnComparatorFunction)` can
+be used to add a custom comparator function to the data source. The custom added
+comparator takes precedence over defined sortAccessor functions.
+
+The function `removeComparatorFunction(columnName: string)` enables the user to
+remove a previously defined comparator function.
+
+<docs-source-example example="TableComparatorsExample" fullwidth="true"></docs-source-example>
 
 ## Expandable table rows
 
