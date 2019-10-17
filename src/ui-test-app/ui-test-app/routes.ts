@@ -2,9 +2,6 @@ import { Routes } from '@angular/router';
 
 import { ButtonGroupUi } from '../button-group/button-group-ui';
 import { ButtonUI } from '../button/button-ui';
-import { ChartHighchartsUI } from '../chart/chart-highcharts-ui';
-import { ChartSelectionAreaUI } from '../chart/chart-selection-area-ui';
-import { ChartUI } from '../chart/chart-ui';
 import { CheckboxUI } from '../checkbox/checkbox-ui';
 import { ConsumptionUI } from '../consumption/consumption-ui';
 import { ContextDialogUI } from '../context-dialog/context-dialog-ui';
@@ -31,11 +28,8 @@ export const UI_TEST_APP_ROUTES: Routes = [
   { path: 'button-group', component: ButtonGroupUi },
   {
     path: 'chart',
-    children: [
-      { path: '', component: ChartUI },
-      { path: 'highcharts', component: ChartHighchartsUI },
-      { path: 'selection-area', component: ChartSelectionAreaUI },
-    ],
+    loadChildren: () =>
+      import('../chart/chart.module').then(m => m.ChartModule),
   },
   { path: 'checkbox', component: CheckboxUI },
   { path: 'context-dialog', component: ContextDialogUI },

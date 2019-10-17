@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "module": "esnext",
     "declaration": false,
     "noUnusedParameters": false,
     "moduleResolution": "node",
@@ -13,7 +14,9 @@
     "rootDirs": [".", "../../dist/ui-test-app"],
     "paths": {
       "@dynatrace/angular-components": ["../lib"],
-      "@dynatrace/angular-components/*": ["../lib/*"]
+      "@dynatrace/angular-components/testing": ["../testing/index.ts"],
+      "@dynatrace/angular-components/*": ["../lib/*"],
+      "highcharts": ["node_modules/highcharts"]
     }
   },
   "files": [

@@ -16,6 +16,7 @@
     "test": "ng test lib",
     "test:watch": "ng test lib --watch",
     "ui-test": "ng e2e --project ui-test-app",
+    "ui-test:watch": "watch 'ng e2e --project ui-test-app --devServerTarget' src/lib src/ui-test-app ui-tests --wait=1",
     "a11y-test": "ng test --project=a11y-test-app",
     "lint": "gulp lint",
     "tslint:build": "gulp ts-linting-rules:build",
@@ -168,6 +169,7 @@
     "typescript": "~3.4.3",
     "typescript-tslint-plugin": "^0.5.0",
     "undertaker-forward-reference": "^1.0.2",
+    "watch": "^1.0.2",
     "web-animations-js": "^2.3.1"
   }
 }
