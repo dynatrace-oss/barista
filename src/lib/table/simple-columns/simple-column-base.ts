@@ -28,6 +28,17 @@ export type DtSimpleColumnHasProblemFunction<T> = (
   name: string,
 ) => DtIndicatorThemePalette;
 
+/**
+ * Signature type for the comparision function, which can be passed to the simpleColumn.
+ * The return value has to be < 0 if the left is logical smaller than right, 0 if they
+ * are equivalent, otherwise > 0.
+ */
+export type DtSimpleColumnComparatorFunction<T> = (
+  left: T,
+  right: T,
+  name: string,
+) => number;
+
 /** Signature type for the hasProblem function, which can be passed to the simpleColumn. */
 export type DtSimpleColumnFormatFunction = (
   displayValue: any, // tslint:disable-line:no-any
@@ -84,6 +95,13 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
    * indicator should be enabled on the cell.
    */
   @Input() hasProblem: DtSimpleColumnHasProblemFunction<T>;
+
+  /**
+   * Comparision function which should be used instead of the default
+   * comparision.
+   * If this property is set, the {@link sortAccessor} won't be used for sorting.
+   */
+  @Input() comparator: DtSimpleColumnComparatorFunction<T>;
 
   /** Whether the column is sortable */
   @Input()

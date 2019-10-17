@@ -15,6 +15,7 @@ import { DtPagination } from '@dynatrace/angular-components/pagination';
 
 import { DtTableSearch } from './search';
 import {
+  DtSimpleColumnComparatorFunction,
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,
 } from './simple-columns/simple-column-base';
@@ -22,6 +23,13 @@ import { DtSort, DtSortEvent } from './sort/sort';
 import { DtTable } from './table';
 
 export type DtSortAccessorFunction<T> = (data: T) => any; // tslint:disable-line:no-any
+
+/**
+ * Signature type for the comparision function, which can be passed to the DtTableDataSource.
+ * The return value has to be < 0 if the left is logical smaller than right, 0 if they
+ * are equivalent, otherwise > 0.
+ */
+export type DtColumnComparatorFunction<T> = (left: T, right: T) => number;
 
 const DEFAULT_PAGE_SIZE = 10;
 export class DtTableDataSource<T> extends DataSource<T> {
@@ -54,6 +62,18 @@ export class DtTableDataSource<T> extends DataSource<T> {
    * is exposed to the outside and can be filled by the consumer.
    */
   _customSortAccessorMap: Map<string, DtSortAccessorFunction<T>> = new Map();
+
+  /** Comparator map for SimpleColumn comparator functions */
+  private _simpleComparatorMap: Map<
+    string,
+    DtSimpleColumnComparatorFunction<T>
+  > = new Map();
+
+  /** Comparator map for column comparator functions */
+  private readonly _customComparatorMap: Map<
+    string,
+    DtColumnComparatorFunction<T>
+  > = new Map();
 
   /** Stream that emits when a new data array is set on the data source. */
   private readonly _data: BehaviorSubject<T[]>;
@@ -229,11 +249,11 @@ export class DtTableDataSource<T> extends DataSource<T> {
       return data;
     }
 
-    return data.sort((a, b) => {
-      const valueA = this.sortingDataAccessor(a, active);
-      const valueB = this.sortingDataAccessor(b, active);
-      return compareValues(valueA, valueB, direction);
-    });
+    const comparator = this._getComparatorFunction(active);
+
+    return data.sort(
+      (a, b) => comparator(a, b) * (direction === 'asc' ? 1 : -1),
+    );
   };
 
   /**
@@ -408,9 +428,10 @@ export class DtTableDataSource<T> extends DataSource<T> {
   connect(_table: DtTable<T>): Observable<T[]> {
     _table._dataAccessors
       .pipe(takeUntil(this._destroy))
-      .subscribe(({ displayAccessorMap, sortAccessorMap }) => {
+      .subscribe(({ comparatorMap, displayAccessorMap, sortAccessorMap }) => {
         this._displayAccessorMap = displayAccessorMap;
         this._simpleColumnSortAccessorMap = sortAccessorMap;
+        this._simpleComparatorMap = comparatorMap;
         this._updateChangeSubscription();
       });
     return this._renderData;
@@ -447,5 +468,57 @@ export class DtTableDataSource<T> extends DataSource<T> {
    */
   removeSortAccessorFunction(columnName: string): void {
     this._customSortAccessorMap.delete(columnName);
+  }
+
+  /**
+   * Lets the user define a comparator function for a named column,
+   * that is being used for sorting when the DataSource is used in combination
+   * with simple and non-simple columns.
+   * A comparator defined with this function is used instead of a comparator
+   * defined in a simple column.
+   */
+  addComparatorFunction(
+    columnName: string,
+    fn: DtColumnComparatorFunction<T>,
+  ): void {
+    this._customComparatorMap.set(columnName, fn);
+    this._data.next(this._data.value);
+  }
+
+  /**
+   * Lets the user remove a comparator function for a named column.
+   */
+  removeComparatorFunction(columnName: string): void {
+    this._customComparatorMap.delete(columnName);
+  }
+
+  /**
+   * Gets a comparator function which calls the responsible comparator function.
+   * The comparator is first searched in the custom comparators, then in the simple
+   * comparators, and if this does not exists, a fallback comparator is used.
+   */
+  private _getComparatorFunction(columnName: string): (a: T, b: T) => number {
+    const customComparator = this._customComparatorMap.get(columnName);
+    if (customComparator) {
+      return customComparator;
+    }
+
+    const simpleComparator = this._simpleComparatorMap.get(columnName);
+    if (simpleComparator) {
+      return (a, b) => simpleComparator(a, b, columnName);
+    }
+
+    return (a, b) => this._fallbackColumnComparator(a, b, columnName);
+  }
+
+  /**
+   * Default comparator so compare two rows.
+   * If is used if no comparator is set in the SimpleColumns or custom defined one.
+   */
+  private _fallbackColumnComparator(left: T, right: T, active: string): number {
+    const valueA = this.sortingDataAccessor(left, active);
+    const valueB = this.sortingDataAccessor(right, active);
+
+    return compareValues(valueA, valueB, 'asc');
   }
 }
