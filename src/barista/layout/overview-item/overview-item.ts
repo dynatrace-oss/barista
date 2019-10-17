@@ -9,11 +9,12 @@ import { BaOverviewPageSectionItem } from 'shared/page-contents';
 export class BaOverviewItem {
   @Input() data: BaOverviewPageSectionItem;
 
+  @Input() listView = true;
+
   get _cssClassComponentState(): string {
     if (
       this.data.badge &&
-      (this.data.badge === 'experimental' ||
-        this.data.badge === 'workinprogress')
+      (this.data.badge === 'experimental' || this.data.badge === 'deprecated')
     ) {
       return `ba-overview-item-badge-warning`;
     }
@@ -38,14 +39,14 @@ export class BaOverviewItem {
     return false;
   }
   get _deprecated(): boolean {
-    if (this.data.badge && this.data.badge === 'favorite') {
+    if (this.data.badge && this.data.badge === 'deprecated') {
       return true;
     }
     return false;
   }
 
   get _experimental(): boolean {
-    if (this.data.badge && this.data.badge === 'favorite') {
+    if (this.data.badge && this.data.badge === 'experimental') {
       return true;
     }
     return false;
