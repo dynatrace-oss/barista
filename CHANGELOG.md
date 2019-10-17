@@ -74,6 +74,23 @@
 
 Todd Baert
 
+## Backport: 4.10.1 (2019-10-17)
+
+### Bug Fixes
+
+- **chart:** Fixes an error where the TouchEvent was not defined on Safari
+  browser ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **confirmation-dialog:** Fixes an issue where the dark theme was not applied.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **filter-field:** Fixes and issue where the filter-tags where pushed all the
+  way to the right when editing another filter
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+- **highlight:** Fixes an issue when certain html entities are escaped in the
+  highlights rendered text.
+- **table:** Fixes an issue where the sort header did not apply sorted-styling
+  when not providing a sortDirection
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.10.0 (2019-10-02)
 
 ### Bug Fixes
@@ -172,6 +189,14 @@ Todd Baert
 - **filter-field:** Added support for unique free-text filters.
   ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
 - **top-bar-navigation:** Added the Top Bar Navigation component.
+
+## Backport: 4.7.3 (2019-09-25)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the bounding client rect could not be
+  retrieved on IE Edge.
+  ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
 
 ## 4.7.2 (2019-09-11)
 
