@@ -1,3 +1,10 @@
+## 4.12.2 (2019-10-17)
+
+### Bug Fixes
+
+- **chart:** Fixes an error where the TouchEvent was not defined on Safari
+  browser ([***REMOVED***](https://dev-jira.dynatrace.org/browse/***REMOVED***))
+
 ## 4.12.1 (2019-10-16)
 
 ### Bug Fixes
