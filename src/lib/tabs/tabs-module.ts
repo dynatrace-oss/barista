@@ -8,21 +8,23 @@ import { DtColorModule } from '@dynatrace/angular-components/core';
 import { DtTabGroupNavigation } from './navigation/tab-group-navigation';
 import { DtTabGroup } from './tab-group';
 import { DtTab } from './tab/tab';
-import { DtTabBody, DtTabBodyPortal } from './tab/tab-body';
+import { DtTabBody, DtTabBodyPortalOutlet } from './tab/tab-body';
 import { DtTabContent } from './tab/tab-content';
 import { DtTabLabel } from './tab/tab-label';
 
+const DIRECTIVES = [
+  DtTabGroup,
+  DtTab,
+  DtTabLabel,
+  DtTabContent,
+  DtTabBody,
+  DtTabBodyPortalOutlet,
+  DtTabGroupNavigation,
+];
+
 @NgModule({
   imports: [A11yModule, CommonModule, PortalModule, DtColorModule],
-  exports: [DtTabGroup, DtTab, DtTabLabel, DtTabContent, DtTabGroupNavigation],
-  declarations: [
-    DtTabGroup,
-    DtTab,
-    DtTabLabel,
-    DtTabContent,
-    DtTabBody,
-    DtTabBodyPortal,
-    DtTabGroupNavigation,
-  ],
+  exports: DIRECTIVES,
+  declarations: DIRECTIVES,
 })
 export class DtTabsModule {}
