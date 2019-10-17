@@ -24,6 +24,7 @@ import { isDefined } from '@dynatrace/angular-components/core';
 import { _DtTableBase } from './base-table';
 import {
   DtSimpleColumnBase,
+  DtSimpleColumnComparatorFunction,
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,
 } from './simple-columns/simple-column-base';
@@ -31,6 +32,7 @@ import {
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
   sortAccessorMap: Map<string, DtSimpleColumnSortAccessorFunction<T>>;
+  comparatorMap: Map<string, DtSimpleColumnComparatorFunction<T>>;
 }
 
 let nextUniqueId = 0;
@@ -119,7 +121,15 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
               .filter(sc => isDefined(sc.sortAccessor))
               .forEach(sc => sortAccessorMap.set(sc.name, sc.sortAccessor));
 
-            return { displayAccessorMap, sortAccessorMap };
+            const comparatorMap = new Map<
+              string,
+              DtSimpleColumnComparatorFunction<T>
+            >();
+            simpleColumnsArray
+              .filter(sc => isDefined(sc.comparator))
+              .forEach(sc => comparatorMap.set(sc.name, sc.comparator));
+
+            return { displayAccessorMap, sortAccessorMap, comparatorMap };
           }),
         );
       }
