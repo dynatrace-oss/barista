@@ -1,0 +1,2869 @@
+{
+  "data": [
+    {
+      "name": "Code execution",
+      "type": "area",
+      "data": [
+        {
+          "x": 1564546440000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546450000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546460000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546470000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546480000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546490000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546500000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546510000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546520000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546530000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546540000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546550000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546560000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546570000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546580000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546590000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546600000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546610000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546620000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546630000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546640000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546650000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546660000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546670000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546680000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546690000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546700000,
+          "y": 0.3084557494495383,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546710000,
+          "y": 0.3286338690065398,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546720000,
+          "y": 0.3286338690065398,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546730000,
+          "y": 0.3286338690065398,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546740000,
+          "y": 0.3286338690065398,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546750000,
+          "y": 0.3286338690065398,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546760000,
+          "y": 0.191453810296968,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546770000,
+          "y": 0.1651418568550385,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546780000,
+          "y": 0.1651418568550385,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546790000,
+          "y": 0.1651418568550385,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546800000,
+          "y": 0.1651418568550385,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546810000,
+          "y": 0.1651418568550385,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546820000,
+          "y": 0.031211810945602273,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546830000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546840000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546850000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546860000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546870000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546880000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546890000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546900000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546910000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546920000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546930000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546940000,
+          "y": 0.09378080031539524,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546950000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546960000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546970000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546980000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546990000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547000000,
+          "y": 0.08487745581181418,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547010000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547020000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547030000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547040000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547050000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547060000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547070000,
+          "y": 0.16213031309841405,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547080000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547090000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547100000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547110000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547120000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547130000,
+          "y": 0.01952568781813123,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547140000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547150000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547160000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547170000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547180000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547190000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547200000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547210000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547220000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        }
+      ],
+      "color": "#006bba"
+    },
+    {
+      "name": "Waiting",
+      "type": "area",
+      "data": [
+        {
+          "x": 1564546440000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546450000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546460000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546470000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546480000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546490000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546500000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546510000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546520000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546530000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546540000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546550000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546560000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546570000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546580000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546590000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546600000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546610000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546620000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546630000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546640000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546650000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546660000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546670000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546680000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546690000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546700000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546710000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546720000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546730000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546740000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546750000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546760000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546770000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546780000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546790000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546800000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546810000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546820000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546830000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546840000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546850000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546860000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546870000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546880000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546890000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546900000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546910000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546920000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546930000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546940000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546950000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546960000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546970000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546980000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546990000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547000000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547010000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547020000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547030000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547040000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547050000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547060000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547070000,
+          "y": 0.16213031309841405,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547080000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547090000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547100000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547110000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547120000,
+          "y": 0.16366879981669094,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547130000,
+          "y": 0.01952568781813123,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547140000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547150000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547160000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547170000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547180000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547190000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547200000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547210000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547220000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        }
+      ],
+      "color": "#2ab6f4"
+    },
+    {
+      "name": "Network I/O",
+      "type": "area",
+      "data": [
+        {
+          "x": 1564546440000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546450000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546460000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546470000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546480000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546490000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546500000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546510000,
+          "y": 0.24278818620633233,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546520000,
+          "y": 0.49087785322752187,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546530000,
+          "y": 0.49087785322752187,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546540000,
+          "y": 0.49087785322752187,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546550000,
+          "y": 0.49087785322752187,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546560000,
+          "y": 0.49087785322752187,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546570000,
+          "y": 0.30282254765605826,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546580000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546590000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546600000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546610000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546620000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546630000,
+          "y": 0.04596405120382039,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546640000,
+          "y": 0.3316309610665252,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546650000,
+          "y": 0.3316309610665252,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546660000,
+          "y": 0.3316309610665252,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546670000,
+          "y": 0.3316309610665252,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546680000,
+          "y": 0.3316309610665252,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546690000,
+          "y": 0.29588114346355376,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546700000,
+          "y": 0.9283329939857992,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546710000,
+          "y": 0.9868602695744438,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546720000,
+          "y": 0.9868602695744438,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546730000,
+          "y": 0.9868602695744438,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546740000,
+          "y": 0.9868602695744438,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546750000,
+          "y": 0.9868602695744438,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546760000,
+          "y": 0.26502767430671065,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546770000,
+          "y": 0.16394248897486763,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546780000,
+          "y": 0.16394248897486763,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546790000,
+          "y": 0.16394248897486763,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546800000,
+          "y": 0.16394248897486763,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546810000,
+          "y": 0.16394248897486763,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546820000,
+          "y": 0.16778808342284002,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546830000,
+          "y": 0.16543965588551576,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546840000,
+          "y": 0.16543965588551576,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546850000,
+          "y": 0.16543965588551576,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546860000,
+          "y": 0.16543965588551576,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546870000,
+          "y": 0.16543965588551576,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546880000,
+          "y": 0.05763917611051369,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546890000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546900000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546910000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546920000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546930000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546940000,
+          "y": 0.09378080031539524,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546950000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546960000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546970000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546980000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564546990000,
+          "y": 0.16426834877455812,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547000000,
+          "y": 0.08487745581181418,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547010000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547020000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547030000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547040000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547050000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547060000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547070000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547080000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547090000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547100000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547110000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547120000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547130000,
+          "y": 0.11467723295360739,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547140000,
+          "y": 0.1650982334489021,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547150000,
+          "y": 0.1650982334489021,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547160000,
+          "y": 0.1650982334489021,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547170000,
+          "y": 0.1650982334489021,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547180000,
+          "y": 0.1650982334489021,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547190000,
+          "y": 0.05983159980188212,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547200000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547210000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        },
+        {
+          "x": 1564547220000,
+          "y": 0,
+          "marker": {
+            "enabled": false,
+            "states": {
+              "hover": {
+                "enabled": false
+              }
+            }
+          }
+        }
+      ],
+      "color": "#debbf3"
+    }
+  ]
+}
