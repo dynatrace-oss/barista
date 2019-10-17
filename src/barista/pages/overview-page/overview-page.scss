@@ -1,17 +1,13 @@
 @import '../../layout/overview-item/overview-item.scss';
+@import '../../../lib/core/style/colors';
 
 li {
   list-style-type: none;
 }
 
-.ba-page {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  max-width: 80rem;
-  padding: 1rem;
-  overflow: auto;
-  position: relative;
+ul {
+  margin: 0;
+  padding: 0;
 }
 
 $breakpoint: 1024px;
@@ -30,7 +26,7 @@ $no-columns: 15px;
     margin: 1rem;
   }
 
-  .ba-tile__identifier {
+  .ba-tile-identifier {
     font-size: 48px;
   }
 }
@@ -54,7 +50,7 @@ $no-columns: 15px;
 }
 
 @media (min-width: $screen-xl) {
-  .ba-tilegrid--components {
+  .ba-tilegrid-components {
     grid-template-columns: repeat(4, 1fr);
   }
 }
@@ -67,7 +63,7 @@ $no-columns: 15px;
   right: 1rem;
 }
 
-.ba-button-group__button {
+.ba-button-group-button {
   /* Reset browser <button> styles. */
   user-select: none;
   cursor: pointer;
@@ -99,17 +95,26 @@ $no-columns: 15px;
   }
 }
 
-.ba-button-group__button:not(.ba-is-active):hover {
+.ba-button-group-button:not(.ba-is-active):hover {
   border-color: $turquoise-600;
 }
 
-.ba-button-group__button.ba-is-active {
+.ba-button-group-button.ba-is-active {
   background-color: $gray-300;
 }
 
-.ba-tilegrid--listview {
-  .ba-tile__description,
-  .ba-tile__footer {
-    display: none;
-  }
+.ba-page-content {
+  width: 100%;
+  max-width: 80rem;
+  padding: 1rem;
+  overflow: auto;
+  position: relative;
+}
+
+.ba-page-section {
+  padding-bottom: 4rem;
+}
+
+.ba-page-section:nth-child(odd) {
+  background-color: $gray-130;
 }
