@@ -3,7 +3,7 @@
 
 $range-handle-border-width: 3px;
 $range-color: $turquoise-600;
-$range-valid-color: $gray-300;
+$range-invalid-color: $gray-300;
 
 :host {
   position: absolute;
@@ -30,8 +30,8 @@ $range-valid-color: $gray-300;
   background-color: rgba($color: $range-color, $alpha: 0.25);
   pointer-events: none;
 
-  :host.dt-chart-range-valid & {
-    background-color: rgba($color: $range-valid-color, $alpha: 0.45);
+  :host.dt-chart-range-invalid & {
+    background-color: rgba($color: $range-invalid-color, $alpha: 0.45);
   }
 }
 
