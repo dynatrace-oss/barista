@@ -19,6 +19,7 @@ import {
   DtPaginationModule,
 } from '@dynatrace/angular-components/pagination';
 import {
+  DtSimpleColumnComparatorFunction,
   DtSort,
   DtTableDataSource,
   DtTableModule,
@@ -273,6 +274,53 @@ describe('DtTableDataSource', () => {
       expect(cells[2].nativeElement.textContent).toContain('38 / 5830000000'); // 38 % 30 = 8
       expect(cells[3].nativeElement.textContent).toContain('46 / 6000000000'); // 46 % 30 = 16
     });
+
+    it('should let you update the sorting comparator at runtime', () => {
+      const sortHeader = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-memory'),
+      );
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
+
+      component.dataSource.addComparatorFunction('memory', (left, right) => {
+        const memoryPercStrLenLeft = String(left.memoryPerc).length;
+        const memoryPercStrLenRight = String(right.memoryPerc).length;
+
+        if (memoryPercStrLenLeft !== memoryPercStrLenRight) {
+          return memoryPercStrLenLeft - memoryPercStrLenRight;
+        }
+
+        return left.memoryPerc - right.memoryPerc;
+      });
+      fixture.detectChanges();
+
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-memory'),
+      );
+
+      expect(cells[0].nativeElement.textContent).toContain('35 / 5810000000');
+      expect(cells[1].nativeElement.textContent).toContain('38 / 5830000000');
+      expect(cells[2].nativeElement.textContent).toContain('46 / 6000000000');
+      expect(cells[3].nativeElement.textContent).toContain('7.86 / 5820000000');
+    });
+
+    it('should update the sorting based on the comparator specified in the SimpleColumn', () => {
+      const sortHeader = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-host'),
+      );
+
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
+
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-host'),
+      );
+
+      expect(cells[0].nativeElement.textContent).toContain('docker-host2');
+      expect(cells[1].nativeElement.textContent).toContain('et-demo-2-win4');
+      expect(cells[2].nativeElement.textContent).toContain('et-demo-2-win3');
+      expect(cells[3].nativeElement.textContent).toContain('et-demo-2-win1');
+    });
   });
 });
 
@@ -344,7 +392,11 @@ export class PaginationTestApp implements OnInit {
   // tslint:disable
   template: `
     <dt-table [dataSource]="dataSource" dtSort #sortable>
-      <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
+      <dt-simple-text-column
+        name="host"
+        label="Host"
+        [comparator]="hostComparator"
+      ></dt-simple-text-column>
 
       <ng-container dtColumnDef="memory" dtColumnAlign="number">
         <dt-header-cell *dtHeaderCellDef dt-sort-header>Memory</dt-header-cell>
@@ -392,6 +444,13 @@ export class TableSortingMixedTestApp implements OnInit {
     memoryPerc: number;
     memoryTotal: number;
   }>;
+
+  readonly hostComparator: DtSimpleColumnComparatorFunction<{
+    host: string;
+    memoryPerc: number;
+    memoryTotal: number;
+  }> = (left, right) => left.host.length - right.host.length;
+
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);
     this.dataSource.addSortAccessorFunction(
