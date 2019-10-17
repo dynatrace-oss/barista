@@ -167,9 +167,9 @@ export function getRelativeMousePosition(
   container: HTMLElement,
 ): { x: number; y: number } {
   const { x: clientX, y: clientY } =
-    event instanceof TouchEvent
+    window.hasOwnProperty('TouchEvent') && event instanceof TouchEvent
       ? getTouchPosition(event)
-      : getMousePosition(event);
+      : getMousePosition(event as MouseEvent);
   const boundingClientRect = container.getBoundingClientRect();
   const scroll = getScrollOffset();
 
