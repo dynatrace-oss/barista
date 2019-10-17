@@ -24,7 +24,6 @@ import { Subscription } from 'rxjs';
 /**
  * Wrapper for the contents of a tab.
  * notifies the portaloutlet when the active input is changed to enable lazy loading
- * @internal
  */
 @Component({
   moduleId: module.id,
@@ -68,14 +67,13 @@ export class DtTabBody {
 }
 
 /**
- * The portal host directive for the contents of the tab.
- * @internal
+ * The portal outlet directive for the contents of the tab.
  */
 @Directive({
-  selector: '[dtTabBodyHost]',
-  exportAs: 'dtTabBodyPortal',
+  selector: '[dtTabBodyPortalOutlet]',
+  exportAs: 'dtTabBodyPortalOutlet',
 })
-export class DtTabBodyPortal extends CdkPortalOutlet
+export class DtTabBodyPortalOutlet extends CdkPortalOutlet
   implements OnInit, OnDestroy {
   /** Subscription to events for when the active tab changes */
   private _activeChangedSub = Subscription.EMPTY;
