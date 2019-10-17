@@ -1,14 +1,50 @@
-<div class="ba-content">
-  <h1>{{contents.title}}</h1>
-  <p *ngIf="contents.description">
-    {{contents.description}}
+<div class="ba-page-content">
+  <h1>{{ contents.title }}</h1>
+  <p *ngIf="contents.description" class="ba-overview-page-description">
+    {{ contents.description }}
   </p>
-  <div *ngFor="let section of contents.sections" class="ba-page-section">
+
+  <div class="ba-button-group ba-button-group-gridview">
+    <button
+      class="ba-button-group-button ba-is-active"
+      [ngClass]="{ 'ba-is-active': _listViewActive }"
+      aria-label="Show links to subpages as list items."
+      (click)="_switchOverviewPageDisplay()"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 425 184">
+        <path
+          d="M111.97 0h312.057v64H111.97V0zM.001 0h64v64h-64V0zM111.97 120h312.057v64H111.97v-64zM.001 120h64v64h-64v-64z"
+        />
+      </svg>
+    </button>
+    <button
+      class="ba-button-group-button"
+      [ngClass]="{ 'ba-is-active': !_listViewActive }"
+      aria-label="Show links to subpages as tiles."
+      (click)="_switchOverviewPageDisplay()"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-78 0 425 269">
+        <path
+          d="M0 0h112v112H0V0zm156 0h112v112H156V0zM0 156.001h112v112H0v-112zm156 0h112v112H156v-112z"
+        />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<div *ngFor="let section of contents.sections" class="ba-page-section">
+  <div class="ba-page-content">
     <h2>{{ section.title }}</h2>
     <nav>
-      <ul class="ba-tilegrid">
+      <ul
+        class="ba-tilegrid"
+        [ngClass]="{ 'ba-tilegrid-listview': _listViewActive }"
+      >
         <li *ngFor="let item of section.items">
-          <ba-overview-item [data]="item"></ba-overview-item>
+          <ba-overview-item
+            [data]="item"
+            [listView]="_listViewActive"
+          ></ba-overview-item>
         </li>
       </ul>
     </nav>
