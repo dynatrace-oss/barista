@@ -113,6 +113,11 @@
                 "output": "/assets"
               },
               {
+                "glob": "**",
+                "input": "src/ui-test-app/fixtures",
+                "output": "/fixtures"
+              },
+              {
                 "glob": "*.svg",
                 "input": "node_modules/@dynatrace/dt-iconpack",
                 "output": "/assets/icons"

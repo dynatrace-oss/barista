@@ -42,8 +42,8 @@ import {
   ARIA_DEFAULT_RIGHT_HANDLE_LABEL,
   ARIA_DEFAULT_SELECTED_AREA_LABEL,
   DT_RANGE_DEFAULT_MIN,
+  DT_RANGE_INVALID_CLASS,
   DT_RANGE_RELEASED_CLASS,
-  DT_RANGE_UN_VALID_CLASS,
 } from './constants';
 import { updateRangeWithKeyboardEvent } from './update-range-with-keyboard-event';
 
@@ -494,9 +494,9 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    */
   private _reflectRangeValid(): void {
     if (!this._valid) {
-      addCssClass(this._elementRef.nativeElement, DT_RANGE_UN_VALID_CLASS);
+      addCssClass(this._elementRef.nativeElement, DT_RANGE_INVALID_CLASS);
     } else {
-      removeCssClass(this._elementRef.nativeElement, DT_RANGE_UN_VALID_CLASS);
+      removeCssClass(this._elementRef.nativeElement, DT_RANGE_INVALID_CLASS);
     }
   }
 
