@@ -33,41 +33,45 @@ export function adjustNumber(
   value: number,
   abbreviate: boolean = false,
 ): string {
-  return abbreviate && value >= KILO_MULTIPLIER
+  const calcValue = Math.abs(value);
+  return abbreviate && calcValue >= KILO_MULTIPLIER
     ? abbreviateNumber(value)
     : adjustPrecision(value);
 }
 
 function adjustPrecision(value: number): string {
   // tslint:disable:no-magic-numbers
+  const calcValue = Math.abs(value);
   let digits = 0;
-  if (value === 0) {
+  if (calcValue === 0) {
     return '0';
-  } else if (value < MIN_VALUE) {
-    return `< ${MIN_VALUE}`;
-  } else if (value < 1) {
+  } else if (calcValue < MIN_VALUE) {
+    if (value < 0) {
+      return `-${MIN_VALUE}`;
+    } else {
+      return `< ${MIN_VALUE}`;
+    }
+  } else if (calcValue < 1) {
     digits = 3;
-  } else if (value < 10) {
+  } else if (calcValue < 10) {
     digits = 2;
-  } else if (value < 100) {
+  } else if (calcValue < 100) {
     digits = 1;
   }
-  // tslint:enable:no-magic-numbers
-
   return formatNumber(value, 'en-US', `0.0-${digits}`);
 }
 
 function abbreviateNumber(sourceValue: number): string {
-  let value = sourceValue;
+  let value = Math.abs(sourceValue);
   let postfix = '';
 
   const level = ABBREVIATION_LEVELS.find(m => m.multiplier <= value);
 
   if (level !== undefined) {
-    value = value / level.multiplier;
+    value = sourceValue / level.multiplier;
     postfix = level.postfix;
   }
-  const formattedValue = adjustPrecision(value);
 
+  const formattedValue = adjustPrecision(value);
   return `${formattedValue}${postfix}`;
 }
