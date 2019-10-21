@@ -529,15 +529,17 @@ export class DtChart
   }
 
   private _notifyAfterRender(): void {
-    this._afterRender.next();
-    const plotBackground = this.container.nativeElement.querySelector<
-      SVGRectElement
-    >(HIGHCHARTS_PLOT_BACKGROUND);
+    this._ngZone.runOutsideAngular(() => {
+      this._afterRender.next();
+      const plotBackground = this.container.nativeElement.querySelector<
+        SVGRectElement
+      >(HIGHCHARTS_PLOT_BACKGROUND);
 
-    // set the offset of the plotBackground in relation to the chart
-    this._setPlotBackgroundOffset(plotBackground);
+      // set the offset of the plotBackground in relation to the chart
+      this._setPlotBackgroundOffset(plotBackground);
 
-    this._plotBackground$.next(plotBackground);
+      this._plotBackground$.next(plotBackground);
+    });
   }
 
   /** Calculates and sets the offset of the plot-background to the Chart container on the xAxis */
