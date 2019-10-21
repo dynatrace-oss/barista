@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaContributors } from 'layout/contributors/contributors';
-import { BaOverviewItem } from 'layout/overview-item/overview-item';
+import { BaTile } from 'layout/tile/tile';
 
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
@@ -62,7 +62,7 @@ import { BaPageService } from './shared/page.service';
     BaSinglePage,
     BaIconColorWheel,
     BaOverviewPage,
-    BaOverviewItem,
+    BaTile,
   ],
   providers: [
     BaPageService,
