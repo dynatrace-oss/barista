@@ -28,6 +28,7 @@
   left: 0;
   position: absolute;
   width: 2px;
+  will-change: transform;
 }
 
 .dt-chart-selection-area-overlay {

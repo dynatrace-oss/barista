@@ -5,7 +5,13 @@ import { ENTER } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, Provider, Type } from '@angular/core';
-import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  flush,
+  inject,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
@@ -164,26 +170,27 @@ describe('DtChart Selection Area', () => {
 
   describe('accessibility', () => {
     let fixture: ComponentFixture<TestChart>;
+    let range: DtChartRange;
 
-    beforeEach(() => {
+    beforeEach(fakeAsync(() => {
       fixture = createComponent(TestChart);
-    });
+
+      fixture.componentInstance.hasRange = true;
+      fixture.detectChanges();
+      range = fixture.debugElement.query(By.css('.dt-chart-range'))
+        .componentInstance;
+      const start = new Date('2019/06/01 20:40:00').getTime();
+      const end = new Date('2019/06/01 20:55:00').getTime();
+      range.value = [start, end];
+
+      range._stateChanges.next({} as any);
+      fixture.detectChanges();
+      flush();
+    }));
 
     describe('range', () => {
-      let range: DtChartRange;
-
-      beforeEach(() => {
-        fixture.componentInstance.hasRange = true;
-        fixture.detectChanges();
-        range = fixture.debugElement.query(By.css('.dt-chart-range'))
-          .componentInstance;
-        const start = new Date('2019/06/01 20:40:00').getTime();
-        const end = new Date('2019/06/01 20:55:00').getTime();
-        range.value = [start, end];
-        fixture.detectChanges();
-      });
-
-      it('should have a default aria label on the overlay close button', () => {
+      it('should have a default aria label on the overlay close button', fakeAsync(() => {
+        flush();
         const container = overlayContainerElement.querySelector(
           '.dt-chart-selection-area-overlay .dt-icon-button',
         ) as HTMLElement;
@@ -191,7 +198,7 @@ describe('DtChart Selection Area', () => {
         expect(container.getAttribute('aria-label')).toBe(
           ARIA_DEFAULT_CLOSE_LABEL,
         );
-      });
+      }));
 
       it('should not have been focused on programmatic creation', () => {
         const rangeContainer = fixture.debugElement.query(
