@@ -18,6 +18,13 @@
     </article>
   </main>
 
+  <ba-toc
+    *ngIf="contents.toc"
+    [data]="contents.contentHtml"
+    [title]="contents.title"
+  >
+  </ba-toc>
+
   <ba-page-footer
     *ngIf="contents"
     [tags]="contents.tags"
