@@ -4,10 +4,12 @@ import {
   ChangeDetectorRef,
   Component,
   Input,
+  NgZone,
   OnDestroy,
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 interface NavItem {
   name: string;
@@ -89,9 +91,12 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { value: 'royalblue:dark', name: 'Royalblue dark' },
   ];
 
-  private _urlSubscription: Subscription;
   private _navItemsFilterValue = '';
   private _filteredNavItems = [...this.navItems];
+  private _zoneStableCounter = 0;
+  private _zoneStableCounterTimer;
+  private _zoneCounterEl: HTMLElement;
+  private _destroy$ = new Subject<void>();
 
   @Input('navItemValue')
   get navItemsFilterValue(): string {
@@ -113,10 +118,19 @@ export class DevApp implements AfterContentInit, OnDestroy {
   constructor(
     private readonly _router: Router,
     private readonly _changeDetectorRef: ChangeDetectorRef,
-  ) {}
+    zone: NgZone,
+  ) {
+    zone.onStable.pipe(takeUntil(this._destroy$)).subscribe(() => {
+      // Run counter itself outside the zone to be sure that
+      // the counter (timer) does not influence the zone.
+      zone.runOutsideAngular(() => {
+        this._increaseZoneStable();
+      });
+    });
+  }
 
   ngAfterContentInit(): void {
-    this._urlSubscription = this._router.events.subscribe(event => {
+    this._router.events.pipe(takeUntil(this._destroy$)).subscribe(event => {
       if (event instanceof NavigationEnd) {
         window.document.body.scrollIntoView(true);
       }
@@ -124,7 +138,8 @@ export class DevApp implements AfterContentInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._urlSubscription.unsubscribe();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   private _updateFilteredNavItems(): void {
@@ -139,5 +154,22 @@ export class DevApp implements AfterContentInit, OnDestroy {
     }
 
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _increaseZoneStable(): void {
+    let el = this._zoneCounterEl;
+    if (!el) {
+      // tslint:disable-next-line: ban
+      el = document.createElement('code');
+      el.className = 'dev-app-zone-counter';
+      document.body.appendChild(el);
+      this._zoneCounterEl = el;
+    }
+    el.textContent = (++this._zoneStableCounter).toString();
+    el.classList.add('dev-app-zone-counter-firing');
+    clearTimeout(this._zoneStableCounterTimer);
+    this._zoneStableCounterTimer = setTimeout(() => {
+      el.classList.remove('dev-app-zone-counter-firing');
+    }, 200);
   }
 }
