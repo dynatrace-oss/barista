@@ -36,7 +36,7 @@
   [series]="series"
   (seriesVisibilityChange)="seriesVisibilityChanged($event)"
 >
-  <dt-chart-tooltip>
+  <!-- <dt-chart-tooltip>
     <ng-template let-tooltip>
       <dt-key-value-list style="min-width: 100px">
         <dt-key-value-list-item *ngFor="let data of tooltip.points">
@@ -49,7 +49,7 @@
         </dt-key-value-list-item>
       </dt-key-value-list>
     </ng-template>
-  </dt-chart-tooltip>
+  </dt-chart-tooltip> -->
 
   <dt-chart-range
     aria-label-close="Close the selection"
@@ -71,15 +71,7 @@
       Apply
     </button>
   </dt-chart-range>
-  <dt-chart-timestamp [value]="1564546660000"></dt-chart-timestamp>
+  <dt-chart-timestamp></dt-chart-timestamp>
 </dt-chart>
 
 <button (click)="switchData()">change</button>
-
-<dt-chart
-  *ngIf="series && options"
-  [options]="options"
-  [series]="series"
-  (seriesVisibilityChange)="seriesVisibilityChanged($event)"
->
-</dt-chart>
