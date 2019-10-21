@@ -9,19 +9,42 @@
     'main'
     'footer';
   padding: 1rem;
+  grid-row-gap: 1.5rem;
+}
+
+.ba-page-content::before {
+  content: ' ';
+  display: block;
+  width: 100%;
+  border-bottom: 2px solid $gray-130;
+  margin-bottom: 3rem;
 }
 
 @media (min-width: $screen-md) {
   .ba-page-grid {
-    grid-template-columns: 300px minmax(0, 1fr);
-    grid-template-rows: repeat(2, max-content) repeat(2, auto);
+    grid-template-columns: minmax(0, 1fr) 230px;
     grid-column-gap: 2rem;
+    grid-row-gap: 2rem;
     grid-template-areas:
-      'sidebar title'
-      'sidebar meta'
-      'sidebar main'
-      'sidebar footer';
-    padding-left: 0;
+      'title title'
+      'main meta'
+      'footer .';
+    padding: 1rem;
+  }
+
+  .ba-page-content::before {
+    height: 2rem;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .ba-page-grid {
+    grid-column-gap: 3rem;
+    grid-template-areas:
+      'title .'
+      'main meta'
+      'footer .';
+    padding: 1rem 2rem;
   }
 }
 
@@ -29,16 +52,16 @@
   .ba-page-grid {
     grid-template-columns: 300px minmax(0, 1fr) 280px;
     grid-template-rows: repeat(2, max-content) auto;
-    grid-template-rows: max-content auto;
     grid-template-areas:
       'sidebar title .'
       'sidebar main meta'
       'sidebar footer .';
+    padding: 1rem 1rem 1rem 0;
   }
 }
 
-/* All columns + column gaps = 1626px */
-@media (min-width: 1630px) {
+/* All columns + column gaps (3rem) + padding-right (1rem) = 1738px */
+@media (min-width: 1740px) {
   .ba-page-grid {
     grid-template-columns: 300px auto 950px 280px auto;
     grid-template-areas:
