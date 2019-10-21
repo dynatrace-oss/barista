@@ -44,7 +44,6 @@ import {
   mapTo,
   share,
   shareReplay,
-  skip,
   startWith,
   switchMap,
   take,
@@ -66,6 +65,11 @@ import {
 
 import { DtChart } from '../chart';
 import { clampRange } from '../range/clamp-range';
+import { DtChartRange, RangeStateChangedEvent } from '../range/range';
+import {
+  DtChartTimestamp,
+  TimestampStateChangedEvent,
+} from '../timestamp/timestamp';
 import {
   captureAndMergeEvents,
   chainFocusTraps,
@@ -183,7 +187,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         )
       : of({ left: 0, top: 0 });
 
-    this._plotBackground$ = this._chart._afterRender.pipe(
+    this._plotBackground$ = this._chart._afterRender.asObservable().pipe(
       concatMapTo(this._chart._plotBackground$),
       // plot background can be null as well
       filter<SVGRectElement>(Boolean),
@@ -195,6 +199,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         plotBackground,
         ...this._getHighchartsSeriesGroupAndAxis(),
       ]),
+      share(),
     );
 
     // get the BCR of the selection Area
@@ -269,17 +274,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         // and listens for mouse-moves to update the position of the hairline.
         this._initializeHairline();
       });
-
-    // we have to skip the first (initial) after render and then we reset
-    // the range and timestamp each time something changes.
-    this._chart._afterRender
-      .pipe(
-        skip(1), // don't reset on first draw
-        takeUntil(this._destroy$),
-      )
-      .subscribe(() => {
-        this._reset();
-      });
   }
 
   ngOnDestroy(): void {
@@ -307,19 +301,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       // tslint:disable-next-line: no-magic-numbers
       this._setRange(quarter, quarter * 2);
     }
-  }
-
-  /** Resets the range and timestamp if present */
-  private _reset(): void {
-    // If the chart changes we need to destroy the range and the timestamp
-    if (this._chart._range) {
-      this._chart._range._reset();
-    }
-
-    if (this._chart._timestamp) {
-      this._chart._timestamp._reset();
-    }
-    this._closeOverlay();
   }
 
   /** Toggles the range and sets it programmatically with the provided values */
@@ -416,6 +397,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     ref: ElementRef<HTMLElement>,
     viewRef: ViewContainerRef,
     viewportOffset: ViewportBoundaries,
+    data: number | [number, number],
   ): void {
     // create a new overlay configuration with a position strategy that connects
     // to the provided ref.
@@ -431,7 +413,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     const overlayRef = this._overlay.create(overlayConfig);
 
     // create the portal out of the template and the containerRef
-    this._portal = new TemplatePortal(template, viewRef);
+    // tslint:disable-next-line: no-any
+    this._portal = new TemplatePortal<any>(template, viewRef, {
+      $implicit: data,
+    });
     // attach the portal to the overlay ref
     overlayRef.attach(this._portal);
 
@@ -447,18 +432,22 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** Updates or creates an overlay for the range or timestamp. */
   private _updateOrCreateOverlay<T = unknown>(
-    template: TemplateRef<T>,
+    component: DtChartRange | DtChartTimestamp,
     ref: ElementRef<HTMLElement>,
-    viewRef: ViewContainerRef,
     viewportOffset: ViewportBoundaries = { left: 0, top: 0 },
   ): void {
+    const template = component._overlayTemplate as TemplateRef<T>;
+    const viewRef = component._viewContainerRef;
+    const value: number | [number, number] = component.value;
+
     if (this._portal && this._overlayRef) {
+      this._portal.context.$implicit = value;
       // We already have an overlay so update the position
       this._overlayRef.updatePositionStrategy(
         this._calculateOverlayPosition(ref, viewportOffset),
       );
     } else {
-      this._createOverlay<T>(template, ref, viewRef, viewportOffset);
+      this._createOverlay<T>(template, ref, viewRef, viewportOffset, value);
     }
   }
 
@@ -677,44 +666,42 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
           this._setTimestamp(position);
         });
 
-      this._zone.runOutsideAngular(() => {
-        const dragHandleStartMapped$ = this._dragHandle$.pipe(mapTo(1));
-        const initialDragStart$ = this._drag$.pipe(mapTo(0));
-        // merge the streams of the initial drag start and the handle drag start
-        const startResizing$ = merge(initialDragStart$, dragHandleStartMapped$);
-        // map to false to end the resize
-        const release$ = merge(this._mouseup$, touchEnd$).pipe(mapTo(-1));
+      const dragHandleStartMapped$ = this._dragHandle$.pipe(mapTo(1));
+      const initialDragStart$ = this._drag$.pipe(mapTo(0));
+      // merge the streams of the initial drag start and the handle drag start
+      const startResizing$ = merge(initialDragStart$, dragHandleStartMapped$);
+      // map to false to end the resize
+      const release$ = merge(this._mouseup$, touchEnd$).pipe(mapTo(-1));
 
-        // mouse Release is -1
-        const isMouseRelease = (resize: number) => resize === -1;
+      // mouse Release is -1
+      const isMouseRelease = (resize: number) => resize === -1;
 
-        startResizing$
-          .pipe(
-            switchMap(startValue => release$.pipe(startWith(startValue))),
-            distinctUntilChanged(),
-            takeUntil(this._destroy$),
-          )
-          .subscribe((resize: number) => {
-            // show drag arrows on drag release but only if the stream is not a drag handle
-            // 0 is initial drag and -1 is mouse release
-            if (this._chart._range && resize < 1) {
-              this._chart._range._reflectRangeReleased(isMouseRelease(resize));
+      startResizing$
+        .pipe(
+          switchMap(startValue => release$.pipe(startWith(startValue))),
+          distinctUntilChanged(),
+          takeUntil(this._destroy$),
+        )
+        .subscribe((resize: number) => {
+          // show drag arrows on drag release but only if the stream is not a drag handle
+          // 0 is initial drag and -1 is mouse release
+          if (this._chart._range && resize < 1) {
+            this._chart._range._reflectRangeReleased(isMouseRelease(resize));
 
-              // if the drag is completed we can emit a stateChanges
-              if (isMouseRelease(resize)) {
-                this._chart._range._emitDragEnd();
-                this._chart._range.focus();
-              }
+            // if the drag is completed we can emit a stateChanges
+            if (isMouseRelease(resize)) {
+              this._chart._range._emitDragEnd();
+              this._chart._range.focus();
             }
+          }
 
-            // every drag regardless of if it is a handle or initial drag should have the grab cursors
-            if (resize >= 0) {
-              addCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
-            } else {
-              removeCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
-            }
-          });
-      });
+          // every drag regardless of if it is a handle or initial drag should have the grab cursors
+          if (resize >= 0) {
+            addCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
+          } else {
+            removeCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
+          }
+        });
     }
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     // T I M E S T A M P  +  R A N G E
@@ -749,12 +736,8 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // the other one has to be hidden then. There can only be one of both.
     if (this._chart._timestamp && this._chart._range) {
       merge(
-        this._chart._timestamp._stateChanges.pipe(
-          map(v => ({ ...v, type: 'timestamp' })),
-        ),
-        this._chart._range._stateChanges.pipe(
-          map(v => ({ ...v, type: 'range' })),
-        ),
+        this._chart._timestamp._stateChanges,
+        this._chart._range._stateChanges,
       )
         .pipe(
           takeUntil(this._destroy$),
@@ -762,11 +745,16 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
           distinctUntilChanged(),
         )
         .subscribe(state => {
-          if (this._chart._range && state.type === 'timestamp') {
+          if (
+            this._chart._range &&
+            state instanceof TimestampStateChangedEvent
+          ) {
             this._chart._range._reset();
           }
-
-          if (this._chart._timestamp && state.type === 'range') {
+          if (
+            this._chart._timestamp &&
+            state instanceof RangeStateChangedEvent
+          ) {
             this._chart._timestamp._reset();
           }
         });
@@ -777,165 +765,148 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     // listen for a _closeOverlay event if there is a timestamp or a range
 
-    this._zone.runOutsideAngular(() => {
-      merge(
-        this._chart._timestamp
-          ? this._chart._timestamp._closeOverlay
-          : of(null),
-        this._chart._range ? this._chart._range._closeOverlay : of(null),
-        this._mousedown$,
-        touchStart$,
-      )
-        .pipe(takeUntil(this._destroy$))
-        .subscribe(() => {
-          this._closeOverlay();
-        });
+    merge(
+      this._chart._timestamp ? this._chart._timestamp._closeOverlay : of(null),
+      this._chart._range ? this._chart._range._closeOverlay : of(null),
+      this._mousedown$,
+      touchStart$,
+    )
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._closeOverlay();
+      });
 
-      // handling of the overlay for the range
-      if (this._chart._range) {
-        combineLatest([
+    // handling of the overlay for the range
+    if (this._chart._range) {
+      combineLatest([
+        merge(
           getElementRefStream<HTMLDivElement>(
             this._chart._range._stateChanges,
             this._destroy$,
             this._chart._range._rangeElementRef,
             this._zone,
           ),
-          this._viewportBoundaries$,
-        ]).subscribe(([ref, viewPortOffset]) => {
-          if (this._chart._range && this._chart._range._overlayTemplate) {
-            this._updateOrCreateOverlay(
-              this._chart._range._overlayTemplate,
-              ref,
-              this._chart._range._viewContainerRef,
-              viewPortOffset,
-            );
-          }
-        });
-
-        // On dragHandle we want to reposition the overlay with a small delay and an animationFrameScheduler
-
-        combineLatest([
           this._dragHandle$.pipe(
-            throttleTime(0, animationFrameScheduler),
             getElementRef(this._chart._range._rangeElementRef),
-            takeUntil(this._destroy$),
           ),
-          this._viewportBoundaries$,
-        ]).subscribe(([ref, viewPortOffset]) => {
+        ),
+        this._viewportBoundaries$,
+      ])
+        .pipe(
+          throttleTime(0, animationFrameScheduler),
+          takeUntil(this._destroy$),
+        )
+        .subscribe(([ref, viewPortOffset]) => {
           if (this._chart._range && this._chart._range._overlayTemplate) {
             this._updateOrCreateOverlay(
-              this._chart._range._overlayTemplate,
+              this._chart._range,
               ref,
-              this._chart._range._viewContainerRef,
               viewPortOffset,
             );
           }
         });
-      }
+    }
 
-      // handling of the overlay for the timestamp
-      if (this._chart._timestamp) {
-        combineLatest([
-          getElementRefStream<HTMLDivElement>(
-            this._chart._timestamp._stateChanges,
-            this._destroy$,
-            this._chart._timestamp._timestampElementRef,
-            this._zone,
-          ),
-          this._viewportBoundaries$,
-        ]).subscribe(([ref, viewPortOffset]) => {
+    // handling of the overlay for the timestamp
+    if (this._chart._timestamp) {
+      combineLatest([
+        getElementRefStream<HTMLDivElement>(
+          this._chart._timestamp._stateChanges,
+          this._destroy$,
+          this._chart._timestamp._timestampElementRef,
+          this._zone,
+        ),
+        this._viewportBoundaries$,
+      ])
+        .pipe(
+          throttleTime(0, animationFrameScheduler),
+          takeUntil(this._destroy$),
+        )
+        .subscribe(([ref, viewPortOffset]) => {
           if (
             this._chart._timestamp &&
             this._chart._timestamp._overlayTemplate
           ) {
             this._updateOrCreateOverlay(
-              this._chart._timestamp._overlayTemplate,
+              this._chart._timestamp,
               ref,
-              this._chart._timestamp._viewContainerRef,
               viewPortOffset,
             );
           }
         });
-      }
-    });
+    }
   }
 
   /** initializes the hairline the light blue line that follows the cursor */
   private _initializeHairline(): void {
-    this._zone.runOutsideAngular(() => {
-      // hover is used to capture the mousemove on the selection area when pointer events
-      // are disabled. So it collects all underlying areas and captures the mousemove
-      const hover$ = this._mouseDownElements$.pipe(
-        switchMap(elements =>
-          getMouseMove(this._elementRef.nativeElement, elements),
-        ),
-        share(),
-      );
+    // hover is used to capture the mousemove on the selection area when pointer events
+    // are disabled. So it collects all underlying areas and captures the mousemove
+    const hover$ = this._mouseDownElements$.pipe(
+      switchMap(elements =>
+        getMouseMove(this._elementRef.nativeElement, elements),
+      ),
+      share(),
+    );
 
-      const mouseOut$ = this._mouseDownElements$.pipe(
-        withLatestFrom(this._selectionAreaBcr$),
-        switchMap(([elements, bcr]) =>
-          getMouseOutStream(this._elementRef.nativeElement, elements, bcr),
-        ),
-      );
+    const mouseOut$ = this._mouseDownElements$.pipe(
+      withLatestFrom(this._selectionAreaBcr$),
+      switchMap(([elements, bcr]) =>
+        getMouseOutStream(this._elementRef.nativeElement, elements, bcr),
+      ),
+    );
 
-      const showHairline$ = hover$.pipe(mapTo(true));
-      const hideHairline$ = merge(
-        this._chart._range ? this._mousedown$ : of(null),
-        this._dragHandle$,
-        mouseOut$,
-      ).pipe(mapTo(false));
+    const showHairline$ = hover$.pipe(mapTo(true));
+    const hideHairline$ = merge(
+      this._chart._range ? this._mousedown$ : of(null),
+      this._dragHandle$,
+      mouseOut$,
+    ).pipe(mapTo(false));
 
-      merge(showHairline$, hideHairline$)
-        .pipe(
-          distinctUntilChanged(),
-          takeUntil(this._destroy$),
-        )
-        .subscribe((show: boolean) => {
-          this._toggleHairline(show);
-        });
+    merge(showHairline$, hideHairline$)
+      .pipe(
+        distinctUntilChanged(),
+        takeUntil(this._destroy$),
+      )
+      .subscribe((show: boolean) => {
+        this._toggleHairline(show);
+      });
 
-      hover$
-        .pipe(
-          map(({ x }) => x),
-          distinctUntilChanged(), // only emit when the x value changes ignore hover on yAxis with that.
-          takeUntil(this._destroy$),
-        )
-        .subscribe((x: number) => {
-          this._reflectHairlinePositionToDom(x);
-        });
-    });
+    hover$
+      .pipe(
+        map(({ x }) => x),
+        distinctUntilChanged(), // only emit when the x value changes ignore hover on yAxis with that.
+        takeUntil(this._destroy$),
+      )
+      .subscribe((x: number) => {
+        this._reflectHairlinePositionToDom(x);
+      });
   }
 
   /** Attaches the event listeners for the focus traps connected to each other */
   private _attachFocusTrapListeners(): void {
-    this._zone.runOutsideAngular(() => {
-      if (!this._overlayFocusTrap || !this._overlayRef) {
-        return;
-      }
+    if (!this._overlayFocusTrap || !this._overlayRef) {
+      return;
+    }
 
-      const traps = [this._overlayFocusTrap];
-      const anchors = [this._overlayRef.hostElement];
+    const traps = [this._overlayFocusTrap];
+    const anchors = [this._overlayRef.hostElement];
 
-      if (this._chart._range && this._chart._range._rangeElementRef.first) {
-        traps.push(this._chart._range._selectedAreaFocusTrap.focusTrap);
-        anchors.push(
-          this._chart._range._viewContainerRef.element.nativeElement,
-        );
-      }
+    if (this._chart._range && this._chart._range._rangeElementRef.first) {
+      traps.push(this._chart._range._selectedAreaFocusTrap.focusTrap);
+      anchors.push(this._chart._range._viewContainerRef.element.nativeElement);
+    }
 
-      if (
-        this._chart._timestamp &&
-        this._chart._timestamp._timestampElementRef.first
-      ) {
-        traps.push(this._chart._timestamp._selectedFocusTrap.focusTrap);
-        anchors.push(
-          this._chart._timestamp._viewContainerRef.element.nativeElement,
-        );
-      }
+    if (
+      this._chart._timestamp &&
+      this._chart._timestamp._timestampElementRef.first
+    ) {
+      traps.push(this._chart._timestamp._selectedFocusTrap.focusTrap);
+      anchors.push(
+        this._chart._timestamp._viewContainerRef.element.nativeElement,
+      );
+    }
 
-      chainFocusTraps(traps, anchors);
-    });
+    chainFocusTraps(traps, anchors);
   }
 
   /** Filter function to check if the created range meets the maximum constraints */
@@ -965,14 +936,22 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** Function that safely toggles the visible state of the range */
   private _toggleRange(show: boolean): void {
     if (this._chart._range) {
-      this._chart._range._hidden = !show;
+      // only run if we have a range
+      this._zone.run(() => {
+        // needs to run in the zon in case of the hidden has a binding
+        this._chart._range!._hidden = !show;
+      });
     }
   }
 
   /** Function that safely toggles the visible state of the timestamp */
   private _toggleTimestamp(show: boolean): void {
     if (this._chart._timestamp) {
-      this._chart._timestamp._hidden = !show;
+      // only run if we have a timestamp
+      this._zone.run(() => {
+        // needs to run in the zon in case of the hidden has a binding
+        this._chart._timestamp!._hidden = !show;
+      });
     }
   }
 

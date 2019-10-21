@@ -372,7 +372,7 @@ describe('Selection Area Streams', () => {
           fakeList,
           (fakeZone as unknown) as NgZone,
         ),
-      ).toBe('-- 10ms (a|)', { a: 'FakeElementRef' });
+      ).toBe('-- (a|)', { a: 'FakeElementRef' });
 
       // need to execute all side effects before expecting
       flush();
