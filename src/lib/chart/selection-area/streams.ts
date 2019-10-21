@@ -8,23 +8,25 @@ import {
   combineLatest,
   fromEvent,
   merge,
+  of,
 } from 'rxjs';
 import {
   distinctUntilChanged,
   filter,
   map,
+  observeOn,
   pairwise,
   share,
   switchMap,
   take,
   takeUntil,
   tap,
-  throttleTime,
 } from 'rxjs/operators';
 
 import {
   addCssClass,
   removeCssClass,
+  runInsideZone,
 } from '@dynatrace/angular-components/core';
 
 import {
@@ -214,7 +216,7 @@ export function getTouchMove(
   scheduler?: SchedulerLike,
 ): Observable<TouchEvent> {
   return captureAndMergeEvents('touchmove', mousedownElements).pipe(
-    throttleTime(0, scheduler || animationFrameScheduler),
+    observeOn(scheduler || animationFrameScheduler),
     share(),
   );
 }
@@ -234,7 +236,7 @@ export function getMouseMove(
   scheduler?: SchedulerLike,
 ): Observable<{ x: number; y: number }> {
   return captureAndMergeEvents('mousemove', mousedownElements).pipe(
-    throttleTime(0, scheduler || animationFrameScheduler),
+    observeOn(scheduler || animationFrameScheduler),
     map((event: MouseEvent) => getRelativeMousePosition(event, target)),
     share(),
   );
@@ -260,7 +262,7 @@ export function getDragStream(
     : fromEvent<MouseEvent>(window, 'mousemove');
   return dragStart$.pipe(
     switchMap(() => drag$.pipe(takeUntil(dragEnd$.pipe(take(1))))),
-    throttleTime(0, scheduler || animationFrameScheduler),
+    observeOn(scheduler || animationFrameScheduler),
     map((event: MouseEvent | TouchEvent) =>
       getRelativeMousePosition(event, target),
     ),
@@ -284,7 +286,12 @@ export function getElementRefStream<T>(
   zone: NgZone,
 ): Observable<ElementRef<T>> {
   return changes$.pipe(
-    switchMap(() => zone.onMicrotaskEmpty.pipe(take(1))),
+    observeOn(runInsideZone(zone)),
+    switchMap(() =>
+      zone.hasPendingMicrotasks
+        ? zone.onMicrotaskEmpty.pipe(take(1))
+        : of(null),
+    ),
     // take until needs to be before getElementRef in case that this custom operator uses a filter
     takeUntil(destroy$),
     getElementRef<T>(queryList),
@@ -303,7 +310,7 @@ export function getRangeCreateStream(
   targetWidth: number,
 ): Observable<{ left: number; width: number }> {
   return combineLatest([dragStart$, dragMove$]).pipe(
-    throttleTime(0, animationFrameScheduler),
+    observeOn(animationFrameScheduler),
     map(([startPosition, endPosition]) =>
       calculatePosition(
         DtSelectionAreaEventTarget.Origin,
@@ -339,7 +346,7 @@ export function getRangeResizeStream(
   ) => [number, number] | undefined,
 ): Observable<{ left: number; width: number }> {
   return combineLatest([dragMove$, dragOrigin$]).pipe(
-    throttleTime(0, animationFrameScheduler),
+    observeOn(animationFrameScheduler),
     map(([position, handle]) => [position, handle, previousArea()]),
     map(
       ([position, handle, range]: [
