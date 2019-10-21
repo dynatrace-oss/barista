@@ -46,6 +46,7 @@ $range-invalid-color: $gray-300;
   background-color: $range-color;
   pointer-events: all;
   position: relative;
+  cursor: col-resize;
 
   dt-icon {
     width: 32px;

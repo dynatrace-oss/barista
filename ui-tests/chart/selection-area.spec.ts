@@ -3,7 +3,7 @@
 
 import { Key, browser } from 'protractor';
 
-import { pressKey } from '../utils';
+import { pressKey, resizeWindow } from '../utils';
 import {
   closeOverlay,
   createRange,
@@ -25,10 +25,7 @@ import {
 
 describe('Selection Area', () => {
   beforeEach(async () => {
-    await browser.driver
-      .manage()
-      .window()
-      .setSize(1200, 1000);
+    await resizeWindow(1200, 1000);
     await browser.get('/chart/selection-area');
   });
 
