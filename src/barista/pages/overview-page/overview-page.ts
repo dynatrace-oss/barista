@@ -23,20 +23,30 @@ const LOCALSTORAGEKEY = 'baristaGridview';
 export class BaOverviewPage implements AfterViewInit, BaPage {
   contents: BaOverviewPageContents;
 
+  /** @internal whether the tiles are currently displayed as list */
   _listViewActive = true;
+  /** the previous pressed key */
   private _previousKey: string;
+  /** counter how often the same key is pressed */
   private _counter = 0;
+  /** items which should be accessible with shortcuts  */
   private _shortcutItems = [];
 
+  /** @internal BaTiles which should be accessible with shortcuts */
   @ViewChildren(BaTile) _items: QueryList<BaTile>;
 
   constructor() {
+    // check the local storage and set the initial value for the display of the tiles
     if ('localStorage' in window) {
       const localStorageState = localStorage.getItem(LOCALSTORAGEKEY);
       this._listViewActive = localStorageState !== 'tiles';
     }
   }
 
+  /**
+   * prepare the items that should be available via shortcuts
+   * and subscribe for keyup events
+   */
   ngAfterViewInit(): void {
     this._prepareItems();
 
@@ -48,6 +58,24 @@ export class BaOverviewPage implements AfterViewInit, BaPage {
     });
   }
 
+  /**
+   * @internal
+   * switch the display of the overview items
+   * between list view and tile view
+   */
+  _switchOverviewPageDisplay(): void {
+    this._listViewActive = !this._listViewActive;
+    if ('localStorage' in window) {
+      this._listViewActive
+        ? localStorage.setItem(LOCALSTORAGEKEY, 'list')
+        : localStorage.setItem(LOCALSTORAGEKEY, 'tiles');
+    }
+  }
+
+  /**
+   * Create an associative array from all elements,
+   * that should be accessible through shortcuts
+   */
   private _prepareItems(): void {
     this._shortcutItems = [];
 
@@ -70,6 +98,11 @@ export class BaOverviewPage implements AfterViewInit, BaPage {
     });
   }
 
+  /**
+   * focus the first element, that starts with the pressed letter.
+   * if the same key is pressed again, focus the next element, that starts
+   * with this letter and so on.
+   */
   private _focusItem(key: string): void {
     if (key === this._previousKey) {
       if (document.activeElement === document.body) {
@@ -92,14 +125,5 @@ export class BaOverviewPage implements AfterViewInit, BaPage {
     }
 
     this._previousKey = key;
-  }
-
-  _switchOverviewPageDisplay(): void {
-    this._listViewActive = !this._listViewActive;
-    if ('localStorage' in window) {
-      this._listViewActive
-        ? localStorage.setItem(LOCALSTORAGEKEY, 'list')
-        : localStorage.setItem(LOCALSTORAGEKEY, 'tiles');
-    }
   }
 }
