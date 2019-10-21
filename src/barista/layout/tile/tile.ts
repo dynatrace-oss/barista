@@ -12,9 +12,9 @@ import { BaOverviewPageSectionItem } from 'shared/page-contents';
 })
 export class BaTile {
   @Input() data: BaOverviewPageSectionItem;
-
   @Input() listView = true;
 
+  /** @internal get a css class according to the value of the badge */
   get _cssClassComponentState(): string {
     if (
       this.data.badge &&
@@ -29,35 +29,29 @@ export class BaTile {
     return '';
   }
 
+  /** @internal whether the tile has the badge 'favorite' */
   get _favorite(): boolean {
-    if (this.data.badge && this.data.badge === 'favorite') {
-      return true;
-    }
-    return false;
+    return (this.data.badge && this.data.badge === 'favorite') || false;
   }
 
+  /** @internal whether the tile has the badge 'workinprogress' */
   get _workinprogress(): boolean {
-    if (this.data.badge && this.data.badge === 'workinprogress') {
-      return true;
-    }
-    return false;
-  }
-  get _deprecated(): boolean {
-    if (this.data.badge && this.data.badge === 'deprecated') {
-      return true;
-    }
-    return false;
+    return (this.data.badge && this.data.badge === 'workinprogress') || false;
   }
 
+  /** @internal whether the tile has the badge 'deprecated' */
+  get _deprecated(): boolean {
+    return (this.data.badge && this.data.badge === 'deprecated') || false;
+  }
+
+  /** @internal whether the tile has the badge 'experimental' */
   get _experimental(): boolean {
-    if (this.data.badge && this.data.badge === 'experimental') {
-      return true;
-    }
-    return false;
+    return (this.data.badge && this.data.badge === 'experimental') || false;
   }
 
   constructor(private _elementRef: ElementRef) {}
 
+  /** set the focus on the nativeElement */
   focus(): void {
     this._elementRef.nativeElement.focus();
   }
