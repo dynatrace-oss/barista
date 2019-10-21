@@ -41,10 +41,7 @@
         [ngClass]="{ 'ba-tilegrid-listview': _listViewActive }"
       >
         <li *ngFor="let item of section.items">
-          <ba-overview-item
-            [data]="item"
-            [listView]="_listViewActive"
-          ></ba-overview-item>
+          <a ba-tile [data]="item" [listView]="_listViewActive"></a>
         </li>
       </ul>
     </nav>

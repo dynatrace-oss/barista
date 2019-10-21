@@ -1,12 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { BaOverviewPageSectionItem } from 'shared/page-contents';
 
 @Component({
-  selector: 'ba-overview-item',
-  templateUrl: 'overview-item.html',
-  styleUrls: ['overview-item.scss'],
+  selector: 'a[ba-tile]',
+  templateUrl: 'tile.html',
+  styleUrls: ['tile.scss'],
+  host: {
+    '[href]': 'data.link',
+    class: 'ba-tile',
+  },
 })
-export class BaOverviewItem {
+export class BaTile {
   @Input() data: BaOverviewPageSectionItem;
 
   @Input() listView = true;
@@ -16,11 +20,11 @@ export class BaOverviewItem {
       this.data.badge &&
       (this.data.badge === 'experimental' || this.data.badge === 'deprecated')
     ) {
-      return `ba-overview-item-badge-warning`;
+      return `ba-tile-badge-warning`;
     }
 
     if (this.data.badge) {
-      return `ba-overview-item-badge-${this.data.badge}`;
+      return `ba-tile-badge-${this.data.badge}`;
     }
     return '';
   }
@@ -50,5 +54,11 @@ export class BaOverviewItem {
       return true;
     }
     return false;
+  }
+
+  constructor(private _elementRef: ElementRef) {}
+
+  focus(): void {
+    this._elementRef.nativeElement.focus();
   }
 }

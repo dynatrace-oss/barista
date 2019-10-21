@@ -1,5 +1,12 @@
-@import '../../layout/overview-item/overview-item.scss';
+@import '../../styles/global/variables';
 @import '../../../lib/core/style/colors';
+
+/* stylelint-disable unit-whitelist */
+
+$tilesize: 290px;
+$tilefontsize: 28px;
+$tilefontsize-big: 42px;
+$gridgap: 20px;
 
 li {
   list-style-type: none;
@@ -17,9 +24,7 @@ $no-columns: 15px;
   display: block;
   width: 100%;
   margin-top: 1rem;
-}
 
-.ba-tilegrid {
   .ba-tile {
     min-width: $tilesize;
     flex-basis: $tilesize;
@@ -74,7 +79,7 @@ $no-columns: 15px;
   display: block;
   font-family: $mainfont;
   border: 1px solid $gray-300;
-  background-color: #fff;
+  background-color: #ffffff;
   line-height: 1;
   padding: 4px 12px;
 
@@ -104,6 +109,7 @@ $no-columns: 15px;
 }
 
 .ba-page-content {
+  margin: 0 auto;
   width: 100%;
   max-width: 80rem;
   padding: 1rem;
@@ -112,9 +118,11 @@ $no-columns: 15px;
 }
 
 .ba-page-section {
-  padding-bottom: 4rem;
+  padding-bottom: 5rem;
 }
 
 .ba-page-section:nth-child(odd) {
   background-color: $gray-130;
 }
+
+/* stylelint-enable */
