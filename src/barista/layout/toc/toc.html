@@ -1,0 +1,43 @@
+<aside class="ba-page-aside ba-component-aside">
+  <div
+    class="ba-toc ba-expandable"
+    (click)="_expandTocMenu()"
+    [ngClass]="{ 'ba-is-active': _expandToc }"
+  >
+    <a
+      href="#"
+      class="ba-toc-header ba-expandable-trigger ba-expandable-trigger-right"
+      data-initialized="true"
+      >On this page</a
+    >
+    <div class="ba-toc-content ba-expandable-content">
+      <div class="ba-toc-block">
+        <ul class="ba-toc-list ba-list">
+          <li *ngFor="let heading of _headings" class="ba-toc-item">
+            <a
+              #headline
+              href="{{ heading.href }}"
+              class="ba-toc-link"
+              (click)="_handleTocClick($event)"
+              >{{ heading.title }}</a
+            >
+            <ul *ngIf="heading.hasSubheadlines" class="ba-toc-ul">
+              <li
+                *ngFor="let subheading of heading.subheadlines"
+                class="ba-toc-item"
+              >
+                <a
+                  #headline
+                  href="{{ subheading.href }}"
+                  class="ba-toc-link"
+                  (click)="_handleTocClick($event)"
+                  >{{ subheading.title }}</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</aside>

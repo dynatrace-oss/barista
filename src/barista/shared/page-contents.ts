@@ -14,6 +14,7 @@ export interface BaIndexPageContents extends BaPageContents {
 
 export interface BaSinglePageContents extends BaPageContents {
   layout: 'default';
+  toc: boolean;
   contributors?: {
     ux: string[];
     dev: string[];

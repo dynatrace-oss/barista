@@ -1,0 +1,130 @@
+@import '../../../lib/core/style/colors';
+@import '../../styles/global/variables';
+
+:host {
+  grid-area: meta;
+}
+
+.ba-component-aside {
+  margin-top: 0;
+  position: sticky;
+  top: 1rem;
+}
+
+.ba-page-toc {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.ba-toc-headline {
+  font-weight: 700;
+  color: $gray-600;
+}
+
+.ba-toc-item {
+  position: relative;
+}
+
+.ba-toc-ul {
+  display: none;
+}
+
+.ba-toc-ul.ba-toc-ul-active {
+  display: block;
+}
+
+.ba-toc-block .ba-toc-list .ba-toc-item::before {
+  background-color: $gray-300;
+}
+
+.ba-toc-block .ba-toc-list .ba-toc-item-active::before {
+  background-color: var(--ba-pagetheme);
+  background-color: $turquoise-600;
+}
+
+.ba-toc-header {
+  font-size: 18px;
+  color: $gray-600;
+  height: 2rem;
+  pointer-events: none;
+}
+
+.ba-expandable-trigger {
+  padding: 0;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  color: $turquoise-600;
+  line-height: 2;
+}
+
+.ba-expandable-trigger:hover {
+  text-decoration: none;
+  color: $turquoise-700;
+}
+
+.ba-toc-block + .ba-toc-block {
+  margin-left: 0;
+}
+
+.ba-expandable.ba-is-active .ba-toc-content {
+  display: block;
+}
+
+.ba-page-content:not(.ba-page-content-tabs)::before {
+  height: 2rem;
+}
+
+.ba-expandable.ba-is-active .ba-expandable-trigger::before {
+  transform: translate(0, -50%) rotate(180deg);
+}
+
+.ba-expandable-trigger::before {
+  content: ' ';
+  position: absolute;
+  background-image: url('https://dt-cdn.net/images/dropdown-open-27f04bf8ee.svg');
+  background-size: 1em;
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%) rotate(0);
+  transition: transform 0.3s ease;
+}
+
+.ba-expandable-trigger-right {
+  padding-left: 0;
+  padding-right: 32px;
+}
+
+.ba-expandable-trigger-right::before {
+  left: auto;
+  right: 0;
+}
+
+.ba-toc-content {
+  display: none;
+}
+
+@media (min-width: $screen-md) {
+  .ba-toc-content {
+    display: block;
+  }
+
+  .ba-toc-header {
+    border-bottom: 2px solid $gray-130;
+    width: 100%;
+    color: $gray-600;
+    margin-bottom: 3rem;
+  }
+
+  .ba-expandable-trigger::before {
+    display: none;
+  }
+
+  .ba-expandable-trigger {
+    cursor: default;
+  }
+}
