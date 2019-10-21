@@ -13,6 +13,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaContributors } from 'layout/contributors/contributors';
 import { BaTile } from 'layout/tile/tile';
+import { BaScrollSpyService } from 'shared/scroll-spy.service';
+import { BaTocService } from 'shared/toc.service';
 
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
@@ -28,6 +30,7 @@ import { BaPageFooter } from './layout/page-footer/page-footer';
 import { BaPageHeader } from './layout/page-header/page-header';
 import { BaSearch } from './layout/search/search';
 import { BaSmallTile } from './layout/smalltile/smalltile';
+import { BaToc } from './layout/toc/toc';
 import { BaIndexPage } from './pages/index-page/index-page';
 import { BaOverviewPage } from './pages/overview-page/overview-page';
 import { BaPageContent } from './pages/page-content';
@@ -71,12 +74,15 @@ import { BaPageService } from './shared/page.service';
     BaIndexPage,
     BaSmallTile,
     BaSearch,
+    BaToc,
   ],
   providers: [
     BaPageService,
     Location,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     BaLocationService,
+    BaTocService,
+    BaScrollSpyService,
   ],
   entryComponents: [
     BaSinglePage,
