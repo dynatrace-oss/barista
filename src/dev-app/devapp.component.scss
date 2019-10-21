@@ -10,6 +10,22 @@ $top-bar-navigation-height: 44px;
   height: 100%;
 }
 
+::ng-deep .dev-app-zone-counter {
+  display: block;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: #7dc540;
+  color: #fff;
+  padding: 2px 8px;
+  border-top-left-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.3) 1px 1px 3px;
+}
+
+::ng-deep .dev-app-zone-counter-firing {
+  background: #dc172a;
+}
+
 .nav {
   position: fixed;
   top: 0;
