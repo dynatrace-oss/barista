@@ -2,7 +2,7 @@
   dt-button
   variant="nested"
   class="dt-filter-field-tag-label"
-  [disabled]="disabled"
+  [disabled]="!editable"
   (click)="_handleEdit($event)"
 >
   <div
@@ -21,7 +21,7 @@
   dt-icon-button
   variant="nested"
   class="dt-filter-field-tag-button"
-  [disabled]="disabled"
+  [disabled]="!deletable"
   (click)="_handleRemove($event)"
 >
   <dt-icon name="abort" class="dt-filter-field-tag-icon"></dt-icon>
