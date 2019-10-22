@@ -18,6 +18,7 @@ import {
 import { DtIconModule } from '@dynatrace/angular-components/icon';
 
 import { createComponent } from '../../../testing/create-component';
+import { DtFilterFieldTagData } from '../types';
 
 describe('DtFilterFieldTag', () => {
   let fixture: ComponentFixture<TestApp>;
@@ -127,7 +128,10 @@ describe('DtFilterFieldTag', () => {
 @Component({
   selector: 'test-app',
   template: `
-    <dt-filter-field-tag></dt-filter-field-tag>
+    <dt-filter-field-tag [data]="dummy"></dt-filter-field-tag>
   `,
 })
-export class TestApp {}
+export class TestApp {
+  // we need to add this dummy data because the tags editable and deletable flags depend on the data being set
+  dummy = new DtFilterFieldTagData('AUT', 'Linz', ':', false, []);
+}

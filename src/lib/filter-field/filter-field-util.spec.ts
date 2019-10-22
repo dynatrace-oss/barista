@@ -18,12 +18,19 @@ import {
   defUniquePredicate,
   findDefForSource,
   generateOptionId,
+  isDtAutocompleteValueEqual,
+  isDtRangeValueEqual,
   optionFilterTextPredicate,
   optionOrGroupFilteredPredicate,
   optionSelectedPredicate,
   peekOptionId,
 } from './filter-field-util';
-import { DtFilterValue, isDtFreeTextDef } from './types';
+import {
+  DtAutocompleteValue,
+  DtFilterValue,
+  DtRangeValue,
+  isDtFreeTextDef,
+} from './types';
 
 describe('DtFilterField Util', () => {
   describe('generateOptionId', () => {
@@ -870,6 +877,161 @@ describe('DtFilterField Util', () => {
       );
       const freeTextDef = dtFreeTextDef([], [], false, optionSource, optionDef);
       expect(defUniquePredicate(freeTextDef, selectedIds)).toBe(true);
+    });
+  });
+
+  describe('isDtRangeValueEqual', () => {
+    it('should return true if range values are equal', () => {
+      const test: DtRangeValue = { operator: '=', range: 1 };
+      expect(isDtRangeValueEqual(test, test)).toBeTruthy();
+
+      const test1: DtRangeValue = { operator: 'range', range: [1, 2] };
+      expect(isDtRangeValueEqual(test1, test1)).toBeTruthy();
+
+      const test2: DtRangeValue = {
+        operator: 'range',
+        range: [1, 2],
+        unit: 's',
+      };
+      expect(isDtRangeValueEqual(test2, test2)).toBeTruthy();
+    });
+    it('should return true if range values have different array instances but the same values within', () => {
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: [1, 2] };
+      expect(isDtRangeValueEqual(a, b)).toBeTruthy();
+    });
+    it('should return false when a has unit set but b does not', () => {
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: [1, 2], unit: 's' };
+      expect(isDtRangeValueEqual(a, b)).toBeFalsy();
+    });
+    it('should return false when a has different numbers in the range array than b', () => {
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: [2, 3] };
+      expect(isDtRangeValueEqual(a, b)).toBeFalsy();
+    });
+    it('should return false when a has the range numbers ordered differently than than b', () => {
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: [2, 1] };
+      expect(isDtRangeValueEqual(a, b)).toBeFalsy();
+    });
+    it('should return false when a has the range array and b has a number', () => {
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: 1 };
+      expect(isDtRangeValueEqual(a, b)).toBeFalsy();
+    });
+  });
+
+  describe('isDtAutocompleteValueEqual', () => {
+    it('should return true if both are options and both have the same uid without initial uid', () => {
+      const optionSource = { name: 'Option 1' };
+      const a = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        null,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      const b = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        null,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      expect(isDtAutocompleteValueEqual(a, b)).toBeTruthy();
+      expect(isDtAutocompleteValueEqual(b, a)).toBeTruthy();
+    });
+    it('should return true if both are options and both have the same uid with a already having a uid', () => {
+      const optionSource = { name: 'Option 1' };
+      const a = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        `${optionSource.name}${DELIMITER}`,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      const b = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        null,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      expect(isDtAutocompleteValueEqual(a, b)).toBeTruthy();
+      expect(isDtAutocompleteValueEqual(b, a)).toBeTruthy();
+    });
+
+    it('should return true if both are options and both have the same uid with a already having a uid and a prefix', () => {
+      const prefix = `US${DELIMITER}`;
+      const optionSource = { name: 'Option 1' };
+      const a = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        `${prefix}${optionSource.name}${DELIMITER}`,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      const b = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        null,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      expect(isDtAutocompleteValueEqual(a, b, prefix)).toBeTruthy();
+      expect(isDtAutocompleteValueEqual(b, a, prefix)).toBeTruthy();
+    });
+
+    it('should return false if options dont match with the uid', () => {
+      const optionSourceA = { name: 'Option 1' };
+      const a = dtOptionDef(
+        optionSourceA.name,
+        optionSourceA,
+        null,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      const optionSourceB = { name: 'Option 2' };
+      const b = dtOptionDef(
+        optionSourceB.name,
+        optionSourceB,
+        null,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      expect(isDtAutocompleteValueEqual(a, b)).toBeFalsy();
+      expect(isDtAutocompleteValueEqual(b, a)).toBeFalsy();
+    });
+    it('should return false if options dont match with the uid already set', () => {
+      const optionSourceA = { name: 'Option 1' };
+      const a = dtOptionDef(
+        optionSourceA.name,
+        optionSourceA,
+        null,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      const optionSourceB = { name: 'Option 2' };
+      const b = dtOptionDef(
+        optionSourceB.name,
+        optionSourceB,
+        `${optionSourceB.name}${DELIMITER}`,
+        null,
+        null,
+        null,
+      ) as DtAutocompleteValue;
+      expect(isDtAutocompleteValueEqual(a, b)).toBeFalsy();
+      expect(isDtAutocompleteValueEqual(b, a)).toBeFalsy();
     });
   });
 });

@@ -4,6 +4,7 @@ import {
   DtAutocompleteValue,
   DtFilterFieldTagData,
   DtFilterValue,
+  DtFreeTextValue,
   DtNodeDef,
   DtRangeValue,
   dtAutocompleteDef,
@@ -271,6 +272,8 @@ function transformRangeSourceToTagData(
 
 export function createTagDataForFilterValues(
   filterValues: DtFilterValue[],
+  editable?: boolean,
+  deletable?: boolean,
 ): DtFilterFieldTagData | null {
   let key: string | null = null;
   let value: string | null = null;
@@ -300,7 +303,15 @@ export function createTagDataForFilterValues(
   }
 
   return filterValues.length && value !== null
-    ? new DtFilterFieldTagData(key, value, separator, isFreeText, filterValues)
+    ? new DtFilterFieldTagData(
+        key,
+        value,
+        separator,
+        isFreeText,
+        filterValues,
+        editable,
+        deletable,
+      )
     : null;
 }
 
@@ -454,4 +465,31 @@ export function applyDtOptionIds(
       applyDtOptionIds(option, prefix);
     }
   }
+}
+
+/** Checks whether two autocomplete values are both options and have the same uid */
+export function isDtAutocompleteValueEqual(
+  a: DtAutocompleteValue,
+  b: DtAutocompleteValue,
+  prefix?: string,
+): boolean {
+  return peekOptionId(a, prefix) === peekOptionId(b, prefix);
+}
+
+/** Checks whether two freetext values are equal */
+export function isDtFreeTextValueEqual(
+  a: DtFreeTextValue,
+  b: DtFreeTextValue,
+): boolean {
+  return a === b;
+}
+
+/** Checks whether two range values are equal */
+export function isDtRangeValueEqual(a: DtRangeValue, b: DtRangeValue): boolean {
+  if (a.operator === b.operator && a.unit === b.unit) {
+    return Array.isArray(a.range) && Array.isArray(b.range)
+      ? a.range.join(DELIMITER) === b.range.join(DELIMITER)
+      : a === b;
+  }
+  return false;
 }

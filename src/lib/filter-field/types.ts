@@ -333,6 +333,8 @@ export class DtFilterFieldTagData {
     public separator: string | null,
     public isFreeText: boolean,
     public filterValues: DtFilterValue[],
+    public editable: boolean = true,
+    public deletable: boolean = true,
   ) {}
 }
 
