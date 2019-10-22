@@ -4,7 +4,7 @@
 import { BACKSPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, NgZone, ViewChild } from '@angular/core';
+import { Component, DebugElement, NgZone, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -1686,6 +1686,173 @@ describe('DtFilterField', () => {
       expect(tagsAfter.length).toBe(0);
     });
   });
+
+  describe('tags', () => {
+    const autocompleteFilter = [
+      TEST_DATA_EDITMODE.autocomplete[0],
+      (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+      (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+        .autocomplete[0].options[0],
+    ];
+    beforeEach(() => {
+      fixture.componentInstance.dataSource.data = TEST_DATA_EDITMODE;
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // Autocomplete filter for AUT -> Upper Austria -> Cities -> Linz
+
+      filterField.filters = [autocompleteFilter];
+      fixture.detectChanges();
+    });
+
+    it('should return a tag from a filter instance', () => {
+      const tagInst = filterField.getTagForFilter(autocompleteFilter);
+      expect(tagInst).toBeDefined();
+      expect(tagInst!.data.key).toBe('AUT');
+      expect(tagInst!.data.value).toBe('Linz');
+    });
+
+    it('should return null if no tag is found for the filter given', () => {
+      const notIncludedAutocomplete = [
+        {
+          name: 'USA',
+          autocomplete: ['Los Angeles', 'San Fran'],
+        },
+        'Los Angeles',
+      ];
+      const tagInst = filterField.getTagForFilter(notIncludedAutocomplete);
+      expect(tagInst).toBeNull();
+    });
+
+    it('should disable the edit button on the tag when editable is set to false', () => {
+      const tagInst = filterField.getTagForFilter(autocompleteFilter);
+      tagInst!.editable = false;
+      fixture.detectChanges();
+      const tags = getFilterTags(fixture);
+      const { label, deleteButton } = getTagButtons(tags[0]);
+      expect(label.disabled).toBeTruthy();
+      expect(deleteButton.disabled).toBeFalsy();
+    });
+
+    it('should disable the delete button on the tag when deletable is set to false', () => {
+      const tagInst = filterField.getTagForFilter(autocompleteFilter);
+      tagInst!.deletable = false;
+      fixture.detectChanges();
+      const tags = getFilterTags(fixture);
+      const { label, deleteButton } = getTagButtons(tags[0]);
+      expect(label.disabled).toBeFalsy();
+      expect(deleteButton.disabled).toBeTruthy();
+    });
+
+    it('should disable the entire tag when disabled is set to true', () => {
+      const tagInst = filterField.getTagForFilter(autocompleteFilter);
+      tagInst!.disabled = true;
+      fixture.detectChanges();
+      const tags = getFilterTags(fixture);
+      const { label, deleteButton } = getTagButtons(tags[0]);
+      expect(label.disabled).toBeTruthy();
+      expect(deleteButton.disabled).toBeTruthy();
+    });
+
+    it('should keep the deletable/editable flags on the tags when a tag is edited', () => {
+      // Custom free text for Free -> Custom free text
+      const freeTextFilter = [
+        TEST_DATA_EDITMODE.autocomplete[2],
+        'Custom free text',
+      ];
+      filterField.filters = [autocompleteFilter, freeTextFilter];
+      fixture.detectChanges();
+
+      const autoTagInst = filterField.getTagForFilter(autocompleteFilter);
+      autoTagInst!.editable = false;
+      const freeTextTagInst = filterField.getTagForFilter(freeTextFilter);
+      freeTextTagInst!.deletable = false;
+      fixture.detectChanges();
+      const tags = getFilterTags(fixture);
+      const {
+        label: autoLabel,
+        deleteButton: autoDeleteButton,
+      } = getTagButtons(tags[0]);
+      expect(autoLabel.disabled).toBeTruthy();
+      expect(autoDeleteButton.disabled).toBeFalsy();
+
+      const {
+        label: freeTextLabel,
+        deleteButton: freeTextDeleteButton,
+      } = getTagButtons(tags[0]);
+      expect(freeTextLabel.disabled).toBeTruthy();
+      expect(freeTextDeleteButton.disabled).toBeFalsy();
+
+      // enter editmode
+      freeTextLabel.click();
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      // cancel editmode
+      dispatchFakeEvent(document, 'click');
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      expect(autoLabel.disabled).toBeTruthy();
+      expect(autoDeleteButton.disabled).toBeFalsy();
+
+      expect(freeTextLabel.disabled).toBeTruthy();
+      expect(freeTextDeleteButton.disabled).toBeFalsy();
+    });
+
+    it('should keep the deletable/editable flags on the tags when a tag is deleted', () => {
+      // Custom free text for Free -> Custom free text
+      const freeTextFilter = [
+        TEST_DATA_EDITMODE.autocomplete[2],
+        'Custom free text',
+      ];
+      filterField.filters = [autocompleteFilter, freeTextFilter];
+      fixture.detectChanges();
+
+      const autoTagInst = filterField.getTagForFilter(autocompleteFilter);
+      autoTagInst!.editable = false;
+      const freeTextTagInst = filterField.getTagForFilter(freeTextFilter);
+      freeTextTagInst!.deletable = false;
+      fixture.detectChanges();
+      const tags = getFilterTags(fixture);
+      const {
+        label: autoLabel,
+        deleteButton: autoDeleteButton,
+      } = getTagButtons(tags[0]);
+      expect(autoLabel.disabled).toBeTruthy();
+      expect(autoDeleteButton.disabled).toBeFalsy();
+
+      const {
+        label: freeTextLabel,
+        deleteButton: freeTextDeleteButton,
+      } = getTagButtons(tags[0]);
+      expect(freeTextLabel.disabled).toBeTruthy();
+      expect(freeTextDeleteButton.disabled).toBeFalsy();
+
+      // delete tag
+      autoDeleteButton.click();
+      fixture.detectChanges();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+
+      expect(freeTextLabel.disabled).toBeTruthy();
+      expect(freeTextDeleteButton.disabled).toBeFalsy();
+    });
+
+    it('should not delete a non deletable tag when clicking the clear all', () => {
+      const tagInst = filterField.getTagForFilter(autocompleteFilter);
+      tagInst!.deletable = false;
+      fixture.detectChanges();
+      const clearAll = getClearAll(fixture);
+      clearAll!.click();
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+      expect(tags.length).toBe(1);
+    });
+  });
 });
 
 function getOptions(overlayContainerElement: HTMLElement): HTMLElement[] {
@@ -1728,15 +1895,18 @@ function getRangeApplyButton(
   );
 }
 
-// tslint:disable-next-line:no-any
-function getFilterTags(
-  fixture: ComponentFixture<any>,
-): Array<{
+interface FilterTagTestData {
+  ele: DebugElement;
   key: string;
   separator: string;
   value: string;
   removeButton: HTMLElement;
-}> {
+}
+
+// tslint:disable-next-line:no-any
+function getFilterTags(
+  fixture: ComponentFixture<any>,
+): Array<FilterTagTestData> {
   return Array.from(
     fixture.debugElement.queryAll(By.css('.dt-filter-field-tag')),
   ).map(ele => {
@@ -1751,6 +1921,7 @@ function getFilterTags(
       .textContent;
 
     return {
+      ele,
       key: key && key.textContent ? key.textContent : '',
       separator,
       value,
@@ -1759,6 +1930,15 @@ function getFilterTags(
       ),
     };
   });
+}
+
+function getTagButtons(
+  tag: FilterTagTestData,
+): { label: HTMLButtonElement; deleteButton: HTMLButtonElement } {
+  const tagNative = tag.ele.nativeElement;
+  const label = tagNative.querySelector('.dt-filter-field-tag-label');
+  const deleteButton = tagNative.querySelector('.dt-filter-field-tag-button');
+  return { label, deleteButton };
 }
 
 // tslint:disable-next-line:no-any
