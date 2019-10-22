@@ -37,6 +37,7 @@ import {
 } from '@angular/core';
 import {
   Observable,
+  ReplaySubject,
   Subject,
   Subscription,
   fromEvent,
@@ -45,7 +46,9 @@ import {
 } from 'rxjs';
 import {
   debounceTime,
+  delay,
   filter,
+  startWith,
   switchMap,
   take,
   takeUntil,
@@ -82,6 +85,9 @@ import {
   filterAutocompleteDef,
   filterFreeTextDef,
   findFilterValuesForSources,
+  isDtAutocompleteValueEqual,
+  isDtFreeTextValueEqual,
+  isDtRangeValueEqual,
   peekOptionId,
 } from './filter-field-util';
 import { DtFilterFieldControl } from './filter-field-validation';
@@ -95,6 +101,7 @@ import {
   isDtAutocompleteDef,
   isDtAutocompleteValue,
   isDtFreeTextDef,
+  isDtFreeTextValue,
   isDtOptionDef,
   isDtRangeDef,
   isDtRangeValue,
@@ -218,8 +225,23 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /**
    * List of tags that are the visual representation for selected nodes.
    * This can be used to disable certain tags or change their labeling.
+   * @deprecated use currentTags instead
+   * @breaking-change make private with 6.0.0
    */
   @ViewChildren(DtFilterFieldTag) tags: QueryList<DtFilterFieldTag>;
+
+  /** @internal List of current tags in the filter field */
+  private _currentTags = new ReplaySubject<DtFilterFieldTag[]>(1);
+
+  /**
+   * List of tags that are the visual representation for selected nodes.
+   * This can be used to disable certain tags or change their labeling.
+   */
+  currentTags: Observable<DtFilterFieldTag[]> = this._currentTags.pipe(
+    // this needs to be deferred to the next cycle to avoid expressionChangedAfterChecked errors
+    // when the consumer sets disabled, editable or deletable on the tag instances
+    delay(0),
+  );
 
   /** @internal Reference to the internal input element */
   @ViewChild('input', { static: true }) _inputEl: ElementRef;
@@ -270,6 +292,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   /** @internal Filter nodes to be rendered _after_ the input element. */
   _suffixTagData: DtFilterFieldTagData[] = [];
+
+  /** @internal Holds all tagdata including the data for a tag that might be edited */
+  private _tagData: DtFilterFieldTagData[] = [];
 
   /**
    * @internal
@@ -394,6 +419,16 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       .subscribe(() => {
         this._handleInputChange();
       });
+    // tslint:disable-next-line: deprecation
+    this.tags.changes
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy),
+      )
+      .subscribe(() => {
+        // tslint:disable-next-line: deprecation
+        this._currentTags.next(this.tags.toArray());
+      });
   }
 
   ngOnDestroy(): void {
@@ -420,6 +455,25 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     if (this._inputEl) {
       this._inputEl.nativeElement.focus();
     }
+  }
+
+  /** Returns the DtFilterFieldTag instance if we can find a match */
+  getTagForFilter(needle: any[]): DtFilterFieldTag | null {
+    if (this._rootDef) {
+      const needleFilterValueArr = findFilterValuesForSources(
+        needle,
+        this._rootDef,
+        this._asyncDefs,
+        this._dataSource,
+      );
+
+      if (needleFilterValueArr) {
+        const filterIndex = this._findIndexForFilter(needleFilterValueArr);
+        // tslint:disable-next-line: deprecation
+        return filterIndex !== -1 ? this.tags.toArray()[filterIndex] : null;
+      }
+    }
+    return null;
   }
 
   /**
@@ -534,7 +588,6 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
             );
           }
         }
-
         this._updateFilterByLabel();
         this._updateTagData();
         this._isFocused = true;
@@ -551,9 +604,55 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal Clears all filters and switch to root def. */
   _clearAll(event: Event): void {
     event.stopPropagation();
-    this._filters = [];
+    // tslint:disable-next-line: deprecation
+    this.filters = this.tags.reduce((aggr, tag) => {
+      if (!tag.deletable) {
+        aggr.push(getSourcesOfDtFilterValues(tag.data.filterValues));
+      }
+      return aggr;
+    }, new Array<DtFilterValue[]>());
     this._switchToRootDef(true);
     this._changeDetectorRef.markForCheck();
+  }
+
+  /** Returns the index in the filters for the filter values given or -1 if not found */
+  private _findIndexForFilter(needleFilterValueArr: DtFilterValue[]): number {
+    return this._filters.findIndex(filterValueArr => {
+      // check whether the length is the same, if not we can quit here
+      if (filterValueArr.length !== needleFilterValueArr.length) {
+        return false;
+      }
+      let match = true;
+      let prefix = '';
+      let idx = 0;
+      while (idx < filterValueArr.length && match) {
+        const filterValue = filterValueArr[idx];
+        const needleFilterValue = needleFilterValueArr[idx];
+        if (
+          (isDtFreeTextValue(filterValue) &&
+            isDtFreeTextValue(needleFilterValue) &&
+            isDtFreeTextValueEqual(filterValue, needleFilterValue)) ||
+          (isDtRangeValue(filterValue) &&
+            isDtRangeValue(needleFilterValue) &&
+            isDtRangeValueEqual(filterValue, needleFilterValue))
+        ) {
+          idx++;
+          continue;
+        }
+        if (
+          isDtAutocompleteValue(filterValue) &&
+          isDtAutocompleteValue(needleFilterValue) &&
+          isDtAutocompleteValueEqual(filterValue, needleFilterValue, prefix)
+        ) {
+          prefix = peekOptionId(filterValue, undefined, true);
+          idx++;
+          continue;
+        }
+        // if no
+        match = false;
+      }
+      return match;
+    });
   }
 
   /**
@@ -746,6 +845,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     const removableIndex = this._filters.indexOf(filterValues);
     if (removableIndex !== -1) {
       const removedFilters = this._filters.splice(removableIndex, 1);
+      this._tagData.splice(removableIndex, 1);
       if (filterValues === this._currentFilterValues) {
         this._switchToRootDef(false);
       } else {
@@ -902,24 +1002,30 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   private _updateTagData(): void {
     if (this._rootDef) {
       const splitIndex = this._filters.indexOf(this._currentFilterValues);
-      this._prefixTagData = this._filters
-        .slice(0, this._currentFilterValues.length ? splitIndex : undefined)
-        .map(
-          (values, i) =>
-            createTagDataForFilterValues(values) ||
-            this._prefixTagData[i] ||
-            null,
+      const tags = this._filters.map((values, i) => {
+        let prevData: DtFilterFieldTagData | undefined;
+        if (this._tagData.length) {
+          prevData = this._tagData[i];
+        }
+        return (
+          createTagDataForFilterValues(
+            values,
+            prevData && prevData.editable,
+            prevData && prevData.deletable,
+          ) ||
+          this._tagData[i] ||
+          null
         );
+      });
+      this._tagData = tags;
+
+      this._prefixTagData = this._tagData
+        .slice(0, this._currentFilterValues.length ? splitIndex : undefined)
+        .filter((tag: DtFilterFieldTagData | null) => tag !== null);
 
       this._suffixTagData = this._currentFilterValues.length
-        ? this._filters
+        ? this._tagData
             .slice(this._filters.indexOf(this._currentFilterValues) + 1)
-            .map(
-              (values, i) =>
-                createTagDataForFilterValues(values) ||
-                this._suffixTagData[i] ||
-                null,
-            )
             .filter((tag: DtFilterFieldTagData | null) => tag !== null)
         : [];
     }

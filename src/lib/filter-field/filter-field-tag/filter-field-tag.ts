@@ -42,13 +42,36 @@ export class DtFilterFieldTag {
   // Note: The disabled mixin can not be used here because the CD needs to be triggerd after it has been set
   // to reflect the state when programatically setting the property.
   get disabled(): boolean {
-    return this._disabled;
+    return !this.editable && !this.deletable;
   }
   set disabled(value: boolean) {
-    this._disabled = coerceBooleanProperty(value);
+    const coercedValue = coerceBooleanProperty(value);
+    this.editable = !coercedValue;
+    this.deletable = !coercedValue;
     this._changeDetectorRef.markForCheck();
   }
-  private _disabled = false;
+
+  /** Whether the tag is editable. */
+  get editable(): boolean {
+    return this.data && this.data.editable;
+  }
+  set editable(value: boolean) {
+    if (this.data) {
+      this.data.editable = coerceBooleanProperty(value);
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  /** Whether the tag is deletable. */
+  get deletable(): boolean {
+    return this.data && this.data.deletable;
+  }
+  set deletable(value: boolean) {
+    if (this.data) {
+      this.data.deletable = coerceBooleanProperty(value);
+      this._changeDetectorRef.markForCheck();
+    }
+  }
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
