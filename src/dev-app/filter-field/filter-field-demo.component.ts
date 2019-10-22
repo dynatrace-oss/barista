@@ -10,6 +10,7 @@ import {
 
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
+import { MULTIDIMENSIONAL_ANALYSIS } from './multidimensional-analysis';
 import { TEST_DATA, TEST_DATA_ASYNC, TEST_DATA_ASYNC_2 } from './testdata';
 
 // tslint:disable:no-any
@@ -18,6 +19,7 @@ const DATA_SETS = new Map<string, any>([
   ['TEST_DATA', TEST_DATA],
   ['KUBERNETES_DATA', KUBERNETES_DATA],
   ['COMPLEX_DATA', COMPLEX_DATA],
+  ['MULTIDIMENSIONAL_ANALYSIS', MULTIDIMENSIONAL_ANALYSIS],
 ]);
 
 @Component({
