@@ -22,6 +22,71 @@ const DATA_SETS = new Map<string, any>([
   ['MULTIDIMENSIONAL_ANALYSIS', MULTIDIMENSIONAL_ANALYSIS],
 ]);
 
+// Different object reference
+const blaFree = [
+  {
+    name: 'US',
+    autocomplete: [
+      {
+        name: 'Miami',
+      },
+      {
+        name: 'Los Angeles',
+      },
+      {
+        name: 'custom',
+        suggestions: [],
+      },
+    ],
+  },
+  {
+    name: 'custom',
+    suggestions: [],
+  },
+  'philly',
+] as any;
+
+// const blaOption = [
+//   {
+//     name: 'US',
+//     autocomplete: [
+//       {
+//         name: 'Miami',
+//       },
+//       {
+//         name: 'Los Angeles',
+//       },
+//       {
+//         name: 'custom',
+//         suggestions: [],
+//       },
+//     ],
+//   },
+//   {
+//     name: 'Miami',
+//   },
+// ] as any;
+
+const blaRange = [
+  {
+    name: 'Requests per minute',
+    range: {
+      operators: {
+        range: true,
+        equal: true,
+        greaterThanEqual: true,
+        lessThanEqual: true,
+      },
+      unit: 's',
+    },
+  },
+  {
+    operator: 'range',
+    range: [1.01, 2],
+    unit: 's',
+  },
+] as any;
+
 @Component({
   selector: 'filter-field-dev-app-demo',
   templateUrl: './filter-field-demo.component.html',
@@ -54,10 +119,10 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   _loading = false;
 
   ngAfterViewInit(): void {
-    this._tagChangesSub = this.filterField.tags.changes.subscribe(() => {
-      Promise.resolve().then(
-        () => (this._firstTag = this.filterField.tags.first),
-      );
+    this.filterField.currentTags.subscribe(tags => {
+      if (tags.length) {
+        this._firstTag = tags[0];
+      }
     });
   }
 
@@ -94,51 +159,38 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   setValues(): void {
     if (this._dataSource.data === TEST_DATA) {
       this.filterField.filters = [
-        // Free text
-        [
-          TEST_DATA.autocomplete[0],
-          TEST_DATA.autocomplete[0].autocomplete![2],
-          'foo',
-        ],
+        // // Free text
+        // [
+        //   TEST_DATA.autocomplete[0],
+        //   TEST_DATA.autocomplete[0].autocomplete![2],
+        //   'foo',
+        // ],
 
-        // async data
-        [TEST_DATA.autocomplete[2], (TEST_DATA_ASYNC as any).autocomplete[0]],
+        // // async data
+        // [TEST_DATA.autocomplete[2], (TEST_DATA_ASYNC as any).autocomplete[0]],
 
-        // option as a string
-        [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
+        // // option as a string
+        // [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
 
-        // Different object reference
-        [
-          {
-            name: 'US',
-            autocomplete: [
-              {
-                name: 'Miami',
-              },
-              {
-                name: 'Los Angeles',
-              },
-              {
-                name: 'custom',
-                suggestions: [],
-              },
-            ],
-          },
-          {
-            name: 'Miami',
-          },
-        ],
+        blaFree,
+        blaRange,
 
         // Range
-        [
-          TEST_DATA.autocomplete[4],
-          {
-            operator: 'range',
-            range: [1.01, 2],
-            unit: 's',
-          },
-        ],
+        // [
+        //   TEST_DATA.autocomplete[4],
+        //   {
+        //     operator: 'range',
+        //     range: [1.01, 2],
+        //     unit: 's',
+        //   },
+        // ],
       ];
     }
+  }
+  getTagForFilter(): void {
+    const rangeTag = this.filterField.getTagForFilter(blaRange);
+    rangeTag!.deletable = false;
+    const freeTag = this.filterField.getTagForFilter(blaFree);
+    freeTag!.editable = false;
   }
 }

@@ -62,6 +62,19 @@ class MyModule {}
 | `currentFilterChanges` | `EventEmitter<DtFilterFieldCurrentFilterChangeEvent>` | Event emitted when a part has been added to the currently selected filter (the filter the user is currently working on). |
 | `inputChange`          | `EventEmitter<string>`                                | Event emitted when the input value changes (e.g. when the user is typing).                                               |
 
+## Properties
+
+| Name          | Type                             | Description                                                       |
+| ------------- | -------------------------------- | ----------------------------------------------------------------- |
+| `currentTags` | `Observable<DtFilterFieldTag[]>` | A stream that emits the current tags that the filter field holds. |
+
+## Methods
+
+| Name                             | Return value              | Description                                                                  |
+| -------------------------------- | ------------------------- | ---------------------------------------------------------------------------- |
+| `getTagForFilter(needle: any[])` | `DtFilterFieldTag | null` | Returns a `DtFilterFieldTag` if one can be found for the given filter needle |
+| `focus`                          | `void`                    | Focuses the filter field                                                     |
+
 ## Distinct options
 
 Usually all options of an autocomplete can be selected, but sometimes there is
@@ -208,6 +221,17 @@ appears on focus loss of the filter field. Please also check out this behavior
 in the [click dummy](https://invis.io/PCG28RGDUFE).
 
 ![Clear all filters](https://d24pvdz4mvzd04.cloudfront.net/test/filter-clear-all-580-7eef493dfc.png)
+
+### Readonly, non-deletable & non-editable tags
+
+The filter filed creates a `DtFilterFieldTag` for each active filter. You can
+get subscribe to the list of current tags with the `currentTags` observable. By
+using the utility method `getTagForFilter` you can find a `DtFilterFieldTag`
+instance created for a given filter. After getting the tag instance for your
+filter you can configure the filter to your needs by using the properties
+`editable`, `deletable` and `disabled`.
+
+<docs-source-example example="FilterFieldReadOnlyTagsExample"></docs-source-example>
 
 ### Handling operators
 
