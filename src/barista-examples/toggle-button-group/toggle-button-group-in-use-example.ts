@@ -10,24 +10,26 @@ import {
   selector: 'component-barista-example',
   template: `
     <dt-toggle-button-group (click)="getSelectedItem()">
-      <button dt-toggle-button-item value="1">
-        <dt-toggle-button-item-icon>
-          <dt-icon name="cloud"></dt-icon>
-        </dt-toggle-button-item-icon>
-        1 CDN domain detected
-      </button>
-      <button dt-toggle-button-item value="2">
-        <dt-toggle-button-item-icon>
-          <dt-icon name="resourcerequest"></dt-icon>
-        </dt-toggle-button-item-icon>
-        23 resource requests
-      </button>
-      <button dt-toggle-button-item value="3">
-        <dt-toggle-button-item-icon>
-          <dt-icon name="cloud"></dt-icon>
-        </dt-toggle-button-item-icon>
-        1 CDN resource
-      </button>
+      <div class="grid">
+        <button dt-toggle-button-item value="1">
+          <dt-toggle-button-item-icon>
+            <dt-icon name="cloud"></dt-icon>
+          </dt-toggle-button-item-icon>
+          1 CDN domain detected
+        </button>
+        <button dt-toggle-button-item value="2">
+          <dt-toggle-button-item-icon>
+            <dt-icon name="resourcerequest"></dt-icon>
+          </dt-toggle-button-item-icon>
+          23 resource requests
+        </button>
+        <button dt-toggle-button-item value="3">
+          <dt-toggle-button-item-icon>
+            <dt-icon name="cloud"></dt-icon>
+          </dt-toggle-button-item-icon>
+          1 CDN resource
+        </button>
+      </div>
     </dt-toggle-button-group>
     <div class="timeline-chart-container">
       <dt-timeline-chart value="0.37" unit="s">
@@ -52,9 +54,10 @@ import {
   `,
   styles: [
     `
-      :host ::ng-deep dt-toggle-button-group ::ng-deep button {
-        margin: 18px 12px 0px 0px;
-        width: 250px;
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 12px;
       }
 
       .timeline-chart-container {

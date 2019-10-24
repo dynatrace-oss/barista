@@ -7,51 +7,37 @@ import { Component, OnInit } from '@angular/core';
   selector: 'component-barista-example',
   template: `
     <dt-toggle-button-group>
-      <button
-        *ngFor="let buttonGroupItem of buttonGroupNames; let i = index"
-        dt-toggle-button-item
-        value="i + 1"
-      >
-        <dt-toggle-button-item-icon>
-          <dt-icon name="cloud"></dt-icon>
-        </dt-toggle-button-item-icon>
-        {{ buttonGroupItem }}
-      </button>
-      <dt-expandable-text label="Show All" (click)="loadMore()">
-      </dt-expandable-text>
+      <div class="grid">
+        <button
+          *ngFor="let buttonGroupItem of buttonGroupNames; let i = index"
+          dt-toggle-button-item
+          value="i + 1"
+        >
+          <dt-toggle-button-item-icon>
+            <dt-icon name="cloud"></dt-icon>
+          </dt-toggle-button-item-icon>
+          {{ buttonGroupItem }}
+        </button>
+        <dt-expandable-text
+          class="inline"
+          label="Show All"
+          (click)="loadMore()"
+        >
+        </dt-expandable-text>
+      </div>
     </dt-toggle-button-group>
   `,
   styles: [
     `
-      :host ::ng-deep dt-toggle-button-group ::ng-deep button {
-        margin: 18px 12px 0px 0px;
-        width: 250px;
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 12px;
+        grid-row-gap: 12px;
       }
 
-      :host ::ng-deep dt-toggle-button-group ::ng-deep dt-expandable-text {
+      .inline {
         display: inline-flex;
-      }
-
-      :host
-        ::ng-deep
-        dt-toggle-button-group
-        ::ng-deep
-        dt-expandable-text
-        ::ng-deep
-        button {
-        width: auto;
-      }
-
-      :host
-        ::ng-deep
-        dt-toggle-button-group
-        ::ng-deep
-        dt-expandable-text
-        ::ng-deep
-        span
-        ::ng-deep
-        button {
-        width: 250px;
       }
     `,
   ],
