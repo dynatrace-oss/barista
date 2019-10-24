@@ -6,16 +6,10 @@ import { generateData } from './chart-data-utils';
   selector: 'barista-demo',
   template: `
     View
-    <dt-button-group>
-      <dt-button-group-item (selectionChange)="switchBehavior($event)"
-        >CPU usage</dt-button-group-item
-      >
-      <dt-button-group-item (selectionChange)="switchBehavior($event)"
-        >Connectivity</dt-button-group-item
-      >
-      <dt-button-group-item (selectionChange)="switchBehavior($event)"
-        >Retransmissions</dt-button-group-item
-      >
+    <dt-button-group (valueChange)="switchBehavior($event)">
+      <dt-button-group-item>CPU usage</dt-button-group-item>
+      <dt-button-group-item>Connectivity</dt-button-group-item>
+      <dt-button-group-item>Retransmissions</dt-button-group-item>
     </dt-button-group>
     <dt-chart [options]="selectOptions()" [series]="selectSeries()">
       <dt-chart-tooltip>
@@ -40,7 +34,7 @@ export class ChartBehaviorSwitch {
 
   // tslint:disable-next-line: no-any
   switchBehavior(event: any): void {
-    this.currentBehavior = event.value;
+    this.currentBehavior = event;
   }
 
   selectOptions(): Highcharts.Options {

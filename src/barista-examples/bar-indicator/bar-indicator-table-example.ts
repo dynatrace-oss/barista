@@ -1,10 +1,5 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 
-import {
-  formatBytes,
-  formatPercent,
-  formatRate,
-} from '@dynatrace/angular-components/formatters';
 import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
 
 @Component({
@@ -89,26 +84,5 @@ export class BarIndicatorTableExample implements AfterViewInit {
   ngAfterViewInit(): void {
     // Set the dtSort reference on the dataSource, so it can react to sorting.
     this.dataSource.sort = this.sortable;
-  }
-  percentageFormatter = formatPercent;
-  trafficFormatter = (value: number) =>
-    formatBytes(formatRate(value, 's'), {
-      inputUnit: 'byte',
-      outputUnit: 'MB',
-      factor: 1024,
-    });
-  // tslint:disable-next-line: no-any
-  combineMemory(row: any): string {
-    const memoryPercentage = formatPercent(row.memoryPerc);
-    const memoryTotal = formatBytes(row.memoryTotal, {
-      inputUnit: 'byte',
-      outputUnit: 'GB',
-      factor: 1024,
-    });
-    return `${memoryPercentage} of ${memoryTotal}`;
-  }
-  // tslint:disable-next-line: no-any
-  memorySortAccessor(row: any): number {
-    return row.memoryPerc;
   }
 }
