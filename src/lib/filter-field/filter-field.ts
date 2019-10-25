@@ -472,15 +472,18 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal */
   _handleInputKeyUp(event: KeyboardEvent): void {
     const keyCode = readKeyCode(event);
+    const value = this._inputEl.nativeElement.value;
+    this._writeControlValue(value);
+    this._validateInput();
     if (
       keyCode === ENTER &&
-      this._inputValue.length &&
       isDtFreeTextDef(this._currentDef) &&
       this._control &&
       this._control.valid
     ) {
       this._handleFreeTextSubmitted();
     }
+    this._changeDetectorRef.markForCheck();
   }
 
   /**
@@ -995,3 +998,4 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     this._switchToRootDef(false);
   }
 }
+// tslint:disable:max-file-line-count
