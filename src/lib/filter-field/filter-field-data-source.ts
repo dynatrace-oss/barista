@@ -1,3 +1,4 @@
+import { Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -361,7 +362,10 @@ export class DtFilterFieldDefaultDataSource<T>
     // @breaking-change 5.0.0 data.validators is then required so `|| []` can be removed
     const def = dtFreeTextDef(
       [],
-      data.validators || [],
+      data.validators || [
+        // tslint:disable-next-line: no-unbound-method
+        { validatorFn: Validators.required, error: 'Field is required' },
+      ],
       isDefined(data.unique) ? data.unique! : false,
       data,
       null,
