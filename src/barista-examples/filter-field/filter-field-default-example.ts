@@ -26,7 +26,7 @@ export class FilterFieldDefaultExample {
           'San Francisco',
           'Los Angeles',
           'New York',
-          { name: 'Custom', suggestions: [] },
+          { name: 'Custom', suggestions: [], validators: [] },
         ],
       },
       {
