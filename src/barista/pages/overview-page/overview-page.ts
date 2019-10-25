@@ -2,11 +2,12 @@ import { A, Z } from '@angular/cdk/keycodes';
 import {
   AfterViewInit,
   Component,
+  OnDestroy,
   QueryList,
   ViewChildren,
 } from '@angular/core';
 import { BaPage } from 'pages/page-outlet';
-import { fromEvent } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { BaOverviewPageContents } from 'shared/page-contents';
 
 import { readKeyCode } from '@dynatrace/angular-components/core';
@@ -20,7 +21,7 @@ const LOCALSTORAGEKEY = 'baristaGridview';
   templateUrl: 'overview-page.html',
   styleUrls: ['overview-page.scss'],
 })
-export class BaOverviewPage implements AfterViewInit, BaPage {
+export class BaOverviewPage implements AfterViewInit, BaPage, OnDestroy {
   contents: BaOverviewPageContents;
 
   /** @internal whether the tiles are currently displayed as list */
@@ -31,6 +32,8 @@ export class BaOverviewPage implements AfterViewInit, BaPage {
   private _counter = 0;
   /** items which should be accessible with shortcuts  */
   private _shortcutItems = [];
+
+  private _keyUpSubscription = Subscription.EMPTY;
 
   /** @internal BaTiles which should be accessible with shortcuts */
   @ViewChildren(BaTile) _items: QueryList<BaTile>;
@@ -50,12 +53,18 @@ export class BaOverviewPage implements AfterViewInit, BaPage {
   ngAfterViewInit(): void {
     this._prepareItems();
 
-    fromEvent(document, 'keyup').subscribe((evt: KeyboardEvent) => {
-      const keyCode = readKeyCode(evt);
-      if (keyCode >= A && keyCode <= Z) {
-        this._focusItem(evt.key.toLowerCase());
-      }
-    });
+    this._keyUpSubscription = fromEvent(document, 'keyup').subscribe(
+      (evt: KeyboardEvent) => {
+        const keyCode = readKeyCode(evt);
+        if (keyCode >= A && keyCode <= Z) {
+          this._focusItem(evt.key.toLowerCase());
+        }
+      },
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._keyUpSubscription.unsubscribe();
   }
 
   /**
@@ -104,17 +113,13 @@ export class BaOverviewPage implements AfterViewInit, BaPage {
    * with this letter and so on.
    */
   private _focusItem(key: string): void {
-    if (key === this._previousKey) {
-      if (document.activeElement === document.body) {
-        this._counter = 0;
-      } else {
-        this._counter++;
-        if (
-          this._shortcutItems[key] &&
-          this._counter >= this._shortcutItems[key].length
-        ) {
-          this._counter = this._counter - this._shortcutItems[key].length;
-        }
+    if (key === this._previousKey && document.activeElement !== document.body) {
+      this._counter++;
+      if (
+        this._shortcutItems[key] &&
+        this._counter >= this._shortcutItems[key].length
+      ) {
+        this._counter = this._counter - this._shortcutItems[key].length;
       }
     } else {
       this._counter = 0;
