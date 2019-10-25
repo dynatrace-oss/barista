@@ -1,4 +1,8 @@
-<div *ngIf="data.badge" class="ba-tile-status {{_cssClassComponentState}}">
+<div
+  *ngIf="data.badge"
+  class="ba-tile-status ba-tile-badge-{{data.badge}}"
+  [class.ba-tile-badge-warning]="data.badge === 'experimental' || data.badge === 'deprecated'"
+>
   <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
     <polygon points="50,0 0,0 50,50" />
   </svg>
