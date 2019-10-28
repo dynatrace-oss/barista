@@ -1,6 +1,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { OverlayRef } from '@angular/cdk/overlay';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
@@ -19,6 +20,9 @@ export class DtOverlayRef<T> {
   /** The instance of component opened into the overlay. */
   // @breaking-change 5.0.0 Change type to `T | null` and assign value `null` as default.
   componentInstance: T;
+
+  /** @internal TemplatePortal to which the overlay got attached. */
+  _templatePortal: TemplatePortal | null = null;
 
   /** Wether the overlay is pinned or not */
   get pinned(): boolean {
@@ -89,6 +93,14 @@ export class DtOverlayRef<T> {
         );
         this._backDropClickSub.unsubscribe();
       }
+    }
+  }
+
+  /** Update the implicit context on the template portal if one exists. */
+  // tslint:disable-next-line: no-any
+  updateImplicitContext(data: any): void {
+    if (this._templatePortal) {
+      this._templatePortal.context.$implicit = data;
     }
   }
 
