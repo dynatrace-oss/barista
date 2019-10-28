@@ -178,18 +178,44 @@ describe('DtOverlay', () => {
     );
     expect(overlay).toBeNull();
   }));
+
+  it('should update the implicit context', fakeAsync(() => {
+    const dtOverlayRef = dtOverlay.create(
+      fixture.componentInstance.trigger,
+      fixture.componentInstance.implicitOverlay,
+      { data: { value: 1 }, pinnable: true },
+    );
+    fixture.detectChanges();
+
+    const overlay = overlayContainerElement.querySelector(
+      '.dt-overlay-container',
+    ) as HTMLElement;
+    expect(overlay).toBeDefined();
+    expect(overlay.textContent).toContain('1');
+
+    dtOverlayRef.updateImplicitContext({ value: 5 });
+    fixture.detectChanges();
+
+    expect(overlay.textContent).toContain('5');
+  }));
 });
 
 /** dummy component */
 @Component({
   selector: 'dt-test-component',
-  template:
-    '<div #trigger>trigger</div><ng-template #overlay>overlay</ng-template>',
+  template: `
+    <div #trigger>trigger</div>
+    <ng-template #overlay>overlay</ng-template>
+    <ng-template #implicitOverlay let-tooltip>{{ tooltip.value }}</ng-template>
+  `,
 })
 class TestComponent {
   @ViewChild('trigger', { static: true }) trigger: ElementRef;
 
   @ViewChild('overlay', { static: true }) overlay: TemplateRef<any>;
+
+  @ViewChild('implicitOverlay', { static: true, read: TemplateRef })
+  implicitOverlay: TemplateRef<any>;
 }
 
 @Component({
@@ -197,6 +223,62 @@ class TestComponent {
   template: '<div class="dummy-overlay">dummy-overlay</div>',
 })
 class DummyOverlay {}
+
+// @Component({
+//   moduleId: module.id,
+//   selector: 'component-barista-example',
+//   template: `
+//     <ng-template #implicitOverlay let-tooltip>
+//       Hello
+//       {{ tooltip.value }}
+//     </ng-template>
+//     <p><span #origin>An overlay will be created here</span></p>
+//   `,
+// })
+// export class ImplicitContextTestComponent {
+//   i = 0;
+
+//   @ViewChild('origin', { static: true }) origin: ElementRef;
+
+//   @ViewChild('overlay', { static: true, read: TemplateRef })
+//   overlayTemplate: TemplateRef<any>;
+
+//   constructor(
+//     private _dtOverlay: DtOverlay,
+//     private changeDetectorRef: ChangeDetectorRef,
+//   ) {}
+
+//   // tslint:disable-next-line: no-any
+//   overlayRef: DtOverlayRef<any> | null;
+
+//   createOverlay(): void {
+//     if (!this.overlayRef) {
+//       this.overlayRef = this._dtOverlay.create(
+//         this.origin,
+//         this.overlayTemplate,
+//         { data: { value: this.i }, pinnable: true },
+//       );
+//     }
+//   }
+
+//   /** Update the context with some arbitrary values. */
+//   updateContext(): void {
+//     this.i += 1;
+//     if (this.overlayRef) {
+//       this.overlayRef.updateImplicitContext({
+//         value: this.i,
+//       });
+//       this.changeDetectorRef.markForCheck();
+//     }
+//   }
+
+//   dismiss(): void {
+//     if (this.overlayRef && !this.overlayRef.pinned) {
+//       this._dtOverlay.dismiss();
+//       this.overlayRef = null;
+//     }
+//   }
+// }
 
 @NgModule({
   declarations: [DummyOverlay],
