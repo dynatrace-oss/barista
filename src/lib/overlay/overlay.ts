@@ -193,17 +193,19 @@ export class DtOverlay implements OnDestroy {
     const dtOverlayRef = new DtOverlayRef<T>(overlayRef, container, config);
 
     if (componentOrTemplateRef instanceof TemplateRef) {
-      container.attachTemplatePortal(
+      const templatePortal =
         // tslint:disable-next-line:no-any
         new TemplatePortal<any>(componentOrTemplateRef, null!, {
           $implicit: config.data,
-        }),
-      );
+        });
+      container.attachTemplatePortal(templatePortal);
+      dtOverlayRef._templatePortal = templatePortal;
     } else {
       const componentRef = container.attachComponentPortal(
         new ComponentPortal<T>(componentOrTemplateRef),
       );
       dtOverlayRef.componentInstance = componentRef.instance;
+      dtOverlayRef._templatePortal = null;
     }
 
     return dtOverlayRef;
