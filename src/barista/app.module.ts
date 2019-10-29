@@ -26,6 +26,9 @@ import { BaFooter } from './layout/footer/footer';
 import { BaNav } from './layout/nav/nav';
 import { BaPageFooter } from './layout/page-footer/page-footer';
 import { BaPageHeader } from './layout/page-header/page-header';
+import { BaSearch } from './layout/search/search';
+import { BaSmallTile } from './layout/smalltile/smalltile';
+import { BaIndexPage } from './pages/index-page/index-page';
 import { BaOverviewPage } from './pages/overview-page/overview-page';
 import { BaPageContent } from './pages/page-content';
 import { BaPageOutlet } from './pages/page-outlet';
@@ -65,6 +68,9 @@ import { BaPageService } from './shared/page.service';
     BaIconColorWheel,
     BaOverviewPage,
     BaTile,
+    BaIndexPage,
+    BaSmallTile,
+    BaSearch,
   ],
   providers: [
     BaPageService,
@@ -78,6 +84,9 @@ import { BaPageService } from './shared/page.service';
     BaContributors,
     BaPageFooter,
     BaOverviewPage,
+    BaIndexPage,
+    BaSmallTile,
+    BaSearch,
   ],
   bootstrap: [BaApp],
 })

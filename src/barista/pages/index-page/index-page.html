@@ -1,0 +1,55 @@
+<main>
+  <div class="ba-page-content">
+    <div class="ba-index-page-section ba-index-page-section-header">
+      <div class="ba-title">
+        <h1>{{ contents.title }}<span> {{ contents.subtitle }}</span></h1>
+      </div>
+      <ba-search *ngIf="_internal"></ba-search>
+    </div>
+    <div class="ba-index-page-section">
+      <h2>Recently ordered</h2>
+      <ul class="ba-tilegrid-onerow">
+        <li *ngFor="let item of contents.recentlyordered">
+          <a ba-smalltile [data]="item"></a>
+        </li>
+      </ul>
+      <h2>Most ordered</h2>
+      <ul class="ba-tilegrid-onerow">
+        <li *ngFor="let item of contents.mostordered">
+          <a ba-smalltile [data]="item"></a>
+        </li>
+      </ul>
+    </div>
+    <div class="ba-index-page-section ba-index-page-section-cta">
+      <div>
+        <h2>Do you want to help us brew?</h2>
+        <p>
+          That's awesome! We are happy to receive your ideas and feedback. Just
+          contact <a href="mailto:lara.aigmueller@dynatrace.com">us</a>. If you
+          are already a contributor please open a pull request in our
+          <a
+            href="***REMOVED***
+            [class.ba-internal-link]="!_internal"
+          >
+            internal repository</a
+          >.
+        </p>
+        <a class="ba-btn ba-btn--primary ba-btn--cta" href="/contribute/"
+          >Contribute now!</a
+        >
+      </div>
+    </div>
+    <div class="ba-index-page-section">
+      <h2>Getting started</h2>
+      <a
+        *ngFor="let item of contents.gettingstarted"
+        href="{{ item.link }}"
+        class="ba-index-page-links"
+        [style.border-left-color]="item.bordercolor"
+      >
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
+      </a>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,201 @@
+@import '../../styles/global/variables';
+@import '../../../lib/core/style/colors';
+
+$blue-1000: #002c66;
+
+/* stylelint-disable unit-whitelist */
+
+.ba-title,
+.ba-title span {
+  color: #ffffff;
+  text-align: center;
+  font-size: 28px;
+}
+
+.ba-title span {
+  display: block;
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+.ba-title h1 {
+  max-width: unset;
+}
+
+.ba-index-page-section-header {
+  position: relative;
+  background: $blue-1000;
+  padding: 20px 20px 10px;
+}
+
+/* Sections */
+.ba-index-page-section {
+  width: 100%;
+  margin: auto;
+  padding: 2rem 1rem;
+}
+
+.ba-index-page-section:nth-child(even) {
+  background-color: #ffffff;
+}
+
+/* CTA section */
+.ba-index-page-section-cta {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  background-color: $red-400;
+
+  div {
+    max-width: 550px;
+    padding: 2.5rem;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background-color: #ffffff;
+  }
+
+  h2 {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: $screen-md) {
+  .ba-index-page-section-header {
+    padding: 40px 20px 30px;
+  }
+
+  .ba-index-page-section-cta {
+    background-image: url('https://dt-cdn.net/images/coffee-b379cf6123.svg');
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position-x: 90%;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .ba-index-page-section-cta {
+    background-position-x: 70%;
+  }
+
+  :host {
+    .ba-index-page-section-header {
+      background: url('https://dt-cdn.net/images/header-img-f6bc9094a3.svg'),
+        $blue-1000;
+      background-repeat: no-repeat;
+      background-position: top center;
+      padding: 40px 20px 250px;
+    }
+  }
+
+  .ba-title {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+    background-color: $blue-800;
+  }
+
+  .ba-title h1,
+  .ba-title span {
+    display: inline;
+    font-size: 24px;
+    line-height: 1.8;
+  }
+}
+
+@media (min-width: $screen-xl) {
+  .ba-index-page-section {
+    padding: 2rem calc(50vw - 512px);
+  }
+}
+
+/* CSS for the tilegrid (recently ordered and most ordered tiles) */
+
+$tilesize: 130px;
+$gridgap: 20px;
+
+/* Grid layout for single line tile grid on index page */
+.ba-tilegrid-onerow {
+  display: grid;
+  grid-gap: 1rem;
+  list-style: none;
+  margin-left: 0;
+}
+
+@function getbreakpoint($cols, $width) {
+  /*
+   * Define the grid's breakpoint depending on the number of columns,
+   * their width (= tile width) and the width of the gridgap. This is
+   * the minimum space required, i.e. the min-width-breakpoint for the
+   * specified amount of columns.
+   */
+  @return $cols * $width + ($cols + 1) * $gridgap;
+}
+
+@mixin makegrid($columns) {
+  $breakpoint: getbreakpoint($columns, $tilesize);
+
+  @media (min-width: $breakpoint) {
+    @supports (display: grid) {
+      .ba-tilegrid-onerow {
+        grid-template-columns: repeat($columns, minmax($tilesize, 1fr));
+      }
+
+      .ba-tilegrid-onerow ba-tile {
+        margin: 0; /* reset margin needed for flex layout */
+      }
+    }
+  }
+}
+
+@for $i from 2 through 7 {
+  @include makegrid($i);
+}
+
+/* Gettting started links */
+.ba-index-page-links {
+  display: block;
+  background-color: #ffffff;
+  color: $gray-700;
+  font-size: 1rem;
+  border: 1px solid #cccccc;
+  border-left: 4px solid;
+  border-radius: 3px;
+  padding: 1rem;
+  margin: 1rem 0;
+
+  h3 {
+    margin-top: 0;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.ba-index-page-links:hover {
+  color: $gray-700;
+  text-decoration: none;
+  border-color: $gray-400;
+  background-color: $gray-100;
+  cursor: pointer;
+}
+
+.ba-internal-link {
+  pointer-events: none;
+}
+
+.ba-internal-link::after {
+  content: ' (internal link)';
+}
+
+.ba-smalltile-empty {
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  background-color: $gray-100;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* stylelint-enable */
