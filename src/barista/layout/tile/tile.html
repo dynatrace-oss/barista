@@ -1,7 +1,9 @@
 <div
   *ngIf="data.badge"
-  class="ba-tile-status ba-tile-badge-{{data.badge}}"
-  [class.ba-tile-badge-warning]="data.badge === 'experimental' || data.badge === 'deprecated'"
+  class="ba-tile-status ba-tile-badge-{{ data.badge }}"
+  [class.ba-tile-badge-warning]="
+    data.badge === 'experimental' || data.badge === 'deprecated'
+  "
 >
   <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
     <polygon points="50,0 0,0 50,50" />
@@ -61,19 +63,19 @@
 <div class="ba-tile-content">
   <div class="ba-tile-header">
     <div class="ba-tile-img">
-      <span>{{data.identifier}}</span>
+      <span>{{ data.identifier }}</span>
     </div>
     <div class="ba-tile-headertext">
-      <div class="ba-tile-title">{{data.title}}</div>
-      <div class="ba-tile-type">{{data.category}}</div>
+      <div class="ba-tile-title">{{ data.title }}</div>
+      <div class="ba-tile-type">{{ data.category }}</div>
     </div>
   </div>
   <ng-container *ngIf="!listView">
     <div class="ba-tile-description">
-      {{data.description}}
+      {{ data.description }}
     </div>
     <div class="ba-tile-footer">
-      <span>{{data.title}} details&nbsp;→</span>
+      <span>{{ data.title }} details&nbsp;→</span>
     </div>
   </ng-container>
 </div>
