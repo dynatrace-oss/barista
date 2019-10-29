@@ -10,12 +10,14 @@ import {
 } from '@angular/core';
 
 import { BaPageContents } from '../shared/page-contents';
+import { BaIndexPage } from './index-page/index-page';
 import { BaOverviewPage } from './overview-page/overview-page';
 import { BaSinglePage } from './single-page/single-page';
 
 const LAYOUT_PAGES_MAPPING = {
   default: BaSinglePage,
   overview: BaOverviewPage,
+  index: BaIndexPage,
 };
 
 /**
