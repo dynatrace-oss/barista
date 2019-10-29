@@ -4,7 +4,7 @@
 @import '../core/style/interactive-common';
 
 $dt-select-panel-max-height: 256px;
-$dt-select-panel-max-width: 300px !default;
+$dt-select-panel-max-width: 400px !default;
 $dt-select-panel-min-width: 112px !default;
 
 :host {
@@ -101,7 +101,7 @@ $dt-select-panel-min-width: 112px !default;
   border-radius: 0 0 3px 3px;
   max-height: $dt-select-panel-max-height;
   min-width: $dt-select-panel-min-width;
-  margin-left: -1px;
+  will-change: transform;
 
   // Prevents the content from repainting on scroll.
   backface-visibility: hidden;
