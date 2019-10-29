@@ -508,9 +508,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     const keyCode = readKeyCode(event);
     if ([BACKSPACE, DELETE].includes(keyCode) && !this._inputValue.length) {
       if (this._currentFilterValues.length) {
-        this._removeFilter(this._currentFilterValues);
+        this._removeFilterAndEmit(this._currentFilterValues);
       } else if (this._prefixTagData.length) {
-        this._removeFilter(
+        this._removeFilterAndEmit(
           this._prefixTagData[this._prefixTagData.length - 1].filterValues,
         );
       }
@@ -546,7 +546,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
    * Called when the user clicks on the remove button of a filter tag.
    */
   _handleTagRemove(event: DtFilterFieldTag): void {
-    this._removeFilter(event.data.filterValues);
+    this._removeFilterAndEmit(event.data.filterValues);
     this.focus();
   }
 
@@ -595,7 +595,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         this._emitCurrentFilterChanges([], removed);
         this._changeDetectorRef.markForCheck();
       } else {
-        this._removeFilter(event.data.filterValues);
+        this._removeFilterAndEmit(event.data.filterValues);
       }
       this.focus();
     }
@@ -841,11 +841,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
    * Removes a filter (a list of sources) from the list of current selected ones.
    * It is usually called when the user clicks the remove button of a filter
    */
-  private _removeFilter(filterValues: DtFilterValue[]): void {
-    const removableIndex = this._filters.indexOf(filterValues);
-    if (removableIndex !== -1) {
-      const removedFilters = this._filters.splice(removableIndex, 1);
-      this._tagData.splice(removableIndex, 1);
+  private _removeFilterAndEmit(filterValues: DtFilterValue[]): void {
+    const removedFilters = this._removeFilter(filterValues);
+    if (filterValues.length) {
       if (filterValues === this._currentFilterValues) {
         this._switchToRootDef(false);
       } else {
@@ -858,6 +856,16 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
+  }
+
+  /** Removes a filter (a list of sources) from the list of current selected ones. */
+  private _removeFilter(filterValues: DtFilterValue[]): DtFilterValue[][] {
+    let removedFilters: DtFilterValue[][] = [];
+    const removableIndex = this._filters.indexOf(filterValues);
+    if (removableIndex !== -1) {
+      removedFilters = this._filters.splice(removableIndex, 1);
+    }
+    return removedFilters;
   }
 
   /**
@@ -950,6 +958,9 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
               applyDtOptionIds(def);
             }
             this._rootDef = def;
+            this._removeFilter(this._currentFilterValues);
+            this._currentFilterValues = [];
+            this._filterByLabel = '';
           }
           this._currentDef = def;
           this._updateControl();
