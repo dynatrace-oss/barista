@@ -409,13 +409,13 @@ export class DtAutocompleteTrigger<T>
           .change()
           .subscribe(() => {
             if (this.panelOpen && this._overlayRef) {
-              this._overlayRef.updateSize({ width: this._getPanelWidth() });
+              this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
             }
           });
       }
     } else {
       // Update the panel width and position in case anything has changed.
-      this._overlayRef.updateSize({ width: this._getPanelWidth() });
+      this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
       this._overlayRef.updatePosition();
     }
 
@@ -478,7 +478,7 @@ export class DtAutocompleteTrigger<T>
     return new OverlayConfig({
       positionStrategy: this._getOverlayPosition(),
       scrollStrategy: this._overlay.scrollStrategies.block(),
-      width: this._getPanelWidth(),
+      maxWidth: this._getPanelWidth(),
     });
   }
 
