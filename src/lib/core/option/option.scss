@@ -12,6 +12,7 @@
   text-overflow: ellipsis;
   overflow: hidden;
   outline: none;
+  font-variant: tabular-nums;
 
   &:not(.dt-option-disabled):hover,
   &:not(.dt-option-disabled).dt-option-active {
