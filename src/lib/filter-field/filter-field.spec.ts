@@ -1853,6 +1853,39 @@ describe('DtFilterField', () => {
       expect(tags.length).toBe(1);
     });
   });
+
+  describe('data-source switching', () => {
+    it('should cancel the edit mode if the data source is switched', () => {
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const options = getOptions(overlayContainerElement);
+      options[0].click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      let category = fixture.debugElement.query(
+        By.css('.dt-filter-field-category'),
+      );
+
+      expect(category.nativeElement.textContent.trim()).toBe('AUT');
+      expect(filterField.filters.length).toBe(1);
+      expect(filterField.filters[0][0].name).toBe('AUT');
+
+      fixture.componentInstance.dataSource.data = TEST_DATA_EDITMODE;
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      category = fixture.debugElement.query(
+        By.css('.dt-filter-field-category'),
+      );
+
+      expect(category).toBeNull();
+      expect(filterField.filters.length).toBe(0);
+    });
+  });
 });
 
 function getOptions(overlayContainerElement: HTMLElement): HTMLElement[] {
