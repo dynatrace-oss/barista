@@ -157,7 +157,7 @@ export function getDtSelectNonFunctionValueError(): Error {
       state(
         'void',
         style({
-          transform: 'scaleY(0)',
+          transform: 'scaleY(0) translateX(-1px)',
           opacity: 0,
         }),
       ),
@@ -165,7 +165,7 @@ export function getDtSelectNonFunctionValueError(): Error {
         'showing',
         style({
           opacity: 1,
-          transform: 'scaleY(1)',
+          transform: 'scaleY(1) translateX(-1px)',
         }),
       ),
       transition(
