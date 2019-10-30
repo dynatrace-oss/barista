@@ -151,6 +151,7 @@ export interface DtFilterFieldDefaultDataSourceRange {
       lessThanEqual?: boolean;
     };
   };
+  unique?: boolean;
 }
 
 export type DtFilterFieldDefaultDataSourceType =
@@ -384,6 +385,7 @@ export class DtFilterFieldDefaultDataSource<T>
       data.range.unit,
       data,
       null,
+      isDefined(data.unique) ? data.unique! : false,
     );
   }
 
