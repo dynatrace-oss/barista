@@ -29,6 +29,7 @@ import {
   DtAutocompleteValue,
   DtFilterValue,
   DtRangeValue,
+  dtRangeDef,
   isDtFreeTextDef,
 } from './types';
 
@@ -877,6 +878,78 @@ describe('DtFilterField Util', () => {
       );
       const freeTextDef = dtFreeTextDef([], [], false, optionSource, optionDef);
       expect(defUniquePredicate(freeTextDef, selectedIds)).toBe(true);
+    });
+
+    it('should return false if the unique range is already in the selectedIds', () => {
+      const optionSource = { name: 'Option 1', uid: '1' };
+      const selectedIds = new Set([optionSource.uid]);
+      const optionDef = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        optionSource.uid,
+        null,
+        null,
+        null,
+      );
+      const rangeDef = dtRangeDef(
+        true,
+        true,
+        true,
+        true,
+        's',
+        optionSource,
+        optionDef,
+        true,
+      );
+      expect(defUniquePredicate(rangeDef, selectedIds)).toBe(false);
+    });
+
+    it('should return true if the unique freetext is not already in the selectedIds', () => {
+      const optionSource = { name: 'Option 1', uid: '1' };
+      const selectedIds = new Set();
+      const optionDef = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        optionSource.uid,
+        null,
+        null,
+        null,
+      );
+      const rangeDef = dtRangeDef(
+        true,
+        true,
+        true,
+        true,
+        's',
+        optionSource,
+        optionDef,
+        true,
+      );
+      expect(defUniquePredicate(rangeDef, selectedIds)).toBe(true);
+    });
+
+    it('should return true if the range is not unique but already in the selectedIds', () => {
+      const optionSource = { name: 'Option 1', uid: '1' };
+      const selectedIds = new Set([optionSource.uid]);
+      const optionDef = dtOptionDef(
+        optionSource.name,
+        optionSource,
+        optionSource.uid,
+        null,
+        null,
+        null,
+      );
+      const rangeDef = dtRangeDef(
+        true,
+        true,
+        true,
+        true,
+        's',
+        optionSource,
+        optionDef,
+        false,
+      );
+      expect(defUniquePredicate(rangeDef, selectedIds)).toBe(true);
     });
   });
 
