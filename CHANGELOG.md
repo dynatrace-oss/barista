@@ -1,3 +1,33 @@
+## 4.13.0 (2019-10-30)
+
+### Bug Fixes
+
+- **filter-field:** Fixes broken state if the data source gets updated while in
+  edit mode. ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Removes a hardcoded length check for free text filter.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Sets a more sensible default for the filter field dropdown
+  max-width. ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **formatter:** Fixed issue with negative inputs.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **select:** Fixes an issue that the dropdown size was too small.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **select:** Fixes an issue that the option was sometimes cut off although the
+  dropdown could still grow.
+
+### Features
+
+- **filter-field:** Adds the feature to make a tag non deletable and non
+  editable. ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **sidenav:** Added the sidenav component.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **table:** Added a comparator input to SimpleColumns to allow sorting with a
+  custom comparator.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **tabs:** Made dt-tab-body and dtTabBodyPortalOutlet public available.
+
+_Special Thanks_ @david.laubreiter
+
 ## 4.12.2 (2019-10-17)
 
 ### Bug Fixes
