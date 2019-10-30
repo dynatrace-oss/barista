@@ -12,7 +12,7 @@ import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/fi
     ></dt-filter-field>
   `,
 })
-export class FilterFieldUniqueFreeTextExample {
+export class FilterFieldUniqueExample {
   private DATA = {
     autocomplete: [
       {
@@ -23,6 +23,19 @@ export class FilterFieldUniqueFreeTextExample {
       {
         name: 'Address',
         suggestions: [],
+      },
+      {
+        name: 'Unique Requests per minute',
+        range: {
+          operators: {
+            range: true,
+            equal: true,
+            greaterThanEqual: true,
+            lessThanEqual: true,
+          },
+          unit: 's',
+          unique: true,
+        },
       },
     ],
   };
