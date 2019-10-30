@@ -93,12 +93,13 @@ asynchronously when the user needs it. You can do this by setting the
 `async: true` property on the autocomplete instead of options, then load the
 data and apply it to the data source.
 
-## Unique free-text options
+## Unique free-text or range options
 
-It is possible to set a free-text option to be unique. So it can only be added
-once regardless of the value the user added to the free-text input field.
+It is possible to set a free-text or range option to be unique. So it can only
+be added once regardless of the value the user added to the free-text input
+field or into the range inputs.
 
-<docs-source-example example="FilterFieldUniqueFreeTextExample"></docs-source-example>
+<docs-source-example example="FilterFieldUniqueExample"></docs-source-example>
 
 ## Filters
 
