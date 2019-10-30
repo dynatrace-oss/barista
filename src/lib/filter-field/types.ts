@@ -77,9 +77,14 @@ export const enum DtRangeOperatorFlags {
 export interface DtRangeDef {
   operatorFlags: DtRangeOperatorFlags;
   unit: string;
+  // @breaking-change 6.0.0 To be non optional
+  unique?: boolean;
 }
 
-/** Creates a new DtRangeDef onto a provided existing NodeDef or a newly created one. */
+/**
+ * Creates a new DtRangeDef onto a provided existing NodeDef or a newly created one.
+ * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
+ */
 export function dtRangeDef(
   hasRangeOperator: boolean,
   hasEqualOperator: boolean,
@@ -88,6 +93,7 @@ export function dtRangeDef(
   unit: string,
   data: any,
   existingNodeDef: DtNodeDef | null,
+  unique: boolean = false,
 ): DtNodeDef {
   // if none of the operators are defined, throw an error.
   if (
@@ -120,6 +126,7 @@ export function dtRangeDef(
     range: {
       operatorFlags,
       unit,
+      unique,
     },
   };
   def.nodeFlags |= DtNodeFlags.TypeRange;
@@ -131,7 +138,10 @@ export function isDtRangeDef(def: any): def is DtNodeDef & DtRangeDef {
   return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeRange);
 }
 
-/** Creates a new DtAutocompleteDef onto a provided existing NodeDef or a newly created one. */
+/**
+ * Creates a new DtAutocompleteDef onto a provided existing NodeDef or a newly created one.
+ * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
+ */
 export function dtAutocompleteDef(
   optionsOrGroups: DtNodeDef[],
   distinct: boolean,
@@ -162,7 +172,10 @@ export function isAsyncDtAutocompleteDef(
   );
 }
 
-/** Creates a new DtOptionDef onto a provided existing NodeDef or a newly created one. */
+/**
+ * Creates a new DtOptionDef onto a provided existing NodeDef or a newly created one.
+ * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
+ */
 export function dtOptionDef(
   viewValue: string,
   data: any,
@@ -191,7 +204,10 @@ export function isDtOptionDef(
   return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeOption);
 }
 
-/** Creates a new DtGroupDef onto a provided existing NodeDef or a newly created one. */
+/**
+ * Creates a new DtGroupDef onto a provided existing NodeDef or a newly created one.
+ * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
+ */
 export function dtGroupDef(
   label: string,
   options: DtNodeDef[],
@@ -242,7 +258,10 @@ export function dtFreeTextDef(
   existingNodeDef: DtNodeDef | null,
 ): DtNodeDef;
 
-/** Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one. */
+/**
+ * Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one.
+ * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
+ */
 export function dtFreeTextDef(
   suggestions: DtNodeDef[],
   validators: DtFilterFieldValidator[],

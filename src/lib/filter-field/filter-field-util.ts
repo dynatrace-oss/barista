@@ -152,7 +152,7 @@ export function defDistinctPredicate(
 }
 
 /**
- * A predicate function that checks if a freetext option should be included in the options
+ * A predicate function that checks if a unique def or option should be included in the options
  * returns false if the freetext option should NOT be included
  */
 export function defUniquePredicate(
@@ -160,8 +160,8 @@ export function defUniquePredicate(
   selectedOptionIds: Set<string>,
 ): boolean {
   return !(
-    isDtFreeTextDef(def) &&
-    def.freeText.unique &&
+    ((isDtFreeTextDef(def) && def.freeText.unique) ||
+      (isDtRangeDef(def) && def.range!.unique)) &&
     isDtOptionDef(def) &&
     def.option.uid &&
     selectedOptionIds.has(def.option.uid)
