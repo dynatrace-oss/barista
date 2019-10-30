@@ -1,6 +1,6 @@
 // tslint:disable: no-any
 
-import { convertQuery } from './query';
+import { QUERY_INVALID_TOKEN, convertQuery } from './query';
 
 describe('Query', () => {
   describe('convertQuery', () => {
@@ -51,19 +51,19 @@ describe('Query', () => {
     it('should return null if its a valid and but not supported query string (hover)', () => {
       window.matchMedia = () => ({ media: '(hover: hover)' } as any);
 
-      expect(convertQuery('(hover: hover)')).toBeNull();
+      expect(convertQuery('(hover: hover)')).toBe(QUERY_INVALID_TOKEN);
     });
 
     it('should return null if its a valid and but not supported query string (all)', () => {
       window.matchMedia = () => ({ media: 'all' } as any);
 
-      expect(convertQuery('all')).toBeNull();
+      expect(convertQuery('all')).toBe(QUERY_INVALID_TOKEN);
     });
 
     it('should return null if its a invalid query string', () => {
       window.matchMedia = () => ({ media: 'foo' } as any);
 
-      expect(convertQuery('foo')).toBeNull();
+      expect(convertQuery('foo')).toBe(QUERY_INVALID_TOKEN);
     });
 
     it('should return an element query if its a valid and supported but bad formatted query string', () => {

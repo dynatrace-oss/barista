@@ -4,6 +4,9 @@
 
   // It has to be at least 1px large for it to work properly
   min-height: 1px;
+
+  // This has to be done so it also work when the parent has `display: flex`
+  min-width: 100%;
 }
 
 .dt-container-breakpoint-observer-container {

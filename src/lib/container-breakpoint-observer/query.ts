@@ -1,3 +1,5 @@
+import { isObject } from '@dynatrace/angular-components/core';
+
 export type Range = 'min' | 'max';
 export type Feature = 'width' | 'height';
 
@@ -10,12 +12,28 @@ export interface ElementQuery {
 
 const QUERY_REGEX = /^\s*\(\s*(min|max)-(width|height)\s*:\s*([\w\d]+)\s*\)\s*$/;
 
+/** @internal */
+// tslint:disable-next-line: interface-over-type-literal
+export type QueryResultToken = {};
+export const QUERY_INVALID_TOKEN = {};
+export const QUERY_NON_BROWSER_PLATFORM_TOKEN = {};
+
+/** @internal Whether the provided value is of type ElementQuery. */
+// tslint:disable-next-line: no-any
+export function isElementQuery(value: any): value is ElementQuery {
+  return (
+    isObject(value) &&
+    value !== QUERY_INVALID_TOKEN &&
+    value !== QUERY_NON_BROWSER_PLATFORM_TOKEN
+  );
+}
+
 /**
  * @internal
  * Tries to convert a query string into an ElementQuery object.
  * Returns null if a convert is not possible or the query is not supported.
  */
-export function convertQuery(query: string): ElementQuery | null {
+export function convertQuery(query: string): ElementQuery | QueryResultToken {
   // tslint:disable-next-line: strict-type-predicates
   if (typeof window !== 'undefined' && window.matchMedia) {
     // First we make sure the provided media query is valid
@@ -34,8 +52,8 @@ export function convertQuery(query: string): ElementQuery | null {
           feature: parts[2] as Feature, // tslint:disable-line: no-magic-numbers
           value: parts[3], // tslint:disable-line: no-magic-numbers
         }
-      : null;
+      : QUERY_INVALID_TOKEN;
   }
 
-  return null;
+  return QUERY_NON_BROWSER_PLATFORM_TOKEN;
 }
