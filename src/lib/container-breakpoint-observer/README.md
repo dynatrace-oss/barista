@@ -51,6 +51,31 @@ class MyModule {}
 | ------- | ------------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | observe | `string |string[]` | `Observable<DtBreakpointState>` | Start observing the container with the provided media query/queries. The observable will provide you a `DtBreakpointState` object which tells you if all media queries are currently matching (or not) and which of the individual breakpoints are matching. |
 
+## `dtIfContainerBreakpoint` directive
+
+A structural directive, much like Angulars `ngIf`, that takes a container media
+query (or multiple) and whenever the breakpoint observer matches this query it
+renders the template provided in the `then`, or when false renders the template
+provided in an optional else clause.
+
+_Important notice:_ This directive needs a `dt-container-breakpoint-observer` to
+work, because it passes the provided query to the observer and evaluates
+every-time the observed query changes state.
+
+## Inputs
+
+| Name                          | Type                                                 | Description                                                                |
+| ----------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------- |
+| `dtIfContainerBreakpoint`     | `query: string | string[]`                           | The query to observe and evaluate as the condition for showing a template. |
+| `dtIfContainerBreakpointThen` | `TemplateRef<DtIfContainerBreakpointContext> | null` | A template to show if the breakpoint does match.                           |
+| `dtIfContainerBreakpointElse` | `TemplateRef<DtIfContainerBreakpointContext> | null` | A template to show if the breakpoint does not match.                       |
+
+Example:
+<docs-source-example example="ContainerBreakpointObserverIfExample"></docs-source-example>
+
+Using the `then` template:
+<docs-source-example example="ContainerBreakpointObserverIfElseExample"></docs-source-example>
+
 ## Responsive Table
 
 Using the breakpoint observer creating a responsive table got easier:
