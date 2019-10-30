@@ -14,7 +14,12 @@ import { Observable, Observer, Subject, combineLatest } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
 import { getDtContainerBreakpointObserverInvalidQueryError } from './container-breakpoint-observer-errors';
-import { ElementQuery, convertQuery } from './query';
+import {
+  ElementQuery,
+  QUERY_INVALID_TOKEN,
+  convertQuery,
+  isElementQuery,
+} from './query';
 
 /**
  * @internal
@@ -24,7 +29,7 @@ import { ElementQuery, convertQuery } from './query';
 interface Query {
   observable?: Observable<InternalBreakpointState>;
   observer?: Observer<InternalBreakpointState>;
-  elementQuery: ElementQuery;
+  elementQuery?: ElementQuery;
   placeholderElement?: HTMLElement;
 }
 
@@ -129,9 +134,12 @@ export class DtContainerBreakpointObserver implements OnDestroy {
    */
   observe(value: string | string[]): Observable<DtBreakpointState> {
     const queries = splitQueries(coerceArray(value));
-    const observables = queries.map(
-      query => this._registerQuery(query).observable!,
-    );
+    const observables = queries
+      .map(
+        query =>
+          this._registerQuery(query) && this._registerQuery(query)!.observable!,
+      )
+      .filter(Boolean) as Observable<InternalBreakpointState>[];
 
     return combineLatest(observables).pipe(
       map(breakpointStates => {
@@ -149,45 +157,47 @@ export class DtContainerBreakpointObserver implements OnDestroy {
   }
 
   /** Registers a specific query to be listened for. */
-  private _registerQuery(query: string): Query {
+  private _registerQuery(query: string): Query | null {
     const elementQuery = convertQuery(query);
-    if (elementQuery === null) {
+    if (elementQuery === QUERY_INVALID_TOKEN) {
       throw getDtContainerBreakpointObserverInvalidQueryError(query);
     }
 
-    const queryObj = this._queries.get(query) || { elementQuery };
-    if (queryObj && queryObj.observable) {
+    if (isElementQuery(elementQuery)) {
+      const queryObj = this._queries.get(query) || { elementQuery };
+      if (queryObj && queryObj.observable) {
+        return queryObj;
+      }
+
+      queryObj.observable = new Observable<InternalBreakpointState>(
+        (observer: Observer<InternalBreakpointState>) => {
+          const intersectionObserver = this._getIntersectionObserver();
+
+          const key = `${elementQuery.feature}-${elementQuery.value}`;
+          let placeholder = this._placeholderElements.get(key) || null;
+          if (!placeholder && intersectionObserver) {
+            placeholder = this._createPlaceholderElement(elementQuery);
+            if (placeholder) {
+              intersectionObserver.observe(placeholder);
+              this._placeholderElements.set(key, placeholder);
+            }
+          }
+
+          if (placeholder) {
+            queryObj.placeholderElement = placeholder;
+            queryObj.observer = observer;
+          }
+
+          return () => {};
+        },
+      ).pipe(takeUntil(this._destroy));
+
+      if (!this._queries.has(query)) {
+        this._queries.set(query, queryObj);
+      }
       return queryObj;
     }
-
-    queryObj.observable = new Observable<InternalBreakpointState>(
-      (observer: Observer<InternalBreakpointState>) => {
-        const intersectionObserver = this._getIntersectionObserver();
-
-        const key = `${elementQuery.feature}-${elementQuery.value}`;
-        let placeholder = this._placeholderElements.get(key) || null;
-        if (!placeholder && intersectionObserver) {
-          placeholder = this._createPlaceholderElement(elementQuery);
-          if (placeholder) {
-            intersectionObserver.observe(placeholder);
-            this._placeholderElements.set(key, placeholder);
-          }
-        }
-
-        if (placeholder) {
-          queryObj.placeholderElement = placeholder;
-          queryObj.observer = observer;
-        }
-
-        return () => {};
-      },
-    ).pipe(takeUntil(this._destroy));
-
-    if (!this._queries.has(query)) {
-      this._queries.set(query, queryObj);
-    }
-
-    return queryObj;
+    return null;
   }
 
   /**
@@ -212,14 +222,15 @@ export class DtContainerBreakpointObserver implements OnDestroy {
               )) {
                 if (
                   query.placeholderElement === entry.target &&
-                  query.observer
+                  query.observer &&
+                  query.elementQuery
                 ) {
                   this._zone.run(() => {
                     query.observer!.next({
                       matches:
-                        (query.elementQuery.range === 'min' &&
+                        (query.elementQuery!.range === 'min' &&
                           entry.isIntersecting) ||
-                        (query.elementQuery.range === 'max' &&
+                        (query.elementQuery!.range === 'max' &&
                           !entry.isIntersecting),
                       query: queryString,
                     });
