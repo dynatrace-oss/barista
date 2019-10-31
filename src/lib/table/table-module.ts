@@ -1,3 +1,4 @@
+import { PortalModule } from '@angular/cdk/portal';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -70,6 +71,7 @@ const EXPORTED_DECLARATIONS = [
 @NgModule({
   imports: [
     CommonModule,
+    PortalModule,
     CdkTableModule,
     DtIconModule,
     DtFormFieldModule,
