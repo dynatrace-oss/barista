@@ -1,3 +1,10 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Platform } from '@angular/cdk/platform';
 import {
   AfterContentInit,
@@ -112,6 +119,7 @@ export class DtEmptyStateFooterActions {}
   styleUrls: ['empty-state.scss'],
   host: {
     class: 'dt-empty-state',
+    '[@fadeIn]': '_visibility',
     '[class.dt-empty-state-layout-horizontal]': '_isLayoutHorizontal',
     '[class.dt-empty-state-items-horizontal]':
       '_isItemLayoutHorizontal && !_isLayoutHorizontal',
@@ -119,6 +127,16 @@ export class DtEmptyStateFooterActions {}
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
+  animations: [
+    trigger('fadeIn', [
+      state('hidden', style({ opacity: 0 })),
+      state('visible', style({ opacity: 1 })),
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms', style({ opacity: 1 })),
+      ]),
+    ]),
+  ],
 })
 export class DtEmptyState
   implements AfterContentInit, AfterViewInit, OnDestroy {
@@ -141,6 +159,14 @@ export class DtEmptyState
    */
   _isLayoutHorizontal = false;
 
+  /** @internal set the visible state to trigger a fade animation */
+  set _visible(visibility: boolean) {
+    this._visibility = visibility ? 'visible' : 'hidden';
+  }
+
+  /** @internal The visibility state that is used to trigger the animation steps */
+  _visibility: 'visible' | 'hidden' = 'visible';
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
@@ -155,15 +181,12 @@ export class DtEmptyState
   }
 
   ngAfterViewInit(): void {
-    Promise.resolve().then(() => {
-      this._viewportResizer
-        .change()
-        .pipe(takeUntil(this._destroy$))
-        .subscribe(() => {
-          this._updateLayout();
-        });
-      this._updateLayout();
-    });
+    this._viewportResizer
+      .change()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._updateLayout();
+      });
   }
 
   ngOnDestroy(): void {
@@ -171,7 +194,8 @@ export class DtEmptyState
     this._destroy$.complete();
   }
 
-  private _updateLayout(): void {
+  /** @internal Updates the layout according to the width of the container (horizontal or vertical) */
+  _updateLayout(): void {
     if (this._platform.isBrowser) {
       const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
         .width;
