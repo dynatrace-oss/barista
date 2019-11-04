@@ -67,8 +67,12 @@ export class ChartDemo {
     this.lastTimeframe = [0, 0];
   }
 
-  onTimeframeChanges(timeframe: [number, number]): void {
-    this.lastTimeframe = timeframe;
+  onTimeframeChanges(timeframe: [number, number] | number): void {
+    console.log('Value changes', timeframe);
+
+    if (Array.isArray(timeframe)) {
+      this.lastTimeframe = timeframe;
+    }
   }
 
   seriesVisibilityChanged(event: DtChartSeriesVisibilityChangeEvent): void {
