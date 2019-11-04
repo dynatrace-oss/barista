@@ -1,3 +1,21 @@
+## 4.14.0 (2019-11-04)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the selection area should reposition on
+  viewport resize.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **chart:** Fixes an issue where the tooltip was not shown on an area chart.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Fixes an issue where the `filterChanges` event was not
+  emitted when clear-all was clicked.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
+### Features
+
+- **container-breakpoint-observer:** Added container-breakpoint-observer.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 4.13.0 (2019-10-30)
 
 ### Bug Fixes
