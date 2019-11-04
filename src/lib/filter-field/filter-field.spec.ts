@@ -1685,6 +1685,76 @@ describe('DtFilterField', () => {
       const tagsAfter = getFilterTags(fixture);
       expect(tagsAfter.length).toBe(0);
     });
+
+    it('should emit a filter-changed event with all removed filters in the removed array', () => {
+      const spy = jest.fn();
+      const subscription = filterField.filterChanges.subscribe(spy);
+
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      fixture.detectChanges();
+
+      const clearAllButtonEl = getClearAll(fixture);
+      clearAllButtonEl!.click();
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenNthCalledWith(1, {
+        source: expect.any(DtFilterField),
+        added: [],
+        removed: [autocompleteFilter],
+        filters: [],
+      });
+
+      subscription.unsubscribe();
+    });
+
+    it('should not remove filter where the corresponding tag has deletable set to false', () => {
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      filterField.tagData[0].deletable = false;
+
+      fixture.detectChanges();
+
+      const clearAllButtonEl = getClearAll(fixture);
+      clearAllButtonEl!.click();
+      fixture.detectChanges();
+
+      expect(filterField.filters.length).toBe(1);
+    });
+
+    it('should not emit a filter-changed event if every tag-data is set to non-deletable', () => {
+      const spy = jest.fn();
+      const subscription = filterField.filterChanges.subscribe(spy);
+
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      filterField.tagData[0].deletable = false;
+
+      fixture.detectChanges();
+
+      const clearAllButtonEl = getClearAll(fixture);
+      clearAllButtonEl!.click();
+      fixture.detectChanges();
+
+      expect(spy).not.toHaveBeenCalled();
+
+      subscription.unsubscribe();
+    });
   });
 
   describe('tags', () => {

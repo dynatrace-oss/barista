@@ -293,8 +293,8 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal Filter nodes to be rendered _after_ the input element. */
   _suffixTagData: DtFilterFieldTagData[] = [];
 
-  /** @internal Holds all tagdata including the data for a tag that might be edited */
-  private _tagData: DtFilterFieldTagData[] = [];
+  /** Holds all tagdata including the data for a tag that might be edited */
+  tagData: DtFilterFieldTagData[] = [];
 
   /**
    * @internal
@@ -604,14 +604,32 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   /** @internal Clears all filters and switch to root def. */
   _clearAll(event: Event): void {
     event.stopPropagation();
-    // tslint:disable-next-line: deprecation
-    this.filters = this.tags.reduce((aggr, tag) => {
-      if (!tag.deletable) {
-        aggr.push(getSourcesOfDtFilterValues(tag.data.filterValues));
-      }
-      return aggr;
-    }, new Array<DtFilterValue[]>());
-    this._switchToRootDef(true);
+    // Only filters that are deletable should be removed
+    // We need to aggregate the once that should be removed on the one hand,
+    // so we can emit them to the consumer.
+    // On the other hand we also need to set the filters array
+    // to the ones that remain.
+    const { remaining, removed } = this.tagData.reduce(
+      (
+        aggregator: {
+          remaining: DtFilterValue[][];
+          removed: DtFilterValue[][];
+        },
+        data,
+      ) => {
+        (!data.deletable ? aggregator.remaining : aggregator.removed).push(
+          data.filterValues,
+        );
+        return aggregator;
+      },
+      { remaining: [], removed: [] },
+    );
+    this._filters = remaining;
+    this._switchToRootDef(false);
+
+    if (removed.length) {
+      this._emitFilterChanges([], removed);
+    }
     this._changeDetectorRef.markForCheck();
   }
 
@@ -1015,8 +1033,8 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       const splitIndex = this._filters.indexOf(this._currentFilterValues);
       const tags = this._filters.map((values, i) => {
         let prevData: DtFilterFieldTagData | undefined;
-        if (this._tagData.length) {
-          prevData = this._tagData[i];
+        if (this.tagData.length) {
+          prevData = this.tagData[i];
         }
         return (
           createTagDataForFilterValues(
@@ -1024,18 +1042,18 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
             prevData && prevData.editable,
             prevData && prevData.deletable,
           ) ||
-          this._tagData[i] ||
+          this.tagData[i] ||
           null
         );
       });
-      this._tagData = tags;
+      this.tagData = tags;
 
-      this._prefixTagData = this._tagData
+      this._prefixTagData = this.tagData
         .slice(0, this._currentFilterValues.length ? splitIndex : undefined)
         .filter((tag: DtFilterFieldTagData | null) => tag !== null);
 
       this._suffixTagData = this._currentFilterValues.length
-        ? this._tagData
+        ? this.tagData
             .slice(this._filters.indexOf(this._currentFilterValues) + 1)
             .filter((tag: DtFilterFieldTagData | null) => tag !== null)
         : [];
