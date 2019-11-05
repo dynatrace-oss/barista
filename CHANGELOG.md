@@ -1,3 +1,14 @@
+## 4.14.1 (2019-11-05)
+
+### Bug Fixes
+
+- **empty-state, table:** Fixes an issue where the empty state was not layouted
+  correctly inside a table on resizing.
+  ([***REMOVED***](***REMOVED***/***REMOVED***))
+- **filter-field:** Fixes an issue where the currently added filter was removed
+  if the data via the data-source changes when the `filterChanges` event has
+  fired. ([***REMOVED***](***REMOVED***/***REMOVED***))
+
 ## 4.14.0 (2019-11-04)
 
 ### Bug Fixes
