@@ -207,6 +207,25 @@ describe('DtTableDataSource', () => {
       rows = fixture.debugElement.queryAll(By.css('dt-row'));
       expect(rows.length).toBe(PAGE_SIZE);
     }));
+
+    it('should enable and show the correct pagination if data is re set after being emptied', fakeAsync(() => {
+      flush();
+      fixture.detectChanges();
+
+      component.dataSource.data = [];
+      flush();
+      fixture.detectChanges();
+
+      component.dataSource.data = component.data;
+
+      flush();
+      fixture.detectChanges();
+
+      const paginationItems = fixture.debugElement.queryAll(
+        By.css('.dt-pagination-item'),
+      );
+      expect(paginationItems).toHaveLength(4);
+    }));
   });
 
   describe('sorting', () => {
