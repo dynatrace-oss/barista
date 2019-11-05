@@ -1955,6 +1955,36 @@ describe('DtFilterField', () => {
       expect(category).toBeNull();
       expect(filterField.filters.length).toBe(0);
     });
+
+    it('should not remove the current filter if the data is changed when the filterChanges event fires', () => {
+      const filterChangesSubscription = filterField.filterChanges.subscribe(
+        () => {
+          fixture.componentInstance.dataSource.data = TEST_DATA;
+        },
+      );
+
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+      options[0].click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      options = getOptions(overlayContainerElement);
+
+      zone.simulateZoneExit();
+
+      options[1].click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      expect(filterField.filters.length).toBe(1);
+
+      filterChangesSubscription.unsubscribe();
+    });
   });
 });
 
