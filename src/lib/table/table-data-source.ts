@@ -385,7 +385,6 @@ export class DtTableDataSource<T> extends DataSource<T> {
     if (!this._pagination) {
       return data;
     }
-
     // -1 in case that the currentPage starts with 1
     const pageSize = this._pagination.pageSize;
     const startIndex = (this._pagination.currentPage - 1) * pageSize;
@@ -406,8 +405,10 @@ export class DtTableDataSource<T> extends DataSource<T> {
 
         // If the page index is set beyond the page, reduce it to the last page.
         if (pagination.currentPage > 0) {
+          // Set the last page index, if this would result to 0, fall back to the default
+          // page 1.
           const lastPageIndex =
-            Math.ceil(pagination.length / pagination.pageSize) || 0;
+            Math.ceil(pagination.length / pagination.pageSize) || 1;
           const newPageIndex = Math.min(pagination.currentPage, lastPageIndex);
 
           if (newPageIndex !== pagination.currentPage) {
