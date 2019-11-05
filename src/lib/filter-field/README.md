@@ -220,7 +220,7 @@ By triggering the `clear all` button, all filters are deleted. This button
 appears on focus loss of the filter field. Please also check out this behavior
 in the [click dummy](https://invis.io/PCG28RGDUFE).
 
-![Clear all filters](https://d24pvdz4mvzd04.cloudfront.net/test/filter-clear-all-580-7eef493dfc.png)
+<docs-source-example example="FilterFieldClearAllExample"></docs-source-example>
 
 ### Readonly, non-deletable & non-editable tags
 
@@ -233,7 +233,7 @@ filter you can configure the filter to your needs by using the properties
 
 <docs-source-example example="FilterFieldReadOnlyTagsExample"></docs-source-example>
 
-### Handling operators
+### Handling operators (not yet implemented)
 
 By default, all filter terms are handled as AND operations. However, the filter
 results can use other operators like `OR`, `NOT`, `(, )`, `*` ... All used
@@ -246,14 +246,14 @@ selecting them.
 ![Operators in filter](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-580-0dcee276c1.png)
 {{/figure}}
 
-### Multiselection of filter values
+### Multiselection of filter values (not yet implemented)
 
 To select multiple values, use the operator `IN`, or select several values from
 the dropdown.
 
 ![Multiselection of filter values](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-multiselect-580-ef0dfe4406.png)
 
-### Help and errors
+### Help and errors (not yet implemented)
 
 To make users aware of the operators, the options will appear when the filter
 field is focused and at least one filter is already applied.
