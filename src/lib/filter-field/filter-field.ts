@@ -1005,10 +1005,11 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     this._updateControl();
     this._updateLoading();
     this._updateAutocompleteOptionsOrGroups();
-    if (shouldEmit && this._currentFilterValues.length) {
-      this._emitFilterChanges([this._currentFilterValues], []);
-    }
+    const currentFilterValues = this._currentFilterValues;
     this._currentFilterValues = [];
+    if (shouldEmit && currentFilterValues.length) {
+      this._emitFilterChanges([currentFilterValues], []);
+    }
     this._updateTagData();
   }
 
