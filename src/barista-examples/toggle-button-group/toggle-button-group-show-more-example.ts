@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   selector: 'component-barista-example',
   template: `
     <dt-toggle-button-group>
-      <div class="grid">
+      <div class="toggle-button-group-show-more-grid">
         <button
           *ngFor="let buttonGroupItem of buttonGroupNames; let i = index"
           dt-toggle-button-item
@@ -29,14 +29,14 @@ import { Component, OnInit } from '@angular/core';
   `,
   styles: [
     `
-      .grid {
+      .toggle-button-group-show-more-grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-column-gap: 12px;
         grid-row-gap: 12px;
       }
 
-      .inline {
+      .expandable-text-button-alignment {
         display: inline-flex;
       }
     `,
