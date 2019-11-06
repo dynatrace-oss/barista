@@ -1,5 +1,6 @@
 import { isDefined } from '@dynatrace/angular-components/core';
 
+import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
   DtAutocompleteValue,
   DtFilterFieldTagData,
@@ -21,7 +22,6 @@ import {
   isDtRangeValue,
   isDtRenderType,
 } from './types';
-import { DtFilterFieldDataSource } from '.';
 
 /**
  * Either returns the provided autocomplete def or null on whether the autocomplete still contains
