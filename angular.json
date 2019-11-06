@@ -124,6 +124,19 @@
               }
             ],
             "styles": ["src/ui-test-app/main.scss"]
+          },
+          "configurations": {
+            "production": {
+              "buildOptimizer": true,
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false
+            }
           }
         },
         "serve": {
@@ -132,11 +145,27 @@
             "browserTarget": "ui-test-app:build"
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
+        "serve-production": {
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "protractorConfig": "test/protractor.conf.js",
-            "devServerTarget": "ui-test-app:serve"
+            "browserTarget": "ui-test-app:build:production"
+          }
+        },
+        "e2e": {
+          "builder": "@politie/angular-testcafe-builder:testcafe",
+          "options": {
+            "devServerTarget": "ui-test-app:serve",
+            "browsers": ["chrome"],
+            "src": "ui-tests/**/*.e2e.ts",
+            "stopOnFirstFail": true,
+            "concurrency": 4
+          },
+          "configurations": {
+            "watch": {
+              "devServerTarget": "ui-test-app:serve",
+              "live": true,
+              "concurrency": 1
+            }
           }
         }
       }
