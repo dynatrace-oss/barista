@@ -143,26 +143,27 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "ui-test-app:build"
-          }
-        },
-        "serve-production": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "ui-test-app:build:production"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ui-test-app:build:production"
+            }
           }
         },
         "e2e": {
           "builder": "@politie/angular-testcafe-builder:testcafe",
           "options": {
             "devServerTarget": "ui-test-app:serve",
-            "browsers": ["chrome"],
+            "browsers": ["chrome:headless"],
             "src": "ui-tests/**/*.e2e.ts",
             "stopOnFirstFail": true,
             "concurrency": 4
           },
           "configurations": {
             "watch": {
+              "browsers": ["chrome"],
               "devServerTarget": "ui-test-app:serve",
+              "stopOnFirstFail": false,
               "live": true,
               "concurrency": 1
             }
