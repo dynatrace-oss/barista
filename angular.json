@@ -258,7 +258,7 @@
               },
               {
                 "glob": "**/*.json",
-                "input": "src/barista/data",
+                "input": "dist/barista/data",
                 "output": "/data"
               }
             ],
@@ -319,6 +319,45 @@
             "protractorConfig": "a11y-tests/protractor-a11y.conf.js",
             "devServerTarget": "barista-examples:serve",
             "port": 5000
+          }
+        }
+      }
+    },
+    "barista-tools": {
+      "root": "tools/barista",
+      "sourceRoot": "tools/barista/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/tools/barista",
+            "main": "tools/barista/src/main.ts",
+            "tsConfig": "tools/barista/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false
+            }
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "tools/barista/jest.config.js",
+            "tsConfig": "tools/barista/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tools/barista/tsconfig.json",
+              "tools/barista/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!tools/barista/**"]
           }
         }
       }

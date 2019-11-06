@@ -1,8 +1,4 @@
-import {
-  CdkPortalOutlet,
-  PortalHostDirective,
-  TemplatePortal,
-} from '@angular/cdk/portal';
+import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -44,8 +40,8 @@ export class DtTabBody {
    * The portal host inside of this container into which
    * the tab body content will be loaded.
    */
-  @ViewChild(PortalHostDirective, { static: true })
-  _portalHost: PortalHostDirective;
+  @ViewChild(CdkPortalOutlet, { static: true })
+  _portalHost: CdkPortalOutlet;
 
   /** The tab body content to display. */
   @Input() content: TemplatePortal;
