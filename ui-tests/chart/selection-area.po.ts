@@ -1,99 +1,93 @@
-import { ElementFinder, WebElement, browser, by, element } from 'protractor';
+import { Selector, t } from 'testcafe';
 
 export interface Point {
   x: number;
   y: number;
 }
+export const selectionArea = Selector('.dt-chart-selection-area');
+export const range = Selector('.dt-chart-range');
+export const timestamp = Selector('.dt-chart-timestamp');
+export const selection = Selector('div').withAttribute('aria-role', 'slider');
+export const rightHandle = Selector('.dt-chart-right-handle');
+export const leftHandle = Selector('.dt-chart-left-handle');
+export const plotBackground = Selector('.highcharts-plot-background');
 
-/** Page of the e2e test app where the selection area can be found */
-export const E2E_PAGE_URL = '/chart/selection-area';
+/** Different chart layers where a click should trigger a selection */
+export const chartClickTargets = [
+  plotBackground,
+  Selector(
+    '[class^="highcharts-series highcharts-series-2 highcharts-a"]',
+  ).find('.highcharts-area'),
+  Selector(
+    '[class^="highcharts-series highcharts-series-0 highcharts-a"]',
+  ).find('.highcharts-tracker-line'),
+];
 
-export const selectionSelector = by.css('div[aria-role="slider"]');
+/** The range slider */
+export const rangeSelection = range
+  .child('div')
+  .withAttribute('aria-role', 'slider');
 
-export const getChart = () => element(by.css('.dt-chart'));
-export const getSelectionArea = () =>
-  element(by.css('.dt-chart-selection-area'));
-export const getRange = () => element(by.css('.dt-chart-range'));
-export const getTimestamp = () => element(by.css('.dt-chart-timestamp'));
-export const getSelection = () => element(selectionSelector);
-export const getOverlay = () =>
-  element(by.css('.dt-chart-selection-area-overlay'));
+/** The time-frame slider  */
+export const timestampSelection = timestamp
+  .child('div')
+  .withAttribute('aria-role', 'slider');
 
-export const getApplyButton = () =>
-  getOverlay().element(by.css('.dt-button-primary'));
+export const overlay = Selector('.dt-chart-selection-area-overlay');
+export const overlayApply = overlay.child('button').withText('Apply');
+export const overlayText = overlay.child('.dt-selection-area-overlay-text');
 
-export const getOverlayCloseButton = () =>
-  getOverlay().element(by.css('.dt-button-secondary'));
+/** Creates a selection from the starting point with the provided width */
+export async function createRange(
+  width: number,
+  start: Point,
+  testController?: TestController,
+): Promise<void> {
+  const controller = testController || t;
+  return controller.drag(plotBackground, width, 0, {
+    offsetX: start.x,
+    offsetY: start.y,
+  });
+}
 
-export const getRightHandle = () =>
-  getRange().element(by.css('.dt-chart-right-handle'));
+export async function createTimestamp(
+  point: Point,
+  selector?: Selector,
+  testController?: TestController,
+): Promise<void> {
+  const controller = testController || t;
+  return controller.click(selector || plotBackground, {
+    offsetX: point.x,
+    offsetY: point.y,
+  });
+}
 
-export const getLeftHandle = () =>
-  getRange().element(by.css('.dt-chart-left-handle'));
+/** Execute a drag on a range handle to increase or decrease the selection */
+export async function dragHandle(
+  handle: Selector,
+  offsetX: number,
+  testController?: TestController,
+): Promise<void> {
+  const controller = testController || t;
 
-export const getOverlayText = () =>
-  element(by.css('.dt-selection-area-overlay-text')).getText();
+  return controller.drag(handle, offsetX, 0);
+}
 
-export const isRangeOverlayVisible = () =>
-  getRange()
-    .element(selectionSelector)
-    .isPresent();
+export async function closeOverlay(
+  testController?: TestController,
+): Promise<void> {
+  const controller = testController || t;
+  const closeButton = await overlay
+    .child('button')
+    .withAttribute('aria-label', /close/gim);
 
-export const isTimestampOverlayVisible = () =>
-  getTimestamp()
-    .element(selectionSelector)
-    .isPresent();
+  return controller.click(closeButton);
+}
 
 /** checks if the current range is valid */
 export async function isRangeValid(): Promise<boolean> {
-  const classList = await getRange().getAttribute('class');
-  return !classList.includes('dt-chart-range-invalid');
+  return !range.hasClass('dt-chart-range-invalid');
 }
 
-export async function createTimestamp(point: Point): Promise<void> {
-  await browser
-    .actions()
-    .mouseMove(getChart(), point)
-    .click()
-    .perform();
-}
-
-export async function createRange(from: Point, to: Point): Promise<void> {
-  await browser
-    .actions()
-    .mouseMove(getChart(), from)
-    .mouseDown()
-    .mouseMove(getChart(), to)
-    .mouseUp()
-    .perform();
-}
-
-export async function dragHandle(
-  handle: ElementFinder,
-  position: Point,
-): Promise<void> {
-  await browser
-    .actions()
-    .mouseDown(handle)
-    .mouseMove(position)
-    .mouseUp()
-    .perform();
-}
-
-export async function closeOverlay(): Promise<void> {
-  return getOverlayCloseButton().click();
-}
-
-/** Check if the provided element is focused */
-export async function isFocused(el: ElementFinder): Promise<boolean> {
-  const activeElement = await getActiveElement();
-  return el.equals(activeElement);
-}
-
-/** Returns the current active element */
-export async function getActiveElement(): Promise<WebElement> {
-  return browser.driver
-    .switchTo()
-    .activeElement()
-    .then(activeElement => Promise.resolve(activeElement));
-}
+export const getRangeWidth = () =>
+  rangeSelection.getBoundingClientRectProperty('width');
