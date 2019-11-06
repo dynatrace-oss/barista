@@ -20,6 +20,7 @@ import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
           <dt-bar-indicator
             [value]="row.totalTimeConsumption"
             align="end"
+            class="total-time-indicator"
           ></dt-bar-indicator>
         </dt-cell>
       </ng-container>
@@ -44,7 +45,7 @@ import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
   `,
   styles: [
     `
-      :host ::ng-deep dt-bar-indicator {
+      .total-time-indicator {
         width: 100%;
       }
     `,
