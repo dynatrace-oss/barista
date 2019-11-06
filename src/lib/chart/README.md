@@ -81,11 +81,7 @@ and the given data which one should be used.
 
 ### Area chart
 
-<!-- TODO: component demo -->
-
-{{#figure imagebox='true'}}
-![Area chart](https://d24pvdz4mvzd04.cloudfront.net/test/chart-type-area-580-13c29cc33a.png)
-{{/figure}}
+<docs-source-example example="ChartAreaExample" fullwidth="true"></docs-source-example>
 
 ### Area range chart
 
@@ -402,11 +398,7 @@ area charts where no data is retrieved before and after an existing data point).
 In order to avoid this, we recommend using single data points to make the data
 visible.
 
-<!-- TODO: example -->
-
-{{#figure imagebox='true'}}
-![Data points in charts](https://d24pvdz4mvzd04.cloudfront.net/test/single-data-points-1034-aad3d399da.png)
-{{/figure}}
+<docs-source-example example="ChartSinglePointDataExample" fullwidth="true"></docs-source-example>
 
 ## Switching metrics
 
@@ -414,6 +406,4 @@ The metrics displayed in a chart can be switched by [button
 groups]({{link_to_id id='button-group' }}#chart-tabs) that are placed above the
 chart.
 
-<!-- TODO: example -->
-
-![Switch metrics](https://d24pvdz4mvzd04.cloudfront.net/test/chart-behavior-switch-580-265f6c83b4.png)
+<docs-source-example example="ChartBehaviorSwitch" fullwidth="true"></docs-source-example>
