@@ -64,11 +64,7 @@ sections (directives):
 An info group can be used in a [card]({{link_to_id id='card'}}) and on the top
 of a page to show properties.
 
-<!-- TODO: make component demo -->
-
-{{#figure imagebox='true' fullwidth='true'}}
-![info-group-grid](https://d24pvdz4mvzd04.cloudfront.net/test/info-group-grid-1238-55e3252ddf.png)
-{{/figure}}
+<docs-source-example example="InfoCardInCardExample" fullwidth="true"></docs-source-example>
 
 ### Info groups in tables
 
