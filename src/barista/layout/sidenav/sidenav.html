@@ -1,0 +1,15 @@
+<div *ngFor="let section of sidenavData.sections" class="ba-sidenav-section">
+  <span class="ba-sidenav-section-title ba-sidenav-item">
+    {{ section.title }}
+  </span>
+  <a
+    *ngFor="let item of section.items"
+    [href]="item.link"
+    class="ba-sidenav-item"
+    [ngClass]="{ 'ba-sidenav-item-active': item.active}"
+  >
+    <span class="ba-sidenav-item-headline">
+      {{ item.title }}
+    </span>
+  </a>
+</div>

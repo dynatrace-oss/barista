@@ -1,6 +1,9 @@
 <div class="ba-page-grid">
-  <nav class="ba-sidebar">sidebar goes here</nav>
-  <!-- TODO: sidebar component -->
+  <nav
+    ba-sidenav
+    *ngIf="contents.sidenav"
+    [sidenavData]="contents.sidenav"
+  ></nav>
 
   <ba-page-header
     *ngIf="contents"
