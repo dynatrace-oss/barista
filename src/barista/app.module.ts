@@ -11,8 +11,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BaContributors } from 'layout/contributors/contributors';
-import { BaTile } from 'layout/tile/tile';
 import { BaScrollSpyService } from 'shared/scroll-spy.service';
 import { BaTocService } from 'shared/toc.service';
 
@@ -24,12 +22,15 @@ import { DtTagModule } from '@dynatrace/angular-components/tag';
 import { BaApp } from './app';
 import { BaIconColorWheel } from './components/icon-color-wheel/icon-color-wheel';
 import { environment } from './environments/environment';
+import { BaContributors } from './layout/contributors/contributors';
 import { BaFooter } from './layout/footer/footer';
 import { BaNav } from './layout/nav/nav';
 import { BaPageFooter } from './layout/page-footer/page-footer';
 import { BaPageHeader } from './layout/page-header/page-header';
 import { BaSearch } from './layout/search/search';
+import { BaSidenav } from './layout/sidenav/sidenav';
 import { BaSmallTile } from './layout/smalltile/smalltile';
+import { BaTile } from './layout/tile/tile';
 import { BaToc } from './layout/toc/toc';
 import { BaIndexPage } from './pages/index-page/index-page';
 import { BaOverviewPage } from './pages/overview-page/overview-page';
@@ -75,6 +76,7 @@ import { BaPageService } from './shared/page.service';
     BaSmallTile,
     BaSearch,
     BaToc,
+    BaSidenav,
   ],
   providers: [
     BaPageService,
@@ -93,6 +95,7 @@ import { BaPageService } from './shared/page.service';
     BaIndexPage,
     BaSmallTile,
     BaSearch,
+    BaSidenav,
   ],
   bootstrap: [BaApp],
 })
