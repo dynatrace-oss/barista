@@ -755,8 +755,6 @@ class TestAppMultiExpandableTable {
   get expandableRows(): DtExpandableRow[] {
     return this._expandableRows.toArray();
   }
-
-  constructor() {}
 }
 
 @Component({
