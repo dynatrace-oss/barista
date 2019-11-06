@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   moduleId: module.id,
   selector: 'component-barista-example',
   template: `
-    <div class="grid">
-      <dt-card dtTheme="purple">
+    <dt-card dtTheme="purple">
+      <div class="dt-card-grid">
         <dt-info-group>
           <dt-info-group-icon
             ><dt-icon name="timemeasurement"></dt-icon
@@ -77,12 +77,12 @@ import { Component } from '@angular/core';
           <dt-info-group-title>Rome, Italy</dt-info-group-title>
           Geo location
         </dt-info-group>
-      </dt-card>
-    </div>
+      </div>
+    </dt-card>
   `,
   styles: [
     `
-      .grid ::ng-deep .dt-card-content {
+      .dt-card-grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
         grid-template-rows: repeat(auto-fill, auto);
