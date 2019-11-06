@@ -53,9 +53,9 @@
     grid-template-columns: 300px minmax(0, 1fr) 280px;
     grid-template-rows: repeat(2, max-content) auto;
     grid-template-areas:
-      'sidebar title .'
-      'sidebar main meta'
-      'sidebar footer .';
+      'sidenav title .'
+      'sidenav main meta'
+      'sidenav footer .';
     padding: 1rem 1rem 1rem 0;
   }
 }
@@ -65,9 +65,9 @@
   .ba-page-grid {
     grid-template-columns: 300px auto 950px 280px auto;
     grid-template-areas:
-      'sidebar . title . .'
-      'sidebar . main meta .'
-      'sidebar . footer meta .';
+      'sidenav . title . .'
+      'sidenav . main meta .'
+      'sidenav . footer meta .';
   }
 }
 
