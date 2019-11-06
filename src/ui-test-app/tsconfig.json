@@ -2,32 +2,9 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "module": "esnext",
-    "declaration": false,
-    "noUnusedParameters": false,
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "outDir": "../../dist/ui-test-app",
-    "target": "es5",
-    "stripInternal": false,
-    "typeRoots": ["../../node_modules/@types/!(node)"],
-    "baseUrl": ".",
-    "rootDirs": [".", "../../dist/ui-test-app"],
-    "paths": {
-      "@dynatrace/angular-components": ["../lib"],
-      "@dynatrace/angular-components/testing": ["../testing/index.ts"],
-      "@dynatrace/angular-components/*": ["../lib/*"],
-      "highcharts": ["node_modules/highcharts"]
-    }
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"]
   },
-  "files": [
-    "../../typings.d.ts",
-    "./ui-test-app-module.ts",
-    "./polyfills.ts",
-    "./main.ts"
-  ],
-  "angularCompilerOptions": {
-    "skipTemplateCodegen": false,
-    "fullTemplateTypeCheck": false,
-    "preserveWhitespace": true
-  }
+  "files": ["main.ts", "polyfills.ts"],
+  "include": ["**/*.ts"]
 }
