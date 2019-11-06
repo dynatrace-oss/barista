@@ -24,8 +24,7 @@ export interface BaSinglePageContents extends BaPageContents {
   properties: string[] | null;
   wiki: string | null;
   themable: boolean | null;
-  contentHtml: string | null;
-  contentMarkdown: string | null;
+  content: string;
   indentifier: string;
 }
 
