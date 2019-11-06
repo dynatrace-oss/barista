@@ -10,7 +10,7 @@ import {
   selector: 'component-barista-example',
   template: `
     <dt-toggle-button-group (click)="getSelectedItem()">
-      <div class="grid">
+      <div class="dt-toggle-button-group-in-use-grid">
         <button dt-toggle-button-item value="1">
           <dt-toggle-button-item-icon>
             <dt-icon name="cloud"></dt-icon>
@@ -54,7 +54,7 @@ import {
   `,
   styles: [
     `
-      .grid {
+      .dt-toggle-button-group-in-use-grid {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-column-gap: 12px;
