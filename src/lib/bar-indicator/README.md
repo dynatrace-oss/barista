@@ -1,24 +1,24 @@
 ---
-title: "Bar indicator"
-description: "Bar-indicators are used to compare values with each other."
+title: 'Bar indicator'
+description: 'Bar-indicators are used to compare values with each other.'
 postid: bar-indicator
-category: "components"
+category: 'components'
 public: true
 toc: true
 themable: true
 contributors:
   dev:
-    - thomas.heller 
+    - thomas.heller
   ux:
     - andreas.mayr
     - kathrin.aigner
 tags:
-  - "progress"
-  - "progress bar"
-  - "angular"
-  - "component"
-  - "indicator"
-  - "micro chart"
+  - 'progress'
+  - 'progress bar'
+  - 'angular'
+  - 'component'
+  - 'indicator'
+  - 'micro chart'
 ---
 
 # Bar-indicator
@@ -69,29 +69,34 @@ class MyModule {}
 | --------- | -------- | ----------------------------------------------------------------------------------------------------------------- |
 | `percent` | `number` | Returns the percentage value for the current `value` between `min` and `max`. Inherited from `HasProgressValues`. |
 
-
 ## Variants
 
-The bar indicator is mostly used within table rows with the table column header as a label. It can also be used as a standalone component, which requires labels next to the bars then. As the bar indicator is not used to show total percentages of a number, but rather to compare ratios, it can't be used as a single, separated bar.  
+The bar indicator is mostly used within table rows with the table column header
+as a label. It can also be used as a standalone component, which requires labels
+next to the bars then. As the bar indicator is not used to show total
+percentages of a number, but rather to compare ratios, it can't be used as a
+single, separated bar.  
 The indicator is themeable and can also show problems.
 
 <docs-source-example example="BarIndicatorColorExample"></docs-source-example>
 
-
 ## Bar indicator in use
 
-<!-- TODO: delete image, add demo-->
-Bar-indicators are often used in tables.
-![bar-indicator in tables](https://dt-cdn.net/images/bar-indicator-in-tables-620-987fc7c632.png)
+<docs-source-example example="ToggleButtonGroupShowMoreExample"></docs-source-example>
 
 ### Theming and validation
-Depending on the context, the bar-indicator can be colored according to the page's theme or use the validation colors.
+
+Depending on the context, the bar-indicator can be colored according to the
+page's theme or use the validation colors.
 <docs-source-example example="BarIndicatorColorExample"></docs-source-example>
 
 ### Alignment
-It's possible to set the alignment to `end`. This is used when a bar-indicator is part of a table row with right-alignment.
+
+It's possible to set the alignment to `end`. This is used when a bar-indicator
+is part of a table row with right-alignment.
 <docs-source-example example="BarIndicatorAlignmentExample"></docs-source-example>
 
 ### Value bindings
+
 Bar-indicator with variable `min`, `max` and `value` bindings.
 <docs-source-example example="BarIndicatorDynamicExample"></docs-source-example>
