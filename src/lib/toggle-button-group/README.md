@@ -111,11 +111,7 @@ group, the button of the last visible row is replaced by a "show all" link. As
 soon as the "show all" button is clicked, the remaining toggle buttons will be
 added to the end of the group.
 
-<!-- TODO: examle -->
-
-{{#figure fullwidth='true'}}
-![Toggle button group show more](https://d24pvdz4mvzd04.cloudfront.net/test/toggle-button-group-example2-822-7a6ccc3075.png)
-{{/figure}}
+<docs-source-example example="ToggleButtonGroupShowMoreExample"></docs-source-example>
 
 ### Adding toggle button items
 
