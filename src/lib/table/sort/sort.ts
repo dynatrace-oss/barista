@@ -87,12 +87,25 @@ export class DtSort extends _DtSortMixinBase
   > = new EventEmitter<DtSortEvent>();
 
   /** Sets the active sort id and determines the new sort direction. */
-  sort(sortable: DtSortHeader): void {
-    if (this.active !== sortable.id) {
-      this.active = sortable.id;
-      this.direction = sortable.start ? sortable.start : this.start;
+  sort(sortable: DtSortHeader): void;
+  /** Sets the active sort id and sets the sort direction */
+  sort(active: string, direction: DtSortDirection): void;
+  /** Sets the active sort id and determines the new sort direction. */
+  sort(
+    sortableOrActive: string | DtSortHeader,
+    direction?: DtSortDirection,
+  ): void {
+    if (typeof sortableOrActive === 'string') {
+      this.active = sortableOrActive;
+      this.direction = direction!;
     } else {
-      this.direction = this.getNextSortDirection(sortable);
+      const sortable = sortableOrActive;
+      if (this.active !== sortable.id) {
+        this.active = sortable.id;
+        this.direction = sortable.start ? sortable.start : this.start;
+      } else {
+        this.direction = this.getNextSortDirection(sortable);
+      }
     }
 
     this.sortChange.emit({ active: this.active, direction: this.direction });
