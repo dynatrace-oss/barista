@@ -5,7 +5,7 @@ value from a list of options. It is also designed to work with Angular forms. By
 using the `<dt-option>` element, which is also provided in the select module,
 you can add values to the select.
 
-<docs-source-example example="SelectDefaultExample"></docs-source-example>
+<ba-live-example name="SelectDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -35,7 +35,7 @@ with native `<select>`, `<dt-select>` also supports a compareWith function.
 (Additional information about using a custom compareWith function can be found
 in the Angular forms documentation).
 
-<docs-source-example example="SelectFormsExample"></docs-source-example>
+<ba-live-example name="SelectFormsExample"></ba-live-example>
 
 ## DtSelect inputs
 
@@ -69,7 +69,7 @@ in the Angular forms documentation).
 Getting and setting the select value The `<dt-select>` supports 2-way binding to
 the value property without the need for Angular forms.
 
-<docs-source-example example="SelectValueExample"></docs-source-example>
+<ba-live-example name="SelectValueExample"></ba-live-example>
 
 ## DtOption outputs
 
@@ -85,7 +85,7 @@ subheading. The name of the group can be set using the label property of
 `<dt-optgroup>` can be disabled or enabled by setting the disabled property on
 the group.
 
-<docs-source-example example="SelectGroupsExample"></docs-source-example>
+<ba-live-example name="SelectGroupsExample"></ba-live-example>
 
 ## Form field
 
@@ -94,7 +94,7 @@ These include error messages, hint text, prefix & suffix. For additional
 information about these features, see the
 [form field documentation](/components/form-field).
 
-<docs-source-example example="SelectFormFieldExample"></docs-source-example>
+<ba-live-example name="SelectFormFieldExample"></ba-live-example>
 
 ## Disabling the select or individual options
 
@@ -102,20 +102,20 @@ It is possible to disable the entire select or individual options in the select
 by using the disabled property on the `<dt-select>` and the `<dt-option>`
 components respectively.
 
-<docs-source-example example="SelectDisabledExample"></docs-source-example>
+<ba-live-example name="SelectDisabledExample"></ba-live-example>
 
 ## Non string values
 
 The select component also supports non string, non basic value types.
 
-<docs-source-example example="SelectComplexValueExample"></docs-source-example>
+<ba-live-example name="SelectComplexValueExample"></ba-live-example>
 
 ## Select with icons
 
 It is possible to use icons to differentiate between the types of items in a
 select.
 
-<docs-source-example example="SelectWithIconsExample"></docs-source-example>
+<ba-live-example name="SelectWithIconsExample"></ba-live-example>
 
 ## Accessibility
 

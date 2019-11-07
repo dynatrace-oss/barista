@@ -3,7 +3,7 @@
 The show more component is used to split long lists of items into smaller sets
 and load them one by one.
 
-<docs-source-example example="ShowMoreDefaultExample"></docs-source-example>
+<ba-live-example name="ShowMoreDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -36,7 +36,7 @@ tag can be used.
 
 ## Show more on dark background
 
-<docs-source-example example="ShowMoreDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="ShowMoreDarkExample" themedark="true"></ba-live-example>
 
 ## Behavior
 
@@ -53,7 +53,7 @@ component]({{link_to_id id='pagination'}}).
 
 The show more component can be disabled.
 
-<docs-source-example example="ShowMoreDisabledExample"></docs-source-example>
+<ba-live-example name="ShowMoreDisabledExample"></ba-live-example>
 
 ## Show more in use
 
@@ -62,8 +62,8 @@ always a 20px space above and below the show more component.
 
 ### Show more without text
 
-<docs-source-example example="ShowMoreNoTextExample"></docs-source-example>
+<ba-live-example name="ShowMoreNoTextExample"></ba-live-example>
 
 ### Interactive example
 
-<docs-source-example example="ShowMoreInteractiveExample"></docs-source-example>
+<ba-live-example name="ShowMoreInteractiveExample"></ba-live-example>

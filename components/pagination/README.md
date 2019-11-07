@@ -4,7 +4,7 @@ The `DtPagination` provides navigation for paged information, typically used in
 combination with long lists or tables. List and table lengths should always be
 adjusted to their use cases. Avoid unnecessary pagination whenever possible.
 
-<docs-source-example example="PaginationDefaultExample"></docs-source-example>
+<ba-live-example name="PaginationDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -67,12 +67,12 @@ The following methods are available on the `DtPagination` class.
 The pagination component should be used when space is limited and not flexible.
 For example if the selection in a table affects content underneath.
 
-<docs-source-example example="PaginationDynamicTableExample"></docs-source-example>
+<ba-live-example name="PaginationDynamicTableExample"></ba-live-example>
 
 The following example shows a pagination example with more than seven pages
 where an ellipsis is used to hide remaining pages.
 
-<docs-source-example example="PaginationManyExample"></docs-source-example>
+<ba-live-example name="PaginationManyExample"></ba-live-example>
 
 Another variant of the paging behavior - loading more items if not everything is
 visible initially - is the [show more component]({{link_to_id id='show-more'}}).

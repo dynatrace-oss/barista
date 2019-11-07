@@ -4,7 +4,7 @@ The chart component represents one or more metrics. It depends on the given data
 which of the available chart types should be used to visualize them. The
 `dt-chart` component wraps Highcharts to be used within Angular.
 
-<docs-source-example example="ChartDefaultExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartDefaultExample" fullwidth="true"></ba-live-example>
 
 ## Imports
 
@@ -56,38 +56,38 @@ and the given data which one should be used.
 
 ### Area range chart
 
-<docs-source-example example="ChartAreaRangeExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartAreaRangeExample" fullwidth="true"></ba-live-example>
 
 ### Bar chart
 
-<docs-source-example example="ChartCategorizedExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartCategorizedExample" fullwidth="true"></ba-live-example>
 
-<docs-source-example example="ChartStreamExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartStreamExample" fullwidth="true"></ba-live-example>
 
-<docs-source-example example="ChartBarExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartBarExample" fullwidth="true"></ba-live-example>
 
 ### Donut or pie chart
 
-<docs-source-example example="ChartDonutExample"></docs-source-example>
+<ba-live-example name="ChartDonutExample"></ba-live-example>
 
-<docs-source-example example="ChartPieExample"></docs-source-example>
+<ba-live-example name="ChartPieExample"></ba-live-example>
 
 ### Line chart
 
-<docs-source-example example="ChartLineExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartLineExample" fullwidth="true"></ba-live-example>
 
 ### Mixed chart
 
 Mixed charts combine different chart types, e.g. a bar chart and a line chart.
 
-<docs-source-example example="ChartOrderedColorsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartOrderedColorsExample" fullwidth="true"></ba-live-example>
 
 ### Min/Max chart
 
 The min/max chart shows the area between a minimum and a maximum value. The
 average or median is represented by a line.
 
-<docs-source-example example="ChartMinMaxExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartMinMaxExample" fullwidth="true"></ba-live-example>
 
 ## Colors
 
@@ -102,7 +102,7 @@ number of shown metrics which
 </div>
 ```
 
-<docs-source-example example="ChartOrderedColorsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartOrderedColorsExample" fullwidth="true"></ba-live-example>
 
 ## Legend
 
@@ -158,7 +158,7 @@ Within a chart you can add a `dt-chart-range` to select a timeframe or a
 `dt-chart-timestamp` to select a specific value on the x-axis (point in time) to
 analyze one or more metrics of the chart in detail.
 
-<docs-source-example example="ChartSelectionAreaDefaultExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartSelectionAreaDefaultExample" fullwidth="true"></ba-live-example>
 
 It is possible to have both, a `dt-chart-range` and a `dt-chart-timestamp`,
 alongside in a chart.
@@ -283,7 +283,7 @@ When clicking on the heatfield button above the chart, further information is
 displayed by an [overlay](/components/overlay/) containing a short description
 and a link.
 
-<docs-source-example example="ChartHeatfieldExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartHeatfieldExample" fullwidth="true"></ba-live-example>
 
 By default the color of the heatfield button is red to indicate a problem. By
 setting the `color` to `main` you can use the heatfield in theme color, for
@@ -295,7 +295,7 @@ Dynatrace only shows a maximum amount of data to protect the system and prevent
 an overload. To indicate this use case, add a heatfield with `color` set to
 `main` to the chart.
 
-<docs-source-example example="ChartHeatfieldMultipleExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartHeatfieldMultipleExample" fullwidth="true"></ba-live-example>
 
 ### Inputs
 
@@ -341,7 +341,7 @@ When chart values are not yet available a loading indicator is shown until all
 data has been loaded and can be displayed. Set the chart's `loading-text` input
 to add a text next to the loading spinner.
 
-<docs-source-example example="ChartLoadingExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartLoadingExample" fullwidth="true"></ba-live-example>
 
 ## Value 0 vs. no data
 
@@ -362,7 +362,7 @@ manipulating the data visualization.
 If data points are missing the highcharts default should be used to display
 gaps.
 
-<docs-source-example example="ChartLineWithGapsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="ChartLineWithGapsExample" fullwidth="true"></ba-live-example>
 
 It may happen that existing data points are displayed as gaps (e.g. timeseries,
 area charts where no data is retrieved before and after an existing data point).

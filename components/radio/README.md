@@ -5,7 +5,7 @@ The `<dt-radio-button>` provides the same functionality as a native
 elements are generally used within radio-groups to describe a set of related
 options. Only one radio element can be selected at the same time.
 
-<docs-source-example example="RadioDefaultExample"></docs-source-example>
+<ba-live-example name="RadioDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -79,13 +79,13 @@ name of the group.
 If it's not possible to use a `<dt-radio-group>` add the same name to all radio
 buttons within a group.
 
-<docs-source-example example="RadioNameGroupingExample"></docs-source-example>
+<ba-live-example name="RadioNameGroupingExample"></ba-live-example>
 
 ## Dark background
 
 A radio button can be placed on dark background.
 
-<docs-source-example example="RadioDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="RadioDarkExample" themedark="true"></ba-live-example>
 
 ## Accessibility
 
@@ -106,4 +106,4 @@ button components must be `20px`.
 Once the label next to the radio button does not fit into one line anymore, the
 line breaks.
 
-<docs-source-example example="RadioResponsiveExample"></docs-source-example>
+<ba-live-example name="RadioResponsiveExample"></ba-live-example>

@@ -6,7 +6,7 @@ This component takes the hassle out of selecting any given amount of text and
 copying it to the clipboard. This is especially helpful for complex or large
 amount of content.
 
-<docs-source-example example="CopyToClipboardDefaultExample"></docs-source-example>
+<ba-live-example name="CopyToClipboardDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -39,7 +39,7 @@ Using `<dt-copy-to-clipboard-label>` defines the button content (e.g. text like
 The following example shows a copy to clipboard component that triggers a
 callback function after a successful copy action.
 
-<docs-source-example example="CopyToClipboardCallbackExample"></docs-source-example>
+<ba-live-example name="CopyToClipboardCallbackExample"></ba-live-example>
 
 ## Methods
 
@@ -54,13 +54,13 @@ clipboard, there should be an [alert]({{link_to_id id='alert' }}) below the copy
 to clipboard component informing the user about the problem and possible
 solutions.
 
-<docs-source-example example="CopyToClipboardErrorExample"></docs-source-example>
+<ba-live-example name="CopyToClipboardErrorExample"></ba-live-example>
 
 ## Dark theme
 
 The copy to clipboard component can be placed on dark background.
 
-<docs-source-example example="CopyToClipboardDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="CopyToClipboardDarkExample" themedark="true"></ba-live-example>
 
 ## Copy to clipboard in use
 
@@ -74,7 +74,7 @@ The height of the text area is not defined per default, it is recommended to
 make the text area high enough to fit the whole content, this avoids unnecessary
 scrollbars.
 
-<docs-source-example example="CopyToClipboardTextareaExample"></docs-source-example>
+<ba-live-example name="CopyToClipboardTextareaExample"></ba-live-example>
 
 ### Example within context dialog
 
@@ -82,4 +82,4 @@ The component can also be placed inside a [context
 dialog]({{link_to_id id='context-dialog' }}) and is most often used to share
 links.
 
-<docs-source-example example="CopyToClipboardContextExample"></docs-source-example>
+<ba-live-example name="CopyToClipboardContextExample"></ba-live-example>

@@ -6,7 +6,7 @@ warning or an error.
 This directive was introduced to add indicators in the `<dt-table>`, but can be
 used in other components as well to handle error or warning indications.
 
-<docs-source-example example="TableProblemExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="TableProblemExample" fullwidth="true"></ba-live-example>
 
 ## Imports
 

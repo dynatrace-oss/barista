@@ -11,8 +11,14 @@
     "barista-components/barista": {
       "tags": ["app"]
     },
+    "barista-components/barista-tools": {
+      "tags": ["tooling"]
+    },
     "barista-components/barista-examples": {
       "tags": ["app"]
+    },
+    "barista-components/barista-examples-tools": {
+      "tags": ["tooling"]
     },
     "barista-components/components-e2e": {
       "tags": ["app"]
@@ -22,9 +28,6 @@
     },
     "barista-components/dev": {
       "tags": ["app"]
-    },
-    "barista-components/barista-tools": {
-      "tags": ["tooling"]
     },
     "barista-components/testing": {
       "tags": ["testing", "library"]

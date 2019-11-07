@@ -138,4 +138,4 @@ const DT_MODULES = [
   imports: [...DT_MODULES],
   exports: [...DT_MODULES],
 })
-export class ExamplesAppDynatraceModule {}
+export class ExamplesAppDynatraceComponentsModule {}

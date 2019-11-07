@@ -5,7 +5,7 @@ context related actions and contains other components like
 [buttons]({{link_to_id id='button'}}), [links]({{link_to_id id='link' }}),
 [checkboxes]({{link_to_id id='checkbox' }}), etc.
 
-<docs-source-example example="ContextDialogDefaultExample"></docs-source-example>
+<ba-live-example name="ContextDialogDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -63,7 +63,7 @@ buttons do not contain text.
 
 It is possible to disable the entire context dialog.
 
-<docs-source-example example="ContextDialogInteractiveExample"></docs-source-example>
+<ba-live-example name="ContextDialogInteractiveExample"></ba-live-example>
 
 ## Behavior
 
@@ -73,13 +73,13 @@ overlay. When it is closed again, the focus is set to the previously focused
 element. The dialog can be opened via "ENTER" or "SPACE" when focused, "ESC"
 closes it.
 
-<docs-source-example example="ContextDialogPreviousFocusExample"></docs-source-example>
+<ba-live-example name="ContextDialogPreviousFocusExample"></ba-live-example>
 
 ## Dark background
 
 The context dialog component can be used on dark background.
 
-<docs-source-example example="ContextDialogDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="ContextDialogDarkExample" themedark="true"></ba-live-example>
 
 ## Context dialog in use
 
@@ -97,8 +97,8 @@ To add a custom icon use the `<dt-button dt-icon-button></dt-button>` component
 and add the directive `[dtContextDialogTrigger]` to be able to link it to the
 correct context dialog.
 
-<docs-source-example example="ContextDialogCustomIconExample"></docs-source-example>
+<ba-live-example name="ContextDialogCustomIconExample"></ba-live-example>
 
 ### Context dialog with a header
 
-<docs-source-example example="ContextDialogHeaderExample"></docs-source-example>
+<ba-live-example name="ContextDialogHeaderExample"></ba-live-example>

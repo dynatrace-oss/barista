@@ -4,7 +4,7 @@ The `<dt-checkbox>` provides the same functionality as a native checkbox
 enhanced with styling and animations. You can set the label as the `ng-content`
 of the `<dt-checkbox>` component.
 
-<docs-source-example example="CheckboxDefaultExample"></docs-source-example>
+<ba-live-example name="CheckboxDefaultExample"></ba-live-example>
 
 The `<dt-checkbox>` is compatible with @angular/forms and supports both
 `FormsModule` and `ReactiveFormsModule`.
@@ -54,7 +54,7 @@ class MyModule {}
 
 A checkbox can be placed on dark background.
 
-<docs-source-example example="CheckboxDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="CheckboxDarkExample" themedark="true"></ba-live-example>
 
 ## Accessibility
 
@@ -78,11 +78,11 @@ true, it will render as indeterminate regardless of the checked value. Any
 interaction with the checkbox by a user (i.e., clicking) will remove the
 indeterminate state.
 
-<docs-source-example example="CheckboxIndeterminateExample"></docs-source-example>
+<ba-live-example name="CheckboxIndeterminateExample"></ba-live-example>
 
 ### Responsive behavior
 
 Once the label next to the checkbox does not fit into one line anymore, the line
 breaks.
 
-<docs-source-example example="CheckboxResponsiveExample"></docs-source-example>
+<ba-live-example name="CheckboxResponsiveExample"></ba-live-example>

@@ -3,9 +3,9 @@
 `dtInput` is a directive that applies styling to native `<input>` and
 `<textarea>` elements and allows them to work with `<dt-form-field>`.
 
-<docs-source-example example="InputDefaultExample"></docs-source-example>
+<ba-live-example name="InputDefaultExample"></ba-live-example>
 
-<docs-source-example example="InputTextareaExample"></docs-source-example>
+<ba-live-example name="InputTextareaExample"></ba-live-example>
 
 ## Imports
 
@@ -60,13 +60,13 @@ where not all values are possible.
 
 The `dtInput` works with `ngModel` as shown in the following example.
 
-<docs-source-example example="InputNgModelExample"></docs-source-example>
+<ba-live-example name="InputNgModelExample"></ba-live-example>
 
 ## Dark background
 
 Input fields can be placed on dark background.
 
-<docs-source-example example="InputDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="InputDarkExample" themedark="true"></ba-live-example>
 
 ## Accessibility
 
@@ -92,7 +92,7 @@ combine input fields and hints.
 
 Input fields can be disabled or readonly.
 
-<docs-source-example example="InputDisabledReadonlyExample"></docs-source-example>
+<ba-live-example name="InputDisabledReadonlyExample"></ba-live-example>
 
 ### Input values
 
@@ -112,4 +112,4 @@ When input fields are used in a form together with labels and buttons use the
 following measures. This ensures that the components have enough space to be
 clicked or tapped on mobile.
 
-<docs-source-example example="InputFormExample"></docs-source-example>
+<ba-live-example name="InputFormExample"></ba-live-example>

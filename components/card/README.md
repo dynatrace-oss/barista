@@ -10,7 +10,7 @@
 The card component is a visual container for wrapping a wide variety of
 contents.
 
-<docs-source-example example="CardDefaultExample"></docs-source-example>
+<ba-live-example name="CardDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -61,9 +61,9 @@ limited, move less important actions to a [context actions
 menu]({{link_to_id id='context-dialog' }}). The decision which button is shown
 and which ones are grouped in a context actions menu depends on the use case.
 
-<docs-source-example example="CardSubtitleExample"></docs-source-example>
+<ba-live-example name="CardSubtitleExample"></ba-live-example>
 
-<docs-source-example example="CardIconExample"></docs-source-example>
+<ba-live-example name="CardIconExample"></ba-live-example>
 
 ### Description
 
@@ -89,11 +89,11 @@ above the content to be updated. When placing buttons in a card, follow the
 
 #### Header actions
 
-<docs-source-example example="CardActionButtonsExample"></docs-source-example>
+<ba-live-example name="CardActionButtonsExample"></ba-live-example>
 
 #### Footer actions
 
-<docs-source-example example="CardFooterActionsExample"></docs-source-example>
+<ba-live-example name="CardFooterActionsExample"></ba-live-example>
 
 ### Pagination
 
@@ -106,7 +106,7 @@ section must always be the last one within a card.
 
 A card can be placed on dark background.
 
-<docs-source-example example="CardDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="CardDarkExample" themedark="true"></ba-live-example>
 
 ## Card in use
 

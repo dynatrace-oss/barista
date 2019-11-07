@@ -5,7 +5,7 @@ string that has been searched of filtererd for. It can be either used for
 [filtering tables](/components/table#filtering) or in the drop-down panel of the
 [filter field](/components/filter-field/).
 
-<docs-source-example example="HighlightDefaultExample"></docs-source-example>
+<ba-live-example name="HighlightDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -54,4 +54,4 @@ be escaped! You have to avoid any HTML Tags inside this component!
 
 ### A case sensitive highlight example
 
-<docs-source-example example="HighlightCaseSensitiveExample"></docs-source-example>
+<ba-live-example name="HighlightCaseSensitiveExample"></ba-live-example>

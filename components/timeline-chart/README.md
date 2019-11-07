@@ -7,7 +7,7 @@ markers.
 The overall duration is shown as a horizontal bar. The markers indicate timing
 events during this duration.
 
-<docs-source-example example="TimelineChartDefaultExample"></docs-source-example>
+<ba-live-example name="TimelineChartDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -49,7 +49,7 @@ an item in the legend below the chart.
 For timing markers you can also add additional information that will be
 displayed in an overlay when hovering the legend item.
 
-<docs-source-example example="TimelineChartOverlayExample"></docs-source-example>
+<ba-live-example name="TimelineChartOverlayExample"></ba-live-example>
 
 ### Showing thresholds
 

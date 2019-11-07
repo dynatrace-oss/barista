@@ -14,20 +14,20 @@ achieve combined formats.
 The `dtCount` pipe provides a way to display numbers in common way, abbreviating
 big numbers and adjusting precision
 
-<docs-source-example example="FormattersCountExample"></docs-source-example>
+<ba-live-example name="FormattersCountExample"></ba-live-example>
 
 ### Percent
 
 The `dtPercent` pipe provides a way to display percents in common way, adjusting
 precision
 
-<docs-source-example example="FormattersPercentExample"></docs-source-example>
+<ba-live-example name="FormattersPercentExample"></ba-live-example>
 
 ### Bits
 
 The `dtBits` pipe provides a way to format numbers as bits
 
-<docs-source-example example="FormattersBitsExample"></docs-source-example>
+<ba-live-example name="FormattersBitsExample"></ba-live-example>
 
 ### Bytes
 
@@ -35,19 +35,19 @@ The `dtBytes` pipe provides a way to display bytes in automatic units depending
 on the size of the number. The `dtKilobytes` pipe provides a way to display
 bytes as kB The `dtMegabytes` pipe provides a way to display bytes as MB
 
-<docs-source-example example="FormattersBytesExample"></docs-source-example>
+<ba-live-example name="FormattersBytesExample"></ba-live-example>
 
 ### Rate
 
 The `dtRate` pipe provides a way to add a rate info to the value
 
-<docs-source-example example="FormattersRateExample"></docs-source-example>
+<ba-live-example name="FormattersRateExample"></ba-live-example>
 
 ### Time
 
 The `dtTime` pipe provides a way to format a input time to a timestamp
 
-<docs-source-example example="FormattersTimeExample"></docs-source-example>
+<ba-live-example name="FormattersTimeExample"></ba-live-example>
 
 ## Util functions
 

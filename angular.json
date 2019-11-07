@@ -205,7 +205,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "barista-examples:build",
+            "browserTarget": "barista-components/barista-examples:build",
             "host": "0.0.0.0"
           },
           "configurations": {}
@@ -239,6 +239,35 @@
               "live": true,
               "concurrency": 1
             }
+          }
+        }
+      }
+    },
+    "barista-components/barista-examples-tools": {
+      "root": "tools/barista-examples",
+      "sourceRoot": "tools/barista-examples/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/tools/barista-examples",
+            "main": "tools/barista-examples/src/main.ts",
+            "tsConfig": "tools/barista-examples/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["tools/barista-examples/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/barista-examples/**"]
           }
         }
       }
