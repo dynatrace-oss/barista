@@ -154,10 +154,10 @@
           "builder": "@politie/angular-testcafe-builder:testcafe",
           "options": {
             "devServerTarget": "ui-test-app:serve",
-            "browsers": ["chrome:headless"],
-            "src": "ui-tests/**/*.e2e.ts",
-            "stopOnFirstFail": true,
-            "concurrency": 4
+            "src": "ui-tests/**/*.{e2e,po}.ts",
+            "stopOnFirstFail": false,
+            "browsers": ["browserstack:chrome", "browserstack:edge"],
+            "concurrency": 2
           },
           "configurations": {
             "watch": {
