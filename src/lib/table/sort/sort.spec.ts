@@ -354,6 +354,40 @@ describe('DtSort', () => {
     expect(spy).not.toHaveBeenCalled();
     subscription.unsubscribe();
   });
+
+  it('should sort correctly when calling the sort function on DtSort with a `DtSortHeader` parameter', () => {
+    const sortHeaderElement = fixture.nativeElement.querySelector('#column_a');
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe(null);
+
+    component.dtSort.sort(component.sortHeaderA);
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe('ascending');
+
+    component.dtSort.sort(component.sortHeaderA);
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe('descending');
+
+    component.dtSort.sort(component.sortHeaderA);
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe('ascending');
+  });
+
+  it('should sort correctly when calling the sort function on DtSort with a name and direction parameters', () => {
+    const sortHeaderElement = fixture.nativeElement.querySelector('#column_a');
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe(null);
+
+    component.dtSort.sort('column_a', 'asc');
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe('ascending');
+
+    component.dtSort.sort('column_a', 'desc');
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe('descending');
+
+    component.dtSort.sort('column_b', 'asc');
+    fixture.detectChanges();
+    expect(sortHeaderElement.getAttribute('aria-sort')).toBe(null);
+  });
 });
 
 function checkCellsSorted(
