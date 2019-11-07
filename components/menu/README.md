@@ -6,7 +6,7 @@ allows for a condensed way to help users to navigate or perform actions. It can
 be used as a standalone component, in a `<dt-drawer>` or in a
 `<dt-context-dialog>`.
 
-<docs-source-example example="MenuDefaultExample"></docs-source-example>
+<ba-live-example name="MenuDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -50,6 +50,6 @@ This component is typically used for static menus, such as the global navigation
 menu in combination with a [drawer](/components/drawer) or menus in overlays
 (e.g. user menu, or [context dialog](/components/context-dialog)).
 
-<docs-source-example example="MenuWithinDrawerExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="MenuWithinDrawerExample" fullwidth="true"></ba-live-example>
 
-<docs-source-example example="MenuWithinContextDialogExample"></docs-source-example>
+<ba-live-example name="MenuWithinContextDialogExample"></ba-live-example>

@@ -3,7 +3,7 @@
 The drawer is a component designed to add collapsible side content _(often
 navigation, though it can be any content)_ alongside some primary content.
 
-<docs-source-example example="DrawerDefaultExample"></docs-source-example>
+<ba-live-example name="DrawerDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -96,12 +96,12 @@ the added side content. The component is always at the root of the page.
 
 ### Over laying mode Drawer Example
 
-<docs-source-example example="DrawerOverExample"></docs-source-example>
+<ba-live-example name="DrawerOverExample"></ba-live-example>
 
 ### Dynamic Drawer Example
 
-<docs-source-example example="DrawerDynamicExample"></docs-source-example>
+<ba-live-example name="DrawerDynamicExample"></ba-live-example>
 
 ### Nested Drawer Example
 
-<docs-source-example example="DrawerNestedExample"></docs-source-example>
+<ba-live-example name="DrawerNestedExample"></ba-live-example>

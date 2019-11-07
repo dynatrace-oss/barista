@@ -11,7 +11,7 @@ loading more rows.
 
 In a tree-table it is never possible to sort for a column.
 
-<docs-source-example example="TreeTableSimpleExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="TreeTableSimpleExample" fullwidth="true"></ba-live-example>
 
 ## Imports
 
@@ -192,7 +192,7 @@ You can use the `DtIndicator` directive the same way as in the `<dt-table>` to
 indicate a warning/error in a row. This will result in a Problem indicator being
 shown in front of the row.
 
-<docs-source-example example="TreeTableProblemIndicatorExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="TreeTableProblemIndicatorExample" fullwidth="true"></ba-live-example>
 
 ## DtTreeTable inputs
 
@@ -250,7 +250,7 @@ It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 
 Use the `dt-info-group` for rows with multiple lines of text and icons.
 
-<docs-source-example example="TreeTableDefaultExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="TreeTableDefaultExample" fullwidth="true"></ba-live-example>
 
 ### Load entries asynchronously
 
@@ -258,7 +258,7 @@ In some cases there are too many hierarchy levels or too many entries in a tree,
 it's not possible to show them all at once. In this case one row can be used for
 an expand button which will load all entries at once.
 
-<docs-source-example example="TreeTableAsyncShowMoreExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="TreeTableAsyncShowMoreExample" fullwidth="true"></ba-live-example>
 
 ### Responsive behavior
 

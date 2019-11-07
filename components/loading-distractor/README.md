@@ -4,7 +4,7 @@ The `<dt-loading-spinner>` and `<dt-loading-distractor>` are circular indicators
 of activity (e.g. loading of data). Pass in the label of the loading distractor
 via `ng-content`.
 
-<docs-source-example example="LoadingDistractorDefaultExample"></docs-source-example>
+<ba-live-example name="LoadingDistractorDefaultExample"></ba-live-example>
 
 The loading distractor always appears vertically and horizontally centered on
 the element, section or screen it is loading.
@@ -32,14 +32,14 @@ or `aria-labelledby`. The `aria-labelledby` attribute of the
 The loading spinner consists of an anmiated SVG circle and can be used in
 combination with other components, e.g. a form field.
 
-<docs-source-example example="LoadingDistractorSpinnerExample"></docs-source-example>
+<ba-live-example name="LoadingDistractorSpinnerExample"></ba-live-example>
 
 ### Loading spinner inside a form field
 
 When a `<dt-loading-spinner>` is placed as a prefix or suffix inside a
 `<dt-form-field>` the color and size adjust automatically.
 
-<docs-source-example example="LoadingDistractorInputExample"></docs-source-example>
+<ba-live-example name="LoadingDistractorInputExample"></ba-live-example>
 
 ### Loading spinner in buttons
 

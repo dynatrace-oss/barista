@@ -56,9 +56,9 @@ Thumbs.db
 .metadata
 
 # Examples build
-/src/barista-examples/app.module.ts
-/src/barista-examples/app.component.ts
-/src/barista-examples/routes.json
+/apps/barista-examples/src/examples.module.ts
+/apps/barista-examples/src/app-routing.module.ts
+/apps/barista-examples/src/nav-items.ts
 
 # Barista
 /src/barista/data/

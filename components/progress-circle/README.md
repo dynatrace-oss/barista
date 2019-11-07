@@ -7,7 +7,7 @@ progress. The color depends on the theme the progress circle is in. The value
 will be clamped between the min and max values. With `ng-content` the content
 inside the progress-circle can be set.
 
-<docs-source-example example="ProgressCircleDefaultExample"></docs-source-example>
+<ba-live-example name="ProgressCircleDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -35,7 +35,7 @@ class MyModule {}
 | ------------- | ------------------------------------------------------ | ----------------------------------------------------- |
 | `valueChange` | `EventEmitter<{ oldValue: number, newValue: number }>` | Event emitted when the progress circle value changes. |
 
-<docs-source-example example="ProgressCircleChangeExample"></docs-source-example>
+<ba-live-example name="ProgressCircleChangeExample"></ba-live-example>
 
 ## Properties
 
@@ -47,15 +47,15 @@ class MyModule {}
 
 Progress circles can be used with icons or text as content.
 
-<docs-source-example example="ProgressCircleWithIconExample"></docs-source-example>
+<ba-live-example name="ProgressCircleWithIconExample"></ba-live-example>
 
-<docs-source-example example="ProgressCircleWithTextExample"></docs-source-example>
+<ba-live-example name="ProgressCircleWithTextExample"></ba-live-example>
 
 ## Colors
 
 The progress circle can be colored based on its color theme palette.
 
-<docs-source-example example="ProgressCircleWithColorExample"></docs-source-example>
+<ba-live-example name="ProgressCircleWithColorExample"></ba-live-example>
 
 ## Accessibility
 

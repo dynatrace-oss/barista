@@ -5,7 +5,7 @@ exist. It consists of one or more items with each item containing an image, an
 optional header and a short description text. It can be used within a
 `<dt-card>` or an `<dt-table>`.
 
-<docs-source-example example="EmptyStateDefaultExample"></docs-source-example>
+<ba-live-example name="EmptyStateDefaultExample"></ba-live-example>
 
 To set the content for a empty state component, the following tags are
 available:
@@ -34,15 +34,15 @@ If multiple steps are needed in an explanation, they will be seperated with an
 arrow. If a main call to action button is needed, add it to the card component.
 This is mainly used in an empty entity view.
 
-<docs-source-example example="EmptyStateMultipleItemsExample"></docs-source-example>
+<ba-live-example name="EmptyStateMultipleItemsExample"></ba-live-example>
 
 ## Empty state in use
 
 The empty state is often used in combination with a card component (replaces the
 deprecated CTA card) or in an empty table or chart.
 
-<docs-source-example example="EmptyStateInCardExample"></docs-source-example>
+<ba-live-example name="EmptyStateInCardExample"></ba-live-example>
 
 The following example shows a CTA card with multiple empty state items.
 
-<docs-source-example example="EmptyStateMultipleItemsInCardExample"></docs-source-example>
+<ba-live-example name="EmptyStateMultipleItemsInCardExample"></ba-live-example>

@@ -27,6 +27,9 @@
     "barista-tools": {
       "tags": ["type:tooling"]
     },
+    "barista-examples-tools": {
+      "tags": ["type:tooling"]
+    },
     "shared-barista-definitions": {
       "tags": ["type:types"]
     },

@@ -3,7 +3,7 @@
 The autocomplete is a normal text input enhanced by a panel of suggested
 options.
 
-<docs-source-example example="DefaultAutocompleteExample"></docs-source-example>
+<ba-live-example name="DefaultAutocompleteExample"></ba-live-example>
 
 ## Imports
 
@@ -27,7 +27,7 @@ the page to explain filter criteria. This is especially helpful for screenreader
 users if you're using a non-standard filter that doesn't limit matches to the
 beginning of the string.
 
-<docs-source-example example="AutocompleteCustomFilterExample"></docs-source-example>
+<ba-live-example name="AutocompleteCustomFilterExample"></ba-live-example>
 
 ## Separate control and display values
 
@@ -41,7 +41,7 @@ To make this work, create a function on your component class that maps the
 control value to the desired display value. Then bind it to the autocomplete's
 `displayWith` property.
 
-<docs-source-example example="AutocompleteControlValuesExample"></docs-source-example>
+<ba-live-example name="AutocompleteControlValuesExample"></ba-live-example>
 
 ## Automatically highlighting the first option
 
@@ -51,7 +51,7 @@ when the user opens the panel, you can do so by setting the
 can be configured globally using the `DT_AUTOCOMPLETE_DEFAULT_OPTIONS` injection
 token.
 
-<docs-source-example example="AutocompleteHighlightFirstOptionExample"></docs-source-example>
+<ba-live-example name="AutocompleteHighlightFirstOptionExample"></ba-live-example>
 
 ## Attaching the panel to a different element
 
@@ -61,14 +61,14 @@ element. You can change the element that the autocomplete is attached to using
 the `dtAutocompleteOrigin` directive together with the
 `dtAutocompleteConnectedTo` input.
 
-<docs-source-example example="AutocompleteAttachDifferentElementExample"></docs-source-example>
+<ba-live-example name="AutocompleteAttachDifferentElementExample"></ba-live-example>
 
 ## Option groups
 
 Of course the `dt-autocomplete` component also supports collecting `dt-option`
 elements into groups using the `dt-optgroup` element.
 
-<docs-source-example example="AutocompleteGroupsExample"></docs-source-example>
+<ba-live-example name="AutocompleteGroupsExample"></ba-live-example>
 
 ## Accessibility
 

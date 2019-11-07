@@ -4,7 +4,7 @@ The key-value list is used to visualize properties as key-value-pairs. The
 key-value list behaves responsively and can span multiple columns when enough
 space is available.
 
-<docs-source-example example="KeyValueListDefaultExample"></docs-source-example>
+<ba-live-example name="KeyValueListDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -49,10 +49,10 @@ elements.
 
 If there is enough space available, the key-value list spans multiple columns.
 
-<docs-source-example example="KeyValueListMulticolumnExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="KeyValueListMulticolumnExample" fullwidth="true"></ba-live-example>
 
 ### Multiple columns with line breaks
 
 Line breaks in keys or values are also possible when the text gets too long.
 
-<docs-source-example example="KeyValueListLongtextExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="KeyValueListLongtextExample" fullwidth="true"></ba-live-example>

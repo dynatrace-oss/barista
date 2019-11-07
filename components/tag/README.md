@@ -8,7 +8,7 @@ system, in which case the tag cannot be edited or deleted.
 The `dt-tag` wraps text or key-value pairs, which then is wrapped by
 `dt-tag-list`.
 
-<docs-source-example example="TagDefaultExample"></docs-source-example>
+<ba-live-example name="TagDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -63,21 +63,21 @@ in one line and displays a 'more' button when it doesn't fit. If provided
 
 ### Removable state
 
-<docs-source-example example="TagRemovableExample"></docs-source-example>
+<ba-live-example name="TagRemovableExample"></ba-live-example>
 
 ### With key/category
 
-<docs-source-example example="TagKeyExample"></docs-source-example>
+<ba-live-example name="TagKeyExample"></ba-live-example>
 
 ### Interactive example
 
-<docs-source-example example="TagInteractiveExample"></docs-source-example>
+<ba-live-example name="TagInteractiveExample"></ba-live-example>
 
 ## Tag add button
 
 The `dt-tag-add` button allows manual tag entries to an entity.
 
-<docs-source-example example="TagListWithTagAddExample"></docs-source-examples>
+<ba-live-example name="TagListWithTagAddExample"></ba-live-examples>
 
 The tag add button should be placed inside the `dt-tag-list` wrapper and after
 your `dt-tag` elements.

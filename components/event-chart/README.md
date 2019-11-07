@@ -3,7 +3,7 @@
 Note: This component is still experimental, use with caution! Help us get this
 component out of the experimental state by providing feedback.
 
-<docs-source-example example="EventChartDefaultExample"></docs-source-example>
+<ba-live-example name="EventChartDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -19,7 +19,7 @@ class MyModule {}
 
 ## Example setup
 
-<docs-source-example example="EventChartSessionReplayExample"></docs-source-example>
+<ba-live-example name="EventChartSessionReplayExample"></ba-live-example>
 
 ## Initialization
 
@@ -27,7 +27,7 @@ To create a `dtEventChart` in a minimal configuration, only
 `dt-event-chart-events` and `dt-event-chart-lane` elements are required to
 create a valid output.
 
-<docs-source-example example="EventChartDefaultExample"></docs-source-example>
+<ba-live-example name="EventChartDefaultExample"></ba-live-example>
 
 ## Options & Properties
 
@@ -114,24 +114,24 @@ Currently, there are only four different colors which are applicable to a
 
 ### Default
 
-<docs-source-example example="EventChartDefaultExample"></docs-source-example>
+<ba-live-example name="EventChartDefaultExample"></ba-live-example>
 
 ### Setting custom colors on events
 
-<docs-source-example example="EventChartCustomColorExample"></docs-source-example>
+<ba-live-example name="EventChartCustomColorExample"></ba-live-example>
 
 ### Providing legend items for events
 
-<docs-source-example example="EventChartLegendExample"></docs-source-example>
+<ba-live-example name="EventChartLegendExample"></ba-live-example>
 
 ### Defining the overlay template
 
-<docs-source-example example="EventChartOverlayExample"></docs-source-example>
+<ba-live-example name="EventChartOverlayExample"></ba-live-example>
 
 ### Handling event selection via click
 
-<docs-source-example example="EventChartSelectionExample"></docs-source-example>
+<ba-live-example name="EventChartSelectionExample"></ba-live-example>
 
 ### Session replay example (simplified)
 
-<docs-source-example example="EventChartSessionReplayExample"></docs-source-example>
+<ba-live-example name="EventChartSessionReplayExample"></ba-live-example>
