@@ -1,0 +1,42 @@
+/**
+ * @license
+ * Copyright 2019 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+${imports}
+
+// The Routing Module replaces the routing configuration in the root or feature module.
+// Either configure routes in the Routing Module or within the module itself but not in both.
+//
+// The Routing Module is a design choice whose value is most obvious when the configuration is complex
+// and includes specialized guard and resolver services.
+// See: https://angular.io/guide/router#refactor-the-routing-configuration-into-a-routing-module
+
+
+const ROUTES: Routes = [
+${routes}
+]
+
+@NgModule({
+  imports: [
+    RouterModule.forRoot(ROUTES)
+  ],
+  exports: [
+    RouterModule
+  ]
+})
+export class AppRoutingModule { }

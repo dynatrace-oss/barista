@@ -5,7 +5,7 @@ holds text, an icon or a combination of both. When using an icon only, it needs
 to be self-explanatory and must have an `aria-label` that describes what happens
 when it is clicked.
 
-<docs-source-example example="ButtonDefaultExample"></docs-source-example>
+<ba-live-example name="ButtonDefaultExample"></ba-live-example>
 
 While a `<button>` element should be used whenever some action is performed,
 `<a>` elements should be used when the user will navigate to another view. The
@@ -56,15 +56,15 @@ actions.
 
 ### Primary and secondary
 
-<docs-source-example example="ButtonVariantExample"></docs-source-example>
+<ba-live-example name="ButtonVariantExample"></ba-live-example>
 
 ### Primary and secondary with icon
 
-<docs-source-example example="ButtonIconsExample"></docs-source-example>
+<ba-live-example name="ButtonIconsExample"></ba-live-example>
 
 ### Icon only
 
-<docs-source-example example="ButtonIconOnlyExample"></docs-source-example>
+<ba-live-example name="ButtonIconOnlyExample"></ba-live-example>
 
 #### Nested button
 
@@ -83,14 +83,14 @@ The button component is colored differently in the context of:
   product. E.g. install an agent, install security gateway, upgrade web
   check,...
 
-<docs-source-example example="ButtonColorExample"></docs-source-example>
+<ba-live-example name="ButtonColorExample"></ba-live-example>
 
 ## Dark theme
 
 All button variants can also be put on a dark background. You can set a (dark)
 theme on an area of the app by using the `dtTheme` directive.
 
-<docs-source-example example="ButtonDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="ButtonDarkExample" themedark="true"></ba-live-example>
 
 ## Accessibility
 
@@ -118,17 +118,17 @@ our [button alignment pattern](/patterns/button-alignment/) for details.
 
 Use the click event binding to perform any action when the button is clicked.
 
-<docs-source-example example="ButtonInteractionExample"></docs-source-example>
+<ba-live-example name="ButtonInteractionExample"></ba-live-example>
 
 ### Disabled state
 
 When it's not possible to perform the action that is triggered by clicking the
 button, it must be disabled.
 
-<docs-source-example example="ButtonDisabledExample"></docs-source-example>
+<ba-live-example name="ButtonDisabledExample"></ba-live-example>
 
 When the button is clicked and the triggered action takes some time to complete,
 the button is disabled (so that it cannot be clicked again) and a loading
 spinner is shown within the disabled button.
 
-<docs-source-example example="ButtonLoadingSpinnerExample"></docs-source-example>
+<ba-live-example name="ButtonLoadingSpinnerExample"></ba-live-example>

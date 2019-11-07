@@ -5,7 +5,7 @@ should display not a progress, but rather a ratio between multiple
 bar-indicators or something like "passed time" to put some visual perspective
 between connected bar-indicators.
 
-<docs-source-example example="BarIndicatorDefaultExample"></docs-source-example>
+<ba-live-example name="BarIndicatorDefaultExample"></ba-live-example>
 
 A basic bar-indicator would follow this structure:
 
@@ -55,25 +55,25 @@ percentages of a number, but rather to compare ratios, it can't be used as a
 single, separated bar.  
 The indicator is themeable and can also show problems.
 
-<docs-source-example example="BarIndicatorColorExample"></docs-source-example>
+<ba-live-example name="BarIndicatorColorExample"></ba-live-example>
 
 ## Bar indicator in use
 
-<docs-source-example example="ToggleButtonGroupShowMoreExample"></docs-source-example>
+<ba-live-example name="ToggleButtonGroupShowMoreExample"></ba-live-example>
 
 ### Theming and validation
 
 Depending on the context, the bar-indicator can be colored according to the
 page's theme or use the validation colors.
-<docs-source-example example="BarIndicatorColorExample"></docs-source-example>
+<ba-live-example name="BarIndicatorColorExample"></ba-live-example>
 
 ### Alignment
 
 It's possible to set the alignment to `end`. This is used when a bar-indicator
 is part of a table row with right-alignment.
-<docs-source-example example="BarIndicatorAlignmentExample"></docs-source-example>
+<ba-live-example name="BarIndicatorAlignmentExample"></ba-live-example>
 
 ### Value bindings
 
 Bar-indicator with variable `min`, `max` and `value` bindings.
-<docs-source-example example="BarIndicatorDynamicExample"></docs-source-example>
+<ba-live-example name="BarIndicatorDynamicExample"></ba-live-example>

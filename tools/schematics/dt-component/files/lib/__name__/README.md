@@ -16,7 +16,7 @@ contributors:
 
 <!-- TODO: Add a short introduction text that describes the purpose of this component. -->
 
-<docs-source-example example="<%= classify(name) %>DefaultExample"></docs-source-example>
+<ba-live-example name="<%= classify(name) %>DefaultExample"></ba-live-example>
 
 ## Imports
 

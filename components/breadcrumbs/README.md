@@ -5,7 +5,7 @@ breadcrumbs are hierarchy-based, which means that every item of the breadcrumb
 represents a page and thus also the path that led up to the currenty visited
 page.
 
-<docs-source-example example="BreadcrumbsDefaultExample"></docs-source-example>
+<ba-live-example name="BreadcrumbsDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -59,7 +59,7 @@ Breadcrumbs always have the theme color of the current page the user is
 visiting. If the page does not have a theme color (e.g. in the settings), then
 the breadcrumbs will be displayed in gray.
 
-<docs-source-example example="BreadcrumbsColorExample"></docs-source-example>
+<ba-live-example name="BreadcrumbsColorExample"></ba-live-example>
 
 ## Breadcrumb in use
 
@@ -67,10 +67,10 @@ the breadcrumbs will be displayed in gray.
 
 Content within the breadcrumb can change.
 
-<docs-source-example example="BreadcrumbsObservableExample"></docs-source-example>
+<ba-live-example name="BreadcrumbsObservableExample"></ba-live-example>
 
 ### Dark
 
 Breadcrumbs also work on dark background.
 
-<docs-source-example example="BreadcrumbsDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="BreadcrumbsDarkExample" themedark="true"></ba-live-example>

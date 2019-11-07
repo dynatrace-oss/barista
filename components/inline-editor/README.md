@@ -3,7 +3,7 @@
 The `dt-inline-editor` is a directive that makes any text containing HTML
 element editable.
 
-<docs-source-example example="InlineEditorDefaultExample"></docs-source-example>
+<ba-live-example name="InlineEditorDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -48,7 +48,7 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 | `cancelAndQuitEditing` | Cancels and quits the edit mode.                       | `void`      |
 | `focus`                | Focuses the input or the button depending on the mode. | `void`      |
 
-<docs-source-example example="InlineEditorApiExample"></docs-source-example>
+<ba-live-example name="InlineEditorApiExample"></ba-live-example>
 
 ## Properties
 
@@ -63,7 +63,7 @@ To apply, add the `dt-inline-editor` attribute to the HTML element.
 When a value for the input field is validated, an error message must be provided
 by adding a `<dt-error>` element inside the inline editor.
 
-<docs-source-example example="InlineEditorRequiredExample"></docs-source-example>
+<ba-live-example name="InlineEditorRequiredExample"></ba-live-example>
 
 By default errors are hidden initially and will be displayed on invalid form
 fields, after the user has interacted with the element or the parent form has
@@ -75,14 +75,14 @@ toggle which messages should be displayed. This can be done with `ngIf` or
 `ngSwitch`. You can use the Angular forms API with the inline editor and pass
 validators to it as you would with any other form field.
 
-<docs-source-example example="InlineEditorValidationExample"></docs-source-example>
+<ba-live-example name="InlineEditorValidationExample"></ba-live-example>
 
 ## Asynchronous operations
 
 ### Success
 
-<docs-source-example example="InlineEditorSuccessfulExample"></docs-source-example>
+<ba-live-example name="InlineEditorSuccessfulExample"></ba-live-example>
 
 ### Failure
 
-<docs-source-example example="InlineEditorFailingExample"></docs-source-example>
+<ba-live-example name="InlineEditorFailingExample"></ba-live-example>

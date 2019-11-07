@@ -6,7 +6,7 @@ a complex view by desaturating all other information.
 A toggle button holds an icon and a text indicating what will be highlighted
 when clicked.
 
-<docs-source-example example="ToggleButtonGroupDefaultExample"></docs-source-example>
+<ba-live-example name="ToggleButtonGroupDefaultExample"></ba-live-example>
 
 ## Imports
 
@@ -96,7 +96,7 @@ added to the end of the group.
 
 Items can be added dynamically to a toggle button group.
 
-<docs-source-example example="ToggleButtonGroupDynamicItemsExample"></docs-source-example>
+<ba-live-example name="ToggleButtonGroupDynamicItemsExample"></ba-live-example>
 
 ## Toggle button group in use
 
