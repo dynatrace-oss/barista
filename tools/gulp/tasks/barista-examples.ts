@@ -3,6 +3,7 @@ import { basename, dirname, join, relative } from 'path';
 
 import { sync as glob } from 'glob';
 import { dest, series, src, task } from 'gulp';
+import { flatten } from 'lodash';
 import * as through from 'through2';
 import * as ts from 'typescript';
 
@@ -273,6 +274,12 @@ task('barista-example:generate', done => {
   const metadata = getExampleMetadata(glob(join(examplesDir, '*/*.ts')));
   generateAppModule(metadata, 'app.module.ts', examplesDir);
   generateAppComponent(metadata);
+
+  const routeData = flatten(generateRouteMetadata(metadata).map((route) =>
+    route.examples.map(route => ({name: route.name, route: route.route}))
+  ));
+
+  fs.writeFileSync('src/barista-examples/routes.json', JSON.stringify({routes: routeData}, undefined,2));
   done();
 });
 
