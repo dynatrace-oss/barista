@@ -14,7 +14,8 @@
     "paths": {
       "@dynatrace/angular-components": ["../lib"],
       "@dynatrace/angular-components/*": ["../lib/*"]
-    }
+    },
+    "types": ["node", "testcafe"]
   },
   "files": [
     "../../typings.d.ts",
