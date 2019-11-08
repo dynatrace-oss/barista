@@ -249,6 +249,22 @@
             "tsConfig": [],
             "exclude": []
           }
+        },
+        "a11y": {
+          "builder": "@politie/angular-testcafe-builder:testcafe",
+          "options": {
+            "devServerTarget": "barista-examples:serve",
+            "src": "src/barista-examples/**/*.a11y.ts",
+            "stopOnFirstFail": true,
+            "browsers": ["chrome"]
+          },
+          "configurations": {
+            "watch": {
+              "stopOnFirstFail": false,
+              "live": true,
+              "concurrency": 1
+            }
+          }
         }
       }
     },
@@ -334,21 +350,6 @@
           "options": {
             "tsConfig": [],
             "exclude": []
-          }
-        }
-      }
-    },
-    "a11y-test-app": {
-      "root": "src/barista-examples",
-      "sourceRoot": "src",
-      "projectType": "application",
-      "architect": {
-        "test": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "a11y-tests/protractor-a11y.conf.js",
-            "devServerTarget": "barista-examples:serve",
-            "port": 5000
           }
         }
       }
