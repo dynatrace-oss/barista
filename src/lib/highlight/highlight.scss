@@ -1,6 +1,13 @@
 @import '../core/style/variables';
 @import 'highlight-theme';
 
+:host {
+  // width and height have to be at least 1px for it to work properly
+  min-height: 1px;
+  min-width: 1px;
+  display: inline-block;
+}
+
 .dt-highlight-source {
   display: none;
 }
