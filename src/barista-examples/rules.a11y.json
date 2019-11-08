@@ -1,0 +1,14 @@
+{
+  "rules": {
+    "color-contrast": { "enabled": false },
+    "page-has-heading-one": { "enabled": false },
+    "region": { "enabled": false },
+    "button-name": { "enabled": false },
+    "dlitem": { "enabled": false },
+    "definition-list": { "enabled": false },
+    "listitem": { "enabled": false },
+    "aria-hidden-focus": { "enabled": false },
+    "aria-required-parent": { "enabled": false },
+    "link-name": { "enabled": false }
+  }
+}
