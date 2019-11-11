@@ -263,7 +263,6 @@ export function dtFreeTextDef(
   let currentNodeDef: DtNodeDef | null = existingNodeDefOrData;
   let unique;
 
-  // TODO: Check whether we can remove all of this madness with ***REMOVED***
   if (
     isDtNodeDef(uniqueOrDataOrExistingNodeDef) ||
     uniqueOrDataOrExistingNodeDef === null

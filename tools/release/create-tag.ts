@@ -10,10 +10,7 @@ import { verifyPublishBranch } from './publish-branch';
 /** Creates a new version tag based on the version in the package.json. */
 function createTag(projectDir: string, repositoryName: string) {
   const packageJsonPath = join(projectDir, 'package.json');
-  const git = new GitClient(
-    projectDir,
-    `***REMOVED***
-  );
+  const git = new GitClient(projectDir, `<bitbucket>${repositoryName}.git`);
 
   if (!existsSync(packageJsonPath)) {
     console.error(
