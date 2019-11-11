@@ -10,12 +10,9 @@ request for the angular-components repository.
 ### Architecture
 
 The code for this tooling is bundled within a docker image at
-***REMOVED***
 
-This image is then being used by a jenkins task
-***REMOVED***
-which will run the code in the image. This jenkins task is being triggered by
-the following bitbucket webhooks:
+This image is then being used by a jenkins task which will run the code in the
+image. This jenkins task is being triggered by the following bitbucket webhooks:
 
 - Pull request opened
 - Pull request modified
@@ -52,10 +49,8 @@ To run the tests provided in the bitbucket-tools folder, run
 
 To publish a new version of the docker image, run the
 `tools/bitbucket-tools/build.sh` script from the angular-components root
-directory. This will create a local image
-`docker.lab.dynatrace.org:6000/designops/angular-components-commit-message-validator:latest`
-which can then be pushed to our dockerhub. The jenkins task will pull the latest
-image each time it runs.
+directory. This will create a local image which can then be pushed to our
+dockerhub. The jenkins task will pull the latest image each time it runs.
 
 ### Commit message validation rules
 
@@ -155,13 +150,8 @@ request to the target branches.
 
 ### Architecture
 
-The code for this tooling is bundled within a docker image at
-***REMOVED***
-
-This image is then being used by a jenkins task
-***REMOVED***
-which will run the code in the image. This jenkins task is being triggered by
-the following bitbucket webhooks:
+This image is then being used by a jenkins task which will run the code in the
+image. This jenkins task is being triggered by the following bitbucket webhooks:
 
 - Pull request merged
 

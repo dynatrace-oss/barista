@@ -3,14 +3,14 @@
   "description": "Dynatrace components for Angular",
   "repository": {
     "type": "git",
-    "url": "***REMOVED***
+    "url": "https://github.com/Dynatrace/barista"
   },
   "keywords": [
     "angular",
     "dynatrace",
     "components"
   ],
-  "homepage": "***REMOVED***
+  "homepage": "https://barista.dynatrace.com",
   "peerDependencies": {
     "@angular/cdk": "^0.0.0-NG-CDK",
     "@angular/core": "^0.0.0-NG",

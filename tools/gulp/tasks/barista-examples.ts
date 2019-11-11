@@ -301,7 +301,7 @@ task('ide-completions', (done) => {
 
   const suggestions = {
     version: 1,
-    description: "More Information about components at [Barista](***REMOVED***
+    description: "More Information about components at [Barista](https://barista.dynatrace.org/components).",
     items: transformedMetaData,
   };
 
