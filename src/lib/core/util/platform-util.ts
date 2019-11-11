@@ -23,6 +23,27 @@ export function replaceCssClass(
   }
 }
 
+/**
+ * Adds or removes a class based on a provided boolean value
+ * @param condition A boolean value that decides whether a class should be added or removed
+ * @param el Element where the class should be toggled
+ * @param name Class name that should be added or removed
+ * @param renderer Optional renderer to set the class.
+ */
+export function toggleCssClass(
+  condition: boolean,
+  // tslint:disable-next-line: no-any
+  el: any,
+  name: string,
+  renderer?: Renderer2,
+): void {
+  if (condition) {
+    addCssClass(el, name, renderer);
+  } else {
+    removeCssClass(el, name, renderer);
+  }
+}
+
 // tslint:disable-next-line:no-any
 export function addCssClass(el: any, name: string, renderer?: Renderer2): void {
   if (renderer) {
