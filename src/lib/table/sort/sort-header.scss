@@ -26,7 +26,8 @@ $dt-sort-header-arrow-container-height: 14px;
   font: inherit;
 
   /*
-    Commented focus style for now - until we figure out how to handle focus with mouse input
+    Commented focus style for now - until we figure out how to handle focus
+    with mouse input
     TODO: revisit with ***REMOVED***
   &:focus {
     @include dt-focus-style();

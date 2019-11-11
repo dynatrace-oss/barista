@@ -77,6 +77,7 @@ $selection-area-overlay-spacing: 4px;
   cursor: crosshair;
 }
 
+// stylelint-disable-next-line selector-class-pattern
 ::ng-deep .dt-selection-area-origin .highcharts-series-group {
   cursor: crosshair;
 }
@@ -86,7 +87,8 @@ $selection-area-overlay-spacing: 4px;
 }
 
 ::ng-deep svg .dt-selection-area-origin:focus {
-  /** this override is needed since on svg elements like rect we cannot use a box-shadow */
+  // this override is needed since on svg elements like
+  // rect we cannot use a box-shadow
   outline: 2px solid $focuscolor;
 }
 

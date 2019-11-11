@@ -1,5 +1,3 @@
-/* stylelint-disable unit-whitelist */
-
 .ba-page-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -75,5 +73,3 @@
   grid-area: main;
   margin-bottom: 2rem;
 }
-
-/* stylelint-enable */

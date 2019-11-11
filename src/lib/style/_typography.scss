@@ -4,7 +4,6 @@ $default-font-path: '/bernina/BerninaSans-Web';
 $monospace-font-family: 'VeraMonoWeb';
 $monospace-font-path: '/bitstream/VeraMono-Web';
 
-/* stylelint-disable property-blacklist  */
 @mixin font-face($variant, $ff: $default-font-family, $fp: $default-font-path) {
   font-family: $ff;
   src: url('#{$fonts-dir}#{$fp}-#{$variant}.woff2') format('woff2'),
@@ -61,4 +60,3 @@ $monospace-font-path: '/bitstream/VeraMono-Web';
   font-weight: 300;
   font-style: normal;
 }
-/* stylelint-enable property-blacklist  */

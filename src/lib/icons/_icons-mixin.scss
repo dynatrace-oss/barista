@@ -1,6 +1,5 @@
 $fonts-path: '/assets/fonts' !default;
 
-/* stylelint-disable property-blacklist  */
 @mixin icons-before($type) {
   font-family: $type;
   speak: none;
@@ -35,4 +34,3 @@ $fonts-path: '/assets/fonts' !default;
     @include icons-before($type);
   }
 }
-/* stylelint-enable property-blacklist  */

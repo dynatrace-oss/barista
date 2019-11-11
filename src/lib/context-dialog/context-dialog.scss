@@ -54,7 +54,8 @@ $context-dialog-panel-padding: 12px;
   padding-bottom: $panel-padding-btn;
 }
 
-// this very specific selector is necessary to override the emulated button styles
+// this very specific selector is necessary to override
+// the emulated button styles
 [dt-icon-button].dt-context-dialog-close-trigger {
   border: none;
   position: absolute;

@@ -41,7 +41,7 @@ describe('DtTopBarNavigation', () => {
       const fixture = TestBed.createComponent(BasicTopBar);
 
       const items: HTMLElement[] = [].slice.call(
-        fixture.debugElement.nativeElement.querySelectorAll('.top-bar > *'),
+        fixture.debugElement.nativeElement.querySelectorAll('.dt-top-bar > *'),
       );
 
       expect(items).toHaveLength(5);
@@ -59,7 +59,7 @@ describe('DtTopBarNavigation', () => {
       fixture.detectChanges();
 
       const items: HTMLElement[] = [].slice.call(
-        fixture.debugElement.nativeElement.querySelectorAll('.top-bar > *'),
+        fixture.debugElement.nativeElement.querySelectorAll('.dt-top-bar > *'),
       );
 
       expect(items[0].classList).toContain('dt-top-bar-action-has-problem');

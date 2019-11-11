@@ -114,6 +114,7 @@ describe('TypeUtil', () => {
   describe('isObject', () => {
     it('should be true if the value is an Object', () => {
       expect(isObject({})).toBeTruthy();
+      // tslint:disable-next-line: prefer-literal
       expect(isObject(new Object())).toBeTruthy();
       // tslint:disable-next-line: prefer-object-spread
       expect(isObject(Object.assign({}))).toBeTruthy();

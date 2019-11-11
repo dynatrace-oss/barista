@@ -98,7 +98,6 @@
     "@angular/platform-browser-dynamic": "^8.0.0",
     "@angular/platform-server": "^8.0.0",
     "@angular/router": "^8.0.0",
-    "@dynatrace/angular-lint-rules": "^0.6.0",
     "@dynatrace/dt-iconpack": "^2.0.22",
     "@nrwl/jest": "^8.2.0",
     "@nrwl/node": "^8.7.0",
@@ -163,7 +162,7 @@
     "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^5.2.0",
     "stylelint-prettier": "^1.1.1",
-    "stylelint-scss": "^3.9.1",
+    "stylelint-scss": "^3.12.1",
     "testcafe": "^1.6.1",
     "testcafe-browser-provider-browserstack": "^1.9.0",
     "ts-node": "^7.0.0",
@@ -175,6 +174,7 @@
     "typescript": "~3.4.3",
     "typescript-tslint-plugin": "^0.5.0",
     "undertaker-forward-reference": "^1.0.2",
+    "vrsource-tslint-rules": "^6.0.0",
     "watch": "^1.0.2",
     "web-animations-js": "^2.3.1"
   }

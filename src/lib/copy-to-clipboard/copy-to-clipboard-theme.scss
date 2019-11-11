@@ -1,7 +1,5 @@
 @import '../core/theming/theming';
 
-/* stylelint-disable selector-pseudo-element-no-unknown  */
-
 @mixin dt-theme-copy-to-clipboard($theme) {
   $is-dark: map-get($dt-current-theme, 'is-dark');
   @if ($is-dark == true) {

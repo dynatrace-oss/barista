@@ -38,7 +38,8 @@
     color: $gray-500;
   }
 
-  // styles for the CDK overlay need to be applied outside of the component's context
+  // styles for the CDK overlay need to be applied outside
+  // of the component's context
   .dt-consumption-overlay-panel {
     @include dt-overlay-container();
   }
