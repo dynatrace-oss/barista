@@ -64,7 +64,7 @@ $remove-icon-size: 16px;
       fill: $gray-300;
     }
 
-    .dt-tag-name ::ng-deep .tag-key {
+    .dt-tag-name ::ng-deep .dt-tag-key {
       color: inherit;
     }
   }
@@ -76,7 +76,7 @@ $remove-icon-size: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  ::ng-deep .tag-key {
+  ::ng-deep .dt-tag-key {
     color: $gray-500;
     margin-right: 0.25em;
   }

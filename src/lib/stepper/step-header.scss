@@ -107,7 +107,8 @@
   }
 }
 
-// The steps that is currently active - might be multiple all previous selected steps are active
+// The steps that is currently active - might be multiple all previous
+// selected steps are active
 :host-context(.dt-stepper-linear).dt-step-active:not(:first-child)
   .dt-step-label::before {
   border-color: $dt-step-active-color;

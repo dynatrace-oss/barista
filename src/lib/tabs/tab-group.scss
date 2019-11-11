@@ -47,7 +47,8 @@
 
   /** disabled
   this needs the double selector because the themes ::after is more specific
-  otherwise we would need to ship the disabled style thats equal in every theme with the theme selector
+  otherwise we would need to ship the disabled style thats equal in every
+  theme with the theme selector
   */
   &[disabled][disabled] {
     color: $gray-300;

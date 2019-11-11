@@ -173,8 +173,10 @@ $dt-checkbox-size: 20px;
   animation-name: dt-checkbox-determined;
 }
 
-// Disabling checkbox animation on IE and falling back to just show and hide of svg paths
-// Needs to be done, because IE / Edge do not support animation of stroke-dashoffset
+// Disabling checkbox animation on IE and falling back
+// to just show and hide of svg paths
+// Needs to be done, because IE / Edge do not support
+// animation of stroke-dashoffset
 // https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/6493460/
 :host.dt-checkbox-animation-fallback {
   .dt-checkbox-checkmark,
