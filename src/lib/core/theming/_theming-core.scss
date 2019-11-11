@@ -30,7 +30,8 @@
   @return $result;
 }
 
-// Creates a light theme definition object containing all color palettes for the theme
+// Creates a light theme definition object containing
+// all color palettes for the theme
 @function dt-theme-light(
   $main-palette,
   $accent-palette,
@@ -52,7 +53,8 @@
   );
 }
 
-// Creates a dark theme definition object containing all color palettes for the theme
+// Creates a dark theme definition object containing
+// all color palettes for the theme
 @function dt-theme-dark(
   $main-palette,
   $accent-palette,
@@ -74,7 +76,8 @@
   );
 }
 
-// Registers and adds the provided light and dark theme to the list of theme definitions
+// Registers and adds the provided light and dark theme
+// to the list of theme definitions
 @mixin dt-register-theme($name, $light-theme, $dark-theme, $default: false) {
   $dt-themes: map-merge(
     $dt-themes,
@@ -96,7 +99,6 @@
     $dark-theme: map-get($theme, dark);
     $default: map-get($theme, default);
 
-    // stylelint-disable scss/no-duplicate-dollar-variables
     $dt-current-theme-name: $name !global;
 
     @if $default == false {
@@ -123,6 +125,5 @@
         @content;
       }
     }
-    // stylelint-enable
   }
 }

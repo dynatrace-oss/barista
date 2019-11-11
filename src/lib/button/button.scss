@@ -51,6 +51,7 @@
   // Hack that fixes the annoying issue in IE where an
   // inner padding is applied when button receives active state.
   // This issue can only be fixed in IE11+
+  // stylelint-disable-next-line max-line-length
   // See: https://stackoverflow.com/questions/6744406/internet-explorer-buttonactive-inner-padding
   > span {
     position: relative;

@@ -1,8 +1,6 @@
 @import '../../styles/global/variables';
 @import '../../../lib/core/style/colors';
 
-/* stylelint-disable unit-whitelist */
-
 $tilesize: 290px;
 $tilefontsize: 28px;
 $tilefontsize-big: 42px;
@@ -124,5 +122,3 @@ $no-columns: 15px;
 .ba-page-section:nth-child(odd) {
   background-color: $gray-130;
 }
-
-/* stylelint-enable */

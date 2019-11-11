@@ -9,9 +9,14 @@ $dt-step-header-padding-horizontal: 24px;
 $dt-step-line-color: $gray-300;
 $dt-step-active-color: $turquoise-600;
 
+// Need to disable max-line-length here because for some strange reason
+// prettier is formatting the following line in a way that it exceeds
+// the 80 char limit.
+// stylelint-disable max-line-length
 $dt-stepper-line-top-position: $dt-step-icon-radius +
   $dt-step-header-padding-vertical + ($default-font-size * $default-line-height) +
   $dt-stepper-label-margin-bottom;
+// stylelint-enable max-line-length
 
 @mixin dt-stepper-horizontal-line() {
   flex-grow: 1;
