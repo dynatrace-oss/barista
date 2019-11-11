@@ -36,7 +36,7 @@ The `<dt-form-field>` is a component that wraps form input components like
 You have to import the `DtFormFieldModule` when you want to use the
 `dt-form-field`. The `dt-form-field` component also requires Angular's
 `BrowserAnimationsModule` for animations. For more details on this see
-[Step 2: Animations](***REMOVED***
+[Step 2: Animations](https://barista.dynatrace.org/components/get-started/#step-2-animations)
 in the getting started guide.
 
 Because `<dt-form-field>` wraps a form input component, make sure that you also

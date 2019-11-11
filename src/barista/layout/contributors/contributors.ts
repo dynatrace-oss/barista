@@ -27,7 +27,7 @@ export class BaContributors {
   /** @internal */
   _imageUrl(name: string): string {
     const bitbucketUser = name.slice(0, BITBUCKET_USERNAME_LENGTH);
-    return `***REMOVED***
+    return `<bitbucket-url>${bitbucketUser}/avatar.png?s=64`;
   }
 
   /** @internal */

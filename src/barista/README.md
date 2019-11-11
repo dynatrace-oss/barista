@@ -5,8 +5,7 @@ draft: true
 # Barista Design System
 
 This is the app for our design system website
-([***REMOVED*** and
-[https://barista.dynatrace.com/](https://barista.dynatrace.com/)).
+[barista.dynatrace.com/](https://barista.dynatrace.com/)).
 
 ## Development
 

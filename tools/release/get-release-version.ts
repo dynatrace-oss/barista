@@ -21,10 +21,7 @@ export function getReleaseVersionAndHash(
   repositoryName: string,
 ): { version: string | null; hash: string } {
   const packageJsonPath = join(projectDir, 'package.json');
-  const git = new GitClient(
-    projectDir,
-    `***REMOVED***
-  );
+  const git = new GitClient(projectDir, `<bitbucket>${repositoryName}.git`);
 
   if (!existsSync(packageJsonPath)) {
     console.error(

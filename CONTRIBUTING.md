@@ -46,7 +46,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 - Create your patch/fix/feature including appropriate test.
 - Test your changes with our supported browsers
 - Run unit, ui and universal tests, as described in the
-  [developer documentation](***REMOVED***
+  [developer documentation](https://barista.dynatrace.org/components/development/),
   and ensure that all tests pass.
 - Commit your changes using a descriptive commit message that follows our
   [commit message conventions](#commit-message-guidelines).
@@ -71,7 +71,7 @@ Before you submit your Pull Request (PR) consider the following guidelines:
 Once your pull request is approved and ready to merge, it gets marked as
 `[merge-ready]` in the title and your work is done. The PR can only be merged
 into master by repository administrators. This is always done with the next
-[release of the Angular components](***REMOVED***
+[release of the Angular components](https://barista.dynatrace.org/components/releasing/).
 If the PR contains a [breaking change](#breaking-changes), it is released with
 the next major version upgrade.
 
@@ -100,7 +100,7 @@ Must be one of the following:
 **Scope** The scope could be anything specifying place of the commit change, in
 most cases this would be the component name. For example select, button, etc.
 
-**Example** `***REMOVED*** feat(filter-field): added node removal on backspace`
+**Example** `feat(filter-field): added node removal on backspace`
 
 ## Breaking changes
 

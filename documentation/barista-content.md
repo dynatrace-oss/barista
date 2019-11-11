@@ -4,12 +4,7 @@ draft: true
 
 # Barista design system
 
-All Markdown files (`README.md` files of components and documentation in this
-repository's root directory) are part of the
-[barista-content](***REMOVED***
-i.e. the component documentation in our design system Barista. When adding new
-components or features, please update readme-files accordingly. Stick to the
-following best practices and structure guidelines when editing the
+Stick to the following best practices and structure guidelines when editing the
 documentation.
 
 ## Front matter
