@@ -1,11 +1,12 @@
 @import '../style/font-mixins';
 
 :host {
-  display: block;
+  display: flex;
+  flex-flow: column;
   @include dt-default-font();
 
   &.dt-empty-state-layout-horizontal {
-    display: flex;
+    flex-flow: row;
   }
 }
 
