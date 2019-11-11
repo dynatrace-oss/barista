@@ -92,7 +92,7 @@ export class BaScrollSpiedElementGroup {
 @Injectable()
 export class BaScrollSpyService {
   private _spiedElementGroups: BaScrollSpiedElementGroup[] = [];
-  private _onStopListening = new Subject();
+  private _onStopListening = new Subject<void>();
   private _resizeEvents = fromEvent(window, 'resize').pipe(
     // tslint:disable-next-line: no-magic-numbers
     auditTime(300),
