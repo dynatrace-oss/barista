@@ -33,8 +33,10 @@
   min-width: 0;
 }
 
-// Hack to make sure the child element of the infix, prefix or suffix container is display block.
-// This is needed to prevent a 1px spacing issue if the child has display inline-block or inline.
+// Hack to make sure the child element of the infix,
+// prefix or suffix container is display block.
+// This is needed to prevent a 1px spacing issue
+// if the child has display inline-block or inline.
 .dt-form-field-infix.dt-form-field-infix,
 .dt-form-field-prefix.dt-form-field-prefix,
 .dt-form-field-suffix.dt-form-field-suffix {

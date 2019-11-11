@@ -18,7 +18,8 @@
       @if ($bg-color) {
         background-color: $bg-color;
       }
-      // if color not found, fallback to default color defined in expandable-row.scss
+      // if color not found, fallback to default color
+      // defined in expandable-row.scss
     }
 
     .dt-expandable-row-expandable-expanded {

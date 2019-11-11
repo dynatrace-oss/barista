@@ -28,7 +28,7 @@ $nav-current-mobile: $gray-600;
   transition: width 125ms ease-out;
 }
 
-.ba-nav-bar.is-active {
+.ba-nav-bar-active {
   width: 100%;
 }
 
@@ -41,7 +41,7 @@ $nav-current-mobile: $gray-600;
     transition: none;
   }
 
-  .ba-nav-bar.is-active {
+  .ba-nav-bar-active {
     width: auto;
   }
 }
@@ -144,12 +144,12 @@ $nav-current-mobile: $gray-600;
 }
 
 /* nav modifier */
-.ba-nav-bar.is-active .ba-nav-list {
+.ba-nav-bar-active .ba-nav-list {
   background-color: $nav-primary-current;
 }
 
 @media (min-width: $screen-md) {
-  .ba-nav-bar.is-active .ba-nav-list {
+  .ba-nav-bar-active .ba-nav-list {
     background-color: $nav-primary-background;
   }
 }
