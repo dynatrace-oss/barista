@@ -1,11 +1,14 @@
-// Stores a list of themes by name that contain the light and dark theme definition
+// Stores a list of themes by name that contain the light
+// and dark theme definition
 $dt-themes: ();
 
-// Stores the current theme definition while traversing all themes when applied to a component
+// Stores the current theme definition while traversing all themes
+// when applied to a component
 // Note: Needs to be global!
 $dt-current-theme: ();
 
-// Stores the current theme name while traversing all themes when applied to a component
+// Stores the current theme name while traversing all themes
+// when applied to a component
 // Note: Needs to be global!
 $dt-current-theme-name: ();
 

@@ -19,7 +19,9 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
 :host :host-context(.dt-button) {
   width: $dt-loading-spinner-small-size;
   height: $dt-loading-spinner-small-size;
-  min-width: $dt-loading-spinner-small-size; // This overrides the min-with requirement for prefix/suffix
+
+  // This overrides the min-with requirement for prefix/suffix
+  min-width: $dt-loading-spinner-small-size;
 }
 
 .dt-loading-spinner-svg {

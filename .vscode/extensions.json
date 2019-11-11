@@ -4,6 +4,7 @@
     "esbenp.prettier-vscode",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "amatiasq.sort-imports",
-    "angular.ng-template"
+    "angular.ng-template",
+    "shinnn.stylelint"
   ]
 }

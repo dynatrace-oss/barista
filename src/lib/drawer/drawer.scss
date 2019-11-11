@@ -18,7 +18,8 @@
     border-left: 1px solid $gray-300;
     padding-right: 0;
     padding-left: 20px;
-    // Translate3d is faster than translateX because it uses hardware acceleration
+    // Translate3d is faster than translateX because it uses
+    // hardware acceleration
     transform: translate3d(100%, 0, 0);
   }
 }

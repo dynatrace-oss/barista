@@ -5,8 +5,6 @@
 @import 'variables';
 @import '../core/style/deprecated';
 
-/* stylelint-disable property-blacklist  */
-
 @mixin dt-text-ellipsis() {
   white-space: nowrap;
   overflow: hidden;
@@ -56,14 +54,17 @@
 }
 
 /**
- * @deprecated Use dt-custom-font-styles with explicitly specified arguments instead.
+ * @deprecated Use dt-custom-font-styles with explicitly
+ * specified arguments instead.
  * @breaking-change To be removed with 5.0.0.
  */
 @mixin custom-font-size($font-size: false, $line-height: false) {
+  // stylelint-disable max-line-length
   @include dt-deprecated(
     'custom-font-size: Use dt-custom-font-styles with explicitly specified arguments instead.',
     '5.0.0.'
   );
+  // stylelint-enable max-line-length
   @include dt-custom-font-styles(
     $custom-font-size: $font-size,
     $custom-line-height: $line-height
@@ -151,7 +152,6 @@
   $min-screen-size,
   $max-screen-size
 ) {
-  /* stylelint-disable-next-line max-line-length  */
   font-size: calc(
     #{$min-font-size + 'px'} + (#{$max-font-size} - #{$min-font-size}) * (
         100vw - #{$min-screen-size + 'px'}
@@ -250,5 +250,3 @@
   @include dt-deprecated('label-font: Use dt-label-font instead.', '5.0.0.');
   @include dt-label-font($line-height);
 }
-
-/* stylelint-enable property-blacklist  */

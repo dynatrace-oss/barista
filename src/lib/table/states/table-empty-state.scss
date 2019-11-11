@@ -11,7 +11,7 @@ $padding: 8px;
   margin: $margin-top 0;
   @include dt-main-font();
 
-  .message-area {
+  .dt-table-empty-state-message-area {
     padding-left: $padding;
     white-space: pre-line;
   }
