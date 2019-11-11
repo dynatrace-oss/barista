@@ -112,17 +112,7 @@ style also general styling for headlines, text-formatting, ...
 @import '~@dynatrace/angular-components/style/index';
 ```
 
-## Step 5: Optional - Install linting rules
-
-Install `@dynatrace/angular-lint-rules` to use the additional recommended
-angular linting rules: `npm install --save @dynatrace/angular-lint-rules`  
-or  
-`yarn add @dynatrace/angular-lint-rules`
-
-You can find more information in the
-[angular-lint-rules repo](***REMOVED***
-
-## Step 6: Optional - Add fonts and icon files to your assets
+## Step 5: Optional - Add fonts and icon files to your assets
 
 Add this section to the `assets` array in your projects architect in the
 angular.json. This will copy all svgs from the iconpack and all fonts shipped

@@ -1,10 +1,10 @@
 {
-  "extends": [
-    "@dynatrace/angular-lint-rules/tslint",
-    "tslint-plugin-prettier",
-    "tslint-config-prettier"
+  "extends": ["tslint-plugin-prettier", "tslint-config-prettier"],
+  "rulesDirectory": [
+    "./tools/tslint-rules/",
+    "node_modules/vrsource-tslint-rules/rules",
+    "node_modules/codelyzer"
   ],
-  "rulesDirectory": ["./tools/tslint-rules/"],
   "linterOptions": {
     "exclude": [
       "src/barista-examples/app.component.ts",
@@ -12,43 +12,23 @@
     ]
   },
   "rules": {
-    "strict-comparisons": [
-      true,
-      {
-        "allow-object-equal-comparison": true,
-        "allow-string-order-comparison": true
-      }
-    ],
-    "array-type": false,
-    "template-cyclomatic-complexity": [true, 6],
-    "linebreak-style": [true, "LF"],
-    "i18n": false,
-    "increment-decrement": false,
-    // this needs to be disabled since having multiple components/directives
-    // in one file is sometimes suitable due to the size and sharing of small pieces of code
-    "max-classes-per-file": false,
-    // no implicit dependencies need to be false since we have cross references inside the modules which are not listed as a dependency
+    "class-name": true,
+    "comment-format": [true, "check-space"],
+    "indent": [true, "spaces"],
+    "eofline": true,
+    "no-construct": true,
+    "prefer-literal": [true, "object"],
+    "no-duplicate-variable": true,
+    "no-eval": true,
+    "no-arg": true,
+    "no-internal-module": true,
+    "no-trailing-whitespace": true,
+    "no-bitwise": true,
+    "no-shadowed-variable": true,
+    "no-unused-expression": true,
+    "no-var-keyword": true,
     "member-access": [true, "no-public"],
-    "member-ordering": false,
-    // Disabled as it would also force new lines for only one operator or function call
-    "newline-per-chained-call": false,
-    // Changing it as it does also enforce this rule for very simple code
-    "newline-before-return": false,
-    // it is in some places essential for change detection
-    "no-empty": false,
-    // Nearly in all our cases where promises are used, this rule needs to be disabled, so disabling globally
-    "no-floating-promises": false,
-    // This is essential for specific checks where typescript has a hard time resolving the type of it.
-    // This would the result in using checks (like instanceof) in some places that are slower.
-    "no-non-null-assertion": false,
-    // Disabled, as it would force us to use bind or some other stuff to prevent "this"
-    // in callbacks instead of arrow functions
-    "no-unnecessary-callback-wrapper": false,
-    "no-null-keyword": false,
-    "no-submodule-imports": false,
-    "no-use-before-declare": false,
-    // Disabled otherwise normal functions like class mixins are not possible
-    "only-arrow-functions": false,
+    "no-debugger": true,
     "one-line": [
       true,
       "check-catch",
@@ -56,30 +36,14 @@
       "check-open-brace",
       "check-whitespace"
     ],
-    // ordering is better to be logically grouped than alphabetical
-    "ordered-imports": false,
-    "object-literal-sort-keys": false,
-    // Turning it off as it would enforce readonly on private properties set via DI in the constructor
-    // It also has an issue within mixin classes.
-    "prefer-readonly": false,
-    "strict-boolean-expressions": false,
-    // tslint:all defaults to file-name-casing camel-case which does is not compliant with angular's file namings
-    "file-name-casing": false,
-    "return-undefined": false,
-    "typedef": [
-      true,
-      "call-signature",
-      "parameter",
-      // Removed as this could be result in a lot of pollution when piping RxJS operators and array functions
-      // "arrow-parameter",
-      "property-declaration"
-    ],
-    "trailing-comma": [true, { "singleline": "never", "multiline": "always" }],
+    "quotemark": [true, "single", "avoid-escape"],
+    "curly": true,
     "variable-name": [
       true,
       "ban-keywords",
       "check-format",
-      "allow-leading-underscore"
+      "allow-leading-underscore",
+      "allow-snake-case"
     ],
     "whitespace": [
       true,
@@ -90,31 +54,26 @@
       "check-type",
       "check-preblock"
     ],
+    "linebreak-style": [true, "LF"],
+    "no-namespace": true,
+    "jsdoc-format": [true, "check-multiline-start"],
+    "no-duplicate-imports": true,
+    "await-promise": true,
+    "typedef": [true, "call-signature", "parameter"],
+
+    // Codelyzer
+    "template-banana-in-box": true,
+    "contextual-lifecycle": true,
+    "contextual-decorator": true,
+    "no-output-on-prefix": true,
+    "template-no-negated-async": true,
+    "use-lifecycle-interface": true,
+
     // banning root module imports, only sub module imports are allowed
     "import-blacklist": [true, "@dynatrace/angular-components"],
 
-    // Angular specific
-    "angular-whitespace": false,
-    "component-class-suffix": false,
-    "directive-class-suffix": false,
-    // "use-host-property-decorator": false,
-    "no-host-metadata-property": false,
-    "no-inputs-metadata-property": false,
-    "no-outputs-metadata-property": false,
-    "no-output-rename": false,
-    "no-input-rename": false,
-    "no-attribute-decorator": false,
-    "use-component-view-encapsulation": false,
-    "template-i18n": false,
-    // Enables us to use ngOnChanges and ngDoCheck
-    "no-conflicting-lifecycle": false,
-    "component-max-inline-declarations": false,
-
     // Prettier specific
     "prettier": true,
-
-    // Dynatrace rules
-    "dt-no-detect-changes": false,
 
     // Custom Rules
     "ts-loader": true,
