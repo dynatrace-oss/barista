@@ -15,15 +15,6 @@ tags:
 
 ## Step 1: Install the angular-components and Angular CDK
 
-This library is available in our internal Artifactory. To make it installable
-via `npm` or `yarn` add the following lines to your `.npmrc` or `.yarnrc` (you
-might need to create this file if it is not already there)
-
-```
-registry="***REMOVED***
-"@dynatrace:registry"="***REMOVED***
-```
-
 Now you are able to install the library
 
 `npm install --save @dynatrace/angular-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/dt-iconpack`  
