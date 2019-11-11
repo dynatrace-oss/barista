@@ -20,9 +20,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { startWith, takeUntil } from 'rxjs/operators';
 
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import {
+  DtViewportResizer,
+  toggleCssClass,
+} from '@dynatrace/angular-components/core';
 
 /** The min-width from which empty state items are displayed horizontally. */
 const ITEMS_HORIZONTAL_BREAKPOINT = 540;
@@ -120,9 +123,6 @@ export class DtEmptyStateFooterActions {}
   host: {
     class: 'dt-empty-state',
     '[@fadeIn]': '_visibility',
-    '[class.dt-empty-state-layout-horizontal]': '_isLayoutHorizontal',
-    '[class.dt-empty-state-items-horizontal]':
-      '_isItemLayoutHorizontal && !_isLayoutHorizontal',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -183,7 +183,10 @@ export class DtEmptyState
   ngAfterViewInit(): void {
     this._viewportResizer
       .change()
-      .pipe(takeUntil(this._destroy$))
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy$),
+      )
       .subscribe(() => {
         this._updateLayout();
       });
@@ -199,11 +202,21 @@ export class DtEmptyState
     if (this._platform.isBrowser) {
       const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
         .width;
-      this._isItemLayoutHorizontal =
-        componentWidth > ITEMS_HORIZONTAL_BREAKPOINT;
-      this._isLayoutHorizontal =
+
+      const itemLayoutHorizontal = componentWidth > ITEMS_HORIZONTAL_BREAKPOINT;
+      const layoutHorizontal =
         this._items.length > 1 && componentWidth > LAYOUT_HORIZONTAL_BREAKPOINT;
-      this._changeDetectorRef.markForCheck();
+
+      toggleCssClass(
+        layoutHorizontal,
+        this._elementRef.nativeElement,
+        'dt-empty-state-layout-horizontal',
+      );
+      toggleCssClass(
+        itemLayoutHorizontal && !layoutHorizontal,
+        this._elementRef.nativeElement,
+        'dt-empty-state-items-horizontal',
+      );
     }
   }
 }
