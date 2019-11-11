@@ -1,4 +1,4 @@
-export const BITBUCKET_HOST = '***REMOVED***
+export const BITBUCKET_HOST = '<bitbucket>';
 export const BITBUCKET_PROJECT = 'RX';
 export const BITBUCKET_REPO = 'angular-components';
 export const BITBUCKET_USER = process.env.BBUSER as string;

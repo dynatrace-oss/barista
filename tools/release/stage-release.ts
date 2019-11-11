@@ -56,10 +56,7 @@ class StageReleaseTask {
       process.exit(1);
     }
 
-    this.git = new GitClient(
-      projectDir,
-      `***REMOVED***
-    );
+    this.git = new GitClient(projectDir, `<bitbucket>${repositoryName}.git`);
   }
 
   async run() {
