@@ -30,7 +30,7 @@ length. Dismissing the toast is paused while the user is hovering the message.
 You have to import the `DtToastModule` when you want to use the `DtToast`
 service. The `DtToast` service component also requires Angular's
 `BrowserAnimationsModule` for animations. For more details on this see
-[Step 2: Animations](***REMOVED***
+[Step 2: Animations](https://barista.dynatrace.org/components/get-started/#step-2-animations)
 in the getting started guide.
 
 ```typescript

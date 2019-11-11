@@ -148,17 +148,8 @@ been added or removed. The emitted event is an instance of
 ### Adding filters programmatically
 
 To set filters programmatically, the filter-field has a `filters` input. Assign
-the filters you want to set to this property. Be aware, there are a few
-requirements that need to be fulfilled so that the filters can be applied
-properly.
-
-1. The filters applied need to be part of and match the data (by reference) that
-   is currently provided via the data source.
-2. Setting filters that have parts that are not yet loaded and therefore behind
-   an async flag is currently not supported (Watch the following issue to be
-   notified when this is possible:
-   [***REMOVED***](***REMOVED***/***REMOVED***)).
-3. Setting the filters will override all the currently selected ones.
+the filters you want to set to this property. Be aware, setting the filters will
+override all the currently selected ones.
 
 <docs-source-example example="FilterFieldProgrammaticFiltersExample"></docs-source-example>
 

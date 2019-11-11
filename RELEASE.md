@@ -18,7 +18,7 @@ A new version of the Angular components is released at least once at the end of
 each sprint. If there are fixes and features ready earlier, a release in the
 middle of a sprint is also possible.
 
-[Breaking changes](***REMOVED***
+[Breaking changes](https://barista.dynatrace.org/components/contribute/#breaking-changes)
 are released with the next (future) major version.
 
 ## Versioning
@@ -40,8 +40,8 @@ different meaning and describe the type of change this version introduces.
 angular-components.**
 
 Go to the
-[pull request overview page](***REMOVED***
-of the angular-components repository and merge all pull requests marked as
+[pull request overview page](https://github.com/Dynatrace/barista/pulls) of the
+angular-components repository and merge all pull requests marked as
 `[merge-ready]` into master. Only merge pull requests marked with `[major]` when
 releasing a new major version. Once all branches are merged and all merge
 conflicts are resolved, follow these steps:
@@ -85,12 +85,10 @@ conflicts are resolved, follow these steps:
 
 After a successful release the Barista examples (code demos) build is triggered
 and the updated content for the design system is built. Check the pull request
-that is automatically opened in the
-[barista-content repository](***REMOVED***
-and the generated preview. When merging this pull request all updates to
-component demos and the
-[new changelog](***REMOVED*** will be
-published in [Barista](***REMOVED***
+that is automatically opened in the barista-content repository and the generated
+preview. When merging this pull request all updates to component demos and the
+[new changelog](https://barista.dynatrace.org/components/changelog/) will be
+published in [Barista](https://barista.dynatrace.org/).
 
 Announce the new version upgrade in our Slack channels
 [#help-ng-components](***REMOVED***) and

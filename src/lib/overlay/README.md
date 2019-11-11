@@ -39,7 +39,7 @@ You have to import the `DtOverlayModule` when you want to use the `DtOverlay`
 service or the `DtOverlayTrigger`directive. The `DtOverlay` service also
 requires Angular's `BrowserAnimationsModule` for animations. For more details on
 this see
-[Step 2: Animations in the getting started guide](***REMOVED***
+[Step 2: Animations in the getting started guide](https://barista.dynatrace.org/components/get-started/#step-2-animations).
 
 ```typescript
 @NgModule({
