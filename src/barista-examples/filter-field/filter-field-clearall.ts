@@ -57,6 +57,4 @@ export class FilterFieldClearAllExample<T> {
   _filters = [this._linzFilter];
 
   _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
-
-  constructor() {}
 }
