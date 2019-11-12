@@ -9,14 +9,14 @@
     <div class="ba-index-page-section">
       <h2>Recently ordered</h2>
       <ul class="ba-tilegrid-onerow">
-        <li *ngFor="let item of contents.recentlyordered">
-          <a ba-smalltile [data]="item"></a>
+        <li *ngFor="let item of _orderedItems">
+          <ba-smalltile [data]="item"></ba-smalltile>
         </li>
       </ul>
       <h2>Most ordered</h2>
       <ul class="ba-tilegrid-onerow">
         <li *ngFor="let item of contents.mostordered">
-          <a ba-smalltile [data]="item"></a>
+          <ba-smalltile [data]="item"></ba-smalltile>
         </li>
       </ul>
     </div>
@@ -25,9 +25,10 @@
         <h2>Do you want to help us brew?</h2>
         <p>
           That's awesome! We are happy to receive your ideas and feedback. Just
-          contact <a href="mailto:lara.aigmueller@dynatrace.com">us</a>.
+          contact <a href="mailto:lara.aigmueller@dynatrace.com">us</a> or open
+          a pull request in our <a href="#"> GitHub repository</a>.
         </p>
-        <a class="ba-btn ba-btn--primary ba-btn--cta" href="/contribute/"
+        <a class="ba-btn ba-btn-primary ba-btn-cta" href="/contribute/"
           >Contribute now!</a
         >
       </div>

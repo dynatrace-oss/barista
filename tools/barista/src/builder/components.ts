@@ -42,6 +42,7 @@ export const componentsBuilder: BaPageBuilder = async (
     const pageContent = await transformPage(
       {
         content: readFileSync(join(dir, 'README.md')).toString(),
+        category: 'component',
       },
       TRANSFORMERS,
     );

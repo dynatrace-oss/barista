@@ -1,5 +1,5 @@
 @import '../../styles/global/variables';
-@import 'colors';
+@import '../../../lib/core/style/colors';
 
 $blue-1000: #002c66;
 
@@ -185,13 +185,4 @@ $gridgap: 20px;
 
 .ba-internal-link::after {
   content: ' (internal link)';
-}
-
-.ba-smalltile-empty {
-  width: 100%;
-  height: 100%;
-  color: transparent;
-  background-color: $gray-100;
-  cursor: default;
-  pointer-events: none;
 }
