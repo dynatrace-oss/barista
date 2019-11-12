@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DtStepper } from '@dynatrace/barista-components/stepper';
 
 @Component({
-  moduleId: module.id,
   selector: 'stepper-barista-example',
   template: `
     <dt-stepper #stepper linear>

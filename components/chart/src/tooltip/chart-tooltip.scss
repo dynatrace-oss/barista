@@ -1,4 +1,4 @@
-@import '../../core/style/overlay';
+@import '../../../core/src/style/overlay';
 
 .dt-chart-tooltip-overlay {
   @include dt-overlay-container();

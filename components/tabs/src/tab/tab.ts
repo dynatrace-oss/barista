@@ -6,24 +6,20 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  Inject,
   Input,
   OnInit,
   Optional,
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
-  forwardRef,
 } from '@angular/core';
-import { Subject } from 'rxjs';
-
 import {
   CanDisable,
   HasTabIndex,
   mixinDisabled,
   mixinTabIndex,
 } from '@dynatrace/barista-components/core';
-
+import { Subject } from 'rxjs';
 import { DtTabGroup } from '../tab-group';
 import { DtTabContent } from './tab-content';
 import { DtTabLabel } from './tab-label';
@@ -47,7 +43,6 @@ export class DtTabBase {
 export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-tab',
   exportAs: 'dtTab',
   templateUrl: 'tab.html',
@@ -150,8 +145,6 @@ export class DtTab extends _DtTabMixinBase
     elementRef: ElementRef,
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
-    // tslint:disable-next-line:no-forward-ref
-    @Inject(forwardRef(() => DtTabGroup))
     @Optional()
     private _tabGroup: DtTabGroup,
   ) {

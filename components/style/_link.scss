@@ -1,6 +1,6 @@
-@import '../style/font-mixins';
-@import '../core/style/variables';
-@import '../icons/icons-mixin';
+@import '../core/src/style/variables';
+@import './icons/icons-mixin';
+@import './font-mixins';
 
 $dark-link-hover-bg: rgba(255, 255, 255, 0.2);
 $dark-link-active-bg: rgba(255, 255, 255, 0.3);

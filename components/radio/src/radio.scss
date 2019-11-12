@@ -1,8 +1,8 @@
-@import '../core/style/variables';
-@import '../core/style/interactive-common';
-@import '../core/style/transition';
-@import '../core/theming/theming';
-@import '../style/font-mixins';
+@import '../../core/src/style/variables';
+@import '../../core/src/style/interactive-common';
+@import '../../core/src/style/transition';
+@import '../../core/src/theming/theming';
+@import '../../style/font-mixins';
 @import './radio-theme';
 
 $dt-radio-size: 20px;

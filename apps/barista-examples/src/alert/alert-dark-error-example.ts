@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'alert-dark-error-barista-example',
   template: `
     <section class="dark" dtTheme=":dark">

@@ -6,7 +6,6 @@ import {
 } from '@dynatrace/barista-components/formatters';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   // tslint:disable
   template: `

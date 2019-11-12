@@ -8,9 +8,10 @@
   "buildOnSave": false,
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "",
-    "target": "es2015",
-    "module": "es2015",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "target": "es5",
+    "module": "esnext",
     "moduleResolution": "node",
     "declaration": true,
     "sourceMap": true,
@@ -23,6 +24,7 @@
     "noUnusedParameters": true,
     "lib": ["dom", "es2017"],
     "paths": {
+      "@dynatrace/barista-components/testing": ["libs/testing/src/index.ts"],
       "@dynatrace/barista-components/alert": ["components/alert/src/index.ts"],
       "@dynatrace/barista-components/autocomplete": [
         "components/autocomplete/src/index.ts"

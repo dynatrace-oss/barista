@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-button-group-ui',
   templateUrl: 'button-group-ui.html',
 })

@@ -42,7 +42,6 @@ export function getDtDuplicateDrawerError(position: 'start' | 'end'): Error {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-drawer-container',
   exportAs: 'dtDrawerContainer',
   templateUrl: 'drawer-container.html',

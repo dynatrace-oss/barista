@@ -18,7 +18,6 @@ import { DtToggleButtonChange, DtToggleButtonItem } from './toggle-button-item';
 
 /** DtToggleButtonGroup wraps the DtToggleButtonItems as a select 0 or 1 container. */
 @Component({
-  moduleId: module.id,
   selector: 'dt-toggle-button-group',
   exportAs: 'dtToggleButtonGroup',
   templateUrl: 'toggle-button-group.html',

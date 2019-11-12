@@ -40,7 +40,6 @@ import { DtSuffix } from './suffix';
 let nextUniqueId = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-form-field',
   exportAs: 'dtFormField',
   templateUrl: 'form-field.html',

@@ -1,5 +1,5 @@
-@import '../core/style/variables';
-@import '../core/theming/theming';
+@import '../../core/src/style/variables';
+@import '../../core/src/theming/theming';
 
 @mixin dt-theme-button-group-item($theme) {
   $palette-names: 'main', 'error';

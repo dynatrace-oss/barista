@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { DtRateUnit } from '@dynatrace/barista-components/formatters';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-form-field>

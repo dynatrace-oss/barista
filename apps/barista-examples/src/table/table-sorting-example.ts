@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { DtSortEvent } from '@dynatrace/barista-components/table';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   styles: ['button { margin-top: 16px; }'],
   // tslint:disable

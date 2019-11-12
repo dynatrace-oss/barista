@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { DtConsumptionThemePalette } from '@dynatrace/barista-components/consumption';
 
 @Component({
-  moduleId: module.id,
   selector: 'consumption-dev-app-demo',
   templateUrl: './consumption-demo.component.html',
   styleUrls: ['./consumption-demo.component.scss'],

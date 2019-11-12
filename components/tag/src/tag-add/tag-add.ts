@@ -22,7 +22,6 @@ import { switchMap, take, takeUntil } from 'rxjs/operators';
 import { DtInput } from '@dynatrace/barista-components/input';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-tag-add',
   exportAs: 'dtTagAdd',
   templateUrl: 'tag-add.html',

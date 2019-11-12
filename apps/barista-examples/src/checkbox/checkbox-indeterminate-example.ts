@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { DtCheckboxChange } from '@dynatrace/barista-components/checkbox';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <p>indeterminate: {{ _isIndeterminate() }} | checked: {{ _isChecked() }}</p>

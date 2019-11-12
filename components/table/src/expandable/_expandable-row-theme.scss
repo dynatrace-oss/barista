@@ -1,4 +1,4 @@
-@import '../../core/theming/theming';
+@import '../../../core/src/theming/theming';
 
 @mixin dt-theme-expandable-row($theme, $theme-name) {
   $palette: dt-get-theme-palette($theme, 'main');

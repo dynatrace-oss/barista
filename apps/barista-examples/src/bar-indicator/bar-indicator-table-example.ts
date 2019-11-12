@@ -3,7 +3,6 @@ import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { DtSort, DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-table [dataSource]="dataSource" dtSort #sortable>

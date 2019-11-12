@@ -34,7 +34,6 @@ export class DtSecondaryNavLink {}
 export class DtSecondaryNavTitle {}
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-secondary-nav',
   exportAs: 'dtSecondaryNav',
   templateUrl: 'secondary-nav.html',

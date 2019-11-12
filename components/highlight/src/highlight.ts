@@ -52,7 +52,6 @@ function escapeRegExp(text: string): string {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-highlight, [dt-highlight]',
   exportAs: 'dtHighlight',
   host: {

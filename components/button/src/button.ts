@@ -45,7 +45,6 @@ const defaultVariant = 'primary';
  * Dynatrace design button.
  */
 @Component({
-  moduleId: module.id,
   selector: `button[dt-button], button[dt-icon-button]`,
   exportAs: 'dtButton',
   host: {
@@ -149,7 +148,6 @@ export class DtButton extends _DtButtonMixinBase
  * @design-unrelated
  */
 @Component({
-  moduleId: module.id,
   selector: `a[dt-button], a[dt-icon-button]`,
   exportAs: 'dtButton, dtAnchor',
   host: {

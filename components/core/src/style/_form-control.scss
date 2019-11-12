@@ -1,4 +1,4 @@
-@import '../../style/font-mixins';
+@import '../../../style/font-mixins';
 // Mixin to create the border and spacings for inputs, form-fields, ...
 @mixin dt-form-control() {
   box-sizing: border-box;

@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-<%= dasherize(name) %>',
   exportAs: 'dt<%= classify(name) %>',
   templateUrl: '<%= dasherize(name) %>.html',

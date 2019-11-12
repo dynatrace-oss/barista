@@ -4,7 +4,6 @@ import { DtButton } from '@dynatrace/barista-components/button';
 import { DtContextDialog } from '@dynatrace/barista-components/context-dialog';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <button dt-button variant="secondary" (click)="open()" #focusme>

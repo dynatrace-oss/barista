@@ -15,7 +15,6 @@ export const _DtOptgroupMixinBase = mixinDisabled(DtOptgroupBase);
 
 /** Component that is used to group instances of `dt-option`. */
 @Component({
-  moduleId: module.id,
   selector: 'dt-optgroup',
   exportAs: 'dtOptgroup',
   encapsulation: ViewEncapsulation.Emulated,

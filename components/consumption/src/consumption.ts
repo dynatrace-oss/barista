@@ -57,7 +57,6 @@ const KEY_RETURN = 13;
  * hovers over the consumption component.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-consumption',
   exportAs: 'dtConsumption',
   templateUrl: 'consumption.html',

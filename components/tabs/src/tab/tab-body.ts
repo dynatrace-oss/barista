@@ -22,7 +22,6 @@ import { Subscription } from 'rxjs';
  * notifies the portaloutlet when the active input is changed to enable lazy loading
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-tab-body',
   templateUrl: 'tab-body.html',
   styleUrls: ['tab-body.scss'],

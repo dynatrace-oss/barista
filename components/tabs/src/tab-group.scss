@@ -1,8 +1,8 @@
-@import '../style/font-mixins';
-@import '../core/style/variables';
-@import '../core/theming/theming';
+@import '../../style/font-mixins';
+@import '../../core/src/style/variables';
+@import '../../core/src/theming/theming';
 @import './tab-group-theme';
-@import '../core/style/interactive-common';
+@import '../../core/src/style/interactive-common';
 
 :host .dt-tab-header-wrapper {
   display: flex;

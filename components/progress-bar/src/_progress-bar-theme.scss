@@ -1,4 +1,4 @@
-@import '../core/theming/theming';
+@import '../../core/src/theming/theming';
 
 @mixin dt-theme-progress-bar($theme) {
   $palette-names: 'main', 'accent', 'warning', 'recovered', 'error';

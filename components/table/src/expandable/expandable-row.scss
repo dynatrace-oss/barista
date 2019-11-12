@@ -1,8 +1,8 @@
-@import '../../core/style/variables';
-@import '../../core/style/table';
-@import '../../core/theming/theming';
+@import '../../../core/src/style/variables';
+@import '../../../core/src/style/table';
+@import '../../../core/src/theming/theming';
 @import '../table-mixins';
-@import 'expandable-row-theme';
+@import './expandable-row-theme';
 
 :host.dt-expandable-row {
   &:nth-child(even) {

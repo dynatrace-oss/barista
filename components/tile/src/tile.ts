@@ -63,7 +63,6 @@ export const _DtTileMixinBase = mixinTabIndex(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-tile',
   exportAs: 'dtTile',
   templateUrl: 'tile.html',

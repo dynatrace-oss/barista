@@ -11,7 +11,6 @@ import { DtShowMore } from '@dynatrace/barista-components/show-more';
 import { DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   // tslint:disable
   template: `
