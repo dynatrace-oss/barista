@@ -27,12 +27,9 @@
     "stylelint-check": "stylelint-config-prettier-check",
     "prettier": "prettier \"./**/*.{ts,js,css,scss,json,html,md}\"",
     "prettier:fix": "npm run prettier --write",
-    "import-sort": "import-sort \"src/!(schematics)/**/*.{ts,js}\" \"tools/tslint-rules/**/*.{ts,js}\" \"ui-tests/**/*.{ts,js}\"",
-    "import-sort:fix": "npm run import-sort --write",
-    "import-sort-style-dynatrace:build": "tsc -b tools/import-sort-style-dynatrace && copyfiles -u 2 \"tools/import-sort-style-dynatrace/*.json\" node_modules/import-sort-style-dynatrace",
     "universal": "gulp universal",
     "schematics:build": "gulp schematics:build",
-    "postinstall": "gulp schematics:build && gulp barista-example:generate && npm run import-sort-style-dynatrace:build",
+    "postinstall": "gulp schematics:build && gulp barista-example:generate",
     "bitbucket-tools": "nodemon --config ./tools/bitbucket-tools/nodemon.json",
     "bitbucket-tools:test": "jest --rootDir tools/bitbucket-tools/",
     "bitbucket-tools:build": "tsc --project ./tools/bitbucket-tools/tsconfig.json"
@@ -54,19 +51,8 @@
     "reportPath": "dist/sonar-test-results/",
     "reportFile": "unit-tests.xml"
   },
-  "importSort": {
-    ".ts": {
-      "parser": "typescript",
-      "style": "dynatrace"
-    },
-    ".js": {
-      "parser": "babylon",
-      "style": "dynatrace"
-    }
-  },
   "lint-staged": {
     "*.{ts,js}": [
-      "import-sort --write",
       "prettier --write",
       "git add"
     ],
@@ -136,9 +122,6 @@
     "gulp-util": "^3.0.8",
     "highcharts": "^6.0.7",
     "husky": "^3.0.0",
-    "import-sort": "^6.0.0",
-    "import-sort-cli": "^6.0.0",
-    "import-sort-parser-typescript": "^6.0.0",
     "inquirer": "^6.2.1",
     "jasmine-reporters": "^2.3.2",
     "jest": "^24.8.0",
