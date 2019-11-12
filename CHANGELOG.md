@@ -1,3 +1,14 @@
+## 4.14.2 (2019-11-12)
+
+### Bug Fixes
+
+- **emtpy-state:** Fixes an issue where the layout of the empty state initially
+  rendered incorrectly and only updated on window resize.
+- **highlight:** Fixes an issue where the intersection observer did not work
+  correctly in scrollable containers
+- **table:** Fixes an issue where the pagination did not reset correctly when
+  passing new data into the datasource
+
 ## 4.14.1 (2019-11-05)
 
 ### Bug Fixes
