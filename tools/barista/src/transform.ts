@@ -34,6 +34,14 @@ export const frontMatterTransformer: BaPageTransformer = async source => {
     transformed.properties =
       source.properties || frontMatter.data.properties || [];
     transformed.tags = source.tags || frontMatter.data.tags || [];
+    transformed.related = source.related || frontMatter.data.related;
+    transformed.public = source.public || frontMatter.data.public || false;
+    transformed.toc = source.toc || frontMatter.data.toc || true;
+    transformed.themable =
+      source.themable || frontMatter.data.themable || false;
+    transformed.wiki = source.wiki || frontMatter.data.wiki;
+    transformed.contributors =
+      source.contributors || frontMatter.data.contributors || {};
   }
   return transformed;
 };
