@@ -31,4 +31,5 @@ export interface BaPageContent {
   tags?: string[];
   related?: string[];
   nav_group?: string;
+  category?: string;
 }
