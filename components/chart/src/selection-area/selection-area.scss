@@ -1,6 +1,6 @@
-@import '../../core/style/variables';
-@import '../../core/style/overlay';
-@import '../../core/style/interactive-common';
+@import '../../../core/src/style/variables';
+@import '../../../core/src/style/overlay';
+@import '../../../core/src/style/interactive-common';
 
 .dt-chart-selection-area {
   position: absolute;

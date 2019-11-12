@@ -31,7 +31,6 @@ const DT_TAG_LIST_HEIGHT = 32;
 const DT_TAG_LIST_LAST_TAG_SPACING = 8;
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-tag-list',
   exportAs: 'dtTagList',
   templateUrl: 'tag-list.html',

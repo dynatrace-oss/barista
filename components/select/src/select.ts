@@ -122,7 +122,6 @@ export function getDtSelectNonFunctionValueError(): Error {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-select',
   exportAs: 'dtSelect',
   templateUrl: 'select.html',

@@ -23,7 +23,6 @@ import { DtStepper } from './stepper';
  * TODO ChMa: write linting rule for aria-label
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-step',
   template: '<ng-template><ng-content></ng-content></ng-template>',
   providers: [{ provide: ErrorStateMatcher, useExisting: DtStep }],

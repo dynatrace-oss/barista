@@ -6,7 +6,6 @@ import {
 } from '@dynatrace/barista-components/chart';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-chart-ui',
   styles: [
     '.dt-chart { border: 1px solid black; } .dt-chart:hover { border: 1px solid red; }',

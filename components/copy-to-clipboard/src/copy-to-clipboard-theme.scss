@@ -1,4 +1,4 @@
-@import '../core/theming/theming';
+@import '../../core/src/theming/theming';
 
 @mixin dt-theme-copy-to-clipboard($theme) {
   $is-dark: map-get($dt-current-theme, 'is-dark');

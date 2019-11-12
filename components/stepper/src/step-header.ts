@@ -12,7 +12,6 @@ import {
 import { DtStepLabel } from './step-label';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-step-header',
   templateUrl: 'step-header.html',
   styleUrls: ['step-header.scss'],

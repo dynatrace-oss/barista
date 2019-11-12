@@ -57,7 +57,6 @@ export class DtSwitchBase {}
 export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-switch',
   templateUrl: 'switch.html',
   styleUrls: ['switch.scss'],

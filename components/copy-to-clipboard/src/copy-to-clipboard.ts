@@ -23,7 +23,6 @@ const DT_COPY_CLIPBOARD_TIMER = 800;
 const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-copy-to-clipboard',
   templateUrl: 'copy-to-clipboard.html',
   styleUrls: ['copy-to-clipboard.scss'],

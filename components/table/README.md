@@ -349,7 +349,6 @@ instances for `dtSort` to the `DtTableDataSource`.
 
 ```ts
 @Component({
-  moduleId: module.id,
   template: `
     <input dtInput (input)="updateFilter($event)" />
     <dt-table [dataSource]="dataSource" dtSort #sortable>

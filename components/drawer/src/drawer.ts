@@ -29,7 +29,6 @@ export const DT_DRAWER_CONTAINER = new InjectionToken<DtDrawerContainer>(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-drawer',
   exportAs: 'dtDrawer',
   templateUrl: 'drawer.html',

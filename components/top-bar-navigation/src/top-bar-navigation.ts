@@ -25,7 +25,6 @@ import {
  * ```
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-top-bar-navigation',
   exportAs: 'dtTopBarNavigation',
   templateUrl: 'top-bar-navigation.html',

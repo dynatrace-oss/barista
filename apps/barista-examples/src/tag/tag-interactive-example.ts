@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { DtTag } from '@dynatrace/barista-components/tag';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-tag-list>

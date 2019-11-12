@@ -11,7 +11,6 @@ interface EventChartDemoEvent {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'event-chart-demo',
   template: `
     <dt-event-chart>

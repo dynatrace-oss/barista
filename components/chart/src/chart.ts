@@ -24,7 +24,6 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
-  forwardRef,
 } from '@angular/core';
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
@@ -146,7 +145,6 @@ export interface DtChartSeriesVisibilityChangeEvent {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-chart',
   styleUrls: ['./chart.scss'],
   templateUrl: './chart.html',
@@ -254,7 +252,7 @@ export class DtChart
 
   /** @internal List of Heatfield references */
   // tslint:disable-next-line: no-forward-ref
-  @ContentChildren(forwardRef(() => DtChartHeatfield))
+  @ContentChildren(DtChartHeatfield)
   _heatfields: QueryList<DtChartHeatfield>;
 
   /** @internal Instance of the Chart range used by the selection area */

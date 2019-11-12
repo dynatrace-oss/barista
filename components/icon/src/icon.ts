@@ -35,7 +35,6 @@ const iconLogger = DtLoggerFactory.create('DtIcon');
  * @no-design-combinations
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-icon',
   exportAs: 'dtIcon',
   template: '<ng-content></ng-content>',

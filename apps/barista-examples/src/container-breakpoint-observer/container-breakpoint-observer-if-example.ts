@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'container-breakpoint-observer-barista-example',
   template: `
     <dt-container-breakpoint-observer>

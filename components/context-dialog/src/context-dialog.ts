@@ -83,7 +83,6 @@ export const _DtContextDialogMixinBase = mixinTabIndex(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-context-dialog',
   templateUrl: 'context-dialog.html',
   styleUrls: ['context-dialog.scss'],

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'legend-dev-app-demo',
   template: `
     <dt-legend>

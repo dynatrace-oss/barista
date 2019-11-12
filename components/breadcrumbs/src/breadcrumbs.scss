@@ -1,7 +1,7 @@
-@import '../core/theming/theming';
-@import '../core/style/variables';
-@import '../core/style/interactive-common';
-@import '../style/font-mixins';
+@import '../../core/src/theming/theming';
+@import '../../core/src/style/variables';
+@import '../../core/src/style/interactive-common';
+@import '../../style/font-mixins';
 @import 'breadcrumbs-theme';
 
 $height: 32px;

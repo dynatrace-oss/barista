@@ -33,7 +33,6 @@ export class DtOptionSelectionChange<T> {
 
 /** Single option inside of a `<dt-select>` or `<dt-combobox>` element. */
 @Component({
-  moduleId: module.id,
   selector: 'dt-option',
   exportAs: 'dtOption',
   host: {

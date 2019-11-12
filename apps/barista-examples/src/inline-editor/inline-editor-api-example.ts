@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { DtInlineEditor } from '@dynatrace/barista-components/inline-editor';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <em

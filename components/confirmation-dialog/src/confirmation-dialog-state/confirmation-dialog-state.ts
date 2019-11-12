@@ -9,7 +9,6 @@ import {
 import { DT_CONFIRMATION_FADE_DURATION } from '../confirmation-dialog-constants';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-confirmation-dialog-state',
   templateUrl: './confirmation-dialog-state.html',
   styleUrls: ['./confirmation-dialog-state.scss'],

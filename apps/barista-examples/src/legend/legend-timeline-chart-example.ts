@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'legend-timeline-chart-example',
   template: `
     <dt-timeline-chart value="0.37" unit="s">

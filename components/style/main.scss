@@ -1,14 +1,14 @@
 /*
  * core styles for the component library
  */
-@import 'variables';
+@import '../core/src/style/variables';
 
-@import 'font-mixins';
-@import '../icons/index';
-@import '../input/input';
-@import 'link';
+@import './font-mixins';
+@import './icons/index';
+@import '../input/src/input';
+@import './link';
 
-@import '../core/style/overlay';
+@import '../core/src/style/overlay';
 
 @import '~@angular/cdk/overlay';
 @import '~@angular/cdk/a11y';
@@ -22,4 +22,4 @@
 
 // indicator styles import because the indicator is a directive
 // and cannot be shipped with styles
-@import '../core/indicator/indicator';
+@import '../core/src/indicator/indicator';

@@ -1,6 +1,6 @@
-@import '../style/font-mixins';
-@import '../core/style/variables';
-@import '../core/style/table';
+@import '../../style/font-mixins';
+@import '../../core/src/style/variables';
+@import '../../core/src/style/table';
 
 @mixin dt-base-row() {
   align-items: stretch;

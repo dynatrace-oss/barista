@@ -1,7 +1,7 @@
-@import '../core/style/variables';
-@import '../style/font-mixins';
-@import '../core/style/interactive-common';
-@import '../core/theming/theming';
+@import '../../core/src/style/variables';
+@import '../../style/font-mixins';
+@import '../../core/src/style/interactive-common';
+@import '../../core/src/theming/theming';
 @import './toggle-button-item-theme';
 
 :host {

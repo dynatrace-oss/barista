@@ -18,7 +18,6 @@ import {
 import { filter } from 'rxjs/operators';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-expandable-panel',
   exportAs: 'dtExpandablePanel',
   templateUrl: 'expandable-panel.html',

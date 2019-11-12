@@ -15,7 +15,6 @@ import { DtTableEmptyStateTitle } from './table-empty-state-title';
  * @breaking-change To be removed with 6.0.0.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-table-empty-state',
   styleUrls: ['./table-empty-state.scss'],
   templateUrl: 'table-empty-state.html',

@@ -6,7 +6,6 @@ import {
 } from '@dynatrace/barista-components/toggle-button-group';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-toggle-button-group (click)="getSelectedItem()">

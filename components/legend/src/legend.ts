@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-legend',
   exportAs: 'dtLegend',
   templateUrl: 'legend.html',

@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <button dt-button (click)="resetExample()">Start example</button>
