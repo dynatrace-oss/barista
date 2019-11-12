@@ -304,7 +304,7 @@ Todd Baert
 
 - **event-chart:** Added event chart as an experimental component. Note that the
   event-chart is not part of the root package - please import from
-  @dynatrace/angular-components/event-chart
+  @dynatrace/barista-components/event-chart
 
 - **expandable-text:** Added expandable-text component.
 
@@ -679,13 +679,13 @@ Arnaud Crowther, Kamil Knitter and Bartosz Bobin
 - **table:** Removed deprecated `toggle` method on the `expandable-row`.
 
 - **table:** Removed deprecated `compareString` function. Use the
-  `compareStrings` function from `@dynatrace/angular-components/core`.
+  `compareStrings` function from `@dynatrace/barista-components/core`.
 
 - **table:** Removed deprecated `expandedRow` property. Use `openedChange`
   output of `dt-expandable-row` instead.
 
 - **table:** Removed deprecated type `DtSortDirection`. Import it directly from
-  `@dynatrace/angular-components/core`.
+  `@dynatrace/barista-components/core`.
 
 - **table-sort:** Adds sort icon to all sortable columns.
 

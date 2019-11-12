@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtTag } from '@dynatrace/angular-components/tag';
+import { DtTag } from '@dynatrace/barista-components/tag';
 
 @Component({
   moduleId: module.id,

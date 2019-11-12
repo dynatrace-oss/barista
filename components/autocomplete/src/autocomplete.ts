@@ -21,7 +21,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { DtOptgroup, DtOption } from '@dynatrace/angular-components/core';
+import { DtOptgroup, DtOption } from '@dynatrace/barista-components/core';
 
 let _uniqueIdCounter = 0;
 

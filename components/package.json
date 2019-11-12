@@ -1,5 +1,5 @@
 {
-  "name": "@dynatrace/angular-components",
+  "name": "@dynatrace/barista-components",
   "description": "Dynatrace components for Angular",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   "ng-update": {
     "migrations": "./schematics/migration.json",
     "packageGroup": [
-      "@dynatrace/angular-components"
+      "@dynatrace/barista-components"
     ]
   },
   "ngPackage": {

@@ -1,4 +1,4 @@
-import { DtEventChartColors } from '@dynatrace/angular-components/event-chart';
+import { DtEventChartColors } from '@dynatrace/barista-components/event-chart';
 
 import {
   EventChartDemoDataSource,

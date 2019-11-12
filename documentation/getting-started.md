@@ -17,9 +17,9 @@ tags:
 
 Now you are able to install the library
 
-`npm install --save @dynatrace/angular-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/dt-iconpack`  
+`npm install --save @dynatrace/barista-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/dt-iconpack`  
 or  
-`yarn add @dynatrace/angular-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/dt-iconpack`
+`yarn add @dynatrace/barista-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/dt-iconpack`
 
 ## Step 2: Animations
 
@@ -47,7 +47,7 @@ If you don't want to add another dependency to your project, you can use the
 NoopAnimationsModule.
 
 ```typescript
-import {NoopAnimationsModule} from '@dynatrace/angular-components';
+import {NoopAnimationsModule} from '@dynatrace/barista-components';
 
 @NgModule({
   ...
@@ -67,7 +67,7 @@ have to
 Import the NgModule for each component you want to use:
 
 ```typescript
-import {DtButtonModule, DtSelectModule} from '@dynatrace/angular-components';
+import {DtButtonModule, DtSelectModule} from '@dynatrace/barista-components';
 
 @NgModule({
   ...
@@ -93,14 +93,14 @@ angular-components. These core styles are just the bare minimum for the
 component and do not change the global styling of your app.
 
 ```scss
-@import '~@dynatrace/angular-components/style/main';
+@import '~@dynatrace/barista-components/style/main';
 ```
 
 You can also import the second variant, which include in addition to the core
 style also general styling for headlines, text-formatting, ...
 
 ```scss
-@import '~@dynatrace/angular-components/style/index';
+@import '~@dynatrace/barista-components/style/index';
 ```
 
 ## Step 5: Optional - Add fonts and icon files to your assets
@@ -119,7 +119,7 @@ aware of the file dependencies.
 },
 {
   "glob": "**/*",
-  "input": "node_modules/@dynatrace/angular-components/assets/fonts",
+  "input": "node_modules/@dynatrace/barista-components/assets/fonts",
   "output": "/assets/fonts"
 },
 ...

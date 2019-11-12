@@ -22,7 +22,7 @@ import {
   HasTabIndex,
   mixinDisabled,
   mixinTabIndex,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtTabGroup } from '../tab-group';
 import { DtTabContent } from './tab-content';

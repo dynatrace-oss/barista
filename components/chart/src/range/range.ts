@@ -31,8 +31,8 @@ import {
   isNumber,
   readKeyCode,
   removeCssClass,
-} from '@dynatrace/angular-components/core';
-import { dtFormatDateRange } from '@dynatrace/angular-components/formatters';
+} from '@dynatrace/barista-components/core';
+import { dtFormatDateRange } from '@dynatrace/barista-components/formatters';
 
 import { DtSelectionAreaEventTarget } from '../selection-area/position-utils';
 import { clampRange } from './clamp-range';

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtRateUnit } from '@dynatrace/angular-components/formatters';
+import { DtRateUnit } from '@dynatrace/barista-components/formatters';
 
 @Component({
   moduleId: module.id,

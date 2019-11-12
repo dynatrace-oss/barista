@@ -12,7 +12,7 @@ import {
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
-import { Constructor, mixinColor } from '@dynatrace/angular-components/core';
+import { Constructor, mixinColor } from '@dynatrace/barista-components/core';
 
 import { DtBreadcrumbsItem2 } from './breadcrumbs-item';
 import { DtBreadcrumbsItem } from './item/breadcrumbs-item';

@@ -6,10 +6,10 @@ import { Component } from '@angular/core';
 import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtInputModule } from '@dynatrace/angular-components/input';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtCopyToClipboardModule } from '@dynatrace/barista-components/copy-to-clipboard';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 import { createComponent } from '../../testing/create-component';
 

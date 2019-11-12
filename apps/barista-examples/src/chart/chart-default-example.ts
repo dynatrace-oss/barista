@@ -2,7 +2,7 @@
 
 import { Component } from '@angular/core';
 
-import { DtChartSeriesVisibilityChangeEvent } from '@dynatrace/angular-components/chart';
+import { DtChartSeriesVisibilityChangeEvent } from '@dynatrace/barista-components/chart';
 
 import { generateData } from './chart-data-utils';
 

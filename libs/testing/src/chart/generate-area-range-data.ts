@@ -1,6 +1,6 @@
 import { DataPoint } from 'highcharts';
 
-import { isNumber } from '@dynatrace/angular-components/core';
+import { isNumber } from '@dynatrace/barista-components/core';
 
 import { randomize } from './randomize';
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 
 import { DtLegend } from './legend';
 import { DtLegendItem, DtLegendOverlay, DtLegendSymbol } from './legend-item';

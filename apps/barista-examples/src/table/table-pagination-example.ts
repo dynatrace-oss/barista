@@ -4,9 +4,9 @@ import {
   formatBytes,
   formatPercent,
   formatRate,
-} from '@dynatrace/angular-components/formatters';
-import { DtPagination } from '@dynatrace/angular-components/pagination';
-import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/formatters';
+import { DtPagination } from '@dynatrace/barista-components/pagination';
+import { DtSort, DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

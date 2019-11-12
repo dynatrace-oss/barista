@@ -2,8 +2,8 @@
 
 import { Component } from '@angular/core';
 
-import { DtChartSeries } from '@dynatrace/angular-components/chart';
-import { DtColors } from '@dynatrace/angular-components/theming';
+import { DtChartSeries } from '@dynatrace/barista-components/chart';
+import { DtColors } from '@dynatrace/barista-components/theming';
 
 import { generateData } from './chart-data-utils';
 

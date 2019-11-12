@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtLegendModule } from '@dynatrace/angular-components/legend';
-import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
+import { DtLegendModule } from '@dynatrace/barista-components/legend';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 
 import { DtEventChart } from './event-chart';
 import {

@@ -26,7 +26,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 import {
   DT_CONFIRMATION_BACKDROP_ACTIVE_OPACITY,

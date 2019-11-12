@@ -29,7 +29,7 @@ import {
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
-import { isNumber, readKeyCode } from '@dynatrace/angular-components/core';
+import { isNumber, readKeyCode } from '@dynatrace/barista-components/core';
 
 import { updateTimestampWithKeyboardEvent } from './update-timestamp-with-keyboard-event';
 

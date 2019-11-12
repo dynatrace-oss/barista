@@ -1,10 +1,10 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DtChart } from '@dynatrace/angular-components/chart';
+import { DtChart } from '@dynatrace/barista-components/chart';
 import {
   DtSelectionArea,
   DtSelectionAreaChange,
-} from '@dynatrace/angular-components/selection-area';
+} from '@dynatrace/barista-components/selection-area';
 
 import { generateData } from '../chart/chart-data';
 

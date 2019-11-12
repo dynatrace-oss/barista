@@ -44,9 +44,9 @@ import {
   ErrorStateMatcher,
   mixinErrorState,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
-import { DtError } from '@dynatrace/angular-components/form-field';
-import { DtInput } from '@dynatrace/angular-components/input';
+} from '@dynatrace/barista-components/core';
+import { DtError } from '@dynatrace/barista-components/form-field';
+import { DtInput } from '@dynatrace/barista-components/input';
 
 const enum MODES {
   IDLE,

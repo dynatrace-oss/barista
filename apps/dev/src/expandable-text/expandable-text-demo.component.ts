@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DtExpandableText } from '@dynatrace/angular-components/expandable-text';
+import { DtExpandableText } from '@dynatrace/barista-components/expandable-text';
 
 // tslint:disable-next-line: use-component-selector
 @Component({

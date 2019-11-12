@@ -17,7 +17,7 @@ import {
 import {
   DtOverlay,
   DtOverlayTrigger,
-} from '@dynatrace/angular-components/overlay';
+} from '@dynatrace/barista-components/overlay';
 
 /** Symbol (e.g. some kind of icon) that should be placed before the text of a legend item. */
 @Directive({

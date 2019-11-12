@@ -1,7 +1,7 @@
 import { AxisOptions, Options as HighchartsOptions } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 
-import { DtTheme } from '@dynatrace/angular-components/theming';
+import { DtTheme } from '@dynatrace/barista-components/theming';
 
 import { DtChartOptions, DtChartSeries } from '../chart';
 import { getDtChartColorPalette } from '../chart-colors';

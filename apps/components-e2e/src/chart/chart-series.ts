@@ -1,5 +1,5 @@
 // tslint:disable: max-file-line-count no-magic-numbers
-import { generateData } from '@dynatrace/angular-components/testing';
+import { generateData } from '@dynatrace/barista-components/testing';
 
 export const series: Highcharts.IndividualSeriesOptions[] = [
   {

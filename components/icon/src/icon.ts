@@ -14,7 +14,7 @@ import { take } from 'rxjs/operators';
 import {
   DtLoggerFactory,
   setComponentColorClasses,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtIconRegistry } from './icon-registry';
 

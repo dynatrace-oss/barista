@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { AsyncSubject } from 'rxjs';
 
-import { isNumber } from '@dynatrace/angular-components/core';
+import { isNumber } from '@dynatrace/barista-components/core';
 
 import { calculatePages } from './pagination-calculate-pages';
 import {

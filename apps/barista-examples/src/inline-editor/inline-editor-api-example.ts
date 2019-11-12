@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DtInlineEditor } from '@dynatrace/angular-components/inline-editor';
+import { DtInlineEditor } from '@dynatrace/barista-components/inline-editor';
 
 @Component({
   moduleId: module.id,

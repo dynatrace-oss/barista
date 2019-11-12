@@ -1,6 +1,6 @@
 import { DataPoint } from 'highcharts';
 
-import { isDefined } from '@dynatrace/angular-components/core';
+import { isDefined } from '@dynatrace/barista-components/core';
 
 /**
  * Checks whether or not data at the given index is missing.

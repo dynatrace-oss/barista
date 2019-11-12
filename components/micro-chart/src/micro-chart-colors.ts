@@ -1,4 +1,4 @@
-import { DtColors, DtTheme } from '@dynatrace/angular-components/theming';
+import { DtColors, DtTheme } from '@dynatrace/barista-components/theming';
 
 export interface DtMicroChartColorPalette {
   primary: string;

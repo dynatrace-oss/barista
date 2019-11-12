@@ -24,11 +24,11 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
 
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtInlineEditor,
   DtInlineEditorModule,
-} from '@dynatrace/angular-components/inline-editor';
+} from '@dynatrace/barista-components/inline-editor';
 
 import { createComponent } from '../../testing/create-component';
 import {

@@ -38,7 +38,7 @@ import {
   mixinDisabled,
   mixinTabIndex,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtContextDialogTrigger } from './context-dialog-trigger';
 

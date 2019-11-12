@@ -28,13 +28,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
+import { ErrorStateMatcher } from '@dynatrace/barista-components/core';
 import {
   DtFormFieldModule,
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError,
-} from '@dynatrace/angular-components/form-field';
-import { DtInput, DtInputModule } from '@dynatrace/angular-components/input';
+} from '@dynatrace/barista-components/form-field';
+import { DtInput, DtInputModule } from '@dynatrace/barista-components/input';
 
 import { createComponent } from '../../testing/create-component';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';

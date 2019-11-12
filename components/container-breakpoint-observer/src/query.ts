@@ -1,4 +1,4 @@
-import { isObject } from '@dynatrace/angular-components/core';
+import { isObject } from '@dynatrace/barista-components/core';
 
 export type Range = 'min' | 'max';
 export type Feature = 'width' | 'height';

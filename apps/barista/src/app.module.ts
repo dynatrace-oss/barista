@@ -14,10 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BaScrollSpyService } from 'shared/scroll-spy.service';
 import { BaTocService } from 'shared/toc.service';
 
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
-import { DtSwitchModule } from '@dynatrace/angular-components/switch';
-import { DtTagModule } from '@dynatrace/angular-components/tag';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { DtSwitchModule } from '@dynatrace/barista-components/switch';
+import { DtTagModule } from '@dynatrace/barista-components/tag';
 
 import { BaApp } from './app';
 import { BaIconColorWheel } from './components/icon-color-wheel/icon-color-wheel';

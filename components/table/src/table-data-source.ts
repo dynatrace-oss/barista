@@ -10,8 +10,8 @@ import {
 } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 
-import { compareValues, isNumber } from '@dynatrace/angular-components/core';
-import { DtPagination } from '@dynatrace/angular-components/pagination';
+import { compareValues, isNumber } from '@dynatrace/barista-components/core';
+import { DtPagination } from '@dynatrace/barista-components/pagination';
 
 import { DtTableSearch } from './search';
 import {

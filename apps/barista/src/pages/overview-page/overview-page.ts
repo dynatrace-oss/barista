@@ -10,7 +10,7 @@ import { BaPage } from 'pages/page-outlet';
 import { Subscription, fromEvent } from 'rxjs';
 import { BaOverviewPageContents } from 'shared/page-contents';
 
-import { readKeyCode } from '@dynatrace/angular-components/core';
+import { readKeyCode } from '@dynatrace/barista-components/core';
 
 import { BaTile } from '../../layout/tile/tile';
 
