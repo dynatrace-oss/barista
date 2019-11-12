@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-loading-spinner',
   exportAs: 'dtLoadingSpinner',
   templateUrl: 'loading-spinner.html',

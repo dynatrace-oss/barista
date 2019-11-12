@@ -14,8 +14,10 @@ import {
   getDtIconNoHttpProviderError,
 } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '../../testing/create-component';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+import {
+  createComponent,
+  wrappedErrorMessage,
+} from '@dynatrace/barista-components/testing';
 
 /**
  * Fake URLs and associated SVG documents used by tests.

@@ -29,7 +29,6 @@ export const _DtBreadcrumbMixinBase = mixinColor<
   DtBreadcrumbThemePalette
 >(DtBreadcrumbBase, 'main');
 @Component({
-  moduleId: module.id,
   selector: 'dt-breadcrumbs',
   exportAs: 'dtBreadcrumbs',
   templateUrl: 'breadcrumbs.html',

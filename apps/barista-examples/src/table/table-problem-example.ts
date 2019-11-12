@@ -11,7 +11,6 @@ export interface TableData {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   // tslint:disable
   styles: ['button { margin-top: 16px; }'],

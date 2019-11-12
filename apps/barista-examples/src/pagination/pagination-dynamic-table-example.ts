@@ -10,7 +10,6 @@ import { DtPagination } from '@dynatrace/barista-components/pagination';
 import { DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <ng-container *ngIf="show">

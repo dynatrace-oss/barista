@@ -20,7 +20,6 @@ import {
 export class DtTagKey {}
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-tag, [dt-tag], [dtTag]',
   templateUrl: 'tag.html',
   styleUrls: ['tag.scss'],

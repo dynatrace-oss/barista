@@ -22,7 +22,6 @@ import {
 export class DtShowLessLabel {}
 
 @Component({
-  moduleId: module.id,
   /**
    * @deprecated The selector will be updated to button[dt-show-more] in 5.0.0
    * @breaking-change update selector to button[dt-show-more] in 5.0.0, update template accordingly

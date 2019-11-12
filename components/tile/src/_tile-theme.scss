@@ -1,4 +1,4 @@
-@import '../core/theming/theming';
+@import '../../core/src/theming/theming';
 
 @mixin dt-theme-tile($theme) {
   $palette-names: 'main', 'error', 'recovered';

@@ -77,7 +77,6 @@ export const _DtCheckboxMixinBase = mixinTabIndex(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-checkbox',
   templateUrl: 'checkbox.html',
   styleUrls: ['checkbox.scss'],

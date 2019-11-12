@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  moduleId: module.id,
   selector: 'stepper-barista-example',
   template: `
     <dt-checkbox [checked]="isLinear" (change)="isLinear = !isLinear">

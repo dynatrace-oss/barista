@@ -37,7 +37,6 @@ import { DtConfirmationDialogState } from './confirmation-dialog-state/confirmat
 const LOG: DtLogger = DtLoggerFactory.create('DtConfirmationDialog');
 
 @Component({
-  moduleId: module.id,
   templateUrl: './confirmation-dialog.html',
   styleUrls: ['./confirmation-dialog.scss'],
   selector: 'dt-confirmation-dialog',

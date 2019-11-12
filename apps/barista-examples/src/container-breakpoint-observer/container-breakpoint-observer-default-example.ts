@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DtContainerBreakpointObserver } from '@dynatrace/barista-components/container-breakpoint-observer';
 
 @Component({
-  moduleId: module.id,
   selector: 'container-breakpoint-observer-barista-example',
   template: `
     <dt-container-breakpoint-observer>

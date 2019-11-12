@@ -33,7 +33,6 @@ export const _DtToggleButtonMixinBase = mixinTabIndex(
 
 /** ToggleButtonItem as a building part of the DtToggleButtonGroup */
 @Component({
-  moduleId: module.id,
   selector: 'button[dt-toggle-button-item]',
   exportAs: 'dtToggleButtonItem',
   templateUrl: 'toggle-button-item.html',

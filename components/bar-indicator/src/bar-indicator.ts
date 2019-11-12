@@ -29,7 +29,6 @@ export const _DtBarIndicator = mixinHasProgress(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-bar-indicator',
   templateUrl: 'bar-indicator.html',
   styleUrls: ['bar-indicator.scss'],

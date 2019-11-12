@@ -1,4 +1,4 @@
-@import '../core/style/interactive-common';
+@import '../../core/src/style/interactive-common';
 
 @mixin dt-theme-breadcrumbs($theme, $theme-name) {
   $palette-names: 'main', 'error', 'neutral';

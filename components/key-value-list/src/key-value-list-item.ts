@@ -20,7 +20,6 @@ export class DtKeyValueListKey {}
 export class DtKeyValueListValue {}
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-key-value-list-item',
   templateUrl: 'key-value-list-item.html',
   styleUrls: ['key-value-list-item.scss'],

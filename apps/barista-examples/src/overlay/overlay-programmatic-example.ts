@@ -3,14 +3,12 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DtOverlay } from '@dynatrace/barista-components/overlay';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: 'overlay',
 })
 export class DummyOverlay {}
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <button dt-button (click)="createOverlay()">Create overlay</button>

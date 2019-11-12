@@ -1,7 +1,7 @@
-@import '../style/font-mixins';
-@import '../core/style/interactive-common';
-@import '../core/style/variables';
-@import '../core/theming/theming';
+@import '../../style/font-mixins';
+@import '../../core/src/style/interactive-common';
+@import '../../core/src/style/variables';
+@import '../../core/src/theming/theming';
 @import './show-more-theme';
 
 :host {

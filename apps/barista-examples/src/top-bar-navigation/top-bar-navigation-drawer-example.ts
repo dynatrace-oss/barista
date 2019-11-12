@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { DtDrawer } from '@dynatrace/barista-components/drawer';
 
 @Component({
-  moduleId: module.id,
   selector: 'top-bar-navigation-drawer-barista-example',
   styles: [
     `

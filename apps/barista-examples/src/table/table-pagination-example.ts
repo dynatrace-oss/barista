@@ -9,7 +9,6 @@ import { DtPagination } from '@dynatrace/barista-components/pagination';
 import { DtSort, DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   // tslint:disable
   template: `

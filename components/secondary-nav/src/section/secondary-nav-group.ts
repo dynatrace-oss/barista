@@ -6,7 +6,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-secondary-nav-group',
   exportAs: 'dtSecondaryNavGroup',
   template: `

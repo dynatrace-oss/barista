@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <form [formGroup]="passwordForm">

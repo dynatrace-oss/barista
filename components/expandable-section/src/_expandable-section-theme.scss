@@ -1,4 +1,4 @@
-@import '../core/style/interactive-common';
+@import '../../core/src/style/interactive-common';
 
 @mixin dt-theme-expandable-section($theme) {
   $is-dark: map-get($theme, 'is-dark');

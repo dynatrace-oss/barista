@@ -9,7 +9,6 @@ import {
  * @breaking-change To be removed with 6.0.0.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-table-empty-state-title',
   styleUrls: ['./table-empty-state-title.scss'],
   template: '<ng-content></ng-content>',

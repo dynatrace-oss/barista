@@ -22,7 +22,6 @@ const DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS = 18;
 const DT_KEY_VALUE_LIST_MAX_COLUMNS = 6;
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-key-value-list',
   host: {
     class: 'dt-key-value-list',
