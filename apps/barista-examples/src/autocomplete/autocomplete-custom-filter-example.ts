@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <input

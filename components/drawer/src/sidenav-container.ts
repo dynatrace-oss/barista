@@ -10,7 +10,6 @@ import { DtDrawerContainer } from './drawer-container';
 import { DtSidenav } from './sidenav';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-sidenav-container',
   exportAs: 'dtSidenavContainer',
   templateUrl: 'drawer-container.html',

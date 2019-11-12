@@ -56,7 +56,6 @@ export class DtCardTitleActions {}
 export class DtCardFooterActions {}
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-card',
   exportAs: 'dtCard',
   templateUrl: 'card.html',

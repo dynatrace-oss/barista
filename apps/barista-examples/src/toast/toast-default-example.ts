@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { DtToast } from '@dynatrace/barista-components/toast';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: '<button dt-button (click)="createToast()">Save</button>',
 })

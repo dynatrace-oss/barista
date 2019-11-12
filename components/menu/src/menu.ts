@@ -81,7 +81,6 @@ export class DtMenuGroup {
  * standalone component, in a `<dt-drawer>` or in a `<dt-context-dialog>`.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-menu',
   exportAs: 'dtMenu',
   template: '<ng-content></ng-content>',

@@ -25,7 +25,6 @@ import { DtStepHeader } from './step-header';
 export class DtStepActions {}
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-stepper',
   exportAs: 'dtStepper',
   templateUrl: 'stepper.html',

@@ -134,7 +134,6 @@ export class DtFilterFieldCurrentFilterChangeEvent<T> {
 export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-filter-field',
   exportAs: 'dtFilterField',
   templateUrl: 'filter-field.html',

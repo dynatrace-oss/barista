@@ -32,7 +32,6 @@ export class DtButtonGroupBase {}
 export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-button-group',
   exportAs: 'dtButtonGroup',
   template: '<ng-content></ng-content>',
@@ -155,7 +154,6 @@ export const _DtButtonGroupItem = mixinTabIndex(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-button-group-item',
   template: `
     <ng-content></ng-content>

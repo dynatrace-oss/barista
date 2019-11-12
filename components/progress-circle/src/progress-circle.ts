@@ -39,7 +39,6 @@ export const _DtProgressCircle = mixinHasProgress(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-progress-circle',
   templateUrl: 'progress-circle.html',
   styleUrls: ['progress-circle.scss'],

@@ -132,7 +132,6 @@ const OVERLAY_POSITIONS: ConnectedPosition[] = [
 ];
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-event-chart, dt-sausage-chart',
   exportAs: 'dtEventChart',
   templateUrl: 'event-chart.html',

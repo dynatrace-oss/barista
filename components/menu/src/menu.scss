@@ -1,7 +1,7 @@
 @import './variables';
-@import '../style/variables';
-@import '../style/font-mixins';
-@import '../core/style/interactive-common';
+@import '../../core/src/style/variables';
+@import '../../style/font-mixins';
+@import '../../core/src/style/interactive-common';
 
 :host {
   display: block;

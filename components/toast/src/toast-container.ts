@@ -34,7 +34,6 @@ export class DtToastContainerBase implements HasNgZone {
 export const _DtToastContainerMixin = mixinNotifyDomExit(DtToastContainerBase);
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-toast',
   exportAs: 'dtToast',
   template: '{{message}}',

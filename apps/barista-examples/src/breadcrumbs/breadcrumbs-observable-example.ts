@@ -3,7 +3,6 @@ import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-breadcrumbs aria-label="Breadcrumbs navigation">

@@ -15,7 +15,6 @@ export const _filter = (opt: string[], value: string): string[] => {
 };
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <form [formGroup]="stateForm">

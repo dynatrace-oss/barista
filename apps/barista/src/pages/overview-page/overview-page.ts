@@ -6,13 +6,12 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { BaPage } from 'pages/page-outlet';
 import { Subscription, fromEvent } from 'rxjs';
-import { BaOverviewPageContents } from 'shared/page-contents';
 
-import { readKeyCode } from '@dynatrace/barista-components/core';
-
+import { BaOverviewPageContents } from '../../shared/page-contents';
+import { BaPage } from '../../pages/page-outlet';
 import { BaTile } from '../../layout/tile/tile';
+import { readKeyCode } from '@dynatrace/barista-components/core';
 
 const LOCALSTORAGEKEY = 'baristaGridview';
 

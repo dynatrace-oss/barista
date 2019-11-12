@@ -1,9 +1,9 @@
-/src/barista-examples/app.module.ts
-/src/barista-examples/app.module.template
-/src/barista-examples/app.component.ts
-/src/barista-examples/app.component.template
+/apps/barista-examples/src/app.module.ts
+/apps/barista-examples/src/app.module.template
+/apps/barista-examples/src/app.component.ts
+/apps/barista-examples/src/app.component.template
 
-/src/schematics/*/files/**/*
+/tools/schematics/*/files/**/*
 
 /test/**/*
 /tools/gulp/**/*
@@ -11,10 +11,8 @@
 /tools/stylelint/**/*
 /tools/templates/**/*
 
-/.gradle/**/*
 /.idea/**/*
 /.vscode/**/*
 /build/**/*
 /dist/**/*
-/gradle/**/*
 /node_modules/**/*

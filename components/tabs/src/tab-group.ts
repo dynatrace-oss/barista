@@ -50,7 +50,6 @@ export const _DtTabGroupMixinBase = mixinDisabled(
 let nextId = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-tab-group',
   exportAs: 'dtTabGroup',
   templateUrl: 'tab-group.html',

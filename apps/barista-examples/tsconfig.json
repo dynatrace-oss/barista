@@ -1,31 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "declaration": false,
-    "noUnusedParameters": false,
-    "moduleResolution": "node",
-    "noEmitOnError": true,
-    "outDir": "../../dist/barista-examples",
-    "target": "es5",
-    "stripInternal": false,
-    "typeRoots": ["../../node_modules/@types/!(node)"],
-    "baseUrl": ".",
-    "rootDirs": [".", "../../dist/barista-examples"],
-    "paths": {
-      "@dynatrace/barista-components": ["../lib"],
-      "@dynatrace/barista-components/*": ["../lib/*"]
-    },
     "types": ["node", "testcafe"]
   },
-  "files": [
-    "../../typings.d.ts",
-    "./app.module.ts",
-    "./main.ts",
-    "./polyfills.ts"
-  ],
-  "angularCompilerOptions": {
-    "skipTemplateCodegen": false,
-    "fullTemplateTypeCheck": false,
-    "preserveWhitespace": true
-  }
+  "include": ["**/*.ts"]
 }

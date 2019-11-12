@@ -115,7 +115,6 @@ export class DtEmptyStateFooterActions {}
  * an `<dt-table>`.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-empty-state',
   exportAs: 'dtEmptyState',
   template: '<ng-content></ng-content>',

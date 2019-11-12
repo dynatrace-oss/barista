@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
-import { BaIndexPageContents } from 'shared/page-contents';
-
-import { environment } from './../../environments/environment';
+import { BaIndexPageContents } from '../../shared/page-contents';
 import { BaPage } from '../page-outlet';
+import { Component } from '@angular/core';
+import { environment } from './../../environments/environment';
 
 @Component({
   selector: 'ba-index-page',

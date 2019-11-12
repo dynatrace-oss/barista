@@ -5,8 +5,12 @@
     "types": []
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": [
-    "**/*.ts",
-  ],
-  "exclude": ["src/test-setup.ts", "**/*.spec.ts"]
+  "include": ["**/*.ts"],
+  "exclude": [
+    "src/test-setup.ts",
+    "**/*.spec.ts",
+    "**/*.a11y.ts",
+    "**/*.e2e.ts",
+    "**/*.po.ts"
+  ]
 }

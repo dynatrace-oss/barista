@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 // tslint:disable no-magic-numbers
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-chart-highcharts-ui',
   templateUrl: 'chart-highcharts-ui.html',
 })

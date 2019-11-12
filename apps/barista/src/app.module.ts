@@ -11,8 +11,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BaScrollSpyService } from 'shared/scroll-spy.service';
-import { BaTocService } from 'shared/toc.service';
+import { BaScrollSpyService } from './shared/scroll-spy.service';
+import { BaTocService } from './shared/toc.service';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';

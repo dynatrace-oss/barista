@@ -344,7 +344,6 @@ describe('DtTableDataSource', () => {
 });
 
 @Component({
-  moduleId: module.id,
   template: `
     <dt-table [dataSource]="dataSource">
       <dt-simple-text-column
@@ -406,7 +405,6 @@ export class PaginationTestApp implements OnInit {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'demo-component',
   // tslint:disable
   template: `

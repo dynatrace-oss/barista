@@ -1,5 +1,6 @@
 import { Component, ElementRef, Input } from '@angular/core';
-import { BaOverviewPageSectionItem } from 'shared/page-contents';
+
+import { BaOverviewPageSectionItem } from '../../shared/page-contents';
 
 @Component({
   selector: 'a[ba-tile]',

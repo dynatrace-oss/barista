@@ -15,7 +15,6 @@ import { filter } from 'rxjs/operators';
  * inline-text without any styling.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-expandable-text',
   exportAs: 'dtExpandableText',
   templateUrl: 'expandable-text.html',

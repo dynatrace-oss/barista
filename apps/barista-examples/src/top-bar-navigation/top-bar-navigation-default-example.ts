@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'top-bar-navigation-barista-example',
   template: `
     <dt-top-bar-navigation aria-label="Main">

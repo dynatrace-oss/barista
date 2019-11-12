@@ -12,7 +12,6 @@ interface HostMetricResponsive {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   // tslint:disable
   template: `

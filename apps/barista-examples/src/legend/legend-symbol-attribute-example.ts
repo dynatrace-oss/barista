@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'legend-symbol-attribute-example',
   template: `
     <dt-legend>

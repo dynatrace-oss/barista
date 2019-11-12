@@ -1,5 +1,5 @@
-@import '../core/style/variables';
-@import 'table-mixins';
+@import '../../core/src/style/variables';
+@import './table-mixins';
 
 :host.dt-cell-sorted {
   font-weight: 600;
