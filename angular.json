@@ -138,6 +138,13 @@
               "concurrency": 1
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/components-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/components-e2e/**"]
+          }
         }
       }
     },
@@ -206,8 +213,16 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [],
-            "exclude": []
+            "tsConfig": ["apps/barista-examples/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**", "!apps/barista-examples/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["apps/barista-examples/src/**/*.scss"]
           }
         },
         "a11y": {
@@ -402,6 +417,17 @@
             "outputHashing": "none",
             "sourceMap": false,
             "extractLicenses": false
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/universal/tsconfig.app.json",
+              "apps/universal/tsconfig.express.json",
+              "apps/universal/tsconfig.server.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/universal/**"]
           }
         },
         "ssr": {

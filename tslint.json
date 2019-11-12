@@ -71,6 +71,7 @@
     "dt-no-focused-tests": true,
     "dt-annotate-internal-fields": true,
     "dt-internal-fields-underscore": true,
-    "dt-document-public-fields": true
+    "dt-document-public-fields": true,
+    "dt-require-license-banner": true
   }
 }
