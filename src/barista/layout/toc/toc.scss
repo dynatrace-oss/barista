@@ -71,7 +71,7 @@
   display: block;
 }
 
-.ba-page-content:not(.ba-page-content-tabs)::before {
+.ba-page-content::before {
   height: 2rem;
 }
 
