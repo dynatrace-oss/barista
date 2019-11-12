@@ -3,7 +3,7 @@ import { ComponentPortal, PortalInjector } from '@angular/cdk/portal';
 import { Injectable, InjectionToken, Injector, NgZone } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 import {
   DT_TOAST_BOTTOM_SPACING,

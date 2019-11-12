@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import {
   DtExpandableText,
   DtExpandableTextModule,
-} from '@dynatrace/angular-components/expandable-text';
+} from '@dynatrace/barista-components/expandable-text';
 
 import { createComponent } from '../../testing/create-component';
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers

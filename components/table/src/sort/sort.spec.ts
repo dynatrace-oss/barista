@@ -16,8 +16,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DtSortDirection } from '@dynatrace/angular-components/core';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtSortDirection } from '@dynatrace/barista-components/core';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtCell,
   DtSort,
@@ -25,7 +25,7 @@ import {
   DtSortHeader,
   DtTableModule,
   getDtSortHeaderNotContainedWithinSortError,
-} from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/table';
 
 import { createComponent } from '../../../testing/create-component';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';

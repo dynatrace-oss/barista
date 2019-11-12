@@ -31,8 +31,8 @@ import {
   DtChartOptions,
   DtChartResolver,
   DtChartSeries,
-} from '@dynatrace/angular-components/chart';
-import { DtTheme } from '@dynatrace/angular-components/theming';
+} from '@dynatrace/barista-components/chart';
+import { DtTheme } from '@dynatrace/barista-components/theming';
 
 import { getDtMicrochartColorPalette } from './micro-chart-colors';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';

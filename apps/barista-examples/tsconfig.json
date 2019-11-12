@@ -12,8 +12,8 @@
     "baseUrl": ".",
     "rootDirs": [".", "../../dist/barista-examples"],
     "paths": {
-      "@dynatrace/angular-components": ["../lib"],
-      "@dynatrace/angular-components/*": ["../lib/*"]
+      "@dynatrace/barista-components": ["../lib"],
+      "@dynatrace/barista-components/*": ["../lib/*"]
     },
     "types": ["node", "testcafe"]
   },

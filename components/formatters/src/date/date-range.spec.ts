@@ -8,7 +8,7 @@ const logger = {
 const loggerSpy = jest.spyOn(logger, 'error');
 
 // Mock needs to be done before importing from the module
-jest.mock('@dynatrace/angular-components/core', () => ({
+jest.mock('@dynatrace/barista-components/core', () => ({
   DtLoggerFactory: {
     create: () => logger,
   },

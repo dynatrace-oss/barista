@@ -2,8 +2,8 @@
 
 import { Component } from '@angular/core';
 
-import { DtChartSeries } from '@dynatrace/angular-components/chart';
-import { formatCount } from '@dynatrace/angular-components/formatters';
+import { DtChartSeries } from '@dynatrace/barista-components/chart';
+import { formatCount } from '@dynatrace/barista-components/formatters';
 
 import { generateData } from './data';
 

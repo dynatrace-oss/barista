@@ -15,8 +15,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { DtButtonGroup } from '@dynatrace/angular-components/button-group';
-import { isDefined } from '@dynatrace/angular-components/core';
+import { DtButtonGroup } from '@dynatrace/barista-components/button-group';
+import { isDefined } from '@dynatrace/barista-components/core';
 
 import { DtRangeOperatorFlags } from '../types';
 

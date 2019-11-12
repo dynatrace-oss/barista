@@ -20,7 +20,7 @@ import {
   DtSwitch,
   DtSwitchChange,
   DtSwitchModule,
-} from '@dynatrace/angular-components/switch';
+} from '@dynatrace/barista-components/switch';
 
 import { createComponent } from '../../testing/create-component';
 

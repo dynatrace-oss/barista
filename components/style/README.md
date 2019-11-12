@@ -17,11 +17,11 @@ type: 'other'
 `font-mixins.scss` - set of mixins that can be used to apply defined font styles
 or introduce custom changes; import it to your stylesheet to be able to style
 your enclosed component or apply custom font styles
-(`@import "~@dynatrace/angular-components/style/font-mixins";`).
+(`@import "~@dynatrace/barista-components/style/font-mixins";`).
 
 `font-styles.scss` - stylesheet with rule-sets for all predefined use cases of
 font styles; import it to your stylesheet to have basic html tags styled
-automatically (`@import "~@dynatrace/angular-components/style/font-styles";`).
+automatically (`@import "~@dynatrace/barista-components/style/font-styles";`).
 
 #### Usage
 

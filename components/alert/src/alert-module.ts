@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { DtAlert } from './alert';
 

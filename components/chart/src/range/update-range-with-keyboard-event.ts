@@ -1,6 +1,6 @@
 import { END, HOME } from '@angular/cdk/keycodes';
 
-import { readKeyCode } from '@dynatrace/angular-components/core';
+import { readKeyCode } from '@dynatrace/barista-components/core';
 
 import { DtSelectionAreaEventTarget } from '../selection-area/position-utils';
 import { getKeyboardNavigationOffset } from '../utils';

@@ -1,7 +1,7 @@
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
-import { DtSwitchChange } from '@dynatrace/angular-components/switch';
-import { DtColors } from '@dynatrace/angular-components/theming';
+import { DtSwitchChange } from '@dynatrace/barista-components/switch';
+import { DtColors } from '@dynatrace/barista-components/theming';
 
 interface BaColorWheelBlob {
   colorName: string;

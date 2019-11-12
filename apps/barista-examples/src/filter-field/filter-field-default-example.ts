@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/filter-field';
+import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
 
 @Component({
   moduleId: module.id,

@@ -18,7 +18,7 @@ import {
   DT_OVERLAY_DEFAULT_OFFSET,
   DtOverlayConfig,
   DtOverlayModule,
-} from '@dynatrace/angular-components/overlay';
+} from '@dynatrace/barista-components/overlay';
 
 import { createComponent } from '../../testing/create-component';
 import {

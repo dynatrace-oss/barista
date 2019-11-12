@@ -7,11 +7,11 @@ import { Component, DebugElement } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtShowMore,
   DtShowMoreModule,
-} from '@dynatrace/angular-components/show-more';
+} from '@dynatrace/barista-components/show-more';
 
 import { createComponent } from '../../testing/create-component';
 

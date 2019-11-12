@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtTileModule } from '@dynatrace/angular-components/tile';
+import { DtTileModule } from '@dynatrace/barista-components/tile';
 
 import { createComponent } from '../../testing/create-component';
 

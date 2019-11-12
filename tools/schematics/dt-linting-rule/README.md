@@ -1,6 +1,6 @@
 # Dynatrace Linting Rule
 
-Adds a new linting rule to the `@dynatrace/angular-components` library.
+Adds a new linting rule to the `@dynatrace/barista-components` library.
 
 ```
 ng generate @dynatrace/components-schematics:dt-linting-rule --name=my-new-verification # or shorter

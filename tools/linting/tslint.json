@@ -48,7 +48,7 @@
     "dt-tile-no-empty": { "severity": "warning" },
     "dt-toggle-button-group-item-is-button": true,
     "import-blacklist": {
-      "options": ["@dynatrace/angular-components"],
+      "options": ["@dynatrace/barista-components"],
       "severity": "warning"
     }
   }

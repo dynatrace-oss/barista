@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtEventChartSelectedEvent } from '@dynatrace/angular-components/event-chart';
+import { DtEventChartSelectedEvent } from '@dynatrace/barista-components/event-chart';
 
 @Component({
   moduleId: module.id,

@@ -2,7 +2,7 @@
 
 import { DataPoint } from 'highcharts';
 
-import { isNumber } from '@dynatrace/angular-components/core';
+import { isNumber } from '@dynatrace/barista-components/core';
 
 export function randomize(min: number, max: number): number {
   if (min > max) {

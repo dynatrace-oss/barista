@@ -35,8 +35,8 @@ following steps:
 
 - Run `yarn build` - this builds the library including the schematics and puts
   it into the `dist/lib` folder
-- Link the npm dependency of the `@dynatrace/angular-components` to the
+- Link the npm dependency of the `@dynatrace/barista-components` to the
   `dist/lib` folder
 - run
-  `ng update @dynatrace/angular-components --migrateOnly=true --from="4.8.0" --to="5.0.0"`
+  `ng update @dynatrace/barista-components --migrateOnly=true --from="4.8.0" --to="5.0.0"`
   with the correct versions respectively

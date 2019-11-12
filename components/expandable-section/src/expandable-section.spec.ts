@@ -11,8 +11,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtExpandableSection,
   DtExpandableSectionModule,
-} from '@dynatrace/angular-components/expandable-section';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+} from '@dynatrace/barista-components/expandable-section';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { createComponent } from '../../testing/create-component';
 

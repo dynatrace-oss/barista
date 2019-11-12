@@ -52,7 +52,7 @@ required for animations. For more details on this see
 ```typescript
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DtTableModule } from '@dynatrace/angular-components/table';
+import { DtTableModule } from '@dynatrace/barista-components/table';
 
 @NgModule({
   imports: [BrowserAnimationsModule, DtTableModule],

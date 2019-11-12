@@ -1,4 +1,4 @@
-import { isDefined, isObject } from '@dynatrace/angular-components/core';
+import { isDefined, isObject } from '@dynatrace/barista-components/core';
 
 import { getDtFilterFieldRangeNoOperatorsError } from './filter-field-errors';
 import { DtFilterFieldValidator } from './filter-field-validation';

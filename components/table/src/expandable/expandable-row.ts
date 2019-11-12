@@ -32,7 +32,7 @@ import { filter, startWith } from 'rxjs/operators';
 import {
   addCssClass,
   removeCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtRow } from '../row';
 import { DtTable } from '../table';

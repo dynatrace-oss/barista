@@ -20,7 +20,7 @@ import {
   DT_TOAST_MIN_DURATION,
   DtToast,
   DtToastModule,
-} from '@dynatrace/angular-components/toast';
+} from '@dynatrace/barista-components/toast';
 
 import { createComponent } from '../../testing/create-component';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';

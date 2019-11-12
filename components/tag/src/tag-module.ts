@@ -3,10 +3,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtInputModule } from '@dynatrace/angular-components/input';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtInputModule } from '@dynatrace/barista-components/input';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import { DtTag, DtTagKey } from './tag';
 import { DtTagAdd } from './tag-add/tag-add';

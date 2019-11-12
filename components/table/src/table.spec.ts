@@ -17,16 +17,16 @@ import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DtIndicatorModule } from '@dynatrace/angular-components/core';
+import { DtIndicatorModule } from '@dynatrace/barista-components/core';
 import {
   DtEmptyState,
   DtEmptyStateModule,
-} from '@dynatrace/angular-components/empty-state';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+} from '@dynatrace/barista-components/empty-state';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtLoadingDistractor,
   DtLoadingDistractorModule,
-} from '@dynatrace/angular-components/loading-distractor';
+} from '@dynatrace/barista-components/loading-distractor';
 import {
   DtCell,
   DtExpandableCell,
@@ -36,7 +36,7 @@ import {
   DtTable,
   DtTableLoadingState,
   DtTableModule,
-} from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/table';
 
 import { createComponent } from '../../testing/create-component';
 

@@ -16,7 +16,7 @@ import {
   HasTabIndex,
   mixinDisabled,
   mixinTabIndex,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 /** Change event emitted for a change in the DtToggleButton. */
 export interface DtToggleButtonChange<T> {

@@ -1,6 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
-import { DtOverlay } from '@dynatrace/angular-components/overlay';
+import { DtOverlay } from '@dynatrace/barista-components/overlay';
 
 @Component({
   moduleId: module.id,

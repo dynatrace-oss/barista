@@ -26,7 +26,7 @@ import {
   isDefined,
   mixinColor,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtConsumptionOverlay } from './consumption-directives';
 

@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtExpandablePanel,
   DtExpandablePanelModule,
-} from '@dynatrace/angular-components/expandable-panel';
+} from '@dynatrace/barista-components/expandable-panel';
 
 import { createComponent } from '../../testing/create-component';
 

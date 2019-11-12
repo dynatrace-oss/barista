@@ -4,8 +4,8 @@ import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayTrigger } from './overlay-trigger';

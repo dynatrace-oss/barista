@@ -136,7 +136,7 @@ yarn tslint:test
       ```
    2. In the other project directory:
       ```
-      yarn link @dynatrace/angular-components
+      yarn link @dynatrace/barista-components
       ```
 3. Any further build will be automatically updated in the project referencing
    the link.
@@ -144,7 +144,7 @@ yarn tslint:test
 To unlink development version:
 
 ```
-yarn unlink @dynatrace/angular-components
+yarn unlink @dynatrace/barista-components
 yarn install
 ```
 
