@@ -16,6 +16,7 @@
 
 import { AfterViewInit, Component } from '@angular/core';
 
+import { fillTableData } from '../../utils/fillTableData';
 import { BaPage } from '../page-outlet';
 import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
 import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
@@ -40,6 +41,15 @@ export class BaSinglePage implements BaPage, AfterViewInit {
   ngAfterViewInit(): void {
     this._recentlyOrderedService.saveToLocalStorage(this.contents);
     this._checkURL();
+
+    const allTables = Array.prototype.slice.call(
+      document.querySelectorAll('table'),
+    );
+
+    /** Add data attributes to all tables, to apply responsive behaviour of the tables.* */
+    for (const table of allTables) {
+      fillTableData(table);
+    }
   }
 
   /** check if the url contains a hash and scroll to the matching headline */
