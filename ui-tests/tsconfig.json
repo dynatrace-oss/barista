@@ -1,9 +1,0 @@
-{
-  "extends": "../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../dist/ui-tests",
-    "module": "commonjs",
-    "types": ["node", "testcafe"]
-  },
-  "include": ["**/*.e2e.ts"]
-}
