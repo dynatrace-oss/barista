@@ -55,7 +55,6 @@ export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefault
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-autocomplete',
   exportAs: 'dtAutocomplete',
   templateUrl: 'autocomplete.html',

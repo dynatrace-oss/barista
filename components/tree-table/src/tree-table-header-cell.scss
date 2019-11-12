@@ -1,6 +1,6 @@
-@import '../core/style/variables';
-@import '../style/font-mixins';
-@import '../table/table-mixins';
+@import '../../core/src/style/variables';
+@import '../../style/font-mixins';
+@import '../../table/src/table-mixins';
 
 :host {
   display: table-cell;

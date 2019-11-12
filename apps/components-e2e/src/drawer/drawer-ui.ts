@@ -6,7 +6,6 @@ import {
 } from '@dynatrace/barista-components/drawer';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-drawer-ui',
   templateUrl: 'drawer-ui.html',
 })

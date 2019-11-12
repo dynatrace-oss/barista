@@ -1,9 +1,9 @@
 // tslint:disable: indent object-literal-key-quotes quotemark trailing-comma max-line-length no-duplicate-imports max-file-line-count
 
 import { Component, OnInit } from '@angular/core';
-import { BaLocationService } from 'shared/location.service';
-import { BaSinglePageContents } from 'shared/page-contents';
-import { BaPageService } from 'shared/page.service';
+import { BaLocationService } from './shared/location.service';
+import { BaSinglePageContents } from './shared/page-contents';
+import { BaPageService } from './shared/page.service';
 
 @Component({
   selector: 'ba-app',

@@ -32,7 +32,6 @@ export class DtRowDef<T> extends CdkRowDef<T> {}
 
 /** Data row template container that contains the cell outlet. Adds the right class and role. */
 @Component({
-  moduleId: module.id,
   selector: 'dt-row',
   template: CDK_ROW_TEMPLATE,
   styleUrls: ['./row.scss'],

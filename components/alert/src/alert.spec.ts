@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { DtAlert, DtAlertModule } from '@dynatrace/barista-components/alert';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtAlert', () => {
   beforeEach(async(() => {

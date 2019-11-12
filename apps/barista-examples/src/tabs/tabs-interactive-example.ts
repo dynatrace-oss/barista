@@ -3,7 +3,6 @@ import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-tab-group>

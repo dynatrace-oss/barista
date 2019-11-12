@@ -4,7 +4,6 @@ import { DtContainerBreakpointObserver } from '@dynatrace/barista-components/con
 import { DtTable } from '@dynatrace/barista-components/table';
 
 @Component({
-  moduleId: module.id,
   selector: 'container-breakpoint-observer-dev-app-demo',
   templateUrl: 'container-breakpoint-observer-demo.component.html',
   styleUrls: ['container-breakpoint-observer-demo.component.scss'],

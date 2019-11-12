@@ -28,7 +28,6 @@ const DATA_SETS: DataSet[] = [
 ];
 
 @Component({
-  moduleId: module.id,
   selector: 'event-chart-demo',
   templateUrl: 'event-chart-demo.component.html',
   styleUrls: ['event-chart-demo.component.scss'],

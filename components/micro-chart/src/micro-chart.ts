@@ -64,7 +64,6 @@ export function DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY(
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-micro-chart',
   template: `
     <dt-chart

@@ -92,7 +92,6 @@ export class DtCtaCardTitleActions {}
  * @breaking-change To be removed with 6.0.0.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-cta-card',
   exportAs: 'dtCtaCard',
   templateUrl: 'cta-card.html',

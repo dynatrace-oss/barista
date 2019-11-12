@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'demo-component',
   template: `
     With automatic monitoring enabled, you can create rules that define

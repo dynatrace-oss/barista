@@ -14,7 +14,6 @@ import { DtFilterFieldTagData } from '../types';
 // tslint:disable:class-name
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-filter-field-tag',
   exportAs: 'dtFilterFieldTag',
   templateUrl: 'filter-field-tag.html',

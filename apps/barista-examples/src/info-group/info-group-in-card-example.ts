@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 // tslint:disable: dt-card-needs-title dt-icon-names
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-card dtTheme="purple">

@@ -7,7 +7,6 @@ import {
 let nextUniqueId = 0;
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-loading-distractor',
   exportAs: 'dtLoadingDistractor',
   templateUrl: 'loading-distractor.html',

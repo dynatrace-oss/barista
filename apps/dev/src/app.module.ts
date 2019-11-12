@@ -9,8 +9,10 @@ import { Component, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DevAppRoutingModule } from './devapp-routing.module';
+import { DevApp } from './devapp.component';
+import { DevAppDynatraceModule } from './dt-components.module';
 
-import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { AlertDemo } from './alert/alert-demo.component';
 import { AutocompleteDemo } from './autocomplete/autocomplete-demo.component';
@@ -27,10 +29,7 @@ import { ContainerBreakpointObserverDemo } from './container-breakpoint-observer
 import { ContextDialogDemo } from './context-dialog/context-dialog-demo.component';
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
 import { CtaCardDemo } from './cta-card/cta-card-demo.component';
-import { DevAppRoutingModule } from './devapp-routing.module';
-import { DevApp } from './devapp.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
-import { DevAppDynatraceModule } from './dt-components.module';
 import { EmptyStateDemo } from './empty-state/empty-state-demo';
 import { EventChartDemo } from './event-chart/event-chart-demo.component';
 import { ExpandablePanelDemo } from './expandable-panel/expandable-panel-demo.component';
@@ -71,6 +70,7 @@ import { ToastDemo } from './toast/toast-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { TopBarNavigationDemo } from './top-bar-navigation/top-bar-navigation-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 // tslint:disable-next-line: use-component-selector
 @Component({ template: '' })

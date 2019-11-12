@@ -10,7 +10,6 @@ import {
 } from '@dynatrace/barista-components/table';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   styles: ['dt-table { margin-bottom: 24px; }'],
   // tslint:disable

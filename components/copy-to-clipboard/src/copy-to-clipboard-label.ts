@@ -6,7 +6,6 @@ import {
 
 /* Display label of the copy 2 clipboard, will be displayed inside a button */
 @Component({
-  moduleId: module.id,
   selector: 'dt-copy-to-clipboard-label',
   exportAs: 'dtCopyToClipboardLabel',
   preserveWhitespaces: false,

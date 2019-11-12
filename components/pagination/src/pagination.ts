@@ -25,7 +25,6 @@ import {
 } from './pagination-defaults';
 
 @Component({
-  moduleId: module.id,
   exportAs: 'dtPagination',
   selector: 'dt-pagination',
   templateUrl: 'pagination.html',

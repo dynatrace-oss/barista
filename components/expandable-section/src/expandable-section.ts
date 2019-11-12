@@ -15,7 +15,6 @@ import { CanDisable } from '@dynatrace/barista-components/core';
 import { DtExpandablePanel } from '@dynatrace/barista-components/expandable-panel';
 
 @Component({
-  moduleId: module.id,
   exportAs: 'dtExpandableSectionHeader',
   selector: 'dt-expandable-section-header',
   template: '<ng-content></ng-content>',
@@ -26,7 +25,6 @@ import { DtExpandablePanel } from '@dynatrace/barista-components/expandable-pane
 export class DtExpandableSectionHeader {}
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-expandable-section',
   exportAs: 'dtExpandableSection',
   templateUrl: 'expandable-section.html',

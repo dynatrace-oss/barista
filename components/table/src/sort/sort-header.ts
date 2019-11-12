@@ -33,7 +33,6 @@ export const _DtSortHeaderMixinBase = mixinDisabled(DtSortHeaderBase);
  * arrow to display the current sort direction.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-header-cell[dt-sort-header]',
   exportAs: 'dtSortHeader',
   templateUrl: 'sort-header.html',

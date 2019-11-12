@@ -1,6 +1,6 @@
-@import '../core/style/variables';
-@import '../core/theming/theming';
-@import '../core/style/interactive-common';
+@import '../../core/src/style/variables';
+@import '../../core/src/theming/theming';
+@import '../../core/src/style/interactive-common';
 
 @mixin dt-theme-switch($theme) {
   $is-dark: map-get($theme, 'is-dark');

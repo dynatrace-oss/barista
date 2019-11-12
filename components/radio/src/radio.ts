@@ -44,7 +44,6 @@ export class DtRadioButtonBase {
 export const _DtRadioButtonMixinBase = mixinTabIndex(DtRadioButtonBase);
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-radio-button',
   exportAs: 'dtRadioButton',
   templateUrl: 'radio.html',

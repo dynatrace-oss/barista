@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { DtDrawer } from '@dynatrace/barista-components/drawer';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-drawer-container class="drawer">

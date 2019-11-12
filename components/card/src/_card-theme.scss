@@ -1,4 +1,4 @@
-@import '../core/theming/theming';
+@import '../../core/src/theming/theming';
 
 @mixin dt-theme-card($theme) {
   $is-dark: map-get($theme, 'is-dark');

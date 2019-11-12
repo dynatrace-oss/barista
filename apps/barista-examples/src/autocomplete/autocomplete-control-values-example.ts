@@ -6,7 +6,6 @@ import { map, startWith } from 'rxjs/operators';
 import { COUNTRIES, CountryOption, countryCompareWithFn } from './countries';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <input

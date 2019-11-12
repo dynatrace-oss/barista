@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { DtEventChartSelectedEvent } from '@dynatrace/barista-components/event-chart';
 
 @Component({
-  moduleId: module.id,
   selector: 'event-chart-demo',
   template: `
     <dt-event-chart>
