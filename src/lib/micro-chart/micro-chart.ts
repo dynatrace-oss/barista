@@ -91,7 +91,11 @@ export function DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY(
 export class DtMicroChart implements OnDestroy {
   /** @internal DtChart instance that is needed for the tooltip */
   // tslint:disable-next-line no-forward-ref
-  @ViewChild(forwardRef(() => DtChart), { static: true }) _dtChart: DtChart;
+  @ViewChild(
+    forwardRef(() => DtChart),
+    { static: true },
+  )
+  _dtChart: DtChart;
 
   private _themeStateChangeSub = Subscription.EMPTY;
   private _options: DtChartOptions;

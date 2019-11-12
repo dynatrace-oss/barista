@@ -114,7 +114,10 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
 
   /** @internal References to the radio buttons of this group. */
   // tslint:disable-next-line:no-forward-ref
-  @ContentChildren(forwardRef(() => DtRadioButton), { descendants: true })
+  @ContentChildren(
+    forwardRef(() => DtRadioButton),
+    { descendants: true },
+  )
   _radios: QueryList<DtRadioButton<T>>;
 
   constructor(private _changeDetector: ChangeDetectorRef) {}

@@ -35,7 +35,10 @@ export class ChartUI implements DoCheck {
       name: 'Actions/min',
       id: 'someMetricId',
       // tslint:disable-next-line no-magic-numbers
-      data: [[1370304000000, 140], [1370390400000, 120]],
+      data: [
+        [1370304000000, 140],
+        [1370390400000, 120],
+      ],
     },
   ];
 

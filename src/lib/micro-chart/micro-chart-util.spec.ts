@@ -670,7 +670,10 @@ describe('DtMicroChartUtil', () => {
       const actual = extractGaps(dataPoints);
 
       // then
-      expect(actual).toEqual([[0, 0], [2, 2]]);
+      expect(actual).toEqual([
+        [0, 0],
+        [2, 2],
+      ]);
     });
 
     it('should return a gap list for multiple data points with a single gap in between', () => {
@@ -717,7 +720,10 @@ describe('DtMicroChartUtil', () => {
 
     it('should create an empty gap list for two data points', () => {
       // given
-      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
+      const dataPoints: DataPoint[] = [
+        { x: 0, y: 1 },
+        { x: 1, y: 2 },
+      ];
 
       // when
       const actual = extractLineGapDataPoints(dataPoints);
@@ -738,7 +744,10 @@ describe('DtMicroChartUtil', () => {
       const actual = extractLineGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{ x: 0, y: 1 }, { x: 2, y: 2 }]);
+      expect(actual).toEqual([
+        { x: 0, y: 1 },
+        { x: 2, y: 2 },
+      ]);
     });
 
     it('should create a gap list for three data points with gaps between', () => {
@@ -807,7 +816,10 @@ describe('DtMicroChartUtil', () => {
       const actual = extractLineGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{ x: 0, y: 1 }, { x: 1, y: 1 }]);
+      expect(actual).toEqual([
+        { x: 0, y: 1 },
+        { x: 1, y: 1 },
+      ]);
     });
 
     it('should create a gap list for a single data point with a gap at the end', () => {
@@ -818,7 +830,10 @@ describe('DtMicroChartUtil', () => {
       const actual = extractLineGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{ x: 0, y: 1 }, { x: 1, y: 1 }]);
+      expect(actual).toEqual([
+        { x: 0, y: 1 },
+        { x: 1, y: 1 },
+      ]);
     });
   });
 
@@ -847,7 +862,10 @@ describe('DtMicroChartUtil', () => {
 
     it('should create an empty gap list for two data points', () => {
       // given
-      const dataPoints: DataPoint[] = [{ x: 0, y: 1 }, { x: 1, y: 2 }];
+      const dataPoints: DataPoint[] = [
+        { x: 0, y: 1 },
+        { x: 1, y: 2 },
+      ];
 
       // when
       const actual = extractColumnGapDataPoints(dataPoints);
@@ -885,7 +903,10 @@ describe('DtMicroChartUtil', () => {
       const actual = extractColumnGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{ x: 1, y: 1 }, { x: 3, y: 2 }]);
+      expect(actual).toEqual([
+        { x: 1, y: 1 },
+        { x: 3, y: 2 },
+      ]);
     });
 
     it('should create a gap list for multiple consecutive data points with gaps in between', () => {
@@ -903,7 +924,10 @@ describe('DtMicroChartUtil', () => {
       const actual = extractColumnGapDataPoints(dataPoints);
 
       // then
-      expect(actual).toEqual([{ x: 1, y: 1 }, { x: 4, y: 3 }]);
+      expect(actual).toEqual([
+        { x: 1, y: 1 },
+        { x: 4, y: 3 },
+      ]);
     });
 
     it('should create no gap list for multiple gaps without real data points', () => {
