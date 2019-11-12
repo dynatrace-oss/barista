@@ -3,28 +3,28 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dev-app": {
-      "root": "src/dev-app",
-      "sourceRoot": "src",
+    "dev": {
+      "root": "apps/dev",
+      "sourceRoot": "apps/dev/src",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dev-app",
-            "index": "src/dev-app/index.html",
-            "main": "src/dev-app/main.ts",
-            "tsConfig": "src/dev-app/tsconfig.json",
-            "polyfills": "src/dev-app/polyfills.ts",
+            "outputPath": "dist/apps/dev",
+            "tsConfig": "apps/dev/tsconfig.app.json",
+            "index": "apps/dev/src/index.html",
+            "main": "apps/dev/src/main.ts",
+            "polyfills": "apps/dev/src/polyfills.ts",
             "assets": [
               {
                 "glob": "**",
-                "input": "src/lib/assets",
+                "input": "components/assets",
                 "output": "/assets"
               },
               {
                 "glob": "**",
-                "input": "src/dev-app/assets",
+                "input": "apps/dev/src/assets",
                 "output": "/assets"
               },
               {
@@ -38,13 +38,13 @@
                 "output": "/assets/icons"
               }
             ],
-            "styles": ["src/dev-app/main.scss"]
+            "styles": ["apps/dev/main.scss"]
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dev-app:build",
+            "browserTarget": "dev:build",
             "host": "0.0.0.0"
           },
           "configurations": {}
@@ -52,69 +52,41 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dev-app:build"
+            "browserTarget": "dev:build"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [],
-            "exclude": []
+            "tsConfig": ["apps/dev/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**", "!apps/dev/**"]
           }
         }
       }
     },
-    "lib": {
-      "root": "",
-      "sourceRoot": "src",
-      "projectType": "library",
-      "prefix": "dt",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "src/lib/tsconfig.build.json",
-            "project": "src/lib/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "project": "src/lib/package.json"
-            }
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "jest.config.js",
-            "tsConfig": "src/lib/tsconfig.spec.json",
-            "setupFile": "src/lib/test-setup.ts"
-          }
-        }
-      }
-    },
-    "ui-test-app": {
-      "root": "",
-      "sourceRoot": "src",
+    "components-e2e": {
+      "root": "apps/components-e2e",
+      "sourceRoot": "apps/components-e2e/src",
       "projectType": "application",
       "prefix": "dt",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/ui-test-app",
-            "index": "src/ui-test-app/index.html",
-            "main": "src/ui-test-app/main.ts",
-            "polyfills": "src/ui-test-app/polyfills.ts",
-            "tsConfig": "src/ui-test-app/tsconfig.json",
+            "outputPath": "dist/apps/components-e2e",
+            "tsConfig": "apps/components-e2e/tsconfig.json",
+            "index": "apps/components-e2e/src/index.html",
+            "main": "apps/components-e2e/src/main.ts",
+            "polyfills": "apps/components-e2e/src/polyfills.ts",
             "assets": [
               {
                 "glob": "**",
-                "input": "src/lib/assets",
+                "input": "components/assets",
                 "output": "/assets"
               },
               {
                 "glob": "**",
-                "input": "src/ui-test-app/fixtures",
+                "input": "apps/components-e2e/src/fixtures",
                 "output": "/fixtures"
               },
               {
@@ -123,7 +95,7 @@
                 "output": "/assets/icons"
               }
             ],
-            "styles": ["src/ui-test-app/main.scss"]
+            "styles": ["apps/components-e2e/src/main.scss"]
           },
           "configurations": {
             "production": {
@@ -142,19 +114,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ui-test-app:build"
+            "browserTarget": "components-e2e:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ui-test-app:build:production"
+              "browserTarget": "components-e2e:build:production"
             }
           }
         },
         "e2e": {
           "builder": "@politie/angular-testcafe-builder:testcafe",
           "options": {
-            "devServerTarget": "ui-test-app:serve",
-            "src": "ui-tests/**/*.{e2e,po}.ts",
+            "devServerTarget": "components-e2e:serve",
+            "src": "apps/components-e2e/src/**/*.{e2e,po}.ts",
             "stopOnFirstFail": false,
             "browsers": ["browserstack:chrome", "browserstack:edge"],
             "concurrency": 2
@@ -162,7 +134,7 @@
           "configurations": {
             "watch": {
               "browsers": ["chrome"],
-              "devServerTarget": "ui-test-app:serve",
+              "devServerTarget": "components-e2e:serve",
               "stopOnFirstFail": false,
               "live": true,
               "concurrency": 1
@@ -172,27 +144,27 @@
       }
     },
     "barista-examples": {
-      "root": "src/barista-examples",
-      "sourceRoot": "src",
+      "root": "apps/barista-examples",
+      "sourceRoot": "apps/barista-examples/src",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/barista-examples",
-            "index": "src/barista-examples/index.html",
-            "main": "src/barista-examples/main.ts",
-            "tsConfig": "src/barista-examples/tsconfig.json",
-            "polyfills": "src/barista-examples/polyfills.ts",
+            "outputPath": "dist/apps/barista-examples",
+            "tsConfig": "apps/barista-examples/tsconfig.json",
+            "index": "apps/barista-examples/src/index.html",
+            "main": "apps/barista-examples/src/main.ts",
+            "polyfills": "apps/barista-examples/src/polyfills.ts",
             "assets": [
               {
                 "glob": "**",
-                "input": "src/lib/assets",
+                "input": "components/assets",
                 "output": "/assets"
               },
               {
                 "glob": "**",
-                "input": "src/barista-examples/assets",
+                "input": "apps/barista-examples/src/assets",
                 "output": "/assets"
               },
               {
@@ -207,13 +179,13 @@
               }
             ],
             "styles": [
-              "src/barista-examples/main.scss",
-              "src/lib/style/index.scss"
+              "apps/barista-examples/src/main.scss",
+              "components/style/index.scss"
             ]
           },
           "configurations": {
             "production": {
-              "tsConfig": "src/barista-examples/tsconfig-build.json",
+              "tsConfig": "apps/barista-examples/tsconfig-build.json",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -223,7 +195,7 @@
               "statsJson": true
             },
             "production-aot": {
-              "tsConfig": "src/barista-examples/tsconfig-build.json",
+              "tsConfig": "apps/barista-examples/tsconfig-build.json",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
@@ -254,7 +226,7 @@
           "builder": "@politie/angular-testcafe-builder:testcafe",
           "options": {
             "devServerTarget": "barista-examples:serve",
-            "src": "src/barista-examples/**/*.a11y.ts",
+            "src": "apps/barista-examples/src/**/*.a11y.ts",
             "stopOnFirstFail": true,
             "browsers": ["chrome"]
           },
@@ -269,27 +241,28 @@
       }
     },
     "barista": {
-      "root": "src/barista",
-      "sourceRoot": "src",
+      "root": "apps/barista",
+      "sourceRoot": "apps/barista/src",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/barista",
-            "index": "src/barista/index.html",
-            "main": "src/barista/main.ts",
-            "tsConfig": "src/barista/tsconfig.app.json",
-            "polyfills": "src/barista/polyfills.ts",
+            "outputPath": "dist/apps/barista",
+            "tsConfig": "apps/barista/tsconfig.app.json",
+            "index": "apps/barista/src/index.html",
+            "main": "apps/barista/src/main.ts",
+            "polyfills": "apps/barista/src/polyfills.ts",
+            "aot": false,
             "assets": [
               {
                 "glob": "**",
-                "input": "src/lib/assets",
+                "input": "components/assets",
                 "output": "/assets"
               },
               {
                 "glob": "**",
-                "input": "src/barista/assets",
+                "input": "apps/barista/src/assets",
                 "output": "/assets"
               },
               {
@@ -304,52 +277,74 @@
               },
               {
                 "glob": "**/*.json",
-                "input": "dist/barista/data",
+                "input": "dist/apps/barista/data",
                 "output": "/data"
               }
             ],
             "styles": [
-              "src/barista/main.scss",
-              "src/lib/core/style/_colors.scss"
+              "apps/barista/src/main.scss",
+              "components/core/style/_colors.scss"
             ]
           },
           "configurations": {
             "production": {
-              "tsConfig": "src/barista/tsconfig.app.json",
+              "fileReplacements": [
+                {
+                  "replace": "apps/barista/src/environments/environment.ts",
+                  "with": "apps/barista/src/environments/environment.prod.ts"
+                }
+              ],
+              "tsConfig": "apps/barista/tsconfig.app.json",
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
               "vendorChunk": false,
-              "statsJson": true
-            },
-            "production-aot": {
-              "tsConfig": "src/barista/tsconfig.app.json",
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "aot": true
+              "statsJson": true,
+              "aot": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "barista:build",
-            "host": "0.0.0.0"
+            "browserTarget": "barista:build"
           },
-          "configurations": {}
+          "configurations": {
+            "production": {
+              "browserTarget": "barista:build:production"
+            }
+          }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [],
-            "exclude": []
+            "tsConfig": [
+              "apps/barista/tsconfig.app.json",
+              "apps/barista/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/barista/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/barista/jest.config.js",
+            "tsConfig": "apps/barista/tsconfig.spec.json",
+            "setupFile": "apps/barista/src/test-setup.ts"
           }
         }
       }
@@ -392,9 +387,2004 @@
           }
         }
       }
+    },
+    "components": {
+      "projectType": "library",
+      "root": "components",
+      "sourceRoot": "components",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "components/tsconfig.lib.json",
+            "project": "components/ng-package.json"
+          }
+        }
+      }
+    },
+    "alert": {
+      "projectType": "library",
+      "root": "components/alert",
+      "sourceRoot": "components/alert/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/alert/tsconfig.lib.json",
+              "components/alert/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/alert/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/alert/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/alert/jest.config.js",
+            "tsConfig": "components/alert/tsconfig.spec.json",
+            "setupFile": "components/alert/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "autocomplete": {
+      "projectType": "library",
+      "root": "components/autocomplete",
+      "sourceRoot": "components/autocomplete/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/autocomplete/tsconfig.lib.json",
+              "components/autocomplete/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/autocomplete/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/autocomplete/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/autocomplete/jest.config.js",
+            "tsConfig": "components/autocomplete/tsconfig.spec.json",
+            "setupFile": "components/autocomplete/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "bar-indicator": {
+      "projectType": "library",
+      "root": "components/bar-indicator",
+      "sourceRoot": "components/bar-indicator/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/bar-indicator/tsconfig.lib.json",
+              "components/bar-indicator/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/bar-indicator/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/bar-indicator/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/bar-indicator/jest.config.js",
+            "tsConfig": "components/bar-indicator/tsconfig.spec.json",
+            "setupFile": "components/bar-indicator/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "breadcrumbs": {
+      "projectType": "library",
+      "root": "components/breadcrumbs",
+      "sourceRoot": "components/breadcrumbs/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/breadcrumbs/tsconfig.lib.json",
+              "components/breadcrumbs/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/breadcrumbs/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/breadcrumbs/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/breadcrumbs/jest.config.js",
+            "tsConfig": "components/breadcrumbs/tsconfig.spec.json",
+            "setupFile": "components/breadcrumbs/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "button": {
+      "projectType": "library",
+      "root": "components/button",
+      "sourceRoot": "components/button/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/button/tsconfig.lib.json",
+              "components/button/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/button/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/button/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/button/jest.config.js",
+            "tsConfig": "components/button/tsconfig.spec.json",
+            "setupFile": "components/button/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "button-group": {
+      "projectType": "library",
+      "root": "components/button-group",
+      "sourceRoot": "components/button-group/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/button-group/tsconfig.lib.json",
+              "components/button-group/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/button-group/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/button-group/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/button-group/jest.config.js",
+            "tsConfig": "components/button-group/tsconfig.spec.json",
+            "setupFile": "components/button-group/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "card": {
+      "projectType": "library",
+      "root": "components/card",
+      "sourceRoot": "components/card/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/card/tsconfig.lib.json",
+              "components/card/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/card/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/card/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/card/jest.config.js",
+            "tsConfig": "components/card/tsconfig.spec.json",
+            "setupFile": "components/card/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "chart": {
+      "projectType": "library",
+      "root": "components/chart",
+      "sourceRoot": "components/chart/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/chart/tsconfig.lib.json",
+              "components/chart/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/chart/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/chart/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/chart/jest.config.js",
+            "tsConfig": "components/chart/tsconfig.spec.json",
+            "setupFile": "components/chart/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "checkbox": {
+      "projectType": "library",
+      "root": "components/checkbox",
+      "sourceRoot": "components/checkbox/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/checkbox/tsconfig.lib.json",
+              "components/checkbox/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/checkbox/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/checkbox/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/checkbox/jest.config.js",
+            "tsConfig": "components/checkbox/tsconfig.spec.json",
+            "setupFile": "components/checkbox/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "confirmation-dialog": {
+      "projectType": "library",
+      "root": "components/confirmation-dialog",
+      "sourceRoot": "components/confirmation-dialog/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/confirmation-dialog/tsconfig.lib.json",
+              "components/confirmation-dialog/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!components/confirmation-dialog/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/confirmation-dialog/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/confirmation-dialog/jest.config.js",
+            "tsConfig": "components/confirmation-dialog/tsconfig.spec.json",
+            "setupFile": "components/confirmation-dialog/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "consumption": {
+      "projectType": "library",
+      "root": "components/consumption",
+      "sourceRoot": "components/consumption/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/consumption/tsconfig.lib.json",
+              "components/consumption/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/consumption/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/consumption/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/consumption/jest.config.js",
+            "tsConfig": "components/consumption/tsconfig.spec.json",
+            "setupFile": "components/consumption/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "container-breakpoint-observer": {
+      "projectType": "library",
+      "root": "components/container-breakpoint-observer",
+      "sourceRoot": "components/container-breakpoint-observer/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/container-breakpoint-observer/tsconfig.lib.json",
+              "components/container-breakpoint-observer/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!components/container-breakpoint-observer/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/container-breakpoint-observer/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/container-breakpoint-observer/jest.config.js",
+            "tsConfig": "components/container-breakpoint-observer/tsconfig.spec.json",
+            "setupFile": "components/container-breakpoint-observer/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "context-dialog": {
+      "projectType": "library",
+      "root": "components/context-dialog",
+      "sourceRoot": "components/context-dialog/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/context-dialog/tsconfig.lib.json",
+              "components/context-dialog/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/context-dialog/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/context-dialog/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/context-dialog/jest.config.js",
+            "tsConfig": "components/context-dialog/tsconfig.spec.json",
+            "setupFile": "components/context-dialog/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "copy-to-clipboard": {
+      "projectType": "library",
+      "root": "components/copy-to-clipboard",
+      "sourceRoot": "components/copy-to-clipboard/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/copy-to-clipboard/tsconfig.lib.json",
+              "components/copy-to-clipboard/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!components/copy-to-clipboard/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/copy-to-clipboard/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/copy-to-clipboard/jest.config.js",
+            "tsConfig": "components/copy-to-clipboard/tsconfig.spec.json",
+            "setupFile": "components/copy-to-clipboard/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "core": {
+      "projectType": "library",
+      "root": "components/core",
+      "sourceRoot": "components/core/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/core/tsconfig.lib.json",
+              "components/core/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/core/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/core/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/core/jest.config.js",
+            "tsConfig": "components/core/tsconfig.spec.json",
+            "setupFile": "components/core/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "cta-card": {
+      "projectType": "library",
+      "root": "components/cta-card",
+      "sourceRoot": "components/cta-card/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/cta-card/tsconfig.lib.json",
+              "components/cta-card/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/cta-card/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/cta-card/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/cta-card/jest.config.js",
+            "tsConfig": "components/cta-card/tsconfig.spec.json",
+            "setupFile": "components/cta-card/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "drawer": {
+      "projectType": "library",
+      "root": "components/drawer",
+      "sourceRoot": "components/drawer/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/drawer/tsconfig.lib.json",
+              "components/drawer/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/drawer/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/drawer/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/drawer/jest.config.js",
+            "tsConfig": "components/drawer/tsconfig.spec.json",
+            "setupFile": "components/drawer/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "empty-state": {
+      "projectType": "library",
+      "root": "components/empty-state",
+      "sourceRoot": "components/empty-state/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/empty-state/tsconfig.lib.json",
+              "components/empty-state/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/empty-state/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/empty-state/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/empty-state/jest.config.js",
+            "tsConfig": "components/empty-state/tsconfig.spec.json",
+            "setupFile": "components/empty-state/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "event-chart": {
+      "projectType": "library",
+      "root": "components/event-chart",
+      "sourceRoot": "components/event-chart/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/event-chart/tsconfig.lib.json",
+              "components/event-chart/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/event-chart/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/event-chart/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/event-chart/jest.config.js",
+            "tsConfig": "components/event-chart/tsconfig.spec.json",
+            "setupFile": "components/event-chart/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "expandable-panel": {
+      "projectType": "library",
+      "root": "components/expandable-panel",
+      "sourceRoot": "components/expandable-panel/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/expandable-panel/tsconfig.lib.json",
+              "components/expandable-panel/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/expandable-panel/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/expandable-panel/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/expandable-panel/jest.config.js",
+            "tsConfig": "components/expandable-panel/tsconfig.spec.json",
+            "setupFile": "components/expandable-panel/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "expandable-section": {
+      "projectType": "library",
+      "root": "components/expandable-section",
+      "sourceRoot": "components/expandable-section/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/expandable-section/tsconfig.lib.json",
+              "components/expandable-section/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!components/expandable-section/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/expandable-section/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/expandable-section/jest.config.js",
+            "tsConfig": "components/expandable-section/tsconfig.spec.json",
+            "setupFile": "components/expandable-section/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "expandable-text": {
+      "projectType": "library",
+      "root": "components/expandable-text",
+      "sourceRoot": "components/expandable-text/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/expandable-text/tsconfig.lib.json",
+              "components/expandable-text/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/expandable-text/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/expandable-text/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/expandable-text/jest.config.js",
+            "tsConfig": "components/expandable-text/tsconfig.spec.json",
+            "setupFile": "components/expandable-text/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "filter-field": {
+      "projectType": "library",
+      "root": "components/filter-field",
+      "sourceRoot": "components/filter-field/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/filter-field/tsconfig.lib.json",
+              "components/filter-field/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/filter-field/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/filter-field/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/filter-field/jest.config.js",
+            "tsConfig": "components/filter-field/tsconfig.spec.json",
+            "setupFile": "components/filter-field/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "form-field": {
+      "projectType": "library",
+      "root": "components/form-field",
+      "sourceRoot": "components/form-field/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/form-field/tsconfig.lib.json",
+              "components/form-field/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/form-field/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/form-field/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/form-field/jest.config.js",
+            "tsConfig": "components/form-field/tsconfig.spec.json",
+            "setupFile": "components/form-field/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "formatters": {
+      "projectType": "library",
+      "root": "components/formatters",
+      "sourceRoot": "components/formatters/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/formatters/tsconfig.lib.json",
+              "components/formatters/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/formatters/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/formatters/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/formatters/jest.config.js",
+            "tsConfig": "components/formatters/tsconfig.spec.json",
+            "setupFile": "components/formatters/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "highlight": {
+      "projectType": "library",
+      "root": "components/highlight",
+      "sourceRoot": "components/highlight/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/highlight/tsconfig.lib.json",
+              "components/highlight/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/highlight/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/highlight/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/highlight/jest.config.js",
+            "tsConfig": "components/highlight/tsconfig.spec.json",
+            "setupFile": "components/highlight/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "icon": {
+      "projectType": "library",
+      "root": "components/icon",
+      "sourceRoot": "components/icon/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/icon/tsconfig.lib.json",
+              "components/icon/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/icon/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/icon/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/icon/jest.config.js",
+            "tsConfig": "components/icon/tsconfig.spec.json",
+            "setupFile": "components/icon/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "info-group": {
+      "projectType": "library",
+      "root": "components/info-group",
+      "sourceRoot": "components/info-group/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/info-group/tsconfig.lib.json",
+              "components/info-group/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/info-group/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/info-group/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/info-group/jest.config.js",
+            "tsConfig": "components/info-group/tsconfig.spec.json",
+            "setupFile": "components/info-group/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "inline-editor": {
+      "projectType": "library",
+      "root": "components/inline-editor",
+      "sourceRoot": "components/inline-editor/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/inline-editor/tsconfig.lib.json",
+              "components/inline-editor/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/inline-editor/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/inline-editor/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/inline-editor/jest.config.js",
+            "tsConfig": "components/inline-editor/tsconfig.spec.json",
+            "setupFile": "components/inline-editor/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "input": {
+      "projectType": "library",
+      "root": "components/input",
+      "sourceRoot": "components/input/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/input/tsconfig.lib.json",
+              "components/input/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/input/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/input/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/input/jest.config.js",
+            "tsConfig": "components/input/tsconfig.spec.json",
+            "setupFile": "components/input/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "key-value-list": {
+      "projectType": "library",
+      "root": "components/key-value-list",
+      "sourceRoot": "components/key-value-list/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/key-value-list/tsconfig.lib.json",
+              "components/key-value-list/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/key-value-list/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/key-value-list/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/key-value-list/jest.config.js",
+            "tsConfig": "components/key-value-list/tsconfig.spec.json",
+            "setupFile": "components/key-value-list/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "legend": {
+      "projectType": "library",
+      "root": "components/legend",
+      "sourceRoot": "components/legend/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/legend/tsconfig.lib.json",
+              "components/legend/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/legend/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/legend/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/legend/jest.config.js",
+            "tsConfig": "components/legend/tsconfig.spec.json",
+            "setupFile": "components/legend/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "loading-distractor": {
+      "projectType": "library",
+      "root": "components/loading-distractor",
+      "sourceRoot": "components/loading-distractor/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/loading-distractor/tsconfig.lib.json",
+              "components/loading-distractor/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!components/loading-distractor/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/loading-distractor/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/loading-distractor/jest.config.js",
+            "tsConfig": "components/loading-distractor/tsconfig.spec.json",
+            "setupFile": "components/loading-distractor/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "menu": {
+      "projectType": "library",
+      "root": "components/menu",
+      "sourceRoot": "components/menu/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/menu/tsconfig.lib.json",
+              "components/menu/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/menu/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/menu/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/menu/jest.config.js",
+            "tsConfig": "components/menu/tsconfig.spec.json",
+            "setupFile": "components/menu/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "micro-chart": {
+      "projectType": "library",
+      "root": "components/micro-chart",
+      "sourceRoot": "components/micro-chart/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/micro-chart/tsconfig.lib.json",
+              "components/micro-chart/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/micro-chart/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/micro-chart/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/micro-chart/jest.config.js",
+            "tsConfig": "components/micro-chart/tsconfig.spec.json",
+            "setupFile": "components/micro-chart/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "overlay": {
+      "projectType": "library",
+      "root": "components/overlay",
+      "sourceRoot": "components/overlay/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/overlay/tsconfig.lib.json",
+              "components/overlay/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/overlay/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/overlay/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/overlay/jest.config.js",
+            "tsConfig": "components/overlay/tsconfig.spec.json",
+            "setupFile": "components/overlay/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "pagination": {
+      "projectType": "library",
+      "root": "components/pagination",
+      "sourceRoot": "components/pagination/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/pagination/tsconfig.lib.json",
+              "components/pagination/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/pagination/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/pagination/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/pagination/jest.config.js",
+            "tsConfig": "components/pagination/tsconfig.spec.json",
+            "setupFile": "components/pagination/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "progress-bar": {
+      "projectType": "library",
+      "root": "components/progress-bar",
+      "sourceRoot": "components/progress-bar/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/progress-bar/tsconfig.lib.json",
+              "components/progress-bar/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/progress-bar/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/progress-bar/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/progress-bar/jest.config.js",
+            "tsConfig": "components/progress-bar/tsconfig.spec.json",
+            "setupFile": "components/progress-bar/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "progress-circle": {
+      "projectType": "library",
+      "root": "components/progress-circle",
+      "sourceRoot": "components/progress-circle/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/progress-circle/tsconfig.lib.json",
+              "components/progress-circle/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/progress-circle/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/progress-circle/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/progress-circle/jest.config.js",
+            "tsConfig": "components/progress-circle/tsconfig.spec.json",
+            "setupFile": "components/progress-circle/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "radio": {
+      "projectType": "library",
+      "root": "components/radio",
+      "sourceRoot": "components/radio/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/radio/tsconfig.lib.json",
+              "components/radio/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/radio/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/radio/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/radio/jest.config.js",
+            "tsConfig": "components/radio/tsconfig.spec.json",
+            "setupFile": "components/radio/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "secondary-nav": {
+      "projectType": "library",
+      "root": "components/secondary-nav",
+      "sourceRoot": "components/secondary-nav/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/secondary-nav/tsconfig.lib.json",
+              "components/secondary-nav/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/secondary-nav/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/secondary-nav/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/secondary-nav/jest.config.js",
+            "tsConfig": "components/secondary-nav/tsconfig.spec.json",
+            "setupFile": "components/secondary-nav/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "select": {
+      "projectType": "library",
+      "root": "components/select",
+      "sourceRoot": "components/select/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/select/tsconfig.lib.json",
+              "components/select/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/select/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/select/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/select/jest.config.js",
+            "tsConfig": "components/select/tsconfig.spec.json",
+            "setupFile": "components/select/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "selection-area": {
+      "projectType": "library",
+      "root": "components/selection-area",
+      "sourceRoot": "components/selection-area/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/selection-area/tsconfig.lib.json",
+              "components/selection-area/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/selection-area/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/selection-area/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/selection-area/jest.config.js",
+            "tsConfig": "components/selection-area/tsconfig.spec.json",
+            "setupFile": "components/selection-area/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "show-more": {
+      "projectType": "library",
+      "root": "components/show-more",
+      "sourceRoot": "components/show-more/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/show-more/tsconfig.lib.json",
+              "components/show-more/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/show-more/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/show-more/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/show-more/jest.config.js",
+            "tsConfig": "components/show-more/tsconfig.spec.json",
+            "setupFile": "components/show-more/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "stepper": {
+      "projectType": "library",
+      "root": "components/stepper",
+      "sourceRoot": "components/stepper/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/stepper/tsconfig.lib.json",
+              "components/stepper/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/stepper/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/stepper/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/stepper/jest.config.js",
+            "tsConfig": "components/stepper/tsconfig.spec.json",
+            "setupFile": "components/stepper/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "switch": {
+      "projectType": "library",
+      "root": "components/switch",
+      "sourceRoot": "components/switch/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/switch/tsconfig.lib.json",
+              "components/switch/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/switch/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/switch/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/switch/jest.config.js",
+            "tsConfig": "components/switch/tsconfig.spec.json",
+            "setupFile": "components/switch/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "table": {
+      "projectType": "library",
+      "root": "components/table",
+      "sourceRoot": "components/table/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/table/tsconfig.lib.json",
+              "components/table/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/table/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/table/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/table/jest.config.js",
+            "tsConfig": "components/table/tsconfig.spec.json",
+            "setupFile": "components/table/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "tabs": {
+      "projectType": "library",
+      "root": "components/tabs",
+      "sourceRoot": "components/tabs/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/tabs/tsconfig.lib.json",
+              "components/tabs/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/tabs/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/tabs/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/tabs/jest.config.js",
+            "tsConfig": "components/tabs/tsconfig.spec.json",
+            "setupFile": "components/tabs/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "tag": {
+      "projectType": "library",
+      "root": "components/tag",
+      "sourceRoot": "components/tag/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/tag/tsconfig.lib.json",
+              "components/tag/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/tag/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/tag/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/tag/jest.config.js",
+            "tsConfig": "components/tag/tsconfig.spec.json",
+            "setupFile": "components/tag/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "theming": {
+      "projectType": "library",
+      "root": "components/theming",
+      "sourceRoot": "components/theming/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/theming/tsconfig.lib.json",
+              "components/theming/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/theming/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/theming/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/theming/jest.config.js",
+            "tsConfig": "components/theming/tsconfig.spec.json",
+            "setupFile": "components/theming/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "tile": {
+      "projectType": "library",
+      "root": "components/tile",
+      "sourceRoot": "components/tile/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/tile/tsconfig.lib.json",
+              "components/tile/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/tile/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/tile/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/tile/jest.config.js",
+            "tsConfig": "components/tile/tsconfig.spec.json",
+            "setupFile": "components/tile/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "timeline-chart": {
+      "projectType": "library",
+      "root": "components/timeline-chart",
+      "sourceRoot": "components/timeline-chart/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/timeline-chart/tsconfig.lib.json",
+              "components/timeline-chart/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/timeline-chart/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/timeline-chart/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/timeline-chart/jest.config.js",
+            "tsConfig": "components/timeline-chart/tsconfig.spec.json",
+            "setupFile": "components/timeline-chart/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "toast": {
+      "projectType": "library",
+      "root": "components/toast",
+      "sourceRoot": "components/toast/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/toast/tsconfig.lib.json",
+              "components/toast/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/toast/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/toast/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/toast/jest.config.js",
+            "tsConfig": "components/toast/tsconfig.spec.json",
+            "setupFile": "components/toast/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "toggle-button-group": {
+      "projectType": "library",
+      "root": "components/toggle-button-group",
+      "sourceRoot": "components/toggle-button-group/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/toggle-button-group/tsconfig.lib.json",
+              "components/toggle-button-group/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!components/toggle-button-group/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/toggle-button-group/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/toggle-button-group/jest.config.js",
+            "tsConfig": "components/toggle-button-group/tsconfig.spec.json",
+            "setupFile": "components/toggle-button-group/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "top-bar-navigation": {
+      "projectType": "library",
+      "root": "components/top-bar-navigation",
+      "sourceRoot": "components/top-bar-navigation/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/top-bar-navigation/tsconfig.lib.json",
+              "components/top-bar-navigation/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!components/top-bar-navigation/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/top-bar-navigation/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/top-bar-navigation/jest.config.js",
+            "tsConfig": "components/top-bar-navigation/tsconfig.spec.json",
+            "setupFile": "components/top-bar-navigation/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "tree-table": {
+      "projectType": "library",
+      "root": "components/tree-table",
+      "sourceRoot": "components/tree-table/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/tree-table/tsconfig.lib.json",
+              "components/tree-table/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/tree-table/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/tree-table/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/tree-table/jest.config.js",
+            "tsConfig": "components/tree-table/tsconfig.spec.json",
+            "setupFile": "components/tree-table/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
-  "defaultProject": "lib",
+  "defaultProject": "dev",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": ""
@@ -404,6 +2394,6 @@
     }
   },
   "cli": {
-    "packageManager": "yarn"
+    "packageManager": "npm"
   }
 }

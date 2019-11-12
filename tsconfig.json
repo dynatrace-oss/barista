@@ -23,10 +23,148 @@
     "noUnusedParameters": true,
     "lib": ["dom", "es2017"],
     "paths": {
-      "@dynatrace/angular-components": ["src/lib"],
-      "@dynatrace/angular-components/testing": ["src/testing/index.ts"],
-      "@dynatrace/angular-components/*": ["src/lib/*"],
-      "highcharts": ["node_modules/highcharts"]
+      "@dynatrace/barista-components/alert": ["components/alert/src/index.ts"],
+      "@dynatrace/barista-components/autocomplete": [
+        "components/autocomplete/src/index.ts"
+      ],
+      "@dynatrace/barista-components/bar-indicator": [
+        "components/bar-indicator/src/index.ts"
+      ],
+      "@dynatrace/barista-components/breadcrumbs": [
+        "components/breadcrumbs/src/index.ts"
+      ],
+      "@dynatrace/barista-components/button": [
+        "components/button/src/index.ts"
+      ],
+      "@dynatrace/barista-components/button-group": [
+        "components/button-group/src/index.ts"
+      ],
+      "@dynatrace/barista-components/card": ["components/card/src/index.ts"],
+      "@dynatrace/barista-components/chart": ["components/chart/src/index.ts"],
+      "@dynatrace/barista-components/checkbox": [
+        "components/checkbox/src/index.ts"
+      ],
+      "@dynatrace/barista-components/confirmation-dialog": [
+        "components/confirmation-dialog/src/index.ts"
+      ],
+      "@dynatrace/barista-components/consumption": [
+        "components/consumption/src/index.ts"
+      ],
+      "@dynatrace/barista-components/container-breakpoint-observer": [
+        "components/container-breakpoint-observer/src/index.ts"
+      ],
+      "@dynatrace/barista-components/context-dialog": [
+        "components/context-dialog/src/index.ts"
+      ],
+      "@dynatrace/barista-components/copy-to-clipboard": [
+        "components/copy-to-clipboard/src/index.ts"
+      ],
+      "@dynatrace/barista-components/core": ["components/core/src/index.ts"],
+      "@dynatrace/barista-components/cta-card": [
+        "components/cta-card/src/index.ts"
+      ],
+      "@dynatrace/barista-components/drawer": [
+        "components/drawer/src/index.ts"
+      ],
+      "@dynatrace/barista-components/empty-state": [
+        "components/empty-state/src/index.ts"
+      ],
+      "@dynatrace/barista-components/event-chart": [
+        "components/event-chart/src/index.ts"
+      ],
+      "@dynatrace/barista-components/expandable-panel": [
+        "components/expandable-panel/src/index.ts"
+      ],
+      "@dynatrace/barista-components/expandable-section": [
+        "components/expandable-section/src/index.ts"
+      ],
+      "@dynatrace/barista-components/expandable-text": [
+        "components/expandable-text/src/index.ts"
+      ],
+      "@dynatrace/barista-components/filter-field": [
+        "components/filter-field/src/index.ts"
+      ],
+      "@dynatrace/barista-components/form-field": [
+        "components/form-field/src/index.ts"
+      ],
+      "@dynatrace/barista-components/formatters": [
+        "components/formatters/src/index.ts"
+      ],
+      "@dynatrace/barista-components/highlight": [
+        "components/highlight/src/index.ts"
+      ],
+      "@dynatrace/barista-components/icon": ["components/icon/src/index.ts"],
+      "@dynatrace/barista-components/info-group": [
+        "components/info-group/src/index.ts"
+      ],
+      "@dynatrace/barista-components/inline-editor": [
+        "components/inline-editor/src/index.ts"
+      ],
+      "@dynatrace/barista-components/input": ["components/input/src/index.ts"],
+      "@dynatrace/barista-components/key-value-list": [
+        "components/key-value-list/src/index.ts"
+      ],
+      "@dynatrace/barista-components/legend": [
+        "components/legend/src/index.ts"
+      ],
+      "@dynatrace/barista-components/loading-distractor": [
+        "components/loading-distractor/src/index.ts"
+      ],
+      "@dynatrace/barista-components/menu": ["components/menu/src/index.ts"],
+      "@dynatrace/barista-components/micro-chart": [
+        "components/micro-chart/src/index.ts"
+      ],
+      "@dynatrace/barista-components/overlay": [
+        "components/overlay/src/index.ts"
+      ],
+      "@dynatrace/barista-components/pagination": [
+        "components/pagination/src/index.ts"
+      ],
+      "@dynatrace/barista-components/progress-bar": [
+        "components/progress-bar/src/index.ts"
+      ],
+      "@dynatrace/barista-components/progress-circle": [
+        "components/progress-circle/src/index.ts"
+      ],
+      "@dynatrace/barista-components/radio": ["components/radio/src/index.ts"],
+      "@dynatrace/barista-components/secondary-nav": [
+        "components/secondary-nav/src/index.ts"
+      ],
+      "@dynatrace/barista-components/select": [
+        "components/select/src/index.ts"
+      ],
+      "@dynatrace/barista-components/selection-area": [
+        "components/selection-area/src/index.ts"
+      ],
+      "@dynatrace/barista-components/show-more": [
+        "components/show-more/src/index.ts"
+      ],
+      "@dynatrace/barista-components/stepper": [
+        "components/stepper/src/index.ts"
+      ],
+      "@dynatrace/barista-components/switch": [
+        "components/switch/src/index.ts"
+      ],
+      "@dynatrace/barista-components/table": ["components/table/src/index.ts"],
+      "@dynatrace/barista-components/tabs": ["components/tabs/src/index.ts"],
+      "@dynatrace/barista-components/tag": ["components/tag/src/index.ts"],
+      "@dynatrace/barista-components/theming": [
+        "components/theming/src/index.ts"
+      ],
+      "@dynatrace/barista-components/tile": ["components/tile/src/index.ts"],
+      "@dynatrace/barista-components/timeline-chart": [
+        "components/timeline-chart/src/index.ts"
+      ],
+      "@dynatrace/barista-components/toast": ["components/toast/src/index.ts"],
+      "@dynatrace/barista-components/toggle-button-group": [
+        "components/toggle-button-group/src/index.ts"
+      ],
+      "@dynatrace/barista-components/top-bar-navigation": [
+        "components/top-bar-navigation/src/index.ts"
+      ],
+      "@dynatrace/barista-components/tree-table": [
+        "components/tree-table/src/index.ts"
+      ]
     },
     "strictNullChecks": true,
     "typeRoots": ["node_modules/@types"],

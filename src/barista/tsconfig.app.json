@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "../../dist/barista"
-  },
-  "include": ["../../typings.d.ts", "./**/*.ts"],
-  "exclude": ["./test.ts", "./**/*.spec.ts"]
-}
