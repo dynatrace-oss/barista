@@ -113,10 +113,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
           this._changeDetectorRef.markForCheck();
         });
       this._tagAddElements.changes
-        .pipe(
-          startWith(null),
-          takeUntil(this._destroy$),
-        )
+        .pipe(startWith(null), takeUntil(this._destroy$))
         .subscribe(() => {
           this._unsubscribeFromTagAddElements();
           this._subscribeToTagAddElements();

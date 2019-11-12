@@ -58,6 +58,7 @@ import {
   _getOptionScrollPosition,
   isDefined,
   readKeyCode,
+  stringify,
 } from '@dynatrace/angular-components/core';
 import { DtFormField } from '@dynatrace/angular-components/form-field';
 
@@ -311,10 +312,7 @@ export class DtAutocompleteTrigger<T>
   _handleBlur(): void {
     if (this.panelOpen) {
       this.autocomplete.closed
-        .pipe(
-          take(1),
-          takeUntil(this.autocomplete.opened.asObservable()),
-        )
+        .pipe(take(1), takeUntil(this.autocomplete.opened.asObservable()))
         .subscribe(() => {
           this._onTouched();
         });
@@ -508,7 +506,7 @@ export class DtAutocompleteTrigger<T>
     return this._positionStrategy;
   }
 
-  /** Resets the active item to -1 so arrow events will activate the orrect options, or to 0 if the consumer opted into it. */
+  /** Resets the active item to -1 so arrow events will activate the correct options, or to 0 if the consumer opted into it. */
   private _resetActiveItem(): void {
     this.autocomplete._keyManager.setActiveItem(
       this.autocomplete.autoActiveFirstOption ? 0 : -1,
@@ -582,8 +580,8 @@ export class DtAutocompleteTrigger<T>
           this._overlayAttached &&
           clickTarget !== this._element.nativeElement &&
           (!formField || !formField.contains(clickTarget)) &&
-          (!!this._overlayRef &&
-            !this._overlayRef.overlayElement.contains(clickTarget))
+          !!this._overlayRef &&
+          !this._overlayRef.overlayElement.contains(clickTarget)
         );
       }),
     );
@@ -619,8 +617,7 @@ export class DtAutocompleteTrigger<T>
   private _setTriggerValue(value: T): void {
     let stringifiedValue = '';
     if (isDefined(value)) {
-      stringifiedValue =
-        value && value.toString ? value.toString() : (value as any); // tslint:disable-line:no-any
+      stringifiedValue = stringify(value);
     }
 
     const toDisplay =
