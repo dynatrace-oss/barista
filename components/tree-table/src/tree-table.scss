@@ -1,7 +1,7 @@
-@import '../style/font-mixins';
-@import '../core/style/variables';
-@import '../table/header/header-cell';
-@import '../table/info-group-overrides';
+@import '../../style/font-mixins';
+@import '../../core/src/style/variables';
+@import '../../table/src/header/header-cell';
+@import '../../table/src/info-group-overrides';
 
 :host {
   display: table;

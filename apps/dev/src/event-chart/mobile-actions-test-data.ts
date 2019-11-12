@@ -476,7 +476,7 @@ export class MobileActionDataSource implements EventChartDemoDataSource {
   }
 
   getLanes(): EventChartDemoLane[] {
-    return TEST_DATA.reduce((lanes: EventChartDemoLane[], event, source) => {
+    return TEST_DATA.reduce((lanes: EventChartDemoLane[], event, _source) => {
       const name = event.lane;
       const exits = lanes.find(l => l.name === name);
       if (!exits) {

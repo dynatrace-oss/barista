@@ -4,7 +4,6 @@ import { DtExpandableText } from '@dynatrace/barista-components/expandable-text'
 
 // tslint:disable-next-line: use-component-selector
 @Component({
-  moduleId: module.id,
   templateUrl: './expandable-text-demo.component.html',
 })
 export class ExpandableTextDemo {

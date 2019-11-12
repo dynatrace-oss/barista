@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { BaIndexPageItem } from 'shared/page-contents';
+
+import { BaIndexPageItem } from '../../shared/page-contents';
 
 @Component({
   selector: 'a[ba-smalltile]',

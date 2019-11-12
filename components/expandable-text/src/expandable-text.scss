@@ -1,7 +1,7 @@
-@import '../style/font-mixins';
-@import '../core/style/variables';
-@import '../icons/icons-mixin';
-@import '../style/link';
+@import '../../style/font-mixins';
+@import '../../core/src/style/variables';
+@import '../../style/icons/icons-mixin';
+@import '../../style/link';
 
 :host {
   display: inline;

@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-filter-field

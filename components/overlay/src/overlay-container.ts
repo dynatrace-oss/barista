@@ -64,7 +64,6 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-overlay-container',
   exportAs: 'dtOverlayContainer',
   templateUrl: 'overlay-container.html',

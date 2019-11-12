@@ -5,7 +5,6 @@ import {
 } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-context-dialog-header',
   templateUrl: 'context-dialog-header.html',
   styleUrls: ['context-dialog-header.scss'],

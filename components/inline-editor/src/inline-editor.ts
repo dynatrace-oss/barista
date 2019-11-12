@@ -66,7 +66,6 @@ export class DtInlineEditorBase {
 export const _DtInlineEditorMixinBase = mixinErrorState(DtInlineEditorBase);
 
 @Component({
-  moduleId: module.id,
   preserveWhitespaces: false,
   selector: '[dt-inline-editor]',
   exportAs: 'dt-inline-editor',

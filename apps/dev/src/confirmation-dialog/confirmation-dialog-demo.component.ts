@@ -3,7 +3,6 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { DtConfirmationDialog } from '@dynatrace/barista-components/confirmation-dialog';
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'confirmation-dialog-demo.component.html',
   selector: 'confirmation-dialog-dev-app-demo',
 })

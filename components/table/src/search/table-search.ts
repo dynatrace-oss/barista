@@ -39,7 +39,6 @@ export const DT_TABLE_SEARCH_CONTROL_VALUE_ACCESSOR: Provider = {
  * `DtHighlight` component can be used.
  */
 @Component({
-  moduleId: module.id,
   selector: 'dt-table-search',
   exportAs: 'dtTableSearch',
   templateUrl: 'table-search.html',

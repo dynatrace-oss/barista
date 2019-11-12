@@ -42,7 +42,6 @@ export const _DtProgressBar = mixinHasProgress(
 );
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-progress-bar',
   templateUrl: 'progress-bar.html',
   styleUrls: ['progress-bar.scss'],

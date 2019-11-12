@@ -11,7 +11,6 @@ import {
 import { DtOverlay, DtOverlayRef } from '@dynatrace/barista-components/overlay';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <ng-template #overlay let-tooltip>

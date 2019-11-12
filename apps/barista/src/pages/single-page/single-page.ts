@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { BaSinglePageContents } from 'shared/page-contents';
-
 import { BaPage } from '../page-outlet';
+import { BaSinglePageContents } from '../../shared/page-contents';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'ba-single-page',

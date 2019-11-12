@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'tag-list-barista-example',
   template: `
     <dt-tag-list>

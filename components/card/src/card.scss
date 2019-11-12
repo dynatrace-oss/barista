@@ -1,7 +1,7 @@
-@import '../style/font-mixins';
-@import '../core/style/variables';
-@import '../core/style/button';
-@import '../core/theming/theming';
+@import '../../style/font-mixins';
+@import '../../core/src/style/variables';
+@import '../../core/src/style/button';
+@import '../../core/src/theming/theming';
 @import './card-theme';
 
 .dt-card {

@@ -1,4 +1,4 @@
-@import 'variables';
+@import './variables';
 
 // Mixin overriding default focus styles and setting our own
 @mixin dt-focus-style($is-dark: false) {

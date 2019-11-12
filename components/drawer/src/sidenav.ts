@@ -22,7 +22,6 @@ import { dtDrawerAnimation } from './drawer-animation';
 export class DtSidenavHeader {}
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-sidenav',
   exportAs: 'dtSidenav',
   templateUrl: 'sidenav.html',

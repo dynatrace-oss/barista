@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-radio-button value="aberfeldy" name="group">Aberfeldy</dt-radio-button>

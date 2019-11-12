@@ -2,8 +2,8 @@
  * mixins for setting font-styles
  */
 
-@import 'variables';
-@import '../core/style/deprecated';
+@import '../core/src/style/variables';
+@import '../core/src/style/deprecated';
 
 @mixin dt-text-ellipsis() {
   white-space: nowrap;

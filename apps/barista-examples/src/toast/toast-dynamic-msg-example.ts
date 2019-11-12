@@ -7,7 +7,6 @@ import { DtToast, DtToastRef } from '@dynatrace/barista-components/toast';
 const TIMERINTERVAL = 50;
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <dt-form-field>

@@ -49,7 +49,6 @@ interface SimpleColumnsAccessorMaps<T> {
 
 let nextUniqueId = 0;
 @Component({
-  moduleId: module.id,
   selector: 'dt-table',
   styleUrls: ['./table.scss'],
   templateUrl: './table.html',

@@ -87,7 +87,6 @@ export class DtExpandableRowContent {}
       ),
     ]),
   ],
-  moduleId: module.id,
   selector: 'dt-expandable-row',
   templateUrl: './expandable-row.html',
   styleUrls: ['./expandable-row.scss'],

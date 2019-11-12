@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'warning-consumption-example',
   template: `
     <dt-consumption [max]="max" [value]="value" color="warning">

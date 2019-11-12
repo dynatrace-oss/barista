@@ -15,7 +15,6 @@ import { debounceTime, map, take, tap } from 'rxjs/operators';
 import { Viewport } from './viewport';
 
 @Component({
-  moduleId: module.id,
   selector: 'docs-async-icon',
   template: `
     <ng-container>
@@ -54,7 +53,6 @@ export class DocsAsyncIcon implements OnDestroy {
 }
 
 @Component({
-  moduleId: module.id,
   selector: 'component-barista-example',
   template: `
     <input

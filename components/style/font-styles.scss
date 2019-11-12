@@ -2,7 +2,7 @@
  * Rule-sets for all basic use cases of predefined font styles
  */
 
-@import 'font-mixins';
+@import './font-mixins';
 
 body {
   @include dt-main-font();

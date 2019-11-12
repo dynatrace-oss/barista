@@ -25,7 +25,6 @@ import {
 const POSITION_PRECISION = 10000;
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-timeline-chart',
   exportAs: 'dtTimelineChart',
   templateUrl: 'timeline-chart.html',

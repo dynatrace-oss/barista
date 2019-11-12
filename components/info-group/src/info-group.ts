@@ -25,7 +25,6 @@ export class DtInfoGroupTitle {}
 export class DtInfoGroupIcon {}
 
 @Component({
-  moduleId: module.id,
   selector: 'dt-info-group',
   exportAs: 'dtInfoGroup',
   templateUrl: 'info-group.html',

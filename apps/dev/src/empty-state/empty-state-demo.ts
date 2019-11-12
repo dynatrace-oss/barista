@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'default-dev-app-demo',
   templateUrl: 'empty-state-demo.html',
 })
