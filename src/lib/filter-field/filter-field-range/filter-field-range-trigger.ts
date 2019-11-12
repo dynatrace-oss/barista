@@ -305,8 +305,8 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
         return (
           !!(this._overlayRef && this._overlayRef.hasAttached()) &&
           clickTarget !== this._elementRef.nativeElement &&
-          (!!this._overlayRef &&
-            !this._overlayRef.overlayElement.contains(clickTarget))
+          !!this._overlayRef &&
+          !this._overlayRef.overlayElement.contains(clickTarget)
         );
       }),
     );

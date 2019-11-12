@@ -53,7 +53,10 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   private _disabled = false;
 
   // tslint:disable-next-line: no-use-before-declare no-forward-ref
-  @ContentChildren(forwardRef(() => DtButtonGroupItem), { descendants: true })
+  @ContentChildren(
+    forwardRef(() => DtButtonGroupItem),
+    { descendants: true },
+  )
   private _items: QueryList<DtButtonGroupItem<T>>;
 
   /** Emits a stream when the value changes. */
