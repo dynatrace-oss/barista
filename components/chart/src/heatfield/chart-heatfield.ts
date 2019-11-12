@@ -27,7 +27,7 @@ import {
   isDefined,
   mixinColor,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtChart } from '../chart';
 import { getDtHeatfieldUnsupportedChartError } from './chart-heatfield-errors';

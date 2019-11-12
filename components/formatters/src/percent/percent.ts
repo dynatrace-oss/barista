@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { isEmpty, isNumber } from '@dynatrace/angular-components/core';
+import { isEmpty, isNumber } from '@dynatrace/barista-components/core';
 
 import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { formatPercent } from './percent-formatter';

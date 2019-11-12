@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
-import { DtExpandablePanelModule } from '@dynatrace/angular-components/expandable-panel';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtExpandablePanelModule } from '@dynatrace/barista-components/expandable-panel';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import {
   DtExpandableSection,

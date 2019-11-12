@@ -10,11 +10,11 @@ import {
 import { Subscription, of } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { DtPagination } from '@dynatrace/angular-components/pagination';
+import { DtPagination } from '@dynatrace/barista-components/pagination';
 import {
   DtTableDataSource,
   DtTableSearch,
-} from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/table';
 
 interface HostUnit {
   host: string;

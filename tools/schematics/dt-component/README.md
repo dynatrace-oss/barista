@@ -1,6 +1,6 @@
 # Dynatrace Component
 
-Adds a new component to the `@dynatrace/angular-components` library with the
+Adds a new component to the `@dynatrace/barista-components` library with the
 correct exports and creates a dev-app page and a docs page with a default
 example.
 

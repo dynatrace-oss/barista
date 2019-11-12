@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
 import {
   DtChartRange,
   DtChartSeriesVisibilityChangeEvent,
-} from '@dynatrace/angular-components/chart';
+} from '@dynatrace/barista-components/chart';
 
 import { chartOptions } from './chart-options';
 import { dataBig, dataSmall } from './data-service';

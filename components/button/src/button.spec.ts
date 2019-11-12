@@ -6,8 +6,8 @@ import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { createComponent } from '../../testing/create-component';
 

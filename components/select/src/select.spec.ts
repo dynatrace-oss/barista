@@ -46,14 +46,14 @@ import {
   DtOption,
   DtOptionSelectionChange,
   ErrorStateMatcher,
-} from '@dynatrace/angular-components/core';
-import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+} from '@dynatrace/barista-components/core';
+import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtSelect,
   DtSelectModule,
   getDtSelectNonFunctionValueError,
-} from '@dynatrace/angular-components/select';
+} from '@dynatrace/barista-components/select';
 
 import { createComponent } from '../../testing/create-component';
 import {

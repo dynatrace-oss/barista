@@ -13,7 +13,7 @@ import {
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
-import { isDefined } from '@dynatrace/angular-components/core';
+import { isDefined } from '@dynatrace/barista-components/core';
 
 import { DtKeyValueListItem } from './key-value-list-item';
 

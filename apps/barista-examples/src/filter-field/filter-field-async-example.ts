@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {
   DtFilterFieldCurrentFilterChangeEvent,
   DtFilterFieldDefaultDataSource,
-} from '@dynatrace/angular-components/filter-field';
+} from '@dynatrace/barista-components/filter-field';
 
 // tslint:disable: no-any
 

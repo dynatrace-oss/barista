@@ -59,8 +59,8 @@ import {
   isDefined,
   readKeyCode,
   stringify,
-} from '@dynatrace/angular-components/core';
-import { DtFormField } from '@dynatrace/angular-components/form-field';
+} from '@dynatrace/barista-components/core';
+import { DtFormField } from '@dynatrace/barista-components/form-field';
 
 import { DtAutocomplete } from './autocomplete';
 import { getDtAutocompleteMissingPanelError } from './autocomplete-errors';

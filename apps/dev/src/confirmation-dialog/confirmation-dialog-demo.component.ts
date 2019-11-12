@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 
-import { DtConfirmationDialog } from '@dynatrace/angular-components/confirmation-dialog';
+import { DtConfirmationDialog } from '@dynatrace/barista-components/confirmation-dialog';
 
 @Component({
   moduleId: module.id,

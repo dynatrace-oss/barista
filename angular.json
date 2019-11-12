@@ -339,6 +339,14 @@
             "exclude": ["**/node_modules/**", "!apps/barista/**"]
           }
         },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["apps/barista/src/**/*.scss"]
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {

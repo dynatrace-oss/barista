@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
 
-import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
+import { DtSort, DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

@@ -27,9 +27,9 @@ import {
   DtChartHeatfieldActiveChange,
   DtChartModule,
   DtChartOptions,
-} from '@dynatrace/angular-components/chart';
-import { getDtHeatfieldUnsupportedChartError } from '@dynatrace/angular-components/chart/heatfield/chart-heatfield-errors';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+} from '@dynatrace/barista-components/chart';
+import { getDtHeatfieldUnsupportedChartError } from '@dynatrace/barista-components/chart/heatfield/chart-heatfield-errors';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import { createComponent } from '../../../testing/create-component';
 import { dispatchKeyboardEvent } from '../../../testing/dispatch-events';

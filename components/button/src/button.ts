@@ -22,8 +22,8 @@ import {
   mixinColor,
   mixinDisabled,
   replaceCssClass,
-} from '@dynatrace/angular-components/core';
-import { DtIcon } from '@dynatrace/angular-components/icon';
+} from '@dynatrace/barista-components/core';
+import { DtIcon } from '@dynatrace/barista-components/icon';
 
 export type DtButtonThemePalette = 'main' | 'warning' | 'cta';
 

@@ -2,7 +2,7 @@ import { Validators } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { isDefined, isObject } from '@dynatrace/angular-components/core';
+import { isDefined, isObject } from '@dynatrace/barista-components/core';
 
 import { DtFilterFieldValidator } from './filter-field-validation';
 import {

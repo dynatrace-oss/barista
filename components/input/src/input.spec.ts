@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DtInputModule } from '@dynatrace/angular-components/input';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 import { createComponent } from '../../testing/create-component';
 

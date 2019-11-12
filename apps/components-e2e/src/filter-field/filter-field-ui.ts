@@ -4,7 +4,7 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 
-import { DtFilterFieldDefaultDataSource } from '@dynatrace/angular-components/filter-field';
+import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
 
 const TEST_DATA = {
   autocomplete: [

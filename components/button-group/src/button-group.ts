@@ -26,7 +26,7 @@ import {
   mixinDisabled,
   mixinTabIndex,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 export class DtButtonGroupBase {}
 export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));

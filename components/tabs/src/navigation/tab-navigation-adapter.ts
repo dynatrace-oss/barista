@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 import { DtTabsRouterFragmentBuilder } from './tab-fragment-builder';
 

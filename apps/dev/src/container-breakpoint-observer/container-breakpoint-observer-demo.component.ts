@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 
-import { DtContainerBreakpointObserver } from '@dynatrace/angular-components/container-breakpoint-observer';
-import { DtTable } from '@dynatrace/angular-components/table';
+import { DtContainerBreakpointObserver } from '@dynatrace/barista-components/container-breakpoint-observer';
+import { DtTable } from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

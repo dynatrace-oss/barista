@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import {
   DtFilterField,
   DtFilterFieldDefaultDataSource,
-} from '@dynatrace/angular-components/filter-field';
+} from '@dynatrace/barista-components/filter-field';
 
 @Component({
   moduleId: module.id,

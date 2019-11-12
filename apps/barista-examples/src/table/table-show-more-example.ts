@@ -6,9 +6,9 @@ import {
   formatBytes,
   formatPercent,
   formatRate,
-} from '@dynatrace/angular-components/formatters';
-import { DtShowMore } from '@dynatrace/angular-components/show-more';
-import { DtTableDataSource } from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/formatters';
+import { DtShowMore } from '@dynatrace/barista-components/show-more';
+import { DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

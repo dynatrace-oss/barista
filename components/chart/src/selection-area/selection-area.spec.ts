@@ -16,10 +16,10 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 
-import { DtChartModule } from '@dynatrace/angular-components/chart';
-import * as formatters from '@dynatrace/angular-components/formatters';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+import { DtChartModule } from '@dynatrace/barista-components/chart';
+import * as formatters from '@dynatrace/barista-components/formatters';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import {
   dispatchKeyboardEvent,

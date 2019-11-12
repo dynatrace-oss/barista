@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 
-import { compareStrings } from '@dynatrace/angular-components/core';
-import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
+import { compareStrings } from '@dynatrace/barista-components/core';
+import { DtSort, DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

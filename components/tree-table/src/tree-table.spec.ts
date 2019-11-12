@@ -19,12 +19,12 @@ import {
   DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
-} from '@dynatrace/angular-components/core';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+} from '@dynatrace/barista-components/core';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtTreeTable,
   DtTreeTableModule,
-} from '@dynatrace/angular-components/tree-table';
+} from '@dynatrace/barista-components/tree-table';
 
 import { createComponent } from '../../testing/create-component';
 

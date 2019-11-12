@@ -20,10 +20,10 @@ import {
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
-} from '@dynatrace/angular-components/chart';
-import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
-import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+} from '@dynatrace/barista-components/chart';
+import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import { createComponent } from '../../../testing/create-component';
 import { MockIntersectionObserver } from '../../../testing/mock-intersection-observer';

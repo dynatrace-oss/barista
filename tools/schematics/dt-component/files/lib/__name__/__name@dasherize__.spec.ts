@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import {
   Dt<%= classify(name) %>Module,
   Dt<%= classify(name) %>,
-} from '@dynatrace/angular-components/<%= name %>';
+} from '@dynatrace/barista-components/<%= name %>';
 
 describe('Dt<%= classify(name) %>', () => {
   beforeEach(async(() => {

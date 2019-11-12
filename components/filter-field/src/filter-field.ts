@@ -58,14 +58,14 @@ import {
   DtAutocomplete,
   DtAutocompleteSelectedEvent,
   DtAutocompleteTrigger,
-} from '@dynatrace/angular-components/autocomplete';
+} from '@dynatrace/barista-components/autocomplete';
 import {
   DT_ERROR_ENTER_ANIMATION,
   DT_ERROR_ENTER_DELAYED_ANIMATION,
   ErrorStateMatcher,
   isDefined,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
