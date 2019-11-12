@@ -8,7 +8,6 @@ export interface BaPageContents {
 export interface BaIndexPageContents extends BaPageContents {
   subtitle: string;
   mostordered: BaIndexPageItem[];
-  recentlyordered: BaIndexPageItem[];
   gettingstarted: BaIndexPageLink[];
 }
 
@@ -26,7 +25,7 @@ export interface BaSinglePageContents extends BaPageContents {
   wiki: string | null;
   themable: boolean | null;
   content: string;
-  indentifier: string;
+  identifier: string;
 }
 
 export interface BaOverviewPageSectionItem {
@@ -55,7 +54,6 @@ export interface BaIndexPageItem {
   identifier?: string;
   link?: string;
   category?: string;
-  isEmpty?: boolean;
 }
 
 export interface BaOverviewPageContents extends BaPageContents {
