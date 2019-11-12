@@ -15,8 +15,8 @@ import {
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
-import { DtTreeControl } from '@dynatrace/angular-components/core';
-import { DtCell, DtColumnDef } from '@dynatrace/angular-components/table';
+import { DtTreeControl } from '@dynatrace/barista-components/core';
+import { DtCell, DtColumnDef } from '@dynatrace/barista-components/table';
 
 import { DtTreeTable } from './tree-table';
 import { DtTreeTableRow } from './tree-table-row';

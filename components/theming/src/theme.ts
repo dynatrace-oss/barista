@@ -14,7 +14,7 @@ import {
   DtLogger,
   DtLoggerFactory,
   replaceCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import {
   getDtThemeNotValidError,

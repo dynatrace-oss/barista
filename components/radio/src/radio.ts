@@ -24,7 +24,7 @@ import {
   addCssClass,
   mixinTabIndex,
   removeCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtRadioGroup } from './radio-group';
 

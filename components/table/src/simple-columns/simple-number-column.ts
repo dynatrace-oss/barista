@@ -5,8 +5,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { isDefined, isNumber } from '@dynatrace/angular-components/core';
-import { formatCount } from '@dynatrace/angular-components/formatters';
+import { isDefined, isNumber } from '@dynatrace/barista-components/core';
+import { formatCount } from '@dynatrace/barista-components/formatters';
 
 import { DtTable } from '../table';
 import { DtSimpleColumnBase } from './simple-column-base';

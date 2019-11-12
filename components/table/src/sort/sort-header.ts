@@ -15,7 +15,7 @@ import {
   CanDisable,
   DtSortDirection,
   mixinDisabled,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtColumnDef } from '../cell';
 import { DtSort } from './sort';

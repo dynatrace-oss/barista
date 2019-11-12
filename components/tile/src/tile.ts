@@ -18,7 +18,7 @@ import {
   mixinColor,
   mixinDisabled,
   mixinTabIndex,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 /** Title of a tile, needed as it's used as a selector in the API. */
 @Directive({

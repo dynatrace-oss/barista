@@ -61,7 +61,7 @@ import {
   getElementBoundingClientRect,
   readKeyCode,
   removeCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtChart } from '../chart';
 import { clampRange } from '../range/clamp-range';

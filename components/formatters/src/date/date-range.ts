@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 /**
  * Error message that should be logged if no numbers are provided to the dateRange formatter.

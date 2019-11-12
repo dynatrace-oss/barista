@@ -43,7 +43,7 @@ function addExportToRootIndex(options: DtComponentOptions): Rule {
         lastExportPos = node.getEnd() + 1;
       }
     });
-    const toInsert = `export * from '@dynatrace/angular-components/${options.name}';\n`;
+    const toInsert = `export * from '@dynatrace/barista-components/${options.name}';\n`;
     const changes = [new InsertChange(modulePath, lastExportPos, toInsert)];
     return commitChanges(host, changes, modulePath);
   };

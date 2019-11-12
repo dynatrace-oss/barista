@@ -12,8 +12,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { DtTreeControl } from '@dynatrace/angular-components/core';
-import { _DtTableBase } from '@dynatrace/angular-components/table';
+import { DtTreeControl } from '@dynatrace/barista-components/core';
+import { _DtTableBase } from '@dynatrace/barista-components/table';
 
 /** Dynatrace Tree Table component */
 @Component({

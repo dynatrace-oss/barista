@@ -14,8 +14,8 @@ import {
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
-} from '@dynatrace/angular-components/chart';
-import { DtThemingModule } from '@dynatrace/angular-components/theming';
+} from '@dynatrace/barista-components/chart';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import { createComponent } from '../../testing/create-component';
 

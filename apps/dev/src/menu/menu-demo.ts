@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DtDrawer } from '@dynatrace/angular-components/drawer';
+import { DtDrawer } from '@dynatrace/barista-components/drawer';
 
 @Component({
   moduleId: module.id,

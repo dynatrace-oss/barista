@@ -4,8 +4,8 @@ import {
   formatBytes,
   formatPercent,
   formatRate,
-} from '@dynatrace/angular-components/formatters';
-import { DtSort, DtTableDataSource } from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/formatters';
+import { DtSort, DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

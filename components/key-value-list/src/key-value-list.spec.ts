@@ -4,7 +4,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
-import { DtKeyValueListModule } from '@dynatrace/angular-components/key-value-list';
+import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
 
 import { createComponent } from '../../testing/create-component';
 

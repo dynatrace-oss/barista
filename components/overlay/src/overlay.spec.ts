@@ -22,7 +22,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtOverlay,
   DtOverlayModule,
-} from '@dynatrace/angular-components/overlay';
+} from '@dynatrace/barista-components/overlay';
 
 import { createComponent } from '../../testing/create-component';
 import {

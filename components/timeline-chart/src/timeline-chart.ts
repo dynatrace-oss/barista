@@ -15,7 +15,7 @@ import { ScaleLinear, scaleLinear } from 'd3-scale';
 import { Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import { DtViewportResizer } from '@dynatrace/barista-components/core';
 
 import {
   DtTimelineChartKeyTimingMarker,

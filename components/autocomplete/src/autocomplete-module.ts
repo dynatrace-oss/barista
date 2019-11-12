@@ -2,7 +2,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtOptionModule } from '@dynatrace/angular-components/core';
+import { DtOptionModule } from '@dynatrace/barista-components/core';
 
 import { DtAutocomplete } from './autocomplete';
 import { DtAutocompleteOrigin } from './autocomplete-origin';

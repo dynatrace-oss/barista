@@ -10,8 +10,8 @@ import { By } from '@angular/platform-browser';
 import {
   DtChartModule,
   DtChartRange,
-} from '@dynatrace/angular-components/chart';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+} from '@dynatrace/barista-components/chart';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { dispatchFakeEvent } from '../../../testing/dispatch-events';
 import { createKeyboardEvent } from '../../../testing/event-objects';

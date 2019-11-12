@@ -6,14 +6,14 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
-import { DtLogConsumer, DtLogEntry } from '@dynatrace/angular-components/core';
+import { DtLogConsumer, DtLogEntry } from '@dynatrace/barista-components/core';
 import {
   DT_TABGROUP_SINGLE_TAB_ERROR,
   DtTab,
   DtTabChange,
   DtTabsModule,
-} from '@dynatrace/angular-components/tabs';
-import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/angular-components/tabs/tab-group';
+} from '@dynatrace/barista-components/tabs';
+import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/barista-components/tabs/tab-group';
 
 import { createComponent } from '../../testing/create-component';
 

@@ -70,7 +70,7 @@
     "use-lifecycle-interface": true,
 
     // banning root module imports, only sub module imports are allowed
-    "import-blacklist": [true, "@dynatrace/angular-components"],
+    "import-blacklist": [true, "@dynatrace/barista-components"],
 
     // Prettier specific
     "prettier": true,

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { AlertDemo } from './alert/alert-demo.component';
 import { AutocompleteDemo } from './autocomplete/autocomplete-demo.component';

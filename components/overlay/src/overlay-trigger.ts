@@ -19,7 +19,7 @@ import {
   mixinDisabled,
   mixinTabIndex,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtOverlay } from './overlay';
 import { DtOverlayConfig } from './overlay-config';

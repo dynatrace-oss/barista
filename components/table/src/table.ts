@@ -30,8 +30,8 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { isDefined } from '@dynatrace/angular-components/core';
-import { DtEmptyState } from '@dynatrace/angular-components/empty-state';
+import { isDefined } from '@dynatrace/barista-components/core';
+import { DtEmptyState } from '@dynatrace/barista-components/empty-state';
 
 import { _DtTableBase } from './base-table';
 import {

@@ -27,7 +27,7 @@ import {
 } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
-import { readKeyCode } from '@dynatrace/angular-components/core';
+import { readKeyCode } from '@dynatrace/barista-components/core';
 
 import { DtFilterFieldRange } from './filter-field-range';
 

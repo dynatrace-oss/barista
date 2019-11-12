@@ -23,7 +23,7 @@ import {
 import { Subject, Subscription, of } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 
-import { isDefined } from '@dynatrace/angular-components/core';
+import { isDefined } from '@dynatrace/barista-components/core';
 
 import { DT_CHART_RESOLVER, DtChart, DtChartResolver } from '../chart';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';

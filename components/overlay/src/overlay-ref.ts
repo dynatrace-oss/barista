@@ -9,7 +9,7 @@ import {
   addCssClass,
   readKeyCode,
   removeCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { DT_OVERLAY_NO_POINTER_CLASS } from './overlay';

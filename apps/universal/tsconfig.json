@@ -5,7 +5,7 @@
     "rootDir": "..",
     "baseUrl": ".",
     "paths": {
-      "@dynatrace/angular-components/*": ["../lib/*"]
+      "@dynatrace/barista-components/*": ["../lib/*"]
     }
   },
   "include": ["./**/*.ts"]

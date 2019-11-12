@@ -35,14 +35,14 @@ import {
 import { By } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
-import { DtCardModule } from '@dynatrace/angular-components/card';
+import { DtCardModule } from '@dynatrace/barista-components/card';
 import {
   DtChart,
   DtChartSelectionAreaOrigin,
   getDtChartSelectionAreaDateTimeAxisError,
-} from '@dynatrace/angular-components/chart';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
+} from '@dynatrace/barista-components/chart';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtSelectionAreaModule } from '@dynatrace/barista-components/selection-area';
 
 import { createComponent } from '../../testing/create-component';
 import {

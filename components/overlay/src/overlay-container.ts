@@ -35,7 +35,7 @@ import {
   DtLoggerFactory,
   HasNgZone,
   mixinNotifyDomExit,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 const LOG: DtLogger = DtLoggerFactory.create('OverlayContainer');
 

@@ -3,13 +3,13 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtIndicatorModule } from '@dynatrace/angular-components/core';
-import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
-import { DtFormFieldModule } from '@dynatrace/angular-components/form-field';
-import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtInputModule } from '@dynatrace/angular-components/input';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtIndicatorModule } from '@dynatrace/barista-components/core';
+import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
+import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
+import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
 import {

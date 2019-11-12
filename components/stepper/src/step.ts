@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 
-import { ErrorStateMatcher } from '@dynatrace/angular-components/core';
+import { ErrorStateMatcher } from '@dynatrace/barista-components/core';
 
 import { DtStepLabel } from './step-label';
 import { DtStepper } from './stepper';

@@ -41,16 +41,16 @@ import {
   DtAutocompleteModule,
   DtAutocompleteTrigger,
   getDtAutocompleteMissingPanelError,
-} from '@dynatrace/angular-components/autocomplete';
+} from '@dynatrace/barista-components/autocomplete';
 import {
   DtOption,
   DtOptionSelectionChange,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 import {
   DtFormField,
   DtFormFieldModule,
-} from '@dynatrace/angular-components/form-field';
-import { DtInputModule } from '@dynatrace/angular-components/input';
+} from '@dynatrace/barista-components/form-field';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 import {
   dispatchEvent,

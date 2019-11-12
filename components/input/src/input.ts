@@ -19,8 +19,8 @@ import {
   CanUpdateErrorState,
   ErrorStateMatcher,
   mixinErrorState,
-} from '@dynatrace/angular-components/core';
-import { DtFormFieldControl } from '@dynatrace/angular-components/form-field';
+} from '@dynatrace/barista-components/core';
+import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
 
 let nextUniqueId = 0;
 

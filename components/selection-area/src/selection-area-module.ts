@@ -3,8 +3,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { NgModule } from '@angular/core';
 
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { DtSelectionArea } from './selection-area';
 import { DtSelectionAreaActions } from './selection-area-actions';

@@ -22,7 +22,7 @@ import {
   DtLoggerFactory,
   mixinColor,
   mixinDisabled,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtTab, DtTabChange } from './tab/tab';
 

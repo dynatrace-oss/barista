@@ -1,7 +1,7 @@
 import { DataPoint } from 'highcharts';
 
-import { DtChartOptions } from '@dynatrace/angular-components/chart';
-import { DtColors } from '@dynatrace/angular-components/theming';
+import { DtChartOptions } from '@dynatrace/barista-components/chart';
+import { DtColors } from '@dynatrace/barista-components/theming';
 
 import { DtMicroChartColorPalette } from './micro-chart-colors';
 

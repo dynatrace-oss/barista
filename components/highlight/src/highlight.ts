@@ -24,7 +24,7 @@ import {
   addCssClass,
   createInViewportStream,
   isDefined,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 const HIGHLIGHTED_CLASS = 'dt-highlight-mark';
 const HIGHLIGHTED_ELEMENT = 'mark';

@@ -14,7 +14,7 @@ describe('v5 dynatrace angular components imports', () => {
     } = await createTestCaseSetup('migration-v5', migrationCollection, [
       require.resolve('./root-imports-input.fixture'),
     ]);
-    const libDistPath = '/node_modules/@dynatrace/angular-components';
+    const libDistPath = '/node_modules/@dynatrace/barista-components';
 
     writeFile(
       `${libDistPath}/index.d.ts`,
