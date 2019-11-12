@@ -5,7 +5,6 @@ const isOnCI = process.env.CI;
 const coverageReporters = isOnCI ? ['lcovonly', 'html'] : ['html'];
 
 module.exports = {
-  rootDir: 'src/lib',
   testMatch: ['**/*.spec.ts'],
   transform: {
     '^.+\\.(ts|js|html)$': 'ts-jest',
