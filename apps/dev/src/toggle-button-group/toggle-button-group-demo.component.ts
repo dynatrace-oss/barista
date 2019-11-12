@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtToggleButtonChange } from '@dynatrace/angular-components/toggle-button-group';
+import { DtToggleButtonChange } from '@dynatrace/barista-components/toggle-button-group';
 
 @Component({
   moduleId: module.id,

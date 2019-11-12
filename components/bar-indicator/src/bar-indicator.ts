@@ -13,7 +13,7 @@ import {
   HasProgressValues,
   mixinColor,
   mixinHasProgress,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 export type DtBarIndicatorThemePalette = 'main' | 'recovered' | 'error';
 

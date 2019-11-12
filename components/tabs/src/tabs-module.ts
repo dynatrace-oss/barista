@@ -3,7 +3,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtColorModule } from '@dynatrace/angular-components/core';
+import { DtColorModule } from '@dynatrace/barista-components/core';
 
 import { DtTabGroupNavigation } from './navigation/tab-group-navigation';
 import { DtTabGroup } from './tab-group';

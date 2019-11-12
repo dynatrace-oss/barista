@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { stringify } from '@dynatrace/angular-components/core';
+import { stringify } from '@dynatrace/barista-components/core';
 
 import { DtContainerBreakpointObserver } from './container-breakpoint-observer';
 import { getNoDtContainerBreakpointObserverError } from './container-breakpoint-observer-errors';

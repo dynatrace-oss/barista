@@ -19,7 +19,7 @@ import {
 import { Subject } from 'rxjs';
 import { switchMap, take, takeUntil } from 'rxjs/operators';
 
-import { DtInput } from '@dynatrace/angular-components/input';
+import { DtInput } from '@dynatrace/barista-components/input';
 
 @Component({
   moduleId: module.id,

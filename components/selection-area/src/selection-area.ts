@@ -25,7 +25,7 @@ import {
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 
-import { addCssClass } from '@dynatrace/angular-components/core';
+import { addCssClass } from '@dynatrace/barista-components/core';
 
 import {
   DtSelectionAreaContainer,

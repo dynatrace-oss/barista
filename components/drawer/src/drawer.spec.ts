@@ -32,7 +32,7 @@ import {
   DtDrawerContainer,
   DtDrawerModule,
   getDtDuplicateDrawerError,
-} from '@dynatrace/angular-components/drawer';
+} from '@dynatrace/barista-components/drawer';
 
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 

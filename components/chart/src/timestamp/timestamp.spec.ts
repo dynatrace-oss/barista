@@ -20,7 +20,7 @@ import { By } from '@angular/platform-browser';
 import {
   DtChartModule,
   DtChartTimestamp,
-} from '@dynatrace/angular-components/chart';
+} from '@dynatrace/barista-components/chart';
 
 import { createComponent } from '../../../testing/create-component';
 import {

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import {
   formatBytes,
   formatPercent,
-} from '@dynatrace/angular-components/formatters';
+} from '@dynatrace/barista-components/formatters';
 
 @Component({
   moduleId: module.id,

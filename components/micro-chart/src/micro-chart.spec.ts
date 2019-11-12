@@ -12,13 +12,13 @@ import {
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
-} from '@dynatrace/angular-components/chart';
-import { DtMicroChartModule } from '@dynatrace/angular-components/micro-chart';
+} from '@dynatrace/barista-components/chart';
+import { DtMicroChartModule } from '@dynatrace/barista-components/micro-chart';
 import {
   DtColors,
   DtTheme,
   DtThemingModule,
-} from '@dynatrace/angular-components/theming';
+} from '@dynatrace/barista-components/theming';
 
 import { DtMicroChart } from './micro-chart';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';

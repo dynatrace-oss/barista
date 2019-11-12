@@ -4,7 +4,7 @@ import { DtIconType } from '@dynatrace/dt-iconpack';
 import { Observable, of } from 'rxjs';
 import { finalize, map, share, tap } from 'rxjs/operators';
 
-import { sanitizeSvg } from '@dynatrace/angular-components/core';
+import { sanitizeSvg } from '@dynatrace/barista-components/core';
 
 import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
 

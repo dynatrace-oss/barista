@@ -13,17 +13,17 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtPagination,
   DtPaginationModule,
-} from '@dynatrace/angular-components/pagination';
+} from '@dynatrace/barista-components/pagination';
 import {
   DtSimpleColumnComparatorFunction,
   DtSort,
   DtTableDataSource,
   DtTableModule,
-} from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/table';
 
 import { createComponent } from '../../testing/create-component';
 import { dispatchMouseEvent } from '../../testing/dispatch-events';

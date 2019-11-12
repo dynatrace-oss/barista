@@ -77,11 +77,11 @@ import {
   mixinErrorState,
   mixinTabIndex,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 import {
   DtFormField,
   DtFormFieldControl,
-} from '@dynatrace/angular-components/form-field';
+} from '@dynatrace/barista-components/form-field';
 
 let uniqueId = 0;
 

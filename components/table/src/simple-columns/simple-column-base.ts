@@ -1,8 +1,8 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Input, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
 
-import { DtIndicatorThemePalette } from '@dynatrace/angular-components/core';
-import { DtFormattedValue } from '@dynatrace/angular-components/formatters';
+import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
+import { DtFormattedValue } from '@dynatrace/barista-components/formatters';
 
 import { DtCellDef, DtColumnDef } from '../cell';
 import { DtHeaderCellDef } from '../header/header-cell';

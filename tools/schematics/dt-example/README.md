@@ -1,7 +1,7 @@
 # Dynatrace Component
 
 Adds a new example to a component already created at
-`@dynatrace/angular-components/`
+`@dynatrace/barista-components/`
 
 ```
 ng generate @dynatrace/components-schematics:dt-example --name=default --component=select #or shorter

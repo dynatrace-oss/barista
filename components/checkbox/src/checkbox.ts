@@ -33,7 +33,7 @@ import {
   addCssClass,
   mixinDisabled,
   mixinTabIndex,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 /**
  * Checkbox IDs need to be unique across components, so this counter exists outside of

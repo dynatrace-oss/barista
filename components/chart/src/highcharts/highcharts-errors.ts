@@ -1,4 +1,4 @@
-import { DtLogger, DtLoggerFactory } from '@dynatrace/angular-components/core';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 const logger: DtLogger = DtLoggerFactory.create('DtChart');
 

@@ -3,11 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   formatBytes,
   formatPercent,
-} from '@dynatrace/angular-components/formatters';
+} from '@dynatrace/barista-components/formatters';
 import {
   DtTableDataSource,
   DtTableSearch,
-} from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

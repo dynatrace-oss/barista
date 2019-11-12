@@ -4,7 +4,7 @@ import {
   Component,
 } from '@angular/core';
 
-import { DtEventChartEvent } from '@dynatrace/angular-components/event-chart';
+import { DtEventChartEvent } from '@dynatrace/barista-components/event-chart';
 
 import { EasyTravelDataSource } from './easy-travel-test-data';
 import {

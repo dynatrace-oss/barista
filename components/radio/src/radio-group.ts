@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { CanDisable } from '@dynatrace/angular-components/core';
+import { CanDisable } from '@dynatrace/barista-components/core';
 
 import { DtRadioButton, DtRadioChange } from './radio';
 

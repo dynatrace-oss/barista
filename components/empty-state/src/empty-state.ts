@@ -25,7 +25,7 @@ import { startWith, takeUntil } from 'rxjs/operators';
 import {
   DtViewportResizer,
   toggleCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 /** The min-width from which empty state items are displayed horizontally. */
 const ITEMS_HORIZONTAL_BREAKPOINT = 540;

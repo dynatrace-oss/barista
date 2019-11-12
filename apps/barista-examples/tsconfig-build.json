@@ -20,8 +20,8 @@
     "baseUrl": ".",
     "rootDirs": [".", "../../dist/barista-examples"],
     "paths": {
-      "@dynatrace/angular-components": ["../../dist/lib"],
-      "@dynatrace/angular-components/*": ["../../dist/lib/*"]
+      "@dynatrace/barista-components": ["../../dist/lib"],
+      "@dynatrace/barista-components/*": ["../../dist/lib/*"]
     }
   },
   "files": [

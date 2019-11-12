@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { DtContainerBreakpointObserver } from '@dynatrace/angular-components/container-breakpoint-observer';
+import { DtContainerBreakpointObserver } from '@dynatrace/barista-components/container-breakpoint-observer';
 
 @Component({
   moduleId: module.id,

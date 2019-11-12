@@ -22,7 +22,7 @@ import {
   CanNotifyOnExit,
   HasNgZone,
   mixinNotifyDomExit,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DT_TOAST_MESSAGE } from './toast';
 import { DT_TOAST_FADE_TIME } from './toast-config';

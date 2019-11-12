@@ -3,7 +3,7 @@ import { Component, ElementRef } from '@angular/core';
 import {
   DtColumnDef,
   _setDtColumnCssClasses,
-} from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/table';
 
 @Component({
   selector: 'dt-tree-table-header-cell',

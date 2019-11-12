@@ -11,7 +11,7 @@ import { ElementRef, QueryList } from '@angular/core';
 import { Observable, OperatorFunction, fromEvent, merge } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { readKeyCode } from '@dynatrace/angular-components/core';
+import { readKeyCode } from '@dynatrace/barista-components/core';
 
 /** @internal the large offset for keyboard navigation */
 const KEYBOARD_NAVIGATION_LARGE_OFFSET = 10;

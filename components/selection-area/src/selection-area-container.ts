@@ -24,7 +24,7 @@ import {
   mixinTabIndex,
   readKeyCode,
   removeCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import {
   DtSelectionAreaEventTarget,

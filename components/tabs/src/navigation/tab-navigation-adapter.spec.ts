@@ -16,7 +16,7 @@ import {
   DtTabNavigationAdapter,
   DtTabRouterFragmentAdapter,
   DtTabsModule,
-} from '@dynatrace/angular-components/tabs';
+} from '@dynatrace/barista-components/tabs';
 
 import { createComponent } from '../../../testing/create-component';
 

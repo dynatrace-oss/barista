@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import {
   DtChartOptions,
   DtChartSeries,
-} from '@dynatrace/angular-components/chart';
+} from '@dynatrace/barista-components/chart';
 
 import { generateData } from './data';
 

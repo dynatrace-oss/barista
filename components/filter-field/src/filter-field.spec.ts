@@ -23,8 +23,8 @@ import {
   DtFilterFieldModule,
   dtRangeDef,
   getDtFilterFieldRangeNoOperatorsError,
-} from '@dynatrace/angular-components/filter-field';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+} from '@dynatrace/barista-components/filter-field';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { createComponent } from '../../testing/create-component';
 import {

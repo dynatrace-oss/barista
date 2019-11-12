@@ -11,8 +11,8 @@ import {
 import { Observable, defer } from 'rxjs';
 import { filter, switchMap, take } from 'rxjs/operators';
 
-import { CanDisable } from '@dynatrace/angular-components/core';
-import { DtExpandablePanel } from '@dynatrace/angular-components/expandable-panel';
+import { CanDisable } from '@dynatrace/barista-components/core';
+import { DtExpandablePanel } from '@dynatrace/barista-components/expandable-panel';
 
 @Component({
   moduleId: module.id,

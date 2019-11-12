@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DtButton } from '@dynatrace/angular-components/button';
-import { DtContextDialog } from '@dynatrace/angular-components/context-dialog';
+import { DtButton } from '@dynatrace/barista-components/button';
+import { DtContextDialog } from '@dynatrace/barista-components/context-dialog';
 
 @Component({
   moduleId: module.id,

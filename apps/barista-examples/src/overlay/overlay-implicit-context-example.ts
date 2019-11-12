@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 
-import { DtOverlay, DtOverlayRef } from '@dynatrace/angular-components/overlay';
+import { DtOverlay, DtOverlayRef } from '@dynatrace/barista-components/overlay';
 
 @Component({
   moduleId: module.id,

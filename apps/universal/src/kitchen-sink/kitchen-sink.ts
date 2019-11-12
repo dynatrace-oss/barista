@@ -3,48 +3,48 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ServerModule } from '@angular/platform-server';
 import { DtIconType } from '@dynatrace/dt-iconpack';
 
-import { DtAlertModule } from '@dynatrace/angular-components/alert';
-import { DtAutocompleteModule } from '@dynatrace/angular-components/autocomplete';
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtButtonGroupModule } from '@dynatrace/angular-components/button-group';
-import { DtCardModule } from '@dynatrace/angular-components/card';
-import { DtCheckboxModule } from '@dynatrace/angular-components/checkbox';
-import { DtConsumptionModule } from '@dynatrace/angular-components/consumption';
-import { DtContainerBreakpointObserverModule } from '@dynatrace/angular-components/container-breakpoint-observer';
-import { DtContextDialogModule } from '@dynatrace/angular-components/context-dialog';
-import { DtCopyToClipboardModule } from '@dynatrace/angular-components/copy-to-clipboard';
+import { DtAlertModule } from '@dynatrace/barista-components/alert';
+import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
+import { DtCardModule } from '@dynatrace/barista-components/card';
+import { DtCheckboxModule } from '@dynatrace/barista-components/checkbox';
+import { DtConsumptionModule } from '@dynatrace/barista-components/consumption';
+import { DtContainerBreakpointObserverModule } from '@dynatrace/barista-components/container-breakpoint-observer';
+import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
+import { DtCopyToClipboardModule } from '@dynatrace/barista-components/copy-to-clipboard';
 import {
   DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
-} from '@dynatrace/angular-components/core';
-import { DtDrawerModule } from '@dynatrace/angular-components/drawer';
-import { DtEmptyStateModule } from '@dynatrace/angular-components/empty-state';
-import { DtEventChartModule } from '@dynatrace/angular-components/event-chart';
-import { DtExpandableTextModule } from '@dynatrace/angular-components/expandable-text';
-import { DtFilterFieldModule } from '@dynatrace/angular-components/filter-field';
-import { DtHighlightModule } from '@dynatrace/angular-components/highlight';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtInfoGroupModule } from '@dynatrace/angular-components/info-group';
-import { DtInputModule } from '@dynatrace/angular-components/input';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
-import { DtMenuModule } from '@dynatrace/angular-components/menu';
-import { DtOverlayModule } from '@dynatrace/angular-components/overlay';
-import { DtPaginationModule } from '@dynatrace/angular-components/pagination';
-import { DtProgressBarModule } from '@dynatrace/angular-components/progress-bar';
-import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
-import { DtRadioModule } from '@dynatrace/angular-components/radio';
-import { DtSelectModule } from '@dynatrace/angular-components/select';
-import { DtShowMoreModule } from '@dynatrace/angular-components/show-more';
-import { DtStepperModule } from '@dynatrace/angular-components/stepper';
-import { DtSwitchModule } from '@dynatrace/angular-components/switch';
-import { DtTableModule } from '@dynatrace/angular-components/table';
-import { DtTagModule } from '@dynatrace/angular-components/tag';
-import { DtTileModule } from '@dynatrace/angular-components/tile';
-import { DtTimelineChartModule } from '@dynatrace/angular-components/timeline-chart';
-import { DtToggleButtonGroupModule } from '@dynatrace/angular-components/toggle-button-group';
-import { DtTopBarNavigationModule } from '@dynatrace/angular-components/top-bar-navigation';
-import { DtTreeTableModule } from '@dynatrace/angular-components/tree-table';
+} from '@dynatrace/barista-components/core';
+import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
+import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
+import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
+import { DtExpandableTextModule } from '@dynatrace/barista-components/expandable-text';
+import { DtFilterFieldModule } from '@dynatrace/barista-components/filter-field';
+import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtInfoGroupModule } from '@dynatrace/barista-components/info-group';
+import { DtInputModule } from '@dynatrace/barista-components/input';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { DtMenuModule } from '@dynatrace/barista-components/menu';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
+import { DtProgressBarModule } from '@dynatrace/barista-components/progress-bar';
+import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-circle';
+import { DtRadioModule } from '@dynatrace/barista-components/radio';
+import { DtSelectModule } from '@dynatrace/barista-components/select';
+import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
+import { DtStepperModule } from '@dynatrace/barista-components/stepper';
+import { DtSwitchModule } from '@dynatrace/barista-components/switch';
+import { DtTableModule } from '@dynatrace/barista-components/table';
+import { DtTagModule } from '@dynatrace/barista-components/tag';
+import { DtTileModule } from '@dynatrace/barista-components/tile';
+import { DtTimelineChartModule } from '@dynatrace/barista-components/timeline-chart';
+import { DtToggleButtonGroupModule } from '@dynatrace/barista-components/toggle-button-group';
+import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
+import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
 
 const TESTDATA: ThreadNode[] = [
   {

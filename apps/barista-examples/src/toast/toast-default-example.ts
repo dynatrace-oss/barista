@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtToast } from '@dynatrace/angular-components/toast';
+import { DtToast } from '@dynatrace/barista-components/toast';
 
 @Component({
   moduleId: module.id,

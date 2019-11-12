@@ -73,7 +73,7 @@ export function getSourceNodes(sourceFile: ts.SourceFile): ts.Node[] {
 }
 
 /**
- * Adds an import to the existing @dynatrace/angular-components import declaration
+ * Adds an import to the existing @dynatrace/barista-components import declaration
  */
 export function addDynatraceAngularComponentsImport(
   source: ts.SourceFile,
@@ -83,16 +83,16 @@ export function addDynatraceAngularComponentsImport(
   const importNodes = findNodes(source, ts.SyntaxKind.ImportDeclaration).filter(
     (node: ts.ImportDeclaration) =>
       node.moduleSpecifier &&
-      node.moduleSpecifier.getText() === "'@dynatrace/angular-components'",
+      node.moduleSpecifier.getText() === "'@dynatrace/barista-components'",
   );
 
   if (importNodes.length === 0) {
     throw new SchematicsException(
-      `No @dynatrace/angular-components import found in ${path}`,
+      `No @dynatrace/barista-components import found in ${path}`,
     );
   }
   /**
-   * add it to the last @dynatrace/angular-components import
+   * add it to the last @dynatrace/barista-components import
    */
   const lastImport = importNodes[importNodes.length - 1];
   const namedImports = findNodes(
@@ -102,7 +102,7 @@ export function addDynatraceAngularComponentsImport(
 
   if (namedImports.length === 0) {
     throw new SchematicsException(
-      `No named imports found from @dynatrace/angular-components in ${path}`,
+      `No named imports found from @dynatrace/barista-components in ${path}`,
     );
   }
   const lastNamedImport = namedImports[namedImports.length - 1];
@@ -157,7 +157,7 @@ export function addDynatraceSubPackageImport(
     sourcePath,
     sourceFile,
     options.moduleName,
-    `'@dynatrace/angular-components/${dasherize(options.name)}';`,
+    `'@dynatrace/barista-components/${dasherize(options.name)}';`,
   );
 }
 

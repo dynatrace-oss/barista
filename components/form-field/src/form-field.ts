@@ -24,7 +24,7 @@ import { startWith } from 'rxjs/operators';
 import {
   DT_ERROR_ENTER_ANIMATION,
   DT_ERROR_ENTER_DELAYED_ANIMATION,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtError } from './error';
 import { DtFormFieldControl } from './form-field-control';

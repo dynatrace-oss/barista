@@ -3,7 +3,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   DtDrawer,
   DtDrawerContainer,
-} from '@dynatrace/angular-components/drawer';
+} from '@dynatrace/barista-components/drawer';
 
 @Component({
   moduleId: module.id,
