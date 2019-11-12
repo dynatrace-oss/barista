@@ -12,8 +12,8 @@ import {
   QueryList,
   DebugElement,
 } from '@angular/core';
-import { DtSecondaryNavModule } from '@dynatrace/angular-components/secondary-nav';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
+import { DtSecondaryNavModule } from '@dynatrace/barista-components/secondary-nav';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { DtSecondaryNavSection } from './section/secondary-nav-section';

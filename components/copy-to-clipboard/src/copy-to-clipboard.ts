@@ -16,8 +16,8 @@ import { Subscription, timer } from 'rxjs';
 import {
   addCssClass,
   removeCssClass,
-} from '@dynatrace/angular-components/core';
-import { DtInput } from '@dynatrace/angular-components/input';
+} from '@dynatrace/barista-components/core';
+import { DtInput } from '@dynatrace/barista-components/input';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';

@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import {
   DtIndicator,
   DtIndicatorModule,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 describe('DtIndicator without table', () => {
   beforeEach(fakeAsync(() => {

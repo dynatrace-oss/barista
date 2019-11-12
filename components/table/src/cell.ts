@@ -26,7 +26,7 @@ import {
   isDefined,
   parseCssValue,
   removeCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtRow } from './row';
 import { DtSort, DtSortEvent } from './sort/sort';

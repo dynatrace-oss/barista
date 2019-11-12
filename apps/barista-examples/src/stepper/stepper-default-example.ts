@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DtStepper } from '@dynatrace/angular-components/stepper';
+import { DtStepper } from '@dynatrace/barista-components/stepper';
 
 @Component({
   moduleId: module.id,

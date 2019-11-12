@@ -8,20 +8,20 @@ import { TestBed, async, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DtIndicatorThemePalette } from '@dynatrace/angular-components/core';
+import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
 import {
   DtFormattersModule,
   formatBytes,
   formatPercent,
   formatRate,
-} from '@dynatrace/angular-components/formatters';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
+} from '@dynatrace/barista-components/formatters';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 import {
   DtSort,
   DtTableDataSource,
   DtTableModule,
-} from '@dynatrace/angular-components/table';
+} from '@dynatrace/barista-components/table';
 
 import { createComponent } from '../../../testing/create-component';
 import { dispatchMouseEvent } from '../../../testing/dispatch-events';

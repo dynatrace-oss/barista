@@ -27,7 +27,7 @@ import {
   addCssClass,
   removeCssClass,
   runInsideZone,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import {
   captureAndMergeEvents,

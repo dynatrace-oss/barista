@@ -1,6 +1,6 @@
 import { AxisOptions, GlobalOptions } from 'highcharts';
 
-import { DtColors } from '@dynatrace/angular-components/theming';
+import { DtColors } from '@dynatrace/barista-components/theming';
 
 import { DtChartOptions } from './chart';
 

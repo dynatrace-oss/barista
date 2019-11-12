@@ -59,8 +59,8 @@ import {
 import {
   DtViewportResizer,
   createInViewportStream,
-} from '@dynatrace/angular-components/core';
-import { DtTheme } from '@dynatrace/angular-components/theming';
+} from '@dynatrace/barista-components/core';
+import { DtTheme } from '@dynatrace/barista-components/theming';
 
 import {
   DT_CHART_CONFIG,

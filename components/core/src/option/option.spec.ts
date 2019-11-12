@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtOption, DtOptionModule } from '@dynatrace/angular-components/core';
+import { DtOption, DtOptionModule } from '@dynatrace/barista-components/core';
 
 import { createComponent } from '../../../testing/create-component';
 

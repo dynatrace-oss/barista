@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtSortEvent } from '@dynatrace/angular-components/table';
+import { DtSortEvent } from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

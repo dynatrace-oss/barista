@@ -9,7 +9,7 @@ import {
   DtButtonGroup,
   DtButtonGroupItem,
   DtButtonGroupModule,
-} from '@dynatrace/angular-components/button-group';
+} from '@dynatrace/barista-components/button-group';
 
 import { createComponent } from '../../testing/create-component';
 

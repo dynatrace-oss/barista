@@ -1,7 +1,7 @@
 import { CdkRow } from '@angular/cdk/table';
 import { Component, ElementRef, Input, SkipSelf } from '@angular/core';
 
-import { DtRow } from '@dynatrace/angular-components/table';
+import { DtRow } from '@dynatrace/barista-components/table';
 
 import { DtTreeTable } from './tree-table';
 

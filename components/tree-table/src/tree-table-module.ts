@@ -2,9 +2,9 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtTableModule } from '@dynatrace/angular-components/table';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtTableModule } from '@dynatrace/barista-components/table';
 
 import { DtTreeTable } from './tree-table';
 import { DtTreeTableHeaderCell } from './tree-table-header-cell';

@@ -6,8 +6,8 @@ import {
 } from '@angular/core';
 import { startWith } from 'rxjs/operators';
 
-import { DtPagination } from '@dynatrace/angular-components/pagination';
-import { DtTableDataSource } from '@dynatrace/angular-components/table';
+import { DtPagination } from '@dynatrace/barista-components/pagination';
+import { DtTableDataSource } from '@dynatrace/barista-components/table';
 
 @Component({
   moduleId: module.id,

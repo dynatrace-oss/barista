@@ -9,7 +9,7 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-import { clamp } from '@dynatrace/angular-components/core';
+import { clamp } from '@dynatrace/barista-components/core';
 
 /** The step size for the keyboard interaction on PAGE UP and PAGE DOWN */
 const DT_SELECTION_AREA_KEYBOARD_BIG_STEP = 10;

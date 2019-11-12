@@ -6,7 +6,7 @@ import {
   DtFilterFieldCurrentFilterChangeEvent,
   DtFilterFieldDefaultDataSource,
   DtFilterFieldTag,
-} from '@dynatrace/angular-components/filter-field';
+} from '@dynatrace/barista-components/filter-field';
 
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';

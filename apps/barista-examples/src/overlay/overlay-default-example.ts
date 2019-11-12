@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtOverlayConfig } from '@dynatrace/angular-components/overlay';
+import { DtOverlayConfig } from '@dynatrace/barista-components/overlay';
 
 @Component({
   moduleId: module.id,

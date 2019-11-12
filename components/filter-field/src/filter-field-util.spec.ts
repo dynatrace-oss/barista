@@ -8,7 +8,7 @@ import {
   dtFreeTextDef,
   dtGroupDef,
   dtOptionDef,
-} from '@dynatrace/angular-components/filter-field';
+} from '@dynatrace/barista-components/filter-field';
 
 // Import locally because utils are not exported for the public
 import {

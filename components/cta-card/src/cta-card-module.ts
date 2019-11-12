@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 
-import { DtCardModule } from '@dynatrace/angular-components/card';
+import { DtCardModule } from '@dynatrace/barista-components/card';
 
 import {
   DtCtaCard,

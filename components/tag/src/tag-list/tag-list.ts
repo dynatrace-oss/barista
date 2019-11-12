@@ -22,7 +22,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 
-import { DtViewportResizer } from '@dynatrace/angular-components/core';
+import { DtViewportResizer } from '@dynatrace/barista-components/core';
 
 import { DtTag } from '../tag';
 import { DtTagAdd } from '../tag-add/tag-add';

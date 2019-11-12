@@ -81,7 +81,7 @@ your `tslint.json` file:
 
 ```js
 "extends": [
-  "@dynatrace/angular-components/tslint"
+  "@dynatrace/barista-components/tslint"
 ]
 ```
 

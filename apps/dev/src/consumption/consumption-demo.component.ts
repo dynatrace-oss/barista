@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { DtConsumptionThemePalette } from '@dynatrace/angular-components/consumption';
+import { DtConsumptionThemePalette } from '@dynatrace/barista-components/consumption';
 
 @Component({
   moduleId: module.id,

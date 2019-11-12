@@ -16,7 +16,7 @@ import {
   isDefined,
   mixinColor,
   mixinHasProgress,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtProgressBarCount } from './progress-bar-count';
 import { DtProgressBarDescription } from './progress-bar-description';

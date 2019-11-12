@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 
-import { DtSelect } from '@dynatrace/angular-components/select';
+import { DtSelect } from '@dynatrace/barista-components/select';
 
 @Component({
   selector: 'select-dev-app-demo',

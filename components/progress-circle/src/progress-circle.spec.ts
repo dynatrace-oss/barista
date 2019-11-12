@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtProgressCircleModule } from '@dynatrace/angular-components/progress-circle';
+import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-circle';
 
 import { createComponent } from '../../testing/create-component';
 

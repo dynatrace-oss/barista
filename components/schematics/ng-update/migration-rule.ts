@@ -8,7 +8,7 @@ export type NullableMigrationRule = Constructor<
   MigrationRule<RuleUpgradeData | null>
 >;
 
-/** Enum containing all target versions for the @dynatrace/angular-components package - add more if needed */
+/** Enum containing all target versions for the @dynatrace/barista-components package - add more if needed */
 export enum DtTargetVersion {
   V5 = 'version 5',
 }

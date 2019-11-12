@@ -1,4 +1,4 @@
-import { isDefined } from '@dynatrace/angular-components/core';
+import { isDefined } from '@dynatrace/barista-components/core';
 
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {

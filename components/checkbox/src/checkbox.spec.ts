@@ -20,7 +20,7 @@ import {
   DtCheckbox,
   DtCheckboxChange,
   DtCheckboxModule,
-} from '@dynatrace/angular-components/checkbox';
+} from '@dynatrace/barista-components/checkbox';
 
 import { createComponent } from '../../testing/create-component';
 

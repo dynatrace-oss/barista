@@ -3,11 +3,11 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtButtonModule } from '@dynatrace/angular-components/button';
-import { DtFormattersModule } from '@dynatrace/angular-components/formatters';
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtLoadingDistractorModule } from '@dynatrace/angular-components/loading-distractor';
-import { DtSelectionAreaModule } from '@dynatrace/angular-components/selection-area';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { DtSelectionAreaModule } from '@dynatrace/barista-components/selection-area';
 
 import { DtChart } from './chart';
 import { DtChartHeatfield } from './heatfield/chart-heatfield';

@@ -16,7 +16,7 @@ import {
   DtSortDirection,
   isDefined,
   mixinDisabled,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { getDtSortInvalidDirectionError } from './sort-errors';
 import { DtSortHeader } from './sort-header';

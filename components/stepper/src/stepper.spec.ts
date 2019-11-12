@@ -21,7 +21,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtStepper,
   DtStepperModule,
-} from '@dynatrace/angular-components/stepper';
+} from '@dynatrace/barista-components/stepper';
 
 import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
 

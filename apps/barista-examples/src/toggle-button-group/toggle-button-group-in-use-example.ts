@@ -3,7 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import {
   DtToggleButtonGroup,
   DtToggleButtonItem,
-} from '@dynatrace/angular-components/toggle-button-group';
+} from '@dynatrace/barista-components/toggle-button-group';
 
 @Component({
   moduleId: module.id,

@@ -3,14 +3,14 @@ import * as ts from 'typescript';
 import { DtMigrationRule, DtTargetVersion } from '../migration-rule';
 
 const ONLY_SUBPACKAGE_FAILURE_STR =
-  `Importing from "@dynatrace/angular-components" is deprecated. ` +
+  `Importing from "@dynatrace/barista-components" is deprecated. ` +
   `Instead import from the entry-point the symbol belongs to.`;
 
 const NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR =
   `Imports from Dynatrace Angular Components should import ` +
   `specific symbols rather than importing the entire library.`;
 
-export const MODULE_SPECIFIER = '@dynatrace/angular-components';
+export const MODULE_SPECIFIER = '@dynatrace/barista-components';
 
 /**
  * Regex for testing file paths against to determine if the file is from the
@@ -20,7 +20,7 @@ const DYNATRACE_AC_FILEPATH_REGEX = new RegExp(`${MODULE_SPECIFIER}/(.*?)/`);
 
 /**
  * A migration rule that updates imports which refer to the primary Dynatrace Angular Components
- * entry-point to use the appropriate secondary entry points (e.g. @dynatrace/angular-components/button).
+ * entry-point to use the appropriate secondary entry points (e.g. @dynatrace/barista-components/button).
  */
 export class SecondaryEntryPointsRule extends DtMigrationRule {
   /** The printer instance that creates the new import declarations */
@@ -42,7 +42,7 @@ export class SecondaryEntryPointsRule extends DtMigrationRule {
     }
 
     const importLocation = declaration.moduleSpecifier.text;
-    // If the import module is not @dynatrace/angular-components, skip check.
+    // If the import module is not @dynatrace/barista-components, skip check.
     if (importLocation !== MODULE_SPECIFIER) {
       return;
     }
@@ -120,7 +120,7 @@ export class SecondaryEntryPointsRule extends DtMigrationRule {
       const sourceFile: string = resolvedNode.getSourceFile().fileName;
 
       // File the module the symbol belongs to from a regex match of the
-      // filename. This will always match since only "@dynatrace/angular-components"
+      // filename. This will always match since only "@dynatrace/barista-components"
       // elements are analyzed.
       const matches = sourceFile.match(DYNATRACE_AC_FILEPATH_REGEX);
       if (!matches) {
@@ -144,8 +144,8 @@ export class SecondaryEntryPointsRule extends DtMigrationRule {
 
     // Transforms the import declaration into multiple import declarations that import
     // the given symbols from the individual secondary entry-points. For example:
-    // import { DtCardModule, DtCardTitle } from '@dynatrace/angular-components/card';
-    // import { DtChart } from '@dynatrace/angular-components/chart';
+    // import { DtCardModule, DtCardTitle } from '@dynatrace/barista-components/card';
+    // import { DtChart } from '@dynatrace/barista-components/chart';
     const newImportStatements = Array.from(importMap.entries())
       .sort()
       .map(([name, elements]) => {
@@ -165,7 +165,7 @@ export class SecondaryEntryPointsRule extends DtMigrationRule {
 
     // Without any import statements that were generated, we can assume that this was an empty
     // import declaration. We still want to add a failure in order to make developers aware that
-    // importing from "@dynatrace/angular-components" is deprecated.
+    // importing from "@dynatrace/barista-components" is deprecated.
     if (!newImportStatements) {
       this.createFailureAtNode(
         declaration.moduleSpecifier,

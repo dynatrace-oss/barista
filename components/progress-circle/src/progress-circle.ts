@@ -13,7 +13,7 @@ import {
   HasProgressValues,
   mixinColor,
   mixinHasProgress,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 /** Circumference for the path data in the html file - this does not change unless the path is changed */
 const CIRCLE_CIRCUMFERENCE = 328;

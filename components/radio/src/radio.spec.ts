@@ -22,7 +22,7 @@ import {
   DtRadioChange,
   DtRadioGroup,
   DtRadioModule,
-} from '@dynatrace/angular-components/radio';
+} from '@dynatrace/barista-components/radio';
 
 import { createComponent } from '../../testing/create-component';
 import { dispatchFakeEvent } from '../../testing/dispatch-events';

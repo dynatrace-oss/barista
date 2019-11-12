@@ -7,7 +7,7 @@ import {
   DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 const TESTDATA: ThreadNode[] = [
   {

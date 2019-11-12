@@ -12,7 +12,7 @@ import {
   DtIconModule,
   getDtIconNoConfigProviderError,
   getDtIconNoHttpProviderError,
-} from '@dynatrace/angular-components/icon';
+} from '@dynatrace/barista-components/icon';
 
 import { createComponent } from '../../testing/create-component';
 import { wrappedErrorMessage } from '../../testing/wrapped-error-message';

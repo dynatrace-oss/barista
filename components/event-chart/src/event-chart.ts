@@ -47,7 +47,7 @@ import {
   DtViewportResizer,
   isDefined,
   readKeyCode,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import {
   DT_EVENT_CHART_COLORS,

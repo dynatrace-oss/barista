@@ -13,7 +13,7 @@ import {
   addCssClass,
   removeCssClass,
   replaceCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 
 import { DtCell } from './cell';
 

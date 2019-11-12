@@ -20,11 +20,11 @@ import {
   HasTabIndex,
   addCssClass,
   hasCssClass,
-} from '@dynatrace/angular-components/core';
+} from '@dynatrace/barista-components/core';
 import {
   DtSelectionArea,
   DtSelectionAreaOrigin,
-} from '@dynatrace/angular-components/selection-area';
+} from '@dynatrace/barista-components/selection-area';
 
 import { DtChart } from '../chart';
 import { getDtChartSelectionAreaDateTimeAxisError } from './chart-selection-area-errors';

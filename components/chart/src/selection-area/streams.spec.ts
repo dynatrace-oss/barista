@@ -6,7 +6,7 @@ import { Subject, interval, of, timer } from 'rxjs';
 import { delay, map, mapTo, take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as core from '@dynatrace/angular-components/core';
+import * as core from '@dynatrace/barista-components/core';
 
 import { createMouseEvent } from '../../../testing/event-objects';
 import { MockNgZone } from '../../../testing/mock-ng-zone';

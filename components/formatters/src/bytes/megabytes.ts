@@ -1,7 +1,7 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { isEmpty, isNumber } from '@dynatrace/angular-components/core';
+import { isEmpty, isNumber } from '@dynatrace/barista-components/core';
 
 import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { KILO_MULTIPLIER } from '../number-formatter';

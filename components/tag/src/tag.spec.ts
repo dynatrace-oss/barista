@@ -6,8 +6,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 
-import { DtIconModule } from '@dynatrace/angular-components/icon';
-import { DtTagModule } from '@dynatrace/angular-components/tag';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtTagModule } from '@dynatrace/barista-components/tag';
 
 import { createComponent } from '../../testing/create-component';
 
