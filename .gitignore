@@ -36,6 +36,8 @@ package-lock.json
 *.log
 report.*.json
 .git-credentials
+.npmrc
+.yarnrc
 
 # e2e
 /e2e/*.js
