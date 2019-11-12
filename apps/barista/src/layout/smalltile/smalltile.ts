@@ -3,12 +3,11 @@ import { Component, Input } from '@angular/core';
 import { BaIndexPageItem } from '../../shared/page-contents';
 
 @Component({
-  selector: 'a[ba-smalltile]',
+  selector: 'ba-smalltile',
   templateUrl: 'smalltile.html',
   styleUrls: ['smalltile.scss'],
   host: {
-    '[href]': 'data.link',
-    '[class]': 'data.isEmpty? "ba-smalltile-empty" : "ba-smalltile"',
+    '[class.ba-smalltile-link-wrapper]': 'data',
   },
 })
 export class BaSmallTile {

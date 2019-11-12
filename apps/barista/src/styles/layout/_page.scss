@@ -10,7 +10,7 @@
   grid-row-gap: 1.5rem;
 }
 
-.ba-page-content::before {
+.ba-single-page-content::before {
   content: ' ';
   display: block;
   width: 100%;
@@ -30,7 +30,7 @@
     padding: 1rem;
   }
 
-  .ba-page-content::before {
+  .ba-single-page-content::before {
     height: 2rem;
   }
 }
