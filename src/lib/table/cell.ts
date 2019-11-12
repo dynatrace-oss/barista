@@ -159,10 +159,7 @@ export class DtCell implements AfterContentInit, OnDestroy {
     }
 
     this._columnDef._stateChanges
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
         _updateDtColumnStyles(this._columnDef, elem, renderer);
       });

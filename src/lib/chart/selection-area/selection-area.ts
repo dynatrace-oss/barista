@@ -263,10 +263,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       });
 
     this._plotBackground$
-      .pipe(
-        take(1),
-        takeUntil(this._destroy$),
-      )
+      .pipe(take(1), takeUntil(this._destroy$))
       .subscribe(() => {
         // start initializing the selection area with all the mouse events.
         this._initializeSelectionArea();
@@ -317,10 +314,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     const range = { left, width: minWidth };
     this._chart._range._area = clampRange(range, maxWidth, minWidth);
     this._zone.onMicrotaskEmpty
-      .pipe(
-        take(1),
-        takeUntil(this._destroy$),
-      )
+      .pipe(take(1), takeUntil(this._destroy$))
       .subscribe(() => {
         if (this._chart._range) {
           this._chart._range.focus();
@@ -337,10 +331,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     this._toggleTimestamp(true);
     this._chart._timestamp._position = position;
     this._zone.onMicrotaskEmpty
-      .pipe(
-        take(1),
-        takeUntil(this._destroy$),
-      )
+      .pipe(take(1), takeUntil(this._destroy$))
       .subscribe(() => {
         if (this._chart._timestamp) {
           this._chart._timestamp.focus();
@@ -715,19 +706,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     );
 
     merge(startShowingRange$, hideTimestampAndRange$)
-      .pipe(
-        distinctUntilChanged(),
-        takeUntil(this._destroy$),
-      )
+      .pipe(distinctUntilChanged(), takeUntil(this._destroy$))
       .subscribe((show: boolean) => {
         this._toggleRange(show);
       });
 
     merge(startShowingTimestamp$, hideTimestampAndRange$)
-      .pipe(
-        distinctUntilChanged(),
-        takeUntil(this._destroy$),
-      )
+      .pipe(distinctUntilChanged(), takeUntil(this._destroy$))
       .subscribe((show: boolean) => {
         this._toggleTimestamp(show);
       });
@@ -863,10 +848,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     ).pipe(mapTo(false));
 
     merge(showHairline$, hideHairline$)
-      .pipe(
-        distinctUntilChanged(),
-        takeUntil(this._destroy$),
-      )
+      .pipe(distinctUntilChanged(), takeUntil(this._destroy$))
       .subscribe((show: boolean) => {
         this._toggleHairline(show);
       });

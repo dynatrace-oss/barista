@@ -212,10 +212,7 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
     // We need to pipe the ngControl through to the input so the updateErrorState method is called on the input
     // and the host bindings on the input are updated correctly
     this._input.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy$),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy$))
       .subscribe(() => {
         const input = this._input.first;
         if (input) {
