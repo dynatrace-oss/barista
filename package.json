@@ -31,7 +31,8 @@
     "schematics:build": "gulp schematics:build",
     "bitbucket-tools": "nodemon --config ./tools/bitbucket-tools/nodemon.json",
     "bitbucket-tools:test": "jest --rootDir tools/bitbucket-tools/",
-    "bitbucket-tools:build": "tsc --project ./tools/bitbucket-tools/tsconfig.json"
+    "bitbucket-tools:build": "tsc --project ./tools/bitbucket-tools/tsconfig.json",
+    "dep-graph": "nx dep-graph"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
