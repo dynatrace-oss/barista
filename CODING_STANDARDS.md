@@ -2,7 +2,7 @@
 title: 'Coding standards'
 description:
   'To ensure good code quality we provide some coding standards that should be
-  kept in mind when developing Angular components.'
+  kept in mind when developing Barista components.'
 order: 4
 tags:
   - 'guideline'
@@ -21,9 +21,18 @@ which give us a solid foundation for our component library.
 
 ## General
 
+### Granularity
+
+- Prefer more focused, granular components vs. complex, configurable components.
+- Prefer small, focused modules.
+- Keeping modules to a single responsibility makes the code easier to test,
+  consume, and maintain. Ideally, individual files are 200 - 300 lines of code.
+- As a rule of thumb, once a file draws near 400 lines (barring abnormally long
+  constants / comments), start considering how to refactor into smaller pieces.
+
 ### Comments
 
-- Write useful comments
+- Write useful comments.
 - Comments that explain what some block of code does are nice. They can tell you
   something in less time than it would take to follow through the code itself.
 - Comments that explain why some block of code exists at all, or does something
@@ -33,15 +42,6 @@ which give us a solid foundation for our component library.
   members, etc.) and use `//` style comments for everything else (explanations,
   background info, etc.).
 - In SCSS code, always use `//` style comments.
-
-### Granularity
-
-- Prefer more focused, granular components vs. complex, configurable components.
-- Prefer small, focused modules.
-- Keeping modules to a single responsibility makes the code easier to test,
-  consume, and maintain. Ideally, individual files are 200 - 300 lines of code.
-- As a rule of thumb, once a file draws near 400 lines (barring abnormally long
-  constants / comments), start considering how to refactor into smaller pieces.
 
 ## API Design
 
