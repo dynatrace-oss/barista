@@ -36,7 +36,7 @@ expandable panel trigger.
 You have to import the `DtExpandablePanelModule` when you want to use the
 `dt-expandable-panel`. The `dt-expandable-panel` component also requires
 Angular's `BrowserAnimationsModule` for animations. For more details on this see
-[_Step 2: Animations_](https://barista.dynatrace.org/components/get-started/#step-2-animations)
+[_Step 2: Animations_](https://barista.dynatrace.com/components/get-started/#step-2-animations)
 in the getting started guide.
 
 ```typescript

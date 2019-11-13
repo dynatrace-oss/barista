@@ -47,7 +47,7 @@ definitions.
 You have to import the `DtTableModule` to use the `dt-table`. If you want to use
 the `dt-expandable-cell` component, Angular's `BrowserAnimationsModule` is
 required for animations. For more details on this see
-[Step 2: Animations in the getting started guide](https://barista.dynatrace.org/components/get-started/#step-2-animations).
+[Step 2: Animations in the getting started guide](https://barista.dynatrace.com/components/get-started/#step-2-animations).
 
 ```typescript
 import { NgModule } from '@angular/core';

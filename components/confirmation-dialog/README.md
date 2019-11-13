@@ -40,7 +40,7 @@ dialog is part of all settings views.
 You have to import the `DtConfirmationDialogModule` when you want to use the
 `DtConfirmationDialog`. The `DtConfirmationDialog` also requires Angular's
 `BrowserAnimationsModule` for animations. For more details on this see
-[Step 2: Animations](https://barista.dynatrace.org/components/get-started/#step-2-animations)
+[Step 2: Animations](https://barista.dynatrace.com/components/get-started/#step-2-animations)
 in the getting started guide.
 
 ```typescript

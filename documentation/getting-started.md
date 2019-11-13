@@ -1,7 +1,7 @@
 ---
 title: 'Get started'
 description:
-  'This guide provides an overview how to get started with the Dynatrace Angular
+  'This guide provides an overview how to get started with the Barista
   components library.'
 order: 1
 public: false
@@ -13,9 +13,11 @@ tags:
   - 'install'
 ---
 
-## Step 1: Install the angular-components and Angular CDK
+# Get started
 
-Now you are able to install the library
+## Step 1: Install the barista-components and Angular CDK
+
+Install the Barista components library via npm or yarn:
 
 `npm install --save @dynatrace/barista-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/dt-iconpack`  
 or  
@@ -23,7 +25,7 @@ or
 
 ## Step 2: Animations
 
-Some angular-components components depend on the Angular animations module. If
+Some Barista components depend on the Angular animations module. If
 you want these animations to work in your app, you have to install the
 `@angular/animations` module and include the `BrowserAnimationsModule` in your
 app.
@@ -78,18 +80,18 @@ export class PizzaPartyAppModule { }
 ```
 
 Alternatively, you can create a separate NgModule that imports all of the
-angular-components components that you will use in your application. You can
+Barista components that you will use in your application. You can
 then include this module wherever you'd like to use the components.
 
-**Note:** Whichever approach you use, be sure to import the angular-components
+**Note:** Whichever approach you use, be sure to import the barista-components
 modules after Angular's BrowserModule, as the import order matters for
 NgModules.
 
 ## Step 4: Include the styles
 
-This library ships with two different variants for including styles. You can
+The Barista components library ships with two different variants for including styles. You can
 either import the core styles that are **required** to use the
-angular-components. These core styles are just the bare minimum for the
+barista-components. These core styles are just the bare minimum for the
 component and do not change the global styling of your app.
 
 ```scss
@@ -103,11 +105,11 @@ style also general styling for headlines, text-formatting, ...
 @import '~@dynatrace/barista-components/style/index';
 ```
 
-## Step 5: Optional - Add fonts and icon files to your assets
+## Step 5: Optional - add fonts and icon files to your assets
 
 Add this section to the `assets` array in your projects architect in the
 angular.json. This will copy all svgs from the iconpack and all fonts shipped
-with the angular-components-library to your dist package and will make angular
+with the barista-components library to your dist package and will make Angular
 aware of the file dependencies.
 
 ```json
