@@ -1,9 +1,7 @@
 {
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
   "projects": {
-    "dev": {
+    "barista-components/dev": {
       "root": "apps/dev",
       "sourceRoot": "apps/dev/src",
       "projectType": "application",
@@ -64,7 +62,7 @@
         }
       }
     },
-    "components-e2e": {
+    "barista-components/components-e2e": {
       "root": "apps/components-e2e",
       "sourceRoot": "apps/components-e2e/src",
       "projectType": "application",
@@ -143,7 +141,7 @@
         }
       }
     },
-    "barista-examples": {
+    "barista-components/barista-examples": {
       "root": "apps/barista-examples",
       "sourceRoot": "apps/barista-examples/src",
       "projectType": "application",
@@ -230,7 +228,7 @@
         }
       }
     },
-    "barista": {
+    "barista-components/barista": {
       "root": "apps/barista",
       "sourceRoot": "apps/barista/src",
       "projectType": "application",
@@ -349,7 +347,7 @@
         }
       }
     },
-    "barista-tools": {
+    "barista-components/barista-tools": {
       "root": "tools/barista",
       "sourceRoot": "tools/barista/src",
       "projectType": "library",
@@ -388,7 +386,7 @@
         }
       }
     },
-    "testing": {
+    "barista-components/testing": {
       "projectType": "library",
       "root": "libs/testing",
       "sourceRoot": "libs/testing/src",
@@ -415,7 +413,7 @@
       },
       "schematics": {}
     },
-    "components": {
+    "barista-components/components": {
       "projectType": "library",
       "root": "components",
       "sourceRoot": "components",
@@ -429,7 +427,7 @@
         }
       }
     },
-    "alert": {
+    "barista-components/alert": {
       "projectType": "library",
       "root": "components/alert",
       "sourceRoot": "components/alert/src",
@@ -464,7 +462,7 @@
       },
       "schematics": {}
     },
-    "autocomplete": {
+    "barista-components/autocomplete": {
       "projectType": "library",
       "root": "components/autocomplete",
       "sourceRoot": "components/autocomplete/src",
@@ -499,7 +497,7 @@
       },
       "schematics": {}
     },
-    "bar-indicator": {
+    "barista-components/bar-indicator": {
       "projectType": "library",
       "root": "components/bar-indicator",
       "sourceRoot": "components/bar-indicator/src",
@@ -534,7 +532,7 @@
       },
       "schematics": {}
     },
-    "breadcrumbs": {
+    "barista-components/breadcrumbs": {
       "projectType": "library",
       "root": "components/breadcrumbs",
       "sourceRoot": "components/breadcrumbs/src",
@@ -569,7 +567,7 @@
       },
       "schematics": {}
     },
-    "button": {
+    "barista-components/button": {
       "projectType": "library",
       "root": "components/button",
       "sourceRoot": "components/button/src",
@@ -604,7 +602,7 @@
       },
       "schematics": {}
     },
-    "button-group": {
+    "barista-components/button-group": {
       "projectType": "library",
       "root": "components/button-group",
       "sourceRoot": "components/button-group/src",
@@ -639,7 +637,7 @@
       },
       "schematics": {}
     },
-    "card": {
+    "barista-components/card": {
       "projectType": "library",
       "root": "components/card",
       "sourceRoot": "components/card/src",
@@ -674,7 +672,7 @@
       },
       "schematics": {}
     },
-    "chart": {
+    "barista-components/chart": {
       "projectType": "library",
       "root": "components/chart",
       "sourceRoot": "components/chart/src",
@@ -709,7 +707,7 @@
       },
       "schematics": {}
     },
-    "checkbox": {
+    "barista-components/checkbox": {
       "projectType": "library",
       "root": "components/checkbox",
       "sourceRoot": "components/checkbox/src",
@@ -744,7 +742,7 @@
       },
       "schematics": {}
     },
-    "confirmation-dialog": {
+    "barista-components/confirmation-dialog": {
       "projectType": "library",
       "root": "components/confirmation-dialog",
       "sourceRoot": "components/confirmation-dialog/src",
@@ -782,7 +780,7 @@
       },
       "schematics": {}
     },
-    "consumption": {
+    "barista-components/consumption": {
       "projectType": "library",
       "root": "components/consumption",
       "sourceRoot": "components/consumption/src",
@@ -817,7 +815,7 @@
       },
       "schematics": {}
     },
-    "container-breakpoint-observer": {
+    "barista-components/container-breakpoint-observer": {
       "projectType": "library",
       "root": "components/container-breakpoint-observer",
       "sourceRoot": "components/container-breakpoint-observer/src",
@@ -855,7 +853,7 @@
       },
       "schematics": {}
     },
-    "context-dialog": {
+    "barista-components/context-dialog": {
       "projectType": "library",
       "root": "components/context-dialog",
       "sourceRoot": "components/context-dialog/src",
@@ -890,7 +888,7 @@
       },
       "schematics": {}
     },
-    "copy-to-clipboard": {
+    "barista-components/copy-to-clipboard": {
       "projectType": "library",
       "root": "components/copy-to-clipboard",
       "sourceRoot": "components/copy-to-clipboard/src",
@@ -928,7 +926,7 @@
       },
       "schematics": {}
     },
-    "core": {
+    "barista-components/core": {
       "projectType": "library",
       "root": "components/core",
       "sourceRoot": "components/core/src",
@@ -963,7 +961,7 @@
       },
       "schematics": {}
     },
-    "cta-card": {
+    "barista-components/cta-card": {
       "projectType": "library",
       "root": "components/cta-card",
       "sourceRoot": "components/cta-card/src",
@@ -998,7 +996,7 @@
       },
       "schematics": {}
     },
-    "drawer": {
+    "barista-components/drawer": {
       "projectType": "library",
       "root": "components/drawer",
       "sourceRoot": "components/drawer/src",
@@ -1033,7 +1031,7 @@
       },
       "schematics": {}
     },
-    "empty-state": {
+    "barista-components/empty-state": {
       "projectType": "library",
       "root": "components/empty-state",
       "sourceRoot": "components/empty-state/src",
@@ -1068,7 +1066,7 @@
       },
       "schematics": {}
     },
-    "event-chart": {
+    "barista-components/event-chart": {
       "projectType": "library",
       "root": "components/event-chart",
       "sourceRoot": "components/event-chart/src",
@@ -1103,7 +1101,7 @@
       },
       "schematics": {}
     },
-    "expandable-panel": {
+    "barista-components/expandable-panel": {
       "projectType": "library",
       "root": "components/expandable-panel",
       "sourceRoot": "components/expandable-panel/src",
@@ -1138,7 +1136,7 @@
       },
       "schematics": {}
     },
-    "expandable-section": {
+    "barista-components/expandable-section": {
       "projectType": "library",
       "root": "components/expandable-section",
       "sourceRoot": "components/expandable-section/src",
@@ -1176,7 +1174,7 @@
       },
       "schematics": {}
     },
-    "expandable-text": {
+    "barista-components/expandable-text": {
       "projectType": "library",
       "root": "components/expandable-text",
       "sourceRoot": "components/expandable-text/src",
@@ -1211,7 +1209,7 @@
       },
       "schematics": {}
     },
-    "filter-field": {
+    "barista-components/filter-field": {
       "projectType": "library",
       "root": "components/filter-field",
       "sourceRoot": "components/filter-field/src",
@@ -1246,7 +1244,7 @@
       },
       "schematics": {}
     },
-    "form-field": {
+    "barista-components/form-field": {
       "projectType": "library",
       "root": "components/form-field",
       "sourceRoot": "components/form-field/src",
@@ -1281,7 +1279,7 @@
       },
       "schematics": {}
     },
-    "formatters": {
+    "barista-components/formatters": {
       "projectType": "library",
       "root": "components/formatters",
       "sourceRoot": "components/formatters/src",
@@ -1316,7 +1314,7 @@
       },
       "schematics": {}
     },
-    "highlight": {
+    "barista-components/highlight": {
       "projectType": "library",
       "root": "components/highlight",
       "sourceRoot": "components/highlight/src",
@@ -1351,7 +1349,7 @@
       },
       "schematics": {}
     },
-    "icon": {
+    "barista-components/icon": {
       "projectType": "library",
       "root": "components/icon",
       "sourceRoot": "components/icon/src",
@@ -1386,7 +1384,7 @@
       },
       "schematics": {}
     },
-    "info-group": {
+    "barista-components/info-group": {
       "projectType": "library",
       "root": "components/info-group",
       "sourceRoot": "components/info-group/src",
@@ -1421,7 +1419,7 @@
       },
       "schematics": {}
     },
-    "inline-editor": {
+    "barista-components/inline-editor": {
       "projectType": "library",
       "root": "components/inline-editor",
       "sourceRoot": "components/inline-editor/src",
@@ -1456,7 +1454,7 @@
       },
       "schematics": {}
     },
-    "input": {
+    "barista-components/input": {
       "projectType": "library",
       "root": "components/input",
       "sourceRoot": "components/input/src",
@@ -1491,7 +1489,7 @@
       },
       "schematics": {}
     },
-    "key-value-list": {
+    "barista-components/key-value-list": {
       "projectType": "library",
       "root": "components/key-value-list",
       "sourceRoot": "components/key-value-list/src",
@@ -1526,7 +1524,7 @@
       },
       "schematics": {}
     },
-    "legend": {
+    "barista-components/legend": {
       "projectType": "library",
       "root": "components/legend",
       "sourceRoot": "components/legend/src",
@@ -1561,7 +1559,7 @@
       },
       "schematics": {}
     },
-    "loading-distractor": {
+    "barista-components/loading-distractor": {
       "projectType": "library",
       "root": "components/loading-distractor",
       "sourceRoot": "components/loading-distractor/src",
@@ -1599,7 +1597,7 @@
       },
       "schematics": {}
     },
-    "menu": {
+    "barista-components/menu": {
       "projectType": "library",
       "root": "components/menu",
       "sourceRoot": "components/menu/src",
@@ -1634,7 +1632,7 @@
       },
       "schematics": {}
     },
-    "micro-chart": {
+    "barista-components/micro-chart": {
       "projectType": "library",
       "root": "components/micro-chart",
       "sourceRoot": "components/micro-chart/src",
@@ -1669,7 +1667,7 @@
       },
       "schematics": {}
     },
-    "overlay": {
+    "barista-components/overlay": {
       "projectType": "library",
       "root": "components/overlay",
       "sourceRoot": "components/overlay/src",
@@ -1704,7 +1702,7 @@
       },
       "schematics": {}
     },
-    "pagination": {
+    "barista-components/pagination": {
       "projectType": "library",
       "root": "components/pagination",
       "sourceRoot": "components/pagination/src",
@@ -1739,7 +1737,7 @@
       },
       "schematics": {}
     },
-    "progress-bar": {
+    "barista-components/progress-bar": {
       "projectType": "library",
       "root": "components/progress-bar",
       "sourceRoot": "components/progress-bar/src",
@@ -1774,7 +1772,7 @@
       },
       "schematics": {}
     },
-    "progress-circle": {
+    "barista-components/progress-circle": {
       "projectType": "library",
       "root": "components/progress-circle",
       "sourceRoot": "components/progress-circle/src",
@@ -1809,7 +1807,7 @@
       },
       "schematics": {}
     },
-    "radio": {
+    "barista-components/radio": {
       "projectType": "library",
       "root": "components/radio",
       "sourceRoot": "components/radio/src",
@@ -1844,7 +1842,7 @@
       },
       "schematics": {}
     },
-    "secondary-nav": {
+    "barista-components/secondary-nav": {
       "projectType": "library",
       "root": "components/secondary-nav",
       "sourceRoot": "components/secondary-nav/src",
@@ -1879,7 +1877,7 @@
       },
       "schematics": {}
     },
-    "select": {
+    "barista-components/select": {
       "projectType": "library",
       "root": "components/select",
       "sourceRoot": "components/select/src",
@@ -1914,7 +1912,7 @@
       },
       "schematics": {}
     },
-    "selection-area": {
+    "barista-components/selection-area": {
       "projectType": "library",
       "root": "components/selection-area",
       "sourceRoot": "components/selection-area/src",
@@ -1949,7 +1947,7 @@
       },
       "schematics": {}
     },
-    "show-more": {
+    "barista-components/show-more": {
       "projectType": "library",
       "root": "components/show-more",
       "sourceRoot": "components/show-more/src",
@@ -1984,7 +1982,7 @@
       },
       "schematics": {}
     },
-    "stepper": {
+    "barista-components/stepper": {
       "projectType": "library",
       "root": "components/stepper",
       "sourceRoot": "components/stepper/src",
@@ -2019,7 +2017,7 @@
       },
       "schematics": {}
     },
-    "switch": {
+    "barista-components/switch": {
       "projectType": "library",
       "root": "components/switch",
       "sourceRoot": "components/switch/src",
@@ -2054,7 +2052,7 @@
       },
       "schematics": {}
     },
-    "table": {
+    "barista-components/table": {
       "projectType": "library",
       "root": "components/table",
       "sourceRoot": "components/table/src",
@@ -2089,7 +2087,7 @@
       },
       "schematics": {}
     },
-    "tabs": {
+    "barista-components/tabs": {
       "projectType": "library",
       "root": "components/tabs",
       "sourceRoot": "components/tabs/src",
@@ -2124,7 +2122,7 @@
       },
       "schematics": {}
     },
-    "tag": {
+    "barista-components/tag": {
       "projectType": "library",
       "root": "components/tag",
       "sourceRoot": "components/tag/src",
@@ -2159,7 +2157,7 @@
       },
       "schematics": {}
     },
-    "theming": {
+    "barista-components/theming": {
       "projectType": "library",
       "root": "components/theming",
       "sourceRoot": "components/theming/src",
@@ -2194,7 +2192,7 @@
       },
       "schematics": {}
     },
-    "tile": {
+    "barista-components/tile": {
       "projectType": "library",
       "root": "components/tile",
       "sourceRoot": "components/tile/src",
@@ -2229,7 +2227,7 @@
       },
       "schematics": {}
     },
-    "timeline-chart": {
+    "barista-components/timeline-chart": {
       "projectType": "library",
       "root": "components/timeline-chart",
       "sourceRoot": "components/timeline-chart/src",
@@ -2264,7 +2262,7 @@
       },
       "schematics": {}
     },
-    "toast": {
+    "barista-components/toast": {
       "projectType": "library",
       "root": "components/toast",
       "sourceRoot": "components/toast/src",
@@ -2299,7 +2297,7 @@
       },
       "schematics": {}
     },
-    "toggle-button-group": {
+    "barista-components/toggle-button-group": {
       "projectType": "library",
       "root": "components/toggle-button-group",
       "sourceRoot": "components/toggle-button-group/src",
@@ -2337,7 +2335,7 @@
       },
       "schematics": {}
     },
-    "top-bar-navigation": {
+    "barista-components/top-bar-navigation": {
       "projectType": "library",
       "root": "components/top-bar-navigation",
       "sourceRoot": "components/top-bar-navigation/src",
@@ -2375,7 +2373,7 @@
       },
       "schematics": {}
     },
-    "tree-table": {
+    "barista-components/tree-table": {
       "projectType": "library",
       "root": "components/tree-table",
       "sourceRoot": "components/tree-table/src",

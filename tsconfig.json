@@ -8,21 +8,24 @@
   "buildOnSave": false,
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
     "baseUrl": ".",
-    "target": "es5",
-    "module": "esnext",
-    "moduleResolution": "node",
     "declaration": true,
-    "sourceMap": true,
-    "inlineSources": true,
-    "skipLibCheck": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "inlineSources": true,
+    "lib": ["dom", "es2017"],
+    "module": "esnext",
+    "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "lib": ["dom", "es2017"],
+    "rootDir": ".",
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "target": "es5",
+    "typeRoots": ["node_modules/@types"],
     "paths": {
       "@dynatrace/barista-components/testing": ["libs/testing/src/index.ts"],
       "@dynatrace/barista-components/alert": ["components/alert/src/index.ts"],
@@ -168,8 +171,6 @@
         "components/tree-table/src/index.ts"
       ]
     },
-    "strictNullChecks": true,
-    "typeRoots": ["node_modules/@types"],
     "plugins": [
       {
         "name": "typescript-tslint-plugin",
@@ -182,5 +183,5 @@
       }
     ]
   },
-  "exclude": ["node_modules", "dist", "**/*.ngfactory.ts", "**/*.shim.ts"]
+  "exclude": ["node_modules", "dist"]
 }
