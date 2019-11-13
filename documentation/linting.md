@@ -1,6 +1,6 @@
 ---
 title: 'Linting'
-description: 'We provide a set of custom TSLint rules to help you using the Angular components
+description: 'We provide a set of custom TSLint rules to help you using the Barista components
 correctly as intended.'
 order: 6
 tags:
@@ -15,12 +15,12 @@ tags:
 
 # Linting
 
-To ensure a high code quality, the Angular components library comes with a set
+To ensure a high code quality, the Barista components library comes with a set
 of custom TSLint rules to prevent wrong usage of components.
 
-## Angular component usage
+## Barista component usage
 
-We provide a set of custom TSLint rules to help you using the Angular components
+We provide a set of custom TSLint rules to help you using the Barista components
 correctly as intended. Using a wrong component structure, missing attributes or
 properties can lead to a wrong output. The following rules should help you
 preventing those errors:
@@ -76,7 +76,7 @@ user experience.
 
 ## Enable TSLint rules
 
-To use the Angular component TSLint rules in your project, add the following to
+To use the Barista component TSLint rules in your project, add the following to
 your `tslint.json` file:
 
 ```js
@@ -102,7 +102,7 @@ linting does not fail. When set to `false` the rule is disabled.
 ## Testing TSLint rules
 
 Every TSLint rule comes with a set of tests to guarantee that rules pass and
-fail as expected. All test files can be found in `src/linting/test/rules/**`.
+fail as expected. All test files can be found in `tools/linting/src/test/rules/**`.
 Build the TSLint rules and run tests by using the following commands:
 
 ```

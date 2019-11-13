@@ -14,16 +14,14 @@ tags:
 
 # Releasing
 
-A new version of the Angular components is released at least once at the end of
-each sprint. If there are fixes and features ready earlier, a release in the
-middle of a sprint is also possible.
+A new version of the Barista components is released at least once a week. If there are fixes and features ready earlier, more releases per week are also possible.
 
-[Breaking changes](https://barista.dynatrace.org/components/contribute/#breaking-changes)
+[Breaking changes](https://barista.dynatrace.com/components/contribute/#breaking-changes)
 are released with the next (future) major version.
 
 ## Versioning
 
-The versioning of the Angular component library closely follows **SemVer**. This
+The versioning of the Barista components library closely follows **SemVer**. This
 means, every version number consists of three parts (x.y.z) that have a
 different meaning and describe the type of change this version introduces.
 
@@ -37,17 +35,17 @@ different meaning and describe the type of change this version introduces.
 ## How to release
 
 **Note: Releasing should only be done by the maintainers of the
-angular-components.**
+barista-components.**
 
 Go to the
 [pull request overview page](https://github.com/Dynatrace/barista/pulls) of the
-angular-components repository and merge all pull requests marked as
-`[merge-ready]` into master. Only merge pull requests marked with `[major]` when
+barista-components repository and merge all pull requests marked as
+`pr:merge-ready` into master. Only merge pull requests marked with `[major]` when
 releasing a new major version. Once all branches are merged and all merge
 conflicts are resolved, follow these steps:
 
 - Check out and update your local `master` branch.
-- If you wanna do a major release run `yarn breaking-changes` which will get you
+- If you wanna do a major release run `npm run breaking-changes` which will get you
   a list of breaking changes for the next major version. If you do have breaking
   changes for the release version or have deprecations:
   - Create a branch for applying the breaking changes for this release version,
@@ -59,7 +57,7 @@ conflicts are resolved, follow these steps:
   - Push the commits and create a pull request.
   - When merged continue with the release. (Make sure you are on the updated
     `master` branch again.)
-- Start the release wizard by entering `yarn stage-release` in your command line
+- Start the release wizard by entering `npm run stage-release` in your command line
   tool.
 - The wizard will now prompt you for the new version number. You can select
   between a `patch`, `minor` and `major` release. The wizard will also recommend
@@ -79,16 +77,13 @@ conflicts are resolved, follow these steps:
 - Create a new pull request from this branch against the master branch.
 - Once all required tests in the pull request have successfully been run and you
   have clicked the merge button, this version will be released.
-- Create a tag for the version bump commit by running `yarn create-tag`.
+- Create a tag for the version bump commit by running `npm run create-tag`.
 
 ## After the release
 
-After a successful release the Barista examples (code demos) build is triggered
-and the updated content for the design system is built. Check the pull request
-that is automatically opened in the barista-content repository and the generated
-preview. When merging this pull request all updates to component demos and the
-[new changelog](https://barista.dynatrace.org/components/changelog/) will be
-published in [Barista](https://barista.dynatrace.org/).
+After a successful release the Barista design system content is built and the
+[new changelog](https://barista.dynatrace.com/components/changelog/) will be
+published in [Barista](https://barista.dynatrace.com/).
 
 Announce the new version upgrade in our Slack channels
 [#help-ng-components](***REMOVED***) and
