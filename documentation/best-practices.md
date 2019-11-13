@@ -1,5 +1,8 @@
 ---
 title: 'Best practices and patterns'
+description:
+  'Find common patterns that are used throughout the components library on this
+  page.'
 postid: 'angular-components-best-practices'
 order: 5
 public: false

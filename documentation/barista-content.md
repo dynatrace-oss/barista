@@ -23,7 +23,6 @@ site build. Some properties are required, others are nice-to-have.
     ux:
       - raphaela.raudaschl
   ```
-- postid (required): the page's id; is generated when missing in front matter
 - draft: whether the page is in draft state; default: false
 - public: whether the page is published on public Barista; default: true
 - toc: whether a table of contents (TOC) should be rendered on the page;
@@ -31,7 +30,8 @@ site build. Some properties are required, others are nice-to-have.
 - themable: whether the component is themable; default: false
 - wiki: a link to the UX wiki page of the component
 - properties: to indicate a component-status (shown in the page's header
-  section), possible values are "dev utility", "work in progress", "deprecated"
+  section), possible values are "dev utility", "work in progress", "deprecated",
+  "experimental"
 - tags: list of tags; used to group pages by topic and for search
 - related: list of ids to related Barista-pages
 
