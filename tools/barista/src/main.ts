@@ -9,7 +9,7 @@ const BUILDERS = new Map<string, BaPageBuilder>([
   ['components-builder', componentsBuilder],
 ]);
 
-const DIST_DIR = join(__dirname, '../../', 'barista', 'data');
+const DIST_DIR = join(__dirname, '../../', 'apps', 'barista', 'data');
 
 /** Builds pages using all registered builders. */
 async function buildPages(): Promise<void[]> {
