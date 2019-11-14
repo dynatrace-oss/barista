@@ -33,14 +33,22 @@ export interface BaOverviewPageSectionItem {
   identifier: string;
   title: string;
   category: string;
-  badge: string;
+  badge: string[];
   link: string;
   description: string;
 }
 
 export interface BaOverviewPageSection {
-  title: string;
+  title?: string;
   items: BaOverviewPageSectionItem[];
+}
+
+export interface BaOverviewPage {
+  title: string;
+  id: string;
+  layout: string;
+  description?: string;
+  sections: BaOverviewPageSection[];
 }
 
 export interface BaIndexPageLink {

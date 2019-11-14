@@ -15,24 +15,58 @@ export class BaTile {
   @Input() data: BaOverviewPageSectionItem;
   @Input() listView = true;
 
+  private favorite = false;
+  private deprecated = false;
+  private experimental = false;
+  private workinprogress = false;
+  private hasBadge = false;
+
   /** @internal whether the tile has the badge 'favorite' */
   get _favorite(): boolean {
-    return (this.data.badge && this.data.badge === 'favorite') || false;
+    this.setBadge();
+    return this.favorite;
   }
 
   /** @internal whether the tile has the badge 'workinprogress' */
   get _workinprogress(): boolean {
-    return (this.data.badge && this.data.badge === 'workinprogress') || false;
+    this.setBadge();
+    return this.workinprogress;
   }
 
   /** @internal whether the tile has the badge 'deprecated' */
   get _deprecated(): boolean {
-    return (this.data.badge && this.data.badge === 'deprecated') || false;
+    this.setBadge();
+    return this.deprecated;
   }
 
   /** @internal whether the tile has the badge 'experimental' */
   get _experimental(): boolean {
-    return (this.data.badge && this.data.badge === 'experimental') || false;
+    this.setBadge();
+    return this.experimental;
+  }
+
+  get _hasBadge(): boolean {
+    this.setBadge();
+    return this.hasBadge;
+  }
+
+  private setBadge(): void {
+    if (this.data.badge && this.data.badge.includes('favorite')) {
+      this.favorite = true;
+      this.hasBadge = true;
+    } else if (this.data.badge && this.data.badge.includes('deprecated')) {
+      this.deprecated = true;
+      this.hasBadge = true;
+    } else if (this.data.badge && this.data.badge.includes('experimental')) {
+      this.experimental = true;
+      this.hasBadge = true;
+    } else if (
+      this.data.badge &&
+      this.data.badge.includes('work in progress')
+    ) {
+      this.workinprogress = true;
+      this.hasBadge = true;
+    }
   }
 
   constructor(private _elementRef: ElementRef) {}

@@ -1,6 +1,5 @@
-import { existsSync, lstatSync, readFileSync, readdirSync } from 'fs';
+import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from '../types';
 import { basename, join } from 'path';
-
 import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
@@ -9,12 +8,14 @@ import {
   transformPage,
   uxSlotTransformer,
 } from '../transform';
-import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from '../types';
+import { existsSync, lstatSync, readFileSync, readdirSync } from 'fs';
+
+import { BaOverviewPage } from '../../../../apps/barista/src/shared/page-contents';
 
 // tslint:disable-next-line: no-any
 export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
 
-const LIB_ROOT = join(__dirname, '../../../', 'src', 'lib');
+const LIB_ROOT = join(__dirname, '../../../', 'components');
 
 const TRANSFORMERS: BaPageTransformer[] = [
   frontMatterTransformer,
@@ -23,6 +24,15 @@ const TRANSFORMERS: BaPageTransformer[] = [
   extractH1ToTitleTransformer,
   uxSlotTransformer,
 ];
+
+export const componentOverview: BaOverviewPage = {
+  title: 'Components',
+  id: 'components',
+  layout: 'overview',
+  description:
+    'Read all about development with/of our Angular components in how to get started. If you run into any troubles, please visit our GitHub page.',
+  sections: [],
+};
 
 /** Page-builder for angular component pages. */
 export const componentsBuilder: BaPageBuilder = async (
