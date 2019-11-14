@@ -31,15 +31,6 @@ site build. Some properties are required, others are nice-to-have.
 - tags: list of tags; used to group pages by topic and for search
 - related: list of ids to related Barista-pages
 
-### Additional properties
-
-These properties are only needed for some special use cases.
-
-- baristafilename: Set this property if the readme's filename is not what the
-  path should be in Barista, e.g. add `baristafilename: 'contribute'` if the
-  file is called `CONTRIBUTING.md` but the path should be
-  `.../components/contribute/` in the end.
-
 ## Content
 
 ### Structure
