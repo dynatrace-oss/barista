@@ -1,26 +1,3 @@
----
-title: 'Tile'
-description: 'A tile is a clickable area and represents e.g. entities.'
-postid: tile
-identifier: 'Ti'
-category: 'components'
-public: true
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - raphaela.raudaschl
-themable: true
-tags:
-  - 'tiles'
-  - 'content'
-  - 'layout'
-  - 'dashboard'
-  - 'list'
-  - 'angular'
-  - 'component'
----
-
 # Tile
 
 A tile is a clickable area and represents e.g. entities. Tiles can contain other

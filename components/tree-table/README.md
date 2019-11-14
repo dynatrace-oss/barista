@@ -1,28 +1,4 @@
----
-title: 'Tree-table'
-description:
-  'The tree-table is used to show a tree of entities with additional data in a
-  grid/table, hence with table headers.'
-postid: tree-table
-category: 'components'
-public: true
-identifier: Tt
-angular: 'tree-table'
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - perihan.rashed
-tags:
-  - 'angular'
-  - 'component'
-  - 'tree'
-  - 'table'
-  - 'trable'
-  - 'treetable'
-related:
-  - 'table'
----
+# Tree table
 
 The `<dt-tree-table>` provides the functionality of a tree displayed in a
 grid/table. The API is very similar to the

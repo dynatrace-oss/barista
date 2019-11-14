@@ -1,14 +1,3 @@
----
-title: Container-breakpoint-observer
-description: 'Observes a container element for provided queries and notifies the consumer if
-a query is matching or not'
-public: true
-toc: true
-contributors:
-  dev:
-    - thomas.pink
----
-
 # Container-breakpoint-observer (experimental)
 
 Observes the created container for provided queries and notifies the consumer if

@@ -1,24 +1,4 @@
----
-title: 'Pagination'
-description:
-  'A pagination is used to split long lists or tables in smaller sets.'
-postid: pagination
-category: 'components'
-public: true
-contributors:
-  dev:
-    - lukas.holzer
-  ux:
-    - gabriele.hasson-birkenmayer
-related:
-  - 'show-more'
-tags:
-  - 'component'
-  - 'angular'
-  - 'pagination'
-  - 'show more'
-  - 'pager'
----
+# Pagination
 
 The `DtPagination` provides navigation for paged information, typically used in
 combination with long lists or tables. List and table lengths should always be

@@ -1,30 +1,3 @@
----
-title: 'Button group'
-description:
-  'The button group component is used to switch between different views.'
-postid: button-group
-identifier: 'Bg'
-category: 'components'
-public: true
-themable: true
-contributors:
-  dev:
-    - thomas.heller
-    - daniel.kaneider
-  ux:
-    - raphaela.raudaschl
-related:
-  - 'chart'
-  - 'button'
-  - 'tabs'
-tags:
-  - 'tabs'
-  - 'component'
-  - 'angular'
-  - 'button'
-  - 'buttongroup'
----
-
 # ButtonGroup
 
 A button group has the same behavior as the [tabs

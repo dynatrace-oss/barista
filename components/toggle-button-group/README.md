@@ -1,24 +1,3 @@
----
-title: 'Toggle button group'
-postid: toggle-button-group
-category: 'components'
-public: true
-toc: true
-themable: true
-contributors:
-  dev:
-    - thomas.heller
-  ux:
-    - raphaela.raudaschl
-tags:
-  - 'toggle'
-  - 'button'
-  - 'component'
-  - 'angular'
-  - 'group'
-  - 'findings'
----
-
 # Toggle button group
 
 The toggle button component is used for highlighting a subset of information in

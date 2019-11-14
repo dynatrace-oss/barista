@@ -1,21 +1,3 @@
----
-title: 'Expandable section'
-description:
-  'The expandable section is used to show and hide context information.'
-postid: expandable-section
-category: 'components'
-contributors:
-  dev:
-    - lara.aigmueller
-  ux:
-    - gabriele.hasson-birkenmayer
-tags:
-  - 'expandable'
-  - 'expandable section'
-  - 'angular'
-  - 'component'
----
-
 # Expandable section
 
 The expandable section component provides basic expand/collapse functionality

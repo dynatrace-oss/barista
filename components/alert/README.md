@@ -1,30 +1,3 @@
----
-title: 'Alert'
-description:
-  'The alert component informs users about necessary configuration actions or
-  failures.'
-postid: alert
-category: 'components'
-public: true
-toc: true
-contributors:
-  dev:
-    - lara.aigmueller
-    - daniel.kaneider
-  ux:
-    - kathrin.aigner
-tags:
-  - 'angular'
-  - 'component'
-  - 'warning'
-  - 'error'
-  - 'error messages'
-  - 'msg'
-  - 'feedback'
-related:
-  - 'validation'
----
-
 # Alert
 
 The alert component informs users about necessary configuration actions

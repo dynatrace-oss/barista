@@ -1,25 +1,3 @@
----
-title: 'Key-value list'
-description: 'The key-value list component is used to visualize properties.'
-postid: key-value-list
-category: 'components'
-public: true
-toc: true
-contributors:
-  dev:
-    - fabian.friedl
-    - daniel.moertenschlag
-  ux:
-    - andreas.mayr
-tags:
-  - 'meta data'
-  - 'list'
-  - 'key-value'
-  - 'definition list'
-  - 'angular'
-  - 'component'
----
-
 # Key-value list
 
 The key-value list is used to visualize properties as key-value-pairs. The

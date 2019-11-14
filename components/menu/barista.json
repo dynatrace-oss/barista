@@ -1,0 +1,22 @@
+{
+  "title": "Menu",
+  "description": "A menu provides a list of links which can be grouped according to categories.",
+  "postid": "menu",
+  "public": true,
+  "identifier": "Me",
+  "category": "components",
+  "contributors": {
+    "ux": [
+      "andreas.mayr"
+    ],
+    "dev": [
+      "christoph.matscheko"
+    ]
+  },
+  "tags": [
+    "menu",
+    "navigation",
+    "action",
+    "overlay"
+  ]
+}

@@ -1,21 +1,3 @@
----
-title: 'Progress circle'
-description: 'The progress circle component is used to visualize progress.'
-postid: progress-circle
-category: 'components'
-public: true
-themable: true
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - andreas.mayr
-tags:
-  - 'loading'
-  - 'angular'
-  - 'component'
----
-
 # Progress circle
 
 The `<dt-progress-circle>` creates a container that is hidden inside an overlay.

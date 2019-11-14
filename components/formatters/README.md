@@ -1,26 +1,3 @@
----
-title: 'Formatters'
-description:
-  'Formatters are pipes and util functions that can be used to format values
-  within templates and TypeScript files.'
-postid: formatters
-identifier: 'Fm'
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - hartwig.salzer
-tags:
-  - 'units'
-  - 'formatter'
-  - 'pipe'
-properties:
-  - 'dev utility'
-  - 'work in progress'
-related:
-  - 'units'
----
-
 # Formatters
 
 For more details have a look at the [format units
