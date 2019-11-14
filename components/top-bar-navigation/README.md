@@ -1,7 +1,8 @@
 ---
 title: Top Bar Navigation
 description:
-  'A navigation bar for first level navigation commonly placed on the top area of a page.'
+  'A navigation bar for first level navigation commonly placed on the top area
+  of a page.'
 public: true
 toc: true
 contributors:

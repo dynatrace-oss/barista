@@ -119,11 +119,9 @@ describe('DtToast', () => {
     fixture.detectChanges();
     expect(overlayContainerElement.childElementCount).toBeGreaterThan(0);
 
-    toastRef!.afterDismissed().subscribe(
-      () => {},
-      () => {},
-      dismissCompleteSpy,
-    );
+    toastRef!
+      .afterDismissed()
+      .subscribe(() => {}, () => {}, dismissCompleteSpy);
 
     toastRef!.dismiss();
     fixture.detectChanges();
@@ -175,11 +173,9 @@ describe('DtToast', () => {
     const toastRef2 = dtToast.create(simpleMessage);
 
     fixture.detectChanges();
-    toastRef!.afterDismissed().subscribe(
-      () => {},
-      () => {},
-      dismissCompleteSpy,
-    );
+    toastRef!
+      .afterDismissed()
+      .subscribe(() => {}, () => {}, dismissCompleteSpy);
     tick(DT_TOAST_FADE_TIME);
     expect(toastRef2!.containerInstance._animationState).toBe('enter');
 

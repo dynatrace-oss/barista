@@ -95,7 +95,10 @@ export class DtSelectionAreaOrigin extends _DtSelectionAreaOriginMixin
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectionArea) {
       this._zone.onStable
-        .pipe(takeUntil(this._destroy), take(1))
+        .pipe(
+          takeUntil(this._destroy),
+          take(1),
+        )
         .subscribe(() => {
           this._emitBoundariesChangedOnSelectionArea();
         });

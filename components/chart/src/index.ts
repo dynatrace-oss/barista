@@ -11,4 +11,6 @@ export { DtChartRange } from './range/range';
 export { DtChartTimestamp } from './timestamp/timestamp';
 export { DtChartSelectionAreaAction } from './selection-area/overlay-action';
 
-export { DtChartSelectionArea as _DtChartSelectionArea } from './selection-area/selection-area';
+export {
+  DtChartSelectionArea as _DtChartSelectionArea,
+} from './selection-area/selection-area';
