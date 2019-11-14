@@ -343,7 +343,10 @@ export class DtChart
       this._viewportResizer
         .change()
         // delay to postpone the reflow to the next change detection cycle
-        .pipe(takeUntil(this._destroy$), delay(0))
+        .pipe(
+          takeUntil(this._destroy$),
+          delay(0),
+        )
         .subscribe(() => {
           if (this._chartObject) {
             this._ngZone.runOutsideAngular(() => {
