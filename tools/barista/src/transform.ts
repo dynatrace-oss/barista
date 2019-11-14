@@ -15,7 +15,6 @@
  */
 
 import { load as loadWithCheerio } from 'cheerio';
-import * as matter from 'gray-matter';
 import * as markdownIt from 'markdown-it';
 
 import { BaPageContent, BaPageTransformer } from './types';
@@ -36,29 +35,15 @@ export async function transformPage(
   );
 }
 
-/** Enriches the page-content object with front-matter data. */
+/** Sets front matter defaults. */
 export const frontMatterTransformer: BaPageTransformer = async source => {
   const transformed = { ...source };
-  if (source.content && source.content.length) {
-    const frontMatter = matter(source.content);
-    transformed.title = source.title || frontMatter.data.title || '';
-    transformed.description =
-      source.description || frontMatter.data.description || '';
-    transformed.layout =
-      source.layout || frontMatter.data.layout || 'component';
-    transformed.content = frontMatter.content || '';
-    transformed.properties =
-      source.properties || frontMatter.data.properties || [];
-    transformed.tags = source.tags || frontMatter.data.tags || [];
-    transformed.related = source.related || frontMatter.data.related;
-    transformed.public = source.public || frontMatter.data.public || false;
-    transformed.toc = source.toc || frontMatter.data.toc || true;
-    transformed.themable =
-      source.themable || frontMatter.data.themable || false;
-    transformed.wiki = source.wiki || frontMatter.data.wiki;
-    transformed.contributors =
-      source.contributors || frontMatter.data.contributors || {};
-  }
+  transformed.title = source.title || '';
+  transformed.description = source.description || '';
+  transformed.layout = source.layout || 'component';
+  transformed.public = source.public || false;
+  transformed.toc = source.toc || true;
+  transformed.themable = source.themable || false;
   return transformed;
 };
 
