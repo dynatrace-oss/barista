@@ -1,24 +1,4 @@
----
-title: 'Inline editor'
-description: 'The inline editor is used to make text editable.'
-postid: inline-editor
-identifier: 'Ie'
-category: 'components'
-public: true
-contributors:
-  dev:
-    - thomas.pink
-angular: 'inline-editor'
-related:
-  - 'input'
-tags:
-  - 'component'
-  - 'directive'
-  - 'angular'
-  - 'edit'
-  - 'inline edit'
-  - 'input'
----
+# Inline editor
 
 The `dt-inline-editor` is a directive that makes any text containing HTML
 element editable.

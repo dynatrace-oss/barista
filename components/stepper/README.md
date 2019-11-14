@@ -1,26 +1,3 @@
----
-title: 'Stepper'
-description:
-  'The stepper component is to guide through multiple steps. The steps are
-  indicated by the progress indicator on the top. There should be at least 3
-  steps.'
-postid: stepper
-category: 'components'
-public: true
-toc: true
-themable: false
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - andreas.mayr
-tags:
-  - 'stepper'
-  - 'step'
-  - 'component'
-  - 'angular'
----
-
 # Stepper
 
 The stepper component creates a multi step workflow by creating a content area

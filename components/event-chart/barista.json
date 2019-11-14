@@ -1,0 +1,31 @@
+{
+  "title": "Event chart (experimental)",
+  "postid": "event-chart",
+  "public": false,
+  "identifier": "Ec",
+  "category": "components",
+  "properties": [
+    "experimental",
+    "work in progress"
+  ],
+  "contributors": {
+    "dev": [
+      "thomas.pink",
+      "thomas.heller"
+    ],
+    "ux": [
+      "xavier.javaloyas"
+    ],
+    "tags": [
+      "chart",
+      "event-chart",
+      "component",
+      "angular"
+    ]
+  },
+  "related": [
+    "chart",
+    "micro-chart",
+    "timeline-chart"
+  ]
+}

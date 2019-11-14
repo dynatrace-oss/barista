@@ -1,17 +1,3 @@
----
-title: Shipped schematics
-postid: schematics
-public: true
-toc: true
-draft: true
-tags:
-  - component
-  - angular
-nav_group: angular-component
-category: components
-layout: page-angular.hbs
----
-
 # Shipped schematics
 
 ## ng update

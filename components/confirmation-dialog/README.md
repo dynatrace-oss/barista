@@ -1,26 +1,3 @@
----
-title: 'Confirmation dialog'
-description:
-  'The confirmation dialog appears to confirm setting changes via save or cancel
-  button.'
-postid: confirmation-dialog
-category: 'components'
-public: true
-contributors:
-  dev:
-    - todd.baert
-    - fabian.friedl
-  ux:
-    - andreas.mayr
-tags:
-  - 'saving'
-  - 'save'
-  - 'cancel'
-  - 'saving bar'
-  - 'settings'
-  - 'confirmation'
----
-
 # Confirmation Dialog
 
 The `<dt-confirmation-dialog>` creates an overlay and slides a drawer up from

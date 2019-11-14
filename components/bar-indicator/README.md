@@ -1,26 +1,3 @@
----
-title: 'Bar indicator'
-description: 'Bar-indicators are used to compare values with each other.'
-postid: bar-indicator
-category: 'components'
-public: true
-toc: true
-themable: true
-contributors:
-  dev:
-    - thomas.heller
-  ux:
-    - andreas.mayr
-    - kathrin.aigner
-tags:
-  - 'progress'
-  - 'progress bar'
-  - 'angular'
-  - 'component'
-  - 'indicator'
-  - 'micro chart'
----
-
 # Bar-indicator
 
 The bar-indicator functions as a semantic alternative to the progress bar. It

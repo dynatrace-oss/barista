@@ -1,0 +1,31 @@
+{
+  "title": "Input fields",
+  "description": "An input field allows to enter various types of data.",
+  "postid": "input",
+  "identifier": "If",
+  "category": "components",
+  "public": true,
+  "wiki": "***REMOVED***",
+  "contributors": {
+    "dev": [
+      "thomas.pink",
+      "jordi.masramon"
+    ],
+    "ux": [
+      "raphaela.raudaschl"
+    ]
+  },
+  "related": [
+    "form-field",
+    "inline-editor",
+    "validation"
+  ],
+  "tags": [
+    "input fields",
+    "input",
+    "textarea",
+    "edit",
+    "forms",
+    "validation"
+  ]
+}

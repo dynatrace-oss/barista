@@ -1,26 +1,3 @@
----
-title: 'Expandable text'
-description:
-  'The expandable text component provides expand and collapse functionality for
-  inline-text.'
-postid: expandable-text
-public: true
-category: 'components'
-contributors:
-  ux:
-    - gabriele.hasson-birkenmayer
-  dev:
-    - rowa.audil
-    - fabian.friedl
-tags:
-  - 'expandable'
-  - 'expandable text'
-  - 'angular'
-  - 'component'
-  - 'inline help'
-  - 'information'
----
-
 # Expandable text
 
 This Angular component provides basic expand/collapse functionality for

@@ -1,25 +1,3 @@
----
-title: 'Button'
-description:
-  'The button component is used for navigating and triggering actions.'
-postid: button
-category: 'components'
-public: true
-toc: true
-themable: true
-contributors:
-  dev:
-    - thomas.pink
-  ux:
-    - raphaela.raudaschl
-tags:
-  - 'button'
-  - 'component'
-  - 'angular'
-related:
-  - 'button-alignment'
----
-
 # Button
 
 The button component enhances the native `<button>` and `<a>` elements. A button

@@ -1,11 +1,3 @@
----
-title: 'Styling'
-description:
-  'Use predefined font-mixins to apply our globally used font-styles to your
-  views.'
-type: 'other'
----
-
 # Styling
 
 ## Fonts
