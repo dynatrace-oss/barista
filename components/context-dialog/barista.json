@@ -5,7 +5,6 @@
   "identifier": "Cd",
   "category": "components",
   "public": true,
-  "wiki": "https://dev-wiki.dynatrace.org/display/UX/Context+dialog",
   "contributors": {
     "dev": [
       "fabian.friedl"
