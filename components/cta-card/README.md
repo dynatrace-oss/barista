@@ -1,31 +1,3 @@
----
-title: 'CTA card'
-description:
-  'The CTA card is a specific type of card, showing a call to action content.'
-postid: cta-card
-identifier: 'Ca'
-category: 'components'
-public: true
-properties:
-  - deprecated
-contributors:
-  dev:
-    - christoph.matscheko
-    - alexander.lagler
-  ux:
-    - raphaela.raudaschl
-tags:
-  - 'call to action'
-  - 'cta'
-  - 'section'
-  - 'card'
-  - 'component'
-  - 'illustration'
-related:
-  - 'empty-state'
-  - 'card'
----
-
 # Cta Card
 
 **DEPRECATED – will be removed with version 6.0.0** Please use

@@ -1,22 +1,4 @@
----
-title: 'Menu'
-description:
-  'A menu provides a list of links which can be grouped according to categories.'
-postid: menu
-public: true
-identifier: 'Me'
-category: 'components'
-contributors:
-  ux:
-    - andreas.mayr
-  dev:
-    - christoph.matscheko
-tags:
-  - 'menu'
-  - 'navigation'
-  - 'action'
-  - 'overlay'
----
+# Menu
 
 The `<dt-menu>` is a generic navigation menu that supports item groups as well
 as individual items that do not belong to a group. It has a clear hierarchy and

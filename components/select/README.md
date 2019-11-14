@@ -1,22 +1,3 @@
----
-title: 'Select'
-description:
-  'The select component allows to select a value from a set of options.'
-postid: select
-category: 'components'
-public: true
-contributors:
-  dev:
-    - thomas.pink
-  ux:
-    - raphaela.raudaschl
-tags:
-  - 'dropdown'
-  - 'component'
-  - 'select'
-  - 'angular'
----
-
 # Select
 
 The `<dt-select>` is like the native `<select>` a form control for selecting a

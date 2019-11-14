@@ -1,18 +1,3 @@
----
-title: 'Linting'
-description: 'We provide a set of custom TSLint rules to help you using the Barista components
-correctly as intended.'
-order: 6
-tags:
-  - "tslint"
-  - "linting"
-  - "quality"
-  - "code quality"
-  - "accessibility"
-  - "a11y"
-  - "development"
----
-
 # Linting
 
 To ensure a high code quality, the Barista components library comes with a set

@@ -1,31 +1,3 @@
----
-title: 'Breadcrumbs'
-description:
-  'Breadcrumbs are a navigational aid that help the user understand on what page
-  they are and what path led them there.'
-postid: breadcrumbs
-category: 'components'
-public: true
-toc: true
-properties:
-  - 'work in progress'
-contributors:
-  dev:
-    - fabian.friedl
-    - szymon.bultrowicz
-  ux:
-    - andreas.haslinger
-wiki: https://dev-wiki.dynatrace.org/display/UX/Breadcrumbs
-themable: true
-tags:
-  - 'nav'
-  - 'component'
-  - 'angular'
-  - 'navbar'
-  - 'navigation'
-  - 'breadcrumbs'
----
-
 # Breadcrumbs
 
 Breadcrumbs are used to navigate and to indicate the currently viewed page. Our

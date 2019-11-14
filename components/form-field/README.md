@@ -1,29 +1,4 @@
----
-title: 'Form field'
-description:
-  'The form field component can be used to wrap input components to provide a
-  label, errors or hints.'
-postid: form-field
-identifier: 'Ff'
-category: 'components'
-public: true
-contributors:
-  dev:
-    - thomas.pink
-  ux:
-    - raphaela.raudaschl
-properties:
-  - 'work in progress'
-related:
-  - 'input'
-  - 'validation'
-tags:
-  - 'input fields'
-  - 'forms'
-  - 'form validation'
-  - 'angular'
-  - 'component'
----
+# Form field
 
 The `<dt-form-field>` is a component that wraps form input components like
 `dtInput` and provides functionality for a label (`<dt-label>`), errors

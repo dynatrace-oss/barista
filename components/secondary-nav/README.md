@@ -1,25 +1,3 @@
----
-title: 'Secondary nav'
-description:
-  'The secondary nav component is a navigation menu that can contain internal
-  and external links.'
-contributors:
-  ux:
-    - ryan.deliso
-  dev:
-    - arnaud.crowther
-    - thomas.pink
-tags:
-  - 'navigation'
-  - 'menu'
-  - 'secondary'
-  - 'sidemenu'
-  - 'settings'
-  - 'list'
-  - 'component'
-  - 'angular'
----
-
 # Secondary nav
 
 The secondary nav component provides a navigation menu which has a clear

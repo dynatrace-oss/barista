@@ -1,12 +1,3 @@
----
-title: 'How to contribute'
-description:
-  'Find all the information about contributing to the Barista components library
-  summarized on this page.'
-baristafilename: 'contribute.md'
-order: 2
----
-
 # Contributing to Barista
 
 ## Found a bug?
