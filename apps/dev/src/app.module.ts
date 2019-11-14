@@ -13,7 +13,6 @@ import { DevAppRoutingModule } from './devapp-routing.module';
 import { DevApp } from './devapp.component';
 import { DevAppDynatraceModule } from './dt-components.module';
 
-
 import { AlertDemo } from './alert/alert-demo.component';
 import { AutocompleteDemo } from './autocomplete/autocomplete-demo.component';
 import { BarIndicatorDemo } from './bar-indicator/bar-indicator-demo.component';

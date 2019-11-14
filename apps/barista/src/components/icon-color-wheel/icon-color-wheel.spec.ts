@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { BaIconColorWheel } from './icon-color-wheel';
 
-describe ('IconColorWheelComponent', () => {
+describe('IconColorWheelComponent', () => {
   let component: BaIconColorWheel;
   let fixture: ComponentFixture<BaIconColorWheel>;
 
