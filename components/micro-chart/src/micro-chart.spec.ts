@@ -307,10 +307,7 @@ class Series {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-    ],
+    data: [[1, 140], [2, 120]],
   };
 }
 
@@ -329,12 +326,7 @@ class Formatter {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-      [3, 150],
-      [4, 200],
-    ],
+    data: [[1, 140], [2, 120], [3, 150], [4, 200]],
   };
 
   formatterInvocations = 0;
@@ -355,10 +347,7 @@ class DefinedAxis {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-    ],
+    data: [[1, 140], [2, 120]],
   };
 }
 
@@ -372,10 +361,7 @@ class DefinedAxisArray {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-    ],
+    data: [[1, 140], [2, 120]],
   };
 }
 
@@ -389,10 +375,7 @@ class DefinedAxisEmptyArray {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-    ],
+    data: [[1, 140], [2, 120]],
   };
 }
 
@@ -410,10 +393,7 @@ class ThemeDynamic {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-    ],
+    data: [[1, 140], [2, 120]],
   };
 }
 
@@ -427,10 +407,7 @@ class ThemeFixed {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-    ],
+    data: [[1, 140], [2, 120]],
   };
 }
 
@@ -442,10 +419,7 @@ class NoOptions {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-    ],
+    data: [[1, 140], [2, 120]],
   };
 }
 
@@ -471,20 +445,14 @@ class DynamicSeries {
   series = new BehaviorSubject({
     name: 'Actions/min',
     id: 'someId',
-    data: [
-      [1, 0],
-      [2, 10],
-    ],
+    data: [[1, 0], [2, 10]],
   });
 
   emitTestData(): void {
     this.series.next({
       name: 'Actions/min',
       id: 'someOtherId',
-      data: [
-        [1, 20],
-        [2, 30],
-      ],
+      data: [[1, 20], [2, 30]],
     });
   }
 }
@@ -498,10 +466,7 @@ class UnsupportedSeriesType {
     name: 'Actions/min',
     id: 'someId',
     type: 'pie',
-    data: [
-      [1, 0],
-      [2, 10],
-    ],
+    data: [[1, 0], [2, 10]],
   };
 }
 
@@ -522,9 +487,6 @@ class TooltipTest {
   series: DtChartSeries = {
     name: 'Actions/min',
     id: 'someMetricId',
-    data: [
-      [1, 140],
-      [2, 120],
-    ],
+    data: [[1, 140], [2, 120]],
   };
 }
