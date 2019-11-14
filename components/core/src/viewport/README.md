@@ -1,18 +1,3 @@
----
-title: 'Viewport resizer'
-description:
-  'The viewport resizer is a service that helps you react to window resize
-  events.'
-properties:
-  - 'dev utility'
-tags:
-  - 'viewport'
-  - 'resize'
-  - 'window'
-  - 'responsive'
-type: 'service'
----
-
 # Viewport resizer
 
 The `ViewportResizer` is an abstract class that specifies a `change` function
