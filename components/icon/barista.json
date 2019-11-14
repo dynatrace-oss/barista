@@ -4,7 +4,7 @@
   "postid": "icon",
   "identifier": "Ic",
   "category": "components",
-  "public": false,
+  "public": true,
   "contributors": {
     "dev": [
       "thomas.pink"

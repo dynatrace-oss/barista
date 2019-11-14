@@ -2,7 +2,7 @@
   "title": "Legend",
   "postid": "legend",
   "category": "components",
-  "public": false,
+  "public": true,
   "draft": true,
   "contributors": {
     "dev": [
