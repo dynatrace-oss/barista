@@ -1,7 +1,3 @@
----
-draft: true
----
-
 # Barista components and design system
 
 ![npm version](https://img.shields.io/npm/v/@dynatrace/barista-components)

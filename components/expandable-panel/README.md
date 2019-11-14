@@ -1,23 +1,3 @@
----
-title: 'Expandable panel'
-description:
-  'The expandable panel component is responsible for showing and hiding context
-  information.'
-postid: expandable-panel
-category: 'components'
-contributors:
-  dev:
-    - lara.aigmueller
-  ux:
-    - gabriele.hasson-birkenmayer
-tags:
-  - 'expand'
-  - 'collapse'
-  - 'inline doc'
-  - 'angular'
-  - 'component'
----
-
 # Expandable panel
 
 The expandable panel component provides basic expand/collapse functionality

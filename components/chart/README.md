@@ -1,32 +1,3 @@
----
-title: 'Chart'
-description:
-  'The chart component visualizes series of data to easily analyze and compare
-  metrics.'
-postid: chart
-identifier: 'Ch'
-category: 'components'
-public: true
-toc: true
-wiki: https://dev-wiki.dynatrace.org/display/UX/Charts
-contributors:
-  dev:
-    - fabian.friedl
-    - lukas.holzer
-  ux:
-    - kathrin.aigner
-related:
-  - 'micro-chart'
-  - 'selection-area'
-  - 'colors-chart'
-tags:
-  - 'angular'
-  - 'component'
-  - 'chart'
-  - 'heatfield'
-  - 'selection area'
----
-
 # Chart
 
 The chart component represents one or more metrics. It depends on the given data

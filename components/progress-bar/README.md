@@ -1,23 +1,4 @@
----
-title: 'Progress bar'
-description: 'The progress bar component is used to visualize progress.'
-postid: progress-bar
-category: 'components'
-public: true
-themable: true
-contributors:
-  dev:
-    - thomas.heller
-    - daniel.kaneider
-  ux:
-    - andreas.mayr
-tags:
-  - 'progress'
-  - 'loading'
-  - 'progress bar'
-  - 'angular'
-  - 'component'
----
+# Progress bar
 
 The `<dt-progress-bar>` creates a simple progress bar. It is possible to set the
 value for the progress bars as well as setting a min and max value. The color

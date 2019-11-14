@@ -1,25 +1,3 @@
----
-title: 'Show more'
-description: 'The show more component creates a show more pagination widget.'
-postid: show-more
-category: 'components'
-public: true
-contributors:
-  dev:
-    - lara.aigmueller
-    - daniel.kaneider
-  ux:
-    - gabriele.hasson-birkenmayer
-related:
-  - 'pagination'
-tags:
-  - 'component'
-  - 'angular'
-  - 'pagination'
-  - 'show more'
-  - 'pager'
----
-
 # Show More
 
 The show more component is used to split long lists of items into smaller sets

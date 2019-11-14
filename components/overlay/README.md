@@ -1,26 +1,4 @@
----
-title: 'Overlay'
-description:
-  'Overlays are floating labels that are meant to clarify, display additional
-  context information, or help you to use specific content.'
-postid: overlay
-category: 'components'
-public: true
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - kathrin.aigner
-tags:
-  - 'content'
-  - 'hover'
-  - 'tooltip'
-  - 'overlay'
-  - 'information'
-  - 'additional'
-  - 'component'
-  - 'angular'
----
+# Overlay
 
 The overlay component is used to display additional context information or to
 analyze charts, tags or tiles. The overlay's content should be reduced to a

@@ -1,28 +1,3 @@
----
-title: 'Info group'
-description:
-  'An info group visualizes properties by combining an icon and a short text.'
-postid: info-group
-identifier: 'Ig'
-category: 'components'
-public: true
-toc: true
-themable: true
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - andreas.mayr
-related:
-  - 'icon'
-  - 'card'
-  - 'table'
-tags:
-  - 'icon'
-  - 'info'
-  - 'infobyte'
----
-
 # Info group
 
 An info group (`<dt-info-group>`) is used to show data in a simple way. It's a

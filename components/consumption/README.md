@@ -1,23 +1,3 @@
----
-title: 'Consumption'
-description:
-  'The consumption component visualizes service usage data combining an icon, a
-  title, a progress bar and some description text.'
-postid: consumption
-category: 'components'
-contributors:
-  dev:
-    - christoph.matscheko
-  ux:
-    - jayme.brown
-tags:
-  - 'progress'
-  - 'progress bar'
-  - 'icon'
-  - 'consumption'
-  - 'angular'
----
-
 # Consumption
 
 The consumption component visualizes usage data of account services. It utilizes

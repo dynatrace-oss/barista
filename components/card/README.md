@@ -1,29 +1,4 @@
----
-title: 'Card'
-postid: card
-identifier: 'Cd'
-category: 'components'
-public: true
-toc: true
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - raphaela.raudaschl
-angular: 'card'
-tags:
-  - 'card'
-  - 'content'
-  - 'layout'
-  - 'island'
-  - 'section'
-  - 'list'
-  - 'panel'
-  - 'grouping'
-  - 'page structure'
-  - 'angular'
-  - 'component'
----
+# Card
 
 <!-- styling to change background color of component demos -->
 <style>
@@ -31,8 +6,6 @@ tags:
   background-color: #f8f8f8;
 }
 </style>
-
-# Card
 
 The card component is a visual container for wrapping a wide variety of
 contents.
