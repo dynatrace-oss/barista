@@ -1,0 +1,24 @@
+{
+  "title": "Progress bar",
+  "description": "The progress bar component is used to visualize progress.",
+  "postid": "progress-bar",
+  "category": "components",
+  "public": true,
+  "themable": true,
+  "contributors": {
+    "dev": [
+      "thomas.heller",
+      "daniel.kaneider"
+    ],
+    "ux": [
+      "andreas.mayr"
+    ]
+  },
+  "tags": [
+    "progress",
+    "loading",
+    "progress bar",
+    "angular",
+    "component"
+  ]
+}

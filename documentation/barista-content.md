@@ -1,7 +1,3 @@
----
-draft: true
----
-
 # Barista design system
 
 Stick to the following best practices and structure guidelines when editing the

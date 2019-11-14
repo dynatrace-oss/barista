@@ -1,31 +1,4 @@
----
-title: 'Micro chart'
-description:
-  'The micro chart component is a smaller version of a chart where the amount of
-  displayed information is reduced.'
-postid: micro-chart
-category: 'components'
-public: true
-toc: true
-themable: true
-properties:
-  - 'work in progress'
-contributors:
-  dev:
-    - fabian.friedl
-    - david.laubreiter
-  ux:
-    - kathrin.aigner
-related:
-  - 'chart'
-tags:
-  - 'chart'
-  - 'data'
-  - 'angular'
-  - 'component'
----
-
-# Microchart
+# Micro chart
 
 Micro charts are smaller versions of charts. The amount of information shown is
 reduced to the bare minimum. They use little screen estate and are used to

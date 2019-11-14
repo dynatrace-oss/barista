@@ -1,24 +1,3 @@
----
-title: 'Toast'
-description:
-  'Toasts display status messages or feedback that is directly related to an
-  action.'
-postid: toast
-category: 'components'
-public: true
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - andreas.mayr
-tags:
-  - 'toast'
-  - 'message'
-  - 'saving'
-  - 'feedback'
-  - 'component'
----
-
 # Toast
 
 The `DtToast` service provides the possibility to show a temporary message to

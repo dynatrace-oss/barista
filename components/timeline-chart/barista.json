@@ -1,0 +1,29 @@
+{
+  "title": "Timeline chart",
+  "description": "The timeline chart enables a quick duration analysis of a user action.",
+  "postid": "timeline-chart",
+  "identifier": "Tc",
+  "category": "components",
+  "public": true,
+  "wiki": "***REMOVED***",
+  "properties": [
+    "work in progress"
+  ],
+  "contributors": {
+    "dev": [
+      "thomas.pink"
+    ],
+    "ux": [
+      "ursula.wieshofer"
+    ]
+  },
+  "tags": [
+    "duration",
+    "action",
+    "bar",
+    "contributor breakdown",
+    "waterfall",
+    "timeline",
+    "performance"
+  ]
+}

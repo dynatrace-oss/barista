@@ -1,0 +1,21 @@
+{
+  "title": "Select",
+  "description": "The select component allows to select a value from a set of options.",
+  "postid": "select",
+  "category": "components",
+  "public": true,
+  "contributors": {
+    "dev": [
+      "thomas.pink"
+    ],
+    "ux": [
+      "raphaela.raudaschl"
+    ]
+  },
+  "tags": [
+    "dropdown",
+    "component",
+    "select",
+    "angular"
+  ]
+}

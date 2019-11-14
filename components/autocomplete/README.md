@@ -1,22 +1,3 @@
----
-title: 'Autocomplete'
-description:
-  'The autocomplete component is used in combination with an input to suggest
-  options according to the input.'
-postid: autocomplete
-category: 'components'
-public: true
-draft: true
-contributors:
-  dev:
-    - thomas.pink
-tags:
-  - 'combobox'
-  - 'input'
-  - 'angular'
-  - 'component'
----
-
 # Autocomplete
 
 The autocomplete is a normal text input enhanced by a panel of suggested

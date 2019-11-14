@@ -1,25 +1,3 @@
----
-title: 'Context dialog'
-description:
-  'The context dialog is an overlay which appears on click of a button.'
-postid: context-dialog
-identifier: 'Cd'
-category: 'components'
-public: true
-wiki: ***REMOVED***
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - andreas.mayr
-tags:
-  - 'angular'
-  - 'button'
-  - 'component'
-  - 'context action'
-  - 'overlay'
----
-
 # Context dialog
 
 The context dialog is an overlay which appears on click of a button. It holds

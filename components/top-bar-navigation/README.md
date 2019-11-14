@@ -1,22 +1,3 @@
----
-title: Top Bar Navigation
-description:
-  'A navigation bar for first level navigation commonly placed on the top area
-  of a page.'
-public: true
-toc: true
-contributors:
-  dev:
-    - lukas.holzer
-  ux:
-    - arkadius.lipiarz
-related:
-  - drawer
-  - menu
-  - navigation
-  - secondary-nav
----
-
 # Top Bar Navigation
 
 The navigation is a landmark on every page. A landmark provides a way to

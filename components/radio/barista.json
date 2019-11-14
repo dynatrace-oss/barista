@@ -1,0 +1,21 @@
+{
+  "title": "Radio button",
+  "description": "The radio button component is used to select one option from a set.",
+  "postid": "radio",
+  "category": "components",
+  "contributors": {
+    "dev": [
+      "thomas.pink"
+    ],
+    "ux": [
+      "raphaela.raudaschl"
+    ]
+  },
+  "tags": [
+    "radiobutton",
+    "component",
+    "angular",
+    "input"
+  ],
+  "baristafilename": "radio-button.md"
+}

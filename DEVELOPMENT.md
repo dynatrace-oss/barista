@@ -1,11 +1,3 @@
----
-title: 'Development'
-description:
-  'All useful commands to develop Barista components features are collected on
-  this page.'
-order: 3
----
-
 # Development
 
 ## Prerequisites

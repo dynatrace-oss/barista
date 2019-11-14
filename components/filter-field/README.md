@@ -1,22 +1,3 @@
----
-title: 'Filter field'
-description: 'The filter is used to narrow down displayed content.'
-postid: filter-field
-category: 'components'
-public: true
-contributors:
-  dev:
-    - thomas.pink
-    - thomas.heller
-  ux:
-    - andreas.haslinger
-wiki: ***REMOVED***
-tags:
-  - 'filter'
-  - 'filterfield'
-  - 'component'
----
-
 # Filter field
 
 With the filter component lists and views can be filtered to reduce the

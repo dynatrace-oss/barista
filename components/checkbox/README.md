@@ -1,21 +1,3 @@
----
-title: 'Checkbox'
-description:
-  'The checkbox component is used to toggle one or multiple options from a set.'
-postid: checkbox
-identifier: 'Cb'
-category: 'components'
-contributors:
-  dev:
-    - thomas.pink
-  ux:
-    - raphaela.raudaschl
-tags:
-  - 'checkbox'
-  - 'component'
-  - 'angular'
----
-
 # Checkbox
 
 The `<dt-checkbox>` provides the same functionality as a native checkbox

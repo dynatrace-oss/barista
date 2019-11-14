@@ -1,17 +1,3 @@
----
-title: 'Highlight'
-description:
-  'The highlight component is used to highlight characters in a string.'
-contributors:
-  dev:
-    - lukas.holzer
-properties:
-  - 'dev utility'
-tags:
-  - 'highlight'
-  - 'text'
----
-
 # Highlight
 
 The `dt-highlight` component is designed to highlight some characters in a

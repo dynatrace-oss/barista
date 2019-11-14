@@ -1,22 +1,3 @@
----
-title: 'Loading distractor'
-description: 'The loading distractor indicates a saving or loading action.'
-postid: loading-distractor
-category: 'components'
-public: true
-contributors:
-  dev:
-    - thomas.pink
-  ux:
-    - andreas.mayr
-tags:
-  - 'loading'
-  - 'spinner'
-  - 'distractor'
-  - 'angular'
-  - 'component'
----
-
 # Loading distractor & loading spinner
 
 The `<dt-loading-spinner>` and `<dt-loading-distractor>` are circular indicators

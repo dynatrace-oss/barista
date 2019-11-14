@@ -1,23 +1,3 @@
----
-title: 'Empty state'
-description:
-  'The empty state is used if a component or entity view has no data to show.'
-postid: empty-state
-identifier: 'Es'
-category: 'components'
-public: true
-wiki: ***REMOVED***
-contributors:
-  dev:
-    - christoph.matscheko
-  ux:
-    - andreas.mayr
-tags:
-  - 'empty state'
-  - 'call to action'
-  - 'illustration'
----
-
 # Empty state
 
 The `<dt-empty-state>` component is a placeholder for content that does not yet
