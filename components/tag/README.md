@@ -1,22 +1,3 @@
----
-title: 'Tag'
-description: 'The tag component is used to classify or categorize information.'
-contributors:
-  ux:
-    - andreas.haslinger
-  dev:
-    - christoph.matscheko
-    - rowa.audil
-
-postid: tag
-tags:
-  - 'component'
-  - 'angular'
-  - 'tagging'
-  - 'label'
-  - 'keyword'
----
-
 # Tag
 
 A tag allows users to mark entities with custom labels and keywords. This

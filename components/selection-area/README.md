@@ -1,30 +1,3 @@
----
-title: 'Selection area'
-description:
-  'The selection area creates a selected area inside an origin element.'
-postid: selection-area
-identifier: 'Sa'
-category: 'components'
-public: true
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - kathrin.aigner
-related:
-  - 'micro-chart'
-  - 'chart'
-tags:
-  - 'angular'
-  - 'component'
-  - 'chart'
-  - 'zoom'
-  - 'selection area'
-  - 'selection'
-properties:
-  - deprecated
----
-
 # Selection Area
 
 **DEPRECATED – will be removed with version 5.0.0** Please use the

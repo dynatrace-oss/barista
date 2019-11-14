@@ -1,22 +1,3 @@
----
-title: 'Tabs'
-description: 'Tabs are used to switch between different views.'
-postid: tabs
-identifier: 'Tb'
-category: 'components'
-public: true
-themable: true
-contributors:
-  dev:
-    - fabian.friedl
-  ux:
-    - raphaela.raudaschl
-tags:
-  - 'tabs'
-  - 'component'
-  - 'angular'
----
-
 # Tabs
 
 The `<dt-tab-group>` wraps a group of `<dt-tab>` components. Each tab gets a

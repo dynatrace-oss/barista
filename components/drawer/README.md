@@ -1,18 +1,3 @@
----
-title: 'Drawer'
-description:
-  'The drawer is a component that adds collapsible side content to some primary
-  content.'
-contributors:
-  dev:
-    - lukas.holzer
-tags:
-  - 'side content'
-  - 'aside'
-properties:
-  - 'dev utility'
----
-
 # Drawer
 
 The drawer is a component designed to add collapsible side content _(often

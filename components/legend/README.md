@@ -1,17 +1,3 @@
----
-title: 'Legend'
-postid: legend
-category: 'components'
-public: false
-draft: true
-contributors:
-  dev:
-    - thomas.pink
-tags:
-  - 'angular'
-  - 'component'
----
-
 # Legend
 
 <docs-source-example example="DefaultLegendExample"></docs-source-example>

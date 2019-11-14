@@ -1,25 +1,3 @@
----
-title: 'Icon'
-description:
-  'The icon component is used to display any Dynatrace icon within the UI.'
-postid: icon
-identifier: 'Ic'
-category: 'components'
-public: false
-contributors:
-  dev:
-    - thomas.pink
-  ux:
-    - kathrin.aigner
-related:
-  - 'button'
-  - 'copy-to-clipboard'
-  - 'show-more'
-tags:
-  - 'angular'
-  - 'component'
----
-
 # Icon
 
 The icon component provides an easy way to use SVG (not font or bitmap) icons in

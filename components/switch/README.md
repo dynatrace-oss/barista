@@ -1,20 +1,3 @@
----
-title: 'Switch'
-description: 'The switch component is used to toggle an option.'
-postid: switch
-category: 'components'
-contributors:
-  dev:
-    - lara.aigmueller
-    - alexander.frass
-  ux:
-    - raphaela.raudaschl
-tags:
-  - 'switch'
-  - 'component'
-  - 'angular'
----
-
 # Switch
 
 The switch component is an on/off control that can be toggled via clicking. It

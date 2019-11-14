@@ -1,29 +1,3 @@
----
-title: 'Table'
-description:
-  'A table is a two-dimensional structure composed of rows and columns
-  displaying a set of comparable data.'
-postid: table
-identifier: 'Tl'
-category: 'components'
-public: true
-toc: true
-contributors:
-  dev:
-    - fabian.friedl
-    - thomas.heller
-    - lara.aigmueller
-  ux:
-    - marike.sorgdrager
-wiki: https://dev-wiki.dynatrace.org/display/UX/Tables
-tags:
-  - 'table'
-  - 'component'
-  - 'angular'
-related:
-  - tree-table
----
-
 # Table
 
 The table component can be a static or an interactive element. Some tables

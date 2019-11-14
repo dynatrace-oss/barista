@@ -1,0 +1,24 @@
+{
+  "title": "Context dialog",
+  "description": "The context dialog is an overlay which appears on click of a button.",
+  "postid": "context-dialog",
+  "identifier": "Cd",
+  "category": "components",
+  "public": true,
+  "wiki": "https://dev-wiki.dynatrace.org/display/UX/Context+dialog",
+  "contributors": {
+    "dev": [
+      "fabian.friedl"
+    ],
+    "ux": [
+      "andreas.mayr"
+    ]
+  },
+  "tags": [
+    "angular",
+    "button",
+    "component",
+    "context action",
+    "overlay"
+  ]
+}

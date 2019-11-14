@@ -1,29 +1,4 @@
----
-title: 'Input fields'
-description: 'An input field allows to enter various types of data.'
-postid: input
-identifier: 'If'
-category: 'components'
-public: true
-wiki: https://dev-wiki.dynatrace.org/display/UX/Input+fields
-contributors:
-  dev:
-    - thomas.pink
-    - jordi.masramon
-  ux:
-    - raphaela.raudaschl
-related:
-  - 'form-field'
-  - 'inline-editor'
-  - 'validation'
-tags:
-  - 'input fields'
-  - 'input'
-  - 'textarea'
-  - 'edit'
-  - 'forms'
-  - 'validation'
----
+# Input fields
 
 `dtInput` is a directive that applies styling to native `<input>` and
 `<textarea>` elements and allows them to work with `<dt-form-field>`.

@@ -1,22 +1,3 @@
----
-title: 'Copy to clipboard'
-description:
-  'The copy to clipboard component is used to let the user copy links, code
-  snippets and more.'
-postid: copy-to-clipboard
-category: 'components'
-public: true
-contributors:
-  dev:
-    - fabian.friedl
-    - daniel.moertenschlag
-  ux:
-    - raphaela.raudaschl
-tags:
-  - 'copy'
-  - 'share'
----
-
 # Copy to clipboard
 
 The copy to clipboard component is a combination of a readonly input field or

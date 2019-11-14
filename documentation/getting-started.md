@@ -1,18 +1,3 @@
----
-title: 'Get started'
-description:
-  'This guide provides an overview how to get started with the Barista
-  components library.'
-order: 1
-public: false
-tags:
-  - 'guideline'
-  - 'how to'
-  - 'tutorial'
-  - 'getting started'
-  - 'install'
----
-
 # Get started
 
 ## Step 1: Install the barista-components and Angular CDK
