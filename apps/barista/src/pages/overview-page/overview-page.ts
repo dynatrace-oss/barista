@@ -24,7 +24,7 @@ import {
 } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 
-import { BaOverviewPageContents } from '../../shared/page-contents';
+import { BaOverviewPageContents } from '@dynatrace/barista-components/barista-definitions';
 import { BaPage } from '../../pages/page-outlet';
 import { BaTile } from '../../layout/tile/tile';
 import { readKeyCode } from '@dynatrace/barista-components/core';

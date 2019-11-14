@@ -23,20 +23,6 @@ export interface BaIndexPageContents extends BaPageMetaBase {
   cta: BaCTA;
 }
 
-export interface BaOverviewPageSectionItem {
-  identifier: string;
-  title: string;
-  category: string;
-  badge: string;
-  link: string;
-  description: string;
-}
-
-export interface BaOverviewPageSection {
-  title: string;
-  items: BaOverviewPageSectionItem[];
-}
-
 export interface BaIndexPageLink {
   title: string;
   text: string;
@@ -49,10 +35,6 @@ export interface BaIndexPageItem {
   identifier?: string;
   link?: string;
   category?: string;
-}
-
-export interface BaOverviewPageContents extends BaPageMetaBase {
-  sections: BaOverviewPageSection[];
 }
 
 export interface BaCTA {

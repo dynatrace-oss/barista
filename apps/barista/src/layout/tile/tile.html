@@ -1,9 +1,9 @@
 <div
-  *ngIf="data.badge"
-  class="ba-tile-status ba-tile-badge-{{ data.badge }}"
-  [class.ba-tile-badge-warning]="
-    data.badge === 'experimental' || data.badge === 'deprecated'
-  "
+  *ngIf="_hasBadge"
+  class="ba-tile-status"
+  [class.ba-tile-badge-warning]="_deprecated || _experimental"
+  [class.ba-tile-badge-workinprogress]="_workinprogress"
+  [class.ba-tile-badge-favorite]="_favorite"
 >
   <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
     <polygon points="50,0 0,0 50,50" />
@@ -67,7 +67,7 @@
     </div>
     <div class="ba-tile-headertext">
       <div class="ba-tile-title">{{ data.title }}</div>
-      <div class="ba-tile-type">{{ data.category }}</div>
+      <div class="ba-tile-type">{{ data.section }}</div>
     </div>
   </div>
   <ng-container *ngIf="!listView">
