@@ -36,7 +36,7 @@ site build. Some properties are required, others are nice-to-have.
 These properties are only needed for some special use cases.
 
 - baristafilename: Set this property if the readme's filename is not what the
-  path should be in Barista, e.g. add `baristafilename: 'contribute.md'` if the
+  path should be in Barista, e.g. add `baristafilename: 'contribute'` if the
   file is called `CONTRIBUTING.md` but the path should be
   `.../components/contribute/` in the end.
 
