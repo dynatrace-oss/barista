@@ -56,6 +56,7 @@ export interface BaSinglePageMeta extends BaPageMetaBase {
   wiki?: string;
   themable?: boolean;
   identifier?: string;
+  order?: number;
 }
 
 export interface BaSinglePageContent extends BaSinglePageMeta {
@@ -152,4 +153,31 @@ export interface BaStrapiCTA extends BaStrapiBase {
   text: string;
   buttontext: string;
   buttonlink: string;
+}
+
+export interface BaOverviewPageContents extends BaPageMetaBase {
+  sections: BaOverviewPageSection[];
+}
+
+export interface BaOverviewPageSection {
+  title?: string;
+  items: BaOverviewPageSectionItem[];
+}
+
+export interface BaOverviewPage {
+  title: string;
+  id: string;
+  layout: string;
+  description?: string;
+  sections: BaOverviewPageSection[];
+}
+
+export interface BaOverviewPageSectionItem {
+  identifier: string;
+  title: string;
+  section: string;
+  badge: string[];
+  link: string;
+  description: string;
+  order?: number;
 }

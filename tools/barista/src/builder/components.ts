@@ -32,6 +32,7 @@ import {
   transformPage,
   uxSlotTransformer,
 } from '../transform';
+
 import { slugify } from '../utils/slugify';
 
 const PROJECT_ROOT = join(__dirname, '../../../');
@@ -65,12 +66,13 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
     contributors: baristaMetadata.contributors,
     category: 'component',
     layout: BaLayoutType.Default,
+    order: baristaMetadata.order,
   };
 
   return metadataWithDefaults;
 }
 
-/** Page-builder for angular component & documentation pages. */
+/** Page-builder for angular component pages. */
 export const componentsBuilder: BaPageBuilder = async (
   componentsPaths?: string[],
 ) => {

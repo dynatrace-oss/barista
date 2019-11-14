@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { promises as fs, mkdirSync } from 'fs';
 import { dirname, join } from 'path';
+import { promises as fs, mkdirSync } from 'fs';
 
 import {
   BaPageBuildResult,
@@ -25,6 +25,7 @@ import { componentsBuilder } from './builder/components';
 import { strapiBuilder } from './builder/strapi';
 import { homepageBuilder } from './builder/homepage';
 import { iconsBuilder } from './builder/icons';
+import { overviewBuilder } from './builder/overview';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
@@ -71,6 +72,7 @@ async function buildPages(): Promise<void[]> {
 buildPages()
   .then(results => {
     console.log(`${results.length} Pages created.`);
+    overviewBuilder();
   })
   .catch(err => {
     console.error(err);
