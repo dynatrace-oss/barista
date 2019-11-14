@@ -270,8 +270,8 @@
               }
             ],
             "styles": [
-              "apps/barista/src/main.scss",
-              "components/style/index.scss"
+              "components/style/main.scss",
+              "apps/barista/src/main.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["components/core/src/style/"]
@@ -311,11 +311,11 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "barista:build"
+            "browserTarget": "barista-components/barista:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "barista:build:production"
+              "browserTarget": "barista-components/barista:build:production"
             }
           }
         },
