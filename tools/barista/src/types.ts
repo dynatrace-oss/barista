@@ -39,6 +39,7 @@ export interface BaPageContent {
   content?: string;
   description?: string;
   public?: boolean;
+  draft?: boolean;
   contributors?: BaContributors;
   toc?: boolean;
   themable?: boolean;

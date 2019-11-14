@@ -25,12 +25,17 @@ import {
   transformPage,
   uxSlotTransformer,
 } from '../transform';
-import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from '../types';
+import {
+  BaPageBuildResult,
+  BaPageBuilder,
+  BaPageTransformer,
+  BaPageContent,
+} from '../types';
 
 // tslint:disable-next-line: no-any
 export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
 
-const LIB_ROOT = join(__dirname, '../../../', 'src', 'lib');
+const LIB_ROOT = join(__dirname, '../../../', 'components');
 
 const TRANSFORMERS: BaPageTransformer[] = [
   frontMatterTransformer,
@@ -50,19 +55,30 @@ export const componentsBuilder: BaPageBuilder = async (
       .map(name => join(LIB_ROOT, name))
       .filter(dir => lstatSync(dir).isDirectory());
 
-  // Only grab those dirs that include a README.md
-  const readmeDirs = paths.filter(dir => existsSync(join(dir, 'README.md')));
+  // Only grab those dirs that include a README.md and a barista.json
+  const readmeDirs = paths.filter(
+    dir =>
+      existsSync(join(dir, 'README.md')) &&
+      existsSync(join(dir, 'barista.json')),
+  );
   const transformed = [];
   for (const dir of readmeDirs) {
     const relativeOutFile = join('components', `${basename(dir)}.json`);
-    const pageContent = await transformPage(
-      {
-        content: readFileSync(join(dir, 'README.md')).toString(),
-        category: 'component',
-      },
-      TRANSFORMERS,
+    const baristaMetadata: BaPageContent = JSON.parse(
+      readFileSync(join(dir, 'barista.json')).toString(),
     );
-    transformed.push({ pageContent, relativeOutFile });
+    // Filter draft pages
+    if (!baristaMetadata.draft) {
+      const pageContent = await transformPage(
+        {
+          ...baristaMetadata,
+          category: 'component',
+          content: readFileSync(join(dir, 'README.md')).toString(),
+        },
+        TRANSFORMERS,
+      );
+      transformed.push({ pageContent, relativeOutFile });
+    }
   }
   return transformed;
 };
