@@ -5,7 +5,6 @@
   "identifier": "Es",
   "category": "components",
   "public": true,
-  "wiki": "https://dev-wiki.dynatrace.org/display/UX/Empty+states",
   "contributors": {
     "dev": [
       "christoph.matscheko"

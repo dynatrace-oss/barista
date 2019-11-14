@@ -5,7 +5,6 @@
   "identifier": "If",
   "category": "components",
   "public": true,
-  "wiki": "https://dev-wiki.dynatrace.org/display/UX/Input+fields",
   "contributors": {
     "dev": [
       "thomas.pink",
