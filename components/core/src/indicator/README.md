@@ -1,18 +1,3 @@
----
-title: 'Indicator'
-description:
-  'The dtIndicator directive can be used with any component to indicate a
-  warning or an error.'
-properties:
-  - 'dev utility'
-tags:
-  - 'indicator'
-  - 'validation'
-  - 'warning'
-  - 'error'
-type: 'component'
----
-
 # Indicator
 
 The `dtIndicator` directive adds the capability to add styling to indicate a
