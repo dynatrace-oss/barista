@@ -180,10 +180,7 @@ describe('DtChart', () => {
         {
           name: 'Actions/min',
           id: 'someMetricId',
-          data: [
-            [1370304000000, 140],
-            [1370390400000, 120],
-          ],
+          data: [[1370304000000, 140], [1370390400000, 120]],
         },
       ];
       fixture.detectChanges();
@@ -286,10 +283,7 @@ describe('DtChart', () => {
         {
           name: 'Actions/min',
           id: 'someid',
-          data: [
-            [1523972199774, 0],
-            [1523972201622, 10],
-          ],
+          data: [[1523972199774, 0], [1523972201622, 10]],
         },
       ];
       fixture.detectChanges();
@@ -366,10 +360,7 @@ class SeriesSingle {
     {
       name: 'Actions/min',
       id: 'someMetricId',
-      data: [
-        [1370304000000, 140],
-        [1370390400000, 120],
-      ],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
   ];
 }
@@ -397,18 +388,12 @@ class SeriesMulti {
     {
       name: 'Actions/min',
       id: 'someMetricId',
-      data: [
-        [1370304000000, 140],
-        [1370390400000, 120],
-      ],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
     {
       name: 'Requests/min',
       id: 'someOtherMetricId',
-      data: [
-        [1370304000000, 130],
-        [1370390400000, 110],
-      ],
+      data: [[1370304000000, 130], [1370390400000, 110]],
     },
   ];
 }
@@ -458,10 +443,7 @@ class DynamicSeries {
     {
       name: 'Actions/min',
       id: 'someid',
-      data: [
-        [1523972199774, 0],
-        [1523972201622, 10],
-      ],
+      data: [[1523972199774, 0], [1523972201622, 10]],
     },
   ]);
 
@@ -470,10 +452,7 @@ class DynamicSeries {
       {
         name: 'Actions/min',
         id: 'someid',
-        data: [
-          [1523972199774, 20],
-          [1523972201622, 30],
-        ],
+        data: [[1523972199774, 20], [1523972201622, 30]],
       },
     ]);
   }
@@ -503,19 +482,13 @@ class SeriesColor {
       name: 'Actions/min',
       id: 'someMetricId',
       color: '#ff0000',
-      data: [
-        [1370304000000, 140],
-        [1370390400000, 120],
-      ],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
     {
       name: 'Requests/min',
       id: 'someOtherMetricId',
       color: '#00ff00',
-      data: [
-        [1370304000000, 130],
-        [1370390400000, 110],
-      ],
+      data: [[1370304000000, 130], [1370390400000, 110]],
     },
   ];
 }
@@ -546,18 +519,12 @@ class SeriesTheme {
     {
       name: 'Actions/min',
       id: 'someMetricId',
-      data: [
-        [1370304000000, 140],
-        [1370390400000, 120],
-      ],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
     {
       name: 'Requests/min',
       id: 'someOtherMetricId',
-      data: [
-        [1370304000000, 130],
-        [1370390400000, 110],
-      ],
+      data: [[1370304000000, 130], [1370390400000, 110]],
     },
   ];
 }
@@ -587,34 +554,22 @@ class SeriesMoreThanTheme {
     {
       name: 'Actions/min',
       id: 'someMetricId',
-      data: [
-        [1370304000000, 140],
-        [1370390400000, 120],
-      ],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
     {
       name: 'Requests/min',
       id: 'someOtherMetricId',
-      data: [
-        [1370304000000, 130],
-        [1370390400000, 110],
-      ],
+      data: [[1370304000000, 130], [1370390400000, 110]],
     },
     {
       name: 'Failed requests',
       id: 'testmetricId',
-      data: [
-        [1370304000000, 140],
-        [1370390400000, 120],
-      ],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
     {
       name: 'Successful requests',
       id: 'someOtherTestMetricId',
-      data: [
-        [1370304000000, 140],
-        [1370390400000, 120],
-      ],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     },
   ];
 }
@@ -646,10 +601,7 @@ class SeriesMoreThanOrderedColors {
     (): IndividualSeriesOptions => ({
       name: 'Actions/min',
       id: 'someMetricId',
-      data: [
-        [1370304000000, 140],
-        [1370390400000, 120],
-      ],
+      data: [[1370304000000, 140], [1370390400000, 120]],
     }),
   );
 }

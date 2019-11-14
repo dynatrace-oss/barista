@@ -182,7 +182,10 @@ export class DtEmptyState
   ngAfterViewInit(): void {
     this._viewportResizer
       .change()
-      .pipe(startWith(null), takeUntil(this._destroy$))
+      .pipe(
+        startWith(null),
+        takeUntil(this._destroy$),
+      )
       .subscribe(() => {
         this._updateLayout();
       });
