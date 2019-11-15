@@ -1,12 +1,7 @@
-// Configuration for IDEs only.
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "..",
-    "baseUrl": ".",
-    "paths": {
-      "@dynatrace/barista-components/*": ["../lib/*"]
-    }
+    "types": ["node"]
   },
-  "include": ["./**/*.ts"]
+  "include": ["**/*.ts"]
 }
