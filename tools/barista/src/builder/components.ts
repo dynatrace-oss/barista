@@ -30,8 +30,20 @@ export const componentOverview: BaOverviewPage = {
   id: 'components',
   layout: 'overview',
   description:
-    'Read all about development with/of our Angular components in how to get started. If you run into any troubles, please visit our GitHub page.',
-  sections: [],
+    'Read all about development with/of our Angular components in how to get started. If you run into any troubles or want to contribute, please visit our GitHub page.',
+  sections: [{
+    title: 'Card',
+    items: [],
+  },
+  {
+    title: 'Selection area',
+    items: [],
+  },
+  {
+    title: 'Table',
+    items: [],
+  },
+  ],
 };
 
 /** Page-builder for angular component pages. */
@@ -56,6 +68,24 @@ export const componentsBuilder: BaPageBuilder = async (
       TRANSFORMERS,
     );
     transformed.push({ pageContent, relativeOutFile });
+    if (pageContent.title) {
+      for (const section of componentOverview.sections) {
+        if (section.title === pageContent.title) {
+          section.items.push({
+            title: pageContent.title,
+            category: section.title.charAt(0).toUpperCase() + section.title.slice(1),
+            identifier:
+            pageContent.title && pageContent.title.length > 1
+              ? pageContent.title[0] + pageContent.title[1]
+              : 'Id',
+            link: relativeOutFile,
+            badge: pageContent.properties || [],
+            description: pageContent.description || '',
+          });
+          console.log(pageContent.title);
+        }
+      }
+    }
   }
   return transformed;
 };

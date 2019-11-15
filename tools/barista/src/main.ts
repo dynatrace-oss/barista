@@ -1,9 +1,9 @@
 import { BaPageBuildResult, BaPageBuilder } from './types';
+import { componentOverview, componentsBuilder } from './builder/components';
 import { dirname, join } from 'path';
 import { promises as fs, mkdirSync, readFileSync, readdirSync } from 'fs';
 
 import { BaOverviewPage } from '../../../apps/barista/src/shared/page-contents';
-import { componentsBuilder } from './builder/components';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
@@ -93,10 +93,23 @@ async function buildOverviewPages(): Promise<void[]> {
   return Promise.all(pages);
 }
 
+/** Builds overview pages */
+async function buildComponentOverview() {
+  console.log('building the component overview');
+  console.log(componentOverview);
+
+  const filepath = join(DIST_DIR, 'components.json');
+  fs.writeFile(filepath, JSON.stringify(componentOverview, null, 2), {
+    flag: 'w', // "w" -> Create file if it does not exist
+    encoding: 'utf8',
+  });
+}
+
 buildPages()
   .then(results => {
     console.log(`${results.length} Pages created.`);
     buildOverviewPages();
+    buildComponentOverview();
   })
   .catch(err => {
     console.error(err);
