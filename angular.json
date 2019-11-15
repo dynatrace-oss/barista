@@ -27,12 +27,12 @@
               },
               {
                 "glob": "*.svg",
-                "input": "node_modules/@dynatrace/dt-iconpack",
+                "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
               },
               {
                 "glob": "metadata.json",
-                "input": "node_modules/@dynatrace/dt-iconpack",
+                "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
               }
             ],
@@ -89,7 +89,7 @@
               },
               {
                 "glob": "*.svg",
-                "input": "node_modules/@dynatrace/dt-iconpack",
+                "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
               }
             ],
@@ -175,12 +175,12 @@
               },
               {
                 "glob": "*.svg",
-                "input": "node_modules/@dynatrace/dt-iconpack",
+                "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
               },
               {
                 "glob": "metadata.json",
-                "input": "node_modules/@dynatrace/dt-iconpack",
+                "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
               }
             ],
@@ -270,12 +270,12 @@
               },
               {
                 "glob": "*.svg",
-                "input": "node_modules/@dynatrace/dt-iconpack",
+                "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
               },
               {
                 "glob": "metadata.json",
-                "input": "node_modules/@dynatrace/dt-iconpack",
+                "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
               },
               {
