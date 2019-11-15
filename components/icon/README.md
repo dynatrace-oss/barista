@@ -60,23 +60,23 @@ configuration via the `DT_ICON_CONFIGURATION` injection token in the DI.
 
 ## DtIconpack
 
-All Dynatrace icons are shipped with the `@dynatrace/dt-iconpack` npm package.
+All Dynatrace icons are shipped with the `@dynatrace/barista-icons` npm package.
 This npm package is a peerDependency for the angular-components. And can be
 installed using the following command:
 
 ```bash
 // yarn
-yarn add @dynatrace/dt-iconpack
+yarn add @dynatrace/barista-icons
 
 // npm
-npm install @dynatrace/dt-iconpack
+npm install @dynatrace/barista-icons
 ```
 
-After installation you can import the `dt-iconpack` in your typescript files if
-you need to set a type for a property or want to use the enumeration.
+After installation you can import the `barista-icons` in your typescript files
+if you need to set a type for a property or want to use the enumeration.
 
 ```typescript
-import { DtIconType, Icons } from '@dynatrace/dt-iconpack';
+import { DtIconType, Icons } from '@dynatrace/barista-icons';
 ```
 
 ### Exports
@@ -106,7 +106,7 @@ headers]({{link_to_id id='table'}}), and many more.
 ## All Icons
 
 Below you can find all icons that are currently shipped within the
-`@dynatrace/dt-iconpack` package. You can use these names as the name property
+`@dynatrace/barista-icons` package. You can use these names as the name property
 for the dt-icon component.
 
 <docs-source-example example="IconAllExample" fullwidth="true"></docs-source-example>
