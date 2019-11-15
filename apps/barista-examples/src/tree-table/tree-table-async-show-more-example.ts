@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { DtIconType } from '@dynatrace/dt-iconpack';
+import { DtIconType } from '@dynatrace/barista-icons';
 
 import {
   DtTreeControl,
