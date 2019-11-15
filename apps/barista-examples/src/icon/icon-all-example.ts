@@ -24,7 +24,7 @@ import {
   OnDestroy,
   ViewChild,
 } from '@angular/core';
-import { DtIconType } from '@dynatrace/dt-iconpack';
+import { DtIconType } from '@dynatrace/barista-icons';
 import { BehaviorSubject, Observable, Subscription, combineLatest } from 'rxjs';
 import { debounceTime, map, take, tap } from 'rxjs/operators';
 

@@ -16,7 +16,7 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, Optional } from '@angular/core';
-import { DtIconType } from '@dynatrace/dt-iconpack';
+import { DtIconType } from '@dynatrace/barista-icons';
 import { Observable, of } from 'rxjs';
 import { finalize, map, share, tap } from 'rxjs/operators';
 

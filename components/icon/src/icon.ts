@@ -24,7 +24,7 @@ import {
   SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
-import { DtIconType } from '@dynatrace/dt-iconpack';
+import { DtIconType } from '@dynatrace/barista-icons';
 import { take } from 'rxjs/operators';
 
 import {
