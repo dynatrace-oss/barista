@@ -5,7 +5,7 @@
   "scripts": {
     "barista-examples": "gulp barista-example:generate && ng serve barista-examples",
     "barista-examples:build": "gulp barista-examples:build",
-    "barista-tools:build": "ng build barista-tools",
+    "barista-tools:build": "ng build barista-components/barista-tools",
     "barista-tools:run": "npm run barista-tools:build && node dist/tools/barista/main.js",
     "ide-completions": "gulp ide-completions",
     "dev": "ng serve dev-app",
