@@ -17,6 +17,9 @@
     "barista-components/components-e2e": {
       "tags": ["app"]
     },
+    "barista-components/universal": {
+      "tags": ["app"]
+    },
     "barista-components/dev": {
       "tags": ["app"]
     },

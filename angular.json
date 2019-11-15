@@ -42,7 +42,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dev:build",
+            "browserTarget": "barista-components/dev:build",
             "host": "0.0.0.0"
           },
           "configurations": {}
@@ -50,7 +50,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dev:build"
+            "browserTarget": "barista-components/dev:build"
           }
         },
         "lint": {
@@ -343,6 +343,79 @@
             "jestConfig": "apps/barista/jest.config.js",
             "tsConfig": "apps/barista/tsconfig.spec.json",
             "setupFile": "apps/barista/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "barista-components/universal": {
+      "root": "apps/universal",
+      "sourceRoot": "apps/universal/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/universal",
+            "index": "apps/universal/src/index.html",
+            "main": "apps/universal/src/main.ts",
+            "polyfills": "apps/universal/src/polyfills.ts",
+            "tsConfig": "apps/universal/tsconfig.app.json",
+            "assets": [
+              {
+                "glob": "**",
+                "input": "components/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/assets/icons"
+              }
+            ],
+            "styles": ["components/style/index.scss"],
+            "scripts": [],
+            "optimization": true,
+            "commonChunk": true,
+            "outputHashing": "all",
+            "sourceMap": false,
+            "extractCss": true,
+            "namedChunks": false,
+            "aot": true,
+            "extractLicenses": true,
+            "vendorChunk": false,
+            "buildOptimizer": true
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "barista-components/universal:build"
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/apps/universal-server",
+            "main": "apps/universal/src/main.server.ts",
+            "tsConfig": "apps/universal/tsconfig.server.json",
+            "optimization": true,
+            "outputHashing": "none",
+            "sourceMap": false,
+            "extractLicenses": false
+          }
+        },
+        "ssr": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/universal-ssr",
+            "main": "apps/universal/src/server.ts",
+            "tsConfig": "apps/universal/tsconfig.express.json"
+          }
+        },
+        "run-ssr": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "barista-components/universal:ssr"
           }
         }
       }
@@ -2409,7 +2482,7 @@
       "schematics": {}
     }
   },
-  "defaultProject": "dev",
+  "defaultProject": "barista-components/dev",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": ""
