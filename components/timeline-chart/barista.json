@@ -5,16 +5,10 @@
   "identifier": "Tc",
   "category": "components",
   "public": true,
-  "properties": [
-    "work in progress"
-  ],
+  "properties": ["work in progress"],
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ],
-    "ux": [
-      "ursula.wieshofer"
-    ]
+    "dev": ["thomas.pink"],
+    "ux": ["ursula.wieshofer"]
   },
   "tags": [
     "duration",

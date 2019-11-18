@@ -7,17 +7,8 @@
   "toc": true,
   "themable": false,
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["andreas.mayr"]
   },
-  "tags": [
-    "stepper",
-    "step",
-    "component",
-    "angular"
-  ]
+  "tags": ["stepper", "step", "component", "angular"]
 }

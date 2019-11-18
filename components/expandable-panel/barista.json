@@ -4,18 +4,8 @@
   "postid": "expandable-panel",
   "category": "components",
   "contributors": {
-    "dev": [
-      "lara.aigmueller"
-    ],
-    "ux": [
-      "gabriele.hasson-birkenmayer"
-    ]
+    "dev": ["lara.aigmueller"],
+    "ux": ["gabriele.hasson-birkenmayer"]
   },
-  "tags": [
-    "expand",
-    "collapse",
-    "inline doc",
-    "angular",
-    "component"
-  ]
+  "tags": ["expand", "collapse", "inline doc", "angular", "component"]
 }

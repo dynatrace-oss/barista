@@ -5,18 +5,8 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["thomas.pink"],
+    "ux": ["andreas.mayr"]
   },
-  "tags": [
-    "loading",
-    "spinner",
-    "distractor",
-    "angular",
-    "component"
-  ]
+  "tags": ["loading", "spinner", "distractor", "angular", "component"]
 }

@@ -2,10 +2,5 @@
   "title": "Changelog",
   "description": "The changelog lists all bug fixes and features of all Angular components versions since version 1.0.0.",
   "toc": false,
-  "tags": [
-    "changes",
-    "release",
-    "bug fixes",
-    "features"
-  ]
+  "tags": ["changes", "release", "bug fixes", "features"]
 }

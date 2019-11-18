@@ -6,16 +6,8 @@
   "public": true,
   "themable": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["andreas.mayr"]
   },
-  "tags": [
-    "loading",
-    "angular",
-    "component"
-  ]
+  "tags": ["loading", "angular", "component"]
 }

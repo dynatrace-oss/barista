@@ -7,24 +7,9 @@
   "public": true,
   "themable": true,
   "contributors": {
-    "dev": [
-      "thomas.heller",
-      "daniel.kaneider"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["thomas.heller", "daniel.kaneider"],
+    "ux": ["raphaela.raudaschl"]
   },
-  "related": [
-    "chart",
-    "button",
-    "tabs"
-  ],
-  "tags": [
-    "tabs",
-    "component",
-    "angular",
-    "button",
-    "buttongroup"
-  ]
+  "related": ["chart", "button", "tabs"],
+  "tags": ["tabs", "component", "angular", "button", "buttongroup"]
 }
