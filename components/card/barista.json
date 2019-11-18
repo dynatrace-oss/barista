@@ -6,12 +6,8 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["raphaela.raudaschl"]
   },
   "angular": "card",
   "tags": [

@@ -6,20 +6,9 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ],
-    "ux": [
-      "kathrin.aigner"
-    ]
+    "dev": ["thomas.pink"],
+    "ux": ["kathrin.aigner"]
   },
-  "related": [
-    "button",
-    "copy-to-clipboard",
-    "show-more"
-  ],
-  "tags": [
-    "angular",
-    "component"
-  ]
+  "related": ["button", "copy-to-clipboard", "show-more"],
+  "tags": ["angular", "component"]
 }

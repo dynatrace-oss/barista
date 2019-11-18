@@ -5,16 +5,8 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl",
-      "daniel.moertenschlag"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["fabian.friedl", "daniel.moertenschlag"],
+    "ux": ["raphaela.raudaschl"]
   },
-  "tags": [
-    "copy",
-    "share"
-  ]
+  "tags": ["copy", "share"]
 }

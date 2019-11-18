@@ -7,21 +7,9 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl",
-      "thomas.heller",
-      "lara.aigmueller"
-    ],
-    "ux": [
-      "marike.sorgdrager"
-    ]
+    "dev": ["fabian.friedl", "thomas.heller", "lara.aigmueller"],
+    "ux": ["marike.sorgdrager"]
   },
-  "tags": [
-    "table",
-    "component",
-    "angular"
-  ],
-  "related": [
-    "tree-table"
-  ]
+  "tags": ["table", "component", "angular"],
+  "related": ["tree-table"]
 }

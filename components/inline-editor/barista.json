@@ -6,20 +6,9 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ]
+    "dev": ["thomas.pink"]
   },
   "angular": "inline-editor",
-  "related": [
-    "input"
-  ],
-  "tags": [
-    "component",
-    "directive",
-    "angular",
-    "edit",
-    "inline edit",
-    "input"
-  ]
+  "related": ["input"],
+  "tags": ["component", "directive", "angular", "edit", "inline edit", "input"]
 }

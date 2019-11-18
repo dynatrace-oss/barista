@@ -4,17 +4,8 @@
   "postid": "radio",
   "category": "components",
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["thomas.pink"],
+    "ux": ["raphaela.raudaschl"]
   },
-  "tags": [
-    "radiobutton",
-    "component",
-    "angular",
-    "input"
-  ]
+  "tags": ["radiobutton", "component", "angular", "input"]
 }

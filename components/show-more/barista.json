@@ -5,22 +5,9 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "lara.aigmueller",
-      "daniel.kaneider"
-    ],
-    "ux": [
-      "gabriele.hasson-birkenmayer"
-    ]
+    "dev": ["lara.aigmueller", "daniel.kaneider"],
+    "ux": ["gabriele.hasson-birkenmayer"]
   },
-  "related": [
-    "pagination"
-  ],
-  "tags": [
-    "component",
-    "angular",
-    "pagination",
-    "show more",
-    "pager"
-  ]
+  "related": ["pagination"],
+  "tags": ["component", "angular", "pagination", "show more", "pager"]
 }

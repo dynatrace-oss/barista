@@ -6,19 +6,8 @@
   "public": true,
   "themable": true,
   "contributors": {
-    "dev": [
-      "thomas.heller",
-      "daniel.kaneider"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["thomas.heller", "daniel.kaneider"],
+    "ux": ["andreas.mayr"]
   },
-  "tags": [
-    "progress",
-    "loading",
-    "progress bar",
-    "angular",
-    "component"
-  ]
+  "tags": ["progress", "loading", "progress bar", "angular", "component"]
 }

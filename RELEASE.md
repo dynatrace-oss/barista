@@ -1,14 +1,16 @@
 # Releasing
 
-A new version of the Barista components is released at least once a week. If there are fixes and features ready earlier, more releases per week are also possible.
+A new version of the Barista components is released at least once a week. If
+there are fixes and features ready earlier, more releases per week are also
+possible.
 
 [Breaking changes](https://barista.dynatrace.com/components/contribute/#breaking-changes)
 are released with the next (future) major version.
 
 ## Versioning
 
-The versioning of the Barista components library closely follows **SemVer**. This
-means, every version number consists of three parts (x.y.z) that have a
+The versioning of the Barista components library closely follows **SemVer**.
+This means, every version number consists of three parts (x.y.z) that have a
 different meaning and describe the type of change this version introduces.
 
 - **Patch:** (x.y.**z**): A patch version only includes fixes and small patches.
@@ -26,14 +28,14 @@ barista-components.**
 Go to the
 [pull request overview page](https://github.com/Dynatrace/barista/pulls) of the
 barista-components repository and merge all pull requests marked as
-`pr:merge-ready` into master. Only merge pull requests marked with `[major]` when
-releasing a new major version. Once all branches are merged and all merge
+`pr:merge-ready` into master. Only merge pull requests marked with `[major]`
+when releasing a new major version. Once all branches are merged and all merge
 conflicts are resolved, follow these steps:
 
 - Check out and update your local `master` branch.
-- If you wanna do a major release run `npm run breaking-changes` which will get you
-  a list of breaking changes for the next major version. If you do have breaking
-  changes for the release version or have deprecations:
+- If you wanna do a major release run `npm run breaking-changes` which will get
+  you a list of breaking changes for the next major version. If you do have
+  breaking changes for the release version or have deprecations:
   - Create a branch for applying the breaking changes for this release version,
     e.g. `fix/apply-breaking-changes-4.0.0`.
   - Apply the breaking changes of the major version you want to release and
@@ -43,8 +45,8 @@ conflicts are resolved, follow these steps:
   - Push the commits and create a pull request.
   - When merged continue with the release. (Make sure you are on the updated
     `master` branch again.)
-- Start the release wizard by entering `npm run stage-release` in your command line
-  tool.
+- Start the release wizard by entering `npm run stage-release` in your command
+  line tool.
 - The wizard will now prompt you for the new version number. You can select
   between a `patch`, `minor` and `major` release. The wizard will also recommend
   you the new version number based on the commits between now and the last
