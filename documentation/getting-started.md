@@ -10,8 +10,8 @@ or
 
 ## Step 2: Animations
 
-Some Barista components depend on the Angular animations module. If
-you want these animations to work in your app, you have to install the
+Some Barista components depend on the Angular animations module. If you want
+these animations to work in your app, you have to install the
 `@angular/animations` module and include the `BrowserAnimationsModule` in your
 app.
 
@@ -65,8 +65,8 @@ export class PizzaPartyAppModule { }
 ```
 
 Alternatively, you can create a separate NgModule that imports all of the
-Barista components that you will use in your application. You can
-then include this module wherever you'd like to use the components.
+Barista components that you will use in your application. You can then include
+this module wherever you'd like to use the components.
 
 **Note:** Whichever approach you use, be sure to import the barista-components
 modules after Angular's BrowserModule, as the import order matters for
@@ -74,8 +74,8 @@ NgModules.
 
 ## Step 4: Include the styles
 
-The Barista components library ships with two different variants for including styles. You can
-either import the core styles that are **required** to use the
+The Barista components library ships with two different variants for including
+styles. You can either import the core styles that are **required** to use the
 barista-components. These core styles are just the bare minimum for the
 component and do not change the global styling of your app.
 

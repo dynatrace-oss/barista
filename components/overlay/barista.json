@@ -5,12 +5,8 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "kathrin.aigner"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["kathrin.aigner"]
   },
   "tags": [
     "content",

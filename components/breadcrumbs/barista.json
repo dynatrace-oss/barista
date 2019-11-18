@@ -5,25 +5,11 @@
   "category": "components",
   "public": true,
   "toc": true,
-  "properties": [
-    "work in progress"
-  ],
+  "properties": ["work in progress"],
   "contributors": {
-    "dev": [
-      "fabian.friedl",
-      "szymon.bultrowicz"
-    ],
-    "ux": [
-      "andreas.haslinger"
-    ]
+    "dev": ["fabian.friedl", "szymon.bultrowicz"],
+    "ux": ["andreas.haslinger"]
   },
   "themable": true,
-  "tags": [
-    "nav",
-    "component",
-    "angular",
-    "navbar",
-    "navigation",
-    "breadcrumbs"
-  ]
+  "tags": ["nav", "component", "angular", "navbar", "navigation", "breadcrumbs"]
 }

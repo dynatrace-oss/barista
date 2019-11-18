@@ -87,8 +87,9 @@ linting does not fail. When set to `false` the rule is disabled.
 ## Testing TSLint rules
 
 Every TSLint rule comes with a set of tests to guarantee that rules pass and
-fail as expected. All test files can be found in `tools/linting/src/test/rules/**`.
-Build the TSLint rules and run tests by using the following commands:
+fail as expected. All test files can be found in
+`tools/linting/src/test/rules/**`. Build the TSLint rules and run tests by using
+the following commands:
 
 ```
 yarn tslint:build

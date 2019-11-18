@@ -5,12 +5,7 @@
   "public": true,
   "draft": true,
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ]
+    "dev": ["thomas.pink"]
   },
-  "tags": [
-    "angular",
-    "component"
-  ]
+  "tags": ["angular", "component"]
 }

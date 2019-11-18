@@ -6,16 +6,8 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "christoph.matscheko"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["christoph.matscheko"],
+    "ux": ["andreas.mayr"]
   },
-  "tags": [
-    "empty state",
-    "call to action",
-    "illustration"
-  ]
+  "tags": ["empty state", "call to action", "illustration"]
 }

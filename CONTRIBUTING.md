@@ -30,9 +30,10 @@ Before you submit your pull request (PR) consider the following guidelines:
 - Search GitHub for an open or closed issue or PR that relates to your
   submission.
 - Make your changes in a new git branch: `git checkout -b my-fix-branch master`
-- Create your patch/fix/feature including appropriate tests. 
+- Create your patch/fix/feature including appropriate tests.
 - Test your changes with our supported browsers.
-- Follow our [coding standards](https://barista.dynatrace.com/components/coding-standards/).
+- Follow our
+  [coding standards](https://barista.dynatrace.com/components/coding-standards/).
 - Document all public API methods and properties.
 - Run unit, UI and universal tests, as described in the
   [developer documentation](https://barista.dynatrace.com/components/development/),
