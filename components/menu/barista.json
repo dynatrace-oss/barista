@@ -6,17 +6,8 @@
   "identifier": "Me",
   "category": "components",
   "contributors": {
-    "ux": [
-      "andreas.mayr"
-    ],
-    "dev": [
-      "christoph.matscheko"
-    ]
+    "ux": ["andreas.mayr"],
+    "dev": ["christoph.matscheko"]
   },
-  "tags": [
-    "menu",
-    "navigation",
-    "action",
-    "overlay"
-  ]
+  "tags": ["menu", "navigation", "action", "overlay"]
 }

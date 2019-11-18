@@ -5,17 +5,8 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["thomas.pink"],
+    "ux": ["raphaela.raudaschl"]
   },
-  "tags": [
-    "dropdown",
-    "component",
-    "select",
-    "angular"
-  ]
+  "tags": ["dropdown", "component", "select", "angular"]
 }

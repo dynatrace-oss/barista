@@ -5,21 +5,9 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "lukas.holzer"
-    ],
-    "ux": [
-      "gabriele.hasson-birkenmayer"
-    ]
+    "dev": ["lukas.holzer"],
+    "ux": ["gabriele.hasson-birkenmayer"]
   },
-  "related": [
-    "show-more"
-  ],
-  "tags": [
-    "component",
-    "angular",
-    "pagination",
-    "show more",
-    "pager"
-  ]
+  "related": ["show-more"],
+  "tags": ["component", "angular", "pagination", "show more", "pager"]
 }

@@ -8,21 +8,9 @@
   "toc": true,
   "themable": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["andreas.mayr"]
   },
-  "related": [
-    "icon",
-    "card",
-    "table"
-  ],
-  "tags": [
-    "icon",
-    "info",
-    "infobyte"
-  ]
+  "related": ["icon", "card", "table"],
+  "tags": ["icon", "info", "infobyte"]
 }

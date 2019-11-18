@@ -5,13 +5,8 @@
   "public": true,
   "category": "components",
   "contributors": {
-    "ux": [
-      "gabriele.hasson-birkenmayer"
-    ],
-    "dev": [
-      "rowa.audil",
-      "fabian.friedl"
-    ]
+    "ux": ["gabriele.hasson-birkenmayer"],
+    "dev": ["rowa.audil", "fabian.friedl"]
   },
   "tags": [
     "expandable",

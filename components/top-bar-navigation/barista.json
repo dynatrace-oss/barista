@@ -4,17 +4,8 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": [
-      "lukas.holzer"
-    ],
-    "ux": [
-      "arkadius.lipiarz"
-    ]
+    "dev": ["lukas.holzer"],
+    "ux": ["arkadius.lipiarz"]
   },
-  "related": [
-    "drawer",
-    "menu",
-    "navigation",
-    "secondary-nav"
-  ]
+  "related": ["drawer", "menu", "navigation", "secondary-nav"]
 }

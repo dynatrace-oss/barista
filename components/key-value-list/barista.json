@@ -6,13 +6,8 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl",
-      "daniel.moertenschlag"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["fabian.friedl", "daniel.moertenschlag"],
+    "ux": ["andreas.mayr"]
   },
   "tags": [
     "meta data",

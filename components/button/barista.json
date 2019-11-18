@@ -7,19 +7,9 @@
   "toc": true,
   "themable": true,
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["thomas.pink"],
+    "ux": ["raphaela.raudaschl"]
   },
-  "tags": [
-    "button",
-    "component",
-    "angular"
-  ],
-  "related": [
-    "button-alignment"
-  ]
+  "tags": ["button", "component", "angular"],
+  "related": ["button-alignment"]
 }

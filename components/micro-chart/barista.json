@@ -6,25 +6,11 @@
   "public": true,
   "toc": true,
   "themable": true,
-  "properties": [
-    "work in progress"
-  ],
+  "properties": ["work in progress"],
   "contributors": {
-    "dev": [
-      "fabian.friedl",
-      "david.laubreiter"
-    ],
-    "ux": [
-      "kathrin.aigner"
-    ]
+    "dev": ["fabian.friedl", "david.laubreiter"],
+    "ux": ["kathrin.aigner"]
   },
-  "related": [
-    "chart"
-  ],
-  "tags": [
-    "chart",
-    "data",
-    "angular",
-    "component"
-  ]
+  "related": ["chart"],
+  "tags": ["chart", "data", "angular", "component"]
 }

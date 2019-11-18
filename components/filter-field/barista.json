@@ -5,17 +5,8 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "thomas.pink",
-      "thomas.heller"
-    ],
-    "ux": [
-      "andreas.haslinger"
-    ]
+    "dev": ["thomas.pink", "thomas.heller"],
+    "ux": ["andreas.haslinger"]
   },
-  "tags": [
-    "filter",
-    "filterfield",
-    "component"
-  ]
+  "tags": ["filter", "filterfield", "component"]
 }

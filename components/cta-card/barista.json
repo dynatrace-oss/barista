@@ -5,17 +5,10 @@
   "identifier": "Ca",
   "category": "components",
   "public": true,
-  "properties": [
-    "deprecated"
-  ],
+  "properties": ["deprecated"],
   "contributors": {
-    "dev": [
-      "christoph.matscheko",
-      "alexander.lagler"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["christoph.matscheko", "alexander.lagler"],
+    "ux": ["raphaela.raudaschl"]
   },
   "tags": [
     "call to action",
@@ -25,8 +18,5 @@
     "component",
     "illustration"
   ],
-  "related": [
-    "empty-state",
-    "card"
-  ]
+  "related": ["empty-state", "card"]
 }
