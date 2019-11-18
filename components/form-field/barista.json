@@ -6,25 +6,10 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["thomas.pink"],
+    "ux": ["raphaela.raudaschl"]
   },
-  "properties": [
-    "work in progress"
-  ],
-  "related": [
-    "input",
-    "validation"
-  ],
-  "tags": [
-    "input fields",
-    "forms",
-    "form validation",
-    "angular",
-    "component"
-  ]
+  "properties": ["work in progress"],
+  "related": ["input", "validation"],
+  "tags": ["input fields", "forms", "form validation", "angular", "component"]
 }

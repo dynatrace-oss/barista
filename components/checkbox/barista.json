@@ -5,16 +5,8 @@
   "identifier": "Cb",
   "category": "components",
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["thomas.pink"],
+    "ux": ["raphaela.raudaschl"]
   },
-  "tags": [
-    "checkbox",
-    "component",
-    "angular"
-  ]
+  "tags": ["checkbox", "component", "angular"]
 }

@@ -7,13 +7,8 @@
   "toc": true,
   "themable": true,
   "contributors": {
-    "dev": [
-      "thomas.heller"
-    ],
-    "ux": [
-      "andreas.mayr",
-      "kathrin.aigner"
-    ]
+    "dev": ["thomas.heller"],
+    "ux": ["andreas.mayr", "kathrin.aigner"]
   },
   "tags": [
     "progress",
