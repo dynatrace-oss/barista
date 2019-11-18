@@ -9,7 +9,7 @@
     "barista-tools:run": "npm run barista-tools:build && node dist/tools/barista/main.js",
     "ide-completions": "gulp ide-completions",
     "dev": "ng serve dev-app",
-    "barista": "npm run barista-tools:run && ng serve barista",
+    "barista": "npm run barista-tools:run && ng serve barista-components/barista",
     "stage-release": "ts-node --project tools/release/tsconfig.json tools/release/stage-release.ts",
     "get-release-version": "ts-node --project tools/release/tsconfig.json tools/release/get-release-version.ts",
     "create-tag": "ts-node --project tools/release/tsconfig.json tools/release/create-tag.ts",
