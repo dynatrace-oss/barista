@@ -35,18 +35,6 @@ export async function transformPage(
   );
 }
 
-/** Sets front matter defaults. */
-export const frontMatterTransformer: BaPageTransformer = async source => {
-  const transformed = { ...source };
-  transformed.title = source.title || '';
-  transformed.description = source.description || '';
-  transformed.layout = source.layout || 'component';
-  transformed.public = source.public || false;
-  transformed.toc = source.toc || true;
-  transformed.themable = source.themable || false;
-  return transformed;
-};
-
 /** Transforms a markdown content into html. */
 export const markdownToHtmlTransformer: BaPageTransformer = async source => {
   const transformed = { ...source };
