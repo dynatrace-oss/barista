@@ -229,12 +229,15 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
         emptyState._visible = true;
       });
 
-    if (this.isEmptyDataSource && !this._portalOutlet.hasAttached()) {
-      const template = new TemplatePortal(
-        this._emptyStateTemplate,
-        this._viewContainerRef,
-      );
-      this._portalOutlet.attachTemplatePortal(template);
+    if (this.isEmptyDataSource) {
+      if (!this._portalOutlet.hasAttached()) {
+        const template = new TemplatePortal(
+          this._emptyStateTemplate,
+          this._viewContainerRef,
+        );
+        this._portalOutlet.attachTemplatePortal(template);
+      }
+      this._emptyState.first._visible = true;
     } else {
       // ned to unset the visibility to have every time the component will be attached a fading animation.
       this._emptyState.first._visible = false;
