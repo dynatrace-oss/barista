@@ -1,5 +1,5 @@
-@import '../../../lib/core/style/colors';
 @import '../../styles/global/variables';
+@import '../../../../../components/core/src/style/colors';
 
 @mixin tile-theme($link-color, $hover-color, $active-color) {
   .ba-smalltile-link-wrapper,
