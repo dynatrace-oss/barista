@@ -5,20 +5,8 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "todd.baert",
-      "fabian.friedl"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["todd.baert", "fabian.friedl"],
+    "ux": ["andreas.mayr"]
   },
-  "tags": [
-    "saving",
-    "save",
-    "cancel",
-    "saving bar",
-    "settings",
-    "confirmation"
-  ]
+  "tags": ["saving", "save", "cancel", "saving bar", "settings", "confirmation"]
 }

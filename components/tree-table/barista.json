@@ -7,22 +7,9 @@
   "identifier": "Tt",
   "angular": "tree-table",
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "perihan.rashed"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["perihan.rashed"]
   },
-  "tags": [
-    "angular",
-    "component",
-    "tree",
-    "table",
-    "trable",
-    "treetable"
-  ],
-  "related": [
-    "table"
-  ]
+  "tags": ["angular", "component", "tree", "table", "trable", "treetable"],
+  "related": ["table"]
 }

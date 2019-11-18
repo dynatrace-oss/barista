@@ -4,8 +4,6 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": [
-      "thomas.pink"
-    ]
+    "dev": ["thomas.pink"]
   }
 }

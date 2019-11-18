@@ -4,17 +4,8 @@
   "postid": "expandable-section",
   "category": "components",
   "contributors": {
-    "dev": [
-      "lara.aigmueller"
-    ],
-    "ux": [
-      "gabriele.hasson-birkenmayer"
-    ]
+    "dev": ["lara.aigmueller"],
+    "ux": ["gabriele.hasson-birkenmayer"]
   },
-  "tags": [
-    "expandable",
-    "expandable section",
-    "angular",
-    "component"
-  ]
+  "tags": ["expandable", "expandable section", "angular", "component"]
 }

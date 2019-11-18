@@ -6,17 +6,10 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "kathrin.aigner"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["kathrin.aigner"]
   },
-  "related": [
-    "micro-chart",
-    "chart"
-  ],
+  "related": ["micro-chart", "chart"],
   "tags": [
     "angular",
     "component",
@@ -25,7 +18,5 @@
     "selection area",
     "selection"
   ],
-  "properties": [
-    "deprecated"
-  ]
+  "properties": ["deprecated"]
 }

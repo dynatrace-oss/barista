@@ -4,23 +4,10 @@
   "postid": "formatters",
   "identifier": "Fm",
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "hartwig.salzer"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["hartwig.salzer"]
   },
-  "tags": [
-    "units",
-    "formatter",
-    "pipe"
-  ],
-  "properties": [
-    "dev utility",
-    "work in progress"
-  ],
-  "related": [
-    "units"
-  ]
+  "tags": ["units", "formatter", "pipe"],
+  "properties": ["dev utility", "work in progress"],
+  "related": ["units"]
 }

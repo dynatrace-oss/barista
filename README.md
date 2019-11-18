@@ -4,9 +4,14 @@
 ![contributors](https://img.shields.io/github/contributors/Dynatrace/barista)
 ![commit activity](https://img.shields.io/github/commit-activity/w/Dynatrace/barista)
 
-[Barista](https://barista.dynatrace.com) is the name of [Dynatrace](https://www.dynatrace.com)'s design system, that contains all ingredients to create extraordinary user experiences. Like a barista picks the best ingredients for their coffee – and we love coffee!
+[Barista](https://barista.dynatrace.com) is the name of
+[Dynatrace](https://www.dynatrace.com)'s design system, that contains all
+ingredients to create extraordinary user experiences. Like a barista picks the
+best ingredients for their coffee – and we love coffee!
 
-One major part of the Barista design system is our [components library](https://github.com/Dynatrace/barista/tree/master/components) written in Angular.
+One major part of the Barista design system is our
+[components library](https://github.com/Dynatrace/barista/tree/master/components)
+written in Angular.
 
 ## Getting started
 

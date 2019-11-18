@@ -6,19 +6,8 @@
   "toc": true,
   "themable": true,
   "contributors": {
-    "dev": [
-      "thomas.heller"
-    ],
-    "ux": [
-      "raphaela.raudaschl"
-    ]
+    "dev": ["thomas.heller"],
+    "ux": ["raphaela.raudaschl"]
   },
-  "tags": [
-    "toggle",
-    "button",
-    "component",
-    "angular",
-    "group",
-    "findings"
-  ]
+  "tags": ["toggle", "button", "component", "angular", "group", "findings"]
 }

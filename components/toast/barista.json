@@ -5,18 +5,8 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": [
-      "fabian.friedl"
-    ],
-    "ux": [
-      "andreas.mayr"
-    ]
+    "dev": ["fabian.friedl"],
+    "ux": ["andreas.mayr"]
   },
-  "tags": [
-    "toast",
-    "message",
-    "saving",
-    "feedback",
-    "component"
-  ]
+  "tags": ["toast", "message", "saving", "feedback", "component"]
 }
