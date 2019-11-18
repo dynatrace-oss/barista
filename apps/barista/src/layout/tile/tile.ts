@@ -51,6 +51,11 @@ export class BaTile {
   }
 
   private setBadge(): void {
+    this.favorite = false;
+    this.hasBadge = false;
+    this.deprecated = false;
+    this.experimental = false;
+
     if (this.data.badge && this.data.badge.includes('favorite')) {
       this.favorite = true;
       this.hasBadge = true;
