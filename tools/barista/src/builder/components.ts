@@ -20,17 +20,11 @@ import { basename, join } from 'path';
 import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
-  frontMatterTransformer,
   markdownToHtmlTransformer,
   transformPage,
   uxSlotTransformer,
 } from '../transform';
-import {
-  BaPageBuildResult,
-  BaPageBuilder,
-  BaPageTransformer,
-  BaPageContent,
-} from '../types';
+import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from '../types';
 
 // tslint:disable-next-line: no-any
 export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
@@ -38,7 +32,6 @@ export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
 const LIB_ROOT = join(__dirname, '../../../', 'components');
 
 const TRANSFORMERS: BaPageTransformer[] = [
-  frontMatterTransformer,
   componentTagsTransformer,
   markdownToHtmlTransformer,
   extractH1ToTitleTransformer,
@@ -64,14 +57,22 @@ export const componentsBuilder: BaPageBuilder = async (
   const transformed = [];
   for (const dir of readmeDirs) {
     const relativeOutFile = join('components', `${basename(dir)}.json`);
-    const baristaMetadata: BaPageContent = JSON.parse(
+    const baristaMetadata = JSON.parse(
       readFileSync(join(dir, 'barista.json')).toString(),
     );
     // Filter draft pages
     if (!baristaMetadata.draft) {
       const pageContent = await transformPage(
         {
-          ...baristaMetadata,
+          title: baristaMetadata.title,
+          description: baristaMetadata.description,
+          public: baristaMetadata.public || true,
+          toc: baristaMetadata.toc || true,
+          themable: baristaMetadata.themable || false,
+          properties: baristaMetadata.properties,
+          tags: baristaMetadata.tags,
+          related: baristaMetadata.related,
+          contributors: baristaMetadata.contributors,
           category: 'component',
           content: readFileSync(join(dir, 'README.md')).toString(),
         },
