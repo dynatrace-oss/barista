@@ -17,8 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import {
   Component,
   DebugElement,
@@ -29,20 +27,6 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { DtIndicatorModule } from '@dynatrace/barista-components/core';
-import {
-  DtEmptyState,
-  DtEmptyStateModule,
-} from '@dynatrace/barista-components/empty-state';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import {
-  DtLoadingDistractor,
-  DtLoadingDistractorModule,
-} from '@dynatrace/barista-components/loading-distractor';
 import {
   DtCell,
   DtExpandableCell,
@@ -50,10 +34,26 @@ import {
   DtHeaderCell,
   DtRow,
   DtTable,
+  DtTableDataSource,
   DtTableLoadingState,
   DtTableModule,
 } from '@dynatrace/barista-components/table';
+import {
+  DtEmptyState,
+  DtEmptyStateModule,
+} from '@dynatrace/barista-components/empty-state';
+import {
+  DtLoadingDistractor,
+  DtLoadingDistractorModule,
+} from '@dynatrace/barista-components/loading-distractor';
+import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 
+import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtIndicatorModule } from '@dynatrace/barista-components/core';
+import { HttpClientModule } from '@angular/common/http';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createComponent } from '../../testing/create-component';
 
 describe('DtTable', () => {
@@ -199,6 +199,20 @@ describe('DtTable', () => {
         );
         expect(emptyComponent).toBeTruthy();
       }
+    });
+
+    it('Should render a emptystate component when a datasource is set to empty twice', () => {
+      const fixture = createComponent(TestApp);
+
+      fixture.componentInstance.dataSource = new DtTableDataSource([]);
+      fixture.detectChanges();
+
+      expect(fixture.debugElement.query(By.css('dt-empty-state'))).toBeTruthy();
+
+      fixture.componentInstance.dataSource = new DtTableDataSource([]);
+      fixture.detectChanges();
+
+      expect(fixture.debugElement.query(By.css('dt-empty-state'))).toBeTruthy();
     });
 
     it('Should render a LoadingComponent', () => {
@@ -761,7 +775,7 @@ class TestAppMultiExpandableTable {
   @ViewChildren(DtExpandableRow) private _expandableRows: QueryList<
     DtExpandableRow
   >;
-  dataSource: object[] | null | undefined = [
+  dataSource: object[] | null | undefined | DtTableDataSource<any> = [
     { col1: 'test 1', col2: 'test 2', details: 'details1' },
     { col1: 'test 1', col2: 'test 2', details: 'details2', expanded: true },
     { col1: 'test 1', col2: 'test 2', details: 'details3', expanded: true },
