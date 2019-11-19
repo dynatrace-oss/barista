@@ -1,6 +1,6 @@
 <div *ngFor="let section of sidenavData.sections" class="ba-sidenav-section">
   <span class="ba-sidenav-section-title ba-sidenav-item">
-    {{ section.title }}
+    {{ section.title || sidenavData.title }}
   </span>
   <a
     *ngFor="let item of section.items"

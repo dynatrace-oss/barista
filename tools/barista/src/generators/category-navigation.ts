@@ -15,11 +15,17 @@
  */
 
 import { join } from 'path';
-import { promises as fs, readFileSync, readdirSync, lstatSync } from 'fs';
+import {
+  promises as fs,
+  readFileSync,
+  readdirSync,
+  lstatSync,
+  existsSync,
+} from 'fs';
 
 import {
-  BaOverviewPage,
-  BaOverviewPageSectionItem,
+  BaCategoryNavigation,
+  BaCategoryNavigationSectionItem,
   BaSinglePageMeta,
 } from '@dynatrace/barista-components/barista-definitions';
 
@@ -41,11 +47,65 @@ const highlightedItems = [
   'Theming',
 ];
 
+/** add the sidenav to each page */
+function addSidenavToPages(
+  files: string[],
+  sidenavContent: BaCategoryNavigation,
+  path: string,
+): void {
+  for (const file of files) {
+    const filepath = join(path, file);
+    if (!lstatSync(filepath).isDirectory()) {
+      let currentSidenav = sidenavContent;
+      const content = JSON.parse(readFileSync(filepath).toString());
+      const fileTitle = content.title;
+
+      // highlight active item
+      for (const section of currentSidenav.sections) {
+        for (const item of section.items) {
+          if (item.title == fileTitle) {
+            item.active = true;
+          } else {
+            item.active = false;
+          }
+        }
+      }
+
+      // add sidenav to the json file
+      content.sidenav = currentSidenav;
+      fs.writeFile(join(path, file), JSON.stringify(content, null, 2), {
+        flag: 'w', // "w" -> Create file if it does not exist
+        encoding: 'utf8',
+      });
+
+      // if there are subpages, add a sidenav to each of them
+      const pathToSubfolder = join(path, file.replace(/\.[^/.]+$/, ''));
+      if (
+        existsSync(pathToSubfolder) &&
+        lstatSync(pathToSubfolder).isDirectory()
+      ) {
+        const subPages = readdirSync(pathToSubfolder);
+        for (const subPage of subPages) {
+          const subPagePath = join(pathToSubfolder, subPage);
+          const subPageContent = JSON.parse(
+            readFileSync(subPagePath).toString(),
+          );
+          subPageContent.sidenav = currentSidenav;
+          fs.writeFile(subPagePath, JSON.stringify(subPageContent, null, 2), {
+            flag: 'w', // "w" -> Create file if it does not exist
+            encoding: 'utf8',
+          });
+        }
+      }
+    }
+  }
+}
+
 function getOverviewSectionItem(
   filecontent: BaSinglePageMeta,
   section: string,
   filepath: string,
-): BaOverviewPageSectionItem {
+): BaCategoryNavigationSectionItem {
   let properties =
     filecontent.properties && filecontent.properties.length > 0
       ? [...filecontent.properties]
@@ -90,7 +150,8 @@ export const overviewBuilder = async () => {
       const files = readdirSync(path);
       const capitalizedTitle =
         directory.charAt(0).toUpperCase() + directory.slice(1);
-      let overviewPage: BaOverviewPage = {
+
+      let overviewPage: BaCategoryNavigation = {
         title: capitalizedTitle,
         id: directory,
         layout: 'overview',
@@ -111,6 +172,8 @@ export const overviewBuilder = async () => {
         }
       }
 
+      addSidenavToPages(files, overviewPage, path);
+
       const overviewfilepath = join(DIST_DIR, `${directory}.json`);
       // Write file with page content to disc.
       // tslint:disable-next-line: no-magic-numbers
@@ -125,7 +188,7 @@ export const overviewBuilder = async () => {
     } else if (directory === 'components') {
       const files = readdirSync(path);
 
-      let componentOverview: BaOverviewPage = {
+      let componentOverview: BaCategoryNavigation = {
         title: 'Components',
         id: 'components',
         layout: 'overview',
@@ -177,8 +240,8 @@ export const overviewBuilder = async () => {
         if (section.title === 'Documentation') {
           const sectionItems = section.items;
           sectionItems.sort(function(
-            a: BaOverviewPageSectionItem,
-            b: BaOverviewPageSectionItem,
+            a: BaCategoryNavigationSectionItem,
+            b: BaCategoryNavigationSectionItem,
           ): number {
             if (a.order && b.order) {
               return a.order - b.order;
@@ -193,6 +256,8 @@ export const overviewBuilder = async () => {
           section.items = sectionItems;
         }
       }
+
+      addSidenavToPages(files, componentOverview, path);
 
       const overviewfilepath = join(DIST_DIR, `${directory}.json`);
       // Write file with page content to disc.

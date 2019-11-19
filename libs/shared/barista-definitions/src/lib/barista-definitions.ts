@@ -59,6 +59,7 @@ export interface BaSinglePageMeta extends BaPageMetaBase {
   themable?: boolean;
   identifier?: string;
   order?: number;
+  sidenav?: BaCategoryNavigation;
 }
 
 export interface BaSinglePageContent extends BaSinglePageMeta {
@@ -91,6 +92,7 @@ export interface BaIconOverviewPageContent {
   description?: string;
   layout: BaLayoutType;
   icons: BaIconOverviewItem[];
+  sidenav?: BaCategoryNavigation;
 }
 
 /** Icon overview page item */
@@ -172,24 +174,24 @@ export interface BaStrapiCTA extends BaStrapiBase {
   buttonlink: string;
 }
 
-export interface BaOverviewPageContents extends BaPageMetaBase {
-  sections: BaOverviewPageSection[];
+export interface BaCategoryNavigationContents extends BaPageMetaBase {
+  sections: BaCategoryNavigationSection[];
 }
 
-export interface BaOverviewPageSection {
+export interface BaCategoryNavigationSection {
   title?: string;
-  items: BaOverviewPageSectionItem[];
+  items: BaCategoryNavigationSectionItem[];
 }
 
-export interface BaOverviewPage {
+export interface BaCategoryNavigation {
   title: string;
   id: string;
   layout: string;
   description?: string;
-  sections: BaOverviewPageSection[];
+  sections: BaCategoryNavigationSection[];
 }
 
-export interface BaOverviewPageSectionItem {
+export interface BaCategoryNavigationSectionItem {
   identifier: string;
   title: string;
   section: string;
@@ -197,4 +199,5 @@ export interface BaOverviewPageSectionItem {
   link: string;
   description: string;
   order?: number;
+  active?: boolean;
 }
