@@ -1,8 +1,11 @@
-# Javascript Node CircleCI 2.0 configuration file
+# Javascript Node CircleCI 2.0 configuration file	version: 2.0
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
+version: 2.1
+
+orbs:
+  snyk: snyk/snyk@0.0.8
 
 defaults: &defaults
   working_directory: ~/repo
@@ -66,6 +69,18 @@ jobs:
       - restore_cache:
           <<: *npm_cache
       - run: yarn format:check --base=origin/master
+  protect:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          <<: *deploy_cache
+      - run:
+          <<: *set_env
+      - restore_cache:
+          <<: *npm_cache
+      - snyk/scan:
+          organization: Dynatrace
   lint:
     <<: *defaults
     steps:
@@ -109,7 +124,7 @@ jobs:
 
 
 workflows:
-  version: 2
+  version: 2.1
   pr_check:
     jobs:
       - install
@@ -117,6 +132,10 @@ workflows:
           requires:
             - install
       - lint:
+          requires:
+            - install
+      - protect:
+          context: Barista
           requires:
             - install
       # - test:
