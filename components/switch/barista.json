@@ -4,7 +4,7 @@
   "postid": "switch",
   "category": "components",
   "contributors": {
-    "dev": ["lara.aigmueller", "alexander.frass"],
+    "dev": ["lara.aigmueller"],
     "ux": ["raphaela.raudaschl"]
   },
   "tags": ["switch", "component", "angular"]
