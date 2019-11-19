@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { existsSync, lstatSync, readFileSync, readdirSync } from 'fs';
+import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from '../types';
 import { basename, join } from 'path';
-
 import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
@@ -25,12 +24,14 @@ import {
   transformPage,
   uxSlotTransformer,
 } from '../transform';
-import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from '../types';
+import { existsSync, lstatSync, readFileSync, readdirSync } from 'fs';
+
+import { BaOverviewPage } from '../../../../apps/barista/src/shared/page-contents';
 
 // tslint:disable-next-line: no-any
 export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
 
-const LIB_ROOT = join(__dirname, '../../../', 'src', 'lib');
+const LIB_ROOT = join(__dirname, '../../../', 'components');
 
 const TRANSFORMERS: BaPageTransformer[] = [
   frontMatterTransformer,
@@ -39,6 +40,28 @@ const TRANSFORMERS: BaPageTransformer[] = [
   extractH1ToTitleTransformer,
   uxSlotTransformer,
 ];
+
+export const componentOverview: BaOverviewPage = {
+  title: 'Components',
+  id: 'components',
+  layout: 'overview',
+  description:
+    'Read all about development with/of our Angular components in how to get started. If you run into any troubles or want to contribute, please visit our GitHub page.',
+  sections: [
+    {
+      title: 'Card',
+      items: [],
+    },
+    {
+      title: 'Selection area',
+      items: [],
+    },
+    {
+      title: 'Table',
+      items: [],
+    },
+  ],
+};
 
 /** Page-builder for angular component pages. */
 export const componentsBuilder: BaPageBuilder = async (
@@ -62,7 +85,27 @@ export const componentsBuilder: BaPageBuilder = async (
       },
       TRANSFORMERS,
     );
+
     transformed.push({ pageContent, relativeOutFile });
+    if (pageContent.title) {
+      for (const section of componentOverview.sections) {
+        if (section.title === pageContent.title) {
+          section.items.push({
+            title: pageContent.title,
+            category:
+              section.title.charAt(0).toUpperCase() + section.title.slice(1),
+            identifier:
+              pageContent.title && pageContent.title.length > 1
+                ? pageContent.title[0] + pageContent.title[1]
+                : 'Id',
+            link: relativeOutFile,
+            badge: pageContent.properties || [],
+            description: pageContent.description || '',
+          });
+          console.log(pageContent.title);
+        }
+      }
+    }
   }
   return transformed;
 };

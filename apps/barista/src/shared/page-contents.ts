@@ -42,20 +42,43 @@ export interface BaSinglePageContents extends BaPageContents {
   themable: boolean | null;
   content: string;
   identifier: string;
+  sidenav: BaSidenavContents;
+}
+
+export interface BaSidenavContents {
+  sections: BaSidenavSection[];
+}
+
+export interface BaSidenavSection {
+  title: string;
+  items: BaSidenavSectionItem[];
+}
+
+export interface BaSidenavSectionItem {
+  title: string;
+  link: string;
 }
 
 export interface BaOverviewPageSectionItem {
   identifier: string;
   title: string;
   category: string;
-  badge: string;
+  badge: string[];
   link: string;
   description: string;
 }
 
 export interface BaOverviewPageSection {
-  title: string;
+  title?: string;
   items: BaOverviewPageSectionItem[];
+}
+
+export interface BaOverviewPage {
+  title: string;
+  id: string;
+  layout: string;
+  description?: string;
+  sections: BaOverviewPageSection[];
 }
 
 export interface BaIndexPageLink {
