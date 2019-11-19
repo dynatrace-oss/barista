@@ -76,7 +76,7 @@ jobs:
           <<: *set_env
       - restore_cache:
           <<: *npm_cache
-      - run: yarn protect
+      - run: echo $SNYK_TOKEN
   lint:
     <<: *defaults
     steps:
@@ -131,6 +131,7 @@ workflows:
           requires:
             - install
       - protect:
+          context: Barista
           requires:
             - install
       # - test:
