@@ -67,3 +67,50 @@ export interface BaContributor {
   name: string;
   gitHubUser: string;
 }
+
+/** Base interface for Strapi content types */
+export interface BaStrapiBase {
+  id: number;
+  created_at: number;
+  updated_at: number;
+}
+
+/** Strapi content type with a name */
+export interface BaStrapiNamedEntity extends BaStrapiBase {
+  name: string;
+}
+
+/** Strapi page category */
+export interface BaStrapiCategory extends BaStrapiBase {
+  title: string;
+}
+
+/** Strapi contributor (UX/Dev support) */
+export interface BaStrapiContributor extends BaStrapiNamedEntity {
+  githubuser: string;
+  developer: boolean;
+}
+
+/** Strapi page */
+export interface BaStrapiPage extends BaStrapiBase {
+  title: string;
+  slug: string;
+  content: string;
+  uxWikiPage: string;
+  tags: BaStrapiNamedEntity[];
+  contributors: BaStrapiContributor[];
+  category: BaStrapiCategory;
+}
+
+/** Strapi snippet */
+export interface BaStrapiSnippet extends BaStrapiBase {
+  slotID: string;
+  title: string;
+  content: string;
+}
+
+/** Strapi content types */
+export enum BaStrapiContentType {
+  Pages = 'pages',
+  Snippets = 'snippets',
+}

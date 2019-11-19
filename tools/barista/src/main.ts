@@ -22,10 +22,12 @@ import {
   BaPageBuildResult,
   BaPageBuilder,
 } from '@dynatrace/barista-components/barista-definitions';
+import { strapiBuilder } from './builder/strapi';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
   ['components-builder', componentsBuilder],
+  ['strapi-builder', strapiBuilder],
 ]);
 
 const DIST_DIR = join(__dirname, '../../', 'apps', 'barista', 'data');
