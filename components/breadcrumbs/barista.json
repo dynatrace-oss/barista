@@ -7,8 +7,7 @@
   "toc": true,
   "properties": ["work in progress"],
   "contributors": {
-    "dev": ["fabian.friedl", "szymon.bultrowicz"],
-    "ux": ["andreas.haslinger"]
+    "dev": ["fabian.friedl", "szymon.bultrowicz"]
   },
   "themable": true,
   "tags": ["nav", "component", "angular", "navbar", "navigation", "breadcrumbs"]
