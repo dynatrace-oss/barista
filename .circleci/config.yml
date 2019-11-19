@@ -65,7 +65,7 @@ jobs:
           <<: *set_env
       - restore_cache:
           <<: *npm_cache
-      - run: yarn format:check --base=master
+      - run: yarn format:check --base=master --head="$(git rev-parse HEAD~0)"
   lint:
     <<: *defaults
     steps:
