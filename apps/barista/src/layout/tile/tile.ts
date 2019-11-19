@@ -22,7 +22,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
-import { BaOverviewPageSectionItem } from '@dynatrace/barista-components/barista-definitions';
+import { BaCategoryNavigationSectionItem } from '@dynatrace/barista-components/barista-definitions';
 
 @Component({
   selector: 'a[ba-tile]',
@@ -34,7 +34,7 @@ import { BaOverviewPageSectionItem } from '@dynatrace/barista-components/barista
   },
 })
 export class BaTile implements OnChanges {
-  @Input() data: BaOverviewPageSectionItem;
+  @Input() data: BaCategoryNavigationSectionItem;
   @Input() listView = true;
 
   /** @internal whether the tile has the badge 'favorite' */

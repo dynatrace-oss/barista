@@ -24,7 +24,7 @@ import {
 } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 
-import { BaOverviewPageContents } from '@dynatrace/barista-components/barista-definitions';
+import { BaCategoryNavigationContents } from '@dynatrace/barista-components/barista-definitions';
 import { BaPage } from '../../pages/page-outlet';
 import { BaTile } from '../../layout/tile/tile';
 import { readKeyCode } from '@dynatrace/barista-components/core';
@@ -37,7 +37,7 @@ const LOCALSTORAGEKEY = 'baristaGridview';
   styleUrls: ['overview-page.scss'],
 })
 export class BaOverviewPage implements AfterViewInit, BaPage, OnDestroy {
-  contents: BaOverviewPageContents;
+  contents: BaCategoryNavigationContents;
 
   /** @internal whether the tiles are currently displayed as list */
   _listViewActive = true;
