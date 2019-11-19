@@ -26,10 +26,16 @@ export interface BaPageBuildResult {
   pageContent: BaPageContent;
 }
 
-/** Contributors in page front matter */
+/** Barista contributors data */
 export interface BaContributors {
-  dev: string[];
-  ux: string[];
+  dev?: {
+    name: string;
+    gitHubUser: string;
+  }[];
+  ux?: {
+    name: string;
+    gitHubUser: string;
+  }[];
 }
 
 /** Structure of the generated JSON page output */
@@ -49,4 +55,51 @@ export interface BaPageContent {
   related?: string[];
   nav_group?: string;
   category?: string;
+}
+
+/** Base interface for Strapi content types */
+interface BaStrapiBase {
+  id: number;
+  created_at: number;
+  updated_at: number;
+}
+
+/** Strapi content type with a name */
+interface BaStrapiNamedEntity extends BaStrapiBase {
+  name: string;
+}
+
+/** Strapi page category */
+interface BaStrapiCategory extends BaStrapiBase {
+  title: string;
+}
+
+/** Strapi contributor (UX/Dev support) */
+interface BaStrapiContributor extends BaStrapiNamedEntity {
+  githubuser: string;
+  developer: boolean;
+}
+
+/** Strapi page */
+export interface BaStrapiPage extends BaStrapiBase {
+  title: string;
+  slug: string;
+  content: string;
+  uxWikiPage: string;
+  tags: BaStrapiNamedEntity[];
+  contributors: BaStrapiContributor[];
+  category: BaStrapiCategory;
+}
+
+/** Strapi snippet */
+export interface BaStrapiSnippet extends BaStrapiBase {
+  slotID: string;
+  title: string;
+  content: string;
+}
+
+/** Strapi content types */
+export enum StrapiContentType {
+  Pages = 'pages',
+  Snippets = 'snippets',
 }

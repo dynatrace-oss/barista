@@ -18,11 +18,13 @@ import { promises as fs, mkdirSync } from 'fs';
 import { dirname, join } from 'path';
 
 import { componentsBuilder } from './builder/components';
+import { strapiBuilder } from './builder/strapi';
 import { BaPageBuildResult, BaPageBuilder } from './types';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
   ['components-builder', componentsBuilder],
+  ['strapi-builder', strapiBuilder],
 ]);
 
 const DIST_DIR = join(__dirname, '../../', 'apps', 'barista', 'data');
