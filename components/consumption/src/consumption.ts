@@ -14,15 +14,6 @@
  * limitations under the License.
  */
 
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
-import {
-  ConnectedPosition,
-  Overlay,
-  OverlayConfig,
-  OverlayRef,
-} from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -35,16 +26,29 @@ import {
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
+  Optional,
+  Inject,
 } from '@angular/core';
-
+import {
+  ConnectedPosition,
+  Overlay,
+  OverlayConfig,
+  OverlayRef,
+} from '@angular/cdk/overlay';
 import {
   Constructor,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  DtUiTestConfiguration,
   isDefined,
   mixinColor,
   readKeyCode,
+  setUiTestAttribute,
 } from '@dynatrace/barista-components/core';
 
 import { DtConsumptionOverlay } from './consumption-directives';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 export type DtConsumptionThemePalette = 'main' | 'warning' | 'error';
 
@@ -163,6 +167,9 @@ export class DtConsumption extends _DtConsumption
     private readonly _viewContainerRef: ViewContainerRef,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private _focusMonitor: FocusMonitor,
+    @Optional()
+    @Inject(DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {
     super(_elementRef);
     this._focusMonitor.monitor(this._elementRef);
@@ -199,6 +206,13 @@ export class DtConsumption extends _DtConsumption
 
       // Note: each OverlayConfig can only be used for one overlay instance
       this._overlayRef = this._overlay.create(this._createOverlayConfig());
+      if (this._config) {
+        setUiTestAttribute(
+          this._elementRef,
+          this._overlayRef.overlayElement,
+          this._config,
+        );
+      }
       this._overlayRef.attach(portal);
     }
   }

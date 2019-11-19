@@ -18,19 +18,18 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 // tslint:disable deprecation
 
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   DtExpandableSection,
   DtExpandableSectionModule,
 } from '@dynatrace/barista-components/expandable-section';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtExpandableSection', () => {
   beforeEach(async(() => {

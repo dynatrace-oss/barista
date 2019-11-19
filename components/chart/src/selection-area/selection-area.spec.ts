@@ -17,9 +17,9 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ENTER } from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import * as formatters from '@dynatrace/barista-components/formatters';
+import * as streams from './streams';
+
 import { Component, DebugElement, Provider, Type } from '@angular/core';
 import {
   ComponentFixture,
@@ -28,22 +28,22 @@ import {
   flush,
   inject,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Subject } from 'rxjs';
-
-import { DtChartModule } from '@dynatrace/barista-components/chart';
-import * as formatters from '@dynatrace/barista-components/formatters';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtThemingModule } from '@dynatrace/barista-components/theming';
-
 import {
   dispatchKeyboardEvent,
   dispatchMouseEvent,
-} from '../../../testing/dispatch-events';
+} from '@dynatrace/barista-components/testing';
+
 import { ARIA_DEFAULT_CLOSE_LABEL } from '../range/constants';
+import { By } from '@angular/platform-browser';
+import { DtChartModule } from '@dynatrace/barista-components/chart';
 import { DtChartRange } from '../range/range';
-import * as streams from './streams';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { ENTER } from '@angular/cdk/keycodes';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Subject } from 'rxjs';
 
 jest
   .spyOn(formatters, 'dtFormatDateRange')

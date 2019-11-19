@@ -18,18 +18,19 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, ViewChild } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import {
   DtBreadcrumbsItem,
   DtBreadcrumbsModule,
 } from '@dynatrace/barista-components/breadcrumbs';
+import { TestBed, async } from '@angular/core/testing';
+import {
+  createComponent,
+  createMouseEvent,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../../testing/create-component';
-import { createMouseEvent } from '../../../testing/event-objects';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('DtBreadcrumbsItem', () => {
   describe('Router provided', () => {

@@ -17,26 +17,27 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { DELETE } from '@angular/cdk/keycodes';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
-import {
-  DtChartModule,
-  DtChartRange,
-} from '@dynatrace/barista-components/chart';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-
-import { dispatchFakeEvent } from '../../../testing/dispatch-events';
-import { createKeyboardEvent } from '../../../testing/event-objects';
 import {
   ARIA_DEFAULT_LEFT_HANDLE_LABEL,
   ARIA_DEFAULT_RIGHT_HANDLE_LABEL,
   ARIA_DEFAULT_SELECTED_AREA_LABEL,
   DT_RANGE_RELEASED_CLASS,
 } from './constants';
+import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  DtChartModule,
+  DtChartRange,
+} from '@dynatrace/barista-components/chart';
+import {
+  createKeyboardEvent,
+  dispatchFakeEvent,
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
+import { DELETE } from '@angular/cdk/keycodes';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RangeStateChangedEvent } from './range';
 
 // tslint:disable:no-magic-numbers no-unbound-method no-use-before-declare

@@ -18,19 +18,6 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
-  DOWN_ARROW,
-  END,
-  ENTER,
-  HOME,
-  LEFT_ARROW,
-  PAGE_DOWN,
-  PAGE_UP,
-  RIGHT_ARROW,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {
   AfterViewInit,
   Component,
   ElementRef,
@@ -48,28 +35,40 @@ import {
   inject,
   tick,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Subject } from 'rxjs';
-
-import { DtCardModule } from '@dynatrace/barista-components/card';
+import {
+  DOWN_ARROW,
+  END,
+  ENTER,
+  HOME,
+  LEFT_ARROW,
+  PAGE_DOWN,
+  PAGE_UP,
+  RIGHT_ARROW,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
 import {
   DtChart,
   DtChartSelectionAreaOrigin,
   getDtChartSelectionAreaDateTimeAxisError,
 } from '@dynatrace/barista-components/chart';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtSelectionAreaModule } from '@dynatrace/barista-components/selection-area';
-
-import { createComponent } from '../../testing/create-component';
 import {
+  MockNgZone,
+  createComponent,
   dispatchKeyboardEvent,
   dispatchMouseEvent,
-} from '../../testing/dispatch-events';
-import { MockNgZone } from '../../testing/mock-ng-zone';
-import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
-import { DtButtonModule } from '../button';
+  tickRequestAnimationFrame,
+  wrappedErrorMessage,
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtCardModule } from '@dynatrace/barista-components/card';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtSelectionArea } from './selection-area';
+import { DtSelectionAreaModule } from '@dynatrace/barista-components/selection-area';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Subject } from 'rxjs';
 
 // tslint:disable-next-line: dt-no-focused-tests
 describe.skip('DtSelectionArea', () => {

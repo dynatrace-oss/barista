@@ -17,8 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ENTER } from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
   Component,
@@ -34,21 +32,24 @@ import {
   flush,
   inject,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Subject, Subscription } from 'rxjs';
-
 import {
   DtChart,
   DtChartHeatfield,
   DtChartHeatfieldActiveChange,
   DtChartModule,
   DtChartOptions,
+  getDtHeatfieldUnsupportedChartError,
 } from '@dynatrace/barista-components/chart';
-import { getDtHeatfieldUnsupportedChartError } from '@dynatrace/barista-components/chart/heatfield/chart-heatfield-errors';
-import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { Subject, Subscription } from 'rxjs';
+import {
+  createComponent,
+  dispatchKeyboardEvent,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../../testing/create-component';
-import { dispatchKeyboardEvent } from '../../../testing/dispatch-events';
+import { By } from '@angular/platform-browser';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { ENTER } from '@angular/cdk/keycodes';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 const PLOTMARGIN_LEFT = 100;
 const PLOTMARGIN_RIGHT = 100;

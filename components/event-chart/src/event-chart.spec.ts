@@ -17,16 +17,15 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
+
 import { By } from '@angular/platform-browser';
-
-import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
-
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import { DtEventChart } from './event-chart';
+import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 import { DtEventChartSelectedEvent } from './event-chart-directives';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { dispatchFakeEvent } from '@dynatrace/barista-components/testing';
 
 /** Gets the rendered merged numbering. */
 function getRenderedMergedTextLabels(fixture: ComponentFixture<any>): string[] {

@@ -31,11 +31,18 @@ import {
   ViewChild,
   ViewChildren,
   ViewEncapsulation,
+  Optional,
+  Inject,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { DtInput } from '@dynatrace/barista-components/input';
+import {
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  DtUiTestConfiguration,
+  setUiTestAttribute,
+} from 'components/core/src/testing';
 
 @Component({
   selector: 'dt-tag-add',
@@ -127,6 +134,10 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _zone: NgZone,
+    @Optional()
+    @Inject(DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG)
+    private _config?: DtUiTestConfiguration,
+    private _elementRef?: ElementRef<HTMLElement>,
   ) {}
 
   ngAfterViewInit(): void {
@@ -153,6 +164,13 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
     this._overlayDir.positionChange.pipe(take(1)).subscribe(() => {
       this._panel.nativeElement.scrollTop = 0;
     });
+    if (this._elementRef && this._config) {
+      setUiTestAttribute(
+        this._elementRef,
+        this._overlayDir.overlayRef.overlayElement,
+        this._config,
+      );
+    }
   }
 
   /** Opens the tag add Overlay by setting showOverlay to true. */

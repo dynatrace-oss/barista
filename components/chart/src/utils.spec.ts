@@ -25,7 +25,7 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-import { createKeyboardEvent } from '../../testing/event-objects';
+import { createKeyboardEvent } from '@dynatrace/barista-components/testing';
 import { getKeyboardNavigationOffset } from './utils';
 
 describe('DtChart utils', () => {

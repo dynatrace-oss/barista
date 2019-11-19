@@ -18,8 +18,6 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { BACKSPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, NgZone, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
@@ -29,8 +27,6 @@ import {
   inject,
   tick,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import {
   DT_FILTER_FIELD_TYPING_DEBOUNCE,
   DtFilterField,
@@ -40,16 +36,19 @@ import {
   dtRangeDef,
   getDtFilterFieldRangeNoOperatorsError,
 } from '@dynatrace/barista-components/filter-field';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-
-import { createComponent } from '../../testing/create-component';
 import {
+  MockNgZone,
+  createComponent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
-import { MockNgZone } from '../../testing/mock-ng-zone';
-import { typeInElement } from '../../testing/type-in-element';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+  typeInElement,
+  wrappedErrorMessage,
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 const TEST_DATA = {
   autocomplete: [

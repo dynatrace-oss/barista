@@ -17,9 +17,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { CollectionViewer } from '@angular/cdk/collections';
-import { DataSource } from '@angular/cdk/table';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Component, Type, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
@@ -27,22 +25,23 @@ import {
   async,
   fakeAsync,
 } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { BehaviorSubject, Observable } from 'rxjs';
-
 import {
   DtIndicatorModule,
   DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
 } from '@dynatrace/barista-components/core';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtTreeTable,
   DtTreeTableModule,
 } from '@dynatrace/barista-components/tree-table';
 
-import { createComponent } from '../../testing/create-component';
+import { CollectionViewer } from '@angular/cdk/collections';
+import { DataSource } from '@angular/cdk/table';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;

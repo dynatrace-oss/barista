@@ -26,22 +26,23 @@ import {
   tick,
 } from '@angular/core/testing';
 import {
-  FormControl,
-  FormsModule,
-  NgModel,
-  ReactiveFormsModule,
-} from '@angular/forms';
-import { By } from '@angular/platform-browser';
-
-import {
   DtRadioButton,
   DtRadioChange,
   DtRadioGroup,
   DtRadioModule,
 } from '@dynatrace/barista-components/radio';
+import {
+  FormControl,
+  FormsModule,
+  NgModel,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  createComponent,
+  dispatchFakeEvent,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../testing/create-component';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import { By } from '@angular/platform-browser';
 
 describe('DtRadio', () => {
   beforeEach(async(() => {

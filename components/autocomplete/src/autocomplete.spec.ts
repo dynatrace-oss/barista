@@ -18,15 +18,6 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
-  DOWN_ARROW,
-  ENTER,
-  ESCAPE,
-  SPACE,
-  TAB,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import {
   Component,
   NgZone,
   OnDestroy,
@@ -45,12 +36,14 @@ import {
   inject,
   tick,
 } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Observable, Subscription } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-
+import {
+  DOWN_ARROW,
+  ENTER,
+  ESCAPE,
+  SPACE,
+  TAB,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
 import {
   DT_AUTOCOMPLETE_DEFAULT_OPTIONS,
   DtAutocomplete,
@@ -59,23 +52,29 @@ import {
   getDtAutocompleteMissingPanelError,
 } from '@dynatrace/barista-components/autocomplete';
 import {
-  DtOption,
-  DtOptionSelectionChange,
-} from '@dynatrace/barista-components/core';
-import {
   DtFormField,
   DtFormFieldModule,
 } from '@dynatrace/barista-components/form-field';
-import { DtInputModule } from '@dynatrace/barista-components/input';
-
 import {
+  DtOption,
+  DtOptionSelectionChange,
+} from '@dynatrace/barista-components/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  MockNgZone,
+  createKeyboardEvent,
   dispatchEvent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
-import { createKeyboardEvent } from '../../testing/event-objects';
-import { MockNgZone } from '../../testing/mock-ng-zone';
-import { typeInElement } from '../../testing/type-in-element';
+  typeInElement,
+} from '@dynatrace/barista-components/testing';
+import { Observable, Subscription } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+import { By } from '@angular/platform-browser';
+import { DtInputModule } from '@dynatrace/barista-components/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 describe('DtAutocomplete', () => {
   let overlayContainer: OverlayContainer;
@@ -133,13 +132,14 @@ describe('DtAutocomplete', () => {
       input = fixture.debugElement.query(By.css('input')).nativeElement;
     });
 
+    // tslint:disable-next-line: dt-no-focused-tests
     it('should open the panel when the input is focused', () => {
       // Expected panel state to start out closed.
       expect(fixture.componentInstance.trigger.panelOpen).toBe(false);
 
       dispatchFakeEvent(input, 'focusin');
       fixture.detectChanges();
-
+      console.log('overlayContainer: ', overlayContainerElement);
       expect(fixture.componentInstance.trigger.panelOpen).toBe(true);
       // Expected panel to display when input is focused.
       expect(overlayContainerElement.textContent).toContain('Alabama');

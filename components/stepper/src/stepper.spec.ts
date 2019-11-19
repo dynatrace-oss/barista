@@ -17,6 +17,8 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { Component, DebugElement, Type } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   DOWN_ARROW,
   END,
@@ -27,19 +29,16 @@ import {
   SPACE,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
-import { StepperOrientation } from '@angular/cdk/stepper';
-import { Component, DebugElement, Type } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   DtStepper,
   DtStepperModule,
 } from '@dynatrace/barista-components/stepper';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
-import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { StepperOrientation } from '@angular/cdk/stepper';
+import { dispatchKeyboardEvent } from '@dynatrace/barista-components/testing';
 
 describe('DtStepper', () => {
   describe('linear stepper with a pre-defined selectedIndex', () => {

@@ -18,16 +18,15 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import {
   DtBreadcrumbs,
   DtBreadcrumbsItem,
   DtBreadcrumbsModule,
 } from '@dynatrace/barista-components/breadcrumbs';
+import { TestBed, async } from '@angular/core/testing';
 
-import { createComponent } from '../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtBreadcrumbs', () => {
   beforeEach(async(() => {

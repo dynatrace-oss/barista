@@ -18,16 +18,15 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import {
   DtButtonGroup,
   DtButtonGroupItem,
   DtButtonGroupModule,
 } from '@dynatrace/barista-components/button-group';
+import { TestBed, async } from '@angular/core/testing';
 
-import { createComponent } from '../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtButtonGroup', () => {
   beforeEach(async(() => {

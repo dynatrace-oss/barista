@@ -77,6 +77,9 @@ import {
   getElementBoundingClientRect,
   readKeyCode,
   removeCssClass,
+  DtUiTestConfiguration,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  setUiTestAttribute,
 } from '@dynatrace/barista-components/core';
 
 import { DtChart } from '../chart';
@@ -192,6 +195,9 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
     @Optional() private _viewportResizer: DtViewportResizer,
+    @Optional()
+    @Inject(DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {}
 
   ngAfterContentInit(): void {
@@ -437,7 +443,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     overlayRef.attach(this._portal);
 
     this._overlayRef = overlayRef;
-
+    if (this._config) {
+      setUiTestAttribute(
+        this._elementRef,
+        this._overlayRef.overlayElement,
+        this._config,
+      );
+    }
     if (!this._overlayFocusTrap) {
       this._overlayFocusTrap = this._focusTrapFactory.create(
         this._overlayRef.overlayElement,

@@ -14,15 +14,18 @@
  * limitations under the License.
  */
 
-import { OverlayModule } from '@angular/cdk/overlay';
+import {
+  DT_DEFAULT_UI_TEST_CONFIG,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  DtOptionModule,
+} from '@dynatrace/barista-components/core';
+
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-
-import { DtOptionModule } from '@dynatrace/barista-components/core';
-
 import { DtAutocomplete } from './autocomplete';
 import { DtAutocompleteOrigin } from './autocomplete-origin';
 import { DtAutocompleteTrigger } from './autocomplete-trigger';
+import { NgModule } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [CommonModule, OverlayModule, DtOptionModule],
@@ -33,5 +36,11 @@ import { DtAutocompleteTrigger } from './autocomplete-trigger';
     DtOptionModule,
   ],
   declarations: [DtAutocompleteTrigger, DtAutocomplete, DtAutocompleteOrigin],
+  providers: [
+    {
+      provide: DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+      useValue: DT_DEFAULT_UI_TEST_CONFIG,
+    },
+  ],
 })
 export class DtAutocompleteModule {}

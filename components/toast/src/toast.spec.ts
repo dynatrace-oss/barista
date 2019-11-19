@@ -17,8 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -28,8 +26,6 @@ import {
   inject,
   tick,
 } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   DT_TOAST_CHAR_LIMIT,
   DT_TOAST_FADE_TIME,
@@ -37,9 +33,14 @@ import {
   DtToast,
   DtToastModule,
 } from '@dynatrace/barista-components/toast';
+import {
+  createComponent,
+  dispatchFakeEvent,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../testing/create-component';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import { Component } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 describe('DtToast', () => {
   let dtToast: DtToast;

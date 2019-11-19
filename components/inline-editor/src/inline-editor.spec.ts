@@ -17,40 +17,39 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
-import { PlatformModule } from '@angular/cdk/platform';
-import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component, ViewChild } from '@angular/core';
 import {
-  TestBed,
-  tick,
-  fakeAsync,
-  ComponentFixture,
-} from '@angular/core/testing';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  ValidatorFn,
   AbstractControl,
   FormControl,
   FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidatorFn,
 } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Observable } from 'rxjs';
-
-import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { Component, ViewChild } from '@angular/core';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import {
   DtInlineEditor,
   DtInlineEditorModule,
 } from '@dynatrace/barista-components/inline-editor';
-
-import { createComponent } from '../../testing/create-component';
+import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
 import {
+  createComponent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Observable } from 'rxjs';
+import { PlatformModule } from '@angular/cdk/platform';
 
 describe('DtInlineEditor', () => {
   beforeEach(() => {

@@ -17,24 +17,23 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import {
   DtFilterFieldModule,
   DtFilterFieldTag,
 } from '@dynatrace/barista-components/filter-field';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '../../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { DtFilterFieldTagData } from '../types';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtFilterFieldTag', () => {
   let fixture: ComponentFixture<TestApp>;

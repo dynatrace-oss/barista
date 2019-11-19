@@ -25,20 +25,19 @@ import {
   flush,
 } from '@angular/core/testing';
 import {
+  DtCheckbox,
+  DtCheckboxChange,
+  DtCheckboxModule,
+} from '@dynatrace/barista-components/checkbox';
+import {
   FormControl,
   FormsModule,
   NgModel,
   ReactiveFormsModule,
 } from '@angular/forms';
+
 import { By } from '@angular/platform-browser';
-
-import {
-  DtCheckbox,
-  DtCheckboxChange,
-  DtCheckboxModule,
-} from '@dynatrace/barista-components/checkbox';
-
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtCheckbox', () => {
   let fixture: ComponentFixture<any>;

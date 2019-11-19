@@ -17,30 +17,31 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { CommonModule } from '@angular/common';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { TestBed, async, fakeAsync, flush } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
 import {
   DtFormattersModule,
   formatBytes,
   formatPercent,
   formatRate,
 } from '@dynatrace/barista-components/formatters';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 import {
   DtSort,
   DtTableDataSource,
   DtTableModule,
 } from '@dynatrace/barista-components/table';
+import { TestBed, async, fakeAsync, flush } from '@angular/core/testing';
+import {
+  createComponent,
+  dispatchMouseEvent,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../../testing/create-component';
-import { dispatchMouseEvent } from '../../../testing/dispatch-events';
+import { By } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('DtTable SimpleColumns', () => {
   beforeEach(async(() => {

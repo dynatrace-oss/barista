@@ -17,7 +17,16 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Platform, PlatformModule } from '@angular/cdk/platform';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  FormsModule,
+  NgForm,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -32,29 +41,21 @@ import {
   flush,
 } from '@angular/core/testing';
 import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  FormsModule,
-  NgForm,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { ErrorStateMatcher } from '@dynatrace/barista-components/core';
-import {
   DtFormFieldModule,
   getDtFormFieldDuplicatedHintError,
   getDtFormFieldMissingControlError,
 } from '@dynatrace/barista-components/form-field';
 import { DtInput, DtInputModule } from '@dynatrace/barista-components/input';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import {
+  createComponent,
+  dispatchFakeEvent,
+  wrappedErrorMessage,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../testing/create-component';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+import { By } from '@angular/platform-browser';
+import { ErrorStateMatcher } from '@dynatrace/barista-components/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const TEST_IMPORTS = [
   FormsModule,

@@ -17,16 +17,15 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { PlatformModule } from '@angular/cdk/platform';
-import { Component } from '@angular/core';
-import { TestBed, fakeAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TestBed, fakeAsync } from '@angular/core/testing';
+
 import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
+import { Component } from '@angular/core';
 import { DtInputModule } from '@dynatrace/barista-components/input';
-
-import { createComponent } from '../../testing/create-component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { PlatformModule } from '@angular/cdk/platform';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtInput without forms', () => {
   beforeEach(fakeAsync(() => {

@@ -17,9 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ESCAPE } from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
@@ -30,17 +27,21 @@ import {
   inject,
   tick,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import {
   DtContextDialog,
   DtContextDialogModule,
   DtContextDialogTrigger,
 } from '@dynatrace/barista-components/context-dialog';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
+import {
+  createComponent,
+  dispatchKeyboardEvent,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../testing/create-component';
-import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;

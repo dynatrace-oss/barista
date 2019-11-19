@@ -18,6 +18,10 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
+  ARIA_DEFAULT_SELECTED_LABEL,
+  TimestampStateChangedEvent,
+} from './timestamp';
+import {
   BACKSPACE,
   DELETE,
   DOWN_ARROW,
@@ -31,23 +35,18 @@ import {
 } from '@angular/cdk/keycodes';
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import {
   DtChartModule,
   DtChartTimestamp,
 } from '@dynatrace/barista-components/chart';
-
-import { createComponent } from '../../../testing/create-component';
 import {
+  createComponent,
+  createKeyboardEvent,
   dispatchEvent,
   dispatchKeyboardEvent,
-} from '../../../testing/dispatch-events';
-import { createKeyboardEvent } from '../../../testing/event-objects';
-import {
-  ARIA_DEFAULT_SELECTED_LABEL,
-  TimestampStateChangedEvent,
-} from './timestamp';
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
 
 const TIMESTAMP_SELECTOR = '.dt-chart-timestamp-selector';
 

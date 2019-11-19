@@ -17,19 +17,18 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
-import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtShowMore,
   DtShowMoreModule,
 } from '@dynatrace/barista-components/show-more';
+import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
+import { TestBed, async } from '@angular/core/testing';
 
-import { createComponent } from '../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {

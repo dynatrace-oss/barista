@@ -17,18 +17,16 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import * as core from '@dynatrace/barista-components/core';
+import * as utils from '../utils';
+
 import { ElementRef, NgZone, QueryList } from '@angular/core';
+import {
+  MockNgZone,
+  createMouseEvent,
+} from '@dynatrace/barista-components/testing';
 import { Subject, interval, of, timer } from 'rxjs';
 import { delay, map, mapTo, take } from 'rxjs/operators';
-import { TestScheduler } from 'rxjs/testing';
-
-import * as core from '@dynatrace/barista-components/core';
-
-import { createMouseEvent } from '../../../testing/event-objects';
-import { MockNgZone } from '../../../testing/mock-ng-zone';
-import * as utils from '../utils';
-import { NO_POINTER_EVENTS_CLASS } from './constants';
-import { DtSelectionAreaEventTarget } from './position-utils';
 import {
   getClickStream,
   getDragStream,
@@ -40,6 +38,10 @@ import {
   getRangeCreateStream,
   getRangeResizeStream,
 } from './streams';
+
+import { DtSelectionAreaEventTarget } from './position-utils';
+import { NO_POINTER_EVENTS_CLASS } from './constants';
+import { TestScheduler } from 'rxjs/testing';
 
 const MOCK_BOUNDING_CLIENT_RECT: ClientRect = {
   top: 50,

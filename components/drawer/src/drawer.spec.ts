@@ -17,7 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ESCAPE } from '@angular/cdk/keycodes';
 import {
   BreakpointObserver,
   LayoutModule,
@@ -39,9 +38,6 @@ import {
   inject,
   tick,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   DT_DRAWER_OPEN_CLASS,
   DtDrawer,
@@ -50,7 +46,10 @@ import {
   getDtDuplicateDrawerError,
 } from '@dynatrace/barista-components/drawer';
 
-import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import { By } from '@angular/platform-browser';
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { dispatchKeyboardEvent } from '@dynatrace/barista-components/testing';
 
 // TODO: [e2e] move to e2e test in case getBoundingClientRect is not available in jsdom
 // function getVisibility(element: HTMLElement): boolean {

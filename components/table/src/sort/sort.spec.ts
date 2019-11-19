@@ -18,7 +18,6 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   Component,
   ElementRef,
@@ -27,13 +26,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-
-import { DtSortDirection } from '@dynatrace/barista-components/core';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtCell,
   DtSort,
@@ -42,10 +34,19 @@ import {
   DtTableModule,
   getDtSortHeaderNotContainedWithinSortError,
 } from '@dynatrace/barista-components/table';
+import {
+  createComponent,
+  dispatchMouseEvent,
+  wrappedErrorMessage,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../../testing/create-component';
-import { dispatchMouseEvent } from '../../../testing/dispatch-events';
-import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtSortDirection } from '@dynatrace/barista-components/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;

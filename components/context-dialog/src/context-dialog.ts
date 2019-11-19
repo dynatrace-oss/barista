@@ -54,6 +54,9 @@ import {
   mixinDisabled,
   mixinTabIndex,
   readKeyCode,
+  DtUiTestConfiguration,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  setUiTestAttribute,
 } from '@dynatrace/barista-components/core';
 
 import { DtContextDialogTrigger } from './context-dialog-trigger';
@@ -183,6 +186,10 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     @Attribute('tabindex') tabIndex: string,
     // tslint:disable-next-line: no-any
     @Optional() @Inject(DOCUMENT) private _document: any,
+    @Optional()
+    @Inject(DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG)
+    private _config?: DtUiTestConfiguration,
+    private _elementRef?: ElementRef<HTMLElement>,
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
@@ -292,6 +299,13 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       backdropClass: 'cdk-overlay-transparent-backdrop',
       hasBackdrop: true,
     });
+    if (this._elementRef && this._config) {
+      setUiTestAttribute(
+        this._elementRef,
+        this._overlayRef.overlayElement,
+        this._config,
+      );
+    }
     this._overlayRef
       .backdropClick()
       .pipe(takeUntil(this._destroy))

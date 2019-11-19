@@ -16,13 +16,13 @@
 
 // tslint:disable: no-unbound-method no-magic-numbers
 
-import { NgZone } from '@angular/core';
 import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
-import { of } from 'rxjs';
 import { delay, observeOn, subscribeOn } from 'rxjs/operators';
-
-import { MockNgZone } from '../../../testing/mock-ng-zone';
 import { runInsideZone, runOutsideZone } from './zone-scheduler';
+
+import { MockNgZone } from '@dynatrace/barista-components/testing';
+import { NgZone } from '@angular/core';
+import { of } from 'rxjs';
 
 describe('Angular Zone Schedulers', () => {
   let zone: MockNgZone;

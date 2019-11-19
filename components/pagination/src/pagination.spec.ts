@@ -17,19 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { HttpClientModule } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import {
-  DtPagination,
-  DtPaginationModule,
-} from '@dynatrace/barista-components/pagination';
-
-import { createComponent } from '../../testing/create-component';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
 import {
   ARIA_DEFAULT_CURRENT_LABEL,
   ARIA_DEFAULT_ELLIPSES,
@@ -38,6 +25,20 @@ import {
   ARIA_DEFAULT_PAGE_LABEL,
   ARIA_DEFAULT_PREVIOUS_LABEL,
 } from './pagination-defaults';
+import { Component, ViewChild } from '@angular/core';
+import {
+  DtPagination,
+  DtPaginationModule,
+} from '@dynatrace/barista-components/pagination';
+import { TestBed, async } from '@angular/core/testing';
+import {
+  createComponent,
+  dispatchFakeEvent,
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('DtPagination', () => {
   beforeEach(async(() => {

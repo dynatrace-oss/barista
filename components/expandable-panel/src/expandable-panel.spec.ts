@@ -19,16 +19,15 @@
 // tslint:disable deprecation
 
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   DtExpandablePanel,
   DtExpandablePanelModule,
 } from '@dynatrace/barista-components/expandable-panel';
+import { TestBed, async } from '@angular/core/testing';
 
-import { createComponent } from '../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtExpandablePanel', () => {
   beforeEach(async(() => {

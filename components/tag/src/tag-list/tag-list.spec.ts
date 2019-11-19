@@ -17,7 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   Component,
   DebugElement,
@@ -28,15 +27,17 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
-import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagList, DtTagModule } from '@dynatrace/barista-components/tag';
-
-import { createComponent } from '../../../testing/create-component';
-import { MockNgZone } from '../../../testing/mock-ng-zone';
-import { DtTag } from '../tag';
+import {
+  MockNgZone,
+  createComponent,
+} from '@dynatrace/barista-components/testing';
 import { getIndexForFirstHiddenTag, getWrapperWidth } from './tag-list';
+
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtTag } from '../tag';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtTagList', () => {
   let fixture: ComponentFixture<DtTagListComponent>;

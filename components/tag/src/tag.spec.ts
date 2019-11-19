@@ -18,14 +18,13 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { HttpClientModule, HttpXhrBackend } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 
+import { Component } from '@angular/core';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
-
-import { createComponent } from '../../testing/create-component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtTag', () => {
   beforeEach(async(() => {

@@ -60,6 +60,7 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
+  Inject,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -93,6 +94,9 @@ import {
   mixinErrorState,
   mixinTabIndex,
   readKeyCode,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  DtUiTestConfiguration,
+  setUiTestAttribute,
 } from '@dynatrace/barista-components/core';
 import {
   DtFormField,
@@ -453,6 +457,9 @@ export class DtSelect<T> extends _DtSelectMixinBase
     @Self() @Optional() public ngControl: NgControl,
     @Attribute('tabindex') tabIndex: string,
     private _focusMonitor: FocusMonitor,
+    @Optional()
+    @Inject(DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {
     super(
       elementRef,
@@ -667,6 +674,13 @@ export class DtSelect<T> extends _DtSelectMixinBase
       this._changeDetectorRef.detectChanges();
       this.panel.nativeElement.scrollTop = this._scrollTop;
     });
+    if (this._config) {
+      setUiTestAttribute(
+        this._elementRef,
+        this.overlayDir.overlayRef.overlayElement,
+        this._config,
+      );
+    }
   }
 
   /**

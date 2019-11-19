@@ -17,8 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -28,22 +26,25 @@ import {
   inject,
   tick,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   DtChart,
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
 } from '@dynatrace/barista-components/chart';
+import {
+  MockIntersectionObserver,
+  createComponent,
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
-
-import { createComponent } from '../../../testing/create-component';
-import { MockIntersectionObserver } from '../../../testing/mock-intersection-observer';
-import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;

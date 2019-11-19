@@ -17,13 +17,12 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import { DtOption, DtOptionModule } from '@dynatrace/barista-components/core';
+import { TestBed, async } from '@angular/core/testing';
 
-import { createComponent } from '../../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtOption', () => {
   beforeEach(async(() => {

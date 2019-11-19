@@ -17,7 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
@@ -26,10 +25,6 @@ import {
   fakeAsync,
   flush,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
-import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtPagination,
   DtPaginationModule,
@@ -40,9 +35,15 @@ import {
   DtTableDataSource,
   DtTableModule,
 } from '@dynatrace/barista-components/table';
+import {
+  createComponent,
+  dispatchMouseEvent,
+} from '@dynatrace/barista-components/testing';
 
-import { createComponent } from '../../testing/create-component';
-import { dispatchMouseEvent } from '../../testing/dispatch-events';
+import { By } from '@angular/platform-browser';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 const PAGE_SIZE = 2;
 

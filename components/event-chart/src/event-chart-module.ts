@@ -14,20 +14,23 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-
-import { DtLegendModule } from '@dynatrace/barista-components/legend';
-import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
-
-import { DtEventChart } from './event-chart';
+import {
+  DT_DEFAULT_UI_TEST_CONFIG,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+} from 'components/core/src/testing';
 import {
   DtEventChartEvent,
   DtEventChartLane,
   DtEventChartLegendItem,
   DtEventChartOverlay,
 } from './event-chart-directives';
+
+import { CommonModule } from '@angular/common';
+import { DtEventChart } from './event-chart';
 import { DtEventChartLegend } from './event-chart-legend';
+import { DtLegendModule } from '@dynatrace/barista-components/legend';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { NgModule } from '@angular/core';
 
 export const DT_EVENT_CHART_DIRECTIVES = [
   DtEventChart,
@@ -41,5 +44,11 @@ export const DT_EVENT_CHART_DIRECTIVES = [
   exports: DT_EVENT_CHART_DIRECTIVES,
   imports: [CommonModule, DtLegendModule, DtOverlayModule],
   declarations: [DtEventChartLegend, ...DT_EVENT_CHART_DIRECTIVES],
+  providers: [
+    {
+      provide: DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+      useValue: DT_DEFAULT_UI_TEST_CONFIG,
+    },
+  ],
 })
 export class DtEventChartModule {}

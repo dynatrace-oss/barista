@@ -22,6 +22,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
+import {
+  CdkScrollable,
+  ScrollingModule,
+  ViewportRuler,
+} from '@angular/cdk/scrolling';
+import { Component, ElementRef, NgModule, NgZone } from '@angular/core';
+import { ComponentPortal, PortalModule } from '@angular/cdk/portal';
 // tslint:disable
 import {
   Overlay,
@@ -30,21 +37,14 @@ import {
   OverlayModule,
   OverlayRef,
 } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
-import { ComponentPortal, PortalModule } from '@angular/cdk/portal';
-import {
-  CdkScrollable,
-  ScrollingModule,
-  ViewportRuler,
-} from '@angular/cdk/scrolling';
-import { Component, ElementRef, NgModule, NgZone } from '@angular/core';
 import { TestBed, inject } from '@angular/core/testing';
-import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-import { MockNgZone } from '../../../testing/mock-ng-zone';
 import { ConnectedOverlayPositionChange } from './connected-position';
 import { DtFlexibleConnectedPositionStrategy } from '.';
+import { MockNgZone } from '@dynatrace/barista-components/testing';
+import { Platform } from '@angular/cdk/platform';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 window.scroll = jest.fn();
 

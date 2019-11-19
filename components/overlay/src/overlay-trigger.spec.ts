@@ -17,9 +17,6 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ENTER, ESCAPE, SPACE } from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -27,20 +24,22 @@ import {
   flush,
   inject,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   DT_OVERLAY_DEFAULT_OFFSET,
   DtOverlayConfig,
   DtOverlayModule,
 } from '@dynatrace/barista-components/overlay';
-
-import { createComponent } from '../../testing/create-component';
+import { ENTER, ESCAPE, SPACE } from '@angular/cdk/keycodes';
 import {
+  createComponent,
   dispatchKeyboardEvent,
   dispatchMouseEvent,
-} from '../../testing/dispatch-events';
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
+import { Component } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 describe('DtOverlayTrigger', () => {
   let overlayContainer: OverlayContainer;

@@ -14,19 +14,28 @@
  * limitations under the License.
  */
 
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import {
+  DT_DEFAULT_UI_TEST_CONFIG,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  DtOptionModule,
+} from '@dynatrace/barista-components/core';
 
-import { DtOptionModule } from '@dynatrace/barista-components/core';
+import { CommonModule } from '@angular/common';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-
 import { DtSelect } from './select';
+import { NgModule } from '@angular/core';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 @NgModule({
   imports: [CommonModule, OverlayModule, DtIconModule, DtOptionModule],
   exports: [DtFormFieldModule, DtOptionModule, DtSelect],
   declarations: [DtSelect],
+  providers: [
+    {
+      provide: DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+      useValue: DT_DEFAULT_UI_TEST_CONFIG,
+    },
+  ],
 })
 export class DtSelectModule {}

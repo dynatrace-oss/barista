@@ -24,15 +24,14 @@ import {
   async,
   fakeAsync,
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-
 import {
   DtToggleButtonGroup,
   DtToggleButtonGroupModule,
   DtToggleButtonItem,
 } from '@dynatrace/barista-components/toggle-button-group';
 
-import { createComponent } from '../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtToggleButtonGroup', () => {
   beforeEach(async(() => {

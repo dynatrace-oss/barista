@@ -17,24 +17,23 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Location, LocationStrategy } from '@angular/common';
-import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   ComponentFixture,
   TestBed,
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RouterTestingModule } from '@angular/router/testing';
-
 import {
   DtTabNavigationAdapter,
   DtTabRouterFragmentAdapter,
   DtTabsModule,
 } from '@dynatrace/barista-components/tabs';
+import { Location, LocationStrategy } from '@angular/common';
 
-import { createComponent } from '../../../testing/create-component';
+import { Component } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtTabNavigationAdapter', () => {
   let fixture: ComponentFixture<TabComponent>;

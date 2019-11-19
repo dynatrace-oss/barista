@@ -31,6 +31,8 @@ import {
   NgZone,
   OnDestroy,
   Renderer2,
+  Optional,
+  Inject,
 } from '@angular/core';
 import {
   EMPTY,
@@ -43,7 +45,12 @@ import {
 } from 'rxjs';
 import { filter, map, take } from 'rxjs/operators';
 
-import { readKeyCode } from '@dynatrace/barista-components/core';
+import {
+  readKeyCode,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  DtUiTestConfiguration,
+  setUiTestAttribute,
+} from '@dynatrace/barista-components/core';
 
 import { DtFilterFieldRange } from './filter-field-range';
 
@@ -139,6 +146,9 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     zone: NgZone,
     renderer: Renderer2,
+    @Optional()
+    @Inject(DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
@@ -218,7 +228,13 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
   private _attachOverlay(): void {
     if (!this._overlayRef) {
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
-
+      if (this._config) {
+        setUiTestAttribute(
+          this._elementRef,
+          this._overlayRef.overlayElement,
+          this._config,
+        );
+      }
       this._overlayRef.keydownEvents().subscribe(event => {
         const keyCode = readKeyCode(event);
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.

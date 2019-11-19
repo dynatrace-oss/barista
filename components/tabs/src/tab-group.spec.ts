@@ -19,19 +19,18 @@
 
 import { Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
-
-import { DtLogConsumer, DtLogEntry } from '@dynatrace/barista-components/core';
 import {
   DT_TABGROUP_SINGLE_TAB_ERROR,
   DtTab,
   DtTabChange,
   DtTabsModule,
 } from '@dynatrace/barista-components/tabs';
-import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/barista-components/tabs/tab-group';
+import { DtLogConsumer, DtLogEntry } from '@dynatrace/barista-components/core';
 
-import { createComponent } from '../../testing/create-component';
+import { By } from '@angular/platform-browser';
+import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/barista-components/tabs/tab-group';
+import { Subscription } from 'rxjs';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtTabs', () => {
   beforeEach(async(() => {

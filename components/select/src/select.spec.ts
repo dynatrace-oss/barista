@@ -18,19 +18,6 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
-  DOWN_ARROW,
-  END,
-  ENTER,
-  HOME,
-  LEFT_ARROW,
-  RIGHT_ARROW,
-  SPACE,
-  TAB,
-  UP_ARROW,
-} from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import {
   ChangeDetectionStrategy,
   Component,
   QueryList,
@@ -47,6 +34,27 @@ import {
   tick,
 } from '@angular/core/testing';
 import {
+  DOWN_ARROW,
+  END,
+  ENTER,
+  HOME,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  SPACE,
+  TAB,
+  UP_ARROW,
+} from '@angular/cdk/keycodes';
+import {
+  DtOption,
+  DtOptionSelectionChange,
+  ErrorStateMatcher,
+} from '@dynatrace/barista-components/core';
+import {
+  DtSelect,
+  DtSelectModule,
+  getDtSelectNonFunctionValueError,
+} from '@dynatrace/barista-components/select';
+import {
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -54,31 +62,22 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { map } from 'rxjs/operators';
-
 import {
-  DtOption,
-  DtOptionSelectionChange,
-  ErrorStateMatcher,
-} from '@dynatrace/barista-components/core';
-import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import {
-  DtSelect,
-  DtSelectModule,
-  getDtSelectNonFunctionValueError,
-} from '@dynatrace/barista-components/select';
-
-import { createComponent } from '../../testing/create-component';
-import {
+  createComponent,
+  createKeyboardEvent,
   dispatchEvent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
-import { createKeyboardEvent } from '../../testing/event-objects';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+  wrappedErrorMessage,
+} from '@dynatrace/barista-components/testing';
+
+import { By } from '@angular/platform-browser';
+import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { map } from 'rxjs/operators';
 
 describe('DtSelect', () => {
   let overlayContainer: OverlayContainer;

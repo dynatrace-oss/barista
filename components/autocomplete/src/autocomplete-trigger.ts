@@ -69,12 +69,18 @@ import {
 import {
   DtOption,
   DtOptionSelectionChange,
+  // DtUiTestConfiguration,
+  // DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
   DtViewportResizer,
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition,
   isDefined,
   readKeyCode,
   stringify,
+  DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG,
+  DtUiTestConfiguration,
+  setUiTestAttribute,
+  // setUiTestAttribute,
 } from '@dynatrace/barista-components/core';
 import { DtFormField } from '@dynatrace/barista-components/form-field';
 
@@ -256,6 +262,9 @@ export class DtAutocompleteTrigger<T>
     @Optional() @Host() private _formField: DtFormField<string>,
     // tslint:disable-next-line:no-any
     @Optional() @Inject(DOCUMENT) private _document: any,
+    @Optional()
+    @Inject(DT_OVERLAY_ATTRIBUTE_PROPAGATION_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
@@ -410,6 +419,13 @@ export class DtAutocompleteTrigger<T>
 
     if (!this._overlayRef) {
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
+      if (this._config) {
+        setUiTestAttribute(
+          this._element,
+          this._overlayRef.overlayElement,
+          this._config,
+        );
+      }
 
       this._overlayRef.keydownEvents().subscribe(event => {
         const keyCode = readKeyCode(event);
@@ -432,8 +448,10 @@ export class DtAutocompleteTrigger<T>
       }
     } else {
       // Update the panel width and position in case anything has changed.
-      this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
-      this._overlayRef.updatePosition();
+      if (this._overlayRef) {
+        this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
+        this._overlayRef.updatePosition();
+      }
     }
 
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
