@@ -42,10 +42,11 @@ import {
   DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+
 import {
   dispatchFakeEvent,
-  createComponent,
   dispatchKeyboardEvent,
+  createComponent,
   MockNgZone,
   typeInElement,
   wrappedErrorMessage,

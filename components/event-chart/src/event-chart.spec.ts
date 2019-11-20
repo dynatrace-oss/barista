@@ -27,6 +27,10 @@ import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 import { dispatchFakeEvent } from '@dynatrace/barista-components/testing';
 import { DtEventChart } from './event-chart';
 import { DtEventChartSelectedEvent } from './event-chart-directives';
+import {
+  DT_UI_TEST_CONFIG,
+  DtUiTestConfiguration,
+} from '@dynatrace/barista-components/core';
 
 /** Gets the rendered merged numbering. */
 function getRenderedMergedTextLabels(fixture: ComponentFixture<any>): string[] {
@@ -100,6 +104,12 @@ function getLaneLabels(fixture: ComponentFixture<any>): string[] {
 describe('DtEventChart', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
+  const overlayConfig: DtUiTestConfiguration = {
+    attributeName: 'dt-ui-test-id',
+    constructOverlayAttributeValue(attributeName: string): string {
+      return `${attributeName}-overlay`;
+    },
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -109,6 +119,7 @@ describe('DtEventChart', () => {
         EventChartStaticDataWithLegendAndOverlay,
         EventChartDynamicData,
       ],
+      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
     });
     TestBed.compileComponents();
   });
@@ -338,6 +349,22 @@ describe('DtEventChart', () => {
       fixture.detectChanges();
       expect(firstBubble.nativeElement.classList).toContain(
         'dt-event-chart-event-selected',
+      );
+    });
+
+    it('should propagate attribute to overlay if `dt-ui-test-id` is provided', () => {
+      const firstBubble = fixture.debugElement.query(
+        By.css('.dt-event-chart-event'),
+      );
+      dispatchFakeEvent(firstBubble.nativeElement, 'mouseenter');
+      fixture.detectChanges();
+
+      const overlayPane = overlayContainerElement.querySelector(
+        '.dt-event-chart-overlay-panel',
+      );
+
+      expect(overlayPane!.outerHTML).toContain(
+        'dt-ui-test-id="event-chart-overlay"',
       );
     });
   });
@@ -647,7 +674,7 @@ class EventChartStaticData {
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-event-chart>
+    <dt-event-chart dt-ui-test-id="event-chart">
       <dt-event-chart-event
         value="0"
         lane="xhr"
