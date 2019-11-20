@@ -26,12 +26,6 @@ export interface BaPageBuildResult {
   pageContent: BaPageContent;
 }
 
-/** Contributors in page front matter */
-export interface BaContributors {
-  dev: string[];
-  ux: string[];
-}
-
 /** Structure of the generated JSON page output */
 export interface BaPageContent {
   title?: string;
@@ -49,4 +43,15 @@ export interface BaPageContent {
   related?: string[];
   nav_group?: string;
   category?: string;
+}
+
+/** Contributors in page front matter */
+export interface BaContributors {
+  dev?: BaContributor[];
+  ux?: BaContributor[];
+}
+
+export interface BaContributor {
+  name: string;
+  gitHubUser: string;
 }

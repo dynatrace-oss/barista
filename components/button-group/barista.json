@@ -7,8 +7,22 @@
   "public": true,
   "themable": true,
   "contributors": {
-    "dev": ["thomas.heller", "daniel.kaneider"],
-    "ux": ["raphaela.raudaschl"]
+    "dev": [
+      {
+        "name": "Daniel Kaneider",
+        "gitHubUser": "danielkaneider"
+      },
+      {
+        "name": "Thomas Heller",
+        "gitHubUser": "tomheller"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Raphaela Raudaschl",
+        "gitHubUser": "rrcaptain"
+      }
+    ]
   },
   "related": ["chart", "button", "tabs"],
   "tags": ["tabs", "component", "angular", "button", "buttongroup"]

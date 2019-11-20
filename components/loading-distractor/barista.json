@@ -5,8 +5,18 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["thomas.pink"],
-    "ux": ["andreas.mayr"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
   },
   "tags": ["loading", "spinner", "distractor", "angular", "component"]
 }

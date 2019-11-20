@@ -16,7 +16,7 @@
 
 import { Component, Input } from '@angular/core';
 
-import { environment } from './../../environments/environment';
+import { BaContributors } from '../../shared/page-contents';
 
 @Component({
   selector: 'ba-page-header',
@@ -34,10 +34,7 @@ export class BaPageHeader {
   @Input() description: string;
 
   /** the contributors of the component on the current page */
-  @Input() contributors: {
-    ux: string[];
-    dev: string[];
-  };
+  @Input() contributors: BaContributors;
 
   /** additional page properties, such as deprecated, dev utility,.. */
   @Input() properties: string[];
@@ -51,9 +48,9 @@ export class BaPageHeader {
   /** @internal */
   get _showContributors(): boolean {
     return (
-      environment.internal &&
       this.contributors &&
-      this.contributors.dev.length + this.contributors.ux.length > 0
+      ((this.contributors.dev != null && this.contributors.dev.length > 0) ||
+        (this.contributors.ux != null && this.contributors.ux.length > 0))
     );
   }
 }

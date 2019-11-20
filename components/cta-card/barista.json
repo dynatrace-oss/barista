@@ -7,8 +7,22 @@
   "public": true,
   "properties": ["deprecated"],
   "contributors": {
-    "dev": ["christoph.matscheko", "alexander.lagler"],
-    "ux": ["raphaela.raudaschl"]
+    "dev": [
+      {
+        "name": "Christoph Matscheko",
+        "gitHubUser": "heartdisease"
+      },
+      {
+        "name": "Alexander Lagler",
+        "gitHubUser": "alexlagler"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Raphaela Raudaschl",
+        "gitHubUser": "rrcaptain"
+      }
+    ]
   },
   "tags": [
     "call to action",

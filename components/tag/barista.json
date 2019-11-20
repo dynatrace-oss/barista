@@ -2,7 +2,16 @@
   "title": "Tag",
   "description": "The tag component is used to classify or categorize information.",
   "contributors": {
-    "dev": ["christoph.matscheko", "rowa.audil"]
+    "dev": [
+      {
+        "name": "Christoph Matscheko",
+        "gitHubUser": "heartdisease"
+      },
+      {
+        "name": "Rowa Audil",
+        "gitHubUser": "rowa-audil"
+      }
+    ]
   },
   "postid": "tag",
   "tags": ["component", "angular", "tagging", "label", "keyword"]

@@ -7,8 +7,18 @@
   "toc": true,
   "themable": false,
   "contributors": {
-    "dev": ["fabian.friedl"],
-    "ux": ["andreas.mayr"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
   },
   "tags": ["stepper", "step", "component", "angular"]
 }

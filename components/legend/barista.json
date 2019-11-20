@@ -5,7 +5,12 @@
   "public": true,
   "draft": true,
   "contributors": {
-    "dev": ["thomas.pink"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      }
+    ]
   },
   "tags": ["angular", "component"]
 }

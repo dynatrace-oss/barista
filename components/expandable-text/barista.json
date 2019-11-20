@@ -5,8 +5,22 @@
   "public": true,
   "category": "components",
   "contributors": {
-    "ux": ["gabriele.hasson-birkenmayer"],
-    "dev": ["rowa.audil", "fabian.friedl"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      },
+      {
+        "name": "Rowa Audil",
+        "gitHubUser": "rowa-audil"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Gabriele Hasson-Birkenmayer",
+        "gitHubUser": "GabrieleHB"
+      }
+    ]
   },
   "tags": [
     "expandable",

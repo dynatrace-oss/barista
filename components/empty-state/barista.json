@@ -6,8 +6,18 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["christoph.matscheko"],
-    "ux": ["andreas.mayr"]
+    "dev": [
+      {
+        "name": "Christoph Matscheko",
+        "gitHubUser": "heartdisease"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
   },
   "tags": ["empty state", "call to action", "illustration"]
 }

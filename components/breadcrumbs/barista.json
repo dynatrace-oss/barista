@@ -7,7 +7,16 @@
   "toc": true,
   "properties": ["work in progress"],
   "contributors": {
-    "dev": ["fabian.friedl", "szymon.bultrowicz"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      },
+      {
+        "name": "Szymon Bultrowicz",
+        "gitHubUser": "szymonbultrowicz"
+      }
+    ]
   },
   "themable": true,
   "tags": ["nav", "component", "angular", "navbar", "navigation", "breadcrumbs"]

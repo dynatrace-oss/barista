@@ -7,8 +7,18 @@
   "toc": true,
   "themable": true,
   "contributors": {
-    "dev": ["thomas.pink"],
-    "ux": ["raphaela.raudaschl"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Raphaela Raudaschl",
+        "gitHubUser": "rrcaptain"
+      }
+    ]
   },
   "tags": ["button", "component", "angular"],
   "related": ["button-alignment"]

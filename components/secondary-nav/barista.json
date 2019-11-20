@@ -2,8 +2,22 @@
   "title": "Secondary nav",
   "description": "The secondary nav component is a navigation menu that can contain internal and external links.",
   "contributors": {
-    "ux": ["ryan.deliso"],
-    "dev": ["arnaud.crowther", "thomas.pink"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      },
+      {
+        "name": "Arnaud Crowther",
+        "gitHubUser": "areknow"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Ryan Deliso",
+        "gitHubUser": "3yearsheep"
+      }
+    ]
   },
   "tags": [
     "navigation",

@@ -8,9 +8,14 @@
   </div>
   <div *ngIf="_showContributors" class="ba-contributors">
     <ba-contributors
+      *ngIf="contributors.dev"
       [type]="'dev'"
-      [names]="contributors.dev"
+      [contributors]="contributors.dev"
     ></ba-contributors>
-    <ba-contributors [type]="'ux'" [names]="contributors.ux"></ba-contributors>
+    <ba-contributors
+      *ngIf="contributors.ux"
+      [type]="'ux'"
+      [contributors]="contributors.ux"
+    ></ba-contributors>
   </div>
 </header>

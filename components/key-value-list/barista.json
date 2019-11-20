@@ -6,8 +6,22 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": ["fabian.friedl", "daniel.moertenschlag"],
-    "ux": ["andreas.mayr"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      },
+      {
+        "name": "Daniel Moertenschlag",
+        "gitHubUser": "moertenschlag"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
   },
   "tags": [
     "meta data",

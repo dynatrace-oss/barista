@@ -2,7 +2,12 @@
   "title": "Drawer",
   "description": "The drawer is a component that adds collapsible side content to some primary content.",
   "contributors": {
-    "dev": ["lukas.holzer"]
+    "dev": [
+      {
+        "name": "Lukas Holzer",
+        "gitHubUser": "lukasholzer"
+      }
+    ]
   },
   "tags": ["side content", "aside"],
   "properties": ["dev utility"]

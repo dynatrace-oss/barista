@@ -5,8 +5,22 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["todd.baert", "fabian.friedl"],
-    "ux": ["andreas.mayr"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      },
+      {
+        "name": "Todd Baert",
+        "gitHubUser": "toddbaert"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
   },
   "tags": ["saving", "save", "cancel", "saving bar", "settings", "confirmation"]
 }

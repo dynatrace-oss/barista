@@ -5,7 +5,16 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["thomas.pink", "thomas.heller"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      },
+      {
+        "name": "Thomas Heller",
+        "gitHubUser": "tomheller"
+      }
+    ]
   },
   "tags": ["filter", "filterfield", "component"]
 }

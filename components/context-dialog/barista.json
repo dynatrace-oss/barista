@@ -6,8 +6,18 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["fabian.friedl"],
-    "ux": ["andreas.mayr"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
   },
   "tags": ["angular", "button", "component", "context action", "overlay"]
 }
