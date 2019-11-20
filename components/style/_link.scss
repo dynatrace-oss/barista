@@ -1,9 +1,11 @@
 @import '../core/src/style/variables';
-@import './icons/icons-mixin';
+@import './external-link';
 @import './font-mixins';
 
 $dark-link-hover-bg: rgba(255, 255, 255, 0.2);
 $dark-link-active-bg: rgba(255, 255, 255, 0.3);
+
+$external-link-icon-size: 1.06em;
 
 @mixin dt-link-base() {
   cursor: pointer;
@@ -13,10 +15,16 @@ $dark-link-active-bg: rgba(255, 255, 255, 0.3);
     color: $turquoise-700;
     text-decoration: underline;
   }
+  &.dt-external:hover::after {
+    background: dt-external-link-icon($turquoise-700);
+  }
 
   &:active {
     color: $turquoise-800;
     text-decoration: underline;
+  }
+  &.dt-external:active::after {
+    background: dt-external-link-icon($turquoise-800);
   }
 
   &:focus {
@@ -37,11 +45,17 @@ $dark-link-active-bg: rgba(255, 255, 255, 0.3);
     text-decoration: underline;
     background-color: $dark-link-hover-bg;
   }
+  &.dt-external:hover::after {
+    background: dt-external-link-icon(#ffffff);
+  }
 
   &:active {
     color: #ffffff;
     text-decoration: underline;
     background-color: $dark-link-active-bg;
+  }
+  &.dt-external:active::after {
+    background: dt-external-link-icon(#ffffff);
   }
 
   &:focus {
@@ -59,17 +73,24 @@ a.dt-link {
   );
 
   &.dt-external::after {
-    content: '\e686';
-    @include icons-before('fonticons');
-
+    content: ' ';
     display: inline-block;
     position: relative;
     bottom: -0.05em;
     margin-left: 4px;
+    background: dt-external-link-icon();
+    vertical-align: -0.1em;
+    width: $external-link-icon-size;
+    height: $external-link-icon-size;
+    background-size: 100% 100%;
   }
 }
 
 .dt-theme-dark a.dt-link,
 a.dt-link.dt-theme-dark {
   @include dt-link-dark();
+
+  &::after {
+    background: dt-external-link-icon(#ffffff);
+  }
 }
