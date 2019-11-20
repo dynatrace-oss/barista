@@ -101,3 +101,21 @@ export function findHoveredSeriesIndex(ev: DtChartTooltipEvent): number {
   }
   return -1;
 }
+
+/**
+ * Compares two tooltip events if they differ.
+ * Can be used as custom comparator function of a `distinctUntilChanged`
+ */
+export function compareTooltipEventChanged(
+  a: DtChartTooltipEvent,
+  b: DtChartTooltipEvent,
+): boolean {
+  if (a && b) {
+    return (
+      a.data.x === b.data.x &&
+      a.data.y === b.data.y &&
+      findHoveredSeriesIndex(a) === findHoveredSeriesIndex(b)
+    );
+  }
+  return false;
+}
