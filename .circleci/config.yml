@@ -1,8 +1,6 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-version: 2
+version: 2.1
+orbs:
+  snyk: snyk/snyk@x.y.z
 
 defaults: &defaults
   working_directory: ~/repo
@@ -76,7 +74,7 @@ jobs:
           <<: *set_env
       - restore_cache:
           <<: *npm_cache
-      - run: SNYK_TOKEN=$SNYK_TOKEN yarn protect
+-     - snyk/scan
   lint:
     <<: *defaults
     steps:
