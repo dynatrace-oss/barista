@@ -8,8 +8,22 @@
   "themable": true,
   "properties": ["work in progress"],
   "contributors": {
-    "dev": ["fabian.friedl", "david.laubreiter"],
-    "ux": ["kathrin.aigner"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      },
+      {
+        "name": "David Laubreiter",
+        "gitHubUser": "dlaubi-dt"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Kathrin Aigner",
+        "gitHubUser": "kathrin-aigner"
+      }
+    ]
   },
   "related": ["chart"],
   "tags": ["chart", "data", "angular", "component"]

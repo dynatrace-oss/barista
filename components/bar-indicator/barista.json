@@ -7,8 +7,22 @@
   "toc": true,
   "themable": true,
   "contributors": {
-    "dev": ["thomas.heller"],
-    "ux": ["andreas.mayr", "kathrin.aigner"]
+    "dev": [
+      {
+        "name": "Thomas Heller",
+        "gitHubUser": "tomheller"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      },
+      {
+        "name": "Kathrin Aigner",
+        "gitHubUser": "kathrin-aigner"
+      }
+    ]
   },
   "tags": [
     "progress",

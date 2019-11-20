@@ -5,8 +5,18 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["fabian.friedl"],
-    "ux": ["kathrin.aigner"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Kathrin Aigner",
+        "gitHubUser": "kathrin-aigner"
+      }
+    ]
   },
   "tags": [
     "content",

@@ -5,8 +5,18 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["lukas.holzer"],
-    "ux": ["gabriele.hasson-birkenmayer"]
+    "dev": [
+      {
+        "name": "Lukas Holzer",
+        "gitHubUser": "lukasholzer"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Gabriele Hasson-Birkenmayer",
+        "gitHubUser": "GabrieleHB"
+      }
+    ]
   },
   "related": ["show-more"],
   "tags": ["component", "angular", "pagination", "show more", "pager"]

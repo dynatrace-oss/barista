@@ -30,10 +30,7 @@ export interface BaIndexPageContents extends BaPageContents {
 export interface BaSinglePageContents extends BaPageContents {
   layout: 'default';
   toc: boolean;
-  contributors?: {
-    ux: string[];
-    dev: string[];
-  };
+  contributors?: BaContributors;
   category: string;
   tags: string[];
   related: string[];
@@ -42,6 +39,16 @@ export interface BaSinglePageContents extends BaPageContents {
   themable: boolean | null;
   content: string;
   identifier: string;
+}
+
+export interface BaContributors {
+  dev?: BaContributor[];
+  ux?: BaContributor[];
+}
+
+export interface BaContributor {
+  name: string;
+  gitHubUser: string;
 }
 
 export interface BaOverviewPageSectionItem {

@@ -4,8 +4,18 @@
   "postid": "formatters",
   "identifier": "Fm",
   "contributors": {
-    "dev": ["fabian.friedl"],
-    "ux": ["hartwig.salzer"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Hartwig Salzer",
+        "gitHubUser": "hartwig-salzer"
+      }
+    ]
   },
   "tags": ["units", "formatter", "pipe"],
   "properties": ["dev utility", "work in progress"],

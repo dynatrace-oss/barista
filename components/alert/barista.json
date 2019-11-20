@@ -6,8 +6,22 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": ["lara.aigmueller", "daniel.kaneider"],
-    "ux": ["kathrin.aigner"]
+    "dev": [
+      {
+        "name": "Lara Aigmueller",
+        "gitHubUser": "lara-aigmueller"
+      },
+      {
+        "name": "Daniel Kaneider",
+        "gitHubUser": "danielkaneider"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Kathrin Aigner",
+        "gitHubUser": "kathrin-aigner"
+      }
+    ]
   },
   "tags": [
     "angular",
