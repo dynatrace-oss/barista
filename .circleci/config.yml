@@ -117,7 +117,7 @@ jobs:
 
 
 workflows:
-  version: 2.1
+  version: 2
   pr_check:
     jobs:
       - install
