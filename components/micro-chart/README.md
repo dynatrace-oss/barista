@@ -61,9 +61,8 @@ timeframe (timeseries-charts).
 
 ### Datapoint charts
 
-_Datapoint micro charts are not yet implemented in Angular. If you are
-interested in the implementation progress,
-[reach out to the DesignOps team](https://dynatrace.slack.com/messages/CJUCU3J6T)._
+Datapoint micro charts are not yet implemented in Angular. If you are interested
+in the implementation progress, reach out to the DesignOps team.
 
 #### Bar chart
 

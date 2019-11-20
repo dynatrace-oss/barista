@@ -184,8 +184,7 @@ All actions (adding, editing, deleting filters) are also accessible via
 keyboard.
 
 Note: The following functionalities are not yet implemented. If you are
-interested in the implementation progress,
-[reach out to the DesignOps team](https://dynatrace.slack.com/messages/CJUCU3J6T).
+interested in the implementation progress, reach out to the DesignOps team.
 
 ### Clear filters
 
