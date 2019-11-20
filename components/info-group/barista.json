@@ -8,8 +8,18 @@
   "toc": true,
   "themable": true,
   "contributors": {
-    "dev": ["fabian.friedl"],
-    "ux": ["andreas.mayr"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
   },
   "related": ["icon", "card", "table"],
   "tags": ["icon", "info", "infobyte"]

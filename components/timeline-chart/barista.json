@@ -7,8 +7,18 @@
   "public": true,
   "properties": ["work in progress"],
   "contributors": {
-    "dev": ["thomas.pink"],
-    "ux": ["ursula.wieshofer"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Ursula Wieshofer",
+        "gitHubUser": "ursula-wieshofer"
+      }
+    ]
   },
   "tags": [
     "duration",

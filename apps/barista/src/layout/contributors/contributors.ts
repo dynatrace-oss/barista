@@ -15,10 +15,7 @@
  */
 
 import { Component, Input } from '@angular/core';
-
-import { formatContributorName } from '../../utils/formatContributorNames';
-
-const BITBUCKET_USERNAME_LENGTH = 20;
+import { BaContributor } from '../../shared/page-contents';
 
 @Component({
   selector: 'ba-contributors',
@@ -30,20 +27,16 @@ const BITBUCKET_USERNAME_LENGTH = 20;
 })
 export class BaContributors {
   @Input() type: 'ux' | 'dev';
-  @Input() names: string[];
+  @Input() contributors: BaContributor[];
 
-  /**
-   * @internal
-   * returns the name capitalized and with a space between first and last name
-   */
-  _displayName(name: string): string {
-    return formatContributorName(name);
+  /** @internal */
+  _imageUrl(gitHubUser: string): string {
+    return `https://github.com/${gitHubUser}.png?s=64`;
   }
 
   /** @internal */
-  _imageUrl(name: string): string {
-    const bitbucketUser = name.slice(0, BITBUCKET_USERNAME_LENGTH);
-    return `<bitbucket-url>${bitbucketUser}/avatar.png?s=64`;
+  _profileUrl(gitHubUser: string): string {
+    return `https://github.com/${gitHubUser}`;
   }
 
   /** @internal */

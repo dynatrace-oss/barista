@@ -4,8 +4,18 @@
   "postid": "consumption",
   "category": "components",
   "contributors": {
-    "dev": ["christoph.matscheko"],
-    "ux": ["jayme.brown"]
+    "dev": [
+      {
+        "name": "Christoph Matscheko",
+        "gitHubUser": "heartdisease"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Jayme Brown",
+        "gitHubUser": "jaymebrown13"
+      }
+    ]
   },
   "tags": ["progress", "progress bar", "icon", "consumption", "angular"]
 }

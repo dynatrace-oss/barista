@@ -6,8 +6,18 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["fabian.friedl"],
-    "ux": ["raphaela.raudaschl"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Raphaela Raudaschl",
+        "gitHubUser": "rrcaptain"
+      }
+    ]
   },
   "themable": true,
   "tags": [

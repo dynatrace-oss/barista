@@ -6,8 +6,22 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["thomas.pink", "jordi.masramon"],
-    "ux": ["raphaela.raudaschl"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      },
+      {
+        "name": "Jordi Masramon",
+        "gitHubUser": "jmasramon"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Raphaela Raudaschl",
+        "gitHubUser": "rrcaptain"
+      }
+    ]
   },
   "related": ["form-field", "inline-editor", "validation"],
   "tags": ["input fields", "input", "textarea", "edit", "forms", "validation"]

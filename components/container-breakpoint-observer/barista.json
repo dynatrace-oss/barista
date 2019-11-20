@@ -4,6 +4,11 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": ["thomas.pink"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      }
+    ]
   }
 }

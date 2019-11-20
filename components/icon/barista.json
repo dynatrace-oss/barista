@@ -6,8 +6,18 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["thomas.pink"],
-    "ux": ["kathrin.aigner"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Kathrin Aigner",
+        "gitHubUser": "kathrin-aigner"
+      }
+    ]
   },
   "related": ["button", "copy-to-clipboard", "show-more"],
   "tags": ["angular", "component"]

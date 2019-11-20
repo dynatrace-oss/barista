@@ -7,8 +7,18 @@
   "public": true,
   "themable": true,
   "contributors": {
-    "dev": ["fabian.friedl"],
-    "ux": ["raphaela.raudaschl"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Raphaela Raudaschl",
+        "gitHubUser": "rrcaptain"
+      }
+    ]
   },
   "tags": ["tabs", "component", "angular"]
 }

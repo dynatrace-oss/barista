@@ -6,8 +6,18 @@
   "identifier": "Me",
   "category": "components",
   "contributors": {
-    "ux": ["andreas.mayr"],
-    "dev": ["christoph.matscheko"]
+    "dev": [
+      {
+        "name": "Christoph Matscheko",
+        "gitHubUser": "heartdisease"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
   },
   "tags": ["menu", "navigation", "action", "overlay"]
 }

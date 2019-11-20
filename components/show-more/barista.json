@@ -5,8 +5,22 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["lara.aigmueller", "daniel.kaneider"],
-    "ux": ["gabriele.hasson-birkenmayer"]
+    "dev": [
+      {
+        "name": "Lara Aigmueller",
+        "gitHubUser": "lara-aigmueller"
+      },
+      {
+        "name": "Daniel Kaneider",
+        "gitHubUser": "danielkaneider"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Gabriele Hasson-Birkenmayer",
+        "gitHubUser": "GabrieleHB"
+      }
+    ]
   },
   "related": ["pagination"],
   "tags": ["component", "angular", "pagination", "show more", "pager"]

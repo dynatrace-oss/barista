@@ -7,8 +7,26 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": ["fabian.friedl", "thomas.heller", "lara.aigmueller"],
-    "ux": ["marike.sorgdrager"]
+    "dev": [
+      {
+        "name": "Lara Aigmueller",
+        "gitHubUser": "lara-aigmueller"
+      },
+      {
+        "name": "Thomas Heller",
+        "gitHubUser": "tomheller"
+      },
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Marike Sorgdrager",
+        "gitHubUser": "Marike-Sorgdrager"
+      }
+    ]
   },
   "tags": ["table", "component", "angular"],
   "related": ["tree-table"]

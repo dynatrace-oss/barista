@@ -5,8 +5,22 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["fabian.friedl", "daniel.moertenschlag"],
-    "ux": ["raphaela.raudaschl"]
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      },
+      {
+        "name": "Daniel Moertenschlag",
+        "gitHubUser": "moertenschlag"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Raphaela Raudaschl",
+        "gitHubUser": "rrcaptain"
+      }
+    ]
   },
   "tags": ["copy", "share"]
 }

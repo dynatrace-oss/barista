@@ -4,8 +4,18 @@
   "public": true,
   "toc": true,
   "contributors": {
-    "dev": ["lukas.holzer"],
-    "ux": ["arkadius.lipiarz"]
+    "dev": [
+      {
+        "name": "Lukas Holzer",
+        "gitHubUser": "lukasholzer"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Arkadiusz Lipiarz",
+        "gitHubUser": "arkadiuszlipiarz"
+      }
+    ]
   },
   "related": ["drawer", "menu", "navigation", "secondary-nav"]
 }

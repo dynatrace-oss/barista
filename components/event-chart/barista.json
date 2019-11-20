@@ -6,8 +6,22 @@
   "category": "components",
   "properties": ["experimental", "work in progress"],
   "contributors": {
-    "dev": ["thomas.pink", "thomas.heller"],
-    "ux": ["xavier.javaloyas"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      },
+      {
+        "name": "Thomas Heller",
+        "gitHubUser": "tomheller"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Xavier Javaloyas",
+        "gitHubUser": "Xavi-J"
+      }
+    ]
   },
   "tags": ["chart", "event-chart", "component", "angular"],
   "related": ["chart", "micro-chart", "timeline-chart"]

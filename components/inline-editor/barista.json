@@ -6,7 +6,12 @@
   "category": "components",
   "public": true,
   "contributors": {
-    "dev": ["thomas.pink"]
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "gitHubUser": "thomaspink"
+      }
+    ]
   },
   "angular": "inline-editor",
   "related": ["input"],

@@ -4,8 +4,18 @@
   "postid": "switch",
   "category": "components",
   "contributors": {
-    "dev": ["lara.aigmueller"],
-    "ux": ["raphaela.raudaschl"]
+    "dev": [
+      {
+        "name": "Lara Aigmueller",
+        "gitHubUser": "lara-aigmueller"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Raphaela Raudaschl",
+        "gitHubUser": "rrcaptain"
+      }
+    ]
   },
   "tags": ["switch", "component", "angular"]
 }
