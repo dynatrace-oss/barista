@@ -1,7 +1,4 @@
-version: 2.1
-orbs:
-  snyk: snyk/snyk@0.0.8
-
+version: 2.0
 
 defaults: &defaults
   working_directory: ~/repo
@@ -75,7 +72,8 @@ jobs:
           <<: *set_env
       - restore_cache:
           <<: *npm_cache
-      - snyk/scan
+      - run: snyk auth
+      - run: yarn protect
   lint:
     <<: *defaults
     steps:
