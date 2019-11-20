@@ -30,10 +30,18 @@ import {
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
+  ElementRef,
+  Inject,
+  Optional,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
-import { isDefined } from '@dynatrace/barista-components/core';
+import {
+  isDefined,
+  DT_UI_TEST_CONFIG,
+  DtUiTestConfiguration,
+  dtSetUiTestAttribute,
+} from '@dynatrace/barista-components/core';
 
 import { DtChart } from '../chart';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
@@ -86,6 +94,10 @@ export class DtChartTooltip implements OnDestroy {
     private _overlay: Overlay,
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _elementRef: ElementRef<HTMLElement>,
+    @Optional()
+    @Inject(DT_UI_TEST_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {}
 
   ngOnDestroy(): void {
@@ -133,6 +145,14 @@ export class DtChartTooltip implements OnDestroy {
       overlayRef.attach(this._portal);
 
       this._overlayRef = overlayRef;
+      if (this._elementRef && this._config) {
+        dtSetUiTestAttribute(
+          this._elementRef,
+          this._overlayRef.overlayElement,
+          this._config,
+          this._overlayRef.overlayElement.id,
+        );
+      }
     }
   }
 

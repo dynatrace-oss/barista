@@ -35,6 +35,8 @@ import {
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
+  Optional,
+  Inject,
 } from '@angular/core';
 
 import {
@@ -42,6 +44,9 @@ import {
   isDefined,
   mixinColor,
   readKeyCode,
+  DT_UI_TEST_CONFIG,
+  DtUiTestConfiguration,
+  dtSetUiTestAttribute,
 } from '@dynatrace/barista-components/core';
 
 import { DtConsumptionOverlay } from './consumption-directives';
@@ -143,6 +148,9 @@ export class DtConsumption extends _DtConsumption
     private readonly _viewContainerRef: ViewContainerRef,
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private _focusMonitor: FocusMonitor,
+    @Optional()
+    @Inject(DT_UI_TEST_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {
     super(_elementRef);
     this._focusMonitor.monitor(this._elementRef);
@@ -179,6 +187,14 @@ export class DtConsumption extends _DtConsumption
 
       // Note: each OverlayConfig can only be used for one overlay instance
       this._overlayRef = this._overlay.create(this._createOverlayConfig());
+      if (this._config) {
+        dtSetUiTestAttribute(
+          this._elementRef,
+          this._overlayRef.overlayElement,
+          this._config,
+          this._overlayRef.overlayElement.id,
+        );
+      }
       this._overlayRef.attach(portal);
     }
   }

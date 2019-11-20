@@ -36,6 +36,10 @@ import {
   createComponent,
   dispatchKeyboardEvent,
 } from '@dynatrace/barista-components/testing';
+import {
+  DT_UI_TEST_CONFIG,
+  DtUiTestConfiguration,
+} from '@dynatrace/barista-components/core';
 
 describe('DtTagAdd', () => {
   let fixture: ComponentFixture<DtTagComponent>;
@@ -45,6 +49,12 @@ describe('DtTagAdd', () => {
 
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
+  const overlayConfig: DtUiTestConfiguration = {
+    attributeName: 'dt-ui-test-id',
+    constructOverlayAttributeValue(attributeName: string): string {
+      return `${attributeName}-overlay`;
+    },
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -54,6 +64,7 @@ describe('DtTagAdd', () => {
         DtTagModule,
       ],
       declarations: [DtTagComponent],
+      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
     });
 
     TestBed.compileComponents();
@@ -171,6 +182,15 @@ describe('DtTagAdd', () => {
     expect(addTagInstance._showOverlay).toBe(false);
   }));
 
+  it('should propagate attribute to overlay if `dt-ui-test-id` is provided', fakeAsync(() => {
+    addTagInstance.open();
+    fixture.detectChanges();
+    flush();
+
+    expect(addTagInstance._showOverlay).toBe(true);
+    expect(overlayContainerElement.innerHTML).toContain('dt-ui-test-id');
+  }));
+
   describe('keyevent tests', () => {
     it('should close Overlay when ESCAPE is pressed', () => {
       addTagInstance.open();
@@ -192,7 +212,11 @@ describe('DtTagAdd', () => {
   selector: 'dt-test-app',
   template: `
     <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
-    <dt-tag-add (tagAdded)="addTag($event)"></dt-tag-add>
+    <dt-tag-add
+      placeholder="insert tag here"
+      (tagAdded)="addTag($event)"
+      dt-ui-test-id="tag-add"
+    ></dt-tag-add>
   `,
 })
 class DtTagComponent implements OnInit {

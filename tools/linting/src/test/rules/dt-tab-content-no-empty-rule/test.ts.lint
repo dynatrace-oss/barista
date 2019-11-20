@@ -8,14 +8,14 @@
     <ng-template dtTabContent>
       <h3>Traffic</h3>
     </ng-template>
- 
+
     <ng-template dtTabContent>
     ~~~~~~~~~~~~~~~~~~~~~~~~~~  [A dtTabContent must always contain content.]
     </ng-template>
 
     <ng-template dtTabContent>
       <last-time-frame-selector
-        uitestid="definedTimeOptionsPanel"
+        dt-ui-test-id="definedTimeOptionsPanel"
         (openChange)="close()">
       </last-time-frame-selector>
     </ng-template>

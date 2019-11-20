@@ -36,18 +36,18 @@
 
     <dt-card [id]="clusterUtilizationId">
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [The following elements must be direct children of a dt-card: dt-card-subtitle]
-      <dt-card-title uitestid="cu-card-title" i18n>Cluster utilization
+      <dt-card-title dt-ui-test-id="cu-card-title" i18n>Cluster utilization
         <span *ngIf="totalNodeCount !== undefined">
           ({{totalNodeCount | dtCount}} {totalNodeCount, plural, =1 {cluster node} other {cluster nodes}})
         </span>
       </dt-card-title>
       <div class="utilizations">
         <div class="cpu">
-          <dt-card-subtitle uitestid="titleCpu" [id]="cpuChartId" i18n>CPU {{mode | lowercase}}</dt-card-subtitle>
+          <dt-card-subtitle dt-ui-test-id="titleCpu" [id]="cpuChartId" i18n>CPU {{mode | lowercase}}</dt-card-subtitle>
           <utilization-cpu-chart class="chart" [mode]="mode" [data]="cpuData"></utilization-cpu-chart>
         </div>
         <div class="memory">
-          <dt-card-subtitle uitestid="titleMemory" [id]="memoryChartId" i18n>Memory {{mode | lowercase}}</dt-card-subtitle>
+          <dt-card-subtitle dt-ui-test-id="titleMemory" [id]="memoryChartId" i18n>Memory {{mode | lowercase}}</dt-card-subtitle>
           <utilization-memory-chart class="chart" [mode]="mode" [data]="memoryData"></utilization-memory-chart>
         </div>
       </div>

@@ -218,7 +218,6 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
   private _attachOverlay(): void {
     if (!this._overlayRef) {
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
-
       this._overlayRef.keydownEvents().subscribe(event => {
         const keyCode = readKeyCode(event);
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
@@ -228,7 +227,6 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
         }
       });
     }
-
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
       this._overlayRef.attach(this._range._portal);
       this._closingActionsSubscription = this._subscribeToClosingActions();

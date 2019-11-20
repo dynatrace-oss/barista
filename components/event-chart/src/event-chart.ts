@@ -48,6 +48,7 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  Optional,
 } from '@angular/core';
 import { ScaleLinear, ScaleTime, scaleLinear, scaleTime } from 'd3-scale';
 import { Subject, merge } from 'rxjs';
@@ -63,6 +64,9 @@ import {
   DtViewportResizer,
   isDefined,
   readKeyCode,
+  DT_UI_TEST_CONFIG,
+  DtUiTestConfiguration,
+  dtSetUiTestAttribute,
 } from '@dynatrace/barista-components/core';
 
 import {
@@ -257,9 +261,13 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     private _appRef: ApplicationRef,
     private _injector: Injector,
     private _overlayService: Overlay,
+    private _elementRef: ElementRef<HTMLElement>,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
     private _platform: Platform,
+    @Optional()
+    @Inject(DT_UI_TEST_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {}
 
   ngOnInit(): void {
@@ -504,6 +512,14 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     // If the portal is not yet attached to the overlay, attach it.
     if (!this._overlayRef.hasAttached()) {
       this._overlayRef.attach(this._portal);
+    }
+    if (this._elementRef && this._config) {
+      dtSetUiTestAttribute(
+        this._elementRef,
+        this._overlayRef.overlayElement,
+        this._config,
+        this._overlayRef.overlayElement.id,
+      );
     }
   }
 
