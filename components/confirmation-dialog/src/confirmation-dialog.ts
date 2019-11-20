@@ -39,10 +39,19 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
   isDevMode,
+  Optional,
+  Inject,
+  ElementRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
+import {
+  DtLogger,
+  DtLoggerFactory,
+  DtUiTestConfiguration,
+  dtSetUiTestAttribute,
+  DT_UI_TEST_CONFIG,
+} from '@dynatrace/barista-components/core';
 
 import {
   DT_CONFIRMATION_BACKDROP_ACTIVE_OPACITY,
@@ -136,6 +145,10 @@ export class DtConfirmationDialog
     private _overlay: Overlay,
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _elementRef: ElementRef<HTMLElement>,
+    @Optional()
+    @Inject(DT_UI_TEST_CONFIG)
+    private _config?: DtUiTestConfiguration,
   ) {}
 
   ngAfterContentChecked(): void {
@@ -236,6 +249,12 @@ export class DtConfirmationDialog
       },
       positionStrategy,
     });
+    dtSetUiTestAttribute(
+      overlayRef.overlayElement,
+      overlayRef.overlayElement.id,
+      this._elementRef,
+      this._config,
+    );
     const containerPortal = new TemplatePortal<{}>(
       this._templateRef,
       this._viewContainerRef,
