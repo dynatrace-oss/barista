@@ -2,6 +2,7 @@ version: 2.1
 orbs:
   snyk: snyk/snyk@0.0.8
 
+
 defaults: &defaults
   working_directory: ~/repo
   docker:
