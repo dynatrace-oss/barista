@@ -72,7 +72,7 @@ jobs:
           <<: *set_env
       - restore_cache:
           <<: *npm_cache
-      - run: npx snyk auth
+      - run: SNYK_TOKEN=$SNYK_TOKEN npx snyk auth
       - run: yarn protect
   lint:
     <<: *defaults
