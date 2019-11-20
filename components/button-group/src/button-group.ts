@@ -39,20 +39,21 @@ import {
   Constructor,
   HasTabIndex,
   mixinColor,
-  mixinDisabled,
   mixinTabIndex,
   readKeyCode,
 } from '@dynatrace/barista-components/core';
 
-export class DtButtonGroupBase {}
-export const _DtButtonGroup = mixinTabIndex(mixinDisabled(DtButtonGroupBase));
+export class DtButtonGroupBase {
+  disabled: boolean;
+}
+export const _DtButtonGroup = mixinTabIndex(DtButtonGroupBase);
 
 @Component({
   selector: 'dt-button-group',
   exportAs: 'dtButtonGroup',
   template: '<ng-content></ng-content>',
   styleUrls: ['button-group.scss'],
-  inputs: ['disabled', 'tabIndex'],
+  inputs: ['tabIndex'],
   host: {
     class: 'dt-button-group',
     '[attr.aria-disabled]': 'disabled.toString()',
