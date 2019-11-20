@@ -1,0 +1,28 @@
+@import '../core/src/style/variables';
+
+@function dt-external-link-icon($color: $turquoise-600) {
+  // remove hash in case that it will be in the template
+  $hex-only-color: dt-str-replace('#{$color}', '#', '%23');
+
+  // Url encoded external link icon as svg
+  /* stylelint-disable max-line-length */
+  $external-link-icon: '%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%0A%20%20%3Cpath%20d%3D%22M400%20253.588V400H112V112h146.412l-48-48H80c-8.837%200-16%207.164-16%2016v352c0%208.837%207.163%2016%2016%2016h352c8.837%200%2016-7.163%2016-16V301.588l-48-48z%20M278.294%2064l62.226%2062.225L210.745%20256%20256%20301.255%20385.775%20171.48%20448%20233.706V64z%22%20fill%3D%22#{$hex-only-color}%22%2F%3E%0A%3C%2Fsvg%3E';
+  /* stylelint-enable */
+  @return url('data:image/svg+xml,#{$external-link-icon}');
+}
+
+/** replaces a string in a string */
+@function dt-str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      dt-str-replace(
+        str-slice($string, $index + str-length($search)),
+        $search,
+        $replace
+      );
+  }
+
+  @return $string;
+}
