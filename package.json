@@ -74,7 +74,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "nx format:write"
+      "pre-commit": "nx format:write",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "dependencies": {
@@ -102,6 +103,7 @@
     "@angular/platform-browser-dynamic": "^8.0.0",
     "@angular/platform-server": "^8.0.0",
     "@angular/router": "^8.0.0",
+    "@commitlint/cli": "^8.2.0",
     "@nrwl/angular": "^8.7.1",
     "@nrwl/jest": "^8.7.1",
     "@nrwl/node": "^8.7.1",
