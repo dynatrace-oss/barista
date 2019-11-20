@@ -74,7 +74,7 @@ jobs:
           <<: *set_env
       - restore_cache:
           <<: *npm_cache
--     - snyk/scan
+      - snyk/scan
   lint:
     <<: *defaults
     steps:
