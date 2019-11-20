@@ -17,14 +17,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-dark-error-barista-example',
-  // template: `
-  //   <section class="dark" dtTheme=":dark">
-  //     <dt-alert severity="error">{{ text }}</dt-alert>
-  //   </section>
-  // `,
-  templateUrl: './test.html',
+  selector: 'dt-example-alert-error-barista',
+  templateUrl: 'alert-error-example.html',
 })
-export class AlertDarkErrorExample {
-  text = `This is a error on dark background!`;
-}
+export class DtExampleAlertError {}

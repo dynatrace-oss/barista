@@ -17,13 +17,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'alert-interactive-barista-example',
-  template: `
-    <div>
-      <dt-alert severity="error" #alert1>This is a message!</dt-alert>
-    </div>
-    <button dt-button (click)="alert1.severity = 'warning'">Set Warning</button>
-    <button dt-button (click)="alert1.severity = 'error'">Set Error</button>
-  `,
+  selector: 'dt-example-alert-dark-error',
+  templateUrl: 'alert-dark-error-example.html',
 })
-export class AlertInteractiveExample {}
+export class DtExampleAlertDarkError {
+  text = `This is a error on dark background!`;
+}

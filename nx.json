@@ -32,6 +32,9 @@
     "barista-components/testing": {
       "tags": ["testing", "library"]
     },
+    "barista-components/examples": {
+      "tags": ["library"]
+    },
     "barista-components/components": {
       "tags": []
     },

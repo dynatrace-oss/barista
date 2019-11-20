@@ -179,6 +179,7 @@
     "undertaker-forward-reference": "^1.0.2",
     "vrsource-tslint-rules": "^6.0.0",
     "watch": "^1.0.2",
-    "web-animations-js": "^2.3.1"
+    "web-animations-js": "^2.3.1",
+    "ts-jest": "24.0.0"
   }
 }
