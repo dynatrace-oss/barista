@@ -41,8 +41,10 @@ import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-li
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
-import { createComponent } from '../../../testing/create-component';
-import { MockIntersectionObserver } from '../../../testing/mock-intersection-observer';
+import {
+  createComponent,
+  MockIntersectionObserver,
+} from '@dynatrace/barista-components/testing';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 
 describe('DtChartTooltip', () => {
@@ -90,11 +92,12 @@ describe('DtChartTooltip', () => {
 
   it('should dismiss the overlay when the tooltip close event is called', fakeAsync(() => {
     mockIntersectionObserver.mockAllIsIntersecting(true);
-    chartComponent.tooltipDataChange.next({
+    chartComponent._highChartsTooltipOpened$.next({
       data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
     });
     fixture.detectChanges();
-    chartComponent.tooltipOpenChange.next(false);
+    expect(overlayContainerElement.innerHTML).not.toEqual('');
+    chartComponent._highChartsTooltipClosed$.next();
     fixture.detectChanges();
     tick();
     flush();
@@ -105,7 +108,7 @@ describe('DtChartTooltip', () => {
     mockIntersectionObserver.mockAllIsIntersecting(true);
     const newData: DtChartTooltipData = { ...DUMMY_TOOLTIP_DATA_LINE_SERIES };
     newData.points = undefined;
-    chartComponent.tooltipDataChange.next({ data: newData });
+    chartComponent._highChartsTooltipDataChanged$.next({ data: newData });
     fixture.detectChanges();
     tick();
     flush();
@@ -114,7 +117,7 @@ describe('DtChartTooltip', () => {
 
   it('should show the tooltip if the chart is in the viewport', fakeAsync(() => {
     mockIntersectionObserver.mockAllIsIntersecting(true);
-    chartComponent.tooltipDataChange.next({
+    chartComponent._highChartsTooltipOpened$.next({
       data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
     });
     fixture.detectChanges();
@@ -125,7 +128,7 @@ describe('DtChartTooltip', () => {
 
   it('should not show the tooltip if the chart is not in the viewport', fakeAsync(() => {
     mockIntersectionObserver.mockAllIsIntersecting(false);
-    chartComponent.tooltipDataChange.next({
+    chartComponent._highChartsTooltipOpened$.next({
       data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
     });
     fixture.detectChanges();
@@ -137,7 +140,7 @@ describe('DtChartTooltip', () => {
   describe('content', () => {
     beforeEach(fakeAsync(() => {
       mockIntersectionObserver.mockAllIsIntersecting(true);
-      chartComponent.tooltipDataChange.next({
+      chartComponent._highChartsTooltipOpened$.next({
         data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
       });
       fixture.detectChanges();
@@ -153,7 +156,7 @@ describe('DtChartTooltip', () => {
       const newData: DtChartTooltipData = { ...DUMMY_TOOLTIP_DATA_LINE_SERIES };
       newData.points![0].point.y = 54321;
 
-      chartComponent.tooltipDataChange.next({ data: newData });
+      chartComponent._highChartsTooltipDataChanged$.next({ data: newData });
       fixture.detectChanges();
       expect(overlayContainerElement.textContent).not.toContain('1000');
       expect(overlayContainerElement.textContent).toContain('54321');
