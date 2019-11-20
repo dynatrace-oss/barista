@@ -22,26 +22,20 @@ import {
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChild,
-  Inject,
-  NgZone,
   OnDestroy,
-  Optional,
-  SkipSelf,
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject, Subscription, of } from 'rxjs';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { Subject, Subscription } from 'rxjs';
 
 import { isDefined } from '@dynatrace/barista-components/core';
 
-import { DT_CHART_RESOLVER, DtChart, DtChartResolver } from '../chart';
+import { DtChart } from '../chart';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 
 interface HighchartsPlotBackgroundInformation {
@@ -83,7 +77,7 @@ const DEFAULT_DT_CHART_TOOLTIP_POSITIONS: ConnectedPosition[] = [
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
 })
-export class DtChartTooltip implements OnDestroy, AfterViewInit {
+export class DtChartTooltip implements OnDestroy {
   /** @internal Reference to the overlay template */
   @ContentChild(TemplateRef, { static: false })
   _overlayTemplate: TemplateRef<void>;
@@ -91,69 +85,13 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
   private readonly _destroy = new Subject<void>();
   private _overlayRef: OverlayRef | null;
   private _portal: TemplatePortal;
-  private _plotBackgroundInfo: HighchartsPlotBackgroundInformation;
   private _overlayRefDetachSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
     private _overlay: Overlay,
-    private _ngZone: NgZone,
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
-    @Inject(DT_CHART_RESOLVER)
-    @Optional()
-    @SkipSelf()
-    private _resolveParentChart: DtChartResolver,
   ) {}
-
-  ngAfterViewInit(): void {
-    const parentChart = this._resolveParentChart();
-    if (parentChart) {
-      parentChart._isInViewport$
-        .pipe(
-          switchMap(isVisible =>
-            isVisible ? parentChart.tooltipDataChange.asObservable() : of(null),
-          ),
-          takeUntil(this._destroy),
-        )
-        .subscribe(event => {
-          this._ngZone.run(() => {
-            // create the overlay here when the tooltip should be open
-            // because we need to have the event information to attach the overlay to the correct element
-            if (event && event.data && checkHasPointData(event.data)) {
-              if (!isDefined(this._overlayRef)) {
-                this._createOverlay(event.data, parentChart);
-              } else {
-                this._updateOverlayContext(event.data, parentChart);
-              }
-            } else {
-              // dismiss if no data is given
-              this._dismiss();
-            }
-          });
-        });
-
-      // handle dismissing an existing overlay when the overlay already exists and should be closed
-      parentChart.tooltipOpenChange
-        .pipe(takeUntil(this._destroy))
-        .subscribe(opened => {
-          this._ngZone.run(() => {
-            if (!opened) {
-              this._dismiss();
-            }
-          });
-        });
-
-      parentChart._plotBackground$
-        .pipe(takeUntil(this._destroy))
-        .pipe(filter(background => !!background))
-        .subscribe(background => {
-          const x = parseInt(background!.getAttribute('x')!, 10);
-          const y = parseInt(background!.getAttribute('y')!, 10);
-          const height = parseInt(background!.getAttribute('height')!, 10);
-          this._plotBackgroundInfo = { x, y, height };
-        });
-    }
-  }
 
   ngOnDestroy(): void {
     this._destroy.next();
@@ -161,12 +99,18 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
     this._overlayRefDetachSubscription.unsubscribe();
   }
 
-  /** Create a new overlay for the tooltip */
-  private _createOverlay(data: DtChartTooltipData, parentChart: DtChart): void {
-    if (parentChart._chartObject) {
+  /** @internal Create a new overlay for the tooltip (triggered by the chart) */
+  _createOverlay(
+    data: DtChartTooltipData,
+    parentChart: DtChart,
+    plotBackgroundInfo: HighchartsPlotBackgroundInformation,
+  ): void {
+    if (parentChart._chartObject && data && data.points) {
       const positionStrategy = this._overlay
         .position()
-        .flexibleConnectedTo(this._getTooltipPosition(data, parentChart))
+        .flexibleConnectedTo(
+          this._getTooltipPosition(data, parentChart, plotBackgroundInfo),
+        )
         .withPositions(DEFAULT_DT_CHART_TOOLTIP_POSITIONS);
 
       const overlayConfig = new OverlayConfig({
@@ -196,24 +140,27 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
     }
   }
 
-  /** Updates the overlay content */
-  private _updateOverlayContext(
+  /** @internal Updates the overlay content (triggered by the chart) */
+  _updateOverlayContext(
     data: DtChartTooltipData,
     parentChart: DtChart,
+    plotBackgroundInfo: HighchartsPlotBackgroundInformation,
   ): void {
     if (this._portal && this._overlayRef) {
       this._portal.context.$implicit = data;
       const positionStrategy = this._overlay
         .position()
-        .flexibleConnectedTo(this._getTooltipPosition(data, parentChart))
+        .flexibleConnectedTo(
+          this._getTooltipPosition(data, parentChart, plotBackgroundInfo),
+        )
         .withPositions(DEFAULT_DT_CHART_TOOLTIP_POSITIONS);
       this._overlayRef.updatePositionStrategy(positionStrategy);
       this._changeDetectorRef.markForCheck();
     }
   }
 
-  /** Dismisses the overlay and cleans up the ref */
-  private _dismiss(): void {
+  /** @internal Dismisses the overlay and cleans up the ref (triggered by the chart) */
+  _dismiss(): void {
     if (this._overlayRef) {
       this._overlayRef.dispose();
       this._overlayRef = null;
@@ -226,22 +173,16 @@ export class DtChartTooltip implements OnDestroy, AfterViewInit {
   private _getTooltipPosition(
     data: DtChartTooltipData,
     chart: DtChart,
+    plotBackgroundInfo: HighchartsPlotBackgroundInformation,
   ): { x: number; y: number } {
     const containerElement: HTMLElement = chart.container.nativeElement;
     const containerElementBB = containerElement.getBoundingClientRect();
-    const { x, y } = getHighchartsTooltipPosition(
-      data,
-      this._plotBackgroundInfo,
-    );
+    const { x, y } = getHighchartsTooltipPosition(data, plotBackgroundInfo);
     return {
       x: containerElementBB.left + x,
       y: containerElementBB.top + y,
     };
   }
-}
-
-function checkHasPointData(data: DtChartTooltipData): boolean {
-  return !!data.points || !!data.point;
 }
 
 /**
