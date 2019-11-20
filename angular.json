@@ -288,6 +288,45 @@
         }
       }
     },
+    "barista-components/examples": {
+      "projectType": "library",
+      "root": "libs/examples",
+      "sourceRoot": "libs/examples/src",
+      "prefix": "dynatrace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/examples/tsconfig.lib.json",
+              "libs/examples/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/examples/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@speedy/build-angular:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/examples/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/examples/jest.config.js",
+            "tsConfig": "libs/examples/tsconfig.spec.json",
+            "setupFile": "libs/examples/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
     "barista": {
       "root": "apps/barista",
       "sourceRoot": "apps/barista/src",

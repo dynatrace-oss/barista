@@ -36,6 +36,9 @@
     "testing": {
       "tags": ["scope:testing", "type:library"]
     },
+    "examples": {
+      "tags": ["type:library"]
+    },
     "components": {
       "tags": ["scope:components"]
     },
