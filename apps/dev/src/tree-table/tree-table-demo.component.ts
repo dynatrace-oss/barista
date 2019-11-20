@@ -28,7 +28,7 @@ import {
 const TESTDATA: ThreadNode[] = [
   {
     name: 'hz.hzInstance_1_cluster.thread',
-    icon: 'apache-tomcat',
+    icon: 'airplane',
     threadlevel: 'S0',
     totalTimeConsumption: 150,
     waiting: 123,
@@ -38,7 +38,7 @@ const TESTDATA: ThreadNode[] = [
       {
         name:
           'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
-        icon: 'apache-tomcat',
+        icon: 'airplane',
         threadlevel: 'S1',
         totalTimeConsumption: 150,
         waiting: 123,
@@ -47,7 +47,7 @@ const TESTDATA: ThreadNode[] = [
       },
       {
         name: 'hz.hzInstance_1_cluster.thread-2',
-        icon: 'apache-tomcat',
+        icon: 'airplane',
         threadlevel: 'S1',
         totalTimeConsumption: 150,
         waiting: 130,
@@ -58,7 +58,7 @@ const TESTDATA: ThreadNode[] = [
   },
   {
     name: 'jetty',
-    icon: 'apache-tomcat',
+    icon: 'airplane',
     threadlevel: 'S0',
     totalTimeConsumption: 150,
     waiting: 123,
@@ -67,7 +67,7 @@ const TESTDATA: ThreadNode[] = [
     children: [
       {
         name: 'jetty-422',
-        icon: 'apache-tomcat',
+        icon: 'airplane',
         threadlevel: 'S1',
         totalTimeConsumption: 150,
         waiting: 123,
@@ -76,7 +76,7 @@ const TESTDATA: ThreadNode[] = [
       },
       {
         name: 'jetty-423',
-        icon: 'apache-tomcat',
+        icon: 'airplane',
         threadlevel: 'S1',
         totalTimeConsumption: 150,
         waiting: 130,
@@ -85,7 +85,7 @@ const TESTDATA: ThreadNode[] = [
       },
       {
         name: 'jetty-424',
-        icon: 'apache-tomcat',
+        icon: 'airplane',
         threadlevel: 'S1',
         totalTimeConsumption: 150,
         waiting: 130,
@@ -96,7 +96,7 @@ const TESTDATA: ThreadNode[] = [
   },
   {
     name: 'Downtime timer',
-    icon: 'apache-tomcat',
+    icon: 'airplane',
     threadlevel: 'S0',
     totalTimeConsumption: 150,
     waiting: 123,
