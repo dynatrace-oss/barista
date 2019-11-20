@@ -85,6 +85,10 @@ import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group
 import { TopBarNavigationDemo } from './top-bar-navigation/top-bar-navigation-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import {
+  DT_UI_TEST_CONFIG,
+  DT_DEFAULT_UI_TEST_CONFIG,
+} from '@dynatrace/barista-components/core';
 
 // tslint:disable-next-line: use-component-selector
 @Component({ template: '' })
@@ -164,6 +168,7 @@ export class NoopRouteComponent {}
   providers: [
     Location,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
     { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } },
   ],
 })

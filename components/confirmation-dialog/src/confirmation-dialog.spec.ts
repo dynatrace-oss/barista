@@ -33,17 +33,27 @@ import {
 } from './confirmation-dialog-constants';
 import { DtConfirmationDialogModule } from './confirmation-dialog-module';
 import { DtConfirmationDialog } from './confirmation-dialog';
+import {
+  DT_UI_TEST_CONFIG,
+  DtUiTestConfiguration,
+} from '@dynatrace/barista-components/core';
 
 describe('ConfirmationDialogComponent', () => {
   const UP = 'translateY(0)';
   const DOWN = 'translateY(100%)';
 
   let overlayContainerElement: HTMLElement;
+  const overlayConfig: DtUiTestConfiguration = {
+    attributeName: 'dt-ui-test-id',
+    constructOverlayAttributeValue(attributeName: string): string {
+      return `${attributeName}-overlay`;
+    },
+  };
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, DtConfirmationDialogModule],
-      providers: [],
+      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
       declarations: [TestComponent, DynamicStates, TwoDialogsComponent],
     }).compileComponents();
   }));
@@ -210,6 +220,17 @@ describe('ConfirmationDialogComponent', () => {
       expect(dialog2State.textContent!.trim()).toEqual('state2');
     }));
   });
+  describe('propagate attribute to overlay', () => {
+    it('should propagate attribute to overlay when `dt-ui-test-id` is provided', fakeAsync(() => {
+      const fixture = TestBed.createComponent(TestComponent);
+      fixture.componentInstance.testState = 'missingState';
+      fixture.detectChanges();
+      tick();
+      expect(overlayContainerElement.innerHTML).toContain(
+        'dt-ui-test-id="confirmation-dialog-overlay',
+      );
+    }));
+  });
 });
 
 function testTextContent(
@@ -242,7 +263,11 @@ function getState(oc: HTMLElement, name: string): HTMLElement {
 @Component({
   selector: 'dt-test-component',
   template: `
-    <dt-confirmation-dialog [state]="testState" [showBackdrop]="showBackdrop">
+    <dt-confirmation-dialog
+      dt-ui-test-id="confirmation-dialog"
+      [state]="testState"
+      [showBackdrop]="showBackdrop"
+    >
       <dt-confirmation-dialog-state name="state1">
         state1
       </dt-confirmation-dialog-state>

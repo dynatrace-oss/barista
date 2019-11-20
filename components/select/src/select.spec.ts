@@ -62,6 +62,8 @@ import {
   DtOption,
   DtOptionSelectionChange,
   ErrorStateMatcher,
+  DT_UI_TEST_CONFIG,
+  DtUiTestConfiguration,
 } from '@dynatrace/barista-components/core';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
@@ -74,14 +76,20 @@ import {
   dispatchEvent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
+  createComponent,
   createKeyboardEvent,
   wrappedErrorMessage,
-  createComponent,
 } from '@dynatrace/barista-components/testing';
 
 describe('DtSelect', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
+  const overlayConfig: DtUiTestConfiguration = {
+    attributeName: 'dt-ui-test-id',
+    constructOverlayAttributeValue(attributeName: string): string {
+      return `${attributeName}-overlay`;
+    },
+  };
 
   function configureDtSelectTestingModule(declarations: any[]): void {
     TestBed.configureTestingModule({
@@ -95,6 +103,7 @@ describe('DtSelect', () => {
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations,
+      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
     }).compileComponents();
 
     inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -707,6 +716,16 @@ describe('DtSelect', () => {
         expect(overlayContainerElement.textContent).toContain('Steak');
         expect(overlayContainerElement.textContent).toContain('Pizza');
         expect(overlayContainerElement.textContent).toContain('Tacos');
+      }));
+
+      it('should propagate attribute to overlay if `dt-ui-test-id` is provided', fakeAsync(() => {
+        trigger.click();
+        fixture.detectChanges();
+        flush();
+
+        expect(overlayContainerElement.innerHTML).toContain(
+          'dt-ui-test-id="select-overlay"',
+        );
       }));
 
       it('should close the panel when an item is clicked', fakeAsync(() => {
@@ -2018,6 +2037,7 @@ describe('DtSelect', () => {
         [aria-label]="ariaLabel"
         [aria-labelledby]="ariaLabelledby"
         [panelClass]="panelClass"
+        dt-ui-test-id="select"
       >
         <dt-option
           *ngFor="let food of foods"

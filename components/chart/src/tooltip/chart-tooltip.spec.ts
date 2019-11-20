@@ -44,6 +44,10 @@ import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { createComponent } from '@dynatrace/barista-components/testing';
 import { MockIntersectionObserver } from '@dynatrace/barista-components/testing/mock';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
+import {
+  DT_UI_TEST_CONFIG,
+  DtUiTestConfiguration,
+} from '@dynatrace/barista-components/core';
 
 describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;
@@ -51,6 +55,12 @@ describe('DtChartTooltip', () => {
   let chartComponent: DtChart;
   let fixture: ComponentFixture<ChartTest>;
   const mockIntersectionObserver = new MockIntersectionObserver();
+  const overlayConfig: DtUiTestConfiguration = {
+    attributeName: 'dt-ui-test-id',
+    constructOverlayAttributeValue(attributeName: string): string {
+      return `${attributeName}-overlay`;
+    },
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -62,6 +72,7 @@ describe('DtChartTooltip', () => {
         NoopAnimationsModule,
       ],
       declarations: [ChartTest],
+      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
     });
 
     TestBed.compileComponents();
@@ -163,13 +174,27 @@ describe('DtChartTooltip', () => {
       expect(overlayContainerElement.textContent).toContain('54321');
     });
   });
+  describe('propagate attribute to overlay', () => {
+    it('should propagate attribute to overlay when `dt-ui-test-id` is provided', fakeAsync(() => {
+      mockIntersectionObserver.mockAllIsIntersecting(true);
+      chartComponent._highChartsTooltipOpened$.next({
+        data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
+      });
+      fixture.detectChanges();
+      tick();
+      flush();
+      expect(overlayContainerElement.innerHTML).toContain(
+        'dt-ui-test-id="tooltip-overlay',
+      );
+    }));
+  });
 });
 
 @Component({
   selector: 'dt-line',
   template: `
     <dt-chart [series]="series" [options]="options">
-      <dt-chart-tooltip>
+      <dt-chart-tooltip dt-ui-test-id="tooltip">
         <ng-template let-series>
           <dt-key-value-list style="min-width: 100px">
             <dt-key-value-list-item *ngFor="let data of series.points">

@@ -14,7 +14,7 @@
 
     <dt-card *ngSwitchDefault>
     ~~~~~~~~~~~~~~~~~~~~~~~~~~  [A dt-card must always contain content apart from title, subtitle, icon and actions.]
-      <dt-card-title uitestid="debug-name" i18n>No events</dt-card-title>
+      <dt-card-title dt-ui-test-id="debug-name" i18n>No events</dt-card-title>
     </dt-card>
 
     <dt-card>
