@@ -122,13 +122,3 @@ breakpoints.
 | 460px               | 8px    | 12px    |
 | 992px               | 16px   | 16px    |
 | 1200px              | 20px   | 16px    |
-
-{{#internal-content}}
-
-### Event card
-
-An exemplary use of the card component can be seen in the
-<a href="***REMOVED***/ui/docs/events-card/" target="_blank" rel="noopener">event
-card</a>.
-
-{{/internal-content}}
