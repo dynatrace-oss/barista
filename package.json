@@ -31,7 +31,7 @@
     "ng": "ng",
     "build": "ng build",
     "test": "ng test",
-    "protect": "snyk auth && snyk test",
+    "protect": "snyk test",
     "lint": "nx workspace-lint && ng lint",
     "build:components": "npm run build barista-components/components",
     "affected:apps": "nx affected:apps",
