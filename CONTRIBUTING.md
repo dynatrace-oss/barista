@@ -74,7 +74,8 @@ Each commit message consists of a `type`, `scope` and `subject` (message).
 The `type` and `subject` are mandatory, the `scope` is optional in some specific
 cases. Format: `<type>(<scope>): <subject>`
 
-**Type**  
+### Type
+
 Must be one of the following:
 
 - **feat**: A new feature
@@ -85,15 +86,26 @@ Must be one of the following:
 - **refactor**: A code change that neither fixes a bug nor adds a feature
 - **perf**: A code change that improves performance
 - **test**: Adding missing tests or correcting existing tests
-- **build**: Changes that affect the build system, CI configuration or external
-  dependencies (example scopes: gulp, broccoli, npm)
+- **ci**: Changes that affect the CI
+- **build**: Changes that affect the build system like npm scripts or
+  angular-cli related changes
 - **chore**: Other changes that don't modify src or test files
 - **barista**: Changes that affect the design system app/build
 
-**Scope** The scope could be anything specifying place of the commit change, in
-most cases this would be the component name. For example select, button, etc.
+### Scope
 
-**Example** `feat(filter-field): added node removal on backspace`
+The scope could be anything specifying the place of the commit change, in most
+cases this would be the component name. For example select, button, etc.
+
+### Message
+
+The commit message should describe the problem it solves or the feature it
+introduces. Not the changes you have done. Furthermore the commit message has to
+start with an uppercase letter and ends with a stop.
+
+### Example
+
+`feat(filter-field): Added node removal on backspace.`
 
 ## Breaking changes
 
