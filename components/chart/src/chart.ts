@@ -66,14 +66,18 @@ import {
   distinctUntilChanged,
   filter,
   map,
+  mapTo,
+  startWith,
   switchMap,
   take,
   takeUntil,
+  withLatestFrom,
 } from 'rxjs/operators';
 
 import {
   DtViewportResizer,
   createInViewportStream,
+  isDefined,
 } from '@dynatrace/barista-components/core';
 import { DtTheme } from '@dynatrace/barista-components/theming';
 
@@ -92,7 +96,7 @@ import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides
 import {
   DtHcTooltipEventPayload,
   addTooltipEvents,
-  findHoveredSeriesIndex,
+  compareTooltipEventChanged,
 } from './highcharts/highcharts-tooltip-extensions';
 import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';
 import {
@@ -101,6 +105,7 @@ import {
 } from './highcharts/highcharts-util';
 import { DtChartRange } from './range/range';
 import { DtChartTimestamp } from './timestamp/timestamp';
+import { DtChartTooltip } from './tooltip/chart-tooltip';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 const CHART_INTERSECTION_THRESHOLD = 0.9;
@@ -158,6 +163,21 @@ export interface DtChartSeriesVisibilityChangeEvent {
   source: DtChart;
   visible: boolean;
   series: DtChartSeries;
+}
+
+/** Maps the states of a tooltip to numbers to handle them easier */
+const enum TooltipStateType {
+  CLOSED,
+  OPENED,
+  UPDATED,
+}
+
+/** A class that holds the tooltip state along with the event data */
+class TooltipState {
+  constructor(
+    public status: TooltipStateType,
+    public event?: DtChartTooltipEvent,
+  ) {}
 }
 
 @Component({
@@ -226,10 +246,14 @@ export class DtChart
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
 
   /** Eventemitter that fires every time the tooltip opens or closes */
-  @Output() readonly tooltipOpenChange: EventEmitter<
-    boolean
-  > = new EventEmitter();
-  /** Eventemitter that fires every time the data inside the chart tooltip changes */
+  @Output()
+  readonly tooltipOpenChange: EventEmitter<boolean> = new EventEmitter();
+
+  /**
+   * Eventemitter that fires every time the data inside the chart tooltip changes
+   *
+   * @breaking-change Only emit `<DtChartTooltipEvent>` in 5.0.0 in case that no null will be emitted
+   */
   @Output()
   readonly tooltipDataChange: EventEmitter<DtChartTooltipEvent | null> = new EventEmitter();
 
@@ -266,8 +290,10 @@ export class DtChart
    */
   @ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
 
+  /** @internal The chart tooltip reference */
+  @ContentChildren(DtChartTooltip) _tooltip: QueryList<DtChartTooltip>;
+
   /** @internal List of Heatfield references */
-  // tslint:disable-next-line: no-forward-ref
   @ContentChildren(DtChartHeatfield)
   _heatfields: QueryList<DtChartHeatfield>;
 
@@ -284,8 +310,6 @@ export class DtChart
   private _dataSub: Subscription | null = null;
   private _highchartsOptions: HighchartsOptions;
   private readonly _destroy$ = new Subject<void>();
-  private readonly _tooltipRefreshed: Subject<DtChartTooltipEvent | null> = new Subject();
-  private _isTooltipOpen = false;
 
   /** @internal whether the chart is in the viewport or not */
   _isInViewport$ = createInViewportStream(
@@ -295,6 +319,15 @@ export class DtChart
 
   /** Deals with the selection logic. */
   private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
+
+  /** @internal Emits the tooltip data when it changed */
+  _highChartsTooltipDataChanged$ = new Subject<DtChartTooltipEvent>();
+
+  /** @internal Emits when the tooltip should be opened with the provided data */
+  _highChartsTooltipOpened$ = new Subject<DtChartTooltipEvent>();
+
+  /** @internal Emits when the tooltip should be closed */
+  _highChartsTooltipClosed$ = new Subject<void>();
 
   /** @internal The offset of the plotBackground in relation to the chart container on the xAxis  */
   _plotBackgroundChartOffset = 0;
@@ -386,35 +419,10 @@ export class DtChart
       .subscribe(event => {
         this._onHeatfieldActivate(event.source);
       });
-    this._tooltipRefreshed
-      .pipe(
-        takeUntil(this._destroy$),
-        filter(Boolean),
-        map(ev => {
-          if (ev.data.points) {
-            // We need to clone the series here, because highcharts mutates the object and
-            // we therefore cannot create a compare function that compares the last with the next emission
-            ev.data.points = ev.data.points.map(p => ({
-              ...p,
-              series: { ...p.series },
-            }));
-          }
-          return ev;
-        }),
-        distinctUntilChanged((a, b) => {
-          if (a && b) {
-            return (
-              a.data.x === b.data.x &&
-              a.data.y === b.data.y &&
-              findHoveredSeriesIndex(a) === findHoveredSeriesIndex(b)
-            );
-          }
-          return false;
-        }),
-      )
-      .subscribe(ev => {
-        this.tooltipDataChange.next(ev);
-      });
+
+    // uses the ContentChild of the DtChartTooltip to toggle and update
+    // the tooltip according to the highcharts events.
+    this._handleTooltipChange();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -488,6 +496,89 @@ export class DtChart
     }
   }
 
+  /** Handles the tooltips open and closing along with the updating of the data */
+  private _handleTooltipChange(): void {
+    this._highChartsTooltipClosed$
+      .pipe(
+        startWith(null),
+        switchMap(() =>
+          this._highChartsTooltipDataChanged$.asObservable().pipe(take(1)),
+        ),
+        takeUntil(this._destroy$),
+      )
+      .subscribe((event: DtChartTooltipEvent) => {
+        this._highChartsTooltipOpened$.next(event);
+      });
+
+    const tooltipOpened$ = this._highChartsTooltipOpened$.pipe(
+      map(event => new TooltipState(TooltipStateType.OPENED, event)),
+    );
+
+    const tooltipClosed$ = this._highChartsTooltipOpened$.pipe(
+      // `switchMap` to close is used to last only for one cycle of
+      // open and closing the tooltip.
+      switchMap(() => this._highChartsTooltipClosed$.pipe(take(1))),
+      mapTo(new TooltipState(TooltipStateType.CLOSED)),
+    );
+
+    const tooltipUpdated$ = this._highChartsTooltipOpened$.pipe(
+      // use the `switchMap` to create an inner observable that the
+      // `distinctUntilChanged` restarts after it was closed and opened again.
+      // Only starts when a tooltip was opened and restarts after it was closed.
+      switchMap(() =>
+        this._highChartsTooltipDataChanged$.pipe(
+          distinctUntilChanged(compareTooltipEventChanged),
+        ),
+      ),
+      map(event => new TooltipState(TooltipStateType.UPDATED, event)),
+    );
+
+    this._isInViewport$
+      .pipe(
+        filter(Boolean),
+        switchMap(() => merge(tooltipOpened$, tooltipClosed$, tooltipUpdated$)),
+        withLatestFrom(this._plotBackground$),
+        takeUntil(this._destroy$),
+      )
+      .subscribe(([state, plotBackground]) => {
+        this._ngZone.run(() => {
+          const tooltip = this._tooltip.first;
+
+          if (!isDefined(tooltip) || !isDefined(plotBackground)) {
+            return;
+          }
+
+          const x = parseInt(plotBackground!.getAttribute('x')!, 10);
+          const y = parseInt(plotBackground!.getAttribute('y')!, 10);
+          const height = parseInt(plotBackground!.getAttribute('height')!, 10);
+          const plotBackgroundInfo = { x, y, height };
+
+          switch (state.status) {
+            case TooltipStateType.CLOSED:
+              tooltip._dismiss();
+              this.tooltipOpenChange.emit(false);
+              break;
+            case TooltipStateType.OPENED:
+              tooltip._createOverlay(
+                state.event!.data,
+                this,
+                plotBackgroundInfo,
+              );
+              this.tooltipOpenChange.emit(true);
+              break;
+            case TooltipStateType.UPDATED:
+              tooltip._updateOverlayContext(
+                state.event!.data,
+                this,
+                plotBackgroundInfo,
+              );
+              this.tooltipDataChange.emit();
+              break;
+          }
+        });
+      });
+  }
+
   private _createHighchartsChart(): void {
     // Creating a new highcharts chart.
     // This needs to be done outside the ngZone so the events, highcharts listens to, do not pollute our change detection.
@@ -522,19 +613,13 @@ export class DtChart
 
     // adds event-listener to highcharts custom event for tooltip closed
     addHighchartsEvent(this._chartObject, 'tooltipClosed', () => {
-      this._isTooltipOpen = false;
-      this.tooltipOpenChange.emit(false);
-      this._tooltipRefreshed.next(null);
+      this._highChartsTooltipClosed$.next();
     });
     // Adds event-listener to highcharts custom event for tooltip refreshed closed */
     // We cannot type the event param, because the types for highcharts are incorrect
     // tslint:disable-next-line:no-any
     addHighchartsEvent(this._chartObject, 'tooltipRefreshed', (event: any) => {
-      if (!this._isTooltipOpen) {
-        this._isTooltipOpen = true;
-        this.tooltipOpenChange.emit(true);
-      }
-      this._tooltipRefreshed.next({
+      this._highChartsTooltipDataChanged$.next({
         data: (event as DtHcTooltipEventPayload).data,
         chart: this._chartObject!,
       });
