@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -23,10 +26,10 @@ import {
   DtExpandableTextModule,
 } from '@dynatrace/barista-components/expandable-text';
 
-import { createComponent } from '../../testing/create-component';
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import {
+  createComponent,
+  dispatchFakeEvent,
+} from '@dynatrace/barista-components/testing';
 
 /**
  * insert your tests here

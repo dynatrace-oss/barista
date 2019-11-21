@@ -26,10 +26,7 @@ import {
   Output,
   QueryList,
   ViewEncapsulation,
-  forwardRef,
 } from '@angular/core';
-import { Subscription, merge } from 'rxjs';
-
 import {
   CanColor,
   CanDisable,
@@ -39,7 +36,7 @@ import {
   mixinColor,
   mixinDisabled,
 } from '@dynatrace/barista-components/core';
-
+import { merge, Subscription } from 'rxjs';
 import { DtTab, DtTabChange } from './tab/tab';
 
 export const DT_TABGROUP_SINGLE_TAB_ERROR =
@@ -85,8 +82,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     CanColor<DtTabGroupThemePalette>,
     CanDisable {
   /** @internal List of all the tabs of this group */
-  // tslint:disable-next-line:no-forward-ref
-  @ContentChildren(forwardRef(() => DtTab)) _tabs: QueryList<DtTab>;
+  @ContentChildren(DtTab) _tabs: QueryList<DtTab>;
 
   /** Subscription to tabs being added/removed. */
   private _tabsSubscription = Subscription.EMPTY;

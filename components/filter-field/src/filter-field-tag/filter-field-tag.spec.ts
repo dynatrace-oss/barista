@@ -33,7 +33,7 @@ import {
 } from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '../../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 import { DtFilterFieldTagData } from '../types';
 
 describe('DtFilterFieldTag', () => {

@@ -28,8 +28,10 @@ import {
   DtPaginationModule,
 } from '@dynatrace/barista-components/pagination';
 
-import { createComponent } from '../../testing/create-component';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import {
+  createComponent,
+  dispatchFakeEvent,
+} from '@dynatrace/barista-components/testing';
 import {
   ARIA_DEFAULT_CURRENT_LABEL,
   ARIA_DEFAULT_ELLIPSES,

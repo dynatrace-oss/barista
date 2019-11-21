@@ -22,15 +22,15 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import {
   DtChartModule,
   DtChartRange,
 } from '@dynatrace/barista-components/chart';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-
-import { dispatchFakeEvent } from '../../../testing/dispatch-events';
-import { createKeyboardEvent } from '../../../testing/event-objects';
+import {
+  dispatchFakeEvent,
+  createKeyboardEvent,
+} from '@dynatrace/barista-components/testing';
 import {
   ARIA_DEFAULT_LEFT_HANDLE_LABEL,
   ARIA_DEFAULT_RIGHT_HANDLE_LABEL,

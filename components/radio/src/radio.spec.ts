@@ -39,9 +39,10 @@ import {
   DtRadioGroup,
   DtRadioModule,
 } from '@dynatrace/barista-components/radio';
-
-import { createComponent } from '../../testing/create-component';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import {
+  createComponent,
+  dispatchFakeEvent,
+} from '@dynatrace/barista-components/testing';
 
 describe('DtRadio', () => {
   beforeEach(async(() => {

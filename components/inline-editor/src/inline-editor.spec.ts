@@ -46,11 +46,11 @@ import {
   DtInlineEditorModule,
 } from '@dynatrace/barista-components/inline-editor';
 
-import { createComponent } from '../../testing/create-component';
 import {
+  createComponent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
+} from '@dynatrace/barista-components/testing';
 
 describe('DtInlineEditor', () => {
   beforeEach(() => {

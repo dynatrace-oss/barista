@@ -28,7 +28,7 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-import { createKeyboardEvent } from '../../../testing/event-objects';
+import { createKeyboardEvent } from '@dynatrace/barista-components/testing';
 import { updateRangeWithKeyboardEvent } from './update-range-with-keyboard-event';
 
 function getKeyName(keycode: number): string {

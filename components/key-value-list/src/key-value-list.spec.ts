@@ -22,7 +22,7 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 
 import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
 
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtKeyValueList', () => {
   const getKeyElement = (element: HTMLElement) =>

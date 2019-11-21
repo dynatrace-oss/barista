@@ -29,9 +29,9 @@ import {
   DtTabChange,
   DtTabsModule,
 } from '@dynatrace/barista-components/tabs';
-import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from '@dynatrace/barista-components/tabs/tab-group';
+import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from './tab-group';
 
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtTabs', () => {
   beforeEach(async(() => {

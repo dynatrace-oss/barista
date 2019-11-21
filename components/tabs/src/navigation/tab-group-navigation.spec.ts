@@ -21,22 +21,20 @@ import { Location, LocationStrategy } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed,
   fakeAsync,
+  TestBed,
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-
+import { DtTabGroup } from '../tab-group';
+import { checkSelected } from '../tab-group.spec';
+import { DtTabsModule } from '../tabs-module';
 import {
-  DtTabGroup,
   DtTabNavigationAdapter,
   DtTabRouterFragmentAdapter,
-  DtTabsModule,
-} from '@dynatrace/barista-components/tabs';
-
-import { checkSelected } from '../tab-group.spec';
+} from './tab-navigation-adapter';
 
 describe('DtTabRouterFragmentAdapter', () => {
   let location: Location;

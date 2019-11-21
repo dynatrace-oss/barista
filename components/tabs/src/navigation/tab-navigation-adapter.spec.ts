@@ -34,7 +34,7 @@ import {
   DtTabsModule,
 } from '@dynatrace/barista-components/tabs';
 
-import { createComponent } from '../../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtTabNavigationAdapter', () => {
   let fixture: ComponentFixture<TabComponent>;

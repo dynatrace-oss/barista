@@ -70,15 +70,14 @@ import {
   DtSelectModule,
   getDtSelectNonFunctionValueError,
 } from '@dynatrace/barista-components/select';
-
-import { createComponent } from '../../testing/create-component';
 import {
   dispatchEvent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
-import { createKeyboardEvent } from '../../testing/event-objects';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+  createKeyboardEvent,
+  wrappedErrorMessage,
+  createComponent,
+} from '@dynatrace/barista-components/testing';
 
 describe('DtSelect', () => {
   let overlayContainer: OverlayContainer;

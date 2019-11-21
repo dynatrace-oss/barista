@@ -32,9 +32,10 @@ import { By } from '@angular/platform-browser';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagAdd, DtTagModule } from '@dynatrace/barista-components/tag';
-
-import { createComponent } from '../../../testing/create-component';
-import { dispatchKeyboardEvent } from '../../../testing/dispatch-events';
+import {
+  createComponent,
+  dispatchKeyboardEvent,
+} from '@dynatrace/barista-components/testing';
 
 describe('DtTagAdd', () => {
   let fixture: ComponentFixture<DtTagComponent>;

@@ -40,11 +40,11 @@ import {
   DtOverlayModule,
 } from '@dynatrace/barista-components/overlay';
 
-import { createComponent } from '../../testing/create-component';
 import {
+  createComponent,
   dispatchKeyboardEvent,
   dispatchMouseEvent,
-} from '../../testing/dispatch-events';
+} from '@dynatrace/barista-components/testing';
 
 describe('DtOverlay', () => {
   let dtOverlay: DtOverlay;

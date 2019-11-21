@@ -21,7 +21,7 @@ import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { delay, observeOn, subscribeOn } from 'rxjs/operators';
 
-import { MockNgZone } from '../../../testing/mock-ng-zone';
+import { MockNgZone } from '@dynatrace/barista-components/testing';
 import { runInsideZone, runOutsideZone } from './zone-scheduler';
 
 describe('Angular Zone Schedulers', () => {
