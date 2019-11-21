@@ -1,0 +1,20 @@
+<form [formGroup]="queryTitleForm">
+  <em
+    dt-inline-editor
+    [(ngModel)]="value"
+    formControlName="queryTitleControl"
+    aria-label-save="Save text"
+    aria-label-cancel="Cancel and discard changes"
+    required
+  >
+    <dt-error *ngIf="queryTitleControl.hasError('required')">
+      The query title must not be empty.
+    </dt-error>
+    <dt-error *ngIf="queryTitleControl.hasError('minlength')">
+      The query title must be at least 4 characters long
+    </dt-error>
+    <dt-error *ngIf="hasCustomError">
+      Password must include the string 'barista'
+    </dt-error>
+  </em>
+</form>

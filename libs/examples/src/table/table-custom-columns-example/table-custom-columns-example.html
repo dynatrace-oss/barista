@@ -1,0 +1,38 @@
+<dt-table [dataSource]="data">
+  <ng-container dtColumnDef="host" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <dt-info-group>
+        <dt-info-group-icon>
+          <dt-icon name="host"></dt-icon>
+        </dt-info-group-icon>
+        <dt-info-group-title>{{ row.host }}</dt-info-group-title>
+        Uptime: {{ row.uptime }}
+      </dt-info-group>
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="cpu" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.cpu | dtPercent }}</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="memory" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ combineMemory(row) }}</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="traffic" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      {{ row.traffic | dtMegabytes: 1024 | dtRate: 's' }}
+    </dt-cell>
+  </ng-container>
+
+  <dt-header-row
+    *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"
+  ></dt-header-row>
+  <dt-row
+    *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
+  ></dt-row>
+</dt-table>

@@ -1,0 +1,41 @@
+<dt-table [dataSource]="dataSource" dtSort #sortable>
+  <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
+  <dt-simple-number-column
+    name="cpu"
+    label="CPU"
+    [formatter]="percentageFormatter"
+  ></dt-simple-number-column>
+  <dt-simple-number-column
+    name="memoryPerc"
+    label="Memory"
+    [formatter]="percentageFormatter"
+  ></dt-simple-number-column>
+  <dt-simple-number-column
+    name="memoryConsumption"
+    label="Memory combined"
+    [displayAccessor]="combineMemory"
+    [sortAccessor]="memorySortAccessor"
+  ></dt-simple-number-column>
+  <dt-simple-number-column
+    name="traffic"
+    label="Traffic"
+    [formatter]="trafficFormatter"
+    sortable="false"
+  ></dt-simple-number-column>
+
+  <dt-header-row
+    *dtHeaderRowDef="[
+        'host',
+        'cpu',
+        'memoryPerc',
+        'memoryConsumption',
+        'traffic'
+      ]"
+  ></dt-header-row>
+  <dt-row
+    *dtRowDef="
+        let row;
+        columns: ['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic']
+      "
+  ></dt-row>
+</dt-table>

@@ -1,0 +1,11 @@
+::ng-deep .overlay-example-content-wrapper {
+  max-width: 300px;
+}
+::ng-deep .overlay-example-content-wrapper p:first-child {
+  margin-top: 0;
+}
+::ng-deep .overlay-example-content-wrapper button {
+  margin-top: 16px;
+  margin-left: auto;
+  display: block;
+}

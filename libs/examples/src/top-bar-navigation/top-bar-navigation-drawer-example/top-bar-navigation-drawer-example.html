@@ -1,0 +1,26 @@
+<dt-drawer-container class="drawer">
+  <dt-drawer>
+    <button dtTopBarAction (click)="closeDrawer()">
+      <dt-icon name="menu-close"></dt-icon>
+    </button>
+  </dt-drawer>
+  <dt-top-bar-navigation aria-label="Main">
+    <dt-top-bar-navigation-item align="start" *ngIf="showHamburger | async">
+      <button dtTopBarAction (click)="openDrawer()">
+        <dt-icon name="menu-hamburger"></dt-icon>
+      </button>
+    </dt-top-bar-navigation-item>
+
+    <dt-top-bar-navigation-item align="end">
+      <button dtTopBarAction>my button</button>
+    </dt-top-bar-navigation-item>
+
+    <dt-top-bar-navigation-item align="end" *ngIf="problems > 0">
+      <a href="" dtTopBarAction hasProblem>{{ problems }}</a>
+    </dt-top-bar-navigation-item>
+
+    <dt-top-bar-navigation-item align="end">
+      <button dtTopBarAction><dt-icon name="user-uem"></dt-icon></button>
+    </dt-top-bar-navigation-item>
+  </dt-top-bar-navigation>
+</dt-drawer-container>

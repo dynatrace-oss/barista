@@ -1,0 +1,33 @@
+<dt-table [dataSource]="data">
+  <ng-container dtColumnDef="service" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Service name</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <dt-info-group>
+        <dt-info-group-icon>
+          <dt-icon name="apache-tomcat"></dt-icon>
+        </dt-info-group-icon>
+        <dt-info-group-title>{{ row.title }}</dt-info-group-title>
+        {{ row.subtitle }}
+      </dt-info-group>
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="requests" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Requests</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.requests }}</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="actions" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Actions</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <a dt-button variant="secondary">Service flow</a>
+    </dt-cell>
+  </ng-container>
+
+  <dt-header-row
+    *dtHeaderRowDef="['service', 'requests', 'actions']"
+  ></dt-header-row>
+  <dt-row
+    *dtRowDef="let row; columns: ['service', 'requests', 'actions']"
+  ></dt-row>
+</dt-table>

@@ -1,0 +1,58 @@
+<dt-table [dataSource]="_dataSource">
+  <ng-container dtColumnDef="host" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.name }}</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="cpu" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
+    <dt-cell
+      [dtIndicator]="metricHasProblem(row, 'cpuUsage')"
+      [dtIndicatorColor]="metricIndicatorColor(row, 'cpuUsage')"
+      *dtCellDef="let row"
+    >
+      {{ row.cpuUsage | dtPercent }}
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="memory" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <span
+        [dtIndicator]="metricHasProblem(row, 'memoryPerc')"
+        [dtIndicatorColor]="metricIndicatorColor(row, 'memoryPerc')"
+      >
+        {{ row.memoryPerc | dtPercent }}
+      </span>
+      &nbsp;of&nbsp;
+      <span
+        [dtIndicator]="metricHasProblem(row, 'memoryTotal')"
+        [dtIndicatorColor]="metricIndicatorColor(row, 'memoryTotal')"
+      >
+        {{ row.memoryTotal | dtBytes }}
+      </span>
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="traffic" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Network traffic</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      {{ row.traffic | dtBits | dtRate: 's' }}
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="empty">
+    <dt-cell *dtCellDef="let row">This is empty</dt-cell>
+  </ng-container>
+
+  <dt-header-row
+    *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"
+  ></dt-header-row>
+  <dt-row
+    *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
+  ></dt-row>
+</dt-table>
+
+<button class="toggle" dt-button variant="secondary" (click)="_toggleProblem()">
+  Toggle problem
+</button>

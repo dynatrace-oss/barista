@@ -1,0 +1,77 @@
+<dt-table
+  [dataSource]="dataSource"
+  dtSort
+  (dtSortChange)="sortData($event)"
+  [dtSortDisabled]="disableSorting"
+  [dtSortActive]="'cpu'"
+  dtSortStart="asc"
+  dtSortDirection="desc"
+>
+  <ng-container dtColumnDef="host" dtColumnAlign="text">
+    <dt-header-cell
+      *dtHeaderCellDef
+      dt-sort-header
+      sort-aria-label="Change sort order for hosts"
+    >
+      Host
+    </dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="cpu" dtColumnAlign="number">
+    <dt-header-cell
+      *dtHeaderCellDef
+      dt-sort-header
+      start="desc"
+      sort-aria-label="Change sort order for CPUs"
+    >
+      CPU
+    </dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      {{ row.cpu | dtPercent }}
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="memory" dtColumnAlign="number">
+    <dt-header-cell
+      *dtHeaderCellDef
+      dt-sort-header
+      start="desc"
+      sort-aria-label="Change sort order for memory"
+    >
+      Memory
+    </dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      {{ row.memoryPerc | dtPercent }} of {{ row.memoryTotal | dtBytes }}
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="traffic" dtColumnAlign="number">
+    <dt-header-cell
+      *dtHeaderCellDef
+      disabled
+      dt-sort-header
+      sort-aria-label="Change sort order for network traffic"
+    >
+      Network traffic
+    </dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      {{ row.traffic | dtBytes | dtRate: 's' }}
+    </dt-cell>
+  </ng-container>
+
+  <dt-header-row
+    *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"
+  ></dt-header-row>
+  <dt-row
+    *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
+  ></dt-row>
+</dt-table>
+<button
+  class="toggle"
+  dt-button
+  variant="secondary"
+  (click)="disableSorting = !disableSorting"
+>
+  Toggle disable sorting for all columns
+</button>

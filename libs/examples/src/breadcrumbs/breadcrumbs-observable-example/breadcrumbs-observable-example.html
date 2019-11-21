@@ -1,0 +1,6 @@
+<dt-breadcrumbs aria-label="Breadcrumbs navigation">
+  <!-- data$ emits a new items list after each 5 seconds -->
+  <a dtBreadcrumbsItem *ngFor="let item of data$ | async" [href]="item.href">
+    {{ item.label }}
+  </a>
+</dt-breadcrumbs>

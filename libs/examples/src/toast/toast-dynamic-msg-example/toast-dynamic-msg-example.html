@@ -1,0 +1,9 @@
+<dt-form-field>
+  <dt-label>Message</dt-label>
+  <input type="text" dtInput [(ngModel)]="message" placeholder="Your message" />
+</dt-form-field>
+<p>Current message: {{ message }}</p>
+<p *ngIf="elapsedTime">
+  Time elapsed since opening: {{ elapsedTime | async }}ms
+</p>
+<button dt-button (click)="createToast()">Save</button>

@@ -1,0 +1,18 @@
+<form [formGroup]="passwordForm">
+  <dt-form-field>
+    <input
+      type="password"
+      dtInput
+      placeholder="Please insert super secure password"
+      aria-label="Please insert super secure password"
+      required
+      formControlName="password"
+    />
+    <dt-error *ngIf="passwordHasMinLengthError"
+      >Password needs to be at least 4 characters long
+    </dt-error>
+    <dt-error *ngIf="passwordHasCustomError">
+      Password must include the string 'barista'
+    </dt-error>
+  </dt-form-field>
+</form>

@@ -1,0 +1,35 @@
+<dt-table [dataSource]="dataSource">
+  <ng-container dtColumnDef="service">
+    <dt-header-cell *dtHeaderCellDef>Service</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <dt-info-group>
+        <dt-info-group-icon>
+          <dt-icon name="services"></dt-icon>
+        </dt-info-group-icon>
+        <dt-info-group-title>{{ row.service }}</dt-info-group-title>
+        {{ row.location }}
+      </dt-info-group>
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="responseTime" dtColumnAlign="right">
+    <dt-header-cell *dtHeaderCellDef>Response time</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      {{ row.responseTime | dtCount }} ms
+    </dt-cell>
+  </ng-container>
+
+  <ng-container dtColumnDef="failureRate" dtColumnAlign="right">
+    <dt-header-cell *dtHeaderCellDef>Failure rate</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      {{ row.failureRate | dtPercent }}
+    </dt-cell>
+  </ng-container>
+
+  <dt-header-row
+    *dtHeaderRowDef="['service', 'responseTime', 'failureRate']"
+  ></dt-header-row>
+  <dt-row
+    *dtRowDef="let row; columns: ['service', 'responseTime', 'failureRate']"
+  ></dt-row>
+</dt-table>

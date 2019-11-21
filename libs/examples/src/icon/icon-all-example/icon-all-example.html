@@ -1,0 +1,12 @@
+<input
+  #input
+  type="text"
+  dtInput
+  placeholder="Filter by"
+  (input)="_onInputChange($event)"
+  aria-label="Filter icons"
+/>
+<div class="dt-all-icons-container">
+  <dt-example-icon-async *ngFor="let name of _icons$ | async" [name]="name">
+  </dt-example-icon-async>
+</div>

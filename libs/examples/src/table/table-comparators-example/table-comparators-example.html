@@ -1,0 +1,15 @@
+<dt-table [dataSource]="dataSource" dtSort #sortable>
+  <dt-simple-text-column
+    name="host"
+    label="Host"
+    [comparator]="compareStringLengths"
+  ></dt-simple-text-column>
+
+  <dt-simple-text-column
+    name="namespace"
+    label="Namespace"
+  ></dt-simple-text-column>
+
+  <dt-header-row *dtHeaderRowDef="['host', 'namespace']"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['host', 'namespace']"></dt-row>
+</dt-table>

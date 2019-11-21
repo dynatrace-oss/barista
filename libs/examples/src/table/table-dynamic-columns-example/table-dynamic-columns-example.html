@@ -1,0 +1,13 @@
+<dt-table [dataSource]="dataSource">
+  <ng-container
+    *ngFor="let column of columnsDef"
+    [dtColumnDef]="column.id"
+    [dtColumnAlign]="column.type"
+  >
+    <dt-header-cell *dtHeaderCellDef>{{ column.title }}</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row[column.id] }}</dt-cell>
+  </ng-container>
+
+  <dt-header-row *dtHeaderRowDef="columnsName"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: columnsName"></dt-row>
+</dt-table>
