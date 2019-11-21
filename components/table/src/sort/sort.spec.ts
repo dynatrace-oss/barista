@@ -42,10 +42,11 @@ import {
   DtTableModule,
   getDtSortHeaderNotContainedWithinSortError,
 } from '@dynatrace/barista-components/table';
-
-import { createComponent } from '../../../testing/create-component';
-import { dispatchMouseEvent } from '../../../testing/dispatch-events';
-import { wrappedErrorMessage } from '../../../testing/wrapped-error-message';
+import {
+  createComponent,
+  dispatchMouseEvent,
+  wrappedErrorMessage,
+} from '@dynatrace/barista-components/testing';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;

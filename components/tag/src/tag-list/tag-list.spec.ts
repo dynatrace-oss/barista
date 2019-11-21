@@ -29,12 +29,12 @@ import {
 } from '@angular/core';
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagList, DtTagModule } from '@dynatrace/barista-components/tag';
-
-import { createComponent } from '../../../testing/create-component';
-import { MockNgZone } from '../../../testing/mock-ng-zone';
+import {
+  createComponent,
+  MockNgZone,
+} from '@dynatrace/barista-components/testing';
 import { DtTag } from '../tag';
 import { getIndexForFirstHiddenTag, getWrapperWidth } from './tag-list';
 

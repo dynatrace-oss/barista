@@ -24,8 +24,10 @@ import { TestScheduler } from 'rxjs/testing';
 
 import * as core from '@dynatrace/barista-components/core';
 
-import { createMouseEvent } from '../../../testing/event-objects';
-import { MockNgZone } from '../../../testing/mock-ng-zone';
+import {
+  createMouseEvent,
+  MockNgZone,
+} from '@dynatrace/barista-components/testing';
 import * as utils from '../utils';
 import { NO_POINTER_EVENTS_CLASS } from './constants';
 import { DtSelectionAreaEventTarget } from './position-utils';

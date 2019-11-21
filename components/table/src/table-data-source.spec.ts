@@ -40,9 +40,10 @@ import {
   DtTableDataSource,
   DtTableModule,
 } from '@dynatrace/barista-components/table';
-
-import { createComponent } from '../../testing/create-component';
-import { dispatchMouseEvent } from '../../testing/dispatch-events';
+import {
+  createComponent,
+  dispatchMouseEvent,
+} from '@dynatrace/barista-components/testing';
 
 const PAGE_SIZE = 2;
 

@@ -24,7 +24,7 @@ import { By } from '@angular/platform-browser';
 
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
+import { dispatchFakeEvent } from '@dynatrace/barista-components/testing';
 import { DtEventChart } from './event-chart';
 import { DtEventChartSelectedEvent } from './event-chart-directives';
 

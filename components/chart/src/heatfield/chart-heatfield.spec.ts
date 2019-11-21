@@ -44,11 +44,13 @@ import {
   DtChartModule,
   DtChartOptions,
 } from '@dynatrace/barista-components/chart';
-import { getDtHeatfieldUnsupportedChartError } from '@dynatrace/barista-components/chart/heatfield/chart-heatfield-errors';
+import { getDtHeatfieldUnsupportedChartError } from './chart-heatfield-errors';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
-import { createComponent } from '../../../testing/create-component';
-import { dispatchKeyboardEvent } from '../../../testing/dispatch-events';
+import {
+  createComponent,
+  dispatchKeyboardEvent,
+} from '@dynatrace/barista-components/testing';
 
 const PLOTMARGIN_LEFT = 100;
 const PLOTMARGIN_RIGHT = 100;

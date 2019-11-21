@@ -59,16 +59,15 @@ import {
 } from '@dynatrace/barista-components/chart';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtSelectionAreaModule } from '@dynatrace/barista-components/selection-area';
-
-import { createComponent } from '../../testing/create-component';
 import {
+  createComponent,
   dispatchKeyboardEvent,
   dispatchMouseEvent,
-} from '../../testing/dispatch-events';
-import { MockNgZone } from '../../testing/mock-ng-zone';
-import { tickRequestAnimationFrame } from '../../testing/request-animation-frame';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
-import { DtButtonModule } from '../button';
+  wrappedErrorMessage,
+  tickRequestAnimationFrame,
+  MockNgZone,
+} from '@dynatrace/barista-components/testing';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtSelectionArea } from './selection-area';
 
 // tslint:disable-next-line: dt-no-focused-tests

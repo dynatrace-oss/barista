@@ -25,7 +25,7 @@ import { By } from '@angular/platform-browser';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtButton', () => {
   beforeEach(async(() => {

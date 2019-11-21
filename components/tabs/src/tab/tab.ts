@@ -28,6 +28,8 @@ import {
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
+  forwardRef,
+  Inject,
 } from '@angular/core';
 import {
   CanDisable,
@@ -161,6 +163,7 @@ export class DtTab extends _DtTabMixinBase
     elementRef: ElementRef,
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
+    @Inject(forwardRef(() => DtTabGroup))
     @Optional()
     private _tabGroup: DtTabGroup,
   ) {

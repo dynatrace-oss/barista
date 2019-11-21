@@ -28,8 +28,10 @@ import {
   DtBreadcrumbsModule,
 } from '@dynatrace/barista-components/breadcrumbs';
 
-import { createComponent } from '../../../testing/create-component';
-import { createMouseEvent } from '../../../testing/event-objects';
+import {
+  createComponent,
+  createMouseEvent,
+} from '@dynatrace/barista-components/testing';
 
 describe('DtBreadcrumbsItem', () => {
   describe('Router provided', () => {

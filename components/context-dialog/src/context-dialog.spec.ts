@@ -39,8 +39,10 @@ import {
 } from '@dynatrace/barista-components/context-dialog';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '../../testing/create-component';
-import { dispatchKeyboardEvent } from '../../testing/dispatch-events';
+import {
+  createComponent,
+  dispatchKeyboardEvent,
+} from '@dynatrace/barista-components/testing';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;

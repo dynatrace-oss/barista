@@ -72,10 +72,10 @@ import {
   dispatchEvent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
-import { createKeyboardEvent } from '../../testing/event-objects';
-import { MockNgZone } from '../../testing/mock-ng-zone';
-import { typeInElement } from '../../testing/type-in-element';
+  createKeyboardEvent,
+  MockNgZone,
+  typeInElement,
+} from '@dynatrace/barista-components/testing';
 
 describe('DtAutocomplete', () => {
   let overlayContainer: OverlayContainer;

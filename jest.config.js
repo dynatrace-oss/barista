@@ -12,6 +12,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'html'],
   resolver: '@nrwl/jest/plugins/resolver',
   collectCoverage: true,
+  passWithNoTests: true,
   coverageDirectory: join(__dirname, 'dist', 'coverage-results', 'html'),
   coverageReporters: coverageReporters,
   reporters: [

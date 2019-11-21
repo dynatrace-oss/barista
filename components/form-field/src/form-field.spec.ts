@@ -51,10 +51,11 @@ import {
   getDtFormFieldMissingControlError,
 } from '@dynatrace/barista-components/form-field';
 import { DtInput, DtInputModule } from '@dynatrace/barista-components/input';
-
-import { createComponent } from '../../testing/create-component';
-import { dispatchFakeEvent } from '../../testing/dispatch-events';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+import {
+  createComponent,
+  wrappedErrorMessage,
+  dispatchFakeEvent,
+} from '@dynatrace/barista-components/testing';
 
 const TEST_IMPORTS = [
   FormsModule,

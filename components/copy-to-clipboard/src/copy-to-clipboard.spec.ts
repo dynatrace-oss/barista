@@ -27,7 +27,7 @@ import { DtCopyToClipboardModule } from '@dynatrace/barista-components/copy-to-c
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtCopyToClipboard', () => {
   beforeEach(async(() => {

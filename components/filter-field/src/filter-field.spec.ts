@@ -41,15 +41,14 @@ import {
   getDtFilterFieldRangeNoOperatorsError,
 } from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-
-import { createComponent } from '../../testing/create-component';
 import {
   dispatchFakeEvent,
+  createComponent,
   dispatchKeyboardEvent,
-} from '../../testing/dispatch-events';
-import { MockNgZone } from '../../testing/mock-ng-zone';
-import { typeInElement } from '../../testing/type-in-element';
-import { wrappedErrorMessage } from '../../testing/wrapped-error-message';
+  MockNgZone,
+  typeInElement,
+  wrappedErrorMessage,
+} from '@dynatrace/barista-components/testing';
 
 const TEST_DATA = {
   autocomplete: [

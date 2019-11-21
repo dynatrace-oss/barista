@@ -54,7 +54,7 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtIndicatorModule } from '@dynatrace/barista-components/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtTable', () => {
   beforeEach(async(() => {
@@ -686,7 +686,7 @@ describe('DtTable', () => {
 class TestApp {
   @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   loading = false;
-  dataSource: object[] | null | undefined = [
+  dataSource: object[] | null | undefined | DtTableDataSource<any> = [
     { col1: 'test 1', col2: 'test 2', col3: 'test 3' },
     { col1: 'test 1', col2: 'test 2', col3: 'test 3' },
     { col1: 'test 1', col2: 'test 2', col3: 'test 3' },

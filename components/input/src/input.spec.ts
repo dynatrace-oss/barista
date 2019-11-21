@@ -26,7 +26,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DtInputModule } from '@dynatrace/barista-components/input';
 
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtInput without forms', () => {
   beforeEach(fakeAsync(() => {

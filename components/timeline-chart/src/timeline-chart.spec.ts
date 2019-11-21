@@ -23,7 +23,7 @@ import { By } from '@angular/platform-browser';
 
 import { DtTimelineChartModule } from '@dynatrace/barista-components/timeline-chart';
 
-import { createComponent } from '../../testing/create-component';
+import { createComponent } from '@dynatrace/barista-components/testing';
 
 describe('DtTimelineChart', () => {
   let fixture: ComponentFixture<SimpleTestApp>;
