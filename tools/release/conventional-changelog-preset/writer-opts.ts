@@ -61,7 +61,7 @@ function getWriterOpts() {
       }
       if (typeof commit.issue === 'string') {
         const issue = commit.issue;
-        const url = '***REMOVED***/';
+        const url = '***REMOVED***';
         commit.issue = `[${issue}](${url}${issue})`;
       }
 
