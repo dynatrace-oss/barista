@@ -1,0 +1,97 @@
+/**
+ * @license
+ * Copyright 2019 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DtTableModule } from '@dynatrace/barista-components/table';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtIndicatorModule } from '@dynatrace/barista-components/core';
+import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
+import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
+import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
+import { DtInfoGroupModule } from '@dynatrace/barista-components/info-group';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
+import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
+import { DtContainerBreakpointObserverModule } from '@dynatrace/barista-components/container-breakpoint-observer';
+import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
+
+import { DtExampleTableColumnProportion } from './table-column-proportion-example/table-column-proportion-example';
+import { DtExampleTableExpandableRows } from './table-expandable-rows-example/table-expandable-rows-example';
+import { DtExampleTableButtons } from './table-buttons-example/table-buttons-example';
+import { DtExampleTableColumnMinWidth } from './table-column-min-width-example/table-column-min-width-example';
+import { DtExampleTableComparators } from './table-comparators-example/table-comparators-example';
+import { DtExampleTableCustomColumns } from './table-custom-columns-example/table-custom-columns-example';
+import { DtExampleTableDefault } from './table-default-example/table-default-example';
+import { DtExampleTableDynamicColumns } from './table-dynamic-columns-example/table-dynamic-columns-example';
+import { DtExampleTableEmptyState } from './table-empty-state-example/table-empty-state-example';
+import { DtExampleTableInteractiveRows } from './table-interactive-rows-example/table-interactive-rows-example';
+import { DtExampleTableLoading } from './table-loading-example/table-loading-example';
+import { DtExampleTableObservable } from './table-observable-example/table-observable-example';
+import { DtExampleTablePagination } from './table-pagination-example/table-pagination-example';
+import { DtExampleTableProblem } from './table-problem-example/table-problem-example';
+import { DtExampleTableResponsive } from './table-responsive-example/table-responsive-example';
+import { DtExampleTableSearch } from './table-search-example/table-search-example';
+import { DtExampleTableShowMore } from './table-show-more-example/table-show-more-example';
+import { DtExampleTableSorting } from './table-sorting-example/table-sorting-example';
+import { DtExampleTableSortingMixedColumns } from './table-sorting-mixed-columns-example/table-sorting-mixed-columns-example';
+import { DtExampleTableStickyHeader } from './table-sticky-header-example/table-sticky-header-example';
+import { DtExampleTableWithInfoGroupCell } from './table-with-info-group-cell-example/table-with-info-group-cell-example';
+import { FormsModule } from '@angular/forms';
+
+export const DT_TABLE_EXAMPLES = [
+  DtExampleTableButtons,
+  DtExampleTableColumnMinWidth,
+  DtExampleTableColumnProportion,
+  DtExampleTableComparators,
+  DtExampleTableCustomColumns,
+  DtExampleTableDefault,
+  DtExampleTableDynamicColumns,
+  DtExampleTableEmptyState,
+  DtExampleTableExpandableRows,
+  DtExampleTableInteractiveRows,
+  DtExampleTableLoading,
+  DtExampleTableObservable,
+  DtExampleTablePagination,
+  DtExampleTableProblem,
+  DtExampleTableResponsive,
+  DtExampleTableSearch,
+  DtExampleTableShowMore,
+  DtExampleTableSorting,
+  DtExampleTableSortingMixedColumns,
+  DtExampleTableStickyHeader,
+  DtExampleTableWithInfoGroupCell,
+];
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    DtKeyValueListModule,
+    DtTableModule,
+    DtButtonModule,
+    DtIndicatorModule,
+    DtPaginationModule,
+    DtShowMoreModule,
+    DtEmptyStateModule,
+    DtInfoGroupModule,
+    DtLoadingDistractorModule,
+    DtFormattersModule,
+    DtContainerBreakpointObserverModule,
+    DtHighlightModule,
+  ],
+  declarations: [...DT_TABLE_EXAMPLES],
+  entryComponents: [...DT_TABLE_EXAMPLES],
+})
+export class DtExamplesTableModule {}

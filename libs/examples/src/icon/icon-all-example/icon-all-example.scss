@@ -1,0 +1,12 @@
+.dt-all-icons-container {
+  display: grid;
+  grid-auto-columns: max-content;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(min-content, 200px));
+}
+
+docs-async-icon {
+  display: inline-block;
+  padding: 1.5rem;
+  text-align: center;
+}

@@ -1,0 +1,16 @@
+<dt-toggle-button-group>
+  <div class="toggle-button-group-show-more-grid">
+    <button
+      *ngFor="let buttonGroupItem of buttonGroupNames; let i = index"
+      dt-toggle-button-item
+      value="i + 1"
+    >
+      <dt-toggle-button-item-icon>
+        <dt-icon name="cloud"></dt-icon>
+      </dt-toggle-button-item-icon>
+      {{ buttonGroupItem }}
+    </button>
+    <dt-expandable-text class="inline" label="Show All" (click)="loadMore()">
+    </dt-expandable-text>
+  </div>
+</dt-toggle-button-group>

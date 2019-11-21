@@ -1,0 +1,7 @@
+.dt-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: repeat(auto-fill, auto);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}

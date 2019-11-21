@@ -1,0 +1,31 @@
+<ng-container *ngIf="show">
+  <dt-table [dataSource]="dataSource">
+    <dt-simple-text-column name="host" sortable="false"></dt-simple-text-column>
+    <dt-simple-number-column
+      name="cpu"
+      label="Cpu"
+      sortable="false"
+    ></dt-simple-number-column>
+    <dt-simple-number-column
+      name="memory"
+      label="Memory"
+      sortable="false"
+    ></dt-simple-number-column>
+    <dt-simple-number-column
+      name="traffic"
+      label="Traffic"
+      sortable="false"
+    ></dt-simple-number-column>
+
+    <dt-header-row
+      *dtHeaderRowDef="['host', 'cpu', 'memory', 'traffic']"
+    ></dt-header-row>
+    <dt-row
+      *dtRowDef="let row; columns: ['host', 'cpu', 'memory', 'traffic']"
+    ></dt-row>
+  </dt-table>
+
+  <dt-pagination></dt-pagination>
+</ng-container>
+
+<button dt-button (click)="show = !show">show/hide</button>

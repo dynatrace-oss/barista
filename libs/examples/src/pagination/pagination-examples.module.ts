@@ -1,0 +1,38 @@
+/**
+ * @license
+ * Copyright 2019 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
+import { DtTableModule } from '@dynatrace/barista-components/table';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+
+import { DtExamplePaginationDefault } from './pagination-default-example/pagination-default-example';
+import { DtExamplePaginationDynamicTable } from './pagination-dynamic-table-example/pagination-dynamic-table-example';
+import { DtExamplePaginationMany } from './pagination-many-example/pagination-many-example';
+
+export const DT_PAGINATION_EXAMPLES = [
+  DtExamplePaginationDefault,
+  DtExamplePaginationDynamicTable,
+  DtExamplePaginationMany,
+];
+
+@NgModule({
+  imports: [CommonModule, DtPaginationModule, DtTableModule, DtButtonModule],
+  declarations: [...DT_PAGINATION_EXAMPLES],
+  entryComponents: [...DT_PAGINATION_EXAMPLES],
+})
+export class DtPaginationExamplesModule {}

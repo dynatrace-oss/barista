@@ -1,0 +1,36 @@
+<dt-table [dataSource]="dataSource" dtSort #sortable>
+  <ng-container dtColumnDef="webRequestName" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Web request name</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <a class="dt-link">{{ row.webRequestName }}</a>
+    </dt-cell>
+  </ng-container>
+  <a class="dt-link">Sample link</a>
+  <ng-container dtColumnDef="totalTimeConsumption" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Total consumption time</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      <dt-bar-indicator
+        [value]="row.totalTimeConsumption"
+        align="end"
+        class="dt-example-total-time-indicator"
+      ></dt-bar-indicator>
+    </dt-cell>
+  </ng-container>
+  <dt-simple-text-column
+    name="avgResponseTime"
+    label="Avg response time"
+  ></dt-simple-text-column>
+  <dt-header-row
+    *dtHeaderRowDef="[
+      'webRequestName',
+      'totalTimeConsumption',
+      'avgResponseTime'
+    ]"
+  ></dt-header-row>
+  <dt-row
+    *dtRowDef="
+      let row;
+      columns: ['webRequestName', 'totalTimeConsumption', 'avgResponseTime']
+    "
+  ></dt-row>
+</dt-table>

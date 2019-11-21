@@ -1,0 +1,14 @@
+<ng-template #overlay let-tooltip>
+  Hello {{ tooltip.value }}
+</ng-template>
+<button
+  dt-button
+  (mouseenter)="createOverlay()"
+  (mouseleave)="dismiss()"
+  (click)="pinOverlay()"
+>
+  Pin overlay: {{ overlayRef?.pinned }}
+</button>
+<button dt-button (click)="updateContext()">Update context</button>
+
+<p><span #origin>An overlay will be created here</span></p>

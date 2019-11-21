@@ -1,0 +1,8 @@
+<dt-tag-list>
+  <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
+  <dt-tag-add
+    placeholder="insert tag name here"
+    aria-label="tag input"
+    (tagAdded)="addTag($event)"
+  ></dt-tag-add>
+</dt-tag-list>

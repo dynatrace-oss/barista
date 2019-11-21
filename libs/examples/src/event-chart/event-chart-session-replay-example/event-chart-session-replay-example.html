@@ -1,0 +1,53 @@
+<dt-event-chart>
+  <dt-event-chart-event
+    *ngFor="let event of _events"
+    [value]="event.value"
+    [duration]="event.duration"
+    [lane]="event.lane"
+    [color]="event.color"
+    [data]="event.data"
+  >
+  </dt-event-chart-event>
+
+  <dt-event-chart-lane name="Load" label="Load"></dt-event-chart-lane>
+  <dt-event-chart-lane name="Xhr" label="XHR"></dt-event-chart-lane>
+  <dt-event-chart-lane name="UserTag" label="User tag"></dt-event-chart-lane>
+  <dt-event-chart-lane
+    name="Conversion"
+    label="Conversion"
+    color="conversion"
+  ></dt-event-chart-lane>
+
+  <dt-event-chart-legend-item
+    [lanes]="['Load', 'Xhr', 'UserTag', 'Conversion']"
+  >
+    User action or event
+  </dt-event-chart-legend-item>
+
+  <dt-event-chart-legend-item [lanes]="['Conversion']" color="conversion">
+    User action or event
+  </dt-event-chart-legend-item>
+
+  <dt-event-chart-legend-item [lanes]="['Load']" hasDuration>
+    Load Action
+  </dt-event-chart-legend-item>
+
+  <dt-event-chart-legend-item
+    [lanes]="['Load', 'Xhr', 'UserTag', 'Conversion']"
+    color="error"
+  >
+    Errors and annoyances
+  </dt-event-chart-legend-item>
+
+  <ng-template dtEventChartOverlay let-tooltip>
+    <div *ngFor="let t of tooltip">
+      <p>{{ t.data.name }}</p>
+      <dt-key-value-list>
+        <dt-key-value-list-item>
+          <dt-key-value-list-key>Type</dt-key-value-list-key>
+          <dt-key-value-list-value>{{ t.data.type }}</dt-key-value-list-value>
+        </dt-key-value-list-item>
+      </dt-key-value-list>
+    </div>
+  </ng-template>
+</dt-event-chart>
