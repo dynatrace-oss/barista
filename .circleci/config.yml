@@ -1,47 +1,55 @@
-# Javascript Node CircleCI 2.0 configuration file
+version: 2.1
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#   E X E C U T O R S:
+#   ------------------------------------------------------------------------
+#   Executors to run a job with
 #
-version: 2
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+executors:
+  # Base image for publishing
+  docker-publisher:
+    docker:
+      - image: circleci/buildpack-deps:stretch
+  # Base image for building node based environments
+  node-builder:
+    docker:
+      - image: circleci/node:12
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+#   P A T T E R N S:
+#   ------------------------------------------------------------------------
+#   Patterns are used to provide reuseable samples of code.
+#   This is a yml feature to reduce redundancy.
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 defaults: &defaults
-  working_directory: ~/repo
+  working_directory: ~/barista
   docker:
     - image: circleci/node:12
 
-set_env: &set_env
-  name: Setup Environment Variables
-  command: |
-    if [[ $CIRCLE_PULL_REQUEST ]]
-    then
-      echo 'Fetching Base Commit from GitHub'
-      echo 'export CIRCLE_PR_NUMBER="${CIRCLE_PR_NUMBER:-${CIRCLE_PULL_REQUEST##*/}}"' >> $BASH_ENV
-      source $BASH_ENV
-      echo "export CIRCLE_PR_BASE_SHA=`curl -s https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${CIRCLE_PR_NUMBER} | jq -r '.base.sha'`" >> $BASH_ENV
-      echo 'export AFFECTED_ARGS="--base ${CIRCLE_PR_BASE_SHA}"' >> $BASH_ENV
-    else
-      echo 'Fetching Base Commit from Deploy Cache'
-      if [[ ! -f dist/last-deploy.txt ]]
-      then
-        mkdir dist && git rev-parse HEAD~1 > dist/last-deploy.txt
-      fi
-      echo 'export AFFECTED_ARGS="--base $(cat dist/last-deploy.txt)"' >> $BASH_ENV
-    fi
-    source $BASH_ENV
-    echo $AFFECTED_ARGS
+
 npm_cache: &npm_cache
   keys:
     - npm-packages-{{ checksum "package-lock.json" }}
     - npm-packages-
 
-deploy_cache: &deploy_cache
-  key: last-deploy-sha
 
-npm_install: &npm_install
-  name: Install Dependencies
-  command: npm ci
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+#   J O B S:
+#   ------------------------------------------------------------------------
+#   Jobs that can be executed
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 jobs:
+
+# - install npm dependencies
   install:
     <<: *defaults
     steps:
@@ -49,45 +57,40 @@ jobs:
       - restore_cache:
           <<: *npm_cache
       - run:
-          <<: *npm_install
+          name: Install npm dependencies 🐍
+          command: npm ci
       - save_cache:
           key: npm-packages-{{ checksum "package-lock.json" }}
           paths:
-            - ~/.cache
             - node_modules
+      - persist_to_workspace:
+          root: ~/barista
+          paths:
+            - .
+
+# - check formatting if all files are formatted with prettier
   check-formatting:
     <<: *defaults
     steps:
-      - checkout
-      - restore_cache:
-          <<: *deploy_cache
-      - run:
-          <<: *set_env
-      - restore_cache:
-          <<: *npm_cache
+      - attach_workspace:
+          at: ~/barista
       - run: yarn format:check --base=origin/master
+
+# - static codeanalysis of the files
   lint:
     <<: *defaults
     steps:
-      - checkout
-      - restore_cache:
-          <<: *deploy_cache
-      - run:
-          <<: *set_env
-      - restore_cache:
-          <<: *npm_cache
+      - attach_workspace:
+          at: ~/barista
       - run: ./node_modules/.bin/nx workspace-lint
       - run: yarn affected:lint --base=origin/master --parallel
+
+# - build all the packages
   build:
     <<: *defaults
     steps:
-      - checkout
-      - restore_cache:
-          <<: *deploy_cache
-      - run:
-          <<: *set_env
-      - restore_cache:
-          <<: *npm_cache
+      - attach_workspace:
+          at: ~/barista
       - run: yarn affected:build --base=origin/master --parallel --configuration=production
       - save_cache:
           key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
@@ -95,21 +98,33 @@ jobs:
             - dist
       - store_artifacts:
           path: dist
-  test:
+
+# - run unit tests
+  unit-test:
     <<: *defaults
     steps:
-      - checkout
-      - restore_cache:
-          <<: *deploy_cache
-      - run:
-          <<: *set_env
-      - restore_cache:
-          <<: *npm_cache
+      - attach_workspace:
+          at: ~/barista
       - run: yarn affected:test --base=origin/master --parallel
+      - store_test_results:
+          path: dist/test-results
+      - store_artifacts:
+          path: dist/test-results
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+#   W O R K F L O W S:
+#   ------------------------------------------------------------------------
+#   Jobs are getting executed through workflows,
+#   they are creating the pipeline.
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
 workflows:
-  version: 2
+  version: 2.1
+
+# - Runs on every PR check
   pr_check:
     jobs:
       - install
@@ -119,9 +134,9 @@ workflows:
       - lint:
           requires:
             - install
-      # - test:
-      #     requires:
-      #       - install
+      - unit-test:
+          requires:
+            - install
       # - build:
       #     requires:
       #       - install
