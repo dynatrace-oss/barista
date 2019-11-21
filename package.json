@@ -60,21 +60,11 @@
   ],
   "jestSonar": {
     "reportPath": "dist/sonar-test-results/",
-    "reportFile": "unit-tests.xml"
-  },
-  "lint-staged": {
-    "*.{ts,js}": [
-      "prettier --write",
-      "git add"
-    ],
-    "*.{scss,css,html,json,md}": [
-      "prettier --write",
-      "git add"
-    ]
+    "reportFile": "unit-tests.xml "
   },
   "husky": {
     "hooks": {
-      "pre-commit": "nx format:write",
+      "pre-commit": "nx format:write && git update-index --again",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
@@ -152,7 +142,6 @@
     "jest-junit": "^6.4.0",
     "jest-preset-angular": "^7.1.1",
     "jest-sonar-reporter": "^2.0.0",
-    "lint-staged": "^9.2.1",
     "markdown-it": "^10.0.0",
     "merge2": "^1.2.3",
     "ng-packagr": "^5.7.1",
