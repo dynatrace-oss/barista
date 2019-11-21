@@ -1,5 +1,9 @@
 # Contributing to Barista
 
+We currently are working hard to get the Contributor License Agreement set up
+for this repository. We don't accept external contributions at this point until
+the CLA is set up. Please hold tight.
+
 ## Found a bug?
 
 If you find a bug/issue in the source code or a mistake in the documentation,
