@@ -85,6 +85,7 @@
     "@angular/core": "^8.0.0",
     "@angular/forms": "^8.0.0",
     "@angular/platform-browser": "^8.0.0",
+    "@dynatrace/barista-fonts": "^1.0.0",
     "@dynatrace/barista-icons": "^3.0.0",
     "@nguniversal/express-engine": "^8.1.1",
     "@nguniversal/module-map-ngfactory-loader": "^8.1.1",

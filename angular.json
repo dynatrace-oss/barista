@@ -34,6 +34,11 @@
                 "glob": "metadata.json",
                 "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/assets/fonts"
               }
             ],
             "styles": ["apps/dev/src/main.scss", "components/style/index.scss"]
@@ -91,6 +96,11 @@
                 "glob": "*.svg",
                 "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/assets/fonts"
               }
             ],
             "styles": ["apps/components-e2e/src/main.scss"]
@@ -182,6 +192,11 @@
                 "glob": "metadata.json",
                 "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/assets/fonts"
               }
             ],
             "styles": [
@@ -282,6 +297,11 @@
                 "glob": "**/*.json",
                 "input": "dist/apps/barista/data",
                 "output": "/data"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/assets/fonts"
               }
             ],
             "styles": [
