@@ -16,10 +16,10 @@
 
 // tslint:disable: indent object-literal-key-quotes quotemark trailing-comma max-line-length no-duplicate-imports max-file-line-count
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { BaLocationService } from './shared/location.service';
-import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
 import { BaPageService } from './shared/page.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ba-app',
@@ -29,24 +29,42 @@ import { BaPageService } from './shared/page.service';
       '_handleClick($event.target, $event.button, $event.ctrlKey, $event.metaKey)',
   },
 })
-export class BaApp implements OnInit {
+export class BaApp {
   /**
    * @internal
    * The object containing all data needed to display the current page.
    */
-  _currentPage: BaSinglePageContent;
+  _currentPage$ = this.pageService.currentPage;
+
+  /**
+   * @internal
+   * Observable of the current path.
+   */
+  _breadcrumbs$ = this.locationService.currentPath$.pipe(
+    map((path: string) => {
+      let previousPath = '';
+      return path.split('/').map((part: string) => {
+        previousPath = `${previousPath}/${part}`;
+        return { title: part, href: previousPath };
+      });
+    }),
+  );
+
+  /**
+   * @internal
+   * Whether Breadcrumb-Component is visible (only visible when at least two items would be shown)
+   */
+  _showBreadCrumb$ = this._breadcrumbs$.pipe(
+    map((path: { title: string; href: string }[]) => path.length > 1),
+  );
 
   constructor(
     private pageService: BaPageService,
     private locationService: BaLocationService,
   ) {}
 
-  ngOnInit(): void {
-    this.pageService.currentPage.subscribe(page => (this._currentPage = page));
-  }
-
   /**
-   * @interal
+   * @internal
    * Handles all anchor clicks in app.
    */
   _handleClick(

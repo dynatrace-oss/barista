@@ -1,8 +1,17 @@
 <ba-nav></ba-nav>
-<!-- <barista-breadcrumbs></barista-breadcrumbs> -->
-
+<dt-breadcrumbs
+  aria-label="Breadcrumbs navigation"
+  *ngIf="_showBreadCrumb$ | async"
+>
+  <a
+    *ngFor="let crumb of _breadcrumbs$ | async"
+    dtBreadcrumbsItem
+    [attr.href]="crumb.href"
+    >{{crumb.title | titlecase}}</a
+  >
+</dt-breadcrumbs>
 <div class="ba-page">
-  <ba-page-outlet [content]="_currentPage"></ba-page-outlet>
+  <ba-page-outlet [content]="_currentPage$ | async"></ba-page-outlet>
 </div>
 
 <ba-footer></ba-footer>
