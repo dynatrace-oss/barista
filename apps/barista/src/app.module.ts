@@ -54,6 +54,8 @@ import { NgModule } from '@angular/core';
 import { environment } from './environments/environment';
 import { BaComponentsModule } from './components';
 
+import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -63,6 +65,7 @@ import { BaComponentsModule } from './components';
     FormsModule,
     ReactiveFormsModule,
     DtTagModule,
+    DtBreadcrumbsModule,
     DtIconModule.forRoot({
       svgIconLocation: `${environment.deployUrl.replace(
         /\/+$/,
