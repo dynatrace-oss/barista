@@ -1,3 +1,9 @@
+---
+name: Bug report
+about: Create a report to help us improve
+labels: 'bug'
+---
+
 ### <strong>Bug Report</strong>
 
 <hr>
