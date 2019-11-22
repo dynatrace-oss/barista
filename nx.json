@@ -1,204 +1,205 @@
 {
-  "npmScope": "dynatrace",
+  "npmScope": "dynatrace/barista-components",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
     "tsconfig.json": "*",
     "tslint.json": "*",
-    "nx.json": "*"
+    "nx.json": "*",
+    ".circleci/config.yml": "*"
   },
   "projects": {
-    "barista-components/barista": {
-      "tags": ["app"]
+    "barista": {
+      "tags": ["type:app"]
     },
-    "barista-components/barista-examples": {
-      "tags": ["app"]
+    "barista-examples": {
+      "tags": ["type:app"]
     },
-    "barista-components/components-e2e": {
-      "tags": ["app"]
+    "components-e2e": {
+      "tags": ["type:e2e"]
     },
-    "barista-components/universal": {
-      "tags": ["app"]
+    "universal": {
+      "tags": ["type:app"]
     },
-    "barista-components/dev": {
-      "tags": ["app"]
+    "dev": {
+      "tags": ["type:app"]
     },
-    "barista-components/barista-tools": {
-      "tags": ["tooling"]
+    "barista-tools": {
+      "tags": ["type:tooling"]
     },
-    "barista-components/testing": {
-      "tags": ["testing", "library"]
+    "testing": {
+      "tags": ["scope:testing", "type:library"]
     },
-    "barista-components/components": {
-      "tags": []
+    "components": {
+      "tags": ["scope:components"]
     },
-    "barista-components/alert": {
-      "tags": ["component", "library"]
+    "alert": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/autocomplete": {
-      "tags": ["component", "library"]
+    "autocomplete": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/bar-indicator": {
-      "tags": ["component", "library"]
+    "bar-indicator": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/breadcrumbs": {
-      "tags": ["component", "library"]
+    "breadcrumbs": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/button": {
-      "tags": ["component", "library"]
+    "button": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/button-group": {
-      "tags": ["component", "library"]
+    "button-group": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/card": {
-      "tags": ["component", "library"]
+    "card": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/chart": {
-      "tags": ["component", "library"]
+    "chart": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/checkbox": {
-      "tags": ["component", "library"]
+    "checkbox": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/confirmation-dialog": {
-      "tags": ["component", "library"]
+    "confirmation-dialog": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/consumption": {
-      "tags": ["component", "library"]
+    "consumption": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/container-breakpoint-observer": {
-      "tags": ["component", "library"]
+    "container-breakpoint-observer": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/context-dialog": {
-      "tags": ["component", "library"]
+    "context-dialog": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/copy-to-clipboard": {
-      "tags": ["component", "library"]
+    "copy-to-clipboard": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/core": {
-      "tags": ["component", "library"]
+    "core": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/cta-card": {
-      "tags": ["component", "library"]
+    "cta-card": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/drawer": {
-      "tags": ["component", "library"]
+    "drawer": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/empty-state": {
-      "tags": ["component", "library"]
+    "empty-state": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/event-chart": {
-      "tags": ["component", "library"]
+    "event-chart": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/expandable-panel": {
-      "tags": ["component", "library"]
+    "expandable-panel": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/expandable-section": {
-      "tags": ["component", "library"]
+    "expandable-section": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/expandable-text": {
-      "tags": ["component", "library"]
+    "expandable-text": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/filter-field": {
-      "tags": ["component", "library"]
+    "filter-field": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/form-field": {
-      "tags": ["component", "library"]
+    "form-field": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/formatters": {
-      "tags": ["component", "library"]
+    "formatters": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/highlight": {
-      "tags": ["component", "library"]
+    "highlight": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/icon": {
-      "tags": ["component", "library"]
+    "icon": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/info-group": {
-      "tags": ["component", "library"]
+    "info-group": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/inline-editor": {
-      "tags": ["component", "library"]
+    "inline-editor": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/input": {
-      "tags": ["component", "library"]
+    "input": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/key-value-list": {
-      "tags": ["component", "library"]
+    "key-value-list": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/legend": {
-      "tags": ["component", "library"]
+    "legend": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/loading-distractor": {
-      "tags": ["component", "library"]
+    "loading-distractor": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/menu": {
-      "tags": ["component", "library"]
+    "menu": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/micro-chart": {
-      "tags": ["component", "library"]
+    "micro-chart": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/overlay": {
-      "tags": ["component", "library"]
+    "overlay": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/pagination": {
-      "tags": ["component", "library"]
+    "pagination": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/progress-bar": {
-      "tags": ["component", "library"]
+    "progress-bar": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/progress-circle": {
-      "tags": ["component", "library"]
+    "progress-circle": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/radio": {
-      "tags": ["component", "library"]
+    "radio": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/secondary-nav": {
-      "tags": ["component", "library"]
+    "secondary-nav": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/select": {
-      "tags": ["component", "library"]
+    "select": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/selection-area": {
-      "tags": ["component", "library"]
+    "selection-area": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/show-more": {
-      "tags": ["component", "library"]
+    "show-more": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/stepper": {
-      "tags": ["component", "library"]
+    "stepper": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/switch": {
-      "tags": ["component", "library"]
+    "switch": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/table": {
-      "tags": ["component", "library"]
+    "table": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/tabs": {
-      "tags": ["component", "library"]
+    "tabs": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/tag": {
-      "tags": ["component", "library"]
+    "tag": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/theming": {
-      "tags": ["component", "library"]
+    "theming": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/tile": {
-      "tags": ["component", "library"]
+    "tile": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/timeline-chart": {
-      "tags": ["component", "library"]
+    "timeline-chart": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/toast": {
-      "tags": ["component", "library"]
+    "toast": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/toggle-button-group": {
-      "tags": ["component", "library"]
+    "toggle-button-group": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/top-bar-navigation": {
-      "tags": ["component", "library"]
+    "top-bar-navigation": {
+      "tags": ["scope:components", "type:library"]
     },
-    "barista-components/tree-table": {
-      "tags": ["component", "library"]
+    "tree-table": {
+      "tags": ["scope:components", "type:library"]
     }
   }
 }
