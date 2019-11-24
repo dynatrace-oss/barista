@@ -5,6 +5,9 @@
   "scripts": {
     "ng": "ng",
     "build": "ng build",
+    "builders:build": "tsc -p tools/builders/tsconfig.json",
+    "builders:build:watch": "npm run builders:build -- --watch",
+    "postinstall": "npm run builders:build",
     "test": "ng test",
     "lint": "nx workspace-lint && ng lint",
     "build:components": "npm run build components",
@@ -86,7 +89,6 @@
     "@nrwl/node": "^8.7.1",
     "@nrwl/workspace": "^8.7.1",
     "@politie/angular-testcafe-builder": "^2.0.5",
-    "@speedy/build-angular": "^0.3.0",
     "@types/chalk": "^0.4.31",
     "@types/cheerio": "^0.22.13",
     "@types/cross-spawn": "^6.0.0",
@@ -103,6 +105,7 @@
     "@types/sass-graph": "^2.1.2",
     "@types/stylelint": "^9.10.0",
     "@types/through2": "^2.0.33",
+    "@types/xml2js": "^0.4.5",
     "axe-core": "^3.4.0",
     "axe-testcafe": "^3.0.0",
     "axios": "^0.19.0",
@@ -115,6 +118,7 @@
     "copyfiles": "^2.1.1",
     "cross-spawn": "^6.0.5",
     "fs-extra": "^8.0.1",
+    "glob": "^7.1.6",
     "gulp": "^4.0.2",
     "gulp-clean": "^0.4.0",
     "gulp-util": "^3.0.8",
@@ -154,6 +158,8 @@
     "undertaker-forward-reference": "^1.0.2",
     "vrsource-tslint-rules": "^6.0.0",
     "watch": "^1.0.2",
-    "web-animations-js": "^2.3.1"
+    "web-animations-js": "^2.3.1",
+    "xml2js": "^0.4.22",
+    "xmlbuilder": "^13.0.2"
   }
 }

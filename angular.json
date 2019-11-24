@@ -233,9 +233,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["apps/barista-examples/src/**/*.scss"]
           }
@@ -365,9 +366,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["apps/barista/src/**/*.scss"]
           }
@@ -563,9 +565,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/alert/**/*.scss"]
           }
@@ -598,9 +601,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/autocomplete/**/*.scss"]
           }
@@ -633,9 +637,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/bar-indicator/**/*.scss"]
           }
@@ -668,9 +673,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/breadcrumbs/**/*.scss"]
           }
@@ -703,9 +709,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/button/**/*.scss"]
           }
@@ -738,9 +745,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/button-group/**/*.scss"]
           }
@@ -773,9 +781,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/card/**/*.scss"]
           }
@@ -808,9 +817,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/chart/**/*.scss"]
           }
@@ -843,9 +853,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/checkbox/**/*.scss"]
           }
@@ -881,9 +892,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/confirmation-dialog/**/*.scss"]
           }
@@ -916,9 +928,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/consumption/**/*.scss"]
           }
@@ -954,9 +967,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/container-breakpoint-observer/**/*.scss"]
           }
@@ -989,9 +1003,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/context-dialog/**/*.scss"]
           }
@@ -1027,9 +1042,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/copy-to-clipboard/**/*.scss"]
           }
@@ -1062,9 +1078,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/core/**/*.scss"]
           }
@@ -1097,9 +1114,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/cta-card/**/*.scss"]
           }
@@ -1132,9 +1150,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/drawer/**/*.scss"]
           }
@@ -1167,9 +1186,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/empty-state/**/*.scss"]
           }
@@ -1202,9 +1222,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/event-chart/**/*.scss"]
           }
@@ -1237,9 +1258,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/expandable-panel/**/*.scss"]
           }
@@ -1275,9 +1297,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/expandable-section/**/*.scss"]
           }
@@ -1310,9 +1333,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/expandable-text/**/*.scss"]
           }
@@ -1345,9 +1369,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/filter-field/**/*.scss"]
           }
@@ -1380,9 +1405,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/form-field/**/*.scss"]
           }
@@ -1415,9 +1441,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/formatters/**/*.scss"]
           }
@@ -1450,9 +1477,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/highlight/**/*.scss"]
           }
@@ -1485,9 +1513,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/icon/**/*.scss"]
           }
@@ -1520,9 +1549,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/info-group/**/*.scss"]
           }
@@ -1555,9 +1585,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/inline-editor/**/*.scss"]
           }
@@ -1590,9 +1621,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/input/**/*.scss"]
           }
@@ -1625,9 +1657,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/key-value-list/**/*.scss"]
           }
@@ -1660,9 +1693,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/legend/**/*.scss"]
           }
@@ -1698,9 +1732,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/loading-distractor/**/*.scss"]
           }
@@ -1733,9 +1768,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/menu/**/*.scss"]
           }
@@ -1768,9 +1804,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/micro-chart/**/*.scss"]
           }
@@ -1803,9 +1840,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/overlay/**/*.scss"]
           }
@@ -1838,9 +1876,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/pagination/**/*.scss"]
           }
@@ -1873,9 +1912,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/progress-bar/**/*.scss"]
           }
@@ -1908,9 +1948,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/progress-circle/**/*.scss"]
           }
@@ -1943,9 +1984,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/radio/**/*.scss"]
           }
@@ -1978,9 +2020,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/secondary-nav/**/*.scss"]
           }
@@ -2013,9 +2056,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/select/**/*.scss"]
           }
@@ -2048,9 +2092,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/selection-area/**/*.scss"]
           }
@@ -2083,9 +2128,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/show-more/**/*.scss"]
           }
@@ -2118,9 +2164,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/stepper/**/*.scss"]
           }
@@ -2153,9 +2200,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/switch/**/*.scss"]
           }
@@ -2188,9 +2236,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/table/**/*.scss"]
           }
@@ -2223,9 +2272,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/tabs/**/*.scss"]
           }
@@ -2258,9 +2308,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/tag/**/*.scss"]
           }
@@ -2293,9 +2344,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/theming/**/*.scss"]
           }
@@ -2328,9 +2380,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/tile/**/*.scss"]
           }
@@ -2363,9 +2416,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/timeline-chart/**/*.scss"]
           }
@@ -2398,9 +2452,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/toast/**/*.scss"]
           }
@@ -2436,9 +2491,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/toggle-button-group/**/*.scss"]
           }
@@ -2474,9 +2530,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/top-bar-navigation/**/*.scss"]
           }
@@ -2509,9 +2566,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["components/tree-table/**/*.scss"]
           }
