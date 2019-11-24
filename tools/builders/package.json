@@ -1,0 +1,20 @@
+{
+  "name": "@dynatrace/barista-builders",
+  "description": "Angular Builders for barista",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Dynatrace/barista"
+  },
+  "keywords": [
+    "angular",
+    "dynatrace",
+    "builders"
+  ],
+  "homepage": "https://barista.dynatrace.com",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "builders": "builders.json",
+  "peerDependencies": {
+    "stylelint": ">=9.3.0"
+  }
+}
