@@ -14,21 +14,36 @@
  * limitations under the License.
  */
 
+import { BaLayoutType } from '@dynatrace/barista-components/barista-definitions';
 import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
 } from './transform';
 
 describe('Barista transformers', () => {
+  const testpage = {
+    title: 'Testpage',
+    layout: BaLayoutType.Default,
+    content: '',
+  };
+
   describe('componentTagsTransformer', () => {
     it('should set component tags if no tags are available', async () => {
-      expect(await componentTagsTransformer({})).toEqual({
+      expect(await componentTagsTransformer(testpage)).toEqual({
+        title: 'Testpage',
+        layout: BaLayoutType.Default,
+        content: '',
         tags: ['component', 'angular'],
       });
     });
 
     it('should add component tags if there are already tags set', async () => {
-      expect(await componentTagsTransformer({ tags: ['foo'] })).toEqual({
+      expect(
+        await componentTagsTransformer({ ...testpage, tags: ['foo'] }),
+      ).toEqual({
+        title: 'Testpage',
+        layout: BaLayoutType.Default,
+        content: '',
         tags: ['component', 'angular', 'foo'],
       });
     });
@@ -38,13 +53,17 @@ describe('Barista transformers', () => {
     it('should remove all h1 tags in the content', async () => {
       const content = `<h1>Test</h1> foo \n<strong>bar</strong> <h1>lorem <i>ipsum</i></h1> dolor.`;
       const expectedContent = ` foo \n<strong>bar</strong>  dolor.`;
-      const transformed = await extractH1ToTitleTransformer({ content });
+      const transformed = await extractH1ToTitleTransformer({
+        ...testpage,
+        content,
+      });
       expect(transformed.content).toBe(expectedContent);
     });
 
     it('should not override the title if it`s already set', async () => {
       const content = `<h1>Test</h1> foo \n<strong>bar</strong> <h1>lorem <i>ipsum</i></h1> dolor.`;
       const transformed = await extractH1ToTitleTransformer({
+        ...testpage,
         title: 'foo',
         content,
       });
@@ -53,7 +72,11 @@ describe('Barista transformers', () => {
 
     it('should override the title if it`s not set', async () => {
       const content = `<h1>Test</h1> foo \n<strong>bar</strong> <h1>lorem <i>ipsum</i></h1> dolor.`;
-      const transformed = await extractH1ToTitleTransformer({ content });
+      const transformed = await extractH1ToTitleTransformer({
+        title: '',
+        layout: BaLayoutType.Default,
+        content,
+      });
       expect(transformed.title).toBe('Test');
     });
   });

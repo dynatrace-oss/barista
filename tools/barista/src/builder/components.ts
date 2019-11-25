@@ -18,18 +18,20 @@ import { existsSync, lstatSync, readFileSync, readdirSync } from 'fs';
 import { basename, dirname, extname, join } from 'path';
 
 import {
+  BaPageBuildResult,
+  BaPageBuilder,
+  BaPageTransformer,
+  BaSinglePageMeta,
+  BaLayoutType,
+} from '@dynatrace/barista-components/barista-definitions';
+
+import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
   markdownToHtmlTransformer,
   transformPage,
   uxSlotTransformer,
 } from '../transform';
-import {
-  BaPageBuildResult,
-  BaPageBuilder,
-  BaPageTransformer,
-  BaPageContent,
-} from '../types';
 import { slugify } from '../utils/slugify';
 
 // tslint:disable-next-line: no-any
@@ -52,7 +54,7 @@ function getMarkdownFilesByPath(rootPath: string): string[] {
     .map(name => join(rootPath, name));
 }
 
-function setMetadataDefaults(baristaMetadata: any): BaPageContent {
+function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
   const metadataWithDefaults = {
     title: baristaMetadata.title,
     description: baristaMetadata.description,
@@ -65,6 +67,7 @@ function setMetadataDefaults(baristaMetadata: any): BaPageContent {
     related: baristaMetadata.related,
     contributors: baristaMetadata.contributors,
     category: 'component',
+    layout: BaLayoutType.Default,
   };
 
   return metadataWithDefaults;
@@ -92,7 +95,7 @@ export const componentsBuilder: BaPageBuilder = async (
     ...getMarkdownFilesByPath(PROJECT_ROOT),
   ];
 
-  const transformed = [];
+  const transformed: BaPageBuildResult[] = [];
 
   // Handle component README.md and barista.json files
   for (const dir of readmeDirs) {

@@ -17,7 +17,10 @@
 import { load as loadWithCheerio } from 'cheerio';
 import * as markdownIt from 'markdown-it';
 
-import { BaPageContent, BaPageTransformer } from './types';
+import {
+  BaSinglePageContent,
+  BaPageTransformer,
+} from '@dynatrace/barista-components/barista-definitions';
 
 const markdown = new markdownIt({
   html: true,
@@ -26,10 +29,10 @@ const markdown = new markdownIt({
 
 /** Transforms the page-content object by applying each provided transformer in order */
 export async function transformPage(
-  source: BaPageContent,
+  source: BaSinglePageContent,
   transformers: BaPageTransformer[],
-): Promise<BaPageContent> {
-  return transformers.reduce<Promise<BaPageContent>>(
+): Promise<BaSinglePageContent> {
+  return transformers.reduce<Promise<BaSinglePageContent>>(
     async (aggregatedPage, transformer) => transformer(await aggregatedPage),
     Promise.resolve(source),
   );

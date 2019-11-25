@@ -16,7 +16,8 @@
 
 import { Injectable } from '@angular/core';
 
-import { BaIndexPageItem, BaSinglePageContents } from './page-contents';
+import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
+import { BaIndexPageItem } from './page-contents';
 
 const LOCALSTORAGEKEY = 'recentlyordered';
 const NUMBER_OF_RECENT_ITEMS = 7;
@@ -35,7 +36,7 @@ export class BaRecentlyOrderedService {
     }
   }
 
-  saveToLocalStorage(page: BaSinglePageContents): void {
+  saveToLocalStorage(page: BaSinglePageContent): void {
     const orderedItem = {
       title: page.title,
       link: window.location.href,

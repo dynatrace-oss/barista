@@ -18,22 +18,22 @@ import { AfterViewInit, Component } from '@angular/core';
 
 import { BaPage } from '../page-outlet';
 import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
-import { BaSinglePageContents } from '../../shared/page-contents';
+import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
 
 @Component({
   selector: 'ba-single-page',
   templateUrl: 'single-page.html',
 })
 export class BaSinglePage implements BaPage, AfterViewInit {
-  get contents(): BaSinglePageContents {
+  get contents(): BaSinglePageContent {
     return this._contents;
   }
-  set contents(value: BaSinglePageContents) {
+  set contents(value: BaSinglePageContent) {
     this._contents = value;
     this._recentlyOrderedService.saveToLocalStorage(this.contents);
   }
 
-  private _contents: BaSinglePageContents;
+  private _contents: BaSinglePageContent;
 
   constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {}
 

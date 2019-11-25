@@ -20,7 +20,7 @@ import { AsyncSubject, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { BaLocationService } from './location.service';
-import { BaSinglePageContents } from './page-contents';
+import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
 
 const CONTENT_PATH_PREFIX = 'data/';
 
@@ -29,12 +29,12 @@ export class BaPageService {
   /**
    * Caches pages once they have been loaded.
    */
-  private _cache = new Map<string, Observable<BaSinglePageContents>>();
+  private _cache = new Map<string, Observable<BaSinglePageContent>>();
 
   /**
    * The current page that should be displayed.
    */
-  currentPage: Observable<BaSinglePageContents>;
+  currentPage: Observable<BaSinglePageContent>;
 
   constructor(private http: HttpClient, location: BaLocationService) {
     // Whenever the URL changes we try to get the appropriate doc
@@ -47,7 +47,7 @@ export class BaPageService {
    * Gets page from cache.
    * @param url - path to page
    */
-  private _getPage(url: string): Observable<BaSinglePageContents> {
+  private _getPage(url: string): Observable<BaSinglePageContent> {
     const id = url || 'index';
     if (!this._cache.has(id)) {
       this._cache.set(id, this._fetchPage(id));
@@ -59,12 +59,12 @@ export class BaPageService {
    * Fetches page from data source.
    * @param id - page id (path).
    */
-  private _fetchPage(id: string): Observable<BaSinglePageContents> {
+  private _fetchPage(id: string): Observable<BaSinglePageContent> {
     const requestPath = `${CONTENT_PATH_PREFIX}${id}.json`;
-    const subject = new AsyncSubject<BaSinglePageContents>();
+    const subject = new AsyncSubject<BaSinglePageContent>();
 
     this.http
-      .get<BaSinglePageContents>(requestPath, { responseType: 'json' })
+      .get<BaSinglePageContent>(requestPath, { responseType: 'json' })
       .pipe
       // tap(data => {
       //   console.log(data);

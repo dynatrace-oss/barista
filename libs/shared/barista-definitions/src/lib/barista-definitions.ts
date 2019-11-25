@@ -15,37 +15,49 @@
  */
 
 export type BaPageTransformer = (
-  source: BaPageContent,
-) => Promise<BaPageContent>;
+  source: BaSinglePageContent,
+) => Promise<BaSinglePageContent>;
 
 // tslint:disable-next-line: no-any
 export type BaPageBuilder = (...args: any[]) => Promise<BaPageBuildResult[]>;
 
 export interface BaPageBuildResult {
   relativeOutFile: string;
-  pageContent: BaPageContent;
+  pageContent: BaSinglePageContent;
 }
 
-/** Structure of the generated JSON page output */
-export interface BaPageContent {
-  title?: string;
-  layout?: string;
-  content?: string;
+export const enum BaLayoutType {
+  Default = 'default',
+  Overview = 'overview',
+  Icon = 'icon',
+  Index = 'index',
+}
+
+export interface BaPageMetaBase {
+  title: string;
+  layout: BaLayoutType;
   description?: string;
   public?: boolean;
   draft?: boolean;
-  contributors?: BaContributors;
-  toc?: boolean;
-  themable?: boolean;
-  wiki?: string;
-  properties?: string[];
-  tags?: string[];
-  related?: string[];
   nav_group?: string;
-  category?: string;
 }
 
-/** Contributors in page front matter */
+export interface BaSinglePageMeta extends BaPageMetaBase {
+  toc?: boolean;
+  contributors?: BaContributors;
+  category?: string;
+  tags?: string[];
+  related?: string[];
+  properties?: string[];
+  wiki?: string;
+  themable?: boolean;
+  identifier?: string;
+}
+
+export interface BaSinglePageContent extends BaSinglePageMeta {
+  content: string;
+}
+
 export interface BaContributors {
   dev?: BaContributor[];
   ux?: BaContributor[];

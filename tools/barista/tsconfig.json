@@ -1,14 +1,9 @@
 {
-  "extends": "../../tsconfig",
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "strictNullChecks": true,
-    "noEmitOnError": true,
-    "noImplicitAny": true,
-    "downlevelIteration": true,
-    "target": "es5",
+    "outDir": "../../dist/out-tsc",
     "types": ["node", "jest"]
-  }
+  },
+  "exclude": ["**/*.spec.ts"],
+  "include": ["**/*.ts"]
 }
