@@ -20,6 +20,7 @@ export interface BaIndexPageContents extends BaPageMetaBase {
   subtitle: string;
   mostordered: BaIndexPageItem[];
   gettingstarted: BaIndexPageLink[];
+  cta: StrapiCTA;
 }
 
 export interface BaOverviewPageSectionItem {
@@ -40,7 +41,7 @@ export interface BaIndexPageLink {
   title: string;
   text: string;
   link: string;
-  bordercolor: string;
+  borderColor: string;
 }
 
 export interface BaIndexPageItem {
@@ -52,4 +53,11 @@ export interface BaIndexPageItem {
 
 export interface BaOverviewPageContents extends BaPageMetaBase {
   sections: BaOverviewPageSection[];
+}
+
+export interface StrapiCTA {
+  title: string;
+  text: string;
+  buttontext: string;
+  buttonlink: string;
 }

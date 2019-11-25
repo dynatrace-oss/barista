@@ -23,7 +23,7 @@ export type BaPageBuilder = (...args: any[]) => Promise<BaPageBuildResult[]>;
 
 export interface BaPageBuildResult {
   relativeOutFile: string;
-  pageContent: BaSinglePageContent;
+  pageContent: BaSinglePageContent | BaIndexPageContent;
 }
 
 export const enum BaLayoutType {
@@ -66,6 +66,16 @@ export interface BaContributors {
 export interface BaContributor {
   name: string;
   gitHubUser: string;
+}
+
+/** Index page content */
+export interface BaIndexPageContent {
+  title: string;
+  subtitle: string;
+  layout: 'index';
+  mostordered: BaStrapiPageLink[];
+  gettingstarted: BaStrapiPageTeaser[];
+  cta: BaStrapiCTA;
 }
 
 /** Base interface for Strapi content types */
@@ -113,4 +123,29 @@ export interface BaStrapiSnippet extends BaStrapiBase {
 export enum BaStrapiContentType {
   Pages = 'pages',
   Snippets = 'snippets',
+  Pageteasers = 'pageteasers',
+  CTAs = 'ctas',
+}
+
+/** Strapi page-link (tile) */
+export interface BaStrapiPageLink {
+  title: string;
+  link: string;
+  category: string;
+}
+
+/** Strapi page-teaser */
+export interface BaStrapiPageTeaser extends BaStrapiBase {
+  title: string;
+  text: string;
+  link: string;
+  borderColor: string;
+}
+
+/** Strapi CTA */
+export interface BaStrapiCTA extends BaStrapiBase {
+  title: string;
+  text: string;
+  buttontext: string;
+  buttonlink: string;
 }

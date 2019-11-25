@@ -31,6 +31,7 @@
   flex-direction: column;
   border: 1px solid $gray-200;
   background-color: $gray-100;
+  height: 100%;
 
   @include tile-theme($turquoise-600, $turquoise-600, $turquoise-700);
 }
@@ -39,6 +40,7 @@
   background-color: #ffffff;
   text-align: center;
   padding: 1rem 1.5rem;
+  height: 100%;
 
   .ba-smalltile-img {
     font-size: 48px;
@@ -50,26 +52,26 @@
   }
 }
 
-.ba-theme-blue {
+:host.ba-theme-blue {
   @include tile-theme($blue-600, $blue-600, $blue-700);
 }
 
-.ba-theme-purple {
+:host.ba-theme-purple {
   @include tile-theme($purple-600, $purple-600, $purple-700);
 }
 
-.ba-theme-royalblue {
+:host.ba-theme-royalblue {
   @include tile-theme($royalblue-500, $royalblue-500, $royalblue-700);
 }
 
-.ba-theme-green {
+:host.ba-theme-green {
   @include tile-theme($green-500, $green-500, $green-700);
 }
 
-.ba-theme-yellow {
+:host.ba-theme-yellow {
   @include tile-theme($yellow-600, $yellow-600, $yellow-700);
 }
 
-.ba-theme-turquoise {
+:host.ba-theme-turquoise {
   @include tile-theme($turquoise-600, $turquoise-600, $turquoise-700);
 }
