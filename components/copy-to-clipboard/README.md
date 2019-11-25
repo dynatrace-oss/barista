@@ -50,9 +50,8 @@ callback function after a successful copy action.
 ## Error state
 
 In case of an error, e.g. if the user is not able to copy something to their
-clipboard, there should be an [alert]({{link_to_id id='alert' }}) below the copy
-to clipboard component informing the user about the problem and possible
-solutions.
+clipboard, there should be an [alert](/components/alert) below the copy to
+clipboard component informing the user about the problem and possible solutions.
 
 <docs-source-example example="CopyToClipboardErrorExample"></docs-source-example>
 
@@ -78,8 +77,8 @@ scrollbars.
 
 ### Example within context dialog
 
-The component can also be placed inside a [context
-dialog]({{link_to_id id='context-dialog' }}) and is most often used to share
+The component can also be placed inside a
+[context dialog](/components/context-dialog) and is most often used to share
 links.
 
 <docs-source-example example="CopyToClipboardContextExample"></docs-source-example>

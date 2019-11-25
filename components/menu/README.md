@@ -48,7 +48,7 @@ To make our components accessible it is obligatory to provide either an
 
 This component is typically used for static menus, such as the global navigation
 menu in combination with a [drawer](/components/drawer) or menus in overlays
-(e.g. user menu, or [context dialog]({{link_to_id id='context-dialog'}})).
+(e.g. user menu, or [context dialog](/components/context-dialog)).
 
 <docs-source-example example="MenuWithinDrawerExample" fullwidth="true"></docs-source-example>
 

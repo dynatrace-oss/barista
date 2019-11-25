@@ -75,4 +75,4 @@ where an ellipsis is used to hide remaining pages.
 <docs-source-example example="PaginationManyExample"></docs-source-example>
 
 Another variant of the paging behavior - loading more items if not everything is
-visible initially - is the [show more component]({{link_to_id id='show-more'}}).
+visible initially - is the [show more component](/components/show-more).

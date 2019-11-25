@@ -459,14 +459,14 @@ for the details column could look like this:
 To guarantee a reasonable perception of the content in the content area (i.e.
 the expanded section), there are some limitations of controls which can be used:
 
-- [Switches]({{link_to_id id='switch' }})
-- [Checkboxes]({{link_to_id id='checkbox' }})
-- [Radio Buttons]({{link_to_id id='radio' }})
-- [Input fields]({{link_to_id id='input' }})
-- [Dropdowns]({{link_to_id id='select' }})
-- [Key-value lists]({{link_to_id id='key-value-list' }}) up to 12 lines
-- [Buttons]({{link_to_id id='button' }}) (primary and secondary) for drill downs
-  and additional information
+- [Switches](/components/switch)
+- [Checkboxes](/components/checkbox)
+- [Radio Buttons](/components/radio-button)
+- [Input fields](/components/input)
+- [Dropdowns](/components/select)
+- [Key-value lists](/components/key-value-list) up to 12 lines
+- [Buttons](/components/button) (primary and secondary) for drill downs and
+  additional information
 
 Keep in mind to limit the content in expandable table rows for better visual
 perception. As a rule of thumb we recommend to keep the content height under
@@ -499,9 +499,9 @@ content to display with `dtTableLoadingState` directive.
 ## Problems: errors and warnings
 
 If a table cell contains a problematic value, an indicator is used to highlight
-it with the [error (red) status color]({{link_to_id id='colors-status' }}).
-Warnings in tables indicate configuration issues using the [warning (yellow)
-status color]({{link_to_id id='colors-status' }}).
+it with the [error (red) status color](/resources/colors/status). Warnings in
+tables indicate configuration issues using the
+[warning (yellow) status color](/resources/colors/status).
 
 To get an error or warning indicator use the `dtIndicator` directive inside your
 `dt-cell` components on any HTML element or on your `dt-cell` component
@@ -628,10 +628,10 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
 
 ### Buttons or switches in tables
 
-- It is possible to use [buttons in tables]({{link_to_id id='button' }}), but
-  should be used sparingly.
-- [Switches]({{link_to_id id='switch' }}) in tables (e.g. to enable/disable
-  monitoring of an entity) are vertically centered in the table row.
+- It is possible to use [buttons in tables](/components/button), but should be
+  used sparingly.
+- [Switches](/components/switch) in tables (e.g. to enable/disable monitoring of
+  an entity) are vertically centered in the table row.
 
 <docs-source-example example="TableButtonsExample" fullwidth="true"></docs-source-example>
 
@@ -648,9 +648,9 @@ legibility the metric should be right aligned in front of the bar chart.
 ![Micro bar charts in tables](https://d24pvdz4mvzd04.cloudfront.net/test/table-micro-bar-chart-580-06eeb208d7.png)
 {{/figure}}
 
-Colors are always dependent on the environment the chart is in [theme
-colors]({{link_to_id id='theming' }}).
+Colors are always dependent on the environment the chart is in
+[theme colors](/patterns/theming).
 
 ### Tables in Overlays
 
-It is possible to use [overlays with tables]({{link_to_id id='overlay' }}).
+It is possible to use [overlays with tables](/components/overlay).

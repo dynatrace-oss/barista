@@ -105,9 +105,9 @@ aria-labelledby.
 
 ## Progress bar in use
 
-While the [loading distractor]({{link_to_id id='loading-distractor' }}) does not
-indicate how long something will take, the progress bar displays how far along
-the process is.
+While the [loading distractor](/components/loading-distractor) does not indicate
+how long something will take, the progress bar displays how far along the
+process is.
 
 The progress bar should be used to display a distinct progress of a process or
 status, i.e. a download progress or used status of a disk.

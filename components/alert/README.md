@@ -50,9 +50,9 @@ Alerts can be placed on dark background.
 For alerts that refer to a specific content such as a form, the message size
 should not exceed the width of this content.
 
-Read the [validation
-guidelines]({{link_to_id id='validation' }}#page-specific-error-validation) for
-more information about how the alert component is used in a form.
+Read the
+[validation guidelines](/patterns/validation/#page-specific-error-validation)
+for more information about how the alert component is used in a form.
 
 ## Do's and don'ts
 

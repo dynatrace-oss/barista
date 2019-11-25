@@ -2,8 +2,8 @@
 
 The context dialog is an overlay which appears on click of a button. It holds
 context related actions and contains other components like
-[buttons]({{link_to_id id='button'}}), [links]({{link_to_id id='link' }}),
-[checkboxes]({{link_to_id id='checkbox' }}), etc.
+[buttons](/components/button), [links](/resources/font#links),
+[checkboxes](/components/checkbox), etc.
 
 <docs-source-example example="ContextDialogDefaultExample"></docs-source-example>
 
@@ -86,8 +86,8 @@ The context dialog component can be used on dark background.
 ### Context actions menu
 
 The context actions menu is a variant of the context dialog placed on the top
-right within a [card]({{link_to_id id='card' }}), containing [secondary
-buttons]({{link_to_id id='button' }}).
+right within a [card](/components/card), containing
+[secondary buttons](/components/button).
 
 ![Context dialog example](https://d24pvdz4mvzd04.cloudfront.net/test/context-dialog-example-100-4075494172.png)
 

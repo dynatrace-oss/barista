@@ -43,9 +43,9 @@ When a `<dt-loading-spinner>` is placed as a prefix or suffix inside a
 
 ### Loading spinner in buttons
 
-If loading is caused by triggering a [button]({{link_to_id id='button' }}), the
-loading distractor can be shown in the button. The button gets disabled and the
-loading distractor is placed left aligned in the button with a description.
+If loading is caused by triggering a [button](/components/button), the loading
+distractor can be shown in the button. The button gets disabled and the loading
+distractor is placed left aligned in the button with a description.
 
 ![Loading distractor in a button](https://d24pvdz4mvzd04.cloudfront.net/test/loading-button-416-7cb2ba6cef.png)
 

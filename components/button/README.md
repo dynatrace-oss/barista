@@ -69,8 +69,8 @@ actions.
 #### Nested button
 
 Nested buttons are a variant of icon only buttons and can't be used with text.
-These buttons are only used within other components (e.g. [input
-fields]({{link_to_id id='input' }}), [tables]({{link_to_id id='table' }}),...)
+These buttons are only used within other components (e.g.
+[input fields](/components/input), [tables](/components/table),...)
 
 ## Colors
 
@@ -102,9 +102,9 @@ the action that is performed when the button is clicked.
 ## Buttons in use
 
 Buttons are used in a variety of contexts, e.g. as secondary or nested buttons
-within [tables]({{link_to_id id='table' }}), in [context
-menus]({{link_to_id id='context-dialog' }}), or as part of the [copy to
-clipboard]({{link_to_id id='copy-to-clipboard' }}) component.
+within [tables](/components/table), in
+[context menus](/components/context-dialog), or as part of the
+[copy to clipboard](/components/copy-to-clipboard) component.
 
 ### Placement
 
