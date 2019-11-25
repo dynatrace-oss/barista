@@ -14,22 +14,26 @@
         </li>
       </ul>
       <h2>Most ordered</h2>
-      <ul class="ba-tilegrid-onerow">
-        <li *ngFor="let item of contents.mostordered">
-          <ba-smalltile [data]="item"></ba-smalltile>
-        </li>
-      </ul>
+      <div class="ba-tilegrid-onerow">
+        <ba-smalltile
+          *ngFor="let item of contents.mostordered"
+          [data]="item"
+        ></ba-smalltile>
+      </div>
     </div>
-    <div class="ba-index-page-section ba-index-page-section-cta">
+    <div
+      *ngIf="contents.cta"
+      class="ba-index-page-section ba-index-page-section-cta"
+    >
       <div>
-        <h2>Do you want to help us brew?</h2>
+        <h2>{{ contents.cta.title }}</h2>
         <p>
-          That's awesome! We are happy to receive your ideas and feedback. Just
-          contact <a href="mailto:lara.aigmueller@dynatrace.com">us</a> or open
-          a pull request in our <a href="#"> GitHub repository</a>.
+          {{ contents.cta.text }}
         </p>
-        <a class="ba-btn ba-btn-primary ba-btn-cta" href="/contribute/"
-          >Contribute now!</a
+        <a
+          class="ba-btn ba-btn-primary ba-btn-cta"
+          [href]="contents.cta.buttonlink"
+          >{{ contents.cta.buttontext }}</a
         >
       </div>
     </div>
@@ -39,7 +43,7 @@
         *ngFor="let item of contents.gettingstarted"
         href="{{ item.link }}"
         class="ba-index-page-links"
-        [style.border-left-color]="item.bordercolor"
+        [style.border-left-color]="item.borderColor"
       >
         <h3>{{ item.title }}</h3>
         <p>{{ item.text }}</p>

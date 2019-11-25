@@ -19,6 +19,8 @@ import {
   BaStrapiContentType,
   BaStrapiPage,
   BaStrapiSnippet,
+  BaStrapiCTA,
+  BaStrapiPageTeaser,
 } from '@dynatrace/barista-components/barista-definitions';
 
 const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
@@ -31,7 +33,7 @@ interface FetchContentOptions {
  * Fetches an array of elements from Strapi CMS.
  */
 export async function fetchContentList<
-  T extends BaStrapiPage | BaStrapiSnippet
+  T extends BaStrapiPage | BaStrapiSnippet | BaStrapiPageTeaser
 >(
   contentType: BaStrapiContentType,
   options: FetchContentOptions,
@@ -48,7 +50,7 @@ export async function fetchContentList<
  * Fetches a single item from Strapi CMS.
  */
 export async function fetchContentItemById<
-  T extends BaStrapiPage | BaStrapiSnippet
+  T extends BaStrapiPage | BaStrapiSnippet | BaStrapiPageTeaser | BaStrapiCTA
 >(
   contentType: BaStrapiContentType,
   id: string,
@@ -86,8 +88,8 @@ async function fetchContent(requestPath: string): Promise<any> {
       });
 
       res.on('end', () => {
-        const jsonRes = JSON.parse(fullData);
-        if (jsonRes.length > 0) {
+        if (fullData.length > 0) {
+          const jsonRes = JSON.parse(fullData);
           resolve(jsonRes);
         } else {
           reject(`No items for ${options.path} could be found.`);
