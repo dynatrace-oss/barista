@@ -1,10 +1,4 @@
 {
-  "angularCompilerOptions": {
-    "annotateForClosureCompiler": true,
-    "fullTemplateTypeCheck": true,
-    "skipTemplateCodegen": true,
-    "strictMetadataEmit": true
-  },
   "buildOnSave": false,
   "compileOnSave": false,
   "compilerOptions": {
@@ -13,8 +7,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "inlineSources": true,
-    "lib": ["dom", "es2017"],
+    "lib": ["es2017", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -31,6 +24,9 @@
         "libs/shared/barista-definitions/src/index.ts"
       ],
       "@dynatrace/barista-components/testing": ["libs/testing/src/index.ts"],
+      "@dynatrace/barista-components/testing/mock": [
+        "libs/testing/src/mock/index.ts"
+      ],
       "@dynatrace/barista-components/alert": ["components/alert/src/index.ts"],
       "@dynatrace/barista-components/autocomplete": [
         "components/autocomplete/src/index.ts"

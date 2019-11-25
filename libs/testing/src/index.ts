@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-export * from './chart';
-export * from './create-component';
-export * from './dispatch-events';
-export * from './event-objects';
-export * from './mock-component';
-export * from './mock-intersection-observer';
-export * from './mock-ng-zone';
-export * from './request-animation-frame';
-export * from './type-in-element';
-export * from './wrapped-error-message';
+export * from './lib/chart';
+export * from './lib/create-component';
+export * from './lib/dispatch-events';
+export * from './lib/event-objects';
+export * from './lib/mock-component';
+export * from './lib/mock-ng-zone';
+export * from './lib/request-animation-frame';
+export * from './lib/type-in-element';
+export * from './lib/wrapped-error-message';
