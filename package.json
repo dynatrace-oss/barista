@@ -43,7 +43,7 @@
   ],
   "jestSonar": {
     "reportPath": "dist/sonar-test-results/",
-    "reportFile": "unit-tests.xml "
+    "reportFile": "unit-tests.xml"
   },
   "husky": {
     "hooks": {

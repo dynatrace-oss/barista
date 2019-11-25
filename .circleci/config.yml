@@ -105,7 +105,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
-      - run: yarn affected:test --base=origin/master --parallel
+      - run: yarn affected:test --base=origin/master --parallel --runInBand
       - store_test_results:
           path: dist/test-results
       - store_artifacts:
