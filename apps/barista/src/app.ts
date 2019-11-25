@@ -18,7 +18,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BaLocationService } from './shared/location.service';
-import { BaSinglePageContents } from './shared/page-contents';
+import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
 import { BaPageService } from './shared/page.service';
 
 @Component({
@@ -34,7 +34,7 @@ export class BaApp implements OnInit {
    * @internal
    * The object containing all data needed to display the current page.
    */
-  _currentPage: BaSinglePageContents;
+  _currentPage: BaSinglePageContent;
 
   constructor(
     private pageService: BaPageService,

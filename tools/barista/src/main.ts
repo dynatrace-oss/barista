@@ -18,7 +18,10 @@ import { promises as fs, mkdirSync } from 'fs';
 import { dirname, join } from 'path';
 
 import { componentsBuilder } from './builder/components';
-import { BaPageBuildResult, BaPageBuilder } from './types';
+import {
+  BaPageBuildResult,
+  BaPageBuilder,
+} from '@dynatrace/barista-components/barista-definitions';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([

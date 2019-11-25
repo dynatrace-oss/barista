@@ -14,41 +14,12 @@
  * limitations under the License.
  */
 
-export interface BaPageContents {
-  title: string;
-  description: string;
-  id: string;
-  layout: 'default' | 'overview' | 'icon' | 'index';
-}
+import { BaPageContentBase } from '@dynatrace/barista-components/barista-definitions';
 
-export interface BaIndexPageContents extends BaPageContents {
+export interface BaIndexPageContents extends BaPageContentBase {
   subtitle: string;
   mostordered: BaIndexPageItem[];
   gettingstarted: BaIndexPageLink[];
-}
-
-export interface BaSinglePageContents extends BaPageContents {
-  layout: 'default';
-  toc: boolean;
-  contributors?: BaContributors;
-  category: string;
-  tags: string[];
-  related: string[];
-  properties: string[] | null;
-  wiki: string | null;
-  themable: boolean | null;
-  content: string;
-  identifier: string;
-}
-
-export interface BaContributors {
-  dev?: BaContributor[];
-  ux?: BaContributor[];
-}
-
-export interface BaContributor {
-  name: string;
-  gitHubUser: string;
 }
 
 export interface BaOverviewPageSectionItem {
@@ -79,6 +50,6 @@ export interface BaIndexPageItem {
   category?: string;
 }
 
-export interface BaOverviewPageContents extends BaPageContents {
+export interface BaOverviewPageContents extends BaPageContentBase {
   sections: BaOverviewPageSection[];
 }

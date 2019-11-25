@@ -2584,6 +2584,34 @@
         }
       },
       "schematics": {}
+    },
+    "shared-barista-definitions": {
+      "root": "libs/shared/barista-definitions",
+      "sourceRoot": "libs/shared/barista-definitions/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/barista-definitions/tsconfig.lib.json",
+              "libs/shared/barista-definitions/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/barista-definitions/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/barista-definitions/jest.config.js",
+            "tsConfig": "libs/shared/barista-definitions/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "defaultProject": "dev",
