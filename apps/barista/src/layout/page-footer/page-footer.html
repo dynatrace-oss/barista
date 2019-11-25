@@ -1,21 +1,17 @@
 <footer>
-  <span class="ba-page-footer-title">Explore more content</span>
-
   <div *ngIf="_hasTags">
-    <p class="ba-page-footer-meta-title">Tagged with:</p>
-    <div class="ba-taglist">
-      <a *ngFor="let tag of tags" href="/tags/{{tag}}" class="ba-tag"
-        >{{tag}}</a
-      >
-    </div>
+    <dt-tag-list>
+      <dt-tag *ngFor="let tag of tags">{{tag}}</dt-tag>
+    </dt-tag-list>
   </div>
 
-  <div *ngIf="_hasRelatedTopics">
-    <p class="ba-page-footer-meta-title">Related topics:</p>
+  <!-- TODO: get the url for the related pages! see issue #200 on github -->
+  <!-- <div *ngIf="_hasRelatedTopics">
+    <p class="ba-page-footer-title">Related topics:</p>
     <ul class="ba-list">
       <li *ngFor="let topic of relatedTopics">
         <a href="{{topic}}">{{topic}}</a>
       </li>
     </ul>
-  </div>
+  </div> -->
 </footer>
