@@ -4,37 +4,65 @@ about: Create a report to help us improve
 labels: 'bug'
 ---
 
-### <strong>Bug Report</strong>
+# Bug Report
 
-<hr>
+<!---
 Hi there!
 
 You are in the process of reporting a bug in Barista. To ensure a quick
 turnaround, please enter/change/update the following fields:
+-->
 
-#### - <strong>Summary</strong>
+## Expected Behavior
 
-Provide a brief summary/description of the bug.
+<!--- Tell us what should happen -->
 
-#### - <strong>Description</strong>
+## Current Behavior
 
-Describe the problem in detail the more the better.
+<!--- Tell us what happens instead of the expected behavior -->
 
-- What you did.
-- What happened.
-- What you expected to happen.
+## Possible Solution
 
-Follow these three guidelines and you can consider yourself a high-class bug
-reporter!
+<!--- Not obligatory, but suggest a fix/reason for the bug, -->
 
-#### - <strong>Attachments</strong>
+## Steps to Reproduce
 
-Append a screenshot, and any other visuals and required files if possible.
+<!--- Provide a link to a live example, or an unambiguous set of steps to -->
+<!--- reproduce this bug. Include code to reproduce, if relevant -->
 
-#### <strong>Next Steps</strong>
+1. <!-- first step to do -->
 
+## Context (Environment)
+
+<!--- How has this issue affected you? What are you trying to accomplish? -->
+<!--- Providing context helps us come up with a solution that is most useful in the real world -->
+
+### Used Versions:
+
+- **node**: <!-- insert version here -->
+- **npm**: <!-- insert version here -->
+- **typescript**: <!-- insert version here -->
+- **angular**: <!-- insert version here -->
+- **@angular/cdk**: <!-- insert version here -->
+- **@dynatrace/barista-components**: <!-- insert version here -->
+
+<!-- Insert further versions if they are important -->
+
+## Detailed Description
+
+<!--- Provide a detailed description of the change or addition you are proposing -->
+
+## Possible Implementation
+
+<!--- Not obligatory, but suggest an idea for implementing addition or change -->
+
+## Attachments
+
+<!-- Not obligatory, Append a screenshot, and any other visuals and required files if possible. -->
+
+<!--
 We at Dynatrace have a bugs first policy. Meaning, we will handle the bug as
 soon as possible, depending on the severity of the bug.
 
-<hr>
-Thank you and all the best!<br> The Dynatrace DesignOps team
+Thank you and all the best! — The Dynatrace DesignOps team
+-->
