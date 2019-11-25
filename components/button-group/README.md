@@ -1,8 +1,8 @@
 # ButtonGroup
 
-A button group has the same behavior as the [tabs
-component]({{link_to_id id='tabs'}}) and is used to switch between different
-views. The first non-disabled button is always preselected.
+A button group has the same behavior as the [tabs component](/components/tabs)
+and is used to switch between different views. The first non-disabled button is
+always preselected.
 
 <docs-source-example example="ButtonGroupDefaultExample"></docs-source-example>
 
@@ -94,8 +94,8 @@ A button group can hold buttons in an error state.
 
 ### Chart tabs
 
-A button group placed above the [chart]({{link_to_id id='chart'}}) can be used
-to switch metrics displayed in a chart. Combined with a chart button groups are
+A button group placed above the [chart](/components/chart/) can be used to
+switch metrics displayed in a chart. Combined with a chart button groups are
 also called chart tabs. These tabs can contain single metrics or metric groups
 (e.g. response time and requests).
 

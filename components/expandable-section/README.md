@@ -79,4 +79,4 @@ The expandable section can be placed on a dark background.
 ## Expandable section in use
 
 Currently, the expandable section is used in combination with several
-components, e.g. [Tags]({{link_to_id id='tag' }}).
+components, e.g. [Tags](/components/tag).

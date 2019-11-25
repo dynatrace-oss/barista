@@ -46,8 +46,7 @@ the show more button is hidden. Once expanded, the list cannot be collapsed
 anymore without a full page reload.
 
 Another variant of the paging behavior - loading more items if not everything is
-visible initially - is the [pagination
-component]({{link_to_id id='pagination'}}).
+visible initially - is the [pagination component](/components/pagination).
 
 ## States
 

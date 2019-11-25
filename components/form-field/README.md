@@ -85,9 +85,9 @@ yet implemented.
 
 ![Successful input validation](https://dt-cdn.net/images/input-validation-success-340-17231c8405-340-17231c8405.png)
 
-Find more about form-fields and (live-)hints on the [input fields
-page]({{link_to_id id='input' }}), see the [validation
-pattern]({{link_to_id id='validation' }}) for more information about the error
+Find more about form-fields and (live-)hints on the
+[input fields page](/components/input), see the
+[validation pattern](/patterns/validation) for more information about the error
 behavior.
 
 ## Prefix and suffix

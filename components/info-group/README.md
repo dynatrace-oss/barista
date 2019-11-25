@@ -36,17 +36,17 @@ sections (directives):
 
 ### Info groups in cards
 
-An info group can be used in a [card]({{link_to_id id='card'}}) and on the top
-of a page to show properties.
+An info group can be used in a [card](/components/card) and on the top of a page
+to show properties.
 
 <docs-source-example example="InfoCardInCardExample" fullwidth="true"></docs-source-example>
 
 ### Info groups in tables
 
-Info groups are also used in the first column of a
-[table]({{link_to_id id='table'}}) or in a list. They can provide additional
-information without the use of a second column. A column with info groups is
-always sorted by the data in the first line.
+Info groups are also used in the first column of a [table](/components/table) or
+in a list. They can provide additional information without the use of a second
+column. A column with info groups is always sorted by the data in the first
+line.
 
 <docs-source-example example="TableWithInfoGroupCellExample" fullwidth="true"></docs-source-example>
 

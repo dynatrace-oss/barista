@@ -55,11 +55,12 @@ The header of a card consists of the following elements:
 - an icon and
 - actions.
 
-Actions are [secondary buttons]({{link_to_id id='button' }}) placed in the
-card's top right corner. Multiple actions can be shown to the user. If space is
-limited, move less important actions to a [context actions
-menu]({{link_to_id id='context-dialog' }}). The decision which button is shown
-and which ones are grouped in a context actions menu depends on the use case.
+Actions are [secondary buttons](/components/button) placed in the card's top
+right corner. Multiple actions can be shown to the user. If space is limited,
+move less important actions to a
+[context actions menu](/components/context-dialog). The decision which button is
+shown and which ones are grouped in a context actions menu depends on the use
+case.
 
 <docs-source-example example="CardSubtitleExample"></docs-source-example>
 
@@ -69,8 +70,8 @@ and which ones are grouped in a context actions menu depends on the use case.
 
 The optional description section contains information about the content of the
 card (only if an explanation is necessary). If the text is longer than one
-sentence, use the [context help]({{link_to_id id='inline-help' }}#context-help)
-to make the full text expandable.
+sentence, use the [expandable text component](/components/expandable-text) to
+make the full text expandable.
 
 ### Card content
 
@@ -85,7 +86,7 @@ Actions can be put above and/or below the content section. Buttons that navigate
 to another page or drill down to more details should be placed after the content
 section, whereas buttons that modify content within a card should be placed
 above the content to be updated. When placing buttons in a card, follow the
-[button alignment pattern]({{link_to_id id='button-alignment' }}).
+[button alignment pattern](/patterns/button-alignment).
 
 #### Header actions
 
@@ -97,10 +98,9 @@ above the content to be updated. When placing buttons in a card, follow the
 
 ### Pagination
 
-The optional pagination section contains a
-[pagination]({{link_to_id id='pagination' }}) or a [show
-more]({{link_to_id id='show-more' }}) component to extend the card content. This
-section must always be the last one within a card.
+The optional pagination section contains a [pagination](/components/pagination)
+or a [show more](/components/show-more) component to extend the card content.
+This section must always be the last one within a card.
 
 ## Dark background
 
@@ -110,8 +110,8 @@ A card can be placed on dark background.
 
 ## Card in use
 
-See the [layout pattern]({{link_to_id id='layout' }}#cards) for rules how to
-rearrange cards on a view depending on the container size.
+See the [layout pattern](/patterns/layout/#cards) for rules how to rearrange
+cards on a view depending on the container size.
 
 See the following table for margin and padding values depending on predefined
 breakpoints.

@@ -39,8 +39,7 @@ This is mainly used in an empty entity view.
 ## Empty state in use
 
 The empty state is often used in combination with a card component (replaces the
-deprecated [cta card]({{link_to_id id='cta-card'}})) or in a empty table or
-chart.
+deprecated CTA card) or in an empty table or chart.
 
 <docs-source-example example="EmptyStateInCardExample"></docs-source-example>
 

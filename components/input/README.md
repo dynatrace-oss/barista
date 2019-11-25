@@ -79,14 +79,14 @@ based on the input's validity state.
 
 ## Input validation
 
-For input validation, please consider the [validation
-guidelines]({{link_to_id id='validation' }}).
+For input validation, please consider the
+[validation guidelines](/patterns/validation).
 
 ### Hints
 
 Input fields can be extended by hints that should help the user preventing
-errors. Use the [form field component]({{link_to_id id='form-field' }}) to
-combine input fields and hints.
+errors. Use the [form field component](/components/form-field) to combine input
+fields and hints.
 
 ## Input fields in use
 
@@ -98,8 +98,8 @@ Input fields can be disabled or readonly.
 
 In Dynatrace all displayed input fields are mandatory. If an input field is
 optional this is indicated by a placeholder text `optional`. It is not possible
-to overwrite mandatory information with an empty field. In that case [an error
-would appear]({{link_to_id id='validation' }}) informing the user that this
+to overwrite mandatory information with an empty field. In that case
+[an error would appear](/patterns/validation) informing the user that this
 action is not possible.
 
 If there is saved data from a previous entry, it should always be displayed. In

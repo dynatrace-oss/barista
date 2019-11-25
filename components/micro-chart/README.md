@@ -111,7 +111,7 @@ bars. They are highlighted in a darker contrast color of the same color palette.
 ## Colors
 
 The entire micro chart is themable and follows the usual
-[theming]({{link_to_id id='theming'}}) conventions for charts.
+[theming](/patterns/theming) conventions for charts.
 
 ## Value interpolation
 
@@ -130,4 +130,4 @@ the previous value will be repeated to avoid having gaps.
 ## Do's and dont's
 
 You can't click or navigate inside a micro chart. Use a
-[chart]({{link_to_id id='chart'}}) if needed.
+[chart](/components/chart) if needed.

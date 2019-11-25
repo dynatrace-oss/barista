@@ -6,8 +6,7 @@ minimal amount of necessary components to display further information and
 actions.
 
 You can also use them for analysing different chart types, infographics, tags or
-tiles (see [overlays in use
-section]({{link_to_id id='overlay' }}#overlays-in-use)).
+tiles (see [overlays in use section](/components/overlay#overlays-in-use)).
 
 <docs-source-example example="OverlayDefaultExample"></docs-source-example>
 

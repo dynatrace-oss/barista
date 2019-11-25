@@ -1,7 +1,6 @@
 # Formatters
 
-For more details have a look at the [format units
-pattern]({{link_to_id id='units' }}).
+For more details have a look at the [format units pattern](/patterns/units).
 
 ## Pipes
 

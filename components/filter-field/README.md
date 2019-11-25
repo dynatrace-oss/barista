@@ -233,8 +233,7 @@ field is focused and at least one filter is already applied.
 ![Operators hint](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-hint-580-c859f51e95.png)
 
 The filter fields syntax is validated, please consider the input field
-validation in the [validation guidelines]({{link_to_id id='validation' }}) for
-details.
+validation in the [validation guidelines](/patterns/validation) for details.
 
 {{#figure styleguide='true'}}
 ![Syntax validation in filter](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-validation-580-97985ad3ea.png)

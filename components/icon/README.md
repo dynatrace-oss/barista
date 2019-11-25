@@ -97,11 +97,10 @@ marked as `aria-hidden="true"` by default, but this can be overriden by adding
 ## Icons in use
 
 Icons are used all over the UI to support the visual respresentation of the
-content. They can be part of [buttons]({{link_to_id id='button'}}), [info
-groups]({{link_to_id id='info-group'}}), [chart
-legends]({{link_to_id id='chart'}}), the [show more
-component]({{link_to_id id='show-more'}}), [table
-headers]({{link_to_id id='table'}}), and many more.
+content. They can be part of [buttons](/components/button),
+[info groups](/components/info-group), [chart legends](/components/chart), the
+[show more component](/components/show-more),
+[table headers](/components/table), and many more.
 
 ## All Icons
 

@@ -115,13 +115,13 @@ of the legend can vary.
 The icon size in the chart legend is always 16x16px. The following icons are
 used as legends:
 
-- [Bar chart]({{link_to_id id='chart-bar-icon' }})
-- [Line chart]({{link_to_id id='chart-legend-line-icon' }})
-- [Area chart]({{link_to_id id='chart-legend-area-icon' }})
-- [Pie chart]({{link_to_id id='chart-legend-pie-icon' }})
-- [Meter chart]({{link_to_id id='chart-legend-meter-icon' }})
-- [Percentile chart]({{link_to_id id='chart-legend-percentile-icon' }})
-- [Business transaction chart]({{link_to_id id='chart-legend-bt-icon' }})
+- [Bar chart](/resources/icons/chart_bar/)
+- [Line chart](/resources/icons/chart_legend_line/)
+- [Area chart](/resources/icons/chart_legend_area/)
+- [Pie chart](/resources/icons/chart_legend_pie/)
+- [Meter chart](/resources/icons/chart_legend_meter/)
+- [Percentile chart](/resources/icons/chart_legend_percentile/)
+- [Business transaction chart](/resources/icons/chart_legend_businesstransaction/)
 
 ### Toggle metrics
 
@@ -132,9 +132,9 @@ Clicking the legend a second time re-enables the metric.
 
 ## Tooltip
 
-The chart supports adding a [tooltip/overlay]({{link_to_id id='overlay' }}) that
-wraps other Angular components to show detailed information about chart metrics.
-They appear on hover over specific value points within the chart.
+The chart supports adding a [tooltip/overlay](/components/overlay) that wraps
+other Angular components to show detailed information about chart metrics. They
+appear on hover over specific value points within the chart.
 
 The `dt-chart` component takes a `dt-chart-tooltip` component as a content
 child. The `dt-chart-tooltip` component needs an `ng-template` as a content
@@ -332,8 +332,8 @@ to understand why the content isn't shown.
 {{/figure}}
 
 Please keep in mind to use the correct empty state according to the use case.
-Check our [empty states pattern]({{link_to_id id='empty-states'}}) for
-guidelines and other examples.
+Check our [empty states pattern](/patterns/empty-states) for guidelines and
+other examples.
 
 ### Loading state
 
@@ -373,8 +373,8 @@ visible.
 
 ## Switching metrics
 
-The metrics displayed in a chart can be switched by [button
-groups]({{link_to_id id='button-group' }}#chart-tabs) that are placed above the
+The metrics displayed in a chart can be switched by
+[button groups](/components/button-group#chart-tabs) that are placed above the
 chart.
 
 <docs-source-example example="ChartBehaviorSwitch" fullwidth="true"></docs-source-example>
