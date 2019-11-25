@@ -147,6 +147,7 @@
     "stylelint-scss": "^3.12.1",
     "testcafe": "^1.6.1",
     "testcafe-browser-provider-browserstack": "^1.9.0",
+    "testcafe-reporter-xunit": "^2.1.0",
     "ts-node": "^7.0.0",
     "tsconfig-paths": "^2.3.0",
     "tsickle": "^0.35.0",

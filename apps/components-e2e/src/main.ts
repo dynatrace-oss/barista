@@ -16,6 +16,8 @@
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-import { UiTestAppModule } from './ui-test-app-module';
+import { DtE2EAppModule } from './app/app.module';
 
-platformBrowserDynamic().bootstrapModule(UiTestAppModule);
+platformBrowserDynamic()
+  .bootstrapModule(DtE2EAppModule)
+  .catch(err => console.error(err));

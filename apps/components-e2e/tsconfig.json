@@ -1,12 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "esnext",
-    "target": "es5",
-    "declaration": false,
-    "noUnusedParameters": false,
     "types": ["node", "testcafe"]
   },
-  "files": ["main.ts", "polyfills.ts"],
   "include": ["**/*.ts"]
 }

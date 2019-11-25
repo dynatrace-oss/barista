@@ -77,9 +77,10 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/components-e2e",
-            "tsConfig": "apps/components-e2e/tsconfig.json",
+            "tsConfig": "apps/components-e2e/tsconfig.app.json",
             "index": "apps/components-e2e/src/index.html",
             "main": "apps/components-e2e/src/main.ts",
+            "aot": false,
             "polyfills": "apps/components-e2e/src/polyfills.ts",
             "assets": [
               {
@@ -100,10 +101,13 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/assets/fonts"
+                "output": "/fonts"
               }
             ],
-            "styles": ["apps/components-e2e/src/main.scss"]
+            "styles": [
+              "apps/components-e2e/src/main.scss",
+              "components/style/index.scss"
+            ]
           },
           "configurations": {
             "production": {
@@ -136,13 +140,36 @@
             "devServerTarget": "components-e2e:serve",
             "src": "apps/components-e2e/src/**/*.{e2e,po}.ts",
             "stopOnFirstFail": false,
-            "browsers": ["browserstack:chrome", "browserstack:edge"],
-            "concurrency": 2
+            "browsers": ["chrome"],
+            "screenshots": {
+              "path": "./dist/components-e2e/screenshots",
+              "takeOnFails": true,
+              "pathPattern": "test-${TEST_INDEX}-${FILE_INDEX}_${QUARANTINE_ATTEMPT}",
+              "fullPage": true
+            },
+            "reporters": [
+              {
+                "name": "spec"
+              },
+              {
+                "name": "xunit",
+                "output": "dist/components-e2e/report.xml"
+              }
+            ],
+            "concurrency": 1,
+            "skipJsErrors": false
           },
           "configurations": {
+            "remote": {
+              "browsers": ["browserstack:chrome", "browserstack:edge"],
+              "concurrency": 2
+            },
+            "remote-pr": {
+              "browsers": ["browserstack:edge"],
+              "concurrency": 4
+            },
             "watch": {
               "browsers": ["chrome"],
-              "devServerTarget": "components-e2e:serve",
               "stopOnFirstFail": false,
               "live": true,
               "concurrency": 1

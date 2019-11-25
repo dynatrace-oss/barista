@@ -131,6 +131,20 @@ jobs:
       - store_artifacts:
           path: dist/test-results
 
+
+# - run end to end tests
+  e2e-test:
+    environment:
+      BROWSERSTACK_USE_AUTOMATE: 1
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run: yarn affected:e2e --base=origin/master --configuration=remote-pr
+      - store_test_results:
+          path: dist/components-e2e
+      - store_artifacts:
+          path: dist/components-e2e
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   W O R K F L O W S:
@@ -159,6 +173,9 @@ workflows:
           requires:
             - install
       - unit-test:
+          requires:
+            - install
+      - e2e-test:
           requires:
             - install
       # - build:
