@@ -14,10 +14,6 @@
  * limitations under the License.
  */
 
-import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
-import { BaLiveExample } from './live-example/live-example';
-
-export { BaLiveExample, BaIconColorWheel };
-
-// tslint:disable-next-line: no-any
-export const BA_CONTENT_COMPONENTS: any[] = [BaIconColorWheel, BaLiveExample];
+export * from './icon-color-wheel/icon-color-wheel';
+export * from './live-example/live-example';
+export * from './components.module';

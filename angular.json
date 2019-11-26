@@ -300,10 +300,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/examples/tsconfig.lib.json",
-              "libs/examples/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/examples/tsconfig.lib.json"],
             "exclude": ["**/node_modules/**", "!libs/examples/**"]
           }
         },
@@ -313,14 +310,6 @@
             "stylelintConfig": ".stylelintrc",
             "exclude": ["**/node_modules/**"],
             "files": ["libs/examples/**/*.scss"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/examples/jest.config.js",
-            "tsConfig": "libs/examples/tsconfig.spec.json",
-            "setupFile": "libs/examples/src/test-setup.ts"
           }
         }
       },
