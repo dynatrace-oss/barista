@@ -26,7 +26,12 @@ export interface BaPageBuildResult {
   pageContent: BaSinglePageContent;
 }
 
-export type BaLayoutType = 'default' | 'overview' | 'icon' | 'index';
+export const enum BaLayoutType {
+  Default = 'default',
+  Overview = 'overview',
+  Icon = 'icon',
+  Index = 'index',
+}
 
 export interface BaPageMetaBase {
   title: string;

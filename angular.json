@@ -2594,21 +2594,11 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/shared/barista-definitions/tsconfig.lib.json",
-              "libs/shared/barista-definitions/tsconfig.spec.json"
-            ],
+            "tsConfig": ["libs/shared/barista-definitions/tsconfig.lib.json"],
             "exclude": [
               "**/node_modules/**",
               "!libs/shared/barista-definitions/**"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/barista-definitions/jest.config.js",
-            "tsConfig": "libs/shared/barista-definitions/tsconfig.spec.json"
           }
         }
       }
