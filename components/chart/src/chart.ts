@@ -41,25 +41,31 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import {
+  createInViewportStream,
+  DtViewportResizer,
+  isDefined,
+} from '@dynatrace/barista-components/core';
+import { DtTheme } from '@dynatrace/barista-components/theming';
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
 // tslint:disable-next-line:no-duplicate-imports
 import {
-  ChartObject,
-  Options as HighchartsOptions,
-  IndividualSeriesOptions,
   addEvent as addHighchartsEvent,
   chart,
+  ChartObject,
+  IndividualSeriesOptions,
+  Options as HighchartsOptions,
   setOptions,
 } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import {
   BehaviorSubject,
+  defer,
+  merge,
   Observable,
   Subject,
   Subscription,
-  defer,
-  merge,
 } from 'rxjs';
 import {
   delay,
@@ -73,30 +79,23 @@ import {
   takeUntil,
   withLatestFrom,
 } from 'rxjs/operators';
-
 import {
-  DtViewportResizer,
-  createInViewportStream,
-  isDefined,
-} from '@dynatrace/barista-components/core';
-import { DtTheme } from '@dynatrace/barista-components/theming';
-
-import {
+  DtChartConfig,
   DT_CHART_CONFIG,
   DT_CHART_DEFAULT_CONFIG,
-  DtChartConfig,
 } from './chart-config';
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
 import {
   DtChartHeatfield,
   DtChartHeatfieldActiveChange,
 } from './heatfield/chart-heatfield';
+import { getDtHeatfieldUnsupportedChartError } from './heatfield/chart-heatfield-errors';
 import { applyHighchartsErrorHandler } from './highcharts/highcharts-errors';
 import { configureLegendSymbols } from './highcharts/highcharts-legend-overrides';
 import {
-  DtHcTooltipEventPayload,
   addTooltipEvents,
   compareTooltipEventChanged,
+  DtHcTooltipEventPayload,
 } from './highcharts/highcharts-tooltip-extensions';
 import { DtChartTooltipEvent } from './highcharts/highcharts-tooltip-types';
 import {
@@ -106,6 +105,7 @@ import {
 import { DtChartRange } from './range/range';
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
+import { getPlotBackgroundInfo } from './utils';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 const CHART_INTERSECTION_THRESHOLD = 0.9;
@@ -451,6 +451,25 @@ export class DtChart
     if (this._range || this._timestamp) {
       this._hasSelectionArea = true;
     }
+
+    if (this._heatfields.length) {
+      this._afterRender
+        .pipe(
+          withLatestFrom(this._plotBackground$),
+          filter(Boolean),
+          takeUntil(this._destroy$),
+        )
+        .subscribe(([_void, plotBackground]) => {
+          if (this._chartObject) {
+            const clientRect = getPlotBackgroundInfo(plotBackground);
+
+            this._checkHeatfieldSupport();
+            this._heatfields.forEach(heatfield => {
+              heatfield._initHeatfield(clientRect, this._chartObject!);
+            });
+          }
+        });
+    }
   }
 
   ngOnDestroy(): void {
@@ -548,10 +567,7 @@ export class DtChart
             return;
           }
 
-          const x = parseInt(plotBackground!.getAttribute('x')!, 10);
-          const y = parseInt(plotBackground!.getAttribute('y')!, 10);
-          const height = parseInt(plotBackground!.getAttribute('height')!, 10);
-          const plotBackgroundInfo = { x, y, height };
+          const plotBackgroundInfo = getPlotBackgroundInfo(plotBackground!);
 
           switch (state.status) {
             case TooltipStateType.CLOSED:
@@ -650,6 +666,18 @@ export class DtChart
       ? plotBackground.getBoundingClientRect().left -
         this.container.nativeElement.getBoundingClientRect().left
       : 0;
+  }
+
+  /** Checks if a heatfield is supported with the chart options if not throw an error */
+  private _checkHeatfieldSupport(): void {
+    if (
+      this.options &&
+      this.options.xAxis &&
+      this.options.xAxis[0] &&
+      this.options.xAxis[0].categories
+    ) {
+      throw getDtHeatfieldUnsupportedChartError();
+    }
   }
 
   /** Invoked when an heatfield is activated. */

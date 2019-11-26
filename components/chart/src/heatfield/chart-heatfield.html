@@ -23,5 +23,5 @@
   class="dt-chart-heatfield-backdrop"
   #backdrop
   [style.visibility]="_isValidStartEndRange && active ? 'visible' : 'hidden'"
-  [style.height.px]="_plotBackgroundBoundingBox && _plotBackgroundBoundingBox.height"
+  [style.height.px]="_boundingBox && _boundingBox.height"
 ></div>

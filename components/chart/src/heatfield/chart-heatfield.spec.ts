@@ -27,16 +27,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
-  ComponentFixture,
-  TestBed,
   async,
+  ComponentFixture,
   fakeAsync,
   flush,
   inject,
+  TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Subject, Subscription } from 'rxjs';
-
 import {
   DtChart,
   DtChartHeatfield,
@@ -44,13 +42,12 @@ import {
   DtChartModule,
   DtChartOptions,
 } from '@dynatrace/barista-components/chart';
-import { getDtHeatfieldUnsupportedChartError } from './chart-heatfield-errors';
-import { DtThemingModule } from '@dynatrace/barista-components/theming';
-
 import {
   createComponent,
   dispatchKeyboardEvent,
 } from '@dynatrace/barista-components/testing';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { Subject, Subscription } from 'rxjs';
 
 const PLOTMARGIN_LEFT = 100;
 const PLOTMARGIN_RIGHT = 100;
@@ -96,6 +93,7 @@ describe('DtChartHeatfield', () => {
         chart.width = 1200;
         fixture.detectChanges();
         chart._afterRender.next();
+        chart.initHeatfield();
         validatePosition(fixture, 200, 100);
       });
 
@@ -224,14 +222,6 @@ describe('DtChartHeatfield', () => {
       );
       sub.unsubscribe();
     });
-
-    it('should throw an error when the chart has a category xAxis', fakeAsync(() => {
-      expect(() => {
-        chart.fakeCategoryAxis();
-        chart._afterRender.next();
-        flush();
-      }).toThrow(getDtHeatfieldUnsupportedChartError());
-    }));
   });
 
   describe('Multiple heatfield', () => {
@@ -345,15 +335,6 @@ class MultipleHeatfield {
   template: `
     <div #container>
       <ng-content select="dt-chart-heatfield"></ng-content>
-      <svg [attr.width]="width" height="250" [attr.viewBox]="viewbox">
-        <svg:rect
-          class="highcharts-plot-background"
-          [attr.x]="x"
-          y="16"
-          [attr.width]="plotWidth"
-          height="200"
-        ></svg:rect>
-      </svg>
     </div>
   `,
   providers: [{ provide: DtChart, useExisting: DummyChart }],
@@ -386,16 +367,17 @@ class DummyChart implements AfterViewInit, OnDestroy {
   @ContentChild(DtChartHeatfield, { static: false })
   heatfield: DtChartHeatfield;
 
-  get plotWidth(): number {
-    return this.width - PLOTMARGIN_LEFT - PLOTMARGIN_RIGHT;
-  }
-
-  get viewbox(): string {
-    return `0 0 ${this.width} 250`;
-  }
-
   ngAfterViewInit(): void {
     this._afterRender.next(true);
+    this.initHeatfield();
+  }
+
+  initHeatfield(): void {
+    const plotWidth = this.width - PLOTMARGIN_LEFT - PLOTMARGIN_RIGHT;
+    this.heatfield._initHeatfield(
+      { height: 200, width: plotWidth, left: PLOTMARGIN_LEFT, top: 16 },
+      this._chartObject as Highcharts.ChartObject,
+    );
   }
 
   ngOnDestroy(): void {
