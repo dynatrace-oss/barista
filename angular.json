@@ -38,7 +38,7 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/assets/fonts"
+                "output": "/fonts"
               }
             ],
             "styles": ["apps/dev/src/main.scss", "components/style/index.scss"]
@@ -100,10 +100,13 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/assets/fonts"
+                "output": "/fonts"
               }
             ],
-            "styles": ["apps/components-e2e/src/main.scss"]
+            "styles": [
+              "apps/components-e2e/src/main.scss",
+              "components/style/index.scss"
+            ]
           },
           "configurations": {
             "production": {
@@ -196,7 +199,7 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/assets/fonts"
+                "output": "/fonts"
               }
             ],
             "styles": [
@@ -302,7 +305,7 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/assets/fonts"
+                "output": "/fonts"
               },
               {
                 "glob": "**",
@@ -312,7 +315,8 @@
             ],
             "styles": [
               "components/style/main.scss",
-              "apps/barista/src/main.scss"
+              "apps/barista/src/main.scss",
+              "components/style/index.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["components/core/src/style/"]
