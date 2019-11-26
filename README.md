@@ -43,6 +43,10 @@ The Barista components support the most recent two versions of all major
 browsers: Chrome, Firefox, Safari and Edge. We do not support any version of
 Internet Explorer.
 
+Thanks to Browserstack for the awesome support of open source projects
+
+<a href="https://www.browserstack.com/" rel="nofollow"><img src="https://user-images.githubusercontent.com/2905693/69604517-fe9cb400-101d-11ea-867c-95b16cf60368.png" alt="Browserstack logo" width="250px"></a>
+
 ## Licence
 
 [Apache Version 2.0](https://github.com/Dynatrace/barista/blob/master/LICENSE)
