@@ -3,11 +3,9 @@
 </p>
 <dt-switch (change)="_switchChanged($event)">Convert to png</dt-switch>
 
-<svg viewBox="0 0 512 512" style="display: none">
+<svg viewBox="0 0 512 512" style="display: none;">
   <defs>
-    <symbol [attr.id]="_iconId">
-      <ng-content></ng-content>
-    </symbol>
+    <symbol [attr.id]="_iconId" [innerHTML]="_svg"></symbol>
   </defs>
 </svg>
 

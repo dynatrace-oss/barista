@@ -18,6 +18,7 @@ import {
   fetchContentList,
   fetchContentItemById,
 } from '../utils/fetch-strapi-content';
+import { isPublicBuild } from '../utils/isPublicBuild';
 
 import {
   BaPageBuildResult,
@@ -28,7 +29,7 @@ import {
   BaStrapiCTA,
 } from '@dynatrace/barista-components/barista-definitions';
 
-const PUBLIC_BUILD = process.env.PUBLIC_BUILD === 'true';
+const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
 
 const TILES_MOSTORDERED = [
   {
@@ -73,16 +74,23 @@ export type BaHomepageBuilder = (...args: any[]) => BaPageBuildResult;
 
 /** Page-builder for the homepage of Barista. */
 export const homepageBuilder: BaPageBuilder = async () => {
-  const pageTeaserData = await fetchContentList<BaStrapiPageTeaser>(
-    BaStrapiContentType.Pageteasers,
-    { publicContent: PUBLIC_BUILD },
-  );
+  let pageTeaserData;
+  let homepageCTA;
 
-  const homepageCTA = await fetchContentItemById<BaStrapiCTA>(
-    BaStrapiContentType.CTAs,
-    '1',
-    { publicContent: PUBLIC_BUILD },
-  );
+  if (STRAPI_ENDPOINT) {
+    pageTeaserData = await fetchContentList<BaStrapiPageTeaser>(
+      BaStrapiContentType.Pageteasers,
+      { publicContent: isPublicBuild() },
+      STRAPI_ENDPOINT,
+    );
+
+    homepageCTA = await fetchContentItemById<BaStrapiCTA>(
+      BaStrapiContentType.CTAs,
+      '1',
+      { publicContent: isPublicBuild() },
+      STRAPI_ENDPOINT,
+    );
+  }
 
   const relativeOutFile = '/index.json';
   const pageContent: BaIndexPageContent = {
