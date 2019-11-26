@@ -75,9 +75,9 @@ export class BaToc implements AfterViewInit {
         /* show subheadline list when a subheadline or a headline with
         subheadlines is currently active */
         if (activeItem.tagName.toLowerCase() === 'h3') {
-          this._activeElement.parentNode.parentNode.classList.add(
-            'ba-toc-ul-active',
-          );
+          const activeUrl = this._activeElement.parentNode.parentNode;
+          activeUrl.classList.add('ba-toc-ul-active');
+          activeUrl.parentNode.classList.add('ba-toc-item-active');
         } else if (this._activeElement.parentNode.querySelectorAll('ul')[0]) {
           this._activeElement.parentNode
             .querySelectorAll('ul')[0]
@@ -98,6 +98,7 @@ export class BaToc implements AfterViewInit {
      * there's a base URL defined and the on-page-links are always relative to "/"
      * and not to the current page. */
     ev.preventDefault();
+    ev.stopImmediatePropagation();
     const targetId = (ev.currentTarget as HTMLElement).getAttribute('href');
     const target = document.querySelector(targetId || '');
 

@@ -39,5 +39,19 @@ export class BaSinglePage implements BaPage, AfterViewInit {
 
   ngAfterViewInit(): void {
     this._recentlyOrderedService.saveToLocalStorage(this.contents);
+    this._checkURL();
+  }
+
+  /** check if the url contains a hash and scroll to the matching headline */
+  private _checkURL(): void {
+    const hash = window.location.hash;
+    if (hash) {
+      const target = document.querySelector(hash || '');
+      if (target) {
+        requestAnimationFrame(() => {
+          target.scrollIntoView();
+        });
+      }
+    }
   }
 }
