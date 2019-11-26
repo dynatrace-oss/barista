@@ -18,6 +18,7 @@ import { join } from 'path';
 
 import { fetchContentList } from '../utils/fetch-strapi-content';
 import { slugify } from '../utils/slugify';
+import { isPublicBuild } from '../utils/isPublicBuild';
 
 import { markdownToHtmlTransformer, transformPage } from '../transform';
 import {
@@ -30,7 +31,6 @@ import {
   BaLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
 
-const PUBLIC_BUILD = process.env.PUBLIC_BUILD === 'true';
 const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
 
 // tslint:disable-next-line: no-any
@@ -48,7 +48,8 @@ export const strapiBuilder: BaPageBuilder = async () => {
 
   const pagesData = await fetchContentList<BaStrapiPage>(
     BaStrapiContentType.Pages,
-    { publicContent: PUBLIC_BUILD },
+    { publicContent: isPublicBuild() },
+    STRAPI_ENDPOINT,
   );
 
   return Promise.all(
@@ -86,7 +87,7 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
   }
 
   // Set UX Wiki page link (only for internal Barista)
-  if (!PUBLIC_BUILD && page.uxWikiPage) {
+  if (!isPublicBuild() && page.uxWikiPage) {
     metaData.wiki = page.uxWikiPage;
   }
 

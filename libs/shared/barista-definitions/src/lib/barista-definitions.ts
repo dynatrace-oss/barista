@@ -21,9 +21,13 @@ export type BaPageTransformer = (
 // tslint:disable-next-line: no-any
 export type BaPageBuilder = (...args: any[]) => Promise<BaPageBuildResult[]>;
 
+export type BaPageBuilderContentResult =
+  | BaSinglePageContent
+  | BaIndexPageContent;
+
 export interface BaPageBuildResult {
   relativeOutFile: string;
-  pageContent: BaSinglePageContent | BaIndexPageContent;
+  pageContent: BaPageBuilderContentResult;
 }
 
 export const enum BaLayoutType {
