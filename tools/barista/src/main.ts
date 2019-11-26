@@ -18,6 +18,7 @@ import { promises as fs, mkdirSync } from 'fs';
 import { dirname, join } from 'path';
 
 import { componentsBuilder } from './builder/components';
+import { iconsBuilder } from './builder/icons';
 import {
   BaPageBuildResult,
   BaPageBuilder,
@@ -26,6 +27,7 @@ import {
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
   ['components-builder', componentsBuilder],
+  ['icons-builder', iconsBuilder],
 ]);
 
 const DIST_DIR = join(__dirname, '../../', 'apps', 'barista', 'data');
