@@ -28,17 +28,16 @@ export interface BaPageBuildResult {
 
 export type BaLayoutType = 'default' | 'overview' | 'icon' | 'index';
 
-export interface BaPageContentBase {
-  title?: string;
+export interface BaPageMetaBase {
+  title: string;
+  layout: BaLayoutType;
   description?: string;
   public?: boolean;
   draft?: boolean;
   nav_group?: string;
-  layout?: BaLayoutType;
 }
 
-export interface BaSinglePageContent extends BaPageContentBase {
-  content?: string;
+export interface BaSinglePageMeta extends BaPageMetaBase {
   toc?: boolean;
   contributors?: BaContributors;
   category?: string;
@@ -48,6 +47,10 @@ export interface BaSinglePageContent extends BaPageContentBase {
   wiki?: string;
   themable?: boolean;
   identifier?: string;
+}
+
+export interface BaSinglePageContent extends BaSinglePageMeta {
+  content: string;
 }
 
 export interface BaContributors {

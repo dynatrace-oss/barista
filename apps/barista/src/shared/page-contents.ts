@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { BaPageContentBase } from '@dynatrace/barista-components/barista-definitions';
+import { BaPageMetaBase } from '@dynatrace/barista-components/barista-definitions';
 
-export interface BaIndexPageContents extends BaPageContentBase {
+export interface BaIndexPageContents extends BaPageMetaBase {
   subtitle: string;
   mostordered: BaIndexPageItem[];
   gettingstarted: BaIndexPageLink[];
@@ -50,6 +50,6 @@ export interface BaIndexPageItem {
   category?: string;
 }
 
-export interface BaOverviewPageContents extends BaPageContentBase {
+export interface BaOverviewPageContents extends BaPageMetaBase {
   sections: BaOverviewPageSection[];
 }

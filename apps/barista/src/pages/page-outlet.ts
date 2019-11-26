@@ -25,7 +25,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
-import { BaPageContentBase } from '@dynatrace/barista-components/barista-definitions';
+import { BaPageMetaBase } from '@dynatrace/barista-components/barista-definitions';
 import { BaIndexPage } from './index-page/index-page';
 import { BaOverviewPage } from './overview-page/overview-page';
 import { BaSinglePage } from './single-page/single-page';
@@ -41,7 +41,7 @@ const LAYOUT_PAGES_MAPPING = {
  * have to implement the BaPage interface.
  */
 export interface BaPage {
-  contents: BaPageContentBase;
+  contents: BaPageMetaBase;
 }
 
 @Component({
@@ -54,7 +54,7 @@ export class BaPageOutlet {
 
   /** Data needed to render the page. */
   @Input()
-  set content(value: BaPageContentBase) {
+  set content(value: BaPageMetaBase) {
     // Ignore `undefined` values that could happen if the host component
     // does not initially specify a value for the `doc` input.
     if (value) {
@@ -70,7 +70,7 @@ export class BaPageOutlet {
   ) {}
 
   /** Dynamically creates a new page component and adds it to the DOM. */
-  private _createPage(contents: BaPageContentBase): void {
+  private _createPage(contents: BaPageMetaBase): void {
     this._destroyPage();
 
     const pageTypeComponent = contents.layout

@@ -21,7 +21,7 @@ import {
   BaPageBuildResult,
   BaPageBuilder,
   BaPageTransformer,
-  BaSinglePageContent,
+  BaSinglePageMeta,
   BaLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
 
@@ -54,7 +54,7 @@ function getMarkdownFilesByPath(rootPath: string): string[] {
     .map(name => join(rootPath, name));
 }
 
-function setMetadataDefaults(baristaMetadata: any): BaSinglePageContent {
+function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
   const metadataWithDefaults = {
     title: baristaMetadata.title,
     description: baristaMetadata.description,
