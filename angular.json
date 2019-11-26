@@ -303,6 +303,11 @@
                 "glob": "**/*",
                 "input": "node_modules/@dynatrace/barista-fonts/fonts/",
                 "output": "/assets/fonts"
+              },
+              {
+                "glob": "**",
+                "input": "components/assets/fonts/bitstream/",
+                "output": "/assets/fonts/bitstream"
               }
             ],
             "styles": [
