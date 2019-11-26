@@ -14,26 +14,28 @@
  * limitations under the License.
  */
 
-import { existsSync, promises as fs, lstatSync } from 'fs';
+import { existsSync, promises as fs, lstatSync, readdirSync } from 'fs';
 import { dirname, join, basename } from 'path';
+import { ObjectLiteralExpression, isPropertyAssignment } from 'typescript';
 import {
-  ObjectLiteralExpression,
-  isPropertyAssignment,
-  createSourceFile,
-  ScriptTarget,
-  ScriptKind,
-  ClassDeclaration,
-} from 'typescript';
+  AngularClassDecoratorName,
+  getAngularDecoratedClasses,
+} from '../../util/ast';
 
-import { getComponentDecoratorMetadataObject } from '../../util/ast';
+export interface ExamplePackageMetadata {
+  name: string;
+  dir: string;
+  moduleFile: string;
+  moduleClassName: string;
+  examples: ExampleMetadata[];
+}
 
-export interface BaristaExampleMetadata {
+export interface ExampleMetadata {
   tsFileLocation: string;
   templateFileLocation: string | null;
   classSource: string;
   className: string;
   templateSource: string;
-  packageName: string;
 }
 
 /**
@@ -73,50 +75,96 @@ async function resolveTemplate(
 /** Collects and returns a list of example metadata objects included in a file. */
 export async function getExampleMetadataObjects(
   fileName: string,
-): Promise<BaristaExampleMetadata[]> {
-  const tsSource = (await fs.readFile(fileName, {
-    encoding: 'utf-8',
-  })).toString();
-
-  const sourceFile = createSourceFile(
+): Promise<ExampleMetadata[]> {
+  const componentClasses = await getAngularDecoratedClasses(
     fileName,
-    tsSource,
-    ScriptTarget.Latest,
-    true, // setParentNodes
-    ScriptKind.TS,
+    AngularClassDecoratorName.Component,
   );
+  const metadata: ExampleMetadata[] = [];
 
-  const metadata: BaristaExampleMetadata[] = [];
+  for (const component of componentClasses) {
+    const className = component.classNode.name!.getText();
+    const fullClassSource = component.classNode.getText();
+    const decoratorSource = component.decorator.getText();
+    const classSource = fullClassSource.split(decoratorSource).join('{ ... }');
 
-  for (const node of sourceFile.statements) {
-    const metadataObjectLiteral = getComponentDecoratorMetadataObject(node);
-
-    // We know, if we get a metadata literal this node is a component class
-    if (metadataObjectLiteral) {
-      const className = (node as ClassDeclaration).name!.getText();
-      const fullClassSource = node.getText();
-      const decoratorSource = metadataObjectLiteral.getText();
-      const classSource = fullClassSource
-        .split(decoratorSource)
-        .join('{ ... }');
-      const packageName = basename(dirname(fileName));
-
-      const templateMeta = await resolveTemplate(
-        metadataObjectLiteral,
-        fileName,
-      );
-      if (templateMeta) {
-        metadata.push({
-          tsFileLocation: fileName,
-          classSource,
-          className,
-          templateFileLocation: templateMeta.fileLocation,
-          templateSource: templateMeta.source,
-          packageName,
-        });
-      }
+    const templateMeta = await resolveTemplate(component.decorator, fileName);
+    if (templateMeta) {
+      metadata.push({
+        tsFileLocation: fileName,
+        classSource,
+        className,
+        templateFileLocation: templateMeta.fileLocation,
+        templateSource: templateMeta.source,
+      });
     }
   }
 
   return Promise.resolve(metadata);
+}
+
+export async function getExamplePackageMetadata(
+  dir: string,
+): Promise<ExamplePackageMetadata | null> {
+  let moduleFile: string | null = null;
+  let exampleDirs: string[] = [];
+
+  const fileOrDirs = readdirSync(dir).map(name => join(dir, name));
+
+  for (const fileOrDir of fileOrDirs) {
+    const lstat = lstatSync(fileOrDir);
+    if (
+      !moduleFile &&
+      lstat.isFile() &&
+      basename(fileOrDir)
+        .toLowerCase()
+        .endsWith('-examples.module.ts')
+    ) {
+      moduleFile = fileOrDir;
+    } else if (lstat.isDirectory()) {
+      exampleDirs.push(fileOrDir);
+    }
+  }
+
+  const examples = await getExampleMetadataInDirs(exampleDirs);
+  if (moduleFile && examples.length) {
+    const moduleClass = (await getAngularDecoratedClasses(
+      moduleFile,
+      AngularClassDecoratorName.Module,
+    ))[0];
+    if (moduleClass) {
+      return {
+        name: basename(dir),
+        dir,
+        moduleFile,
+        moduleClassName: moduleClass.classNode.name!.getText(),
+        examples,
+      };
+    }
+  }
+  return null;
+}
+
+async function getExampleMetadataInDirs(
+  exampleDirs: string[],
+): Promise<ExampleMetadata[]> {
+  let examples: ExampleMetadata[] = [];
+  for (const exampleDir of exampleDirs) {
+    const tsFiles = readdirSync(exampleDir)
+      .map(name => join(exampleDir, name))
+      .filter(
+        fileName =>
+          lstatSync(fileName).isFile() &&
+          basename(fileName)
+            .toLowerCase()
+            .endsWith('.ts'),
+      );
+    for (const fileName of tsFiles) {
+      const meta = await getExampleMetadataObjects(fileName);
+      if (meta) {
+        examples.push(...meta);
+      }
+    }
+  }
+  return examples;
 }

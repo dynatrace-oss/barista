@@ -15,15 +15,32 @@
  */
 
 import { lstatSync, readdirSync } from 'fs';
-import { basename, join } from 'path';
-import { green, bold } from 'chalk';
-
-import { getExampleMetadataObjects, BaristaExampleMetadata } from './metadata';
+import { join } from 'path';
+import { bold, green } from 'chalk';
+import {
+  getExamplePackageMetadata,
+  ExamplePackageMetadata,
+  ExampleMetadata,
+} from './metadata';
+import { generateExamplesLibBarrelFile } from './generate-examples-lib-barrel';
 import { generateExamplesModule } from './generate-examples-module';
 import { generateExamplesRoutingModule } from './generate-routing-module';
 import { generateExamplesNavItems } from './generate-nav-items';
+// import { generateExamplesModule } from './generate-examples-module';
+
+// import { getExampleMetadataObjects, BaristaExampleMetadata } from './metadata';
+// import { generateExamplesModule } from './generate-examples-module';
+// import { generateExamplesRoutingModule } from './generate-routing-module';
+// import { generateExamplesNavItems } from './generate-nav-items';
 
 export const EXAMPLES_ROOT = join(
+  __dirname,
+  '../../../',
+  'libs',
+  'examples',
+  'src',
+);
+export const DEMO_APP_ROOT = join(
   __dirname,
   '../../../',
   'apps',
@@ -31,59 +48,60 @@ export const EXAMPLES_ROOT = join(
   'src',
 );
 
-/** Collect and return all example-files in a provided directory. */
-function getExampleFilesInDir(dir: string): string[] {
-  return readdirSync(dir)
-    .map(name => join(dir, name))
-    .filter(
-      file =>
-        lstatSync(file).isFile() &&
-        basename(file)
-          .toLowerCase()
-          .endsWith('-example.ts'),
-    );
-}
-
 /** Collect all files containing examples in the barista-examples app. */
-function getAllExampleFiles(): string[] {
-  return readdirSync(EXAMPLES_ROOT)
-    .map(name => join(EXAMPLES_ROOT, name))
-    .filter(dir => lstatSync(dir).isDirectory())
-    .reduce<string[]>(
-      (aggregatedFiles, currentDir) => [
-        ...aggregatedFiles,
-        ...getExampleFilesInDir(currentDir),
-      ],
-      [],
-    );
+async function getExamplesInPackages(): Promise<ExamplePackageMetadata[]> {
+  return (await Promise.all(
+    readdirSync(EXAMPLES_ROOT)
+      .map(name => join(EXAMPLES_ROOT, name))
+      .filter(dir => lstatSync(dir).isDirectory())
+      .map(dir => getExamplePackageMetadata(dir)),
+  )).filter(Boolean) as ExamplePackageMetadata[];
 }
 
 async function main(): Promise<void> {
   console.log();
   console.log(bold(`Generating Barista Examples`));
-  console.log(`Collecting example files`);
-  const exampleFiles = getAllExampleFiles();
-  console.log(green(`  ✓   ${exampleFiles.length} files collected`));
-
-  console.log('Collecting example component metadata');
-  const metadata: BaristaExampleMetadata[] = [];
-  for (const file of exampleFiles) {
-    metadata.push(...(await getExampleMetadataObjects(file)));
-  }
+  console.log(`Collecting example and module files and extracting metadata`);
+  const packageMetas = await getExamplesInPackages();
+  const examples = packageMetas.reduce<ExampleMetadata[]>(
+    (aggregatedExamples, packageMeta) => [
+      ...aggregatedExamples,
+      ...packageMeta.examples,
+    ],
+    [],
+  );
   console.log(
-    green(`  ✓   ${metadata.length} examples with valid metadata found`),
+    green(
+      `  ✓   ${packageMetas.length} packages with ${examples.length} examples found`,
+    ),
   );
 
-  console.log(`Generating examples module`);
-  const examplesModuleFile = await generateExamplesModule(metadata);
-  console.log(green(`  ✓   Created "${examplesModuleFile}"`));
+  console.log(`Generating lib barrel file`);
+  const rootBarrelFile = await generateExamplesLibBarrelFile(
+    packageMetas,
+    EXAMPLES_ROOT,
+  );
+  console.log(green(`  ✓   Created "${rootBarrelFile}"`));
 
-  console.log(`Generating examples app routes & routing module`);
-  const routingModule = await generateExamplesRoutingModule(metadata);
+  console.log(`Generating examples module for demo app`);
+  const demoModuleFile = await generateExamplesModule(
+    packageMetas,
+    DEMO_APP_ROOT,
+  );
+  console.log(green(`  ✓   Created "${demoModuleFile}"`));
+
+  console.log(`Generating demo app routes & routing module`);
+  const routingModule = await generateExamplesRoutingModule(
+    examples,
+    DEMO_APP_ROOT,
+  );
   console.log(green(`  ✓   Created "${routingModule}"`));
 
-  console.log(`Generating nav-items for the examples app menu`);
-  const navItemsFile = await generateExamplesNavItems(metadata);
+  console.log(`Generating nav-items for the demo app menu`);
+  const navItemsFile = await generateExamplesNavItems(
+    packageMetas,
+    DEMO_APP_ROOT,
+  );
   console.log(green(`  ✓   Created "${navItemsFile}"`));
 
   console.log(

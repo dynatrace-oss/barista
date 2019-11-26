@@ -14,53 +14,45 @@
  * limitations under the License.
  */
 
-import { BaristaExampleMetadata } from './metadata';
+import { ExamplePackageMetadata } from './metadata';
 import { join, basename } from 'path';
-
-import {
-  transformAndWriteTemplate,
-  generateExampleImportStatements,
-} from './util';
-import { EXAMPLES_ROOT } from './main';
+import { transformAndWriteTemplate } from './util';
 
 /** Generates a list of nav items for the barista-examples menu. */
 export async function generateExamplesNavItems(
-  examplesMetadata: BaristaExampleMetadata[],
+  packageMetadata: ExamplePackageMetadata[],
+  root: string,
 ): Promise<string> {
-  const templateFile = join(EXAMPLES_ROOT, 'nav-items.template');
-  const moduleFile = join(EXAMPLES_ROOT, 'nav-items.ts');
+  const templateFile = join(root, 'nav-items.template');
+  const moduleFile = join(root, 'nav-items.ts');
 
   return transformAndWriteTemplate(
     source => {
-      const imports = generateExampleImportStatements(examplesMetadata);
-      source = source.replace('${imports}', imports);
+      let exampleClassNames: string[] = [];
+      const navItems = packageMetadata
+        .map(packageMeta => {
+          const examples = packageMeta.examples.map(exampleMeta => {
+            const name = basename(exampleMeta.tsFileLocation).slice(0, -3);
+            exampleClassNames.push(exampleMeta.className);
+            return { name, route: `/${name}` };
+          });
 
-      const navItemMap = new Map<string, { name: string; route: string }[]>();
-
-      for (const metadata of examplesMetadata) {
-        let exampleNavItems = navItemMap.get(metadata.packageName);
-        if (!exampleNavItems) {
-          exampleNavItems = [];
-          navItemMap.set(metadata.packageName, exampleNavItems);
-        }
-        const name = basename(metadata.tsFileLocation).slice(0, -3);
-        exampleNavItems.push({ name, route: `/${name}` });
-      }
-
-      const navItems = Array.from(navItemMap)
-        .map(
-          ([packageName, exampleNavItems]) =>
-            ` ${JSON.stringify(
-              {
-                name: packageName,
-                examples: exampleNavItems,
-              },
-              null,
-              2,
-            )}`,
-        )
+          return ` ${JSON.stringify(
+            {
+              name: packageMeta.name,
+              examples,
+            },
+            null,
+            2,
+          )}`;
+        })
         .join(',\n');
       source = source.replace('${navItems}', navItems);
+
+      const imports = `import {\n  ${exampleClassNames.join(
+        ',\n  ',
+      )}\n} from '@dynatrace/barista-components/examples';`;
+      source = source.replace('${imports}', imports);
 
       return source;
     },

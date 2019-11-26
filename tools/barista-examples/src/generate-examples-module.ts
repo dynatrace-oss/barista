@@ -14,28 +14,31 @@
  * limitations under the License.
  */
 
-import { BaristaExampleMetadata } from './metadata';
+import { ExamplePackageMetadata } from './metadata';
 import { join } from 'path';
 
-import { EXAMPLES_ROOT } from './main';
 import {
   transformAndWriteTemplate,
-  generateExampleImportStatements,
+  // generateExampleImportStatements,
 } from './util';
 
 /** Generates the examples-module where all example components are declared. */
 export async function generateExamplesModule(
-  examplesMetadata: BaristaExampleMetadata[],
+  examplesMetadata: ExamplePackageMetadata[],
+  root: string,
 ): Promise<string> {
-  const templateFile = join(EXAMPLES_ROOT, 'examples.module.template');
-  const moduleFile = join(EXAMPLES_ROOT, 'examples.module.ts');
+  const templateFile = join(root, 'examples.module.template');
+  const moduleFile = join(root, 'examples.module.ts');
 
   return transformAndWriteTemplate(
     source => {
-      const exampleNames = examplesMetadata.map(metadata => metadata.className);
-      source = source.replace('${examples}', `  ${exampleNames.join(',\n  ')}`);
+      const exampleModuleNames = examplesMetadata.map(
+        metadata => metadata.moduleClassName,
+      );
+      const joinedModuleNames = `  ${exampleModuleNames.join(',\n  ')}`;
+      source = source.replace('${exampleModules}', joinedModuleNames);
 
-      const imports = generateExampleImportStatements(examplesMetadata);
+      const imports = `import {\n${joinedModuleNames}\n} from '@dynatrace/barista-components/examples';`;
       source = source.replace('${imports}', imports);
 
       return source;

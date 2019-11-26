@@ -17,18 +17,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ExamplesAppDynatraceComponentsModule } from './dt.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtSelectModule } from '@dynatrace/barista-components/select';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
+import { DtExpandablePanelModule } from '@dynatrace/barista-components/expandable-panel';
 
 import { ExamplesModule } from './examples.module';
 import { AppRoutingModule } from './app-routing.module';
-
 import { App } from './app';
 import { BaristaSideNav } from './side-nav.component';
-
 import { environment } from './environments/environment';
 
 @NgModule({
@@ -40,7 +42,10 @@ import { environment } from './environments/environment';
     FormsModule,
     ReactiveFormsModule,
     DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
-    ExamplesAppDynatraceComponentsModule,
+    DtSelectModule,
+    DtThemingModule,
+    DtAutocompleteModule,
+    DtExpandablePanelModule,
     AppRoutingModule,
     ExamplesModule,
   ],

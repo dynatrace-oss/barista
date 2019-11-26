@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-import { BaristaExampleMetadata } from './metadata';
+import { ExampleMetadata } from './metadata';
 import { join, basename } from 'path';
 
-import {
-  transformAndWriteTemplate,
-  generateExampleImportStatements,
-} from './util';
-import { EXAMPLES_ROOT } from './main';
+import { transformAndWriteTemplate } from './util';
 
 /** Generates the routing module including all routes (one for every example). */
 export async function generateExamplesRoutingModule(
-  examplesMetadata: BaristaExampleMetadata[],
+  examplesMetadata: ExampleMetadata[],
+  root: string,
 ): Promise<string> {
-  const templateFile = join(EXAMPLES_ROOT, 'app-routing.module.template');
-  const moduleFile = join(EXAMPLES_ROOT, 'app-routing.module.ts');
+  const templateFile = join(root, 'app-routing.module.template');
+  const moduleFile = join(root, 'app-routing.module.ts');
 
   return transformAndWriteTemplate(
     source => {
-      const imports = generateExampleImportStatements(examplesMetadata);
+      const imports = `import {\n  ${examplesMetadata
+        .map(meta => meta.className)
+        .join(',\n  ')}\n} from '@dynatrace/barista-components/examples';`;
       source = source.replace('${imports}', imports);
 
       const routes = examplesMetadata

@@ -15,7 +15,7 @@
  */
 
 import { promises as fs } from 'fs';
-import { BaristaExampleMetadata } from './metadata';
+import { ExampleMetadata } from './metadata';
 import { EXAMPLES_ROOT } from './main';
 import { relative, extname } from 'path';
 
@@ -48,7 +48,7 @@ export async function transformAndWriteTemplate(
  * based on the provided metadata array.
  */
 export function getExampleImportsFromMetadata(
-  examplesMetadata: BaristaExampleMetadata[],
+  examplesMetadata: ExampleMetadata[],
 ): Map<string, string[]> {
   const exampleImports = new Map<string, string[]>();
   for (const metadataObj of examplesMetadata) {
@@ -73,7 +73,7 @@ export function getExampleImportsFromMetadata(
 
 /** Generate import statements for every provided example metadata. */
 export function generateExampleImportStatements(
-  examplesMetadata: BaristaExampleMetadata[],
+  examplesMetadata: ExampleMetadata[],
 ): string {
   let imports = '';
   for (const [path, importNames] of getExampleImportsFromMetadata(

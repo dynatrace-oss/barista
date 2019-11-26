@@ -16,15 +16,4 @@
 
 // tslint:disable: max-file-line-count
 
-import { NgModule } from '@angular/core';
-${imports}
-
-/**
- * NgModule that includes all example components
- */
-@NgModule({
-  imports: [
-  ${exampleModules}
-  ]
-})
-export class ExamplesModule { }
+${exports}
