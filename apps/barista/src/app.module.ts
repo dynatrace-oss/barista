@@ -27,7 +27,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BaApp } from './app';
 import { BaContributors } from './layout/contributors/contributors';
 import { BaFooter } from './layout/footer/footer';
-import { BaIconColorWheel } from './components/icon-color-wheel/icon-color-wheel';
 import { BaIndexPage } from './pages/index-page/index-page';
 import { BaLocationService } from './shared/location.service';
 import { BaNav } from './layout/nav/nav';
@@ -49,12 +48,11 @@ import { BaTocService } from './shared/toc.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
-import { DtSwitchModule } from '@dynatrace/barista-components/switch';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { environment } from './environments/environment';
+import { BaComponentsModule } from './components';
 
 @NgModule({
   imports: [
@@ -71,8 +69,7 @@ import { environment } from './environments/environment';
         '',
       )}/assets/icons/{{name}}.svg`,
     }),
-    DtSwitchModule,
-    DtOverlayModule,
+    BaComponentsModule,
   ],
   exports: [],
   declarations: [
@@ -85,7 +82,6 @@ import { environment } from './environments/environment';
     BaContributors,
     BaPageOutlet,
     BaSinglePage,
-    BaIconColorWheel,
     BaOverviewPage,
     BaTile,
     BaIndexPage,

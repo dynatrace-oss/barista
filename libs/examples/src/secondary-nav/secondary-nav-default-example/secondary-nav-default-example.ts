@@ -17,7 +17,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'component-barista-example',
+  selector: 'dt-example-secondary-nav-default',
   templateUrl: './secondary-nav-default-example.html',
 })
 export class DtExampleSecondaryNavDefault {}

@@ -17,7 +17,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'component-barista-example',
+  selector: 'dt-example-secondary-nav-active',
   styleUrls: ['./secondary-nav-active-example.scss'],
   templateUrl: './secondary-nav-active-example.html',
 })
