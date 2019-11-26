@@ -22,7 +22,7 @@ import { DtMicroChart } from './micro-chart';
 
 @NgModule({
   imports: [DtChartModule],
-  exports: [DtMicroChart],
+  exports: [DtMicroChart, DtChartModule],
   declarations: [DtMicroChart],
 })
 export class DtMicroChartModule {}
