@@ -3,7 +3,7 @@
   "description": "Dynatrace components for Angular",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Dynatrace/barista"
+    "url": "https://github.com/dynatrace-oss/barista"
   },
   "keywords": [
     "angular",

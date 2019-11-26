@@ -8,8 +8,8 @@ the CLA is set up. Please hold tight.
 
 If you find a bug/issue in the source code or a mistake in the documentation,
 you can help us by
-[creating an issue](https://github.com/Dynatrace/barista/issues/new) here on
-GitHub. Please provide an issue reproduction. Screenshots are also helpful.
+[creating an issue](https://github.com/dynatrace-oss/issues/new) here on GitHub.
+Please provide an issue reproduction. Screenshots are also helpful.
 
 You can help the team even more and
 [submit a pull request](#submitting-a-pull-request) with a fix.
@@ -17,7 +17,7 @@ You can help the team even more and
 ## Want a feature?
 
 You can request a new feature also by
-[creating an issue](https://github.com/Dynatrace/barista/issues/new).
+[creating an issue](https://github.com/dynatrace-oss/issues/new).
 
 - For a **major feature** (e.g. a new component), first open an issue and
   outline your proposal so that it can be discussed before you start with the
