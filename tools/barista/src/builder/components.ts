@@ -34,9 +34,6 @@ import {
 } from '../transform';
 import { slugify } from '../utils/slugify';
 
-// tslint:disable-next-line: no-any
-export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
-
 const PROJECT_ROOT = join(__dirname, '../../../');
 const LIB_ROOT = join(__dirname, '../../../', 'components');
 const DOCUMENTATION_ROOT = join(__dirname, '../../../', 'documentation');
