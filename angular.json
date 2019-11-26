@@ -220,7 +220,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "barista-components/barista-examples:build",
+            "browserTarget": "barista-examples:build",
             "host": "0.0.0.0"
           },
           "configurations": {}
@@ -288,7 +288,7 @@
         }
       }
     },
-    "barista-components/examples": {
+    "examples": {
       "projectType": "library",
       "root": "libs/examples",
       "sourceRoot": "libs/examples/src",
