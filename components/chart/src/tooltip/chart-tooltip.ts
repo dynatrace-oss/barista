@@ -37,12 +37,7 @@ import { isDefined } from '@dynatrace/barista-components/core';
 
 import { DtChart } from '../chart';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
-
-interface HighchartsPlotBackgroundInformation {
-  x: number;
-  y: number;
-  height: number;
-}
+import { PlotBackgroundInfo } from '../utils';
 
 /** Default horizontal offset for the tooltip */
 const DT_CHART_TOOLTIP_DEFAULT_OFFSET = 10;
@@ -103,7 +98,7 @@ export class DtChartTooltip implements OnDestroy {
   _createOverlay(
     data: DtChartTooltipData,
     parentChart: DtChart,
-    plotBackgroundInfo: HighchartsPlotBackgroundInformation,
+    plotBackgroundInfo: PlotBackgroundInfo,
   ): void {
     if (parentChart._chartObject && data && data.points) {
       const positionStrategy = this._overlay
@@ -144,7 +139,7 @@ export class DtChartTooltip implements OnDestroy {
   _updateOverlayContext(
     data: DtChartTooltipData,
     parentChart: DtChart,
-    plotBackgroundInfo: HighchartsPlotBackgroundInformation,
+    plotBackgroundInfo: PlotBackgroundInfo,
   ): void {
     if (this._portal && this._overlayRef) {
       this._portal.context.$implicit = data;
@@ -173,7 +168,7 @@ export class DtChartTooltip implements OnDestroy {
   private _getTooltipPosition(
     data: DtChartTooltipData,
     chart: DtChart,
-    plotBackgroundInfo: HighchartsPlotBackgroundInformation,
+    plotBackgroundInfo: PlotBackgroundInfo,
   ): { x: number; y: number } {
     const containerElement: HTMLElement = chart.container.nativeElement;
     const containerElementBB = containerElement.getBoundingClientRect();
@@ -194,7 +189,7 @@ export class DtChartTooltip implements OnDestroy {
  */
 function getHighchartsTooltipPosition(
   data: DtChartTooltipData,
-  plotBackgroundInfo: HighchartsPlotBackgroundInformation,
+  plotBackgroundInfo: PlotBackgroundInfo,
 ): { x: number; y: number } {
   const isPieChart = !isDefined(data.points);
   const hasAreaFirstSeries =
@@ -202,7 +197,7 @@ function getHighchartsTooltipPosition(
   let x: number;
   // set y position for all charts in the middle of the plotbackground vertically
   // tslint:disable-next-line:no-magic-numbers
-  let y = plotBackgroundInfo.height / 2 + plotBackgroundInfo.y;
+  let y = plotBackgroundInfo.height / 2 + plotBackgroundInfo.top;
   if (isPieChart) {
     const tooltipPos = data.point!.point.tooltipPos;
     x = tooltipPos![0];
@@ -214,7 +209,7 @@ function getHighchartsTooltipPosition(
     x = xAxis.toPixels(point.x);
   } else {
     const point = data.points![0].point;
-    x = point.tooltipPos![0] + plotBackgroundInfo.x;
+    x = point.tooltipPos![0] + plotBackgroundInfo.left;
   }
 
   return { x, y };

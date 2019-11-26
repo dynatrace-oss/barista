@@ -18,22 +18,21 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { IndividualSeriesOptions } from 'highcharts';
-import { BehaviorSubject } from 'rxjs';
-
 import {
-  DT_CHART_COLOR_PALETTES,
-  DT_CHART_COLOR_PALETTE_ORDERED,
   DtChart,
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
+  DT_CHART_COLOR_PALETTES,
+  DT_CHART_COLOR_PALETTE_ORDERED,
+  getDtHeatfieldUnsupportedChartError,
 } from '@dynatrace/barista-components/chart';
-import { DtThemingModule } from '@dynatrace/barista-components/theming';
-
 import { createComponent } from '@dynatrace/barista-components/testing';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { IndividualSeriesOptions } from 'highcharts';
+import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {
   beforeEach(async(() => {
@@ -53,6 +52,7 @@ describe('DtChart', () => {
         EmptySeries,
         Loading,
         LoadingText,
+        HeatfieldError,
       ],
     });
 
@@ -349,6 +349,34 @@ describe('DtChart', () => {
       ).nativeElement;
       expect(loadingElement.textContent).toBe('Loading');
     });
+  });
+
+  describe('Heatfield', () => {
+    it('should throw an error when the chart has a category xAxis', fakeAsync(() => {
+      const rect = document.createElement('rect');
+      rect.setAttribute('width', '100');
+      rect.setAttribute('height', '100');
+      rect.setAttribute('x', '100');
+      rect.setAttribute('y', '100');
+
+      const fixture = createComponent(HeatfieldError);
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      fixture.detectChanges();
+
+      try {
+        chartComponent._plotBackground$ = new BehaviorSubject(
+          (rect as unknown) as SVGRectElement,
+        );
+        chartComponent._afterRender.next();
+        tick(1000);
+      } catch (e) {
+        expect(e.message).toBe(getDtHeatfieldUnsupportedChartError().message);
+      } finally {
+        tick(1000);
+        expect.assertions(1);
+      }
+    }));
   });
 });
 
@@ -731,4 +759,58 @@ class Loading {
 })
 class LoadingText {
   loadingText: string;
+}
+
+@Component({
+  selector: 'dt-heatfield-error',
+  template: `
+    <dt-chart [series]="series" [options]="options">
+      <dt-chart-heatfield [start]="1564546530000" [end]="1564546620000">
+        Problem 1:
+        <br />
+        <a class="dt-link">View problem details</a>
+      </dt-chart-heatfield>
+    </dt-chart>
+  `,
+})
+class HeatfieldError {
+  options = {
+    xAxis: [
+      {
+        categories: ['some category'],
+      },
+    ],
+  };
+  series = [
+    {
+      name: 'Code execution',
+      type: 'area',
+      data: [
+        {
+          x: 1564546440000,
+          y: 0,
+          marker: {
+            enabled: false,
+            states: {
+              hover: {
+                enabled: false,
+              },
+            },
+          },
+        },
+        {
+          x: 1564546450000,
+          y: 0,
+          marker: {
+            enabled: false,
+            states: {
+              hover: {
+                enabled: false,
+              },
+            },
+          },
+        },
+      ],
+    },
+  ];
 }

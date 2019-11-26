@@ -29,6 +29,14 @@ import { filter, map } from 'rxjs/operators';
 
 import { readKeyCode } from '@dynatrace/barista-components/core';
 
+/** @internal Highcharts plot background dimensions */
+export interface PlotBackgroundInfo {
+  width: number;
+  height: number;
+  left: number;
+  top: number;
+}
+
 /** @internal the large offset for keyboard navigation */
 const KEYBOARD_NAVIGATION_LARGE_OFFSET = 10;
 
@@ -255,4 +263,21 @@ export function chainFocusToNextTrap(
       nextTrap.focusLastTabbableElement();
     }
   });
+}
+
+/**
+ * @internal
+ * Returns the plotBackground information (sizing and positioning) of a provided
+ * plot background element.
+ * @param plotBackground plot background element of Highcharts
+ */
+export function getPlotBackgroundInfo(
+  plotBackground: SVGRectElement,
+): PlotBackgroundInfo {
+  return {
+    width: parseInt(plotBackground.getAttribute('width')!, 10) || 0,
+    height: parseInt(plotBackground.getAttribute('height')!, 10) || 0,
+    left: parseInt(plotBackground.getAttribute('x')!, 10) || 0,
+    top: parseInt(plotBackground.getAttribute('y')!, 10) || 0,
+  };
 }

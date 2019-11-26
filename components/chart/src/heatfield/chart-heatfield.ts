@@ -18,25 +18,17 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ENTER } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
-  Inject,
   Input,
   OnDestroy,
   Output,
-  SkipSelf,
   ViewChild,
   ViewEncapsulation,
-  forwardRef,
 } from '@angular/core';
-import { clamp, round } from 'lodash';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
 import {
   CanColor,
   Constructor,
@@ -44,9 +36,9 @@ import {
   mixinColor,
   readKeyCode,
 } from '@dynatrace/barista-components/core';
-
-import { DtChart } from '../chart';
-import { getDtHeatfieldUnsupportedChartError } from './chart-heatfield-errors';
+import { clamp, round } from 'lodash';
+import { Subject } from 'rxjs';
+import { PlotBackgroundInfo } from '../utils';
 
 const DT_HEATFIELD_TOP_OFFSET = 16;
 
@@ -104,7 +96,7 @@ export const _DtHeatfieldMixinBase = mixinColor<
   inputs: ['color'],
 })
 export class DtChartHeatfield extends _DtHeatfieldMixinBase
-  implements CanColor<DtChartHeatfieldThemePalette>, OnDestroy, AfterViewInit {
+  implements CanColor<DtChartHeatfieldThemePalette>, OnDestroy {
   /** Event emitted when the option is selected or deselected. */
   @Output() readonly activeChange = new EventEmitter<
     DtChartHeatfieldActiveChange
@@ -159,25 +151,20 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   /** Aria reference to a label for better accessibility. */
   @Input('aria-labelledby') ariaLabelledBy: string;
 
-  private _destroyed = new Subject<void>();
-  private _relativeBoundingBox: { top: number; left: number; width: number };
+  /**
+   * @internal
+   * BoundingBox of the Highcharts plotBackground is
+   * set by the chart via the `_initHeatfield` function that
+   * is called by the chart.
+   * Is used to set the height of the heatfield backdrop.
+   */
+  _boundingBox: PlotBackgroundInfo;
 
   /**
    * Positions for the overlay that gets created
    * @internal
    */
   _positions: ConnectedPosition[] = DT_HEATFIELD_OVERLAY_POSITIONS;
-
-  /**
-   * Boundingbox of the plot background - used for calculations and positioning
-   * @internal
-   */
-  _plotBackgroundBoundingBox: {
-    left: number;
-    top: number;
-    width: number;
-    height: number;
-  };
 
   /**
    * Wether the input is a valid range. Input range is valid as long there is a
@@ -201,30 +188,44 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   @ViewChild(CdkConnectedOverlay, { static: false })
   _overlay: CdkConnectedOverlay;
 
+  private _destroy$ = new Subject<void>();
+  private _relativeBoundingBox: { top: number; left: number; width: number };
+
+  /**
+   * Highcharts charts object is needed for the xAxis is
+   * set by the chart via the `_initHeatfield` function that
+   * is called by the chart.
+   */
+  private _chartObject: Highcharts.ChartObject;
+
   constructor(
     elementRef: ElementRef,
-    // tslint:disable-next-line: no-forward-ref
-    @Inject(forwardRef(() => DtChart)) @SkipSelf() private _chart: DtChart,
     private _changeDetectorRef: ChangeDetectorRef,
   ) {
     super(elementRef);
-    this._checkChartSupport();
   }
 
   ngOnDestroy(): void {
-    this._destroyed.next();
-    this._destroyed.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
-  ngAfterViewInit(): void {
-    this._chart._afterRender.pipe(takeUntil(this._destroyed)).subscribe(() => {
-      this._checkChartSupport();
-      this._getPlotBackgroundBoundingBox();
-      this._updatePosition();
-      if (this._overlay.overlayRef) {
-        this._overlay.overlayRef.updatePosition();
-      }
-    });
+  /**
+   * @internal
+   * Initializes the heatfield with the provided bounding box of the chart
+   * and the Highcharts chartObject that is needed to calculate the position
+   */
+  _initHeatfield(
+    boundingBox: PlotBackgroundInfo,
+    chartObject: Highcharts.ChartObject,
+  ): void {
+    this._boundingBox = boundingBox;
+    this._chartObject = chartObject;
+
+    this._updatePosition();
+    if (this._overlay.overlayRef) {
+      this._overlay.overlayRef.updatePosition();
+    }
   }
 
   /**
@@ -245,39 +246,16 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     }
   }
 
-  /** Apply boundaries to the host element ref to match the chart */
-  private _getPlotBackgroundBoundingBox(): void {
-    // this needs to be run after zone is stable because we need to wait until the origin is actually rendered
-    // to get the correct boundaries
-    const plotBackground =
-      this._chart &&
-      this._chart.container.nativeElement.querySelector(
-        '.highcharts-plot-background',
-      );
-    if (plotBackground) {
-      this._plotBackgroundBoundingBox = {
-        width: parseInt(plotBackground.getAttribute('width') as string, 10),
-        height: parseInt(plotBackground.getAttribute('height') as string, 10),
-        left: parseInt(plotBackground.getAttribute('x') as string, 10),
-        top: parseInt(plotBackground.getAttribute('y') as string, 10),
-      };
-    }
-  }
-
   /** Calculates and updates the position for the heatfield */
   private _updatePosition(): void {
-    if (
-      this._isValidStartEndRange &&
-      this._chart._chartObject &&
-      this._plotBackgroundBoundingBox
-    ) {
-      const xAxis = this._chart._chartObject.xAxis;
+    if (this._isValidStartEndRange && this._chartObject && this._boundingBox) {
+      const xAxis = this._chartObject.xAxis;
       if (xAxis && xAxis.length > 0) {
-        // NOTE that there can be multiple xAxis in highcharts but our charts dont have multiple xAxis
+        // NOTE that there can be multiple xAxis in highcharts but our charts don't have multiple xAxis
         // so we use the first one for the extremes
         const extremes = xAxis[0].getExtremes();
         const pxPerUnit =
-          this._plotBackgroundBoundingBox.width / (extremes.max - extremes.min);
+          this._boundingBox.width / (extremes.max - extremes.min);
         const left =
           (clamp(this._start, extremes.min, extremes.max) - extremes.min) *
           pxPerUnit;
@@ -289,12 +267,9 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
           : (extremes.max - extremes.min) * pxPerUnit - left;
         // tslint:disable:no-magic-numbers
         this._relativeBoundingBox = {
-          left: round(left + this._plotBackgroundBoundingBox.left, 2),
+          left: round(left + this._boundingBox.left, 2),
           width: round(width, 2),
-          top: round(
-            this._plotBackgroundBoundingBox.top - DT_HEATFIELD_TOP_OFFSET,
-            2,
-          ),
+          top: round(this._boundingBox.top - DT_HEATFIELD_TOP_OFFSET, 2),
         };
         // tslint:enable:no-magic-numbers
         // It is not possible to set this on the ref nativelement and not in the marker and the backdrop,
@@ -317,18 +292,6 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
       this._backdrop.nativeElement.style.left = `${this._relativeBoundingBox.left}px`;
       this._backdrop.nativeElement.style.width = `${this._relativeBoundingBox.width}px`;
       this._backdrop.nativeElement.style.top = `${DT_HEATFIELD_TOP_OFFSET}px`;
-    }
-  }
-
-  private _checkChartSupport(): void {
-    if (
-      this._chart &&
-      this._chart.options &&
-      this._chart.options.xAxis &&
-      this._chart.options.xAxis[0] &&
-      this._chart.options.xAxis[0].categories
-    ) {
-      throw getDtHeatfieldUnsupportedChartError();
     }
   }
 }
