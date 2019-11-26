@@ -189,9 +189,16 @@ export class DtConfirmationDialog
       this._stateChildren.forEach(child => {
         child._updateActive(this._stateToSelect === child.name);
       });
-      this._positionState = this._stateChildren.some(child => child._isActive)
-        ? 'up'
-        : 'down';
+      if (this._stateChildren.some(child => child._isActive)) {
+        this._positionState = 'up';
+        DtConfirmationDialog._activeDialog = this;
+      } else {
+        this._positionState = 'down';
+        // Unmark this dialog as the _activeDialog if dismissed
+        if (DtConfirmationDialog._activeDialog === this) {
+          DtConfirmationDialog._activeDialog = null;
+        }
+      }
     });
     this._changeDetectorRef.markForCheck();
   }
