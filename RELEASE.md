@@ -25,9 +25,8 @@ different meaning and describe the type of change this version introduces.
 **Note: Releasing should only be done by the maintainers of the
 barista-components.**
 
-Go to the
-[pull request overview page](https://github.com/Dynatrace/barista/pulls) of the
-barista-components repository and merge all pull requests marked as
+Go to the [pull request overview page](https://github.com/dynatrace-oss/pulls)
+of the barista-components repository and merge all pull requests marked as
 `pr:merge-ready` into master. Only merge pull requests marked with `[major]`
 when releasing a new major version. Once all branches are merged and all merge
 conflicts are resolved, follow these steps:
