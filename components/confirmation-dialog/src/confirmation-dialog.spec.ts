@@ -27,8 +27,12 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DT_CONFIRMATION_FADE_DURATION } from './confirmation-dialog-constants';
+import {
+  DT_CONFIRMATION_FADE_DURATION,
+  DT_CONFIRMATION_POP_DURATION,
+} from './confirmation-dialog-constants';
 import { DtConfirmationDialogModule } from './confirmation-dialog-module';
+import { DtConfirmationDialog } from './confirmation-dialog';
 
 describe('ConfirmationDialogComponent', () => {
   const UP = 'translateY(0)';
@@ -123,6 +127,17 @@ describe('ConfirmationDialogComponent', () => {
       const dialog = getDialog(overlayContainerElement);
       expect(dialog).toBeNull();
       // Explicitly calling fixture.destroy() schedules a new task in zonejs, manually flush() or test fails due to remain events.
+      flush();
+    }));
+
+    it('should not be marked as active after being dismissed', fakeAsync(() => {
+      fixture.componentInstance.testState = 'state1';
+      fixture.detectChanges();
+      tick(DT_CONFIRMATION_POP_DURATION);
+      fixture.componentInstance.testState = null;
+      fixture.detectChanges();
+      tick(DT_CONFIRMATION_FADE_DURATION);
+      expect((DtConfirmationDialog as any)._activeDialog).toBeNull();
       flush();
     }));
   });
