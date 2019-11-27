@@ -2,6 +2,7 @@ version: 2.1
 
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.1
+  snyk: snyk/snyk@0.0.8
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -79,6 +80,14 @@ jobs:
           at: ~/barista
       - sonarcloud/scan
 
+# - snyk security checks
+  security-checks:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - snyk/scan
+
 # - check formatting if all files are formatted with prettier
   check-formatting:
     <<: *defaults
@@ -142,6 +151,9 @@ workflows:
             - install
       - sonar:
           context: SonarCloud
+          requires:
+            - install
+      - security-checks:
           requires:
             - install
       - lint:
