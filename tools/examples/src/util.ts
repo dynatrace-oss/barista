@@ -40,7 +40,7 @@ export async function transformAndWriteTemplate(
     encoding: 'utf8',
   });
 
-  return Promise.resolve(outFile);
+  return outFile;
 }
 
 /**

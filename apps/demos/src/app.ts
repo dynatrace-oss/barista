@@ -14,15 +14,23 @@
  * limitations under the License.
  */
 
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { DT_DEMOS_EXAMPLE_NAV_ITEMS } from './nav-items';
 
-import { AppModule } from './app.module';
+@Component({
+  selector: 'dt-demos',
+  styleUrls: ['app.scss'],
+  templateUrl: 'app.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DtDemosApp {
+  componentItems = DT_DEMOS_EXAMPLE_NAV_ITEMS;
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule, { preserveWhitespaces: true })
-  .catch(
-    // tslint:disable-next-line:typedef
-    (err): void => {
-      console.log(err); // tslint:disable-line:no-console
-    },
-  );
+  selectedTheme = 'turquoise';
+  themes = [
+    { value: 'turquoise', name: 'Turquoise' },
+    { value: 'blue', name: 'Blue' },
+    { value: 'purple', name: 'Purple' },
+    { value: 'royalblue', name: 'Royalblue' },
+  ];
+}

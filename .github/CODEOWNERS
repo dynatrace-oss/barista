@@ -67,9 +67,9 @@
 /apps/barista/* @thomaspink @lukasholzer
 /apps/barista/src/** @lara-aigmueller @NinaKammerlander @thomaspink
 
-# Barista-examples
-/apps/barista-examples/* @thomaspink @lukasholzer
-/apps/barista-examples/src/** @thomaspink @ffriedl89 @tomheller
+# Demos app
+/apps/demos/* @thomaspink @lukasholzer
+/apps/demos/src/** @thomaspink @ffriedl89 @tomheller
 
 # e2e
 /apps/components-e2e/* @lukasholzer

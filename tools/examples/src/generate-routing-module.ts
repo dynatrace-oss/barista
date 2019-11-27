@@ -20,7 +20,7 @@ import { join, basename } from 'path';
 import { transformAndWriteTemplate } from './util';
 
 /** Generates the routing module including all routes (one for every example). */
-export async function generateExamplesRoutingModule(
+export async function generateDemosAppRoutingModule(
   examplesMetadata: ExampleMetadata[],
   root: string,
 ): Promise<string> {

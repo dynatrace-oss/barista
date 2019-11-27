@@ -1,7 +1,4 @@
-# examples
+# Examples
 
-This library was generated with [Nx](https://nx.dev).
-
-## Running unit tests
-
-Run `nx test examples` to execute the unit tests.
+This library includes all examples for barista-components. They can be used by
+the demo and barista app.

@@ -12,7 +12,7 @@
     "barista": {
       "tags": ["type:app"]
     },
-    "barista-examples": {
+    "demos": {
       "tags": ["type:app"]
     },
     "components-e2e": {
@@ -27,7 +27,8 @@
     "barista-tools": {
       "tags": ["type:tooling"]
     },
-    "barista-examples-tools": {
+    "examples-tools": {
+      "implicitDependencies": ["demos", "examples"],
       "tags": ["type:tooling"]
     },
     "shared-barista-definitions": {

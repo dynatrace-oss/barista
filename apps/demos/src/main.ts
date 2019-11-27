@@ -14,8 +14,15 @@
  * limitations under the License.
  */
 
-// tslint:disable: max-file-line-count
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-export const EXAMPLE_NAV_ITEMS = [
-${navItems}
-];
+import { DtDemosAppModule } from './app.module';
+
+platformBrowserDynamic()
+  .bootstrapModule(DtDemosAppModule, { preserveWhitespaces: true })
+  .catch(
+    // tslint:disable-next-line:typedef
+    (err): void => {
+      console.log(err); // tslint:disable-line:no-console
+    },
+  );

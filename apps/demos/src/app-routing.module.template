@@ -14,17 +14,29 @@
  * limitations under the License.
  */
 
-// tslint:disable: max-file-line-count
-
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
 ${imports}
 
-/**
- * NgModule that includes all example components
- */
+// The Routing Module replaces the routing configuration in the root or feature module.
+// Either configure routes in the Routing Module or within the module itself but not in both.
+//
+// The Routing Module is a design choice whose value is most obvious when the configuration is complex
+// and includes specialized guard and resolver services.
+// See: https://angular.io/guide/router#refactor-the-routing-configuration-into-a-routing-module
+
+
+const ROUTES: Routes = [
+${routes}
+]
+
 @NgModule({
   imports: [
-  ${exampleModules}
+    RouterModule.forRoot(ROUTES)
+  ],
+  exports: [
+    RouterModule
   ]
 })
-export class ExamplesModule { }
+export class DtDemosAppRoutingModule { }

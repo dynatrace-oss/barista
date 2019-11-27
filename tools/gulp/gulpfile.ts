@@ -1,6 +1,5 @@
 import { registry } from 'gulp';
 
-import './tasks/barista-examples';
 import './tasks/lint';
 import './tasks/clean';
 import './tasks/build';

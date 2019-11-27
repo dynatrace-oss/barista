@@ -7,8 +7,9 @@
   ],
   "linterOptions": {
     "exclude": [
-      "src/barista-examples/app.component.ts",
-      "src/barista-examples/app.module.ts"
+      "/apps/demos/src/examples.module.ts",
+      "/apps/demos/src/app-routing.module.ts",
+      "/apps/demos/src/nav-items.ts"
     ]
   },
   "rules": {

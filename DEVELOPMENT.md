@@ -22,8 +22,8 @@ The Barista repository has the following structure:
 
 - **apps**:
   - barista: the Barista design system
-  - barista-examples: The preview app that includes all examples that get
-    compiled and bundled for the Barista design system
+  - demos: The preview app that includes all examples that get compiled and
+    bundled for the Barista design system
   - components-e2e: testapp to run UI/e2e tests
   - dev: local development app to test components
   - universal: app to verify that the components can be used in a serverside
@@ -87,17 +87,10 @@ To run the Barista examples app with all examples that will be used inside the
 Barista design system run
 
 ```
-npm run barista-examples
+npm run demos
 ```
 
-which generates all examples and starts the barista-examples app.
-
-When creating new examples or modifying existing ones, make sure that the
-example code passes our custom TSLint rules by running
-
-```
-gulp tslint:barista-examples
-```
+which generates all examples and starts the demos app.
 
 ## Custom TSLint rules
 
