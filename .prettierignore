@@ -1,7 +1,8 @@
-/apps/barista-examples/src/app.module.ts
-/apps/barista-examples/src/app.module.template
-/apps/barista-examples/src/app.component.ts
-/apps/barista-examples/src/app.component.template
+/apps/demos/src/examples.module.ts
+/apps/demos/src/examples.module.template
+/apps/demos/src/app-routing.module.ts
+/apps/demos/src/app-routing.module.template
+/apps/demos/src/nav-items.template
 
 /tools/schematics/*/files/**/*
 

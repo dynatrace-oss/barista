@@ -6,25 +6,25 @@
 }
 
 // replace this with nav component as soon as it is ready - if there is one
-.nav {
+.dt-demos-nav {
   display: block;
   height: 2.75rem;
   background-color: #242424;
   position: relative;
 }
 
-.theme-selector {
+.dt-demos-theme-selector {
   display: block;
   float: right;
   margin: 6px 10px;
 }
 
-.content-wrapper {
+.dt-demos-content-wrapper {
   display: flex;
   flex-grow: 1;
 }
 
-.main {
+.dt-demos-main {
   flex: 1 1 auto;
   padding: 20px;
 }

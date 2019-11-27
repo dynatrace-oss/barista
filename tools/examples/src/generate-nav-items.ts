@@ -18,8 +18,8 @@ import { ExamplePackageMetadata } from './metadata';
 import { join, basename } from 'path';
 import { transformAndWriteTemplate } from './util';
 
-/** Generates a list of nav items for the barista-examples menu. */
-export async function generateExamplesNavItems(
+/** Generates a list of nav items for the demos app menu. */
+export async function generateDemosAppNavItems(
   packageMetadata: ExamplePackageMetadata[],
   root: string,
 ): Promise<string> {

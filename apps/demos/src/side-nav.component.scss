@@ -1,14 +1,15 @@
-// redeclare variables since the barista build cannot deal with a relative reference to the lib folder here
+// redeclare variables since the barista build cannot deal
+// with a relative reference to the lib folder here
 $gray-200: #e6e6e6;
 $gray-300: #cccccc;
 $turquoise-600: #00a1b2;
 
-.searchform {
+.dt-demos-side-nav-searchform {
   padding: 8px;
 }
 
 // replace this with the sidenav component as soon as this is ready
-.barista-side-nav {
+.dt-demos-side-nav {
   background-color: #f2f2f2;
   font-family: 'BerninaSansWeb';
   flex-basis: 400px;
@@ -20,34 +21,32 @@ $turquoise-600: #00a1b2;
     padding: 0;
   }
 
-  & > nav > ul > li {
+  .dt-demos-side-nav-expandable-item {
+    border-top: 1px solid $gray-300;
+    border-bottom: 1px solid $gray-300;
+    background-color: $gray-200;
     font-size: 14px;
     line-height: 32px;
   }
 
-  .expandable-item {
-    border-top: 1px solid $gray-300;
-    border-bottom: 1px solid $gray-300;
-    background-color: $gray-200;
-  }
-
-  .expandable-item + .expandable-item {
+  .dt-demos-side-nav-expandable-item + .dt-demos-side-nav-expandable-item {
     border-top: none;
   }
 
-  .expandable-item-open {
+  .dt-demos-side-nav-expandable-item-open {
     border-bottom: 2px solid $turquoise-600;
   }
 
-  .expandable-item + .expandable-item-open {
+  .dt-demos-side-nav-expandable-item + .dt-demos-side-nav-expandable-item-open {
     border-top: 2px solid $turquoise-600;
   }
 
-  .expandable-item-open + .expandable-item-open {
+  .dt-demos-side-nav-expandable-item-open
+    + .dt-demos-side-nav-expandable-item-open {
     border-top: none;
   }
 
-  .item-entry {
+  .dt-demos-side-nav-item-entry {
     border: none;
     background-color: transparent;
     padding: 8px 16px;
@@ -74,7 +73,11 @@ $turquoise-600: #00a1b2;
     height: 20px;
   }
 
-  .expandable-item ul li {
+  .dt-demos-side-nav-expandable-item ul li {
     padding-left: 28px;
+  }
+
+  .dt-demos-side-nav-dt-link {
+    color: $turquoise-600;
   }
 }

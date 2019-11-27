@@ -32,16 +32,16 @@ interface ComponentItem {
 }
 
 @Component({
-  selector: 'barista-side-nav',
+  selector: 'dt-demos-side-nav',
   templateUrl: 'side-nav.component.html',
   styleUrls: ['side-nav.component.scss'],
   host: {
-    class: 'barista-side-nav',
+    class: 'dt-demos-side-nav',
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BaristaSideNav implements AfterContentInit, OnDestroy {
+export class DtDemosSideNav implements AfterContentInit, OnDestroy {
   @Input()
   get componentItems(): ComponentItem[] {
     return this._componentItems;
@@ -98,6 +98,7 @@ export class BaristaSideNav implements AfterContentInit, OnDestroy {
     this._urlSubscription.unsubscribe();
   }
 
+  /** @internal Whether the provided component is the selected one. */
   _isSelectedComponent(componentName: string): boolean {
     return this._selectedComponentName === componentName;
   }

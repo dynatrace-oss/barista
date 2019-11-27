@@ -53,7 +53,8 @@ async function resolveTemplate(
           source: property.initializer.getText(),
           fileLocation: null,
         };
-      } else if (property.name.getText() === 'templateUrl') {
+      }
+      if (property.name.getText() === 'templateUrl') {
         const parts = property.initializer
           .getText()
           .match(/^(?:'|"|`)(.*)(?:'|"|`)$/);
@@ -100,7 +101,7 @@ export async function getExampleMetadataObjects(
     }
   }
 
-  return Promise.resolve(metadata);
+  return metadata;
 }
 
 export async function getExamplePackageMetadata(

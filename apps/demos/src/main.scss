@@ -1,4 +1,5 @@
-// from "* { Box-sizing: Border-box } FTW" @ https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+// from "* { Box-sizing: Border-box }
+// FTW" @ https://www.paulirish.com/2012/box-sizing-border-box-ftw/
 *,
 *::before,
 *::after {
@@ -21,16 +22,16 @@ body {
   padding: 0;
 }
 
-.demo-card {
+.dt-demo-card {
   background-color: #f2f2f2;
   border: 1px solid #f2f2f2;
 }
 
-.demo-card.dark {
+.dt-demo-card.dt-demo-dark {
   padding: 0;
 }
 
-.dark {
+.dt-example-dark {
   background-color: #242424;
   padding: 16px;
 }

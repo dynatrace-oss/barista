@@ -14,23 +14,8 @@
  * limitations under the License.
  */
 
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { EXAMPLE_NAV_ITEMS } from './nav-items';
+// tslint:disable: max-file-line-count
 
-@Component({
-  selector: 'barista-examples',
-  styleUrls: ['app.scss'],
-  templateUrl: 'app.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class App {
-  componentItems = EXAMPLE_NAV_ITEMS;
-
-  selectedTheme = 'turquoise';
-  themes = [
-    { value: 'turquoise', name: 'Turquoise' },
-    { value: 'blue', name: 'Blue' },
-    { value: 'purple', name: 'Purple' },
-    { value: 'royalblue', name: 'Royalblue' },
-  ];
-}
+export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
+${navItems}
+];

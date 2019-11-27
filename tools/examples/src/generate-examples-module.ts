@@ -23,7 +23,7 @@ import {
 } from './util';
 
 /** Generates the examples-module where all example components are declared. */
-export async function generateExamplesModule(
+export async function generateDemosAppExamplesModule(
   examplesMetadata: ExamplePackageMetadata[],
   root: string,
 ): Promise<string> {

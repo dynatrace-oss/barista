@@ -158,20 +158,20 @@
         }
       }
     },
-    "barista-examples": {
-      "root": "apps/barista-examples",
-      "sourceRoot": "apps/barista-examples/src",
+    "demos": {
+      "root": "apps/demos",
+      "sourceRoot": "apps/demos/src",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/barista-examples",
-            "tsConfig": "apps/barista-examples/tsconfig.app.json",
-            "index": "apps/barista-examples/src/index.html",
-            "main": "apps/barista-examples/src/main.ts",
+            "outputPath": "dist/apps/demos",
+            "tsConfig": "apps/demos/tsconfig.app.json",
+            "index": "apps/demos/src/index.html",
+            "main": "apps/demos/src/main.ts",
             "aot": false,
-            "polyfills": "apps/barista-examples/src/polyfills.ts",
+            "polyfills": "apps/demos/src/polyfills.ts",
             "assets": [
               {
                 "glob": "**",
@@ -180,7 +180,7 @@
               },
               {
                 "glob": "**",
-                "input": "apps/barista-examples/src/assets",
+                "input": "apps/demos/src/assets",
                 "output": "/assets"
               },
               {
@@ -200,7 +200,7 @@
               }
             ],
             "styles": [
-              "apps/barista-examples/src/main.scss",
+              "apps/demos/src/main.scss",
               "components/style/index.scss"
             ]
           },
@@ -220,7 +220,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "barista-examples:build",
+            "browserTarget": "demos:build",
             "host": "0.0.0.0"
           },
           "configurations": {}
@@ -228,8 +228,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/barista-examples/tsconfig.app.json"],
-            "exclude": ["**/node_modules/**", "!apps/barista-examples/**"]
+            "tsConfig": ["apps/demos/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**", "!apps/demos/**"]
           }
         },
         "lint-styles": {
@@ -238,14 +238,14 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["apps/barista-examples/src/**/*.scss"]
+            "files": ["apps/demos/src/**/*.scss"]
           }
         },
         "a11y": {
           "builder": "@politie/angular-testcafe-builder:testcafe",
           "options": {
-            "devServerTarget": "barista-examples:serve",
-            "src": "apps/barista-examples/src/**/*.a11y.ts",
+            "devServerTarget": "demos:serve",
+            "src": "apps/demos/src/**/*.a11y.ts",
             "stopOnFirstFail": true,
             "browsers": ["chrome"]
           },
@@ -259,17 +259,17 @@
         }
       }
     },
-    "barista-examples-tools": {
-      "root": "tools/barista-examples",
-      "sourceRoot": "tools/barista-examples/src",
+    "examples-tools": {
+      "root": "tools/examples",
+      "sourceRoot": "tools/examples/src",
       "projectType": "library",
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/tools/barista-examples",
-            "main": "tools/barista-examples/src/main.ts",
-            "tsConfig": "tools/barista-examples/tsconfig.json"
+            "outputPath": "dist/tools/examples",
+            "main": "tools/examples/src/main.ts",
+            "tsConfig": "tools/examples/tsconfig.json"
           },
           "configurations": {
             "production": {
@@ -282,8 +282,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tools/barista-examples/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/barista-examples/**"]
+            "tsConfig": ["tools/examples/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/examples/**"]
           }
         }
       }
@@ -308,11 +308,6 @@
             "exclude": ["**/node_modules/**"],
             "files": ["libs/examples/**/*.scss"]
           }
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "styleext": "scss"
         }
       }
     },

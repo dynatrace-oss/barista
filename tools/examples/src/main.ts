@@ -23,15 +23,9 @@ import {
   ExampleMetadata,
 } from './metadata';
 import { generateExamplesLibBarrelFile } from './generate-examples-lib-barrel';
-import { generateExamplesModule } from './generate-examples-module';
-import { generateExamplesRoutingModule } from './generate-routing-module';
-import { generateExamplesNavItems } from './generate-nav-items';
-// import { generateExamplesModule } from './generate-examples-module';
-
-// import { getExampleMetadataObjects, BaristaExampleMetadata } from './metadata';
-// import { generateExamplesModule } from './generate-examples-module';
-// import { generateExamplesRoutingModule } from './generate-routing-module';
-// import { generateExamplesNavItems } from './generate-nav-items';
+import { generateDemosAppExamplesModule } from './generate-examples-module';
+import { generateDemosAppRoutingModule } from './generate-routing-module';
+import { generateDemosAppNavItems } from './generate-nav-items';
 
 export const EXAMPLES_ROOT = join(
   __dirname,
@@ -40,15 +34,15 @@ export const EXAMPLES_ROOT = join(
   'examples',
   'src',
 );
-export const DEMO_APP_ROOT = join(
+export const DEMOS_APP_ROOT = join(
   __dirname,
   '../../../',
   'apps',
-  'barista-examples',
+  'demos',
   'src',
 );
 
-/** Collect all files containing examples in the barista-examples app. */
+/** Collect all files containing examples in the demos app. */
 async function getExamplesInPackages(): Promise<ExamplePackageMetadata[]> {
   return (await Promise.all(
     readdirSync(EXAMPLES_ROOT)
@@ -83,31 +77,31 @@ async function main(): Promise<void> {
   );
   console.log(green(`  ✓   Created "${rootBarrelFile}"`));
 
-  console.log(`Generating examples module for demo app`);
-  const demoModuleFile = await generateExamplesModule(
+  console.log(`Generating examples module for demos app`);
+  const demosModuleFile = await generateDemosAppExamplesModule(
     packageMetas,
-    DEMO_APP_ROOT,
+    DEMOS_APP_ROOT,
   );
-  console.log(green(`  ✓   Created "${demoModuleFile}"`));
+  console.log(green(`  ✓   Created "${demosModuleFile}"`));
 
-  console.log(`Generating demo app routes & routing module`);
-  const routingModule = await generateExamplesRoutingModule(
+  console.log(`Generating demos app routes & routing module`);
+  const routingModule = await generateDemosAppRoutingModule(
     examples,
-    DEMO_APP_ROOT,
+    DEMOS_APP_ROOT,
   );
   console.log(green(`  ✓   Created "${routingModule}"`));
 
-  console.log(`Generating nav-items for the demo app menu`);
-  const navItemsFile = await generateExamplesNavItems(
+  console.log(`Generating nav-items for the demos app menu`);
+  const navItemsFile = await generateDemosAppNavItems(
     packageMetas,
-    DEMO_APP_ROOT,
+    DEMOS_APP_ROOT,
   );
   console.log(green(`  ✓   Created "${navItemsFile}"`));
 
   console.log(
     bold(
       green(
-        `✓ All content for the barista-examples has been successfully generated`,
+        `✓ All content for the demos & barista app has been successfully generated`,
       ),
     ),
   );
@@ -115,7 +109,10 @@ async function main(): Promise<void> {
 }
 
 main()
-  .then(() => {})
+  .then(() => {
+    process.exit(0);
+  })
   .catch(err => {
     console.error(err);
+    process.exit(1);
   });

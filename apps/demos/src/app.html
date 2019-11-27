@@ -1,6 +1,6 @@
-<nav class="nav">
+<nav class="dt-demos-nav">
   <dt-select
-    class="theme-selector"
+    class="dt-demos-theme-selector"
     placeholder="Select a theme"
     [(ngModel)]="selectedTheme"
     aria-label="Select a theme"
@@ -11,10 +11,10 @@
   </dt-select>
 </nav>
 
-<div class="content-wrapper" [dtTheme]="selectedTheme">
-  <barista-side-nav [componentItems]="componentItems"></barista-side-nav>
+<div class="dt-demos-content-wrapper" [dtTheme]="selectedTheme">
+  <dt-demos-side-nav [componentItems]="componentItems"></dt-demos-side-nav>
 
-  <main class="main">
+  <main class="dt-demos-main">
     <router-outlet></router-outlet>
   </main>
 </div>

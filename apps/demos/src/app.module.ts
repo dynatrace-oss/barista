@@ -27,10 +27,10 @@ import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
 import { DtExpandablePanelModule } from '@dynatrace/barista-components/expandable-panel';
 
-import { ExamplesModule } from './examples.module';
-import { AppRoutingModule } from './app-routing.module';
-import { App } from './app';
-import { BaristaSideNav } from './side-nav.component';
+import { DtDemosExamplesModule } from './examples.module';
+import { DtDemosAppRoutingModule } from './app-routing.module';
+import { DtDemosApp } from './app';
+import { DtDemosSideNav } from './side-nav.component';
 import { environment } from './environments/environment';
 
 @NgModule({
@@ -41,21 +41,21 @@ import { environment } from './environments/environment';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    DtIconModule.forRoot({ svgIconLocation: `${environment.deployUrl.replace(/\/+$/, '')}/assets/icons/{{name}}.svg` }),
+    DtIconModule.forRoot({
+      svgIconLocation: `${environment.deployUrl.replace(
+        /\/+$/,
+        '',
+      )}/assets/icons/{{name}}.svg`,
+    }),
     DtSelectModule,
     DtThemingModule,
     DtAutocompleteModule,
     DtExpandablePanelModule,
-    AppRoutingModule,
-    ExamplesModule,
+    DtDemosAppRoutingModule,
+    DtDemosExamplesModule,
   ],
-  declarations: [
-    App,
-    BaristaSideNav,
-  ],
-  entryComponents: [
-    App,
-  ],
-  bootstrap: [App],
+  declarations: [DtDemosApp, DtDemosSideNav],
+  entryComponents: [DtDemosApp],
+  bootstrap: [DtDemosApp],
 })
-export class AppModule { }
+export class DtDemosAppModule {}

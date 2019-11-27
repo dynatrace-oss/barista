@@ -1,6 +1,6 @@
 <!-- TODO replace with sidebar component when available -->
 <nav>
-  <form class="searchform" novalidate>
+  <form class="dt-demos-side-nav-searchform" novalidate>
     <input
       dtInput
       [dtAutocomplete]="auto"
@@ -23,10 +23,13 @@
   <ul>
     <li
       *ngFor="let component of filteredComponentItems"
-      class="expandable-item"
-      [class.expandable-item-open]="expandablePanel.expanded"
+      class="dt-demos-side-nav-expandable-item"
+      [class.dt-demos-side-nav-expandable-item-open]="expandablePanel.expanded"
     >
-      <button class="item-entry" [dtExpandablePanel]="expandablePanel">
+      <button
+        class="dt-demos-side-nav-item-entry"
+        [dtExpandablePanel]="expandablePanel"
+      >
         <span>{{ component.name }}</span>
         <dt-icon name="dropdownopen"></dt-icon>
       </button>
@@ -39,7 +42,11 @@
       >
         <ul>
           <li *ngFor="let example of component.examples">
-            <a class="dt-link" [routerLink]="[example.route]" routerLinkActive>
+            <a
+              class="dt-demos-side-nav-dt-link"
+              [routerLink]="[example.route]"
+              routerLinkActive
+            >
               {{ example.name }}
             </a>
           </li>

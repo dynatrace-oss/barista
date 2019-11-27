@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "types": ["node"]
-  },
-  "include": ["**/*.ts"]
+    "types": ["node"],
+    "downlevelIteration": true
+  }
 }
