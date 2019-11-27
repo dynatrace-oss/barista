@@ -72,22 +72,42 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
   return metadataWithDefaults;
 }
 
-/** Page-builder for angular component pages. */
+function getPaths(path: string): string[] {
+  let fileList: string[] = [];
+
+  // Only grab those dirs that include a README.md and a barista.json
+  if (
+    existsSync(join(path, 'README.md')) &&
+    existsSync(join(path, 'barista.json'))
+  ) {
+    fileList.push(path);
+  }
+
+  let files = readdirSync(path);
+
+  for (const file of files) {
+    const filePath = join(path, file);
+    if (lstatSync(filePath).isDirectory()) {
+      fileList.push(...getPaths(filePath));
+    }
+  }
+
+  return fileList;
+}
+
+/** Page-builder for angular component & documentation pages. */
 export const componentsBuilder: BaPageBuilder = async (
   componentsPaths?: string[],
 ) => {
-  const paths =
-    componentsPaths ||
-    readdirSync(LIB_ROOT)
-      .map(name => join(LIB_ROOT, name))
-      .filter(dir => lstatSync(dir).isDirectory());
+  let readmeDirs: string[] = [];
 
-  // Only grab those dirs that include a README.md and a barista.json
-  const readmeDirs = paths.filter(
-    dir =>
-      existsSync(join(dir, 'README.md')) &&
-      existsSync(join(dir, 'barista.json')),
-  );
+  if (componentsPaths) {
+    for (const path of componentsPaths) {
+      readmeDirs.push(...getPaths(path));
+    }
+  } else {
+    readmeDirs = getPaths(LIB_ROOT);
+  }
 
   const documentationMdFiles = [
     ...getMarkdownFilesByPath(DOCUMENTATION_ROOT),
