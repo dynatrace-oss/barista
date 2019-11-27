@@ -1,0 +1,111 @@
+.ba-color {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 10rem;
+  width: 10rem;
+  margin-bottom: 1.5rem;
+
+  /* Color width if used without a colorgroup */
+  @media (min-width: $screen-lg) {
+    width: 24%; /* 4 colors per row */
+  }
+
+  @media (min-width: $screen-xl) {
+    width: 19%; /* 5 colors per row */
+  }
+
+  @media (min-width: $screen-xxl) {
+    width: 16%; /* 6 colors per row */
+  }
+
+  @media (min-width: $screen-xxxl) {
+    width: 14%; /* 7 colors per row */
+  }
+}
+
+.ba-color__block {
+  height: 7rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ba-color__copy {
+  position: relative;
+  appearance: none;
+  display: block;
+  width: 100%;
+  flex: 1;
+  background-color: $turquoise-600;
+  border: 0;
+  font-weight: 600;
+  opacity: 0;
+  color: #fff;
+  outline: none;
+  box-shadow: 0;
+  overflow: hidden;
+}
+
+.ba-color .ba-color__name {
+  margin-bottom: 0;
+}
+
+.ba-color .ba-color__metadata {
+  color: $gray-400;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/**
+* Colorgroup wrapper styles
+*/
+
+.ba-colorgroup {
+  width: 100%;
+
+  &.ba-colorgroup--textwidth {
+    @include textContentWidth();
+  }
+
+  .ba-color {
+    width: 100%;
+    min-width: unset;
+  }
+
+  @media (min-width: $screen-xs) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 0.5rem;
+
+    &.ba-colorgroup--textwidth {
+      display: grid;
+    }
+  }
+
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: $screen-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: $screen-xl) {
+    grid-template-columns: repeat(5, 1fr);
+
+    /* When limited to textwidth, there should not be more than 4 columns. */
+    &.ba-colorgroup--textwidth {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (min-width: $screen-xxl) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media (min-width: $screen-xxxl) {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
