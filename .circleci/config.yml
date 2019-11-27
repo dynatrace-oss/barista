@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  sonarcloud: sonarsource/sonarcloud@1.0.1
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   E X E C U T O R S:
@@ -68,6 +71,14 @@ jobs:
           paths:
             - .
 
+# - sonar checks
+  sonar:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - sonarcloud/scan
+
 # - check formatting if all files are formatted with prettier
   check-formatting:
     <<: *defaults
@@ -120,15 +131,17 @@ jobs:
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-
 workflows:
   version: 2.1
-
 # - Runs on every PR check
   pr_check:
     jobs:
       - install
       - check-formatting:
+          requires:
+            - install
+      - sonar:
+          context: SonarCloud
           requires:
             - install
       - lint:
