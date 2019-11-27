@@ -18,6 +18,7 @@ import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 import { DtSwitchChange } from '@dynatrace/barista-components/switch';
 import { DtColors } from '@dynatrace/barista-components/theming';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 interface BaColorWheelBlob {
   colorName: string;
@@ -40,6 +41,16 @@ let uniqueColorwheelId = 0;
 export class BaIconColorWheel {
   @Input() iconname: string;
 
+  @Input()
+  get iconsvg(): string {
+    return this._iconsvg.toString();
+  }
+  set iconsvg(value: string) {
+    this._iconsvg = this._sanitizer.bypassSecurityTrustHtml(value);
+  }
+  /** @internal Icon SVG string as safe HTML */
+  _iconsvg: SafeHtml;
+
   /** @internal */
   @ViewChild('colorwheel', { static: true }) _colorwheel: ElementRef;
 
@@ -55,7 +66,7 @@ export class BaIconColorWheel {
   /** whether the icon should be downloaded as png */
   private _convertToPng = false;
 
-  constructor() {
+  constructor(private _sanitizer: DomSanitizer) {
     const groupedBlobs = Object.keys(DtColors)
       .map((key): BaColorWheelBlob | undefined => {
         /* tslint:disable no-magic-numbers */

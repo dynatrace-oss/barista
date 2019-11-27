@@ -1,0 +1,25 @@
+<div class="ba-page-grid">
+  <nav
+    ba-sidenav
+    *ngIf="contents.sidenav"
+    [sidenavData]="contents.sidenav"
+  ></nav>
+
+  <ba-page-header *ngIf="contents" [title]="contents.title"></ba-page-header>
+
+  <main class="ba-page-main" id="main" role="main">
+    <article class="ba-icon-page-content">
+      <ul *ngIf="contents.changelog.length > 0" class="ba-list">
+        <li *ngFor="let entry of contents.changelog">{{ entry }}</li>
+      </ul>
+
+      <ba-icon-color-wheel
+        [iconname]="contents.iconname"
+        [iconsvg]="contents.iconSvg"
+      >
+      </ba-icon-color-wheel>
+    </article>
+  </main>
+
+  <ba-page-footer *ngIf="contents" [tags]="contents.tags"> </ba-page-footer>
+</div>

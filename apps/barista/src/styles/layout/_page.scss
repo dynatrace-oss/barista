@@ -10,7 +10,8 @@
   grid-row-gap: 1.5rem;
 }
 
-.ba-single-page-content::before {
+.ba-single-page-content::before,
+.ba-icon-page-content::before {
   content: ' ';
   display: block;
   width: 100%;

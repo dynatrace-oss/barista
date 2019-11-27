@@ -42,6 +42,7 @@ import { BaScrollSpyService } from './shared/scroll-spy.service';
 import { BaSearch } from './layout/search/search';
 import { BaSidenav } from './layout/sidenav/sidenav';
 import { BaSinglePage } from './pages/single-page/single-page';
+import { BaIconPage } from './pages/icon-page/icon-page';
 import { BaSmallTile } from './layout/smalltile/smalltile';
 import { BaTile } from './layout/tile/tile';
 import { BaToc } from './layout/toc/toc';
@@ -85,6 +86,7 @@ import { environment } from './environments/environment';
     BaContributors,
     BaPageOutlet,
     BaSinglePage,
+    BaIconPage,
     BaIconColorWheel,
     BaOverviewPage,
     BaTile,
@@ -105,6 +107,7 @@ import { environment } from './environments/environment';
   ],
   entryComponents: [
     BaSinglePage,
+    BaIconPage,
     BaPageHeader,
     BaContributors,
     BaPageFooter,
