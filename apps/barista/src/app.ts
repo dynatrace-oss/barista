@@ -45,6 +45,10 @@ export class BaApp {
       let previousPath = '';
       return path.split('/').map((part: string) => {
         previousPath = `${previousPath}/${part}`;
+        part = part
+          .split('-')
+          .join(' ')
+          .replace(part.charAt(0), part.charAt(0).toUpperCase());
         return { title: part, href: previousPath };
       });
     }),
