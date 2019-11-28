@@ -38,6 +38,7 @@ report.*.json
 .git-credentials
 .npmrc
 .yarnrc
+.env
 
 # e2e
 /e2e/*.js

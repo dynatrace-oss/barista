@@ -20,7 +20,7 @@ import { ObjectLiteralExpression, isPropertyAssignment } from 'typescript';
 import {
   AngularClassDecoratorName,
   getAngularDecoratedClasses,
-} from '../../util/ast';
+} from '@dynatrace/barista-components/tools/shared';
 
 export interface ExamplePackageMetadata {
   name: string;

@@ -26,6 +26,10 @@ import { TypescriptBuilderOptions } from './schema';
 import { JsonObject } from '@angular-devkit/core';
 
 /**
+ * This function is duplicated and located under @dynatrace/barista-components/tools/shared
+ * TODO: lukas.holzer
+ * Should be removed after: https://github.com/dynatrace-oss/barista/issues/414
+ *
  * Spawns a shell then executes the command within that shell
  */
 export async function executeCommand(

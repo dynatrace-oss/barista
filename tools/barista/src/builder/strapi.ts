@@ -26,7 +26,7 @@ import {
   BaPageBuildResult,
 } from '@dynatrace/barista-components/barista-definitions';
 import { environment } from 'tools/environments/barista-environment';
-import { isPublicBuild } from 'tools/util/is-public-build';
+import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
 
 import { fetchContentList } from '../utils/fetch-strapi-content';
 import { slugify } from '../utils/slugify';

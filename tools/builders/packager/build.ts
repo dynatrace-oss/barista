@@ -19,16 +19,12 @@ import {
   BuilderOutput,
   Target,
 } from '@angular-devkit/architect';
+import { Schema as AngularJson } from '@angular/cli/lib/config/schema';
+import { writeFileSync } from 'fs';
+import { join, dirname, resolve } from 'path';
 import { NgPackagrBuilderOptions } from '@angular-devkit/build-ng-packagr';
 import { green } from 'chalk';
-import { writeFileSync } from 'fs';
-import { dirname, join, resolve } from 'path';
-import {
-  AngularJson,
-  NgPackagerJson,
-  PackageJson,
-  tryJsonParse,
-} from '../util/json-utils';
+import { NgPackagerJson, PackageJson, tryJsonParse } from '../util/json-utils';
 import { copyAssets, copyStyles } from './copy-assets';
 import { PackagerOptions } from './schema';
 import { syncNgVersion, syncBaristaComponentsVersion } from './sync-version';

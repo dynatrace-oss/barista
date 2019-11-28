@@ -23,7 +23,7 @@ import {
   BaPageTransformer,
 } from '@dynatrace/barista-components/barista-definitions';
 import { environment } from 'tools/environments/barista-environment';
-import { isPublicBuild } from 'tools/util/is-public-build';
+import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
 
 import { componentsBuilder } from './builder/components';
 import { strapiBuilder } from './builder/strapi';

@@ -693,6 +693,111 @@
         }
       }
     },
+    "builders": {
+      "root": "tools/builders",
+      "sourceRoot": "tools/builders",
+      "projectType": "library",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "tools/builders/jest.config.js",
+            "tsConfig": "tools/builders/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tools/builders/tsconfig.json",
+              "tools/builders/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!tools/builders/**"]
+          }
+        }
+      }
+    },
+    "tools-release": {
+      "root": "tools/release",
+      "sourceRoot": "tools/release/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": true,
+            "commands": [
+              {
+                "command": "npx ng run tools-release:build-publish-release"
+              },
+              {
+                "command": "npx ng run tools-release:build-publish-release"
+              }
+            ]
+          }
+        },
+        "build-publish-release": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "main": "tools/release/src/publish-release-cli.ts",
+            "tsConfig": "tools/release/tsconfig.json",
+            "outputPath": "dist/tools/publish-release"
+          }
+        },
+        "build-stage-release": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "main": "tools/release/src/stage-release-cli.ts",
+            "tsConfig": "tools/release/tsconfig.json",
+            "outputPath": "dist/tools/stage-release",
+            "assets": [
+              {
+                "glob": "*",
+                "input": "tools/release/src/assets",
+                "output": "assets"
+              }
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["tools/release/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/release/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "tools/release/jest.config.js",
+            "tsConfig": "tools/release/tsconfig.spec.json",
+            "setupFile": "tools/release/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "tools-shared": {
+      "root": "tools/shared",
+      "sourceRoot": "tools/shared/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["tools/shared/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/shared/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "tools/shared/jest.config.js",
+            "tsConfig": "tools/shared/tsconfig.spec.json",
+            "setupFile": "tools/shared/src/test-setup.ts"
+          }
+        }
+      }
+    },
     "testing": {
       "projectType": "library",
       "root": "libs/testing",
