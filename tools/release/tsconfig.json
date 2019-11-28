@@ -1,6 +1,12 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["es2015"],
-    "types": ["node"]
-  }
+    "types": ["node"],
+    "outDir": "../../dist/tools/release",
+    "rootDir": "src",
+    "target": "esnext",
+    "module": "commonjs"
+  },
+  "exclude": ["**/*.spec.ts"],
+  "include": ["**/*.ts"]
 }

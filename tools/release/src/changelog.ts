@@ -1,3 +1,19 @@
+/**
+ * @license
+ * Copyright 2019 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import {
   ReadStream,
   createReadStream,
@@ -5,11 +21,7 @@ import {
   readFileSync,
 } from 'fs';
 import { Readable } from 'stream';
-
-import { grey } from 'chalk';
-import { prompt } from 'inquirer';
-
-import preset from './conventional-changelog-preset';
+import { join } from 'path';
 
 // These imports lack type definitions.
 // tslint:disable:no-var-requires no-require-imports
@@ -31,12 +43,24 @@ export async function prependChangelogFromLatestTag(
   releaseName: string,
 ): Promise<any> {
   const outputStream: Readable = conventionalChangelog(
-    { config: preset }, // dynatrace preset
-    { title: releaseName }, // context options
-    null, // raw-commits options
-    null, // commit parser options
-    createDedupeWriterOptions(changelogPath),
-  ); // writer options
+    { preset: 'angular' },
+    { title: releaseName },
+    /* raw-commits options */ null,
+    /* commit parser options */ {},
+    /* writer options */ {
+      headerPartial: readFileSync(
+        join(
+          __dirname,
+          '../../../',
+          'tools',
+          'release',
+          'src',
+          'changelog-header-template.hbs',
+        ),
+        'utf8',
+      ),
+    },
+  );
 
   // Stream for reading the existing changelog. This is necessary because we want to
   // actually prepend the new changelog to the existing one.
@@ -64,33 +88,4 @@ export async function prependChangelogFromLatestTag(
         });
     });
   });
-}
-
-/**
- * Creates changelog writer options which ensure that commits are not showing up multiple times.
- * Commits can show up multiple times if a changelog has been generated on a publish branch
- * and has been cherry-picked into "master". In that case, the changelog will already contain
- * commits from master which might be added to the changelog again.
- */
-function createDedupeWriterOptions(changelogPath: string) {
-  const existingChangelogContent = readFileSync(changelogPath, 'utf8');
-
-  return {
-    // Specify a writer option that can be used to modify the content of a new changelog section.
-    // See: conventional-changelog/tree/master/packages/conventional-changelog-writer
-    finalizeContext: (context: any) => {
-      context.commitGroups.forEach((group: any) => {
-        group.commits = group.commits.filter((commit: any) => {
-          // NOTE: We cannot compare the SHA's because the commits will have a different SHA
-          // if they are being cherry-picked into a different branch.
-          if (existingChangelogContent.includes(commit.header)) {
-            console.log(grey(`Excluding: "${commit.header}" (${commit.hash})`));
-            return false;
-          }
-          return true;
-        });
-      });
-      return context;
-    },
-  };
 }

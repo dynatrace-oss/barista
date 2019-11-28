@@ -1,16 +1,39 @@
+/**
+ * @license
+ * Copyright 2019 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 import { italic, red } from 'chalk';
 
-import { GitClient } from './git-client';
+import { GitClient } from './git/git-client';
 import { parseVersionName } from './parse-version';
 import { verifyPublishBranch } from './publish-branch';
 
 /** Creates a new version tag based on the version in the package.json. */
-function createTag(projectDir: string, repositoryName: string) {
+function createTag(
+  projectDir: string,
+  repositoryOwner: string,
+  repositoryName: string,
+): void {
   const packageJsonPath = join(projectDir, 'package.json');
-  const git = new GitClient(projectDir, `<bitbucket>${repositoryName}.git`);
+  const git = new GitClient(
+    projectDir,
+    `https://github.com/${repositoryOwner}/${repositoryName}.git`,
+  );
 
   if (!existsSync(packageJsonPath)) {
     console.error(
@@ -28,7 +51,7 @@ function createTag(projectDir: string, repositoryName: string) {
   const packageJsonVersion = packageJson.version;
   const version = parseVersionName(packageJsonVersion);
 
-  if (!verifyPublishBranch(version, git)) {
+  if (!version || !verifyPublishBranch(version, git)) {
     process.exit(1);
   }
 
@@ -49,5 +72,5 @@ function createTag(projectDir: string, repositoryName: string) {
 
 /** Entry-point for the create tag script. */
 if (require.main === module) {
-  createTag(join(__dirname, '../../'), 'angular-components');
+  createTag(join(__dirname, '../../'), 'dynatrace-oss', 'barista');
 }

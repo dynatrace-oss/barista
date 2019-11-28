@@ -254,7 +254,6 @@ jobs:
           paths:
             - ./.config/last-{{ .Environment.CIRCLE_BRANCH }}-sha.txt
 
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   W O R K F L O W S:
@@ -267,7 +266,7 @@ jobs:
 workflows:
   version: 2.1
 # - Runs on every PR check
-  pr_check:
+  pr-check:
     jobs:
       - install
       - check-formatting:
