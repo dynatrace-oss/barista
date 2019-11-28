@@ -39,7 +39,7 @@ const DT_CHART_EASEINOUT = (pos: number): number => {
 export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
   chart: {
     style: {
-      fontFamily: 'BerninaSansWeb',
+      fontFamily: "'BerninaSansWeb', 'OpenSans', sans-serif",
     },
     height: 230,
     plotBorderColor: DtColors.GRAY_300,
