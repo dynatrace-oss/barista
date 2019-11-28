@@ -29,7 +29,7 @@ To use certain mixin simply include it in your rule-set:
 
 `$monospace-font-family: 'VeraMonoWeb'`
 
-`$default-font-family: 'BerninaSansWeb'`
+`$default-font-family: 'BerninaSansWeb', 'OpenSans', sans-serif;`
 
 `$default-font-color: #454646`
 
