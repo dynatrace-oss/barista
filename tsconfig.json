@@ -20,6 +20,9 @@
     "target": "es5",
     "typeRoots": ["node_modules/@types"],
     "paths": {
+      "@dynatrace/barista-components/tools/shared": [
+        "tools/shared/src/index.ts"
+      ],
       "@dynatrace/barista-components/barista-definitions": [
         "libs/shared/barista-definitions/src/index.ts"
       ],

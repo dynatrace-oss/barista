@@ -15,7 +15,7 @@
  */
 
 import { join } from 'path';
-import { isPublicBuild } from 'tools/util/is-public-build';
+import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
 
 export interface BaEnvironment {
   rootDir: string;

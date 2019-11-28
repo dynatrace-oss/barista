@@ -67,7 +67,7 @@ async function run(
   }
 
   return {
-    success: (lintingOutcome && !lintingOutcome.errored) || false,
+    success: (lintingOutcome! && !lintingOutcome!.errored) || false,
   };
 }
 

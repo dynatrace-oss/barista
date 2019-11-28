@@ -15,3 +15,4 @@
  */
 
 export * from './mock-intersection-observer';
+export * from './mock-object-property';

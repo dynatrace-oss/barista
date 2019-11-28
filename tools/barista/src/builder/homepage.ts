@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isPublicBuild } from 'tools/util/is-public-build';
+import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
 import { environment } from 'tools/environments/barista-environment';
 import {
   fetchContentList,

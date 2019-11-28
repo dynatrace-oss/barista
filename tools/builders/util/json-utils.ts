@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
+/**
+ * This file is only a temp fix this logic is duplicated
+ * TODO: lukas.holzer
+ * Should be removed after: https://github.com/dynatrace-oss/barista/issues/414
+ */
+
 import { promises as fs } from 'fs';
 
 export interface AngularJson {
