@@ -23,7 +23,7 @@ import { BaIndexPageItem } from '../../shared/page-contents';
   templateUrl: 'smalltile.html',
   styleUrls: ['smalltile.scss'],
   host: {
-    '[class]': '"ba-theme-" + _getTheme()',
+    '[class]': '"ba-theme-" + _theme',
     '[class.ba-smalltile-link-wrapper]': 'data',
   },
 })
@@ -31,7 +31,7 @@ export class BaSmallTile {
   @Input() data: BaIndexPageItem;
 
   /** @internal Gets the tile's theme based on its category. */
-  _getTheme(): string {
+  get _theme(): string {
     if (this.data) {
       switch (this.data.category) {
         case 'Brand':
@@ -48,7 +48,7 @@ export class BaSmallTile {
   }
 
   /** @internal Gets the tile's identifier based on the title. */
-  _identifier(): string {
+  get _identifier(): string {
     if (this.data.title) {
       return this.data.title.slice(0, 2);
     }
