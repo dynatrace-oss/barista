@@ -37,7 +37,7 @@
         >
       </div>
     </div>
-    <div class="ba-index-page-section">
+    <div class="ba-index-page-section" *ngIf="contents.gettingstarted">
       <h2>Getting started</h2>
       <a
         *ngFor="let item of contents.gettingstarted"

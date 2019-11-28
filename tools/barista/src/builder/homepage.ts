@@ -28,6 +28,7 @@ import {
   BaStrapiCTA,
 } from '@dynatrace/barista-components/barista-definitions';
 
+const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
 const PUBLIC_BUILD = process.env.PUBLIC_BUILD === 'true';
 
 const TILES_MOSTORDERED = [
@@ -73,16 +74,21 @@ export type BaHomepageBuilder = (...args: any[]) => BaPageBuildResult;
 
 /** Page-builder for the homepage of Barista. */
 export const homepageBuilder: BaPageBuilder = async () => {
-  const pageTeaserData = await fetchContentList<BaStrapiPageTeaser>(
-    BaStrapiContentType.Pageteasers,
-    { publicContent: PUBLIC_BUILD },
-  );
+  let homepageCTA;
+  let pageTeaserData;
 
-  const homepageCTA = await fetchContentItemById<BaStrapiCTA>(
-    BaStrapiContentType.CTAs,
-    '1',
-    { publicContent: PUBLIC_BUILD },
-  );
+  if (STRAPI_ENDPOINT) {
+    pageTeaserData = await fetchContentList<BaStrapiPageTeaser>(
+      BaStrapiContentType.Pageteasers,
+      { publicContent: PUBLIC_BUILD },
+    );
+
+    homepageCTA = await fetchContentItemById<BaStrapiCTA>(
+      BaStrapiContentType.CTAs,
+      '1',
+      { publicContent: PUBLIC_BUILD },
+    );
+  }
 
   const relativeOutFile = '/index.json';
   const pageContent: BaIndexPageContent = {
