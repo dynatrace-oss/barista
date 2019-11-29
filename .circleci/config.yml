@@ -150,7 +150,6 @@ workflows:
           requires:
             - install
       - sonar:
-          context: SonarCloud
           requires:
             - install
       - security-checks:
