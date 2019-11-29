@@ -1,7 +1,7 @@
 ### <strong>Pull Request</strong>
 
 <hr>
-Hi, thank you for contributing to the Dynatrace Angular Component library (PR).
+Hi, thank you for contributing to Barista with this pull request (PR).
 
 To ensure a fast process and merging of your PR please make sure it fulfills the
 coding standards and contribution guidelines.
@@ -15,16 +15,15 @@ coding standards and contribution guidelines.
   - Tests for the changes have been added (for bug fixes / features).
   - Docs have been added / updated (for bug fixes / features).
 
-Please fill out the checkbox below: <br>
+Please choose the type appropriate for the changes below: <br>
 
 #### Type of PR
 
-- [ ] Bugfix (non-breaking change which fixes an issue)
-- [ ] Feature (non-breaking change which adds functionality)
-- [ ] Breaking change (fix or change that would cause existing functionality to
-      not work as expected)
-- [ ] Documentation update (changes to documentation)
-- [ ] Other (if none of the above apply)
+<!-- Bugfix (non-breaking change which fixes an issue) -->
+<!-- Feature (non-breaking change which adds functionality)
+<!-- Breaking change (fix or change that would cause existing functionality to not work as expected) -->
+<!-- Documentation update (changes to documentation) -->
+<!-- Other (if none of the above apply) -->
 
 #### Checklist
 
