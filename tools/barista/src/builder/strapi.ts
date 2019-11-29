@@ -49,6 +49,7 @@ export const strapiBuilder: BaPageBuilder = async () => {
   const pagesData = await fetchContentList<BaStrapiPage>(
     BaStrapiContentType.Pages,
     { publicContent: PUBLIC_BUILD },
+    STRAPI_ENDPOINT,
   );
 
   return Promise.all(

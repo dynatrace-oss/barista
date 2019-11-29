@@ -19,11 +19,11 @@ import { existsSync, readdirSync, readFileSync } from 'fs';
 import { basename, extname, join } from 'path';
 
 import {
-  BaIconPageContent,
   BaLayoutType,
   BaPageBuilder,
   BaPageBuildResult,
   BaPageTransformer,
+  BaSinglePageContent,
 } from '@dynatrace/barista-components/barista-definitions';
 import { BaIconMetadata, BaIconsChangelog } from '../types';
 
@@ -101,19 +101,21 @@ async function generateIconPackChangelog(
 /**
  * Get the changelog entries for one specific icon.
  */
-function getIconChangelog(
+function getIconChangelogHtml(
   changelogTemplate: BaIconsChangelog,
   iconName: string,
-): string[] {
+): string {
   const iconChangelog: string[] = [];
   Object.keys(changelogTemplate).forEach(key => {
     changelogTemplate[key].forEach(entry => {
       if (entry.name === iconName) {
-        iconChangelog.push(`${CHANGELOG_ACTION_MAP[entry.mode]} ${key}`);
+        iconChangelog.push(
+          `<li>${CHANGELOG_ACTION_MAP[entry.mode]} ${key}</li>`,
+        );
       }
     });
   });
-  return iconChangelog;
+  return iconChangelog.length ? `<ul>${iconChangelog.join('\n')}</ul>` : '';
 }
 
 /**
@@ -148,15 +150,25 @@ export const iconsBuilder: BaPageBuilder = async () => {
       console.log(`Public build. Skip non-public icon ${filePath}.`);
       continue;
     }
+    let svg = getSvgWithoutFill(filePath);
+    // Escape "-chars so it fits into an html attribute
+    svg = svg.replace(/"/g, '"');
+
+    // Make svg single line
+    svg = svg.replace(/\n|\r/g, '');
+
+    const content = `
+${getIconChangelogHtml(changelogTemplate, iconName)}
+
+<ba-icon-color-wheel name='${iconName}' svg='${svg}'></ba-icon-color-wheel>
+`;
 
     const relativeOutFile = join('resources/icons/', `${iconName}.json`);
-    const pageContent: BaIconPageContent = {
+    const pageContent: BaSinglePageContent = {
       title: metadata.title,
       layout: BaLayoutType.Icon,
-      iconname: iconName,
-      iconSvg: getSvgWithoutFill(filePath),
-      changelog: getIconChangelog(changelogTemplate, iconName),
       tags: metadata.tags,
+      content,
     };
 
     transformed.push({ pageContent, relativeOutFile });

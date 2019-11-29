@@ -23,8 +23,6 @@ import {
   BaStrapiPageTeaser,
 } from '@dynatrace/barista-components/barista-definitions';
 
-const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
-
 interface FetchContentOptions {
   publicContent: boolean;
 }
@@ -37,13 +35,14 @@ export async function fetchContentList<
 >(
   contentType: BaStrapiContentType,
   options: FetchContentOptions,
+  endpoint: string,
 ): Promise<T[]> {
   let requestPath = `/${contentType}`;
   // Only fetch content set to public when building the public version of Barista
   if (options.publicContent) {
     requestPath = `${requestPath}?public=true`;
   }
-  return fetchContent(requestPath);
+  return fetchContent(requestPath, endpoint);
 }
 
 /**
@@ -55,13 +54,14 @@ export async function fetchContentItemById<
   contentType: BaStrapiContentType,
   id: string,
   options: FetchContentOptions,
+  endpoint: string,
 ): Promise<T> {
   let requestPath = `/${contentType}/${id}`;
   // Only fetch content set to public when building the public version of Barista
   if (options.publicContent) {
     requestPath = `${requestPath}?public=true`;
   }
-  return fetchContent(requestPath);
+  return fetchContent(requestPath, endpoint);
 }
 
 /**
@@ -71,9 +71,12 @@ export async function fetchContentItemById<
  * Read more about the Strapi Content API here
  * https://strapi.io/documentation/3.0.0-beta.x/content-api/api-endpoints.html
  */
-async function fetchContent(requestPath: string): Promise<any> {
+async function fetchContent(
+  requestPath: string,
+  endpoint: string,
+): Promise<any> {
   const options = {
-    hostname: STRAPI_ENDPOINT,
+    hostname: endpoint,
     port: 5100,
     path: requestPath,
     method: 'GET',

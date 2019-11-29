@@ -30,6 +30,8 @@ import {
 
 const PUBLIC_BUILD = process.env.PUBLIC_BUILD === 'true';
 
+const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
+
 const TILES_MOSTORDERED = [
   {
     title: 'Icons',
@@ -73,15 +75,21 @@ export type BaHomepageBuilder = (...args: any[]) => BaPageBuildResult;
 
 /** Page-builder for the homepage of Barista. */
 export const homepageBuilder: BaPageBuilder = async () => {
+  if (!STRAPI_ENDPOINT) {
+    return [];
+  }
+
   const pageTeaserData = await fetchContentList<BaStrapiPageTeaser>(
     BaStrapiContentType.Pageteasers,
     { publicContent: PUBLIC_BUILD },
+    STRAPI_ENDPOINT,
   );
 
   const homepageCTA = await fetchContentItemById<BaStrapiCTA>(
     BaStrapiContentType.CTAs,
     '1',
     { publicContent: PUBLIC_BUILD },
+    STRAPI_ENDPOINT,
   );
 
   const relativeOutFile = '/index.json';
