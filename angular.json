@@ -329,9 +329,10 @@
           }
         },
         "lint-styles": {
-          "builder": "@speedy/build-angular:stylelint",
+          "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["libs/examples/**/*.scss"]
           }

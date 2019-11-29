@@ -20,17 +20,17 @@
     </dt-tree-table-header-cell>
     <dt-cell *dtCellDef="let row">
       <dt-progress-bar
-        class="thread-progress"
+        class="dt-thread-progress"
         [value]="row.blocked"
         [max]="row.totalTimeConsumption"
       ></dt-progress-bar>
       <dt-progress-bar
-        class="thread-progress"
+        class="dt-thread-progress"
         [value]="row.waiting"
         [max]="row.totalTimeConsumption"
       ></dt-progress-bar>
       <dt-progress-bar
-        class="thread-progress"
+        class="dt-thread-progress"
         [value]="row.running"
         [max]="row.totalTimeConsumption"
       ></dt-progress-bar>
