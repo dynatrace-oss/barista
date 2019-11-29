@@ -83,80 +83,76 @@ code {
   font-family: 'Bitstream Vera', monospace;
 }
 
-.ba-single-page-content ba-page-content {
-  & > table {
-    border-spacing: 0;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    width: 100%;
+.ba-single-page-content ba-page-content > table {
+  border-spacing: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  width: 100%;
 
-    th,
-    td {
-      padding: 8px 12px;
-      text-overflow: ellipsis;
-    }
+  th,
+  td {
+    padding: 8px 12px;
+    text-overflow: ellipsis;
+  }
 
-    th {
-      color: $gray-600;
-      font-weight: 600;
-      text-align: left;
-      border-bottom: 1px solid $gray-200;
-    }
+  th {
+    color: $gray-600;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid $gray-200;
+  }
 
-    tr:nth-child(2n) {
-      background-color: $gray-100;
-    }
+  tr:nth-child(2n) {
+    background-color: $gray-100;
   }
 }
 
 @media (max-width: $table-breakpoint) {
-  .ba-single-page-content ba-page-content {
-    & > table {
+  .ba-single-page-content ba-page-content > table {
+    display: block;
+
+    thead {
+      display: none;
+    }
+
+    tbody {
       display: block;
+      width: 100%;
+    }
 
-      thead {
-        display: none;
-      }
+    tbody th {
+      display: none;
+    }
 
-      tbody {
-        display: block;
-        width: 100%;
-      }
+    tr {
+      display: block;
+      width: 100%;
+    }
 
-      tbody th {
-        display: none;
-      }
+    td {
+      display: block;
+      border-top: 1px solid $gray-200;
+      position: relative;
+      padding-left: calc(50% + 12px);
+      max-width: 100%;
+      min-height: 40px;
+      overflow: hidden;
+    }
 
-      tr {
-        display: block;
-        width: 100%;
-      }
-
-      td {
-        display: block;
-        border-top: 1px solid $gray-200;
-        position: relative;
-        padding-left: calc(50% + 12px);
-        max-width: 100%;
-        min-height: 40px;
-        overflow: hidden;
-      }
-
-      td:before {
-        content: attr(data-th) ' ';
-        text-align: left;
-        font-weight: 700;
-        font-size: 12px;
-        position: absolute;
-        border-right: 1px solid $gray-200;
-        height: 100%;
-        top: 0;
-        left: 12px;
-        padding-top: 12px;
-        width: calc(50% - 12px);
-        white-space: inherit;
-      }
+    td::before {
+      content: attr(data-th) ' ';
+      text-align: left;
+      font-weight: 700;
+      font-size: 12px;
+      position: absolute;
+      border-right: 1px solid $gray-200;
+      height: 100%;
+      top: 0;
+      left: 12px;
+      padding-top: 12px;
+      width: calc(50% - 12px);
+      white-space: inherit;
     }
   }
 }

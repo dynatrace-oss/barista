@@ -105,6 +105,14 @@ jobs:
       - run: ./node_modules/.bin/nx workspace-lint
       - run: yarn affected:lint --base=origin/master --parallel
 
+# - static codeanalysis of the style files
+  lint-styles:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run: yarn affected --target=lint-styles --base=origin/master --parallel
+
 # - build all the packages
   build:
     <<: *defaults
@@ -170,6 +178,9 @@ workflows:
           requires:
             - install
       - lint:
+          requires:
+            - install
+      - lint-styles:
           requires:
             - install
       - unit-test:
