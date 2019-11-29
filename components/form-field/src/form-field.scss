@@ -2,6 +2,7 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/form-control';
 @import '../../core/src/style/interactive-common';
+@import './form-field-theme';
 
 .dt-form-field {
   display: block;
@@ -155,4 +156,9 @@
 
 .dt-error {
   color: $error-color;
+}
+
+// Apply the switch theme to all theme definitions
+@include dt-apply-theme() {
+  @include dt-theme-form-field($dt-current-theme);
 }

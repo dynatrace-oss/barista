@@ -1,0 +1,13 @@
+@import '../../core/src/style/variables';
+@import '../../core/src/theming/theming';
+@import '../../core/src/style/interactive-common';
+
+@mixin dt-theme-form-field($theme) {
+  $is-dark: map-get($theme, 'is-dark');
+
+  @if ($is-dark == true) {
+    .dt-form-field-label {
+      color: #fff;
+    }
+  }
+}
