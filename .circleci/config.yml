@@ -86,7 +86,8 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
-      - snyk/scan
+      - snyk/scan:
+          organization: dynatrace-oss
 
 # - check formatting if all files are formatted with prettier
   check-formatting:
