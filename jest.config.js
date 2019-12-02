@@ -1,9 +1,5 @@
 const { join } = require('path');
 
-const isOnCI = process.env.CI;
-
-const coverageReporters = isOnCI ? ['lcovonly', 'html'] : ['html'];
-
 module.exports = {
   testMatch: ['**/*.spec.ts'],
   transform: {
@@ -13,8 +9,6 @@ module.exports = {
   resolver: '@nrwl/jest/plugins/resolver',
   collectCoverage: true,
   passWithNoTests: true,
-  coverageDirectory: join(__dirname, 'dist', 'coverage-results', 'html'),
-  coverageReporters: coverageReporters,
   reporters: [
     'default',
     [
@@ -30,5 +24,4 @@ module.exports = {
       },
     ],
   ],
-  testResultsProcessor: 'jest-sonar-reporter',
 };
