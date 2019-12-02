@@ -1,0 +1,305 @@
+/**
+ * @license
+ * Copyright 2019 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  Rule,
+  SchematicContext,
+  Tree,
+  chain,
+} from '@angular-devkit/schematics';
+import { Schema } from './schema';
+import { readFileSync } from 'fs';
+import {
+  readJsonInTree,
+  readFromTree,
+  getImportModuleSpecifier,
+  updateNgModuleDecoratorProperties,
+  NgModuleProperties,
+} from './ast';
+import {
+  renameExistingImports,
+  createStringLiteral,
+  insertNodeToFileInTree,
+  rewriteAngularJsonImports,
+} from './rules';
+import { getFilesToCheck } from '../utils';
+import * as ts from 'typescript';
+
+// Call visitNode to start the search into the sourcefile
+// If is decorator is true then look for allChildren
+// When the imports have been found update them to include browseranimationsmodule
+
+/** Check workspace for files */
+function checkWorkspace(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    try {
+      if (!tree.exists('package.json')) {
+        throw new Error('Cannot find package.json');
+      }
+
+      if (!tree.exists('angular.json')) {
+        throw new Error('Cannot find angular.json');
+      }
+    } catch (error) {
+      context.logger.error(error.message);
+      throw error;
+    }
+  };
+}
+
+/** Check for angular/barista-components in package.json */
+function checkForImportsInPackage(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const rules: Rule[] = [];
+    const packageJSON = readJsonInTree(tree, '/package.json');
+
+    if (
+      Object.keys(packageJSON.dependencies).includes(
+        '@dynatrace/angular-components',
+      )
+    ) {
+      delete packageJSON.dependencies['@dynatrace/angular-components'];
+
+      rules.push(renameExistingImports(['/package.json']));
+    }
+    packageJSON.dependencies['@dynatrace/barista-components'] = '5.0.0';
+
+    tree.overwrite('/package.json', JSON.stringify(packageJSON, null, 2));
+
+    return chain(rules)(tree, context);
+  };
+}
+
+/** Check filesystem for imports of dynatrace/angular-components and rename then to barista-components */
+function checkForExistingAngularComponents(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const rules: Rule[] = [];
+
+    // check if we have existing components library installed
+    if (
+      checkPackageJsonImports(
+        tree,
+        'package.json',
+        '@dynatrace/barista-components',
+      )
+    ) {
+      // if we have an existing library we have to rename the imports
+      const files = getFilesToCheck('**/*.ts');
+
+      rules.push(renameExistingImports(files));
+    }
+    return chain(rules)(tree, context);
+  };
+}
+
+function checkForPeerDependencies(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const rules: Rule[] = [];
+
+    const packages = getFilesToCheck('**/package.json');
+
+    for (const pkg of packages) {
+      const packageJSON = readJsonInTree(tree, pkg); // use 'pkg'
+      // install peerDependencies
+      if (packageJSON.peerDependencies) {
+        packageJSON.peerDependencies['@dynatrace/barista-icons'] =
+          '>= 3.0.0 < 4';
+        packageJSON.peerDependencies['@dynatrace/barista-fonts'] =
+          '>= 1.0.0 < 2';
+        packageJSON.peerDependencies['@types/highcharts'] = '^5.0.23';
+        packageJSON.peerDependencies['d3-scale'] = '^3.0.0';
+        packageJSON.peerDependencies['d3-shape'] = '^1.3.5';
+        packageJSON.peerDependencies['highcharts'] = '^6.0.7';
+        tree.overwrite(pkg, JSON.stringify(packageJSON, null, 2));
+      }
+    }
+    return chain(rules)(tree, context);
+  };
+}
+
+function installAnimationsModule(options: Schema): Rule {
+  return (tree: Tree, _: SchematicContext) => {
+    if (!options.animations) {
+      return;
+    }
+
+    const packageJson = readJsonInTree(tree, 'package.json');
+
+    if (
+      !Object.keys(packageJson.dependencies).includes('@angular/animations')
+    ) {
+      packageJson.dependencies['@angular/animations'] = '9.0.0';
+    }
+
+    const files = getFilesToCheck('**/app.module.ts');
+
+    for (const file of files) {
+      const sourceText = readFromTree(tree, file);
+      const appModuleAst = ts.createSourceFile(
+        file,
+        sourceText,
+        ts.ScriptTarget.Latest,
+        true,
+      );
+      let hasAnimationImport = false;
+
+      for (let i = appModuleAst.statements.length - 1; i >= 0; i--) {
+        const statement = appModuleAst.statements[i];
+
+        if (ts.isImportDeclaration(statement)) {
+          const moduleSpecifier = getImportModuleSpecifier(statement);
+
+          if (
+            moduleSpecifier &&
+            moduleSpecifier.includes('@angular/platform-browser/animations')
+          ) {
+            hasAnimationImport = true;
+
+            break;
+          }
+        }
+      }
+      if (!hasAnimationImport) {
+        const node = createStringLiteral(
+          `import { BrowserAnimationsModule } from \'@angular/platform-browser/animations\';`,
+          false,
+        );
+        insertNodeToFileInTree(tree, file, appModuleAst, node);
+      }
+
+      let sourceFile = ts.createSourceFile(
+        file,
+        readFromTree(tree, file),
+        ts.ScriptTarget.Latest,
+        true,
+      );
+
+      const newSourceFile: ts.SourceFile = updateNgModuleDecoratorProperties(
+        sourceFile,
+        NgModuleProperties.Imports,
+        ts.createIdentifier('BrowserAnimationsModule,'),
+      );
+      const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
+
+      const printedNode = printer.printNode(
+        ts.EmitHint.Unspecified,
+        newSourceFile,
+        ts.createSourceFile('', '', ts.ScriptTarget.Latest, true),
+      );
+
+      tree.overwrite(file, printedNode);
+    }
+  };
+}
+
+function installStyles(options: Schema): Rule {
+  return (tree: Tree, _: SchematicContext) => {
+    if (!options.stylesPack) {
+      return;
+    }
+    let mainStyle = '';
+    let sourceFile: ts.SourceFile;
+    let styleImport: ts.StringLiteral;
+    let fileName: string | undefined = undefined;
+
+    let files = getFilesToCheck('**/*.scss');
+    files.concat(getFilesToCheck('**/*.css'));
+
+    for (const file of files) {
+      if (
+        file.includes('index.css') ||
+        file.includes('index.scss') ||
+        file.includes('styles.css') ||
+        file.includes('styles.scss')
+      ) {
+        fileName = file;
+
+        if (options.stylesPack) {
+          styleImport = ts.createStringLiteral(
+            "@import '~@dynatrace/angular-components/style/index';",
+          );
+        } else {
+          styleImport = ts.createStringLiteral(
+            "@import '~@dynatrace/angular-components/style/main';",
+          );
+        }
+
+        if (fileName) {
+          mainStyle = readFromTree(tree, fileName);
+          sourceFile = ts.createSourceFile(
+            fileName,
+            mainStyle,
+            ts.ScriptTarget.Latest,
+          );
+          insertNodeToFileInTree(tree, fileName, sourceFile, styleImport);
+        } else {
+          console.error('No styles has been found');
+        }
+      }
+    }
+  };
+}
+
+function checkAngularJsonPaths(options: Schema): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    if (!options.angularJsonSetup) {
+      return;
+    }
+
+    const rules: Rule[] = [];
+    rules.push(rewriteAngularJsonImports('angular.json', true));
+
+    return chain(rules)(tree, context);
+  };
+}
+
+/**
+ * Retrieve all files which need to be checked for imports
+ * @param tree host tree
+ */
+function checkPackageJsonImports(
+  tree: Tree,
+  path: string,
+  searchString: string,
+): boolean {
+  const packageJSON = readJsonInTree(tree, path);
+  if (packageJSON) {
+    if (Object.keys(packageJSON.dependencies).includes(searchString)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function readJsonFile<T = any>(path: string): T {
+  return JSON.parse(readFileSync(path, 'utf-8'));
+}
+
+/** This chains an array of rules and executes them */
+export function add(options: any): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const rule = chain([
+      checkWorkspace(),
+      checkForImportsInPackage(),
+      checkForExistingAngularComponents(),
+      checkForPeerDependencies(),
+      installAnimationsModule(options),
+      installStyles(options),
+      checkAngularJsonPaths(options),
+    ]);
+    return rule(tree, context);
+  };
+}

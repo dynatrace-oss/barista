@@ -57,9 +57,9 @@ task('library:fix-metadata', () =>
 /** Compiles the typescript files for the shipped schematics (ng update) */
 task(':library:schematics:compile', (done: (err?: string) => void) => {
   tscCompile(['-p', join(buildConfig.libDir, 'schematics', 'tsconfig.json')])
-    .catch(() => {
+    .catch((err) => {
       const error = red(`Failed to compile lib/schematics`);
-      console.error(error);
+      console.error(err);
 
       done(error);
     })
@@ -69,16 +69,16 @@ task(':library:schematics:compile', (done: (err?: string) => void) => {
 });
 
 /** Copies the migration json file over to the dist folder for the schematics */
-task(':library:schematics:copy-json', () =>
-  src(join(buildConfig.libDir, 'schematics/migration.json')).pipe(
-    dest(join(buildConfig.libOutputDir, 'schematics')),
-  ),
-);
+// task(':library:schematics:copy-json', () =>
+//   src(join(buildConfig.libDir, 'schematics/migration.json')).pipe(
+//     dest(join(buildConfig.libOutputDir, 'schematics')),
+//   ),
+// );
 
 /** Executes all tasks that need to be run to ship schematics for the library */
 task(
   'library:bundle-schematics',
-  series(':library:schematics:compile', ':library:schematics:copy-json'),
+  series(':library:schematics:compile'),
 );
 
 task(

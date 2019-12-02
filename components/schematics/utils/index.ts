@@ -1,1 +1,2 @@
-export * from './testing/test-app';
+export * from './testing';
+export * from './fileSearch';

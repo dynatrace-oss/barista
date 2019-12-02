@@ -1,0 +1,6 @@
+{
+  "name": "angular-project",
+  "dependencies": {
+    "@dynatrace/angular-components":"4.14.0"
+  }
+}

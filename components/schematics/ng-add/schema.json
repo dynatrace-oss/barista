@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "CodebaseGenerator",
+  "type": "object",
+  "description": "Generates a benchmark codebase",
+  "properties": {
+    "animations": {
+      "type": "boolean",
+      "description": "Installation of @angular/animations",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Install @angular/animations?"
+    },
+    "stylesPack": {
+      "type": "boolean",
+      "description": "Configure which stylePack should be installed.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Install complete stylepack (no, will install minimum stylepack)"
+    },
+    "iconpack": {
+      "type": "boolean",
+      "description": "Installation of @dynatrace/barista-icons",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Install @dynatrace/barista-icons"
+    },
+    "angularJsonSetup": {
+      "type": "boolean",
+      "description": "Update of angularjson paths",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Setup default paths in angular json? (for fonts)"
+    }
+  },
+  "required": ["animations", "iconpack", "angularJsonSetup"]
+}

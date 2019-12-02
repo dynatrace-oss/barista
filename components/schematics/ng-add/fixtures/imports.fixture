@@ -1,0 +1,17 @@
+import { OnInit } from './path/to/file';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import * as DtIcon from '@dynatrace/angular-components/icon';
+import { DtIconModule } from '@dynatrace/angular-components';
+
+const CONSTSANT = 'cno';
+
+export interface MyInterface {}
+
+@Component({
+
+})
+export class MyComp implements OnInit {
+  constructor(
+    private _blabla: Bla
+  ) {}
+}

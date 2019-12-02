@@ -3,6 +3,7 @@
     "lib": ["es2017"],
     "module": "commonjs",
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "outDir": "../../dist/lib/schematics",
     "noEmitOnError": false,
     "strictNullChecks": true,
@@ -19,6 +20,12 @@
       "@angular/cdk/schematics": ["node_modules/@angular/cdk/schematics"]
     }
   },
+  "include": [
+    "**/*.ts",
+    "collection.json",
+    "migration.json",
+    "ng-add/schema.json"
+  ],
   "exclude": [
     "**/*.spec.ts",
     // Exclude all test-case files because those should not be included in the schematics output.

@@ -102,7 +102,7 @@ task('tslint:dev-app', series('ensureOutDirectory', execNodeTask(
 )));
 
 task('tslint:barista-examples', series(
-  parallel('barista-examples:validate', 'barista-example:generate', 'ensureOutDirectory'),
+  parallel('ensureOutDirectory'),
   execNodeTask(
     'tslint', outputToXML(
       isCi,
