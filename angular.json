@@ -745,23 +745,6 @@
         }
       }
     },
-    "schematics": {
-      "projectType": "library",
-      "root": "components/schematics",
-      "sourceRoot": "components/schematics/src",
-      "architect": {
-        "build": {
-          "builder": "@dynatrace/barista-builders:typescript",
-          "options": {
-            "tsConfig": "components/schematics/tsconfig.json",
-            "outDir": "dist/components/schematics"
-          },
-          "configurations": {
-            "production": {}
-          }
-        }
-      }
-    },
     "components": {
       "projectType": "library",
       "root": "components",
@@ -2257,6 +2240,37 @@
         }
       },
       "schematics": {}
+    },
+    "schematics": {
+      "projectType": "library",
+      "root": "components/schematics",
+      "sourceRoot": "components/schematics/src",
+      "architect": {
+        "build": {
+          "builder": "@dynatrace/barista-builders:typescript",
+          "options": {
+            "tsConfig": "components/schematics/tsconfig.lib.json",
+            "outDir": "dist/components/schematics"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/schematics/tsconfig.lib.json",
+              "components/schematics/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/schematics/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/schematics/jest.config.js",
+            "tsConfig": "components/schematics/tsconfig.spec.json"
+          }
+        }
+      }
     },
     "secondary-nav": {
       "projectType": "library",

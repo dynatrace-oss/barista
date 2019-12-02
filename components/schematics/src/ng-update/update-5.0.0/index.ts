@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 
-// We need export a dummy root package here since ng-packagr needs one primary entry point
-export {};
+export * from './legacy-imports-rule';
+export * from './secondary-entry-points-rule';
+export * from './remove-css-imports-rule';

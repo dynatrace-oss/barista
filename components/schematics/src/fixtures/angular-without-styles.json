@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "projects": {
+    "myapp": {
+      "projectType": "application",
+      "root": "apps/myapp",
+      "sourceRoot": "apps/myapp/src",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/myapp",
+            "index": "apps/myapp/src/index.html",
+            "main": "apps/myapp/src/main.ts",
+            "polyfills": "apps/myapp/src/polyfills.ts",
+            "tsConfig": "apps/myapp/tsconfig.app.json"
+          }
+        }
+      }
+    }
+  }
+}
