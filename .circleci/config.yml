@@ -42,6 +42,61 @@ npm_cache: &npm_cache
     - npm-packages-{{ checksum "package-lock.json" }}
     - npm-packages-
 
+# The last sha of the branch that holds the previous commit sha.
+# could be either master, 4.x or 4.10.x
+sha_branch_cache: &sha_branch_cache
+  key: last-{{ .Environment.CIRCLE_BRANCH }}-sha
+
+set_env: &set_env
+  name: Setup Environment Variables
+  command: |
+    BASE_URL="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
+    MASTER_SHA_FILE=./.config/last-${CIRCLE_BRANCH}-sha.txt
+
+    # if we have a pull request then fetch the base sha to run against
+    if [[ $CIRCLE_PULL_REQUEST ]];
+    then
+      printf "Fetching Base Commit from GitHub for the pull request: %s" "$CIRCLE_PULL_REQUEST"
+
+      # Get the last number of the pull request number with grep
+      PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | grep -Eo '[0-9]+$')
+      PR_URL="${BASE_URL}/pulls/${PR_NUMBER}"
+      CIRCLE_PR_BASE_SHA=$(curl -s "${PR_URL}" | jq -r '.base.sha')
+
+      # Add the affected args to the bash environment file
+      printf "export AFFECTED_ARGS=\"--base=%s\"\n" "$CIRCLE_PR_BASE_SHA" >> $BASH_ENV
+
+      # Regex checks for master, 4.x or 4.15.x branch
+    elif [[ "$CIRCLE_BRANCH" =~ ^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$ ]];
+    then
+
+      echo "Fetching Base Commit from Deploy Cache"
+
+      if [[ ! -f "$MASTER_SHA_FILE" ]];
+      then
+
+        # If config dir does not exist create it
+        if [[ ! -d ./.config ]];
+        then
+          mkdir ./.config
+        fi
+
+        echo "Write SHA to $MASTER_SHA_FILE"
+        git rev-parse HEAD~1 > "$MASTER_SHA_FILE"
+      fi
+
+      # Add the affected args to the bash environment file
+      printf "export AFFECTED_ARGS=\"--base=%s\"\n" "$(cat "$MASTER_SHA_FILE")" >> $BASH_ENV
+    else
+      echo "Compare any other commit against orign/master"
+      # Add the affected args to the bash environment file
+      printf "export AFFECTED_ARGS=\"--base=origin/master\"\n" >> $BASH_ENV
+    fi
+
+
+    source $BASH_ENV
+    echo "Affected ARGS: $AFFECTED_ARGS"
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -60,6 +115,10 @@ jobs:
       - checkout
       - restore_cache:
           <<: *npm_cache
+      - restore_cache:
+          <<: *sha_branch_cache
+      - run:
+          <<: *set_env
       - run:
           name: Install npm dependencies 🐍
           command: npm ci
@@ -95,7 +154,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
-      - run: yarn format:check --base=origin/master
+      - run:
+          <<: *set_env
+      - run: yarn format:check ${AFFECTED_ARGS}
 
 # - static codeanalysis of the files
   lint:
@@ -103,8 +164,10 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
+      - run:
+          <<: *set_env
       - run: ./node_modules/.bin/nx workspace-lint
-      - run: yarn affected:lint --base=origin/master --parallel
+      - run: yarn affected:lint ${AFFECTED_ARGS} --parallel
 
 # - static codeanalysis of the style files
   lint-styles:
@@ -112,7 +175,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
-      - run: yarn affected --target=lint-styles --base=origin/master --parallel
+      - run:
+          <<: *set_env
+      - run: yarn affected --target=lint-styles ${AFFECTED_ARGS} --parallel
 
 # - build all the packages
   build:
@@ -120,7 +185,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
-      - run: yarn affected:build --base=origin/master --parallel --configuration=production
+      - run:
+          <<: *set_env
+      - run: yarn affected:build ${AFFECTED_ARGS} --parallel --configuration=production
       - save_cache:
           key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
           paths:
@@ -134,12 +201,13 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
-      - run: yarn affected:test --base=origin/master --parallel --runInBand
+      - run:
+          <<: *set_env
+      - run: yarn affected:test ${AFFECTED_ARGS} --parallel --runInBand
       - store_test_results:
           path: dist/test-results
       - store_artifacts:
           path: dist/test-results
-
 
 # - run end to end tests
   e2e-test:
@@ -149,11 +217,36 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
-      - run: yarn affected:e2e --base=origin/master --configuration=remote-pr
+      - run:
+          <<: *set_env
+      - run: yarn affected:e2e ${AFFECTED_ARGS} --configuration=remote-pr
       - store_test_results:
           path: dist/components-e2e
       - store_artifacts:
           path: dist/components-e2e
+
+# - save the latest hash in a file
+  save-latest:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run:
+          name: Save current commit sha in a file
+          command: |
+            MASTER_SHA_FILE=./.config/last-${CIRCLE_BRANCH}-sha.txt
+            # If config dir does not exist create it
+            if [[ ! -d ./.config ]];
+            then
+              mkdir ./.config
+            fi
+            git rev-parse HEAD > "$MASTER_SHA_FILE"
+      - save_cache:
+          key: last-{{ .Environment.CIRCLE_BRANCH }}-sha
+          paths:
+            - ./.config/last-{{ .Environment.CIRCLE_BRANCH }}-sha.txt
+
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   W O R K F L O W S:
@@ -190,6 +283,18 @@ workflows:
       - e2e-test:
           requires:
             - install
+      - save-latest:
+          filters:
+            branches:
+              only: /^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$/
+          requires:
+            - check-formatting
+            - sonar
+            - security-checks
+            - lint
+            - lint-styles
+            - unit-test
+            - e2e-test
       # - build:
       #     requires:
       #       - install
