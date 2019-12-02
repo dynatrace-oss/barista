@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "barista-components-ng-add",
+  "type": "object",
+  "description": "Barista components ng-add schematic",
+  "properties": {
+    "project": {
+      "type": "string",
+      "description": "Name of the project where the Barista Components should be set up.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "animations": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether Angular browser animations should be set up.",
+      "x-prompt": "Set up browser animations for Barista Components?"
+    },
+    "typography": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether to set up global typography styles.",
+      "x-prompt": "Set up global Barista typography styles?"
+    }
+  },
+  "required": [],
+  "additionalProperties": false
+}

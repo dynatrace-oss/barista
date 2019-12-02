@@ -1,0 +1,2 @@
+import { DtIconRegistry } from '@dynatrace/dt-iconpack';
+import * as IconPack from '@dynatrace/dt-iconpack';

@@ -2175,6 +2175,32 @@
       },
       "schematics": {}
     },
+    "schematics": {
+      "projectType": "library",
+      "root": "components/schematics",
+      "sourceRoot": "components/schematics/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/schematics/tsconfig.lib.json",
+              "components/schematics/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/schematics/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/schematics/jest.config.js",
+            "tsConfig": "components/schematics/tsconfig.spec.json"
+          }
+        }
+      },
+      "schematics": {}
+    },
     "secondary-nav": {
       "projectType": "library",
       "root": "components/secondary-nav",

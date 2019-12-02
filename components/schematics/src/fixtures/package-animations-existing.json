@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@angular/core": "^8.2.12",
+    "@angular/common": "^8.2.12",
+    "@angular/animations": "^8.2.12"
+  }
+}

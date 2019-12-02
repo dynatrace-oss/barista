@@ -166,6 +166,9 @@
     "radio": {
       "tags": ["scope:components", "type:library"]
     },
+    "schematics": {
+      "tags": ["scope:schematics", "type:library"]
+    },
     "secondary-nav": {
       "tags": ["scope:components", "type:library"]
     },

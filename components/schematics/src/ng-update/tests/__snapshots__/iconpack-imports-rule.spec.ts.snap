@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`v5 dynatrace angular components imports should migrate root imports correctly 1`] = `
+"import { DtIconRegistry } from '@dynatrace/barista-icons';
+import * as IconPack from '@dynatrace/barista-icons';
+"
+`;

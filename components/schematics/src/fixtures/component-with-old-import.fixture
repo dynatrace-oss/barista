@@ -1,0 +1,7 @@
+
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+
+
+const a = 1;
+
+a = 2;
