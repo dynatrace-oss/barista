@@ -14,5 +14,7 @@
  * limitations under the License.
  */
 
-// We need export a dummy root package here since ng-packagr needs one primary entry point
-export {};
+export * from './run-schematic';
+export * from './fixture';
+export * from './test-app';
+export * from './workspace';

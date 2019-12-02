@@ -1,28 +1,13 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "lib": ["es2017"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noEmitOnError": false,
-    "strictNullChecks": true,
-    "skipDefaultLibCheck": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "declaration": true,
-    "target": "es6",
-    "types": ["jest", "node"],
+    "rootDir": ".",
     "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "@angular/cdk/schematics": ["node_modules/@angular/cdk/schematics"]
-    }
+    "downlevelIteration": true,
+    "target": "es6",
+    "types": ["node", "jest"]
   },
-  "include": ["**/*.ts", "migration.json"],
-  "exclude": [
-    "**/*.spec.ts",
-    // Exclude all test-case files because those should not be included in the schematics output.
-    "ng-update/tests/**/*.ts"
-  ]
+  "files": ["./collection.json", "./migration.json"],
+  "include": ["**/*.ts", "src/**/*.json"],
+  "exclude": ["src/fixtures/**/*"]
 }

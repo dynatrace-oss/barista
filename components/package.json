@@ -30,8 +30,9 @@
     "highcharts": "^6.0.7",
     "tslib": "^1.9.0"
   },
+  "schematics": "./schematics/collection.json",
   "ng-update": {
-    "migrations": "./schematics/migration.json",
+    "migrations": "./schematics/collection.json",
     "packageGroup": [
       "@dynatrace/barista-components"
     ]

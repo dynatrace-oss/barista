@@ -14,5 +14,22 @@
  * limitations under the License.
  */
 
-// We need export a dummy root package here since ng-packagr needs one primary entry point
-export {};
+import { Tree } from '@angular-devkit/schematics/src/tree/interface';
+
+/**
+ * Returns a set of matched files in a tree by a provided matcher function
+ * @param tree The tree where we have to search for the files
+ * @param matcher A function that gets a file path and check if the path matches
+ */
+export function getMatchingFilesFromTree(
+  tree: Tree,
+  matcher: (filePath: string) => boolean,
+): Set<string> {
+  const files = new Set<string>();
+  tree.root.visit(file => {
+    if (matcher(file)) {
+      files.add(file.toString());
+    }
+  });
+  return files;
+}

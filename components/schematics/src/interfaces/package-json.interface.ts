@@ -14,5 +14,24 @@
  * limitations under the License.
  */
 
-// We need export a dummy root package here since ng-packagr needs one primary entry point
-export {};
+export enum PackageJsonDependencyType {
+  Default = 'dependencies',
+  Dev = 'devDependencies',
+  Peer = 'peerDependencies',
+  Optional = 'optionalDependencies',
+}
+
+export interface PackageJsonDependency {
+  [key: string]: string;
+}
+
+export interface PackageJson {
+  name: string;
+  version: string;
+  license: string;
+  dependencies: PackageJsonDependency;
+  devDependencies: PackageJsonDependency;
+  peerDependencies: PackageJsonDependency;
+  optionalDependencies: PackageJsonDependency;
+  [key: string]: any;
+}

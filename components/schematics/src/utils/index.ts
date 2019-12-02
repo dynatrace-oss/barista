@@ -14,5 +14,7 @@
  * limitations under the License.
  */
 
-// We need export a dummy root package here since ng-packagr needs one primary entry point
-export {};
+export * from './ast';
+export * from './get-matching-files-from-tree';
+export * from './json';
+export * from './read-file-from-tree';

@@ -14,5 +14,12 @@
  * limitations under the License.
  */
 
-// We need export a dummy root package here since ng-packagr needs one primary entry point
-export {};
+export * from './add-import-to-source-file';
+export * from './create-import-declaration';
+export * from './create-property-assignment';
+export * from './create-string-literal';
+export * from './find-nodes';
+export * from './get-symbol-name';
+export * from './has-export-modifier';
+export * from './print-node';
+export * from './update-ng-module-decorator-properties';

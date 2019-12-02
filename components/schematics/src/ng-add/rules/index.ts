@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 
-// We need export a dummy root package here since ng-packagr needs one primary entry point
-export {};
+export * from './migrate-or-add-dependencies-rule';
+export * from './update-ng-module-rule';
+export * from './update-workspace-rule';

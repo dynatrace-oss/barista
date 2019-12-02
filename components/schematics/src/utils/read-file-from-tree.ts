@@ -14,5 +14,16 @@
  * limitations under the License.
  */
 
-// We need export a dummy root package here since ng-packagr needs one primary entry point
-export {};
+import { Tree } from '@angular-devkit/schematics';
+
+/**
+ * This method reads a file from a host tree
+ * @param host The host tree
+ * @param path The path to the file
+ */
+export function readFileFromTree(host: Tree, path: string): string {
+  if (!host.exists(path)) {
+    throw new Error(`Cannot find ${path}`);
+  }
+  return host.read(path)!.toString('utf-8');
+}

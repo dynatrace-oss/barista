@@ -43,9 +43,6 @@
     "examples": {
       "tags": ["type:library"]
     },
-    "schematics": {
-      "tags": ["scope:tooling"]
-    },
     "linting": {
       "tags": ["scope:tooling"]
     },
@@ -171,6 +168,9 @@
     },
     "radio": {
       "tags": ["scope:components", "type:library"]
+    },
+    "schematics": {
+      "tags": ["scope:schematics", "type:library"]
     },
     "secondary-nav": {
       "tags": ["scope:components", "type:library"]
