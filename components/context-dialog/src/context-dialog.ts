@@ -59,36 +59,49 @@ import {
 import { DtContextDialogTrigger } from './context-dialog-trigger';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialog');
+const DT_CONTEXT_DIALOG_OVERLAY_CONFIG = 8;
 const OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
-    originX: 'end',
-    originY: 'top',
-    overlayX: 'end',
-    overlayY: 'top',
-  },
-  {
-    originX: 'end',
-    originY: 'bottom',
-    overlayX: 'end',
-    overlayY: 'bottom',
-    panelClass: 'dt-context-dialog-panel-bottom',
-  },
-  {
     originX: 'start',
     originY: 'top',
-    overlayX: 'start',
+    overlayX: 'end',
     overlayY: 'top',
-    panelClass: 'dt-context-dialog-panel-right',
+    offsetX: -DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
   },
   {
     originX: 'start',
     originY: 'bottom',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetX: -DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
+  },
+  {
+    originX: 'start',
+    originY: 'center',
+    overlayX: 'end',
+    overlayY: 'center',
+    offsetX: -DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
+  },
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'top',
+    offsetX: DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
+  },
+  {
+    originX: 'end',
+    originY: 'bottom',
     overlayX: 'start',
     overlayY: 'bottom',
-    panelClass: [
-      'dt-context-dialog-panel-right',
-      'dt-context-dialog-panel-bottom',
-    ],
+    offsetX: DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
+  },
+  {
+    originX: 'end',
+    originY: 'center',
+    overlayX: 'start',
+    overlayY: 'center',
+    offsetX: DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
   },
 ];
 
@@ -134,7 +147,11 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   /** Aria reference to a label describing the context-dialog. */
   @Input('aria-labelledby') ariaLabelledBy: string;
 
-  /** Aria label of the context-dialog's close button. */
+  /**
+   * Aria label of the context-dialog's close button.
+   * @deprecated Made obsolete without the closing button
+   * @breaking-change To be removed with 6.0.0.
+   */
   @Input('aria-label-close-button') ariaLabelClose: string;
 
   /** The custom class to add to the overlay panel element. Can be used to scope styling within the overlay */
@@ -282,7 +299,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       .withPositions(OVERLAY_POSITIONS)
       .setOrigin(this._trigger.elementRef)
       .withFlexibleDimensions(false)
-      .withPush(false)
+      .withPush(true)
       .withGrowAfterOpen(false)
       .withViewportMargin(0)
       .withLockedPosition(false);

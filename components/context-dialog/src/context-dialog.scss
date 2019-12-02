@@ -1,7 +1,6 @@
 @import '../../style/font-mixins';
 @import '../../core/src/style/variables';
 
-$panel-padding-btn: 38px;
 $panel-padding: 12px;
 $dialog-max-width: 328px;
 $context-dialog-panel-padding: 12px;
@@ -28,7 +27,7 @@ $context-dialog-panel-padding: 12px;
 
 .dt-context-dialog-panel ::ng-deep .dt-context-dialog-header,
 .dt-context-dialog-content {
-  padding: $panel-padding-btn $panel-padding $panel-padding $panel-padding;
+  padding: $panel-padding;
 }
 
 // If there is a header in the context dialog, reset the contents top padding.
@@ -37,45 +36,4 @@ $context-dialog-panel-padding: 12px;
   .dt-context-dialog-header
   + .dt-context-dialog-content {
   padding-top: $panel-padding;
-}
-
-// If the context dialog is being positioned on top of the trigger,
-// reset the top padding of the header.
-::ng-deep.dt-context-dialog-panel-bottom
-  .dt-context-dialog-panel
-  .dt-context-dialog-header {
-  padding-top: $panel-padding;
-}
-
-// If the context dialog is being positioned on top of the trigger,
-// adjust the  top and bottom paddings of the content.
-::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-content {
-  padding-top: $panel-padding;
-  padding-bottom: $panel-padding-btn;
-}
-
-// this very specific selector is necessary to override
-// the emulated button styles
-[dt-icon-button].dt-context-dialog-close-trigger {
-  border: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  &:hover {
-    background-color: $gray-700;
-  }
-}
-::ng-deep.dt-context-dialog-panel-right .dt-context-dialog-close-trigger {
-  left: 0;
-}
-
-::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-panel {
-  transform-origin: bottom right;
-}
-
-::ng-deep.dt-context-dialog-panel-bottom
-  [dt-icon-button].dt-context-dialog-close-trigger {
-  top: auto;
-  bottom: 0;
 }

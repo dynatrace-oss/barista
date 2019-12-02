@@ -17,8 +17,8 @@ import {
   contextDialog,
   contextDialogPanel,
   disableToggle,
+  backdrop,
   getActiveElementAriaLabel,
-  closeButton,
 } from './context-dialog.po';
 
 import { getActiveElementText } from '../overlay/overlay.po';
@@ -42,9 +42,6 @@ test('should trap the focus inside the overlay', async (testController: TestCont
   await testController.expect(await getActiveElementText()).eql('Edit');
 
   await testController.pressKey('tab');
-  await testController.expect(await getActiveElementAriaLabel()).eql('close');
-
-  await testController.pressKey('tab');
   await testController.expect(await getActiveElementText()).eql('Edit');
 });
 
@@ -52,6 +49,6 @@ test('should open and close the context dialog', async (testController: TestCont
   await testController.click(contextDialog);
   await testController.expect(await contextDialogPanel.exists).ok();
   await testController.expect(await contextDialogPanel.visible).ok();
-  await testController.click(closeButton);
+  await testController.click(backdrop);
   await testController.expect(await contextDialogPanel.exists).notOk();
 });

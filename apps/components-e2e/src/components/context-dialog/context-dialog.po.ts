@@ -19,7 +19,7 @@ import { Selector, ClientFunction } from 'testcafe';
 export const contextDialog = Selector('#context-dialog');
 export const disableToggle = Selector('#disable-toggle');
 export const contextDialogPanel = Selector('.dt-context-dialog-panel');
-export const closeButton = Selector('.dt-context-dialog-close-trigger');
+export const backdrop = Selector('.cdk-overlay-backdrop');
 
 export const getActiveElementText = ClientFunction(() => {
   const element = document.activeElement;
