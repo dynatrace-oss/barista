@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.1
   snyk: snyk/snyk@0.0.8
+  codecov: codecov/codecov@1.0.2
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -205,6 +206,9 @@ jobs:
       - run:
           <<: *set_env
       - run: yarn affected:test ${AFFECTED_ARGS} --parallel --runInBand
+      - codecov/upload:
+          file: coverage/**/*.json
+          upload_name: Unit test coverage
       - store_test_results:
           path: dist/test-results
       - store_artifacts:

@@ -45,10 +45,6 @@
     "Firefox ESR",
     "safari >= 10"
   ],
-  "jestSonar": {
-    "reportPath": "dist/sonar-test-results/",
-    "reportFile": "unit-tests.xml"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "nx format:write && git update-index --again",
@@ -133,7 +129,6 @@
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "jest-preset-angular": "^7.1.1",
-    "jest-sonar-reporter": "^2.0.0",
     "markdown-it": "^10.0.0",
     "markdown-it-deflist": "^2.0.3",
     "merge2": "^1.2.3",

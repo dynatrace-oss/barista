@@ -4,6 +4,7 @@
 ![npm version](https://img.shields.io/npm/v/@dynatrace/barista-components)
 ![contributors](https://img.shields.io/github/contributors/dynatrace-oss/barista)
 ![commit activity](https://img.shields.io/github/commit-activity/w/dynatrace-oss/barista)
+[![codecov](https://codecov.io/gh/dynatrace-oss/barista/branch/master/graph/badge.svg)](https://codecov.io/gh/dynatrace-oss/barista)
 
 [Barista](https://barista.dynatrace.com) is the name of
 [Dynatrace](https://www.dynatrace.com)'s design system, that contains all
