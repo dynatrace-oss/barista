@@ -382,7 +382,7 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/fonts"
+                "output": "/assets/fonts"
               },
               {
                 "glob": "**",
@@ -392,8 +392,7 @@
             ],
             "styles": [
               "components/style/main.scss",
-              "apps/barista/src/main.scss",
-              "components/style/index.scss"
+              "apps/barista/src/main.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["components/core/src/style/"]
