@@ -89,13 +89,10 @@ The context actions menu is a variant of the context dialog placed on the top
 right within a [card](/components/card), containing
 [secondary buttons](/components/button).
 
-![Context dialog example](https://d24pvdz4mvzd04.cloudfront.net/test/context-dialog-example-100-4075494172.png)
+### Context dialog with custom trigger
 
-### Context dialog with custom icon
-
-To add a custom icon use the `<dt-button dt-icon-button></dt-button>` component
-and add the directive `[dtContextDialogTrigger]` to be able to link it to the
-correct context dialog.
+To add a custom trigger you can add the `[dtContextDialogTrigger]` directive to
+any `<dt-button>` to be able to link it to the correct context dialog.
 
 <ba-live-example name="ContextDialogCustomIconExample"></ba-live-example>
 

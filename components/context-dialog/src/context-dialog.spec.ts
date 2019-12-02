@@ -153,19 +153,6 @@ describe('DtContextDialog', () => {
           ).toEqual('Custom Label');
         }));
 
-        it('should support setting a custom aria-label for the close button', fakeAsync(() => {
-          fixture.componentInstance.ariaLabelClose = 'Close context dialog';
-          fixture.componentInstance.contextDialog.open();
-          fixture.detectChanges();
-          tick();
-          const contextDialogCloseTrigger = fixture.debugElement.query(
-            By.css('.dt-context-dialog-close-trigger'),
-          ).nativeElement;
-          expect(contextDialogCloseTrigger.getAttribute('aria-label')).toEqual(
-            'Close context dialog',
-          );
-        }));
-
         it('should set the tabindex of the trigger to 0 by default', fakeAsync(() => {
           expect(contextDialogDefaultTrigger.getAttribute('tabindex')).toEqual(
             '0',
