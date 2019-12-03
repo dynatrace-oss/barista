@@ -34,10 +34,9 @@
 /components/input/** @thomaspink
 /components/key-value-list/** @ffriedl89 @moertenschlag
 /components/legend/** @thomaspink
-/components/link/** @szymonbultrowicz
 /components/loading-distractor/** @thomaspink
 /components/menu/** @heartdisease
-/components/micro-chart/** @ffriedl89 dlaubi-dt
+/components/micro-chart/** @ffriedl89 @dlaubi-dt
 /components/overlay/** @ffriedl89
 /components/pagination/** @lukasholzer
 /components/progress-bar/** @tomheller
@@ -84,7 +83,7 @@
 /apps/universal/src/** @thomaspink @lukasholzer
 
 # Documentation
-/apps/documentation/** @lara-aigmueller
+/documentation/** @lara-aigmueller
 
 # Libs
 /libs/* @lukasholzer @thomaspink
@@ -95,9 +94,6 @@
 
 /tools/barista/* @thomaspink
 /tools/barista/src/** @lara-aigmueller @thomaspink
-
-/tools/bitbucket-tools/* @tomheller
-/tools/bitbucket-tools/src/** @tomheller
 
 /tools/gulp/** @thomaspink
 
