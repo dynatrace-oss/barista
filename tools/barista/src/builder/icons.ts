@@ -24,6 +24,7 @@ import {
   BaPageBuildResult,
   BaPageTransformer,
   BaSinglePageContent,
+  BaIconOverviewItem,
 } from '@dynatrace/barista-components/barista-definitions';
 import { BaIconMetadata, BaIconsChangelog } from '../types';
 
@@ -138,6 +139,7 @@ export const iconsBuilder: BaPageBuilder = async () => {
   const changelogTemplate = getChangelogTemplate();
   const iconFilePaths = getIconFilesByPath(ICONS_ROOT);
   const transformed: BaPageBuildResult[] = [];
+  const iconOverviewData: BaIconOverviewItem[] = [];
 
   for (const filePath of iconFilePaths) {
     const iconName = basename(filePath, '.svg');
@@ -172,10 +174,26 @@ ${getIconChangelogHtml(changelogTemplate, iconName)}
     };
 
     transformed.push({ pageContent, relativeOutFile });
+    iconOverviewData.push({
+      title: metadata.title,
+      name: iconName,
+      tags: metadata.tags,
+    });
   }
 
   // Generate and add the iconpack changelog page for the component-section of Barista.
   transformed.push(await generateIconPackChangelog(changelogTemplate));
+
+  // Generate icon overview page
+  transformed.push({
+    pageContent: {
+      title: 'Icons',
+      description: 'On this page you find a list of all available icons.',
+      layout: BaLayoutType.IconOverview,
+      icons: iconOverviewData,
+    },
+    relativeOutFile: 'resources/icons.json',
+  });
 
   return transformed;
 };

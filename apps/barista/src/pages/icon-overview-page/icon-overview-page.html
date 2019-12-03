@@ -1,0 +1,37 @@
+<div class="ba-page-grid">
+  <ba-page-header
+    *ngIf="contents"
+    [title]="contents.title"
+    [description]="contents.description"
+  ></ba-page-header>
+
+  <nav
+    ba-sidenav
+    *ngIf="contents.sidenav"
+    [sidenavData]="contents.sidenav"
+  ></nav>
+
+  <main class="ba-page-main" id="main" role="main">
+    <article class="ba-single-page-content">
+      <p>
+        All icons can be used in your Angular project. Have a look at the
+        <a href="/components/icon">icon component page</a> in Barista's
+        components section for more information.
+      </p>
+
+      <dt-form-field class="ba-icon-filter">
+        <dt-label>Filter icons</dt-label>
+        <input #filter type="text" dtInput placeholder="Search for icons" />
+      </dt-form-field>
+
+      <div class="ba-icon-list">
+        <ba-lazy-icon
+          *ngFor="let icon of _filteredIcons"
+          [name]="icon.name"
+          [title]="icon.title"
+          class="ba-icon-list-item"
+        ></ba-lazy-icon>
+      </div>
+    </article>
+  </main>
+</div>

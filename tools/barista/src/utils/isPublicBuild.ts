@@ -15,5 +15,5 @@
  */
 
 export function isPublicBuild(): boolean {
-  return process.env.PUBLIC_BUILD === 'true';
+  return process.env.PUBLIC_BUILD !== 'false';
 }
