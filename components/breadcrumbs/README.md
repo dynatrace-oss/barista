@@ -41,17 +41,13 @@ Items within a breadcrumb have a maximum length. To ensure that unusually long
 items do not take up too much space, their text value will be abbreviated using
 an ellipsis as soon as the maximum length is exceeded.
 
-{{#figure imagebox='true'}}
 ![Breadcrumb items grouped together closed](https://dt-cdn.net/images/breadcrumb-grouping-closed-530-50b55aee7f.png)
-{{/figure}}
 
 Should there not be enough space in the component to show all items, individual
 items are grouped together (starting from the left) and can be accessed by
 clicking the `...` item in the breadcrumb.
 
-{{#figure imagebox='true'}}
 ![Breadcrumb items grouped together expanded](https://dt-cdn.net/images/breadcrumb-grouping-expanded-530-c1e0bd5e27.png)
-{{/figure}}
 
 ## Theming
 

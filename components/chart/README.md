@@ -327,9 +327,7 @@ to understand why the content isn't shown.
 
 <!-- TODO: empty state chart example -->
 
-{{#figure imagebox='true' fullwidth="true"}}
 ![Too much data to render](https://d24pvdz4mvzd04.cloudfront.net/test/empty-state-example-custom-charting-1280-aa7bef666c.png)
-{{/figure}}
 
 Please keep in mind to use the correct empty state according to the use case.
 Check our [empty states pattern](/patterns/empty-states) for guidelines and
