@@ -64,4 +64,9 @@ export class BaSinglePage implements BaPage, AfterViewInit {
       }
     }
   }
+
+  /** @internal Whether to display the table of contents on the page. */
+  _showTOC(): boolean {
+    return this.contents && this.contents.toc !== false;
+  }
 }
