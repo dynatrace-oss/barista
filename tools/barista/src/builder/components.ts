@@ -67,7 +67,7 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
     category: 'component',
     layout: BaLayoutType.Default,
     order: baristaMetadata.order,
-    nav_group: baristaMetadata.nav_group,
+    navGroup: baristaMetadata.navGroup,
   };
 
   return metadataWithDefaults;
@@ -156,7 +156,7 @@ export const componentsBuilder: BaPageBuilder = async (
       const pageContent = await transformPage(
         {
           ...setMetadataDefaults(baristaMetadata),
-          nav_group: 'docs',
+          navGroup: 'docs',
           content: readFileSync(filepath).toString(),
         },
         TRANSFORMERS,

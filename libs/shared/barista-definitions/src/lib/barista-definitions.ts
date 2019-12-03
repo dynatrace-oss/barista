@@ -43,7 +43,7 @@ export interface BaPageMetaBase {
   description?: string;
   public?: boolean;
   draft?: boolean;
-  nav_group?: string;
+  navGroup?: string;
 }
 
 export interface BaSinglePageMeta extends BaPageMetaBase {

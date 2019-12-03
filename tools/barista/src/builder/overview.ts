@@ -152,20 +152,20 @@ export const overviewBuilder = async () => {
         for (const section of componentOverview.sections) {
           const filepath = join(directory, file.replace(/\.[^/.]+$/, ''));
           if (
-            content.nav_group === 'docs' &&
+            content.navGroup === 'docs' &&
             section.title === 'Documentation'
           ) {
             section.items.push(
               getOverviewSectionItem(content, section.title, filepath),
             );
           } else if (
-            content.nav_group === 'other' &&
+            content.navGroup === 'other' &&
             section.title === 'Angular resources'
           ) {
             section.items.push(
               getOverviewSectionItem(content, 'Angular resource', filepath),
             );
-          } else if (section.title === 'Components' && !content.nav_group) {
+          } else if (section.title === 'Components' && !content.navGroup) {
             section.items.push(
               getOverviewSectionItem(content, 'Component', filepath),
             );

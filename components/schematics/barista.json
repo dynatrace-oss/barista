@@ -5,7 +5,7 @@
   "toc": true,
   "draft": true,
   "tags": ["component", "angular"],
-  "nav_group": "angular-component",
+  "navGroup": "angular-component",
   "category": "components",
   "layout": "page-angular.hbs"
 }
