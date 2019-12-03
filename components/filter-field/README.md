@@ -214,9 +214,7 @@ selecting them.
 
 <!-- TODO: delete image, add demo-->
 
-{{#figure styleguide='true'}}
 ![Operators in filter](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-580-0dcee276c1.png)
-{{/figure}}
 
 ### Multiselection of filter values (not yet implemented)
 
@@ -235,6 +233,4 @@ field is focused and at least one filter is already applied.
 The filter fields syntax is validated, please consider the input field
 validation in the [validation guidelines](/patterns/validation) for details.
 
-{{#figure styleguide='true'}}
 ![Syntax validation in filter](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-validation-580-97985ad3ea.png)
-{{/figure}}

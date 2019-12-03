@@ -111,6 +111,4 @@ waterfall view.
 
 <!-- TODO: example -->
 
-{{#figure fullwidth='true'}}
 ![Toggle button group example](https://d24pvdz4mvzd04.cloudfront.net/test/toggle-button-group-example-1189-78a0538c99.png)
-{{/figure}}

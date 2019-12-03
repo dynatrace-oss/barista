@@ -66,21 +66,15 @@ in the implementation progress, reach out to the DesignOps team.
 
 #### Bar chart
 
-{{#figure imagebox='true'}}
 ![microchart-bar](https://d24pvdz4mvzd04.cloudfront.net/test/microchart-bar-206-e3d25d75c8.png)
-{{/figure}}
 
 #### Stacked bar chart
 
-{{#figure imagebox='true'}}
 ![microchart-stacked-bar](https://d24pvdz4mvzd04.cloudfront.net/test/microchart-stacked-739-57f0371110.png)
-{{/figure}}
 
 #### Pie or donut chart
 
-{{#figure imagebox='true'}}
 ![microchart-donut](https://d24pvdz4mvzd04.cloudfront.net/test/microchart-donut-339-9edbe58d0f.png)
-{{/figure}}
 
 Datapoint micro charts show one or multiple metrics. A legend is not necessary
 if the key is mentioned somewhere else (e.g. headline, label, etc.)
@@ -88,9 +82,7 @@ if the key is mentioned somewhere else (e.g. headline, label, etc.)
 If datapoint micro charts are grouped they will share a legend component
 together.
 
-{{#figure imagebox='true' fullwidth='true'}}
 ![microchart-grouped-bars](https://d24pvdz4mvzd04.cloudfront.net/test/microchart-grouped-bars-1604-03903594b1.png)
-{{/figure}}
 
 ### Timeseries charts
 
