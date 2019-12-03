@@ -21,11 +21,7 @@
     </article>
   </main>
 
-  <ba-toc
-    *ngIf="contents.toc"
-    [data]="contents.content"
-    [title]="contents.title"
-  >
+  <ba-toc *ngIf="_showTOC()" [data]="contents.content" [title]="contents.title">
   </ba-toc>
 
   <ba-page-footer

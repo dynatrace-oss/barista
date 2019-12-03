@@ -168,6 +168,7 @@ ${getIconChangelogHtml(changelogTemplate, iconName)}
       title: metadata.title,
       layout: BaLayoutType.Icon,
       tags: metadata.tags,
+      toc: false,
       content,
     };
 
