@@ -172,10 +172,9 @@ export class BaIconColorWheel {
    * Handle the click on a blob
    */
   _handleBlobClick(fillColor: string, colorName: string): void {
-    const svgSource =
-      document
-        .getElementById(this._iconId)!
-        .innerHTML.replace(/fill="inherit"/g, `fill="${fillColor}"`) || '';
+    const svgSourceDOM = document.getElementById(this._iconId);
+    svgSourceDOM!.querySelector('svg')!.setAttribute('fill', fillColor);
+    const svgSource = svgSourceDOM!.innerHTML || '';
 
     if (this._convertToPng) {
       this._downloadPNG(svgSource, this.name, colorName);
