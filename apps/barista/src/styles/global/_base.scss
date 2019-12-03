@@ -168,6 +168,89 @@ code {
       margin-top: 8px;
     }
   }
+
+  /* List styles */
+  > ul,
+  > ol {
+    margin-left: 1rem;
+    display: block;
+    width: 100%;
+    max-width: calc(#{$max-text-width} - 1rem);
+    padding-left: 0.25rem;
+
+    li > ul,
+    li > ol {
+      margin-bottom: 0;
+    }
+
+    li {
+      position: relative;
+    }
+  }
+
+  > ol li::before {
+    content: none;
+  }
+
+  > ul li {
+    position: relative;
+    margin-bottom: 0;
+  }
+
+  > ul,
+  > ul ul,
+  > ol ul {
+    list-style: none;
+    display: block;
+    width: 100%;
+    max-width: calc(#{$max-text-width} - 1rem);
+
+    li::before {
+      content: ' ';
+      background-color: $turquoise-500;
+      background-color: var(--ba-pagetheme);
+      width: 0.5rem;
+      height: 0.5rem;
+      position: relative;
+      margin-left: -1.25rem;
+      margin-right: 0.5rem;
+      margin-top: 0.4em;
+      vertical-align: top;
+      float: left;
+    }
+  }
+
+  > ol ol,
+  > ul ol {
+    li::before {
+      content: none;
+    }
+  }
+
+  > ul ul,
+  > ol ul ul {
+    li::before {
+      height: 2px;
+      margin-top: 0.65em;
+    }
+  }
+
+  > ul ul ul,
+  > ol ul ul ul {
+    list-style: none;
+
+    li::before {
+      height: 1px;
+      margin-top: 0.65em;
+    }
+  }
+}
+
+@media (max-width: $screen-xxl) {
+  .ba-single-page-content ba-page-content > ul,
+  .ba-single-page-content ba-page-content > ol {
+    width: auto;
+  }
 }
 
 @media (max-width: $table-breakpoint) {
