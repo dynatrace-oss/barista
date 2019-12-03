@@ -130,7 +130,7 @@ export const overviewBuilder = async () => {
             items: [],
           },
           {
-            title: 'Other',
+            title: 'Angular resources',
             items: [],
           },
         ],
@@ -149,10 +149,10 @@ export const overviewBuilder = async () => {
             );
           } else if (
             content.nav_group === 'other' &&
-            section.title === 'Other'
+            section.title === 'Angular resources'
           ) {
             section.items.push(
-              getOverviewSectionItem(content, section.title, filepath),
+              getOverviewSectionItem(content, 'Angular resource', filepath),
             );
           } else if (section.title === 'Components' && !content.nav_group) {
             section.items.push(

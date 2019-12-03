@@ -67,6 +67,7 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
     category: 'component',
     layout: BaLayoutType.Default,
     order: baristaMetadata.order,
+    nav_group: baristaMetadata.nav_group,
   };
 
   return metadataWithDefaults;
