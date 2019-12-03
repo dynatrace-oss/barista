@@ -85,7 +85,7 @@ async function generateIconPackChangelog(
       title: 'Iconpack changelog',
       description:
         'The iconpack changelog lists all changes of the @dynatrace/dt-iconpack package.',
-      nav_group: 'docs',
+      navGroup: 'docs',
       toc: true,
       content: iconPackChangelog,
       layout: BaLayoutType.Default,

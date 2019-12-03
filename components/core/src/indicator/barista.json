@@ -3,5 +3,5 @@
   "description": "The dtIndicator directive can be used with any component to indicate a warning or an error.",
   "properties": ["dev utility"],
   "tags": ["indicator", "validation", "warning", "error"],
-  "nav_group": "other"
+  "navGroup": "other"
 }
