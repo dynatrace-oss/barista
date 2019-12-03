@@ -70,9 +70,10 @@ async function buildPages(): Promise<void[]> {
 }
 
 buildPages()
-  .then(results => {
-    console.log(`${results.length} Pages created.`);
-    overviewBuilder();
+  .then(async results => {
+    console.log(`${results.length} pages created.`);
+    const overviewPages = await overviewBuilder();
+    console.log(`${overviewPages.length} overview pages created.`);
   })
   .catch(err => {
     console.error(err);

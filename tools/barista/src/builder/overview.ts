@@ -15,7 +15,7 @@
  */
 
 import { join } from 'path';
-import { promises as fs, readFileSync, readdirSync } from 'fs';
+import { promises as fs, readFileSync, readdirSync, lstatSync } from 'fs';
 
 import {
   BaOverviewPage,
@@ -68,14 +68,25 @@ function getOverviewSectionItem(
   };
 }
 
+/** Check if given path is a directory within DIST_DIR. */
+function isDirectory(path: string): boolean {
+  try {
+    return lstatSync(join(DIST_DIR, path)).isDirectory();
+  } catch {
+    return false;
+  }
+}
+
 /** Builds overview pages */
 export const overviewBuilder = async () => {
-  const allDirectories = readdirSync(DIST_DIR);
+  const allDirectories = readdirSync(DIST_DIR).filter(dirPath =>
+    isDirectory(dirPath),
+  );
 
   const pages = allDirectories.map(async directory => {
     const path = join(DIST_DIR, directory);
 
-    if (directory.indexOf('.') < 0 && directory !== 'components') {
+    if (directory !== 'components') {
       const files = readdirSync(path);
       const capitalizedTitle =
         directory.charAt(0).toUpperCase() + directory.slice(1);
@@ -111,7 +122,7 @@ export const overviewBuilder = async () => {
           encoding: 'utf8',
         },
       );
-    } else if (directory.indexOf('.') < 0 && directory === 'components') {
+    } else if (directory === 'components') {
       const files = readdirSync(path);
 
       let componentOverview: BaOverviewPage = {
