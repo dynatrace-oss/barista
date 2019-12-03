@@ -41,6 +41,7 @@ import { BaScrollSpyService } from './shared/scroll-spy.service';
 import { BaSearch } from './layout/search/search';
 import { BaSidenav } from './layout/sidenav/sidenav';
 import { BaSinglePage } from './pages/single-page/single-page';
+import { BaIconOverviewPage } from './pages/icon-overview-page/icon-overview-page';
 import { BaSmallTile } from './layout/smalltile/smalltile';
 import { BaTile } from './layout/tile/tile';
 import { BaToc } from './layout/toc/toc';
@@ -49,6 +50,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
+import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { environment } from './environments/environment';
@@ -73,6 +76,8 @@ import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
       )}/assets/icons/{{name}}.svg`,
     }),
     BaComponentsModule,
+    DtFormFieldModule,
+    DtInputModule,
   ],
   exports: [],
   declarations: [
@@ -86,6 +91,7 @@ import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
     BaPageOutlet,
     BaSinglePage,
     BaOverviewPage,
+    BaIconOverviewPage,
     BaTile,
     BaIndexPage,
     BaSmallTile,
@@ -104,6 +110,7 @@ import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
   ],
   entryComponents: [
     BaSinglePage,
+    BaIconOverviewPage,
     BaPageHeader,
     BaContributors,
     BaPageFooter,

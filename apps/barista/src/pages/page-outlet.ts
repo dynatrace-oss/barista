@@ -29,10 +29,12 @@ import { BaPageMetaBase } from '@dynatrace/barista-components/barista-definition
 import { BaIndexPage } from './index-page/index-page';
 import { BaOverviewPage } from './overview-page/overview-page';
 import { BaSinglePage } from './single-page/single-page';
+import { BaIconOverviewPage } from './icon-overview-page/icon-overview-page';
 
 const LAYOUT_PAGES_MAPPING = {
   default: BaSinglePage,
   overview: BaOverviewPage,
+  iconOverview: BaIconOverviewPage,
   index: BaIndexPage,
 };
 

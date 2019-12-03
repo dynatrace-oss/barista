@@ -17,15 +17,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DtSwitchModule } from '@dynatrace/barista-components/switch';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
 import { BaLiveExample } from './live-example/live-example';
-import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { BaLazyIcon } from './lazy-icon/lazy-icon';
 
 // tslint:disable-next-line: no-any
-export const BA_CONTENT_COMPONENTS: any[] = [BaIconColorWheel, BaLiveExample];
+export const BA_CONTENT_COMPONENTS: any[] = [
+  BaIconColorWheel,
+  BaLiveExample,
+  BaLazyIcon,
+];
 
 @NgModule({
-  imports: [CommonModule, DtSwitchModule, DtOverlayModule],
+  imports: [CommonModule, DtSwitchModule, DtOverlayModule, DtIconModule],
+  exports: [...BA_CONTENT_COMPONENTS],
   declarations: [...BA_CONTENT_COMPONENTS],
   entryComponents: [...BA_CONTENT_COMPONENTS],
 })

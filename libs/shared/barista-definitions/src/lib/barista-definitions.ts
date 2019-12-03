@@ -23,7 +23,8 @@ export type BaPageBuilder = (...args: any[]) => Promise<BaPageBuildResult[]>;
 
 export type BaPageBuilderContentResult =
   | BaSinglePageContent
-  | BaIndexPageContent;
+  | BaIndexPageContent
+  | BaIconOverviewPageContent;
 
 export interface BaPageBuildResult {
   relativeOutFile: string;
@@ -33,6 +34,7 @@ export interface BaPageBuildResult {
 export const enum BaLayoutType {
   Default = 'default',
   Overview = 'overview',
+  IconOverview = 'iconOverview',
   Icon = 'icon',
   Index = 'index',
 }
@@ -81,6 +83,21 @@ export interface BaIndexPageContent {
   mostordered: BaStrapiPageLink[];
   gettingstarted: BaStrapiPageTeaser[];
   cta: BaStrapiCTA;
+}
+
+/** Icon overview page */
+export interface BaIconOverviewPageContent {
+  title: string;
+  description?: string;
+  layout: BaLayoutType;
+  icons: BaIconOverviewItem[];
+}
+
+/** Icon overview page item */
+export interface BaIconOverviewItem {
+  title: string;
+  name: string;
+  tags: string[];
 }
 
 /** Base interface for Strapi content types */

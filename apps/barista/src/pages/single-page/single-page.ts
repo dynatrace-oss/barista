@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, Input } from '@angular/core';
 
 import { fillTableData } from '../../utils/fillTableData';
 import { BaPage } from '../page-outlet';
@@ -26,6 +26,7 @@ import { BaSinglePageContent } from '@dynatrace/barista-components/barista-defin
   templateUrl: 'single-page.html',
 })
 export class BaSinglePage implements BaPage, AfterViewInit {
+  @Input()
   get contents(): BaSinglePageContent {
     return this._contents;
   }
@@ -33,7 +34,6 @@ export class BaSinglePage implements BaPage, AfterViewInit {
     this._contents = value;
     this._recentlyOrderedService.saveToLocalStorage(this.contents);
   }
-
   private _contents: BaSinglePageContent;
 
   constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {}

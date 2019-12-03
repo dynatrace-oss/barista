@@ -1,0 +1,48 @@
+@import '../../styles/global/variables';
+@import 'colors';
+
+.ba-icon-filter {
+  margin-bottom: 2rem;
+}
+
+.ba-icon-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-items: center;
+}
+
+.ba-icon-list-item {
+  margin: 1rem;
+  max-width: 120px;
+  text-align: center;
+}
+
+.ba-icon-list-item ::ng-deep svg {
+  width: 3rem;
+  height: 3rem;
+  fill: $gray-700;
+}
+
+@media (min-width: $screen-sm) {
+  .ba-icon-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 1000px) {
+  .ba-icon-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1300px) {
+  .ba-icon-list {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}
+
+@media (min-width: $screen-xxl) {
+  .ba-icon-list {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}

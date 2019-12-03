@@ -1,0 +1,12 @@
+:host {
+  min-height: 100px;
+
+  ::ng-deep .dt-icon {
+    height: auto;
+  }
+}
+
+.ba-lazy-icon-title {
+  display: block;
+  font-size: 0.8rem;
+}
