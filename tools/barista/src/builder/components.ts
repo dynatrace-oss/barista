@@ -31,6 +31,7 @@ import {
   markdownToHtmlTransformer,
   transformPage,
   uxSlotTransformer,
+  headingIdTransformer,
 } from '../transform';
 
 import { slugify } from '../utils/slugify';
@@ -43,6 +44,7 @@ const TRANSFORMERS: BaPageTransformer[] = [
   componentTagsTransformer,
   markdownToHtmlTransformer,
   extractH1ToTitleTransformer,
+  headingIdTransformer,
   uxSlotTransformer,
 ];
 
