@@ -20,7 +20,11 @@ import { fetchContentList } from '../utils/fetch-strapi-content';
 import { slugify } from '../utils/slugify';
 import { isPublicBuild } from '../utils/isPublicBuild';
 
-import { markdownToHtmlTransformer, transformPage } from '../transform';
+import {
+  markdownToHtmlTransformer,
+  transformPage,
+  headingIdTransformer,
+} from '../transform';
 import {
   BaPageBuildResult,
   BaPageBuilder,
@@ -36,7 +40,10 @@ const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
 // tslint:disable-next-line: no-any
 export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
 
-const TRANSFORMERS: BaPageTransformer[] = [markdownToHtmlTransformer];
+const TRANSFORMERS: BaPageTransformer[] = [
+  markdownToHtmlTransformer,
+  headingIdTransformer,
+];
 
 /** Page-builder for Strapi CMS pages. */
 export const strapiBuilder: BaPageBuilder = async () => {

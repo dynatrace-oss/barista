@@ -84,3 +84,35 @@ export const extractH1ToTitleTransformer: BaPageTransformer = async source => {
   }
   return transformed;
 };
+
+/** Adds ids to each headline on the page. */
+export const headingIdTransformer: BaPageTransformer = async source => {
+  const transformed = { ...source };
+  if (source.content && source.content.length) {
+    const content = loadWithCheerio(source.content, { xmlMode: true });
+    const headlines = content('h1, h2, h3, h4, h5, h6');
+    if (headlines.length) {
+      headlines.each((_, headline) => {
+        const text = content(headline).text();
+        const headlineId = text
+          .toLowerCase()
+          .replace(/&amp;/g, '')
+          .replace(/&/g, '')
+          .replace(/\?/g, '')
+          .replace(/\//g, '')
+          .replace(/’/g, '')
+          .replace(/:/g, '')
+          .replace(/\./g, '')
+          .replace(/,/g, '')
+          .replace(/\(/g, '')
+          .replace(/\)/g, '')
+          .replace(/”/g, '')
+          .replace(/[^\w&;:/?\(\)\.<>,’”]+/g, '-')
+          .replace(/^(\d+)/g, 'h$1');
+        content(headline).attr('id', headlineId);
+      });
+      transformed.content = content.html() || '';
+    }
+  }
+  return transformed;
+};
