@@ -15,9 +15,9 @@
  */
 
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Subscription } from 'rxjs';
 
 import { BaScrollSpyInfo, BaScrollSpyService } from './scroll-spy.service';
 
@@ -31,27 +31,34 @@ export interface BaTocItem {
   isSecondary?: boolean;
   level: string;
   title: string;
-  subheadlines?: BaTocItem[];
+  subheadlines: BaTocItem[];
   hasSubheadlines?: boolean;
   headlineId: string;
 }
 
 @Injectable()
-export class BaTocService {
+export class BaTocService implements OnDestroy {
   /** the list of toc items */
   tocList = new ReplaySubject<BaTocItem[]>(1);
   /** the currently active toc item */
-  activeItem = new ReplaySubject<Element>(1);
+  activeItems = new ReplaySubject<BaTocItem[]>(1);
   /** all toc items */
   tocItems: BaTocItem[];
 
   private _scrollSpyInfo: BaScrollSpyInfo | null = null;
+
+  /** Subscription on active items coming from scroll spy. */
+  private _activeItemSubscription = Subscription.EMPTY;
 
   constructor(
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private document: any,
     private _scrollSpyService: BaScrollSpyService,
   ) {}
+
+  ngOnDestroy(): void {
+    this._activeItemSubscription.unsubscribe();
+  }
 
   /**
    * generate the toc and start the scroll spy to find the currently active toc item
@@ -70,11 +77,23 @@ export class BaTocService {
 
     // start the scroll spy
     this._scrollSpyInfo = this._scrollSpyService.spyOn(headlines);
-    this._scrollSpyInfo.active.subscribe(item => {
-      if (item) {
-        this.activeItem.next(item.element);
-      }
-    });
+    this._activeItemSubscription = this._scrollSpyInfo.active.subscribe(
+      scrollItem => {
+        if (scrollItem) {
+          for (const tocItem of this.tocItems) {
+            const scrollItemId = scrollItem.element.getAttribute('id');
+            if (tocItem.headlineId === scrollItemId) {
+              this.activeItems.next([tocItem]);
+            }
+            for (const tocSubItem of tocItem.subheadlines) {
+              if (tocSubItem.headlineId === scrollItemId) {
+                this.activeItems.next([tocItem, tocSubItem]);
+              }
+            }
+          }
+        }
+      },
+    );
   }
 
   /** refractor the headlines (add all h2s and add the h3s as subheadlines to the matching h2) */
@@ -84,29 +103,16 @@ export class BaTocService {
   ): BaTocItem[] {
     const idMap = new Map<string, number>();
     const toc: BaTocItem[] = [];
-    let subheadlinesArray: BaTocItem[] = [];
-    let previousH2;
 
     for (const headline of headlines) {
-      if (headline.tagName.toLowerCase() === 'h2') {
-        if (previousH2) {
-          toc.push(
-            this._createEntry(previousH2, docId, idMap, subheadlinesArray),
-          );
-          subheadlinesArray = [];
-          previousH2 = headline;
-        } else {
-          previousH2 = headline;
-        }
-      } else {
-        subheadlinesArray.push(
-          this._createEntry(headline, docId, idMap, subheadlinesArray),
-        );
-      }
-    }
+      const item = this._createEntry(headline, docId, idMap, []);
 
-    if (previousH2) {
-      toc.push(this._createEntry(previousH2, docId, idMap, subheadlinesArray));
+      if (item.level === 'h2') {
+        toc.push(item);
+      } else if (item.level === 'h3') {
+        toc[toc.length - 1].subheadlines.push(item);
+        toc[toc.length - 1].hasSubheadlines = true;
+      }
     }
 
     return toc;
@@ -117,7 +123,7 @@ export class BaTocService {
     heading: HTMLHeadingElement,
     docId: string,
     idMap: Map<string, number>,
-    subheadlinesArray?: BaTocItem[],
+    subheadlinesArray: BaTocItem[],
   ): BaTocItem {
     const { title, content } = this._extractHeadingSafeHtml(heading);
     const headlineId = `${this._getId(heading, idMap)}`;
@@ -185,7 +191,7 @@ export class BaTocService {
       this._scrollSpyInfo = null;
     }
 
-    this.activeItem.next(undefined);
+    this.activeItems.next(undefined);
   }
 
   /** Extract the id from the heading; create one if necessary */

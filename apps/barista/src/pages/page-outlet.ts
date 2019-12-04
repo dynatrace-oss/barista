@@ -97,6 +97,13 @@ export class BaPageOutlet {
     );
 
     this._currentPageComponentRef = componentRef;
+
+    // Reset scroll position on new page load.
+    if (window) {
+      window.scrollTo({
+        top: 0,
+      });
+    }
   }
 
   /** Destroys page that should be replaced by a new one. */

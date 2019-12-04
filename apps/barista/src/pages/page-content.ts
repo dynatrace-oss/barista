@@ -40,7 +40,7 @@ export class BaPageContent implements OnDestroy {
   }
   set data(value: string) {
     this._data = value;
-    // TODO: is this okay?
+
     // tslint:disable-next-line dt-ban-inner-html
     this._elementRef.nativeElement.innerHTML = value;
     this._elementRef.nativeElement.setAttribute('id', 'all-content');

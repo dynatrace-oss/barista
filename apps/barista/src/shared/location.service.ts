@@ -19,6 +19,10 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+/**
+ * CODE COPIED FROM: 'https://github.com/angular/angular/blob/master/aio/src/app/shared/location.service.ts' and modified
+ */
+
 @Injectable()
 export class BaLocationService {
   // TODO: check if we have a document
