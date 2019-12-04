@@ -132,6 +132,7 @@
     "jest-preset-angular": "^7.1.1",
     "jest-sonar-reporter": "^2.0.0",
     "markdown-it": "^10.0.0",
+    "markdown-it-deflist": "^2.0.3",
     "merge2": "^1.2.3",
     "ng-packagr": "^5.7.1",
     "nodemon": "^1.19.3",
@@ -149,6 +150,7 @@
     "testcafe": "^1.6.1",
     "testcafe-browser-provider-browserstack": "^1.9.0",
     "testcafe-reporter-xunit": "^2.1.0",
+    "ts-jest": "24.1.0",
     "ts-node": "^7.0.0",
     "tsconfig-paths": "^2.3.0",
     "tsickle": "^0.35.0",
@@ -162,7 +164,6 @@
     "watch": "^1.0.2",
     "web-animations-js": "^2.3.1",
     "xml2js": "^0.4.22",
-    "xmlbuilder": "^13.0.2",
-    "ts-jest": "24.1.0"
+    "xmlbuilder": "^13.0.2"
   }
 }
