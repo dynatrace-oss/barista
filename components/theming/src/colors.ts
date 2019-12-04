@@ -66,7 +66,7 @@ export enum DtColors {
   YELLOW_400 = '#ffe11c',
   YELLOW_500 = '#f5d30f',
   YELLOW_600 = '#e6be00',
-  YELLOW_700 = '#c9a999',
+  YELLOW_700 = '#c9a000',
   YELLOW_800 = '#ab8300',
   YELLOW_900 = '#8e6500',
 
