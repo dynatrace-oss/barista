@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-import { AfterViewInit, Component, Input, ViewChildren } from '@angular/core';
-
-import { BaTocService } from '../../shared/toc.service';
+import {
+  Component,
+  ViewChildren,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+} from '@angular/core';
+import { BaTocService, BaTocItem } from '../../shared/toc.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'ba-toc',
@@ -26,65 +32,46 @@ import { BaTocService } from '../../shared/toc.service';
     class: 'ba-toc',
   },
 })
-export class BaToc implements AfterViewInit {
-  @Input() data: string;
-
+export class BaToc implements OnInit, AfterViewInit, OnDestroy {
   /** @internal all TOC entries */
   @ViewChildren('headline') _headlines;
 
-  /** @internal all headlines, which should be represented in the TOC  */
-  _headings;
-  /** @internal whether the Toc is expanded  */
+  /** @internal whether the TOC is expanded  */
   _expandToc: boolean;
+  /** @internal all headlines, which should be represented in the TOC  */
+  _headings: BaTocItem[] = [];
+  /** @internal the TOC entries that are currently active */
+  _activeItems: BaTocItem[] = [];
 
-  /** the toc entry that is currently active */
-  private _activeElement;
+  /** Subscription on the current TOC list */
+  private _tocListSubscription = Subscription.EMPTY;
+  /** Subscription on active TOC items */
+  private _activeItemsSubscription = Subscription.EMPTY;
 
-  constructor(private tocService: BaTocService) {
-    const docElement = document.getElementById('all-content') || undefined;
-    this.tocService.genToc(docElement);
-    this._headings = this.tocService.tocItems;
+  constructor(private _tocService: BaTocService) {}
+
+  ngOnInit(): void {
+    this._tocListSubscription = this._tocService.tocList.subscribe(headings => {
+      this._headings = headings;
+    });
+
+    this._activeItemsSubscription = this._tocService.activeItems.subscribe(
+      activeItems => {
+        this._activeItems = activeItems;
+      },
+    );
   }
 
-  /** highlight the current headline in the toc */
   ngAfterViewInit(): void {
-    this.tocService.activeItem.subscribe(activeItem => {
-      if (activeItem) {
-        const id = activeItem.getAttribute('id');
-        this._headlines.forEach(headline => {
-          const headlineId = headline.nativeElement.href.split('#')[1];
-
-          if (headlineId === id) {
-            this._activeElement = headline.nativeElement;
-            headline.nativeElement.parentNode.classList.add(
-              'ba-toc-item-active',
-            );
-          } else {
-            headline.nativeElement.parentNode.classList.remove(
-              'ba-toc-item-active',
-            );
-          }
-        });
-
-        if (document.querySelectorAll('.ba-toc-ul-active')[0]) {
-          document
-            .querySelectorAll('.ba-toc-ul-active')[0]
-            .classList.remove('ba-toc-ul-active');
-        }
-
-        /* show subheadline list when a subheadline or a headline with
-        subheadlines is currently active */
-        if (activeItem.tagName.toLowerCase() === 'h3') {
-          const activeUrl = this._activeElement.parentNode.parentNode;
-          activeUrl.classList.add('ba-toc-ul-active');
-          activeUrl.parentNode.classList.add('ba-toc-item-active');
-        } else if (this._activeElement.parentNode.querySelectorAll('ul')[0]) {
-          this._activeElement.parentNode
-            .querySelectorAll('ul')[0]
-            .classList.add('ba-toc-ul-active');
-        }
-      }
+    Promise.resolve().then(() => {
+      const docElement = document.getElementById('all-content') || undefined;
+      this._tocService.genToc(docElement);
     });
+  }
+
+  ngOnDestroy(): void {
+    this._tocListSubscription.unsubscribe();
+    this._activeItemsSubscription.unsubscribe();
   }
 
   /** @internal toggle the expandable menu */
@@ -92,7 +79,7 @@ export class BaToc implements AfterViewInit {
     this._expandToc = !this._expandToc;
   }
 
-  /** @internal handle the click on a toc item */
+  /** @internal handle the click on a TOC item */
   _handleTocClick(ev: MouseEvent): void {
     /* Preventing the default behavior is necessary, because on Angular component pages
      * there's a base URL defined and the on-page-links are always relative to "/"

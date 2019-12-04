@@ -26,6 +26,10 @@ import { BaSinglePageContent } from '@dynatrace/barista-components/barista-defin
 
 const CONTENT_PATH_PREFIX = 'data/';
 
+/**
+ * CODE COPIED FROM: 'https://github.com/angular/angular/blob/master/aio/src/app/documents/document.service.ts' and modified
+ */
+
 @Injectable()
 export class BaPageService {
   /**
