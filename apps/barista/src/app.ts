@@ -24,6 +24,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'ba-app',
   templateUrl: 'app.html',
+  styleUrls: ['./app.scss'],
   host: {
     '(click)':
       '_handleClick($event.target, $event.button, $event.ctrlKey, $event.metaKey)',
