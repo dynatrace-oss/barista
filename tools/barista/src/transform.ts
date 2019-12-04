@@ -16,6 +16,7 @@
 
 import { load as loadWithCheerio } from 'cheerio';
 import * as markdownIt from 'markdown-it';
+import * as markdownItDeflist from 'markdown-it-deflist';
 
 import {
   BaSinglePageContent,
@@ -25,7 +26,7 @@ import {
 const markdown = new markdownIt({
   html: true,
   typographer: false,
-});
+}).use(markdownItDeflist);
 
 /** Transforms the page-content object by applying each provided transformer in order */
 export async function transformPage(

@@ -83,28 +83,90 @@ code {
   font-family: 'Bitstream Vera', monospace;
 }
 
-.ba-single-page-content ba-page-content > table {
-  border-spacing: 0;
-  font-size: 14px;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-  width: 100%;
+/* Base styles within single page content. */
+.ba-single-page-content ba-page-content {
+  /* Table styles */
+  > table {
+    border-spacing: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    width: 100%;
 
-  th,
-  td {
-    padding: 8px 12px;
-    text-overflow: ellipsis;
+    th,
+    td {
+      padding: 8px 12px;
+      text-overflow: ellipsis;
+    }
+
+    th {
+      color: $gray-600;
+      font-weight: 600;
+      text-align: left;
+      border-bottom: 1px solid $gray-200;
+    }
+
+    tr:nth-child(2n) {
+      background-color: $gray-100;
+    }
   }
 
-  th {
-    color: $gray-600;
-    font-weight: 600;
-    text-align: left;
-    border-bottom: 1px solid $gray-200;
-  }
+  /* Definition list styles */
+  > dl {
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    line-height: 22px;
+    font-size: 14px;
+    display: block;
+    text-decoration: none;
+    border: none;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
 
-  tr:nth-child(2n) {
-    background-color: $gray-100;
+    dt {
+      padding-right: 3px;
+      font-size: 12px;
+      color: $gray-500;
+      display: inline;
+      position: relative;
+      background-color: inherit;
+      z-index: 1;
+    }
+
+    dd {
+      padding-left: 8px;
+      position: relative;
+      display: block;
+      text-align: right;
+      margin-top: -22px;
+      padding-bottom: 20px;
+      right: 0;
+      z-index: 0;
+      text-shadow: 1px 2px 2px #fff, 2px 2px 2px #fff, 3px 2px 2px #fff,
+        4px 2px 2px #fff, 5px 2px 2px #fff, 6px 2px 2px #fff, -1px 2px 1px #fff,
+        -2px 2px 1px #fff, -3px 2px 2px #fff, -4px 2px 2px #fff,
+        -5px 2px 2px #fff, -6px 2px 2px #fff;
+    }
+
+    dd::before {
+      content: ' ';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      display: block;
+      overflow: hidden;
+      height: 1em;
+      margin-top: 1px;
+      margin-left: -20px;
+      border-bottom: 1px dotted $gray-300;
+      z-index: -2;
+    }
+
+    dd + dd {
+      margin-top: 8px;
+    }
   }
 }
 
