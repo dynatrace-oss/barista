@@ -35,12 +35,12 @@ const TILES_MOSTORDERED = [
   {
     title: 'Icons',
     category: 'Resources',
-    link: '/components/icon',
+    link: '/resources/icons',
   },
   {
     title: 'Colors',
     category: 'Resources',
-    link: '/components/icon',
+    link: '/resources/colors',
   },
   {
     title: 'Button',
@@ -55,12 +55,12 @@ const TILES_MOSTORDERED = [
   {
     title: 'Chart',
     category: 'Components',
-    link: '/components/icon',
+    link: '/components/chart',
   },
   {
-    title: 'Input field',
+    title: 'Filter field',
     category: 'Components',
-    link: '/components/input-field',
+    link: '/components/filter-field',
   },
   {
     title: 'Card',
