@@ -24,6 +24,7 @@ import {
   markdownToHtmlTransformer,
   transformPage,
   headingIdTransformer,
+  internalLinksTransformer,
 } from '../transform';
 import {
   BaPageBuildResult,
@@ -43,6 +44,7 @@ export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
 const TRANSFORMERS: BaPageTransformer[] = [
   markdownToHtmlTransformer,
   headingIdTransformer,
+  internalLinksTransformer,
 ];
 
 /** Page-builder for Strapi CMS pages. */

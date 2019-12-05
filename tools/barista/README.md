@@ -27,8 +27,11 @@ node dist/tools/barista/main.js
 
 ### Environment variables
 
-- PUBLIC_BUILD (optional): whether the build should only output public pages
-- STRAPI_ENDPOINT: the CMS endpoint
+- `PUBLIC_BUILD` (optional): whether the build should only output public pages
+- `STRAPI_ENDPOINT`: the CMS endpoint
+- `INTERNAL_LINKS`: (parts of) internal links that should be removed from the
+  content on public build; separated by `,` (is transformed to the following
+  selector or a list of selectors: `a[href*="<internal-link>"]`)
 
 ### Using Docker
 
@@ -42,7 +45,7 @@ docker build -t barista-pagebuilder . -f ./tools/barista/Dockerfile
 Run the container using the following command:
 
 ```
-docker run --rm -v `pwd`/components:/components -v `pwd`/pagebuilderdist:/apps/barista -e STRAPI_ENDPOINT=<insert-endpoint> barista-pagebuilder
+docker run --rm -v `pwd`/components:/components -v `pwd`/pagebuilderdist:/apps/barista -e STRAPI_ENDPOINT=<insert-endpoint> -e INTERNAL_LINKS=<insert-links> barista-pagebuilder
 ```
 
 You can find all generated pages in the `pagebuilderdist` folder.

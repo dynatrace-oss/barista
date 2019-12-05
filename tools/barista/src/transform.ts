@@ -23,6 +23,9 @@ import {
   BaPageTransformer,
 } from '@dynatrace/barista-components/barista-definitions';
 
+import { isPublicBuild } from './utils/isPublicBuild';
+const INTERNAL_LINKS = process.env.INTERNAL_LINKS;
+
 const markdown = new markdownIt({
   html: true,
   typographer: false,
@@ -114,5 +117,37 @@ export const headingIdTransformer: BaPageTransformer = async source => {
       transformed.content = content.html() || '';
     }
   }
+  return transformed;
+};
+
+/** Removes internal links from the content on public build. */
+export const internalLinksTransformer: BaPageTransformer = async source => {
+  // We don't have to take care of internal links if it's an internal build.
+  if (!isPublicBuild()) {
+    return source;
+  }
+
+  // TODO: Discuss if INTERNAL_LINKS should be required,
+  // i.e. if build should fail here instead, when no links are given.
+  if (!INTERNAL_LINKS) {
+    return source;
+  }
+
+  const transformed = { ...source };
+  const internalLinkSelectors = INTERNAL_LINKS.split(',')
+    .map(selector => `a[href*="${selector}"]`)
+    .join(',');
+
+  const content = loadWithCheerio(source.content, { xmlMode: true });
+  const internalLinks = content(internalLinkSelectors);
+
+  if (internalLinks.length) {
+    internalLinks.each((_, link) => {
+      content(link).attr('href', '');
+      content(link).addClass('ba-internal-url');
+    });
+    transformed.content = content.html() || '';
+  }
+
   return transformed;
 };

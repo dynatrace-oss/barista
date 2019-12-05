@@ -32,6 +32,7 @@ import {
   transformPage,
   uxSlotTransformer,
   headingIdTransformer,
+  internalLinksTransformer,
 } from '../transform';
 
 import { slugify } from '../utils/slugify';
@@ -46,6 +47,7 @@ const TRANSFORMERS: BaPageTransformer[] = [
   extractH1ToTitleTransformer,
   headingIdTransformer,
   uxSlotTransformer,
+  internalLinksTransformer,
 ];
 
 function getMarkdownFilesByPath(rootPath: string): string[] {
