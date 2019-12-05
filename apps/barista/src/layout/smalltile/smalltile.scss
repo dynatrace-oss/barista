@@ -1,46 +1,26 @@
 @import '../../styles/global/variables';
-@import '../../../../../components/core/src/style/colors';
-
-@mixin tile-theme($link-color, $hover-color, $active-color) {
-  .ba-smalltile-link-wrapper,
-  &.ba-smalltile-link-wrapper {
-    .ba-smalltile-link {
-      color: $link-color;
-    }
-  }
-
-  .ba-smalltile-link-wrapper:hover,
-  &.ba-smalltile-link-wrapper:hover {
-    border-color: $hover-color;
-
-    .ba-smalltile-link {
-      text-decoration: none;
-    }
-  }
-
-  .ba-smalltile-link-wrapper:active,
-  &.ba-smalltile-link-wrapper:active {
-    border-color: $active-color;
-  }
-}
+@import 'colors';
 
 :host {
+  --ba-tiletheme: #{$turquoise-600};
+
   border-radius: 3px;
   min-height: 120px;
   display: flex;
   flex-direction: column;
-  border: 1px solid $gray-200;
   background-color: $gray-100;
   height: 100%;
-
-  @include tile-theme($turquoise-600, $turquoise-600, $turquoise-700);
 }
 
 .ba-smalltile-link {
   background-color: #ffffff;
+  border: 1px solid $gray-200;
+  border-radius: 3px;
   text-align: center;
   padding: 1rem 1.5rem;
   height: 100%;
+  color: $turquoise-600;
+  color: var(--ba-tiletheme);
 
   .ba-smalltile-img {
     font-size: 48px;
@@ -50,28 +30,25 @@
     font-size: 0.9rem;
     line-height: 1.2;
   }
+
+  &:hover {
+    text-decoration: none;
+    border: 1px solid var(--ba-tiletheme);
+  }
 }
 
-:host.ba-theme-blue {
-  @include tile-theme($blue-600, $blue-600, $blue-700);
+.ba-smalltile-link.dt-theme-blue {
+  --ba-tiletheme: #{$blue-600};
 }
 
-:host.ba-theme-purple {
-  @include tile-theme($purple-600, $purple-600, $purple-700);
+.ba-smalltile-link.dt-theme-purple {
+  --ba-tiletheme: #{$purple-600};
 }
 
-:host.ba-theme-royalblue {
-  @include tile-theme($royalblue-500, $royalblue-500, $royalblue-700);
+.ba-smalltile-link.dt-theme-royalblue {
+  --ba-tiletheme: #{$royalblue-500};
 }
 
-:host.ba-theme-green {
-  @include tile-theme($green-500, $green-500, $green-700);
-}
-
-:host.ba-theme-yellow {
-  @include tile-theme($yellow-600, $yellow-600, $yellow-700);
-}
-
-:host.ba-theme-turquoise {
-  @include tile-theme($turquoise-600, $turquoise-600, $turquoise-700);
+.ba-smalltile-link.dt-theme-turquoise {
+  --ba-tiletheme: #{$turquoise-600};
 }

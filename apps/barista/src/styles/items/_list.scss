@@ -100,22 +100,18 @@ ol.ba-list ol ul ul {
   }
 }
 
-.ba-theme-blue {
+.dt-theme-blue {
   @include unorderdlisttheme($blue-600);
 }
 
-.ba-theme-turquoise {
+.dt-theme-turquoise {
   @include unorderdlisttheme($turquoise-500);
 }
 
-.ba-theme-purple {
+.dt-theme-purple {
   @include unorderdlisttheme($purple-600);
 }
 
-.ba-theme-royalblue {
+.dt-theme-royalblue {
   @include unorderdlisttheme($royalblue-500);
-}
-
-.ba-theme-green {
-  @include unorderdlisttheme($green-500);
 }

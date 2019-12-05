@@ -56,8 +56,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { environment } from './environments/environment';
 import { BaComponentsModule } from './components';
-
 import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 @NgModule({
   imports: [
@@ -75,6 +75,7 @@ import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
     BaComponentsModule,
     DtFormFieldModule,
     DtInputModule,
+    DtThemingModule,
   ],
   exports: [],
   declarations: [

@@ -7,6 +7,8 @@ $tilefontsize-big: 42px;
 $gridgap: 20px;
 
 @mixin tile-theme($link-color, $hover-color, $active-color) {
+  color: $link-color;
+
   :hover,
   &:hover {
     border-color: $hover-color;
@@ -134,26 +136,18 @@ $gridgap: 20px;
   }
 }
 
-.ba-theme-blue {
+.dt-theme-blue :host {
   @include tile-theme($blue-600, $blue-600, $blue-700);
 }
 
-.ba-theme-purple {
+.dt-theme-purple :host {
   @include tile-theme($purple-600, $purple-600, $purple-700);
 }
 
-.ba-theme-royalblue {
+.dt-theme-royalblue :host {
   @include tile-theme($royalblue-500, $royalblue-500, $royalblue-700);
 }
 
-.ba-theme-green {
-  @include tile-theme($green-500, $green-500, $green-700);
-}
-
-.ba-theme-yellow {
-  @include tile-theme($yellow-600, $yellow-600, $yellow-700);
-}
-
-.ba-theme-turquoise {
+.dt-theme-turquoise :host {
   @include tile-theme($turquoise-600, $turquoise-600, $turquoise-700);
 }
