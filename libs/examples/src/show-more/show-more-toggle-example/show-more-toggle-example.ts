@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { DtExpandablePanel } from '@dynatrace/barista-components/expandable-panel';
 
 @Component({
-  selector: 'dt-example-show-more-interactive',
-  templateUrl: './show-more-interactive-example.html',
+  selector: 'dt-example-show-more-toggle',
+  templateUrl: './show-more-toggle-example.html',
 })
-export class DtExampleShowMoreInteractive {
-  showLess = false;
+export class DtExampleShowMoreToggle {
+  @ViewChild(DtExpandablePanel, { static: true })
+  panel: DtExpandablePanel;
 }

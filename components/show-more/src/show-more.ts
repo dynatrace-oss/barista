@@ -14,35 +14,23 @@
  * limitations under the License.
  */
 
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  ContentChild,
-  Directive,
-  EventEmitter,
+  ElementRef,
   Input,
-  Output,
+  OnDestroy,
   ViewEncapsulation,
 } from '@angular/core';
+import { CanDisable, mixinDisabled } from '@dynatrace/barista-components/core';
 
-/**
- * @deprecated There is no show less label needed according to UX guidelines.
- * @breaking-change Will be removed with 5.0.0.
- */
-@Directive({
-  selector: 'dt-show-less-label',
-  exportAs: 'dtShowLessLabel',
-})
-export class DtShowLessLabel {}
+export class DtShowMoreBase {}
+const _DtShowMoreMixinBase = mixinDisabled(DtShowMoreBase);
 
 @Component({
-  /**
-   * @deprecated The selector will be updated to button[dt-show-more] in 5.0.0
-   * @breaking-change update selector to button[dt-show-more] in 5.0.0, update template accordingly
-   */
-  selector: 'dt-show-more',
+  selector: 'button[dt-show-more]',
   exportAs: 'dtShowMore',
   templateUrl: 'show-more.html',
   styleUrls: ['show-more.scss'],
@@ -50,37 +38,17 @@ export class DtShowLessLabel {}
     class: 'dt-show-more',
     '[class.dt-show-more-disabled]': 'disabled',
     '[class.dt-show-more-show-less]': 'showLess',
-    '(click)': '_fireChange()',
+    '[attr.disabled]': 'disabled || null',
+    '[attr.aria-label]': '_ariaLabel',
   },
+  inputs: ['disabled'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtShowMore {
-  /** Whether the show-more is disabled. Not focus and clickable anymore */
-  @Input()
-  get disabled(): boolean {
-    return this._disabled;
-  }
-  set disabled(value: boolean) {
-    this._disabled = coerceBooleanProperty(value);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _disabled = false;
-
-  /**
-   * @deprecated To be removed once the selector is updated to button[dt-show-more].
-   * Use the button's native click event instead.
-   * @breaking-change Remove with 5.0.0
-   * Emits when the show more element was clicked
-   */
-  @Output() readonly changed = new EventEmitter<void>();
-
-  /** @internal */
-  // tslint:disable-next-line: deprecation
-  @ContentChild(DtShowLessLabel, { static: true }) _lessLabel: DtShowLessLabel;
-
-  /** Whether the show less label is visible. */
+export class DtShowMore extends _DtShowMoreMixinBase
+  implements CanDisable, OnDestroy {
+  /** Sets the component's show less state when used as an expandable panel trigger. */
   @Input()
   get showLess(): boolean {
     return this._showLess;
@@ -90,13 +58,32 @@ export class DtShowMore {
   }
   private _showLess = false;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  /** Aria label for the show less state. */
+  @Input()
+  get ariaLabelShowLess(): string {
+    return this._ariaLabelShowLess;
+  }
+  set ariaLabelShowLess(value: string) {
+    this._ariaLabelShowLess = value;
+  }
+  private _ariaLabelShowLess = 'Show less';
 
-  /** @internal emits the change */
-  _fireChange(): void {
-    if (!this._disabled) {
-      // tslint:disable-next-line: deprecation
-      this.changed.emit();
-    }
+  /** @internal Aria label for show less state without button text. */
+  get _ariaLabel(): string | null {
+    return this._showLess && this._ariaLabelShowLess
+      ? this._ariaLabelShowLess
+      : null;
+  }
+
+  constructor(
+    private _elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+  ) {
+    super();
+    this._focusMonitor.monitor(this._elementRef.nativeElement, true);
+  }
+
+  ngOnDestroy(): void {
+    this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
   }
 }

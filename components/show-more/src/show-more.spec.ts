@@ -66,23 +66,42 @@ describe('DtShowMore', () => {
       instanceElement = instanceDebugElement.nativeElement;
     }));
 
-    it('should not contain less style', () => {
+    it('should not contain show-less style', () => {
       expect(instanceElement.classList).not.toContain('dt-show-more-show-less');
     });
 
-    it('should have less styles', () => {
+    it('should have show-less styles', () => {
       testComponent.showLess = true;
       fixture.detectChanges();
-
       expect(instanceElement.classList).toContain('dt-show-more-show-less');
     });
 
-    it('should fire event', () => {
-      expect(testComponent.eventsFired).toBe(0);
+    it('should have an aria-label when in show-less state', () => {
+      testComponent.showLess = true;
+      fixture.detectChanges();
+      expect(instanceElement.getAttribute('aria-label')).toBe(
+        'Collapse content',
+      );
+    });
 
+    it('should handle clicks', () => {
+      expect(testComponent.clickCount).toBe(0);
       instanceElement.click();
+      expect(testComponent.clickCount).toBe(1);
+    });
 
-      expect(testComponent.eventsFired).toBe(1);
+    it('should have disabled styles', () => {
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+      expect(instanceElement.classList).toContain('dt-show-more-disabled');
+    });
+
+    it('should not handle clicks when disabled', () => {
+      expect(testComponent.clickCount).toBe(0);
+      testComponent.isDisabled = true;
+      fixture.detectChanges();
+      instanceElement.click();
+      expect(testComponent.clickCount).toBe(0);
     });
   });
 });
@@ -90,16 +109,23 @@ describe('DtShowMore', () => {
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-show-more [showLess]="showLess" (changed)="eventFired()">
+    <button
+      dt-show-more
+      [showLess]="showLess"
+      [disabled]="isDisabled"
+      (click)="clickHandler()"
+      ariaLabelShowLess="Collapse content"
+    >
       More
-    </dt-show-more>
+    </button>
   `,
 })
 class TestApp {
   showLess = false;
-  eventsFired = 0;
+  isDisabled = false;
+  clickCount = 0;
 
-  eventFired(): void {
-    this.eventsFired++;
+  clickHandler(): void {
+    this.clickCount++;
   }
 }

@@ -1,5 +1,4 @@
-<button class="dt-show-more-label" [disabled]="disabled">
-  <ng-content *ngIf="_lessLabel === undefined || !showLess"></ng-content>
-  <ng-content select="dt-show-less-label" *ngIf="showLess"></ng-content>
-</button>
-<dt-icon name="dropdownopen"></dt-icon>
+<span class="dt-show-more-label" *ngIf="!showLess">
+  <ng-content></ng-content>
+</span>
+<dt-icon name="dropdownopen" class="dt-show-more-icon"></dt-icon>
