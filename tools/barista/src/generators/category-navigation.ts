@@ -112,6 +112,36 @@ function addSidenavToPages(
   }
 }
 
+function orderSectionItems(
+  categoryNav: BaCategoryNavigation,
+): BaCategoryNavigation {
+  // sort all items by order, if an item doesn't have an order it should come
+  // last. If more than one item doesn't have an order they are sorted alphabetically.
+  for (const section of categoryNav.sections) {
+    const sectionItems = section.items;
+    sectionItems.sort(function(
+      a: BaCategoryNavigationSectionItem,
+      b: BaCategoryNavigationSectionItem,
+    ): number {
+      if (a.order && b.order) {
+        return a.order - b.order;
+      }
+
+      if (b.order) {
+        return 1;
+      }
+
+      if (a.order) {
+        return -1;
+      }
+
+      return a.title.localeCompare(b.title);
+    });
+    section.items = sectionItems;
+  }
+  return categoryNav;
+}
+
 function getOverviewSectionItem(
   filecontent: BaSinglePageMeta,
   section: string,
@@ -160,6 +190,8 @@ export const overviewBuilder = async () => {
 
   const pages = allDirectories.map(async directory => {
     const path = join(DIST_DIR, directory);
+    let overviewPage: BaCategoryNavigation;
+    const files = readdirSync(path);
 
     const capitalizedTitle =
       directory.charAt(0).toUpperCase() + directory.slice(1);
@@ -171,9 +203,7 @@ export const overviewBuilder = async () => {
     });
 
     if (directory !== 'components') {
-      const files = readdirSync(path);
-
-      let overviewPage: BaCategoryNavigation = {
+      overviewPage = {
         title: capitalizedTitle,
         id: directory,
         layout: 'overview',
@@ -193,24 +223,8 @@ export const overviewBuilder = async () => {
           );
         }
       }
-
-      addSidenavToPages(files, overviewPage, path);
-
-      const overviewfilepath = join(DIST_DIR, `${directory}.json`);
-      // Write file with page content to disc.
-      // tslint:disable-next-line: no-magic-numbers
-      return fs.writeFile(
-        overviewfilepath,
-        JSON.stringify(overviewPage, null, 2),
-        {
-          flag: 'w', // "w" -> Create file if it does not exist
-          encoding: 'utf8',
-        },
-      );
     } else {
-      const files = readdirSync(path);
-
-      let componentOverview: BaCategoryNavigation = {
+      overviewPage = {
         title: 'Components',
         id: 'components',
         layout: 'overview',
@@ -234,7 +248,7 @@ export const overviewBuilder = async () => {
 
       for (const file of files) {
         const content = JSON.parse(readFileSync(join(path, file)).toString());
-        for (const section of componentOverview.sections) {
+        for (const section of overviewPage.sections) {
           const filepath = join(directory, file.replace(/\.[^/.]+$/, ''));
           if (
             content.navGroup === 'docs' &&
@@ -257,42 +271,22 @@ export const overviewBuilder = async () => {
           }
         }
       }
-
-      for (const section of componentOverview.sections) {
-        if (section.title === 'Documentation') {
-          const sectionItems = section.items;
-          sectionItems.sort(function(
-            a: BaCategoryNavigationSectionItem,
-            b: BaCategoryNavigationSectionItem,
-          ): number {
-            if (a.order && b.order) {
-              return a.order - b.order;
-            }
-
-            if (b.order) {
-              return 1;
-            }
-
-            return -1;
-          });
-          section.items = sectionItems;
-        }
-      }
-
-      addSidenavToPages(files, componentOverview, path);
-
-      const overviewfilepath = join(DIST_DIR, `${directory}.json`);
-      // Write file with page content to disc.
-      // tslint:disable-next-line: no-magic-numbers
-      return fs.writeFile(
-        overviewfilepath,
-        JSON.stringify(componentOverview, null, 2),
-        {
-          flag: 'w', // "w" -> Create file if it does not exist
-          encoding: 'utf8',
-        },
-      );
     }
+
+    overviewPage = orderSectionItems(overviewPage!);
+
+    addSidenavToPages(files, overviewPage, path);
+
+    const overviewfilepath = join(DIST_DIR, `${directory}.json`);
+    // Write file with page content to disc.
+    return fs.writeFile(
+      overviewfilepath,
+      JSON.stringify(overviewPage, null, 2),
+      {
+        flag: 'w', // "w" -> Create file if it does not exist
+        encoding: 'utf8',
+      },
+    );
   });
 
   nav.navItems = nav.navItems.sort(function(
