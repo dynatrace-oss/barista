@@ -70,10 +70,7 @@ import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
     DtTagModule,
     DtBreadcrumbsModule,
     DtIconModule.forRoot({
-      svgIconLocation: `${environment.deployUrl.replace(
-        /\/+$/,
-        '',
-      )}/assets/icons/{{name}}.svg`,
+      svgIconLocation: `${environment.deployUrl}assets/icons/{{name}}.svg`,
     }),
     BaComponentsModule,
     DtFormFieldModule,
