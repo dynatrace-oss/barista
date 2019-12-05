@@ -21,6 +21,15 @@ import { BaLocationService } from './shared/location.service';
 import { BaPageService } from './shared/page.service';
 import { map } from 'rxjs/operators';
 
+const PAGE_THEME_MAP = new Map<string, string>([
+  ['brand', 'purple'],
+  ['resources', 'blue'],
+  ['components', 'royalblue'],
+  ['patterns', 'turquoise'],
+]);
+
+export const DEFAULT_PAGE_THEME = 'turquoise';
+
 @Component({
   selector: 'ba-app',
   templateUrl: 'app.html',
@@ -61,6 +70,18 @@ export class BaApp {
    */
   _showBreadCrumb$ = this._breadcrumbs$.pipe(
     map((path: { title: string; href: string }[]) => path.length > 1),
+  );
+
+  /** @internal Gets the page theme based on the current location. */
+  _pageTheme$ = this.locationService.currentPath$.pipe(
+    map((path: string) => {
+      let pageTheme = DEFAULT_PAGE_THEME;
+      if (path.length) {
+        const firstPart = path.split('/')[0];
+        pageTheme = PAGE_THEME_MAP.get(firstPart) || pageTheme;
+      }
+      return pageTheme;
+    }),
   );
 
   constructor(

@@ -106,13 +106,13 @@ $buttonactivecolor: $turquoise-800;
     fill: rgba(255, 255, 255, 0.6);
   }
 
-  &.ba-theme-dark > .ba-icon,
-  &.ba-theme-dark > .ba-icon * {
+  &.dt-theme-dark > .ba-icon,
+  &.dt-theme-dark > .ba-icon * {
     fill: #ffffff;
   }
 
-  &.ba-theme-dark[disabled] > .ba-icon,
-  &.ba-theme-dark[disabled] > .ba-icon * {
+  &.dt-theme-dark[disabled] > .ba-icon,
+  &.dt-theme-dark[disabled] > .ba-icon * {
     fill: rgba(255, 255, 255, 0.6);
   }
 
@@ -172,8 +172,8 @@ $buttonactivecolor: $turquoise-800;
 /*
 * ba-btn-primary-darktheme styles
 */
-.ba-btn-primary.ba-theme-dark,
-.ba-theme-dark .ba-btn-primary {
+.ba-btn-primary.dt-theme-dark,
+.dt-theme-dark .ba-btn-primary {
   @include ba-btn-primary-theme-dark();
   @include ba-btn-primary-variant-theme-dark(
     $turquoise-500,
@@ -205,8 +205,8 @@ $buttonactivecolor: $turquoise-800;
 /*
 * ba-btn-secondary-darktheme styles
 */
-.ba-theme-dark .ba-btn-secondary,
-.ba-btn-secondary.ba-theme-dark {
+.dt-theme-dark .ba-btn-secondary,
+.ba-btn-secondary.dt-theme-dark {
   @include ba-btn-secondary-theme-dark();
 
   &.ba-btn-cta {
