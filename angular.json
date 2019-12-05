@@ -496,16 +496,21 @@
             ],
             "styles": ["components/style/index.scss"],
             "scripts": [],
-            "optimization": true,
-            "commonChunk": true,
-            "outputHashing": "all",
-            "sourceMap": false,
-            "extractCss": true,
-            "namedChunks": false,
-            "aot": true,
-            "extractLicenses": true,
-            "vendorChunk": false,
-            "buildOptimizer": true
+            "aot": false
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "commonChunk": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
           }
         },
         "serve": {
