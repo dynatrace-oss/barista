@@ -12,7 +12,7 @@
       </a>
     </dt-menu>
   </dt-sidenav>
-  <dt-top-bar-navigation aria-labe="Main" class="nav">
+  <dt-top-bar-navigation aria-label="Main navigation" class="nav">
     <dt-top-bar-navigation-item *ngIf="!sidenav.opened" align="start">
       <button class="top-bar-button" (click)="sidenav.open()">
         <dt-icon name="menu-hamburger"></dt-icon>
@@ -30,7 +30,7 @@
       </dt-select>
     </dt-top-bar-navigation-item>
   </dt-top-bar-navigation>
-  <main class="main">
+  <main class="main" [dtTheme]="selectedTheme">
     <router-outlet></router-outlet>
   </main>
 </dt-sidenav-container>
