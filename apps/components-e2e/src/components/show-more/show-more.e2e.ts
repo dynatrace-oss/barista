@@ -15,16 +15,10 @@
  */
 import { Selector } from 'testcafe';
 
-const label = Selector('.dt-show-more-label');
 const showMore = Selector('#show-more-1');
+const label = Selector('.dt-show-more-label');
 
 fixture('Show more').page('http://localhost:4200/show-more');
-
-test('should change text after click', async (testController: TestController) => {
-  await testController.expect(await label.textContent).contains('Show more');
-  await testController.click(showMore);
-  await testController.expect(await label.textContent).contains('Show less');
-});
 
 test('should have less style', async (testController: TestController) => {
   await testController
@@ -37,11 +31,14 @@ test('should have less style', async (testController: TestController) => {
 });
 
 test('should change on key events', async (testController: TestController) => {
-  await testController.expect(await label.textContent).notContains('Show less');
+  await testController.expect(await label.textContent).contains('Show more');
   await testController.pressKey('tab').pressKey('enter');
-  await testController.expect(await label.textContent).contains('Show less');
+  await testController.expect(await label.exists).notOk();
+  await testController
+    .expect(await showMore.getAttribute('class'))
+    .contains('dt-show-more-show-less');
   // wait for the animation to be done
   await testController.wait(500);
   await testController.pressKey('enter');
-  await testController.expect(await label.textContent).notContains('Show less');
+  await testController.expect(await label.textContent).contains('Show more');
 });

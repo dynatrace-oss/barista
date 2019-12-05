@@ -1,7 +1,6 @@
 {
   "title": "Show more",
-  "description": "The show more component creates a show more pagination widget.",
-  "postid": "show-more",
+  "description": "The show more component is used to load parts of a list one by one or to toggle the visibility of a content section.",
   "category": "components",
   "public": true,
   "contributors": {

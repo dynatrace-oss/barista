@@ -1,14 +1,16 @@
-# Show More
+# Show more
 
-The show more component is used to split long lists of items into smaller sets
-and load them one by one.
+The show more component indicates the possibility to load more content than
+currently visible. Use it when long lists of items are split into smaller sets
+to load them one by one or as trigger of an expandable panel to toggle the
+visibility of certain content on a page.
 
-<ba-live-example name="DtExampleShowMoreDefault"></ba-live-example>
+<ba-live-example name="ShowMoreDefaultExample"></ba-live-example>
 
 ## Imports
 
 You have to import the `DtShowMoreModule` when you want to use the
-`dt-show-more`:
+`dt-show-more`.
 
 ```typescript
 @NgModule({
@@ -19,50 +21,48 @@ class MyModule {}
 
 ## Initialization
 
-To apply the show more component, use the `<dt-show-more>` element with some
-content as text. To use a _Show less_ label an additional `<dt-show-less-label>`
-tag can be used.
+To apply the show more component, use the `<button dt-show-more>` element. Use
+the content to add a show more label above the arrow icon.
 
-## Properties
+## Inputs
 
-### Button group
+| Name                | Type      | Default     | Description                                                                                                                                               |
+| ------------------- | --------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `<ng-content>`      |           |             | The text which gets displayed above the arrow.                                                                                                            |
+| `showLess`          | `boolean` | `false`     | Whether on click the content that has been expanded is collapsed again. When `true` the show more arrow points upwards and the show more label is hidden. |
+| `ariaLabelShowLess` | `string`  | `Show less` | The aria label for the show less button without text.                                                                                                     |
 
-| Name           | Type          | Default | Description                                                                                                                                        |
-| -------------- | ------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `<ng-content>` |               |         | The (optional) text which gets displayed above the arrow.                                                                                          |
-| `[showLess]`   | `boolean`     | `true`  | The property which stores the expanded state of the component. If the value is `true`, then the arrow of the component is pointing downwards.      |
-| `[tabIndex]`   | `number`      | `0`     | Sets and gets the tabIndex property.                                                                                                               |
-| `(changed)`    | `event<void>` |         | The event which gets fired when the state changes. The event is fired when the user clicks on the component, as well as using SPACE or ENTER keys. |
+## Usage
 
-## Show more on dark background
+The label text should describe how many more items are loaded on click. The show
+more button is not displayed when there are no more items to load. Instead a
+short note that there is no more data is shown.
 
-<ba-live-example name="DtExampleShowMoreDark" themedark="true"></ba-live-example>
+<ba-live-example name="ShowMoreDefaultExample"></ba-live-example>
 
-## Behavior
+### Section toggle
 
-As the list is divided into equal parts, the button shows the number of entries
-of the next part, if possible. As soon as there are no more entries available,
-the show more button is hidden. Once expanded, the list cannot be collapsed
-anymore without a full page reload.
+In case the component is used as a trigger to expand a content section, there is
+no label shown when the component is in close-button-state (i.e. `showLess` is
+`true`).
 
-Another variant of the paging behavior - loading more items if not everything is
-visible initially - is the [pagination component](/components/pagination).
+<ba-live-example name="ShowMoreToggleExample"></ba-live-example>
 
-## States
+### Disabled
 
-The show more component can be disabled.
+When it's not possible or the user is not allowed to load more entries or to
+expand a section, the component gets disabled.
 
-<ba-live-example name="DtExampleShowMoreDisabled"></ba-live-example>
+<ba-live-example name="ShowMoreDisabledExample"></ba-live-example>
 
-## Show more in use
+## Dark background
 
-When combining the show more component with other components, make sure there is
-always a 20px space above and below the show more component.
+The show more component can be placed on dark background.
 
-### Show more without text
+<ba-live-example name="ShowMoreDarkExample" themedark="true"></ba-live-example>
 
-<ba-live-example name="DtExampleShowMoreNoText"></ba-live-example>
+## Accessibility
 
-### Interactive example
-
-<ba-live-example name="DtExampleShowMoreInteractive"></ba-live-example>
+When the component is used as an expandable panel trigger, add a label using the
+`ariaLabelShowLess` input to provide a text alternative for the button without a
+text.

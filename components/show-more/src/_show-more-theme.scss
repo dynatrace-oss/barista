@@ -3,11 +3,13 @@
 
   @if ($is-dark == true) {
     :host {
+      @include dt-cdkmonitor-focus-style(true);
+
       .dt-show-more-label {
         color: $gray-200;
       }
 
-      > dt-icon {
+      .dt-show-more-icon {
         fill: $turquoise-500;
       }
 
@@ -16,7 +18,7 @@
           color: #ffffff;
         }
 
-        > dt-icon {
+        .dt-show-more-icon {
           fill: $turquoise-400;
         }
       }

@@ -5,75 +5,62 @@
 @import './show-more-theme';
 
 :host {
+  border: 0;
   box-sizing: border-box;
-  @include dt-main-font();
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  outline: none;
+  padding: 0;
   text-align: center;
+  width: 100%;
+  background: none;
+  appearance: none;
 
-  .dt-show-more-label {
-    @include dt-main-font();
-    border: 0;
-    box-sizing: border-box;
-    color: $turquoise-600;
-    cursor: pointer;
-    display: block;
-    margin-top: 10px;
-    outline: none;
-    padding: 0;
-    padding: 5px 5px 0;
-    text-align: center;
-    width: 100%;
-    background: none;
-    appearance: none;
-  }
-
-  > dt-icon {
-    display: inline-block;
-    width: 28px;
-    height: 28px;
-    fill: $turquoise-600;
-    transform: rotate(0deg);
-    transition: transform 400ms;
-  }
-
-  &.dt-show-more-disabled {
-    .dt-show-more-label {
-      color: $disabledcolor;
-      cursor: default;
-    }
-
-    dt-icon {
-      fill: $disabledcolor;
-    }
-  }
-
-  &:focus:not(.dt-show-more-disabled) {
-    @include dt-focus-style();
-  }
-
-  &:hover:not(.dt-show-more-disabled) {
-    cursor: pointer;
-
-    .dt-show-more-label {
-      color: $turquoise-700;
-    }
-
-    dt-icon {
-      fill: $turquoise-700;
-    }
-  }
-
-  &.dt-show-more-show-less dt-icon {
-    transform: rotate(180deg);
-  }
+  @include dt-cdkmonitor-focus-style();
 }
 
 .dt-show-more-label {
-  margin-bottom: 8px;
+  @include dt-main-font();
+  color: $turquoise-600;
+}
 
-  &:empty {
-    margin-bottom: 0;
+.dt-show-more-icon {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  fill: $turquoise-600;
+  transform: rotate(0deg);
+  transition: transform 400ms;
+}
+
+:host:hover {
+  cursor: pointer;
+
+  .dt-show-more-label {
+    color: $turquoise-700;
   }
+
+  .dt-show-more-icon {
+    fill: $turquoise-700;
+  }
+}
+
+:host.dt-show-more-disabled {
+  cursor: default;
+  outline: none;
+
+  .dt-show-more-label {
+    color: $disabledcolor;
+  }
+
+  .dt-show-more-icon {
+    fill: $disabledcolor;
+  }
+}
+
+:host.dt-show-more-show-less .dt-show-more-icon {
+  transform: rotate(180deg);
 }
 
 @include dt-apply-theme() {
