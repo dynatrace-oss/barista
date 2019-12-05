@@ -1,0 +1,7 @@
+.ba-internal-url {
+  pointer-events: none;
+}
+
+.ba-internal-url::after {
+  content: ' (internal link)';
+}
