@@ -27,6 +27,8 @@ import {
   BaCategoryNavigation,
   BaCategoryNavigationSectionItem,
   BaSinglePageMeta,
+  BaNav,
+  BaNavItem,
 } from '@dynatrace/barista-components/barista-definitions';
 
 const DIST_DIR = join(
@@ -53,6 +55,8 @@ const highlightedItems = [
   'Common UI styles',
   'Theming',
 ];
+
+const navigationOrder = ['Brand', 'Resources', 'Components', 'Patterns'];
 
 /** add the sidenav to each page */
 function addSidenavToPages(
@@ -150,13 +154,24 @@ export const overviewBuilder = async () => {
     isDirectory(dirPath),
   );
 
+  let nav: BaNav = {
+    navItems: [],
+  };
+
   const pages = allDirectories.map(async directory => {
     const path = join(DIST_DIR, directory);
 
+    const capitalizedTitle =
+      directory.charAt(0).toUpperCase() + directory.slice(1);
+
+    nav.navItems.push({
+      label: capitalizedTitle,
+      url: `/${directory}/`,
+      order: navigationOrder.indexOf(capitalizedTitle) + 1,
+    });
+
     if (directory !== 'components') {
       const files = readdirSync(path);
-      const capitalizedTitle =
-        directory.charAt(0).toUpperCase() + directory.slice(1);
 
       let overviewPage: BaCategoryNavigation = {
         title: capitalizedTitle,
@@ -192,7 +207,7 @@ export const overviewBuilder = async () => {
           encoding: 'utf8',
         },
       );
-    } else if (directory === 'components') {
+    } else {
       const files = readdirSync(path);
 
       let componentOverview: BaCategoryNavigation = {
@@ -279,5 +294,26 @@ export const overviewBuilder = async () => {
       );
     }
   });
+
+  nav.navItems = nav.navItems.sort(function(
+    a: BaNavItem,
+    b: BaNavItem,
+  ): number {
+    if (a.order && b.order) {
+      return a.order - b.order;
+    }
+
+    if (b.order) {
+      return 1;
+    }
+
+    return -1;
+  });
+
+  await fs.writeFile(join(DIST_DIR, 'nav.json'), JSON.stringify(nav, null, 2), {
+    flag: 'w', // "w" -> Create file if it does not exist
+    encoding: 'utf8',
+  });
+
   return Promise.all(pages);
 };

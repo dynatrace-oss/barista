@@ -93,7 +93,7 @@ $nav-current-mobile: $gray-600;
   text-decoration: none;
 }
 
-.ba-nav-item.ba-is-current {
+.ba-nav-item-active {
   background-color: $nav-current-mobile;
 }
 
@@ -121,7 +121,7 @@ $nav-current-mobile: $gray-600;
     position: static;
   }
 
-  .ba-nav-item.ba-is-current {
+  .ba-nav-item-active {
     background-color: $nav-primary-current;
   }
 

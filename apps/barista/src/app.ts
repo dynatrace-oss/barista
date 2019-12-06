@@ -44,13 +44,13 @@ export class BaApp {
    * @internal
    * The object containing all data needed to display the current page.
    */
-  _currentPage$ = this.pageService.currentPage;
+  _currentPage$ = this._pageService.currentPage;
 
   /**
    * @internal
    * Observable of the current path.
    */
-  _breadcrumbs$ = this.locationService.currentPath$.pipe(
+  _breadcrumbs$ = this._locationService.currentPath$.pipe(
     map((path: string) => {
       let previousPath = '';
       return path.split('/').map((part: string) => {
@@ -73,7 +73,7 @@ export class BaApp {
   );
 
   /** @internal Gets the page theme based on the current location. */
-  _pageTheme$ = this.locationService.currentPath$.pipe(
+  _pageTheme$ = this._locationService.currentPath$.pipe(
     map((path: string) => {
       let pageTheme = DEFAULT_PAGE_THEME;
       if (path.length) {
@@ -85,8 +85,8 @@ export class BaApp {
   );
 
   constructor(
-    private pageService: BaPageService,
-    private locationService: BaLocationService,
+    private _pageService: BaPageService,
+    private _locationService: BaLocationService,
   ) {}
 
   /**
@@ -106,7 +106,7 @@ export class BaApp {
     }
 
     if (target instanceof HTMLAnchorElement) {
-      return this.locationService.handleAnchorClick(
+      return this._locationService.handleAnchorClick(
         target,
         button,
         ctrlKey,
