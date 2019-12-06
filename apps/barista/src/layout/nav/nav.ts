@@ -15,6 +15,13 @@
  */
 
 import { Component } from '@angular/core';
+import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { BaLocationService } from '../../shared/location.service';
+import { map, distinctUntilChanged, shareReplay } from 'rxjs/operators';
+
+const CONTENT_PATH_PREFIX = 'data/';
 
 @Component({
   selector: 'ba-nav',
@@ -25,27 +32,25 @@ import { Component } from '@angular/core';
   },
 })
 export class BaNav {
-  // TODO: get nav items from page structure? don't hardcode...
-  navItems = [
-    {
-      label: 'Brand',
-      url: '/brand/',
-    },
-    {
-      label: 'Resources',
-      url: '/resources/',
-    },
-    {
-      label: 'Components',
-      url: '/components/',
-    },
-    {
-      label: 'Patterns',
-      url: '/patterns/',
-    },
-    {
-      label: 'Tools',
-      url: '/tools/',
-    },
-  ];
+  /** Data needed to render the navigation. */
+  _navData$: Observable<any>;
+
+  /** @internal the current root url */
+  _pathRoot$ = this._locationService.currentPath$.pipe(
+    map(path => this._getUrlRootPath(path)),
+    distinctUntilChanged(),
+    shareReplay(),
+  );
+
+  constructor(http: HttpClient, private _locationService: BaLocationService) {
+    const requestPath = `${environment.dataHost}${CONTENT_PATH_PREFIX}nav.json`;
+    this._navData$ = http.get(requestPath, { responseType: 'json' });
+  }
+
+  /** @internal returns the root url of the given path */
+  _getUrlRootPath(url: string): string {
+    const path = url.length && url[0] === '/' ? url.slice(1) : url;
+    const parts = path.split('/');
+    return parts.length ? parts[0] : '';
+  }
 }

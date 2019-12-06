@@ -201,3 +201,13 @@ export interface BaCategoryNavigationSectionItem {
   order?: number;
   active?: boolean;
 }
+
+export interface BaNav {
+  navItems: BaNavItem[];
+}
+
+export interface BaNavItem {
+  label: string;
+  url: string;
+  order?: number;
+}
