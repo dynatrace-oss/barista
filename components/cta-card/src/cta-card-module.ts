@@ -15,7 +15,7 @@
  */
 
 import { NgModule } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { DtCardModule } from '@dynatrace/barista-components/card';
 
 import {
@@ -37,6 +37,6 @@ const CTA_CARD_DIRECTIVES = [
 @NgModule({
   declarations: CTA_CARD_DIRECTIVES,
   exports: CTA_CARD_DIRECTIVES,
-  imports: [DtCardModule],
+  imports: [CommonModule, DtCardModule],
 })
 export class DtCtaCardModule {}
