@@ -1,5 +1,13 @@
 {
   "extends": "../tsconfig.json",
+  "angularCompilerOptions": {
+    "annotateForClosureCompiler": true,
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true,
+    "enableResourceInlining": true
+  },
   "compilerOptions": {
     "types": ["node", "jest"]
   },
