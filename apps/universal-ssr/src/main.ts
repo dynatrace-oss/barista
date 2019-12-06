@@ -16,23 +16,22 @@
 
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
+import { ngExpressEngine } from '@nguniversal/express-engine';
 
 import * as express from 'express';
-
-import { ngExpressEngine } from '@nguniversal/express-engine';
+import { provideModuleMap } from '@nguniversal/module-map-ngfactory-loader';
 
 const {
   AppServerModuleNgFactory,
+  LAZY_MODULE_MAP,
 } = require('dist/apps/universal-server/main.js');
 
 const app = express();
 
-app.engine(
-  'html',
-  ngExpressEngine({
-    bootstrap: AppServerModuleNgFactory,
-  }),
-);
+app.engine('html', ngExpressEngine({
+  bootstrap: AppServerModuleNgFactory,
+  providers: [provideModuleMap(LAZY_MODULE_MAP)],
+}) as any);
 
 app.set('view engine', 'html');
 
@@ -43,7 +42,7 @@ app.get(
   }),
 );
 
-app.get('/', (req: Request, res: any) => {
+app.get('/', (req: express.Request, res: express.Response) => {
   res.render('../dist/apps/universal/index', {
     req,
     res,

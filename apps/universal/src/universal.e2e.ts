@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-import {
-  ServerModule,
-  ServerTransferStateModule,
-} from '@angular/platform-server';
+fixture('Universal').page('http://localhost:9000');
 
-import { AppModule } from './app.module';
-import { KitchenSink } from './kitchen-sink/kitchen-sink';
-import { ModuleMapLoaderModule } from '@nguniversal/module-map-ngfactory-loader';
-import { NgModule } from '@angular/core';
+test('Universal rendering should not throw an error', async (testController: TestController) => {
+  const { error } = await testController.getBrowserConsoleMessages();
 
-@NgModule({
-  imports: [
-    AppModule,
-    ServerModule,
-    ServerTransferStateModule,
-    ModuleMapLoaderModule,
-  ],
-  bootstrap: [KitchenSink],
-})
-export class AppServerModule {}
+  await testController.expect(error.length).eql(0);
+});

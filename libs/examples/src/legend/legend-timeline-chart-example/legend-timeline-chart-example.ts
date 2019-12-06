@@ -20,7 +20,6 @@ import { Component } from '@angular/core';
   selector: 'dt-example-legend-timeline-chart',
   templateUrl: 'legend-timeline-chart-example.html',
   styleUrls: ['legend-timeline-chart-example.scss'],
-  template: ``,
   styles: [``],
 })
 export class DtExampleLegendTimelineChart {}

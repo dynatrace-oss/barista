@@ -21,10 +21,15 @@
     "universal": {
       "tags": ["type:app"]
     },
+    "universal-ssr": {
+      "implicitDependencies": ["universal"],
+      "tags": ["type:app"]
+    },
     "dev": {
       "tags": ["type:app"]
     },
     "barista-tools": {
+      "implicitDependencies": ["barista"],
       "tags": ["type:tooling"]
     },
     "examples-tools": {
