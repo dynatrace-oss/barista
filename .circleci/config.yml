@@ -187,13 +187,14 @@ jobs:
           at: ~/barista
       - run:
           <<: *set_env
-      - run: yarn affected:build ${AFFECTED_ARGS} --parallel --configuration=production
-      - save_cache:
-          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run:
+          name: Generate examples for the demo application
+          command: npm run examples-tools
+      - run: yarn affected:build ${AFFECTED_ARGS} --configuration=production
+      - persist_to_workspace:
+          root: ~/barista
           paths:
-            - dist
-      - store_artifacts:
-          path: dist
+            - .
 
 # - run unit tests
   unit-test:
@@ -219,6 +220,9 @@ jobs:
           at: ~/barista
       - run:
           <<: *set_env
+      - restore_cache:
+          # the universal e2e needs the compiled dist from the build
+          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
       - run: yarn affected:e2e ${AFFECTED_ARGS} --configuration=remote-pr
       - store_test_results:
           path: dist/components-e2e
@@ -282,6 +286,9 @@ workflows:
             - install
       - e2e-test:
           requires:
+            - build
+      - build:
+          requires:
             - install
       - save-latest:
           filters:
@@ -295,6 +302,4 @@ workflows:
             - lint-styles
             - unit-test
             - e2e-test
-      # - build:
-      #     requires:
-      #       - install
+            - build

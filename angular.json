@@ -475,6 +475,23 @@
       "projectType": "application",
       "architect": {
         "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": true,
+            "commands": [
+              {
+                "command": "npx ng run universal:build-frontend --configuration=production"
+              },
+              {
+                "command": "npx ng run universal:build-server"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "build-frontend": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/universal",
@@ -490,8 +507,13 @@
               },
               {
                 "glob": "*.svg",
-                "input": "node_modules/@dynatrace/dt-iconpack",
+                "input": "node_modules/@dynatrace/barista-icons",
                 "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/fonts"
               }
             ],
             "styles": ["components/style/index.scss"],
@@ -513,13 +535,7 @@
             }
           }
         },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "universal:build"
-          }
-        },
-        "server": {
+        "build-server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
             "outputPath": "dist/apps/universal-server",
@@ -531,29 +547,82 @@
             "extractLicenses": false
           }
         },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "universal:build-frontend"
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
               "apps/universal/tsconfig.app.json",
-              "apps/universal/tsconfig.express.json",
               "apps/universal/tsconfig.server.json"
             ],
             "exclude": ["**/node_modules/**", "!apps/universal/**"]
           }
         },
-        "ssr": {
+        "e2e": {
+          "builder": "@politie/angular-testcafe-builder:testcafe",
+          "options": {
+            "devServerTarget": "universal-ssr:serve",
+            "src": "apps/universal/src/**/*.{e2e,po}.ts",
+            "browsers": ["chrome"],
+            "reporters": [
+              {
+                "name": "spec"
+              },
+              {
+                "name": "xunit",
+                "output": "dist/universal/report.xml"
+              }
+            ],
+            "concurrency": 1,
+            "skipJsErrors": false
+          },
+          "configurations": {
+            "remote-pr": {
+              "browsers": ["browserstack:chrome"]
+            },
+            "watch": {
+              "live": true
+            }
+          }
+        }
+      }
+    },
+    "universal-ssr": {
+      "root": "apps/universal-ssr",
+      "sourceRoot": "apps/universal-ssr/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
           "builder": "@nrwl/node:build",
           "options": {
             "outputPath": "dist/apps/universal-ssr",
-            "main": "apps/universal/src/server.ts",
-            "tsConfig": "apps/universal/tsconfig.express.json"
+            "main": "apps/universal-ssr/src/main.ts",
+            "tsConfig": "apps/universal-ssr/tsconfig.app.json",
+            "maxWorkers": 6
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "inspect": false
+            }
           }
         },
-        "run-ssr": {
+        "serve": {
           "builder": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "universal:ssr"
+            "buildTarget": "universal-ssr:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/universal-ssr/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**", "!apps/universal-ssr/**"]
           }
         }
       }
@@ -568,7 +637,8 @@
           "options": {
             "outputPath": "dist/tools/barista",
             "main": "tools/barista/src/main.ts",
-            "tsConfig": "tools/barista/tsconfig.json"
+            "tsConfig": "tools/barista/tsconfig.json",
+            "maxWorkers": 6
           },
           "configurations": {
             "production": {
@@ -634,6 +704,9 @@
           "options": {
             "tsConfig": "components/tsconfig.lib.json",
             "project": "components/ng-package.json"
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }

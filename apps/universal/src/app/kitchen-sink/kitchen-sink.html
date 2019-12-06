@@ -1,6 +1,6 @@
 <h1>Kitchen sink app</h1>
 
-<dt-icon name="agent"></dt-icon>
+<dt-icon name="airplane"></dt-icon>
 
 <dt-alert>My alert</dt-alert>
 <dt-alert severity="warning">My alert</dt-alert>
@@ -156,7 +156,7 @@
 
 <dt-info-group>
   <dt-info-group-icon>
-    <dt-icon name="agent"></dt-icon>
+    <dt-icon name="airplane"></dt-icon>
   </dt-info-group-icon>
   <dt-info-group-title>5 min 30 s</dt-info-group-title>
   Session duration
@@ -213,8 +213,9 @@
       Request start - 0.02s
     </dt-timeline-chart-overlay-title>
     <dt-timeline-chart-overlay-text>
-      The time before the user agent starts requesting the current document from
-      the server, or from relevant application caches or from local resources.
+      The time before the user airplane starts requesting the current document
+      from the server, or from relevant application caches or from local
+      resources.
     </dt-timeline-chart-overlay-text>
   </dt-timeline-chart-timing-marker>
   <dt-timeline-chart-timing-marker value="0.04" identifier="S">
@@ -253,7 +254,7 @@
 <dt-empty-state>
   <dt-empty-state-item>
     <dt-empty-state-item-img>
-      <img src="/assets/icons/agent.svg" alt="No agent" />
+      <img src="/assets/icons/airplane.svg" alt="No airplane" />
     </dt-empty-state-item-img>
 
     <dt-empty-state-item-title>
@@ -267,7 +268,7 @@
 
   <dt-empty-state-item>
     <dt-empty-state-item-img>
-      <img src="/assets/icons/agent.svg" alt="No agent" />
+      <img src="/assets/icons/airplane.svg" alt="No airplane" />
     </dt-empty-state-item-img>
 
     <dt-empty-state-item-title>
@@ -281,7 +282,7 @@
 
   <dt-empty-state-item>
     <dt-empty-state-item-img>
-      <img src="/assets/icons/agent.svg" alt="No agent" />
+      <img src="/assets/icons/airplane.svg" alt="No airplane" />
     </dt-empty-state-item-img>
 
     <dt-empty-state-item-title>
@@ -299,7 +300,9 @@
   eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam
   voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
 </dt-expandable-text>
-
+<!--
+  TODO: currently breaks universal rendering
+  https://github.com/dynatrace-oss/barista/issues/302
 <dt-event-chart>
   <dt-event-chart-event value="0" lane="xhr"></dt-event-chart-event>
   <dt-event-chart-event value="15" lane="xhr"></dt-event-chart-event>
@@ -317,7 +320,7 @@
     name="user-event"
     label="User event"
   ></dt-event-chart-lane>
-</dt-event-chart>
+</dt-event-chart> -->
 
 <dt-top-bar-navigation></dt-top-bar-navigation>
 
