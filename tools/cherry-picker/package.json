@@ -1,0 +1,19 @@
+{
+  "name": "@dynatrace/barista-pull-request-labeler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "cherry-picker": "ts-node --project ./tsconfig.json src/main.ts"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@actions/core": "^1.2.0",
+    "@actions/github": "^1.1.0",
+    "github-cherry-pick": "^1.1.0",
+    "ts-node": "^8.5.4",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.2"
+  }
+}
