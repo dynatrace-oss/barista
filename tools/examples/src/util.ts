@@ -16,8 +16,8 @@
 
 import { promises as fs } from 'fs';
 import { ExampleMetadata } from './metadata';
-import { EXAMPLES_ROOT } from './main';
 import { relative, extname } from 'path';
+import { buildConfig } from './build-config';
 
 /**
  * Reads a provided template file, transforms its content
@@ -52,7 +52,10 @@ export function getExampleImportsFromMetadata(
 ): Map<string, string[]> {
   const exampleImports = new Map<string, string[]>();
   for (const metadataObj of examplesMetadata) {
-    let importPath = relative(EXAMPLES_ROOT, metadataObj.tsFileLocation);
+    let importPath = relative(
+      buildConfig.examplesLibDir,
+      metadataObj.tsFileLocation,
+    );
     if (!importPath.startsWith('../')) {
       importPath = `./${importPath}`;
     }
@@ -82,4 +85,20 @@ export function generateExampleImportStatements(
     imports += `import { ${importNames.join(', ')} } from '${path}';\n`;
   }
   return imports;
+}
+
+/** Return the path of a file for import/export statements. */
+export function getImportExportPath(
+  fileName: string,
+  examplesRoot: string,
+): string {
+  let path = fileName;
+  if (extname(path) === '.ts') {
+    path = path.slice(0, -3);
+  }
+  path = relative(examplesRoot, path);
+  if (!path.startsWith('.') || path.startsWith('/')) {
+    path = `./${path}`;
+  }
+  return path;
 }

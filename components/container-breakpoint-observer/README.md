@@ -8,7 +8,7 @@ The queries have the same syntax as the browsers media queries (e.g.:
 _Note_: Only `min-width`, `max-width`, `min-height` and `max-height` are
 supported.
 
-<ba-live-example name="ContainerBreakpointObserverDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleContainerBreakpointObserverDefault"></ba-live-example>
 
 ## Experimental
 
@@ -60,13 +60,13 @@ every-time the observed query changes state.
 | `dtIfContainerBreakpointElse` | `TemplateRef<DtIfContainerBreakpointContext> | null` | A template to show if the breakpoint does not match.                       |
 
 Example:
-<ba-live-example name="ContainerBreakpointObserverIfExample"></ba-live-example>
+<ba-live-example name="DtExampleContainerBreakpointObserverIf"></ba-live-example>
 
 Using the `then` template:
-<ba-live-example name="ContainerBreakpointObserverIfElseExample"></ba-live-example>
+<ba-live-example name="DtExampleContainerBreakpointObserverIfElse"></ba-live-example>
 
 ## Responsive Table
 
 Using the breakpoint observer creating a responsive table got easier:
 
-<ba-live-example name="TableResponsiveExample"></ba-live-example>
+<ba-live-example name="DtExampleTableResponsive"></ba-live-example>

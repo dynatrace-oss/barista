@@ -17,33 +17,41 @@
 import { ExamplePackageMetadata } from './metadata';
 import { join } from 'path';
 
-import {
-  transformAndWriteTemplate,
-  // generateExampleImportStatements,
-} from './util';
+import { transformAndWriteTemplate, getImportExportPath } from './util';
+import { buildConfig } from './build-config';
 
 /** Generates the examples-module where all example components are declared. */
-export async function generateDemosAppExamplesModule(
+export async function generateExamplesLibModule(
   examplesMetadata: ExamplePackageMetadata[],
-  root: string,
+  targetDir: string,
 ): Promise<string> {
-  const templateFile = join(root, 'examples.module.template');
-  const moduleFile = join(root, 'examples.module.ts');
+  const templateFile = join(
+    buildConfig.examplesLibDir,
+    'examples.module.template',
+  );
+  const outFile = join(targetDir, 'examples.module.ts');
 
   return transformAndWriteTemplate(
     source => {
-      const exampleModuleNames = examplesMetadata.map(
-        metadata => metadata.moduleClassName,
-      );
-      const joinedModuleNames = `  ${exampleModuleNames.join(',\n  ')}`;
-      source = source.replace('${exampleModules}', joinedModuleNames);
-
-      const imports = `import {\n${joinedModuleNames}\n} from '@dynatrace/barista-components/examples';`;
-      source = source.replace('${imports}', imports);
+      const imports: string[] = [];
+      const moduleNames: string[] = [];
+      for (const packageMeta of examplesMetadata) {
+        imports.push(
+          `import { ${
+            packageMeta.moduleClassName
+          } } from '${getImportExportPath(
+            packageMeta.moduleFile,
+            buildConfig.examplesLibDir,
+          )}';`,
+        );
+        moduleNames.push(packageMeta.moduleClassName);
+      }
+      source = source.replace('${exampleModules}', moduleNames.join(',\n    '));
+      source = source.replace('${imports}', imports.join('\n'));
 
       return source;
     },
     templateFile,
-    moduleFile,
+    outFile,
   );
 }

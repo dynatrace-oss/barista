@@ -17,7 +17,7 @@ the custom content, the cta card can hold some special sections:
 - `<dt-cta-card-title-actions>` - Buttons displayed next to the title. Should be
   a secondary styled dt-button showing an image.
 
-<ba-live-example name="CtaCardDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleCtaCardDefault"></ba-live-example>
 
 ## Imports
 
@@ -38,4 +38,4 @@ title inside the `<dt-cta-card-title>` element and not controls like buttons.
 
 ### Closeable Card
 
-<ba-live-example name="CtaCardClosableExample"></ba-live-example>
+<ba-live-example name="DtExampleCtaCardClosable"></ba-live-example>

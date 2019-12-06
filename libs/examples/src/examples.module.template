@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+// tslint:disable: max-file-line-count
 
-@Component({
-  selector: 'dt-example-button-disabled',
-  templateUrl: './button-disabled-example.html',
-  styleUrls: ['button-disabled-example.scss'],
+import { NgModule } from '@angular/core';
+${imports}
+
+/**
+ * NgModule that includes all example components
+ */
+@NgModule({
+  imports: [
+    ${exampleModules}
+  ]
 })
-export class DtExampleButtonDisabled {}
+export class DtExamplesModule { }

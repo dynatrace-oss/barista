@@ -3,7 +3,7 @@
 With the filter component lists and views can be filtered to reduce the
 information shown and help the user find what they're looking for.
 
-<docs-source-example example="FilterFieldDefaultExample"></docs-source-example>
+<ba-live-example name="DtExampleFilterFieldDefault"></ba-live-example>
 
 The filter affects content differently depeding on the component's position. If
 the filter is placed on top of a view, the filter applies to all components and
@@ -65,7 +65,7 @@ when you only want the user to select one city of a full list).
 You can do that by setting the `distinct: true` property onto the autocomplete
 object.
 
-<docs-source-example example="FilterFieldDistinctExample"></docs-source-example>
+<ba-live-example name="DtExampleFilterFieldDistinct"></ba-live-example>
 
 ## Loading options asynchronously
 
@@ -80,7 +80,7 @@ It is possible to set a free-text or range option to be unique. So it can only
 be added once regardless of the value the user added to the free-text input
 field or into the range inputs.
 
-<docs-source-example example="FilterFieldUniqueExample"></docs-source-example>
+<ba-live-example name="DtExampleFilterFieldUnique"></ba-live-example>
 
 ## Filters
 
@@ -132,7 +132,7 @@ To set filters programmatically, the filter-field has a `filters` input. Assign
 the filters you want to set to this property. Be aware, setting the filters will
 override all the currently selected ones.
 
-<docs-source-example example="FilterFieldProgrammaticFiltersExample"></docs-source-example>
+<ba-live-example name="DtExampleFilterFieldProgrammaticFilters"></ba-live-example>
 
 ## Data source
 
@@ -192,7 +192,7 @@ By triggering the `clear all` button, all filters are deleted. This button
 appears on focus loss of the filter field. Please also check out this behavior
 in the [click dummy](https://invis.io/PCG28RGDUFE).
 
-<docs-source-example example="FilterFieldClearAllExample"></docs-source-example>
+<ba-live-example name="DtExampleFilterFieldClearall"></ba-live-example>
 
 ### Readonly, non-deletable & non-editable tags
 
@@ -203,7 +203,7 @@ instance created for a given filter. After getting the tag instance for your
 filter you can configure the filter to your needs by using the properties
 `editable`, `deletable` and `disabled`.
 
-<docs-source-example example="FilterFieldReadOnlyTagsExample"></docs-source-example>
+<ba-live-example name="DtExampleFilterFieldReadOnlyTags"></ba-live-example>
 
 ### Handling operators (not yet implemented)
 

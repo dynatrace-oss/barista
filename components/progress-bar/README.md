@@ -6,7 +6,7 @@ property can be set to specify the color of the progress. The color depends on
 the theme the progress bars is in. The value will be clamped between the min and
 max values.
 
-<ba-live-example name="ProgressBarDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarDefault"></ba-live-example>
 
 ## Imports
 
@@ -32,7 +32,7 @@ class MyModule {}
 Using the `align` input the alignment of the progress bar can be changed to
 `end`.
 
-<ba-live-example name="ProgressBarRightAlignedExample"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarRightAligned"></ba-live-example>
 
 ## Outputs
 
@@ -40,7 +40,7 @@ Using the `align` input the alignment of the progress bar can be changed to
 | ------------- | ------------------------------------------------------ | -------------------------------------------------- |
 | `valueChange` | `EventEmitter<{ oldValue: number, newValue: number }>` | Event emitted when the progress bar value changes. |
 
-<ba-live-example name="ProgressBarChangeExample"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarChange"></ba-live-example>
 
 ## Properties
 
@@ -64,7 +64,7 @@ more insight into what the progress bar actually indicates.
 </dt-progress-bar>
 ```
 
-<ba-live-example name="ProgressBarWithDescriptionExample"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarWithDescription"></ba-live-example>
 
 ## Progress bar count
 
@@ -82,21 +82,21 @@ values. Use the count to display a text representation of the progress.
 </dt-progress-bar>
 ```
 
-<ba-live-example name="ProgressBarWithCountExample"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarWithCount"></ba-live-example>
 
-<ba-live-example name="ProgressBarWithCountAndDescriptionExample"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarWithCountAndDescription"></ba-live-example>
 
 ## Colors
 
 The progress bar can be colored based on its color theme palette.
 
-<ba-live-example name="ProgressBarWithColorExample"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarWithColor"></ba-live-example>
 
 ## Dark background
 
 Progress bars can be placed on dark background.
 
-<ba-live-example name="ProgressBarDarkExample" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarDark" themedark="true"></ba-live-example>
 
 ## Accessibility
 
@@ -125,4 +125,4 @@ fade out transition takes 500ms.
 When the progress value reaches a defined threshold an indicator can be used to
 highlight the number as shown in the following example.
 
-<ba-live-example name="ProgressBarWithCountAndDescriptionIndicatorExample"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarWithCountAndDescriptionIndicator"></ba-live-example>

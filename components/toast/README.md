@@ -49,7 +49,7 @@ It is crucial to show short to the point messages that can be perceived easily.
 Therefore, toasts only support messages up to 120 characters. They can not
 contain any actions or icons. They are not clickable.
 
-<docs-source-example example="ToastDynamicMsgExample"></docs-source-example>
+<ba-live-example name="DtExampleToastDynamicMsg"></ba-live-example>
 
 ### Dismiss toast
 

@@ -4,7 +4,7 @@ A tile is a clickable area and represents e.g. entities. Tiles can contain other
 components. Currently, there are two types of tiles: list tiles and dashboard
 tiles.
 
-<ba-live-example name="TileDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleTileDefault"></ba-live-example>
 
 ## Imports
 
@@ -28,12 +28,12 @@ addition to custom content, the tile also holds the following sections:
   contains text only.
 - `<dt-tile-icon>` - An icon in the top left corner of the tile.
 
-<ba-live-example name="TileDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleTileDefault"></ba-live-example>
 
 If only a `<dt-tile-title>` and no `<dt-tile-subtitle>` is given, the tile will
 be rendered in a smaller version.
 
-<ba-live-example name="TileSmallExample"></ba-live-example>
+<ba-live-example name="DtExampleTileSmall"></ba-live-example>
 
 ## Inputs
 
@@ -48,18 +48,18 @@ be rendered in a smaller version.
 Tiles have a default, hover, active, focus and disabled state. The following
 example shows the disabled state.
 
-<ba-live-example name="TileDisabledExample"></ba-live-example>
+<ba-live-example name="DtExampleTileDisabled"></ba-live-example>
 
 ## Themes and Colors
 
 The tile component can be colored according to the page's theme.
 
-<ba-live-example name="TileMainExample"></ba-live-example>
+<ba-live-example name="DtExampleTileMain"></ba-live-example>
 
 ### Recovered Tile
 
-<ba-live-example name="TileRecoveredExample"></ba-live-example>
+<ba-live-example name="DtExampleTileRecovered"></ba-live-example>
 
 ### Error Tile
 
-<ba-live-example name="TileErrorExample"></ba-live-example>
+<ba-live-example name="DtExampleTileError"></ba-live-example>

@@ -14,13 +14,115 @@
  * limitations under the License.
  */
 
-import { Component, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  ComponentFactoryResolver,
+  Injector,
+  ViewChild,
+  ElementRef,
+  ViewContainerRef,
+  ComponentRef,
+  OnDestroy,
+} from '@angular/core';
+import { EXAMPLES_MAP } from '@dynatrace/barista-components/examples';
+import { createComponent } from '../../utils/create-component';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'ba-live-example',
   templateUrl: 'live-example.html',
   styleUrls: ['live-example.scss'],
+  host: {
+    '[class.ba-live-example-dark]': 'themedark',
+    '[class.ba-live-example-full-width]': 'fullwidth',
+  },
 })
-export class BaLiveExample {
-  @Input() name = '';
+export class BaLiveExample implements OnDestroy {
+  /** The name of the example (class name) that will be instantiated. */
+  @Input()
+  get name(): string {
+    return this._name;
+  }
+  set name(value: string) {
+    this._name = value;
+    this._initExample();
+  }
+  private _name: string;
+
+  /** Whether the example should run in the dark theme. */
+  @Input()
+  get themedark(): boolean {
+    return this._hasThemeDark;
+  }
+  set themedark(value: boolean) {
+    this._hasThemeDark = coerceBooleanProperty(value);
+  }
+  private _hasThemeDark = false;
+
+  /** Whether the example needs the full width of barista. */
+  @Input()
+  get fullwidth(): boolean {
+    return this._isFullWidth;
+  }
+  set fullwidth(value: boolean) {
+    this._isFullWidth = coerceBooleanProperty(value);
+  }
+  private _isFullWidth = false;
+
+  /** The encoded html template source of the given example. */
+  @Input() templateSource: string;
+
+  /** The encoded typescript class (component) source of the given example. */
+  @Input() classSource: string;
+
+  /**
+   * @internal
+   * The placeholder element that will be replaced with
+   * the example element once it is instantiated.
+   */
+  @ViewChild('demoPlaceholder', { read: ElementRef, static: true })
+  _placeholder: ElementRef;
+
+  /** @internal The component-ref of the instantiated class. */
+  _componentRef: ComponentRef<unknown>;
+
+  /**
+   * @internal
+   * The currently active tab for displaying a source (html, ts or scss).
+   */
+  _activeTab: 'html' | 'ts' | 'scss' = 'html';
+
+  constructor(
+    private _componentFactoryResolver: ComponentFactoryResolver,
+    private _injector: Injector,
+    private _viewContainerRef: ViewContainerRef,
+  ) {}
+
+  ngOnDestroy(): void {
+    if (this._componentRef) {
+      this._componentRef.destroy();
+    }
+  }
+
+  /** Whether one of the three sources has been set. */
+  _hasSources(): boolean {
+    return Boolean(this.classSource || this.templateSource);
+  }
+
+  private _initExample(): void {
+    const exampleType = EXAMPLES_MAP.get(this._name);
+    if (exampleType) {
+      const factory = this._componentFactoryResolver.resolveComponentFactory(
+        exampleType,
+      );
+      this._componentRef = createComponent(
+        factory,
+        this._viewContainerRef,
+        this._injector,
+        this._placeholder.nativeElement,
+        true,
+      );
+    }
+  }
 }

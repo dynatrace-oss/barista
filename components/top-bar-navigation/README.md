@@ -4,7 +4,7 @@ The navigation is a landmark on every page. A landmark provides a way to
 identify the organization and structure of a web page. It can be used to display
 some arbitrary data or to provide links to other sections of a page.
 
-<ba-live-example name="TopBarNavigationDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleTopBarNavigationDefault"></ba-live-example>
 
 ## Imports
 
@@ -70,4 +70,4 @@ role and the contents of the label.
 
 ## Top Bar Navigation in use
 
-<ba-live-example name="TopBarNavigationDrawerExample"></ba-live-example>
+<ba-live-example name="DtExampleTopBarNavigationDrawer"></ba-live-example>

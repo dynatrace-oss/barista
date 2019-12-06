@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-// tslint:disable: max-file-line-count
-
-import { NgModule } from '@angular/core';
-${imports}
+import { load as loadWithCheerio } from 'cheerio';
 
 /**
- * NgModule that includes all example components
+ * Runs a given function on a content while loading it into cheerio and giving the
+ * appropriate scope of the cheerio content back again.
  */
-@NgModule({
-  imports: [
-  ${exampleModules}
-  ]
-})
-export class DtDemosExamplesModule { }
+export function runWithCheerio(
+  content: string,
+  transformFunction: ($: CheerioStatic) => void,
+): string {
+  const $ = loadWithCheerio(content);
+  transformFunction($);
+  return $('body').html() || '';
+}

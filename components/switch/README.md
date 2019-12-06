@@ -4,7 +4,7 @@ The switch component is an on/off control that can be toggled via clicking. It
 behaves similarly to a checkbox, though it does not support an indeterminate
 state.
 
-<ba-live-example name="SwitchDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleSwitchDefault"></ba-live-example>
 
 `<dt-switch>` is compatible with @angular/forms and supports both `FormsModule`
 and `ReactiveFormsModule`.
@@ -45,7 +45,7 @@ class MyModule {}
 
 A switch can be placed on dark background.
 
-<ba-live-example name="SwitchDarkExample" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleSwitchDark" themedark="true"></ba-live-example>
 
 ## Accessibility
 
@@ -63,4 +63,4 @@ Switches without text or labels should be given a meaningful label via
 Once the label next to the switch does not fit into one line anymore, the line
 breaks.
 
-<ba-live-example name="SwitchResponsiveExample"></ba-live-example>
+<ba-live-example name="DtExampleSwitchResponsive"></ba-live-example>

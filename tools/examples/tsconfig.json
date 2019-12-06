@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "types": ["node"],
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "target": "es6"
   }
 }

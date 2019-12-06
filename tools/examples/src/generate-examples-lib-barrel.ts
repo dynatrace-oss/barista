@@ -15,16 +15,8 @@
  */
 
 import { ExamplePackageMetadata } from './metadata';
-import { relative, join, extname } from 'path';
-import { transformAndWriteTemplate } from './util';
-
-function getImportExportPath(fileName: string, examplesRoot: string): string {
-  let path = fileName;
-  if (extname(path) === '.ts') {
-    path = path.slice(0, -3);
-  }
-  return relative(examplesRoot, path);
-}
+import { join } from 'path';
+import { transformAndWriteTemplate, getImportExportPath } from './util';
 
 export async function generateExamplesLibBarrelFile(
   packageMetas: ExamplePackageMetadata[],
@@ -35,27 +27,53 @@ export async function generateExamplesLibBarrelFile(
 
   return transformAndWriteTemplate(
     source => {
-      let exports: string[] = [];
+      const imports: string[] = [];
+      const exampleExports: string[] = [];
+      const moduleExports: string[] = [];
+      const examplesMapData: string[] = [];
       for (const packageMeta of packageMetas) {
-        exports.push(
-          `export * from './${getImportExportPath(
+        moduleExports.push(
+          `export { ${
+            packageMeta.moduleClassName
+          } } from './${getImportExportPath(
             packageMeta.moduleFile,
             examplesRoot,
           )}';`,
         );
+        const importExportMap = new Map<string, string[]>();
         for (const example of packageMeta.examples) {
-          exports.push(
-            `export * from './${getImportExportPath(
-              example.tsFileLocation,
-              examplesRoot,
-            )}';`,
+          const importExportPath = getImportExportPath(
+            example.tsFileLocation,
+            examplesRoot,
+          );
+          let importExportSymbolNames = importExportMap.get(importExportPath);
+          if (!importExportSymbolNames) {
+            importExportSymbolNames = [];
+            importExportMap.set(importExportPath, importExportSymbolNames);
+          }
+          importExportSymbolNames.push(example.className);
+        }
+
+        for (const [path, symbolNames] of importExportMap) {
+          const namedImports =
+            symbolNames.length > 1
+              ? `\n  ${symbolNames.join(',\n  ')}\n`
+              : ` ${symbolNames[0]} `;
+          imports.push(`import {${namedImports}} from '${path}';`);
+          exampleExports.push(...symbolNames);
+          examplesMapData.push(
+            ...symbolNames.map(name => `['${name}', ${name}]`),
           );
         }
       }
 
-      source = source.replace('${exports}', exports.join('\n'));
-
-      return source;
+      source = source.replace('${imports}', imports.join('\n'));
+      source = source.replace('${moduleExports}', moduleExports.join('\n'));
+      source = source.replace(
+        '${exampleExports}',
+        `export {\n  ${exampleExports.join(',\n  ')}\n};`,
+      );
+      return source.replace('${examplesMap}', examplesMapData.join(',\n  '));
     },
     templateFile,
     rootBarrelFile,

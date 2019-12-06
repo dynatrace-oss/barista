@@ -32,14 +32,13 @@ import {
   transformPage,
   uxSlotTransformer,
   headingIdTransformer,
-  internalLinksTransformer,
 } from '../transform';
 
 import { slugify } from '../utils/slugify';
 
 const PROJECT_ROOT = join(__dirname, '../../../');
-const LIB_ROOT = join(__dirname, '../../../', 'components');
-const DOCUMENTATION_ROOT = join(__dirname, '../../../', 'documentation');
+const LIB_ROOT = join(PROJECT_ROOT, 'components');
+const DOCUMENTATION_ROOT = join(PROJECT_ROOT, 'documentation');
 
 const TRANSFORMERS: BaPageTransformer[] = [
   componentTagsTransformer,
@@ -47,15 +46,16 @@ const TRANSFORMERS: BaPageTransformer[] = [
   extractH1ToTitleTransformer,
   headingIdTransformer,
   uxSlotTransformer,
-  internalLinksTransformer,
 ];
 
+/** Returns all markdown files of a given path. */
 function getMarkdownFilesByPath(rootPath: string): string[] {
   return readdirSync(rootPath)
     .filter(name => extname(name) === '.md')
     .map(name => join(rootPath, name));
 }
 
+/** Applies defaults to a metadata object */
 function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
   const metadataWithDefaults = {
     title: baristaMetadata.title,
@@ -77,7 +77,11 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
   return metadataWithDefaults;
 }
 
-function getPaths(path: string): string[] {
+/**
+ * Get all paths of directors that contain a README.md and
+ * a barista.json metadata file recursively.
+ */
+function getBaristaContentDirectoryPaths(path: string): string[] {
   let fileList: string[] = [];
 
   // Only grab those dirs that include a README.md and a barista.json
@@ -93,7 +97,7 @@ function getPaths(path: string): string[] {
   for (const file of files) {
     const filePath = join(path, file);
     if (lstatSync(filePath).isDirectory()) {
-      fileList.push(...getPaths(filePath));
+      fileList.push(...getBaristaContentDirectoryPaths(filePath));
     }
   }
 
@@ -102,16 +106,17 @@ function getPaths(path: string): string[] {
 
 /** Page-builder for angular component & documentation pages. */
 export const componentsBuilder: BaPageBuilder = async (
+  globalTransformers: BaPageTransformer[],
   componentsPaths?: string[],
 ) => {
   let readmeDirs: string[] = [];
 
   if (componentsPaths) {
     for (const path of componentsPaths) {
-      readmeDirs.push(...getPaths(path));
+      readmeDirs.push(...getBaristaContentDirectoryPaths(path));
     }
   } else {
-    readmeDirs = getPaths(LIB_ROOT);
+    readmeDirs = getBaristaContentDirectoryPaths(LIB_ROOT);
   }
 
   const documentationMdFiles = [
@@ -134,7 +139,7 @@ export const componentsBuilder: BaPageBuilder = async (
           ...setMetadataDefaults(baristaMetadata),
           content: readFileSync(join(dir, 'README.md')).toString(),
         },
-        TRANSFORMERS,
+        [...TRANSFORMERS, ...globalTransformers],
       );
       transformed.push({ pageContent, relativeOutFile });
     }
@@ -163,7 +168,7 @@ export const componentsBuilder: BaPageBuilder = async (
           navGroup: 'docs',
           content: readFileSync(filepath).toString(),
         },
-        TRANSFORMERS,
+        [...TRANSFORMERS, ...globalTransformers],
       );
       transformed.push({ pageContent, relativeOutFile });
     }

@@ -3,7 +3,7 @@
 This Angular component provides basic expand/collapse functionality for
 inline-text without any styling.
 
-<ba-live-example name="ExpandableTextDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleExpandableTextDefault"></ba-live-example>
 
 ## Imports
 

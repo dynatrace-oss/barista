@@ -4,7 +4,7 @@ The secondary nav component provides a navigation menu which has a clear
 hierarchy and allows for a condensed way to help users navigate in-app routing
 or external links.
 
-<ba-live-example name="SecondaryNavDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleSecondaryNavDefault"></ba-live-example>
 
 A title for the secondary nav is optional. The secondary nav contains individual
 expandable and non-expandable menu sections. Within a section the title is
@@ -84,7 +84,7 @@ To make our components accessible it is obligatory to provide either an
 By default, only one section can be opened at a time unless the `multi` input is
 added to `<dt-secondary-nav>`.
 
-<ba-live-example name="SecondaryNavMultiExample"></ba-live-example>
+<ba-live-example name="DtExampleSecondaryNavMulti"></ba-live-example>
 
 ## Setting an active section and link
 
@@ -94,7 +94,7 @@ directive or as an input. In order to set a `dtSecondaryNavLink` to a
 highlighted active state, you must add the following css class:
 `dt-secondary-nav-active`.
 
-<ba-live-example name="SecondaryNavActiveExample"></ba-live-example>
+<ba-live-example name="DtExampleSecondaryNavActive"></ba-live-example>
 
 ## Setting external links
 
@@ -102,7 +102,7 @@ highlighted active state, you must add the following css class:
 `expandable` input is not included or set to false. Then you must use the
 `external` input.
 
-<ba-live-example name="SecondaryNavExternalExample"></ba-live-example>
+<ba-live-example name="DtExampleSecondaryNavExternal"></ba-live-example>
 
 ## Disabling expandable sections
 
@@ -110,11 +110,11 @@ In order to disable the expanding behavior of a section and use it as a regular
 menu link, do not include the `expandable` input on
 `<dt-secondary-nav-section>`.
 
-<ba-live-example name="SecondaryNavExpandableExample"></ba-live-example>
+<ba-live-example name="DtExampleSecondaryNavExpandable"></ba-live-example>
 
 ## Removing the title
 
 `<dt-secondary-nav-title>` is optional and can safely be excluded in order to
 hide the nav header.
 
-<ba-live-example name="SecondaryNavTitleExample"></ba-live-example>
+<ba-live-example name="DtExampleSecondaryNavTitle"></ba-live-example>

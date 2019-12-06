@@ -15,3 +15,4 @@
  */
 
 export * from './lib/barista-definitions';
+export * from './lib/example-definitions';

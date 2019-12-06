@@ -5,7 +5,7 @@ based on the [expandable panel](/components/expandable-panel) but contains a
 header (`<dt-expandable-section-header>`), which is the trigger of the
 expandable panel.
 
-<ba-live-example name="ExpandableSectionDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleExpandableSectionDefault"></ba-live-example>
 
 ## Imports
 
@@ -41,7 +41,7 @@ To apply the expandable panel, use the `<dt-expandable-section>` element.
 In most cases the expandable section is closed by default, but it can also be
 set to `expanded`.
 
-<ba-live-example name="ExpandableSectionOpenExample"></ba-live-example>
+<ba-live-example name="DtExampleExpandableSectionOpen"></ba-live-example>
 
 ## Outputs
 
@@ -61,20 +61,20 @@ set to `expanded`.
 
 See all methods in action in the following example.
 
-<ba-live-example name="ExpandableSectionInteractiveExample"></ba-live-example>
+<ba-live-example name="DtExampleExpandableSectionInteractive"></ba-live-example>
 
 ## States
 
 The expandable section's trigger has a default, hover, active, focus and
 disabled state. The following example shows a disabled expandable section.
 
-<ba-live-example name="ExpandableSectionDisabledExample"></ba-live-example>
+<ba-live-example name="DtExampleExpandableSectionDisabled"></ba-live-example>
 
 ## Theming
 
 The expandable section can be placed on a dark background.
 
-<ba-live-example name="ExpandableSectionDarkExample" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleExpandableSectionDark" themedark="true"></ba-live-example>
 
 ## Expandable section in use
 

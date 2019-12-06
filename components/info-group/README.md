@@ -5,7 +5,7 @@ visual container for combining an icon with two lines of text (title and
 content). It often comes with multiple instances of itself to give a quick
 overview and summarize content, e.g. inside a table cell.
 
-<ba-live-example name="InfoGroupDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleInfoGroupDefault"></ba-live-example>
 
 The textual content could be a link, otherwise the info group has no
 interactivity. The color of the icon is themeable. The width is defined by the
@@ -39,7 +39,7 @@ sections (directives):
 An info group can be used in a [card](/components/card) and on the top of a page
 to show properties.
 
-<docs-source-example example="InfoCardInCardExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleInfoGroupInCard" fullwidth="true"></ba-live-example>
 
 ### Info groups in tables
 
@@ -48,6 +48,6 @@ in a list. They can provide additional information without the use of a second
 column. A column with info groups is always sorted by the data in the first
 line.
 
-<ba-live-example name="TableWithInfoGroupCellExample" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleTableWithInfoGroupCell" fullwidth="true"></ba-live-example>
 
-<ba-live-example name="TreeTableDefaultExample" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleTreeTableDefault" fullwidth="true"></ba-live-example>

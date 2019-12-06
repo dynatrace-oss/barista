@@ -24,10 +24,8 @@ import {
   markdownToHtmlTransformer,
   transformPage,
   headingIdTransformer,
-  internalLinksTransformer,
 } from '../transform';
 import {
-  BaPageBuildResult,
   BaPageBuilder,
   BaSinglePageMeta,
   BaPageTransformer,
@@ -38,17 +36,15 @@ import {
 
 const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
 
-// tslint:disable-next-line: no-any
-export type BaComponentsPageBuilder = (...args: any[]) => BaPageBuildResult[];
-
 const TRANSFORMERS: BaPageTransformer[] = [
   markdownToHtmlTransformer,
   headingIdTransformer,
-  internalLinksTransformer,
 ];
 
 /** Page-builder for Strapi CMS pages. */
-export const strapiBuilder: BaPageBuilder = async () => {
+export const strapiBuilder: BaPageBuilder = async (
+  globalTransformers: BaPageTransformer[],
+) => {
   // Return here if no endpoint is given.
   if (!STRAPI_ENDPOINT) {
     console.log('No Strapi endpoint given.');
@@ -72,7 +68,7 @@ export const strapiBuilder: BaPageBuilder = async () => {
           ...strapiMetaData(page),
           content: page.content,
         },
-        TRANSFORMERS,
+        [...TRANSFORMERS, ...globalTransformers],
       );
       return { pageContent, relativeOutFile };
     }),

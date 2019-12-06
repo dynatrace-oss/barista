@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { join } from 'path';
 
-@Component({
-  selector: 'dt-example-button-disabled',
-  templateUrl: './button-disabled-example.html',
-  styleUrls: ['button-disabled-example.scss'],
-})
-export class DtExampleButtonDisabled {}
+const ROOT_DIR = join(__dirname, '../../..');
+
+export const buildConfig = {
+  rootDir: ROOT_DIR,
+  examplesLibDir: join(ROOT_DIR, 'libs', 'examples', 'src'),
+  demosAppDir: join(ROOT_DIR, 'apps', 'demos', 'src'),
+  baristaAppDir: join(ROOT_DIR, 'apps', 'barista', 'src'),
+};
