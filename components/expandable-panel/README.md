@@ -5,7 +5,7 @@ without any styling. The expandable trigger directive `dtExpandablePanel` allows
 you to bind a custom element as trigger to an expandable panel
 `<dt-expandable-panel>`. The expandable trigger binds to key and click events.
 
-<docs-source-example example="ExpandablePanelDefaultExample"></docs-source-example>
+<ba-live-example name="DtExampleExpandablePanelDefault"></ba-live-example>
 
 **Note:** In version 5.0.0 the selector for the panel's trigger will be updated
 to `button[dtExpandablePanel]`, then only a button element can be used as
@@ -71,17 +71,17 @@ element.
 
 The expandable panel can be disabled, which also disables the trigger button.
 
-<docs-source-example example="ExpandablePanelDisabledExample"></docs-source-example>
+<ba-live-example name="DtExampleExpandablePanelDisabled"></ba-live-example>
 
 ### Dynamic trigger
 
 The expandable panel's trigger can be updated according to the panel's current
 state.
 
-<docs-source-example example="ExpandablePanelDynamicTriggerExample"></docs-source-example>
+<ba-live-example name="DtExampleExpandablePanelDynamicTrigger"></ba-live-example>
 
 ### Programmatic trigger
 
 The expandable panel can be opened/closed/toggled programmatically.
 
-<docs-source-example example="ExpandablePanelProgrammaticExample"></docs-source-example>
+<ba-live-example name="DtExampleExpandablePanelProgrammatic"></ba-live-example>

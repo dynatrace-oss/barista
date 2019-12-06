@@ -6,7 +6,7 @@ bar grows as the usage increases with color indicating the service status. The
 value label is directly correlated with the growth of the progress bar. To set
 the content for a consumption component, the following tags are available:
 
-<ba-live-example name="ConsumptionDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleConsumptionDefault"></ba-live-example>
 
 - `<dt-consumption-icon>` - An icon shown right next to the title (e.g.
   `<dt-icon name="host"></dt-icon>`)
@@ -66,7 +66,7 @@ The yellow color specifically depicts a service in overage. This means the
 service has used all of its pre-paid quota and is utilizing service outside the
 contracted amount.
 
-<ba-live-example name="ConsumptionWarningExample"></ba-live-example>
+<ba-live-example name="DtExampleConsumptionWarning"></ba-live-example>
 
 ## Limits reached view (error state)
 
@@ -75,7 +75,7 @@ Services that have used their full contracted amount display a full red bar
 contracted limit and the service will no longer be available until quotas are
 increased or renewed.
 
-<ba-live-example name="ConsumptionErrorExample"></ba-live-example>
+<ba-live-example name="DtExampleConsumptionError"></ba-live-example>
 
 ## Accessibility
 

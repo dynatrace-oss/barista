@@ -4,9 +4,9 @@ The alert component informs users about necessary configuration actions
 (warnings) or warns users about failed actions or other events that do not
 require actions from the user (error messages).
 
-<ba-live-example name="AlertWarningExample"></ba-live-example>
+<ba-live-example name="DtExampleAlertWarning"></ba-live-example>
 
-<ba-live-example name="AlertErrorExample"></ba-live-example>
+<ba-live-example name="DtExampleAlertError"></ba-live-example>
 
 ## Imports
 
@@ -35,15 +35,15 @@ To use the alert component, add the `<dt-alert>` element to your page.
 Depending on the value of the `severity` input an error- or warning-alert is
 rendered.
 
-<ba-live-example name="AlertInteractiveExample"></ba-live-example>
+<ba-live-example name="DtExampleAlertInteractive"></ba-live-example>
 
 ## Dark background
 
 Alerts can be placed on dark background.
 
-<ba-live-example name="AlertDarkExample" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleAlertDark" themedark="true"></ba-live-example>
 
-<ba-live-example name="AlertDarkErrorExample" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleAlertDarkError" themedark="true"></ba-live-example>
 
 ## Alerts in use
 

@@ -6,7 +6,7 @@ with the directive `dtTabLabel`. The content is also declared with a
 `ng-template`, but with a directive called `dtTabContent`. By default the first
 enabled tab gets selected if no selected tab is specified.
 
-<ba-live-example name="TabsPureExample"></ba-live-example>
+<ba-live-example name="DtExampleTabsDefault"></ba-live-example>
 
 ## Imports
 
@@ -103,14 +103,14 @@ on an area of the app by using the `dtTheme` directive.
 Additionally to their default state tabs can be disabled, in an error- or
 recovered-state.
 
-<ba-live-example name="TabsDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleTabsDefault"></ba-live-example>
 
 ### Problem indicator
 
 If content in a tab is problematic the tab box as well as the text are red. If
 content in a tab has recovered the tab item is green.
 
-<ba-live-example name="TabsDynamicExample"></ba-live-example>
+<ba-live-example name="DtExampleTabsDynamic"></ba-live-example>
 
 ## Dos and Don'ts
 
@@ -136,4 +136,4 @@ Don't use one single tab, a minimum of two tabs is required.
 
 ### Interactive Tabs
 
-<ba-live-example name="TabsInteractiveExample"></ba-live-example>
+<ba-live-example name="DtExampleTabsInteractive"></ba-live-example>

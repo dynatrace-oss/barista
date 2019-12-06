@@ -20,7 +20,6 @@ import {
   ComponentFactoryResolver,
   ComponentRef,
   ElementRef,
-  EmbeddedViewRef,
   Injector,
   Input,
   OnDestroy,
@@ -28,6 +27,7 @@ import {
 } from '@angular/core';
 
 import { BA_CONTENT_COMPONENTS } from '../components/index';
+import { createComponent } from '../utils/create-component';
 
 @Component({
   selector: 'ba-page-content',
@@ -76,7 +76,9 @@ export class BaPageContent implements OnDestroy {
         this._elementRef.nativeElement.querySelectorAll(factory.selector),
       );
       for (const el of placeholderElements) {
-        this._createComponent(el, factory);
+        this._componentRefs.push(
+          createComponent(factory, this._viewContainerRef, this._injector, el),
+        );
       }
     }
   }
@@ -86,46 +88,5 @@ export class BaPageContent implements OnDestroy {
       ref.destroy();
     }
     this._componentRefs = [];
-  }
-
-  private _createComponent(
-    placeholderElement: HTMLElement,
-    // tslint:disable-next-line: no-any
-    factory: ComponentFactory<any>,
-  ): void {
-    const componentRef = this._viewContainerRef.createComponent(
-      factory,
-      this._viewContainerRef.length,
-      this._injector,
-    );
-
-    // At this point the component has been instantiated,
-    // so we move it to the location in the DOM of the placeholder element.
-    placeholderElement.parentElement!.insertBefore(
-      this._getComponentRootNode(componentRef),
-      placeholderElement,
-    );
-
-    // Try applying inputs.
-    // Note: This can only be done with static attributes, not bindings!
-    for (const input of factory.inputs) {
-      if (placeholderElement.hasAttribute(input.templateName)) {
-        const value = placeholderElement.getAttribute(input.templateName);
-        componentRef.instance[input.propName] = value || input.templateName;
-      }
-    }
-
-    // Now we can safely remove to placeholder element.
-    placeholderElement.parentElement!.removeChild(placeholderElement);
-
-    this._componentRefs.push(componentRef);
-  }
-
-  /** Gets the root HTMLElement for an instantiated component. */
-  // tslint:disable-next-line: no-any
-  private _getComponentRootNode(componentRef: ComponentRef<any>): HTMLElement {
-    // tslint:disable-next-line: no-any
-    return (componentRef.hostView as EmbeddedViewRef<any>)
-      .rootNodes[0] as HTMLElement;
   }
 }

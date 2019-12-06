@@ -1,4 +1,38 @@
-Loading Example: "{{name}}"
+<p *ngIf="!_componentRef">Loading example "name"</p>
 
-<div class="ba-live-example-demo"></div>
-<div class="ba-live-example-source"></div>
+<div class="ba-live-example-demo">
+  <div #demoPlaceholder></div>
+</div>
+
+<div class="ba-live-example-actions">
+  <nav class="ba-live-example-tabs" *ngIf="_hasSources()">
+    <button
+      *ngIf="templateSource"
+      class="ba-live-example-tab"
+      [class.ba-live-example-tab-active]="_activeTab === 'html'"
+      (click)="_activeTab = 'html'"
+    >
+      HTML
+    </button>
+    <button
+      *ngIf="classSource"
+      class="ba-live-example-tab"
+      [class.ba-live-example-tab-active]="_activeTab === 'ts'"
+      (click)="_activeTab = 'ts'"
+    >
+      TS
+    </button>
+  </nav>
+  <div class="ba-live-example-controls"></div>
+</div>
+
+<div class="ba-live-example-sources" *ngIf="_hasSources()">
+  <pre
+    class="ba-live-example-template-source"
+    *ngIf="templateSource && _activeTab === 'html'"
+  ><code>{{templateSource}}</code></pre>
+  <pre
+    class="ba-live-example-class-source"
+    *ngIf="classSource && _activeTab === 'ts'"
+  ><code>{{classSource}}</code></pre>
+</div>

@@ -19,7 +19,10 @@ export type BaPageTransformer = (
 ) => Promise<BaSinglePageContent>;
 
 // tslint:disable-next-line: no-any
-export type BaPageBuilder = (...args: any[]) => Promise<BaPageBuildResult[]>;
+export type BaPageBuilder = (
+  globalTransformers: BaPageTransformer[],
+  ...args: any[]
+) => Promise<BaPageBuildResult[]>;
 
 export type BaPageBuilderContentResult =
   | BaSinglePageContent

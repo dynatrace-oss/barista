@@ -10,7 +10,7 @@ It also supports disabling the rest of the page by adding an unclickable and
 opaque overlay, forcing the user to take action on the dialog. The confirmation
 dialog is part of all settings views.
 
-<docs-source-example example="ConfirmationDialogDefaultExample"></docs-source-example>
+<ba-live-example name="DtExampleConfirmationDialogDefault"></ba-live-example>
 
 ## Imports
 
@@ -64,7 +64,7 @@ The other @Input() (`showBackdrop`) decides whether or not a backdrop disabling
 all other page functionality besides the dialog is displayed, in order to force
 the user to save or discard a change.
 
-<docs-source-example example="ConfirmationDialogShowBackdropExample"></docs-source-example>
+<ba-live-example name="DtExampleConfirmationDialogShowBackdrop"></ba-live-example>
 
 The `dt-confirmation-dialog-actions` directive can be used to properly group
 action buttons used within a `dt-confirmation-dialog-state`.

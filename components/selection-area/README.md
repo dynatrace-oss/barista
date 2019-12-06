@@ -11,8 +11,6 @@ selection area and the chart you have to use the `dtChartSelectionArea`
 directive on the `dt-chart` component and provide the instance of the
 `dt-selection-area` component as an input.
 
-<ba-live-example name="SelectionAreaChartExample" fullwidth="true"></ba-live-example>
-
 ```html
 <dt-chart ... [dtChartSelectionArea]="area"></dt-chart>
 <dt-selection-area #area="dtSelectionArea" ...>

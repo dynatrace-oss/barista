@@ -5,7 +5,7 @@ your app. It does so by directly inlining the SVG content into the page as a
 child of the component (rather than using a tag or a div background image). This
 makes it easier to apply CSS styles to SVG icons.
 
-<ba-live-example name="IconDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleIconDefault"></ba-live-example>
 
 ## Imports
 
@@ -108,4 +108,4 @@ Below you can find all icons that are currently shipped within the
 `@dynatrace/barista-icons` package. You can use these names as the name property
 for the dt-icon component.
 
-<ba-live-example name="IconAllExample" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleIconAll" fullwidth="true"></ba-live-example>

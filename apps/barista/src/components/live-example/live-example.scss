@@ -1,9 +1,83 @@
+@import 'colors';
+
 :host {
   display: block;
   width: 100%;
-  border: 1px solid #ccc;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+:host.ba-live-example-full-width {
+  max-width: 100%;
+  width: 100%;
 }
 
 .ba-live-example-demo {
   padding: 1.5rem 1rem;
+  border-top: 1px solid $gray-300;
+  border-left: 1px solid $gray-300;
+  border-right: 1px solid $gray-300;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+:host.ba-live-example-dark .ba-live-example-demo {
+  background-color: $gray-860;
+  color: #fff;
+}
+
+.ba-live-example-actions {
+  background-color: $gray-200;
+  position: relative;
+  padding: 0;
+  display: flex;
+  border-left: 1px solid $gray-300;
+  border-right: 1px solid $gray-300;
+}
+
+.ba-live-example-tabs {
+  display: flex;
+}
+
+.ba-live-example-tab {
+  background-color: transparent;
+  border: none;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  color: $royalblue-600;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.5rem 1.2rem;
+  position: relative;
+  cursor: pointer;
+  transition: all 150ms ease-out, background-color 150ms ease-out,
+    border 150ms ease-out;
+
+  &:hover {
+    border-top: 3px solid $gray-300;
+    background-color: $gray-300;
+    text-decoration: none;
+  }
+
+  &.ba-live-example-tab-active {
+    background-color: $gray-100;
+    border-top: 3px solid $royalblue-600;
+    color: $gray-900;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+.ba-live-example-template-source,
+.ba-live-example-class-source {
+  display: block;
+  margin-bottom: 0;
+  max-width: 100%;
+  padding: 1rem;
+  border-left: 1px solid $gray-300;
+  border-right: 1px solid $gray-300;
+  border-bottom: 1px solid $gray-300;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
 }

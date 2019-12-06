@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-button-dark-example',
-  template: 'button-dark-example.html',
+  templateUrl: './button-dark-example.html',
   styleUrls: ['button-dark-example.scss'],
 })
 export class DtExampleButtonDark {}

@@ -62,7 +62,7 @@ worry about the order of arguments (see last example in the table above)
 
 ## Link
 
-<docs-source-example example="LinkSimpleExample"></docs-source-example>
+<ba-live-example name="DtExampleLinkSimple"></ba-live-example>
 
 ### API
 
@@ -88,14 +88,14 @@ Link styles are automatically applied to any `<a>` tag.
 
 #### External link
 
-<docs-source-example example="LinkExternalExample"></docs-source-example>
+<ba-live-example name="DtExampleLinkExternal"></ba-live-example>
 
 #### Dark theme
 
-<docs-source-example example="LinkDarkExample" themedark="true"></docs-source-example>
+<ba-live-example name="DtExampleLinkDark" themedark="true"></ba-live-example>
 
 #### Notification
 
 The link can be used in any context and inherits the font size.
 
-<docs-source-example example="LinkNotificationExample"></docs-source-example>
+<ba-live-example name="DtExampleLinkNotification"></ba-live-example>

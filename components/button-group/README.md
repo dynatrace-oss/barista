@@ -4,7 +4,7 @@ A button group has the same behavior as the [tabs component](/components/tabs)
 and is used to switch between different views. The first non-disabled button is
 always preselected.
 
-<ba-live-example name="ButtonGroupDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleButtonGroupDefault"></ba-live-example>
 
 ## Imports
 
@@ -40,7 +40,7 @@ To apply the button group component, use the `<dt-button-group>` and
 | `disabled` | `boolean | undefined` | `undefined` | Sets disabled state if property is set and the value is truthy or undefined |
 | `tabIndex` | `number`              | `0`         | Sets and gets the tabIndex property                                         |
 
-<ba-live-example name="ButtonGroupInteractiveExample"></ba-live-example>
+<ba-live-example name="DtExampleButtonGroupInteractive"></ba-live-example>
 
 ## Outputs
 
@@ -76,19 +76,19 @@ To apply the button group component, use the `<dt-button-group>` and
 Buttons within a button group have a default, hover, active, focus, and disabled
 state.
 
-<ba-live-example name="ButtonGroupItemDisabledExample"></ba-live-example>
+<ba-live-example name="DtExampleButtonGroupItemDisabled"></ba-live-example>
 
 ### Group disabled
 
 The complete button group can be disabled.
 
-<ba-live-example name="ButtonGroupDisabledExample"></ba-live-example>
+<ba-live-example name="DtExampleButtonGroupDisabled"></ba-live-example>
 
 ### Error state
 
 A button group can hold buttons in an error state.
 
-<ba-live-example name="ButtonGroupErrorExample"></ba-live-example>
+<ba-live-example name="DtExampleButtonGroupError"></ba-live-example>
 
 ## Button group in use
 

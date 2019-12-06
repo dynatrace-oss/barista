@@ -4,7 +4,7 @@ The `<dt-form-field>` is a component that wraps form input components like
 `dtInput` and provides functionality for a label (`<dt-label>`), errors
 (`<dt-error>`) and hints (`<dt-hint>`).
 
-<docs-source-example example="FormFieldDefaultExample"></docs-source-example>
+<ba-live-example name="DtExampleFormFieldDefault"></ba-live-example>
 
 ## Imports
 
@@ -37,7 +37,7 @@ hint is usually used to provide information that the user should know
 independent from their actions. A `<dt-form-field>` can have up to two hint
 labels: one start-aligned and one end-aligned.
 
-<docs-source-example example="FormFieldHintExample"></docs-source-example>
+<ba-live-example name="DtExampleFormFieldHint"></ba-live-example>
 
 Hint labels can be added with the `<dt-hint>` element inside the form field.
 Hints can be added to either side by setting the align property on `<dt-hint>`
@@ -55,7 +55,7 @@ fulfills all requirements, it is used to show users what they need to type in,
 etc. If errors occur, they will be displayed as soon as the input loses focus or
 after three seconds of inactivity.
 
-<docs-source-example example="FormFieldErrorExample"></docs-source-example>
+<ba-live-example name="DtExampleFormFieldError"></ba-live-example>
 
 Live hints can also contain other content than error messages. For example
 password requirements.
@@ -75,7 +75,7 @@ used in the form field.
 A form field can have more than one error, it is up to the consumer to toggle
 which messages should be displayed. This can be done with `ngIf` or `ngSwitch`.
 
-<docs-source-example example="FormFieldErrorCustomValidatorExample"></docs-source-example>
+<ba-live-example name="DtExampleFormFieldErrorCustomValidator"></ba-live-example>
 
 It is recommended that errors turn green once the issue is resolved. This helps
 the user understand that his changes were successful.
@@ -98,4 +98,4 @@ visual container that wraps the form control. Adding the `dtPrefix` directive to
 an element inside the `<dt-form-field>` will designate it as the prefix.
 Similarly, adding `dtSuffix` will designate it as the suffix.
 
-<docs-source-example example="FormFieldPrefixSuffixExample"></docs-source-example>
+<ba-live-example name="DtExampleFormFieldPrefixSuffix"></ba-live-example>

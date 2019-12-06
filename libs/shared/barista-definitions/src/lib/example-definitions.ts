@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+export interface BaExampleMetadata {
+  name: string;
+  templateSource: string;
+  classSource: string;
+}
 
-@Component({
-  selector: 'dt-example-button-disabled',
-  templateUrl: './button-disabled-example.html',
-  styleUrls: ['button-disabled-example.scss'],
-})
-export class DtExampleButtonDisabled {}
+export interface BaAllExamplesMetadata {
+  [key: string]: BaExampleMetadata;
+}

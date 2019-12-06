@@ -6,7 +6,7 @@ a complex view by desaturating all other information.
 A toggle button holds an icon and a text indicating what will be highlighted
 when clicked.
 
-<ba-live-example name="ToggleButtonGroupDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleToggleButtonGroupDefault"></ba-live-example>
 
 ## Imports
 
@@ -90,13 +90,13 @@ group, the button of the last visible row is replaced by a "show all" link. As
 soon as the "show all" button is clicked, the remaining toggle buttons will be
 added to the end of the group.
 
-<docs-source-example example="ToggleButtonGroupShowMoreExample"></docs-source-example>
+<ba-live-example name="DtExampleToggleButtonGroupShowMore"></ba-live-example>
 
 ### Adding toggle button items
 
 Items can be added dynamically to a toggle button group.
 
-<ba-live-example name="ToggleButtonGroupDynamicItemsExample"></ba-live-example>
+<ba-live-example name="DtExampleToggleButtonGroupDynamicItems"></ba-live-example>
 
 ## Toggle button group in use
 

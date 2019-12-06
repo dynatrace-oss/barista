@@ -15,17 +15,23 @@
  */
 
 import { dirname, join } from 'path';
-import { promises as fs, mkdirSync } from 'fs';
+import { promises as fs, mkdirSync, existsSync } from 'fs';
 
 import {
   BaPageBuildResult,
   BaPageBuilder,
+  BaPageTransformer,
 } from '@dynatrace/barista-components/barista-definitions';
 import { componentsBuilder } from './builder/components';
 import { strapiBuilder } from './builder/strapi';
 import { homepageBuilder } from './builder/homepage';
 import { iconsBuilder } from './builder/icons';
 import { overviewBuilder } from './generators/category-navigation';
+import { isPublicBuild } from './utils/isPublicBuild';
+import {
+  internalLinksTransformerFactory,
+  exampleInlineSourcesTransformerFactory,
+} from './transform';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
@@ -35,16 +41,62 @@ const BUILDERS = new Map<string, BaPageBuilder>([
   ['icons-builder', iconsBuilder],
 ]);
 
-const DIST_DIR = join(__dirname, '../../', 'apps', 'barista', 'data');
+const PROJECT_ROOT = join(__dirname, '../../');
+const DIST_DIR = join(PROJECT_ROOT, 'apps', 'barista', 'data');
+const EXAMPLES_METADATA = join(PROJECT_ROOT, 'dist', 'examples-metadata.json');
+
+/**
+ * Creates the internalLinksTransformer via a factory because we need to read
+ * some arguments from the process environment.
+ * Transformers should be pure for testing.
+ */
+function createInternalLinksTransformer(): BaPageTransformer {
+  const internalLinkArg = process.env.INTERNAL_LINKS;
+  const internalLinkParts = internalLinkArg ? internalLinkArg.split(',') : [];
+  const isPublic = isPublicBuild();
+
+  if (isPublic && !internalLinkParts.length) {
+    throw new Error(
+      'On public builds internal link parts must be provided ' +
+        'via the "INTERNAL_LINKS" process environment.',
+    );
+  }
+
+  return internalLinksTransformerFactory(isPublic, internalLinkParts);
+}
+
+/**
+ * Creates the exampleInlineSourcesTransformer by loading the example
+ * metadata-json and calling the factory with it.
+ */
+async function createExampleInlineSourcesTransformer(): Promise<
+  BaPageTransformer
+> {
+  if (!existsSync(EXAMPLES_METADATA)) {
+    throw new Error(
+      '"examples-metadata.json" not found. Make sure to run "examples-tools" first.',
+    );
+  }
+  const examplesMetadata = (await fs.readFile(EXAMPLES_METADATA, {
+    encoding: 'utf8',
+  })).toString();
+
+  return exampleInlineSourcesTransformerFactory(JSON.parse(examplesMetadata));
+}
 
 /** Builds pages using all registered builders. */
 async function buildPages(): Promise<void[]> {
+  const globalTransformers = [
+    await createExampleInlineSourcesTransformer(),
+    createInternalLinksTransformer(),
+  ];
+
   const builders = Array.from(BUILDERS.values());
   // Run each builder and collect all build results
   const results = await builders.reduce<Promise<BaPageBuildResult[]>>(
     async (aggregatedResults, currentBuilder) => [
       ...(await aggregatedResults),
-      ...(await currentBuilder()),
+      ...(await currentBuilder(globalTransformers)),
     ],
     Promise.resolve([]),
   );

@@ -5,7 +5,7 @@ context related actions and contains other components like
 [buttons](/components/button), [links](/resources/font#links),
 [checkboxes](/components/checkbox), etc.
 
-<ba-live-example name="ContextDialogDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleContextDialogDefault"></ba-live-example>
 
 ## Imports
 
@@ -63,7 +63,7 @@ buttons do not contain text.
 
 It is possible to disable the entire context dialog.
 
-<ba-live-example name="ContextDialogInteractiveExample"></ba-live-example>
+<ba-live-example name="DtExampleContextDialogInteractive"></ba-live-example>
 
 ## Behavior
 
@@ -73,13 +73,13 @@ overlay. When it is closed again, the focus is set to the previously focused
 element. The dialog can be opened via "ENTER" or "SPACE" when focused, "ESC"
 closes it.
 
-<ba-live-example name="ContextDialogPreviousFocusExample"></ba-live-example>
+<ba-live-example name="DtExampleContextDialogPreviousFocus"></ba-live-example>
 
 ## Dark background
 
 The context dialog component can be used on dark background.
 
-<ba-live-example name="ContextDialogDarkExample" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleContextDialogDark" themedark="true"></ba-live-example>
 
 ## Context dialog in use
 
@@ -94,8 +94,8 @@ right within a [card](/components/card), containing
 To add a custom trigger you can add the `[dtContextDialogTrigger]` directive to
 any `<dt-button>` to be able to link it to the correct context dialog.
 
-<ba-live-example name="ContextDialogCustomIconExample"></ba-live-example>
+<ba-live-example name="DtExampleContextDialogCustomIcon"></ba-live-example>
 
 ### Context dialog with a header
 
-<ba-live-example name="ContextDialogHeaderExample"></ba-live-example>
+<ba-live-example name="DtExampleContextDialogHeader"></ba-live-example>

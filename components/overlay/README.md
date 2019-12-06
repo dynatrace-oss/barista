@@ -8,7 +8,7 @@ actions.
 You can also use them for analysing different chart types, infographics, tags or
 tiles (see [overlays in use section](/components/overlay#overlays-in-use)).
 
-<docs-source-example example="OverlayDefaultExample"></docs-source-example>
+<ba-live-example name="DtExampleOverlayDefault"></ba-live-example>
 
 ## Imports
 
@@ -83,7 +83,7 @@ The `DtOverlay` service has the following two methods:
 | `create()`  | `origin: ElementRef`<br>`componentOrTemplateRef: ComponentType<T> | TemplateRef<T>`<br>`config?: DtOverlayConfig` | `DtOverlayRef` (see details below) | Creates a overlay connected to the origin and containing the given component or templateRef.                         |
 | `dismiss()` |  -                                                                                                                |  `void`                            |  Dismisses the currently open overlay. This method can be used if the overlay needs to be dismissed programatically. |
 
-<docs-source-example example="OverlayProgrammaticExample"></docs-source-example>
+<ba-live-example name="DtExampleOverlayProgrammatic"></ba-live-example>
 
 ### DtOverlayRef
 
@@ -133,7 +133,7 @@ responsively. Overlays should always fit the available screensize and the
 content should reflow accordingly. When in doubt please contact an UX
 teammember.
 
-<docs-source-example example="OverlayComplexContentExample"></docs-source-example>
+<ba-live-example name="DtExampleOverlayComplexContent"></ba-live-example>
 
 ### Table overlay
 
@@ -145,7 +145,7 @@ highlighted within the overlay.
 
 ### Tile overlay
 
-<docs-source-example example="OverlayTileExample"></docs-source-example>
+<ba-live-example name="DtExampleOverlayTile"></ba-live-example>
 
 ### Tag overlay
 

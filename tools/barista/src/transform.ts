@@ -14,22 +14,27 @@
  * limitations under the License.
  */
 
-import { load as loadWithCheerio } from 'cheerio';
 import * as markdownIt from 'markdown-it';
 import * as markdownItDeflist from 'markdown-it-deflist';
 
 import {
   BaSinglePageContent,
   BaPageTransformer,
+  BaAllExamplesMetadata,
 } from '@dynatrace/barista-components/barista-definitions';
-
-import { isPublicBuild } from './utils/isPublicBuild';
-const INTERNAL_LINKS = process.env.INTERNAL_LINKS;
+import { baElementBlockIgnore } from './markdown-custom-elements-ignore';
+import { runWithCheerio } from './utils/run-with-cheerio';
 
 const markdown = new markdownIt({
   html: true,
   typographer: false,
 }).use(markdownItDeflist);
+
+markdown.block.ruler.before(
+  'html_block',
+  'custom_block',
+  baElementBlockIgnore as markdownIt.RuleBlock,
+);
 
 /** Transforms the page-content object by applying each provided transformer in order */
 export async function transformPage(
@@ -74,16 +79,15 @@ export const uxSlotTransformer: BaPageTransformer = async source => {
 export const extractH1ToTitleTransformer: BaPageTransformer = async source => {
   const transformed = { ...source };
   if (source.content && source.content.length) {
-    const content = loadWithCheerio(source.content, { xmlMode: true });
-
-    const headlines = content('h1');
-    if (headlines.length) {
-      if (!transformed.title) {
-        transformed.title = headlines.first().text();
+    transformed.content = runWithCheerio(source.content, $ => {
+      const headlines = $('h1');
+      if (headlines.length) {
+        if (!transformed.title) {
+          transformed.title = headlines.first().text();
+        }
+        headlines.remove();
       }
-      headlines.remove();
-      transformed.content = content.html() || '';
-    }
+    });
   }
   return transformed;
 };
@@ -92,62 +96,76 @@ export const extractH1ToTitleTransformer: BaPageTransformer = async source => {
 export const headingIdTransformer: BaPageTransformer = async source => {
   const transformed = { ...source };
   if (source.content && source.content.length) {
-    const content = loadWithCheerio(source.content, { xmlMode: true });
-    const headlines = content('h1, h2, h3, h4, h5, h6');
-    if (headlines.length) {
-      headlines.each((_, headline) => {
-        const text = content(headline).text();
-        const headlineId = text
-          .toLowerCase()
-          .replace(/&amp;/g, '')
-          .replace(/&/g, '')
-          .replace(/\?/g, '')
-          .replace(/\//g, '')
-          .replace(/’/g, '')
-          .replace(/:/g, '')
-          .replace(/\./g, '')
-          .replace(/,/g, '')
-          .replace(/\(/g, '')
-          .replace(/\)/g, '')
-          .replace(/”/g, '')
-          .replace(/[^\w&;:/?\(\)\.<>,’”]+/g, '-')
-          .replace(/^(\d+)/g, 'h$1');
-        content(headline).attr('id', headlineId);
-      });
-      transformed.content = content.html() || '';
-    }
+    transformed.content = runWithCheerio(source.content, $ => {
+      const headlines = $('h1, h2, h3, h4, h5, h6');
+      if (headlines.length) {
+        headlines.each((_, headline) => {
+          const text = $(headline).text();
+          const headlineId = text
+            .toLowerCase()
+            .replace(/&amp;/g, '')
+            .replace(/&/g, '')
+            .replace(/\?/g, '')
+            .replace(/\//g, '')
+            .replace(/’/g, '')
+            .replace(/:/g, '')
+            .replace(/\./g, '')
+            .replace(/,/g, '')
+            .replace(/\(/g, '')
+            .replace(/\)/g, '')
+            .replace(/”/g, '')
+            .replace(/[^\w&;:/?\(\)\.<>,’”]+/g, '-')
+            .replace(/^(\d+)/g, 'h$1');
+          $(headline).attr('id', headlineId);
+        });
+      }
+    });
   }
   return transformed;
 };
 
 /** Removes internal links from the content on public build. */
-export const internalLinksTransformer: BaPageTransformer = async source => {
-  // We don't have to take care of internal links if it's an internal build.
-  if (!isPublicBuild()) {
-    return source;
-  }
+export function internalLinksTransformerFactory(
+  isPublic: boolean,
+  internalLinkParts: string[],
+): BaPageTransformer {
+  return async source => {
+    if (!isPublic || !internalLinkParts.length) {
+      return source;
+    }
 
-  // TODO: Discuss if INTERNAL_LINKS should be required,
-  // i.e. if build should fail here instead, when no links are given.
-  if (!INTERNAL_LINKS) {
-    return source;
-  }
+    const transformed = { ...source };
+    const internalLinkSelectors = internalLinkParts
+      .map(selector => `a[href*="${selector}"]`)
+      .join(',');
 
-  const transformed = { ...source };
-  const internalLinkSelectors = INTERNAL_LINKS.split(',')
-    .map(selector => `a[href*="${selector}"]`)
-    .join(',');
-
-  const content = loadWithCheerio(source.content, { xmlMode: true });
-  const internalLinks = content(internalLinkSelectors);
-
-  if (internalLinks.length) {
-    internalLinks.each((_, link) => {
-      content(link).attr('href', '');
-      content(link).addClass('ba-internal-url');
+    transformed.content = runWithCheerio(source.content, ($: CheerioStatic) => {
+      const internalLinksElements = $(internalLinkSelectors);
+      if (internalLinksElements.length) {
+        internalLinksElements.each((_, link) => {
+          $(link).attr('href', '#');
+          $(link).addClass('ba-internal-url');
+        });
+      }
     });
-    transformed.content = content.html() || '';
-  }
-
-  return transformed;
-};
+    return transformed;
+  };
+}
+export function exampleInlineSourcesTransformerFactory(
+  metadata: BaAllExamplesMetadata,
+): BaPageTransformer {
+  return async source => {
+    source.content = runWithCheerio(source.content, ($: CheerioStatic) => {
+      $('ba-live-example').each((_index, element) => {
+        const name = $(element).attr('name');
+        const demoMetadata = metadata[name];
+        if (!demoMetadata) {
+          throw new Error(`Example with name ${name} does not exist`);
+        }
+        $(element).attr('templateSource', demoMetadata.templateSource);
+        $(element).attr('classSource', demoMetadata.classSource);
+      });
+    });
+    return source;
+  };
+}

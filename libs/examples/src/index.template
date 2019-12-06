@@ -16,4 +16,14 @@
 
 // tslint:disable: max-file-line-count
 
-${exports}
+import { Type } from '@angular/core';
+
+${imports}
+
+export { DtExamplesModule } from './examples.module';
+${moduleExports}
+${exampleExports}
+
+export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
+  ${examplesMap}
+]);

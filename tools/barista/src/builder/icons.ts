@@ -149,7 +149,6 @@ export const iconsBuilder: BaPageBuilder = async () => {
 
     // Skip non-public icons on public build.
     if (isPublicBuild() && metadata.public === false) {
-      console.log(`Public build. Skip non-public icon ${filePath}.`);
       continue;
     }
     let svg = getSvgWithoutFill(filePath);

@@ -4,7 +4,7 @@ The table component can be a static or an interactive element. Some tables
 provide the possiblity to add, remove, edit a row or expand it for further
 information.
 
-<docs-source-example example="TableDefaultExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableDefault" fullwidth="true"></ba-live-example>
 
 The `DtTable` implementation enhances the
 [Material's CDK table](https://material.angular.io/cdk/table/overview) and also
@@ -55,7 +55,7 @@ to reduce boiler plate code that needs to be written to generate a simple table.
 
 A `dtTable` using a `dtSimpleColumn` always needs the `dtSort` directive.
 
-<docs-source-example example="TableDefaultExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableDefault" fullwidth="true"></ba-live-example>
 
 ### DtSimpleColumn
 
@@ -134,7 +134,7 @@ Note: The `dtRowDef` also exports row context, which can be used for event and
 property bindings on the row element. See the source code of the examples on
 this page to see all the pieces in place.
 
-<docs-source-example example="TableCustomColumnsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableCustomColumns" fullwidth="true"></ba-live-example>
 
 ### Components and attributes that define a table
 
@@ -212,7 +212,7 @@ For each column that should be sortable by the user add `dt-sort-header` to the
 <dt-header-cell dt-sort-header ...></dt-header-cell>
 ```
 
-<docs-source-example example="TableSortingExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableSorting" fullwidth="true"></ba-live-example>
 
 ### DtSort
 
@@ -280,7 +280,7 @@ Filtering data for the table means filtering out rows that are passed via the
 data source. For highlighting the matched strings in the table the `DtHighlight`
 component can be used.
 
-<docs-source-example example="TableSearchExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableSearch" fullwidth="true"></ba-live-example>
 
 ### DtTableSearch
 
@@ -304,12 +304,12 @@ component can be used.
 The `DtPagination` component can be used in combination with a table to provide
 pagination for large datasets.
 
-<docs-source-example example="TablePaginationExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTablePagination" fullwidth="true"></ba-live-example>
 
 In some use cases we might not know how much data we have in total. In this case
 a `DtShowMore` componenent might be more suitable.
 
-<docs-source-example example="TableShowMoreExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableShowMore" fullwidth="true"></ba-live-example>
 
 ## Sorting, paging and filtering out of the box with DtTableDataSource
 
@@ -398,7 +398,7 @@ comparator takes precedence over defined sortAccessor functions.
 The function `removeComparatorFunction(columnName: string)` enables the user to
 remove a previously defined comparator function.
 
-<docs-source-example example="TableComparatorsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableComparators" fullwidth="true"></ba-live-example>
 
 ## Expandable table rows
 
@@ -409,7 +409,7 @@ to** contain a column with a details cell. A details cell can be added using
 wrapped inside a `ng-template` with the `dtExpandableRowContent` directive to
 lazy load the content when the row is expanded.
 
-<docs-source-example example="TableExpandableRowsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableExpandableRows" fullwidth="true"></ba-live-example>
 
 | Component/Attribute               | Type      | Description                                                                                                                               |
 | --------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -487,14 +487,14 @@ text that explains why there is no content and an illustration that helps to
 visualize the problem. Pass an empty state to the table using the
 `<dt-empty-state>` component.
 
-<docs-source-example example="TableEmptyStateExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableEmptyState" fullwidth="true"></ba-live-example>
 
 ### Loading state
 
 You can mark the table as loading using the table's `loading` input and pass the
 content to display with `dtTableLoadingState` directive.
 
-<docs-source-example example="TableLoadingExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableLoading" fullwidth="true"></ba-live-example>
 
 ## Problems: errors and warnings
 
@@ -531,7 +531,7 @@ case use only the indicator on the left.
 The example below shows both usages – a single metric inside a cell and the
 entire cell enhanced with the `dtIndicator`.
 
-<docs-source-example example="TableProblemExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableProblem" fullwidth="true"></ba-live-example>
 
 ## Advanced usage
 
@@ -546,7 +546,7 @@ directive.
 ></dt-header-row>
 ```
 
-<docs-source-example example="TableStickyHeaderExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableStickyHeader" fullwidth="true"></ba-live-example>
 
 ### Custom column width
 
@@ -554,27 +554,27 @@ The column width proportion can be customized using the `dtColumnProportion`
 attribute. It accepts a number input, e.g. `[dtColumnProportion]="2"` means that
 this column's width will be doubled compared to the regular ones.
 
-<docs-source-example example="TableColumnProportionExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableColumnProportion" fullwidth="true"></ba-live-example>
 
 The column's minimum width can be set using the `dtColumnMinWidth` attribute. It
 accepts a CSS string describing the minimum width for the column.
 `[dtColumnMinWidth]="200"` means that this column's width will be at least
 200px.
 
-<docs-source-example example="TableColumnMinWidthExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableColumnMinWidth" fullwidth="true"></ba-live-example>
 
 ### Dynamic columns
 
 You can bind the column definitions to an array with a `*ngFor` directive.
 
-<docs-source-example example="TableDynamicColumnsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableDynamicColumns" fullwidth="true"></ba-live-example>
 
 ### Interactive rows
 
 To apply a hover effect for the table rows add `interactiveRows` on the
 `dt-table` component.
 
-<docs-source-example example="TableInteractiveRowsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableInteractiveRows" fullwidth="true"></ba-live-example>
 
 ### Tables with two lines per row
 
@@ -582,7 +582,7 @@ If you want to have 2 lines of text and maybe an icon inside a row you can use
 the `<dt-info-group>` component. You can also take a look at the
 `<dt-info-group>` component's page for further information.
 
-<docs-source-example example="TableWithInfoGroupCellExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableWithInfoGroupCell" fullwidth="true"></ba-live-example>
 
 ### Responsive table
 
@@ -591,13 +591,13 @@ limited especially on devices with smaller screens you might want to switch
 between a table with expandable rows and normal rows. The example below shows a
 very simple approach how this might be done.
 
-<docs-source-example example="TableResponsiveExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableResponsive" fullwidth="true"></ba-live-example>
 
 ### Observable as data source
 
 You can pass an observable to the [dataSource] property.
 
-<docs-source-example example="TableObservableExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableObservable" fullwidth="true"></ba-live-example>
 
 ### Extending DtSimpleColumn
 
@@ -633,7 +633,7 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
 - [Switches](/components/switch) in tables (e.g. to enable/disable monitoring of
   an entity) are vertically centered in the table row.
 
-<docs-source-example example="TableButtonsExample" fullwidth="true"></docs-source-example>
+<ba-live-example name="DtExampleTableButtons" fullwidth="true"></ba-live-example>
 
 ### Charts in tables
 

@@ -58,6 +58,7 @@ import { environment } from './environments/environment';
 import { BaComponentsModule } from './components';
 import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { DtExamplesModule } from '@dynatrace/barista-components/examples';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { DtThemingModule } from '@dynatrace/barista-components/theming';
     DtFormFieldModule,
     DtInputModule,
     DtThemingModule,
+    DtExamplesModule,
   ],
   exports: [],
   declarations: [

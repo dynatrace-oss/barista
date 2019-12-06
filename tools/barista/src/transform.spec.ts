@@ -18,6 +18,7 @@ import { BaLayoutType } from '@dynatrace/barista-components/barista-definitions'
 import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
+  internalLinksTransformerFactory,
 } from './transform';
 
 describe('Barista transformers', () => {
@@ -78,6 +79,36 @@ describe('Barista transformers', () => {
         content,
       });
       expect(transformed.title).toBe('Test');
+    });
+  });
+
+  describe('internalLinksTransformer', () => {
+    it('should not remove the href url if the link and the build are internal', async () => {
+      const internalLinksTransformer = internalLinksTransformerFactory(false, [
+        'dynatrace.com',
+      ]);
+      const content = `foo <a href="https://www.dynatrace.com/news">Secret link</a> bar`;
+      const transformed = await internalLinksTransformer({
+        title: '',
+        layout: BaLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(content);
+    });
+
+    it('should remove the href url if the link is internal but the build is public', async () => {
+      const internalLinksTransformer = internalLinksTransformerFactory(true, [
+        'dynatrace.com',
+      ]);
+      const content = `foo <a href="https://www.dynatrace.com/news">Secret link</a> bar`;
+      const transformed = await internalLinksTransformer({
+        title: '',
+        layout: BaLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(
+        `foo <a href="#" class="ba-internal-url">Secret link</a> bar`,
+      );
     });
   });
 });
