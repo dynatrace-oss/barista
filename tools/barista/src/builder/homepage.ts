@@ -80,8 +80,20 @@ export const homepageBuilder: BaPageBuilder = async () => {
   if (STRAPI_ENDPOINT) {
     pageTeaserData = await fetchContentList<BaStrapiPageTeaser>(
       BaStrapiContentType.Pageteasers,
-      { publicContent: isPublicBuild() },
+      { publicContent: false }, // always false because pageteasers don't have a public flag
       STRAPI_ENDPOINT,
+    );
+
+    // Filter page teasers that link to internal pages.
+    if (isPublicBuild() && pageTeaserData.length) {
+      pageTeaserData = pageTeaserData.filter(teaser =>
+        teaser.page ? teaser.page.public : true,
+      );
+    }
+
+    // Filter page teasers that link to draft pages.
+    pageTeaserData = pageTeaserData.filter(teaser =>
+      teaser.page ? !teaser.page.draft : true,
     );
 
     homepageCTA = await fetchContentItemById<BaStrapiCTA>(

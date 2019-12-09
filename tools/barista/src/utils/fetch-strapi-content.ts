@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { request } from 'http';
+import Axios from 'axios';
 import {
   BaStrapiContentType,
   BaStrapiPage,
@@ -42,7 +42,9 @@ export async function fetchContentList<
   if (options.publicContent) {
     requestPath = `${requestPath}?public=true`;
   }
-  return fetchContent(requestPath, endpoint);
+  const host = `http://${endpoint}:5100${requestPath}`;
+  const strapiResponse = await Axios.get<T[]>(host);
+  return strapiResponse.data;
 }
 
 /**
@@ -61,49 +63,7 @@ export async function fetchContentItemById<
   if (options.publicContent) {
     requestPath = `${requestPath}?public=true`;
   }
-  return fetchContent(requestPath, endpoint);
-}
-
-/**
- * Fetches data from Strapi CMS based on the given
- * requestPath.
- *
- * Read more about the Strapi Content API here
- * https://strapi.io/documentation/3.0.0-beta.x/content-api/api-endpoints.html
- */
-async function fetchContent(
-  requestPath: string,
-  endpoint: string,
-): Promise<any> {
-  const options = {
-    hostname: endpoint,
-    port: 5100,
-    path: requestPath,
-    method: 'GET',
-  };
-
-  return new Promise((resolve, reject) => {
-    let fullData = '';
-
-    const req = request(options, res => {
-      res.on('data', data => {
-        fullData = `${fullData}${data.toString()}`;
-      });
-
-      res.on('end', () => {
-        if (fullData.length > 0) {
-          const jsonRes = JSON.parse(fullData);
-          resolve(jsonRes);
-        } else {
-          reject(`No items for ${options.path} could be found.`);
-        }
-      });
-
-      res.on('error', err => {
-        reject(err);
-      });
-    });
-
-    req.end();
-  });
+  const host = `http://${endpoint}:5100${requestPath}`;
+  const strapiResponse = await Axios.get<T>(host);
+  return strapiResponse.data;
 }

@@ -32,6 +32,7 @@ import {
   BaStrapiPage,
   BaStrapiContentType,
   BaLayoutType,
+  BaPageBuildResult,
 } from '@dynatrace/barista-components/barista-definitions';
 
 const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
@@ -51,28 +52,33 @@ export const strapiBuilder: BaPageBuilder = async (
     return [];
   }
 
-  const pagesData = await fetchContentList<BaStrapiPage>(
+  let pagesData = await fetchContentList<BaStrapiPage>(
     BaStrapiContentType.Pages,
     { publicContent: isPublicBuild() },
     STRAPI_ENDPOINT,
   );
 
-  return Promise.all(
-    pagesData.map(async page => {
-      const pageDir = page.category ? page.category.title.toLowerCase() : '/';
-      const relativeOutFile = page.slug
-        ? join(pageDir, `${page.slug}.json`)
-        : join(pageDir, `${slugify(page.title)}.json`);
-      const pageContent = await transformPage(
-        {
-          ...strapiMetaData(page),
-          content: page.content,
-        },
-        [...TRANSFORMERS, ...globalTransformers],
-      );
-      return { pageContent, relativeOutFile };
-    }),
-  );
+  // Filter pages with draft set to null or false
+  pagesData = pagesData.filter(page => !page.draft);
+
+  const transformed: BaPageBuildResult[] = [];
+
+  for (const page of pagesData) {
+    const pageDir = page.category ? page.category.title.toLowerCase() : '/';
+    const relativeOutFile = page.slug
+      ? join(pageDir, `${page.slug}.json`)
+      : join(pageDir, `${slugify(page.title)}.json`);
+    const pageContent = await transformPage(
+      {
+        ...strapiMetaData(page),
+        content: page.content,
+      },
+      [...TRANSFORMERS, ...globalTransformers],
+    );
+    transformed.push({ pageContent, relativeOutFile });
+  }
+
+  return transformed;
 };
 
 /**
@@ -86,6 +92,11 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
     category: page.category ? page.category.title : '',
   };
 
+  // Set description
+  if (page.description) {
+    metaData.description = page.description;
+  }
+
   // Set tags
   const tags = page.tags.map(tag => tag.name) || [];
   if (tags.length > 0) {
@@ -93,8 +104,8 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
   }
 
   // Set UX Wiki page link (only for internal Barista)
-  if (!isPublicBuild() && page.uxWikiPage) {
-    metaData.wiki = page.uxWikiPage;
+  if (!isPublicBuild() && page.wiki) {
+    metaData.wiki = page.wiki;
   }
 
   // Set contributors
@@ -120,6 +131,10 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
     if (devSupport.length > 0) {
       metaData.contributors!.dev = devSupport;
     }
+  }
+
+  if (page.toc) {
+    metaData.toc = page.toc;
   }
 
   return metaData;
