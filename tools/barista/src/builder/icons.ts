@@ -34,7 +34,7 @@ import {
   transformPage,
 } from '../transform';
 import { convertJsonChangelogToMarkdown } from '../utils/convert-json-changelog-to-markdown';
-import { isPublicBuild } from '../utils/isPublicBuild';
+import { isPublicBuild } from '../utils/is-public-build';
 
 const TRANSFORMERS: BaPageTransformer[] = [
   markdownToHtmlTransformer,

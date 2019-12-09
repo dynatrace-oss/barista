@@ -27,7 +27,7 @@ import { strapiBuilder } from './builder/strapi';
 import { homepageBuilder } from './builder/homepage';
 import { iconsBuilder } from './builder/icons';
 import { overviewBuilder } from './generators/category-navigation';
-import { isPublicBuild } from './utils/isPublicBuild';
+import { isPublicBuild } from './utils/is-public-build';
 import {
   internalLinksTransformerFactory,
   exampleInlineSourcesTransformerFactory,

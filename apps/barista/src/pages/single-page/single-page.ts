@@ -15,14 +15,13 @@
  */
 
 import { AfterViewInit, Component, Input } from '@angular/core';
-
-import { fillTableData } from '../../utils/fillTableData';
-import { BaPage } from '../page-outlet';
-import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
 import {
   BaSinglePageContent,
   BaLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
+import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
+import { BaPage } from '../page-outlet';
+import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
 
 @Component({
   selector: 'ba-single-page',
@@ -50,9 +49,9 @@ export class BaSinglePage implements BaPage, AfterViewInit {
       document.querySelectorAll('table'),
     );
 
-    /** Add data attributes to all tables, to apply responsive behaviour of the tables.* */
+    /** Add data attributes to all tables, to apply responsive behavior of the tables. */
     for (const table of allTables) {
-      fillTableData(table);
+      applyTableDefinitionHeadingAttr(table);
     }
   }
 

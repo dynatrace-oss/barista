@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/** Whether the build is for public or internal pages. */
 export function isPublicBuild(): boolean {
   return process.env.PUBLIC_BUILD !== 'false';
 }

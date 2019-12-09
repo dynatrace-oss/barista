@@ -18,7 +18,7 @@ import {
   fetchContentList,
   fetchContentItemById,
 } from '../utils/fetch-strapi-content';
-import { isPublicBuild } from '../utils/isPublicBuild';
+import { isPublicBuild } from '../utils/is-public-build';
 
 import {
   BaPageBuildResult,
