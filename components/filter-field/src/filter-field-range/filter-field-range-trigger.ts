@@ -283,6 +283,12 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
           overlayX: 'start',
           overlayY: 'top',
         },
+        {
+          originX: 'end',
+          originY: 'bottom',
+          overlayX: 'end',
+          overlayY: 'top',
+        },
       ]);
 
     return this._positionStrategy;
