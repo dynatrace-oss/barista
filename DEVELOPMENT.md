@@ -43,15 +43,9 @@ Start it using one of the following commands
 npm run dev
 ```
 
-or
-
-```
-ng serve dev-app
-```
-
 ## Tests and stylelint
 
-Unit tests
+Run unit tests for the parts that are affected by your changes
 
 ```
 npm run test
@@ -60,13 +54,13 @@ npm run test
 Unit tests with watcher for local testing
 
 ```
-npm run test:watch
+ng test --watch
 ```
 
 UI Tests
 
 ```
-npm run ui-test
+npm run e2e
 ```
 
 Universal build
@@ -75,13 +69,13 @@ Universal build
 npm run universal
 ```
 
-Stylelint
+Lint
 
 ```
 npm run lint
 ```
 
-## Barista examples app
+## Barista examples app & Barista
 
 To run the Barista examples app with all examples that will be used inside the
 Barista design system run
@@ -92,37 +86,8 @@ npm run demos
 
 which generates all examples and starts the demos app.
 
-## Custom TSLint rules
-
-Run the following command to build the custom TSLint rules
+If you want to run the design system itself including the demos embedded use
 
 ```
-npm run tslint:build
-```
-
-To test the rules run
-
-```
-npm run tslint:test
-```
-
-### Using Gradle build
-
-Gradle build is meant for CI servers and does not require NodeJS installed
-upfront. Instead, it downloads NodeJS binaries locally from Arifactory and runs
-any yarn task with that node version.
-
-Gradle tasks look very similar to the NPM ones, e.g.:
-
-```
-./gradlew yarn_install
-./gradlew test
-./gradlew lint
-./gradlew compile
-```
-
-To see complete list of gradlew builds, run:
-
-```
-./gradlew tasks
+npm run barista
 ```
