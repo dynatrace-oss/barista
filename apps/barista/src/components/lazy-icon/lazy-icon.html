@@ -1,4 +1,6 @@
 <a href="/resources/icons/{{ name }}" class="ba-lazy-icon-link">
-  <dt-icon [name]="name" *ngIf="_isVisible"></dt-icon>
+  <span class="ba-lazy-icon-wrapper">
+    <dt-icon [name]="name" *ngIf="_isVisible"></dt-icon>
+  </span>
   <span class="ba-lazy-icon-title">{{ title }}</span>
 </a>
