@@ -1,3 +1,5 @@
+@import 'colors';
+
 :host {
   min-height: 100px;
 
@@ -9,4 +11,11 @@
 .ba-lazy-icon-title {
   display: block;
   font-size: 0.8rem;
+}
+
+.ba-lazy-icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  display: inline-block;
+  background-color: $gray-100;
 }

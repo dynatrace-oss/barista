@@ -52,7 +52,14 @@ export class BaIconOverviewPage
   private _filterChangeSubscription = Subscription.EMPTY;
 
   ngOnInit(): void {
-    this._updateFilteredIcons('');
+    let filterParam = '';
+    if (window) {
+      // Prefill input field value if given via URL search params.
+      const searchParams = new window.URL(window.location.href).searchParams;
+      filterParam = searchParams.get('iconFilter') || '';
+      this._inputEl.nativeElement.value = filterParam;
+    }
+    this._updateFilteredIcons(filterParam);
   }
 
   ngAfterViewInit(): void {
@@ -62,9 +69,9 @@ export class BaIconOverviewPage
     )
       .pipe(debounceTime(200))
       .subscribe(() => {
-        this._updateFilteredIcons(
-          this._inputEl.nativeElement.value.toLowerCase(),
-        );
+        const filterValue = this._inputEl.nativeElement.value.toLowerCase();
+        this._updateFilteredIcons(filterValue);
+        this._updateWindowHistory(filterValue);
       });
   }
 
@@ -92,5 +99,24 @@ export class BaIconOverviewPage
           ).length > 0),
     );
     this._filteredIcons = nameMatchIcons.concat(tagMatchIcons);
+  }
+
+  /** Updates the URL without page reload. */
+  private _updateWindowHistory(filterValue: string): void {
+    if (window) {
+      if (filterValue.length) {
+        window.history.pushState(
+          {},
+          '',
+          `${window.location.origin}${window.location.pathname}?iconFilter=${filterValue}`,
+        );
+      } else {
+        window.history.pushState(
+          {},
+          '',
+          `${window.location.origin}${window.location.pathname}`,
+        );
+      }
+    }
   }
 }
