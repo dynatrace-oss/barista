@@ -242,7 +242,7 @@ jobs:
             fi
             git rev-parse HEAD > "$MASTER_SHA_FILE"
       - save_cache:
-          key: last-{{ .Environment.CIRCLE_BRANCH }}-sha
+          key: last-{{ .Environment.CIRCLE_BRANCH }}-sha-{{ epoch }}
           paths:
             - ./.config/last-{{ .Environment.CIRCLE_BRANCH }}-sha.txt
 
