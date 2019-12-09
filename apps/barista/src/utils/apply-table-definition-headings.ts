@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-export function fillTableData(table: HTMLTableElement): void {
+/**
+ * Applies the table heading text to every table definition element
+ * as a data attribute. This attribute is used to display the title
+ * on small screen where no header is present.
+ */
+export function applyTableDefinitionHeadingAttr(table: HTMLTableElement): void {
   let th = Array.prototype.slice.call(table.querySelectorAll('th'));
   if (!th.length) {
     th = Array.prototype.slice.call(table.querySelectorAll('thead td'));

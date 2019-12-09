@@ -18,7 +18,7 @@ import { join } from 'path';
 
 import { fetchContentList } from '../utils/fetch-strapi-content';
 import { slugify } from '../utils/slugify';
-import { isPublicBuild } from '../utils/isPublicBuild';
+import { isPublicBuild } from '../utils/is-public-build';
 
 import {
   markdownToHtmlTransformer,
