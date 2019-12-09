@@ -4,9 +4,9 @@
 
 Install the Barista components library via npm or yarn:
 
-`npm install --save @dynatrace/barista-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/barista-icons`  
+`npm install --save @dynatrace/barista-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/barista-icons d3-scale@^3.0.0 d3-shape@^1.3.5`  
 or  
-`yarn add @dynatrace/barista-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/barista-icons`
+`yarn add @dynatrace/barista-components @angular/cdk highcharts@6 @types/highcharts @dynatrace/barista-icons d3-scale@^3.0.0 d3-shape@^1.3.5`
 
 ## Step 2: Animations
 
