@@ -60,7 +60,6 @@ export interface BaSinglePageMeta extends BaPageMetaBase {
   properties?: string[];
   wiki?: string;
   themable?: boolean;
-  identifier?: string;
   order?: number;
   sidenav?: BaCategoryNavigation;
 }
@@ -96,6 +95,7 @@ export interface BaIconOverviewPageContent {
   layout: BaLayoutType;
   icons: BaIconOverviewItem[];
   sidenav?: BaCategoryNavigation;
+  category?: string;
 }
 
 /** Icon overview page item */

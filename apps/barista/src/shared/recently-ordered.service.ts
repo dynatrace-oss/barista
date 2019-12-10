@@ -16,7 +16,10 @@
 
 import { Injectable } from '@angular/core';
 
-import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
+import {
+  BaSinglePageContent,
+  BaIconOverviewPageContent,
+} from '@dynatrace/barista-components/barista-definitions';
 import { BaIndexPageItem } from './page-contents';
 
 const LOCALSTORAGEKEY = 'recentlyordered';
@@ -36,11 +39,13 @@ export class BaRecentlyOrderedService {
     }
   }
 
-  saveToLocalStorage(page: BaSinglePageContent): void {
+  /** add the given page to the local storage and remove duplicate pages from recently ordered */
+  saveToLocalStorage(
+    page: BaSinglePageContent | BaIconOverviewPageContent,
+  ): void {
     const orderedItem = {
       title: page.title,
       link: window.location.href,
-      identifier: page.identifier || 'Id',
       category: page.category,
     };
 

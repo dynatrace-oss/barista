@@ -19,7 +19,10 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import { fillTableData } from '../../utils/fillTableData';
 import { BaPage } from '../page-outlet';
 import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
-import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
+import {
+  BaSinglePageContent,
+  BaLayoutType,
+} from '@dynatrace/barista-components/barista-definitions';
 
 @Component({
   selector: 'ba-single-page',
@@ -32,14 +35,15 @@ export class BaSinglePage implements BaPage, AfterViewInit {
   }
   set contents(value: BaSinglePageContent) {
     this._contents = value;
-    this._recentlyOrderedService.saveToLocalStorage(this.contents);
+    if (this.contents && this.contents.layout != BaLayoutType.Icon) {
+      this._recentlyOrderedService.saveToLocalStorage(this.contents);
+    }
   }
   private _contents: BaSinglePageContent;
 
   constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {}
 
   ngAfterViewInit(): void {
-    this._recentlyOrderedService.saveToLocalStorage(this.contents);
     this._checkURL();
 
     const allTables = Array.prototype.slice.call(
