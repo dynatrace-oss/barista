@@ -28,14 +28,15 @@ import { formatPercent } from './percent-formatter';
 export class DtPercent implements PipeTransform {
   /**
    * @param input - The value to be formatted as a percentage
+   * @param maxPrecision - The maximum amount of digits to be used, if provided
    */
   // tslint:disable-next-line:no-any
-  transform(input: any): DtFormattedValue | string {
+  transform(input: any, maxPrecision?: number): DtFormattedValue | string {
     if (isEmpty(input)) {
       return NO_DATA;
     }
     if (isNumber(input)) {
-      return formatPercent(input);
+      return formatPercent(input, maxPrecision);
     }
 
     return NO_DATA;

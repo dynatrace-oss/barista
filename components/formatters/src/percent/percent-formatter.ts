@@ -25,8 +25,12 @@ import { adjustNumber } from '../number-formatter';
  * Util function that adds percent formatting to any number
  *
  * @param input - numeric value to be transformed
+ * @param maxPrecision - The maximum amount of digits to be used, if provided
  */
-export function formatPercent(input: number): DtFormattedValue {
+export function formatPercent(
+  input: number,
+  maxPrecision?: number,
+): DtFormattedValue {
   const inputData: SourceData = {
     input,
     unit: DtUnit.PERCENT,
@@ -37,7 +41,7 @@ export function formatPercent(input: number): DtFormattedValue {
   const formattedData = !isNaN(value)
     ? {
         transformedValue: value,
-        displayValue: adjustNumber(value),
+        displayValue: adjustNumber(value, undefined, maxPrecision),
         displayUnit: inputData.unit,
       }
     : {};

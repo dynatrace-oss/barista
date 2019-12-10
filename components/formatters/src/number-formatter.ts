@@ -34,8 +34,7 @@ const ABBREVIATION_LEVELS = [
   { multiplier: KILO_MULTIPLIER, postfix: 'k' },
 ];
 
-const MIN_VALUE = 0.001;
-// tslint:enable:no-magic-numbers
+const DEFAULT_PRECISION_FOR_MIN_VALUE = 3;
 
 /**
  * Helper function that adjusts a given number by abbreviating or adjusting the precision
@@ -43,30 +42,37 @@ const MIN_VALUE = 0.001;
  *
  * @param value - numeric value to be transformed
  * @param abbreviate - defines whether to abbreviate big numbers or not (by adding appropriate postfixes); false by default
- *
+ * @param maxPrecision - The maximum amount of digits to be used, if provided
  */
 export function adjustNumber(
   value: number,
   abbreviate: boolean = false,
+  maxPrecision?: number,
 ): string {
   const calcValue = Math.abs(value);
   return abbreviate && calcValue >= KILO_MULTIPLIER
     ? abbreviateNumber(value)
-    : adjustPrecision(value);
+    : adjustPrecision(value, maxPrecision);
 }
 
-function adjustPrecision(value: number): string {
+function adjustPrecision(value: number, maxPrecision?: number): string {
   // tslint:disable:no-magic-numbers
   const calcValue = Math.abs(value);
+  const minValue =
+    1 /
+    Math.pow(10, Math.max(maxPrecision || DEFAULT_PRECISION_FOR_MIN_VALUE, 0));
+
   let digits = 0;
   if (calcValue === 0) {
     return '0';
-  } else if (calcValue < MIN_VALUE) {
+  } else if (calcValue < minValue) {
     if (value < 0) {
-      return `-${MIN_VALUE}`;
+      return `-${minValue}`;
     } else {
-      return `< ${MIN_VALUE}`;
+      return `< ${minValue}`;
     }
+  } else if (maxPrecision) {
+    digits = maxPrecision;
   } else if (calcValue < 1) {
     digits = 3;
   } else if (calcValue < 10) {

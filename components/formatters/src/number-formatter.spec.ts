@@ -20,6 +20,7 @@ describe('FormatterUtil', () => {
   interface TestCase {
     input: number;
     output: string;
+    maxPrecision?: number;
   }
 
   describe('Adjusting number without abbreviation', () => {
@@ -176,6 +177,89 @@ describe('FormatterUtil', () => {
         expect(adjustNumber(testCase.input, true).toString()).toEqual(
           testCase.output,
         );
+      });
+    });
+  });
+
+  describe('Adjusting number with max precision set', () => {
+    [
+      {
+        input: 0.123456789,
+        maxPrecision: -1,
+        output: '< 1',
+      },
+      {
+        input: 0.123456789,
+        output: '0.123',
+      },
+      {
+        input: 0.123456789,
+        maxPrecision: 1,
+        output: '0.1',
+      },
+      {
+        input: 0.123456789,
+        maxPrecision: 2,
+        output: '0.12',
+      },
+      {
+        input: 0.123456789,
+        maxPrecision: 3,
+        output: '0.123',
+      },
+      {
+        input: 0.123456789,
+        maxPrecision: 4,
+        output: '0.1235',
+      },
+      {
+        input: 10.45,
+        maxPrecision: 1,
+        output: '10.5',
+      },
+      {
+        input: 100.45,
+        maxPrecision: 1,
+        output: '100.5',
+      },
+      {
+        input: 0.0001,
+        output: '< 0.001',
+      },
+      {
+        input: 0.0001,
+        maxPrecision: 1,
+        output: '< 0.1',
+      },
+      {
+        input: 0.0001,
+        maxPrecision: 2,
+        output: '< 0.01',
+      },
+      {
+        input: -123.45,
+        maxPrecision: 1,
+        output: '-123.5',
+      },
+      {
+        input: -123.45,
+        maxPrecision: 2,
+        output: '-123.45',
+      },
+      {
+        input: -0.0001,
+        maxPrecision: 3,
+        output: '-0.001',
+      },
+    ].forEach((testCase: TestCase) => {
+      it(`should return ${testCase.input} with max precision`, () => {
+        expect(
+          adjustNumber(
+            testCase.input,
+            undefined,
+            testCase.maxPrecision,
+          ).toString(),
+        ).toEqual(testCase.output);
       });
     });
   });

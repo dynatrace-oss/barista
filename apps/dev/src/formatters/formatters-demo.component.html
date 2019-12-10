@@ -15,6 +15,8 @@
 <p>With unit: {{ exampleValue | dtCount: 'req.' }}</p>
 <h2>Percent</h2>
 <p>Default: {{ exampleValue | dtPercent }}</p>
+<p>Max precision 1: {{ exampleValue | dtPercent: 1 }}</p>
+<p>Max precision 5: {{ exampleValue | dtPercent: 5 }}</p>
 <h2>Rate</h2>
 <p>per request: {{ exampleValue | dtRate: 'request' }}</p>
 <p>per second: {{ exampleValue | dtCount | dtRate: 's' }}</p>
