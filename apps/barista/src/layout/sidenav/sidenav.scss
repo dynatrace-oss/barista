@@ -2,7 +2,14 @@
 @import '../../styles/global/variables';
 
 :host {
-  grid-area: sidenav;
+  display: none;
+}
+
+@media (min-width: $screen-xxl) {
+  :host {
+    display: block;
+    grid-area: sidenav;
+  }
 }
 
 .ba-sidenav-section {
@@ -31,7 +38,7 @@
   color: $gray-700;
   display: block;
   font-size: 15px;
-  line-height: 1.2;
+  line-height: 1.4;
   text-overflow: ellipsis;
   overflow: hidden;
 }
