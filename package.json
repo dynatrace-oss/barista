@@ -30,7 +30,7 @@
     "nx": "node --max_old_space_size=8000 ./node_modules/.bin/nx",
     "dev": "ng serve dev",
     "barista-tools": "ng build barista-tools && node dist/tools/barista/main.js",
-    "barista": "npm run barista-tools && npm run examples-tools && ng serve barista",
+    "barista": "npm run examples-tools && npm run barista-tools && ng serve barista",
     "demos": "npm run examples-tools && ng serve demos",
     "examples-tools": "ng build examples-tools && node dist/tools/examples/main.js",
     "stage-release": "ts-node --project tools/release/tsconfig.json tools/release/stage-release.ts",

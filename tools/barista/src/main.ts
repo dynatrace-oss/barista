@@ -41,8 +41,8 @@ const BUILDERS = new Map<string, BaPageBuilder>([
   ['icons-builder', iconsBuilder],
 ]);
 
-const PROJECT_ROOT = join(__dirname, '../../');
-const DIST_DIR = join(PROJECT_ROOT, 'apps', 'barista', 'data');
+const PROJECT_ROOT = join(__dirname, '../../../');
+const DIST_DIR = join(PROJECT_ROOT, 'dist', 'apps', 'barista', 'data');
 const EXAMPLES_METADATA = join(PROJECT_ROOT, 'dist', 'examples-metadata.json');
 
 /**
@@ -54,14 +54,6 @@ function createInternalLinksTransformer(): BaPageTransformer {
   const internalLinkArg = process.env.INTERNAL_LINKS;
   const internalLinkParts = internalLinkArg ? internalLinkArg.split(',') : [];
   const isPublic = isPublicBuild();
-
-  if (isPublic && !internalLinkParts.length) {
-    throw new Error(
-      'On public builds internal link parts must be provided ' +
-        'via the "INTERNAL_LINKS" process environment.',
-    );
-  }
-
   return internalLinksTransformerFactory(isPublic, internalLinkParts);
 }
 
