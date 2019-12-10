@@ -29,7 +29,14 @@ import {
   BaSinglePageMeta,
 } from '@dynatrace/barista-components/barista-definitions';
 
-const DIST_DIR = join(__dirname, '../../', 'apps', 'barista', 'data');
+const DIST_DIR = join(
+  __dirname,
+  '../../../',
+  'dist',
+  'apps',
+  'barista',
+  'data',
+);
 
 // for now we manually select highlighted items, later this data can maybe be fetched from google analytics
 const highlightedItems = [
