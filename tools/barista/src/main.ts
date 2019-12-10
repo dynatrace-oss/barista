@@ -66,14 +66,15 @@ async function buildPages(): Promise<void[]> {
     });
   });
 
-  return Promise.all(files);
+  const allPages = await Promise.all(files);
+  const overviewPages = await overviewBuilder();
+
+  return [...allPages, ...overviewPages];
 }
 
 buildPages()
   .then(async results => {
     console.log(`${results.length} pages created.`);
-    const overviewPages = await overviewBuilder();
-    console.log(`${overviewPages.length} overview pages created.`);
   })
   .catch(err => {
     console.error(err);
