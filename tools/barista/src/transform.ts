@@ -106,15 +106,18 @@ export const headingIdTransformer: BaPageTransformer = async source => {
             .replace(/&amp;/g, '')
             .replace(/&/g, '')
             .replace(/\?/g, '')
+            .replace(/!/g, '')
             .replace(/\//g, '')
             .replace(/’/g, '')
+            .replace(/”/g, '')
             .replace(/:/g, '')
-            .replace(/\./g, '')
+            .replace(/;/g, '')
             .replace(/,/g, '')
+            .replace(/\./g, '')
             .replace(/\(/g, '')
             .replace(/\)/g, '')
-            .replace(/”/g, '')
-            .replace(/[^\w&;:/?\(\)\.<>,’”]+/g, '-')
+            .replace(/[^\w<>]+/g, '-')
+            // avoid IDs starting with a number
             .replace(/^(\d+)/g, 'h$1');
           $(headline).attr('id', headlineId);
         });

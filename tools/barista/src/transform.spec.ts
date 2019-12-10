@@ -19,6 +19,7 @@ import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
   internalLinksTransformerFactory,
+  headingIdTransformer,
 } from './transform';
 
 describe('Barista transformers', () => {
@@ -108,6 +109,35 @@ describe('Barista transformers', () => {
       });
       expect(transformed.content).toBe(
         `foo <a href="#" class="ba-internal-url">Secret link</a> bar`,
+      );
+    });
+  });
+
+  describe('headingIdTransformer', () => {
+    it('should remove unwanted characters from title and add ID to headline', async () => {
+      const content =
+        "<h2>What's new?</h2><h3>Coffee & tea</h3><h3>Awesome!</h3>";
+      const transformed = await headingIdTransformer({
+        title: '',
+        layout: BaLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(
+        '<h2 id="what-s-new">What&apos;s new?</h2>' +
+          '<h3 id="coffee-tea">Coffee &amp; tea</h3>' +
+          '<h3 id="awesome">Awesome!</h3>',
+      );
+    });
+
+    it('should add a letter as first character if the headline starts with a number', async () => {
+      const content = '<h2>1. Definitions.</h2>';
+      const transformed = await headingIdTransformer({
+        title: '',
+        layout: BaLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(
+        '<h2 id="h1-definitions">1. Definitions.</h2>',
       );
     });
   });
