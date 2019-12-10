@@ -68,7 +68,7 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
     tags: baristaMetadata.tags,
     related: baristaMetadata.related,
     contributors: baristaMetadata.contributors,
-    category: 'component',
+    category: 'Components',
     layout: BaLayoutType.Default,
     order: baristaMetadata.order,
     navGroup: baristaMetadata.navGroup,

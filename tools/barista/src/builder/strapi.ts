@@ -83,6 +83,7 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
   const metaData: BaSinglePageMeta = {
     title: page.title,
     layout: BaLayoutType.Default,
+    category: page.category ? page.category.title : '',
   };
 
   // Set tags
