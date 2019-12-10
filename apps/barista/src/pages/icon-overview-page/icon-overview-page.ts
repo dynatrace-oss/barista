@@ -31,6 +31,7 @@ import {
 import { BaPage } from '../page-outlet';
 import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
 
 @Component({
   selector: 'ba-icon-overview-page',
@@ -51,11 +52,15 @@ export class BaIconOverviewPage
   /** Subscription on filter change event */
   private _filterChangeSubscription = Subscription.EMPTY;
 
+  constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {}
+
   ngOnInit(): void {
     this._updateFilteredIcons('');
   }
 
   ngAfterViewInit(): void {
+    this._recentlyOrderedService.saveToLocalStorage(this.contents);
+
     this._filterChangeSubscription = fromEvent(
       this._inputEl.nativeElement,
       'input',

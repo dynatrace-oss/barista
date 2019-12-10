@@ -192,6 +192,7 @@ ${getIconChangelogHtml(changelogTemplate, iconName)}
       description: 'On this page you find a list of all available icons.',
       layout: BaLayoutType.IconOverview,
       icons: iconOverviewData,
+      category: 'Resources',
     },
     relativeOutFile: 'resources/icons.json',
   });
