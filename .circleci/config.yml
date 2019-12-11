@@ -270,12 +270,10 @@ workflows:
           requires:
             - install
       - sonar:
-          # SONAR_TOKEN is needed for sonar cloud checks
           context: barista
           requires:
             - install
       - security-checks:
-          # SNYK_TOKEN is needed for security checking
           context: barista
           requires:
             - install
@@ -286,13 +284,10 @@ workflows:
           requires:
             - install
       - unit-test:
-          # CODECOV_TOKEN is needed to upload unit test results
           context: barista
           requires:
             - install
       - e2e-test:
-          # BROWSERSTACK_ACCESS_KEY is needed for browserstack automation
-          # BROWSERSTACK_USERNAME is needed for browserstack automation
           context: barista
           requires:
             - build
