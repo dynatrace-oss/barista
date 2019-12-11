@@ -4,6 +4,11 @@
   "type": "object",
   "description": "Schema for Ng add options",
   "properties": {
+    "testEnvironment": {
+      "type": "boolean",
+      "description": "In test Environment",
+      "default": false
+    },
     "animations": {
       "type": "boolean",
       "description": "Installation of @angular/animations",
@@ -31,14 +36,14 @@
       },
       "x-prompt": "Install @dynatrace/barista-icons"
     },
-    "angularJsonSetup": {
+    "angularPathRefactor": {
       "type": "boolean",
-      "description": "Update of angularjson paths",
+      "description": "Update of angular.json paths",
       "$default": {
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "Setup default paths in angular json? (for fonts)"
+      "x-prompt": "Refactor paths in angular json? (for Dynatrace Fonts and Icons)"
     }
   },
   "required": ["animations", "iconpack", "angularJsonSetup"]

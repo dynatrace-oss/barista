@@ -28,12 +28,12 @@ import {
   createPeerDependenciesTree,
   createAppModuleTree,
   createStyleCssTree,
-  angularJson,
-  packageJson,
-  renamedImport,
-  peerDependencies,
   styleCss,
-  appModule,
+  ANGULARJSON,
+  APPMODULE,
+  PACKAGEJSON,
+  PEERDEPENDENCIES,
+  RENAMEDIMPORT,
 } from './testing-constants';
 
 const collectionPath = join(__dirname, '../collection.json');
@@ -93,21 +93,21 @@ describe('ng-add schematic for dynatrace barista-components', () => {
     });
 
     it('should update imports in package.json', () => {
-      expect(getFileContent(tree, '/package.json')).toEqual(packageJson);
+      expect(getFileContent(tree, '/package.json')).toEqual(PACKAGEJSON);
     });
 
     it('should update peerDependecies', () => {
       expect(getFileContent(tree, 'components/src/peerPackage.json')).toEqual(
-        peerDependencies,
+        PEERDEPENDENCIES,
       );
     });
 
     it('should update imports in project', () => {
-      expect(getFileContent(tree, 'apps/src/main.ts')).toEqual(renamedImport);
+      expect(getFileContent(tree, 'apps/src/main.ts')).toEqual(RENAMEDIMPORT);
     });
 
     it('should install @angular/animations', () => {
-      expect(getFileContent(tree, 'app.module.ts')).toEqual(appModule);
+      expect(getFileContent(tree, 'app.module.ts')).toEqual(APPMODULE);
     });
 
     it('should insert styles to main css file', () => {
@@ -115,7 +115,7 @@ describe('ng-add schematic for dynatrace barista-components', () => {
     });
 
     it('should update icons and fonts paths in angular.json', () => {
-      expect(getFileContent(tree, 'angular.json')).toEqual(angularJson);
+      expect(getFileContent(tree, 'angular.json')).toEqual(ANGULARJSON);
     });
   });
 });

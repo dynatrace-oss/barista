@@ -1,3 +1,19 @@
+/**
+ * @license
+ * Copyright 2019 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { strings } from '@angular-devkit/core';
 import { dasherize } from '@angular-devkit/core/src/utils/strings';
 import { Rule, SchematicsException, Tree } from '@angular-devkit/schematics';
@@ -35,7 +51,8 @@ export function findNodes(
   }
   if (max > 0) {
     for (const child of node.getChildren()) {
-      findNodes(child, kind, max).forEach(node => {
+      // tslint:disable-next-line: no-shadowed-variable
+      findNodes(child, kind, max).forEach((node: ts.Node) => {
         if (max > 0) {
           arr.push(node);
         }
@@ -56,10 +73,10 @@ export function findNodes(
  */
 export function getSourceNodes(sourceFile: ts.SourceFile): ts.Node[] {
   const nodes: ts.Node[] = [sourceFile];
-  const result = [];
+  const result: ts.Node[] = [];
 
   while (nodes.length > 0) {
-    const node = nodes.shift();
+    const node: ts.Node | undefined = nodes.shift();
 
     if (node) {
       result.push(node);

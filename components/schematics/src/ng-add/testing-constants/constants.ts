@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export const renamedImport = `import { OnInit } from './path/to/file';
+export const RENAMEDIMPORT = `import { OnInit } from './path/to/file';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import * as DtIcon from '@dynatrace/barista-components/icon';
 import { DtIconModule } from '@dynatrace/barista-components';
@@ -35,7 +35,7 @@ export class MyComp implements OnInit {
 }
 `;
 
-export const packageJson = JSON.stringify(
+export const PACKAGEJSON = JSON.stringify(
   {
     dependencies: {
       '@dynatrace/barista-components': '5.0.0',
@@ -45,7 +45,7 @@ export const packageJson = JSON.stringify(
   2,
 );
 
-export const peerDependencies = JSON.stringify(
+export const PEERDEPENDENCIES = JSON.stringify(
   {
     peerDependencies: {
       '@angular/cdk': '1.0.0',
@@ -61,7 +61,7 @@ export const peerDependencies = JSON.stringify(
   2,
 );
 
-export const angularJson = JSON.stringify({
+export const ANGULARJSON = JSON.stringify({
   projects: {
     barista: {
       architect: {
@@ -116,7 +116,7 @@ export const angularJson = JSON.stringify({
   },
 });
 
-export const appModule = `import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+export const APPMODULE = `import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { testModule } from 'testModule';
