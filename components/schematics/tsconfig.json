@@ -4,5 +4,6 @@
     "resolveJsonModule": true,
     "types": ["node", "jest"]
   },
+  "files": ["./collection.json"],
   "include": ["**/*.ts", "src/**/*.json"]
 }

@@ -15,6 +15,9 @@
  */
 
 export interface Schema {
+  /** Whether its a test environment */
+  isTestEnv: boolean;
+
   /** Whether to install animationsmodule */
   animations: boolean;
 

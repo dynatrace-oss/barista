@@ -26,7 +26,7 @@ import {
   getImportModuleSpecifier,
   updateNgModuleDecoratorProperties,
   NgModuleProperties,
-} from '../../../../libs/shared/utils-ast/src';
+} from '@dynatrace/barista-components/utils-ast';
 import {
   renameExistingImports,
   createStringLiteral,
@@ -82,7 +82,7 @@ function refactorPackageJsonImports(): Rule {
 }
 
 /** Check filesystem for imports of dynatrace/angular-components and rename then to barista-components */
-function refactorComponentImports(): Rule {
+function refactorComponentImports(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
 
@@ -94,7 +94,12 @@ function refactorComponentImports(): Rule {
         '@dynatrace/barista-components',
       )
     ) {
-      const files = getFilesToCheck('**/*.ts');
+      let files: string[] = [];
+      if (options.isTestEnv) {
+        files = ['apps/src/main.ts'];
+      } else {
+        files = getFilesToCheck('**/*.ts');
+      }
 
       rules.push(renameExistingImports(files));
     }
@@ -103,11 +108,16 @@ function refactorComponentImports(): Rule {
 }
 
 /** Checks package.json files and adds Dynatrace peerDependencies */
-function installPeerDependencies(): Rule {
+function installPeerDependencies(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
+    let packages: string[] = [];
 
-    const packages = getFilesToCheck('**/package.json');
+    if (options.isTestEnv) {
+      packages = ['components/src/peerPackage.json'];
+    } else {
+      packages = getFilesToCheck('**/package.json');
+    }
 
     for (const pkg of packages) {
       const packageJSON = readJsonInTree(tree, pkg);
@@ -135,7 +145,7 @@ function installAnimationsModule(options: Schema): Rule {
       return;
     }
 
-    const packageJson = readJsonInTree(tree, 'package.json');
+    const packageJson = readJsonInTree(tree, '/package.json');
 
     // If not already installed, add Angular Animations to package.json
     if (
@@ -144,7 +154,12 @@ function installAnimationsModule(options: Schema): Rule {
       packageJson.dependencies['@angular/animations'] = '9.0.0';
     }
 
-    const files = getFilesToCheck('**/app.module.ts');
+    let files;
+
+    if (options.isTestEnv) {
+      files = getFilesToCheck('**/app.module.ts');
+    } else {
+    }
 
     for (const file of files) {
       // Get sourcefile from app.module in tree
@@ -299,8 +314,8 @@ export function add(options: any): Rule {
     const rule = chain([
       checkWorkspace(),
       refactorPackageJsonImports(),
-      refactorComponentImports(),
-      installPeerDependencies(),
+      refactorComponentImports(options),
+      installPeerDependencies(options),
       installAnimationsModule(options),
       installStyles(options),
       refactorAngularJsonPaths(options),

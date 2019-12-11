@@ -23,7 +23,7 @@ import { Tree } from '@angular-devkit/schematics/src/tree/interface';
 
 const testRunner = new SchematicTestRunner(
   '@dynatrace/barista-components/schematics',
-  join(__dirname, '../collection.json'),
+  join(__dirname, '../../collection.json'),
 );
 
 export async function runSchematic(

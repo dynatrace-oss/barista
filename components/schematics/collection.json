@@ -3,8 +3,8 @@
   "schematics": {
     "ng-add": {
       "description": "Add and migrate Dynatrace Angular Components to v5.",
-      "factory": "./ng-add/ng-add#add",
-      "schema": "./ng-add/schema.json"
+      "factory": "./src/ng-add/ng-add#add",
+      "schema": "./src/ng-add/schema.json"
     },
     "migration-v5": {
       "version": "5",

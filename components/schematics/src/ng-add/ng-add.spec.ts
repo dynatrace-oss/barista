@@ -36,11 +36,12 @@ import {
   RENAMEDIMPORT,
 } from './testing-constants';
 
-const collectionPath = join(__dirname, '../collection.json');
+const collectionPath = join(__dirname, '../../collection.json');
 
 const testRunner = new SchematicTestRunner('schematics', collectionPath);
 
 const schematicOptions: Schema = {
+  isTestEnv: true,
   angularJsonSetup: true,
   animations: true,
   iconpack: true,
