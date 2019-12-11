@@ -76,6 +76,7 @@ import {
 } from './event-chart-directives';
 import { dtCreateEventPath } from './merge-and-path/create-event-path';
 import { dtEventChartMergeEvents } from './merge-and-path/merge-events';
+import { Platform } from '@angular/cdk/platform';
 
 const EVENT_BUBBLE_SIZE = 16;
 const EVENT_BUBBLE_SPACING = 4;
@@ -258,6 +259,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     private _overlayService: Overlay,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
+    private _platform: Platform,
   ) {}
 
   ngOnInit(): void {
@@ -557,10 +559,11 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** Updates the dimensions of the SVG itself, its plot area and the view box. */
   private _updateDimensions(): void {
     const canvasEl = this._canvasEl.nativeElement as HTMLElement;
-    if (canvasEl) {
+    if (canvasEl && this._platform.isBrowser) {
       const canvasWidth = canvasEl.clientWidth;
       // tslint:disable-next-line: no-magic-numbers
       this._svgPlotHeight = this._lanes.length * LANE_HEIGHT + 3;
+      // We need to make sure we are in the browser, before updating the dimensions
       this._svgHeight = this._svgPlotHeight + TICK_HEIGHT;
       this._svgWidth = canvasWidth;
       this._svgViewBox = `0 0 ${canvasWidth} ${this._svgHeight}`;
