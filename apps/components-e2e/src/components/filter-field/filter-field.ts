@@ -43,6 +43,14 @@ const TEST_DATA = {
         { validatorFn: Validators.minLength(3), error: 'min 3 characters' },
       ],
     },
+    {
+      name: 'outer-option',
+      autocomplete: [
+        {
+          name: 'inner-option',
+        },
+      ],
+    },
   ],
 };
 
