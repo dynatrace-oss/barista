@@ -166,6 +166,16 @@ describe('DtChart Range', () => {
       ).nativeElement;
       expect(container.classList.contains(DT_RANGE_RELEASED_CLASS)).toBe(true);
     });
+
+    it('should be closable programmatically', () => {
+      range.value = [100, 200];
+      range._hidden = true;
+      range.close();
+      fixture.detectChanges();
+
+      expect(range.value).toStrictEqual([0, 0]);
+      expect(range._hidden).toBe(true);
+    });
   });
 
   describe('Range with binding', () => {
