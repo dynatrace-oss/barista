@@ -44,6 +44,7 @@ import { DtTableSearch } from './search/index';
 import {
   DtSimpleNumberColumn,
   DtSimpleTextColumn,
+  DtFavoriteColumn,
 } from './simple-columns/index';
 import { DtSort } from './sort/sort';
 import { DtSortHeader } from './sort/sort-header';
@@ -82,6 +83,7 @@ const EXPORTED_DECLARATIONS = [
   DtSimpleTextColumn,
   DtSimpleNumberColumn,
   DtExpandableRowContent,
+  DtFavoriteColumn,
 ];
 
 @NgModule({

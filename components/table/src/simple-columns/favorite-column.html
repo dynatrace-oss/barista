@@ -1,0 +1,31 @@
+<ng-container
+  [dtColumnDef]="name"
+  dtColumnAlign="icon"
+  [dtColumnProportion]="proportion"
+>
+  <ng-container *dtHeaderCellDef>
+    <dt-header-cell [dt-sort-header]="sortable" start="desc"
+      >{{ label }}</dt-header-cell
+    >
+  </ng-container>
+  <dt-cell
+    *dtCellDef="let data"
+    [dtIndicator]="_getIndicator(data)"
+    [dtIndicatorColor]="_getIndicator(data)"
+    [attr.title]="_isFavorite(data)"
+  >
+    <ng-container
+      *ngTemplateOutlet="favoriteTemplate; context:{ favorite: _isFavorite(data), data: data }"
+    ></ng-container>
+  </dt-cell>
+</ng-container>
+
+<ng-template #favoriteTemplate let-favorite="favorite" let-data="data">
+  <button dt-icon-button variant="nested" (click)="_toggleFavorite(data)">
+    <dt-icon
+      [name]="favorite ? 'favorite' : 'star-empty'"
+      [class.dt-favorite-column-filled-star]="favorite"
+      [class.dt-favorite-column-empty-star]="!favorite"
+    ></dt-icon>
+  </button>
+</ng-template>

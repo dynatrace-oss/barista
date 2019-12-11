@@ -37,6 +37,8 @@ import { DtExampleTableCustomColumns } from './table-custom-columns-example/tabl
 import { DtExampleTableDefault } from './table-default-example/table-default-example';
 import { DtExampleTableDynamicColumns } from './table-dynamic-columns-example/table-dynamic-columns-example';
 import { DtExampleTableEmptyState } from './table-empty-state-example/table-empty-state-example';
+import { DtExampleTableFavoriteColumn } from './table-favorite-column-example/table-favorite-column-example';
+import { DtExampleTableFavoriteColumnNoHeader } from './table-favorite-column-no-header-example/table-favorite-column-no-header-example';
 import { DtExampleTableInteractiveRows } from './table-interactive-rows-example/table-interactive-rows-example';
 import { DtExampleTableLoading } from './table-loading-example/table-loading-example';
 import { DtExampleTableObservable } from './table-observable-example/table-observable-example';
@@ -61,6 +63,8 @@ export const DT_TABLE_EXAMPLES = [
   DtExampleTableDynamicColumns,
   DtExampleTableEmptyState,
   DtExampleTableExpandableRows,
+  DtExampleTableFavoriteColumn,
+  DtExampleTableFavoriteColumnNoHeader,
   DtExampleTableInteractiveRows,
   DtExampleTableLoading,
   DtExampleTableObservable,

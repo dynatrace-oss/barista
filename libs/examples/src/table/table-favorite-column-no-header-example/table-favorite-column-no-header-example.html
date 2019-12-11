@@ -1,0 +1,23 @@
+<dt-table [dataSource]="dataSource">
+  <dt-favorite-column
+    name="favorite"
+    sortable="false"
+    (change)="doSomething($event)"
+  ></dt-favorite-column>
+  <dt-simple-text-column
+    name="host"
+    label="Host"
+    sortable="false"
+  ></dt-simple-text-column>
+  <ng-container dtColumnDef="memory" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
+    <dt-cell *dtCellDef="let row">
+      {{ row.memoryPerc }} / {{ row.memoryTotal }}
+    </dt-cell>
+  </ng-container>
+
+  <dt-header-row
+    *dtHeaderRowDef="['favorite', 'host', 'memory']"
+  ></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['favorite', 'host', 'memory']"></dt-row>
+</dt-table>

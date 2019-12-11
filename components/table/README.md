@@ -79,9 +79,9 @@ problem indicators.
 
 #### Variants
 
-Currently there are two predefined versions of the `dtSimpleColumn` exposed:
-`dt-simple-number-column` and `dt-simple-text-column`. There are only small
-differences between the number and text column:
+Currently there are three predefined versions of the `dtSimpleColumn` exposed:
+`dt-simple-number-column`, `dt-simple-text-column` and `dt-favorite-column`.
+There are only small differences between the number and text column:
 
 ##### dt-simple-text-column
 
@@ -95,6 +95,18 @@ differences between the number and text column:
 - Column alignment is set to `number` -> right
 - When no formatter is given, the `dtCount` formatter will automatically be
   applied, e.g. 1000 -> 1k
+
+##### dt-favorite-column
+
+- Column alignment is set to `icon` -> center
+- When sorting this column, the sort direction will start descending, e.g. ★ ->
+  ☆
+
+Default example of a favorite column:
+<ba-live-example name="DtExampleTableFavoriteColumn" fullwidth="true"></ba-live-example>
+
+When no label is given, nothing will be rendered inside the header-cell:
+<ba-live-example name="DtExampleTableFavoriteColumnNoHeader" fullwidth="true"></ba-live-example>
 
 ## Custom columns for advanced use cases
 

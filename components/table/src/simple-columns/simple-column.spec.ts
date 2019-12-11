@@ -69,17 +69,43 @@ describe('DtTable SimpleColumns', () => {
 
     it('should infer the header label from the passed name', () => {
       const headers = fixture.debugElement.queryAll(By.css('.dt-header-cell'));
-      expect(headers[0].nativeElement.textContent).toBe('host');
+      expect(headers[1].nativeElement.textContent).toBe('host');
     });
 
     it('should use the label as header label when passed', () => {
       const headers = fixture.debugElement.queryAll(By.css('.dt-header-cell'));
-      expect(headers[1].nativeElement.textContent).toBe('Cpu');
+      expect(headers[2].nativeElement.textContent).toBe('Cpu');
     });
 
     it('should register all headerCell correctly', () => {
       const headers = fixture.debugElement.queryAll(By.css('.dt-header-cell'));
-      expect(headers.length).toBe(5);
+      expect(headers.length).toBe(6);
+    });
+
+    it('should display the correct favorite values', () => {
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-favorite .dt-icon'),
+      );
+      expect(
+        cells[0].nativeElement.classList.contains(
+          'dt-favorite-column-empty-star',
+        ),
+      ).toBeTruthy();
+      expect(
+        cells[1].nativeElement.classList.contains(
+          'dt-favorite-column-empty-star',
+        ),
+      ).toBeTruthy();
+      expect(
+        cells[2].nativeElement.classList.contains(
+          'dt-favorite-column-filled-star',
+        ),
+      ).toBeTruthy();
+      expect(
+        cells[3].nativeElement.classList.contains(
+          'dt-favorite-column-empty-star',
+        ),
+      ).toBeTruthy();
     });
 
     it('should display the correct simple-text values', () => {
@@ -167,6 +193,7 @@ describe('DtTable SimpleColumns', () => {
       fixture.componentInstance.dataSource.data = [
         ...fixture.componentInstance.data,
         {
+          favorite: false,
           host: 'et-demo-2-win3',
           cpu: 24,
           memoryPerc: 23,
@@ -181,12 +208,17 @@ describe('DtTable SimpleColumns', () => {
 
       const newlyAddedRow = rows[rows.length - 1];
       const newlyAddedCells = newlyAddedRow.queryAll(By.css('.dt-cell'));
-      expect(newlyAddedCells[0].nativeElement.textContent).toBe(
+      expect(
+        newlyAddedCells[0].nativeElement.children[0].classList.contains(
+          'dt-icon-button',
+        ),
+      ).toBeTruthy();
+      expect(newlyAddedCells[1].nativeElement.textContent).toBe(
         'et-demo-2-win3',
       );
-      expect(newlyAddedCells[1].nativeElement.textContent).toBe('24');
-      expect(newlyAddedCells[2].nativeElement.textContent).toBe('23 %');
-      expect(newlyAddedCells[3].nativeElement.textContent).toBe(
+      expect(newlyAddedCells[2].nativeElement.textContent).toBe('24');
+      expect(newlyAddedCells[3].nativeElement.textContent).toBe('23 %');
+      expect(newlyAddedCells[4].nativeElement.textContent).toBe(
         '23 % of 5.42 GB',
       );
     });
@@ -201,7 +233,59 @@ describe('DtTable SimpleColumns', () => {
       expect(rows.length).toBe(3);
     });
 
-    it('should add a new row in correct sorted order', () => {
+    it('should add a new row in correct sorted order(favorite)', () => {
+      const sortHeader = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-favorite'),
+      );
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.componentInstance.dataSource.data = [
+        ...fixture.componentInstance.data,
+        {
+          favorite: true,
+          host: 'et-demo-2-win3',
+          cpu: 24,
+          memoryPerc: 23,
+          memoryTotal: 5820000000,
+          traffic: 98700000,
+        },
+      ];
+      fixture.detectChanges();
+
+      const rows = fixture.debugElement.queryAll(By.css('.dt-row'));
+      expect(rows.length).toBe(5);
+
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-favorite .dt-icon'),
+      );
+
+      expect(
+        cells[0].nativeElement.classList.contains(
+          'dt-favorite-column-filled-star',
+        ),
+      ).toBeTruthy();
+      expect(
+        cells[1].nativeElement.classList.contains(
+          'dt-favorite-column-filled-star',
+        ),
+      ).toBeTruthy();
+      expect(
+        cells[2].nativeElement.classList.contains(
+          'dt-favorite-column-empty-star',
+        ),
+      ).toBeTruthy();
+      expect(
+        cells[3].nativeElement.classList.contains(
+          'dt-favorite-column-empty-star',
+        ),
+      ).toBeTruthy();
+      expect(
+        cells[4].nativeElement.classList.contains(
+          'dt-favorite-column-empty-star',
+        ),
+      ).toBeTruthy();
+    });
+
+    it('should add a new row in correct sorted order(host)', () => {
       const sortHeader = fixture.debugElement.query(
         By.css('.dt-header-cell.dt-table-column-host'),
       );
@@ -209,6 +293,7 @@ describe('DtTable SimpleColumns', () => {
       fixture.componentInstance.dataSource.data = [
         ...fixture.componentInstance.data,
         {
+          favorite: false,
           host: 'et-demo-2-win3',
           cpu: 24,
           memoryPerc: 23,
@@ -231,7 +316,7 @@ describe('DtTable SimpleColumns', () => {
       expect(cells[4].nativeElement.textContent).toBe('');
     });
 
-    it('should add a new row in correct sorted order', () => {
+    it('should add a new row in correct sorted order(cpu)', () => {
       const sortHeader = fixture.debugElement.query(
         By.css('.dt-header-cell.dt-table-column-cpu'),
       );
@@ -239,6 +324,7 @@ describe('DtTable SimpleColumns', () => {
       fixture.componentInstance.dataSource.data = [
         ...fixture.componentInstance.data,
         {
+          favorite: false,
           host: 'et-demo-2-win3',
           cpu: 24,
           memoryPerc: 23,
@@ -276,7 +362,7 @@ describe('DtTable SimpleColumns', () => {
       const sortHeaders = fixture.debugElement.queryAll(
         By.css('.dt-sort-header-container'),
       );
-      expect(sortHeaders.length).toBe(5);
+      expect(sortHeaders.length).toBe(6);
     });
 
     it('should apply sort styles to header', () => {
@@ -288,7 +374,7 @@ describe('DtTable SimpleColumns', () => {
 
       const headerCell = fixture.debugElement.queryAll(
         By.css('.dt-header-cell'),
-      )[1];
+      )[2];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
         'descending',
       );
@@ -327,7 +413,7 @@ describe('DtTable SimpleColumns', () => {
 
       const headerCell = fixture.debugElement.queryAll(
         By.css('.dt-header-cell'),
-      )[1];
+      )[2];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
         'descending',
       );
@@ -353,7 +439,7 @@ describe('DtTable SimpleColumns', () => {
 
       const headerCell = fixture.debugElement.queryAll(
         By.css('.dt-header-cell'),
-      )[1];
+      )[2];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
         'ascending',
       );
@@ -377,7 +463,7 @@ describe('DtTable SimpleColumns', () => {
 
       const headerCell = fixture.debugElement.queryAll(
         By.css('.dt-header-cell'),
-      )[0];
+      )[1];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
         'ascending',
       );
@@ -403,7 +489,7 @@ describe('DtTable SimpleColumns', () => {
 
       const headerCell = fixture.debugElement.queryAll(
         By.css('.dt-header-cell'),
-      )[0];
+      )[1];
       expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
         'descending',
       );
@@ -417,6 +503,56 @@ describe('DtTable SimpleColumns', () => {
       expect(cells[3].nativeElement.textContent).toBe('docker-host2');
     });
 
+    it('should sort the favorite column correctly descending (start)', () => {
+      const sortHeader = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-favorite'),
+      );
+
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
+
+      const headerCell = fixture.debugElement.queryAll(
+        By.css('.dt-header-cell'),
+      )[0];
+      expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
+        'descending',
+      );
+
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-host'),
+      );
+      expect(cells[0].nativeElement.textContent).toBe('docker-host2');
+      expect(cells[1].nativeElement.textContent).toBe('et-demo-2-win4');
+      expect(cells[2].nativeElement.textContent).toBe('');
+      expect(cells[3].nativeElement.textContent).toBe('et-demo-2-win1');
+    });
+
+    it('should sort the favorite column correctly ascending (alternate)', () => {
+      const sortHeader = fixture.debugElement.query(
+        By.css('.dt-header-cell.dt-table-column-favorite'),
+      );
+
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
+      dispatchMouseEvent(sortHeader.nativeElement, 'click');
+      fixture.detectChanges();
+
+      const headerCell = fixture.debugElement.queryAll(
+        By.css('.dt-header-cell'),
+      )[0];
+      expect(headerCell.nativeElement.getAttribute('aria-sort')).toBe(
+        'ascending',
+      );
+
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-host'),
+      );
+      expect(cells[0].nativeElement.textContent).toBe('et-demo-2-win4');
+      expect(cells[1].nativeElement.textContent).toBe('');
+      expect(cells[2].nativeElement.textContent).toBe('et-demo-2-win1');
+      expect(cells[3].nativeElement.textContent).toBe('docker-host2');
+    });
+
     it('should throw an error when no dtSort can be injected', () => {
       try {
         const errFixture = createComponent(TestSimpleColumnsErrorApp);
@@ -426,6 +562,58 @@ describe('DtTable SimpleColumns', () => {
           'DtSortHeader must be placed within a parent element with the DtSort directive.',
         );
       }
+    });
+  });
+
+  /**
+   * Toggling favorite column
+   */
+  describe('toggling favorite', () => {
+    let fixture;
+    beforeEach(() => {
+      fixture = createComponent(TestSimpleColumnsApp);
+    });
+
+    it('should toggle the favorite column visually', () => {
+      const rows = fixture.debugElement.queryAll(By.css('.dt-row'));
+      expect(rows.length).toBe(4);
+
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-favorite .dt-icon'),
+      );
+
+      const firstRow = cells[0].nativeElement;
+
+      expect(
+        firstRow.classList.contains('dt-favorite-column-empty-star'),
+      ).toBeTruthy();
+
+      firstRow.click();
+      fixture.detectChanges();
+
+      expect(
+        firstRow.classList.contains('dt-favorite-column-filled-star'),
+      ).toBeTruthy();
+    });
+
+    it('should toggle the favorite column in the datasource', () => {
+      const rows = fixture.debugElement.queryAll(By.css('.dt-row'));
+      expect(rows.length).toBe(4);
+
+      const cells = fixture.debugElement.queryAll(
+        By.css('.dt-cell.dt-table-column-favorite'),
+      );
+
+      const firstRow = cells[0].nativeElement;
+
+      expect(fixture.componentInstance.dataSource.data[0].favorite).toBeFalsy();
+
+      firstRow.children[0].click();
+      fixture.detectChanges();
+
+      expect(
+        fixture.componentInstance.dataSource.data[0].favorite,
+      ).toBeTruthy();
     });
   });
 
@@ -549,6 +737,10 @@ describe('DtTable SimpleColumns', () => {
   // tslint:disable
   template: `
     <dt-table [dataSource]="dataSource" dtSort #sortable>
+      <dt-favorite-column
+        name="favorite"
+        [sortable]="isSortable"
+      ></dt-favorite-column>
       <dt-simple-text-column name="host"></dt-simple-text-column>
       <dt-simple-number-column name="cpu" label="Cpu"></dt-simple-number-column>
       <dt-simple-number-column
@@ -572,6 +764,7 @@ describe('DtTable SimpleColumns', () => {
 
       <dt-header-row
         *dtHeaderRowDef="[
+          'favorite',
           'host',
           'cpu',
           'memoryPerc',
@@ -582,7 +775,14 @@ describe('DtTable SimpleColumns', () => {
       <dt-row
         *dtRowDef="
           let row;
-          columns: ['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic']
+          columns: [
+            'favorite',
+            'host',
+            'cpu',
+            'memoryPerc',
+            'memoryConsumption',
+            'traffic'
+          ]
         "
       ></dt-row>
     </dt-table>
@@ -591,6 +791,7 @@ describe('DtTable SimpleColumns', () => {
 })
 class TestSimpleColumnsApp implements AfterViewInit {
   data: Array<{
+    favorite: boolean;
     host?: string;
     cpu?: number;
     memoryPerc: number;
@@ -598,6 +799,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
     traffic: number;
   }> = [
     {
+      favorite: false,
       host: 'et-demo-2-win4',
       cpu: 30,
       memoryPerc: 38,
@@ -605,6 +807,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
       traffic: 98700000,
     },
     {
+      favorite: false,
       host: undefined,
       cpu: 26,
       memoryPerc: 46,
@@ -612,6 +815,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
       traffic: 62500000,
     },
     {
+      favorite: true,
       host: 'docker-host2',
       cpu: undefined,
       memoryPerc: 35,
@@ -619,6 +823,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
       traffic: 41900000,
     },
     {
+      favorite: false,
       host: 'et-demo-2-win1',
       cpu: 23,
       memoryPerc: 7.86,
@@ -679,6 +884,10 @@ class TestSimpleColumnsApp implements AfterViewInit {
   // tslint:disable
   template: `
     <dt-table [dataSource]="dataSource">
+      <dt-favorite-column
+        name="favorite"
+        [sortable]="isSortable"
+      ></dt-favorite-column>
       <dt-simple-text-column name="host"></dt-simple-text-column>
       <dt-simple-number-column name="cpu" label="Cpu"></dt-simple-number-column>
       <dt-simple-number-column
@@ -699,6 +908,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
 
       <dt-header-row
         *dtHeaderRowDef="[
+          'favorite',
           'host',
           'cpu',
           'memoryPerc',
@@ -709,7 +919,14 @@ class TestSimpleColumnsApp implements AfterViewInit {
       <dt-row
         *dtRowDef="
           let row;
-          columns: ['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic']
+          columns: [
+            'favorite',
+            'host',
+            'cpu',
+            'memoryPerc',
+            'memoryConsumption',
+            'traffic'
+          ]
         "
       ></dt-row>
     </dt-table>
@@ -718,6 +935,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
 })
 class TestSimpleColumnsErrorApp implements AfterViewInit {
   data: Array<{
+    favorite: boolean;
     host?: string;
     cpu?: number;
     memoryPerc: number;
@@ -725,6 +943,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
     traffic: number;
   }> = [
     {
+      favorite: false,
       host: 'et-demo-2-win4',
       cpu: 30,
       memoryPerc: 38,
@@ -732,6 +951,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
       traffic: 98700000,
     },
     {
+      favorite: true,
       host: undefined,
       cpu: 26,
       memoryPerc: 46,
@@ -739,6 +959,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
       traffic: 62500000,
     },
     {
+      favorite: false,
       host: 'docker-host2',
       cpu: undefined,
       memoryPerc: 35,
@@ -746,6 +967,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
       traffic: 41900000,
     },
     {
+      favorite: false,
       host: 'et-demo-2-win1',
       cpu: 23,
       memoryPerc: 7.86,
