@@ -29,11 +29,9 @@
       "tags": ["type:app"]
     },
     "barista-tools": {
-      "implicitDependencies": ["barista"],
       "tags": ["type:tooling"]
     },
     "examples-tools": {
-      "implicitDependencies": ["demos", "examples"],
       "tags": ["type:tooling"]
     },
     "shared-barista-definitions": {
