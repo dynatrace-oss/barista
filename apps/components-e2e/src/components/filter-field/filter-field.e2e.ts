@@ -17,7 +17,14 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { clickOption, errorBox, input } from './filter-field.po';
+import {
+  clickOption,
+  errorBox,
+  input,
+  clearAll,
+  filterTags,
+} from './filter-field.po';
+import { Selector } from 'testcafe';
 
 fixture('Filter Field').page('http://localhost:4200/filter-field');
 
@@ -52,4 +59,18 @@ test('should hide the error box when the node was deleted', async (testControlle
   await clickOption(3);
   await testController.pressKey('backspace').pressKey('backspace');
   await testController.expect(await errorBox.exists).notOk();
+});
+
+test('should remove all filters when clicking the clear-all button', async (testController: TestController) => {
+  // Create a new filter by clicking the outer- and inner-option
+  await clickOption(4);
+  await clickOption(1);
+
+  // Click somewhere outside so the clear-all button appears
+  await testController.click(Selector('body'), { offsetY: 100 });
+  await testController.expect(await clearAll.exists).ok();
+
+  // Click the clear all-button, the created filter should be removed
+  await testController.click(clearAll);
+  await testController.expect(await filterTags.exists).notOk();
 });

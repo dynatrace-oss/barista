@@ -19,7 +19,7 @@
     dt-button
     variant="secondary"
     class="dt-filter-field-clear-all-button"
-    (click)="_clearAll($event)"
+    (click)="_clearAll()"
     *ngIf="_showClearAll"
   >{{clearAllLabel}}</button>
 
@@ -33,14 +33,14 @@
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length || loading"
       [dtFilterFieldRange]="range"
-      [dtFilterFieldRangeDisabled]="!(_currentDef && !!_currentDef.range) || loading"
+      [dtFilterFieldRangeDisabled]="!(_currentDef && !!_currentDef!.range) || loading"
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue"
     />
     <dt-autocomplete
       #autocomplete="dtAutocomplete"
-      [autoActiveFirstOption]="_currentDef && !!_currentDef.autocomplete"
+      [autoActiveFirstOption]="_currentDef && !!_currentDef!.autocomplete"
       panelWidth="400px"
       class="dt-filter-field-panel"
     >
@@ -54,7 +54,7 @@
           <dt-option
             *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
-          >{{optionDef.option.viewValue}}</dt-option>
+          >{{optionDef.option!.viewValue}}</dt-option>
         </dt-optgroup>
         <ng-template #options>
           <dt-option [value]="optionOrGroupDef">{{ optionOrGroupDef.option!.viewValue}}</dt-option>
@@ -64,8 +64,8 @@
 
     <dt-filter-field-range
       #range="dtFilterFieldRange"
-      [enabledOperators]="_currentDef && !!_currentDef.range && _currentDef!.range!.operatorFlags"
-      [unit]="_currentDef && !!_currentDef.range && _currentDef!.range!.unit"
+      [enabledOperators]="_currentDef && !!_currentDef!.range && _currentDef!.range!.operatorFlags"
+      [unit]="_currentDef && !!_currentDef!.range && _currentDef!.range!.unit"
       (rangeSubmitted)="_handleRangeSubmitted($event)"
     ></dt-filter-field-range>
   </div>
