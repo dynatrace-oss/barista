@@ -15,12 +15,13 @@
  */
 import { NgModule } from '@angular/core';
 import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtExampleShowMoreDefault } from './show-more-default-example/show-more-default-example';
 import { DtExampleShowMoreNoText } from './show-more-notext-example/show-more-notext-example';
 import { DtExampleShowMoreInteractive } from './show-more-interactive-example/show-more-interactive-example';
 import { DtExampleShowMoreDisabled } from './show-more-disabled-example/show-more-disabled-example';
 import { DtExampleShowMoreDark } from './show-more-dark-example/show-more-dark-example';
-import { DtButtonModule } from '@dynatrace/barista-components/button';
 
 export const DT_SHOW_MORE_EXAMPLES = [
   DtExampleShowMoreDefault,
@@ -31,7 +32,7 @@ export const DT_SHOW_MORE_EXAMPLES = [
 ];
 
 @NgModule({
-  imports: [DtShowMoreModule, DtButtonModule],
+  imports: [DtShowMoreModule, DtButtonModule, DtThemingModule],
   declarations: [...DT_SHOW_MORE_EXAMPLES],
   entryComponents: [...DT_SHOW_MORE_EXAMPLES],
 })

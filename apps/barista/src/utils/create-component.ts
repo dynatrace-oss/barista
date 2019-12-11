@@ -52,7 +52,6 @@ export function createComponent(
   for (const input of factory.inputs) {
     if (placeholderElement.hasAttribute(input.templateName)) {
       const value = placeholderElement.getAttribute(input.templateName);
-      console.log(input.templateName);
       componentRef.instance[input.propName] = value || input.templateName;
     }
   }
