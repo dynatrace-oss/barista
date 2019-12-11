@@ -248,6 +248,122 @@ describe('DtFilterField', () => {
     expect(document.activeElement).toBe(input);
   });
 
+  describe('disabled', () => {
+    it('should disable the input if filter field is disabled', () => {
+      // when
+      filterField.disabled = true;
+      fixture.detectChanges();
+
+      // then
+      const input = fixture.debugElement.query(
+        By.css('.dt-filter-field-disabled'),
+      ).nativeElement;
+      expect(input).toBeTruthy();
+    });
+
+    it('should disable all tags if filter field is disabled', fakeAsync(() => {
+      // given
+      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
+      fixture.detectChanges();
+
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+
+      const autOption = options[0];
+      autOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      options = getOptions(overlayContainerElement);
+      const viennaOption = options[0];
+      viennaOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      // when
+      filterField.disabled = true;
+      fixture.detectChanges();
+
+      // then
+      const subscription = filterField.currentTags.subscribe(tags => {
+        for (const dtFilterFieldTag of tags) {
+          expect(dtFilterFieldTag.disabled).toBeTruthy();
+        }
+      });
+      tick();
+      subscription.unsubscribe();
+    }));
+
+    it('should restore the previous state of tags if filter field gets enabled', fakeAsync(() => {
+      // given
+      fixture.componentInstance.dataSource.data = TEST_DATA;
+      fixture.detectChanges();
+
+      // Add filter "AUT - Vienna"
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+      const autOption = options[0];
+      autOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      options = getOptions(overlayContainerElement);
+      const viennaOption = options[1];
+      viennaOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      // Add filter "USA - Los Angeles"
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      options = getOptions(overlayContainerElement);
+      const usOption = options[1];
+      usOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+
+      options = getOptions(overlayContainerElement);
+      const losAngelesOption = options[0];
+      losAngelesOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      // Disable filter "AUT - Vienna"
+      const sub1 = filterField.currentTags.subscribe(
+        tags => (tags[0].disabled = true),
+      );
+      tick();
+      sub1.unsubscribe();
+
+      // when
+      filterField.disabled = true;
+      filterField.disabled = false;
+      fixture.detectChanges();
+
+      // then
+      const sub2 = filterField.currentTags.subscribe(tags => {
+        expect(tags[0].disabled).toBeTruthy();
+        expect(tags[1].disabled).toBeFalsy();
+      });
+      tick();
+      sub2.unsubscribe();
+    }));
+  });
+
   describe('labeling', () => {
     it('should create an label with an filter icon', () => {
       const label = fixture.debugElement.query(

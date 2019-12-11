@@ -33,6 +33,7 @@ class MyModule {}
 | `filters`    | `any[][]`                 |         | The currently selected filters. This input can also be used to programmatically add filters to the filter-field. |
 | `label`      | `string`                  |         | The label for the input field. Can be set to something like "Filter by".                                         |
 | `loading`    | `boolean`                 | `false` | Whether the filter-field is loading data and should show a loading spinner.                                      |
+| `disabled`   | `boolean`                 | `false` | Whether the filter-field is disabled.                                                                            |
 | `aria-label` | `string`                  |         | Sets the value for the Aria-Label attribute.                                                                     |
 
 ## Outputs
@@ -196,9 +197,16 @@ in the [click dummy](https://invis.io/PCG28RGDUFE).
 
 <ba-live-example name="DtExampleFilterFieldClearall"></ba-live-example>
 
+### Disabled state
+
+By setting the `disabled`-property to true, the whole filter field including all
+tags get disabled and therefore cannot be modified by the user.
+
+<ba-live-example name="DtExampleFilterFieldDisabled"></ba-live-example>
+
 ### Readonly, non-deletable & non-editable tags
 
-The filter filed creates a `DtFilterFieldTag` for each active filter. You can
+The filter field creates a `DtFilterFieldTag` for each active filter. You can
 get subscribe to the list of current tags with the `currentTags` observable. By
 using the utility method `getTagForFilter` you can find a `DtFilterFieldTag`
 instance created for a given filter. After getting the tag instance for your

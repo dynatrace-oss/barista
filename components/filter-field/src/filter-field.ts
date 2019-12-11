@@ -52,13 +52,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  fromEvent,
+  merge,
   Observable,
+  of as observableOf,
   ReplaySubject,
   Subject,
   Subscription,
-  fromEvent,
-  merge,
-  of as observableOf,
 } from 'rxjs';
 import {
   debounceTime,
@@ -79,6 +79,7 @@ import {
   DtAutocompleteTrigger,
 } from '@dynatrace/barista-components/autocomplete';
 import {
+  CanDisable,
   DT_ERROR_ENTER_ANIMATION,
   DT_ERROR_ENTER_DELAYED_ANIMATION,
   ErrorStateMatcher,
@@ -159,8 +160,10 @@ export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
   styleUrls: ['filter-field.scss'],
   host: {
     class: 'dt-filter-field',
+    '[class.dt-filter-field-disabled]': 'disabled',
     '(click)': '_handleHostClick($event)',
   },
+  inputs: ['disabled'],
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -174,7 +177,8 @@ export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
     ]),
   ],
 })
-export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
+export class DtFilterField<T>
+  implements CanDisable, AfterViewInit, OnDestroy, OnChanges {
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
 
@@ -233,6 +237,45 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   /** Set the Aria-Label attribute */
   @Input('aria-label') ariaLabel = '';
+
+  /** Whether the filter field is disabled. */
+  @Input()
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    // tslint:disable: deprecation
+    const coerced = coerceBooleanProperty(value);
+    if (coerced !== this._disabled) {
+      this._disabled = coerced;
+
+      if (!this.tags || this.tags.length === 0) {
+        return;
+      }
+
+      if (this._disabled) {
+        this.closeFilterPanels();
+
+        this.tags.forEach(item => {
+          this._previousTagDisabledState.set(item, item.disabled);
+          item.disabled = this._disabled;
+        });
+      } else {
+        this.tags.forEach(
+          item => (item.disabled = !!this._previousTagDisabledState.get(item)),
+        );
+      }
+
+      this._changeDetectorRef.markForCheck();
+    }
+
+    // tslint:enable: deprecation
+  }
+  private _disabled = false;
+  private _previousTagDisabledState: Map<DtFilterFieldTag, boolean> = new Map<
+    DtFilterFieldTag,
+    boolean
+  >();
 
   /** Emits an event with the current value of the input field every time the user types. */
   @Output() readonly inputChange = new EventEmitter<string>();
@@ -554,11 +597,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         );
       }
     } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
-      this._autocompleteTrigger.closePanel();
-      this._filterfieldRangeTrigger.closePanel();
-      if (this._editModeStashedValue) {
-        this._cancelEditMode();
-      }
+      this.closeFilterPanels();
     } else {
       if (this._inputFieldKeyboardLocked) {
         return;
@@ -1169,6 +1208,14 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
       throw getDtFilterFieldApplyFilterNoRootDataProvidedError();
     });
     this._switchToRootDef(false);
+  }
+
+  private closeFilterPanels(): void {
+    this._autocompleteTrigger.closePanel();
+    this._filterfieldRangeTrigger.closePanel();
+    if (this._editModeStashedValue) {
+      this._cancelEditMode();
+    }
   }
 }
 // tslint:disable:max-file-line-count

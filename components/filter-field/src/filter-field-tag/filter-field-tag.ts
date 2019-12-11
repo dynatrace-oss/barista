@@ -78,6 +78,7 @@ export class DtFilterFieldTag implements OnDestroy {
   /** Whether the tag is disabled. */
   // Note: The disabled mixin can not be used here because the CD needs to be triggerd after it has been set
   // to reflect the state when programatically setting the property.
+  @Input()
   get disabled(): boolean {
     return !this.editable && !this.deletable;
   }

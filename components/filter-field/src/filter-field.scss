@@ -13,10 +13,17 @@ $dt-filter-field-inner-height: 30px;
   // of inner interactive elements (like buttons) to be cut off
   overflow: visible;
 
-  cursor: text;
-
   .dt-focused & {
     @include dt-focus-style();
+  }
+
+  &:not(.dt-filter-field-disabled) {
+    cursor: text;
+  }
+
+  &.dt-filter-field-disabled {
+    background-color: $gray-100;
+    color: $disabledcolor;
   }
 }
 

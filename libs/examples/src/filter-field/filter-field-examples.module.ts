@@ -24,6 +24,7 @@ import { DtExampleFilterFieldDistinct } from './filter-field-distinct-example/fi
 import { DtExampleFilterFieldProgrammaticFilters } from './filter-field-programmatic-filters-example/filter-field-programmatic-filters-example';
 import { DtExampleFilterFieldReadOnlyTags } from './filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example';
 import { DtExampleFilterFieldUnique } from './filter-field-unique-example/filter-field-unique-example';
+import { DtExampleFilterFieldDisabled } from './filter-field-disabled-example/filter-field-disabled-example';
 
 export const DT_FILTER_FIELD_EXAMPLES = [
   DtExampleFilterFieldAsync,
@@ -31,6 +32,7 @@ export const DT_FILTER_FIELD_EXAMPLES = [
   DtExampleFilterFieldDefault,
   DtExampleFilterFieldDistinct,
   DtExampleFilterFieldProgrammaticFilters,
+  DtExampleFilterFieldDisabled,
   DtExampleFilterFieldReadOnlyTags,
   DtExampleFilterFieldUnique,
 ];
