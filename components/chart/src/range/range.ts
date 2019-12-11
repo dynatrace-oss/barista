@@ -307,6 +307,12 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     }
   }
 
+  /** Closes the range element and the overlay. */
+  close(): void {
+    this._closeOverlay.next();
+    this._reset();
+  }
+
   /** @internal Reflects styles, value and validity to the dom. */
   _reflectToDom(): void {
     this._maxWidth =

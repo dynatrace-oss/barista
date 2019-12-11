@@ -227,9 +227,10 @@ and `aria-label-close`, to meet our accessibility standards.
 
 #### Methods
 
-| Name    | Type   | Description                |
-| ------- | ------ | -------------------------- |
-| `focus` | `void` | Focuses the range element. |
+| Name    | Type   | Description                               |
+| ------- | ------ | ----------------------------------------- |
+| `focus` | `void` | Focuses the range element.                |
+| `close` | `void` | Closes the range element and the overlay. |
 
 ### Timestamp
 
