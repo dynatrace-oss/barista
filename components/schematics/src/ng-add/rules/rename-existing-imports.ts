@@ -18,7 +18,7 @@ import { Rule, SchematicContext } from '@angular-devkit/schematics';
 import { Tree } from '@angular-devkit/schematics/src/tree/interface';
 import { readFromTree } from '../../utils';
 import * as ts from 'typescript';
-import { getImportModuleSpecifier } from '../../../../../libs/shared/utils-ast/src';
+import { getImportModuleSpecifier } from '../utils-ast';
 
 const OLD_IMPORT = '@dynatrace/angular-components';
 

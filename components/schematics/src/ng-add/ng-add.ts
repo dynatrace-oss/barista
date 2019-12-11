@@ -26,7 +26,7 @@ import {
   getImportModuleSpecifier,
   updateNgModuleDecoratorProperties,
   NgModuleProperties,
-} from '@dynatrace/barista-components/utils-ast';
+} from './utils-ast';
 import {
   renameExistingImports,
   createStringLiteral,
@@ -233,9 +233,14 @@ function installStyles(options: Schema): Rule {
     let sourceFile: ts.SourceFile;
     let styleImport: ts.StringLiteral;
     let fileName: string | undefined = undefined;
+    let files: string[] = [];
 
-    let files = getFilesToCheck('**/*.scss');
-    files.concat(getFilesToCheck('**/*.css'));
+    if (options.isTestEnv) {
+      files = ['index.css'];
+    } else {
+      files = getFilesToCheck('**/*.scss');
+      files.concat(getFilesToCheck('**/*.css'));
+    }
 
     for (const file of files) {
       if (
@@ -275,7 +280,7 @@ function installStyles(options: Schema): Rule {
 /** Refactors AngularJson paths to Dynatrace Fonts and Icons package */
 function refactorAngularJsonPaths(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    if (!options.angularJsonSetup) {
+    if (!options.angularPathRefactor) {
       return;
     }
 

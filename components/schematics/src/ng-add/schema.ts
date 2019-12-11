@@ -28,5 +28,5 @@ export interface Schema {
   iconpack: boolean;
 
   /** Whether to setup angularJson */
-  angularJsonSetup: boolean;
+  angularPathRefactor: boolean;
 }

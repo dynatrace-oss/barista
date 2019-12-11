@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-import {
-  SchematicTestRunner,
-  UnitTestTree,
-} from '@angular-devkit/schematics/testing';
-import { join } from 'path';
-import { Tree } from '@angular-devkit/schematics/src/tree/interface';
+import * as ts from 'typescript';
 
-const testRunner = new SchematicTestRunner(
-  '@dynatrace/barista-components/schematics',
-  join(__dirname, '../../../collection.json'),
-);
-
-export async function runSchematic(
-  schematicName: string,
-  options: any,
-  tree: Tree,
-): Promise<UnitTestTree> {
-  return testRunner.runSchematicAsync(schematicName, options, tree).toPromise();
+/**
+ * Retrieves a nodes import-declarations
+ * @param node Current node
+ */
+export function getImportModuleSpecifier(
+  node: ts.ImportDeclaration,
+): string | null {
+  if (ts.isStringLiteral(node.moduleSpecifier)) {
+    return node.moduleSpecifier.text;
+  }
+  return null;
 }

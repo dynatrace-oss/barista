@@ -4,14 +4,10 @@
   "type": "object",
   "description": "Schema for Ng add options",
   "properties": {
-    "testEnvironment": {
-      "type": "boolean",
-      "description": "In test Environment",
-      "default": false
-    },
     "animations": {
       "type": "boolean",
       "description": "Installation of @angular/animations",
+      "default": true,
       "$default": {
         "$source": "argv",
         "index": 0
@@ -21,6 +17,7 @@
     "stylesPack": {
       "type": "boolean",
       "description": "Configure which stylePack should be installed.",
+      "default": true,
       "$default": {
         "$source": "argv",
         "index": 0
@@ -30,6 +27,7 @@
     "iconpack": {
       "type": "boolean",
       "description": "Installation of @dynatrace/barista-icons",
+      "default": true,
       "$default": {
         "$source": "argv",
         "index": 0
@@ -39,6 +37,7 @@
     "angularPathRefactor": {
       "type": "boolean",
       "description": "Update of angular.json paths",
+      "defualt": true,
       "$default": {
         "$source": "argv",
         "index": 0
@@ -46,5 +45,5 @@
       "x-prompt": "Refactor paths in angular json? (for Dynatrace Fonts and Icons)"
     }
   },
-  "required": ["animations", "iconpack", "angularJsonSetup"]
+  "required": ["animations", "iconpack", "angularPathRefactor"]
 }
