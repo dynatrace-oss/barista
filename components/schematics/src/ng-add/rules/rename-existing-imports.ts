@@ -16,7 +16,7 @@
 
 import { Rule, SchematicContext } from '@angular-devkit/schematics';
 import { Tree } from '@angular-devkit/schematics/src/tree/interface';
-import { readFromTree } from '../../utils';
+import { readFileFromTree } from '../../utils';
 import * as ts from 'typescript';
 import { getImportModuleSpecifier } from '../utils-ast';
 
@@ -26,7 +26,7 @@ const OLD_IMPORT = '@dynatrace/angular-components';
 export function renameExistingImports(files: string[]): Rule {
   return (tree: Tree, _: SchematicContext) => {
     for (let fileName of files) {
-      const sourceText = readFromTree(tree, fileName);
+      const sourceText = readFileFromTree(tree, fileName);
       const sourceFile = ts.createSourceFile(
         fileName,
         sourceText,

@@ -28,15 +28,15 @@ import {
   createPeerDependenciesTree,
   createAppModuleTree,
   createStyleCssTree,
-  styleCss,
   ANGULARJSON,
   APPMODULE,
   PACKAGEJSON,
   PEERDEPENDENCIES,
   RENAMEDIMPORT,
+  STYLECSS,
 } from './testing-constants';
 
-const collectionPath = join(__dirname, '../collection.json');
+const collectionPath = join(__dirname, '../../collection.json');
 
 const testRunner = new SchematicTestRunner('schematics', collectionPath);
 
@@ -112,7 +112,7 @@ describe('ng-add schematic for dynatrace barista-components', () => {
     });
 
     it('should insert styles to main css file', () => {
-      expect(getFileContent(tree, 'index.css')).toEqual(styleCss);
+      expect(getFileContent(tree, 'index.css')).toEqual(STYLECSS);
     });
 
     it('should update icons and fonts paths in angular.json', () => {

@@ -19,15 +19,11 @@ import { Tree } from '@angular-devkit/schematics/src/tree/interface';
 export function createPackageTree(tree: Tree): void {
   tree.create(
     '/package.json',
-    JSON.stringify(
-      {
-        dependencies: {
-          '@dynatrace/angular-components': '4.14.0',
-        },
-      },
-      null,
-      2,
-    ),
+    `{
+  "dependencies": {
+    "@dynatrace/angular-components": "4.14.0"
+  }
+}`,
   );
 }
 
@@ -128,8 +124,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { testModule } from 'testModule';
 
 @NgModule({
-  imports: [ BrowserModule, testModule ],
-  exports: [ testModule ]
+  imports: [
+    BrowserModule,
+    testModule
+  ],
+  exports: [testModule]
 })
 export class AppModule {
 

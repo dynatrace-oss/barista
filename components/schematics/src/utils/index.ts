@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
-export * from './testing';
 export * from './fileSearch';
-export * from './read-from-tree';
+export * from './json';
+export * from './read-file-from-tree';
+export * from './testing';
+
+export * from './json';

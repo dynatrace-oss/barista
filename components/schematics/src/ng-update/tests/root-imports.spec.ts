@@ -20,7 +20,7 @@ import { createTestCaseSetup } from '../../utils';
 
 export const migrationCollection = require.resolve('../../migration.json');
 
-describe('v5 dynatrace angular components imports', () => {
+describe.skip('v5 dynatrace angular components imports', () => {
   it('should migrate root imports correctly', async () => {
     const {
       runFixers,

@@ -15,7 +15,6 @@
  */
 
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { readJsonInTree } from '../../utils';
 
 export function rewriteAngularJsonImports(
   filePath: string,
@@ -64,4 +63,20 @@ export function rewriteAngularJsonImports(
 
     tree.overwrite(filePath, JSON.stringify(angularJson, null, 2));
   };
+}
+
+function readJsonInTree<T = any>(host: Tree, path: string): T {
+  const content = readFromTree(host, path);
+  try {
+    return JSON.parse(content);
+  } catch (e) {
+    throw new Error(`Cannot parse ${path}: ${e.message}`);
+  }
+}
+
+function readFromTree(host: Tree, path: string): string {
+  if (!host.exists(path)) {
+    throw new Error(`Cannot find ${path}`);
+  }
+  return host.read(path)!.toString('utf-8');
 }

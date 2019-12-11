@@ -35,15 +35,11 @@ export class MyComp implements OnInit {
 }
 `;
 
-export const PACKAGEJSON = JSON.stringify(
-  {
-    dependencies: {
-      '@dynatrace/barista-components': '5.0.0',
-    },
-  },
-  null,
-  2,
-);
+export const PACKAGEJSON = `{
+  "dependencies": {
+      "@dynatrace/barista-components": "5.0.0"
+  }
+}`;
 
 export const PEERDEPENDENCIES = JSON.stringify(
   {
@@ -120,17 +116,19 @@ export const APPMODULE = `import { BrowserAnimationsModule } from '@angular/plat
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { testModule } from 'testModule';
-
 @NgModule({
-  imports: [ BrowserModule, testModule, BrowserAnimationsModule ],
-  exports: [ testModule ]
+    imports: [
+        BrowserModule,
+        testModule,
+        BrowserAnimationsModule,
+    ],
+    exports: [testModule]
 })
 export class AppModule {
-
 }
 `;
 
-export const styleCss = `@import '~@dynatrace/angular-components/style/main';
+export const STYLECSS = `@import '~@dynatrace/angular-components/style/index';
 body {
   background: red;
 }

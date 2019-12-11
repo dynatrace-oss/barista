@@ -33,8 +33,15 @@ import {
   insertNodeToFileInTree,
   rewriteAngularJsonImports,
 } from './rules';
-import { getFilesToCheck, readJsonInTree, readFromTree } from '../utils';
+import {
+  getFilesToCheck,
+  readFileFromTree,
+  readJsonAsObjectFromTree,
+} from '../utils';
 import * as ts from 'typescript';
+import { addDependencies } from './rules/add-dependencies';
+import { NodeDependencyType } from './rules/add-package-json-dependency';
+import { removeDependencies } from './rules/remove-dependencies';
 
 // Call visitNode to start the search into the sourcefile
 // If is decorator is true then look for allChildren
@@ -62,20 +69,59 @@ function checkWorkspace(): Rule {
 function refactorPackageJsonImports(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
-    const packageJSON = readJsonInTree(tree, '/package.json');
+    const packageJSON = readFileFromTree(tree, '/package.json');
 
-    if (
-      Object.keys(packageJSON.dependencies).includes(
-        '@dynatrace/angular-components',
-      )
-    ) {
-      delete packageJSON.dependencies['@dynatrace/angular-components'];
-
-      rules.push(renameExistingImports(['/package.json']));
+    if (packageJSON.includes('@dynatrace/angular-components')) {
+      rules.push(
+        removeDependencies(['@dynatrace/angular-components'], '/package.json'),
+      );
+    } else {
+      rules.push(
+        addDependencies(
+          [
+            {
+              name: '@dynatrace/barista-icons',
+              type: NodeDependencyType.Default,
+              version: '5.0.0',
+            },
+            {
+              name: 'd3-scale',
+              type: NodeDependencyType.Default,
+              version: '{{version}}',
+            },
+            {
+              name: 'd3-shape',
+              type: NodeDependencyType.Default,
+              version: '{{version}}',
+            },
+            {
+              name: 'd3-geo',
+              type: NodeDependencyType.Default,
+              version: '{{version}}',
+            },
+            {
+              name: 'highcharts',
+              type: NodeDependencyType.Default,
+              version: '{{version}}',
+            },
+          ],
+          '/package.json',
+        ),
+      );
     }
-    packageJSON.dependencies['@dynatrace/barista-components'] = '5.0.0';
 
-    tree.overwrite('/package.json', JSON.stringify(packageJSON, null, 2));
+    rules.push(
+      addDependencies(
+        [
+          {
+            name: '@dynatrace/barista-components',
+            type: NodeDependencyType.Default,
+            version: '5.0.0',
+          },
+        ],
+        '/package.json',
+      ),
+    );
 
     return chain(rules)(tree, context);
   };
@@ -120,7 +166,7 @@ function installPeerDependencies(options: Schema): Rule {
     }
 
     for (const pkg of packages) {
-      const packageJSON = readJsonInTree(tree, pkg);
+      const packageJSON = readJsonAsObjectFromTree(tree, pkg);
       // install peerDependencies
       if (packageJSON.peerDependencies) {
         packageJSON.peerDependencies['@dynatrace/barista-icons'] =
@@ -145,7 +191,7 @@ function installAnimationsModule(options: Schema): Rule {
       return;
     }
 
-    const packageJson = readJsonInTree(tree, '/package.json');
+    const packageJson = readJsonAsObjectFromTree(tree, '/package.json');
 
     // If not already installed, add Angular Animations to package.json
     if (
@@ -157,13 +203,14 @@ function installAnimationsModule(options: Schema): Rule {
     let files;
 
     if (options.isTestEnv) {
-      files = getFilesToCheck('**/app.module.ts');
+      files = ['app.module.ts'];
     } else {
+      files = getFilesToCheck('**/app.module.ts');
     }
 
     for (const file of files) {
       // Get sourcefile from app.module in tree
-      const sourceText = readFromTree(tree, file);
+      const sourceText = readFileFromTree(tree, file);
       const appModuleAst = ts.createSourceFile(
         file,
         sourceText,
@@ -200,7 +247,7 @@ function installAnimationsModule(options: Schema): Rule {
 
       let sourceFile = ts.createSourceFile(
         file,
-        readFromTree(tree, file),
+        readFileFromTree(tree, file),
         ts.ScriptTarget.Latest,
         true,
       );
@@ -262,7 +309,7 @@ function installStyles(options: Schema): Rule {
         }
 
         if (fileName) {
-          mainStyle = readFromTree(tree, fileName);
+          mainStyle = readFileFromTree(tree, fileName);
           sourceFile = ts.createSourceFile(
             fileName,
             mainStyle,
@@ -300,7 +347,7 @@ function checkPackageJsonImports(
   path: string,
   searchString: string,
 ): boolean {
-  const packageJSON = readJsonInTree(tree, path);
+  const packageJSON = readJsonAsObjectFromTree(tree, path);
   if (packageJSON) {
     if (Object.keys(packageJSON.dependencies).includes(searchString)) {
       return true;
