@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import { DtExampleInputDark } from './input-dark-example/input-dark-example';
 import { DtExampleInputDefault } from './input-default-example/input-default-example';
@@ -37,7 +38,13 @@ export const DT_INPUT_EXAMPLES = [
 ];
 
 @NgModule({
-  imports: [FormsModule, DtButtonModule, DtInputModule, DtFormFieldModule],
+  imports: [
+    FormsModule,
+    DtButtonModule,
+    DtInputModule,
+    DtFormFieldModule,
+    DtThemingModule,
+  ],
   declarations: [...DT_INPUT_EXAMPLES],
   entryComponents: [...DT_INPUT_EXAMPLES],
 })

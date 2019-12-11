@@ -17,6 +17,7 @@
 import { NgModule } from '@angular/core';
 import { DtAlertModule } from '@dynatrace/barista-components/alert';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtExampleAlertDark } from './alert-dark-example/alert-dark-example';
 import { DtExampleAlertDarkError } from './alert-dark-error-example/alert-dark-error-example';
 import { DtExampleAlertInteractive } from './alert-interactive-example/alert-interactive-example';
@@ -32,7 +33,7 @@ export const DT_ALERT_EXAMPLES = [
 ];
 
 @NgModule({
-  imports: [DtAlertModule, DtButtonModule],
+  imports: [DtAlertModule, DtButtonModule, DtThemingModule],
   declarations: [...DT_ALERT_EXAMPLES],
   entryComponents: [...DT_ALERT_EXAMPLES],
 })

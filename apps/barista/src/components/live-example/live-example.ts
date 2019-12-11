@@ -71,10 +71,30 @@ export class BaLiveExample implements OnDestroy {
   private _isFullWidth = false;
 
   /** The encoded html template source of the given example. */
-  @Input() templateSource: string;
+  @Input()
+  get templateSource(): string {
+    return this._templateSource;
+  }
+  set templateSource(value: string) {
+    this._templateSource = value;
+    if (!this._activeTabChanged) {
+      this._activeTab = 'html';
+    }
+  }
+  private _templateSource: string;
 
   /** The encoded typescript class (component) source of the given example. */
-  @Input() classSource: string;
+  @Input()
+  get classSource(): string {
+    return this._classSource;
+  }
+  set classSource(value: string) {
+    this._classSource = value;
+    if (!this._activeTabChanged && !this._activeTab) {
+      this._activeTab = 'ts';
+    }
+  }
+  private _classSource: string;
 
   /**
    * @internal
@@ -91,7 +111,10 @@ export class BaLiveExample implements OnDestroy {
    * @internal
    * The currently active tab for displaying a source (html, ts or scss).
    */
-  _activeTab: 'html' | 'ts' | 'scss' = 'html';
+  _activeTab: 'html' | 'ts' | 'scss';
+
+  /** Whether the user has changed the active tab. */
+  private _activeTabChanged = false;
 
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
@@ -108,6 +131,11 @@ export class BaLiveExample implements OnDestroy {
   /** Whether one of the three sources has been set. */
   _hasSources(): boolean {
     return Boolean(this.classSource || this.templateSource);
+  }
+
+  _setActiveTab(tab: 'html' | 'ts' | 'scss'): void {
+    this._activeTab = tab;
+    this._activeTabChanged = true;
   }
 
   private _initExample(): void {

@@ -19,6 +19,7 @@ import { DtCopyToClipboardModule } from '@dynatrace/barista-components/copy-to-c
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtAlertModule } from '@dynatrace/barista-components/alert';
 import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtExampleCopyToClipboardCallback } from './copy-to-clipboard-callback-example/copy-to-clipboard-callback-example';
 import { DtExampleCopyToClipboardContext } from './copy-to-clipboard-context-example/copy-to-clipboard-context-example';
 import { DtExampleCopyToClipboardDark } from './copy-to-clipboard-dark-example/copy-to-clipboard-dark-example';
@@ -42,6 +43,7 @@ export const DT_COPY_TO_CLIPBOARD_EXAMPLES = [
     DtInputModule,
     DtAlertModule,
     DtContextDialogModule,
+    DtThemingModule,
   ],
   declarations: [...DT_COPY_TO_CLIPBOARD_EXAMPLES],
   entryComponents: [...DT_COPY_TO_CLIPBOARD_EXAMPLES],

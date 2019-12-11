@@ -10,7 +10,7 @@
       *ngIf="templateSource"
       class="ba-live-example-tab"
       [class.ba-live-example-tab-active]="_activeTab === 'html'"
-      (click)="_activeTab = 'html'"
+      (click)="_setActiveTab('html')"
     >
       HTML
     </button>
@@ -18,7 +18,7 @@
       *ngIf="classSource"
       class="ba-live-example-tab"
       [class.ba-live-example-tab-active]="_activeTab === 'ts'"
-      (click)="_activeTab = 'ts'"
+      (click)="_setActiveTab('ts')"
     >
       TS
     </button>

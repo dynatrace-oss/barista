@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtExampleContextDialogActions } from './context-dialog-actions-example/context-dialog-actions-example';
 import { DtExampleContextDialogCustomIcon } from './context-dialog-custom-icon-example/context-dialog-custom-icon-example';
 import { DtExampleContextDialogDark } from './context-dialog-dark-example/context-dialog-dark-example';
 import { DtExampleContextDialogDefault } from './context-dialog-default-example/context-dialog-default-example';
 import { DtExampleContextDialogHeader } from './context-dialog-header-example/context-dialog-header-example';
-import { CommonModule } from '@angular/common';
 import { DtExampleContextDialogInteractive } from './context-dialog-interactive-example/context-dialog-interactive-example';
 import { DtExampleContextDialogPreviousFocus } from './context-dialog-previous-focus-example/context-dialog-previous-focus-example';
 
@@ -37,7 +38,13 @@ export const DT_CONTEXT_DIALOG_EXAMPLES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, DtContextDialogModule, DtButtonModule, DtIconModule],
+  imports: [
+    CommonModule,
+    DtContextDialogModule,
+    DtButtonModule,
+    DtIconModule,
+    DtThemingModule,
+  ],
   declarations: [...DT_CONTEXT_DIALOG_EXAMPLES],
   entryComponents: [...DT_CONTEXT_DIALOG_EXAMPLES],
 })

@@ -18,6 +18,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
 import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtExampleBreadcrumbsColor } from './breadcrumbs-color-example/breadcrumbs-color-example';
 import { DtExampleBreadcrumbsDark } from './breadcrumbs-dark-example/breadcrumbs-dark-example';
 import { DtExampleBreadcrumbsDefault } from './breadcrumbs-default-example/breadcrumbs-default-example';
@@ -31,7 +32,12 @@ export const DT_BREADCRUMBS_EXAMPLES = [
 ];
 
 @NgModule({
-  imports: [CommonModule, DtBreadcrumbsModule, DtButtonGroupModule],
+  imports: [
+    CommonModule,
+    DtBreadcrumbsModule,
+    DtButtonGroupModule,
+    DtThemingModule,
+  ],
   declarations: [...DT_BREADCRUMBS_EXAMPLES],
   entryComponents: [...DT_BREADCRUMBS_EXAMPLES],
 })

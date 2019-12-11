@@ -165,8 +165,12 @@ export function exampleInlineSourcesTransformerFactory(
         if (!demoMetadata) {
           throw new Error(`Example with name ${name} does not exist`);
         }
-        $(element).attr('templateSource', demoMetadata.templateSource);
-        $(element).attr('classSource', demoMetadata.classSource);
+        if (demoMetadata.templateSource) {
+          $(element).attr('templateSource', demoMetadata.templateSource);
+        }
+        if (demoMetadata.classSource) {
+          $(element).attr('classSource', demoMetadata.classSource);
+        }
       });
     });
     return source;
