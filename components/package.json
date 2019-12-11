@@ -12,9 +12,9 @@
   ],
   "homepage": "https://barista.dynatrace.com",
   "peerDependencies": {
-    "@angular/cdk": "^0.0.0-NG-CDK",
-    "@angular/core": "^0.0.0-NG",
-    "@angular/common": "^0.0.0-NG",
+    "@angular/cdk": "{{VERSION}}",
+    "@angular/core": "{{VERSION}}",
+    "@angular/common": "{{VERSION}}",
     "@dynatrace/barista-icons": ">= 3.0.0 < 4",
     "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
     "@types/highcharts": "^5.0.23",

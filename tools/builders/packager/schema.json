@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "packager",
+  "type": "object",
+  "properties": {
+    "releasePackageJson": {
+      "type": "string",
+      "default": "package.json",
+      "description": "The path to the package.json used for the release"
+    },
+    "placeholder": {
+      "type": "string",
+      "default": "{{VERSION}}",
+      "description": "The placeholder string that gets replaced by the corresponding versions for the package in your package.json"
+    },
+    "styleFolders": {
+      "type": "array",
+      "description": "Style folders that should be part of the release",
+      "default": ["style"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "assetFolders": {
+      "type": "array",
+      "description": "Asset folders that should be part of the release",
+      "default": ["assets"],
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": []
+}

@@ -30,7 +30,7 @@ const projectRoot = join(__dirname, '../..');
 
 export const buildConfig: BuildConfig = {
   /* Path to the library */
-  libDir: join(projectRoot, 'src', 'lib'),
+  libDir: join(projectRoot, 'components'),
   /* Path to the library package dir */
   libPackageDir: join(projectRoot, 'dist', 'lib-temp'),
   /* Path to the directory where the output will be stored. */

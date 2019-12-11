@@ -5,6 +5,11 @@
       "implementation": "./stylelint/index",
       "schema": "./stylelint/schema.json",
       "description": "Run stylelint against all style files."
+    },
+    "packager": {
+      "implementation": "./packager/index",
+      "schema": "./packager/schema.json",
+      "description": "Run packaging steps"
     }
   }
 }
