@@ -23,6 +23,9 @@
       "@dynatrace/barista-components/barista-definitions": [
         "libs/shared/barista-definitions/src/index.ts"
       ],
+      "@dynatrace/barista-components/utils-ast": [
+        "libs/shared/utils-ast/src/index.ts"
+      ],
       "@dynatrace/barista-components/testing": ["libs/testing/src/index.ts"],
       "@dynatrace/barista-components/testing/mock": [
         "libs/testing/src/mock/index.ts"
@@ -169,10 +172,7 @@
       "@dynatrace/barista-components/tree-table": [
         "components/tree-table/src/index.ts"
       ],
-      "@dynatrace/barista-components/examples": ["libs/examples/src/index.ts"],
-      "@dynatrace/barista-components/shared/utils-ast": [
-        "libs/shared/utils-ast/src/index.ts"
-      ]
+      "@dynatrace/barista-components/examples": ["libs/examples/src/index.ts"]
     },
     "plugins": [
       {

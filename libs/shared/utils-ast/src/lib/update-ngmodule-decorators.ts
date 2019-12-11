@@ -15,6 +15,7 @@
  */
 
 import * as ts from 'typescript';
+import { findNodes } from '../../../../../tools/schematics/utils/ast-utils';
 
 export const enum NgModuleProperties {
   Providers = 'providers',
@@ -96,45 +97,8 @@ export function updateNgModuleDecoratorProperties(
       }
     }
   });
-  // const util = require('util')
-
-  //console.log(sourceFile);
-  // console.log(util.inspect(decorators[0]));
 
   return sourceFile;
-}
-
-function findNodes(
-  node: ts.Node,
-  kind: ts.SyntaxKind,
-  max: number = Infinity,
-): ts.Node[] {
-  const arr: ts.Node[] = [];
-
-  if (!node || max === 0) {
-    return [];
-  }
-
-  if (node.kind === kind) {
-    arr.push(node);
-    max--;
-  }
-  if (max > 0) {
-    for (const child of node.getChildren()) {
-      findNodes(child, kind, max).forEach((n: any) => {
-        if (max > 0) {
-          arr.push(n);
-        }
-        max--;
-      });
-
-      if (max <= 0) {
-        break;
-      }
-    }
-  }
-
-  return arr;
 }
 
 function hasExportModifier(node: ts.Declaration): boolean {
@@ -192,7 +156,6 @@ function getSymbolName(node: any): string | undefined {
       // Array or Object Literal expressions can't have a name!
       return;
     default:
-      // tslint:disable-next-line: max-line-length
       console.warn(
         `Unsupported Syntax kind {bgBlue  <${
           ts.SyntaxKind[node.kind]

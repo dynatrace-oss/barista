@@ -69,11 +69,11 @@ task(':library:schematics:compile', (done: (err?: string) => void) => {
 });
 
 /** Copies the migration json file over to the dist folder for the schematics */
-// task(':library:schematics:copy-json', () =>
-//   src(join(buildConfig.libDir, 'schematics/migration.json')).pipe(
-//     dest(join(buildConfig.libOutputDir, 'schematics')),
-//   ),
-// );
+task(':library:schematics:copy-json', () =>
+  src(join(buildConfig.libDir, 'schematics/migration.json')).pipe(
+    dest(join(buildConfig.libOutputDir, 'schematics')),
+  ),
+);
 
 /** Executes all tasks that need to be run to ship schematics for the library */
 task(

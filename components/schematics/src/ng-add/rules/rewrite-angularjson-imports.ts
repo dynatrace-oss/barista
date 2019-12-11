@@ -15,7 +15,7 @@
  */
 
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { readJsonInTree } from '../ast';
+import { readJsonInTree } from '../../utils';
 
 export function rewriteAngularJsonImports(
   filePath: string,

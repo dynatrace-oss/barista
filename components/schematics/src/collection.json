@@ -2,9 +2,19 @@
   "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "ng-add": {
-      "description": "A blank schematic.",
+      "description": "Add and migrate Dynatrace Angular Components to v5.",
       "factory": "./ng-add/ng-add#add",
       "schema": "./ng-add/schema.json"
+    },
+    "migration-v5": {
+      "version": "5",
+      "description": "Updates Dynatrace Angular Components to v5",
+      "factory": "./ng-update/index#updateToV5"
+    },
+    "ng-post-update": {
+      "description": "Prints out results after ng-update.",
+      "factory": "./ng-update/index#postUpdate",
+      "private": true
     }
   }
 }

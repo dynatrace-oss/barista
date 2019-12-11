@@ -31,9 +31,9 @@ import {
   angularJson,
   packageJson,
   renamedImport,
-  appModule,
   peerDependencies,
   styleCss,
+  appModule,
 } from './testing-constants';
 
 const collectionPath = join(__dirname, '../collection.json');
@@ -58,9 +58,7 @@ export async function runSchematic(
   options: any,
   t: Tree,
 ): Promise<UnitTestTree> {
-  return testRunner
-    .runSchematicAsync(schematicName, schematicOptions, t)
-    .toPromise();
+  return testRunner.runSchematicAsync(schematicName, options, t).toPromise();
 }
 
 /**
@@ -79,7 +77,7 @@ export function getFileContent(t: Tree, path: string): string {
 }
 
 let tree: Tree;
-// Testing of ng-add schamtic on package.json and .ts files
+// Testing of Dynatrace Ng-Add Schematic
 describe('ng-add schematic for dynatrace barista-components', () => {
   describe('Updating imports from @dynatrace/angular-components to @dynatrace/barista-components.', () => {
     beforeAll(async () => {
@@ -108,9 +106,9 @@ describe('ng-add schematic for dynatrace barista-components', () => {
       expect(getFileContent(tree, 'apps/src/main.ts')).toEqual(renamedImport);
     });
 
-    // it('should install @angular/animations', () => {
-    //   expect(getFileContent(tree, 'app.module.ts')).toEqual(appModule);
-    // })
+    it('should install @angular/animations', () => {
+      expect(getFileContent(tree, 'app.module.ts')).toEqual(appModule);
+    });
 
     it('should insert styles to main css file', () => {
       expect(getFileContent(tree, 'index.css')).toEqual(styleCss);

@@ -16,15 +16,14 @@
 
 import { Rule, SchematicContext } from '@angular-devkit/schematics';
 import { Tree } from '@angular-devkit/schematics/src/tree/interface';
-import { readFromTree } from '../ast';
+import { readFromTree } from '../../utils';
 import * as ts from 'typescript';
-import { getImportModuleSpecifier } from '../ast/get-import-module-specifier';
+import { getImportModuleSpecifier } from '../../../../../libs/shared/utils-ast/src';
 
 const OLD_IMPORT = '@dynatrace/angular-components';
 
 /** Rename every import in Filesystem to barista-components */
 export function renameExistingImports(files: string[]): Rule {
-  // tslint:disable-next-line: no-shadowed-variable
   return (tree: Tree, _: SchematicContext) => {
     for (let fileName of files) {
       const sourceText = readFromTree(tree, fileName);
@@ -106,7 +105,7 @@ export function insertNodeToFileInTree(
   fileName: string,
   sourceFile: ts.SourceFile,
   node: any,
-) {
+): void {
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
 
   const printedNode =

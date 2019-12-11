@@ -14,16 +14,17 @@
  * limitations under the License.
  */
 
-export interface Schema {
-  /** Whether to install animationsmodule */
-  animations: boolean;
+import * as ts from 'typescript';
 
-  /** Which styles should be installed */
-  stylesPack: boolean;
-
-  /** Whether to install dynatrace iconpack */
-  iconpack: boolean;
-
-  /** Whether to setup angularJson */
-  angularJsonSetup: boolean;
+/**
+ * Retrieves a nodes import-declarations
+ * @param node Current node
+ */
+export function getImportModuleSpecifier(
+  node: ts.ImportDeclaration,
+): string | null {
+  if (ts.isStringLiteral(node.moduleSpecifier)) {
+    return node.moduleSpecifier.text;
+  }
+  return null;
 }

@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "CodebaseGenerator",
+  "id": "NgAddOptionsSchema",
   "type": "object",
-  "description": "Generates a benchmark codebase",
+  "description": "Schema for Ng add options",
   "properties": {
     "animations": {
       "type": "boolean",

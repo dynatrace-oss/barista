@@ -23,19 +23,17 @@ import {
 import { Schema } from './schema';
 import { readFileSync } from 'fs';
 import {
-  readJsonInTree,
-  readFromTree,
   getImportModuleSpecifier,
   updateNgModuleDecoratorProperties,
   NgModuleProperties,
-} from './ast';
+} from '../../../../libs/shared/utils-ast/src';
 import {
   renameExistingImports,
   createStringLiteral,
   insertNodeToFileInTree,
   rewriteAngularJsonImports,
 } from './rules';
-import { getFilesToCheck } from '../utils';
+import { getFilesToCheck, readJsonInTree, readFromTree } from '../utils';
 import * as ts from 'typescript';
 
 // Call visitNode to start the search into the sourcefile
@@ -61,7 +59,7 @@ function checkWorkspace(): Rule {
 }
 
 /** Check for angular/barista-components in package.json */
-function checkForImportsInPackage(): Rule {
+function refactorPackageJsonImports(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
     const packageJSON = readJsonInTree(tree, '/package.json');
@@ -84,7 +82,7 @@ function checkForImportsInPackage(): Rule {
 }
 
 /** Check filesystem for imports of dynatrace/angular-components and rename then to barista-components */
-function checkForExistingAngularComponents(): Rule {
+function refactorComponentImports(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
 
@@ -96,7 +94,6 @@ function checkForExistingAngularComponents(): Rule {
         '@dynatrace/barista-components',
       )
     ) {
-      // if we have an existing library we have to rename the imports
       const files = getFilesToCheck('**/*.ts');
 
       rules.push(renameExistingImports(files));
@@ -105,14 +102,15 @@ function checkForExistingAngularComponents(): Rule {
   };
 }
 
-function checkForPeerDependencies(): Rule {
+/** Checks package.json files and adds Dynatrace peerDependencies */
+function installPeerDependencies(): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
 
     const packages = getFilesToCheck('**/package.json');
 
     for (const pkg of packages) {
-      const packageJSON = readJsonInTree(tree, pkg); // use 'pkg'
+      const packageJSON = readJsonInTree(tree, pkg);
       // install peerDependencies
       if (packageJSON.peerDependencies) {
         packageJSON.peerDependencies['@dynatrace/barista-icons'] =
@@ -130,6 +128,7 @@ function checkForPeerDependencies(): Rule {
   };
 }
 
+/** Installs Angular Animations Module and adds import to app.module.ts */
 function installAnimationsModule(options: Schema): Rule {
   return (tree: Tree, _: SchematicContext) => {
     if (!options.animations) {
@@ -138,6 +137,7 @@ function installAnimationsModule(options: Schema): Rule {
 
     const packageJson = readJsonInTree(tree, 'package.json');
 
+    // If not already installed, add Angular Animations to package.json
     if (
       !Object.keys(packageJson.dependencies).includes('@angular/animations')
     ) {
@@ -147,6 +147,7 @@ function installAnimationsModule(options: Schema): Rule {
     const files = getFilesToCheck('**/app.module.ts');
 
     for (const file of files) {
+      // Get sourcefile from app.module in tree
       const sourceText = readFromTree(tree, file);
       const appModuleAst = ts.createSourceFile(
         file,
@@ -156,12 +157,13 @@ function installAnimationsModule(options: Schema): Rule {
       );
       let hasAnimationImport = false;
 
+      // We loop over sourcefile statements
       for (let i = appModuleAst.statements.length - 1; i >= 0; i--) {
         const statement = appModuleAst.statements[i];
-
+        // Check if statement is an Import
         if (ts.isImportDeclaration(statement)) {
           const moduleSpecifier = getImportModuleSpecifier(statement);
-
+          // Check whether Angular Animations is installed
           if (
             moduleSpecifier &&
             moduleSpecifier.includes('@angular/platform-browser/animations')
@@ -172,6 +174,7 @@ function installAnimationsModule(options: Schema): Rule {
           }
         }
       }
+      // Adds Angular Animation to package.json if not existing
       if (!hasAnimationImport) {
         const node = createStringLiteral(
           `import { BrowserAnimationsModule } from \'@angular/platform-browser/animations\';`,
@@ -186,7 +189,7 @@ function installAnimationsModule(options: Schema): Rule {
         ts.ScriptTarget.Latest,
         true,
       );
-
+      // Update sourcefile (app.module.ts) to include BrowserAnimationsModule
       const newSourceFile: ts.SourceFile = updateNgModuleDecoratorProperties(
         sourceFile,
         NgModuleProperties.Imports,
@@ -199,12 +202,13 @@ function installAnimationsModule(options: Schema): Rule {
         newSourceFile,
         ts.createSourceFile('', '', ts.ScriptTarget.Latest, true),
       );
-
+      // Update app.module
       tree.overwrite(file, printedNode);
     }
   };
 }
 
+/** Adds import to Dynatrace Styles */
 function installStyles(options: Schema): Rule {
   return (tree: Tree, _: SchematicContext) => {
     if (!options.stylesPack) {
@@ -253,7 +257,8 @@ function installStyles(options: Schema): Rule {
   };
 }
 
-function checkAngularJsonPaths(options: Schema): Rule {
+/** Refactors AngularJson paths to Dynatrace Fonts and Icons package */
+function refactorAngularJsonPaths(options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     if (!options.angularJsonSetup) {
       return;
@@ -293,12 +298,12 @@ export function add(options: any): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rule = chain([
       checkWorkspace(),
-      checkForImportsInPackage(),
-      checkForExistingAngularComponents(),
-      checkForPeerDependencies(),
+      refactorPackageJsonImports(),
+      refactorComponentImports(),
+      installPeerDependencies(),
       installAnimationsModule(options),
       installStyles(options),
-      checkAngularJsonPaths(options),
+      refactorAngularJsonPaths(options),
     ]);
     return rule(tree, context);
   };
