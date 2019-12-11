@@ -1,0 +1,10 @@
+@import './simple-column.scss';
+@import '../../../core/src/style/colors';
+
+::ng-deep .dt-favorite-column-empty-star svg {
+  fill: $gray-400 !important;
+}
+
+::ng-deep .dt-favorite-column-filled-star svg {
+  fill: $yellow-500 !important;
+}
