@@ -129,10 +129,12 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
 
   private _activeDataSourceName = 'TEST_DATA';
   private _tagChangesSub = Subscription.EMPTY;
+  private _timerHandle: number;
   _firstTag: DtFilterFieldTag;
 
   _dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
   _loading = false;
+  _disabled = false;
 
   ngAfterViewInit(): void {
     this.filterField.currentTags.subscribe(tags => {
@@ -153,14 +155,17 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   currentFilterChanges(
     event: DtFilterFieldCurrentFilterChangeEvent<any>,
   ): void {
+    // Cancel current timer if running
+    clearTimeout(this._timerHandle);
+
     if (event.currentFilter[0] === TEST_DATA.autocomplete[2]) {
       // Simulate async data loading
-      setTimeout(() => {
+      this._timerHandle = setTimeout(() => {
         this._dataSource.data = TEST_DATA_ASYNC;
       }, 2000);
     } else if (event.currentFilter[0] === TEST_DATA.autocomplete[3]) {
       // Simulate async data loading
-      setTimeout(() => {
+      this._timerHandle = setTimeout(() => {
         this._dataSource.data = TEST_DATA_ASYNC_2;
       }, 2000);
     }

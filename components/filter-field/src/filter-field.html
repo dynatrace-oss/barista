@@ -37,6 +37,7 @@
       [dtFilterFieldRangeDisabled]="!(_currentDef && !!_currentDef!.range) || loading"
       (keydown)="_handleInputKeyDown($event)"
       [value]="_inputValue"
+      [disabled]="disabled"
     />
     <dt-autocomplete
       #autocomplete="dtAutocomplete"

@@ -1,6 +1,7 @@
 <dt-filter-field
   [loading]="_loading"
   [dataSource]="_dataSource"
+  [disabled]="_disabled"
   label="Filter by"
   clearAllLabel="Clear all"
   (filterChanges)="filterChanges($event)"
@@ -35,6 +36,9 @@
   </button>
   <button dt-button (click)="_loading = !_loading" variant="secondary">
     Toggle loading
+  </button>
+  <button dt-button (click)="_disabled = !_disabled" variant="secondary">
+    Toggle disabled
   </button>
   <button dt-button (click)="getTagForFilter()">
     getTagForFilter
