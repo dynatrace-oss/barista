@@ -667,6 +667,31 @@
         }
       }
     },
+    "shared-utils-ast": {
+      "root": "libs/shared/utils-ast",
+      "sourceRoot": "libs/shared/utils-ast/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/utils-ast/tsconfig.lib.json",
+              "libs/shared/utils-ast/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/shared/utils-ast/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/utils-ast/jest.config.js",
+            "tsConfig": "libs/shared/utils-ast/tsconfig.spec.json"
+          }
+        }
+      }
+    },
     "testing": {
       "projectType": "library",
       "root": "libs/testing",

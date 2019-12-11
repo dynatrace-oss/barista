@@ -215,6 +215,9 @@
     },
     "tree-table": {
       "tags": ["scope:components", "type:library"]
+    },
+    "shared-utils-ast": {
+      "tags": ["scope:shared"]
     }
   }
 }

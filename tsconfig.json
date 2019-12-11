@@ -169,7 +169,10 @@
       "@dynatrace/barista-components/tree-table": [
         "components/tree-table/src/index.ts"
       ],
-      "@dynatrace/barista-components/examples": ["libs/examples/src/index.ts"]
+      "@dynatrace/barista-components/examples": ["libs/examples/src/index.ts"],
+      "@dynatrace/barista-components/shared/utils-ast": [
+        "libs/shared/utils-ast/src/index.ts"
+      ]
     },
     "plugins": [
       {
