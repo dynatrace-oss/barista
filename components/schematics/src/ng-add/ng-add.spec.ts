@@ -17,7 +17,7 @@
 import { Tree, noop } from '@angular-devkit/schematics';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import { readJsonAsObjectFromTree } from '../utils';
+import { readJsonAsObjectFromTree, readFileFromTree } from '../utils';
 import { runSchematic } from '../utils/testing';
 import { Schema } from './schema';
 
@@ -133,7 +133,7 @@ describe('ng-add schematic for dynatrace barista-components', () => {
   it('should add @angular/platform-browser-dynamic', async () => {
     await addFixtureToTree(
       tree,
-      'package-animation-dependency.json',
+      'package-animations-existing.json',
       '/package.json',
     );
 
