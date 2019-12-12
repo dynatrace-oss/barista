@@ -1,0 +1,19 @@
+import { OnInit } from './path/to/file';
+import { DtIconModule } from '@dynatrace/angular-components/icon';
+import * as DtIcon from '@dynatrace/angular-components/icon';
+import { DtIconModule } from '@dynatrace/angular-components';
+
+const CONSTSANT = 'MY-CONSTANT';
+
+export interface MyInterface {
+  type: 'type'
+}
+
+@Component({
+  selector: 'test-fixture',
+})
+export class MyComp implements OnInit {
+  constructor(
+    private _somePrivate: MyInterface
+  ) {}
+}

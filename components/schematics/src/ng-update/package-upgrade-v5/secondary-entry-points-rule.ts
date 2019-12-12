@@ -26,7 +26,8 @@ const NO_IMPORT_NAMED_SYMBOLS_FAILURE_STR =
   `Imports from Dynatrace Angular Components should import ` +
   `specific symbols rather than importing the entire library.`;
 
-export const MODULE_SPECIFIER = '@dynatrace/barista-components';
+/** Legacy module specifier */
+export const MODULE_SPECIFIER = '@dynatrace/angular-components';
 
 /**
  * Regex for testing file paths against to determine if the file is from the
