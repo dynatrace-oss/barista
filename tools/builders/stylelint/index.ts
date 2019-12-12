@@ -15,7 +15,6 @@
  */
 import { lint, formatters, LinterResult } from 'stylelint';
 import { junitFormatter } from './junit-formatter';
-import { writeFileSync } from 'fs';
 
 import {
   BuilderContext,

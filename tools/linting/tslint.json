@@ -1,10 +1,10 @@
 {
   "rulesDirectory": [
-    "./rules",
-    "./rules/button",
-    "./rules/card",
-    "./rules/tabs",
-    "./rules/tile"
+    "./src/rules",
+    "./src/rules/button",
+    "./src/rules/card",
+    "./src/rules/tabs",
+    "./src/rules/tile"
   ],
   "rules": {
     "dt-breadcrumbs-alt-text": { "severity": "warning" },

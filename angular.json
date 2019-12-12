@@ -694,12 +694,48 @@
       },
       "schematics": {}
     },
+    "linting": {
+      "projectType": "library",
+      "root": "tools/linting",
+      "sourceRoot": "tools/linting/src",
+      "architect": {
+        "build": {
+          "builder": "@dynatrace/barista-builders:typescript",
+          "options": {
+            "tsConfig": "tools/linting/tsconfig.json",
+            "outDir": "dist/components/tslint"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tslintConfig": "tools/linting/tslint-self.json",
+            "tsConfig": "tools/linting/tsconfig.json",
+            "exclude": ["**/node_modules/**", "!tools/linting/**"]
+          }
+        }
+      }
+    },
+    "schematics": {
+      "projectType": "library",
+      "root": "components/schematics",
+      "sourceRoot": "components/schematics/src",
+      "architect": {
+        "build": {
+          "builder": "@dynatrace/barista-builders:typescript",
+          "options": {
+            "tsConfig": "components/schematics/tsconfig.json",
+            "outDir": "dist/components/schematics"
+          }
+        }
+      }
+    },
     "components": {
       "projectType": "library",
       "root": "components",
       "sourceRoot": "components",
       "architect": {
-        "build": {
+        "packagr": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
             "tsConfig": "components/tsconfig.lib.json",
@@ -709,13 +745,27 @@
             "production": {}
           }
         },
-        "packager": {
+        "build": {
           "builder": "@dynatrace/barista-builders:packager",
           "options": {
-            "releasePackageJson": "package.json",
+            "buildTarget": "packagr",
+            "releasePackageJson": "components/package.json",
             "placeholder": "{{VERSION}}",
-            "styleFolders": ["style"],
-            "assetFolders": ["assets"]
+            "styles": [
+              {
+                "glob": "style/*.scss",
+                "input": "components",
+                "output": "dist/components"
+              }
+            ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "components/assets",
+                "output": "dist/components"
+              }
+            ],
+            "additionalTargets": ["schematics:build", "linting:build"]
           }
         }
       }

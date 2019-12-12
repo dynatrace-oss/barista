@@ -1,5 +1,3 @@
-import { PackageJson } from '../util/json-utils';
-
 /**
  * @license
  * Copyright 2019 Dynatrace LLC
@@ -15,6 +13,8 @@ import { PackageJson } from '../util/json-utils';
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { PackageJson } from '../util/json-utils';
 
 /**
  * Updates the placeholders in the peerDependencies of the release json

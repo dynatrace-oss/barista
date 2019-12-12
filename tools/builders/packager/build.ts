@@ -21,7 +21,7 @@ import {
 } from '@angular-devkit/architect';
 
 import { writeFileSync } from 'fs';
-import { join } from 'path';
+import { join, dirname, resolve } from 'path';
 import { NgPackagrBuilderOptions } from '@angular-devkit/build-ng-packagr';
 import {
   tryJsonParse,
@@ -32,6 +32,7 @@ import {
 import { syncPeerDependencyPlaceholder } from './sync-dependencies';
 import { PackagerOptions } from './schema';
 import { copyStyles, copyAssets } from './copy-assets';
+import { green } from 'chalk';
 
 /**
  * This runs all necessary steps to create a bundle for the library
@@ -47,7 +48,7 @@ export async function packager(
   const project = context.target !== undefined ? context.target!.project : '';
   context.logger.info(`Packaging ${project}...`);
   const target: Target = {
-    target: 'build',
+    target: options.buildTarget,
     project,
   };
   let ngPackagrBuilderOptions;
@@ -69,15 +70,6 @@ export async function packager(
   }
 
   try {
-    const ngPackagrConfigPath = join(
-      context.workspaceRoot,
-      ngPackagrBuilderOptions.project,
-    );
-    // try to parse the ng-package.json file
-    const ngPackagrConfig = await tryJsonParse<NgPackagerJson>(
-      ngPackagrConfigPath,
-    );
-
     // get the angular json
     context.logger.info('Reading angular.json file...');
     const angularJson = await tryJsonParse<AngularJson>(
@@ -102,21 +94,19 @@ export async function packager(
       return { success: false };
     }
 
-    // Determine the library destination
-    const libraryDestination = join(
+    const ngPackagrConfigPath = join(
       context.workspaceRoot,
-      projectRoot,
-      ngPackagrConfig.dest,
+      ngPackagrBuilderOptions.project,
+    );
+    // try to parse the ng-package.json file
+    const ngPackagrConfig = await tryJsonParse<NgPackagerJson>(
+      ngPackagrConfigPath,
     );
 
-    // Path to the package json file that we are going to ship with the library
-    const releasePackageJsonPath = join(
-      context.workspaceRoot,
-      projectRoot,
-      options.releasePackageJson,
-    );
-    let releasePackageJson = await tryJsonParse<PackageJson>(
-      releasePackageJsonPath,
+    // Determine the library destination
+    const libraryDestination = resolve(
+      dirname(ngPackagrConfigPath),
+      ngPackagrConfig.dest,
     );
 
     // Now we have everything ready and we can start the build
@@ -127,6 +117,12 @@ export async function packager(
 
     const buildResult = await build.result;
 
+    // Path to the package json file that we are going to ship with the library
+    const releasePackageJsonPath = join(libraryDestination, 'package.json');
+    let releasePackageJson = await tryJsonParse<PackageJson>(
+      releasePackageJsonPath,
+    );
+
     context.logger.info('Syncing dependencies for releasing...');
     // replace ng placeholder with angular version from root package.json and write to disk
     releasePackageJson = syncPeerDependencyPlaceholder(
@@ -134,25 +130,57 @@ export async function packager(
       packageJson,
       options.placeholder,
     );
-    writeFileSync(join(libraryDestination, 'package.json'), releasePackageJson);
+    writeFileSync(
+      join(libraryDestination, 'package.json'),
+      JSON.stringify(releasePackageJson, null, 2),
+      { encoding: 'utf-8' },
+    );
+    context.logger.info(
+      green('Replaced all version placeholders in package.json file!'),
+    );
 
     // copy styles
     context.logger.info('Copying styles...');
-    await copyStyles(options, projectRoot, libraryDestination);
+    await copyStyles(options, context);
+    context.logger.info(green('Copied styles!'));
     // copy assets
     context.logger.info('Copying assets...');
-    await copyAssets(options, projectRoot, libraryDestination);
+    await copyAssets(options, context);
+    context.logger.info(green('Copied assets!'));
+
+    // running additional targets
+    for (const additionalTargetName of options.additionalTargets) {
+      context.logger.info(`Running additional target: ${additionalTargetName}`);
+      const additionalTargetBuild = await context.scheduleTarget(
+        parseAdditionalTargets(additionalTargetName),
+      );
+      const additionalTargetBuildResult = await additionalTargetBuild.result;
+      if (!additionalTargetBuildResult.success) {
+        throw new Error(`Running target '${additionalTargetName}' failed!`);
+      }
+    }
 
     context.logger.info(
-      '------------------------------------------------------------------------------',
+      green(
+        '------------------------------------------------------------------------------',
+      ),
     );
-    context.logger.info('Packaging done!');
+    context.logger.info(green('Packaging done!'));
     context.logger.info(
-      '------------------------------------------------------------------------------',
+      green(
+        '------------------------------------------------------------------------------',
+      ),
     );
     return { success: buildResult.success };
   } catch (err) {
     context.logger.error(err);
   }
   return { success: false };
+}
+
+function parseAdditionalTargets(
+  targetRef: string,
+): { target: string; project: string } {
+  const [project, target] = targetRef.split(':');
+  return { project, target };
 }

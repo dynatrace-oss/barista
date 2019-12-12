@@ -15,38 +15,72 @@
  */
 
 import { parseDir } from 'sass-graph';
-import { copyDirectory } from '../util/copy-directory';
-import { join, relative, dirname } from 'path';
-import { promises as fs } from 'fs';
-import { PackagerOptions } from './schema';
+import { join, dirname, relative } from 'path';
+import { promises as fs, existsSync } from 'fs';
+import { PackagerOptions, PackagerAssetDef } from './schema';
+import { BuilderContext } from '@angular-devkit/architect';
+import { sync } from 'glob';
 
 /** Asynchronously copies all style files and all their dependencies to the destination */
 export async function copyStyles(
   options: PackagerOptions,
-  projectRoot: string,
-  libraryDestination: string,
+  context: BuilderContext,
 ): Promise<void> {
-  const allStyleFiles = options.styleFolders.map(folder =>
-    Object.keys(parseDir(join(projectRoot, folder)).index),
-  );
-  const files = new Set(...allStyleFiles);
-  for (const file of files) {
-    const destination = join(libraryDestination, relative(projectRoot, file));
-    await fs.mkdir(dirname(destination), { recursive: true });
-    await fs.copyFile(file, destination);
+  for (const styleDef of options.styles) {
+    const fileGlob = sync(styleDef.glob, {
+      cwd: join(context.workspaceRoot, styleDef.input),
+    });
+    const directories = fileGlob.map(path =>
+      join(context.workspaceRoot, styleDef.input, dirname(path)),
+    );
+    const uniqueDirectories = [...new Set(directories)];
+    const allStyleDependencies = uniqueDirectories.reduce(
+      (aggr, dir) => {
+        return aggr.concat(Object.keys(parseDir(dir).index));
+      },
+      [] as string[],
+    );
+
+    for (const stylesheetFilePath of allStyleDependencies) {
+      await copyAsset(stylesheetFilePath, context, styleDef);
+    }
   }
+}
+
+/** Copies an asset */
+async function copyAsset(
+  path: string,
+  context: BuilderContext,
+  assetDef: PackagerAssetDef,
+): Promise<void> {
+  const relativePath = relative(
+    join(context.workspaceRoot, assetDef.input),
+    path,
+  );
+  const destination = join(
+    context.workspaceRoot,
+    assetDef.output,
+    relativePath,
+  );
+  if (!existsSync(dirname(destination))) {
+    await fs.mkdir(dirname(destination), { recursive: true });
+  }
+  await fs.copyFile(path, destination);
 }
 
 /** Asynchronously copies all asset folders in the options specified */
 export async function copyAssets(
   options: PackagerOptions,
-  projectRoot: string,
-  libraryDestination: string,
-): Promise<void[]> {
-  return Promise.all(
-    options.assetFolders.map(folder => {
-      const destination = join(libraryDestination, folder);
-      return copyDirectory(join(projectRoot, folder), destination);
-    }),
-  );
+  context: BuilderContext,
+): Promise<void> {
+  for (const asset of options.assets) {
+    const glob = sync(asset.glob, { cwd: asset.input, nodir: true });
+    for (const path of glob) {
+      await copyAsset(
+        join(context.workspaceRoot, asset.input, path),
+        context,
+        asset,
+      );
+    }
+  }
 }

@@ -27,11 +27,5 @@
     "packageGroup": [
       "@dynatrace/barista-components"
     ]
-  },
-  "ngPackage": {
-    "dest": "../dist/lib",
-    "lib": {
-      "entryFile": "index.ts"
-    }
   }
 }
