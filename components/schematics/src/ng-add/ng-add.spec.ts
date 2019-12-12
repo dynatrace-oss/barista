@@ -102,6 +102,43 @@ describe('ng-add schematic for dynatrace barista-components', () => {
       },
     });
   });
+
+  it("shouldn't add @angular/animations` package if already installed", async () => {
+    await addFixtureToTree(
+      tree,
+      'package-animations-existing.json',
+      '/package.json',
+    );
+
+    await testNgAdd(tree, { animations: true });
+
+    const packageJSON = readFileFromTree(tree, '/package.json');
+
+    // check if the angular animations package is used more than once
+    expect(packageJSON.match(/\@angular\/animations/gim)).toHaveLength(1);
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject({
+      dependencies: {
+        '@angular/animations': '^8.2.12',
+        '@angular/core': '^8.2.12',
+      },
+    });
+  });
+
+  it('should add @angular/platform-browser-dynamic', async () => {
+    await addFixtureToTree(
+      tree,
+      'package-animation-dependency.json',
+      '/package.json',
+    );
+
+    await testNgAdd(tree);
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject({
+      dependencies: {
+        '@angular/platform-browser-dynamic': '^8.2.12',
+      },
+    });
+  });
+
   // it('should update peerDependecies', () => {
   //   expect(getFileContent(tree, 'components/src/peerPackage.json')).toEqual(
   //     PEERDEPENDENCIES,

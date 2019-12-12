@@ -26,6 +26,9 @@ import { removeDependencies } from './rules/remove-dependencies';
 import { addDependencies } from './rules/add-dependencies';
 import { NodeDependency } from './rules/add-package-json-dependency';
 
+const ERROR_MISSING_DEPENDENCY = (dependency: string) => `
+'The dependency ${dependency} is not installed in your workplace!'`;
+
 export interface ExtendedSchema extends Schema {
   componentsVersion: string;
 }
@@ -42,21 +45,41 @@ function updateOrAddImports(options: ExtendedSchema): Rule {
         removeDependencies(['@dynatrace/angular-components'], '/package.json'),
       );
     } else {
-      if (options.animations) {
-        // TODO: rowa check if angular is installed.
-        const ngCoreVersionTag = getPackageVersionFromPackageJson(
-          tree,
-          '@angular/core',
-        );
+      // Check if the following packages are installed otherwise we cannot continue
+      // installing our barista components.
+      ['@angular/core', '@angular/common'].forEach(requiredPgk => {
+        if (!packageJSON.includes(requiredPgk)) {
+          const errorMessage = ERROR_MISSING_DEPENDENCY(requiredPgk);
+          context.logger.error(errorMessage);
+          throw errorMessage;
+        }
+      });
+      const ngCoreVersionTag = getPackageVersionFromPackageJson(
+        tree,
+        '@angular/core',
+      )!;
 
+      if (options.animations) {
+        // if no platform browser dynamic is is installed add it to the dependencies
+        if (!packageJSON.includes('@angular/platform-browser-dynamic')) {
+          newDependencies.push({
+            name: '@angular/platform-browser-dynamic',
+            version: ngCoreVersionTag,
+          });
+        }
+        // add animations if the user has set this flag
         newDependencies.push({
           name: '@angular/animations',
-          version: ngCoreVersionTag!,
+          version: ngCoreVersionTag,
         });
       }
 
       newDependencies.push({
         name: '@dynatrace/barista-icons',
+        version: '{{version}}',
+      });
+      newDependencies.push({
+        name: '@dynatrace/barista-fonts',
         version: '{{version}}',
       });
       newDependencies.push({
@@ -77,6 +100,7 @@ function updateOrAddImports(options: ExtendedSchema): Rule {
       });
     }
 
+    // always add the new version of the barista components
     newDependencies.push({
       name: '@dynatrace/barista-components',
       version: '5.0.0',

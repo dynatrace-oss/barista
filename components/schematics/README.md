@@ -37,9 +37,24 @@ project with all its dependencies
 To run the unit tests with jest you can leverage the angular CLI with:
 `ng test schematics` or in the watch mode `ng test schematics --watch`
 
-# TODO:
+## TODO
 
 - [] if we add browseranimation module check if the platform browser dynamic
   package exists  
    `"@angular/platform-browser-dynamic": "8.2.12",` with same version as angular
   core
+
+### List of all Barista-Components Dependencies
+
+| `Peer Dependency`                   | `Version` |
+| ----------------------------------- | --------- |
+| `@angular/cdk`                      | `^8.0.0`  |
+| `@angular/core`                     | `^8.0.0`  |
+| `@angular/common`                   | `^8.0.0`  |
+| `@angular/animations`               | `^8.0.0`  |
+| `@angular/platform-browser-dynamic` | `^8.0.0`  |
+| `@dynatrace/barista-icons`          | `^3.0.0`  |
+| `@dynatrace/barista-fonts`          | `^1.0.0`  |
+| `d3-scale`                          | `^3.0.0`  |
+| `d3-shape`                          | `^1.3.5`  |
+| `highcharts`                        | `^6.0.7`  |
