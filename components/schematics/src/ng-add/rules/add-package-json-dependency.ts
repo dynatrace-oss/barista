@@ -21,21 +21,15 @@ import {
   insertPropertyInJsonAst,
   readJsonFromTree,
 } from '../../utils';
+import { PackageJsonDependencyType } from '../../interfaces/package-json.interface';
 
 const INDENT_SIZE = 2;
 const PKG_JSON_DEFAULT_PATH = '/package.json';
 
-export enum NodeDependencyType {
-  Default = 'dependencies',
-  Dev = 'devDependencies',
-  Peer = 'peerDependencies',
-  Optional = 'optionalDependencies',
-}
-
 export interface NodeDependency {
-  type: NodeDependencyType;
   name: string;
   version: string;
+  type?: PackageJsonDependencyType;
   overwrite?: boolean;
 }
 
@@ -52,7 +46,7 @@ export function addPkgJsonDependency(
     appendPropertyInJsonAst(
       recorder,
       packageJsonAst,
-      dependency.type,
+      dependency.type || PackageJsonDependencyType.Default,
       { [dependency.name]: dependency.version },
       INDENT_SIZE,
     );
@@ -88,10 +82,10 @@ export function getPkgJsonDependency(
   const pkgJson = readJsonFromTree(tree, path);
   let dep: NodeDependency | null = null;
   [
-    NodeDependencyType.Default,
-    NodeDependencyType.Dev,
-    NodeDependencyType.Optional,
-    NodeDependencyType.Peer,
+    PackageJsonDependencyType.Default,
+    PackageJsonDependencyType.Dev,
+    PackageJsonDependencyType.Optional,
+    PackageJsonDependencyType.Peer,
   ].forEach(depType => {
     if (dep !== null) {
       return;

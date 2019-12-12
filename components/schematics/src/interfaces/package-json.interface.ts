@@ -14,11 +14,24 @@
  * limitations under the License.
  */
 
-export interface Schema {
-  /** Name of the project where the Barista Components should be set up. */
-  project: string;
-  /** Whether Angular browser animations should be set up. */
-  animations: boolean;
-  /** Whether to set up global typography styles. */
-  typography: boolean;
+export enum PackageJsonDependencyType {
+  Default = 'dependencies',
+  Dev = 'devDependencies',
+  Peer = 'peerDependencies',
+  Optional = 'optionalDependencies',
+}
+
+export interface PackageJsonDependency {
+  [key: string]: string;
+}
+
+export interface PackageJson {
+  name: string;
+  version: string;
+  license: string;
+  dependencies: PackageJsonDependency;
+  devDependencies: PackageJsonDependency;
+  peerDependencies: PackageJsonDependency;
+  optionalDependencies: PackageJsonDependency;
+  [key: string]: any;
 }

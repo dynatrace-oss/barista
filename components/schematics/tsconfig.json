@@ -5,5 +5,6 @@
     "types": ["node", "jest"]
   },
   "files": ["./collection.json"],
-  "include": ["**/*.ts", "src/**/*.json"]
+  "include": ["**/*.ts", "src/**/*.json"],
+  "exclude": ["src/fixtures/**/*"]
 }

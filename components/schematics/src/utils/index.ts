@@ -17,6 +17,4 @@
 export * from './fileSearch';
 export * from './json';
 export * from './read-file-from-tree';
-export * from './testing';
-
-export * from './json';
+export * from './get-package-version-from-package-json';

@@ -29,6 +29,17 @@ following steps:
 
 ## ng add
 
-With the Angular cli comes a interface to run automatic
+The ng-add schematics is used to add the **barista-components** to a new angular
+project with all its dependencies
 
 ### Testing
+
+To run the unit tests with jest you can leverage the angular CLI with:
+`ng test schematics` or in the watch mode `ng test schematics --watch`
+
+# TODO:
+
+- [] if we add browseranimation module check if the platform browser dynamic
+  package exists  
+   `"@angular/platform-browser-dynamic": "8.2.12",` with same version as angular
+  core

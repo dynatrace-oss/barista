@@ -4,46 +4,26 @@
   "type": "object",
   "description": "Schema for Ng add options",
   "properties": {
+    "project": {
+      "type": "string",
+      "description": "Name of the project where the Barista Components should be set up.",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
     "animations": {
       "type": "boolean",
-      "description": "Installation of @angular/animations",
       "default": true,
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "Install @angular/animations?"
+      "description": "Whether Angular browser animations should be set up.",
+      "x-prompt": "Set up browser animations for Barista Components?"
     },
-    "stylesPack": {
+    "typography": {
       "type": "boolean",
-      "description": "Configure which stylePack should be installed.",
-      "default": true,
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "Install complete stylepack (no, will install minimum stylepack)"
-    },
-    "iconpack": {
-      "type": "boolean",
-      "description": "Installation of @dynatrace/barista-icons",
-      "default": true,
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "Install @dynatrace/barista-icons"
-    },
-    "angularPathRefactor": {
-      "type": "boolean",
-      "description": "Update of angular.json paths",
-      "defualt": true,
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      },
-      "x-prompt": "Refactor paths in angular json? (for Dynatrace Fonts and Icons)"
+      "default": false,
+      "description": "Whether to set up global typography styles.",
+      "x-prompt": "Set up global Barista typography styles?"
     }
   },
-  "required": ["animations", "iconpack", "angularPathRefactor"]
+  "required": [],
+  "additionalProperties": false
 }

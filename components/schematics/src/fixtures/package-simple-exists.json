@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@dynatrace/barista-components": "^5.0.0"
+  }
+}

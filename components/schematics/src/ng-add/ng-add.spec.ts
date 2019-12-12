@@ -15,108 +15,90 @@
  */
 
 import { Tree } from '@angular-devkit/schematics';
-import {
-  SchematicTestRunner,
-  UnitTestTree,
-} from '@angular-devkit/schematics/testing';
+import { promises as fs } from 'fs';
 import { join } from 'path';
+import { readFileFromTree, readJsonAsObjectFromTree } from '../utils';
+import { runSchematic } from '../utils/testing';
 import { Schema } from './schema';
-import {
-  createPackageTree,
-  createMultipleImportsTree,
-  createAngularJsonTree,
-  createPeerDependenciesTree,
-  createAppModuleTree,
-  createStyleCssTree,
-  ANGULARJSON,
-  APPMODULE,
-  PACKAGEJSON,
-  PEERDEPENDENCIES,
-  RENAMEDIMPORT,
-  STYLECSS,
-} from './testing-constants';
 
-const collectionPath = join(__dirname, '../../collection.json');
-
-const testRunner = new SchematicTestRunner('schematics', collectionPath);
-
-const schematicOptions: Schema = {
-  isTestEnv: true,
-  angularPathRefactor: true,
-  animations: true,
-  iconpack: true,
-  stylesPack: true,
-};
-
-/**
- * Schematic helper function for starting ng-add schematic
- * @param schematicName Name of the schematic
- * @param options Options concerning the ng-add schematic
- * @param tree host tree
- */
-export async function runSchematic(
-  schematicName: string,
-  options: any,
-  t: Tree,
-): Promise<UnitTestTree> {
-  return testRunner.runSchematicAsync(schematicName, options, t).toPromise();
+export async function testNgAdd(
+  tree: Tree,
+  options: Partial<Schema> = {},
+): Promise<void> {
+  const schemaOptions: Schema = {
+    project: 'testProject',
+    animations: true,
+    typography: true,
+    ...options,
+  };
+  await runSchematic('ng-add', schemaOptions, tree);
 }
 
-/**
- * Retrieve content of certain path in host tree
- * @param tree The tree from host
- * @param path The path to file
- */
-export function getFileContent(t: Tree, path: string): string {
-  const fileEntry = t.get(path);
-
-  if (!fileEntry) {
-    throw new Error(`The file (${path}) does not exist.`);
-  }
-
-  return fileEntry.content.toString();
+export async function getFixture(filePath: string): Promise<string> {
+  const fixturesFolder = join(__dirname, '../fixtures');
+  return fs.readFile(join(fixturesFolder, filePath), {
+    encoding: 'utf-8',
+  });
 }
 
-let tree: Tree;
+export async function addFixtureToTree(
+  tree: Tree,
+  source: string,
+  destination: string,
+): Promise<void> {
+  const content = await getFixture(source);
+  tree.create(destination, content);
+}
+
 // Testing of Dynatrace Ng-Add Schematic
 describe('ng-add schematic for dynatrace barista-components', () => {
-  describe('Updating imports from @dynatrace/angular-components to @dynatrace/barista-components.', () => {
-    beforeAll(async () => {
-      tree = Tree.empty();
-      createPackageTree(tree);
-      createMultipleImportsTree(tree);
-      createAngularJsonTree(tree);
-      createPeerDependenciesTree(tree);
-      createAppModuleTree(tree);
-      createStyleCssTree(tree);
+  let tree: Tree;
 
-      await runSchematic('ng-add', schematicOptions, tree);
-    });
+  beforeEach(() => {
+    tree = Tree.empty();
+  });
 
-    it('should update imports in package.json', () => {
-      expect(getFileContent(tree, '/package.json')).toEqual(PACKAGEJSON);
-    });
+  it('should update imports of @dynatrace/angular-components to barista-components in package.json', async () => {
+    await addFixtureToTree(
+      tree,
+      'package-simple-migration.json',
+      '/package.json',
+    );
 
-    it('should update peerDependecies', () => {
-      expect(getFileContent(tree, 'components/src/peerPackage.json')).toEqual(
-        PEERDEPENDENCIES,
-      );
-    });
-
-    it('should update imports in project', () => {
-      expect(getFileContent(tree, 'apps/src/main.ts')).toEqual(RENAMEDIMPORT);
-    });
-
-    it('should install @angular/animations', () => {
-      expect(getFileContent(tree, 'app.module.ts')).toEqual(APPMODULE);
-    });
-
-    it('should insert styles to main css file', () => {
-      expect(getFileContent(tree, 'index.css')).toEqual(STYLECSS);
-    });
-
-    it('should update icons and fonts paths in angular.json', () => {
-      expect(getFileContent(tree, 'angular.json')).toEqual(ANGULARJSON);
+    await testNgAdd(tree);
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject({
+      dependencies: {
+        '@dynatrace/barista-components': '5.0.0',
+      },
     });
   });
+
+  it('should add all the necessary peer dependencies if no barista or angular components are installed', async () => {
+    await addFixtureToTree(tree, 'package-empty.json', '/package.json');
+
+    await testNgAdd(tree, { animations: false });
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject({});
+  });
+
+  // it('should update peerDependecies', () => {
+  //   expect(getFileContent(tree, 'components/src/peerPackage.json')).toEqual(
+  //     PEERDEPENDENCIES,
+  //   );
+  // });
+
+  // it('should update imports in project', () => {
+  //   expect(getFileContent(tree, 'apps/src/main.ts')).toEqual(RENAMEDIMPORT);
+  // });
+
+  // it('should install @angular/animations', () => {
+  //   expect(getFileContent(tree, 'app.module.ts')).toEqual(APPMODULE);
+  // });
+
+  // it('should insert styles to main css file', () => {
+  //   expect(getFileContent(tree, 'index.css')).toEqual(STYLECSS);
+  // });
+
+  // it('should update icons and fonts paths in angular.json', () => {
+  //   expect(getFileContent(tree, 'angular.json')).toEqual(ANGULARJSON);
+  // });
 });
