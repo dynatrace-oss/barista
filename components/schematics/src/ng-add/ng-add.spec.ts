@@ -66,20 +66,42 @@ describe('ng-add schematic for dynatrace barista-components', () => {
     );
 
     await testNgAdd(tree);
-    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject({
-      dependencies: {
-        '@dynatrace/barista-components': '5.0.0',
-      },
-    });
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject(
+      expect.objectContaining({
+        dependencies: {
+          '@dynatrace/barista-components': '5.0.0',
+        },
+      }),
+    );
   });
 
   it('should add all the necessary peer dependencies if no barista or angular components are installed', async () => {
     await addFixtureToTree(tree, 'package-empty.json', '/package.json');
 
     await testNgAdd(tree, { animations: false });
-    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject({});
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject({
+      dependencies: {
+        '@dynatrace/barista-components': '5.0.0',
+        '@dynatrace/barista-icons': '{{version}}',
+        'd3-geo': '{{version}}',
+        'd3-scale': '{{version}}',
+        'd3-shape': '{{version}}',
+        highcharts: '{{version}}',
+      },
+    });
   });
 
+  it('should add the `@angular/animations` package with the same version as the `@angular/core` package when specified', async () => {
+    await addFixtureToTree(tree, 'package-empty.json', '/package.json');
+
+    await testNgAdd(tree);
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject({
+      dependencies: {
+        '@angular/core': '^8.2.12',
+        '@angular/animations': '^8.2.12',
+      },
+    });
+  });
   // it('should update peerDependecies', () => {
   //   expect(getFileContent(tree, 'components/src/peerPackage.json')).toEqual(
   //     PEERDEPENDENCIES,

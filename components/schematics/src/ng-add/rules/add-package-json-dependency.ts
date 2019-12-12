@@ -38,15 +38,16 @@ export function addPkgJsonDependency(
   dependency: NodeDependency,
   path: string,
 ): void {
+  const dependencyType = dependency.type || PackageJsonDependencyType.Default;
   const packageJsonAst = readJsonFromTree(tree, path);
-  const depsNode = findJsonPropertyInAst(packageJsonAst, dependency.type);
+  const depsNode = findJsonPropertyInAst(packageJsonAst, dependencyType);
   const recorder = tree.beginUpdate(path || PKG_JSON_DEFAULT_PATH);
   if (!depsNode) {
     // Haven't found the dependencies key, add it to the root of the package.json.
     appendPropertyInJsonAst(
       recorder,
       packageJsonAst,
-      dependency.type || PackageJsonDependencyType.Default,
+      dependencyType,
       { [dependency.name]: dependency.version },
       INDENT_SIZE,
     );
