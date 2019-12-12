@@ -14,5 +14,22 @@
  * limitations under the License.
  */
 
-export * from './test-app';
-export * from './run-schematic';
+import { Tree } from '@angular-devkit/schematics/src/tree/interface';
+import { promises as fs } from 'fs';
+import { join } from 'path';
+
+export async function getFixture(filePath: string): Promise<string> {
+  const fixturesFolder = join(__dirname, '../fixtures');
+  return fs.readFile(join(fixturesFolder, filePath), {
+    encoding: 'utf-8',
+  });
+}
+
+export async function addFixtureToTree(
+  tree: Tree,
+  source: string,
+  destination: string,
+): Promise<void> {
+  const content = await getFixture(source);
+  tree.create(destination, content);
+}

@@ -14,26 +14,4 @@
  * limitations under the License.
  */
 
-import { sync as glob } from 'glob';
-import { readFileSync } from 'fs';
-
-export function getFilesToCheck(pattern: string): string[] {
-  const toExcludeFiles = glob('**/.gitignore');
-  let ignorePattern: string[] = [];
-  toExcludeFiles.map(patterns => {
-    ignorePattern.push(readFileSync(patterns, 'utf-8'));
-  });
-
-  ignorePattern.forEach(i =>
-    i
-      .replace(/^#.+/gm, '')
-      .split('\n')
-      .filter(line => line.length > 0),
-  );
-
-  const files = glob(pattern, {
-    ignore: [...ignorePattern, 'node_modules/**', 'dist/**'],
-  });
-
-  return files;
-}
+export * from './secondary-entry-points-rule';

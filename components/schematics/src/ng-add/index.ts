@@ -130,7 +130,7 @@ export function migrateToVersion5(options: ExtendedSchema): Rule {
     // like `externalSchematic('@dynatrace/barista-components', 'migration-v5', {}))`
     const collectionPath = join(__dirname, '../../collection.json');
     // run external migration schematics
-    rules.push(externalSchematic(collectionPath, 'migration-v5', {}));
+    rules.push(externalSchematic(collectionPath, 'update-5.0.0', {}));
 
     return chain(rules)(tree, context);
   };

@@ -4,7 +4,7 @@
     "resolveJsonModule": true,
     "types": ["node", "jest"]
   },
-  "files": ["./collection.json"],
+  "files": ["./collection.json", "./migration.json"],
   "include": ["**/*.ts", "src/**/*.json"],
   "exclude": ["src/fixtures/**/*"]
 }

@@ -18,7 +18,7 @@ import { Tree, noop } from '@angular-devkit/schematics';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import { readJsonAsObjectFromTree, readFileFromTree } from '../utils';
-import { runSchematic } from '../utils/testing';
+import { runSchematic, addFixtureToTree } from '../testing';
 import { Schema } from './schema';
 
 // used for mocking the externalSchematic function
@@ -35,22 +35,6 @@ export async function testNgAdd(
     ...options,
   };
   await runSchematic('ng-add', schemaOptions, tree);
-}
-
-export async function getFixture(filePath: string): Promise<string> {
-  const fixturesFolder = join(__dirname, '../fixtures');
-  return fs.readFile(join(fixturesFolder, filePath), {
-    encoding: 'utf-8',
-  });
-}
-
-export async function addFixtureToTree(
-  tree: Tree,
-  source: string,
-  destination: string,
-): Promise<void> {
-  const content = await getFixture(source);
-  tree.create(destination, content);
 }
 
 // Testing of Dynatrace Ng-Add Schematic

@@ -23,7 +23,7 @@ import {
 import { green, yellow } from 'chalk';
 
 import { DtTargetVersion, NullableMigrationRule } from './migration-rule';
-import { SecondaryEntryPointsRule } from './package-upgrade-v5/secondary-entry-points-rule';
+import { SecondaryEntryPointsRule } from './update-5.0.0';
 
 /** Data that can be populated for each version upgrade with changes that can be done automatically */
 const defaultUpgradeData: RuleUpgradeData = {
@@ -38,14 +38,18 @@ const defaultUpgradeData: RuleUpgradeData = {
   propertyNames: {},
 };
 
-/** Array of Rule contructors that will be created and run inside the createUpgradeRule function */
-const upgradeRules = [SecondaryEntryPointsRule];
+/** Array of Rule that will be created and run inside the createUpgradeRule function */
+const baristaMigrationRules = [SecondaryEntryPointsRule];
 
 /** Entry point for the migration schematics with target of Dynatrace Angular components v5 */
 export function updateToV5(): Rule {
+  // return createUpgradeRule(
+
+  // )
+
   return createDtUpgradeRule(
     DtTargetVersion.V5,
-    upgradeRules,
+    baristaMigrationRules,
     defaultUpgradeData,
     onMigrationComplete,
   );
@@ -69,18 +73,14 @@ function createDtUpgradeRule(
   );
 }
 
-// tslint:disable: no-console
-
 /** Function that will be called when the migration completed. */
 function onMigrationComplete(
   targetVersion: TargetVersion,
   hasFailures: boolean,
 ): void {
-  console.log();
   console.log(
-    green(`  ✓  Updated Dynatrace Angular Components to ${targetVersion}`),
+    green(`\n  ✓  Updated Dynatrace Barista Components to ${targetVersion}\n`),
   );
-  console.log();
 
   if (hasFailures) {
     console.log(
