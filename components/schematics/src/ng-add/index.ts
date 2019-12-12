@@ -26,8 +26,7 @@ import { readFileFromTree, getPackageVersionFromPackageJson } from '../utils';
 import { removeDependencies } from './rules/remove-dependencies';
 import { addDependencies } from './rules/add-dependencies';
 import { NodeDependency } from './rules/add-package-json-dependency';
-import { getProjectFromWorkspace } from '@angular/cdk/schematics';
-import {} from '@angular/cli/';
+import { join } from 'path';
 
 export interface ExtendedSchema extends Schema {
   componentsVersion: string;
@@ -46,7 +45,7 @@ function updateOrAddImports(options: ExtendedSchema): Rule {
     // installing the new package and refactoring all the imports
     if (packageJSON.includes('@dynatrace/angular-components')) {
       // refactor all dt-iconpack and angular-components imports
-      rules.push(refactorComponentImports(options));
+      rules.push(migrateToVersion5(options));
       // remove the old dependency from the package json
       rules.push(
         removeDependencies(['@dynatrace/angular-components'], '/package.json'),
@@ -99,11 +98,15 @@ function updateOrAddImports(options: ExtendedSchema): Rule {
 }
 
 /** Check filesystem for imports of dynatrace/angular-components and rename then to barista-components */
-export function refactorComponentImports(options: ExtendedSchema): Rule {
+export function migrateToVersion5(options: ExtendedSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
 
+    // TODO: rowa check if this works or if we have to provide the package name
+    // like `externalSchematic('@dynatrace/barista-components', 'migration-v5', {}))`
+    const collectionPath = join(__dirname, '../../collection.json');
     // run external migration schematics
+    rules.push(externalSchematic(collectionPath, 'migration-v5', {}));
 
     return chain(rules)(tree, context);
   };

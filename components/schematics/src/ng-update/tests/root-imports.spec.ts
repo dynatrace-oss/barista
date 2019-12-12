@@ -16,11 +16,11 @@
 
 import { readFileSync } from 'fs-extra';
 
-import { createTestCaseSetup } from '../../utils';
+import { createTestCaseSetup } from '../../utils/testing';
 
 export const migrationCollection = require.resolve('../../migration.json');
 
-describe.skip('v5 dynatrace angular components imports', () => {
+describe('Migration from the old `@dynatrace/angular-components` to the new `@dynatrace/barista-components`', () => {
   it('should migrate root imports correctly', async () => {
     const {
       runFixers,

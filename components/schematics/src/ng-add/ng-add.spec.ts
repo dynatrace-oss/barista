@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-import { Tree } from '@angular-devkit/schematics';
+import { Tree, noop } from '@angular-devkit/schematics';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import { readJsonAsObjectFromTree } from '../utils';
 import { runSchematic } from '../utils/testing';
 import { Schema } from './schema';
+
+// used for mocking the externalSchematic function
+const devkitSchematics = require('@angular-devkit/schematics');
 
 export async function testNgAdd(
   tree: Tree,
@@ -59,6 +62,9 @@ describe('ng-add schematic for dynatrace barista-components', () => {
   });
 
   it('should update imports of @dynatrace/angular-components to barista-components in package.json', async () => {
+    // mock the run external schematic function
+    devkitSchematics.externalSchematic = jest.fn().mockReturnValue(noop());
+
     await addFixtureToTree(
       tree,
       'package-simple-migration.json',
