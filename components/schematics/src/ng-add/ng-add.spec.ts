@@ -20,6 +20,7 @@ import { join } from 'path';
 import { readJsonAsObjectFromTree, readFileFromTree } from '../utils';
 import { runSchematic, addFixtureToTree } from '../testing';
 import { Schema } from './schema';
+import { getWorkspace, updateWorkspace } from '../utils/workspace';
 
 // used for mocking the externalSchematic function
 const devkitSchematics = require('@angular-devkit/schematics');
@@ -127,6 +128,21 @@ describe('ng-add schematic for dynatrace barista-components', () => {
         '@angular/platform-browser-dynamic': '^8.2.12',
       },
     });
+  });
+
+  // tslint:disable
+  it.only('', async () => {
+    await addFixtureToTree(
+      tree,
+      'package-animations-existing.json',
+      '/package.json',
+    );
+
+    await addFixtureToTree(tree, 'angular-simple.json', '/angular.json');
+
+    await testNgAdd(tree, { project: 'myapp' });
+
+    console.log(readFileFromTree(tree, '/angular.json'));
   });
 
   // it('should update peerDependecies', () => {

@@ -69,7 +69,7 @@ export function updateWorkspace(
 
       const result = updaterOrWorkspace(workspace);
       if (result !== undefined) {
-        result.then();
+        await result;
       }
 
       await workspaces.writeWorkspace(workspace, host);

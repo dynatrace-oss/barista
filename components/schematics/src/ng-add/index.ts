@@ -27,6 +27,7 @@ import { removeDependencies } from './rules/remove-dependencies';
 import { addDependencies } from './rules/add-dependencies';
 import { NodeDependency } from './rules/add-package-json-dependency';
 import { join } from 'path';
+import { getWorkspace, updateWorkspace } from '../utils/workspace';
 
 const ERROR_MISSING_DEPENDENCY = (dependency: string) => `
 'The dependency ${dependency} is not installed in your workplace!'`;
@@ -116,6 +117,45 @@ function updateOrAddImports(options: ExtendedSchema): Rule {
     });
 
     rules.push(addDependencies(newDependencies, '/package.json'));
+
+    if (options.project === 'myapp') {
+      rules.push(
+        updateWorkspace(workspace => {
+          const angularApp = workspace.projects.get(options.project);
+
+          // only if build target is specified and the angular devkit
+          // build angular browser is used.
+          if (
+            angularApp &&
+            angularApp.targets.get('build') &&
+            angularApp.targets.get('build')!.builder ===
+              '@angular-devkit/build-angular:browser'
+          ) {
+            const buildTarget = angularApp.targets.get('build')!;
+
+            if (buildTarget.options) {
+              if (buildTarget.options.styles) {
+                (buildTarget.options.styles as string[]).unshift(
+                  'node_modules/@dynatrace/barista-compoents...',
+                );
+              }
+
+              if (buildTarget.options.assets) {
+                (buildTarget.options.assets as any[]).push(
+                  ...[
+                    {
+                      glob: '**/*',
+                      input: 'node_modules/@dynatrace/barista-fonts/fonts/',
+                      output: '/fonts',
+                    },
+                  ],
+                );
+              }
+            }
+          }
+        }),
+      );
+    }
 
     return chain(rules)(tree, context);
   };
