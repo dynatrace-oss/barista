@@ -14,9 +14,4 @@
  * limitations under the License.
  */
 
-import { createBuilder } from '@angular-devkit/architect';
-import { PackagerOptions } from './schema';
-import { packager } from './build';
-import { JsonObject } from '@angular-devkit/core';
-
-export default createBuilder<PackagerOptions & JsonObject>(packager);
+module.exports = require('./tslint.json');

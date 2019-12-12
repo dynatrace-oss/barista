@@ -3,9 +3,14 @@
   "id": "packager",
   "type": "object",
   "properties": {
+    "buildTarget": {
+      "type": "string",
+      "default": "packagr",
+      "description": "The target used to build the library with the ng-packagr"
+    },
     "releasePackageJson": {
       "type": "string",
-      "default": "package.json",
+      "default": "components/package.json",
       "description": "The path to the package.json used for the release"
     },
     "placeholder": {
@@ -13,23 +18,52 @@
       "default": "{{VERSION}}",
       "description": "The placeholder string that gets replaced by the corresponding versions for the package in your package.json"
     },
-    "styleFolders": {
+    "styles": {
       "type": "array",
-      "description": "Style folders that should be part of the release",
-      "default": ["style"],
+      "description": "List of root style files that should be copied to the bundle directory with all referenced files",
+      "default": [],
       "items": {
-        "type": "string"
+        "$ref": "#/definitions/assetPattern"
       }
     },
-    "assetFolders": {
+    "assets": {
       "type": "array",
-      "description": "Asset folders that should be part of the release",
-      "default": ["assets"],
+      "description": "List of static assets that should be copied to the bundle directory",
+      "default": [],
+      "items": {
+        "$ref": "#/definitions/assetPattern"
+      }
+    },
+    "additionalTargets": {
+      "type": "array",
+      "description": "List of additional targets that should be run",
+      "default": [],
       "items": {
         "type": "string"
       }
     }
   },
   "additionalProperties": false,
-  "required": []
+  "required": ["buildTarget"],
+  "definitions": {
+    "assetPattern": {
+      "type": "object",
+      "properties": {
+        "glob": {
+          "type": "string",
+          "description": "The pattern to match."
+        },
+        "input": {
+          "type": "string",
+          "description": "The input directory path in which to apply 'glob'. Defaults to the project root."
+        },
+        "output": {
+          "type": "string",
+          "description": "Absolute path within the output."
+        }
+      },
+      "additionalProperties": false,
+      "required": ["glob", "input", "output"]
+    }
+  }
 }

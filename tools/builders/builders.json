@@ -6,6 +6,11 @@
       "schema": "./stylelint/schema.json",
       "description": "Run stylelint against all style files."
     },
+    "typescript": {
+      "implementation": "./typescript/index",
+      "schema": "./typescript/schema.json",
+      "description": "Compile typescript files."
+    },
     "packager": {
       "implementation": "./packager/index",
       "schema": "./packager/schema.json",

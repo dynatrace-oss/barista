@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { createBuilder } from '@angular-devkit/architect';
-import { PackagerOptions } from './schema';
-import { packager } from './build';
-import { JsonObject } from '@angular-devkit/core';
-
-export default createBuilder<PackagerOptions & JsonObject>(packager);
+export interface TypescriptBuilderOptions {
+  /** The name of the Typescript configuration file. */
+  tsConfig: string;
+  /** The output directory for the compiled files */
+  outDir?: string;
+}

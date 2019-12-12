@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-import { JsonObject } from '@angular-devkit/core';
+export interface PackagerAssetDef {
+  glob: string;
+  input: string;
+  output: string;
+}
 
 /** The options that can be used with the packager builder */
-export interface PackagerOptions extends JsonObject {
+export interface PackagerOptions {
+  buildTarget: string;
   releasePackageJson: string;
   placeholder: string;
-  styleFolders: string[];
-  assetFolders: string[];
+  styles: PackagerAssetDef[];
+  assets: PackagerAssetDef[];
+  additionalTargets: string[];
 }
