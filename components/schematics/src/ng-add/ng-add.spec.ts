@@ -17,7 +17,7 @@
 import { Tree } from '@angular-devkit/schematics';
 import { promises as fs } from 'fs';
 import { join } from 'path';
-import { readFileFromTree, readJsonAsObjectFromTree } from '../utils';
+import { readJsonAsObjectFromTree } from '../utils';
 import { runSchematic } from '../utils/testing';
 import { Schema } from './schema';
 
@@ -102,11 +102,6 @@ describe('ng-add schematic for dynatrace barista-components', () => {
       },
     });
   });
-  // it('should update peerDependecies', () => {
-  //   expect(getFileContent(tree, 'components/src/peerPackage.json')).toEqual(
-  //     PEERDEPENDENCIES,
-  //   );
-  // });
 
   // it('should update imports in project', () => {
   //   expect(getFileContent(tree, 'apps/src/main.ts')).toEqual(RENAMEDIMPORT);
