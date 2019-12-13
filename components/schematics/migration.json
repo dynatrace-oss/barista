@@ -1,0 +1,15 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "update-5.0.0": {
+      "version": "5.0.0",
+      "description": "Updates from the old @dynatrace/angular-components to the new @dynatrace/barista-components",
+      "factory": "./src/ng-update/index#updateToV5"
+    },
+    "ng-post-update": {
+      "description": "Prints out results after ng-update.",
+      "factory": "./src/ng-update/index#postUpdate",
+      "private": true
+    }
+  }
+}

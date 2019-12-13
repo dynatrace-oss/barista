@@ -18,8 +18,9 @@ import { Tree, noop } from '@angular-devkit/schematics';
 import { promises as fs } from 'fs';
 import { join } from 'path';
 import { readJsonAsObjectFromTree, readFileFromTree } from '../utils';
-import { runSchematic } from '../utils/testing';
+import { runSchematic, addFixtureToTree } from '../testing';
 import { Schema } from './schema';
+import { getWorkspace, updateWorkspace } from '../utils/workspace';
 
 // used for mocking the externalSchematic function
 const devkitSchematics = require('@angular-devkit/schematics');
@@ -35,22 +36,6 @@ export async function testNgAdd(
     ...options,
   };
   await runSchematic('ng-add', schemaOptions, tree);
-}
-
-export async function getFixture(filePath: string): Promise<string> {
-  const fixturesFolder = join(__dirname, '../fixtures');
-  return fs.readFile(join(fixturesFolder, filePath), {
-    encoding: 'utf-8',
-  });
-}
-
-export async function addFixtureToTree(
-  tree: Tree,
-  source: string,
-  destination: string,
-): Promise<void> {
-  const content = await getFixture(source);
-  tree.create(destination, content);
 }
 
 // Testing of Dynatrace Ng-Add Schematic
@@ -143,6 +128,21 @@ describe('ng-add schematic for dynatrace barista-components', () => {
         '@angular/platform-browser-dynamic': '^8.2.12',
       },
     });
+  });
+
+  // tslint:disable
+  it.only('', async () => {
+    await addFixtureToTree(
+      tree,
+      'package-animations-existing.json',
+      '/package.json',
+    );
+
+    await addFixtureToTree(tree, 'angular-simple.json', '/angular.json');
+
+    await testNgAdd(tree, { project: 'myapp' });
+
+    console.log(readFileFromTree(tree, '/angular.json'));
   });
 
   // it('should update peerDependecies', () => {

@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export * from './json';
-export * from './read-file-from-tree';
-export * from './get-package-version-from-package-json';
+export * from './test-app';
+export * from './run-schematic';
+export * from './fixture';

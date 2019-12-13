@@ -21,15 +21,30 @@ import {
 import { join } from 'path';
 import { Tree } from '@angular-devkit/schematics/src/tree/interface';
 
-const testRunner = new SchematicTestRunner(
+export const testRunner = new SchematicTestRunner(
   '@dynatrace/barista-components/schematics',
-  join(__dirname, '../../../collection.json'),
+  join(__dirname, '../../collection.json'),
 );
 
-export async function runSchematic(
+/** Runs a schematic */
+export async function runSchematic<T extends unknown>(
   schematicName: string,
-  options: any,
+  options: T,
   tree: Tree,
 ): Promise<UnitTestTree> {
-  return testRunner.runSchematicAsync(schematicName, options, tree).toPromise();
+  return testRunner
+    .runSchematicAsync<T>(schematicName, options, tree)
+    .toPromise();
+}
+
+/** Runs an external Schematic */
+export async function runExternalSchematic<T extends unknown>(
+  collectionName: string,
+  schematicName: string,
+  options: T,
+  tree: Tree,
+): Promise<UnitTestTree> {
+  return testRunner
+    .runExternalSchematicAsync<T>(collectionName, schematicName, options, tree)
+    .toPromise();
 }
