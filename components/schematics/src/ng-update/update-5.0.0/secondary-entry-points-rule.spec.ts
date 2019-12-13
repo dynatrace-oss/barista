@@ -16,6 +16,8 @@
 
 import { UnitTestTree } from '@angular-devkit/schematics/testing';
 import { createTestApp } from '../../testing';
+import { testNgAdd } from '../../ng-add/ng-add.spec';
+import { readJsonAsObjectFromTree } from '../../utils';
 
 // Testing of Dynatrace Ng-Add Schematic
 describe('ng-add schematic for dynatrace barista-components', () => {
@@ -27,13 +29,53 @@ describe('ng-add schematic for dynatrace barista-components', () => {
 
   it('should update imports of @dynatrace/angular-components to barista-components in package.json', async () => {
     console.log(tree.files);
-    // await testNgAdd(tree);
-    // expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject(
-    //   expect.objectContaining({
-    //     dependencies: {
-    //       '@dynatrace/barista-components': '5.0.0',
-    //     },
-    //   }),
-    // );
+    await testNgAdd(tree);
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject(
+      expect.objectContaining({
+        dependencies: {
+          '@dynatrace/barista-components': '5.0.0',
+        },
+      }),
+    );
+  });
+
+  it('should update imports of @dynatrace/angular-components to barista-components in ts files', async () => {
+    await testNgAdd(tree);
+    expect(readJsonAsObjectFromTree(tree, '/components/main.ts')).toContain(
+      'barista-components',
+    );
+  });
+
+  it('should update paths for fonts and icons in angular.json', async () => {
+    await testNgAdd(tree);
+    expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchObject(
+      expect.objectContaining({
+        build: {
+          options: {
+            assets: [
+              {
+                glob: '*.svg',
+                input: 'node_modules/@dynatrace/barista-icons',
+                output: '/assets/icons',
+              },
+              {
+                glob: '**/*',
+                input: 'node_modules/@dynatrace/barista-fonts/fonts/',
+                output: '/fonts',
+              },
+            ],
+          },
+        },
+      }),
+    );
+  });
+
+  it('should add styles reference to angular.json file', async () => {
+    await testNgAdd(tree);
+    expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchObject(
+      expect.objectContaining({
+        styles: ['apps/dev/src/main.scss', 'components/style/index.scss'],
+      }),
+    );
   });
 });

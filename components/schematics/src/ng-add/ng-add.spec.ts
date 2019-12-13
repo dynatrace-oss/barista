@@ -15,12 +15,9 @@
  */
 
 import { Tree, noop } from '@angular-devkit/schematics';
-import { promises as fs } from 'fs';
-import { join } from 'path';
 import { readJsonAsObjectFromTree, readFileFromTree } from '../utils';
 import { runSchematic, addFixtureToTree } from '../testing';
 import { Schema } from './schema';
-import { getWorkspace, updateWorkspace } from '../utils/workspace';
 
 // used for mocking the externalSchematic function
 const devkitSchematics = require('@angular-devkit/schematics');
@@ -131,7 +128,7 @@ describe('ng-add schematic for dynatrace barista-components', () => {
   });
 
   // tslint:disable
-  it.only('', async () => {
+  it('test', async () => {
     await addFixtureToTree(
       tree,
       'package-animations-existing.json',

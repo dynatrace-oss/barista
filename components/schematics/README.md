@@ -30,19 +30,18 @@ following steps:
 ## ng add
 
 The ng-add schematics is used to add the **barista-components** to a new angular
-project with all its dependencies
+project with all its dependencies and also migrates existing projects using our
+Angular components to version 5 and later to version 6. To add our
+components-library go to your angular project folder and run
+`ng add @dynatrace/barista-components`.
 
 ### Testing
 
+The ng add schematics unit tests check whether the schmatic does behave
+correctly by testing where changes should occur.
+
 To run the unit tests with jest you can leverage the angular CLI with:
 `ng test schematics` or in the watch mode `ng test schematics --watch`
-
-## TODO
-
-- [] if we add browseranimation module check if the platform browser dynamic
-  package exists  
-   `"@angular/platform-browser-dynamic": "8.2.12",` with same version as angular
-  core
 
 ### List of all Barista-Components Dependencies
 
