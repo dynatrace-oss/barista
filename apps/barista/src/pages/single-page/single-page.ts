@@ -55,6 +55,11 @@ export class BaSinglePage implements BaPage, AfterViewInit {
     }
   }
 
+  /** @internal Whether to display the table of contents on the page. */
+  _showTOC(): boolean {
+    return this.contents && this.contents.toc !== false;
+  }
+
   /** check if the url contains a hash and scroll to the matching headline */
   private _checkURL(): void {
     const hash = window.location.hash;
@@ -66,10 +71,5 @@ export class BaSinglePage implements BaPage, AfterViewInit {
         });
       }
     }
-  }
-
-  /** @internal Whether to display the table of contents on the page. */
-  _showTOC(): boolean {
-    return this.contents && this.contents.toc !== false;
   }
 }
