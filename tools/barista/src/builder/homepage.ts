@@ -28,6 +28,7 @@ import {
   BaStrapiContentType,
   BaIndexPageContent,
   BaStrapiCTA,
+  BaLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
 
 const TILES_MOSTORDERED = [
@@ -107,7 +108,7 @@ export const homepageBuilder: BaPageBuilder = async () => {
   const pageContent: BaIndexPageContent = {
     title: 'Barista - the Dynatrace design system.',
     subtitle: 'Tailored to scale.',
-    layout: 'index',
+    layout: BaLayoutType.Index,
     mostordered: TILES_MOSTORDERED,
     gettingstarted: pageTeaserData,
     cta: homepageCTA,

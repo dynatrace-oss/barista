@@ -30,12 +30,14 @@ import { BaIndexPage } from './index-page/index-page';
 import { BaOverviewPage } from './overview-page/overview-page';
 import { BaSinglePage } from './single-page/single-page';
 import { BaIconOverviewPage } from './icon-overview-page/icon-overview-page';
+import { BaErrorPage } from './error-page/error-page';
 
 const LAYOUT_PAGES_MAPPING = {
   default: BaSinglePage,
   overview: BaOverviewPage,
   iconOverview: BaIconOverviewPage,
   index: BaIndexPage,
+  error: BaErrorPage,
 };
 
 /**
@@ -49,6 +51,10 @@ export interface BaPage {
 @Component({
   selector: 'ba-page-outlet',
   template: '',
+  styleUrls: ['page-outlet.scss'],
+  host: {
+    class: 'ba-page',
+  },
 })
 export class BaPageOutlet {
   /** Reference to the current page component. */

@@ -26,6 +26,7 @@ import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service'
 @Component({
   selector: 'ba-single-page',
   templateUrl: 'single-page.html',
+  styleUrls: ['single-page.scss'],
 })
 export class BaSinglePage implements BaPage, AfterViewInit {
   @Input()

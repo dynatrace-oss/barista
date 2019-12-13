@@ -29,6 +29,7 @@ import {
   BaSinglePageMeta,
   BaNav,
   BaNavItem,
+  BaLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
 import { environment } from 'tools/environments/barista-environment';
 
@@ -198,7 +199,7 @@ export const overviewBuilder = async () => {
       overviewPage = {
         title: capitalizedTitle,
         id: directory,
-        layout: 'overview',
+        layout: BaLayoutType.Overview,
         sections: [
           {
             items: [],
@@ -219,7 +220,7 @@ export const overviewBuilder = async () => {
       overviewPage = {
         title: 'Components',
         id: 'components',
-        layout: 'overview',
+        layout: BaLayoutType.Overview,
         description:
           'Read all about development with/of our Angular components in how to get started. If you run into any troubles or want to contribute, please visit our GitHub page.',
         sections: [

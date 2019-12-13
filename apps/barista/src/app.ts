@@ -19,9 +19,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { BaLocationService } from './shared/location.service';
 import { BaPageService } from './shared/page.service';
+import { BaLayoutType } from '@dynatrace/barista-components/barista-definitions';
 
 const PAGE_THEME_MAP = new Map<string, string>([
   ['brand', 'purple'],
@@ -53,25 +54,14 @@ export class BaApp implements OnInit, OnDestroy {
    * Observable of the current path.
    */
   _breadcrumbs$ = this._locationService.currentPath$.pipe(
-    map((path: string) => {
-      let previousPath = '';
-      return path.split('/').map((part: string) => {
-        previousPath = `${previousPath}/${part}`;
-        part = part
-          .split('-')
-          .join(' ')
-          .replace(part.charAt(0), part.charAt(0).toUpperCase());
-        return { title: part, href: previousPath };
-      });
+    switchMap(path =>
+      this._pageService.currentPage.pipe(map(page => ({ path, page }))),
+    ),
+    map(({ path, page }) => {
+      return page.layout === BaLayoutType.Error
+        ? []
+        : createBreadcrumbItems(path);
     }),
-  );
-
-  /**
-   * @internal
-   * Whether Breadcrumb-Component is visible (only visible when at least two items would be shown)
-   */
-  _showBreadCrumb$ = this._breadcrumbs$.pipe(
-    map((path: { title: string; href: string }[]) => path.length > 1),
   );
 
   /** @internal Gets the page theme based on the current location. */
@@ -133,4 +123,18 @@ export class BaApp implements OnInit, OnDestroy {
     // Allow the click to pass through
     return true;
   }
+}
+
+function createBreadcrumbItems(
+  path: string,
+): { title: string; href: string }[] {
+  let previousPath = '';
+  return path.split('/').map((part: string) => {
+    previousPath = `${previousPath}/${part}`;
+    part = part
+      .split('-')
+      .join(' ')
+      .replace(part.charAt(0), part.charAt(0).toUpperCase());
+    return { title: part, href: previousPath };
+  });
 }

@@ -26,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BaApp } from './app';
 import { BaContributors } from './layout/contributors/contributors';
+import { BaErrorPage } from './pages/error-page/error-page';
 import { BaFooter } from './layout/footer/footer';
 import { BaIndexPage } from './pages/index-page/index-page';
 import { BaLocationService } from './shared/location.service';
@@ -103,6 +104,7 @@ import { DtToastModule } from '@dynatrace/barista-components/toast';
     BaToc,
     BaSidenav,
     BaScrollToTop,
+    BaErrorPage,
   ],
   providers: [
     BaPageService,
@@ -125,6 +127,7 @@ import { DtToastModule } from '@dynatrace/barista-components/toast';
     BaSmallTile,
     BaSearch,
     BaSidenav,
+    BaErrorPage,
   ],
   bootstrap: [BaApp],
 })

@@ -40,6 +40,7 @@ export const enum BaLayoutType {
   IconOverview = 'iconOverview',
   Icon = 'icon',
   Index = 'index',
+  Error = 'error',
 }
 
 export interface BaPageMetaBase {
@@ -49,6 +50,11 @@ export interface BaPageMetaBase {
   public?: boolean;
   draft?: boolean;
   navGroup?: string;
+}
+
+export interface BaErrorPageContent extends BaPageMetaBase {
+  layout: BaLayoutType.Error;
+  content: string;
 }
 
 export interface BaSinglePageMeta extends BaPageMetaBase {
@@ -82,7 +88,7 @@ export interface BaContributor {
 export interface BaIndexPageContent {
   title: string;
   subtitle: string;
-  layout: 'index';
+  layout: BaLayoutType.Index;
   mostordered: BaStrapiPageLink[];
   gettingstarted: BaStrapiPageTeaser[];
   cta: BaStrapiCTA;
@@ -194,7 +200,7 @@ export interface BaCategoryNavigationSection {
 export interface BaCategoryNavigation {
   title: string;
   id: string;
-  layout: string;
+  layout: BaLayoutType;
   description?: string;
   sections: BaCategoryNavigationSection[];
 }
