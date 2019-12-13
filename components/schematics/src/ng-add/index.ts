@@ -122,7 +122,7 @@ function updateOrAddImports(options: ExtendedSchema): Rule {
 }
 
 /** Check filesystem for imports of dynatrace/angular-components and rename then to barista-components */
-export function migrateToVersion5(options: ExtendedSchema): Rule {
+export function migrateToVersion5(_options: ExtendedSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
 

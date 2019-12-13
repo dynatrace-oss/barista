@@ -58,3 +58,8 @@ To run the unit tests with jest you can leverage the angular CLI with:
 | `d3-scale`                          | `^3.0.0`  |
 | `d3-shape`                          | `^1.3.5`  |
 | `highcharts`                        | `^6.0.7`  |
+
+### Angular Json
+
+Running the schematic will add Dynatrace Fonts, Icons and Stylesheet to your
+`angular.json` file.
