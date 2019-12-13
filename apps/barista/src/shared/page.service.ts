@@ -14,17 +14,35 @@
  * limitations under the License.
  */
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AsyncSubject, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { AsyncSubject, Observable, of } from 'rxjs';
+import { switchMap, catchError, map } from 'rxjs/operators';
 
 import { BaLocationService } from './location.service';
 
 import { environment } from '../environments/environment';
-import { BaSinglePageContent } from '@dynatrace/barista-components/barista-definitions';
+import {
+  BaSinglePageContent,
+  BaLayoutType,
+  BaErrorPageContent,
+} from '@dynatrace/barista-components/barista-definitions';
 
 const CONTENT_PATH_PREFIX = 'data/';
+
+const ERRORPAGE_404: BaErrorPageContent = {
+  title: 'Error 404',
+  layout: BaLayoutType.Error,
+  content:
+    'Sorry, the page you tried to access does not exist. Are you using an outdated link?',
+};
+
+const ERRORPAGE: BaErrorPageContent = {
+  title: 'Oops!',
+  layout: BaLayoutType.Error,
+  content:
+    "Sorry, an error has occured. Don't worry, we're working to fix the problem!",
+};
 
 /**
  * CODE COPIED FROM: 'https://github.com/angular/angular/blob/master/aio/src/app/documents/document.service.ts' and modified
@@ -71,11 +89,18 @@ export class BaPageService {
 
     this.http
       .get<BaSinglePageContent>(requestPath, { responseType: 'json' })
-      .pipe
-      // tap(data => {
-      //   console.log(data);
-      // })
-      ()
+      .pipe(
+        map(data => {
+          if (!data || typeof data !== 'object') {
+            return ERRORPAGE;
+          } else {
+            return data;
+          }
+        }),
+        catchError((error: HttpErrorResponse) => {
+          return of(error.status === 404 ? ERRORPAGE_404 : ERRORPAGE);
+        }),
+      )
       .subscribe(subject);
 
     return subject.asObservable();

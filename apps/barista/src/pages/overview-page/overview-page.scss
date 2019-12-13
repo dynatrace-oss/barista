@@ -6,6 +6,10 @@ $tilefontsize: 28px;
 $tilefontsize-big: 42px;
 $gridgap: 20px;
 
+:host {
+  display: block;
+}
+
 li {
   list-style-type: none;
 }

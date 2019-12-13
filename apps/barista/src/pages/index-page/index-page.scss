@@ -3,6 +3,10 @@
 
 $blue-1000: #002c66;
 
+:host {
+  display: block;
+}
+
 .ba-title,
 .ba-title span {
   color: #ffffff;
