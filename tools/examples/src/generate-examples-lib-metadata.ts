@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-import { promises as fs } from 'fs';
-import { BaAllExamplesMetadata } from '@dynatrace/barista-components/barista-definitions';
-import { ExamplePackageMetadata } from './metadata';
+import { promises as fs, mkdirSync } from 'fs';
 import { join } from 'path';
+import { BaAllExamplesMetadata } from '@dynatrace/barista-components/barista-definitions';
+import { environment } from 'tools/environments/barista-environment';
+import { ExamplePackageMetadata } from './metadata';
 
-/** Generates ... */
+/** Generates the metadata file for the examples library. */
 export async function generateExamplesLibMetadataFile(
   packageMetadata: ExamplePackageMetadata[],
 ): Promise<string> {
@@ -35,11 +36,10 @@ export async function generateExamplesLibMetadataFile(
     }
   }
 
+  mkdirSync(environment.examplesMetadataDir, { recursive: true });
   const outFile = join(
-    __dirname,
-    '../../../',
-    'dist',
-    'examples-metadata.json',
+    environment.examplesMetadataDir,
+    environment.examplesMetadataFileName,
   );
 
   await fs.writeFile(outFile, JSON.stringify(metadata, null, 2), {

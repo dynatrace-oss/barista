@@ -30,15 +30,7 @@ import {
   BaNav,
   BaNavItem,
 } from '@dynatrace/barista-components/barista-definitions';
-
-const DIST_DIR = join(
-  __dirname,
-  '../../../',
-  'dist',
-  'apps',
-  'barista',
-  'data',
-);
+import { environment } from 'tools/environments/barista-environment';
 
 // for now we manually select highlighted items, later this data can maybe be fetched from google analytics
 const highlightedItems = [
@@ -169,10 +161,10 @@ function getOverviewSectionItem(
   };
 }
 
-/** Check if given path is a directory within DIST_DIR. */
+/** Check if given path is a directory within environment.distDir. */
 function isDirectory(path: string): boolean {
   try {
-    return lstatSync(join(DIST_DIR, path)).isDirectory();
+    return lstatSync(join(environment.distDir, path)).isDirectory();
   } catch {
     return false;
   }
@@ -180,7 +172,7 @@ function isDirectory(path: string): boolean {
 
 /** Builds overview pages */
 export const overviewBuilder = async () => {
-  const allDirectories = readdirSync(DIST_DIR).filter(dirPath =>
+  const allDirectories = readdirSync(environment.distDir).filter(dirPath =>
     isDirectory(dirPath),
   );
 
@@ -189,7 +181,7 @@ export const overviewBuilder = async () => {
   };
 
   const pages = allDirectories.map(async directory => {
-    const path = join(DIST_DIR, directory);
+    const path = join(environment.distDir, directory);
     let overviewPage: BaCategoryNavigation;
     const files = readdirSync(path);
 
@@ -277,7 +269,7 @@ export const overviewBuilder = async () => {
 
     addSidenavToPages(files, overviewPage, path);
 
-    const overviewfilepath = join(DIST_DIR, `${directory}.json`);
+    const overviewfilepath = join(environment.distDir, `${directory}.json`);
     // Write file with page content to disc.
     return fs.writeFile(
       overviewfilepath,
@@ -304,10 +296,14 @@ export const overviewBuilder = async () => {
     return -1;
   });
 
-  await fs.writeFile(join(DIST_DIR, 'nav.json'), JSON.stringify(nav, null, 2), {
-    flag: 'w', // "w" -> Create file if it does not exist
-    encoding: 'utf8',
-  });
+  await fs.writeFile(
+    join(environment.distDir, 'nav.json'),
+    JSON.stringify(nav, null, 2),
+    {
+      flag: 'w', // "w" -> Create file if it does not exist
+      encoding: 'utf8',
+    },
+  );
 
   return Promise.all(pages);
 };

@@ -18,7 +18,7 @@ import { ExamplePackageMetadata } from './metadata';
 import { join } from 'path';
 
 import { transformAndWriteTemplate, getImportExportPath } from './util';
-import { buildConfig } from './build-config';
+import { environment } from 'tools/environments/barista-environment';
 
 /** Generates the examples-module where all example components are declared. */
 export async function generateExamplesLibModule(
@@ -26,7 +26,7 @@ export async function generateExamplesLibModule(
   targetDir: string,
 ): Promise<string> {
   const templateFile = join(
-    buildConfig.examplesLibDir,
+    environment.examplesLibDir,
     'examples.module.template',
   );
   const outFile = join(targetDir, 'examples.module.ts');
@@ -41,7 +41,7 @@ export async function generateExamplesLibModule(
             packageMeta.moduleClassName
           } } from '${getImportExportPath(
             packageMeta.moduleFile,
-            buildConfig.examplesLibDir,
+            environment.examplesLibDir,
           )}';`,
         );
         moduleNames.push(packageMeta.moduleClassName);

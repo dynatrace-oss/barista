@@ -16,15 +16,6 @@
 
 import { join } from 'path';
 
-import { fetchContentList } from '../utils/fetch-strapi-content';
-import { slugify } from '../utils/slugify';
-import { isPublicBuild } from '../utils/is-public-build';
-
-import {
-  markdownToHtmlTransformer,
-  transformPage,
-  headingIdTransformer,
-} from '../transform';
 import {
   BaPageBuilder,
   BaSinglePageMeta,
@@ -34,8 +25,17 @@ import {
   BaLayoutType,
   BaPageBuildResult,
 } from '@dynatrace/barista-components/barista-definitions';
+import { environment } from 'tools/environments/barista-environment';
+import { isPublicBuild } from 'tools/util/is-public-build';
 
-const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
+import { fetchContentList } from '../utils/fetch-strapi-content';
+import { slugify } from '../utils/slugify';
+
+import {
+  markdownToHtmlTransformer,
+  transformPage,
+  headingIdTransformer,
+} from '../transform';
 
 const TRANSFORMERS: BaPageTransformer[] = [
   markdownToHtmlTransformer,
@@ -47,7 +47,7 @@ export const strapiBuilder: BaPageBuilder = async (
   globalTransformers: BaPageTransformer[],
 ) => {
   // Return here if no endpoint is given.
-  if (!STRAPI_ENDPOINT) {
+  if (!environment.strapiEndpoint) {
     console.log('No Strapi endpoint given.');
     return [];
   }
@@ -55,7 +55,7 @@ export const strapiBuilder: BaPageBuilder = async (
   let pagesData = await fetchContentList<BaStrapiPage>(
     BaStrapiContentType.Pages,
     { publicContent: isPublicBuild() },
-    STRAPI_ENDPOINT,
+    environment.strapiEndpoint,
   );
 
   // Filter pages with draft set to null or false

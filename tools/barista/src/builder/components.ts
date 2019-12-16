@@ -24,6 +24,7 @@ import {
   BaSinglePageMeta,
   BaLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
+import { environment } from 'tools/environments/barista-environment';
 
 import {
   componentTagsTransformer,
@@ -36,7 +37,7 @@ import {
 
 import { slugify } from '../utils/slugify';
 
-const PROJECT_ROOT = join(__dirname, '../../../');
+const PROJECT_ROOT = environment.rootDir;
 const LIB_ROOT = join(PROJECT_ROOT, 'components');
 const DOCUMENTATION_ROOT = join(PROJECT_ROOT, 'documentation');
 
@@ -130,14 +131,14 @@ export const componentsBuilder: BaPageBuilder = async (
   for (const dir of readmeDirs) {
     const relativeOutFile = join('components', `${basename(dir)}.json`);
     const baristaMetadata = JSON.parse(
-      readFileSync(join(dir, 'barista.json')).toString(),
+      readFileSync(join(dir, 'barista.json'), { encoding: 'utf-8' }),
     );
     // Filter draft pages
     if (!baristaMetadata.draft) {
       const pageContent = await transformPage(
         {
           ...setMetadataDefaults(baristaMetadata),
-          content: readFileSync(join(dir, 'README.md')).toString(),
+          content: readFileSync(join(dir, 'README.md'), { encoding: 'utf-8' }),
         },
         [...TRANSFORMERS, ...globalTransformers],
       );
@@ -152,7 +153,9 @@ export const componentsBuilder: BaPageBuilder = async (
 
     const baristaMetadata = existsSync(join(fileDir, `${fileBasename}.json`))
       ? JSON.parse(
-          readFileSync(join(fileDir, `${fileBasename}.json`)).toString(),
+          readFileSync(join(fileDir, `${fileBasename}.json`), {
+            encoding: 'utf-8',
+          }),
         )
       : undefined;
 
@@ -166,7 +169,7 @@ export const componentsBuilder: BaPageBuilder = async (
         {
           ...setMetadataDefaults(baristaMetadata),
           navGroup: 'docs',
-          content: readFileSync(filepath).toString(),
+          content: readFileSync(filepath, { encoding: 'utf-8' }),
         },
         [...TRANSFORMERS, ...globalTransformers],
       );

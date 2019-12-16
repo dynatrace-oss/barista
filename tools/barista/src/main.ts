@@ -22,12 +22,15 @@ import {
   BaPageBuilder,
   BaPageTransformer,
 } from '@dynatrace/barista-components/barista-definitions';
+import { environment } from 'tools/environments/barista-environment';
+import { isPublicBuild } from 'tools/util/is-public-build';
+
 import { componentsBuilder } from './builder/components';
 import { strapiBuilder } from './builder/strapi';
 import { homepageBuilder } from './builder/homepage';
 import { iconsBuilder } from './builder/icons';
 import { overviewBuilder } from './generators/category-navigation';
-import { isPublicBuild } from './utils/is-public-build';
+
 import {
   internalLinksTransformerFactory,
   exampleInlineSourcesTransformerFactory,
@@ -41,17 +44,13 @@ const BUILDERS = new Map<string, BaPageBuilder>([
   ['icons-builder', iconsBuilder],
 ]);
 
-const PROJECT_ROOT = join(__dirname, '../../../');
-const DIST_DIR = join(PROJECT_ROOT, 'dist', 'apps', 'barista', 'data');
-const EXAMPLES_METADATA = join(PROJECT_ROOT, 'dist', 'examples-metadata.json');
-
 /**
  * Creates the internalLinksTransformer via a factory because we need to read
  * some arguments from the process environment.
  * Transformers should be pure for testing.
  */
 function createInternalLinksTransformer(): BaPageTransformer {
-  const internalLinkArg = process.env.INTERNAL_LINKS;
+  const internalLinkArg = environment.internalLinks;
   const internalLinkParts = internalLinkArg ? internalLinkArg.split(',') : [];
   const isPublic = isPublicBuild();
   return internalLinksTransformerFactory(isPublic, internalLinkParts);
@@ -64,14 +63,17 @@ function createInternalLinksTransformer(): BaPageTransformer {
 async function createExampleInlineSourcesTransformer(): Promise<
   BaPageTransformer
 > {
-  if (!existsSync(EXAMPLES_METADATA)) {
+  if (!existsSync(environment.examplesMetadataDir)) {
     throw new Error(
-      '"examples-metadata.json" not found. Make sure to run "examples-tools" first.',
+      `"${environment.examplesMetadataFileName}" not found. Make sure to run "examples-tools" first.`,
     );
   }
-  const examplesMetadata = (await fs.readFile(EXAMPLES_METADATA, {
-    encoding: 'utf8',
-  })).toString();
+  const examplesMetadata = await fs.readFile(
+    join(environment.examplesMetadataDir, environment.examplesMetadataFileName),
+    {
+      encoding: 'utf8',
+    },
+  );
 
   return exampleInlineSourcesTransformerFactory(JSON.parse(examplesMetadata));
 }
@@ -94,10 +96,10 @@ async function buildPages(): Promise<void[]> {
   );
 
   // Make sure dist dir is created
-  mkdirSync(DIST_DIR, { recursive: true });
+  mkdirSync(environment.distDir, { recursive: true });
 
   const files = results.map(async result => {
-    const outFile = join(DIST_DIR, result.relativeOutFile);
+    const outFile = join(environment.distDir, result.relativeOutFile);
 
     // Creating folder path if it does not exist
     mkdirSync(dirname(outFile), { recursive: true });

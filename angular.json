@@ -307,7 +307,13 @@
             "production": {
               "optimization": true,
               "extractLicenses": true,
-              "inspect": false
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "tools/environments/barista-environment.ts",
+                  "with": "tools/environments/barista-environment.prod.ts"
+                }
+              ]
             }
           }
         },
@@ -654,7 +660,13 @@
             "production": {
               "optimization": true,
               "extractLicenses": true,
-              "inspect": false
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "tools/environments/barista-environment.ts",
+                  "with": "tools/environments/barista-environment.prod.ts"
+                }
+              ]
             }
           }
         },
