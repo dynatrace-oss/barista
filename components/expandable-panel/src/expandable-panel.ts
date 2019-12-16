@@ -32,6 +32,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'dt-expandable-panel',
@@ -123,14 +124,14 @@ export class DtExpandablePanel {
   >();
 
   /** @internal Event emitted when the panel is expanded. */
-  @Output('expanded') readonly _panelExpanded = this.expandChange.pipe(
-    filter(v => v),
-  );
+  @Output('expanded') readonly _panelExpanded: Observable<
+    boolean
+  > = this.expandChange.pipe(filter(v => v));
 
   /**  @internal Event emitted when the panel is collapsed. */
-  @Output('collapsed') readonly _panelCollapsed = this.expandChange.pipe(
-    filter(v => !v),
-  );
+  @Output('collapsed') readonly _panelCollapsed: Observable<
+    boolean
+  > = this.expandChange.pipe(filter(v => !v));
   /**
    * Event emitted when the panel has been opened.
    * @deprecated Use expandChange instead.

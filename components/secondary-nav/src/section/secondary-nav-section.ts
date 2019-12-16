@@ -25,7 +25,7 @@ import {
   Output,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 @Directive({
@@ -117,14 +117,14 @@ export class DtSecondaryNavSection {
   @Output() readonly expandChange = new EventEmitter<boolean>();
 
   /** @internal Event emitted when the section is expanded. */
-  @Output('expanded') readonly _sectionExpand = this.expandChange.pipe(
-    filter(v => v),
-  );
+  @Output('expanded') readonly _sectionExpand: Observable<
+    boolean
+  > = this.expandChange.pipe(filter(v => v));
 
   /** @internal Event emitted when the section is collapsed. */
-  @Output('collapsed') readonly _sectionCollapse = this.expandChange.pipe(
-    filter(v => !v),
-  );
+  @Output('collapsed') readonly _sectionCollapse: Observable<
+    boolean
+  > = this.expandChange.pipe(filter(v => !v));
 
   /** @internal Subject used to communicate programmatic change of section opening and closing */
   _sectionExpandChange$: Subject<DtSecondaryNavSection> = new Subject();
