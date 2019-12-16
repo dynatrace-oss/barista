@@ -22,3 +22,10 @@ export interface Schema {
   /** Whether to set up global typography styles. */
   typography: boolean;
 }
+
+/** Schema with extended options that are needed for different rules */
+export interface ExtendedSchema extends Schema {
+  componentsVersion: string;
+  peerDependencies: { [key: string]: string };
+  migration: boolean;
+}

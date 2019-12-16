@@ -28,7 +28,18 @@ const defaultUpgradeData: RuleUpgradeData = {
   attributeSelectors: {},
   classNames: {},
   constructorChecks: {},
-  cssSelectors: {},
+  cssSelectors: {
+    [(DtTargetVersion.V5 as unknown) as TargetVersion]: [
+      {
+        changes: [
+          {
+            replace: '~@dynatrace/angular-components/',
+            replaceWith: '~@dynatrace/barista-components/',
+          },
+        ],
+      },
+    ],
+  },
   elementSelectors: {},
   inputNames: {},
   methodCallChecks: {},

@@ -4,16 +4,17 @@ exports[`ng-add schematic for dynatrace barista-components should add @angular/p
 Object {
   "dependencies": Object {
     "@angular/animations": "^8.2.12",
+    "@angular/cdk": "8.2.3",
     "@angular/common": "^8.2.12",
     "@angular/core": "^8.2.12",
     "@angular/platform-browser-dynamic": "^8.2.12",
-    "@dynatrace/barista-components": "5.0.0",
-    "@dynatrace/barista-fonts": "{{version}}",
-    "@dynatrace/barista-icons": "{{version}}",
-    "d3-geo": "{{version}}",
-    "d3-scale": "{{version}}",
-    "d3-shape": "{{version}}",
-    "highcharts": "{{version}}",
+    "@dynatrace/barista-components": "^5.0.0",
+    "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
+    "@dynatrace/barista-icons": ">= 3.0.0 < 4",
+    "@types/highcharts": "^5.0.23",
+    "d3-scale": "^3.0.0",
+    "d3-shape": "^1.3.5",
+    "highcharts": "^6.0.7",
   },
 }
 `;
@@ -25,13 +26,13 @@ Object {
     "@angular/common": "^8.2.12",
     "@angular/compiler": "^8.2.12",
     "@angular/core": "^8.2.12",
-    "@dynatrace/barista-components": "5.0.0",
-    "@dynatrace/barista-fonts": "{{version}}",
-    "@dynatrace/barista-icons": "{{version}}",
-    "d3-geo": "{{version}}",
-    "d3-scale": "{{version}}",
-    "d3-shape": "{{version}}",
-    "highcharts": "{{version}}",
+    "@dynatrace/barista-components": "^5.0.0",
+    "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
+    "@dynatrace/barista-icons": ">= 3.0.0 < 4",
+    "@types/highcharts": "^5.0.23",
+    "d3-scale": "^3.0.0",
+    "d3-shape": "^1.3.5",
+    "highcharts": "^6.0.7",
   },
   "devDependencies": Object {
     "@angular-devkit/build-angular": "^0.803.15",
@@ -70,7 +71,8 @@ Object {
             "polyfills": "apps/myapp/src/polyfills.ts",
             "scripts": Array [],
             "styles": Array [
-              "node_modules/@dynatrace/barista-compoents...",
+              "node_modules/@dynatrace/barista-components/style/index.scss",
+              "node_modules/@dynatrace/barista-fonts/typography.scss",
               "apps/myapp/src/styles.scss",
             ],
             "tsConfig": "apps/myapp/tsconfig.app.json",
@@ -148,6 +150,35 @@ Object {
 }
 `;
 
+exports[`ng-add schematic for dynatrace barista-components should add styles correctly even if there is no styles array in the angular.json  1`] = `
+Object {
+  "projects": Object {
+    "myapp": Object {
+      "architect": Object {
+        "build": Object {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": Object {
+            "index": "apps/myapp/src/index.html",
+            "main": "apps/myapp/src/main.ts",
+            "outputPath": "dist/apps/myapp",
+            "polyfills": "apps/myapp/src/polyfills.ts",
+            "styles": Array [
+              "node_modules/@dynatrace/barista-components/style/index.scss",
+              "node_modules/@dynatrace/barista-fonts/typography.scss",
+            ],
+            "tsConfig": "apps/myapp/tsconfig.app.json",
+          },
+        },
+      },
+      "projectType": "application",
+      "root": "apps/myapp",
+      "sourceRoot": "apps/myapp/src",
+    },
+  },
+  "version": 1,
+}
+`;
+
 exports[`ng-add schematic for dynatrace barista-components should add the \`@angular/animations\` package with the same version as the \`@angular/core\` package when specified 1`] = `
 Object {
   "dependencies": Object {
@@ -157,13 +188,13 @@ Object {
     "@angular/compiler": "^8.2.12",
     "@angular/core": "^8.2.12",
     "@angular/platform-browser-dynamic": "^8.2.12",
-    "@dynatrace/barista-components": "5.0.0",
-    "@dynatrace/barista-fonts": "{{version}}",
-    "@dynatrace/barista-icons": "{{version}}",
-    "d3-geo": "{{version}}",
-    "d3-scale": "{{version}}",
-    "d3-shape": "{{version}}",
-    "highcharts": "{{version}}",
+    "@dynatrace/barista-components": "^5.0.0",
+    "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
+    "@dynatrace/barista-icons": ">= 3.0.0 < 4",
+    "@types/highcharts": "^5.0.23",
+    "d3-scale": "^3.0.0",
+    "d3-shape": "^1.3.5",
+    "highcharts": "^6.0.7",
   },
   "devDependencies": Object {
     "@angular-devkit/build-angular": "^0.803.15",
@@ -174,20 +205,82 @@ Object {
 }
 `;
 
+exports[`ng-add schematic for dynatrace barista-components should not add styles and assets if he has a legacy version of the angular-components installed 1`] = `
+Object {
+  "projects": Object {
+    "myapp": Object {
+      "architect": Object {
+        "build": Object {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": Object {
+            "aot": false,
+            "assets": Array [
+              "apps/myapp/src/favicon.ico",
+              "apps/myapp/src/assets",
+              Object {
+                "glob": "**",
+                "input": "node_modules/@dynatrace/angular-components/assets",
+                "output": "/cache",
+              },
+              Object {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/dt-iconpack",
+                "output": "/cache/icons",
+              },
+            ],
+            "index": "apps/myapp/src/index.html",
+            "main": "apps/myapp/src/main.ts",
+            "outputPath": "dist/apps/myapp",
+            "polyfills": "apps/myapp/src/polyfills.ts",
+            "scripts": Array [],
+            "styles": Array [
+              "apps/myapp/src/styles.scss",
+            ],
+            "tsConfig": "apps/myapp/tsconfig.app.json",
+          },
+        },
+      },
+      "projectType": "application",
+      "root": "apps/myapp",
+      "sourceRoot": "apps/myapp/src",
+    },
+  },
+  "version": 1,
+}
+`;
+
+exports[`ng-add schematic for dynatrace barista-components should update imports of @dynatrace/angular-components to barista-components in package.json 1`] = `
+Object {
+  "dependencies": Object {
+    "@angular/cdk": "8.2.3",
+    "@angular/common": "8.2.3",
+    "@angular/core": "8.2.3",
+    "@dynatrace/barista-components": "^5.0.0",
+    "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
+    "@dynatrace/barista-icons": ">= 3.0.0 < 4",
+    "@types/highcharts": "^5.0.23",
+    "d3-scale": "^3.0.0",
+    "d3-shape": "^1.3.5",
+    "highcharts": "^6.0.7",
+  },
+}
+`;
+
 exports[`ng-add schematic for dynatrace barista-components shouldn't add @angular/animations\` package if already installed 1`] = `
 Object {
   "dependencies": Object {
     "@angular/animations": "^8.2.12",
+    "@angular/cdk": "8.2.3",
     "@angular/common": "^8.2.12",
     "@angular/core": "^8.2.12",
     "@angular/platform-browser-dynamic": "^8.2.12",
-    "@dynatrace/barista-components": "5.0.0",
-    "@dynatrace/barista-fonts": "{{version}}",
-    "@dynatrace/barista-icons": "{{version}}",
-    "d3-geo": "{{version}}",
-    "d3-scale": "{{version}}",
-    "d3-shape": "{{version}}",
-    "highcharts": "{{version}}",
+    "@dynatrace/barista-components": "^5.0.0",
+    "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
+    "@dynatrace/barista-icons": ">= 3.0.0 < 4",
+    "@types/highcharts": "^5.0.23",
+    "d3-scale": "^3.0.0",
+    "d3-shape": "^1.3.5",
+    "highcharts": "^6.0.7",
   },
 }
 `;

@@ -14,15 +14,42 @@
  * limitations under the License.
  */
 import { createTestCaseSetup } from '../../testing';
+import { write } from 'fs';
 
 export const migrationCollection = require.resolve('../../migration.json');
 
 describe('v5 dynatrace angular components imports', () => {
   it('should migrate root imports correctly', async () => {
-    const { runFixers, appTree, removeTempDir } = await createTestCaseSetup(
-      'update-5.0.0',
-      migrationCollection,
-      [require.resolve('./dt-iconpack-imports.fixture')],
+    const {
+      runFixers,
+      appTree,
+      writeFile,
+      removeTempDir,
+    } = await createTestCaseSetup('update-5.0.0', migrationCollection, []);
+
+    writeFile(
+      'projects/lib-testing/src/global.scss',
+      `@import 'normalize';
+    @import 'component-toolkit';
+    @import 'utils/animations';
+    @import 'utils/mixin-helpers';
+    @import 'utils/page-layout';
+
+    $fonts-path: '/ruxit/cache/fonts';
+    $fonts-dir: '/ruxit/cache/fonts';
+
+    @import '~@dynatrace/angular-components/style/main';
+    @import '~@dynatrace/angular-components/style/font-styles';
+
+    html {
+      /* APM-13030 */
+      scroll-behavior: smooth;
+    }
+
+    body {
+      /* APM-13030 */
+      background-color: $BACKGROUND_COLOR_LIGHT;
+    }`,
     );
 
     if (runFixers) {
@@ -30,9 +57,7 @@ describe('v5 dynatrace angular components imports', () => {
     }
 
     expect(
-      appTree.readContent(
-        'projects/lib-testing/src/tests/dt-iconpack-imports.ts',
-      ),
+      appTree.readContent('projects/lib-testing/src/global.scss'),
     ).toMatchSnapshot();
 
     removeTempDir();

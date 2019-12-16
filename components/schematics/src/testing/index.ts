@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-export * from './create-empty-workspace';
 export * from './run-schematic';
 export * from './fixture';
 export * from './test-app';

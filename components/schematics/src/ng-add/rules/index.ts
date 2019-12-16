@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export * from './rename-existing-imports';
-export * from './rewrite-angularjson-imports';
+export * from './update-workspace-rule';
+export * from './migrate-or-add-dependencies-rule';

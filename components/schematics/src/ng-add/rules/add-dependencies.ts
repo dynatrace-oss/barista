@@ -29,17 +29,17 @@ export function addDependencies(
   dependencies: NodeDependency[],
   packageJsonPath: string,
 ): Rule {
-  return (host: Tree) => {
+  return (tree: Tree) => {
     // if no dependencies are provided early exit
     if (!dependencies.length) {
-      return host;
+      return tree;
     }
 
     // loop over all dependencies and add them to the json.
     dependencies.forEach((dependency: NodeDependency) => {
       // add dependency to the package.json
-      addPkgJsonDependency(host, dependency, packageJsonPath);
+      addPkgJsonDependency(tree, dependency, packageJsonPath);
     });
-    return host;
+    return tree;
   };
 }

@@ -21,6 +21,7 @@ import { readJsonAsObjectFromTree, readFileFromTree } from '../utils';
 import { runSchematic, addFixtureToTree } from '../testing';
 import { Schema } from './schema';
 import { getWorkspace, updateWorkspace } from '../utils/workspace';
+import * as Rules from './rules';
 
 // used for mocking the externalSchematic function
 const devkitSchematics = require('@angular-devkit/schematics');
@@ -61,27 +62,19 @@ describe('ng-add schematic for dynatrace barista-components', () => {
       '/package.json',
     );
 
-    await testNgAdd(tree);
-    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchObject(
-      expect.objectContaining({
-        dependencies: {
-          '@dynatrace/barista-components': '5.0.0',
-        },
-      }),
-    );
+    await testNgAdd(tree, { project: undefined });
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
   });
 
   it('should add all the necessary peer dependencies if no barista or angular components are installed', async () => {
     await addFixtureToTree(tree, 'package-empty.json', '/package.json');
-
-    await testNgAdd(tree, { animations: false });
+    await testNgAdd(tree, { animations: false, project: undefined });
     expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
   });
 
   it('should add the `@angular/animations` package with the same version as the `@angular/core` package when specified', async () => {
     await addFixtureToTree(tree, 'package-empty.json', '/package.json');
-
-    await testNgAdd(tree);
+    await testNgAdd(tree, { project: undefined });
     expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
   });
 
@@ -92,7 +85,7 @@ describe('ng-add schematic for dynatrace barista-components', () => {
       '/package.json',
     );
 
-    await testNgAdd(tree, { animations: true });
+    await testNgAdd(tree, { animations: true, project: undefined });
 
     const packageJSON = readFileFromTree(tree, '/package.json');
 
@@ -108,7 +101,7 @@ describe('ng-add schematic for dynatrace barista-components', () => {
       '/package.json',
     );
 
-    await testNgAdd(tree);
+    await testNgAdd(tree, { project: undefined });
     expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
   });
 
@@ -120,6 +113,56 @@ describe('ng-add schematic for dynatrace barista-components', () => {
     );
 
     await addFixtureToTree(tree, 'angular-simple.json', '/angular.json');
+    await testNgAdd(tree, { project: 'myapp' });
+
+    expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchSnapshot();
+  });
+
+  it('should include main.scss in angular.json, when typography is set to false ', async () => {
+    await addFixtureToTree(
+      tree,
+      'package-animations-existing.json',
+      '/package.json',
+    );
+
+    await addFixtureToTree(tree, 'angular-simple.json', '/angular.json');
+    await testNgAdd(tree, { project: 'myapp', typography: false });
+
+    expect(
+      readJsonAsObjectFromTree<any>(tree, '/angular.json').projects.myapp
+        .architect.build.options.styles[0],
+    ).toMatch(/main\.scss$/);
+  });
+
+  it('should add styles correctly even if there is no styles array in the angular.json ', async () => {
+    await addFixtureToTree(
+      tree,
+      'package-animations-existing.json',
+      '/package.json',
+    );
+
+    await addFixtureToTree(
+      tree,
+      'angular-without-styles.json',
+      '/angular.json',
+    );
+    await testNgAdd(tree, { project: 'myapp' });
+
+    expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchSnapshot();
+  });
+
+  it('should not add styles and assets if he has a legacy version of the angular-components installed', async () => {
+    await addFixtureToTree(
+      tree,
+      'package-simple-migration.json',
+      '/package.json',
+    );
+
+    await addFixtureToTree(
+      tree,
+      'exisiting-legacy-angular.json',
+      '/angular.json',
+    );
     await testNgAdd(tree, { project: 'myapp' });
 
     expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchSnapshot();
