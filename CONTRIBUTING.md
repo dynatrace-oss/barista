@@ -48,7 +48,7 @@ Before you submit your pull request (PR) consider the following guidelines:
 - Push your branch to GitHub.
 - Create a new pull request from your branch against the master branch.
 - The PR must be reviewed by [@thomas.pink](https://github.com/thomaspink),
-  [@fabian.fiedl](https://github.com/ffriedl89) [@thomas.heller](https://github.com/tomheller) and/or
+  [@fabian.fiedl](https://github.com/ffriedl89), [@thomas.heller](https://github.com/tomheller) and/or
   [@lukas.holzer](https://github.com/lukasholzer). Other reviewers will be added
   depending on the owners-file or can be added optionally.
 - If we suggest changes then:
