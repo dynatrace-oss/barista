@@ -25,6 +25,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 /**
  * Provides basic expand/collaps functionality for
@@ -69,15 +70,15 @@ export class DtExpandableText {
 
   /** @internal Event emitted when text is expanded */
   // tslint:disable-next-line: dt-annotate-internal-fields
-  @Output('expanded') readonly _textExpanded = this.expandChanged.pipe(
-    filter(v => v),
-  );
+  @Output('expanded') readonly _textExpanded: Observable<
+    boolean
+  > = this.expandChanged.pipe(filter(v => v));
 
   /** @internal Event emitted when text is collapsed */
   // tslint:disable-next-line: dt-annotate-internal-fields
-  @Output('collapsed') readonly _textCollapsed = this.expandChanged.pipe(
-    filter(v => !v),
-  );
+  @Output('collapsed') readonly _textCollapsed: Observable<
+    boolean
+  > = this.expandChanged.pipe(filter(v => !v));
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 

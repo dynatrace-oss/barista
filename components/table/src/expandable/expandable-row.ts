@@ -42,7 +42,8 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+
+import { Observable, Subscription } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 
 import {
@@ -143,9 +144,9 @@ export class DtExpandableRow extends DtRow
     filter(changeEvent => changeEvent.row.expanded),
   );
   /** @internal Event emitted when the row is collapsed. */
-  @Output('collapsed') readonly _collapsedStream = this.expandChange.pipe(
-    filter(changeEvent => !changeEvent.row.expanded),
-  );
+  @Output('collapsed') readonly _collapsedStream: Observable<
+    DtExpandableRowChangeEvent
+  > = this.expandChange.pipe(filter(changeEvent => !changeEvent.row.expanded));
 
   @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
 
