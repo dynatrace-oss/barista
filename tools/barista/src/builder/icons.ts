@@ -26,6 +26,9 @@ import {
   BaSinglePageContent,
   BaIconOverviewItem,
 } from '@dynatrace/barista-components/barista-definitions';
+import { environment } from 'tools/environments/barista-environment';
+import { isPublicBuild } from 'tools/util/is-public-build';
+
 import { BaIconMetadata, BaIconsChangelog } from '../types';
 
 import {
@@ -34,20 +37,11 @@ import {
   transformPage,
 } from '../transform';
 import { convertJsonChangelogToMarkdown } from '../utils/convert-json-changelog-to-markdown';
-import { isPublicBuild } from '../utils/is-public-build';
 
 const TRANSFORMERS: BaPageTransformer[] = [
   markdownToHtmlTransformer,
   extractH1ToTitleTransformer,
 ];
-
-const ICONS_ROOT =
-  process.env.ICONS_ROOT || join(__dirname, '../../../../barista-icons/src');
-const CHANGELOG_SRC = join(
-  ICONS_ROOT,
-  '../_build/barista-icons/_templates',
-  `CHANGELOG${isPublicBuild() ? '-public' : ''}.json`,
-);
 
 /**
  * Map mode entry of changelog template to action description for the changelog to be displayed.
@@ -70,7 +64,12 @@ function getIconFilesByPath(rootPath: string): string[] {
  * Get the changelog template containing all changes for each icon sorted by iconpack version.
  */
 function getChangelogTemplate(): BaIconsChangelog {
-  const changelogContent = readFileSync(CHANGELOG_SRC).toString();
+  if (!existsSync(environment.iconsChangelogFileName)) {
+    return {};
+  }
+  const changelogContent = readFileSync(environment.iconsChangelogFileName, {
+    encoding: 'utf-8',
+  });
   return JSON.parse(changelogContent);
 }
 
@@ -123,7 +122,7 @@ function getIconChangelogHtml(
  * Get only the <svg> part of the file and remove fill attributes.
  */
 function getSvgWithoutFill(filePath: string): string {
-  const iconSvg = readFileSync(filePath).toString();
+  const iconSvg = readFileSync(filePath, { encoding: 'utf-8' });
   const cheerioIcon = loadWithCheerio(iconSvg);
   const svg = cheerioIcon('svg');
   svg.removeAttr('fill');
@@ -132,19 +131,26 @@ function getSvgWithoutFill(filePath: string): string {
 }
 
 export const iconsBuilder: BaPageBuilder = async () => {
-  if (!existsSync(ICONS_ROOT)) {
+  if (!existsSync(environment.iconsRoot)) {
     return [];
   }
 
   const changelogTemplate = getChangelogTemplate();
-  const iconFilePaths = getIconFilesByPath(ICONS_ROOT);
+  const iconFilePaths = getIconFilesByPath(environment.iconsRoot);
   const transformed: BaPageBuildResult[] = [];
   const iconOverviewData: BaIconOverviewItem[] = [];
 
   for (const filePath of iconFilePaths) {
     const iconName = basename(filePath, '.svg');
+    const metadataPath = join(environment.iconsRoot, `${iconName}.json`);
+
+    // Skip icons without metadata
+    if (!existsSync(metadataPath)) {
+      console.log(`No metadata available for icon ${iconName}.`);
+      continue;
+    }
     const metadata: BaIconMetadata = JSON.parse(
-      readFileSync(join(ICONS_ROOT, `${iconName}.json`)).toString(),
+      readFileSync(metadataPath, { encoding: 'utf-8' }),
     );
 
     // Skip non-public icons on public build.

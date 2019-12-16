@@ -17,6 +17,7 @@
 import { lstatSync, readdirSync } from 'fs';
 import { join } from 'path';
 import { bold, green } from 'chalk';
+import { environment } from 'tools/environments/barista-environment';
 import {
   getExamplePackageMetadata,
   ExamplePackageMetadata,
@@ -26,14 +27,13 @@ import { generateExamplesLibBarrelFile } from './generate-examples-lib-barrel';
 import { generateExamplesLibModule } from './generate-examples-lib-module';
 import { generateDemosAppRoutingModule } from './generate-routing-module';
 import { generateDemosAppNavItems } from './generate-nav-items';
-import { buildConfig } from './build-config';
 import { generateExamplesLibMetadataFile } from './generate-examples-lib-metadata';
 
 /** Collect all files containing examples in the demos app. */
 async function getExamplesInPackages(): Promise<ExamplePackageMetadata[]> {
   return (await Promise.all(
-    readdirSync(buildConfig.examplesLibDir)
-      .map(name => join(buildConfig.examplesLibDir, name))
+    readdirSync(environment.examplesLibDir)
+      .map(name => join(environment.examplesLibDir, name))
       .filter(dir => lstatSync(dir).isDirectory())
       .map(dir => getExamplePackageMetadata(dir)),
   )).filter(Boolean) as ExamplePackageMetadata[];
@@ -60,28 +60,28 @@ async function main(): Promise<void> {
   console.log(`Generating examples lib barrel file`);
   const rootBarrelFile = await generateExamplesLibBarrelFile(
     packageMetas,
-    buildConfig.examplesLibDir,
+    environment.examplesLibDir,
   );
   console.log(green(`  ✓   Created "${rootBarrelFile}"`));
 
   console.log(`Generating examples lib module file`);
   const demosModuleFile = await generateExamplesLibModule(
     packageMetas,
-    buildConfig.examplesLibDir,
+    environment.examplesLibDir,
   );
   console.log(green(`  ✓   Created "${demosModuleFile}"`));
 
   console.log(`Generating demos app routes & routing module`);
   const routingModule = await generateDemosAppRoutingModule(
     examples,
-    buildConfig.demosAppDir,
+    environment.demosAppDir,
   );
   console.log(green(`  ✓   Created "${routingModule}"`));
 
   console.log(`Generating nav-items for the demos app menu`);
   const navItemsFile = await generateDemosAppNavItems(
     packageMetas,
-    buildConfig.demosAppDir,
+    environment.demosAppDir,
   );
   console.log(green(`  ✓   Created "${navItemsFile}"`));
 

@@ -27,11 +27,17 @@ node dist/tools/barista/main.js
 
 ### Environment variables
 
-- `PUBLIC_BUILD` (optional): whether the build should only output public pages
+- `PUBLIC_BUILD` (optional): whether the build should only output public pages;
+  must be explicitly set to `false` to build the internal Barista version
 - `STRAPI_ENDPOINT`: the CMS endpoint
 - `INTERNAL_LINKS`: (parts of) internal links that should be removed from the
   content on public build; separated by `,` (is transformed to the following
   selector or a list of selectors: `a[href*="<internal-link>"]`)
+
+### Configurable directories (optional)
+
+The environment config files located in `tools/environments` are used to
+configure input/output directories of the page builder.
 
 ### Using Docker
 

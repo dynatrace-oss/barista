@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
+import { isPublicBuild } from 'tools/util/is-public-build';
+import { environment } from 'tools/environments/barista-environment';
 import {
   fetchContentList,
   fetchContentItemById,
 } from '../utils/fetch-strapi-content';
-import { isPublicBuild } from '../utils/is-public-build';
 
 import {
   BaPageBuildResult,
@@ -28,8 +29,6 @@ import {
   BaIndexPageContent,
   BaStrapiCTA,
 } from '@dynatrace/barista-components/barista-definitions';
-
-const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
 
 const TILES_MOSTORDERED = [
   {
@@ -77,11 +76,11 @@ export const homepageBuilder: BaPageBuilder = async () => {
   let pageTeaserData;
   let homepageCTA;
 
-  if (STRAPI_ENDPOINT) {
+  if (environment.strapiEndpoint) {
     pageTeaserData = await fetchContentList<BaStrapiPageTeaser>(
       BaStrapiContentType.Pageteasers,
       { publicContent: false }, // always false because pageteasers don't have a public flag
-      STRAPI_ENDPOINT,
+      environment.strapiEndpoint,
     );
 
     // Filter page teasers that link to internal pages.
@@ -100,7 +99,7 @@ export const homepageBuilder: BaPageBuilder = async () => {
       BaStrapiContentType.CTAs,
       '1',
       { publicContent: isPublicBuild() },
-      STRAPI_ENDPOINT,
+      environment.strapiEndpoint,
     );
   }
 

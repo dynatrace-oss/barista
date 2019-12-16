@@ -15,9 +15,9 @@
  */
 
 import { promises as fs } from 'fs';
-import { ExampleMetadata } from './metadata';
 import { relative, extname } from 'path';
-import { buildConfig } from './build-config';
+import { environment } from 'tools/environments/barista-environment';
+import { ExampleMetadata } from './metadata';
 
 /**
  * Reads a provided template file, transforms its content
@@ -53,7 +53,7 @@ export function getExampleImportsFromMetadata(
   const exampleImports = new Map<string, string[]>();
   for (const metadataObj of examplesMetadata) {
     let importPath = relative(
-      buildConfig.examplesLibDir,
+      environment.examplesLibDir,
       metadataObj.tsFileLocation,
     );
     if (!importPath.startsWith('../')) {
