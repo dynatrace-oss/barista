@@ -103,13 +103,39 @@ cases this would be the component name. For example select, button, etc.
 
 ### Message
 
+**Subject**  
 The commit message should describe the problem it solves or the feature it
 introduces. Not the changes you have done. Furthermore the commit message has to
 start with an uppercase letter and ends with a stop.
 
-### Example
+**Body**  
+The body should include the motivation for the change and contrast this with
+previous behavior.
 
-`feat(filter-field): Added node removal on backspace.`
+**Footer**  
+The footer should contain any information about Breaking Changes and is also the
+place to reference GitHub issues that this commit closes.
+
+Breaking Changes should start with the word BREAKING CHANGE: with a space or two
+newlines. The rest of the commit message is then used for this.
+
+### Examples
+
+```
+feat(filter-field): Added node removal on backspace.
+```
+
+```
+fix(button): Fixes an issue where theming was not applied initially.
+
+Closes #28
+```
+
+```
+perf(filter-field): Removed deprecated sorting input for better performance.
+
+BREAKING CHANGE: The sorting input has been removed. The default sorting is used for performance reasons.
+```
 
 ## Breaking changes
 
@@ -124,4 +150,5 @@ the following guidelines:
     export const DT_SOME_OPTION = {};
   ```
 - If you cannot deprecate, apply this breaking change, and commit it with the
-  `BREAKING CHANGE` label (all uppercase) in the commit message!
+  `BREAKING CHANGE` label (all uppercase) and a description in the commit
+  message footer (see Commit message footer section)!
