@@ -28,6 +28,7 @@ import {
 import { EXAMPLES_MAP } from '@dynatrace/barista-components/examples';
 import { createComponent } from '../../utils/create-component';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BehaviorSubject, timer, Subscription } from 'rxjs';
 
 @Component({
   selector: 'ba-live-example',
@@ -113,8 +114,19 @@ export class BaLiveExample implements OnDestroy {
    */
   _activeTab: 'html' | 'ts' | 'scss';
 
+  /** @internal Whether the source code is hidden. */
+  _sourceHidden = false;
+
+  /** @internal Whether the source code is expanded to its max height. */
+  _isExpanded = false;
+
   /** Whether the user has changed the active tab. */
   private _activeTabChanged = false;
+
+  /** @internal Whether the source code has been copied. */
+  _copied$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+  private _timerSubscription = Subscription.EMPTY;
 
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
@@ -126,6 +138,7 @@ export class BaLiveExample implements OnDestroy {
     if (this._componentRef) {
       this._componentRef.destroy();
     }
+    this._timerSubscription.unsubscribe();
   }
 
   /** Whether one of the three sources has been set. */
@@ -136,6 +149,57 @@ export class BaLiveExample implements OnDestroy {
   _setActiveTab(tab: 'html' | 'ts' | 'scss'): void {
     this._activeTab = tab;
     this._activeTabChanged = true;
+  }
+
+  private _createTextArea(value: string): HTMLTextAreaElement {
+    const textarea = document.createElement('textarea');
+    textarea.style.position = 'absolute';
+    textarea.style.right = '0';
+    textarea.style.left = '0';
+    textarea.style.padding = '0';
+    textarea.style.border = 'none';
+    textarea.style.background = 'transparent';
+    textarea.style.width = '1px';
+    textarea.style.height = '1px';
+    textarea.value = value;
+    document.body.append(textarea);
+    return textarea;
+  }
+
+  /** @internal Copies content of currently active tab to clipboard. */
+  _copyToClipboard(): void {
+    if (document) {
+      let copyText;
+      switch (this._activeTab) {
+        case 'html':
+          copyText = this._templateSource;
+          break;
+        case 'ts':
+          copyText = this._classSource;
+          break;
+        case 'scss':
+          // TODO: copyText = this._scssSource;
+          break;
+      }
+
+      if (copyText) {
+        const textarea = this._createTextArea(copyText);
+        textarea.select();
+        const copyResult = document.execCommand('copy');
+        document.body.removeChild(textarea);
+
+        if (copyResult) {
+          this._copySuccess();
+        }
+      }
+    }
+  }
+
+  private _copySuccess(): void {
+    this._copied$.next(true);
+    this._timerSubscription = timer(1000).subscribe(() =>
+      this._copied$.next(false),
+    );
   }
 
   private _initExample(): void {
