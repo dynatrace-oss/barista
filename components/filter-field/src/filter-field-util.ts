@@ -340,29 +340,12 @@ export function findFilterValuesForSources<T>(
   const foundValues: DtFilterValue[] = [];
   let parentDef = rootDef;
 
-  // @breaking-change 5.0.0 Remove the following function and
-  // call the method `transformObject` on the data source directly.
-  const dataSourceTransformFn: (
-    // tslint:disable-next-line: no-any
-    data: any | null,
-    parent: DtNodeDef | null,
-  ) => DtNodeDef | null =
-    // tslint:disable-next-line: no-string-literal
-    typeof dataSource['transformObject'] === 'function'
-      ? // tslint:disable-next-line: no-string-literal no-any
-        (...args: any[]) => dataSource['transformObject'](...args)
-      : () => null;
-
-  if (!sources.length) {
-    return null;
-  }
-
   for (let i = 0; i < sources.length; i++) {
     const source = sources[i];
     const isLastSource = i + 1 === sources.length;
     const def =
       findDefForSource(source, parentDef) ||
-      dataSourceTransformFn(source, parentDef);
+      dataSource.transformObject(source, parentDef);
 
     if (
       isLastSource &&
