@@ -163,12 +163,22 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
         offsetX = offsetX - (hostLeft - this._svgRect.left);
         offsetY = offsetY - (hostTop - this._svgRect.top);
       }
-      if (event.target !== host) {
+      if (target !== host && target instanceof HTMLElement) {
         const targetRect = target.getBoundingClientRect();
         const targetLeft = targetRect.left;
         const targetTop = targetRect.top;
         offsetX = targetLeft - hostLeft + offsetX;
         offsetY = targetTop - hostTop + offsetY;
+      }
+      // Run a special case, if the target is an SVG.
+      // Firefox gives back offsetX and offsetY when hovering on svgShapeElements
+      // that are relating to the viewBox of the root svg.
+      // We need to fall back to other ways of calculating the offset
+      // positioning, as there is no consistency across browser vendors
+      // on how they calculate offsetX and offsetY within svgShapeElements.
+      if (target !== host && target instanceof SVGElement) {
+        offsetX = event.clientX - hostLeft;
+        offsetY = event.clientY - hostTop;
       }
       this._dtOverlayRef.updatePosition(offsetX, offsetY);
     }
