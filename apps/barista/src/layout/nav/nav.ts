@@ -32,8 +32,11 @@ const CONTENT_PATH_PREFIX = 'data/';
   },
 })
 export class BaNav {
-  /** Data needed to render the navigation. */
+  /** @internal Data needed to render the navigation. */
   _navData$: Observable<any>;
+
+  /** @internal whether the menu is shown in the mobile version */
+  _showMenu = false;
 
   /** @internal the current root url */
   _pathRoot$ = this._locationService.currentPath$.pipe(
