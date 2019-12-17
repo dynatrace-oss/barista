@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`v5 dynatrace angular components imports should update deprecated mixin selectors 1`] = `
+"import '~@dynatrace/barista-components/styles/mixins'
+
+.class1 {
+  @include dt-button-child-button-spacing();
+  background: red;
+}
+
+.class7 {
+  @include dt-label-font();
+  background: red;
+}
+
+.class2 {
+  @include dt-default-font();
+  background: red;
+}
+
+.class3 {
+  @include dt-h1-font();
+  background: red;
+}
+
+.class4 {
+  @include dt-h2-font();
+  background: red;
+}
+
+.class5 {
+  @include dt-h3-font();
+  background: red;
+}
+
+.class6 {
+  @include dt-code-font();
+  background: red;
+}
+
+.class7 {
+  @include dt-label-font();
+  background: red;
+}
+"
+`;
+
+exports[`v5 dynatrace angular components imports should update the styles imports and selectors correctly 1`] = `
+"@import 'normalize';
+    @import 'component-toolkit';
+    @import 'utils/animations';
+    @import 'utils/mixin-helpers';
+    @import 'utils/page-layout';
+
+    $fonts-path: '/ruxit/cache/fonts';
+    $fonts-dir: '/ruxit/cache/fonts';
+
+    @import '~@dynatrace/barista-components/style/main';
+    
+    html {
+      /* APM-13030 */
+      scroll-behavior: smooth;
+    }
+
+    body {
+      /* APM-13030 */
+      background-color: $BACKGROUND_COLOR_LIGHT;
+    }"
+`;

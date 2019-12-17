@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Rule } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, chain } from '@angular-devkit/schematics';
 import {
   createUpgradeRule,
   RuleUpgradeData,
@@ -21,25 +21,18 @@ import {
 } from '@angular/cdk/schematics';
 import { green, yellow } from 'chalk';
 import { DtTargetVersion } from './migration-rule';
-import { SecondaryEntryPointsRule, IconpackImportsRule } from './update-5.0.0';
+import {
+  SecondaryEntryPointsRule,
+  IconpackImportsRule,
+  removeCssSelectors,
+} from './update-5.0.0';
 
 /** Data that can be populated for each version upgrade with changes that can be done automatically */
 const defaultUpgradeData: RuleUpgradeData = {
   attributeSelectors: {},
   classNames: {},
   constructorChecks: {},
-  cssSelectors: {
-    [(DtTargetVersion.V5 as unknown) as TargetVersion]: [
-      {
-        changes: [
-          {
-            replace: '~@dynatrace/angular-components/',
-            replaceWith: '~@dynatrace/barista-components/',
-          },
-        ],
-      },
-    ],
-  },
+  cssSelectors: {},
   elementSelectors: {},
   inputNames: {},
   methodCallChecks: {},
@@ -49,12 +42,15 @@ const defaultUpgradeData: RuleUpgradeData = {
 
 /** Entry point for the migration schematics with target of Dynatrace Barista components v5 */
 export function updateToV5(): Rule {
-  return createUpgradeRule(
-    (DtTargetVersion.V5 as unknown) as TargetVersion,
-    [SecondaryEntryPointsRule, IconpackImportsRule],
-    defaultUpgradeData,
-    onMigrationComplete,
-  );
+  return chain([
+    removeCssSelectors(),
+    createUpgradeRule(
+      (DtTargetVersion.V5 as unknown) as TargetVersion,
+      [SecondaryEntryPointsRule, IconpackImportsRule],
+      defaultUpgradeData,
+      onMigrationComplete,
+    ),
+  ]);
 }
 
 /** Function that will be called when the migration completed. */

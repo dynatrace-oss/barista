@@ -19,26 +19,10 @@ import {
   Rule,
   Tree,
   chain,
-  externalSchematic,
-  noop,
 } from '@angular-devkit/schematics';
 import { Schema, ExtendedSchema } from './schema';
-import {
-  readFileFromTree,
-  getPackageVersionFromPackageJson,
-  readJsonAsObjectFromTree,
-  findJsonPropertyInAst,
-  readJsonFromTree,
-} from '../utils';
-import { removeDependencies } from './rules/remove-dependencies';
-import { addDependencies } from './rules/add-dependencies';
-import { NodeDependency } from './rules/add-package-json-dependency';
-import { join } from 'path';
-import { updateWorkspace } from '../utils/workspace';
-import {
-  PackageJson,
-  PackageJsonDependency,
-} from '../interfaces/package-json.interface';
+import { readFileFromTree, readJsonAsObjectFromTree } from '../utils';
+import { PackageJson } from '../interfaces/package-json.interface';
 import { updateWorkspaceRule } from './rules/update-workspace-rule';
 import { migrateOrAddDependenciesRule } from './rules/migrate-or-add-dependencies-rule';
 import { updateNgModuleRule } from './rules/update-ng-module-rule';

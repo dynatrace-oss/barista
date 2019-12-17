@@ -95,10 +95,10 @@ export function migrateOrAddDependenciesRule(options: ExtendedSchema): Rule {
 }
 
 /** Check filesystem for imports of dynatrace/angular-components and rename then to barista-components */
-function migrateToVersion5(options: ExtendedSchema): Rule {
+function migrateToVersion5(_options: ExtendedSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
-    const collectionPath = join(__dirname, '../../collection.json');
+    const collectionPath = join(__dirname, '../../../collection.json');
     // run external migration schematics
     rules.push(externalSchematic(collectionPath, 'update-5.0.0', {}));
 

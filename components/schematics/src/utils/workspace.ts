@@ -69,6 +69,7 @@ export function updateWorkspace(
 
       const result = updaterOrWorkspace(workspace);
       if (result !== undefined) {
+        // tslint:disable-next-line: await-promise
         await result;
       }
 

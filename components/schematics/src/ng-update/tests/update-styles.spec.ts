@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 import { createTestCaseSetup } from '../../testing';
-import { write } from 'fs';
 
 export const migrationCollection = require.resolve('../../migration.json');
 
 describe('v5 dynatrace angular components imports', () => {
-  it('should migrate root imports correctly', async () => {
+  it('should update the styles imports and selectors correctly', async () => {
     const {
       runFixers,
       appTree,
@@ -58,6 +57,72 @@ describe('v5 dynatrace angular components imports', () => {
 
     expect(
       appTree.readContent('projects/lib-testing/src/global.scss'),
+    ).toMatchSnapshot();
+
+    removeTempDir();
+  });
+
+  it('should update deprecated mixin selectors', async () => {
+    const {
+      runFixers,
+      appTree,
+      writeFile,
+      removeTempDir,
+    } = await createTestCaseSetup('update-5.0.0', migrationCollection, []);
+
+    writeFile(
+      'projects/lib-testing/src/main.scss',
+      `import '~@dynatrace/angular-components/styles/mixins'
+@import '~@dynatrace/barista-components/style/font-styles';
+
+.class1 {
+  @include dt-card-actions-spacing();
+  background: red;
+}
+
+.class7 {
+  @include label-font();
+  background: red;
+}
+
+.class2 {
+  @include default-font();
+  background: red;
+}
+
+.class3 {
+  @include h1-font();
+  background: red;
+}
+
+.class4 {
+  @include h2-font();
+  background: red;
+}
+
+.class5 {
+  @include h3-font();
+  background: red;
+}
+
+.class6 {
+  @include code-font();
+  background: red;
+}
+
+.class7 {
+  @include label-font();
+  background: red;
+}
+`,
+    );
+
+    if (runFixers) {
+      await runFixers();
+    }
+
+    expect(
+      appTree.readContent('projects/lib-testing/src/main.scss'),
     ).toMatchSnapshot();
 
     removeTempDir();
