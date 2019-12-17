@@ -9,16 +9,21 @@
   </a>
   <div class="ba-nav-buttongroup">
     <!-- search? -->
-    <button data-target="#ba-nav-bar" class="ba-nav-btn ba-nav-btn-menutoggle">
+    <button
+      data-target="#ba-nav-bar"
+      class="ba-nav-btn ba-nav-btn-menutoggle"
+      (click)="_showMenu = !_showMenu"
+    >
       Menu
     </button>
   </div>
-  <nav id="ba-nav-bar" class="ba-nav-bar">
+  <nav id="ba-nav-bar" class="ba-nav-bar" [class.ba-nav-bar-active]="_showMenu">
     <ul class="ba-nav-list">
       <li
         class="ba-nav-item"
         *ngFor="let item of (_navData$ | async)?.navItems"
         [class.ba-nav-item-active]="(_pathRoot$ | async) === _getUrlRootPath(item.url)"
+        (click)="_showMenu = false"
       >
         <a class="ba-nav-link" [href]="item.url">{{ item.label }}</a>
       </li>
