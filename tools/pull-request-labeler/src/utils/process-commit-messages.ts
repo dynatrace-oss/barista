@@ -90,7 +90,7 @@ export function processCommitMessages(
     if (hasBreakingCommits) {
       // The pull request contains breaking changes, it should be
       targets.push('target: major');
-    } else if (hasFeatureCommits || !hasFixCommits) {
+    } else if (hasFeatureCommits && !hasFixCommits) {
       targets.push('target: minor');
     } else if (hasFixCommits) {
       targets.push('target: minor', 'target: patch');
