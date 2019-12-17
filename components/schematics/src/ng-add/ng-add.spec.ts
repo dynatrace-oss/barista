@@ -135,7 +135,7 @@ describe('Migrate existing angular-components to barista components', () => {
     ).toMatchSnapshot();
   });
 
-  it.only('should update the legacy angular json', async () => {
+  it('should update the legacy angular json', async () => {
     await testNgAdd(tree, { project: 'myapp' });
 
     expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchSnapshot();
