@@ -24,20 +24,38 @@ import {
   ViewContainerRef,
   ComponentRef,
   OnDestroy,
+  ViewEncapsulation,
 } from '@angular/core';
-import { EXAMPLES_MAP } from '@dynatrace/barista-components/examples';
-import { createComponent } from '../../utils/create-component';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Platform } from '@angular/cdk/platform';
+import { EXAMPLES_MAP } from '@dynatrace/barista-components/examples';
 import { BehaviorSubject, timer, Subscription } from 'rxjs';
+import {
+  Highlighter,
+  registerLanguages,
+  htmlRender,
+  init,
+  process,
+  TypeScript,
+  XML,
+} from 'highlight-ts';
+
+import { createComponent } from '../../utils/create-component';
+import { createInputElement } from '../../utils/create-input-element';
+import { wrapCodeLines } from '../../utils/wrap-code-lines';
+
+type BaSourceType = 'html' | 'ts' | 'scss';
 
 @Component({
   selector: 'ba-live-example',
   templateUrl: 'live-example.html',
   styleUrls: ['live-example.scss'],
   host: {
+    class: 'ba-live-example',
     '[class.ba-live-example-dark]': 'themedark',
     '[class.ba-live-example-full-width]': 'fullwidth',
   },
+  encapsulation: ViewEncapsulation.None,
 })
 export class BaLiveExample implements OnDestroy {
   /** The name of the example (class name) that will be instantiated. */
@@ -81,6 +99,7 @@ export class BaLiveExample implements OnDestroy {
     if (!this._activeTabChanged) {
       this._activeTab = 'html';
     }
+    this._enhancedTemplateSource = this._enhanceCode(value, 'html');
   }
   private _templateSource: string;
 
@@ -94,6 +113,7 @@ export class BaLiveExample implements OnDestroy {
     if (!this._activeTabChanged && !this._activeTab) {
       this._activeTab = 'ts';
     }
+    this._enhancedClassSource = this._enhanceCode(value, 'ts');
   }
   private _classSource: string;
 
@@ -112,7 +132,7 @@ export class BaLiveExample implements OnDestroy {
    * @internal
    * The currently active tab for displaying a source (html, ts or scss).
    */
-  _activeTab: 'html' | 'ts' | 'scss';
+  _activeTab: BaSourceType;
 
   /** @internal Whether the source code is hidden. */
   _sourceHidden = false;
@@ -120,19 +140,32 @@ export class BaLiveExample implements OnDestroy {
   /** @internal Whether the source code is expanded to its max height. */
   _isExpanded = false;
 
-  /** Whether the user has changed the active tab. */
-  private _activeTabChanged = false;
-
   /** @internal Whether the source code has been copied. */
   _copied$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  /** @internal Enhanced template source with line wrappers and code highlighting. */
+  _enhancedTemplateSource: string;
+
+  /** @internal Enhanced class source with line wrappers and code highlighting. */
+  _enhancedClassSource: string;
+
   private _timerSubscription = Subscription.EMPTY;
+
+  /** Whether the user has changed the active tab. */
+  private _activeTabChanged = false;
+
+  /** Highlighter for highlight-ts syntax highlighting. */
+  private _highlighter: Highlighter<string>;
 
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _injector: Injector,
     private _viewContainerRef: ViewContainerRef,
-  ) {}
+    private _platform: Platform,
+  ) {
+    registerLanguages(TypeScript, XML);
+    this._highlighter = init(htmlRender);
+  }
 
   ngOnDestroy(): void {
     if (this._componentRef) {
@@ -141,34 +174,20 @@ export class BaLiveExample implements OnDestroy {
     this._timerSubscription.unsubscribe();
   }
 
-  /** Whether one of the three sources has been set. */
+  /** @internal Whether one of the three sources has been set. */
   _hasSources(): boolean {
     return Boolean(this.classSource || this.templateSource);
   }
 
-  _setActiveTab(tab: 'html' | 'ts' | 'scss'): void {
+  /** @internal Sets the active tab. */
+  _setActiveTab(tab: BaSourceType): void {
     this._activeTab = tab;
     this._activeTabChanged = true;
   }
 
-  private _createTextArea(value: string): HTMLTextAreaElement {
-    const textarea = document.createElement('textarea');
-    textarea.style.position = 'absolute';
-    textarea.style.right = '0';
-    textarea.style.left = '0';
-    textarea.style.padding = '0';
-    textarea.style.border = 'none';
-    textarea.style.background = 'transparent';
-    textarea.style.width = '1px';
-    textarea.style.height = '1px';
-    textarea.value = value;
-    document.body.append(textarea);
-    return textarea;
-  }
-
   /** @internal Copies content of currently active tab to clipboard. */
   _copyToClipboard(): void {
-    if (document) {
+    if (this._platform.isBrowser) {
       let copyText;
       switch (this._activeTab) {
         case 'html':
@@ -183,7 +202,8 @@ export class BaLiveExample implements OnDestroy {
       }
 
       if (copyText) {
-        const textarea = this._createTextArea(copyText);
+        const textarea = createInputElement(copyText, 'textarea');
+        document.body.append(textarea);
         textarea.select();
         const copyResult = document.execCommand('copy');
         document.body.removeChild(textarea);
@@ -193,13 +213,6 @@ export class BaLiveExample implements OnDestroy {
         }
       }
     }
-  }
-
-  private _copySuccess(): void {
-    this._copied$.next(true);
-    this._timerSubscription = timer(1000).subscribe(() =>
-      this._copied$.next(false),
-    );
   }
 
   private _initExample(): void {
@@ -216,5 +229,35 @@ export class BaLiveExample implements OnDestroy {
         true,
       );
     }
+  }
+
+  /**
+   * Updates value of behavior subject after
+   * successful copy to clipboard action.
+   */
+  private _copySuccess(): void {
+    this._copied$.next(true);
+    this._timerSubscription = timer(1000).subscribe(() =>
+      this._copied$.next(false),
+    );
+  }
+
+  /**
+   * Transforms given code by replacing empty lines,
+   * and wrapping each line in a span element.
+   */
+  private _enhanceCode(code: string, type: BaSourceType): string {
+    // Remove empty lines at the start of the source
+    let transformedCode = code.replace(/^(\s*\r?\n)*/g, '');
+    // Remove empty lines at the end of the source
+    transformedCode = transformedCode.replace(/(\r?\n\s*)*$/g, '');
+
+    // highlight-ts needs 'xml' as type instead of 'html'
+    const highlightType = type === 'html' ? 'xml' : type;
+    // Add syntax highlighting using highlight-ts
+    transformedCode = process(this._highlighter, transformedCode, highlightType)
+      .value;
+
+    return wrapCodeLines(transformedCode, 'ba-live-example-code-line');
   }
 }

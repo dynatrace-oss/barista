@@ -44,19 +44,16 @@
       [disabled]="_sourceHidden"
       (click)="_copyToClipboard()"
     >
-      <dt-icon *ngIf="!(_copied$ | async)" name="reports"></dt-icon>
+      <dt-icon *ngIf="(_copied$ | async) === false" name="reports"></dt-icon>
       <dt-icon *ngIf="(_copied$ | async)" name="checkmark"></dt-icon>
     </button>
     <button
       title="Expand source code"
-      role="button"
-      type="button"
       class="ba-live-example-control"
       (click)="_isExpanded = !_isExpanded"
       [class.ba-live-example-control-expanded]="_isExpanded"
       [disabled]="_sourceHidden"
     >
-      <!-- TODO: determine if code is expandable, disable if not ==> [disabled]="!_activeTab?.expandable"-->
       <dt-icon name="dropdownopen"></dt-icon>
     </button>
   </div>
@@ -70,9 +67,9 @@
   <pre
     class="ba-live-example-template-source"
     *ngIf="templateSource && _activeTab === 'html'"
-  ><code>{{templateSource}}</code></pre>
+  ><code [innerHTML]="_enhancedTemplateSource"></code></pre>
   <pre
     class="ba-live-example-class-source"
     *ngIf="classSource && _activeTab === 'ts'"
-  ><code>{{classSource}}</code></pre>
+  ><code [innerHTML]="_enhancedClassSource"></code></pre>
 </div>

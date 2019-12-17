@@ -1,16 +1,18 @@
 @import 'colors';
+@import '../../styles/global/variables';
 $code-font-size: 14px;
 
-:host {
+.ba-live-example {
   display: block;
   width: 100%;
+  max-width: $max-text-width;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
 
-  --max-lines: 12;
+  --max-lines: 10.5;
 }
 
-:host.ba-live-example-full-width {
+.ba-live-example.ba-live-example-full-width {
   max-width: 100%;
   width: 100%;
 }
@@ -24,7 +26,7 @@ $code-font-size: 14px;
   border-top-right-radius: 3px;
 }
 
-:host.ba-live-example-dark .ba-live-example-demo {
+.ba-live-example.ba-live-example-dark .ba-live-example-demo {
   background-color: $gray-860;
   color: #fff;
 }
@@ -54,7 +56,7 @@ $code-font-size: 14px;
   padding: 0.5rem 1.2rem;
   margin: 0;
 
-  ::ng-deep svg {
+  svg {
     width: 20px;
     height: 20px;
     fill: $royalblue-600;
@@ -66,7 +68,7 @@ $code-font-size: 14px;
   cursor: pointer;
   background-color: #ccc;
 
-  ::ng-deep svg {
+  svg {
     fill: $royalblue-700;
   }
 }
@@ -74,7 +76,7 @@ $code-font-size: 14px;
 .ba-live-example-control[disabled] {
   pointer-events: none;
 
-  ::ng-deep svg {
+  svg {
     fill: $gray-300;
   }
 }
@@ -85,7 +87,7 @@ $code-font-size: 14px;
   cursor: default;
 }
 
-.ba-live-example-control-expanded ::ng-deep svg {
+.ba-live-example-control-expanded svg {
   transform: rotate(-180deg);
 }
 
@@ -135,7 +137,12 @@ $code-font-size: 14px;
 }
 
 .ba-live-example-sources {
+  counter-reset: codelines;
   font-size: $code-font-size;
+
+  code {
+    white-space: pre;
+  }
 }
 
 .ba-live-example-template-source,
@@ -158,4 +165,15 @@ $code-font-size: 14px;
   .ba-live-example-class-source {
     max-height: none;
   }
+}
+
+.ba-live-example-code-line::before {
+  counter-increment: codelines;
+  content: counter(codelines);
+  font-family: 'Bitstream Vera', monospace;
+  color: $gray-500;
+  text-align: right;
+  display: inline-block;
+  width: 20px;
+  margin-right: 16px;
 }
