@@ -11,6 +11,11 @@
         "$source": "projectName"
       }
     },
+    "module": {
+      "type": "string",
+      "subtype": "filepath",
+      "description": "The path to the NgModule where the imports will be registered"
+    },
     "animations": {
       "type": "boolean",
       "default": true,

@@ -41,6 +41,7 @@ import {
 } from '../interfaces/package-json.interface';
 import { updateWorkspaceRule } from './rules/update-workspace-rule';
 import { migrateOrAddDependenciesRule } from './rules/migrate-or-add-dependencies-rule';
+import { updateNgModuleRule } from './rules/update-ng-module-rule';
 
 /**
  * Schematic factory entry-point for the `ng-add` schematic. The ng-add schematic will be
@@ -65,6 +66,7 @@ export default function(options: Schema): Rule {
     const rule = chain([
       migrateOrAddDependenciesRule(extendedOptions),
       updateWorkspaceRule(extendedOptions),
+      updateNgModuleRule(extendedOptions),
     ]);
 
     return rule(tree, context);

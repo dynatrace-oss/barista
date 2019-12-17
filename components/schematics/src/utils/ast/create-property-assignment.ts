@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-export * from './add-import-to-source-file';
-export * from './create-import-declaration';
-export * from './create-property-assignment';
-export * from './create-string-literal';
-export * from './find-nodes';
-export * from './get-symbol-name';
-export * from './has-export-modifier';
-export * from './print-node';
-export * from './update-ng-module-decorator-properties';
+import * as ts from 'typescript';
+
+export function createPropertyAssignment(
+  name: string,
+  expression: ts.Expression,
+): ts.PropertyAssignment {
+  return ts.createPropertyAssignment(ts.createIdentifier(name), expression);
+}

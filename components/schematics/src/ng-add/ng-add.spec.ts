@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-import { Tree, noop } from '@angular-devkit/schematics';
-import { promises as fs } from 'fs';
-import { join } from 'path';
-import { readJsonAsObjectFromTree, readFileFromTree } from '../utils';
-import { runSchematic, addFixtureToTree } from '../testing';
+import { noop, Tree } from '@angular-devkit/schematics';
+import {
+  addFixtureToTree,
+  runSchematic,
+  createWorkspace,
+  addLegacyComponents,
+} from '../testing';
+import { readFileFromTree, readJsonAsObjectFromTree } from '../utils';
 import { Schema } from './schema';
-import { getWorkspace, updateWorkspace } from '../utils/workspace';
-import * as Rules from './rules';
+import { UnitTestTree } from '@angular-devkit/schematics/testing';
 
 // used for mocking the externalSchematic function
 const devkitSchematics = require('@angular-devkit/schematics');
@@ -39,68 +41,39 @@ export async function testNgAdd(
   await runSchematic('ng-add', schemaOptions, tree);
 }
 
+let tree: UnitTestTree;
+
+beforeEach(async () => {
+  tree = await createWorkspace();
+});
+
 // Testing of Dynatrace Ng-Add Schematic
-describe('ng-add schematic for dynatrace barista-components', () => {
-  let tree: Tree;
+describe('Migrate existing angular-components to barista components', () => {
+  let externalSchematicsMock: jest.Mock;
 
   beforeEach(async () => {
-    tree = Tree.empty();
-    await addFixtureToTree(
-      tree,
-      'barista-components-package.json',
-      'node_modules/@dynatrace/barista-components/package.json',
+    externalSchematicsMock = devkitSchematics.externalSchematic = jest
+      .fn()
+      .mockReturnValue(noop());
+
+    await addLegacyComponents(tree);
+  });
+
+  afterEach(() => {
+    externalSchematicsMock.mockClear();
+  });
+
+  it('should call the migration schematic when legacy imports are detected', async () => {
+    await testNgAdd(tree, { project: undefined });
+    expect(externalSchematicsMock).toBeCalledTimes(1);
+    expect(externalSchematicsMock).toBeCalledWith(
+      expect.stringMatching(/collection\.json$/),
+      'update-5.0.0',
+      {},
     );
   });
 
   it('should update imports of @dynatrace/angular-components to barista-components in package.json', async () => {
-    // mock the run external schematic function
-    devkitSchematics.externalSchematic = jest.fn().mockReturnValue(noop());
-
-    await addFixtureToTree(
-      tree,
-      'package-simple-migration.json',
-      '/package.json',
-    );
-
-    await testNgAdd(tree, { project: undefined });
-    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
-  });
-
-  it('should add all the necessary peer dependencies if no barista or angular components are installed', async () => {
-    await addFixtureToTree(tree, 'package-empty.json', '/package.json');
-    await testNgAdd(tree, { animations: false, project: undefined });
-    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
-  });
-
-  it('should add the `@angular/animations` package with the same version as the `@angular/core` package when specified', async () => {
-    await addFixtureToTree(tree, 'package-empty.json', '/package.json');
-    await testNgAdd(tree, { project: undefined });
-    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
-  });
-
-  it("shouldn't add @angular/animations` package if already installed", async () => {
-    await addFixtureToTree(
-      tree,
-      'package-animations-existing.json',
-      '/package.json',
-    );
-
-    await testNgAdd(tree, { animations: true, project: undefined });
-
-    const packageJSON = readFileFromTree(tree, '/package.json');
-
-    // check if the angular animations package is used more than once
-    expect(packageJSON.match(/\@angular\/animations/gim)).toHaveLength(1);
-    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
-  });
-
-  it('should add @angular/platform-browser-dynamic', async () => {
-    await addFixtureToTree(
-      tree,
-      'package-animations-existing.json',
-      '/package.json',
-    );
-
     await testNgAdd(tree, { project: undefined });
     expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
   });
@@ -130,7 +103,7 @@ describe('ng-add schematic for dynatrace barista-components', () => {
 
     expect(
       readJsonAsObjectFromTree<any>(tree, '/angular.json').projects.myapp
-        .architect.build.options.styles[0],
+        .architect.build.options.styles[1],
     ).toMatch(/main\.scss$/);
   });
 
@@ -151,7 +124,7 @@ describe('ng-add schematic for dynatrace barista-components', () => {
     expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchSnapshot();
   });
 
-  it('should not add styles and assets if he has a legacy version of the angular-components installed', async () => {
+  it('should update the main ngModule with the correct providers', async () => {
     await addFixtureToTree(
       tree,
       'package-simple-migration.json',
@@ -163,8 +136,77 @@ describe('ng-add schematic for dynatrace barista-components', () => {
       'exisiting-legacy-angular.json',
       '/angular.json',
     );
-    await testNgAdd(tree, { project: 'myapp' });
+    await addFixtureToTree(
+      tree,
+      'base-app-module.fixture',
+      '/apps/myapp/src/app/app.module.ts',
+    );
 
-    expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchSnapshot();
+    await testNgAdd(tree, {
+      project: 'myapp',
+      module: '/apps/myapp/src/app/app.module.ts',
+    });
+
+    expect(
+      readFileFromTree(tree, '/apps/myapp/src/app/app.module.ts'),
+    ).toMatchSnapshot();
+  });
+});
+
+describe('New workspace', () => {
+  it('should add all the required modules in a fresh create angular app', async () => {
+    await testNgAdd(tree, {
+      project: 'myapp',
+      module: '/apps/myapp/src/app/app.module.ts',
+    });
+
+    expect(
+      readFileFromTree(tree, '/apps/myapp/src/app/app.module.ts'),
+    ).toMatchSnapshot('app.module.ts');
+    expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchSnapshot(
+      'angular.json',
+    );
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot(
+      'package.json',
+    );
+  });
+
+  it('should add all the necessary peer dependencies if no barista or angular components are installed', async () => {
+    await addFixtureToTree(tree, 'package-empty.json', '/package.json');
+    await testNgAdd(tree, { animations: false, project: undefined });
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
+  });
+
+  it('should add the `@angular/animations` package with the same version as the `@angular/core` package when specified', async () => {
+    await addFixtureToTree(tree, 'package-empty.json', '/package.json');
+    await testNgAdd(tree, { project: undefined });
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
+  });
+
+  it("shouldn't add @angular/animations` package if already installed", async () => {
+    await addFixtureToTree(
+      tree,
+      'package-animations-existing.json',
+      '/package.json',
+    );
+
+    await testNgAdd(tree, { animations: true, project: undefined });
+
+    // check if the angular animations package is used more than once
+    expect(
+      readFileFromTree(tree, '/package.json').match(/\@angular\/animations/gim),
+    ).toHaveLength(1);
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
+  });
+
+  it('should add @angular/platform-browser-dynamic', async () => {
+    await addFixtureToTree(tree, 'package-empty.json', '/package.json');
+
+    expect(readFileFromTree(tree, '/package.json')).not.toMatch(
+      '@angular/platform-browser-dynamic',
+    );
+
+    await testNgAdd(tree, { project: undefined });
+    expect(readJsonAsObjectFromTree(tree, '/package.json')).toMatchSnapshot();
   });
 });

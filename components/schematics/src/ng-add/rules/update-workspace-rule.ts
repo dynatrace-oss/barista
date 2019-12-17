@@ -29,6 +29,10 @@ const BARISTA_FONTS_PACKAGE_PATH = join(
   ORGANIZATION_PACKAGE_PATH,
   'barista-fonts',
 );
+const BARISTA_ICONS_PACKAGE_PATH = join(
+  ORGANIZATION_PACKAGE_PATH,
+  'barista-icons',
+);
 
 /**
  * The updateWorkspaceRule modifies the `angular.json` to add all necessary
@@ -54,39 +58,56 @@ export function updateWorkspaceRule(options: ExtendedSchema): Rule {
             const buildTarget = angularApp.targets.get('build')!;
 
             if (buildTarget.options) {
+              // include the index for styles with typography (headlines, text-styles...)
+              // or the main for only the component base styles
               const styleBundle = options.typography
                 ? 'index.scss'
                 : 'main.scss';
 
-              const componentStyles = join(
-                PACKAGE_NODE_MODULES_PATH,
-                'style',
-                styleBundle,
-              );
-
-              const styleRessources = [
-                componentStyles,
+              const styleResources = [
+                // font face definitions for the barista font
                 join(BARISTA_FONTS_PACKAGE_PATH, 'typography.scss'),
               ];
 
-              if (buildTarget.options.styles) {
-                (buildTarget.options.styles as string[]).unshift(
-                  ...styleRessources,
+              if (!options.migration) {
+                // base component styles or with extended typography
+                styleResources.push(
+                  join(PACKAGE_NODE_MODULES_PATH, 'style', styleBundle),
                 );
-              } else {
-                buildTarget.options.styles = styleRessources;
               }
 
-              if (buildTarget.options.assets) {
-                (buildTarget.options.assets as any[]).push(
-                  ...[
-                    {
-                      glob: '**/*',
-                      input: join(BARISTA_FONTS_PACKAGE_PATH, 'fonts/'),
-                      output: '/fonts',
-                    },
-                  ],
+              // Add all the necessary styles to the application
+              if (buildTarget.options.styles) {
+                (buildTarget.options.styles as string[]).unshift(
+                  ...styleResources,
                 );
+              } else {
+                buildTarget.options.styles = styleResources;
+              }
+
+              const assets = [
+                {
+                  glob: '**/*',
+                  input: join(BARISTA_FONTS_PACKAGE_PATH, 'fonts/'),
+                  output: '/fonts',
+                },
+                {
+                  glob: 'metadata.json',
+                  input: BARISTA_FONTS_PACKAGE_PATH,
+                  output: '/assets/icons',
+                },
+                {
+                  glob: '*.svg',
+                  input: BARISTA_FONTS_PACKAGE_PATH,
+                  output: '/assets/icons',
+                },
+              ];
+
+              // Add the barista font package to the application
+              if (buildTarget.options.assets) {
+                (buildTarget.options.assets as any[]).push(...assets);
+              } else {
+                buildTarget.options.assets = assets;
               }
             }
           }

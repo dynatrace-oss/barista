@@ -18,9 +18,11 @@ export interface Schema {
   /** Name of the project where the Barista Components should be set up. */
   project: string;
   /** Whether Angular browser animations should be set up. */
-  animations: boolean;
+  animations?: boolean;
   /** Whether to set up global typography styles. */
-  typography: boolean;
+  typography?: boolean;
+  /** The path to the NgModule where the imports will be registered */
+  module?: string;
 }
 
 /** Schema with extended options that are needed for different rules */

@@ -31,5 +31,9 @@ export async function addFixtureToTree(
   destination: string,
 ): Promise<void> {
   const content = await getFixture(source);
+  if (tree.exists(destination)) {
+    tree.overwrite(destination, content);
+    return;
+  }
   tree.create(destination, content);
 }

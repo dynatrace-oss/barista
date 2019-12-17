@@ -18,11 +18,16 @@ import {
   BuilderOutput,
   BuilderContext,
   Target,
+  createBuilder,
 } from '@angular-devkit/architect';
+import {} from '@angular-devkit/core';
 
 import { writeFileSync } from 'fs';
 import { join } from 'path';
-import { NgPackagrBuilderOptions } from '@angular-devkit/build-ng-packagr';
+import {
+  NgPackagrBuilderOptions,
+  execute,
+} from '@angular-devkit/build-ng-packagr';
 import {
   tryJsonParse,
   NgPackagerJson,
@@ -32,6 +37,9 @@ import {
 import { syncPeerDependencyPlaceholder } from './sync-dependencies';
 import { PackagerOptions } from './schema';
 import { copyStyles, copyAssets } from './copy-assets';
+import {} from 'xml2js';
+import { Builder } from '@angular-devkit/architect/src/internal';
+import { exec } from 'child_process';
 
 /**
  * This runs all necessary steps to create a bundle for the library

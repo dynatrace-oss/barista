@@ -17,3 +17,4 @@
 export * from './run-schematic';
 export * from './fixture';
 export * from './test-app';
+export * from './workspace';
