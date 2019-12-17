@@ -142,7 +142,6 @@ export function updateWorkspaceRule(options: ExtendedSchema): Rule {
                     typeof asset === 'object' &&
                     asset.input.includes('@dynatrace/dt-iconpack')
                   ) {
-                    console.log('iconpack');
                     libraryAssets.push({
                       ...asset,
                       input: asset.input.replace(
