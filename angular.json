@@ -410,6 +410,7 @@
               }
             ],
             "styles": [
+              "node_modules/highlight-ts/styles/github-gist.css",
               "components/style/main.scss",
               "apps/barista/src/main.scss"
             ],

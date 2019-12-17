@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Barista app utils wrapCodeLines 1`] = `
+"<span class=\\"ba-code-line\\">const name = 'Hermann';</span>
+<span class=\\"ba-code-line\\">function hello() {</span>
+<span class=\\"ba-code-line\\">  console.log('Hello' + name + '!');</span>
+<span class=\\"ba-code-line\\">}</span>"
+`;
