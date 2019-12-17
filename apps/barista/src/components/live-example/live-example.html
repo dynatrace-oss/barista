@@ -4,12 +4,16 @@
   <div #demoPlaceholder></div>
 </div>
 
-<div class="ba-live-example-actions">
+<div
+  class="ba-live-example-actions"
+  [class.ba-live-example-source-hidden]="_sourceHidden"
+>
   <nav class="ba-live-example-tabs" *ngIf="_hasSources()">
     <button
       *ngIf="templateSource"
       class="ba-live-example-tab"
       [class.ba-live-example-tab-active]="_activeTab === 'html'"
+      [disabled]="_sourceHidden"
       (click)="_setActiveTab('html')"
     >
       HTML
@@ -18,15 +22,51 @@
       *ngIf="classSource"
       class="ba-live-example-tab"
       [class.ba-live-example-tab-active]="_activeTab === 'ts'"
+      [disabled]="_sourceHidden"
       (click)="_setActiveTab('ts')"
     >
       TS
     </button>
   </nav>
-  <div class="ba-live-example-controls"></div>
+  <div class="ba-live-example-controls">
+    <button
+      title="Toggle source code"
+      class="ba-live-example-control"
+      (click)="_sourceHidden = !_sourceHidden"
+    >
+      <dt-icon *ngIf="!_sourceHidden" name="dont-watch"></dt-icon>
+      <dt-icon *ngIf="_sourceHidden" name="overview"></dt-icon>
+    </button>
+    <button
+      title="Copy to clipboard"
+      class="ba-live-example-control"
+      [class.ba-live-example-control-copied]="(_copied$ | async)"
+      [disabled]="_sourceHidden"
+      (click)="_copyToClipboard()"
+    >
+      <dt-icon *ngIf="!(_copied$ | async)" name="reports"></dt-icon>
+      <dt-icon *ngIf="(_copied$ | async)" name="checkmark"></dt-icon>
+    </button>
+    <button
+      title="Expand source code"
+      role="button"
+      type="button"
+      class="ba-live-example-control"
+      (click)="_isExpanded = !_isExpanded"
+      [class.ba-live-example-control-expanded]="_isExpanded"
+      [disabled]="_sourceHidden"
+    >
+      <!-- TODO: determine if code is expandable, disable if not ==> [disabled]="!_activeTab?.expandable"-->
+      <dt-icon name="dropdownopen"></dt-icon>
+    </button>
+  </div>
 </div>
 
-<div class="ba-live-example-sources" *ngIf="_hasSources()">
+<div
+  class="ba-live-example-sources"
+  [class.ba-live-example-sources-expanded]="_isExpanded"
+  *ngIf="_hasSources() && !_sourceHidden"
+>
   <pre
     class="ba-live-example-template-source"
     *ngIf="templateSource && _activeTab === 'html'"

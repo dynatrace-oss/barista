@@ -1,10 +1,13 @@
 @import 'colors';
+$code-font-size: 14px;
 
 :host {
   display: block;
   width: 100%;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+
+  --max-lines: 12;
 }
 
 :host.ba-live-example-full-width {
@@ -35,6 +38,57 @@
   border-right: 1px solid $gray-300;
 }
 
+.ba-live-example-actions.ba-live-example-source-hidden {
+  border-bottom: 1px solid $gray-300;
+}
+
+.ba-live-example-controls {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.ba-live-example-control {
+  border: none;
+  background: transparent;
+  padding: 0.5rem 1.2rem;
+  margin: 0;
+
+  ::ng-deep svg {
+    width: 20px;
+    height: 20px;
+    fill: $royalblue-600;
+    transition: fill 150ms ease-out, transform 250ms ease-out;
+  }
+}
+
+.ba-live-example-control:hover {
+  cursor: pointer;
+  background-color: #ccc;
+
+  ::ng-deep svg {
+    fill: $royalblue-700;
+  }
+}
+
+.ba-live-example-control[disabled] {
+  pointer-events: none;
+
+  ::ng-deep svg {
+    fill: $gray-300;
+  }
+}
+
+.ba-live-example-control-copied,
+.ba-live-example-control-copied:hover {
+  pointer-events: none;
+  cursor: default;
+}
+
+.ba-live-example-control-expanded ::ng-deep svg {
+  transform: rotate(-180deg);
+}
+
 .ba-live-example-tabs {
   display: flex;
 }
@@ -49,6 +103,7 @@
   font-weight: 700;
   text-transform: uppercase;
   padding: 0.5rem 1.2rem;
+  margin: 0;
   position: relative;
   cursor: pointer;
   transition: all 150ms ease-out, background-color 150ms ease-out,
@@ -69,6 +124,20 @@
   }
 }
 
+.ba-live-example-tab[disabled] {
+  color: $gray-300;
+  border-top: 3px solid transparent;
+  pointer-events: none;
+
+  &.ba-live-example-tab-active {
+    border-top-color: $gray-500;
+  }
+}
+
+.ba-live-example-sources {
+  font-size: $code-font-size;
+}
+
 .ba-live-example-template-source,
 .ba-live-example-class-source {
   display: block;
@@ -80,4 +149,13 @@
   border-bottom: 1px solid $gray-300;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
+  max-height: calc(#{$code-font-size} * 1.5 * var(--max-lines));
+  overflow: scroll;
+}
+
+.ba-live-example-sources-expanded {
+  .ba-live-example-template-source,
+  .ba-live-example-class-source {
+    max-height: none;
+  }
 }
