@@ -147,7 +147,7 @@ export const componentsBuilder: BaPageBuilder = async (
 
   // Handle component documentation files
   for (const filepath of documentationMdFiles) {
-    const fileBasename = basename(filepath, '.md');
+    const fileBasename = basename(filepath, '.md').toLowerCase();
     const fileDir = dirname(filepath);
 
     const baristaMetadata = existsSync(join(fileDir, `${fileBasename}.json`))
@@ -160,7 +160,7 @@ export const componentsBuilder: BaPageBuilder = async (
     if (baristaMetadata && !baristaMetadata.draft) {
       const relativeOutFile = join(
         'components',
-        `${slugify(baristaMetadata.title || basename(filepath, '.md'))}.json`,
+        `${slugify(baristaMetadata.title || fileBasename)}.json`,
       );
       const pageContent = await transformPage(
         {
