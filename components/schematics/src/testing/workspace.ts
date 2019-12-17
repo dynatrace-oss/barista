@@ -70,4 +70,10 @@ export async function addLegacyComponents(tree: UnitTestTree): Promise<void> {
     'package-simple-migration.json',
     '/package.json',
   );
+
+  await addFixtureToTree(
+    tree,
+    'exisiting-legacy-angular.json',
+    '/angular.json',
+  );
 }

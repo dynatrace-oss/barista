@@ -125,23 +125,6 @@ describe('Migrate existing angular-components to barista components', () => {
   });
 
   it('should update the main ngModule with the correct providers', async () => {
-    await addFixtureToTree(
-      tree,
-      'package-simple-migration.json',
-      '/package.json',
-    );
-
-    await addFixtureToTree(
-      tree,
-      'exisiting-legacy-angular.json',
-      '/angular.json',
-    );
-    await addFixtureToTree(
-      tree,
-      'base-app-module.fixture',
-      '/apps/myapp/src/app/app.module.ts',
-    );
-
     await testNgAdd(tree, {
       project: 'myapp',
       module: '/apps/myapp/src/app/app.module.ts',
@@ -150,6 +133,12 @@ describe('Migrate existing angular-components to barista components', () => {
     expect(
       readFileFromTree(tree, '/apps/myapp/src/app/app.module.ts'),
     ).toMatchSnapshot();
+  });
+
+  it.only('should update the legacy angular json', async () => {
+    await testNgAdd(tree, { project: 'myapp' });
+
+    expect(readJsonAsObjectFromTree(tree, '/angular.json')).toMatchSnapshot();
   });
 });
 

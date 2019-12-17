@@ -14,11 +14,21 @@
  * limitations under the License.
  */
 
-import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
-import { Tree } from '@angular-devkit/schematics/src/tree/interface';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
 import { join } from 'path';
 import { updateWorkspace } from '../../utils/workspace';
 import { ExtendedSchema } from '../schema';
+import {
+  Schema as BuildAngularSchema,
+  AssetPattern,
+} from '@angular-devkit/build-angular/src/browser/schema';
+import { json } from '@angular-devkit/core';
+import { inputNames } from '@angular/cdk/schematics';
 
 const ORGANIZATION_PACKAGE_PATH = 'node_modules/@dynatrace';
 const PACKAGE_NODE_MODULES_PATH = join(
@@ -55,9 +65,11 @@ export function updateWorkspaceRule(options: ExtendedSchema): Rule {
             angularApp.targets.get('build')!.builder ===
               '@angular-devkit/build-angular:browser'
           ) {
-            const buildTarget = angularApp.targets.get('build')!;
+            const buildTarget = angularApp.targets.get('build');
 
-            if (buildTarget.options) {
+            if (buildTarget && buildTarget.options) {
+              const builderOptions = (buildTarget.options as unknown) as BuildAngularSchema;
+
               // include the index for styles with typography (headlines, text-styles...)
               // or the main for only the component base styles
               const styleBundle = options.typography
@@ -77,38 +89,94 @@ export function updateWorkspaceRule(options: ExtendedSchema): Rule {
               }
 
               // Add all the necessary styles to the application
-              if (buildTarget.options.styles) {
-                (buildTarget.options.styles as string[]).unshift(
-                  ...styleResources,
-                );
+              if (builderOptions.styles) {
+                builderOptions.styles.unshift(...styleResources);
               } else {
-                buildTarget.options.styles = styleResources;
+                builderOptions.styles = styleResources;
               }
 
-              const assets = [
+              // Store all paths that need to be added to the assets
+              const libraryAssetStringPaths: string[] = [];
+              const libraryAssets: AssetPattern[] = [
                 {
                   glob: '**/*',
                   input: join(BARISTA_FONTS_PACKAGE_PATH, 'fonts/'),
                   output: '/fonts',
                 },
-                {
-                  glob: 'metadata.json',
-                  input: BARISTA_FONTS_PACKAGE_PATH,
-                  output: '/assets/icons',
-                },
-                {
-                  glob: '*.svg',
-                  input: BARISTA_FONTS_PACKAGE_PATH,
-                  output: '/assets/icons',
-                },
               ];
 
               // Add the barista font package to the application
-              if (buildTarget.options.assets) {
-                (buildTarget.options.assets as any[]).push(...assets);
-              } else {
-                buildTarget.options.assets = assets;
+              if (builderOptions.assets) {
+                // if no dt-iconpack added previously we add the barista
+                // icons. Otherwise we adjust the input path.
+                if (
+                  !JSON.stringify(builderOptions.assets).includes(
+                    '@dynatrace/dt-iconpack',
+                  )
+                ) {
+                  libraryAssets.push(
+                    ...[
+                      {
+                        glob: 'metadata.json',
+                        input: BARISTA_ICONS_PACKAGE_PATH,
+                        output: '/assets/icons',
+                      },
+                      {
+                        glob: '*.svg',
+                        input: BARISTA_ICONS_PACKAGE_PATH,
+                        output: '/assets/icons',
+                      },
+                    ],
+                  );
+                }
+
+                for (const asset of builderOptions.assets) {
+                  // store the string path assets in a different array to preserve sorting
+                  if (typeof asset === 'string') {
+                    libraryAssetStringPaths.push(asset);
+                    continue;
+                  }
+
+                  // replace iconpack in path with barista-icons
+                  if (
+                    typeof asset === 'object' &&
+                    asset.input.includes('@dynatrace/dt-iconpack')
+                  ) {
+                    console.log('iconpack');
+                    libraryAssets.push({
+                      ...asset,
+                      input: asset.input.replace(
+                        'dt-iconpack',
+                        'barista-icons',
+                      ),
+                    });
+                    continue;
+                  }
+
+                  // change angular components in paths with barsita components
+                  if (
+                    typeof asset === 'object' &&
+                    asset.input.includes('@dynatrace/angular-components')
+                  ) {
+                    libraryAssets.push({
+                      ...asset,
+                      input: asset.input.replace(
+                        'angular-components',
+                        'barista-components',
+                      ),
+                    });
+                    continue;
+                  }
+
+                  // other objects just push to libraryAssets
+                  libraryAssets.push(asset);
+                }
               }
+
+              builderOptions.assets = [
+                ...libraryAssetStringPaths,
+                ...libraryAssets,
+              ];
             }
           }
         }),
