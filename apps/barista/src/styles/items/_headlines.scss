@@ -1,0 +1,15 @@
+ba-headline-link {
+  display: inline-block;
+  opacity: 0;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &:hover ba-headline-link {
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+  }
+}

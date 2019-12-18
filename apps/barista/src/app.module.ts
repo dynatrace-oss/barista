@@ -61,6 +61,7 @@ import { BaComponentsModule } from './components';
 import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtExamplesModule } from '@dynatrace/barista-components/examples';
+import { DtToastModule } from '@dynatrace/barista-components/toast';
 
 @NgModule({
   imports: [
@@ -80,6 +81,7 @@ import { DtExamplesModule } from '@dynatrace/barista-components/examples';
     DtInputModule,
     DtThemingModule,
     DtExamplesModule,
+    DtToastModule,
   ],
   exports: [],
   declarations: [
