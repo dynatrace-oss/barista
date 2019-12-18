@@ -19,8 +19,6 @@ export * from './src/chart';
 export * from './src/chart-colors';
 export * from './src/chart-config';
 export * from './src/heatfield/index';
-export * from './src/selection-area-deprecated/chart-selection-area-origin';
-export * from './src/selection-area-deprecated/chart-selection-area-errors';
 export * from './src/tooltip/chart-tooltip';
 
 export { DtChartRange } from './src/range/range';
