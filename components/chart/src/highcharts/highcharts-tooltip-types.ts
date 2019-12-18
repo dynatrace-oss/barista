@@ -43,6 +43,7 @@ export interface DtChartTooltipData {
   y: number;
   points?: DtChartTooltipPoint[];
   point?: DtChartTooltipPoint;
+  hoveredIndex?: number;
 }
 export interface DtChartTooltipEvent {
   data: DtChartTooltipData;

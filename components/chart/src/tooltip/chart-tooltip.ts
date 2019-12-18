@@ -100,7 +100,8 @@ export class DtChartTooltip implements OnDestroy {
     parentChart: DtChart,
     plotBackgroundInfo: PlotBackgroundInfo,
   ): void {
-    if (parentChart._chartObject && data && data.points) {
+    // We check for data.points and data.point property since with pie / donut charts we need
+    if (parentChart._chartObject && data && (data.points || data.point)) {
       const positionStrategy = this._overlay
         .position()
         .flexibleConnectedTo(

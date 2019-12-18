@@ -550,7 +550,6 @@ export class DtChart
           if (!isDefined(tooltip) || !isDefined(plotBackground)) {
             return;
           }
-
           const plotBackgroundInfo = getPlotBackgroundInfo(plotBackground!);
 
           switch (state.status) {
