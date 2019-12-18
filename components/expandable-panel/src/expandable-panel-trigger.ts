@@ -64,9 +64,7 @@ export class DtExpandablePanelTrigger implements OnDestroy {
   }
 
   /** @internal Handles the trigger's click event. */
-  _handleClick(event: MouseEvent): void {
-    // @breaking-change preventDefault to be removed with 5.0.0
-    event.preventDefault();
+  _handleClick(): void {
     if (this.dtExpandablePanel && !this.dtExpandablePanel.disabled) {
       this.dtExpandablePanel.toggle();
     }
