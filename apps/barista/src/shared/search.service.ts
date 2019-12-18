@@ -14,6 +14,18 @@
  * limitations under the License.
  */
 
-export * from './lib/barista-definitions';
-export * from './lib/barista-backend-api-definitions';
-export * from './lib/example-definitions';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BaSearchResult } from '@dynatrace/barista-components/barista-definitions';
+import { Observable } from 'rxjs';
+
+@Injectable()
+export class BaSearchService {
+  constructor(private readonly _http: HttpClient) {}
+
+  search(searchString: string): Observable<BaSearchResult[]> {
+    return this._http.get<BaSearchResult[]>(
+      `/api/v1/search/?q=${searchString}`,
+    );
+  }
+}

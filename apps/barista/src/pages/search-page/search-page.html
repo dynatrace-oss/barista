@@ -1,0 +1,32 @@
+<div class="ba-page-grid">
+  <main class="ba-page-main" id="main" role="main">
+    <article class="ba-search-page-content">
+      <h1>Search Barista</h1>
+      <dt-form-field class="ba-search-input">
+        <dt-label i18n>Search posts</dt-label>
+        <input type="text" dtInput #queryInput [(ngModel)]="queryValue" />
+      </dt-form-field>
+
+      <div
+        *ngFor="let result of (_searchResults$ | async)"
+        class="ba-search-result-item"
+      >
+        <div>
+          <a class="dt-link dt-external" [href]="result.url"
+            >{{ result.title }}</a
+          >
+          <p class="ba-search-contentextractions" *ngIf="result.contentMatches">
+            <span
+              dt-highlight
+              [term]="queryValue"
+              *ngFor="let contentMatch of result.contentMatches"
+              class="ba-search-contentmatch"
+            >
+              {{contentMatch}}
+            </span>
+          </p>
+        </div>
+      </div>
+    </article>
+  </main>
+</div>

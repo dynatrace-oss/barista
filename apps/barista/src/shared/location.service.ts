@@ -39,6 +39,14 @@ export class BaLocationService {
     map(url => (url.match(/[^?#]*/) || [])[0]), // strip query and hash
   );
 
+  currentQuery$: Observable<URLSearchParams> = this._urlSubject.pipe(
+    map(currentUrl =>
+      currentUrl.includes('?')
+        ? new URLSearchParams(currentUrl.split('?')[1])
+        : new URLSearchParams(),
+    ),
+  );
+
   constructor(private _location: Location) {
     this._urlSubject.next(_location.path(true));
     this._location.subscribe(state => {
