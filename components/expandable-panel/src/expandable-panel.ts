@@ -106,18 +106,6 @@ export class DtExpandablePanel {
   }
   private _disabled = false;
 
-  /**
-   * @deprecated Will be removed, use expanded instead
-   * @breaking-change To be removed with 5.0.0
-   */
-  @Input()
-  get opened(): boolean {
-    return this.expanded;
-  }
-  set opened(value: boolean) {
-    this.expanded = value;
-  }
-
   /** Event emitted when the panel's expandable state changes. */
   @Output() readonly expandChange: EventEmitter<boolean> = new EventEmitter<
     boolean
@@ -132,24 +120,16 @@ export class DtExpandablePanel {
   @Output('collapsed') readonly _panelCollapsed: Observable<
     boolean
   > = this.expandChange.pipe(filter(v => !v));
-  /**
-   * Event emitted when the panel has been opened.
-   * @deprecated Use expandChange instead.
-   * @breaking-change To be removed with 5.0.0
-   */
-  @Output() readonly openedChange = this.expandChange;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   /**
    * Toggles the expanded state of the panel.
-   * @breaking-change Remove return type with 5.0.0. Use void instead of boolean.
    */
-  toggle(): boolean {
+  toggle(): void {
     if (!this._disabled) {
       this.expanded = !this.expanded;
     }
-    return this.expanded;
   }
 
   /** Sets the expanded state of the panel to false. */

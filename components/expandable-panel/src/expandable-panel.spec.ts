@@ -62,18 +62,13 @@ describe('DtExpandablePanel', () => {
 
     // test initial state
     it('should be closed initially', () => {
-      expect(expandablePanelInstance.opened).toBe(false);
       expect(expandablePanelInstance.expanded).toBe(false);
       expandablePanelInstance.close();
-      expect(expandablePanelInstance.opened).toBe(false);
       expect(expandablePanelInstance.expanded).toBe(false);
     });
 
     // test expanded input
     it('should be expanded', () => {
-      expandablePanelInstance.opened = true;
-      expect(expandablePanelInstance.opened).toBe(true);
-      expandablePanelInstance.opened = false;
       expandablePanelInstance.expanded = true;
       expect(expandablePanelInstance.expanded).toBe(true);
     });
@@ -95,17 +90,7 @@ describe('DtExpandablePanel', () => {
     // test open method
     it('should be expanded after method call', () => {
       expandablePanelInstance.open();
-      expect(expandablePanelInstance.opened).toBe(true);
       expect(expandablePanelInstance.expanded).toBe(true);
-    });
-
-    // @breaking-change Remove test with v5.0.0 (toggle already tested above)
-    it('should be expanded after toggle', () => {
-      expect(expandablePanelInstance.toggle()).toBe(true);
-      expect(expandablePanelInstance.opened).toBe(true);
-
-      expandablePanelInstance.close();
-      expect(expandablePanelInstance.opened).toBe(false);
     });
 
     // test disabled state
