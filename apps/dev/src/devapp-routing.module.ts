@@ -59,7 +59,6 @@ import { ProgressCircleDemo } from './progress-circle/progress-circle-demo.compo
 import { RadioDemo } from './radio/radio-demo.component';
 import { SecondaryNavDemo } from './secondary-nav/secondary-nav-demo.component';
 import { SelectDemo } from './select/select-demo.component';
-import { SelectionAreaDemo } from './selection-area/selection-area-demo.component';
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
 import { SidenavDemo } from './sidenav/sidenav-demo.component';
 import { StepperDemo } from './stepper/stepper-demo.component';
@@ -116,7 +115,6 @@ const routes: Routes = [
   { path: 'radio', component: RadioDemo },
   { path: 'secondary-nav', component: SecondaryNavDemo },
   { path: 'select', component: SelectDemo },
-  { path: 'selection-area', component: SelectionAreaDemo },
   { path: 'show-more', component: ShowMoreDemo },
   { path: 'stepper', component: StepperDemo },
   { path: 'switch', component: SwitchDemo },
