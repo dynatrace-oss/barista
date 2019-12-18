@@ -3,15 +3,3 @@
     margin-left: 8px;
   }
 }
-
-/**
- * @deprecated Use dt-button-child-button-spacing instead.
- * @breaking-change To be removed with 5.0.0
- */
-@mixin dt-card-actions-spacing() {
-  @include dt-deprecated(
-    'dt-card-actions-spacing: Use dt-button-child-button-spacing instead.',
-    '5.0.0.'
-  );
-  @include dt-button-child-button-spacing();
-}
