@@ -52,11 +52,9 @@ const DT_KEY_VALUE_LIST_MAX_COLUMNS = 6;
 })
 export class DtKeyValueList implements AfterContentInit, OnDestroy {
   /**
-   * References of the key value items.
-   *
-   * @breaking-change Make internal in 5.0.0
+   * @internal References of the key value items.
    */
-  @ContentChildren(DtKeyValueListItem) items: QueryList<DtKeyValueListItem>;
+  @ContentChildren(DtKeyValueListItem) _items: QueryList<DtKeyValueListItem>;
 
   /** @internal Calculated amount of colums. */
   _calculatedColumns = 1;
@@ -84,16 +82,17 @@ export class DtKeyValueList implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     if (!isDefined(this._columns)) {
-      this._itemsChangeSub = this.items.changes
+      this._itemsChangeSub = this._items.changes
         .pipe(startWith(null))
         .subscribe(() => {
           if (
-            this.items.length > DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS
+            this._items.length >
+            DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS
           ) {
             // tslint:disable:no-any no-magic-numbers
             this._calculatedColumns = 3;
           } else if (
-            this.items.length > DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS
+            this._items.length > DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS
           ) {
             // tslint:disable:no-any no-magic-numbers
             this._calculatedColumns = 2;
