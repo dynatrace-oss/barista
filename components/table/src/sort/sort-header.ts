@@ -91,8 +91,6 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
 
   /**
    * Overrides the sort start value of the containing DtSort
-   *
-   * @breaking-change 5.0.0 Make internal
    */
   @Input() start: DtSortDirection;
 
