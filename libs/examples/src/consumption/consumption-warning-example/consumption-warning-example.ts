@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-consumption-warning',
-  template: 'consumption-warning-example.html',
+  templateUrl: 'consumption-warning-example.html',
 })
 export class DtExampleConsumptionWarning {
   max = 120_000_000;

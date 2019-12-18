@@ -15,6 +15,8 @@
  */
 import { NgModule } from '@angular/core';
 import { DtCtaCardModule } from '@dynatrace/barista-components/cta-card';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtExampleCtaCardClosable } from './cta-card-closable-example/cta-card-closable-example';
 import { DtExampleCtaCardDefault } from './cta-card-default-example/cta-card-default-example';
 
@@ -24,7 +26,7 @@ export const DT_CTA_CARD_EXAMPLES = [
 ];
 
 @NgModule({
-  imports: [DtCtaCardModule],
+  imports: [DtCtaCardModule, DtIconModule, DtButtonModule],
   declarations: [...DT_CTA_CARD_EXAMPLES],
   entryComponents: [...DT_CTA_CARD_EXAMPLES],
 })

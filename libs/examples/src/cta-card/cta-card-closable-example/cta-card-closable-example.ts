@@ -18,6 +18,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-cta-card-closable',
-  template: 'cta-card-closable-example.html',
+  templateUrl: 'cta-card-closable-example.html',
 })
 export class DtExampleCtaCardClosable {}

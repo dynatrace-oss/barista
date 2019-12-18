@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-context-dialog-interactive',
-  template: 'context-dialog-interactive-example.html',
+  templateUrl: 'context-dialog-interactive-example.html',
 })
 export class DtExampleContextDialogInteractive {
   interactiveDialogDisabled = false;

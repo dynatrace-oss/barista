@@ -18,6 +18,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 import { DtExampleFormattersBits } from './formatters-bits-example/formatters-bits-example';
 import { DtExampleFormattersBytes } from './formatters-bytes-example/formatters-bytes-example';
@@ -36,7 +37,7 @@ export const DT_FORMATTERS_EXAMPLES = [
 ];
 
 @NgModule({
-  imports: [DtFormattersModule, DtFormFieldModule, FormsModule],
+  imports: [FormsModule, DtFormattersModule, DtFormFieldModule, DtInputModule],
   declarations: [...DT_FORMATTERS_EXAMPLES],
   entryComponents: [...DT_FORMATTERS_EXAMPLES],
 })

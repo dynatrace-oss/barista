@@ -207,6 +207,11 @@
               },
               {
                 "glob": "**",
+                "input": "libs/examples/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
                 "input": "apps/demos/src/assets",
                 "output": "/assets"
               },
@@ -357,6 +362,11 @@
               {
                 "glob": "**",
                 "input": "components/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "libs/examples/src/assets",
                 "output": "/assets"
               },
               {

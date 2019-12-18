@@ -18,7 +18,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-button-icons',
-  template: 'button-icons-example.html',
+  templateUrl: 'button-icons-example.html',
   styleUrls: ['button-icons-example.scss'],
 })
 export class DtExampleButtonIcons {}

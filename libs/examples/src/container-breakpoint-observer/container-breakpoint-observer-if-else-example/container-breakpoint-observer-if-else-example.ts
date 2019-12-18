@@ -18,6 +18,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-container-breakpoint-observer-barista',
-  template: 'container-breakpoint-observer-if-else-example.html',
+  templateUrl: 'container-breakpoint-observer-if-else-example.html',
 })
 export class DtExampleContainerBreakpointObserverIfElse {}

@@ -20,7 +20,7 @@ import { DtEventChartSelectedEvent } from '@dynatrace/barista-components/event-c
 
 @Component({
   selector: 'dt-example-event-chart-selection',
-  template: 'event-chart-selection-example.html',
+  templateUrl: 'event-chart-selection-example.html',
 })
 export class DtExampleEventChartSelection {
   _lastSelected: DtEventChartSelectedEvent<string>;

@@ -20,7 +20,7 @@ import { DtInlineEditor } from '@dynatrace/barista-components/inline-editor';
 
 @Component({
   selector: 'dt-example-inline-editor-api',
-  template: 'inline-editor-api-example.html',
+  templateUrl: 'inline-editor-api-example.html',
 })
 export class DtExampleInlineEditorApi {
   @ViewChild('sampleEditor', { static: true }) sampleEditor: DtInlineEditor;
