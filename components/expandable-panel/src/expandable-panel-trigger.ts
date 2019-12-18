@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { DOWN_ARROW, ENTER, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
+import { DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Directive, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { CanDisable, readKeyCode } from '@dynatrace/barista-components/core';
+import { readKeyCode } from '@dynatrace/barista-components/core';
 
 import { DtExpandablePanel } from './expandable-panel';
 
@@ -39,7 +39,7 @@ import { DtExpandablePanel } from './expandable-panel';
     '(keydown)': '_handleKeydown($event)',
   },
 })
-export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
+export class DtExpandablePanelTrigger implements OnDestroy {
   /** The expandable panel that should be connected to this trigger. */
   @Input()
   get dtExpandablePanel(): DtExpandablePanel {
@@ -56,34 +56,6 @@ export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
   }
   private _panel: DtExpandablePanel;
   private _expandedSubscription: Subscription = Subscription.EMPTY;
-
-  /**
-   * @deprecated Use the panel's expanded input instead.
-   * @breaking-change To be removed with 5.0.0
-   */
-  @Input()
-  get opened(): boolean {
-    return this.dtExpandablePanel && this.dtExpandablePanel.expanded;
-  }
-  set opened(value: boolean) {
-    if (this.dtExpandablePanel) {
-      this.dtExpandablePanel.expanded = value;
-    }
-  }
-
-  /**
-   * @deprecated Use the panel's disabled input instead.
-   * @breaking-change To be removed with 5.0.0
-   */
-  @Input()
-  get disabled(): boolean {
-    return this.dtExpandablePanel && this.dtExpandablePanel.disabled;
-  }
-  set disabled(value: boolean) {
-    if (this.dtExpandablePanel) {
-      this.dtExpandablePanel.disabled = value;
-    }
-  }
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
@@ -105,11 +77,7 @@ export class DtExpandablePanelTrigger implements CanDisable, OnDestroy {
     if (this.dtExpandablePanel && !this.dtExpandablePanel.disabled) {
       const keyCode = readKeyCode(event);
       const isAltKey = event.altKey;
-      // @breaking-change enter/space handling can be removed once the trigger can only be a button (5.0.0)
-      if (keyCode === ENTER || keyCode === SPACE) {
-        event.preventDefault();
-        this.dtExpandablePanel.toggle();
-      } else if (isAltKey && keyCode === DOWN_ARROW) {
+      if (isAltKey && keyCode === DOWN_ARROW) {
         event.preventDefault();
         this.dtExpandablePanel.open();
       } else if (isAltKey && keyCode === UP_ARROW) {
