@@ -20,7 +20,7 @@ import { DtContainerBreakpointObserver } from '@dynatrace/barista-components/con
 
 @Component({
   selector: 'dt-example-container-breakpoint-observer-barista',
-  template: 'container-breakpoint-observer-default-example.html',
+  templateUrl: 'container-breakpoint-observer-default-example.html',
 })
 export class DtExampleContainerBreakpointObserverDefault implements OnInit {
   @ViewChild(DtContainerBreakpointObserver, { static: true })

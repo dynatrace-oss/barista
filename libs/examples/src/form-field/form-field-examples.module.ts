@@ -21,6 +21,7 @@ import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
 
 import { DtExampleFormFieldDefault } from './form-field-default-example/form-field-default-example';
 import { DtExampleFormFieldErrorCustomValidator } from './form-field-error-custom-validator-example/form-field-error-custom-validator-example';
@@ -42,6 +43,7 @@ export const DT_FORM_FIELD_EXAMPLES = [
     FormsModule,
     ReactiveFormsModule,
     DtFormFieldModule,
+    DtButtonModule,
     DtInputModule,
     DtIconModule,
     DtLoadingDistractorModule,
