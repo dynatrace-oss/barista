@@ -49,25 +49,6 @@ $remove-icon-size: 16px;
       }
     }
   }
-
-  /**
-   * @deprecated Disabled property on tags has no longer any use.
-   * @breaking-change Disabled property will be removed in version 5.0.0
-  */
-  &.dt-tag-disabled {
-    pointer-events: none;
-    background-color: #ffffff;
-    color: $gray-300;
-    border: 1px solid $gray-200;
-
-    dt-icon ::ng-deep > svg {
-      fill: $gray-300;
-    }
-
-    .dt-tag-name ::ng-deep .dt-tag-key {
-      color: inherit;
-    }
-  }
 }
 
 .dt-tag-name {
