@@ -16,7 +16,7 @@
 
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /** Default timeout used to throttle window resize events */
@@ -58,19 +58,11 @@ export abstract class DtViewportResizer {
 
   /**
    * Retrieves the current offset of the viewport
-   *
-   * @breaking-change Make abstract in 5.0.0
    */
-  getOffset(): { left: number; top: number } {
-    return { left: 0, top: 0 };
-  }
+  abstract getOffset(): { left: number; top: number };
 
   /**
    * Event emitted when the viewport size changes with the updated value
-   *
-   * @breaking-change Make abstract in 5.0.0
    */
-  get offset$(): Observable<{ left: number; top: number }> {
-    return EMPTY;
-  }
+  abstract get offset$(): Observable<{ left: number; top: number }>;
 }
