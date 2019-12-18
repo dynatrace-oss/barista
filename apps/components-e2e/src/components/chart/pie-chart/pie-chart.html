@@ -1,0 +1,7 @@
+<dt-chart class="pie-chart" [series]="pieSeries" [options]="pieOptions">
+  <dt-chart-tooltip>
+    <ng-template let-tooltip>
+      {{ tooltip.y }}
+    </ng-template>
+  </dt-chart-tooltip>
+</dt-chart>

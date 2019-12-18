@@ -19,10 +19,10 @@ import { Selector } from 'testcafe';
 fixture('Highcharts Setup').page('http://localhost:4200/chart');
 
 const counter = async () => Selector('#change-detection-counter').textContent;
-const chart = Selector('.dt-chart');
+const lineChart = Selector('.line-chart');
 
 test('change detection should only trigger docheck once on init', async (testController: TestController) => {
   const previousCounter = await counter();
-  await testController.hover(chart);
+  await testController.hover(lineChart);
   await testController.expect(await counter()).eql(previousCounter);
 });

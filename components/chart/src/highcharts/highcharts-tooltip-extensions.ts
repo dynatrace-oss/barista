@@ -37,13 +37,20 @@ export function prepareTooltipData(
     // tslint:disable-next-line:no-any
     const pointConfig: any[] = [];
     // tslint:disable-next-line:no-any
-    highcharts.each(pointOrPoints, function(item: any): void {
-      pointConfig.push(item.getLabelConfig());
+    let hoveredIndex: number = -1;
+
+    highcharts.each(pointOrPoints, function(item: any, index: number): void {
+      const labelConfig = item.getLabelConfig();
+      if (labelConfig.series.state === 'hover') {
+        hoveredIndex = index;
+      }
+      pointConfig.push(labelConfig);
     });
     data = {
       x: pointOrPoints[0].category,
       y: pointOrPoints[0].y,
       points: pointConfig,
+      hoveredIndex,
     };
   } else {
     const label = pointOrPoints.getLabelConfig();
@@ -94,14 +101,6 @@ export function addTooltipEvents(): boolean {
   return true;
 }
 
-/** Searches for the hovered series in a tooltip event object */
-export function findHoveredSeriesIndex(ev: DtChartTooltipEvent): number {
-  if (ev.data.points !== undefined) {
-    return ev.data.points.findIndex(p => p.series.state === 'hover');
-  }
-  return -1;
-}
-
 /**
  * Compares two tooltip events if they differ.
  * Can be used as custom comparator function of a `distinctUntilChanged`
@@ -114,7 +113,7 @@ export function compareTooltipEventChanged(
     return (
       a.data.x === b.data.x &&
       a.data.y === b.data.y &&
-      findHoveredSeriesIndex(a) === findHoveredSeriesIndex(b)
+      a.data.hoveredIndex === b.data.hoveredIndex
     );
   }
   return false;

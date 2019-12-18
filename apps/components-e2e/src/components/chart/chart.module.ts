@@ -20,6 +20,7 @@ import { Route, RouterModule } from '@angular/router';
 import { DtChartModule } from '@dynatrace/barista-components/chart';
 import { BasicChart } from './chart/chart';
 import { ChartHighchartsUI } from './highcharts/chart-highcharts-ui';
+import { PieChart } from './pie-chart/pie-chart';
 
 const routes: Route[] = [
   { path: '', component: BasicChart },
@@ -31,10 +32,11 @@ const routes: Route[] = [
         m => m.DtE2ESelectionAreaModule,
       ),
   },
+  { path: 'pie', component: PieChart },
 ];
 
 @NgModule({
-  declarations: [BasicChart, ChartHighchartsUI],
+  declarations: [BasicChart, ChartHighchartsUI, PieChart],
   imports: [CommonModule, RouterModule.forChild(routes), DtChartModule],
   exports: [],
   providers: [],
