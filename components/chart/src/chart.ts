@@ -15,7 +15,6 @@
  */
 
 import { SelectionModel } from '@angular/cdk/collections';
-import { Platform } from '@angular/cdk/platform';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -251,11 +250,11 @@ export class DtChart
 
   /**
    * Eventemitter that fires every time the data inside the chart tooltip changes
-   *
-   * @breaking-change Only emit `<DtChartTooltipEvent>` in 5.0.0 in case that no null will be emitted
    */
   @Output()
-  readonly tooltipDataChange: EventEmitter<DtChartTooltipEvent | null> = new EventEmitter();
+  readonly tooltipDataChange: EventEmitter<
+    DtChartTooltipEvent
+  > = new EventEmitter();
 
   /** Eventemitter that fires every time a legend item is clicked and a series visibility changes */
   @Output()
@@ -284,11 +283,9 @@ export class DtChart
   }
 
   /**
-   * Reference to the container element.
-   *
-   * @breaking-change Make internal in 5.0.0
+   * @interal Reference to the container element.
    */
-  @ViewChild('container', { static: true }) container: ElementRef<HTMLElement>;
+  @ViewChild('container', { static: true }) _container: ElementRef<HTMLElement>;
 
   /** @internal The chart tooltip reference */
   @ContentChildren(DtChartTooltip) _tooltip: QueryList<DtChartTooltip>;
@@ -380,9 +377,6 @@ export class DtChart
     @SkipSelf()
     @Inject(DT_CHART_CONFIG)
     private _config: DtChartConfig,
-    // @breaking-change 5.0.0 Remove platform param
-    // tslint:disable-next-line: no-any
-    _platform: Platform,
     /** @internal used for the selection area to calculate the bounding client rect */
     public _elementRef: ElementRef,
   ) {
@@ -599,7 +593,7 @@ export class DtChart
     // Creating a new highcharts chart.
     // This needs to be done outside the ngZone so the events, highcharts listens to, do not pollute our change detection.
     this._chartObject = this._ngZone.runOutsideAngular(() =>
-      chart(this.container.nativeElement, this.highchartsOptions),
+      chart(this._container.nativeElement, this.highchartsOptions),
     );
 
     this._chartObject.series.forEach((series, index) => {
@@ -647,7 +641,7 @@ export class DtChart
   private _notifyAfterRender(): void {
     this._ngZone.runOutsideAngular(() => {
       this._afterRender.next();
-      const plotBackground = this.container.nativeElement.querySelector<
+      const plotBackground = this._container.nativeElement.querySelector<
         SVGRectElement
       >(HIGHCHARTS_PLOT_BACKGROUND);
 
@@ -664,7 +658,7 @@ export class DtChart
   ): void {
     this._plotBackgroundChartOffset = plotBackground
       ? plotBackground.getBoundingClientRect().left -
-        this.container.nativeElement.getBoundingClientRect().left
+        this._container.nativeElement.getBoundingClientRect().left
       : 0;
   }
 

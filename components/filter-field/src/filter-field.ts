@@ -783,7 +783,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
     }
 
     // Clear any previous selected option.
-    this._autocomplete.options.forEach(option => {
+    this._autocomplete._options.forEach(option => {
       if (option.selected) {
         option.deselect();
       }

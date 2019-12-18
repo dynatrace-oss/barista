@@ -367,16 +367,16 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** Collects all elements that are needed to capture mouse events on the chart */
   private _getHighchartsSeriesGroupAndAxis(): HTMLElement[] {
     const yAxisGrids = [].slice.call(
-      this._chart.container.nativeElement.querySelectorAll(
+      this._chart._container.nativeElement.querySelectorAll(
         HIGHCHARTS_Y_AXIS_GRID,
       ),
     );
     const xAxisGrids = [].slice.call(
-      this._chart.container.nativeElement.querySelectorAll(
+      this._chart._container.nativeElement.querySelectorAll(
         HIGHCHARTS_X_AXIS_GRID,
       ),
     );
-    const seriesGroup = this._chart.container.nativeElement.querySelector(
+    const seriesGroup = this._chart._container.nativeElement.querySelector(
       HIGHCHARTS_SERIES_GROUP,
     );
 

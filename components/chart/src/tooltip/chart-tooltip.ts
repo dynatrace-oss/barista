@@ -170,7 +170,7 @@ export class DtChartTooltip implements OnDestroy {
     chart: DtChart,
     plotBackgroundInfo: PlotBackgroundInfo,
   ): { x: number; y: number } {
-    const containerElement: HTMLElement = chart.container.nativeElement;
+    const containerElement: HTMLElement = chart._container.nativeElement;
     const containerElementBB = containerElement.getBoundingClientRect();
     const { x, y } = getHighchartsTooltipPosition(data, plotBackgroundInfo);
     return {

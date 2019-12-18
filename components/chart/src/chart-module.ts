@@ -23,12 +23,10 @@ import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
-import { DtSelectionAreaModule } from '@dynatrace/barista-components/selection-area';
 
 import { DtChart } from './chart';
 import { DtChartHeatfield } from './heatfield/chart-heatfield';
 import { DtChartRange } from './range/range';
-import { DtChartSelectionAreaOrigin } from './selection-area-deprecated/chart-selection-area-origin';
 import { DtChartSelectionAreaAction } from './selection-area/overlay-action';
 import { DtChartSelectionArea } from './selection-area/selection-area';
 import { DtChartTimestamp } from './timestamp/timestamp';
@@ -39,8 +37,6 @@ const COMPONENTS = [
   DtChart,
   DtChartHeatfield,
   DtChartRange,
-  // tslint:disable-next-line: deprecation
-  DtChartSelectionAreaOrigin,
   DtChartTimestamp,
   DtChartTooltip,
   DtChartSelectionAreaAction,
@@ -54,8 +50,6 @@ const COMPONENTS = [
     OverlayModule,
     DtIconModule,
     DtButtonModule,
-    // tslint:disable-next-line: deprecation
-    DtSelectionAreaModule,
     DtFormattersModule,
   ],
   exports: [...COMPONENTS],
