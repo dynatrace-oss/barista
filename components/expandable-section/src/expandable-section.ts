@@ -66,19 +66,6 @@ export class DtExpandableSection implements CanDisable {
     this._changeDetectorRef.markForCheck();
   }
 
-  /**
-   * Whether the expandable is open (expanded).
-   * @deprecated Use expanded instead.
-   * @breaking-change To be removed with 5.0.0
-   */
-  @Input()
-  get opened(): boolean {
-    return this.expanded;
-  }
-  set opened(value: boolean) {
-    this.expanded = value;
-  }
-
   /** Whether the expandable section is disabled. */
   @Input()
   get disabled(): boolean {
@@ -111,13 +98,6 @@ export class DtExpandableSection implements CanDisable {
     filter(v => !v),
   );
 
-  /**
-   * Emits when the expandable opens or closes
-   * @deprecated Use expandChange instead.
-   * @breaking-change To be removed with 5.0.0.
-   */
-  @Output() readonly openedChange = this.expandChange;
-
   @ViewChild(DtExpandablePanel, { static: true })
   private _panel: DtExpandablePanel;
 
@@ -128,12 +108,10 @@ export class DtExpandableSection implements CanDisable {
 
   /**
    * Toggles the expanded state of the panel.
-   * @breaking-change Remove return type with 5.0.0. Use void instead of boolean.
    */
-  toggle(): boolean {
+  toggle(): void {
     this._panel.toggle();
     this._changeDetectorRef.markForCheck();
-    return this.expanded;
   }
 
   /** Sets the expanded state of the panel to false. */
