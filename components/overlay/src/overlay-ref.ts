@@ -34,8 +34,7 @@ import { DtOverlayContainer } from './overlay-container';
 
 export class DtOverlayRef<T> {
   /** The instance of component opened into the overlay. */
-  // @breaking-change 5.0.0 Change type to `T | null` and assign value `null` as default.
-  componentInstance: T;
+  componentInstance: T | null = null;
 
   /** @internal TemplatePortal to which the overlay got attached. */
   _templatePortal: TemplatePortal | null = null;
