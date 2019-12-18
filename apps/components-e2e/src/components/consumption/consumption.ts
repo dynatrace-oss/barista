@@ -21,7 +21,6 @@ import { Component } from '@angular/core';
   templateUrl: 'consumption.html',
 })
 export class DtE2EConsumption {
-  min = 0;
   max = 100;
   value = 25;
 }

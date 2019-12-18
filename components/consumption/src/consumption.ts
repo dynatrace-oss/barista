@@ -93,25 +93,6 @@ const KEY_RETURN = 13;
 })
 export class DtConsumption extends _DtConsumption
   implements AfterViewInit, OnDestroy {
-  /**
-   * Smallest possible {@link value} for this consumption component instance.
-   *
-   * @deprecated Do not use this input, minimum value is `0` in all use-cases
-   * @breaking-change Min property will be removed in version 5.0.0
-   */
-  @Input()
-  get min(): number {
-    return this._min;
-  }
-  set min(val: number) {
-    const min = isDefined(val) ? coerceNumberProperty(val) : 0;
-
-    if (this._min !== min) {
-      this._min = min;
-      this._changeDetectorRef.markForCheck();
-    }
-  }
-
   /** Largest possible {@link value} for this consumption component instance. */
   @Input()
   get max(): number {
@@ -147,7 +128,6 @@ export class DtConsumption extends _DtConsumption
   /** @internal Tab index */
   _tabIndex = -1;
 
-  private _min = 0;
   private _max = 0;
   private _value = 0;
 
