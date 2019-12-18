@@ -200,7 +200,7 @@ export class DtAutocompleteTrigger<T>
   /** Stream of changes to the selection state of the autocomplete options. */
   readonly optionSelections: Observable<DtOptionSelectionChange<T>> = defer(
     () => {
-      const options = this.autocomplete ? this.autocomplete.options : null;
+      const options = this.autocomplete ? this.autocomplete._options : null;
 
       if (options) {
         return options.changes.pipe(
@@ -538,7 +538,7 @@ export class DtAutocompleteTrigger<T>
    */
   private _subscribeToClosingActions(): Subscription {
     const firstStable = this._zone.onStable.asObservable().pipe(take(1));
-    const optionChanges = this.autocomplete.options.changes.pipe(
+    const optionChanges = this.autocomplete._options.changes.pipe(
       tap(() => {
         this._positionStrategy.reapplyLastPosition();
       }),
@@ -626,7 +626,7 @@ export class DtAutocompleteTrigger<T>
 
   /** Clear any previous selected option and emit a selection change event for this option */
   private _clearPreviousSelectedOption(skip: DtOption<T>): void {
-    this.autocomplete.options.forEach(option => {
+    this.autocomplete._options.forEach(option => {
       if (option !== skip && option.selected) {
         option.deselect();
       }
@@ -670,8 +670,8 @@ export class DtAutocompleteTrigger<T>
     const index = this.autocomplete._keyManager.activeItemIndex || 0;
     const labelCount = _countGroupLabelsBeforeOption(
       index,
-      this.autocomplete.options,
-      this.autocomplete.optionGroups,
+      this.autocomplete._options,
+      this.autocomplete._optionGroups,
     );
 
     const newScrollPosition = _getOptionScrollPosition(

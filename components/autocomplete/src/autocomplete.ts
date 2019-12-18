@@ -163,34 +163,25 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   id = `dt-autocomplete-${_uniqueIdCounter++}`;
 
   /**
-   * Reference to the template that will be rendered into the panel once it is open.
-   *
-   * @breaking-change Make internal in 5.0.0
+   * @internal Reference to the template that will be rendered into the panel once it is open.
    */
-  // tslint:disable-next-line:no-any
-  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) _template: TemplateRef<any>;
 
   /**
-   * Reference to the panel which will be created in the overlay.
-   *
-   * @breaking-change Make internal in 5.0.0
+   * @internal Reference to the panel which will be created in the overlay.
    */
-  @ViewChild('panel', { static: false }) panel: ElementRef;
+  @ViewChild('panel', { static: false }) _panel: ElementRef;
 
   /**
-   * References to all the options that are currently applied.
-   *
-   * @breaking-change Make internal in 5.0.0
+   * @internal References to all the options that are currently applied.
    */
   @ContentChildren(DtOption, { descendants: true })
-  options: QueryList<DtOption<T>>;
+  _options: QueryList<DtOption<T>>;
 
   /**
-   * References to all the option groups that are currently applied.
-   *
-   * @breaking-change Make internal in 5.0.0
+   * @interal References to all the option groups that are currently applied.
    */
-  @ContentChildren(DtOptgroup) optionGroups: QueryList<DtOptgroup>;
+  @ContentChildren(DtOptgroup) _optionGroups: QueryList<DtOptgroup>;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -203,12 +194,12 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this._portal = new TemplatePortal(this.template, this._viewContainerRef);
+    this._portal = new TemplatePortal(this._template, this._viewContainerRef);
   }
 
   ngAfterContentInit(): void {
     this._keyManager = new ActiveDescendantKeyManager<DtOption<T>>(
-      this.options,
+      this._options,
     ).withWrap();
     // Set the initial visibility state.
     this._setVisibility();
@@ -219,7 +210,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
    * Panel should hide itself when the option list is empty.
    */
   _setVisibility(): void {
-    this.showPanel = !!this.options.length;
+    this.showPanel = !!this._options.length;
     this._setVisibilityClasses(this._classList);
     this._changeDetectorRef.markForCheck();
   }
@@ -230,8 +221,8 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
    * above or below the fold, as they are not actually being focused when active.
    */
   _setScrollTop(scrollTop: number): void {
-    if (this.panel) {
-      this.panel.nativeElement.scrollTop = scrollTop;
+    if (this._panel) {
+      this._panel.nativeElement.scrollTop = scrollTop;
     }
   }
 
@@ -240,7 +231,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
    * Returns the panel's scrollTop.
    */
   _getScrollTop(): number {
-    return this.panel ? this.panel.nativeElement.scrollTop : 0;
+    return this._panel ? this._panel.nativeElement.scrollTop : 0;
   }
 
   /**
