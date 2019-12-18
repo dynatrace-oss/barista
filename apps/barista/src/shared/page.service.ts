@@ -65,6 +65,15 @@ export class BaPageService {
     this.currentPage = location.currentPath$.pipe(
       switchMap(path => this._getPage(path)),
     );
+
+    // Populate the cache with the search page so that it is always available.
+    this._cache.set(
+      'search',
+      of({
+        layout: BaPageLayoutType.Search,
+        title: 'Search results',
+      } as BaSinglePageContent),
+    );
   }
 
   /**

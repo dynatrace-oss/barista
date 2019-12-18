@@ -79,6 +79,18 @@ export function BaDummyErrorHandler(): void {}
   template: '',
 })
 export class NoopRoute {}
+import { BaSearchPage } from './pages/search-page/search-page';
+import { BaSearchService } from './shared/search.service';
+import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
+
+const PAGES = [
+  BaSinglePage,
+  BaIconOverviewPage,
+  BaOverviewPage,
+  BaIndexPage,
+  BaSearchPage,
+  BaErrorPage,
+];
 
 @NgModule({
   imports: [
@@ -96,6 +108,7 @@ export class NoopRoute {}
     BaComponentsModule,
     DtFormFieldModule,
     DtInputModule,
+    DtHighlightModule,
     DtThemingModule,
     DtExamplesModule,
     DtToastModule,
@@ -118,18 +131,14 @@ export class NoopRoute {}
     BaPageFooter,
     BaContributors,
     BaPageOutlet,
-    BaSinglePage,
-    BaOverviewPage,
-    BaIconOverviewPage,
     BaTile,
-    BaIndexPage,
     BaSmallTile,
     BaSearch,
     BaToc,
     BaSidenav,
     BaScrollToTop,
-    BaErrorPage,
     NoopRoute,
+    ...PAGES,
   ],
   providers: [
     BaPageService,
@@ -140,19 +149,17 @@ export class NoopRoute {}
     BaScrollSpyService,
     BaRecentlyOrderedService,
     BaCopyToClipboardService,
+    BaSearchService,
   ],
   entryComponents: [
-    BaSinglePage,
-    BaIconOverviewPage,
     BaPageHeader,
     BaContributors,
     BaPageFooter,
-    BaOverviewPage,
     BaIndexPage,
     BaSmallTile,
     BaSearch,
     BaSidenav,
-    BaErrorPage,
+    ...PAGES,
   ],
   bootstrap: [BaApp],
 })

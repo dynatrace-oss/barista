@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
-export * from './lib/barista-definitions';
-export * from './lib/barista-backend-api-definitions';
-export * from './lib/example-definitions';
+export const environment = {
+  production: true,
+  dataHost: '',
+  serverPort: process.env.port,
+  globalPrefix: 'api/v1',
+};

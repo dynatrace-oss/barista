@@ -1,0 +1,12 @@
+.ba-search-result-item {
+  margin-top: 1rem;
+}
+
+.ba-search-contentextractions {
+  font-size: 0.9em;
+}
+
+.ba-search-contentmatch::before,
+.ba-search-contentmatch::after {
+  content: '…';
+}
