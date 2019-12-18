@@ -61,11 +61,9 @@ export class DtRowDef<T> extends CdkRowDef<T> {}
 })
 export class DtRow extends CdkRow implements OnDestroy {
   /**
-   * Necessary due to the fact that we cannot get the DtRow via normal DI
-   *
-   * @breaking-change 5.0.0 Make internal
+   * @internal Necessary due to the fact that we cannot get the DtRow via normal DI
    */
-  static mostRecentRow: DtRow | null = null;
+  static _mostRecentRow: DtRow | null = null;
 
   protected _cells = new Set<DtCell>();
   private _cellStateChangesSub = Subscription.EMPTY;
@@ -80,12 +78,12 @@ export class DtRow extends CdkRow implements OnDestroy {
 
   constructor(protected _elementRef: ElementRef) {
     super();
-    DtRow.mostRecentRow = this;
+    DtRow._mostRecentRow = this;
   }
 
   ngOnDestroy(): void {
-    if (DtRow.mostRecentRow === this) {
-      DtRow.mostRecentRow = null;
+    if (DtRow._mostRecentRow === this) {
+      DtRow._mostRecentRow = null;
     }
     this._cellStateChangesSub.unsubscribe();
   }

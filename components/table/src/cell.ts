@@ -183,8 +183,8 @@ export class DtCell implements AfterContentInit, OnDestroy {
         _updateDtColumnStyles(this._columnDef, elem, renderer);
       });
 
-    if (DtRow.mostRecentRow) {
-      this._row = DtRow.mostRecentRow;
+    if (DtRow._mostRecentRow) {
+      this._row = DtRow._mostRecentRow;
       this._row._registerCell(this);
     }
   }
