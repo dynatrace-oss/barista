@@ -18,6 +18,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-empty-state-default',
-  template: 'empty-state-default-example.html',
+  templateUrl: 'empty-state-default-example.html',
 })
 export class DtExampleEmptyStateDefault {}
