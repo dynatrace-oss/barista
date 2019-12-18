@@ -23,7 +23,6 @@
 
       <dt-consumption-overlay>
         <dt-consumption
-          [min]="0"
           [max]="100000000"
           [value]="100000000"
           class="overlay-value-panel"
@@ -51,12 +50,7 @@
           </dt-key-value-list>
         </div>
 
-        <dt-consumption
-          [min]="0"
-          [max]="5"
-          [value]="0"
-          class="overlay-value-panel"
-        >
+        <dt-consumption [max]="5" [value]="0" class="overlay-value-panel">
           <dt-consumption-subtitle>
             Free credits (Exp. 20. Mar 2019)
           </dt-consumption-subtitle>
@@ -110,7 +104,6 @@
 
       <dt-consumption-overlay>
         <dt-consumption
-          [min]="0"
           [max]="100000000"
           [value]="100000000"
           color="warning"
@@ -128,7 +121,6 @@
         </dt-consumption>
 
         <dt-consumption
-          [min]="0"
           [max]="10500000"
           [value]="10500000"
           color="warning"
@@ -155,7 +147,6 @@
         </div>
 
         <dt-consumption
-          [min]="0"
           [max]="20000000"
           [value]="20000000"
           color="warning"
@@ -213,12 +204,7 @@
       </dt-consumption-label>
 
       <dt-consumption-overlay>
-        <dt-consumption
-          [min]="0"
-          [max]="errorMax"
-          [value]="errorValue"
-          color="error"
-        >
+        <dt-consumption [max]="errorMax" [value]="errorValue" color="error">
           <dt-consumption-title>
             Log analytics
           </dt-consumption-title>
