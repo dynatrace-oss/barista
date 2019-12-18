@@ -73,7 +73,7 @@ export class DtExampleTableFavoriteColumnNoHeader {
     );
   }
 
-  doSomething(): void {
+  doSomething(_event: Event): void {
     // noop
   }
 }
