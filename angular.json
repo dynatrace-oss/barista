@@ -490,7 +490,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "barista:build"
+            "browserTarget": "barista:build",
+            "proxyConfig": "apps/barista/proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -523,6 +524,61 @@
             "jestConfig": "apps/barista/jest.config.js",
             "tsConfig": "apps/barista/tsconfig.spec.json",
             "setupFile": "apps/barista/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "barista-backend": {
+      "root": "apps/barista-backend",
+      "sourceRoot": "apps/barista-backend/src",
+      "projectType": "application",
+      "prefix": "barista-backend",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/barista-backend",
+            "main": "apps/barista-backend/src/main.ts",
+            "tsConfig": "apps/barista-backend/tsconfig.app.json",
+            "assets": []
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/barista-backend/src/environments/environment.ts",
+                  "with": "apps/barista-backend/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "barista-backend:build",
+            "inspect": true
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/barista-backend/tsconfig.app.json",
+              "apps/barista-backend/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/barista-backend/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/barista-backend/jest.config.js",
+            "tsConfig": "apps/barista-backend/tsconfig.spec.json"
           }
         }
       }

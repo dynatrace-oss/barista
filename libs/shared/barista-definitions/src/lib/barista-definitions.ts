@@ -22,6 +22,7 @@ export const enum BaPageLayoutType {
   Icon = 'icon',
   Index = 'index',
   Error = 'error',
+  Search = 'search',
 }
 
 /** Pages & metadata */

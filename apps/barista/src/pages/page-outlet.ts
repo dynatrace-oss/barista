@@ -31,6 +31,7 @@ import { BaOverviewPage } from './overview-page/overview-page';
 import { BaSinglePage } from './single-page/single-page';
 import { BaIconOverviewPage } from './icon-overview-page/icon-overview-page';
 import { BaErrorPage } from './error-page/error-page';
+import { BaSearchPage } from './search-page/search-page';
 
 const LAYOUT_PAGES_MAPPING = {
   default: BaSinglePage,
@@ -38,6 +39,7 @@ const LAYOUT_PAGES_MAPPING = {
   iconOverview: BaIconOverviewPage,
   index: BaIndexPage,
   error: BaErrorPage,
+  search: BaSearchPage,
 };
 
 /**

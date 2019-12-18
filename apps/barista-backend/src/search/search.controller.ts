@@ -14,6 +14,22 @@
  * limitations under the License.
  */
 
-export * from './lib/barista-definitions';
-export * from './lib/barista-backend-api-definitions';
-export * from './lib/example-definitions';
+import { Controller, Get, Query, Post } from '@nestjs/common';
+import { SearchService } from './search.service';
+import { BaSearchResult } from '@dynatrace/barista-components/barista-definitions';
+import { Observable } from 'rxjs';
+
+@Controller()
+export class SearchController {
+  constructor(private readonly _searchService: SearchService) {}
+
+  @Get()
+  querySearch(@Query('q') query: string): Observable<BaSearchResult[]> {
+    return this._searchService.find(query);
+  }
+
+  @Post()
+  updateSearchIndex(): Observable<void> {
+    return this._searchService.triggerUpdate();
+  }
+}

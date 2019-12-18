@@ -14,6 +14,27 @@
  * limitations under the License.
  */
 
-export * from './lib/barista-definitions';
-export * from './lib/barista-backend-api-definitions';
-export * from './lib/example-definitions';
+import { Module, Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
+import { Routes, RouterModule } from 'nest-router';
+import { SearchModule } from '../search/search.module';
+
+@Controller()
+export class HealthCheckController {
+  @Get('/healthcheck')
+  @HttpCode(HttpStatus.OK)
+  health(): void {}
+}
+
+const routes: Routes = [
+  {
+    path: '/search',
+    module: SearchModule,
+  },
+];
+
+@Module({
+  imports: [RouterModule.forRoutes(routes), SearchModule],
+  controllers: [HealthCheckController],
+  providers: [],
+})
+export class AppModule {}
