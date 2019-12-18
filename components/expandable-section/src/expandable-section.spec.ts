@@ -65,18 +65,13 @@ describe('DtExpandableSection', () => {
 
     // test initial state
     it('should be closed initially', () => {
-      expect(expandableSectionInstance.opened).toBe(false);
       expect(expandableSectionInstance.expanded).toBe(false);
       expandableSectionInstance.close();
-      expect(expandableSectionInstance.opened).toBe(false);
       expect(expandableSectionInstance.expanded).toBe(false);
     });
 
     // test expanded input
     it('should be expanded', () => {
-      expandableSectionInstance.opened = true;
-      expect(expandableSectionInstance.opened).toBe(true);
-      expandableSectionInstance.opened = false;
       expandableSectionInstance.expanded = true;
       expect(expandableSectionInstance.expanded).toBe(true);
     });
@@ -84,31 +79,21 @@ describe('DtExpandableSection', () => {
     // test toggle method when collapsed
     it('should be expanded when collapsed on toggle', () => {
       expandableSectionInstance.expanded = false;
-      expect(expandableSectionInstance.toggle()).toBe(true);
+      expandableSectionInstance.toggle();
       expect(expandableSectionInstance.expanded).toBe(true);
     });
 
     // test toggle method when expanded
     it('should be collapsed when expanded on toggle', () => {
       expandableSectionInstance.expanded = true;
-      expect(expandableSectionInstance.toggle()).toBe(false);
+      expandableSectionInstance.toggle();
       expect(expandableSectionInstance.expanded).toBe(false);
     });
 
     // test open method
     it('should be expanded after method call', () => {
       expandableSectionInstance.open();
-      expect(expandableSectionInstance.opened).toBe(true);
       expect(expandableSectionInstance.expanded).toBe(true);
-    });
-
-    // @breaking-change Remove test with v5.0.0 (toggle already tested above)
-    it('should be expanded after toggle', () => {
-      expect(expandableSectionInstance.toggle()).toBe(true);
-      expect(expandableSectionInstance.opened).toBe(true);
-
-      expandableSectionInstance.close();
-      expect(expandableSectionInstance.opened).toBe(false);
     });
 
     // test disabled state
@@ -131,7 +116,8 @@ describe('DtExpandableSection', () => {
       expect(instanceElement.classList).not.toContain(
         'dt-expandable-section-opened',
       );
-      expect(expandableSectionInstance.toggle()).toBe(true);
+      expandableSectionInstance.toggle();
+      expect(expandableSectionInstance.expanded).toBe(true);
       fixture.detectChanges();
       expect(instanceElement.classList).toContain(
         'dt-expandable-section-opened',
