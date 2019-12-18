@@ -119,11 +119,9 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
   @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
 
   /**
-   * Part of the ControlValueAccessor interface.
-   *
-   * @breaking-change Make internal in 5.0.0
+   * @internal Part of the ControlValueAccessor interface.
    */
-  onTouched: () => void = () => {};
+  _onTouched: () => void = () => {};
 
   /** @internal The method to be called in order to update ngModel */
   _controlValueAccessorChangeFn: (value: T) => void = () => {};
@@ -151,8 +149,8 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
 
   /** @internal Called when the control is touched. */
   _touch(): void {
-    if (this.onTouched) {
-      this.onTouched();
+    if (this._onTouched) {
+      this._onTouched();
     }
   }
 
@@ -176,7 +174,7 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
 
   /** Implemented as a part of ControlValueAccessor. */
   registerOnTouched(fn: () => void): void {
-    this.onTouched = fn;
+    this._onTouched = fn;
   }
 
   /** Implemented as a part of ControlValueAccessor. */
