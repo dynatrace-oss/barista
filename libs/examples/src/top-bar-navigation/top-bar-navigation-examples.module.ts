@@ -15,7 +15,6 @@
  */
 
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
 import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
@@ -34,7 +33,6 @@ export const DT_TOP_BAR_NAVIGATION_EXAMPLES = [
     CommonModule,
     DtIconModule,
     DtTopBarNavigationModule,
-    RouterModule,
     DtDrawerModule,
   ],
   declarations: [...DT_TOP_BAR_NAVIGATION_EXAMPLES],

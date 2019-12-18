@@ -17,16 +17,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtToastModule } from '@dynatrace/barista-components/toast';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtExampleToastDefault } from './toast-default-example/toast-default-example';
 import { DtExampleToastDynamicMsg } from './toast-dynamic-msg-example/toast-dynamic-msg-example';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 export const DT_TOAST_EXAMPLES = [
   DtExampleToastDefault,
   DtExampleToastDynamicMsg,
 ];
 @NgModule({
-  imports: [CommonModule, FormsModule, DtButtonModule, DtFormFieldModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    DtToastModule,
+    DtInputModule,
+    DtButtonModule,
+    DtFormFieldModule,
+  ],
   declarations: [...DT_TOAST_EXAMPLES],
   entryComponents: [...DT_TOAST_EXAMPLES],
 })
