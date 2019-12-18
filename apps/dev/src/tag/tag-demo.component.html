@@ -1,7 +1,6 @@
 <dt-tag-list>
   <dt-tag
     [removable]="canRemove"
-    [disabled]="isDisabled"
     [value]="value1"
     (removed)="doRemove(tag1)"
     #tag1
@@ -13,7 +12,6 @@
 
   <dt-tag
     [removable]="canRemove"
-    [disabled]="isDisabled"
     [value]="value2"
     (removed)="doRemove(tag2)"
     #tag2
@@ -25,7 +23,6 @@
 
   <dt-tag
     [removable]="canRemove"
-    [disabled]="isDisabled"
     [value]="value3"
     (removed)="doRemove(tag3)"
     #tag3
@@ -51,14 +48,6 @@
     [variant]="hasKey ? 'primary' : 'secondary'"
   >
     Toggle key
-  </button>
-
-  <button
-    dt-button
-    (click)="isDisabled = !isDisabled"
-    [variant]="isDisabled ? 'primary' : 'secondary'"
-  >
-    Toggle disabled
   </button>
 </div>
 <br /><br />
