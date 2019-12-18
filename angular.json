@@ -2330,42 +2330,6 @@
       },
       "schematics": {}
     },
-    "selection-area": {
-      "projectType": "library",
-      "root": "components/selection-area",
-      "sourceRoot": "components/selection-area/src",
-      "prefix": "dt",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "components/selection-area/tsconfig.lib.json",
-              "components/selection-area/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!components/selection-area/**"]
-          }
-        },
-        "lint-styles": {
-          "builder": "@dynatrace/barista-builders:stylelint",
-          "options": {
-            "stylelintConfig": ".stylelintrc",
-            "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["components/selection-area/**/*.scss"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "components/selection-area/jest.config.js",
-            "tsConfig": "components/selection-area/tsconfig.spec.json",
-            "setupFile": "components/selection-area/src/test-setup.ts"
-          }
-        }
-      },
-      "schematics": {}
-    },
     "show-more": {
       "projectType": "library",
       "root": "components/show-more",

@@ -178,9 +178,6 @@
     "select": {
       "tags": ["scope:components", "type:library"]
     },
-    "selection-area": {
-      "tags": ["scope:components", "type:library"]
-    },
     "show-more": {
       "tags": ["scope:components", "type:library"]
     },

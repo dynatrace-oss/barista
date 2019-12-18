@@ -57,7 +57,6 @@ import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-c
 import { DtRadioModule } from '@dynatrace/barista-components/radio';
 import { DtSecondaryNavModule } from '@dynatrace/barista-components/secondary-nav';
 import { DtSelectModule } from '@dynatrace/barista-components/select';
-import { DtSelectionAreaModule } from '@dynatrace/barista-components/selection-area';
 import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
 import { DtStepperModule } from '@dynatrace/barista-components/stepper';
 import { DtSwitchModule } from '@dynatrace/barista-components/switch';
@@ -111,8 +110,6 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtRadioModule,
     DtSecondaryNavModule,
     DtSelectModule,
-    // tslint:disable-next-line: deprecation
-    DtSelectionAreaModule,
     DtShowMoreModule,
     DtSwitchModule,
     DtTableModule,
