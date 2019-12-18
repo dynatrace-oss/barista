@@ -28,8 +28,6 @@ import {
   OnChanges,
   OnDestroy,
   Optional,
-  PLATFORM_ID,
-  Renderer2,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -39,7 +37,6 @@ import { take } from 'rxjs/operators';
 import {
   addCssClass,
   createInViewportStream,
-  isDefined,
 } from '@dynatrace/barista-components/core';
 
 const HIGHLIGHTED_CLASS = 'dt-highlight-mark';
@@ -113,21 +110,11 @@ export class DtHighlight
   private _isInViewportSubscription = Subscription.EMPTY;
 
   constructor(
-    // @deprecated To be removed
-    // @breaking-change Remove this line in 5.0.0
-    _renderer: Renderer2,
     private _zone: NgZone,
-    // @deprecated To be removed
-    // @breaking-change Remove this line in 5.0.0
-    @Inject(PLATFORM_ID) _platformId: string,
-    // @deprecated @breaking-change 5.0.0 `elementRef` to become required.
-    private _elementRef?: ElementRef,
+    private _elementRef: ElementRef,
     // tslint:disable-next-line: no-any
     @Optional() @Inject(DOCUMENT) private _document?: any,
-  ) {
-    // @breaking-change Remove this line in 5.0.0
-    this._isInViewport = !isDefined(_elementRef);
-  }
+  ) {}
 
   /** Highlight if either the term or the caseSensitive input changes. */
   ngOnChanges(): void {
@@ -147,19 +134,16 @@ export class DtHighlight
   }
 
   ngAfterViewInit(): void {
-    // @breaking-change Remove this check in 5.0.0
-    if (this._elementRef) {
-      // Observable whether the component is in the viewport.
-      this._isInViewportSubscription = createInViewportStream(
-        this._elementRef,
-        0,
-      ).subscribe(value => {
-        this._isInViewport = value;
-        if (value) {
-          this._highlight();
-        }
-      });
-    }
+    // Observable whether the component is in the viewport.
+    this._isInViewportSubscription = createInViewportStream(
+      this._elementRef,
+      0,
+    ).subscribe(value => {
+      this._isInViewport = value;
+      if (value) {
+        this._highlight();
+      }
+    });
   }
 
   ngOnDestroy(): void {
