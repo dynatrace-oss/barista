@@ -307,12 +307,6 @@ export function isDtFreeTextValue(value: any): value is DtFreeTextValue {
 
 /** @internal */
 export type DtAutocompleteValue = DtNodeDef & { option: DtOptionDef };
-/**
- * @internal
- * @deprecated Use `DtAutocompleteValue` instead.
- * @breaking-change 5.0.0 To be removed.
- */
-export type DtAutocompletValue = DtAutocompleteValue;
 
 /** @internal */
 export function isDtAutocompleteValue(
