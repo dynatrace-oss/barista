@@ -181,7 +181,12 @@ export class BaTocService implements OnDestroy {
 
   /** get all headlines used in the toc */
   private _findTocHeadings(docElement: Element): HTMLHeadingElement[] {
-    return querySelectorAll<HTMLHeadingElement>(docElement, 'h2,h3');
+    // Only select direct children of the #all-content wrapper to not
+    // select headlines that are part of examples.
+    return querySelectorAll<HTMLHeadingElement>(
+      docElement,
+      '#all-content > h2[id], #all-content > h3[id]',
+    );
   }
 
   /** reset the scrollspyinfo if it exists */

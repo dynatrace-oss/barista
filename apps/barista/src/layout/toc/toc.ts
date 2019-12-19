@@ -64,7 +64,7 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     Promise.resolve().then(() => {
-      const docElement = document.getElementById('all-content') || undefined;
+      const docElement = document.getElementById('main') || undefined;
       this._tocService.genToc(docElement);
     });
   }
