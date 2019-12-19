@@ -57,11 +57,11 @@ export function filterAutocompleteDef(
     .filter(optionOrGroup => optionOrGroup !== null) as DtNodeDef[];
   return def.autocomplete!.async || optionsOrGroups.length
     ? dtAutocompleteDef(
+        def.data,
+        def,
         optionsOrGroups,
         def.autocomplete!.distinct,
         def.autocomplete!.async,
-        def.data,
-        def,
       )
     : null;
 }
@@ -78,11 +78,11 @@ export function filterFreeTextDef(
     : [];
 
   return dtFreeTextDef(
+    def.data,
+    def,
     suggestions,
     def.freeText!.validators || [],
     isDefined(def.freeText!.unique) ? def.freeText!.unique! : false,
-    def.data,
-    def,
   );
 }
 
@@ -100,11 +100,11 @@ export function filterGroupDef(
   );
   return options.length
     ? dtGroupDef(
+        def,
+        def.group!.parentAutocomplete,
         def.group!.label,
         options,
         def.data,
-        def,
-        def.group!.parentAutocomplete,
       )
     : null;
 }

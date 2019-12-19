@@ -844,7 +844,7 @@ describe('DtFilterField', () => {
 
       it('should throw', () => {
         expect(() => {
-          dtRangeDef(false, false, false, false, 's', {}, null);
+          dtRangeDef({}, null, false, false, false, false, 's');
         }).toThrowError(
           wrappedErrorMessage(getDtFilterFieldRangeNoOperatorsError()),
         );

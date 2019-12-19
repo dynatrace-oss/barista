@@ -54,8 +54,8 @@ describe('DtFilterField Util', () => {
     it('should create a unique id for a simple option definition', () => {
       const optionDef = dtOptionDef(
         'Option 1',
-        'Option 1',
         null,
+        'Option 1',
         null,
         null,
         null,
@@ -65,13 +65,13 @@ describe('DtFilterField Util', () => {
     it('should create a unique id for an option definition inside a group', () => {
       const optionDef = dtOptionDef(
         'Option 1',
+        null,
         'Option 1',
         null,
         null,
         null,
-        null,
       );
-      const groupDef = dtGroupDef('Group', [optionDef], {}, null, null);
+      const groupDef = dtGroupDef({}, null, 'Group', [optionDef], null);
       optionDef.option!.parentGroup = groupDef;
       expect(generateOptionId(optionDef)).toBe(
         `Group${DELIMITER}Option 1${DELIMITER}`,
@@ -81,8 +81,8 @@ describe('DtFilterField Util', () => {
     it('should create a unique id for a simple option definition with a provided prefix', () => {
       const optionDef = dtOptionDef(
         'Option 1',
-        'Option 1',
         null,
+        'Option 1',
         null,
         null,
         null,
@@ -95,13 +95,13 @@ describe('DtFilterField Util', () => {
     it('should create a unique id for an option definition inside a group with a provided prefix', () => {
       const optionDef = dtOptionDef(
         'Option 1',
+        null,
         'Option 1',
         null,
         null,
         null,
-        null,
       );
-      const groupDef = dtGroupDef('Group', [optionDef], {}, null, null);
+      const groupDef = dtGroupDef({}, null, 'Group', [optionDef], null);
       optionDef.option!.parentGroup = groupDef;
       expect(generateOptionId(optionDef, `Prefix${DELIMITER}`)).toBe(
         `Prefix${DELIMITER}Group${DELIMITER}Option 1${DELIMITER}`,
@@ -111,8 +111,8 @@ describe('DtFilterField Util', () => {
     it('should return the prefix if prefixOnly is set to true', () => {
       const optionDef = dtOptionDef(
         'Option 1',
-        'Option 1',
         null,
+        'Option 1',
         null,
         null,
         null,
@@ -127,9 +127,9 @@ describe('DtFilterField Util', () => {
     it('should return the existing uid of an option definition', () => {
       const optionDef = dtOptionDef(
         'Option 1',
+        null,
         'Option 1',
         'id1',
-        null,
         null,
         null,
       );
@@ -139,8 +139,8 @@ describe('DtFilterField Util', () => {
     it('should create and return an uid of an option definition if there is none', () => {
       const optionDef = dtOptionDef(
         'Option 1',
-        'Option 1',
         null,
+        'Option 1',
         null,
         null,
         null,
@@ -153,8 +153,8 @@ describe('DtFilterField Util', () => {
       const prefix = `Autocomplete${DELIMITER}`;
       const optionDef = dtOptionDef(
         'Option 1',
-        'Option 1',
         null,
+        'Option 1',
         null,
         null,
         null,
@@ -169,8 +169,8 @@ describe('DtFilterField Util', () => {
       const prefix = `Autocomplete${DELIMITER}`;
       const optionDef = dtOptionDef(
         'Option 1',
-        'Option 1',
         null,
+        'Option 1',
         null,
         null,
         null,
@@ -182,11 +182,11 @@ describe('DtFilterField Util', () => {
 
   describe('findDefForSourceObj', () => {
     it('should return null if the provided root definition is not of type autocomplete', () => {
-      expect(findDefForSource({}, dtFreeTextDef([], {}, null))).toBe(null);
+      expect(findDefForSource({}, dtFreeTextDef({}, null, [], []))).toBe(null);
       expect(
-        findDefForSource({}, dtOptionDef('', {}, null, null, null, null)),
+        findDefForSource({}, dtOptionDef({}, null, '', null, null, null)),
       ).toBe(null);
-      expect(findDefForSource({}, dtGroupDef('', [], {}, null, null))).toBe(
+      expect(findDefForSource({}, dtGroupDef({}, null, '', [], null))).toBe(
         null,
       );
     });
@@ -195,19 +195,19 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1' };
       const autocompleteSource = [optionSource];
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
       );
       const autocompleteDef = dtAutocompleteDef(
+        autocompleteSource,
+        null,
         [optionDef],
         false,
         false,
-        autocompleteSource,
-        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
@@ -222,26 +222,26 @@ describe('DtFilterField Util', () => {
         const autocompleteSource = [groupSource];
 
         const optionDef = dtOptionDef(
-          optionSource.name,
           optionSource,
           null,
+          optionSource.name,
           null,
           null,
           null,
         );
         const groupDef = dtGroupDef(
-          'Group 1',
-          [optionDef],
           groupSource,
           null,
+          'Group 1',
+          [optionDef],
           null,
         );
         const autocompleteDef = dtAutocompleteDef(
+          autocompleteSource,
+          null,
           [groupDef],
           false,
           false,
-          autocompleteSource,
-          null,
         );
         optionDef.option!.parentAutocomplete = autocompleteDef;
         optionDef.option!.parentGroup = groupDef;
@@ -255,18 +255,18 @@ describe('DtFilterField Util', () => {
       const autocompleteSource = [optionSource];
       const optionDef = dtOptionDef(
         optionSource,
-        optionSource,
         null,
+        optionSource,
         null,
         null,
         null,
       );
       const autocompleteDef = dtAutocompleteDef(
+        autocompleteSource,
+        null,
         [optionDef],
         false,
         false,
-        autocompleteSource,
-        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
@@ -276,19 +276,19 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1' };
       const autocompleteSource = [optionSource];
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
       );
       const autocompleteDef = dtAutocompleteDef(
+        autocompleteSource,
+        null,
         [optionDef],
         false,
         false,
-        autocompleteSource,
-        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource({}, autocompleteDef)).toBe(null);
@@ -301,19 +301,19 @@ describe('DtFilterField Util', () => {
       const autocompleteSource = [optionSource];
 
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
       );
       const autocompleteDef = dtAutocompleteDef(
+        autocompleteSource,
+        null,
         [optionDef],
         false,
         false,
-        autocompleteSource,
-        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
 
@@ -334,26 +334,26 @@ describe('DtFilterField Util', () => {
       const autocompleteSource = [groupSource];
 
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
       );
       const groupDef = dtGroupDef(
-        'Group 1',
-        [optionDef],
         groupSource,
         null,
+        'Group 1',
+        [optionDef],
         null,
       );
       const autocompleteDef = dtAutocompleteDef(
+        autocompleteSource,
+        null,
         [groupDef],
         false,
         false,
-        autocompleteSource,
-        null,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       optionDef.option!.parentGroup = groupDef;
@@ -380,34 +380,34 @@ describe('DtFilterField Util', () => {
 
       const innerOptionDef = dtOptionDef(
         innerOptionSource,
-        innerOptionSource,
         null,
+        innerOptionSource,
         null,
         null,
         null,
       );
       const outerOptionDef = dtOptionDef(
-        outerOptionSource.name,
         outerOptionSource,
         null,
+        outerOptionSource.name,
         null,
         null,
         null,
       );
       const outerOptionAutocompleteDef = dtAutocompleteDef(
+        outerOptionSource,
+        outerOptionDef,
         [innerOptionDef],
         false,
         false,
-        outerOptionSource,
-        outerOptionDef,
       );
       innerOptionDef.option!.parentAutocomplete = outerOptionAutocompleteDef;
       const rootAutocompleteDef = dtAutocompleteDef(
+        rootAutocompleteSource,
+        null,
         [outerOptionAutocompleteDef],
         false,
         false,
-        rootAutocompleteSource,
-        null,
       );
       outerOptionAutocompleteDef.option!.parentAutocomplete = rootAutocompleteDef;
 
@@ -439,20 +439,20 @@ describe('DtFilterField Util', () => {
       const autocompleteSource = [optionSource];
 
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
       );
-      const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], []);
       const autocompleteDef = dtAutocompleteDef(
+        autocompleteSource,
+        null,
         [freeTextDef],
         false,
         false,
-        autocompleteSource,
-        null,
       );
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
 
@@ -473,27 +473,27 @@ describe('DtFilterField Util', () => {
       const autocompleteSource = [groupSource];
 
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
       );
-      const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], []);
       const groupDef = dtGroupDef(
-        'Group 1',
-        [freeTextDef],
         groupSource,
         null,
+        'Group 1',
+        [freeTextDef],
         null,
       );
       const autocompleteDef = dtAutocompleteDef(
+        autocompleteSource,
+        null,
         [groupDef],
         false,
         false,
-        autocompleteSource,
-        null,
       );
       freeTextDef.option!.parentGroup = groupDef;
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
@@ -515,9 +515,9 @@ describe('DtFilterField Util', () => {
     it('should return true if the viewValue of the option starts the filter text', () => {
       const optionSource = { name: 'Option 1' };
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
@@ -528,9 +528,9 @@ describe('DtFilterField Util', () => {
     it('should return true if the viewValue of the option contains the filter text', () => {
       const optionSource = { name: 'Option 1' };
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
@@ -541,9 +541,9 @@ describe('DtFilterField Util', () => {
     it('should return false if the viewValue of the option does not contain the filter text', () => {
       const optionSource = { name: 'Option 1' };
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
@@ -557,10 +557,10 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set([optionSource.uid]);
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
-        optionSource.uid,
         null,
+        optionSource.name,
+        optionSource.uid,
         null,
         null,
       );
@@ -574,10 +574,10 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set(['2']);
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
-        optionSource.uid,
         null,
+        optionSource.name,
+        optionSource.uid,
         null,
         null,
       );
@@ -592,19 +592,19 @@ describe('DtFilterField Util', () => {
         const optionSource = { name: 'Option 1', uid: '1', autocomplete: [] };
         const selectedIds = new Set([optionSource.uid]);
         let optionDef = dtOptionDef(
-          optionSource.name,
           optionSource,
-          optionSource.uid,
           null,
+          optionSource.name,
+          optionSource.uid,
           null,
           null,
         );
         optionDef = dtAutocompleteDef(
+          optionSource,
+          optionDef,
           [],
           false,
           false,
-          optionSource,
-          optionDef,
         );
         expect(optionSelectedPredicate(optionDef, selectedIds, false)).toBe(
           true,
@@ -619,19 +619,19 @@ describe('DtFilterField Util', () => {
         const optionSource = { name: 'Option 1', uid: '1', autocomplete: [] };
         const selectedIds = new Set([optionSource.uid]);
         let optionDef = dtOptionDef(
-          optionSource.name,
           optionSource,
-          optionSource.uid,
           null,
+          optionSource.name,
+          optionSource.uid,
           null,
           null,
         );
         optionDef = dtAutocompleteDef(
+          optionSource,
+          optionDef,
           [],
           false,
           false,
-          optionSource,
-          optionDef,
         );
         expect(optionSelectedPredicate(optionDef, selectedIds, true)).toBe(
           false,
@@ -645,14 +645,14 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set([optionSource.uid]);
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
+        null,
+        optionSource.name,
         optionSource.uid,
         null,
         null,
-        null,
       );
-      const groupDef = dtGroupDef('Group 1', [optionDef], {}, null, null);
+      const groupDef = dtGroupDef({}, null, 'Group 1', [optionDef], null);
       optionDef.option!.parentGroup = groupDef;
       expect(optionOrGroupFilteredPredicate(groupDef, selectedIds, false)).toBe(
         false,
@@ -666,27 +666,27 @@ describe('DtFilterField Util', () => {
       const option1Source = { name: 'Option 1', uid: '1' };
       const option2Source = { name: 'Option 2', uid: '2' };
       const option1Def = dtOptionDef(
-        option1Source.name,
         option1Source,
-        option1Source.uid,
         null,
+        option1Source.name,
+        option1Source.uid,
         null,
         null,
       );
       const option2Def = dtOptionDef(
-        option2Source.name,
         option2Source,
-        option2Source.uid,
         null,
+        option2Source.name,
+        option2Source.uid,
         null,
         null,
       );
       const selectedIds = new Set([option1Source.uid]);
       const groupDef = dtGroupDef(
-        'Group 1',
-        [option1Def, option2Def],
         {},
         null,
+        'Group 1',
+        [option1Def, option2Def],
         null,
       );
       option1Def.option!.parentGroup = groupDef;
@@ -700,28 +700,28 @@ describe('DtFilterField Util', () => {
       const option1Source = { name: 'Option 1', uid: '1' };
       const option2Source = { name: 'Option 2', uid: '2' };
       const option1Def = dtOptionDef(
-        option1Source.name,
         option1Source,
-        option1Source.uid,
         null,
+        option1Source.name,
+        option1Source.uid,
         null,
         null,
       );
       const option2Def = dtOptionDef(
-        option2Source.name,
         option2Source,
-        option2Source.uid,
         null,
+        option2Source.name,
+        option2Source.uid,
         null,
         null,
       );
 
       const selectedIds = new Set([option1Source.uid]);
       const groupDef = dtGroupDef(
-        'Group 1',
-        [option1Def, option2Def],
         {},
         null,
+        'Group 1',
+        [option1Def, option2Def],
         null,
       );
       option1Def.option!.parentGroup = groupDef;
@@ -735,27 +735,27 @@ describe('DtFilterField Util', () => {
       const option1Source = { name: 'Option 1', uid: '1' };
       const option2Source = { name: 'Option 2', uid: '2' };
       const option1Def = dtOptionDef(
-        option1Source.name,
         option1Source,
-        option1Source.uid,
         null,
+        option1Source.name,
+        option1Source.uid,
         null,
         null,
       );
       const option2Def = dtOptionDef(
-        option2Source.name,
         option2Source,
-        option2Source.uid,
         null,
+        option2Source.name,
+        option2Source.uid,
         null,
         null,
       );
       const selectedIds = new Set();
       const groupDef = dtGroupDef(
-        'Group 1',
-        [option1Def, option2Def],
         {},
         null,
+        'Group 1',
+        [option1Def, option2Def],
         null,
       );
       option1Def.option!.parentGroup = groupDef;
@@ -771,22 +771,22 @@ describe('DtFilterField Util', () => {
 
   describe('defDistinctPredicate', () => {
     it('should return true if an autocomplete is async and also an option; it is not selected and not distinct', () => {
-      let def = dtAutocompleteDef([], false, true, {}, null);
-      def = dtOptionDef('foo', {}, 'id0', def, null, null);
+      let def = dtAutocompleteDef({}, null, [], false, true);
+      def = dtOptionDef({}, null, 'foo', 'id0', def, null);
       const ids = new Set(['id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(true);
     });
 
     it('should return true if an autocomplete is async and also an option; it is selected but not distinct', () => {
-      let def = dtAutocompleteDef([], false, true, {}, null);
-      def = dtOptionDef('foo', {}, 'id0', def, null, null);
+      let def = dtAutocompleteDef({}, null, [], false, true);
+      def = dtOptionDef({}, def, 'foo', 'id0', def, null);
       const ids = new Set(['id0', 'id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(true);
     });
 
     it('should return false if an autocomplete is async and also an option; it is selected and distinct', () => {
-      let def = dtAutocompleteDef([], true, true, {}, null);
-      def = dtOptionDef('foo', {}, 'id0', def, null, null);
+      let def = dtAutocompleteDef({}, null, [], true, true);
+      def = dtOptionDef({}, null, 'foo', 'id0', def, null);
       const ids = new Set(['id0', 'id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(false);
     });
@@ -809,14 +809,14 @@ describe('DtFilterField Util', () => {
       validator = { validatorFn: Validators.required, error: 'is required' };
     });
     it('should create a dtFreeTextDef with the deprecated API without validators and unique and no existing def', () => {
-      const freeTextDef = dtFreeTextDef([], optionSource, null);
+      const freeTextDef = dtFreeTextDef(optionSource, null, [], []);
       expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
       expect(freeTextDef.freeText!.suggestions).toEqual([]);
       expect(freeTextDef.freeText!.unique).toBeFalsy();
       expect(freeTextDef.freeText!.validators).toEqual([]);
     });
     it('should create a dtFreeTextDef with the deprecated API without validators and unique', () => {
-      const freeTextDef = dtFreeTextDef([], optionSource, optionDef);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], []);
       expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
       expect(freeTextDef.freeText!.suggestions).toEqual([]);
       expect(freeTextDef.freeText!.unique).toBeFalsy();
@@ -824,10 +824,10 @@ describe('DtFilterField Util', () => {
     });
     it('should create a dtFreeTextDef with validators', () => {
       const freeTextDef = dtFreeTextDef(
-        [],
-        [validator],
         optionSource,
         optionDef,
+        [],
+        [validator],
       );
       expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
       expect(freeTextDef.freeText!.suggestions).toEqual([]);
@@ -837,11 +837,11 @@ describe('DtFilterField Util', () => {
 
     it('should create a dtFreeTextDef with validators', () => {
       const freeTextDef = dtFreeTextDef(
+        optionSource,
+        optionDef,
         [],
         [validator],
         true,
-        optionSource,
-        optionDef,
       );
       expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
       expect(freeTextDef.freeText!.suggestions).toEqual([]);
@@ -855,14 +855,14 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set([optionSource.uid]);
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
+        null,
+        optionSource.name,
         optionSource.uid,
         null,
         null,
-        null,
       );
-      const freeTextDef = dtFreeTextDef([], [], true, optionSource, optionDef);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], [], true);
       expect(defUniquePredicate(freeTextDef, selectedIds)).toBe(false);
     });
 
@@ -870,14 +870,14 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set();
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
+        null,
+        optionSource.name,
         optionSource.uid,
         null,
         null,
-        null,
       );
-      const freeTextDef = dtFreeTextDef([], [], true, optionSource, optionDef);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], [], true);
       expect(defUniquePredicate(freeTextDef, selectedIds)).toBe(true);
     });
 
@@ -885,14 +885,14 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set([optionSource.uid]);
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
+        null,
+        optionSource.name,
         optionSource.uid,
         null,
         null,
-        null,
       );
-      const freeTextDef = dtFreeTextDef([], [], false, optionSource, optionDef);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], [], false);
       expect(defUniquePredicate(freeTextDef, selectedIds)).toBe(true);
     });
 
@@ -900,21 +900,21 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set([optionSource.uid]);
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
-        optionSource.uid,
         null,
+        optionSource.name,
+        optionSource.uid,
         null,
         null,
       );
       const rangeDef = dtRangeDef(
+        optionSource,
+        optionDef,
         true,
         true,
         true,
         true,
         's',
-        optionSource,
-        optionDef,
         true,
       );
       expect(defUniquePredicate(rangeDef, selectedIds)).toBe(false);
@@ -924,21 +924,21 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set();
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
-        optionSource.uid,
         null,
+        optionSource.name,
+        optionSource.uid,
         null,
         null,
       );
       const rangeDef = dtRangeDef(
+        optionSource,
+        optionDef,
         true,
         true,
         true,
         true,
         's',
-        optionSource,
-        optionDef,
         true,
       );
       expect(defUniquePredicate(rangeDef, selectedIds)).toBe(true);
@@ -948,21 +948,21 @@ describe('DtFilterField Util', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set([optionSource.uid]);
       const optionDef = dtOptionDef(
-        optionSource.name,
         optionSource,
-        optionSource.uid,
         null,
+        optionSource.name,
+        optionSource.uid,
         null,
         null,
       );
       const rangeDef = dtRangeDef(
+        optionSource,
+        optionDef,
         true,
         true,
         true,
         true,
         's',
-        optionSource,
-        optionDef,
         false,
       );
       expect(defUniquePredicate(rangeDef, selectedIds)).toBe(true);
@@ -1015,17 +1015,17 @@ describe('DtFilterField Util', () => {
     it('should return true if both are options and both have the same uid without initial uid', () => {
       const optionSource = { name: 'Option 1' };
       const a = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
       ) as DtAutocompleteValue;
       const b = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
@@ -1036,17 +1036,17 @@ describe('DtFilterField Util', () => {
     it('should return true if both are options and both have the same uid with a already having a uid', () => {
       const optionSource = { name: 'Option 1' };
       const a = dtOptionDef(
-        optionSource.name,
         optionSource,
-        `${optionSource.name}${DELIMITER}`,
         null,
+        optionSource.name,
+        `${optionSource.name}${DELIMITER}`,
         null,
         null,
       ) as DtAutocompleteValue;
       const b = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
@@ -1059,17 +1059,17 @@ describe('DtFilterField Util', () => {
       const prefix = `US${DELIMITER}`;
       const optionSource = { name: 'Option 1' };
       const a = dtOptionDef(
-        optionSource.name,
         optionSource,
-        `${prefix}${optionSource.name}${DELIMITER}`,
         null,
+        optionSource.name,
+        `${prefix}${optionSource.name}${DELIMITER}`,
         null,
         null,
       ) as DtAutocompleteValue;
       const b = dtOptionDef(
-        optionSource.name,
         optionSource,
         null,
+        optionSource.name,
         null,
         null,
         null,
@@ -1081,18 +1081,18 @@ describe('DtFilterField Util', () => {
     it('should return false if options dont match with the uid', () => {
       const optionSourceA = { name: 'Option 1' };
       const a = dtOptionDef(
-        optionSourceA.name,
         optionSourceA,
         null,
+        optionSourceA.name,
         null,
         null,
         null,
       ) as DtAutocompleteValue;
       const optionSourceB = { name: 'Option 2' };
       const b = dtOptionDef(
-        optionSourceB.name,
         optionSourceB,
         null,
+        optionSourceB.name,
         null,
         null,
         null,
@@ -1103,19 +1103,19 @@ describe('DtFilterField Util', () => {
     it('should return false if options dont match with the uid already set', () => {
       const optionSourceA = { name: 'Option 1' };
       const a = dtOptionDef(
-        optionSourceA.name,
         optionSourceA,
         null,
+        optionSourceA.name,
         null,
         null,
         null,
       ) as DtAutocompleteValue;
       const optionSourceB = { name: 'Option 2' };
       const b = dtOptionDef(
-        optionSourceB.name,
         optionSourceB,
-        `${optionSourceB.name}${DELIMITER}`,
         null,
+        optionSourceB.name,
+        `${optionSourceB.name}${DELIMITER}`,
         null,
         null,
       ) as DtAutocompleteValue;

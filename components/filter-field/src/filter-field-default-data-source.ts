@@ -220,11 +220,11 @@ export class DtFilterFieldDefaultDataSource<T>
     data: DtFilterFieldDefaultDataSourceAutocomplete,
   ): DtNodeDef {
     const def = dtAutocompleteDef(
+      data,
+      null,
       [],
       !!data.distinct,
       !!data.async,
-      data,
-      null,
     );
     def.autocomplete!.optionsOrGroups = this.transformList(
       data.autocomplete,
@@ -249,10 +249,10 @@ export class DtFilterFieldDefaultDataSource<T>
         ? (parentAutocompleteOrOption as DtNodeDef)
         : null;
     return dtOptionDef(
-      typeof data === 'string' ? data : data.name,
       data,
-      null,
       existingDef,
+      typeof data === 'string' ? data : data.name,
+      null,
       parentAutocomplete,
       parentGroup,
     );
@@ -265,10 +265,10 @@ export class DtFilterFieldDefaultDataSource<T>
     existingDef: DtNodeDef | null = null,
   ): DtNodeDef {
     const def = dtGroupDef(
-      data.name,
-      [],
       data,
       existingDef,
+      data.name,
+      [],
       parentAutocomplete,
     );
     def.group!.options = this.transformList(data.options, def);
@@ -279,14 +279,14 @@ export class DtFilterFieldDefaultDataSource<T>
   transformFreeText(data: DtFilterFieldDefaultDataSourceFreeText): DtNodeDef {
     // @breaking-change 5.0.0 data.validators is then required so `|| []` can be removed
     const def = dtFreeTextDef(
+      data,
+      null,
       [],
       data.validators || [
         // tslint:disable-next-line: no-unbound-method
         { validatorFn: Validators.required, error: 'Field is required' },
       ],
       isDefined(data.unique) ? data.unique! : false,
-      data,
-      null,
     );
     def.freeText!.suggestions = this.transformList(data.suggestions, def);
     return def;
@@ -295,13 +295,13 @@ export class DtFilterFieldDefaultDataSource<T>
   /** Transforms the provided data into a DtNodeDef which contains a DtRangeDef. */
   transformRange(data: DtFilterFieldDefaultDataSourceRange): DtNodeDef {
     return dtRangeDef(
+      data,
+      null,
       !!data.range.operators.range,
       !!data.range.operators.equal,
       !!data.range.operators.greaterThanEqual,
       !!data.range.operators.lessThanEqual,
       data.range.unit,
-      data,
-      null,
       isDefined(data.unique) ? data.unique! : false,
     );
   }

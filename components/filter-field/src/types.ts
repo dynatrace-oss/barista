@@ -97,18 +97,16 @@ export interface DtRangeDef {
   unique?: boolean;
 }
 
-/**
- * Creates a new DtRangeDef onto a provided existing NodeDef or a newly created one.
- * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
- */
+/** Creates a new DtRangeDef onto a provided existing NodeDef or a newly created one. */
 export function dtRangeDef(
+  data: any,
+  existingNodeDef: DtNodeDef | null,
   hasRangeOperator: boolean,
   hasEqualOperator: boolean,
   hasGreaterEqualOperator: boolean,
   hasLowerEqualOperator: boolean,
   unit: string,
-  data: any,
-  existingNodeDef: DtNodeDef | null,
+  // @breaking-change 5.0.0 Make mandatory
   unique: boolean = false,
 ): DtNodeDef {
   // if none of the operators are defined, throw an error.
@@ -154,16 +152,13 @@ export function isDtRangeDef(def: any): def is DtNodeDef & DtRangeDef {
   return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeRange);
 }
 
-/**
- * Creates a new DtAutocompleteDef onto a provided existing NodeDef or a newly created one.
- * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
- */
+/** Creates a new DtAutocompleteDef onto a provided existing NodeDef or a newly created one. */
 export function dtAutocompleteDef(
+  data: any,
+  existingNodeDef: DtNodeDef | null,
   optionsOrGroups: DtNodeDef[],
   distinct: boolean,
   async: boolean,
-  data: any,
-  existingNodeDef: DtNodeDef | null,
 ): DtNodeDef {
   const def = {
     ...nodeDef(data, existingNodeDef),
@@ -188,15 +183,12 @@ export function isAsyncDtAutocompleteDef(
   );
 }
 
-/**
- * Creates a new DtOptionDef onto a provided existing NodeDef or a newly created one.
- * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
- */
+/** Creates a new DtOptionDef onto a provided existing NodeDef or a newly created one. */
 export function dtOptionDef(
-  viewValue: string,
   data: any,
-  uid: string | null,
   existingNodeDef: DtNodeDef | null,
+  viewValue: string,
+  uid: string | null,
   parentAutocomplete: DtNodeDef | null,
   parentGroup: DtNodeDef | null,
 ): DtNodeDef {
@@ -220,15 +212,12 @@ export function isDtOptionDef(
   return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeOption);
 }
 
-/**
- * Creates a new DtGroupDef onto a provided existing NodeDef or a newly created one.
- * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
- */
+/** Creates a new DtGroupDef onto a provided existing NodeDef or a newly created one. */
 export function dtGroupDef(
-  label: string,
-  options: DtNodeDef[],
   data: any,
   existingNodeDef: DtNodeDef | null,
+  label: string,
+  options: DtNodeDef[],
   parentAutocomplete: DtNodeDef | null,
 ): DtNodeDef {
   const def = {
@@ -250,76 +239,17 @@ export function isDtGroupDef(
   return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeGroup);
 }
 
-/**
- * @deprecated
- * Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one.
- *
- * @breaking-change 5.0.0 To be removed, validators required
- */
+/** Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one. */
 export function dtFreeTextDef(
-  suggestions: DtNodeDef[],
   data: any,
   existingNodeDef: DtNodeDef | null,
-): DtNodeDef;
-
-/**
- * @deprecated
- * Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one.
- * @breaking-change 5.0.0 To be removed, unique required
- */
-export function dtFreeTextDef(
   suggestions: DtNodeDef[],
   validators: DtFilterFieldValidator[],
-  data: any,
-  existingNodeDef: DtNodeDef | null,
-): DtNodeDef;
-
-/**
- * Creates a new DtFreeTextDef onto a provided existing NodeDef or a newly created one.
- * @breaking-change 5.0.0 change param order move data, exisiting nodes to be the first two params
- */
-export function dtFreeTextDef(
-  suggestions: DtNodeDef[],
-  validators: DtFilterFieldValidator[],
-  unique: boolean,
-  data: any,
-  existingNodeDef: DtNodeDef | null,
-): DtNodeDef;
-
-export function dtFreeTextDef(
-  suggestions: DtNodeDef[],
-  validatorsOrData: any | DtFilterFieldValidator[],
-  uniqueOrDataOrExistingNodeDef: DtNodeDef | null | any | boolean,
-  existingNodeDefOrData: DtNodeDef | null | any = null,
-  existingNodeDef: DtNodeDef | null = null,
+  // @breaking-change 5.0.0 Make mandatory
+  unique: boolean = false,
 ): DtNodeDef {
-  let data: any = validatorsOrData;
-  let validators: DtFilterFieldValidator[] = [];
-  let currentNodeDef: DtNodeDef | null = existingNodeDefOrData;
-  let unique;
-
-  if (
-    isDtNodeDef(uniqueOrDataOrExistingNodeDef) ||
-    uniqueOrDataOrExistingNodeDef === null
-  ) {
-    validators = [];
-    unique = false;
-    data = validatorsOrData;
-    currentNodeDef = uniqueOrDataOrExistingNodeDef;
-  } else if (typeof uniqueOrDataOrExistingNodeDef === 'boolean') {
-    validators = validatorsOrData;
-    unique = uniqueOrDataOrExistingNodeDef;
-    data = existingNodeDefOrData;
-    currentNodeDef = existingNodeDef;
-  } else {
-    validators = validatorsOrData;
-    unique = false;
-    data = uniqueOrDataOrExistingNodeDef;
-    currentNodeDef = existingNodeDef;
-  }
-
   const def = {
-    ...nodeDef(data, currentNodeDef),
+    ...nodeDef(data, existingNodeDef),
     freeText: { suggestions, validators, unique },
   };
   def.nodeFlags |= DtNodeFlags.TypeFreeText;
