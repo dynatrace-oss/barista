@@ -146,6 +146,16 @@ describe('DtChart Timestamp', () => {
       expect(container).toBeNull();
       expect(timestamp._hidden).toBe(true);
     });
+
+    it('should be closable programmatically', () => {
+      timestamp.value = 100;
+      timestamp._hidden = false;
+      timestamp.close();
+      fixture.detectChanges();
+
+      expect(timestamp.value).toBe(0);
+      expect(timestamp._hidden).toBe(true);
+    });
   });
 
   describe('Timestamp with binding', () => {
