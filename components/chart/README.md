@@ -265,9 +265,10 @@ and `aria-label-close`, to meet our accessibility standards.
 
 #### Methods
 
-| Name    | Type   | Description                    |
-| ------- | ------ | ------------------------------ |
-| `focus` | `void` | Focuses the timestamp element. |
+| Name    | Type   | Description                                   |
+| ------- | ------ | --------------------------------------------- |
+| `focus` | `void` | Focuses the timestamp element.                |
+| `close` | `void` | Closes the timestamp element and the overlay. |
 
 ## Heatfield
 

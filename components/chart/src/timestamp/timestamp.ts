@@ -236,6 +236,12 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     }
   }
 
+  /** Closes the timestamp element and the overlay. */
+  close(): void {
+    this._closeOverlay.next();
+    this._reset();
+  }
+
   /**
    * @internal
    * Resets the timestamps values and hides it.
