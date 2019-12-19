@@ -47,10 +47,9 @@ event will be fired that can be used to update any associated data view.
 
 ## Outputs
 
-| Name      | Type                        | Description                                                                                                                                       |
-| --------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `changed` | `EventEmitter<number>`      | Event that gets fired if the current page changes. It emits the new number as a current page.                                                     |
-| `page`    | `EventEmitter<DtPageEvent>` | Event emitted when the pagination changes the page size or page index. The DtPageEvent contains the current page, the actual page size and length |
+| Name      | Type                   | Description                                                                                   |
+| --------- | ---------------------- | --------------------------------------------------------------------------------------------- |
+| `changed` | `EventEmitter<number>` | Event that gets fired if the current page changes. It emits the new number as a current page. |
 
 ## Methods
 
