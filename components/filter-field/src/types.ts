@@ -52,7 +52,6 @@ export interface DtAutocompleteDef {
 
 export interface DtFreeTextDef {
   suggestions: DtNodeDef[];
-  // @breaking-change 5.0.0 To be non optional
   validators: DtFilterFieldValidator[];
   unique: boolean;
 }
@@ -92,8 +91,7 @@ export const enum DtRangeOperatorFlags {
 export interface DtRangeDef {
   operatorFlags: DtRangeOperatorFlags;
   unit: string;
-  // @breaking-change 6.0.0 To be non optional
-  unique?: boolean;
+  unique: boolean;
 }
 
 /** Creates a new DtRangeDef onto a provided existing NodeDef or a newly created one. */
@@ -105,8 +103,7 @@ export function dtRangeDef(
   hasGreaterEqualOperator: boolean,
   hasLowerEqualOperator: boolean,
   unit: string,
-  // @breaking-change 5.0.0 Make mandatory
-  unique: boolean = false,
+  unique: boolean,
 ): DtNodeDef {
   // if none of the operators are defined, throw an error.
   if (
