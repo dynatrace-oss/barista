@@ -49,5 +49,6 @@
 
 .dt-drawer-body {
   height: calc(100% - 44px);
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
