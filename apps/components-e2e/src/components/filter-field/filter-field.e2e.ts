@@ -67,10 +67,12 @@ test('should remove all filters when clicking the clear-all button', async (test
   await clickOption(1);
 
   // Click somewhere outside so the clear-all button appears
-  await testController.click(Selector('body'), { offsetY: 100 });
+  await testController.click(Selector('.outside'));
+  await testController.wait(300);
   await testController.expect(await clearAll.exists).ok();
 
   // Click the clear all-button, the created filter should be removed
   await testController.click(clearAll);
+  await testController.wait(300);
   await testController.expect(await filterTags.exists).notOk();
 });
