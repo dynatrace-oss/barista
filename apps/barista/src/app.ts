@@ -16,10 +16,12 @@
 
 // tslint:disable: indent object-literal-key-quotes quotemark trailing-comma max-line-length no-duplicate-imports max-file-line-count
 
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { BaLocationService } from './shared/location.service';
 import { BaPageService } from './shared/page.service';
-import { map } from 'rxjs/operators';
 
 const PAGE_THEME_MAP = new Map<string, string>([
   ['brand', 'purple'],
@@ -39,7 +41,7 @@ export const DEFAULT_PAGE_THEME = 'turquoise';
       '_handleClick($event.target, $event.button, $event.ctrlKey, $event.metaKey)',
   },
 })
-export class BaApp {
+export class BaApp implements OnInit, OnDestroy {
   /**
    * @internal
    * The object containing all data needed to display the current page.
@@ -84,10 +86,24 @@ export class BaApp {
     }),
   );
 
+  /** Subscription on the current page. */
+  private _currentPageSubscription = Subscription.EMPTY;
+
   constructor(
     private _pageService: BaPageService,
     private _locationService: BaLocationService,
+    private _titleService: Title,
   ) {}
+
+  ngOnInit(): void {
+    this._currentPageSubscription = this._currentPage$.subscribe(page =>
+      this._titleService.setTitle(`${page.title} | Barista design system`),
+    );
+  }
+
+  ngOnDestroy(): void {
+    this._currentPageSubscription.unsubscribe();
+  }
 
   /**
    * @internal
