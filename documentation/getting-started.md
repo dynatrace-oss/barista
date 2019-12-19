@@ -34,7 +34,7 @@ If you don't want to add another dependency to your project, you can use the
 NoopAnimationsModule.
 
 ```typescript
-import {NoopAnimationsModule} from '@dynatrace/barista-components';
+import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   ...

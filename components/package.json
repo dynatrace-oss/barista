@@ -1,6 +1,7 @@
 {
   "name": "@dynatrace/barista-components",
   "description": "Dynatrace components for Angular",
+  "version": "4.15.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/dynatrace-oss/barista"
@@ -10,17 +11,24 @@
     "dynatrace",
     "components"
   ],
+  "license": "Apache-2.0",
   "homepage": "https://barista.dynatrace.com",
+  "bugs": {
+    "url": "https://github.com/dynatrace-oss/barista/issues"
+  },
   "peerDependencies": {
     "@angular/cdk": "{{VERSION}}",
     "@angular/core": "{{VERSION}}",
     "@angular/common": "{{VERSION}}",
+    "@angular/animations": "{{VERSION}}",
+    "@angular/forms": "{{VERSION}}",
     "@dynatrace/barista-icons": ">= 3.0.0 < 4",
     "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
     "@types/highcharts": "^5.0.23",
     "d3-scale": "^3.0.0",
     "d3-shape": "^1.3.5",
-    "highcharts": "^6.0.7"
+    "highcharts": "^6.0.7",
+    "tslib": "^1.9.0"
   },
   "ng-update": {
     "migrations": "./schematics/migration.json",
