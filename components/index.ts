@@ -1,60 +1,18 @@
-/*
- * The exports need to use already existing modules or it's going to create new classes otherwise and break
- * the dependency injection in some cases
+/**
+ * @license
+ * Copyright 2019 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
-export * from '@dynatrace/barista-components/alert';
-export * from '@dynatrace/barista-components/autocomplete';
-export * from '@dynatrace/barista-components/core';
-export * from '@dynatrace/barista-components/filter-field';
-export * from '@dynatrace/barista-components/form-field';
-export * from '@dynatrace/barista-components/input';
-export * from '@dynatrace/barista-components/info-group';
-export * from '@dynatrace/barista-components/expandable-panel';
-export * from '@dynatrace/barista-components/inline-editor';
-export * from '@dynatrace/barista-components/expandable-section';
-export * from '@dynatrace/barista-components/button-group';
-export * from '@dynatrace/barista-components/button';
-export * from '@dynatrace/barista-components/icon';
-export * from '@dynatrace/barista-components/loading-distractor';
-export * from '@dynatrace/barista-components/theming';
-export * from '@dynatrace/barista-components/table';
-export * from '@dynatrace/barista-components/chart';
-export * from '@dynatrace/barista-components/tile';
-export * from '@dynatrace/barista-components/cta-card';
-export * from '@dynatrace/barista-components/card';
-export * from '@dynatrace/barista-components/confirmation-dialog';
-export * from '@dynatrace/barista-components/context-dialog';
-export * from '@dynatrace/barista-components/copy-to-clipboard';
-export * from '@dynatrace/barista-components/tag';
-export * from '@dynatrace/barista-components/key-value-list';
-export * from '@dynatrace/barista-components/pagination';
-export * from '@dynatrace/barista-components/radio';
-export * from '@dynatrace/barista-components/show-more';
-export * from '@dynatrace/barista-components/checkbox';
-export * from '@dynatrace/barista-components/progress-bar';
-export * from '@dynatrace/barista-components/progress-circle';
-export * from '@dynatrace/barista-components/switch';
-export * from '@dynatrace/barista-components/breadcrumbs';
-export * from '@dynatrace/barista-components/tabs';
-export * from '@dynatrace/barista-components/toast';
-export * from '@dynatrace/barista-components/secondary-nav';
-export * from '@dynatrace/barista-components/select';
-export * from '@dynatrace/barista-components/overlay';
-export * from '@dynatrace/barista-components/formatters';
-export * from '@dynatrace/barista-components/micro-chart';
-export * from '@dynatrace/barista-components/selection-area';
-export * from '@dynatrace/barista-components/bar-indicator';
-export * from '@dynatrace/barista-components/drawer';
-export * from '@dynatrace/barista-components/tree-table';
-export * from '@dynatrace/barista-components/toggle-button-group';
-export * from '@dynatrace/barista-components/highlight';
-export * from '@dynatrace/barista-components/consumption';
-export * from '@dynatrace/barista-components/empty-state';
-export * from '@dynatrace/barista-components/menu';
-export * from '@dynatrace/barista-components/timeline-chart';
-export * from '@dynatrace/barista-components/legend';
-export * from '@dynatrace/barista-components/expandable-text';
-export * from '@dynatrace/barista-components/top-bar-navigation';
-export * from '@dynatrace/barista-components/stepper';
-export * from '@dynatrace/barista-components/container-breakpoint-observer';
+// We need export a dummy root package here since ng-packagr needs one primary entry point
+export {};
