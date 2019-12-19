@@ -314,12 +314,6 @@ export function isDtAutocompleteValue(
 ): value is DtAutocompleteValue {
   return isDtOptionDef(value);
 }
-/**
- * @internal
- * @deprecated Use `isDtAutocompleteValue` instead.
- * @breaking-change 5.0.0 To be removed.
- */
-export const isDtAutocompletValue = isDtAutocompleteValue;
 
 /** @internal */
 export interface DtRangeValue {
