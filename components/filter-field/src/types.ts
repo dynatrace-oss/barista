@@ -53,7 +53,7 @@ export interface DtAutocompleteDef {
 export interface DtFreeTextDef {
   suggestions: DtNodeDef[];
   // @breaking-change 5.0.0 To be non optional
-  validators?: DtFilterFieldValidator[];
+  validators: DtFilterFieldValidator[];
   unique: boolean;
 }
 
