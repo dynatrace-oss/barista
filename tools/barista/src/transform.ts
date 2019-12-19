@@ -96,6 +96,7 @@ export const extractH1ToTitleTransformer: BaPageTransformer = async source => {
 export const headingIdTransformer: BaPageTransformer = async source => {
   const transformed = { ...source };
   if (source.content && source.content.length) {
+    const headlinesLookup = new Map<string, number>();
     transformed.content = runWithCheerio(source.content, $ => {
       const headlines = $('h1, h2, h3, h4, h5, h6');
       if (headlines.length) {
@@ -119,7 +120,21 @@ export const headingIdTransformer: BaPageTransformer = async source => {
             .replace(/[^\w<>]+/g, '-')
             // avoid IDs starting with a number
             .replace(/^(\d+)/g, 'h$1');
-          $(headline).attr('id', headlineId);
+
+          /*
+           * Handle duplicate Ids on one page by adding a counter
+           * after the Id string when there's more than one.
+           */
+          let headlineCount = headlinesLookup.get(headlineId);
+          if (headlineCount) {
+            headlinesLookup.set(headlineId, ++headlineCount);
+          } else {
+            headlinesLookup.set(headlineId, 1);
+          }
+          $(headline).attr(
+            'id',
+            headlineCount ? `${headlineId}-${headlineCount}` : headlineId,
+          );
         });
       }
     });
