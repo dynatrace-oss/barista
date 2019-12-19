@@ -182,7 +182,9 @@ describe('DtFilterField Util', () => {
 
   describe('findDefForSourceObj', () => {
     it('should return null if the provided root definition is not of type autocomplete', () => {
-      expect(findDefForSource({}, dtFreeTextDef({}, null, [], []))).toBe(null);
+      expect(findDefForSource({}, dtFreeTextDef({}, null, [], [], false))).toBe(
+        null,
+      );
       expect(
         findDefForSource({}, dtOptionDef({}, null, '', null, null, null)),
       ).toBe(null);
@@ -446,7 +448,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
       );
-      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], []);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], [], false);
       const autocompleteDef = dtAutocompleteDef(
         autocompleteSource,
         null,
@@ -480,7 +482,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
       );
-      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], []);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], [], false);
       const groupDef = dtGroupDef(
         groupSource,
         null,
@@ -809,14 +811,14 @@ describe('DtFilterField Util', () => {
       validator = { validatorFn: Validators.required, error: 'is required' };
     });
     it('should create a dtFreeTextDef with the deprecated API without validators and unique and no existing def', () => {
-      const freeTextDef = dtFreeTextDef(optionSource, null, [], []);
+      const freeTextDef = dtFreeTextDef(optionSource, null, [], [], false);
       expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
       expect(freeTextDef.freeText!.suggestions).toEqual([]);
       expect(freeTextDef.freeText!.unique).toBeFalsy();
       expect(freeTextDef.freeText!.validators).toEqual([]);
     });
     it('should create a dtFreeTextDef with the deprecated API without validators and unique', () => {
-      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], []);
+      const freeTextDef = dtFreeTextDef(optionSource, optionDef, [], [], false);
       expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
       expect(freeTextDef.freeText!.suggestions).toEqual([]);
       expect(freeTextDef.freeText!.unique).toBeFalsy();
@@ -828,6 +830,7 @@ describe('DtFilterField Util', () => {
         optionDef,
         [],
         [validator],
+        false,
       );
       expect(isDtFreeTextDef(freeTextDef)).toBeTruthy();
       expect(freeTextDef.freeText!.suggestions).toEqual([]);

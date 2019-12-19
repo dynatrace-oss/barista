@@ -54,8 +54,7 @@ export interface DtFreeTextDef {
   suggestions: DtNodeDef[];
   // @breaking-change 5.0.0 To be non optional
   validators?: DtFilterFieldValidator[];
-  // @breaking-change 5.0.0 To be non optional
-  unique?: boolean;
+  unique: boolean;
 }
 
 export interface DtGroupDef {
@@ -245,8 +244,7 @@ export function dtFreeTextDef(
   existingNodeDef: DtNodeDef | null,
   suggestions: DtNodeDef[],
   validators: DtFilterFieldValidator[],
-  // @breaking-change 5.0.0 Make mandatory
-  unique: boolean = false,
+  unique: boolean,
 ): DtNodeDef {
   const def = {
     ...nodeDef(data, existingNodeDef),
