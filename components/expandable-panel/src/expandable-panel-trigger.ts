@@ -23,8 +23,7 @@ import { readKeyCode } from '@dynatrace/barista-components/core';
 import { DtExpandablePanel } from './expandable-panel';
 
 @Directive({
-  // @breaking-change update selector to button[dtExpandablePanel] in 5.0.0
-  selector: '[dtExpandablePanel]',
+  selector: 'button[dtExpandablePanel]',
   exportAs: 'dtExpandablePanelTrigger',
   host: {
     role: 'button',
@@ -35,7 +34,7 @@ import { DtExpandablePanel } from './expandable-panel';
       'dtExpandablePanel && dtExpandablePanel.disabled ? true: null',
     '[attr.aria-disabled]': 'dtExpandablePanel && dtExpandablePanel.disabled',
     '[tabindex]': 'dtExpandablePanel && dtExpandablePanel.disabled ? -1 : 0',
-    '(click)': '_handleClick($event)',
+    '(click)': '_handleClick()',
     '(keydown)': '_handleKeydown($event)',
   },
 })
