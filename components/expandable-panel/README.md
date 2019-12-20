@@ -7,10 +7,6 @@ you to bind a custom element as trigger to an expandable panel
 
 <ba-live-example name="DtExampleExpandablePanelDefault"></ba-live-example>
 
-**Note:** In version 5.0.0 the selector for the panel's trigger will be updated
-to `button[dtExpandablePanel]`, then only a button element can be used as
-expandable panel trigger.
-
 ## Imports
 
 You have to import the `DtExpandablePanelModule` when you want to use the

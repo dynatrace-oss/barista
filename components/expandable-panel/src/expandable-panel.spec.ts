@@ -76,14 +76,16 @@ describe('DtExpandablePanel', () => {
     // test toggle method when collapsed
     it('should be expanded when collapsed on toggle', () => {
       expandablePanelInstance.expanded = false;
-      expect(expandablePanelInstance.toggle()).toBe(true);
+      expandablePanelInstance.toggle();
+      fixture.detectChanges();
       expect(expandablePanelInstance.expanded).toBe(true);
     });
 
     // test toggle method when expanded
     it('should be collapsed when expanded on toggle', () => {
       expandablePanelInstance.expanded = true;
-      expect(expandablePanelInstance.toggle()).toBe(false);
+      expandablePanelInstance.toggle();
+      fixture.detectChanges();
       expect(expandablePanelInstance.expanded).toBe(false);
     });
 
@@ -113,7 +115,8 @@ describe('DtExpandablePanel', () => {
       expect(instanceElement.classList).not.toContain(
         'dt-expandable-panel-opened',
       );
-      expect(expandablePanelInstance.toggle()).toBe(true);
+      expandablePanelInstance.toggle();
+      expect(expandablePanelInstance.expanded).toBe(true);
       fixture.detectChanges();
       expect(instanceElement.classList).toContain('dt-expandable-panel-opened');
     });
