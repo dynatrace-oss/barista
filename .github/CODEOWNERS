@@ -227,8 +227,6 @@
 /tools/barista/* @thomaspink
 /tools/barista/src/** @lara-aigmueller @thomaspink
 
-/tools/gulp/** @thomaspink
-
 /tools/linting/* @thomaspink @lukasholzer
 /tools/linting/src/** @rowa-audil @lara-aigmueller @heartdisease
 
