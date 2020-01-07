@@ -3,7 +3,7 @@
   "compilerOptions": {
     "types": ["node", "jest"],
     "outDir": "../../dist/out-tsc",
-    "target": "es5",
+    "target": "esnext",
     "module": "commonjs"
   },
   "exclude": ["**/*.spec.ts"],

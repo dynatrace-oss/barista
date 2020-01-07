@@ -24,7 +24,7 @@ import {
   SchematicTestRunner,
   UnitTestTree,
 } from '@angular-devkit/schematics/testing';
-import { readFileSync, removeSync } from 'fs-extra';
+import { readFileSync, rmdirSync } from 'fs';
 
 /** Create a base app used for testing. */
 export async function createTestApp(
@@ -86,7 +86,7 @@ export async function createFileSystemTestApp(
     tempPath,
     writeFile,
     removeTempDir: () => {
-      removeSync(tempPath);
+      rmdirSync(tempPath, { recursive: true });
     },
   };
 
