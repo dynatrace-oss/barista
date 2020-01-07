@@ -191,6 +191,8 @@ jobs:
           name: Generate examples for the demo application
           command: npm run examples-tools
       - run: yarn affected:build ${AFFECTED_ARGS} --configuration=production --exclude=examples-tools
+      - store_artifacts:
+          path: dist/components
       - persist_to_workspace:
           root: ~/barista
           paths:
