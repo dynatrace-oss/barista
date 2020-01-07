@@ -778,7 +778,8 @@
           "options": {
             "buildTarget": "packagr",
             "releasePackageJson": "components/package.json",
-            "placeholder": "{{VERSION}}",
+            "versionPlaceholder": "{{VERSION}}",
+            "ngVersionPlaceholder": "{{NG_VERSION}}",
             "styles": [
               {
                 "glob": "style/*.scss",

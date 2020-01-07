@@ -24,7 +24,8 @@ export interface PackagerAssetDef {
 export interface PackagerOptions {
   buildTarget: string;
   releasePackageJson: string;
-  placeholder: string;
+  versionPlaceholder: string;
+  ngVersionPlaceholder: string;
   styles: PackagerAssetDef[];
   assets: PackagerAssetDef[];
   additionalTargets: string[];

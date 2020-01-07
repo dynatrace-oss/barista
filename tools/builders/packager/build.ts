@@ -29,7 +29,7 @@ import {
   AngularJson,
   PackageJson,
 } from '../util/json-utils';
-import { syncPeerDependencyPlaceholder } from './sync-dependencies';
+import { syncNgVersion, syncBaristaComponentsVersion } from './sync-version';
 import { PackagerOptions } from './schema';
 import { copyStyles, copyAssets } from './copy-assets';
 import { green } from 'chalk';
@@ -123,13 +123,22 @@ export async function packager(
       releasePackageJsonPath,
     );
 
-    context.logger.info('Syncing dependencies for releasing...');
-    // replace ng placeholder with angular version from root package.json and write to disk
-    releasePackageJson = syncPeerDependencyPlaceholder(
+    context.logger.info('Syncing barista-components version for releasing...');
+    // replace placeholder for the barista components version with value from root package.json
+    releasePackageJson = syncBaristaComponentsVersion(
       releasePackageJson,
       packageJson,
-      options.placeholder,
+      options.versionPlaceholder,
     );
+
+    context.logger.info('Syncing angular dependency versions for releasing...');
+    // replace ng placeholder with angular version from root package.json
+    releasePackageJson = syncNgVersion(
+      releasePackageJson,
+      packageJson,
+      options.ngVersionPlaceholder,
+    );
+
     writeFileSync(
       join(libraryDestination, 'package.json'),
       JSON.stringify(releasePackageJson, null, 2),
