@@ -25,7 +25,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { DtFilterFieldTagData } from '../types';
+import { _DtFilterFieldTagData } from '../types';
 
 // tslint:disable:class-name
 
@@ -45,7 +45,7 @@ import { DtFilterFieldTagData } from '../types';
 })
 export class DtFilterFieldTag {
   /** Tag data object that contains view values for displaying (like key, value and separator) and the original source. */
-  @Input() data: DtFilterFieldTagData;
+  @Input() data: _DtFilterFieldTagData;
 
   /** Emits when the filter should be removed (usually by clicking the remove button). */
   @Output() readonly remove = new EventEmitter<DtFilterFieldTag>();

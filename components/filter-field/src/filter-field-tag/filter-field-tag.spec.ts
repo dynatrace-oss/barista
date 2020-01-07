@@ -34,7 +34,7 @@ import {
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { createComponent } from '@dynatrace/barista-components/testing';
-import { DtFilterFieldTagData } from '../types';
+import { _DtFilterFieldTagData } from '../types';
 
 describe('DtFilterFieldTag', () => {
   let fixture: ComponentFixture<TestApp>;
@@ -149,5 +149,5 @@ describe('DtFilterFieldTag', () => {
 })
 export class TestApp {
   // we need to add this dummy data because the tags editable and deletable flags depend on the data being set
-  dummy = new DtFilterFieldTagData('AUT', 'Linz', ':', false, []);
+  dummy = new _DtFilterFieldTagData('AUT', 'Linz', ':', false, []);
 }
