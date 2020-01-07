@@ -2,7 +2,7 @@
 @import '../../styles/global/variables';
 $code-font-size: 14px;
 
-.ba-live-example {
+:host {
   display: block;
   width: 100%;
   max-width: $max-text-width;
@@ -12,7 +12,7 @@ $code-font-size: 14px;
   --max-lines: 10.5;
 }
 
-.ba-live-example.ba-live-example-full-width {
+:host.ba-live-example-full-width {
   max-width: 100%;
   width: 100%;
 }
@@ -26,7 +26,7 @@ $code-font-size: 14px;
   border-top-right-radius: 3px;
 }
 
-.ba-live-example.ba-live-example-dark .ba-live-example-demo {
+:host.ba-live-example-dark .ba-live-example-demo {
   background-color: $gray-860;
   color: #fff;
 }
@@ -56,7 +56,7 @@ $code-font-size: 14px;
   padding: 0.5rem 1.2rem;
   margin: 0;
 
-  svg {
+  ::ng-deep svg {
     width: 20px;
     height: 20px;
     fill: $royalblue-600;
@@ -68,7 +68,7 @@ $code-font-size: 14px;
   cursor: pointer;
   background-color: #ccc;
 
-  svg {
+  ::ng-deep svg {
     fill: $royalblue-700;
   }
 }
@@ -76,7 +76,7 @@ $code-font-size: 14px;
 .ba-live-example-control[disabled] {
   pointer-events: none;
 
-  svg {
+  ::ng-deep svg {
     fill: $gray-300;
   }
 }
@@ -87,7 +87,7 @@ $code-font-size: 14px;
   cursor: default;
 }
 
-.ba-live-example-control-expanded svg {
+.ba-live-example-control-expanded ::ng-deep svg {
   transform: rotate(-180deg);
 }
 
@@ -167,7 +167,7 @@ $code-font-size: 14px;
   }
 }
 
-.ba-live-example-code-line::before {
+::ng-deep .ba-live-example-code-line::before {
   counter-increment: codelines;
   content: counter(codelines);
   font-family: 'Bitstream Vera', monospace;

@@ -24,12 +24,11 @@ import {
   ViewContainerRef,
   ComponentRef,
   OnDestroy,
-  ViewEncapsulation,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { EXAMPLES_MAP } from '@dynatrace/barista-components/examples';
-import { BehaviorSubject, timer, Subscription } from 'rxjs';
+import { timer, Subscription } from 'rxjs';
 import {
   Highlighter,
   registerLanguages,
@@ -41,8 +40,8 @@ import {
 } from 'highlight-ts';
 
 import { createComponent } from '../../utils/create-component';
-import { createInputElement } from '../../utils/create-input-element';
 import { wrapCodeLines } from '../../utils/wrap-code-lines';
+import { BaCopyToClipboardService } from '../../shared/copy-to-clipboard.service';
 
 type BaSourceType = 'html' | 'ts' | 'scss';
 
@@ -55,7 +54,6 @@ type BaSourceType = 'html' | 'ts' | 'scss';
     '[class.ba-live-example-dark]': 'themedark',
     '[class.ba-live-example-full-width]': 'fullwidth',
   },
-  encapsulation: ViewEncapsulation.None,
 })
 export class BaLiveExample implements OnDestroy {
   /** The name of the example (class name) that will be instantiated. */
@@ -141,7 +139,7 @@ export class BaLiveExample implements OnDestroy {
   _isExpanded = false;
 
   /** @internal Whether the source code has been copied. */
-  _copied$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  _copied = false;
 
   /** @internal Enhanced template source with line wrappers and code highlighting. */
   _enhancedTemplateSource: string;
@@ -162,6 +160,7 @@ export class BaLiveExample implements OnDestroy {
     private _injector: Injector,
     private _viewContainerRef: ViewContainerRef,
     private _platform: Platform,
+    private _ctcService: BaCopyToClipboardService,
   ) {
     registerLanguages(TypeScript, XML);
     this._highlighter = init(htmlRender);
@@ -188,29 +187,21 @@ export class BaLiveExample implements OnDestroy {
   /** @internal Copies content of currently active tab to clipboard. */
   _copyToClipboard(): void {
     if (this._platform.isBrowser) {
-      let copyText;
+      let copySucceeded = false;
       switch (this._activeTab) {
         case 'html':
-          copyText = this._templateSource;
+          copySucceeded = this._ctcService.copy(this._templateSource, true);
           break;
         case 'ts':
-          copyText = this._classSource;
+          copySucceeded = this._ctcService.copy(this._classSource, true);
           break;
         case 'scss':
-          // TODO: copyText = this._scssSource;
+          // TODO: copySucceeded = this._ctcService.copy(this._scssSource, true)
           break;
       }
 
-      if (copyText) {
-        const textarea = createInputElement(copyText, 'textarea');
-        document.body.append(textarea);
-        textarea.select();
-        const copyResult = document.execCommand('copy');
-        document.body.removeChild(textarea);
-
-        if (copyResult) {
-          this._copySuccess();
-        }
+      if (copySucceeded) {
+        this._copySuccess();
       }
     }
   }
@@ -236,9 +227,9 @@ export class BaLiveExample implements OnDestroy {
    * successful copy to clipboard action.
    */
   private _copySuccess(): void {
-    this._copied$.next(true);
-    this._timerSubscription = timer(1000).subscribe(() =>
-      this._copied$.next(false),
+    this._copied = true;
+    this._timerSubscription = timer(1000).subscribe(
+      () => (this._copied = false),
     );
   }
 
