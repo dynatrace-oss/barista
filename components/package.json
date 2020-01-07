@@ -1,7 +1,7 @@
 {
   "name": "@dynatrace/barista-components",
   "description": "Dynatrace components for Angular",
-  "version": "4.15.0",
+  "version": "{{VERSION}}",
   "repository": {
     "type": "git",
     "url": "https://github.com/dynatrace-oss/barista"
@@ -17,11 +17,11 @@
     "url": "https://github.com/dynatrace-oss/barista/issues"
   },
   "peerDependencies": {
-    "@angular/cdk": "{{VERSION}}",
-    "@angular/core": "{{VERSION}}",
-    "@angular/common": "{{VERSION}}",
-    "@angular/animations": "{{VERSION}}",
-    "@angular/forms": "{{VERSION}}",
+    "@angular/cdk": "{{NG_VERSION}}",
+    "@angular/core": "{{NG_VERSION}}",
+    "@angular/common": "{{NG_VERSION}}",
+    "@angular/animations": "{{NG_VERSION}}",
+    "@angular/forms": "{{NG_VERSION}}",
     "@dynatrace/barista-icons": ">= 3.0.0 < 4",
     "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
     "@types/highcharts": "^5.0.23",

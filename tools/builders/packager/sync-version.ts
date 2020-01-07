@@ -17,18 +17,37 @@
 import { PackageJson } from '../util/json-utils';
 
 /**
- * Updates the placeholders in the peerDependencies of the release json
+ * Writes the version of the root package.json to the one of the build artifact
+ * onto the provided placeholder.
+ */
+export function syncBaristaComponentsVersion(
+  releaseJson: PackageJson,
+  rootPackageJson: PackageJson,
+  placeholder: string,
+): PackageJson {
+  const newPackageJson = { ...releaseJson };
+  if (
+    rootPackageJson.version &&
+    (!newPackageJson.version || newPackageJson.version.trim() === placeholder)
+  ) {
+    newPackageJson.version = rootPackageJson.version;
+  }
+  return newPackageJson;
+}
+
+/**
+ * Updates the placeholders in the angular peerDependencies of the release-json
  * to the versions found in the root package json
  */
-export function syncPeerDependencyPlaceholder(
+export function syncNgVersion(
   releaseJson: PackageJson,
-  packageJson: PackageJson,
+  rootPackageJson: PackageJson,
   placeholder: string,
 ): PackageJson {
   const updatedJson = { ...releaseJson };
   for (const [key, value] of Object.entries(releaseJson.peerDependencies)) {
     if (value.includes(placeholder)) {
-      updatedJson.peerDependencies[key] = packageJson.dependencies[key];
+      updatedJson.peerDependencies[key] = rootPackageJson.dependencies[key];
     }
   }
   return updatedJson;

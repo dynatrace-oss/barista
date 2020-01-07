@@ -13,10 +13,15 @@
       "default": "components/package.json",
       "description": "The path to the package.json used for the release"
     },
-    "placeholder": {
+    "versionPlaceholder": {
       "type": "string",
       "default": "{{VERSION}}",
-      "description": "The placeholder string that gets replaced by the corresponding versions for the package in your package.json"
+      "description": "The placeholder string that gets replaced by the corresponding version in your package.json"
+    },
+    "ngVersionPlaceholder": {
+      "type": "string",
+      "default": "{{NG_VERSION}}",
+      "description": "The placeholder string that gets replaced by the corresponding angular versions for the package in your package.json"
     },
     "styles": {
       "type": "array",

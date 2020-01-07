@@ -29,6 +29,7 @@ export interface NgPackagerJson {
 }
 
 export interface PackageJson {
+  version?: string;
   peerDependencies: {
     [key: string]: string;
   };
