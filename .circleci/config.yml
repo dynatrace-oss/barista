@@ -134,6 +134,7 @@ jobs:
 # - sonar checks
   sonar:
     <<: *defaults
+    resource_class: xlarge
     steps:
       - attach_workspace:
           at: ~/barista
@@ -182,6 +183,7 @@ jobs:
 # - build all the packages
   build:
     <<: *defaults
+    resource_class: xlarge
     steps:
       - attach_workspace:
           at: ~/barista
@@ -214,9 +216,10 @@ jobs:
 
 # - run end to end tests
   e2e-test:
+    <<: *defaults
     environment:
       BROWSERSTACK_USE_AUTOMATE: 1
-    <<: *defaults
+    resource_class: xlarge
     steps:
       - attach_workspace:
           at: ~/barista
