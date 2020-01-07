@@ -42,6 +42,9 @@
               }
             ],
             "styles": ["apps/dev/src/main.scss", "components/style/index.scss"]
+          },
+          "configurations": {
+            "production": {}
           }
         },
         "serve": {
@@ -726,6 +729,9 @@
           "options": {
             "tsConfig": "tools/linting/tsconfig.json",
             "outDir": "dist/components/tslint"
+          },
+          "configurations": {
+            "production": {}
           }
         },
         "lint": {
@@ -748,6 +754,9 @@
           "options": {
             "tsConfig": "components/schematics/tsconfig.json",
             "outDir": "dist/components/schematics"
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }
@@ -762,9 +771,6 @@
           "options": {
             "tsConfig": "components/tsconfig.lib.json",
             "project": "components/ng-package.json"
-          },
-          "configurations": {
-            "production": {}
           }
         },
         "build": {
@@ -788,6 +794,9 @@
               }
             ],
             "additionalTargets": ["schematics:build", "linting:build"]
+          },
+          "configurations": {
+            "production": {}
           }
         }
       }
