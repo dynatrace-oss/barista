@@ -285,45 +285,47 @@ export function isDtNodeDef(def: any): def is DtNodeDef {
 }
 
 /** @internal Holds all the view values and the original filter source for providing it to the DtFilterFieldTag to display. */
-export class DtFilterFieldTagData {
+// tslint:disable-next-line: class-name
+export class _DtFilterFieldTagData {
   constructor(
     public key: string | null,
     public value: string | null,
     public separator: string | null,
     public isFreeText: boolean,
-    public filterValues: DtFilterValue[],
+    public filterValues: _DtFilterValue[],
     public editable: boolean = true,
     public deletable: boolean = true,
   ) {}
 }
 
 /** @internal */
-export type DtFreeTextValue = string;
+export type _DtFreeTextValue = string;
 
 /** @internal */
-export function isDtFreeTextValue(value: any): value is DtFreeTextValue {
+export function isDtFreeTextValue(value: any): value is _DtFreeTextValue {
   return typeof value === 'string';
 }
 
 /** @internal */
-export type DtAutocompleteValue = DtNodeDef & { option: DtOptionDef };
+export type _DtAutocompleteValue = DtNodeDef & { option: DtOptionDef };
 
 /** @internal */
-export function isDtAutocompleteValue(
+export function _isDtAutocompleteValue(
   value: any,
-): value is DtAutocompleteValue {
+): value is _DtAutocompleteValue {
   return isDtOptionDef(value);
 }
 
 /** @internal */
-export interface DtRangeValue {
+// tslint:disable-next-line: class-name
+export interface _DtRangeValue {
   range: number | [number, number];
   operator: string;
   unit?: string;
 }
 
 /** @internal */
-export function isDtRangeValue(value: any): value is DtRangeValue {
+export function _isDtRangeValue(value: any): value is _DtRangeValue {
   return (
     isObject(value) &&
     value.hasOwnProperty('operator') &&
@@ -332,14 +334,17 @@ export function isDtRangeValue(value: any): value is DtRangeValue {
 }
 
 /** @internal */
-export type DtFilterValue =
-  | DtAutocompleteValue
-  | DtFreeTextValue
-  | DtRangeValue;
+export type _DtFilterValue =
+  | _DtAutocompleteValue
+  | _DtFreeTextValue
+  | _DtRangeValue;
 
-export function getSourceOfDtFilterValue<T>(value: DtFilterValue): T {
+/** @internal */
+export function _getSourceOfDtFilterValue<T>(value: _DtFilterValue): T {
   return isDtNodeDef(value) ? value.data : value;
 }
-export function getSourcesOfDtFilterValues(values: DtFilterValue[]): any[] {
-  return values.map(value => getSourceOfDtFilterValue<any>(value));
+
+/** @internal */
+export function _getSourcesOfDtFilterValues(values: _DtFilterValue[]): any[] {
+  return values.map(value => _getSourceOfDtFilterValue<any>(value));
 }

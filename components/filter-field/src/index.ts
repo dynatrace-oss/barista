@@ -23,5 +23,24 @@ export * from './filter-field-data-source';
 export * from './filter-field-default-data-source';
 export * from './filter-field-errors';
 
-// @breaking-change 5.0.0 Export only necessary types
-export * from './types';
+export {
+  DtNodeFlags,
+  DtNodeDef,
+  isDtNodeDef,
+  DtAutocompleteDef,
+  DtFreeTextDef,
+  DtGroupDef,
+  DtOptionDef,
+  DtRangeOperatorFlags,
+  DtRangeDef,
+  dtAutocompleteDef,
+  isDtAutocompleteDef,
+  dtFreeTextDef,
+  isDtFreeTextDef,
+  dtRangeDef,
+  isDtRangeDef,
+  dtOptionDef,
+  isDtOptionDef,
+  dtGroupDef,
+  isDtGroupDef,
+} from './types';
