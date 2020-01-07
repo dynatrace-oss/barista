@@ -83,11 +83,10 @@ import { c } from '@dynatrace/angular-components/c';
 import { a as a2 } from '@dynatrace/angular-components/a';`,
     );
 
-    console.log(appTree.readContent('projects/lib-testing/src/main.spec.ts'));
     if (runFixers) {
       await runFixers();
     }
-    console.log(appTree.readContent('projects/lib-testing/src/main.spec.ts'));
+
     expect(
       appTree.readContent('projects/lib-testing/src/main.spec.ts'),
     ).toMatchSnapshot();
