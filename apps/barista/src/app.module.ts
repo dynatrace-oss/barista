@@ -38,6 +38,7 @@ import { BaPageOutlet } from './pages/page-outlet';
 import { BaPageService } from './shared/page.service';
 import { BaRecentlyOrderedService } from './shared/recently-ordered.service';
 import { BaScrollSpyService } from './shared/scroll-spy.service';
+import { BaCopyToClipboardService } from './shared/copy-to-clipboard.service';
 import { BaScrollToTop } from './layout/scroll-to-top/scroll-to-top';
 import { BaSearch } from './layout/search/search';
 import { BaSidenav } from './layout/sidenav/sidenav';
@@ -109,6 +110,7 @@ import { DtExamplesModule } from '@dynatrace/barista-components/examples';
     BaTocService,
     BaScrollSpyService,
     BaRecentlyOrderedService,
+    BaCopyToClipboardService,
   ],
   entryComponents: [
     BaSinglePage,

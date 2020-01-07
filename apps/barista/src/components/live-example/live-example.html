@@ -40,12 +40,12 @@
     <button
       title="Copy to clipboard"
       class="ba-live-example-control"
-      [class.ba-live-example-control-copied]="(_copied$ | async)"
+      [class.ba-live-example-control-copied]="_copied"
       [disabled]="_sourceHidden"
       (click)="_copyToClipboard()"
     >
-      <dt-icon *ngIf="(_copied$ | async) === false" name="reports"></dt-icon>
-      <dt-icon *ngIf="(_copied$ | async)" name="checkmark"></dt-icon>
+      <dt-icon *ngIf="_copied === false" name="reports"></dt-icon>
+      <dt-icon *ngIf="_copied" name="checkmark"></dt-icon>
     </button>
     <button
       title="Expand source code"

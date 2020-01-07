@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2019 Dynatrace LLC
+ * Copyright 2020 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,11 +14,39 @@
  * limitations under the License.
  */
 
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Platform } from '@angular/cdk/platform';
+
+@Injectable()
+export class BaCopyToClipboardService {
+  constructor(
+    private _platform: Platform,
+    @Inject(DOCUMENT) private _document: any,
+  ) {}
+
+  /** Copies content of currently active tab to clipboard. */
+  copy(copyText: string, preserveLineBreaks: boolean): boolean {
+    if (this._platform.isBrowser && copyText) {
+      const inputElement = createHiddenInputElement(
+        copyText,
+        preserveLineBreaks ? 'textarea' : 'input',
+      );
+      this._document.body.append(inputElement);
+      inputElement.select();
+      const copyResult = this._document.execCommand('copy');
+      this._document.body.removeChild(inputElement);
+      return copyResult;
+    }
+    return false;
+  }
+}
+
 /**
  * Creates a non-visible input element (input field or textarea)
  * with the given string as value.
  */
-export function createInputElement(
+export function createHiddenInputElement(
   value: string,
   type: 'textarea' | 'input',
 ): HTMLTextAreaElement | HTMLInputElement {
