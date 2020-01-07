@@ -16,7 +16,6 @@
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Validators } from '@angular/forms';
 import { isDefined, isObject } from '@dynatrace/barista-components/core';
 import { DtFilterFieldValidator } from './filter-field-validation';
 import { DtFilterFieldDataSource } from './filter-field-data-source';
@@ -54,7 +53,7 @@ export interface DtFilterFieldDefaultDataSourceFreeText {
   suggestions: Array<
     DtFilterFieldDefaultDataSourceOption | DtFilterFieldDefaultDataSourceGroup
   >;
-  validators?: DtFilterFieldValidator[];
+  validators: DtFilterFieldValidator[];
   unique?: boolean;
 }
 
@@ -277,15 +276,11 @@ export class DtFilterFieldDefaultDataSource<T>
 
   /** Transforms the provided data into a DtNodeDef which contains a DtFreeTextDef. */
   transformFreeText(data: DtFilterFieldDefaultDataSourceFreeText): DtNodeDef {
-    // @breaking-change 5.0.0 data.validators is then required so `|| []` can be removed
     const def = dtFreeTextDef(
       data,
       null,
       [],
-      data.validators || [
-        // tslint:disable-next-line: no-unbound-method
-        { validatorFn: Validators.required, error: 'Field is required' },
-      ],
+      data.validators,
       isDefined(data.unique) ? data.unique! : false,
     );
     def.freeText!.suggestions = this.transformList(data.suggestions, def);
