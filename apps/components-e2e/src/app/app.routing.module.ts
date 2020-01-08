@@ -69,6 +69,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'event-chart',
+    loadChildren: () =>
+      import('../components/event-chart/event-chart.module').then(
+        module => module.DtE2EEventChartModule,
+      ),
+  },
+  {
     path: 'expandable-panel',
     loadChildren: () =>
       import('../components/expandable-panel/expandable-panel.module').then(

@@ -84,7 +84,7 @@
       -->
       <ng-container *ngFor="let renderEvent of _renderEvents">
         <path
-          *ngIf="renderEvent.originalIndex === _selectedRenderEventIndex"
+          *ngIf="_isSelected(renderEvent)"
           [attr.d]="_calculateEventOutline(renderEvent, 3)"
           class="dt-event-chart-event-selectedoutline"
         />
@@ -96,7 +96,7 @@
               ? 'dt-event-chart-event-pattern-'
               : 'dt-event-chart-event-') + renderEvent.color
           "
-          [class.dt-event-chart-event-selected]="renderEvent.originalIndex === _selectedRenderEventIndex"
+          [class.dt-event-chart-event-selected]="_isSelected(renderEvent)"
           role="button"
           tabindex="0"
           (click)="_eventSelected($event, renderEvent)"

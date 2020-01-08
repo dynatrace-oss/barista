@@ -558,6 +558,53 @@ describe('DtEventChart', () => {
       expect(renderedEvents).toHaveLength(5);
     });
   });
+
+  describe('selection', () => {
+    let fixture;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(EventChartStaticData);
+      const canvas = fixture.debugElement.query(
+        By.css('.dt-event-chart-canvas'),
+      );
+      // Mock the clientWidth function of the canvas, to accurately get
+      // merging and rendering values. Otherwhise jsDom would return 0 for
+      // clientWidth.
+      jest
+        .spyOn(canvas.nativeElement, 'clientWidth', 'get')
+        .mockImplementation(() => 1024);
+      fixture.detectChanges();
+    });
+
+    it('should not have anything selected initially', () => {
+      const selectedEvent = fixture.debugElement.query(
+        By.css('.dt-event-chart-event-selected'),
+      );
+      expect(selectedEvent).toBeNull();
+    });
+
+    it('should select the first event programmatically', () => {
+      fixture.componentInstance._eventChartInstance.select(0);
+      fixture.detectChanges();
+      const events = fixture.debugElement.queryAll(
+        By.css('.dt-event-chart-event'),
+      );
+      expect(events[0].nativeElement.classList).toContain(
+        'dt-event-chart-event-selected',
+      );
+    });
+
+    it('should deselect the first event programmatically', () => {
+      fixture.componentInstance._eventChartInstance.select(0);
+      fixture.detectChanges();
+      fixture.componentInstance._eventChartInstance.deselect();
+      fixture.detectChanges();
+      const selectedEvent = fixture.debugElement.query(
+        By.css('.dt-event-chart-event-selected'),
+      );
+      expect(selectedEvent).toBeNull();
+    });
+  });
 });
 
 /** Test component that contains an DtEventChart. */
