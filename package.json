@@ -30,7 +30,7 @@
     "workspace-schematic": "nx workspace-schematic",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "nx": "node --max_old_space_size=8000 ./node_modules/.bin/nx",
+    "nx": "node --max_old_space_size=8192 ./node_modules/.bin/nx",
     "ng": "ng",
     "barista-tools": "ng build barista-tools && node dist/tools/barista/main.js",
     "barista": "npm run examples-tools && npm run barista-tools && ng serve barista",
