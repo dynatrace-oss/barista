@@ -232,8 +232,8 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** @internal The viewBox of the svg. Starts at 0/0 and ends at a calculated width and height. */
   _svgViewBox: string;
 
-  /** @internal Selected renderEvent index. */
-  _selectedRenderEventIndex: number | undefined;
+  /** @internal Selected event index. */
+  _selectedEventIndex: number | undefined;
 
   /** Template portal for the default overlay */
   // tslint:disable-next-line: use-default-type-parameter no-any
@@ -325,6 +325,37 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     this._destroy$.complete();
   }
 
+  /**
+   * Select an event based on its index in the event data list.
+   */
+  select(index: number): void {
+    // If the index is outside the selectable range
+    // do not select anything.
+    if (index < 0 || index > this._events.length) {
+      return;
+    }
+    this._selectedEventIndex = index;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Deselect events, which effectively clears the selection on the event chart. */
+  deselect(): void {
+    this._selectedEventIndex = undefined;
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Programmatically close the overlay. */
+  closeOverlay(): void {
+    this._dismissOverlay();
+  }
+
+  _isSelected(renderEvent: RenderEvent<T>): boolean {
+    return (
+      renderEvent.originalIndex === this._selectedEventIndex ||
+      (renderEvent.mergedWith || []).includes(this._selectedEventIndex!)
+    );
+  }
+
   /** @internal Handle the keyDown event on the svg RenderEvent bubble. */
   _handleEventKeyDown(
     keyEvent: KeyboardEvent,
@@ -352,7 +383,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     representingEvent.selected.emit(sources);
 
     // Select the rendered event
-    this._selectedRenderEventIndex = renderEvent.originalIndex;
+    this._selectedEventIndex = renderEvent.originalIndex;
 
     // Pin the overlay
     const origin = this.getOriginFromInteractionEvent(event);
@@ -364,7 +395,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
   /** @internal Reset the event selection and unpins the overlay */
   _resetEventSelection(): void {
-    this._selectedRenderEventIndex = undefined;
+    this._selectedEventIndex = undefined;
   }
 
   /**
@@ -470,7 +501,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
         });
     }
 
-    // // If the portal is not yet attached to the overlay, attach it.
+    // If the portal is not yet attached to the overlay, attach it.
     if (!this._overlayRef.hasAttached()) {
       this._overlayRef.attach(this._portal);
     }

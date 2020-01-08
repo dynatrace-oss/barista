@@ -31,6 +31,16 @@ create a valid output.
 
 ## Options & Properties
 
+### DtEventChart
+
+### Methods
+
+| Name                    | Description                                                                                                 | Return value |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- | ------------ |
+| `select(index: number)` | Selects the event by index. If the event is merged, the merged event will be displayed as the selected one. | `void`       |
+| `deselect()`            | Deselects all events.                                                                                       | `void`       |
+| `closeOverlay()`        | Closes the overlay if one is present.                                                                       | `void`       |
+
 ### DtEventChartEvent<T>
 
 The `dtEventChartEvent` component is used to provide event data to the parent

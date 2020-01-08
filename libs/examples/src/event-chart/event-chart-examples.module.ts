@@ -17,6 +17,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtExampleEventChartCustomColor } from './event-chart-custom-color-example/event-chart-custom-color-example';
 import { DtExampleEventChartDefault } from './event-chart-default-example/event-chart-default-example';
 import { DtExampleEventChartLegend } from './event-chart-legend-example/event-chart-legend-example';
@@ -24,6 +25,7 @@ import { DtExampleEventChartOverlappingLoad } from './event-chart-overlapping-lo
 import { DtExampleEventChartOverlay } from './event-chart-overlay-example/event-chart-overlay-example';
 import { DtExampleEventChartSelection } from './event-chart-selection-example/event-chart-selection-example';
 import { DtExampleEventChartSessionReplay } from './event-chart-session-replay-example/event-chart-session-replay-example';
+import { DtExampleEventChartComplexSelection } from './event-chart-complex-selection-example/event-chart-complex-selection-example';
 
 export const DT_EVENT_CHART_EXAMPLES = [
   DtExampleEventChartCustomColor,
@@ -33,10 +35,16 @@ export const DT_EVENT_CHART_EXAMPLES = [
   DtExampleEventChartOverlay,
   DtExampleEventChartSelection,
   DtExampleEventChartSessionReplay,
+  DtExampleEventChartComplexSelection,
 ];
 
 @NgModule({
-  imports: [CommonModule, DtEventChartModule, DtKeyValueListModule],
+  imports: [
+    CommonModule,
+    DtEventChartModule,
+    DtKeyValueListModule,
+    DtButtonModule,
+  ],
   declarations: [...DT_EVENT_CHART_EXAMPLES],
   entryComponents: [...DT_EVENT_CHART_EXAMPLES],
 })
