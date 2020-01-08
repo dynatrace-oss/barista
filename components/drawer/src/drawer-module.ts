@@ -16,6 +16,7 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
@@ -33,7 +34,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, DtIconModule],
+  imports: [CommonModule, DtIconModule, ScrollDispatchModule],
   exports: COMPONENTS,
   declarations: COMPONENTS,
 })

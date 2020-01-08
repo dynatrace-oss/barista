@@ -6,8 +6,60 @@
       mode="side"
       (opened)="open()"
       (closed)="close()"
+      style="width: 80%; height: 3000px;"
     >
-      Content
+      <dt-chart id="chart" [series]="series$ | async" [options]="options">
+        <dt-chart-tooltip>
+          <ng-template let-tooltip>
+            <div style="min-width: 100px;">
+              <ul *ngFor="let data of tooltip.points">
+                <li>
+                  {{ data.series.name }}
+                </li>
+                <li>
+                  {{ data.point.y }}
+                </li>
+              </ul>
+            </div>
+          </ng-template>
+        </dt-chart-tooltip>
+
+        <dt-chart-heatfield [start]="1564546530000" [end]="1564546620000">
+          Problem 1:
+          <br />
+          <a class="dt-link">View problem details</a>
+        </dt-chart-heatfield>
+        <dt-chart-heatfield
+          [start]="1564546530000"
+          [end]="1564546960000"
+          color="main"
+        >
+          Overload prevention:
+          <br />
+          <a class="dt-link">View overload prevention</a>
+        </dt-chart-heatfield>
+
+        <dt-chart-range
+          aria-label-close="Close the selection"
+          aria-label-left-handle="The left handle to update the selection"
+          aria-label-right-handle="The right handle to update the selection"
+          aria-label-selected-area="The selected time-frame"
+          (valid)="onTimeframeValidChanges($event)"
+          (valueChanges)="onTimeframeChanges($event)"
+          (closed)="closed()"
+        >
+        </dt-chart-range>
+        <dt-chart-timestamp
+          (valueChanges)="onTimeframeChanges($event)"
+        ></dt-chart-timestamp>
+      </dt-chart>
+      <br />
+      <span id="trigger" [dtOverlay]="overlay">
+        Hover me
+      </span>
+      <ng-template #overlay>
+        <p>Overlay content</p>
+      </ng-template>
     </dt-drawer>
     <span id="open-count">{{openCount}}</span>
     <span id="close-count">{{closeCount}}</span>
