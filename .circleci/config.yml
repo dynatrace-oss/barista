@@ -193,12 +193,21 @@ jobs:
           name: Generate examples for the demo application
           command: npm run examples-tools
       - run: yarn affected:build ${AFFECTED_ARGS} --configuration=production --exclude=examples-tools
-      - store_artifacts:
-          path: dist/components
       - persist_to_workspace:
           root: ~/barista
           paths:
             - .
+
+# - pack and upload the build artifacts of the components library
+  store-build-artifacts:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run: cd dist && tar czf components.tar.gz ./components/
+      - store_artifacts:
+          path: dist/components.tar.gz
+          destination: barista-components
 
 # - run unit tests
   unit-test:
@@ -210,8 +219,6 @@ jobs:
           <<: *set_env
       - run: yarn affected:test ${AFFECTED_ARGS} --parallel --runInBand
       - store_test_results:
-          path: dist/test-results
-      - store_artifacts:
           path: dist/test-results
 
 # - run end to end tests
@@ -303,6 +310,12 @@ workflows:
       - build:
           requires:
             - install
+      - store-build-artifacts:
+          filters:
+            branches:
+              only: /^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$/
+          requires:
+            - build
       - save-latest:
           filters:
             branches:
