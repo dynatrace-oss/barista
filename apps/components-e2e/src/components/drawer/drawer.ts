@@ -15,11 +15,16 @@
  */
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { map } from 'rxjs/operators';
 
+import { DtChartRange } from '@dynatrace/barista-components/chart';
 import {
   DtDrawer,
   DtDrawerContainer,
 } from '@dynatrace/barista-components/drawer';
+
+import { DataService } from '../../services/data.service';
+import { options } from '../chart/selection-area/chart-options';
 
 @Component({
   selector: 'dt-e2e-drawer',
@@ -28,6 +33,16 @@ import {
 export class DtE2EDrawer {
   openCount = 0;
   closeCount = 0;
+
+  validRange = false;
+  lastTimeframe: [number, number];
+
+  options = options;
+  series$ = this._dataService
+    .getFixture<{ data: Highcharts.IndividualSeriesOptions[] }>(
+      '/data-small.json',
+    )
+    .pipe(map(result => result.data));
 
   @ViewChild('container', { static: true }) container: DtDrawerContainer;
   @ViewChild('drawer', { static: true }) drawer: DtDrawer;
@@ -41,10 +56,28 @@ export class DtE2EDrawer {
     HTMLButtonElement
   >;
 
+  @ViewChild(DtChartRange, { static: false }) dtChartRange: DtChartRange;
+
+  constructor(private _dataService: DataService) {}
+
   open(): void {
     this.openCount++;
   }
   close(): void {
     this.closeCount++;
+  }
+
+  onTimeframeValidChanges(valid: boolean): void {
+    this.validRange = valid;
+  }
+
+  closed(): void {
+    this.lastTimeframe = [0, 0];
+  }
+
+  onTimeframeChanges(timeframe: [number, number] | number): void {
+    if (Array.isArray(timeframe)) {
+      this.lastTimeframe = timeframe;
+    }
   }
 }
