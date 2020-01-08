@@ -15,7 +15,7 @@
  */
 
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy, NgZone } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { ReplaySubject, Subscription } from 'rxjs';
 
@@ -52,8 +52,9 @@ export class BaTocService implements OnDestroy {
 
   constructor(
     // tslint:disable-next-line: no-any
-    @Inject(DOCUMENT) private document: any,
+    @Inject(DOCUMENT) private _document: any,
     private _scrollSpyService: BaScrollSpyService,
+    private _zone: NgZone,
   ) {}
 
   ngOnDestroy(): void {
@@ -75,9 +76,11 @@ export class BaTocService implements OnDestroy {
     this.tocItems = this._refractorTocItems(headlines, docId);
     this.tocList.next(this.tocItems);
 
-    // start the scroll spy
-    this._scrollSpyInfo = this._scrollSpyService.spyOn(headlines);
-    this._activeItemSubscription = this._scrollSpyInfo.active.subscribe(
+    this._zone.runOutsideAngular(() => {
+      // start the scroll spy
+      this._scrollSpyInfo = this._scrollSpyService.spyOn(headlines);
+    });
+    this._activeItemSubscription = this._scrollSpyInfo!.active.subscribe(
       scrollItem => {
         if (scrollItem) {
           for (const tocItem of this.tocItems) {
@@ -154,7 +157,7 @@ export class BaTocService implements OnDestroy {
   private _extractHeadingSafeHtml(
     heading: HTMLHeadingElement,
   ): { content: string; title: string } {
-    const div: HTMLDivElement = this.document.createElement('div');
+    const div: HTMLDivElement = this._document.createElement('div');
     // tslint:disable-next-line: dt-ban-inner-html
     div.innerHTML = heading.innerHTML;
 

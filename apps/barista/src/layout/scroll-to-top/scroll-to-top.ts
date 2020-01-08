@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, NgZone } from '@angular/core';
 import { Subscription, fromEvent, interval } from 'rxjs';
 import { throttle, pairwise, map, startWith } from 'rxjs/operators';
 
@@ -40,22 +40,31 @@ export class BaScrollToTop implements AfterViewInit, OnDestroy {
   /** the threshold for the scroll position, before which the scroll to top button is not displayed */
   private _threshold = 150;
 
+  constructor(private _zone: NgZone) {}
+
   ngAfterViewInit(): void {
-    this._scrollSubscription = fromEvent(window, 'scroll')
-      .pipe(
-        startWith(null),
-        throttle(() => interval(this._throttleInterval), { trailing: true }),
-        map(() => (window ? window.scrollY : 0)),
-        pairwise(),
-        map(
-          ([lastScrollPosition, currentScrollPosition]) =>
-            currentScrollPosition < lastScrollPosition &&
-            currentScrollPosition >= this._threshold,
-        ),
-      )
-      .subscribe(isVisible => {
-        this._showScrollToTop = isVisible;
-      });
+    this._zone.runOutsideAngular(() => {
+      this._scrollSubscription = fromEvent(window, 'scroll')
+        .pipe(
+          startWith(null),
+          throttle(() => interval(this._throttleInterval), { trailing: true }),
+          map(() => (window ? window.scrollY : 0)),
+          pairwise(),
+          map(
+            ([lastScrollPosition, currentScrollPosition]) =>
+              currentScrollPosition < lastScrollPosition &&
+              currentScrollPosition >= this._threshold,
+          ),
+        )
+        .subscribe(isVisible => {
+          // Only update the value if it has changed.
+          if (isVisible !== this._showScrollToTop) {
+            this._zone.run(() => {
+              this._showScrollToTop = isVisible;
+            });
+          }
+        });
+    });
   }
 
   ngOnDestroy(): void {

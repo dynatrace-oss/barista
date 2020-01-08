@@ -20,6 +20,7 @@ import {
   OnInit,
   AfterViewInit,
   OnDestroy,
+  NgZone,
 } from '@angular/core';
 import { BaTocService, BaTocItem } from '../../shared/toc.service';
 import { Subscription } from 'rxjs';
@@ -48,7 +49,7 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
   /** Subscription on active TOC items */
   private _activeItemsSubscription = Subscription.EMPTY;
 
-  constructor(private _tocService: BaTocService) {}
+  constructor(private _tocService: BaTocService, private _zone: NgZone) {}
 
   ngOnInit(): void {
     this._tocListSubscription = this._tocService.tocList.subscribe(headings => {
@@ -57,7 +58,9 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
 
     this._activeItemsSubscription = this._tocService.activeItems.subscribe(
       activeItems => {
-        this._activeItems = activeItems;
+        this._zone.run(() => {
+          this._activeItems = activeItems;
+        });
       },
     );
   }
