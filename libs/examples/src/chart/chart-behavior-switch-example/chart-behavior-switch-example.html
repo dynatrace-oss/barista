@@ -1,10 +1,10 @@
 View
-<dt-button-group (valueChange)="switchBehavior($event)">
+<dt-button-group (valueChange)="switchMetric($event)">
   <dt-button-group-item>CPU usage</dt-button-group-item>
   <dt-button-group-item>Connectivity</dt-button-group-item>
   <dt-button-group-item>Retransmissions</dt-button-group-item>
 </dt-button-group>
-<dt-chart [options]="selectOptions()" [series]="selectSeries()">
+<dt-chart [options]="options" [series]="series">
   <dt-chart-tooltip>
     <ng-template let-tooltip>
       <dt-key-value-list style="min-width: 100px;">

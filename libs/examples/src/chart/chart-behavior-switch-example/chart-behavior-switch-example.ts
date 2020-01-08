@@ -15,7 +15,6 @@
  */
 
 import { Component } from '@angular/core';
-
 import { generateData } from '../chart-data-utils';
 
 @Component({
@@ -23,104 +22,101 @@ import { generateData } from '../chart-data-utils';
   templateUrl: 'chart-behavior-switch-example.html',
 })
 export class DtExampleChartBehaviorSwitch {
-  currentBehavior = 'CPU usage';
-
-  // tslint:disable-next-line: no-any
-  switchBehavior(event: any): void {
-    this.currentBehavior = event;
-  }
-
-  selectOptions(): Highcharts.Options {
-    let options: Highcharts.Options = {};
-
-    options = {
-      xAxis: {
-        type: 'datetime',
+  options: Highcharts.Options = {
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: [
+      {
+        title: null,
+        labels: {
+          format: '{value} %',
+        },
+        tickInterval: 5,
       },
-      yAxis: [
-        {
-          title: null,
-          labels: {
-            format: '{value} %',
-          },
-          tickInterval: 5,
+      {
+        title: null,
+        labels: {
+          format: '{value}',
         },
-        {
-          title: null,
-          labels: {
-            format: '{value}',
-          },
-          opposite: true,
-          tickInterval: 1,
-        },
-      ],
-      plotOptions: {
-        column: {
-          stacking: 'normal',
-        },
-        series: {
-          marker: {
-            enabled: false,
-          },
+        opposite: true,
+        tickInterval: 1,
+      },
+    ],
+    plotOptions: {
+      column: {
+        stacking: 'normal',
+      },
+      series: {
+        marker: {
+          enabled: false,
         },
       },
-    };
+    },
+  };
 
-    return options;
-  }
+  cpuUsageSeries: Highcharts.IndividualSeriesOptions[] = [
+    {
+      name: 'CPU usage',
+      type: 'line',
+      data: generateData(40, 20, 35, 1370304000000, 900000),
+      color: '#92d9f8',
+    },
+    {
+      name: 'Number of process group instances',
+      type: 'column',
+      yAxis: 1,
+      data: generateData(40, 1, 4, 1370304000000, 900000),
+      color: '#006bba',
+    },
+  ];
 
-  selectSeries(): Highcharts.IndividualSeriesOptions[] {
-    let series: Highcharts.IndividualSeriesOptions[] = [];
-    // tslint:disable-next-line: prefer-switch
-    if (this.currentBehavior === 'CPU usage') {
-      series = [
-        {
-          name: 'CPU usage',
-          type: 'line',
-          data: generateData(40, 20, 35, 1370304000000, 900000),
-          color: '#92d9f8',
-        },
-        {
-          name: 'Number of process group instances',
-          type: 'column',
-          yAxis: 1,
-          data: generateData(40, 1, 4, 1370304000000, 900000),
-          color: '#006bba',
-        },
-      ];
-    } else if (this.currentBehavior === 'Connectivity') {
-      series = [
-        {
-          name: 'Network utilization',
-          type: 'area',
-          data: generateData(60, 20, 40, 1370304000000, 900000),
-          color: '#e8cbfa',
-        },
-        {
-          name: 'Connections per day',
-          type: 'column',
-          yAxis: 1,
-          data: generateData(60, 10, 40, 1370304000000, 900000),
-          color: '#9355b7',
-        },
-      ];
-    } else if (this.currentBehavior === 'Retransmissions') {
-      series = [
-        {
-          name: 'Number of retransmissions',
-          type: 'column',
-          data: generateData(40, 20, 35, 1370304000000, 900000),
-          color: '#fff5b7',
-        },
-        {
-          name: 'Server usage',
-          type: 'line',
-          yAxis: 1,
-          data: generateData(40, 15, 100, 1370304000000, 900000),
-          color: '#f5d30f',
-        },
-      ];
+  retransmissionSeries: Highcharts.IndividualSeriesOptions[] = [
+    {
+      name: 'Number of retransmissions',
+      type: 'column',
+      data: generateData(40, 20, 35, 1370304000000, 900000),
+      color: '#fff5b7',
+    },
+    {
+      name: 'Server usage',
+      type: 'line',
+      yAxis: 1,
+      data: generateData(40, 15, 100, 1370304000000, 900000),
+      color: '#f5d30f',
+    },
+  ];
+
+  connectivitySeries: Highcharts.IndividualSeriesOptions[] = [
+    {
+      name: 'Network utilization',
+      type: 'area',
+      data: generateData(60, 20, 40, 1370304000000, 900000),
+      color: '#e8cbfa',
+    },
+    {
+      name: 'Connections per day',
+      type: 'column',
+      yAxis: 1,
+      data: generateData(60, 10, 40, 1370304000000, 900000),
+      color: '#9355b7',
+    },
+  ];
+
+  // Initialize chart series
+  series: Highcharts.IndividualSeriesOptions[] = this.cpuUsageSeries;
+
+  switchMetric(event: any): void {
+    switch (event) {
+      case 'CPU usage':
+        this.series = this.cpuUsageSeries;
+        break;
+      case 'Connectivity':
+        this.series = this.connectivitySeries;
+        break;
+      case 'Retransmissions':
+        this.series = this.retransmissionSeries;
+        break;
     }
-    return series;
   }
 }
