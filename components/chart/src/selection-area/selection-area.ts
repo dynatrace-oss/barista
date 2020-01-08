@@ -24,7 +24,7 @@ import {
   ViewportRuler,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import {
   AfterContentInit,
@@ -116,6 +116,7 @@ import {
   getTouchStartStream,
   getTouchStream,
 } from './streams';
+import { DtChartSelectionAreaContainer } from './selection-area-container';
 
 @Component({
   selector: 'dt-chart-selection-area',
@@ -156,8 +157,14 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** The focus trap inside the overlay */
   private _overlayFocusTrap: FocusTrap | null;
 
-  /** Template portal of the selection area overlay */
-  private _portal: TemplatePortal | null;
+  /** Container reference of the selection area overlay */
+  private _containerRef: DtChartSelectionAreaContainer | null;
+
+  /** Component portal reference of the selection area overlay */
+  private _portal: ComponentPortal<DtChartSelectionAreaContainer>;
+
+  /** Template portal reference to pass to the component portal */
+  private _templatePortal: TemplatePortal<any>;
 
   /**
    * Stream of Highcharts plotBackground is used to size the selection area according to this area
@@ -325,7 +332,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       return;
     }
 
-    this._closeOverlay();
     this._toggleRange(true);
     const minWidth = !width
       ? this._chart._range._calculateMinWidth(left)
@@ -349,7 +355,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     if (!this._chart._timestamp) {
       return;
     }
-    this._closeOverlay();
     this._toggleTimestamp(true);
     this._chart._timestamp._position = position;
     this._zone.onMicrotaskEmpty
@@ -426,15 +431,27 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       scrollStrategy: this._overlay.scrollStrategies.reposition(),
     });
 
+    // create a new portal to attach to the overlay
+    this._portal = new ComponentPortal(
+      DtChartSelectionAreaContainer,
+      null,
+      null,
+    );
     const overlayRef = this._overlay.create(overlayConfig);
+    const containerViewRef = overlayRef.attach<DtChartSelectionAreaContainer>(
+      this._portal,
+    );
+    this._containerRef = containerViewRef.instance;
 
-    // create the portal out of the template and the containerRef
-    // tslint:disable-next-line: no-any
-    this._portal = new TemplatePortal<any>(template, viewRef, {
+    // create a new template portal to attach to the container ref
+    // tslint:disable-next-line:no-any
+    this._templatePortal = new TemplatePortal<any>(template, viewRef, {
       $implicit: data,
     });
-    // attach the portal to the overlay ref
-    overlayRef.attach(this._portal);
+
+    // attach the template portal to the container ref
+    this._containerRef._attachTemplatePortal(this._templatePortal);
+    this._containerRef.enter();
 
     this._overlayRef = overlayRef;
 
@@ -456,8 +473,12 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     const viewRef = component._viewContainerRef;
     const value: number | [number, number] = component.value;
 
-    if (this._portal && this._overlayRef) {
-      this._portal.context.$implicit = value;
+    if (this._containerRef && this._templatePortal && this._overlayRef) {
+      this._templatePortal = new TemplatePortal<any>(template, viewRef, {
+        $implicit: value,
+      });
+      this._containerRef._updateTemplatePortal(this._templatePortal);
+
       // We already have an overlay so update the position
       this._overlayRef.updatePositionStrategy(
         this._calculateOverlayPosition(ref, viewportOffset),
@@ -469,8 +490,15 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** If there is an overlay open it will dispose it and destroy it */
   private _closeOverlay(): void {
-    if (this._overlayRef) {
-      this._overlayRef.dispose();
+    if (this._containerRef) {
+      this._containerRef.exit();
+      /** clean up reference after overlay has been closed */
+      this._containerRef.afterClosed.subscribe(() => {
+        if (this._overlayRef) {
+          this._overlayRef.dispose();
+          this._overlayRef = null;
+        }
+      });
     }
 
     // if we have a focus trap we have to destroy it
@@ -479,8 +507,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     }
 
     this._overlayFocusTrap = null;
-    this._overlayRef = null;
-    this._portal = null;
+    this._containerRef = null;
   }
 
   /** Main method that initializes all streams and subscribe to the initial behavior of the selection area */
@@ -784,8 +811,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     merge(
       this._chart._timestamp ? this._chart._timestamp._closeOverlay : of(null),
       this._chart._range ? this._chart._range._closeOverlay : of(null),
-      this._mousedown$,
-      touchStart$,
     )
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {

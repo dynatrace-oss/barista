@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+/** @internal class for the overlay when fading in */
+export const DT_RANGE_ACTIVE_CLASS = 'dt-chart-selection-container-active';
+
 /** @internal class for the arrows on the handles when it was released */
 export const DT_RANGE_RELEASED_CLASS = 'dt-chart-range-released';
 
@@ -35,3 +38,8 @@ export const ARIA_DEFAULT_SELECTED_AREA_LABEL = 'the selected area';
 /** @internal The Default minimum is 5 minutes */
 // tslint:disable-next-line no-magic-numbers
 export const DT_RANGE_DEFAULT_MIN = 5 * 60 * 1000;
+
+/** @internal Fade animation duration */
+export const DT_RANGE_FADE_TIME = 150;
+/** @internal Distance the overlay covers while fading in */
+export const DT_RANGE_ANIM_DISTANCE = 20;

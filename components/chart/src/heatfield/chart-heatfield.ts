@@ -39,32 +39,20 @@ import {
 import { clamp, round } from 'lodash';
 import { Subject } from 'rxjs';
 import { PlotBackgroundInfo } from '../utils';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
-const DT_HEATFIELD_TOP_OFFSET = 16;
-
-const DT_HEATFIELD_OVERLAY_POSITIONS: ConnectedPosition[] = [
-  {
-    originX: 'center',
-    originY: 'top',
-    overlayX: 'center',
-    overlayY: 'bottom',
-    offsetY: -8,
-  },
-  {
-    originX: 'end',
-    originY: 'top',
-    overlayX: 'start',
-    overlayY: 'top',
-    offsetX: 8,
-  },
-  {
-    originX: 'start',
-    originY: 'top',
-    overlayX: 'end',
-    overlayY: 'top',
-    offsetX: -8,
-  },
-];
+import {
+  DT_HEATFIELD_TOP_OFFSET,
+  DT_HEATFIELD_OVERLAY_POSITIONS,
+  DT_HEATFIELD_FADE_TIME,
+  DT_HEATFIELD_ANIM_DISTANCE,
+} from './chart-heatfield-config';
 
 /** Event object emitted by DtOption when selected or deselected. */
 export class DtChartHeatfieldActiveChange {
@@ -94,6 +82,20 @@ export const _DtHeatfieldMixinBase = mixinColor<
   preserveWhitespaces: false,
   encapsulation: ViewEncapsulation.Emulated,
   inputs: ['color'],
+  animations: [
+    trigger('fade', [
+      state(
+        'void',
+        style({
+          opacity: 0,
+          transform: `translateY(${DT_HEATFIELD_ANIM_DISTANCE}px)`,
+        }),
+      ),
+      state('fadeIn', style({ opacity: 1, transform: 'translateY(0)' })),
+      transition(':enter', animate(`${DT_HEATFIELD_FADE_TIME}ms ease-in-out`)),
+      transition(':leave', animate(`${DT_HEATFIELD_FADE_TIME}ms ease-in-out`)),
+    ]),
+  ],
 })
 export class DtChartHeatfield extends _DtHeatfieldMixinBase
   implements CanColor<DtChartHeatfieldThemePalette>, OnDestroy {
@@ -101,6 +103,9 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   @Output() readonly activeChange = new EventEmitter<
     DtChartHeatfieldActiveChange
   >();
+
+  /** @internal The current state of the animation. */
+  _overlayState: 'void' | 'fadeIn' = 'void';
 
   private _start: number;
 
@@ -141,6 +146,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     const coercedValue = coerceBooleanProperty(val);
     if (this._active !== coercedValue) {
       this._active = coercedValue;
+      this._overlayState = coercedValue ? 'fadeIn' : 'void';
       this.activeChange.next(new DtChartHeatfieldActiveChange(this));
       this._changeDetectorRef.markForCheck();
     }
@@ -233,6 +239,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
    * @internal
    */
   _toggleActive(): void {
+    this._overlayState = this._overlayState === 'fadeIn' ? 'void' : 'fadeIn';
     this.active = !this.active;
   }
 

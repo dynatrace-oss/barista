@@ -1,0 +1,5 @@
+@import '../../../core/src/style/overlay';
+
+:host {
+  @include dt-overlay-container();
+}

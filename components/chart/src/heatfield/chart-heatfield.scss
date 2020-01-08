@@ -2,6 +2,9 @@
 @import '../../../core/src/style/overlay';
 @import './chart-heatfield-theme';
 
+$animation-duration: 150ms;
+$animation-delay: 125ms;
+
 .dt-chart-heatfield-marker {
   height: 8px;
   outline: 2px solid #ffffff;
@@ -13,14 +16,25 @@
   width: 100%;
   display: block;
   z-index: 1;
+  transform-origin: top;
+  transition: transform $animation-duration ease-in-out $animation-delay;
 }
 
 .dt-chart-heatfield-marker.dt-chart-heatfield-active {
-  height: 12px;
+  transform: scaleY(1.5);
+  transition: transform $animation-duration ease-in-out;
 }
 
 .dt-chart-heatfield-backdrop {
   position: absolute;
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform $animation-duration ease-out;
+}
+
+.dt-chart-heatfield-active + .dt-chart-heatfield-backdrop {
+  transform: scaleY(1);
+  transition: transform $animation-duration ease-out $animation-delay;
 }
 
 .dt-chart-heatfield-overlay {
