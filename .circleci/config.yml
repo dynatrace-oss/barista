@@ -118,6 +118,7 @@ jobs:
 # - install npm dependencies
   install:
     <<: *defaults
+    resource_class: large
     steps:
       - checkout
       - restore_cache:
@@ -189,6 +190,7 @@ jobs:
 # - build all the packages
   build:
     <<: *defaults
+    resource_class: xlarge
     steps:
       - attach_workspace:
           at: ~/barista
@@ -197,7 +199,7 @@ jobs:
       - run:
           name: Generate examples for the demo application
           command: npm run examples-tools
-      - run: yarn affected:build ${AFFECTED_ARGS} --configuration=production --exclude=examples-tools
+      - run: yarn nx affected:build ${AFFECTED_ARGS} --configuration=production --parallel --exclude=examples-tools
       - persist_to_workspace:
           root: ~/barista
           paths:
@@ -224,18 +226,20 @@ jobs:
 # - run unit tests
   unit-test:
     <<: *defaults
+    resource_class: large
     steps:
       - attach_workspace:
           at: ~/barista
       - run:
           <<: *set_env
-      - run: yarn affected:test ${AFFECTED_ARGS} --parallel --runInBand
+      - run: yarn nx affected:test ${AFFECTED_ARGS} --parallel --runInBand
       - store_test_results:
           path: dist/test-results
 
 # - run end to end tests
   e2e-test:
     <<: *defaults
+    resource_class: large
     environment:
       BROWSERSTACK_USE_AUTOMATE: 1
       BROWSERSTACK_DISPLAY_RESOLUTION: 1920x1080
@@ -248,13 +252,14 @@ jobs:
       - restore_cache:
           # the universal e2e needs the compiled dist from the build
           key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - run: yarn affected:e2e ${AFFECTED_ARGS} --configuration=remote-pr
+      - run: yarn nx affected:e2e ${AFFECTED_ARGS} --configuration=remote-pr
       - store_test_results:
           path: dist/components-e2e
 
 # - run a11y tests
   a11y:
     <<: *defaults
+    resource_class: large
     docker:
       - image: circleci/node:12-browsers
     steps:
@@ -265,7 +270,7 @@ jobs:
       - restore_cache:
           # the a11y tests need the builded templates
           key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
-      - run: yarn affected --target=a11y ${AFFECTED_ARGS} --parallel --configuration=ci
+      - run: yarn nx affected --target=a11y ${AFFECTED_ARGS} --parallel --configuration=ci
       - store_test_results:
           path: dist/demos-a11y
 
