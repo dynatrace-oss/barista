@@ -100,11 +100,11 @@ export function filterGroupDef(
   );
   return options.length
     ? dtGroupDef(
+        def.data,
         def,
-        def.group!.parentAutocomplete,
         def.group!.label,
         options,
-        def.data,
+        def.group!.parentAutocomplete,
       )
     : null;
 }
