@@ -40,6 +40,9 @@ import {
   optionOrGroupFilteredPredicate,
   optionSelectedPredicate,
   peekOptionId,
+  filterOptionDef,
+  filterGroupDef,
+  filterAutocompleteDef,
 } from './filter-field-util';
 import {
   _DtAutocompleteValue,
@@ -47,9 +50,178 @@ import {
   _DtRangeValue,
   dtRangeDef,
   isDtFreeTextDef,
+  DtNodeDef,
 } from './types';
 
 describe('DtFilterField Util', () => {
+  describe('filterAutocompleteDef', () => {
+    let optionDef: DtNodeDef;
+    let optionDefInGroup: DtNodeDef;
+    let groupDef: DtNodeDef;
+
+    beforeEach(() => {
+      optionDef = dtOptionDef('Option 1', null, 'Option 1', 'id1', null, null);
+      optionDefInGroup = dtOptionDef(
+        'Option 2',
+        null,
+        'Option 2',
+        'id2',
+        null,
+        null,
+      );
+      groupDef = dtGroupDef(
+        [optionDefInGroup],
+        null,
+        'Group 1',
+        [optionDefInGroup],
+        null,
+      );
+      optionDefInGroup.option!.parentGroup = groupDef;
+    });
+
+    it('should return a def if the provided autocomplete def contains at least one option after filtering', () => {
+      const autocompleteDef = dtAutocompleteDef(
+        [optionDef],
+        null,
+        [optionDef],
+        false,
+        false,
+      );
+      optionDef.option!.parentAutocomplete = autocompleteDef;
+      expect(
+        filterAutocompleteDef(autocompleteDef, new Set(), ''),
+      ).not.toBeNull();
+    });
+    it('should return a def if the provided autocomplete def contains at least one group with options after filtering', () => {
+      const autocompleteDef = dtAutocompleteDef(
+        [optionDefInGroup],
+        null,
+        [optionDefInGroup],
+        false,
+        false,
+      );
+      optionDefInGroup.option!.parentAutocomplete = autocompleteDef;
+      groupDef.group!.parentAutocomplete = autocompleteDef;
+      expect(
+        filterAutocompleteDef(autocompleteDef, new Set(), ''),
+      ).not.toBeNull();
+    });
+    it('should return a def if the provided autocomplete def contains at least one option after all other options or groups are filtered out.', () => {
+      const autocompleteDef = dtAutocompleteDef(
+        [optionDef, optionDefInGroup],
+        null,
+        [optionDef, optionDefInGroup],
+        false,
+        false,
+      );
+      optionDef.option!.parentAutocomplete = autocompleteDef;
+      optionDefInGroup.option!.parentAutocomplete = autocompleteDef;
+      groupDef.group!.parentAutocomplete = autocompleteDef;
+      expect(
+        filterAutocompleteDef(autocompleteDef, new Set(['id2']), ''),
+      ).not.toBeNull();
+    });
+    it('should return a def if the provided autocomplete def contains at least one group with options after all other options and groups are filtered out.', () => {
+      const autocompleteDef = dtAutocompleteDef(
+        [optionDef, optionDefInGroup],
+        null,
+        [optionDef, optionDefInGroup],
+        false,
+        false,
+      );
+      optionDef.option!.parentAutocomplete = autocompleteDef;
+      optionDefInGroup.option!.parentAutocomplete = autocompleteDef;
+      groupDef.group!.parentAutocomplete = autocompleteDef;
+      expect(
+        filterAutocompleteDef(autocompleteDef, new Set(['id1']), ''),
+      ).not.toBeNull();
+    });
+    it('should return null if the provided autocomplete def contains no options after filtering', () => {
+      const autocompleteDef = dtAutocompleteDef(
+        [optionDef],
+        null,
+        [optionDef],
+        false,
+        false,
+      );
+      optionDef.option!.parentAutocomplete = autocompleteDef;
+      expect(
+        filterAutocompleteDef(autocompleteDef, new Set(['id1']), ''),
+      ).toBeNull();
+    });
+    it('should return null if the provided autocomplete def contains no groups after filtering', () => {
+      const autocompleteDef = dtAutocompleteDef(
+        [optionDefInGroup],
+        null,
+        [optionDefInGroup],
+        false,
+        false,
+      );
+      optionDefInGroup.option!.parentAutocomplete = autocompleteDef;
+      groupDef.group!.parentAutocomplete = autocompleteDef;
+      expect(
+        filterAutocompleteDef(autocompleteDef, new Set(['id2']), ''),
+      ).toBeNull();
+    });
+    it('should return null if the provided autocomplete def contains no options and groups after filtering', () => {
+      const autocompleteDef = dtAutocompleteDef(
+        [optionDef, optionDefInGroup],
+        null,
+        [optionDef, optionDefInGroup],
+        false,
+        false,
+      );
+      optionDef.option!.parentAutocomplete = autocompleteDef;
+      optionDefInGroup.option!.parentAutocomplete = autocompleteDef;
+      groupDef.group!.parentAutocomplete = autocompleteDef;
+      expect(
+        filterAutocompleteDef(autocompleteDef, new Set(['id1', 'id2']), ''),
+      ).toBeNull();
+    });
+  });
+
+  describe('filterGroupDef', () => {
+    const optionDef = dtOptionDef(
+      'Option 1',
+      null,
+      'Option 1',
+      'id1',
+      null,
+      null,
+    );
+    const groupDef = dtGroupDef(
+      [optionDef],
+      null,
+      'Group 1',
+      [optionDef],
+      null,
+    );
+    optionDef.option!.parentGroup = groupDef;
+
+    it('should return a def if the provided group def contains at least one option after filtering', () => {
+      expect(filterGroupDef(groupDef, new Set(), '')).not.toBeNull();
+    });
+    it('should return null if the provided group def contains no options after filtering', () => {
+      expect(filterGroupDef(groupDef, new Set(['id1']), '')).toBeNull();
+    });
+  });
+
+  describe('filterOptionDef', () => {
+    const def = dtOptionDef('Option 1', null, 'Option 1', 'id1', null, null);
+    it('should return a def if the provided option def is not removed via the selected-id and text filter', () => {
+      expect(filterOptionDef(def, new Set(), '')).not.toBeNull();
+    });
+    it('should return null if the provided option def is removed via the selected-id filter but not the text filter', () => {
+      expect(filterOptionDef(def, new Set(['id1']), '')).toBeNull();
+    });
+    it('should return null if the provided option def is removed via the text filter but not the selected-id filter', () => {
+      expect(filterOptionDef(def, new Set([]), 'foo')).toBeNull();
+    });
+    it('should return null if the provided option def is removed via the text and the selected-id filter', () => {
+      expect(filterOptionDef(def, new Set(['id1']), 'foo')).toBeNull();
+    });
+  });
+
   describe('generateOptionId', () => {
     it('should create a unique id for a simple option definition', () => {
       const optionDef = dtOptionDef(
