@@ -42,7 +42,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  createInViewportStream,
   DtViewportResizer,
   isDefined,
 } from '@dynatrace/barista-components/core';
@@ -108,7 +107,6 @@ import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { getPlotBackgroundInfo } from './utils';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
-const CHART_INTERSECTION_THRESHOLD = 0.9;
 
 export type DtChartOptions = HighchartsOptions & {
   series?: undefined;
@@ -310,12 +308,6 @@ export class DtChart
   private _dataSub: Subscription | null = null;
   private _highchartsOptions: HighchartsOptions;
   private readonly _destroy$ = new Subject<void>();
-
-  /** @internal whether the chart is in the viewport or not */
-  _isInViewport$ = createInViewportStream(
-    this._elementRef,
-    CHART_INTERSECTION_THRESHOLD,
-  );
 
   /** Deals with the selection logic. */
   private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
@@ -552,10 +544,8 @@ export class DtChart
       map(event => new TooltipState(TooltipStateType.UPDATED, event)),
     );
 
-    this._isInViewport$
+    merge(tooltipOpened$, tooltipClosed$, tooltipUpdated$)
       .pipe(
-        filter(Boolean),
-        switchMap(() => merge(tooltipOpened$, tooltipClosed$, tooltipUpdated$)),
         withLatestFrom(this._plotBackground$),
         takeUntil(this._destroy$),
       )
