@@ -73,12 +73,7 @@ export class DtExampleTableFavoriteColumnNoHeader {
     );
   }
 
-  doSomething(event: {
-    favorite: boolean;
-    host: string;
-    memoryPerc: number;
-    memoryTotal: number;
-  }): void {
+  doSomething(): void {
     // noop
   }
 }
