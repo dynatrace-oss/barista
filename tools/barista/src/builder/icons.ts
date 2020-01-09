@@ -35,12 +35,14 @@ import {
   extractH1ToTitleTransformer,
   markdownToHtmlTransformer,
   transformPage,
+  headingIdTransformer,
 } from '../transform';
 import { convertJsonChangelogToMarkdown } from '../utils/convert-json-changelog-to-markdown';
 
 const TRANSFORMERS: BaPageTransformer[] = [
   markdownToHtmlTransformer,
   extractH1ToTitleTransformer,
+  headingIdTransformer,
 ];
 
 /**
