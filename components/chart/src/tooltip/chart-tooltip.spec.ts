@@ -124,16 +124,19 @@ describe('DtChartTooltip', () => {
     expect(overlayContainerElement.innerHTML).not.toEqual('');
   }));
 
-  it('should not show the tooltip if the chart is not in the viewport', fakeAsync(() => {
-    mockIntersectionObserver.mockAllIsIntersecting(false);
-    chartComponent._highChartsTooltipOpened$.next({
-      data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
-    });
-    fixture.detectChanges();
-    tick();
-    flush();
-    expect(overlayContainerElement.innerHTML).toEqual('');
-  }));
+  // This behaviour has been removed with pull request 410
+  // https://github.com/dynatrace-oss/barista/pull/410 as it was causing
+  // inconsistent and unexpected behaviour with showing the tooltip.
+  // it('should not show the tooltip if the chart is not in the viewport', fakeAsync(() => {
+  //   mockIntersectionObserver.mockAllIsIntersecting(false);
+  //   chartComponent._highChartsTooltipOpened$.next({
+  //     data: DUMMY_TOOLTIP_DATA_LINE_SERIES,
+  //   });
+  //   fixture.detectChanges();
+  //   tick();
+  //   flush();
+  //   expect(overlayContainerElement.innerHTML).toEqual('');
+  // }));
 
   describe('content', () => {
     beforeEach(fakeAsync(() => {
