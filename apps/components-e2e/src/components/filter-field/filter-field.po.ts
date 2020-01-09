@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Selector, t } from 'testcafe';
+import { Selector, t, ClientFunction } from 'testcafe';
 
 export const errorBox = Selector('.dt-filter-field-error');
 export const filterField = Selector('#filter-field');
@@ -24,12 +24,30 @@ export const filterTags = Selector('dt-filter-field-tag');
 
 export const input = Selector('input');
 
-export async function clickOption(
+export function clickOption(
   nth: number,
   testController?: TestController,
-): Promise<void> {
+): TestControllerPromise {
   const controller = testController || t;
-
-  await controller.click(filterField);
-  await controller.click(option(nth));
+  return controller
+    .click(filterField)
+    .wait(150)
+    .click(option(nth));
 }
+
+/** Focus the input of the filter field to send key events to it. */
+export const focusFilterFieldInput = ClientFunction(() => {
+  (document.querySelector('#filter-field input') as HTMLElement).focus();
+});
+
+/** Retreive all set tags in the filter field and their values. */
+export const getFilterfieldTags = ClientFunction(() => {
+  const filterFieldTags: HTMLElement[] = [].slice.call(
+    document.querySelectorAll('.dt-filter-field-tag'),
+  );
+  const contents: string[] = [];
+  for (const tag of filterFieldTags) {
+    contents.push(tag.textContent || '');
+  }
+  return contents;
+});

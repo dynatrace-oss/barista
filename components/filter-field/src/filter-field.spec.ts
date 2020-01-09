@@ -17,7 +17,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { BACKSPACE, ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import { BACKSPACE, ENTER, ESCAPE, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, NgZone, ViewChild } from '@angular/core';
@@ -542,13 +542,56 @@ describe('DtFilterField', () => {
 
       const inputEl = getInput(fixture);
       typeInElement('abc', inputEl);
-      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
 
       fixture.detectChanges();
-      dispatchKeyboardEvent(inputEl, 'keyup', ENTER);
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
+
+      dispatchKeyboardEvent(inputEl, 'keydown', ENTER);
+
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
       fixture.detectChanges();
 
       const tags = getFilterTags(fixture);
+      expect(tags.length).toBe(1);
+      expect(tags[0].key).toBe('Free');
+      expect(tags[0].separator).toBe('~');
+      expect(tags[0].value).toBe('abc');
+      expect(spy).toHaveBeenCalledTimes(1);
+      subscription.unsubscribe();
+    }));
+
+    it('should switch to free text with keyboard interaction and on enter fire a filterChanges event and create a tag', fakeAsync(() => {
+      const spy = jest.fn();
+      const subscription = filterField.filterChanges.subscribe(spy);
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const inputEl = getInput(fixture);
+
+      // Select the free text option with the keyboard and hit enter
+      dispatchKeyboardEvent(inputEl, 'keydown', DOWN_ARROW);
+      dispatchKeyboardEvent(inputEl, 'keydown', DOWN_ARROW);
+
+      // Use keydown and keyup arrow, as this is what happens in the real world as well.
+      dispatchKeyboardEvent(inputEl, 'keydown', ENTER);
+
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      typeInElement('abc', inputEl);
+
+      fixture.detectChanges();
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
+
+      dispatchKeyboardEvent(inputEl, 'keydown', ENTER);
+
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+
       expect(tags.length).toBe(1);
       expect(tags[0].key).toBe('Free');
       expect(tags[0].separator).toBe('~');
@@ -2070,8 +2113,13 @@ function getFilterTags(
       key && key.getAttribute('data-separator')
         ? key.getAttribute('data-separator')!
         : '';
-    const value = ele.nativeElement.querySelector('.dt-filter-field-tag-value')
-      .textContent;
+
+    // Get the value of the filter element, if no filter value element is rendered
+    // assume an empty string.
+    const valueElement = ele.nativeElement.querySelector(
+      '.dt-filter-field-tag-value',
+    );
+    const value = valueElement ? valueElement.textContent : '';
 
     return {
       ele,
