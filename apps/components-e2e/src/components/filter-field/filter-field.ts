@@ -54,6 +54,19 @@ const TEST_DATA: DtFilterFieldDefaultDataSourceType = {
         },
       ],
     },
+    {
+      name: 'Autocomplete with free text options',
+      autocomplete: [
+        { name: 'Autocomplete option 1' },
+        { name: 'Autocomplete option 2' },
+        { name: 'Autocomplete option 3' },
+        {
+          name: 'Autocomplete free text',
+          suggestions: ['Suggestion 1', 'Suggestion 2', 'Suggestion 3'],
+          validators: [],
+        },
+      ],
+    },
   ],
 };
 
