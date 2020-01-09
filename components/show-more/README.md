@@ -5,7 +5,7 @@ currently visible. Use it when long lists of items are split into smaller sets
 to load them one by one or as trigger of an expandable panel to toggle the
 visibility of certain content on a page.
 
-<ba-live-example name="ShowMoreDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleShowMoreDefault"></ba-live-example>
 
 ## Imports
 
@@ -38,7 +38,7 @@ The label text should describe how many more items are loaded on click. The show
 more button is not displayed when there are no more items to load. Instead a
 short note that there is no more data is shown.
 
-<ba-live-example name="ShowMoreDefaultExample"></ba-live-example>
+<ba-live-example name="DtExampleShowMoreDefault"></ba-live-example>
 
 ### Section toggle
 
@@ -46,20 +46,20 @@ In case the component is used as a trigger to expand a content section, there is
 no label shown when the component is in close-button-state (i.e. `showLess` is
 `true`).
 
-<ba-live-example name="ShowMoreToggleExample"></ba-live-example>
+<ba-live-example name="DtExampleShowMoreToggle"></ba-live-example>
 
 ### Disabled
 
 When it's not possible or the user is not allowed to load more entries or to
 expand a section, the component gets disabled.
 
-<ba-live-example name="ShowMoreDisabledExample"></ba-live-example>
+<ba-live-example name="DtExampleShowMoreDisabled"></ba-live-example>
 
 ## Dark background
 
 The show more component can be placed on dark background.
 
-<ba-live-example name="ShowMoreDarkExample" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleShowMoreDark" themedark="true"></ba-live-example>
 
 ## Accessibility
 
