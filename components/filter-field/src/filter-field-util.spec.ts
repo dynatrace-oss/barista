@@ -55,9 +55,9 @@ import {
 
 describe('DtFilterField Util', () => {
   describe('filterAutocompleteDef', () => {
-    let optionDef: DtNodeDef;
-    let optionDefInGroup: DtNodeDef;
-    let groupDef: DtNodeDef;
+    let optionDef: DtNodeDef<any>;
+    let optionDefInGroup: DtNodeDef<any>;
+    let groupDef: DtNodeDef<any>;
 
     beforeEach(() => {
       optionDef = dtOptionDef('Option 1', null, 'Option 1', 'id1', null, null);

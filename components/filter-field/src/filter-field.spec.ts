@@ -2120,7 +2120,7 @@ function getClearAll(fixture: ComponentFixture<any>): HTMLButtonElement | null {
 })
 export class TestApp {
   // tslint:disable-next-line:no-any
-  dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
+  dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
 
   label = 'Filter by';
   clearAllLabel = 'Clear all';

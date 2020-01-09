@@ -183,15 +183,15 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   /** The data source instance that should be connected to the filter field. */
   @Input()
-  get dataSource(): DtFilterFieldDataSource {
+  get dataSource(): DtFilterFieldDataSource<T> {
     return this._dataSource;
   }
-  set dataSource(dataSource: DtFilterFieldDataSource) {
+  set dataSource(dataSource: DtFilterFieldDataSource<T>) {
     if (this._dataSource !== dataSource) {
       this._switchDataSource(dataSource);
     }
   }
-  private _dataSource: DtFilterFieldDataSource;
+  private _dataSource: DtFilterFieldDataSource<T>;
   private _dataSubscription: Subscription | null;
   private _stateChanges = new Subject<void>();
   private _outsideClickSubscription: Subscription | null;
@@ -263,7 +263,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   /** @internal The autocomplete trigger that is placed on the input element */
   @ViewChild(DtAutocompleteTrigger, { static: true })
-  _autocompleteTrigger: DtAutocompleteTrigger<DtNodeDef>;
+  _autocompleteTrigger: DtAutocompleteTrigger<DtNodeDef<T>>;
 
   /** @internal The range trigger that is placed on the input element */
   @ViewChild(DtFilterFieldRange, { static: true })
@@ -275,7 +275,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   /** @internal Querylist of the autocompletes provided by ng-content */
   @ViewChild(DtAutocomplete, { static: true }) _autocomplete: DtAutocomplete<
-    DtNodeDef
+    DtNodeDef<T>
   >;
 
   /** @internal List of sources of the filter that the user currently works on. */
@@ -286,7 +286,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
    * The root NodeDef.
    * The filter field will always switch to this def once the user completes a filter.
    */
-  _rootDef: DtNodeDef | null = null;
+  _rootDef: DtNodeDef<T> | null = null;
 
   /**
    * @internal
@@ -294,13 +294,13 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
    * The key represents the Def that triggered the async loading,
    * the value is the Def of the loaded data.
    */
-  _asyncDefs = new Map<DtNodeDef, DtNodeDef>();
+  _asyncDefs = new Map<DtNodeDef<T>, DtNodeDef<T>>();
 
   /** @internal The current NodeDef that will be displayed (autocomplete, free-text, ...) */
-  _currentDef: DtNodeDef | null = null;
+  _currentDef: DtNodeDef<T> | null = null;
 
   /** @internal Holds the list of options and groups for displaying it in the autocomplete */
-  _autocompleteOptionsOrGroups: DtNodeDef[] = [];
+  _autocompleteOptionsOrGroups: DtNodeDef<T>[] = [];
 
   /** @internal Filter nodes to be rendered _before_ the input element. */
   _prefixTagData: _DtFilterFieldTagData[] = [];
@@ -584,7 +584,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
         this._editModeStashedValue = removed;
         this._listenForEditModeCancellation();
         this._currentFilterValues = event.data.filterValues;
-        this._currentDef = value;
+        this._currentDef = value as _DtAutocompleteValue;
 
         this._updateControl();
         this._updateLoading();
@@ -759,7 +759,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   /** Handles selecting an option from the autocomplete. */
   private _handleAutocompleteSelected(
-    event: DtAutocompleteSelectedEvent<DtNodeDef>,
+    event: DtAutocompleteSelectedEvent<DtNodeDef<T>>,
   ): void {
     const optionDef = event.option.value as _DtAutocompleteValue;
     this._peekCurrentFilterValues().push(optionDef);
@@ -959,7 +959,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
    * Takes a new data source and switches the filter date to the provided one.
    * Handles all the disconnecting and data switching.
    */
-  private _switchDataSource(dataSource: DtFilterFieldDataSource): void {
+  private _switchDataSource(dataSource: DtFilterFieldDataSource<T>): void {
     if (this._dataSource) {
       this._dataSource.disconnect();
     }
