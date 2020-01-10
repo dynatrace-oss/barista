@@ -22,7 +22,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { createComponent } from '@dynatrace/barista-components/testing';
-import { DtProgressBarModule } from './index';
+import { DtProgressBarModule } from './progress-bar-module';
 
 describe('DtProgressBar', () => {
   beforeEach(async(() => {
