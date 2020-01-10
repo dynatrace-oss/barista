@@ -74,7 +74,7 @@ disabled state. The following example shows a disabled expandable section.
 
 The expandable section can be placed on a dark background.
 
-<ba-live-example name="DtExampleExpandableSectionDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleExpandableSectionDark" themedark></ba-live-example>
 
 ## Expandable section in use
 

@@ -1,6 +1,9 @@
 <p *ngIf="!_componentRef">Loading example "name"</p>
 
-<div class="ba-live-example-demo">
+<div
+  class="ba-live-example-demo"
+  [class.ba-live-example-demo-background]="background"
+>
   <div #demoPlaceholder></div>
 </div>
 

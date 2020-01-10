@@ -74,6 +74,8 @@ asynchronously when the user needs it. You can do this by setting the
 `async: true` property on the autocomplete instead of options, then load the
 data and apply it to the data source.
 
+<ba-live-example name="DtExampleFilterFieldAsync"></ba-live-example>
+
 ## Unique free-text or range options
 
 It is possible to set a free-text or range option to be unique. So it can only

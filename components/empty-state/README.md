@@ -41,8 +41,8 @@ This is mainly used in an empty entity view.
 The empty state is often used in combination with a card component (replaces the
 deprecated CTA card) or in an empty table or chart.
 
-<ba-live-example name="DtExampleEmptyStateInCard"></ba-live-example>
+<ba-live-example name="DtExampleEmptyStateInCard" background></ba-live-example>
 
 The following example shows a CTA card with multiple empty state items.
 
-<ba-live-example name="DtExampleEmptyStateMultipleItemsInCard"></ba-live-example>
+<ba-live-example name="DtExampleEmptyStateMultipleItemsInCard" background></ba-live-example>

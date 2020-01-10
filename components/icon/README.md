@@ -108,4 +108,4 @@ Below you can find all icons that are currently shipped within the
 `@dynatrace/barista-icons` package. You can use these names as the name property
 for the dt-icon component.
 
-<ba-live-example name="DtExampleIconAll" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleIconAll" fullwidth></ba-live-example>

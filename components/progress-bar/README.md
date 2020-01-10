@@ -96,7 +96,7 @@ The progress bar can be colored based on its color theme palette.
 
 Progress bars can be placed on dark background.
 
-<ba-live-example name="DtExampleProgressBarDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleProgressBarDark" themedark></ba-live-example>
 
 ## Accessibility
 

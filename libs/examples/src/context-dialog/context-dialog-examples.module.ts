@@ -17,6 +17,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtCardModule } from '@dynatrace/barista-components/card';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtExampleContextDialogActions } from './context-dialog-actions-example/context-dialog-actions-example';
@@ -42,6 +43,7 @@ export const DT_CONTEXT_DIALOG_EXAMPLES = [
     CommonModule,
     DtContextDialogModule,
     DtButtonModule,
+    DtCardModule,
     DtIconModule,
     DtThemingModule,
   ],

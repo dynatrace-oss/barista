@@ -79,7 +79,7 @@ closes it.
 
 The context dialog component can be used on dark background.
 
-<ba-live-example name="DtExampleContextDialogDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleContextDialogDark" themedark></ba-live-example>
 
 ## Context dialog in use
 
@@ -88,6 +88,8 @@ The context dialog component can be used on dark background.
 The context actions menu is a variant of the context dialog placed on the top
 right within a [card](/components/card), containing
 [secondary buttons](/components/button).
+
+<ba-live-example name="DtExampleContextDialogActions" background></ba-live-example>
 
 ### Context dialog with custom trigger
 

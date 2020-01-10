@@ -16,7 +16,6 @@
 
 import { NgModule } from '@angular/core';
 import { DtMenuModule } from '@dynatrace/barista-components/menu';
-import { RouterModule } from '@angular/router';
 import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
 import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
 import { DtCheckboxModule } from '@dynatrace/barista-components/checkbox';
@@ -34,7 +33,6 @@ export const DT_MENU_EXAMPLES = [
 @NgModule({
   imports: [
     DtMenuModule,
-    RouterModule,
     DtContextDialogModule,
     DtDrawerModule,
     DtCheckboxModule,

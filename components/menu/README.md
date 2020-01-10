@@ -50,6 +50,6 @@ This component is typically used for static menus, such as the global navigation
 menu in combination with a [drawer](/components/drawer) or menus in overlays
 (e.g. user menu, or [context dialog](/components/context-dialog)).
 
-<ba-live-example name="DtExampleMenuWithinDrawer" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleMenuWithinDrawer" fullwidth></ba-live-example>
 
 <ba-live-example name="DtExampleMenuWithinContextDialog"></ba-live-example>

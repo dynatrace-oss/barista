@@ -45,7 +45,7 @@ class MyModule {}
 
 A switch can be placed on dark background.
 
-<ba-live-example name="DtExampleSwitchDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleSwitchDark" themedark></ba-live-example>
 
 ## Accessibility
 

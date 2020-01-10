@@ -59,7 +59,7 @@ expand a section, the component gets disabled.
 
 The show more component can be placed on dark background.
 
-<ba-live-example name="DtExampleShowMoreDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleShowMoreDark" themedark></ba-live-example>
 
 ## Accessibility
 
