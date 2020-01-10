@@ -1,8 +1,7 @@
 # Tile
 
 A tile is a clickable area and represents e.g. entities. Tiles can contain other
-components. Currently, there are two types of tiles: list tiles and dashboard
-tiles.
+components.
 
 <ba-live-example name="DtExampleTileDefault"></ba-live-example>
 
@@ -27,8 +26,6 @@ addition to custom content, the tile also holds the following sections:
 - `<dt-tile-subtitle>` - Right below the title, a subtitle can be placed. It
   contains text only.
 - `<dt-tile-icon>` - An icon in the top left corner of the tile.
-
-<ba-live-example name="DtExampleTileDefault"></ba-live-example>
 
 If only a `<dt-tile-title>` and no `<dt-tile-subtitle>` is given, the tile will
 be rendered in a smaller version.

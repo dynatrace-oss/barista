@@ -41,9 +41,9 @@ rendered.
 
 Alerts can be placed on dark background.
 
-<ba-live-example name="DtExampleAlertDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleAlertDark" themedark></ba-live-example>
 
-<ba-live-example name="DtExampleAlertDarkError" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleAlertDarkError" themedark></ba-live-example>
 
 ## Alerts in use
 

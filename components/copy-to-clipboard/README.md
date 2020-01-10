@@ -59,7 +59,7 @@ clipboard component informing the user about the problem and possible solutions.
 
 The copy to clipboard component can be placed on dark background.
 
-<ba-live-example name="DtExampleCopyToClipboardDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleCopyToClipboardDark" themedark></ba-live-example>
 
 ## Copy to clipboard in use
 

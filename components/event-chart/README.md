@@ -3,7 +3,7 @@
 Note: This component is still experimental, use with caution! Help us get this
 component out of the experimental state by providing feedback.
 
-<ba-live-example name="DtExampleEventChartDefault"></ba-live-example>
+<ba-live-example name="DtExampleEventChartDefault" fullwidth></ba-live-example>
 
 ## Imports
 
@@ -19,7 +19,7 @@ class MyModule {}
 
 ## Example setup
 
-<ba-live-example name="DtExampleEventChartSessionReplay"></ba-live-example>
+<ba-live-example name="DtExampleEventChartSessionReplay" fullwidth></ba-live-example>
 
 ## Initialization
 
@@ -27,7 +27,7 @@ To create a `dtEventChart` in a minimal configuration, only
 `dt-event-chart-events` and `dt-event-chart-lane` elements are required to
 create a valid output.
 
-<ba-live-example name="DtExampleEventChartDefault"></ba-live-example>
+<ba-live-example name="DtExampleEventChartDefault" fullwidth></ba-live-example>
 
 ## Options & Properties
 
@@ -124,24 +124,24 @@ Currently, there are only four different colors which are applicable to a
 
 ### Default
 
-<ba-live-example name="DtExampleEventChartDefault"></ba-live-example>
+<ba-live-example name="DtExampleEventChartDefault" fullwidth></ba-live-example>
 
 ### Setting custom colors on events
 
-<ba-live-example name="DtExampleEventChartCustomColor"></ba-live-example>
+<ba-live-example name="DtExampleEventChartCustomColor" fullwidth></ba-live-example>
 
 ### Providing legend items for events
 
-<ba-live-example name="DtExampleEventChartLegend"></ba-live-example>
+<ba-live-example name="DtExampleEventChartLegend" fullwidth></ba-live-example>
 
 ### Defining the overlay template
 
-<ba-live-example name="DtExampleEventChartOverlay"></ba-live-example>
+<ba-live-example name="DtExampleEventChartOverlay" fullwidth></ba-live-example>
 
 ### Handling event selection via click
 
-<ba-live-example name="DtExampleEventChartSelection"></ba-live-example>
+<ba-live-example name="DtExampleEventChartSelection" fullwidth></ba-live-example>
 
 ### Session replay example (simplified)
 
-<ba-live-example name="DtExampleEventChartSessionReplay"></ba-live-example>
+<ba-live-example name="DtExampleEventChartSessionReplay" fullwidth></ba-live-example>

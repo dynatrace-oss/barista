@@ -3,7 +3,7 @@
 The stepper component creates a multi step workflow by creating a content area
 for each step provided.
 
-<ba-live-example name="DtExampleStepperDefault" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleStepperDefault" fullwidth></ba-live-example>
 
 A step can have multiple states during the workflow. One step at a time can be
 selected. Steps can be active or inactive depending if they were interacted with
@@ -125,10 +125,10 @@ button to `submit`.
 A stepper that is set to be linear. So each step has to be valid before the next
 step can be activated.
 
-<ba-live-example name="DtExampleStepperLinear" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleStepperLinear" fullwidth></ba-live-example>
 
 ### Editable steps
 
 A stepper where steps can be edited after they have been completed.
 
-<ba-live-example name="DtExampleStepperEditable" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleStepperEditable" fullwidth></ba-live-example>

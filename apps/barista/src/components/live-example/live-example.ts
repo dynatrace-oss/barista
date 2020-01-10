@@ -87,6 +87,16 @@ export class BaLiveExample implements OnDestroy {
   }
   private _isFullWidth = false;
 
+  /** Whether the example needs a colored background. */
+  @Input()
+  get background(): boolean {
+    return this._background;
+  }
+  set background(value: boolean) {
+    this._background = coerceBooleanProperty(value);
+  }
+  private _background = false;
+
   /** The encoded html template source of the given example. */
   @Input()
   get templateSource(): string {

@@ -10,7 +10,7 @@
 The card component is a visual container for wrapping a wide variety of
 contents.
 
-<ba-live-example name="DtExampleCardDefault"></ba-live-example>
+<ba-live-example name="DtExampleCardDefault" background></ba-live-example>
 
 ## Imports
 
@@ -62,9 +62,9 @@ move less important actions to a
 shown and which ones are grouped in a context actions menu depends on the use
 case.
 
-<ba-live-example name="DtExampleCardSubtitle"></ba-live-example>
+<ba-live-example name="DtExampleCardSubtitle" background></ba-live-example>
 
-<ba-live-example name="DtExampleCardIcon"></ba-live-example>
+<ba-live-example name="DtExampleCardIcon" background></ba-live-example>
 
 ### Description
 
@@ -90,11 +90,11 @@ above the content to be updated. When placing buttons in a card, follow the
 
 #### Header actions
 
-<ba-live-example name="DtExampleCardActionButtons"></ba-live-example>
+<ba-live-example name="DtExampleCardActionButtons" background></ba-live-example>
 
 #### Footer actions
 
-<ba-live-example name="DtExampleCardFooterActions"></ba-live-example>
+<ba-live-example name="DtExampleCardFooterActions" background></ba-live-example>
 
 ### Pagination
 
@@ -106,7 +106,7 @@ This section must always be the last one within a card.
 
 A card can be placed on dark background.
 
-<ba-live-example name="DtExampleCardDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleCardDark" themedark></ba-live-example>
 
 ## Card in use
 

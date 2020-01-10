@@ -4,7 +4,7 @@ Micro charts are smaller versions of charts. The amount of information shown is
 reduced to the bare minimum. They use little screen estate and are used to
 indicate a trend.
 
-<ba-live-example name="DtExampleMicroChartDefault" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleMicroChartDefault" fullwidth></ba-live-example>
 
 The microchart components wraps the chart component. Find more details about
 theming and reflow on the [chart page](/components/charts/).
@@ -92,13 +92,13 @@ bars. They are highlighted in a darker contrast color of the same color palette.
 
 #### Line chart
 
-<ba-live-example name="DtExampleMicroChartDefault" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleMicroChartDefault" fullwidth></ba-live-example>
 
 #### Column chart
 
-<ba-live-example name="DtExampleMicroChartColumns" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleMicroChartColumns" fullwidth></ba-live-example>
 
-<ba-live-example name="DtExampleMicroChartStream" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleMicroChartStream" fullwidth></ba-live-example>
 
 ## Colors
 
@@ -113,11 +113,11 @@ the previous value will be repeated to avoid having gaps.
 
 ### Line chart
 
-<ba-live-example name="DtExampleMicroChartInterpolated" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleMicroChartInterpolated" fullwidth></ba-live-example>
 
 ### Bar chart
 
-<ba-live-example name="DtExampleMicroChartColumnsInterpolated" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleMicroChartColumnsInterpolated" fullwidth></ba-live-example>
 
 ## Do's and dont's
 

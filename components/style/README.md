@@ -92,7 +92,7 @@ Link styles are automatically applied to any `<a>` tag.
 
 #### Dark theme
 
-<ba-live-example name="DtExampleLinkDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleLinkDark" themedark></ba-live-example>
 
 #### Notification
 

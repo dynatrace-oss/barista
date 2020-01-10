@@ -90,7 +90,7 @@ The button component is colored differently in the context of:
 All button variants can also be put on a dark background. You can set a (dark)
 theme on an area of the app by using the `dtTheme` directive.
 
-<ba-live-example name="DtExampleButtonDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleButtonDark" themedark></ba-live-example>
 
 ## Accessibility
 

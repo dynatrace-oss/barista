@@ -54,7 +54,7 @@ class MyModule {}
 
 A checkbox can be placed on dark background.
 
-<ba-live-example name="DtExampleCheckboxDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleCheckboxDark" themedark></ba-live-example>
 
 ## Accessibility
 

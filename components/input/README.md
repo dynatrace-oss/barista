@@ -66,7 +66,7 @@ The `dtInput` works with `ngModel` as shown in the following example.
 
 Input fields can be placed on dark background.
 
-<ba-live-example name="DtExampleInputDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleInputDark" themedark></ba-live-example>
 
 ## Accessibility
 

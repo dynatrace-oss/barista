@@ -85,7 +85,7 @@ buttons within a group.
 
 A radio button can be placed on dark background.
 
-<ba-live-example name="DtExampleRadioDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleRadioDark" themedark></ba-live-example>
 
 ## Accessibility
 

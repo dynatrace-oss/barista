@@ -99,4 +99,4 @@ switch metrics displayed in a chart. Combined with a chart button groups are
 also called chart tabs. These tabs can contain single metrics or metric groups
 (e.g. response time and requests).
 
-![Chart tabs](https://d24pvdz4mvzd04.cloudfront.net/test/chart-behavior-switch-580-f368373ea8.png)
+<ba-live-example name="DtExampleChartBehaviorSwitch" fullwidth></ba-live-example>

@@ -4,6 +4,8 @@ The `DtToast` service provides the possibility to show a temporary message to
 the user. The duration the toast is shown is calculated based on the message
 length. Dismissing the toast is paused while the user is hovering the message.
 
+<ba-live-example name="DtExampleToastDefault"></ba-live-example>
+
 ## Imports
 
 You have to import the `DtToastModule` when you want to use the `DtToast`

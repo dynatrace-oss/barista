@@ -1,8 +1,18 @@
-<dt-context-dialog
-  aria-label="Show more actions"
-  aria-label-close-button="Close context dialog"
->
-  <button dt-button>First button</button>
-  <button dt-button variant="secondary">Second button</button>
-  <button dt-button variant="secondary">Third button</button>
-</dt-context-dialog>
+<div class="dt-demo-card">
+  <dt-card>
+    <dt-card-title>Top 3 JavaScript errors</dt-card-title>
+    <dt-card-subtitle>Some subtitle</dt-card-subtitle>
+    <dt-card-title-actions>
+      <dt-context-dialog
+        aria-label="Show more actions"
+        aria-label-close-button="Close context dialog"
+      >
+        <button dt-button variant="secondary">First button</button>
+        <button dt-button variant="secondary">Second button</button>
+        <button dt-button variant="secondary">Third button</button>
+      </dt-context-dialog>
+    </dt-card-title-actions>
+    The card is not an interactive element, therefore there are no hover, active
+    or disabled states.
+  </dt-card>
+</div>

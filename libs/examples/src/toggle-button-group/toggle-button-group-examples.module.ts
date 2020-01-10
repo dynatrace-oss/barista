@@ -23,13 +23,11 @@ import { DtExpandableTextModule } from '@dynatrace/barista-components/expandable
 
 import { DtExampleToggleButtonGroupDefault } from './toggle-button-group-default-example/toggle-button-group-default-example';
 import { DtExampleToggleButtonGroupDynamicItems } from './toggle-button-group-dynamic-items-example/toggle-button-group-dynamic-items-example';
-import { DtExampleToggleButtonGroupInUse } from './toggle-button-group-in-use-example/toggle-button-group-in-use-example';
 import { DtExampleToggleButtonGroupShowMore } from './toggle-button-group-show-more-example/toggle-button-group-show-more-example';
 
 export const DT_TOGGLE_BUTTON_GROUP_EXAMPLES = [
   DtExampleToggleButtonGroupDefault,
   DtExampleToggleButtonGroupDynamicItems,
-  DtExampleToggleButtonGroupInUse,
   DtExampleToggleButtonGroupShowMore,
 ];
 @NgModule({

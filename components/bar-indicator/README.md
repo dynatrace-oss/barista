@@ -7,12 +7,6 @@ between connected bar-indicators.
 
 <ba-live-example name="DtExampleBarIndicatorDefault"></ba-live-example>
 
-A basic bar-indicator would follow this structure:
-
-```html
-<dt-bar-indicator value="10"></dt-bar-indicator>
-```
-
 ## Imports
 
 You have to import the `DtBarIndicatorModule` to use the `dt-bar-indicator`:
@@ -58,8 +52,6 @@ The indicator is themeable and can also show problems.
 <ba-live-example name="DtExampleBarIndicatorColor"></ba-live-example>
 
 ## Bar indicator in use
-
-<ba-live-example name="DtExampleToggleButtonGroupShowMore"></ba-live-example>
 
 ### Theming and validation
 

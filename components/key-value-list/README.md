@@ -49,10 +49,10 @@ elements.
 
 If there is enough space available, the key-value list spans multiple columns.
 
-<ba-live-example name="DtExampleKeyValueListMulticolumn" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleKeyValueListMulticolumn" fullwidth></ba-live-example>
 
 ### Multiple columns with line breaks
 
 Line breaks in keys or values are also possible when the text gets too long.
 
-<ba-live-example name="DtExampleKeyValueListLongtext" fullwidth="true"></ba-live-example>
+<ba-live-example name="DtExampleKeyValueListLongtext" fullwidth></ba-live-example>

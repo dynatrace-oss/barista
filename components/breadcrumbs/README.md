@@ -69,4 +69,4 @@ Content within the breadcrumb can change.
 
 Breadcrumbs also work on dark background.
 
-<ba-live-example name="DtExampleBreadcrumbsDark" themedark="true"></ba-live-example>
+<ba-live-example name="DtExampleBreadcrumbsDark" themedark></ba-live-example>
