@@ -26,6 +26,7 @@ import { DtSelectModule } from '@dynatrace/barista-components/select';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
 import { DtExpandablePanelModule } from '@dynatrace/barista-components/expandable-panel';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 import { DtExamplesModule } from '@dynatrace/barista-components/examples';
 import { DtDemosAppRoutingModule } from './app-routing.module';
@@ -53,6 +54,7 @@ import { environment } from './environments/environment';
     DtExpandablePanelModule,
     DtDemosAppRoutingModule,
     DtExamplesModule,
+    DtInputModule,
   ],
   declarations: [DtDemosApp, DtDemosSideNav],
   entryComponents: [DtDemosApp],
