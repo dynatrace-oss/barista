@@ -52,12 +52,6 @@ export class DtExampleChartMinMax {
           enabled: false,
         },
       },
-      arearange: {
-        lineWidth: 0,
-        states: {
-          hover: undefined,
-        },
-      },
     },
   };
   series: Highcharts.IndividualSeriesOptions[] = [
@@ -70,7 +64,12 @@ export class DtExampleChartMinMax {
       name: 'Area 1',
       type: 'arearange',
       data: generateAreaRangeData(this._minMaxChartLineSeries, 4, 8),
-    },
+      // To set the lineWidth on a singleSeries, it needs to be set on
+      // the series itself. The cast is necessary because Highcharts
+      // types do not match up with the currently barista-supported version
+      // of Highcharts.
+      lineWidth: 0,
+    } as Highcharts.IndividualSeriesOptions,
     {
       name: 'Line 1',
       type: 'line',
