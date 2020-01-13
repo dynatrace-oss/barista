@@ -15,11 +15,14 @@
  */
 
 import { Selector } from 'testcafe';
+import { waitForAngular } from '../../utils';
 
 const items = Selector('.dt-key-value-list-item', { visibilityCheck: true });
 
 fixture('Key Value List').page('http://localhost:4200/key-value-list');
 
 test('should have 16 items visible', async (testController: TestController) => {
+  await waitForAngular();
+
   await testController.expect(await items.count).eql(16);
 });
