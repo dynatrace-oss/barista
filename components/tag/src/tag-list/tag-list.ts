@@ -173,7 +173,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
       this._wrapperTagList.nativeElement.style.height = `${DT_TAG_LIST_HEIGHT}px`;
     } else {
       this._wrapperTagList.nativeElement.style.width = '';
-      this._wrapperTagList.nativeElement.style.height = '';
+      this._wrapperTagList.nativeElement.style.height = 'auto';
     }
   }
 
