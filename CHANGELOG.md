@@ -1,3 +1,98 @@
+## 5.0.0-rc.0 (2020-01-13)
+
+### Breaking changes
+
+- **chart-heatfield** The constructor no longer takes the chart as a parameter.
+- **autocomplete:** Template, panel and optionsGroups members are now internal.
+- **button:** Removed deprecated mixin `dt-card-actions-spacing`.
+- **chart:** The Eventemitter `tooltipDataChange` doesn't emit null anymore.
+- **consumption:** Removed `min` input.
+- **expandable-panel:** Changed the expandable-panel trigger selector to require
+  a native button element.
+- **expandable-panel:** Removed deprecated attributes `opened`, use `expanded`
+  instead.
+- **expandable-panel:** Removed `disabled` input on trigger. Use the panel's
+  disabled input instead.
+- **expandable-panel:** Removed preventDefault from click handler.
+- **expandable-section:** Removed deprecated attributes `opened`, use `expanded`
+  instead.
+- **filter-field:** Added new methods to abstract data-source class for more
+  flexibility.
+- **filter-field:** Changed `unique` do be required at the `dtRangeDef` function
+  and on `DtRangeDef` nodes.
+- **filter-field:** Changed `validators` do be required on `DtFreeTextDef`
+  nodes.
+- **filter-field:** Changed parameter `unique` at the function `dtFreeTextDef`
+  to be required.
+- **filter-field:** Changed type definition for data provided to the
+  default-data-source to extend `DtFilterFieldDefaultDataSourceType`.
+- **filter-field:** Removed some internal fields from the exports in the module.
+- **filter-field:** Changed parameter ordering on definition creation functions.
+- **filter-field:** Removed deprecated function `isDtAutocompletValue`.
+- **filter-field:** Removed deprecated type `DtAutocompletValue`.
+- **font-mixins:** Removed unprefixed deprecated mixins/selectors. Use the `dt-`
+  prefixed versions instead.
+- **highlights:** Makes elementRef mandatory and removes unnecessary attributes
+  from constructor.
+- **icon:** Changed peer dependency to the `@dynatrace/barista-icons` package.
+- **key-value-list:** Removed `items` content children member from the public
+  api.
+- **overlay-ref:** Changes componentInstance to be null initially.
+- **radio-group:** Removed `onTouched` function from public api.
+- **selection-area:** Removed deprecated `selection-area` component. Use
+  `dt-chart-range` and `dt-chart-timestamp` instead.
+- **show-more:** Changed the dt-show-more selector to require a native button
+  element.
+- **show-more:** Removed the `dt-show-less-label` directive and added support
+  for show less aria-label.
+- **table:** Removed `emptyImage`, `emptyTitle` and `emptyMessage` from the
+  public api.
+- **table:** Removed the `mostRecentRow` member from the public api.
+- **tag:** Removed `disabled` attribute.
+- **viewport-resizer:** Changed `getOffset` and `offset$` to be abstract fields.
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the chart did not use the correct fallback
+  fonts.
+- **chart:** Fixes an issue with not appearing tooltips.
+- **chart:** Removes the circular dependency of the chart heatfield.
+- **confirmation-dialog:** Set \_activeDialog to null if dialog dismissed.
+- **context-dialog:** Fixes positioning issues by removing the closing button
+  that tightly coupled the position to the trigger.
+- **event-chart:** Fixes an issue where the default color of chart events did
+  not align with the legend item.
+- **event-chart:** Fixes an issue with universal rendering.
+- **filter-field:** Fixes an issue where the filtering of groups did not work
+  properly because of a wrong parameter ordering.
+- **filter-field:** Fixes an issue where the range was cut off.
+- **filter-field:** Fixes and issue where filters are not immediately removed
+  when clicking the clear all button.
+- **form-field:** Fixes an issue with the label color in a dark theme.
+- **micro-chart:** Fixes an issue when using the chart-tooltip in a micro-chart
+  without importing the chart-module causes an error.
+- **overlay:** Fixes an issue with overlay placement in firefox.
+- **progress-bar:** Fixes an issue when using the indicator without importing
+  the core indicator-module causes an error.
+- **sidenav:** Fixes scrolling behavior of the sidenav component
+- **style:** Fixes an issue where the icon for external links had to be provided
+  as a background image.
+- **theming:** Fixed yellow-700 color value.
+- **sidenav:** Fixes an issue where the overlay scroll strategy did not work
+  within a sidenav component.
+
+### Features
+
+- **chart-range:** Add possibility to close chart-range programmatically
+- **chart-timestamp:** Add possibility to close chart-timestamp programmatically
+- **event-chart:** Added programmatic event selection capabilities to the event
+  chart.
+- **formatters:** Added maxPrecision parameter to number and percent formatters
+  to control the amount of decimals places.
+- **schematics:** Added ng-add schematic to install the barista-components to
+  get up running.
+- **table:** Added a new variant of simple-column `favourite-column`.
+
 ## 4.15.1 (2019-12-02)
 
 ### Bug Fixes
