@@ -24,6 +24,10 @@ import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
 import { BaLiveExample } from './live-example/live-example';
 import { BaLazyIcon } from './lazy-icon/lazy-icon';
 import { BaHeadlineLink } from './headline-link/headline-link';
+import { BaColorGrid } from './color-grid/color-grid';
+import { BaLayoutGrid } from './layout-grid/layout-grid';
+import { BaColor } from './color-component/color';
+import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
 
 // tslint:disable-next-line: no-any
 export const BA_CONTENT_COMPONENTS: any[] = [
@@ -31,6 +35,10 @@ export const BA_CONTENT_COMPONENTS: any[] = [
   BaLiveExample,
   BaLazyIcon,
   BaHeadlineLink,
+  BaColor,
+  BaColorGrid,
+  BaLayoutGrid,
+  BaLayoutGridItem,
 ];
 
 @NgModule({

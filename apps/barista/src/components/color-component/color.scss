@@ -1,0 +1,93 @@
+@import '../../styles/global/variables';
+
+:host {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 10rem;
+  width: 10rem;
+  margin-bottom: 1.5rem;
+
+  /* Color width if used without a colorgroup */
+  @media (min-width: $screen-lg) {
+    width: 24%; /* 4 colors per row */
+  }
+
+  @media (min-width: $screen-xl) {
+    width: 19%; /* 5 colors per row */
+  }
+
+  @media (min-width: $screen-xxl) {
+    width: 16%; /* 6 colors per row */
+  }
+
+  @media (min-width: $screen-xxxl) {
+    width: 14%; /* 7 colors per row */
+  }
+}
+
+.ba-color-block {
+  height: 7rem;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.ba-color-name {
+  margin-bottom: 0;
+}
+
+.ba-color-metadata {
+  color: $gray-400;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.ba-color-copy {
+  position: relative;
+  cursor: pointer;
+  appearance: none;
+  display: block;
+  width: 100%;
+  flex: 1;
+  background-color: $turquoise-600;
+  border: 0;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 260ms $custom-ease, background-color 270ms $custom-ease;
+  color: #fff;
+  outline: none;
+  box-shadow: 0;
+  overflow: hidden;
+}
+
+.ba-color-copy:hover,
+.ba-color-copy.ba-copy-success {
+  opacity: 1;
+  background-color: $turquoise-700;
+}
+
+.ba-color-copy::after {
+  content: '';
+  position: absolute;
+  background-image: url('/assets/checkmark-white.svg');
+  background-size: 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $green-600;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: transform 0ms linear, opacity 150ms $custom-ease,
+    background-size 300ms $custom-ease;
+}
+
+.ba-color-copy.ba-copy-success::after {
+  transform: translateX(0);
+  opacity: 1;
+  background-size: 1.5rem;
+}
