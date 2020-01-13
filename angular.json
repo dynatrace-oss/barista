@@ -164,11 +164,14 @@
           },
           "configurations": {
             "remote": {
-              "browsers": ["browserstack:chrome", "browserstack:edge"],
+              "browsers": [
+                "browserstack:chrome",
+                "browserstack:edge@18:windows"
+              ],
               "concurrency": 2
             },
             "remote-pr": {
-              "browsers": ["browserstack:edge"],
+              "browsers": ["browserstack:edge@18:windows"],
               "concurrency": 4
             },
             "watch": {
