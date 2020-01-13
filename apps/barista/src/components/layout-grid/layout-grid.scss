@@ -1,0 +1,53 @@
+@import '../../styles/global/variables';
+@import '../../styles/global/mixins';
+
+/**
+* Colorgroup wrapper styles
+*/
+:host {
+  width: 100%;
+
+  ::ng-deep ba-color {
+    width: 100%;
+    min-width: unset;
+  }
+
+  &.ba-colorgroup--textwidth {
+    @include textContentWidth();
+  }
+
+  @media (min-width: $screen-xs) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 0.5rem;
+
+    &.ba-colorgroup--textwidth {
+      display: grid;
+    }
+  }
+
+  @media (min-width: $screen-sm) and (max-width: $screen-md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: $screen-lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: $screen-xl) {
+    grid-template-columns: repeat(5, 1fr);
+
+    /* When limited to textwidth, there should not be more than 4 columns. */
+    &.ba-colorgroup--textwidth {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (min-width: $screen-xxl) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  @media (min-width: $screen-xxxl) {
+    grid-template-columns: repeat(7, 1fr);
+  }
+}

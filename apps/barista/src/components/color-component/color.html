@@ -1,0 +1,11 @@
+<div class="ba-color-block" [style.background]="_hexcolor">
+  <button
+    class="ba-color-copy"
+    (click)="_copyColorToClipboard(_hexcolor)"
+    [class.ba-copy-success]="_copySuccess"
+  >
+    Copy HEX
+  </button>
+</div>
+<p class="ba-color-name">{{ _colorname }}</p>
+<p class="ba-color-metadata">hex: {{ _hexcolor }}</p>
