@@ -6,37 +6,49 @@
   display: inline-block;
 
   cursor: pointer;
-}
 
-.dt-tag-add-container {
-  position: relative;
-  display: inline-block;
-}
+  .dt-tag-add-container {
+    position: relative;
+  }
 
-.dt-tag-add-button {
-  height: 24px;
-  width: 90px;
-  font-size: 12px;
+  .dt-tag-add-button {
+    height: 24px;
+    width: 88px;
+    font-size: 12px;
+    display: inline-flex;
 
-  color: $turquoise-700;
-  background-color: #ffffff;
-  text-align: left;
+    color: $turquoise-700;
+    background-color: #ffffff;
+    text-align: left;
+    vertical-align: middle;
 
-  border: 1px solid $turquoise-600;
-  border-radius: 12px;
+    border: 1px solid $turquoise-600;
+    border-radius: 12px;
 
-  padding-right: 12px;
-  padding-left: 8px;
+    padding-top: 2px;
 
-  cursor: pointer;
-  &:active {
-    outline: none;
+    cursor: pointer;
+    &:active {
+      outline: none;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .dt-tag-add-button-text {
+    width: 44px;
+    height: 16px;
+    vertical-align: middle;
+    line-height: 16px;
+    margin-left: 4px;
   }
 }
 
 .dt-tag-add-overlay {
   width: 320px;
-  height: 82px; // UX requested value: 78
+  height: 80px;
   border: 1px solid $gray-700;
   border-radius: 3px;
   background-color: $gray-700;
@@ -62,8 +74,11 @@
   width: 16px;
   height: 16px;
   vertical-align: text-top;
-  display: inline-block;
   fill: #ffffff;
+
+  &.dt-tag-add-icon-button {
+    margin-left: 2px;
+  }
 }
 
 .dt-tag-add-icon-button {
@@ -77,7 +92,7 @@
 
 .dt-tag-add-fields {
   display: flex;
-  margin-top: 12px; // UX requested value: 16
+  margin-top: 12px;
 }
 
 .dt-tag-add-input {
