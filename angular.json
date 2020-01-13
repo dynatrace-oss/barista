@@ -385,6 +385,11 @@
             "assets": [
               {
                 "glob": "**",
+                "input": "apps/barista/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
                 "input": "components/assets",
                 "output": "/assets"
               },
