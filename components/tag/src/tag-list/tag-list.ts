@@ -196,6 +196,13 @@ export class DtTagList implements AfterContentInit, OnDestroy {
     });
     this._tagAddSubscriptions = [];
   }
+
+  /**
+   * @internal evaluates whether to display the x more button
+   */
+  _toDisplayMoreButton(): boolean {
+    return !this._isOneLine && !this._showAllTags && this._hiddenTagCount > 0;
+  }
 }
 
 /** Returns the width of a directive by calculating the last visible elements and the directives position. */

@@ -153,6 +153,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'tag/tag-list',
+    loadChildren: () =>
+      import('../components/tag-list/tag-list.module').then(
+        module => module.DtE2ETagListModule,
+      ),
+  },
+  {
     path: 'tile',
     loadChildren: () =>
       import('../components/tile/tile.module').then(
