@@ -84,6 +84,7 @@ describe('DtTagList', () => {
       const moreBtn = fixture.debugElement.query(
         By.css('.dt-tag-list-more-btn'),
       );
+      expect(moreBtn).not.toBe('0 More...');
       expect(moreBtn).toBeNull();
     });
 
