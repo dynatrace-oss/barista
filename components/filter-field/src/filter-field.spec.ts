@@ -39,6 +39,7 @@ import {
   DtFilterFieldModule,
   dtRangeDef,
   getDtFilterFieldRangeNoOperatorsError,
+  DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
@@ -50,7 +51,7 @@ import {
   wrappedErrorMessage,
 } from '@dynatrace/barista-components/testing';
 
-const TEST_DATA = {
+const TEST_DATA: DtFilterFieldDefaultDataSourceType = {
   autocomplete: [
     {
       name: 'AUT',
@@ -77,11 +78,12 @@ const TEST_DATA = {
     {
       name: 'Free',
       suggestions: [],
+      validators: [],
     },
   ],
 };
 
-const TEST_DATA_SINGLE_DISTINCT = {
+const TEST_DATA_SINGLE_DISTINCT: DtFilterFieldDefaultDataSourceType = {
   autocomplete: [
     {
       name: 'AUT',
@@ -98,11 +100,11 @@ const TEST_DATA_SINGLE_DISTINCT = {
   ],
 };
 
-const TEST_DATA_SINGLE_OPTION = {
+const TEST_DATA_SINGLE_OPTION: DtFilterFieldDefaultDataSourceType = {
   autocomplete: ['option'],
 };
 
-const TEST_DATA_SUGGESTIONS = {
+const TEST_DATA_SUGGESTIONS: DtFilterFieldDefaultDataSourceType = {
   autocomplete: [
     {
       name: 'Node',
@@ -114,13 +116,14 @@ const TEST_DATA_SUGGESTIONS = {
           name: 'Node Label',
           key: 'MyKey',
           suggestions: ['some cool', 'very weird'],
+          validators: [],
         },
       ],
     },
   ],
 };
 
-const TEST_DATA_RANGE = {
+const TEST_DATA_RANGE: DtFilterFieldDefaultDataSourceType = {
   autocomplete: [
     {
       name: 'Requests per minute',
@@ -137,7 +140,7 @@ const TEST_DATA_RANGE = {
   ],
 };
 
-const TEST_DATA_EDITMODE = {
+const TEST_DATA_EDITMODE: DtFilterFieldDefaultDataSourceType = {
   autocomplete: [
     {
       name: 'AUT',
@@ -164,6 +167,7 @@ const TEST_DATA_EDITMODE = {
     {
       name: 'Free',
       suggestions: [],
+      validators: [],
     },
     {
       name: 'Requests per minute',
@@ -185,13 +189,14 @@ const TEST_DATA_EDITMODE = {
   ],
 };
 
-export const TEST_DATA_EDITMODE_ASYNC = {
+export const TEST_DATA_EDITMODE_ASYNC: DtFilterFieldDefaultDataSourceType = {
   name: 'DE (async)',
   autocomplete: [
     { name: 'Berlin' },
     {
       name: 'München',
       suggestions: [],
+      validators: [],
     },
   ],
 };

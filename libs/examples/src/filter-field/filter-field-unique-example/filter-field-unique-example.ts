@@ -16,23 +16,28 @@
 
 import { Component } from '@angular/core';
 
-import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
+import {
+  DtFilterFieldDefaultDataSource,
+  DtFilterFieldDefaultDataSourceType,
+} from '@dynatrace/barista-components/filter-field';
 
 @Component({
   selector: 'dt-example-filter-field-unique',
   templateUrl: 'filter-field-unique-example.html',
 })
 export class DtExampleFilterFieldUnique {
-  private DATA = {
+  private DATA: DtFilterFieldDefaultDataSourceType = {
     autocomplete: [
       {
         name: 'Unique address',
         suggestions: [],
+        validators: [],
         unique: true,
       },
       {
         name: 'Address',
         suggestions: [],
+        validators: [],
       },
       {
         name: 'Unique Requests per minute',
@@ -50,5 +55,7 @@ export class DtExampleFilterFieldUnique {
     ],
   };
 
-  _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource<
+    DtFilterFieldDefaultDataSourceType
+  >(this.DATA);
 }

@@ -16,7 +16,10 @@
 
 import { Component } from '@angular/core';
 
-import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
+import {
+  DtFilterFieldDefaultDataSource,
+  DtFilterFieldDefaultDataSourceType,
+} from '@dynatrace/barista-components/filter-field';
 
 @Component({
   selector: 'dt-example-filter-field-distinct',
@@ -37,5 +40,7 @@ export class DtExampleFilterFieldDistinct {
     ],
   };
 
-  _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource<
+    DtFilterFieldDefaultDataSourceType
+  >(this.DATA);
 }

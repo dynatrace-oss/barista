@@ -1,5 +1,15 @@
 ## 5.0.0-rc.0 (2020-01-13)
 
+We removed the deprecated root package. Note that you cannot import from the
+root package `@dynatrace/barista-components` anymore. Please use the more
+explicit imports like `@dynatrace/barista-components/button`.
+
+With the 5.0.0 release two selectors changed:
+
+- `<dt-show-more>` now requires a `button` element. `<button dt-show-more>`.
+- The trigger for the expandable panel, previously `[dtExpandablePanel]`, now
+  requires a native button element. `button[dtExpandablePanel]`
+
 ### Breaking changes
 
 - **chart-heatfield** The constructor no longer takes the chart as a parameter.

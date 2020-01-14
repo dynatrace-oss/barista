@@ -30,31 +30,51 @@ import {
   dtRangeDef,
 } from './types';
 
+/** Shape of a base object to be usable as a option for various autocomplete option types. */
+export type DtFilterFieldDefaultDataSourceOptionBase = {
+  name: string;
+  id?: any;
+};
+
 /** Shape of an object to be usable as a option in an autocomplete */
-export type DtFilterFieldDefaultDataSourceOption = { name: string } | string;
+export type DtFilterFieldDefaultDataSourceOption =
+  | DtFilterFieldDefaultDataSourceOptionBase
+  | (DtFilterFieldDefaultDataSourceOptionBase &
+      DtFilterFieldDefaultDataSourceAutocomplete)
+  | (DtFilterFieldDefaultDataSourceOptionBase &
+      DtFilterFieldDefaultDataSourceFreeText)
+  | (DtFilterFieldDefaultDataSourceOptionBase &
+      DtFilterFieldDefaultDataSourceRange);
 
 /** Shape of an object to be usable as a group in an autocomplete */
 export interface DtFilterFieldDefaultDataSourceGroup {
   name: string;
-  options: DtFilterFieldDefaultDataSourceOption[];
+  id?: any;
+  options: Array<DtFilterFieldDefaultDataSourceOption | string>;
 }
 
 /** Shape of an object to be usable as an autocomplete */
 export interface DtFilterFieldDefaultDataSourceAutocomplete {
   autocomplete: Array<
-    DtFilterFieldDefaultDataSourceOption | DtFilterFieldDefaultDataSourceGroup
+    | DtFilterFieldDefaultDataSourceOption
+    | DtFilterFieldDefaultDataSourceGroup
+    | string
   >;
   distinct?: boolean;
   async?: boolean;
+  id?: any;
 }
 
 /** Shape of an object to be usable as a free text variant */
 export interface DtFilterFieldDefaultDataSourceFreeText {
   suggestions: Array<
-    DtFilterFieldDefaultDataSourceOption | DtFilterFieldDefaultDataSourceGroup
+    | DtFilterFieldDefaultDataSourceOption
+    | DtFilterFieldDefaultDataSourceGroup
+    | string
   >;
   validators: DtFilterFieldValidator[];
   unique?: boolean;
+  id?: any;
 }
 
 export interface DtFilterFieldDefaultDataSourceRange {
@@ -68,6 +88,7 @@ export interface DtFilterFieldDefaultDataSourceRange {
     };
   };
   unique?: boolean;
+  id?: any;
 }
 
 export type DtFilterFieldDefaultDataSourceType =
@@ -301,7 +322,7 @@ export class DtFilterFieldDefaultDataSource<
 
   /** Transforms the provided data into a DtNodeDef. */
   transformObject(
-    data: DtFilterFieldDefaultDataSourceType | null,
+    data: DtFilterFieldDefaultDataSourceType | string | null,
     parent: DtNodeDef | null = null,
   ): DtNodeDef | null {
     let def: DtNodeDef | null = null;
@@ -323,7 +344,7 @@ export class DtFilterFieldDefaultDataSource<
 
   /** Transforms the provided list of data objects into an array of DtNodeDefs. */
   transformList(
-    list: DtFilterFieldDefaultDataSourceType[],
+    list: Array<DtFilterFieldDefaultDataSourceType | string>,
     parent: DtNodeDef | null = null,
   ): DtNodeDef[] {
     return list

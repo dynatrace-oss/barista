@@ -30,7 +30,7 @@ the content to add a show more label above the arrow icon.
 | ------------------- | --------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `<ng-content>`      |           |             | The text which gets displayed above the arrow.                                                                                                            |
 | `showLess`          | `boolean` | `false`     | Whether on click the content that has been expanded is collapsed again. When `true` the show more arrow points upwards and the show more label is hidden. |
-| `ariaLabelShowLess` | `string`  | `Show less` | The aria label for the show less button without text.                                                                                                     |
+| `ariaLabelShowLess` | `string`  | `Show less` | The aria label for the show less button without text.                                                                                                     | `(changed)` | `event<void>` |  | The event which gets fired when the state changes. The event is fired when the user clicks on the component, as well as using SPACE or ENTER keys. |  |
 
 ## Usage
 
