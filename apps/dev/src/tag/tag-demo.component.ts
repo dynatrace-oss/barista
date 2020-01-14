@@ -42,7 +42,18 @@ export class TagDemo implements OnInit {
       .add('KitKat')
       .add('Beer')
       .add('Raphaelo')
-      .add('Bean')
+      .add('Bean1')
+      .add('Bean2')
+      .add('Bean3')
+      .add('Bean4')
+      .add('Bean5')
+      .add('Bean6')
+      .add('Bean7')
+      .add('Bean8')
+      .add('Bean9')
+      .add('Bean12')
+      .add('Bean23')
+      .add('Bean34')
       .add('Pine');
   }
 
