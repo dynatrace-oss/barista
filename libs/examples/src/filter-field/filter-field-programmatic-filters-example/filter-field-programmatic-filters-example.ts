@@ -16,7 +16,11 @@
 
 import { Component } from '@angular/core';
 
-import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
+import {
+  DtFilterFieldDefaultDataSource,
+  DtFilterFieldDefaultDataSourceType,
+  DtFilterFieldDefaultDataSourceAutocomplete,
+} from '@dynatrace/barista-components/filter-field';
 
 @Component({
   selector: 'dt-example-filter-field-programmatic-filters',
@@ -35,7 +39,11 @@ export class DtExampleFilterFieldProgrammaticFilters {
           'San Francisco',
           'Los Angeles',
           'New York',
-          { name: 'Custom', suggestions: [] },
+          {
+            name: 'Custom',
+            suggestions: [],
+            validators: [],
+          },
         ],
       },
       {
@@ -53,7 +61,9 @@ export class DtExampleFilterFieldProgrammaticFilters {
     ],
   };
 
-  _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource<
+    DtFilterFieldDefaultDataSourceType
+  >(this.DATA);
 
   _filters = [
     // Filter AUT -> Vienna

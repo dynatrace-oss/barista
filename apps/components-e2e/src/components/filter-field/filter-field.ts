@@ -20,9 +20,12 @@
 import { Component } from '@angular/core';
 import { Validators } from '@angular/forms';
 
-import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
+import {
+  DtFilterFieldDefaultDataSource,
+  DtFilterFieldDefaultDataSourceType,
+} from '@dynatrace/barista-components/filter-field';
 
-const TEST_DATA = {
+const TEST_DATA: DtFilterFieldDefaultDataSourceType = {
   autocomplete: [
     {
       name: 'custom normal',

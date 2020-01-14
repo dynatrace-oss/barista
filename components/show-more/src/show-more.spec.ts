@@ -103,6 +103,13 @@ describe('DtShowMore', () => {
       instanceElement.click();
       expect(testComponent.clickCount).toBe(0);
     });
+
+    it('should fire event when the host button is clicked', () => {
+      const spied = jest.spyOn(fixture.componentInstance, 'changedHandler');
+      instanceElement.click();
+      expect(spied).toHaveBeenCalled();
+      spied.mockRestore();
+    });
   });
 });
 
@@ -115,6 +122,7 @@ describe('DtShowMore', () => {
       [disabled]="isDisabled"
       (click)="clickHandler()"
       ariaLabelShowLess="Collapse content"
+      (changed)="changedHandler()"
     >
       More
     </button>
@@ -128,4 +136,6 @@ class TestApp {
   clickHandler(): void {
     this.clickCount++;
   }
+
+  changedHandler(): void {}
 }
