@@ -334,6 +334,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       .subscribe(() => {
         if (this._chart._range) {
           this._chart._range.focus();
+          this._chart._range._reflectRangeReleased(true);
         }
       });
   }
@@ -461,6 +462,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** If there is an overlay open it will dispose it and destroy it */
   private _closeOverlay(): void {
+    // remove class showing the arrows of the range handles
+    if (this._chart._range) {
+      this._chart._range._reflectRangeReleased(false);
+    }
+
     if (this._overlayRef) {
       this._overlayRef.dispose();
     }
@@ -808,26 +814,38 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     // handling of the overlay for the range
     if (this._chart._range) {
-      combineLatest([
-        merge(
-          getElementRefStream<HTMLDivElement>(
-            this._chart._range._stateChanges,
-            this._destroy$,
-            this._chart._range._rangeElementRef,
-            this._zone,
-          ),
-          this._dragHandle$.pipe(
-            getElementRef(this._chart._range._rangeElementRef),
-          ),
+      const elementReferenceStream = getElementRefStream<HTMLDivElement>(
+        this._chart._range._stateChanges,
+        this._destroy$,
+        this._chart._range._rangeElementRef,
+        this._zone,
+      );
+      merge(
+        elementReferenceStream,
+        this._dragHandle$.pipe(
+          getElementRef(this._chart._range._rangeElementRef),
         ),
-        this._viewportBoundaries$,
-      ])
+      )
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(ref => {
+          if (this._chart._range && this._chart._range._overlayTemplate) {
+            this._updateOrCreateOverlay(this._chart._range, ref);
+          }
+        });
+
+      // update the overlay position if an overlay exists
+      // and the viewport size changes
+      combineLatest([elementReferenceStream, this._viewportBoundaries$])
         .pipe(
           throttleTime(0, animationFrameScheduler),
           takeUntil(this._destroy$),
         )
         .subscribe(([ref, viewPortOffset]) => {
-          if (this._chart._range && this._chart._range._overlayTemplate) {
+          if (
+            this._overlayRef &&
+            this._chart._range &&
+            this._chart._range._overlayTemplate
+          ) {
             this._updateOrCreateOverlay(
               this._chart._range,
               ref,
@@ -839,6 +857,24 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     // handling of the overlay for the timestamp
     if (this._chart._timestamp) {
+      getElementRefStream<HTMLDivElement>(
+        this._chart._timestamp._stateChanges,
+        this._destroy$,
+        this._chart._timestamp._timestampElementRef,
+        this._zone,
+      )
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(ref => {
+          if (
+            this._chart._timestamp &&
+            this._chart._timestamp._overlayTemplate
+          ) {
+            this._updateOrCreateOverlay(this._chart._timestamp, ref);
+          }
+        });
+
+      // update the overlay position if an overlay exists
+      // and the viewport size changes
       combineLatest([
         getElementRefStream<HTMLDivElement>(
           this._chart._timestamp._stateChanges,
@@ -854,6 +890,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         )
         .subscribe(([ref, viewPortOffset]) => {
           if (
+            this._overlayRef &&
             this._chart._timestamp &&
             this._chart._timestamp._overlayTemplate
           ) {
