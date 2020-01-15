@@ -17,7 +17,8 @@
 import { italic } from 'chalk';
 import { PackageJson } from '@dynatrace/barista-components/tools/shared';
 
-export const NO_TOKENS_PROVIDED_ERROR = `Please ensure that you provide the CIRCLE_CI_TOKEN and the NPM_PUBLISH_TOKEN for the script`;
+export const NO_TOKEN_PROVIDED_ERROR = (tokenName: string) =>
+  `Please ensure that you provide the ${tokenName} for the script`;
 
 export const GET_INVALID_PACKAGE_JSON_VERSION_ERROR = (
   packageJson: PackageJson,

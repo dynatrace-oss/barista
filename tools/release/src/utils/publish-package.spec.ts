@@ -16,9 +16,11 @@
 import * as childProcess from 'child_process';
 import { vol } from 'memfs';
 import { parse } from 'semver';
-import { publishPackage } from './publish-package';
+import { publishPackage, npmPublish, yarnPublish } from './publish-package';
+import axios from 'axios';
 
 const VERSION = parse('5.0.0')!;
+let processSpy: jest.SpyInstance;
 
 beforeEach(() => {
   process.chdir('/');
@@ -26,6 +28,14 @@ beforeEach(() => {
   vol.fromJSON({
     '/components/package.json': JSON.stringify({ version: '5.0.0' }),
   });
+  jest.spyOn(axios, 'get').mockImplementation(async () => ({
+    data: 'response-text',
+  }));
+  processSpy = jest
+    .spyOn(childProcess, 'exec')
+    .mockImplementation((_command: string, _options: any, callback: any) => {
+      return callback(null, { stdout: 'ok' });
+    });
 });
 
 afterEach(() => {
@@ -34,19 +44,12 @@ afterEach(() => {
 });
 
 test('should call the npm and yarn publish commands with the right arguments', async () => {
-  let processSpy = jest
-    .spyOn(childProcess, 'exec')
-    .mockImplementation((_command: string, _options: any, callback: any) => {
-      return callback(null, { stdout: 'ok' });
-    });
-
-  await publishPackage('/components', VERSION);
+  await publishPackage('/', '/components', VERSION);
 
   expect(processSpy).toHaveBeenCalledTimes(2);
-
   expect(processSpy).toHaveBeenNthCalledWith(
     1,
-    'npm publish --access=public --tag=5.0.0',
+    'npm publish --access=public',
     { cwd: '/components', maxBuffer: expect.any(Number) },
     expect.any(Function),
   );
@@ -62,4 +65,31 @@ test('should call the npm and yarn publish commands with the right arguments', a
   // completely remove the spy
   processSpy.mockRestore();
   processSpy.mockClear();
+});
+
+test('should create a .npmrc for the public version', async () => {
+  process.env.NPM_PUBLISH_TOKEN = 'my-token';
+
+  await npmPublish('/components');
+
+  expect(vol.toJSON()).toMatchInlineSnapshot(`
+    Object {
+      "/components/.npmrc": "//registry.npmjs.org/:_authToken=my-token",
+      "/components/package.json": "{\\"version\\":\\"5.0.0\\"}",
+    }
+  `);
+});
+
+test('should create a .npmrc for the internal version', async () => {
+  process.env.ARTIFACTORY_URL = 'http://my-url/api/';
+
+  await yarnPublish('/components', parse('5.0.0')!, '/');
+
+  expect(vol.toJSON()).toMatchInlineSnapshot(`
+    Object {
+      "/.npmrc": "@dynatrace:registry=http://my-url/api/api/npm/npm-dynatrace-release-local/
+    response-text",
+      "/components/package.json": "{\\"version\\":\\"5.0.0\\"}",
+    }
+  `);
 });

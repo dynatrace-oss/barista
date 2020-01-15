@@ -112,7 +112,7 @@ const circleResponse = (items: object[]) => ({
 
 const workflow = (id: string) => ({
   id,
-  name: 'pr_check',
+  name: 'pr-check',
 });
 
 const job = (name: string, jobNumber: string) => ({
