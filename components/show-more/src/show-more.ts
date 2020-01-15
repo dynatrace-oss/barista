@@ -23,6 +23,8 @@ import {
   Input,
   OnDestroy,
   ViewEncapsulation,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { CanDisable, mixinDisabled } from '@dynatrace/barista-components/core';
 
@@ -40,6 +42,7 @@ const _DtShowMoreMixinBase = mixinDisabled(DtShowMoreBase);
     '[class.dt-show-more-show-less]': 'showLess',
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-label]': '_ariaLabel',
+    '(click)': '_handleClick()',
   },
   inputs: ['disabled'],
   preserveWhitespaces: false,
@@ -75,6 +78,12 @@ export class DtShowMore extends _DtShowMoreMixinBase
       : null;
   }
 
+  /**
+   * Emits when the show more element was clicked and notifies
+   * about the changed expanded state.
+   */
+  @Output() readonly changed = new EventEmitter<void>();
+
   constructor(
     private _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
@@ -85,5 +94,10 @@ export class DtShowMore extends _DtShowMoreMixinBase
 
   ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+  }
+
+  /** @internal Emits the change event on the show more component. */
+  _handleClick(): void {
+    this.changed.emit();
   }
 }
