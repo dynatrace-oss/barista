@@ -42,9 +42,9 @@ The `dtRate` pipe provides a way to add a rate info to the value
 
 <ba-live-example name="DtExampleFormattersRate"></ba-live-example>
 
-### Time
+### Duration
 
-The `dtTime` pipe provides a way to format a input time to a timestamp
+The `dtDuration` pipe provides a way to format an input time to a timestamp
 
 <ba-live-example name="DtExampleFormattersTime"></ba-live-example>
 
@@ -136,18 +136,31 @@ from a previous pipe with a rate. The function takes the following parameters:
 | `input`    | `DtFormattedValue | number` |         | numeric value to be transformed by the pipe |
 | `rateUnit` | `DtRateUnit | string`       |         | rate unit                                   |
 
-### Time
+### Duration
 
-The `formatTime` function converts a number to a timestamp. Default behaviour
-will print the first available value/unit and only the next two descending
-steps. Optionally you can set the input unit and which unit you want to set as
-the lower limit.
+The `formatDuration` function converts a number to a duration string and
+consumes a formatMethod which configures how the output is built.
 
-| Name        | Type         | Default     | Description                                                                                                    |
-| ----------- | ------------ | ----------- | -------------------------------------------------------------------------------------------------------------- |
-| `input`     | `number`     | `ms`        | numeric value to be transformed by the pipe                                                                    |
-| `inputUnit` | `DtTimeUnit` | `undefined` | Which timeunit is used for the input                                                                           |
-| `toUnit`    | `DtTimeUnit` | `undefined` | Which timeunit is the smallest possible output (Pipe disregards toUnit when unit is bigger than the inputUnit) |
+- **'DEFAULT':** will look for the first unit that has a value and will only
+  print the next two descending units as long as they have values. The results
+  for each time unit will be rounded to a decimal number.
+- **'PRECISE':** will only print the unit that it consumed or was set as the
+  outputUnit. The output value can be real numbers. (e.g. 1.54 s)
+- **Custom/Number(1-n):** will tell the formatter to print a custom amount of
+  units.
+
+You can specify the following properties on your options:
+
+| Name           | Type                            | Default        | Description                                      |
+| -------------- | ------------------------------- | -------------- | ------------------------------------------------ |
+| `input`        | `number`                        |                | Numeric value to be transformed                  |
+| `formatMethod` | `'DEFAULT | 'PRECISE' | number` | `'DEFAULT'`    | Formatting/Precision mode configuring the output |
+| `outputUnit`   | `DtTimeUnit`                    | `undefined`    | Which unit to transform the input to             |
+| `inputUnit`    | `DtTimeUnit`                    | `Milliseconds` | Which timeunit is used for the input             |
+
+#### Examples
+
+<ba-live-example name="DtExampleFormattersDuration"></ba-live-example>
 
 ## Special uses (e.g. infographics, tiles)
 

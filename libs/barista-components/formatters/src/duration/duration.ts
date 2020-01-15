@@ -21,27 +21,36 @@ import { isEmpty, isNumber } from '@dynatrace/barista-components/core';
 
 import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { DtTimeUnit } from '../unit';
-import { formatTime } from './time-formatter';
+import { formatDuration } from './duration-formatter';
+import { DurationMode } from './duration-formatter-constants';
 
 /** Pipe used to convert milliseconds to amount of time from years to nanoseconds */
 @Pipe({
-  name: 'dtTime',
+  name: 'dtDuration',
 })
-export class DtTime implements PipeTransform {
+export class DtDuration implements PipeTransform {
   /**
-   * @param input - The timevalue to be formatted to amount of time from years to nanoseconds
+   * @param duration The timevalue to be formatted to amount of time from years to nanoseconds
+   * @param formatMethod Configuration for formatting the output
+   * @param outputUnit dtTimeUnit | undefined value describing the unit to which it should format
+   * @param inputUnit dtTimeUnit value describing which unit the duration is in
    */
-  // tslint:disable: no-any
   transform(
-    input: any,
+    duration: any,
+    formatMethod: DurationMode,
+    outputUnit: DtTimeUnit | undefined,
     inputUnit: DtTimeUnit = DtTimeUnit.MILLISECOND,
-    toUnit: DtTimeUnit | undefined,
   ): DtFormattedValue | string {
-    if (isEmpty(input)) {
+    if (isEmpty(duration)) {
       return NO_DATA;
     }
-    return isNumber(input)
-      ? formatTime(coerceNumberProperty(input), inputUnit, toUnit)
+    return isNumber(duration)
+      ? formatDuration(
+          coerceNumberProperty(duration),
+          formatMethod,
+          outputUnit,
+          inputUnit,
+        )
       : NO_DATA;
   }
 }
