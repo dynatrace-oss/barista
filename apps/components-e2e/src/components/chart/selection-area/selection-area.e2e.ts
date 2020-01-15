@@ -256,3 +256,83 @@ test('should create a range out of the timestamp with shift + left arrow key', a
     .expect(overlayText.textContent)
     .match(/Jul 31 \d{2}:20 — \d{2}:25/g);
 });
+
+test('should not re-open a timestamp in case of a window resize', async (testController: TestController) => {
+  await createTimestamp(
+    { x: 450, y: 100 },
+    chartClickTargets[1],
+    testController,
+  )
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(overlay.exists)
+    .ok()
+    .click(closeButton, { speed: 0.3 })
+    .expect(timestampSelection.exists)
+    .notOk()
+    .expect(overlay.exists)
+    .notOk()
+    .resizeWindow(1000, 600)
+    .wait(250)
+    .expect(timestampSelection.exists)
+    .notOk()
+    .expect(overlay.exists)
+    .notOk();
+});
+
+test('should not re-open a range in case of a window resize', async (testController: TestController) => {
+  await createRange(550, { x: 310, y: 100 }, testController)
+    .expect(rangeSelection.exists)
+    .ok()
+    .expect(overlay.exists)
+    .ok()
+    .click(closeButton, { speed: 0.3 })
+    .expect(rangeSelection.exists)
+    .notOk()
+    .expect(overlay.exists)
+    .notOk()
+    .resizeWindow(1000, 600)
+    .wait(250)
+    .expect(rangeSelection.exists)
+    .notOk()
+    .expect(overlay.exists)
+    .notOk();
+});
+
+test('should keep existing timestamp open in case of a window resize', async (testController: TestController) => {
+  await createTimestamp(
+    { x: 450, y: 100 },
+    chartClickTargets[1],
+    testController,
+  )
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(overlay.exists)
+    .ok()
+    .expect(overlayText.textContent)
+    .match(/Jul 31, \d{2}:19/g)
+    .resizeWindow(1000, 600)
+    .wait(250)
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(overlay.exists)
+    .ok()
+    .expect(overlayText.textContent)
+    .match(/Jul 31, \d{2}:19/g);
+});
+
+test('should keep existing range open in case of a window resize', async (testController: TestController) => {
+  await createRange(550, { x: 310, y: 100 }, testController)
+    .expect(rangeSelection.exists)
+    .ok()
+    .expect(overlayText.textContent)
+    .match(/Jul 31 \d{2}:17 — \d{2}:24/g)
+    .resizeWindow(1000, 600)
+    .wait(250)
+    .expect(rangeSelection.exists)
+    .ok()
+    .expect(overlay.exists)
+    .ok()
+    .expect(overlayText.textContent)
+    .match(/Jul 31 \d{2}:17 — \d{2}:24/g);
+});
