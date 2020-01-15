@@ -37,6 +37,8 @@ export { formatRate } from './src/rate/rate-formatter';
 export * from './src/rate/rate';
 export * from './src/bits/bits-formatter';
 export * from './src/bits/bits';
+export * from './src/duration/duration';
+export * from './src/duration/duration-formatter';
 export {
   formatTime as experimentalFormatTime,
   DtTime as DtExperimentalFormatTime,
