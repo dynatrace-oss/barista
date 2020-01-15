@@ -29,7 +29,7 @@ import { NodeHTTPClient } from './node-http-client';
 const CIRCLE_API_V2 = 'https://circleci.com/api/v2/';
 const CIRCLE_PROJECT_SLUG = 'github/dynatrace-oss/barista';
 const CIRCLE_STAGE = 'store-build-artifacts';
-const CIRCLE_WORKFLOW_NAME = 'pr_check';
+const CIRCLE_WORKFLOW_NAME = 'pr-check';
 
 export const ITEM_NOT_FOUND_ERROR = 'Could not find the item in the list';
 

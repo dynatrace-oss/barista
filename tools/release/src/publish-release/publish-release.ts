@@ -32,7 +32,7 @@ import { promptConfirmReleasePublish } from '../prompts';
 import { createReleaseTag, pushReleaseTag } from '../tagging';
 import {
   createFolder,
-  NO_TOKENS_PROVIDED_ERROR,
+  NO_TOKEN_PROVIDED_ERROR,
   NO_VALID_RELEASE_BRANCH_ERROR,
   shouldRelease,
   unpackTarFile,
@@ -51,14 +51,20 @@ dotenvConfig();
 export async function publishRelease(workspaceRoot: string): Promise<void> {
   /** The temporary folder where the dist should be unpacked */
   const TMP_FOLDER = join(workspaceRoot, 'tmp');
-  /** Private token for the circle ci */
-  const CIRCLE_CI_TOKEN = process.env.CIRCLE_CI_TOKEN;
-  /** Token to publish in the registry */
-  const NPM_PUBLISH_TOKEN = process.env.NPM_PUBLISH_TOKEN;
 
-  if (!CIRCLE_CI_TOKEN || !NPM_PUBLISH_TOKEN) {
-    throw new Error(NO_TOKENS_PROVIDED_ERROR);
-  }
+  const environmentConfigs = [
+    'CIRCLE_CI_TOKEN',
+    'NPM_PUBLISH_TOKEN',
+    'ARTIFACTORY_URL',
+    'NPM_INTERNAL_USER',
+    'NPM_INTERNAL_PASSWORD',
+  ];
+
+  environmentConfigs.forEach((variableName: string) => {
+    if (!process.env[variableName]) {
+      throw new Error(NO_TOKEN_PROVIDED_ERROR(variableName));
+    }
+  });
 
   console.info();
   console.info(green('-----------------------------------------'));
@@ -67,7 +73,7 @@ export async function publishRelease(workspaceRoot: string): Promise<void> {
   console.info();
 
   // The ci api to get the latest build artifacts
-  const circleCiApi = new CircleCiApi(CIRCLE_CI_TOKEN);
+  const circleCiApi = new CircleCiApi(process.env.CIRCLE_CI_TOKEN!);
 
   // Instance of a wrapper that can execute Git commands.
   const gitClient = new GitClient(workspaceRoot);
@@ -148,5 +154,5 @@ export async function publishRelease(workspaceRoot: string): Promise<void> {
   await promptConfirmReleasePublish();
 
   // confirm npm publish
-  await publishPackage(artifactsFolder, version);
+  await publishPackage(workspaceRoot, artifactsFolder, version);
 }

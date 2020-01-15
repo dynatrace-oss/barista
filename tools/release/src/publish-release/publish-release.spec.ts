@@ -30,7 +30,7 @@ import {
   GET_GITHUB_STATUS_FAILED_ERROR,
   GET_INVALID_PACKAGE_JSON_VERSION_ERROR,
   GET_LOCAL_DOES_NOT_MATCH_UPSTREAM,
-  NO_TOKENS_PROVIDED_ERROR,
+  NO_TOKEN_PROVIDED_ERROR,
   parsePackageVersion,
   shouldRelease,
 } from '../utils';
@@ -39,6 +39,7 @@ import {
 import * as utils from '../utils';
 import * as prompts from '../prompts';
 import { publishRelease } from './publish-release';
+import axios from 'axios';
 
 beforeEach(() => {
   // Mock console logs away we don't want to bloat the output
@@ -160,7 +161,7 @@ test('should throw when no circle ci token is provide', async () => {
   try {
     await publishRelease('/');
   } catch (error) {
-    expect(error.message).toBe(NO_TOKENS_PROVIDED_ERROR);
+    expect(error.message).toBe(NO_TOKEN_PROVIDED_ERROR('CIRCLE_CI_TOKEN'));
   }
 });
 
@@ -171,7 +172,7 @@ test('should throw when no npm publish token is provide', async () => {
   try {
     await publishRelease('/');
   } catch (error) {
-    expect(error.message).toBe(NO_TOKENS_PROVIDED_ERROR);
+    expect(error.message).toBe(NO_TOKEN_PROVIDED_ERROR('NPM_PUBLISH_TOKEN'));
   }
 });
 
@@ -179,6 +180,9 @@ describe('publish release', () => {
   beforeEach(() => {
     process.env.CIRCLE_CI_TOKEN = '87c589ff2b354f46f223c9915583d3ff476776e7';
     process.env.NPM_PUBLISH_TOKEN = 'my-token';
+    process.env.ARTIFACTORY_URL = 'http://test.com';
+    process.env.NPM_INTERNAL_USER = 'username';
+    process.env.NPM_INTERNAL_PASSWORD = 'password';
   });
 
   afterEach(() => {
@@ -229,6 +233,11 @@ describe('publish release', () => {
     jest
       .spyOn(prompts, 'promptConfirmReleasePublish')
       .mockImplementation(async () => {});
+
+    jest.spyOn(axios, 'get').mockImplementation(async () => ({
+      data: 'response-text',
+    }));
+
     let processSpy = jest
       .spyOn(childProcess, 'exec')
       .mockImplementation((_command: string, _options: any, callback: any) => {
