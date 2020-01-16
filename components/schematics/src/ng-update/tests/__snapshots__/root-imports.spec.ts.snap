@@ -19,3 +19,11 @@ import { VERSION } from '@dynatrace/barista-components/core';
 import { SomeInterface } from '@dynatrace/barista-components/types';
 "
 `;
+
+exports[`v5 dynatrace angular components imports should migrate root imports in .spec files 1`] = `
+"import { c as c2 } from '@dynatrace/barista-components/c';
+import { a } from '@dynatrace/barista-components/a';
+import { b } from '@dynatrace/barista-components/b';
+import { c } from '@dynatrace/barista-components/c';
+import { a as a2 } from '@dynatrace/barista-components/a';"
+`;
