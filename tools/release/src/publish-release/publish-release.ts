@@ -29,7 +29,6 @@ import {
   verifyPassingGithubStatus,
 } from '../git';
 import { promptConfirmReleasePublish } from '../prompts';
-import { createReleaseTag, pushReleaseTag } from '../tagging';
 import {
   createFolder,
   NO_TOKEN_PROVIDED_ERROR,
@@ -38,6 +37,7 @@ import {
   unpackTarFile,
   verifyBundle,
   parsePackageVersion,
+  createReleaseTag,
 } from '../utils';
 import { publishPackage } from '../utils/publish-package';
 
@@ -79,7 +79,9 @@ export async function publishRelease(workspaceRoot: string): Promise<void> {
   const gitClient = new GitClient(workspaceRoot);
 
   // Octokit API instance that can be used to make Github API calls.
-  const githubApi = new OctokitApi();
+  const githubApi = new OctokitApi({
+    auth: process.env.GITHUB_TOKEN,
+  });
 
   // determine version for the check whether we should release from this branch
   const version = await parsePackageVersion(workspaceRoot);
@@ -124,6 +126,7 @@ export async function publishRelease(workspaceRoot: string): Promise<void> {
   await createFolder(TMP_FOLDER);
 
   // download the artifact
+  console.log(`Download the artifact: ${artifactTar} –> ${TMP_FOLDER}`);
   await circleCiApi
     .getArtifactUrlForBranch(releaseCommit)
     .pipe(
@@ -135,24 +138,23 @@ export async function publishRelease(workspaceRoot: string): Promise<void> {
     .toPromise();
 
   // unpack the downloaded artifact
+  console.log('Unpack the downloaded .tar file: ');
   await unpackTarFile(artifactTar, TMP_FOLDER);
 
   // check release bundle (verify version in package.json)
   await verifyBundle(version, artifactsFolder);
 
   // extract release notes
+  console.log('Extract release notes:');
   const releaseNotes = extractReleaseNotes(CHANGELOG_FILE_NAME, version.raw);
 
-  const tagName = version.raw;
   // create release tag
-  createReleaseTag(tagName, releaseNotes, gitClient);
-
-  // push release tag to github
-  pushReleaseTag(tagName, gitClient);
+  await createReleaseTag(version.raw, releaseNotes, releaseCommit, githubApi);
 
   // safety net - confirm publish again
-  await promptConfirmReleasePublish();
-
+  if (process.env.USER !== 'jenkins') {
+    await promptConfirmReleasePublish();
+  }
   // confirm npm publish
   await publishPackage(workspaceRoot, artifactsFolder, version);
 }
