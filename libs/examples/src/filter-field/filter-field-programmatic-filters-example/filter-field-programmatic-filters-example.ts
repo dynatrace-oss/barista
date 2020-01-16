@@ -19,7 +19,6 @@ import { Component } from '@angular/core';
 import {
   DtFilterFieldDefaultDataSource,
   DtFilterFieldDefaultDataSourceType,
-  DtFilterFieldDefaultDataSourceAutocomplete,
 } from '@dynatrace/barista-components/filter-field';
 
 @Component({
