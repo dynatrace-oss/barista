@@ -21,3 +21,4 @@ export * from './release-errors';
 export * from './should-release';
 export * from './unpack-tar';
 export * from './verify-bundle';
+export * from './create-release-tag';

@@ -183,6 +183,7 @@ describe('publish release', () => {
     process.env.ARTIFACTORY_URL = 'http://test.com';
     process.env.NPM_INTERNAL_USER = 'username';
     process.env.NPM_INTERNAL_PASSWORD = 'password';
+    process.env.GITHUB_TOKEN = 'github-token';
   });
 
   afterEach(() => {
@@ -221,15 +222,7 @@ describe('publish release', () => {
 
     jest.spyOn(utils, 'unpackTarFile').mockImplementation();
     jest.spyOn(GitClient.prototype, 'hasLocalTag').mockReturnValue(true);
-    jest
-      .spyOn(GitClient.prototype, 'getShaOfLocalTag')
-      .mockReturnValue(commitSha);
-    jest
-      .spyOn(GitClient.prototype, 'pushBranchOrTagToRemote')
-      .mockImplementation(() => true);
-    jest
-      .spyOn(GitClient.prototype, 'getRemoteCommitSha')
-      .mockReturnValue(commitSha);
+    jest.spyOn(utils, 'createReleaseTag').mockImplementation(async () => {});
     jest
       .spyOn(prompts, 'promptConfirmReleasePublish')
       .mockImplementation(async () => {});
@@ -238,7 +231,7 @@ describe('publish release', () => {
       data: 'response-text',
     }));
 
-    let processSpy = jest
+    jest
       .spyOn(childProcess, 'exec')
       .mockImplementation((_command: string, _options: any, callback: any) => {
         return callback(null, { stdout: 'ok' });
@@ -251,9 +244,5 @@ describe('publish release', () => {
     });
 
     await publishRelease('/');
-
-    // completely remove the spy
-    processSpy.mockRestore();
-    processSpy.mockClear();
   });
 });
