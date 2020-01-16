@@ -29,8 +29,6 @@ import {
 } from '../changelog';
 import {
   GitClient,
-  GITHUB_REPO_NAME,
-  GITHUB_REPO_OWNER,
   verifyLocalCommitsMatchUpstream,
   verifyNoUncommittedChanges,
   verifyPassingGithubStatus,
@@ -43,7 +41,6 @@ import {
   getReleaseCommit,
   GET_BRANCH_SWITCH_ERROR,
   GET_FAILED_CREATE_STAGING_BRANCH_ERROR,
-  GET_PR_CREATION_ERROR,
   GET_PUSH_RELEASE_BRANCH_ERROR,
   parsePackageVersion,
 } from '../utils';
@@ -150,25 +147,30 @@ export async function stageRelease(
     green(`  ✓   Pushed release staging branch "${stagingBranch}" to remote.`),
   );
 
-  const prTitle = needsVersionBump
-    ? 'Bump version to ${version} w/ changelog'
-    : 'Update changelog for ${newVersionName}';
-  const { state } = (await githubApi.pulls.create({
-    title: prTitle,
-    head: stagingBranch,
-    base: 'master',
-    owner: GITHUB_REPO_OWNER,
-    repo: GITHUB_REPO_NAME,
-  })).data;
-
-  if (state === 'failure') {
-    throw new Error(red(GET_PR_CREATION_ERROR(stagingBranch, prTitle)));
-  }
   console.info(
-    green(
-      `  ✓   Created the pull-request "${prTitle}" for the release staging branch "${stagingBranch}".`,
-    ),
+    green(`  ✓   Everything is ready please create a pull request on github.`),
   );
+
+  // TODO: Needs authentication
+  // const prTitle = needsVersionBump
+  //   ? `Bump version to ${newVersionName} w/ changelog`
+  //   : `Update changelog for ${newVersionName}`;
+  // const { state } = (await githubApi.pulls.create({
+  //   title: prTitle,
+  //   head: stagingBranch,
+  //   base: 'master',
+  //   owner: GITHUB_REPO_OWNER,
+  //   repo: GITHUB_REPO_NAME,
+  // })).data;
+
+  // if (state === 'failure') {
+  //   throw new Error(red(GET_PR_CREATION_ERROR(stagingBranch, prTitle)));
+  // }
+  // console.info(
+  //   green(
+  //     `  ✓   Created the pull-request "${prTitle}" for the release staging branch "${stagingBranch}".`,
+  //   ),
+  // );
 }
 
 /**
