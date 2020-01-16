@@ -65,4 +65,33 @@ describe('v5 dynatrace angular components imports', () => {
 
     removeTempDir();
   });
+
+  it('should migrate root imports in .spec files', async () => {
+    const {
+      runFixers,
+      appTree,
+      writeFile,
+      removeTempDir,
+    } = await createTestCaseSetup('update-5.0.0', migrationCollection, []);
+
+    writeFile(
+      'projects/lib-testing/src/main.spec.ts',
+      `import { c as c2 } from '@dynatrace/angular-components/c';
+import { a } from '@dynatrace/angular-components/a';
+import { b } from '@dynatrace/angular-components/b';
+import { c } from '@dynatrace/angular-components/c';
+import { a as a2 } from '@dynatrace/angular-components/a';`,
+    );
+
+    console.log(appTree.readContent('projects/lib-testing/src/main.spec.ts'));
+    if (runFixers) {
+      await runFixers();
+    }
+    console.log(appTree.readContent('projects/lib-testing/src/main.spec.ts'));
+    expect(
+      appTree.readContent('projects/lib-testing/src/main.spec.ts'),
+    ).toMatchSnapshot();
+
+    removeTempDir();
+  });
 });
