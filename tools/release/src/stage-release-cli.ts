@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 import { stageRelease } from './stage-release';
+import { join } from 'path';
 
 /** The root of the barista git repo where the git commands should be executed */
 const WORKSPACE_ROOT = process.env.WORKSPACE_ROOT || process.cwd();
+const ASSET_PATH = join(__dirname, './assets/changelog-header-template.hbs');
 
-stageRelease(WORKSPACE_ROOT, './assets/changelog-header-template.hbs')
+stageRelease(WORKSPACE_ROOT, ASSET_PATH)
   .then()
   .catch(error => {
     console.log(error);
