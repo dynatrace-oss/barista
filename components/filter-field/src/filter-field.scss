@@ -112,6 +112,11 @@ button.dt-filter-field-clear-all-button {
   line-height: 22px;
 }
 
+button.dt-filter-field-clear-all-button-hidden {
+  visibility: hidden;
+  position: absolute;
+}
+
 // We need to double the class to get a better specificity
 // than the original autocomplete panel selector
 ::ng-deep .dt-autocomplete-panel.dt-filter-field-panel.dt-filter-field-panel {

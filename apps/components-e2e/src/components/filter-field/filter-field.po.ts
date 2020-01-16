@@ -25,11 +25,16 @@ export const tagOverlay = Selector('.dt-overlay-container');
 
 export const input = Selector('input');
 
+export const switchToFirstDatasource = Selector('#switchToFirstDatasource');
+export const switchToSecondDatasource = Selector('#switchToSecondDatasource');
+export const setupSecondTestScenario = Selector('#setupSecondTestScenario');
+
 export function clickOption(
   nth: number,
   testController?: TestController,
 ): TestControllerPromise {
   const controller = testController || t;
+
   return controller
     .click(filterField)
     .wait(150)
