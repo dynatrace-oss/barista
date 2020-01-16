@@ -153,7 +153,7 @@ export async function stageRelease(
   const prTitle = needsVersionBump
     ? 'Bump version to ${version} w/ changelog'
     : 'Update changelog for ${newVersionName}';
-  const { state } = (await this.githubApi.pulls.create({
+  const { state } = (await githubApi.pulls.create({
     title: prTitle,
     head: stagingBranch,
     base: 'master',
