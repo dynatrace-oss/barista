@@ -1,4 +1,4 @@
-## 5.0.0-rc.0 (2020-01-13)
+## 5.0.0-rc.1 (2020-01-13)
 
 We removed the deprecated root package. Note that you cannot import from the
 root package `@dynatrace/barista-components` anymore. Please use the more
