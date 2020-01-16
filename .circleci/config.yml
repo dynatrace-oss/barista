@@ -202,7 +202,14 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/barista
-      - run: cd dist && tar czf components.tar.gz ./components/
+      - run:
+          name: Create components package if it exists
+          command: |
+            if [[ -d ./dist/components ]];
+            then
+              cd dist
+              tar czf components.tar.gz ./components/
+            fi
       - store_artifacts:
           path: dist/components.tar.gz
           destination: barista-components
