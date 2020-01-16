@@ -20,7 +20,8 @@
     variant="secondary"
     class="dt-filter-field-clear-all-button"
     (click)="_clearAll()"
-    *ngIf="_showClearAll"
+    *ngIf="clearAllLabel"
+    [class.dt-filter-field-clear-all-button-hidden]="!_showClearAll"
   >{{clearAllLabel}}</button>
 
   <div class="dt-filter-field-infix">

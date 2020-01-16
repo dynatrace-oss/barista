@@ -26,6 +26,7 @@ import {
   focusFilterFieldInput,
   getFilterfieldTags,
   tagOverlay,
+  setupSecondTestScenario,
 } from './filter-field.po';
 import { Selector } from 'testcafe';
 import { waitForAngular } from '../../utils';
@@ -255,4 +256,31 @@ test('should show the overlay on a tag because the tag value is ellipsed', async
     .hover(filterTags)
     .expect(tagOverlay.exists)
     .ok();
+});
+
+test('should remove all removable filters when clicking the clear-all button', async (testController: TestController) => {
+  // Setup the second datasource.
+  await testController
+    .click(setupSecondTestScenario)
+    // Wait for the filterfield to catch up.
+    .wait(500);
+
+  // Manually set an option, because this seems to break the
+  // clear all change detection.
+  await clickOption(1);
+  await clickOption(1)
+    .expect(filterTags.count)
+    .eql(2)
+    // Click somewhere outside so the clear-all button appears
+    .click(Selector('.outside'))
+    // Wait for the filterfield to catch up.
+    .wait(500)
+    .expect(clearAll.exists)
+    .ok()
+    // Click the clear all-button, the created filter should be removed
+    .click(clearAll)
+    // Wait for the filterfield to catch up.
+    .wait(500)
+    .expect(filterTags.count)
+    .eql(1);
 });

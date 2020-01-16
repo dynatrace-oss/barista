@@ -17,15 +17,23 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers deprecation
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ChangeDetectorRef,
+  OnDestroy,
+} from '@angular/core';
 import { Validators } from '@angular/forms';
 
 import {
   DtFilterFieldDefaultDataSource,
   DtFilterFieldDefaultDataSourceType,
+  DtFilterField,
 } from '@dynatrace/barista-components/filter-field';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-const TEST_DATA: DtFilterFieldDefaultDataSourceType = {
+const TEST_DATA = {
   autocomplete: [
     {
       name: 'custom normal',
@@ -70,10 +78,84 @@ const TEST_DATA: DtFilterFieldDefaultDataSourceType = {
   ],
 };
 
+const TEST_DATA_2 = {
+  autocomplete: [
+    {
+      name: 'AUT',
+      distinct: true,
+      autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
+    },
+    {
+      name: 'USA',
+      autocomplete: [
+        { name: 'San Francisco' },
+        { name: 'Los Angeles' },
+        { name: 'New York' },
+        { name: 'Custom', suggestions: [] },
+      ],
+    },
+    {
+      name: 'Requests per minute',
+      range: {
+        operators: {
+          range: true,
+          equal: true,
+          greaterThanEqual: true,
+          lessThanEqual: true,
+        },
+        unit: 's',
+      },
+    },
+  ],
+};
+
+const DATA = [TEST_DATA, TEST_DATA_2];
+
 @Component({
   selector: 'dt-e2e-filter-field',
   templateUrl: './filter-field.html',
 })
-export class DtE2EFilterField {
-  _dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
+export class DtE2EFilterField implements OnDestroy {
+  destroy$ = new Subject<void>();
+
+  _dataSource = new DtFilterFieldDefaultDataSource<
+    DtFilterFieldDefaultDataSourceType
+  >(DATA[0]);
+
+  @ViewChild(DtFilterField, { static: true }) _filterfield: DtFilterField<
+    DtFilterFieldDefaultDataSourceType
+  >;
+
+  switchToDatasource(targetIndex: number): void {
+    this._dataSource = new DtFilterFieldDefaultDataSource<
+      DtFilterFieldDefaultDataSourceType
+    >(DATA[targetIndex]);
+  }
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  setupSecondTestScenario(): void {
+    this._dataSource = new DtFilterFieldDefaultDataSource(DATA[1]);
+    const linzFilter = [
+      DATA[1].autocomplete[0],
+      DATA[1].autocomplete[0].autocomplete![0],
+    ];
+
+    this._filterfield.filters = [linzFilter];
+    this._filterfield.currentTags
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        const linzTag = this._filterfield.getTagForFilter(linzFilter);
+        if (linzTag) {
+          linzTag.editable = false;
+          linzTag.deletable = false;
+          this._changeDetectorRef.markForCheck();
+        }
+      });
+  }
 }
