@@ -15,50 +15,33 @@
  */
 
 import {
-  ConnectedPosition,
   Overlay,
   OverlayConfig,
   OverlayRef,
+  ScrollDispatcher,
 } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
+  ComponentRef,
   Component,
   ContentChild,
   OnDestroy,
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
+  NgZone,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 import { isDefined } from '@dynatrace/barista-components/core';
 
 import { DtChart } from '../chart';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 import { PlotBackgroundInfo } from '../utils';
-
-/** Default horizontal offset for the tooltip */
-const DT_CHART_TOOLTIP_DEFAULT_OFFSET = 10;
-
-/** Positions for the chart tooltip  */
-const DEFAULT_DT_CHART_TOOLTIP_POSITIONS: ConnectedPosition[] = [
-  {
-    originX: 'start',
-    originY: 'center',
-    overlayX: 'end',
-    overlayY: 'center',
-    offsetX: -DT_CHART_TOOLTIP_DEFAULT_OFFSET,
-  },
-  {
-    originX: 'end',
-    originY: 'center',
-    overlayX: 'start',
-    overlayY: 'center',
-    offsetX: DT_CHART_TOOLTIP_DEFAULT_OFFSET,
-  },
-];
+import { DtChartTooltipContainer } from './chart-tooltip-container';
+import { DEFAULT_DT_CHART_TOOLTIP_POSITIONS } from './chart-tooltip-config';
 
 @Component({
   selector: 'dt-chart-tooltip',
@@ -78,14 +61,26 @@ export class DtChartTooltip implements OnDestroy {
   _overlayTemplate: TemplateRef<void>;
 
   private readonly _destroy = new Subject<void>();
-  private _overlayRef: OverlayRef | null;
-  private _portal: TemplatePortal;
+
+  /** The reference of the overlay */
+  private _overlayRef: OverlayRef | null = null;
+
+  /** The reference of the container of the overlay */
+  private _containerRef: DtChartTooltipContainer | null = null;
+
+  /** The reference of the portal to open/close the overlay */
+  private _portal: ComponentPortal<DtChartTooltipContainer> | null = null;
+
+  /** The reference of the template portal to pass the overlay template to */
+  private _templatePortal: TemplatePortal<any> | null = null;
+
   private _overlayRefDetachSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
     private _overlay: Overlay,
     private _viewContainerRef: ViewContainerRef,
-    private _changeDetectorRef: ChangeDetectorRef,
+    private _scrollDispatcher: ScrollDispatcher,
+    private _ngZone: NgZone,
   ) {}
 
   ngOnDestroy(): void {
@@ -113,26 +108,70 @@ export class DtChartTooltip implements OnDestroy {
         backdropClass: 'dt-no-pointer',
         hasBackdrop: true,
         panelClass: ['dt-chart-tooltip-overlay', 'dt-no-pointer'],
-        scrollStrategy: this._overlay.scrollStrategies.close(),
       });
 
+      /**
+       * dismiss the overlay on scroll
+       * using the cdk overlay scroll strategy close would
+       * immediately detach the component portal, so instead the
+       * scroll dispatcher is used to listen for scroll events
+       */
+      this._scrollDispatcher
+        .scrolled()
+        .pipe(take(1))
+        .subscribe(() => {
+          this._ngZone.run(() => this._dismiss());
+        });
+
       const overlayRef = this._overlay.create(overlayConfig);
-      // tslint:disable-next-line:no-any
-      this._portal = new TemplatePortal<any>(
-        this._overlayTemplate,
-        this._viewContainerRef,
-        { $implicit: data },
-      );
+      const portal = new ComponentPortal(DtChartTooltipContainer);
       this._overlayRefDetachSubscription.unsubscribe();
       this._overlayRefDetachSubscription = overlayRef
         .detachments()
         .subscribe(() => {
           parentChart._resetHighchartsPointer();
         });
-      overlayRef.attach(this._portal);
 
-      this._overlayRef = overlayRef;
+      const containerViewRef = overlayRef.attach<DtChartTooltipContainer>(
+        portal,
+      );
+
+      /** check if there already is an open tooltip */
+      if (this._containerRef) {
+        /** wait until the open tooltip is dismissed - then open the new one */
+        this._containerRef.afterClosed.subscribe(() => {
+          this._openTooltip(data, portal, containerViewRef, overlayRef);
+        });
+
+        /** dismiss the current open tooltip */
+        this._containerRef.exit();
+      } else {
+        this._openTooltip(data, portal, containerViewRef, overlayRef);
+      }
     }
+  }
+
+  /** @internal Sets the references for the tooltip and opens it */
+  _openTooltip(
+    data: DtChartTooltipData,
+    portal: ComponentPortal<DtChartTooltipContainer>,
+    containerViewRef: ComponentRef<DtChartTooltipContainer>,
+    overlayRef: OverlayRef,
+  ): void {
+    this._portal = portal;
+    this._overlayRef = overlayRef;
+
+    // tslint:disable-next-line:no-any
+    this._templatePortal = new TemplatePortal<any>(
+      this._overlayTemplate,
+      this._viewContainerRef,
+      { $implicit: data },
+    );
+
+    containerViewRef.instance._attachTemplatePortal(this._templatePortal);
+
+    this._containerRef = containerViewRef.instance;
+    this._containerRef.enter();
   }
 
   /** @internal Updates the overlay content (triggered by the chart) */
@@ -141,8 +180,8 @@ export class DtChartTooltip implements OnDestroy {
     parentChart: DtChart,
     plotBackgroundInfo: PlotBackgroundInfo,
   ): void {
-    if (this._portal && this._overlayRef) {
-      this._portal.context.$implicit = data;
+    if (this._portal && this._templatePortal && this._overlayRef) {
+      this._templatePortal.context.$implicit = data;
       const positionStrategy = this._overlay
         .position()
         .flexibleConnectedTo(
@@ -150,15 +189,23 @@ export class DtChartTooltip implements OnDestroy {
         )
         .withPositions(DEFAULT_DT_CHART_TOOLTIP_POSITIONS);
       this._overlayRef.updatePositionStrategy(positionStrategy);
-      this._changeDetectorRef.markForCheck();
     }
   }
 
-  /** @internal Dismisses the overlay and cleans up the ref (triggered by the chart) */
+  /** @internal Dismisses the overlay and cleans up the refs (triggered by the chart) */
   _dismiss(): void {
-    if (this._overlayRef) {
-      this._overlayRef.dispose();
-      this._overlayRef = null;
+    if (this._containerRef) {
+      this._containerRef.exit();
+      /** clean up references after overlay has been closed */
+      this._containerRef.afterClosed.subscribe(() => {
+        if (this._overlayRef) {
+          this._overlayRef.dispose();
+          this._overlayRef = null;
+          this._containerRef = null;
+          this._portal = null;
+          this._templatePortal = null;
+        }
+      });
     }
   }
 

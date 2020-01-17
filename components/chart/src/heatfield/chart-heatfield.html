@@ -14,7 +14,7 @@
   [cdkConnectedOverlayOpen]="_isValidStartEndRange && active"
   [cdkConnectedOverlayPositions]="_positions"
 >
-  <div class="dt-chart-heatfield-overlay">
+  <div [@fade]="_overlayState" class="dt-chart-heatfield-overlay">
     <ng-content></ng-content>
   </div>
 </ng-template>
@@ -22,6 +22,5 @@
 <div
   class="dt-chart-heatfield-backdrop"
   #backdrop
-  [style.visibility]="_isValidStartEndRange && active ? 'visible' : 'hidden'"
   [style.height.px]="_boundingBox && _boundingBox.height"
 ></div>

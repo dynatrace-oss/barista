@@ -44,6 +44,9 @@ export const GRAB_CURSOR_CLASS = 'dt-pointer-grabbing';
 /** @internal Vertical distance between the overlay and the selection area */
 export const DT_SELECTION_AREA_OVERLAY_SPACING = 4;
 
+/** @internal Fade animation duration */
+export const DT_SELECTION_AREA_FADE_TIME = 150;
+
 /** @internal Positions for the overlay used in the selection area */
 export const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
   {

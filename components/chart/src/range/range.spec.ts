@@ -203,7 +203,7 @@ describe('DtChart Range', () => {
     it('should emit a close event when the range is destroyed by calling the handle close function', () => {
       expect(fixture.componentInstance._closed).toBe(0);
 
-      range._handleOverlayClose();
+      range._handleDragHandleClose();
       fixture.detectChanges();
 
       expect(fixture.componentInstance._closed).toBe(1);

@@ -20,11 +20,10 @@ import {
   Overlay,
   OverlayConfig,
   OverlayContainer,
-  OverlayRef,
   ViewportRuler,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import {
   AfterContentInit,
@@ -51,6 +50,7 @@ import {
   fromEvent,
   merge,
   of,
+  Subscription,
 } from 'rxjs';
 import {
   concatMapTo,
@@ -116,6 +116,8 @@ import {
   getTouchStartStream,
   getTouchStream,
 } from './streams';
+import { DtChartSelectionAreaContainer } from './selection-area-container';
+import { DtChartSelectionAreaOverlayRef } from './selection-area-overlay-ref';
 
 @Component({
   selector: 'dt-chart-selection-area',
@@ -150,14 +152,20 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** click event stream that emits only click events on the selection area */
   private _click$: Observable<{ x: number; y: number }> = EMPTY;
 
-  /** The ref of the selection area overlay */
-  private _overlayRef: OverlayRef | null;
+  /** The ref of the currently opened selection area overlay */
+  private _openedSelectionAreaOverlayRef: DtChartSelectionAreaOverlayRef | null = null;
+
+  /** Subscription to unsubscribe from animation leave stream when the overlay is destroyed */
+  private _animationLeaveSubscription: Subscription;
+
+  /**
+   * Boolean to determine whether an existing overlay should be updated
+   * The overlay should only be updated after a leave animation is completed
+   */
+  private _deferUpdate: boolean = false;
 
   /** The focus trap inside the overlay */
   private _overlayFocusTrap: FocusTrap | null;
-
-  /** Template portal of the selection area overlay */
-  private _portal: TemplatePortal | null;
 
   /**
    * Stream of Highcharts plotBackground is used to size the selection area according to this area
@@ -293,7 +301,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._closeOverlay();
+    // dispose overlay without animation on destroy
+    if (this._openedSelectionAreaOverlayRef) {
+      this._openedSelectionAreaOverlayRef.overlayRef.dispose();
+    }
+
     this._destroy$.next();
     this._destroy$.complete();
   }
@@ -426,23 +438,76 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       scrollStrategy: this._overlay.scrollStrategies.reposition(),
     });
 
-    const overlayRef = this._overlay.create(overlayConfig);
+    // create a new portal to attach to the overlay
+    const portal = new ComponentPortal(
+      DtChartSelectionAreaContainer,
+      null,
+      null,
+    );
 
-    // create the portal out of the template and the containerRef
-    // tslint:disable-next-line: no-any
-    this._portal = new TemplatePortal<any>(template, viewRef, {
+    // create new overlay
+    const overlayRef = this._overlay.create(overlayConfig);
+    // attach container to overlay
+    const containerViewRef = overlayRef.attach<DtChartSelectionAreaContainer>(
+      portal,
+    );
+    const containerRef = containerViewRef.instance;
+
+    // create a new template portal to attach to the container ref
+    // tslint:disable-next-line:no-any
+    const templatePortal = new TemplatePortal<any>(template, viewRef, {
       $implicit: data,
     });
-    // attach the portal to the overlay ref
-    overlayRef.attach(this._portal);
 
-    this._overlayRef = overlayRef;
+    // attach the template portal to the container ref
+    containerRef.attachTemplatePortal(templatePortal);
+    const selectionAreaOverlayRef = new DtChartSelectionAreaOverlayRef(
+      overlayRef,
+      containerRef,
+      portal,
+      templatePortal,
+    );
+    this._animateDtSelectionAreaContainer(selectionAreaOverlayRef);
+
+    /**
+     * Subscribe to leaving stream to defer overlay updates
+     * as long as the leave animation is not done
+     */
+    selectionAreaOverlayRef.containerRef._onLeaving.subscribe(() => {
+      this._deferUpdate = true;
+    });
+
+    /**
+     * Subscribe to leave done stream to pass through
+     * updates after the leave animation is done
+     */
+    selectionAreaOverlayRef.containerRef._onLeaveDone.subscribe(() => {
+      this._deferUpdate = false;
+    });
 
     if (!this._overlayFocusTrap) {
       this._overlayFocusTrap = this._focusTrapFactory.create(
-        this._overlayRef.overlayElement,
+        overlayRef.overlayElement,
       );
       this._attachFocusTrapListeners();
+    }
+  }
+
+  /** Animates the selection area overlay container */
+  private _animateDtSelectionAreaContainer(
+    selectionAreaOverlayRef: DtChartSelectionAreaOverlayRef,
+  ): void {
+    /** check if there is an open selection area overlay */
+    if (!this._openedSelectionAreaOverlayRef) {
+      this._openedSelectionAreaOverlayRef = selectionAreaOverlayRef;
+      this._openedSelectionAreaOverlayRef.enter();
+    } else {
+      this._animationLeaveSubscription = selectionAreaOverlayRef
+        .afterClosed()
+        .subscribe(() => {
+          this._openedSelectionAreaOverlayRef = selectionAreaOverlayRef;
+          this._openedSelectionAreaOverlayRef.enter();
+        });
     }
   }
 
@@ -455,22 +520,82 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     const template = component._overlayTemplate as TemplateRef<T>;
     const viewRef = component._viewContainerRef;
     const value: number | [number, number] = component.value;
+    if (this._openedSelectionAreaOverlayRef) {
+      // update template portal to show correct value
+      const templatePortal = new TemplatePortal<any>(template, viewRef, {
+        $implicit: value,
+      });
 
-    if (this._portal && this._overlayRef) {
-      this._portal.context.$implicit = value;
       // We already have an overlay so update the position
-      this._overlayRef.updatePositionStrategy(
-        this._calculateOverlayPosition(ref, viewportOffset),
-      );
+      // after the container is done animating
+      if (this._deferUpdate) {
+        this._openedSelectionAreaOverlayRef
+          .afterClosed()
+          .pipe(take(1))
+          .subscribe(() => {
+            this._updateOverlay(templatePortal, ref, viewportOffset);
+            this._updateFocusTrap();
+          });
+      } else {
+        this._updateOverlay(templatePortal, ref, viewportOffset);
+      }
     } else {
       this._createOverlay<T>(template, ref, viewRef, viewportOffset, value);
     }
   }
 
+  private _updateOverlay(
+    templatePortal: TemplatePortal<any>,
+    ref: ElementRef<HTMLElement>,
+    viewportOffset: ViewportBoundaries,
+  ): void {
+    if (this._openedSelectionAreaOverlayRef) {
+      this._openedSelectionAreaOverlayRef.containerRef.updateTemplatePortal(
+        templatePortal,
+      );
+      this._openedSelectionAreaOverlayRef.overlayRef.updatePositionStrategy(
+        this._calculateOverlayPosition(ref, viewportOffset),
+      );
+    }
+  }
+
+  private _updateFocusTrap(): void {
+    if (this._openedSelectionAreaOverlayRef && this._overlayFocusTrap) {
+      this._overlayFocusTrap.destroy();
+      this._overlayFocusTrap = this._focusTrapFactory.create(
+        this._openedSelectionAreaOverlayRef.overlayRef.overlayElement,
+      );
+      this._attachFocusTrapListeners();
+    }
+  }
+
   /** If there is an overlay open it will dispose it and destroy it */
   private _closeOverlay(): void {
-    if (this._overlayRef) {
-      this._overlayRef.dispose();
+    if (this._openedSelectionAreaOverlayRef) {
+      this._openedSelectionAreaOverlayRef.exit();
+      this._openedSelectionAreaOverlayRef.afterClosed().subscribe(() => {
+        if (this._openedSelectionAreaOverlayRef) {
+          this._openedSelectionAreaOverlayRef.enter();
+        }
+      });
+    }
+  }
+
+  /** If there is an overlay open it will dispose it and destroy it */
+  private _dismissOverlay(): void {
+    if (this._openedSelectionAreaOverlayRef) {
+      this._openedSelectionAreaOverlayRef.exit();
+      this._openedSelectionAreaOverlayRef.afterClosed().subscribe(() => {
+        if (this._openedSelectionAreaOverlayRef) {
+          this._openedSelectionAreaOverlayRef.overlayRef.dispose();
+        }
+        this._openedSelectionAreaOverlayRef = null;
+      });
+    }
+
+    // clean up overlay leave animation subscription
+    if (this._animationLeaveSubscription) {
+      this._animationLeaveSubscription.unsubscribe();
     }
 
     // if we have a focus trap we have to destroy it
@@ -479,8 +604,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     }
 
     this._overlayFocusTrap = null;
-    this._overlayRef = null;
-    this._portal = null;
   }
 
   /** Main method that initializes all streams and subscribe to the initial behavior of the selection area */
@@ -781,12 +904,20 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     // listen for a _closeOverlay event if there is a timestamp or a range
 
+    // Trigger overlay dismissal if close overlay stream
+    // of timestamp or range emits
     merge(
       this._chart._timestamp ? this._chart._timestamp._closeOverlay : of(null),
       this._chart._range ? this._chart._range._closeOverlay : of(null),
-      this._mousedown$,
-      touchStart$,
     )
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._dismissOverlay();
+      });
+
+    // Trigger leave animation for overlay, update the overlay
+    // and fade in again on mousedown/touchstart
+    merge(this._mousedown$, touchStart$)
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {
         this._closeOverlay();
@@ -900,12 +1031,14 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** Attaches the event listeners for the focus traps connected to each other */
   private _attachFocusTrapListeners(): void {
-    if (!this._overlayFocusTrap || !this._overlayRef) {
+    if (!this._overlayFocusTrap || !this._openedSelectionAreaOverlayRef) {
       return;
     }
 
     const traps = [this._overlayFocusTrap];
-    const anchors = [this._overlayRef.hostElement];
+    const anchors = [
+      this._openedSelectionAreaOverlayRef.overlayRef.hostElement,
+    ];
 
     if (this._chart._range && this._chart._range._rangeElementRef.first) {
       traps.push(this._chart._range._selectedAreaFocusTrap.focusTrap);

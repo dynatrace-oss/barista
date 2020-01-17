@@ -343,6 +343,12 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     this.closed.emit();
   }
 
+  /** @internal Gets triggered by deleting a drag handle of the selection area */
+  _handleDragHandleClose(): void {
+    this._reset();
+    this.closed.emit();
+  }
+
   /**
    * @internal
    * Method that emits an event when a handle is going to be dragged.
@@ -385,7 +391,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     if ([BACKSPACE, DELETE].includes(readKeyCode(event))) {
       // if the backspace or delete is pressed on the selected area we want to close it
       if (handle === DtSelectionAreaEventTarget.SelectedArea) {
-        this._handleOverlayClose();
+        this._handleDragHandleClose();
         return;
       }
 
@@ -394,7 +400,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
           ? this._rangeArea.left
           : this._rangeArea.left + this._rangeArea.width;
       // reset the range
-      this._handleOverlayClose();
+      this._handleDragHandleClose();
       this._emitStateChanges();
       this._switchToTimestamp.next(timestamp);
       return;
