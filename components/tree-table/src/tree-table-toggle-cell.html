@@ -4,7 +4,7 @@
     dt-icon-button
     variant="nested"
     [disabled]="!_expandable"
-    (click)="_treeControl.toggle(_rowData);"
+    (click)="_toggle()"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledBy"
   >

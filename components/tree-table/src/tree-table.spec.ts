@@ -139,6 +139,76 @@ describe('DtTreeTable', () => {
       ]);
     });
 
+    it('should fire the expandChange event when toggled by user click', () => {
+      expect(component.expandCounter).toBe(0);
+      expect(component.collapseCounter).toBe(0);
+      expect(component.toggleCounter).toBe(0);
+
+      //click the third toggle to open the node
+      (getToggles(treeTableElement)[2] as HTMLElement).click();
+      fixture.detectChanges();
+      expect(
+        component.treeControl.isExpanded(component.dataSource.data[2]),
+      ).toBeTruthy();
+
+      expect(component.expandCounter).toBe(1);
+      expect(component.collapseCounter).toBe(0);
+      expect(component.toggleCounter).toBe(1);
+
+      //click the third toggle to open the node
+      (getToggles(treeTableElement)[2] as HTMLElement).click();
+      fixture.detectChanges();
+      expect(
+        component.treeControl.isExpanded(component.dataSource.data[2]),
+      ).toBeFalsy();
+
+      expect(component.expandCounter).toBe(1);
+      expect(component.collapseCounter).toBe(1);
+      expect(component.toggleCounter).toBe(2);
+
+      component.dataSource.data[2].expanded = true;
+      fixture.detectChanges(false);
+      expect(
+        component.treeControl.isExpanded(component.dataSource.data[2]),
+      ).toBeTruthy();
+      expect(component.expandCounter).toBe(2);
+      expect(component.collapseCounter).toBe(1);
+      expect(component.toggleCounter).toBe(3);
+
+      component.dataSource.data[2].expanded = false;
+      fixture.detectChanges(false);
+      expect(
+        component.treeControl.isExpanded(component.dataSource.data[2]),
+      ).toBeFalsy();
+      expect(component.expandCounter).toBe(2);
+      expect(component.collapseCounter).toBe(2);
+      expect(component.toggleCounter).toBe(4);
+    });
+
+    it('should fire the expandChange event when toggled programaticaly', () => {
+      expect(component.expandCounter).toBe(0);
+      expect(component.collapseCounter).toBe(0);
+      expect(component.toggleCounter).toBe(0);
+
+      component.treeControl.expandAll();
+      fixture.detectChanges(false);
+      expect(
+        component.treeControl.isExpanded(component.dataSource.data[2]),
+      ).toBeTruthy();
+      expect(component.expandCounter).toBe(1);
+      expect(component.collapseCounter).toBe(1);
+      expect(component.toggleCounter).toBe(2);
+
+      component.treeControl.collapseAll();
+      fixture.detectChanges(false);
+      expect(
+        component.treeControl.isExpanded(component.dataSource.data[2]),
+      ).toBeFalsy();
+      expect(component.expandCounter).toBe(1);
+      expect(component.collapseCounter).toBe(2);
+      expect(component.toggleCounter).toBe(3);
+    });
+
     it('with dtIndicator', fakeAsync(() => {
       fixture.detectChanges();
       treeTableElement = fixture.nativeElement.querySelector('dt-tree-table');
@@ -206,6 +276,7 @@ export class TestData {
   pizzaCheese: string;
   pizzaBase: string;
   level: number;
+  expanded: boolean;
   children: TestData[];
   observableChildren: BehaviorSubject<TestData[]>;
   isSpecial: boolean;
@@ -216,11 +287,13 @@ export class TestData {
     pizzaBase: string,
     children: TestData[] = [],
     isSpecial: boolean = false,
+    expanded: boolean = false,
   ) {
     this.pizzaTopping = pizzaTopping;
     this.pizzaCheese = pizzaCheese;
     this.pizzaBase = pizzaBase;
     this.isSpecial = isSpecial;
+    this.expanded = expanded;
     this.children = children;
     this.observableChildren = new BehaviorSubject<TestData[]>(this.children);
   }
@@ -364,7 +437,13 @@ function expectTreeTableToMatch(
         <dt-tree-table-header-cell *dtHeaderCellDef>
           Topping
         </dt-tree-table-header-cell>
-        <dt-tree-table-toggle-cell *dtCellDef="let row">
+        <dt-tree-table-toggle-cell
+          *dtCellDef="let row"
+          (expandChange)="expandStateChanged($event)"
+          [(expanded)]="row.expanded"
+          (expanded)="hasExpanded()"
+          (collapsed)="hasCollapsed(row)"
+        >
           {{ row.pizzaTopping }}
         </dt-tree-table-toggle-cell>
       </ng-container>
@@ -392,6 +471,10 @@ function expectTreeTableToMatch(
   `,
 })
 class SimpleDtTreeTableApp {
+  toggleCounter: number = 0;
+  expandCounter: number = 0;
+  collapseCounter: number = 0;
+
   getLevel = (node: TestData) => node.level;
   isExpandable = (node: TestData) => node.children.length > 0;
   getChildren = (node: TestData) => node.observableChildren;
@@ -399,6 +482,18 @@ class SimpleDtTreeTableApp {
     node.level = level;
     return node;
   };
+
+  expandStateChanged(): void {
+    this.toggleCounter++;
+  }
+
+  hasCollapsed(): void {
+    this.collapseCounter++;
+  }
+
+  hasExpanded(): void {
+    this.expandCounter++;
+  }
 
   treeFlattener = new DtTreeFlattener<TestData, TestData>(
     this.transformer,
