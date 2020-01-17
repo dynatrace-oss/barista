@@ -210,6 +210,20 @@ It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 | ------ | ---- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | `data` | `T`  | The data for the row. Note that this might be removed rather soon and made obsolete due to a feature request on the underlying cdk table |
 
+## DtTreeTableToggleCell inputs
+
+| Name       | Type      | Default | Description                                              |
+| ---------- | --------- | ------- | -------------------------------------------------------- |
+| `expanded` | `boolean` | `false` | Sets or gets the DtTreeTableToggleCell's expanded state. |
+
+## DtTreeTableToggleCell outputs
+
+| Name           | Type                    | Description                                                                                            |
+| -------------- | ----------------------- | ------------------------------------------------------------------------------------------------------ |
+| `expandChange` | `EventEmitter<boolean>` | Emits an event when the expanded state changes. The event parameter is set to true when it is expanded |
+| `expanded`     | `EventEmitter<void>`    | Event emitted when the DtTreeTableToggleCell is expanded.                                              |
+| `collapsed`    | `EventEmitter<void>`    | Event emitted when the DtTreeTableToggleCell is collapsed.                                             |
+
 ## DtTreeControl
 
 | Name             | Type                                                     | Default | Description                                                                                      |

@@ -1,0 +1,99 @@
+<section>
+  <dt-tree-table
+    [dataSource]="dataSource"
+    [treeControl]="treeControl"
+    interactiveRows
+  >
+    <ng-container dtColumnDef="name">
+      <dt-tree-table-header-cell *dtHeaderCellDef
+        >Name</dt-tree-table-header-cell
+      >
+      <dt-tree-table-toggle-cell
+        *dtCellDef="let row"
+        (expandChange)="expandStateChanged($event)"
+        (expanded)="expanded()"
+        (collapsed)="collapsed()"
+      >
+        {{ row.name }} {{ row.threadlevel }}
+      </dt-tree-table-toggle-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="total">
+      <dt-tree-table-header-cell *dtHeaderCellDef>
+        Total time consumption
+      </dt-tree-table-header-cell>
+      <dt-cell *dtCellDef="let row">
+        {{row.blocked + "/" + row.totalTimeConsumption}}<br />
+        {{row.waiting + "/" + row.totalTimeConsumption}}<br />
+        {{row.running + "/" + row.totalTimeConsumption}}
+      </dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="blocked" dtColumnAlign="right">
+      <dt-tree-table-header-cell *dtHeaderCellDef>
+        Blocked
+      </dt-tree-table-header-cell>
+      <dt-cell dtIndicator dtIndicatorColor="error" *dtCellDef="let row">
+        {{ row.blocked }}ms
+      </dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="running" dtColumnAlign="center">
+      <dt-tree-table-header-cell *dtHeaderCellDef>
+        Running
+      </dt-tree-table-header-cell>
+      <dt-cell *dtCellDef="let row">{{ row.running }}ms</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="waiting">
+      <dt-tree-table-header-cell *dtHeaderCellDef>
+        Waiting
+      </dt-tree-table-header-cell>
+      <dt-cell *dtCellDef="let row">{{ row.waiting }}ms</dt-cell>
+    </ng-container>
+
+    <ng-container dtColumnDef="actions">
+      <dt-tree-table-header-cell *dtHeaderCellDef>
+        Actions
+      </dt-tree-table-header-cell>
+      <dt-cell *dtCellDef="let row">
+        buttons...
+      </dt-cell>
+    </ng-container>
+
+    <dt-header-row
+      *dtHeaderRowDef="[
+      'name',
+      'total',
+      'blocked',
+      'running',
+      'waiting',
+      'actions'
+    ]"
+    ></dt-header-row>
+    <dt-tree-table-row
+      *dtRowDef="
+      let row;
+      columns: ['name', 'total', 'blocked', 'running', 'waiting', 'actions']
+    "
+      [data]="row"
+    ></dt-tree-table-row>
+  </dt-tree-table>
+
+  <button class="expand-all-btn" (click)="treeControl.expandAll()">
+    Expand all
+  </button>
+  <button class="collapse-all-btn" (click)="treeControl.collapseAll()">
+    Collapse all
+  </button>
+</section>
+
+<span class="expand-changed">{{ expandChangedCount }}</span>
+<span class="expand-changed-expanded-true"
+  >{{ expandChangedCountWithExpandTrue }}</span
+>
+<span class="expand-changed-expanded-false"
+  >{{ expandChangedCountWithExpandFalse }}</span
+>
+<span class="expanded">{{ expandedCount }}</span>
+<span class="collapsed">{{ collapsedCount }}</span>

@@ -27,15 +27,17 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
+  Output,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Subscription, Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 import { DtTreeControl } from '@dynatrace/barista-components/core';
 import { DtCell, DtColumnDef } from '@dynatrace/barista-components/table';
 
 import { DtTreeTable } from './tree-table';
 import { DtTreeTableRow } from './tree-table-row';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** The indentation in px for a level in the tree-table */
 const DT_TREE_TABLE_INDENT_PX = 16;
@@ -60,6 +62,45 @@ export class DtTreeTableToggleCell<T> extends DtCell
   @Input('aria-label') ariaLabel: string;
   /** Aria reference to a label describing the toggle button. */
   @Input('aria-labelledby') ariaLabelledBy: string;
+
+  /** Event emitted when the cell's expandable state changes. */
+  @Output()
+  readonly expandChange: Observable<
+    boolean
+  > = this._treeControl.expansionModel.changed.pipe(
+    filter(
+      (changed: SelectionChange<T>) =>
+        (changed.added.includes(this._rowData) ||
+          changed.removed.includes(this._rowData)) &&
+        this._treeControl.isExpandable(this._rowData),
+    ),
+    map((changed: SelectionChange<T>) => changed.added.includes(this._rowData)),
+  );
+
+  @Input()
+  set expanded(value: boolean) {
+    const shouldExpand = coerceBooleanProperty(value);
+
+    // Only update expanded state if it actually changed.
+    if (this._isExpanded !== shouldExpand) {
+      if (shouldExpand) {
+        this._expand();
+      } else {
+        this._collapse();
+      }
+    }
+  }
+
+  /** @internal Event emitted when the panel is expanded. */
+  @Output('expanded')
+  readonly _treeExpanded: Observable<boolean> = this.expandChange.pipe(
+    filter(v => v),
+  );
+
+  @Output()
+  readonly collapsed: Observable<boolean> = this.expandChange.pipe(
+    filter(v => !v),
+  );
 
   /** @internal Wether the row is expanded */
   get _isExpanded(): boolean {
@@ -107,6 +148,21 @@ export class DtTreeTableToggleCell<T> extends DtCell
       .subscribe(() => {
         this._changeDetectorRef.markForCheck();
       });
+  }
+
+  /** @internal triggers the treecontrols toggle method with current rowdata  */
+  _toggle(): void {
+    this._treeControl.toggle(this._rowData);
+  }
+
+  /** @internal triggers the treecontrols expand method with current rowdata  */
+  _expand(): void {
+    this._treeControl.expand(this._rowData);
+  }
+
+  /** @internal triggers the treecontrols toggle method with current rowdata  */
+  _collapse(): void {
+    this._treeControl.collapse(this._rowData);
   }
 
   ngAfterViewInit(): void {

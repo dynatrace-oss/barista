@@ -25,6 +25,7 @@ import {
 
 import { DataService } from '../../services/data.service';
 import { options } from '../chart/selection-area/chart-options';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'dt-e2e-drawer',
@@ -38,7 +39,12 @@ export class DtE2EDrawer {
   lastTimeframe: [number, number];
 
   options = options;
-  series$ = this._dataService
+  // Added type here due to missing support for type inference on windows with typescript 3.4.5
+  // error TS2742: The inferred type of 'series$' cannot be named without a reference to '...@types/highcharts'.
+  // This is likely not portable. A type annotation is necessary.
+  series$: Observable<
+    Highcharts.IndividualSeriesOptions[]
+  > = this._dataService
     .getFixture<{ data: Highcharts.IndividualSeriesOptions[] }>(
       '/data-small.json',
     )
