@@ -173,6 +173,13 @@ export const routes: Routes = [
         module => module.DtE2EHighlightModule,
       ),
   },
+  {
+    path: 'tree-table',
+    loadChildren: () =>
+      import('../components/tree-table/tree-table.module').then(
+        module => module.DtE2ETreeTableModule,
+      ),
+  },
 ];
 
 @NgModule({

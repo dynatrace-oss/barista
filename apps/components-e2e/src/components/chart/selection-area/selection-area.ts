@@ -38,6 +38,9 @@ export class DtE2ESelectionArea {
   validRange = false;
 
   options = options;
+  // Added type here due to missing support for type inference on windows with typescript 3.4.5
+  // error TS2742: The inferred type of 'series$' cannot be named without a reference to '...@types/highcharts'.
+  // This is likely not portable. A type annotation is necessary.
   series$: Observable<
     Highcharts.IndividualSeriesOptions[]
   > = this._dataService
