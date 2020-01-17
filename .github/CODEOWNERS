@@ -100,7 +100,7 @@
 /tools/linting/* @thomaspink @lukasholzer
 /tools/linting/src/** @rowa-audil @lara-aigmueller @heartdisease
 
-/tools/release/** @thomaspink
+/tools/release/** @lukasholzer @ffriedl89
 
 /tools/schematics/** @ffriedl89
 
