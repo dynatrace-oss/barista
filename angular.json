@@ -188,6 +188,14 @@
             "tsConfig": ["apps/components-e2e/tsconfig.e2e.json"],
             "exclude": ["**/node_modules/**", "!apps/components-e2e/**"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/components-e2e/jest.config.js",
+            "tsConfig": "apps/components-e2e/tsconfig.spec.json",
+            "setupFile": "apps/components-e2e/src/test-setup.ts"
+          }
         }
       }
     },
