@@ -12,4 +12,8 @@
 :host ::ng-deep .dt-context-dialog-header-title {
   @include dt-h2-font();
   color: $white;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
 }

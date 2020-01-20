@@ -21,6 +21,7 @@ import {
   ConnectedPosition,
   Overlay,
   OverlayRef,
+  OverlayConfig,
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -42,6 +43,7 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
   isDevMode,
+  InjectionToken,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -62,49 +64,40 @@ import {
 import { DtContextDialogTrigger } from './context-dialog-trigger';
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialog');
-const DT_CONTEXT_DIALOG_OVERLAY_CONFIG = 8;
 const OVERLAY_POSITIONS: ConnectedPosition[] = [
   {
-    originX: 'start',
-    originY: 'top',
-    overlayX: 'end',
-    overlayY: 'top',
-    offsetX: -DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
-  },
-  {
-    originX: 'start',
-    originY: 'bottom',
-    overlayX: 'end',
-    overlayY: 'bottom',
-    offsetX: -DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
-  },
-  {
-    originX: 'start',
-    originY: 'center',
-    overlayX: 'end',
-    overlayY: 'center',
-    offsetX: -DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
-  },
-  {
     originX: 'end',
     originY: 'top',
-    overlayX: 'start',
+    overlayX: 'end',
     overlayY: 'top',
-    offsetX: DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
+    panelClass: 'dt-context-dialog-panel-left',
   },
   {
     originX: 'end',
     originY: 'bottom',
-    overlayX: 'start',
+    overlayX: 'end',
     overlayY: 'bottom',
-    offsetX: DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
+    panelClass: [
+      'dt-context-dialog-panel-left',
+      'dt-context-dialog-panel-bottom',
+    ],
   },
   {
-    originX: 'end',
-    originY: 'center',
+    originX: 'start',
+    originY: 'top',
     overlayX: 'start',
-    overlayY: 'center',
-    offsetX: DT_CONTEXT_DIALOG_OVERLAY_CONFIG,
+    overlayY: 'top',
+    panelClass: 'dt-context-dialog-panel-right',
+  },
+  {
+    originX: 'start',
+    originY: 'bottom',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    panelClass: [
+      'dt-context-dialog-panel-right',
+      'dt-context-dialog-panel-bottom',
+    ],
   },
 ];
 
@@ -112,6 +105,10 @@ const OVERLAY_POSITIONS: ConnectedPosition[] = [
 export class DtContextDialogBase {}
 export const _DtContextDialogMixinBase = mixinTabIndex(
   mixinDisabled(DtContextDialogBase),
+);
+
+export const DT_CONTEXT_DIALOG_CONFIG = new InjectionToken<OverlayConfig>(
+  'dt-context-dialog-config',
 );
 
 @Component({
@@ -226,6 +223,9 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
+    @Optional()
+    @Inject(DT_CONTEXT_DIALOG_CONFIG)
+    private _userConfig?: OverlayConfig,
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
@@ -283,7 +283,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
         this._overlayRef.overlayElement,
       );
       this._focusTrap
-        .focusFirstTabbableElementWhenReady()
+        .focusLastTabbableElementWhenReady()
         .catch((error: Error) => {
           if (isDevMode()) {
             LOG.debug('Error when trying to set initial focus', error);
@@ -324,23 +324,32 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       .flexibleConnectedTo(this._trigger.elementRef)
       .withPositions(OVERLAY_POSITIONS)
       .setOrigin(this._trigger.elementRef)
-      .withFlexibleDimensions(false)
-      .withPush(true)
+      .withFlexibleDimensions(true)
+      .withPush(false)
       .withGrowAfterOpen(false)
       .withViewportMargin(0)
       .withLockedPosition(false);
-    this._overlayRef = this._overlay.create({
+
+    const defaultConfig = {
       positionStrategy,
-      scrollStrategy: this._overlay.scrollStrategies.reposition(),
+      scrollStrategy: this._overlay.scrollStrategies.block(),
       backdropClass: 'cdk-overlay-transparent-backdrop',
       hasBackdrop: true,
-    });
+    };
+
+    const overlayConfig = this._userConfig
+      ? { ...defaultConfig, ...this._userConfig }
+      : defaultConfig;
+
+    this._overlayRef = this._overlay.create(overlayConfig);
+
     dtSetUiTestAttribute(
       this._overlayRef.overlayElement,
       this._overlayRef.overlayElement.id,
       this._elementRef,
       this._config,
     );
+
     this._overlayRef
       .backdropClick()
       .pipe(takeUntil(this._destroy))

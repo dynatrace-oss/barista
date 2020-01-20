@@ -4,6 +4,8 @@
 $panel-padding: 12px;
 $dialog-max-width: 328px;
 $context-dialog-panel-padding: 12px;
+$panel-padding-btn: 38px;
+$context-dialog-top-header-padding: 8px;
 
 .dt-context-dialog-content ::ng-deep .dt-menu {
   margin-left: -$context-dialog-panel-padding;
@@ -13,27 +15,145 @@ $context-dialog-panel-padding: 12px;
 .dt-context-dialog-panel {
   @include dt-main-font();
   background-color: $gray-640;
-  display: inline-block;
   border-radius: 3px;
   position: relative;
   transform-origin: top right;
   color: #ffffff;
   max-width: $dialog-max-width;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
 }
 
 .dt-context-dialog-trigger[hidden] {
   display: none;
 }
 
-.dt-context-dialog-panel ::ng-deep .dt-context-dialog-header,
+.dt-context-dialog-panel ::ng-deep .dt-context-dialog-header {
+  flex-shrink: 0;
+}
+
+.dt-context-dialog-panel ::ng-deep .dt-context-dialog-footer {
+  flex-shrink: 0;
+}
+
 .dt-context-dialog-content {
+  flex-grow: 1;
+  overflow: auto;
+  min-height: 2em;
+  padding: 0 $panel-padding $panel-padding;
+  margin-top: $panel-padding-btn;
+}
+
+.dt-context-dialog-panel ::ng-deep .dt-context-dialog-footer {
   padding: $panel-padding;
 }
 
-// If there is a header in the context dialog, reset the contents top padding.
+// If there is a header in the context dialog,
+// adjust the contents top padding and margin.
 .dt-context-dialog-panel
   ::ng-deep
   .dt-context-dialog-header
   + .dt-context-dialog-content {
   padding-top: $panel-padding;
+  margin-top: 0;
+}
+
+// If the context dialog is being positioned on top of the trigger,
+// adjust the padding of the header.
+::ng-deep.dt-context-dialog-panel-bottom
+  .dt-context-dialog-panel
+  .dt-context-dialog-header {
+  padding: $panel-padding;
+}
+
+// If the context dialog is being positioned on top of the trigger,
+// adjust the bottom padding and margin of the content
+::ng-deep.dt-context-dialog-panel-bottom
+  .dt-context-dialog-panel
+  .dt-context-dialog-content {
+  margin: 0 0 $panel-padding-btn;
+  padding-bottom: $panel-padding;
+}
+
+// If the context dialog is being positioned on top of the trigger
+// and there is no footer, adjust the padding and margin of the content.
+::ng-deep.dt-context-dialog-panel-bottom
+  .dt-context-dialog-panel
+  .dt-context-dialog-content:not(:last-child) {
+  margin: 0;
+  padding: $panel-padding;
+}
+
+// If the context dialog is being positioned on top of the trigger,
+// adjust the top and bottom paddings of the content.
+::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-content {
+  padding-top: $panel-padding;
+  padding-bottom: $panel-padding-btn;
+}
+
+// if the context dialog is positioned on the top right of
+// the trigger, adjust the footer padding.
+::ng-deep.dt-context-dialog-panel-bottom.dt-context-dialog-panel-right
+  .dt-context-dialog-panel
+  .dt-context-dialog-footer {
+  padding-left: $panel-padding-btn;
+}
+
+// if the context dialog is positioned on the top left of
+// the trigger, adjust footer padding.
+::ng-deep.dt-context-dialog-panel-bottom.dt-context-dialog-panel-left
+  .dt-context-dialog-panel
+  .dt-context-dialog-footer {
+  padding-right: $panel-padding-btn;
+}
+
+// if the context dialog is positioned on top of the trigger,
+// adjust the header padding.
+::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-header {
+  padding: $panel-padding;
+}
+
+// this very specific selector is necessary to override
+// the emulated button styles
+[dt-icon-button].dt-context-dialog-close-trigger {
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  &:hover {
+    background-color: $gray-700;
+  }
+}
+
+::ng-deep.dt-context-dialog-panel-right .dt-context-dialog-close-trigger {
+  left: 0;
+}
+
+::ng-deep .dt-context-dialog-panel-left .dt-context-dialog-header {
+  padding: $context-dialog-top-header-padding $panel-padding-btn
+    $context-dialog-panel-padding $context-dialog-panel-padding;
+}
+
+::ng-deep .dt-context-dialog-panel-right .dt-context-dialog-header {
+  padding: $context-dialog-top-header-padding $context-dialog-panel-padding
+    $context-dialog-panel-padding $panel-padding-btn;
+}
+
+::ng-deep.dt-context-dialog-panel-bottom .dt-context-dialog-panel {
+  transform-origin: bottom right;
+}
+
+::ng-deep.dt-context-dialog-panel-bottom
+  [dt-icon-button].dt-context-dialog-close-trigger {
+  top: auto;
+  bottom: 0;
+}
+
+::ng-deep.dt-context-dialog-panel-bottom.dt-context-dialog-panel-left
+  [dt-icon-button].dt-context-dialog-close-trigger {
+  top: auto;
+  bottom: 0;
 }

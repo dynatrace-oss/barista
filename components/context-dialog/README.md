@@ -50,6 +50,13 @@ To make our components accessible it is obligatory to provide either an
 | `close()` | Closes the context dialog.  | `void`       |
 | `focus()` | Focuses the context dialog. | `void`       |
 
+## Configuration options
+
+If your use case requires a different configuration of the overlay, it can be
+configured using the `DT_CONTEXT_DIALOG_CONFIG` injection token. Only the
+settings you provide will be overwritten, the others will fall back to the
+default configuration.
+
 ## Accessibility
 
 Context dialogs should be given a meaningful label via `aria-label` for the open
@@ -88,3 +95,7 @@ any `<dt-button>` to be able to link it to the correct context dialog.
 ### Context dialog with a header
 
 <ba-live-example name="DtExampleContextDialogHeader"></ba-live-example>
+
+### Context dialog with a footer
+
+<ba-live-example name="DtExampleContextDialogFooter"></ba-live-example>
