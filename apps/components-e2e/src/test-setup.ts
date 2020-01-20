@@ -13,13 +13,5 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-export function isCloseTo(
-  value: number,
-  expectation: number,
-  threshold: number = 3,
-): boolean {
-  const minExpectation = expectation - threshold;
-  const maxExpectation = expectation + threshold;
 
-  return minExpectation <= value && value <= maxExpectation;
-}
+import 'jest-preset-angular';
