@@ -23,11 +23,13 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 import {
-  FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayConfig,
   OverlayRef,
   PositionStrategy,
+  ViewportRuler,
+  OverlayContainer,
+  FlexibleConnectedPositionStrategy,
 } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -75,12 +77,14 @@ import {
   isDefined,
   readKeyCode,
   stringify,
+  DtFlexibleConnectedPositionStrategy,
 } from '@dynatrace/barista-components/core';
 import { DtFormField } from '@dynatrace/barista-components/form-field';
 
 import { DtAutocomplete } from './autocomplete';
 import { getDtAutocompleteMissingPanelError } from './autocomplete-errors';
 import { DtAutocompleteOrigin } from './autocomplete-origin';
+import { Platform } from '@angular/cdk/platform';
 
 /** Provider that allows the autocomplete to register as a ControlValueAccessor. */
 export const DT_AUTOCOMPLETE_VALUE_ACCESSOR: Provider = {
@@ -229,8 +233,13 @@ export class DtAutocompleteTrigger<T>
    */
   private _canOpenOnNextFocus = true;
 
-  /** Strategy that is used to position the panel. */
-  private _positionStrategy: FlexibleConnectedPositionStrategy;
+  /**
+   * Strategy that is used to position the panel.
+   * @breaking-change Switch to only use DtFlexibleConnectedPositionStrategy with 7.0.0
+   */
+  private _positionStrategy:
+    | FlexibleConnectedPositionStrategy
+    | DtFlexibleConnectedPositionStrategy;
 
   /** Stream of keyboard events that can close the panel. */
   private readonly _closeKeyEventStream = new Subject<void>();
@@ -253,9 +262,15 @@ export class DtAutocompleteTrigger<T>
     private _changeDetectorRef: ChangeDetectorRef,
     private _viewportResizer: DtViewportResizer,
     private _zone: NgZone,
-    @Optional() @Host() private _formField: DtFormField<string>,
+    @Optional() @Host() private _formField?: DtFormField<string>,
     // tslint:disable-next-line:no-any
-    @Optional() @Inject(DOCUMENT) private _document: any,
+    @Optional() @Inject(DOCUMENT) private _document?: any,
+    /** @breaking-change 7.0.0 Make the _viewportRuler non optional. */
+    @Optional() private _viewportRuler?: ViewportRuler,
+    /** @breaking-change 7.0.0 Make the _platform non optional. */
+    @Optional() private _platform?: Platform,
+    /** @breaking-change 7.0.0 Make the _overlayContainer non optional. */
+    @Optional() private _overlayContainer?: OverlayContainer,
   ) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
@@ -500,9 +515,24 @@ export class DtAutocompleteTrigger<T>
   }
 
   private _getOverlayPosition(): PositionStrategy {
-    this._positionStrategy = this._overlay
-      .position()
-      .flexibleConnectedTo(this._getConnectedElement())
+    /**
+     * @breaking-change Switch to only use the DtFlexibleConnectedPositionStrategy
+     * with 7.0.0
+     */
+    const originalPositionStrategy =
+      this._viewportRuler && this._platform && this._overlayContainer
+        ? new DtFlexibleConnectedPositionStrategy(
+            this._getConnectedElement(),
+            this._viewportRuler,
+            this._document,
+            this._platform,
+            this._overlayContainer,
+          )
+        : this._overlay
+            .position()
+            .flexibleConnectedTo(this._getConnectedElement());
+
+    this._positionStrategy = originalPositionStrategy
       .withFlexibleDimensions(false)
       .withPush(false)
       .withPositions([
