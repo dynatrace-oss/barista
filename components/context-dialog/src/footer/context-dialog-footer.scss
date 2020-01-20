@@ -1,0 +1,10 @@
+@import '../../../style/font-mixins';
+@import '../../../core/src/style/variables';
+
+:host {
+  background-color: $gray-600;
+  display: block;
+  box-sizing: border-box;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}

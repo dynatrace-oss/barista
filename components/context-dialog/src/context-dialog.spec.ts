@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { OverlayContainer, OverlayConfig } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
@@ -47,6 +47,7 @@ import {
   DT_UI_TEST_CONFIG,
   DtUiTestConfiguration,
 } from '@dynatrace/barista-components/core';
+import { DT_CONTEXT_DIALOG_CONFIG } from './context-dialog';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
@@ -58,6 +59,10 @@ describe('DtContextDialog', () => {
     },
   };
 
+  const overlayCustomConfig: OverlayConfig = {
+    panelClass: 'my-fancy-panel-class',
+  };
+
   // tslint:disable-next-line:no-any
   function configureDtContextDialogTestingModule(declarations: any[]): void {
     TestBed.configureTestingModule({
@@ -67,7 +72,10 @@ describe('DtContextDialog', () => {
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations,
-      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
+      providers: [
+        { provide: DT_UI_TEST_CONFIG, useValue: overlayConfig },
+        { provide: DT_CONTEXT_DIALOG_CONFIG, useValue: overlayCustomConfig },
+      ],
     }).compileComponents();
 
     inject([OverlayContainer], (oc: OverlayContainer) => {
@@ -118,6 +126,16 @@ describe('DtContextDialog', () => {
         .querySelector('.dt-context-dialog-content');
       expect(contextDialogPanel!.classList).toContain('more');
       expect(contextDialogPanel!.classList).toContain('evenmore');
+    });
+
+    it('should set an additional class on the overlay panel when a class is provided in a custom overlay config', () => {
+      const fixture = createComponent(BasicContextDialog);
+      fixture.componentInstance.contextDialog.open();
+      fixture.detectChanges();
+      const contextDialogPanel = overlayContainer
+        .getContainerElement()
+        .querySelector('.cdk-overlay-pane');
+      expect(contextDialogPanel!.classList).toContain('my-fancy-panel-class');
     });
 
     describe('accessibility', () => {

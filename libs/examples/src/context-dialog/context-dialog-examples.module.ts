@@ -25,6 +25,7 @@ import { DtExampleContextDialogCustomIcon } from './context-dialog-custom-icon-e
 import { DtExampleContextDialogDark } from './context-dialog-dark-example/context-dialog-dark-example';
 import { DtExampleContextDialogDefault } from './context-dialog-default-example/context-dialog-default-example';
 import { DtExampleContextDialogHeader } from './context-dialog-header-example/context-dialog-header-example';
+import { DtExampleContextDialogFooter } from './context-dialog-footer-example/context-dialog-footer-example';
 import { DtExampleContextDialogInteractive } from './context-dialog-interactive-example/context-dialog-interactive-example';
 import { DtExampleContextDialogPreviousFocus } from './context-dialog-previous-focus-example/context-dialog-previous-focus-example';
 
@@ -36,6 +37,7 @@ export const DT_CONTEXT_DIALOG_EXAMPLES = [
   DtExampleContextDialogHeader,
   DtExampleContextDialogInteractive,
   DtExampleContextDialogPreviousFocus,
+  DtExampleContextDialogFooter,
 ];
 
 @NgModule({

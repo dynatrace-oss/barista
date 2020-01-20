@@ -23,17 +23,21 @@ import {
 
 import { getActiveElementText } from '../overlay/overlay.po';
 
-fixture('Context Dialog').page('http://localhost:4200/context-dialog');
+fixture('Context Dialog')
+  .page('http://localhost:4200/context-dialog')
+  .beforeEach(async (testController: TestController) => {
+    await testController.resizeWindow(1200, 800);
+  });
 
 test('should open the context dialog when not disabled', async (testController: TestController) => {
-  await testController.click(contextDialog);
+  await testController.click(contextDialog, { speed: 0.3 });
   await testController.expect(await contextDialogPanel.exists).ok();
   await testController.expect(await contextDialogPanel.visible).ok();
 });
 
 test('should not execute click handlers when disabled', async (testController: TestController) => {
-  await testController.click(disableToggle);
-  await testController.click(contextDialog);
+  await testController.click(disableToggle, { speed: 0.3 });
+  await testController.click(contextDialog, { speed: 0.3 });
   await testController.expect(await contextDialogPanel.exists).notOk();
 });
 
@@ -42,13 +46,16 @@ test('should trap the focus inside the overlay', async (testController: TestCont
   await testController.expect(await getActiveElementText()).eql('Edit');
 
   await testController.pressKey('tab');
+  await testController.expect(await getActiveElementAriaLabel()).eql('close');
+
+  await testController.pressKey('tab');
   await testController.expect(await getActiveElementText()).eql('Edit');
 });
 
 test('should open and close the context dialog', async (testController: TestController) => {
-  await testController.click(contextDialog);
+  await testController.click(contextDialog, { speed: 0.3 });
   await testController.expect(await contextDialogPanel.exists).ok();
   await testController.expect(await contextDialogPanel.visible).ok();
-  await testController.click(backdrop);
+  await testController.click(backdrop, { speed: 0.3 });
   await testController.expect(await contextDialogPanel.exists).notOk();
 });
