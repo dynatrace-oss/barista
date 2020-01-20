@@ -14,9 +14,20 @@
 </button>
 <ng-template>
   <div class="dt-context-dialog-panel" #panel role="dialog" dtTheme=":dark">
+    <button
+      dt-icon-button
+      variant="secondary"
+      class="dt-context-dialog-close-trigger"
+      (click)="close()"
+      [attr.aria-label]="ariaLabelClose"
+      cdkFocusInitial
+    >
+      <dt-icon name="abort"></dt-icon>
+    </button>
     <ng-content select="dt-context-dialog-header"></ng-content>
     <div class="dt-context-dialog-content" [ngClass]="overlayPanelClass">
       <ng-content></ng-content>
     </div>
+    <ng-content select="dt-context-dialog-footer"></ng-content>
   </div>
 </ng-template>

@@ -26,6 +26,7 @@ import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DtContextDialog } from './context-dialog';
 import { DtContextDialogTrigger } from './context-dialog-trigger';
 import { DtContextDialogHeader } from './header/context-dialog-header';
+import { DtContextDialogFooter } from './footer/context-dialog-footer';
 import { DtContextDialogHeaderTitle } from './header/context-dialog-header-title';
 
 const EXPORTED_DECLARATIONS = [
@@ -33,6 +34,7 @@ const EXPORTED_DECLARATIONS = [
   DtContextDialogTrigger,
   DtContextDialogHeader,
   DtContextDialogHeaderTitle,
+  DtContextDialogFooter,
 ];
 
 @NgModule({
