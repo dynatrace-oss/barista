@@ -55,10 +55,10 @@ $range-invalid-color: $gray-300;
     position: absolute;
     right: -9px;
     top: 0%;
-    transition: opacity 400ms ease-out;
     transform: translateY(-50%) scaleX(-1);
 
     :host.dt-chart-range-released & {
+      transition: opacity 400ms ease-out;
       opacity: 1;
       top: 50%;
     }

@@ -22,22 +22,28 @@ import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtChartModule } from '@dynatrace/barista-components/chart';
 
 import { DtE2ESelectionArea } from './selection-area';
+import { DtE2ERange } from './range/range';
+import { DataService } from '../../../services/data.service';
 
 const routes: Route[] = [
   {
     path: '',
-    pathMatch: 'full',
     component: DtE2ESelectionArea,
+  },
+  {
+    path: 'range',
+    component: DtE2ERange,
   },
 ];
 
 @NgModule({
-  declarations: [DtE2ESelectionArea],
+  declarations: [DtE2ESelectionArea, DtE2ERange],
   imports: [
     CommonModule,
     DtChartModule,
     DtButtonModule,
     RouterModule.forChild(routes),
   ],
+  providers: [DataService],
 })
 export class DtE2ESelectionAreaModule {}

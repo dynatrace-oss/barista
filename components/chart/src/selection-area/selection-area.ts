@@ -43,14 +43,23 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  EMPTY,
-  Observable,
-  Subject,
+  addCssClass,
+  DtFlexibleConnectedPositionStrategy,
+  DtViewportResizer,
+  getElementBoundingClientRect,
+  readKeyCode,
+  removeCssClass,
+  ViewportBoundaries,
+} from '@dynatrace/barista-components/core';
+import {
   animationFrameScheduler,
   combineLatest,
+  EMPTY,
   fromEvent,
   merge,
+  Observable,
   of,
+  Subject,
 } from 'rxjs';
 import {
   concatMapTo,
@@ -68,17 +77,6 @@ import {
   throttleTime,
   withLatestFrom,
 } from 'rxjs/operators';
-
-import {
-  DtFlexibleConnectedPositionStrategy,
-  DtViewportResizer,
-  ViewportBoundaries,
-  addCssClass,
-  getElementBoundingClientRect,
-  readKeyCode,
-  removeCssClass,
-} from '@dynatrace/barista-components/core';
-
 import { DtChart } from '../chart';
 import { clampRange } from '../range/clamp-range';
 import { DtChartRange, RangeStateChangedEvent } from '../range/range';
@@ -506,6 +504,8 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       share(),
     );
 
+    const touchStartAndMouseDown$ = merge(this._mousedown$, touchStart$);
+
     const touchEnd$ = getTouchEndStream(this._elementRef.nativeElement).pipe(
       share(),
     );
@@ -726,9 +726,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // On a mousedown the range and the timestamp have to be hidden.
     const startShowingTimestamp$ = this._click$.pipe(mapTo(true));
     const startShowingRange$ = this._drag$.pipe(mapTo(true));
-    const hideTimestampAndRange$ = merge(this._mousedown$, touchStart$).pipe(
-      mapTo(false),
-    );
+    let hideTimestampAndRange$ =
+      this._chart._range && !this._chart._timestamp
+        ? EMPTY
+        : touchStartAndMouseDown$.pipe(mapTo(false));
 
     merge(startShowingRange$, hideTimestampAndRange$)
       .pipe(
@@ -782,10 +783,11 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // listen for a _closeOverlay event if there is a timestamp or a range
 
     merge(
-      this._chart._timestamp ? this._chart._timestamp._closeOverlay : of(null),
-      this._chart._range ? this._chart._range._closeOverlay : of(null),
-      this._mousedown$,
-      touchStart$,
+      this._chart._timestamp ? this._chart._timestamp._closeOverlay : EMPTY,
+      this._chart._range ? this._chart._range._closeOverlay : EMPTY,
+      this._chart._range && !this._chart._timestamp
+        ? EMPTY
+        : touchStartAndMouseDown$,
     )
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {
@@ -872,11 +874,9 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     );
 
     const showHairline$ = hover$.pipe(mapTo(true));
-    const hideHairline$ = merge(
-      this._chart._range ? this._mousedown$ : of(null),
-      this._dragHandle$,
-      mouseOut$,
-    ).pipe(mapTo(false));
+    const hideHairline$ = merge(this._drag$, this._dragHandle$, mouseOut$).pipe(
+      mapTo(false),
+    );
 
     merge(showHairline$, hideHairline$)
       .pipe(
