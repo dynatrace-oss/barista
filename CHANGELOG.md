@@ -1,4 +1,4 @@
-## 5.0.0-rc.2 (2020-01-16)
+## 5.0.0 (2020-01-16)
 
 We removed the deprecated root package. Note that you cannot import from the
 root package `@dynatrace/barista-components` anymore. Please use the more
@@ -12,7 +12,9 @@ With the 5.0.0 release two selectors changed:
 
 ### Breaking changes
 
-- **chart-heatfield** The constructor no longer takes the chart as a parameter.
+- **filter-field:** Changes the typing for the default-data-source to better
+  match the data structures.
+- **chart-heatfield:** The constructor no longer takes the chart as a parameter.
 - **autocomplete:** Template, panel and optionsGroups members are now internal.
 - **button:** Removed deprecated mixin `dt-card-actions-spacing`.
 - **chart:** The Eventemitter `tooltipDataChange` doesn't emit null anymore.
@@ -93,6 +95,9 @@ With the 5.0.0 release two selectors changed:
 
 ### Features
 
+- **filter-field:** Improves typing for the data structures the
+  default-data-source takes.
+  ([4f28d1c](https://github.com/dynatrace-oss/barista/commit/4f28d1c6d0cca77aab9b06a774eacae5c1a1c1ee))
 - **chart-range:** Add possibility to close chart-range programmatically
 - **chart-timestamp:** Add possibility to close chart-timestamp programmatically
 - **event-chart:** Added programmatic event selection capabilities to the event
