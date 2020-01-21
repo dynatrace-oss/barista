@@ -24,6 +24,7 @@ import { DtOptionModule } from '@dynatrace/barista-components/core';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 
 import { DtFilterField } from './filter-field';
 import { DtFilterFieldRange } from './filter-field-range/filter-field-range';
@@ -40,6 +41,7 @@ import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
     DtInputModule,
     DtButtonGroupModule,
     DtLoadingDistractorModule,
+    DtOverlayModule,
   ],
   exports: [
     DtAutocompleteModule,

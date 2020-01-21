@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
-export * from './mock-intersection-observer';
-export * from './mock-object-property';
-export * from './mock-get-computed-style';
+/**
+ * MOch the getComputedStyle property on an object, preferrably an jsDOM Node element.
+ * @param value - Value that should be used as a return value for the mocked function.
+ */
+export function mockGetComputedStyle(value: string | undefined): void {
+  Object.defineProperty(window, 'getComputedStyle', {
+    value: () => ({
+      getPropertyValue: _prop => {
+        return value;
+      },
+    }),
+  });
+}

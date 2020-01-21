@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Component } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -33,8 +33,19 @@ import {
 } from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { Platform } from '@angular/cdk/platform';
+
+import {
+  createComponent,
+  MockNgZone,
+} from '@dynatrace/barista-components/testing';
+import {
+  mockObjectProperty,
+  mockGetComputedStyle,
+} from '@dynatrace/barista-components/testing/mock';
+
 import { _DtFilterFieldTagData } from '../types';
+import { DtOverlayTrigger } from '@dynatrace/barista-components/overlay';
 
 describe('DtFilterFieldTag', () => {
   let fixture: ComponentFixture<TestApp>;
@@ -42,6 +53,7 @@ describe('DtFilterFieldTag', () => {
   let filterFieldTagHost: HTMLElement;
   let editButton: HTMLButtonElement;
   let removeButton: HTMLButtonElement;
+  let zone: MockNgZone;
 
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
@@ -51,6 +63,10 @@ describe('DtFilterFieldTag', () => {
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations: [TestApp],
+      providers: [
+        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
+        { provide: Platform, useValue: { isBrowser: true } },
+      ],
     }).compileComponents();
 
     fixture = createComponent(TestApp);
@@ -139,6 +155,140 @@ describe('DtFilterFieldTag', () => {
     editSubscription.unsubscribe();
     removeSubscription.unsubscribe();
   }));
+
+  describe('DtFilterTagOverlay', () => {
+    /** Get the overlay trigger directive from the fixture. */
+    function getOverlayTriggerDirective(
+      passedFixture: ComponentFixture<TestApp>,
+    ): DtOverlayTrigger<{}> {
+      return passedFixture.debugElement
+        .query(By.directive(DtOverlayTrigger))
+        .injector.get(DtOverlayTrigger);
+    }
+
+    /** Mocks the scrollWidth property on the .dt-filter-field-tag-value element with a passed value. */
+    function mockScrollWidth(
+      passedFixture: ComponentFixture<TestApp>,
+      mockedValue: number,
+    ): void {
+      const el: HTMLElement = passedFixture.debugElement.query(
+        By.css('.dt-filter-field-tag-value'),
+      ).nativeElement;
+      mockObjectProperty(el, 'scrollWidth', mockedValue);
+    }
+
+    afterEach(() => {
+      // Reset the getComputedStyle mock after each test.
+      mockGetComputedStyle(undefined);
+    });
+
+    it('should disable the overlay when the text is short enough', fakeAsync(() => {
+      // Setup the ComputedStyleMock.
+      mockGetComputedStyle('300px');
+
+      // Get the tag value element and mock the scroll width on it.
+      mockScrollWidth(fixture, 250);
+
+      // Simulate the zone exit and changeDetection.
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // Get the overlayTriggerDirective Instance
+      const overlayTrigger = getOverlayTriggerDirective(fixture);
+
+      expect(overlayTrigger.disabled).toBe(true);
+    }));
+
+    it('should enable the overlay when the text is too long', fakeAsync(() => {
+      // Setup the ComputedStyleMock.
+      mockGetComputedStyle('300px');
+
+      // Get the tag value element and mock the scroll width on it.
+      mockScrollWidth(fixture, 380);
+
+      // Simulate the zone exit and changeDetection.
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // Get the overlayTriggerDirective Instance
+      const overlayTrigger = getOverlayTriggerDirective(fixture);
+
+      expect(overlayTrigger.disabled).toBe(false);
+    }));
+
+    it('should enable the overlay when the text is changed dynamically', fakeAsync(() => {
+      // Setup the ComputedStyleMock.
+      mockGetComputedStyle('300px');
+
+      // Get the tag value element and mock the scroll width on it.
+      mockScrollWidth(fixture, 290);
+
+      // Simulate the zone exit and changeDetection.
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // Get the overlayTriggerDirective Instance
+      const overlayTrigger = getOverlayTriggerDirective(fixture);
+
+      // The overlay should now be disabled.
+      expect(overlayTrigger.disabled).toBe(true);
+
+      // Change the scrollWdith mock to fit the larger field value.
+      mockScrollWidth(fixture, 500);
+
+      // Set the larger field value dynamically without destroying the
+      // tag component.
+      fixture.componentInstance.dummy = new _DtFilterFieldTagData(
+        'AUT',
+        'A larger value, value does not matter because scrollWidth is mocked',
+        ':',
+        false,
+        [],
+      );
+
+      // Run change detection cycles.
+      fixture.detectChanges();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // The overlay should now be enabled.
+      expect(overlayTrigger.disabled).toBe(false);
+    }));
+
+    it('should use the default value if the custom property is not set', fakeAsync(() => {
+      // Setup the ComputedStyleMock.
+      mockGetComputedStyle(undefined);
+
+      // Get the tag value element and mock the scroll width on it.
+      mockScrollWidth(fixture, 299);
+
+      // Simulate the zone exit and changeDetection.
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // Get the overlayTriggerDirective Instance
+      const overlayTrigger = getOverlayTriggerDirective(fixture);
+
+      expect(overlayTrigger.disabled).toBe(true);
+    }));
+
+    it('should use the default value if the custom property is not set', fakeAsync(() => {
+      // Setup the ComputedStyleMock.
+      mockGetComputedStyle(undefined);
+
+      // Get the tag value element and mock the scroll width on it.
+      mockScrollWidth(fixture, 301);
+
+      // Simulate the zone exit and changeDetection.
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      // Get the overlayTriggerDirective Instance
+      const overlayTrigger = getOverlayTriggerDirective(fixture);
+
+      expect(overlayTrigger.disabled).toBe(false);
+    }));
+  });
 });
 
 @Component({

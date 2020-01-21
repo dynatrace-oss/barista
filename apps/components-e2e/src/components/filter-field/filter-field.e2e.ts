@@ -25,6 +25,7 @@ import {
   filterTags,
   focusFilterFieldInput,
   getFilterfieldTags,
+  tagOverlay,
 } from './filter-field.po';
 import { Selector } from 'testcafe';
 import { waitForAngular } from '../../utils';
@@ -53,7 +54,7 @@ test('should show a error box if does not meet the validation function', async (
 
 // TODO: lukas.holzer investigate why this test is flaky on Browserstack
 // tslint:disable-next-line: dt-no-focused-tests
-test('should show is required error when the input is dirty', async () => {
+test.skip('should show is required error when the input is dirty', async () => {
   await clickOption(3)
     .typeText(input, 'a')
     .pressKey('backspace')
@@ -211,5 +212,47 @@ test('should choose a freetext node with the mouse and submit an empty value imm
     .expect(tags.length)
     .eql(1)
     .expect(tags[0])
-    .eql('Autocomplete with free text options');
+    .eql('Autocomplete with free text options')
+
+    // Click somewhere outside so the clear-all button appears
+    .click(Selector('.outside'))
+    .wait(300)
+    .expect(clearAll.exists)
+    .ok()
+    // Click the clear all-button, the created filter should be removed
+    .click(clearAll)
+    .wait(300)
+    .expect(filterTags.exists)
+    .notOk();
+});
+
+test('should not show the overlay on a tag because the tag value is not ellipsed', async () => {
+  await clickOption(1)
+    .typeText(input, 'abcdefghijklmno')
+    // Wait for a certain amount of time to let the filterfield refresh
+    .wait(250)
+    // Select the free text node and start typing
+    .pressKey('enter')
+    .wait(250)
+    // Hover the filter field tag
+    .hover(filterTags)
+    .expect(tagOverlay.exists)
+    .notOk();
+});
+
+test('should show the overlay on a tag because the tag value is ellipsed', async () => {
+  await clickOption(1)
+    .typeText(
+      input,
+      'abcdefghijklmnopqrstuvwxyz, 1234567890, abcdefghijklmnopqrstuvwxyz',
+    )
+    // Wait for a certain amount of time to let the filterfield refresh
+    .wait(250)
+    // Select the free text node and start typing
+    .pressKey('enter')
+    .wait(250)
+    // Hover the filter field tag
+    .hover(filterTags)
+    .expect(tagOverlay.exists)
+    .ok();
 });
