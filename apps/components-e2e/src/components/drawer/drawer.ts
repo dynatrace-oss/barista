@@ -15,17 +15,15 @@
  */
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { map } from 'rxjs/operators';
-
 import { DtChartRange } from '@dynatrace/barista-components/chart';
 import {
   DtDrawer,
   DtDrawerContainer,
 } from '@dynatrace/barista-components/drawer';
-
-import { DataService } from '../../services/data.service';
-import { options } from '../chart/selection-area/chart-options';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { DataService } from '../../services/data.service';
+import { options } from '../chart/chart-options';
 
 @Component({
   selector: 'dt-e2e-drawer',

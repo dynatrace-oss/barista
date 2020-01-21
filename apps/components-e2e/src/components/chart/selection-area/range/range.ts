@@ -15,12 +15,12 @@
  */
 
 import { Component } from '@angular/core';
-import { DtE2EChartBase } from '../chart-base';
-import { DataService } from '../../../services/data.service';
+import { DtE2EChartBase } from '../../chart-base';
+import { DataService } from '../../../../services/data.service';
 
 @Component({
-  selector: 'dt-e2e-selection-area',
-  templateUrl: './selection-area.html',
+  selector: 'dt-e2e-range',
+  templateUrl: './range.html',
   styles: [
     `
       :host {
@@ -30,13 +30,15 @@ import { DataService } from '../../../services/data.service';
     `,
   ],
 })
-export class DtE2ESelectionArea extends DtE2EChartBase {
+export class DtE2ERange extends DtE2EChartBase {
+  closedCounter = 0;
+
   constructor(dataService: DataService) {
     super(dataService);
   }
 
   closed(): void {
-    // emits when the selection gets closed
+    this.closedCounter++;
   }
 
   valueChanges(_value: number | [number, number]): void {

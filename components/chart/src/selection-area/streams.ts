@@ -325,8 +325,9 @@ export function getRangeCreateStream(
   dragMove$: Observable<{ x: number; y: number }>,
   targetWidth: number,
 ): Observable<{ left: number; width: number }> {
-  return combineLatest([dragStart$, dragMove$]).pipe(
+  return dragStart$.pipe(
     observeOn(animationFrameScheduler),
+    switchMap(start => dragMove$.pipe(map(move => [start, move]))),
     map(([startPosition, endPosition]) =>
       calculatePosition(
         DtSelectionAreaEventTarget.Origin,
