@@ -1,10 +1,4 @@
-<button
-  dt-button
-  variant="nested"
-  class="dt-filter-field-tag-label"
-  [disabled]="!editable"
-  (click)="_handleEdit($event)"
->
+<ng-template #tagContent>
   <div
     class="dt-filter-field-tag-container"
     [class.dt-filter-field-tag-value-isfreetext]="data && data.isFreeText"
@@ -14,9 +8,25 @@
       class="dt-filter-field-tag-key"
       [attr.data-separator]="data.separator ? data.separator! : ':'"
     >{{data.key}}</span>
-    <span class="dt-filter-field-tag-value" *ngIf="data?.value">{{data.value}}</span>
+    <span class="dt-filter-field-tag-value" *ngIf="data?.value" #valueSpan>{{data.value}}</span>
   </div>
-</button>
+</ng-template>
+
+<div
+  [dtOverlay]="tagContent"
+  [dtOverlayConfig]="_overlayConfig"
+  [disabled]="_tooltipDisabled"
+>
+  <button
+    dt-button
+    variant="nested"
+    class="dt-filter-field-tag-label"
+    [disabled]="!editable"
+    (click)="_handleEdit($event)"
+  >
+    <ng-container *ngTemplateOutlet="tagContent"></ng-container>
+  </button>
+</div>
 <button
   dt-icon-button
   variant="nested"

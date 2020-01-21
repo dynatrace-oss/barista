@@ -73,8 +73,12 @@
 
 .dt-filter-field-tag-value {
   color: $turquoise-600;
-  max-width: 300px;
   margin-left: 4px;
+}
+
+.dt-filter-field-tag-label .dt-filter-field-tag-value {
+  --dt-filter-field-max-width: 300px;
+  max-width: var(--dt-filter-field-max-width);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

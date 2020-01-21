@@ -23,11 +23,17 @@ import {
   Input,
   Output,
   ViewEncapsulation,
+  ViewChild,
+  ElementRef,
+  NgZone,
+  OnDestroy,
 } from '@angular/core';
 
 import { _DtFilterFieldTagData } from '../types';
-
-// tslint:disable:class-name
+import { DtOverlayConfig } from '@dynatrace/barista-components/overlay';
+import { Platform } from '@angular/cdk/platform';
+import { take, takeUntil, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'dt-filter-field-tag',
@@ -43,9 +49,25 @@ import { _DtFilterFieldTagData } from '../types';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtFilterFieldTag {
+export class DtFilterFieldTag implements OnDestroy {
+  /** Destroy subject being fired when the component is being destroyed. */
+  private _destroy$ = new Subject<void>();
+
+  /** State changes subject that fires each time a data state changes the component. */
+  private _stateChanges$ = new Subject<void>();
+
   /** Tag data object that contains view values for displaying (like key, value and separator) and the original source. */
-  @Input() data: _DtFilterFieldTagData;
+  @Input()
+  get data(): _DtFilterFieldTagData {
+    return this._data;
+  }
+  set data(value: _DtFilterFieldTagData) {
+    if (value !== this._data) {
+      this._stateChanges$.next();
+    }
+    this._data = value;
+  }
+  private _data: _DtFilterFieldTagData;
 
   /** Emits when the filter should be removed (usually by clicking the remove button). */
   @Output() readonly remove = new EventEmitter<DtFilterFieldTag>();
@@ -88,7 +110,37 @@ export class DtFilterFieldTag {
     }
   }
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  /** @internal Element reference to the tag that holds the value. */
+  @ViewChild('valueSpan', { static: false, read: ElementRef })
+  _valueSpan: ElementRef<HTMLSpanElement>;
+
+  /** @internal Configuration object for the tag overlay */
+  _overlayConfig: DtOverlayConfig = {
+    pinnable: false,
+    originY: 'edge',
+  };
+
+  /** @internal Flag that determines if the tooltip needs to be shown. */
+  _tooltipDisabled = false;
+
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _platform: Platform,
+    _zone: NgZone,
+  ) {
+    this._stateChanges$
+      .pipe(
+        switchMap(() => _zone.onStable.pipe(take(1))),
+        takeUntil(this._destroy$),
+      )
+      .subscribe(() => this._updateOverlayState());
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+    this._stateChanges$.complete();
+  }
 
   /** @internal Called when the remove button has been clicked. Emits the remove output. */
   _handleRemove(event: MouseEvent): void {
@@ -107,6 +159,32 @@ export class DtFilterFieldTag {
 
     if (!this.disabled) {
       this.edit.emit(this);
+    }
+  }
+
+  /**
+   * Update the enabled state of the tooltip overlay. The overlay should be enabled
+   * if the textvalue of the dt-filter-field-tag-value is being truncated.
+   */
+  private _updateOverlayState(): void {
+    if (this._platform.isBrowser) {
+      // If the value is empty, the valuespan will not exist
+      // we can early exit with a disabled tooltip here.
+      if (!this._valueSpan) {
+        this._tooltipDisabled = true;
+        this._changeDetectorRef.markForCheck();
+        return;
+      }
+      // Get the css custom property that defines the max-width of the
+      // value span.
+      const specifiedMaxWidth = getComputedStyle(
+        this._valueSpan.nativeElement,
+      ).getPropertyValue('--dt-filter-field-max-width');
+      // Evaluate if the tooltip should be disabled.
+      this._tooltipDisabled =
+        this._valueSpan.nativeElement.scrollWidth <
+        (parseInt(specifiedMaxWidth) || 300);
+      this._changeDetectorRef.markForCheck();
     }
   }
 }

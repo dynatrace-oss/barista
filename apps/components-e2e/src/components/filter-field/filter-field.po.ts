@@ -21,6 +21,7 @@ export const filterField = Selector('#filter-field');
 export const option = (nth: number) => Selector(`.dt-option:nth-child(${nth})`);
 export const clearAll = Selector('.dt-filter-field-clear-all-button');
 export const filterTags = Selector('dt-filter-field-tag');
+export const tagOverlay = Selector('.dt-overlay-container');
 
 export const input = Selector('input');
 
