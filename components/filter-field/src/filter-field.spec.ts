@@ -51,7 +51,7 @@ import {
   wrappedErrorMessage,
 } from '@dynatrace/barista-components/testing';
 
-const TEST_DATA: DtFilterFieldDefaultDataSourceType = {
+const TEST_DATA = {
   autocomplete: [
     {
       name: 'AUT',
@@ -62,7 +62,7 @@ const TEST_DATA: DtFilterFieldDefaultDataSourceType = {
           autocomplete: [
             {
               name: 'Cities',
-              options: ['Linz', 'Wels', 'Steyr'],
+              options: [{ name: 'Linz' }, { name: 'Wels' }, { name: 'Steyr' }],
             },
           ],
         },
@@ -73,7 +73,7 @@ const TEST_DATA: DtFilterFieldDefaultDataSourceType = {
     },
     {
       name: 'USA',
-      autocomplete: ['Los Angeles', 'San Fran'],
+      autocomplete: [{ name: 'Los Angeles' }, { name: 'San Fran' }],
     },
     {
       name: 'Free',
@@ -100,11 +100,11 @@ const TEST_DATA_SINGLE_DISTINCT: DtFilterFieldDefaultDataSourceType = {
   ],
 };
 
-const TEST_DATA_SINGLE_OPTION: DtFilterFieldDefaultDataSourceType = {
-  autocomplete: ['option'],
+const TEST_DATA_SINGLE_OPTION = {
+  autocomplete: [{ name: 'option' }],
 };
 
-const TEST_DATA_SUGGESTIONS: DtFilterFieldDefaultDataSourceType = {
+const TEST_DATA_SUGGESTIONS = {
   autocomplete: [
     {
       name: 'Node',
@@ -115,7 +115,7 @@ const TEST_DATA_SUGGESTIONS: DtFilterFieldDefaultDataSourceType = {
         {
           name: 'Node Label',
           key: 'MyKey',
-          suggestions: ['some cool', 'very weird'],
+          suggestions: [{ name: 'some cool' }, { name: 'very weird' }],
           validators: [],
         },
       ],
@@ -123,7 +123,7 @@ const TEST_DATA_SUGGESTIONS: DtFilterFieldDefaultDataSourceType = {
   ],
 };
 
-const TEST_DATA_RANGE: DtFilterFieldDefaultDataSourceType = {
+const TEST_DATA_RANGE = {
   autocomplete: [
     {
       name: 'Requests per minute',
@@ -140,7 +140,7 @@ const TEST_DATA_RANGE: DtFilterFieldDefaultDataSourceType = {
   ],
 };
 
-const TEST_DATA_EDITMODE: DtFilterFieldDefaultDataSourceType = {
+const TEST_DATA_EDITMODE = {
   autocomplete: [
     {
       name: 'AUT',
@@ -151,7 +151,7 @@ const TEST_DATA_EDITMODE: DtFilterFieldDefaultDataSourceType = {
           autocomplete: [
             {
               name: 'Cities',
-              options: ['Linz', 'Wels', 'Steyr'],
+              options: [{ name: 'Linz' }, { name: 'Wels' }, { name: 'Steyr' }],
             },
           ],
         },
@@ -162,7 +162,7 @@ const TEST_DATA_EDITMODE: DtFilterFieldDefaultDataSourceType = {
     },
     {
       name: 'USA',
-      autocomplete: ['Los Angeles', 'San Fran'],
+      autocomplete: [{ name: 'Los Angeles' }, { name: 'San Fran' }],
     },
     {
       name: 'Free',
@@ -189,7 +189,7 @@ const TEST_DATA_EDITMODE: DtFilterFieldDefaultDataSourceType = {
   ],
 };
 
-export const TEST_DATA_EDITMODE_ASYNC: DtFilterFieldDefaultDataSourceType = {
+export const TEST_DATA_EDITMODE_ASYNC = {
   name: 'DE (async)',
   autocomplete: [
     { name: 'Berlin' },
@@ -1559,9 +1559,9 @@ describe('DtFilterField', () => {
         [
           {
             name: 'USA',
-            autocomplete: ['Los Angeles', 'San Fran'],
+            autocomplete: [{ name: 'Los Angeles' }, { name: 'San Fran' }],
           },
-          'Los Angeles',
+          { name: 'Los Angeles' },
         ],
       ];
       fixture.detectChanges();
@@ -1576,9 +1576,9 @@ describe('DtFilterField', () => {
         [
           {
             name: 'Spain',
-            autocomplete: ['Madrid', 'Barcelona'],
+            autocomplete: [{ name: 'Madrid' }, { name: 'Barcelona' }],
           },
-          'Madrid',
+          { name: 'Madrid' },
         ],
       ];
       fixture.detectChanges();
@@ -1806,7 +1806,7 @@ describe('DtFilterField', () => {
       const notIncludedAutocomplete = [
         {
           name: 'USA',
-          autocomplete: ['Los Angeles', 'San Fran'],
+          autocomplete: [{ name: 'Los Angeles' }, { name: 'San Fran' }],
         },
         'Los Angeles',
       ];
