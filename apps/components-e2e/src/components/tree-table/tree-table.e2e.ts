@@ -29,67 +29,73 @@ import {
 fixture('TreeTable').page('http://localhost:4200/tree-table');
 
 test('should execute click handlers when not disabled', async (testController: TestController) => {
-  await testController.expect(await treeTableRows.count).eql(3);
-
-  await testController.click(toggleButtons.nth(0));
-
-  await testController.expect(await treeTableRows.count).eql(5);
-
-  await testController.click(toggleButtons.nth(0));
-
-  await testController.expect(await treeTableRows.count).eql(3);
+  await testController
+    .expect(treeTableRows.count)
+    .eql(3)
+    .click(toggleButtons.nth(0))
+    .expect(treeTableRows.count)
+    .eql(5)
+    .click(toggleButtons.nth(0))
+    .expect(treeTableRows.count)
+    .eql(3);
 });
 
 test('should increase expand and collapse counters when expandChange event was fired', async (testController: TestController) => {
-  await testController.expect(await expandChangedCount.textContent).eql('0');
-  await testController.expect(await expandedCount.textContent).eql('0');
-  await testController.expect(await collapsedCount.textContent).eql('0');
-
-  await testController.click(toggleButtons.nth(0));
-
-  await testController.expect(await expandChangedCount.textContent).eql('1');
-  await testController.expect(await expandedCount.textContent).eql('1');
-  await testController.expect(await collapsedCount.textContent).eql('0');
-
-  await testController.click(toggleButtons.nth(0));
-
-  await testController.expect(await expandChangedCount.textContent).eql('2');
-  await testController.expect(await expandedCount.textContent).eql('1');
-  await testController.expect(await collapsedCount.textContent).eql('1');
+  await testController
+    .expect(expandChangedCount.textContent)
+    .eql('0')
+    .expect(expandedCount.textContent)
+    .eql('0')
+    .expect(collapsedCount.textContent)
+    .eql('0')
+    .click(toggleButtons.nth(0))
+    .expect(expandChangedCount.textContent)
+    .eql('1')
+    .expect(expandedCount.textContent)
+    .eql('1')
+    .expect(collapsedCount.textContent)
+    .eql('0')
+    .click(toggleButtons.nth(0))
+    .expect(expandChangedCount.textContent)
+    .eql('2')
+    .expect(expandedCount.textContent)
+    .eql('1')
+    .expect(collapsedCount.textContent)
+    .eql('1');
 });
 
 test('should increase expand counter when expandAll was clicked', async (testController: TestController) => {
-  await testController.expect(await expandChangedCount.textContent).eql('0');
   await testController
-    .expect(await expandChangedCountWithExpandedTrue.textContent)
-    .eql('0');
-  await testController
-    .expect(await expandChangedCountWithExpandedFalse.textContent)
-    .eql('0');
-  await testController.expect(await expandedCount.textContent).eql('0');
-  await testController.expect(await collapsedCount.textContent).eql('0');
-
-  await testController.click(expandAllBtn.nth(0));
-
-  await testController.expect(await expandChangedCount.textContent).eql('2');
-  await testController
-    .expect(await expandChangedCountWithExpandedTrue.textContent)
+    .expect(expandChangedCount.textContent)
+    .eql('0')
+    .expect(expandChangedCountWithExpandedTrue.textContent)
+    .eql('0')
+    .expect(expandChangedCountWithExpandedFalse.textContent)
+    .eql('0')
+    .expect(expandedCount.textContent)
+    .eql('0')
+    .expect(collapsedCount.textContent)
+    .eql('0')
+    .click(expandAllBtn.nth(0))
+    .expect(expandChangedCount.textContent)
+    .eql('2')
+    .expect(expandChangedCountWithExpandedTrue.textContent)
+    .eql('2')
+    .expect(expandChangedCountWithExpandedFalse.textContent)
+    .eql('0')
+    .expect(expandedCount.textContent)
+    .eql('2')
+    .expect(collapsedCount.textContent)
+    .eql('0')
+    .click(collapseAllBtn.nth(0))
+    .expect(expandChangedCount.textContent)
+    .eql('4')
+    .expect(expandChangedCountWithExpandedTrue.textContent)
+    .eql('2')
+    .expect(expandChangedCountWithExpandedFalse.textContent)
+    .eql('2')
+    .expect(expandedCount.textContent)
+    .eql('2')
+    .expect(collapsedCount.textContent)
     .eql('2');
-  await testController
-    .expect(await expandChangedCountWithExpandedFalse.textContent)
-    .eql('0');
-  await testController.expect(await expandedCount.textContent).eql('2');
-  await testController.expect(await collapsedCount.textContent).eql('0');
-
-  await testController.click(collapseAllBtn.nth(0));
-
-  await testController.expect(await expandChangedCount.textContent).eql('4');
-  await testController
-    .expect(await expandChangedCountWithExpandedTrue.textContent)
-    .eql('2');
-  await testController
-    .expect(await expandChangedCountWithExpandedFalse.textContent)
-    .eql('2');
-  await testController.expect(await expandedCount.textContent).eql('2');
-  await testController.expect(await collapsedCount.textContent).eql('2');
 });
