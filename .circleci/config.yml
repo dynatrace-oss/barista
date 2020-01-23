@@ -231,6 +231,8 @@ jobs:
     <<: *defaults
     environment:
       BROWSERSTACK_USE_AUTOMATE: 1
+      BROWSERSTACK_DISPLAY_RESOLUTION: 1920x1080
+      BROWSERSTACK_TIMEZONE: UTC+1
     steps:
       - attach_workspace:
           at: ~/barista
