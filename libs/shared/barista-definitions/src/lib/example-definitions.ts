@@ -18,6 +18,7 @@ export interface BaExampleMetadata {
   name: string;
   templateSource: string;
   classSource: string;
+  stylesSource: string;
 }
 
 export interface BaAllExamplesMetadata {

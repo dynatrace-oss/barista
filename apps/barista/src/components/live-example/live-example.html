@@ -30,6 +30,15 @@
     >
       TS
     </button>
+    <button
+      *ngIf="stylesSource"
+      class="ba-live-example-tab"
+      [class.ba-live-example-tab-active]="_activeTab === 'scss'"
+      [disabled]="_sourceHidden"
+      (click)="_setActiveTab('scss')"
+    >
+      SCSS
+    </button>
   </nav>
   <div class="ba-live-example-controls">
     <button
@@ -75,4 +84,8 @@
     class="ba-live-example-class-source"
     *ngIf="classSource && _activeTab === 'ts'"
   ><code [innerHTML]="_enhancedClassSource"></code></pre>
+  <pre
+    class="ba-live-example-class-source"
+    *ngIf="classSource && _activeTab === 'scss'"
+  ><code [innerHTML]="_enhancedStylesSource"></code></pre>
 </div>

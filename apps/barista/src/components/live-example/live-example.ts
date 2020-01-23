@@ -37,6 +37,7 @@ import {
   process,
   TypeScript,
   XML,
+  SCSS,
 } from 'highlight-ts';
 
 import { createComponent } from '../../utils/create-component';
@@ -125,6 +126,20 @@ export class BaLiveExample implements OnDestroy {
   }
   private _classSource: string;
 
+  /** The encoded styles source of the given example. */
+  @Input()
+  get stylesSource(): string {
+    return this._stylesSource;
+  }
+  set stylesSource(value: string) {
+    this._stylesSource = value;
+    if (!this._activeTabChanged && !this._activeTab) {
+      this._activeTab = 'scss';
+    }
+    this._enhancedStylesSource = this._enhanceCode(value, 'scss');
+  }
+  private _stylesSource: string;
+
   /**
    * @internal
    * The placeholder element that will be replaced with
@@ -157,6 +172,9 @@ export class BaLiveExample implements OnDestroy {
   /** @internal Enhanced class source with line wrappers and code highlighting. */
   _enhancedClassSource: string;
 
+  /** @internal Enhanced styles source with line wrappers and code highlighting. */
+  _enhancedStylesSource: string;
+
   private _timerSubscription = Subscription.EMPTY;
 
   /** Whether the user has changed the active tab. */
@@ -172,7 +190,7 @@ export class BaLiveExample implements OnDestroy {
     private _platform: Platform,
     private _ctcService: BaCopyToClipboardService,
   ) {
-    registerLanguages(TypeScript, XML);
+    registerLanguages(TypeScript, XML, SCSS);
     this._highlighter = init(htmlRender);
   }
 
@@ -206,7 +224,7 @@ export class BaLiveExample implements OnDestroy {
           copySucceeded = this._ctcService.copy(this._classSource, true);
           break;
         case 'scss':
-          // TODO: copySucceeded = this._ctcService.copy(this._scssSource, true)
+          copySucceeded = this._ctcService.copy(this._stylesSource, true);
           break;
       }
 

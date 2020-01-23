@@ -204,6 +204,9 @@ export function exampleInlineSourcesTransformerFactory(
         if (demoMetadata.classSource) {
           $(element).attr('classSource', demoMetadata.classSource);
         }
+        if (demoMetadata.stylesSource) {
+          $(element).attr('stylesSource', demoMetadata.stylesSource);
+        }
       });
     });
     return source;
