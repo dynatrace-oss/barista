@@ -1,0 +1,37 @@
+<section>
+  <div>
+    <dt-highlight [term]="term" [caseSensitive]="caseSensitive"
+      >{{content}}</dt-highlight
+    >
+  </div>
+
+  <div>
+    <button
+      class="content-fun-with-flags-button"
+      (click)="setContent('fun with flags')"
+    >
+      content to 'Fun with flags'
+    </button>
+    <button
+      class="content-have-fun-with-flags-button"
+      (click)="setContent('Have fun with flags')"
+    >
+      content to 'Have fun with flags'
+    </button>
+    <button class="term-flags-uppercase-button" (click)="setTerm('Flags')">
+      term to 'Flags'
+    </button>
+    <button class="term-flags-lowercase-button" (click)="setTerm('flags')">
+      term to 'flags'
+    </button>
+    <button
+      class="case-sensitive-false-button"
+      (click)="setCaseSensitive(false)"
+    >
+      caseSensitive to true
+    </button>
+    <button class="case-sensitive-true-button" (click)="setCaseSensitive(true)">
+      caseSensitive to false
+    </button>
+  </div>
+</section>

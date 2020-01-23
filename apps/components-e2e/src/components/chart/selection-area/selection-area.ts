@@ -20,6 +20,7 @@ import { map } from 'rxjs/operators';
 
 import { DataService } from '../../../services/data.service';
 import { options } from './chart-options';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'dt-e2e-selection-area',
@@ -37,7 +38,9 @@ export class DtE2ESelectionArea {
   validRange = false;
 
   options = options;
-  series$ = this._dataService
+  series$: Observable<
+    Highcharts.IndividualSeriesOptions[]
+  > = this._dataService
     .getFixture<{ data: Highcharts.IndividualSeriesOptions[] }>(
       '/data-small.json',
     )

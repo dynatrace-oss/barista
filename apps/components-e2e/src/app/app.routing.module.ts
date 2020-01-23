@@ -159,6 +159,20 @@ export const routes: Routes = [
         module => module.DtE2ETileModule,
       ),
   },
+  {
+    path: 'confirmation-dialog',
+    loadChildren: () =>
+      import(
+        '../components/confirmation-dialog/confirmation-dialog.module'
+      ).then(module => module.DtE2EConfirmationDialogModule),
+  },
+  {
+    path: 'highlight',
+    loadChildren: () =>
+      import('../components/highlight/highlight.module').then(
+        module => module.DtE2EHighlightModule,
+      ),
+  },
 ];
 
 @NgModule({

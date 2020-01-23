@@ -25,6 +25,7 @@ import {
 
 import { DataService } from '../../services/data.service';
 import { options } from '../chart/selection-area/chart-options';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'dt-e2e-drawer',
@@ -38,7 +39,9 @@ export class DtE2EDrawer {
   lastTimeframe: [number, number];
 
   options = options;
-  series$ = this._dataService
+  series$: Observable<
+    Highcharts.IndividualSeriesOptions[]
+  > = this._dataService
     .getFixture<{ data: Highcharts.IndividualSeriesOptions[] }>(
       '/data-small.json',
     )
