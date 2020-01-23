@@ -1,0 +1,24 @@
+<section>
+  <button class="open-dialog-button" (click)="resetExample()">
+    Open Dialog
+  </button>
+  <button class="enable-backdrop-button" (click)="showBackdrop=true;">
+    enable backdrop
+  </button>
+  <dt-confirmation-dialog
+    [state]="dialogState"
+    [showBackdrop]="showBackdrop"
+    aria-label="Dialog for changes that need to be confirmed or rejected"
+  >
+    <dt-confirmation-dialog-state name="dirty" id="state-dirty">
+      You have pending changes.
+      <dt-confirmation-dialog-actions>
+        <button id="clear-button" (click)="clear()">Clear</button>
+        <button id="save-button" (click)="save()">Save</button>
+      </dt-confirmation-dialog-actions>
+    </dt-confirmation-dialog-state>
+    <dt-confirmation-dialog-state name="success" id="state-success">
+      Successfully saved!
+    </dt-confirmation-dialog-state>
+  </dt-confirmation-dialog>
+</section>
