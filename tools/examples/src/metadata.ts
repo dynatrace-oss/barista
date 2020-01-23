@@ -16,7 +16,11 @@
 
 import { existsSync, promises as fs, lstatSync, readdirSync } from 'fs';
 import { dirname, join, basename } from 'path';
-import { ObjectLiteralExpression, isPropertyAssignment } from 'typescript';
+import {
+  ObjectLiteralExpression,
+  isPropertyAssignment,
+  isArrayLiteralExpression,
+} from 'typescript';
 import {
   AngularClassDecoratorName,
   getAngularDecoratedClasses,
@@ -36,6 +40,8 @@ export interface ExampleMetadata {
   classSource: string;
   className: string;
   templateSource: string;
+  stylesFileLocations: string[] | null;
+  stylesSource: string | null;
 }
 
 /**
@@ -73,6 +79,53 @@ async function resolveTemplate(
   return null;
 }
 
+/**
+ * Resolves the styles of a component.
+ * Can handle inline and external styles files.
+ */
+async function resolveStyles(
+  metadataObjectLiteral: ObjectLiteralExpression,
+  fileName: string,
+): Promise<{ source: string; fileLocations: string[] | null } | null> {
+  for (const property of metadataObjectLiteral.properties) {
+    if (isPropertyAssignment(property)) {
+      if (property.name.getText() === 'styles') {
+        return {
+          source: property.initializer.getText(),
+          fileLocations: null,
+        };
+      }
+      if (property.name.getText() === 'styleUrls') {
+        if (isArrayLiteralExpression(property.initializer)) {
+          const paths = property.initializer.elements
+            .map(expression =>
+              expression.getText().match(/^(?:'|"|`)(.*)(?:'|"|`)$/),
+            )
+            .filter(parts => parts && parts[1])
+            .map(parts => parts![1]);
+
+          const styleSources = {
+            source: '',
+            fileLocations: [] as string[],
+          };
+          for (const path of paths) {
+            const fileLocation = join(dirname(fileName), path);
+            if (existsSync(fileLocation) && lstatSync(fileLocation).isFile()) {
+              const source = (await fs.readFile(fileLocation, {
+                encoding: 'utf-8',
+              })).toString();
+              styleSources.source = `${styleSources.source}/** ${path} */\n${source}\n\n`;
+              styleSources.fileLocations.push(fileLocation);
+            }
+          }
+          return styleSources;
+        }
+      }
+    }
+  }
+  return null;
+}
+
 /** Collects and returns a list of example metadata objects included in a file. */
 export async function getExampleMetadataObjects(
   fileName: string,
@@ -90,6 +143,7 @@ export async function getExampleMetadataObjects(
     const classSource = fullClassSource.split(decoratorSource).join('{ ... }');
 
     const templateMeta = await resolveTemplate(component.decorator, fileName);
+    const stylesMeta = await resolveStyles(component.decorator, fileName);
     if (templateMeta) {
       metadata.push({
         tsFileLocation: fileName,
@@ -97,6 +151,8 @@ export async function getExampleMetadataObjects(
         className,
         templateFileLocation: templateMeta.fileLocation,
         templateSource: templateMeta.source,
+        stylesFileLocations: stylesMeta ? stylesMeta.fileLocations : null,
+        stylesSource: stylesMeta ? stylesMeta.source : null,
       });
     }
   }

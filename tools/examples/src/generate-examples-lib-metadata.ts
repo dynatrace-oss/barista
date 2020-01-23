@@ -32,6 +32,7 @@ export async function generateExamplesLibMetadataFile(
         name: exampleMeta.className,
         templateSource: exampleMeta.templateSource,
         classSource: exampleMeta.classSource,
+        stylesSource: exampleMeta.stylesSource ? exampleMeta.stylesSource : '',
       };
     }
   }
