@@ -487,7 +487,7 @@ class SimpleDtTreeTableApp {
     this.toggleCounter++;
   }
 
-  hasCollapsed(row: any): void {
+  hasCollapsed(): void {
     this.collapseCounter++;
   }
 
