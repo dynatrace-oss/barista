@@ -488,7 +488,6 @@ class SimpleDtTreeTableApp {
   }
 
   hasCollapsed(row: any): void {
-    console.log('collapsed ' + JSON.stringify(row));
     this.collapseCounter++;
   }
 

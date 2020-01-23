@@ -91,9 +91,8 @@ export class DtTreeTableToggleCell<T> extends DtCell
     }
   }
 
-  /** @internal Event emitted when the panel is expanded. */
   @Output('expanded')
-  readonly _treeExpanded: Observable<boolean> = this.expandChange.pipe(
+  readonly treeExpanded: Observable<boolean> = this.expandChange.pipe(
     filter(v => v),
   );
 
