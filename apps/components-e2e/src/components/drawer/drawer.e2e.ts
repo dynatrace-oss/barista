@@ -16,7 +16,7 @@
 import { Selector, ClientFunction } from 'testcafe';
 
 import {
-  closeOverlay,
+  closeButton,
   createRange,
   overlay,
   rangeSelection,
@@ -102,32 +102,36 @@ test('should move heatfield overlay with the chart on scroll', async (testContro
 });
 
 test('should move selection area overlay with the chart on scroll', async (testController: TestController) => {
-  await testController.click(open);
-
-  const start = { x: 310, y: 100 };
-  await createRange(520, start);
-
-  await testController.expect(await selection.exists).ok();
-  await testController.expect(await overlay.exists).ok();
-
-  // in case of flakyness that the overlay does not update to the right values
-  await testController.wait(500);
-  await testController.expect(await rangeSelection.exists).ok();
-
   const rangeOverlay = Selector('.dt-chart-selection-area-overlay');
-  const prevPosition = await rangeOverlay.getBoundingClientRectProperty('top');
-  await scrollDown(scrollDistance);
-  await testController.expect(rangeOverlay.exists).ok();
-
-  await testController.wait(500);
-  const currPosition = await rangeOverlay.getBoundingClientRectProperty('top');
-  await testController.expect(prevPosition).notEql(currPosition);
-  await testController
-    .expect(isCloseTo(currPosition, prevPosition - scrollDistance, 10))
+  await testController.click(open);
+  await createRange(520, { x: 310, y: 100 })
+    .expect(selection.exists)
+    .ok()
+    .expect(overlay.exists)
+    .ok()
+    .wait(500)
+    .expect(rangeSelection.exists)
     .ok();
 
-  await closeOverlay();
+  const prevPosition = await rangeOverlay.getBoundingClientRectProperty('top');
 
-  await testController.expect(await selection.exists).notOk();
-  await testController.expect(await overlay.exists).notOk();
+  await scrollDown(scrollDistance);
+
+  await testController
+    .expect(rangeOverlay.exists)
+    .ok()
+    .wait(500);
+
+  const currPosition = await rangeOverlay.getBoundingClientRectProperty('top');
+
+  await testController
+    .expect(prevPosition)
+    .notEql(currPosition)
+    .expect(isCloseTo(currPosition, prevPosition - scrollDistance, 10))
+    .ok()
+    .click(closeButton)
+    .expect(selection.exists)
+    .notOk()
+    .expect(overlay.exists)
+    .notOk();
 });
