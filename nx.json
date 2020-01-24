@@ -40,6 +40,9 @@
     "tools-release": {
       "tags": ["type:tooling"]
     },
+    "tools-pull-request-labeler": {
+      "tags": ["type:tooling"]
+    },
     "tools-shared": {
       "tags": ["type:tooling", "type:shared"]
     },

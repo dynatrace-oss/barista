@@ -107,3 +107,7 @@
 /tools/stylelint/** @thomaspink
 
 /tools/tslint-rules/** @thomaspink
+
+/tools/pull-request-labeler/** @tomheller
+
+/tools/cherry-picker/** @tomheller
