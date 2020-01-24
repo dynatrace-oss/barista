@@ -19,7 +19,7 @@ declare const window: Window & { ng: any; getAllAngularRootElements: any };
 
 export const waitForAngular = ClientFunction((waitTimeout = 10000) => {
   /** Interval in milliseconds where to ping angular */
-  const PING_INTERVAL = 100;
+  const PING_INTERVAL = 500;
 
   return new Promise((resolve, reject) => {
     let pingIntervalId: number;
