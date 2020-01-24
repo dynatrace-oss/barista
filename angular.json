@@ -172,7 +172,7 @@
             },
             "remote-pr": {
               "browsers": ["browserstack:edge@18:windows"],
-              "concurrency": 5
+              "concurrency": 4
             },
             "watch": {
               "browsers": ["chrome"],
