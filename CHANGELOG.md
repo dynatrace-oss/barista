@@ -1,3 +1,15 @@
+## 5.0.1 (2020-01-24)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where tooltips in pie/donut charts did not work
+  anymore.
+  ([5861aaa](https://github.com/dynatrace-oss/barista/commit/5861aaa8c03e68cd487cd99c9e9989004ab0e21a))
+- **tag-add:** Fixed alignment styling of the text inside the tag component.
+  ([b0104f2](https://github.com/dynatrace-oss/barista/commit/b0104f2a8f95821e59eb44e53c798cbef3f92201))
+- **tag-list:** Fixes initial state after page load.
+  ([f255c78](https://github.com/dynatrace-oss/barista/commit/f255c78898d8c869ecfaee2781d4f7906912a348))
+
 ## 5.0.0 (2020-01-16)
 
 We removed the deprecated root package. Note that you cannot import from the
