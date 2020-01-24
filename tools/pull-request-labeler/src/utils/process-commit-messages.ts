@@ -80,6 +80,12 @@ export function processCommitMessages(
       `There should be no more than one fix commits, within a single pull request, but found ${fixCommits.length}.`,
     );
   }
+
+  // If there are fix and feat commits mixed in a pull request,
+  // push an error.
+  if (featureCommits.length > 0 && fixCommits.length > 0) {
+    errors.push(`Feature and fix commits should not be mixed.`);
+  }
   // If there are no errors, determine the targets
   if (!errors.length) {
     const hasFeatureCommits = featureCommits.length > 0;

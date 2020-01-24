@@ -16,19 +16,19 @@
 
 import { CommitMessage, CommitTypes } from '../interfaces/commit-message';
 
-const expression = new RegExp(
-  `(?<type>${Object.values(CommitTypes).join(
-    '|',
-  )})(?<component>\(.*?\))?:(?<message>.*)`,
-  'gims',
-);
 /**
  * Splits the commit message string into its own components. This helps for
  * further processing of the commit messages.
  * @param original Original string of the commit message.
  */
 export function splitStringIntoCommitMessage(original: string): CommitMessage {
-  const matching = original.match(expression);
+  const expression = new RegExp(
+    `(?<type>${Object.values(CommitTypes).join(
+      '|',
+    )})(?<component>\(.*?\))?:(?<message>.*)`,
+    'gims',
+  );
+  const matching = expression.exec(original);
 
   if (!matching) {
     throw new Error(`Message was not parsable: ${original}`);
@@ -42,6 +42,7 @@ export function splitStringIntoCommitMessage(original: string): CommitMessage {
     (matching.groups && matching.groups.component) ||
     ''
   ).trim();
+
   const components = componentMatch
     .replace('(', '')
     .replace(')', '')

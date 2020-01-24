@@ -52,6 +52,7 @@ async function run() {
     console.log(
       'Not ready to label just yet, add pr: lgtm label to it to start the process.',
     );
+    process.exit(1);
     return;
   }
 

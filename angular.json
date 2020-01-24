@@ -787,6 +787,28 @@
         }
       }
     },
+    "tools-pull-request-labeler": {
+      "root": "tools/pull-request-labeler",
+      "sourceRoot": "tools/pull-request-labeler/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["tools/pull-request-labeler/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/pull-request-labeler/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "tools/pull-request-labeler/jest.config.js",
+            "tsConfig": "tools/pull-request-labeler/tsconfig.spec.json",
+            "setupFile": "tools/pull-request-labeler/src/test-setup.ts"
+          }
+        }
+      }
+    },
     "tools-shared": {
       "root": "tools/shared",
       "sourceRoot": "tools/shared/src",
