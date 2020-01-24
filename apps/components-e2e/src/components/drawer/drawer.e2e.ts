@@ -22,7 +22,7 @@ import {
   rangeSelection,
   selection,
 } from '../chart/selection-area/selection-area.po';
-import { isCloseTo } from '../../utils';
+import { isCloseTo, waitForAngular } from '../../utils';
 
 const openCount = Selector('#open-count');
 const closeCount = Selector('#close-count');
@@ -30,6 +30,11 @@ const open = Selector('#open');
 const close = Selector('#close');
 const chart = Selector('#chart');
 const overlayTrigger = Selector('#trigger');
+const tooltip = Selector('.dt-chart-tooltip-overlay');
+const overlayContainer = Selector('.dt-overlay-container');
+const heatfieldToggle = Selector('.dt-chart-heatfield-marker');
+const heatfieldOverlay = Selector('.dt-chart-heatfield-overlay');
+const rangeOverlay = Selector('.dt-chart-selection-area-overlay');
 
 const scrollDistance = 50;
 const scrollDown = ClientFunction(distance => {
@@ -39,77 +44,92 @@ const scrollUp = ClientFunction(distance => {
   window.scrollBy(0, -distance);
 });
 
-fixture('Drawer').page('http://localhost:4200/drawer');
+fixture('Drawer')
+  .only.page('http://localhost:4200/drawer')
+  .beforeEach(async (testController: TestController) => {
+    await testController.resizeWindow(1200, 800);
+    await waitForAngular();
+  });
 
 test('should open drawer on button click', async (testController: TestController) => {
-  await testController.expect(await openCount.textContent).eql('0');
-  await testController.click(open);
-  // wait the 500 ms til the open animation is finished
-  await testController.wait(500);
-  await testController.expect(await openCount.textContent).eql('1');
+  await testController
+    .expect(openCount.textContent)
+    .eql('0')
+    .click(open, { speed: 0.2 })
+    .expect(openCount.textContent)
+    .eql('1');
 });
 
 test('should close drawer on button click', async (testController: TestController) => {
-  await testController.click(open);
-  await testController.expect(await closeCount.textContent).eql('0');
-  await testController.click(close);
-  await testController.expect(await closeCount.textContent).eql('1');
+  await testController
+    .click(open, { speed: 0.3 })
+    .expect(closeCount.textContent)
+    .eql('0')
+    .click(close, { speed: 0.3 })
+    .expect(closeCount.textContent)
+    .eql('1');
 });
 
 test('should close chart tooltip on scroll', async (testController: TestController) => {
-  await testController.click(open);
-  await testController.hover(chart).hover(chart, { offsetX: 200 });
-
-  const tooltip = Selector('.dt-chart-tooltip-overlay');
-  await testController.expect(tooltip.exists).ok();
+  await testController
+    .click(open)
+    .hover(chart, { speed: 0.3 })
+    .hover(chart, { offsetX: 200, speed: 0.3 })
+    .expect(tooltip.exists)
+    .ok();
 });
 
 test('should close overlay on scroll', async (testController: TestController) => {
-  await testController.click(open);
-  await testController.hover(overlayTrigger);
-
-  const overlayContainer = Selector('.dt-overlay-container');
-  await testController.expect(overlayContainer.exists).ok();
+  await testController
+    .click(open)
+    .hover(overlayTrigger, { speed: 0.3 })
+    .expect(overlayContainer.exists)
+    .ok();
 
   await scrollDown(scrollDistance);
+
   await testController.expect(overlayContainer.exists).notOk();
 });
 
 test('should move heatfield overlay with the chart on scroll', async (testController: TestController) => {
-  await testController.click(open);
-
-  const heatfieldToggle = Selector('.dt-chart-heatfield-marker');
-  await testController.click(heatfieldToggle);
-
-  const heatfieldOverlay = Selector('.dt-chart-heatfield-overlay');
-  await testController.expect(heatfieldOverlay.exists).ok();
+  await testController
+    .click(open, { speed: 0.5 })
+    .click(heatfieldToggle, { speed: 0.4 })
+    .expect(heatfieldOverlay.exists)
+    .ok();
 
   const prevPosition = await heatfieldOverlay.getBoundingClientRectProperty(
     'top',
   );
+
   await scrollDown(scrollDistance);
+
   await testController.expect(heatfieldOverlay.exists).ok();
 
   const currPosition = await heatfieldOverlay.getBoundingClientRectProperty(
     'top',
   );
-  await testController.expect(prevPosition).notEql(currPosition);
-  await testController.expect(currPosition).eql(prevPosition - scrollDistance);
+
+  await testController
+    .expect(prevPosition)
+    .notEql(currPosition)
+    .expect(isCloseTo(currPosition, prevPosition - scrollDistance))
+    .ok();
 
   await scrollUp(scrollDistance);
-  await testController.click(heatfieldToggle);
-  await testController.expect(heatfieldOverlay.exists).notOk();
+  await testController
+    .click(heatfieldToggle)
+    .expect(heatfieldOverlay.exists)
+    .notOk();
 });
 
 test('should move selection area overlay with the chart on scroll', async (testController: TestController) => {
-  const rangeOverlay = Selector('.dt-chart-selection-area-overlay');
   await testController.click(open);
-  await createRange(520, { x: 310, y: 100 })
+  await createRange(520, { x: 310, y: 100 }, testController)
     .expect(selection.exists)
     .ok()
     .expect(overlay.exists)
     .ok()
-    .wait(500)
     .expect(rangeSelection.exists)
     .ok();
 
@@ -117,10 +137,7 @@ test('should move selection area overlay with the chart on scroll', async (testC
 
   await scrollDown(scrollDistance);
 
-  await testController
-    .expect(rangeOverlay.exists)
-    .ok()
-    .wait(500);
+  await testController.expect(rangeOverlay.exists).ok();
 
   const currPosition = await rangeOverlay.getBoundingClientRectProperty('top');
 
