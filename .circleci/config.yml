@@ -31,6 +31,13 @@ executors:
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+filter_branches: &filter_branches
+  filters:
+    branches:
+      # The cherry picker creates branches where the cherrypick is perfomred
+      # Those are instantly failing in circle and should be ignored.
+      ignore: /^cherry-pick-.*/
+
 defaults: &defaults
   working_directory: ~/barista
   docker:
@@ -282,37 +289,46 @@ workflows:
 # - Runs on every PR check
   pr-check:
     jobs:
-      - install
+      - install:
+          <<: *filter_branches
       - check-formatting:
+          <<: *filter_branches
           requires:
             - install
       - sonar:
+          <<: *filter_branches
           # SONAR_TOKEN is needed for sonar cloud checks
           context: barista
           requires:
             - install
       - security-checks:
+          <<: *filter_branches
           # SNYK_TOKEN is needed for security checking
           context: barista
           requires:
             - install
       - lint:
+          <<: *filter_branches
           requires:
             - install
       - lint-styles:
+          <<: *filter_branches
           requires:
             - install
       - unit-test:
+          <<: *filter_branches
           context: barista
           requires:
             - install
       - e2e-test:
+          <<: *filter_branches
           # BROWSERSTACK_ACCESS_KEY is needed for browserstack automation
           # BROWSERSTACK_USERNAME is needed for browserstack automation
           context: barista
           requires:
             - build
       - build:
+          <<: *filter_branches
           requires:
             - install
       - store-build-artifacts:
