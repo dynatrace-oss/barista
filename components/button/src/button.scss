@@ -99,10 +99,9 @@ a.dt-button[disabled] {
 }
 
 // Text-buttons in table or filter-field cells need to be smaller
-.dt-cell .dt-button:not(.dt-icon-button),
-.dt-filter-field-body .dt-button:not(.dt-icon-button) {
-  height: 24px;
-  line-height: 24px;
+.dt-cell .dt-button:not(.dt-icon-button) {
+  height: 22px;
+  line-height: 22px;
 
   .dt-button-icon {
     width: 16px;
