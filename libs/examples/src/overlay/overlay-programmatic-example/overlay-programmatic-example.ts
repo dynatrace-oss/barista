@@ -16,12 +16,7 @@
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { DtOverlay } from '@dynatrace/barista-components/overlay';
-
-@Component({
-  selector: 'dt-example-overlay-programmatic-dummy',
-  template: 'overlay',
-})
-export class DtExampleOverlayProgrammaticDummy {}
+import { DtExampleOverlayProgrammaticDummy } from '../overlay-example-dummy-component';
 
 @Component({
   selector: 'dt-example-overlay-programmatic',

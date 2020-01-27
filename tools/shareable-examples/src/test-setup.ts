@@ -14,17 +14,4 @@
  * limitations under the License.
  */
 
-export interface BaEnvironment {
-  rootDir: string;
-  distDir: string;
-  examplesMetadataDir: string;
-  examplesMetadataFileName: string;
-  examplesLibDir: string;
-  shareableExamplesToolsDir: string;
-  demosAppDir: string;
-  baristaAppDir: string;
-  iconsRoot: string;
-  iconsChangelogFileName: string;
-  strapiEndpoint: string | undefined;
-  internalLinks: string | undefined;
-}
+import 'jest-preset-angular';

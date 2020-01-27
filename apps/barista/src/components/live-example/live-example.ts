@@ -234,6 +234,11 @@ export class BaLiveExample implements OnDestroy {
     }
   }
 
+  /** @internal Opens this example in stackblitz. */
+  _getStackblitzLink(): string {
+    return `https://stackblitz.com/github/barista-oss/barista-examples/tree/master/examples/${this.name}/`;
+  }
+
   private _initExample(): void {
     const exampleType = EXAMPLES_MAP.get(this._name);
     if (exampleType) {

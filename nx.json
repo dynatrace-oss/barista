@@ -43,6 +43,9 @@
     "tools-pull-request-labeler": {
       "tags": ["type:tooling"]
     },
+    "tools-shareable-examples": {
+      "tags": ["type:tooling"]
+    },
     "tools-shared": {
       "tags": ["type:tooling", "type:shared"]
     },

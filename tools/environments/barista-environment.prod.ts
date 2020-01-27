@@ -43,6 +43,12 @@ export const environment: BaEnvironment = {
   examplesMetadataDir: '/examples-metadata',
   examplesMetadataFileName: 'examples-metadata.json',
   examplesLibDir: join(ROOT_DIR, 'libs', 'examples', 'src'),
+  shareableExamplesToolsDir: join(
+    ROOT_DIR,
+    'tools',
+    'shareable-examples',
+    'src',
+  ),
   demosAppDir: join(ROOT_DIR, 'apps', 'demos', 'src'),
   baristaAppDir: join(ROOT_DIR, 'apps', 'barista', 'src'),
   iconsRoot: ICONS_ROOT,
