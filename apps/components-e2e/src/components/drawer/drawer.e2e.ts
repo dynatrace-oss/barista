@@ -45,7 +45,7 @@ const scrollUp = ClientFunction(distance => {
 });
 
 fixture('Drawer')
-  .only.page('http://localhost:4200/drawer')
+  .page('http://localhost:4200/drawer')
   .beforeEach(async (testController: TestController) => {
     await testController.resizeWindow(1200, 800);
     await waitForAngular();
