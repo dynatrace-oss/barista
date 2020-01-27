@@ -146,7 +146,7 @@ test('should move selection area overlay with the chart on scroll', async (testC
     .notEql(currPosition)
     .expect(isCloseTo(currPosition, prevPosition - scrollDistance, 10))
     .ok()
-    .click(closeButton)
+    .click(closeButton, { speed: 0.3 })
     .expect(selection.exists)
     .notOk()
     .expect(overlay.exists)
