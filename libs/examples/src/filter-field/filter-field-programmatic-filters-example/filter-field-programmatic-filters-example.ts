@@ -30,14 +30,14 @@ export class DtExampleFilterFieldProgrammaticFilters {
     autocomplete: [
       {
         name: 'AUT',
-        autocomplete: ['Linz', 'Vienna', 'Graz'],
+        autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
       },
       {
         name: 'USA',
         autocomplete: [
-          'San Francisco',
-          'Los Angeles',
-          'New York',
+          { name: 'San Francisco' },
+          { name: 'Los Angeles' },
+          { name: 'New York' },
           {
             name: 'Custom',
             suggestions: [],
