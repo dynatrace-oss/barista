@@ -1,0 +1,8 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'barista-demo-application',
+  template: '<{{EXAMPLE_SELECTOR}}></{{EXAMPLE_SELECTOR}}>',
+  styleUrls: [ './app.component.scss', ]
+})
+export class AppComponent {}

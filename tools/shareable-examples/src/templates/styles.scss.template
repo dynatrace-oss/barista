@@ -1,0 +1,41 @@
+$fonts-dir: 'https://unpkg.com/@dynatrace/barista-fonts/';
+@import "~@dynatrace/barista-components/style/index";
+
+// from "* { Box-sizing: Border-box }
+// FTW" @ https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.dt-demo-card {
+  background-color: #f2f2f2;
+  border: 1px solid #f2f2f2;
+}
+
+.dt-demo-card.dt-demo-dark {
+  padding: 0;
+}
+
+.dt-example-dark {
+  background-color: #242424;
+  color: #ffffff;
+  padding: 16px;
+}

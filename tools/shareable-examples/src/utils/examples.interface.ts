@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-export interface BaEnvironment {
-  rootDir: string;
-  distDir: string;
-  examplesMetadataDir: string;
-  examplesMetadataFileName: string;
-  examplesLibDir: string;
-  shareableExamplesToolsDir: string;
-  demosAppDir: string;
-  baristaAppDir: string;
-  iconsRoot: string;
-  iconsChangelogFileName: string;
-  strapiEndpoint: string | undefined;
-  internalLinks: string | undefined;
+import { SourceFile } from 'typescript';
+
+export interface ExampleFile {
+  path: string;
+  content: string;
+}
+
+export interface ExampleAstFile extends ExampleFile {
+  ast: SourceFile;
+}
+
+export interface ExampleProject {
+  name: string;
+  files: ExampleFile[];
 }

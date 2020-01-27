@@ -834,6 +834,47 @@
         }
       }
     },
+    "tools-shareable-examples": {
+      "root": "tools/shareable-examples",
+      "sourceRoot": "tools/shareable-examples/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/tools/shareable-examples",
+            "main": "tools/shareable-examples/src/main.ts",
+            "tsConfig": "tools/shareable-examples/tsconfig.json",
+            "maxWorkers": 6
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "tools/environments/barista-environment.ts",
+                  "with": "tools/environments/barista-environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["tools/shareable-examples/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/shareable-examples/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "tools/shareable-examples/jest.config.js",
+            "tsConfig": "tools/shareable-examples/tsconfig.spec.json",
+            "setupFile": "tools/shareable-examples/src/test-setup.ts"
+          }
+        }
+      }
+    },
     "tools-shared": {
       "root": "tools/shared",
       "sourceRoot": "tools/shared/src",

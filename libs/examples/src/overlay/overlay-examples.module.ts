@@ -23,11 +23,9 @@ import { DtTileModule } from '@dynatrace/barista-components/tile';
 import { DtExampleOverlayComplexContent } from './overlay-complex-content-example/overlay-complex-content-example';
 import { DtExampleOverlayDefault } from './overlay-default-example/overlay-default-example';
 import { DtExampleOverlayImplicitContext } from './overlay-implicit-context-example/overlay-implicit-context-example';
-import {
-  DtExampleOverlayProgrammatic,
-  DtExampleOverlayProgrammaticDummy,
-} from './overlay-programmatic-example/overlay-programmatic-example';
+import { DtExampleOverlayProgrammatic } from './overlay-programmatic-example/overlay-programmatic-example';
 import { DtExampleOverlayTile } from './overlay-tile-example/overlay-tile-example';
+import { DtExampleOverlayProgrammaticDummy } from './overlay-example-dummy-component';
 
 export const DT_OVERLAY_EXAMPLES = [
   DtExampleOverlayComplexContent,

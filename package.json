@@ -33,6 +33,7 @@
     "nx": "node --max_old_space_size=8192 ./node_modules/.bin/nx",
     "ng": "ng",
     "barista-tools": "ng build barista-tools && node dist/tools/barista/main.js",
+    "shareable-examples": "ng build tools-shareable-examples && node dist/tools/shareable-examples/main.js",
     "barista": "npm run examples-tools && npm run barista-tools && ng serve barista",
     "demos": "npm run examples-tools && ng serve demos",
     "examples-tools": "ng build examples-tools && node dist/tools/examples/main.js",

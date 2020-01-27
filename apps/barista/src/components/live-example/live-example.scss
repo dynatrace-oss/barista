@@ -69,6 +69,11 @@ $code-font-size: 14px;
   }
 }
 
+a.ba-live-example-control {
+  display: inline-block;
+  line-height: 0.9;
+}
+
 .ba-live-example-control:hover {
   cursor: pointer;
   background-color: $gray-300;
