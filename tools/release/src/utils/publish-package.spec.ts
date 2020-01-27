@@ -18,9 +18,14 @@ import { vol } from 'memfs';
 import { parse } from 'semver';
 import { publishPackage, npmPublish, yarnPublish } from './publish-package';
 import axios from 'axios';
+import { sep } from 'path';
+import { cwd } from 'process';
+import { platform } from 'os';
 
 const VERSION = parse('5.0.0')!;
 let processSpy: jest.SpyInstance;
+
+const root = platform() === 'win32' ? `${cwd().split(sep)[0]}${sep}` : '/';
 
 beforeEach(() => {
   process.chdir('/');
@@ -58,7 +63,7 @@ test('should call the npm and yarn publish commands with the right arguments', a
     2,
     'yarn publish --verbose --new-version=5.0.0 /components',
     // cwd should be the root dir
-    { cwd: '/', maxBuffer: expect.any(Number) },
+    { cwd: root, maxBuffer: expect.any(Number) },
     expect.any(Function),
   );
 

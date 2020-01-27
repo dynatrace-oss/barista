@@ -40,6 +40,11 @@ import * as utils from '../utils';
 import * as prompts from '../prompts';
 import { publishRelease } from './publish-release';
 import axios from 'axios';
+import { sep } from 'path';
+import { cwd } from 'process';
+import { platform } from 'os';
+
+const root = platform() === 'win32' ? `${cwd().split(sep)[0]}${sep}` : '/';
 
 beforeEach(() => {
   // Mock console logs away we don't want to bloat the output
@@ -57,7 +62,9 @@ test('Should throw an error when no package.json is found', async () => {
   try {
     await parsePackageVersion(process.cwd());
   } catch (err) {
-    expect(err.message).toBe('Error while parsing json file at /package.json');
+    expect(err.message).toBe(
+      `Error while parsing json file at ${root}package.json`,
+    );
   }
 });
 
