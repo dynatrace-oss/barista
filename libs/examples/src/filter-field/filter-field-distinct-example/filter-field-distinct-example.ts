@@ -30,12 +30,16 @@ export class DtExampleFilterFieldDistinct {
     autocomplete: [
       {
         name: 'AUT',
-        autocomplete: ['Linz', 'Vienna', 'Graz'],
+        autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
         distinct: true,
       },
       {
         name: 'USA',
-        autocomplete: ['San Francisco', 'Los Angeles', 'New York'],
+        autocomplete: [
+          { name: 'San Francisco' },
+          { name: 'Los Angeles' },
+          { name: 'New York' },
+        ],
       },
     ],
   };
