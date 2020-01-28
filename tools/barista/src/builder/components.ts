@@ -31,7 +31,7 @@ import {
   extractH1ToTitleTransformer,
   markdownToHtmlTransformer,
   transformPage,
-  uxSlotTransformer,
+  uxSnippetTransformer,
   headingIdTransformer,
   copyHeadlineTransformer,
 } from '../transform';
@@ -46,8 +46,8 @@ const TRANSFORMERS: BaPageTransformer[] = [
   componentTagsTransformer,
   markdownToHtmlTransformer,
   extractH1ToTitleTransformer,
+  uxSnippetTransformer,
   headingIdTransformer,
-  uxSlotTransformer,
   copyHeadlineTransformer,
 ];
 

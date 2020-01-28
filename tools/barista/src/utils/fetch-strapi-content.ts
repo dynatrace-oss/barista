@@ -48,7 +48,7 @@ export async function fetchContentList<
 }
 
 /**
- * Fetches a single item from Strapi CMS.
+ * Fetches a single item from Strapi CMS by ID.
  */
 export async function fetchContentItemById<
   T extends BaStrapiPage | BaStrapiSnippet | BaStrapiPageTeaser | BaStrapiCTA
@@ -62,6 +62,28 @@ export async function fetchContentItemById<
   // Only fetch content set to public when building the public version of Barista
   if (options.publicContent) {
     requestPath = `${requestPath}?public=true`;
+  }
+  const host = `http://${endpoint}:5100${requestPath}`;
+  const strapiResponse = await Axios.get<T>(host);
+  return strapiResponse.data;
+}
+
+/**
+ * Fetches a single item from Strapi CMS by field.
+ */
+export async function fetchContentItemByField<
+  T extends BaStrapiPage | BaStrapiSnippet | BaStrapiPageTeaser | BaStrapiCTA
+>(
+  contentType: BaStrapiContentType,
+  fieldName: string,
+  fieldValue: string,
+  options: FetchContentOptions,
+  endpoint: string,
+): Promise<T> {
+  let requestPath = `/${contentType}/?${fieldName}=${fieldValue}`;
+  // Only fetch content set to public when building the public version of Barista
+  if (options.publicContent) {
+    requestPath = `${requestPath}&public=true`;
   }
   const host = `http://${endpoint}:5100${requestPath}`;
   const strapiResponse = await Axios.get<T>(host);
