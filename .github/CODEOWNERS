@@ -1,5 +1,5 @@
-/* @thomaspink @ffriedl89 @tomheller @lukasholzer
-/** @thomaspink @ffriedl89 @tomheller @lukasholzer
+/* @thomaspink @tomheller @lukasholzer
+/** @thomaspink @tomheller @lukasholzer
 
 # Components
 /components/* @lukasholzer @thomaspink
@@ -9,14 +9,14 @@
 /components/breadcrumbs/** @ffriedl89 @szymonbultrowicz
 /components/button/** @thomaspink
 /components/button-group/** @tomheller
-/components/card/** @ffriedl89
+/components/card/** @ffriedl89 @lara-aigmueller
 /components/chart/** @ffriedl89 @lukasholzer
 /components/checkbox/** @thomaspink
-/components/confirmation-dialog/** @toddbaert @ffriedl89
-/components/consumption/** @ffriedl89
+/components/confirmation-dialog/** @toddbaert @ffriedl89 @thomaspink
+/components/consumption/** @ffriedl89 @thomaspink
 /components/container-breakpoint-observer/** @thomaspink
-/components/context-dialog/** @ffriedl89
-/components/copy-to-clipboard/** @ffriedl89 @moertenschlag
+/components/context-dialog/** @ffriedl89 @NinaKammerlander
+/components/copy-to-clipboard/** @lara-aigmueller @ffriedl89 @moertenschlag
 /components/cta-card/** @thomaspink
 /components/drawer/** @lukasholzer @rowa-audil
 /components/empty-state/** @lara-aigmueller @lukasholzer @heartdisease
@@ -26,38 +26,38 @@
 /components/expandable-text/** @rowa-audil @ffriedl89
 /components/filter-field/** @thomaspink @tomheller
 /components/form-field/** @thomaspink
-/components/formatters/** @ffriedl89
-/components/highlight/** @lukasholzer
+/components/formatters/** @ffriedl89 @rowa-audil
+/components/highlight/** @lukasholzer @thomaspink
 /components/icon/** @thomaspink
-/components/info-group/** @ffriedl89
+/components/info-group/** @ffriedl89 @lara-aigmueller
 /components/inline-editor/** @thomaspink
 /components/input/** @thomaspink
 /components/key-value-list/** @ffriedl89 @moertenschlag
 /components/legend/** @thomaspink
 /components/loading-distractor/** @thomaspink
-/components/menu/** @heartdisease
-/components/micro-chart/** @ffriedl89 @dlaubi-dt
-/components/overlay/** @ffriedl89
+/components/menu/** @heartdisease @rowa-audil
+/components/micro-chart/** @ffriedl89 @dlaubi-dt @tomheller
+/components/overlay/** @ffriedl89 @thomaspink @tomheller
 /components/pagination/** @lukasholzer
 /components/progress-bar/** @tomheller
-/components/progress-circle/** @ffriedl89
+/components/progress-circle/** @ffriedl89 @tomheller
 /components/radio/** @thomaspink
-/components/schematics/** @ffriedl89
+/components/schematics/** @lukasholzer
 /components/secondary-nav/** @areknow @thomaspink
 /components/select/** @thomaspink
 /components/selection-area/** @ffriedl89 @lukasholzer
 /components/show-more/** @lara-aigmueller
-/components/stepper/** @ffriedl89
+/components/stepper/** @ffriedl89 @thomaspink
 /components/switch/** @lara-aigmueller
 /components/table/** @ffriedl89 @tomheller @lara-aigmueller
-/components/tabs/** @ffriedl89
+/components/tabs/** @ffriedl89 @thomaspink
 /components/tag/** @rowa-audil
-/components/tile/** @ffriedl89
+/components/tile/** @ffriedl89 @lara-aigmueller
 /components/timeline-chart/** @thomaspink
-/components/toast/** @ffriedl89
+/components/toast/** @ffriedl89 @tomheller
 /components/toggle-button-group/** @tomheller
 /components/top-bar-navigation/** @lukasholzer
-/components/tree-table/** @ffriedl89
+/components/tree-table/** @ffriedl89 @tomheller
 
 # Apps
 /apps/* @lukasholzer @thomaspink
@@ -68,15 +68,89 @@
 
 # Demos app
 /apps/demos/* @thomaspink @lukasholzer
-/apps/demos/src/** @thomaspink @ffriedl89 @tomheller
+/apps/demos/src/** @thomaspink @tomheller
 
 # e2e
 /apps/components-e2e/* @lukasholzer
 /apps/components-e2e/src/** @lukasholzer
+/apps/components-e2e/src/components/button @thomaspink
+/apps/components-e2e/src/components/button-group @tomheller
+/apps/components-e2e/src/components/chart @ffriedl89 @lukasholzer
+/apps/components-e2e/src/components/checkbox @thomaspink
+/apps/components-e2e/src/components/consumption @ffriedl89 @thomaspink
+/apps/components-e2e/src/components/context-dialog @ffriedl89 @NinaKammerlander
+/apps/components-e2e/src/components/drawer @lukasholzer @rowa-audil
+/apps/components-e2e/src/components/event-chart @thomaspink @tomheller
+/apps/components-e2e/src/components/expandable-panel @lara-aigmueller
+/apps/components-e2e/src/components/expandable-section @lara-aigmueller
+/apps/components-e2e/src/components/filter-field @thomaspink @tomheller
+/apps/components-e2e/src/components/key-value-list @ffriedl89 @moertenschlag
+/apps/components-e2e/src/components/overlay @ffriedl89 @thomaspink @tomheller
+/apps/components-e2e/src/components/pagination @lukasholzer
+/apps/components-e2e/src/components/progress-bar @tomheller
+/apps/components-e2e/src/components/radio @thomaspink
+/apps/components-e2e/src/components/show-more @lara-aigmueller
+/apps/components-e2e/src/components/switch @lara-aigmueller
+/apps/components-e2e/src/components/tabs @ffriedl89 @thomaspink
+/apps/components-e2e/src/components/tile @ffriedl89 @lara-aigmueller
 
 # Dev app
 /apps/dev/* @thomaspink @lukasholzer
-/apps/dev/src/** @thomaspink @lukasholzer
+/apps/dev/src/* @thomaspink @lukasholzer
+/apps/dev/src/alert/** @lara-aigmueller
+/apps/dev/src/autocomplete/** @thomaspink
+/apps/dev/src/bar-indicator/** @tomheller
+/apps/dev/src/breadcrumbs/** @ffriedl89 @szymonbultrowicz
+/apps/dev/src/button/** @thomaspink
+/apps/dev/src/button-group/** @tomheller
+/apps/dev/src/card/** @ffriedl89 @lara-aigmueller
+/apps/dev/src/chart/** @ffriedl89 @lukasholzer
+/apps/dev/src/checkbox/** @thomaspink
+/apps/dev/src/confirmation-dialog/** @toddbaert @ffriedl89 @thomaspink
+/apps/dev/src/consumption/** @ffriedl89 @thomaspink
+/apps/dev/src/container-breakpoint-observer/** @thomaspink
+/apps/dev/src/context-dialog/** @ffriedl89 @NinaKammerlander
+/apps/dev/src/copy-to-clipboard/** @lara-aigmueller @ffriedl89 @moertenschlag
+/apps/dev/src/cta-card/** @thomaspink
+/apps/dev/src/drawer/** @lukasholzer @rowa-audil
+/apps/dev/src/empty-state/** @lara-aigmueller @lukasholzer @heartdisease
+/apps/dev/src/event-chart/** @thomaspink @tomheller
+/apps/dev/src/expandable-panel/** @lara-aigmueller
+/apps/dev/src/expandable-section/** @lara-aigmueller
+/apps/dev/src/expandable-text/** @rowa-audil @ffriedl89
+/apps/dev/src/filter-field/** @thomaspink @tomheller
+/apps/dev/src/form-field/** @thomaspink
+/apps/dev/src/formatters/** @ffriedl89 @rowa-audil
+/apps/dev/src/highlight/** @lukasholzer @thomaspink
+/apps/dev/src/icon/** @thomaspink
+/apps/dev/src/info-group/** @ffriedl89 @lara-aigmueller
+/apps/dev/src/inline-editor/** @thomaspink
+/apps/dev/src/input/** @thomaspink
+/apps/dev/src/key-value-list/** @ffriedl89 @moertenschlag
+/apps/dev/src/legend/** @thomaspink
+/apps/dev/src/loading-distractor/** @thomaspink
+/apps/dev/src/menu/** @heartdisease @rowa-audil
+/apps/dev/src/micro-chart/** @ffriedl89 @dlaubi-dt @tomheller
+/apps/dev/src/overlay/** @ffriedl89 @thomaspink @tomheller
+/apps/dev/src/pagination/** @lukasholzer
+/apps/dev/src/progress-bar/** @tomheller
+/apps/dev/src/progress-circle/** @ffriedl89 @tomheller
+/apps/dev/src/radio/** @thomaspink
+/apps/dev/src/secondary-nav/** @areknow @thomaspink
+/apps/dev/src/select/** @thomaspink
+/apps/dev/src/selection-area/** @ffriedl89 @lukasholzer
+/apps/dev/src/show-more/** @lara-aigmueller
+/apps/dev/src/stepper/** @ffriedl89 @thomaspink
+/apps/dev/src/switch/** @lara-aigmueller
+/apps/dev/src/table/** @ffriedl89 @tomheller @lara-aigmueller
+/apps/dev/src/tabs/** @ffriedl89 @thomaspink
+/apps/dev/src/tag/** @rowa-audil
+/apps/dev/src/tile/** @ffriedl89 @lara-aigmueller
+/apps/dev/src/timeline-chart/** @thomaspink
+/apps/dev/src/toast/** @ffriedl89 @tomheller
+/apps/dev/src/toggle-button-group/** @tomheller
+/apps/dev/src/top-bar-navigation/** @lukasholzer
+/apps/dev/src/tree-table/** @ffriedl89 @tomheller
 
 # Universal
 /apps/universal/* @thomaspink @lukasholzer
@@ -89,6 +163,64 @@
 /libs/* @lukasholzer @thomaspink
 /libs/testing/** @thomaspink
 
+# Examples
+/libs/examples/* @thomaspink
+/libs/examples/src/* @thomaspink
+/libs/examples/src/alert/** @lara-aigmueller
+/libs/examples/src/autocomplete/** @thomaspink
+/libs/examples/src/bar-indicator/** @tomheller
+/libs/examples/src/breadcrumbs/** @ffriedl89 @szymonbultrowicz
+/libs/examples/src/button/** @thomaspink
+/libs/examples/src/button-group/** @tomheller
+/libs/examples/src/card/** @ffriedl89 @lara-aigmueller
+/libs/examples/src/chart/** @ffriedl89 @lukasholzer
+/libs/examples/src/checkbox/** @thomaspink
+/libs/examples/src/confirmation-dialog/** @toddbaert @ffriedl89 @thomaspink
+/libs/examples/src/consumption/** @ffriedl89 @thomaspink
+/libs/examples/src/container-breakpoint-observer/** @thomaspink
+/libs/examples/src/context-dialog/** @ffriedl89 @NinaKammerlander
+/libs/examples/src/copy-to-clipboard/** @lara-aigmueller @ffriedl89 @moertenschlag
+/libs/examples/src/cta-card/** @thomaspink
+/libs/examples/src/drawer/** @lukasholzer @rowa-audil
+/libs/examples/src/empty-state/** @lara-aigmueller @lukasholzer @heartdisease
+/libs/examples/src/event-chart/** @thomaspink @tomheller
+/libs/examples/src/expandable-panel/** @lara-aigmueller
+/libs/examples/src/expandable-section/** @lara-aigmueller
+/libs/examples/src/expandable-text/** @rowa-audil @ffriedl89
+/libs/examples/src/filter-field/** @thomaspink @tomheller
+/libs/examples/src/form-field/** @thomaspink
+/libs/examples/src/formatters/** @ffriedl89 @rowa-audil
+/libs/examples/src/highlight/** @lukasholzer @thomaspink
+/libs/examples/src/icon/** @thomaspink
+/libs/examples/src/info-group/** @ffriedl89 @lara-aigmueller
+/libs/examples/src/inline-editor/** @thomaspink
+/libs/examples/src/input/** @thomaspink
+/libs/examples/src/key-value-list/** @ffriedl89 @moertenschlag
+/libs/examples/src/legend/** @thomaspink
+/libs/examples/src/loading-distractor/** @thomaspink
+/libs/examples/src/menu/** @heartdisease @rowa-audil
+/libs/examples/src/micro-chart/** @ffriedl89 @dlaubi-dt @tomheller
+/libs/examples/src/overlay/** @ffriedl89 @thomaspink @tomheller
+/libs/examples/src/pagination/** @lukasholzer
+/libs/examples/src/progress-bar/** @tomheller
+/libs/examples/src/progress-circle/** @ffriedl89 @tomheller
+/libs/examples/src/radio/** @thomaspink
+/libs/examples/src/secondary-nav/** @areknow @thomaspink
+/libs/examples/src/select/** @thomaspink
+/libs/examples/src/selection-area/** @ffriedl89 @lukasholzer
+/libs/examples/src/show-more/** @lara-aigmueller
+/libs/examples/src/stepper/** @ffriedl89 @thomaspink
+/libs/examples/src/switch/** @lara-aigmueller
+/libs/examples/src/table/** @ffriedl89 @tomheller @lara-aigmueller
+/libs/examples/src/tabs/** @ffriedl89 @thomaspink
+/libs/examples/src/tag/** @rowa-audil
+/libs/examples/src/tile/** @ffriedl89 @lara-aigmueller
+/libs/examples/src/timeline-chart/** @thomaspink
+/libs/examples/src/toast/** @ffriedl89 @tomheller
+/libs/examples/src/toggle-button-group/** @tomheller
+/libs/examples/src/top-bar-navigation/** @lukasholzer
+/libs/examples/src/tree-table/** @ffriedl89 @tomheller
+
 # Tools
 /tools/* @lukasholzer @thomaspink
 
@@ -100,9 +232,9 @@
 /tools/linting/* @thomaspink @lukasholzer
 /tools/linting/src/** @rowa-audil @lara-aigmueller @heartdisease
 
-/tools/release/** @lukasholzer @ffriedl89
+/tools/release/** @lukasholzer @ffriedl89 @thomaspink
 
-/tools/schematics/** @ffriedl89
+/tools/schematics/** @lukasholzer
 
 /tools/stylelint/** @thomaspink
 
