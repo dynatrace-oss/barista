@@ -14,15 +14,19 @@
  * limitations under the License.
  */
 
+import {
+  BaAllExamplesMetadata,
+  BaPageTransformer,
+  BaSinglePageContent,
+  BaStrapiContentType,
+  BaStrapiSnippet,
+} from '@dynatrace/barista-components/barista-definitions';
 import * as markdownIt from 'markdown-it';
 import * as markdownItDeflist from 'markdown-it-deflist';
-
-import {
-  BaSinglePageContent,
-  BaPageTransformer,
-  BaAllExamplesMetadata,
-} from '@dynatrace/barista-components/barista-definitions';
+import { environment } from 'tools/environments/barista-environment';
+import { isPublicBuild } from 'tools/shared/src/utils/is-public-build';
 import { baElementBlockIgnore } from './markdown-custom-elements-ignore';
+import { fetchContentList } from './utils/fetch-strapi-content';
 import { runWithCheerio } from './utils/run-with-cheerio';
 
 const markdown = new markdownIt({
@@ -35,6 +39,29 @@ markdown.block.ruler.before(
   'custom_block',
   baElementBlockIgnore as markdownIt.RuleBlock,
 );
+
+/**
+ * Holds all UX content snippets fetched from Strapi.
+ */
+const strapiSnippetCache = new Map<string, BaStrapiSnippet>();
+
+async function getSnippetData(): Promise<void> {
+  if (strapiSnippetCache.size > 0 || !environment.strapiEndpoint) {
+    return;
+  }
+  const strapiSnippets = await fetchContentList<BaStrapiSnippet>(
+    BaStrapiContentType.Snippets,
+    { publicContent: isPublicBuild() },
+    environment.strapiEndpoint!,
+  );
+
+  for (const snippet of strapiSnippets) {
+    // Only cache the snippet if it has actual content
+    if (snippet.content.trim().length > 0) {
+      strapiSnippetCache.set(snippet.slotId, snippet);
+    }
+  }
+}
 
 /** Transforms the page-content object by applying each provided transformer in order */
 export async function transformPage(
@@ -65,13 +92,25 @@ export const componentTagsTransformer: BaPageTransformer = async source => {
   return transformed;
 };
 
-/** Transforms UX slots from within the content and enriches slots with UX content */
-export const uxSlotTransformer: BaPageTransformer = async source => {
+/** Transforms UX slots from within the content and enriches slots with UX content from Strapi snippets. */
+export const uxSnippetTransformer: BaPageTransformer = async source => {
   const transformed = { ...source };
-  // TODO lara
-  // lookup slot tags in content
-  // foreach fetch from cms
-  // replace slot tags with fetched stuff
+  await getSnippetData();
+  if (source.content && source.content.length) {
+    transformed.content = runWithCheerio(source.content, $ => {
+      const snippetSlots = $('ba-ux-snippet');
+      if (snippetSlots.length) {
+        snippetSlots.each((_, slot) => {
+          const snippetName = $(slot).attr('name');
+          const snippetData = strapiSnippetCache.get(snippetName);
+          if (snippetData) {
+            const snippetHTMLContent = markdown.render(snippetData.content);
+            $(slot).replaceWith($(snippetHTMLContent));
+          }
+        });
+      }
+    });
+  }
   return transformed;
 };
 

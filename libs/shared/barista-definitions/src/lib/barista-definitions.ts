@@ -151,9 +151,10 @@ export interface BaStrapiPage extends BaStrapiBase {
 
 /** Strapi snippet */
 export interface BaStrapiSnippet extends BaStrapiBase {
-  slotID: string;
+  slotId: string;
   title: string;
   content: string;
+  public: boolean;
 }
 
 /** Strapi content types */
