@@ -113,6 +113,9 @@ export class DtTableDataSource<T> extends DataSource<T> {
   private _renderChangesSubscription = Subscription.EMPTY;
   private _searchChangeSubscription = Subscription.EMPTY;
 
+  /** Public stream emitting render data to the table */
+  renderData = this._renderData.asObservable();
+
   /** Array of data that should be rendered by the table, where each object represents one row. */
   get data(): T[] {
     return this._data.value;
