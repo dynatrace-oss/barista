@@ -16,6 +16,8 @@
 
 import { existsSync, lstatSync, readFileSync, readdirSync } from 'fs';
 import { basename, dirname, extname, join } from 'path';
+import { load as loadWithCheerio } from 'cheerio';
+import Axios from 'axios';
 
 import {
   BaPageBuildResult,
@@ -50,6 +52,37 @@ const TRANSFORMERS: BaPageTransformer[] = [
   headingIdTransformer,
   copyHeadlineTransformer,
 ];
+
+/** Creates snippets in Strapi that do not exist already. */
+async function createStrapiSnippets(content: string): Promise<void> {
+  const $ = loadWithCheerio(content);
+  // Get all snippet names that can be found within the content.
+  const snippetNames = $('ba-ux-snippet')
+    .map((_, el) => $(el).attr('name'))
+    .get();
+  if (snippetNames.length) {
+    const host = `http://${environment.strapiEndpoint}:5100/snippets`;
+    for (const name of snippetNames) {
+      // Check if entry with given slotId already exists.
+      try {
+        const exists = (await Axios.get(`${host}?slotId=${name}`)).data.length;
+        if (!exists) {
+          // Create new entry for given slotId
+          Axios.post(host, {
+            title: '',
+            slotId: name,
+            content: '',
+            public: false,
+          });
+        }
+      } catch (e) {
+        console.log(
+          `There has been an error creating a snippet (slotId: ${name}) in Strapi: ${e}`,
+        );
+      }
+    }
+  }
+}
 
 /** Returns all markdown files of a given path. */
 function getMarkdownFilesByPath(rootPath: string): string[] {
@@ -145,6 +178,10 @@ export const componentsBuilder: BaPageBuilder = async (
         [...TRANSFORMERS, ...globalTransformers],
       );
       transformed.push({ pageContent, relativeOutFile });
+
+      // Look for <ba-ux-snippet> placeholders within the content and create
+      // snippets in Strapi for those slots.
+      await createStrapiSnippets(pageContent.content);
     }
   }
 
