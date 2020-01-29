@@ -59,7 +59,7 @@ const blaFree = [
     name: 'custom',
     suggestions: [],
   },
-  'philly',
+  { name: 'philly' },
 ] as any;
 
 // const blaOption = [

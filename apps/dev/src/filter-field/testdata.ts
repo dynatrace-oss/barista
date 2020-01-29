@@ -24,10 +24,8 @@ export const TEST_DATA = {
       name: 'AUT',
       distinct: true,
       autocomplete: [
-        {
-          name: 'Vienna',
-        },
-        'Linz',
+        { name: 'Vienna' },
+        { name: 'Linz' },
         {
           name: 'custom',
           suggestions: [],
@@ -37,12 +35,8 @@ export const TEST_DATA = {
     {
       name: 'US',
       autocomplete: [
-        {
-          name: 'Miami',
-        },
-        {
-          name: 'Los Angeles',
-        },
+        { name: 'Miami' },
+        { name: 'Los Angeles' },
         {
           name: 'custom',
           suggestions: [],
@@ -63,7 +57,7 @@ export const TEST_DATA = {
     },
     {
       name: 'Different Country',
-      suggestions: ['IT', 'ES', 'UK'],
+      suggestions: [{ name: 'IT' }, { name: 'ES' }, { name: 'UK' }],
       validators: [
         { validatorFn: Validators.required, error: 'is required' },
         {
