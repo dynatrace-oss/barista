@@ -17,8 +17,8 @@
 import { PullsGetResponse } from '@octokit/rest';
 
 /**
- * Checks if the pull request is already labeled with pr: lgtm
+ * Checks if the pull request is already labeled with pr: merge-ready
  */
-export function hasLgtmLabel(pullRequest: PullsGetResponse): boolean {
-  return pullRequest.labels.some(label => label.name === 'pr: lgtm');
+export function hasMergeReadyLabel(pullRequest: PullsGetResponse): boolean {
+  return pullRequest.labels.some(label => label.name === 'pr: merge-ready');
 }

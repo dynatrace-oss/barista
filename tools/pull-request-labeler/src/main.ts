@@ -21,7 +21,7 @@ import { processCommitMessages } from './utils/process-commit-messages';
 import { getCommitMessagesInPullRequest } from './utils/get-commit-messages-in-pull-request';
 import { getPullRequestDetails } from './utils/get-pull-request-details';
 import { isMasterTarget } from './utils/is-master-target';
-import { hasLgtmLabel } from './utils/has-lgtm-label';
+import { hasMergeReadyLabel } from './utils/has-merge-ready-label';
 import { addRebaseLabel } from './utils/add-rebase-label';
 
 function getPrNumber(): number | undefined {
@@ -48,9 +48,9 @@ async function run() {
   // Get the pull request target
   const pullRequestDetails = await getPullRequestDetails(client, prNumber);
 
-  if (!hasLgtmLabel(pullRequestDetails)) {
+  if (!hasMergeReadyLabel(pullRequestDetails)) {
     console.log(
-      'Not ready to label just yet, add pr: lgtm label to it to start the process.',
+      'Not ready to label just yet, add pr: merge-ready label to it to start the process.',
     );
     process.exit(1);
     return;
