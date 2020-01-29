@@ -226,6 +226,7 @@ export function internalLinksTransformerFactory(
     return transformed;
   };
 }
+
 export function exampleInlineSourcesTransformerFactory(
   metadata: BaAllExamplesMetadata,
 ): BaPageTransformer {
@@ -249,5 +250,30 @@ export function exampleInlineSourcesTransformerFactory(
       });
     });
     return source;
+  };
+}
+
+/**
+ * Removes internal content wrapped with <ba-internal-content>
+ * from Strapi pages on public build.
+ */
+export function internalContentTransformerFactory(
+  isPublic: boolean,
+): BaPageTransformer {
+  return async source => {
+    const transformed = { ...source };
+
+    transformed.content = runWithCheerio(source.content, ($: CheerioStatic) => {
+      $('ba-internal-content').each((_, content) => {
+        if (isPublic) {
+          $(content).remove();
+        } else {
+          const innerHtml = $(content).html();
+          $(content).replaceWith($(innerHtml));
+        }
+      });
+    });
+
+    return transformed;
   };
 }
