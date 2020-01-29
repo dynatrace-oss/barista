@@ -34,6 +34,7 @@ import { overviewBuilder } from './generators/category-navigation';
 import {
   internalLinksTransformerFactory,
   exampleInlineSourcesTransformerFactory,
+  internalContentTransformerFactory,
 } from './transform';
 
 // Add your page-builder to this map to register it.
@@ -54,6 +55,15 @@ function createInternalLinksTransformer(): BaPageTransformer {
   const internalLinkParts = internalLinkArg ? internalLinkArg.split(',') : [];
   const isPublic = isPublicBuild();
   return internalLinksTransformerFactory(isPublic, internalLinkParts);
+}
+
+/**
+ * Creates the internalContentTransformer via a factory because we need to read
+ * one argument from the process environment.
+ */
+function createInternalContentTransformer(): BaPageTransformer {
+  const isPublic = isPublicBuild();
+  return internalContentTransformerFactory(isPublic);
 }
 
 /**
@@ -83,6 +93,7 @@ async function buildPages(): Promise<void[]> {
   const globalTransformers = [
     await createExampleInlineSourcesTransformer(),
     createInternalLinksTransformer(),
+    createInternalContentTransformer(),
   ];
 
   const builders = Array.from(BUILDERS.values());
