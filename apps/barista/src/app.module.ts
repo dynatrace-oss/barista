@@ -56,7 +56,7 @@ import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { environment } from './environments/environment';
 import { BaComponentsModule } from './components';
 import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
@@ -70,6 +70,15 @@ import { RouterModule } from '@angular/router';
  * so this dummy error handler has to be an exported function.
  */
 export function BaDummyErrorHandler(): void {}
+
+/**
+ * Workaround to make the router module work
+ * but not interfere with the location service.
+ */
+@Component({
+  template: '',
+})
+export class NoopRoute {}
 
 @NgModule({
   imports: [
@@ -95,7 +104,9 @@ export function BaDummyErrorHandler(): void {}
      * to work. This can be removed as soon as the secondary-nav-section
      * does not depend on it anymore. (see issue #465 on github)
      */
-    RouterModule.forRoot([], { errorHandler: BaDummyErrorHandler }),
+    RouterModule.forRoot([{ path: '**', component: NoopRoute }], {
+      errorHandler: BaDummyErrorHandler,
+    }),
   ],
   exports: [],
   declarations: [
@@ -118,6 +129,7 @@ export function BaDummyErrorHandler(): void {}
     BaSidenav,
     BaScrollToTop,
     BaErrorPage,
+    NoopRoute,
   ],
   providers: [
     BaPageService,
