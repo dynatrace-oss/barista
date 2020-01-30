@@ -61,7 +61,7 @@ async function createStrapiSnippets(content: string): Promise<void> {
     .map((_, el) => $(el).attr('name'))
     .get();
   if (snippetNames.length) {
-    const host = `http://${environment.strapiEndpoint}:5100/snippets`;
+    const host = `${environment.strapiEndpoint}/snippets`;
     for (const name of snippetNames) {
       // Check if entry with given slotId already exists.
       try {
