@@ -42,7 +42,7 @@ export async function fetchContentList<
   if (options.publicContent) {
     requestPath = `${requestPath}?public=true`;
   }
-  const host = `http://${endpoint}:5100${requestPath}`;
+  const host = `${endpoint}${requestPath}`;
   const strapiResponse = await Axios.get<T[]>(host);
   return strapiResponse.data;
 }
@@ -63,7 +63,7 @@ export async function fetchContentItemById<
   if (options.publicContent) {
     requestPath = `${requestPath}?public=true`;
   }
-  const host = `http://${endpoint}:5100${requestPath}`;
+  const host = `${endpoint}${requestPath}`;
   const strapiResponse = await Axios.get<T>(host);
   return strapiResponse.data;
 }
@@ -85,7 +85,7 @@ export async function fetchContentItemByField<
   if (options.publicContent) {
     requestPath = `${requestPath}&public=true`;
   }
-  const host = `http://${endpoint}:5100${requestPath}`;
+  const host = `${endpoint}${requestPath}`;
   const strapiResponse = await Axios.get<T>(host);
   return strapiResponse.data;
 }
