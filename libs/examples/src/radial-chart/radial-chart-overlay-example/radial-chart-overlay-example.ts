@@ -14,7 +14,29 @@
  * limitations under the License.
  */
 
-export * from './src/theming-module';
-export * from './src/theme';
-export * from './src/colors';
-export * from './src/chart-colors';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-example-radial-chart-overlay',
+  templateUrl: './radial-chart-overlay-example.html',
+})
+export class DtExampleRadialChartOverlay {
+  _chartSeries = [
+    {
+      name: 'Chrome',
+      value: 43,
+    },
+    {
+      name: 'Safari',
+      value: 22,
+    },
+    {
+      name: 'Firefox',
+      value: 15,
+    },
+    {
+      name: 'Microsoft Edge',
+      value: 9,
+    },
+  ];
+}

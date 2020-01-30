@@ -14,7 +14,32 @@
  * limitations under the License.
  */
 
-export * from './src/theming-module';
-export * from './src/theme';
-export * from './src/colors';
-export * from './src/chart-colors';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-e2e-radial-chart',
+  templateUrl: 'radial-chart.html',
+  styles: ['.dt-radial-chart ::ng-deep svg { max-width: 700px; }'],
+})
+export class DtE2ERadialChart {
+  type: 'pie' | 'donut' = 'pie';
+
+  chartSeries = [
+    {
+      name: 'Chrome',
+      value: 43,
+    },
+    {
+      name: 'Safari',
+      value: 22,
+    },
+    {
+      name: 'Firefox',
+      value: 15,
+    },
+    {
+      name: 'Microsoft Edge',
+      value: 9,
+    },
+  ];
+}

@@ -1,0 +1,14 @@
+<dt-radial-chart id="test-radial-chart" [type]="type">
+  <dt-radial-chart-series
+    *ngFor="let s of chartSeries"
+    [value]="s.value"
+    [name]="s.name"
+  ></dt-radial-chart-series>
+  <ng-template dtRadialChartOverlay let-series>
+    <strong>{{ series.name }}</strong>: {{ series.value }} of {{
+    series.totalValue | number }}
+  </ng-template>
+</dt-radial-chart>
+
+<button (click)="type = 'pie'" id="chart-type-pie">pie chart</button>
+<button (click)="type = 'donut'" id="chart-type-donut">donut chart</button>

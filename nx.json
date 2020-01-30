@@ -248,6 +248,9 @@
     "progress-circle": {
       "tags": ["scope:components", "type:library"]
     },
+    "radial-chart": {
+      "tags": ["scope:components", "type:library"]
+    },
     "radio": {
       "tags": ["scope:components", "type:library"]
     },

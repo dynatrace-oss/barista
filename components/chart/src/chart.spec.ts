@@ -25,12 +25,14 @@ import {
   DtChartModule,
   DtChartOptions,
   DtChartSeries,
-  DT_CHART_COLOR_PALETTES,
-  DT_CHART_COLOR_PALETTE_ORDERED,
   getDtHeatfieldUnsupportedChartError,
 } from '@dynatrace/barista-components/chart';
 import { createComponent } from '@dynatrace/barista-components/testing';
-import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import {
+  DtThemingModule,
+  DT_CHART_COLOR_PALETTES,
+  DT_CHART_COLOR_PALETTE_ORDERED,
+} from '@dynatrace/barista-components/theming';
 import { IndividualSeriesOptions } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
 

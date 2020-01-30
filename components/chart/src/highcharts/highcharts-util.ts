@@ -17,10 +17,12 @@
 import { AxisOptions, Options as HighchartsOptions } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 
-import { DtTheme } from '@dynatrace/barista-components/theming';
+import {
+  DtTheme,
+  getDtChartColorPalette,
+} from '@dynatrace/barista-components/theming';
 
 import { DtChartOptions, DtChartSeries } from '../chart';
-import { getDtChartColorPalette } from '../chart-colors';
 import {
   DT_CHART_DEFAULT_AXIS_STYLES,
   DT_CHART_DEFAULT_OPTIONS,

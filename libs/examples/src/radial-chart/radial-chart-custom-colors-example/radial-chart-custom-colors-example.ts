@@ -14,7 +14,36 @@
  * limitations under the License.
  */
 
-export * from './src/theming-module';
-export * from './src/theme';
-export * from './src/colors';
-export * from './src/chart-colors';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-example-radial-chart-custom-colors',
+  templateUrl: './radial-chart-custom-colors-example.html',
+})
+export class DtExampleRadialChartCustomColors {
+  _chartSeries = [
+    {
+      name: 'Chrome',
+      value: 43,
+      color: '#006bba',
+    },
+    {
+      name: 'Safari',
+      value: 31,
+      color: '#b4e5f9',
+    },
+    {
+      name: 'Firefox',
+      value: 17,
+      color: '#2ab6f4',
+    },
+    {
+      name: 'Microsoft Edge',
+      value: 9,
+    },
+    {
+      name: 'Internet Explorer 11',
+      value: 2,
+    },
+  ];
+}

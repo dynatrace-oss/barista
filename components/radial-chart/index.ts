@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-export * from './src/theming-module';
-export * from './src/theme';
-export * from './src/colors';
-export * from './src/chart-colors';
+export * from './src/radial-chart-module';
+export * from './src/radial-chart-series';
+export * from './src/radial-chart';

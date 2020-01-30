@@ -39,6 +39,7 @@ import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
 import { DtProgressBarModule } from '@dynatrace/barista-components/progress-bar';
 import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-circle';
+import { DtRadialChartModule } from '@dynatrace/barista-components/radial-chart';
 import { DtRadioModule } from '@dynatrace/barista-components/radio';
 import { DtSelectModule } from '@dynatrace/barista-components/select';
 import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
@@ -96,6 +97,7 @@ import { NgModule } from '@angular/core';
     DtTopBarNavigationModule,
     DtStepperModule,
     DtContainerBreakpointObserverModule,
+    DtRadialChartModule,
   ],
 })
 export class BaristaModule {}

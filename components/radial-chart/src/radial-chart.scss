@@ -1,0 +1,48 @@
+@import '../../core/src/style/variables';
+
+:host {
+  display: block;
+}
+
+text {
+  font-family: $default-font-family;
+  font-size: 16px;
+}
+
+.dt-radial-chart-svg {
+  width: 100%;
+}
+
+.dt-radial-chart-background {
+  fill: $gray-100;
+}
+
+.dt-radial-chart-legend-symbol {
+  content: ' ';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: var(--dt-radial-chart-legend-symbol-color);
+}
+
+.dt-radial-chart-wrapper {
+  display: flex;
+}
+
+:host.dt-radial-chart-legend-right .dt-radial-chart-wrapper {
+  flex-direction: row;
+  align-items: center;
+}
+
+:host.dt-radial-chart-legend-right .dt-radial-chart-legend {
+  margin-left: 20px;
+}
+
+:host.dt-radial-chart-legend-bottom .dt-radial-chart-wrapper {
+  flex-direction: column;
+  align-items: center;
+}
+
+:host.dt-radial-chart-legend-bottom .dt-radial-chart-legend {
+  margin-top: 20px;
+}

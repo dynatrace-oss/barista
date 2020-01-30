@@ -14,7 +14,16 @@
  * limitations under the License.
  */
 
-export * from './src/theming-module';
-export * from './src/theme';
-export * from './src/colors';
-export * from './src/chart-colors';
+/**
+ * @internal
+ * Interface for the radial chart render data,
+ * i.e. all the data needed for creating the svg path
+ * and additional information like alternative text.
+ */
+export interface DtRadialChartRenderData {
+  name: string;
+  path: string;
+  color: string;
+  value: number;
+  ariaLabel: string;
+}

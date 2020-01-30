@@ -125,6 +125,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'radial-chart',
+    loadChildren: () =>
+      import('../components/radial-chart/radial-chart.module').then(
+        module => module.DtE2ERadialChartModule,
+      ),
+  },
+  {
     path: 'radio',
     loadChildren: () =>
       import('../components/radio/radio.module').then(

@@ -1,0 +1,8 @@
+<dt-radial-chart type="donut">
+  <dt-radial-chart-series
+    *ngFor="let s of _chartSeries"
+    [value]="s.value"
+    [name]="s.name"
+  >
+  </dt-radial-chart-series>
+</dt-radial-chart>

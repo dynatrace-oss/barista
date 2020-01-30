@@ -125,6 +125,9 @@
       "@dynatrace/barista-components/progress-circle": [
         "components/progress-circle/index.ts"
       ],
+      "@dynatrace/barista-components/radial-chart": [
+        "components/radial-chart/index.ts"
+      ],
       "@dynatrace/barista-components/radio": ["components/radio/index.ts"],
       "@dynatrace/barista-components/secondary-nav": [
         "components/secondary-nav/index.ts"

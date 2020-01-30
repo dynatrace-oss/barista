@@ -56,6 +56,7 @@ import { OverlayDemo } from './overlay/overlay-demo.component';
 import { PaginationDemo } from './pagination/pagination-demo.component';
 import { ProgressBarDemo } from './progress-bar/progress-bar-demo.component';
 import { ProgressCircleDemo } from './progress-circle/progress-circle-demo.component';
+import { RadialChartDemo } from './radial-chart/radial-chart-demo.component';
 import { RadioDemo } from './radio/radio-demo.component';
 import { SecondaryNavDemo } from './secondary-nav/secondary-nav-demo.component';
 import { SelectDemo } from './select/select-demo.component';
@@ -112,6 +113,7 @@ const routes: Routes = [
   { path: 'pagination', component: PaginationDemo },
   { path: 'progress-bar', component: ProgressBarDemo },
   { path: 'progress-circle', component: ProgressCircleDemo },
+  { path: 'radial-chart', component: RadialChartDemo },
   { path: 'radio', component: RadioDemo },
   { path: 'secondary-nav', component: SecondaryNavDemo },
   { path: 'select', component: SelectDemo },
