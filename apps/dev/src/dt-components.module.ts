@@ -54,6 +54,7 @@ import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
 import { DtProgressBarModule } from '@dynatrace/barista-components/progress-bar';
 import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-circle';
+import { DtRadialChartModule } from '@dynatrace/barista-components/radial-chart';
 import { DtRadioModule } from '@dynatrace/barista-components/radio';
 import { DtSecondaryNavModule } from '@dynatrace/barista-components/secondary-nav';
 import { DtSelectModule } from '@dynatrace/barista-components/select';
@@ -107,6 +108,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtPaginationModule,
     DtProgressBarModule,
     DtProgressCircleModule,
+    DtRadialChartModule,
     DtRadioModule,
     DtSecondaryNavModule,
     DtSelectModule,

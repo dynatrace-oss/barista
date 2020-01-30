@@ -1,0 +1,20 @@
+{
+  "title": "Radial chart",
+  "description": "",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "Lara Aigmüller",
+        "gitHubUser": "lara-aigmueller"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Kathrin Aigner",
+        "gitHubUser": "kathrin-aigner"
+      }
+    ]
+  },
+  "tags": ["loading", "angular", "component"]
+}
