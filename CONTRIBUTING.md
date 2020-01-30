@@ -148,3 +148,49 @@ the following guidelines:
 - If you cannot deprecate, apply this breaking change, and commit it with the
   `BREAKING CHANGE` label (all uppercase) and a description in the commit
   message footer (see Commit message footer section)!
+
+## PR workflow
+
+![PR-workflow](https://user-images.githubusercontent.com/1368032/73261594-b0965f00-41cc-11ea-80e3-4969bbe49c5c.jpg)
+
+### Open PR
+
+A developer opens a PR in one of two ways:
+
+1. The PR is already finished and can directly be reviewed.
+2. The PR is still wip and is opened for others to be tracked. In this case the
+   PR has to have the `pr: wip` and/or has to be opened as a
+   [Draft](https://github.blog/2019-02-14-introducing-draft-pull-requests/).
+
+### Draft/WIP
+
+After the work on this draft/wip PR has been finished, remove the label
+`pr: wip` and click the button `Ready for review` if it was opened as a Draft to
+flag it for the codeowners/admins to review.
+
+### Review
+
+Now the review process kicks in. Depending on the scope of the PR one or more
+[codeowners](https://github.com/dynatrace-oss/barista/blob/master/.github/CODEOWNERS)
+must review this PR before the process can be continued (in most cases at least
+2 codeowners will review and approve).
+
+1. If we suggest changes to the code, the label `pr: needs-changes` will be
+   applied. Now the developer has to apply this changes before the review will
+   be done again.
+2. If the code is ok, but something has to be done with the commit message (this
+   would typically be a rebase if the commits need to be squashed, or just a
+   simple reword to make the commit fit our guidelines) the label
+   `pr: needs-rebase` will be applied. Also the reviewer has to provide
+   additional guidance on what has to be done.
+3. If the code and the commits are ok - the PR is ready to be merged.
+
+### Merge-ready
+
+After all the required codeowners (one or more; in most cases at least two), the
+last reviewing codeowner will apply the label `pr: merge-ready` and assign the
+PR to himself as a "caretaker". The caretaker is now responsible to wait for the
+labeler to run and check whether the correct target labels depending on the
+scope and type of the PR have been applied. If these are fine, the caretaker
+will now merge the PR, and check whether the cherry-picker picks the commit(s)
+to the correct release branches.
