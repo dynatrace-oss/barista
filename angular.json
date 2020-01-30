@@ -2524,6 +2524,42 @@
       },
       "schematics": {}
     },
+    "radial-chart": {
+      "projectType": "library",
+      "root": "components/radial-chart",
+      "sourceRoot": "components/radial-chart/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/radial-chart/tsconfig.lib.json",
+              "components/radial-chart/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!components/radial-chart/**"]
+          }
+        },
+        "lint-styles": {
+          "builder": "@dynatrace/barista-builders:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/radial-chart/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/radial-chart/jest.config.js",
+            "tsConfig": "components/radial-chart/tsconfig.spec.json",
+            "setupFile": "components/radial-chart/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
     "radio": {
       "projectType": "library",
       "root": "components/radio",

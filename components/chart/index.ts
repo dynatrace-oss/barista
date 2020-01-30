@@ -16,7 +16,6 @@
 
 export * from './src/chart-module';
 export * from './src/chart';
-export * from './src/chart-colors';
 export * from './src/chart-config';
 export * from './src/heatfield/index';
 export * from './src/tooltip/chart-tooltip';

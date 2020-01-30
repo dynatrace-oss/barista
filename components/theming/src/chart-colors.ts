@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { DtColors, DtTheme } from '@dynatrace/barista-components/theming';
+import { DtColors } from './colors';
+import { DtTheme } from './theme';
 
 // Threshold to determine the color palette used
 const DT_CHART_THEME_COLOR_MAX_LENGTH = 3;

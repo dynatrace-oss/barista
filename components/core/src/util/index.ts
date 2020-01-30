@@ -21,3 +21,4 @@ export * from './number-util';
 export * from './compare-util';
 export * from './zone-scheduler';
 export * from './stringify';
+export * from './color-util';
