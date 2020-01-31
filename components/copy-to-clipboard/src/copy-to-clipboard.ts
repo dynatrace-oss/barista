@@ -26,6 +26,7 @@ import {
   Output,
   ViewChild,
   ViewEncapsulation,
+  Input,
 } from '@angular/core';
 import { Subscription, timer } from 'rxjs';
 
@@ -34,6 +35,7 @@ import {
   removeCssClass,
 } from '@dynatrace/barista-components/core';
 import { DtInput } from '@dynatrace/barista-components/input';
+import { ButtonVariant } from '@dynatrace/barista-components/button';
 
 const DT_COPY_CLIPBOARD_TIMER = 800;
 const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
@@ -52,6 +54,9 @@ const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
 })
 export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   constructor(private _cd: ChangeDetectorRef) {}
+
+  /** Defines the button variant of the copy button. */
+  @Input() variant: ButtonVariant = 'primary';
 
   /** Emits a stream when the content has been copied. */
   @Output() readonly copied: EventEmitter<void> = new EventEmitter();

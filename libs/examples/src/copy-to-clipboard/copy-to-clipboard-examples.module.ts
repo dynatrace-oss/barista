@@ -26,6 +26,7 @@ import { DtExampleCopyToClipboardDark } from './copy-to-clipboard-dark-example/c
 import { DtExampleCopyToClipboardDefault } from './copy-to-clipboard-default-example/copy-to-clipboard-default-example';
 import { DtExampleCopyToClipboardError } from './copy-to-clipboard-error-example/copy-to-clipboard-error-example';
 import { DtExampleCopyToClipboardTextarea } from './copy-to-clipboard-textarea-example/copy-to-clipboard-textarea-example';
+import { DtExampleCopyToClipboardSecondaryButton } from './copy-to-clipboard-secondary-button-example/copy-to-clipboard-secondary-button-example';
 
 export const DT_COPY_TO_CLIPBOARD_EXAMPLES = [
   DtExampleCopyToClipboardCallback,
@@ -33,6 +34,7 @@ export const DT_COPY_TO_CLIPBOARD_EXAMPLES = [
   DtExampleCopyToClipboardDark,
   DtExampleCopyToClipboardDefault,
   DtExampleCopyToClipboardError,
+  DtExampleCopyToClipboardSecondaryButton,
   DtExampleCopyToClipboardTextarea,
 ];
 
