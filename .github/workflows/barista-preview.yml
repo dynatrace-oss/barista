@@ -1,0 +1,28 @@
+name: Barista preview
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  deploy:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use node 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - run: npm ci
+    - run: npm run examples-tools  && npm run ng -- build barista --progress=false && npm run barista-tools
+      env:
+        CI: true
+        
+    - name: ZEIT Now Deployment
+      uses: amondnet/now-deployment@v1
+      with:
+        zeit-token: ${{ secrets.ZEIT_TOKEN }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        now-args: './dist/apps/barista'
