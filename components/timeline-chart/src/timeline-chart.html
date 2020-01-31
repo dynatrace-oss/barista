@@ -34,6 +34,7 @@
   <div class="dt-timeline-chart-key-timing-marker-container">
     <div
       class="dt-timeline-chart-key-timing-marker"
+      [ngClass]="{ 'dt-timeline-chart-key-timing-marker-label-left': markerObj.position > 85 }"
       *ngFor="let markerObj of _renderKeyTimingMarkers"
       [style.left.%]="markerObj.position"
       [dtOverlay]="markerObj.marker._hasOverlay ? markerObj.marker._overlayTemplate : undefined"

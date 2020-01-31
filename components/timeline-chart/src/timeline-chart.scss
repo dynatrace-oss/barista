@@ -134,6 +134,12 @@ $dt-timeline-chart-marker-stroke-width-size: 2px;
   color: $dt-timeline-chart-key-timing-marker-color;
 }
 
+.dt-timeline-chart-key-timing-marker-label-left
+  .dt-timeline-chart-key-timing-marker-label {
+  left: auto;
+  right: 12px;
+}
+
 .dt-timeline-chart-legend {
   margin-top: 20px;
 }
