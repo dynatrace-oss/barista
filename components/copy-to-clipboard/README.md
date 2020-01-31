@@ -28,6 +28,12 @@ a label ready to be copied to the clipboard.
 Using `<dt-copy-to-clipboard-label>` defines the button content (e.g. text like
 "click here to copy").
 
+## Inputs
+
+| Name      | Type                      | Default   | Description                                                   |
+| --------- | ------------------------- | --------- | ------------------------------------------------------------- |
+| `variant` | `'primary' | 'secondary'` | `primary` | Defines the variant of the embedded copy-to-clipboard button. |
+
 ## Outputs
 
 | Name         | Type                 | Description                                                                                 |
