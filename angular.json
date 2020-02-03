@@ -14,6 +14,7 @@
             "index": "apps/dev/src/index.html",
             "main": "apps/dev/src/main.ts",
             "polyfills": "apps/dev/src/polyfills.ts",
+            "progress": false,
             "assets": [
               {
                 "glob": "**",
@@ -85,6 +86,7 @@
             "main": "apps/components-e2e/src/main.ts",
             "aot": false,
             "polyfills": "apps/components-e2e/src/polyfills.ts",
+            "progress": false,
             "assets": [
               {
                 "glob": "**",
@@ -212,6 +214,7 @@
             "index": "apps/demos/src/index.html",
             "main": "apps/demos/src/main.ts",
             "aot": false,
+            "progress": false,
             "polyfills": "apps/demos/src/polyfills.ts",
             "assets": [
               {
@@ -377,6 +380,7 @@
             "index": "apps/barista/src/index.html",
             "main": "apps/barista/src/main.ts",
             "polyfills": "apps/barista/src/polyfills.ts",
+            "progress": false,
             "aot": false,
             "assets": [
               {
@@ -530,6 +534,7 @@
             "main": "apps/universal/src/main.ts",
             "polyfills": "apps/universal/src/polyfills.ts",
             "tsConfig": "apps/universal/tsconfig.app.json",
+            "progress": false,
             "assets": [
               {
                 "glob": "**",
