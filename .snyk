@@ -1,0 +1,11 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-DOTPROP-543489:
+    - conventional-changelog-angular > compare-func > dot-prop:
+        reason: >-
+          Currently there is no fix for this issue. Created an issue:
+          https://github.com/conventional-changelog/conventional-changelog/issues/592
+        expires: '2020-03-04T12:24:56.781Z'
+patch: {}
