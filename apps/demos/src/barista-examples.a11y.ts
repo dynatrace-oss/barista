@@ -1,35 +1,51 @@
-// tslint:disable: no-require-imports no-var-requires
+/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import { axeCheck, createReport } from 'axe-testcafe';
+import { DT_DEMOS_EXAMPLE_NAV_ITEMS } from './nav-items';
 
-export interface Route {
-  name: string;
-  route: string;
-}
-
-export interface Routes {
-  routes: Route[];
-}
-
-const baristaExamples = require('./routes.json');
-const rules = require('./rules.a11y.json');
+const rules = require('../rules.a11y.json');
 const BASEURL = `http://localhost:4200/`;
 
-fixture('Barista Examples a11y');
+/** Blacklisted default examples */
+const BLACKLIST = [
+  'chart-selection-area-default-example',
+  'chart-stream-example',
+  'chart-loading-example',
+];
 
-baristaExamples.routes
-  // run for now only default examples
-  .filter(data => data.route.includes('default'))
-  .forEach(data => {
-    test.page(`${BASEURL}${data.route}`)(
-      data.name,
-      async (testController: TestController) => {
-        const axeContext = { include: [['.main']] };
-        const check = await axeCheck(testController, axeContext, rules);
+DT_DEMOS_EXAMPLE_NAV_ITEMS.slice(0, 10).forEach(component => {
+  fixture(component.name);
 
-        await testController
-          .expect(check.violations.length === 0)
-          .ok(createReport(check.violations));
-      },
-    );
-  });
+  component.examples
+    .filter(example => !BLACKLIST.includes(example.name))
+    .forEach(example => {
+      test.page(`${BASEURL}${example.route}`)(
+        example.name,
+        async (testController: TestController) => {
+          const axeContext = { include: [['.dt-demos-main']] };
+          const check = await axeCheck(testController, axeContext, rules);
+          const { error } = await testController.getBrowserConsoleMessages();
+
+          await testController
+            .expect(check.violations.length === 0)
+            .ok(createReport(check.violations))
+            .expect(error.length)
+            .eql(0, 'Expect to have no console errors');
+        },
+      );
+    });
+});
