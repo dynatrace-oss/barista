@@ -212,6 +212,7 @@
             "index": "apps/demos/src/index.html",
             "main": "apps/demos/src/main.ts",
             "aot": false,
+            "progress": false,
             "polyfills": "apps/demos/src/polyfills.ts",
             "assets": [
               {
@@ -292,12 +293,27 @@
           "options": {
             "devServerTarget": "demos:serve",
             "src": "apps/demos/src/**/*.a11y.ts",
-            "stopOnFirstFail": true,
-            "browsers": ["chrome"]
+            "stopOnFirstFail": false,
+            "browsers": ["chrome"],
+            "reporters": [
+              {
+                "name": "spec"
+              },
+              {
+                "name": "xunit",
+                "output": "dist/demos-a11y/report.xml"
+              }
+            ],
+            "concurrency": 1,
+            "skipJsErrors": false
           },
           "configurations": {
+            "ci": {
+              "browsers": ["chrome:headless"],
+              "concurrency": 5
+            },
             "watch": {
-              "stopOnFirstFail": false,
+              "browsers": ["chrome"],
               "live": true,
               "concurrency": 1
             }
