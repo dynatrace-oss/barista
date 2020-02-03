@@ -251,8 +251,23 @@ jobs:
       - run: yarn affected:e2e ${AFFECTED_ARGS} --configuration=remote-pr
       - store_test_results:
           path: dist/components-e2e
-      - store_artifacts:
-          path: dist/components-e2e
+
+# - run a11y tests
+  a11y:
+    <<: *defaults
+    docker:
+      - image: circleci/node:12-browsers
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run:
+          <<: *set_env
+      - restore_cache:
+          # the a11y tests need the builded templates
+          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - run: yarn affected --target=a11y ${AFFECTED_ARGS} --parallel --configuration=ci
+      - store_test_results:
+          path: dist/demos-a11y
 
 # - save the latest hash in a file
   save-latest:
@@ -325,6 +340,10 @@ workflows:
           # BROWSERSTACK_ACCESS_KEY is needed for browserstack automation
           # BROWSERSTACK_USERNAME is needed for browserstack automation
           context: barista
+          requires:
+            - build
+      - a11y:
+          <<: *filter_branches
           requires:
             - build
       - build:
