@@ -47,10 +47,7 @@ export class DtHeaderCell implements OnDestroy {
 
   constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
     columnDef._stateChanges
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
         _updateDtColumnStyles(columnDef, elem, renderer);
       });

@@ -291,10 +291,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._rangeElementRef.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy$),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy$))
       .subscribe(() => {
         this._reflectToDom();
       });

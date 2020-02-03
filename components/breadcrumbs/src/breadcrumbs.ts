@@ -83,10 +83,7 @@ export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
 
   ngAfterContentInit(): void {
     this._items.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy$),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy$))
       .subscribe(() => {
         // We need to notify the items whether they are the last one in the list,
         // because they use this information to determine their active state.
@@ -95,10 +92,7 @@ export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
         });
       });
     this._items2.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy$),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy$))
       .subscribe(() => {
         this._items2.forEach((item, index) => {
           item._setCurrent(this._items2.length - 1 === index);

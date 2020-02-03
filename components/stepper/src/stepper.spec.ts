@@ -93,9 +93,7 @@ describe('DtStepper', () => {
   });
 
   describe('linear stepper with `stepControl`', () => {
-    let controlAndBindingFixture: ComponentFixture<
-      SimpleStepperWithStepControlAndCompletedBinding
-    >;
+    let controlAndBindingFixture: ComponentFixture<SimpleStepperWithStepControlAndCompletedBinding>;
     beforeEach(() => {
       controlAndBindingFixture = createComponent(
         SimpleStepperWithStepControlAndCompletedBinding,

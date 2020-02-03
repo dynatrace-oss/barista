@@ -19,11 +19,13 @@ export const migrationCollection = require.resolve('../../migration.json');
 
 describe('Migrate all legacy imports from the icon pack and the angular components', () => {
   it('Should migrate all legacy imports from the icon pack and the angular components', async () => {
-    const { runFixers, appTree, removeTempDir } = await createTestCaseSetup(
-      'update-5.0.0',
-      migrationCollection,
-      [require.resolve('./legacy-imports.fixture')],
-    );
+    const {
+      runFixers,
+      appTree,
+      removeTempDir,
+    } = await createTestCaseSetup('update-5.0.0', migrationCollection, [
+      require.resolve('./legacy-imports.fixture'),
+    ]);
 
     if (runFixers) {
       await runFixers();

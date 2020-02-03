@@ -27,10 +27,6 @@ export {
 
 export { DtChartRange } from './src/range/range';
 export { DtChartTimestamp } from './src/timestamp/timestamp';
-export {
-  DtChartSelectionAreaAction,
-} from './src/selection-area/overlay-action';
+export { DtChartSelectionAreaAction } from './src/selection-area/overlay-action';
 
-export {
-  DtChartSelectionArea as _DtChartSelectionArea,
-} from './src/selection-area/selection-area';
+export { DtChartSelectionArea as _DtChartSelectionArea } from './src/selection-area/selection-area';

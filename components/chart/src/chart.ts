@@ -378,10 +378,7 @@ export class DtChart
       this._viewportResizer
         .change()
         // delay to postpone the reflow to the next change detection cycle
-        .pipe(
-          takeUntil(this._destroy$),
-          delay(0),
-        )
+        .pipe(takeUntil(this._destroy$), delay(0))
         .subscribe(() => {
           if (this._chartObject) {
             this._ngZone.runOutsideAngular(() => {
@@ -544,10 +541,7 @@ export class DtChart
     );
 
     merge(tooltipOpened$, tooltipClosed$, tooltipUpdated$)
-      .pipe(
-        withLatestFrom(this._plotBackground$),
-        takeUntil(this._destroy$),
-      )
+      .pipe(withLatestFrom(this._plotBackground$), takeUntil(this._destroy$))
       .subscribe(([state, plotBackground]) => {
         this._ngZone.run(() => {
           const tooltip = this._tooltip.first;

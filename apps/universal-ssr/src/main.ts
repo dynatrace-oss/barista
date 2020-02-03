@@ -28,10 +28,13 @@ const {
 
 const app = express();
 
-app.engine('html', ngExpressEngine({
-  bootstrap: AppServerModuleNgFactory,
-  providers: [provideModuleMap(LAZY_MODULE_MAP)],
-}) as any);
+app.engine(
+  'html',
+  ngExpressEngine({
+    bootstrap: AppServerModuleNgFactory,
+    providers: [provideModuleMap(LAZY_MODULE_MAP)],
+  }) as any,
+);
 
 app.set('view engine', 'html');
 

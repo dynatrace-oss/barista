@@ -67,9 +67,11 @@ async function resolveTemplate(
         if (parts && parts[1]) {
           const fileLocation = join(dirname(fileName), parts[1]);
           if (existsSync(fileLocation) && lstatSync(fileLocation).isFile()) {
-            const source = (await fs.readFile(fileLocation, {
-              encoding: 'utf-8',
-            })).toString();
+            const source = (
+              await fs.readFile(fileLocation, {
+                encoding: 'utf-8',
+              })
+            ).toString();
             return { source, fileLocation };
           }
         }
@@ -111,9 +113,11 @@ async function resolveStyles(
           for (const path of paths) {
             const fileLocation = join(dirname(fileName), path);
             if (existsSync(fileLocation) && lstatSync(fileLocation).isFile()) {
-              const source = (await fs.readFile(fileLocation, {
-                encoding: 'utf-8',
-              })).toString();
+              const source = (
+                await fs.readFile(fileLocation, {
+                  encoding: 'utf-8',
+                })
+              ).toString();
               styleSources.source = `${styleSources.source}/** ${path} */\n${source}\n\n`;
               styleSources.fileLocations.push(fileLocation);
             }
@@ -185,10 +189,12 @@ export async function getExamplePackageMetadata(
 
   const examples = await getExampleMetadataInDirs(exampleDirs);
   if (moduleFile && examples.length) {
-    const moduleClass = (await getAngularDecoratedClasses(
-      moduleFile,
-      AngularClassDecoratorName.Module,
-    ))[0];
+    const moduleClass = (
+      await getAngularDecoratedClasses(
+        moduleFile,
+        AngularClassDecoratorName.Module,
+      )
+    )[0];
     if (moduleClass) {
       return {
         name: basename(dir),

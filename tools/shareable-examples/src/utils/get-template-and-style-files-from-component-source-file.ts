@@ -33,10 +33,12 @@ async function getDecoratorPropertyAssigments(
   source: SourceFile,
 ): Promise<PropertyAssignment[]> {
   // Get the componentClassDecorator
-  const componentClass = (await getAngularDecoratedClasses(
-    source,
-    AngularClassDecoratorName.Component,
-  ))[0];
+  const componentClass = (
+    await getAngularDecoratedClasses(
+      source,
+      AngularClassDecoratorName.Component,
+    )
+  )[0];
   // Iterate all properties within the decorator
   const decoratorPropertyAssignments = componentClass.decorator.properties
     // Filter everything that is not a property assignment
