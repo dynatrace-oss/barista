@@ -75,7 +75,7 @@
     "zone.js": "^0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.19",
+    "@angular-devkit/build-angular": "^0.803.24",
     "@angular-devkit/build-ng-packagr": "^0.803.17",
     "@angular/cli": "^8.0.2",
     "@angular/compiler": "^8.0.0",
@@ -87,9 +87,9 @@
     "@commitlint/cli": "^8.2.0",
     "@nguniversal/express-engine": "^8.1.1",
     "@nguniversal/module-map-ngfactory-loader": "^8.1.1",
-    "@nrwl/angular": "^8.9.0",
+    "@nrwl/angular": "^8.12.1",
     "@nrwl/jest": "^8.9.0",
-    "@nrwl/node": "^8.9.0",
+    "@nrwl/node": "^8.12.1",
     "@nrwl/workspace": "^8.9.0",
     "@octokit/rest": "^16.35.0",
     "@politie/angular-testcafe-builder": "^2.0.5",
