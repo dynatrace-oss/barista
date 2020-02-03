@@ -69,13 +69,14 @@ export class DtLegendOverlay {}
 export class DtLegendItem extends DtOverlayTrigger<{}>
   implements AfterContentInit, OnDestroy {
   /** @internal The template ref that will be rendered as an overlay. */
-  @Input()
+  @Input() _overlayTemplateRef?: TemplateRef<{}>;
+
   @ContentChild(DtLegendOverlay, { read: TemplateRef, static: true })
-  _overlayTemplateRef?: TemplateRef<{}>;
+  _contentOverlayTemplateRef?: TemplateRef<{}>;
 
   /** Whether the item has an overlay to show when hovering. */
   get hasOverlay(): boolean {
-    return !!this._overlayTemplateRef;
+    return Boolean(this._overlayTemplateRef || this._contentOverlayTemplateRef);
   }
 
   constructor(
@@ -89,8 +90,10 @@ export class DtLegendItem extends DtOverlayTrigger<{}>
   }
 
   ngAfterContentInit(): void {
-    if (this._overlayTemplateRef) {
-      this.overlay = this._overlayTemplateRef;
+    const overlayTemplate =
+      this._overlayTemplateRef || this._contentOverlayTemplateRef;
+    if (overlayTemplate) {
+      this.overlay = overlayTemplate;
     }
   }
 
