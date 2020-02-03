@@ -30,6 +30,7 @@ import { DtFilterField } from './filter-field';
 import { DtFilterFieldRange } from './filter-field-range/filter-field-range';
 import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
 import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
+import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
     DtButtonGroupModule,
     DtLoadingDistractorModule,
     DtOverlayModule,
+    DtHighlightModule,
   ],
   exports: [
     DtAutocompleteModule,

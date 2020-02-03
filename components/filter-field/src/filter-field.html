@@ -53,10 +53,14 @@
           <dt-option
             *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
-          >{{optionDef.option!.viewValue}}</dt-option>
+          >
+            <dt-highlight [term]="_inputValue">{{optionDef.option!.viewValue}}</dt-highlight>
+          </dt-option>
         </dt-optgroup>
         <ng-template #options>
-          <dt-option [value]="optionOrGroupDef">{{ optionOrGroupDef.option!.viewValue}}</dt-option>
+          <dt-option [value]="optionOrGroupDef">
+            <dt-highlight [term]="_inputValue">{{ optionOrGroupDef.option!.viewValue}}</dt-highlight>
+          </dt-option>
         </ng-template>
       </ng-container>
     </dt-autocomplete>
