@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-// tslint:disable: max-file-line-count
-
 export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
 ${navItems}
 ];
