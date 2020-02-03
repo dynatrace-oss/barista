@@ -67,10 +67,10 @@ const boundingBoxClass = 'cdk-overlay-connected-position-bounding-box';
 export type FlexibleConnectedPositionStrategyOrigin =
   | ElementRef
   | HTMLElement
-  | Point & {
+  | (Point & {
       width?: number;
       height?: number;
-    };
+    });
 
 /**
  * A strategy for positioning overlays. Using this strategy, an overlay is given an
@@ -807,9 +807,9 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
       return;
     }
 
-    const elements: NodeListOf<
-      HTMLElement
-    > = this._boundingBox!.querySelectorAll(this._transformOriginSelector);
+    const elements: NodeListOf<HTMLElement> = this._boundingBox!.querySelectorAll(
+      this._transformOriginSelector,
+    );
     let xOrigin: 'left' | 'right' | 'center';
     const yOrigin: 'top' | 'bottom' | 'center' = position.overlayY;
 

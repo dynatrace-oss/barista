@@ -218,10 +218,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._timestampElementRef.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy$),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy$))
       .subscribe(() => {
         this._reflectStyleToDom();
       });

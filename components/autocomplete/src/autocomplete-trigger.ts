@@ -357,10 +357,7 @@ export class DtAutocompleteTrigger<T>
   _handleBlur(): void {
     if (this.panelOpen) {
       this.autocomplete.closed
-        .pipe(
-          take(1),
-          takeUntil(this.autocomplete.opened.asObservable()),
-        )
+        .pipe(take(1), takeUntil(this.autocomplete.opened.asObservable()))
         .subscribe(() => {
           this._onTouched();
         });

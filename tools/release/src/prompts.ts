@@ -31,9 +31,11 @@ export async function promptConfirmReleasePublish(): Promise<void> {
 
 /** Prompts the user with a confirmation question and a specified message. */
 export async function promptConfirm(message: string): Promise<boolean> {
-  return (await prompt<{ result: boolean }>({
-    type: 'confirm',
-    name: 'result',
-    message: message,
-  })).result;
+  return (
+    await prompt<{ result: boolean }>({
+      type: 'confirm',
+      name: 'result',
+      message: message,
+    })
+  ).result;
 }

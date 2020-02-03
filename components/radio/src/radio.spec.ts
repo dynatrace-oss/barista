@@ -541,9 +541,9 @@ describe('DtRadio', () => {
 
       fruitRadioNativeInputs = [];
       for (const element of fruitRadioNativeElements) {
-        fruitRadioNativeInputs.push(element.querySelector(
-          'input',
-        ) as HTMLElement);
+        fruitRadioNativeInputs.push(
+          element.querySelector('input') as HTMLElement,
+        );
       }
     });
 

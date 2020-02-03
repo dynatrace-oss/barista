@@ -8,6 +8,14 @@
     "nx.json": "*",
     ".circleci/config.yml": "*"
   },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/src/tasks-runner/tasks-runner-v2",
+      "options": {
+        "cacheableOperations": ["build", "test", "lint", "e2e", "lint-styles"]
+      }
+    }
+  },
   "projects": {
     "barista": {
       "tags": ["type:app"]
@@ -16,7 +24,8 @@
       "tags": ["type:app"]
     },
     "components-e2e": {
-      "tags": ["type:e2e"]
+      "tags": ["type:e2e"],
+      "implicitDependencies": ["components"]
     },
     "universal": {
       "tags": ["type:app"]
@@ -62,7 +71,65 @@
       "tags": ["scope:tooling"]
     },
     "components": {
-      "tags": ["scope:components"]
+      "tags": ["scope:components"],
+      "implicitDependencies": [
+        "alert",
+        "autocomplete",
+        "bar-indicator",
+        "breadcrumbs",
+        "button",
+        "button-group",
+        "card",
+        "chart",
+        "checkbox",
+        "confirmation-dialog",
+        "consumption",
+        "container-breakpoint-observer",
+        "context-dialog",
+        "copy-to-clipboard",
+        "core",
+        "cta-card",
+        "drawer",
+        "empty-state",
+        "event-chart",
+        "expandable-panel",
+        "expandable-section",
+        "expandable-text",
+        "filter-field",
+        "form-field",
+        "formatters",
+        "highlight",
+        "icon",
+        "info-group",
+        "inline-editor",
+        "input",
+        "key-value-list",
+        "legend",
+        "loading-distractor",
+        "menu",
+        "micro-chart",
+        "overlay",
+        "pagination",
+        "progress-bar",
+        "progress-circle",
+        "radio",
+        "schematics",
+        "secondary-nav",
+        "select",
+        "show-more",
+        "stepper",
+        "switch",
+        "table",
+        "tabs",
+        "tag",
+        "theming",
+        "tile",
+        "timeline-chart",
+        "toast",
+        "toggle-button-group",
+        "top-bar-navigation",
+        "tree-table"
+      ]
     },
     "alert": {
       "tags": ["scope:components", "type:library"]

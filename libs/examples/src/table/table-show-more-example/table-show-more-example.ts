@@ -74,20 +74,18 @@ export class DtExampleTableShowMore implements OnInit, OnDestroy {
   ]);
 
   ngOnInit(): void {
-    this.fakeBackend
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(
-        (
-          data: Array<{
-            host: string;
-            cpu: number;
-            memory: number;
-            traffic: number;
-          }>,
-        ) => {
-          this.dataSource.data = data;
-        },
-      );
+    this.fakeBackend.pipe(takeUntil(this.destroy$)).subscribe(
+      (
+        data: Array<{
+          host: string;
+          cpu: number;
+          memory: number;
+          traffic: number;
+        }>,
+      ) => {
+        this.dataSource.data = data;
+      },
+    );
   }
 
   loadMore(): void {

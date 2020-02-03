@@ -43,11 +43,13 @@ export async function verifyPassingGithubStatus(
     branchName,
   );
   const commitSha = git.getLocalCommitSha('HEAD');
-  const { state } = (await githubApi.repos.getCombinedStatusForRef({
-    owner: GITHUB_REPO_OWNER,
-    repo: GITHUB_REPO_NAME,
-    ref: commitSha,
-  })).data;
+  const { state } = (
+    await githubApi.repos.getCombinedStatusForRef({
+      owner: GITHUB_REPO_OWNER,
+      repo: GITHUB_REPO_NAME,
+      ref: commitSha,
+    })
+  ).data;
   if (state === 'pending') {
     throw new Error(
       GET_GITHUB_STATUS_PENDING_ERROR(commitSha, githubCommitsUrl),

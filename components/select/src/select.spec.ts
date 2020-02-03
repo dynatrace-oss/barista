@@ -984,9 +984,9 @@ describe('DtSelect', () => {
         flush();
 
         const optionInstances = fixture.componentInstance.options.toArray();
-        const optionNodes: NodeListOf<
-          HTMLElement
-        > = overlayContainerElement.querySelectorAll('dt-option');
+        const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll(
+          'dt-option',
+        );
 
         optionInstances[1].select();
         fixture.detectChanges();

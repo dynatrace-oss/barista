@@ -275,7 +275,10 @@ describe('DtPagination', () => {
       dispatchFakeEvent(nextButton, 'click');
       fixture.detectChanges();
       expect(instance.pagination.currentPage).toBe(3);
-      expect(instance.pagination._pages).toEqual([[1, 2, 3, 4], [9, 10]]);
+      expect(instance.pagination._pages).toEqual([
+        [1, 2, 3, 4],
+        [9, 10],
+      ]);
       dispatchFakeEvent(nextButton, 'click');
       fixture.detectChanges();
       expect(instance.pagination.currentPage).toBe(4);

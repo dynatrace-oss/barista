@@ -31,12 +31,14 @@ import { generateExamplesLibMetadataFile } from './generate-examples-lib-metadat
 
 /** Collect all files containing examples in the demos app. */
 async function getExamplesInPackages(): Promise<ExamplePackageMetadata[]> {
-  return (await Promise.all(
-    readdirSync(environment.examplesLibDir)
-      .map(name => join(environment.examplesLibDir, name))
-      .filter(dir => lstatSync(dir).isDirectory())
-      .map(dir => getExamplePackageMetadata(dir)),
-  )).filter(Boolean) as ExamplePackageMetadata[];
+  return (
+    await Promise.all(
+      readdirSync(environment.examplesLibDir)
+        .map(name => join(environment.examplesLibDir, name))
+        .filter(dir => lstatSync(dir).isDirectory())
+        .map(dir => getExamplePackageMetadata(dir)),
+    )
+  ).filter(Boolean) as ExamplePackageMetadata[];
 }
 
 async function main(): Promise<void> {
