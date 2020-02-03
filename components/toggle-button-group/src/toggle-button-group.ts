@@ -101,10 +101,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
   ngAfterContentInit(): void {
     // subscribe to toggleButtonItems changes in the contentchildren.
     this._toggleButtonItems.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
         this._resetItems();
         this._initializeToggleButtonItemSelection();

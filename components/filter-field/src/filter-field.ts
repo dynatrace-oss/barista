@@ -506,10 +506,7 @@ export class DtFilterField<T>
       });
     // tslint:disable-next-line: deprecation
     this.tags.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy$),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy$))
       .subscribe(() => {
         // tslint:disable-next-line: deprecation
         this._currentTags.next(this.tags.toArray());

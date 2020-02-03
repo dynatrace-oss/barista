@@ -137,10 +137,9 @@ describe('Selection Area Streams', () => {
     const coreSpy = jest.spyOn(core, '_removeCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
-      expectObservable(getMouseDownStream(selectionArea, [selectionArea])).toBe(
-        '(a|)',
-        { a: fakeMouseDown },
-      );
+      expectObservable(
+        getMouseDownStream(selectionArea, [selectionArea]),
+      ).toBe('(a|)', { a: fakeMouseDown });
       // need to execute all side effects before expecting
       flush();
 
@@ -164,10 +163,9 @@ describe('Selection Area Streams', () => {
     const coreSpy = jest.spyOn(core, '_addCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
-      expectObservable(getMouseUpStream(selectionArea, of(fakeMouseUp))).toBe(
-        '(a|)',
-        { a: fakeMouseUp },
-      );
+      expectObservable(
+        getMouseUpStream(selectionArea, of(fakeMouseUp)),
+      ).toBe('(a|)', { a: fakeMouseUp });
       // need to execute all side effects before expecting
       flush();
 

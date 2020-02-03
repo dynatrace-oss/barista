@@ -80,9 +80,11 @@ export function getAngularClassDecoratorMetadataObject(
 export async function tsCreateSourceFile(
   fileName: string,
 ): Promise<SourceFile> {
-  const tsSource = (await fs.readFile(fileName, {
-    encoding: 'utf-8',
-  })).toString();
+  const tsSource = (
+    await fs.readFile(fileName, {
+      encoding: 'utf-8',
+    })
+  ).toString();
 
   return createSourceFile(
     fileName,

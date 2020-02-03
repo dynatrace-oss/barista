@@ -111,10 +111,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
   ngAfterContentInit(): void {
     // initial with null because there is no change
     this._drawers.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy),
-      )
+      .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
         // Check if the drawers are implemented correctly
         this._validateDrawers();
@@ -213,10 +210,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
       });
 
     drawer.openChange
-      .pipe(
-        startWith(null),
-        takeUntil(this._drawers.changes),
-      )
+      .pipe(startWith(null), takeUntil(this._drawers.changes))
       .subscribe(() => {
         this._toggleOpenClass(drawer.opened);
       });
