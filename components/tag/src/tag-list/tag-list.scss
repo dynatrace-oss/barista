@@ -4,11 +4,11 @@
 }
 
 :host ::ng-deep .dt-tag {
-  margin: 4px;
+  margin: 4px 0 4px 4px;
 }
 
 :host ::ng-deep .dt-tag-add {
-  margin: 4px;
+  margin: 4px 0 4px 4px;
 }
 
 .dt-tag-list-container {
@@ -17,8 +17,8 @@
 }
 
 .dt-tag-list-wrapper {
-  min-height: 32px;
   height: 32px;
+  margin-right: 1px;
   width: auto;
   display: flex;
   flex-wrap: wrap;
@@ -28,7 +28,7 @@
 .dt-tag-list-more-btn {
   font-variant: tabular-nums;
   height: 32px;
-  min-width: 72px;
+  min-width: 58px;
   line-height: 32px;
   text-align: left;
   vertical-align: middle;
