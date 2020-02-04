@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-import { Selector } from 'testcafe';
+import { Component } from '@angular/core';
 
-export const consumption = Selector('#test-consumption');
-export const mouseoutArea = Selector('#mouseout-area');
-export const dummyContent = Selector('#dummy-content');
-export const overlayPane = Selector('.cdk-overlay-pane');
+@Component({
+  selector: 'dt-e2e-autocomplete',
+  templateUrl: 'autocomplete.html',
+})
+export class DtE2EAutocomplete {
+  value: string;
+  options: string[] = ['One', 'Two', 'Three'];
+}

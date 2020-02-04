@@ -14,9 +14,19 @@
  * limitations under the License.
  */
 
-import { Selector } from 'testcafe';
+import { select, overlayPane } from './select.po';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
-export const consumption = Selector('#test-consumption');
-export const mouseoutArea = Selector('#mouseout-area');
-export const dummyContent = Selector('#dummy-content');
-export const overlayPane = Selector('.cdk-overlay-pane');
+fixture('Select')
+  .page('http://localhost:4200/select')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
+
+test('should propagate attribute to overlay', async (testController: TestController) => {
+  await testController
+    .click(select, { speed: 0.3 })
+    .expect(overlayPane.getAttribute('dt-ui-test-id'))
+    .contains('select-overlay');
+});

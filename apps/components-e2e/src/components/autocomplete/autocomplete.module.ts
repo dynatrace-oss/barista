@@ -14,24 +14,30 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { DtE2EAutocomplete } from './autocomplete';
 import { Route, RouterModule } from '@angular/router';
-import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
-import { DtE2EEventChart } from './event-chart';
+import { CommonModule } from '@angular/common';
+import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
 import {
   DT_UI_TEST_CONFIG,
   DT_DEFAULT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
+import { FormsModule } from '@angular/forms';
 
-const routes: Route[] = [{ path: '', component: DtE2EEventChart }];
+const routes: Route[] = [{ path: '', component: DtE2EAutocomplete }];
 
 @NgModule({
-  declarations: [DtE2EEventChart],
-  imports: [CommonModule, RouterModule.forChild(routes), DtEventChartModule],
+  declarations: [DtE2EAutocomplete],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule.forChild(routes),
+    DtAutocompleteModule,
+  ],
   exports: [],
   providers: [
     { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
   ],
 })
-export class DtE2EEventChartModule {}
+export class DtE2EAutocompleteModule {}

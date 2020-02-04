@@ -1,0 +1,9 @@
+<dt-tag-list>
+  <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
+  <dt-tag-add
+    id="tag-add"
+    placeholer="insert tag"
+    (tagAdded)="addTag($event)"
+    dt-ui-test-id="tag-add"
+  ></dt-tag-add>
+</dt-tag-list>

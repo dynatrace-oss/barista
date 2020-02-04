@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
-import { Selector } from 'testcafe';
+import { Component } from '@angular/core';
 
-export const consumption = Selector('#test-consumption');
-export const mouseoutArea = Selector('#mouseout-area');
-export const dummyContent = Selector('#dummy-content');
-export const overlayPane = Selector('.cdk-overlay-pane');
+@Component({
+  selector: 'dt-e2e-tag-add',
+  templateUrl: 'tag-add.html',
+})
+export class DtE2ETagAdd {
+  tags: string[] = ['tag1', 'tag2', 'tag3'];
+
+  addTag(event: string): void {
+    this.tags.push(event);
+  }
+}

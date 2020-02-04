@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
-import { DtTagModule } from '@dynatrace/barista-components/tag';
-import { DtE2ETagList } from './tag-list';
+import { autocompleteInput, overlayPane } from './autocomplete.po';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
-const routes: Route[] = [{ path: '', component: DtE2ETagList }];
+fixture('Autocomplete')
+  .page('http://localhost:4200/autocomplete')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
-@NgModule({
-  declarations: [DtE2ETagList],
-  imports: [CommonModule, RouterModule.forChild(routes), DtTagModule],
-  exports: [],
-  providers: [],
-})
-export class DtE2ETagListModule {}
+test('should propagate attribute to overlay', async (testController: TestController) => {
+  await testController
+    .click(autocompleteInput, { speed: 0.5 })
+    .expect(overlayPane.getAttribute('dt-ui-test-id'))
+    .contains('autocomplete-overlay');
+});
