@@ -19,6 +19,10 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { DtConfirmationDialogModule } from '@dynatrace/barista-components/confirmation-dialog';
 import { DtE2EConfirmationDialog } from './confirmation-dialog';
+import {
+  DT_UI_TEST_CONFIG,
+  DT_DEFAULT_UI_TEST_CONFIG,
+} from '@dynatrace/barista-components/core';
 
 const routes: Route[] = [{ path: '', component: DtE2EConfirmationDialog }];
 
@@ -30,6 +34,8 @@ const routes: Route[] = [{ path: '', component: DtE2EConfirmationDialog }];
     DtConfirmationDialogModule,
   ],
   exports: [],
-  providers: [],
+  providers: [
+    { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
+  ],
 })
 export class DtE2EConfirmationDialogModule {}

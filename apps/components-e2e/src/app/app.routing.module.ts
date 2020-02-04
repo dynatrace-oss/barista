@@ -20,6 +20,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'autocomplete',
+    loadChildren: () =>
+      import('../components/autocomplete/autocomplete.module').then(
+        module => module.DtE2EAutocompleteModule,
+      ),
+  },
+  {
     path: 'button',
     loadChildren: () =>
       import('../components/button/button.module').then(
@@ -139,6 +146,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'select',
+    loadChildren: () =>
+      import('../components/select/select.module').then(
+        module => module.DtE2ESelectModule,
+      ),
+  },
+  {
     path: 'show-more',
     loadChildren: () =>
       import('../components/show-more/show-more.module').then(
@@ -160,10 +174,10 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'tag/tag-list',
+    path: 'tag',
     loadChildren: () =>
-      import('../components/tag-list/tag-list.module').then(
-        module => module.DtE2ETagListModule,
+      import('../components/tag/tag.module').then(
+        module => module.DtE2ETagModule,
       ),
   },
   {

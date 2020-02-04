@@ -21,6 +21,10 @@ import { DtChartModule } from '@dynatrace/barista-components/chart';
 import { BasicChart } from './chart/chart';
 import { ChartHighchartsUI } from './highcharts/chart-highcharts-ui';
 import { PieChart } from './pie-chart/pie-chart';
+import {
+  DT_UI_TEST_CONFIG,
+  DT_DEFAULT_UI_TEST_CONFIG,
+} from '@dynatrace/barista-components/core';
 
 const routes: Route[] = [
   { path: '', component: BasicChart },
@@ -39,6 +43,8 @@ const routes: Route[] = [
   declarations: [BasicChart, ChartHighchartsUI, PieChart],
   imports: [CommonModule, RouterModule.forChild(routes), DtChartModule],
   exports: [],
-  providers: [],
+  providers: [
+    { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
+  ],
 })
 export class DtE2EChartModule {}

@@ -17,21 +17,25 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
-import { DtE2EEventChart } from './event-chart';
+import { DtTagModule } from '@dynatrace/barista-components/tag';
+import { DtE2ETagList } from './tag-list/tag-list';
+import { DtE2ETagAdd } from './tag-add/tag-add';
 import {
   DT_UI_TEST_CONFIG,
   DT_DEFAULT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
 
-const routes: Route[] = [{ path: '', component: DtE2EEventChart }];
+const routes: Route[] = [
+  { path: 'tag-list', component: DtE2ETagList },
+  { path: 'tag-add', component: DtE2ETagAdd },
+];
 
 @NgModule({
-  declarations: [DtE2EEventChart],
-  imports: [CommonModule, RouterModule.forChild(routes), DtEventChartModule],
+  declarations: [DtE2ETagList, DtE2ETagAdd],
+  imports: [CommonModule, RouterModule.forChild(routes), DtTagModule],
   exports: [],
   providers: [
     { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
   ],
 })
-export class DtE2EEventChartModule {}
+export class DtE2ETagModule {}
