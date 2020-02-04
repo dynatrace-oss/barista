@@ -26,9 +26,11 @@ import {
   BaPageBuilder,
   BaStrapiPageTeaser,
   BaStrapiContentType,
-  BaIndexPageContent,
   BaStrapiCTA,
-  BaLayoutType,
+} from '../types';
+import {
+  BaIndexPageContent,
+  BaPageLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
 
 const TILES_MOSTORDERED = [
@@ -74,7 +76,7 @@ export type BaHomepageBuilder = (...args: any[]) => BaPageBuildResult;
 
 /** Page-builder for the homepage of Barista. */
 export const homepageBuilder: BaPageBuilder = async () => {
-  let pageTeaserData;
+  let pageTeaserData: BaStrapiPageTeaser[] = [];
   let homepageCTA;
 
   if (environment.strapiEndpoint) {
@@ -108,7 +110,7 @@ export const homepageBuilder: BaPageBuilder = async () => {
   const pageContent: BaIndexPageContent = {
     title: 'Barista - the Dynatrace design system.',
     subtitle: 'Tailored to scale.',
-    layout: BaLayoutType.Index,
+    layout: BaPageLayoutType.Index,
     mostordered: TILES_MOSTORDERED,
     gettingstarted: pageTeaserData,
     cta: homepageCTA,

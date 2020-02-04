@@ -16,10 +16,7 @@
 
 import {
   BaAllExamplesMetadata,
-  BaPageTransformer,
   BaSinglePageContent,
-  BaStrapiContentType,
-  BaStrapiSnippet,
 } from '@dynatrace/barista-components/barista-definitions';
 import * as markdownIt from 'markdown-it';
 import * as markdownItDeflist from 'markdown-it-deflist';
@@ -28,6 +25,12 @@ import { isPublicBuild } from 'tools/shared/src/utils/is-public-build';
 import { baElementBlockIgnore } from './markdown-custom-elements-ignore';
 import { fetchContentList } from './utils/fetch-strapi-content';
 import { runWithCheerio } from './utils/run-with-cheerio';
+
+import {
+  BaStrapiContentType,
+  BaStrapiSnippet,
+  BaPageTransformer,
+} from './types';
 
 const markdown = new markdownIt({
   html: true,

@@ -14,27 +14,8 @@
  * limitations under the License.
  */
 
-export type BaPageTransformer = (
-  source: BaSinglePageContent,
-) => Promise<BaSinglePageContent>;
-
-// tslint:disable-next-line: no-any
-export type BaPageBuilder = (
-  globalTransformers: BaPageTransformer[],
-  ...args: any[]
-) => Promise<BaPageBuildResult[]>;
-
-export type BaPageBuilderContentResult =
-  | BaSinglePageContent
-  | BaIndexPageContent
-  | BaIconOverviewPageContent;
-
-export interface BaPageBuildResult {
-  relativeOutFile: string;
-  pageContent: BaPageBuilderContentResult;
-}
-
-export const enum BaLayoutType {
+/** Possible layout types for pages in Barista. */
+export const enum BaPageLayoutType {
   Default = 'default',
   Overview = 'overview',
   IconOverview = 'iconOverview',
@@ -43,18 +24,14 @@ export const enum BaLayoutType {
   Error = 'error',
 }
 
+/** Pages & metadata */
 export interface BaPageMetaBase {
   title: string;
-  layout: BaLayoutType;
+  layout: BaPageLayoutType;
   description?: string;
   public?: boolean;
   draft?: boolean;
   navGroup?: string;
-}
-
-export interface BaErrorPageContent extends BaPageMetaBase {
-  layout: BaLayoutType.Error;
-  content: string;
 }
 
 export interface BaSinglePageMeta extends BaPageMetaBase {
@@ -74,122 +51,37 @@ export interface BaSinglePageContent extends BaSinglePageMeta {
   content: string;
 }
 
-export interface BaContributors {
-  dev?: BaContributor[];
-  ux?: BaContributor[];
+export interface BaErrorPageContent extends BaPageMetaBase {
+  layout: BaPageLayoutType.Error;
+  content: string;
 }
 
-export interface BaContributor {
-  name: string;
-  gitHubUser: string;
-}
-
-/** Index page content */
-export interface BaIndexPageContent {
-  title: string;
+export interface BaIndexPageContent extends BaPageMetaBase {
   subtitle: string;
-  layout: BaLayoutType.Index;
-  mostordered: BaStrapiPageLink[];
-  gettingstarted: BaStrapiPageTeaser[];
-  cta: BaStrapiCTA;
+  mostordered: BaPageLink[];
+  gettingstarted: BaPageTeaser[];
+  cta: BaCTA;
 }
 
-/** Icon overview page */
-export interface BaIconOverviewPageContent {
-  title: string;
-  description?: string;
-  layout: BaLayoutType;
-  icons: BaIconOverviewItem[];
+export interface BaIconOverviewPageContent extends BaPageMetaBase {
+  icons: BaIcon[];
   sidenav?: BaCategoryNavigation;
   category?: string;
 }
 
-/** Icon overview page item */
-export interface BaIconOverviewItem {
-  title: string;
-  name: string;
-  tags: string[];
+/** Main navigation */
+export interface BaNav {
+  navItems: BaNavItem[];
 }
 
-/** Base interface for Strapi content types */
-export interface BaStrapiBase {
-  id: number;
-  created_at: number;
-  updated_at: number;
+export interface BaNavItem {
+  label: string;
+  url: string;
+  order?: number;
 }
 
-/** Strapi content type with a name */
-export interface BaStrapiNamedEntity extends BaStrapiBase {
-  name: string;
-}
-
-/** Strapi page category */
-export interface BaStrapiCategory extends BaStrapiBase {
-  title: string;
-}
-
-/** Strapi contributor (UX/Dev support) */
-export interface BaStrapiContributor extends BaStrapiNamedEntity {
-  githubuser: string;
-  developer: boolean;
-}
-
-/** Strapi page */
-export interface BaStrapiPage extends BaStrapiBase {
-  title: string;
-  slug: string;
-  public: boolean;
-  description: string;
-  content: string;
-  wiki: string;
-  tags: BaStrapiNamedEntity[];
-  contributors: BaStrapiContributor[];
-  category: BaStrapiCategory;
-  draft: boolean;
-  toc: boolean;
-}
-
-/** Strapi snippet */
-export interface BaStrapiSnippet extends BaStrapiBase {
-  slotId: string;
-  title: string;
-  content: string;
-  public: boolean;
-}
-
-/** Strapi content types */
-export enum BaStrapiContentType {
-  Pages = 'pages',
-  Snippets = 'snippets',
-  Pageteasers = 'pageteasers',
-  CTAs = 'ctas',
-}
-
-/** Strapi page-link (tile) */
-export interface BaStrapiPageLink {
-  title: string;
-  link: string;
-  category: string;
-}
-
-/** Strapi page-teaser */
-export interface BaStrapiPageTeaser extends BaStrapiBase {
-  title: string;
-  text: string;
-  link: string;
-  borderColor: string;
-  page: BaStrapiPage;
-}
-
-/** Strapi CTA */
-export interface BaStrapiCTA extends BaStrapiBase {
-  title: string;
-  text: string;
-  buttontext: string;
-  buttonlink: string;
-}
-
-export interface BaCategoryNavigationContents extends BaPageMetaBase {
+/** Category navigation (overview pages and sidenav) */
+export interface BaCategoryNavigationContent extends BaPageMetaBase {
   sections: BaCategoryNavigationSection[];
 }
 
@@ -201,7 +93,7 @@ export interface BaCategoryNavigationSection {
 export interface BaCategoryNavigation {
   title: string;
   id: string;
-  layout: BaLayoutType;
+  layout: BaPageLayoutType;
   description?: string;
   sections: BaCategoryNavigationSection[];
 }
@@ -217,12 +109,41 @@ export interface BaCategoryNavigationSectionItem {
   active?: boolean;
 }
 
-export interface BaNav {
-  navItems: BaNavItem[];
+/** Index page content */
+export interface BaCTA {
+  title: string;
+  text: string;
+  buttontext: string;
+  buttonlink: string;
 }
 
-export interface BaNavItem {
-  label: string;
-  url: string;
-  order?: number;
+export interface BaPageTeaser {
+  title: string;
+  text: string;
+  link: string;
+  borderColor: string;
+}
+
+export interface BaPageLink {
+  title: string;
+  link: string;
+  category?: string;
+}
+
+/** Page content */
+export interface BaIcon {
+  title: string;
+  name: string;
+  tags: string[];
+  public: boolean;
+}
+
+export interface BaContributor {
+  name: string;
+  gitHubUser: string;
+}
+
+export interface BaContributors {
+  dev?: BaContributor[];
+  ux?: BaContributor[];
 }
