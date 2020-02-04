@@ -272,6 +272,16 @@ export class DtAutocompleteTrigger<T>
         );
       });
     }
+
+    if (this._viewportResizer) {
+      this._viewportSubscription = this._viewportResizer
+        .change()
+        .subscribe(() => {
+          if (this.panelOpen && this._overlayRef) {
+            this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
+          }
+        });
+    }
   }
 
   ngOnDestroy(): void {
@@ -420,16 +430,6 @@ export class DtAutocompleteTrigger<T>
           this._closeKeyEventStream.next();
         }
       });
-
-      if (this._viewportResizer) {
-        this._viewportSubscription = this._viewportResizer
-          .change()
-          .subscribe(() => {
-            if (this.panelOpen && this._overlayRef) {
-              this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
-            }
-          });
-      }
     } else {
       // Update the panel width and position in case anything has changed.
       this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
