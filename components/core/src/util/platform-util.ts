@@ -15,7 +15,7 @@
  */
 
 import { coerceElement } from '@angular/cdk/coercion';
-import { ElementRef, Renderer2 } from '@angular/core';
+import { ElementRef } from '@angular/core';
 
 import { isNumber, isString } from './type-util';
 
@@ -28,14 +28,13 @@ export function replaceCssClass(
   elOrRef: any, // tslint:disable-line:no-any
   oldClass: string | null,
   newClass: string | null,
-  renderer?: Renderer2,
 ): void {
   const el = elOrRef.nativeElement || elOrRef;
   if (oldClass) {
-    removeCssClass(el, oldClass, renderer);
+    removeCssClass(el, oldClass);
   }
   if (newClass) {
-    addCssClass(el, newClass, renderer);
+    addCssClass(el, newClass);
   }
 }
 
@@ -51,20 +50,17 @@ export function toggleCssClass(
   // tslint:disable-next-line: no-any
   el: any,
   name: string,
-  renderer?: Renderer2,
 ): void {
   if (condition) {
-    addCssClass(el, name, renderer);
+    addCssClass(el, name);
   } else {
-    removeCssClass(el, name, renderer);
+    removeCssClass(el, name);
   }
 }
 
 // tslint:disable-next-line:no-any
-export function addCssClass(el: any, name: string, renderer?: Renderer2): void {
-  if (renderer) {
-    renderer.addClass(el, name);
-  } else {
+export function addCssClass(el: any, name: string): void {
+  if (el.classList) {
     el.classList.add(name);
   }
 }
@@ -72,11 +68,8 @@ export function addCssClass(el: any, name: string, renderer?: Renderer2): void {
 export function removeCssClass(
   el: any, // tslint:disable-line:no-any
   name: string,
-  renderer?: Renderer2,
 ): void {
-  if (renderer) {
-    renderer.removeClass(el, name);
-  } else {
+  if (el.classList) {
     el.classList.remove(name);
   }
 }

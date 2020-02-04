@@ -29,7 +29,6 @@ import {
   OnDestroy,
   Optional,
   QueryList,
-  Renderer2,
   SkipSelf,
   ViewEncapsulation,
 } from '@angular/core';
@@ -159,7 +158,6 @@ export class DtCell implements AfterContentInit, OnDestroy {
   constructor(
     public _columnDef: DtColumnDef,
     public _changeDetectorRef: ChangeDetectorRef,
-    renderer: Renderer2,
     elem: ElementRef,
     @Optional() @SkipSelf() dtSortable?: DtSort,
   ) {
@@ -180,7 +178,7 @@ export class DtCell implements AfterContentInit, OnDestroy {
         takeUntil(this._destroy),
       )
       .subscribe(() => {
-        _updateDtColumnStyles(this._columnDef, elem, renderer);
+        _updateDtColumnStyles(this._columnDef, elem);
       });
 
     if (DtRow._mostRecentRow) {
@@ -285,23 +283,21 @@ export function _setDtColumnCssClasses(
 export function _updateDtColumnStyles(
   columnDef: DtColumnDef,
   elementRef: ElementRef,
-  renderer: Renderer2,
 ): void {
   _setDtColumnCssClasses(columnDef, elementRef);
-  const { proportion, minWidth } = columnDef;
-  const setProportion = coerceNumberProperty(proportion);
-  if (setProportion > 0) {
-    renderer.setStyle(elementRef.nativeElement, 'flex-grow', setProportion);
-    renderer.setStyle(elementRef.nativeElement, 'flex-shrink', setProportion);
-  }
-  const valueAndUnit = parseCssValue(minWidth);
-  if (valueAndUnit !== null) {
-    renderer.setStyle(
-      elementRef.nativeElement,
-      'min-width',
-      `${valueAndUnit.value}${valueAndUnit.unit}`,
-    );
-  } else {
-    renderer.removeStyle(elementRef.nativeElement, 'min-width');
+  const element: HTMLElement = elementRef.nativeElement;
+  if (element && element.style) {
+    const { proportion, minWidth } = columnDef;
+    const setProportion = coerceNumberProperty(proportion);
+    if (setProportion > 0) {
+      element.style.flexGrow = setProportion + '';
+      element.style.flexShrink = setProportion + '';
+    }
+    const valueAndUnit = parseCssValue(minWidth);
+    if (valueAndUnit !== null) {
+      element.style.minWidth = `${valueAndUnit.value}${valueAndUnit.unit}`;
+    } else {
+      element.style.minWidth = '';
+    }
   }
 }

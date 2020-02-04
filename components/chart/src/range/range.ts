@@ -31,7 +31,6 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  Renderer2,
   TemplateRef,
   ViewChild,
   ViewChildren,
@@ -281,7 +280,6 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     public _viewContainerRef: ViewContainerRef,
     private _elementRef: ElementRef<HTMLElement>,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
   ) {}
 
   ngOnDestroy(): void {
@@ -544,37 +542,23 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
     const displayValue = dtFormatDateRange(this.value[0], this.value[1]);
 
     if (this._rangeElementRef && this._rangeElementRef.first) {
-      this._renderer.setAttribute(
-        this._rangeElementRef.first.nativeElement,
-        'aria-valuenow',
-        `${this.value.join('-')}`,
-      );
-      this._renderer.setAttribute(
-        this._rangeElementRef.first.nativeElement,
-        'aria-valuetext',
-        displayValue,
-      );
+      const element: Element = this._rangeElementRef.first.nativeElement;
+      if (element && element.setAttribute) {
+        element.setAttribute('aria-valuenow', `${this.value.join('-')}`);
+        element.setAttribute('aria-valuetext', displayValue);
+      }
     }
   }
 
   /** Updates the selection area styling according to the actual range */
   private _reflectStyleToDom(): void {
     if (this._rangeElementRef && this._rangeElementRef.first) {
-      this._renderer.setStyle(
-        this._rangeElementRef.first.nativeElement,
-        'opacity',
-        `${+!this._rangeHidden}`,
-      );
-      this._renderer.setStyle(
-        this._rangeElementRef.first.nativeElement,
-        'left',
-        `${this._rangeArea.left}px`,
-      );
-      this._renderer.setStyle(
-        this._rangeElementRef.first.nativeElement,
-        'width',
-        `${this._rangeArea.width}px`,
-      );
+      const element: HTMLElement = this._rangeElementRef.first.nativeElement;
+      if (element && element.style) {
+        element.style.opacity = `${+!this._rangeHidden}`;
+        element.style.left = `${this._rangeArea.left}px`;
+        element.style.width = `${this._rangeArea.width}px`;
+      }
     }
   }
 }

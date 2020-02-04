@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Directive, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, ElementRef } from '@angular/core';
 
 /**
  * A breadcrumbs item that can be used within the `<dt-breadcrumbs>`.
@@ -30,24 +30,17 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
   },
 })
 export class DtBreadcrumbsItem2 {
-  constructor(
-    private readonly _elementRef: ElementRef<HTMLAnchorElement>,
-    private readonly _renderer: Renderer2,
-  ) {}
+  constructor(private readonly _elementRef: ElementRef<HTMLAnchorElement>) {}
 
   /** @internal */
   _setCurrent(current: boolean): void {
-    if (current) {
-      this._renderer.setAttribute(
-        this._elementRef.nativeElement,
-        'aria-current',
-        'page',
-      );
-    } else {
-      this._renderer.removeAttribute(
-        this._elementRef.nativeElement,
-        'aria-current',
-      );
+    const element: Element = this._elementRef.nativeElement;
+    if (element && element.setAttribute) {
+      if (current) {
+        element.setAttribute('aria-current', 'page');
+      } else {
+        element.removeAttribute('aria-current');
+      }
     }
   }
 }

@@ -23,7 +23,6 @@ import {
   ElementRef,
   Input,
   OnDestroy,
-  Renderer2,
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
@@ -136,11 +135,10 @@ export class DtTreeTableToggleCell<T> extends DtCell
   constructor(
     public _columnDef: DtColumnDef,
     public _changeDetectorRef: ChangeDetectorRef,
-    private _renderer: Renderer2,
     elementRef: ElementRef,
     @SkipSelf() private _treeTable: DtTreeTable<T>,
   ) {
-    super(_columnDef, _changeDetectorRef, _renderer, elementRef);
+    super(_columnDef, _changeDetectorRef, elementRef);
     // subscribe to changes in the expansionmodel and check if rowsData is part of the added or removed
     this._expansionSub = this._treeControl.expansionModel.changed
       .pipe(
@@ -189,10 +187,9 @@ export class DtTreeTableToggleCell<T> extends DtCell
   /** Sets the padding on the cell */
   private _setIndent(): void {
     const padding = this._paddingIndent();
-    this._renderer.setStyle(
-      this._wrapperElement.nativeElement,
-      'padding-left',
-      `${padding}px`,
-    );
+    const element: HTMLElement = this._wrapperElement.nativeElement;
+    if (element && element.style) {
+      element.style.paddingLeft = `${padding}px`;
+    }
   }
 }
