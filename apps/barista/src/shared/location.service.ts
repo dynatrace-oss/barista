@@ -16,7 +16,7 @@
 
 import { Location } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { ReplaySubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -35,7 +35,7 @@ export class BaLocationService {
   );
 
   /** Emits when the current URL changes. */
-  currentPath$ = this._currentUrl.pipe(
+  currentPath$: Observable<string> = this._currentUrl.pipe(
     map(url => (url.match(/[^?#]*/) || [])[0]), // strip query and hash
   );
 
