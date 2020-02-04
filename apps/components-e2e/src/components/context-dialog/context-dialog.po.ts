@@ -20,6 +20,7 @@ export const contextDialog = Selector('#context-dialog');
 export const disableToggle = Selector('#disable-toggle');
 export const contextDialogPanel = Selector('.dt-context-dialog-panel');
 export const backdrop = Selector('.cdk-overlay-backdrop');
+export const overlayPane = Selector('.cdk-overlay-pane');
 
 export const getActiveElementText = ClientFunction(() => {
   const element = document.activeElement;

@@ -18,44 +18,55 @@ import {
   contextDialogPanel,
   disableToggle,
   backdrop,
-  getActiveElementAriaLabel,
+  overlayPane,
 } from './context-dialog.po';
 
 import { getActiveElementText } from '../overlay/overlay.po';
 
-fixture.only('Context Dialog').page('http://localhost:4200/context-dialog');
+fixture('Context Dialog').page('http://localhost:4200/context-dialog');
 
 test('should open the context dialog when not disabled', async (testController: TestController) => {
-  await testController.click(contextDialog);
-  await testController.expect(await contextDialogPanel.exists).ok();
-  await testController.expect(await contextDialogPanel.visible).ok();
+  await testController
+    .click(contextDialog, { speed: 0.5 })
+    .expect(contextDialogPanel.exists)
+    .ok()
+    .expect(contextDialogPanel.visible)
+    .ok();
 });
 
 test('should not execute click handlers when disabled', async (testController: TestController) => {
-  await testController.click(disableToggle);
-  await testController.click(contextDialog);
-  await testController.expect(await contextDialogPanel.exists).notOk();
+  await testController
+    .click(disableToggle, { speed: 0.5 })
+    .click(contextDialog)
+    .expect(contextDialogPanel.exists)
+    .notOk();
 });
 
 test('should trap the focus inside the overlay', async (testController: TestController) => {
-  await testController.click(contextDialog);
-  await testController.expect(await getActiveElementText()).eql('Edit');
-
-  await testController.pressKey('tab');
-  await testController.expect(await getActiveElementText()).eql('Edit');
+  await testController
+    .click(contextDialog, { speed: 0.5 })
+    .expect(getActiveElementText())
+    .eql('Edit')
+    .pressKey('tab')
+    .expect(getActiveElementText())
+    .eql('Edit');
 });
 
 test('should open and close the context dialog', async (testController: TestController) => {
-  await testController.click(contextDialog);
-  await testController.expect(await contextDialogPanel.exists).ok();
-  await testController.expect(await contextDialogPanel.visible).ok();
-  await testController.click(backdrop);
-  await testController.expect(await contextDialogPanel.exists).notOk();
+  await testController
+    .click(contextDialog, { speed: 0.5 })
+    .expect(contextDialogPanel.exists)
+    .ok()
+    .expect(contextDialogPanel.visible)
+    .ok()
+    .click(backdrop, { speed: 0.5 })
+    .expect(contextDialogPanel.exists)
+    .notOk();
 });
 
 test('should propagate attribute to overlay', async (testController: TestController) => {
   await testController
-    .click(contextDialog)
-    .expect(contextDialogPanel.textContent)
-    .contains('dt-ui-test-id');
+    .click(contextDialog, { speed: 0.5 })
+    .expect(overlayPane.getAttribute('dt-ui-test-id'))
+    .contains('context-dialog-overlay');
 });

@@ -19,6 +19,10 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { DtE2eContextDialog } from './context-dialog';
 import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
+import {
+  DT_UI_TEST_CONFIG,
+  DT_DEFAULT_UI_TEST_CONFIG,
+} from 'components/core/src/testing';
 
 const routes: Route[] = [{ path: '', component: DtE2eContextDialog }];
 
@@ -26,6 +30,8 @@ const routes: Route[] = [{ path: '', component: DtE2eContextDialog }];
   declarations: [DtE2eContextDialog],
   imports: [CommonModule, RouterModule.forChild(routes), DtContextDialogModule],
   exports: [],
-  providers: [{ provide: DT_ }],
+  providers: [
+    { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
+  ],
 })
 export class DtE2eContextDialogModule {}
