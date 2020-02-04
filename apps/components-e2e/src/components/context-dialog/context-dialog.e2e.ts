@@ -23,7 +23,7 @@ import {
 
 import { getActiveElementText } from '../overlay/overlay.po';
 
-fixture('Context Dialog').page('http://localhost:4200/context-dialog');
+fixture.only('Context Dialog').page('http://localhost:4200/context-dialog');
 
 test('should open the context dialog when not disabled', async (testController: TestController) => {
   await testController.click(contextDialog);
@@ -51,4 +51,11 @@ test('should open and close the context dialog', async (testController: TestCont
   await testController.expect(await contextDialogPanel.visible).ok();
   await testController.click(backdrop);
   await testController.expect(await contextDialogPanel.exists).notOk();
+});
+
+test('should propagate attribute to overlay', async (testController: TestController) => {
+  await testController
+    .click(contextDialog)
+    .expect(contextDialogPanel.textContent)
+    .contains('dt-ui-test-id');
 });

@@ -1,0 +1,6 @@
+<input dtInput [dtAutocomplete]="auto" />
+<dt-autocomplete dt-ui-test-id="autocomplete" #auto="dtAutocomplete">
+  <dt-option *ngFor="let option of options">
+    {{option}}
+  </dt-option>
+</dt-autocomplete>

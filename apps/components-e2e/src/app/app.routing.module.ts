@@ -20,6 +20,13 @@ import { RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'autocomplete',
+    loadChildren: () =>
+      import('../components/autocomplete/autocomplete.module').then(
+        module => module.DtE2EAutocompleteModule,
+      ),
+  },
+  {
     path: 'button',
     loadChildren: () =>
       import('../components/button/button.module').then(

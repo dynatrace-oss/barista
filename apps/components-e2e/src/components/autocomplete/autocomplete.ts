@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
-import { DtE2eContextDialog } from './context-dialog';
-import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
+import { Component } from '@angular/core';
 
-const routes: Route[] = [{ path: '', component: DtE2eContextDialog }];
-
-@NgModule({
-  declarations: [DtE2eContextDialog],
-  imports: [CommonModule, RouterModule.forChild(routes), DtContextDialogModule],
-  exports: [],
-  providers: [{ provide: DT_ }],
+@Component({
+  selector: 'dt-e2e-autocomplete',
+  templateUrl: 'autocomplete.html',
 })
-export class DtE2eContextDialogModule {}
+export class DtE2EAutocomplete {
+  value: string;
+  options: string[] = ['One', 'Two', 'Three'];
+}

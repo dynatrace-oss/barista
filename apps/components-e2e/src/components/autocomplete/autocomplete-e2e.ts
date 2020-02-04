@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
-import { DtE2eContextDialog } from './context-dialog';
-import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
+import { Selector } from 'testcafe';
 
-const routes: Route[] = [{ path: '', component: DtE2eContextDialog }];
+fixture('autocomplete').page('http://localhost:4200/autocomplete');
 
-@NgModule({
-  declarations: [DtE2eContextDialog],
-  imports: [CommonModule, RouterModule.forChild(routes), DtContextDialogModule],
-  exports: [],
-  providers: [{ provide: DT_ }],
-})
-export class DtE2eContextDialogModule {}
+const input = Selector('#input');
+const autocompleteOverlay = Selector('#auto');
+
+test('Test propagate test id to overlay', async (testController: TestController) => {
+  await testController
+    .click(input)
+    .expect(autocompleteOverlay.textContent)
+    .contains('dt-ui-test-id');
+});
