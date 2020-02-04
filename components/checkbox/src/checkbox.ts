@@ -31,7 +31,6 @@ import {
   OnInit,
   Output,
   Provider,
-  Renderer2,
   ViewChild,
   ViewEncapsulation,
   forwardRef,
@@ -247,7 +246,6 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     private _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
     private _platform: Platform,
-    private _renderer: Renderer2,
     @Attribute('tabindex') tabIndex: string,
   ) {
     super();
@@ -264,7 +262,6 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
       addCssClass(
         this._elementRef.nativeElement,
         'dt-checkbox-animation-fallback',
-        this._renderer,
       );
     }
   }

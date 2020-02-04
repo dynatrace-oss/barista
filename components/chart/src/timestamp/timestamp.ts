@@ -35,7 +35,6 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  Renderer2,
   TemplateRef,
   ViewChild,
   ViewChildren,
@@ -208,7 +207,6 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
 
   constructor(
     public _viewContainerRef: ViewContainerRef,
-    private _renderer: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
   ) {}
@@ -334,11 +332,11 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   /** Reflects the position of the timestamp to the element */
   private _reflectStyleToDom(): void {
     if (this._timestampElementRef && this._timestampElementRef.first) {
-      this._renderer.setStyle(
-        this._timestampElementRef.first.nativeElement,
-        'transform',
-        `translateX(${this._positionX}px)`,
-      );
+      const element: HTMLElement = this._timestampElementRef.first
+        .nativeElement;
+      if (element.style) {
+        element.style.transform = `translateX(${this._positionX}px)`;
+      }
     }
   }
 }

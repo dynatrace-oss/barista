@@ -43,7 +43,6 @@ import {
   OnDestroy,
   Optional,
   Provider,
-  Renderer2,
   forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -253,11 +252,10 @@ export class DtAutocompleteTrigger<T>
   /** Old value of the native input. Used to work around issues with the `input` event on IE. */
   private _previousValue: string | number | null;
 
-  private _disposableFns: Array<() => void> = [];
+  private _destroy$ = new Subject<void>();
 
   constructor(
     private _element: ElementRef<HTMLInputElement>,
-    private _renderer: Renderer2,
     private _overlay: Overlay,
     private _changeDetectorRef: ChangeDetectorRef,
     private _viewportResizer: DtViewportResizer,
@@ -275,22 +273,23 @@ export class DtAutocompleteTrigger<T>
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
       _zone.runOutsideAngular(() => {
-        this._disposableFns.push(
-          this._renderer.listen(window, 'blur', () => {
+        fromEvent(window, 'blur')
+          .pipe(takeUntil(this._destroy$))
+          .subscribe(() => {
             // If the user blurred the window while the autocomplete is focused, it means that it'll be
             // refocused when they come back. In this case we want to skip the first focus event, if the
             // pane was closed, in order to avoid reopening it unintentionally.
             this._canOpenOnNextFocus =
               document.activeElement !== this._element.nativeElement ||
               this.panelOpen;
-          }),
-        );
+          });
       });
     }
 
     if (this._viewportResizer) {
-      this._viewportSubscription = this._viewportResizer
+      this._viewportResizer
         .change()
+        .pipe(takeUntil(this._destroy$))
         .subscribe(() => {
           if (this.panelOpen && this._overlayRef) {
             this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
@@ -300,9 +299,8 @@ export class DtAutocompleteTrigger<T>
   }
 
   ngOnDestroy(): void {
-    this._disposableFns.forEach(fn => {
-      fn();
-    });
+    this._destroy$.next();
+    this._destroy$.complete();
     this._viewportSubscription.unsubscribe();
     this._componentDestroyed = true;
     this._destroyPanel();

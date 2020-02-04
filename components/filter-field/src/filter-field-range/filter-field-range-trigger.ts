@@ -32,7 +32,6 @@ import {
   Input,
   NgZone,
   OnDestroy,
-  Renderer2,
   Optional,
   Inject,
 } from '@angular/core';
@@ -138,6 +137,9 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
   /** The subscription for closing actions (some are bound to document). */
   private _closingActionsSubscription = EMPTY.subscribe();
 
+  /** The subscription for the window blur event */
+  private _windowBlurSubscription = EMPTY.subscribe();
+
   /**
    * Whether the autocomplete can open the next time it is focused. Used to prevent a focused,
    * closed autocomplete from being reopened if the user switches to another browser tab and then
@@ -145,14 +147,11 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
    */
   private _canOpenOnNextFocus = true;
 
-  private _disposableFns: Array<() => void> = [];
-
   constructor(
     private _elementRef: ElementRef,
     private _overlay: Overlay,
     private _changeDetectorRef: ChangeDetectorRef,
     zone: NgZone,
-    renderer: Renderer2,
     /** @breaking-change 7.0.0 Make the _viewportRuler non-optional. */
     @Optional() private _viewportRuler?: ViewportRuler,
     /** @breaking-change 7.0.0 Make the _platform non-optional. */
@@ -166,25 +165,23 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
       zone.runOutsideAngular(() => {
-        this._disposableFns.push(
-          renderer.listen(window, 'blur', () => {
+        this._windowBlurSubscription = fromEvent(window, 'blur').subscribe(
+          () => {
             // If the user blurred the window while the autocomplete is focused, it means that it'll be
             // refocused when they come back. In this case we want to skip the first focus event, if the
             // pane was closed, in order to avoid reopening it unintentionally.
             this._canOpenOnNextFocus =
               document.activeElement !== this._elementRef.nativeElement ||
               this.panelOpen;
-          }),
+          },
         );
       });
     }
   }
 
   ngOnDestroy(): void {
-    this._disposableFns.forEach(fn => {
-      fn();
-    });
     this._closingActionsSubscription.unsubscribe();
+    this._windowBlurSubscription.unsubscribe();
     this._componentDestroyed = true;
     this._destroyPanel();
     this._closeKeyEventStream.complete();

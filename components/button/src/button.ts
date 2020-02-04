@@ -25,7 +25,6 @@ import {
   Input,
   OnDestroy,
   QueryList,
-  Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
 import { NEVER, Subscription } from 'rxjs';
@@ -111,7 +110,6 @@ export class DtButton extends _DtButtonMixinBase
   constructor(
     elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
-    private _renderer: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
   ) {
     super(elementRef);
@@ -153,7 +151,6 @@ export class DtButton extends _DtButtonMixinBase
       this._elementRef,
       `dt-button-${oldClass}`,
       `dt-button-${newClass}`,
-      this._renderer,
     );
   }
 }
@@ -185,10 +182,9 @@ export class DtAnchor extends DtButton {
   constructor(
     elementRef: ElementRef,
     focusMonitor: FocusMonitor,
-    renderer: Renderer2,
     changeDetectorRef: ChangeDetectorRef,
   ) {
-    super(elementRef, focusMonitor, renderer, changeDetectorRef);
+    super(elementRef, focusMonitor, changeDetectorRef);
   }
 
   /**

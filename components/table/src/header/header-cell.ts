@@ -15,7 +15,7 @@
  */
 
 import { CdkHeaderCellDef } from '@angular/cdk/table';
-import { Directive, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
@@ -45,14 +45,14 @@ export class DtHeaderCell implements OnDestroy {
   /** Destroy subject which will fire when the component gets destroyed. */
   private _destroy = new Subject<void>();
 
-  constructor(columnDef: DtColumnDef, renderer: Renderer2, elem: ElementRef) {
+  constructor(columnDef: DtColumnDef, elem: ElementRef) {
     columnDef._stateChanges
       .pipe(
         startWith(null),
         takeUntil(this._destroy),
       )
       .subscribe(() => {
-        _updateDtColumnStyles(columnDef, elem, renderer);
+        _updateDtColumnStyles(columnDef, elem);
       });
   }
 

@@ -37,7 +37,6 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  Renderer2,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -164,7 +163,6 @@ export class DtExpandableRow extends DtRow
   constructor(
     // tslint:disable-next-line:no-any
     private _table: DtTable<any>,
-    private _renderer2: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
     private _expansionDispatcher: UniqueSelectionDispatcher,
     elementRef: ElementRef,
@@ -240,7 +238,6 @@ export class DtExpandableRow extends DtRow
       (expanded ? addCssClass : removeCssClass)(
         cell,
         'dt-expandable-cell-expanded',
-        this._renderer2,
       );
     });
   }

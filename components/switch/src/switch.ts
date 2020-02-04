@@ -29,7 +29,6 @@ import {
   OnDestroy,
   Output,
   Provider,
-  Renderer2,
   ViewChild,
   ViewEncapsulation,
   forwardRef,
@@ -46,6 +45,8 @@ import {
   HasTabIndex,
   mixinDisabled,
   mixinTabIndex,
+  addCssClass,
+  removeCssClass,
 } from '@dynatrace/barista-components/core';
 
 // Increasing integer for generating unique ids for switch components.
@@ -181,7 +182,6 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   private _controlValueAccessorChangeFn: (value: boolean) => void = () => {};
 
   constructor(
-    private _renderer: Renderer2,
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
@@ -267,9 +267,9 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     const element = this._elementRef.nativeElement;
 
     if (focusOrigin === 'keyboard') {
-      this._renderer.addClass(element, 'dt-switch-focused');
+      addCssClass(element, 'dt-switch-focused');
     } else if (!focusOrigin) {
-      this._renderer.removeClass(element, 'dt-switch-focused');
+      removeCssClass(element, 'dt-switch-focused');
       this._onTouched();
     }
   }

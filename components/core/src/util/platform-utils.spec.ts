@@ -17,7 +17,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 
 import { hasCssClass, parseCssValue, replaceCssClass } from './platform-util';
@@ -32,22 +32,7 @@ describe('PlatformUtil', () => {
   }));
 
   describe('replaceCssClass', () => {
-    it('should replace an old class with a new one using the renderer', () => {
-      const fixture = TestBed.createComponent(TestApp);
-      const testComponent = fixture.debugElement.componentInstance;
-      const renderer = testComponent.renderer;
-      expect(renderer).toBeTruthy();
-      expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(
-        testComponent.testElement,
-        'old-class',
-        'new-class',
-        renderer,
-      );
-      expect(testComponent.testElement.className).toBe('new-class');
-    });
-
-    it('should replace an old class with a new one without using the renderer', () => {
+    it('should replace an old class with a new one', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
 
@@ -59,35 +44,27 @@ describe('PlatformUtil', () => {
     it('should remove an old class if no new one has been provided', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
-      const renderer = testComponent.renderer;
 
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(testComponent.testElement, 'old-class', null, renderer);
+      replaceCssClass(testComponent.testElement, 'old-class', null);
       expect(testComponent.testElement.className).toBe('');
     });
 
     it('should add a new class if no old one has been provided', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
-      const renderer = testComponent.renderer;
 
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(testComponent.testElement, null, 'new-class', renderer);
+      replaceCssClass(testComponent.testElement, null, 'new-class');
       expect(testComponent.testElement.className).toBe('old-class new-class');
     });
 
     it('should also work with ElementRef', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
-      const renderer = testComponent.renderer;
 
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(
-        testComponent.elementRef,
-        'old-class',
-        'new-class',
-        renderer,
-      );
+      replaceCssClass(testComponent.elementRef, 'old-class', 'new-class');
       expect(testComponent.testElement.className).toBe('new-class');
     });
   });
@@ -164,7 +141,7 @@ class TestApp {
   );
   elementRef = new ElementRef(this.testElement);
 
-  constructor(public renderer: Renderer2) {
+  constructor() {
     this.testElement.className = 'old-class';
     this.testSvgElement.setAttribute('class', 'old-class');
   }

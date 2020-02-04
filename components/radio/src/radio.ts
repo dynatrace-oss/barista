@@ -29,7 +29,6 @@ import {
   OnInit,
   Optional,
   Output,
-  Renderer2,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -198,7 +197,6 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     private _changeDetector: ChangeDetectorRef,
     private _radioDispatcher: UniqueSelectionDispatcher,
     private _focusMonitor: FocusMonitor,
-    private _renderer: Renderer2,
     @Optional() private _radioGroup: DtRadioGroup<T>,
   ) {
     super();
@@ -278,9 +276,9 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     const element = this._elementRef.nativeElement;
 
     if (focusOrigin === 'keyboard') {
-      addCssClass(element, 'dt-radio-focused', this._renderer);
+      addCssClass(element, 'dt-radio-focused');
     } else if (!focusOrigin) {
-      removeCssClass(element, 'dt-radio-focused', this._renderer);
+      removeCssClass(element, 'dt-radio-focused');
       if (this._radioGroup) {
         this._radioGroup._touch();
       }

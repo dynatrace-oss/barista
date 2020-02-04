@@ -20,7 +20,6 @@ import {
   Input,
   OnDestroy,
   Optional,
-  Renderer2,
   SkipSelf,
   isDevMode,
 } from '@angular/core';
@@ -111,7 +110,6 @@ export class DtTheme implements OnDestroy {
 
   constructor(
     private _elementRef: ElementRef,
-    private _renderer: Renderer2,
     @Optional() @SkipSelf() private _parentTheme: DtTheme,
   ) {
     if (this._parentTheme) {
@@ -144,13 +142,11 @@ export class DtTheme implements OnDestroy {
       this._elementRef,
       currentClassNames.name,
       newClassNames.name,
-      this._renderer,
     );
     replaceCssClass(
       this._elementRef,
       currentClassNames.variant,
       newClassNames.variant,
-      this._renderer,
     );
     this._classNames = newClassNames;
   }

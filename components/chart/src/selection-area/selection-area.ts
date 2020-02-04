@@ -35,7 +35,6 @@ import {
   NgZone,
   OnDestroy,
   Optional,
-  Renderer2,
   SkipSelf,
   TemplateRef,
   ViewChild,
@@ -181,7 +180,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     @SkipSelf() private _chart: DtChart,
     private _elementRef: ElementRef<HTMLElement>,
     private _focusTrapFactory: FocusTrapFactory,
-    private _renderer: Renderer2,
     private _overlay: Overlay,
     private _zone: NgZone,
     private _viewportRuler: ViewportRuler,
@@ -945,8 +943,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** Function that toggles the visibility of the hairline (line that follows the mouses) */
   private _toggleHairline(show: boolean): void {
-    const display = show ? 'inherit' : 'none';
-    this._renderer.setStyle(this._hairline.nativeElement, 'display', display);
+    const element: HTMLElement = this._hairline.nativeElement;
+    if (element && element.style) {
+      element.style.display = show ? 'inherit' : 'none';
+    }
   }
 
   /** Function that safely toggles the visible state of the range */
@@ -973,11 +973,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
   /** reflects the position of the timestamp to the element */
   private _reflectHairlinePositionToDom(x: number): void {
-    this._renderer.setStyle(
-      this._hairline.nativeElement,
-      'transform',
-      `translateX(${x}px)`,
-    );
+    const element: HTMLElement = this._hairline.nativeElement;
+    if (element && element.style) {
+      element.style.transform = `translateX(${x}px)`;
+    }
   }
 
   /** Set the position of the select-able area to the size of the Highcharts plot background */

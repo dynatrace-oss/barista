@@ -23,7 +23,6 @@ import {
   Input,
   NgModule,
   QueryList,
-  Renderer2,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -693,7 +692,7 @@ class TestApp {
     { col1: 'test 1', col2: 'test 2', col3: 'test 3' },
   ];
 
-  constructor(public _renderer: Renderer2) {}
+  constructor() {}
 }
 
 /** Test component that contains a Dynamic DtTable. */
