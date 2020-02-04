@@ -15,7 +15,6 @@
  */
 
 import { InjectionToken, ElementRef } from '@angular/core';
-import { coerceElement } from '@angular/cdk/coercion';
 
 /** Interface for Injectiontoken to set UI-test attribute to overlay Container */
 export interface DtUiTestConfiguration {
@@ -39,21 +38,28 @@ export const DT_UI_TEST_CONFIG = new InjectionToken<DtUiTestConfiguration>(
 
 /** Sets the UI-test attribute to the overlay container */
 export function dtSetUiTestAttribute(
-  element: ElementRef,
   overlay: Element,
-  config: DtUiTestConfiguration,
   overlayId: string | null,
+  componentElement?: ElementRef,
+  config?: DtUiTestConfiguration,
 ): void {
-  const el: Element = coerceElement<Element>(element);
-  if (el && overlay && el.hasAttribute(config.attributeName) && overlayId) {
-    // Angular CDK hardcoded the ID for the overlay with `cdk-overlay-{uniqueIndex}`
-    const index = parseInt(overlayId.replace('cdk-overlay-', ''));
-    overlay.setAttribute(
-      config.attributeName,
-      config.constructOverlayAttributeValue(
-        el.getAttribute(config.attributeName)!,
-        index,
-      ),
-    );
+  if (componentElement && config) {
+    if (
+      overlay &&
+      componentElement.nativeElement.hasAttribute(config.attributeName) &&
+      overlayId
+    ) {
+      // Angular CDK hardcoded the ID for the overlay with `cdk-overlay-{uniqueIndex}`
+      const index = parseInt(overlayId.replace('cdk-overlay-', ''));
+      overlay.setAttribute(
+        config.attributeName,
+        config.constructOverlayAttributeValue(
+          componentElement.nativeElement.getAttribute(config.attributeName)!,
+          index,
+        ),
+      );
+    }
+  } else {
+    throw new Error(`Null exception: ${componentElement} or ${config} is null`);
   }
 }

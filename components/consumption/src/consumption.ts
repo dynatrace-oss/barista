@@ -187,14 +187,12 @@ export class DtConsumption extends _DtConsumption
 
       // Note: each OverlayConfig can only be used for one overlay instance
       this._overlayRef = this._overlay.create(this._createOverlayConfig());
-      if (this._config) {
-        dtSetUiTestAttribute(
-          this._elementRef,
-          this._overlayRef.overlayElement,
-          this._config,
-          this._overlayRef.overlayElement.id,
-        );
-      }
+      dtSetUiTestAttribute(
+        this._overlayRef.overlayElement,
+        this._overlayRef.overlayElement.id,
+        this._elementRef,
+        this._config,
+      );
       this._overlayRef.attach(portal);
     }
   }

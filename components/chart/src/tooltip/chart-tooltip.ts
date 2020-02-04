@@ -145,14 +145,12 @@ export class DtChartTooltip implements OnDestroy {
       overlayRef.attach(this._portal);
 
       this._overlayRef = overlayRef;
-      if (this._elementRef && this._config) {
-        dtSetUiTestAttribute(
-          this._elementRef,
-          this._overlayRef.overlayElement,
-          this._config,
-          this._overlayRef.overlayElement.id,
-        );
-      }
+      dtSetUiTestAttribute(
+        this._overlayRef.overlayElement,
+        this._overlayRef.overlayElement.id,
+        this._elementRef,
+        this._config,
+      );
     }
   }
 

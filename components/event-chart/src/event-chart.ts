@@ -261,13 +261,13 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     private _appRef: ApplicationRef,
     private _injector: Injector,
     private _overlayService: Overlay,
-    private _elementRef: ElementRef<HTMLElement>,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
     private _platform: Platform,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
+    private _elementRef?: ElementRef<HTMLElement>,
   ) {}
 
   ngOnInit(): void {
@@ -513,14 +513,12 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     if (!this._overlayRef.hasAttached()) {
       this._overlayRef.attach(this._portal);
     }
-    if (this._elementRef && this._config) {
-      dtSetUiTestAttribute(
-        this._elementRef,
-        this._overlayRef.overlayElement,
-        this._config,
-        this._overlayRef.overlayElement.id,
-      );
-    }
+    dtSetUiTestAttribute(
+      this._overlayRef.overlayElement,
+      this._overlayRef.overlayElement.id,
+      this._elementRef,
+      this._config,
+    );
   }
 
   /** Update the overlay position and the implicit context. */

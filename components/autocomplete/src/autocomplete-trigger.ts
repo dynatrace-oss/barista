@@ -416,14 +416,12 @@ export class DtAutocompleteTrigger<T>
 
     if (!this._overlayRef) {
       this._overlayRef = this._overlay.create(this._getOverlayConfig());
-      if (this._config) {
-        dtSetUiTestAttribute(
-          this._element,
-          this._overlayRef.overlayElement,
-          this._config,
-          this._overlayRef.overlayElement.id,
-        );
-      }
+      dtSetUiTestAttribute(
+        this._overlayRef.overlayElement,
+        this._overlayRef.overlayElement.id,
+        this._element,
+        this._config,
+      );
       this._overlayRef.keydownEvents().subscribe(event => {
         const keyCode = readKeyCode(event);
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.

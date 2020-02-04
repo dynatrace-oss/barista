@@ -249,14 +249,12 @@ export class DtConfirmationDialog
       },
       positionStrategy,
     });
-    if (this._elementRef && this._config) {
-      dtSetUiTestAttribute(
-        this._elementRef,
-        overlayRef.overlayElement,
-        this._config,
-        overlayRef.overlayElement.id,
-      );
-    }
+    dtSetUiTestAttribute(
+      overlayRef.overlayElement,
+      overlayRef.overlayElement.id,
+      this._elementRef,
+      this._config,
+    );
     const containerPortal = new TemplatePortal<{}>(
       this._templateRef,
       this._viewContainerRef,

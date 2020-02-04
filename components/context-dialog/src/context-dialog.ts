@@ -316,14 +316,12 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       backdropClass: 'cdk-overlay-transparent-backdrop',
       hasBackdrop: true,
     });
-    if (this._elementRef && this._config) {
-      dtSetUiTestAttribute(
-        this._elementRef,
-        this._overlayRef.overlayElement,
-        this._config,
-        this._overlayRef.overlayElement.id,
-      );
-    }
+    dtSetUiTestAttribute(
+      this._overlayRef.overlayElement,
+      this._overlayRef.overlayElement.id,
+      this._elementRef,
+      this._config,
+    );
     this._overlayRef
       .backdropClick()
       .pipe(takeUntil(this._destroy))

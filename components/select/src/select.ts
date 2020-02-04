@@ -674,14 +674,12 @@ export class DtSelect<T> extends _DtSelectMixinBase
       this._changeDetectorRef.detectChanges();
       this.panel.nativeElement.scrollTop = this._scrollTop;
     });
-    if (this._config) {
-      dtSetUiTestAttribute(
-        this._elementRef,
-        this.overlayDir.overlayRef.overlayElement,
-        this._config,
-        this.overlayDir.overlayRef.overlayElement.id,
-      );
-    }
+    dtSetUiTestAttribute(
+      this.overlayDir.overlayRef.overlayElement,
+      this.overlayDir.overlayRef.overlayElement.id,
+      this._elementRef,
+      this._config,
+    );
   }
 
   /**

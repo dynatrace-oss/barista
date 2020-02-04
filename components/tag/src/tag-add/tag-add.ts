@@ -134,10 +134,11 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _zone: NgZone,
-    private _elementRef: ElementRef<HTMLElement>,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
+    // @BREAKING-CHANGE: Optional will be removed with version 7.0.0
+    private _elementRef?: ElementRef<HTMLElement>,
   ) {}
 
   ngAfterViewInit(): void {
@@ -164,14 +165,12 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
     this._overlayDir.positionChange.pipe(take(1)).subscribe(() => {
       this._panel.nativeElement.scrollTop = 0;
     });
-    if (this._elementRef && this._config) {
-      dtSetUiTestAttribute(
-        this._elementRef,
-        this._overlayDir.overlayRef.overlayElement,
-        this._config,
-        this._overlayDir.overlayRef.overlayElement.id,
-      );
-    }
+    dtSetUiTestAttribute(
+      this._overlayDir.overlayRef.overlayElement,
+      this._overlayDir.overlayRef.overlayElement.id,
+      this._elementRef,
+      this._config,
+    );
   }
 
   /** Opens the tag add Overlay by setting showOverlay to true. */
