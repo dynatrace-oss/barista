@@ -21,7 +21,7 @@ import {
   BaStrapiSnippet,
   BaStrapiCTA,
   BaStrapiPageTeaser,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '../types';
 
 interface FetchContentOptions {
   publicContent: boolean;

@@ -20,13 +20,12 @@ import { load as loadWithCheerio } from 'cheerio';
 import Axios from 'axios';
 
 import {
-  BaPageBuildResult,
-  BaPageBuilder,
-  BaPageTransformer,
   BaSinglePageMeta,
-  BaLayoutType,
+  BaPageLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
 import { environment } from 'tools/environments/barista-environment';
+
+import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from '../types';
 
 import {
   componentTagsTransformer,
@@ -105,7 +104,7 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
     related: baristaMetadata.related,
     contributors: baristaMetadata.contributors,
     category: 'Components',
-    layout: BaLayoutType.Default,
+    layout: BaPageLayoutType.Default,
     order: baristaMetadata.order,
     navGroup: baristaMetadata.navGroup,
   };

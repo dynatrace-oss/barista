@@ -16,8 +16,8 @@
 
 import { Component, Input } from '@angular/core';
 
-import { BaIndexPageItem } from '../../shared/page-contents';
 import { DEFAULT_PAGE_THEME } from '../../app';
+import { BaPageLink } from '@dynatrace/barista-components/barista-definitions';
 
 @Component({
   selector: 'ba-smalltile',
@@ -28,7 +28,7 @@ import { DEFAULT_PAGE_THEME } from '../../app';
   },
 })
 export class BaSmallTile {
-  @Input() data: BaIndexPageItem;
+  @Input() data: BaPageLink;
 
   /** @internal Gets the tile's theme based on its category. */
   get _theme(): string {

@@ -23,7 +23,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { BaLocationService } from './shared/location.service';
 import { BaPageService } from './shared/page.service';
 import {
-  BaLayoutType,
+  BaPageLayoutType,
   BaSinglePageContent,
 } from '@dynatrace/barista-components/barista-definitions';
 
@@ -62,7 +62,7 @@ export class BaApp implements OnInit, OnDestroy {
       this._pageService.currentPage.pipe(map(page => ({ path, page }))),
     ),
     map(({ path, page }) => {
-      return page.layout === BaLayoutType.Error
+      return page.layout === BaPageLayoutType.Error
         ? []
         : createBreadcrumbItems(path);
     }),

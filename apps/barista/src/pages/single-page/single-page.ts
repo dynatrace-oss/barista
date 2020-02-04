@@ -17,7 +17,7 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
 import {
   BaSinglePageContent,
-  BaLayoutType,
+  BaPageLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
 import { BaPage } from '../page-outlet';
@@ -35,7 +35,7 @@ export class BaSinglePage implements BaPage, AfterViewInit {
   }
   set contents(value: BaSinglePageContent) {
     this._contents = value;
-    if (this.contents && this.contents.layout != BaLayoutType.Icon) {
+    if (this.contents && this.contents.layout != BaPageLayoutType.Icon) {
       this._recentlyOrderedService.saveToLocalStorage(this.contents);
     }
   }

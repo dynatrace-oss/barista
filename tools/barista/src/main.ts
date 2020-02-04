@@ -17,11 +17,7 @@
 import { dirname, join } from 'path';
 import { promises as fs, mkdirSync, existsSync } from 'fs';
 
-import {
-  BaPageBuildResult,
-  BaPageBuilder,
-  BaPageTransformer,
-} from '@dynatrace/barista-components/barista-definitions';
+import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from './types';
 import { environment } from 'tools/environments/barista-environment';
 import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
 

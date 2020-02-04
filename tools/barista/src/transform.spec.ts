@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BaLayoutType } from '@dynatrace/barista-components/barista-definitions';
+import { BaPageLayoutType } from '@dynatrace/barista-components/barista-definitions';
 import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
@@ -25,7 +25,7 @@ import {
 describe('Barista transformers', () => {
   const testpage = {
     title: 'Testpage',
-    layout: BaLayoutType.Default,
+    layout: BaPageLayoutType.Default,
     content: '',
   };
 
@@ -33,7 +33,7 @@ describe('Barista transformers', () => {
     it('should set component tags if no tags are available', async () => {
       expect(await componentTagsTransformer(testpage)).toEqual({
         title: 'Testpage',
-        layout: BaLayoutType.Default,
+        layout: BaPageLayoutType.Default,
         content: '',
         tags: ['component', 'angular'],
       });
@@ -44,7 +44,7 @@ describe('Barista transformers', () => {
         await componentTagsTransformer({ ...testpage, tags: ['foo'] }),
       ).toEqual({
         title: 'Testpage',
-        layout: BaLayoutType.Default,
+        layout: BaPageLayoutType.Default,
         content: '',
         tags: ['component', 'angular', 'foo'],
       });
@@ -76,7 +76,7 @@ describe('Barista transformers', () => {
       const content = `<h1>Test</h1> foo \n<strong>bar</strong> <h1>lorem <i>ipsum</i></h1> dolor.`;
       const transformed = await extractH1ToTitleTransformer({
         title: '',
-        layout: BaLayoutType.Default,
+        layout: BaPageLayoutType.Default,
         content,
       });
       expect(transformed.title).toBe('Test');
@@ -91,7 +91,7 @@ describe('Barista transformers', () => {
       const content = `foo <a href="https://www.dynatrace.com/news">Secret link</a> bar`;
       const transformed = await internalLinksTransformer({
         title: '',
-        layout: BaLayoutType.Default,
+        layout: BaPageLayoutType.Default,
         content,
       });
       expect(transformed.content).toBe(content);
@@ -104,7 +104,7 @@ describe('Barista transformers', () => {
       const content = `foo <a href="https://www.dynatrace.com/news">Secret link</a> bar`;
       const transformed = await internalLinksTransformer({
         title: '',
-        layout: BaLayoutType.Default,
+        layout: BaPageLayoutType.Default,
         content,
       });
       expect(transformed.content).toBe(
@@ -119,7 +119,7 @@ describe('Barista transformers', () => {
         "<h2>What's new?</h2><h3>Coffee & tea</h3><h3>Awesome!</h3>";
       const transformed = await headingIdTransformer({
         title: '',
-        layout: BaLayoutType.Default,
+        layout: BaPageLayoutType.Default,
         content,
       });
       expect(transformed.content).toBe(
@@ -133,7 +133,7 @@ describe('Barista transformers', () => {
       const content = '<h2>1. Definitions.</h2>';
       const transformed = await headingIdTransformer({
         title: '',
-        layout: BaLayoutType.Default,
+        layout: BaPageLayoutType.Default,
         content,
       });
       expect(transformed.content).toBe(

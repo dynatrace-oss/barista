@@ -19,16 +19,15 @@ import { Injectable } from '@angular/core';
 import {
   BaSinglePageContent,
   BaIconOverviewPageContent,
+  BaPageLink,
 } from '@dynatrace/barista-components/barista-definitions';
-import { BaIndexPageItem } from './page-contents';
 
 const LOCALSTORAGEKEY = 'recentlyordered';
 const NUMBER_OF_RECENT_ITEMS = 7;
 
 @Injectable()
 export class BaRecentlyOrderedService {
-  //  orderedItems: BaIndexPageItem[] = [];
-  orderedItems: (BaIndexPageItem | null)[] = [];
+  orderedItems: (BaPageLink | null)[] = [];
 
   constructor() {
     if ('localStorage' in window) {
@@ -43,7 +42,7 @@ export class BaRecentlyOrderedService {
   saveToLocalStorage(
     page: BaSinglePageContent | BaIconOverviewPageContent,
   ): void {
-    const orderedItem = {
+    const orderedItem: BaPageLink = {
       title: page.title,
       link: window.location.href,
       category: page.category,
@@ -69,7 +68,7 @@ export class BaRecentlyOrderedService {
     }
   }
 
-  getRecentlyOrderedItems(): (BaIndexPageItem | null)[] {
+  getRecentlyOrderedItems(): (BaPageLink | null)[] {
     while (this.orderedItems.length < NUMBER_OF_RECENT_ITEMS) {
       this.orderedItems.push(null);
     }
