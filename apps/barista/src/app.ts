@@ -18,11 +18,14 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { BaLocationService } from './shared/location.service';
 import { BaPageService } from './shared/page.service';
-import { BaLayoutType } from '@dynatrace/barista-components/barista-definitions';
+import {
+  BaLayoutType,
+  BaSinglePageContent,
+} from '@dynatrace/barista-components/barista-definitions';
 
 const PAGE_THEME_MAP = new Map<string, string>([
   ['brand', 'purple'],
@@ -47,7 +50,8 @@ export class BaApp implements OnInit, OnDestroy {
    * @internal
    * The object containing all data needed to display the current page.
    */
-  _currentPage$ = this._pageService.currentPage;
+  _currentPage$: Observable<BaSinglePageContent> = this._pageService
+    .currentPage;
 
   /**
    * @internal
