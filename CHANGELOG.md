@@ -1,3 +1,54 @@
+## 5.1.0 (2020-02-04)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the range was destroyed on click.
+  ([a941b12](https://github.com/dynatrace-oss/barista/commit/a941b129fa4b1fcfba7540ee3f7ba684ecc3f6e7)),
+  closes [#100](https://github.com/dynatrace-oss/barista/issues/100)
+- **filter-field:** Fixes an issue with button alignments in the filter-field.
+  ([c380840](https://github.com/dynatrace-oss/barista/commit/c3808400716a1ecec72ffa2f7ca2ed653a7e9101))
+- **filter-field:** Fixes an issue with inconsistent clearAll functionality.
+  ([5f6409d](https://github.com/dynatrace-oss/barista/commit/5f6409d9860771f7471bffb3811ed0947c5a3415)),
+  closes [#435](https://github.com/dynatrace-oss/barista/issues/435)
+- **filter-field:** Fixes an issue with instant submission of free-text.
+  ([e87053a](https://github.com/dynatrace-oss/barista/commit/e87053aa71c794d31d3669346a235906b9c6159f)),
+  closes [#294](https://github.com/dynatrace-oss/barista/issues/294)
+- **legend:** Fixes issue whether the legend item does not work with the new ivy
+  engine.
+  ([24ffc75](https://github.com/dynatrace-oss/barista/commit/24ffc75b905169732ee5deaff6e13f41349dd6f2)),
+  closes [#26](https://github.com/dynatrace-oss/barista/issues/26)
+- **tag-add:** Fixes tag add label when zoom is lower that 100%.
+  ([407dc6c](https://github.com/dynatrace-oss/barista/commit/407dc6c12527221ff02fee41ff1a956d6ae172c8))
+- **tag-add:** Improved styling of button text content.
+  ([1820d4b](https://github.com/dynatrace-oss/barista/commit/1820d4b4c9d25dc9cecb13ed377dcc74f9231d42))
+- **tag-list:** Fixes rendering of Tag-List when loading a page.
+  ([3d5b52b](https://github.com/dynatrace-oss/barista/commit/3d5b52bc3cbbb6203c92eb51e6010b9aa26ac097))
+- **timeline-chart:** Fixes an issue where the label of a key timing.
+  ([36e6067](https://github.com/dynatrace-oss/barista/commit/36e6067249b38344e5952a5f015bdc8a775d72ec)),
+  closes [#495](https://github.com/dynatrace-oss/barista/issues/495)
+
+### Features
+
+- **copy-to-clipboard:** Added `variant` input to control embedded.
+  ([bbad528](https://github.com/dynatrace-oss/barista/commit/bbad52893a09cf7e303c93b9bcd020b21a712315)),
+  closes [#76](https://github.com/dynatrace-oss/barista/issues/76)
+- **filter-field:** Added an overlay if the tag value is being ellipsed.
+  ([11d7cce](https://github.com/dynatrace-oss/barista/commit/11d7ccefb690ed18d6a807cb6bc79af5dd37cfc5)),
+  closes [#392](https://github.com/dynatrace-oss/barista/issues/392)
+- **filter-field:** Added highlighting of the current input value to the
+  options.
+  ([1effd08](https://github.com/dynatrace-oss/barista/commit/1effd089d7c173b67fca46460180b785d2197faa)),
+  closes [#203](https://github.com/dynatrace-oss/barista/issues/203)
+- **ng-update:** Added test for .spec file.
+  ([4129840](https://github.com/dynatrace-oss/barista/commit/4129840fccbe461d79bd42fc1db9fb01e8730365))
+- **table:** Expose currently rendered data from the data source.
+  ([b55fa62](https://github.com/dynatrace-oss/barista/commit/b55fa62841d54545d8f648f71d168d7c767eee00)),
+  closes [#497](https://github.com/dynatrace-oss/barista/issues/497)
+- **tree-table:** Added events for expansion state changes for
+  DtTreeTableToggleCell.
+  ([b4e7e44](https://github.com/dynatrace-oss/barista/commit/b4e7e441dc84439f2b7c416760ef35f68711faa9)),
+  closes [#415](https://github.com/dynatrace-oss/barista/issues/415)
+
 ## 5.0.1 (2020-01-24)
 
 ### Bug Fixes
