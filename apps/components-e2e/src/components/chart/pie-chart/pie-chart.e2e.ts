@@ -30,7 +30,7 @@ fixture('Pie chart')
 
 test('Pie charts having tooltips', async (testController: TestController) => {
   await testController
-    .hover(pieChart, { speed: 0.2, offsetX: 560, offsetY: 130 })
+    .hover(pieChart, { speed: 0.3, offsetX: 560, offsetY: 130 })
     .expect(tooltip.exists)
     .ok()
     .expect(tooltip.textContent)
@@ -48,7 +48,14 @@ test('should get the correct overlay values when hovering on the different pies'
     .hover(pieChart, { speed: 0.3, offsetX: 580, offsetY: 80 })
     .expect(tooltip.textContent)
     .match(/15/)
-    .hover(pieChart, { speed: 0.3, offsetX: 620, offsetY: 140 })
+    .hover(pieChart, { speed: 0.1, offsetX: 620, offsetY: 140 })
     .expect(tooltip.textContent)
     .match(/55/);
+});
+
+test('should propagate attribute to overlay', async (testController: TestController) => {
+  await testController
+    .hover(pieChart, { speed: 0.3, offsetX: 560, offsetY: 130 })
+    .expect(tooltip.getAttribute('dt-ui-test-id'))
+    .contains('chart-tooltip-overlay');
 });

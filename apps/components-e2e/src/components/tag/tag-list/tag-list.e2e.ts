@@ -15,8 +15,17 @@
  */
 
 import { Selector } from 'testcafe';
+import { waitForAngular, resetWindowSizeToDefault } from '../../../utils';
 
-export const consumption = Selector('#test-consumption');
-export const mouseoutArea = Selector('#mouseout-area');
-export const dummyContent = Selector('#dummy-content');
-export const overlayPane = Selector('.cdk-overlay-pane');
+const tagList = Selector('#tagList');
+
+fixture('Tag List')
+  .page('http://localhost:4200/tag/tag-list')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
+
+test("should not display '0 More...'", async (testController: TestController) => {
+  await testController.expect(tagList.textContent).notContains('0 More...');
+});

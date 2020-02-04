@@ -26,3 +26,4 @@ export const successDialog = Selector(
 export const dirtyDialog = Selector(
   '#state-dirty>.dt-confirmation-dialog-state-container',
 );
+export const overlayPane = Selector('.cdk-overlay-pane');
