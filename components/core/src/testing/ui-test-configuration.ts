@@ -15,6 +15,7 @@
  */
 
 import { InjectionToken, ElementRef } from '@angular/core';
+import { coerceElement } from '@angular/cdk/coercion';
 
 /** Interface for Injectiontoken to set UI-test attribute to overlay Container */
 export interface DtUiTestConfiguration {
@@ -40,26 +41,21 @@ export const DT_UI_TEST_CONFIG = new InjectionToken<DtUiTestConfiguration>(
 export function dtSetUiTestAttribute(
   overlay: Element,
   overlayId: string | null,
-  componentElement?: ElementRef,
+  componentElement?: ElementRef | Element,
   config?: DtUiTestConfiguration,
 ): void {
   if (componentElement && config) {
-    if (
-      overlay &&
-      componentElement.nativeElement.hasAttribute(config.attributeName) &&
-      overlayId
-    ) {
+    const element = coerceElement(componentElement);
+    if (overlay && element.hasAttribute(config.attributeName) && overlayId) {
       // Angular CDK hardcoded the ID for the overlay with `cdk-overlay-{uniqueIndex}`
       const index = parseInt(overlayId.replace('cdk-overlay-', ''));
       overlay.setAttribute(
         config.attributeName,
         config.constructOverlayAttributeValue(
-          componentElement.nativeElement.getAttribute(config.attributeName)!,
+          element.getAttribute(config.attributeName)!,
           index,
         ),
       );
     }
-  } else {
-    throw new Error(`Null exception: ${componentElement} or ${config} is null`);
   }
 }
