@@ -14,12 +14,38 @@
  * limitations under the License.
  */
 
-export interface BaIconMetadata {
-  title: string;
-  public: boolean;
-  tags: string[];
+import {
+  BaIconOverviewPageContent,
+  BaIndexPageContent,
+  BaSinglePageContent,
+  BaCTA,
+  BaPageTeaser,
+  BaPageLink,
+  BaContributor,
+} from '@dynatrace/barista-components/barista-definitions';
+
+/** Page builder types */
+export type BaPageTransformer = (
+  source: BaSinglePageContent,
+) => Promise<BaSinglePageContent>;
+
+// tslint:disable-next-line: no-any
+export type BaPageBuilder = (
+  globalTransformers: BaPageTransformer[],
+  ...args: any[]
+) => Promise<BaPageBuildResult[]>;
+
+export type BaPageBuilderContentResult =
+  | BaSinglePageContent
+  | BaIndexPageContent
+  | BaIconOverviewPageContent;
+
+export interface BaPageBuildResult {
+  relativeOutFile: string;
+  pageContent: BaPageBuilderContentResult;
 }
 
+/** Icon pages */
 export interface BaIconsChangelogItem {
   mode: string;
   file: string;
@@ -28,4 +54,68 @@ export interface BaIconsChangelogItem {
 
 export interface BaIconsChangelog {
   [key: string]: BaIconsChangelogItem[];
+}
+
+/** Strapi content */
+export enum BaStrapiContentType {
+  Pages = 'pages',
+  Snippets = 'snippets',
+  Pageteasers = 'pageteasers',
+  CTAs = 'ctas',
+}
+
+/** Base interface for Strapi content types */
+export interface BaStrapiBase {
+  id: number;
+  created_at: number;
+  updated_at: number;
+}
+
+/** Strapi contributor (UX/Dev support) */
+export interface BaStrapiContributor extends BaStrapiBase, BaContributor {
+  developer: boolean;
+}
+
+/** Strapi category */
+export interface BaStrapiCategory extends BaStrapiBase {
+  title: string;
+}
+
+/** Strapi tag */
+export interface BaStrapiTag extends BaStrapiBase {
+  name: string;
+}
+
+/** Strapi page-link (tile) */
+export type BaStrapiPageLink = BaStrapiBase & BaPageLink;
+
+/** Strapi page-teaser */
+export interface BaStrapiPageTeaser extends BaStrapiBase, BaPageTeaser {
+  page: BaStrapiPage;
+}
+
+/** Strapi CTA */
+export type BaStrapiCTA = BaStrapiBase & BaCTA;
+
+/** Strapi snippet */
+export interface BaStrapiSnippet extends BaStrapiBase {
+  slotId: string;
+  title: string;
+  content: string;
+  public: boolean | null;
+}
+
+/** Strapi page */
+export interface BaStrapiPage extends BaStrapiBase {
+  title: string;
+  content: string;
+  slug: string | null;
+  public: boolean | null;
+  description: string | null;
+  wiki: string | null;
+  tags: BaStrapiTag[];
+  contributors: BaStrapiContributor[];
+  category: BaStrapiCategory | null;
+  draft: boolean | null;
+  toc: boolean | null;
 }

@@ -17,16 +17,19 @@
 import { join } from 'path';
 
 import {
-  BaPageBuilder,
   BaSinglePageMeta,
-  BaPageTransformer,
-  BaStrapiPage,
-  BaStrapiContentType,
-  BaLayoutType,
-  BaPageBuildResult,
+  BaPageLayoutType,
 } from '@dynatrace/barista-components/barista-definitions';
 import { environment } from 'tools/environments/barista-environment';
 import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
+
+import {
+  BaPageBuilder,
+  BaPageBuildResult,
+  BaPageTransformer,
+  BaStrapiPage,
+  BaStrapiContentType,
+} from '../types';
 
 import { fetchContentList } from '../utils/fetch-strapi-content';
 import { slugify } from '../utils/slugify';
@@ -90,7 +93,7 @@ export const strapiBuilder: BaPageBuilder = async (
 function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
   const metaData: BaSinglePageMeta = {
     title: page.title,
-    layout: BaLayoutType.Default,
+    layout: BaPageLayoutType.Default,
     category: page.category ? page.category.title : '',
   };
 
@@ -117,13 +120,13 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
       .filter(c => !c.developer)
       .map(c => ({
         name: c.name,
-        gitHubUser: c.githubuser,
+        gitHubUser: c.gitHubUser,
       }));
     const devSupport = page.contributors
       .filter(c => c.developer)
       .map(c => ({
         name: c.name,
-        gitHubUser: c.githubuser,
+        gitHubUser: c.gitHubUser,
       }));
 
     if (uxSupport.length > 0) {

@@ -19,17 +19,19 @@ import { existsSync, readdirSync, readFileSync } from 'fs';
 import { basename, extname, join } from 'path';
 
 import {
-  BaLayoutType,
+  BaSinglePageContent,
+  BaPageLayoutType,
+  BaIcon,
+} from '@dynatrace/barista-components/barista-definitions';
+import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
+import { environment } from 'tools/environments/barista-environment';
+
+import {
   BaPageBuilder,
   BaPageBuildResult,
   BaPageTransformer,
-  BaSinglePageContent,
-  BaIconOverviewItem,
-} from '@dynatrace/barista-components/barista-definitions';
-import { environment } from 'tools/environments/barista-environment';
-import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
-
-import { BaIconMetadata, BaIconsChangelog } from '../types';
+  BaIconsChangelog,
+} from '../types';
 
 import {
   extractH1ToTitleTransformer,
@@ -90,7 +92,7 @@ async function generateIconPackChangelog(
       navGroup: 'docs',
       toc: true,
       content: iconPackChangelog,
-      layout: BaLayoutType.Default,
+      layout: BaPageLayoutType.Default,
     },
     TRANSFORMERS,
   );
@@ -140,7 +142,7 @@ export const iconsBuilder: BaPageBuilder = async () => {
   const changelogTemplate = getChangelogTemplate();
   const iconFilePaths = getIconFilesByPath(environment.iconsRoot);
   const transformed: BaPageBuildResult[] = [];
-  const iconOverviewData: BaIconOverviewItem[] = [];
+  const iconOverviewData: BaIcon[] = [];
 
   for (const filePath of iconFilePaths) {
     const iconName = basename(filePath, '.svg');
@@ -151,12 +153,14 @@ export const iconsBuilder: BaPageBuilder = async () => {
       console.log(`No metadata available for icon ${iconName}.`);
       continue;
     }
-    const metadata: BaIconMetadata = JSON.parse(
-      readFileSync(metadataPath, { encoding: 'utf-8' }),
-    );
+
+    const iconData: BaIcon = {
+      ...JSON.parse(readFileSync(metadataPath, { encoding: 'utf-8' })),
+      name: iconName,
+    };
 
     // Skip non-public icons on public build.
-    if (isPublicBuild() && metadata.public === false) {
+    if (isPublicBuild() && iconData.public === false) {
       continue;
     }
     let svg = getSvgWithoutFill(filePath);
@@ -174,19 +178,15 @@ ${getIconChangelogHtml(changelogTemplate, iconName)}
 
     const relativeOutFile = join('resources/icons/', `${iconName}.json`);
     const pageContent: BaSinglePageContent = {
-      title: metadata.title,
-      layout: BaLayoutType.Icon,
-      tags: metadata.tags,
+      title: iconData.title,
+      layout: BaPageLayoutType.Icon,
+      tags: iconData.tags,
       toc: false,
       content,
     };
 
     transformed.push({ pageContent, relativeOutFile });
-    iconOverviewData.push({
-      title: metadata.title,
-      name: iconName,
-      tags: metadata.tags,
-    });
+    iconOverviewData.push(iconData);
   }
 
   // Generate and add the iconpack changelog page for the component-section of Barista.
@@ -197,7 +197,7 @@ ${getIconChangelogHtml(changelogTemplate, iconName)}
     pageContent: {
       title: 'Icons',
       description: 'On this page you find a list of all available icons.',
-      layout: BaLayoutType.IconOverview,
+      layout: BaPageLayoutType.IconOverview,
       icons: iconOverviewData,
       category: 'Resources',
     },

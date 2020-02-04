@@ -25,7 +25,7 @@ import {
 
 import {
   BaIconOverviewPageContent,
-  BaIconOverviewItem,
+  BaIcon,
 } from '@dynatrace/barista-components/barista-definitions';
 
 import { BaPage } from '../page-outlet';
@@ -47,7 +47,7 @@ export class BaIconOverviewPage
   @ViewChild('filter', { static: true }) _inputEl: ElementRef<HTMLInputElement>;
 
   /** @internal A list of filtered icons */
-  _filteredIcons: BaIconOverviewItem[];
+  _filteredIcons: BaIcon[];
 
   /** Subscription on filter change event */
   private _filterChangeSubscription = Subscription.EMPTY;

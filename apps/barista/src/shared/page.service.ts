@@ -24,7 +24,7 @@ import { BaLocationService } from './location.service';
 import { environment } from '../environments/environment';
 import {
   BaSinglePageContent,
-  BaLayoutType,
+  BaPageLayoutType,
   BaErrorPageContent,
 } from '@dynatrace/barista-components/barista-definitions';
 
@@ -32,14 +32,14 @@ const CONTENT_PATH_PREFIX = 'data/';
 
 const ERRORPAGE_404: BaErrorPageContent = {
   title: 'Error 404',
-  layout: BaLayoutType.Error,
+  layout: BaPageLayoutType.Error,
   content:
     'Sorry, the page you tried to access does not exist. Are you using an outdated link?',
 };
 
 const ERRORPAGE: BaErrorPageContent = {
   title: 'Oops!',
-  layout: BaLayoutType.Error,
+  layout: BaPageLayoutType.Error,
   content:
     "Sorry, an error has occured. Don't worry, we're working to fix the problem!",
 };
