@@ -21,6 +21,7 @@ import {
   successDialog,
   dirtyDialog,
   enableBackdropButton,
+  overlayPane,
 } from './confirmation-dialog.po';
 
 fixture('Confirmation Dialog').page(
@@ -89,4 +90,18 @@ test('should should not open dialog when backdrop is enabled', async (testContro
     .eql(0)
     .expect(successDialog.count)
     .eql(0);
+});
+
+test('should propagate attribute to overlay', async (testController: TestController) => {
+  await testController
+    .expect(saveButton.count)
+    .eql(0)
+    .expect(dirtyDialog.count)
+    .eql(0)
+    .expect(successDialog.count)
+    .eql(0)
+    .click(openDialogButton)
+    .wait(40000)
+    .expect(overlayPane.getAttribute('dt-ui-test-id'))
+    .contains('confirmation-dialog-overlay');
 });

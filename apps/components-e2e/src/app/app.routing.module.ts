@@ -139,6 +139,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'select',
+    loadChildren: () =>
+      import('../components/select/select.module').then(
+        module => module.DtE2ESelectModule,
+      ),
+  },
+  {
     path: 'show-more',
     loadChildren: () =>
       import('../components/show-more/show-more.module').then(
@@ -178,6 +185,13 @@ export const routes: Routes = [
     loadChildren: () =>
       import('../components/highlight/highlight.module').then(
         module => module.DtE2EHighlightModule,
+      ),
+  },
+  {
+    path: 'tag',
+    loadChildren: () =>
+      import('../components/tag/tag.module').then(
+        module => module.DtE2ETagAddModule,
       ),
   },
   {

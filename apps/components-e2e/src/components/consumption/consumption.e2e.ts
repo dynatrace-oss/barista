@@ -17,7 +17,12 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { consumption, dummyContent, mouseoutArea } from './consumption.po';
+import {
+  consumption,
+  dummyContent,
+  mouseoutArea,
+  overlayPane,
+} from './consumption.po';
 
 fixture('Consumption').page('http://localhost:4200/consumption');
 
@@ -27,4 +32,11 @@ test('should show an overlay containing custom content while hovering and hide i
 
   await testController.hover(mouseoutArea);
   await testController.expect(await dummyContent.exists).notOk();
+});
+
+test('should propagate attribute to overlay', async (testController: TestController) => {
+  await testController
+    .hover(consumption)
+    .expect(overlayPane.getAttribute('dt-ui-test-id'))
+    .contains('consumption-overlay');
 });

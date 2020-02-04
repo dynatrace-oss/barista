@@ -23,7 +23,7 @@ import {
   triggerChangeDetection,
 } from './event-chart.po';
 
-fixture('EventChart').page('http://localhost:4200/event-chart');
+fixture.only('EventChart').page('http://localhost:4200/event-chart');
 
 test('should show overlay when hovered', async (testController: TestController) => {
   // Hover over the first event.
@@ -79,4 +79,11 @@ test('should reflow the svg and merge events that would overlap', async (testCon
 
   // The selected event should still exist, even if it is merged.
   await testController.expect(await eventChartEventSelected.exists).ok();
+});
+
+test('should propagate attribute to overlay', async (testController: TestController) => {
+  await testController
+    .click(eventChartEvents, { speed: 0.5 })
+    .expect(eventChartOverlay.getAttribute('dt-ui-test-id'))
+    .contains('event-chart-overlay');
 });

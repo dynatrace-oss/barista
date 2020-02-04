@@ -1,6 +1,14 @@
-<input dtInput [dtAutocomplete]="auto" />
-<dt-autocomplete dt-ui-test-id="autocomplete" #auto="dtAutocomplete">
-  <dt-option *ngFor="let option of options">
-    {{option}}
+<input
+  id="input"
+  dtInput
+  [dtAutocomplete]="auto"
+  [(ngModel)]="value"
+  placeholder="Start typing"
+  aria-label="Start typing"
+  dt-ui-test-id="autocomplete"
+/>
+<dt-autocomplete #auto="dtAutocomplete">
+  <dt-option *ngFor="let option of options" [value]="option">
+    {{ option }}
   </dt-option>
 </dt-autocomplete>

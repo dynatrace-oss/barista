@@ -16,14 +16,5 @@
 
 import { Selector } from 'testcafe';
 
-fixture('autocomplete').page('http://localhost:4200/autocomplete');
-
-const input = Selector('#input');
-const autocompleteOverlay = Selector('#auto');
-
-test('Test propagate test id to overlay', async (testController: TestController) => {
-  await testController
-    .click(input)
-    .expect(autocompleteOverlay.textContent)
-    .contains('dt-ui-test-id');
-});
+export const tagAdd = Selector('#tag-add');
+export const overlayPane = Selector('.cdk-overlay-pane');

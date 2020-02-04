@@ -21,6 +21,10 @@ import { DtConsumptionModule } from '@dynatrace/barista-components/consumption';
 import { DtE2EConsumption } from './consumption';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import {
+  DT_UI_TEST_CONFIG,
+  DT_DEFAULT_UI_TEST_CONFIG,
+} from 'components/core/src/testing';
 
 const routes: Route[] = [{ path: '', component: DtE2EConsumption }];
 
@@ -34,6 +38,8 @@ const routes: Route[] = [{ path: '', component: DtE2EConsumption }];
     DtOverlayModule,
   ],
   exports: [],
-  providers: [],
+  providers: [
+    { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
+  ],
 })
 export class DtE2EConsumptionModule {}

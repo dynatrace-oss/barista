@@ -15,29 +15,23 @@
  */
 
 import { NgModule } from '@angular/core';
-import { DtE2EAutocomplete } from './autocomplete';
-import { Route, RouterModule } from '@angular/router';
+import { DtE2ETagAdd } from './tag-add/tag-add';
 import { CommonModule } from '@angular/common';
-import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
+import { RouterModule, Route } from '@angular/router';
 import {
   DT_UI_TEST_CONFIG,
   DT_DEFAULT_UI_TEST_CONFIG,
 } from 'components/core/src/testing';
-import { FormsModule } from '@angular/forms';
+import { DtTagModule } from '@dynatrace/barista-components/tag';
 
-const routes: Route[] = [{ path: '', component: DtE2EAutocomplete }];
+const routes: Route[] = [{ path: 'tag-add', component: DtE2ETagAdd }];
 
 @NgModule({
-  declarations: [DtE2EAutocomplete],
-  imports: [
-    CommonModule,
-    FormsModule,
-    RouterModule.forChild(routes),
-    DtAutocompleteModule,
-  ],
+  declarations: [DtE2ETagAdd],
+  imports: [CommonModule, RouterModule.forChild(routes), DtTagModule],
   exports: [],
   providers: [
     { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
   ],
 })
-export class DtE2EAutocompleteModule {}
+export class DtE2ETagAddModule {}

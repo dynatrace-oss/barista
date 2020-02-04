@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-import { Selector } from 'testcafe';
+import { tagAdd, overlayPane } from './tag-add.po';
 
-export const consumption = Selector('#test-consumption');
-export const mouseoutArea = Selector('#mouseout-area');
-export const dummyContent = Selector('#dummy-content');
-export const overlayPane = Selector('.cdk-overlay-pane');
+fixture('Tag Add').page('http://localhost:4200/tag/tag-add');
+
+test('should propagate attribute to overlay', async (testController: TestController) => {
+  await testController
+    .click(tagAdd)
+    .expect(overlayPane.getAttribute('dt-ui-test-id'))
+    .contains('tag-add-overlay');
+});

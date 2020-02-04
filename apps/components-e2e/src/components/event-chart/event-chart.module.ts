@@ -19,6 +19,10 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 import { DtE2EEventChart } from './event-chart';
+import {
+  DT_UI_TEST_CONFIG,
+  DT_DEFAULT_UI_TEST_CONFIG,
+} from 'components/core/src/testing';
 
 const routes: Route[] = [{ path: '', component: DtE2EEventChart }];
 
@@ -26,6 +30,8 @@ const routes: Route[] = [{ path: '', component: DtE2EEventChart }];
   declarations: [DtE2EEventChart],
   imports: [CommonModule, RouterModule.forChild(routes), DtEventChartModule],
   exports: [],
-  providers: [],
+  providers: [
+    { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
+  ],
 })
 export class DtE2EEventChartModule {}
