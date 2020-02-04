@@ -19,6 +19,11 @@ import { relative, extname } from 'path';
 import { environment } from 'tools/environments/barista-environment';
 import { ExampleMetadata } from './metadata';
 
+/** Replaces backslashes with forward slashes. */
+function replaceBackslashes(path: string): string {
+  return path.replace(/\\/g, '/');
+}
+
 /**
  * Reads a provided template file, transforms its content
  * by calling a provided transform function,
@@ -64,6 +69,8 @@ export function getExampleImportsFromMetadata(
       importPath = importPath.slice(0, -3);
     }
 
+    // Replace backslashes to also support Windows
+    importPath = replaceBackslashes(importPath);
     let importNames = exampleImports.get(importPath);
     if (!importNames) {
       importNames = [];
@@ -100,5 +107,8 @@ export function getImportExportPath(
   if (!path.startsWith('.') || path.startsWith('/')) {
     path = `./${path}`;
   }
+
+  // Replace backslashes to also support Windows
+  path = replaceBackslashes(path);
   return path;
 }
