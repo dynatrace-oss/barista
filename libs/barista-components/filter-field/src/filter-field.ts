@@ -181,7 +181,7 @@ let currentlyOpenFilterField: DtFilterField<any> | null = null;
     ]),
   ],
 })
-export class DtFilterField<T>
+export class DtFilterField<T = any>
   implements CanDisable, AfterViewInit, OnDestroy, OnChanges {
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';

@@ -409,12 +409,15 @@ export function findDefForSource(
   return null;
 }
 
-// Use an obscure Unicode character to delimit the words in the concatenated string.
-// This avoids matches where the values of two columns combined will match the user's query
-// (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
-// that has a very low chance of being typed in by somebody in a text field. This one in
-// particular is "White up-pointing triangle with dot" from
-// https://en.wikipedia.org/wiki/List_of_Unicode_characters
+/**
+ * @internal
+ * Use an obscure Unicode character to delimit the words in the concatenated string.
+ * This avoids matches where the values of two columns combined will match the user's query
+ * (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
+ * that has a very low chance of being typed in by somebody in a text field. This one in
+ * particular is "White up-pointing triangle with dot" from
+ * https://en.wikipedia.org/wiki/List_of_Unicode_characters
+ */
 export const DELIMITER = '◬';
 
 /** Peeks into a option node definition and returns its distinct id or creates a new one. */

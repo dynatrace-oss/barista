@@ -24,6 +24,12 @@ export const filterTags = Selector('dt-filter-field-tag');
 export const tagOverlay = Selector('.dt-overlay-container');
 export const filterFieldRangePanel = Selector('.dt-filter-field-range-panel');
 
+/** Selector for the delete button (x) on a filter with a specific text */
+export const tagDeleteButton = (filterText: string) =>
+  Selector('dt-filter-field-tag')
+    .withText(filterText)
+    .child('.dt-filter-field-tag-button');
+
 export const input = Selector('input');
 
 export const switchToFirstDatasource = Selector('#switchToFirstDatasource');
@@ -36,9 +42,8 @@ export function clickOption(
   const controller = testController || t;
 
   return controller
-    .click(filterField, { speed: 0.2 })
-    .wait(250)
-    .click(option(nth), { speed: 0.2 });
+    .click(filterField, { speed: 0.4 })
+    .click(option(nth), { speed: 0.4 });
 }
 
 /** Focus the input of the filter field to send key events to it. */
@@ -46,7 +51,7 @@ export const focusFilterFieldInput = ClientFunction(() => {
   (document.querySelector('#filter-field input') as HTMLElement).focus();
 });
 
-/** Retreive all set tags in the filter field and their values. */
+/** Retrieve all set tags in the filter field and their values. */
 export const getFilterfieldTags = ClientFunction(() => {
   const filterFieldTags: HTMLElement[] = [].slice.call(
     document.querySelectorAll('.dt-filter-field-tag'),

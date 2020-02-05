@@ -224,6 +224,7 @@ import { DtExampleProgressCircleDefault } from './progress-circle/progress-circl
 import { DtExampleProgressCircleWithColor } from './progress-circle/progress-circle-with-color-example/progress-circle-with-color-example';
 import { DtExampleProgressCircleWithIcon } from './progress-circle/progress-circle-with-icon-example/progress-circle-with-icon-example';
 import { DtExampleProgressCircleWithText } from './progress-circle/progress-circle-with-text-example/progress-circle-with-text-example';
+import { DtExampleQuickFilterDefault } from './quick-filter/quick-filter-default-example/quick-filter-default-example';
 import { DtExampleRadialChartCustomColors } from './radial-chart/radial-chart-custom-colors-example/radial-chart-custom-colors-example';
 import { DtExampleRadialChartDefaultDonut } from './radial-chart/radial-chart-default-donut-example/radial-chart-default-donut-example';
 import { DtExampleRadialChartDefaultPie } from './radial-chart/radial-chart-default-pie-example/radial-chart-default-pie-example';
@@ -353,6 +354,7 @@ export { DtOverlayExamplesModule } from './overlay/overlay-examples.module';
 export { DtPaginationExamplesModule } from './pagination/pagination-examples.module';
 export { DtProgressBarExamplesModule } from './progress-bar/progress-bar-examples.module';
 export { DtProgressCircleExamplesModule } from './progress-circle/progress-circle-examples.module';
+export { DtQuickFilterExamplesModule } from './quick-filter/quick-filter-examples.module';
 export { DtRadialChartExamplesModule } from './radial-chart/radial-chart-examples.module';
 export { DtRadioExamplesModule } from './radio/radio-examples.module';
 export { DtExamplesSecondaryNAvModule } from './secondary-nav/secondary-nav-examples.module';
@@ -572,6 +574,7 @@ export {
   DtExampleProgressCircleWithColor,
   DtExampleProgressCircleWithIcon,
   DtExampleProgressCircleWithText,
+  DtExampleQuickFilterDefault,
   DtExampleRadialChartCustomColors,
   DtExampleRadialChartDefaultDonut,
   DtExampleRadialChartDefaultPie,
@@ -911,6 +914,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleProgressCircleWithColor', DtExampleProgressCircleWithColor],
   ['DtExampleProgressCircleWithIcon', DtExampleProgressCircleWithIcon],
   ['DtExampleProgressCircleWithText', DtExampleProgressCircleWithText],
+  ['DtExampleQuickFilterDefault', DtExampleQuickFilterDefault],
   ['DtExampleRadialChartCustomColors', DtExampleRadialChartCustomColors],
   ['DtExampleRadialChartDefaultDonut', DtExampleRadialChartDefaultDonut],
   ['DtExampleRadialChartDefaultPie', DtExampleRadialChartDefaultPie],

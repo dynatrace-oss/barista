@@ -2647,6 +2647,46 @@
       },
       "schematics": {}
     },
+    "quick-filter": {
+      "projectType": "library",
+      "root": "libs/barista-components/experimental/quick-filter",
+      "sourceRoot": "libs/barista-components/experimental/quick-filter/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/experimental/quick-filter/tsconfig.lib.json",
+              "libs/barista-components/experimental/quick-filter/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/experimental/quick-filter/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@dynatrace/barista-builders:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": [
+              "libs/barista-components/experimental/quick-filter/**/*.scss"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/experimental/quick-filter/jest.config.js",
+            "tsConfig": "libs/barista-components/experimental/quick-filter/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/experimental/quick-filter/src/test-setup.ts"
+          }
+        }
+      }
+    },
     "radial-chart": {
       "projectType": "library",
       "root": "libs/barista-components/radial-chart",

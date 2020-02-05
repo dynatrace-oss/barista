@@ -1,0 +1,21 @@
+@import '../../../core/src/style/variables';
+@import '../../../style/font-mixins';
+
+:host {
+  display: block;
+  padding: 8px 0;
+}
+
+.dt-quick-filter-group-headline {
+  @include dt-h3-font();
+  margin: 0 0 8px;
+}
+
+.dt-quick-filter-group-items {
+  display: flex;
+  flex-flow: column;
+
+  > * {
+    margin-bottom: 8px;
+  }
+}

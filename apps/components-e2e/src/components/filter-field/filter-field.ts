@@ -18,98 +18,24 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import {
-  Component,
-  ViewChild,
   ChangeDetectorRef,
+  Component,
   OnDestroy,
+  ViewChild,
 } from '@angular/core';
-import { Validators } from '@angular/forms';
-
 import {
+  DtFilterField,
   DtFilterFieldDefaultDataSource,
   DtFilterFieldDefaultDataSourceType,
-  DtFilterField,
 } from '@dynatrace/barista-components/filter-field';
-import { takeUntil } from 'rxjs/operators';
+import {
+  FILTER_FIELD_TEST_DATA,
+  FILTER_FIELD_TEST_DATA_VALIDATORS,
+} from '@dynatrace/testing/fixtures';
 import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-const TEST_DATA = {
-  autocomplete: [
-    {
-      name: 'custom normal',
-      suggestions: [],
-    },
-    {
-      name: 'custom required',
-      suggestions: [],
-      validators: [
-        { validatorFn: Validators.required, error: 'field is required' },
-      ],
-    },
-    {
-      name: 'custom with multiple',
-      suggestions: [],
-      validators: [
-        { validatorFn: Validators.required, error: 'field is required' },
-        { validatorFn: Validators.minLength(3), error: 'min 3 characters' },
-      ],
-    },
-    {
-      name: 'outer-option',
-      autocomplete: [
-        {
-          name: 'inner-option',
-        },
-      ],
-    },
-    {
-      name: 'Autocomplete with free text options',
-      autocomplete: [
-        { name: 'Autocomplete option 1' },
-        { name: 'Autocomplete option 2' },
-        { name: 'Autocomplete option 3' },
-        {
-          name: 'Autocomplete free text',
-          suggestions: ['Suggestion 1', 'Suggestion 2', 'Suggestion 3'],
-          validators: [],
-        },
-      ],
-    },
-  ],
-};
-
-const TEST_DATA_2 = {
-  autocomplete: [
-    {
-      name: 'AUT',
-      distinct: true,
-      autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
-    },
-    {
-      name: 'USA',
-      autocomplete: [
-        { name: 'San Francisco' },
-        { name: 'Los Angeles' },
-        { name: 'New York' },
-        { name: 'Custom', suggestions: [] },
-      ],
-    },
-    {
-      name: 'Requests per minute',
-      range: {
-        operators: {
-          range: true,
-          equal: true,
-          greaterThanEqual: true,
-          lessThanEqual: true,
-        },
-        unit: 's',
-      },
-    },
-  ],
-};
-
-const DATA = [TEST_DATA, TEST_DATA_2];
+const DATA = [FILTER_FIELD_TEST_DATA_VALIDATORS, FILTER_FIELD_TEST_DATA];
 
 @Component({
   selector: 'dt-e2e-filter-field',

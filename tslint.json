@@ -77,8 +77,12 @@
             "onlyDependOnLibsWithTags": ["type:library"]
           },
           {
+            "sourceTag": "type:e2e",
+            "onlyDependOnLibsWithTags": ["type:library"]
+          },
+          {
             "sourceTag": "scope:examples",
-            "onlyDependOnLibsWithTags": ["scope:components"]
+            "onlyDependOnLibsWithTags": ["scope:components", "scope:testing"]
           }
         ]
       }

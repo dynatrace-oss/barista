@@ -60,6 +60,7 @@ import { DtOverlayExamplesModule } from './overlay/overlay-examples.module';
 import { DtPaginationExamplesModule } from './pagination/pagination-examples.module';
 import { DtProgressBarExamplesModule } from './progress-bar/progress-bar-examples.module';
 import { DtProgressCircleExamplesModule } from './progress-circle/progress-circle-examples.module';
+import { DtQuickFilterExamplesModule } from './quick-filter/quick-filter-examples.module';
 import { DtRadialChartExamplesModule } from './radial-chart/radial-chart-examples.module';
 import { DtRadioExamplesModule } from './radio/radio-examples.module';
 import { DtExamplesSecondaryNAvModule } from './secondary-nav/secondary-nav-examples.module';
@@ -123,6 +124,7 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtPaginationExamplesModule,
     DtProgressBarExamplesModule,
     DtProgressCircleExamplesModule,
+    DtQuickFilterExamplesModule,
     DtRadialChartExamplesModule,
     DtRadioExamplesModule,
     DtExamplesSecondaryNAvModule,
