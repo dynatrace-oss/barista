@@ -1,7 +1,6 @@
 # Tile
 
-A tile is a clickable area and represents e.g. entities. Tiles can contain other
-components.
+<ba-ux-snippet name="tile-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleTileDefault"></ba-live-example>
 

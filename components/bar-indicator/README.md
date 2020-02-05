@@ -1,9 +1,6 @@
 # Bar-indicator
 
-The bar-indicator functions as a semantic alternative to the progress bar. It
-should display not a progress, but rather a ratio between multiple
-bar-indicators or something like "passed time" to put some visual perspective
-between connected bar-indicators.
+<ba-ux-snippet name="bar-indicator-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleBarIndicatorDefault"></ba-live-example>
 
@@ -42,28 +39,17 @@ class MyModule {}
 
 ## Variants
 
-The bar indicator is mostly used within table rows with the table column header
-as a label. It can also be used as a standalone component, which requires labels
-next to the bars then. As the bar indicator is not used to show total
-percentages of a number, but rather to compare ratios, it can't be used as a
-single, separated bar.  
-The indicator is themeable and can also show problems.
-
-<ba-live-example name="DtExampleBarIndicatorColor"></ba-live-example>
+<ba-ux-snippet name="bar-indicator-variants"></ba-ux-snippet>
 
 ## Bar indicator in use
 
 ### Theming and validation
 
-Depending on the context, the bar-indicator can be colored according to the
-page's theme or use the validation colors.
-<ba-live-example name="DtExampleBarIndicatorColor"></ba-live-example>
+<ba-ux-snippet name="bar-indicator-theming"></ba-ux-snippet>
 
 ### Alignment
 
-It's possible to set the alignment to `end`. This is used when a bar-indicator
-is part of a table row with right-alignment.
-<ba-live-example name="DtExampleBarIndicatorAlignment"></ba-live-example>
+<ba-ux-snippet name="bar-indicator-alignment"></ba-ux-snippet>
 
 ### Value bindings
 

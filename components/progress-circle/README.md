@@ -1,11 +1,6 @@
 # Progress circle
 
-The `<dt-progress-circle>` creates a container that is hidden inside an overlay.
-It is possible to set the value for the progress circle as well as setting a min
-and max value. The color property can be set to specify the color of the
-progress. The color depends on the theme the progress circle is in. The value
-will be clamped between the min and max values. With `ng-content` the content
-inside the progress-circle can be set.
+<ba-ux-snippet name="progress-circle-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleProgressCircleDefault"></ba-live-example>
 
@@ -28,6 +23,8 @@ class MyModule {}
 | `value` | `number` | `0`     | Gets and sets the value on the progress circle.        |
 | `min`   | `number` | `0`     | Gets and sets the minimum value on the progress circle |
 | `max`   | `number` | `100`   | Gets and sets the maximum value on the progress circle |
+
+With `ng-content` the content inside the progress-circle can be set.
 
 ## Outputs
 

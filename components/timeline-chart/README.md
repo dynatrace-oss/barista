@@ -1,11 +1,6 @@
 # Timeline chart
 
-The timeline chart is used to analyze user actions and can indicate a violation
-of defined thresholds and provide additional timing information by showing
-markers.
-
-The overall duration is shown as a horizontal bar. The markers indicate timing
-events during this duration.
+<ba-ux-snippet name="timeline-chart-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleTimelineChartDefault"></ba-live-example>
 

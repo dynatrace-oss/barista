@@ -1,10 +1,6 @@
 # Copy to clipboard
 
-The copy to clipboard component is a combination of a readonly input field or
-text area, and a copy button. It is used to copy links, code snippets and more.
-This component takes the hassle out of selecting any given amount of text and
-copying it to the clipboard. This is especially helpful for complex or large
-amount of content.
+<ba-ux-snippet name="copy-to-clipboard-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleCopyToClipboardDefault"></ba-live-example>
 
@@ -55,11 +51,7 @@ callback function after a successful copy action.
 
 ## Error state
 
-In case of an error, e.g. if the user is not able to copy something to their
-clipboard, there should be an [alert](/components/alert) below the copy to
-clipboard component informing the user about the problem and possible solutions.
-
-<ba-live-example name="DtExampleCopyToClipboardError"></ba-live-example>
+<ba-ux-snippet name="copy-to-clipboard-error-state"></ba-ux-snippet>
 
 ## Dark theme
 
@@ -69,22 +61,4 @@ The copy to clipboard component can be placed on dark background.
 
 ## Copy to clipboard in use
 
-There are two versions of the copy to clipboard component. One uses a readonly
-text area and the other uses a readonly input field. The text area is used to
-display large amount of text, and the input field is used to display links and
-one-liners. The main difference between the two is the way they handle long
-content.
-
-The height of the text area is not defined per default, it is recommended to
-make the text area high enough to fit the whole content, this avoids unnecessary
-scrollbars.
-
-<ba-live-example name="DtExampleCopyToClipboardTextarea"></ba-live-example>
-
-### Example within context dialog
-
-The component can also be placed inside a
-[context dialog](/components/context-dialog) and is most often used to share
-links.
-
-<ba-live-example name="DtExampleCopyToClipboardContext"></ba-live-example>
+<ba-ux-snippet name="copy-to-clipboard-in-use"></ba-ux-snippet>

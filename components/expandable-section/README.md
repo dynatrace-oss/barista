@@ -1,9 +1,6 @@
 # Expandable section
 
-The expandable section component provides basic expand/collapse functionality
-based on the [expandable panel](/components/expandable-panel) but contains a
-header (`<dt-expandable-section-header>`), which is the trigger of the
-expandable panel.
+<ba-ux-snippet name="expandable-section-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleExpandableSectionDefault"></ba-live-example>
 
@@ -78,5 +75,4 @@ The expandable section can be placed on a dark background.
 
 ## Expandable section in use
 
-Currently, the expandable section is used in combination with several
-components, e.g. [Tags](/components/tag).
+<ba-ux-snippet name="expandable-section-in-use"></ba-ux-snippet>

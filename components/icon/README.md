@@ -96,11 +96,7 @@ marked as `aria-hidden="true"` by default, but this can be overriden by adding
 
 ## Icons in use
 
-Icons are used all over the UI to support the visual respresentation of the
-content. They can be part of [buttons](/components/button),
-[info groups](/components/info-group), [chart legends](/components/chart), the
-[show more component](/components/show-more),
-[table headers](/components/table), and many more.
+<ba-ux-snippet name="icon-in-use"></ba-ux-snippet>
 
 ## All Icons
 

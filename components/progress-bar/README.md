@@ -1,10 +1,6 @@
 # Progress bar
 
-The `<dt-progress-bar>` creates a simple progress bar. It is possible to set the
-value for the progress bars as well as setting a min and max value. The color
-property can be set to specify the color of the progress. The color depends on
-the theme the progress bars is in. The value will be clamped between the min and
-max values.
+<ba-ux-snippet name="progress-bar-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleProgressBarDefault"></ba-live-example>
 
@@ -105,24 +101,4 @@ aria-labelledby.
 
 ## Progress bar in use
 
-While the [loading distractor](/components/loading-distractor) does not indicate
-how long something will take, the progress bar displays how far along the
-process is.
-
-The progress bar should be used to display a distinct progress of a process or
-status, i.e. a download progress or used status of a disk.
-
-### Animation
-
-Once the bar has finished loading, it will fade out after 1s and the loaded
-content will move up to fill the space where the progress bar used to be. The
-fade out transition takes 500ms.
-
-![Progress bar animation](https://d24pvdz4mvzd04.cloudfront.net/test/progress-animation-e086f3c372.gif)
-
-### Progress bar with indicator
-
-When the progress value reaches a defined threshold an indicator can be used to
-highlight the number as shown in the following example.
-
-<ba-live-example name="DtExampleProgressBarWithCountAndDescriptionIndicator"></ba-live-example>
+<ba-ux-snippet name="progress-bar-in-use"></ba-ux-snippet>

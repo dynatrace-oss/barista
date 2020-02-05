@@ -1,16 +1,8 @@
 # Button
 
-The button component enhances the native `<button>` and `<a>` elements. A button
-holds text, an icon or a combination of both. When using an icon only, it needs
-to be self-explanatory and must have an `aria-label` that describes what happens
-when it is clicked.
+<ba-ux-snippet name="button-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleButtonDefault"></ba-live-example>
-
-While a `<button>` element should be used whenever some action is performed,
-`<a>` elements should be used when the user will navigate to another view. The
-button width is based on the text it holds. While being as short as possible,
-the text should clearly describe a button's action.
 
 ## Imports
 
@@ -44,15 +36,11 @@ To use the button component, add one of the following attributes to the
 
 ## States
 
-The button has a default, hover, active, focus and
-[disabled state](/components/button#disabled-state).
+<ba-ux-snippet name="button-states"></ba-ux-snippet>
 
 ## Variants
 
-Compared to the secondary button, the primary button is more dominant and will
-attract the users attention with ease. This can be used to guide the user and
-help him perform the right actions. The secondary button is used for secondary
-actions.
+<ba-ux-snippet name="button-variants"></ba-ux-snippet>
 
 ### Primary and secondary
 
@@ -68,22 +56,11 @@ actions.
 
 #### Nested button
 
-Nested buttons are a variant of icon only buttons and can't be used with text.
-These buttons are only used within other components (e.g.
-[input fields](/components/input), [tables](/components/table),...)
+<ba-ux-snippet name="button-nested"></ba-ux-snippet>
 
 ## Colors
 
-The button component is colored differently in the context of:
-
-- **primary:** Default button, see above.
-- **a warning:** Use this kind of button where a user action is needed to get
-  something back up and running. E.g. restart processes, update agent,...
-- **a call to action:** Use this kind of button to encourage users to buy our
-  product. E.g. install an agent, install security gateway, upgrade web
-  check,...
-
-<ba-live-example name="DtExampleButtonColor"></ba-live-example>
+<ba-ux-snippet name="button-colors"></ba-ux-snippet>
 
 ## Dark theme
 
@@ -101,18 +78,11 @@ the action that is performed when the button is clicked.
 
 ## Buttons in use
 
-Buttons are used in a variety of contexts, e.g. as secondary or nested buttons
-within [tables](/components/table), in
-[context menus](/components/context-dialog), or as part of the
-[copy to clipboard](/components/copy-to-clipboard) component.
+<ba-ux-snippet name="button-in-use"></ba-ux-snippet>
 
 ### Placement
 
-A button's margin is always `8px`. Make sure there is a gap of `8px` when
-buttons are placed next to or below each other.
-
-It depends on the use case if a button is left- or right-aligned. Have a look at
-our [button alignment pattern](/patterns/button-alignment/) for details.
+<ba-ux-snippet name="button-placement"></ba-ux-snippet>
 
 ### Interaction
 

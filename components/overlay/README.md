@@ -1,12 +1,6 @@
 # Overlay
 
-The overlay component is used to display additional context information or to
-analyze charts, tags or tiles. The overlay's content should be reduced to a
-minimal amount of necessary components to display further information and
-actions.
-
-You can also use them for analysing different chart types, infographics, tags or
-tiles (see [overlays in use section](/components/overlay#overlays-in-use)).
+<ba-ux-snippet name="overlay-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleOverlayDefault"></ba-live-example>
 
@@ -111,57 +105,8 @@ the following properties:
 
 ## Overlays in use
 
-Overlays appear on hover, focus, tap or click. They disappear on hover out, lost
-focus, tap, or click. As a general rule, only one overlay can be visible at a
-time. There may be exceptions for special use cases e.g.
-[heat fields in charts](/components/chart/#heatfield).
-
-To use the interactive elements it's necessary to pin overlays. This can be
-triggered either by click, focus, or tap. Pinning can be released by click, lost
-focus, or tap.
-
-If an overlay contains interactive elements such as links or buttons, it should
-remain pinned to be able to use these elements. Normal overlays will always
-change to interactive overlays if used on touch. Interactive overlays always
-contain a nested close button.
-
-### Overlay content
-
-The content in overlays can vary depending on the usage. Use our Angular
-components as content elements. As a general rule overlays should behave
-responsively. Overlays should always fit the available screensize and the
-content should reflow accordingly. When in doubt please contact an UX
-teammember.
-
-<ba-live-example name="DtExampleOverlayComplexContent"></ba-live-example>
-
-### Table overlay
-
-The information visible in the table overlay can also be found within an
-expanded table row. The information belonging to the hovered column will be
-highlighted within the overlay.
-
-![Table overlay](https://d24pvdz4mvzd04.cloudfront.net/test/overlay-example-table-609-97451ffd9a.png)
-
-### Tile overlay
-
-<ba-live-example name="DtExampleOverlayTile"></ba-live-example>
-
-### Tag overlay
-
-![Overlay example with tags](https://d24pvdz4mvzd04.cloudfront.net/test/overlay-example-tags-490-088e74fdf7.png)
+<ba-ux-snippet name="overlay-in-use"></ba-ux-snippet>
 
 ## Do's and don'ts
 
-### Regular overlays should not
-
-- contain any interactive elements like links, buttons, drop-downs, scrollbars
-  etc.
-- influence the mouse cursor (e.g. use "hand" cursor instead of normal pointer)
-
-### Interactive overlays should not
-
-- contain scrollbars, drop-downs, expandable sections, tabs etc.
-- be used together with components where clicking and tapping is already
-  reserved for other interactions (e.g. click to pin hairline within a chart),
-  because in this case it's not possible to pin the interactive overlay.
+<ba-ux-snippet name="overlay-dos-donts"></ba-ux-snippet>

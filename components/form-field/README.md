@@ -32,10 +32,7 @@ care of linking the label correctly to the form component by adding
 
 ## Hint labels
 
-Hint labels are additional descriptive text that appears below the form field. A
-hint is usually used to provide information that the user should know
-independent from their actions. A `<dt-form-field>` can have up to two hint
-labels: one start-aligned and one end-aligned.
+<ba-ux-snippet name="form-field-hint-labels"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleFormFieldHint"></ba-live-example>
 
@@ -49,46 +46,7 @@ component.
 
 ## Validation (live hints)
 
-Live hints are used to provide feedback and suggestions immediately while users
-are typing. They are used to e.g. show users if the password they entered
-fulfills all requirements, it is used to show users what they need to type in,
-etc. If errors occur, they will be displayed as soon as the input loses focus or
-after three seconds of inactivity.
-
-<ba-live-example name="DtExampleFormFieldError"></ba-live-example>
-
-Live hints can also contain other content than error messages. For example
-password requirements.
-
-![Input with password requirements](https://dt-cdn.net/images/password-live-hint-strength-01-340-69fafbe994-340-69fafbe994.png)
-
-### Error messages
-
-Error messages can be shown under the form field by adding `<dt-error>` elements
-inside the form field. By default errors are hidden initially and will be
-displayed on invalid form fields, after the user has interacted with the element
-or the parent form has been submitted. The errors will appear on top of the hint
-labels and will overlap them. If you want to show the errors at a different time
-you can customize this behaviour by passing an ErrorStateMatcher to the input
-used in the form field.
-
-A form field can have more than one error, it is up to the consumer to toggle
-which messages should be displayed. This can be done with `ngIf` or `ngSwitch`.
-
-<ba-live-example name="DtExampleFormFieldErrorCustomValidator"></ba-live-example>
-
-It is recommended that errors turn green once the issue is resolved. This helps
-the user understand that his changes were successful.
-
-**Note**: This feature as well as neutral live hints as described above are not
-yet implemented.
-
-![Successful input validation](https://dt-cdn.net/images/input-validation-success-340-17231c8405-340-17231c8405.png)
-
-Find more about form-fields and (live-)hints on the
-[input fields page](/components/input), see the
-[validation pattern](/patterns/validation) for more information about the error
-behavior.
+<ba-ux-snippet name="form-field-validation"></ba-ux-snippet>
 
 ## Prefix and suffix
 
