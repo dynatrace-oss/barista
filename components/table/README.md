@@ -1,8 +1,6 @@
 # Table
 
-The table component can be a static or an interactive element. Some tables
-provide the possiblity to add, remove, edit a row or expand it for further
-information.
+<ba-ux-snippet name="table-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleTableDefault" fullwidth></ba-live-example>
 
@@ -165,36 +163,7 @@ this page to see all the pieces in place.
 
 ### Alignment in tables
 
-Content can be centered, left- or right-aligned depending on the data. Header
-text should always follow the same alignment as the column content.
-
-- Left-aligned content
-  - Text
-  - Identification numbers beginning with letters, e.g. ID
-- Right-aligned content
-  - Numbers
-  - Date, time, year,...
-  - IP addresses
-- Center-aligned content
-  - Icons
-  - Interactive components (e.g. switches)
-
-Add the `dtColumnAlign` attribute to the `ng-container` that wraps the column
-definition to define the column's text alignment. The attribute accepts the
-following values:
-
-| Attribute values | Alignment |
-| ---------------- | --------- |
-| `left`           | left      |
-| `text`           | left      |
-| `id`             | left      |
-| `right`          | right     |
-| `number`         | right     |
-| `date`           | right     |
-| `ip`             | right     |
-| `center`         | center    |
-| `icon`           | center    |
-| `control`        | center    |
+<ba-ux-snippet name="table-alignment"></ba-ux-snippet>
 
 ## Data source
 
@@ -284,15 +253,7 @@ direction. The event contains the following properties.
 
 ## Searching/Filtering
 
-When tables contain large amounts of data, make it easier for the user to find
-entries by providing a search field above the table. The `DtTableSearch`
-component can be used in combination with a table to provide this functionality.
-
-Filtering data for the table means filtering out rows that are passed via the
-data source. For highlighting the matched strings in the table the `DtHighlight`
-component can be used.
-
-<ba-live-example name="DtExampleTableSearch" fullwidth></ba-live-example>
+<ba-ux-snippet name="table-search-filter"></ba-ux-snippet>
 
 ### DtTableSearch
 
@@ -466,29 +427,7 @@ for the details column could look like this:
 </ng-container>
 ```
 
-### Content limitations
-
-To guarantee a reasonable perception of the content in the content area (i.e.
-the expanded section), there are some limitations of controls which can be used:
-
-- [Switches](/components/switch)
-- [Checkboxes](/components/checkbox)
-- [Radio Buttons](/components/radio-button)
-- [Input fields](/components/input)
-- [Dropdowns](/components/select)
-- [Key-value lists](/components/key-value-list) up to 12 lines
-- [Buttons](/components/button) (primary and secondary) for drill downs and
-  additional information
-
-Keep in mind to limit the content in expandable table rows for better visual
-perception. As a rule of thumb we recommend to keep the content height under
-580px (estimated available height on a screen width of 1024px). If there is a
-lot of content, consider navigating to a details page.
-
-Please keep in mind:
-
-- **Do not** put a table or an expandable in an expandable table!
-- **Do not** add content that requires any kind of pagination!
+<ba-ux-snippet name="table-expandable"></ba-ux-snippet>
 
 ## States
 
@@ -638,29 +577,4 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
 
 ## Tables in use
 
-### Buttons or switches in tables
-
-- It is possible to use [buttons in tables](/components/button), but should be
-  used sparingly.
-- [Switches](/components/switch) in tables (e.g. to enable/disable monitoring of
-  an entity) are vertically centered in the table row.
-
-<ba-live-example name="DtExampleTableButtons" fullwidth></ba-live-example>
-
-### Charts in tables
-
-Micro bar charts can be used in tables to visualize information and enable easy
-comparison. Keep the number of bar charts to one and explain the chart with an
-appropriate table header. The metric can be added in the same column. For good
-legibility the metric should be right aligned in front of the bar chart.
-
-<!-- TODO: add example -->
-
-![Micro bar charts in tables](https://d24pvdz4mvzd04.cloudfront.net/test/table-micro-bar-chart-580-06eeb208d7.png)
-
-Colors are always dependent on the environment the chart is in
-[theme colors](/patterns/theming).
-
-### Tables in Overlays
-
-It is possible to use [overlays with tables](/components/overlay).
+<ba-ux-snippet name="table-in-use"></ba-ux-snippet>

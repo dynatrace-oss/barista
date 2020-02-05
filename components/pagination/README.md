@@ -1,8 +1,6 @@
 # Pagination
 
-The `DtPagination` provides navigation for paged information, typically used in
-combination with long lists or tables. List and table lengths should always be
-adjusted to their use cases. Avoid unnecessary pagination whenever possible.
+<ba-ux-snippet name="pagination-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExamplePaginationDefault"></ba-live-example>
 
@@ -63,15 +61,4 @@ The following methods are available on the `DtPagination` class.
 
 ## Pagination in use
 
-The pagination component should be used when space is limited and not flexible.
-For example if the selection in a table affects content underneath.
-
-<ba-live-example name="DtExamplePaginationDynamicTable"></ba-live-example>
-
-The following example shows a pagination example with more than seven pages
-where an ellipsis is used to hide remaining pages.
-
-<ba-live-example name="DtExamplePaginationMany"></ba-live-example>
-
-Another variant of the paging behavior - loading more items if not everything is
-visible initially - is the [show more component](/components/show-more).
+<ba-ux-snippet name="pagination-in-use"></ba-ux-snippet>

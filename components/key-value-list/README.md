@@ -1,8 +1,6 @@
 # Key-value list
 
-The key-value list is used to visualize properties as key-value-pairs. The
-key-value list behaves responsively and can span multiple columns when enough
-space is available.
+<ba-ux-snippet name="key-value-list-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleKeyValueListDefault"></ba-live-example>
 

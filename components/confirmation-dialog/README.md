@@ -1,5 +1,9 @@
 # Confirmation Dialog
 
+<ba-ux-snippet name="confirmation-dialog-intro"></ba-ux-snippet>
+
+<ba-live-example name="DtExampleConfirmationDialogDefault"></ba-live-example>
+
 The `<dt-confirmation-dialog>` creates an overlay and slides a drawer up from
 the bottom of the screen. The contents of the drawer display arbitrary projected
 content. The content displayed is associated with the `state` input of the
@@ -9,8 +13,6 @@ unsaved change, etc.
 It also supports disabling the rest of the page by adding an unclickable and
 opaque overlay, forcing the user to take action on the dialog. The confirmation
 dialog is part of all settings views.
-
-<ba-live-example name="DtExampleConfirmationDialogDefault"></ba-live-example>
 
 ## Imports
 
@@ -85,19 +87,9 @@ To make our components accessible it is obligatory to provide either an
 | ------ | --------------- | ------- | -------------------------------------------------------------------------------------- |
 | `name` | `string | null` | `null`  | The name of the state that corresponds to this `dt-confirmation-dialog-state` element. |
 
-## Confirmation
+## Behavior
 
-The `save changes` button triggers a loading distractor with in the
-`save changes` button. After the `save changes` button is triggered, the
-`discard changes` and `save changes` buttons are disabled. Once the changes have
-been saved a feedback message is triggered. After 800ms, the whole dialog slides
-out to the bottom.
-
-In order to avoid unintended changes, the discard changes action needs to be
-confirmed. When the button is triggered, it gets replaced by `yes` and `no`
-buttons for confirmation, the `save changes` action is disabled.
-
-<!-- todo: add an example for the discard behavior -->
+<ba-ux-snippet name="confirmation-dialog-behavior"></ba-ux-snippet>
 
 ## Responsiveness
 

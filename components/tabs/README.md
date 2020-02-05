@@ -112,7 +112,7 @@ content in a tab has recovered the tab item is green.
 
 <ba-live-example name="DtExampleTabsDynamic"></ba-live-example>
 
-## Dos and Don'ts
+## Do's and Don'ts
 
 ### Abbreviation of long tab names
 

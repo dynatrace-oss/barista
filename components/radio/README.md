@@ -98,8 +98,7 @@ Radio button groups should be given a meaningful label via `aria-label` or
 
 ## Radio buttons in use
 
-When radio buttons are placed below each other, the distance between two radio
-button components must be `20px`.
+<ba-ux-snippet name="radio-in-use"></ba-ux-snippet>
 
 ### Responsive behavior
 

@@ -79,37 +79,8 @@ based on the input's validity state.
 
 ## Input validation
 
-For input validation, please consider the
-[validation guidelines](/patterns/validation).
-
-### Hints
-
-Input fields can be extended by hints that should help the user preventing
-errors. Use the [form field component](/components/form-field) to combine input
-fields and hints.
+<ba-ux-snippet name="input-validation"></ba-ux-snippet>
 
 ## Input fields in use
 
-Input fields can be disabled or readonly.
-
-<ba-live-example name="DtExampleInputDisabledReadonly"></ba-live-example>
-
-### Input values
-
-In Dynatrace all displayed input fields are mandatory. If an input field is
-optional this is indicated by a placeholder text `optional`. It is not possible
-to overwrite mandatory information with an empty field. In that case
-[an error would appear](/patterns/validation) informing the user that this
-action is not possible.
-
-If there is saved data from a previous entry, it should always be displayed. In
-case of a password or other sensitive data, it should be masked. This helps the
-user understand that information has already been entered.
-
-### Input fields in a form
-
-When input fields are used in a form together with labels and buttons use the
-following measures. This ensures that the components have enough space to be
-clicked or tapped on mobile.
-
-<ba-live-example name="DtExampleInputForm"></ba-live-example>
+<ba-ux-snippet name="input-in-use"></ba-ux-snippet>
