@@ -178,6 +178,9 @@
     "progress-circle": {
       "tags": ["scope:components", "type:library"]
     },
+    "quick-filter": {
+      "tags": ["scope:components", "type:library"]
+    },
     "radio": {
       "tags": ["scope:components", "type:library"]
     },

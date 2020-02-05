@@ -125,6 +125,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'quick-filter',
+    loadChildren: () =>
+      import('../components/quick-filter/quick-filter.module').then(
+        module => module.DtE2EQuickFilterModule,
+      ),
+  },
+  {
     path: 'radio',
     loadChildren: () =>
       import('../components/radio/radio.module').then(

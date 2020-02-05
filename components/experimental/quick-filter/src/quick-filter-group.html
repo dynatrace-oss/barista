@@ -1,0 +1,21 @@
+<h4 class="quick-filter-group-headline"><ng-content></ng-content></h4>
+
+<ng-template
+  [ngTemplateOutlet]="distinct ?  radios : checkboxes"
+  [ngTemplateOutletContext]="items"
+>
+</ng-template>
+
+<ng-template #radios let-item="items">
+  <dt-radio-group class="quick-filter-group-items">
+    <dt-radio-button *ngFor="let item of items" [value]="item">
+      {{item}}
+    </dt-radio-button>
+  </dt-radio-group>
+</ng-template>
+
+<ng-template #checkboxes let-item="items">
+  <div class="quick-filter-group-items">
+    <dt-checkbox *ngFor="let item of items">{{item}}</dt-checkbox>
+  </div>
+</ng-template>

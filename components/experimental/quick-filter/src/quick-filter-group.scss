@@ -1,0 +1,22 @@
+@import '../../../core/src/style/variables';
+
+:host {
+  display: block;
+  padding: 8px 0;
+}
+
+.quick-filter-group-headline {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: normal;
+  color: $gray-700;
+}
+
+.quick-filter-group-items {
+  display: flex;
+  flex-flow: column;
+
+  > * {
+    margin-bottom: 8px;
+  }
+}

@@ -2353,6 +2353,44 @@
       },
       "schematics": {}
     },
+    "quick-filter": {
+      "projectType": "library",
+      "root": "components/experimental/quick-filter",
+      "sourceRoot": "components/experimental/quick-filter/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "components/experimental/quick-filter/tsconfig.lib.json",
+              "components/experimental/quick-filter/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!components/experimental/quick-filter/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@dynatrace/barista-builders:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["components/experimental/quick-filter/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "components/experimental/quick-filter/jest.config.js",
+            "tsConfig": "components/experimental/quick-filter/tsconfig.spec.json",
+            "setupFile": "components/experimental/quick-filter/src/test-setup.ts"
+          }
+        }
+      }
+    },
     "radio": {
       "projectType": "library",
       "root": "components/radio",

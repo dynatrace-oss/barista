@@ -1,0 +1,36 @@
+<dt-filter-field
+  [dataSource]="dataSource"
+  label="Filter by"
+  clearAllLabel="Clear all"
+></dt-filter-field>
+
+<dt-drawer-container class="quick-filter-drawer">
+  <dt-drawer #drawer opened>
+    <h3 class="quick-filter-title">
+      <ng-content select="dt-quick-filter-title"></ng-content>
+    </h3>
+    <p class="quick-filter-sub-title">
+      <ng-content select="dt-quick-filter-sub-title"></ng-content>
+    </p>
+
+    <dt-quick-filter-group
+      *ngFor="let node of _nodeDefinitions$ | async"
+      [distinct]="node.distinct"
+      [items]="node.options"
+    >
+      {{ node.name }}
+    </dt-quick-filter-group>
+  </dt-drawer>
+
+  <article class="quick-filter-content">
+    <ng-content></ng-content>
+  </article>
+</dt-drawer-container>
+<button
+  class="quick-filter-toggle"
+  aria-label="toggle the quick filter"
+  (click)="drawer.toggle()"
+>
+  <!-- <dt-icon name="handle"></dt-icon> -->
+  tooggle quick filter
+</button>

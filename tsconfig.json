@@ -84,6 +84,9 @@
       "@dynatrace/barista-components/expandable-text": [
         "components/expandable-text/index.ts"
       ],
+      "@dynatrace/barista-components/experimental/quick-filter": [
+        "components/experimental/quick-filter/index.ts"
+      ],
       "@dynatrace/barista-components/filter-field": [
         "components/filter-field/index.ts"
       ],
