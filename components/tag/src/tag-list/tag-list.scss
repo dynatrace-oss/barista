@@ -18,11 +18,11 @@
 
 .dt-tag-list-wrapper {
   height: 32px;
-  margin-right: 1px;
   width: auto;
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
+  background: #ffaaff;
 }
 
 .dt-tag-list-more-btn {
@@ -32,4 +32,6 @@
   line-height: 32px;
   text-align: left;
   vertical-align: middle;
+  white-space: nowrap;
+  background: #aaffff;
 }

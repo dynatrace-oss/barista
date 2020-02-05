@@ -44,7 +44,7 @@ import { DtTag } from '../tag';
 import { DtTagAdd } from '../tag-add/tag-add';
 
 const DT_TAG_LIST_HEIGHT = 32;
-const DT_TAG_LIST_LAST_TAG_SPACING = 3;
+const DT_TAG_LIST_LAST_TAG_SPACING = 4;
 
 @Component({
   selector: 'dt-tag-list',
@@ -124,7 +124,6 @@ export class DtTagList implements AfterContentInit, OnDestroy {
             );
             if (index !== 0) {
               this._handleWrapperProperties(tagArray, index);
-              this._handleMoreButtonProperties(this._hiddenTagCount);
             } else {
               this._isOneLine = true;
             }
@@ -168,31 +167,6 @@ export class DtTagList implements AfterContentInit, OnDestroy {
       wrapperLeft,
     );
     this._setWrapperBoundingProperties(true);
-  }
-
-  /** @internal Evaluates the width of the more button */
-  _handleMoreButtonProperties(_hiddenTagCount: number): void {
-    if (_hiddenTagCount) {
-      // Since the font-variant is set to tabular-nums we can use constants for the width
-      _hiddenTagCount < 10
-        ? this._setMoreBtnBoundingProperties(58)
-        : _hiddenTagCount < 100
-        ? this._setMoreBtnBoundingProperties(65.5)
-        : _hiddenTagCount < 1000
-        ? this._setMoreBtnBoundingProperties(73)
-        : _hiddenTagCount < 10000
-        ? this._setMoreBtnBoundingProperties(80.5)
-        : this._setMoreBtnBoundingProperties(88);
-    }
-  }
-
-  // @internal Sets the more button width property
-  _setMoreBtnBoundingProperties(width: number | undefined): void {
-    if (this._moreBtn) {
-      width === undefined
-        ? (this._moreBtn.nativeElement.style.minWidth = `auto`)
-        : (this._moreBtn.nativeElement.style.minWidth = `${width}px`);
-    }
   }
 
   /** @internal Sets the wrappers height and width properties */
