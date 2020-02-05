@@ -16,7 +16,7 @@
 
 import { Directive, ElementRef, NgModule } from '@angular/core';
 
-import { replaceCssClass } from '../util/platform-util';
+import { _replaceCssClass } from '../util/platform-util';
 import { Constructor } from './constructor';
 
 export interface CanColor<P extends Partial<DtThemePalette>> {
@@ -81,7 +81,7 @@ export function setComponentColorClasses<
   T extends { color?: string } & HasElementRef
 >(component: T, color?: string): void {
   if (color !== component.color) {
-    replaceCssClass(
+    _replaceCssClass(
       component._elementRef,
       component.color ? `dt-color-${component.color}` : null,
       color ? `dt-color-${color}` : null,

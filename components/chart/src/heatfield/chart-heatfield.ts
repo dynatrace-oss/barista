@@ -34,7 +34,7 @@ import {
   Constructor,
   isDefined,
   mixinColor,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 import { clamp, round } from 'lodash';
 import { Subject } from 'rxjs';
@@ -241,7 +241,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
    * @internal
    */
   _handleKeydown(event: KeyboardEvent): void {
-    if (readKeyCode(event) === ENTER) {
+    if (_readKeyCode(event) === ENTER) {
       this._toggleActive();
     }
   }

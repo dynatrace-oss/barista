@@ -36,7 +36,7 @@ import {
   HasElementRef,
   mixinColor,
   mixinDisabled,
-  replaceCssClass,
+  _replaceCssClass,
 } from '@dynatrace/barista-components/core';
 import { DtIcon } from '@dynatrace/barista-components/icon';
 
@@ -94,7 +94,7 @@ export class DtButton extends _DtButtonMixinBase
   set variant(value: ButtonVariant) {
     const variant = value || defaultVariant;
     if (variant !== this._variant) {
-      this._replaceCssClass(variant, this._variant);
+      this.__replaceCssClass(variant, this._variant);
       this._variant = variant;
     }
   }
@@ -146,8 +146,8 @@ export class DtButton extends _DtButtonMixinBase
     return this._elementRef.nativeElement;
   }
 
-  private _replaceCssClass(newClass?: string, oldClass?: string): void {
-    replaceCssClass(
+  private __replaceCssClass(newClass?: string, oldClass?: string): void {
+    _replaceCssClass(
       this._elementRef,
       `dt-button-${oldClass}`,
       `dt-button-${newClass}`,

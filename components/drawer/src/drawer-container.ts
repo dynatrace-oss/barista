@@ -31,9 +31,9 @@ import { Subject } from 'rxjs';
 import { filter, startWith, takeUntil } from 'rxjs/operators';
 
 import {
-  addCssClass,
-  readKeyCode,
-  removeCssClass,
+  _addCssClass,
+  _readKeyCode,
+  _removeCssClass,
 } from '@dynatrace/barista-components/core';
 
 import { DtDrawer } from './drawer';
@@ -158,7 +158,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
    * handles the ESC keyboard event to close the drawers.
    */
   _handleKeyboardEvent(event: KeyboardEvent): void {
-    if (readKeyCode(event) === ESCAPE) {
+    if (_readKeyCode(event) === ESCAPE) {
       this.close();
     }
   }
@@ -166,9 +166,9 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
   /** Toggles a class `DT_DRAWER_OPEN_CLASS` when the drawer is open or closed */
   private _toggleOpenClass(isOpen: boolean): void {
     if (isOpen) {
-      addCssClass(this._elementRef.nativeElement, DT_DRAWER_OPEN_CLASS);
+      _addCssClass(this._elementRef.nativeElement, DT_DRAWER_OPEN_CLASS);
     } else {
-      removeCssClass(this._elementRef.nativeElement, DT_DRAWER_OPEN_CLASS);
+      _removeCssClass(this._elementRef.nativeElement, DT_DRAWER_OPEN_CLASS);
     }
   }
 
@@ -202,7 +202,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
       )
       .subscribe((event: AnimationEvent) => {
         if (event.toState !== 'open-instant' && this._enableAnimations) {
-          addCssClass(
+          _addCssClass(
             this._elementRef.nativeElement,
             'dt-drawer-content-transition',
           );

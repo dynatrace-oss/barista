@@ -27,7 +27,7 @@ import { Subscription, fromEvent } from 'rxjs';
 import { BaCategoryNavigationContents } from '@dynatrace/barista-components/barista-definitions';
 import { BaPage } from '../../pages/page-outlet';
 import { BaTile } from '../../layout/tile/tile';
-import { readKeyCode } from '@dynatrace/barista-components/core';
+import { _readKeyCode } from '@dynatrace/barista-components/core';
 
 const LOCALSTORAGEKEY = 'baristaGridview';
 
@@ -70,7 +70,7 @@ export class BaOverviewPage implements AfterViewInit, BaPage, OnDestroy {
 
     this._keyUpSubscription = fromEvent(document, 'keyup').subscribe(
       (evt: KeyboardEvent) => {
-        const keyCode = readKeyCode(evt);
+        const keyCode = _readKeyCode(evt);
         if (keyCode >= A && keyCode <= Z) {
           this._focusItem(evt.key.toLowerCase());
         }

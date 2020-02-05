@@ -40,7 +40,7 @@ import { startWith, takeUntil } from 'rxjs/operators';
 
 import {
   DtViewportResizer,
-  toggleCssClass,
+  _toggleCssClass,
 } from '@dynatrace/barista-components/core';
 
 /** The min-width from which empty state items are displayed horizontally. */
@@ -222,12 +222,12 @@ export class DtEmptyState
       const layoutHorizontal =
         this._items.length > 1 && componentWidth > LAYOUT_HORIZONTAL_BREAKPOINT;
 
-      toggleCssClass(
+      _toggleCssClass(
         layoutHorizontal,
         this._elementRef.nativeElement,
         'dt-empty-state-layout-horizontal',
       );
-      toggleCssClass(
+      _toggleCssClass(
         itemLayoutHorizontal && !layoutHorizontal,
         this._elementRef.nativeElement,
         'dt-empty-state-items-horizontal',

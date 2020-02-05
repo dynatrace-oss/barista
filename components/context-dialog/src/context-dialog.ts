@@ -53,7 +53,7 @@ import {
   HasTabIndex,
   mixinDisabled,
   mixinTabIndex,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 
 import { DtContextDialogTrigger } from './context-dialog-trigger';
@@ -324,7 +324,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
       .keydownEvents()
       .pipe(takeUntil(this._destroy))
       .subscribe((event: KeyboardEvent) => {
-        if (readKeyCode(event) === ESCAPE && this._overlayRef) {
+        if (_readKeyCode(event) === ESCAPE && this._overlayRef) {
           this.close();
         }
       });

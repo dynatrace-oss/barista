@@ -35,7 +35,7 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 import {
-  addCssClass,
+  _addCssClass,
   createInViewportStream,
 } from '@dynatrace/barista-components/core';
 
@@ -192,7 +192,7 @@ export class DtHighlight
 
           if (token.toLowerCase() === term.toLowerCase()) {
             const span = this._document.createElement(HIGHLIGHTED_ELEMENT);
-            addCssClass(span, HIGHLIGHTED_CLASS);
+            _addCssClass(span, HIGHLIGHTED_CLASS);
             span.appendChild(text);
             transformedEl.appendChild(span);
           } else {

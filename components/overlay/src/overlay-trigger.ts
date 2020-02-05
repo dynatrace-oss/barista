@@ -34,7 +34,7 @@ import {
   HasTabIndex,
   mixinDisabled,
   mixinTabIndex,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 
 import { DtOverlay } from './overlay';
@@ -194,7 +194,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
   /** @internal Ensures the trigger is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
-      const keyCode = readKeyCode(event);
+      const keyCode = _readKeyCode(event);
       if (keyCode === ENTER || keyCode === SPACE) {
         event.preventDefault();
         this._createOverlay();

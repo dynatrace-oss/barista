@@ -20,52 +20,57 @@ import { ElementRef } from '@angular/core';
 import { isNumber, isString } from './type-util';
 
 /**
+ * @internal
+ *
  * Replaces an old class on an element with a new on.
  * Both can also be null. In this case it just adds the new one or removes the old one.
  * If the optional Renderer is not provided it uses the browser specific classList.
  */
-export function replaceCssClass(
+export function _replaceCssClass(
   elOrRef: any, // tslint:disable-line:no-any
   oldClass: string | null,
   newClass: string | null,
 ): void {
   const el = elOrRef.nativeElement || elOrRef;
   if (oldClass) {
-    removeCssClass(el, oldClass);
+    _removeCssClass(el, oldClass);
   }
   if (newClass) {
-    addCssClass(el, newClass);
+    _addCssClass(el, newClass);
   }
 }
 
 /**
+ * @internal
+ *
  * Adds or removes a class based on a provided boolean value
  * @param condition A boolean value that decides whether a class should be added or removed
  * @param el Element where the class should be toggled
  * @param name Class name that should be added or removed
  * @param renderer Optional renderer to set the class.
  */
-export function toggleCssClass(
+export function _toggleCssClass(
   condition: boolean,
   // tslint:disable-next-line: no-any
   el: any,
   name: string,
 ): void {
   if (condition) {
-    addCssClass(el, name);
+    _addCssClass(el, name);
   } else {
-    removeCssClass(el, name);
+    _removeCssClass(el, name);
   }
 }
 
+/** @internal */
 // tslint:disable-next-line:no-any
-export function addCssClass(el: any, name: string): void {
+export function _addCssClass(el: any, name: string): void {
   if (el.classList) {
     el.classList.add(name);
   }
 }
-
-export function removeCssClass(
+/** @internal */
+export function _removeCssClass(
   el: any, // tslint:disable-line:no-any
   name: string,
 ): void {
@@ -75,28 +80,36 @@ export function removeCssClass(
 }
 
 /**
+ * @internal
+ *
  * Helper function to safely check if an element has a class
  * Also works with elements in svgs
  */
 // tslint:disable-next-line:no-any
-export function hasCssClass(el: any, name: string): boolean {
+export function _hasCssClass(el: any, name: string): boolean {
   // classList cant be used safely for elements in svgs - thats why we are using getAttribute
   const classes = el.getAttribute('class') || '';
   return classes.split(' ').includes(name);
 }
 
 /**
+ * @internal
+ *
  * Reads the key code from a keyboard event.
  * It is needed because event.keyCode is deprecated an will lead to multiple tslint errors.
  * This function will move the the event.keyKode to a single point where we disable the tslint rule.
  */
-export function readKeyCode(event: KeyboardEvent): number {
+export function _readKeyCode(event: KeyboardEvent): number {
   // tslint:disable-next-line:deprecation
   return event.keyCode;
 }
 
-/** Parses a value and a unit from a string / number if possible */
-export function parseCssValue(
+/**
+ * @internal
+ *
+ * Parses a value and a unit from a string / number if possible
+ */
+export function _parseCssValue(
   // tslint:disable-next-line: no-any
   input: any,
 ): { value: number; unit: string } | null {
@@ -118,6 +131,8 @@ export function parseCssValue(
 }
 
 /**
+ * @internal
+ *
  * Returns the bounding client rect of an element or element ref.
  * It is shimmed on platforms where this function is not available.
  * In this case a client rect with all properties set to `0` is returned.
@@ -125,7 +140,7 @@ export function parseCssValue(
  * The client rect is also extended with the property `isNativeRect`.
  * This property is set to false, if a shimmed client rect is return.
  */
-export function getElementBoundingClientRect(
+export function _getElementBoundingClientRect(
   el: Element | ElementRef,
 ): ClientRect & {
   /** Whether the returned client rect is provided by the platform or is shimmed. */

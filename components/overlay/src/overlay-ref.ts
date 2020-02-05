@@ -22,9 +22,9 @@ import { Observable, Subject, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 import {
-  addCssClass,
-  readKeyCode,
-  removeCssClass,
+  _addCssClass,
+  _readKeyCode,
+  _removeCssClass,
 } from '@dynatrace/barista-components/core';
 
 import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
@@ -77,7 +77,7 @@ export class DtOverlayRef<T> {
       .pipe(
         filter(
           (event: KeyboardEvent) =>
-            readKeyCode(event) === ESCAPE && !hasModifierKey(event),
+            _readKeyCode(event) === ESCAPE && !hasModifierKey(event),
         ),
       )
       .subscribe(() => {
@@ -94,7 +94,7 @@ export class DtOverlayRef<T> {
     if (this._overlayRef.backdropElement) {
       if (value) {
         this.containerInstance._trapFocus();
-        removeCssClass(
+        _removeCssClass(
           this._overlayRef.backdropElement,
           DT_OVERLAY_NO_POINTER_CLASS,
         );
@@ -102,7 +102,7 @@ export class DtOverlayRef<T> {
           this.dismiss();
         });
       } else {
-        addCssClass(
+        _addCssClass(
           this._overlayRef.backdropElement,
           DT_OVERLAY_NO_POINTER_CLASS,
         );

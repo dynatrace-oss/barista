@@ -44,7 +44,7 @@ import {
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
-import { isNumber, readKeyCode } from '@dynatrace/barista-components/core';
+import { isNumber, _readKeyCode } from '@dynatrace/barista-components/core';
 
 import { updateTimestampWithKeyboardEvent } from './update-timestamp-with-keyboard-event';
 
@@ -290,19 +290,19 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
    * @param event Keyboard event that provides information how to move the timestamp
    */
   _handleKeyUp(event: KeyboardEvent): void {
-    if (readKeyCode(event) === TAB) {
+    if (_readKeyCode(event) === TAB) {
       // we want to stay in our focus trap so continue
       return;
     }
 
-    if ([BACKSPACE, DELETE].includes(readKeyCode(event))) {
+    if ([BACKSPACE, DELETE].includes(_readKeyCode(event))) {
       // reset the timestamp
       this._handleOverlayClose();
       this._emitStateChanges();
     }
 
     const arrowKeys = [DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW];
-    if (!!event.shiftKey && arrowKeys.includes(readKeyCode(event))) {
+    if (!!event.shiftKey && arrowKeys.includes(_readKeyCode(event))) {
       this._switchToRange.next(this._positionX);
     }
 

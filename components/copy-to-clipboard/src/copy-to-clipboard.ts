@@ -31,8 +31,8 @@ import {
 import { Subscription, timer } from 'rxjs';
 
 import {
-  addCssClass,
-  removeCssClass,
+  _addCssClass,
+  _removeCssClass,
 } from '@dynatrace/barista-components/core';
 import { DtInput } from '@dynatrace/barista-components/input';
 import { ButtonVariant } from '@dynatrace/barista-components/button';
@@ -96,9 +96,9 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
         return;
       }
       this._showIcon = true;
-      addCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+      _addCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
       if (this._copyButton) {
-        addCssClass(
+        _addCssClass(
           this._copyButton.nativeElement,
           DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
         );
@@ -116,9 +116,9 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
 
   private _resetCopyState(): void {
     this._showIcon = false;
-    removeCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
+    _removeCssClass(this._input.nativeElement, DT_COPY_TO_CLIPBOARD_SUCCESSFUL);
     if (this._copyButton) {
-      removeCssClass(
+      _removeCssClass(
         this._copyButton.nativeElement,
         DT_COPY_TO_CLIPBOARD_SUCCESSFUL,
       );

@@ -18,7 +18,7 @@ import { DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Directive, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
-import { readKeyCode } from '@dynatrace/barista-components/core';
+import { _readKeyCode } from '@dynatrace/barista-components/core';
 
 import { DtExpandablePanel } from './expandable-panel';
 
@@ -72,7 +72,7 @@ export class DtExpandablePanelTrigger implements OnDestroy {
   /** @internal Handles the trigger's click event. */
   _handleKeydown(event: KeyboardEvent): void {
     if (this.dtExpandablePanel && !this.dtExpandablePanel.disabled) {
-      const keyCode = readKeyCode(event);
+      const keyCode = _readKeyCode(event);
       const isAltKey = event.altKey;
       if (isAltKey && keyCode === DOWN_ARROW) {
         event.preventDefault();

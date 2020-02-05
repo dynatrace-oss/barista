@@ -40,7 +40,7 @@ import {
   HasTabIndex,
   mixinColor,
   mixinTabIndex,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 
 export class DtButtonGroupBase {
@@ -281,7 +281,7 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
 
   /** @internal Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    const keyCode = readKeyCode(event);
+    const keyCode = _readKeyCode(event);
     if (keyCode === ENTER || keyCode === SPACE) {
       this._onSelect(event);
 

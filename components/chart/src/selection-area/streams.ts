@@ -40,8 +40,8 @@ import {
 } from 'rxjs/operators';
 
 import {
-  addCssClass,
-  removeCssClass,
+  _addCssClass,
+  _removeCssClass,
   runInsideZone,
 } from '@dynatrace/barista-components/core';
 
@@ -69,7 +69,7 @@ export function getMouseDownStream(
   return captureAndMergeEvents('mousedown', mousedownElements).pipe(
     filter(event => event.button === 0), // only emit left mouse
     tap(() => {
-      removeCssClass(target, NO_POINTER_EVENTS_CLASS);
+      _removeCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
     share(),
   );
@@ -92,7 +92,7 @@ export function getMouseUpStream(
 
   return mouseUp$.pipe(
     tap(() => {
-      addCssClass(target, NO_POINTER_EVENTS_CLASS);
+      _addCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
     share(),
   );
@@ -110,7 +110,7 @@ export function getTouchStartStream(
 ): Observable<TouchEvent> {
   return captureAndMergeEvents('touchstart', mousedownElements).pipe(
     tap(() => {
-      removeCssClass(target, NO_POINTER_EVENTS_CLASS);
+      _removeCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
     share(),
   );
@@ -133,7 +133,7 @@ export function getTouchEndStream(
 
   return touchEndStream$.pipe(
     tap(() => {
-      addCssClass(target, NO_POINTER_EVENTS_CLASS);
+      _addCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
     share(),
   );

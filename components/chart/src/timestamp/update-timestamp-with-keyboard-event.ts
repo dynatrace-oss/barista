@@ -16,7 +16,7 @@
 
 import { END, HOME } from '@angular/cdk/keycodes';
 
-import { readKeyCode } from '@dynatrace/barista-components/core';
+import { _readKeyCode } from '@dynatrace/barista-components/core';
 
 import { getKeyboardNavigationOffset } from '../utils';
 import { clampTimestamp } from './clamp-timestamp';
@@ -35,11 +35,11 @@ export function updateTimestampWithKeyboardEvent(
   maxWidth: number,
   minWidth: number = 0,
 ): number {
-  if (readKeyCode(event) === END) {
+  if (_readKeyCode(event) === END) {
     return maxWidth;
   }
 
-  if (readKeyCode(event) === HOME) {
+  if (_readKeyCode(event) === HOME) {
     return minWidth;
   }
 

@@ -26,9 +26,9 @@ import {
 import { Subscription, merge } from 'rxjs';
 
 import {
-  addCssClass,
-  removeCssClass,
-  replaceCssClass,
+  _addCssClass,
+  _removeCssClass,
+  _replaceCssClass,
 } from '@dynatrace/barista-components/core';
 
 import { DtCell } from './cell';
@@ -121,29 +121,29 @@ export class DtRow extends CdkRow implements OnDestroy {
     const hasWarning = !!cells.find(cell => cell.hasWarning);
     const hasIndicator = hasError || hasWarning;
     if (hasIndicator) {
-      addCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
+      _addCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
     } else {
-      removeCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
+      _removeCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
     }
 
     if (hasWarning) {
-      replaceCssClass(
+      _replaceCssClass(
         this._elementRef.nativeElement,
         'dt-color-error',
         'dt-color-warning',
       );
     } else {
-      removeCssClass(this._elementRef.nativeElement, 'dt-color-warning');
+      _removeCssClass(this._elementRef.nativeElement, 'dt-color-warning');
     }
 
     if (hasError) {
-      replaceCssClass(
+      _replaceCssClass(
         this._elementRef.nativeElement,
         'dt-color-warning',
         'dt-color-error',
       );
     } else {
-      removeCssClass(this._elementRef.nativeElement, 'dt-color-error');
+      _removeCssClass(this._elementRef.nativeElement, 'dt-color-error');
     }
   }
 }

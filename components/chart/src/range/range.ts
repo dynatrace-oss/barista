@@ -41,11 +41,11 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
 
 import {
-  addCssClass,
-  getElementBoundingClientRect,
+  _addCssClass,
+  _getElementBoundingClientRect,
   isNumber,
-  readKeyCode,
-  removeCssClass,
+  _readKeyCode,
+  _removeCssClass,
 } from '@dynatrace/barista-components/core';
 import { dtFormatDateRange } from '@dynatrace/barista-components/formatters';
 
@@ -314,7 +314,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   /** @internal Reflects styles, value and validity to the dom. */
   _reflectToDom(): void {
     this._maxWidth =
-      this._maxWidth || getElementBoundingClientRect(this._elementRef).width;
+      this._maxWidth || _getElementBoundingClientRect(this._elementRef).width;
     this._reflectStyleToDom();
     this._reflectValueToDom();
     this._reflectRangeValid();
@@ -375,12 +375,12 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    * @param handle indicates whether the left or the right handle triggered the event
    */
   _handleKeyDown(event: KeyboardEvent, handle: string): void {
-    if (readKeyCode(event) === TAB) {
+    if (_readKeyCode(event) === TAB) {
       // we want to stay in our focus trap so continue
       return;
     }
 
-    if ([BACKSPACE, DELETE].includes(readKeyCode(event))) {
+    if ([BACKSPACE, DELETE].includes(_readKeyCode(event))) {
       // if the backspace or delete is pressed on the selected area we want to close it
       if (handle === DtSelectionAreaEventTarget.SelectedArea) {
         this._handleOverlayClose();
@@ -422,9 +422,9 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    */
   _reflectRangeReleased(add: boolean): void {
     if (add) {
-      addCssClass(this._elementRef.nativeElement, DT_RANGE_RELEASED_CLASS);
+      _addCssClass(this._elementRef.nativeElement, DT_RANGE_RELEASED_CLASS);
     } else {
-      removeCssClass(this._elementRef.nativeElement, DT_RANGE_RELEASED_CLASS);
+      _removeCssClass(this._elementRef.nativeElement, DT_RANGE_RELEASED_CLASS);
     }
   }
 
@@ -514,9 +514,9 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    */
   private _reflectRangeValid(): void {
     if (!this._valid) {
-      addCssClass(this._elementRef.nativeElement, DT_RANGE_INVALID_CLASS);
+      _addCssClass(this._elementRef.nativeElement, DT_RANGE_INVALID_CLASS);
     } else {
-      removeCssClass(this._elementRef.nativeElement, DT_RANGE_INVALID_CLASS);
+      _removeCssClass(this._elementRef.nativeElement, DT_RANGE_INVALID_CLASS);
     }
   }
 

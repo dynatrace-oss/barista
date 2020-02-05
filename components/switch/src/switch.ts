@@ -45,8 +45,8 @@ import {
   HasTabIndex,
   mixinDisabled,
   mixinTabIndex,
-  addCssClass,
-  removeCssClass,
+  _addCssClass,
+  _removeCssClass,
 } from '@dynatrace/barista-components/core';
 
 // Increasing integer for generating unique ids for switch components.
@@ -267,9 +267,9 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     const element = this._elementRef.nativeElement;
 
     if (focusOrigin === 'keyboard') {
-      addCssClass(element, 'dt-switch-focused');
+      _addCssClass(element, 'dt-switch-focused');
     } else if (!focusOrigin) {
-      removeCssClass(element, 'dt-switch-focused');
+      _removeCssClass(element, 'dt-switch-focused');
       this._onTouched();
     }
   }

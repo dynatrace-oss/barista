@@ -42,12 +42,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  addCssClass,
+  _addCssClass,
   DtFlexibleConnectedPositionStrategy,
   DtViewportResizer,
-  getElementBoundingClientRect,
-  readKeyCode,
-  removeCssClass,
+  _getElementBoundingClientRect,
+  _readKeyCode,
+  _removeCssClass,
   ViewportBoundaries,
 } from '@dynatrace/barista-components/core';
 import {
@@ -216,7 +216,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     // get the BCR of the selection Area
     this._selectionAreaBcr$ = this._plotBackground$.pipe(
-      map(plotBackground => getElementBoundingClientRect(plotBackground)),
+      map(plotBackground => _getElementBoundingClientRect(plotBackground)),
       share(),
     );
 
@@ -224,7 +224,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // initial selection area.´
     fromEvent<KeyboardEvent>(this._elementRef.nativeElement, 'keydown')
       .pipe(
-        filter(event => readKeyCode(event) === ENTER),
+        filter(event => _readKeyCode(event) === ENTER),
         withLatestFrom(this._selectionAreaBcr$),
         takeUntil(this._destroy$),
       )
@@ -255,7 +255,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
             range._pixelsToValue = xAxis.toValue.bind(xAxis);
             range._maxValue = xAxis.dataMax;
             range._minValue = xAxis.dataMin;
-            range._maxWidth = getElementBoundingClientRect(
+            range._maxWidth = _getElementBoundingClientRect(
               plotBackground,
             ).width;
             range._reflectToDom();
@@ -583,7 +583,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       // dragHandleStart$ stream to notify when a drag on a handle happens.
       const dragHandleStart$ = this._chart._range._handleDragStarted.pipe(
         tap(() => {
-          removeCssClass(
+          _removeCssClass(
             this._elementRef.nativeElement,
             NO_POINTER_EVENTS_CLASS,
           );
@@ -711,9 +711,9 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
           // every drag regardless of if it is a handle or initial drag should have the grab cursors
           if (resize >= 0) {
-            addCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
+            _addCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
           } else {
-            removeCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
+            _removeCssClass(this._elementRef.nativeElement, GRAB_CURSOR_CLASS);
           }
         });
     }
@@ -983,8 +983,8 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   private _updateSelectionAreaSize(plotBackground: SVGRectElement): void {
     // get Bounding client Rects of the plot background and the host to calculateRelativeXPos
     // a relative offset.
-    const hostBCR = getElementBoundingClientRect(this._chart._elementRef);
-    const plotBCR = getElementBoundingClientRect(plotBackground);
+    const hostBCR = _getElementBoundingClientRect(this._chart._elementRef);
+    const plotBCR = _getElementBoundingClientRect(plotBackground);
 
     const topOffset = plotBCR.top - hostBCR.top;
     const leftOffset = plotBCR.left - hostBCR.left;

@@ -46,8 +46,8 @@ import { Observable, Subscription } from 'rxjs';
 import { filter, startWith } from 'rxjs/operators';
 
 import {
-  addCssClass,
-  removeCssClass,
+  _addCssClass,
+  _removeCssClass,
 } from '@dynatrace/barista-components/core';
 
 import { DtRow } from '../row';
@@ -235,7 +235,7 @@ export class DtExpandableRow extends DtRow
     const cells = (this._rowRef
       .nativeElement as HTMLDivElement).querySelectorAll('dt-expandable-cell');
     [].slice.call(cells).forEach(cell => {
-      (expanded ? addCssClass : removeCssClass)(
+      (expanded ? _addCssClass : _removeCssClass)(
         cell,
         'dt-expandable-cell-expanded',
       );

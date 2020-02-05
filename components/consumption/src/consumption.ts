@@ -41,7 +41,7 @@ import {
   Constructor,
   isDefined,
   mixinColor,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 
 import { DtConsumptionOverlay } from './consumption-directives';
@@ -197,7 +197,7 @@ export class DtConsumption extends _DtConsumption
    * @internal Toggles the overlay.
    */
   _toggleOverlay(keyEvent: KeyboardEvent): void {
-    if (readKeyCode(keyEvent) === KEY_RETURN) {
+    if (_readKeyCode(keyEvent) === KEY_RETURN) {
       if (this._overlayRef) {
         this._destroyOverlay();
       } else {
