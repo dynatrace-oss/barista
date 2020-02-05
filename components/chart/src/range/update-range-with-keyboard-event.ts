@@ -16,7 +16,7 @@
 
 import { END, HOME } from '@angular/cdk/keycodes';
 
-import { readKeyCode } from '@dynatrace/barista-components/core';
+import { _readKeyCode } from '@dynatrace/barista-components/core';
 
 import { DtSelectionAreaEventTarget } from '../selection-area/position-utils';
 import { getKeyboardNavigationOffset } from '../utils';
@@ -38,7 +38,7 @@ export function updateRangeWithKeyboardEvent(
   const offset = getKeyboardNavigationOffset(event);
   let { left, width } = currentRange;
 
-  if (readKeyCode(event) === HOME) {
+  if (_readKeyCode(event) === HOME) {
     switch (handle) {
       case DtSelectionAreaEventTarget.LeftHandle:
         left = 0;
@@ -52,7 +52,7 @@ export function updateRangeWithKeyboardEvent(
         left = 0;
         width = currentRange.width;
     }
-  } else if (readKeyCode(event) === END) {
+  } else if (_readKeyCode(event) === END) {
     switch (handle) {
       case DtSelectionAreaEventTarget.LeftHandle:
         left = currentRange.left + currentRange.width;

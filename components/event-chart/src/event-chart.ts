@@ -62,7 +62,7 @@ import {
 import {
   DtViewportResizer,
   isDefined,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 
 import {
@@ -361,7 +361,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     keyEvent: KeyboardEvent,
     renderEvent: RenderEvent<T>,
   ): void {
-    const key = readKeyCode(keyEvent);
+    const key = _readKeyCode(keyEvent);
     if (key === ENTER) {
       keyEvent.preventDefault();
       this._eventSelected(keyEvent, renderEvent);

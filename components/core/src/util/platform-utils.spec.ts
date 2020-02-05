@@ -20,7 +20,11 @@
 import { Component, ElementRef } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 
-import { hasCssClass, parseCssValue, replaceCssClass } from './platform-util';
+import {
+  _hasCssClass,
+  _parseCssValue,
+  _replaceCssClass,
+} from './platform-util';
 
 describe('PlatformUtil', () => {
   beforeEach(async(() => {
@@ -37,7 +41,7 @@ describe('PlatformUtil', () => {
       const testComponent = fixture.debugElement.componentInstance;
 
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(testComponent.testElement, 'old-class', 'new-class');
+      _replaceCssClass(testComponent.testElement, 'old-class', 'new-class');
       expect(testComponent.testElement.className).toBe('new-class');
     });
 
@@ -46,7 +50,7 @@ describe('PlatformUtil', () => {
       const testComponent = fixture.debugElement.componentInstance;
 
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(testComponent.testElement, 'old-class', null);
+      _replaceCssClass(testComponent.testElement, 'old-class', null);
       expect(testComponent.testElement.className).toBe('');
     });
 
@@ -55,7 +59,7 @@ describe('PlatformUtil', () => {
       const testComponent = fixture.debugElement.componentInstance;
 
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(testComponent.testElement, null, 'new-class');
+      _replaceCssClass(testComponent.testElement, null, 'new-class');
       expect(testComponent.testElement.className).toBe('old-class new-class');
     });
 
@@ -64,7 +68,7 @@ describe('PlatformUtil', () => {
       const testComponent = fixture.debugElement.componentInstance;
 
       expect(testComponent.testElement.className).toBe('old-class');
-      replaceCssClass(testComponent.elementRef, 'old-class', 'new-class');
+      _replaceCssClass(testComponent.elementRef, 'old-class', 'new-class');
       expect(testComponent.testElement.className).toBe('new-class');
     });
   });
@@ -73,20 +77,20 @@ describe('PlatformUtil', () => {
     it('should return true on html element that has the class', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
-      expect(hasCssClass(testComponent.testElement, 'old-class')).toBeTruthy();
+      expect(_hasCssClass(testComponent.testElement, 'old-class')).toBeTruthy();
     });
 
     it('should return false on html element that doesnt the class', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
-      expect(hasCssClass(testComponent.testElement, 'new-class')).toBeFalsy();
+      expect(_hasCssClass(testComponent.testElement, 'new-class')).toBeFalsy();
     });
 
     it('should return true on svg element that has the class', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       expect(
-        hasCssClass(testComponent.testSvgElement, 'old-class'),
+        _hasCssClass(testComponent.testSvgElement, 'old-class'),
       ).toBeTruthy();
     });
 
@@ -94,36 +98,36 @@ describe('PlatformUtil', () => {
       const fixture = TestBed.createComponent(TestApp);
       const testComponent = fixture.debugElement.componentInstance;
       expect(
-        hasCssClass(testComponent.testSvgElement, 'new-class'),
+        _hasCssClass(testComponent.testSvgElement, 'new-class'),
       ).toBeFalsy();
     });
   });
 
   describe('parseCssValue', () => {
     it('should return null if undefined is passed', () => {
-      expect(parseCssValue(undefined)).toBeNull();
+      expect(_parseCssValue(undefined)).toBeNull();
     });
     it('should return null if no value is found', () => {
-      expect(parseCssValue('px')).toBeNull();
-      expect(parseCssValue('')).toBeNull();
-      expect(parseCssValue('%23')).toBeNull();
+      expect(_parseCssValue('px')).toBeNull();
+      expect(_parseCssValue('')).toBeNull();
+      expect(_parseCssValue('%23')).toBeNull();
     });
     it('should default to px if no unit is found', () => {
-      expect(parseCssValue('23')).toEqual({ value: 23, unit: 'px' });
-      expect(parseCssValue(23)).toEqual({ value: 23, unit: 'px' });
+      expect(_parseCssValue('23')).toEqual({ value: 23, unit: 'px' });
+      expect(_parseCssValue(23)).toEqual({ value: 23, unit: 'px' });
     });
     it('should use whatever is passed into that is not a number as the unit', () => {
-      expect(parseCssValue('23%')).toEqual({ value: 23, unit: '%' });
-      expect(parseCssValue('23vw')).toEqual({ value: 23, unit: 'vw' });
+      expect(_parseCssValue('23%')).toEqual({ value: 23, unit: '%' });
+      expect(_parseCssValue('23vw')).toEqual({ value: 23, unit: 'vw' });
     });
     it('should trim the unit if spaces are passed', () => {
-      expect(parseCssValue('23 % ')).toEqual({ value: 23, unit: '%' });
-      expect(parseCssValue('23   vw')).toEqual({ value: 23, unit: 'vw' });
-      expect(parseCssValue('23vw  ')).toEqual({ value: 23, unit: 'vw' });
+      expect(_parseCssValue('23 % ')).toEqual({ value: 23, unit: '%' });
+      expect(_parseCssValue('23   vw')).toEqual({ value: 23, unit: 'vw' });
+      expect(_parseCssValue('23vw  ')).toEqual({ value: 23, unit: 'vw' });
     });
     it('should handle integer and floating point numbers', () => {
-      expect(parseCssValue('23.5%')).toEqual({ value: 23.5, unit: '%' });
-      expect(parseCssValue('23vw')).toEqual({ value: 23, unit: 'vw' });
+      expect(_parseCssValue('23.5%')).toEqual({ value: 23.5, unit: '%' });
+      expect(_parseCssValue('23vw')).toEqual({ value: 23, unit: 'vw' });
     });
   });
 });

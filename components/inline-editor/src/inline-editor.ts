@@ -59,7 +59,7 @@ import {
   DT_ERROR_ENTER_DELAYED_ANIMATION,
   ErrorStateMatcher,
   mixinErrorState,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 import { DtError } from '@dynatrace/barista-components/form-field';
 import { DtInput } from '@dynatrace/barista-components/input';
@@ -339,7 +339,7 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
 
   /** @internal Keydown handler */
   _onKeyDown(event: KeyboardEvent): void {
-    switch (readKeyCode(event)) {
+    switch (_readKeyCode(event)) {
       case ESCAPE:
         this.cancelAndQuitEditing();
       case ENTER:

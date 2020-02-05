@@ -83,7 +83,7 @@ import {
   DT_ERROR_ENTER_DELAYED_ANIMATION,
   ErrorStateMatcher,
   isDefined,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 
 import { DtFilterFieldDataSource } from './filter-field-data-source';
@@ -544,7 +544,7 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
 
   /** @internal */
   _handleInputKeyDown(event: KeyboardEvent): void {
-    const keyCode = readKeyCode(event);
+    const keyCode = _readKeyCode(event);
     if ([BACKSPACE, DELETE].includes(keyCode) && !this._inputValue.length) {
       if (this._currentFilterValues.length) {
         this._removeFilterAndEmit(this._currentFilterValues);

@@ -92,7 +92,7 @@ import {
   mixinDisabled,
   mixinErrorState,
   mixinTabIndex,
-  readKeyCode,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 import {
   DtFormField,
@@ -749,7 +749,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
   /** Handles keyboard events while the select is closed. */
   private _handleClosedKeydown(event: KeyboardEvent): void {
-    const keyCode = readKeyCode(event);
+    const keyCode = _readKeyCode(event);
     const isArrowKey =
       keyCode === DOWN_ARROW ||
       keyCode === UP_ARROW ||
@@ -768,7 +768,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
   /** Handles keyboard events when the selected is open. */
   private _handleOpenKeydown(event: KeyboardEvent): void {
-    const keyCode = readKeyCode(event);
+    const keyCode = _readKeyCode(event);
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
     const manager = this._keyManager;
 

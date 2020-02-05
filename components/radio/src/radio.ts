@@ -36,9 +36,9 @@ import {
 import {
   CanDisable,
   HasTabIndex,
-  addCssClass,
+  _addCssClass,
   mixinTabIndex,
-  removeCssClass,
+  _removeCssClass,
 } from '@dynatrace/barista-components/core';
 
 import { DtRadioGroup } from './radio-group';
@@ -276,9 +276,9 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
     const element = this._elementRef.nativeElement;
 
     if (focusOrigin === 'keyboard') {
-      addCssClass(element, 'dt-radio-focused');
+      _addCssClass(element, 'dt-radio-focused');
     } else if (!focusOrigin) {
-      removeCssClass(element, 'dt-radio-focused');
+      _removeCssClass(element, 'dt-radio-focused');
       if (this._radioGroup) {
         this._radioGroup._touch();
       }

@@ -134,7 +134,7 @@ describe('Selection Area Streams', () => {
     const captureSpy = jest
       .spyOn(utils, 'captureAndMergeEvents')
       .mockReturnValue(of(fakeMouseDown));
-    const coreSpy = jest.spyOn(core, 'removeCssClass');
+    const coreSpy = jest.spyOn(core, '_removeCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(getMouseDownStream(selectionArea, [selectionArea])).toBe(
@@ -144,8 +144,8 @@ describe('Selection Area Streams', () => {
       // need to execute all side effects before expecting
       flush();
 
-      expect(core.removeCssClass).toHaveBeenCalledTimes(1);
-      expect(core.removeCssClass).toHaveBeenCalledWith(
+      expect(core._removeCssClass).toHaveBeenCalledTimes(1);
+      expect(core._removeCssClass).toHaveBeenCalledWith(
         selectionArea,
         NO_POINTER_EVENTS_CLASS,
       );
@@ -161,7 +161,7 @@ describe('Selection Area Streams', () => {
   it('should create a mouseup stream that triggers a side effect', () => {
     const fakeMouseUp = createMouseEvent('mouseup');
 
-    const coreSpy = jest.spyOn(core, 'addCssClass');
+    const coreSpy = jest.spyOn(core, '_addCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(getMouseUpStream(selectionArea, of(fakeMouseUp))).toBe(
@@ -171,8 +171,8 @@ describe('Selection Area Streams', () => {
       // need to execute all side effects before expecting
       flush();
 
-      expect(core.addCssClass).toHaveBeenCalledTimes(1);
-      expect(core.addCssClass).toHaveBeenCalledWith(
+      expect(core._addCssClass).toHaveBeenCalledTimes(1);
+      expect(core._addCssClass).toHaveBeenCalledWith(
         selectionArea,
         NO_POINTER_EVENTS_CLASS,
       );
@@ -206,7 +206,7 @@ describe('Selection Area Streams', () => {
     const captureSpy = jest
       .spyOn(utils, 'captureAndMergeEvents')
       .mockReturnValue(of(fakeMouseDown));
-    const cssClassSpy = jest.spyOn(core, 'removeCssClass');
+    const cssClassSpy = jest.spyOn(core, '_removeCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(getMouseDownStream(selectionArea, [selectionArea])).toBe(
@@ -215,7 +215,7 @@ describe('Selection Area Streams', () => {
       // need to execute all side effects before expecting
       flush();
 
-      expect(core.removeCssClass).not.toHaveBeenCalled();
+      expect(core._removeCssClass).not.toHaveBeenCalled();
       expect(utils.captureAndMergeEvents).toHaveBeenCalledWith('mousedown', [
         selectionArea,
       ]);

@@ -32,7 +32,7 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { readKeyCode } from '../util/index';
+import { _readKeyCode } from '../util/index';
 import { DtOptgroup } from './optgroup';
 
 let _uniqueId = 0;
@@ -207,7 +207,7 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
 
   /** @internal Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    const keyCode = readKeyCode(event);
+    const keyCode = _readKeyCode(event);
     if (keyCode === ENTER || keyCode === SPACE) {
       this._selectViaInteraction();
 

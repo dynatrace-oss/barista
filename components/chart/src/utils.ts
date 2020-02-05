@@ -27,7 +27,7 @@ import { ElementRef, QueryList } from '@angular/core';
 import { Observable, OperatorFunction, fromEvent, merge } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
-import { readKeyCode } from '@dynatrace/barista-components/core';
+import { _readKeyCode } from '@dynatrace/barista-components/core';
 
 /** @internal Highcharts plot background dimensions */
 export interface PlotBackgroundInfo {
@@ -47,7 +47,7 @@ const KEYBOARD_NAVIGATION_LARGE_OFFSET = 10;
  * or a small one.
  */
 export function getKeyboardNavigationOffset(event: KeyboardEvent): number {
-  switch (readKeyCode(event)) {
+  switch (_readKeyCode(event)) {
     case RIGHT_ARROW:
     case UP_ARROW:
       return 1;

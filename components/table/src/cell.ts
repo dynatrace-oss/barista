@@ -37,10 +37,10 @@ import { filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 import {
   DtIndicator,
-  addCssClass,
+  _addCssClass,
   isDefined,
-  parseCssValue,
-  removeCssClass,
+  _parseCssValue,
+  _removeCssClass,
 } from '@dynatrace/barista-components/core';
 
 import { DtRow } from './row';
@@ -266,14 +266,14 @@ export function _setDtColumnCssClasses(
   const { align, cssClassFriendlyName } = columnDef;
   const cssAlignmentClass = coerceAlignment(align);
 
-  removeCssClass(elementRef.nativeElement, 'dt-table-column-align-left');
-  removeCssClass(elementRef.nativeElement, 'dt-table-column-align-center');
-  removeCssClass(elementRef.nativeElement, 'dt-table-column-align-right');
-  addCssClass(
+  _removeCssClass(elementRef.nativeElement, 'dt-table-column-align-left');
+  _removeCssClass(elementRef.nativeElement, 'dt-table-column-align-center');
+  _removeCssClass(elementRef.nativeElement, 'dt-table-column-align-right');
+  _addCssClass(
     elementRef.nativeElement,
     `dt-table-column-align-${cssAlignmentClass}`,
   );
-  addCssClass(
+  _addCssClass(
     elementRef.nativeElement,
     `dt-table-column-${cssClassFriendlyName}`,
   );
@@ -293,7 +293,7 @@ export function _updateDtColumnStyles(
       element.style.flexGrow = setProportion + '';
       element.style.flexShrink = setProportion + '';
     }
-    const valueAndUnit = parseCssValue(minWidth);
+    const valueAndUnit = _parseCssValue(minWidth);
     if (valueAndUnit !== null) {
       element.style.minWidth = `${valueAndUnit.value}${valueAndUnit.unit}`;
     } else {

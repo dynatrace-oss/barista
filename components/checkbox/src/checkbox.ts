@@ -45,7 +45,7 @@ import {
 import {
   CanDisable,
   HasTabIndex,
-  addCssClass,
+  _addCssClass,
   mixinDisabled,
   mixinTabIndex,
 } from '@dynatrace/barista-components/core';
@@ -259,7 +259,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     // We need to do the user agent check on JS side
     // because there is no css specific solution for EDGE
     if (this._platform.TRIDENT || this._platform.EDGE) {
-      addCssClass(
+      _addCssClass(
         this._elementRef.nativeElement,
         'dt-checkbox-animation-fallback',
       );
