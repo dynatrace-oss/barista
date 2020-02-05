@@ -15,15 +15,14 @@
  */
 
 import { Selector } from 'testcafe';
-import { waitForAngular } from '../../utils';
+import { waitForAngular, resetWindowSizeToDefault } from '../../utils';
 
 const tagList = Selector('#tagList');
 
-fixture
-  .only('Tag List')
+fixture('Tag List')
   .page('http://localhost:4200/tag/tag-list')
-  .beforeEach(async (testController: TestController) => {
-    await testController.resizeWindow(1200, 800);
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
     await waitForAngular();
   });
 

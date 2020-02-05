@@ -6,7 +6,7 @@
       *ngIf="_showAllTags"
     ></ng-template>
   </div>
-  <div class="dt-tag-list-more-btn" *ngIf="_toDisplayMoreButton()">
+  <div class="dt-tag-list-more-btn" *ngIf="_toDisplayMoreButton()" #moreBtn>
     <a (click)="_expand()" class="dt-link">{{ _hiddenTagCount }} More...</a>
   </div>
   <ng-template
