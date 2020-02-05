@@ -235,3 +235,12 @@ export class DtEmptyState
     }
   }
 }
+
+/**
+ * Marks a custom empty state component to be used within, for example, `<dt-table>`.
+ * The custom empty state must both extend and provide itself as a DtEmptyState.
+ */
+@Directive({
+  selector: '[dtEmptyState]',
+})
+export class DtEmptyStateDirective {}

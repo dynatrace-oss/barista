@@ -22,16 +22,29 @@ import { DtExampleEmptyStateDefault } from './empty-state-default-example/empty-
 import { DtExampleEmptyStateInCard } from './empty-state-in-card-example/empty-state-in-card-example';
 import { DtExampleEmptyStateMultipleItems } from './empty-state-multiple-items-example/empty-state-multiple-items-example';
 import { DtExampleEmptyStateMultipleItemsInCard } from './empty-state-multiple-items-in-card-example/empty-state-multiple-items-in-card-example';
+import {
+  DtExampleCustomEmptyState,
+  DtCustomEmptyState,
+} from './empty-state-custom-empty-state-example/empty-state-custom-empty-state-example';
+import { DtTableModule } from 'components/table/src/table-module';
 
 export const DT_EMPTY_STATE_EXAMPLES = [
   DtExampleEmptyStateDefault,
   DtExampleEmptyStateInCard,
   DtExampleEmptyStateMultipleItems,
   DtExampleEmptyStateMultipleItemsInCard,
+  DtExampleCustomEmptyState,
+  DtCustomEmptyState,
 ];
 
 @NgModule({
-  imports: [DtEmptyStateModule, DtIconModule, DtButtonModule, DtCardModule],
+  imports: [
+    DtEmptyStateModule,
+    DtIconModule,
+    DtButtonModule,
+    DtCardModule,
+    DtTableModule,
+  ],
   declarations: [...DT_EMPTY_STATE_EXAMPLES],
   entryComponents: [...DT_EMPTY_STATE_EXAMPLES],
 })

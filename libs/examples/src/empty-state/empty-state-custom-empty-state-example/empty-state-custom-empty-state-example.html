@@ -1,0 +1,12 @@
+<dt-card>
+  <dt-table [dataSource]="[]">
+    <ng-container dtColumnDef="host" dtColumnAlign="text">
+      <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+      <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
+    </ng-container>
+
+    <dt-header-row *dtHeaderRowDef="['host']"></dt-header-row>
+    <dt-row *dtRowDef="let row; columns: ['host']"></dt-row>
+    <dt-example-custom-empty-state dtEmptyState></dt-example-custom-empty-state>
+  </dt-table>
+</dt-card>

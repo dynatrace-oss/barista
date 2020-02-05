@@ -497,7 +497,8 @@ Please keep in mind:
 When there is no data to display an empty state is shown. It can consist of some
 text that explains why there is no content and an illustration that helps to
 visualize the problem. Pass an empty state to the table using the
-`<dt-empty-state>` component.
+`<dt-empty-state>` component or a
+[custom empty state](/components/empty-state#custom-empty-state).
 
 <ba-live-example name="DtExampleTableEmptyState" fullwidth></ba-live-example>
 

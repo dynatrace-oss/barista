@@ -46,3 +46,11 @@ deprecated CTA card) or in an empty table or chart.
 The following example shows a CTA card with multiple empty state items.
 
 <ba-live-example name="DtExampleEmptyStateMultipleItemsInCard" background></ba-live-example>
+
+## Custom empty state
+
+Custom/Reusable empty states are also supported using the `dtEmptyState`
+directive. The custom empty state must both extend and provide itself as a
+`DtEmptyState`.
+
+<ba-live-example name="DtExampleCustomEmptyState" background></ba-live-example>

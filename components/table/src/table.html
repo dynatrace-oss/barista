@@ -3,7 +3,9 @@
 <ng-container footerRowOutlet></ng-container>
 
 <ng-template #emptyStateTemplate>
-  <ng-content select="[dtTableEmptyState], dt-empty-state"></ng-content>
+  <ng-content
+    select="[dtTableEmptyState], dt-empty-state, [dtEmptyState]"
+  ></ng-content>
 </ng-template>
 
 <ng-container cdkPortalOutlet></ng-container>
