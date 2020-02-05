@@ -72,7 +72,7 @@ describe('DtTagList', () => {
     beforeEach(() => {
       fixture = createComponent(DtTagListComponent);
       mockBoundingClientRectOnTagList();
-      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
       fixture.detectChanges();
       instanceDebugElement = fixture.debugElement.query(
         By.directive(DtTagList),
@@ -92,7 +92,7 @@ describe('DtTagList', () => {
       fixture.componentInstance.addTag('Test');
       fixture.detectChanges();
       mockBoundingClientRectOnTagList();
-      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
       fixture.detectChanges();
       const moreBtn = fixture.debugElement.query(
         By.css('.dt-tag-list-more-btn'),
@@ -137,14 +137,14 @@ describe('DtTagList', () => {
     });
 
     describe('getWrapperWidth', () => {
-      it('should return width 128', () => {
+      it('should return width 124', () => {
         const elements = mockHTMLElements(4);
         expect(
           getWrapperWidth(
             elements[getIndexForFirstHiddenTag(elements) - 1],
             100,
           ),
-        ).toBe(128);
+        ).toBe(124);
       });
     });
   });
