@@ -92,6 +92,8 @@ the added side content. The component is always at the root of the page.
 </dt-sidenav-container>
 ```
 
+<ba-live-example name="DtExampleSidenavDefault"></ba-live-example>
+
 ## Examples
 
 ### Over laying mode Drawer Example
