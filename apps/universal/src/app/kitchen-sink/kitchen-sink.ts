@@ -14,117 +14,19 @@
  * limitations under the License.
  */
 
+import { Component } from '@angular/core';
 import {
   DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
 } from '@dynatrace/barista-components/core';
-
-import { Component } from '@angular/core';
-import { DtIconType } from '@dynatrace/barista-icons';
-
-const TESTDATA: ThreadNode[] = [
-  {
-    name: 'hz.hzInstance_1_cluster.thread',
-    icon: 'airplane',
-    threadlevel: 'S0',
-    totalTimeConsumption: 150,
-    waiting: 123,
-    running: 20,
-    blocked: 0,
-    children: [
-      {
-        name:
-          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
-        icon: 'airplane',
-        threadlevel: 'S1',
-        totalTimeConsumption: 150,
-        waiting: 123,
-        running: 20,
-        blocked: 0,
-      },
-      {
-        name: 'hz.hzInstance_1_cluster.thread-2',
-        icon: 'airplane',
-        threadlevel: 'S1',
-        totalTimeConsumption: 150,
-        waiting: 130,
-        running: 0,
-        blocked: 0,
-      },
-    ],
-  },
-  {
-    name: 'jetty',
-    icon: 'airplane',
-    threadlevel: 'S0',
-    totalTimeConsumption: 150,
-    waiting: 123,
-    running: 20,
-    blocked: 0,
-    children: [
-      {
-        name: 'jetty-422',
-        icon: 'airplane',
-        threadlevel: 'S1',
-        totalTimeConsumption: 150,
-        waiting: 123,
-        running: 20,
-        blocked: 0,
-      },
-      {
-        name: 'jetty-423',
-        icon: 'airplane',
-        threadlevel: 'S1',
-        totalTimeConsumption: 150,
-        waiting: 130,
-        running: 0,
-        blocked: 0,
-      },
-      {
-        name: 'jetty-424',
-        icon: 'airplane',
-        threadlevel: 'S1',
-        totalTimeConsumption: 150,
-        waiting: 130,
-        running: 0,
-        blocked: 0,
-      },
-    ],
-  },
-  {
-    name: 'Downtime timer',
-    icon: 'airplane',
-    threadlevel: 'S0',
-    totalTimeConsumption: 150,
-    waiting: 123,
-    running: 20,
-    blocked: 0,
-  },
-];
-
-export class ThreadNode {
-  name: string;
-  threadlevel: string;
-  totalTimeConsumption: number;
-  blocked: number;
-  running: number;
-  waiting: number;
-  icon: DtIconType;
-  children?: ThreadNode[];
-}
-
-export class ThreadFlatNode {
-  name: string;
-  threadlevel: string;
-  totalTimeConsumption: number;
-  blocked: number;
-  running: number;
-  waiting: number;
-  icon: DtIconType;
-  level: number;
-  expandable: boolean;
-}
+import { DtQuickFilterDefaultDataSource } from '@dynatrace/barista-components/experimental/quick-filter';
+import {
+  FILTER_FIELD_TEST_DATA,
+  ThreadFlatNode,
+  ThreadNode,
+  TREE_TABLE_TEST_DATA,
+} from '@dynatrace/testing/fixtures';
 
 @Component({
   selector: 'dt-kitchen-sink',
@@ -141,6 +43,13 @@ export class KitchenSink {
   treeFlattener: DtTreeFlattener<ThreadNode, ThreadFlatNode>;
   treeTableDataSource: DtTreeDataSource<ThreadNode, ThreadFlatNode>;
 
+  quickFilterDataSource = new DtQuickFilterDefaultDataSource(
+    FILTER_FIELD_TEST_DATA,
+    {
+      showInSidebar: () => true,
+    },
+  );
+
   constructor() {
     this.treeControl = new DtTreeControl<ThreadFlatNode>(
       this._getLevel,
@@ -156,7 +65,7 @@ export class KitchenSink {
       this.treeControl,
       this.treeFlattener,
     );
-    this.treeTableDataSource.data = TESTDATA;
+    this.treeTableDataSource.data = TREE_TABLE_TEST_DATA;
   }
 
   hasChild = (_: number, _nodeData: ThreadFlatNode) => _nodeData.expandable;

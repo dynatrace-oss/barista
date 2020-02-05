@@ -1,0 +1,22 @@
+{
+  "title": "Quick Filter (experimental)",
+  "description": "",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "Lukas Holzer",
+        "githubuser": "lukasholzer"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Xavier Javaloyas",
+        "githubuser": "Xavi-J"
+      }
+    ]
+  },
+  "properties": ["work in progress", "experimental"],
+  "related": ["filter field"],
+  "tags": ["filter", "filter field", "quick filter", "angular", "component"]
+}

@@ -1,0 +1,81 @@
+@import '../../../core/src/style/variables';
+@import '../../../core/src/style/interactive-common';
+
+:host {
+  display: block;
+  background-color: $gray-130;
+  padding: 20px;
+}
+
+.dt-quick-filter-drawer {
+  margin-top: 12px;
+}
+
+.dt-quick-filter-content {
+  position: relative;
+  display: block;
+  padding: 12px 12px 12px 26px;
+  height: 100%;
+  background-color: white;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.dt-drawer {
+  background-color: $gray-130;
+  position: relative;
+  padding-right: 26px;
+}
+
+:host ::ng-deep {
+  .dt-quick-filter-title,
+  .dt-quick-filter-sub-title {
+    display: block;
+    margin: 0;
+  }
+
+  .dt-quick-filter-title {
+    font-size: 20px;
+    color: $gray-700;
+  }
+
+  .dt-quick-filter-sub-title {
+    font-size: 12px;
+    color: $gray-500;
+    margin: 0;
+  }
+}
+
+.dt-quick-filter-group + .dt-quick-filter-group {
+  border-top: 1px solid $gray-200;
+}
+
+.dt-quick-filter-open,
+.dt-quick-filter-close {
+  appearance: none;
+  top: 8px;
+  background: $white;
+  border-width: 1px;
+  border-style: solid;
+  position: absolute;
+  color: $turquoise-600;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.dt-quick-filter-open {
+  left: 0;
+  padding: 6px 6px 6px 0;
+  border-left: none;
+  background-color: $gray-130;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.dt-quick-filter-close {
+  right: -1px;
+  padding: 6px 0 6px 6px;
+  border-right: none;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}

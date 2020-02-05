@@ -47,6 +47,7 @@ const BLACKLIST: string[] = [
   'filter-field-programmatic-filters-example',
   'filter-field-readonly-non-editable-tags-example',
   'filter-field-unique-example',
+  'quick-filter-default-example',
 ];
 
 DT_DEMOS_EXAMPLE_NAV_ITEMS.forEach(component => {

@@ -1,0 +1,40 @@
+<div
+  class="dt-quick-filter-group-headline"
+  role="heading"
+  [attr.aria-level]="groupHeadlineRole"
+>
+  {{ _getViewValue(_nodeDef)}}
+</div>
+
+<ng-template [ngIf]="_isDistinct()" [ngIfElse]="notDistinct">
+  <dt-radio-group
+    class="dt-quick-filter-group-items"
+    (change)="_selectOption($event)"
+  >
+    <dt-radio-button [checked]="_isNothingSelected()" (change)="_unsetGroup()">
+      Any
+    </dt-radio-button>
+    <dt-radio-button
+      *ngFor="let item of _getOptions()"
+      [value]="item"
+      [checked]="_isActive(item)"
+    >
+      {{_getViewValue(item)}}
+    </dt-radio-button>
+  </dt-radio-group>
+</ng-template>
+
+<ng-template #notDistinct>
+  <div class="dt-quick-filter-group-items">
+    <dt-checkbox
+      *ngFor="let item of _getOptions()"
+      [value]="item"
+      [checked]="_isActive(item)"
+      (change)="_selectCheckBox($event)"
+    >
+      {{_getViewValue(item)}}
+    </dt-checkbox>
+  </div>
+</ng-template>
+
+<ng-content></ng-content>

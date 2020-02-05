@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { DtAlertModule } from '@dynatrace/barista-components/alert';
 import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
-import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
 import { DtCardModule } from '@dynatrace/barista-components/card';
 import { DtCheckboxModule } from '@dynatrace/barista-components/checkbox';
 import { DtConsumptionModule } from '@dynatrace/barista-components/consumption';
@@ -28,6 +30,7 @@ import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
 import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 import { DtExpandableTextModule } from '@dynatrace/barista-components/expandable-text';
+import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/quick-filter';
 import { DtFilterFieldModule } from '@dynatrace/barista-components/filter-field';
 import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
@@ -53,8 +56,6 @@ import { DtTimelineChartModule } from '@dynatrace/barista-components/timeline-ch
 import { DtToggleButtonGroupModule } from '@dynatrace/barista-components/toggle-button-group';
 import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
 import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
-import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
 
 @NgModule({
   imports: [
@@ -64,42 +65,46 @@ import { NgModule } from '@angular/core';
   exports: [
     DtAlertModule,
     DtAutocompleteModule,
-    DtButtonModule,
-    DtCheckboxModule,
-    DtTableModule,
-    DtLoadingDistractorModule,
-    DtTileModule,
-    DtTagModule,
-    DtCardModule,
-    DtContextDialogModule,
-    DtDrawerModule,
-    DtCopyToClipboardModule,
     DtButtonGroupModule,
-    DtRadioModule,
-    DtShowMoreModule,
-    DtProgressCircleModule,
-    DtPaginationModule,
-    DtSwitchModule,
-    DtProgressBarModule,
-    DtSelectModule,
-    DtInputModule,
-    DtOverlayModule,
-    DtTreeTableModule,
-    DtToggleButtonGroupModule,
-    DtInfoGroupModule,
-    DtHighlightModule,
+    DtButtonModule,
+    DtCardModule,
+    DtCheckboxModule,
     DtConsumptionModule,
-    DtFilterFieldModule,
-    DtMenuModule,
+    DtContainerBreakpointObserverModule,
+    DtContextDialogModule,
+    DtCopyToClipboardModule,
+    DtDrawerModule,
     DtEmptyStateModule,
-    DtTimelineChartModule,
-    DtExpandableTextModule,
     DtEventChartModule,
+    DtExpandableTextModule,
+    DtFilterFieldModule,
+    DtHighlightModule,
+    DtInfoGroupModule,
+    DtInputModule,
+    DtLoadingDistractorModule,
+    DtMenuModule,
+    DtOverlayModule,
+    DtPaginationModule,
+    DtProgressBarModule,
+    DtProgressCircleModule,
+    DtQuickFilterModule,
+    DtRadialChartModule,
+    DtRadioModule,
+    DtSelectModule,
+    DtShowMoreModule,
+    DtStepperModule,
+    DtSwitchModule,
+    DtTableModule,
+    DtTagModule,
+    DtTileModule,
+    DtTimelineChartModule,
+    DtToggleButtonGroupModule,
     DtTopBarNavigationModule,
     DtStepperModule,
     DtSliderModule,
     DtContainerBreakpointObserverModule,
     DtRadialChartModule,
+    DtTreeTableModule,
   ],
 })
 export class BaristaModule {}

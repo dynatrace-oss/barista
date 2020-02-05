@@ -15,3 +15,6 @@
  */
 
 export * from './lib/chart';
+export * from './lib/filter-field/test-data';
+export * from './lib/filter-field/test-data-validators';
+export * from './lib/tree-table/test-data';

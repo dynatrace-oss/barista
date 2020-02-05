@@ -48,7 +48,7 @@ test('should not show a error box if there is no validator provided', async () =
 
 test('should show a error box if does not meet the validation function', async () => {
   await clickOption(3)
-    .typeText(input, 'a')
+    .typeText(input, 'a', { speed: 0.1 })
     // Wait for the filter field to refresh the error message.
     .wait(250)
     .expect(errorBox.exists)
@@ -57,12 +57,10 @@ test('should show a error box if does not meet the validation function', async (
     .match(/min 3 characters/gm);
 });
 
-// TODO: lukas.holzer investigate why this test is flaky on Browserstack
-// tslint:disable-next-line: dt-no-focused-tests
-test.skip('should show is required error when the input is dirty', async () => {
+test('should show is required error when the input is dirty', async () => {
   await clickOption(3)
-    .typeText(input, 'a')
-    .pressKey('backspace')
+    .typeText(input, 'a', { speed: 0.1 })
+    .pressKey('backspace', { speed: 0.1 })
     .expect(errorBox.exists)
     .ok()
     .expect(errorBox.innerText)
@@ -174,7 +172,7 @@ test('should choose a freetext node with the mouse and submit the correct value 
 
   // Select the free text node and start typing
   await clickOption(4)
-    // Wait for a certain amout fo time to let the filterfield refresh
+    // Wait for a certain amount fo time to let the filterfield refresh
     .wait(250)
     // Send the correct value into the input field
     .typeText(input, 'Custom selection');
@@ -191,7 +189,7 @@ test('should choose a freetext node with the mouse and submit the correct value 
     .expect(tags.length)
     .eql(1)
     .expect(tags[0])
-    .eql('Autocomplete with free text optionsCustom selection');
+    .match(/Autocomplete with free text options/);
 });
 
 test('should choose a freetext node with the mouse and submit an empty value immediately', async (testController: TestController) => {

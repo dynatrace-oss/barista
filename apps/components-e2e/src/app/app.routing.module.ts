@@ -139,6 +139,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'quick-filter',
+    loadChildren: () =>
+      import('../components/quick-filter/quick-filter.module').then(
+        module => module.DtE2EQuickFilterModule,
+      ),
+  },
+  {
     path: 'radial-chart',
     loadChildren: () =>
       import('../components/radial-chart/radial-chart.module').then(

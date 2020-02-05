@@ -17,98 +17,42 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { BACKSPACE, ENTER, ESCAPE, DOWN_ARROW } from '@angular/cdk/keycodes';
+import { BACKSPACE, DOWN_ARROW, ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, NgZone, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed,
   fakeAsync,
   flush,
   inject,
+  TestBed,
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import {
-  DT_FILTER_FIELD_TYPING_DEBOUNCE,
   DtFilterField,
   DtFilterFieldChangeEvent,
   DtFilterFieldDefaultDataSource,
   DtFilterFieldModule,
   dtRangeDef,
+  DT_FILTER_FIELD_TYPING_DEBOUNCE,
   getDtFilterFieldRangeNoOperatorsError,
-  DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-
 import {
+  createComponent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-  createComponent,
   MockNgZone,
   typeInElement,
   wrappedErrorMessage,
 } from '@dynatrace/testing/browser';
-
-const TEST_DATA = {
-  autocomplete: [
-    {
-      name: 'AUT',
-      autocomplete: [
-        {
-          name: 'Upper Austria',
-          distinct: true,
-          autocomplete: [
-            {
-              name: 'Cities',
-              options: [{ name: 'Linz' }, { name: 'Wels' }, { name: 'Steyr' }],
-            },
-          ],
-        },
-        {
-          name: 'Vienna',
-        },
-      ],
-    },
-    {
-      name: 'USA',
-      autocomplete: [{ name: 'Los Angeles' }, { name: 'San Fran' }],
-    },
-    {
-      name: 'Free',
-      suggestions: [],
-      validators: [],
-    },
-    {
-      name: 'DE (async)',
-      async: true,
-      autocomplete: [{ name: 'Berlin' }],
-    },
-  ],
-};
-
-const TEST_DATA_SINGLE_DISTINCT: DtFilterFieldDefaultDataSourceType = {
-  autocomplete: [
-    {
-      name: 'AUT',
-      distinct: true,
-      autocomplete: [
-        {
-          name: 'Vienna',
-        },
-        {
-          name: 'Linz',
-        },
-      ],
-    },
-  ],
-};
-
-const TEST_DATA_SINGLE_OPTION = {
-  autocomplete: [{ name: 'option' }],
-};
+import {
+  FILTER_FIELD_TEST_DATA_ASYNC,
+  FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT,
+  FILTER_FIELD_TEST_DATA_SINGLE_OPTION,
+} from '@dynatrace/testing/fixtures';
 
 const TEST_DATA_SUGGESTIONS = {
   autocomplete: [
@@ -269,7 +213,7 @@ describe('DtFilterField', () => {
 
     it('should disable all tags if filter field is disabled', fakeAsync(() => {
       // given
-      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
 
       filterField.focus();
@@ -307,7 +251,7 @@ describe('DtFilterField', () => {
 
     it('should restore the previous state of tags if filter field gets enabled', fakeAsync(() => {
       // given
-      fixture.componentInstance.dataSource.data = TEST_DATA;
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_ASYNC;
       fixture.detectChanges();
 
       // Add filter "AUT - Vienna"
@@ -621,7 +565,7 @@ describe('DtFilterField', () => {
     it('should emit filterChanges when adding an option', fakeAsync(() => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
-      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
         ev => (filterChangeEvent = ev),
       );
@@ -648,7 +592,7 @@ describe('DtFilterField', () => {
     it('should emit filterChanges when removing an option', fakeAsync(() => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
-      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
         ev => (filterChangeEvent = ev),
       );
@@ -823,7 +767,7 @@ describe('DtFilterField', () => {
     });
 
     it('should show option again after adding all possible options and removing this option from the filters', () => {
-      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
 
       filterField.focus();
@@ -894,7 +838,7 @@ describe('DtFilterField', () => {
     });
 
     it('should remove a parent from an autocomplete if it is distinct and an option has been selected', () => {
-      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_DISTINCT;
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
       filterField.focus();
       zone.simulateMicrotasksEmpty();
@@ -1717,7 +1661,7 @@ describe('DtFilterField', () => {
     it('should emit a filterchange event when the edit of a range is completed', () => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
-      fixture.componentInstance.dataSource.data = TEST_DATA_SINGLE_OPTION;
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
         ev => (filterChangeEvent = ev),
       );
@@ -2239,7 +2183,7 @@ describe('DtFilterField', () => {
     it('should not remove the current filter if the data is changed when the filterChanges event fires', () => {
       const filterChangesSubscription = filterField.filterChanges.subscribe(
         () => {
-          fixture.componentInstance.dataSource.data = TEST_DATA;
+          fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_ASYNC;
         },
       );
 
@@ -2393,7 +2337,9 @@ function isClearAllVisible(fixture: ComponentFixture<any>): boolean {
 })
 export class TestApp {
   // tslint:disable-next-line:no-any
-  dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
+  dataSource = new DtFilterFieldDefaultDataSource<any>(
+    FILTER_FIELD_TEST_DATA_ASYNC,
+  );
 
   label = 'Filter by';
   clearAllLabel = 'Clear all';
