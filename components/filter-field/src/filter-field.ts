@@ -1102,7 +1102,10 @@ export class DtFilterField<T> implements AfterViewInit, OnDestroy, OnChanges {
   private _updateAutocompleteOptionsOrGroups(): void {
     const currentDef = this._currentDef;
 
-    if (isDtAutocompleteDef(currentDef)) {
+    if (
+      isDtAutocompleteDef(currentDef) &&
+      !isAsyncDtAutocompleteDef(currentDef)
+    ) {
       const def = filterAutocompleteDef(
         currentDef,
         this._getSelectedOptionIds(),
