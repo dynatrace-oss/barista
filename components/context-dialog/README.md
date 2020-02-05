@@ -1,9 +1,6 @@
 # Context dialog
 
-The context dialog is an overlay which appears on click of a button. It holds
-context related actions and contains other components like
-[buttons](/components/button), [links](/resources/font#links),
-[checkboxes](/components/checkbox), etc.
+<ba-ux-snippet name="context-dialog-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleContextDialogDefault"></ba-live-example>
 
@@ -67,13 +64,7 @@ It is possible to disable the entire context dialog.
 
 ## Behavior
 
-As soon as the context dialog is open, the focus is set on the first interactive
-element within the dialog. The context dialog traps the focus inside the
-overlay. When it is closed again, the focus is set to the previously focused
-element. The dialog can be opened via "ENTER" or "SPACE" when focused, "ESC"
-closes it.
-
-<ba-live-example name="DtExampleContextDialogPreviousFocus"></ba-live-example>
+<ba-ux-snippet name="context-dialog-behavior"></ba-ux-snippet>
 
 ## Dark background
 
@@ -85,11 +76,7 @@ The context dialog component can be used on dark background.
 
 ### Context actions menu
 
-The context actions menu is a variant of the context dialog placed on the top
-right within a [card](/components/card), containing
-[secondary buttons](/components/button).
-
-<ba-live-example name="DtExampleContextDialogActions" background></ba-live-example>
+<ba-ux-snippet name="context-dialog-actions-menu"></ba-ux-snippet>
 
 ### Context dialog with custom trigger
 

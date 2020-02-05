@@ -1,9 +1,6 @@
 # Show more
 
-The show more component indicates the possibility to load more content than
-currently visible. Use it when long lists of items are split into smaller sets
-to load them one by one or as trigger of an expandable panel to toggle the
-visibility of certain content on a page.
+<ba-ux-snippet name="show-more-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleShowMoreDefault"></ba-live-example>
 
@@ -32,28 +29,9 @@ the content to add a show more label above the arrow icon.
 | `showLess`          | `boolean` | `false`     | Whether on click the content that has been expanded is collapsed again. When `true` the show more arrow points upwards and the show more label is hidden. |
 | `ariaLabelShowLess` | `string`  | `Show less` | The aria label for the show less button without text.                                                                                                     | `(changed)` | `event<void>` |  | The event which gets fired when the state changes. The event is fired when the user clicks on the component, as well as using SPACE or ENTER keys. |  |
 
-## Usage
+## Show more in use
 
-The label text should describe how many more items are loaded on click. The show
-more button is not displayed when there are no more items to load. Instead a
-short note that there is no more data is shown.
-
-<ba-live-example name="DtExampleShowMoreDefault"></ba-live-example>
-
-### Section toggle
-
-In case the component is used as a trigger to expand a content section, there is
-no label shown when the component is in close-button-state (i.e. `showLess` is
-`true`).
-
-<ba-live-example name="DtExampleShowMoreToggle"></ba-live-example>
-
-### Disabled
-
-When it's not possible or the user is not allowed to load more entries or to
-expand a section, the component gets disabled.
-
-<ba-live-example name="DtExampleShowMoreDisabled"></ba-live-example>
+<ba-ux-snippet name="show-more-in-use"></ba-ux-snippet>
 
 ## Dark background
 

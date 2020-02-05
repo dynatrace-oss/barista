@@ -1,8 +1,6 @@
 # Secondary nav
 
-The secondary nav component provides a navigation menu which has a clear
-hierarchy and allows for a condensed way to help users navigate in-app routing
-or external links.
+<ba-ux-snippet name="secondary-nav-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleSecondaryNavDefault"></ba-live-example>
 

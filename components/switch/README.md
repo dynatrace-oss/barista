@@ -1,8 +1,6 @@
 # Switch
 
-The switch component is an on/off control that can be toggled via clicking. It
-behaves similarly to a checkbox, though it does not support an indeterminate
-state.
+<ba-ux-snippet name="switch-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleSwitchDefault"></ba-live-example>
 

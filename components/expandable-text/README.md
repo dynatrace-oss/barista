@@ -1,7 +1,6 @@
 # Expandable text
 
-This Angular component provides basic expand/collapse functionality for
-inline-text without any styling.
+<ba-ux-snippet name="expandable-text-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleExpandableTextDefault"></ba-live-example>
 

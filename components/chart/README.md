@@ -1,8 +1,6 @@
 # Chart
 
-The chart component represents one or more metrics. It depends on the given data
-which of the available chart types should be used to visualize them. The
-`dt-chart` component wraps Highcharts to be used within Angular.
+<ba-ux-snippet name="chart-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleChartDefault" fullwidth></ba-live-example>
 
@@ -91,10 +89,7 @@ average or median is represented by a line.
 
 ## Colors
 
-The chart will take a color from a specified chart color palette for the series
-data if no color is specified. It depends on the current page theme and the
-number of shown metrics which
-[chart color palette](/resources/colors/chartcolors/) is used.
+<ba-ux-snippet name="chart-colors"></ba-ux-snippet>
 
 ```html
 <div dtTheme="purple">
@@ -106,29 +101,7 @@ number of shown metrics which
 
 ## Legend
 
-The chart legend is always placed below the chart, except for the
-[donut or pie chart]({/components/charts#donut-or-pie-chart) where the placement
-of the legend can vary.
-
-### Legend icons
-
-The icon size in the chart legend is always 16x16px. The following icons are
-used as legends:
-
-- [Bar chart](/resources/icons/chart_bar/)
-- [Line chart](/resources/icons/chart_legend_line/)
-- [Area chart](/resources/icons/chart_legend_area/)
-- [Pie chart](/resources/icons/chart_legend_pie/)
-- [Meter chart](/resources/icons/chart_legend_meter/)
-- [Percentile chart](/resources/icons/chart_legend_percentile/)
-- [Business transaction chart](/resources/icons/chart_legend_businesstransaction/)
-
-### Toggle metrics
-
-If there is more than one metric visualized in a chart, clicking a chart legend
-toggles the visibility of the according metric. Clicking a chart legend disables
-the metric, to make it possible to focus on individual metrics in a chart.
-Clicking the legend a second time re-enables the metric.
+<ba-ux-snippet name="chart-legend"></ba-ux-snippet>
 
 ## Tooltip
 
@@ -321,60 +294,12 @@ To make our components accessible it is obligatory to provide either an
 
 ## States
 
-### Empty state
-
-It can happen that data can't be displayed at all or only small parts of a chart
-can be loaded. With empty states we can provide basic information and help users
-to understand why the content isn't shown.
-
-<!-- TODO: empty state chart example -->
-
-![Too much data to render](https://d24pvdz4mvzd04.cloudfront.net/test/empty-state-example-custom-charting-1280-aa7bef666c.png)
-
-Please keep in mind to use the correct empty state according to the use case.
-Check our [empty states pattern](/patterns/empty-states) for guidelines and
-other examples.
-
-### Loading state
-
-When chart values are not yet available a loading indicator is shown until all
-data has been loaded and can be displayed. Set the chart's `loading-text` input
-to add a text next to the loading spinner.
-
-<ba-live-example name="DtExampleChartLoading" fullwidth></ba-live-example>
+<ba-ux-snippet name="chart-states"></ba-ux-snippet>
 
 ## Value 0 vs. no data
 
-Since our charts are intended to show complex data, it is important to
-distinguish between "0" as value and "no data" (a.k.a. "null").
-
-### Value 0
-
-If the chart type is a contiguous linear chart type (e.g. line chart, bar chart,
-area chart), 0 values are displayed to maintain continuity.
-
-If the chart type is a non linear chart type (stacked bar chart, pie chart/donut
-chart etc.), 0 values will only be visible in legends or in overlays to avoid
-manipulating the data visualization.
-
-### No data
-
-If data points are missing the highcharts default should be used to display
-gaps.
-
-<ba-live-example name="DtExampleChartLineWithGaps" fullwidth></ba-live-example>
-
-It may happen that existing data points are displayed as gaps (e.g. timeseries,
-area charts where no data is retrieved before and after an existing data point).
-In order to avoid this, we recommend using single data points to make the data
-visible.
-
-<ba-live-example name="DtExampleChartSinglePointData" fullwidth></ba-live-example>
+<ba-ux-snippet name="chart-value-zero-no-data"></ba-ux-snippet>
 
 ## Switching metrics
 
-The metrics displayed in a chart can be switched by
-[button groups](/components/button-group#chart-tabs) that are placed above the
-chart.
-
-<ba-live-example name="DtExampleChartBehaviorSwitch" fullwidth></ba-live-example>
+<ba-ux-snippet name="chart-switching-metrics"></ba-ux-snippet>

@@ -1,9 +1,6 @@
 # Empty state
 
-The `<dt-empty-state>` component is a placeholder for content that does not yet
-exist. It consists of one or more items with each item containing an image, an
-optional header and a short description text. It can be used within a
-`<dt-card>` or an `<dt-table>`.
+<ba-ux-snippet name="empty-state-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleEmptyStateDefault"></ba-live-example>
 
@@ -38,11 +35,4 @@ This is mainly used in an empty entity view.
 
 ## Empty state in use
 
-The empty state is often used in combination with a card component (replaces the
-deprecated CTA card) or in an empty table or chart.
-
-<ba-live-example name="DtExampleEmptyStateInCard" background></ba-live-example>
-
-The following example shows a CTA card with multiple empty state items.
-
-<ba-live-example name="DtExampleEmptyStateMultipleItemsInCard" background></ba-live-example>
+<ba-ux-snippet name="empty-state-in-use"></ba-ux-snippet>

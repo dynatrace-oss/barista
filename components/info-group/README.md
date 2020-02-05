@@ -1,15 +1,8 @@
 # Info group
 
-An info group (`<dt-info-group>`) is used to show data in a simple way. It's a
-visual container for combining an icon with two lines of text (title and
-content). It often comes with multiple instances of itself to give a quick
-overview and summarize content, e.g. inside a table cell.
+<ba-ux-snippet name="info-group-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleInfoGroupDefault"></ba-live-example>
-
-The textual content could be a link, otherwise the info group has no
-interactivity. The color of the icon is themeable. The width is defined by the
-space that is left.
 
 ## Imports
 
@@ -34,20 +27,4 @@ sections (directives):
 
 ## Info groups in use
 
-### Info groups in cards
-
-An info group can be used in a [card](/components/card) and on the top of a page
-to show properties.
-
-<ba-live-example name="DtExampleInfoGroupInCard" fullwidth background></ba-live-example>
-
-### Info groups in tables
-
-Info groups are also used in the first column of a [table](/components/table) or
-in a list. They can provide additional information without the use of a second
-column. A column with info groups is always sorted by the data in the first
-line.
-
-<ba-live-example name="DtExampleTableWithInfoGroupCell" fullwidth></ba-live-example>
-
-<ba-live-example name="DtExampleTreeTableDefault" fullwidth></ba-live-example>
+<ba-ux-snippet name="info-group-in-use"></ba-ux-snippet>

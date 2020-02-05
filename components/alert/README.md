@@ -1,8 +1,6 @@
 # Alert
 
-The alert component informs users about necessary configuration actions
-(warnings) or warns users about failed actions or other events that do not
-require actions from the user (error messages).
+<ba-ux-snippet name="alert-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleAlertWarning"></ba-live-example>
 
@@ -47,16 +45,8 @@ Alerts can be placed on dark background.
 
 ## Alerts in use
 
-For alerts that refer to a specific content such as a form, the message size
-should not exceed the width of this content.
-
-Read the
-[validation guidelines](/patterns/validation/#page-specific-error-validation)
-for more information about how the alert component is used in a form.
+<ba-ux-snippet name="alert-in-use"></ba-ux-snippet>
 
 ## Do's and don'ts
 
-- Use a minimum textbox width of 260px.
-- Use a maximum textbox width of 580px.
-- Don't use walls of text – our alerts and warnings should be as small as
-  possible but effective at the same time.
+<ba-ux-snippet name="alert-dos-donts"></ba-ux-snippet>

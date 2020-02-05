@@ -1,12 +1,11 @@
 # Consumption
 
-The consumption component visualizes usage data of account services. It utilizes
-an icon, a title, a progress bar with a value label and a description text. The
-bar grows as the usage increases with color indicating the service status. The
-value label is directly correlated with the growth of the progress bar. To set
-the content for a consumption component, the following tags are available:
+<ba-ux-snippet name="consumption-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleConsumptionDefault"></ba-live-example>
+
+To set the content for a consumption component, the following tags are
+available:
 
 - `<dt-consumption-icon>` - An icon shown right next to the title (e.g.
   `<dt-icon name="host"></dt-icon>`)
@@ -59,25 +58,6 @@ To make our components accessible it is obligatory to provide either an
 Icons defined with `<dt-consumption-icon>` must be given a meaningful label via
 `aria-label`.
 
-## Overage view (warning state)
+## States
 
-Services that are incurring overages display a full yellow bar (warning state).
-The yellow color specifically depicts a service in overage. This means the
-service has used all of its pre-paid quota and is utilizing service outside the
-contracted amount.
-
-<ba-live-example name="DtExampleConsumptionWarning"></ba-live-example>
-
-## Limits reached view (error state)
-
-Services that have used their full contracted amount display a full red bar
-(error state). The red color specifically depicts a service that has hit its
-contracted limit and the service will no longer be available until quotas are
-increased or renewed.
-
-<ba-live-example name="DtExampleConsumptionError"></ba-live-example>
-
-## Accessibility
-
-Icons defined with `<dt-consumption-icon>` must be given a meaningful label via
-`aria-label`.
+<ba-ux-snippet name="consumption-states"></ba-ux-snippet>

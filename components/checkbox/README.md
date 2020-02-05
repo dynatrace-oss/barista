@@ -67,8 +67,7 @@ Checkboxes without text or labels should be given a meaningful label via
 
 ## Checkbox in use
 
-When checkboxes are placed below each other, the distance between two checkbox
-components must be `20px`.
+<ba-ux-snippet name="checkbox-in-use"></ba-ux-snippet>
 
 ### Indeterminate state
 

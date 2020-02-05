@@ -1,9 +1,6 @@
 # Breadcrumbs
 
-Breadcrumbs are used to navigate and to indicate the currently viewed page. Our
-breadcrumbs are hierarchy-based, which means that every item of the breadcrumb
-represents a page and thus also the path that led up to the currenty visited
-page.
+<ba-ux-snippet name="breadcrumbs-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleBreadcrumbsDefault"></ba-live-example>
 
@@ -37,25 +34,11 @@ To make our components accessible it is obligatory to provide either an
 
 ## Behavior
 
-Items within a breadcrumb have a maximum length. To ensure that unusually long
-items do not take up too much space, their text value will be abbreviated using
-an ellipsis as soon as the maximum length is exceeded.
-
-![Breadcrumb items grouped together closed](https://dt-cdn.net/images/breadcrumb-grouping-closed-530-50b55aee7f.png)
-
-Should there not be enough space in the component to show all items, individual
-items are grouped together (starting from the left) and can be accessed by
-clicking the `...` item in the breadcrumb.
-
-![Breadcrumb items grouped together expanded](https://dt-cdn.net/images/breadcrumb-grouping-expanded-530-c1e0bd5e27.png)
+<ba-ux-snippet name="breadcrumbs-behavior"></ba-ux-snippet>
 
 ## Theming
 
-Breadcrumbs always have the theme color of the current page the user is
-visiting. If the page does not have a theme color (e.g. in the settings), then
-the breadcrumbs will be displayed in gray.
-
-<ba-live-example name="DtExampleBreadcrumbsColor"></ba-live-example>
+<ba-ux-snippet name="breadcrumbs-theming"></ba-ux-snippet>
 
 ## Breadcrumb in use
 

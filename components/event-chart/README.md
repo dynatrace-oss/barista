@@ -3,6 +3,8 @@
 Note: This component is still experimental, use with caution! Help us get this
 component out of the experimental state by providing feedback.
 
+<ba-ux-snippet name="event-chart-intro"></ba-ux-snippet>
+
 <ba-live-example name="DtExampleEventChartDefault" fullwidth></ba-live-example>
 
 ## Imports

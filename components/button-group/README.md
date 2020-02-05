@@ -1,8 +1,6 @@
 # ButtonGroup
 
-A button group has the same behavior as the [tabs component](/components/tabs)
-and is used to switch between different views. The first non-disabled button is
-always preselected.
+<ba-ux-snippet name="button-group-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleButtonGroupDefault"></ba-live-example>
 
@@ -94,9 +92,4 @@ A button group can hold buttons in an error state.
 
 ### Chart tabs
 
-A button group placed above the [chart](/components/chart/) can be used to
-switch metrics displayed in a chart. Combined with a chart button groups are
-also called chart tabs. These tabs can contain single metrics or metric groups
-(e.g. response time and requests).
-
-<ba-live-example name="DtExampleChartBehaviorSwitch" fullwidth></ba-live-example>
+<ba-ux-snippet name="button-group-chart-tabs"></ba-ux-snippet>

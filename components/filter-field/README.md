@@ -1,17 +1,8 @@
 # Filter field
 
-With the filter component lists and views can be filtered to reduce the
-information shown and help the user find what they're looking for.
+<ba-ux-snippet name="filter-field-intro"></ba-ux-snippet>
 
 <ba-live-example name="DtExampleFilterFieldDefault"></ba-live-example>
-
-The filter affects content differently depeding on the component's position. If
-the filter is placed on top of a view, the filter applies to all components and
-contents underneath it. If the filter is placed within a card or on top of
-another component it will only filter the content within those.
-
-All filter terms are connected with the logical AND operator if no other
-operator is explicitly used.
 
 ## Imports
 
@@ -177,16 +168,7 @@ node objects:
 
 ## Behavior
 
-On focus of the filter field the dropdown panel expands and reveals valid items
-which the user can select. An already applied `key:value` filter can be edited
-by selecting it, all possible values for that key are presented in the dropdown
-panel below.
-
-All actions (adding, editing, deleting filters) are also accessible via
-keyboard.
-
-Note: The following functionalities are not yet implemented. If you are
-interested in the implementation progress, reach out to the DesignOps team.
+<ba-ux-snippet name="filter-field-behavior"></ba-ux-snippet>
 
 ### Clear filters
 
@@ -209,30 +191,12 @@ filter you can configure the filter to your needs by using the properties
 
 ### Handling operators (not yet implemented)
 
-By default, all filter terms are handled as AND operations. However, the filter
-results can use other operators like `OR`, `NOT`, `(, )`, `*` ... All used
-operators are highlighted as soon as they are active and can be edited by
-selecting them.
-
-<!-- TODO: delete image, add demo-->
-
-![Operators in filter](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-580-0dcee276c1.png)
+<ba-ux-snippet name="filter-field-operators"></ba-ux-snippet>
 
 ### Multiselection of filter values (not yet implemented)
 
-To select multiple values, use the operator `IN`, or select several values from
-the dropdown.
-
-![Multiselection of filter values](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-multiselect-580-ef0dfe4406.png)
+<ba-ux-snippet name="filter-field-multiselection"></ba-ux-snippet>
 
 ### Help and errors (not yet implemented)
 
-To make users aware of the operators, the options will appear when the filter
-field is focused and at least one filter is already applied.
-
-![Operators hint](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-hint-580-c859f51e95.png)
-
-The filter fields syntax is validated, please consider the input field
-validation in the [validation guidelines](/patterns/validation) for details.
-
-![Syntax validation in filter](https://d24pvdz4mvzd04.cloudfront.net/test/filter-operations-validation-580-97985ad3ea.png)
+<ba-ux-snippet name="filter-field-validation"></ba-ux-snippet>
