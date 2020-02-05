@@ -8,7 +8,7 @@
 [Barista](https://barista.dynatrace.com) is the name of
 [Dynatrace](https://www.dynatrace.com)'s design system, that contains all
 ingredients to create extraordinary user experiences. Like a barista picks the
-best ingredients for their coffee – and we love coffee!
+best ingredients for their coffee – and we love coffee!
 
 One major part of the Barista design system is our
 [components library](https://github.com/dynatrace-oss/barista/tree/master/components)
