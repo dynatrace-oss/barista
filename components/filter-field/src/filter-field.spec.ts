@@ -80,6 +80,11 @@ const TEST_DATA = {
       suggestions: [],
       validators: [],
     },
+    {
+      name: 'DE (async)',
+      async: true,
+      autocomplete: [{ name: 'Berlin' }],
+    },
   ],
 };
 
@@ -317,7 +322,7 @@ describe('DtFilterField', () => {
 
       const options = getOptions(overlayContainerElement);
       const optionGroups = getOptionGroups(overlayContainerElement);
-      expect(options.length).toBe(3);
+      expect(options.length).toBe(4);
       expect(optionGroups.length).toBe(0);
       expect(options[0].textContent).toContain('AUT');
       expect(options[1].textContent).toContain('USA');
@@ -744,6 +749,23 @@ describe('DtFilterField', () => {
 
       expect(document.activeElement).toBe(input);
       expect(trigger.panelOpen).toBe(false);
+    }));
+
+    it('should not show options if the autocomplete is marked as async', fakeAsync(() => {
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+      const asyncOption = options[3];
+      asyncOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      options = getOptions(overlayContainerElement);
+
+      expect(options.length).toBe(0);
     }));
   });
 
