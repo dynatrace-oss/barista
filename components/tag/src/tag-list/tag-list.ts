@@ -54,7 +54,7 @@ const DT_TAG_LIST_LAST_TAG_SPACING = 8;
   host: {
     class: 'dt-tag-list',
     role: 'listbox',
-    ariaLabel: '',
+    '[attr.aria-label]': 'ariaLabel',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,

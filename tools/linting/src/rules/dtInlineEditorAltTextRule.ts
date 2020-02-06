@@ -35,8 +35,11 @@ class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
     }
 
     if (
-      hasTextContentAlternative(element, 'aria-label-save') &&
-      hasTextContentAlternative(element, 'aria-label-cancel')
+      /** @breaking-change Remove the kebap-case version of the validation with 7.0.0 */
+      (hasTextContentAlternative(element, 'aria-label-save') ||
+        hasTextContentAlternative(element, 'ariaLabelSave')) &&
+      (hasTextContentAlternative(element, 'aria-label-cancel') ||
+        hasTextContentAlternative(element, 'ariaLabelCancel'))
     ) {
       return;
     }
@@ -56,8 +59,8 @@ class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
  * The following example passes the lint checks:
  * <em dt-inline-editor
  *   [(ngModel)]="sampleModel"
- *   aria-label-save="Save text"
- *   aria-label-cancel="Cancel and discard changes">
+ *   ariaLabelSave="Save text"
+ *   ariaLabelCancel="Cancel and discard changes">
  * </em>
  * <span>model: <code>{{ sampleModel }}</code></span>
  *

@@ -396,7 +396,7 @@ describe('DtContextDialog', () => {
     <dt-context-dialog
       #dialog
       [aria-label]="ariaLabel"
-      [aria-label-close-button]="ariaLabelClose"
+      [ariaLabelClose]="ariaLabelClose"
       [tabIndex]="tabIndexOverride"
       [disabled]="disabled"
       [overlayPanelClass]="panelClass"

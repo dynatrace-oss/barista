@@ -95,8 +95,8 @@ describe('DtToggleButtonGroup', () => {
       fixture.detectChanges();
 
       expect(component.value).toBe('One');
-      expect(item.nativeElement.hasAttribute('aria-pressed')).toBeTruthy();
-      expect(item.nativeElement.getAttribute('aria-pressed')).toBe('true');
+      expect(item.nativeElement.hasAttribute('aria-checked')).toBeTruthy();
+      expect(item.nativeElement.getAttribute('aria-checked')).toBe('true');
     });
 
     it('should have no value after an element has been clicked twice', () => {
@@ -109,8 +109,8 @@ describe('DtToggleButtonGroup', () => {
       fixture.detectChanges();
 
       expect(component.value).toBe(null);
-      expect(item.nativeElement.hasAttribute('aria-pressed')).toBeTruthy();
-      expect(item.nativeElement.getAttribute('aria-pressed')).toBe('false');
+      expect(item.nativeElement.hasAttribute('aria-checked')).toBeTruthy();
+      expect(item.nativeElement.getAttribute('aria-checked')).toBe('false');
     });
 
     it('should have one item selected after calling it programmatically', () => {
@@ -121,7 +121,7 @@ describe('DtToggleButtonGroup', () => {
       fixture.detectChanges();
 
       expect(component.value).toBe('One');
-      expect(item.nativeElement.hasAttribute('aria-pressed')).toBeTruthy();
+      expect(item.nativeElement.hasAttribute('aria-checked')).toBeTruthy();
     });
 
     it('should have no item selected after calling deselect on selected item programmatically', () => {
@@ -135,8 +135,8 @@ describe('DtToggleButtonGroup', () => {
       fixture.detectChanges();
 
       expect(component.value).toBe(null);
-      expect(item.nativeElement.hasAttribute('aria-pressed')).toBeTruthy();
-      expect(item.nativeElement.getAttribute('aria-pressed')).toBe('false');
+      expect(item.nativeElement.hasAttribute('aria-checked')).toBeTruthy();
+      expect(item.nativeElement.getAttribute('aria-checked')).toBe('false');
     });
 
     it('should have only one item selected after selecting an item programmatically', () => {
@@ -303,8 +303,8 @@ describe('DtToggleButtonGroup', () => {
       )[0];
       item.nativeElement.click();
       fixture.detectChanges();
-      expect(item.nativeElement.hasAttribute('aria-pressed')).toBeTruthy();
-      expect(item.nativeElement.getAttribute('aria-pressed')).toBe('false');
+      expect(item.nativeElement.hasAttribute('aria-checked')).toBeTruthy();
+      expect(item.nativeElement.getAttribute('aria-checked')).toBe('false');
       expect(component.value).toBe(null);
     });
 
@@ -314,8 +314,8 @@ describe('DtToggleButtonGroup', () => {
       )[0];
       item.componentInstance.select();
       fixture.detectChanges();
-      expect(item.nativeElement.hasAttribute('aria-pressed')).toBeTruthy();
-      expect(item.nativeElement.getAttribute('aria-pressed')).toBe('false');
+      expect(item.nativeElement.hasAttribute('aria-checked')).toBeTruthy();
+      expect(item.nativeElement.getAttribute('aria-checked')).toBe('false');
       expect(component.value).toBe(null);
     });
 
@@ -376,8 +376,8 @@ describe('DtToggleButtonGroup', () => {
         By.css('.dt-toggle-button-item'),
       )[0];
 
-      expect(item.nativeElement.hasAttribute('aria-pressed')).toBeTruthy();
-      expect(item.nativeElement.getAttribute('aria-pressed')).toBe('true');
+      expect(item.nativeElement.hasAttribute('aria-checked')).toBeTruthy();
+      expect(item.nativeElement.getAttribute('aria-checked')).toBe('true');
       expect(component.value).toBe('One');
       expect(component.selectedItem).not.toBe(null);
     });

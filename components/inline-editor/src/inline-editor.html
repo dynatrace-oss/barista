@@ -31,7 +31,7 @@
         dt-icon-button
         class="dt-inline-editor-edit"
         variant="nested"
-        [attr.aria-label]="ariaLabelSave"
+        [attr.aria-label]="_ariaLabelSave"
         (click)="saveAndQuitEditing()"
         [disabled]="errorState"
       >
@@ -41,7 +41,7 @@
         dt-icon-button
         class="dt-inline-editor-cancel"
         variant="nested"
-        [attr.aria-label]="ariaLabelCancel"
+        [attr.aria-label]="_ariaLabelCancel"
         (click)="cancelAndQuitEditing()"
       >
         <dt-icon name="abort"></dt-icon>

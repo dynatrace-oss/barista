@@ -433,10 +433,10 @@ export class RangeTestComponent {}
   template: `
     <dt-chart-range
       [value]="values"
-      aria-label-close="CLOSE"
-      aria-label-left-handle="LEFT"
-      aria-label-right-handle="RIGHT"
-      aria-label-selected-area="SELECTED"
+      ariaLabelClose="CLOSE"
+      ariaLabelLeftHandle="LEFT"
+      ariaLabelRightHandle="RIGHT"
+      ariaLabelSelectedArea="SELECTED"
     ></dt-chart-range>
   `,
 })
