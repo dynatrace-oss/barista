@@ -14,5 +14,18 @@
  * limitations under the License.
  */
 
-export * from './package-json';
-export * from './package-lock-json';
+interface PackageLockDependencyJson {
+  version: string;
+  resolved: string;
+  integrity: string;
+  dev: boolean;
+  requires: { [key: string]: string };
+  dependencies: { [key: string]: PackageLockDependencyJson };
+}
+
+export interface PackageLockJson {
+  name?: string;
+  version?: string;
+  lockfileVersion?: number;
+  dependencies: { [key: string]: PackageLockDependencyJson };
+}
