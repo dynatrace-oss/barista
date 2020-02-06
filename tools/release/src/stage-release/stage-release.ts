@@ -16,6 +16,7 @@
 
 import {
   PackageJson,
+  PackageLockJson,
   tryJsonParse,
 } from '@dynatrace/barista-components/tools/shared';
 import * as OctokitApi from '@octokit/rest';
@@ -67,6 +68,10 @@ export async function stageRelease(
   const currentVersion = await parsePackageVersion(workspaceRoot);
   const packageJsonPath = join(workspaceRoot, 'package.json');
   const packageJson = await tryJsonParse<PackageJson>(packageJsonPath);
+  const packageLockJsonPath = join(workspaceRoot, 'package-lock.json');
+  const packageLockJson = await tryJsonParse<PackageLockJson>(
+    packageLockJsonPath,
+  );
 
   const newVersion = await promptForNewVersion(currentVersion);
   const newVersionName = newVersion.raw!;
@@ -90,6 +95,12 @@ export async function stageRelease(
     await updatePackageJsonVersion(
       packageJson,
       packageJsonPath,
+      newVersionName,
+    );
+
+    await updatePackageJsonVersion(
+      packageLockJson,
+      packageLockJsonPath,
       newVersionName,
     );
 
@@ -197,7 +208,7 @@ function switchToPublishBranch(git: GitClient, newVersion: SemVer): string {
  * writes the changes to disk.
  */
 async function updatePackageJsonVersion(
-  packageJson: PackageJson,
+  packageJson: PackageJson | PackageLockJson,
   packageJsonPath: string,
   newVersionName: string,
 ): Promise<void> {
