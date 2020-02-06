@@ -47,6 +47,7 @@ import {
   styleUrls: ['pagination.scss'],
   host: {
     class: 'dt-pagination',
+    role: 'navigation',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -102,18 +103,131 @@ export class DtPagination implements OnInit {
   }
   private _currentPage = 1;
 
+  /**
+   * Aria label for the previous page button. Defaults to "Previous page"
+   * @deprecated `aria-label-previous` does not conform with accessibility standards.
+   * Please use `ariaLabelPrevious` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-previous')
+  get ariaPreviousLabel(): string {
+    return this._ariaLabelPrevious;
+  }
+  set ariaPreviousLabel(value: string) {
+    this._ariaLabelPrevious = value;
+  }
   /** Aria label for the previous page button. Defaults to "Previous page" */
-  @Input('aria-label-previous') ariaPreviousLabel = ARIA_DEFAULT_PREVIOUS_LABEL;
+  @Input()
+  get ariaLabelPrevious(): string {
+    return this._ariaLabelPrevious;
+  }
+  set ariaLabelPrevious(value: string) {
+    this._ariaLabelPrevious = value;
+  }
+  /** @internal Aria label for the previous page button. Defaults to "Previous page" */
+  _ariaLabelPrevious = ARIA_DEFAULT_PREVIOUS_LABEL;
+
+  /**
+   * Aria label for the next page button. Defaults to "Next page"
+   * @deprecated `aria-label-next` does not conform with accessibility standards.
+   * Please use `ariaLabelNext` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-next')
+  get ariaNextLabel(): string {
+    return this._ariaLabelNext;
+  }
+  set ariaNextLabel(value: string) {
+    this._ariaLabelNext = value;
+  }
   /** Aria label for the next page button. Defaults to "Next page" */
-  @Input('aria-label-next') ariaNextLabel = ARIA_DEFAULT_NEXT_LABEL;
+  @Input()
+  get ariaLabelNext(): string {
+    return this._ariaLabelNext;
+  }
+  set ariaLabelNext(value: string) {
+    this._ariaLabelNext = value;
+  }
+  /** @internal Aria label for the next page button. Defaults to "Next page" */
+  _ariaLabelNext = ARIA_DEFAULT_NEXT_LABEL;
+
   /** Aria label for the pagination. Defaults to "Pagination" */
   @Input('aria-label') ariaLabel = ARIA_DEFAULT_LABEL;
-  /** Aria label for the ellipsis character. Defaults to "The next pages are ellipses" */
-  @Input('aria-label-ellipses') ariaLabelEllipses = ARIA_DEFAULT_ELLIPSES;
+
+  /**
+   * Aria label for the ellipsis character. Defaults to "The next pages are ellipses"
+   * @deprecated `aria-label-ellipses` does not conform with accessibility standards.
+   * Please use `ariaLabelEllipsis` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-ellipses')
+  get ariaLabelEllipses(): string {
+    return this._ariaLabelEllipsis;
+  }
+  set ariaLabelEllipses(value: string) {
+    this._ariaLabelEllipsis = value;
+  }
+  /** Aria label for the ellipsis character. Defaults to "The next pages are ellipsis" */
+  @Input()
+  get ariaLabelEllipsis(): string {
+    return this._ariaLabelEllipsis;
+  }
+  set ariaLabelEllipsis(value: string) {
+    this._ariaLabelEllipsis = value;
+  }
+  /** @internal Aria label for the ellipsis character. Defaults to "The next pages are ellipsis" */
+  _ariaLabelEllipsis = ARIA_DEFAULT_ELLIPSES;
+
+  /**
+   * Aria label for a page button (Page 1,2,3...). Defaults to "Page"
+   * @deprecated `aria-label-page` does not conform with accessibility standards.
+   * Please use `ariaLabelPage` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-page')
+  get ariaPageLabel(): string {
+    return this._ariaLabelPage;
+  }
+  set ariaPageLabel(value: string) {
+    this._ariaLabelPage = value;
+  }
   /** Aria label for a page button (Page 1,2,3...). Defaults to "Page" */
-  @Input('aria-label-page') ariaPageLabel = ARIA_DEFAULT_PAGE_LABEL;
+  @Input()
+  get ariaLabelPage(): string {
+    return this._ariaLabelPage;
+  }
+  set ariaLabelPage(value: string) {
+    this._ariaLabelPage = value;
+  }
+  /** @internal Aria label for a page button (Page 1,2,3...). Defaults to "Page" */
+  _ariaLabelPage = ARIA_DEFAULT_PAGE_LABEL;
+
+  /**
+   * Aria label for the current page button. Defaults to "You are currently on page"
+   * @deprecated `aria-label-current` does not conform with accessibility standards.
+   * Please use `ariaLabelCurrent` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-current')
+  get ariaCurrentLabel(): string {
+    return this._ariaLabelCurrent;
+  }
+  set ariaCurrentLabel(value: string) {
+    this._ariaLabelCurrent = value;
+  }
   /** Aria label for the current page button. Defaults to "You are currently on page" */
-  @Input('aria-label-current') ariaCurrentLabel = ARIA_DEFAULT_CURRENT_LABEL;
+  @Input()
+  get ariaLabelCurrent(): string {
+    return this._ariaLabelCurrent;
+  }
+  set ariaLabelCurrent(value: string) {
+    this._ariaLabelCurrent = value;
+  }
+  /**
+   * @internal Aria label for the current page button.
+   * Defaults to "You are currently on page"
+   */
+  _ariaLabelCurrent = ARIA_DEFAULT_CURRENT_LABEL;
 
   /** The number of pages by the provided page size and the length of all items */
   get numberOfPages(): number {

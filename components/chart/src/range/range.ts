@@ -83,20 +83,102 @@ export class RangeStateChangedEvent {
   },
 })
 export class DtChartRange implements AfterViewInit, OnDestroy {
+  /**
+   * Aria label for the close button in the overlay.
+   * @deprecated `aria-label-close` does not conform with accessibility standards.
+   * Please use `ariaLabelClose` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-close')
+  get depAriaLabelClose(): string {
+    return this._ariaLabelClose;
+  }
+  set depAriaLabelClose(value: string) {
+    this._ariaLabelClose = value;
+  }
+
   /** Aria label for the close button in the overlay */
-  @Input('aria-label-close') ariaLabelClose = ARIA_DEFAULT_CLOSE_LABEL;
+  @Input()
+  get ariaLabelClose(): string {
+    return this._ariaLabelClose;
+  }
+  set ariaLabelClose(value: string) {
+    this._ariaLabelClose = value;
+  }
+  /** @internal Aria label value for the close button of the overlay */
+  _ariaLabelClose = ARIA_DEFAULT_CLOSE_LABEL;
 
-  /** Aria label for the left handle */
+  /**
+   * Aria label for the left handle
+   * @deprecated `aria-label-left-handle` does not conform with accessibility standards.
+   * Please use `ariaLabelLeftHandle` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
   @Input('aria-label-left-handle')
-  ariaLabelLeftHandle = ARIA_DEFAULT_LEFT_HANDLE_LABEL;
+  get depAriaLabelLeftHandle(): string {
+    return this._ariaLabelLeftHandle;
+  }
+  set depAriaLabelLeftHandle(value: string) {
+    this._ariaLabelLeftHandle = value;
+  }
+  /** Aria label for the left handle. */
+  @Input()
+  get ariaLabelLeftHandle(): string {
+    return this._ariaLabelLeftHandle;
+  }
+  set ariaLabelLeftHandle(value: string) {
+    this._ariaLabelLeftHandle = value;
+  }
+  /** @internal Aria label value for the left handle of the range */
+  _ariaLabelLeftHandle = ARIA_DEFAULT_LEFT_HANDLE_LABEL;
 
-  /** Aria label for the right handle */
+  /**
+   * Aria label for the right handle
+   * @deprecated `aria-label-right-handle` does not conform with accessibility standards.
+   * Please use `ariaLabelRightHandle` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
   @Input('aria-label-right-handle')
-  ariaLabelRightHandle = ARIA_DEFAULT_RIGHT_HANDLE_LABEL;
+  get depAriaLabelRightHandle(): string {
+    return this._ariaLabelClose;
+  }
+  set depAriaLabelRightHandle(value: string) {
+    this._ariaLabelClose = value;
+  }
+  /** Aria label for the right handle. */
+  @Input()
+  get ariaLabelRightHandle(): string {
+    return this._ariaLabelRightHandle;
+  }
+  set ariaLabelRightHandle(value: string) {
+    this._ariaLabelRightHandle = value;
+  }
+  /** @internal Aria label value for the right handle of the range */
+  _ariaLabelRightHandle = ARIA_DEFAULT_RIGHT_HANDLE_LABEL;
 
-  /** Aria label for the selected area */
+  /**
+   * Aria label for the selected area
+   * @deprecated `aria-label-selected-area` does not conform with accessibility standards.
+   * Please use `ariaLabelSelectedArea` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
   @Input('aria-label-selected-area')
-  ariaLabelSelectedArea = ARIA_DEFAULT_SELECTED_AREA_LABEL;
+  get depAriaLabelSelectedArea(): string {
+    return this._ariaLabelSelectedArea;
+  }
+  set depAriaLabelSelectedArea(value: string) {
+    this._ariaLabelSelectedArea = value;
+  }
+  /** Aria label for the left handle. */
+  @Input()
+  get ariaLabelSelectedArea(): string {
+    return this._ariaLabelSelectedArea;
+  }
+  set ariaLabelSelectedArea(value: string) {
+    this._ariaLabelSelectedArea = value;
+  }
+  /** @internal Aria label value for the selected area in the range */
+  _ariaLabelSelectedArea = ARIA_DEFAULT_SELECTED_AREA_LABEL;
 
   /** The minimum range that can be created, by default the minimum range is 5 minutes  */
   @Input()

@@ -174,21 +174,21 @@ handles on the left and right side of the range.
 
 #### Accessibility
 
-You have to provide meaningful labels to the range via
-`aria-label-selected-area`, `aria-label-left-handle`, `aria-label-right-handle`
-and `aria-label-close`, to meet our accessibility standards.
+You have to provide meaningful labels to the range via `ariaLabelSelectedArea`,
+`ariaLabelLeftHandle`, `ariaLabelRightHandle` and `ariaLabelClose`, to meet our
+accessibility standards.
 
 #### Inputs
 
-| Name                       | Type               | Default  | Description                                                                                                               |
-| -------------------------- | ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `min`                      | `number`           | `300000` | The minimum range that can be created in milliseconds, by default the minimum range is 5 minutes.                         |
-| `max`                      | `number | null`    | `null`   | The maximum range that can be created in a time format. If not set, the range will be capped at the borders of the chart. |
-| `value`                    | `[number, number]` | `[0,0]`  | The time frame on the chart's x-axis where the range should be placed.                                                    |
-| `aria-label-selected-area` | `string`           | `''`     | Aria label of the selected area that is created.                                                                          |
-| `aria-label-left-handle`   | `string`           | `''`     | Aria label of the left handle of the selected area that can resize the selected frame.                                    |
-| `aria-label-right-handle`  | `string`           | `''`     | Aria label of the right handle of the selected area that can resize the selected frame.                                   |
-| `aria-label-close`         | `string`           | `''`     | Aria label of the close button inside the overlay.                                                                        |
+| Name                    | Type               | Default  | Description                                                                                                               |
+| ----------------------- | ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `min`                   | `number`           | `300000` | The minimum range that can be created in milliseconds, by default the minimum range is 5 minutes.                         |
+| `max`                   | `number | null`    | `null`   | The maximum range that can be created in a time format. If not set, the range will be capped at the borders of the chart. |
+| `value`                 | `[number, number]` | `[0,0]`  | The time frame on the chart's x-axis where the range should be placed.                                                    |
+| `ariaLabelSelectedArea` | `string`           | `''`     | Aria label of the selected area that is created.                                                                          |
+| `ariaLabelLeftHandle`   | `string`           | `''`     | Aria label of the left handle of the selected area that can resize the selected frame.                                    |
+| `ariaLabelRightHandle`  | `string`           | `''`     | Aria label of the right handle of the selected area that can resize the selected frame.                                   |
+| `ariaLabelClose`        | `string`           | `''`     | Aria label of the close button inside the overlay.                                                                        |
 
 #### Outputs
 
@@ -218,16 +218,16 @@ in a chart.
 
 #### Accessibility
 
-You have to provide meaningful labels to the timestamp via `aria-label-selected`
-and `aria-label-close`, to meet our accessibility standards.
+You have to provide meaningful labels to the timestamp via `ariaLabelSelected`
+and `ariaLabelClose`, to meet our accessibility standards.
 
 #### Inputs
 
-| Name                  | Type     | Default | Description                                                           |
-| --------------------- | -------- | ------- | --------------------------------------------------------------------- |
-| `value`               | `number` | `0`     | The value on the chart's x-axis where the timestamp should be placed. |
-| `aria-label-selected` | `string` | `''`    | Aria label for the selected point in time.                            |
-| `aria-label-close`    | `string` | `''`    | Aria label of the close button inside the overlay.                    |
+| Name                | Type     | Default | Description                                                           |
+| ------------------- | -------- | ------- | --------------------------------------------------------------------- |
+| `value`             | `number` | `0`     | The value on the chart's x-axis where the timestamp should be placed. |
+| `ariaLabelSelected` | `string` | `''`    | Aria label for the selected point in time.                            |
+| `ariaLabelClose`    | `string` | `''`    | Aria label of the close button inside the overlay.                    |
 
 #### Outputs
 

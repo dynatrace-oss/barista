@@ -62,7 +62,8 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
     if (isElementWithName(element, 'dt-context-dialog')) {
       if (
         hasTextContentAlternative(element, 'aria-label') &&
-        hasTextContentAlternative(element, 'aria-label-close-button')
+        (hasTextContentAlternative(element, 'aria-label-close-button') ||
+          hasTextContentAlternative(element, 'ariaLabelClose'))
       ) {
         return;
       }
@@ -70,7 +71,7 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
       addFailure(
         this,
         element,
-        'A context dialog must provide alternative texts for the open and the close buttons. Use the aria-label and the aria-label-close-button input.',
+        'A context dialog must provide alternative texts for the open and the close buttons. Use the aria-label and the ariaLabelClose input.',
       );
     }
   }
@@ -81,7 +82,7 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
  * the open and the close button of a context dialog.
  *
  * The following example passes the lint checks:
- * <dt-context-dialog aria-label="Open more options" aria-label-close-button="Close context dialog">
+ * <dt-context-dialog aria-label="Open more options" ariaLabelClose="Close context dialog">
  *   <p>Your dashboard "real user monitoring" is only visible to you</p>
  * </dt-context-dialog>
  *

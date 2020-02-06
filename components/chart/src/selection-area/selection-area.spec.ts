@@ -352,7 +352,7 @@ export class TestChart {
       <dt-chart-timestamp></dt-chart-timestamp>
       <dt-chart-range
         value="[1370304002000, 1370304005000]"
-        aria-label-close="CLOSE"
+        ariaLabelClose="CLOSE"
       ></dt-chart-range>
     </dt-chart>
   `,

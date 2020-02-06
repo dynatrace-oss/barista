@@ -21,13 +21,35 @@ const rules = require('../rules.a11y.json');
 const BASEURL = `http://localhost:4200/`;
 
 /** Blacklisted default examples */
-const BLACKLIST = [
-  'chart-selection-area-default-example',
-  'chart-stream-example',
-  'chart-loading-example',
+const BLACKLIST: string[] = [
+  // Disabled because the select in that example fails the a11y test
+  // because a `listbox` role needs to contain `list` or `option` items
+  // Since these are projected into an overlay, this is tricky.
+  // https://github.com/dynatrace-oss/barista/issues/568
+  'drawer-dynamic-example',
+  'select-complex-value-example',
+  'select-default-example',
+  'select-disabled-example',
+  'select-form-field-example',
+  'select-forms-example',
+  'select-groups-example',
+  'select-value-example',
+  'select-with-icons-example',
+
+  // Disabled the filter field tests, because their `combobox` role does not
+  // fulfil all requirements of a combobox.
+  // https://github.com/dynatrace-oss/barista/issues/567
+  'filter-field-async-example',
+  'filter-field-clearall-example',
+  'filter-field-default-example',
+  'filter-field-disabled-example',
+  'filter-field-distinct-example',
+  'filter-field-programmatic-filters-example',
+  'filter-field-readonly-non-editable-tags-example',
+  'filter-field-unique-example',
 ];
 
-DT_DEMOS_EXAMPLE_NAV_ITEMS.slice(0, 10).forEach(component => {
+DT_DEMOS_EXAMPLE_NAV_ITEMS.forEach(component => {
   fixture(component.name);
 
   component.examples

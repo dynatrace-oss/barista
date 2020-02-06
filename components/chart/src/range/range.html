@@ -5,7 +5,7 @@
     dt-icon-button
     variant="secondary"
     (click)="_handleOverlayClose()"
-    [attr.aria-label]="ariaLabelClose"
+    [attr.aria-label]="_ariaLabelClose"
     cdkFocusInitial
   >
     <dt-icon name="abort"></dt-icon>
@@ -22,7 +22,7 @@
   aria-orientation="horizontal"
   [attr.aria-valuemin]="_minValue"
   [attr.aria-valuemax]="_maxValue"
-  [attr.aria-label]="ariaLabelSelectedArea"
+  [attr.aria-label]="_ariaLabelSelectedArea"
   (keydown)="_handleKeyDown($event, 'selected-area')"
 >
   <button
@@ -30,7 +30,7 @@
     aria-role="slider"
     [attr.aria-valuemin]="_minValue"
     [attr.aria-valuemax]="_maxValue"
-    [attr.aria-label]="ariaLabelLeftHandle"
+    [attr.aria-label]="_ariaLabelLeftHandle"
     (keydown)="_handleKeyDown($event, 'left')"
     (mousedown)="_dragHandle($event, 'left')"
     (touchstart)="_dragHandle($event, 'left')"
@@ -43,7 +43,7 @@
     aria-role="slider"
     [attr.aria-valuemin]="_minValue"
     [attr.aria-valuemax]="_maxValue"
-    [attr.aria-label]="ariaLabelRightHandle"
+    [attr.aria-label]="_ariaLabelRightHandle"
     (keydown)="_handleKeyDown($event, 'right')"
     (mousedown)="_dragHandle($event, 'right')"
     (touchstart)="_dragHandle($event, 'right')"

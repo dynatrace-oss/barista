@@ -351,8 +351,8 @@ function getErrorHtmlElement<T>(
     <em
       dt-inline-editor
       [(ngModel)]="model"
-      [aria-label-save]="saveLabel"
-      [aria-label-cancel]="cancelLabel"
+      [ariaLabelSave]="saveLabel"
+      [ariaLabelCancel]="cancelLabel"
     ></em>
   `,
 })

@@ -60,7 +60,7 @@ export const _DtToggleButtonMixinBase = mixinTabIndex(
     '[class.dt-toggle-button-item-selected]': 'selected',
     '[class.dt-toggle-button-item-disabled]': 'disabled',
     '[attr.disabled]': 'disabled === true ? true : null',
-    '[attr.aria-pressed]': 'selected',
+    '[attr.aria-checked]': 'selected',
     '[attr.aria-disabled]': 'disabled',
     '[attr.aria-label]': 'ariaLabel',
     '[attr.aria-labelledby]': 'ariaLabelledby',

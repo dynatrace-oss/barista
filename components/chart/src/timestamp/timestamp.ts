@@ -72,12 +72,55 @@ export class TimestampStateChangedEvent {
   },
 })
 export class DtChartTimestamp implements AfterViewInit, OnDestroy {
-  /** Aria label for the close button in the overlay */
-  @Input('aria-label-close') readonly ariaLabelClose = ARIA_DEFAULT_CLOSE_LABEL;
+  /**
+   * Aria label for the close button in the overlay.
+   * @deprecated `aria-label-close` does not conform with accessibility standards.
+   * Please use `ariaLabelClose` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-close')
+  get depAriaLabelClose(): string {
+    return this._ariaLabelClose;
+  }
+  set depAriaLabelClose(value: string) {
+    this._ariaLabelClose = value;
+  }
 
-  /** Aria label for the selected moment */
+  /** Aria label for the close button in the overlay */
+  @Input()
+  get ariaLabelClose(): string {
+    return this._ariaLabelClose;
+  }
+  set ariaLabelClose(value: string) {
+    this._ariaLabelClose = value;
+  }
+  /** @internal Aria label value for the close button of the overlay */
+  _ariaLabelClose = ARIA_DEFAULT_CLOSE_LABEL;
+
+  /**
+   * Aria label for the selected moment.
+   * @deprecated `aria-label-selected` does not conform with accessibility standards.
+   * Please use `ariaLabelSelected` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
   @Input('aria-label-selected')
-  readonly ariaLabelSelected = ARIA_DEFAULT_SELECTED_LABEL;
+  get depAriaLabelSelected(): string {
+    return this._ariaLabelSelected;
+  }
+  set depAriaLabelSelected(value: string) {
+    this._ariaLabelSelected = value;
+  }
+
+  /** Aria label for the selected moment. */
+  @Input()
+  get ariaLabelSelected(): string {
+    return this._ariaLabelSelected;
+  }
+  set ariaLabelSelected(value: string) {
+    this._ariaLabelSelected = value;
+  }
+  /** @internal Aria label value for the Selected button of the overlay */
+  _ariaLabelSelected = ARIA_DEFAULT_SELECTED_LABEL;
 
   /** The value on the chart xAxis where the timestamp should be placed */
   @Input()

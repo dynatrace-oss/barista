@@ -30,12 +30,15 @@ export class DtExampleCustomEmptyStateTable {}
       useExisting: DtExampleCustomEmptyState,
     },
   ],
+  host: {
+    role: 'row',
+  },
   template: `
-    <dt-empty-state-item>
+    <dt-empty-state-item role="cell">
       <dt-empty-state-item-img>
         <img src="/assets/cta-noagent.svg" alt="My Asset" />
       </dt-empty-state-item-img>
-      <dt-empty-state-item-title
+      <dt-empty-state-item-title aria-level="2"
         >Reusable empty state</dt-empty-state-item-title
       >
       Custom empty state message

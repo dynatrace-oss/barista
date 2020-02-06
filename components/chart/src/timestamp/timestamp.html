@@ -5,7 +5,7 @@
     dt-icon-button
     variant="secondary"
     (click)="_handleOverlayClose()"
-    [attr.aria-label]="ariaLabelClose"
+    [attr.aria-label]="_ariaLabelClose"
     cdkFocusInitial
   >
     <dt-icon name="abort"></dt-icon>
@@ -24,6 +24,6 @@
   [attr.aria-valuemax]="_maxValue"
   [attr.aria-valuetext]="value | date: 'MMM d, HH:mm'"
   [attr.aria-valuenow]="value"
-  [attr.aria-label]="ariaLabelSelected"
+  [attr.aria-label]="_ariaLabelSelected"
   (keydown)="_handleKeyUp($event)"
 ></div>
