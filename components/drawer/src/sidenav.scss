@@ -4,17 +4,17 @@
   transform: translateX(-100%);
   will-change: transform;
   background-color: $gray-700;
+  color: #ffffff;
   min-width: 240px;
-  height: 100%;
+  height: fill-available;
   z-index: 100;
 }
 
 .dt-sidenav-header {
   display: flex;
-  max-height: 44px !important;
+  height: 44px;
   width: 240px;
   cursor: pointer;
-  color: #ffffff;
   background: #525252;
 }
 
@@ -40,9 +40,10 @@
 }
 
 .dt-sidenav-header-title {
-  max-height: 44px;
+  height: 44px;
   width: 196px;
   padding-left: 12px;
+  line-height: 44px;
   vertical-align: middle;
   text-align: left;
 }

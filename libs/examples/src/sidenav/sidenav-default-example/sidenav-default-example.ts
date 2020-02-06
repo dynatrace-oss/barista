@@ -17,7 +17,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'dt-example-sidenav-barista',
+  selector: 'dt-example-sidenav-default',
   templateUrl: './sidenav-default-example.html',
 })
 export class DtExampleSidenavDefault {}

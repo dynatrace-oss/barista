@@ -72,7 +72,6 @@ import { RadioDemo } from './radio/radio-demo.component';
 import { SecondaryNavDemo } from './secondary-nav/secondary-nav-demo.component';
 import { SelectDemo } from './select/select-demo.component';
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
-import { SidenavDemo } from './sidenav/sidenav-demo.component';
 import { StepperDemo } from './stepper/stepper-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
@@ -156,7 +155,6 @@ export class NoopRouteComponent {}
     EventChartDemo,
     TopBarNavigationDemo,
     StepperDemo,
-    SidenavDemo,
     ContainerBreakpointObserverDemo,
   ],
   entryComponents: [DevApp],

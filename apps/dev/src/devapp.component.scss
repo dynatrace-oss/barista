@@ -26,6 +26,10 @@ $top-bar-navigation-height: 44px;
   background: #dc172a;
 }
 
+:host .dt-menu ::ng-deep .dt-menu-group-header {
+  padding: 0px;
+}
+
 .nav {
   top: 0;
   width: 100%;
@@ -58,8 +62,6 @@ $top-bar-navigation-height: 44px;
 }
 
 .sidenav-title {
-  display: inline-flex;
-  line-height: 44px;
   font-size: 112%;
 }
 
@@ -71,7 +73,7 @@ $top-bar-navigation-height: 44px;
   margin-right: 10px;
 }
 
-.top-bar-button {
+.open-sidenav-button {
   width: 44px;
   height: 44px;
   fill: #ffffff;

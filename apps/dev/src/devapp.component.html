@@ -5,15 +5,20 @@
         Barista dev app
       </div>
     </dt-sidenav-header>
-    <dt-menu *ngFor="let navItem of filteredNavItems">
-      <a [routerLink]="[navItem.route]" routerLinkActive dtMenuItem>
+    <dt-menu>
+      <a
+        *ngFor="let navItem of filteredNavItems"
+        [routerLink]="[navItem.route]"
+        routerLinkActive
+        dtMenuItem
+      >
         {{ navItem.name }}
       </a>
     </dt-menu>
   </dt-sidenav>
   <dt-top-bar-navigation aria-label="Main navigation" class="nav">
     <dt-top-bar-navigation-item *ngIf="!sidenav.opened" align="start">
-      <button class="top-bar-button" (click)="sidenav.open()">
+      <button class="open-sidenav-button" (click)="sidenav.open()">
         <dt-icon name="menu-hamburger"></dt-icon>
       </button>
     </dt-top-bar-navigation-item>

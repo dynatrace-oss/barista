@@ -17,8 +17,8 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'sidenav-dev-app-demo',
-  templateUrl: 'sidenav-demo.component.html',
-  styleUrls: ['sidenav-demo.component.scss'],
+  selector: 'dt-example-sidenav-with-top-bar-navigation',
+  templateUrl: 'sidenav-with-top-bar-navigation-example.html',
+  styleUrls: ['sidenav-with-top-bar-navigation-example.scss'],
 })
-export class SidenavDemo {}
+export class DtExampleSidenavWithTopBarNavigation {}
