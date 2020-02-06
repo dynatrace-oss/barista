@@ -44,6 +44,8 @@ import {
   GET_PUSH_RELEASE_BRANCH_ERROR,
   parsePackageVersion,
 } from '../utils';
+import { exec } from 'child_process';
+import { platform } from 'process';
 
 export async function stageRelease(
   workspaceRoot: string,
@@ -151,26 +153,15 @@ export async function stageRelease(
     green(`  ✓   Everything is ready please create a pull request on github.`),
   );
 
-  // TODO: Needs authentication
-  // const prTitle = needsVersionBump
-  //   ? `Bump version to ${newVersionName} w/ changelog`
-  //   : `Update changelog for ${newVersionName}`;
-  // const { state } = (await githubApi.pulls.create({
-  //   title: prTitle,
-  //   head: stagingBranch,
-  //   base: 'master',
-  //   owner: GITHUB_REPO_OWNER,
-  //   repo: GITHUB_REPO_NAME,
-  // })).data;
-
-  // if (state === 'failure') {
-  //   throw new Error(red(GET_PR_CREATION_ERROR(stagingBranch, prTitle)));
-  // }
-  // console.info(
-  //   green(
-  //     `  ✓   Created the pull-request "${prTitle}" for the release staging branch "${stagingBranch}".`,
-  //   ),
-  // );
+  // Open the compare view on github, to easily create a pull request for the staged release
+  const prurl = `https://github.com/dynatrace-oss/barista/compare/${stagingBranch}?expand=1`;
+  const start =
+    platform === 'darwin'
+      ? 'open'
+      : platform === 'win32'
+      ? 'start'
+      : 'xdg-open';
+  exec(`${start} ${prurl}`);
 }
 
 /**
