@@ -17,60 +17,72 @@
 import { Selector } from 'testcafe';
 import { waitForAngular } from '../../../../utils';
 import {
-  createRange,
+  chartClickTargets,
+  closeButton,
+  createTimestamp,
+  overlayText,
   rangeSelection,
   selection,
-  overlayText,
-  closeButton,
+  timestampSelection,
+  createRange,
 } from '../selection-area.po';
 
 const closeCounter = Selector('.closed-counter');
 
-fixture('Selection Area Range Only')
-  .page('http://localhost:4200/chart/selection-area/range')
+fixture('Selection Area Timestamp Only')
+  .page('http://localhost:4200/chart/selection-area/timestamp')
   .beforeEach(async (testController: TestController) => {
     await testController.resizeWindow(1200, 800);
     await waitForAngular();
   });
 
-test('should not have an initial range selection', async (testController: TestController) => {
+test('should not have an initial timestamp selection', async (testController: TestController) => {
   await testController
     .expect(selection.exists)
     .notOk()
-    .expect(rangeSelection.exists)
+    .expect(timestampSelection.exists)
     .notOk()
     .expect(closeCounter.textContent)
     .eql('0');
 });
 
-test('should not close the range when a click is performed somewhere else in the chart', async () => {
-  await createRange(520, { x: 310, y: 100 })
-    .expect(rangeSelection.exists)
-    .ok()
+test('should create a timestamp close it and reopen it', async (testController: TestController) => {
+  await createTimestamp(
+    { x: 450, y: 100 },
+    chartClickTargets[1],
+    testController,
+  )
     .expect(overlayText.textContent)
-    .match(/Jul 31 \d{2}:17 — \d{2}:23/g)
-    .click(Selector('.highcharts-plot-background'), {
-      speed: 0.3,
-      offsetX: 10,
-      offsetY: 10,
-    })
-    .expect(rangeSelection.exists)
-    .ok()
-    .expect(overlayText.textContent)
-    .match(/Jul 31 \d{2}:17 — \d{2}:23/g);
-});
-
-test('should be possible to create a range again after it was closed', async () => {
-  await createRange(520, { x: 310, y: 100 })
-    .expect(rangeSelection.exists)
-    .ok()
+    .match(/Jul 31, \d{2}:19/g)
     .click(closeButton, { speed: 0.3 })
     .expect(rangeSelection.exists)
     .notOk();
 
-  await createRange(520, { x: 310, y: 100 })
-    .expect(rangeSelection.exists)
+  await createTimestamp(
+    { x: 450, y: 100 },
+    chartClickTargets[1],
+    testController,
+  )
+    .expect(timestampSelection.exists)
     .ok()
     .expect(overlayText.textContent)
-    .match(/Jul 31 \d{2}:17 — \d{2}:23/g);
+    .match(/Jul 31, \d{2}:19/g);
+});
+
+test('should leave the timestamp untouched if a range is created in a timestamp only mode', async (testController: TestController) => {
+  await createTimestamp(
+    { x: 450, y: 100 },
+    chartClickTargets[1],
+    testController,
+  )
+    .expect(timestampSelection.exists)
+    .ok();
+
+  await createRange(520, { x: 310, y: 100 })
+    .expect(rangeSelection.exists)
+    .notOk()
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(overlayText.textContent)
+    .match(/Jul 31, \d{2}:19/g);
 });
