@@ -1,3 +1,20 @@
+## 5.1.1 (2020-02-06)
+
+### Bug Fixes
+
+- **autocomplete, filter-field:** Fixes an issue with overlay
+  ([d3ec0d1](https://github.com/dynatrace-oss/barista/commit/d3ec0d150c7dca8724e89c7290b3b89fe9bf12ee)),
+  closes [#451](https://github.com/dynatrace-oss/barista/issues/451)
+- **chart:** Fixes an issue where the range could not be re-opened after
+  closing.
+  ([1718a21](https://github.com/dynatrace-oss/barista/commit/1718a2170a082f4cffade508b85f2b0cd4a6575e))
+
+### Performance Improvements
+
+- **autocomplete:** Fixes an issue when toggling multiple times a subscription
+  is not cleaned up.
+  ([0b569f6](https://github.com/dynatrace-oss/barista/commit/0b569f6ba474a379a9cb9a6ae146d8ce6bab6a92))
+
 ## 5.1.0 (2020-02-04)
 
 ### Bug Fixes
