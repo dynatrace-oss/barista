@@ -18,19 +18,21 @@ import {
   ChangeDetectionStrategy,
   Component,
   Directive,
-  ViewEncapsulation,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
+  ViewEncapsulation,
+  ViewChild,
 } from '@angular/core';
 import {
   DtFilterFieldDataSource,
   DtNodeDef,
   isDtAutocompleteDef,
-  isDtOptionDef,
+  DtFilterField,
+  DtFilterFieldChangeEvent,
 } from '@dynatrace/barista-components/filter-field';
 import { Observable } from 'rxjs';
-import { filter, pluck, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 
 @Directive({
   selector: 'dt-quick-filter-title',
@@ -62,41 +64,69 @@ export class DtQuckFilterSubTitle {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtQuickFilter {
-  @Output() readonly filterChanged = new EventEmitter<any>();
+export class DtQuickFilter<T> {
+  @Output() readonly filterChanges = new EventEmitter<
+    DtFilterFieldChangeEvent<T>
+  >();
 
+  @ViewChild(DtFilterField, { static: true })
+  private _filterField: DtFilterField<any>;
+
+  /** The data source instance that should be connected to the filter field. */
   @Input()
   get dataSource(): DtFilterFieldDataSource {
     return this._dataSource;
   }
   set dataSource(dataSource: DtFilterFieldDataSource) {
-    this._dataSource = dataSource;
+    if (this._dataSource !== dataSource) {
+      this._switchDataSource(dataSource);
+    }
   }
-
   private _dataSource: DtFilterFieldDataSource;
 
-  _nodeDefinitions$: Observable<any>;
+  /** @internal */
+  _mutatedDataSource$: Observable<DtNodeDef | null>;
+  private _originalDataSource$: Observable<any>;
+
+  filterChanged(change): void {
+    console.log(change);
+  }
+
+  ngOnChanges(_changes: any): void {
+    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+    //Add '${implements OnChanges}' to the class.
+    console.log(this._filterField.filters);
+  }
 
   ngOnInit(): void {
-    if (this._dataSource) {
-      this._nodeDefinitions$ = this._dataSource.connect().pipe(
-        filter(isDtAutocompleteDef),
-        map(({ autocomplete: rootDef }) =>
-          rootDef.optionsOrGroups
-            .filter(isDtAutocompleteDef)
-            .map(autocompleteDef => {
-              const options = autocompleteDef.autocomplete.optionsOrGroups
-                .filter(isDtOptionDef)
-                .map(({ option }) => option.viewValue);
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.filter();
+  }
 
-              return {
-                name: autocompleteDef.option!.viewValue,
-                distinct: autocompleteDef.autocomplete.distinct,
-                options,
-              };
-            }),
-        ),
-      );
+  filter() {
+    console.log(this._filterField.filters);
+  }
+
+  /**
+   * Takes a new data source and switches the filter date to the provided one.
+   * Handles all the disconnecting and data switching.
+   */
+  private _switchDataSource(dataSource: DtFilterFieldDataSource): void {
+    if (this._dataSource) {
+      this._dataSource.disconnect();
     }
+
+    this._dataSource = dataSource;
+
+    this._originalDataSource$ = this._dataSource.connect();
+    this._mutatedDataSource$ = this._originalDataSource$.pipe(
+      filter(isDtAutocompleteDef),
+      tap(console.log),
+      map(({ autocomplete }) =>
+        autocomplete.optionsOrGroups.filter(isDtAutocompleteDef),
+      ),
+      tap(console.log),
+    );
   }
 }

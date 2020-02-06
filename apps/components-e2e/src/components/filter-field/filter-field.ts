@@ -109,7 +109,7 @@ const TEST_DATA_2 = {
   ],
 };
 
-const DATA = [TEST_DATA, TEST_DATA_2];
+export const DATA = [TEST_DATA, TEST_DATA_2];
 
 @Component({
   selector: 'dt-e2e-filter-field',

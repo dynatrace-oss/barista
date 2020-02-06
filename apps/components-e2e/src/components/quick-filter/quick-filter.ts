@@ -19,37 +19,7 @@ import {
   DtFilterFieldDefaultDataSource,
   DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
-
-const DATA = {
-  autocomplete: [
-    {
-      name: 'AUT',
-      distinct: true,
-      autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
-    },
-    {
-      name: 'USA',
-      autocomplete: [
-        { name: 'San Francisco' },
-        { name: 'Los Angeles' },
-        { name: 'New York' },
-        { name: 'Custom', suggestions: [] },
-      ],
-    },
-    {
-      name: 'Requests per minute',
-      range: {
-        operators: {
-          range: true,
-          equal: true,
-          greaterThanEqual: true,
-          lessThanEqual: true,
-        },
-        unit: 's',
-      },
-    },
-  ],
-};
+import { DATA } from '../filter-field/filter-field';
 
 @Component({
   selector: 'dt-e2e-quick-filter',
@@ -58,9 +28,11 @@ const DATA = {
 export class DtE2EQuickFilter {
   _dataSource = new DtFilterFieldDefaultDataSource<
     DtFilterFieldDefaultDataSourceType
-  >(DATA);
+  >(DATA[1]);
 
-  _filterChanged(event: any): void {
-    console.log(`Filter changed: `, event);
+  switchToDatasource(targetIndex: number): void {
+    this._dataSource = new DtFilterFieldDefaultDataSource<
+      DtFilterFieldDefaultDataSourceType
+    >(DATA[targetIndex]);
   }
 }

@@ -1,5 +1,6 @@
 <dt-filter-field
   [dataSource]="dataSource"
+  (filterChanges)="filterChanged($event)"
   label="Filter by"
   clearAllLabel="Clear all"
 ></dt-filter-field>
@@ -14,12 +15,9 @@
     </p>
 
     <dt-quick-filter-group
-      *ngFor="let node of _nodeDefinitions$ | async"
-      [distinct]="node.distinct"
-      [items]="node.options"
-    >
-      {{ node.name }}
-    </dt-quick-filter-group>
+      *ngFor="let nodeDef of _mutatedDataSource$ | async"
+      [nodeDef]="nodeDef"
+    ></dt-quick-filter-group>
   </dt-drawer>
 
   <article class="quick-filter-content">

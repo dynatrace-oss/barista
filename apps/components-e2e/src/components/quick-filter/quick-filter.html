@@ -1,7 +1,4 @@
-<dt-quick-filter
-  [dataSource]="_dataSource"
-  (filterChanged)="_filterChanged($event)"
->
+<dt-quick-filter [dataSource]="_dataSource">
   <dt-quick-filter-title>Quick-filter</dt-quick-filter-title>
   <dt-quick-filter-sub-title>
     All options in the filter field above
@@ -9,3 +6,12 @@
 
   my content
 </dt-quick-filter>
+
+<!-- (filterChanged)="_filterChanged($event)" -->
+
+<button id="switchToFirstDatasource" (click)="switchToDatasource(0)">
+  Switch to first datasource
+</button>
+<button id="switchToSecondDatasource" (click)="switchToDatasource(1)">
+  Switch to second datasource
+</button>

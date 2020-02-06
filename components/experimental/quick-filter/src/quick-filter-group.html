@@ -1,21 +1,22 @@
-<h4 class="quick-filter-group-headline"><ng-content></ng-content></h4>
+<h4 class="quick-filter-group-headline">{{ _getViewValue(nodeDef) }}</h4>
 
-<ng-template
-  [ngTemplateOutlet]="distinct ?  radios : checkboxes"
-  [ngTemplateOutletContext]="items"
->
-</ng-template>
-
-<ng-template #radios let-item="items">
+<ng-template [ngIf]="_isDistinct()" [ngIfElse]="notDistinct">
   <dt-radio-group class="quick-filter-group-items">
-    <dt-radio-button *ngFor="let item of items" [value]="item">
-      {{item}}
+    <dt-radio-button
+      *ngFor="let item of _getOptions()"
+      [value]="_getViewValue(item)"
+    >
+      {{_getViewValue(item)}}
     </dt-radio-button>
   </dt-radio-group>
 </ng-template>
 
-<ng-template #checkboxes let-item="items">
+<ng-template #notDistinct>
   <div class="quick-filter-group-items">
-    <dt-checkbox *ngFor="let item of items">{{item}}</dt-checkbox>
+    <dt-checkbox *ngFor="let item of _getOptions()">
+      {{_getViewValue(item)}}
+    </dt-checkbox>
   </div>
 </ng-template>
+
+<ng-content></ng-content>

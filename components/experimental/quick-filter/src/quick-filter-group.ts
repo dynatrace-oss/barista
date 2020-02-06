@@ -15,7 +15,12 @@
  */
 
 import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  DtNodeDef,
+  isDtOptionDef,
+} from '@dynatrace/barista-components/filter-field';
+// TODO: check if we can export the types
+import { isDtRenderType } from '../../../filter-field/src/types';
 
 /** @internal */
 @Component({
@@ -28,15 +33,23 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   },
 })
 export class DtQuickFilterGroup {
-  @Input() items: string[];
+  @Input() nodeDef: DtNodeDef;
 
-  @Input()
-  get distinct(): boolean {
-    return this._distinct;
-  }
-  set distinct(distinct: boolean) {
-    this._distinct = coerceBooleanProperty(distinct);
+  _isDistinct(): boolean {
+    return this.nodeDef.autocomplete!.distinct;
   }
 
-  private _distinct: boolean;
+  /** @internal Helper function that returns safely the viewValue of a nodeDef */
+  _getViewValue(nodeDef: DtNodeDef): string {
+    return nodeDef && nodeDef.option ? nodeDef.option.viewValue : '';
+  }
+
+  _getOptions(): DtNodeDef[] {
+    if (this.nodeDef && this.nodeDef.autocomplete) {
+      return this.nodeDef.autocomplete.optionsOrGroups.filter(
+        def => isDtOptionDef(def) && !isDtRenderType(def),
+      );
+    }
+    return [];
+  }
 }
