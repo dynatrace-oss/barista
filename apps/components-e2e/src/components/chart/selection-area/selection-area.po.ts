@@ -64,7 +64,7 @@ export function createRange(
   return controller.drag(plotBackground, width, 0, {
     offsetX: start.x,
     offsetY: start.y,
-    speed: 0.01,
+    speed: 0.05,
   });
 }
 

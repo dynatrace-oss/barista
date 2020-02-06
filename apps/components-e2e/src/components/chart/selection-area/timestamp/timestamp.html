@@ -1,0 +1,10 @@
+<dt-chart [options]="options" [series]="series$ | async">
+  <dt-chart-timestamp
+    aria-label-close="Close the selection"
+    (closed)="closed()"
+    (valueChanges)="valueChanges($event)"
+  ></dt-chart-timestamp>
+</dt-chart>
+
+<div class="closed-counter">{{ closedCounter }}</div>
+<div class="current-value">{{ currentValue }}</div>
