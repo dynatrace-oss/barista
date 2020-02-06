@@ -726,12 +726,21 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // On a mousedown the range and the timestamp have to be hidden.
     const startShowingTimestamp$ = this._click$.pipe(mapTo(true));
     const startShowingRange$ = this._drag$.pipe(mapTo(true));
-    let hideTimestampAndRange$ =
-      this._chart._range && !this._chart._timestamp
-        ? EMPTY
-        : touchStartAndMouseDown$.pipe(mapTo(false));
+    let hideTimestampAndRange$ = touchStartAndMouseDown$.pipe(mapTo(false));
 
-    merge(startShowingRange$, hideTimestampAndRange$)
+    // If there is only a timestamp a click should hide and show a timestamp
+    if (this._chart._timestamp && !this._chart._range) {
+      hideTimestampAndRange$ = this._click$.pipe(mapTo(false));
+    }
+
+    // If we only have a range it should be only closed on overlay close.
+    if (this._chart._range && !this._chart._timestamp) {
+      hideTimestampAndRange$ = this._chart._range!._closeOverlay.pipe(
+        mapTo(false),
+      );
+    }
+
+    merge(hideTimestampAndRange$, startShowingRange$)
       .pipe(
         distinctUntilChanged(),
         takeUntil(this._destroy$),
@@ -740,7 +749,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._toggleRange(show);
       });
 
-    merge(startShowingTimestamp$, hideTimestampAndRange$)
+    merge(hideTimestampAndRange$, startShowingTimestamp$)
       .pipe(
         distinctUntilChanged(),
         takeUntil(this._destroy$),
@@ -782,12 +791,27 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // –––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
     // listen for a _closeOverlay event if there is a timestamp or a range
 
+    // close the overlay in range + timestamp mode on every new interaction start with
+    // a mouse or touch down.
+    let closeOverlay$ = touchStartAndMouseDown$;
+
+    // If there is only a timestamp than we have to close it only on mousedown
+    // when it is not hidden
+    if (!this._chart._range && this._chart._timestamp) {
+      closeOverlay$ = touchStartAndMouseDown$.pipe(
+        filter(() => this._chart._timestamp!._hidden),
+      );
+    }
+
+    // If we have only a range we don't have to add some additional closing behavior
+    if (this._chart._range && !this._chart._timestamp) {
+      closeOverlay$ = EMPTY;
+    }
+
     merge(
       this._chart._timestamp ? this._chart._timestamp._closeOverlay : EMPTY,
       this._chart._range ? this._chart._range._closeOverlay : EMPTY,
-      this._chart._range && !this._chart._timestamp
-        ? EMPTY
-        : touchStartAndMouseDown$,
+      closeOverlay$,
     )
       .pipe(takeUntil(this._destroy$))
       .subscribe(() => {

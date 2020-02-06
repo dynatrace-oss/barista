@@ -24,6 +24,7 @@ import { DtChartModule } from '@dynatrace/barista-components/chart';
 import { DtE2ESelectionArea } from './selection-area';
 import { DtE2ERange } from './range/range';
 import { DataService } from '../../../services/data.service';
+import { DtE2ETimestamp } from './timestamp/timestamp';
 
 const routes: Route[] = [
   {
@@ -34,10 +35,14 @@ const routes: Route[] = [
     path: 'range',
     component: DtE2ERange,
   },
+  {
+    path: 'timestamp',
+    component: DtE2ETimestamp,
+  },
 ];
 
 @NgModule({
-  declarations: [DtE2ESelectionArea, DtE2ERange],
+  declarations: [DtE2ESelectionArea, DtE2ERange, DtE2ETimestamp],
   imports: [
     CommonModule,
     DtChartModule,
