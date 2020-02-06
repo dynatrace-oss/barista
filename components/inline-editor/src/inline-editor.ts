@@ -121,10 +121,55 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
     this._required = coerceBooleanProperty(value);
   }
 
+  /**
+   * Aria label of the inline-editor's save button.
+   * @deprecated `aria-label-save` does not conform with accessibility standards.
+   * Please use `ariaLabelSave` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-save')
+  get depAriaLabelSave(): string {
+    return this._ariaLabelSave;
+  }
+  set depAriaLabelSave(value: string) {
+    this._ariaLabelSave = value;
+  }
+
   /** Aria label of the inline-editor's save button. */
-  @Input('aria-label-save') ariaLabelSave: string;
+  @Input()
+  get ariaLabelSave(): string {
+    return this._ariaLabelSave;
+  }
+  set ariaLabelSave(value: string) {
+    this._ariaLabelSave = value;
+  }
+  /** @internal Aria label for the save button. */
+  _ariaLabelSave: string;
+
+  /**
+   * Aria label of the inline-editor's cancel button.
+   * @deprecated `aria-label-cancel` does not conform with accessibility standards.
+   * Please use `ariaLabelCancel` input instead.
+   * @breaking-change Will be removed in version 7.0.0
+   */
+  @Input('aria-label-cancel')
+  get depAriaLabelCancel(): string {
+    return this._ariaLabelCancel;
+  }
+  set depAriaLabelCancel(value: string) {
+    this._ariaLabelCancel = value;
+  }
+
   /** Aria label of the inline-editor's cancel button. */
-  @Input('aria-label-cancel') ariaLabelCancel: string;
+  @Input()
+  get ariaLabelCancel(): string {
+    return this._ariaLabelCancel;
+  }
+  set ariaLabelCancel(value: string) {
+    this._ariaLabelCancel = value;
+  }
+  /** @internal Aria label for the cancel button. */
+  _ariaLabelCancel: string;
 
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;

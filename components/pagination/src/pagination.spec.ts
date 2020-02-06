@@ -353,7 +353,7 @@ describe('DtPagination', () => {
       instance.ariaPreviousLabel = 'pagina anterior';
       instance.ariaPageLabel = 'página';
       instance.ariaCurrentLabel = 'estas en la pagina';
-      instance.ariaEllipses = 'las siguientes paginas son elipses';
+      instance.ariaEllipsis = 'las siguientes paginas son elipses';
       fixture.detectChanges();
 
       expect(containerEl.getAttribute('aria-label')).toBe('paginación');
@@ -407,12 +407,12 @@ export class DefaultPagination {
       [length]="length"
       [pageSize]="pageSize"
       [currentPage]="currentPage"
-      [aria-label-previous]="ariaPreviousLabel"
-      [aria-label-next]="ariaNextLabel"
+      [ariaLabelPrevious]="ariaPreviousLabel"
+      [ariaLabelNext]="ariaNextLabel"
       [aria-label]="ariaLabel"
-      [aria-label-ellipses]="ariaEllipses"
-      [aria-label-page]="ariaPageLabel"
-      [aria-label-current]="ariaCurrentLabel"
+      [ariaLabelEllipsis]="ariaEllipsis"
+      [ariaLabelPage]="ariaPageLabel"
+      [ariaLabelCurrent]="ariaCurrentLabel"
       (changed)="onChange($event)"
     ></dt-pagination>
   `,
@@ -425,7 +425,7 @@ export class PaginationTestComponent {
   ariaPreviousLabel: string;
   ariaNextLabel: string;
   ariaLabel: string;
-  ariaEllipses: string;
+  ariaEllipsis: string;
   ariaPageLabel: string;
   ariaCurrentLabel: string;
 

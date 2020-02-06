@@ -3,8 +3,8 @@
     dt-inline-editor
     [(ngModel)]="value"
     formControlName="queryTitleControl"
-    aria-label-save="Save text"
-    aria-label-cancel="Cancel and discard changes"
+    ariaLabelSave="Save text"
+    ariaLabelCancel="Cancel and discard changes"
     required
   >
     <dt-error *ngIf="queryTitleControl.hasError('required')">

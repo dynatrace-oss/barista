@@ -1,9 +1,9 @@
 <dt-chart [options]="options" [series]="series$ | async">
   <dt-chart-range
-    aria-label-close="Close the selection"
-    aria-label-left-handle="The left handle to update the selection"
-    aria-label-right-handle="The right handle to update the selection"
-    aria-label-selected-area="The selected time-frame"
+    ariaLabelClose="Close the selection"
+    ariaLabelLeftHandle="The left handle to update the selection"
+    ariaLabelRightHandle="The right handle to update the selection"
+    ariaLabelSelectedArea="The selected time-frame"
     (valid)="rangeValidChanges($event)"
     (valueChanges)="valueChanges($event)"
     (closed)="closed()"

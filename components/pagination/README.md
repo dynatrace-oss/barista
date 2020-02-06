@@ -31,17 +31,17 @@ event will be fired that can be used to update any associated data view.
 
 ## Inputs
 
-| Name                  | Type     | Default                       | Description                                   |
-| --------------------- | -------- | ----------------------------- | --------------------------------------------- |
-| `length`              | `number` | `0`                           | Number of items to display on a page.         |
-| `pageSize`            | `number` | `50`                          | Number of items to display on a page.         |
-| `currentPage`         | `number` | `1`                           | The current page of the pagination.           |
-| `aria-label-previous` | `string` | `Previous page`               | ARIA label for the previous page button.      |
-| `aria-label-next`     | `string` | `Next page`                   | ARIA label for the next page button.          |
-| `aria-label`          | `string` | `Pagination`                  | ARIA label for the pagination.                |
-| `aria-label-ellipses` | `string` | `The next pages are ellipses` | ARIA label for the ellipsis character.        |
-| `aria-label-page`     | `string` | `page`                        | ARIA label for a page button (Page 1,2,3...). |
-| `aria-label-current`  | `string` | `You are currently on page`   | ARIA label for the current page button.       |
+| Name                | Type     | Default                       | Description                                   |
+| ------------------- | -------- | ----------------------------- | --------------------------------------------- |
+| `length`            | `number` | `0`                           | Number of items to display on a page.         |
+| `pageSize`          | `number` | `50`                          | Number of items to display on a page.         |
+| `currentPage`       | `number` | `1`                           | The current page of the pagination.           |
+| `ariaLabelPrevious` | `string` | `Previous page`               | ARIA label for the previous page button.      |
+| `ariaLabelNext`     | `string` | `Next page`                   | ARIA label for the next page button.          |
+| `aria-label`        | `string` | `Pagination`                  | ARIA label for the pagination.                |
+| `ariaLabelEllipses` | `string` | `The next pages are ellipses` | ARIA label for the ellipsis character.        |
+| `ariaLabelPage`     | `string` | `page`                        | ARIA label for a page button (Page 1,2,3...). |
+| `ariaLabelCurrent`  | `string` | `You are currently on page`   | ARIA label for the current page button.       |
 
 ## Outputs
 

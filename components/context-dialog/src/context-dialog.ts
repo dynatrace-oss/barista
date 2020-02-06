@@ -149,10 +149,28 @@ export class DtContextDialog extends _DtContextDialogMixinBase
 
   /**
    * Aria label of the context-dialog's close button.
-   * @deprecated Made obsolete without the closing button
-   * @breaking-change To be removed with 6.0.0.
+   * @deprecated `aria-label-close-button` does not conform with accessibility standards.
+   * Please use `ariaLabelClose` input instead.
+   * @breaking-change Will be removed in version 7.0.0
    */
-  @Input('aria-label-close-button') ariaLabelClose: string;
+  @Input('aria-label-close-button')
+  get depAriaLabelClose(): string {
+    return this._ariaLabelClose;
+  }
+  set depAriaLabelClose(value: string) {
+    this._ariaLabelClose = value;
+  }
+
+  /** Aria label of the context-dialog's close button. */
+  @Input()
+  get ariaLabelClose(): string {
+    return this._ariaLabelClose;
+  }
+  set ariaLabelClose(value: string) {
+    this._ariaLabelClose = value;
+  }
+  /** @internal Aria label of the context-dialog's close button. */
+  _ariaLabelClose: string;
 
   /** The custom class to add to the overlay panel element. Can be used to scope styling within the overlay */
   @Input() overlayPanelClass:

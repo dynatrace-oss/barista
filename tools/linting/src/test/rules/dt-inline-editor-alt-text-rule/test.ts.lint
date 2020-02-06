@@ -7,8 +7,8 @@
   template: `
     <em dt-inline-editor
       [(ngModel)]="sampleModel"
-      aria-label-save="Save text"
-      aria-label-cancel="Cancel and discard changes">
+      ariaLabelSave="Save text"
+      ariaLabelCancel="Cancel and discard changes">
     </em>
     <span>model: <code>{{ sampleModel }}</code></span>
 
@@ -16,7 +16,7 @@
     ~~~~~~~~~~~~~~~~~~~~
       [(ngModel)]="sampleModel"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-      aria-label-save="Save text">
+      ariaLabelSave="Save text">
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [An inline editor must provide alternative texts for the save and the cancel button.]
     </em>
     <span>model: <code>{{ sampleModel }}</code></span>

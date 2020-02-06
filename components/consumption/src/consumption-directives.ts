@@ -65,7 +65,7 @@ export class DtConsumptionSubtitle {}
   exportAs: 'dtConsumptionIcon',
   host: {
     class: 'dt-consumption-icon',
-    'aria-role': 'icon',
+    role: 'img',
     '[attr.aria-label]': 'ariaLabel',
   },
 })

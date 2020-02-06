@@ -31,7 +31,7 @@ import {
     'aria-busy': 'true',
     'aria-live': 'assertive',
     '[attr.aria-label]': 'ariaLabel',
-    '[attr.aria-labeledby]': 'ariaLabelledby',
+    '[attr.aria-labelledby]': 'ariaLabelledby',
   },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,

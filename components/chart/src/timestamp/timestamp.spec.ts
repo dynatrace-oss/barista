@@ -426,8 +426,8 @@ export class TimestampTestComponent {
   template: `
     <dt-chart-timestamp
       [value]="value"
-      aria-label-close="CLOSE"
-      aria-label-selected="SELECTED"
+      ariaLabelClose="CLOSE"
+      ariaLabelSelected="SELECTED"
     ></dt-chart-timestamp>
   `,
 })
