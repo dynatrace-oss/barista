@@ -31,30 +31,40 @@ export class BaColorGrid implements AfterContentInit {
     this._colorInput = value;
   }
 
-  /** @internal name of the colorgroup */
-  _colorname: string;
+  /**
+   * list of all colors that should be displayed
+   * e.g. "yellow-500,blue-300,green-700"
+   */
+  @Input() colorList: string;
 
   /** @internal name of all colors that should be displayed */
   _allSelectedColors: string[];
 
+  /** name of the colorgroup */
+  private _colorname: string;
+
   private _colorInput: string;
 
   ngAfterContentInit(): void {
-    this._allSelectedColors = Object.keys(DtColors)
-      .map((color): string => {
-        const parts = color.split('_');
+    if (this.colorList) {
+      this._allSelectedColors = this.colorList.split(',');
+    } else {
+      this._allSelectedColors = Object.keys(DtColors)
+        .map((color): string => {
+          const parts = color.split('_');
 
-        // return the colors matching the colorname input,
-        // white should be included in a gray colorgrid
-        if (
-          parts[0] === this._colorname ||
-          (this._colorname === 'GRAY' && parts[0] === 'WHITE')
-        ) {
-          return color;
-        }
+          // return the colors matching the colorname input,
+          // white should be included in a gray colorgrid
+          if (
+            parts[0] === this._colorname ||
+            (this._colorname === 'GRAY' && parts[0] === 'WHITE')
+          ) {
+            return color;
+          }
 
-        return '';
-      })
-      .filter(Boolean);
+          return '';
+        })
+        .filter(Boolean);
+    }
   }
 }
