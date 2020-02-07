@@ -1,6 +1,6 @@
 # Legend
 
-<ba-live-example name="DtExampleDefaultLegend"></ba-live-example>
+<ba-live-example name="DtExampleLegendDefault"></ba-live-example>
 
 ## Imports
 
@@ -21,11 +21,11 @@ symbol of a `dt-legend-item`:
 
 _Using the `dt-legend-symbol` element_
 
-<ba-live-example name="DtExampleDefaultLegend"></ba-live-example>
+<ba-live-example name="DtExampleLegendDefault"></ba-live-example>
 
 _Using the `dtLegendSymbol` attribut on your custom element_
 
-<ba-live-example name="DtExampleSymbolAttributeLegend"></ba-live-example>
+<ba-live-example name="DtExampleLegendSymbolAttribute"></ba-live-example>
 
 ## Overlay
 
@@ -34,10 +34,10 @@ once the user hovers with the mouse. To set an overlay create an `ng-template`
 element with the `dtLegendOverlay` attribute on it inside the `dt-legend-item`
 element.
 
-<ba-live-example name="DtExampleOverlayLegend"></ba-live-example>
+<ba-live-example name="DtExampleLegendOverlay"></ba-live-example>
 
 ## Examples
 
 ### Using the Legend in the timeline chart component
 
-<ba-live-example name="DtExampleTimelineChartLegend"></ba-live-example>
+<ba-live-example name="DtExampleLegendTimelineChart"></ba-live-example>
