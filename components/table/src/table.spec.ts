@@ -41,6 +41,7 @@ import {
 import {
   DtEmptyState,
   DtEmptyStateModule,
+  DtCustomEmptyState,
 } from '@dynatrace/barista-components/empty-state';
 import {
   DtLoadingDistractor,
@@ -76,6 +77,8 @@ describe('DtTable', () => {
         TestAppMultiExpandableTable,
         TestStickyHeader,
         TestIndicatorApp,
+        CustomEmptyState,
+        TestCustomEmptyStateApp,
       ],
     });
 
@@ -213,6 +216,33 @@ describe('DtTable', () => {
       fixture.detectChanges();
 
       expect(fixture.debugElement.query(By.css('dt-empty-state'))).toBeTruthy();
+    });
+
+    it('Should render a provided custom empty-state marked with the DtEmptyStateDirective', () => {
+      const fixture = createComponent(TestCustomEmptyStateApp);
+
+      expect(
+        fixture.debugElement.query(By.directive(DtCustomEmptyState)),
+      ).toBeFalsy();
+      expect(
+        fixture.debugElement.query(By.directive(CustomEmptyState)),
+      ).toBeFalsy();
+      expect(
+        fixture.debugElement.query(By.directive(DtEmptyState)),
+      ).toBeFalsy();
+
+      fixture.componentInstance.dataSource = [];
+      fixture.detectChanges();
+
+      expect(
+        fixture.debugElement.query(By.directive(DtCustomEmptyState)),
+      ).toBeTruthy();
+      expect(
+        fixture.debugElement.query(By.directive(CustomEmptyState)),
+      ).toBeTruthy();
+      expect(
+        fixture.debugElement.query(By.directive(DtEmptyState)),
+      ).toBeTruthy();
     });
 
     it('Should render a LoadingComponent', () => {
@@ -827,3 +857,39 @@ class TestIndicatorApp {
   color: 'error' | 'warning' = 'error';
   active = true;
 }
+
+@Component({
+  selector: 'dt-test-app',
+  template: `
+    <dt-table [dataSource]="dataSource">
+      <ng-container dtColumnDef="host" dtColumnAlign="text">
+        <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+        <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
+      </ng-container>
+
+      <dt-header-row *dtHeaderRowDef="['host']"></dt-header-row>
+      <dt-row *dtRowDef="let row; columns: ['host']"></dt-row>
+      <custom-empty-state dtCustomEmptyState></custom-empty-state>
+    </dt-table>
+  `,
+})
+export class TestCustomEmptyStateApp {
+  dataSource: object[] = [{ host: 'host-1' }];
+}
+
+@Component({
+  selector: 'custom-empty-state',
+  providers: [
+    {
+      provide: DtEmptyState,
+      useExisting: CustomEmptyState,
+    },
+  ],
+  template: `
+    <dt-empty-state-item>
+      <dt-empty-state-item-title>No host</dt-empty-state-item-title>
+      Test message
+    </dt-empty-state-item>
+  `,
+})
+export class CustomEmptyState extends DtEmptyState {}

@@ -36,3 +36,11 @@ This is mainly used in an empty entity view.
 ## Empty state in use
 
 <ba-ux-snippet name="empty-state-in-use"></ba-ux-snippet>
+
+## Custom empty state
+
+Custom/Reusable empty states are also supported using the `dtCustomEmptyState`
+directive. The custom empty state must both extend and provide itself as a
+`DtEmptyState`.
+
+<ba-live-example name="DtExampleCustomEmptyStateTable" background></ba-live-example>
