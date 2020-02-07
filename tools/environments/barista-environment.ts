@@ -16,20 +16,7 @@
 
 import { join } from 'path';
 import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
-
-export interface BaEnvironment {
-  rootDir: string;
-  distDir: string;
-  examplesMetadataDir: string;
-  examplesMetadataFileName: string;
-  examplesLibDir: string;
-  demosAppDir: string;
-  baristaAppDir: string;
-  iconsRoot: string;
-  iconsChangelogFileName: string;
-  strapiEndpoint: string | undefined;
-  internalLinks: string | undefined;
-}
+import { BaEnvironment } from './barista-environment.interface';
 
 /** The Barista project's root directory. */
 const ROOT_DIR = join(__dirname, '../../..');
