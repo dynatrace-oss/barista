@@ -16,7 +16,7 @@
 
 import { join } from 'path';
 import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
-import { BaEnvironment } from './barista-environment';
+import { BaEnvironment } from './barista-environment.interface';
 
 /** The Barista project's root directory. */
 const ROOT_DIR = '/';
