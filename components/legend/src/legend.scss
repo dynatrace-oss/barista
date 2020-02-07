@@ -3,6 +3,7 @@
   flex-wrap: wrap;
 }
 
-:host ::ng-deep .dt-legend-item + .dt-legend-item {
-  margin-left: 16px;
+:host ::ng-deep .dt-legend-item {
+  margin-right: 16px;
+  margin-bottom: 8px;
 }
