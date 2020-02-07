@@ -24,6 +24,7 @@ import {
   DtEmptyStateItem,
   DtEmptyStateItemImage,
   DtEmptyStateItemTitle,
+  DtCustomEmptyState,
 } from './empty-state';
 
 const EMPTY_STATE_DIRECTIVES = [
@@ -32,6 +33,7 @@ const EMPTY_STATE_DIRECTIVES = [
   DtEmptyStateItemImage,
   DtEmptyStateItemTitle,
   DtEmptyStateFooterActions,
+  DtCustomEmptyState,
 ];
 
 @NgModule({
