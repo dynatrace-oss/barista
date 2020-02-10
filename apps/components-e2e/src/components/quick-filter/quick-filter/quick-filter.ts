@@ -19,7 +19,7 @@ import {
   DtFilterFieldDefaultDataSource,
   DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
-import { DATA } from '../filter-field/filter-field';
+import { DATA } from '../../filter-field/filter-field';
 
 @Component({
   selector: 'dt-e2e-quick-filter',

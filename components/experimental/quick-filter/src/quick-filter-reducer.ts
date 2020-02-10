@@ -15,10 +15,7 @@
  */
 
 import { DtNodeDef } from '@dynatrace/barista-components/filter-field';
-import {
-  applyDtOptionIds,
-  DELIMITER,
-} from '../../../filter-field/src/filter-field-util';
+import { DELIMITER } from '../../../filter-field/src/filter-field-util';
 
 interface Action {
   type: string;
@@ -77,8 +74,6 @@ export function removeFilter(
     delete updatedState[index];
   }
 
-  console.log(index, updatedState);
-
   return updatedState.filter(Boolean);
 }
 
@@ -128,5 +123,7 @@ export function findSelectedOption(
         return true;
       }
     }
+
+    return false;
   });
 }
