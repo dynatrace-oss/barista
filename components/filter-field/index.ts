@@ -43,4 +43,5 @@ export {
   isDtOptionDef,
   dtGroupDef,
   isDtGroupDef,
+  isDtRenderType,
 } from './src/types';

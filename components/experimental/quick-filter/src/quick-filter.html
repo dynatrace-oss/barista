@@ -1,6 +1,6 @@
 <dt-filter-field
   [dataSource]="dataSource"
-  (filterChanges)="filterChanged($event)"
+  (filterChanges)="_filterFiledChanged($event)"
   label="Filter by"
   clearAllLabel="Clear all"
 ></dt-filter-field>
@@ -15,8 +15,9 @@
     </p>
 
     <dt-quick-filter-group
-      *ngFor="let nodeDef of _mutatedDataSource$ | async"
-      [nodeDef]="nodeDef"
+      *ngFor="let nodeDef of _partialData$ | async"
+      [_nodeDef]="nodeDef"
+      (filterChange)="_changeFilter($event)"
     ></dt-quick-filter-group>
   </dt-drawer>
 

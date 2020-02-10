@@ -21,18 +21,20 @@ import {
   EventEmitter,
   Input,
   Output,
-  ViewEncapsulation,
   ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
+  DtFilterField,
+  DtFilterFieldChangeEvent,
   DtFilterFieldDataSource,
   DtNodeDef,
   isDtAutocompleteDef,
-  DtFilterField,
-  DtFilterFieldChangeEvent,
 } from '@dynatrace/barista-components/filter-field';
 import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
+import { QuickFilterActions, quickFilterReducer } from './quick-filter-reducer';
+import { applyDtOptionIds } from '../../../filter-field/src/filter-field-util';
 
 @Directive({
   selector: 'dt-quick-filter-title',
@@ -85,27 +87,21 @@ export class DtQuickFilter<T> {
   private _dataSource: DtFilterFieldDataSource;
 
   /** @internal */
-  _mutatedDataSource$: Observable<DtNodeDef | null>;
+  _partialData$: Observable<DtNodeDef[]>;
   private _originalDataSource$: Observable<any>;
 
-  filterChanged(change): void {
+  _changeFilter(action: QuickFilterActions): void {
+    this._filterField.filters = quickFilterReducer(
+      this._filterField.filters,
+      action,
+    );
+  }
+
+  /** @internal Bubble the filter field change event through */
+  _filterFiledChanged(change: DtFilterFieldChangeEvent<T>): void {
     console.log(change);
-  }
 
-  ngOnChanges(_changes: any): void {
-    //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-    //Add '${implements OnChanges}' to the class.
-    console.log(this._filterField.filters);
-  }
-
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.filter();
-  }
-
-  filter() {
-    console.log(this._filterField.filters);
+    this.filterChanges.emit(change);
   }
 
   /**
@@ -120,13 +116,15 @@ export class DtQuickFilter<T> {
     this._dataSource = dataSource;
 
     this._originalDataSource$ = this._dataSource.connect();
-    this._mutatedDataSource$ = this._originalDataSource$.pipe(
+    this._partialData$ = this._originalDataSource$.pipe(
+      tap(nodeDef => {
+        // apply the ids to the node to identify them later on
+        applyDtOptionIds(nodeDef);
+      }),
       filter(isDtAutocompleteDef),
-      tap(console.log),
       map(({ autocomplete }) =>
         autocomplete.optionsOrGroups.filter(isDtAutocompleteDef),
       ),
-      tap(console.log),
     );
   }
 }
