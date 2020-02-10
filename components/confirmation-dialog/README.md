@@ -91,6 +91,10 @@ To make our components accessible it is obligatory to provide either an
 
 <ba-ux-snippet name="confirmation-dialog-behavior"></ba-ux-snippet>
 
+## Animation
+
+<ba-ux-snippet name="confirmation-dialog-animation"></ba-ux-snippet>
+
 ## Responsiveness
 
 The component is responsive. A "breakpoint" exists at 662px for the point at
