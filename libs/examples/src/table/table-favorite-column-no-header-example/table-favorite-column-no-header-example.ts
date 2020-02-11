@@ -18,17 +18,19 @@ import { Component } from '@angular/core';
 
 import { DtTableDataSource } from '@dynatrace/barista-components/table';
 
+interface HostRow {
+  favorite: boolean;
+  host: string;
+  memoryPerc: number;
+  memoryTotal: number;
+}
+
 @Component({
   selector: 'dt-example-table-favorite-column-no-header',
   templateUrl: './table-favorite-column-no-header-example.html',
 })
 export class DtExampleTableFavoriteColumnNoHeader {
-  data: Array<{
-    favorite: boolean;
-    host: string;
-    memoryPerc: number;
-    memoryTotal: number;
-  }> = [
+  data: Array<HostRow> = [
     {
       favorite: true,
       host: 'et-demo-2-win4',
@@ -73,7 +75,15 @@ export class DtExampleTableFavoriteColumnNoHeader {
     );
   }
 
-  doSomething(_event: Event): void {
-    // noop
+  toggleFavorite(toggledRow: HostRow): void {
+    // Modify a data clone and assign the changed state at the end
+    // to notify change detection about the dataChange in an array.
+    const modifiedData = [...this.data];
+    for (const row of modifiedData) {
+      if (row === toggledRow) {
+        row.favorite = !row.favorite;
+      }
+    }
+    this.data = modifiedData;
   }
 }

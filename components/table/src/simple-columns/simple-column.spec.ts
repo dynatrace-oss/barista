@@ -740,6 +740,7 @@ describe('DtTable SimpleColumns', () => {
       <dt-favorite-column
         name="favorite"
         [sortable]="isSortable"
+        (favoriteToggled)="toggleFavorite($event)"
       ></dt-favorite-column>
       <dt-simple-text-column name="host"></dt-simple-text-column>
       <dt-simple-number-column name="cpu" label="Cpu"></dt-simple-number-column>
@@ -876,6 +877,18 @@ class TestSimpleColumnsApp implements AfterViewInit {
     } else if (row.traffic > 60000000) {
       return 'warning';
     }
+  }
+
+  toggleFavorite(toggledRow: any): void {
+    // Modify a data clone and assign the changed state at the end
+    // to notify change detection about the dataChange in an array.
+    const modifiedData = [...this.data];
+    for (const row of modifiedData) {
+      if (row === toggledRow) {
+        row.favorite = !row.favorite;
+      }
+    }
+    this.data = modifiedData;
   }
 }
 

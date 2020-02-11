@@ -18,17 +18,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 import { DtSort, DtTableDataSource } from '@dynatrace/barista-components/table';
 
+interface HostRow {
+  favorite: boolean;
+  host: string;
+  memoryPerc: number;
+  memoryTotal: number;
+}
+
 @Component({
   selector: 'dt-example-table-favorite-column',
   templateUrl: './table-favorite-column-example.html',
 })
 export class DtExampleTableFavoriteColumn implements OnInit {
-  data: Array<{
-    favorite: boolean;
-    host: string;
-    memoryPerc: number;
-    memoryTotal: number;
-  }> = [
+  data: Array<HostRow> = [
     {
       favorite: true,
       host: 'et-demo-2-win4',
@@ -81,7 +83,15 @@ export class DtExampleTableFavoriteColumn implements OnInit {
     this.dataSource.sort = this.sortable;
   }
 
-  doSomething(): void {
-    // noop
+  toggleFavorite(toggledRow: HostRow): void {
+    // Modify a data clone and assign the changed state at the end
+    // to notify change detection about the dataChange in an array.
+    const modifiedData = [...this.data];
+    for (const row of modifiedData) {
+      if (row === toggledRow) {
+        row.favorite = !row.favorite;
+      }
+    }
+    this.data = modifiedData;
   }
 }
