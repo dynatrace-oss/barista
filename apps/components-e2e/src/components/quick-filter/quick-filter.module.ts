@@ -19,15 +19,11 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/quick-filter';
 import { DtE2EQuickFilter } from './quick-filter/quick-filter';
-import { DtE2EQuickFilterPrefilled } from './quick-filter-prefilled/quick-filter-prefilled';
 
-const routes: Route[] = [
-  { path: '', component: DtE2EQuickFilter },
-  { path: 'prefilled', component: DtE2EQuickFilterPrefilled },
-];
+const routes: Route[] = [{ path: '', component: DtE2EQuickFilter }];
 
 @NgModule({
-  declarations: [DtE2EQuickFilter, DtE2EQuickFilterPrefilled],
+  declarations: [DtE2EQuickFilter],
   imports: [CommonModule, RouterModule.forChild(routes), DtQuickFilterModule],
   exports: [],
   providers: [],

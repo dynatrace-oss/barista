@@ -1,5 +1,5 @@
 <dt-filter-field
-  [dataSource]="dataSource"
+  [dataSource]="_filterFieldDataSource$ | async"
   (filterChanges)="_filterFiledChanged($event)"
   label="Filter by"
   clearAllLabel="Clear all"
@@ -15,7 +15,7 @@
     </p>
 
     <dt-quick-filter-group
-      *ngFor="let nodeDef of _partialData$ | async"
+      *ngFor="let nodeDef of _autocompleteData$ | async"
       [_nodeDef]="nodeDef"
       (filterChange)="_changeFilter($event)"
     ></dt-quick-filter-group>

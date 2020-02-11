@@ -15,6 +15,7 @@
  */
 
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   Directive,
@@ -28,13 +29,11 @@ import {
   DtFilterField,
   DtFilterFieldChangeEvent,
   DtFilterFieldDataSource,
-  DtNodeDef,
-  isDtAutocompleteDef,
 } from '@dynatrace/barista-components/filter-field';
-import { Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
-import { QuickFilterActions, quickFilterReducer } from './quick-filter-reducer';
-import { applyDtOptionIds } from '../../../filter-field/src/filter-field-util';
+import { Action, switchDataSource } from './state/actions';
+import { quickFilterReducer } from './state/reducer';
+import { getAutocompletes, getDataSource } from './state/selectors';
+import { createQuickFilterStore } from './state/store';
 
 @Directive({
   selector: 'dt-quick-filter-title',
@@ -66,7 +65,7 @@ export class DtQuckFilterSubTitle {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtQuickFilter<T> {
+export class DtQuickFilter<T> implements AfterViewInit {
   @Output() readonly filterChanges = new EventEmitter<
     DtFilterFieldChangeEvent<T>
   >();
@@ -80,21 +79,28 @@ export class DtQuickFilter<T> {
     return this._dataSource;
   }
   set dataSource(dataSource: DtFilterFieldDataSource) {
-    if (this._dataSource !== dataSource) {
-      this._switchDataSource(dataSource);
-    }
+    this._store.dispatch(switchDataSource(dataSource));
   }
   private _dataSource: DtFilterFieldDataSource;
 
-  /** @internal */
-  _partialData$: Observable<DtNodeDef[]>;
-  private _originalDataSource$: Observable<any>;
+  private _store = createQuickFilterStore(quickFilterReducer);
 
-  _changeFilter(action: QuickFilterActions): void {
-    this._filterField.filters = quickFilterReducer(
-      this._filterField.filters,
-      action,
-    );
+  /** @internal */
+  _autocompleteData$ = this._store.select(getAutocompletes);
+
+  _filterFieldDataSource$ = this._store.select(getDataSource);
+
+  constructor() {}
+
+  ngAfterViewInit(): void {
+    console.log('Filters set: ', this._filterField.filters);
+  }
+
+  _changeFilter(_action: Action): void {
+    // this._filterField.filters = quickFilterReducer(
+    //   this._filterField.filters,
+    //   action,
+    // );
   }
 
   /** @internal Bubble the filter field change event through */
@@ -102,29 +108,5 @@ export class DtQuickFilter<T> {
     console.log(change);
 
     this.filterChanges.emit(change);
-  }
-
-  /**
-   * Takes a new data source and switches the filter date to the provided one.
-   * Handles all the disconnecting and data switching.
-   */
-  private _switchDataSource(dataSource: DtFilterFieldDataSource): void {
-    if (this._dataSource) {
-      this._dataSource.disconnect();
-    }
-
-    this._dataSource = dataSource;
-
-    this._originalDataSource$ = this._dataSource.connect();
-    this._partialData$ = this._originalDataSource$.pipe(
-      tap(nodeDef => {
-        // apply the ids to the node to identify them later on
-        applyDtOptionIds(nodeDef);
-      }),
-      filter(isDtAutocompleteDef),
-      map(({ autocomplete }) =>
-        autocomplete.optionsOrGroups.filter(isDtAutocompleteDef),
-      ),
-    );
   }
 }

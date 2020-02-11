@@ -28,12 +28,7 @@ import {
 } from '@dynatrace/barista-components/filter-field';
 import { DtRadioChange } from '@dynatrace/barista-components/radio';
 import { DtCheckboxChange } from '../../../checkbox';
-import {
-  QuickFilterActions,
-  UpdateFilter,
-  AddFilter,
-  RemoveFilter,
-} from './quick-filter-reducer';
+import { addFilter, removeFilter, updateFilter, Action } from './state/actions';
 
 /** @internal */
 @Component({
@@ -49,20 +44,20 @@ export class DtQuickFilterGroup {
   /** @internal The nodeDef of the autocomplete that should be rendered */
   @Input() _nodeDef: DtNodeDef;
 
-  @Output() readonly filterChange = new EventEmitter<QuickFilterActions>();
+  @Output() readonly filterChange = new EventEmitter<Action>();
 
   _selectedOptions: any[] = [];
 
   _selectOption(change: DtRadioChange<DtNodeDef>): void {
     if (change.value) {
-      this.filterChange.emit(new UpdateFilter(change.value));
+      this.filterChange.emit(updateFilter(change.value));
     }
   }
 
   _selectCheckBox(change: DtCheckboxChange<DtNodeDef>): void {
     const action = change.checked
-      ? new AddFilter(change.source.value)
-      : new RemoveFilter(change.source.value);
+      ? addFilter(change.source.value)
+      : removeFilter(change.source.value);
     this.filterChange.emit(action);
   }
 

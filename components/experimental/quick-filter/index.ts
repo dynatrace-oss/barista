@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 
-export * from './src/quick-filter';
+export * from './src/quick-filter-data-source';
 export * from './src/quick-filter.module';
+export * from './src/quick-filter';

@@ -20,6 +20,11 @@ import { RouterModule, Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/quick-filter',
+  },
+  {
     path: 'button',
     loadChildren: () =>
       import('../components/button/button.module').then(

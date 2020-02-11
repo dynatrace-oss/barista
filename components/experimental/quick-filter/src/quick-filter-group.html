@@ -5,6 +5,7 @@
     class="quick-filter-group-items"
     (change)="_selectOption($event)"
   >
+    <dt-radio-button>Any</dt-radio-button>
     <dt-radio-button *ngFor="let item of _getOptions()" [value]="item">
       {{_getViewValue(item)}}
     </dt-radio-button>
