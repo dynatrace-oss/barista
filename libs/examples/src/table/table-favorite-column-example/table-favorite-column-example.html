@@ -2,7 +2,7 @@
   <dt-favorite-column
     name="favorite"
     label="Favorite"
-    (change)="doSomething()"
+    (favoriteToggled)="toggleFavorite($event)"
   ></dt-favorite-column>
   <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
   <ng-container dtColumnDef="memory" dtColumnAlign="number">
