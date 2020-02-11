@@ -36,7 +36,7 @@ import { quickFilterReducer } from './state/reducer';
 import { getAutocompletes, getDataSource, getFilters } from './state/selectors';
 import { createQuickFilterStore } from './state/store';
 import { Subject } from 'rxjs';
-import { takeUntil, skip } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Directive({
   selector: 'dt-quick-filter-title',
@@ -98,10 +98,7 @@ export class DtQuickFilter<T> implements AfterViewInit, OnDestroy {
     // When the filters changes apply them to the filter field
     this._store
       .select(getFilters)
-      .pipe(
-        skip(1),
-        takeUntil(this._destroy$),
-      )
+      .pipe(takeUntil(this._destroy$))
       .subscribe(filters => {
         this._filterField.filters = filters;
       });

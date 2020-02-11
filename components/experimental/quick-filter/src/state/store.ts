@@ -15,7 +15,7 @@
  */
 
 import { Observable, merge, BehaviorSubject } from 'rxjs';
-import { shareReplay, tap, map, withLatestFrom } from 'rxjs/operators';
+import { shareReplay, map, withLatestFrom } from 'rxjs/operators';
 import { Reducer } from './reducer';
 import { Action, ActionType } from './actions';
 import { Effect, switchDataSourceEffect } from './effects';
@@ -26,6 +26,11 @@ export interface QuickFilterState {
   dataSource?: DtFilterFieldDataSource;
   filters: any[][];
 }
+
+export const initialState: QuickFilterState = {
+  filters: [],
+};
+
 /** Array of side effects */
 const effects: Effect[] = [switchDataSourceEffect];
 
@@ -35,8 +40,8 @@ class QuickFilterStore {
   });
   private readonly state$: BehaviorSubject<QuickFilterState>;
 
-  constructor(reducer: Reducer, initialState: QuickFilterState) {
-    this.state$ = new BehaviorSubject<QuickFilterState>(initialState);
+  constructor(reducer: Reducer, initialStoreState: QuickFilterState) {
+    this.state$ = new BehaviorSubject<QuickFilterState>(initialStoreState);
 
     this.action$
       .pipe(
@@ -69,9 +74,5 @@ class QuickFilterStore {
 
 /** This function creates the store for the quick filter  */
 export function createQuickFilterStore(reducer: Reducer): QuickFilterStore {
-  const initialState: QuickFilterState = {
-    filters: [],
-  };
-
   return new QuickFilterStore(reducer, initialState);
 }

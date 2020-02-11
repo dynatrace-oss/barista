@@ -16,7 +16,7 @@
 import { DtNodeDef } from '@dynatrace/barista-components/filter-field';
 import { Action, ActionType } from './actions';
 import { DELIMITER } from '../../../../filter-field/src/filter-field-util';
-import { QuickFilterState } from './store';
+import { QuickFilterState, initialState } from './store';
 
 export type Reducer = (
   state: QuickFilterState,
@@ -36,7 +36,7 @@ export function quickFilterReducer(
 ): QuickFilterState {
   console.info(
     `%c Reducer <${action.type}> `,
-    ' background-color: lightblue; color: black',
+    ' background-color: lightblue; color: black; font-size: 1.2em; padding: 5px; border-radius: 1em',
     action,
   );
 
@@ -45,7 +45,7 @@ export function quickFilterReducer(
       if (state.dataSource) {
         state.dataSource.disconnect();
       }
-      return { ...state, dataSource: action.payload };
+      return { ...initialState, dataSource: action.payload };
     case ActionType.UPDATE_DATA_SOURCE:
       return { ...state, nodeDef: action.payload };
     case ActionType.ADD_FILTER:

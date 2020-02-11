@@ -27,11 +27,11 @@ export const getAutocompletes = (
 ): Observable<DtNodeDef[]> =>
   state$.pipe(
     pluck('nodeDef'),
-    filter(Boolean),
     tap((nodeDef: DtNodeDef) => {
-      // apply the ids to the node to identify them later on
-      applyDtOptionIds(nodeDef);
-      console.log('Applied ids');
+      if (nodeDef) {
+        // apply the ids to the node to identify them later on
+        applyDtOptionIds(nodeDef);
+      }
     }),
     filter(isDtAutocompleteDef),
     map(({ autocomplete }) =>

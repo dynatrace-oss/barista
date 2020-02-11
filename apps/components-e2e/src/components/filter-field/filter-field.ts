@@ -106,6 +106,14 @@ const TEST_DATA_2 = {
         unit: 's',
       },
     },
+    {
+      name: 'Not in Quickfilter',
+      autocomplete: [
+        { name: 'Option1' },
+        { name: 'Option2' },
+        { name: 'Option3' },
+      ],
+    },
   ],
 };
 
