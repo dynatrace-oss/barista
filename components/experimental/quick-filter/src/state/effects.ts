@@ -15,10 +15,10 @@
  */
 
 import { MonoTypeOperatorFunction, Observable } from 'rxjs';
-import { filter, switchMap, withLatestFrom, map } from 'rxjs/operators';
+import { filter, switchMap, map } from 'rxjs/operators';
 import { DtFilterFieldDataSource, DtNodeDef } from '../../../../filter-field';
 import { Action, ActionType, updateDataSource } from './actions';
-import { QuickFilterState } from './reducer';
+import { QuickFilterState } from './store';
 
 /** Type for an effect */
 export type Effect = (

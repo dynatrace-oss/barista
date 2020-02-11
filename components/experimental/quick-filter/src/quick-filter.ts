@@ -24,16 +24,19 @@ import {
   Output,
   ViewChild,
   ViewEncapsulation,
+  OnDestroy,
 } from '@angular/core';
 import {
   DtFilterField,
   DtFilterFieldChangeEvent,
   DtFilterFieldDataSource,
 } from '@dynatrace/barista-components/filter-field';
-import { Action, switchDataSource } from './state/actions';
+import { Action, switchDataSource, setFilters } from './state/actions';
 import { quickFilterReducer } from './state/reducer';
-import { getAutocompletes, getDataSource } from './state/selectors';
+import { getAutocompletes, getDataSource, getFilters } from './state/selectors';
 import { createQuickFilterStore } from './state/store';
+import { Subject } from 'rxjs';
+import { takeUntil, skip } from 'rxjs/operators';
 
 @Directive({
   selector: 'dt-quick-filter-title',
@@ -65,7 +68,7 @@ export class DtQuckFilterSubTitle {}
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtQuickFilter<T> implements AfterViewInit {
+export class DtQuickFilter<T> implements AfterViewInit, OnDestroy {
   @Output() readonly filterChanges = new EventEmitter<
     DtFilterFieldChangeEvent<T>
   >();
@@ -75,32 +78,42 @@ export class DtQuickFilter<T> implements AfterViewInit {
 
   /** The data source instance that should be connected to the filter field. */
   @Input()
-  get dataSource(): DtFilterFieldDataSource {
-    return this._dataSource;
-  }
   set dataSource(dataSource: DtFilterFieldDataSource) {
     this._store.dispatch(switchDataSource(dataSource));
   }
-  private _dataSource: DtFilterFieldDataSource;
 
   private _store = createQuickFilterStore(quickFilterReducer);
 
-  /** @internal */
+  /** @internal the autocomplete fields that should be rendered by the quick filter */
   _autocompleteData$ = this._store.select(getAutocompletes);
-
+  /** @internal the dataSource that gets passed to the filter field */
   _filterFieldDataSource$ = this._store.select(getDataSource);
 
-  constructor() {}
+  private _destroy$ = new Subject<void>();
 
   ngAfterViewInit(): void {
-    console.log('Filters set: ', this._filterField.filters);
+    // initially set the active filters
+    this._store.dispatch(setFilters(this._filterField.filters));
+
+    // When the filters changes apply them to the filter field
+    this._store
+      .select(getFilters)
+      .pipe(
+        skip(1),
+        takeUntil(this._destroy$),
+      )
+      .subscribe(filters => {
+        this._filterField.filters = filters;
+      });
   }
 
-  _changeFilter(_action: Action): void {
-    // this._filterField.filters = quickFilterReducer(
-    //   this._filterField.filters,
-    //   action,
-    // );
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
+  _changeFilter(action: Action): void {
+    this._store.dispatch(action);
   }
 
   /** @internal Bubble the filter field change event through */

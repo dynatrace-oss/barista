@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  DtFilterFieldDataSource,
-  DtNodeDef,
-} from '@dynatrace/barista-components/filter-field';
+import { DtNodeDef } from '@dynatrace/barista-components/filter-field';
 import { Action, ActionType } from './actions';
+import { DELIMITER } from '../../../../filter-field/src/filter-field-util';
+import { QuickFilterState } from './store';
 
 export type Reducer = (
   state: QuickFilterState,
   action: Action,
 ) => QuickFilterState;
 
-export interface QuickFilterState {
-  nodeDef?: DtNodeDef;
-  dataSource?: DtFilterFieldDataSource;
-  filters: any[][];
-}
-
+/**
+ * The Quick Filter reducer is the place where we handle all the state updates
+ * To have a single entry point. Every action can trigger an update of the state.
+ * It has to be a immutable function that always returns a new object of the state.
+ * @param state The state that should be modified.
+ * @param action The current action that should be handled.
+ */
 export function quickFilterReducer(
   state: QuickFilterState,
   action: Action,
@@ -39,6 +39,7 @@ export function quickFilterReducer(
     ' background-color: lightblue; color: black',
     action,
   );
+
   switch (action.type) {
     case ActionType.SWITCH_DATA_SOURCE:
       if (state.dataSource) {
@@ -47,27 +48,87 @@ export function quickFilterReducer(
       return { ...state, dataSource: action.payload };
     case ActionType.UPDATE_DATA_SOURCE:
       return { ...state, nodeDef: action.payload };
+    case ActionType.ADD_FILTER:
+      return { ...state, filters: addFilter(state.filters, action.payload) };
+    case ActionType.UPDATE_FILTER:
+      return { ...state, filters: updateFilter(state.filters, action.payload) };
+    case ActionType.REMOVE_FILTER:
+      return { ...state, filters: removeFilter(state.filters, action.payload) };
     default:
       return state;
   }
 }
 
-// export function updateDataSource(
-//   previousState: QuickFilterState,
-//   action: Action<DtFilterFieldDataSource>,
-// ): QuickFilterState {
-//   return {
-//     ...previousState,
-//     dataSource: action.payload,
-//   };
-// }
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+// #
+// # HELPER functions for modifying the filters
+// #
+// # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-// export function updateDataSourceReducer(
-//   previousState: QuickFilterState,
-//   action: Action<DtNodeDef>,
-// ): QuickFilterState {
-//   return {
-//     ...previousState,
-//     nodeDef: action.payload || null,
-//   };
-// }
+/** @internal Add a filter to the filters array */
+export function addFilter(filters: any[][], item: DtNodeDef): any[][] {
+  return [...filters, buildData(item)];
+}
+
+/** @internal Remove a filter from the filters array */
+export function removeFilter(filters: any[][], item: DtNodeDef): any[][] {
+  const index = findSelectedOption(filters, item, false);
+  const updatedState = [...filters];
+
+  if (index > -1) {
+    delete updatedState[index];
+  }
+
+  return updatedState.filter(Boolean);
+}
+
+/** @internal Update a filter inside the filters array */
+export function updateFilter(filters: any[][], item: DtNodeDef): any[][] {
+  const index = findSelectedOption(filters, item, true);
+
+  if (index < 0) {
+    return addFilter(filters, item);
+  }
+
+  filters[index] = buildData(item);
+
+  return filters;
+}
+
+/** @internal Add a filter to the filters array */
+export function buildData(item: DtNodeDef): any[] {
+  const data = [item.data];
+
+  if (item.option && item.option.parentAutocomplete) {
+    data.unshift(item.option.parentAutocomplete.data);
+  }
+  return data;
+}
+
+/** @internal Find a filter inside the filters array based on a NodeDef */
+export function findSelectedOption(
+  filters: any[][],
+  item: DtNodeDef,
+  distinct: boolean = false,
+): number {
+  return filters.findIndex(path => {
+    if (item.option && item.option.uid) {
+      const parts = item.option.uid.split(DELIMITER);
+
+      if (distinct && parts[0] === path[0].name) {
+        return true;
+      }
+
+      const dataPath = path.reduce(
+        (previousValue, currentValue) =>
+          `${previousValue.name}${DELIMITER}${currentValue.name}${DELIMITER}`,
+      );
+
+      if (item.option.uid === dataPath) {
+        return true;
+      }
+    }
+
+    return false;
+  });
+}

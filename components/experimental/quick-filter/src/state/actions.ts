@@ -26,6 +26,7 @@ export enum ActionType {
   SWITCH_DATA_SOURCE = '@@actions  switch dataSource',
   UPDATE_DATA_SOURCE = '@@actions update dataSource',
   UPDATE_ROOT_DEF = '@@actions update rootDef',
+  SET_FILTERS = '@@actions set filters',
 }
 
 /** Interface for an action */
@@ -38,6 +39,9 @@ export const action = <T>(type: ActionType, payload?: any): Action<T> => ({
   type,
   payload,
 });
+
+export const setFilters = (filters: any[][]) =>
+  action<any[][]>(ActionType.SET_FILTERS, filters);
 
 export const addFilter = (item: DtNodeDef) =>
   action<DtNodeDef>(ActionType.ADD_FILTER, item);

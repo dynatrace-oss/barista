@@ -16,21 +16,20 @@
 
 import { Observable, merge, BehaviorSubject } from 'rxjs';
 import { shareReplay, tap, map, withLatestFrom } from 'rxjs/operators';
-import { QuickFilterState, Reducer } from './reducer';
+import { Reducer } from './reducer';
 import { Action, ActionType } from './actions';
 import { Effect, switchDataSourceEffect } from './effects';
+import { DtNodeDef, DtFilterFieldDataSource } from '../../../../filter-field';
 
-/** The type for the quick filter store */
-// export type QuickFilterStore = {
-//   dispatch: (action: Action) => void;
-//   subscribe: (observer: NextObserver<QuickFilterState>) => Subscription;
-//   select: <T>(fn: (state$: Observable<QuickFilterState>) => T) => T;
-// };
-
+export interface QuickFilterState {
+  nodeDef?: DtNodeDef;
+  dataSource?: DtFilterFieldDataSource;
+  filters: any[][];
+}
 /** Array of side effects */
 const effects: Effect[] = [switchDataSourceEffect];
 
-class Store {
+class QuickFilterStore {
   private readonly action$ = new BehaviorSubject<Action>({
     type: ActionType.INIT,
   });
@@ -42,11 +41,11 @@ class Store {
     this.action$
       .pipe(
         shareReplay(),
-        tap(console.log),
         withLatestFrom(this.state$),
         map(([action, state]) => reducer(state, action)),
       )
       .subscribe(state => {
+        console.log(state);
         this.state$.next(state);
       });
 
@@ -69,37 +68,10 @@ class Store {
 }
 
 /** This function creates the store for the quick filter  */
-export function createQuickFilterStore(reducer: Reducer): Store {
+export function createQuickFilterStore(reducer: Reducer): QuickFilterStore {
   const initialState: QuickFilterState = {
     filters: [],
   };
 
-  return new Store(reducer, initialState);
-
-  // // Create the Action Subject
-  // const action$ = new BehaviorSubject<Action>({ type: ActionType.INIT });
-  // // Each dispatched action will be reduced by the reducer.
-  // const state$ = action$.pipe(
-  //   scan(reducer, initialState),
-  //   shareReplay(),
-  // );
-
-  // switchDataSourceEffect(action$, state$).subscribe(effect => {
-  //   console.log("ALSKJDF:LKJ", effect)
-  //   action$.next(effect);
-  // })
-
-  // // Each effect will get the stream of actions and will dispatch other actions in return
-  // // The emitted actions will be immediately dispatched through the normal store.dispatch()
-  // // merge(...effects.map(epic => epic(action$, state$))).subscribe(
-  // //   (effect: Action) => {
-  // //     action$.next(effect);
-  // //   },
-  // // );
-
-  // return {
-  //   dispatch: action$.next.bind(action$),
-  //   subscribe: state$.subscribe.bind(state$),
-  //   select: state$.pipe.bind(state$),
-  // };
+  return new QuickFilterStore(reducer, initialState);
 }

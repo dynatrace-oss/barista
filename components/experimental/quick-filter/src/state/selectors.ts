@@ -19,7 +19,7 @@ import {
   DtNodeDef,
 } from '@dynatrace/barista-components/filter-field';
 import { applyDtOptionIds } from '../../../../filter-field/src/filter-field-util';
-import { QuickFilterState } from './reducer';
+import { QuickFilterState } from './store';
 import { Observable } from 'rxjs';
 
 export const getAutocompletes = (
@@ -41,3 +41,6 @@ export const getAutocompletes = (
 
 export const getDataSource = (state$: Observable<QuickFilterState>) =>
   state$.pipe(pluck('dataSource'));
+
+export const getFilters = (state$: Observable<QuickFilterState>) =>
+  state$.pipe(pluck('filters'));
