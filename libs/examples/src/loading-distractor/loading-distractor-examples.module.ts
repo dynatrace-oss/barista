@@ -20,7 +20,7 @@ import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtExampleLoadingDistractorDefault } from './loading-distractor-default-example/loading-distractor-default-example';
 import { DtExampleLoadingDistractorInput } from './loading-distractor-input-example/loading-distractor-input-example';
 import { DtExampleLoadingDistractorSpinner } from './loading-distractor-spinner-example/loading-distractor-spinner-example';
-import { DtInputModule } from 'components/input/src/input-module';
+import { DtInputModule } from '@dynatrace/barista-components/input';
 
 export const DT_LOADING_DISTRACTOR_EXAMPLES = [
   DtExampleLoadingDistractorDefault,
