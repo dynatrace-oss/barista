@@ -61,7 +61,6 @@ export class DtFavoriteColumn<T> extends DtSimpleColumnBase<T> {
    * datasource using the predefined name.
    */
   _toggleFavorite(data: T): void {
-    data[this.name] = !data[this.name];
     this.favoriteToggled.emit(data);
   }
 }
