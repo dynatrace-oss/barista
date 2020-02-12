@@ -282,10 +282,7 @@ export const overviewBuilder = async () => {
     );
   });
 
-  nav.navItems = nav.navItems.sort(function(
-    a: BaNavItem,
-    b: BaNavItem,
-  ): number {
+  nav.navItems.sort(function(a: BaNavItem, b: BaNavItem): number {
     if (a.order && b.order) {
       return a.order - b.order;
     }

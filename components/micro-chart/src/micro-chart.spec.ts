@@ -347,9 +347,8 @@ class Formatter {
 
   formatterInvocations = 0;
 
-  formatterFn = (input: number) => {
+  formatterFn = () => {
     this.formatterInvocations++;
-    input.toString();
   };
 }
 

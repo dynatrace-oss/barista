@@ -30,14 +30,6 @@ $remove-icon-size: 16px;
     margin-left: 8px;
     padding-right: 24px;
 
-    &:focus:not(disabled) {
-      border-radius: 0 $remove-icon-size $remove-icon-size 0;
-    }
-
-    &:hover:not(disabled) {
-      background: transparent;
-    }
-
     ::ng-deep {
       .dt-icon {
         height: $remove-icon-size;
