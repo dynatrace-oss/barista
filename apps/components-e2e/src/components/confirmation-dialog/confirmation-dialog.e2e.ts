@@ -22,10 +22,14 @@ import {
   dirtyDialog,
   enableBackdropButton,
 } from './confirmation-dialog.po';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
-fixture('Confirmation Dialog').page(
-  'http://localhost:4200/confirmation-dialog',
-);
+fixture('Confirmation Dialog')
+  .page('http://localhost:4200/confirmation-dialog')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should open popup after click start and close after click clear', async (testController: TestController) => {
   await testController

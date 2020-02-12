@@ -23,8 +23,14 @@ import {
   caseSensitiveFalseButton,
   contentHaveFunWithFlagsButton,
 } from './highlight.po';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
-fixture('Highlight').page('http://localhost:4200/highlight');
+fixture('Highlight')
+  .page('http://localhost:4200/highlight')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should only highlight caseinsensitive matches', async (testController: TestController) => {
   await testController

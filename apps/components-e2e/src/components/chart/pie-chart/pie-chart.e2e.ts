@@ -15,7 +15,7 @@
  */
 
 import { Selector } from 'testcafe';
-import { waitForAngular } from '../../../utils';
+import { waitForAngular, resetWindowSizeToDefault } from '../../../utils';
 
 const body = Selector('body');
 const pieChart = Selector('.pie-chart');
@@ -23,8 +23,8 @@ const tooltip = Selector('.dt-chart-tooltip-overlay');
 
 fixture('Pie chart')
   .page('http://localhost:4200/chart/pie')
-  .beforeEach(async (testController: TestController) => {
-    await testController.resizeWindow(1200, 800);
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
     await waitForAngular();
   });
 

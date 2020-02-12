@@ -16,3 +16,4 @@
 
 export * from './is-close-to';
 export * from './wait-for-angular';
+export * from './reset-window-to-default-size';

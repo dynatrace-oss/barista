@@ -15,7 +15,7 @@
  */
 
 import { Selector } from 'testcafe';
-import { waitForAngular } from '../../utils';
+import { waitForAngular, resetWindowSizeToDefault } from '../../utils';
 
 const disableToggle = Selector('#disable-toggle');
 const label = Selector('.dt-switch-label');
@@ -24,7 +24,10 @@ const input = Selector('#switch-input');
 
 fixture('Switch')
   .page('http://localhost:4200/switch')
-  .beforeEach(async () => waitForAngular());
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should be checked when clicked', async (testController: TestController) => {
   await testController.click(label);

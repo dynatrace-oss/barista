@@ -18,8 +18,14 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { checkbox, input } from './checkbox.po';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
-fixture('Checkbox').page('http://localhost:4200/checkbox');
+fixture('Checkbox')
+  .page('http://localhost:4200/checkbox')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should be checked when clicked, and unchecked when clicked again', async (testController: TestController) => {
   await testController.click(checkbox);

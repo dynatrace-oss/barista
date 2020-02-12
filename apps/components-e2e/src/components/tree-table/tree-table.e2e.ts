@@ -26,10 +26,12 @@ import {
   expandChangedCountWithExpandedFalse,
 } from './tree-table.po';
 import { waitForAngular } from '../../utils/wait-for-angular';
+import { resetWindowSizeToDefault } from '../../utils';
 
 fixture('TreeTable')
   .page('http://localhost:4200/tree-table')
   .beforeEach(async () => {
+    await resetWindowSizeToDefault();
     await waitForAngular();
   });
 

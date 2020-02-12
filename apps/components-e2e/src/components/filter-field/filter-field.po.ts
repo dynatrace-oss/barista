@@ -36,8 +36,9 @@ export function clickOption(
   const controller = testController || t;
 
   return controller
-    .click(filterField, { speed: 0.3 })
-    .click(option(nth), { speed: 0.3 });
+    .click(filterField, { speed: 0.2 })
+    .wait(250)
+    .click(option(nth), { speed: 0.2 });
 }
 
 /** Focus the input of the filter field to send key events to it. */
