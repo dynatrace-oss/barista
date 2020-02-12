@@ -459,6 +459,11 @@ export class DtChart
   }
 
   ngOnDestroy(): void {
+    // Next and complete the highChartsTooltipClosed observable
+    // to clear off any tooltips, that would still be open.
+    this._highChartsTooltipClosed$.next();
+    this._highChartsTooltipClosed$.complete();
+
     this._destroy$.next();
     this._destroy$.complete();
     if (this._chartObject) {
