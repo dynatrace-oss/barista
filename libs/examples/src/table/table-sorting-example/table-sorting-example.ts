@@ -60,7 +60,7 @@ export class DtExampleTableSorting {
   sortData(event: DtSortEvent): void {
     const data = this.dataSource.slice();
 
-    this.dataSource = data.sort((a, b) => {
+    data.sort((a, b) => {
       const isAsc = event.direction === 'asc';
       switch (event.active) {
         case 'host':
@@ -75,6 +75,8 @@ export class DtExampleTableSorting {
           return 0;
       }
     });
+
+    this.dataSource = data;
   }
 
   compare(a: number | string, b: number | string, isAsc: boolean): number {
