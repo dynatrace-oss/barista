@@ -2840,6 +2840,46 @@
       },
       "schematics": {}
     },
+    "slider": {
+      "projectType": "library",
+      "root": "libs/barista-components/slider",
+      "sourceRoot": "libs/barista-components/slider/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/slider/tsconfig.lib.json",
+              "libs/barista-components/slider/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/slider/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@dynatrace/barista-builders:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/barista-components/slider/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/slider/jest.config.js",
+            "tsConfig": "libs/barista-components/slider/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/slider/src/test-setup.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
     "show-more": {
       "projectType": "library",
       "root": "libs/barista-components/show-more",

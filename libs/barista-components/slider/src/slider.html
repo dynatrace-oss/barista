@@ -1,0 +1,36 @@
+<div class="dt-slider-label" [attr.id]="_labelUid">
+  <ng-content select="dt-slider-label"></ng-content>
+</div>
+<div class="dt-slider-flex-container">
+  <div
+    #trackWrapper
+    class="dt-slider-wrapper"
+    [attr.tabIndex]="(disabled ? '' : 0)"
+    [attr.disabled]="disabled"
+    [class.dt-disabled]="disabled"
+    [attr.aria-valuenow]="value"
+    [attr.aria-valuemin]="min"
+    [attr.aria-valuemax]="max"
+    [attr.aria-disabled]="disabled"
+    role="slider"
+    aria-orientation="horizontal"
+    [attr.aria-labelledby]="_labelUid"
+  >
+    <div class="dt-slider-track-wrapper">
+      <div class="dt-slider-fill" #sliderFill></div>
+      <div class="dt-slider-background" #sliderBackground></div>
+    </div>
+    <div #thumb class="dt-slider-thumb-wrapper">
+      <div class="dt-slider-thumb"></div>
+    </div>
+  </div>
+  <input
+    type="text"
+    inputmode="numeric"
+    dtInput
+    pattern="\d+\.?\d*"
+    [disabled]="disabled"
+    [attr.aria-labelledby]="_labelUid"
+    (change)="_inputValueChanged($event)"
+  /><ng-content select="dt-slider-unit"></ng-content>
+</div>

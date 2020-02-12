@@ -152,6 +152,9 @@
       "@dynatrace/barista-components/selection-area": [
         "libs/barista-components/selection-area/index.ts"
       ],
+      "@dynatrace/barista-components/slider": [
+        "libs/barista-components/slider/index.ts"
+      ],
       "@dynatrace/barista-components/show-more": [
         "libs/barista-components/show-more/index.ts"
       ],

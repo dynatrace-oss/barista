@@ -1,0 +1,102 @@
+@import '../../core/src/style/variables';
+@import '../../core/src/style/interactive-common';
+
+@media (prefers-reduced-motion: no-preference) {
+  .dt-slider-background,
+  .dt-slider-fill,
+  .dt-slider-thumb-wrapper {
+    transition: transform 0.1s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+.dt-slider-flex-container {
+  display: flex;
+  flex-wrap: nowrap;
+
+  .dt-input {
+    width: 57px;
+    display: block;
+  }
+}
+
+:host ::ng-deep {
+  .dt-slider-label {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  .dt-slider-unit {
+    padding: 5px 0 5px 8px;
+    width: 44px;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.dt-slider-wrapper {
+  &:focus {
+    @include dt-focus-style();
+  }
+
+  display: block;
+  position: relative;
+  padding: 15px 4px 0 0;
+  margin-right: 16px;
+  user-select: none;
+  flex-grow: 1;
+}
+
+.dt-slider-track-wrapper {
+  position: relative;
+  height: 10px;
+  overflow: hidden;
+}
+
+.dt-slider-background,
+.dt-slider-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+}
+
+.dt-slider-background {
+  transform-origin: 100% 100%;
+  background-color: $gray-300;
+}
+
+.dt-slider-thumb-wrapper {
+  position: absolute;
+  width: 100%;
+  top: 8px;
+  height: 0;
+}
+
+.dt-disabled {
+  .dt-slider-thumb,
+  .dt-slider-fill {
+    background-color: $gray-300;
+  }
+}
+
+.dt-slider-fill {
+  background-color: $turquoise-600;
+  transform-origin: 0 0;
+}
+
+.dt-slider-thumb {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-color: $turquoise-700;
+  border: 2px solid $white;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  border-radius: 50%;
+  transform: translate(50%, 0);
+}
