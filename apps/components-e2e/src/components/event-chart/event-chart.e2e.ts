@@ -22,8 +22,14 @@ import {
   analyzeButton,
   triggerChangeDetection,
 } from './event-chart.po';
+import { waitForAngular, resetWindowSizeToDefault } from '../../utils';
 
-fixture('EventChart').page('http://localhost:4200/event-chart');
+fixture('EventChart')
+  .page('http://localhost:4200/event-chart')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should show overlay when hovered', async (testController: TestController) => {
   // Hover over the first event.

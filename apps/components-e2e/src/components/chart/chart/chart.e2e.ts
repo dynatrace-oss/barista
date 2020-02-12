@@ -15,8 +15,14 @@
  */
 
 import { Selector } from 'testcafe';
+import { resetWindowSizeToDefault, waitForAngular } from '../../../utils';
 
-fixture('Highcharts Setup').page('http://localhost:4200/chart');
+fixture('Highcharts Setup')
+  .page('http://localhost:4200/chart')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 const counter = async () => Selector('#change-detection-counter').textContent;
 const lineChart = Selector('.line-chart');

@@ -15,7 +15,7 @@
  */
 
 import { Selector } from 'testcafe';
-import { waitForAngular } from '../../../../utils';
+import { waitForAngular, resetWindowSizeToDefault } from '../../../../utils';
 import {
   createRange,
   rangeSelection,
@@ -28,8 +28,8 @@ const closeCounter = Selector('.closed-counter');
 
 fixture('Selection Area Range Only')
   .page('http://localhost:4200/chart/selection-area/range')
-  .beforeEach(async (testController: TestController) => {
-    await testController.resizeWindow(1200, 800);
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
     await waitForAngular();
   });
 

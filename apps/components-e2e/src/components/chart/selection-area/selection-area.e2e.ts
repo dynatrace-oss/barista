@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-import { isCloseTo, waitForAngular } from '../../../utils';
+import {
+  isCloseTo,
+  waitForAngular,
+  resetWindowSizeToDefault,
+} from '../../../utils';
 import {
   chartClickTargets,
   closeButton,
@@ -38,8 +42,8 @@ import {
 
 fixture('Selection Area')
   .page('http://localhost:4200/chart/selection-area')
-  .beforeEach(async (testController: TestController) => {
-    await testController.resizeWindow(1200, 800);
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
     await waitForAngular();
   });
 

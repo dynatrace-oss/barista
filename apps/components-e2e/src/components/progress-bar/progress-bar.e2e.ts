@@ -15,10 +15,16 @@
  */
 
 import { Selector } from 'testcafe';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
 const bar = Selector('#progressbar');
 
-fixture('Progress Bar').page('http://localhost:4200/progress-bar');
+fixture('Progress Bar')
+  .page('http://localhost:4200/progress-bar')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should have aria attributes', async (testController: TestController) => {
   await testController

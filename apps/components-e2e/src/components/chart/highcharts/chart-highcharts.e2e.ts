@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-fixture('Highcharts').page('http://localhost:4200/chart/highcharts');
+import { resetWindowSizeToDefault, waitForAngular } from '../../../utils';
+
+fixture('Highcharts')
+  .page('http://localhost:4200/chart/highcharts')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should allow arearange as chart type', async (testController: TestController) => {
   const { error } = await testController.getBrowserConsoleMessages();

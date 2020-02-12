@@ -15,6 +15,7 @@
  */
 
 import { Selector } from 'testcafe';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
 const packets = Selector('#packets');
 const quality = Selector('#quality');
@@ -23,7 +24,12 @@ const packetsTab = Selector('#dt-tab-group-1-content-packets');
 const qualityTab = Selector('#dt-tab-group-1-content-quality');
 const trafficTab = Selector('#dt-tab-group-1-content-traffic');
 
-fixture('Tabs').page('http://localhost:4200/tabs');
+fixture('Tabs')
+  .page('http://localhost:4200/tabs')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should execute click handlers when not disabled', async (testController: TestController) => {
   await testController.click(packets);

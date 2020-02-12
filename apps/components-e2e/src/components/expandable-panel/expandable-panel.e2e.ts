@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 import { Selector } from 'testcafe';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
 const toggle = Selector('#btnToggle');
 const open = Selector('#open');
 
-fixture('Expandable Panel').page('http://localhost:4200/expandable-panel');
+fixture('Expandable Panel')
+  .page('http://localhost:4200/expandable-panel')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should toggle', async (testController: TestController) => {
   await testController.click(toggle);

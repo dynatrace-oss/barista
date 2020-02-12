@@ -23,8 +23,14 @@ import {
   radioWater,
   toggleDisable,
 } from './radio.po';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
-fixture('Radio').page('http://localhost:4200/radio');
+fixture('Radio')
+  .page('http://localhost:4200/radio')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should be checked when clicked', async (testController: TestController) => {
   await testController.click(radioWater);
