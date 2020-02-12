@@ -63,6 +63,7 @@ import { SelectDemo } from './select/select-demo.component';
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
 import { SidenavDemo } from './sidenav/sidenav-demo.component';
 import { StepperDemo } from './stepper/stepper-demo.component';
+import { SliderDemo } from './slider/slider-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
@@ -130,6 +131,7 @@ const routes: Routes = [
   { path: 'event-chart', component: EventChartDemo },
   { path: 'top-bar-navigation', component: TopBarNavigationDemo },
   { path: 'stepper', component: StepperDemo },
+  { path: 'slider', component: SliderDemo },
   { path: 'toast', component: ToastDemo },
   {
     path: 'container-breakpoint-observer',

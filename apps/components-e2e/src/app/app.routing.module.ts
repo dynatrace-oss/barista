@@ -174,6 +174,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'slider',
+    loadChildren: () =>
+      import('../components/slider/slider.module').then(
+        module => module.DtE2ESliderModule,
+      ),
+  },
+  {
     path: 'tabs',
     loadChildren: () =>
       import('../components/tabs/tabs.module').then(

@@ -1,0 +1,11 @@
+<button (click)="disabled = !disabled">Disable toggle</button>
+<dt-slider
+  [value]="1.6"
+  [min]="0"
+  [max]="8.24"
+  [step]="0.5"
+  [disabled]="disabled"
+>
+  <dt-slider-label>Slider that can be disabled</dt-slider-label>
+  <dt-slider-unit>s</dt-slider-unit>
+</dt-slider>

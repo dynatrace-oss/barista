@@ -253,6 +253,9 @@ import { DtExampleShowMoreDefault } from './show-more/show-more-default-example/
 import { DtExampleShowMoreDisabled } from './show-more/show-more-disabled-example/show-more-disabled-example';
 import { DtExampleShowMoreToggle } from './show-more/show-more-toggle-example/show-more-toggle-example';
 import { DtExampleSidenavDefault } from './sidenav/sidenav-default-example/sidenav-default-example';
+import { DtExampleDisabledSlider } from './slider/slider-disabled-example/slider-disabled-example';
+import { DtExampleFractionSlider } from './slider/slider-fraction-example/slider-fraction-example';
+import { DtExampleSimpleSlider } from './slider/slider-simple-example/slider-simple-example';
 import { DtExampleStepperDefault } from './stepper/stepper-default-example/stepper-default-example';
 import { DtExampleStepperEditable } from './stepper/stepper-editable-example/stepper-editable-example';
 import { DtExampleStepperLinear } from './stepper/stepper-linear-example/stepper-linear-example';
@@ -356,6 +359,7 @@ export { DtExamplesSecondaryNAvModule } from './secondary-nav/secondary-nav-exam
 export { DtExamplesSelectModule } from './select/select-examples.module';
 export { DtExamplesShowMoreModule } from './show-more/show-more-examples.module';
 export { DtExamplesSidenavModule } from './sidenav/sidenav-examples.module';
+export { DtExamplesSliderModule } from './slider/slider-examples.module';
 export { DtExamplesStepperModule } from './stepper/stepper-examples.module';
 export { DtExamplesSwitchModule } from './switch/switch-examples.module';
 export { DtExamplesTableModule } from './table/table-examples.module';
@@ -597,6 +601,9 @@ export {
   DtExampleShowMoreDisabled,
   DtExampleShowMoreToggle,
   DtExampleSidenavDefault,
+  DtExampleDisabledSlider,
+  DtExampleFractionSlider,
+  DtExampleSimpleSlider,
   DtExampleStepperDefault,
   DtExampleStepperEditable,
   DtExampleStepperLinear,
@@ -933,6 +940,9 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleShowMoreDisabled', DtExampleShowMoreDisabled],
   ['DtExampleShowMoreToggle', DtExampleShowMoreToggle],
   ['DtExampleSidenavDefault', DtExampleSidenavDefault],
+  ['DtExampleDisabledSlider', DtExampleDisabledSlider],
+  ['DtExampleFractionSlider', DtExampleFractionSlider],
+  ['DtExampleSimpleSlider', DtExampleSimpleSlider],
   ['DtExampleStepperDefault', DtExampleStepperDefault],
   ['DtExampleStepperEditable', DtExampleStepperEditable],
   ['DtExampleStepperLinear', DtExampleStepperLinear],

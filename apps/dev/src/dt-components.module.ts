@@ -60,6 +60,7 @@ import { DtSecondaryNavModule } from '@dynatrace/barista-components/secondary-na
 import { DtSelectModule } from '@dynatrace/barista-components/select';
 import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
 import { DtStepperModule } from '@dynatrace/barista-components/stepper';
+import { DtSliderModule } from '@dynatrace/barista-components/slider';
 import { DtSwitchModule } from '@dynatrace/barista-components/switch';
 import { DtTableModule } from '@dynatrace/barista-components/table';
 import { DtTabsModule } from '@dynatrace/barista-components/tabs';
@@ -131,6 +132,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtEventChartModule,
     DtTopBarNavigationModule,
     DtStepperModule,
+    DtSliderModule,
     DtContainerBreakpointObserverModule,
   ],
 })
