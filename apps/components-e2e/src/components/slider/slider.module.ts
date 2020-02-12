@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-/** Clamps a value to be between two numbers, by default 0 and 100. */
-export function clamp(v: number, min: number = 0, max: number = 100): number {
-  return Math.max(min, Math.min(max, v));
-}
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { DtSliderModule } from '@dynatrace/barista-components/slider';
+import { DtE2ESlider } from './slider';
 
-/**
- * Rounding to a specific number of decimal spaces.
- */
-export function roundToDecimal(toRound: number, decimals: number = 5): number {
-  return (
-    Math.round((toRound + Number.EPSILON) * 10 ** decimals) / 10 ** decimals
-  );
-}
+const routes: Route[] = [{ path: '', component: DtE2ESlider }];
+
+@NgModule({
+  declarations: [DtE2ESlider],
+  imports: [CommonModule, RouterModule.forChild(routes), DtSliderModule],
+  exports: [],
+  providers: [],
+})
+export class DtE2ESliderModule {}

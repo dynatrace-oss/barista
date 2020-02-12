@@ -66,6 +66,7 @@ import { DtExamplesSecondaryNAvModule } from './secondary-nav/secondary-nav-exam
 import { DtExamplesSelectModule } from './select/select-examples.module';
 import { DtExamplesShowMoreModule } from './show-more/show-more-examples.module';
 import { DtExamplesSidenavModule } from './sidenav/sidenav-examples.module';
+import { DtExamplesSliderModule } from './slider/slider-examples.module';
 import { DtExamplesStepperModule } from './stepper/stepper-examples.module';
 import { DtExamplesSwitchModule } from './switch/switch-examples.module';
 import { DtExamplesTableModule } from './table/table-examples.module';
@@ -128,6 +129,7 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtExamplesSelectModule,
     DtExamplesShowMoreModule,
     DtExamplesSidenavModule,
+    DtExamplesSliderModule,
     DtExamplesStepperModule,
     DtExamplesSwitchModule,
     DtExamplesTableModule,

@@ -1,0 +1,33 @@
+/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { NgModule } from '@angular/core';
+import { DtExampleSimpleSlider } from './slider-simple-example/slider-simple-example';
+import { DtSliderModule } from '@dynatrace/barista-components/slider';
+import { DtExampleFractionSlider } from './slider-fraction-example/slider-fraction-example';
+import { DtExampleDisabledSlider } from './slider-disabled-example/slider-disabled-example';
+
+export const DT_SLIDER_EXAMPLES = [
+  DtExampleSimpleSlider,
+  DtExampleFractionSlider,
+  DtExampleDisabledSlider,
+];
+
+@NgModule({
+  imports: [DtSliderModule],
+  declarations: [...DT_SLIDER_EXAMPLES],
+  entryComponents: [...DT_SLIDER_EXAMPLES],
+})
+export class DtExamplesSliderModule {}

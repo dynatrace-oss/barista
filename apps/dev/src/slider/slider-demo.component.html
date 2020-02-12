@@ -1,0 +1,50 @@
+<button (click)="disabled = !disabled">Toggle disabled</button><br />
+Value:
+<input
+  type="text"
+  [(ngModel)]="value"
+  [ngModelOptions]="{ updateOn: 'blur' }"
+/><br />
+Min:
+<input
+  type="text"
+  [(ngModel)]="min"
+  [ngModelOptions]="{ updateOn: 'blur' }"
+/><br />
+Max:
+<input
+  type="text"
+  [(ngModel)]="max"
+  [ngModelOptions]="{ updateOn: 'blur' }"
+/><br />
+Step:
+<input
+  type="text"
+  [(ngModel)]="step"
+  [ngModelOptions]="{ updateOn: 'blur' }"
+/><br />
+(updates only the first slider on blur)
+
+<dt-slider
+  [disabled]="disabled"
+  [value]="value"
+  [min]="min"
+  [max]="max"
+  [step]="step"
+>
+</dt-slider>
+
+<dt-slider [value]="25" [min]="25" [max]="40" [step]="5">
+  <dt-slider-label>label</dt-slider-label>
+</dt-slider>
+
+<dt-slider [value]="3000" [min]="0" [max]="4000" [step]="20">
+  <dt-slider-unit>units</dt-slider-unit>
+</dt-slider>
+
+<dt-slider [value]="0" [min]="0" [max]="10" [step]="5">
+  <dt-slider-label>label</dt-slider-label>
+  <dt-slider-unit>units</dt-slider-unit>
+</dt-slider>
+
+<dt-slider></dt-slider>

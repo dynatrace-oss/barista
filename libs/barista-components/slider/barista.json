@@ -1,0 +1,24 @@
+{
+  "title": "Slider",
+  "description": "The slider component can be used to input numeric values in a user friendly, accessible manner.",
+  "postid": "slider",
+  "identifier": "Sl",
+  "category": "components",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "Mihaly Bardos",
+        "gitHubUser": "bardosmisi"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
+  },
+  "related": ["input"],
+  "tags": ["angular", "component"]
+}
