@@ -92,9 +92,8 @@ export class BaScrollSpiedElementGroup {
     if (scrollTop + 1 >= maxScrollTop) {
       activeItem = this._spiedElements[0];
     } else {
-      this._spiedElements.some(spiedElem => {
+      activeItem = this._spiedElements.find(spiedElem => {
         if (spiedElem.top <= scrollTop) {
-          activeItem = spiedElem;
           return true;
         }
         return false;

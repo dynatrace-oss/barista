@@ -39,13 +39,6 @@ import {
 const LOG: DtLogger = DtLoggerFactory.create('DtTheme');
 
 const MAX_DEPTH = 2;
-// dtTemes placed on elements containing one of these classes
-// will ignore the max depth check.
-// Needed for special cases like the context dialog where the
-// buttons are always dark.
-// Only add if you are absolutely sure what you are doing and
-// only if you have adjusted the css selectors.
-const MAX_DEPTH_EXCEPTION_CLASSESS = [];
 
 export type DtThemeVariant = 'light' | 'dark' | null;
 const THEME_VALIDATION_RX = /^((?:[a-zA-Z-]+)?)(?::(light|dark))?$/;
@@ -161,13 +154,7 @@ export class DtTheme implements OnDestroy {
 
   /** Notify developers if max depth level has been exceeded */
   private _warnIfDepthExceeded(): void {
-    if (
-      isDevMode() &&
-      this._depthLevel > MAX_DEPTH &&
-      !MAX_DEPTH_EXCEPTION_CLASSESS.some(c =>
-        this._elementRef.nativeElement.classList.contains(c),
-      )
-    ) {
+    if (isDevMode() && this._depthLevel > MAX_DEPTH) {
       LOG.warn(
         `The max supported depth level (${MAX_DEPTH}) of nested themes (dtTheme) has ` +
           `been exceeded. This could result in wrong styling unpredictable styling side effects.`,
