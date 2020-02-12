@@ -6,8 +6,8 @@
     Sidenav content
   </dt-sidenav>
   <dt-top-bar-navigation aria-label="Main navigation" class="nav">
-    <dt-top-bar-navigation-item *ngIf="!sidenav.opened" align="start">
-      <button class="open-sidenav-button" (click)="sidenav.open()">
+    <dt-top-bar-navigation-item align="start">
+      <button (click)="sidenav.open()" dtTopBarAction>
         <dt-icon name="menu-hamburger"></dt-icon>
       </button>
     </dt-top-bar-navigation-item>

@@ -136,3 +136,21 @@
 
 <button (click)="dynamicdrawerOver1.toggle()">Toggle 1 over</button>
 <button (click)="addDrawer()">add a drawer</button>
+<br />
+
+<div style="width: 400px; height: 500px; background: #e1f1f3">
+  <dt-sidenav-container>
+    <dt-sidenav mode="side" opened #sidenav>
+      <dt-sidenav-header>
+        Title
+      </dt-sidenav-header>
+      Sidenav content<br />
+      Sidenav content<br />
+      Sidenav content<br />
+      Sidenav content<br />
+      Sidenav content<br />
+      Sidenav content<br />
+    </dt-sidenav>
+    <button button (click)="sidenav.open()" dtTopBarAction>Open</button>
+  </dt-sidenav-container>
+</div>

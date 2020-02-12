@@ -18,6 +18,7 @@ import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
 import { DtExampleSidenavDefault } from './sidenav-default-example/sidenav-default-example';
 import { DtExampleSidenavWithTopBarNavigation } from './sidenav-with-top-bar-navigation-example/sidenav-with-top-bar-navigation-example';
 import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 export const DT_SIDENAV_EXAMPLES = [
   DtExampleSidenavDefault,
@@ -25,7 +26,11 @@ export const DT_SIDENAV_EXAMPLES = [
 ];
 
 @NgModule({
-  imports: [DtDrawerModule, DtTopBarNavigationModule],
+  imports: [
+    DtDrawerModule,
+    DtTopBarNavigationModule,
+    DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
+  ],
   declarations: [...DT_SIDENAV_EXAMPLES],
   entryComponents: [...DT_SIDENAV_EXAMPLES],
 })

@@ -6,14 +6,13 @@
   background-color: $gray-700;
   color: #ffffff;
   min-width: 240px;
-  height: fill-available;
   z-index: 100;
 }
 
 .dt-sidenav-header {
   display: flex;
   height: 44px;
-  width: 240px;
+  min-width: 240px;
   cursor: pointer;
   background: #525252;
 }
@@ -48,8 +47,7 @@
   text-align: left;
 }
 
-.dt-drawer-body {
-  height: calc(100% - 44px);
+.dt-sidenav-body {
   overflow-y: auto;
   overflow-x: hidden;
 }
