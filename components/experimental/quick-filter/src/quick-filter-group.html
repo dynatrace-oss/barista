@@ -5,8 +5,14 @@
     class="quick-filter-group-items"
     (change)="_selectOption($event)"
   >
-    <dt-radio-button>Any</dt-radio-button>
-    <dt-radio-button *ngFor="let item of _getOptions()" [value]="item">
+    <dt-radio-button [checked]="_isNothingSelected()" (change)="_unsetGroup()">
+      Any
+    </dt-radio-button>
+    <dt-radio-button
+      *ngFor="let item of _getOptions()"
+      [value]="item"
+      [checked]="_isActive(item)"
+    >
       {{_getViewValue(item)}}
     </dt-radio-button>
   </dt-radio-group>
@@ -17,6 +23,7 @@
     <dt-checkbox
       *ngFor="let item of _getOptions()"
       [value]="item"
+      [checked]="_isActive(item)"
       (change)="_selectCheckBox($event)"
     >
       {{_getViewValue(item)}}

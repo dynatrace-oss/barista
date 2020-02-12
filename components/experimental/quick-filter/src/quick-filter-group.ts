@@ -20,6 +20,7 @@ import {
   Input,
   Output,
   EventEmitter,
+  ChangeDetectorRef,
 } from '@angular/core';
 import {
   DtNodeDef,
@@ -28,7 +29,14 @@ import {
 } from '@dynatrace/barista-components/filter-field';
 import { DtRadioChange } from '@dynatrace/barista-components/radio';
 import { DtCheckboxChange } from '../../../checkbox';
-import { addFilter, removeFilter, updateFilter, Action } from './state/actions';
+import {
+  addFilter,
+  removeFilter,
+  updateFilter,
+  Action,
+  unsetFilterGroup,
+} from './state/actions';
+import { buildIdPathsFromFilters } from './quick-filter-utils';
 
 /** @internal */
 @Component({
@@ -42,23 +50,58 @@ import { addFilter, removeFilter, updateFilter, Action } from './state/actions';
 })
 export class DtQuickFilterGroup {
   /** @internal The nodeDef of the autocomplete that should be rendered */
-  @Input() _nodeDef: DtNodeDef;
+  @Input('nodeDef') _nodeDef: DtNodeDef;
 
+  /** @internal The list of all active filters */
+  @Input()
+  set activeFilters(filters: any[][]) {
+    this._activeFilterPaths = buildIdPathsFromFilters(filters || []);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal Emits a new action that changes the filter  */
   @Output() readonly filterChange = new EventEmitter<Action>();
 
-  _selectedOptions: any[] = [];
+  /** A list of active filter ids */
+  private _activeFilterPaths: string[] = [];
 
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+
+  _unsetGroup(): void {
+    this.filterChange.emit(unsetFilterGroup(this._nodeDef));
+  }
+
+  /** @internal Updates a radio box */
   _selectOption(change: DtRadioChange<DtNodeDef>): void {
     if (change.value) {
       this.filterChange.emit(updateFilter(change.value));
     }
   }
 
+  /** @internal Select or de select a checkbox */
   _selectCheckBox(change: DtCheckboxChange<DtNodeDef>): void {
     const action = change.checked
       ? addFilter(change.source.value)
       : removeFilter(change.source.value);
     this.filterChange.emit(action);
+  }
+
+  /** @internal Helper function that checks if nothing is selected inside a group */
+  _isNothingSelected(): boolean {
+    if (this._nodeDef.option && this._nodeDef.option.uid) {
+      const index = this._activeFilterPaths.findIndex(path =>
+        path.startsWith(this._nodeDef.option!.uid!),
+      );
+      return index === -1;
+    }
+    return false;
+  }
+
+  /** @internal Helper function that checks if an options is active */
+  _isActive(node: DtNodeDef): boolean {
+    return !!(
+      node.option && this._activeFilterPaths.includes(node.option.uid || '')
+    );
   }
 
   /**

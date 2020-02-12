@@ -85,23 +85,49 @@ export class DtQuickFilter<T> implements AfterViewInit, OnDestroy {
   private _store = createQuickFilterStore(quickFilterReducer);
 
   /** @internal the autocomplete fields that should be rendered by the quick filter */
-  _autocompleteData$ = this._store.select(getAutocompletes);
+  readonly _autocompleteData$ = this._store.select(getAutocompletes);
   /** @internal the dataSource that gets passed to the filter field */
-  _filterFieldDataSource$ = this._store.select(getDataSource);
+  readonly _filterFieldDataSource$ = this._store.select(getDataSource);
+  /** @internal the list of all current active filters */
+  readonly _activeFilters$ = this._store.select(getFilters);
 
   private _destroy$ = new Subject<void>();
 
   ngAfterViewInit(): void {
-    // initially set the active filters
-    this._store.dispatch(setFilters(this._filterField.filters));
+    const initialFilers = [
+      [
+        {
+          name: 'AUT',
+          distinct: true,
+          autocomplete: [
+            { name: 'Linz' },
+            { name: 'Vienna' },
+            { name: 'Graz' },
+          ],
+        },
+        { name: 'Graz' },
+      ],
+      [
+        {
+          name: 'Not in Quickfilter',
+          autocomplete: [
+            { name: 'Option1' },
+            { name: 'Option2' },
+            { name: 'Option3' },
+          ],
+        },
+        { name: 'Option2' },
+      ],
+    ];
+
+    this._store.dispatch(setFilters(initialFilers)); // this._filterField.filters
 
     // When the filters changes apply them to the filter field
-    this._store
-      .select(getFilters)
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(filters => {
+    this._activeFilters$.pipe(takeUntil(this._destroy$)).subscribe(filters => {
+      if (this._filterField.filters !== filters) {
         this._filterField.filters = filters;
-      });
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -115,8 +141,7 @@ export class DtQuickFilter<T> implements AfterViewInit, OnDestroy {
 
   /** @internal Bubble the filter field change event through */
   _filterFiledChanged(change: DtFilterFieldChangeEvent<T>): void {
-    console.log(change);
-
+    this._store.dispatch(setFilters(change.filters));
     this.filterChanges.emit(change);
   }
 }

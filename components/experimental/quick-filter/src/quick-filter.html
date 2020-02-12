@@ -16,7 +16,8 @@
 
     <dt-quick-filter-group
       *ngFor="let nodeDef of _autocompleteData$ | async"
-      [_nodeDef]="nodeDef"
+      [activeFilters]="_activeFilters$ | async"
+      [nodeDef]="nodeDef"
       (filterChange)="_changeFilter($event)"
     ></dt-quick-filter-group>
   </dt-drawer>

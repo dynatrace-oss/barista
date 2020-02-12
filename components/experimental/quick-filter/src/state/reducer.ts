@@ -48,6 +48,13 @@ export function quickFilterReducer(
       return { ...initialState, dataSource: action.payload };
     case ActionType.UPDATE_DATA_SOURCE:
       return { ...state, nodeDef: action.payload };
+    case ActionType.SET_FILTERS:
+      return { ...state, filters: action.payload };
+    case ActionType.UNSET_FILTER_GROUP:
+      return {
+        ...state,
+        filters: unsetFilterGroup(state.filters, action.payload),
+      };
     case ActionType.ADD_FILTER:
       return { ...state, filters: addFilter(state.filters, action.payload) };
     case ActionType.UPDATE_FILTER:
@@ -92,6 +99,14 @@ export function updateFilter(filters: any[][], item: DtNodeDef): any[][] {
 
   filters[index] = buildData(item);
 
+  return filters;
+}
+
+/** @internal Remove a group from the filters array */
+export function unsetFilterGroup(filters: any[][], group: DtNodeDef): any[][] {
+  if (group.option && group.option.viewValue) {
+    return filters.filter(filter => filter[0].name !== group.option!.viewValue);
+  }
   return filters;
 }
 

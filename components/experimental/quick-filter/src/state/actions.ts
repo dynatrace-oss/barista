@@ -23,9 +23,10 @@ export enum ActionType {
   ADD_FILTER = '@@actions add filter',
   REMOVE_FILTER = '@@actions remove filter',
   UPDATE_FILTER = '@@actions update filter',
+  SET_FILTERS = '@@actions set filters',
+  UNSET_FILTER_GROUP = '@@actions unset filter group',
   SWITCH_DATA_SOURCE = '@@actions  switch dataSource',
   UPDATE_DATA_SOURCE = '@@actions update dataSource',
-  SET_FILTERS = '@@actions set filters',
 }
 
 /** Interface for an action */
@@ -41,6 +42,9 @@ export const action = <T>(type: ActionType, payload?: T): Action<T> => ({
 
 export const setFilters = (filters: any[][]) =>
   action<any[][]>(ActionType.SET_FILTERS, filters);
+
+export const unsetFilterGroup = (group: DtNodeDef) =>
+  action<DtNodeDef>(ActionType.UNSET_FILTER_GROUP, group);
 
 export const addFilter = (item: DtNodeDef) =>
   action<DtNodeDef>(ActionType.ADD_FILTER, item);

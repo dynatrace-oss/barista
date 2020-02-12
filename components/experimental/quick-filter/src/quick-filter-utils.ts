@@ -13,3 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { DELIMITER } from '../../../filter-field/src/filter-field-util';
+
+export function buildIdPathsFromFilters(filters: any[][]): string[] {
+  return filters.map(path =>
+    path.reduce(
+      (previousValue, currentValue) =>
+        `${previousValue.name}${DELIMITER}${currentValue.name}${DELIMITER}`,
+    ),
+  );
+}
