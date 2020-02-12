@@ -24,6 +24,7 @@ import {
   ContentChildren,
   Directive,
   ElementRef,
+  Host,
   Input,
   OnChanges,
   OnDestroy,
@@ -32,17 +33,15 @@ import {
   SkipSelf,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject, Subscription, merge } from 'rxjs';
-import { filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
-
 import {
   DtIndicator,
-  _addCssClass,
   isDefined,
+  _addCssClass,
   _parseCssValue,
   _removeCssClass,
 } from '@dynatrace/barista-components/core';
-
+import { merge, Subject, Subscription } from 'rxjs';
+import { filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { DtRow } from './row';
 import { DtSort, DtSortEvent } from './sort/sort';
 
@@ -160,6 +159,7 @@ export class DtCell implements AfterContentInit, OnDestroy {
     public _changeDetectorRef: ChangeDetectorRef,
     elem: ElementRef,
     @Optional() @SkipSelf() dtSortable?: DtSort,
+    @Optional() @Host() private _dtIndicator?: DtIndicator,
   ) {
     if (dtSortable) {
       this._isSorted = dtSortable.active === this._columnDef.name;
@@ -185,23 +185,21 @@ export class DtCell implements AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
-    this._indicators.changes.pipe(takeUntil(this._destroy)).subscribe(() => {
+    const indicatorChanges = this._dtIndicator
+      ? this._dtIndicator._stateChanges
+      : this._indicators.changes.pipe(
+          startWith(null),
+          filter(() => !!this._indicators.length),
+          switchMap(() =>
+            merge(
+              ...this._indicators.map(indicator => indicator._stateChanges),
+            ),
+          ),
+        );
+
+    indicatorChanges.pipe(takeUntil(this._destroy)).subscribe(() => {
       this._stateChanges.next();
     });
-
-    // Emits whenever one of the indicator's inputs changes
-    this._indicators.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy),
-        filter(() => !!this._indicators.length),
-        switchMap(() =>
-          merge(...this._indicators.map(indicator => indicator._stateChanges)),
-        ),
-      )
-      .subscribe(() => {
-        this._stateChanges.next();
-      });
 
     Promise.resolve().then(() => {
       this._stateChanges.next();
@@ -219,6 +217,12 @@ export class DtCell implements AfterContentInit, OnDestroy {
   }
 
   private _hasIndicator(indicatorType: IndicatorType): boolean {
+    if (this._dtIndicator) {
+      return (
+        this._dtIndicator.active && this._dtIndicator.color === indicatorType
+      );
+    }
+
     return (
       this._indicators &&
       isDefined(

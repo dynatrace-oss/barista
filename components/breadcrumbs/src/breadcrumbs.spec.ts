@@ -86,7 +86,7 @@ describe('DtBreadcrumbs', () => {
   `,
 })
 class TestBreadcrumbs {
-  @ViewChild(DtBreadcrumbs, { static: false }) breadcrumbs: DtBreadcrumbs;
+  @ViewChild(DtBreadcrumbs) breadcrumbs: DtBreadcrumbs;
 }
 
 @Component({
@@ -113,5 +113,5 @@ class TestBreadcrumbsWithAriaAttr {
 class TestBreadcrumbsWithDeprecatedItems {
   // tslint:disable-next-line:deprecation
   @ViewChildren(DtBreadcrumbsItem) items: QueryList<DtBreadcrumbsItem>;
-  @ViewChild(DtBreadcrumbs, { static: false }) breadcrumbs: DtBreadcrumbs;
+  @ViewChild(DtBreadcrumbs) breadcrumbs: DtBreadcrumbs;
 }

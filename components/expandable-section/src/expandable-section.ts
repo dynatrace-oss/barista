@@ -14,29 +14,27 @@
  * limitations under the License.
  */
 
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  Directive,
+  EventEmitter,
   Input,
-  NgZone,
+  OnChanges,
   Output,
+  SimpleChanges,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { Observable, defer } from 'rxjs';
-import { filter, switchMap, take } from 'rxjs/operators';
-
 import { CanDisable } from '@dynatrace/barista-components/core';
 import { DtExpandablePanel } from '@dynatrace/barista-components/expandable-panel';
+import { filter } from 'rxjs/operators';
 
-@Component({
+@Directive({
   exportAs: 'dtExpandableSectionHeader',
   selector: 'dt-expandable-section-header',
-  template: '<ng-content></ng-content>',
-  encapsulation: ViewEncapsulation.Emulated,
-  preserveWhitespaces: false,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtExpandableSectionHeader {}
 
@@ -55,38 +53,31 @@ export class DtExpandableSectionHeader {}
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtExpandableSection implements CanDisable {
+export class DtExpandableSection implements CanDisable, OnChanges {
   /** Whether the expandable section is expanded. */
   @Input()
   get expanded(): boolean {
     return this._panel.expanded;
   }
   set expanded(value: boolean) {
-    this._panel.expanded = value;
+    this._panel.expanded = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();
   }
 
   /** Whether the expandable section is disabled. */
   @Input()
   get disabled(): boolean {
-    return this._panel && this._panel.disabled;
+    return Boolean(this._panel?.disabled);
   }
   set disabled(value: boolean) {
-    this._panel.disabled = value;
-    this._changeDetectorRef.markForCheck();
+    if (this._panel) {
+      this._panel.disabled = coerceBooleanProperty(value);
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   /** Event emitted when the section's expandable state changes. */
-  @Output() readonly expandChange: Observable<boolean> = defer(() => {
-    if (this._panel) {
-      return this._panel.expandChange.asObservable();
-    }
-
-    return this._ngZone.onStable.asObservable().pipe(
-      take(1),
-      switchMap(() => this.expandChange),
-    );
-  });
+  @Output() readonly expandChange = new EventEmitter<boolean>();
 
   /** @internal Event emitted when the section is expanded. */
   @Output('expanded') readonly _sectionExpanded = this.expandChange.pipe(
@@ -101,17 +92,22 @@ export class DtExpandableSection implements CanDisable {
   @ViewChild(DtExpandablePanel, { static: true })
   private _panel: DtExpandablePanel;
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone,
-  ) {}
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.disabled?.firstChange) {
+      this._panel.disabled = this.disabled;
+    }
+  }
 
   /**
    * Toggles the expanded state of the panel.
    */
   toggle(): void {
-    this._panel.toggle();
-    this._changeDetectorRef.markForCheck();
+    if (!this.disabled) {
+      this._panel.toggle();
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   /** Sets the expanded state of the panel to false. */
@@ -122,7 +118,9 @@ export class DtExpandableSection implements CanDisable {
 
   /** Sets the expanded state of the panel to true. */
   open(): void {
-    this._panel.open();
-    this._changeDetectorRef.markForCheck();
+    if (!this.disabled) {
+      this._panel.open();
+      this._changeDetectorRef.markForCheck();
+    }
   }
 }

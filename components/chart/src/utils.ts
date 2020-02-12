@@ -96,7 +96,7 @@ export function captureAndMergeEvents<
  */
 export function getElementRef<T>(
   queryList: QueryList<ElementRef<T>>,
-): OperatorFunction<unknown, ElementRef<T>> {
+): OperatorFunction<any, ElementRef<T>> {
   return input$ =>
     input$.pipe(
       map(() => {
@@ -104,7 +104,7 @@ export function getElementRef<T>(
           return queryList.first;
         }
       }),
-      filter(Boolean),
+      filter<ElementRef<T>>(Boolean),
     );
 }
 

@@ -16,7 +16,7 @@
 
 export * from './src/form-field-module';
 export * from './src/form-field';
-export * from './src/form-field-control';
+export { DtFormFieldControl } from './src/form-field-control';
 export * from './src/form-field-errors';
 export * from './src/hint';
 export * from './src/label';

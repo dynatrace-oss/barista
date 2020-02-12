@@ -56,15 +56,13 @@ describe('DtTabNavigationAdapter', () => {
         },
       ],
     });
-    router = TestBed.get(Router);
+    router = TestBed.inject(Router);
     fixture = createComponent(AppComponent);
   });
 
   describe('adapter functions', () => {
     beforeEach(fakeAsync(() => {
-      adapter = TestBed.get<DtTabNavigationAdapter>(
-        DtTabNavigationAdapter as any,
-      );
+      adapter = TestBed.inject(DtTabNavigationAdapter);
     }));
 
     it('should register a tabgroup with the adapter after creation', fakeAsync(() => {

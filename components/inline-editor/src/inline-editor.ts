@@ -217,7 +217,7 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
   /** @internal the input's elementref */
   @ViewChildren(DtInput) _input: QueryList<DtInput>;
   /** @internal the edit button */
-  @ViewChild('edit', { static: false }) _editButtonReference: ElementRef;
+  @ViewChild('edit') _editButtonReference: ElementRef;
   /** @internal list of all errors passed as content children */
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
 

@@ -2322,5 +2322,5 @@ export class TestApp {
   label = 'Filter by';
   clearAllLabel = 'Clear all';
 
-  @ViewChild(DtFilterField, { static: false }) filterField: DtFilterField<any>;
+  @ViewChild(DtFilterField) filterField: DtFilterField<any>;
 }

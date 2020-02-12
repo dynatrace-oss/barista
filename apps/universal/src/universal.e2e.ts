@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-fixture('Universal').page('http://localhost:9000');
+fixture('Universal').page('http://localhost:4200');
 
 test('Universal rendering should not throw an error', async (testController: TestController) => {
   const { error } = await testController.getBrowserConsoleMessages();

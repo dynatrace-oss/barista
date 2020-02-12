@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import * as OctokitApi from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import { createReleaseTag } from './create-release-tag';
 import { ReleaseNotes } from '../extract-release-notes';
 
@@ -21,13 +21,13 @@ const releaseNotes: ReleaseNotes = {
   releaseTitle: '',
   releaseNotes: 'notes',
 };
-let githubApi: OctokitApi;
+let githubApi: Octokit;
 let createTagSpy: jest.SpyInstance;
 let createRefSpy: jest.SpyInstance;
 let createReleaseSpy: jest.SpyInstance;
 
 beforeEach(() => {
-  githubApi = new OctokitApi();
+  githubApi = new Octokit();
 
   createTagSpy = jest.spyOn(githubApi.git, 'createTag').mockImplementation();
   createRefSpy = jest.spyOn(githubApi.git, 'createRef').mockImplementation();

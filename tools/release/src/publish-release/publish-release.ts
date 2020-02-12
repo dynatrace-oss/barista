@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import * as OctokitApi from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import { bold, green } from 'chalk';
 import { config as dotenvConfig } from 'dotenv';
 import { join } from 'path';
@@ -79,7 +79,7 @@ export async function publishRelease(workspaceRoot: string): Promise<void> {
   const gitClient = new GitClient(workspaceRoot);
 
   // Octokit API instance that can be used to make Github API calls.
-  const githubApi = new OctokitApi({
+  const githubApi = new Octokit({
     auth: process.env.GITHUB_TOKEN,
   });
 

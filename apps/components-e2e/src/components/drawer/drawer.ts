@@ -60,7 +60,7 @@ export class DtE2EDrawer {
     HTMLButtonElement
   >;
 
-  @ViewChild(DtChartRange, { static: false }) dtChartRange: DtChartRange;
+  @ViewChild(DtChartRange) dtChartRange: DtChartRange;
 
   constructor(private _dataService: DataService) {}
 

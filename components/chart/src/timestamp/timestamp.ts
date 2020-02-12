@@ -156,7 +156,7 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
    * @internal The focus trap for the selected timestamp,
    * used by the selection area to chain the focus group of the timestamp and the overlay.
    */
-  @ViewChild(CdkTrapFocus, { static: false })
+  @ViewChild(CdkTrapFocus)
   _selectedFocusTrap: CdkTrapFocus;
 
   /**

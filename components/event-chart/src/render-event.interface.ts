@@ -14,16 +14,22 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import {
+  DtEventChartColors,
+  DtEventChartEvent,
+} from './event-chart-directives';
 
-/** Provider that defines how form controls behave with regards to displaying error messages. */
-@Injectable({ providedIn: 'root' })
-export class ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null,
-  ): boolean {
-    return Boolean(control?.invalid && (control!.dirty || form?.submitted));
-  }
+/**
+ * Interface for the RenderEvent of the Event Chart
+ */
+export interface RenderEvent<T> {
+  x1: number;
+  x2: number;
+  y: number;
+  lane: string;
+  color: DtEventChartColors;
+  pattern: boolean;
+  events: DtEventChartEvent<T>[];
+  mergedWith?: number[];
+  originalIndex?: number;
 }

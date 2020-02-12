@@ -362,9 +362,9 @@ class DummyChart implements AfterViewInit, OnDestroy {
 
   options: DtChartOptions;
 
-  @ViewChild('container', { static: false }) container;
+  @ViewChild('container') container;
 
-  @ContentChild(DtChartHeatfield, { static: false })
+  @ContentChild(DtChartHeatfield)
   heatfield: DtChartHeatfield;
 
   ngAfterViewInit(): void {

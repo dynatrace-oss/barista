@@ -39,7 +39,7 @@ import { dataBig, dataSmall } from './data-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartDemo {
-  @ViewChild(DtChartRange, { static: false }) dtChartRange: DtChartRange;
+  @ViewChild(DtChartRange) dtChartRange: DtChartRange;
 
   validRange = false;
   options = chartOptions;

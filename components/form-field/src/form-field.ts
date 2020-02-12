@@ -33,9 +33,10 @@ import {
   ElementRef,
   QueryList,
   ViewEncapsulation,
+  OnDestroy,
 } from '@angular/core';
-import { EMPTY, merge } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { EMPTY, merge, Subject } from 'rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
 
 import {
   DT_ERROR_ENTER_ANIMATION,
@@ -93,7 +94,7 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtFormField<T>
-  implements AfterContentInit, AfterContentChecked, AfterViewInit {
+  implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
   /** @internal Unique id for the internal form field label. */
   _labelId = `dt-form-field-label-${nextUniqueId++}`;
 
@@ -101,23 +102,34 @@ export class DtFormField<T>
   _errorAnimationState: '' | 'enter' | 'enter-delayed' = '';
 
   /** @internal Reference to the label */
-  @ContentChild(DtLabel, { static: false }) _labelChild: DtLabel;
+  @ContentChild(DtLabel) _labelChild: DtLabel;
 
   /** @internal References to the hints */
-  @ContentChildren(DtHint) _hintChildren: QueryList<DtHint>;
+  @ContentChildren(DtHint, { descendants: true }) _hintChildren: QueryList<
+    DtHint
+  >;
 
   /** @internal References to the errors */
-  @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
+  @ContentChildren(DtError, { descendants: true }) _errorChildren: QueryList<
+    DtError
+  >;
 
   /** @internal Reference to the control */
-  @ContentChild(DtFormFieldControl, { static: false })
+  @ContentChild(DtFormFieldControl)
   _control: DtFormFieldControl<T>;
 
   /** @internal References to the prefixes */
-  @ContentChildren(DtPrefix) _prefixChildren: QueryList<DtPrefix>;
+  @ContentChildren(DtPrefix, { descendants: true }) _prefixChildren: QueryList<
+    DtPrefix
+  >;
 
   /** @internal References to the suffixes */
-  @ContentChildren(DtSuffix) _suffixChildren: QueryList<DtSuffix>;
+  @ContentChildren(DtSuffix, { descendants: true }) _suffixChildren: QueryList<
+    DtSuffix
+  >;
+
+  /** Subject used for unsubscribing */
+  private _destroy$ = new Subject<void>();
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -128,11 +140,13 @@ export class DtFormField<T>
     this._validateControlChild();
 
     // Subscribe to changes in the child control state in order to update the form field UI.
-    this._control.stateChanges.pipe(startWith(null)).subscribe(() => {
-      this._syncDescribedByIds();
-      this._updateAnimationState();
-      this._changeDetectorRef.markForCheck();
-    });
+    this._control.stateChanges
+      .pipe(startWith(null), takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._syncDescribedByIds();
+        this._updateAnimationState();
+        this._changeDetectorRef.markForCheck();
+      });
 
     // Run change detection if the value, prefix, or suffix changes.
     const valueChanges =
@@ -168,6 +182,11 @@ export class DtFormField<T>
     // Avoid animations on load.
     this._errorAnimationState = 'enter';
     this._changeDetectorRef.detectChanges();
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   /**

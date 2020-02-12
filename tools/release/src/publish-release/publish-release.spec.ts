@@ -15,7 +15,7 @@
  */
 
 import { PackageJson } from '@dynatrace/barista-components/tools/shared';
-import * as OctokitApi from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import * as childProcess from 'child_process';
 import { vol } from 'memfs';
 import { of } from 'rxjs';
@@ -107,9 +107,9 @@ test('Should throw an error when the github status is not successful', async () 
 
   const errorResponse = {
     data: { state: 'error' },
-  } as OctokitApi.Response<OctokitApi.ReposGetCombinedStatusForRefResponse>;
+  } as Octokit.Response<Octokit.ReposGetCombinedStatusForRefResponse>;
 
-  const octokitApi = new OctokitApi();
+  const octokitApi = new Octokit();
   jest
     .spyOn(octokitApi.repos, 'getCombinedStatusForRef')
     .mockImplementation(() => Promise.resolve(errorResponse));
@@ -162,7 +162,7 @@ test('Should throw an error when the changelog could not be parsed for the relea
   }
 });
 
-test('should throw when no circle ci token is provide', async () => {
+test('should throw when no circle ci token is provided', async () => {
   expect.assertions(1);
 
   try {

@@ -23,7 +23,6 @@ import { By } from '@angular/platform-browser';
 import { AxisOptions, DataPoint } from 'highcharts';
 import { merge } from 'lodash';
 import { BehaviorSubject } from 'rxjs';
-
 import {
   DtChartModule,
   DtChartOptions,
@@ -268,14 +267,12 @@ describe('DtMicroChart', () => {
     });
 
     it('should reject not allowed types', () => {
-      const { fixture } = setupTestCase(Series);
-      const options = fixture.componentInstance.options;
-      options.chart = {};
-      const cases = ['pie', 'funnel', 'bar', 'arearange'];
-
-      cases.forEach(type => {
-        options.chart!.type = type;
+      ['pie', 'funnel', 'bar', 'arearange'].forEach(type => {
         expect(() => {
+          const { fixture } = setupTestCase(Series);
+          const options = fixture.componentInstance.options;
+          options.chart = {};
+          options.chart!.type = type;
           fixture.detectChanges();
         }).toThrowError();
       });

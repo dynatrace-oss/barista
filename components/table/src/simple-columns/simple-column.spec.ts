@@ -847,7 +847,6 @@ class TestSimpleColumnsApp implements AfterViewInit {
     this.dataSource.sort = this.sortable;
   }
 
-  // tslint:disable-next-line: no-any
   combineMemory(row: any): string {
     const memoryPercentage = formatPercent(row.memoryPerc);
     const memoryTotal = formatBytes(row.memoryTotal, {
@@ -868,12 +867,9 @@ class TestSimpleColumnsApp implements AfterViewInit {
       factor: 1024,
     });
 
-  // tslint:disable-next-line: no-any
   trafficHasProblem(row: any): DtIndicatorThemePalette {
-    // tslint:disable-next-line: no-magic-numbers
     if (row.traffic > 90000000) {
       return 'error';
-      // tslint:disable-next-line: no-magic-numbers
     } else if (row.traffic > 60000000) {
       return 'warning';
     }

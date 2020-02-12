@@ -429,13 +429,13 @@ export class DtSelect<T> extends _DtSelectMixinBase
   @Output() readonly valueChange = new EventEmitter<T>();
 
   /** Trigger that opens the select. */
-  @ViewChild('trigger', { static: false }) trigger: ElementRef;
+  @ViewChild('trigger') trigger: ElementRef;
 
   /** Panel containing the select options. */
-  @ViewChild('panel', { static: false }) panel: ElementRef;
+  @ViewChild('panel') panel: ElementRef;
 
   /** Overlay pane containing the options. */
-  @ViewChild(CdkConnectedOverlay, { static: false })
+  @ViewChild(CdkConnectedOverlay)
   overlayDir: CdkConnectedOverlay;
 
   /** All of the defined select options. */

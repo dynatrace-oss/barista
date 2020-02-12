@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import * as OctokitApi from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import { GitClient } from './git-client';
 import {
   GITHUB_REPO_OWNER,
@@ -34,7 +34,7 @@ import {
  */
 export async function verifyPassingGithubStatus(
   git: GitClient,
-  githubApi: OctokitApi,
+  githubApi: Octokit,
   branchName: string,
 ): Promise<void> {
   const githubCommitsUrl = getGithubBranchCommitsUrl(

@@ -3,5 +3,5 @@
   "compilerOptions": {
     "types": ["node", "testcafe"]
   },
-  "include": ["**/*.ts"]
+  "include": ["src/**/*.ts"]
 }

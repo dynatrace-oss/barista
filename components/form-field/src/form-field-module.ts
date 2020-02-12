@@ -24,10 +24,21 @@ import { DtHint } from './hint';
 import { DtLabel } from './label';
 import { DtPrefix } from './prefix';
 import { DtSuffix } from './suffix';
+import { DtFormFieldControl } from './form-field-control';
 
 @NgModule({
   imports: [CommonModule, PlatformModule],
   exports: [DtFormField, DtLabel, DtHint, DtError, DtPrefix, DtSuffix],
-  declarations: [DtFormField, DtLabel, DtHint, DtError, DtPrefix, DtSuffix],
+  declarations: [
+    DtFormField,
+    DtLabel,
+    DtHint,
+    DtError,
+    DtPrefix,
+    DtSuffix,
+    // @breaking-change Will be removed with upgrade to angular 10.0.0.
+    // can be removed once `DtFormFieldControl` is turned into a selector-less directive.
+    DtFormFieldControl as any,
+  ],
 })
 export class DtFormFieldModule {}

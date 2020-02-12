@@ -20,17 +20,13 @@ import {
   Component,
   Input,
   OnChanges,
-  QueryList,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
-
-import { RenderEvent } from './event-chart';
 import {
   DtEventChartColors,
   DtEventChartLegendItem,
 } from './event-chart-directives';
+import { RenderEvent } from './render-event.interface';
 
 /** @internal */
 @Component({
@@ -46,28 +42,8 @@ export class DtEventChartLegend<T> implements OnChanges {
   /** Has all rendered events to determine which legend labels should be shown. */
   @Input() renderedEvents: RenderEvent<T>[];
 
-  /**
-   * Input for the QueryList of the consumer defined legend-items.
-   * We need to listen to changes within these defined legend-items, to react
-   * on changing legend-items. The consumer defined items are used to
-   * determine which legend-items need to be rendered in the
-   * _updateRenderlegend-items function.
-   */
-  @Input()
-  get legendItems(): QueryList<DtEventChartLegendItem> {
-    return this._legendItems;
-  }
-  set legendItems(value: QueryList<DtEventChartLegendItem>) {
-    this._legendItemSubscription.unsubscribe();
-    this._legendItems = value;
-    this._legendItemSubscription = value
-      ? this._legendItems.changes.pipe(startWith(null)).subscribe(() => {
-          this._updateRenderLegendItems();
-        })
-      : Subscription.EMPTY;
-  }
-  private _legendItems: QueryList<DtEventChartLegendItem>;
-  private _legendItemSubscription = Subscription.EMPTY;
+  /** Input for the consumer defined legend-items. */
+  @Input() legendItems: DtEventChartLegendItem[];
 
   /** @internal List that holds the actually rendered eventChartLegendItems. */
   _renderLegendItems: {
@@ -87,7 +63,7 @@ export class DtEventChartLegend<T> implements OnChanges {
    * These items are a filtered subset of the one provided by the consumer.
    * Additionally the correct color is set for each one.
    */
-  private _updateRenderLegendItems(): void {
+  _updateRenderLegendItems(): void {
     // To calculate the legend items that we would need to display
     // we need to iterate over the renderedEvents and determine, which
     // elements are actually needed.

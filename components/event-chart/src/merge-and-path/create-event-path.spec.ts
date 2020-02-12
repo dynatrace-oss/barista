@@ -15,7 +15,7 @@
  */
 
 /* tslint:disable no-magic-numbers no-any */
-import { RenderEvent } from '../event-chart';
+import { RenderEvent } from '../render-event.interface';
 import {
   DtEventChartColors,
   DtEventChartEvent,

@@ -22,5 +22,5 @@
     "esModuleInterop": true
   },
   "files": ["tslint.json"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.d.ts"]
 }

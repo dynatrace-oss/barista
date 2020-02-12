@@ -33,16 +33,15 @@ export const waitForAngular = ClientFunction((waitTimeout = 10000) => {
     const isThereAngularInDevelopmentMode = () => {
       if (
         window.ng &&
-        typeof window.ng.probe === 'function' &&
+        typeof window.ng.getComponent === 'function' &&
         typeof window.getAllAngularRootElements === 'function'
       ) {
         const rootElements = window.getAllAngularRootElements();
-        const firstRootDebugElement =
-          rootElements && rootElements.length
-            ? window.ng.probe(rootElements[0])
-            : null;
+        const firstRootDebugElement = rootElements?.length
+          ? window.ng.getComponent(rootElements[0])
+          : null;
 
-        return !!(firstRootDebugElement && firstRootDebugElement.injector);
+        return !!firstRootDebugElement;
       }
 
       return false;

@@ -197,6 +197,12 @@ jobs:
       - run:
           <<: *set_env
       - run:
+          # Workaround for issue:
+          # https://github.com/angular/angular/issues/35362
+          # https://github.com/nrwl/nx/issues/2108#issuecomment-559863213
+          name: Run angular compatibility compiler
+          command: npx ngcc
+      - run:
           name: Generate examples for the demo application
           command: npm run examples-tools
       - run: yarn nx affected:build ${AFFECTED_ARGS} --configuration=production --parallel --exclude=examples-tools

@@ -25,7 +25,9 @@ import { DT_ICON_CONFIGURATION, DtIconConfiguration } from './icon-config';
 })
 export class DtIconModule {
   /** Returns an icon module to be applied just in the root context. */
-  static forRoot(config: DtIconConfiguration): ModuleWithProviders {
+  static forRoot(
+    config: DtIconConfiguration,
+  ): ModuleWithProviders<DtIconModule> {
     return {
       ngModule: DtIconModule,
       providers: [{ provide: DT_ICON_CONFIGURATION, useValue: config }],

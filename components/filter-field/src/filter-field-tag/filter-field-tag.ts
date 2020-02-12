@@ -112,7 +112,7 @@ export class DtFilterFieldTag implements OnDestroy {
   }
 
   /** @internal Element reference to the tag that holds the value. */
-  @ViewChild('valueSpan', { static: false, read: ElementRef })
+  @ViewChild('valueSpan', { read: ElementRef })
   _valueSpan: ElementRef<HTMLSpanElement>;
 
   /** @internal Configuration object for the tag overlay */

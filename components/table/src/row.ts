@@ -90,7 +90,7 @@ export class DtRow extends CdkRow implements OnDestroy {
 
   /**
    * @internal
-   * The cell registers here and the listeners is added to apply the correct css clases
+   * The cell registers here and the listeners is added to apply the correct css classes
    */
   _registerCell(cell: DtCell): void {
     this._cells.add(cell);
