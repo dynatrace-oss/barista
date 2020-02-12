@@ -5,8 +5,20 @@
 
 $dt-filter-field-inner-height: 30px;
 
+// from "* { Box-sizing: Border-box }
+// FTW" @ https://www.paulirish.com/2012/box-sizing-border-box-ftw/
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 :host {
   display: block;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   @include dt-form-control();
 
   // We need to set overflow visible to prevent the outline
