@@ -3,20 +3,16 @@
 exports[`v5 dynatrace angular components imports should migrate root imports correctly 1`] = `
 "// DO NOT CHANGE THE FILETYPE TO TS - OUR SORT PLUGIN RESORTS IMPORTS AND BREAKS THE TEST OTHERWISE
 
-import { c as c2 } from '@dynatrace/barista-components/c';
-import { a } from '@dynatrace/barista-components/a';
-import { b } from '@dynatrace/barista-components/b';
-import { c } from '@dynatrace/barista-components/c';
-import { a as a2 } from '@dynatrace/barista-components/a';
+import { c as c2 } from '@dynatrace/angular-components';
+import { a, b, c } from '@dynatrace/angular-components';
+import { a as a2 } from '@dynatrace/angular-components';
 // unsorted
-import { a } from '@dynatrace/barista-components/a';
-import { b } from '@dynatrace/barista-components/b';
-import { c } from '@dynatrace/barista-components/c';
-import { a as a3 } from '@dynatrace/barista-components/a';
+import { a, b, c } from '@dynatrace/angular-components';
+import { a as a3 } from '@dynatrace/angular-components';
 // primary entry-point export
-import { VERSION } from '@dynatrace/barista-components/core';
+import { VERSION } from '@dynatrace/angular-components';
 // type import
-import { SomeInterface } from '@dynatrace/barista-components/types';
+import { SomeInterface } from '@dynatrace/angular-components';
 "
 `;
 

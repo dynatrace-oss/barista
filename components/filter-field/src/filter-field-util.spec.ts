@@ -924,7 +924,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
       );
-      const selectedIds = new Set();
+      const selectedIds = new Set<string>();
       const groupDef = dtGroupDef(
         {},
         null,
@@ -1043,7 +1043,7 @@ describe('DtFilterField Util', () => {
 
     it('should return true if the unique freetext is not already in the selectedIds', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
-      const selectedIds = new Set();
+      const selectedIds = new Set<string>();
       const optionDef = dtOptionDef(
         optionSource,
         null,
@@ -1097,7 +1097,7 @@ describe('DtFilterField Util', () => {
 
     it('should return true if the unique freetext is not already in the selectedIds', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
-      const selectedIds = new Set();
+      const selectedIds = new Set<string>();
       const optionDef = dtOptionDef(
         optionSource,
         null,

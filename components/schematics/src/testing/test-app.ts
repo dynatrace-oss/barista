@@ -100,7 +100,7 @@ export async function createFileSystemTestApp(
 
 interface TestCaseSetup {
   appTree: UnitTestTree;
-  runFixers?(): Promise<{
+  runFixers?: () => Promise<{
     logOutput: string;
   }>;
   tempPath: string;
