@@ -55,6 +55,13 @@ import {
   IndividualSeriesOptions,
   Options as HighchartsOptions,
   setOptions,
+  PlotOptions,
+  ColumnChart,
+  BarStates,
+  LineChart,
+  Marker,
+  MarkerHoverState,
+  MarkerState,
 } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import {
@@ -107,10 +114,34 @@ import { getPlotBackgroundInfo } from './utils';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
+// As we have to use highchart types version 5 with highcharts 6
+// some properties are missing. To make it work we have to extend
+// the highcharts 5 typings with the properties that have been
+// added in 6.
 export type DtChartOptions = HighchartsOptions & {
   series?: undefined;
   tooltip?: { shared: boolean };
   interpolateGaps?: boolean;
+  plotOptions?: PlotOptions & {
+    column?: ColumnChart & {
+      clip?: boolean;
+
+      states?: {
+        hover?: BarStates & { borderWidth: number };
+        select?: { color?: string };
+      };
+    };
+    line?: LineChart & {
+      marker?: Marker & {
+        states?: {
+          hover?: MarkerHoverState & {
+            halo: boolean;
+          };
+          select?: MarkerState;
+        };
+      };
+    };
+  };
 };
 export type DtChartSeries = IndividualSeriesOptions;
 
