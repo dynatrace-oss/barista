@@ -1098,10 +1098,10 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
     position: ConnectedPosition,
     originPoint: Point,
     scrollPosition: ViewportScrollPosition,
-  ) {
+  ): { top?: string; bottom?: string } {
     // Reset any existing styles. This is necessary in case the
     // preferred position has changed since the last `apply`.
-    const styles = { top: null, bottom: null } as CSSStyleDeclaration;
+    const styles: { top?: string; bottom?: string } = {};
     let overlayPoint = this._getOverlayPoint(
       originPoint,
       this._overlayRect,
@@ -1146,10 +1146,10 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
     position: ConnectedPosition,
     originPoint: Point,
     scrollPosition: ViewportScrollPosition,
-  ) {
+  ): { left?: string; right?: string } {
     // Reset any existing styles. This is necessary in case the preferred position has
     // changed since the last `apply`.
-    const styles = { left: null, right: null } as CSSStyleDeclaration;
+    const styles: { left?: string; right?: string } = {};
     let overlayPoint = this._getOverlayPoint(
       originPoint,
       this._overlayRect,
@@ -1415,9 +1415,9 @@ export interface ConnectedPosition {
 
 /** Shallow-extends a stylesheet object with another stylesheet object. */
 function extendStyles(
-  dest: CSSStyleDeclaration,
-  source: CSSStyleDeclaration,
-): CSSStyleDeclaration {
+  dest: Partial<CSSStyleDeclaration>,
+  source: Partial<CSSStyleDeclaration>,
+): typeof dest {
   for (const key in source) {
     if (source.hasOwnProperty(key)) {
       dest[key] = source[key];

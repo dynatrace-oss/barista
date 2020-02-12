@@ -72,7 +72,7 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
   @Output() readonly tagAdded = new EventEmitter<string>();
 
   /** @internal Panel containing the select options. */
-  @ViewChild('panel', { static: false }) _panel: ElementRef;
+  @ViewChild('panel') _panel: ElementRef;
 
   /** @internal ElementRef of Add Tag Input */
   @ViewChildren(DtInput, { read: ElementRef }) _inputs: QueryList<

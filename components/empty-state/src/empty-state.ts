@@ -34,6 +34,7 @@ import {
   OnDestroy,
   QueryList,
   ViewEncapsulation,
+  ViewChild,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 import { startWith, takeUntil } from 'rxjs/operators';
@@ -217,7 +218,8 @@ export class DtEmptyState
 
       const itemLayoutHorizontal = componentWidth > ITEMS_HORIZONTAL_BREAKPOINT;
       const layoutHorizontal =
-        this._items.length > 1 && componentWidth > LAYOUT_HORIZONTAL_BREAKPOINT;
+        this._items?.length > 1 &&
+        componentWidth > LAYOUT_HORIZONTAL_BREAKPOINT;
 
       _toggleCssClass(
         layoutHorizontal,
@@ -230,6 +232,26 @@ export class DtEmptyState
         'dt-empty-state-items-horizontal',
       );
     }
+  }
+}
+
+/**
+ * Empty state base class that needs to be implemented by every custom
+ * empty state that is used inside the table. It provides a proxy to the updateLayout
+ * function of the empty state that will be called by the table.
+ */
+export class DtCustomEmptyStateBase {
+  /** @internal Finds the empty state inside the component */
+  @ViewChild(DtEmptyState) _emptyState: DtEmptyState;
+
+  /**
+   * @internal
+   * Proxies the update layout function of the empty state
+   * to react to layout changes.
+   */
+  _updateLayout(): void {
+    // If we have an empty state proxy the updateLayout function
+    this._emptyState?._updateLayout();
   }
 }
 

@@ -15,7 +15,10 @@
  */
 
 import { Component } from '@angular/core';
-import { DtEmptyState } from '@dynatrace/barista-components/empty-state';
+import {
+  DtCustomEmptyStateBase,
+  DtEmptyState,
+} from '@dynatrace/barista-components/empty-state';
 
 @Component({
   templateUrl: 'empty-state-custom-empty-state-table-example.html',
@@ -34,18 +37,20 @@ export class DtExampleCustomEmptyStateTable {}
     role: 'row',
   },
   template: `
-    <dt-empty-state-item role="cell">
-      <dt-empty-state-item-img>
-        <img
-          src="https://dt-cdn.net/images/cta-noagent-9eec611f00.svg"
-          alt="My Asset"
-        />
-      </dt-empty-state-item-img>
-      <dt-empty-state-item-title aria-level="2"
-        >Reusable empty state</dt-empty-state-item-title
-      >
-      Custom empty state message
-    </dt-empty-state-item>
+    <dt-empty-state>
+      <dt-empty-state-item role="cell">
+        <dt-empty-state-item-img>
+          <img
+            src="https://dt-cdn.net/images/cta-noagent-9eec611f00.svg"
+            alt="My Asset"
+          />
+        </dt-empty-state-item-img>
+        <dt-empty-state-item-title aria-level="2"
+          >Reusable empty state</dt-empty-state-item-title
+        >
+        Custom empty state message
+      </dt-empty-state-item>
+    </dt-empty-state>
   `,
 })
-export class DtExampleCustomEmptyState extends DtEmptyState {}
+export class DtExampleCustomEmptyState extends DtCustomEmptyStateBase {}

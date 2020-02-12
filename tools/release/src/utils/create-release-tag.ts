@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import * as OctokitApi from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import { green, italic } from 'chalk';
 import { ReleaseNotes } from '../extract-release-notes';
 import { GET_TAG_PUSH_ERROR } from './release-errors';
@@ -28,7 +28,7 @@ export async function createReleaseTag(
   tagName: string,
   releaseNotes: ReleaseNotes,
   releaseCommit: string,
-  githubApi: OctokitApi,
+  githubApi: Octokit,
 ): Promise<void> {
   const owner = 'dynatrace-oss';
   const repo = 'barista';

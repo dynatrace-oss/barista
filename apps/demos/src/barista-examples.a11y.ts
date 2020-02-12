@@ -66,7 +66,7 @@ DT_DEMOS_EXAMPLE_NAV_ITEMS.forEach(component => {
             .expect(check.violations.length === 0)
             .ok(createReport(check.violations))
             .expect(error.length)
-            .eql(0, 'Expect to have no console errors');
+            .eql(0, error.join('\n'));
         },
       );
     });

@@ -67,7 +67,6 @@ export class DtIndicator extends _DtIndicatorMixinBase
     const coerceValue = coerceBooleanProperty(value);
     if (coerceValue !== this._active) {
       this._active = coerceValue;
-      this._stateChanges.next();
     }
   }
   private _active = true;

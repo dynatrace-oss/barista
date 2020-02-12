@@ -22,6 +22,7 @@ import {
   OverlayConfig,
   OverlayRef,
 } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import {
   DomPortalOutlet,
   PortalOutlet,
@@ -43,15 +44,23 @@ import {
   NgZone,
   OnDestroy,
   OnInit,
+  Optional,
   QueryList,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
-  Optional,
 } from '@angular/core';
-import { ScaleLinear, ScaleTime, scaleLinear, scaleTime } from 'd3-scale';
-import { Subject, merge } from 'rxjs';
+import {
+  dtSetUiTestAttribute,
+  DtUiTestConfiguration,
+  DtViewportResizer,
+  DT_UI_TEST_CONFIG,
+  isDefined,
+  _readKeyCode,
+} from '@dynatrace/barista-components/core';
+import { ScaleLinear, scaleLinear, ScaleTime, scaleTime } from 'd3-scale';
+import { merge, Subject } from 'rxjs';
 import {
   startWith,
   switchMap,
@@ -59,52 +68,29 @@ import {
   take,
   takeUntil,
 } from 'rxjs/operators';
-
 import {
-  DtViewportResizer,
-  isDefined,
-  _readKeyCode,
-  DT_UI_TEST_CONFIG,
-  DtUiTestConfiguration,
-  dtSetUiTestAttribute,
-} from '@dynatrace/barista-components/core';
-
-import {
-  DT_EVENT_CHART_COLORS,
   DtEventChartColors,
   DtEventChartEvent,
   DtEventChartLane,
   DtEventChartLegendItem,
   DtEventChartOverlay,
   DtEventChartSelectedEvent,
+  DT_EVENT_CHART_COLORS,
 } from './event-chart-directives';
+import { DtEventChartLegend } from './event-chart-legend';
 import { dtCreateEventPath } from './merge-and-path/create-event-path';
 import { dtEventChartMergeEvents } from './merge-and-path/merge-events';
-import { Platform } from '@angular/cdk/platform';
+import { RenderEvent } from './render-event.interface';
 
 const EVENT_BUBBLE_SIZE = 16;
 const EVENT_BUBBLE_SPACING = 4;
 
-// tslint:disable-next-line: no-magic-numbers
 const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
 const TICK_HEIGHT = 24;
 
-// tslint:disable-next-line: no-magic-numbers
 const LANE_HEIGHT = EVENT_BUBBLE_SIZE * 3;
 
 let patternDefsOutlet: PortalOutlet;
-
-export interface RenderEvent<T> {
-  x1: number;
-  x2: number;
-  y: number;
-  lane: string;
-  color: DtEventChartColors;
-  pattern: boolean;
-  events: DtEventChartEvent<T>[];
-  mergedWith?: number[];
-  originalIndex?: number;
-}
 
 const OVERLAY_PANEL_CLASS = 'dt-event-chart-overlay-panel';
 const OVERLAY_POSITIONS: ConnectedPosition[] = [
@@ -166,7 +152,7 @@ const OVERLAY_POSITIONS: ConnectedPosition[] = [
 })
 export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** @internal Template reference for the DtEventChart overlay. */
-  @ContentChild(DtEventChartOverlay, { static: false, read: TemplateRef })
+  @ContentChild(DtEventChartOverlay, { read: TemplateRef })
   // tslint:disable-next-line: no-any
   private _overlay: TemplateRef<any>;
 
@@ -183,6 +169,10 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
    * The reverse order is necessary to paint them in the right way.
    */
   _lanesReversed: DtEventChartLane[] = [];
+
+  /** @internal Reference to the root svgElement. */
+  @ViewChild(DtEventChartLegend, { static: true })
+  _legend: DtEventChartLegend<T>;
 
   /**
    * @internal A list of all legend items that are provided
@@ -261,7 +251,6 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     private _appRef: ApplicationRef,
     private _injector: Injector,
     private _overlayService: Overlay,
-    // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
     private _platform: Platform,
     /** @breaking-change: `_elementRef` will be mandatory with version 7.0.0 */
@@ -291,9 +280,16 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       ),
     );
 
-    this._legendItems.changes.subscribe(() => {
-      this._changeDetectorRef.markForCheck();
-    });
+    this._legendItems.changes
+      .pipe(startWith(), takeUntil(this._destroy$))
+      .subscribe(() => {
+        // We need to listen to changes within the user defined legend-items, to react
+        // on changing legend-items. The consumer defined items are used to
+        // determine which legend-items need to be rendered in the
+        // _updateRenderLegendItems function.
+        this._legend._updateRenderLegendItems();
+        this._changeDetectorRef.markForCheck();
+      });
 
     // Combine all state-changes events from events and lanes to be notified
     // about all value or configuration changes in the content children.
@@ -472,6 +468,14 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     if (this._overlayRef && !this._overlayPinned) {
       this._dismissOverlay();
     }
+  }
+
+  /**
+   * Track by function for the renderEvents – speeds up performance
+   * and prevent deletion of mouseout
+   */
+  _renderEventTrackByFn(index: number, _item: RenderEvent<T>): number {
+    return index;
   }
 
   /** Creates the overlay and attaches it. */
@@ -685,7 +689,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
   /** Generates and updates the path that connects all the render events. */
   private _updateRenderPath(): void {
-    this._renderPath = dtCreateEventPath(this._renderEvents);
+    this._renderPath = dtCreateEventPath<T>(this._renderEvents);
   }
 
   /** Generates and updates the ticks for the x-axis. */
@@ -711,7 +715,6 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     min: number,
     max: number,
   ): ScaleLinear<number, number> {
-    // tslint:disable-next-line: no-magic-numbers
     const bubbleRadius = EVENT_BUBBLE_SIZE / 2;
 
     return scaleLinear()
@@ -731,7 +734,6 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     min: number,
     max: number,
   ): ScaleTime<number, number> {
-    // tslint:disable-next-line: no-magic-numbers
     const bubbleRadius = EVENT_BUBBLE_SIZE / 2;
     return scaleTime()
       .domain([new Date(0), new Date(max - min)])
@@ -778,8 +780,11 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
     const patternHost = this._document.createElement('div');
     // Move off-canvas so it does not overlap elements
-    patternHost.style =
-      'pointer-events: none; position: absolute; left: -999px;';
+
+    Object.defineProperty(patternHost, 'style', {
+      value: 'pointer-events: none; position: absolute; left: -999px;',
+    });
+
     this._document.body.appendChild(patternHost);
 
     const portal = new TemplatePortal(
@@ -808,7 +813,6 @@ function isValidColor(color: any): color is DtEventChartColors {
 
 /** Formats a relative timestamp into a readable text. */
 export function formatRelativeTimestamp(timestamp: number): string {
-  // tslint:disable: no-magic-numbers
   const sec = 1000;
   const min = sec * 60;
   const hour = min * 60;
@@ -824,7 +828,6 @@ export function formatRelativeTimestamp(timestamp: number): string {
     return `${roundUp(timestamp / sec, decimals)} s`;
   }
   return `${timestamp} ms`;
-  // tslint:enable: no-magic-numbers
 }
 
 /**

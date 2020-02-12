@@ -994,7 +994,7 @@ class CheckboxWithTabIndex {
   `,
 })
 class CheckboxUsingViewChild {
-  @ViewChild(DtCheckbox, { static: false }) checkbox;
+  @ViewChild(DtCheckbox) checkbox;
 
   set isDisabled(value: boolean) {
     this.checkbox.disabled = value;

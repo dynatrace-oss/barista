@@ -23,7 +23,7 @@ describe('DtTabsRouterFragmentBuilder', () => {
   });
 
   it('should return an empty string if set of ids is empty', () => {
-    const ids = new Set();
+    const ids = new Set<string>();
     expect(DtTabsRouterFragmentBuilder.build(ids)).toEqual('');
   });
 });

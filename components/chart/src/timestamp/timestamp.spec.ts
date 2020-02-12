@@ -324,6 +324,9 @@ describe('DtChart Timestamp', () => {
         right: 100,
         top: 0,
         width: 100,
+        x: 0,
+        y: 0,
+        toJSON: () => '',
       });
 
       selector = fixture.debugElement.query(

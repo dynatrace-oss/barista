@@ -24,32 +24,45 @@ const labelHeader = Selector('#lblHeader');
 fixture('Expandable Section').page('http://localhost:4200/expandable-section');
 
 test('should toggle', async (testController: TestController) => {
-  await testController.click(toggle);
-  await testController.expect(await open.textContent).eql('1');
-  await testController.click(toggle);
-  await testController.expect(await open.textContent).eql('0');
+  await testController
+    .click(toggle, { speed: 0.5 })
+    .expect(open.textContent)
+    .eql('true')
+    .click(toggle, { speed: 0.5 })
+    .expect(open.textContent)
+    .eql('false');
 });
 
 test('should execute click handlers when not disabled', async (testController: TestController) => {
-  await testController.expect(await open.textContent).eql('0');
-  await testController.click(buttonOpen);
-  await testController.expect(await open.textContent).eql('1');
+  await testController
+    .expect(open.textContent)
+    .eql('false')
+    .click(buttonOpen, { speed: 0.5 })
+    .expect(open.textContent)
+    .eql('true');
 });
 
 test('should not execute click handlers when disabled', async (testController: TestController) => {
-  await testController.click(buttonDisable);
-  await testController.click(buttonOpen);
-  await testController.expect(await open.textContent).eql('0');
+  await testController
+    .click(buttonDisable, { speed: 0.5 })
+    .click(buttonOpen, { speed: 0.5 })
+    .expect(open.textContent)
+    .eql('false');
 });
 
 test('should close after disabling open section', async (testController: TestController) => {
-  await testController.click(buttonOpen);
-  await testController.expect(await open.textContent).eql('1');
-  await testController.click(buttonDisable);
-  await testController.expect(await open.textContent).eql('0');
+  await testController
+    .click(buttonOpen, { speed: 0.5 })
+    .expect(open.textContent)
+    .eql('true')
+    .click(buttonDisable, { speed: 0.5 })
+    .expect(open.textContent)
+    .eql('false');
 });
 
 test('should open on label click', async (testController: TestController) => {
-  await testController.click(labelHeader);
-  await testController.expect(await open.textContent).eql('1');
+  await testController
+    .click(labelHeader, { speed: 0.5 })
+    .expect(open.textContent)
+    .eql('true');
 });

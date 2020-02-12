@@ -82,7 +82,9 @@
         Event bubbles and sausages.
         Bubbles are just like sausages but their x2 equals x1.
       -->
-      <ng-container *ngFor="let renderEvent of _renderEvents">
+      <ng-container
+        *ngFor="let renderEvent of _renderEvents; trackBy: _renderEventTrackByFn"
+      >
         <path
           *ngIf="_isSelected(renderEvent)"
           [attr.d]="_calculateEventOutline(renderEvent, 3)"

@@ -50,7 +50,7 @@ describe('DtBreadcrumbsItem', () => {
       });
       TestBed.compileComponents();
 
-      router = TestBed.get(Router);
+      router = TestBed.inject(Router);
     }));
 
     it('should pass the ng-content through', () => {
@@ -298,7 +298,7 @@ class TestBreadcrumbsItem {
   external = false;
 
   // tslint:disable-next-line:deprecation
-  @ViewChild(DtBreadcrumbsItem, { static: false }) item;
+  @ViewChild(DtBreadcrumbsItem) item;
 
   set _lastItem(value: boolean) {
     this.item._lastItem = value;

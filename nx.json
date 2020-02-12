@@ -21,17 +21,14 @@
       "tags": ["type:app"]
     },
     "demos": {
-      "tags": ["type:app"]
+      "tags": ["type:app"],
+      "implicitDependencies": ["components"]
     },
     "components-e2e": {
       "tags": ["type:e2e"],
       "implicitDependencies": ["components"]
     },
     "universal": {
-      "tags": ["type:app"]
-    },
-    "universal-ssr": {
-      "implicitDependencies": ["universal"],
       "tags": ["type:app"]
     },
     "dev": {

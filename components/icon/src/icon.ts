@@ -46,15 +46,11 @@ export type DtIconColorPalette =
 
 const iconLogger = DtLoggerFactory.create('DtIcon');
 
-/**
- * TODO: lukas.holzer, thomas.pink rethink naming of props (UX-8947)
- * @no-design-combinations
- */
 @Component({
   selector: 'dt-icon',
   exportAs: 'dtIcon',
   template: '<ng-content></ng-content>',
-  styleUrls: ['icon.scss'],
+  styleUrls: ['./icon.scss'],
   host: {
     role: 'img',
     class: 'dt-icon',
@@ -62,7 +58,6 @@ const iconLogger = DtLoggerFactory.create('DtIcon');
   changeDetection: ChangeDetectionStrategy.OnPush,
   // Disabled view encapsulation because we need to access and style
   // the dynamically loaded and generated svg elements.
-  // tslint:disable-next-line:use-view-encapsulation
   encapsulation: ViewEncapsulation.None,
 })
 export class DtIcon implements OnChanges {

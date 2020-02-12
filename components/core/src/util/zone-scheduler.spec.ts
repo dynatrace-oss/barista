@@ -34,7 +34,7 @@ describe('Angular Zone Schedulers', () => {
       ],
     });
 
-    zone = TestBed.get(NgZone);
+    zone = TestBed.inject(NgZone) as MockNgZone;
     jest.spyOn(zone, 'run');
     jest.spyOn(zone, 'runOutsideAngular');
   });

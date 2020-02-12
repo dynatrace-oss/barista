@@ -9,6 +9,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/apps/dev",
             "tsConfig": "apps/dev/tsconfig.app.json",
             "index": "apps/dev/src/index.html",
@@ -45,7 +46,14 @@
             "styles": ["apps/dev/src/main.scss", "components/style/index.scss"]
           },
           "configurations": {
-            "production": {}
+            "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]
+            }
           }
         },
         "serve": {
@@ -84,7 +92,7 @@
             "tsConfig": "apps/components-e2e/tsconfig.app.json",
             "index": "apps/components-e2e/src/index.html",
             "main": "apps/components-e2e/src/main.ts",
-            "aot": false,
+            "aot": true,
             "polyfills": "apps/components-e2e/src/polyfills.ts",
             "progress": false,
             "assets": [
@@ -116,13 +124,18 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "buildOptimizer": true,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false
             }
@@ -196,7 +209,8 @@
           "options": {
             "jestConfig": "apps/components-e2e/jest.config.js",
             "tsConfig": "apps/components-e2e/tsconfig.spec.json",
-            "setupFile": "apps/components-e2e/src/test-setup.ts"
+            "setupFile": "apps/components-e2e/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -213,7 +227,7 @@
             "tsConfig": "apps/demos/tsconfig.app.json",
             "index": "apps/demos/src/index.html",
             "main": "apps/demos/src/main.ts",
-            "aot": false,
+            "aot": true,
             "progress": false,
             "polyfills": "apps/demos/src/polyfills.ts",
             "assets": [
@@ -255,14 +269,19 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
               "vendorChunk": false,
-              "statsJson": true,
-              "aot": true
+              "statsJson": true
             }
           }
         },
@@ -399,7 +418,7 @@
             "main": "apps/barista/src/main.ts",
             "polyfills": "apps/barista/src/polyfills.ts",
             "progress": false,
-            "aot": false,
+            "aot": true,
             "assets": [
               {
                 "glob": "**",
@@ -471,7 +490,6 @@
               "namedChunks": false,
               "vendorChunk": false,
               "statsJson": true,
-              "aot": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -523,7 +541,8 @@
           "options": {
             "jestConfig": "apps/barista/jest.config.js",
             "tsConfig": "apps/barista/tsconfig.spec.json",
-            "setupFile": "apps/barista/src/test-setup.ts"
+            "setupFile": "apps/barista/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -608,7 +627,7 @@
         "build-frontend": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/universal",
+            "outputPath": "dist/universal/browser",
             "index": "apps/universal/src/index.html",
             "main": "apps/universal/src/main.ts",
             "polyfills": "apps/universal/src/polyfills.ts",
@@ -633,7 +652,7 @@
             ],
             "styles": ["components/style/index.scss"],
             "scripts": [],
-            "aot": false
+            "aot": true
           },
           "configurations": {
             "production": {
@@ -653,13 +672,16 @@
         "build-server": {
           "builder": "@angular-devkit/build-angular:server",
           "options": {
-            "outputPath": "dist/apps/universal-server",
-            "main": "apps/universal/src/main.server.ts",
-            "tsConfig": "apps/universal/tsconfig.server.json",
-            "optimization": true,
-            "outputHashing": "none",
-            "sourceMap": false,
-            "extractLicenses": false
+            "outputPath": "dist/universal/server",
+            "main": "apps/universal/src/server.ts",
+            "tsConfig": "apps/universal/tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
+            }
           }
         },
         "serve": {
@@ -678,10 +700,34 @@
             "exclude": ["**/node_modules/**", "!apps/universal/**"]
           }
         },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "universal:build-frontend",
+            "serverTarget": "universal:build-server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "universal:build-frontend:production",
+              "serverTarget": "universal:build-server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "universal:build-frontend:production",
+            "serverTarget": "universal:build-server:production",
+            "routes": ["/"]
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
         "e2e": {
           "builder": "@politie/angular-testcafe-builder:testcafe",
           "options": {
-            "devServerTarget": "universal-ssr:serve",
+            "devServerTarget": "universal:serve-ssr",
             "src": "apps/universal/src/**/*.{e2e,po}.ts",
             "browsers": ["chrome"],
             "reporters": [
@@ -703,41 +749,6 @@
             "watch": {
               "live": true
             }
-          }
-        }
-      }
-    },
-    "universal-ssr": {
-      "root": "apps/universal-ssr",
-      "sourceRoot": "apps/universal-ssr/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/apps/universal-ssr",
-            "main": "apps/universal-ssr/src/main.ts",
-            "tsConfig": "apps/universal-ssr/tsconfig.app.json",
-            "maxWorkers": 6
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "inspect": false
-            }
-          }
-        },
-        "serve": {
-          "builder": "@nrwl/node:execute",
-          "options": {
-            "buildTarget": "universal-ssr:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/universal-ssr/tsconfig.app.json"],
-            "exclude": ["**/node_modules/**", "!apps/universal-ssr/**"]
           }
         }
       }
@@ -773,7 +784,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "tools/barista/jest.config.js",
-            "tsConfig": "tools/barista/tsconfig.spec.json"
+            "tsConfig": "tools/barista/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         },
         "lint": {
@@ -797,7 +809,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "tools/builders/jest.config.js",
-            "tsConfig": "tools/builders/tsconfig.spec.json"
+            "tsConfig": "tools/builders/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         },
         "lint": {
@@ -866,7 +879,8 @@
           "options": {
             "jestConfig": "tools/release/jest.config.js",
             "tsConfig": "tools/release/tsconfig.spec.json",
-            "setupFile": "tools/release/src/test-setup.ts"
+            "setupFile": "tools/release/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -888,7 +902,8 @@
           "options": {
             "jestConfig": "tools/pull-request-labeler/jest.config.js",
             "tsConfig": "tools/pull-request-labeler/tsconfig.spec.json",
-            "setupFile": "tools/pull-request-labeler/src/test-setup.ts"
+            "setupFile": "tools/pull-request-labeler/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -951,7 +966,8 @@
           "options": {
             "jestConfig": "tools/shared/jest.config.js",
             "tsConfig": "tools/shared/tsconfig.spec.json",
-            "setupFile": "tools/shared/src/test-setup.ts"
+            "setupFile": "tools/shared/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
@@ -977,7 +993,8 @@
           "options": {
             "jestConfig": "libs/testing/jest.config.js",
             "tsConfig": "libs/testing/tsconfig.spec.json",
-            "setupFile": "libs/testing/src/test-setup.ts"
+            "setupFile": "libs/testing/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1079,7 +1096,8 @@
           "options": {
             "jestConfig": "components/alert/jest.config.js",
             "tsConfig": "components/alert/tsconfig.spec.json",
-            "setupFile": "components/alert/src/test-setup.ts"
+            "setupFile": "components/alert/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1115,7 +1133,8 @@
           "options": {
             "jestConfig": "components/autocomplete/jest.config.js",
             "tsConfig": "components/autocomplete/tsconfig.spec.json",
-            "setupFile": "components/autocomplete/src/test-setup.ts"
+            "setupFile": "components/autocomplete/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1151,7 +1170,8 @@
           "options": {
             "jestConfig": "components/bar-indicator/jest.config.js",
             "tsConfig": "components/bar-indicator/tsconfig.spec.json",
-            "setupFile": "components/bar-indicator/src/test-setup.ts"
+            "setupFile": "components/bar-indicator/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1187,7 +1207,8 @@
           "options": {
             "jestConfig": "components/breadcrumbs/jest.config.js",
             "tsConfig": "components/breadcrumbs/tsconfig.spec.json",
-            "setupFile": "components/breadcrumbs/src/test-setup.ts"
+            "setupFile": "components/breadcrumbs/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1223,7 +1244,8 @@
           "options": {
             "jestConfig": "components/button/jest.config.js",
             "tsConfig": "components/button/tsconfig.spec.json",
-            "setupFile": "components/button/src/test-setup.ts"
+            "setupFile": "components/button/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1259,7 +1281,8 @@
           "options": {
             "jestConfig": "components/button-group/jest.config.js",
             "tsConfig": "components/button-group/tsconfig.spec.json",
-            "setupFile": "components/button-group/src/test-setup.ts"
+            "setupFile": "components/button-group/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1295,7 +1318,8 @@
           "options": {
             "jestConfig": "components/card/jest.config.js",
             "tsConfig": "components/card/tsconfig.spec.json",
-            "setupFile": "components/card/src/test-setup.ts"
+            "setupFile": "components/card/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1331,7 +1355,8 @@
           "options": {
             "jestConfig": "components/chart/jest.config.js",
             "tsConfig": "components/chart/tsconfig.spec.json",
-            "setupFile": "components/chart/src/test-setup.ts"
+            "setupFile": "components/chart/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1367,7 +1392,8 @@
           "options": {
             "jestConfig": "components/checkbox/jest.config.js",
             "tsConfig": "components/checkbox/tsconfig.spec.json",
-            "setupFile": "components/checkbox/src/test-setup.ts"
+            "setupFile": "components/checkbox/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1406,7 +1432,8 @@
           "options": {
             "jestConfig": "components/confirmation-dialog/jest.config.js",
             "tsConfig": "components/confirmation-dialog/tsconfig.spec.json",
-            "setupFile": "components/confirmation-dialog/src/test-setup.ts"
+            "setupFile": "components/confirmation-dialog/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1442,7 +1469,8 @@
           "options": {
             "jestConfig": "components/consumption/jest.config.js",
             "tsConfig": "components/consumption/tsconfig.spec.json",
-            "setupFile": "components/consumption/src/test-setup.ts"
+            "setupFile": "components/consumption/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1481,7 +1509,8 @@
           "options": {
             "jestConfig": "components/container-breakpoint-observer/jest.config.js",
             "tsConfig": "components/container-breakpoint-observer/tsconfig.spec.json",
-            "setupFile": "components/container-breakpoint-observer/src/test-setup.ts"
+            "setupFile": "components/container-breakpoint-observer/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1517,7 +1546,8 @@
           "options": {
             "jestConfig": "components/context-dialog/jest.config.js",
             "tsConfig": "components/context-dialog/tsconfig.spec.json",
-            "setupFile": "components/context-dialog/src/test-setup.ts"
+            "setupFile": "components/context-dialog/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1556,7 +1586,8 @@
           "options": {
             "jestConfig": "components/copy-to-clipboard/jest.config.js",
             "tsConfig": "components/copy-to-clipboard/tsconfig.spec.json",
-            "setupFile": "components/copy-to-clipboard/src/test-setup.ts"
+            "setupFile": "components/copy-to-clipboard/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1592,7 +1623,8 @@
           "options": {
             "jestConfig": "components/core/jest.config.js",
             "tsConfig": "components/core/tsconfig.spec.json",
-            "setupFile": "components/core/src/test-setup.ts"
+            "setupFile": "components/core/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1628,7 +1660,8 @@
           "options": {
             "jestConfig": "components/cta-card/jest.config.js",
             "tsConfig": "components/cta-card/tsconfig.spec.json",
-            "setupFile": "components/cta-card/src/test-setup.ts"
+            "setupFile": "components/cta-card/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1664,7 +1697,8 @@
           "options": {
             "jestConfig": "components/drawer/jest.config.js",
             "tsConfig": "components/drawer/tsconfig.spec.json",
-            "setupFile": "components/drawer/src/test-setup.ts"
+            "setupFile": "components/drawer/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1700,7 +1734,8 @@
           "options": {
             "jestConfig": "components/empty-state/jest.config.js",
             "tsConfig": "components/empty-state/tsconfig.spec.json",
-            "setupFile": "components/empty-state/src/test-setup.ts"
+            "setupFile": "components/empty-state/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1736,7 +1771,8 @@
           "options": {
             "jestConfig": "components/event-chart/jest.config.js",
             "tsConfig": "components/event-chart/tsconfig.spec.json",
-            "setupFile": "components/event-chart/src/test-setup.ts"
+            "setupFile": "components/event-chart/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1772,7 +1808,8 @@
           "options": {
             "jestConfig": "components/expandable-panel/jest.config.js",
             "tsConfig": "components/expandable-panel/tsconfig.spec.json",
-            "setupFile": "components/expandable-panel/src/test-setup.ts"
+            "setupFile": "components/expandable-panel/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1811,7 +1848,8 @@
           "options": {
             "jestConfig": "components/expandable-section/jest.config.js",
             "tsConfig": "components/expandable-section/tsconfig.spec.json",
-            "setupFile": "components/expandable-section/src/test-setup.ts"
+            "setupFile": "components/expandable-section/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1847,7 +1885,8 @@
           "options": {
             "jestConfig": "components/expandable-text/jest.config.js",
             "tsConfig": "components/expandable-text/tsconfig.spec.json",
-            "setupFile": "components/expandable-text/src/test-setup.ts"
+            "setupFile": "components/expandable-text/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1883,7 +1922,8 @@
           "options": {
             "jestConfig": "components/filter-field/jest.config.js",
             "tsConfig": "components/filter-field/tsconfig.spec.json",
-            "setupFile": "components/filter-field/src/test-setup.ts"
+            "setupFile": "components/filter-field/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1919,7 +1959,8 @@
           "options": {
             "jestConfig": "components/form-field/jest.config.js",
             "tsConfig": "components/form-field/tsconfig.spec.json",
-            "setupFile": "components/form-field/src/test-setup.ts"
+            "setupFile": "components/form-field/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1955,7 +1996,8 @@
           "options": {
             "jestConfig": "components/formatters/jest.config.js",
             "tsConfig": "components/formatters/tsconfig.spec.json",
-            "setupFile": "components/formatters/src/test-setup.ts"
+            "setupFile": "components/formatters/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -1991,7 +2033,8 @@
           "options": {
             "jestConfig": "components/highlight/jest.config.js",
             "tsConfig": "components/highlight/tsconfig.spec.json",
-            "setupFile": "components/highlight/src/test-setup.ts"
+            "setupFile": "components/highlight/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2027,7 +2070,8 @@
           "options": {
             "jestConfig": "components/icon/jest.config.js",
             "tsConfig": "components/icon/tsconfig.spec.json",
-            "setupFile": "components/icon/src/test-setup.ts"
+            "setupFile": "components/icon/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2063,7 +2107,8 @@
           "options": {
             "jestConfig": "components/info-group/jest.config.js",
             "tsConfig": "components/info-group/tsconfig.spec.json",
-            "setupFile": "components/info-group/src/test-setup.ts"
+            "setupFile": "components/info-group/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2099,7 +2144,8 @@
           "options": {
             "jestConfig": "components/inline-editor/jest.config.js",
             "tsConfig": "components/inline-editor/tsconfig.spec.json",
-            "setupFile": "components/inline-editor/src/test-setup.ts"
+            "setupFile": "components/inline-editor/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2135,7 +2181,8 @@
           "options": {
             "jestConfig": "components/input/jest.config.js",
             "tsConfig": "components/input/tsconfig.spec.json",
-            "setupFile": "components/input/src/test-setup.ts"
+            "setupFile": "components/input/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2171,7 +2218,8 @@
           "options": {
             "jestConfig": "components/key-value-list/jest.config.js",
             "tsConfig": "components/key-value-list/tsconfig.spec.json",
-            "setupFile": "components/key-value-list/src/test-setup.ts"
+            "setupFile": "components/key-value-list/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2207,7 +2255,8 @@
           "options": {
             "jestConfig": "components/legend/jest.config.js",
             "tsConfig": "components/legend/tsconfig.spec.json",
-            "setupFile": "components/legend/src/test-setup.ts"
+            "setupFile": "components/legend/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2246,7 +2295,8 @@
           "options": {
             "jestConfig": "components/loading-distractor/jest.config.js",
             "tsConfig": "components/loading-distractor/tsconfig.spec.json",
-            "setupFile": "components/loading-distractor/src/test-setup.ts"
+            "setupFile": "components/loading-distractor/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2282,7 +2332,8 @@
           "options": {
             "jestConfig": "components/menu/jest.config.js",
             "tsConfig": "components/menu/tsconfig.spec.json",
-            "setupFile": "components/menu/src/test-setup.ts"
+            "setupFile": "components/menu/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2318,7 +2369,8 @@
           "options": {
             "jestConfig": "components/micro-chart/jest.config.js",
             "tsConfig": "components/micro-chart/tsconfig.spec.json",
-            "setupFile": "components/micro-chart/src/test-setup.ts"
+            "setupFile": "components/micro-chart/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2354,7 +2406,8 @@
           "options": {
             "jestConfig": "components/overlay/jest.config.js",
             "tsConfig": "components/overlay/tsconfig.spec.json",
-            "setupFile": "components/overlay/src/test-setup.ts"
+            "setupFile": "components/overlay/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2390,7 +2443,8 @@
           "options": {
             "jestConfig": "components/pagination/jest.config.js",
             "tsConfig": "components/pagination/tsconfig.spec.json",
-            "setupFile": "components/pagination/src/test-setup.ts"
+            "setupFile": "components/pagination/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2426,7 +2480,8 @@
           "options": {
             "jestConfig": "components/progress-bar/jest.config.js",
             "tsConfig": "components/progress-bar/tsconfig.spec.json",
-            "setupFile": "components/progress-bar/src/test-setup.ts"
+            "setupFile": "components/progress-bar/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2462,7 +2517,8 @@
           "options": {
             "jestConfig": "components/progress-circle/jest.config.js",
             "tsConfig": "components/progress-circle/tsconfig.spec.json",
-            "setupFile": "components/progress-circle/src/test-setup.ts"
+            "setupFile": "components/progress-circle/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2498,7 +2554,8 @@
           "options": {
             "jestConfig": "components/radio/jest.config.js",
             "tsConfig": "components/radio/tsconfig.spec.json",
-            "setupFile": "components/radio/src/test-setup.ts"
+            "setupFile": "components/radio/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2530,7 +2587,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "components/schematics/jest.config.js",
-            "tsConfig": "components/schematics/tsconfig.spec.json"
+            "tsConfig": "components/schematics/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
@@ -2565,7 +2623,8 @@
           "options": {
             "jestConfig": "components/secondary-nav/jest.config.js",
             "tsConfig": "components/secondary-nav/tsconfig.spec.json",
-            "setupFile": "components/secondary-nav/src/test-setup.ts"
+            "setupFile": "components/secondary-nav/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2601,7 +2660,8 @@
           "options": {
             "jestConfig": "components/select/jest.config.js",
             "tsConfig": "components/select/tsconfig.spec.json",
-            "setupFile": "components/select/src/test-setup.ts"
+            "setupFile": "components/select/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2637,7 +2697,8 @@
           "options": {
             "jestConfig": "components/show-more/jest.config.js",
             "tsConfig": "components/show-more/tsconfig.spec.json",
-            "setupFile": "components/show-more/src/test-setup.ts"
+            "setupFile": "components/show-more/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2673,7 +2734,8 @@
           "options": {
             "jestConfig": "components/stepper/jest.config.js",
             "tsConfig": "components/stepper/tsconfig.spec.json",
-            "setupFile": "components/stepper/src/test-setup.ts"
+            "setupFile": "components/stepper/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2709,7 +2771,8 @@
           "options": {
             "jestConfig": "components/switch/jest.config.js",
             "tsConfig": "components/switch/tsconfig.spec.json",
-            "setupFile": "components/switch/src/test-setup.ts"
+            "setupFile": "components/switch/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2745,7 +2808,8 @@
           "options": {
             "jestConfig": "components/table/jest.config.js",
             "tsConfig": "components/table/tsconfig.spec.json",
-            "setupFile": "components/table/src/test-setup.ts"
+            "setupFile": "components/table/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2781,7 +2845,8 @@
           "options": {
             "jestConfig": "components/tabs/jest.config.js",
             "tsConfig": "components/tabs/tsconfig.spec.json",
-            "setupFile": "components/tabs/src/test-setup.ts"
+            "setupFile": "components/tabs/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2817,7 +2882,8 @@
           "options": {
             "jestConfig": "components/tag/jest.config.js",
             "tsConfig": "components/tag/tsconfig.spec.json",
-            "setupFile": "components/tag/src/test-setup.ts"
+            "setupFile": "components/tag/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2853,7 +2919,8 @@
           "options": {
             "jestConfig": "components/theming/jest.config.js",
             "tsConfig": "components/theming/tsconfig.spec.json",
-            "setupFile": "components/theming/src/test-setup.ts"
+            "setupFile": "components/theming/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2889,7 +2956,8 @@
           "options": {
             "jestConfig": "components/tile/jest.config.js",
             "tsConfig": "components/tile/tsconfig.spec.json",
-            "setupFile": "components/tile/src/test-setup.ts"
+            "setupFile": "components/tile/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2925,7 +2993,8 @@
           "options": {
             "jestConfig": "components/timeline-chart/jest.config.js",
             "tsConfig": "components/timeline-chart/tsconfig.spec.json",
-            "setupFile": "components/timeline-chart/src/test-setup.ts"
+            "setupFile": "components/timeline-chart/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -2961,7 +3030,8 @@
           "options": {
             "jestConfig": "components/toast/jest.config.js",
             "tsConfig": "components/toast/tsconfig.spec.json",
-            "setupFile": "components/toast/src/test-setup.ts"
+            "setupFile": "components/toast/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -3000,7 +3070,8 @@
           "options": {
             "jestConfig": "components/toggle-button-group/jest.config.js",
             "tsConfig": "components/toggle-button-group/tsconfig.spec.json",
-            "setupFile": "components/toggle-button-group/src/test-setup.ts"
+            "setupFile": "components/toggle-button-group/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -3039,7 +3110,8 @@
           "options": {
             "jestConfig": "components/top-bar-navigation/jest.config.js",
             "tsConfig": "components/top-bar-navigation/tsconfig.spec.json",
-            "setupFile": "components/top-bar-navigation/src/test-setup.ts"
+            "setupFile": "components/top-bar-navigation/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -3075,7 +3147,8 @@
           "options": {
             "jestConfig": "components/tree-table/jest.config.js",
             "tsConfig": "components/tree-table/tsconfig.spec.json",
-            "setupFile": "components/tree-table/src/test-setup.ts"
+            "setupFile": "components/tree-table/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       },
@@ -3110,6 +3183,7 @@
     }
   },
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   }
 }

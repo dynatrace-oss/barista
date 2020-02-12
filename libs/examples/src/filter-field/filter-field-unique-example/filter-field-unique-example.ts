@@ -49,8 +49,8 @@ export class DtExampleFilterFieldUnique {
             lessThanEqual: true,
           },
           unit: 's',
-          unique: true,
         },
+        unique: true,
       },
     ],
   };

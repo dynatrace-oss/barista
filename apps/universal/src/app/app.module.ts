@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-import { BaristaModule } from './barista.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
-import { KitchenSink } from './kitchen-sink/kitchen-sink';
 import { NgModule } from '@angular/core';
+import {
+  BrowserModule,
+  BrowserTransferStateModule,
+} from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BaristaModule } from './barista.module';
+import { KitchenSink } from './kitchen-sink/kitchen-sink';
 
 @NgModule({
+  declarations: [KitchenSink],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'barista-components' }),
     BrowserAnimationsModule,
     BaristaModule,
+    BrowserModule.withServerTransition({ appId: 'barista-components' }),
+    BrowserTransferStateModule,
   ],
-  declarations: [KitchenSink],
   providers: [],
   bootstrap: [KitchenSink],
 })

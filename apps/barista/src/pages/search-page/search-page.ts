@@ -72,7 +72,7 @@ export class BaSearchPage implements BaPage, AfterViewInit {
       map(params => params.get('q')),
       filter(Boolean),
       take(1),
-      tap(query => (this.queryValue = query!)),
+      tap((query: string) => (this.queryValue = query!)),
     );
 
     // Get updates from the search input field

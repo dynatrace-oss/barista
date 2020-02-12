@@ -123,7 +123,7 @@ describe('DtIndicator without table', () => {
   `,
 })
 class DtIndicatorBasic {
-  @ViewChild(DtIndicator, { static: false }) indicator: DtIndicator;
+  @ViewChild(DtIndicator) indicator: DtIndicator;
 }
 
 @Component({

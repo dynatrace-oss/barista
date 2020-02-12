@@ -1629,10 +1629,10 @@ class SimpleAutocomplete implements OnDestroy {
   openedSpy = jest.fn();
   closedSpy = jest.fn();
 
-  @ViewChild(DtAutocompleteTrigger, { static: false })
+  @ViewChild(DtAutocompleteTrigger)
   trigger: DtAutocompleteTrigger<any>;
-  @ViewChild(DtAutocomplete, { static: false }) panel: DtAutocomplete<any>;
-  @ViewChild(DtFormField, { static: false }) formField: DtFormField<any>;
+  @ViewChild(DtAutocomplete) panel: DtAutocomplete<any>;
+  @ViewChild(DtFormField) formField: DtFormField<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 
   states = [
@@ -1714,7 +1714,7 @@ class AutocompleteWithNativeInput {
   filteredOptions: Observable<any>;
   options = ['En', 'To', 'Tre', 'Fire', 'Fem'];
 
-  @ViewChild(DtAutocompleteTrigger, { static: false })
+  @ViewChild(DtAutocompleteTrigger)
   trigger: DtAutocompleteTrigger<any>;
   @ViewChildren(DtOption) dtOptions: QueryList<DtOption<any>>;
 
@@ -1844,7 +1844,7 @@ class NgIfAutocomplete {
   isVisible = true;
   options = ['One', 'Two', 'Three'];
 
-  @ViewChild(DtAutocompleteTrigger, { static: false })
+  @ViewChild(DtAutocompleteTrigger)
   trigger: DtAutocompleteTrigger<any>;
   @ViewChildren(DtOption) dtOptions: QueryList<DtOption<any>>;
 
@@ -1870,7 +1870,7 @@ class NgIfAutocomplete {
   `,
 })
 class AutocompleteWithoutPanel {
-  @ViewChild(DtAutocompleteTrigger, { static: false })
+  @ViewChild(DtAutocompleteTrigger)
   trigger: DtAutocompleteTrigger<any>;
   control = new FormControl();
 }
@@ -1909,9 +1909,9 @@ class AutocompleteWithNumberInputAndNgModel {
   `,
 })
 class DynamicallyChangingAutocomplete {
-  @ViewChild('autoOne', { static: false }) autoOne: DtAutocomplete<any>;
-  @ViewChild('autoTow', { static: false }) autoTow: DtAutocomplete<any>;
-  @ViewChild(DtAutocompleteTrigger, { static: false })
+  @ViewChild('autoOne') autoOne: DtAutocomplete<any>;
+  @ViewChild('autoTow') autoTow: DtAutocomplete<any>;
+  @ViewChild(DtAutocompleteTrigger)
   trigger: DtAutocompleteTrigger<any>;
 }
 

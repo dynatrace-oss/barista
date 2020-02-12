@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { RenderEvent } from '../event-chart';
+import { RenderEvent } from '../render-event.interface';
 
 /** Determines whether two events overlap. */
 export function dtEventChartIsOverlappingEvent(

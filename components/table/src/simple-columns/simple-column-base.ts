@@ -16,18 +16,17 @@
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
+  Directive,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Optional,
-  ViewChild,
-  OnChanges,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-
 import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
 import { DtFormattedValue } from '@dynatrace/barista-components/formatters';
-
 import { DtCellDef, DtColumnDef } from '../cell';
 import { DtHeaderCellDef } from '../header/header-cell';
 import { DtTable } from '../table';
@@ -68,6 +67,7 @@ export type DtSimpleColumnFormatFunction = (
   displayValue: any, // tslint:disable-line:no-any
 ) => string | DtFormattedValue;
 
+@Directive({})
 export abstract class DtSimpleColumnBase<T>
   implements OnInit, OnChanges, OnDestroy {
   /** Input for the name with which the columnDefinition will register itself to the table. */
@@ -109,12 +109,12 @@ export abstract class DtSimpleColumnBase<T>
   @Input() sortAccessor: DtSimpleColumnSortAccessorFunction<T>;
 
   /**
-   * Formatter function that gets applied to the celldata if given.
+   * Formatter function that gets applied to the cell data if given.
    */
   @Input() formatter: DtSimpleColumnFormatFunction;
 
   /**
-   * Evaluation function to retreive the error/warning state of a cell.
+   * Evaluation function to retrieve the error/warning state of a cell.
    * If this property is not set, no error indication will be rendered on the cell.
    * The function should either return `error`, `warning` or `undefined` based on which
    * indicator should be enabled on the cell.
@@ -122,8 +122,7 @@ export abstract class DtSimpleColumnBase<T>
   @Input() hasProblem: DtSimpleColumnHasProblemFunction<T>;
 
   /**
-   * Comparision function which should be used instead of the default
-   * comparision.
+   * Comparison function which should be used instead of the default comparison.
    * If this property is set, the {@link sortAccessor} won't be used for sorting.
    */
   @Input() comparator: DtSimpleColumnComparatorFunction<T>;

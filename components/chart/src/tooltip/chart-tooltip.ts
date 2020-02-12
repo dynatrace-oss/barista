@@ -82,7 +82,7 @@ const DEFAULT_DT_CHART_TOOLTIP_POSITIONS: ConnectedPosition[] = [
 })
 export class DtChartTooltip implements OnDestroy {
   /** @internal Reference to the overlay template */
-  @ContentChild(TemplateRef, { static: false })
+  @ContentChild(TemplateRef)
   _overlayTemplate: TemplateRef<void>;
 
   private readonly _destroy = new Subject<void>();

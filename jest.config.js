@@ -8,7 +8,6 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'html'],
   resolver: '@nrwl/jest/plugins/resolver',
   collectCoverage: true,
-  passWithNoTests: true,
   reporters: [
     'default',
     [

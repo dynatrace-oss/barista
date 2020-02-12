@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { chain, Rule } from '@angular-devkit/schematics';
+import { chain, Rule, SchematicContext } from '@angular-devkit/schematics';
 import {
   createUpgradeRule,
   RuleUpgradeData,
@@ -55,6 +55,7 @@ export function updateToV5(): Rule {
 
 /** Function that will be called when the migration completed. */
 function onMigrationComplete(
+  _context: SchematicContext,
   targetVersion: TargetVersion,
   hasFailures: boolean,
 ): void {

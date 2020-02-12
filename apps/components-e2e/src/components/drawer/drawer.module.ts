@@ -17,7 +17,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DtChartModule } from '@dynatrace/barista-components/chart';
 import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
@@ -33,7 +33,7 @@ const routes: Route[] = [{ path: '', component: DtE2EDrawer }];
     DtChartModule,
     DtDrawerModule,
     DtOverlayModule,
-    ScrollDispatchModule,
+    ScrollingModule,
   ],
   exports: [],
   providers: [],

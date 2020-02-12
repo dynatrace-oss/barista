@@ -27,7 +27,7 @@ export class DtExampleDrawerDynamic {
   drawerPresent = false;
   mode = 'side';
   position = 'start';
-  @ViewChild('drawer', { static: false }) drawer: DtDrawer;
+  @ViewChild('drawer') drawer: DtDrawer;
 
   addOrRemoveDrawer(): void {
     this.drawerPresent = !this.drawerPresent;

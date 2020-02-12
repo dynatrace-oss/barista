@@ -1,9 +1,4 @@
 <section>
-  <p>
-    open:
-    <span id="open">{{section1.expanded ? '1' : '0'}}</span>
-  </p>
-
   <dt-expandable-section #section1 id="section" [disabled]="section1disabled">
     <dt-expandable-section-header>
       My
@@ -26,3 +21,5 @@
     Enable
   </button>
 </section>
+
+<pre id="open">{{ section1.expanded | json }}</pre>

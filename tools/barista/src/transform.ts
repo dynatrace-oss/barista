@@ -104,7 +104,7 @@ export const uxSnippetTransformer: BaPageTransformer = async source => {
       const snippetSlots = $('ba-ux-snippet');
       if (snippetSlots.length) {
         snippetSlots.each((_, slot) => {
-          const snippetName = $(slot).attr('name');
+          const snippetName = $(slot).attr('name') || '';
           const snippetData = strapiSnippetCache.get(snippetName);
           if (snippetData) {
             const snippetHTMLContent = markdown.render(snippetData.content);
@@ -152,7 +152,7 @@ export const headingIdTransformer: BaPageTransformer = async source => {
             .replace(/!/g, '')
             .replace(/\//g, '')
             .replace(/’/g, '')
-            .replace(/”/g, '')
+            .replace(/"/g, '')
             .replace(/:/g, '')
             .replace(/;/g, '')
             .replace(/,/g, '')
@@ -236,7 +236,7 @@ export function exampleInlineSourcesTransformerFactory(
   return async source => {
     source.content = runWithCheerio(source.content, ($: CheerioStatic) => {
       $('ba-live-example').each((_index, element) => {
-        const name = $(element).attr('name');
+        const name = $(element).attr('name') || '';
         const demoMetadata = metadata[name];
         if (!demoMetadata) {
           throw new Error(`Example with name ${name} does not exist`);

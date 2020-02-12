@@ -27,9 +27,9 @@ import {
 } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed,
   fakeAsync,
   flush,
+  TestBed,
 } from '@angular/core/testing';
 import {
   AbstractControl,
@@ -43,7 +43,6 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import { ErrorStateMatcher } from '@dynatrace/barista-components/core';
 import {
   DtFormFieldModule,
@@ -53,8 +52,8 @@ import {
 import { DtInput, DtInputModule } from '@dynatrace/barista-components/input';
 import {
   createComponent,
-  wrappedErrorMessage,
   dispatchFakeEvent,
+  wrappedErrorMessage,
 } from '@dynatrace/barista-components/testing';
 
 const TEST_IMPORTS = [
@@ -204,18 +203,14 @@ describe('DtFormField without forms', () => {
   }));
 
   it('validates the type', fakeAsync(() => {
-    const fixture = TestBed.createComponent(DtInputInvalidTypeTestController);
-
     // Technically this throws during the OnChanges detection phase,
-    // so the error is really a ChangeDetectionError and it becomes
-    // hard to build a full exception to compare with.
-    // We just check for any exception in this case.
+    // so the error is really a ChangeDetectionError
     expect(() => {
+      const fixture = TestBed.createComponent(DtInputInvalidTypeTestController);
       fixture.detectChanges();
-    })
-      .toThrow
-      /* new DtInputUnsupportedTypeError('file') */
-      ();
+    }).toThrowErrorMatchingInlineSnapshot(
+      `"Input type \\"file\\" isn't supported by dtInput."`,
+    );
   }));
 
   it('supports hint labels elements', fakeAsync(() => {
@@ -415,6 +410,7 @@ describe('DtFormField with forms', () => {
     }));
 
     it('should display an error message when the input is dirty and invalid', fakeAsync(() => {
+      fixture.detectChanges();
       // Expected form control to be invalid
       expect(testComponent.formControl.invalid).toBe(true);
       // Expected no error message
@@ -817,7 +813,7 @@ class DtInputWithReadonlyInput {}
   `,
 })
 class DtInputWithFormErrorMessages {
-  @ViewChild('form', { static: false }) form: NgForm;
+  @ViewChild('form') form: NgForm;
   formControl = new FormControl('', (control: AbstractControl) =>
     Validators.required(control),
   );
@@ -836,7 +832,7 @@ class DtInputWithFormErrorMessages {
   `,
 })
 class DtInputWithFormGroupErrorMessages {
-  @ViewChild(FormGroupDirective, { static: false })
+  @ViewChild(FormGroupDirective)
   formGroupDirective: FormGroupDirective;
   formGroup = new FormGroup({
     name: new FormControl('', (control: AbstractControl) =>

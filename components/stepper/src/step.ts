@@ -48,7 +48,7 @@ import { DtStepper } from './stepper';
 })
 export class DtStep extends CdkStep implements ErrorStateMatcher {
   /** Content for step label given by `<ng-template dtStepLabel>`. */
-  @ContentChild(DtStepLabel, { static: false }) stepLabel: DtStepLabel;
+  @ContentChild(DtStepLabel) stepLabel: DtStepLabel;
 
   /** @deprecated Not supported yet */
   errorMessage: string;

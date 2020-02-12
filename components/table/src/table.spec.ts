@@ -41,6 +41,7 @@ import {
   DtEmptyState,
   DtEmptyStateModule,
   DtCustomEmptyState,
+  DtCustomEmptyStateBase,
 } from '@dynatrace/barista-components/empty-state';
 import {
   DtLoadingDistractor,
@@ -885,10 +886,12 @@ export class TestCustomEmptyStateApp {
     },
   ],
   template: `
-    <dt-empty-state-item>
-      <dt-empty-state-item-title>No host</dt-empty-state-item-title>
-      Test message
-    </dt-empty-state-item>
+    <dt-empty-state>
+      <dt-empty-state-item>
+        <dt-empty-state-item-title>No host</dt-empty-state-item-title>
+        Test message
+      </dt-empty-state-item>
+    </dt-empty-state>
   `,
 })
-export class CustomEmptyState extends DtEmptyState {}
+export class CustomEmptyState extends DtCustomEmptyStateBase {}

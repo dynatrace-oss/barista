@@ -1,11 +1,18 @@
 {
-  "extends": "./tsconfig.app.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc-server",
-    "module": "commonjs"
+    "module": "commonjs",
+    "types": ["node"]
   },
-  "files": ["src/main.server.ts"],
-  "exclude": ["**/*.e2e.ts", "**/*.po.ts"],
+  "files": ["src/main.server.ts", "src/server.ts"],
+  "exclude": [
+    "./src/main.ts",
+    "./src/polyfills.ts",
+    "**/*.spec.ts",
+    "**/*.e2e.ts",
+    "**/*.po.ts"
+  ],
   "angularCompilerOptions": {
     "entryModule": "./src/app/app.server.module#AppServerModule"
   }

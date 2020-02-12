@@ -88,5 +88,5 @@ export class DtCardFooterActions {}
 })
 export class DtCard {
   /** @internal Reference to the card title directive. */
-  @ContentChild(DtCardTitle, { static: false }) _title: DtCardTitle;
+  @ContentChild(DtCardTitle) _title: DtCardTitle;
 }

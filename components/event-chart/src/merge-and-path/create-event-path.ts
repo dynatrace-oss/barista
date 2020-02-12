@@ -15,11 +15,9 @@
  */
 
 import { isDefined } from '@dynatrace/barista-components/core';
+import { RenderEvent } from '../render-event.interface';
 
-import { RenderEvent } from '../event-chart';
-
-// tslint:disable-next-line: no-any
-export function dtCreateEventPath(renderEvents: RenderEvent<any>[]): string {
+export function dtCreateEventPath<T>(renderEvents: RenderEvent<T>[]): string {
   const svgPath: string[] = [];
 
   // Move to the start point
