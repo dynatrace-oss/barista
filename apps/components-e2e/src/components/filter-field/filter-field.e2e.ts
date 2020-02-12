@@ -29,11 +29,14 @@ import {
   setupSecondTestScenario,
 } from './filter-field.po';
 import { Selector } from 'testcafe';
-import { waitForAngular } from '../../utils';
+import { waitForAngular, resetWindowSizeToDefault } from '../../utils';
 
 fixture('Filter Field')
   .page('http://localhost:4200/filter-field')
-  .beforeEach(async () => waitForAngular());
+  .beforeEach(async () => {
+    await waitForAngular();
+    await resetWindowSizeToDefault();
+  });
 
 test('should not show a error box if there is no validator provided', async () => {
   await clickOption(1)
@@ -140,7 +143,7 @@ test('should choose a freetext node with the keyboard and submit an empty value'
     .eql('Autocomplete with free text options');
 });
 
-test('should choose a freetext node with the keyboard and submit an empyty value immediately', async (testController: TestController) => {
+test('should choose a freetext node with the keyboard and submit an empty value immediately', async (testController: TestController) => {
   await focusFilterFieldInput();
 
   // Select the test autocomplete

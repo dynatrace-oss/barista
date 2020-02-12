@@ -15,13 +15,19 @@
  */
 
 import { Selector } from 'testcafe';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
 const label = Selector('#dt-pagination-label-1');
 const next = Selector('.dt-pagination-next button');
 const clickPage = (page: number) =>
   Selector(`.dt-pagination-list li:nth-child(${page})`);
 
-fixture('Pagination').page('http://localhost:4200/pagination');
+fixture('Pagination')
+  .page('http://localhost:4200/pagination')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should have default select', async (testController: TestController) => {
   await testController.expect(await label.textContent).eql('1');

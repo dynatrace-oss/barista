@@ -14,19 +14,12 @@
  * limitations under the License.
  */
 
-import { tile, clickCounter } from './tile.po';
-import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
+import { t } from 'testcafe';
 
-fixture('Tile')
-  .page('http://localhost:4200/tile')
-  .beforeEach(async () => {
-    await resetWindowSizeToDefault();
-    await waitForAngular();
-  });
-
-test('should execute click handlers when not disabled', async (testController: TestController) => {
-  await testController.click(tile);
-
-  const count = await clickCounter.textContent;
-  await testController.expect(count).eql('1');
-});
+/** Resets the window size of the testing browser to the default size. */
+export function resetWindowSizeToDefault(
+  testController?: TestController,
+): TestControllerPromise {
+  const controller = testController || t;
+  return controller.resizeWindow(1200, 800);
+}

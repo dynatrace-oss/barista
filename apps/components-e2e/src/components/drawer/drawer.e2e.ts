@@ -22,7 +22,11 @@ import {
   rangeSelection,
   selection,
 } from '../chart/selection-area/selection-area.po';
-import { isCloseTo, waitForAngular } from '../../utils';
+import {
+  isCloseTo,
+  waitForAngular,
+  resetWindowSizeToDefault,
+} from '../../utils';
 
 const openCount = Selector('#open-count');
 const closeCount = Selector('#close-count');
@@ -46,8 +50,8 @@ const scrollUp = ClientFunction(distance => {
 
 fixture('Drawer')
   .page('http://localhost:4200/drawer')
-  .beforeEach(async (testController: TestController) => {
-    await testController.resizeWindow(1200, 800);
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
     await waitForAngular();
   });
 

@@ -14,11 +14,17 @@
  * limitations under the License.
  */
 import { Selector } from 'testcafe';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
 const showMore = Selector('#show-more-1');
 const label = Selector('.dt-show-more-label');
 
-fixture('Show more').page('http://localhost:4200/show-more');
+fixture('Show more')
+  .page('http://localhost:4200/show-more')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should have less style', async (testController: TestController) => {
   await testController

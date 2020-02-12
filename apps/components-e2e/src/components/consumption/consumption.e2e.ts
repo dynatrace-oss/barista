@@ -18,8 +18,14 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { consumption, dummyContent, mouseoutArea } from './consumption.po';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
-fixture('Consumption').page('http://localhost:4200/consumption');
+fixture('Consumption')
+  .page('http://localhost:4200/consumption')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should show an overlay containing custom content while hovering and hide it when the mouse leaves the element', async (testController: TestController) => {
   await testController.hover(consumption);

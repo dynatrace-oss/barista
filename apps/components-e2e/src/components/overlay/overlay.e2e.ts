@@ -20,8 +20,14 @@ import {
   toggleDisable,
   trigger,
 } from './overlay.po';
+import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
-fixture('Overlay').page('http://localhost:4200/overlay');
+fixture('Overlay')
+  .page('http://localhost:4200/overlay')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
 
 test('should open the overlay when not disabled', async (testController: TestController) => {
   await testController.hover(trigger);
