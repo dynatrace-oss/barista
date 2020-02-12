@@ -2051,7 +2051,7 @@ class BasicSelect {
   ariaLabelledby: string;
   panelClass = ['custom-one', 'custom-two'];
 
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 }
 
@@ -2114,7 +2114,7 @@ class SelectWithGroups {
     },
   ];
 
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 }
 
@@ -2177,7 +2177,7 @@ class SelectInitWithoutOptions {
   foods: any[];
   control = new FormControl('pizza-1');
 
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 
   addOptions(): void {
@@ -2236,7 +2236,7 @@ class NgModelSelect {
   ];
   isDisabled: boolean;
 
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 }
 
@@ -2299,7 +2299,7 @@ class NgModelCompareWithSelect {
   // tslint:disable-next-line:no-unbound-method
   comparator: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 
   useCompareByValue(): void {
@@ -2352,9 +2352,9 @@ class SelectEarlyAccessSibling {}
   `,
 })
 class SelectInsideFormGroup {
-  @ViewChild(FormGroupDirective, { static: false })
+  @ViewChild(FormGroupDirective)
   formGroupDirective: FormGroupDirective;
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
   // tslint:disable-next-line:no-unbound-method
   formControl = new FormControl('', Validators.required);
   formGroup = new FormGroup({
@@ -2376,7 +2376,7 @@ class SelectInsideFormGroup {
   `,
 })
 class CustomErrorBehaviorSelect {
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
   control = new FormControl();
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
@@ -2405,7 +2405,7 @@ class SingleSelectWithPreselectedArrayValues {
 
   selectedFoods = this.foods[1].value;
 
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 }
 
@@ -2477,7 +2477,7 @@ class ResetValuesSelect {
   ];
   control = new FormControl();
 
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
 }
 
 @Component({
@@ -2488,5 +2488,5 @@ class ResetValuesSelect {
   `,
 })
 class SelectWithOptionValueZero {
-  @ViewChild(DtSelect, { static: false }) select: DtSelect<any>;
+  @ViewChild(DtSelect) select: DtSelect<any>;
 }

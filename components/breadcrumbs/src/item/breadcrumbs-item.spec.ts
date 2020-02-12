@@ -298,7 +298,7 @@ class TestBreadcrumbsItem {
   external = false;
 
   // tslint:disable-next-line:deprecation
-  @ViewChild(DtBreadcrumbsItem, { static: false }) item;
+  @ViewChild(DtBreadcrumbsItem) item;
 
   set _lastItem(value: boolean) {
     this.item._lastItem = value;

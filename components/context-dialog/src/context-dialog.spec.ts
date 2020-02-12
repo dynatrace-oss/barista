@@ -384,8 +384,8 @@ class BasicContextDialog {
   customTrigger = false;
   panelClass: string | string[] = 'someclass';
 
-  @ViewChild(DtContextDialog, { static: false }) contextDialog: DtContextDialog;
-  @ViewChild(DtContextDialogTrigger, { static: false })
+  @ViewChild(DtContextDialog) contextDialog: DtContextDialog;
+  @ViewChild(DtContextDialogTrigger)
   contextDialogTrigger: DtContextDialogTrigger;
-  @ViewChild('interactive', { static: false }) firstInteractive: ElementRef;
+  @ViewChild('interactive') firstInteractive: ElementRef;
 }

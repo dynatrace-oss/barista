@@ -185,7 +185,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   @ViewChild('marker', { read: ElementRef, static: true }) _marker: ElementRef;
 
   /** @internal The reference to the overlay. */
-  @ViewChild(CdkConnectedOverlay, { static: false })
+  @ViewChild(CdkConnectedOverlay)
   _overlay: CdkConnectedOverlay;
 
   private _destroy$ = new Subject<void>();

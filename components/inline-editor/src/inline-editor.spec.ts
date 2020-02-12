@@ -357,7 +357,7 @@ function getErrorHtmlElement<T>(
   `,
 })
 class TestApp {
-  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
   model = 'content';
   saveLabel = 'this is the initial save label';
   cancelLabel = 'this is the initial cancel label';
@@ -369,7 +369,7 @@ class TestApp {
   `,
 })
 class TestAppWithSuccessSave {
-  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
   model = 'content';
 
   save(): Observable<void> {
@@ -386,7 +386,7 @@ class TestAppWithSuccessSave {
   `,
 })
 class TestAppWithFailureSave {
-  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
   model = 'content';
 
   save(): Observable<void> {
@@ -403,7 +403,7 @@ class TestAppWithFailureSave {
   `,
 })
 class TestComponentWithRequiredValidation {
-  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
   model = 'content';
 }
 
@@ -419,7 +419,7 @@ class TestComponentWithRequiredValidation {
   `,
 })
 class TestComponentWithWithCustomErrorStateMatcher {
-  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
   model = 'content';
   errorState = false;
 
@@ -447,7 +447,7 @@ function baristaValidator(): ValidatorFn {
   `,
 })
 class TestComponentWithWithValidator {
-  @ViewChild(DtInlineEditor, { static: false }) inlineEditor: DtInlineEditor;
+  @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;
   queryTitleControl = new FormControl('123', [
     // tslint:disable-next-line: no-unbound-method
     baristaValidator(),

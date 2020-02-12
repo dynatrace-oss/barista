@@ -170,7 +170,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   /**
    * @internal Reference to the panel which will be created in the overlay.
    */
-  @ViewChild('panel', { static: false }) _panel: ElementRef;
+  @ViewChild('panel') _panel: ElementRef;
 
   /**
    * @internal References to all the options that are currently applied.

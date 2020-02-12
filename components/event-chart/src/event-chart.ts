@@ -162,7 +162,7 @@ const OVERLAY_POSITIONS: ConnectedPosition[] = [
 })
 export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** @internal Template reference for the DtEventChart overlay. */
-  @ContentChild(DtEventChartOverlay, { static: false, read: TemplateRef })
+  @ContentChild(DtEventChartOverlay, { read: TemplateRef })
   // tslint:disable-next-line: no-any
   private _overlay: TemplateRef<any>;
 

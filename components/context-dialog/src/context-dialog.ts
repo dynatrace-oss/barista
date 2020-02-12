@@ -168,13 +168,13 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   >();
 
   /** @internal Panel that holds the content */
-  @ViewChild('panel', { static: false }) _panel: ElementRef;
+  @ViewChild('panel') _panel: ElementRef;
 
   /** @internal Reference to the overlay template. */
   @ViewChild(TemplateRef, { static: true }) _overlayTemplate: TemplateRef<void>;
 
   /** @internal Reference to the overlay origin. */
-  @ViewChild(CdkOverlayOrigin, { static: false })
+  @ViewChild(CdkOverlayOrigin)
   _defaultTrigger: CdkOverlayOrigin;
 
   /** Whether or not the overlay panel is open. */

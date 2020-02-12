@@ -101,7 +101,7 @@ export class DtFormField<T>
   _errorAnimationState: '' | 'enter' | 'enter-delayed' = '';
 
   /** @internal Reference to the label */
-  @ContentChild(DtLabel, { static: false }) _labelChild: DtLabel;
+  @ContentChild(DtLabel) _labelChild: DtLabel;
 
   /** @internal References to the hints */
   @ContentChildren(DtHint) _hintChildren: QueryList<DtHint>;
@@ -110,7 +110,7 @@ export class DtFormField<T>
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
 
   /** @internal Reference to the control */
-  @ContentChild(DtFormFieldControl, { static: false })
+  @ContentChild(DtFormFieldControl)
   _control: DtFormFieldControl<T>;
 
   /** @internal References to the prefixes */

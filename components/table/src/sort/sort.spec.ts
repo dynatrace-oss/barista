@@ -541,9 +541,9 @@ class DtTableSortApp {
   sortAriaLabel = 'Sort column b';
 
   @ViewChild(DtSort, { static: true }) dtSort: DtSort;
-  @ViewChild('sortHeaderA', { static: false }) sortHeaderA: DtSortHeader;
-  @ViewChild('sortHeaderB', { static: false }) sortHeaderB: DtSortHeader;
-  @ViewChild('sortHeaderC', { static: false }) sortHeaderC: DtSortHeader;
+  @ViewChild('sortHeaderA') sortHeaderA: DtSortHeader;
+  @ViewChild('sortHeaderB') sortHeaderB: DtSortHeader;
+  @ViewChild('sortHeaderC') sortHeaderC: DtSortHeader;
 
   @ViewChildren(DtCell) cells: QueryList<DtCell>;
 

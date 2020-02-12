@@ -9,6 +9,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/apps/dev",
             "tsConfig": "apps/dev/tsconfig.app.json",
             "index": "apps/dev/src/index.html",
@@ -45,7 +46,14 @@
             "styles": ["apps/dev/src/main.scss", "components/style/index.scss"]
           },
           "configurations": {
-            "production": {}
+            "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ]
+            }
           }
         },
         "serve": {
@@ -84,7 +92,7 @@
             "tsConfig": "apps/components-e2e/tsconfig.app.json",
             "index": "apps/components-e2e/src/index.html",
             "main": "apps/components-e2e/src/main.ts",
-            "aot": false,
+            "aot": true,
             "polyfills": "apps/components-e2e/src/polyfills.ts",
             "progress": false,
             "assets": [
@@ -116,13 +124,18 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "buildOptimizer": true,
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false
             }
@@ -213,7 +226,7 @@
             "tsConfig": "apps/demos/tsconfig.app.json",
             "index": "apps/demos/src/index.html",
             "main": "apps/demos/src/main.ts",
-            "aot": false,
+            "aot": true,
             "progress": false,
             "polyfills": "apps/demos/src/polyfills.ts",
             "assets": [
@@ -255,14 +268,19 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
               "vendorChunk": false,
-              "statsJson": true,
-              "aot": true
+              "statsJson": true
             }
           }
         },
@@ -396,7 +414,7 @@
             "main": "apps/barista/src/main.ts",
             "polyfills": "apps/barista/src/polyfills.ts",
             "progress": false,
-            "aot": false,
+            "aot": true,
             "assets": [
               {
                 "glob": "**",
@@ -468,7 +486,6 @@
               "namedChunks": false,
               "vendorChunk": false,
               "statsJson": true,
-              "aot": true,
               "budgets": [
                 {
                   "type": "initial",

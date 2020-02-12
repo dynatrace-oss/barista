@@ -15,7 +15,14 @@
  */
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Input, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
+import {
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  ViewChild,
+  Directive,
+} from '@angular/core';
 
 import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
 import { DtFormattedValue } from '@dynatrace/barista-components/formatters';
@@ -60,6 +67,7 @@ export type DtSimpleColumnFormatFunction = (
   displayValue: any, // tslint:disable-line:no-any
 ) => string | DtFormattedValue;
 
+@Directive()
 export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
   /** Input for the name with which the columnDefinition will register itself to the table. */
   @Input()

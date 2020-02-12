@@ -131,9 +131,7 @@ export class DtFilterFieldRange implements AfterViewInit {
   @ViewChild(TemplateRef, { static: true }) _template: TemplateRef<{}>;
 
   /** @internal */
-  @ViewChild(DtButtonGroup, { static: false }) _operatorGroup: DtButtonGroup<
-    DtFilterFieldRange
-  >;
+  @ViewChild(DtButtonGroup) _operatorGroup: DtButtonGroup<DtFilterFieldRange>;
 
   /** @internal */
   _portal: TemplatePortal;

@@ -817,7 +817,7 @@ class DtInputWithReadonlyInput {}
   `,
 })
 class DtInputWithFormErrorMessages {
-  @ViewChild('form', { static: false }) form: NgForm;
+  @ViewChild('form') form: NgForm;
   formControl = new FormControl('', (control: AbstractControl) =>
     Validators.required(control),
   );
@@ -836,7 +836,7 @@ class DtInputWithFormErrorMessages {
   `,
 })
 class DtInputWithFormGroupErrorMessages {
-  @ViewChild(FormGroupDirective, { static: false })
+  @ViewChild(FormGroupDirective)
   formGroupDirective: FormGroupDirective;
   formGroup = new FormGroup({
     name: new FormControl('', (control: AbstractControl) =>

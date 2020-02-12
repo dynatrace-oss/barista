@@ -169,7 +169,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    * @internal The focus trap for the selected area,
    * used by the selection area to chain the focus group of the area and the overlay.
    */
-  @ViewChild(CdkTrapFocus, { static: false })
+  @ViewChild(CdkTrapFocus)
   _selectedAreaFocusTrap: CdkTrapFocus;
 
   /**
