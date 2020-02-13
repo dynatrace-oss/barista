@@ -32,6 +32,7 @@ import {
 import {
   CanColor,
   Constructor,
+  dtFadeAnimation,
   isDefined,
   mixinColor,
   _readKeyCode,
@@ -40,31 +41,10 @@ import { clamp, round } from 'lodash';
 import { Subject } from 'rxjs';
 import { PlotBackgroundInfo } from '../utils';
 
-const DT_HEATFIELD_TOP_OFFSET = 16;
-
-const DT_HEATFIELD_OVERLAY_POSITIONS: ConnectedPosition[] = [
-  {
-    originX: 'center',
-    originY: 'top',
-    overlayX: 'center',
-    overlayY: 'bottom',
-    offsetY: -8,
-  },
-  {
-    originX: 'end',
-    originY: 'top',
-    overlayX: 'start',
-    overlayY: 'top',
-    offsetX: 8,
-  },
-  {
-    originX: 'start',
-    originY: 'top',
-    overlayX: 'end',
-    overlayY: 'top',
-    offsetX: -8,
-  },
-];
+import {
+  DT_HEATFIELD_TOP_OFFSET,
+  DT_HEATFIELD_OVERLAY_POSITIONS,
+} from './chart-heatfield-config';
 
 /** Event object emitted by DtOption when selected or deselected. */
 export class DtChartHeatfieldActiveChange {
@@ -94,6 +74,7 @@ export const _DtHeatfieldMixinBase = mixinColor<
   preserveWhitespaces: false,
   encapsulation: ViewEncapsulation.Emulated,
   inputs: ['color'],
+  animations: [dtFadeAnimation],
 })
 export class DtChartHeatfield extends _DtHeatfieldMixinBase
   implements CanColor<DtChartHeatfieldThemePalette>, OnDestroy {
@@ -101,6 +82,9 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   @Output() readonly activeChange = new EventEmitter<
     DtChartHeatfieldActiveChange
   >();
+
+  /** @internal The current state of the animation. */
+  _overlayAnimationState: 'void' | 'fadeIn' = 'void';
 
   private _start: number;
 
@@ -141,6 +125,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     const coercedValue = coerceBooleanProperty(val);
     if (this._active !== coercedValue) {
       this._active = coercedValue;
+      this._overlayAnimationState = coercedValue ? 'fadeIn' : 'void';
       this.activeChange.next(new DtChartHeatfieldActiveChange(this));
       this._changeDetectorRef.markForCheck();
     }
@@ -233,6 +218,8 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
    * @internal
    */
   _toggleActive(): void {
+    this._overlayAnimationState =
+      this._overlayAnimationState === 'fadeIn' ? 'void' : 'fadeIn';
     this.active = !this.active;
   }
 
