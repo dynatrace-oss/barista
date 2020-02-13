@@ -1,3 +1,63 @@
+## 5.2.0 (2020-02-13)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the tooltip stayed open when the chart was
+  destroyed.
+  ([395fa44](https://github.com/dynatrace-oss/barista/commit/395fa44f3ec14f35953de4f4b910fa9c6fd58a6d)),
+  closes [#579](https://github.com/dynatrace-oss/barista/issues/579)
+- **chart, inline-editor, pagination, context-dialog, consumption,
+  toggle-button-group, tag-list, empty-state, cta-card, table, filter-field:**
+  Fixes an issue with aria label name clashes for a11y.
+  ([73532da](https://github.com/dynatrace-oss/barista/commit/73532da1926dbe2cfb04aa70fbf1820a4653e104)),
+  closes [#526](https://github.com/dynatrace-oss/barista/issues/526)
+  [#79](https://github.com/dynatrace-oss/barista/issues/79)
+- **favorite-column:** Favorite column is not modifying the data source anymore.
+  ([49a533e](https://github.com/dynatrace-oss/barista/commit/49a533e96c91ad29020e57c0a6fc52d1cbc6530b)),
+  closes [#540](https://github.com/dynatrace-oss/barista/issues/540)
+- **filter-field:** Fixes alignment of filter field tags.
+  ([f720005](https://github.com/dynatrace-oss/barista/commit/f720005abbfa8b391282b58535d603ae470f9776)),
+  closes [#573](https://github.com/dynatrace-oss/barista/issues/573)
+- **filter-field:** Fixes an issue where options set on an async autocomplete
+  are shown.
+  ([90e2428](https://github.com/dynatrace-oss/barista/commit/90e2428895f919e955aaba8949649d73a937862d))
+- **legend:** Fixes an issue with small spaces between legends.
+  ([c0653ad](https://github.com/dynatrace-oss/barista/commit/c0653adfd4e046afb7c201c1847dc772a421a5d0)),
+  closes [#73](https://github.com/dynatrace-oss/barista/issues/73)
+- **table:** Fixed invalid fill color for favorite-column icon
+  ([6e4a2e1](https://github.com/dynatrace-oss/barista/commit/6e4a2e14623a6f863c2f15a83c3340c888102542))
+- **tag-list:** Fixes an issue where the show more button was displayed with '0
+  More...' when no more tags were present.
+  ([71e196c](https://github.com/dynatrace-oss/barista/commit/71e196ccd60d381653879db8b1a127aba1a8f1ac))
+- **tag-list:** Fixes an issue where the show more button was not aligned
+  correctly.
+  ([0aba1c0](https://github.com/dynatrace-oss/barista/commit/0aba1c04aaded1a71c41d9ded50fd21ad6ca9db9))
+
+### Features
+
+- **empty-state:** Added custom empty states.
+  ([bc626a7](https://github.com/dynatrace-oss/barista/commit/bc626a78cef93336bfa472948d1ce309e4744e8d)),
+  closes [#528](https://github.com/dynatrace-oss/barista/issues/528)
+- **filter-field:** Added disable functionality to the filter field.
+  ([d6a6833](https://github.com/dynatrace-oss/barista/commit/d6a6833280085434acdb04f42e2b1fccc8c67bc6))
+
+## 5.1.1 (2020-02-06)
+
+### Bug Fixes
+
+- **autocomplete, filter-field:** Fixes an issue with overlay
+  ([d3ec0d1](https://github.com/dynatrace-oss/barista/commit/d3ec0d150c7dca8724e89c7290b3b89fe9bf12ee)),
+  closes [#451](https://github.com/dynatrace-oss/barista/issues/451)
+- **chart:** Fixes an issue where the range could not be re-opened after
+  closing.
+  ([1718a21](https://github.com/dynatrace-oss/barista/commit/1718a2170a082f4cffade508b85f2b0cd4a6575e))
+
+### Performance Improvements
+
+- **autocomplete:** Fixes an issue when toggling multiple times a subscription
+  is not cleaned up.
+  ([0b569f6](https://github.com/dynatrace-oss/barista/commit/0b569f6ba474a379a9cb9a6ae146d8ce6bab6a92))
+
 ## 5.1.0 (2020-02-04)
 
 ### Bug Fixes
