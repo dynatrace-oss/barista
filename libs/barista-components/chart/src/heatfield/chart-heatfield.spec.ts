@@ -35,6 +35,7 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtChart,
   DtChartHeatfield,
@@ -57,7 +58,7 @@ describe('DtChartHeatfield', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [DtChartModule, DtThemingModule],
+      imports: [NoopAnimationsModule, DtChartModule, DtThemingModule],
       declarations: [SingleHeatfield, MultipleHeatfield, DummyChart],
     });
 
