@@ -15,3 +15,4 @@
  */
 
 export * from './error-animations';
+export * from './fade-animation';
