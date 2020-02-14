@@ -30,8 +30,6 @@ export function getClassnameFromSourceFile(source: SourceFile): string {
     .filter(statement => isClassDeclaration(statement))
     .map((statement: ClassDeclaration) => statement.name!.escapedText);
 
-  if (classNodes.length > 1) {
-    throw DtTooManyClassesInExampleError(source.fileName);
-  }
-  return classNodes[0].toString();
+  // Assume the last class within the example is the actual root example.
+  return classNodes[classNodes.length - 1].toString();
 }

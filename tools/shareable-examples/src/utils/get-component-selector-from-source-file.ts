@@ -29,12 +29,11 @@ import {
 export async function getComponentSelectorFromSourceFile(
   source: SourceFile,
 ): Promise<string> {
-  const componentClass = (
-    await getAngularDecoratedClasses(
-      source,
-      AngularClassDecoratorName.Component,
-    )
-  )[0];
+  const componentClasses = await getAngularDecoratedClasses(
+    source,
+    AngularClassDecoratorName.Component,
+  );
+  const componentClass = componentClasses[componentClasses.length - 1];
   // Iterate all properties within the decorator
   const selector = componentClass.decorator.properties
     // Filter everything that is not a property assignment

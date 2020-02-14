@@ -18,6 +18,7 @@ import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtCardModule } from '@dynatrace/barista-components/card';
+import { DtTableModule } from '@dynatrace/barista-components/table';
 import { DtExampleEmptyStateDefault } from './empty-state-default-example/empty-state-default-example';
 import { DtExampleEmptyStateInCard } from './empty-state-in-card-example/empty-state-in-card-example';
 import { DtExampleEmptyStateMultipleItems } from './empty-state-multiple-items-example/empty-state-multiple-items-example';
@@ -26,7 +27,6 @@ import {
   DtExampleCustomEmptyStateTable,
   DtExampleCustomEmptyState,
 } from './empty-state-custom-empty-state-table-example/empty-state-custom-empty-state-table-example';
-import { DtTableModule } from 'components/table/src/table-module';
 
 export const DT_EMPTY_STATE_EXAMPLES = [
   DtExampleEmptyStateDefault,
