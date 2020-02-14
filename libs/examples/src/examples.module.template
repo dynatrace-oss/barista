@@ -14,6 +14,10 @@
  * limitations under the License.
  */
 
+// THE EXAMPLES.MODULE.TS FILE IS GENERATED! DO NOT CHANGE MANUALLY - use the examples.module.template
+// file to change something in the module definition file or generate by running
+// npm run examples-tools
+
 // tslint:disable: max-file-line-count
 
 import { NgModule } from '@angular/core';

@@ -347,7 +347,7 @@ cannot be prevented.
 - Make sure to always unsubscribe from observables (either by using `async`
   pipes, by calling unsubscribe or by using the "destroy subject pattern").
 
-### Symbol ordering in components/directives/services
+### Symbol ordering in libs/barista-components/directives/services
 
 For consistency and an easy way to find symbols in components, directives or
 services stick to the following ordering in the class.

@@ -21,7 +21,7 @@ import {
   DtTreeFlattener,
   DtTreeDataSource,
   DtTreeControl,
-} from 'components/core/src/tree';
+} from '@dynatrace/barista-components/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 const TESTDATA: ThreadNode[] = [

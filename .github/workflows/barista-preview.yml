@@ -16,7 +16,7 @@ jobs:
       with:
         node-version: '12.x'
     - run: npm ci
-    - run: npm run examples-tools  && npm run ng -- build barista --progress=false && npm run barista-tools
+    - run: npm run examples-tools  && npm run ng -- build barista-design-system --progress=false && npm run barista-tools
       env:
         CI: true
 
@@ -25,4 +25,4 @@ jobs:
       with:
         zeit-token: ${{ secrets.ZEIT_TOKEN }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        now-args: '--local-config now-preview.json --confirm ./dist/apps/barista'
+        now-args: '--local-config now-preview.json --confirm ./dist/apps/barista-design-system'

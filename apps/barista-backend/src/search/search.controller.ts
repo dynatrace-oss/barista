@@ -16,7 +16,7 @@
 
 import { Controller, Get, Query, Post } from '@nestjs/common';
 import { SearchService } from './search.service';
-import { BaSearchResult } from '@dynatrace/barista-components/barista-definitions';
+import { BaSearchResult } from '@dynatrace/shared/barista-definitions';
 import { Observable } from 'rxjs';
 
 @Controller()

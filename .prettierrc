@@ -10,13 +10,13 @@
     { "files": "*.ts.lint", "options": { "parser": "typescript" } },
     {
       "files": [
-        "components/chart/src/chart.html",
-        "components/chart/src/timestamp/timestamp.html",
-        "components/filter-field/src/filter-field.html",
-        "components/filter-field/src/filter-field-tag/filter-field-tag.html",
-        "components/filter-field/src/filter-field-range/filter-field-range.html",
-        "components/table/src/simple-columns/simple-text-column.html",
-        "components/table/src/simple-columns/simple-number-column.html"
+        "libs/barista-components/chart/src/chart.html",
+        "libs/barista-components/chart/src/timestamp/timestamp.html",
+        "libs/barista-components/filter-field/src/filter-field.html",
+        "libs/barista-components/filter-field/src/filter-field-tag/filter-field-tag.html",
+        "libs/barista-components/filter-field/src/filter-field-range/filter-field-range.html",
+        "libs/barista-components/table/src/simple-columns/simple-text-column.html",
+        "libs/barista-components/table/src/simple-columns/simple-number-column.html"
       ],
       "options": { "parser": "vue" }
     }

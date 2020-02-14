@@ -19,7 +19,7 @@ import { Index } from 'lunr';
 import {
   BaSearchResult,
   BaSinglePageContent,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/shared/barista-definitions';
 import { Observable, of, combineLatest } from 'rxjs';
 import { tap, map, take, mapTo } from 'rxjs/operators';
 import { mapContentToSearchResult } from './map-content-to-search-result';

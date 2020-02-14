@@ -13,7 +13,6 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
   expected: () => 'Nested mixins are not allowed.',
 });
 
-
 /**
  * Stylelint plugin that prevents nesting Sass mixins.
  */
@@ -31,7 +30,7 @@ const plugin = stylelint.createPlugin(ruleName, isEnabled => {
           result,
           ruleName,
           message: messages.expected(),
-          node: childRule
+          node: childRule,
         });
       });
     });

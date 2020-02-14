@@ -1,5 +1,5 @@
 {
-  "npmScope": "dynatrace/barista-components",
+  "npmScope": "dynatrace",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -17,7 +17,7 @@
     }
   },
   "projects": {
-    "barista": {
+    "barista-design-system": {
       "tags": ["type:app"]
     },
     "demos": {
@@ -56,13 +56,10 @@
       "tags": ["type:tooling", "type:shared"]
     },
     "shared-barista-definitions": {
-      "tags": ["type:types"]
-    },
-    "testing": {
-      "tags": ["scope:testing", "type:library"]
+      "tags": ["type:types", "type:library"]
     },
     "examples": {
-      "tags": ["type:library"]
+      "tags": ["scope:examples", "type:library"]
     },
     "linting": {
       "tags": ["scope:tooling"]
@@ -300,7 +297,16 @@
       "tags": ["scope:components", "type:library"]
     },
     "barista-backend": {
-      "tags": ["type:app"]
+      "tags": ["type:app", "scope:node"]
+    },
+    "testing-node": {
+      "tags": ["scope:testing", "scope:node", "type:library"]
+    },
+    "testing-browser": {
+      "tags": ["scope:testing", "scope:browser", "type:library"]
+    },
+    "testing-fixtures": {
+      "tags": ["scope:testing", "type:library"]
     }
   }
 }

@@ -19,7 +19,7 @@
             "assets": [
               {
                 "glob": "**",
-                "input": "components/assets",
+                "input": "libs/barista-components/assets",
                 "output": "/assets"
               },
               {
@@ -43,7 +43,10 @@
                 "output": "/fonts"
               }
             ],
-            "styles": ["apps/dev/src/main.scss", "components/style/index.scss"]
+            "styles": [
+              "apps/dev/src/main.scss",
+              "libs/barista-components/style/index.scss"
+            ]
           },
           "configurations": {
             "production": {
@@ -98,7 +101,7 @@
             "assets": [
               {
                 "glob": "**",
-                "input": "components/assets",
+                "input": "libs/barista-components/assets",
                 "output": "/assets"
               },
               {
@@ -119,7 +122,7 @@
             ],
             "styles": [
               "apps/components-e2e/src/main.scss",
-              "components/style/index.scss"
+              "libs/barista-components/style/index.scss"
             ]
           },
           "configurations": {
@@ -233,7 +236,7 @@
             "assets": [
               {
                 "glob": "**",
-                "input": "components/assets",
+                "input": "libs/barista-components/assets",
                 "output": "/assets"
               },
               {
@@ -264,7 +267,7 @@
             ],
             "styles": [
               "apps/demos/src/main.scss",
-              "components/style/index.scss"
+              "libs/barista-components/style/index.scss"
             ]
           },
           "configurations": {
@@ -346,16 +349,16 @@
       }
     },
     "examples-tools": {
-      "root": "tools/examples",
-      "sourceRoot": "tools/examples/src",
+      "root": "libs/tools/examples-tools",
+      "sourceRoot": "libs/tools/examples-tools/src",
       "projectType": "library",
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/tools/examples",
-            "main": "tools/examples/src/main.ts",
-            "tsConfig": "tools/examples/tsconfig.json"
+            "outputPath": "dist/libs/tools/examples-tools",
+            "main": "libs/tools/examples-tools/src/main.ts",
+            "tsConfig": "libs/tools/examples-tools/tsconfig.json"
           },
           "configurations": {
             "production": {
@@ -364,8 +367,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "tools/environments/barista-environment.ts",
-                  "with": "tools/environments/barista-environment.prod.ts"
+                  "replace": "environments/barista-environment.ts",
+                  "with": "environments/barista-environment.prod.ts"
                 }
               ]
             }
@@ -374,8 +377,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tools/examples/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/examples/**"]
+            "tsConfig": ["libs/tools/examples-tools/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/examples-tools/**"]
           }
         }
       }
@@ -404,30 +407,30 @@
         }
       }
     },
-    "barista": {
-      "root": "apps/barista",
-      "sourceRoot": "apps/barista/src",
+    "barista-design-system": {
+      "root": "apps/barista-design-system",
+      "sourceRoot": "apps/barista-design-system/src",
       "projectType": "application",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/barista",
-            "tsConfig": "apps/barista/tsconfig.app.json",
-            "index": "apps/barista/src/index.html",
-            "main": "apps/barista/src/main.ts",
-            "polyfills": "apps/barista/src/polyfills.ts",
+            "outputPath": "dist/apps/barista-design-system",
+            "tsConfig": "apps/barista-design-system/tsconfig.app.json",
+            "index": "apps/barista-design-system/src/index.html",
+            "main": "apps/barista-design-system/src/main.ts",
+            "polyfills": "apps/barista-design-system/src/polyfills.ts",
             "progress": false,
             "aot": true,
             "assets": [
               {
                 "glob": "**",
-                "input": "apps/barista/src/assets",
+                "input": "apps/barista-design-system/src/assets",
                 "output": "/assets"
               },
               {
                 "glob": "**",
-                "input": "components/assets",
+                "input": "libs/barista-components/assets",
                 "output": "/assets"
               },
               {
@@ -437,7 +440,7 @@
               },
               {
                 "glob": "**",
-                "input": "apps/barista/src/assets",
+                "input": "apps/barista-design-system/src/assets",
                 "output": "/assets"
               },
               {
@@ -452,7 +455,7 @@
               },
               {
                 "glob": "**/*.json",
-                "input": "dist/apps/barista/data",
+                "input": "dist/apps/barista-design-system/data",
                 "output": "/data"
               },
               {
@@ -462,25 +465,25 @@
               },
               {
                 "glob": "**",
-                "input": "components/assets/fonts/bitstream/",
+                "input": "libs/barista-components/assets/fonts/bitstream/",
                 "output": "/assets/fonts/bitstream"
               }
             ],
             "styles": [
               "node_modules/highlight-ts/styles/github-gist.css",
-              "components/style/main.scss",
-              "apps/barista/src/main.scss"
+              "libs/barista-components/style/main.scss",
+              "apps/barista-design-system/src/main.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["components/core/src/style/"]
+              "includePaths": ["libs/barista-components/core/src/style/"]
             }
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/barista/src/environments/environment.ts",
-                  "with": "apps/barista/src/environments/environment.prod.ts"
+                  "replace": "apps/barista-design-system/src/environments/environment.ts",
+                  "with": "apps/barista-design-system/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -508,12 +511,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "barista:build",
-            "proxyConfig": "apps/barista/proxy.conf.json"
+            "browserTarget": "barista-design-system:build",
+            "proxyConfig": "apps/barista-design-system/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "barista:build:production"
+              "browserTarget": "barista-design-system:build:production"
             }
           }
         },
@@ -521,10 +524,10 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "apps/barista/tsconfig.app.json",
-              "apps/barista/tsconfig.spec.json"
+              "apps/barista-design-system/tsconfig.app.json",
+              "apps/barista-design-system/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/barista/**"]
+            "exclude": ["**/node_modules/**", "!apps/barista-design-system/**"]
           }
         },
         "lint-styles": {
@@ -533,15 +536,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["apps/barista/src/**/*.scss"]
+            "files": ["apps/barista-design-system/src/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "apps/barista/jest.config.js",
-            "tsConfig": "apps/barista/tsconfig.spec.json",
-            "setupFile": "apps/barista/src/test-setup.ts",
+            "jestConfig": "apps/barista-design-system/jest.config.js",
+            "tsConfig": "apps/barista-design-system/tsconfig.spec.json",
+            "setupFile": "apps/barista-design-system/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -636,7 +639,7 @@
             "assets": [
               {
                 "glob": "**",
-                "input": "components/assets",
+                "input": "libs/barista-components/assets",
                 "output": "/assets"
               },
               {
@@ -650,7 +653,7 @@
                 "output": "/fonts"
               }
             ],
-            "styles": ["components/style/index.scss"],
+            "styles": ["libs/barista-components/style/index.scss"],
             "scripts": [],
             "aot": true
           },
@@ -754,16 +757,16 @@
       }
     },
     "barista-tools": {
-      "root": "tools/barista",
-      "sourceRoot": "tools/barista/src",
+      "root": "libs/tools/barista",
+      "sourceRoot": "libs/tools/barista/src",
       "projectType": "library",
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/tools/barista",
-            "main": "tools/barista/src/main.ts",
-            "tsConfig": "tools/barista/tsconfig.json",
+            "outputPath": "dist/libs/tools/barista",
+            "main": "libs/tools/barista/src/main.ts",
+            "tsConfig": "libs/tools/barista/tsconfig.json",
             "maxWorkers": 6
           },
           "configurations": {
@@ -773,8 +776,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "tools/environments/barista-environment.ts",
-                  "with": "tools/environments/barista-environment.prod.ts"
+                  "replace": "environments/barista-environment.ts",
+                  "with": "environments/barista-environment.prod.ts"
                 }
               ]
             }
@@ -783,8 +786,8 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "tools/barista/jest.config.js",
-            "tsConfig": "tools/barista/tsconfig.spec.json",
+            "jestConfig": "libs/tools/barista/jest.config.js",
+            "tsConfig": "libs/tools/barista/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
@@ -792,8 +795,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tools/barista/tsconfig.json",
-              "tools/barista/tsconfig.spec.json"
+              "libs/tools/barista/tsconfig.json",
+              "libs/tools/barista/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**", "!tools/barista/**"]
           }
@@ -801,15 +804,15 @@
       }
     },
     "builders": {
-      "root": "tools/builders",
-      "sourceRoot": "tools/builders",
+      "root": "libs/tools/builders",
+      "sourceRoot": "libs/tools/builders",
       "projectType": "library",
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "tools/builders/jest.config.js",
-            "tsConfig": "tools/builders/tsconfig.spec.json",
+            "jestConfig": "libs/tools/builders/jest.config.js",
+            "tsConfig": "libs/tools/builders/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
@@ -817,8 +820,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tools/builders/tsconfig.json",
-              "tools/builders/tsconfig.spec.json"
+              "libs/tools/builders/tsconfig.json",
+              "libs/tools/builders/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**", "!tools/builders/**"]
           }
@@ -826,8 +829,8 @@
       }
     },
     "tools-release": {
-      "root": "tools/release",
-      "sourceRoot": "tools/release/src",
+      "root": "libs/tools/release",
+      "sourceRoot": "libs/tools/release/src",
       "projectType": "library",
       "architect": {
         "build": {
@@ -847,21 +850,21 @@
         "build-publish-release": {
           "builder": "@nrwl/node:build",
           "options": {
-            "main": "tools/release/src/publish-release-cli.ts",
-            "tsConfig": "tools/release/tsconfig.json",
-            "outputPath": "dist/tools/publish-release"
+            "main": "libs/tools/release/src/publish-release-cli.ts",
+            "tsConfig": "libs/tools/release/tsconfig.json",
+            "outputPath": "dist/libs/tools/publish-release"
           }
         },
         "build-stage-release": {
           "builder": "@nrwl/node:build",
           "options": {
-            "main": "tools/release/src/stage-release-cli.ts",
-            "tsConfig": "tools/release/tsconfig.json",
-            "outputPath": "dist/tools/stage-release",
+            "main": "libs/tools/release/src/stage-release-cli.ts",
+            "tsConfig": "libs/tools/release/tsconfig.json",
+            "outputPath": "dist/libs/tools/stage-release",
             "assets": [
               {
                 "glob": "*",
-                "input": "tools/release/src/assets",
+                "input": "libs/tools/release/src/assets",
                 "output": "assets"
               }
             ]
@@ -870,16 +873,16 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tools/release/tsconfig.json"],
+            "tsConfig": ["libs/tools/release/tsconfig.json"],
             "exclude": ["**/node_modules/**", "!tools/release/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "tools/release/jest.config.js",
-            "tsConfig": "tools/release/tsconfig.spec.json",
-            "setupFile": "tools/release/src/test-setup.ts",
+            "jestConfig": "libs/tools/release/jest.config.js",
+            "tsConfig": "libs/tools/release/tsconfig.spec.json",
+            "setupFile": "libs/tools/release/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -909,24 +912,24 @@
       }
     },
     "tools-shareable-examples": {
-      "root": "tools/shareable-examples",
-      "sourceRoot": "tools/shareable-examples/src",
+      "root": "libs/tools/shareable-examples",
+      "sourceRoot": "libs/tools/shareable-examples/src",
       "projectType": "library",
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
           "options": {
-            "outputPath": "dist/tools/shareable-examples",
-            "main": "tools/shareable-examples/src/main.ts",
-            "tsConfig": "tools/shareable-examples/tsconfig.json",
+            "outputPath": "dist/libs/tools/shareable-examples",
+            "main": "libs/tools/shareable-examples/src/main.ts",
+            "tsConfig": "libs/tools/shareable-examples/tsconfig.json",
             "maxWorkers": 6
           },
           "configurations": {
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "tools/environments/barista-environment.ts",
-                  "with": "tools/environments/barista-environment.prod.ts"
+                  "replace": "environments/barista-environment.ts",
+                  "with": "environments/barista-environment.prod.ts"
                 }
               ]
             }
@@ -935,81 +938,53 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tools/shareable-examples/tsconfig.json"],
+            "tsConfig": ["libs/tools/shareable-examples/tsconfig.json"],
             "exclude": ["**/node_modules/**", "!tools/shareable-examples/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "tools/shareable-examples/jest.config.js",
-            "tsConfig": "tools/shareable-examples/tsconfig.spec.json",
-            "setupFile": "tools/shareable-examples/src/test-setup.ts"
+            "jestConfig": "libs/tools/shareable-examples/jest.config.js",
+            "tsConfig": "libs/tools/shareable-examples/tsconfig.spec.json",
+            "setupFile": "libs/tools/shareable-examples/src/test-setup.ts"
           }
         }
       }
     },
     "tools-shared": {
-      "root": "tools/shared",
-      "sourceRoot": "tools/shared/src",
+      "root": "libs/tools/shared",
+      "sourceRoot": "libs/tools/shared/src",
       "projectType": "library",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tools/shared/tsconfig.json"],
+            "tsConfig": ["libs/tools/shared/tsconfig.json"],
             "exclude": ["**/node_modules/**", "!tools/shared/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "tools/shared/jest.config.js",
-            "tsConfig": "tools/shared/tsconfig.spec.json",
-            "setupFile": "tools/shared/src/test-setup.ts",
+            "jestConfig": "libs/tools/shared/jest.config.js",
+            "tsConfig": "libs/tools/shared/tsconfig.spec.json",
+            "setupFile": "libs/tools/shared/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
       }
     },
-    "testing": {
-      "projectType": "library",
-      "root": "libs/testing",
-      "sourceRoot": "libs/testing/src",
-      "prefix": "dt",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/testing/tsconfig.lib.json",
-              "libs/testing/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/testing/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/testing/jest.config.js",
-            "tsConfig": "libs/testing/tsconfig.spec.json",
-            "setupFile": "libs/testing/src/test-setup.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
-    },
     "linting": {
       "projectType": "library",
-      "root": "tools/linting",
-      "sourceRoot": "tools/linting/src",
+      "root": "libs/tools/linting",
+      "sourceRoot": "libs/tools/linting/src",
       "architect": {
         "build": {
           "builder": "@dynatrace/barista-builders:typescript",
           "options": {
-            "tsConfig": "tools/linting/tsconfig.json",
-            "outDir": "dist/components/tslint"
+            "tsConfig": "libs/tools/linting/tsconfig.json",
+            "outDir": "dist/libs/components/tslint"
           },
           "configurations": {
             "production": {}
@@ -1018,44 +993,44 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tslintConfig": "tools/linting/tslint-self.json",
-            "tsConfig": "tools/linting/tsconfig.json",
-            "exclude": ["**/node_modules/**", "!tools/linting/**"]
+            "tslintConfig": "libs/tools/linting/tslint-self.json",
+            "tsConfig": "libs/tools/linting/tsconfig.json",
+            "exclude": ["**/node_modules/**", "!libs/tools/linting/**"]
           }
         }
       }
     },
     "components": {
       "projectType": "library",
-      "root": "components",
-      "sourceRoot": "components",
+      "root": "libs/barista-components",
+      "sourceRoot": "libs/barista-components",
       "architect": {
         "packagr": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "components/tsconfig.lib.json",
-            "project": "components/ng-package.json"
+            "tsConfig": "libs/barista-components/tsconfig.lib.json",
+            "project": "libs/barista-components/ng-package.json"
           }
         },
         "build": {
           "builder": "@dynatrace/barista-builders:packager",
           "options": {
             "buildTarget": "packagr",
-            "releasePackageJson": "components/package.json",
+            "releasePackageJson": "libs/barista-components/package.json",
             "versionPlaceholder": "{{VERSION}}",
             "ngVersionPlaceholder": "{{NG_VERSION}}",
             "styles": [
               {
                 "glob": "style/*.scss",
-                "input": "components",
-                "output": "dist/components"
+                "input": "libs/barista-components",
+                "output": "dist/libs/components"
               }
             ],
             "assets": [
               {
                 "glob": "**/*",
-                "input": "components/assets",
-                "output": "dist/components"
+                "input": "libs/barista-components/assets",
+                "output": "dist/libs/components"
               }
             ],
             "additionalTargets": ["schematics:build", "linting:build"]
@@ -1068,18 +1043,21 @@
     },
     "alert": {
       "projectType": "library",
-      "root": "components/alert",
-      "sourceRoot": "components/alert/src",
+      "root": "libs/barista-components/alert",
+      "sourceRoot": "libs/barista-components/alert/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/alert/tsconfig.lib.json",
-              "components/alert/tsconfig.spec.json"
+              "libs/barista-components/alert/tsconfig.lib.json",
+              "libs/barista-components/alert/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/alert/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/alert/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1088,15 +1066,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/alert/**/*.scss"]
+            "files": ["libs/barista-components/alert/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/alert/jest.config.js",
-            "tsConfig": "components/alert/tsconfig.spec.json",
-            "setupFile": "components/alert/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/alert/jest.config.js",
+            "tsConfig": "libs/barista-components/alert/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/alert/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1105,18 +1083,21 @@
     },
     "autocomplete": {
       "projectType": "library",
-      "root": "components/autocomplete",
-      "sourceRoot": "components/autocomplete/src",
+      "root": "libs/barista-components/autocomplete",
+      "sourceRoot": "libs/barista-components/autocomplete/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/autocomplete/tsconfig.lib.json",
-              "components/autocomplete/tsconfig.spec.json"
+              "libs/barista-components/autocomplete/tsconfig.lib.json",
+              "libs/barista-components/autocomplete/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/autocomplete/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/autocomplete/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1125,15 +1106,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/autocomplete/**/*.scss"]
+            "files": ["libs/barista-components/autocomplete/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/autocomplete/jest.config.js",
-            "tsConfig": "components/autocomplete/tsconfig.spec.json",
-            "setupFile": "components/autocomplete/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/autocomplete/jest.config.js",
+            "tsConfig": "libs/barista-components/autocomplete/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/autocomplete/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1142,18 +1123,21 @@
     },
     "bar-indicator": {
       "projectType": "library",
-      "root": "components/bar-indicator",
-      "sourceRoot": "components/bar-indicator/src",
+      "root": "libs/barista-components/bar-indicator",
+      "sourceRoot": "libs/barista-components/bar-indicator/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/bar-indicator/tsconfig.lib.json",
-              "components/bar-indicator/tsconfig.spec.json"
+              "libs/barista-components/bar-indicator/tsconfig.lib.json",
+              "libs/barista-components/bar-indicator/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/bar-indicator/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/bar-indicator/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1162,15 +1146,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/bar-indicator/**/*.scss"]
+            "files": ["libs/barista-components/bar-indicator/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/bar-indicator/jest.config.js",
-            "tsConfig": "components/bar-indicator/tsconfig.spec.json",
-            "setupFile": "components/bar-indicator/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/bar-indicator/jest.config.js",
+            "tsConfig": "libs/barista-components/bar-indicator/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/bar-indicator/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1179,18 +1163,21 @@
     },
     "breadcrumbs": {
       "projectType": "library",
-      "root": "components/breadcrumbs",
-      "sourceRoot": "components/breadcrumbs/src",
+      "root": "libs/barista-components/breadcrumbs",
+      "sourceRoot": "libs/barista-components/breadcrumbs/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/breadcrumbs/tsconfig.lib.json",
-              "components/breadcrumbs/tsconfig.spec.json"
+              "libs/barista-components/breadcrumbs/tsconfig.lib.json",
+              "libs/barista-components/breadcrumbs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/breadcrumbs/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/breadcrumbs/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1199,15 +1186,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/breadcrumbs/**/*.scss"]
+            "files": ["libs/barista-components/breadcrumbs/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/breadcrumbs/jest.config.js",
-            "tsConfig": "components/breadcrumbs/tsconfig.spec.json",
-            "setupFile": "components/breadcrumbs/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/breadcrumbs/jest.config.js",
+            "tsConfig": "libs/barista-components/breadcrumbs/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/breadcrumbs/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1216,18 +1203,21 @@
     },
     "button": {
       "projectType": "library",
-      "root": "components/button",
-      "sourceRoot": "components/button/src",
+      "root": "libs/barista-components/button",
+      "sourceRoot": "libs/barista-components/button/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/button/tsconfig.lib.json",
-              "components/button/tsconfig.spec.json"
+              "libs/barista-components/button/tsconfig.lib.json",
+              "libs/barista-components/button/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/button/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/button/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1236,15 +1226,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/button/**/*.scss"]
+            "files": ["libs/barista-components/button/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/button/jest.config.js",
-            "tsConfig": "components/button/tsconfig.spec.json",
-            "setupFile": "components/button/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/button/jest.config.js",
+            "tsConfig": "libs/barista-components/button/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/button/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1253,18 +1243,21 @@
     },
     "button-group": {
       "projectType": "library",
-      "root": "components/button-group",
-      "sourceRoot": "components/button-group/src",
+      "root": "libs/barista-components/button-group",
+      "sourceRoot": "libs/barista-components/button-group/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/button-group/tsconfig.lib.json",
-              "components/button-group/tsconfig.spec.json"
+              "libs/barista-components/button-group/tsconfig.lib.json",
+              "libs/barista-components/button-group/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/button-group/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/button-group/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1273,15 +1266,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/button-group/**/*.scss"]
+            "files": ["libs/barista-components/button-group/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/button-group/jest.config.js",
-            "tsConfig": "components/button-group/tsconfig.spec.json",
-            "setupFile": "components/button-group/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/button-group/jest.config.js",
+            "tsConfig": "libs/barista-components/button-group/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/button-group/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1290,18 +1283,21 @@
     },
     "card": {
       "projectType": "library",
-      "root": "components/card",
-      "sourceRoot": "components/card/src",
+      "root": "libs/barista-components/card",
+      "sourceRoot": "libs/barista-components/card/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/card/tsconfig.lib.json",
-              "components/card/tsconfig.spec.json"
+              "libs/barista-components/card/tsconfig.lib.json",
+              "libs/barista-components/card/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/card/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/card/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1310,15 +1306,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/card/**/*.scss"]
+            "files": ["libs/barista-components/card/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/card/jest.config.js",
-            "tsConfig": "components/card/tsconfig.spec.json",
-            "setupFile": "components/card/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/card/jest.config.js",
+            "tsConfig": "libs/barista-components/card/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/card/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1327,18 +1323,21 @@
     },
     "chart": {
       "projectType": "library",
-      "root": "components/chart",
-      "sourceRoot": "components/chart/src",
+      "root": "libs/barista-components/chart",
+      "sourceRoot": "libs/barista-components/chart/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/chart/tsconfig.lib.json",
-              "components/chart/tsconfig.spec.json"
+              "libs/barista-components/chart/tsconfig.lib.json",
+              "libs/barista-components/chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/chart/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/chart/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1347,15 +1346,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/chart/**/*.scss"]
+            "files": ["libs/barista-components/chart/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/chart/jest.config.js",
-            "tsConfig": "components/chart/tsconfig.spec.json",
-            "setupFile": "components/chart/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/chart/jest.config.js",
+            "tsConfig": "libs/barista-components/chart/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/chart/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1364,18 +1363,21 @@
     },
     "checkbox": {
       "projectType": "library",
-      "root": "components/checkbox",
-      "sourceRoot": "components/checkbox/src",
+      "root": "libs/barista-components/checkbox",
+      "sourceRoot": "libs/barista-components/checkbox/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/checkbox/tsconfig.lib.json",
-              "components/checkbox/tsconfig.spec.json"
+              "libs/barista-components/checkbox/tsconfig.lib.json",
+              "libs/barista-components/checkbox/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/checkbox/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/checkbox/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1384,15 +1386,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/checkbox/**/*.scss"]
+            "files": ["libs/barista-components/checkbox/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/checkbox/jest.config.js",
-            "tsConfig": "components/checkbox/tsconfig.spec.json",
-            "setupFile": "components/checkbox/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/checkbox/jest.config.js",
+            "tsConfig": "libs/barista-components/checkbox/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/checkbox/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1401,20 +1403,20 @@
     },
     "confirmation-dialog": {
       "projectType": "library",
-      "root": "components/confirmation-dialog",
-      "sourceRoot": "components/confirmation-dialog/src",
+      "root": "libs/barista-components/confirmation-dialog",
+      "sourceRoot": "libs/barista-components/confirmation-dialog/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/confirmation-dialog/tsconfig.lib.json",
-              "components/confirmation-dialog/tsconfig.spec.json"
+              "libs/barista-components/confirmation-dialog/tsconfig.lib.json",
+              "libs/barista-components/confirmation-dialog/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/confirmation-dialog/**"
+              "!libs/barista-components/confirmation-dialog/**"
             ]
           }
         },
@@ -1424,15 +1426,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/confirmation-dialog/**/*.scss"]
+            "files": ["libs/barista-components/confirmation-dialog/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/confirmation-dialog/jest.config.js",
-            "tsConfig": "components/confirmation-dialog/tsconfig.spec.json",
-            "setupFile": "components/confirmation-dialog/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/confirmation-dialog/jest.config.js",
+            "tsConfig": "libs/barista-components/confirmation-dialog/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/confirmation-dialog/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1441,18 +1443,21 @@
     },
     "consumption": {
       "projectType": "library",
-      "root": "components/consumption",
-      "sourceRoot": "components/consumption/src",
+      "root": "libs/barista-components/consumption",
+      "sourceRoot": "libs/barista-components/consumption/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/consumption/tsconfig.lib.json",
-              "components/consumption/tsconfig.spec.json"
+              "libs/barista-components/consumption/tsconfig.lib.json",
+              "libs/barista-components/consumption/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/consumption/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/consumption/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1461,15 +1466,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/consumption/**/*.scss"]
+            "files": ["libs/barista-components/consumption/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/consumption/jest.config.js",
-            "tsConfig": "components/consumption/tsconfig.spec.json",
-            "setupFile": "components/consumption/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/consumption/jest.config.js",
+            "tsConfig": "libs/barista-components/consumption/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/consumption/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1478,20 +1483,20 @@
     },
     "container-breakpoint-observer": {
       "projectType": "library",
-      "root": "components/container-breakpoint-observer",
-      "sourceRoot": "components/container-breakpoint-observer/src",
+      "root": "libs/barista-components/container-breakpoint-observer",
+      "sourceRoot": "libs/barista-components/container-breakpoint-observer/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/container-breakpoint-observer/tsconfig.lib.json",
-              "components/container-breakpoint-observer/tsconfig.spec.json"
+              "libs/barista-components/container-breakpoint-observer/tsconfig.lib.json",
+              "libs/barista-components/container-breakpoint-observer/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/container-breakpoint-observer/**"
+              "!libs/barista-components/container-breakpoint-observer/**"
             ]
           }
         },
@@ -1501,15 +1506,17 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/container-breakpoint-observer/**/*.scss"]
+            "files": [
+              "libs/barista-components/container-breakpoint-observer/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/container-breakpoint-observer/jest.config.js",
-            "tsConfig": "components/container-breakpoint-observer/tsconfig.spec.json",
-            "setupFile": "components/container-breakpoint-observer/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/container-breakpoint-observer/jest.config.js",
+            "tsConfig": "libs/barista-components/container-breakpoint-observer/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/container-breakpoint-observer/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1518,18 +1525,21 @@
     },
     "context-dialog": {
       "projectType": "library",
-      "root": "components/context-dialog",
-      "sourceRoot": "components/context-dialog/src",
+      "root": "libs/barista-components/context-dialog",
+      "sourceRoot": "libs/barista-components/context-dialog/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/context-dialog/tsconfig.lib.json",
-              "components/context-dialog/tsconfig.spec.json"
+              "libs/barista-components/context-dialog/tsconfig.lib.json",
+              "libs/barista-components/context-dialog/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/context-dialog/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/context-dialog/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1538,15 +1548,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/context-dialog/**/*.scss"]
+            "files": ["libs/barista-components/context-dialog/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/context-dialog/jest.config.js",
-            "tsConfig": "components/context-dialog/tsconfig.spec.json",
-            "setupFile": "components/context-dialog/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/context-dialog/jest.config.js",
+            "tsConfig": "libs/barista-components/context-dialog/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/context-dialog/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1555,20 +1565,20 @@
     },
     "copy-to-clipboard": {
       "projectType": "library",
-      "root": "components/copy-to-clipboard",
-      "sourceRoot": "components/copy-to-clipboard/src",
+      "root": "libs/barista-components/copy-to-clipboard",
+      "sourceRoot": "libs/barista-components/copy-to-clipboard/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/copy-to-clipboard/tsconfig.lib.json",
-              "components/copy-to-clipboard/tsconfig.spec.json"
+              "libs/barista-components/copy-to-clipboard/tsconfig.lib.json",
+              "libs/barista-components/copy-to-clipboard/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/copy-to-clipboard/**"
+              "!libs/barista-components/copy-to-clipboard/**"
             ]
           }
         },
@@ -1578,15 +1588,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/copy-to-clipboard/**/*.scss"]
+            "files": ["libs/barista-components/copy-to-clipboard/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/copy-to-clipboard/jest.config.js",
-            "tsConfig": "components/copy-to-clipboard/tsconfig.spec.json",
-            "setupFile": "components/copy-to-clipboard/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/copy-to-clipboard/jest.config.js",
+            "tsConfig": "libs/barista-components/copy-to-clipboard/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/copy-to-clipboard/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1595,18 +1605,21 @@
     },
     "core": {
       "projectType": "library",
-      "root": "components/core",
-      "sourceRoot": "components/core/src",
+      "root": "libs/barista-components/core",
+      "sourceRoot": "libs/barista-components/core/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/core/tsconfig.lib.json",
-              "components/core/tsconfig.spec.json"
+              "libs/barista-components/core/tsconfig.lib.json",
+              "libs/barista-components/core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/core/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/core/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1615,15 +1628,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/core/**/*.scss"]
+            "files": ["libs/barista-components/core/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/core/jest.config.js",
-            "tsConfig": "components/core/tsconfig.spec.json",
-            "setupFile": "components/core/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/core/jest.config.js",
+            "tsConfig": "libs/barista-components/core/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/core/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1632,18 +1645,21 @@
     },
     "cta-card": {
       "projectType": "library",
-      "root": "components/cta-card",
-      "sourceRoot": "components/cta-card/src",
+      "root": "libs/barista-components/cta-card",
+      "sourceRoot": "libs/barista-components/cta-card/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/cta-card/tsconfig.lib.json",
-              "components/cta-card/tsconfig.spec.json"
+              "libs/barista-components/cta-card/tsconfig.lib.json",
+              "libs/barista-components/cta-card/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/cta-card/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/cta-card/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1652,15 +1668,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/cta-card/**/*.scss"]
+            "files": ["libs/barista-components/cta-card/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/cta-card/jest.config.js",
-            "tsConfig": "components/cta-card/tsconfig.spec.json",
-            "setupFile": "components/cta-card/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/cta-card/jest.config.js",
+            "tsConfig": "libs/barista-components/cta-card/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/cta-card/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1669,18 +1685,21 @@
     },
     "drawer": {
       "projectType": "library",
-      "root": "components/drawer",
-      "sourceRoot": "components/drawer/src",
+      "root": "libs/barista-components/drawer",
+      "sourceRoot": "libs/barista-components/drawer/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/drawer/tsconfig.lib.json",
-              "components/drawer/tsconfig.spec.json"
+              "libs/barista-components/drawer/tsconfig.lib.json",
+              "libs/barista-components/drawer/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/drawer/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/drawer/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1689,15 +1708,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/drawer/**/*.scss"]
+            "files": ["libs/barista-components/drawer/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/drawer/jest.config.js",
-            "tsConfig": "components/drawer/tsconfig.spec.json",
-            "setupFile": "components/drawer/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/drawer/jest.config.js",
+            "tsConfig": "libs/barista-components/drawer/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/drawer/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1706,18 +1725,21 @@
     },
     "empty-state": {
       "projectType": "library",
-      "root": "components/empty-state",
-      "sourceRoot": "components/empty-state/src",
+      "root": "libs/barista-components/empty-state",
+      "sourceRoot": "libs/barista-components/empty-state/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/empty-state/tsconfig.lib.json",
-              "components/empty-state/tsconfig.spec.json"
+              "libs/barista-components/empty-state/tsconfig.lib.json",
+              "libs/barista-components/empty-state/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/empty-state/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/empty-state/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1726,15 +1748,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/empty-state/**/*.scss"]
+            "files": ["libs/barista-components/empty-state/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/empty-state/jest.config.js",
-            "tsConfig": "components/empty-state/tsconfig.spec.json",
-            "setupFile": "components/empty-state/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/empty-state/jest.config.js",
+            "tsConfig": "libs/barista-components/empty-state/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/empty-state/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1743,18 +1765,21 @@
     },
     "event-chart": {
       "projectType": "library",
-      "root": "components/event-chart",
-      "sourceRoot": "components/event-chart/src",
+      "root": "libs/barista-components/event-chart",
+      "sourceRoot": "libs/barista-components/event-chart/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/event-chart/tsconfig.lib.json",
-              "components/event-chart/tsconfig.spec.json"
+              "libs/barista-components/event-chart/tsconfig.lib.json",
+              "libs/barista-components/event-chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/event-chart/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/event-chart/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1763,15 +1788,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/event-chart/**/*.scss"]
+            "files": ["libs/barista-components/event-chart/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/event-chart/jest.config.js",
-            "tsConfig": "components/event-chart/tsconfig.spec.json",
-            "setupFile": "components/event-chart/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/event-chart/jest.config.js",
+            "tsConfig": "libs/barista-components/event-chart/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/event-chart/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1780,57 +1805,20 @@
     },
     "expandable-panel": {
       "projectType": "library",
-      "root": "components/expandable-panel",
-      "sourceRoot": "components/expandable-panel/src",
+      "root": "libs/barista-components/expandable-panel",
+      "sourceRoot": "libs/barista-components/expandable-panel/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/expandable-panel/tsconfig.lib.json",
-              "components/expandable-panel/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!components/expandable-panel/**"]
-          }
-        },
-        "lint-styles": {
-          "builder": "@dynatrace/barista-builders:stylelint",
-          "options": {
-            "stylelintConfig": ".stylelintrc",
-            "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["components/expandable-panel/**/*.scss"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "components/expandable-panel/jest.config.js",
-            "tsConfig": "components/expandable-panel/tsconfig.spec.json",
-            "setupFile": "components/expandable-panel/src/test-setup.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
-    },
-    "expandable-section": {
-      "projectType": "library",
-      "root": "components/expandable-section",
-      "sourceRoot": "components/expandable-section/src",
-      "prefix": "dt",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "components/expandable-section/tsconfig.lib.json",
-              "components/expandable-section/tsconfig.spec.json"
+              "libs/barista-components/expandable-panel/tsconfig.lib.json",
+              "libs/barista-components/expandable-panel/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/expandable-section/**"
+              "!libs/barista-components/expandable-panel/**"
             ]
           }
         },
@@ -1840,16 +1828,54 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/expandable-section/**/*.scss"]
+            "files": ["libs/barista-components/expandable-panel/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/expandable-section/jest.config.js",
-            "tsConfig": "components/expandable-section/tsconfig.spec.json",
-            "setupFile": "components/expandable-section/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/expandable-panel/jest.config.js",
+            "tsConfig": "libs/barista-components/expandable-panel/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/expandable-panel/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "expandable-section": {
+      "projectType": "library",
+      "root": "libs/barista-components/expandable-section",
+      "sourceRoot": "libs/barista-components/expandable-section/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/expandable-section/tsconfig.lib.json",
+              "libs/barista-components/expandable-section/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/expandable-section/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "@dynatrace/barista-builders:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/barista-components/expandable-section/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/expandable-section/jest.config.js",
+            "tsConfig": "libs/barista-components/expandable-section/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/expandable-section/src/test-setup.ts"
           }
         }
       },
@@ -1857,18 +1883,21 @@
     },
     "expandable-text": {
       "projectType": "library",
-      "root": "components/expandable-text",
-      "sourceRoot": "components/expandable-text/src",
+      "root": "libs/barista-components/expandable-text",
+      "sourceRoot": "libs/barista-components/expandable-text/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/expandable-text/tsconfig.lib.json",
-              "components/expandable-text/tsconfig.spec.json"
+              "libs/barista-components/expandable-text/tsconfig.lib.json",
+              "libs/barista-components/expandable-text/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/expandable-text/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/expandable-text/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1877,16 +1906,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/expandable-text/**/*.scss"]
+            "files": ["libs/barista-components/expandable-text/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/expandable-text/jest.config.js",
-            "tsConfig": "components/expandable-text/tsconfig.spec.json",
-            "setupFile": "components/expandable-text/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/expandable-text/jest.config.js",
+            "tsConfig": "libs/barista-components/expandable-text/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/expandable-text/src/test-setup.ts"
           }
         }
       },
@@ -1894,18 +1922,21 @@
     },
     "filter-field": {
       "projectType": "library",
-      "root": "components/filter-field",
-      "sourceRoot": "components/filter-field/src",
+      "root": "libs/barista-components/filter-field",
+      "sourceRoot": "libs/barista-components/filter-field/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/filter-field/tsconfig.lib.json",
-              "components/filter-field/tsconfig.spec.json"
+              "libs/barista-components/filter-field/tsconfig.lib.json",
+              "libs/barista-components/filter-field/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/filter-field/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/filter-field/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1914,16 +1945,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/filter-field/**/*.scss"]
+            "files": ["libs/barista-components/filter-field/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/filter-field/jest.config.js",
-            "tsConfig": "components/filter-field/tsconfig.spec.json",
-            "setupFile": "components/filter-field/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/filter-field/jest.config.js",
+            "tsConfig": "libs/barista-components/filter-field/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/filter-field/src/test-setup.ts"
           }
         }
       },
@@ -1931,18 +1961,20 @@
     },
     "form-field": {
       "projectType": "library",
-      "root": "components/form-field",
-      "sourceRoot": "components/form-field/src",
+      "root": "libs/barista-components/form-field",
+      "sourceRoot": "libs/barista-components/form-field/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/form-field/tsconfig.lib.json",
-              "components/form-field/tsconfig.spec.json"
+              "libs/barista-components/form-field/tsconfig.lib.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/form-field/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/form-field/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1951,16 +1983,7 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/form-field/**/*.scss"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "components/form-field/jest.config.js",
-            "tsConfig": "components/form-field/tsconfig.spec.json",
-            "setupFile": "components/form-field/src/test-setup.ts",
-            "passWithNoTests": true
+            "files": ["libs/barista-components/form-field/**/*.scss"]
           }
         }
       },
@@ -1968,18 +1991,21 @@
     },
     "formatters": {
       "projectType": "library",
-      "root": "components/formatters",
-      "sourceRoot": "components/formatters/src",
+      "root": "libs/barista-components/formatters",
+      "sourceRoot": "libs/barista-components/formatters/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/formatters/tsconfig.lib.json",
-              "components/formatters/tsconfig.spec.json"
+              "libs/barista-components/formatters/tsconfig.lib.json",
+              "libs/barista-components/formatters/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/formatters/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/formatters/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1988,16 +2014,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/formatters/**/*.scss"]
+            "files": ["libs/barista-components/formatters/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/formatters/jest.config.js",
-            "tsConfig": "components/formatters/tsconfig.spec.json",
-            "setupFile": "components/formatters/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/formatters/jest.config.js",
+            "tsConfig": "libs/barista-components/formatters/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/formatters/src/test-setup.ts"
           }
         }
       },
@@ -2005,18 +2030,21 @@
     },
     "highlight": {
       "projectType": "library",
-      "root": "components/highlight",
-      "sourceRoot": "components/highlight/src",
+      "root": "libs/barista-components/highlight",
+      "sourceRoot": "libs/barista-components/highlight/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/highlight/tsconfig.lib.json",
-              "components/highlight/tsconfig.spec.json"
+              "libs/barista-components/highlight/tsconfig.lib.json",
+              "libs/barista-components/highlight/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/highlight/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/highlight/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2025,16 +2053,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/highlight/**/*.scss"]
+            "files": ["libs/barista-components/highlight/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/highlight/jest.config.js",
-            "tsConfig": "components/highlight/tsconfig.spec.json",
-            "setupFile": "components/highlight/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/highlight/jest.config.js",
+            "tsConfig": "libs/barista-components/highlight/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/highlight/src/test-setup.ts"
           }
         }
       },
@@ -2042,18 +2069,21 @@
     },
     "icon": {
       "projectType": "library",
-      "root": "components/icon",
-      "sourceRoot": "components/icon/src",
+      "root": "libs/barista-components/icon",
+      "sourceRoot": "libs/barista-components/icon/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/icon/tsconfig.lib.json",
-              "components/icon/tsconfig.spec.json"
+              "libs/barista-components/icon/tsconfig.lib.json",
+              "libs/barista-components/icon/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/icon/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/icon/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2062,16 +2092,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/icon/**/*.scss"]
+            "files": ["libs/barista-components/icon/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/icon/jest.config.js",
-            "tsConfig": "components/icon/tsconfig.spec.json",
-            "setupFile": "components/icon/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/icon/jest.config.js",
+            "tsConfig": "libs/barista-components/icon/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/icon/src/test-setup.ts"
           }
         }
       },
@@ -2079,18 +2108,21 @@
     },
     "info-group": {
       "projectType": "library",
-      "root": "components/info-group",
-      "sourceRoot": "components/info-group/src",
+      "root": "libs/barista-components/info-group",
+      "sourceRoot": "libs/barista-components/info-group/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/info-group/tsconfig.lib.json",
-              "components/info-group/tsconfig.spec.json"
+              "libs/barista-components/info-group/tsconfig.lib.json",
+              "libs/barista-components/info-group/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/info-group/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/info-group/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2099,15 +2131,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/info-group/**/*.scss"]
+            "files": ["libs/barista-components/info-group/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/info-group/jest.config.js",
-            "tsConfig": "components/info-group/tsconfig.spec.json",
-            "setupFile": "components/info-group/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/info-group/jest.config.js",
+            "tsConfig": "libs/barista-components/info-group/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/info-group/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2116,18 +2148,21 @@
     },
     "inline-editor": {
       "projectType": "library",
-      "root": "components/inline-editor",
-      "sourceRoot": "components/inline-editor/src",
+      "root": "libs/barista-components/inline-editor",
+      "sourceRoot": "libs/barista-components/inline-editor/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/inline-editor/tsconfig.lib.json",
-              "components/inline-editor/tsconfig.spec.json"
+              "libs/barista-components/inline-editor/tsconfig.lib.json",
+              "libs/barista-components/inline-editor/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/inline-editor/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/inline-editor/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2136,16 +2171,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/inline-editor/**/*.scss"]
+            "files": ["libs/barista-components/inline-editor/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/inline-editor/jest.config.js",
-            "tsConfig": "components/inline-editor/tsconfig.spec.json",
-            "setupFile": "components/inline-editor/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/inline-editor/jest.config.js",
+            "tsConfig": "libs/barista-components/inline-editor/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/inline-editor/src/test-setup.ts"
           }
         }
       },
@@ -2153,18 +2187,21 @@
     },
     "input": {
       "projectType": "library",
-      "root": "components/input",
-      "sourceRoot": "components/input/src",
+      "root": "libs/barista-components/input",
+      "sourceRoot": "libs/barista-components/input/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/input/tsconfig.lib.json",
-              "components/input/tsconfig.spec.json"
+              "libs/barista-components/input/tsconfig.lib.json",
+              "libs/barista-components/input/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/input/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/input/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2173,16 +2210,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/input/**/*.scss"]
+            "files": ["libs/barista-components/input/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/input/jest.config.js",
-            "tsConfig": "components/input/tsconfig.spec.json",
-            "setupFile": "components/input/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/input/jest.config.js",
+            "tsConfig": "libs/barista-components/input/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/input/src/test-setup.ts"
           }
         }
       },
@@ -2190,18 +2226,21 @@
     },
     "key-value-list": {
       "projectType": "library",
-      "root": "components/key-value-list",
-      "sourceRoot": "components/key-value-list/src",
+      "root": "libs/barista-components/key-value-list",
+      "sourceRoot": "libs/barista-components/key-value-list/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/key-value-list/tsconfig.lib.json",
-              "components/key-value-list/tsconfig.spec.json"
+              "libs/barista-components/key-value-list/tsconfig.lib.json",
+              "libs/barista-components/key-value-list/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/key-value-list/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/key-value-list/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2210,16 +2249,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/key-value-list/**/*.scss"]
+            "files": ["libs/barista-components/key-value-list/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/key-value-list/jest.config.js",
-            "tsConfig": "components/key-value-list/tsconfig.spec.json",
-            "setupFile": "components/key-value-list/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/key-value-list/jest.config.js",
+            "tsConfig": "libs/barista-components/key-value-list/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/key-value-list/src/test-setup.ts"
           }
         }
       },
@@ -2227,18 +2265,21 @@
     },
     "legend": {
       "projectType": "library",
-      "root": "components/legend",
-      "sourceRoot": "components/legend/src",
+      "root": "libs/barista-components/legend",
+      "sourceRoot": "libs/barista-components/legend/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/legend/tsconfig.lib.json",
-              "components/legend/tsconfig.spec.json"
+              "libs/barista-components/legend/tsconfig.lib.json",
+              "libs/barista-components/legend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/legend/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/legend/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2247,15 +2288,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/legend/**/*.scss"]
+            "files": ["libs/barista-components/legend/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/legend/jest.config.js",
-            "tsConfig": "components/legend/tsconfig.spec.json",
-            "setupFile": "components/legend/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/legend/jest.config.js",
+            "tsConfig": "libs/barista-components/legend/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/legend/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2264,20 +2305,20 @@
     },
     "loading-distractor": {
       "projectType": "library",
-      "root": "components/loading-distractor",
-      "sourceRoot": "components/loading-distractor/src",
+      "root": "libs/barista-components/loading-distractor",
+      "sourceRoot": "libs/barista-components/loading-distractor/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/loading-distractor/tsconfig.lib.json",
-              "components/loading-distractor/tsconfig.spec.json"
+              "libs/barista-components/loading-distractor/tsconfig.lib.json",
+              "libs/barista-components/loading-distractor/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/loading-distractor/**"
+              "!libs/barista-components/loading-distractor/**"
             ]
           }
         },
@@ -2287,16 +2328,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/loading-distractor/**/*.scss"]
+            "files": ["libs/barista-components/loading-distractor/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/loading-distractor/jest.config.js",
-            "tsConfig": "components/loading-distractor/tsconfig.spec.json",
-            "setupFile": "components/loading-distractor/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/loading-distractor/jest.config.js",
+            "tsConfig": "libs/barista-components/loading-distractor/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/loading-distractor/src/test-setup.ts"
           }
         }
       },
@@ -2304,18 +2344,21 @@
     },
     "menu": {
       "projectType": "library",
-      "root": "components/menu",
-      "sourceRoot": "components/menu/src",
+      "root": "libs/barista-components/menu",
+      "sourceRoot": "libs/barista-components/menu/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/menu/tsconfig.lib.json",
-              "components/menu/tsconfig.spec.json"
+              "libs/barista-components/menu/tsconfig.lib.json",
+              "libs/barista-components/menu/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/menu/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/menu/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2324,15 +2367,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/menu/**/*.scss"]
+            "files": ["libs/barista-components/menu/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/menu/jest.config.js",
-            "tsConfig": "components/menu/tsconfig.spec.json",
-            "setupFile": "components/menu/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/menu/jest.config.js",
+            "tsConfig": "libs/barista-components/menu/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/menu/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2341,18 +2384,21 @@
     },
     "micro-chart": {
       "projectType": "library",
-      "root": "components/micro-chart",
-      "sourceRoot": "components/micro-chart/src",
+      "root": "libs/barista-components/micro-chart",
+      "sourceRoot": "libs/barista-components/micro-chart/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/micro-chart/tsconfig.lib.json",
-              "components/micro-chart/tsconfig.spec.json"
+              "libs/barista-components/micro-chart/tsconfig.lib.json",
+              "libs/barista-components/micro-chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/micro-chart/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/micro-chart/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2361,16 +2407,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/micro-chart/**/*.scss"]
+            "files": ["libs/barista-components/micro-chart/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/micro-chart/jest.config.js",
-            "tsConfig": "components/micro-chart/tsconfig.spec.json",
-            "setupFile": "components/micro-chart/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/micro-chart/jest.config.js",
+            "tsConfig": "libs/barista-components/micro-chart/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/micro-chart/src/test-setup.ts"
           }
         }
       },
@@ -2378,18 +2423,21 @@
     },
     "overlay": {
       "projectType": "library",
-      "root": "components/overlay",
-      "sourceRoot": "components/overlay/src",
+      "root": "libs/barista-components/overlay",
+      "sourceRoot": "libs/barista-components/overlay/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/overlay/tsconfig.lib.json",
-              "components/overlay/tsconfig.spec.json"
+              "libs/barista-components/overlay/tsconfig.lib.json",
+              "libs/barista-components/overlay/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/overlay/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/overlay/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2398,16 +2446,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/overlay/**/*.scss"]
+            "files": ["libs/barista-components/overlay/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/overlay/jest.config.js",
-            "tsConfig": "components/overlay/tsconfig.spec.json",
-            "setupFile": "components/overlay/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/overlay/jest.config.js",
+            "tsConfig": "libs/barista-components/overlay/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/overlay/src/test-setup.ts"
           }
         }
       },
@@ -2415,18 +2462,21 @@
     },
     "pagination": {
       "projectType": "library",
-      "root": "components/pagination",
-      "sourceRoot": "components/pagination/src",
+      "root": "libs/barista-components/pagination",
+      "sourceRoot": "libs/barista-components/pagination/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/pagination/tsconfig.lib.json",
-              "components/pagination/tsconfig.spec.json"
+              "libs/barista-components/pagination/tsconfig.lib.json",
+              "libs/barista-components/pagination/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/pagination/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/pagination/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2435,16 +2485,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/pagination/**/*.scss"]
+            "files": ["libs/barista-components/pagination/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/pagination/jest.config.js",
-            "tsConfig": "components/pagination/tsconfig.spec.json",
-            "setupFile": "components/pagination/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/pagination/jest.config.js",
+            "tsConfig": "libs/barista-components/pagination/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/pagination/src/test-setup.ts"
           }
         }
       },
@@ -2452,18 +2501,21 @@
     },
     "progress-bar": {
       "projectType": "library",
-      "root": "components/progress-bar",
-      "sourceRoot": "components/progress-bar/src",
+      "root": "libs/barista-components/progress-bar",
+      "sourceRoot": "libs/barista-components/progress-bar/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/progress-bar/tsconfig.lib.json",
-              "components/progress-bar/tsconfig.spec.json"
+              "libs/barista-components/progress-bar/tsconfig.lib.json",
+              "libs/barista-components/progress-bar/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/progress-bar/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/progress-bar/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2472,16 +2524,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/progress-bar/**/*.scss"]
+            "files": ["libs/barista-components/progress-bar/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/progress-bar/jest.config.js",
-            "tsConfig": "components/progress-bar/tsconfig.spec.json",
-            "setupFile": "components/progress-bar/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/progress-bar/jest.config.js",
+            "tsConfig": "libs/barista-components/progress-bar/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/progress-bar/src/test-setup.ts"
           }
         }
       },
@@ -2489,18 +2540,21 @@
     },
     "progress-circle": {
       "projectType": "library",
-      "root": "components/progress-circle",
-      "sourceRoot": "components/progress-circle/src",
+      "root": "libs/barista-components/progress-circle",
+      "sourceRoot": "libs/barista-components/progress-circle/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/progress-circle/tsconfig.lib.json",
-              "components/progress-circle/tsconfig.spec.json"
+              "libs/barista-components/progress-circle/tsconfig.lib.json",
+              "libs/barista-components/progress-circle/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/progress-circle/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/progress-circle/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2509,16 +2563,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/progress-circle/**/*.scss"]
+            "files": ["libs/barista-components/progress-circle/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/progress-circle/jest.config.js",
-            "tsConfig": "components/progress-circle/tsconfig.spec.json",
-            "setupFile": "components/progress-circle/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/progress-circle/jest.config.js",
+            "tsConfig": "libs/barista-components/progress-circle/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/progress-circle/src/test-setup.ts"
           }
         }
       },
@@ -2526,18 +2579,21 @@
     },
     "radial-chart": {
       "projectType": "library",
-      "root": "components/radial-chart",
-      "sourceRoot": "components/radial-chart/src",
+      "root": "libs/barista-components/radial-chart",
+      "sourceRoot": "libs/barista-components/radial-chart/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/radial-chart/tsconfig.lib.json",
-              "components/radial-chart/tsconfig.spec.json"
+              "libs/barista-components/radial-chart/tsconfig.lib.json",
+              "libs/barista-components/radial-chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/radial-chart/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/radial-chart/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2546,15 +2602,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/radial-chart/**/*.scss"]
+            "files": ["libs/barista-components/radial-chart/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/radial-chart/jest.config.js",
-            "tsConfig": "components/radial-chart/tsconfig.spec.json",
-            "setupFile": "components/radial-chart/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/radial-chart/jest.config.js",
+            "tsConfig": "libs/barista-components/radial-chart/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/radial-chart/src/test-setup.ts"
           }
         }
       },
@@ -2562,18 +2618,21 @@
     },
     "radio": {
       "projectType": "library",
-      "root": "components/radio",
-      "sourceRoot": "components/radio/src",
+      "root": "libs/barista-components/radio",
+      "sourceRoot": "libs/barista-components/radio/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/radio/tsconfig.lib.json",
-              "components/radio/tsconfig.spec.json"
+              "libs/barista-components/radio/tsconfig.lib.json",
+              "libs/barista-components/radio/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/radio/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/radio/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2582,16 +2641,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/radio/**/*.scss"]
+            "files": ["libs/barista-components/radio/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/radio/jest.config.js",
-            "tsConfig": "components/radio/tsconfig.spec.json",
-            "setupFile": "components/radio/src/test-setup.ts",
-            "passWithNoTests": true
+            "jestConfig": "libs/barista-components/radio/jest.config.js",
+            "tsConfig": "libs/barista-components/radio/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/radio/src/test-setup.ts"
           }
         }
       },
@@ -2599,31 +2657,34 @@
     },
     "schematics": {
       "projectType": "library",
-      "root": "components/schematics",
-      "sourceRoot": "components/schematics/src",
+      "root": "libs/barista-components/schematics",
+      "sourceRoot": "libs/barista-components/schematics/src",
       "architect": {
         "build": {
           "builder": "@dynatrace/barista-builders:typescript",
           "options": {
-            "tsConfig": "components/schematics/tsconfig.lib.json",
-            "outDir": "dist/components/schematics"
+            "tsConfig": "libs/barista-components/schematics/tsconfig.lib.json",
+            "outDir": "dist/libs/components/schematics"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/schematics/tsconfig.lib.json",
-              "components/schematics/tsconfig.spec.json"
+              "libs/barista-components/schematics/tsconfig.lib.json",
+              "libs/barista-components/schematics/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/schematics/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/schematics/**"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/schematics/jest.config.js",
-            "tsConfig": "components/schematics/tsconfig.spec.json",
+            "jestConfig": "libs/barista-components/schematics/jest.config.js",
+            "tsConfig": "libs/barista-components/schematics/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -2631,18 +2692,21 @@
     },
     "secondary-nav": {
       "projectType": "library",
-      "root": "components/secondary-nav",
-      "sourceRoot": "components/secondary-nav/src",
+      "root": "libs/barista-components/secondary-nav",
+      "sourceRoot": "libs/barista-components/secondary-nav/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/secondary-nav/tsconfig.lib.json",
-              "components/secondary-nav/tsconfig.spec.json"
+              "libs/barista-components/secondary-nav/tsconfig.lib.json",
+              "libs/barista-components/secondary-nav/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/secondary-nav/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/secondary-nav/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2651,15 +2715,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/secondary-nav/**/*.scss"]
+            "files": ["libs/barista-components/secondary-nav/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/secondary-nav/jest.config.js",
-            "tsConfig": "components/secondary-nav/tsconfig.spec.json",
-            "setupFile": "components/secondary-nav/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/secondary-nav/jest.config.js",
+            "tsConfig": "libs/barista-components/secondary-nav/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/secondary-nav/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2668,18 +2732,21 @@
     },
     "select": {
       "projectType": "library",
-      "root": "components/select",
-      "sourceRoot": "components/select/src",
+      "root": "libs/barista-components/select",
+      "sourceRoot": "libs/barista-components/select/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/select/tsconfig.lib.json",
-              "components/select/tsconfig.spec.json"
+              "libs/barista-components/select/tsconfig.lib.json",
+              "libs/barista-components/select/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/select/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/select/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2688,15 +2755,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/select/**/*.scss"]
+            "files": ["libs/barista-components/select/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/select/jest.config.js",
-            "tsConfig": "components/select/tsconfig.spec.json",
-            "setupFile": "components/select/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/select/jest.config.js",
+            "tsConfig": "libs/barista-components/select/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/select/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2705,18 +2772,21 @@
     },
     "show-more": {
       "projectType": "library",
-      "root": "components/show-more",
-      "sourceRoot": "components/show-more/src",
+      "root": "libs/barista-components/show-more",
+      "sourceRoot": "libs/barista-components/show-more/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/show-more/tsconfig.lib.json",
-              "components/show-more/tsconfig.spec.json"
+              "libs/barista-components/show-more/tsconfig.lib.json",
+              "libs/barista-components/show-more/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/show-more/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/show-more/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2725,15 +2795,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/show-more/**/*.scss"]
+            "files": ["libs/barista-components/show-more/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/show-more/jest.config.js",
-            "tsConfig": "components/show-more/tsconfig.spec.json",
-            "setupFile": "components/show-more/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/show-more/jest.config.js",
+            "tsConfig": "libs/barista-components/show-more/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/show-more/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2742,18 +2812,21 @@
     },
     "stepper": {
       "projectType": "library",
-      "root": "components/stepper",
-      "sourceRoot": "components/stepper/src",
+      "root": "libs/barista-components/stepper",
+      "sourceRoot": "libs/barista-components/stepper/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/stepper/tsconfig.lib.json",
-              "components/stepper/tsconfig.spec.json"
+              "libs/barista-components/stepper/tsconfig.lib.json",
+              "libs/barista-components/stepper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/stepper/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/stepper/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2762,15 +2835,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/stepper/**/*.scss"]
+            "files": ["libs/barista-components/stepper/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/stepper/jest.config.js",
-            "tsConfig": "components/stepper/tsconfig.spec.json",
-            "setupFile": "components/stepper/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/stepper/jest.config.js",
+            "tsConfig": "libs/barista-components/stepper/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/stepper/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2779,18 +2852,21 @@
     },
     "switch": {
       "projectType": "library",
-      "root": "components/switch",
-      "sourceRoot": "components/switch/src",
+      "root": "libs/barista-components/switch",
+      "sourceRoot": "libs/barista-components/switch/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/switch/tsconfig.lib.json",
-              "components/switch/tsconfig.spec.json"
+              "libs/barista-components/switch/tsconfig.lib.json",
+              "libs/barista-components/switch/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/switch/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/switch/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2799,15 +2875,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/switch/**/*.scss"]
+            "files": ["libs/barista-components/switch/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/switch/jest.config.js",
-            "tsConfig": "components/switch/tsconfig.spec.json",
-            "setupFile": "components/switch/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/switch/jest.config.js",
+            "tsConfig": "libs/barista-components/switch/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/switch/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2816,18 +2892,21 @@
     },
     "table": {
       "projectType": "library",
-      "root": "components/table",
-      "sourceRoot": "components/table/src",
+      "root": "libs/barista-components/table",
+      "sourceRoot": "libs/barista-components/table/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/table/tsconfig.lib.json",
-              "components/table/tsconfig.spec.json"
+              "libs/barista-components/table/tsconfig.lib.json",
+              "libs/barista-components/table/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/table/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/table/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2836,15 +2915,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/table/**/*.scss"]
+            "files": ["libs/barista-components/table/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/table/jest.config.js",
-            "tsConfig": "components/table/tsconfig.spec.json",
-            "setupFile": "components/table/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/table/jest.config.js",
+            "tsConfig": "libs/barista-components/table/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/table/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2853,18 +2932,21 @@
     },
     "tabs": {
       "projectType": "library",
-      "root": "components/tabs",
-      "sourceRoot": "components/tabs/src",
+      "root": "libs/barista-components/tabs",
+      "sourceRoot": "libs/barista-components/tabs/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/tabs/tsconfig.lib.json",
-              "components/tabs/tsconfig.spec.json"
+              "libs/barista-components/tabs/tsconfig.lib.json",
+              "libs/barista-components/tabs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/tabs/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/tabs/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2873,15 +2955,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/tabs/**/*.scss"]
+            "files": ["libs/barista-components/tabs/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/tabs/jest.config.js",
-            "tsConfig": "components/tabs/tsconfig.spec.json",
-            "setupFile": "components/tabs/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/tabs/jest.config.js",
+            "tsConfig": "libs/barista-components/tabs/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/tabs/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2890,18 +2972,18 @@
     },
     "tag": {
       "projectType": "library",
-      "root": "components/tag",
-      "sourceRoot": "components/tag/src",
+      "root": "libs/barista-components/tag",
+      "sourceRoot": "libs/barista-components/tag/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/tag/tsconfig.lib.json",
-              "components/tag/tsconfig.spec.json"
+              "libs/barista-components/tag/tsconfig.lib.json",
+              "libs/barista-components/tag/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/tag/**"]
+            "exclude": ["**/node_modules/**", "!libs/barista-components/tag/**"]
           }
         },
         "lint-styles": {
@@ -2910,15 +2992,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/tag/**/*.scss"]
+            "files": ["libs/barista-components/tag/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/tag/jest.config.js",
-            "tsConfig": "components/tag/tsconfig.spec.json",
-            "setupFile": "components/tag/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/tag/jest.config.js",
+            "tsConfig": "libs/barista-components/tag/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/tag/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2927,18 +3009,21 @@
     },
     "theming": {
       "projectType": "library",
-      "root": "components/theming",
-      "sourceRoot": "components/theming/src",
+      "root": "libs/barista-components/theming",
+      "sourceRoot": "libs/barista-components/theming/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/theming/tsconfig.lib.json",
-              "components/theming/tsconfig.spec.json"
+              "libs/barista-components/theming/tsconfig.lib.json",
+              "libs/barista-components/theming/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/theming/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/theming/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2947,15 +3032,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/theming/**/*.scss"]
+            "files": ["libs/barista-components/theming/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/theming/jest.config.js",
-            "tsConfig": "components/theming/tsconfig.spec.json",
-            "setupFile": "components/theming/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/theming/jest.config.js",
+            "tsConfig": "libs/barista-components/theming/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/theming/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2964,18 +3049,21 @@
     },
     "tile": {
       "projectType": "library",
-      "root": "components/tile",
-      "sourceRoot": "components/tile/src",
+      "root": "libs/barista-components/tile",
+      "sourceRoot": "libs/barista-components/tile/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/tile/tsconfig.lib.json",
-              "components/tile/tsconfig.spec.json"
+              "libs/barista-components/tile/tsconfig.lib.json",
+              "libs/barista-components/tile/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/tile/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/tile/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2984,15 +3072,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/tile/**/*.scss"]
+            "files": ["libs/barista-components/tile/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/tile/jest.config.js",
-            "tsConfig": "components/tile/tsconfig.spec.json",
-            "setupFile": "components/tile/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/tile/jest.config.js",
+            "tsConfig": "libs/barista-components/tile/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/tile/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -3001,18 +3089,21 @@
     },
     "timeline-chart": {
       "projectType": "library",
-      "root": "components/timeline-chart",
-      "sourceRoot": "components/timeline-chart/src",
+      "root": "libs/barista-components/timeline-chart",
+      "sourceRoot": "libs/barista-components/timeline-chart/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/timeline-chart/tsconfig.lib.json",
-              "components/timeline-chart/tsconfig.spec.json"
+              "libs/barista-components/timeline-chart/tsconfig.lib.json",
+              "libs/barista-components/timeline-chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/timeline-chart/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/timeline-chart/**"
+            ]
           }
         },
         "lint-styles": {
@@ -3021,15 +3112,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/timeline-chart/**/*.scss"]
+            "files": ["libs/barista-components/timeline-chart/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/timeline-chart/jest.config.js",
-            "tsConfig": "components/timeline-chart/tsconfig.spec.json",
-            "setupFile": "components/timeline-chart/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/timeline-chart/jest.config.js",
+            "tsConfig": "libs/barista-components/timeline-chart/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/timeline-chart/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -3038,18 +3129,21 @@
     },
     "toast": {
       "projectType": "library",
-      "root": "components/toast",
-      "sourceRoot": "components/toast/src",
+      "root": "libs/barista-components/toast",
+      "sourceRoot": "libs/barista-components/toast/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/toast/tsconfig.lib.json",
-              "components/toast/tsconfig.spec.json"
+              "libs/barista-components/toast/tsconfig.lib.json",
+              "libs/barista-components/toast/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/toast/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/toast/**"
+            ]
           }
         },
         "lint-styles": {
@@ -3058,15 +3152,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/toast/**/*.scss"]
+            "files": ["libs/barista-components/toast/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/toast/jest.config.js",
-            "tsConfig": "components/toast/tsconfig.spec.json",
-            "setupFile": "components/toast/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/toast/jest.config.js",
+            "tsConfig": "libs/barista-components/toast/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/toast/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -3075,20 +3169,20 @@
     },
     "toggle-button-group": {
       "projectType": "library",
-      "root": "components/toggle-button-group",
-      "sourceRoot": "components/toggle-button-group/src",
+      "root": "libs/barista-components/toggle-button-group",
+      "sourceRoot": "libs/barista-components/toggle-button-group/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/toggle-button-group/tsconfig.lib.json",
-              "components/toggle-button-group/tsconfig.spec.json"
+              "libs/barista-components/toggle-button-group/tsconfig.lib.json",
+              "libs/barista-components/toggle-button-group/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/toggle-button-group/**"
+              "!libs/barista-components/toggle-button-group/**"
             ]
           }
         },
@@ -3098,15 +3192,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/toggle-button-group/**/*.scss"]
+            "files": ["libs/barista-components/toggle-button-group/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/toggle-button-group/jest.config.js",
-            "tsConfig": "components/toggle-button-group/tsconfig.spec.json",
-            "setupFile": "components/toggle-button-group/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/toggle-button-group/jest.config.js",
+            "tsConfig": "libs/barista-components/toggle-button-group/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/toggle-button-group/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -3115,20 +3209,20 @@
     },
     "top-bar-navigation": {
       "projectType": "library",
-      "root": "components/top-bar-navigation",
-      "sourceRoot": "components/top-bar-navigation/src",
+      "root": "libs/barista-components/top-bar-navigation",
+      "sourceRoot": "libs/barista-components/top-bar-navigation/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/top-bar-navigation/tsconfig.lib.json",
-              "components/top-bar-navigation/tsconfig.spec.json"
+              "libs/barista-components/top-bar-navigation/tsconfig.lib.json",
+              "libs/barista-components/top-bar-navigation/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/top-bar-navigation/**"
+              "!libs/barista-components/top-bar-navigation/**"
             ]
           }
         },
@@ -3138,15 +3232,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/top-bar-navigation/**/*.scss"]
+            "files": ["libs/barista-components/top-bar-navigation/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/top-bar-navigation/jest.config.js",
-            "tsConfig": "components/top-bar-navigation/tsconfig.spec.json",
-            "setupFile": "components/top-bar-navigation/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/top-bar-navigation/jest.config.js",
+            "tsConfig": "libs/barista-components/top-bar-navigation/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/top-bar-navigation/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -3155,18 +3249,21 @@
     },
     "tree-table": {
       "projectType": "library",
-      "root": "components/tree-table",
-      "sourceRoot": "components/tree-table/src",
+      "root": "libs/barista-components/tree-table",
+      "sourceRoot": "libs/barista-components/tree-table/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "components/tree-table/tsconfig.lib.json",
-              "components/tree-table/tsconfig.spec.json"
+              "libs/barista-components/tree-table/tsconfig.lib.json",
+              "libs/barista-components/tree-table/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/tree-table/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/tree-table/**"
+            ]
           }
         },
         "lint-styles": {
@@ -3175,15 +3272,15 @@
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
-            "files": ["components/tree-table/**/*.scss"]
+            "files": ["libs/barista-components/tree-table/**/*.scss"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "components/tree-table/jest.config.js",
-            "tsConfig": "components/tree-table/tsconfig.spec.json",
-            "setupFile": "components/tree-table/src/test-setup.ts",
+            "jestConfig": "libs/barista-components/tree-table/jest.config.js",
+            "tsConfig": "libs/barista-components/tree-table/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/tree-table/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -3204,6 +3301,84 @@
               "**/node_modules/**",
               "!libs/shared/barista-definitions/**"
             ]
+          }
+        }
+      }
+    },
+    "testing-node": {
+      "root": "libs/testing/node",
+      "sourceRoot": "libs/testing/node/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/testing/node/tsconfig.lib.json",
+              "libs/testing/node/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/testing/node/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/testing/node/jest.config.js",
+            "tsConfig": "libs/testing/node/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "testing-browser": {
+      "root": "libs/testing/browser",
+      "sourceRoot": "libs/testing/browser/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/testing/browser/tsconfig.lib.json",
+              "libs/testing/browser/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/testing/browser/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/testing/browser/jest.config.js",
+            "tsConfig": "libs/testing/browser/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "testing-fixtures": {
+      "root": "libs/testing/fixtures",
+      "sourceRoot": "libs/testing/fixtures/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/testing/fixtures/tsconfig.lib.json",
+              "libs/testing/fixtures/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/testing/fixtures/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/testing/fixtures/jest.config.js",
+            "tsConfig": "libs/testing/fixtures/tsconfig.spec.json",
+            "passWithNoTests": true
           }
         }
       }
