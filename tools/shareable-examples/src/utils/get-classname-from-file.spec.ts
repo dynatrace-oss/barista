@@ -52,7 +52,7 @@ it('should get the classname from a Module class', () => {
   expect(classname).toBe('DtDummyExampleModule');
 });
 
-it('should throw an error if there are multiple classes in the file', () => {
+it('should get the last class if there are multiple classes in the file', () => {
   const source = createSourceFile(
     'dummy.ts',
     `
@@ -69,7 +69,6 @@ it('should throw an error if there are multiple classes in the file', () => {
     true, // setParentNodes
     ScriptKind.TS,
   );
-  expect(() => {
-    getClassnameFromSourceFile(source);
-  }).toThrow();
+  const classname = getClassnameFromSourceFile(source);
+  expect(classname).toBe('DtDummyExampleModule');
 });
