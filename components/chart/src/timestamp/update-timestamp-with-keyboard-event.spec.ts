@@ -28,7 +28,7 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 
-import { createKeyboardEvent } from '@dynatrace/barista-components/testing';
+import { createKeyboardEvent } from '@dynatrace/barista-components/testing/browser';
 import { updateTimestampWithKeyboardEvent } from './update-timestamp-with-keyboard-event';
 
 describe('DtChartRange update range with keyboard', () => {

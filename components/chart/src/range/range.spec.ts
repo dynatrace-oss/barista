@@ -30,7 +30,7 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   dispatchFakeEvent,
   createKeyboardEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 import {
   ARIA_DEFAULT_LEFT_HANDLE_LABEL,
   ARIA_DEFAULT_RIGHT_HANDLE_LABEL,

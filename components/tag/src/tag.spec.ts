@@ -25,7 +25,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtTag', () => {
   beforeEach(async(() => {

@@ -27,7 +27,7 @@ import * as core from '@dynatrace/barista-components/core';
 import {
   createMouseEvent,
   MockNgZone,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 import * as utils from '../utils';
 import { NO_POINTER_EVENTS_CLASS } from './constants';
 import { DtSelectionAreaEventTarget } from './position-utils';

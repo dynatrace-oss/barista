@@ -41,8 +41,10 @@ import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-li
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
-import { MockIntersectionObserver } from '@dynatrace/barista-components/testing/mock';
+import {
+  createComponent,
+  MockIntersectionObserver,
+} from '@dynatrace/barista-components/testing/browser';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 import {
   DT_UI_TEST_CONFIG,

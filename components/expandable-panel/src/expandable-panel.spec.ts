@@ -28,7 +28,7 @@ import {
   DtExpandablePanelModule,
 } from '@dynatrace/barista-components/expandable-panel';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtExpandablePanel', () => {
   beforeEach(async(() => {

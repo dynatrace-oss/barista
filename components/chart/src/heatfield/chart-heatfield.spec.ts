@@ -45,7 +45,7 @@ import {
 import {
   createComponent,
   dispatchKeyboardEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { Subject, Subscription } from 'rxjs';
 

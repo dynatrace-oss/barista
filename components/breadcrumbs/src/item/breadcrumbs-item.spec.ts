@@ -31,7 +31,7 @@ import {
 import {
   createComponent,
   createMouseEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 
 describe('DtBreadcrumbsItem', () => {
   describe('Router provided', () => {

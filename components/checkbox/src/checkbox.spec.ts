@@ -38,7 +38,7 @@ import {
   DtCheckboxModule,
 } from '@dynatrace/barista-components/checkbox';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtCheckbox', () => {
   let fixture: ComponentFixture<any>;

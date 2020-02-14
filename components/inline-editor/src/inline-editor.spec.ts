@@ -50,7 +50,7 @@ import {
   createComponent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 
 describe('DtInlineEditor', () => {
   beforeEach(() => {

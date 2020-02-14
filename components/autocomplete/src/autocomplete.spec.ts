@@ -77,7 +77,7 @@ import {
   createKeyboardEvent,
   MockNgZone,
   typeInElement,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 
 describe('DtAutocomplete', () => {
   let overlayContainer: OverlayContainer;

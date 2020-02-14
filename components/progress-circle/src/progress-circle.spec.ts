@@ -23,7 +23,7 @@ import { By } from '@angular/platform-browser';
 
 import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-circle';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtProgressCircle', () => {
   beforeEach(async(() => {

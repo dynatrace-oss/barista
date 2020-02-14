@@ -35,7 +35,7 @@ import { DtTagAdd, DtTagModule } from '@dynatrace/barista-components/tag';
 import {
   createComponent,
   dispatchKeyboardEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 import {
   DT_UI_TEST_CONFIG,
   DtUiTestConfiguration,

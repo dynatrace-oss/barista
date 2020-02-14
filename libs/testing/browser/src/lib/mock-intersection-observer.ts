@@ -69,6 +69,7 @@ export class MockIntersectionObserver {
     }
   }
 
+  /** Clears the mock */
   clearMock(): void {
     // tslint:disable-next-line: no-any
     (global as any).IntersectionObserver.mockClear();

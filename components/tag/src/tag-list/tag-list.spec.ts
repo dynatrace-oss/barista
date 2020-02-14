@@ -34,7 +34,7 @@ import { DtTagList, DtTagModule } from '@dynatrace/barista-components/tag';
 import {
   createComponent,
   MockNgZone,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 import { DtTag } from '../tag';
 import { getIndexForFirstHiddenTag, getWrapperWidth } from './tag-list';
 

@@ -33,7 +33,7 @@ import {
 import {
   createComponent,
   wrappedErrorMessage,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 
 /**
  * Fake URLs and associated SVG documents used by tests.

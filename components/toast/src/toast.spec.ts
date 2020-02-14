@@ -41,7 +41,7 @@ import {
 import {
   createComponent,
   dispatchFakeEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 
 describe('DtToast', () => {
   let dtToast: DtToast;

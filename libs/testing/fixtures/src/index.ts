@@ -15,11 +15,3 @@
  */
 
 export * from './lib/chart';
-export * from './lib/create-component';
-export * from './lib/dispatch-events';
-export * from './lib/event-objects';
-export * from './lib/mock-component';
-export * from './lib/mock-ng-zone';
-export * from './lib/request-animation-frame';
-export * from './lib/type-in-element';
-export * from './lib/wrapped-error-message';

@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 import { DtBarIndicatorModule } from './bar-indicator-module';
 
 describe('DtBarIndicator', () => {

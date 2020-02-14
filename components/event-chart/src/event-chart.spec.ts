@@ -24,7 +24,7 @@ import { By } from '@angular/platform-browser';
 
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 
-import { dispatchFakeEvent } from '@dynatrace/barista-components/testing';
+import { dispatchFakeEvent } from '@dynatrace/barista-components/testing/browser';
 import { DtEventChart, roundUp, formatRelativeTimestamp } from './event-chart';
 import { DtEventChartSelectedEvent } from './event-chart-directives';
 import {

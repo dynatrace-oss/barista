@@ -23,7 +23,7 @@ import { By } from '@angular/platform-browser';
 
 import { DtTileModule } from '@dynatrace/barista-components/tile';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtTile', () => {
   beforeEach(async(() => {

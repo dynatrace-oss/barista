@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-export * from './mock-intersection-observer';
-export * from './mock-object-property';
-export * from './mock-get-computed-style';
+export * from './lib/mock-object-property';

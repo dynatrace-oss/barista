@@ -36,7 +36,7 @@
     "shareable-examples": "ng build tools-shareable-examples && node dist/tools/shareable-examples/main.js",
     "barista": "npm run examples-tools && npm run barista-tools && ng serve barista",
     "demos": "npm run examples-tools && ng serve demos",
-    "examples-tools": "ng build examples-tools && node dist/tools/examples/main.js",
+    "examples-tools": "ng build examples-tools && node dist/tools/examples-tools/main.js",
     "stage-release": "ng run tools-release:build-stage-release && node dist/tools/stage-release/main.js",
     "publish-release": "ng run tools-release:build-publish-release && node dist/tools/publish-release/main.js",
     "breaking-changes": "gulp breaking-changes"

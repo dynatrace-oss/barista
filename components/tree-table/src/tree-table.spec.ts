@@ -42,7 +42,7 @@ import {
   DtTreeTableModule,
 } from '@dynatrace/barista-components/tree-table';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;

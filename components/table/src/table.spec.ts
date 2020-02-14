@@ -54,7 +54,7 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtIndicatorModule } from '@dynatrace/barista-components/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtTable', () => {
   beforeEach(async(() => {

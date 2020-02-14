@@ -22,7 +22,7 @@ import { By } from '@angular/platform-browser';
 import { DtAlert, DtAlertModule } from '@dynatrace/barista-components/alert';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtAlert', () => {
   beforeEach(async(() => {

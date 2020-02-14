@@ -42,7 +42,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { MockNgZone } from '@dynatrace/barista-components/testing';
+import { MockNgZone } from '@dynatrace/barista-components/testing/browser';
 import { ConnectedOverlayPositionChange } from './connected-position';
 import { DtFlexibleConnectedPositionStrategy } from '.';
 

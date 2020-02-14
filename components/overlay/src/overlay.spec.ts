@@ -44,7 +44,7 @@ import {
   createComponent,
   dispatchKeyboardEvent,
   dispatchMouseEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 
 describe('DtOverlay', () => {
   let dtOverlay: DtOverlay;

@@ -50,7 +50,7 @@ import {
   getDtDuplicateDrawerError,
 } from '@dynatrace/barista-components/drawer';
 
-import { dispatchKeyboardEvent } from '@dynatrace/barista-components/testing';
+import { dispatchKeyboardEvent } from '@dynatrace/barista-components/testing/browser';
 
 // TODO: [e2e] move to e2e test in case getBoundingClientRect is not available in jsdom
 // function getVisibility(element: HTMLElement): boolean {

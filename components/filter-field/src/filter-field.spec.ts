@@ -50,7 +50,7 @@ import {
   MockNgZone,
   typeInElement,
   wrappedErrorMessage,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 
 const TEST_DATA = {
   autocomplete: [

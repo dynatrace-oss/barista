@@ -39,7 +39,7 @@ import {
   DtStepperModule,
 } from '@dynatrace/barista-components/stepper';
 
-import { dispatchKeyboardEvent } from '@dynatrace/barista-components/testing';
+import { dispatchKeyboardEvent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtStepper', () => {
   describe('linear stepper with a pre-defined selectedIndex', () => {

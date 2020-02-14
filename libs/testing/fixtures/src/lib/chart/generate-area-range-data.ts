@@ -16,8 +16,6 @@
 
 import { DataPoint } from 'highcharts';
 
-import { isNumber } from '@dynatrace/barista-components/core';
-
 import { randomize } from './randomize';
 
 export function generateAreaRangeData(
@@ -35,7 +33,7 @@ export function generateAreaRangeData(
 
   let data: DataPoint[];
 
-  if (isNumber(amountOrLineSeries)) {
+  if (!Array.isArray(amountOrLineSeries)) {
     if (amountOrLineSeries < 0) {
       throw new Error('Amount must not be negative');
     }

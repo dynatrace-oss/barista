@@ -41,7 +41,7 @@ import {
   dispatchKeyboardEvent,
   createKeyboardEvent,
   createComponent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 import {
   ARIA_DEFAULT_SELECTED_LABEL,
   TimestampStateChangedEvent,

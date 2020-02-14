@@ -27,7 +27,7 @@ import {
   DtButtonGroupModule,
 } from '@dynatrace/barista-components/button-group';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtButtonGroup', () => {
   beforeEach(async(() => {

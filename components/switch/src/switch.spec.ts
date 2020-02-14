@@ -38,7 +38,7 @@ import {
   DtSwitchModule,
 } from '@dynatrace/barista-components/switch';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtSwitch', () => {
   let fixture: ComponentFixture<any>;

@@ -26,7 +26,7 @@ import {
   DtThemingModule,
 } from '@dynatrace/barista-components/theming';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtTheme', () => {
   beforeEach(async(() => {

@@ -29,7 +29,7 @@ import {
   DtShowMoreModule,
 } from '@dynatrace/barista-components/show-more';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtShowMore', () => {
   beforeEach(async(() => {

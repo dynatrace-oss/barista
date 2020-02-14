@@ -31,7 +31,7 @@ import {
 import {
   createComponent,
   dispatchFakeEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 import {
   ARIA_DEFAULT_CURRENT_LABEL,
   ARIA_DEFAULT_ELLIPSES,

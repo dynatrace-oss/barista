@@ -61,11 +61,8 @@
     "shared-barista-definitions": {
       "tags": ["type:types"]
     },
-    "testing": {
-      "tags": ["scope:testing", "type:library"]
-    },
     "examples": {
-      "tags": ["type:library"]
+      "tags": ["scope:examples", "type:library"]
     },
     "linting": {
       "tags": ["scope:tooling"]
@@ -298,6 +295,15 @@
     },
     "tree-table": {
       "tags": ["scope:components", "type:library"]
+    },
+    "testing-node": {
+      "tags": ["scope:testing", "scope:node", "type:library"]
+    },
+    "testing-browser": {
+      "tags": ["scope:testing", "scope:browser", "type:library"]
+    },
+    "testing-fixtures": {
+      "tags": ["scope:testing", "type:library"]
     }
   }
 }

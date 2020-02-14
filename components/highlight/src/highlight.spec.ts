@@ -23,7 +23,7 @@ import { By } from '@angular/platform-browser';
 
 import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtHighlight', () => {
   beforeEach(async(() => {

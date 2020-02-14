@@ -27,7 +27,7 @@ import {
   DtBreadcrumbsModule,
 } from '@dynatrace/barista-components/breadcrumbs';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtBreadcrumbs', () => {
   beforeEach(async(() => {

@@ -30,7 +30,7 @@ import {
 } from '@dynatrace/barista-components/expandable-section';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtExpandableSection', () => {
   beforeEach(async(() => {

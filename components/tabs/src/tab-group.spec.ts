@@ -31,7 +31,7 @@ import {
 } from '@dynatrace/barista-components/tabs';
 import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from './tab-group';
 
-import { createComponent } from '@dynatrace/barista-components/testing';
+import { createComponent } from '@dynatrace/barista-components/testing/browser';
 
 describe('DtTabs', () => {
   beforeEach(async(() => {

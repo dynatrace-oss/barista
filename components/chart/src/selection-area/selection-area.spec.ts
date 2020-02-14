@@ -40,7 +40,7 @@ import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import {
   dispatchKeyboardEvent,
   dispatchMouseEvent,
-} from '@dynatrace/barista-components/testing';
+} from '@dynatrace/barista-components/testing/browser';
 import { ARIA_DEFAULT_CLOSE_LABEL } from '../range/constants';
 import { DtChartRange } from '../range/range';
 import * as streams from './streams';
