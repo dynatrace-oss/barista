@@ -59,8 +59,6 @@ Thumbs.db
 # Examples build
 /apps/demos/src/app-routing.module.ts
 /apps/demos/src/nav-items.ts
-/libs/examples/src/examples.module.ts
-/libs/examples/src/index.ts
 
 # Barista
 /src/barista/data/

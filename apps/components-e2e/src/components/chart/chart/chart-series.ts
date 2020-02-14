@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { generateData } from '@dynatrace/barista-components/testing';
+import { generateData } from '@dynatrace/testing/fixtures';
 
 export const series: Highcharts.IndividualSeriesOptions[] = [
   {

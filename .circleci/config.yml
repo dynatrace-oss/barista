@@ -142,6 +142,8 @@ jobs:
 # - sonar checks
   sonar:
     <<: *defaults
+    environment:
+      SONAR_SCANNER_OPTS: -Xmx1024m
     steps:
       - attach_workspace:
           at: ~/barista

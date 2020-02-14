@@ -7,9 +7,7 @@
 /tools/schematics/*/files/**/*
 
 /test/**/*
-/tools/gulp/**/*
 /tools/stylelint/**/*
-/tools/templates/**/*
 
 /.idea/**/*
 /.vscode/**/*
@@ -17,3 +15,4 @@
 /dist/**/*
 /node_modules/**/*
 /coverage/**/*
+/tmp/**/*‚‚

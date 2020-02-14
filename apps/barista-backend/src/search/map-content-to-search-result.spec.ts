@@ -21,7 +21,7 @@ import {
 import {
   BaPageLayoutType,
   BaSinglePageContent,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/shared/barista-definitions';
 import { Index, MatchData } from 'lunr';
 
 describe('Map content to search results', () => {
