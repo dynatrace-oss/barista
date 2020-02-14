@@ -35,6 +35,8 @@ import {
   isSpreadElement,
   createPropertyAssignment,
   isStringLiteral,
+  isNamedImports,
+  ImportSpecifier,
 } from 'typescript';
 import { ExampleAstFile } from './examples.interface';
 
@@ -52,9 +54,13 @@ export function createTransformer(
   const transformer: TransformerFactory<SourceFile> = (
     context: TransformationContext,
   ) => {
+    let importsFromExampleFile: string | undefined;
+
     function visitSpraedDeclarationAndReplaceIt(node: Node): Node | undefined {
       if (isSpreadElement(node)) {
-        return createIdentifier(exampleClassName);
+        return importsFromExampleFile
+          ? createIdentifier(importsFromExampleFile)
+          : createIdentifier(exampleClassName);
       }
       return visitEachChild(node, visitSpraedDeclarationAndReplaceIt, context);
     }
@@ -106,6 +112,18 @@ export function createTransformer(
         importFrom.split('/').length > 2
       ) {
         return undefined;
+      }
+      // If the import is from the example component, remember the imports
+      // as they will need to be in the declarations and definitions.
+      if (
+        importFrom.includes(basename(exampleRoot)) &&
+        node.importClause &&
+        node.importClause.namedBindings &&
+        isNamedImports(node.importClause.namedBindings)
+      ) {
+        importsFromExampleFile = node.importClause.namedBindings.elements
+          .map((element: ImportSpecifier) => element.name.text)
+          .join(', ');
       }
       return node;
     }
