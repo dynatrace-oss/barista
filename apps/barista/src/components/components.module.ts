@@ -29,6 +29,11 @@ import { BaLayoutGrid } from './layout-grid/layout-grid';
 import { BaColor } from './color-component/color';
 import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
 
+/**
+ * The order of the following components is relevant in case they are nested.
+ * Inner components must be instantiated first. This is why the grid-item
+ * comes before the grid and the grid before the color-grid.
+ */
 // tslint:disable-next-line: no-any
 export const BA_CONTENT_COMPONENTS: any[] = [
   BaIconColorWheel,
@@ -36,9 +41,9 @@ export const BA_CONTENT_COMPONENTS: any[] = [
   BaLazyIcon,
   BaHeadlineLink,
   BaColor,
-  BaColorGrid,
-  BaLayoutGrid,
   BaLayoutGridItem,
+  BaLayoutGrid,
+  BaColorGrid,
 ];
 
 @NgModule({
