@@ -52,7 +52,13 @@
     <dt-tree-table-header-cell *dtHeaderCellDef>
       Running
     </dt-tree-table-header-cell>
-    <dt-cell *dtCellDef="let row">{{ row.running }}ms</dt-cell>
+    <dt-cell *dtCellDef="let row">
+      <dt-tag-list>
+        <dt-tag *ngFor="let tag of row.tags">
+          {{ tag }}
+        </dt-tag>
+      </dt-tag-list>
+    </dt-cell>
   </ng-container>
 
   <ng-container dtColumnDef="waiting">

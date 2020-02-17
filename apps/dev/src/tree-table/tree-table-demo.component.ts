@@ -34,6 +34,18 @@ const TESTDATA: ThreadNode[] = [
     waiting: 123,
     running: 20,
     blocked: 0,
+    tags: [
+      'tag one',
+      'Pineapple',
+      'Apple',
+      'Avocado',
+      'Jackfruit',
+      'oranage',
+      'tag two',
+      'cucumber',
+      'paprika',
+      'apple',
+    ],
     children: [
       {
         name:
@@ -44,6 +56,18 @@ const TESTDATA: ThreadNode[] = [
         waiting: 123,
         running: 20,
         blocked: 0,
+        tags: [
+          'tag one',
+          'Pineapple',
+          'Apple',
+          'Avocado',
+          'Jackfruit',
+          'oranage',
+          'tag two',
+          'cucumber',
+          'paprika',
+          'apple',
+        ],
       },
       {
         name: 'hz.hzInstance_1_cluster.thread-2',
@@ -53,6 +77,18 @@ const TESTDATA: ThreadNode[] = [
         waiting: 130,
         running: 0,
         blocked: 0,
+        tags: [
+          'tag one',
+          'Pineapple',
+          'Apple',
+          'Avocado',
+          'Jackfruit',
+          'oranage',
+          'tag two',
+          'cucumber',
+          'paprika',
+          'apple',
+        ],
       },
     ],
   },
@@ -64,6 +100,18 @@ const TESTDATA: ThreadNode[] = [
     waiting: 123,
     running: 20,
     blocked: 0,
+    tags: [
+      'tag one',
+      'Pineapple',
+      'Apple',
+      'Avocado',
+      'Jackfruit',
+      'oranage',
+      'tag two',
+      'cucumber',
+      'paprika',
+      'apple',
+    ],
     children: [
       {
         name: 'jetty-422',
@@ -73,6 +121,18 @@ const TESTDATA: ThreadNode[] = [
         waiting: 123,
         running: 20,
         blocked: 0,
+        tags: [
+          'tag one',
+          'Pineapple',
+          'Apple',
+          'Avocado',
+          'Jackfruit',
+          'oranage',
+          'tag two',
+          'cucumber',
+          'paprika',
+          'apple',
+        ],
       },
       {
         name: 'jetty-423',
@@ -82,6 +142,18 @@ const TESTDATA: ThreadNode[] = [
         waiting: 130,
         running: 0,
         blocked: 0,
+        tags: [
+          'tag one',
+          'Pineapple',
+          'Apple',
+          'Avocado',
+          'Jackfruit',
+          'oranage',
+          'tag two',
+          'cucumber',
+          'paprika',
+          'apple',
+        ],
       },
       {
         name: 'jetty-424',
@@ -91,6 +163,18 @@ const TESTDATA: ThreadNode[] = [
         waiting: 130,
         running: 0,
         blocked: 0,
+        tags: [
+          'tag one',
+          'Pineapple',
+          'Apple',
+          'Avocado',
+          'Jackfruit',
+          'oranage',
+          'tag two',
+          'cucumber',
+          'paprika',
+          'apple',
+        ],
       },
     ],
   },
@@ -102,6 +186,18 @@ const TESTDATA: ThreadNode[] = [
     waiting: 123,
     running: 20,
     blocked: 0,
+    tags: [
+      'tag one',
+      'Pineapple',
+      'Apple',
+      'Avocado',
+      'Jackfruit',
+      'oranage',
+      'tag two',
+      'cucumber',
+      'paprika',
+      'apple',
+    ],
   },
 ];
 
@@ -110,6 +206,7 @@ export class ThreadNode {
   threadlevel: string;
   totalTimeConsumption: number;
   blocked: number;
+  tags: string[];
   running: number;
   waiting: number;
   icon: DtIconType;
@@ -121,6 +218,7 @@ export class ThreadFlatNode {
   threadlevel: string;
   totalTimeConsumption: number;
   blocked: number;
+  tags: string[];
   running: number;
   waiting: number;
   icon: DtIconType;
@@ -187,6 +285,7 @@ export class TreeTableDemo {
     flatNode.blocked = node.blocked;
     flatNode.running = node.running;
     flatNode.waiting = node.waiting;
+    flatNode.tags = node.tags;
     flatNode.totalTimeConsumption = node.totalTimeConsumption;
     flatNode.icon = node.icon;
     this.flatNodeMap.set(flatNode, node);
