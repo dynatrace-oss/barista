@@ -138,7 +138,7 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
     }
   }
 
-  if (page.toc) {
+  if (page.toc !== null) {
     metaData.toc = page.toc;
   }
 
