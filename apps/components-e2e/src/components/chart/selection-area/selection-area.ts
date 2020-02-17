@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { DtE2EChartBase } from '../chart-base';
 import { DataService } from '../../../services/data.service';
+import { DtChartRange } from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-e2e-selection-area',
@@ -31,6 +32,8 @@ import { DataService } from '../../../services/data.service';
   ],
 })
 export class DtE2ESelectionArea extends DtE2EChartBase {
+  @ViewChild(DtChartRange, { static: false }) dtChartRange: DtChartRange;
+
   constructor(dataService: DataService) {
     super(dataService);
   }
@@ -41,5 +44,10 @@ export class DtE2ESelectionArea extends DtE2EChartBase {
 
   valueChanges(_value: number | [number, number]): void {
     // emits when the value changes
+  }
+
+  // Set the time frame programmatically to a specific value
+  setTimeframe(): void {
+    this.dtChartRange.value = [1_564_546_551_309, 1_564_547_120_036];
   }
 }
