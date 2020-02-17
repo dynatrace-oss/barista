@@ -105,6 +105,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     if (this._platform.isBrowser) {
+      // Changes need to be re-evaluated if
       this._tagElements.changes
         .pipe(
           startWith(null),
@@ -125,7 +126,12 @@ export class DtTagList implements AfterContentInit, OnDestroy {
               this._isOneLine = true;
             }
           }
-          this._changeDetectorRef.markForCheck();
+          // When running inside of a tree table, the table row does only get updated
+          // when the differ of the tree table triggers a repaint. As the tag-list
+          // itself marks itself dirty, but change detection never runs for it because
+          // no differ detectable changes happened.
+          // We need to run detectChanges here to actually update the number indicator
+          this._changeDetectorRef.detectChanges();
         });
       this._tagAddElements.changes
         .pipe(startWith(null), takeUntil(this._destroy$))
