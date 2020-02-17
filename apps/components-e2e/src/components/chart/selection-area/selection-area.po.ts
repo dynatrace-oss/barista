@@ -54,6 +54,8 @@ export const closeButton = overlay
   .child('button')
   .withAttribute('aria-label', /close/gim);
 
+export const setTimeframeButton = Selector('#dt-chart-set-time-frame');
+
 /** Creates a selection from the starting point with the provided width */
 export function createRange(
   width: number,

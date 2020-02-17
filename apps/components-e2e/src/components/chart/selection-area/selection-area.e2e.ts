@@ -38,6 +38,7 @@ import {
   selectionArea,
   timestamp,
   timestampSelection,
+  setTimeframeButton,
 } from './selection-area.po';
 
 fixture('Selection Area')
@@ -139,6 +140,17 @@ test('should increase the selection by dragging the left handle', async (testCon
     .ok(`The range size of ${width} is not close to the expected 688`)
     .expect(overlayText.textContent)
     .match(/Jul 31 \d{2}:15 — \d{2}:23/g);
+});
+
+test('should create a range and update the overlay when updating the range value programmatically', async (testController: TestController) => {
+  await createRange(520, { x: 310, y: 100 }, testController);
+
+  await testController
+    .expect(overlayText.textContent)
+    .match(/Jul 31 \d{2}:17 — \d{2}:23/g)
+    .click(setTimeframeButton, { speed: 0.3 })
+    .expect(overlayText.textContent)
+    .match(/Jul 31 \d{2}:15 — \d{2}:25/g);
 });
 
 test('should create a timestamp when it was clicked on a certain point of the screen', async (testController: TestController) => {
