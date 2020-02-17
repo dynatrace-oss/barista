@@ -32,6 +32,12 @@ and always keep our
 [coding standards](https://github.com/dynatrace-oss/barista/blob/master/CODING_STANDARDS.md)
 in mind.
 
+## Contributors
+
+These wonderful people make this happen!
+
+[![contributors](https://contributors-img.firebaseapp.com/image?repo=dynatrace-oss/barista)](https://github.com/dynatrace-oss/barista/graphs/contributors)
+
 ## Changelog
 
 To stay up to date with the newest fixes and features take a look at our
