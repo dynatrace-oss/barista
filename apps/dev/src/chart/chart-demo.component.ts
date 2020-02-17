@@ -94,4 +94,12 @@ export class ChartDemo {
   seriesVisibilityChanged(event: DtChartSeriesVisibilityChangeEvent): void {
     console.log(event);
   }
+
+  setTimeframe(): void {
+    this.lastTimeframe = [
+      this.lastTimeframe[0] - 100_000,
+      this.lastTimeframe[1] + 100_000,
+    ];
+    this.dtChartRange.value = this.lastTimeframe;
+  }
 }
