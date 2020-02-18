@@ -15,6 +15,6 @@
  */
 
 export * from './src/event-chart-module';
-export * from './src/event-chart';
+export { RenderEvent, DtEventChart } from './src/event-chart';
 export * from './src/event-chart-directives';
 export * from './src/event-chart-legend';
