@@ -4,7 +4,8 @@
   display: block;
 }
 
-.dt-chart.dt-chart-selectable {
+// stylelint-disable-next-line
+.dt-chart.dt-chart-selectable .highcharts-plot-background {
   cursor: crosshair;
 }
 
