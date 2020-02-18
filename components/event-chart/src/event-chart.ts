@@ -792,7 +792,7 @@ function isValidColor(color: any): color is DtEventChartColors {
 }
 
 /** Formats a relative timestamp into a readable text. */
-function formatRelativeTimestamp(timestamp: number): string {
+export function formatRelativeTimestamp(timestamp: number): string {
   // tslint:disable: no-magic-numbers
   const sec = 1000;
   const min = sec * 60;
@@ -808,10 +808,16 @@ function formatRelativeTimestamp(timestamp: number): string {
   } else if (timestamp >= sec) {
     return `${roundUp(timestamp / sec, decimals)} s`;
   }
-  return `${timestamp}ms`;
+  return `${timestamp} ms`;
   // tslint:enable: no-magic-numbers
 }
 
-function roundUp(num: number, decimals: number): number {
+/**
+ * Rounds the given number to the specified decimals.
+ * @param num number to be rounded
+ * @param decimals maximum amount of decimals
+ * @returns rounded number
+ */
+export function roundUp(num: number, decimals: number): number {
   return Math.round(10 ** decimals * num) / 10 ** decimals;
 }

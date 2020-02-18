@@ -25,7 +25,7 @@ import { By } from '@angular/platform-browser';
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 
 import { dispatchFakeEvent } from '@dynatrace/barista-components/testing';
-import { DtEventChart } from './event-chart';
+import { DtEventChart, roundUp, formatRelativeTimestamp } from './event-chart';
 import { DtEventChartSelectedEvent } from './event-chart-directives';
 
 /** Gets the rendered merged numbering. */
@@ -185,11 +185,11 @@ describe('DtEventChart', () => {
       const path = getRenderedEventsPath(fixture);
       const expectedPath = [
         'M13 73',
-        'L146.06666666666666 24',
+        'L146.0666666666667 24',
         'L212.60000000000002 73',
-        'L345.66666666666663 73',
+        'L345.6666666666667 73',
         'L478.73333333333335 73',
-        'M678.3333333333333 73',
+        'M678.3333333333334 73',
         'L1011 24',
       ].join(' ');
       expect(path).toBe(expectedPath);
@@ -603,6 +603,39 @@ describe('DtEventChart', () => {
         By.css('.dt-event-chart-event-selected'),
       );
       expect(selectedEvent).toBeNull();
+    });
+  });
+
+  describe('x-axis', () => {
+    describe('formatRelativeTimestamp', () => {
+      it('should return milliseconds', () => {
+        expect(formatRelativeTimestamp(10)).toBe('10 ms');
+      });
+
+      it('should return seconds', () => {
+        expect(formatRelativeTimestamp(10_000)).toBe('10 s');
+      });
+
+      it('should return minutes', () => {
+        expect(formatRelativeTimestamp(600_000)).toBe('10 min');
+      });
+
+      it('should return hours', () => {
+        expect(formatRelativeTimestamp(2 * 60 * 60_000)).toBe('2 h');
+      });
+
+      it('should return days', () => {
+        expect(formatRelativeTimestamp(1.5 * 24 * 60 * 60_000)).toBe('1.5 d');
+      });
+    });
+    describe('roundUp', () => {
+      it('should return a rounded up number of 2 decimals', () => {
+        expect(roundUp(1.325, 2)).toBe(1.33);
+      });
+
+      it('should return less decimals if possible', () => {
+        expect(roundUp(1, 2)).toBe(1);
+      });
     });
   });
 });
