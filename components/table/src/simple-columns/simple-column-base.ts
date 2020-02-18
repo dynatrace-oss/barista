@@ -15,7 +15,15 @@
  */
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Input, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
+import {
+  Input,
+  OnDestroy,
+  OnInit,
+  Optional,
+  ViewChild,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 
 import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
 import { DtFormattedValue } from '@dynatrace/barista-components/formatters';
@@ -60,7 +68,8 @@ export type DtSimpleColumnFormatFunction = (
   displayValue: any, // tslint:disable-line:no-any
 ) => string | DtFormattedValue;
 
-export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
+export abstract class DtSimpleColumnBase<T>
+  implements OnInit, OnChanges, OnDestroy {
   /** Input for the name with which the columnDefinition will register itself to the table. */
   @Input()
   get name(): string {
@@ -161,9 +170,24 @@ export abstract class DtSimpleColumnBase<T> implements OnInit, OnDestroy {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (
+      this.table &&
+      (changes.displayAccessor || changes.sortAccessor || changes.comparator)
+    ) {
+      this.table._updateColumnAccessors(
+        this.name,
+        this.displayAccessor,
+        this.sortAccessor,
+        this.comparator,
+      );
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.table) {
       this.table.removeColumnDef(this._columnDef);
+      this.table._removeColumnAccessors(this.name);
     }
   }
 
