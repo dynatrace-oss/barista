@@ -36,22 +36,13 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { Observable, Subject, Subscription, defer } from 'rxjs';
-import {
-  map,
-  mapTo,
-  startWith,
-  switchMap,
-  take,
-  takeUntil,
-} from 'rxjs/operators';
+import { Subject, Subscription, BehaviorSubject } from 'rxjs';
+import { mapTo } from 'rxjs/operators';
 
-import { isDefined } from '@dynatrace/barista-components/core';
 import { DtEmptyState } from '@dynatrace/barista-components/empty-state';
 
 import { _DtTableBase } from './base-table';
 import {
-  DtSimpleColumnBase,
   DtSimpleColumnComparatorFunction,
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,
@@ -82,6 +73,22 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
 
+  /** Sort accessor map that holds all sort accessor functions from the registered simple columns. */
+  private _sortAccessorMap = new Map<
+    string,
+    DtSimpleColumnSortAccessorFunction<T>
+  >();
+  /** Sort accessor map that holds all display accessor functions from the registered simple columns. */
+  private _displayAccessorMap = new Map<
+    string,
+    DtSimpleColumnDisplayAccessorFunction<T>
+  >();
+  /** Sort accessor map that holds all comparator accessor functions from the registered simple columns. */
+  private _comparatorFunctionMap = new Map<
+    string,
+    DtSimpleColumnComparatorFunction<T>
+  >();
+
   /** @internal A generated UID */
   _uniqueId = `dt-table-${nextUniqueId++}`;
 
@@ -108,11 +115,6 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     return !(this._data && this._data.length);
   }
 
-  /** @internal List of all simpleColumns within the table. */
-  @ContentChildren(DtSimpleColumnBase) _simpleColumns: QueryList<
-    DtSimpleColumnBase<any> // tslint:disable-line:no-any
-  >;
-
   /** @internal The QueryList that holds the empty state component */
   @ContentChildren(DtEmptyState) _emptyState: QueryList<DtEmptyState>;
 
@@ -125,58 +127,20 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   _portalOutlet: CdkPortalOutlet;
 
   /** @internal Stream of all simple dataAccessor functions for all SimpleColumns */
-  readonly _dataAccessors: Observable<SimpleColumnsAccessorMaps<T>> = defer(
-    () => {
-      if (this._simpleColumns) {
-        return this._simpleColumns.changes.pipe(
-          takeUntil(this._destroy$),
-          startWith(null),
-          map(() => {
-            const simpleColumnsArray = this._simpleColumns.toArray();
-            /*
-             * Map to a simpleColumns array, filter out all without an accessor function;
-             * then create a map of accessor functions.
-             */
-            const displayAccessorMap = new Map<
-              string,
-              DtSimpleColumnDisplayAccessorFunction<T>
-            >();
-            simpleColumnsArray
-              .filter(sc => isDefined(sc.displayAccessor))
-              .forEach(sc =>
-                displayAccessorMap.set(sc.name, sc.displayAccessor),
-              );
+  _dataAccessors = new BehaviorSubject<SimpleColumnsAccessorMaps<T>>({
+    displayAccessorMap: this._displayAccessorMap,
+    sortAccessorMap: this._sortAccessorMap,
+    comparatorMap: this._comparatorFunctionMap,
+  });
 
-            /*
-             * Map to a simpleColumns array, filter out all without an accessor function;
-             * then create a map of accessor functions.
-             */
-            const sortAccessorMap = new Map<
-              string,
-              DtSimpleColumnSortAccessorFunction<T>
-            >();
-            simpleColumnsArray
-              .filter(sc => isDefined(sc.sortAccessor))
-              .forEach(sc => sortAccessorMap.set(sc.name, sc.sortAccessor));
-
-            const comparatorMap = new Map<
-              string,
-              DtSimpleColumnComparatorFunction<T>
-            >();
-            simpleColumnsArray
-              .filter(sc => isDefined(sc.comparator))
-              .forEach(sc => comparatorMap.set(sc.name, sc.comparator));
-
-            return { displayAccessorMap, sortAccessorMap, comparatorMap };
-          }),
-        );
-      }
-      return this._ngZone.onStable.asObservable().pipe(
-        take(1),
-        switchMap(() => this._dataAccessors),
-      );
-    },
-  );
+  /** Updates the dataAccessors subject for the connected datasource. */
+  private _updateAccessors(): void {
+    this._dataAccessors.next({
+      displayAccessorMap: this._displayAccessorMap,
+      sortAccessorMap: this._sortAccessorMap,
+      comparatorMap: this._comparatorFunctionMap,
+    });
+  }
 
   /** Subscription of attached stream of the portal outlet  */
   private _portalOutletSubscription = Subscription.EMPTY;
@@ -186,7 +150,8 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
     @Attribute('role') role: string,
-    private _ngZone: NgZone,
+    /** @breaking-change: ngZone is no longer necessary in the table injectors, will be removed with 7.0.0 */
+    _ngZone: NgZone,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) document: any,
     platform: Platform,
@@ -244,6 +209,40 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
       this._portalOutlet.detach();
     }
   }
+
+  /** Update the column accessor functions  */
+  _updateColumnAccessors(
+    name: string,
+    displayAccessor?: DtSimpleColumnDisplayAccessorFunction<T>,
+    sortAccessor?: DtSimpleColumnSortAccessorFunction<T>,
+    comparatorFunction?: DtSimpleColumnComparatorFunction<T>,
+  ): void {
+    if (displayAccessor) {
+      this._displayAccessorMap.set(name, displayAccessor);
+    } else {
+      this._displayAccessorMap.delete(name);
+    }
+    if (sortAccessor) {
+      this._sortAccessorMap.set(name, sortAccessor);
+    } else {
+      this._sortAccessorMap.delete(name);
+    }
+    if (comparatorFunction) {
+      this._comparatorFunctionMap.set(name, comparatorFunction);
+    } else {
+      this._comparatorFunctionMap.delete(name);
+    }
+    this._updateAccessors();
+  }
+
+  /** @internal Helper function for simple columns to unregister their sort accessors. */
+  _removeColumnAccessors(name: string): void {
+    this._sortAccessorMap.delete(name);
+    this._displayAccessorMap.delete(name);
+    this._comparatorFunctionMap.delete(name);
+    this._updateAccessors();
+  }
+
   /** CSS class added to any row or cell that has sticky positioning applied. */
   protected stickyCssClass = 'dt-table-sticky';
 }
