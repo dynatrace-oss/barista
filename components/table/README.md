@@ -382,6 +382,8 @@ to** contain a column with a details cell. A details cell can be added using
 wrapped inside a `ng-template` with the `dtExpandableRowContent` directive to
 lazy load the content when the row is expanded.
 
+<ba-ux-snippet name="table-expandable"></ba-ux-snippet>
+
 <ba-live-example name="DtExampleTableExpandableRows" fullwidth></ba-live-example>
 
 | Component/Attribute               | Type      | Description                                                                                                                               |
@@ -427,7 +429,7 @@ for the details column could look like this:
 </ng-container>
 ```
 
-<ba-ux-snippet name="table-expandable"></ba-ux-snippet>
+<ba-ux-snippet name="table-expandable-content-limitation"></ba-ux-snippet>
 
 ## States
 
