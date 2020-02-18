@@ -25,4 +25,4 @@ jobs:
       with:
         zeit-token: ${{ secrets.ZEIT_TOKEN }}
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        now-args: '--local-config now-preview.json ./dist/apps/barista'
+        now-args: '--local-config now-preview.json --confirm ./dist/apps/barista'
