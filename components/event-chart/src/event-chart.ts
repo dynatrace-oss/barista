@@ -798,15 +798,20 @@ function formatRelativeTimestamp(timestamp: number): string {
   const min = sec * 60;
   const hour = min * 60;
   const day = hour * 24;
+  const decimals = 2;
   if (timestamp >= day) {
-    return `${timestamp / day}d`;
+    return `${roundUp(timestamp / day, decimals)} d`;
   } else if (timestamp >= hour) {
-    return `${timestamp / hour}h`;
+    return `${roundUp(timestamp / hour, decimals)} h`;
   } else if (timestamp >= min) {
-    return `${timestamp / min}min`;
+    return `${roundUp(timestamp / min, decimals)} min`;
   } else if (timestamp >= sec) {
-    return `${timestamp / sec}s`;
+    return `${roundUp(timestamp / sec, decimals)} s`;
   }
   return `${timestamp}ms`;
   // tslint:enable: no-magic-numbers
+}
+
+function roundUp(num: number, decimals: number): number {
+  return Math.round(10 ** decimals * num) / 10 ** decimals;
 }
