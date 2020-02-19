@@ -1,2 +1,20 @@
 $dt-event-chart-event-height: 16px;
 $dt-event-chart-lane-height: $dt-event-chart-event-height * 3;
+$dt-event-chart-hover-spread: 16;
+
+// COLORS
+$dt-event-chart-default-color: $purple-600;
+$dt-event-chart-error-color: $red-500;
+$dt-event-chart-conversion-color: $blue-400;
+$dt-event-chart-filtered-color: $purple-200;
+
+$dt-event-chart-default-color-alt: $purple-300;
+$dt-event-chart-error-color-alt: $red-200;
+$dt-event-chart-conversion-color-alt: $blue-200;
+$dt-event-chart-filtered-color-alt: $purple-100;
+
+$dt-event-chart-path-color: $purple-100;
+$dt-event-chart-grid-color: $gray-300;
+
+$dt-event-chart-hover-color: rgba($turquoise-500, 0.25);
+$dt-event-chart-select-color: $turquoise-500;
