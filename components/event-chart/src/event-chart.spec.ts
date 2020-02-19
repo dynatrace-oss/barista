@@ -194,16 +194,59 @@ describe('DtEventChart', () => {
 
     it('should render the path correctly', () => {
       const path = getRenderedEventsPath(fixture);
-      const expectedPath = [
-        'M13 73',
-        'L146.0666666666667 24',
-        'L212.60000000000002 73',
-        'L345.6666666666667 73',
-        'L478.73333333333335 73',
-        'M678.3333333333334 73',
-        'L1011 24',
-      ].join(' ');
-      expect(path).toBe(expectedPath);
+
+      // Split the path into points and check
+      const splitPath = path
+        .replace(/ ([M,L,C,A])/gim, ' *$1')
+        .split('*')
+        .map(pathInstruction => pathInstruction.trim())
+        .map((pathInstruction: string): {
+          key: string;
+          x: number;
+          y: number;
+        } => {
+          const key = pathInstruction[0];
+          const [x, y] = pathInstruction
+            .slice(1)
+            .split(' ')
+            .map((directionInstruction: string): number =>
+              parseFloat(directionInstruction),
+            );
+          return { key, x, y };
+        });
+
+      // Expect instructions to be correct
+      expect(splitPath.map(e => e.key)).toEqual([
+        'M',
+        'L',
+        'L',
+        'L',
+        'L',
+        'M',
+        'L',
+      ]);
+
+      // Expect x and y instructions to be close to what they should be
+      expect(splitPath[0].x).toBeCloseTo(13);
+      expect(splitPath[0].y).toBeCloseTo(73);
+
+      expect(splitPath[1].x).toBeCloseTo(146.066666, 4);
+      expect(splitPath[1].y).toBeCloseTo(24);
+
+      expect(splitPath[2].x).toBeCloseTo(212.6, 4);
+      expect(splitPath[2].y).toBeCloseTo(73);
+
+      expect(splitPath[3].x).toBeCloseTo(345.6666666, 4);
+      expect(splitPath[3].y).toBeCloseTo(73);
+
+      expect(splitPath[4].x).toBeCloseTo(478.7333333, 4);
+      expect(splitPath[4].y).toBeCloseTo(73);
+
+      expect(splitPath[5].x).toBeCloseTo(678.33333333, 4);
+      expect(splitPath[5].y).toBeCloseTo(73);
+
+      expect(splitPath[6].x).toBeCloseTo(1011, 4);
+      expect(splitPath[6].y).toBeCloseTo(24);
     });
 
     it('should render the correct lanes and lables', () => {
