@@ -156,6 +156,12 @@ export class DtSort extends _DtSortMixinBase
     ) {
       this.direction = this.start;
     }
+
+    // If active is bound and being changed after initialization
+    // we need to update the sorter.
+    if (isDefined(changes.active) && !changes.active.firstChange) {
+      this.sort(this.active, this.direction);
+    }
     this._stateChanges.next();
   }
 
