@@ -166,6 +166,17 @@ describe('DtSort', () => {
       expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
     });
 
+    it('should sort the correct column when active is being changed dynamically', () => {
+      component.dataSource = DATA_SOURCE;
+      component.start = 'asc';
+      component.active = 'column_a';
+      fixture.detectChanges();
+
+      component.active = 'column_b';
+      fixture.detectChanges();
+      expect(checkCellsSorted(component.cells, true, 'column_b')).toBeTruthy();
+    });
+
     it('should keep all cells sorted if there are new rows added dynamically', () => {
       component.dataSource = DATA_SOURCE;
       component.start = 'asc';
