@@ -39,7 +39,7 @@
 }
 
 .dt-event-chart-grid-line {
-  stroke: $gray-300;
+  stroke: $dt-event-chart-grid-color;
   stroke-width: 1;
 }
 
@@ -49,7 +49,7 @@
 
 .dt-event-chart-path {
   fill: none;
-  stroke: $purple-100;
+  stroke: $dt-event-chart-path-color;
   stroke-width: 2;
 }
 
@@ -58,41 +58,34 @@
   stroke-width: 4;
   paint-order: stroke fill;
   stroke: #ffffff;
-  fill: $purple-600;
+  fill: $dt-event-chart-default-color;
   cursor: pointer;
 
   &:hover {
-    fill: $turquoise-400;
+    stroke: $dt-event-chart-hover-color;
+    stroke-width: $dt-event-chart-hover-spread;
   }
   &:focus {
     @include dt-interactive-reset();
   }
 }
 
-.dt-event-chart-event.dt-event-chart-event-selected {
-  fill: $turquoise-600;
-
-  &:hover {
-    fill: $turquoise-600;
-  }
-}
-
 .dt-event-chart-event-selectedoutline {
-  stroke: $turquoise-600;
+  stroke: $dt-event-chart-select-color;
   stroke-width: 2;
   fill: #ffffff;
 }
 
 .dt-event-chart-event-error {
-  fill: $red-500;
+  fill: $dt-event-chart-error-color;
 }
 
 .dt-event-chart-event-filtered {
-  fill: $purple-200;
+  fill: $dt-event-chart-filtered-color;
 }
 
 .dt-event-chart-event-conversion {
-  fill: $blue-400;
+  fill: $dt-event-chart-conversion-color;
 }
 
 .dt-event-chart-event-mergednumber {
@@ -120,61 +113,51 @@
   fill: url('#dt-event-chart-sausage-pattern-filtered');
 }
 
-.dt-event-chart-event-pattern-default:hover,
-.dt-event-chart-event-pattern-error:hover,
-.dt-event-chart-event-pattern-conversion:hover,
-.dt-event-chart-event-pattern-filtered:hover {
-  fill: url('#dt-event-chart-sausage-pattern-hovered');
-}
-
 // Legend bubbles
 ::ng-deep .dt-event-chart-sausage-pattern-default {
   .dt-event-chart-sausage-pattern-bg {
-    fill: $purple-600;
+    fill: $dt-event-chart-default-color;
   }
 
   .dt-event-chart-sausage-pattern-strokes {
-    stroke: $purple-400;
+    stroke: $dt-event-chart-default-color-alt;
   }
 }
 
 ::ng-deep .dt-event-chart-sausage-pattern-error {
   .dt-event-chart-sausage-pattern-bg {
-    fill: $red-100;
+    fill: $dt-event-chart-error-color-alt;
   }
 
   .dt-event-chart-sausage-pattern-strokes {
-    stroke: $red-500;
+    stroke: $dt-event-chart-error-color;
   }
 }
 
 ::ng-deep .dt-event-chart-sausage-pattern-conversion {
   .dt-event-chart-sausage-pattern-bg {
-    fill: $blue-100;
+    fill: $dt-event-chart-conversion-color-alt;
   }
 
   .dt-event-chart-sausage-pattern-strokes {
-    stroke: $blue-400;
+    stroke: $dt-event-chart-conversion-color;
   }
 }
 
 ::ng-deep .dt-event-chart-sausage-pattern-filtered {
   .dt-event-chart-sausage-pattern-bg {
-    fill: $purple-200;
+    fill: $dt-event-chart-filtered-color-alt;
   }
 
   .dt-event-chart-sausage-pattern-strokes {
-    stroke: $gray-100;
+    stroke: $dt-event-chart-filtered-color;
   }
 }
 
 ::ng-deep .dt-event-chart-sausage-pattern-hovered {
   .dt-event-chart-sausage-pattern-bg {
-    fill: $turquoise-100;
-  }
-
-  .dt-event-chart-sausage-pattern-strokes {
-    stroke: $turquoise-400;
+    stroke: $dt-event-chart-hover-color;
+    stroke-width: $dt-event-chart-hover-spread;
   }
 }
 

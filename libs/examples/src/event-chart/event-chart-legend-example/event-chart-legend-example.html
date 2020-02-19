@@ -1,5 +1,9 @@
 <dt-event-chart>
-  <dt-event-chart-event value="0" lane="xhr"></dt-event-chart-event>
+  <dt-event-chart-event
+    value="0"
+    lane="xhr"
+    color="filtered"
+  ></dt-event-chart-event>
   <dt-event-chart-event
     value="15"
     lane="xhr"
@@ -12,7 +16,11 @@
     lane="xhr"
     duration="15"
   ></dt-event-chart-event>
-  <dt-event-chart-event value="75" lane="user-event"></dt-event-chart-event>
+  <dt-event-chart-event
+    value="75"
+    lane="user-event"
+    color="filtered"
+  ></dt-event-chart-event>
 
   <dt-event-chart-lane name="xhr" label="XHR" pattern></dt-event-chart-lane>
   <dt-event-chart-lane
@@ -23,8 +31,14 @@
   <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']">
     Legend label for default events
   </dt-event-chart-legend-item>
+  <dt-event-chart-legend-item [lanes]="['xhr', 'user-event']" color="filtered">
+    Legend label for filtered events
+  </dt-event-chart-legend-item>
   <dt-event-chart-legend-item [lanes]="['xhr']" pattern>
     Legend label for patterned events
+  </dt-event-chart-legend-item>
+  <dt-event-chart-legend-item [lanes]="['xhr']" color="filtered" pattern>
+    Legend label for filtered patterned events
   </dt-event-chart-legend-item>
   <dt-event-chart-legend-item [lanes]="['xhr']" color="error" pattern>
     Legend label for error events

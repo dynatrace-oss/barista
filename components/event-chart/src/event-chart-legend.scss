@@ -16,19 +16,25 @@
 .dt-event-chart-legend-symbol
   ::ng-deep
   .dt-event-chart-legend-symbol-background {
-  fill: $purple-600;
+  fill: $dt-event-chart-default-color;
 }
 
 .dt-event-chart-legend-symbol-conversion
   ::ng-deep
   .dt-event-chart-legend-symbol-background {
-  fill: $blue-400;
+  fill: $dt-event-chart-conversion-color;
 }
 
 .dt-event-chart-legend-symbol-error
   ::ng-deep
   .dt-event-chart-legend-symbol-background {
-  fill: $red-500;
+  fill: $dt-event-chart-error-color;
+}
+
+.dt-event-chart-legend-symbol-filtered
+  ::ng-deep
+  .dt-event-chart-legend-symbol-background {
+  fill: $dt-event-chart-filtered-color;
 }
 
 .dt-event-chart-legend-symbol-default
@@ -41,4 +47,10 @@
   ::ng-deep
   .dt-event-chart-legend-symbol-pattern {
   fill: url('#dt-event-chart-sausage-pattern-error');
+}
+
+.dt-event-chart-legend-symbol-filtered
+  ::ng-deep
+  .dt-event-chart-legend-symbol-pattern {
+  fill: url('#dt-event-chart-sausage-pattern-filtered');
 }
