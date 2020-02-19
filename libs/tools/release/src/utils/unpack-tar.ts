@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { executeCommand } from '@dynatrace/barista-components/tools/shared';
+import { executeCommand } from '@dynatrace/tools/shared';
 
 /**
  * Unpacks a tar file

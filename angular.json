@@ -819,23 +819,23 @@
       }
     },
     "tools-pull-request-labeler": {
-      "root": "libs/tools/pull-request-labeler",
-      "sourceRoot": "libs/tools/pull-request-labeler/src",
+      "root": "tools/pull-request-labeler",
+      "sourceRoot": "tools/pull-request-labeler/src",
       "projectType": "library",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/tools/pull-request-labeler/tsconfig.json"],
+            "tsConfig": ["tools/pull-request-labeler/tsconfig.json"],
             "exclude": ["**/node_modules/**", "!tools/pull-request-labeler/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/tools/pull-request-labeler/jest.config.js",
-            "tsConfig": "libs/tools/pull-request-labeler/tsconfig.spec.json",
-            "setupFile": "libs/tools/pull-request-labeler/src/test-setup.ts"
+            "jestConfig": "tools/pull-request-labeler/jest.config.js",
+            "tsConfig": "tools/pull-request-labeler/tsconfig.spec.json",
+            "setupFile": "tools/pull-request-labeler/src/test-setup.ts"
           }
         }
       }
@@ -912,7 +912,7 @@
           "builder": "@dynatrace/barista-builders:typescript",
           "options": {
             "tsConfig": "libs/tools/linting/tsconfig.json",
-            "outDir": "dist/libs/barista-components/tslint"
+            "outDir": "dist/libs/components/tslint"
           },
           "configurations": {
             "production": {}
@@ -930,8 +930,8 @@
     },
     "components": {
       "projectType": "library",
-      "root": "components",
-      "sourceRoot": "components",
+      "root": "libs/barista-components",
+      "sourceRoot": "libs/barista-components",
       "architect": {
         "packagr": {
           "builder": "@angular-devkit/build-ng-packagr:build",
@@ -950,15 +950,15 @@
             "styles": [
               {
                 "glob": "style/*.scss",
-                "input": "components",
-                "output": "dist/components"
+                "input": "libs/barista-components",
+                "output": "dist/libs/components"
               }
             ],
             "assets": [
               {
                 "glob": "**/*",
                 "input": "libs/barista-components/assets",
-                "output": "dist/components"
+                "output": "dist/libs/components"
               }
             ],
             "additionalTargets": ["schematics:build", "linting:build"]
@@ -982,7 +982,7 @@
               "libs/barista-components/alert/tsconfig.lib.json",
               "libs/barista-components/alert/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/alert/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/alert/**"]
           }
         },
         "lint-styles": {
@@ -1018,7 +1018,10 @@
               "libs/barista-components/autocomplete/tsconfig.lib.json",
               "libs/barista-components/autocomplete/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/autocomplete/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/autocomplete/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1054,7 +1057,10 @@
               "libs/barista-components/bar-indicator/tsconfig.lib.json",
               "libs/barista-components/bar-indicator/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/bar-indicator/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/bar-indicator/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1090,7 +1096,10 @@
               "libs/barista-components/breadcrumbs/tsconfig.lib.json",
               "libs/barista-components/breadcrumbs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/breadcrumbs/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/breadcrumbs/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1126,7 +1135,7 @@
               "libs/barista-components/button/tsconfig.lib.json",
               "libs/barista-components/button/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/button/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/button/**"]
           }
         },
         "lint-styles": {
@@ -1162,7 +1171,10 @@
               "libs/barista-components/button-group/tsconfig.lib.json",
               "libs/barista-components/button-group/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/button-group/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/button-group/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1198,7 +1210,7 @@
               "libs/barista-components/card/tsconfig.lib.json",
               "libs/barista-components/card/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/card/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/card/**"]
           }
         },
         "lint-styles": {
@@ -1234,7 +1246,7 @@
               "libs/barista-components/chart/tsconfig.lib.json",
               "libs/barista-components/chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/chart/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/chart/**"]
           }
         },
         "lint-styles": {
@@ -1270,7 +1282,7 @@
               "libs/barista-components/checkbox/tsconfig.lib.json",
               "libs/barista-components/checkbox/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/checkbox/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/checkbox/**"]
           }
         },
         "lint-styles": {
@@ -1308,7 +1320,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/confirmation-dialog/**"
+              "!barista-components/confirmation-dialog/**"
             ]
           }
         },
@@ -1345,7 +1357,10 @@
               "libs/barista-components/consumption/tsconfig.lib.json",
               "libs/barista-components/consumption/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/consumption/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/consumption/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1383,7 +1398,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/container-breakpoint-observer/**"
+              "!barista-components/container-breakpoint-observer/**"
             ]
           }
         },
@@ -1422,7 +1437,10 @@
               "libs/barista-components/context-dialog/tsconfig.lib.json",
               "libs/barista-components/context-dialog/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/context-dialog/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/context-dialog/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1460,7 +1478,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/copy-to-clipboard/**"
+              "!barista-components/copy-to-clipboard/**"
             ]
           }
         },
@@ -1497,7 +1515,7 @@
               "libs/barista-components/core/tsconfig.lib.json",
               "libs/barista-components/core/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/core/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/core/**"]
           }
         },
         "lint-styles": {
@@ -1533,7 +1551,7 @@
               "libs/barista-components/cta-card/tsconfig.lib.json",
               "libs/barista-components/cta-card/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/cta-card/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/cta-card/**"]
           }
         },
         "lint-styles": {
@@ -1569,7 +1587,7 @@
               "libs/barista-components/drawer/tsconfig.lib.json",
               "libs/barista-components/drawer/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/drawer/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/drawer/**"]
           }
         },
         "lint-styles": {
@@ -1605,7 +1623,10 @@
               "libs/barista-components/empty-state/tsconfig.lib.json",
               "libs/barista-components/empty-state/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/empty-state/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/empty-state/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1641,7 +1662,10 @@
               "libs/barista-components/event-chart/tsconfig.lib.json",
               "libs/barista-components/event-chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/event-chart/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/event-chart/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1677,7 +1701,10 @@
               "libs/barista-components/expandable-panel/tsconfig.lib.json",
               "libs/barista-components/expandable-panel/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/expandable-panel/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/expandable-panel/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1715,7 +1742,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/expandable-section/**"
+              "!barista-components/expandable-section/**"
             ]
           }
         },
@@ -1752,7 +1779,10 @@
               "libs/barista-components/expandable-text/tsconfig.lib.json",
               "libs/barista-components/expandable-text/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/expandable-text/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/expandable-text/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1788,7 +1818,10 @@
               "libs/barista-components/filter-field/tsconfig.lib.json",
               "libs/barista-components/filter-field/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/filter-field/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/filter-field/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1824,7 +1857,10 @@
               "libs/barista-components/form-field/tsconfig.lib.json",
               "libs/barista-components/form-field/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/form-field/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/form-field/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1852,7 +1888,10 @@
               "libs/barista-components/formatters/tsconfig.lib.json",
               "libs/barista-components/formatters/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/formatters/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/formatters/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1888,7 +1927,10 @@
               "libs/barista-components/highlight/tsconfig.lib.json",
               "libs/barista-components/highlight/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/highlight/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/highlight/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1924,7 +1966,7 @@
               "libs/barista-components/icon/tsconfig.lib.json",
               "libs/barista-components/icon/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/icon/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/icon/**"]
           }
         },
         "lint-styles": {
@@ -1960,7 +2002,10 @@
               "libs/barista-components/info-group/tsconfig.lib.json",
               "libs/barista-components/info-group/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/info-group/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/info-group/**"
+            ]
           }
         },
         "lint-styles": {
@@ -1996,7 +2041,10 @@
               "libs/barista-components/inline-editor/tsconfig.lib.json",
               "libs/barista-components/inline-editor/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/inline-editor/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/inline-editor/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2032,7 +2080,7 @@
               "libs/barista-components/input/tsconfig.lib.json",
               "libs/barista-components/input/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/input/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/input/**"]
           }
         },
         "lint-styles": {
@@ -2068,7 +2116,10 @@
               "libs/barista-components/key-value-list/tsconfig.lib.json",
               "libs/barista-components/key-value-list/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/key-value-list/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/key-value-list/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2104,7 +2155,7 @@
               "libs/barista-components/legend/tsconfig.lib.json",
               "libs/barista-components/legend/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/legend/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/legend/**"]
           }
         },
         "lint-styles": {
@@ -2142,7 +2193,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/loading-distractor/**"
+              "!barista-components/loading-distractor/**"
             ]
           }
         },
@@ -2179,7 +2230,7 @@
               "libs/barista-components/menu/tsconfig.lib.json",
               "libs/barista-components/menu/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/menu/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/menu/**"]
           }
         },
         "lint-styles": {
@@ -2215,7 +2266,10 @@
               "libs/barista-components/micro-chart/tsconfig.lib.json",
               "libs/barista-components/micro-chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/micro-chart/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/micro-chart/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2251,7 +2305,7 @@
               "libs/barista-components/overlay/tsconfig.lib.json",
               "libs/barista-components/overlay/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/overlay/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/overlay/**"]
           }
         },
         "lint-styles": {
@@ -2287,7 +2341,10 @@
               "libs/barista-components/pagination/tsconfig.lib.json",
               "libs/barista-components/pagination/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/pagination/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/pagination/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2323,7 +2380,10 @@
               "libs/barista-components/progress-bar/tsconfig.lib.json",
               "libs/barista-components/progress-bar/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/progress-bar/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/progress-bar/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2359,7 +2419,10 @@
               "libs/barista-components/progress-circle/tsconfig.lib.json",
               "libs/barista-components/progress-circle/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/progress-circle/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/progress-circle/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2395,7 +2458,7 @@
               "libs/barista-components/radio/tsconfig.lib.json",
               "libs/barista-components/radio/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/radio/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/radio/**"]
           }
         },
         "lint-styles": {
@@ -2427,7 +2490,7 @@
           "builder": "@dynatrace/barista-builders:typescript",
           "options": {
             "tsConfig": "libs/barista-components/schematics/tsconfig.lib.json",
-            "outDir": "dist/libs/barista-components/schematics"
+            "outDir": "dist/libs/components/schematics"
           }
         },
         "lint": {
@@ -2437,7 +2500,10 @@
               "libs/barista-components/schematics/tsconfig.lib.json",
               "libs/barista-components/schematics/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/schematics/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/schematics/**"
+            ]
           }
         },
         "test": {
@@ -2462,7 +2528,10 @@
               "libs/barista-components/secondary-nav/tsconfig.lib.json",
               "libs/barista-components/secondary-nav/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/secondary-nav/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/secondary-nav/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2498,7 +2567,7 @@
               "libs/barista-components/select/tsconfig.lib.json",
               "libs/barista-components/select/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/select/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/select/**"]
           }
         },
         "lint-styles": {
@@ -2534,7 +2603,10 @@
               "libs/barista-components/show-more/tsconfig.lib.json",
               "libs/barista-components/show-more/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/show-more/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/show-more/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2570,7 +2642,7 @@
               "libs/barista-components/stepper/tsconfig.lib.json",
               "libs/barista-components/stepper/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/stepper/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/stepper/**"]
           }
         },
         "lint-styles": {
@@ -2606,7 +2678,7 @@
               "libs/barista-components/switch/tsconfig.lib.json",
               "libs/barista-components/switch/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/switch/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/switch/**"]
           }
         },
         "lint-styles": {
@@ -2642,7 +2714,7 @@
               "libs/barista-components/table/tsconfig.lib.json",
               "libs/barista-components/table/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/table/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/table/**"]
           }
         },
         "lint-styles": {
@@ -2678,7 +2750,7 @@
               "libs/barista-components/tabs/tsconfig.lib.json",
               "libs/barista-components/tabs/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/tabs/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/tabs/**"]
           }
         },
         "lint-styles": {
@@ -2714,7 +2786,7 @@
               "libs/barista-components/tag/tsconfig.lib.json",
               "libs/barista-components/tag/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/tag/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/tag/**"]
           }
         },
         "lint-styles": {
@@ -2750,7 +2822,7 @@
               "libs/barista-components/theming/tsconfig.lib.json",
               "libs/barista-components/theming/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/theming/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/theming/**"]
           }
         },
         "lint-styles": {
@@ -2786,7 +2858,7 @@
               "libs/barista-components/tile/tsconfig.lib.json",
               "libs/barista-components/tile/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/tile/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/tile/**"]
           }
         },
         "lint-styles": {
@@ -2822,7 +2894,10 @@
               "libs/barista-components/timeline-chart/tsconfig.lib.json",
               "libs/barista-components/timeline-chart/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/timeline-chart/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/timeline-chart/**"
+            ]
           }
         },
         "lint-styles": {
@@ -2858,7 +2933,7 @@
               "libs/barista-components/toast/tsconfig.lib.json",
               "libs/barista-components/toast/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/toast/**"]
+            "exclude": ["**/node_modules/**", "!barista-components/toast/**"]
           }
         },
         "lint-styles": {
@@ -2896,7 +2971,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/toggle-button-group/**"
+              "!barista-components/toggle-button-group/**"
             ]
           }
         },
@@ -2935,7 +3010,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!components/top-bar-navigation/**"
+              "!barista-components/top-bar-navigation/**"
             ]
           }
         },
@@ -2972,7 +3047,10 @@
               "libs/barista-components/tree-table/tsconfig.lib.json",
               "libs/barista-components/tree-table/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!components/tree-table/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!barista-components/tree-table/**"
+            ]
           }
         },
         "lint-styles": {

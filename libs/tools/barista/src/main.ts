@@ -19,7 +19,7 @@ import { promises as fs, mkdirSync, existsSync } from 'fs';
 
 import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from './types';
 import { environment } from '@environments/barista-environment';
-import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
+import { isPublicBuild } from '@dynatrace/tools/shared';
 
 import { componentsBuilder } from './builder/components';
 import { strapiBuilder } from './builder/strapi';

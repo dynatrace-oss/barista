@@ -27,7 +27,7 @@ import {
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
-import { EXAMPLES_MAP } from '@dynatrace/barista-components/examples';
+import { EXAMPLES_MAP } from '@dynatrace/examples';
 import { timer, Subscription } from 'rxjs';
 import {
   Highlighter,

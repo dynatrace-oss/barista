@@ -20,7 +20,7 @@ import {
   BaSinglePageContent,
   BaIconOverviewPageContent,
   BaPageLink,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 
 const LOCALSTORAGEKEY = 'recentlyordered';
 const NUMBER_OF_RECENT_ITEMS = 7;

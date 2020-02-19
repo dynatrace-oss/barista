@@ -16,7 +16,7 @@
 
 import { promises as fs, mkdirSync } from 'fs';
 import { join } from 'path';
-import { BaAllExamplesMetadata } from '@dynatrace/barista-components/barista-definitions';
+import { BaAllExamplesMetadata } from '@dynatrace/barista-definitions';
 import { environment } from '@environments/barista-environment';
 import { ExamplePackageMetadata } from './metadata';
 

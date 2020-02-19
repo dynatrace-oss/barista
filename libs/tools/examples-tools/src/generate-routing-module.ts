@@ -31,7 +31,7 @@ export async function generateDemosAppRoutingModule(
     source => {
       const imports = `import {\n  ${examplesMetadata
         .map(meta => meta.className)
-        .join(',\n  ')}\n} from '@dynatrace/barista-components/examples';`;
+        .join(',\n  ')}\n} from '@dynatrace/examples';`;
       source = source.replace('${imports}', imports);
 
       const routes = examplesMetadata

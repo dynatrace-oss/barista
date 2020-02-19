@@ -25,7 +25,7 @@ import { BaPageService } from './shared/page.service';
 import {
   BaPageLayoutType,
   BaSinglePageContent,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 
 const PAGE_THEME_MAP = new Map<string, string>([
   ['brand', 'purple'],

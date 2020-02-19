@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { executeCommand } from '@dynatrace/barista-components/tools/shared';
+import { executeCommand } from '@dynatrace/tools/shared';
 import axios from 'axios';
 import { green } from 'chalk';
 import { promises as fs } from 'fs';

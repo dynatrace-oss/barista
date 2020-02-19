@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BaPageLayoutType } from '@dynatrace/barista-components/barista-definitions';
+import { BaPageLayoutType } from '@dynatrace/barista-definitions';
 import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,

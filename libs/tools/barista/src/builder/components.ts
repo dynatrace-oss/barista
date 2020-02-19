@@ -22,7 +22,7 @@ import Axios from 'axios';
 import {
   BaSinglePageMeta,
   BaPageLayoutType,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 import { environment } from '@environments/barista-environment';
 
 import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from '../types';
@@ -40,7 +40,7 @@ import {
 import { slugify } from '../utils/slugify';
 
 const PROJECT_ROOT = environment.rootDir;
-const LIB_ROOT = join(PROJECT_ROOT, 'libs', 'components');
+const LIB_ROOT = join(PROJECT_ROOT, 'libs', 'barista-components');
 const DOCUMENTATION_ROOT = join(PROJECT_ROOT, 'documentation');
 
 const TRANSFORMERS: BaPageTransformer[] = [

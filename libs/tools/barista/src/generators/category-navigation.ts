@@ -30,7 +30,7 @@ import {
   BaNav,
   BaNavItem,
   BaPageLayoutType,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 import { environment } from '@environments/barista-environment';
 
 // for now we manually select highlighted items, later this data can maybe be fetched from google analytics

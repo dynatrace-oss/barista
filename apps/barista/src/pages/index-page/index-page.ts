@@ -15,10 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import {
-  BaIndexPageContent,
-  BaPageLink,
-} from '@dynatrace/barista-components/barista-definitions';
+import { BaIndexPageContent, BaPageLink } from '@dynatrace/barista-definitions';
 import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
 import { BaPage } from '../page-outlet';
 import { environment } from './../../environments/environment';

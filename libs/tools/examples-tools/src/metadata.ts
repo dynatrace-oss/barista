@@ -24,7 +24,7 @@ import {
 import {
   AngularClassDecoratorName,
   getAngularDecoratedClasses,
-} from '@dynatrace/barista-components/tools/shared';
+} from '@dynatrace/tools/shared';
 
 export interface ExamplePackageMetadata {
   name: string;

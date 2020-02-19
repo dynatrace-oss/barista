@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { BaErrorPageContent } from '@dynatrace/barista-components/barista-definitions';
+import { BaErrorPageContent } from '@dynatrace/barista-definitions';
 import { BaPage } from '../page-outlet';
 
 @Component({

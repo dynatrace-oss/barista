@@ -22,7 +22,7 @@ import {
   BaPageTeaser,
   BaPageLink,
   BaContributor,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 
 /** Page builder types */
 export type BaPageTransformer = (

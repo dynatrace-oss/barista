@@ -15,7 +15,7 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { BaContributor } from '@dynatrace/barista-components/barista-definitions';
+import { BaContributor } from '@dynatrace/barista-definitions';
 
 @Component({
   selector: 'ba-contributors',

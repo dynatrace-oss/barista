@@ -16,7 +16,7 @@
 
 import { sync } from 'glob';
 import { basename, join, resolve } from 'path';
-import { tsCreateSourceFile } from '@dynatrace/barista-components/tools/shared';
+import { tsCreateSourceFile } from '@dynatrace/tools/shared';
 import {
   createPrinter,
   isImportDeclaration,

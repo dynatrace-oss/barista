@@ -16,7 +16,7 @@
 
 import { Component, Input } from '@angular/core';
 
-import { BaContributors } from '@dynatrace/barista-components/barista-definitions';
+import { BaContributors } from '@dynatrace/barista-definitions';
 
 @Component({
   selector: 'ba-page-header',

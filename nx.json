@@ -1,5 +1,5 @@
 {
-  "npmScope": "dynatrace/barista-components",
+  "npmScope": "dynatrace",
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",

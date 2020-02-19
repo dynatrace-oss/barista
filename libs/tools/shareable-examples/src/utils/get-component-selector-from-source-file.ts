@@ -23,7 +23,7 @@ import {
 import {
   AngularClassDecoratorName,
   getAngularDecoratedClasses,
-} from '@dynatrace/barista-components/tools/shared';
+} from '@dynatrace/tools/shared';
 
 /** Get the selector from the component file. */
 export async function getComponentSelectorFromSourceFile(

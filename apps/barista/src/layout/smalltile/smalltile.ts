@@ -17,7 +17,7 @@
 import { Component, Input } from '@angular/core';
 
 import { DEFAULT_PAGE_THEME } from '../../app';
-import { BaPageLink } from '@dynatrace/barista-components/barista-definitions';
+import { BaPageLink } from '@dynatrace/barista-definitions';
 
 @Component({
   selector: 'ba-smalltile',

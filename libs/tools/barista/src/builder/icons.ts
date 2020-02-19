@@ -22,8 +22,8 @@ import {
   BaSinglePageContent,
   BaPageLayoutType,
   BaIcon,
-} from '@dynatrace/barista-components/barista-definitions';
-import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
+} from '@dynatrace/barista-definitions';
+import { isPublicBuild } from '@dynatrace/tools/shared';
 import { environment } from '@environments/barista-environment';
 
 import {

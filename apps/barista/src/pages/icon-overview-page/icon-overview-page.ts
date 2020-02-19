@@ -26,7 +26,7 @@ import {
 import {
   BaIconOverviewPageContent,
   BaIcon,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 
 import { BaPage } from '../page-outlet';
 import { fromEvent, Subscription } from 'rxjs';

@@ -18,7 +18,7 @@ import { AfterViewInit, Component, Input } from '@angular/core';
 import {
   BaSinglePageContent,
   BaPageLayoutType,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
 import { BaPage } from '../page-outlet';
 import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';

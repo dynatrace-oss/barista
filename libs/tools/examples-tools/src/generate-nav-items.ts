@@ -51,7 +51,7 @@ export async function generateDemosAppNavItems(
 
       const imports = `import {\n  ${exampleClassNames.join(
         ',\n  ',
-      )}\n} from '@dynatrace/barista-components/examples';`;
+      )}\n} from '@dynatrace/examples';`;
       source = source.replace('${imports}', imports);
 
       return source;

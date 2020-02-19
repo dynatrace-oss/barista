@@ -25,7 +25,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
-import { BaPageMetaBase } from '@dynatrace/barista-components/barista-definitions';
+import { BaPageMetaBase } from '@dynatrace/barista-definitions';
 import { BaIndexPage } from './index-page/index-page';
 import { BaOverviewPage } from './overview-page/overview-page';
 import { BaSinglePage } from './single-page/single-page';

@@ -16,7 +16,7 @@
 
 import { promises as fs } from 'fs';
 import { extname, join, resolve } from 'path';
-import { tsCreateSourceFile } from '@dynatrace/barista-components/tools/shared';
+import { tsCreateSourceFile } from '@dynatrace/tools/shared';
 import { ExampleAstFile } from './examples.interface';
 
 /** Gets the component class file from a example root path. */

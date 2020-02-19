@@ -26,7 +26,7 @@ import {
   BaSinglePageContent,
   BaPageLayoutType,
   BaErrorPageContent,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 
 const CONTENT_PATH_PREFIX = 'data/';
 

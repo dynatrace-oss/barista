@@ -4,12 +4,10 @@
 /apps/demos/src/app-routing.module.template
 /apps/demos/src/nav-items.template
 
-/libs/tools/schematics/*/files/**/*
+/tools/schematics/*/files/**/*
 
 /test/**/*
-/libs/tools/gulp/**/*
-/libs/tools/stylelint/**/*
-/libs/tools/templates/**/*
+/tools/stylelint/**/*
 
 /.idea/**/*
 /.vscode/**/*
@@ -17,3 +15,4 @@
 /dist/**/*
 /node_modules/**/*
 /coverage/**/*
+/tmp/**/*‚‚

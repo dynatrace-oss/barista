@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
+import { isPublicBuild } from '@dynatrace/tools/shared';
 import { environment } from '@environments/barista-environment';
 import {
   fetchContentList,
@@ -31,7 +31,7 @@ import {
 import {
   BaIndexPageContent,
   BaPageLayoutType,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 
 const TILES_MOSTORDERED = [
   {

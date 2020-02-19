@@ -8,6 +8,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - uses: ./libs/tools/pull-request-labeler
+      - uses: ./tools/pull-request-labeler
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"

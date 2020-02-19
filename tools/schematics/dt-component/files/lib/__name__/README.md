@@ -41,6 +41,7 @@ class MyModule {}
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 
+
 ## Outputs
 
 | Name | Type | Description |

@@ -20,10 +20,8 @@
     "target": "es5",
     "typeRoots": ["node_modules/@types"],
     "paths": {
-      "@dynatrace/barista-components/tools/shared": [
-        "libs/tools/shared/src/index.ts"
-      ],
-      "@dynatrace/barista-components/barista-definitions": [
+      "@dynatrace/tools/shared": ["libs/tools/shared/src/index.ts"],
+      "@dynatrace/barista-definitions": [
         "libs/shared/barista-definitions/src/index.ts"
       ],
       "@dynatrace/barista-components/alert": [
@@ -194,19 +192,11 @@
       "@dynatrace/barista-components/tree-table": [
         "libs/barista-components/tree-table/index.ts"
       ],
-      "@dynatrace/barista-components/examples": ["libs/examples/src/index.ts"],
-      "@dynatrace/barista-components/testing/node": [
-        "libs/testing/node/src/index.ts"
-      ],
-      "@dynatrace/barista-components/testing/browser": [
-        "libs/testing/browser/src/index.ts"
-      ],
-      "@dynatrace/barista-components/testing/fixtures": [
-        "libs/testing/fixtures/src/index.ts"
-      ],
-      "@dynatrace/barista-components/tools/environments": [
-        "libs/tools/environments/src/index.ts"
-      ],
+      "@dynatrace/examples": ["libs/examples/src/index.ts"],
+      "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
+      "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
+      "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
+      "@dynatrace/tools/environments": ["libs/tools/environments/src/index.ts"],
       "@environments/*": ["environments/*.ts"]
     },
     "plugins": [

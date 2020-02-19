@@ -24,7 +24,7 @@ import {
 } from '@angular/core';
 import { Subscription, fromEvent } from 'rxjs';
 
-import { BaCategoryNavigationContent } from '@dynatrace/barista-components/barista-definitions';
+import { BaCategoryNavigationContent } from '@dynatrace/barista-definitions';
 import { BaPage } from '../../pages/page-outlet';
 import { BaTile } from '../../layout/tile/tile';
 import { _readKeyCode } from '@dynatrace/barista-components/core';

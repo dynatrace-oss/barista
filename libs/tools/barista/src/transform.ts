@@ -17,11 +17,11 @@
 import {
   BaAllExamplesMetadata,
   BaSinglePageContent,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 import * as markdownIt from 'markdown-it';
 import * as markdownItDeflist from 'markdown-it-deflist';
 import { environment } from '@environments/barista-environment';
-import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
+import { isPublicBuild } from '@dynatrace/tools/shared';
 import { baElementBlockIgnore } from './markdown-custom-elements-ignore';
 import { fetchContentList } from './utils/fetch-strapi-content';
 import { runWithCheerio } from './utils/run-with-cheerio';

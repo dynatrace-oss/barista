@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PackageJson } from '@dynatrace/barista-components/tools/shared';
+import { PackageJson } from '@dynatrace/tools/shared';
 import * as OctokitApi from '@octokit/rest';
 import * as childProcess from 'child_process';
 import { vol } from 'memfs';

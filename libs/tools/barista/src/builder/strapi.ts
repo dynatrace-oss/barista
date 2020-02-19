@@ -19,9 +19,9 @@ import { join } from 'path';
 import {
   BaSinglePageMeta,
   BaPageLayoutType,
-} from '@dynatrace/barista-components/barista-definitions';
+} from '@dynatrace/barista-definitions';
 import { environment } from '@environments/barista-environment';
-import { isPublicBuild } from '@dynatrace/barista-components/tools/shared';
+import { isPublicBuild } from '@dynatrace/tools/shared';
 
 import {
   BaPageBuilder,

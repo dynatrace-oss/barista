@@ -1,9 +1,9 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../dist/out-tsc",
+    "outDir": "../../dist/out-tsc",
     "baseUrl": ".",
-    "rootDirs": [".", "../dist/components"],
+    "rootDirs": [".", "../../dist/libs/components"],
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
