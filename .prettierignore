@@ -4,12 +4,12 @@
 /apps/demos/src/app-routing.module.template
 /apps/demos/src/nav-items.template
 
-/tools/schematics/*/files/**/*
+/libs/tools/schematics/*/files/**/*
 
 /test/**/*
-/tools/gulp/**/*
-/tools/stylelint/**/*
-/tools/templates/**/*
+/libs/tools/gulp/**/*
+/libs/tools/stylelint/**/*
+/libs/tools/templates/**/*
 
 /.idea/**/*
 /.vscode/**/*

@@ -1,7 +1,7 @@
 {
   "extends": ["tslint-plugin-prettier", "tslint-config-prettier"],
   "rulesDirectory": [
-    "./tools/tslint-rules/src/",
+    "./libs/tools/tslint-rules/src/",
     "node_modules/vrsource-tslint-rules/rules",
     "node_modules/codelyzer",
     "node_modules/@nrwl/workspace/src/tslint"

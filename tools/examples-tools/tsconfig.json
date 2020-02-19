@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "types": ["node"],
-    "downlevelIteration": true,
-    "target": "es6"
-  }
-}

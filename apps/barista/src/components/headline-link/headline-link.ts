@@ -15,8 +15,7 @@
  */
 
 import { Component, Input } from '@angular/core';
-import { DtToastRef } from 'components/toast/src/toast-ref';
-import { DtToast } from 'components/toast/src/toast';
+import { DtToastRef, DtToast } from '@dynatrace/barista-components/toast';
 import { BaCopyToClipboardService } from '../../shared/copy-to-clipboard.service';
 
 @Component({
