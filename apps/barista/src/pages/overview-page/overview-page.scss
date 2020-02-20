@@ -19,9 +19,6 @@ ul {
   padding: 0;
 }
 
-$breakpoint: 1024px;
-$no-columns: 15px;
-
 .ba-tilegrid {
   display: block;
   width: 100%;
@@ -36,6 +33,10 @@ $no-columns: 15px;
   .ba-tile-identifier {
     font-size: 48px;
   }
+}
+
+.ba-overview-page-description {
+  margin-bottom: 0;
 }
 
 @media (min-width: $screen-md) {
