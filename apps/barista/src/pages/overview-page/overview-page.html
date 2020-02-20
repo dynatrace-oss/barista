@@ -34,7 +34,7 @@
 
 <div *ngFor="let section of contents.sections" class="ba-page-section">
   <div class="ba-page-content">
-    <h2>{{ section.title }}</h2>
+    <h2 *ngIf="section.title">{{ section.title }}</h2>
     <nav>
       <ul
         class="ba-tilegrid"

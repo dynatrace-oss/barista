@@ -49,7 +49,28 @@ const highlightedItems = [
   'Theming',
 ];
 
-const navigationOrder = ['Brand', 'Resources', 'Components', 'Patterns'];
+const navigationOrder = [
+  'Brand',
+  'Resources',
+  'Guidelines',
+  'Components',
+  'Patterns',
+];
+
+const overviewDescriptions = new Map<string, string>([
+  [
+    'components',
+    'Read all about development with/of our Angular components in how to get started. If you run into any troubles or want to contribute, please visit our GitHub page.',
+  ],
+  [
+    'patterns',
+    'Patterns are specific procedures, flows and behaviors in our platform. They help to establish a consistent handling of functions and assure expected behavior for users throughout the product.',
+  ],
+  [
+    'guidelines',
+    'Guidelines are streamlining processes, setting routines and provide guidance on how to tackle projects. You can find basic information, general rules, principles and methods here on how we want to work at Dynatrace.',
+  ],
+]);
 
 /** add the sidenav to each page */
 function addSidenavToPages(
@@ -221,8 +242,6 @@ export const overviewBuilder = async () => {
         title: 'Components',
         id: 'components',
         layout: BaPageLayoutType.Overview,
-        description:
-          'Read all about development with/of our Angular components in how to get started. If you run into any troubles or want to contribute, please visit our GitHub page.',
         sections: [
           {
             title: 'Documentation',
@@ -265,6 +284,8 @@ export const overviewBuilder = async () => {
         }
       }
     }
+
+    overviewPage.description = overviewDescriptions.get(overviewPage.id);
 
     overviewPage = orderSectionItems(overviewPage!);
 
