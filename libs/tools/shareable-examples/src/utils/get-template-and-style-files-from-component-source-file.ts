@@ -21,6 +21,7 @@ import {
   PropertyAssignment,
   isArrayLiteralExpression,
   isStringLiteral,
+  isIdentifier,
 } from 'typescript';
 import {
   getAngularDecoratedClasses,
@@ -60,12 +61,12 @@ async function getTemplatePathFromSourceFile(
       // Filter everything that is not the selector assignment
       .filter(
         (property: PropertyAssignment) =>
-          property.name.getText() === 'templateUrl',
+          isIdentifier(property.name) && property.name.text === 'templateUrl',
       )
       // Map to the initializer value
-      .map((property: PropertyAssignment) => property.initializer.getText()) // take the first element found
-      [0] // replace the quotes
-      .replace(/'/g, '')
+      .map((property: PropertyAssignment) =>
+        isStringLiteral(property.initializer) ? property.initializer.text : '',
+      )[0] // take the first element found
   );
 }
 
@@ -80,7 +81,7 @@ async function getStyleUrlsFromSourceFile(
     // Filter everything that is not the selector assignment
     .filter(
       (property: PropertyAssignment) =>
-        isStringLiteral(property.name) && property.name.text === 'styleUrls',
+        isIdentifier(property.name) && property.name.text === 'styleUrls',
     )
     // Map to the initializer value
     .map((property: PropertyAssignment) => {
@@ -97,7 +98,6 @@ async function getStyleUrlsFromSourceFile(
     .reduce<string[]>((aggregator, styleUrls) => {
       return [...aggregator!, ...styleUrls!];
     }, []);
-
   return stylesFilePaths || [];
 }
 
