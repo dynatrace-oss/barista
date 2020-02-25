@@ -2,6 +2,14 @@
 
 $dt-backdrop-opacity: 0.4;
 
+/**
+ * z-index Hierarchy:
+ *
+ * .dt-drawer-content:       1
+ * .dt-drawer-backdrop:      2
+ * dt-drawer:                3
+ */
+
 :host {
   position: relative;
   display: flex;
@@ -17,7 +25,7 @@ $dt-backdrop-opacity: 0.4;
   opacity: 0;
   // Translate3d is faster than translateX because it uses hardware acceleration
   transform: translate3d(-100%, 0, 0);
-  z-index: 3;
+  z-index: 2;
 
   :host.dt-drawer-is-open > & {
     opacity: $dt-backdrop-opacity;
@@ -27,6 +35,8 @@ $dt-backdrop-opacity: 0.4;
 }
 
 .dt-drawer-content {
+  position: relative;
+  z-index: 1;
   flex-grow: 1;
   flex-shrink: 1;
   display: block;

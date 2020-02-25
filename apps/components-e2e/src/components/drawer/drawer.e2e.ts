@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Selector, ClientFunction } from 'testcafe';
-
+import { ClientFunction, Selector } from 'testcafe';
+import {
+  isCloseTo,
+  resetWindowSizeToDefault,
+  waitForAngular,
+} from '../../utils';
 import {
   closeButton,
   createRange,
@@ -22,11 +26,6 @@ import {
   rangeSelection,
   selection,
 } from '../chart/selection-area/selection-area.po';
-import {
-  isCloseTo,
-  waitForAngular,
-  resetWindowSizeToDefault,
-} from '../../utils';
 
 const openCount = Selector('#open-count');
 const closeCount = Selector('#close-count');
@@ -39,6 +38,8 @@ const overlayContainer = Selector('.dt-overlay-container');
 const heatfieldToggle = Selector('.dt-chart-heatfield-marker');
 const heatfieldOverlay = Selector('.dt-chart-heatfield-overlay');
 const rangeOverlay = Selector('.dt-chart-selection-area-overlay');
+const backDrop = Selector('.dt-drawer-backdrop');
+const zIndexTest = Selector('#content-trigger');
 
 const scrollDistance = 50;
 const scrollDown = ClientFunction(distance => {
@@ -154,5 +155,27 @@ test('should move selection area overlay with the chart on scroll', async (testC
     .expect(selection.exists)
     .notOk()
     .expect(overlay.exists)
+    .notOk();
+});
+
+test('should check if a hover is possible in the drawer over mode', async (testController: TestController) => {
+  await testController
+    .click(open)
+    .resizeWindow(800, 800)
+    .wait(250)
+    .expect(backDrop.visible)
+    .ok()
+    .hover(overlayTrigger, { speed: 0.3 })
+    .expect(overlayContainer.exists)
+    .ok();
+});
+
+test('should check if a hover is possible in the drawer over mode', async (testController: TestController) => {
+  await testController
+    .click(open)
+    .resizeWindow(800, 800)
+    .wait(250)
+    .hover(zIndexTest, { speed: 0.3 })
+    .expect(overlayContainer.exists)
     .notOk();
 });

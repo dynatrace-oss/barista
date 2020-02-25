@@ -8,7 +8,7 @@
       (closed)="close()"
       style="width: 80%; height: 3000px;"
     >
-      <dt-chart id="chart" [series]="series$ | async" [options]="options">
+      <dt-chart id="chart" [series]="series$ | async" [options]="options">
         <dt-chart-tooltip>
           <ng-template let-tooltip>
             <div style="min-width: 100px;">
@@ -63,8 +63,11 @@
     </dt-drawer>
     <span id="open-count">{{openCount}}</span>
     <span id="close-count">{{closeCount}}</span>
+    <button id="content-trigger" [dtOverlay]="overlay">
+      Hover me
+    </button>
   </dt-drawer-container>
   <br />
-  <button (click)="drawer.open()" id="open" #openButton></button>
-  <button (click)="drawer.close()" id="close" #closeButton></button>
+  <button (click)="drawer.open()" id="open" #openButton>open</button>
+  <button (click)="drawer.close()" id="close" #closeButton>close</button>
 </section>
