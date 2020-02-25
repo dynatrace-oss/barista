@@ -6,8 +6,8 @@
     *ngFor="let contributor of contributors"
     class="ba-contributors-list-item"
   >
-    <a [href]="_profileUrl(contributor.gitHubUser)">
-      <img [src]="_imageUrl(contributor.gitHubUser)" [alt]="contributor.name" />
+    <a [href]="_profileUrl(contributor.githubuser)">
+      <img [src]="_imageUrl(contributor.githubuser)" [alt]="contributor.name" />
       <span>{{ contributor.name }}</span>
     </a>
   </li>
