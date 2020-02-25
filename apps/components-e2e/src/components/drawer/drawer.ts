@@ -23,11 +23,12 @@ import {
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
-import { options } from '../chart/chart-options';
+import { options as chartOptions } from '../chart/chart-options';
 
 @Component({
   selector: 'dt-e2e-drawer',
   templateUrl: 'drawer.html',
+  styleUrls: ['drawer.scss'],
 })
 export class DtE2EDrawer {
   openCount = 0;
@@ -36,7 +37,7 @@ export class DtE2EDrawer {
   validRange = false;
   lastTimeframe: [number, number];
 
-  options = options;
+  options = chartOptions;
   // Added type here due to missing support for type inference on windows with typescript 3.4.5
   // error TS2742: The inferred type of 'series$' cannot be named without a reference to '...@types/highcharts'.
   // This is likely not portable. A type annotation is necessary.
@@ -48,17 +49,12 @@ export class DtE2EDrawer {
     )
     .pipe(map(result => result.data));
 
-  @ViewChild('container', { static: true }) container: DtDrawerContainer;
-  @ViewChild('drawer', { static: true }) drawer: DtDrawer;
-  @ViewChild('toggleButton', { static: true }) drawerButton: ElementRef<
-    HTMLButtonElement
-  >;
-  @ViewChild('openButton', { static: true }) openButton: ElementRef<
-    HTMLButtonElement
-  >;
-  @ViewChild('closeButton', { static: true }) closeButton: ElementRef<
-    HTMLButtonElement
-  >;
+  @ViewChild('container', { static: true })
+  container: DtDrawerContainer;
+  @ViewChild('drawer', { static: true })
+  drawer: DtDrawer;
+  @ViewChild('toggleButton', { static: true })
+  drawerButton: ElementRef<HTMLButtonElement>;
 
   @ViewChild(DtChartRange) dtChartRange: DtChartRange;
 
@@ -79,9 +75,9 @@ export class DtE2EDrawer {
     this.lastTimeframe = [0, 0];
   }
 
-  onTimeframeChanges(timeframe: [number, number] | number): void {
-    if (Array.isArray(timeframe)) {
-      this.lastTimeframe = timeframe;
+  onTimeframeChanges(timeFrame: [number, number] | number): void {
+    if (Array.isArray(timeFrame)) {
+      this.lastTimeframe = timeFrame;
     }
   }
 }
