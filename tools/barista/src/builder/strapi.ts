@@ -120,13 +120,13 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
       .filter(c => !c.developer)
       .map(c => ({
         name: c.name,
-        gitHubUser: c.gitHubUser,
+        githubuser: c.githubuser,
       }));
     const devSupport = page.contributors
       .filter(c => c.developer)
       .map(c => ({
         name: c.name,
-        gitHubUser: c.gitHubUser,
+        githubuser: c.githubuser,
       }));
 
     if (uxSupport.length > 0) {

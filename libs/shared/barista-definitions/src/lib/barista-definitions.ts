@@ -141,7 +141,7 @@ export interface BaIcon {
 
 export interface BaContributor {
   name: string;
-  gitHubUser: string;
+  githubuser: string;
 }
 
 export interface BaContributors {
