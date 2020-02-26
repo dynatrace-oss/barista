@@ -4,7 +4,6 @@
 
 :host {
   display: inline-block;
-
   cursor: pointer;
 
   .dt-tag-add-container {
@@ -16,18 +15,19 @@
     width: 88px;
     font-size: 12px;
     display: inline-flex;
-
     color: $turquoise-700;
     background-color: #ffffff;
     text-align: left;
     vertical-align: middle;
-
     border: 1px solid $turquoise-600;
     border-radius: 12px;
-
-    padding-top: 2px;
-
+    // The tag-add button relied on the user-agent styling of the button. When
+    // inserting a normalize.css or reset.css into your project, the padding on
+    // the button element was changed, which resulted in a broken visual on the
+    // tag-add.
+    padding: 2px 6px 1px;
     cursor: pointer;
+
     &:active {
       outline: none;
     }
