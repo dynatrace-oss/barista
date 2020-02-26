@@ -49,7 +49,7 @@
 @media (min-width: $screen-xxl) {
   .ba-page-grid {
     grid-template-columns: 300px minmax(0, 1fr) 280px;
-    grid-template-rows: repeat(2, max-content) auto;
+    grid-template-rows: repeat(2, max-content) 1fr;
     grid-template-areas:
       'sidenav title .'
       'sidenav main meta'
