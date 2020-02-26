@@ -7,17 +7,17 @@
     "dev": [
       {
         "name": "Lara Aigmueller",
-        "gitHubUser": "lara-aigmueller"
+        "githubuser": "lara-aigmueller"
       },
       {
         "name": "Daniel Kaneider",
-        "gitHubUser": "danielkaneider"
+        "githubuser": "danielkaneider"
       }
     ],
     "ux": [
       {
         "name": "Gabriele Hasson-Birkenmayer",
-        "gitHubUser": "GabrieleHB"
+        "githubuser": "GabrieleHB"
       }
     ]
   },

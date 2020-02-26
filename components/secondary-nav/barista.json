@@ -5,17 +5,17 @@
     "dev": [
       {
         "name": "Thomas Pink",
-        "gitHubUser": "thomaspink"
+        "githubuser": "thomaspink"
       },
       {
         "name": "Arnaud Crowther",
-        "gitHubUser": "areknow"
+        "githubuser": "areknow"
       }
     ],
     "ux": [
       {
         "name": "Ryan Deliso",
-        "gitHubUser": "3yearsheep"
+        "githubuser": "3yearsheep"
       }
     ]
   },

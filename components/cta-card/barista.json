@@ -10,17 +10,17 @@
     "dev": [
       {
         "name": "Christoph Matscheko",
-        "gitHubUser": "heartdisease"
+        "githubuser": "heartdisease"
       },
       {
         "name": "Alexander Lagler",
-        "gitHubUser": "alexlagler"
+        "githubuser": "alexlagler"
       }
     ],
     "ux": [
       {
         "name": "Raphaela Raudaschl",
-        "gitHubUser": "rrcaptain"
+        "githubuser": "rrcaptain"
       }
     ]
   },

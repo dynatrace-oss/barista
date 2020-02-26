@@ -10,13 +10,13 @@
     "dev": [
       {
         "name": "Thomas Pink",
-        "gitHubUser": "thomaspink"
+        "githubuser": "thomaspink"
       }
     ],
     "ux": [
       {
         "name": "Raphaela Raudaschl",
-        "gitHubUser": "rrcaptain"
+        "githubuser": "rrcaptain"
       }
     ]
   },

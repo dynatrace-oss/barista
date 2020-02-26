@@ -8,13 +8,13 @@
     "dev": [
       {
         "name": "Thomas Pink",
-        "gitHubUser": "thomaspink"
+        "githubuser": "thomaspink"
       }
     ],
     "ux": [
       {
         "name": "Andreas Mayr",
-        "gitHubUser": "moarliman"
+        "githubuser": "moarliman"
       }
     ]
   },

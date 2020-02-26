@@ -9,17 +9,17 @@
     "dev": [
       {
         "name": "Fabian Friedl",
-        "gitHubUser": "ffriedl89"
+        "githubuser": "ffriedl89"
       },
       {
         "name": "Daniel Moertenschlag",
-        "gitHubUser": "moertenschlag"
+        "githubuser": "moertenschlag"
       }
     ],
     "ux": [
       {
         "name": "Andreas Mayr",
-        "gitHubUser": "moarliman"
+        "githubuser": "moarliman"
       }
     ]
   },

@@ -8,17 +8,17 @@
     "dev": [
       {
         "name": "Fabian Friedl",
-        "gitHubUser": "ffriedl89"
+        "githubuser": "ffriedl89"
       },
       {
         "name": "Todd Baert",
-        "gitHubUser": "toddbaert"
+        "githubuser": "toddbaert"
       }
     ],
     "ux": [
       {
         "name": "Andreas Mayr",
-        "gitHubUser": "moarliman"
+        "githubuser": "moarliman"
       }
     ]
   },
