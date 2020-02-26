@@ -1,3 +1,76 @@
+## 6.0.0-rc.0 (2020-02-26)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where the tooltip stayed open when the chart was
+  destroyed.
+  ([0ed1f1c](https://github.com/dynatrace-oss/barista/commit/0ed1f1c4d5f1fd4b7036bb026772627793e3bbf9)),
+  closes [#579](https://github.com/dynatrace-oss/barista/issues/579)
+- **chart:** Fixes an issue where timestamp or range reopened after resizing the
+  window.
+  ([732cb40](https://github.com/dynatrace-oss/barista/commit/732cb40b914854890575fceb8e878a3d32c24f66)),
+  closes [#472](https://github.com/dynatrace-oss/barista/issues/472)
+- **chart:** Fixes an issue with the overlay of the selection area not updating.
+  ([1074c20](https://github.com/dynatrace-oss/barista/commit/1074c2060b30c397e10404605b53b1260ae80bc1)),
+  closes [#608](https://github.com/dynatrace-oss/barista/issues/608)
+- **drawer:** Fixes an issue where drawer backdrop was overlaying the drawer
+  body.
+  ([d1a4bb8](https://github.com/dynatrace-oss/barista/commit/d1a4bb8be2713bc46224968740845d74f60fdf03)),
+  closes [#91](https://github.com/dynatrace-oss/barista/issues/91)
+  [#605](https://github.com/dynatrace-oss/barista/issues/605)
+- **drawer:** Fixes an issue where the drawer backdrop did not overlay
+  breadcrumbs elements.
+  ([9fbf9c9](https://github.com/dynatrace-oss/barista/commit/9fbf9c9a1019fc61fe093efed18a2f5d6ded369e)),
+  closes [#91](https://github.com/dynatrace-oss/barista/issues/91)
+- **event-chart:** Add legend color and pattern for filtered.
+  ([906abac](https://github.com/dynatrace-oss/barista/commit/906abac66ecc0e083909d99f9a9cab6063181e15)),
+  closes [#624](https://github.com/dynatrace-oss/barista/issues/624)
+- **event-chart:** Round time labels in x-axis
+  ([896c3a0](https://github.com/dynatrace-oss/barista/commit/896c3a003da3f156530e0692ade037da1874f158)),
+  closes [#614](https://github.com/dynatrace-oss/barista/issues/614)
+- **table:** Fixes an issue where the sorting did not update when active binding
+  was updated.
+  ([04bed13](https://github.com/dynatrace-oss/barista/commit/04bed13cbfbca35307b83bcd9bc91ca867f46361)),
+  closes [#619](https://github.com/dynatrace-oss/barista/issues/619)
+- **tag-list:** Fixes an issue where the tag list did not get updated within a
+  tree table.
+  ([46ab183](https://github.com/dynatrace-oss/barista/commit/46ab1830f2ca9b8e11361c5858a8436397d9a9f5)),
+  closes [#603](https://github.com/dynatrace-oss/barista/issues/603)
+
+### Code Refactoring
+
+- Changed core platform utils to be internal
+  ([a5f015b](https://github.com/dynatrace-oss/barista/commit/a5f015b40ae14473bdd685e4675a0ed3cb6bbe96))
+
+### Features
+
+- **radial-chart:** Added radial chart component.
+  ([1157b14](https://github.com/dynatrace-oss/barista/commit/1157b1480622f02f0127fb0dbd6d9e30262da6ec))
+- Update Angular dependencies to version 9.
+  ([c930ff2](https://github.com/dynatrace-oss/barista/commit/c930ff2403f7680a3615672ffa6aee2a12123c24))
+- **chart:** Show crosshair for selection area only over plot
+  ([5faad81](https://github.com/dynatrace-oss/barista/commit/5faad81a079ceef5e7adfd97bf994393b9a80e7f)),
+  closes [#609](https://github.com/dynatrace-oss/barista/issues/609)
+- **context-dialog:** Added footer and closing button to the context dialog.
+  ([1c72bc1](https://github.com/dynatrace-oss/barista/commit/1c72bc1a8d8c89624adf97b95a2b87342ecf1045))
+- **testing:** Adds testing module for propagation of an attribute to a
+  components overlay.
+  ([197657d](https://github.com/dynatrace-oss/barista/commit/197657d4df074e309e345234e29cd2833772fe81))
+- Removes Renderer2 to be compatible with ivy.
+  ([3b3f773](https://github.com/dynatrace-oss/barista/commit/3b3f77304e5118221b537aa1aa3ca320b815b0d2)),
+  closes [#518](https://github.com/dynatrace-oss/barista/issues/518)
+
+### BREAKING CHANGES
+
+- Update to Angular 9 requires us to update our `peerDependencies`. Furthermore
+  our applications are compiled with Ivy. Only the component library is compiled
+  with the view-engine to be backwards compatible.
+- Core platform utils changed to be internal.
+- Components that are using the outdated Renderer2, which is removed in this
+  commit, do this by injecting it via DI in their constructor. When removing the
+  renderer constructor parameter the api changes which leads to a breaking
+  change.
+
 ## 5.2.0 (2020-02-13)
 
 ### Bug Fixes
