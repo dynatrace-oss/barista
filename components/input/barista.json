@@ -9,17 +9,17 @@
     "dev": [
       {
         "name": "Thomas Pink",
-        "gitHubUser": "thomaspink"
+        "githubuser": "thomaspink"
       },
       {
         "name": "Jordi Masramon",
-        "gitHubUser": "jmasramon"
+        "githubuser": "jmasramon"
       }
     ],
     "ux": [
       {
         "name": "Raphaela Raudaschl",
-        "gitHubUser": "rrcaptain"
+        "githubuser": "rrcaptain"
       }
     ]
   },

@@ -9,17 +9,17 @@
     "dev": [
       {
         "name": "Thomas Pink",
-        "gitHubUser": "thomaspink"
+        "githubuser": "thomaspink"
       },
       {
         "name": "Thomas Heller",
-        "gitHubUser": "tomheller"
+        "githubuser": "tomheller"
       }
     ],
     "ux": [
       {
         "name": "Xavier Javaloyas",
-        "gitHubUser": "Xavi-J"
+        "githubuser": "Xavi-J"
       }
     ]
   },

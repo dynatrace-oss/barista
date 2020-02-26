@@ -8,11 +8,11 @@
     "dev": [
       {
         "name": "Thomas Pink",
-        "gitHubUser": "thomaspink"
+        "githubuser": "thomaspink"
       },
       {
         "name": "Thomas Heller",
-        "gitHubUser": "tomheller"
+        "githubuser": "tomheller"
       }
     ]
   },
