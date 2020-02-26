@@ -10,17 +10,17 @@
     "dev": [
       {
         "name": "Thomas Heller",
-        "gitHubUser": "tomheller"
+        "githubuser": "tomheller"
       }
     ],
     "ux": [
       {
         "name": "Andreas Mayr",
-        "gitHubUser": "moarliman"
+        "githubuser": "moarliman"
       },
       {
         "name": "Kathrin Aigner",
-        "gitHubUser": "kathrin-aigner"
+        "githubuser": "kathrin-aigner"
       }
     ]
   },

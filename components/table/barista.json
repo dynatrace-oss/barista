@@ -10,21 +10,21 @@
     "dev": [
       {
         "name": "Lara Aigmueller",
-        "gitHubUser": "lara-aigmueller"
+        "githubuser": "lara-aigmueller"
       },
       {
         "name": "Thomas Heller",
-        "gitHubUser": "tomheller"
+        "githubuser": "tomheller"
       },
       {
         "name": "Fabian Friedl",
-        "gitHubUser": "ffriedl89"
+        "githubuser": "ffriedl89"
       }
     ],
     "ux": [
       {
         "name": "Marike Sorgdrager",
-        "gitHubUser": "Marike-Sorgdrager"
+        "githubuser": "Marike-Sorgdrager"
       }
     ]
   },

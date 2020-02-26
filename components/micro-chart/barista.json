@@ -11,17 +11,17 @@
     "dev": [
       {
         "name": "Fabian Friedl",
-        "gitHubUser": "ffriedl89"
+        "githubuser": "ffriedl89"
       },
       {
         "name": "David Laubreiter",
-        "gitHubUser": "dlaubi-dt"
+        "githubuser": "dlaubi-dt"
       }
     ],
     "ux": [
       {
         "name": "Kathrin Aigner",
-        "gitHubUser": "kathrin-aigner"
+        "githubuser": "kathrin-aigner"
       }
     ]
   },
