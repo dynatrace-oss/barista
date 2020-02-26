@@ -3,24 +3,9 @@
     "target": "es5",
     "module": "commonjs",
     "lib": ["dom", "es2017"],
+    "typeRoots": ["node_modules/@types"],
     "rootDir": ".",
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "declaration": true,
-
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
-
-    "esModuleInterop": true
+    "resolveJsonModule": true
   },
-  "files": ["tslint.json"],
-  "include": ["**/*.d.ts"]
+  "files": ["tslint.json"]
 }
