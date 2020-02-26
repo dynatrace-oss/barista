@@ -19,7 +19,7 @@ import {
   PackageLockJson,
   tryJsonParse,
 } from '@dynatrace/barista-components/tools/shared';
-import * as OctokitApi from '@octokit/rest';
+import { Octokit } from '@octokit/rest';
 import { bold, cyan, green, italic, red, yellow } from 'chalk';
 import { promises as fs } from 'fs';
 import { join } from 'path';
@@ -62,7 +62,7 @@ export async function stageRelease(
   const gitClient = new GitClient(workspaceRoot);
 
   // Octokit API instance that can be used to make Github API calls.
-  const githubApi = new OctokitApi();
+  const githubApi = new Octokit();
 
   // determine version
   const currentVersion = await parsePackageVersion(workspaceRoot);
