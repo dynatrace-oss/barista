@@ -513,6 +513,36 @@ describe('DtFilterField', () => {
       zone.simulateZoneExit();
     }));
 
+    it('should highlight & filter the correct options with the same character after resetting', fakeAsync(() => {
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const inputEl = getInput(fixture);
+      typeInElement('t', inputEl);
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
+
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+      const autOption = options[0];
+      autOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      typeInElement('t', inputEl);
+      tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      options = getOptions(overlayContainerElement);
+      expect(options.length).toBe(1);
+      expect(options[0].textContent!.trim()).toBe('Upper Austria');
+      tick();
+    }));
+
     it('should switch to the next autocomplete if the selected option is also a free text with suggestions', () => {
       fixture.componentInstance.dataSource.data = TEST_DATA_SUGGESTIONS;
       filterField.focus();
