@@ -6,12 +6,14 @@
       </div>
     </div>
     <div class="ba-index-page-section">
-      <h2>Recently ordered</h2>
-      <ul class="ba-tilegrid-onerow">
-        <li *ngFor="let item of _orderedItems">
-          <ba-smalltile [data]="item"></ba-smalltile>
-        </li>
-      </ul>
+      <div *ngIf="_showOrderedItems">
+        <h2>Recently ordered</h2>
+        <ul class="ba-tilegrid-onerow">
+          <li *ngFor="let item of _orderedItems">
+            <ba-smalltile [data]="item"></ba-smalltile>
+          </li>
+        </ul>
+      </div>
       <h2>Most ordered</h2>
       <div class="ba-tilegrid-onerow">
         <ba-smalltile
