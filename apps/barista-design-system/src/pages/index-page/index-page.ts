@@ -35,8 +35,14 @@ export class BaIndexPage implements BaPage {
   _internal = environment.internal;
   /** @internal array of recently visited pages */
   _orderedItems: (BaPageLink | null)[];
+  /** @internal whether recently ordered items should be displayed */
+  _showOrderedItems: boolean;
 
   constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {
     this._orderedItems = this._recentlyOrderedService.getRecentlyOrderedItems();
+    // It's fine to only set this property once as it shouldn't change
+    // during runtime when staying on the index page.
+    this._showOrderedItems =
+      this._orderedItems.filter(item => item !== null).length > 0;
   }
 }
