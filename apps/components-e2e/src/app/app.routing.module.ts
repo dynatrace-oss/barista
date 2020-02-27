@@ -76,6 +76,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'empty-state',
+    loadChildren: () =>
+      import('../components/empty-state/empty-state.module').then(
+        module => module.DtE2EEmptyStateModule,
+      ),
+  },
+  {
     path: 'event-chart',
     loadChildren: () =>
       import('../components/event-chart/event-chart.module').then(
