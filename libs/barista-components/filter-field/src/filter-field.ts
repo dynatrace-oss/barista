@@ -415,6 +415,9 @@ export class DtFilterField<T>
   /** Whether the filter field or one of it's child elements is focused. */
   private _isFocused = false;
 
+  /** A subject that emits every time the input is reset */
+  private _inputReset$ = new Subject<void>();
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _zone: NgZone,
@@ -491,14 +494,18 @@ export class DtFilterField<T>
       });
 
     // Using fromEvent instead of an html binding so we get a stream and can easily do a debounce
-    fromEvent(this._inputEl.nativeElement, 'input')
+    merge(
+      fromEvent(this._inputEl.nativeElement, 'input').pipe(
+        debounceTime(DT_FILTER_FIELD_TYPING_DEBOUNCE),
+      ),
+      this._inputReset$,
+    )
       .pipe(
         map(() => this._inputEl.nativeElement.value),
         distinctUntilChanged(),
         tap(value => {
           this._inputValue = value;
         }),
-        debounceTime(DT_FILTER_FIELD_TYPING_DEBOUNCE),
         takeUntil(this._destroy$),
       )
       .subscribe(() => {
@@ -895,6 +902,9 @@ export class DtFilterField<T>
   private _writeInputValue(value: string): void {
     // tslint:disable-next-line:no-unused-expression
     this._inputEl && (this._inputEl.nativeElement.value = value);
+    if (value === '') {
+      this._inputReset$.next();
+    }
     if (this._inputValue !== value) {
       this._inputValue = value;
       this._writeControlValue(value);
