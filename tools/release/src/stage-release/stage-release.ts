@@ -19,7 +19,7 @@ import {
   PackageLockJson,
   tryJsonParse,
 } from '@dynatrace/barista-components/tools/shared';
-import { Octokit } from '@octokit/rest';
+import * as Octokit from '@octokit/rest';
 import { bold, cyan, green, italic, red, yellow } from 'chalk';
 import { promises as fs } from 'fs';
 import { join } from 'path';
