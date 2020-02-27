@@ -143,6 +143,7 @@ jobs:
   sonar:
     <<: *defaults
     environment:
+      # - sonar needs more memory for the scanner run if a LOT of files are changed
       SONAR_SCANNER_OPTS: -Xmx1024m
     steps:
       - attach_workspace:
