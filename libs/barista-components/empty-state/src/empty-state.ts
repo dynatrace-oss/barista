@@ -37,7 +37,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Subject } from 'rxjs';
-import { startWith, takeUntil } from 'rxjs/operators';
+import { takeUntil, startWith } from 'rxjs/operators';
 
 import {
   DtViewportResizer,
@@ -49,6 +49,8 @@ const ITEMS_HORIZONTAL_BREAKPOINT = 540;
 
 /** The min-width from which the empty state items are aligned next to each other. */
 const LAYOUT_HORIZONTAL_BREAKPOINT = 760;
+
+declare const window: any;
 
 /**
  * An empty state item. An empty state card may contain one or more such items.
@@ -162,6 +164,8 @@ export class DtEmptyState
 
   private readonly _destroy$ = new Subject<void>();
 
+  private _containerSizeObserver: any;
+
   /**
    * @internal
    * Whether empty state items should have a horizontal layout
@@ -186,6 +190,10 @@ export class DtEmptyState
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
+    /**
+     * @deprecated Remove the viewportResizer from the constructor as it is no longer needed.
+     * @breaking-change Remove the viewportResizer in version 8.0.0
+     */
     private _viewportResizer: DtViewportResizer,
     private _platform: Platform,
   ) {}
@@ -197,41 +205,71 @@ export class DtEmptyState
   }
 
   ngAfterViewInit(): void {
-    this._viewportResizer
-      .change()
-      .pipe(startWith(null), takeUntil(this._destroy$))
-      .subscribe(() => {
-        this._updateLayout();
+    // Check if the browser supports the resizeObserver.
+    if (this._platform.isBrowser && 'ResizeObserver' in window) {
+      this._containerSizeObserver = new window.ResizeObserver(entries => {
+        if (entries && entries[0]) {
+          // We need to wrap the call to the layout update into an additional
+          // requestAnimationFrame, because the resize observer would trow a
+          // javascript error when it is not able to process all entries within
+          // a single animation frame.
+          // From the specification:
+          // > This error means that ResizeObserver was not able to deliver all
+          // > observations within a single animation frame. It is benign (your
+          // > site will not break). - Aleksandar Totic
+          // https://stackoverflow.com/a/50387233
+          requestAnimationFrame(() => {
+            this._updateLayoutForSize(entries[0].contentRect.width);
+          });
+        }
       });
+      this._containerSizeObserver.observe(this._elementRef.nativeElement);
+    } else {
+      this._viewportResizer
+        .change()
+        .pipe(startWith(null), takeUntil(this._destroy$))
+        .subscribe(() => {
+          this._updateLayout();
+        });
+    }
   }
 
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+    if (this._containerSizeObserver) {
+      this._containerSizeObserver.disconnect();
+    }
   }
 
-  /** @internal Updates the layout according to the width of the container (horizontal or vertical) */
+  /** Function that updates the layout based on the passed component width */
+  private _updateLayoutForSize(componentWidth: number): void {
+    const itemLayoutHorizontal = componentWidth > ITEMS_HORIZONTAL_BREAKPOINT;
+    const layoutHorizontal =
+      this._items?.length > 1 && componentWidth > LAYOUT_HORIZONTAL_BREAKPOINT;
+
+    _toggleCssClass(
+      layoutHorizontal,
+      this._elementRef.nativeElement,
+      'dt-empty-state-layout-horizontal',
+    );
+    _toggleCssClass(
+      itemLayoutHorizontal && !layoutHorizontal,
+      this._elementRef.nativeElement,
+      'dt-empty-state-items-horizontal',
+    );
+  }
+
+  /**
+   * @internal
+   * Updates the layout according to the width of the container (horizontal or vertical)
+   * @deprecated will be removed once the viewportResizer is removed from the constructor.
+   * @breaking-change Remove with version 8.0.0
+   */
   _updateLayout(): void {
-    if (this._platform.isBrowser) {
-      const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
-        .width;
-
-      const itemLayoutHorizontal = componentWidth > ITEMS_HORIZONTAL_BREAKPOINT;
-      const layoutHorizontal =
-        this._items?.length > 1 &&
-        componentWidth > LAYOUT_HORIZONTAL_BREAKPOINT;
-
-      _toggleCssClass(
-        layoutHorizontal,
-        this._elementRef.nativeElement,
-        'dt-empty-state-layout-horizontal',
-      );
-      _toggleCssClass(
-        itemLayoutHorizontal && !layoutHorizontal,
-        this._elementRef.nativeElement,
-        'dt-empty-state-items-horizontal',
-      );
-    }
+    const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
+      .width;
+    this._updateLayoutForSize(componentWidth);
   }
 }
 
@@ -239,6 +277,10 @@ export class DtEmptyState
  * Empty state base class that needs to be implemented by every custom
  * empty state that is used inside the table. It provides a proxy to the updateLayout
  * function of the empty state that will be called by the table.
+ *
+ * @deprecated Remove this class, as it is no longer needed to proxy the update
+ * layout call, when the layout updates are triggered by the resize observer.
+ * @breaking-change Remove the viewportResizer in version 8.0.0
  */
 export class DtCustomEmptyStateBase {
   /** @internal Finds the empty state inside the component */

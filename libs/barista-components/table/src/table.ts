@@ -190,7 +190,6 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
       .pipe(mapTo(this._emptyState.first))
       .subscribe(emptyState => {
         // Update the layout of the empty state after it was attached
-        emptyState._updateLayout();
         emptyState._visible = true;
       });
 
