@@ -1,3 +1,50 @@
+## 5.3.0 (2020-02-27)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where timestamp or range reopened after resizing the
+  window.
+  ([24c45b8](https://github.com/dynatrace-oss/barista/commit/24c45b8ebfcabe2d3da1ad2af5c3bce011cd65a0)),
+  closes [#472](https://github.com/dynatrace-oss/barista/issues/472)
+- **chart:** Fixes an issue with the overlay of the selection area not updating.
+  ([aca90b4](https://github.com/dynatrace-oss/barista/commit/aca90b46f925791b2710ef9c8affde219b2652e6)),
+  closes [#608](https://github.com/dynatrace-oss/barista/issues/608)
+- **drawer:** Fixes an issue where drawer backdrop was overlaying the drawer
+  body.
+  ([30979f1](https://github.com/dynatrace-oss/barista/commit/30979f1a4e53f3336dec639ba6ddef10c8cadbc4)),
+  closes [#91](https://github.com/dynatrace-oss/barista/issues/91)
+  [#605](https://github.com/dynatrace-oss/barista/issues/605)
+- **drawer:** Fixes an issue where the drawer backdrop did not overlay
+  breadcrumbs elements.
+  ([af08ca2](https://github.com/dynatrace-oss/barista/commit/af08ca22af3b6a82810ee93a0fa5625eddf9ea7b)),
+  closes [#91](https://github.com/dynatrace-oss/barista/issues/91)
+- **event-chart:** Add legend color and pattern for filtered.
+  ([cd1a1f4](https://github.com/dynatrace-oss/barista/commit/cd1a1f42b4a97403d70f38c89b6cc1339ab976ce)),
+  closes [#624](https://github.com/dynatrace-oss/barista/issues/624)
+- **event-chart:** Round time labels in x-axis
+  ([2e0f5bf](https://github.com/dynatrace-oss/barista/commit/2e0f5bfb57c90186bc692cef1941c2ea781053cb)),
+  closes [#614](https://github.com/dynatrace-oss/barista/issues/614)
+- **table:** Fixes an issue where the sorting did not update when active binding
+  was updated.
+  ([6714c25](https://github.com/dynatrace-oss/barista/commit/6714c25f049c8827709ffc23ffe4119e81920db8)),
+  closes [#619](https://github.com/dynatrace-oss/barista/issues/619)
+- **tag-list:** Fixes an issue where the taglist did not get updated
+  ([b796ed5](https://github.com/dynatrace-oss/barista/commit/b796ed5c87fe5ad165cf083fa0d02f2d4c944bda)),
+  closes [#603](https://github.com/dynatrace-oss/barista/issues/603)
+
+### Features
+
+- **chart:** Show crosshair for selection area only over plot background.
+  ([22e3d98](https://github.com/dynatrace-oss/barista/commit/22e3d980e2960881b9a80dd1fae36af02d0d2f4e)),
+  closes [#609](https://github.com/dynatrace-oss/barista/issues/609)
+- **context-dialog:** Added footer and closing button to the context dialog.
+  ([4ad9d60](https://github.com/dynatrace-oss/barista/commit/4ad9d60639230c41bc49a774d91be8f80d41dfa5))
+- **radial-chart:** Added radial chart component.
+  ([eefb280](https://github.com/dynatrace-oss/barista/commit/eefb280600a712a0575495bcda47e2d7fcb12b45))
+- **testing:** Adds testing module for propagation of an attribute to a
+  components overlay.
+  ([3c5ee1c](https://github.com/dynatrace-oss/barista/commit/3c5ee1ce2e8231700ea1c87efb88f0f20e88e6c9))
+
 ## 5.2.0 (2020-02-13)
 
 ### Bug Fixes
