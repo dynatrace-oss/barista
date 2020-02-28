@@ -2,69 +2,69 @@
 /** @thomaspink @tomheller @lukasholzer
 
 # Components
-/components/* @lukasholzer @thomaspink
-/components/alert/** @lara-aigmueller
-/components/autocomplete/** @thomaspink
-/components/bar-indicator/** @tomheller
-/components/breadcrumbs/** @ffriedl89 @szymonbultrowicz
-/components/button/** @thomaspink
-/components/button-group/** @tomheller
-/components/card/** @ffriedl89 @lara-aigmueller
-/components/chart/** @ffriedl89 @lukasholzer
-/components/checkbox/** @thomaspink
-/components/confirmation-dialog/** @toddbaert @ffriedl89 @thomaspink
-/components/consumption/** @ffriedl89 @thomaspink
-/components/container-breakpoint-observer/** @thomaspink
-/components/context-dialog/** @ffriedl89 @NinaKammerlander
-/components/copy-to-clipboard/** @lara-aigmueller @ffriedl89 @moertenschlag
-/components/cta-card/** @thomaspink
-/components/drawer/** @lukasholzer @rowa-audil
-/components/empty-state/** @lara-aigmueller @lukasholzer @heartdisease
-/components/event-chart/** @thomaspink @tomheller
-/components/expandable-panel/** @lara-aigmueller
-/components/expandable-section/** @lara-aigmueller
-/components/expandable-text/** @rowa-audil @ffriedl89
-/components/filter-field/** @thomaspink @tomheller
-/components/form-field/** @thomaspink
-/components/formatters/** @ffriedl89 @rowa-audil
-/components/highlight/** @lukasholzer @thomaspink
-/components/icon/** @thomaspink
-/components/info-group/** @ffriedl89 @lara-aigmueller
-/components/inline-editor/** @thomaspink
-/components/input/** @thomaspink
-/components/key-value-list/** @ffriedl89 @moertenschlag
-/components/legend/** @thomaspink
-/components/loading-distractor/** @thomaspink
-/components/menu/** @heartdisease @rowa-audil
-/components/micro-chart/** @ffriedl89 @dlaubi-dt @tomheller
-/components/overlay/** @ffriedl89 @thomaspink @tomheller
-/components/pagination/** @lukasholzer
-/components/progress-bar/** @tomheller
-/components/progress-circle/** @ffriedl89 @tomheller
-/components/radio/** @thomaspink
-/components/schematics/** @lukasholzer
-/components/secondary-nav/** @areknow @thomaspink
-/components/select/** @thomaspink
-/components/selection-area/** @ffriedl89 @lukasholzer
-/components/show-more/** @lara-aigmueller
-/components/stepper/** @ffriedl89 @thomaspink
-/components/switch/** @lara-aigmueller
-/components/table/** @ffriedl89 @tomheller @lara-aigmueller
-/components/tabs/** @ffriedl89 @thomaspink
-/components/tag/** @rowa-audil
-/components/tile/** @ffriedl89 @lara-aigmueller
-/components/timeline-chart/** @thomaspink
-/components/toast/** @ffriedl89 @tomheller
-/components/toggle-button-group/** @tomheller
-/components/top-bar-navigation/** @lukasholzer
-/components/tree-table/** @ffriedl89 @tomheller
+/libs/barista-components/* @lukasholzer @thomaspink
+/libs/barista-components/alert/** @lara-aigmueller
+/libs/barista-components/autocomplete/** @thomaspink
+/libs/barista-components/bar-indicator/** @tomheller
+/libs/barista-components/breadcrumbs/** @ffriedl89 @szymonbultrowicz
+/libs/barista-components/button/** @thomaspink
+/libs/barista-components/button-group/** @tomheller
+/libs/barista-components/card/** @ffriedl89 @lara-aigmueller
+/libs/barista-components/chart/** @ffriedl89 @lukasholzer
+/libs/barista-components/checkbox/** @thomaspink
+/libs/barista-components/confirmation-dialog/** @toddbaert @ffriedl89 @thomaspink
+/libs/barista-components/consumption/** @ffriedl89 @thomaspink
+/libs/barista-components/container-breakpoint-observer/** @thomaspink
+/libs/barista-components/context-dialog/** @ffriedl89 @NinaKammerlander
+/libs/barista-components/copy-to-clipboard/** @lara-aigmueller @ffriedl89 @moertenschlag
+/libs/barista-components/cta-card/** @thomaspink
+/libs/barista-components/drawer/** @lukasholzer @rowa-audil
+/libs/barista-components/empty-state/** @lara-aigmueller @lukasholzer @heartdisease
+/libs/barista-components/event-chart/** @thomaspink @tomheller
+/libs/barista-components/expandable-panel/** @lara-aigmueller
+/libs/barista-components/expandable-section/** @lara-aigmueller
+/libs/barista-components/expandable-text/** @rowa-audil @ffriedl89
+/libs/barista-components/filter-field/** @thomaspink @tomheller
+/libs/barista-components/form-field/** @thomaspink
+/libs/barista-components/formatters/** @ffriedl89 @rowa-audil
+/libs/barista-components/highlight/** @lukasholzer @thomaspink
+/libs/barista-components/icon/** @thomaspink
+/libs/barista-components/info-group/** @ffriedl89 @lara-aigmueller
+/libs/barista-components/inline-editor/** @thomaspink
+/libs/barista-components/input/** @thomaspink
+/libs/barista-components/key-value-list/** @ffriedl89 @moertenschlag
+/libs/barista-components/legend/** @thomaspink
+/libs/barista-components/loading-distractor/** @thomaspink
+/libs/barista-components/menu/** @heartdisease @rowa-audil
+/libs/barista-components/micro-chart/** @ffriedl89 @dlaubi-dt @tomheller
+/libs/barista-components/overlay/** @ffriedl89 @thomaspink @tomheller
+/libs/barista-components/pagination/** @lukasholzer
+/libs/barista-components/progress-bar/** @tomheller
+/libs/barista-components/progress-circle/** @ffriedl89 @tomheller
+/libs/barista-components/radio/** @thomaspink
+/libs/barista-components/schematics/** @lukasholzer
+/libs/barista-components/secondary-nav/** @areknow @thomaspink
+/libs/barista-components/select/** @thomaspink
+/libs/barista-components/selection-area/** @ffriedl89 @lukasholzer
+/libs/barista-components/show-more/** @lara-aigmueller
+/libs/barista-components/stepper/** @ffriedl89 @thomaspink
+/libs/barista-components/switch/** @lara-aigmueller
+/libs/barista-components/table/** @ffriedl89 @tomheller @lara-aigmueller
+/libs/barista-components/tabs/** @ffriedl89 @thomaspink
+/libs/barista-components/tag/** @rowa-audil
+/libs/barista-components/tile/** @ffriedl89 @lara-aigmueller
+/libs/barista-components/timeline-chart/** @thomaspink
+/libs/barista-components/toast/** @ffriedl89 @tomheller
+/libs/barista-components/toggle-button-group/** @tomheller
+/libs/barista-components/top-bar-navigation/** @lukasholzer
+/libs/barista-components/tree-table/** @ffriedl89 @tomheller
 
 # Apps
 /apps/* @lukasholzer @thomaspink
 
 # Barista
-/apps/barista/* @thomaspink @lukasholzer
-/apps/barista/src/** @lara-aigmueller @NinaKammerlander @thomaspink
+/apps/barista-design-system/* @thomaspink @lukasholzer
+/apps/barista-design-system/src/** @lara-aigmueller @NinaKammerlander @thomaspink
 
 # Demos app
 /apps/demos/* @thomaspink @lukasholzer
@@ -160,7 +160,7 @@
 /documentation/** @lara-aigmueller
 
 # Libs
-/libs/* @lukasholzer @thomaspink
+/libs/* @lukasholzer @thomaspink @tomheller
 /libs/testing/** @thomaspink
 
 # Examples
@@ -224,13 +224,13 @@
 # Tools
 /tools/* @lukasholzer @thomaspink
 
-/tools/barista/* @thomaspink
-/tools/barista/src/** @lara-aigmueller @thomaspink
+/libs/tools/barista/* @thomaspink
+/libs/tools/barista/src/** @lara-aigmueller @thomaspink
 
-/tools/linting/* @thomaspink @lukasholzer
-/tools/linting/src/** @rowa-audil @lara-aigmueller @heartdisease
+/libs/tools/linting/* @thomaspink @lukasholzer
+/libs/tools/linting/src/** @rowa-audil @lara-aigmueller @heartdisease
 
-/tools/release/** @lukasholzer @ffriedl89 @thomaspink
+/libs/tools/** @lukasholzer @ffriedl89 @thomaspink
 
 /tools/schematics/** @lukasholzer
 
