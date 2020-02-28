@@ -7,5 +7,6 @@
     "rootDir": ".",
     "resolveJsonModule": true
   },
-  "files": ["tslint.json"]
+  "files": ["tslint.json"],
+  "include": ["**/*.ts"]
 }
