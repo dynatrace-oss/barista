@@ -1,3 +1,12 @@
+## 5.3.1 (2020-02-28)
+
+### Bug Fixes
+
+- **chart:** A regression was introduced where we removed the
+  `DT_CHART_COLOR_PALETTE_ORDERED` and the `getDtChartColorPalette` from the
+  public api of the chart. Now they are added again.
+  ([7adb026](https://github.com/dynatrace-oss/barista/commit/7adb0264bc3919eeac9d475de26ecd937d807829))
+
 ## 5.3.0 (2020-02-27)
 
 ### Bug Fixes
