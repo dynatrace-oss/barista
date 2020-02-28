@@ -296,9 +296,6 @@
     "tree-table": {
       "tags": ["scope:components", "type:library"]
     },
-    "barista-backend": {
-      "tags": ["type:app", "scope:node"]
-    },
     "testing-node": {
       "tags": ["scope:testing", "scope:node", "type:library"]
     },
