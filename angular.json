@@ -1030,7 +1030,7 @@
               {
                 "glob": "**/*",
                 "input": "libs/barista-components/assets",
-                "output": "dist/libs/components"
+                "output": "dist/libs/components/assets"
               }
             ],
             "additionalTargets": ["schematics:build", "linting:build"]
