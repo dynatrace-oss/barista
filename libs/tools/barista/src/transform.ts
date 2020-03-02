@@ -266,16 +266,27 @@ export function internalContentTransformerFactory(
   return async source => {
     const transformed = { ...source };
 
-    transformed.content = runWithCheerio(source.content, ($: CheerioStatic) => {
-      $('ba-internal-content').each((_, content) => {
-        if (isPublic) {
-          $(content).remove();
-        } else {
-          const innerHtml = $(content).html();
-          $(content).replaceWith($(innerHtml));
-        }
-      });
-    });
+    // Content replacement only seems to work if there is at least one empty line
+    // between the opening/closing tag and the actual content. To ensure that this
+    // is the case, the following string replacement is needed.
+    const sanitizedContent = source.content.replace(
+      /<\/?ba-internal-content>/g,
+      '\n\n$1\n\n',
+    );
+
+    transformed.content = runWithCheerio(
+      sanitizedContent,
+      ($: CheerioStatic) => {
+        $('ba-internal-content').each((_, content) => {
+          if (isPublic) {
+            $(content).remove();
+          } else {
+            const innerHtml = $(content).html();
+            $(content).replaceWith($(innerHtml));
+          }
+        });
+      },
+    );
 
     return transformed;
   };
