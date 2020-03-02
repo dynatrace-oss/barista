@@ -1,4 +1,20 @@
-## 6.0.0-rc.2 (2020-03-02)
+## 6.0.0 (2020-03-02)
+
+### BREAKING CHANGES
+
+- **Update to Angular 9** requires us to update our `peerDependencies`.
+  Furthermore, our applications are compiled with Ivy. Only the component
+  library is compiled with the view-engine to be backwards compatible.
+- Core platform utils changed to be internal.
+- Components that are using the outdated Renderer2, which is removed in this
+  commit, do this by injecting it via DI in their constructor. Removing the
+  renderer constructor parameter is considered a breaking api change.
+- Improved `DtChartOptions` for the highcharts typings.
+- The `readKeyCode` function from the core package is now internal, because the
+  [`KeyboardEvent.keyCode` is deprecated](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode).
+- The method `getDtChartColorPalette` and constants
+  `DT_CHART_COLOR_PALETTE_ORDERED`, `DT_CHART_COLOR_PALETTES` were moved to the
+  `@dynatrace/barista-components/theming` package.
 
 ### Bug Fixes
 
@@ -17,22 +33,6 @@
 - Removes Renderer2 to be compatible with ivy.
   ([3b3f773](https://github.com/dynatrace-oss/barista/commit/3b3f77304e5118221b537aa1aa3ca320b815b0d2)),
   closes [#518](https://github.com/dynatrace-oss/barista/issues/518)
-
-### BREAKING CHANGES
-
-- **Update to Angular 9** requires us to update our `peerDependencies`.
-  Furthermore, our applications are compiled with Ivy. Only the component
-  library is compiled with the view-engine to be backwards compatible.
-- Core platform utils changed to be internal.
-- Components that are using the outdated Renderer2, which is removed in this
-  commit, do this by injecting it via DI in their constructor. Removing the
-  renderer constructor parameter is considered a breaking api change.
-- Improved `DtChartOptions` for the highcharts typings.
-- The `readKeyCode` function from the core package is now internal, because the
-  [`KeyboardEvent.keyCode` is deprecated](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode).
-- The method `getDtChartColorPalette` and constants
-  `DT_CHART_COLOR_PALETTE_ORDERED`, `DT_CHART_COLOR_PALETTES` were moved to the
-  `@dynatrace/barista-components/theming` package.
 
 ## 5.3.0 (2020-02-27)
 

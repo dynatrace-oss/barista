@@ -1,6 +1,6 @@
 {
   "name": "@dynatrace-oss/barista",
-  "version": "6.0.0-rc.2",
+  "version": "6.0.0",
   "description": "",
   "scripts": {
     "build": "ng build",
