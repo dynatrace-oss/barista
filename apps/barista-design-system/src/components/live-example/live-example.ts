@@ -157,9 +157,6 @@ export class BaLiveExample implements OnDestroy {
    */
   _activeTab: BaSourceType;
 
-  /** @internal Whether the source code is hidden. */
-  _sourceHidden = false;
-
   /** @internal Whether the source code is expanded to its max height. */
   _isExpanded = false;
 
