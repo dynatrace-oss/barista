@@ -223,13 +223,13 @@ jobs:
       - run:
           name: Create components package if it exists
           command: |
-            if [[ -d ./dist/components ]];
+            if [[ -d ./dist/libs/components ]];
             then
-              cd dist
+              cd dist/libs
               tar czf components.tar.gz ./components/
             fi
       - store_artifacts:
-          path: dist/components.tar.gz
+          path: dist/libs/components.tar.gz
           destination: barista-components
 
 # - run unit tests
