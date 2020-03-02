@@ -7,16 +7,12 @@
   <div #demoPlaceholder></div>
 </div>
 
-<div
-  class="ba-live-example-actions"
-  [class.ba-live-example-source-hidden]="_sourceHidden"
->
+<div class="ba-live-example-actions">
   <nav class="ba-live-example-tabs" *ngIf="_hasSources()">
     <button
       *ngIf="templateSource"
       class="ba-live-example-tab"
       [class.ba-live-example-tab-active]="_activeTab === 'html'"
-      [disabled]="_sourceHidden"
       (click)="_setActiveTab('html')"
     >
       HTML
@@ -25,7 +21,6 @@
       *ngIf="classSource"
       class="ba-live-example-tab"
       [class.ba-live-example-tab-active]="_activeTab === 'ts'"
-      [disabled]="_sourceHidden"
       (click)="_setActiveTab('ts')"
     >
       TS
@@ -34,7 +29,6 @@
       *ngIf="stylesSource"
       class="ba-live-example-tab"
       [class.ba-live-example-tab-active]="_activeTab === 'scss'"
-      [disabled]="_sourceHidden"
       (click)="_setActiveTab('scss')"
     >
       SCSS
@@ -42,18 +36,9 @@
   </nav>
   <div class="ba-live-example-controls">
     <button
-      title="Toggle source code"
-      class="ba-live-example-control"
-      (click)="_sourceHidden = !_sourceHidden"
-    >
-      <dt-icon *ngIf="!_sourceHidden" name="dont-watch"></dt-icon>
-      <dt-icon *ngIf="_sourceHidden" name="overview"></dt-icon>
-    </button>
-    <button
       title="Copy to clipboard"
       class="ba-live-example-control"
       [class.ba-live-example-control-copied]="_copied"
-      [disabled]="_sourceHidden"
       (click)="_copyToClipboard()"
     >
       <dt-icon *ngIf="_copied === false" name="reports"></dt-icon>
@@ -64,7 +49,6 @@
       class="ba-live-example-control"
       (click)="_isExpanded = !_isExpanded"
       [class.ba-live-example-control-expanded]="_isExpanded"
-      [disabled]="_sourceHidden"
     >
       <dt-icon name="dropdownopen"></dt-icon>
     </button>
@@ -73,8 +57,8 @@
       class="ba-live-example-control"
       [attr.href]="_getStackblitzLink()"
       target="_blank"
-    >
-      <dt-icon name="customaction"></dt-icon>
+      rel="noopener"
+      ><dt-icon name="externallink"></dt-icon>
     </a>
   </div>
 </div>
@@ -82,7 +66,7 @@
 <div
   class="ba-live-example-sources"
   [class.ba-live-example-sources-expanded]="_isExpanded"
-  *ngIf="_hasSources() && !_sourceHidden"
+  *ngIf="_hasSources()"
 >
   <pre
     class="ba-live-example-template-source"
