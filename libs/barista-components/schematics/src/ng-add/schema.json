@@ -6,18 +6,18 @@
   "properties": {
     "project": {
       "type": "string",
-      "description": "Name of the project where the Barista Components should be set up."
+      "description": "Name of the project where the Barista Components should be set up.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
     },
     "module": {
       "type": "string",
       "subtype": "filepath",
       "description": "The path to the NgModule where the imports will be registered",
       "x-prompt": "The path to the NgModule where the imports will be registered:",
-      "default": "src/app/app.module.ts",
-      "$default": {
-        "$source": "argv",
-        "index": 0
-      }
+      "default": "src/app/app.module.ts"
     },
     "animations": {
       "type": "boolean",
