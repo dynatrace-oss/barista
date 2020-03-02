@@ -48,12 +48,20 @@ const BARISTA_ICONS_PACKAGE_PATH = join(
 export const COULD_NOT_FIND_PROJECT_ERROR = (projectName: string) =>
   `Could not find project in workspace: ${projectName}`;
 
+export const COULD_NOT_FIND_DEFAULT_PROJECT_ERROR =
+  `Could not find default project to add the barista components.\n` +
+  `You can add it with "ng add @dynatrace/barista-components your-project".`;
+
 function getProject(
   workspace: workspaces.WorkspaceDefinition,
   projectName?: string,
 ): workspaces.ProjectDefinition {
   const defaultProject = workspace.extensions['defaultProject'] as string;
   const project = workspace.projects.get(projectName || defaultProject);
+
+  if (!project && !defaultProject) {
+    throw new SchematicsException(COULD_NOT_FIND_DEFAULT_PROJECT_ERROR);
+  }
 
   if (!project) {
     throw new SchematicsException(COULD_NOT_FIND_PROJECT_ERROR(projectName!));
@@ -69,10 +77,6 @@ function getProject(
 export function updateWorkspaceRule(options: ExtendedSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const rules: Rule[] = [];
-
-    if (!options.project) {
-      return;
-    }
 
     rules.push(
       updateWorkspace(workspace => {

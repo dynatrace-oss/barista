@@ -24,9 +24,14 @@ import {
 } from '../testing';
 import { readFileFromTree, readJsonFromTree } from '../utils';
 import { Schema } from './schema';
-
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { COULD_NOT_FIND_PROJECT_ERROR } from './rules';
+import {
+  COULD_NOT_FIND_PROJECT_ERROR,
+  COULD_NOT_FIND_DEFAULT_PROJECT_ERROR,
+} from './rules';
+// use glob import for mocking
+// tslint:disable-next-line: no-duplicate-imports
+import * as rules from './rules';
 
 export async function testNgAdd(
   testTree: Tree,
@@ -64,19 +69,37 @@ describe('Migrate existing angular-components to barista components', () => {
     externalSchematicsSpy.mockClear();
   });
 
+  it('should throw an error if no default project or project is provided', async () => {
+    try {
+      await testNgAdd(tree);
+    } catch (e) {
+      expect(e.message).toBe(COULD_NOT_FIND_DEFAULT_PROJECT_ERROR);
+    } finally {
+      expect.assertions(1);
+    }
+  });
+
   it('should call the migration schematic when legacy imports are detected', async () => {
-    await testNgAdd(tree, { project: undefined });
+    const ruleSpy = jest
+      .spyOn(rules, 'updateWorkspaceRule')
+      .mockReturnValue(noop);
+    await testNgAdd(tree);
     expect(externalSchematicsSpy).toBeCalledTimes(1);
     expect(externalSchematicsSpy).toBeCalledWith(
       expect.stringMatching(/collection\.json$/),
       'update-5.0.0',
       {},
     );
+    ruleSpy.mockRestore();
   });
 
   it('should update imports of @dynatrace/angular-components to barista-components in package.json', async () => {
-    await testNgAdd(tree, { project: undefined });
+    const ruleSpy = jest
+      .spyOn(rules, 'updateWorkspaceRule')
+      .mockReturnValue(noop);
+    await testNgAdd(tree);
     expect(readJsonFromTree(tree, '/package.json')).toMatchSnapshot();
+    ruleSpy.mockRestore();
   });
 
   it('should add barista icons to the angular.json', async () => {
