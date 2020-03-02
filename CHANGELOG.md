@@ -1,4 +1,9 @@
-## 6.0.0-rc.1 (2020-02-26)
+## 6.0.0-rc.2 (2020-03-02)
+
+### Bug Fixes
+
+- **schematics:** Fixes an issue in the ng-add schematic.
+  ([5a80cd2](https://github.com/dynatrace-oss/barista/commit/5a80cd246e9a83eaf44091dd5424123ee58e1cb4))
 
 ### Code Refactoring
 
