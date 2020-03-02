@@ -16,5 +16,12 @@
       }
     ]
   },
-  "tags": ["loading", "angular", "component"]
+  "tags": [
+    "chart",
+    "radial chart",
+    "pie chart",
+    "donut chart",
+    "angular",
+    "component"
+  ]
 }

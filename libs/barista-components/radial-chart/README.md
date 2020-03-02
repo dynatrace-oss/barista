@@ -4,11 +4,11 @@
 
 <ba-ux-snippet name="radial-chart-pie"></ba-ux-snippet>
 
-<ba-live-example name="DtExampleRadialChartDefaultPie"></docs-source-example>
+<ba-live-example name="DtExampleRadialChartDefaultPie"></ba-live-example>
 
 <ba-ux-snippet name="radial-chart-donut"></ba-ux-snippet>
 
-<ba-live-example name="DtExampleRadialChartDefaultDonut"></docs-source-example>
+<ba-live-example name="DtExampleRadialChartDefaultDonut"></ba-live-example>
 
 ## Imports
 
@@ -38,7 +38,7 @@ is below this value, the missing part of the circle is filled with a background
 color. If the sum of all series values is above the defined maxium value, this
 value is ignored.
 
-<ba-live-example name="DtExampleRadialChartMaxValue"></docs-source-example>
+<ba-live-example name="DtExampleRadialChartMaxValue"></ba-live-example>
 
 ### Legend
 
@@ -46,7 +46,7 @@ A radial chart always needs a legend. It uses the legend component internally.
 You can specify the position of the radial chart by adjusting the value of the
 `legendPosition` input.
 
-<ba-live-example name="DtExampleRadialChartLegend"></docs-source-example>
+<ba-live-example name="DtExampleRadialChartLegend"></ba-live-example>
 
 ## DtRadialChartSeries inputs
 
@@ -61,11 +61,11 @@ You can specify the position of the radial chart by adjusting the value of the
 Each series can have a custom color. When no color is given for a series, the
 predefined chart colors are used.
 
-<ba-live-example name="DtExampleRadialChartCustomColors"></docs-source-example>
+<ba-live-example name="DtExampleRadialChartCustomColors"></ba-live-example>
 
 ## Overlay
 
 A radial chart can have an overlay to display detailed information about the
 series.
 
-<ba-live-example name="DtExampleRadialChartOverlay"></docs-source-example>
+<ba-live-example name="DtExampleRadialChartOverlay"></ba-live-example>
