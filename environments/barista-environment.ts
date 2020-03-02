@@ -45,6 +45,7 @@ export const environment: BaEnvironment = {
   examplesLibDir: join(ROOT_DIR, 'libs', 'examples', 'src'),
   shareableExamplesToolsDir: join(
     ROOT_DIR,
+    'libs',
     'tools',
     'shareable-examples',
     'src',
