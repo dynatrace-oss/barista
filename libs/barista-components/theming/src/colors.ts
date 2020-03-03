@@ -19,6 +19,7 @@
  */
 export enum DtColors {
   WHITE = '#ffffff',
+  FLAT_WHITE = '#ffffff',
 
   BLUE_100 = '#e0f4fc',
   BLUE_200 = '#b4e5f9',
