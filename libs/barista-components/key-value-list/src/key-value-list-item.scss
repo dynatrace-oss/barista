@@ -14,15 +14,15 @@
   color: $gray-500;
   text-align: left;
   float: left;
-  position: relative;
+  position: static;
 }
 
 .dt-key-value-list-item-key::after {
   content: ' ';
   position: absolute;
   left: 0;
-  bottom: 9px;
-  width: 50000px;
+  right: 0;
+  top: 1.4em;
   border-bottom: 1px dotted $gray-300;
 }
 
