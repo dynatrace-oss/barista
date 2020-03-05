@@ -271,7 +271,7 @@ export function internalContentTransformerFactory(
     // is the case, the following string replacement is needed.
     const sanitizedContent = source.content.replace(
       /<\/?ba-internal-content>/g,
-      '\n\n$1\n\n',
+      '\n\n$&\n\n',
     );
 
     transformed.content = runWithCheerio(
