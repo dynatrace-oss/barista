@@ -1,6 +1,7 @@
 <button
   class="dt-chart-heatfield-marker"
   [class.dt-chart-heatfield-active]="active"
+  [style.visibility]="_isValidStartEndRange ? 'visible' : 'hidden'"
   #marker="cdkOverlayOrigin"
   cdk-overlay-origin
   (click)="_toggleActive()"
