@@ -1,10 +1,8 @@
-<p *ngIf="!_componentRef">Loading example "name"</p>
-
 <div
   class="ba-live-example-demo"
   [class.ba-live-example-demo-background]="background"
 >
-  <div #demoPlaceholder></div>
+  <ng-container [ngComponentOutlet]="_example$ | async"></ng-container>
 </div>
 
 <div class="ba-live-example-actions">

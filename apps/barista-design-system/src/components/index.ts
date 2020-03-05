@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-export * from './icon-color-wheel/icon-color-wheel';
-export * from './live-example/live-example';
 export * from './components.module';

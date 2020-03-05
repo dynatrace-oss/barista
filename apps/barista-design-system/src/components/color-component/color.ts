@@ -16,7 +16,7 @@
 
 import { Component, Input } from '@angular/core';
 import { DtColors } from '@dynatrace/barista-components/theming';
-import { BaCopyToClipboardService } from '../../shared/copy-to-clipboard.service';
+import { BaCopyToClipboardService } from '../../shared/services/copy-to-clipboard.service';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 

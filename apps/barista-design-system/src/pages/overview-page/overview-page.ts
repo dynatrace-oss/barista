@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import { A, Z } from '@angular/cdk/keycodes';
+import { Platform } from '@angular/cdk/platform';
 import {
   AfterViewInit,
   Component,
   OnDestroy,
   QueryList,
   ViewChildren,
+  Inject,
 } from '@angular/core';
-import { Subscription, fromEvent } from 'rxjs';
-
-import { BaCategoryNavigationContent } from '@dynatrace/shared/barista-definitions';
-import { BaPage } from '../../pages/page-outlet';
-import { BaTile } from '../../layout/tile/tile';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
+import { fromEvent, Subscription } from 'rxjs';
+import { BaPageService } from '../../shared/services/page.service';
+import { BaTile } from './components/tile';
+import { DOCUMENT } from '@angular/common';
+import { BaCategoryNavigation } from '@dynatrace/shared/barista-definitions';
 
 const LOCALSTORAGEKEY = 'baristaGridview';
 
@@ -35,9 +36,12 @@ const LOCALSTORAGEKEY = 'baristaGridview';
   selector: 'ba-overview-page',
   templateUrl: 'overview-page.html',
   styleUrls: ['overview-page.scss'],
+  host: {
+    class: 'ba-page',
+  },
 })
-export class BaOverviewPage implements AfterViewInit, BaPage, OnDestroy {
-  contents: BaCategoryNavigationContent;
+export class BaOverviewPage implements AfterViewInit, OnDestroy {
+  content = this._pageService._getCurrentPage() as BaCategoryNavigation;
 
   /** @internal whether the tiles are currently displayed as list */
   _listViewActive = true;
@@ -53,9 +57,13 @@ export class BaOverviewPage implements AfterViewInit, BaPage, OnDestroy {
   /** @internal BaTiles which should be accessible with shortcuts */
   @ViewChildren(BaTile) _items: QueryList<BaTile>;
 
-  constructor() {
+  constructor(
+    private _platform: Platform,
+    private _pageService: BaPageService,
+    @Inject(DOCUMENT) private _document: any,
+  ) {
     // check the local storage and set the initial value for the display of the tiles
-    if ('localStorage' in window) {
+    if (this._platform.isBrowser && 'localStorage' in window) {
       const localStorageState = localStorage.getItem(LOCALSTORAGEKEY);
       this._listViewActive = localStorageState !== 'tiles';
     }
@@ -67,7 +75,6 @@ export class BaOverviewPage implements AfterViewInit, BaPage, OnDestroy {
    */
   ngAfterViewInit(): void {
     this._prepareItems();
-
     this._keyUpSubscription = fromEvent(document, 'keyup').subscribe(
       (evt: KeyboardEvent) => {
         const keyCode = _readKeyCode(evt);
@@ -89,7 +96,7 @@ export class BaOverviewPage implements AfterViewInit, BaPage, OnDestroy {
    */
   _switchOverviewPageDisplay(): void {
     this._listViewActive = !this._listViewActive;
-    if ('localStorage' in window) {
+    if (this._platform.isBrowser && 'localStorage' in window) {
       this._listViewActive
         ? localStorage.setItem(LOCALSTORAGEKEY, 'list')
         : localStorage.setItem(LOCALSTORAGEKEY, 'tiles');
@@ -128,7 +135,10 @@ export class BaOverviewPage implements AfterViewInit, BaPage, OnDestroy {
    * with this letter and so on.
    */
   private _focusItem(key: string): void {
-    if (key === this._previousKey && document.activeElement !== document.body) {
+    if (
+      key === this._previousKey &&
+      this._document.activeElement !== this._document.body
+    ) {
       this._counter++;
       if (
         this._shortcutItems[key] &&

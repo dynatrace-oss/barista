@@ -43,10 +43,14 @@
     </g>
   </svg>
   <div class="ba-error-page-text-wrapper">
-    <h1>{{ contents.title }}</h1>
-    <p>
-      {{ contents.content }}
-    </p>
-    <a href="/" class="ba-btn ba-btn-primary ba-btn-cta">Back to home page</a>
+    <ng-container *ngIf="content">
+      <h1>{{ content.title }}</h1>
+      <p>
+        {{ content.content }}
+      </p>
+    </ng-container>
+    <a routerLink="/" class="ba-btn ba-btn-primary ba-btn-cta"
+      >Back to home page</a
+    >
   </div>
 </div>

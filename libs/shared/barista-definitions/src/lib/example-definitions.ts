@@ -16,6 +16,12 @@
 
 export interface BaExampleMetadata {
   name: string;
+  /**
+   * The directory inside the libs/examples/src/* where
+   * the examples are located. Is needed to dynamical load the example
+   * inside the angular application.
+   */
+  directory: string;
   templateSource: string;
   classSource: string;
   stylesSource: string;

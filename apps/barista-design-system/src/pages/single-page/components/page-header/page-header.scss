@@ -1,0 +1,40 @@
+@import 'colors';
+@import '../../../../styles/items/tags';
+
+:host {
+  grid-area: title;
+}
+
+.ba-page-title {
+  margin-bottom: 0;
+}
+
+.ba-page-description {
+  font-size: 1.3rem;
+  max-width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.ba-contributors {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.5rem;
+}
+
+.ba-page-properties {
+  margin-top: 0.5rem;
+}
+
+.ba-tag.ba-page-property {
+  margin: 0;
+}
+
+.ba-page-deprecation {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+dt-tag {
+  cursor: default;
+  margin: 0 7px 5px 0;
+}

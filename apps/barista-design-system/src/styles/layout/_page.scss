@@ -1,3 +1,14 @@
+.ba-page {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+
+  > * {
+    display: block;
+    width: 100%;
+  }
+}
+
 .ba-page-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

@@ -161,7 +161,6 @@ import { DtExampleFormattersRate } from './formatters/formatters-rate-example/fo
 import { DtExampleFormattersTime } from './formatters/formatters-time-example/formatters-time-example';
 import { DtExampleHighlightCaseSensitive } from './highlight/highlight-case-sensitive-example/highlight-case-sensitive-example';
 import { DtExampleHighlightDefault } from './highlight/highlight-default-example/highlight-default-example';
-import { DtExampleIconAsync } from './icon/icon-all-example/async-icon';
 import { DtExampleIconAll } from './icon/icon-all-example/icon-all-example';
 import { DtExampleIconDefault } from './icon/icon-default-example/icon-default-example';
 import { DtExampleInfoGroupDefault } from './info-group/info-group-default-example/info-group-default-example';
@@ -503,7 +502,6 @@ export {
   DtExampleFormattersTime,
   DtExampleHighlightCaseSensitive,
   DtExampleHighlightDefault,
-  DtExampleIconAsync,
   DtExampleIconAll,
   DtExampleIconDefault,
   DtExampleInfoGroupDefault,
@@ -828,7 +826,6 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleFormattersTime', DtExampleFormattersTime],
   ['DtExampleHighlightCaseSensitive', DtExampleHighlightCaseSensitive],
   ['DtExampleHighlightDefault', DtExampleHighlightDefault],
-  ['DtExampleIconAsync', DtExampleIconAsync],
   ['DtExampleIconAll', DtExampleIconAll],
   ['DtExampleIconDefault', DtExampleIconDefault],
   ['DtExampleInfoGroupDefault', DtExampleInfoGroupDefault],

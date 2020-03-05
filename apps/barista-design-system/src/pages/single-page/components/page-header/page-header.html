@@ -1,0 +1,30 @@
+<header>
+  <h1 class="ba-page-title">{{ content.title }}</h1>
+  <p *ngIf="content.description" class="ba-page-description">
+    {{ content.description }}
+  </p>
+
+  <ng-container *ngIf="!isIconOverviewPage">
+    <div class="ba-page-properties">
+      <a *ngIf="content.themable" class="ba-tag" href="/patterns/theming"
+        >themable</a
+      >
+      <a *ngIf="content.wiki" class="ba-tag" href="{{ content.wiki }}"
+        >UX Wiki page</a
+      >
+      <dt-tag *ngFor="let property of content.properties">{{property}}</dt-tag>
+    </div>
+    <div *ngIf="_showContributors" class="ba-contributors">
+      <ba-contributors
+        *ngIf="content.contributors.dev"
+        [type]="'dev'"
+        [contributors]="content.contributors.dev"
+      ></ba-contributors>
+      <ba-contributors
+        *ngIf="content.contributors.ux"
+        [type]="'ux'"
+        [contributors]="content.contributors.ux"
+      ></ba-contributors>
+    </div>
+  </ng-container>
+</header>

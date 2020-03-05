@@ -241,6 +241,9 @@ export function exampleInlineSourcesTransformerFactory(
         if (!demoMetadata) {
           throw new Error(`Example with name ${name} does not exist`);
         }
+        if (demoMetadata.directory) {
+          $(element).attr('directory', demoMetadata.directory);
+        }
         if (demoMetadata.templateSource) {
           $(element).attr('templateSource', demoMetadata.templateSource);
         }

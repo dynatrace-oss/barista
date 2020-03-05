@@ -1,0 +1,54 @@
+@import '../../../../styles/global/variables';
+@import 'colors';
+
+:host {
+  --ba-tiletheme: #{$turquoise-600};
+
+  border-radius: 3px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  background-color: $gray-100;
+  height: 100%;
+}
+
+.ba-smalltile-link {
+  background-color: #ffffff;
+  border: 1px solid $gray-200;
+  border-radius: 3px;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  height: 100%;
+  color: $turquoise-600;
+  color: var(--ba-tiletheme);
+
+  .ba-smalltile-img {
+    font-size: 48px;
+  }
+
+  .ba-smalltile-title {
+    font-size: 0.9rem;
+    line-height: 1.2;
+  }
+
+  &:hover {
+    text-decoration: none;
+    border: 1px solid var(--ba-tiletheme);
+  }
+}
+
+.ba-smalltile-link.dt-theme-blue {
+  --ba-tiletheme: #{$blue-600};
+}
+
+.ba-smalltile-link.dt-theme-purple {
+  --ba-tiletheme: #{$purple-600};
+}
+
+.ba-smalltile-link.dt-theme-royalblue {
+  --ba-tiletheme: #{$royalblue-500};
+}
+
+.ba-smalltile-link.dt-theme-turquoise {
+  --ba-tiletheme: #{$turquoise-600};
+}
