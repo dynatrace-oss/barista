@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DtChartModule } from '@dynatrace/barista-components/chart';
-import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
-
+import { NgModule } from '@angular/core';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
-import { DtChartExampleDataService } from './chart-example-data.service';
+import { DtChartModule } from '@dynatrace/barista-components/chart';
+import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
 import { DtExampleChartArea } from './chart-area-example/chart-area-example';
 import { DtExampleChartAreaRange } from './chart-arearange-example/chart-arearange-example';
 import { DtExampleChartBar } from './chart-bar-example/chart-bar-example';
 import { DtExampleChartBehaviorSwitch } from './chart-behavior-switch-example/chart-behavior-switch-example';
 import { DtExampleChartCategorized } from './chart-categorized-example/chart-categorized-example';
 import { DtExampleChartDefault } from './chart-default-example/chart-default-example';
+import { DtExampleChartDonut } from './chart-donut-example/chart-donut-example';
+import { DtChartExampleDataService } from './chart-example-data.service';
 import { DtExampleChartHeatfield } from './chart-heatfield-example/chart-heatfield-example';
 import { DtExampleChartHeatfieldMultiple } from './chart-heatfield-multiple-example/chart-heatfield-multiple-example';
 import { DtExampleChartLine } from './chart-line-example/chart-line-example';
@@ -38,28 +38,6 @@ import { DtExampleChartPie } from './chart-pie-example/chart-pie-example';
 import { DtExampleChartSelectionAreaDefault } from './chart-selection-area-default-example/chart-selection-area-default-example';
 import { DtExampleChartSinglePointData } from './chart-single-data-point-example/chart-single-data-point-example';
 import { DtExampleChartStream } from './chart-stream-example/chart-stream-example';
-import { DtExampleChartDonut } from './chart-donut-example/chart-donut-example';
-
-export const DT_CHART_EXAMPLES = [
-  DtExampleChartArea,
-  DtExampleChartAreaRange,
-  DtExampleChartBar,
-  DtExampleChartBehaviorSwitch,
-  DtExampleChartCategorized,
-  DtExampleChartDefault,
-  DtExampleChartDonut,
-  DtExampleChartHeatfield,
-  DtExampleChartHeatfieldMultiple,
-  DtExampleChartLine,
-  DtExampleChartLineWithGaps,
-  DtExampleChartLoading,
-  DtExampleChartMinMax,
-  DtExampleChartOrderedColors,
-  DtExampleChartPie,
-  DtExampleChartSelectionAreaDefault,
-  DtExampleChartSinglePointData,
-  DtExampleChartStream,
-];
 
 @NgModule({
   imports: [
@@ -69,8 +47,26 @@ export const DT_CHART_EXAMPLES = [
     DtButtonModule,
     DtButtonGroupModule,
   ],
-  declarations: [...DT_CHART_EXAMPLES],
-  entryComponents: [...DT_CHART_EXAMPLES],
+  declarations: [
+    DtExampleChartArea,
+    DtExampleChartAreaRange,
+    DtExampleChartBar,
+    DtExampleChartBehaviorSwitch,
+    DtExampleChartCategorized,
+    DtExampleChartDefault,
+    DtExampleChartDonut,
+    DtExampleChartHeatfield,
+    DtExampleChartHeatfieldMultiple,
+    DtExampleChartLine,
+    DtExampleChartLineWithGaps,
+    DtExampleChartLoading,
+    DtExampleChartMinMax,
+    DtExampleChartOrderedColors,
+    DtExampleChartPie,
+    DtExampleChartSelectionAreaDefault,
+    DtExampleChartSinglePointData,
+    DtExampleChartStream,
+  ],
   providers: [DtChartExampleDataService],
 })
 export class DtChartExamplesModule {}

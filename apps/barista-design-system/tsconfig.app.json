@@ -2,10 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": []
+    "types": [],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   },
   "files": ["src/main.ts", "src/polyfills.ts"],
-  "include": ["**/*.d.ts"],
+  "include": ["**/*.d.ts", "../../libs/examples/src/*/index.ts"],
   "exclude": [
     "src/test-setup.ts",
     "**/*.spec.ts",

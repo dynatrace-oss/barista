@@ -17,5 +17,5 @@
 export const environment = {
   deployUrl: '/',
   internal: true,
-  dataHost: '',
+  dataHost: '/data',
 };

@@ -1,0 +1,13 @@
+.ba-app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.ba-page {
+  flex: 1 0 auto;
+}
+
+.ba-breadcrumb-item {
+  text-transform: capitalize;
+}

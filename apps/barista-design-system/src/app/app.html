@@ -1,0 +1,25 @@
+<div [dtTheme]="_getPageTheme()" class="ba-app-container">
+  <ba-nav></ba-nav>
+
+  <ng-container *ngIf="(_breadcrumbs$ | async); let breadcrumbs">
+    <dt-breadcrumbs
+      aria-label="Breadcrumbs navigation"
+      *ngIf="breadcrumbs.length > 1"
+    >
+      <a
+        *ngFor="let crumb of breadcrumbs"
+        [routerLink]="crumb.url"
+        dtBreadcrumbsItem
+        class="ba-breadcrumb-item"
+      >
+        {{crumb.label}}
+      </a>
+    </dt-breadcrumbs>
+  </ng-container>
+
+  <router-outlet></router-outlet>
+
+  <button ba-scroll-to-top></button>
+
+  <ba-footer></ba-footer>
+</div>

@@ -15,8 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { BaErrorPageContent } from '@dynatrace/shared/barista-definitions';
-import { BaPage } from '../page-outlet';
+import { BaPageService } from '../../shared/services/page.service';
 
 @Component({
   selector: 'ba-error-page',
@@ -24,8 +23,11 @@ import { BaPage } from '../page-outlet';
   styleUrls: ['error-page.scss'],
   host: {
     role: 'main',
+    class: 'ba-page',
   },
 })
-export class BaErrorPage implements BaPage {
-  contents: BaErrorPageContent;
+export class BaErrorPage {
+  content = this._pageService._getCurrentPage();
+
+  constructor(private _pageService: BaPageService) {}
 }

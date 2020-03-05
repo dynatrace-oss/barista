@@ -1,0 +1,36 @@
+<nav class="ba-nav">
+  <a class="ba-nav-brand" routerLink="/">
+    <img
+      class="ba-nav-logo"
+      src="https://dt-cdn.net/images/dynatrace-logo-rgb-cnh-800x142px-8ad53ac283.svg"
+      alt="Dynatrace logo"
+      width="146"
+    />
+  </a>
+  <div class="ba-nav-buttongroup">
+    <!-- search? -->
+    <button
+      data-target="#ba-nav-bar"
+      class="ba-nav-btn ba-nav-btn-menutoggle"
+      (click)="_showMenu = !_showMenu"
+    >
+      Menu
+    </button>
+  </div>
+  <nav id="ba-nav-bar" class="ba-nav-bar" [class.ba-nav-bar-active]="_showMenu">
+    <ul class="ba-nav-list">
+      <li
+        class="ba-nav-item"
+        *ngFor="let item of (_navData$ | async)?.navItems"
+        (click)="_showMenu = false"
+      >
+        <a
+          class="ba-nav-link"
+          [routerLink]="item.url"
+          routerLinkActive="ba-nav-link-active"
+          >{{ item.label }}</a
+        >
+      </li>
+    </ul>
+  </nav>
+</nav>

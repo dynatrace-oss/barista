@@ -15,7 +15,7 @@
  */
 
 import { promises as fs, mkdirSync } from 'fs';
-import { join } from 'path';
+import { join, basename } from 'path';
 import { BaAllExamplesMetadata } from '@dynatrace/shared/barista-definitions';
 import { environment } from '@environments/barista-environment';
 import { ExamplePackageMetadata } from './metadata';
@@ -29,6 +29,7 @@ export async function generateExamplesLibMetadataFile(
   for (const packageMeta of packageMetadata) {
     for (const exampleMeta of packageMeta.examples) {
       metadata[exampleMeta.className] = {
+        directory: basename(packageMeta.dir),
         name: exampleMeta.className,
         templateSource: exampleMeta.templateSource,
         classSource: exampleMeta.classSource,
