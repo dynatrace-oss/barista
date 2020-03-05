@@ -192,6 +192,7 @@
         "libs/barista-components/tree-table/index.ts"
       ],
       "@dynatrace/examples": ["libs/examples/src/index.ts"],
+      "@dynatrace/examples/*": ["libs/examples/src/*/index.ts"],
       "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
       "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
       "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],

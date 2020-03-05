@@ -15,34 +15,39 @@
  */
 
 import { Component } from '@angular/core';
-import {
-  BaIndexPageContent,
-  BaPageLink,
-} from '@dynatrace/shared/barista-definitions';
-import { BaRecentlyOrderedService } from '../../shared/recently-ordered.service';
-import { BaPage } from '../page-outlet';
+import { BaPageService } from '../../shared/services/page.service';
 import { environment } from '../../environments/environment';
+import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
+import {
+  BaRecentlyOrderedService,
+  BaRecentlyOrderedItem,
+} from '../../shared/services/recently-ordered.service';
 
 @Component({
   selector: 'ba-index-page',
-  templateUrl: 'index-page.html',
-  styleUrls: ['index-page.scss'],
+  templateUrl: './index-page.html',
+  styleUrls: ['./index-page.scss'],
+  host: {
+    class: 'ba-page',
+  },
 })
-export class BaIndexPage implements BaPage {
-  contents: BaIndexPageContent;
+export class BaIndexPage {
+  content = this._pageService._getCurrentPage();
 
   /** @internal whether the internal content should be displayed */
   _internal = environment.internal;
   /** @internal array of recently visited pages */
-  _orderedItems: (BaPageLink | null)[];
+  _orderedItems: (BaRecentlyOrderedItem | undefined)[] = [];
   /** @internal whether recently ordered items should be displayed */
-  _showOrderedItems: boolean;
+  _showOrderedItems: boolean = false;
 
-  constructor(private _recentlyOrderedService: BaRecentlyOrderedService) {
-    this._orderedItems = this._recentlyOrderedService.getRecentlyOrderedItems();
-    // It's fine to only set this property once as it shouldn't change
-    // during runtime when staying on the index page.
-    this._showOrderedItems =
-      this._orderedItems.filter(item => item !== null).length > 0;
+  constructor(
+    private _pageService: BaPageService<BaSinglePageContent>,
+    private _recentlyOrderedService: BaRecentlyOrderedService,
+  ) {
+    const items = this._recentlyOrderedService.getPages();
+    this._showOrderedItems = Boolean(items.length > 0);
+    // create the ghost tiles to fill up the remaining space
+    this._orderedItems = [...items, ...new Array(7 - items.length)];
   }
 }

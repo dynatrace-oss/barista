@@ -1,8 +1,8 @@
 <main>
-  <div class="ba-page-content">
+  <div class="ba-page-content" *ngIf="content">
     <div class="ba-index-page-section ba-index-page-section-header">
       <div class="ba-title">
-        <h1>{{ contents.title }}<span> {{ contents.subtitle }}</span></h1>
+        <h1>{{ content.title }}<span> {{ content.subtitle }}</span></h1>
       </div>
     </div>
     <div class="ba-index-page-section">
@@ -17,32 +17,32 @@
       <h2>Most ordered</h2>
       <div class="ba-tilegrid-onerow">
         <ba-smalltile
-          *ngFor="let item of contents.mostordered"
+          *ngFor="let item of content.mostordered"
           [data]="item"
         ></ba-smalltile>
       </div>
     </div>
     <div
-      *ngIf="contents.cta"
+      *ngIf="content.cta"
       class="ba-index-page-section ba-index-page-section-cta"
     >
       <div>
-        <h2>{{ contents.cta.title }}</h2>
+        <h2>{{ content.cta.title }}</h2>
         <p>
-          {{ contents.cta.text }}
+          {{ content.cta.text }}
         </p>
         <a
           class="ba-btn ba-btn-primary ba-btn-cta"
-          [href]="contents.cta.buttonlink"
-          >{{ contents.cta.buttontext }}</a
+          [href]="content.cta.buttonlink"
+          >{{ content.cta.buttontext }}</a
         >
       </div>
     </div>
     <div class="ba-index-page-section">
       <h2>Getting started</h2>
       <a
-        *ngFor="let item of contents.gettingstarted"
-        href="{{ item.link }}"
+        *ngFor="let item of content.gettingstarted"
+        [routerLink]="item.link"
         class="ba-index-page-links"
         [style.border-left-color]="item.borderColor"
       >

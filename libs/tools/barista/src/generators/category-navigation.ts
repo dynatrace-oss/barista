@@ -177,7 +177,7 @@ function getOverviewSectionItem(
         : 'Id',
     description: filecontent.description || '',
     section: section,
-    link: filepath,
+    link: `/${filepath}`,
     badge: properties,
     order: filecontent.order,
   };

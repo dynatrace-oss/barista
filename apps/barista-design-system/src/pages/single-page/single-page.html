@@ -1,32 +1,32 @@
-<div class="ba-page-grid">
+<div class="ba-page-grid" *ngIf="_pageContent">
   <nav
     ba-sidenav
-    *ngIf="contents.sidenav"
-    [sidenavData]="contents.sidenav"
+    *ngIf="_pageContent.sidenav"
+    [sidenavData]="_pageContent.sidenav"
   ></nav>
 
   <ba-page-header
-    *ngIf="contents"
-    [title]="contents.title"
-    [description]="contents.description"
-    [contributors]="contents.contributors"
-    [properties]="contents.properties"
-    [wiki]="contents.wiki"
-    [themable]="contents.themable"
+    [content]="_pageContent"
+    [isIconOverviewPage]="_isIconOverview"
   ></ba-page-header>
 
   <main class="ba-page-main" id="main" role="main">
     <article class="ba-single-page-content">
-      <ba-page-content [data]="contents.content"></ba-page-content>
+      <ba-icon-overview-content
+        *ngIf="_isIconOverview; else elseBlock"
+        [icons]="_pageContent.icons"
+      ></ba-icon-overview-content>
+      <ng-template #elseBlock>
+        <ba-page-content [data]="_pageContent.content"></ba-page-content>
+      </ng-template>
     </article>
   </main>
 
-  <ba-toc *ngIf="_showTOC()"></ba-toc>
+  <ba-toc *ngIf="!_isIconOverview && _pageContent.toc !== false"></ba-toc>
 
   <ba-page-footer
-    *ngIf="contents"
-    [tags]="contents.tags"
-    [relatedTopics]="contents.related"
+    [tags]="_pageContent.tags"
+    [relatedTopics]="_pageContent.related"
   >
   </ba-page-footer>
 </div>

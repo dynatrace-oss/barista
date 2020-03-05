@@ -1,0 +1,24 @@
+<p>
+  All icons can be used in your Angular project. Have a look at the
+  <a routerLink="/components/icon">icon component page</a> in Barista's
+  components section for more information.
+</p>
+
+<dt-form-field class="ba-icon-filter">
+  <dt-label>Filter icons</dt-label>
+  <input type="text" dtInput placeholder="Search for icons" />
+</dt-form-field>
+
+<div class="ba-icon-list" *ngIf="_filteredIcons.length">
+  <ba-lazy-icon
+    *ngFor="let icon of _filteredIcons; trackBy: _trackByMethod"
+    [name]="icon.name"
+    [title]="icon.title"
+    class="ba-icon-list-item"
+  ></ba-lazy-icon>
+</div>
+
+<div *ngIf="!_filteredIcons.length">
+  <h2>Nothing found...</h2>
+  <p>Sorry, we could not find the icon you are looking for.</p>
+</div>

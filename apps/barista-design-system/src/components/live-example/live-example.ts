@@ -14,35 +14,31 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  Input,
-  ComponentFactoryResolver,
-  Injector,
-  ViewChild,
-  ElementRef,
-  ViewContainerRef,
-  ComponentRef,
-  OnDestroy,
-} from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
-import { EXAMPLES_MAP } from '@dynatrace/examples';
-import { timer, Subscription } from 'rxjs';
+import {
+  Compiler,
+  Component,
+  Input,
+  NgModule,
+  OnDestroy,
+  OnInit,
+  Type,
+} from '@angular/core';
 import {
   Highlighter,
-  registerLanguages,
   htmlRender,
   init,
   process,
+  registerLanguages,
+  SCSS,
   TypeScript,
   XML,
-  SCSS,
 } from 'highlight-ts';
-
-import { createComponent } from '../../utils/create-component';
+import { from, Observable, Subscription, timer } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs/operators';
+import { BaCopyToClipboardService } from '../../shared/services/copy-to-clipboard.service';
 import { wrapCodeLines } from '../../utils/wrap-code-lines';
-import { BaCopyToClipboardService } from '../../shared/copy-to-clipboard.service';
 
 type BaSourceType = 'html' | 'ts' | 'scss';
 
@@ -56,17 +52,17 @@ type BaSourceType = 'html' | 'ts' | 'scss';
     '[class.ba-live-example-full-width]': 'fullwidth',
   },
 })
-export class BaLiveExample implements OnDestroy {
+export class BaLiveExample implements OnInit, OnDestroy {
   /** The name of the example (class name) that will be instantiated. */
-  @Input()
-  get name(): string {
-    return this._name;
-  }
-  set name(value: string) {
-    this._name = value;
-    this._initExample();
-  }
-  private _name: string;
+  @Input() name: string;
+
+  /**
+   * The directory inside the libs/examples/src/* where
+   * the examples are located.
+   * Is needed to know from which directory the example should be loaded
+   * via the es6 import statement in the `_initExample` method
+   */
+  @Input() directory: string;
 
   /** Whether the example should run in the dark theme. */
   @Input()
@@ -142,14 +138,9 @@ export class BaLiveExample implements OnDestroy {
 
   /**
    * @internal
-   * The placeholder element that will be replaced with
-   * the example element once it is instantiated.
+   * The stream that holds the current component type.
    */
-  @ViewChild('demoPlaceholder', { read: ElementRef, static: true })
-  _placeholder: ElementRef;
-
-  /** @internal The component-ref of the instantiated class. */
-  _componentRef: ComponentRef<unknown>;
+  _example$: Observable<any>;
 
   /**
    * @internal
@@ -181,9 +172,7 @@ export class BaLiveExample implements OnDestroy {
   private _highlighter: Highlighter<string>;
 
   constructor(
-    private _componentFactoryResolver: ComponentFactoryResolver,
-    private _injector: Injector,
-    private _viewContainerRef: ViewContainerRef,
+    private _compiler: Compiler,
     private _platform: Platform,
     private _ctcService: BaCopyToClipboardService,
   ) {
@@ -191,10 +180,11 @@ export class BaLiveExample implements OnDestroy {
     this._highlighter = init(htmlRender);
   }
 
+  ngOnInit(): void {
+    this._initExample();
+  }
+
   ngOnDestroy(): void {
-    if (this._componentRef) {
-      this._componentRef.destroy();
-    }
     this._timerSubscription.unsubscribe();
   }
 
@@ -237,19 +227,20 @@ export class BaLiveExample implements OnDestroy {
   }
 
   private _initExample(): void {
-    const exampleType = EXAMPLES_MAP.get(this._name);
-    if (exampleType) {
-      const factory = this._componentFactoryResolver.resolveComponentFactory(
-        exampleType,
-      );
-      this._componentRef = createComponent(
-        factory,
-        this._viewContainerRef,
-        this._injector,
-        this._placeholder.nativeElement,
-        true,
-      );
-    }
+    this._example$ = from(
+      import(`../../../../../libs/examples/src/${this.directory}/index.ts`),
+    ).pipe(
+      map(es6Module => getNgModuleFromEs6Module(es6Module)),
+      filter(Boolean),
+      switchMap((moduleType: Type<NgModule>) =>
+        this._compiler.compileModuleAndAllComponentsAsync(moduleType),
+      ),
+      map(({ componentFactories }) => {
+        return componentFactories.find(
+          factory => factory.componentType.name === this.name,
+        )?.componentType;
+      }),
+    );
   }
 
   /**
@@ -282,3 +273,20 @@ export class BaLiveExample implements OnDestroy {
     return wrapCodeLines(transformedCode, 'ba-live-example-code-line');
   }
 }
+
+/** Retrieves the NgModule of an es6 module */
+function getNgModuleFromEs6Module(es6Module: any): Type<NgModule> | null {
+  for (const key of Object.keys(es6Module)) {
+    if (isNgModule(es6Module[key])) {
+      return es6Module[key];
+    }
+  }
+  return null;
+}
+
+/** Checks if a provided type is an Angular Module */
+const isNgModule = (moduleType: any): boolean =>
+  !!(
+    Array.isArray(moduleType?.decorators) &&
+    moduleType.decorators[0]?.type?.prototype?.ngMetadataName === 'NgModule'
+  );

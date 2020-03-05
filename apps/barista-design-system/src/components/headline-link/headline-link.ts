@@ -16,7 +16,7 @@
 
 import { Component, Input } from '@angular/core';
 import { DtToastRef, DtToast } from '@dynatrace/barista-components/toast';
-import { BaCopyToClipboardService } from '../../shared/copy-to-clipboard.service';
+import { BaCopyToClipboardService } from '../../shared/services/copy-to-clipboard.service';
 
 @Component({
   selector: 'ba-headline-link',

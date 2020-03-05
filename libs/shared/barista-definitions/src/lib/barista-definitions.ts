@@ -148,3 +148,10 @@ export interface BaContributors {
   dev?: BaContributor[];
   ux?: BaContributor[];
 }
+
+export type BaContentTypes =
+  | BaSinglePageContent
+  | BaErrorPageContent
+  | BaIndexPageContent
+  | BaIconOverviewPageContent
+  | BaCategoryNavigationContent;

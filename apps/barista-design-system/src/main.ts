@@ -15,14 +15,10 @@
  */
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-
-import { AppModule } from './app.module';
+import { AppModule } from './app/app.module';
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule, { preserveWhitespaces: true })
-  .catch(
-    // tslint:disable-next-line:typedef
-    (err): void => {
-      console.log(err); // tslint:disable-line:no-console
-    },
-  );
+  .catch(err => {
+    console.error(err);
+  });
