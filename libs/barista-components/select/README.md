@@ -1,5 +1,7 @@
 # Select
 
+<ba-ux-snippet name="select-intro"></ba-ux-snippet>
+
 The `<dt-select>` is like the native `<select>` a form control for selecting a
 value from a list of options. It is also designed to work with Angular forms. By
 using the `<dt-option>` element, which is also provided in the select module,
