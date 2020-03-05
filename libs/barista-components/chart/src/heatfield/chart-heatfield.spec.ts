@@ -133,6 +133,14 @@ describe('DtChartHeatfield', () => {
         chart._afterRender.next();
         validatePosition(fixture, 100, 500);
       });
+
+      it('should not render heatfield when start and end are undefined ', () => {
+        instance.start = undefined;
+        instance.end = undefined;
+        fixture.detectChanges();
+        chart._afterRender.next();
+        expect(marker.style.visibility).toEqual('hidden');
+      });
     });
 
     describe('Activation', () => {
