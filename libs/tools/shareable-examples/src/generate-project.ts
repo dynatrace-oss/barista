@@ -23,6 +23,7 @@ import { getComponentSelectorFromSourceFile } from './utils/get-component-select
 import { getBoilerplateFiles } from './utils/get-boilerplate-files';
 import { ExampleFile, ExampleProject } from './utils/examples.interface';
 import { getTemplateAndStyleFilesFromComponentSourceFiles } from './utils/get-template-and-style-files-from-component-source-file';
+import { tsCreateSourceFile } from '@dynatrace/tools/shared';
 
 /** Isolates the required files for a barista example and builds a list of files (project) that are runnable within an online IDE i.e. stackblitz or codesandbox. */
 export async function generateShareableExampleProject(
@@ -47,6 +48,20 @@ export async function generateShareableExampleProject(
     exampleRoot,
   );
 
+  // Get all relative imports from relative ones as well
+  // For now, one level should be enough, because nx rules will force boundaries
+  // and scopes anyway
+  const additionalImports: ExampleFile[] = [];
+  for (const relativeImport of relativeImports) {
+    const relativeImportAst = await tsCreateSourceFile(relativeImport.path);
+    additionalImports.push(
+      ...(await getRelativeImportsFromSourceFile(
+        relativeImportAst,
+        dirname(exampleRoot),
+      )),
+    );
+  }
+
   // Get the transformed module file that works for this example.
   const moduleFile = await getExampleModule(exampleRoot, exampleClassName);
   const moduleClassName = getClassnameFromSourceFile(moduleFile.ast);
@@ -54,6 +69,19 @@ export async function generateShareableExampleProject(
     moduleFile.ast,
     dirname(moduleFile.path),
   );
+
+  // Get all relative imports from relative module imports as well
+  // For now, one level should be enough, because nx rules will force boundaries
+  // and scopes anyway
+  for (const relativeImport of relativeModuleImports) {
+    const relativeImportAst = await tsCreateSourceFile(relativeImport.path);
+    additionalImports.push(
+      ...(await getRelativeImportsFromSourceFile(
+        relativeImportAst,
+        dirname(relativeImport.path),
+      )),
+    );
+  }
 
   // Append default files.
   const additionalBoilerplateFiles = await getBoilerplateFiles(
@@ -71,6 +99,7 @@ export async function generateShareableExampleProject(
     ...relativeImports,
     ...relativeModuleImports,
     ...additionalBoilerplateFiles,
+    ...additionalImports,
   ];
 
   // File to open in the online ide.
