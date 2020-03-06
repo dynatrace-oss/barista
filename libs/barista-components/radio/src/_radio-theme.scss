@@ -29,10 +29,6 @@
       }
 
       &.dt-radio-disabled {
-        .dt-radio-content {
-          color: $gray-500;
-        }
-
         .dt-radio-inner-circle {
           background-color: $gray-500;
         }

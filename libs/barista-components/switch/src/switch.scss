@@ -121,10 +121,6 @@
   }
 
   &.dt-switch-disabled {
-    .dt-switch-content {
-      color: $disabledcolor;
-    }
-
     &:hover .dt-switch-label {
       cursor: default;
     }
