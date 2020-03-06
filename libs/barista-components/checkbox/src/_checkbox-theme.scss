@@ -28,10 +28,6 @@
       }
 
       &.dt-checkbox-disabled {
-        .dt-checkbox-content {
-          color: $gray-500;
-        }
-
         .dt-checkbox-container {
           background-color: transparent;
           border-color: $gray-500;
