@@ -21,13 +21,13 @@ import { DtInputModule } from '@dynatrace/barista-components/input';
 
 import { DtExampleIconAll } from './icon-all-example/icon-all-example';
 import { DtExampleIconDefault } from './icon-default-example/icon-default-example';
-import { DtExampleIconAsync } from './icon-all-example/async-icon';
+import { DtIconAsync } from './async-icon';
 
 export const DT_ICON_EXAMPLES = [DtExampleIconAll, DtExampleIconDefault];
 
 @NgModule({
   imports: [CommonModule, DtInputModule, DtIconModule],
-  declarations: [...DT_ICON_EXAMPLES, DtExampleIconAsync],
+  declarations: [...DT_ICON_EXAMPLES, DtIconAsync],
   entryComponents: [...DT_ICON_EXAMPLES],
 })
 export class DtIconExamplesModule {}

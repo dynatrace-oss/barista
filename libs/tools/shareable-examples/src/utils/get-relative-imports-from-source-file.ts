@@ -42,7 +42,7 @@ export async function getRelativeImportsFromSourceFile(
     // Filter in only relative imports, that are needed.
     // These files need to be packed with it.
     .filter((moduleSpecifierText: string) =>
-      moduleSpecifierText.startsWith("'."),
+      moduleSpecifierText.startsWith('.'),
     );
 
   // Iterate over the found relative imports and read the files

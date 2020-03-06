@@ -24,16 +24,21 @@ import {
 } from '@angular/core';
 import { DtIconType } from '@dynatrace/barista-icons';
 import { Subscription } from 'rxjs';
-import { Viewport } from '../viewport';
+import { Viewport } from './viewport';
 import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'dt-example-icon-async',
-  templateUrl: 'async-icon.html',
-  styleUrls: ['async-icon.scss'],
+  template: `
+    <ng-container>
+      <dt-icon [name]="name" *ngIf="_show"></dt-icon>
+      <p>{{ name }}</p>
+    </ng-container>
+  `,
+  styles: ['dt-icon { display: inline-block; width: 3rem; height: 3rem; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtExampleIconAsync implements OnDestroy {
+export class DtIconAsync implements OnDestroy {
   @Input() name: DtIconType;
   _show = false;
 
