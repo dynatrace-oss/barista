@@ -7,6 +7,8 @@
     "@angular/compiler": "^9.0.2",
     "@angular/core": "^9.0.2",
     "@angular/forms": "^9.0.2",
+    "@angular/localize": "^9.0.4",
+    "@angular/router": "^9.0.5",
     "@angular/platform-browser": "^9.0.2",
     "@angular/platform-browser-dynamic": "^9.0.2",
     "core-js": "^3.1.3",
@@ -18,6 +20,8 @@
     "@dynatrace/barista-components": "latest",
     "@dynatrace/barista-fonts": "latest",
     "@dynatrace/barista-icons": "latest",
-    "highcharts": "^6.0.7"
+    "highcharts": "^6.0.7",
+    "@types/highcharts": "^5.0.23",
+    "lodash": "^4.17.15"
   }
 }
