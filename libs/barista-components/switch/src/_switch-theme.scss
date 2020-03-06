@@ -65,10 +65,6 @@
       }
 
       &.dt-switch-disabled {
-        .dt-switch-content {
-          color: $gray-500;
-        }
-
         .dt-switch-bar::before {
           background-image: radial-gradient(
             circle 5px,
