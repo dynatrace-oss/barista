@@ -7,25 +7,40 @@ on:
 
 jobs:
   deploy:
-
     runs-on: ubuntu-latest
+    env:
+      CI: true
     steps:
-    - uses: actions/checkout@v2
-    - name: Use node 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - run: npm ci
-    - run: |
-        npm run examples-tools
-        npm run ng run barista-design-system:build:production --progress=false
-        npm run barista-tools
-      env:
-        CI: true
 
-    - name: ZEIT Now Deployment
-      uses: amondnet/now-deployment@v1
-      with:
-        zeit-token: ${{ secrets.ZEIT_TOKEN }}
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        now-args: '--local-config now-preview.json --confirm ./dist/apps/barista-design-system'
+      - uses: actions/checkout@v2
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Use node 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: Install dependencies
+        run:  npm ci
+
+      - name: Build Barista Design System
+        run: |
+          npm run examples-tools
+          npm run ng run barista-design-system:build:production
+          npm run barista-tools
+
+      - name: ZEIT Now Deployment
+        uses: amondnet/now-deployment@v1
+        with:
+          zeit-token: ${{ secrets.ZEIT_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          now-args:
+            '--local-config now-preview.json --confirm
+            ./dist/apps/barista-design-system/browser'

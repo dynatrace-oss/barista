@@ -400,7 +400,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/apps/barista-design-system",
+            "outputPath": "dist/apps/barista-design-system/browser",
             "tsConfig": "apps/barista-design-system/tsconfig.app.json",
             "index": "apps/barista-design-system/src/index.html",
             "main": "apps/barista-design-system/src/main.ts",
@@ -440,7 +440,7 @@
               },
               {
                 "glob": "**/*.json",
-                "input": "dist/apps/barista-design-system/data",
+                "input": "dist/barista-data",
                 "output": "/data"
               },
               {
@@ -488,16 +488,58 @@
             }
           }
         },
+        "build-server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/apps/barista-design-system/server",
+            "main": "apps/barista-design-system/src/server.ts",
+            "tsConfig": "apps/barista-design-system/tsconfig.server.json",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/barista-components/core/src/style/"]
+            },
+            "progress": false
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "barista-design-system:build",
-            "proxyConfig": "apps/barista-design-system/proxy.conf.json"
+            "browserTarget": "barista-design-system:build"
           },
           "configurations": {
             "production": {
               "browserTarget": "barista-design-system:build:production"
             }
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "barista-design-system:build",
+            "serverTarget": "barista-design-system:build-server"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "barista-design-system:build:production",
+              "serverTarget": "barista-design-system:build-server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "barista-design-system:build:production",
+            "serverTarget": "barista-design-system:build-server:production",
+            "routes": ["/"]
+          },
+          "configurations": {
+            "production": {}
           }
         },
         "lint": {
