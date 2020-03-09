@@ -1,3 +1,27 @@
+## 6.0.1 (2020-03-09)
+
+### Bug Fixes
+
+- **chart-heatfield:** Chart Heatfield is now hidden when start and end are
+  undefined.
+  ([dbb545a](https://github.com/dynatrace-oss/barista/commit/dbb545a1001753f2d6e6cdc60e98bbc150889843))
+- **filter-field:** Fixes an issue with filtering the options when the same
+  character was used twice in a row.
+  ([dca5b6e](https://github.com/dynatrace-oss/barista/commit/dca5b6e3832da416667dc678d7fd4acd9d78ee9b))
+- **key-value-list:** Fixes an issue where the text was displaced on selecting
+  with `shift+arrow`.
+  [#690](https://github.com/dynatrace-oss/barista/issues/690)
+  ([f7a224b](https://github.com/dynatrace-oss/barista/commit/f7a224b52d4c4ada9ae9aea351c755e7cd6eedf5))
+- **radio, checkbox, switch:** Fixed the contrast ratio of the disabled labels
+  to fulfill our a11y requirements.
+  ([0ae6689](https://github.com/dynatrace-oss/barista/commit/0ae6689231e82297f2c98f7906982db04096a075)),
+  closes [#684](https://github.com/dynatrace-oss/barista/issues/684)
+  [#684](https://github.com/dynatrace-oss/barista/issues/684)
+- **tag:** Fixed an issue with the tag-add button being influenced by user agent
+  styles.
+  ([fa552ff](https://github.com/dynatrace-oss/barista/commit/fa552ff20a8b3e728f2644189ef81355004f343b)),
+  closes [#640](https://github.com/dynatrace-oss/barista/issues/640)
+
 ## 6.0.0 (2020-03-02)
 
 ### BREAKING CHANGES
