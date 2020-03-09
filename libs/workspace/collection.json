@@ -1,0 +1,12 @@
+{
+  "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "name": "workspace",
+  "version": "0.0.1",
+  "schematics": {
+    "workspace": {
+      "factory": "./src/schematics/workspace/schematic",
+      "schema": "./src/schematics/workspace/schema.json",
+      "description": "workspace schematic"
+    }
+  }
+}

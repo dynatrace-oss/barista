@@ -109,6 +109,11 @@ async function buildPages(): Promise<void[]> {
       const path = result.relativeOutFile
         .replace(/^\//, '') // replace the leading slash
         .replace(/\..+$/, ''); // replace the file ending
+
+      if (path === 'index') {
+        return '/';
+      }
+
       return `/${path}`;
     })
     .join(EOL);
