@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema",
+  "$id": "https://json-schema.org/draft-07/schema",
+  "title": "Workspace builder",
+  "description": "",
+  "type": "object",
+  "properties": {
+    "outputPath": {
+      "type": "string",
+      "description": "The output path of the generated files."
+    },
+    "devServerTarget": {
+      "type": "string",
+      "description": "The universal serve-ssr target that should be started."
+    },
+    "routesFile": {
+      "type": "string",
+      "description": "Path to the file that holds the route information."
+    },
+    "routes": {
+      "type": "string",
+      "description": "Comma separated list of routes."
+    }
+  }
+}

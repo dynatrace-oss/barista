@@ -11,7 +11,6 @@ jobs:
     env:
       CI: true
     steps:
-
       - uses: actions/checkout@v2
 
       - name: Cache node modules
@@ -33,10 +32,12 @@ jobs:
       - name: Build Barista Design System
         run: |
           npm run examples-tools
-          npm run ng run barista-design-system:build:production
           npm run barista-tools
+          npm run ng build workspace
+          npm run ng run barista-design-system:render:production
 
       - name: ZEIT Now Deployment
+        id: now-deployment
         uses: amondnet/now-deployment@v1
         with:
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
@@ -44,3 +45,14 @@ jobs:
           now-args:
             '--local-config now-preview.json --confirm
             ./dist/apps/barista-design-system/browser'
+
+      - name: Generating Lighthouse Report
+        uses: jakejarvis/lighthouse-action@master
+        with:
+          url: ${{ steps.now-deployment.outputs.preview-url }}
+
+      - name: Save Lighthouse Audit
+        uses: actions/upload-artifact@master
+        with:
+          name: barista-audit
+          path: './report'

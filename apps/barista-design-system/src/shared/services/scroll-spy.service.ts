@@ -124,7 +124,7 @@ export class BaScrollSpyService {
    * currently visible in the viewport. If there was no other group being spied, start listening for
    * `resize` and `scroll` events.
    */
-  spyOn(elements: Element[]): BaScrollSpyInfo {
+  spyOn(elements: Element[]): BaScrollSpyInfo | null {
     if (this._platform.isBrowser && !this._spiedElementGroups.length) {
       fromEvent(window, 'resize')
         .pipe(auditTime(300), takeUntil(this._onStopListening))
@@ -137,25 +137,27 @@ export class BaScrollSpyService {
           this._onScroll();
         });
       this._onResize();
+
+      const scrollTop = this._getScrollTop();
+      const maxScrollTop = this._lastMaxScrollTop;
+
+      const spiedGroup = new BaScrollSpiedElementGroup(elements);
+      spiedGroup.calibrate(scrollTop, this._topOffset);
+      spiedGroup.onScroll(scrollTop, maxScrollTop);
+
+      this._spiedElementGroups.push(spiedGroup);
+
+      return {
+        active: spiedGroup.activeScrollItem
+          .asObservable()
+          .pipe(distinctUntilChanged()),
+        unspy: () => {
+          this._unspy(spiedGroup);
+        },
+      };
     }
 
-    const scrollTop = this._getScrollTop();
-    const maxScrollTop = this._lastMaxScrollTop;
-
-    const spiedGroup = new BaScrollSpiedElementGroup(elements);
-    spiedGroup.calibrate(scrollTop, this._topOffset);
-    spiedGroup.onScroll(scrollTop, maxScrollTop);
-
-    this._spiedElementGroups.push(spiedGroup);
-
-    return {
-      active: spiedGroup.activeScrollItem
-        .asObservable()
-        .pipe(distinctUntilChanged()),
-      unspy: () => {
-        this._unspy(spiedGroup);
-      },
-    };
+    return null;
   }
 
   private _getContentHeight(): number {
@@ -163,11 +165,11 @@ export class BaScrollSpyService {
   }
 
   private _getScrollTop(): number {
-    return (window && window.pageYOffset) || 0;
+    return (this._platform.isBrowser && window.pageYOffset) || 0;
   }
 
   private _getViewportHeight(): number {
-    return window.innerHeight;
+    return (this._platform.isBrowser && window.innerHeight) || 0;
   }
 
   /*

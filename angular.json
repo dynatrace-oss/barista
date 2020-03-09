@@ -531,17 +531,6 @@
             }
           }
         },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "browserTarget": "barista-design-system:build:production",
-            "serverTarget": "barista-design-system:build-server:production",
-            "routes": ["/"]
-          },
-          "configurations": {
-            "production": {}
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -568,6 +557,19 @@
             "tsConfig": "apps/barista-design-system/tsconfig.spec.json",
             "setupFile": "apps/barista-design-system/src/test-setup.ts",
             "passWithNoTests": true
+          }
+        },
+        "render": {
+          "builder": "@dynatrace/workspace:build-barista",
+          "options": {
+            "devServerTarget": "barista-design-system:serve-ssr",
+            "outputPath": "dist/apps/barista-design-system/browser",
+            "routesFile": "dist/barista-data/routes.txt"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "barista-design-system:serve-ssr:production"
+            }
           }
         }
       }
@@ -718,6 +720,70 @@
             },
             "watch": {
               "live": true
+            }
+          }
+        }
+      }
+    },
+    "workspace": {
+      "root": "libs/workspace",
+      "sourceRoot": "libs/workspace/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/workspace/tsconfig.lib.json",
+              "libs/workspace/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/workspace/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/workspace/jest.config.js",
+            "tsConfig": "libs/workspace/tsconfig.spec.json",
+            "setupFile": "libs/workspace/src/test-setup.ts",
+            "passWithNoTests": true
+          }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "node_modules/@dynatrace/workspace",
+            "tsConfig": "libs/workspace/tsconfig.lib.json",
+            "packageJson": "libs/workspace/package.json",
+            "main": "libs/workspace/src/index.ts",
+            "assets": [
+              "libs/workspace/*.md",
+              {
+                "input": "./libs/workspace/src",
+                "glob": "**/*.!(ts)",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/workspace",
+                "glob": "collection.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/workspace",
+                "glob": "builders.json",
+                "output": "."
+              },
+              {
+                "input": "./libs/workspace",
+                "glob": "**/*.json",
+                "output": "."
+              }
+            ]
+          },
+          "configurations": {
+            "watch": {
+              "watch": true
             }
           }
         }

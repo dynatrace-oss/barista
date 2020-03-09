@@ -20,9 +20,9 @@
  * on small screen where no header is present.
  */
 export function applyTableDefinitionHeadingAttr(table: HTMLTableElement): void {
-  let th = Array.prototype.slice.call(table.querySelectorAll('th'));
+  let th = [].slice.call(table.querySelectorAll('th'));
   if (!th.length) {
-    th = Array.prototype.slice.call(table.querySelectorAll('thead td'));
+    th = [].slice.call(table.querySelectorAll('thead td'));
   }
   const header = th.map(el => el.textContent);
   const tr = table.querySelectorAll('tr');
