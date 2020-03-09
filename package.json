@@ -147,7 +147,7 @@
     "testcafe": "^1.6.1",
     "testcafe-browser-provider-browserstack": "^1.9.0",
     "testcafe-reporter-xunit": "^2.1.0",
-    "ts-jest": "24.1.0",
+    "ts-jest": "24.3.0",
     "ts-node": "^7.0.0",
     "tsickle": "^0.38.0",
     "tslint": "^5.18.0",
