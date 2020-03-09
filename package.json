@@ -34,12 +34,13 @@
     "ng": "ng",
     "barista-tools": "ng build barista-tools && node dist/libs/tools/barista/main.js",
     "shareable-examples": "ng build tools-shareable-examples && node dist/libs/tools/shareable-examples/main.js",
-    "barista": "npm run examples-tools && npm run barista-tools && ng serve barista-design-system",
+    "barista": "npm run examples-tools && npm run barista-tools && ng run barista-design-system:serve-ssr",
     "demos": "npm run examples-tools && ng serve demos",
     "examples-tools": "ng build examples-tools && node dist/libs/tools/examples-tools/main.js",
     "stage-release": "ng run tools-release:build-stage-release && node dist/libs/tools/stage-release/main.js",
     "publish-release": "ng run tools-release:build-publish-release && node dist/libs/tools/publish-release/main.js",
-    "breaking-changes": "gulp breaking-changes"
+    "breaking-changes": "gulp breaking-changes",
+    "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",

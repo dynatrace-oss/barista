@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-import { dirname, join } from 'path';
-import { promises as fs, mkdirSync, existsSync } from 'fs';
-
-import { BaPageBuildResult, BaPageBuilder, BaPageTransformer } from './types';
-import { environment } from '@environments/barista-environment';
 import { isPublicBuild } from '@dynatrace/tools/shared';
-
+import { environment } from '@environments/barista-environment';
+import { green } from 'chalk';
+import { existsSync, mkdirSync, promises as fs } from 'fs';
+import { EOL } from 'os';
+import { dirname, join } from 'path';
 import { componentsBuilder } from './builder/components';
-import { strapiBuilder } from './builder/strapi';
 import { homepageBuilder } from './builder/homepage';
 import { iconsBuilder } from './builder/icons';
+import { strapiBuilder } from './builder/strapi';
 import { overviewBuilder } from './generators/category-navigation';
-
 import {
-  internalLinksTransformerFactory,
   exampleInlineSourcesTransformerFactory,
   internalContentTransformerFactory,
+  internalLinksTransformerFactory,
 } from './transform';
+import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from './types';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
@@ -104,6 +103,24 @@ async function buildPages(): Promise<void[]> {
 
   // Make sure dist dir is created
   mkdirSync(environment.distDir, { recursive: true });
+
+  const routes = results
+    .map(result => {
+      const path = result.relativeOutFile
+        .replace(/^\//, '') // replace the leading slash
+        .replace(/\..+$/, ''); // replace the file ending
+      return `/${path}`;
+    })
+    .join(EOL);
+
+  const routesFile = join(environment.distDir, 'routes.txt');
+  // write the routes to a own file that can be used for pre rendering
+  fs.writeFile(routesFile, routes, 'utf-8');
+  console.log(
+    green(
+      '\n✅ Successfully created routes.txt file for pre-rendering barista\n',
+    ),
+  );
 
   const files = results.map(async result => {
     const outFile = join(environment.distDir, result.relativeOutFile);

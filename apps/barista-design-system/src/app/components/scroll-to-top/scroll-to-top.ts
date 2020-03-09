@@ -17,6 +17,7 @@
 import { Component, AfterViewInit, OnDestroy, NgZone } from '@angular/core';
 import { Subscription, fromEvent, interval } from 'rxjs';
 import { throttle, pairwise, map, startWith } from 'rxjs/operators';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'button[ba-scroll-to-top]',
@@ -40,9 +41,13 @@ export class BaScrollToTop implements AfterViewInit, OnDestroy {
   /** the threshold for the scroll position, before which the scroll to top button is not displayed */
   private _threshold = 150;
 
-  constructor(private _zone: NgZone) {}
+  constructor(private _zone: NgZone, private _platform: Platform) {}
 
   ngAfterViewInit(): void {
+    if (!this._platform.isBrowser) {
+      return;
+    }
+
     this._zone.runOutsideAngular(() => {
       this._scrollSubscription = fromEvent(window, 'scroll')
         .pipe(
