@@ -20,6 +20,7 @@ import { SafeHtml } from '@angular/platform-browser';
 import { ReplaySubject, Subscription } from 'rxjs';
 
 import { BaScrollSpyInfo, BaScrollSpyService } from './scroll-spy.service';
+import { Platform } from '@angular/cdk/platform';
 
 /**
  * CODE COPIED FROM: 'https://github.com/angular/angular/blob/master/aio/src/app/shared/toc.service.ts' and modified
@@ -51,8 +52,8 @@ export class BaTocService implements OnDestroy {
   private _activeItemSubscription = Subscription.EMPTY;
 
   constructor(
-    // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
+    private _platform: Platform,
     private _scrollSpyService: BaScrollSpyService,
     private _zone: NgZone,
   ) {}
@@ -76,27 +77,31 @@ export class BaTocService implements OnDestroy {
     this.tocItems = this._refractorTocItems(headlines, docId);
     this.tocList.next(this.tocItems);
 
-    this._zone.runOutsideAngular(() => {
-      // start the scroll spy
-      this._scrollSpyInfo = this._scrollSpyService.spyOn(headlines);
-    });
-    this._activeItemSubscription = this._scrollSpyInfo!.active.subscribe(
-      scrollItem => {
-        if (scrollItem) {
-          for (const tocItem of this.tocItems) {
-            const scrollItemId = scrollItem.element.getAttribute('id');
-            if (tocItem.headlineId === scrollItemId) {
-              this.activeItems.next([tocItem]);
-            }
-            for (const tocSubItem of tocItem.subheadlines) {
-              if (tocSubItem.headlineId === scrollItemId) {
-                this.activeItems.next([tocItem, tocSubItem]);
+    // TODO: whole scroll spy logic has to be fixed! It was not refactored
+    // during the angular router refactoring
+    if (this._platform.isBrowser) {
+      this._zone.runOutsideAngular(() => {
+        // start the scroll spy
+        this._scrollSpyInfo = this._scrollSpyService.spyOn(headlines);
+      });
+      this._activeItemSubscription = this._scrollSpyInfo!.active.subscribe(
+        scrollItem => {
+          if (scrollItem) {
+            for (const tocItem of this.tocItems) {
+              const scrollItemId = scrollItem.element.getAttribute('id');
+              if (tocItem.headlineId === scrollItemId) {
+                this.activeItems.next([tocItem]);
+              }
+              for (const tocSubItem of tocItem.subheadlines) {
+                if (tocSubItem.headlineId === scrollItemId) {
+                  this.activeItems.next([tocItem, tocSubItem]);
+                }
               }
             }
           }
-        }
-      },
-    );
+        },
+      );
+    }
   }
 
   /** refractor the headlines (add all h2s and add the h3s as subheadlines to the matching h2) */

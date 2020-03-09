@@ -27,6 +27,7 @@ import {
 } from '../../shared/services/page.service';
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
+import { Platform } from '@angular/cdk/platform';
 
 @Component({
   selector: 'ba-single-page',
@@ -47,6 +48,7 @@ export class BaSinglePage implements OnInit, AfterViewInit {
     private _router: Router,
     private _pageService: BaPageService<BaSinglePageContent>,
     private _recentlyOrderedService: BaRecentlyOrderedService,
+    private _platform: Platform,
     @Inject(DOCUMENT) private _document: any,
   ) {}
 
@@ -63,13 +65,13 @@ export class BaSinglePage implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const allTables = Array.prototype.slice.call(
-      this._document.querySelectorAll('table'),
-    );
+    if (this._platform.isBrowser) {
+      const allTables = [].slice.call(this._document.querySelectorAll('table'));
 
-    /** Add data attributes to all tables, to apply responsive behavior of the tables. */
-    for (const table of allTables) {
-      applyTableDefinitionHeadingAttr(table);
+      /** Add data attributes to all tables, to apply responsive behavior of the tables. */
+      for (const table of allTables) {
+        applyTableDefinitionHeadingAttr(table);
+      }
     }
   }
 
