@@ -20,6 +20,7 @@ import {
   extractH1ToTitleTransformer,
   internalLinksTransformerFactory,
   headingIdTransformer,
+  internalContentTransformerFactory,
 } from './transform';
 
 describe('Barista transformers', () => {
@@ -138,6 +139,50 @@ describe('Barista transformers', () => {
       });
       expect(transformed.content).toBe(
         '<h2 id="h1-definitions">1. Definitions.</h2>',
+      );
+    });
+  });
+
+  describe('internalContentTransformer', () => {
+    it('should remove internal content on public build', async () => {
+      const content =
+        '<h1>Fonts</h1><ba-internal-content><h2>Download fonts</h2><p>To download our font, click here.</p></ba-internal-content><p>Some more public content.</p>';
+      const transformContent = internalContentTransformerFactory(true); // true = public build
+      const transformed = await transformContent({
+        title: 'Fonts',
+        layout: BaPageLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(
+        '<h1>Fonts</h1>\n\n\n\n<p>Some more public content.</p>',
+      );
+    });
+
+    it('should remove internal-content tags but not the HTML content itself on internal build', async () => {
+      const content =
+        '<h1>Fonts</h1><ba-internal-content><h2>Download fonts</h2><p>To download our font, click here.</p></ba-internal-content><p>Some more public content.</p>';
+      const transformContent = internalContentTransformerFactory(false); // false = internal build
+      const transformed = await transformContent({
+        title: 'Fonts',
+        layout: BaPageLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(
+        '<h1>Fonts</h1>\n\n\n\n<h2>Download fonts</h2><p>To download our font, click here.</p>\n\n\n\n<p>Some more public content.</p>',
+      );
+    });
+
+    it('should wrap internal strings with <p> tags', async () => {
+      const content =
+        '<h1>Fonts</h1><ba-internal-content>This is just a simple internal string</ba-internal-content><p>Some more public content.</p>';
+      const transformContent = internalContentTransformerFactory(false); // false = internal build
+      const transformed = await transformContent({
+        title: 'Fonts',
+        layout: BaPageLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(
+        '<h1>Fonts</h1>\n\n<p>\n\nThis is just a simple internal string\n\n</p>\n\n<p>Some more public content.</p>',
       );
     });
   });
