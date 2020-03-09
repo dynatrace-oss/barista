@@ -282,7 +282,13 @@ export function internalContentTransformerFactory(
             $(content).remove();
           } else {
             const innerHtml = $(content).html();
-            $(content).replaceWith($(innerHtml));
+            if (innerHtml) {
+              // If the innerHtml starts with < we can assume that it's HTML content.
+              // If not it's probably a string that can be wrapped in a paragraph.
+              innerHtml.trim().startsWith('<')
+                ? $(content).replaceWith($(innerHtml))
+                : $(content).replaceWith($(`<p>${innerHtml}</p>`));
+            }
           }
         });
       },
