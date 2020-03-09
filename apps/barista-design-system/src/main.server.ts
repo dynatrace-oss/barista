@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModule } from './app/app.module';
+// Load `$localize` onto the global scope - used if i18n tags appear in Angular templates.
+import '@angular/localize/init';
 
-document.addEventListener('DOMContentLoaded', () => {
-  platformBrowserDynamic()
-    .bootstrapModule(AppModule, { preserveWhitespaces: true })
-    .catch(err => {
-      console.error(err);
-    });
-});
+import { enableProdMode } from '@angular/core';
+
+enableProdMode();
+
+export { AppServerModule } from './app/app.server.module';
+export { renderModule, renderModuleFactory } from '@angular/platform-server';

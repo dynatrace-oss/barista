@@ -17,7 +17,10 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  BrowserTransferStateModule,
+} from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
@@ -37,7 +40,8 @@ import { BaScrollToTop } from './components/scroll-to-top';
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'barista-design-system' }),
+    BrowserTransferStateModule,
     HttpClientModule,
     BrowserAnimationsModule,
     DtThemingModule,

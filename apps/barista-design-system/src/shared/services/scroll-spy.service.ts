@@ -18,6 +18,7 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable } from '@angular/core';
 import { Observable, ReplaySubject, Subject, fromEvent } from 'rxjs';
 import { auditTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { Platform } from '@angular/cdk/platform';
 
 /**
  * CODE COPIED FROM: 'https://github.com/angular/angular/blob/master/aio/src/app/shared/scroll-spy.service.ts' and modified
@@ -108,22 +109,15 @@ export class BaScrollSpiedElementGroup {
 export class BaScrollSpyService {
   private _spiedElementGroups: BaScrollSpiedElementGroup[] = [];
   private _onStopListening = new Subject<void>();
-  private _resizeEvents = fromEvent(window, 'resize').pipe(
-    // tslint:disable-next-line: no-magic-numbers
-    auditTime(300),
-    takeUntil(this._onStopListening),
-  );
-  private _scrollEvents = fromEvent(window, 'scroll').pipe(
-    // tslint:disable-next-line: no-magic-numbers
-    auditTime(10),
-    takeUntil(this._onStopListening),
-  );
   private _lastContentHeight: number;
   private _lastMaxScrollTop: number;
   private _topOffset = 66;
 
   // tslint:disable-next-line: no-any
-  constructor(@Inject(DOCUMENT) private _doc: any) {}
+  constructor(
+    private _platform: Platform,
+    @Inject(DOCUMENT) private _document: any,
+  ) {}
 
   /*
    * Start tracking a group of elements and emitting active elements; i.e. elements that are
@@ -131,13 +125,17 @@ export class BaScrollSpyService {
    * `resize` and `scroll` events.
    */
   spyOn(elements: Element[]): BaScrollSpyInfo {
-    if (!this._spiedElementGroups.length) {
-      this._resizeEvents.subscribe(() => {
-        this._onResize();
-      });
-      this._scrollEvents.subscribe(() => {
-        this._onScroll();
-      });
+    if (this._platform.isBrowser && !this._spiedElementGroups.length) {
+      fromEvent(window, 'resize')
+        .pipe(auditTime(300), takeUntil(this._onStopListening))
+        .subscribe(() => {
+          this._onResize();
+        });
+      fromEvent(window, 'scroll')
+        .pipe(auditTime(10), takeUntil(this._onStopListening))
+        .subscribe(() => {
+          this._onScroll();
+        });
       this._onResize();
     }
 
@@ -161,7 +159,7 @@ export class BaScrollSpyService {
   }
 
   private _getContentHeight(): number {
-    return this._doc.body.scrollHeight || Number.MAX_SAFE_INTEGER;
+    return this._document.body.scrollHeight || Number.MAX_SAFE_INTEGER;
   }
 
   private _getScrollTop(): number {
