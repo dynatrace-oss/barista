@@ -183,7 +183,11 @@ export class BaLiveExample implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._initExample();
+    // TODO: remove when all our components can be rendered on the server with universal.
+    // currently we have some window references (chart...). Those would break the application.
+    if (this._platform.isBrowser) {
+      this._initExample();
+    }
   }
 
   ngOnDestroy(): void {
