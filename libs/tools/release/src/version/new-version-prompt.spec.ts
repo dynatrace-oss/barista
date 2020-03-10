@@ -28,23 +28,26 @@ test('Should offer the correct choices in the prompt', async () => {
 
   expect.assertions(1);
 
-  jest.spyOn(inquirer, 'prompt').mockImplementation(async (a: any) => {
-    expect(a[0].choices).toEqual(
-      expect.arrayContaining([
-        { value: '6.0.0', releaseType: 'major', name: expect.any(String) },
-        { value: '5.1.0', releaseType: 'minor', name: expect.any(String) },
-        { value: '5.0.1', releaseType: 'patch', name: expect.any(String) },
-        { value: 'custom', releaseType: undefined, name: expect.any(String) },
-      ]),
-    );
-
-    return '5.0.0';
-  });
+  jest
+    .spyOn(inquirer, 'prompt')
+    .mockImplementation((questions: inquirer.QuestionCollection<any>) => {
+      expect(questions[0].choices).toEqual(
+        expect.arrayContaining([
+          { value: '6.0.0', releaseType: 'major', name: expect.any(String) },
+          { value: '5.1.0', releaseType: 'minor', name: expect.any(String) },
+          { value: '5.0.1', releaseType: 'patch', name: expect.any(String) },
+          { value: 'custom', releaseType: undefined, name: expect.any(String) },
+        ]),
+      );
+      // this is ugly - inquirer monkey patching onto a promise - looks solid as a rock
+      const prom = new Promise(() => {}) as Promise<any> & { ui: any };
+      return (prom.ui = {} as any);
+    });
 
   await promptForNewVersion(parse('5.0.0')!);
 });
 
-test('should create a major version for rc', () => {
+test('should create a major version for rc', async () => {
   const currentVersion = parse('5.0.0-rc.0')!;
   const prompt = createVersionChoice(currentVersion, 'major', 'Major release');
 
@@ -55,7 +58,7 @@ test('should create a major version for rc', () => {
   });
 });
 
-test('should create a newer patch version for 5.0.1', () => {
+test('should create a newer patch version for 5.0.1', async () => {
   const currentVersion = parse('5.0.1')!;
   const prompt = createVersionChoice(currentVersion, 'patch', 'Patch release');
 
@@ -66,7 +69,7 @@ test('should create a newer patch version for 5.0.1', () => {
   });
 });
 
-test('should create a newer minor version for 5.1.1', () => {
+test('should create a newer minor version for 5.1.1', async () => {
   const currentVersion = parse('5.1.1')!;
   const prompt = createVersionChoice(currentVersion, 'minor', 'Minor release');
 
@@ -77,7 +80,7 @@ test('should create a newer minor version for 5.1.1', () => {
   });
 });
 
-test('should create a newer major version for 5.1.1', () => {
+test('should create a newer major version for 5.1.1', async () => {
   const currentVersion = parse('5.1.1')!;
   const prompt = createVersionChoice(currentVersion, 'major', 'Major release');
 
