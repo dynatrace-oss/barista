@@ -59,6 +59,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Copy-to-clipboard', route: '/copy-to-clipboard' },
     { name: 'Cta-card', route: '/cta-card' },
     { name: 'Drawer', route: '/drawer' },
+    { name: 'Drawer-table', route: '/drawer-table' },
     { name: 'Empty-state', route: '/empty-state' },
     { name: 'Event-chart', route: '/event-chart' },
     { name: 'Expandable-panel', route: '/expandable-panel' },

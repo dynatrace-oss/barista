@@ -1,0 +1,10 @@
+<dt-drawer-container>
+  <dt-drawer
+    [mode]="'side'"
+    [position]="'end'"
+    [class.dt-drawer-table-open]="isOpen"
+  >
+    <ng-container #container> </ng-container>
+  </dt-drawer>
+  <ng-content select="dt-table"></ng-content>
+</dt-drawer-container>
