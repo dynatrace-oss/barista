@@ -399,7 +399,7 @@
         "lint-styles": {
           "builder": "@dynatrace/barista-builders:stylelint",
           "options": {
-            "stylelintConfig": ".stylelintrc",
+            "stylelintConfig": "libs/examples/.stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
             "exclude": ["**/node_modules/**"],
             "files": ["libs/examples/**/*.scss"]
