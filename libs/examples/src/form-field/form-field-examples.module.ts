@@ -28,6 +28,9 @@ import { DtExampleFormFieldErrorCustomValidator } from './form-field-error-custo
 import { DtExampleFormFieldError } from './form-field-error-example/form-field-error-example';
 import { DtExampleFormFieldHint } from './form-field-hint-example/form-field-hint-example';
 import { DtExampleFormFieldPrefixSuffix } from './form-field-prefix-suffix-example/form-field-prefix-suffix-example';
+import { DtExampleFormFieldServerValidation } from './form-field-server-validation/form-field-server-validation-example';
+import { DtAlertModule } from '@dynatrace/barista-components/alert';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 export const DT_FORM_FIELD_EXAMPLES = [
   DtExampleFormFieldDefault,
@@ -35,6 +38,7 @@ export const DT_FORM_FIELD_EXAMPLES = [
   DtExampleFormFieldError,
   DtExampleFormFieldHint,
   DtExampleFormFieldPrefixSuffix,
+  DtExampleFormFieldServerValidation,
 ];
 
 @NgModule({
@@ -47,6 +51,8 @@ export const DT_FORM_FIELD_EXAMPLES = [
     DtInputModule,
     DtIconModule,
     DtLoadingDistractorModule,
+    DtAlertModule,
+    DtThemingModule,
   ],
   declarations: [...DT_FORM_FIELD_EXAMPLES],
   entryComponents: [...DT_FORM_FIELD_EXAMPLES],
