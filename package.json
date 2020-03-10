@@ -126,7 +126,7 @@
     "glob": "^7.1.6",
     "highcharts": "^6.0.7",
     "husky": "^3.0.9",
-    "inquirer": "^6.2.1",
+    "inquirer": "^6.5.2",
     "jest": "^24.8.0",
     "jest-junit": "^6.4.0",
     "jest-preset-angular": "8.0.0",
