@@ -32,6 +32,7 @@ import { DtContextDialogModule } from '@dynatrace/barista-components/context-dia
 import { DtCopyToClipboardModule } from '@dynatrace/barista-components/copy-to-clipboard';
 import { DtCtaCardModule } from '@dynatrace/barista-components/cta-card';
 import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
+import { DtDrawerTableModule } from '@dynatrace/barista-components/experimental/drawer-table';
 import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 import { DtExpandablePanelModule } from '@dynatrace/barista-components/expandable-panel';
@@ -92,6 +93,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtCopyToClipboardModule,
     DtCtaCardModule,
     DtDrawerModule,
+    DtDrawerTableModule,
     DtExpandablePanelModule,
     DtExpandableSectionModule,
     DtFilterFieldModule,

@@ -1,0 +1,23 @@
+@import '../../../core/src/style/variables';
+
+.dt-drawer.dt-drawer-table-open:not(.dt-drawer-over) {
+  flex-grow: 1;
+}
+
+// We need to set the flex grow to 0 here to give the drawer the remaining space
+.dt-drawer-table-open + ::ng-deep .dt-drawer-content {
+  flex-grow: 0;
+}
+
+.dt-drawer.dt-drawer-table-open.dt-drawer-over {
+  width: 100%;
+  border: none;
+}
+
+:host ::ng-deep .dt-drawer-row-def {
+  cursor: pointer;
+}
+
+:host ::ng-deep .dt-drawer-row-def-selected.dt-drawer-row-def-selected {
+  border-color: $linkcolor;
+}

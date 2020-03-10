@@ -33,6 +33,7 @@ import { ContextDialogDemo } from './context-dialog/context-dialog-demo.componen
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
 import { CtaCardDemo } from './cta-card/cta-card-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
+import { DrawerTableDemo } from './drawer-table/drawer-table-demo.component';
 import { EmptyStateDemo } from './empty-state/empty-state-demo';
 import { EventChartDemo } from './event-chart/event-chart-demo.component';
 import { ExpandablePanelDemo } from './expandable-panel/expandable-panel-demo.component';
@@ -91,6 +92,7 @@ const routes: Routes = [
   { path: 'copy-to-clipboard', component: CopyToClipboardDemo },
   { path: 'cta-card', component: CtaCardDemo },
   { path: 'drawer', component: DrawerDemo },
+  { path: 'drawer-table', component: DrawerTableDemo },
   { path: 'empty-state', component: EmptyStateDemo },
   { path: 'expandable-panel', component: ExpandablePanelDemo },
   { path: 'expandable-section', component: ExpandableSectionDemo },

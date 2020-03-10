@@ -1752,6 +1752,48 @@
       },
       "schematics": {}
     },
+    "drawer-table": {
+      "projectType": "library",
+      "root": "libs/barista-components/experimental/drawer-table",
+      "sourceRoot": "libs/barista-components/experimental/drawer-table/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/experimental/drawer-table/tsconfig.lib.json",
+              "libs/barista-components/experimental/drawer-table/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/experimental/drawer-table/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "./dist/libs/workspace:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": [
+              "libs/barista-components/experimental/drawer-table/**/*.scss"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/experimental/drawer-table/jest.config.js",
+            "tsConfig": "libs/barista-components/experimental/drawer-table/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/experimental/drawer-table/src/test-setup.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
     "empty-state": {
       "projectType": "library",
       "root": "libs/barista-components/empty-state",

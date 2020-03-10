@@ -1,0 +1,31 @@
+{
+  "title": "Drawer table  (experimental)",
+  "description": "The drawer table is a component that adds collapsible side content to table rows.",
+  "postid": "drawer-table",
+  "category": "components",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "Madina Bektemirova",
+        "githubuser": "madina705"
+      },
+      {
+        "name": "Timothy Haasdyk",
+        "githubuser": "myieye"
+      },
+      {
+        "name": "Fabian Friedl",
+        "githubuser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Marike Sorgdrager",
+        "githubuser": "Marike-Sorgdrager"
+      }
+    ]
+  },
+  "properties": ["work in progress", "experimental"],
+  "tags": ["drawer table", "drawer", "table"]
+}
