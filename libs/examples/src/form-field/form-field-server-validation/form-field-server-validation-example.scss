@@ -1,0 +1,13 @@
+.form {
+  display: grid;
+  grid-gap: 16px;
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-wrapper button {
+  margin-left: 8px;
+}
