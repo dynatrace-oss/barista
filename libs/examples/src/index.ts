@@ -113,6 +113,7 @@ import { DtExampleDrawerDefault } from './drawer/drawer-default-example/drawer-d
 import { DtExampleDrawerDynamic } from './drawer/drawer-dynamic-example/drawer-dynamic-example';
 import { DtExampleDrawerNested } from './drawer/drawer-nested-example/drawer-nested-example';
 import { DtExampleDrawerOver } from './drawer/drawer-over-example/drawer-over-example';
+import { DtExampleDrawerTableDefault } from './drawer-table/drawer-table-default-example/drawer-table-default-example';
 import {
   DtExampleCustomEmptyStateTable,
   DtExampleCustomEmptyState,
@@ -331,6 +332,7 @@ export { DtContextDialogExamplesModule } from './context-dialog/context-dialog-e
 export { DtCopyToClipboardExamplesModule } from './copy-to-clipboard/copy-to-clipboard-examples.module';
 export { DtCtaCardExamplesModule } from './cta-card/cta-card-examples.module';
 export { DtDrawerExamplesModule } from './drawer/drawer-examples.module';
+export { DtDrawerTableExamplesModule } from './drawer-table/drawer-table-examples.module';
 export { DtEmptyStateExamplesModule } from './empty-state/empty-state-examples.module';
 export { DtEventChartExamplesModule } from './event-chart/event-chart-examples.module';
 export { DtExpandablePanelExamplesModule } from './expandable-panel/expandable-panel-examples.module';
@@ -465,6 +467,7 @@ export {
   DtExampleDrawerDynamic,
   DtExampleDrawerNested,
   DtExampleDrawerOver,
+  DtExampleDrawerTableDefault,
   DtExampleCustomEmptyStateTable,
   DtExampleCustomEmptyState,
   DtExampleEmptyStateDefault,

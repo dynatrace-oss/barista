@@ -81,6 +81,7 @@
         "core",
         "cta-card",
         "drawer",
+        "drawer-table",
         "empty-state",
         "event-chart",
         "expandable-panel",
@@ -172,6 +173,9 @@
       "tags": ["scope:components", "type:library"]
     },
     "drawer": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "drawer-table": {
       "tags": ["scope:components", "type:library"]
     },
     "empty-state": {

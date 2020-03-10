@@ -1,0 +1,24 @@
+<dt-drawer-table [openColumns]="['col2']">
+  <ng-template dtDrawerContent let-row>
+    <div class="row_col1">{{ row.col1 }}</div>
+  </ng-template>
+  <dt-table [dataSource]="dataSource" dtSort #sortable>
+    <dt-simple-number-column
+      name="col1"
+      label="Column1"
+    ></dt-simple-number-column>
+    <dt-simple-number-column
+      name="col2"
+      label="Column2"
+    ></dt-simple-number-column>
+    <dt-simple-number-column
+      name="col3"
+      label="Column3"
+    ></dt-simple-number-column>
+    <dt-header-row *dtHeaderRowDef="['col1', 'col2', 'col3']"></dt-header-row>
+    <dt-row
+      [dtDrawerRowDef]="row"
+      *dtRowDef="let row; columns: ['col1', 'col2', 'col3']"
+    ></dt-row>
+  </dt-table>
+</dt-drawer-table>

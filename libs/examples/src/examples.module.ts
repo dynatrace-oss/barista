@@ -37,6 +37,7 @@ import { DtContextDialogExamplesModule } from './context-dialog/context-dialog-e
 import { DtCopyToClipboardExamplesModule } from './copy-to-clipboard/copy-to-clipboard-examples.module';
 import { DtCtaCardExamplesModule } from './cta-card/cta-card-examples.module';
 import { DtDrawerExamplesModule } from './drawer/drawer-examples.module';
+import { DtDrawerTableExamplesModule } from './drawer-table/drawer-table-examples.module';
 import { DtEmptyStateExamplesModule } from './empty-state/empty-state-examples.module';
 import { DtEventChartExamplesModule } from './event-chart/event-chart-examples.module';
 import { DtExpandablePanelExamplesModule } from './expandable-panel/expandable-panel-examples.module';
@@ -101,6 +102,7 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtCopyToClipboardExamplesModule,
     DtCtaCardExamplesModule,
     DtDrawerExamplesModule,
+    DtDrawerTableExamplesModule,
     DtEmptyStateExamplesModule,
     DtEventChartExamplesModule,
     DtExpandablePanelExamplesModule,
