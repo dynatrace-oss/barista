@@ -8,4 +8,8 @@ ignore:
           Currently there is no fix for this issue. Created an issue:
           https://github.com/conventional-changelog/conventional-changelog/issues/592
         expires: '2020-03-04T12:24:56.781Z'
+  SNYK-JS-MINIMIST-559764:
+    - '@angular/localize > @babel/core > json5 > minimist':
+        reason: None given
+        expires: '2020-04-10T15:13:07.689Z'
 patch: {}
