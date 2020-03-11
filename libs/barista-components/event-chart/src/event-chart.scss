@@ -162,6 +162,9 @@
 }
 
 /** Event chart overlay */
-::ng-deep .dt-event-chart-overlay-panel {
+/** The selector is combined with the cdk-overlay-pane to
+increase the specificity to avoid edge cases where the cdk styles
+are loaded after the component's styles in the angular.json */
+::ng-deep .cdk-overlay-pane.dt-event-chart-overlay-panel {
   @include dt-overlay-container();
 }
