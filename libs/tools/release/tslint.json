@@ -2,5 +2,8 @@
   "extends": "../../../tslint.json",
   "rules": {
     "no-console": false
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
   }
 }
