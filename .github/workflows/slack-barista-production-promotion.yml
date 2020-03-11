@@ -1,0 +1,16 @@
+name: "Slack"
+
+on: [release]
+
+jobs:
+  barista-public-notification:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: 8398a7/action-slack@v2.7.0
+      with:
+        status: custom
+        author_name: FriendlyReminderBot
+        payload: |
+          { text: "Please check the Barista public deployment on https://zeit.co/dynatrace-oss/barista and promote the new release to production if everything works!" }
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_TEAM_CHANNEL }}
