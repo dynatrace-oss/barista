@@ -4,5 +4,8 @@
     "i18n": false,
     "directive-selector": [true, "attribute", "dt-e2e", "camelCase"],
     "component-selector": [true, "element", "dt-e2e", "kebab-case"]
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
   }
 }
