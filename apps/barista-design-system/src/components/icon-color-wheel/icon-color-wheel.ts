@@ -68,6 +68,8 @@ export class BaIconColorWheel {
 
   constructor(private _sanitizer: DomSanitizer) {
     const groupedBlobs = Object.keys(DtColors)
+      /** breaking-change Can eb removed when flat_white is removed from the color list. 7.0.0 */
+      .filter(key => key !== 'FLAT_WHITE') // no flat white for the color wheel
       .map((key): BaColorWheelBlob | undefined => {
         /* tslint:disable no-magic-numbers */
         const parts = key.split('_');
