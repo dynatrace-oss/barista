@@ -27,6 +27,7 @@ import { DtPercent } from './percent/percent';
 import { DtRate } from './rate/rate';
 /** @breaking-change Removed in 7.0.0 */
 import { DtTime } from './time/time';
+import { DtDuration } from './duration/duration';
 
 const FORMATTERS = [
   DtBytes,
@@ -39,6 +40,7 @@ const FORMATTERS = [
   DtDateRange,
   /** @breaking-change Removed in 7.0.0 */
   DtTime,
+  DtDuration,
 ];
 
 @NgModule({

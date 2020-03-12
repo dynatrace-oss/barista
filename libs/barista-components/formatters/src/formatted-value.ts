@@ -26,6 +26,7 @@ export interface FormattedData {
   readonly displayValue?: string;
   readonly displayUnit?: string;
   readonly displayRateUnit?: string;
+  readonly displayWhiteSpace?: boolean;
 }
 
 export const NO_DATA = '-';
@@ -54,14 +55,14 @@ export class DtFormattedValue {
     if (this._formattedData.displayValue === undefined) {
       return NO_DATA;
     }
-
     let text = this._formattedData.displayValue;
     if (this._formattedData.displayUnit !== undefined) {
       text = `${text} ${this._formattedData.displayUnit}`;
     }
     if (this._formattedData.displayRateUnit !== undefined) {
       text =
-        this._formattedData.displayUnit !== undefined
+        this._formattedData.displayUnit !== undefined ||
+        this._formattedData.displayWhiteSpace === false
           ? `${text}/${this._formattedData.displayRateUnit}`
           : `${text} /${this._formattedData.displayRateUnit}`;
     }

@@ -27,6 +27,7 @@ import { DtExampleFormattersPercent } from './formatters-percent-example/formatt
 import { DtExampleFormattersRate } from './formatters-rate-example/formatters-rate-example';
 /** @breaking-change Removed in 7.0.0 */
 import { DtExampleFormattersTime } from './formatters-time-example/formatters-time-example';
+import { DtExampleFormattersDuration } from './formatters-duration-example/formatters-duration-example';
 
 export const DT_FORMATTERS_EXAMPLES = [
   DtExampleFormattersBits,
@@ -36,6 +37,7 @@ export const DT_FORMATTERS_EXAMPLES = [
   DtExampleFormattersRate,
   /** @breaking-change Removed in 7.0.0 */
   DtExampleFormattersTime,
+  DtExampleFormattersDuration,
 ];
 
 @NgModule({

@@ -40,12 +40,17 @@ export function formatRate(
     input instanceof DtFormattedValue
       ? input.displayData.displayUnit
       : undefined;
+  const displayWhiteSpace =
+    input instanceof DtFormattedValue
+      ? input.displayData.displayWhiteSpace
+      : undefined;
 
   const formattedData: FormattedData = {
     transformedValue: sourceData.input,
     displayRateUnit: rateUnit,
     displayUnit,
     displayValue,
+    displayWhiteSpace,
   };
 
   return new DtFormattedValue(sourceData, formattedData);
