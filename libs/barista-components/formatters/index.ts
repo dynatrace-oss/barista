@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { DtTime } from './src/time/time';
-import { formatTime } from './src/time/time-formatter';
+import { DtTime } from './src/time-deprecated/time';
+import { formatTime } from './src/time-deprecated/time-formatter';
 
 export * from './src/formatters-module';
 export * from './src/unit';
