@@ -42,11 +42,17 @@ The `dtRate` pipe provides a way to add a rate info to the value
 
 <ba-live-example name="DtExampleFormattersRate"></ba-live-example>
 
+### Time
+
+The `dtTime` pipe provides a way to format a input time to a timestamp
+
+<ba-live-example name="DtExampleFormattersTime"></ba-live-example>
+
 ### Duration
 
 The `dtDuration` pipe provides a way to format an input time to a timestamp
 
-<ba-live-example name="DtExampleFormattersTime"></ba-live-example>
+<ba-live-example name="DtExampleFormattersDuration"></ba-live-example>
 
 ## Util functions
 
@@ -135,6 +141,19 @@ from a previous pipe with a rate. The function takes the following parameters:
 | ---------- | --------------------------- | ------- | ------------------------------------------- |
 | `input`    | `DtFormattedValue | number` |         | numeric value to be transformed by the pipe |
 | `rateUnit` | `DtRateUnit | string`       |         | rate unit                                   |
+
+### Time
+
+The `formatTime` function converts a number to a timestamp. Default behaviour
+will print the first available value/unit and only the next two descending
+steps. Optionally you can set the input unit and which unit you want to set as
+the lower limit.
+
+| Name        | Type         | Default     | Description                                                                                                    |
+| ----------- | ------------ | ----------- | -------------------------------------------------------------------------------------------------------------- |
+| `input`     | `number`     | `ms`        | numeric value to be transformed by the pipe                                                                    |
+| `inputUnit` | `DtTimeUnit` | `undefined` | Which timeunit is used for the input                                                                           |
+| `toUnit`    | `DtTimeUnit` | `undefined` | Which timeunit is the smallest possible output (Pipe disregards toUnit when unit is bigger than the inputUnit) |
 
 ### Duration
 

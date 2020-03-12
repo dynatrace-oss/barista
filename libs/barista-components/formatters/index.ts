@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import { DtTime } from './src/time/time';
+import { formatTime } from './src/time/time-formatter';
+
 export * from './src/formatters-module';
 export * from './src/unit';
 export {
@@ -36,4 +39,8 @@ export * from './src/bits/bits-formatter';
 export * from './src/bits/bits';
 export * from './src/duration/duration';
 export * from './src/duration/duration-formatter';
+export {
+  formatTime as experimentalFormatTime,
+  DtTime as DtExperimentalFormatTime,
+};
 export { DtDateRange, dtFormatDateRange } from './src/date/date-range';
