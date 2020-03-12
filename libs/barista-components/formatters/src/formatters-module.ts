@@ -25,6 +25,7 @@ import { DtCount } from './count/count';
 import { DtDateRange } from './date/date-range';
 import { DtPercent } from './percent/percent';
 import { DtRate } from './rate/rate';
+/** @breaking-change Removed in 7.0.0 */
 import { DtTime } from './time/time';
 
 const FORMATTERS = [
@@ -36,6 +37,7 @@ const FORMATTERS = [
   DtPercent,
   DtRate,
   DtDateRange,
+  /** @breaking-change Removed in 7.0.0 */
   DtTime,
 ];
 

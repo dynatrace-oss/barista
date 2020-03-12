@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+/** @breaking-change Removed in 7.0.0 */
 // tslint:disable: no-magic-numbers
 import { NO_DATA } from '../formatted-value';
 import { DtTimeUnit } from '../unit';

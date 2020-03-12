@@ -38,6 +38,7 @@ const CONVERSION_FACTORS_TO_MS = new Map<DtTimeUnit, number>([
 
 const CONVERSIONUNITS = 2;
 
+/** @breaking-change Removed in 7.0.0 */
 /**
  * @param time - numeric time value to be converted to
  * amount of time from years to nanoseconds

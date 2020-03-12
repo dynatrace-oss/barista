@@ -23,6 +23,7 @@ import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { DtTimeUnit } from '../unit';
 import { formatTime } from './time-formatter';
 
+/** @breaking-change Removed in 7.0.0 */
 /** Pipe used to convert milliseconds to amount of time from years to nanoseconds */
 @Pipe({
   name: 'dtTime',

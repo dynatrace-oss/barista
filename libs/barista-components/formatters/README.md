@@ -42,7 +42,7 @@ The `dtRate` pipe provides a way to add a rate info to the value
 
 <ba-live-example name="DtExampleFormattersRate"></ba-live-example>
 
-### Time
+### Time (deprecated - Removed with 7.0.0)
 
 The `dtTime` pipe provides a way to format a input time to a timestamp
 
@@ -136,7 +136,7 @@ from a previous pipe with a rate. The function takes the following parameters:
 | `input`    | `DtFormattedValue | number` |         | numeric value to be transformed by the pipe |
 | `rateUnit` | `DtRateUnit | string`       |         | rate unit                                   |
 
-### Time
+### Time (deprecated - Removed with 7.0.0)
 
 The `formatTime` function converts a number to a timestamp. Default behaviour
 will print the first available value/unit and only the next two descending

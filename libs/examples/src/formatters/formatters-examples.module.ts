@@ -25,6 +25,7 @@ import { DtExampleFormattersBytes } from './formatters-bytes-example/formatters-
 import { DtExampleFormattersCount } from './formatters-count-example/formatters-count-example';
 import { DtExampleFormattersPercent } from './formatters-percent-example/formatters-percent-example';
 import { DtExampleFormattersRate } from './formatters-rate-example/formatters-rate-example';
+/** @breaking-change Removed in 7.0.0 */
 import { DtExampleFormattersTime } from './formatters-time-example/formatters-time-example';
 
 export const DT_FORMATTERS_EXAMPLES = [
@@ -33,6 +34,7 @@ export const DT_FORMATTERS_EXAMPLES = [
   DtExampleFormattersCount,
   DtExampleFormattersPercent,
   DtExampleFormattersRate,
+  /** @breaking-change Removed in 7.0.0 */
   DtExampleFormattersTime,
 ];
 
