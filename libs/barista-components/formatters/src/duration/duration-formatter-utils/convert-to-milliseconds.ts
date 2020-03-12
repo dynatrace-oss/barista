@@ -30,11 +30,6 @@ export function dtConvertToMilliseconds(
   inputUnit: DtTimeUnit,
 ): number | undefined {
   if (duration >= 0) {
-    console.log(
-      duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)! * MOVE_COMMA,
-      inputUnit,
-      duration,
-    );
     return inputUnit === DtTimeUnit.MICROSECOND ||
       inputUnit === DtTimeUnit.NANOSECOND
       ? (duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!) / MOVE_COMMA

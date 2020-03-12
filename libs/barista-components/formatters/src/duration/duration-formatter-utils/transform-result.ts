@@ -36,11 +36,11 @@ export function dtTransformResult(
   formatMethod: DurationMode,
 ): Map<DtTimeUnit, string> | undefined {
   const result = new Map<DtTimeUnit, string>();
-
+  const unitsToDisplay =
+    typeof formatMethod === 'number' ? formatMethod : CONVERSIONUNITS;
   let rest = duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!;
   let displayedUnits = 0;
-  let unitsToDisplay =
-    typeof formatMethod === 'number' ? formatMethod : CONVERSIONUNITS;
+
   for (const key of Array.from(CONVERSION_FACTORS_TO_MS.keys())) {
     if (key === DtTimeUnit.MICROSECOND) {
       rest = Math.round(rest * MOVE_COMMA); // handles IEEE floating point number problem

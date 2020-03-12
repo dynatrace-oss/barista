@@ -38,6 +38,7 @@ export function formatDuration(
   outputUnit?: DtTimeUnit,
   inputUnit: DtTimeUnit = DtTimeUnit.MILLISECOND,
 ): DtFormattedValue | string {
+  console.log(formatMethod, outputUnit, inputUnit);
   const inputData: SourceData = {
     input: duration,
     unit: inputUnit,
@@ -66,10 +67,9 @@ export function formatDuration(
   result.forEach((value, key) => {
     resultString = `${resultString}${value} ${key} `;
   });
-  resultString = resultString.trim();
   return new DtFormattedValue(inputData, {
     transformedValue: inputData.input,
-    displayValue: resultString,
+    displayValue: resultString.trim(),
     displayWhiteSpace: false,
   });
 }
