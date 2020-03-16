@@ -141,7 +141,7 @@
     "semver": "^7.1.1",
     "stylelint": "^10.1.0",
     "stylelint-checkstyle-formatter": "^0.1.2",
-    "stylelint-config-prettier": "^5.2.0",
+    "stylelint-config-prettier": "^7.0.0",
     "stylelint-prettier": "^1.1.1",
     "stylelint-scss": "^3.15.0",
     "testcafe": "^1.6.1",
