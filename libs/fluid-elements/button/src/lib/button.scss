@@ -1,0 +1,180 @@
+@import '~@dynatrace/fluid-design-tokens/global/palette';
+@import '~@dynatrace/fluid-design-tokens/patterns/button';
+
+:host {
+  --fluid-button--padding-small: #{$fluid-button--padding-small};
+  --fluid-button--padding-medium: #{$fluid-button--padding-medium};
+  --fluid-button--padding-large: #{$fluid-button--padding-large};
+
+  --fluid-button--foreground-key: #{$fluid-button--foreground-key};
+  --fluid-button--background-key: #{$fluid-button--background-key};
+  --fluid-button--foreground-key-hover: #{$fluid-button--foreground-key-hover};
+  --fluid-button--background-key-hover: #{$fluid-button--background-key-hover};
+  --fluid-button--foreground-key-active: #{$fluid-button--foreground-key-active};
+  --fluid-button--background-key-active: #{$fluid-button--background-key-active};
+
+  --fluid-button--foreground-positive: #{$fluid-button--foreground-positive};
+  --fluid-button--background-positive: #{$fluid-button--background-positive};
+  --fluid-button--foreground-positive-hover: #{$fluid-button--foreground-positive-hover};
+  --fluid-button--background-positive-hover: #{$fluid-button--background-positive-hover};
+  --fluid-button--foreground-positive-active: #{$fluid-button--foreground-positive-active};
+  --fluid-button--background-positive-active: #{$fluid-button--background-positive-active};
+
+  --fluid-button--foreground-warning: #{$fluid-button--foreground-warning};
+  --fluid-button--background-warning: #{$fluid-button--background-warning};
+  --fluid-button--foreground-warning-hover: #{$fluid-button--foreground-warning-hover};
+  --fluid-button--background-warning-hover: #{$fluid-button--background-warning-hover};
+  --fluid-button--foreground-warning-active: #{$fluid-button--foreground-warning-active};
+  --fluid-button--background-warning-active: #{$fluid-button--background-warning-active};
+
+  --fluid-button--foreground-negative: #{$fluid-button--foreground-negative};
+  --fluid-button--background-negative: #{$fluid-button--background-negative};
+  --fluid-button--foreground-negative-hover: #{$fluid-button--foreground-negative-hover};
+  --fluid-button--background-negative-hover: #{$fluid-button--background-negative-hover};
+  --fluid-button--foreground-negative-active: #{$fluid-button--foreground-negative-active};
+  --fluid-button--background-negative-active: #{$fluid-button--background-negative-active};
+
+  --fluid-button--foreground-disabled: #{$fluid-button--foreground-disabled};
+  --fluid-button--background-disabled: #{$fluid-button--background-disabled};
+}
+
+:host([disabled]) {
+  pointer-events: none;
+}
+
+/* COLORS */
+.fluid-color--main {
+  --fluid-button--foreground: var(--fluid-button--foreground-key);
+  --fluid-button--background: var(--fluid-button--background-key);
+  --fluid-button--foreground-hover: var(--fluid-button--foreground-key-hover);
+  --fluid-button--background-hover: var(--fluid-button--background-key-hover);
+  --fluid-button--foreground-active: var(--fluid-button--foreground-key-active);
+  --fluid-button--background-active: var(--fluid-button--background-key-active);
+}
+
+.fluid-color--positive {
+  --fluid-button--foreground: var(--fluid-button--foreground-positive);
+  --fluid-button--background: var(--fluid-button--background-positive);
+  --fluid-button--foreground-hover: var(
+    --fluid-button--foreground-positive-hover
+  );
+  --fluid-button--background-hover: var(
+    --fluid-button--background-positive-hover
+  );
+  --fluid-button--foreground-active: var(
+    --fluid-button--foreground-positive-active
+  );
+  --fluid-button--background-active: var(
+    --fluid-button--background-positive-active
+  );
+}
+
+.fluid-color--warning {
+  --fluid-button--foreground: var(--fluid-button--foreground-warning);
+  --fluid-button--background: var(--fluid-button--background-warning);
+  --fluid-button--foreground-hover: var(
+    --fluid-button--foreground-warning-hover
+  );
+  --fluid-button--background-hover: var(
+    --fluid-button--background-warning-hover
+  );
+  --fluid-button--foreground-active: var(
+    --fluid-button--foreground-warning-active
+  );
+  --fluid-button--background-active: var(
+    --fluid-button--background-warning-active
+  );
+}
+
+.fluid-color--error {
+  --fluid-button--foreground: var(--fluid-button--foreground-negative);
+  --fluid-button--background: var(--fluid-button--background-negative);
+  --fluid-button--foreground-hover: var(
+    --fluid-button--foreground-negative-hover
+  );
+  --fluid-button--background-hover: var(
+    --fluid-button--background-negative-hover
+  );
+  --fluid-button--foreground-active: var(
+    --fluid-button--foreground-negative-active
+  );
+  --fluid-button--background-active: var(
+    --fluid-button--background-negative-active
+  );
+}
+
+/* DISABLED */
+.fluid-button[disabled] {
+  --fluid-button--foreground: var(--fluid-button--foreground-disabled);
+  --fluid-button--background: var(--fluid-button--background-disabled);
+}
+
+.fluid-button {
+  appearance: none;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  border-width: 2px;
+  border-style: solid;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* SIZE */
+.fluid-size--small {
+  padding: var(--fluid-button--padding-small);
+}
+.fluid-size--medium {
+  padding: var(--fluid-button--padding-medium);
+}
+.fluid-size--large {
+  padding: var(--fluid-button--padding-large);
+}
+
+/* EMPHASIS */
+.fluid-emphasis--low {
+  background: transparent;
+  border-color: transparent;
+  color: var(--fluid-button--foreground);
+
+  &:hover {
+    background: transparent;
+    border-color: transparent;
+    color: var(--fluid-button--foreground-hover);
+  }
+  &:active {
+    background: transparent;
+    border-color: transparent;
+    color: var(--fluid-button--foreground-active);
+  }
+}
+.fluid-emphasis--medium {
+  background: var(--fluid-button--background);
+  border-color: var(--fluid-button--foreground);
+  color: var(--fluid-button--foreground);
+  &:hover {
+    background: var(--fluid-button--background-hover);
+    border-color: var(--fluid-button--foreground-hover);
+    color: var(--fluid-button--foreground-hover);
+  }
+  &:active {
+    background: var(--fluid-button--background-active);
+    border-color: var(--fluid-button--foreground-active);
+    color: var(--fluid-button--foreground-active);
+  }
+}
+
+.fluid-emphasis--high {
+  background: var(--fluid-button--foreground);
+  border-color: var(--fluid-button--foreground);
+  color: var(--fluid-button--background);
+  &:hover {
+    background: var(--fluid-button--foreground-hover);
+    border-color: var(--fluid-button--foreground-hover);
+    color: var(--fluid-button--background-hover);
+  }
+  &:active {
+    background: var(--fluid-button--foreground-active);
+    border-color: var(--fluid-button--foreground-active);
+    color: var(--fluid-button--background-active);
+  }
+}

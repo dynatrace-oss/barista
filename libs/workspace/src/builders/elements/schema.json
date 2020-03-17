@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "package-elements",
+  "type": "object",
+  "properties": {
+    "releasePackageJson": {
+      "type": "string",
+      "description": "The path to the package.json used for the release."
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "The path where the elements target should build to."
+    },
+    "buildTag": {
+      "type": "string",
+      "default": "scope:elements",
+      "description": "The tag within the nx projects that is included for this build."
+    }
+  },
+  "additionalProperties": false,
+  "required": ["releasePackageJson", "outputPath"],
+  "definitions": {}
+}

@@ -1,49 +1,57 @@
 #
 # THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
 # FILES, DO NOT CHANGE MANUALLY.
-# TO GENERATE THESE FILES RUN `ng build shared-design-tokens`
+# TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
 #
 aliases:
+  color-key--lightest:
+    value: "#abbfdf"
+    comment: Lightest key color shade
+    originalRatio: 1.8
   color-key--lighter:
-    value: "#8390dd"
+    value: "#7199db"
     comment: Lighter key color shade
-    originalRatio: 3
+    originalRatio: 2.8
   color-key--light:
-    value: "#6c7ae4"
+    value: "#1d6dee"
     comment: Light key color shade
-    originalRatio: 3.81
+    originalRatio: 4.5
   color-key--base:
-    value: "#5b63f1"
+    value: "#2359b3"
     comment: Base key color shade
-    originalRatio: 4.67
+    originalRatio: 6.5
   color-key--dark:
-    value: "#504df3"
+    value: "#264986"
     comment: Dark key color shade
-    originalRatio: 5.68
+    originalRatio: 8.5
   color-key--darker:
-    value: "#4247b5"
+    value: "#22375b"
     comment: Darker key color shade
-    originalRatio: 7.5
+    originalRatio: 11.5
+  color-key--darkest:
+    value: "#1b263c"
+    comment: Darkest key color shade
+    originalRatio: 14.5
   color-neutral--lighter:
-    value: "#8d95a7"
+    value: "#e5e6e9"
     comment: Lighter neutral color shade
-    originalRatio: 3
+    originalRatio: 1.2
   color-neutral--light:
-    value: "#7c8391"
+    value: "#c7c9d0"
     comment: Light neutral color shade
-    originalRatio: 3.81
+    originalRatio: 1.6
   color-neutral--base:
-    value: "#6f7581"
+    value: "#6d7488"
     comment: Base neutral color shade
-    originalRatio: 4.67
+    originalRatio: 4.5
   color-neutral--dark:
-    value: "#626771"
+    value: "#40434d"
     comment: Dark neutral color shade
-    originalRatio: 5.68
+    originalRatio: 9.5
   color-neutral--darker:
-    value: "#51555c"
+    value: "#222328"
     comment: Darker neutral color shade
-    originalRatio: 7.5
+    originalRatio: 15
   color-negative--lighter:
     value: "#e5736a"
     comment: Lighter negative color shade

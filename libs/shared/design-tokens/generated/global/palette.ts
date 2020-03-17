@@ -17,19 +17,19 @@
 /*
  * THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
  * FILES, DO NOT CHANGE MANUALLY.
- * TO GENERATE THESE FILES RUN `ng build shared-design-tokens`
+ * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
-export const FLUID_COLOR_KEY_LIGHTER = '#8390dd';
-export const FLUID_COLOR_KEY_LIGHT = '#6c7ae4';
-export const FLUID_COLOR_KEY_BASE = '#5b63f1';
-export const FLUID_COLOR_KEY_DARK = '#504df3';
-export const FLUID_COLOR_KEY_DARKER = '#4247b5';
-export const FLUID_COLOR_NEUTRAL_LIGHTER = '#8d95a7';
-export const FLUID_COLOR_NEUTRAL_LIGHT = '#7c8391';
-export const FLUID_COLOR_NEUTRAL_BASE = '#6f7581';
-export const FLUID_COLOR_NEUTRAL_DARK = '#626771';
-export const FLUID_COLOR_NEUTRAL_DARKER = '#51555c';
+export const FLUID_COLOR_KEY_LIGHTER = '#7199db';
+export const FLUID_COLOR_KEY_LIGHT = '#1d6dee';
+export const FLUID_COLOR_KEY_BASE = '#2359b3';
+export const FLUID_COLOR_KEY_DARK = '#264986';
+export const FLUID_COLOR_KEY_DARKER = '#22375b';
+export const FLUID_COLOR_NEUTRAL_LIGHTER = '#e5e6e9';
+export const FLUID_COLOR_NEUTRAL_LIGHT = '#c7c9d0';
+export const FLUID_COLOR_NEUTRAL_BASE = '#6d7488';
+export const FLUID_COLOR_NEUTRAL_DARK = '#40434d';
+export const FLUID_COLOR_NEUTRAL_DARKER = '#222328';
 export const FLUID_COLOR_NEGATIVE_LIGHTER = '#e5736a';
 export const FLUID_COLOR_NEGATIVE_LIGHT = '#e0534c';
 export const FLUID_COLOR_NEGATIVE_BASE = '#d23f3b';

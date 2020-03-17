@@ -21,7 +21,7 @@ import {
   PathLocationStrategy,
 } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, NgModule } from '@angular/core';
+import { Component, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -179,5 +179,6 @@ export class NoopRouteComponent {}
     { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
     { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

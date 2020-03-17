@@ -8,10 +8,16 @@ props:
       friendlyName: "No spacing"
       customizable: false
 
-  - name: fluid-spacing--xx-small
-    value: '{!spacing--xx-small}'
+  - name: fluid-spacing--3x-small
+    value: '{!spacing--3x-small}'
     meta:
-      friendlyName: "Spacing, xx-small"
+      friendlyName: "Spacing, 3x-small"
+      customizable: false
+
+  - name: fluid-spacing--2x-small
+    value: '{!spacing--2x-small}'
+    meta:
+      friendlyName: "Spacing, 2x-small"
       customizable: false
 
   - name: fluid-spacing--x-small
@@ -44,16 +50,16 @@ props:
       friendlyName: "Spacing, x-large"
       customizable: false
 
-  - name: fluid-spacing--xx-large
-    value: '{!spacing--xx-large}'
+  - name: fluid-spacing--2x-large
+    value: '{!spacing--2x-large}'
     meta:
-      friendlyName: "Spacing, xx-large"
+      friendlyName: "Spacing, 2x-large"
       customizable: false
 
-  - name: fluid-spacing--xxx-large
-    value: '{!spacing--xxx-large}'
+  - name: fluid-spacing--3x-large
+    value: '{!spacing--3x-large}'
     meta:
-      friendlyName: "Spacing, xxx-large"
+      friendlyName: "Spacing, 3x-large"
       customizable: false
 
 global:

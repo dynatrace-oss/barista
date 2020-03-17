@@ -1,56 +1,64 @@
 
 aliases:
   - name: key
-    keyColor: "#534DFF"
-    baseColor: "#FFFFFF"
+    keyColor: "#0D69F2"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: CAM02
     shades:
+      - name: lightest
+        ratio: 1.8
+        comment: Lightest key color shade
+        aliasName: color-key--lightest
       - name: lighter
-        ratio: 3
+        ratio: 2.8
         comment: Lighter key color shade
         aliasName: color-key--lighter
       - name: light
-        ratio: 3.81
+        ratio: 4.5
         comment: Light key color shade
         aliasName: color-key--light
       - name: base
-        ratio: 4.67
+        ratio: 6.5
         comment: Base key color shade
         aliasName: color-key--base
       - name: dark
-        ratio: 5.68
+        ratio: 8.5
         comment: Dark key color shade
         aliasName: color-key--dark
       - name: darker
-        ratio: 7.5
+        ratio: 11.5
         comment: Darker key color shade
         aliasName: color-key--darker
+      - name: darkest
+        ratio: 14.5
+        comment: Darkest key color shade
+        aliasName: color-key--darkest
 
   - name: neutral
-    keyColor: "#98A1B4"
-    baseColor: "#FFFFFF"
+    keyColor: "#70778C"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: CAM02
     shades:
       - name: lighter
-        ratio: 3
+        ratio: 1.2
         comment: Lighter neutral color shade
         aliasName: color-neutral--lighter
       - name: light
-        ratio: 3.81
+        ratio: 1.6
         comment: Light neutral color shade
         aliasName: color-neutral--light
       - name: base
-        ratio: 4.67
+        ratio: 4.5
         comment: Base neutral color shade
         aliasName: color-neutral--base
       - name: dark
-        ratio: 5.68
+        ratio: 9.5
         comment: Dark neutral color shade
         aliasName: color-neutral--dark
       - name: darker
-        ratio: 7.5
+        ratio: 15
         comment: Darker neutral color shade
         aliasName: color-neutral--darker
 
