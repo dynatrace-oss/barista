@@ -1,10 +1,35 @@
 /*
  * THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
  * FILES, DO NOT CHANGE MANUALLY.
- * TO GENERATE THESE FILES RUN `ng build shared-design-tokens`
+ * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
-$fluid-button--padding: 0 16px !default;
---fluid-button--padding: 0 16px; // This property can be customized
-$fluid-button--color: #5b63f1 !default;
---fluid-button--color: #5b63f1; // This property can be customized
+$fluid-button--padding-small: 8px 48px !default;
+$fluid-button--padding-medium: 12px 48px !default;
+$fluid-button--padding-large: 16px 48px !default;
+$fluid-button--foreground-key: #2359b3 !default;
+$fluid-button--background-key: #e5e6e9 !default;
+$fluid-button--foreground-key-hover: #264986 !default;
+$fluid-button--background-key-hover: #e5e6e9 !default;
+$fluid-button--foreground-key-active: #22375b !default;
+$fluid-button--background-key-active: #e5e6e9 !default;
+$fluid-button--foreground-positive: #438060 !default;
+$fluid-button--background-positive: #e5e6e9 !default;
+$fluid-button--foreground-positive-hover: #3f7156 !default;
+$fluid-button--background-positive-hover: #e5e6e9 !default;
+$fluid-button--foreground-positive-active: #385c48 !default;
+$fluid-button--background-positive-active: #e5e6e9 !default;
+$fluid-button--foreground-warning: #83742f !default;
+$fluid-button--background-warning: #e5e6e9 !default;
+$fluid-button--foreground-warning-hover: #74662d !default;
+$fluid-button--background-warning-hover: #e5e6e9 !default;
+$fluid-button--foreground-warning-active: #5f5529 !default;
+$fluid-button--background-warning-active: #e5e6e9 !default;
+$fluid-button--foreground-negative: #d23f3b !default;
+$fluid-button--background-negative: #e5e6e9 !default;
+$fluid-button--foreground-negative-hover: #b63d38 !default;
+$fluid-button--background-negative-hover: #e5e6e9 !default;
+$fluid-button--foreground-negative-active: #903832 !default;
+$fluid-button--background-negative-active: #e5e6e9 !default;
+$fluid-button--foreground-disabled: #40434d !default;
+$fluid-button--background-disabled: #e5e6e9 !default;

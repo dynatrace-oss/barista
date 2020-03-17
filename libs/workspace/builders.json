@@ -30,6 +30,11 @@
       "implementation": "./src/builders/design-tokens/package/index",
       "schema": "./src/builders/design-tokens/package/schema.json",
       "description": "Run design tokens packager"
+    },
+    "elements": {
+      "implementation": "./src/builders/elements/index",
+      "schema": "./src/builders/elements/schema.json",
+      "description": "Run individual element builds and package them into one publishable library"
     }
   }
 }

@@ -1,0 +1,8 @@
+.fluid-button-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.fluid-button-grid-item {
+  padding: 2rem;
+}

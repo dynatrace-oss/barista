@@ -125,6 +125,10 @@
         "tree-table"
       ]
     },
+    "package-elements": {
+      "tags": ["scope:elements", "type:library"],
+      "implicitDependencies": ["fluid-button"]
+    },
     "alert": {
       "tags": ["scope:components", "type:library"]
     },
@@ -321,7 +325,18 @@
       "tags": ["type:tooling", "type:shared"]
     },
     "shared-design-tokens": {
-      "tags": []
+      "tags": ["type:library"]
+    },
+    "fluid-button": {
+      "tags": ["scope:elements", "type:library"],
+      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
+    },
+    "fluid-dev": {
+      "tags": ["type:app"],
+      "implicitDependencies": ["fluid-button"]
+    },
+    "testing-custom-element": {
+      "tags": ["scope:testing", "type:library"]
     }
   }
 }

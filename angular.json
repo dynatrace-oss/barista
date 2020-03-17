@@ -55,10 +55,13 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "dev:build",
-            "host": "0.0.0.0"
+            "host": "0.0.0.0",
+            "customWebpackConfig": {
+              "path": "./webpack.config.js"
+            }
           },
           "configurations": {}
         },
@@ -3533,6 +3536,29 @@
         }
       }
     },
+    "shared-node": {
+      "root": "libs/shared/node",
+      "sourceRoot": "libs/shared/node/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/shared/node/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/shared/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/node/jest.config.js",
+            "tsConfig": "libs/shared/node/tsconfig.spec.json",
+            "setupFile": "libs/shared/node/src/test-setup.ts",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "shared-design-tokens": {
       "root": "libs/shared/design-tokens",
       "sourceRoot": "libs/shared/design-tokens/src",
@@ -3556,24 +3582,158 @@
         }
       }
     },
-    "shared-node": {
-      "root": "libs/shared/node",
-      "sourceRoot": "libs/shared/node/src",
+    "package-elements": {
       "projectType": "library",
+      "root": "libs/fluid-elements",
+      "sourceRoot": "libs/fluid-elements",
       "architect": {
+        "build": {
+          "builder": "./dist/libs/workspace:elements",
+          "options": {
+            "releasePackageJson": "libs/fluid-elements/package.json",
+            "outputPath": "dist/libs/fluid-elements",
+            "buildTag": "scope:elements"
+          },
+          "configurations": {
+            "production": {}
+          }
+        }
+      }
+    },
+    "fluid-button": {
+      "root": "libs/fluid-elements/button",
+      "sourceRoot": "libs/fluid-elements/button/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/button",
+            "main": "libs/fluid-elements/button/src/index.ts",
+            "tsConfig": "libs/fluid-elements/button/tsconfig.lib.json",
+            "webpackConfig": "libs/fluid-elements/webpack.config.js"
+          },
+          "configurations": {
+            "production": {
+              "extractLicenses": true,
+              "optimization": true
+            }
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/shared/node/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/shared/**"]
+            "tsConfig": [
+              "libs/fluid-elements/button/tsconfig.lib.json",
+              "libs/fluid-elements/button/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/fluid-elements/button/**"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/shared/node/jest.config.js",
-            "tsConfig": "libs/shared/node/tsconfig.spec.json",
-            "setupFile": "libs/shared/node/src/test-setup.ts",
+            "jestConfig": "libs/fluid-elements/button/jest.config.js",
+            "tsConfig": "libs/fluid-elements/button/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "fluid-dev": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/fluid-dev",
+      "sourceRoot": "apps/fluid-dev/src",
+      "prefix": "fluid",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "dist/apps/fluid-dev",
+            "index": "apps/fluid-dev/src/index.html",
+            "main": "apps/fluid-dev/src/main.ts",
+            "polyfills": "apps/fluid-dev/src/polyfills.ts",
+            "tsConfig": "apps/fluid-dev/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/fluid-dev/src/favicon.ico",
+              "apps/fluid-dev/src/assets"
+            ],
+            "styles": ["apps/fluid-dev/src/styles.scss"],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "./apps/fluid-dev/webpack.config.js"
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "fluid-dev:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "fluid-dev:build:production"
+            }
+          },
+          "customWebpackConfig": {
+            "path": "./apps/fluid-dev/webpack.config.js"
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "fluid-dev:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/fluid-dev/tsconfig.app.json",
+              "apps/fluid-dev/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/fluid-dev/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/fluid-dev/jest.config.js",
+            "tsConfig": "apps/fluid-dev/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/fluid-dev/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "testing-custom-element": {
+      "root": "libs/testing/custom-element",
+      "sourceRoot": "libs/testing/custom-element/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/testing/custom-element/tsconfig.lib.json",
+              "libs/testing/custom-element/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/testing/custom-element/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/testing/custom-element/jest.config.js",
+            "tsConfig": "libs/testing/custom-element/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -3587,10 +3747,18 @@
     },
     "@schematics/angular:directive": {
       "prefix": ""
+    },
+    "@nrwl/angular:application": {
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "none"
+    },
+    "@nrwl/angular:library": {
+      "unitTestRunner": "jest"
     }
   },
   "cli": {
     "packageManager": "npm",
-    "analytics": false
+    "analytics": false,
+    "defaultCollection": "@nrwl/angular"
   }
 }

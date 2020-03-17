@@ -21,6 +21,6 @@ export const generateHeaderNoticeComment = (
 ) => `${commentStart}
 ${commentLine} THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
 ${commentLine} FILES, DO NOT CHANGE MANUALLY.
-${commentLine} TO GENERATE THESE FILES RUN \`ng build shared-design-tokens\`
+${commentLine} TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
 ${commentEnd}
 `;
