@@ -12,4 +12,10 @@ ignore:
     - '@angular/localize > @babel/core > json5 > minimist':
         reason: None given
         expires: '2020-04-10T15:13:07.689Z'
+  SNYK-JS-YARGSPARSER-560381:
+    - '@angular/localize > yargs > yargs-parser':
+        reason: >-
+          @angular/localize has fixed its dependency and we cannot do anything
+          about it but wait until they update
+        expires: '2020-04-16T11:57:00.980Z'
 patch: {}
