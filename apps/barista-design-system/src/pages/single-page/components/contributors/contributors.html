@@ -7,7 +7,11 @@
     class="ba-contributors-list-item"
   >
     <a [href]="_profileUrl(contributor.githubuser)">
-      <img [src]="_imageUrl(contributor.githubuser)" [alt]="contributor.name" />
+      <img
+        [src]="_imageUrl(contributor.githubuser)"
+        [srcset]="_imageSrcset(contributor.githubuser)"
+        [alt]="contributor.name"
+      />
       <span>{{ contributor.name }}</span>
     </a>
   </li>

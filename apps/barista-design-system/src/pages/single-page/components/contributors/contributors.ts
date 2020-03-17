@@ -31,7 +31,14 @@ export class BaContributors {
 
   /** @internal */
   _imageUrl(gitHubUser: string): string {
-    return `https://github.com/${gitHubUser}.png?s=64`;
+    return `https://github.com/${gitHubUser}.png?size=40`;
+  }
+
+  /** @internal */
+  _imageSrcset(gitHubUser: string): string {
+    return `https://github.com/${gitHubUser}.png?size=40 1x,
+      https://github.com/${gitHubUser}.png?size=80 2x,
+      https://github.com/${gitHubUser}.png?size=120 3x`;
   }
 
   /** @internal */
