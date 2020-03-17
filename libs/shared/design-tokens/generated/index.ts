@@ -17,7 +17,7 @@
 /*
  * THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
  * FILES, DO NOT CHANGE MANUALLY.
- * TO GENERATE THESE FILES RUN `ng build shared-design-tokens`
+ * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
 export * from './global/palette';

@@ -1,15 +1,16 @@
 /*
  * THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
  * FILES, DO NOT CHANGE MANUALLY.
- * TO GENERATE THESE FILES RUN `ng build shared-design-tokens`
+ * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
 $fluid-spacing--0: 0 !default;
-$fluid-spacing--xx-small: 2px !default;
-$fluid-spacing--x-small: 4px !default;
-$fluid-spacing--small: 8px !default;
+$fluid-spacing--3x-small: 2px !default;
+$fluid-spacing--2x-small: 4px !default;
+$fluid-spacing--x-small: 8px !default;
+$fluid-spacing--small: 12px !default;
 $fluid-spacing--medium: 16px !default;
 $fluid-spacing--large: 32px !default;
 $fluid-spacing--x-large: 48px !default;
-$fluid-spacing--xx-large: 64px !default;
-$fluid-spacing--xxx-large: 128px !default;
+$fluid-spacing--2x-large: 64px !default;
+$fluid-spacing--3x-large: 128px !default;
