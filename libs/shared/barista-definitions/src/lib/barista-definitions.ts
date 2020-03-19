@@ -48,6 +48,13 @@ export interface BaSinglePageMeta extends BaPageMetaBase {
   sidenav?: BaCategoryNavigation;
 }
 
+export interface BaDecisionGraphPageMeta extends BaPageMetaBase {
+  contributors?: BaContributors;
+  category?: string;
+  tags?: string[];
+  decisionGraph: BaUxdNode[];
+}
+
 export interface BaSinglePageContent extends BaSinglePageMeta {
   content: string;
 }
@@ -68,6 +75,10 @@ export interface BaIconOverviewPageContent extends BaPageMetaBase {
   icons: BaIcon[];
   sidenav?: BaCategoryNavigation;
   category?: string;
+}
+
+export interface BaDecisionGraphPageContent extends BaDecisionGraphPageMeta {
+  content: string;
 }
 
 /** Main navigation */
@@ -155,3 +166,19 @@ export type BaContentTypes =
   | BaIndexPageContent
   | BaIconOverviewPageContent
   | BaCategoryNavigationContent;
+
+/** UX Decision Graph data */
+export interface BaUxdNode {
+  id: number;
+  text: string;
+  start: boolean;
+  tasknode: boolean;
+  order: number;
+  path: BaUxdEdge[];
+}
+
+export interface BaUxdEdge {
+  text: string;
+  uxd_node: number; // uxd_node id
+  selected?: boolean;
+}
