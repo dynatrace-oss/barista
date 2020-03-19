@@ -1,0 +1,39 @@
+<div class="ba-uxd-navigation-wrapper">
+  <div class="ba-uxd-navigation">
+    <ng-container *ngIf="!inTasknode">
+      <button
+        id="backButtonTestId"
+        class="ba-uxd-navigation-button"
+        *ngIf="showBackButton"
+        (click)="undoLastStepEmitter()"
+        dt-button
+        variant="secondary"
+      >
+        Back
+      </button>
+      <button
+        id="startOverButtonTestId"
+        class="ba-uxd-navigation-button"
+        (click)="resetToInitialEmitter()"
+        dt-button
+      >
+        Reset progress
+      </button>
+    </ng-container>
+    <div *ngIf="inTasknode" dtTheme=":dark">
+      <button
+        id="backTaskButtonTestId"
+        class="ba-uxd-navigation-taskbutton"
+        dt-button
+        variant="secondary"
+        *ngIf="showBackButton"
+        (click)="undoLastStepEmitter()"
+      >
+        Back
+      </button>
+      <button dt-button (click)="resetToInitialEmitter()">
+        Reset progess
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+@import '../../../../../styles/global/variables';
+@import 'colors';
+
+:host {
+  display: block;
+}
+
+:host ::ng-deep button {
+  font-weight: normal;
+}
+
+:host ::ng-deep .ba-uxd-startnode h3 {
+  height: 48px;
+  margin: 0;
+}
+
+:host ::ng-deep .ba-uxd-startnode button {
+  margin: 0;
+  padding: 0;
+}
+
+:host ::ng-deep .ba-uxd-startnode p {
+  margin-bottom: 20px;
+}
+
+.ba-uxd-startnode-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+  margin: 52px 4px 0;
+}
+
+@media (min-width: $screen-md) {
+  .ba-uxd-startnode-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .ba-uxd-startnode-grid {
+    width: 75%;
+    margin: 52px auto 40px;
+  }
+}
+
+.ba-uxd-startnode-wrapper {
+  padding: 4px;
+}
+
+.ba-uxd-startnode {
+  width: fill-available;
+  min-height: 100%;
+  background-color: $royalblue-800;
+  border: 1px solid $gray-300;
+  border-radius: 3px;
+  padding: 20px;
+  outline: 0;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: start;
+  cursor: pointer;
+  color: $white;
+
+  &:hover {
+    background-color: $royalblue-600;
+  }
+}
+
+.ba-uxd-startnode-visited {
+  background-color: $royalblue-600;
+}

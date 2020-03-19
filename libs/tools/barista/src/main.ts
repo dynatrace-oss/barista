@@ -32,6 +32,7 @@ import {
 } from './transform';
 import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from './types';
 import { sync } from 'glob';
+import { uxDecisionGraphGenerator } from './generators/ux-decision-graph';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
@@ -121,6 +122,9 @@ async function buildPages(): Promise<void[]> {
 
   const allPages = await Promise.all(files);
   const overviewPages = await overviewBuilder();
+  if (!isPublicBuild()) {
+    await uxDecisionGraphGenerator();
+  }
 
   const routes = sync(`${environment.distDir}/**/*.json`)
     .map((file) => {

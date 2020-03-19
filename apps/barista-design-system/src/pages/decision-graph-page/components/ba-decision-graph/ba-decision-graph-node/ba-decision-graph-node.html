@@ -1,0 +1,55 @@
+<div *ngIf="_node">
+  <div #nodes *ngFor="let node of _decisionGraphSteps">
+    <div class="ba-uxd-node-container" *ngIf="!node.tasknode">
+      <div class="ba-uxd-node">
+        <ng-container
+          *ngTemplateOutlet="nodeTemplate; context: { node: node }"
+        ></ng-container>
+      </div>
+    </div>
+    <div class="ba-uxd-tasknode-container" *ngIf="node.tasknode">
+      <div class="ba-uxd-task-node-content-wrapper">
+        <div class="ba-uxd-tasknode">
+          <ng-container
+            *ngTemplateOutlet="nodeTemplate; context: { node: node }"
+          ></ng-container>
+        </div>
+      </div>
+      <ba-decision-graph-node-nav
+        *ngIf="isTasknode()"
+        [inTasknode]="isTasknode()"
+        [showBackButton]="_started"
+        (resetToInitial)="resetToInitial()"
+        (undoLastStep)="undoLastStep()"
+      ></ba-decision-graph-node-nav>
+    </div>
+  </div>
+</div>
+<ba-decision-graph-node-nav
+  *ngIf="!isTasknode()"
+  [inTasknode]="isTasknode()"
+  [showBackButton]="_started"
+  (resetToInitial)="resetToInitial()"
+  (undoLastStep)="undoLastStep()"
+></ba-decision-graph-node-nav>
+
+<ng-template #nodeTemplate let-node="node">
+  <div
+    [class]="setContentClass(node)"
+    [innerHTML]="getSanitizedNodeText(node.text)"
+  ></div>
+  <div #nodes *ngIf="node.path.length">
+    <button
+      class="ba-uxd-edge-button"
+      *ngFor="let edge of node.path.sort()"
+      [ngClass]="{
+        'ba-uxd-yes-edge': checkEdgeType(edge.text, 'yes'),
+        'ba-uxd-no-edge': checkEdgeType(edge.text, 'no')
+      }"
+      [disabled]="edge.selected === false"
+      (click)="setNextNode(edge)"
+    >
+      {{ edge.text }}
+    </button>
+  </div>
+</ng-template>

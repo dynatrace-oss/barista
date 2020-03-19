@@ -788,6 +788,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleDrawerDynamic', DtExampleDrawerDynamic],
   ['DtExampleDrawerNested', DtExampleDrawerNested],
   ['DtExampleDrawerOver', DtExampleDrawerOver],
+  ['DtExampleDrawerTableDefault', DtExampleDrawerTableDefault],
   ['DtExampleCustomEmptyStateTable', DtExampleCustomEmptyStateTable],
   ['DtExampleCustomEmptyState', DtExampleCustomEmptyState],
   ['DtExampleEmptyStateDefault', DtExampleEmptyStateDefault],
