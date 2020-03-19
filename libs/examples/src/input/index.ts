@@ -21,3 +21,4 @@ export * from './input-examples.module';
 export * from './input-form-example/input-form-example';
 export * from './input-ng-model-example/input-ng-model-example';
 export * from './input-textarea-example/input-textarea-example';
+export * from './input-optional-example/input-optional-example';
