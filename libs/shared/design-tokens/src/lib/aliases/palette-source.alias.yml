@@ -1,0 +1,137 @@
+
+aliases:
+  - name: key
+    keyColor: "#534DFF"
+    baseColor: "#FFFFFF"
+    type: adobe-leonardo
+    colorspace: CAM02
+    shades:
+      - name: lighter
+        ratio: 3
+        comment: Lighter key color shade
+        aliasName: color-key--lighter
+      - name: light
+        ratio: 3.81
+        comment: Light key color shade
+        aliasName: color-key--light
+      - name: base
+        ratio: 4.67
+        comment: Base key color shade
+        aliasName: color-key--base
+      - name: dark
+        ratio: 5.68
+        comment: Dark key color shade
+        aliasName: color-key--dark
+      - name: darker
+        ratio: 7.5
+        comment: Darker key color shade
+        aliasName: color-key--darker
+
+  - name: neutral
+    keyColor: "#98A1B4"
+    baseColor: "#FFFFFF"
+    type: adobe-leonardo
+    colorspace: CAM02
+    shades:
+      - name: lighter
+        ratio: 3
+        comment: Lighter neutral color shade
+        aliasName: color-neutral--lighter
+      - name: light
+        ratio: 3.81
+        comment: Light neutral color shade
+        aliasName: color-neutral--light
+      - name: base
+        ratio: 4.67
+        comment: Base neutral color shade
+        aliasName: color-neutral--base
+      - name: dark
+        ratio: 5.68
+        comment: Dark neutral color shade
+        aliasName: color-neutral--dark
+      - name: darker
+        ratio: 7.5
+        comment: Darker neutral color shade
+        aliasName: color-neutral--darker
+
+  - name: negative
+    keyColor: "#DC3F3C"
+    baseColor: "#FFFFFF"
+    type: adobe-leonardo
+    colorspace: CAM02
+    shades:
+      - name: lighter
+        ratio: 3
+        comment: Lighter negative color shade
+        aliasName: color-negative--lighter
+      - name: light
+        ratio: 3.81
+        comment: Light negative color shade
+        aliasName: color-negative--light
+      - name: base
+        ratio: 4.67
+        comment: Base negative color shade
+        aliasName: color-negative--base
+      - name: dark
+        ratio: 5.68
+        comment: Dark negative color shade
+        aliasName: color-negative--dark
+      - name: darker
+        ratio: 7.5
+        comment: Darker negative color shade
+        aliasName: color-negative--darker
+
+  - name: warning
+    keyColor: "#FFD700"
+    baseColor: "#FFFFFF"
+    type: adobe-leonardo
+    colorspace: CAM02
+    shades:
+      - name: lighter
+        ratio: 3
+        comment: Lighter warning color shade
+        aliasName: color-warning--lighter
+      - name: light
+        ratio: 3.81
+        comment: Light warning color shade
+        aliasName: color-warning--light
+      - name: base
+        ratio: 4.67
+        comment: Base warning color shade
+        aliasName: color-warning--base
+      - name: dark
+        ratio: 5.68
+        comment: Dark warning color shade
+        aliasName: color-warning--dark
+      - name: darker
+        ratio: 7.5
+        comment: Darker warning color shade
+        aliasName: color-warning--darker
+
+  - name: positive
+    keyColor: "#42D695"
+    baseColor: "#FFFFFF"
+    type: adobe-leonardo
+    colorspace: CAM02
+    shades:
+      - name: lighter
+        ratio: 3
+        comment: Lighter positive color shade
+        aliasName: color-positive--lighter
+      - name: light
+        ratio: 3.81
+        comment: Light positive color shade
+        aliasName: color-positive--light
+      - name: base
+        ratio: 4.67
+        comment: Base positive color shade
+        aliasName: color-positive--base
+      - name: dark
+        ratio: 5.68
+        comment: Dark positive color shade
+        aliasName: color-positive--dark
+      - name: darker
+        ratio: 7.5
+        comment: Darker positive color shade
+        aliasName: color-positive--darker
+

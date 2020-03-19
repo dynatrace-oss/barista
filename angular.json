@@ -3452,6 +3452,29 @@
           }
         }
       }
+    },
+    "shared-design-tokens": {
+      "root": "libs/shared/design-tokens",
+      "sourceRoot": "libs/shared/design-tokens/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@dynatrace/workspace:design-tokens-build",
+          "options": {
+            "entrypoints": ["global/**.yml", "patterns/**.yml"],
+            "outputPath": "libs/shared/design-tokens/generated/",
+            "baseDirectory": "libs/shared/design-tokens/src/lib"
+          }
+        },
+        "package": {
+          "builder": "@dynatrace/workspace:design-tokens-package",
+          "options": {
+            "releasePackageJson": "libs/shared/design-tokens/package.json",
+            "outputPath": "dist/libs/shared/design-tokens/"
+          }
+        }
+      }
     }
   },
   "defaultProject": "dev",

@@ -1,0 +1,18 @@
+imports:
+  - "../aliases/spacing.alias.yml"
+  - "../aliases/palette.alias.yml"
+props:
+  - name: fluid-button--padding
+    value: '{!spacing--0} {!spacing--medium}'
+    meta:
+      friendlyName: "Fluid button padding"
+      customizable: true
+  - name: fluid-button--color
+    value: '{!color-key--base}'
+    meta:
+      friendlyName: "Fluid button color"
+      customizable: true
+
+global:
+  type: token
+  category: global

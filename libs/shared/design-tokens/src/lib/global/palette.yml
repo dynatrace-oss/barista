@@ -1,0 +1,218 @@
+imports:
+  - "../aliases/palette.alias.yml"
+
+props:
+  # Key colors
+  # -------------
+  - name: fluid-color-key--lighter
+    value: '{!color-key--lighter}'
+    meta:
+      friendlyName: Key, lighter
+      sassVariable: $color-key--lighter
+      customProperty: --color-key--lighter
+      customizable: false
+
+  - name: fluid-color-key--light
+    value: '{!color-key--light}'
+    meta:
+      friendlyName: Key, light
+      sassVariable: $color-key--light
+      customProperty: --color-key--light
+      customizable: false
+
+  - name: fluid-color-key--base
+    value: '{!color-key--base}'
+    meta:
+      friendlyName: Key, base
+      sassVariable: $color-key--base
+      customProperty: --color-key--base
+      customizable: false
+
+  - name: fluid-color-key--dark
+    value: '{!color-key--dark}'
+    meta:
+      friendlyName: Key, dark
+      sassVariable: $color-key--dark
+      customProperty: --color-key--dark
+      customizable: false
+
+  - name: fluid-color-key--darker
+    value: '{!color-key--darker}'
+    meta:
+      friendlyName: Key, darker
+      sassVariable: $color-key--darker
+      customProperty: --color-key--darker
+      customizable: false
+
+  # Neutral colors
+  # -------------
+  - name: fluid-color-neutral--lighter
+    value: '{!color-neutral--lighter}'
+    meta:
+      friendlyName: Neutral, lighter
+      sassVariable: $color-neutral--lighter
+      customProperty: --color-neutral--lighter
+      customizable: false
+
+  - name: fluid-color-neutral--light
+    value: '{!color-neutral--light}'
+    meta:
+      friendlyName: Neutral, light
+      sassVariable: $color-neutral--light
+      customProperty: --color-neutral--light
+      customizable: false
+
+  - name: fluid-color-neutral--base
+    value: '{!color-neutral--base}'
+    meta:
+      friendlyName: Neutral, base
+      sassVariable: $color-neutral--base
+      customProperty: --color-neutral--base
+      customizable: false
+
+  - name: fluid-color-neutral--dark
+    value: '{!color-neutral--dark}'
+    meta:
+      friendlyName: Neutral, dark
+      sassVariable: $color-neutral--dark
+      customProperty: --color-neutral--dark
+      customizable: false
+
+  - name: fluid-color-neutral--darker
+    value: '{!color-neutral--darker}'
+    meta:
+      friendlyName: Neutral, darker
+      sassVariable: $color-neutral--darker
+      customProperty: --color-neutral--darker
+      customizable: false
+
+  # Negative colors
+  # -------------
+  - name: fluid-color-negative--lighter
+    value: '{!color-negative--lighter}'
+    meta:
+      friendlyName: Negative, lighter
+      sassVariable: $color-negative--lighter
+      customProperty: --color-negative--lighter
+      customizable: false
+
+  - name: fluid-color-negative--light
+    value: '{!color-negative--light}'
+    meta:
+      friendlyName: Negative, light
+      sassVariable: $color-negative--light
+      customProperty: --color-negative--light
+      customizable: false
+
+  - name: fluid-color-negative--base
+    value: '{!color-negative--base}'
+    meta:
+      friendlyName: Negative, base
+      sassVariable: $color-negative--base
+      customProperty: --color-negative--base
+      customizable: false
+
+  - name: fluid-color-negative--dark
+    value: '{!color-negative--dark}'
+    meta:
+      friendlyName: Negative, dark
+      sassVariable: $color-negative--dark
+      customProperty: --color-negative--dark
+      customizable: false
+
+  - name: fluid-color-negative--darker
+    value: '{!color-negative--darker}'
+    meta:
+      friendlyName: Negative, darker
+      sassVariable: $color-negative--darker
+      customProperty: --color-negative--darker
+      customizable: false
+
+  # Warning colors
+  # -------------
+  - name: fluid-color-warning--lighter
+    value: '{!color-warning--lighter}'
+    meta:
+      friendlyName: Warning, lighter
+      sassVariable: $color-warning--lighter
+      customProperty: --color-warning--lighter
+      customizable: false
+
+  - name: fluid-color-warning--light
+    value: '{!color-warning--light}'
+    meta:
+      friendlyName: Warning, light
+      sassVariable: $color-warning--light
+      customProperty: --color-warning--light
+      customizable: false
+
+  - name: fluid-color-warning--base
+    value: '{!color-warning--base}'
+    meta:
+      friendlyName: Warning, base
+      sassVariable: $color-warning--base
+      customProperty: --color-warning--base
+      customizable: false
+
+  - name: fluid-color-warning--dark
+    value: '{!color-warning--dark}'
+    meta:
+      friendlyName: Warning, dark
+      sassVariable: $color-warning--dark
+      customProperty: --color-warning--dark
+      customizable: false
+
+  - name: fluid-color-warning--darker
+    value: '{!color-warning--darker}'
+    meta:
+      friendlyName: Warning, darker
+      sassVariable: $color-warning--darker
+      customProperty: --color-warning--darker
+      customizable: false
+
+  # Positive colors
+  # -------------
+  - name: fluid-color-positive--lighter
+    value: '{!color-positive--lighter}'
+    meta:
+      friendlyName: Positive, lighter
+      sassVariable: $color-positive--lighter
+      customProperty: --color-positive--lighter
+      customizable: false
+
+  - name: fluid-color-positive--light
+    value: '{!color-positive--light}'
+    meta:
+      friendlyName: Positive, light
+      sassVariable: $color-positive--light
+      customProperty: --color-positive--light
+      customizable: false
+
+  - name: fluid-color-positive--base
+    value: '{!color-positive--base}'
+    meta:
+      friendlyName: Positive, base
+      sassVariable: $color-positive--base
+      customProperty: --color-positive--base
+      customizable: false
+
+  - name: fluid-color-positive--dark
+    value: '{!color-positive--dark}'
+    meta:
+      friendlyName: Positive, dark
+      sassVariable: $color-positive--dark
+      customProperty: --color-positive--dark
+      customizable: false
+
+  - name: fluid-color-positive--darker
+    value: '{!color-positive--darker}'
+    meta:
+      friendlyName: Positive, darker
+      sassVariable: $color-positive--darker
+      customProperty: --color-positive--darker
+      customizable: false
+
+
+global:
+  type: dt-palette
+  category: dt-palette

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "design-tokens-package",
+  "type": "object",
+  "properties": {
+    "outputPath": {
+      "type": "string",
+      "description": "Defines the output directory for the design tokens"
+    },
+    "releasePackageJson": {
+      "type": "string",
+      "description": "The path to the package.json used for the release."
+    }
+  },
+  "additionalProperties": false,
+  "required": ["outputPath", "releasePackageJson"],
+  "definitions": {}
+}
