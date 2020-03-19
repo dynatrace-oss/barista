@@ -1,0 +1,37 @@
+@import 'colors';
+@import '../../../../../../styles/global/variables';
+
+.ba-uxd-navigation-wrapper {
+  width: 100%;
+  margin-top: 32px;
+}
+
+@media (min-width: $screen-lg) {
+  .ba-uxd-navigation-wrapper {
+    width: 75%;
+    margin: 32px auto 0;
+  }
+}
+
+.ba-uxd-navigation {
+  margin-left: 18px;
+}
+
+@media (min-width: $screen-md) {
+  .ba-uxd-navigation {
+    margin-left: 32px;
+  }
+}
+
+.ba-uxd-navigation-button {
+  margin-right: 8px;
+  margin-bottom: 32px;
+}
+
+.ba-uxd-navigation-taskbutton {
+  margin-right: 8px;
+
+  &:hover {
+    background-color: $royalblue-700;
+  }
+}

@@ -1,0 +1,138 @@
+@import 'colors';
+@import '../../../../../styles/global/variables';
+
+:host {
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+:host ::ng-deep button {
+  font-size: 0.875rem; // 14px
+  outline: none;
+}
+
+:host ::ng-deep .ba-uxd-task-node a {
+  color: $turquoise-300;
+}
+
+:host ::ng-deep .ba-uxd-node-content p {
+  margin-bottom: 0;
+}
+
+.ba-uxd-node-container {
+  width: 100%;
+}
+
+@media (min-width: $screen-lg) {
+  .ba-uxd-node-container {
+    width: 75%;
+    margin: 0 auto;
+  }
+}
+
+.ba-uxd-node {
+  margin-top: 64px;
+  margin-left: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-left: 2px solid $gray-300;
+}
+
+@media (min-width: $screen-md) {
+  .ba-uxd-node {
+    margin-left: 8px;
+    padding-left: 24px;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .ba-uxd-node {
+    margin-left: 4px;
+  }
+}
+
+.ba-uxd-node-content {
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.ba-uxd-edge-button {
+  height: 32px;
+  min-width: 40px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 32px;
+  border-radius: 3px;
+  border: none;
+  color: $white;
+  background-color: $royalblue-600;
+
+  &:hover {
+    background-color: $royalblue-500;
+  }
+
+  &:disabled {
+    background-color: $gray-300;
+  }
+
+  &:disabled:hover {
+    background-color: $gray-300;
+  }
+}
+
+.ba-uxd-yes-edge,
+.ba-uxd-no-edge {
+  height: 44px;
+  width: 44px;
+  line-height: 44px;
+  border-radius: 50%;
+  margin-left: 0;
+  padding: 0;
+}
+
+.ba-uxd-no-edge {
+  background-color: $royalblue-800;
+  &:hover {
+    background-color: $royalblue-700;
+  }
+}
+
+.ba-uxd-tasknode-container {
+  width: 100%;
+  background-color: $royalblue-600;
+  padding: 32px 0;
+  margin-top: 32px;
+}
+
+.ba-uxd-task-node-content-wrapper {
+  width: 100%;
+  margin-left: 4px;
+}
+
+.ba-uxd-tasknode {
+  width: 100%;
+  margin-left: 4px;
+  border-left: 2px solid $white;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+@media (min-width: $screen-lg) {
+  .ba-uxd-tasknode {
+    width: 75%;
+    margin: 0 auto;
+    padding-left: 24px;
+  }
+}
+
+.ba-uxd-tasknode-content {
+  width: 100%;
+  color: $white;
+  margin-left: 4px;
+
+  > .ba-uxd-edge-button {
+    border: 1px solid $royalblue-800;
+    margin-left: 5px;
+  }
+}

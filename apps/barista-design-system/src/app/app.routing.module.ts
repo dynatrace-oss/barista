@@ -42,6 +42,13 @@ export const baristaRoutes: Route[] = [
       ),
   },
   {
+    path: 'guidelines/ux-decision-graph',
+    loadChildren: () =>
+      import('../pages/decision-graph-page/decision-graph-page.module').then(
+        (module) => module.DecisionGraphPageModule,
+      ),
+  },
+  {
     path: 'components',
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
