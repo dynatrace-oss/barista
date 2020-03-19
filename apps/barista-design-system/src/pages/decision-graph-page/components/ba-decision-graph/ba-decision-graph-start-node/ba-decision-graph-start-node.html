@@ -1,0 +1,14 @@
+<div class="ba-uxd-startnode-grid">
+  <div
+    class="ba-uxd-startnode-wrapper"
+    *ngFor="let startnode of decisionGraphStartnodes; let i = index"
+  >
+    <div
+      class="ba-uxd-startnode"
+      [class.dt-uxd-startnode-visited]="isSelectedStartnode(i)"
+      [id]="i"
+      (click)="selectStartnode(startnode)"
+      [innerHTML]="getSanitizedNodeText(startnode.text)"
+    ></div>
+  </div>
+</div>

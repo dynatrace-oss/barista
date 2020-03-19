@@ -1,0 +1,17 @@
+<div class="ba-uxd-title">
+  <h2>You want to add a new use case to the product?</h2>
+  <p>
+    Great. We want to support you as much as possible. Make sure you can answer
+    all these questions, or else follow the path to find the answer.
+  </p>
+</div>
+<ba-decision-graph-start-node
+  [startnodes]="_decisionGraphStartnodes"
+  (selectedNode)="setSelectedNode($event)"
+></ba-decision-graph-start-node>
+<ba-decision-graph-node
+  *ngIf="_selectedNode"
+  [node]="_selectedNode"
+  [decisionGraphData]="_decisionGraphData"
+  (startOver)="resetToInitial()"
+></ba-decision-graph-node>
