@@ -1,0 +1,14 @@
+aliases:
+  spacing--0: 0
+  spacing--xx-small: 2px
+  spacing--x-small: 4px
+  spacing--small: 8px
+  spacing--medium: 16px
+  spacing--large: 32px
+  spacing--x-large: 48px
+  spacing--xx-large: 64px
+  spacing--xxx-large: 128px
+
+global:
+  type: number
+  category: spacing

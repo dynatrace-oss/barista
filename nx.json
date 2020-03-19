@@ -307,6 +307,9 @@
     },
     "testing-fixtures": {
       "tags": ["scope:testing", "type:library"]
+    },
+    "shared-design-tokens": {
+      "tags": []
     }
   }
 }

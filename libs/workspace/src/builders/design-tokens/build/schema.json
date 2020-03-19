@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "design-tokens-build",
+  "type": "object",
+  "properties": {
+    "baseDirectory": {
+      "type": "string",
+      "description": "Base directory that the glob of entrypoints uses. It is also considered the project root for relative imports."
+    },
+    "entrypoints": {
+      "type": "array",
+      "description": "List of root style files that should be read for token evaluation",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "Defines the output directory for the design tokens"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["entrypoints", "outputPath", "baseDirectory"],
+  "definitions": {}
+}

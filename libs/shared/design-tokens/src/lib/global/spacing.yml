@@ -1,0 +1,61 @@
+imports:
+  - "../aliases/spacing.alias.yml"
+
+props:
+  - name: fluid-spacing--0
+    value: '{!spacing--0}'
+    meta:
+      friendlyName: "No spacing"
+      customizable: false
+
+  - name: fluid-spacing--xx-small
+    value: '{!spacing--xx-small}'
+    meta:
+      friendlyName: "Spacing, xx-small"
+      customizable: false
+
+  - name: fluid-spacing--x-small
+    value: '{!spacing--x-small}'
+    meta:
+      friendlyName: "Spacing, x-small"
+      customizable: false
+
+  - name: fluid-spacing--small
+    value: '{!spacing--small}'
+    meta:
+      friendlyName: "Spacing, small"
+      customizable: false
+
+  - name: fluid-spacing--medium
+    value: '{!spacing--medium}'
+    meta:
+      friendlyName: "Spacing, medium"
+      customizable: false
+
+  - name: fluid-spacing--large
+    value: '{!spacing--large}'
+    meta:
+      friendlyName: "Spacing, large"
+      customizable: false
+
+  - name: fluid-spacing--x-large
+    value: '{!spacing--x-large}'
+    meta:
+      friendlyName: "Spacing, x-large"
+      customizable: false
+
+  - name: fluid-spacing--xx-large
+    value: '{!spacing--xx-large}'
+    meta:
+      friendlyName: "Spacing, xx-large"
+      customizable: false
+
+  - name: fluid-spacing--xxx-large
+    value: '{!spacing--xxx-large}'
+    meta:
+      friendlyName: "Spacing, xxx-large"
+      customizable: false
+
+global:
+  type: number
+  category: spacing
