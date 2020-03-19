@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+export * from './input-dark-example/input-dark-example';
+export * from './input-default-example/input-default-example';
+export * from './input-disabled-readonly-example/input-disabled-readonly-example';
 export * from './input-examples.module';
+export * from './input-form-example/input-form-example';
+export * from './input-ng-model-example/input-ng-model-example';
+export * from './input-textarea-example/input-textarea-example';

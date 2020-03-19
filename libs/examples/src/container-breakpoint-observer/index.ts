@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './container-breakpoint-observer-default-example/container-breakpoint-observer-default-example';
 export * from './container-breakpoint-observer-examples.module';
+export * from './container-breakpoint-observer-if-else-example/container-breakpoint-observer-if-else-example';
+export * from './container-breakpoint-observer-if-example/container-breakpoint-observer-if-example';

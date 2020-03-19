@@ -14,4 +14,5 @@
  * limitations under the License.
  */
 
+export * from './expandable-text-default-example/expandable-text-default-example';
 export * from './expandable-text-examples.module';

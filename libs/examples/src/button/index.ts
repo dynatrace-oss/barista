@@ -14,4 +14,13 @@
  * limitations under the License.
  */
 
+export * from './button-color-example/button-color-example';
+export * from './button-dark-example/button-dark-example';
+export * from './button-default-example/button-default-example';
+export * from './button-disabled-example/button-disabled-example';
 export * from './button-examples.module';
+export * from './button-icon-only-example/button-icon-only-example';
+export * from './button-icons-example/button-icons-example';
+export * from './button-interaction-example/button-interaction-example';
+export * from './button-loading-spinner-example/button-loading-spinner-example';
+export * from './button-variant-example/button-variant-example';

@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+export * from './radial-chart-custom-colors-example/radial-chart-custom-colors-example';
+export * from './radial-chart-default-donut-example/radial-chart-default-donut-example';
+export * from './radial-chart-default-pie-example/radial-chart-default-pie-example';
 export * from './radial-chart-examples.module';
+export * from './radial-chart-legend-example/radial-chart-legend-example';
+export * from './radial-chart-max-value-example/radial-chart-max-value-example';
+export * from './radial-chart-overlay-example/radial-chart-overlay-example';

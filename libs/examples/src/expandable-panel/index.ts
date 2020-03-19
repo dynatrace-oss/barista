@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+export * from './expandable-panel-default-example/expandable-panel-default-example';
+export * from './expandable-panel-disabled-example/expandable-panel-disabled-example';
+export * from './expandable-panel-dynamic-trigger-example/expandable-panel-dynamic-trigger-example';
 export * from './expandable-panel-examples.module';
+export * from './expandable-panel-programmatic-example/expandable-panel-programmatic-example';

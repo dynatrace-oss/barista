@@ -14,4 +14,13 @@
  * limitations under the License.
  */
 
+export * from './progress-bar-change-example/progress-bar-change-example';
+export * from './progress-bar-dark-example/progress-bar-dark-example';
+export * from './progress-bar-default-example/progress-bar-default-example';
 export * from './progress-bar-examples.module';
+export * from './progress-bar-right-aligned-example/progress-bar-right-aligned-example';
+export * from './progress-bar-with-color-example/progress-bar-with-color-example';
+export * from './progress-bar-with-count-and-description-example/progress-bar-with-count-and-description-example';
+export * from './progress-bar-with-count-and-description-indicator-example/progress-bar-with-count-and-description-indicator-example';
+export * from './progress-bar-with-count-example/progress-bar-with-count-example';
+export * from './progress-bar-with-description-example/progress-bar-with-description-example';

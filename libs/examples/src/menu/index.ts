@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './menu-default-example/menu-default-example';
 export * from './menu-examples.module';
+export * from './menu-within-context-dialog-example/menu-within-context-dialog-example';
+export * from './menu-within-drawer-example/menu-within-drawer-example';

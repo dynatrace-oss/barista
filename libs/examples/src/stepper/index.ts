@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './stepper-default-example/stepper-default-example';
+export * from './stepper-editable-example/stepper-editable-example';
 export * from './stepper-examples.module';
+export * from './stepper-linear-example/stepper-linear-example';

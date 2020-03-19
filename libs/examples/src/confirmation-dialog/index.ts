@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+export * from './confirmation-dialog-default-example/confirmation-dialog-default-example';
 export * from './confirmation-dialog-examples.module';
+export * from './confirmation-dialog-show-backdrop-example/confirmation-dialog-show-backdrop-example';

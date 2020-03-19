@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
+export * from './select-complex-value-example/select-complex-value-example';
+export * from './select-default-example/select-default-example';
+export * from './select-disabled-example/select-disabled-example';
 export * from './select-examples.module';
+export * from './select-form-field-example/select-form-field-example';
+export * from './select-forms-example/select-forms-example';
+export * from './select-groups-example/select-groups-example';
+export * from './select-value-example/select-value-example';
+export * from './select-with-icons-example/select-with-icons-example';

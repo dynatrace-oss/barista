@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './consumption-default-example/consumption-default-example';
+export * from './consumption-error-example/consumption-error-example';
 export * from './consumption-examples.module';
+export * from './consumption-warning-example/consumption-warning-example';

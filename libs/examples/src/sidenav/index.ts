@@ -14,4 +14,5 @@
  * limitations under the License.
  */
 
+export * from './sidenav-default-example/sidenav-default-example';
 export * from './sidenav-examples.module';

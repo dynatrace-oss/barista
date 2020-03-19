@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+export * from './info-group-default-example/info-group-default-example';
 export * from './info-group-examples.module';
+export * from './info-group-in-card-example/info-group-in-card-example';
