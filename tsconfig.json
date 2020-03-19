@@ -164,6 +164,9 @@
       "@dynatrace/barista-components/stepper": [
         "libs/barista-components/stepper/index.ts"
       ],
+      "@dynatrace/barista-components/sunburst-chart": [
+        "libs/barista-components/sunburst-chart/index.ts"
+      ],
       "@dynatrace/barista-components/switch": [
         "libs/barista-components/switch/index.ts"
       ],

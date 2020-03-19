@@ -90,4 +90,43 @@ export class KitchenSink {
 
   private _getChildren = (node: ThreadNode): ThreadNode[] =>
     node.children || [];
+
+  sunburstChartSeries = [
+    {
+      // value: 4,
+      label: 'Locke',
+      children: [
+        {
+          value: 2,
+          label: 'John',
+        },
+        {
+          value: 1,
+          label: 'Terry',
+        },
+        {
+          value: 1,
+          label: "O'Quinn",
+        },
+      ],
+    },
+    {
+      // value: 8,
+      label: 'Reyes',
+      children: [
+        {
+          value: 4,
+          label: 'Hugo',
+        },
+        {
+          value: 2,
+          label: 'Jorge',
+        },
+        {
+          value: 2,
+          label: 'Garcia',
+        },
+      ],
+    },
+  ];
 }
