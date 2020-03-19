@@ -21,10 +21,12 @@ import {
   Component,
   Input,
   NgModule,
+  NgModuleFactory,
   OnDestroy,
   OnInit,
   Type,
 } from '@angular/core';
+import { isDefined } from '@dynatrace/barista-components/core';
 import {
   Highlighter,
   htmlRender,
@@ -228,19 +230,35 @@ export class BaLiveExample implements OnInit, OnDestroy {
 
   private _initExample(): void {
     this._example$ = from(
-      import(`../../../../../libs/examples/src/${this.directory}/index.ts`),
+      import(`../../../../../libs/examples/src/${this.directory}/index`),
     ).pipe(
-      map(es6Module => getNgModuleFromEs6Module(es6Module)),
-      filter(Boolean),
-      switchMap((moduleType: Type<NgModule>) =>
-        this._compiler.compileModuleAndAllComponentsAsync(moduleType),
-      ),
-      map(({ componentFactories }) => {
-        return componentFactories.find(
-          factory => factory.componentType.name === this.name,
-        )?.componentType;
+      map(es6Module => {
+        return {
+          component: es6Module[this.name],
+          module: getNgModuleFromEs6Module(es6Module),
+        };
       }),
+      filter(
+        ({ component, module }) => isDefined(component) && isDefined(module),
+      ),
+      switchMap(({ component, module }) =>
+        from(this.loadModuleFactory(module!)).pipe(map(() => component)),
+      ),
     );
+  }
+
+  /**
+   * Compiles the NgModule to  a NgModuleFactory if necessary.
+   * This is needed to get the providers and imports for the module.
+   */
+  private async loadModuleFactory<T = NgModule>(
+    type: Type<T>,
+  ): Promise<NgModuleFactory<T>> {
+    if (type instanceof NgModuleFactory) {
+      return type;
+    } else {
+      return await this._compiler.compileModuleAsync(type);
+    }
   }
 
   /**
@@ -277,16 +295,13 @@ export class BaLiveExample implements OnInit, OnDestroy {
 /** Retrieves the NgModule of an es6 module */
 function getNgModuleFromEs6Module(es6Module: any): Type<NgModule> | null {
   for (const key of Object.keys(es6Module)) {
-    if (isNgModule(es6Module[key])) {
+    // For now we have to stick with the convention that all examples
+    // modules have to end with this string. I found no other solution to detect if the
+    // symbol is an angular module. The problem is that the es6 module can have other symbols
+    // as well like examples maps
+    if (key.endsWith('ExamplesModule')) {
       return es6Module[key];
     }
   }
   return null;
 }
-
-/** Checks if a provided type is an Angular Module */
-const isNgModule = (moduleType: any): boolean =>
-  !!(
-    Array.isArray(moduleType?.decorators) &&
-    moduleType.decorators[0]?.type?.prototype?.ngMetadataName === 'NgModule'
-  );
