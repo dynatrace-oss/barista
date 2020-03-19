@@ -89,6 +89,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Show-more', route: '/show-more' },
     { name: 'Stepper', route: '/stepper' },
     { name: 'Slider', route: '/slider' },
+    { name: 'Sunburst', route: '/sunburst' },
     { name: 'Switch', route: '/switch' },
     { name: 'Table', route: '/table' },
     { name: 'Tabs', route: '/tabs' },

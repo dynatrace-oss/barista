@@ -71,6 +71,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtCheckboxModule,
     DtConsumptionModule,
     DtContainerBreakpointObserverModule,
+    DtContainerBreakpointObserverModule,
     DtContextDialogModule,
     DtCopyToClipboardModule,
     DtDrawerModule,
@@ -92,7 +93,9 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtRadioModule,
     DtSelectModule,
     DtShowMoreModule,
+    DtSliderModule,
     DtStepperModule,
+    DtSunburstModule,
     DtSwitchModule,
     DtTableModule,
     DtTagModule,
@@ -100,11 +103,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtTimelineChartModule,
     DtToggleButtonGroupModule,
     DtTopBarNavigationModule,
-    DtStepperModule,
-    DtSliderModule,
-    DtContainerBreakpointObserverModule,
-    DtRadialChartModule,
     DtTreeTableModule,
   ],
 })
-export class BaristaModule {}
+export class BaristaModule { }

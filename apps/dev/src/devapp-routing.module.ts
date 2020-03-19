@@ -64,6 +64,7 @@ import { ShowMoreDemo } from './show-more/show-more-demo.component';
 import { SidenavDemo } from './sidenav/sidenav-demo.component';
 import { StepperDemo } from './stepper/stepper-demo.component';
 import { SliderDemo } from './slider/slider-demo.component';
+import { SunburstDemo } from './sunburst/sunburst-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
@@ -120,6 +121,7 @@ const routes: Routes = [
   { path: 'select', component: SelectDemo },
   { path: 'show-more', component: ShowMoreDemo },
   { path: 'stepper', component: StepperDemo },
+  { path: 'sunburst', component: SunburstDemo },
   { path: 'switch', component: SwitchDemo },
   { path: 'table', component: TableDemo },
   { path: 'tabs', component: TabsDemo },
@@ -146,4 +148,4 @@ const routes: Routes = [
   exports: [RouterModule],
   imports: [RouterModule.forRoot(routes)],
 })
-export class DevAppRoutingModule {}
+export class DevAppRoutingModule { }
