@@ -2920,6 +2920,41 @@
       },
       "schematics": {}
     },
+    "sunburst": {
+      "projectType": "library",
+      "root": "libs/barista-components/sunburst",
+      "sourceRoot": "libs/barista-components/sunburst/src",
+      "prefix": "dynatrace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/sunburst/tsconfig.lib.json",
+              "libs/barista-components/sunburst/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/sunburst/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/sunburst/jest.config.js",
+            "tsConfig": "libs/barista-components/sunburst/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/barista-components/sunburst/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
     "switch": {
       "projectType": "library",
       "root": "libs/barista-components/switch",

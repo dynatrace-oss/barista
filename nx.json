@@ -266,6 +266,9 @@
     "stepper": {
       "tags": ["scope:components", "type:library"]
     },
+    "sunburst": {
+      "tags": ["scope:components", "type:library"]
+    },
     "switch": {
       "tags": ["scope:components", "type:library"]
     },
