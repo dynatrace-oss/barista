@@ -77,6 +77,7 @@ import { ShowMoreDemo } from './show-more/show-more-demo.component';
 import { SidenavDemo } from './sidenav/sidenav-demo.component';
 import { StepperDemo } from './stepper/stepper-demo.component';
 import { SliderDemo } from './slider/slider-demo.component';
+import { SunburstChartDemo } from './sunburst-chart/sunburst-chart-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
@@ -145,6 +146,7 @@ export class NoopRouteComponent {}
     SecondaryNavDemo,
     SelectDemo,
     ShowMoreDemo,
+    SunburstChartDemo,
     SwitchDemo,
     TableDemo,
     TabsDemo,

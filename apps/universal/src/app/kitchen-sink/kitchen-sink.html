@@ -369,3 +369,9 @@
 
   my content
 </dt-quick-filter>
+
+<dt-sunburst-chart noSelectionLabel="All" [series]="sunburstChartSeries">
+  <ng-template dtSunburstChartOverlay let-tooltip>
+    {{ tooltip.label }}: {{ tooltip.value }}
+  </ng-template>
+</dt-sunburst-chart>

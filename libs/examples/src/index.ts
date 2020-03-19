@@ -261,6 +261,9 @@ import { DtExampleSimpleSlider } from './slider/slider-simple-example/slider-sim
 import { DtExampleStepperDefault } from './stepper/stepper-default-example/stepper-default-example';
 import { DtExampleStepperEditable } from './stepper/stepper-editable-example/stepper-editable-example';
 import { DtExampleStepperLinear } from './stepper/stepper-linear-example/stepper-linear-example';
+import { DtExampleSunburstChartCustomColor } from './sunburst-chart/sunburst-chart-custom-color-example/sunburst-chart-custom-color-example';
+import { DtExampleSunburstChartDefault } from './sunburst-chart/sunburst-chart-default-example/sunburst-chart-default-example';
+import { DtExampleSunburstChartRelativeValues } from './sunburst-chart/sunburst-chart-relative-values-example/sunburst-chart-relative-values-example';
 import { DtExampleSwitchDark } from './switch/switch-dark-example/switch-dark-example';
 import { DtExampleSwitchDefault } from './switch/switch-default-example/switch-default-example';
 import { DtExampleSwitchResponsive } from './switch/switch-responsive-example/switch-responsive-example';
@@ -365,6 +368,7 @@ export { DtExamplesShowMoreModule } from './show-more/show-more-examples.module'
 export { DtExamplesSidenavModule } from './sidenav/sidenav-examples.module';
 export { DtExamplesSliderModule } from './slider/slider-examples.module';
 export { DtExamplesStepperModule } from './stepper/stepper-examples.module';
+export { DtSunburstChartExamplesModule } from './sunburst-chart/sunburst-chart-examples.module';
 export { DtExamplesSwitchModule } from './switch/switch-examples.module';
 export { DtExamplesTableModule } from './table/table-examples.module';
 export { DtExamplesTabsModule } from './tabs/tabs-examples.module';
@@ -613,6 +617,9 @@ export {
   DtExampleStepperDefault,
   DtExampleStepperEditable,
   DtExampleStepperLinear,
+  DtExampleSunburstChartCustomColor,
+  DtExampleSunburstChartDefault,
+  DtExampleSunburstChartRelativeValues,
   DtExampleSwitchDark,
   DtExampleSwitchDefault,
   DtExampleSwitchResponsive,
@@ -953,6 +960,12 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleStepperDefault', DtExampleStepperDefault],
   ['DtExampleStepperEditable', DtExampleStepperEditable],
   ['DtExampleStepperLinear', DtExampleStepperLinear],
+  ['DtExampleSunburstChartCustomColor', DtExampleSunburstChartCustomColor],
+  ['DtExampleSunburstChartDefault', DtExampleSunburstChartDefault],
+  [
+    'DtExampleSunburstChartRelativeValues',
+    DtExampleSunburstChartRelativeValues,
+  ],
   ['DtExampleSwitchDark', DtExampleSwitchDark],
   ['DtExampleSwitchDefault', DtExampleSwitchDefault],
   ['DtExampleSwitchResponsive', DtExampleSwitchResponsive],
