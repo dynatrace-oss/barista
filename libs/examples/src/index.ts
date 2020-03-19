@@ -156,6 +156,7 @@ import { DtExampleFormFieldServerValidation } from './form-field/form-field-serv
 import { DtExampleFormattersBits } from './formatters/formatters-bits-example/formatters-bits-example';
 import { DtExampleFormattersBytes } from './formatters/formatters-bytes-example/formatters-bytes-example';
 import { DtExampleFormattersCount } from './formatters/formatters-count-example/formatters-count-example';
+import { DtExampleFormattersDuration } from './formatters/formatters-duration-example/formatters-duration-example';
 import { DtExampleFormattersPercent } from './formatters/formatters-percent-example/formatters-percent-example';
 import { DtExampleFormattersRate } from './formatters/formatters-rate-example/formatters-rate-example';
 import { DtExampleFormattersTime } from './formatters/formatters-time-example/formatters-time-example';
@@ -497,6 +498,7 @@ export {
   DtExampleFormattersBits,
   DtExampleFormattersBytes,
   DtExampleFormattersCount,
+  DtExampleFormattersDuration,
   DtExampleFormattersPercent,
   DtExampleFormattersRate,
   DtExampleFormattersTime,
@@ -821,6 +823,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleFormattersBits', DtExampleFormattersBits],
   ['DtExampleFormattersBytes', DtExampleFormattersBytes],
   ['DtExampleFormattersCount', DtExampleFormattersCount],
+  ['DtExampleFormattersDuration', DtExampleFormattersDuration],
   ['DtExampleFormattersPercent', DtExampleFormattersPercent],
   ['DtExampleFormattersRate', DtExampleFormattersRate],
   ['DtExampleFormattersTime', DtExampleFormattersTime],

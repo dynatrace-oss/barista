@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+export * from './async-icon';
+export * from './icon-all-example/icon-all-example';
+export * from './icon-default-example/icon-default-example';
 export * from './icon-examples.module';
+export * from './viewport';

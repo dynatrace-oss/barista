@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './key-value-list-default-example/key-value-list-default-example';
 export * from './key-value-list-examples.module';
+export * from './key-value-list-longtext-example/key-value-list-longtext-example';
+export * from './key-value-list-multicolumn-example/key-value-list-multicolumn-example';

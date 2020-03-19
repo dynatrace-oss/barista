@@ -14,4 +14,9 @@
  * limitations under the License.
  */
 
+export * from './button-group-default-example/button-group-default-example';
+export * from './button-group-disabled-example/button-group-disabled-example';
+export * from './button-group-error-example/button-group-error-example';
 export * from './button-group-examples.module';
+export * from './button-group-interactive-example/button-group-interactive-example';
+export * from './button-group-item-disabled-example/button-group-item-disabled-example';

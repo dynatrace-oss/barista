@@ -14,4 +14,27 @@
  * limitations under the License.
  */
 
+export * from './table-buttons-example/table-buttons-example';
+export * from './table-column-min-width-example/table-column-min-width-example';
+export * from './table-column-proportion-example/table-column-proportion-example';
+export * from './table-comparators-example/table-comparators-example';
+export * from './table-custom-columns-example/table-custom-columns-example';
+export * from './table-default-example/table-default-example';
+export * from './table-dynamic-columns-example/table-dynamic-columns-example';
+export * from './table-empty-state-example/table-empty-state-example';
 export * from './table-examples.module';
+export * from './table-expandable-rows-example/table-expandable-rows-example';
+export * from './table-favorite-column-example/table-favorite-column-example';
+export * from './table-favorite-column-no-header-example/table-favorite-column-no-header-example';
+export * from './table-interactive-rows-example/table-interactive-rows-example';
+export * from './table-loading-example/table-loading-example';
+export * from './table-observable-example/table-observable-example';
+export * from './table-pagination-example/table-pagination-example';
+export * from './table-problem-example/table-problem-example';
+export * from './table-responsive-example/table-responsive-example';
+export * from './table-search-example/table-search-example';
+export * from './table-show-more-example/table-show-more-example';
+export * from './table-sorting-example/table-sorting-example';
+export * from './table-sorting-mixed-columns-example/table-sorting-mixed-columns-example';
+export * from './table-sticky-header-example/table-sticky-header-example';
+export * from './table-with-info-group-cell-example/table-with-info-group-cell-example';

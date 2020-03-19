@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+export * from './cta-card-closable-example/cta-card-closable-example';
+export * from './cta-card-default-example/cta-card-default-example';
 export * from './cta-card-examples.module';

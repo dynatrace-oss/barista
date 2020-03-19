@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+export * from './toast-default-example/toast-default-example';
+export * from './toast-dynamic-msg-example/toast-dynamic-msg-example';
 export * from './toast-examples.module';

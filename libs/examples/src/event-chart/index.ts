@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
+export * from './event-chart-complex-selection-example/event-chart-complex-selection-example';
+export * from './event-chart-custom-color-example/event-chart-custom-color-example';
+export * from './event-chart-default-example/event-chart-default-example';
 export * from './event-chart-examples.module';
+export * from './event-chart-legend-example/event-chart-legend-example';
+export * from './event-chart-overlapping-load-example/event-chart-overlapping-load-example';
+export * from './event-chart-overlay-example/event-chart-overlay-example';
+export * from './event-chart-selection-example/event-chart-selection-example';
+export * from './event-chart-session-replay-example/event-chart-session-replay-example';

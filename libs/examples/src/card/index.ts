@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+export * from './card-action-buttons-example/card-action-buttons-example';
+export * from './card-dark-example/card-dark-example';
+export * from './card-default-example/card-default-example';
 export * from './card-examples.module';
+export * from './card-footer-actions-example/card-footer-actions-example';
+export * from './card-icon-example/card-icon-example';
+export * from './card-subtitle-example/card-subtitle-example';

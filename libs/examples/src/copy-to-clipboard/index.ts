@@ -14,4 +14,11 @@
  * limitations under the License.
  */
 
+export * from './copy-to-clipboard-callback-example/copy-to-clipboard-callback-example';
+export * from './copy-to-clipboard-context-example/copy-to-clipboard-context-example';
+export * from './copy-to-clipboard-dark-example/copy-to-clipboard-dark-example';
+export * from './copy-to-clipboard-default-example/copy-to-clipboard-default-example';
+export * from './copy-to-clipboard-error-example/copy-to-clipboard-error-example';
 export * from './copy-to-clipboard-examples.module';
+export * from './copy-to-clipboard-secondary-button-example/copy-to-clipboard-secondary-button-example';
+export * from './copy-to-clipboard-textarea-example/copy-to-clipboard-textarea-example';

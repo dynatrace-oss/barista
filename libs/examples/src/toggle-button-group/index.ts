@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './toggle-button-group-default-example/toggle-button-group-default-example';
+export * from './toggle-button-group-dynamic-items-example/toggle-button-group-dynamic-items-example';
 export * from './toggle-button-group-examples.module';
+export * from './toggle-button-group-show-more-example/toggle-button-group-show-more-example';

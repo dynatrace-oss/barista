@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './switch-dark-example/switch-dark-example';
+export * from './switch-default-example/switch-default-example';
 export * from './switch-examples.module';
+export * from './switch-responsive-example/switch-responsive-example';

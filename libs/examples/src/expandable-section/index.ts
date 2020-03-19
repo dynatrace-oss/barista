@@ -14,4 +14,9 @@
  * limitations under the License.
  */
 
+export * from './expandable-section-dark-example/expandable-section-dark-example';
+export * from './expandable-section-default-example/expandable-section-default-example';
+export * from './expandable-section-disabled-example/expandable-section-disabled-example';
 export * from './expandable-section-examples.module';
+export * from './expandable-section-interactive-example/expandable-section-interactive-example';
+export * from './expandable-section-open-example/expandable-section-open-example';

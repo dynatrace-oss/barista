@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+export * from './timeline-chart-default-example/timeline-chart-default-example';
 export * from './timeline-chart-examples.module';
+export * from './timeline-chart-overlay-example/timeline-chart-overlay-example';
