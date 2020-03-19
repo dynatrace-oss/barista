@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Platform } from '@angular/cdk/platform';
 
 import { BaPageLink } from '@dynatrace/shared/barista-definitions';
-import { Platform } from '@angular/cdk/platform';
+import { getUrlPathName } from './page.service';
 
 const LOCAL_STORAGE_KEY = 'barista-recently-ordered';
 const NUMBER_OF_RECENT_ITEMS = 7;
@@ -26,7 +28,10 @@ export type BaRecentlyOrderedItem = BaPageLink & { timestamp: number };
 
 @Injectable()
 export class BaRecentlyOrderedService {
-  constructor(private _platform: Platform) {}
+  constructor(
+    private _platform: Platform,
+    @Inject(DOCUMENT) private _document: any,
+  ) {}
 
   /** Get an array of all recently ordered pages ☕️ */
   getPages(): BaRecentlyOrderedItem[] {
@@ -44,7 +49,7 @@ export class BaRecentlyOrderedService {
     const storedItems = this._getFromStore();
     storedItems.set(page.title, {
       title: page.title,
-      link: url,
+      link: getUrlPathName(this._document, url),
       timestamp: new Date().getTime(),
       category: page.category,
     });
