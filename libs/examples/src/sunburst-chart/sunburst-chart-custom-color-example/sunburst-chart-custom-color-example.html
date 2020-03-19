@@ -1,0 +1,5 @@
+<dt-sunburst-chart noSelectionLabel="Fruits" [series]="series">
+  <ng-template dtSunburstChartOverlay let-tooltip>
+    {{ tooltip.label }}: {{ tooltip.value }}
+  </ng-template>
+</dt-sunburst-chart>

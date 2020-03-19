@@ -1,0 +1,16 @@
+<dt-sunburst-chart
+  noSelectionLabel="All"
+  [series]="series"
+  [selected]="selectedInitial"
+  (selectedChange)="select($event)"
+  [valueDisplayMode]="valueDisplayMode"
+>
+  <ng-template dtSunburstChartOverlay let-tooltip>
+    {{ tooltip.label }}: {{ tooltip.value }}
+  </ng-template>
+</dt-sunburst-chart>
+
+<dt-switch (change)="toggleDisplayMode($event)">
+  Show relative values
+</dt-switch>
+<pre>{{ selected | json }}</pre>

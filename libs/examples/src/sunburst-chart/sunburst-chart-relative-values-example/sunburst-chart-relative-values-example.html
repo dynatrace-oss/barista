@@ -1,0 +1,9 @@
+<dt-sunburst-chart
+  noSelectionLabel="All"
+  [series]="series"
+  valueDisplayMode="percent"
+>
+  <ng-template dtSunburstChartOverlay let-tooltip>
+    {{ tooltip.label }}: {{ tooltip.valueRelative * 100 | dtPercent }}
+  </ng-template>
+</dt-sunburst-chart>

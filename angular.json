@@ -2956,6 +2956,50 @@
       },
       "schematics": {}
     },
+    "sunburst-chart": {
+      "projectType": "library",
+      "root": "libs/barista-components/sunburst-chart",
+      "sourceRoot": "libs/barista-components/sunburst-chart/src",
+      "prefix": "dynatrace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/sunburst-chart/tsconfig.lib.json",
+              "libs/barista-components/sunburst-chart/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/sunburst-chart/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "./dist/libs/workspace:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/barista-components/sunburst-chart/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/sunburst-chart/jest.config.js",
+            "tsConfig": "libs/barista-components/sunburst-chart/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/barista-components/sunburst-chart/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
     "switch": {
       "projectType": "library",
       "root": "libs/barista-components/switch",

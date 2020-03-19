@@ -65,6 +65,7 @@ import { ShowMoreDemo } from './show-more/show-more-demo.component';
 import { SidenavDemo } from './sidenav/sidenav-demo.component';
 import { StepperDemo } from './stepper/stepper-demo.component';
 import { SliderDemo } from './slider/slider-demo.component';
+import { SunburstChartDemo } from './sunburst-chart/sunburst-chart-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
@@ -122,6 +123,7 @@ const routes: Routes = [
   { path: 'select', component: SelectDemo },
   { path: 'show-more', component: ShowMoreDemo },
   { path: 'stepper', component: StepperDemo },
+  { path: 'sunburst-chart', component: SunburstChartDemo },
   { path: 'switch', component: SwitchDemo },
   { path: 'table', component: TableDemo },
   { path: 'tabs', component: TabsDemo },

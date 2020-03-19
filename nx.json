@@ -111,6 +111,7 @@
         "slider",
         "show-more",
         "stepper",
+        "sunburst-chart",
         "switch",
         "table",
         "tabs",
@@ -269,6 +270,9 @@
       "tags": ["scope:components", "type:library"]
     },
     "stepper": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "sunburst-chart": {
       "tags": ["scope:components", "type:library"]
     },
     "switch": {

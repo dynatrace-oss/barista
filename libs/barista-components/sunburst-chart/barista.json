@@ -1,0 +1,32 @@
+{
+  "title": "SunburstChart",
+  "description": "The sunburst-chart chart is used to display drilldown pie chart data",
+  "postid": "sunburst-chart",
+  "public": true,
+  "identifier": "Sb",
+  "themable": false,
+  "category": "components",
+  "contributors": {
+    "dev": [
+      {
+        "name": "Salvador Subarroca",
+        "githubuser": "subarroca"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Xavier Javaloyas",
+        "githubuser": "xavi-j"
+      }
+    ]
+  },
+  "tags": [
+    "chart",
+    "radial chart",
+    "pie chart",
+    "donut chart",
+    "sunburst-chart chart",
+    "angular",
+    "component"
+  ]
+}
