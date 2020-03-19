@@ -111,7 +111,6 @@ export class BaIconOverviewContent implements OnInit, AfterViewInit, OnDestroy {
  * the icon's name or in the list of tags.
  */
 export function filterIcons(icons: BaIcon[], filterValue: string): BaIcon[] {
-  console.log(filterValue);
   if (!filterValue.length) {
     return icons;
   }
