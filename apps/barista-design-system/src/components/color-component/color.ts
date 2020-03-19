@@ -15,8 +15,8 @@
  */
 
 import { Component, Input } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { DtColors } from '@dynatrace/barista-components/theming';
-import { BaCopyToClipboardService } from '../../shared/services/copy-to-clipboard.service';
 import { timer } from 'rxjs';
 import { take } from 'rxjs/operators';
 
@@ -54,11 +54,11 @@ export class BaColor {
 
   private _colorInput: string;
 
-  constructor(private _ctcService: BaCopyToClipboardService) {}
+  constructor(private _clipboard: Clipboard) {}
 
   /** @internal copy the hex value to the clipboard */
   _copyColorToClipboard(value: string): void {
-    const copySucceeded = this._ctcService.copy(value, false);
+    const copySucceeded = this._clipboard.copy(value);
 
     if (copySucceeded) {
       this._copySuccess = true;
