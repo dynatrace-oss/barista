@@ -16,6 +16,7 @@
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
+import { Clipboard } from '@angular/cdk/clipboard';
 import {
   Compiler,
   Component,
@@ -39,7 +40,6 @@ import {
 } from 'highlight-ts';
 import { from, Observable, Subscription, timer } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { BaCopyToClipboardService } from '../../shared/services/copy-to-clipboard.service';
 import { wrapCodeLines } from '../../utils/wrap-code-lines';
 
 type BaSourceType = 'html' | 'ts' | 'scss';
@@ -176,7 +176,7 @@ export class BaLiveExample implements OnInit, OnDestroy {
   constructor(
     private _compiler: Compiler,
     private _platform: Platform,
-    private _ctcService: BaCopyToClipboardService,
+    private _clipboard: Clipboard,
   ) {
     registerLanguages(TypeScript, XML, SCSS);
     this._highlighter = init(htmlRender);
@@ -207,13 +207,13 @@ export class BaLiveExample implements OnInit, OnDestroy {
       let copySucceeded = false;
       switch (this._activeTab) {
         case 'html':
-          copySucceeded = this._ctcService.copy(this._templateSource, true);
+          copySucceeded = this._clipboard.copy(this._templateSource);
           break;
         case 'ts':
-          copySucceeded = this._ctcService.copy(this._classSource, true);
+          copySucceeded = this._clipboard.copy(this._classSource);
           break;
         case 'scss':
-          copySucceeded = this._ctcService.copy(this._stylesSource, true);
+          copySucceeded = this._clipboard.copy(this._stylesSource);
           break;
       }
 

@@ -15,8 +15,8 @@
  */
 
 import { Component, Input } from '@angular/core';
+import { Clipboard } from '@angular/cdk/clipboard';
 import { DtToastRef, DtToast } from '@dynatrace/barista-components/toast';
-import { BaCopyToClipboardService } from '../../shared/services/copy-to-clipboard.service';
 
 @Component({
   selector: 'ba-headline-link',
@@ -30,17 +30,14 @@ export class BaHeadlineLink {
 
   toastRef: DtToastRef | null = null;
 
-  constructor(
-    private _toast: DtToast,
-    private _ctcService: BaCopyToClipboardService,
-  ) {}
+  constructor(private _toast: DtToast, private _clipboard: Clipboard) {}
 
   /** copy the headline to the clipboard */
   _copyHeadline(): void {
     if (window) {
       const link = `${window.location.origin}${window.location.pathname}#${this.id}`;
 
-      const copySucceeded = this._ctcService.copy(link, false);
+      const copySucceeded = this._clipboard.copy(link);
 
       if (copySucceeded) {
         this._createToast();

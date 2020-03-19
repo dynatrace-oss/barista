@@ -16,19 +16,19 @@
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 import { DtSwitchModule } from '@dynatrace/barista-components/switch';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
 import { BaLiveExample } from './live-example/live-example';
-import { BaCopyToClipboardService } from '../shared/services/copy-to-clipboard.service';
 import { BaHeadlineLink } from './headline-link/headline-link';
 import { BaColorGrid } from './color-grid/color-grid';
 import { BaLayoutGrid } from './layout-grid/layout-grid';
 import { BaColor } from './color-component/color';
 import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
-import { RouterModule } from '@angular/router';
 
 /**
  * The order of the following components is relevant in case they are nested.
@@ -49,12 +49,12 @@ export const BA_CONTENT_COMPONENTS: any[] = [
   imports: [
     CommonModule,
     RouterModule,
+    ClipboardModule,
     DtSwitchModule,
     DtOverlayModule,
     DtIconModule,
     DtButtonModule,
   ],
   declarations: [...BA_CONTENT_COMPONENTS],
-  providers: [BaCopyToClipboardService],
 })
 export class BaComponentsModule {}
