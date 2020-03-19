@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+export * from './breadcrumbs-color-example/breadcrumbs-color-example';
+export * from './breadcrumbs-dark-example/breadcrumbs-dark-example';
+export * from './breadcrumbs-default-example/breadcrumbs-default-example';
 export * from './breadcrumbs-examples.module';
+export * from './breadcrumbs-observable-example/breadcrumbs-observable-example';

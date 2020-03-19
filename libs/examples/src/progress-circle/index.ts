@@ -14,4 +14,9 @@
  * limitations under the License.
  */
 
+export * from './progress-circle-change-example/progress-circle-change-example';
+export * from './progress-circle-default-example/progress-circle-default-example';
 export * from './progress-circle-examples.module';
+export * from './progress-circle-with-color-example/progress-circle-with-color-example';
+export * from './progress-circle-with-icon-example/progress-circle-with-icon-example';
+export * from './progress-circle-with-text-example/progress-circle-with-text-example';

@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './loading-distractor-default-example/loading-distractor-default-example';
 export * from './loading-distractor-examples.module';
+export * from './loading-distractor-input-example/loading-distractor-input-example';
+export * from './loading-distractor-spinner-example/loading-distractor-spinner-example';

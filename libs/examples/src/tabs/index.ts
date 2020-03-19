@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './tabs-default-example/tabs-default-example';
+export * from './tabs-dynamic-example/tabs-dynamic-example';
 export * from './tabs-examples.module';
+export * from './tabs-interactive-example/tabs-interactive-example';

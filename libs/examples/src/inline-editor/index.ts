@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+export * from './inline-editor-api-example/inline-editor-api-example';
+export * from './inline-editor-default-example/inline-editor-default-example';
 export * from './inline-editor-examples.module';
+export * from './inline-editor-failing-example/inline-editor-failing-example';
+export * from './inline-editor-required-example/inline-editor-required-example';
+export * from './inline-editor-successful-example/inline-editor-successful-example';
+export * from './inline-editor-validation-example/inline-editor-validation-example';

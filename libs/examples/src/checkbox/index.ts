@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+export * from './checkbox-dark-example/checkbox-dark-example';
+export * from './checkbox-default-example/checkbox-default-example';
 export * from './checkbox-examples.module';
+export * from './checkbox-indeterminate-example/checkbox-indeterminate-example';
+export * from './checkbox-responsive-example/checkbox-responsive-example';

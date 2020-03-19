@@ -14,4 +14,9 @@
  * limitations under the License.
  */
 
+export * from './tree-table-async-show-more-example/tree-table-async-show-more-example';
+export * from './tree-table-default-example/tree-table-default-example';
+export * from './tree-table-example-types';
 export * from './tree-table-examples.module';
+export * from './tree-table-problem-indicator-example/tree-table-problem-indicator-example';
+export * from './tree-table-simple-example/tree-table-simple-example';

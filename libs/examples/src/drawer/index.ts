@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+export * from './drawer-default-example/drawer-default-example';
+export * from './drawer-dynamic-example/drawer-dynamic-example';
 export * from './drawer-examples.module';
+export * from './drawer-nested-example/drawer-nested-example';
+export * from './drawer-over-example/drawer-over-example';

@@ -14,4 +14,10 @@
  * limitations under the License.
  */
 
+export * from './data';
+export * from './micro-chart-columns-example/micro-chart-columns-example';
+export * from './micro-chart-columns-interpolated-example/micro-chart-columns-interpolated-example';
+export * from './micro-chart-default-example/micro-chart-default-example';
 export * from './micro-chart-examples.module';
+export * from './micro-chart-interpolated-example/micro-chart-interpolated-example';
+export * from './micro-chart-stream-example/micro-chart-stream-example';

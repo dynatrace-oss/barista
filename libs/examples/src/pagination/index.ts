@@ -14,4 +14,7 @@
  * limitations under the License.
  */
 
+export * from './pagination-default-example/pagination-default-example';
+export * from './pagination-dynamic-table-example/pagination-dynamic-table-example';
 export * from './pagination-examples.module';
+export * from './pagination-many-example/pagination-many-example';

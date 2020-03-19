@@ -14,4 +14,9 @@
  * limitations under the License.
  */
 
+export * from './alert-dark-error-example/alert-dark-error-example';
+export * from './alert-dark-example/alert-dark-example';
+export * from './alert-error-example/alert-error-example';
 export * from './alert-examples.module';
+export * from './alert-interactive-example/alert-interactive-example';
+export * from './alert-warning-example/alert-warning-example';

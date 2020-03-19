@@ -14,4 +14,11 @@
  * limitations under the License.
  */
 
+export * from './autocomplete-attach-different-element-example/autocomplete-attach-different-element-example';
+export * from './autocomplete-control-values-example/autocomplete-control-values-example';
+export * from './autocomplete-custom-filter-example/autocomplete-custom-filter-example';
+export * from './autocomplete-default-example/autocomplete-default-example';
 export * from './autocomplete-examples.module';
+export * from './autocomplete-groups-example/autocomplete-groups-example';
+export * from './autocomplete-highlight-first-option-example/autocomplete-highlight-first-option-example';
+export * from './countries';

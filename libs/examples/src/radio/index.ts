@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+export * from './radio-dark-example/radio-dark-example';
+export * from './radio-default-example/radio-default-example';
 export * from './radio-examples.module';
+export * from './radio-name-grouping-example/radio-name-grouping-example';
+export * from './radio-responsive-example/radio-responsive-example';

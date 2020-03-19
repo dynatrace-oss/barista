@@ -14,4 +14,12 @@
  * limitations under the License.
  */
 
+export * from './context-dialog-actions-example/context-dialog-actions-example';
+export * from './context-dialog-custom-icon-example/context-dialog-custom-icon-example';
+export * from './context-dialog-dark-example/context-dialog-dark-example';
+export * from './context-dialog-default-example/context-dialog-default-example';
 export * from './context-dialog-examples.module';
+export * from './context-dialog-footer-example/context-dialog-footer-example';
+export * from './context-dialog-header-example/context-dialog-header-example';
+export * from './context-dialog-interactive-example/context-dialog-interactive-example';
+export * from './context-dialog-previous-focus-example/context-dialog-previous-focus-example';

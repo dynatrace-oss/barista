@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+export * from './top-bar-navigation-default-example/top-bar-navigation-default-example';
+export * from './top-bar-navigation-drawer-example/top-bar-navigation-drawer-example';
 export * from './top-bar-navigation-examples.module';

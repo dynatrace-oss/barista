@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+export * from './show-more-dark-example/show-more-dark-example';
+export * from './show-more-default-example/show-more-default-example';
+export * from './show-more-disabled-example/show-more-disabled-example';
 export * from './show-more-examples.module';
+export * from './show-more-toggle-example/show-more-toggle-example';

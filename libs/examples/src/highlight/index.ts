@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
+export * from './highlight-case-sensitive-example/highlight-case-sensitive-example';
+export * from './highlight-default-example/highlight-default-example';
 export * from './highlight-examples.module';

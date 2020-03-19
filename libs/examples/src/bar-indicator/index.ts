@@ -14,4 +14,9 @@
  * limitations under the License.
  */
 
+export * from './bar-indicator-alignment-example/bar-indicator-alignment-example';
+export * from './bar-indicator-color-example/bar-indicator-color-example';
+export * from './bar-indicator-default-example/bar-indicator-default-example';
+export * from './bar-indicator-dynamic-example/bar-indicator-dynamic-example';
 export * from './bar-indicator-examples.module';
+export * from './bar-indicator-table-example/bar-indicator-table-example';

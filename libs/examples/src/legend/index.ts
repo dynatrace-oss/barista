@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+export * from './legend-default-example/legend-default-example';
 export * from './legend-examples.module';
+export * from './legend-overlay-example/legend-overlay-example';
+export * from './legend-symbol-attribute-example/legend-symbol-attribute-example';
+export * from './legend-timeline-chart-example/legend-timeline-chart-example';
