@@ -27,6 +27,7 @@ import { DtExampleInputDisabledReadonly } from './input-disabled-readonly-exampl
 import { DtExampleInputForm } from './input-form-example/input-form-example';
 import { DtExampleInputNgModel } from './input-ng-model-example/input-ng-model-example';
 import { DtExampleInputTextarea } from './input-textarea-example/input-textarea-example';
+import { DtExampleInputOptional } from './input-optional-example/input-optional-example';
 
 export const DT_INPUT_EXAMPLES = [
   DtExampleInputDark,
@@ -35,6 +36,7 @@ export const DT_INPUT_EXAMPLES = [
   DtExampleInputForm,
   DtExampleInputNgModel,
   DtExampleInputTextarea,
+  DtExampleInputOptional,
 ];
 
 @NgModule({
