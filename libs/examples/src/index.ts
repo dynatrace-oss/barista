@@ -177,6 +177,7 @@ import { DtExampleInputDefault } from './input/input-default-example/input-defau
 import { DtExampleInputDisabledReadonly } from './input/input-disabled-readonly-example/input-disabled-readonly-example';
 import { DtExampleInputForm } from './input/input-form-example/input-form-example';
 import { DtExampleInputNgModel } from './input/input-ng-model-example/input-ng-model-example';
+import { DtExampleInputOptional } from './input/input-optional-example/input-optional-example';
 import { DtExampleInputTextarea } from './input/input-textarea-example/input-textarea-example';
 import { DtExampleKeyValueListDefault } from './key-value-list/key-value-list-default-example/key-value-list-default-example';
 import { DtExampleKeyValueListLongtext } from './key-value-list/key-value-list-longtext-example/key-value-list-longtext-example';
@@ -519,6 +520,7 @@ export {
   DtExampleInputDisabledReadonly,
   DtExampleInputForm,
   DtExampleInputNgModel,
+  DtExampleInputOptional,
   DtExampleInputTextarea,
   DtExampleKeyValueListDefault,
   DtExampleKeyValueListLongtext,
@@ -844,6 +846,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleInputDisabledReadonly', DtExampleInputDisabledReadonly],
   ['DtExampleInputForm', DtExampleInputForm],
   ['DtExampleInputNgModel', DtExampleInputNgModel],
+  ['DtExampleInputOptional', DtExampleInputOptional],
   ['DtExampleInputTextarea', DtExampleInputTextarea],
   ['DtExampleKeyValueListDefault', DtExampleKeyValueListDefault],
   ['DtExampleKeyValueListLongtext', DtExampleKeyValueListLongtext],
