@@ -1,8 +1,13 @@
 {
   "version": 2,
+  "github": {
+    "enabled": false
+  },
   "routes": [
     { "src": "/assets/(.*)", "dest": "/assets/$1" },
     { "src": "/(.*).js", "dest": "/$1.js" },
+    { "src": "/(.*).css", "dest": "/$1.css" },
+    { "src": "/(.*).svg", "dest": "/$1.svg" },
     { "src": "/(.*).json", "dest": "/$1.json" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
