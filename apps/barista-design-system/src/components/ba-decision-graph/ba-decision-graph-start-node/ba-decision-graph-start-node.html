@@ -1,0 +1,17 @@
+<div class="ba-uxd-startnode-grid">
+  <div *ngFor="let startnode of decisionGraphStartnodes, let i = index">
+    <div
+      class="ba-uxd-startnode"
+      [ngClass]="{
+        'dt-uxd-startnode-visited': isSelectedStartnode(i)
+      }"
+      id="{{i}}"
+    >
+      <button
+        class="ba-uxd-startnode-content"
+        [innerHTML]="getSanitizedNodeText(startnode.text)"
+        (click)="selectStartnode(startnode)"
+      ></button>
+    </div>
+  </div>
+</div>

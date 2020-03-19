@@ -1,0 +1,83 @@
+@import 'interactive-common';
+@import 'colors';
+
+:host {
+  max-width: 100%;
+}
+
+:host ::ng-deep button {
+  font-size: 14px;
+  outline: none;
+}
+
+:host ::ng-deep .ba-uxd-node-content p {
+  margin-bottom: 0;
+}
+
+.ba-uxd-node-wrapper {
+  margin-bottom: 68px;
+  padding-left: 24px;
+  border-left: 2px solid #ccc;
+}
+
+.ba-uxd-node-content {
+  width: fit-content;
+  margin-bottom: 20px;
+}
+
+.ba-uxd-edge-button {
+  height: 32px;
+  min-width: 40px;
+  margin: 0 4px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 3px;
+  color: white;
+  background-color: $royalblue-600;
+
+  &:hover {
+    background-color: $royalblue-500;
+  }
+
+  &:disabled {
+    background-color: $gray-300;
+
+    &:hover {
+      background-color: $gray-300;
+    }
+  }
+}
+
+.ba-uxd-yes-edge {
+  height: 44px;
+  width: 44px;
+  border-radius: 22px;
+  margin-right: 32px;
+  padding: 0;
+}
+
+.ba-uxd-no-edge {
+  height: 44px;
+  width: 44px;
+  border-radius: 22px;
+  margin-right: 32px;
+  padding: 0;
+  background-color: $royalblue-800;
+
+  &:hover {
+    background-color: $royalblue-700;
+  }
+}
+
+.ba-uxd-task-node-wrapper {
+  max-width: 120%;
+  background-color: $royalblue-600;
+  color: white;
+  border-left: 2px solid $royalblue-600;
+  padding: 24px;
+  margin-bottom: 44px;
+}
+
+.ba-uxd-navigation-button {
+  margin-right: 8px;
+}

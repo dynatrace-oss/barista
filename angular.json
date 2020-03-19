@@ -488,7 +488,10 @@
               "apps/barista-design-system/src/main.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/barista-components/core/src/style/"]
+              "includePaths": [
+                "libs/barista-components/core/src/style/",
+                "libs/barista-components/style"
+              ]
             }
           },
           "configurations": {

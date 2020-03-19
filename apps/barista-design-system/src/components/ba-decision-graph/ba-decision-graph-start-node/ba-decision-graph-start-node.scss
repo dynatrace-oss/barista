@@ -1,0 +1,50 @@
+@import 'colors';
+
+:host {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+:host ::ng-deep .ba-uxd-startnode p {
+  margin-bottom: 20px;
+}
+
+.ba-uxd-startnode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.ba-uxd-startnode {
+  background-color: $royalblue-800;
+  border: 1px solid $gray-300;
+  border-radius: 4px;
+  margin: 4px;
+
+  &:hover {
+    background-color: $royalblue-600;
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: $royalblue-600;
+  }
+}
+
+.ba-uxd-startnode-visited {
+  background-color: $royalblue-600;
+}
+
+.ba-uxd-startnode-content {
+  font-size: 18px;
+  line-height: 28px;
+  margin: 8px 12px;
+  cursor: pointer;
+  text-align: left;
+  color: $white;
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  outline: 0;
+}

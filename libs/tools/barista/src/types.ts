@@ -62,6 +62,7 @@ export enum BaStrapiContentType {
   Snippets = 'snippets',
   Pageteasers = 'pageteasers',
   CTAs = 'ctas',
+  UXDNodes = 'decisiongraphs',
 }
 
 /** Base interface for Strapi content types */
@@ -118,4 +119,23 @@ export interface BaStrapiPage extends BaStrapiBase {
   category: BaStrapiCategory | null;
   draft: boolean | null;
   toc: boolean | null;
+}
+
+/** Strapi UXDNode */
+export interface BaStrapiUXDNodeBase extends BaStrapiBase {
+  title: string;
+  text: string;
+  start: boolean;
+  tasknode: boolean;
+  order: number;
+}
+
+export interface BaStrapiUXDNode extends BaStrapiUXDNodeBase {
+  path: BaStrapiUxdEdge[];
+}
+
+export interface BaStrapiUxdEdge {
+  id: number;
+  text: string;
+  uxd_node: BaStrapiUXDNodeBase;
 }

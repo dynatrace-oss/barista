@@ -21,6 +21,7 @@ import {
   BaStrapiSnippet,
   BaStrapiCTA,
   BaStrapiPageTeaser,
+  BaStrapiUXDNode,
 } from '../types';
 
 interface FetchContentOptions {
@@ -31,7 +32,11 @@ interface FetchContentOptions {
  * Fetches an array of elements from Strapi CMS.
  */
 export async function fetchContentList<
-  T extends BaStrapiPage | BaStrapiSnippet | BaStrapiPageTeaser
+  T extends
+    | BaStrapiPage
+    | BaStrapiSnippet
+    | BaStrapiPageTeaser
+    | BaStrapiUXDNode
 >(
   contentType: BaStrapiContentType,
   options: FetchContentOptions,

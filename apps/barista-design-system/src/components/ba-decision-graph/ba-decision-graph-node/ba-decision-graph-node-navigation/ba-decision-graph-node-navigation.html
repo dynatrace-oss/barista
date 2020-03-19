@@ -1,0 +1,12 @@
+<button
+  class="ba-uxd-navigation-button"
+  *ngIf="_showBackButton"
+  (click)="undoLastStep()"
+  dt-button
+  variant="secondary"
+>
+  Back
+</button>
+<button class="ba-uxd-navigation-button" (click)="resetToInitial()" dt-button>
+  Start Over
+</button>

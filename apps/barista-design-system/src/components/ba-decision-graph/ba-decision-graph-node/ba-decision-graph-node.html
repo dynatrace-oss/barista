@@ -1,0 +1,36 @@
+<div *ngIf="_startnode">
+  <div #nodes *ngFor="let node of _decisionGraphSteps">
+    <div class="ba-uxd-node-wrapper" *ngIf="!node.tasknode">
+      <div
+        class="ba-uxd-node-content"
+        [innerHTML]="getSanitizedNodeText(node.text)"
+      ></div>
+      <div *ngIf="node.path.length">
+        <button
+          class="ba-uxd-edge-button"
+          *ngFor="let edge of node.path.sort()"
+          [ngClass]="
+          {
+            'ba-uxd-yes-edge': edge.text.toLowerCase().includes('yes'),
+            'ba-uxd-no-edge': edge.text.toLowerCase().includes('no')
+          }"
+          [disabled]="edge.selected === false"
+          (click)="setNextNode(edge)"
+        >
+          {{edge.text}}
+        </button>
+      </div>
+    </div>
+    <div
+      class="ba-uxd-task-node-wrapper"
+      *ngIf="node.tasknode"
+      [innerHTML]="getSanitizedNodeText(node.text)"
+    ></div>
+  </div>
+  <ba-decision-graph-node-navigation
+    *ngIf="_decisionGraphSteps.length > 0"
+    [_showBackButton]="_started"
+    (_resetToInitial)="resetToInitial()"
+    (_undoLastStep)="undoLastStep()"
+  ></ba-decision-graph-node-navigation>
+</div>
