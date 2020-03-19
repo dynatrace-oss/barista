@@ -1,0 +1,109 @@
+#
+# THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
+# FILES, DO NOT CHANGE MANUALLY.
+# TO GENERATE THESE FILES RUN `ng build shared-design-tokens`
+#
+aliases:
+  color-key--lighter:
+    value: "#8390dd"
+    comment: Lighter key color shade
+    originalRatio: 3
+  color-key--light:
+    value: "#6c7ae4"
+    comment: Light key color shade
+    originalRatio: 3.81
+  color-key--base:
+    value: "#5b63f1"
+    comment: Base key color shade
+    originalRatio: 4.67
+  color-key--dark:
+    value: "#504df3"
+    comment: Dark key color shade
+    originalRatio: 5.68
+  color-key--darker:
+    value: "#4247b5"
+    comment: Darker key color shade
+    originalRatio: 7.5
+  color-neutral--lighter:
+    value: "#8d95a7"
+    comment: Lighter neutral color shade
+    originalRatio: 3
+  color-neutral--light:
+    value: "#7c8391"
+    comment: Light neutral color shade
+    originalRatio: 3.81
+  color-neutral--base:
+    value: "#6f7581"
+    comment: Base neutral color shade
+    originalRatio: 4.67
+  color-neutral--dark:
+    value: "#626771"
+    comment: Dark neutral color shade
+    originalRatio: 5.68
+  color-neutral--darker:
+    value: "#51555c"
+    comment: Darker neutral color shade
+    originalRatio: 7.5
+  color-negative--lighter:
+    value: "#e5736a"
+    comment: Lighter negative color shade
+    originalRatio: 3
+  color-negative--light:
+    value: "#e0534c"
+    comment: Light negative color shade
+    originalRatio: 3.81
+  color-negative--base:
+    value: "#d23f3b"
+    comment: Base negative color shade
+    originalRatio: 4.67
+  color-negative--dark:
+    value: "#b63d38"
+    comment: Dark negative color shade
+    originalRatio: 5.68
+  color-negative--darker:
+    value: "#903832"
+    comment: Darker negative color shade
+    originalRatio: 7.5
+  color-warning--lighter:
+    value: "#ab942e"
+    comment: Lighter warning color shade
+    originalRatio: 3
+  color-warning--light:
+    value: "#95822f"
+    comment: Light warning color shade
+    originalRatio: 3.81
+  color-warning--base:
+    value: "#83742f"
+    comment: Base warning color shade
+    originalRatio: 4.67
+  color-warning--dark:
+    value: "#74662d"
+    comment: Dark warning color shade
+    originalRatio: 5.68
+  color-warning--darker:
+    value: "#5f5529"
+    comment: Darker warning color shade
+    originalRatio: 7.5
+  color-positive--lighter:
+    value: "#48a678"
+    comment: Lighter positive color shade
+    originalRatio: 3
+  color-positive--light:
+    value: "#46916b"
+    comment: Light positive color shade
+    originalRatio: 3.81
+  color-positive--base:
+    value: "#438060"
+    comment: Base positive color shade
+    originalRatio: 4.67
+  color-positive--dark:
+    value: "#3f7156"
+    comment: Dark positive color shade
+    originalRatio: 5.68
+  color-positive--darker:
+    value: "#385c48"
+    comment: Darker positive color shade
+    originalRatio: 7.5
+global:
+  type: color
+  category: color

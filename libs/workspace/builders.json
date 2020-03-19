@@ -5,6 +5,16 @@
       "implementation": "./src/builders/barista-build/builder",
       "schema": "./src/builders/barista-build/schema.json",
       "description": "The build-barista builder is used to generate static html pages for barista."
+    },
+    "design-tokens-build": {
+      "implementation": "./src/builders/design-tokens/build/index",
+      "schema": "./src/builders/design-tokens/build/schema.json",
+      "description": "Run design tokens build"
+    },
+    "design-tokens-package": {
+      "implementation": "./src/builders/design-tokens/package/index",
+      "schema": "./src/builders/design-tokens/package/schema.json",
+      "description": "Run design tokens packager"
     }
   }
 }
