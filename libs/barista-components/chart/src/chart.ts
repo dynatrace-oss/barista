@@ -235,10 +235,22 @@ export class DtChart
   implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit {
   /** Options to configure the chart. */
   @Input()
-  get options(): DtChartOptions {
+  get options(): Observable<DtChartOptions> | DtChartOptions {
     return this._options;
   }
-  set options(options: DtChartOptions) {
+  set options(options: Observable<DtChartOptions> | DtChartOptions) {
+    if (this._optionsSub) {
+      this._optionsSub.unsubscribe();
+      this._optionsSub = null;
+    }
+    if (options instanceof Observable) {
+      this._optionsSub = options.subscribe((o: DtChartOptions) => {
+        this._currentOptions = o;
+        this._update();
+      });
+    } else {
+      this._currentOptions = options;
+    }
     this._options = options;
     this._changeDetectorRef.markForCheck();
   }
@@ -332,8 +344,10 @@ export class DtChart
 
   private _series?: Observable<DtChartSeries[]> | DtChartSeries[];
   private _currentSeries?: IndividualSeriesOptions[];
-  private _options: DtChartOptions;
+  private _currentOptions: DtChartOptions;
+  private _options: Observable<DtChartOptions> | DtChartOptions;
   private _dataSub: Subscription | null = null;
+  private _optionsSub: Subscription | null = null;
   private _highchartsOptions: HighchartsOptions;
   private readonly _destroy$ = new Subject<void>();
 
@@ -502,6 +516,9 @@ export class DtChart
     if (this._dataSub) {
       this._dataSub.unsubscribe();
     }
+    if (this._optionsSub) {
+      this._optionsSub.unsubscribe();
+    }
     this._afterRender.complete();
   }
 
@@ -516,7 +533,7 @@ export class DtChart
   /** @internal Creates new highcharts options and applies it to the chart. */
   _update(): void {
     const highchartsOptions = createHighchartOptions(
-      this._options,
+      this._currentOptions,
       this._currentSeries,
     );
 
@@ -683,12 +700,7 @@ export class DtChart
 
   /** Checks if a heatfield is supported with the chart options if not throw an error */
   private _checkHeatfieldSupport(): void {
-    if (
-      this.options &&
-      this.options.xAxis &&
-      this.options.xAxis[0] &&
-      this.options.xAxis[0].categories
-    ) {
+    if (this._currentOptions?.xAxis![0]?.categories) {
       throw getDtHeatfieldUnsupportedChartError();
     }
   }
