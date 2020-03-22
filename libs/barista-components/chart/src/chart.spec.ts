@@ -33,7 +33,7 @@ import {
   DT_CHART_COLOR_PALETTES,
   DT_CHART_COLOR_PALETTE_ORDERED,
 } from '@dynatrace/barista-components/theming';
-import { IndividualSeriesOptions } from 'highcharts';
+import { IndividualSeriesOptions, AxisOptions, ChartOptions } from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {
@@ -55,6 +55,7 @@ describe('DtChart', () => {
         Loading,
         LoadingText,
         HeatfieldError,
+        DynamicOptions,
       ],
     });
 
@@ -140,6 +141,30 @@ describe('DtChart', () => {
       };
       fixture.detectChanges();
       expect(spy).toHaveBeenCalled();
+    });
+
+    it('should display options from observable', () => {
+      const fixture = createComponent(DynamicOptions);
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      const options = chartComponent.highchartsOptions;
+      expect((options.chart as ChartOptions).type).toEqual('column');
+      expect((options.xAxis as AxisOptions).type).toEqual('datetime');
+      expect((options.yAxis as AxisOptions).min).toEqual(0);
+      expect((options.yAxis as AxisOptions).max).toEqual(20);
+    });
+
+    it('should update the data if observable fires new options', () => {
+      const fixture = createComponent(DynamicOptions);
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
+      const chartComponent = chartDebugElement.componentInstance as DtChart;
+      const firstOptions = chartComponent.highchartsOptions;
+      fixture.componentInstance.emitTestData();
+      fixture.detectChanges();
+      const secondOptions = chartComponent.highchartsOptions;
+      expect(firstOptions).toBeDefined();
+      expect(secondOptions).toBeDefined();
+      expect(firstOptions).not.toEqual(secondOptions);
     });
 
     it('should wrap the tooltip after changing the options at runtime', () => {
@@ -863,4 +888,51 @@ class HeatfieldError {
       ],
     },
   ];
+}
+
+@Component({
+  selector: 'dt-dynamic-series',
+  template: `
+    <dt-chart [series]="series" [options]="options"></dt-chart>
+  `,
+})
+class DynamicOptions {
+  options = new BehaviorSubject({
+    chart: {
+      type: 'column',
+    },
+    xAxis: {
+      type: 'datetime',
+    },
+    yAxis: {
+      min: 0,
+      max: 20,
+    },
+  });
+
+  series: DtChartSeries[] = [
+    {
+      name: 'Actions/min',
+      id: 'someid',
+      data: [
+        [1523972199774, 0],
+        [1523972201622, 10],
+      ],
+    },
+  ];
+
+  emitTestData(): void {
+    this.options.next({
+      chart: {
+        type: 'area',
+      },
+      xAxis: {
+        type: 'datetime',
+      },
+      yAxis: {
+        min: 0,
+        max: 20,
+      },
+    });
+  }
 }
