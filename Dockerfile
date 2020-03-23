@@ -3,8 +3,15 @@ FROM node:12-alpine as base
 # The root of the monorepo
 WORKDIR /dynatrace
 
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh pv
+
 COPY ./package.json ./package.json
 COPY ./package-lock.json ./package-lock.json
+
+# Create shasum from package.json to compare
+# later if a further install have to be done.
+RUN sha1sum ./package-lock.json > package-lock.sha1
 
 # install dependencies without postinstall script
 RUN npm ci --ignore-scripts
@@ -42,7 +49,12 @@ COPY --from=workspace-builders \
      /dynatrace/node_modules/@dynatrace/barista-builders \
      ./node_modules/@dynatrace/barista-builders
 
-COPY ./angular.json ./angular.json
+COPY ./angular.json ./
 
+COPY  ./entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT [ "/bin/sh" ]
+WORKDIR /tmp/workdir
+
+ENTRYPOINT [ "/entrypoint.sh" ]
+
+CMD [ "/bin/sh" ]
