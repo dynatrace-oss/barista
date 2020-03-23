@@ -14,6 +14,22 @@
  * limitations under the License.
  */
 
+/**
+ *
+ *
+ * TODO
+ *
+ * assign colors
+ * theme
+ * initial input
+ * overlay
+ * labels
+ * sizing of slices when selecting
+ *
+ *
+ *
+ */
+
 import {
   ChangeDetectionStrategy,
   Component,
@@ -22,12 +38,14 @@ import {
   ViewEncapsulation,
   OnInit,
   EventEmitter,
+  HostListener,
 } from '@angular/core';
 import {
   getAllNodes,
   PiePoint,
   getFullPath,
   getKeyNamePairs,
+  filterActiveNodes,
 } from './sunburst-chart.util';
 
 @Component({
@@ -45,6 +63,10 @@ export class DtSunburst implements OnInit {
   allNodes;
   filteredNodes;
 
+  @HostListener('click', ['$event']) onClick(ev: MouseEvent): void {
+    this.select(ev);
+  }
+
   @Input() data: PiePoint[];
   @Input() selectedPath: PiePoint[];
 
@@ -56,15 +78,23 @@ export class DtSunburst implements OnInit {
     console.log(this.allNodes);
   }
 
-  select(node): void {
-    const selectedPath = getFullPath(this.data, node.data);
-    const selectedPairs = getKeyNamePairs(selectedPath);
+  select(event: MouseEvent, node?): void {
+    event.stopPropagation();
 
-    this.selectedPathChange.emit(selectedPath);
-    this.selectedPairsChange.emit(selectedPairs);
+    if (node) {
+      const selectedPath = getFullPath(this.data, node.data);
+      this.selectedPathChange.emit(selectedPath);
+      this.selectedPairsChange.emit(getKeyNamePairs(selectedPath));
 
-    console.log(selectedPath, selectedPairs);
+      this.filteredNodes = filterActiveNodes(
+        this.allNodes.slice(),
+        node.data.id,
+      );
+    } else {
+      this.selectedPathChange.emit(undefined);
+      this.selectedPairsChange.emit(undefined);
 
-    this.filteredNodes = this.allNodes;
+      this.filteredNodes = this.allNodes;
+    }
   }
 }
