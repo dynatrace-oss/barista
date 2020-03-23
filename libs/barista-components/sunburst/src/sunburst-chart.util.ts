@@ -26,18 +26,21 @@ export interface PiePoint {
 interface PiePointInternal extends PiePoint {
   id: string;
   value: number;
-  active: boolean;
   children?: PiePointInternal[];
 
   // number of children
   depth: number;
 }
 
+interface PieSlice extends d3.PieArcDatum<PiePointInternal> {
+  color: string;
+}
+
 const innerRadius = 50;
 const outerRadius = 100;
 const idSeparator = '.';
 
-export const getAllNodes = (data: PiePoint[]) => {
+export const getAllNodes = (data: PiePoint[]): PieSlice[] => {
   const filledValues = fillValues(data);
   const numLevels = filledValues.reduce(
     (maxLevel, point) => Math.max(maxLevel, point.depth),
@@ -53,7 +56,7 @@ export const getNodesByParent = (
   numLevels: number,
   startAngle: number = 0,
   endAngle: number = 2 * Math.PI,
-) => {
+): PieSlice[] => {
   const parsedData = d3
     .pie<PiePointInternal>()
     .startAngle(startAngle)
@@ -73,6 +76,7 @@ export const getNodesByParent = (
       {
         ...segment,
         color: `hsl(${segment.value * 8},100%,50%)`,
+        visible: level === 1,
         path: d3.arc()({
           startAngle: segment.startAngle,
           endAngle: segment.endAngle,
@@ -122,6 +126,18 @@ const fillValues = (
       }))
   );
 };
+
+export const filterActiveNodes = (all: PieSlice[], id: string): PieSlice[] =>
+  all.map(node => ({
+    ...node,
+    active: isAncestor(node.data, id),
+    color: isAncestor(node.data, id) ? node.color : '#ccc',
+    visible:
+      // alway show first level
+      getLevel(node.data.id) === 1 ||
+      isAncestorSibling(node.data, id) ||
+      isChild(node.data, id),
+  }));
 
 // PARSING
 /**
@@ -181,3 +197,27 @@ export const getKeyNamePairs = (data: PiePoint): string[][] =>
       ? getKeyNamePairs(data.children[0])
       : []),
   ].filter(pair => pair && pair.length);
+
+// UTILS
+const getLevel = (id: string): number => id.split(idSeparator).length;
+
+const getAncestorsIds = (id: string): string[] =>
+  id
+    .split(idSeparator)
+    .map((val, i, segments) => segments.slice(0, i + 1).join(idSeparator));
+
+// node is child of given id
+const isChild = (node, id: string): boolean =>
+  node.id.indexOf(id) === 0 && getLevel(node.id) === getLevel(id) + 1;
+
+//  node is ancestor of given id
+const isAncestor = (node, id: string): boolean =>
+  getAncestorsIds(id).some(i => node.id === i);
+
+// node is parent of given id
+const isAncestorSibling = (node, id: string): boolean =>
+  getAncestorsIds(id).some(i => isChild(node, i));
+
+// node is parent of given id
+// const isParent = (node, id: string): boolean =>
+//   id.split(idSeparator).slice(-1).join(idSeparator) === node.id;

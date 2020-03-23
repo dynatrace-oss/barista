@@ -1,10 +1,12 @@
 <svg [attr.viewBox]="_viewBox" [attr.width]="_width">
-  <path
-    *ngFor="let node of filteredNodes"
-    [attr.d]="node.path"
-    [attr.fill]="node.color"
-    (click)="select(node)"
-  />
+  <ng-container *ngFor="let node of filteredNodes">
+    <path
+      *ngIf="node.visible"
+      [attr.d]="node.path"
+      [attr.fill]="node.color"
+      (click)="select($event,node)"
+    />
+  </ng-container>
 </svg>
 
 <!-- <pre>{{ selectedNode | json }}</pre> -->
