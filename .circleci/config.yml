@@ -15,8 +15,12 @@ orbs:
 executors:
   # Base image for publishing
   docker-publisher:
+    working_directory: ~/barista
+    environment:
+      WORKSPACE_IMAGE: designops/workspace-base
     docker:
       - image: circleci/buildpack-deps:stretch
+
   # Base image for building node based environments
   node-builder:
     docker:
@@ -138,6 +142,31 @@ jobs:
           root: ~/barista
           paths:
             - .
+
+# - Builds docker image for workspace
+  build-docker-image:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run: docker build -t $WORKSPACE_IMAGE:latest ./
+      - persist_to_workspace:
+          root: .
+          paths:
+            - ./
+
+# - Publishes the built docker image for the workspace
+  publish-docker-image:
+    executor: docker-publisher
+    steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            docker push $WORKSPACE_IMAGE:latest
 
 # - sonar checks
   sonar:
@@ -320,6 +349,17 @@ workflows:
     jobs:
       - install:
           <<: *filter_branches
+      - build-docker-image:
+          <<: *filter_branches
+      - publish-docker-image:
+          filters:
+            branches:
+              only: master
+          # DOCKERHUB_USER is used for publishing
+          # DOCKERHUB_PASSWORD is used for publishing
+          context: barista
+          requires:
+            - build-docker-image
       - check-formatting:
           <<: *filter_branches
           requires:
