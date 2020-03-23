@@ -299,7 +299,7 @@ function getNgModuleFromEs6Module(es6Module: any): Type<NgModule> | null {
     // modules have to end with this string. I found no other solution to detect if the
     // symbol is an angular module. The problem is that the es6 module can have other symbols
     // as well like examples maps
-    if (key.endsWith('ExamplesModule')) {
+    if (key.startsWith('Dt') && key.endsWith('Module')) {
       return es6Module[key];
     }
   }
