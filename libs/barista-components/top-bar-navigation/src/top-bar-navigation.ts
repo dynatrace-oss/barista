@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
@@ -21,6 +22,8 @@ import {
   Directive,
   Input,
   ViewEncapsulation,
+  ElementRef,
+  OnDestroy,
 } from '@angular/core';
 
 /**
@@ -83,7 +86,7 @@ export class DtTopBarNavigationItem {
     '[class.dt-top-bar-action-has-problem]': 'hasProblem',
   },
 })
-export class DtTopBarAction {
+export class DtTopBarAction implements OnDestroy {
   /** Indicates if the item has a problem state */
   @Input()
   get hasProblem(): boolean {
@@ -94,4 +97,15 @@ export class DtTopBarAction {
   }
   /** The current state if an item has a problem */
   private _hasProblem = false;
+
+  constructor(
+    private _elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+  ) {
+    this._focusMonitor.monitor(this._elementRef.nativeElement, true);
+  }
+
+  ngOnDestroy(): void {
+    this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+  }
 }
