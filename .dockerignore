@@ -1,5 +1,20 @@
-node_modules
-.git
-.github
-.circleci
-.vscode
+#--------------------------
+# disallow anything
+#--------------------------
+**
+
+#--------------------------
+# allow explicit
+#--------------------------
+!package.json
+!package-lock.json
+
+# Used by multiple projects:
+# - /Dockerfile
+!tsconfig.json
+!angular.json
+
+
+# Used by: /Dockerfile
+!/libs/tools/builders
+!/entrypoint.sh
