@@ -3,7 +3,7 @@
 
 # Components
 /libs/barista-components/* @lukasholzer @thomaspink
-/libs/barista-components/alert/** @NinaKammerlander
+/libs/barista-components/alert/** @ffriedl89 @NinaKammerlander
 /libs/barista-components/autocomplete/** @thomaspink
 /libs/barista-components/bar-indicator/** @tomheller
 /libs/barista-components/breadcrumbs/** @ffriedl89 @szymonbultrowicz
@@ -99,7 +99,7 @@
 # Dev app
 /apps/dev/* @thomaspink @lukasholzer
 /apps/dev/src/* @thomaspink @lukasholzer
-/apps/dev/src/alert/** @NinaKammerlander
+/apps/dev/src/alert/** @ffriedl89 @NinaKammerlander
 /apps/dev/src/autocomplete/** @thomaspink
 /apps/dev/src/bar-indicator/** @tomheller
 /apps/dev/src/breadcrumbs/** @ffriedl89 @szymonbultrowicz
@@ -169,7 +169,7 @@
 # Examples
 /libs/examples/* @thomaspink
 /libs/examples/src/* @thomaspink
-/libs/examples/src/alert/** @NinaKammerlander
+/libs/examples/src/alert/** @ffriedl89 @NinaKammerlander
 /libs/examples/src/autocomplete/** @thomaspink
 /libs/examples/src/bar-indicator/** @tomheller
 /libs/examples/src/breadcrumbs/** @ffriedl89 @szymonbultrowicz
