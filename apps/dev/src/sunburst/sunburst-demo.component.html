@@ -1,1 +1,9 @@
-<dt-sunburst></dt-sunburst>
+<dt-sunburst
+  [data]="data"
+  [selectedPath]="selectedPath"
+  (selectedPathChange)="selectedPath = $event"
+  (selectedPairsChange)="selectedPairs = $event"
+></dt-sunburst>
+<pre>{{ selectedPath | json }}</pre>
+<hr />
+<pre>{{ selectedPairs | json }}</pre>

@@ -1,1 +1,10 @@
-Sunburst placeholder
+<svg [attr.viewBox]="_viewBox" [attr.width]="_width">
+  <path
+    *ngFor="let node of filteredNodes"
+    [attr.d]="node.path"
+    [attr.fill]="node.color"
+    (click)="select(node)"
+  />
+</svg>
+
+<!-- <pre>{{ selectedNode | json }}</pre> -->

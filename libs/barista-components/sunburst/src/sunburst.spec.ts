@@ -20,7 +20,7 @@ import { TestBed, async } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtSunburst } from './sunburst';
-import { DtSunburstModule } from './sunburst-module';
+import { DtSunburstModule } from './sunburst.module';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { createComponent } from '@dynatrace/testing/browser';
