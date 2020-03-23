@@ -18,8 +18,17 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
+  Output,
   ViewEncapsulation,
+  OnInit,
+  EventEmitter,
 } from '@angular/core';
+import {
+  getAllNodes,
+  PiePoint,
+  getFullPath,
+  getKeyNamePairs,
+} from './sunburst-chart.util';
 
 @Component({
   selector: 'dt-sunburst',
@@ -29,4 +38,33 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSunburst {}
+export class DtSunburst implements OnInit {
+  _viewBox = '-100 -100 200 200';
+  _width = '200';
+
+  allNodes;
+  filteredNodes;
+
+  @Input() data: PiePoint[];
+  @Input() selectedPath: PiePoint[];
+
+  @Output() selectedPathChange: EventEmitter<PiePoint> = new EventEmitter();
+  @Output() selectedPairsChange: EventEmitter<string[][]> = new EventEmitter();
+
+  ngOnInit(): void {
+    this.filteredNodes = this.allNodes = getAllNodes(this.data);
+    console.log(this.allNodes);
+  }
+
+  select(node): void {
+    const selectedPath = getFullPath(this.data, node.data);
+    const selectedPairs = getKeyNamePairs(selectedPath);
+
+    this.selectedPathChange.emit(selectedPath);
+    this.selectedPairsChange.emit(selectedPairs);
+
+    console.log(selectedPath, selectedPairs);
+
+    this.filteredNodes = this.allNodes;
+  }
+}

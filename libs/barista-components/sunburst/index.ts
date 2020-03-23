@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export * from './src/sunburst-module';
+export * from './src/sunburst.module';
 export * from './src/sunburst';
