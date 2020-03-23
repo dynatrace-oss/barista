@@ -40,6 +40,7 @@ $space: 12px;
   );
   @include dt-interactive-reset();
   @include dt-text-ellipsis();
+  @include dt-cdkmonitor-focus-style();
   box-sizing: border-box;
   display: flex;
   align-items: center;

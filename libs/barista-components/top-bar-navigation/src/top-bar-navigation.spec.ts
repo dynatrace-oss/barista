@@ -103,6 +103,17 @@ describe('DtTopBarNavigation', () => {
 
       expect(nav.getAttribute('aria-label')).toBe('Main');
     });
+
+    it('should be highlighted when focused', () => {
+      const fixture = TestBed.createComponent(TopBarWithAction);
+      fixture.detectChanges();
+
+      const button: HTMLElement = fixture.debugElement.query(By.css('button'))
+        .nativeElement;
+      button.focus();
+
+      expect(button.classList).toContain('cdk-program-focused');
+    });
   });
 });
 
