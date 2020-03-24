@@ -25,6 +25,7 @@ import { isPublicBuild } from '@dynatrace/tools/shared';
 import { baElementBlockIgnore } from './markdown-custom-elements-ignore';
 import { fetchContentList } from './utils/fetch-strapi-content';
 import { runWithCheerio } from './utils/run-with-cheerio';
+import { parse } from 'url';
 
 import {
   BaStrapiContentType,
@@ -202,6 +203,41 @@ export const copyHeadlineTransformer: BaPageTransformer = async source => {
   return transformed;
 };
 
+/** Replaces absolute href with contentLink */
+export const relativeUrlTransformer: BaPageTransformer = async source => {
+  const transformed = { ...source };
+  if (source.content && source.content.length) {
+    transformed.content = runWithCheerio(source.content, $ => {
+      const links = $('a');
+      links.each((_, link) => {
+        const linkValue = $(link).attr('href');
+        if (linkValue && !isQualifiedLink(linkValue)) {
+          let url = parse(linkValue);
+          // Link Value
+          $(link.attribs).append(
+            $(link)
+              .removeAttr('href')
+              .attr('contentLink', url.pathname || '/'),
+          );
+          // Fragment
+          if (url.hash) {
+            $(link.attribs).append(
+              $(link).attr('fragment', url.hash.replace('#', '')),
+            );
+          }
+          // QueryParam
+          if (url.query) {
+            $(link.attribs).append(
+              $(link).attr('queryParams', toQueryParamValue(url.query)),
+            );
+          }
+        }
+      });
+    });
+  }
+  return transformed;
+};
+
 /** Removes internal links from the content on public build. */
 export function internalLinksTransformerFactory(
   isPublic: boolean,
@@ -299,4 +335,23 @@ export function internalContentTransformerFactory(
 
     return transformed;
   };
+}
+
+/**
+ * Checks whether a URL is a fully qualified link
+ */
+function isQualifiedLink(href: string): boolean {
+  // Matches every character case insensitive until a colon is coming. Has to have at least one character.
+  // https://regex101.com/r/nzwuR4/1
+  return !!href.match(/^(?:[a-z]+:)?\/\//i);
+}
+
+/** Converts query parameters to a json object */
+function toQueryParamValue(query: string): string {
+  const params = new URLSearchParams(query);
+  const queryParams: string[] = [];
+  params.forEach((value, key) => {
+    queryParams.push(`${key}: ${value}`);
+  });
+  return `{${queryParams.join(',')}}`;
 }

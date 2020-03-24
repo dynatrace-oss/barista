@@ -72,9 +72,13 @@ export class BaPageContent implements OnDestroy {
       const placeholderElements: HTMLElement[] = Array.from(
         this._elementRef.nativeElement.querySelectorAll(factory.selector),
       );
+
       for (const el of placeholderElements) {
+        const children = [].slice.call(el.childNodes);
         this._componentRefs.push(
-          createComponent(factory, this._viewContainerRef, this._injector, el),
+          createComponent(factory, this._viewContainerRef, this._injector, el, [
+            ...children,
+          ]),
         );
       }
     }

@@ -29,6 +29,7 @@ import { BaColorGrid } from './color-grid/color-grid';
 import { BaLayoutGrid } from './layout-grid/layout-grid';
 import { BaColor } from './color-component/color';
 import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
+import { BaContentLink } from './content-link/content-link';
 
 /**
  * The order of the following components is relevant in case they are nested.
@@ -40,6 +41,7 @@ export const BA_CONTENT_COMPONENTS: any[] = [
   BaLiveExample,
   BaHeadlineLink,
   BaColor,
+  BaContentLink,
   BaLayoutGridItem,
   BaLayoutGrid,
   BaColorGrid,
