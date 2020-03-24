@@ -1,5 +1,7 @@
 <svg [attr.viewBox]="_viewBox" [attr.width]="_width">
   <ng-container *ngFor="let node of filteredNodes">
+    <text class="dt-selected-label">{{selectedLabel}}</text>
+    <text class="dt-selected-value">{{selectedValue}}</text>
     <path
       *ngIf="node.visible"
       [attr.d]="node.path"
@@ -8,5 +10,3 @@
     />
   </ng-container>
 </svg>
-
-<!-- <pre>{{ selectedNode | json }}</pre> -->

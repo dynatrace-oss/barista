@@ -3,3 +3,11 @@
 path {
   stroke: $white;
 }
+
+text {
+  text-anchor: middle;
+
+  &.dt-selected-value {
+    transform: translateY(16px);
+  }
+}
