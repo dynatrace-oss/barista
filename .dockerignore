@@ -10,11 +10,16 @@
 !package-lock.json
 
 # Used by multiple projects:
-# - /Dockerfile
 !tsconfig.json
 !angular.json
+!nx.json
+!.npmrc
 
 
-# Used by: /Dockerfile
+# Used by: /.deployment/workspace-base.Dockerfile
 !/libs/tools/builders
-!/entrypoint.sh
+!/libs/workspace
+!/.deployment
+
+# Used by: /.deployment/barista/barista-internal.Dockerfile
+!/dist/apps/barista-design-system/browser

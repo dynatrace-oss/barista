@@ -16,7 +16,11 @@ RUN sha1sum ./package-lock.json > package-lock.sha1
 # install dependencies without postinstall script
 RUN npm ci --ignore-scripts
 
-COPY ./tsconfig.json ./tsconfig.json
+COPY ./tsconfig.json \
+     ./angular.json \
+     ./nx.json \
+     # to
+     ./
 
 #------------------------------------------------------------
 # Temporary layer to build the workspace builder
@@ -25,10 +29,11 @@ COPY ./tsconfig.json ./tsconfig.json
 FROM base as workspace-builders
 
 COPY ./libs/tools/builders ./libs/tools/builders
+COPY ./libs/workspace ./libs/workspace
 
 # Build our custom angular builders for the workspace
-RUN npm run builders:build
-
+RUN npm run builders:build && \
+    npm run ng build workspace
 
 #------------------------------------------------------------
 # The base image for the angular workspace with the builted
@@ -40,21 +45,22 @@ LABEL maintainer="Dynatrace DesignOps Team <designops@dynatrace.com>" \
       description="This image is used to have a build setup for our monorepo."
 
 # Run the Ivy compatibility compiler for all the depenencies
-RUN ./node_modules/.bin/ngcc \
-    --properties es2015 browser module main \
-    --first-only \
-    --create-ivy-entry-points
+RUN ./node_modules/.bin/ngcc
 
 COPY --from=workspace-builders \
-     /dynatrace/node_modules/@dynatrace/barista-builders \
-     ./node_modules/@dynatrace/barista-builders
+     /dynatrace/node_modules/@dynatrace \
+     ./dist/tmp/
 
-COPY ./angular.json ./
+# Cleanup image that only the files that are ignored by git are persisted.
+RUN rm -rf \
+  tsconfig.json \
+  angular.json \
+  nx.json \
+  package.json \
+  package-lock.json
 
-COPY  ./entrypoint.sh /entrypoint.sh
+COPY  ./.deployment/entrypoint.sh /dynatrace/entrypoint.sh
 
-WORKDIR /tmp/workdir
-
-ENTRYPOINT [ "/entrypoint.sh" ]
+ENTRYPOINT [ "/dynatrace/entrypoint.sh" ]
 
 CMD [ "/bin/sh" ]

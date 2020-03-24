@@ -343,17 +343,24 @@
           "options": {
             "outputPath": "dist/libs/tools/examples-tools",
             "main": "libs/tools/examples-tools/src/main.ts",
-            "tsConfig": "libs/tools/examples-tools/tsconfig.json"
+            "tsConfig": "libs/tools/examples-tools/tsconfig.json",
+            "optimization": true,
+            "maxWorkers": 6
           },
           "configurations": {
             "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
               "fileReplacements": [
                 {
                   "replace": "environments/barista-environment.ts",
                   "with": "environments/barista-environment.prod.ts"
+                }
+              ]
+            },
+            "ci": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/barista-environment.ts",
+                  "with": "environments/barista-environment.ci.ts"
                 }
               ]
             }
@@ -800,17 +807,23 @@
             "outputPath": "dist/libs/tools/barista",
             "main": "libs/tools/barista/src/main.ts",
             "tsConfig": "libs/tools/barista/tsconfig.json",
+            "optimization": true,
             "maxWorkers": 6
           },
           "configurations": {
             "production": {
-              "optimization": true,
-              "extractLicenses": true,
-              "inspect": false,
               "fileReplacements": [
                 {
                   "replace": "environments/barista-environment.ts",
                   "with": "environments/barista-environment.prod.ts"
+                }
+              ]
+            },
+            "ci": {
+              "fileReplacements": [
+                {
+                  "replace": "environments/barista-environment.ts",
+                  "with": "environments/barista-environment.ci.ts"
                 }
               ]
             }
