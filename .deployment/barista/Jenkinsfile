@@ -1,0 +1,212 @@
+pipeline {
+  agent none
+
+  options {
+    ansiColor("xterm")
+    timeout(time: 4, unit: "HOURS")
+    timestamps()
+  }
+
+  parameters {
+    booleanParam(
+      name: "INTERNAL_VERSION",
+      defaultValue: true,
+      description: "Build the internal version of Barista"
+    )
+  }
+
+  environment {
+    WORKSPACE_DIR = "/home/dynatrace"
+    BARISTA_PATH = "barista"
+    ICONS_PATH = "barista-icons"
+    FRONTEND_IMAGE_NAME = "designops/barista-app-frontend"
+    BITBUCKET_URL = credentials("bitbucket-url")
+    DOCKER_REGISTRY = credentials("docker-registry")
+  }
+
+  stages {
+
+    stage("Build Barista") {
+      agent {
+        node {
+          label "k8s-barista-builder"
+        }
+      }
+
+      stages {
+        stage("Checkout barista icons") {
+          steps {
+            checkout changelog: false, poll: false, scm: [
+              $class: "GitSCM",
+              branches: [[name: "*/master"]],
+              doGenerateSubmoduleConfigurations: false,
+              extensions: [[$class: "RelativeTargetDirectory", relativeTargetDir: "$ICONS_PATH"]],
+              submoduleCfg: [], userRemoteConfigs: [[url: "${BITBUCKET_URL}scm/wx/barista-icons.git" ]]
+            ]
+          }
+        }
+
+        stage("Add internal Icons") {
+          when {
+            expression { return params.INTERNAL_VERSION }
+          }
+          steps {
+            dir(WORKSPACE_DIR) {
+              sh '''
+                rm -rf ./node_modules/@dynatrace/barista-icons
+                cp -R ./dist/tmp/barista-icons ./node_modules/@dynatrace/barista-icons
+              '''
+            }
+          }
+        }
+
+        stage("Prepare Workspace") {
+          steps {
+            sh'''
+              files="node_modules package-lock.sha1"
+
+              for file in $files
+              do
+                ln -s "$WORKSPACE_DIR/$file" "$PWD/$BARISTA_PATH/$file"
+              done
+
+            '''
+
+            dir(BARISTA_PATH) {
+              configFileProvider([
+                configFile(fileId: "barista-env", variable: "ENV")
+              ]) {
+                sh '''
+                  mv "$ENV" .env
+
+                  # Set public build to the inverse of INTERNAL_VERSION
+                  if $INTERNAL_VERSION ; then
+                    PUBLIC_BUILD=false
+                  else
+                    PUBLIC_BUILD=true
+                  fi
+
+                  echo "PUBLIC_BUILD=${PUBLIC_BUILD}" >> .env
+
+                  cat .env
+                '''
+              }
+            }
+          }
+        }
+
+        stage("Build Barista") {
+          steps {
+            dir(BARISTA_PATH) {
+              sh '''
+                npm run ng run examples-tools:build:ci
+                npm run ng run barista-tools:build:ci
+
+                node dist/libs/tools/examples-tools/main.js
+                node dist/libs/tools/barista/main.js
+
+                node \
+                  --max_old_space_size=8192 \
+                  ./node_modules/.bin/ng run barista-design-system:render:production
+              '''
+
+              stash includes: "dist/**/*", name: 'dist'
+              stash includes: ".deployment/**/*", name: 'deployment'
+            }
+
+          }
+        }
+      }
+
+      post {
+        always {
+          cleanWs deleteDirs: true
+        }
+      }
+    }
+
+    stage("Deploy Barista") {
+      agent {
+        node {
+          label "k8s-docker"
+        }
+      }
+
+      options {
+        skipDefaultCheckout true
+      }
+
+      stages {
+        stage("Build Docker image") {
+          steps {
+            dir(BARISTA_PATH) {
+              // Restore stashed dist for barista
+              unstash "dist"
+              unstash "deployment"
+
+              sh """
+                docker build \
+                  --no-cache \
+                  --pull \
+                  -t ${env.DOCKER_REGISTRY}/${FRONTEND_IMAGE_NAME}:${BUILD_NUMBER} \
+                  . \
+                  -f .deployment/barista/barista-internal.Dockerfile
+              """
+            }
+          }
+        }
+
+        stage("Tag Docker image") {
+          steps {
+            sh """
+              docker tag \
+                ${env.DOCKER_REGISTRY}/${FRONTEND_IMAGE_NAME}:${BUILD_NUMBER} \
+                ${env.DOCKER_REGISTRY}/${FRONTEND_IMAGE_NAME}:latest
+            """
+          }
+        }
+
+        stage("Push image to Registry") {
+          environment {
+            DOCKER_CRED = credentials('robot-designops-harbor')
+          }
+          steps {
+            sh """
+              docker login -u \'${DOCKER_CRED_USR}\' -p ${DOCKER_CRED_PSW} ${env.DOCKER_REGISTRY}
+
+              docker push ${env.DOCKER_REGISTRY}/${FRONTEND_IMAGE_NAME}:${BUILD_NUMBER}
+              docker push ${env.DOCKER_REGISTRY}/${FRONTEND_IMAGE_NAME}:latest
+            """
+          }
+        }
+
+        stage("Deploy to Kubernetes") {
+          environment {
+            K8S_TOKEN = credentials("barista-deployer")
+            K8S_API = credentials("k8-api")
+          }
+          steps {
+            sh """
+              kubectl -n barista set image deployment/barista-frontend \
+                barista-frontend=${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE_NAME}:${env.BUILD_NUMBER} \
+                --server=\'${env.K8S_API}\' \
+                --token=\'${env.K8S_TOKEN}\'
+            """
+          }
+        }
+
+      }
+
+      post {
+        always {
+          cleanWs deleteDirs: true
+        }
+      }
+    }
+
+  }
+}
+
+
+
+
