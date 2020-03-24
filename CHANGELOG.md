@@ -1,3 +1,57 @@
+## [6.1.0](https://github.com/dynatrace-oss/barista/compare/6.0.1...6.1.0) (2020-03-24)
+
+### Bug Fixes
+
+- **drawer:** Fixes an issue where the side navigation drawer was not expanding
+  to the full-screen height.
+  ([dd2ccf2](https://github.com/dynatrace-oss/barista/commit/dd2ccf25da8bc7c1cc141d1c66640b5e94842ae0)),
+  closes [#733](https://github.com/dynatrace-oss/barista/issues/733)
+- **event-chart:** Increased specificity on the overlay panel selector to avoid
+  conflicts with the cdk's styles
+  ([5a22c09](https://github.com/dynatrace-oss/barista/commit/5a22c09d0a9117c30e57c7a77b620fabc41bc38d))
+- **filter-field:** Fixes an issue with the free-text submission.
+  ([65ea920](https://github.com/dynatrace-oss/barista/commit/65ea9208f6ef86a30288ff22e81e614060b262dc)),
+  closes [#726](https://github.com/dynatrace-oss/barista/issues/726)
+- **top-bar-navigation:** Highlight top bar actions with keyboard focus.
+  ([f02cff1](https://github.com/dynatrace-oss/barista/commit/f02cff1ab3f11cc82af1c543c2bf4662cc69a09f)),
+  closes [#692](https://github.com/dynatrace-oss/barista/issues/692)
+
+### Features
+
+- **colors:** Add flat white to colors list (easter egg)
+  ([339eaef](https://github.com/dynatrace-oss/barista/commit/339eaef5bd9bd224aae3edaa3b1beee714ffd29b))
+- **duration-formatter:** Adds the dtDuration pipe to format time durations. The
+  time-formatter is now deprecated and will be removed with 7.0.0
+  ([79b08e5](https://github.com/dynatrace-oss/barista/commit/79b08e5cd63ab98ede6db227626b3b8107018850))
+- **empty-state:** Progressive enhancements for relayout based on
+  ResizeObserver.
+  ([532e275](https://github.com/dynatrace-oss/barista/commit/532e2754ea9a81187f6283c5eaf724cf6ccb149c)),
+  closes [#648](https://github.com/dynatrace-oss/barista/issues/648)
+
+## 6.0.1 (2020-03-09)
+
+### Bug Fixes
+
+- **chart-heatfield:** Chart Heatfield is now hidden when start and end are
+  undefined.
+  ([dbb545a](https://github.com/dynatrace-oss/barista/commit/dbb545a1001753f2d6e6cdc60e98bbc150889843))
+- **filter-field:** Fixes an issue with filtering the options when the same
+  character was used twice in a row.
+  ([dca5b6e](https://github.com/dynatrace-oss/barista/commit/dca5b6e3832da416667dc678d7fd4acd9d78ee9b))
+- **key-value-list:** Fixes an issue where the text was displaced on selecting
+  with `shift+arrow`.
+  [#690](https://github.com/dynatrace-oss/barista/issues/690)
+  ([f7a224b](https://github.com/dynatrace-oss/barista/commit/f7a224b52d4c4ada9ae9aea351c755e7cd6eedf5))
+- **radio, checkbox, switch:** Fixed the contrast ratio of the disabled labels
+  to fulfill our a11y requirements.
+  ([0ae6689](https://github.com/dynatrace-oss/barista/commit/0ae6689231e82297f2c98f7906982db04096a075)),
+  closes [#684](https://github.com/dynatrace-oss/barista/issues/684)
+  [#684](https://github.com/dynatrace-oss/barista/issues/684)
+- **tag:** Fixed an issue with the tag-add button being influenced by user agent
+  styles.
+  ([fa552ff](https://github.com/dynatrace-oss/barista/commit/fa552ff20a8b3e728f2644189ef81355004f343b)),
+  closes [#640](https://github.com/dynatrace-oss/barista/issues/640)
+
 ## 6.0.0 (2020-03-02)
 
 ### BREAKING CHANGES
