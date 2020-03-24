@@ -27,17 +27,18 @@ import {
  * Per default the placeholder element is then removed.
  */
 export function createComponent(
-  // tslint:disable-next-line:no-any
   factory: ComponentFactory<any>,
   viewContainerRef: ViewContainerRef,
   injector: Injector,
   placeholderElement: Element,
+  projectableNodes: any[][] = [],
   shouldRemovePlaceholder: boolean = true,
 ): ComponentRef<unknown> {
   const componentRef = viewContainerRef.createComponent(
     factory,
     viewContainerRef.length,
     injector,
+    [projectableNodes],
   );
 
   // At this point the component has been instantiated,
