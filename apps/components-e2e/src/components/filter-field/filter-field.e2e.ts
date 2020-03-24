@@ -176,7 +176,7 @@ test('should choose a freetext node with the mouse and submit the correct value 
     // Wait for a certain amout fo time to let the filterfield refresh
     .wait(250)
     // Send the correct value into the input field
-    .typeText(input, 'Custom selection', { speed: 0.7 });
+    .typeText(input, 'Custom selection');
 
   // Focus the filter field
   await focusFilterFieldInput();

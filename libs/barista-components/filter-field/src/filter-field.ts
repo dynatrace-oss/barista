@@ -496,16 +496,16 @@ export class DtFilterField<T>
     // Using fromEvent instead of an html binding so we get a stream and can easily do a debounce
     merge(
       fromEvent(this._inputEl.nativeElement, 'input').pipe(
+        tap(() => (this._inputValue = this._inputEl.nativeElement.value)),
         debounceTime(DT_FILTER_FIELD_TYPING_DEBOUNCE),
       ),
-      this._inputReset$,
+      this._inputReset$.pipe(
+        tap(() => (this._inputValue = this._inputEl.nativeElement.value)),
+      ),
     )
       .pipe(
-        map(() => this._inputEl.nativeElement.value),
+        map(() => this._inputValue),
         distinctUntilChanged(),
-        tap(value => {
-          this._inputValue = value;
-        }),
         takeUntil(this._destroy$),
       )
       .subscribe(() => {
