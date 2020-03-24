@@ -114,7 +114,6 @@ export class BaTocService implements OnDestroy {
 
     for (const headline of headlines) {
       const item = this._createEntry(headline, docId, idMap, []);
-
       if (item.level === 'h2') {
         toc.push(item);
       } else if (item.level === 'h3') {

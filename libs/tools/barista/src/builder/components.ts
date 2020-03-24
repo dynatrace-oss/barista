@@ -35,6 +35,7 @@ import {
   uxSnippetTransformer,
   headingIdTransformer,
   copyHeadlineTransformer,
+  relativeUrlTransformer,
 } from '../transform';
 
 import { slugify } from '../utils/slugify';
@@ -50,6 +51,7 @@ const TRANSFORMERS: BaPageTransformer[] = [
   uxSnippetTransformer,
   headingIdTransformer,
   copyHeadlineTransformer,
+  relativeUrlTransformer,
 ];
 
 /** Creates snippets in Strapi that do not exist already. */

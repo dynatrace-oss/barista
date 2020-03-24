@@ -15,12 +15,14 @@
  */
 
 import { BaPageLayoutType } from '@dynatrace/shared/barista-definitions';
+
 import {
   componentTagsTransformer,
   extractH1ToTitleTransformer,
   internalLinksTransformerFactory,
   headingIdTransformer,
   internalContentTransformerFactory,
+  relativeUrlTransformer,
 } from './transform';
 
 describe('Barista transformers', () => {
@@ -183,6 +185,52 @@ describe('Barista transformers', () => {
       });
       expect(transformed.content).toBe(
         '<h1>Fonts</h1>\n\n<p>\n\nThis is just a simple internal string\n\n</p>\n\n<p>Some more public content.</p>',
+      );
+    });
+  });
+
+  describe('internalLinkReplacer', () => {
+    it('should replace not fully qualified links with content-link component', async () => {
+      const content = `<a href="http://www.dynatrace.com">Dynatrace</a>
+        <a href="ftpt://resources/guides">Resource</a>
+        <a href="smtp://resources/guides">Resource</a>
+        <a href="smthn://resources/guides">Resource</a>
+        <a href="lorem://resources/guides">Resource</a>
+        <a href="//resources/guides">Resource</a>
+        <a href="resources/guides">Resource</a>
+        <a href="/resources/bundle">Resource</a>
+        <a href="/brand/guides#headline1">Resource</a>
+        <a href="#headline1">Resource</a>
+        <a href="#submitting-a-pull-request">submit a pull request</a>
+        <a href="/patterns/button-alignment?sort=ASC">Resource</a>
+        <a href="/patterns/button-alignment?sort-order=ASC">Resource</a>
+        <a href="/components/button?sort=ASC#headline1">Resource</a>
+        <a href="/patterns/button-alignment?sort=ASC&id=2">Resource</a>
+        <a href="../">Back</a>
+      `;
+      const transformed = await relativeUrlTransformer({
+        title: 'Links',
+        layout: BaPageLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(
+        `<a href="http://www.dynatrace.com">Dynatrace</a>
+        <a href="ftpt://resources/guides">Resource</a>
+        <a href="smtp://resources/guides">Resource</a>
+        <a href="smthn://resources/guides">Resource</a>
+        <a href="lorem://resources/guides">Resource</a>
+        <a href="//resources/guides">Resource</a>
+        <a contentLink="resources/guides">Resource</a>
+        <a contentLink="/resources/bundle">Resource</a>
+        <a contentLink="/brand/guides" fragment="headline1">Resource</a>
+        <a contentLink="/" fragment="headline1">Resource</a>
+        <a contentLink="/" fragment="submitting-a-pull-request">submit a pull request</a>
+        <a contentLink="/patterns/button-alignment" queryParams="{sort: ASC}">Resource</a>
+        <a contentLink="/patterns/button-alignment" queryParams="{sort-order: ASC}">Resource</a>
+        <a contentLink="/components/button" fragment="headline1" queryParams="{sort: ASC}">Resource</a>
+        <a contentLink="/patterns/button-alignment" queryParams="{sort: ASC,id: 2}">Resource</a>
+        <a contentLink="../">Back</a>
+      `,
       );
     });
   });

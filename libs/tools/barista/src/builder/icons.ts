@@ -38,6 +38,7 @@ import {
   markdownToHtmlTransformer,
   transformPage,
   headingIdTransformer,
+  relativeUrlTransformer,
 } from '../transform';
 import { convertJsonChangelogToMarkdown } from '../utils/convert-json-changelog-to-markdown';
 
@@ -45,6 +46,7 @@ const TRANSFORMERS: BaPageTransformer[] = [
   markdownToHtmlTransformer,
   extractH1ToTitleTransformer,
   headingIdTransformer,
+  relativeUrlTransformer,
 ];
 
 /**
