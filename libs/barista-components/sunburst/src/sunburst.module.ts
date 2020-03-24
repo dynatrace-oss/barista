@@ -16,13 +16,10 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-
 import { DtSunburst } from './sunburst';
 
 @NgModule({
-  imports: [CommonModule, DtIconModule],
+  imports: [CommonModule],
   exports: [DtSunburst],
   declarations: [DtSunburst],
 })

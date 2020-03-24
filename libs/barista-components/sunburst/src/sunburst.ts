@@ -20,7 +20,8 @@
  * TODO
  *
  * assign colors
- * theme
+ * theme or generic palette
+ * reverse coloring so the first one is the biggest
  * initial input
  * overlay
  * labels
@@ -42,7 +43,7 @@ import {
 } from '@angular/core';
 import {
   getAllNodes,
-  PiePoint,
+  DtSunburstNode,
   getFullPath,
   getKeyNamePairs,
   filterActiveNodes,
@@ -63,26 +64,36 @@ export class DtSunburst implements OnInit {
   allNodes;
   filteredNodes;
 
+  selectedLabel;
+  selectedValue;
+
   @HostListener('click', ['$event']) onClick(ev: MouseEvent): void {
     this.select(ev);
   }
 
-  @Input() data: PiePoint[];
-  @Input() selectedPath: PiePoint[];
+  @Input() series: DtSunburstNode[];
+  @Input() selectedPath: DtSunburstNode[];
+  @Input() allLabel: string;
+  @Input() percent: boolean = false;
 
-  @Output() selectedPathChange: EventEmitter<PiePoint> = new EventEmitter();
+  @Output() selectedPathChange: EventEmitter<
+    DtSunburstNode
+  > = new EventEmitter();
   @Output() selectedPairsChange: EventEmitter<string[][]> = new EventEmitter();
 
   ngOnInit(): void {
-    this.filteredNodes = this.allNodes = getAllNodes(this.data);
+    this.filteredNodes = this.allNodes = getAllNodes(this.series);
     console.log(this.allNodes);
+
+    this.selectedLabel = this.allLabel;
+    this.selectedValue = 25;
   }
 
   select(event: MouseEvent, node?): void {
     event.stopPropagation();
 
     if (node) {
-      const selectedPath = getFullPath(this.data, node.data);
+      const selectedPath = getFullPath(this.series, node.data);
       this.selectedPathChange.emit(selectedPath);
       this.selectedPairsChange.emit(getKeyNamePairs(selectedPath));
 
