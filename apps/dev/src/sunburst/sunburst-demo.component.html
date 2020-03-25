@@ -1,10 +1,10 @@
 <dt-sunburst
-  allLabel="All"
+  noSelectionLabel="All"
   [series]="series"
-  [selectedPath]="selectedPath"
-  (selectedPathChange)="selectedPath = $event"
-  (selectedPairsChange)="selectedPairs = $event"
+  [selected]="selected"
+  (selectedChange)="select($event)"
+  (selectedFilterChange)="selectedFilter = $event"
 ></dt-sunburst>
-<pre>{{ selectedPath | json }}</pre>
+<pre>{{ selected | json }}</pre>
 <hr />
-<pre>{{ selectedPairs | json }}</pre>
+<pre>{{ selectedFilter | json }}</pre>

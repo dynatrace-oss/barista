@@ -28,31 +28,37 @@ export interface DtSunburstNode {
   children?: DtSunburstNode[];
 }
 
-interface DtSunburstNodeInternal extends DtSunburstNode {
+export enum DtSunburstValueMode {
+  ABSOLUTE = 'absolute',
+  PERCENT = 'percent',
+}
+
+export interface DtSunburstNodeInternal extends DtSunburstNode {
   id: string;
   value: number;
   children?: DtSunburstNodeInternal[];
 
   // number of children
   depth: number;
-}
-
-interface PieSlice extends d3.PieArcDatum<DtSunburstNodeInternal> {
   color: string;
 }
+
+export interface DtSunburstSlice
+  extends d3.PieArcDatum<DtSunburstNodeInternal> {}
 
 const innerRadius = 50;
 const outerRadius = 100;
 const idSeparator = '.';
 
-export const getAllNodes = (data: DtSunburstNode[]): PieSlice[] => {
-  const filledValues = fillValues(data);
-  const numLevels = filledValues.reduce(
+export const getAllNodes = (
+  series: DtSunburstNodeInternal[],
+): DtSunburstSlice[] => {
+  const numLevels = series.reduce(
     (maxLevel, point) => Math.max(maxLevel, point.depth),
     0,
   );
 
-  return getNodesByParent(fillValues(data), 1, numLevels);
+  return getNodesByParent(series, 1, numLevels);
 };
 
 export const getNodesByParent = (
@@ -61,7 +67,7 @@ export const getNodesByParent = (
   numLevels: number,
   startAngle: number = 0,
   endAngle: number = 2 * Math.PI,
-): PieSlice[] => {
+): DtSunburstSlice[] => {
   const parsedData = d3
     .pie<DtSunburstNodeInternal>()
     .startAngle(startAngle)
@@ -76,11 +82,10 @@ export const getNodesByParent = (
   };
 
   return parsedData.reduce(
-    (paths, segment, i) => [
+    (paths, segment) => [
       ...paths,
       {
         ...segment,
-        color: getColor(i, data.length),
         visible: level === 1,
         path: d3.arc()({
           startAngle: segment.startAngle,
@@ -100,9 +105,10 @@ export const getNodesByParent = (
   );
 };
 
-const fillValues = (
+export const fillSeries = (
   data: DtSunburstNode[],
-  parent?: DtSunburstNode & { id: string },
+  parent?: DtSunburstNodeInternal,
+  color?: string,
 ): DtSunburstNodeInternal[] =>
   data
     .map((point, i) => {
@@ -113,11 +119,13 @@ const fillValues = (
         depth: 1,
         value: point.value ?? 0,
         children: [],
+        color: color ?? getColor(i, data.length),
       };
       // fill values for children and parent id
       tmp = {
         ...tmp,
-        children: point.children && fillValues(point.children, tmp),
+        children:
+          point.children && fillSeries(point.children, tmp, color ?? tmp.color),
       };
 
       return {
@@ -126,19 +134,27 @@ const fillValues = (
         depth: tmp.children
           ? 1 + Math.max(...tmp.children?.map(child => child.depth ?? 0))
           : 1,
-        value:
-          tmp.children?.reduce((total, p) => total + (p?.value ?? 0), 0) ??
-          tmp.value ??
-          0,
+        value: tmp.children ? getValue(tmp.children) : tmp.value ?? 0,
       };
     })
     .sort((a, b) => a.value - b.value);
 
-export const filterActiveNodes = (all: PieSlice[], id: string): PieSlice[] =>
+export const filterActiveNodes = (
+  all: DtSunburstSlice[],
+  id: string,
+): DtSunburstSlice[] =>
   all.map(node => ({
     ...node,
-    active: isAncestor(node.data, id),
-    color: isAncestor(node.data, id) ? node.color : DtColors.GRAY_300,
+    data: {
+      ...node.data,
+      color:
+        isAncestor(node.data, id) ||
+        isCurrent(node.data, id) ||
+        isChild(node.data, id)
+          ? node.data.color
+          : DtColors.GRAY_300,
+    },
+    active: isAncestor(node.data, id) || isCurrent(node.data, id),
     visible:
       // alway show first level
       getLevel(node.data.id) === 1 ||
@@ -153,43 +169,29 @@ export const filterActiveNodes = (all: PieSlice[], id: string): PieSlice[] =>
  * @param leaf Selected element
  * @returns Path for the sunburst with only one child per node
  */
-export const getFullPath = (
+export const getSelectedNodes = (
   data: DtSunburstNode[],
   leaf: DtSunburstNodeInternal,
-): DtSunburstNode =>
+): DtSunburstNode[] =>
   leaf.id.split(idSeparator, -1).reduce(
     (
       tree: {
         currentLevel: DtSunburstNode[];
-        lastInserted: DtSunburstNode;
-        result: DtSunburstNode;
+        result: DtSunburstNode[];
       },
       key,
     ) => {
-      // calculate current node
       const currentNode = tree.currentLevel[parseInt(key)];
-
-      tree.lastInserted.children = [
-        {
-          label: currentNode.label,
-          filterKey: currentNode.filterKey,
-          filterValue: currentNode.filterValue,
-        },
-      ];
+      tree.result.push(currentNode);
 
       // update for next iteration
-      tree.lastInserted = tree.lastInserted.children[0];
       if (currentNode.children) tree.currentLevel = currentNode.children;
-
-      // first iteration, save node
-      if (!tree.result.label) tree.result = tree.lastInserted;
 
       return tree;
     },
     {
       currentLevel: data,
-      lastInserted: {} as DtSunburstNode,
-      result: {} as DtSunburstNode,
+      result: [],
     },
   ).result;
 
@@ -198,15 +200,19 @@ export const getFullPath = (
  * @param data Output of sunburst, only one child per node
  * @returns Array of key, name pairs
  */
-export const getKeyNamePairs = (data: DtSunburstNode): string[][] =>
-  [
-    data.filterKey ? [data.filterKey, data.label] : [],
-    ...(data.children && data.children[0]
-      ? getKeyNamePairs(data.children[0])
-      : []),
-  ].filter(pair => pair && pair.length);
+export const dtFlattenSunburstToFilter = (
+  nodes: DtSunburstNode[],
+): { [key: string]: string | number | boolean } =>
+  nodes.reduce((filter, node) => {
+    filter[node.filterKey] = node.filterValue;
+
+    return filter;
+  }, {});
 
 // UTILS
+export const getValue = (nodes: DtSunburstNode[]) =>
+  nodes.reduce((total, p) => total + (p?.value ?? 0), 0);
+
 const getLevel = (id: string): number => id.split(idSeparator).length;
 // as sunburst is built backwards we must invert the colors too
 const getColor = (i: number, totalSlices: number): string =>
@@ -217,11 +223,15 @@ const getColor = (i: number, totalSlices: number): string =>
 const getAncestorsIds = (id: string): string[] =>
   id
     .split(idSeparator)
+    .slice(0, -1)
     .map((_, i, segments) => segments.slice(0, i + 1).join(idSeparator));
 
 // node is child of given id
 const isChild = (node, id: string): boolean =>
   node.id.indexOf(id) === 0 && getLevel(node.id) === getLevel(id) + 1;
+
+//  node is ancestor of given id
+const isCurrent = (node, id: string): boolean => node.id === id;
 
 //  node is ancestor of given id
 const isAncestor = (node, id: string): boolean =>
