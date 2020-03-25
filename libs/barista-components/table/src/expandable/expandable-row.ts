@@ -170,6 +170,7 @@ export class DtExpandableRow extends DtRow
     elementRef: ElementRef,
   ) {
     super(elementRef);
+    this._table._hasExpandableRows = true;
     this._expansionDispatcher.listen((rowId, tableId) => {
       /**
        * If the table does not allow multiple rows to be expanded at a time,

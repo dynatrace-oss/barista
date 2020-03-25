@@ -22,14 +22,16 @@ import {
   QueryList,
   ViewChild,
   ViewChildren,
+  Predicate,
 } from '@angular/core';
-import { Subscription, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
 import { DtPagination } from '@dynatrace/barista-components/pagination';
 import {
   DtTableDataSource,
   DtTableSearch,
+  DT_TABLE_SELECTION_CONFIG,
 } from '@dynatrace/barista-components/table';
 
 interface HostUnit {
@@ -43,43 +45,18 @@ interface HostUnit {
   selector: 'table-dev-app-demo',
   templateUrl: './table-demo.component.html',
   styleUrls: ['./table-demo.component.scss'],
+  providers: [
+    {
+      provide: DT_TABLE_SELECTION_CONFIG,
+      useValue: { selectionLimit: 3 },
+    },
+  ],
 })
 export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
   show = true;
-  pageSize = 3;
+  pageSize = 6;
   searchValue = '';
-  dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource();
-
-  private subscription: Subscription = Subscription.EMPTY;
-
-  @ViewChild(DtTableSearch, { static: true })
-  tableSearch: DtTableSearch;
-  @ViewChildren(DtPagination)
-  paginationList: QueryList<DtPagination>;
-
-  ngOnInit(): void {
-    this.subscription = of(this.dataSource1).subscribe((data: HostUnit[]) => {
-      this.dataSource.data = data;
-    });
-    this.dataSource.search = this.tableSearch;
-  }
-
-  ngAfterViewInit(): void {
-    this.paginationList.changes.pipe(startWith(null)).subscribe(() => {
-      if (this.paginationList.first) {
-        this.dataSource.pagination = this.paginationList.first;
-        this.dataSource.pageSize = this.pageSize;
-      } else {
-        this.dataSource.pagination = null;
-      }
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  dataSource1: HostUnit[] = [
+  data = [
     {
       host: 'et-demo-2-win4',
       cpu: '30 %',
@@ -129,6 +106,37 @@ export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
       traffic: '32.7 Mbit/s',
     },
   ];
+  dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource(this.data);
+
+  private subscription: Subscription = Subscription.EMPTY;
+
+  @ViewChild(DtTableSearch, { static: true })
+  tableSearch: DtTableSearch;
+  @ViewChildren(DtPagination)
+  paginationList: QueryList<DtPagination>;
+
+  disabledPredicate: Predicate<HostUnit> = (value) => {
+    return value.host.includes('docker');
+  };
+
+  ngOnInit(): void {
+    this.dataSource.search = this.tableSearch;
+  }
+
+  ngAfterViewInit(): void {
+    this.paginationList.changes.pipe(startWith(null)).subscribe(() => {
+      if (this.paginationList.first) {
+        this.dataSource.pagination = this.paginationList.first;
+        this.dataSource.pageSize = this.pageSize;
+      } else {
+        this.dataSource.pagination = null;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   options: Highcharts.Options = {
     xAxis: {

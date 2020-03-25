@@ -6,7 +6,19 @@
 ></dt-table-search>
 
 <ng-container>
-  <dt-table [dataSource]="dataSource">
+  <dt-table
+    [dataSource]="dataSource"
+    dtTableSelection
+    [dtTableSelectionInitial]="data.slice(0, 1)"
+    [dtTableIsRowDisabled]="disabledPredicate"
+  >
+    <ng-container dtColumnDef="select">
+      <dt-table-header-selector *dtHeaderCellDef></dt-table-header-selector>
+      <dt-table-row-selector
+        *dtCellDef="let row"
+        [row]="row"
+      ></dt-table-row-selector>
+    </ng-container>
     <ng-container dtColumnDef="host" dtColumnAlign="text">
       <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
       <dt-cell *dtCellDef="let row">
@@ -33,12 +45,19 @@
       ></dt-expandable-cell>
     </ng-container>
     <dt-header-row
-      *dtHeaderRowDef="['host', 'memory', 'cpu', 'traffic', 'details']"
+      *dtHeaderRowDef="[
+        'select',
+        'host',
+        'memory',
+        'cpu',
+        'traffic',
+        'details'
+      ]"
     ></dt-header-row>
     <dt-expandable-row
       *dtRowDef="
         let row;
-        columns: ['host', 'memory', 'cpu', 'traffic', 'details']
+        columns: ['select', 'host', 'memory', 'cpu', 'traffic', 'details']
       "
       [expanded]="row.expanded"
     >

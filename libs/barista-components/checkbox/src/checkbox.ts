@@ -48,9 +48,9 @@ import {
 import {
   CanDisable,
   HasTabIndex,
+  _addCssClass,
   mixinDisabled,
   mixinTabIndex,
-  _addCssClass,
 } from '@dynatrace/barista-components/core';
 import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
 import { Subject } from 'rxjs';
@@ -426,6 +426,14 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
 
     if (this._currentAnimationClass.length > 0) {
       element.classList.add(this._currentAnimationClass);
+      if (newState === TransitionCheckState.Unchecked) {
+        const animationClass = this._currentAnimationClass;
+        const animationEndHandler = () => {
+          element.classList.remove(animationClass);
+          element.removeEventListener('animationend', animationEndHandler);
+        };
+        element.addEventListener('animationend', animationEndHandler);
+      }
     }
   }
 }
@@ -486,8 +494,7 @@ function getAnimationClassForCheckStateTransition(
           ? 'indeterminate-checked'
           : 'indeterminate-unchecked';
       break;
-    default: {
-    }
+    default:
   }
 
   return `dt-checkbox-anim-${animSuffix}`;

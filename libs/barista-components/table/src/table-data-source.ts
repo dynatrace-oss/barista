@@ -15,26 +15,24 @@
  */
 
 import { DataSource } from '@angular/cdk/table';
-import {
-  BehaviorSubject,
-  Observable,
-  Subject,
-  Subscription,
-  combineLatest,
-  merge,
-  of,
-} from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-
 import { compareValues, isNumber } from '@dynatrace/barista-components/core';
 import { DtPagination } from '@dynatrace/barista-components/pagination';
-
+import {
+  BehaviorSubject,
+  combineLatest,
+  merge,
+  Observable,
+  of,
+  Subject,
+  Subscription,
+} from 'rxjs';
+import { map, takeUntil } from 'rxjs/operators';
 import { DtTableSearch } from './search';
 import {
   DtSimpleColumnComparatorFunction,
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,
-} from './simple-columns/simple-column-base';
+} from './simple-columns';
 import { DtSort, DtSortEvent } from './sort/sort';
 import { DtTable } from './table';
 

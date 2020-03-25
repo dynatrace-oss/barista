@@ -361,6 +361,32 @@ a `DtShowMore` componenent might be more suitable.
 
 <ba-live-example name="DtExampleTableShowMore" fullwidth></ba-live-example>
 
+## Selectable table rows
+
+The `DtTableRowSelector` can be used for selectable rows in a table and the
+`DtTableHeaderSelector` to provide bulk selection in the column header.
+
+The `DtTableSelection` directive has to be added to the table to enable
+selection handling. The directive also provides access to the currently selected
+rows and allows you to change selection programmatically. It also supports a
+selection limit by providing a `DtTableSelectionConfig` via the
+`DT_TABLE_SELECTION_CONFIG` injection token.
+
+#### Inputs
+
+| Name                      | Type           | Default       | Description                                 |
+| ------------------------- | -------------- | ------------- | ------------------------------------------- |
+| `dtTableSelectionInitial` | `T[]`          | `[]`          | The rows that should be selected initially. |
+| `dtTableIsRowDisabled`    | `Predicate<T>` | `() => false` | Predicate to disable matching rows          |
+
+#### Outputs
+
+| Name                     | Type                             | Description                                                                              |
+| ------------------------ | -------------------------------- | ---------------------------------------------------------------------------------------- |
+| `dtTableSelectionChange` | `Observable<SelectionChange<T>>` | Event emitted when the selection changes either by user interaction or programmatically. |
+
+<ba-live-example name="DtExampleTableSelection" fullWidth></ba-live-example>
+
 ## Sorting, paging and filtering out of the box with DtTableDataSource
 
 Merging the streams for sorting, filtering and pagination can get quite tricky.
