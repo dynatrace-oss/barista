@@ -20,11 +20,11 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
-  ComponentFixture,
-  TestBed,
   async,
+  ComponentFixture,
   fakeAsync,
   flush,
+  TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -44,6 +44,9 @@ import {
   createComponent,
   dispatchMouseEvent,
 } from '@dynatrace/testing/browser';
+import { CommonModule } from '@angular/common';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 
 const PAGE_SIZE = 2;
 
@@ -110,11 +113,14 @@ describe('DtTableDataSource', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        CommonModule,
         DtTableModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        DtLoadingDistractorModule,
         NoopAnimationsModule,
+        DtFormattersModule,
         HttpClientTestingModule,
         DtPaginationModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
       declarations: [PaginationTestApp, TableSortingMixedTestApp],
     }).compileComponents();

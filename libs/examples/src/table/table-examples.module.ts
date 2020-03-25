@@ -49,6 +49,7 @@ import { DtExampleTablePagination } from './table-pagination-example/table-pagin
 import { DtExampleTableProblem } from './table-problem-example/table-problem-example';
 import { DtExampleTableResponsive } from './table-responsive-example/table-responsive-example';
 import { DtExampleTableSearch } from './table-search-example/table-search-example';
+import { DtExampleTableSelection } from './table-selection-example/table-selection-example';
 import { DtExampleTableShowMore } from './table-show-more-example/table-show-more-example';
 import { DtExampleTableSorting } from './table-sorting-example/table-sorting-example';
 import { DtExampleTableSortingMixedColumns } from './table-sorting-mixed-columns-example/table-sorting-mixed-columns-example';
@@ -97,6 +98,7 @@ import { FormsModule } from '@angular/forms';
     DtExampleTableProblem,
     DtExampleTableResponsive,
     DtExampleTableSearch,
+    DtExampleTableSelection,
     DtExampleTableShowMore,
     DtExampleTableSorting,
     DtExampleTableSortingMixedColumns,
