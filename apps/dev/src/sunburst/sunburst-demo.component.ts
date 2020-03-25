@@ -24,7 +24,7 @@ import { dtFlattenSunburstToFilter } from 'libs/barista-components/sunburst/src/
   styleUrls: ['./sunburst-demo.component.scss'],
 })
 export class SunburstDemo {
-  selected: DtSunburstNode[] = [
+  selectedInitial: DtSunburstNode[] = [
     {
       filterValue: 'Shephard',
       label: 'Shephard',
@@ -38,7 +38,8 @@ export class SunburstDemo {
       ],
     },
   ];
-  selectedFilter;
+  selected: DtSunburstNode[];
+  selectedFilter: { [key: string]: string | number | boolean };
 
   series = [
     {
@@ -160,8 +161,8 @@ export class SunburstDemo {
         {
           value: 4,
           filterKey: 'actorName',
-          filterValue: 'Mathew',
-          label: 'Mathew',
+          filterValue: 'Matthew',
+          label: 'Matthew',
         },
         {
           value: 4,
