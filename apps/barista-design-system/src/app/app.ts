@@ -115,19 +115,14 @@ export class BaApp implements OnInit, OnDestroy {
   _createBreadcrumbs(url: string): BaBreadcrumb[] {
     const urlParts = getUrlPathName(this._document, url).split('/');
 
-    return urlParts.reduce((prev: BaBreadcrumb[], cur: string) => {
-      const currentUrl = `${prev.map(part => part.url).join('/')}/${cur}`;
-      const page = this._pageService._cache.get(
-        getPageKeyFromUrl(this._document, currentUrl),
-      );
-      const label = page ? page.title : cur.replace(/\-/gm, '');
-
-      prev.push({
-        label,
-        url: currentUrl,
-      });
-      return prev;
-    }, [] as BaBreadcrumb[]);
+    let urlPart = '';
+    return urlParts.map((part: string) => {
+      urlPart = `${urlPart}/${part}`;
+      return {
+        label: part.replace(/\-/gm, ' '),
+        url: urlPart,
+      };
+    });
   }
 
   /** Sets all the necessary meta tags to improve our SEO score. */
