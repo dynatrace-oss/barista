@@ -19,14 +19,14 @@
  *
  * TODO
  *
- * assign colors
  * theme or generic palette
  * fillSeries should add a root element so value is not calculated all the time
- * initial input
+ * initial selection should show actual label and value
  * overlay
  * labels
  * sizing of slices when selecting
  * add percentage
+ * unify id creation
  *
  *
  */
@@ -48,9 +48,10 @@ import {
   DtSunburstSlice,
   DtSunburstValueMode,
   fillSeries,
-  filterActiveNodes,
-  getAllNodes,
+  getNodesWithState,
+  getSelectedId,
   getSelectedNodes,
+  getSlices,
   getValue,
 } from './sunburst.util';
 
@@ -67,12 +68,11 @@ export class DtSunburst implements OnChanges {
   _width = '200';
 
   filledSeries: DtSunburstNodeInternal[];
+  slices: DtSunburstSlice[];
 
-  allNodes;
-  filteredNodes;
-
-  selectedLabel;
-  selectedValue;
+  _selected: DtSunburstNode[];
+  selectedLabel: string;
+  selectedValue: number;
 
   @HostListener('click', ['$event']) onClick(ev: MouseEvent): void {
     this.select(ev);
@@ -86,40 +86,49 @@ export class DtSunburst implements OnChanges {
   @Output() selectedChange: EventEmitter<DtSunburstNode[]> = new EventEmitter();
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ('series' in changes) {
+    // console.log(changes);
+
+    if (changes.series?.currentValue !== changes.series?.previousValue) {
+      console.info('SERIES updated');
       this.filledSeries = fillSeries(this.series);
-      this.filteredNodes = this.allNodes = getAllNodes(this.filledSeries);
-      this.select();
+      this.render();
+    }
+    if (changes.selected?.currentValue !== changes.selected?.previousValue) {
+      console.info('SELECTED updated');
+      this._selected = this.selected;
+      this.render();
     }
   }
 
-  select(event?: MouseEvent, node?: DtSunburstSlice): void {
-    if (event) event.stopPropagation();
+  select(event: MouseEvent, slice?: DtSunburstSlice): void {
+    event.stopPropagation();
 
-    if (node) {
-      this.selectNode(node);
+    if (slice) {
+      this._selected = getSelectedNodes(this.filledSeries, slice.data);
+
+      this.selectedChange.emit(this._selected);
     } else {
-      this.selectAll();
+      this._selected = [];
+
+      this.selectedChange.emit(undefined);
     }
+
+    this.render();
   }
 
-  private selectNode(node: DtSunburstSlice): void {
-    const selected = getSelectedNodes(this.series, node.data);
+  private render(): void {
+    const nodesWithState = getNodesWithState(
+      this.filledSeries,
+      getSelectedId(this.filledSeries, this._selected),
+    );
+    this.slices = getSlices(nodesWithState);
 
-    this.selectedChange.emit(selected);
-
-    this.filteredNodes = filterActiveNodes(this.allNodes.slice(), node.data.id);
-
-    this.selectedLabel = node.data.label;
-    this.selectedValue = node.data.value;
-  }
-
-  private selectAll(): void {
-    this.selectedChange.emit(undefined);
-
-    this.filteredNodes = this.allNodes;
-
-    this.selectedLabel = this.noSelectionLabel;
-    this.selectedValue = getValue(this.filledSeries);
+    if (this._selected && this._selected.length) {
+      this.selectedLabel = this._selected.slice(-1)[0].label ?? '';
+      this.selectedValue = this._selected.slice(-1)[0].value ?? 0;
+    } else {
+      this.selectedLabel = this.noSelectionLabel;
+      this.selectedValue = getValue(this.filledSeries);
+    }
   }
 }

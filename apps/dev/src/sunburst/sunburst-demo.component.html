@@ -1,7 +1,7 @@
 <dt-sunburst
   noSelectionLabel="All"
   [series]="series"
-  [selected]="selected"
+  [selected]="selectedInitial"
   (selectedChange)="select($event)"
   (selectedFilterChange)="selectedFilter = $event"
 ></dt-sunburst>

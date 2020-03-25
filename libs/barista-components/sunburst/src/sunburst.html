@@ -1,12 +1,11 @@
 <svg [attr.viewBox]="_viewBox" [attr.width]="_width">
-  <ng-container *ngFor="let node of filteredNodes">
+  <ng-container *ngFor="let slice of slices">
     <text class="dt-selected-label">{{selectedLabel}}</text>
     <text class="dt-selected-value">{{selectedValue}}</text>
     <path
-      *ngIf="node.visible"
-      [attr.d]="node.path"
-      [attr.fill]="node.data.color"
-      (click)="select($event,node)"
+      [attr.d]="slice.path"
+      [attr.fill]="slice.data.color"
+      (click)="select($event,slice)"
     />
   </ng-container>
 </svg>
