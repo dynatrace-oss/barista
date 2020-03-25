@@ -295,6 +295,7 @@ import { DtExampleTablePagination } from './table/table-pagination-example/table
 import { DtExampleTableProblem } from './table/table-problem-example/table-problem-example';
 import { DtExampleTableResponsive } from './table/table-responsive-example/table-responsive-example';
 import { DtExampleTableSearch } from './table/table-search-example/table-search-example';
+import { DtExampleTableSelection } from './table/table-selection-example/table-selection-example';
 import { DtExampleTableShowMore } from './table/table-show-more-example/table-show-more-example';
 import { DtExampleTableSorting } from './table/table-sorting-example/table-sorting-example';
 import { DtExampleTableSortingMixedColumns } from './table/table-sorting-mixed-columns-example/table-sorting-mixed-columns-example';
@@ -663,6 +664,7 @@ export {
   DtExampleTableProblem,
   DtExampleTableResponsive,
   DtExampleTableSearch,
+  DtExampleTableSelection,
   DtExampleTableShowMore,
   DtExampleTableSorting,
   DtExampleTableSortingMixedColumns,
@@ -1029,6 +1031,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTableProblem', DtExampleTableProblem],
   ['DtExampleTableResponsive', DtExampleTableResponsive],
   ['DtExampleTableSearch', DtExampleTableSearch],
+  ['DtExampleTableSelection', DtExampleTableSelection],
   ['DtExampleTableShowMore', DtExampleTableShowMore],
   ['DtExampleTableSorting', DtExampleTableSorting],
   ['DtExampleTableSortingMixedColumns', DtExampleTableSortingMixedColumns],

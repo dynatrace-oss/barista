@@ -1,0 +1,24 @@
+<dt-table
+  [dataSource]="dataSource"
+  dtSort
+  dtTableSelection
+  [dtTableIsRowDisabled]="isDisabled"
+>
+  <ng-container dtColumnDef="checkbox">
+    <dt-table-header-selector
+      *dtHeaderCellDef
+      aria-label="Toggle all hosts"
+    ></dt-table-header-selector>
+    <dt-table-row-selector
+      *dtCellDef="let row"
+      [row]="row"
+      [aria-label]="'Toggle ' + row.host"
+    ></dt-table-row-selector>
+  </ng-container>
+  <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
+  <dt-simple-number-column name="cpu" label="CPU"></dt-simple-number-column>
+  <dt-header-row *dtHeaderRowDef="['checkbox', 'host', 'cpu']"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['checkbox', 'host', 'cpu']"></dt-row>
+</dt-table>
+
+Current selection: {{ getCurrentSelection() }}

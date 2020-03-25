@@ -36,6 +36,7 @@ export * from './table-pagination-example/table-pagination-example';
 export * from './table-problem-example/table-problem-example';
 export * from './table-responsive-example/table-responsive-example';
 export * from './table-search-example/table-search-example';
+export * from './table-selection-example/table-selection-example';
 export * from './table-show-more-example/table-show-more-example';
 export * from './table-sorting-example/table-sorting-example';
 export * from './table-sorting-mixed-columns-example/table-sorting-mixed-columns-example';

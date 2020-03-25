@@ -1,0 +1,22 @@
+.dt-selectable-cell .dt-checkbox-content {
+  display: none;
+}
+
+.dt-selectable-cell .dt-checkbox-container {
+  margin-right: 0;
+}
+
+dt-table-row-selector {
+  display: flex;
+}
+
+.dt-selectable-header {
+  // header checkbox needs a 1px padding
+  // for correct alignment with checkboxes in rows
+  padding: 0 1px;
+}
+
+.dt-selectable-header-for-expandable-rows {
+  // for expandable rows the padding has to be 2px for alignment to be correct
+  padding: 0 2px;
+}
