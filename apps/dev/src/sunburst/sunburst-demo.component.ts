@@ -15,6 +15,8 @@
  */
 
 import { Component } from '@angular/core';
+import { DtSunburstNode } from '@dynatrace/barista-components/sunburst';
+import { dtFlattenSunburstToFilter } from 'libs/barista-components/sunburst/src/sunburst.util';
 
 @Component({
   selector: 'sunburst-dev-app-demo',
@@ -22,19 +24,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./sunburst-demo.component.scss'],
 })
 export class SunburstDemo {
-  selectedPath = {
-    filterValue: 'Shephard',
-    label: 'Shephard',
-    filterKey: 'charSurname',
-    children: [
-      {
-        filterValue: 'Jack',
-        label: 'Jack',
-        filterKey: 'charName',
-      },
-    ],
-  };
-  selectedPairs;
+  selected: DtSunburstNode[] = [
+    {
+      filterValue: 'Shephard',
+      label: 'Shephard',
+      filterKey: 'charSurname',
+      children: [
+        {
+          filterValue: 'Jack',
+          label: 'Jack',
+          filterKey: 'charName',
+        },
+      ],
+    },
+  ];
+  selectedFilter;
 
   series = [
     {
@@ -207,4 +211,9 @@ export class SunburstDemo {
       ],
     },
   ];
+
+  select(selected: DtSunburstNode[] = []): void {
+    this.selected = selected;
+    this.selectedFilter = dtFlattenSunburstToFilter(selected);
+  }
 }

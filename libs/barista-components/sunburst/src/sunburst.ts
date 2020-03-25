@@ -21,12 +21,12 @@
  *
  * assign colors
  * theme or generic palette
- * reverse coloring so the first one is the biggest
+ * fillSeries should add a root element so value is not calculated all the time
  * initial input
  * overlay
  * labels
  * sizing of slices when selecting
- *
+ * add percentage
  *
  *
  */
@@ -34,20 +34,25 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
-  Output,
-  ViewEncapsulation,
-  OnInit,
   EventEmitter,
   HostListener,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewEncapsulation,
 } from '@angular/core';
 import {
-  getAllNodes,
   DtSunburstNode,
-  getFullPath,
-  getKeyNamePairs,
+  DtSunburstNodeInternal,
+  DtSunburstSlice,
+  DtSunburstValueMode,
+  fillSeries,
   filterActiveNodes,
-} from './sunburst-chart.util';
+  getAllNodes,
+  getSelectedNodes,
+  getValue,
+} from './sunburst.util';
 
 @Component({
   selector: 'dt-sunburst',
@@ -57,9 +62,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSunburst implements OnInit {
+export class DtSunburst implements OnChanges {
   _viewBox = '-100 -100 200 200';
   _width = '200';
+
+  filledSeries: DtSunburstNodeInternal[];
 
   allNodes;
   filteredNodes;
@@ -72,40 +79,47 @@ export class DtSunburst implements OnInit {
   }
 
   @Input() series: DtSunburstNode[];
-  @Input() selectedPath: DtSunburstNode[];
-  @Input() allLabel: string;
-  @Input() percent: boolean = false;
+  @Input() selected: DtSunburstNode[];
+  @Input() noSelectionLabel: string;
+  @Input() valueDisplayMode: DtSunburstValueMode = DtSunburstValueMode.ABSOLUTE;
 
-  @Output() selectedPathChange: EventEmitter<
-    DtSunburstNode
-  > = new EventEmitter();
-  @Output() selectedPairsChange: EventEmitter<string[][]> = new EventEmitter();
+  @Output() selectedChange: EventEmitter<DtSunburstNode[]> = new EventEmitter();
 
-  ngOnInit(): void {
-    this.filteredNodes = this.allNodes = getAllNodes(this.series);
-    console.log(this.allNodes);
-
-    this.selectedLabel = this.allLabel;
-    this.selectedValue = 25;
+  ngOnChanges(changes: SimpleChanges): void {
+    if ('series' in changes) {
+      this.filledSeries = fillSeries(this.series);
+      this.filteredNodes = this.allNodes = getAllNodes(this.filledSeries);
+      this.select();
+    }
   }
 
-  select(event: MouseEvent, node?): void {
-    event.stopPropagation();
+  select(event?: MouseEvent, node?: DtSunburstSlice): void {
+    if (event) event.stopPropagation();
 
     if (node) {
-      const selectedPath = getFullPath(this.series, node.data);
-      this.selectedPathChange.emit(selectedPath);
-      this.selectedPairsChange.emit(getKeyNamePairs(selectedPath));
-
-      this.filteredNodes = filterActiveNodes(
-        this.allNodes.slice(),
-        node.data.id,
-      );
+      this.selectNode(node);
     } else {
-      this.selectedPathChange.emit(undefined);
-      this.selectedPairsChange.emit(undefined);
-
-      this.filteredNodes = this.allNodes;
+      this.selectAll();
     }
+  }
+
+  private selectNode(node: DtSunburstSlice): void {
+    const selected = getSelectedNodes(this.series, node.data);
+
+    this.selectedChange.emit(selected);
+
+    this.filteredNodes = filterActiveNodes(this.allNodes.slice(), node.data.id);
+
+    this.selectedLabel = node.data.label;
+    this.selectedValue = node.data.value;
+  }
+
+  private selectAll(): void {
+    this.selectedChange.emit(undefined);
+
+    this.filteredNodes = this.allNodes;
+
+    this.selectedLabel = this.noSelectionLabel;
+    this.selectedValue = getValue(this.filledSeries);
   }
 }

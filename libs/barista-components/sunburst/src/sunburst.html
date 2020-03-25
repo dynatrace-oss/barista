@@ -5,7 +5,7 @@
     <path
       *ngIf="node.visible"
       [attr.d]="node.path"
-      [attr.fill]="node.color"
+      [attr.fill]="node.data.color"
       (click)="select($event,node)"
     />
   </ng-container>
