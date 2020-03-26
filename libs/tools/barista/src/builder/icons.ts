@@ -130,7 +130,8 @@ function getSvgWithoutFill(filePath: string): string {
   const cheerioIcon = loadWithCheerio(iconSvg);
   const svg = cheerioIcon('svg');
   svg.removeAttr('fill');
-  svg.children().removeAttr('fill');
+  svg.find('[fill]').removeAttr('fill');
+
   return html(svg) || '';
 }
 
