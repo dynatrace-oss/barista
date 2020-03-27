@@ -43,13 +43,22 @@ export interface DtSunburstNodeInternal extends DtSunburstNode {
   color: string;
   visible: boolean;
   active: boolean;
+  showLabel: boolean;
 }
 
 export interface DtSunburstSlice
-  extends d3.PieArcDatum<DtSunburstNodeInternal> {}
+  extends d3.PieArcDatum<DtSunburstNodeInternal> {
+  path: string | null;
+  labelPosition: [number, number];
+  showLabel: boolean;
+}
 
-const innerRadius = 50;
-const outerRadius = 100;
+const svgSettings = {
+  outerRadius: 160,
+  innerRadius: 64,
+  labelOffsetRadius: 32,
+  minAngleForLabel: (15 / 360) * 2 * Math.PI,
+};
 const idSeparator = '.';
 
 export const getSlices = (
@@ -57,19 +66,22 @@ export const getSlices = (
 ): DtSunburstSlice[] => {
   // TODO: once we have the generic initial node this aggregate can be moved there
   const numLevels = series.reduce(
-    (maxLevel, point) => Math.max(maxLevel, point.depth),
+    (maxLevel, node) => Math.max(maxLevel, node.depth),
     0,
   );
 
   console.log(series);
 
-  return getSlicesByParent(series, 1, numLevels);
+  return getSlicesByParent(
+    series,
+    (svgSettings.outerRadius - svgSettings.innerRadius) / (numLevels * 2),
+  );
 };
 
 export const getSlicesByParent = (
   nodes: DtSunburstNodeInternal[],
-  level: number,
-  numLevels: number,
+  levelWidth: number,
+  initialRadius: number = svgSettings.innerRadius,
   startAngle: number = 0,
   endAngle: number = 2 * Math.PI,
 ): DtSunburstSlice[] => {
@@ -79,37 +91,40 @@ export const getSlicesByParent = (
     .endAngle(endAngle)
     .value(d => d.value ?? 0)(nodes);
 
-  const radia = {
-    innerRadius:
-      ((level - 1) * (outerRadius - innerRadius)) / numLevels + innerRadius,
-    outerRadius:
-      (level * (outerRadius - innerRadius)) / numLevels + innerRadius,
-  };
-
   return slices
     .filter(slice => slice.data.visible)
-    .reduce(
-      (paths, segment) => [
+    .reduce((paths, segment) => {
+      const sliceBoundaries = {
+        startAngle: segment.startAngle,
+        endAngle: segment.endAngle,
+        innerRadius: initialRadius,
+        outerRadius: levelWidth * (segment.data.active ? 2 : 1) + initialRadius,
+      };
+      return [
         ...paths,
         {
           ...segment,
-          visible: level === 1,
-          path: d3.arc()({
-            startAngle: segment.startAngle,
-            endAngle: segment.endAngle,
-            ...radia,
+          path: d3.arc()(sliceBoundaries),
+          labelPosition: d3.arc().centroid({
+            ...sliceBoundaries,
+            innerRadius:
+              sliceBoundaries.outerRadius + svgSettings.labelOffsetRadius,
+            outerRadius:
+              sliceBoundaries.outerRadius + svgSettings.labelOffsetRadius,
           }),
+          showLabel:
+            segment.endAngle - segment.startAngle >
+            svgSettings.minAngleForLabel,
         },
         ...getSlicesByParent(
           segment.data.children ?? [],
-          level + 1,
-          numLevels,
+          levelWidth,
+          levelWidth * (segment.data.active ? 2 : 1) + initialRadius,
           segment.startAngle,
           segment.endAngle,
         ),
-      ],
-      [],
-    );
+      ];
+    }, []);
 };
 
 /**
@@ -175,17 +190,18 @@ export const getNodesWithState = (
       getLevel(node.id) === 1 ||
       isAncestorSibling(node, id) ||
       isChild(node, id),
+    showLabel: (!id && getLevel(node.id) === 1) || isChild(node, id),
   }));
 
 // PARSING
 /**
  * @description Get selected path for the sunburst following the original data but with only one child per node
- * @param data Whole set of data
+ * @param nodes Whole set of data
  * @param leaf Selected element
  * @returns Path for the sunburst with only one child per node
  */
 export const getSelectedNodes = (
-  data: DtSunburstNode[],
+  nodes: DtSunburstNode[],
   leaf: DtSunburstNodeInternal,
 ): DtSunburstNode[] =>
   leaf.id.split(idSeparator, -1).reduce(
@@ -205,14 +221,14 @@ export const getSelectedNodes = (
       return tree;
     },
     {
-      currentLevel: data,
+      currentLevel: nodes,
       result: [],
     },
   ).result;
 
 /**
  * @description Compacts sunburst output to the filter to be applied
- * @param data Output of sunburst, only one child per node
+ * @param nodes Output of sunburst, only one child per node
  * @returns Array of key, name pairs
  */
 export const dtFlattenSunburstToFilter = (
