@@ -27,7 +27,6 @@ import {
   _removeCssClass,
 } from '@dynatrace/barista-components/core';
 
-import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { DT_OVERLAY_NO_POINTER_CLASS } from './overlay';
 import { DtOverlayConfig } from './overlay-config';
 import { DtOverlayContainer } from './overlay-container';
@@ -129,16 +128,10 @@ export class DtOverlayRef<T> {
 
   /**
    * Updates the position of the overlay by an offset relative to the top left corner of the origin
+   * NOTE: The parameters are not changing the behavior anymore since
+   * the position can be done without the offset to the left top corner
    */
-  updatePosition(offsetX: number, offsetY: number): void {
-    const config = this._overlayRef.getConfig();
-    if (
-      config.positionStrategy &&
-      config.positionStrategy instanceof DtMouseFollowPositionStrategy
-    ) {
-      config.positionStrategy.withOffset(offsetX, offsetY);
-    }
-
+  updatePosition(_offsetX?: number, _offsetY?: number): void {
     this._overlayRef.updatePosition();
   }
 
