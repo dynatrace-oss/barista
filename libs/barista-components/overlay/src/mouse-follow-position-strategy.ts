@@ -26,6 +26,11 @@ import { Platform } from '@angular/cdk/platform';
 
 import { DtOverlayOrigin } from './overlay';
 
+/**
+ * @deprecated This should not be used anymore since the cdk positionstrategy now accepts a point (x, y) value
+ * by setting the origin to the events x & y values and updating the position on each event
+ * the same effect can be achieved
+ */
 export class DtMouseFollowPositionStrategy implements PositionStrategy {
   private _flexiblePositionStrategy: FlexibleConnectedPositionStrategy;
 

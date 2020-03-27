@@ -21,6 +21,7 @@ import {
   OverlayContainer,
   OverlayRef,
   ViewportRuler,
+  FlexibleConnectedPositionStrategy,
 } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import {
@@ -38,8 +39,6 @@ import {
   OnDestroy,
   TemplateRef,
 } from '@angular/core';
-
-import { DtMouseFollowPositionStrategy } from './mouse-follow-position-strategy';
 import { DtOverlayConfig } from './overlay-config';
 import { DtOverlayContainer } from './overlay-container';
 import { DtOverlayRef } from './overlay-ref';
@@ -93,10 +92,15 @@ const DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
  */
 export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-no-pointer';
 
+// TODO: Deprecate this once we have a tooltip component in place
+
 @Injectable({ providedIn: 'root' })
 export class DtOverlay implements OnDestroy {
   // tslint:disable-next-line:no-any
   private _dtOverlayRef: DtOverlayRef<any> | null;
+
+  /** @internal The strategy used to position the overlay */
+  _positionStrategy: FlexibleConnectedPositionStrategy;
 
   /** The reference of the currently open overlay */
   // tslint:disable-next-line:no-any
@@ -107,10 +111,14 @@ export class DtOverlay implements OnDestroy {
   constructor(
     private _injector: Injector,
     private _overlay: Overlay,
+    // @ts-ignore unused variable
     private _viewportRuler: ViewportRuler,
     // tslint:disable-next-line:no-any
+    // @ts-ignore unused variable
     @Inject(DOCUMENT) private _document: any,
+    // @ts-ignore unused variable
     private _platform: Platform,
+    // @ts-ignore unused variable
     private _overlayContainer: OverlayContainer,
   ) {}
 
@@ -130,7 +138,20 @@ export class DtOverlay implements OnDestroy {
 
     const config = { ...new DtOverlayConfig(), ...userConfig };
 
-    const overlayRef = this._createOverlay(origin, config);
+    let originPoint: { x: number; y: number };
+    // We need to get the x & y values of the origin
+    if (origin instanceof Element) {
+      originPoint = { x: origin.clientTop, y: origin.clientLeft };
+    } else if (origin instanceof ElementRef) {
+      originPoint = {
+        x: origin.nativeElement.clientTop,
+        y: origin.nativeElement.clientLeft,
+      };
+    } else {
+      originPoint = origin;
+    }
+
+    const overlayRef = this._createOverlay(originPoint);
     const overlayContainer = this._attachOverlayContainer(overlayRef, config);
     const dtOverlayRef = this._attachOverlayContent(
       componentOrTemplateRef,
@@ -155,24 +176,13 @@ export class DtOverlay implements OnDestroy {
   }
 
   /** Creates an overlay with a certain origin and configuration. */
-  private _createOverlay(
-    origin: DtOverlayOrigin,
-    config: DtOverlayConfig,
-  ): OverlayRef {
-    const positionStrategy = new DtMouseFollowPositionStrategy(
-      origin,
-      this._viewportRuler,
-      this._document,
-      this._platform,
-      this._overlayContainer,
-    ).withPositions(DT_OVERLAY_POSITIONS);
-
-    if (config.movementConstraint) {
-      positionStrategy.withMovementContraint(config.movementConstraint);
-    }
-
+  private _createOverlay(origin: { x: number; y: number }): OverlayRef {
+    this._positionStrategy = this._overlay
+      .position()
+      .flexibleConnectedTo(origin)
+      .withPositions(DT_OVERLAY_POSITIONS);
     const overlayConfig = new OverlayConfig({
-      positionStrategy,
+      positionStrategy: this._positionStrategy,
       backdropClass: DT_OVERLAY_NO_POINTER_CLASS,
       hasBackdrop: true,
       scrollStrategy: this._overlay.scrollStrategies.close(),
