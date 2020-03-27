@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PackageJson, tryJsonParse } from '@dynatrace/tools/shared';
+import { PackageJson, tryJsonParse } from '@dynatrace/shared/node';
 import { join } from 'path';
 import { parse, SemVer } from 'semver';
 import { GET_INVALID_PACKAGE_JSON_VERSION_ERROR } from './release-errors';

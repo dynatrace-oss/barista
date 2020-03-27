@@ -21,11 +21,23 @@ executors:
     docker:
       - image: circleci/buildpack-deps:stretch
 
-  # Base image for building node based environments
-  node-builder:
+  # Base image for workspace agnostic topics
+  buildpack:
+    working_directory: ~/barista
     docker:
-      - image: circleci/node:12
+      - image: circleci/buildpack-deps:stretch
 
+  # Base image for building workspace topics
+  barista:
+    working_directory: ~/barista
+    docker:
+      - image: circleci/node:lts-buster
+
+  # Base image for building workspace topics
+  barista-browsers:
+    working_directory: ~/barista
+    docker:
+      - image: circleci/node:lts-browsers
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   P A T T E R N S:
@@ -35,12 +47,24 @@ executors:
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+filter_forks: &filter_forks
+  filters:
+    branches:
+      # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+      only:
+        - /pull\/[0-9]+/
+
 filter_branches: &filter_branches
   filters:
     branches:
-      # The cherry picker creates branches where the cherrypick is perfomred
-      # Those are instantly failing in circle and should be ignored.
-      ignore: /^cherry-pick-.*/
+      ignore:
+        # The cherry picker creates branches where the cherrypick is perfomred
+        # Those are instantly failing in circle and should be ignored.
+        - /^cherry-pick-.*/
+        # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
+        - /pull\/[0-9]+/
+
+
 
 defaults: &defaults
   working_directory: ~/barista
@@ -60,53 +84,41 @@ sha_branch_cache: &sha_branch_cache
 
 set_env: &set_env
   name: Setup Environment Variables
-  command: |
-    BASE_URL="https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
-    MASTER_SHA_FILE=./.config/last-${CIRCLE_BRANCH}-sha.txt
-
-    # if we have a pull request then fetch the base sha to run against
-    if [[ $CIRCLE_PULL_REQUEST ]];
-    then
-      printf "Fetching Base Commit from GitHub for the pull request: %s" "$CIRCLE_PULL_REQUEST"
-
-      # Get the last number of the pull request number with grep
-      PR_NUMBER=$(echo "$CIRCLE_PULL_REQUEST" | grep -Eo '[0-9]+$')
-      PR_URL="${BASE_URL}/pulls/${PR_NUMBER}"
-      CIRCLE_PR_BASE_SHA=$(curl -s "${PR_URL}" | jq -r '.base.sha')
-
-      # Add the affected args to the bash environment file
-      printf "export AFFECTED_ARGS=\"--base=%s\"\n" "$CIRCLE_PR_BASE_SHA" >> $BASH_ENV
-
-      # Regex checks for master, 4.x or 4.15.x branch
-    elif [[ "$CIRCLE_BRANCH" =~ ^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$ ]];
-    then
-
-      echo "Fetching Base Commit from Deploy Cache"
-
-      if [[ ! -f "$MASTER_SHA_FILE" ]];
-      then
-
-        # If config dir does not exist create it
-        if [[ ! -d ./.config ]];
-        then
-          mkdir ./.config
-        fi
-
-        echo "Write SHA to $MASTER_SHA_FILE"
-        git rev-parse HEAD~1 > "$MASTER_SHA_FILE"
-      fi
-
-      # Add the affected args to the bash environment file
-      printf "export AFFECTED_ARGS=\"--base=%s\"\n" "$(cat "$MASTER_SHA_FILE")" >> $BASH_ENV
-    else
-      echo "Compare any other commit against orign/master"
-      # Add the affected args to the bash environment file
-      printf "export AFFECTED_ARGS=\"--base=origin/master\"\n" >> $BASH_ENV
-    fi
+  command: node dist/libs/workspace/src/scripts/affected-args.js
 
 
-    source $BASH_ENV
-    echo "Affected ARGS: $AFFECTED_ARGS"
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+#   C O M M A N D S:
+#   ------------------------------------------------------------------------
+#   Commands that can be used in jobs
+#
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+commands:
+  prepare_job:
+    description: >-
+      Prepares the workspace with the correct working directory and sets the
+      affected arguments in the bash environment.
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run:
+          name: Setup Environment Variables
+          command:  node dist/libs/workspace/src/scripts/affected-args.js
+
+  skip_for_forked_pull_requests:
+    description: >-
+      If this build is from a fork, stop executing the current job and return success.
+      This is needed to avoid steps that will fail due to missing credentials.
+    steps:
+      - run:
+          name: Early return if this build is from a forked PR
+          command: |
+            if [ -n "$CIRCLE_PR_NUMBER" ]; then
+              echo "Skip job on forked PR."
+              circleci step halt
+            fi
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -139,19 +151,17 @@ jobs:
 
 # - install npm dependencies
   install:
-    <<: *defaults
-    resource_class: large
+    executor: barista
     steps:
       - checkout
       - restore_cache:
           <<: *npm_cache
-      - restore_cache:
-          <<: *sha_branch_cache
-      - run:
-          <<: *set_env
       - run:
           name: Install npm dependencies 🐍
-          command: npm ci
+          command: npm ci --ignore-scripts &> /dev/null
+      - run:
+          name: Build Workspace package 📦
+          command: npm run ng build workspace
       - save_cache:
           key: npm-packages-{{ checksum "package-lock.json" }}
           paths:
@@ -163,19 +173,21 @@ jobs:
 
 # - sonar checks
   sonar:
-    <<: *defaults
+    executor: buildpack
     environment:
       # - sonar needs more memory for the scanner run if a LOT of files are changed
       SONAR_SCANNER_OPTS: -Xmx1024m
     steps:
+      - skip_for_forked_pull_requests
       - attach_workspace:
           at: ~/barista
       - sonarcloud/scan
 
 # - snyk security checks
   security-checks:
-    <<: *defaults
+    executor: buildpack
     steps:
+      - skip_for_forked_pull_requests
       - attach_workspace:
           at: ~/barista
       - snyk/scan:
@@ -183,56 +195,38 @@ jobs:
 
 # - check formatting if all files are formatted with prettier
   check-formatting:
-    <<: *defaults
+    executor: barista
     steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          <<: *set_env
-      - run: yarn format:check ${AFFECTED_ARGS}
+      - prepare_job
+      - run: yarn nx format:check ${AFFECTED_ARGS} --parallel
 
 # - static codeanalysis of the files
   lint:
-    <<: *defaults
+    executor: barista
     steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          <<: *set_env
+      - prepare_job
       - run: ./node_modules/.bin/nx workspace-lint
-      - run: yarn affected:lint ${AFFECTED_ARGS} --parallel
+      - run: yarn nx affected:lint ${AFFECTED_ARGS} --parallel
 
 # - static codeanalysis of the style files
   lint-styles:
-    <<: *defaults
+    executor: barista
     steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          <<: *set_env
-      - run: yarn affected --target=lint-styles ${AFFECTED_ARGS} --parallel
+      - prepare_job
+      - run: yarn nx affected --target=lint-styles ${AFFECTED_ARGS} --parallel
 
 # - build all the packages
   build:
-    <<: *defaults
+    executor: barista
     resource_class: xlarge
     steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          <<: *set_env
-      - run:
-          # Workaround for issue:
-          # https://github.com/angular/angular/issues/35362
-          # https://github.com/nrwl/nx/issues/2108#issuecomment-559863213
-          name: Run angular compatibility compiler
-          command: npx ngcc
+      - prepare_job
       - run:
           name: Generate examples for the demo application
           command: |
             npm run examples-tools
             npm run barista-tools
-      - run: yarn nx affected:build ${AFFECTED_ARGS} --configuration=production --parallel --exclude=examples-tools
+      - run: yarn nx affected:build ${AFFECTED_ARGS} --configuration=production --exclude=examples-tools
       - persist_to_workspace:
           root: ~/barista
           paths:
@@ -240,10 +234,9 @@ jobs:
 
 # - pack and upload the build artifacts of the components library
   store-build-artifacts:
-    <<: *defaults
+    executor: barista
     steps:
-      - attach_workspace:
-          at: ~/barista
+      - prepare_job
       - run:
           name: Create components package if it exists
           command: |
@@ -258,75 +251,47 @@ jobs:
 
 # - run unit tests
   unit-test:
-    <<: *defaults
+    executor: barista
     resource_class: large
     steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          <<: *set_env
+      - prepare_job
       - run: yarn nx affected:test ${AFFECTED_ARGS} --parallel --runInBand
       - store_test_results:
           path: dist/test-results
 
 # - run end to end tests
-  e2e-test:
-    <<: *defaults
+  e2e-test-browserstack:
+    executor: barista
     resource_class: large
     environment:
       BROWSERSTACK_USE_AUTOMATE: 1
       BROWSERSTACK_DISPLAY_RESOLUTION: 1920x1080
       BROWSERSTACK_TIMEZONE: UTC+1
     steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          <<: *set_env
-      - restore_cache:
-          # the universal e2e needs the compiled dist from the build
-          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - prepare_job
       - run: yarn nx affected:e2e ${AFFECTED_ARGS} --configuration=remote-pr
+      - store_test_results:
+          path: dist/components-e2e
+
+# - run end to end tests
+  e2e-test-local:
+    executor: barista-browsers
+    resource_class: large
+    steps:
+      - prepare_job
+      - run: yarn nx affected:e2e ${AFFECTED_ARGS} --configuration=ci
       - store_test_results:
           path: dist/components-e2e
 
 # - run a11y tests
   a11y:
-    <<: *defaults
+    executor: barista-browsers
     resource_class: large
-    docker:
-      - image: circleci/node:12-browsers
     steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          <<: *set_env
-      - restore_cache:
-          # the a11y tests need the builded templates
-          key: build-{{ .Environment.CIRCLE_WORKFLOW_ID }}
+      - prepare_job
       - run: yarn nx affected --target=a11y ${AFFECTED_ARGS} --parallel --configuration=ci
       - store_test_results:
           path: dist/demos-a11y
-
-# - save the latest hash in a file
-  save-latest:
-    <<: *defaults
-    steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          name: Save current commit sha in a file
-          command: |
-            MASTER_SHA_FILE=./.config/last-${CIRCLE_BRANCH}-sha.txt
-            # If config dir does not exist create it
-            if [[ ! -d ./.config ]];
-            then
-              mkdir ./.config
-            fi
-            git rev-parse HEAD > "$MASTER_SHA_FILE"
-      - save_cache:
-          key: last-{{ .Environment.CIRCLE_BRANCH }}-sha-{{ epoch }}
-          paths:
-            - ./.config/last-{{ .Environment.CIRCLE_BRANCH }}-sha.txt
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -351,70 +316,82 @@ workflows:
           # DOCKERHUB_PASSWORD is used for publishing
           context: barista
 
+  fork-check:
+    jobs:
+      - install:
+          <<: *filter_forks
+      - check-formatting:
+          requires:
+            - install
+      - lint:
+          requires:
+            - install
+      - lint-styles:
+          requires:
+            - install
+      - unit-test:
+          requires:
+            - install
+      - build:
+          requires:
+            - install
+      - e2e-test-local:
+          requires:
+            - build
+      - a11y:
+          requires:
+            - build
+
 # - Runs on every PR check
   pr-check:
     jobs:
       - install:
           <<: *filter_branches
+          context: barista
       - check-formatting:
-          <<: *filter_branches
+          context: barista
           requires:
             - install
       - sonar:
-          <<: *filter_branches
           # SONAR_TOKEN is needed for sonar cloud checks
           context: barista
           requires:
             - install
       - security-checks:
-          <<: *filter_branches
           # SNYK_TOKEN is needed for security checking
           context: barista
           requires:
             - install
       - lint:
-          <<: *filter_branches
-          requires:
-            - install
-      - lint-styles:
-          <<: *filter_branches
-          requires:
-            - install
-      - unit-test:
-          <<: *filter_branches
           context: barista
           requires:
             - install
-      - e2e-test:
-          <<: *filter_branches
+      - lint-styles:
+          context: barista
+          requires:
+            - install
+      - unit-test:
+          context: barista
+          requires:
+            - install
+      - e2e-test-browserstack:
           # BROWSERSTACK_ACCESS_KEY is needed for browserstack automation
           # BROWSERSTACK_USERNAME is needed for browserstack automation
           context: barista
           requires:
             - build
       - a11y:
-          <<: *filter_branches
+          context: barista
           requires:
             - build
       - build:
-          <<: *filter_branches
+          context: barista
           requires:
             - install
       - store-build-artifacts:
           filters:
             branches:
               only: /^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$/
+          context: barista
           requires:
             - build
-      - save-latest:
-          filters:
-            branches:
-              only: /^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$/
-          requires:
-            - check-formatting
-            - sonar
-            - security-checks
-            - lint
-            - lint-styles
-            - unit-test
-            - e2e-test

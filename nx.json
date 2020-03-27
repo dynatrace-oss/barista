@@ -52,9 +52,6 @@
     "tools-shareable-examples": {
       "tags": ["type:tooling"]
     },
-    "tools-shared": {
-      "tags": ["type:tooling", "type:shared"]
-    },
     "shared-barista-definitions": {
       "tags": ["type:types", "type:library"]
     },
@@ -311,6 +308,9 @@
     },
     "testing-fixtures": {
       "tags": ["scope:testing", "type:library"]
+    },
+    "shared-node": {
+      "tags": ["type:tooling", "type:shared"]
     },
     "shared-design-tokens": {
       "tags": []

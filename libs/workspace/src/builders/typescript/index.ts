@@ -19,40 +19,11 @@ import {
   BuilderOutput,
   createBuilder,
 } from '@angular-devkit/architect';
-import { ExecOptions, exec } from 'child_process';
 import { join } from 'path';
 import { statSync } from 'fs';
 import { TypescriptBuilderOptions } from './schema';
 import { JsonObject } from '@angular-devkit/core';
-
-/**
- * This function is duplicated and located under @dynatrace/tools/shared
- * TODO: lukas.holzer
- * Should be removed after: https://github.com/dynatrace-oss/barista/issues/414
- *
- * Spawns a shell then executes the command within that shell
- */
-export async function executeCommand(
-  command: string,
-  cwd?: string,
-): Promise<string> {
-  const maxBuffer = 1024 * 1024 * 10;
-
-  const options: ExecOptions = {
-    cwd: cwd || process.cwd(),
-    maxBuffer,
-  };
-
-  return new Promise((resolve, reject) => {
-    exec(command, options, (err, stdout) => {
-      if (err !== null) {
-        reject(stdout);
-      } else {
-        resolve(stdout);
-      }
-    });
-  });
-}
+import { executeCommand } from '@dynatrace/shared/node';
 
 /** Compiles typescript files using tsc */
 async function run(

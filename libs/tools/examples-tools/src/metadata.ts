@@ -24,7 +24,7 @@ import {
 import {
   AngularClassDecoratorName,
   getAngularDecoratedClasses,
-} from '@dynatrace/tools/shared';
+} from '@dynatrace/shared/node';
 
 export interface ExamplePackageMetadata {
   name: string;

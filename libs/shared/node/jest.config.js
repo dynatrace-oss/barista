@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'tools-shared',
+  name: 'shared-node',
   preset: '../../../jest.config.js',
   coverageDirectory: '../../../coverage/tools/shared',
   snapshotSerializers: [

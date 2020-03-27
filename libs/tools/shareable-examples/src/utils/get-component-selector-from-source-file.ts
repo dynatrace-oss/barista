@@ -23,7 +23,7 @@ import {
 import {
   AngularClassDecoratorName,
   getAngularDecoratedClasses,
-} from '@dynatrace/tools/shared';
+} from '@dynatrace/shared/node';
 
 /** Get the selector from the component file. */
 export async function getComponentSelectorFromSourceFile(
