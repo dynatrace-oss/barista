@@ -1,8 +1,9 @@
 ARG NODE_VERSION=12
+ARG BASE_VERSION=latest
 # Will be set on Jenkins
 ARG BASE_IMAGE_REGISTRY
 
-FROM designops/workspace-base:latest as workspace
+FROM designops/workspace-base:${BASE_VERSION} as workspace
 
 COPY .npmrc ./
 

@@ -20,7 +20,7 @@ import { config as dotenvConfig } from 'dotenv';
 import { join } from 'path';
 import { map, switchMap } from 'rxjs/operators';
 import { CHANGELOG_FILE_NAME } from '../changelog';
-import { CircleCiApi } from '../circle-ci-api/circle-ci-api';
+import { CircleCiApi } from '@dynatrace/shared/node';
 import { extractReleaseNotes } from '../extract-release-notes';
 import {
   GitClient,

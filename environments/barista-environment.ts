@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isPublicBuild } from '@dynatrace/tools/shared';
+import { isPublicBuild } from '@dynatrace/shared/node';
 import { config as dotenvConfig } from 'dotenv';
 import { join } from 'path';
 import { BaEnvironment } from './barista-environment.interface';
@@ -24,10 +24,10 @@ import { BaEnvironment } from './barista-environment.interface';
 dotenvConfig();
 
 /** The Barista project's root directory. */
-const ROOT_DIR = join(__dirname, '../../../..');
+const ROOT_DIR = process.cwd();
 
 /** Root directory of the iconpack repository. */
-const ICONS_ROOT = join(__dirname, '../../../../../barista-icons/src');
+const ICONS_ROOT = join(ROOT_DIR, '../barista-icons/src');
 
 /** Path to the icons changelog relative to the iconpack root directory. */
 const ICONS_CHANGELOG = join(

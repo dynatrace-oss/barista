@@ -19,7 +19,7 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import { forkJoin, Observable, of, from } from 'rxjs';
 import { catchError, map, mapTo, switchMap, tap } from 'rxjs/operators';
-import { PackageJson, tryJsonParse } from '@dynatrace/tools/shared';
+import { PackageJson, tryJsonParse } from '@dynatrace/shared/node';
 import { DesignTokensPackageOptions } from './schema';
 
 /**

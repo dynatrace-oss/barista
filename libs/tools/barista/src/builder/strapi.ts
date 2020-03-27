@@ -21,7 +21,7 @@ import {
   BaPageLayoutType,
 } from '@dynatrace/shared/barista-definitions';
 import { environment } from '@environments/barista-environment';
-import { isPublicBuild } from '@dynatrace/tools/shared';
+import { isPublicBuild } from '@dynatrace/shared/node';
 
 import {
   BaPageBuilder,

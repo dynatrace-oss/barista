@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import { PackageJson } from '@dynatrace/tools/shared';
+import { PackageJson, CircleCiApi } from '@dynatrace/shared/node';
 import { Octokit } from '@octokit/rest';
 import { OctokitResponse } from '@octokit/types';
 import * as childProcess from 'child_process';
 import { vol } from 'memfs';
 import { of } from 'rxjs';
 import { parse } from 'semver';
-import { CircleCiApi } from '../circle-ci-api/circle-ci-api';
 import { extractReleaseNotes } from '../extract-release-notes';
 import * as git from '../git';
 import { GitClient } from '../git/git-client';

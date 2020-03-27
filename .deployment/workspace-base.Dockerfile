@@ -29,7 +29,7 @@ COPY ./tsconfig.json \
 FROM base as workspace-builders
 
 COPY ./libs/workspace ./libs/workspace
-COPY ./libs/tools ./libs/tools
+COPY ./libs/shared ./libs/shared
 
 # Build our custom angular builders for the workspace
 RUN npm run ng build workspace
