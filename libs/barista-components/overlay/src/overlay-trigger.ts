@@ -18,7 +18,6 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import {
-  AfterViewInit,
   Attribute,
   Directive,
   ElementRef,
@@ -60,14 +59,11 @@ export const _DtOverlayTriggerMixin = mixinTabIndex(
   inputs: ['disabled', 'tabIndex'],
 })
 export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
-  implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit {
+  implements CanDisable, HasTabIndex, OnDestroy {
   private _content: TemplateRef<T>;
   private _config: DtOverlayConfig = new DtOverlayConfig();
   private _dtOverlayRef: DtOverlayRef<T> | null = null;
   private _moveSub = Subscription.EMPTY;
-
-  private _hostRect: ClientRect;
-  private _svgRect: ClientRect | null = null;
 
   /** Overlay pane containing the content */
   @Input('dtOverlay')
@@ -93,14 +89,11 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
     private _ngZone: NgZone,
     private _focusMonitor: FocusMonitor,
     @Attribute('tabindex') tabIndex: string,
+    // @ts-ignore
     private _platform: Platform,
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
-  }
-
-  ngAfterViewInit(): void {
-    this._updateDimensions();
   }
 
   /** On destroy hook to react to trigger being destroyed. */
@@ -120,15 +113,14 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
   }
 
   /** @internal MouseEnter listener function that attaches the move subscription to the mouse. */
-  _handleMouseEnter(event: MouseEvent): void {
+  _handleMouseEnter(enterEvent: MouseEvent): void {
     if (!this.disabled) {
-      event.stopPropagation();
+      enterEvent.stopPropagation();
       this._moveSub.unsubscribe();
-      this._updateDimensions();
       this._moveSub = this._ngZone.runOutsideAngular(() =>
         fromEvent(this.elementRef.nativeElement, 'mousemove').subscribe(
           (ev: MouseEvent) => {
-            this._handleMouseMove(ev);
+            this._handleMouseMove(ev, enterEvent);
           },
         ),
       );
@@ -145,42 +137,24 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
   }
 
   /** @internal MouseMove listener that updates the position of the overlay. */
-  _handleMouseMove(event: MouseEvent): void {
+  _handleMouseMove(event: MouseEvent, enterEvent: MouseEvent): void {
     if (this._dtOverlayRef === null) {
       this._ngZone.run(() => {
         this._createOverlay();
       });
     }
     if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
-      const host = this.elementRef.nativeElement;
-      const target = event.target as Element;
-      const hostLeft = this._hostRect.left;
-      const hostTop = this._hostRect.top;
-
-      let offsetX = event.offsetX;
-      let offsetY = event.offsetY;
-      if (this._svgRect) {
-        offsetX = offsetX - (hostLeft - this._svgRect.left);
-        offsetY = offsetY - (hostTop - this._svgRect.top);
-      }
-      if (target !== host && target instanceof HTMLElement) {
-        const targetRect = target.getBoundingClientRect();
-        const targetLeft = targetRect.left;
-        const targetTop = targetRect.top;
-        offsetX = targetLeft - hostLeft + offsetX;
-        offsetY = targetTop - hostTop + offsetY;
-      }
-      // Run a special case, if the target is an SVG.
-      // Firefox gives back offsetX and offsetY when hovering on svgShapeElements
-      // that are relating to the viewBox of the root svg.
-      // We need to fall back to other ways of calculating the offset
-      // positioning, as there is no consistency across browser vendors
-      // on how they calculate offsetX and offsetY within svgShapeElements.
-      if (target !== host && target instanceof SVGElement) {
-        offsetX = event.clientX - hostLeft;
-        offsetY = event.clientY - hostTop;
-      }
-      this._dtOverlayRef.updatePosition(offsetX, offsetY);
+      this._dtOverlayService._positionStrategy.setOrigin({
+        x:
+          this._config.movementConstraint === 'yAxis'
+            ? enterEvent.clientX
+            : event.clientX,
+        y:
+          this._config.movementConstraint === 'xAxis'
+            ? enterEvent.clientY
+            : event.clientY,
+      });
+      this._dtOverlayRef.updatePosition();
     }
   }
 
@@ -215,19 +189,6 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
         this._dtOverlayRef = null;
       });
       this._dtOverlayRef = ref;
-    }
-  }
-
-  private _updateDimensions(): void {
-    if (this._platform.isBrowser) {
-      const host = this.elementRef.nativeElement;
-      this._hostRect = host.getBoundingClientRect();
-      if (host instanceof SVGElement) {
-        const svgParent = host.closest('svg');
-        this._svgRect = svgParent ? svgParent.getBoundingClientRect() : null;
-      } else {
-        this._svgRect = null;
-      }
     }
   }
 }
