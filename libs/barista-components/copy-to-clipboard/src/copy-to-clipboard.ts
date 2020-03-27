@@ -34,6 +34,7 @@ import { Subscription, timer } from 'rxjs';
 import {
   _addCssClass,
   _removeCssClass,
+  isDefined,
 } from '@dynatrace/barista-components/core';
 import { DtInput } from '@dynatrace/barista-components/input';
 import { ButtonVariant } from '@dynatrace/barista-components/button';
@@ -92,8 +93,9 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
 
   /** Copies the provided content to the clipboard. */
   copyToClipboard(): void {
-    if (this._input && this._input.nativeElement.textContent !== null) {
-      this._cdkClipboard.copy(this._input.nativeElement.textContent);
+    const value = this._input.nativeElement.value;
+    if (this._input && isDefined(value)) {
+      this._cdkClipboard.copy(value);
     } else {
       this.copyFailed.emit();
     }
