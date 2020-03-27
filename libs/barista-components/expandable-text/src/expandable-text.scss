@@ -9,6 +9,7 @@
 .dt-expandable-text-trigger {
   @include dt-link-base();
   @include dt-custom-font-styles($turquoise-600, $default-font-weight, 100%);
+  background-color: transparent;
 
   &:focus {
     outline: 0;
