@@ -106,7 +106,7 @@ export const homepageBuilder: BaPageBuilder = async () => {
     );
   }
 
-  const relativeOutFile = '/index.json';
+  const relativeOutFile = 'index.json';
   const pageContent: BaIndexPageContent = {
     title: 'Barista - the Dynatrace design system.',
     subtitle: 'Tailored to scale.',
