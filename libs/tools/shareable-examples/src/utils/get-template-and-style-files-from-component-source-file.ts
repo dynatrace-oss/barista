@@ -26,7 +26,7 @@ import {
 import {
   getAngularDecoratedClasses,
   AngularClassDecoratorName,
-} from '@dynatrace/tools/shared';
+} from '@dynatrace/shared/node';
 import { promises as fs } from 'fs';
 import { resolve } from 'path';
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isPublicBuild } from '@dynatrace/tools/shared';
+import { isPublicBuild } from '@dynatrace/shared/node';
 import { config as dotenvConfig } from 'dotenv';
 import { join } from 'path';
 import { BaEnvironment } from './barista-environment.interface';

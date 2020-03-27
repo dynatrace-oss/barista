@@ -23,7 +23,7 @@ import { getComponentSelectorFromSourceFile } from './utils/get-component-select
 import { getBoilerplateFiles } from './utils/get-boilerplate-files';
 import { ExampleFile, ExampleProject } from './utils/examples.interface';
 import { getTemplateAndStyleFilesFromComponentSourceFiles } from './utils/get-template-and-style-files-from-component-source-file';
-import { tsCreateSourceFile } from '@dynatrace/tools/shared';
+import { tsCreateSourceFile } from '@dynatrace/shared/node';
 
 /** Isolates the required files for a barista example and builds a list of files (project) that are runnable within an online IDE i.e. stackblitz or codesandbox. */
 export async function generateShareableExampleProject(

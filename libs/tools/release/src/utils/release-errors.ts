@@ -15,7 +15,7 @@
  */
 
 import { italic } from 'chalk';
-import { PackageJson } from '@dynatrace/tools/shared';
+import { PackageJson } from '@dynatrace/shared/node';
 
 export const NO_TOKEN_PROVIDED_ERROR = (tokenName: string) =>
   `Please ensure that you provide the ${tokenName} for the script`;

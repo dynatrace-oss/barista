@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { PackageJson } from '@dynatrace/tools/shared';
+import { PackageJson } from '@dynatrace/shared/node';
 
 /**
  * Writes the version of the root package.json to the one of the build artifact

@@ -14,18 +14,6 @@
  * limitations under the License.
  */
 
-import { executeCommand } from '@dynatrace/shared/node';
-
-/**
- * Unpacks a tar file
- * @param tarFile Path to the tar file
- * @param destination Location where the tar file should be unpacked in
- *
- * TODO: lukas.holzer write a operating system independent version of this function
- */
-export async function unpackTarFile(
-  tarFile: string,
-  destination: string,
-): Promise<void> {
-  await executeCommand(`tar -xzf ${tarFile} -C ${destination}`);
-}
+export * from './circle-ci-api';
+export * from './circle-ci.interface';
+export * from './node-http-client';

@@ -204,7 +204,6 @@
       "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
       "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
       "@dynatrace/tools/environments": ["libs/tools/environments/src/index.ts"],
-      "@dynatrace/tools/shared": ["libs/tools/shared/src/index.ts"],
       "@dynatrace/shared/barista-definitions": [
         "libs/shared/barista-definitions/src/index.ts"
       ],
@@ -214,7 +213,8 @@
       ],
       "@dynatrace/fluid-design-tokens": [
         "libs/shared/design-tokens/generated/index.ts"
-      ]
+      ],
+      "@dynatrace/shared/node": ["libs/shared/node/src/index.ts"]
     },
     "plugins": [
       {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { executeCommand } from '@dynatrace/tools/shared';
+import { executeCommand } from '@dynatrace/shared/node';
 import { promises as fs } from 'fs';
 
 export async function createFolder(folder: string): Promise<void> {

@@ -16,13 +16,14 @@
 import { AxiosBasicCredentials, AxiosRequestConfig } from 'axios';
 import { createWriteStream } from 'fs';
 import { from, Observable, OperatorFunction } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, pluck } from 'rxjs/operators';
 import {
   CircleArtifact,
   CircleJob,
   CirclePipeline,
   CircleResponse,
   CircleWorkflow,
+  CircleRecentWorkflow,
 } from './circle-ci.interface';
 import { NodeHTTPClient } from './node-http-client';
 
@@ -43,6 +44,8 @@ export const SERVER_ERROR = (message: string) =>
   `The server responded with an error: \n${message}`;
 export const NO_ARTIFACTS_ERROR = (jobName: string) =>
   `No artifacts found for the provided job ${jobName}!`;
+export const NO_SUCCESSFUL_RUN_FOR_BRANCH = (branchName: string) =>
+  `No successful run found for branch ${branchName}!`;
 
 /** Abstract class that should be implemented by a CI provider */
 export abstract class ContinuosIntegrationApi {
@@ -128,6 +131,32 @@ export class CircleCiApi extends ContinuosIntegrationApi {
       );
   }
 
+  getCommitShaOfLastSuccessfulRun(branchName: string): Observable<string> {
+    return this._getLastSuccessfulRun(branchName).pipe(
+      pluck('id'),
+      switchMap(id => this._getPipelineFromWorkflow(id)),
+      map(({ vcs }) => vcs!.revision),
+    );
+  }
+
+  /** Get the last successful run of a branch for the workflow*/
+  private _getLastSuccessfulRun(
+    branchName: string,
+    workflow = CIRCLE_WORKFLOW_NAME,
+  ): Observable<CircleRecentWorkflow> {
+    const encodedBranch = encodeURIComponent(branchName);
+    return this._apiClient
+      .get(
+        `/insights/${CIRCLE_PROJECT_SLUG}/workflows/${workflow}?branch=${encodedBranch}`,
+      )
+      .pipe(
+        filterResponse<CircleRecentWorkflow>(
+          workflow => workflow.status === 'success',
+          NO_SUCCESSFUL_RUN_FOR_BRANCH(branchName),
+        ),
+      );
+  }
+
   /** Retrieves all the pipelines in the project */
   private _getPipeline(commitSha: string): Observable<CirclePipeline> {
     return this._apiClient
@@ -145,6 +174,17 @@ export class CircleCiApi extends ContinuosIntegrationApi {
           NO_PIPELINE_FOUND_ERROR(commitSha),
         ),
       );
+  }
+
+  private _getPipelineFromWorkflow(workflowId: string) {
+    return this._apiClient.get<CircleWorkflow>(`workflow/${workflowId}`).pipe(
+      pluck('pipeline_number'),
+      switchMap(pipelineNumber =>
+        this._apiClient.get<CirclePipeline>(
+          `project/${CIRCLE_PROJECT_SLUG}/pipeline/${pipelineNumber}`,
+        ),
+      ),
+    );
   }
 
   /** Retrieves a workflow from a pipeline with a provided name */

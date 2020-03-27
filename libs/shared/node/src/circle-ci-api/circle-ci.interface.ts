@@ -163,3 +163,18 @@ export interface CircleArtifact {
   /** The URL to download the artifact contents. */
   url: string;
 }
+
+export interface CircleRecentWorkflow {
+  /** The unique ID of the workflow. */
+  id: string;
+  /** The duration in seconds of a run. */
+  duration: number;
+  /** The date and time the workflow was created. */
+  created_at: string;
+  /** The date and time the workflow stopped. */
+  stopped_at: string;
+  /** The number of credits used during execution */
+  credits_used: number;
+  /** Workflow status. */
+  status: 'success' | 'canceled' | 'failed';
+}

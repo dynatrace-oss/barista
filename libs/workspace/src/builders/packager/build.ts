@@ -28,7 +28,7 @@ import {
   NgPackagerJson,
   PackageJson,
   tryJsonParse,
-} from '@dynatrace/tools/shared';
+} from '@dynatrace/shared/node';
 import { copyAssets, copyStyles } from './copy-assets';
 import { PackagerOptions } from './schema';
 import { syncNgVersion, syncBaristaComponentsVersion } from './sync-version';

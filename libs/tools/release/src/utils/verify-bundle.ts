@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PackageJson, tryJsonParse } from '@dynatrace/tools/shared';
+import { PackageJson, tryJsonParse } from '@dynatrace/shared/node';
 import { join } from 'path';
 import { SemVer, parse } from 'semver';
 import { BUNDLE_VERSION_ERROR } from './release-errors';

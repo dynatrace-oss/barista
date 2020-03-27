@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { isPublicBuild } from '@dynatrace/tools/shared';
+import { isPublicBuild } from '@dynatrace/shared/node';
 import { environment } from '@environments/barista-environment';
 import { green } from 'chalk';
 import { existsSync, mkdirSync, promises as fs } from 'fs';

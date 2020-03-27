@@ -182,6 +182,10 @@
               "browsers": ["browserstack:edge@18:windows"],
               "concurrency": 4
             },
+            "ci": {
+              "browsers": ["chrome:headless"],
+              "concurrency": 5
+            },
             "watch": {
               "browsers": ["chrome"],
               "stopOnFirstFail": false,
@@ -345,6 +349,7 @@
             "main": "libs/tools/examples-tools/src/main.ts",
             "tsConfig": "libs/tools/examples-tools/tsconfig.json",
             "optimization": true,
+            "progress": false,
             "maxWorkers": 6
           },
           "configurations": {
@@ -562,7 +567,8 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
             "browserTarget": "barista-design-system:build-frontend",
-            "serverTarget": "barista-design-system:build-server"
+            "serverTarget": "barista-design-system:build-server",
+            "progress": false
           },
           "configurations": {
             "production": {
@@ -677,7 +683,8 @@
           "options": {
             "outputPath": "dist/universal/server",
             "main": "apps/universal/src/server.ts",
-            "tsConfig": "apps/universal/tsconfig.server.json"
+            "tsConfig": "apps/universal/tsconfig.server.json",
+            "progress": false
           },
           "configurations": {
             "production": {
@@ -707,7 +714,8 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
             "browserTarget": "universal:build-frontend",
-            "serverTarget": "universal:build-server"
+            "serverTarget": "universal:build-server",
+            "progress": false
           },
           "configurations": {
             "production": {
@@ -749,6 +757,10 @@
             "remote-pr": {
               "browsers": ["browserstack:chrome"]
             },
+            "ci": {
+              "browsers": ["chrome:headless"],
+              "concurrency": 5
+            },
             "watch": {
               "live": true
             }
@@ -789,6 +801,7 @@
             "tsConfig": "libs/workspace/tsconfig.lib.json",
             "webpackConfig": "libs/workspace/webpack.config.js",
             "maxWorkers": 6,
+            "progress": false,
             "assets": [
               {
                 "input": "./libs/workspace/src",
@@ -821,6 +834,7 @@
             "outputPath": "dist/libs/tools/barista",
             "main": "libs/tools/barista/src/main.ts",
             "tsConfig": "libs/tools/barista/tsconfig.json",
+            "progress": false,
             "optimization": true,
             "maxWorkers": 6
           },
@@ -887,7 +901,8 @@
           "options": {
             "main": "libs/tools/release/src/publish-release-cli.ts",
             "tsConfig": "libs/tools/release/tsconfig.json",
-            "outputPath": "dist/libs/tools/publish-release"
+            "outputPath": "dist/libs/tools/publish-release",
+            "progress": false
           }
         },
         "build-stage-release": {
@@ -896,6 +911,7 @@
             "main": "libs/tools/release/src/stage-release-cli.ts",
             "tsConfig": "libs/tools/release/tsconfig.json",
             "outputPath": "dist/libs/tools/stage-release",
+            "progress": false,
             "assets": [
               {
                 "glob": "*",
@@ -957,6 +973,7 @@
             "outputPath": "dist/libs/tools/shareable-examples",
             "main": "libs/tools/shareable-examples/src/main.ts",
             "tsConfig": "libs/tools/shareable-examples/tsconfig.json",
+            "progress": false,
             "maxWorkers": 6
           },
           "configurations": {
@@ -983,29 +1000,6 @@
             "jestConfig": "libs/tools/shareable-examples/jest.config.js",
             "tsConfig": "libs/tools/shareable-examples/tsconfig.spec.json",
             "setupFile": "libs/tools/shareable-examples/src/test-setup.ts"
-          }
-        }
-      }
-    },
-    "tools-shared": {
-      "root": "libs/tools/shared",
-      "sourceRoot": "libs/tools/shared/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/tools/shared/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/shared/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tools/shared/jest.config.js",
-            "tsConfig": "libs/tools/shared/tsconfig.spec.json",
-            "setupFile": "libs/tools/shared/src/test-setup.ts",
-            "passWithNoTests": true
           }
         }
       }
@@ -3517,6 +3511,29 @@
           "options": {
             "releasePackageJson": "libs/shared/design-tokens/package.json",
             "outputPath": "dist/libs/shared/design-tokens/"
+          }
+        }
+      }
+    },
+    "shared-node": {
+      "root": "libs/shared/node",
+      "sourceRoot": "libs/shared/node/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/shared/node/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/shared/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/node/jest.config.js",
+            "tsConfig": "libs/shared/node/tsconfig.spec.json",
+            "setupFile": "libs/shared/node/src/test-setup.ts",
+            "passWithNoTests": true
           }
         }
       }
