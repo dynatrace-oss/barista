@@ -1,11 +1,20 @@
 <svg [attr.viewBox]="_viewBox" [attr.width]="_width">
+  <text class="dt-label dt-selected-label">{{selectedLabel}}</text>
+  <text class="dt-value dt-selected-value">{{selectedValue}}</text>
   <ng-container *ngFor="let slice of slices">
-    <text class="dt-selected-label">{{selectedLabel}}</text>
-    <text class="dt-selected-value">{{selectedValue}}</text>
     <path
+      class="dt-slice"
       [attr.d]="slice.path"
-      [attr.fill]="slice.data.color"
+      [style]="{'--slice-color': slice.data.color}"
       (click)="select($event,slice)"
     />
+    <g
+      attr.transform="translate({{slice.labelPosition}})"
+      *ngIf="slice.data.showLabel && slice.showLabel"
+    >
+      <circle r="3" />
+      <text class=" dt-label dt-slice-label">{{slice.data.label}}</text>
+      <text class="dt-value dt-slice-value">{{slice.data.value}}</text>
+    </g>
   </ng-container>
 </svg>

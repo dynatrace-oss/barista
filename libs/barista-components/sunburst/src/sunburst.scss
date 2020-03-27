@@ -1,13 +1,23 @@
 @import '../../core/src/style/variables';
 
-path {
-  stroke: $white;
-}
-
 text {
   text-anchor: middle;
+}
 
-  &.dt-selected-value {
-    transform: translateY(16px);
+.dt-slice {
+  stroke: $white;
+  cursor: pointer;
+  fill: var(--slice-color);
+
+  &:hover {
+    fill: $turquoise-500;
   }
+}
+
+.dt-label {
+  transform: translateY(-0.1rem);
+}
+
+.dt-value {
+  transform: translateY(0.9rem);
 }

@@ -23,10 +23,10 @@
  * fillSeries should add a root element so value is not calculated all the time
  * initial selection should show actual label and value
  * overlay
- * labels
- * sizing of slices when selecting
  * add percentage
  * unify id creation
+ * remove filterKey, filterValue
+ * add color to node
  *
  *
  */
@@ -64,8 +64,8 @@ import {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtSunburst implements OnChanges {
-  _viewBox = '-100 -100 200 200';
-  _width = '200';
+  _width = 480;
+  _viewBox = '-240 -176 480 352';
 
   filledSeries: DtSunburstNodeInternal[];
   slices: DtSunburstSlice[];
