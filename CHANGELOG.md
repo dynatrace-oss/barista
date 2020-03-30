@@ -1,3 +1,10 @@
+## 6.1.1 (2020-03-30)
+
+### Bug Fixes
+
+- **copy-to-clipboard:** Fixes an issue where copied text is undefined
+  ([06dd337](https://github.com/dynatrace-oss/barista/commit/06dd337aa5a896f832ab120ef22eb500ad9a0eca))
+
 ## 6.1.0 (2020-03-24)
 
 ### Bug Fixes
