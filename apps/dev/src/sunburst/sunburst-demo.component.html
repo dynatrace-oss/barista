@@ -3,8 +3,10 @@
   [series]="series"
   [selected]="selectedInitial"
   (selectedChange)="select($event)"
-  (selectedFilterChange)="selectedFilter = $event"
+  [valueDisplayMode]="valueDisplayMode"
 ></dt-sunburst>
+
+<dt-switch (change)="toggleDisplayMode($event)">
+  Show relative values
+</dt-switch>
 <pre>{{ selected | json }}</pre>
-<hr />
-<pre>{{ selectedFilter | json }}</pre>

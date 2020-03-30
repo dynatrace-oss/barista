@@ -15,8 +15,12 @@
  */
 
 import { Component } from '@angular/core';
-import { DtSunburstNode } from '@dynatrace/barista-components/sunburst';
-import { dtFlattenSunburstToFilter } from 'libs/barista-components/sunburst/src/sunburst.util';
+import {
+  DtSunburstNode,
+  DtSunburstValueMode,
+} from '@dynatrace/barista-components/sunburst';
+import { DtColors } from '@dynatrace/barista-components/theming';
+import { DtSwitchChange } from '@dynatrace/barista-components/switch';
 
 @Component({
   selector: 'sunburst-dev-app-demo',
@@ -26,187 +30,132 @@ import { dtFlattenSunburstToFilter } from 'libs/barista-components/sunburst/src/
 export class SunburstDemo {
   selectedInitial: DtSunburstNode[] = [
     {
-      filterValue: 'Shephard',
       label: 'Shephard',
-      filterKey: 'charSurname',
       children: [
         {
-          filterValue: 'Jack',
           label: 'Jack',
-          filterKey: 'charName',
         },
       ],
     },
   ];
-  selected: DtSunburstNode[];
-  selectedFilter: { [key: string]: string | number | boolean };
+  selected: string[];
+  valueDisplayMode: DtSunburstValueMode = DtSunburstValueMode.ABSOLUTE;
 
   series = [
     {
       // value: 4,
-      filterValue: 'Locke',
       label: 'Locke',
-      filterKey: 'charSurname',
       children: [
         {
           value: 2,
-          filterKey: 'charName',
-          filterValue: 'John',
           label: 'John',
         },
         {
           value: 1,
-          filterKey: 'actorName',
-          filterValue: 'Terry',
           label: 'Terry',
         },
         {
           value: 1,
-          filterKey: 'actorSurname',
-          filterValue: "O'Quinn",
           label: "O'Quinn",
         },
       ],
     },
     {
       // value: 8,
-      filterValue: 'Reyes',
       label: 'Reyes',
-      filterKey: 'charSurname',
       children: [
         {
           value: 4,
-          filterKey: 'charName',
-          filterValue: 'Hugo',
           label: 'Hugo',
         },
         {
           value: 2,
-          filterKey: 'actorName',
-          filterValue: 'Jorge',
           label: 'Jorge',
         },
         {
           value: 2,
-          filterKey: 'actorSurname',
-          filterValue: 'Garcia',
           label: 'Garcia',
         },
       ],
     },
     {
       // value: 15,
-      filterValue: 'Ford',
       label: 'Ford',
-      filterKey: 'charSurname',
       children: [
         {
           value: 8,
-          filterKey: 'charName',
-          filterValue: 'James',
           label: 'James',
         },
         {
           value: 4,
-          filterKey: 'actorName',
-          filterValue: 'Josh',
           label: 'Josh',
         },
         {
           value: 3,
-          filterKey: 'actorSurname',
-          filterValue: 'Holloway',
           label: 'Holloway',
         },
       ],
     },
     {
       // value: 16,
-      filterValue: 'Jarrah',
       label: 'Jarrah',
-      filterKey: 'charSurname',
+      color: DtColors.SHAMROCKGREEN_500,
       children: [
         {
           value: 8,
-          filterKey: 'charName',
-          filterValue: 'Sayid',
           label: 'Sayid',
         },
         {
           value: 4,
-          filterKey: 'actorName',
-          filterValue: 'Naveen',
           label: 'Naveen',
         },
         {
           value: 4,
-          filterKey: 'actorSurname',
-          filterValue: 'Andrews',
           label: 'Andrews',
         },
       ],
     },
     {
       // value: 23,
-      filterValue: 'Shephard',
       label: 'Shephard',
-      filterKey: 'charSurname',
       children: [
         {
           value: 15,
-          filterKey: 'charName',
-          filterValue: 'Jack',
           label: 'Jack',
         },
         {
           value: 4,
-          filterKey: 'actorName',
-          filterValue: 'Matthew',
           label: 'Matthew',
         },
         {
           value: 4,
-          filterKey: 'actorSurname',
-          filterValue: 'Fox',
           label: 'Fox',
         },
       ],
     },
     {
       // value: 42,
-      filterValue: 'Kwon',
       label: 'Kwon',
-      filterKey: 'charSurname',
       children: [
         {
           value: 15,
-          filterKey: 'charName',
-          filterValue: 'Jin',
           label: 'Jin',
         },
         {
-          filterKey: 'actorName',
-          filterValue: 'Daniel Dae',
           label: 'Daniel Dae',
           children: [
             {
               value: 15,
-              filterKey: 'actorName',
-              filterValue: 'Daniel',
               label: 'Daniel',
             },
             {
               value: 8,
-              filterKey: 'actorName',
-              filterValue: 'Dae',
               label: 'Dae',
             },
           ],
         },
         {
           value: 4,
-          filterKey: 'actorSurname',
-          filterValue: 'Kim',
           label: 'Kim',
         },
       ],
@@ -214,7 +163,12 @@ export class SunburstDemo {
   ];
 
   select(selected: DtSunburstNode[] = []): void {
-    this.selected = selected;
-    this.selectedFilter = dtFlattenSunburstToFilter(selected);
+    this.selected = selected.map(node => node.label);
+  }
+
+  toggleDisplayMode(event: DtSwitchChange<boolean>): void {
+    this.valueDisplayMode = event.checked
+      ? DtSunburstValueMode.PERCENT
+      : DtSunburstValueMode.ABSOLUTE;
   }
 }
