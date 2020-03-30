@@ -94,7 +94,7 @@
     "@nguniversal/express-engine": "^9.0.0",
     "@nguniversal/module-map-ngfactory-loader": "^9.0.0-next.9",
     "@nrwl/angular": "^9.1.2",
-    "@nrwl/jest": "^9.1.2",
+    "@nrwl/jest": "^9.1.4",
     "@nrwl/node": "^9.1.2",
     "@nrwl/nx-plugin": "^9.1.2",
     "@nrwl/workspace": "^9.1.2",
