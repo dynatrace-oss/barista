@@ -20,13 +20,8 @@
  * TODO
  *
  * theme or generic palette
- * fillSeries should add a root element so value is not calculated all the time
- * initial selection should show actual label and value
  * overlay
- * add percentage
- * unify id creation
- * remove filterKey, filterValue
- * add color to node
+ * path animation?
  *
  *
  */
@@ -51,6 +46,7 @@ import {
   getNodesWithState,
   getSelectedId,
   getSelectedNodes,
+  getSelectedNodesFromOutside,
   getSlices,
   getValue,
 } from './sunburst.util';
@@ -64,15 +60,17 @@ import {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtSunburst implements OnChanges {
-  _width = 480;
-  _viewBox = '-240 -176 480 352';
+  width = 480;
+  viewBox = '-240 -176 480 352';
 
   filledSeries: DtSunburstNodeInternal[];
   slices: DtSunburstSlice[];
 
-  _selected: DtSunburstNode[];
+  _selected: DtSunburstNodeInternal[];
   selectedLabel: string;
   selectedValue: number;
+  selectedRelativeValue: number;
+  labelAsAbsolute: boolean;
 
   @HostListener('click', ['$event']) onClick(ev: MouseEvent): void {
     this.select(ev);
@@ -86,17 +84,23 @@ export class DtSunburst implements OnChanges {
   @Output() selectedChange: EventEmitter<DtSunburstNode[]> = new EventEmitter();
 
   ngOnChanges(changes: SimpleChanges): void {
-    // console.log(changes);
-
     if (changes.series?.currentValue !== changes.series?.previousValue) {
-      console.info('SERIES updated');
       this.filledSeries = fillSeries(this.series);
       this.render();
     }
     if (changes.selected?.currentValue !== changes.selected?.previousValue) {
-      console.info('SELECTED updated');
-      this._selected = this.selected;
+      this._selected = getSelectedNodesFromOutside(
+        this.filledSeries,
+        this.selected,
+      );
       this.render();
+    }
+    if (
+      changes.valueDisplayMode?.currentValue !==
+      changes.valueDisplayMode?.previousValue
+    ) {
+      this.labelAsAbsolute =
+        this.valueDisplayMode === DtSunburstValueMode.ABSOLUTE;
     }
   }
 
@@ -126,9 +130,12 @@ export class DtSunburst implements OnChanges {
     if (this._selected && this._selected.length) {
       this.selectedLabel = this._selected.slice(-1)[0].label ?? '';
       this.selectedValue = this._selected.slice(-1)[0].value ?? 0;
+      this.selectedRelativeValue =
+        this._selected.slice(-1)[0].valueRelative ?? 0;
     } else {
       this.selectedLabel = this.noSelectionLabel;
       this.selectedValue = getValue(this.filledSeries);
+      this.selectedRelativeValue = 1;
     }
   }
 }

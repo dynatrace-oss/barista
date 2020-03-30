@@ -16,8 +16,4 @@
 
 export * from './src/sunburst.module';
 export * from './src/sunburst';
-export {
-  DtSunburstNode,
-  DtSunburstValueMode,
-  dtFlattenSunburstToFilter,
-} from './src/sunburst.util';
+export { DtSunburstNode, DtSunburstValueMode } from './src/sunburst.util';

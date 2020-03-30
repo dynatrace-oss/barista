@@ -21,10 +21,9 @@ import {
 import * as d3 from 'd3-shape';
 
 export interface DtSunburstNode {
-  filterKey: string;
-  filterValue: string | number | boolean;
   label: string;
   value?: number;
+  color?: DtColors | string;
   children?: DtSunburstNode[];
 }
 
@@ -36,11 +35,12 @@ export enum DtSunburstValueMode {
 export interface DtSunburstNodeInternal extends DtSunburstNode {
   id: string;
   value: number;
+  valueRelative?: number;
   children?: DtSunburstNodeInternal[];
 
   // number of children
   depth: number;
-  color: string;
+  color: DtColors | string;
   visible: boolean;
   active: boolean;
   showLabel: boolean;
@@ -61,16 +61,18 @@ const svgSettings = {
 };
 const idSeparator = '.';
 
+/*
+ *
+ *  SLICE CREATION
+ *
+ */
 export const getSlices = (
   series: DtSunburstNodeInternal[],
 ): DtSunburstSlice[] => {
-  // TODO: once we have the generic initial node this aggregate can be moved there
   const numLevels = series.reduce(
     (maxLevel, node) => Math.max(maxLevel, node.depth),
     0,
   );
-
-  console.log(series);
 
   return getSlicesByParent(
     series,
@@ -127,6 +129,12 @@ export const getSlicesByParent = (
     }, []);
 };
 
+/*
+ *
+ *  NODE PARSING
+ *
+ */
+
 /**
  * Fill the nodes with the missing information: id, depth, value (if not provided but has children), color
  * @param nodes provided by the user
@@ -136,9 +144,16 @@ export const getSlicesByParent = (
 export const fillSeries = (nodes: DtSunburstNode[]): DtSunburstNodeInternal[] =>
   nodes
     .map(fillUpAndSortNodes)
-    .map(fillDownNodes)
+    .map((child, i, children) =>
+      fillDownNodes(child, i, children, getTotalValue(children)),
+    )
     .sort((a, b) => a.value - b.value);
 
+/**
+ * Fill value and depth of node based on it's children
+ * @param node node to fill
+ * @returns partial DtSunburstNodeInternal with all children's values and depths
+ */
 const fillUpAndSortNodes = (node: DtSunburstNode) => {
   const children = node.children
     ?.map(fillUpAndSortNodes)
@@ -154,22 +169,31 @@ const fillUpAndSortNodes = (node: DtSunburstNode) => {
   };
 };
 
+/**
+ * Fill children's ids, color and relativeValue based on the parent one
+ * @param node node to fill
+ * @param i sibling index
+ * @param nodes all siblings
+ * @param parent node to whom it belongs
+ */
 const fillDownNodes = (
   node: DtSunburstNodeInternal,
   i: number,
   nodes: DtSunburstNodeInternal[],
+  totalValue: number,
   parent?: DtSunburstNodeInternal,
 ): DtSunburstNodeInternal => {
   const filledNode = {
     ...node,
-    id: parent ? `${parent.id}${idSeparator}${i}` : `${i}`,
-    color: parent ? parent.color : getColor(i, nodes.length),
+    id: getId(i, parent?.id),
+    color: node.color ?? (parent ? parent.color : getColor(i, nodes.length)),
+    valueRelative: node.value / totalValue,
   };
 
   return {
     ...filledNode,
     children: node.children?.map((child, i, children) =>
-      fillDownNodes(child, i, children, filledNode),
+      fillDownNodes(child, i, children, totalValue, filledNode),
     ),
   };
 };
@@ -193,7 +217,11 @@ export const getNodesWithState = (
     showLabel: (!id && getLevel(node.id) === 1) || isChild(node, id),
   }));
 
-// PARSING
+/*
+ *
+ *  SELECTION PARSING
+ *
+ */
 /**
  * @description Get selected path for the sunburst following the original data but with only one child per node
  * @param nodes Whole set of data
@@ -201,14 +229,14 @@ export const getNodesWithState = (
  * @returns Path for the sunburst with only one child per node
  */
 export const getSelectedNodes = (
-  nodes: DtSunburstNode[],
+  nodes: DtSunburstNodeInternal[],
   leaf: DtSunburstNodeInternal,
-): DtSunburstNode[] =>
+): DtSunburstNodeInternal[] =>
   leaf.id.split(idSeparator, -1).reduce(
     (
       tree: {
-        currentLevel: DtSunburstNode[];
-        result: DtSunburstNode[];
+        currentLevel: DtSunburstNodeInternal[];
+        result: DtSunburstNodeInternal[];
       },
       key,
     ) => {
@@ -226,25 +254,35 @@ export const getSelectedNodes = (
     },
   ).result;
 
-/**
- * @description Compacts sunburst output to the filter to be applied
- * @param nodes Output of sunburst, only one child per node
- * @returns Array of key, name pairs
- */
-export const dtFlattenSunburstToFilter = (
-  nodes: DtSunburstNode[],
-): { [key: string]: string | number | boolean } =>
-  nodes.reduce((filter, node) => {
-    filter[node.filterKey] = node.filterValue;
+export const getSelectedNodesFromOutside = (
+  nodes: DtSunburstNodeInternal[],
+  selectedNodes: DtSunburstNode[],
+): DtSunburstNodeInternal[] =>
+  selectedNodes.reduce(
+    (
+      tree: {
+        currentLevel: DtSunburstNodeInternal[];
+        result: DtSunburstNodeInternal[];
+      },
+      selected,
+    ) => {
+      const currentNode = tree.currentLevel.find(
+        current => current.label === selected.label,
+      );
+      // TODO: this is assuming the values are correct. Otherwise we should provide an error
+      if (currentNode) {
+        tree.result.push(currentNode);
 
-    return filter;
-  }, {});
-
-// UTILS
-export const getValue = (nodes: DtSunburstNode[]) =>
-  nodes.reduce((total, p) => total + (p?.value ?? 0), 0);
-
-const getLevel = (id: string): number => id.split(idSeparator).length;
+        // update for next iteration
+        if (currentNode.children) tree.currentLevel = currentNode.children;
+      }
+      return tree;
+    },
+    {
+      currentLevel: nodes,
+      result: [],
+    },
+  ).result;
 
 export const getSelectedId = (
   allNodes: DtSunburstNode[],
@@ -253,12 +291,10 @@ export const getSelectedId = (
   selectedNodes.reduce(
     (tree: { currentLevel: DtSunburstNode[]; id?: string }, selectedNode) => {
       const index = tree.currentLevel.findIndex(
-        node =>
-          node.filterKey === selectedNode.filterKey &&
-          node.filterValue === selectedNode.filterValue,
+        node => node.label === selectedNode.label,
       );
 
-      tree.id = !!tree.id ? `${tree.id}${idSeparator}${index}` : `${index}`;
+      tree.id = getId(index, tree.id);
       tree.currentLevel = tree.currentLevel[index]?.children ?? [];
       return tree;
     },
@@ -267,6 +303,23 @@ export const getSelectedId = (
       id: undefined,
     },
   ).id;
+
+/*
+ *
+ *  UTILS
+ *
+ */
+
+const getId = (i: number, parentId?: string) =>
+  parentId ? `${parentId}${idSeparator}${i}` : `${i}`;
+
+export const getValue = (nodes: DtSunburstNode[]) =>
+  nodes.reduce((total, p) => total + (p?.value ?? 0), 0);
+
+const getTotalValue = (nodes: any[]): number =>
+  nodes.reduce((total, { value }) => total + (value ?? 0), 0);
+
+const getLevel = (id: string): number => id.split(idSeparator).length;
 
 // as sunburst is built backwards we must invert the colors too
 const getColor = (i: number, totalSlices: number): string =>
