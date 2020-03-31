@@ -1,0 +1,29 @@
+@import 'colors';
+@import '../../../styles/global/mixins.scss';
+@import '../../../styles/global/variables.scss';
+
+:host {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 250px;
+  max-width: 300px;
+  display: none;
+
+  @media (min-width: $screen-lg) {
+    display: flex;
+  }
+}
+
+.ba-searchinput {
+  width: 100%;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  color: $white;
+  font-size: 1em;
+}
+
+.ba-searchresult-description {
+  white-space: normal;
+  font-size: 0.8em;
+}

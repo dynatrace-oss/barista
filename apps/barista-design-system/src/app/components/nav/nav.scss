@@ -39,6 +39,8 @@ $nav-current-mobile: $gray-600;
     width: auto;
     padding-top: 0;
     transition: none;
+    display: flex;
+    justify-content: space-between;
   }
 
   .ba-nav-bar-active {

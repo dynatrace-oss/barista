@@ -15,7 +15,7 @@
  */
 
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import {
   BrowserModule,
@@ -26,6 +26,7 @@ import { RouterModule } from '@angular/router';
 import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { environment } from '../environments/environment';
@@ -36,6 +37,11 @@ import { BaRoutingModule } from './app.routing.module';
 import { BaFooter } from './components/footer';
 import { BaNav } from './components/nav';
 import { BaScrollToTop } from './components/scroll-to-top';
+import { BaSearch } from './components/search';
+import {
+  BaSearchService,
+  BaExternalSearchService,
+} from '../shared/services/search.service';
 
 @NgModule({
   imports: [
@@ -53,9 +59,24 @@ import { BaScrollToTop } from './components/scroll-to-top';
     DtOverlayModule,
     DtTagModule,
     DtBreadcrumbsModule,
+    DtAutocompleteModule,
   ],
-  declarations: [BaApp, BaScrollToTop, BaNav, BaFooter],
-  providers: [BaPageService, BaPageGuard],
+  declarations: [BaApp, BaScrollToTop, BaNav, BaFooter, BaSearch],
+  providers: [
+    BaPageService,
+    BaPageGuard,
+    {
+      provide: BaSearchService,
+      useFactory: (http: HttpClient) => {
+        if (environment.internal) {
+          return new BaSearchService(http);
+        } else {
+          return new BaExternalSearchService();
+        }
+      },
+      deps: [HttpClient],
+    },
+  ],
   bootstrap: [BaApp],
 })
 export class AppModule {}
