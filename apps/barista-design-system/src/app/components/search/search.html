@@ -1,0 +1,24 @@
+<input
+  class="ba-searchinput"
+  type="text"
+  #searchInput
+  [dtAutocomplete]="autocomplete"
+  placeholder="Search barista..."
+  aria-label="Search Barista"
+/>
+
+<dt-autocomplete
+  #autocomplete="dtAutocomplete"
+  class="ba-search-autocomplete"
+  (optionSelected)="optionSelected($event)"
+  [displayWith]="displayWith"
+>
+  <dt-option
+    [value]="result"
+    *ngFor="let result of (searchResults$ | async)"
+    class="ba-searchresult"
+    [title]="result.title"
+  >
+    <span class="ba-searchresult-title">{{ result.title }}</span>
+  </dt-option>
+</dt-autocomplete>

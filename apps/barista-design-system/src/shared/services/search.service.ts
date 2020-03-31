@@ -18,14 +18,26 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BaSearchResult } from '@dynatrace/shared/barista-definitions';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
+
+interface BaSearchServiceInterface {
+  search(query: string): Observable<BaSearchResult[]>;
+}
 
 @Injectable()
-export class BaSearchService {
+export class BaSearchService implements BaSearchServiceInterface {
   constructor(private readonly _http: HttpClient) {}
 
   search(searchString: string): Observable<BaSearchResult[]> {
     return this._http.get<BaSearchResult[]>(
-      `/api/v1/search/?q=${searchString}`,
+      `${environment.searchEndpoint}search?q=${searchString}`,
     );
+  }
+}
+
+@Injectable()
+export class BaExternalSearchService implements BaSearchServiceInterface {
+  search(query: string): Observable<BaSearchResult[]> {
+    throw new Error('Not yet implemented');
   }
 }

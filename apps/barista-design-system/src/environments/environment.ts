@@ -17,5 +17,6 @@
 export const environment = {
   deployUrl: '/',
   internal: true,
+  searchEndpoint: 'http://localhost:3333/api/',
   dataHost: '/data',
 };
