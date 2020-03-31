@@ -17,6 +17,7 @@
 import { Component } from '@angular/core';
 import { BaNav as Navigation } from '@dynatrace/shared/barista-definitions';
 import { BaPageService } from '../../../shared/services/page.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'ba-nav',
@@ -27,6 +28,9 @@ import { BaPageService } from '../../../shared/services/page.service';
   },
 })
 export class BaNav {
+  /** Keep this for now until we have a ExternalService ready actually does stuff */
+  showSearch = environment.internal;
+
   /** @internal Data needed to render the navigation. */
   _navData$ = this._pageService._getPage('nav');
 

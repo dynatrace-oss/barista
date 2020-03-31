@@ -468,7 +468,29 @@
               "fileReplacements": [
                 {
                   "replace": "apps/barista-design-system/src/environments/environment.ts",
-                  "with": "apps/barista-design-system/src/environments/environment.prod.ts"
+                  "with": "apps/barista-design-system/src/environments/environment.public.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "statsJson": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "production-internal": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/barista-design-system/src/environments/environment.ts",
+                  "with": "apps/barista-design-system/src/environments/environment.internal.ts"
                 }
               ],
               "optimization": true,

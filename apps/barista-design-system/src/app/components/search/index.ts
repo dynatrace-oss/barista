@@ -14,16 +14,4 @@
  * limitations under the License.
  */
 
-export interface BaSearchResult {
-  /** Url of the page that should be the result. */
-  url: string;
-
-  /** Title of the result page. */
-  title: string;
-
-  /** Description of the result page. */
-  description: string;
-
-  /** Keywords of the result page. */
-  keywords: string[];
-}
+export * from './search';
