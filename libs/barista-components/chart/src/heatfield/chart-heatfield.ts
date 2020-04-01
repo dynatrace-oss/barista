@@ -15,7 +15,7 @@
  */
 
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ENTER } from '@angular/cdk/keycodes';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, ConnectedPosition } from '@angular/cdk/overlay';
 import {
   ChangeDetectionStrategy,
@@ -30,20 +30,20 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  _readKeyCode,
   CanColor,
   Constructor,
   dtFadeAnimation,
   isDefined,
   mixinColor,
-  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 import { clamp, round } from 'lodash';
 import { Subject } from 'rxjs';
 import { PlotBackgroundInfo } from '../utils';
 
 import {
-  DT_HEATFIELD_TOP_OFFSET,
   DT_HEATFIELD_OVERLAY_POSITIONS,
+  DT_HEATFIELD_TOP_OFFSET,
 } from './chart-heatfield-config';
 
 /** Event object emitted by DtOption when selected or deselected. */
@@ -218,8 +218,6 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
    * @internal
    */
   _toggleActive(): void {
-    this._overlayAnimationState =
-      this._overlayAnimationState === 'fadeIn' ? 'void' : 'fadeIn';
     this.active = !this.active;
   }
 
@@ -228,8 +226,8 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
    * @internal
    */
   _handleKeydown(event: KeyboardEvent): void {
-    if (_readKeyCode(event) === ENTER) {
-      this._toggleActive();
+    if (_readKeyCode(event) === ESCAPE) {
+      this.active = false;
     }
   }
 
