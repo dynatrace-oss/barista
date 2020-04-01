@@ -1,9 +1,9 @@
 <svg [attr.viewBox]="viewBox" [attr.width]="width">
-  <text class="dt-label dt-selected-label">{{selectedLabel}}</text>
   <text class="dt-value dt-selected-value">
     {{ labelAsAbsolute ? selectedValue : selectedRelativeValue | percent:'0.1'
     }}
   </text>
+  <text class="dt-label dt-selected-label">{{selectedLabel}}</text>
   <ng-container *ngFor="let slice of slices">
     <path
       class="dt-slice"
@@ -16,11 +16,11 @@
       attr.transform="translate({{slice.labelPosition}})"
       *ngIf="slice.data.showLabel && slice.showLabel"
     >
-      <text class=" dt-label dt-slice-label">{{slice.data.label}}</text>
       <text class="dt-value dt-slice-value">
         {{ labelAsAbsolute ? slice.data.value : slice.data.valueRelative |
         percent:'0.1' }}
       </text>
+      <text class=" dt-label dt-slice-label">{{slice.data.label}}</text>
     </g>
   </ng-container>
 </svg>

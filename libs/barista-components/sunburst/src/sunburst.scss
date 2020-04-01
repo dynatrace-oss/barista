@@ -15,9 +15,11 @@ text {
 }
 
 .dt-label {
-  transform: translateY(-0.1rem);
+  transform: translateY(0.9rem);
+  font-size: 0.9rem;
 }
 
 .dt-value {
-  transform: translateY(0.9rem);
+  transform: translateY(-0.1rem);
+  font-size: 1rem;
 }
