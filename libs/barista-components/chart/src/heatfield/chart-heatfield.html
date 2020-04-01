@@ -5,7 +5,6 @@
   #marker="cdkOverlayOrigin"
   cdk-overlay-origin
   (click)="_toggleActive()"
-  (keydown)="_handleKeydown($event)"
   [attr.aria-label]="ariaLabel"
   [attr.aria-labelledby]="ariaLabelledBy"
 ></button>
@@ -14,9 +13,29 @@
   [cdkConnectedOverlayOrigin]="marker"
   [cdkConnectedOverlayOpen]="_isValidStartEndRange && active"
   [cdkConnectedOverlayPositions]="_positions"
+  (detach)="active = false"
 >
-  <div [@fade]="_overlayAnimationState" class="dt-chart-heatfield-overlay">
-    <ng-content></ng-content>
+  <div
+    [@fade]="_overlayAnimationState"
+    class="dt-chart-heatfield-overlay"
+    (keydown)="_handleKeydown($event)"
+  >
+    <div
+      cdkTrapFocus
+      cdkTrapFocusAutoCapture
+      class="dt-chart-heatfield-content"
+    >
+      <button
+        dt-icon-button
+        variant="secondary"
+        class="dt-heatfield-close-trigger"
+        (click)="active = false"
+        cdkInitialFocus
+      >
+        <dt-icon name="abort"></dt-icon>
+      </button>
+      <ng-content></ng-content>
+    </div>
   </div>
 </ng-template>
 

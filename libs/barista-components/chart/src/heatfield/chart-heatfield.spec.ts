@@ -17,7 +17,7 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { ENTER } from '@angular/cdk/keycodes';
+import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import {
   AfterViewInit,
@@ -33,6 +33,7 @@ import {
   flush,
   inject,
   TestBed,
+  tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -49,6 +50,8 @@ import {
 } from '@dynatrace/testing/browser';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { Subject, Subscription } from 'rxjs';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 const PLOTMARGIN_LEFT = 100;
 const PLOTMARGIN_RIGHT = 100;
@@ -58,7 +61,13 @@ describe('DtChartHeatfield', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, DtChartModule, DtThemingModule],
+      imports: [
+        NoopAnimationsModule,
+        DtChartModule,
+        DtThemingModule,
+        HttpClientTestingModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+      ],
       declarations: [SingleHeatfield, MultipleHeatfield, DummyChart],
     });
 
@@ -174,9 +183,8 @@ describe('DtChartHeatfield', () => {
 
       it('should activate when enter pressed', fakeAsync(() => {
         marker.focus();
-        dispatchKeyboardEvent(marker, 'keydown', ENTER);
+        dispatchKeyboardEvent(marker, 'click', ENTER);
         fixture.detectChanges();
-        flush();
         expect(marker.classList).toContain('dt-chart-heatfield-active');
         expect(overlayContainerElement.textContent).toContain('Problem 1');
       }));
@@ -187,6 +195,34 @@ describe('DtChartHeatfield', () => {
         expect(marker.classList).toContain('dt-chart-heatfield-active');
         expect(overlayContainerElement.textContent).toContain('Problem 1');
       });
+    });
+
+    describe('Closing behavior', () => {
+      let closeOverlayButton;
+      beforeEach(() => {
+        instance.isActive = true;
+        fixture.detectChanges();
+        closeOverlayButton = overlayContainerElement.querySelector(
+          '.dt-heatfield-close-trigger',
+        );
+      });
+
+      it('should include an x button', () => {
+        expect(closeOverlayButton).not.toBeNull();
+      });
+
+      it('clicking on x button should close overlay', () => {
+        closeOverlayButton.click();
+        fixture.detectChanges();
+        expect(marker.classList).not.toContain('dt-chart-heatfield-active');
+      });
+
+      it('pressing escape should close overlay', fakeAsync(() => {
+        dispatchKeyboardEvent(overlayContainerElement, 'keydown', ESCAPE);
+        tick();
+        fixture.detectChanges();
+        expect(marker.classList).not.toContain('dt-chart-heatfield-active');
+      }));
     });
 
     describe('Coloring', () => {
@@ -296,6 +332,7 @@ function validatePosition(
         [active]="isActive"
       >
         Problem 1:
+        <button>focus</button>
       </dt-chart-heatfield>
     </dt-dummy-chart>
   `,

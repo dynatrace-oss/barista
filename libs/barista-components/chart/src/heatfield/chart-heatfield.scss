@@ -41,6 +41,18 @@ $animation-delay: 40ms;
   @include dt-overlay-container();
 }
 
+.dt-chart-heatfield-content {
+  display: inline-block;
+}
+
+.dt-heatfield-close-trigger {
+  border: none;
+  float: right;
+  // Ignore parent padding for optimum close button positioning
+  margin-right: -$overlay-container-padding;
+  margin-top: -$overlay-container-padding;
+}
+
 // Apply the heatfield theme to all theme definitions
 @include dt-apply-theme() {
   @include dt-theme-chart-heatfield($dt-current-theme);
