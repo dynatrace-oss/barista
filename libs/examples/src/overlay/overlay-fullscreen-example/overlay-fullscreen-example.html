@@ -1,0 +1,13 @@
+<div #container class="span-container">
+  <span
+    [dtOverlay]="overlay"
+    style="cursor: pointer;"
+    [dtOverlayConfig]="config"
+  >
+    Hover me
+  </span>
+</div>
+<button (click)="requestFullscreen()">Test Fullscreen</button>
+<ng-template #overlay>
+  <p>Overlay content</p>
+</ng-template>
