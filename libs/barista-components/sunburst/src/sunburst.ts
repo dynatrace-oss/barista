@@ -19,10 +19,11 @@
  *
  * TODO
  *
- * theme or generic palette
+ * use labels and colors provided by UX
  * overlay
  * path animation?
- *
+ * E2E
+ * select should return original object
  *
  */
 
@@ -42,7 +43,7 @@ import {
   DtSunburstNodeInternal,
   DtSunburstSlice,
   DtSunburstValueMode,
-  fillSeries,
+  fillNodes,
   getNodesWithState,
   getSelectedId,
   getSelectedNodes,
@@ -60,8 +61,8 @@ import {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtSunburst implements OnChanges {
-  width = 480;
-  viewBox = '-240 -176 480 352';
+  readonly width = 480;
+  readonly viewBox = '-240 -176 480 352';
 
   filledSeries: DtSunburstNodeInternal[];
   slices: DtSunburstSlice[];
@@ -70,9 +71,9 @@ export class DtSunburst implements OnChanges {
   selectedLabel: string;
   selectedValue: number;
   selectedRelativeValue: number;
-  labelAsAbsolute: boolean;
+  labelAsAbsolute: boolean = true;
 
-  @HostListener('click', ['$event']) onClick(ev: MouseEvent): void {
+  @HostListener('click', ['$event']) onClick(ev?: MouseEvent): void {
     this.select(ev);
   }
 
@@ -85,9 +86,10 @@ export class DtSunburst implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.series?.currentValue !== changes.series?.previousValue) {
-      this.filledSeries = fillSeries(this.series);
+      this.filledSeries = fillNodes(this.series);
       this.render();
     }
+
     if (changes.selected?.currentValue !== changes.selected?.previousValue) {
       this._selected = getSelectedNodesFromOutside(
         this.filledSeries,
@@ -95,6 +97,7 @@ export class DtSunburst implements OnChanges {
       );
       this.render();
     }
+
     if (
       changes.valueDisplayMode?.currentValue !==
       changes.valueDisplayMode?.previousValue
@@ -104,8 +107,8 @@ export class DtSunburst implements OnChanges {
     }
   }
 
-  select(event: MouseEvent, slice?: DtSunburstSlice): void {
-    event.stopPropagation();
+  select(event?: MouseEvent, slice?: DtSunburstSlice): void {
+    event?.stopPropagation();
 
     if (slice) {
       this._selected = getSelectedNodes(this.filledSeries, slice.data);
@@ -114,13 +117,13 @@ export class DtSunburst implements OnChanges {
     } else {
       this._selected = [];
 
-      this.selectedChange.emit(undefined);
+      this.selectedChange.emit([]);
     }
 
     this.render();
   }
 
-  private render(): void {
+  render(): void {
     const nodesWithState = getNodesWithState(
       this.filledSeries,
       getSelectedId(this.filledSeries, this._selected),

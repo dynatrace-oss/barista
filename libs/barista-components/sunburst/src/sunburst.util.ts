@@ -35,12 +35,12 @@ export enum DtSunburstValueMode {
 export interface DtSunburstNodeInternal extends DtSunburstNode {
   id: string;
   value: number;
-  valueRelative?: number;
+  valueRelative: number;
   children?: DtSunburstNodeInternal[];
 
-  // number of children
   depth: number;
   color: DtColors | string;
+  colorHover: DtColors | string;
   visible: boolean;
   active: boolean;
   showLabel: boolean;
@@ -53,81 +53,13 @@ export interface DtSunburstSlice
   showLabel: boolean;
 }
 
-const svgSettings = {
+const SVG_SETTINGS = {
   outerRadius: 160,
   innerRadius: 64,
   labelOffsetRadius: 32,
   minAngleForLabel: (15 / 360) * 2 * Math.PI,
 };
-const idSeparator = '.';
-
-/*
- *
- *  SLICE CREATION
- *
- */
-export const getSlices = (
-  series: DtSunburstNodeInternal[],
-): DtSunburstSlice[] => {
-  const numLevels = series.reduce(
-    (maxLevel, node) => Math.max(maxLevel, node.depth),
-    0,
-  );
-
-  return getSlicesByParent(
-    series,
-    (svgSettings.outerRadius - svgSettings.innerRadius) / (numLevels * 2),
-  );
-};
-
-export const getSlicesByParent = (
-  nodes: DtSunburstNodeInternal[],
-  levelWidth: number,
-  initialRadius: number = svgSettings.innerRadius,
-  startAngle: number = 0,
-  endAngle: number = 2 * Math.PI,
-): DtSunburstSlice[] => {
-  const slices = d3
-    .pie<DtSunburstNodeInternal>()
-    .startAngle(startAngle)
-    .endAngle(endAngle)
-    .value(d => d.value ?? 0)(nodes);
-
-  return slices
-    .filter(slice => slice.data.visible)
-    .reduce((paths, segment) => {
-      const sliceBoundaries = {
-        startAngle: segment.startAngle,
-        endAngle: segment.endAngle,
-        innerRadius: initialRadius,
-        outerRadius: levelWidth * (segment.data.active ? 2 : 1) + initialRadius,
-      };
-      return [
-        ...paths,
-        {
-          ...segment,
-          path: d3.arc()(sliceBoundaries),
-          labelPosition: d3.arc().centroid({
-            ...sliceBoundaries,
-            innerRadius:
-              sliceBoundaries.outerRadius + svgSettings.labelOffsetRadius,
-            outerRadius:
-              sliceBoundaries.outerRadius + svgSettings.labelOffsetRadius,
-          }),
-          showLabel:
-            segment.endAngle - segment.startAngle >
-            svgSettings.minAngleForLabel,
-        },
-        ...getSlicesByParent(
-          segment.data.children ?? [],
-          levelWidth,
-          levelWidth * (segment.data.active ? 2 : 1) + initialRadius,
-          segment.startAngle,
-          segment.endAngle,
-        ),
-      ];
-    }, []);
-};
+const IS_SEPARATOR = '.';
 
 /*
  *
@@ -136,21 +68,23 @@ export const getSlicesByParent = (
  */
 
 /**
- * Fill the nodes with the missing information: id, depth, value (if not provided but has children), color
- * @param nodes provided by the user
+ * @description Fill the nodes with the missing information: id, depth, value (if not provided but has children), color
+ *
+ * @param nodes whole set of nodes provided by user
  * @param parent parent of current nodes. Used id
  * @param color color of the parent
  */
-export const fillSeries = (nodes: DtSunburstNode[]): DtSunburstNodeInternal[] =>
+export const fillNodes = (nodes: DtSunburstNode[]): DtSunburstNodeInternal[] =>
   nodes
     .map(fillUpAndSortNodes)
+    .sort((a, b) => a.value - b.value)
     .map((child, i, children) =>
-      fillDownNodes(child, i, children, getTotalValue(children)),
-    )
-    .sort((a, b) => a.value - b.value);
+      fillDownNodes(child, i, children, getValue(children)),
+    );
 
 /**
- * Fill value and depth of node based on it's children
+ * @description Fill value and depth of node based on it's children
+ *
  * @param node node to fill
  * @returns partial DtSunburstNodeInternal with all children's values and depths
  */
@@ -170,7 +104,8 @@ const fillUpAndSortNodes = (node: DtSunburstNode) => {
 };
 
 /**
- * Fill children's ids, color and relativeValue based on the parent one
+ * @description Fill children's ids, color and relativeValue based on the parent one
+ *
  * @param node node to fill
  * @param i sibling index
  * @param nodes all siblings
@@ -198,6 +133,12 @@ const fillDownNodes = (
   };
 };
 
+/**
+ * @description Get arrays with visibility options based on selected id
+ *
+ * @param nodes whole set of filled nodes
+ * @param id current selection
+ */
 export const getNodesWithState = (
   nodes: DtSunburstNodeInternal[] = [],
   id?: string,
@@ -224,15 +165,15 @@ export const getNodesWithState = (
  */
 /**
  * @description Get selected path for the sunburst following the original data but with only one child per node
- * @param nodes Whole set of data
+ *
+ * @param nodes whole set of filled nodes
  * @param leaf Selected element
- * @returns Path for the sunburst with only one child per node
  */
 export const getSelectedNodes = (
   nodes: DtSunburstNodeInternal[],
   leaf: DtSunburstNodeInternal,
 ): DtSunburstNodeInternal[] =>
-  leaf.id.split(idSeparator, -1).reduce(
+  leaf.id.split(IS_SEPARATOR, -1).reduce(
     (
       tree: {
         currentLevel: DtSunburstNodeInternal[];
@@ -254,6 +195,12 @@ export const getSelectedNodes = (
     },
   ).result;
 
+/**
+ * @description Get an array of filled nodes based on the non-filled selectedNodes
+ *
+ * @param nodes whole set of filled nodes
+ * @param selectedNodes array of selected nodes
+ */
 export const getSelectedNodesFromOutside = (
   nodes: DtSunburstNodeInternal[],
   selectedNodes: DtSunburstNode[],
@@ -284,8 +231,14 @@ export const getSelectedNodesFromOutside = (
     },
   ).result;
 
+/**
+ * @description Get the id of the current selection from an unfilled node
+ *
+ * @param nodes whole set of filled nodes
+ * @param selectedNodes array of selected nodes
+ */
 export const getSelectedId = (
-  allNodes: DtSunburstNode[],
+  nodes: DtSunburstNodeInternal[],
   selectedNodes: DtSunburstNode[] = [],
 ): string | undefined =>
   selectedNodes.reduce(
@@ -299,10 +252,93 @@ export const getSelectedId = (
       return tree;
     },
     {
-      currentLevel: allNodes,
+      currentLevel: nodes,
       id: undefined,
     },
   ).id;
+
+/*
+ *
+ *  SLICE CREATION
+ *
+ */
+
+/**
+ * @description Get slices to be painted in SVG filtered by visibility and with actual color
+ *
+ * @param nodes whole set of filled nodes
+ */
+export const getSlices = (
+  nodes: DtSunburstNodeInternal[],
+): DtSunburstSlice[] => {
+  const numLevels = nodes.reduce(
+    (maxLevel, node) => Math.max(maxLevel, node.depth),
+    0,
+  );
+
+  return getSlicesByParent(
+    nodes,
+    (SVG_SETTINGS.outerRadius - SVG_SETTINGS.innerRadius) / (numLevels * 2),
+  );
+};
+
+/**
+ * @description Get flattened array slices for current branch
+ *
+ * @param nodes whole set of filled nodes
+ * @param radiusWidth width of given node
+ * @param innerRadius radius of current slice. same as outer radius of parent
+ * @param startAngle start angle of parent
+ * @param endAngle end angle of parent
+ */
+const getSlicesByParent = (
+  nodes: DtSunburstNodeInternal[],
+  radiusWidth: number,
+  innerRadius: number = SVG_SETTINGS.innerRadius,
+  startAngle: number = 0,
+  endAngle: number = 2 * Math.PI,
+): DtSunburstSlice[] => {
+  const slices = d3
+    .pie<DtSunburstNodeInternal>()
+    .startAngle(startAngle)
+    .endAngle(endAngle)
+    .value(d => d.value ?? 0)(nodes);
+
+  return slices
+    .filter(slice => slice.data.visible)
+    .reduce((paths, segment) => {
+      const sliceBoundaries = {
+        startAngle: segment.startAngle,
+        endAngle: segment.endAngle,
+        innerRadius: innerRadius,
+        outerRadius: radiusWidth * (segment.data.active ? 2 : 1) + innerRadius,
+      };
+      return [
+        ...paths,
+        {
+          ...segment,
+          path: d3.arc()(sliceBoundaries),
+          labelPosition: d3.arc().centroid({
+            ...sliceBoundaries,
+            innerRadius:
+              sliceBoundaries.outerRadius + SVG_SETTINGS.labelOffsetRadius,
+            outerRadius:
+              sliceBoundaries.outerRadius + SVG_SETTINGS.labelOffsetRadius,
+          }),
+          showLabel:
+            segment.endAngle - segment.startAngle >
+            SVG_SETTINGS.minAngleForLabel,
+        },
+        ...getSlicesByParent(
+          segment.data.children ?? [],
+          radiusWidth,
+          radiusWidth * (segment.data.active ? 2 : 1) + innerRadius,
+          segment.startAngle,
+          segment.endAngle,
+        ),
+      ];
+    }, []);
+};
 
 /*
  *
@@ -310,44 +346,83 @@ export const getSelectedId = (
  *
  */
 
-const getId = (i: number, parentId?: string) =>
-  parentId ? `${parentId}${idSeparator}${i}` : `${i}`;
+/**
+ * @description Get id of current node based on parent id and sibling index
+ *
+ * @param index sibling index
+ * @param parentId id of the parent
+ */
+const getId = (index: number, parentId?: string) =>
+  parentId ? `${parentId}${IS_SEPARATOR}${index}` : `${index}`;
 
+/**
+ * @description Get sum of children values
+ *
+ * @param nodes  whole set of filled nodes
+ */
 export const getValue = (nodes: DtSunburstNode[]) =>
   nodes.reduce((total, p) => total + (p?.value ?? 0), 0);
 
-const getTotalValue = (nodes: any[]): number =>
-  nodes.reduce((total, { value }) => total + (value ?? 0), 0);
+/**
+ * @description Get the level based on current id
+ *
+ * @param id
+ */
+const getLevel = (id: string): number => id.split(IS_SEPARATOR).length;
 
-const getLevel = (id: string): number => id.split(idSeparator).length;
-
-// as sunburst is built backwards we must invert the colors too
-const getColor = (i: number, totalSlices: number): string =>
+/**
+ * @description Get color of the palette. As sunburst is built backwards colors must be inverted
+ *
+ * @param index sibling index
+ * @param totalNodes number of children for parent node
+ */
+const getColor = (index: number, totalNodes: number): string =>
   DT_CHART_COLOR_PALETTE_ORDERED[
-    (totalSlices - i - 1) % DT_CHART_COLOR_PALETTE_ORDERED.length
+    (totalNodes - index - 1) % DT_CHART_COLOR_PALETTE_ORDERED.length
   ];
 
+/**
+ * @description Get an array of all ancestors ids
+ *
+ * @param id id of leaf node
+ */
 const getAncestorsIds = (id: string): string[] =>
   id
-    .split(idSeparator)
+    .split(IS_SEPARATOR)
     .slice(0, -1)
-    .map((_, i, segments) => segments.slice(0, i + 1).join(idSeparator));
+    .map((_, i, segments) => segments.slice(0, i + 1).join(IS_SEPARATOR));
 
-// node is child of given id
+/**
+ * @description Get if node is child of given id
+ *
+ * @param node node to determine if is child
+ * @param id
+ */
 const isChild = (node, id?: string): boolean =>
   !!id && node.id.indexOf(id) === 0 && getLevel(node.id) === getLevel(id) + 1;
 
-//  node is ancestor of given id
+/**
+ * @description Get if node matches given id
+ *
+ * @param node
+ * @param id
+ */
 const isCurrent = (node, id?: string): boolean => !!id && node.id === id;
 
-//  node is ancestor of given id
+/**
+ * @description Get if node is ancestor of given id
+ *
+ * @param node node to determine if is ancestor
+ * @param id
+ */
 const isAncestor = (node, id?: string): boolean =>
   !!id && getAncestorsIds(id).some(i => node.id === i);
 
-// node is parent of given id
+/**
+ * @description Get if node is sibling of ancestor of given id
+ *
+ * @param node node to determine if is ancestor sibling
+ * @param id
+ */
 const isAncestorSibling = (node, id?: string): boolean =>
   !!id && getAncestorsIds(id).some(i => isChild(node, i));
-
-// node is parent of given id
-// const isParent = (node, id: string): boolean =>
-//   id.length>0 && && id.split(idSeparator).slice(-1).join(idSeparator) === node.id;
