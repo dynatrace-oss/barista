@@ -8,7 +8,8 @@
     <path
       class="dt-slice"
       [attr.d]="slice.path"
-      [style]="{'--slice-color': slice.data.color}"
+      [style.--slice-color]="slice.data.color"
+      [style.--slice-color--hover]="slice.data.colorHover"
       (click)="select($event,slice)"
     />
     <g

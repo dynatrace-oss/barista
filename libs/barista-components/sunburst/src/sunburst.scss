@@ -10,7 +10,7 @@ text {
   fill: var(--slice-color);
 
   &:hover {
-    fill: $turquoise-500;
+    fill: var(--slice-color--hover, var(--slice-color));
   }
 }
 
