@@ -101,7 +101,15 @@ the following properties:
 | -------------------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `pinnable`           | `boolean`        | `-`      | enables pinning of the overlay on click or by keyboard when the trigger is focused.                                                                                                                                                                 |
 | `originY`            | `center | edge`  | `center` | The originY defines the vertical attachment point for the overlay. By default `center` is set. `edge` defines that the vertical attachment point is set to the bottom edge if the overlay fits below the origin element and the top edge otherwise. |
-| `movementConstraint` |  `xAxis | yAxis` | -        | The movementConstraint locks the movement of the overlay to a given axis. No constraint is set by default.                                                                                                                                          |
+| `movementConstraint` |  `xAxis | yAxis` | -        | The movementConstraint locks the movement of the overlay to a given axis. No constraint is set by default.                                                                                                                                          |
+
+## Fullscreen support
+
+The Overlay component uses Angular CDK's `FullscreenOverlayContainer` in order
+to supports correct displaying of overlays in DOM elements in fullscreen mode.
+[Fullscreen API](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen)
+
+<ba-live-example name="DtExampleOverlayFullscreen"></ba-live-example> |
 
 ## Overlays in use
 

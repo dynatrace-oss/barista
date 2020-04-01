@@ -22,6 +22,7 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTileModule } from '@dynatrace/barista-components/tile';
 import { DtExampleOverlayComplexContent } from './overlay-complex-content-example/overlay-complex-content-example';
 import { DtExampleOverlayDefault } from './overlay-default-example/overlay-default-example';
+import { DtExampleOverlayFullscreen } from './overlay-fullscreen-example/overlay-fullscreen-example';
 import { DtExampleOverlayImplicitContext } from './overlay-implicit-context-example/overlay-implicit-context-example';
 import { DtExampleOverlayProgrammatic } from './overlay-programmatic-example/overlay-programmatic-example';
 import { DtExampleOverlayTile } from './overlay-tile-example/overlay-tile-example';
@@ -30,6 +31,7 @@ import { DtExampleOverlayProgrammaticDummy } from './overlay-example-dummy-compo
 export const DT_OVERLAY_EXAMPLES = [
   DtExampleOverlayComplexContent,
   DtExampleOverlayDefault,
+  DtExampleOverlayFullscreen,
   DtExampleOverlayImplicitContext,
   DtExampleOverlayProgrammatic,
   DtExampleOverlayTile,

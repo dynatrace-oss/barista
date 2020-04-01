@@ -18,6 +18,7 @@ export * from './overlay-complex-content-example/overlay-complex-content-example
 export * from './overlay-default-example/overlay-default-example';
 export * from './overlay-example-dummy-component';
 export * from './overlay-examples.module';
+export * from './overlay-fullscreen-example/overlay-fullscreen-example';
 export * from './overlay-implicit-context-example/overlay-implicit-context-example';
 export * from './overlay-programmatic-example/overlay-programmatic-example';
 export * from './overlay-tile-example/overlay-tile-example';

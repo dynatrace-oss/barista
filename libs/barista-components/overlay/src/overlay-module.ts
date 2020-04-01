@@ -15,7 +15,11 @@
  */
 
 import { A11yModule } from '@angular/cdk/a11y';
-import { OverlayModule } from '@angular/cdk/overlay';
+import {
+  OverlayModule,
+  OverlayContainer,
+  FullscreenOverlayContainer,
+} from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -40,5 +44,8 @@ const EXPORTED_DECLARATIONS = [DtOverlayContainer, DtOverlayTrigger];
   exports: [...EXPORTED_DECLARATIONS],
   declarations: [...EXPORTED_DECLARATIONS],
   entryComponents: [DtOverlayContainer],
+  providers: [
+    { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
+  ],
 })
 export class DtOverlayModule {}
