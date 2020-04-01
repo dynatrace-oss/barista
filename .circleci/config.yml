@@ -236,7 +236,9 @@ jobs:
           command: npx ngcc
       - run:
           name: Generate examples for the demo application
-          command: npm run examples-tools
+          command: |
+            npm run examples-tools
+            npm run barista-tools
       - run: yarn nx affected:build ${AFFECTED_ARGS} --configuration=production --parallel --exclude=examples-tools
       - persist_to_workspace:
           root: ~/barista
