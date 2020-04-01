@@ -33,6 +33,7 @@ import {
  */
 export const dtFadeAnimation: AnimationTriggerMetadata = trigger('fade', [
   state('void', style({ opacity: 0 })),
+  state('*', style({ opacity: 1 })),
   transition(':enter', [animate('{{ duration }} {{ easing }}')], {
     params: {
       duration: '150ms',

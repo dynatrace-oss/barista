@@ -89,3 +89,6 @@ export const DT_SELECTION_AREA_OVERLAY_POSITIONS: ConnectedPosition[] = [
     offsetY: DT_SELECTION_AREA_OVERLAY_SPACING,
   },
 ];
+
+export const DT_CHART_SELECTION_AREA_ALREADY_ATTACHED_ERROR =
+  'already attached';

@@ -18,6 +18,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { PortalModule } from '@angular/cdk/portal';
 
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
@@ -27,6 +28,7 @@ import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading
 import { DtChart } from './chart';
 import { DtChartHeatfield } from './heatfield/chart-heatfield';
 import { DtChartRange } from './range/range';
+import { DtChartSelectionAreaContainer } from './selection-area/selection-area-container';
 import { DtChartSelectionAreaAction } from './selection-area/overlay-action';
 import { DtChartSelectionArea } from './selection-area/selection-area';
 import { DtChartTimestamp } from './timestamp/timestamp';
@@ -40,6 +42,7 @@ const COMPONENTS = [
   DtChartTimestamp,
   DtChartTooltip,
   DtChartSelectionAreaAction,
+  DtChartSelectionAreaContainer,
 ];
 
 @NgModule({
@@ -48,11 +51,13 @@ const COMPONENTS = [
     DtLoadingDistractorModule,
     A11yModule,
     OverlayModule,
+    PortalModule,
     DtIconModule,
     DtButtonModule,
     DtFormattersModule,
   ],
   exports: [...COMPONENTS],
   declarations: [...COMPONENTS, DtChartSelectionArea],
+  entryComponents: [DtChartSelectionAreaContainer],
 })
 export class DtChartModule {}

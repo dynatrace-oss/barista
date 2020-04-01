@@ -163,6 +163,99 @@ test('should create a timestamp when it was clicked on a certain point of the sc
     .notOk();
 });
 
+test('should wait with updating an existing timestamp until the animation is done', async (testController: TestController) => {
+  await createTimestamp(
+    { x: 400, y: 100 },
+    chartClickTargets[1],
+    testController,
+  )
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(rangeSelection.exists)
+    .notOk()
+    .expect(overlayText.textContent)
+    .match(/Jul 31, \d{2}:18/g)
+    .wait(100)
+    .click(chartClickTargets[1].with({ timeout: 0 }), {
+      offsetX: 800,
+      offsetY: 100,
+      speed: 1,
+    })
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(rangeSelection.exists)
+    .notOk()
+    .expect(overlayText.textContent)
+    .match(/Jul 31, \d{2}:18/g)
+    .wait(5000)
+    .expect(overlayText.textContent)
+    .match(/Jul 31, \d{2}:23/g);
+});
+
+test('should wait with updating an existing range until the animation is done', async (testController: TestController) => {
+  await createRange(520, { x: 310, y: 100 }, testController)
+    .expect(rangeSelection.exists)
+    .ok()
+    .expect(timestampSelection.exists)
+    .notOk()
+    .expect(overlayText.textContent)
+    .match(/Jul 31 \d{2}:17 — \d{2}:23/g)
+    .wait(200)
+    .click(chartClickTargets[1].with({ timeout: 0 }), {
+      offsetX: 800,
+      offsetY: 50,
+      speed: 1,
+    })
+    .expect(rangeSelection.exists)
+    .notOk()
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(overlayText.textContent)
+    .match(/Jul 31 \d{2}:17 — \d{2}:23/g)
+    .wait(500)
+    .expect(overlayText.textContent)
+    .match(/Jul 31, \d{2}:23/g);
+});
+
+test('should clean up overlays correctly if the user clicks multiple times in a short time', async (testController: TestController) => {
+  await createTimestamp(
+    { x: 400, y: 100 },
+    chartClickTargets[1],
+    testController,
+  )
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(rangeSelection.exists)
+    .notOk()
+    .expect(overlayText.textContent)
+    .match(/Jul 31, \d{2}:18/g)
+    .click(chartClickTargets[1].with({ timeout: 0 }), {
+      offsetX: 800,
+      offsetY: 100,
+    })
+    .click(chartClickTargets[1].with({ timeout: 0 }), {
+      offsetX: 200,
+      offsetY: 100,
+    })
+    .click(chartClickTargets[1].with({ timeout: 0 }), {
+      offsetX: 600,
+      offsetY: 100,
+    })
+    .click(chartClickTargets[1].with({ timeout: 0 }), {
+      offsetX: 800,
+      offsetY: 100,
+    })
+    .expect(timestampSelection.exists)
+    .ok()
+    .expect(rangeSelection.exists)
+    .notOk()
+    .click(closeButton)
+    .expect(timestampSelection.exists)
+    .notOk()
+    .expect(overlay.exists)
+    .notOk();
+});
+
 test('should close the overlay of a timestamp when the close overlay button was triggered', async (testController: TestController) => {
   await createTimestamp(
     { x: 400, y: 100 },

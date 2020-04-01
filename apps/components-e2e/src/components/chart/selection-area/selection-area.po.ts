@@ -47,7 +47,7 @@ export const timestampSelection = timestamp.child(
   '.dt-chart-timestamp-selector',
 );
 
-export const overlay = Selector('.dt-chart-selection-area-overlay');
+export const overlay = Selector('.dt-chart-selection-area-container');
 export const overlayApply = overlay.child('button').withText('Apply');
 export const overlayText = overlay.child('.dt-selection-area-overlay-text');
 export const closeButton = overlay

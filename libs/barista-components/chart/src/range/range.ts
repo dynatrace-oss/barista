@@ -421,6 +421,16 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
   }
 
   /**
+   * @internal Gets triggered by deleting a drag handle of the selection area
+   * Deleting a drag handle should not completely remove the overlay since it is being
+   * converted to a timestamp which only updates the template of the existing overlay.
+   */
+  _handleDragHandleClose(): void {
+    this._reset();
+    this.closed.emit();
+  }
+
+  /**
    * @internal
    * Method that emits an event when a handle is going to be dragged.
    * To prevent a new creation of a new range, the event propagation has to be stopped.
@@ -471,7 +481,7 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
           ? this._rangeArea.left
           : this._rangeArea.left + this._rangeArea.width;
       // reset the range
-      this._handleOverlayClose();
+      this._handleDragHandleClose();
       this._emitStateChanges();
       this._switchToTimestamp.next(timestamp);
       return;

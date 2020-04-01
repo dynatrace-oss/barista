@@ -1,0 +1,13 @@
+@import '../../../core/src/style/overlay';
+
+:host ::ng-deep {
+  @include dt-overlay-container();
+  display: inline-flex;
+  align-items: center;
+  padding-left: 6px;
+  padding-right: 6px;
+
+  > * {
+    margin: 0 6px;
+  }
+}

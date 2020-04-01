@@ -18,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtE2EApp } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
@@ -28,7 +28,7 @@ import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
   declarations: [DtE2EApp],
   imports: [
     BrowserModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule,
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),

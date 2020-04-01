@@ -30,16 +30,3 @@
   width: 2px;
   will-change: transform;
 }
-
-.dt-chart-selection-area-overlay {
-  @include dt-overlay-container();
-  position: absolute;
-  display: flex;
-  align-items: center;
-  padding-left: 6px;
-  padding-right: 6px;
-
-  > * {
-    margin: 0 6px;
-  }
-}

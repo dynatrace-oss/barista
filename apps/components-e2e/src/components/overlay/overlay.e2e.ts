@@ -43,7 +43,7 @@ test('should not open when disabled', async (testController: TestController) => 
 test('should open the overlay on mouseover and close on mouseout', async (testController: TestController) => {
   await testController.hover(trigger);
   await testController.expect(await overlay.exists).ok();
-  await testController.hover(disableButton);
+  await testController.hover(disableButton).wait(250);
   await testController.expect(await overlay.exists).notOk();
 });
 
