@@ -19,7 +19,7 @@
 // tslint:disable deprecation
 
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -121,57 +121,6 @@ describe('DtExpandablePanel', () => {
       expect(instanceElement.classList).toContain('dt-expandable-panel-opened');
     });
 
-    // check CSS class of trigger when expanded
-    it('should have correctly styled trigger button when expanded', () => {
-      const panelFixture = createComponent(ExpandablePanelWithTriggerComponent);
-      const panelDebugElement = panelFixture.debugElement.query(
-        By.directive(DtExpandablePanel),
-      );
-      const triggerInstanceElement = panelFixture.debugElement.query(
-        By.css('.dt-expandable-panel-trigger'),
-      ).nativeElement;
-      const panelInstance = panelDebugElement.injector.get<DtExpandablePanel>(
-        DtExpandablePanel,
-      );
-
-      expect(triggerInstanceElement.classList).toContain(
-        'dt-expandable-panel-trigger',
-      );
-      expect(triggerInstanceElement.classList).not.toContain(
-        'dt-expandable-panel-trigger-open',
-      );
-      panelInstance.expanded = true;
-      panelFixture.detectChanges();
-      expect(triggerInstanceElement.classList).toContain(
-        'dt-expandable-panel-trigger-open',
-      );
-    });
-
-    // check attributes of panel and trigger when disabled
-    it('should have correct attributes when disabled', () => {
-      const panelFixture = createComponent(ExpandablePanelWithTriggerComponent);
-      const panelDebugElement = panelFixture.debugElement.query(
-        By.directive(DtExpandablePanel),
-      );
-      const triggerInstanceElement = panelFixture.debugElement.query(
-        By.css('.dt-expandable-panel-trigger'),
-      ).nativeElement;
-      const panelInstanceElement = panelDebugElement.nativeElement;
-      const panelInstance = panelDebugElement.injector.get<DtExpandablePanel>(
-        DtExpandablePanel,
-      );
-
-      expect(panelInstanceElement.getAttribute('aria-disabled')).toBe('false');
-      expect(triggerInstanceElement.getAttribute('tabindex')).toBe('0');
-      expect(triggerInstanceElement.getAttribute('disabled')).toBe(null);
-
-      panelInstance.disabled = true;
-      panelFixture.detectChanges();
-      expect(panelInstanceElement.getAttribute('aria-disabled')).toBe('true');
-      expect(triggerInstanceElement.getAttribute('tabindex')).toBe('-1');
-      expect(triggerInstanceElement.getAttribute('disabled')).toBe('true');
-    });
-
     // check expanded and expandChange outputs
     it('should fire expanded and expandChange events on open', () => {
       const expandedSpy = jest.fn();
@@ -211,6 +160,113 @@ describe('DtExpandablePanel', () => {
       changedSubscription.unsubscribe();
     });
   });
+
+  describe('dt-expandable-panel with trigger', () => {
+    let fixture: ComponentFixture<ExpandablePanelWithTriggerComponent>;
+    let triggerInstanceElement: HTMLElement;
+    let panelDebugElement: DebugElement;
+    let panelInstance: DtExpandablePanel;
+    let panelInstanceElement: HTMLElement;
+
+    beforeEach(() => {
+      fixture = createComponent(ExpandablePanelWithTriggerComponent);
+      triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger'),
+      ).nativeElement;
+      panelInstance = fixture.debugElement.query(
+        By.directive(DtExpandablePanel),
+      ).componentInstance;
+      panelDebugElement = fixture.debugElement.query(
+        By.directive(DtExpandablePanel),
+      );
+      panelInstanceElement = panelDebugElement.nativeElement;
+    });
+
+    // check CSS class of trigger when expanded
+    it('should have correctly styled trigger button when expanded', () => {
+      expect(triggerInstanceElement.classList).toContain(
+        'dt-expandable-panel-trigger',
+      );
+      expect(triggerInstanceElement.classList).not.toContain(
+        'dt-expandable-panel-trigger-open',
+      );
+      panelInstance.expanded = true;
+      fixture.detectChanges();
+      expect(triggerInstanceElement.classList).toContain(
+        'dt-expandable-panel-trigger-open',
+      );
+    });
+
+    // check attributes of panel and trigger when disabled
+    it('should have correct attributes when disabled', () => {
+      expect(panelInstanceElement.getAttribute('aria-disabled')).toBe('false');
+      expect(triggerInstanceElement.getAttribute('tabindex')).toBe('0');
+      expect(triggerInstanceElement.getAttribute('disabled')).toBe(null);
+
+      panelInstance.disabled = true;
+      fixture.detectChanges();
+      expect(panelInstanceElement.getAttribute('aria-disabled')).toBe('true');
+      expect(triggerInstanceElement.getAttribute('tabindex')).toBe('-1');
+      expect(triggerInstanceElement.getAttribute('disabled')).toBe('true');
+    });
+
+    // check aria-controls attribute
+    it('should have the correct aria-controls attribute', () => {
+      expect(triggerInstanceElement.getAttribute('aria-controls')).toMatch(
+        /dt-expandable-panel-\d/,
+      );
+    });
+
+    // check aria-controls attribute
+    it('should have the correct aria-controls attribute when using ID input', () => {
+      fixture.componentInstance.id = 'my-panel';
+      fixture.detectChanges();
+
+      triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger'),
+      ).nativeElement;
+      panelInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel'),
+      ).nativeElement;
+
+      expect(panelInstanceElement.getAttribute('id')).toBe('my-panel');
+      expect(triggerInstanceElement.getAttribute('aria-controls')).toBe(
+        'my-panel',
+      );
+    });
+
+    // check aria-controls attribute
+    it('should fall back to the default id when ID is unset', () => {
+      fixture.componentInstance.id = 'my-panel';
+      fixture.detectChanges();
+
+      fixture.componentInstance.id = null;
+      fixture.detectChanges();
+
+      triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger'),
+      ).nativeElement;
+
+      expect(triggerInstanceElement.getAttribute('aria-controls')).toMatch(
+        /dt-expandable-panel-\d/,
+      );
+    });
+
+    // check if it has the correct aria-expanded attribute
+    it('should have the correct aria-expanded attribute', () => {
+      expect(triggerInstanceElement.getAttribute('aria-expanded')).toBe(
+        'false',
+      );
+    });
+
+    // check if it has the correct aria-expanded attribute is set after expanding
+    it('should have the correct aria-expanded attribute after opening the expandable', () => {
+      panelInstance.expanded = true;
+      fixture.detectChanges();
+
+      expect(triggerInstanceElement.getAttribute('aria-expanded')).toBe('true');
+    });
+  });
 });
 
 @Component({
@@ -224,8 +280,10 @@ class ExpandablePanelComponent {}
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-expandable-panel #panel>text</dt-expandable-panel>
+    <dt-expandable-panel #panel [id]="id">text</dt-expandable-panel>
     <button [dtExpandablePanel]="panel">trigger</button>
   `,
 })
-class ExpandablePanelWithTriggerComponent {}
+class ExpandablePanelWithTriggerComponent {
+  id: string | null;
+}

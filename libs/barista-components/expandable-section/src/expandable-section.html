@@ -2,6 +2,8 @@
   <button
     [dtExpandablePanel]="expandablepanel"
     class="dt-expandable-section-header-trigger"
+    [attr.aria-controls]="id"
+    [attr.aria-expanded]="expanded"
   >
     <div>
       <dt-icon
@@ -18,6 +20,7 @@
 
 <dt-expandable-panel
   #expandablepanel
+  [id]="[id]"
   class="dt-expandable-section-container"
   (expandChange)="expandChange.emit($event)"
 >

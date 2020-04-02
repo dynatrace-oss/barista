@@ -32,7 +32,14 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { filter } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { isDefined } from '@dynatrace/barista-components/core';
+
+/**
+ * UniqueId counter, will be incremented with every
+ * instatiation of the ExpandablePanel class
+ */
+let uniqueId = 0;
 
 @Component({
   selector: 'dt-expandable-panel',
@@ -43,6 +50,7 @@ import { Observable } from 'rxjs';
     class: 'dt-expandable-panel',
     '[class.dt-expandable-panel-opened]': 'expanded',
     '[attr.aria-disabled]': 'disabled',
+    '[attr.id]': 'id',
   },
   animations: [
     trigger('animationState', [
@@ -71,6 +79,20 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtExpandablePanel {
+  /** Assigns an id to the expandable panel. */
+  @Input()
+  get id(): string {
+    return this._id.value;
+  }
+  set id(value: string) {
+    if (isDefined(value)) {
+      this._id.next(value);
+    } else {
+      this._id.next(`dt-expandable-panel-${uniqueId++}`);
+    }
+  }
+  _id = new BehaviorSubject<string>(`dt-expandable-panel-${uniqueId++}`);
+
   /** Whether the panel is expanded. */
   @Input()
   get expanded(): boolean {
