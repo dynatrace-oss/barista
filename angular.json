@@ -414,6 +414,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "barista-design-system:serve-ssr:production"
+            },
+            "production-internal": {
+              "devServerTarget": "barista-design-system:serve-ssr:production-internal"
             }
           }
         },
@@ -553,11 +556,6 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "barista-design-system:build-frontend"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "barista-design-system:build-frontend:production"
-            }
           }
         },
         "serve-ssr": {
@@ -569,6 +567,10 @@
           "configurations": {
             "production": {
               "browserTarget": "barista-design-system:build-frontend:production",
+              "serverTarget": "barista-design-system:build-server:production"
+            },
+            "production-internal": {
+              "browserTarget": "barista-design-system:build:production-internal",
               "serverTarget": "barista-design-system:build-server:production"
             }
           }
