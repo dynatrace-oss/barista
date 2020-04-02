@@ -1,8 +1,13 @@
-<span class="dt-expandable-text-content">
+<span class="dt-expandable-text-content" [attr.id]="id">
   <ng-container *ngIf="expanded">
     <ng-content></ng-content>
   </ng-container>
 </span>
-<button class="dt-expandable-text-trigger" (click)="toggle()">
+<button
+  class="dt-expandable-text-trigger"
+  (click)="toggle()"
+  [attr.aria-controls]="id"
+  [attr.aria-expanded]="expanded"
+>
   {{!expanded ? label : labelClose}}
 </button>

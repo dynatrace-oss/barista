@@ -34,10 +34,11 @@ element.
 
 ## Inputs
 
-| Name       | Type      | Default | Description                              |
-| ---------- | --------- | ------- | ---------------------------------------- |
-| `expanded` | `boolean` | `false` | Sets or gets the panel's expanded state. |
-| `disabled` | `boolean` | `false` | Sets or gets the panel's disabled state. |
+| Name       | Type      | Default                               | Description                              |
+| ---------- | --------- | ------------------------------------- | ---------------------------------------- |
+| `expanded` | `boolean` | `false`                               | Sets or gets the panel's expanded state. |
+| `disabled` | `boolean` | `false`                               | Sets or gets the panel's disabled state. |
+| `id`       | `string`  | `dt-expandable-panel-{rollingNumber}` | Sets the id of the expandable panel.     |
 
 ## Outputs
 

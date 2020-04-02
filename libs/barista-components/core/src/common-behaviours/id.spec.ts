@@ -14,11 +14,20 @@
  * limitations under the License.
  */
 
-export * from './color';
-export * from './constructor';
-export * from './disabled';
-export * from './error-state';
-export * from './progress';
-export * from './tabindex';
-export * from './dom-exit';
-export * from './id';
+import { mixinId } from './id';
+
+describe('MixinId', () => {
+  it('should augment an existing class with an property', () => {
+    class EmptyClass {}
+
+    const classWithDisabled = mixinId(EmptyClass, 'dt-mixin-test');
+    const instance = new classWithDisabled();
+
+    // Expected the mixed-into class to have an id property
+    expect(instance.id).toMatch(/dt-mixin-test-\d/);
+
+    instance.id = 'my-id';
+    // Expected the mixed-into class to have an updated id property
+    expect(instance.id).toBe('my-id');
+  });
+});

@@ -156,6 +156,67 @@ describe('dt-expandable-text', () => {
     collapsedSubscription.unsubscribe();
     changedSubscription.unsubscribe();
   });
+
+  // check aria-controls attribute
+  it('should have the correct aria-controls attribute', () => {
+    const triggerInstanceElement = fixture.debugElement.query(
+      By.css('.dt-expandable-text-trigger'),
+    ).nativeElement;
+
+    expect(triggerInstanceElement.getAttribute('aria-controls')).toMatch(
+      /dt-expandable-text-\d/,
+    );
+  });
+
+  it('should have the correct aria-controls attribute when using ID input', () => {
+    fixture.componentInstance.id = 'my-text';
+    fixture.detectChanges();
+
+    const triggerInstanceElement = fixture.debugElement.query(
+      By.css('.dt-expandable-text-trigger'),
+    ).nativeElement;
+
+    expect(triggerInstanceElement.getAttribute('aria-controls')).toBe(
+      'my-text',
+    );
+  });
+
+  it('should fall back to the default id when ID is unset', () => {
+    fixture.componentInstance.id = 'my-text';
+    fixture.detectChanges();
+
+    fixture.componentInstance.id = null;
+    fixture.detectChanges();
+
+    const triggerInstanceElement = fixture.debugElement.query(
+      By.css('.dt-expandable-text-trigger'),
+    ).nativeElement;
+
+    expect(triggerInstanceElement.getAttribute('aria-controls')).toMatch(
+      /dt-expandable-text-\d/,
+    );
+  });
+
+  // check if it has the correct aria-expanded attribute
+  it('should have the correct aria-expanded attribute', () => {
+    const triggerInstanceElement = fixture.debugElement.query(
+      By.css('.dt-expandable-text-trigger'),
+    ).nativeElement;
+
+    expect(triggerInstanceElement.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  // check if it has the correct aria-expanded attribute is set after expanding
+  it('should have the correct aria-expanded attribute after opening the expandable', () => {
+    const triggerInstanceElement = fixture.debugElement.query(
+      By.css('.dt-expandable-text-trigger'),
+    ).nativeElement;
+
+    expandableTextInstance.open();
+    fixture.detectChanges();
+
+    expect(triggerInstanceElement.getAttribute('aria-expanded')).toBe('true');
+  });
 });
 
 function checkTextVisibility<T>(
@@ -174,7 +235,11 @@ function checkTextVisibility<T>(
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-expandable-text label="more" labelClose="less">text</dt-expandable-text>
+    <dt-expandable-text label="more" labelClose="less" [id]="id"
+      >text</dt-expandable-text
+    >
   `,
 })
-class ExpandableTextComponent {}
+class ExpandableTextComponent {
+  id: string | null;
+}

@@ -26,6 +26,18 @@ import {
 } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { HasId, mixinId } from '@dynatrace/barista-components/core';
+
+/**
+ * Boilerplate for mixin extension of ExpandableText
+ */
+export class DtExpandableTextBase {
+  constructor() {}
+}
+export const _ExpandableTextBase = mixinId(
+  DtExpandableTextBase,
+  'dt-expandable-text',
+);
 
 /**
  * Provides basic expand/collaps functionality for
@@ -40,11 +52,12 @@ import { Observable } from 'rxjs';
     class: 'dt-expandable-text',
     '[class.dt-expandable-text-expanded]': 'expanded',
   },
+  inputs: ['id'],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtExpandableText {
+export class DtExpandableText extends _ExpandableTextBase implements HasId {
   /** Label for the expand button */
   @Input() label: string;
   /** Label for the collapse button */
@@ -80,7 +93,9 @@ export class DtExpandableText {
     boolean
   > = this.expandChanged.pipe(filter(v => !v));
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {
+    super();
+  }
 
   /** Toggles the expandable text state */
   toggle(): void {

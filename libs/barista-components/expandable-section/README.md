@@ -30,10 +30,11 @@ To apply the expandable panel, use the `<dt-expandable-section>` element.
 
 ## Inputs
 
-| Name       | Type      | Default | Description                                |
-| ---------- | --------- | ------- | ------------------------------------------ |
-| `expanded` | `boolean` | `false` | Sets or gets the section's expanded state. |
-| `disabled` | `boolean` | `false` | Sets or gets the section's disabled state. |
+| Name       | Type      | Default                                  | Description                                  |
+| ---------- | --------- | ---------------------------------------- | -------------------------------------------- |
+| `expanded` | `boolean` | `false`                                  | Sets or gets the section's expanded state.   |
+| `disabled` | `boolean` | `false`                                  | Sets or gets the section's disabled state.   |
+| `id`       | `string`  | `dt-expandable-section-{rolling-number}` | Sets a unique id for the expandable section. |
 
 In most cases the expandable section is closed by default, but it can also be
 set to `expanded`.
