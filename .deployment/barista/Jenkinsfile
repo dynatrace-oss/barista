@@ -46,11 +46,25 @@ pipeline {
           }
         }
 
-        stage("Add internal Icons") {
+        stage("Internal Preparations") {
           when {
             expression { return params.INTERNAL_VERSION }
           }
+          environment {
+            BARISTA_SEARCH_ENDPOINT = credentials('barista-search-endpoint')
+            ENVIRONMENT_FILE = 'apps/barista-design-system/src/environments/environment.internal.ts'
+          }
           steps {
+
+            dir(BARISTA_PATH) {
+              script {
+                def text = readFile(file: "${ENVIRONMENT_FILE}")
+                text = text.replaceAll("\\{\\{BARISTA_INTERNAL_SEARCH_ENDPOINT\\}\\}", "${BARISTA_SEARCH_ENDPOINT}")
+                echo text
+                writeFile(file: "${ENVIRONMENT_FILE}",  text: text)
+              }
+            }
+
             dir(WORKSPACE_DIR) {
               sh '''
                 rm -rf ./node_modules/@dynatrace/barista-icons
@@ -105,9 +119,15 @@ pipeline {
                 node dist/libs/tools/examples-tools/main.js
                 node dist/libs/tools/barista/main.js
 
+                if $INTERNAL_VERSION ; then
+                  configuration='production-internal'
+                else
+                  configuration='production'
+                fi
+
                 node \
                   --max_old_space_size=8192 \
-                  ./node_modules/.bin/ng run barista-design-system:render:production
+                  ./node_modules/.bin/ng run barista-design-system:build:${configuration}
               '''
 
               stash includes: "dist/**/*", name: 'dist'
