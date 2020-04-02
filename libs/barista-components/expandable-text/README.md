@@ -26,11 +26,12 @@ To apply the Dynatrace expandable text, use the `<dt-expandable-text>` element.
 
 ## Inputs
 
-| Name         | Type      | Default | Description                           |
-| ------------ | --------- | ------- | ------------------------------------- |
-| `expanded`   | `boolean` | `false` | Sets the text's expanded state.       |
-| `label`      | `string`  |         | Sets the label of the expand-button   |
-| `labelClose` | `string`  |         | Sets the label of the collapse-button |
+| Name         | Type      | Default                              | Description                               |
+| ------------ | --------- | ------------------------------------ | ----------------------------------------- |
+| `expanded`   | `boolean` | `false`                              | Sets the text's expanded state.           |
+| `id`         | `string`  | `dt-expandable-text-{rollingnumber}` | Sets a unique id for the expandable text. |
+| `label`      | `string`  |                                      | Sets the label of the expand-button       |
+| `labelClose` | `string`  |                                      | Sets the label of the collapse-button     |
 
 ## Outputs
 

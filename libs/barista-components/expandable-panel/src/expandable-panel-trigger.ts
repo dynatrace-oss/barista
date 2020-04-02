@@ -16,7 +16,7 @@
 
 import { DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { ChangeDetectorRef, Directive, Input, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, merge } from 'rxjs';
 
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 
@@ -33,6 +33,8 @@ import { DtExpandablePanel } from './expandable-panel';
     '[attr.disabled]':
       'dtExpandablePanel && dtExpandablePanel.disabled ? true: null',
     '[attr.aria-disabled]': 'dtExpandablePanel && dtExpandablePanel.disabled',
+    '[attr.aria-expanded]': 'dtExpandablePanel && dtExpandablePanel.expanded',
+    '[attr.aria-controls]': 'dtExpandablePanel && dtExpandablePanel.id',
     '[tabindex]': 'dtExpandablePanel && dtExpandablePanel.disabled ? -1 : 0',
     '(click)': '_handleClick()',
     '(keydown)': '_handleKeydown($event)',
@@ -47,11 +49,12 @@ export class DtExpandablePanelTrigger implements OnDestroy {
   set dtExpandablePanel(value: DtExpandablePanel) {
     this._panel = value;
     this._expandedSubscription.unsubscribe();
-    this._expandedSubscription = this.dtExpandablePanel.expandChange.subscribe(
-      () => {
-        this._changeDetectorRef.markForCheck();
-      },
-    );
+    this._expandedSubscription = merge(
+      this.dtExpandablePanel.expandChange,
+      this.dtExpandablePanel._id,
+    ).subscribe(() => {
+      this._changeDetectorRef.markForCheck();
+    });
   }
   private _panel: DtExpandablePanel;
   private _expandedSubscription: Subscription = Subscription.EMPTY;

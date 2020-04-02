@@ -124,6 +124,73 @@ describe('DtExpandableSection', () => {
       );
     });
 
+    // check aria-controls attribute
+    it('should have the correct aria-controls attribute', () => {
+      const triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger'),
+      ).nativeElement;
+
+      expect(triggerInstanceElement.getAttribute('aria-controls')).toMatch(
+        /dt-expandable-section-\d/,
+      );
+    });
+
+    it('should have the correct aria-controls attribute when using ID input', () => {
+      fixture.componentInstance.id = 'my-section';
+      fixture.detectChanges();
+
+      const triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger'),
+      ).nativeElement;
+      const panelInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel'),
+      ).nativeElement;
+
+      expect(panelInstanceElement.getAttribute('id')).toBe('my-section');
+      expect(triggerInstanceElement.getAttribute('aria-controls')).toBe(
+        'my-section',
+      );
+    });
+
+    it('should fall back to the default id when ID is unset', () => {
+      fixture.componentInstance.id = 'my-panel';
+      fixture.detectChanges();
+
+      fixture.componentInstance.id = null;
+      fixture.detectChanges();
+
+      const triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger'),
+      ).nativeElement;
+
+      expect(triggerInstanceElement.getAttribute('aria-controls')).toMatch(
+        /dt-expandable-section-\d/,
+      );
+    });
+
+    // check if it has the correct aria-expanded attribute
+    it('should have the correct aria-expanded attribute', () => {
+      const triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger'),
+      ).nativeElement;
+
+      expect(triggerInstanceElement.getAttribute('aria-expanded')).toBe(
+        'false',
+      );
+    });
+
+    // check if it has the correct aria-expanded attribute is set after expanding
+    it('should have the correct aria-expanded attribute after opening the expandable', () => {
+      const triggerInstanceElement = fixture.debugElement.query(
+        By.css('.dt-expandable-panel-trigger'),
+      ).nativeElement;
+
+      expandableSectionInstance.toggle();
+      fixture.detectChanges();
+
+      expect(triggerInstanceElement.getAttribute('aria-expanded')).toBe('true');
+    });
+
     // check attributes of section and trigger when disabled
     it('should have correct attributes when disabled', () => {
       const triggerInstanceElement = fixture.debugElement.query(
@@ -187,10 +254,12 @@ describe('DtExpandableSection', () => {
 @Component({
   selector: 'dt-test-app',
   template: `
-    <dt-expandable-section>
+    <dt-expandable-section [id]="id">
       <dt-expandable-section-header>Header</dt-expandable-section-header>
       text
     </dt-expandable-section>
   `,
 })
-class TestApp {}
+class TestApp {
+  id: string | null;
+}

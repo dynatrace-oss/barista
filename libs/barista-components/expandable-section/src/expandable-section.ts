@@ -28,7 +28,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { CanDisable } from '@dynatrace/barista-components/core';
+import { CanDisable, HasId, mixinId } from '@dynatrace/barista-components/core';
 import { DtExpandablePanel } from '@dynatrace/barista-components/expandable-panel';
 import { filter } from 'rxjs/operators';
 
@@ -37,6 +37,17 @@ import { filter } from 'rxjs/operators';
   selector: 'dt-expandable-section-header',
 })
 export class DtExpandableSectionHeader {}
+
+/**
+ * Boilerplate for mixin extension of ExpandableSection
+ */
+export class DtExpandableSectionBase {
+  constructor() {}
+}
+export const _ExpandableSectionBase = mixinId(
+  DtExpandableSectionBase,
+  'dt-expandable-section',
+);
 
 @Component({
   selector: 'dt-expandable-section',
@@ -49,11 +60,13 @@ export class DtExpandableSectionHeader {}
     '[class.dt-expandable-section-disabled]': 'disabled',
     '[attr.aria-disabled]': 'disabled',
   },
+  inputs: ['id'],
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtExpandableSection implements CanDisable, OnChanges {
+export class DtExpandableSection extends _ExpandableSectionBase
+  implements CanDisable, HasId, OnChanges {
   /** Whether the expandable section is expanded. */
   @Input()
   get expanded(): boolean {
@@ -92,7 +105,9 @@ export class DtExpandableSection implements CanDisable, OnChanges {
   @ViewChild(DtExpandablePanel, { static: true })
   private _panel: DtExpandablePanel;
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.disabled?.firstChange) {
