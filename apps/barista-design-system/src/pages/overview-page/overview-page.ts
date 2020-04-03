@@ -75,7 +75,7 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
    */
   ngAfterViewInit(): void {
     this._prepareItems();
-    this._keyUpSubscription = fromEvent(document, 'keyup').subscribe(
+    this._keyUpSubscription = fromEvent(this._document, 'keyup').subscribe(
       (evt: KeyboardEvent) => {
         const keyCode = _readKeyCode(evt);
         if (keyCode >= A && keyCode <= Z) {
