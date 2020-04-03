@@ -48,9 +48,12 @@ export class BaSearch implements OnInit {
   ngOnInit(): void {
     this.searchResults$ = fromEvent(
       this._searchInput.nativeElement,
-      'input',
+      'keyup',
     ).pipe(
-      map(() => this._searchInput.nativeElement.value),
+      map((event: KeyboardEvent) => {
+        event.stopPropagation();
+        return this._searchInput.nativeElement.value;
+      }),
       distinctUntilChanged(),
       debounceTime(150),
       switchMap(query => this._searchService.search(query)),
