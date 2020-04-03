@@ -28,16 +28,7 @@ import { sunburstDemoData } from './sunburst-demo-data';
   styleUrls: ['./sunburst-demo.component.scss'],
 })
 export class SunburstDemo {
-  selectedInitial: DtSunburstNode[] = [
-    {
-      label: 'Shephard',
-      children: [
-        {
-          label: 'Jack',
-        },
-      ],
-    },
-  ];
+  selectedInitial: DtSunburstNode[] = [sunburstDemoData[4]];
   selected: string[];
   valueDisplayMode: DtSunburstValueMode = DtSunburstValueMode.ABSOLUTE;
 

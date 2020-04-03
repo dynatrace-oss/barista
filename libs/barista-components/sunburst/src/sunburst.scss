@@ -14,6 +14,10 @@ text {
   }
 }
 
+.dt-slice--current {
+  cursor: default;
+}
+
 .dt-label {
   transform: translateY(0.9rem);
   font-size: 0.9rem;

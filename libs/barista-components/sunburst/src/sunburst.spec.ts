@@ -15,20 +15,20 @@
  */
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
+import { Component, ViewChild } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { createComponent } from '@dynatrace/testing/browser';
 import { DtSunburst } from './sunburst';
-import { DtSunburstModule } from './sunburst.module';
 import { sunburstMock } from './sunburst.mock';
+import { DtSunburstModule } from './sunburst.module';
 import {
-  DtSunburstValueMode,
   DtSunburstNode,
-  fillNodes,
   DtSunburstSlice,
+  DtSunburstValueMode,
+  fillNodes,
 } from './sunburst.util';
-import { Component, ViewChild } from '@angular/core';
-import { By } from '@angular/platform-browser';
 
 describe('DtSunburst', () => {
   let fixture: ComponentFixture<TestApp>;
@@ -113,6 +113,7 @@ describe('DtSunburst', () => {
               label: 'Blue',
               value: 1,
               valueRelative: 0.125,
+              origin: expect.any(Object),
             },
             {
               color: '#fff29a',
@@ -121,6 +122,7 @@ describe('DtSunburst', () => {
               label: 'Red',
               value: 3,
               valueRelative: 0.375,
+              origin: expect.any(Object),
             },
           ],
           color: '#fff29a',
@@ -129,6 +131,7 @@ describe('DtSunburst', () => {
           label: 'Purple',
           value: 4,
           valueRelative: 0.5,
+          origin: expect.any(Object),
         },
       ]);
     });
@@ -156,19 +159,20 @@ describe('DtSunburst', () => {
       expect(selectedChangeSpy).toHaveBeenCalledWith([]);
     });
 
-    // TODO: activate this test
-    xit('should emit selected nodes', () => {
+    it('should emit selected nodes', () => {
       rootComponent.series = sunburstMock;
       fixture.detectChanges();
 
       const selected = {
         data: {
+          origin: expect.any(Object),
           active: false,
           children: [],
           color: '',
           colorHover: '',
           depth: 1,
           id: '1.1',
+          isCurrent: false,
           label: 'Yellow',
           showLabel: false,
           value: 3,
@@ -184,17 +188,7 @@ describe('DtSunburst', () => {
         startAngle: 0,
         value: 3,
       } as DtSunburstSlice;
-      const expected = [
-        {
-          children: [
-            { label: 'Blue', value: 1 },
-            { label: 'Yellow', value: 3 },
-          ],
-          label: 'Green',
-          value: 4,
-        },
-        { label: 'Yellow', value: 3 },
-      ];
+      const expected = [sunburstMock[1], sunburstMock[1].children[0]];
 
       component.select(undefined, selected);
 
