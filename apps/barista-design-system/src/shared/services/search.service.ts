@@ -19,6 +19,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaSearchResult } from '@dynatrace/shared/barista-definitions';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { catchError } from 'rxjs/operators';
 
 interface BaSearchServiceInterface {
   search(query: string): Observable<BaSearchResult[]>;
@@ -29,9 +30,11 @@ export class BaSearchService implements BaSearchServiceInterface {
   constructor(private readonly _http: HttpClient) {}
 
   search(searchString: string): Observable<BaSearchResult[]> {
-    return this._http.get<BaSearchResult[]>(
-      `${environment.searchEndpoint}search?q=${searchString}`,
-    );
+    return this._http
+      .get<BaSearchResult[]>(
+        `${environment.searchEndpoint}search?q=${searchString}`,
+      )
+      .pipe(catchError(() => []));
   }
 }
 
