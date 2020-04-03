@@ -119,6 +119,24 @@ set_env: &set_env
 
 jobs:
 
+# - Builds docker image for workspace
+  build-docker-image:
+    executor: docker-publisher
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Login to Docker Registry
+          command: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
+      - run:
+          name: Build Docker Image
+          command: docker build -t $WORKSPACE_IMAGE:latest ./ -f ./.deployment/workspace-base.Dockerfile
+      - run:
+          name: Publish Docker Image to Docker Hub
+          command: |
+            docker push $WORKSPACE_IMAGE:latest
+
 # - install npm dependencies
   install:
     <<: *defaults
@@ -142,31 +160,6 @@ jobs:
           root: ~/barista
           paths:
             - .
-
-# - Builds docker image for workspace
-  build-docker-image:
-    executor: docker-publisher
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run: docker build -t $WORKSPACE_IMAGE:latest ./ -f ./.deployment/workspace-base.Dockerfile
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./
-
-# - Publishes the built docker image for the workspace
-  publish-docker-image:
-    executor: docker-publisher
-    steps:
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
-      - run:
-          name: Publish Docker Image to Docker Hub
-          command: |
-            docker push $WORKSPACE_IMAGE:latest
 
 # - sonar checks
   sonar:
@@ -346,22 +339,23 @@ jobs:
 
 workflows:
   version: 2.1
-# - Runs on every PR check
-  pr-check:
+
+# - Publish the workspace image on every master build
+  workspace-build:
     jobs:
-      - install:
-          <<: *filter_branches
       - build-docker-image:
-          <<: *filter_branches
-      - publish-docker-image:
           filters:
             branches:
               only: master
           # DOCKERHUB_USER is used for publishing
           # DOCKERHUB_PASSWORD is used for publishing
           context: barista
-          requires:
-            - build-docker-image
+
+# - Runs on every PR check
+  pr-check:
+    jobs:
+      - install:
+          <<: *filter_branches
       - check-formatting:
           <<: *filter_branches
           requires:
