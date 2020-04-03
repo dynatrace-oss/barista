@@ -1,8 +1,18 @@
 ARG NODE_VERSION=12
 # Will be set on Jenkins
-ARG DOCKER_REGISTRY
+ARG BASE_IMAGE_REGISTRY
 
-FROM ${DOCKER_REGISTRY}/library/jenkins-slave-cluster-docker-image:5.2 as builder
+FROM designops/workspace-base:latest as workspace
+
+COPY .npmrc ./
+
+RUN rm -rf entrypoint.sh && \
+    npm install @dynatrace/barista-icons @dynatrace/barista-fonts && \
+    cp -R ./dist/tmp/workspace ./node_modules/@dynatrace/workspace && \
+    cp -R ./dist/tmp/barista-builders ./node_modules/@dynatrace/barista-builders && \
+    rm -rf .npmrc
+
+FROM ${BASE_IMAGE_REGISTRY}/library/jenkins-slave-cluster-docker-image:5.2 as builder
 
 LABEL maintainer="Dynatrace DesignOps Team <designops@dynatrace.com>" \
       description="This image is used as build agent for our Jenkins build"
@@ -21,14 +31,4 @@ RUN  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - \
 
 WORKDIR /home/dynatrace
 
-COPY .npmrc ./
-
-FROM builder
-
-COPY --from=designops/workspace-base:latest /dynatrace/ ./
-
-RUN rm -rf entrypoint.sh && \
-    npm install @dynatrace/barista-icons @dynatrace/barista-fonts && \
-    cp -R ./dist/tmp/workspace ./node_modules/@dynatrace/workspace && \
-    cp -R ./dist/tmp/barista-builders ./node_modules/@dynatrace/barista-builders && \
-    rm -rf .npmrc
+COPY --from=workspace /dynatrace/ ./
