@@ -19,11 +19,8 @@
  *
  * TODO
  *
- * use labels and colors provided by UX
  * overlay
- * path animation?
  * E2E
- * select should return original object
  *
  */
 
@@ -113,7 +110,7 @@ export class DtSunburst implements OnChanges {
     if (slice) {
       this._selected = getSelectedNodes(this.filledSeries, slice.data);
 
-      this.selectedChange.emit(this._selected);
+      this.selectedChange.emit(this._selected.map(node => node.origin));
     } else {
       this._selected = [];
 

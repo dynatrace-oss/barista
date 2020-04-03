@@ -32,8 +32,11 @@ export enum DtSunburstValueMode {
   PERCENT = 'percent',
 }
 
-export interface DtSunburstNodeInternal extends DtSunburstNode {
+export interface DtSunburstNodeInternal {
+  origin: DtSunburstNode;
+
   id: string;
+  label: string;
   value: number;
   valueRelative: number;
   children?: DtSunburstNodeInternal[];
@@ -41,6 +44,7 @@ export interface DtSunburstNodeInternal extends DtSunburstNode {
   depth: number;
   color: DtColors | string;
   colorHover: DtColors | string;
+  isCurrent: boolean;
   visible: boolean;
   active: boolean;
   showLabel: boolean;
@@ -94,7 +98,8 @@ const fillUpAndSortNodes = (node: DtSunburstNode) => {
     .sort((a, b) => a.value - b.value);
 
   return {
-    ...node,
+    origin: node,
+    label: node.label,
     children,
     value: children ? getValue(children) : node.value ?? 0,
     depth: children
@@ -121,7 +126,8 @@ const fillDownNodes = (
   const filledNode = {
     ...node,
     id: getId(i, parent?.id),
-    color: node.color ?? (parent ? parent.color : getColor(i, nodes.length)),
+    color:
+      node.origin.color ?? (parent ? parent.color : getColor(i, nodes.length)),
     valueRelative: node.value / totalValue,
   };
 
@@ -146,11 +152,14 @@ export const getNodesWithState = (
   nodes.map(node => ({
     ...node,
     children: getNodesWithState(node.children, id),
-    color:
-      !id || isAncestor(node, id) || isCurrent(node, id) || isChild(node, id)
-        ? node.color
-        : DtColors.GRAY_300,
+    ...getColors(
+      !id || isAncestor(node, id) || isCurrent(node, id) || isChild(node, id),
+      isCurrent(node, id),
+      node.color,
+      DtColors.GRAY_300,
+    ),
     active: isAncestor(node, id) || isCurrent(node, id),
+    isCurrent: isCurrent(node, id),
     visible:
       getLevel(node.id) === 1 ||
       isAncestorSibling(node, id) ||
@@ -214,7 +223,7 @@ export const getSelectedNodesFromOutside = (
       selected,
     ) => {
       const currentNode = tree.currentLevel.find(
-        current => current.label === selected.label,
+        current => current.origin === selected,
       );
       // TODO: this is assuming the values are correct. Otherwise we should provide an error
       if (currentNode) {
@@ -380,6 +389,19 @@ const getColor = (index: number, totalNodes: number): string =>
   DT_CHART_COLOR_PALETTE_ORDERED[
     (totalNodes - index - 1) % DT_CHART_COLOR_PALETTE_ORDERED.length
   ];
+
+/**
+ * @description Get color ad colorHover of the palette
+ *
+ * @param isColoured sibling index
+ * @param isCurrent number of children for parent node
+ * @param colorYes color for active
+ * @param colorNo color for faded
+ */
+const getColors = (isColoured, isCurrent, colorYes, colorNo) => ({
+  color: isColoured ? colorYes : colorNo,
+  colorHover: `${isColoured ? colorYes : colorNo}${isCurrent ? '' : 99}`,
+});
 
 /**
  * @description Get an array of all ancestors ids
