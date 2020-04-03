@@ -1,0 +1,77 @@
+#!groovy
+
+pipeline {
+  agent {
+    node {
+      label "k8s-docker"
+    }
+  }
+
+  options {
+    ansiColor("xterm")
+		buildDiscarder(logRotator(numToKeepStr: '10'))
+    disableConcurrentBuilds()
+		timeout(time: 30, unit: 'MINUTES')
+    timestamps()
+  }
+
+  environment {
+    IMAGE_NAME = "designops/jenkins-barista-builder"
+    DOCKERFILE = ".deployment/k8s-barista-builder/Dockerfile"
+    DOCKER_REGISTRY = credentials("docker-registry")
+    LEGACY_DOCKER_REGISTRY = credentials("legacy-docker-registry")
+  }
+
+  stages {
+
+    stage("Add npmrc file for internal registry") {
+      steps {
+        configFileProvider([
+          configFile(fileId: "npmrc_for_artifactory", variable: "NPM_RC")
+        ]) {
+          sh """
+            mv "$NPM_RC" $WORKSPACE/.npmrc
+          """
+        }
+      }
+    }
+
+
+    stage("Build Docker image") {
+      steps {
+        sh """
+          docker build \
+            --no-cache \
+            --pull \
+            -t ${env.DOCKER_REGISTRY}/${IMAGE_NAME}:latest \
+            . \
+            -f ${DOCKERFILE} \
+            --build-arg BASE_IMAGE_REGISTRY='${env.LEGACY_DOCKER_REGISTRY}'
+        """
+      }
+    }
+
+    stage("Push image to Registry") {
+      environment {
+        DOCKER_CRED = credentials('robot-designops-harbor')
+      }
+      steps {
+        sh """
+          docker login -u \'${DOCKER_CRED_USR}\' -p ${DOCKER_CRED_PSW} ${env.DOCKER_REGISTRY}
+
+          docker push ${env.DOCKER_REGISTRY}/${IMAGE_NAME}:latest
+        """
+      }
+    }
+  }
+
+  post {
+    always {
+      cleanWs deleteDirs: true
+    }
+  }
+}
+
+
+
+
