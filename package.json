@@ -133,7 +133,7 @@
     "husky": "^4.2.3",
     "inquirer": "^7.1.0",
     "jest": "^24.8.0",
-    "jest-junit": "^6.4.0",
+    "jest-junit": "^10.0.0",
     "jest-preset-angular": "8.0.0",
     "jest-serializer-path": "^0.1.15",
     "markdown-it": "^10.0.0",
