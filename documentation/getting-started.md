@@ -40,6 +40,21 @@ this module wherever you'd like to use the components.
 modules after Angular's BrowserModule, as the import order matters for
 NgModules.
 
+## Prototype
+
+If you want to start testing the components right away without having to setup
+anything locally, we prepared an online IDE with everything setup for you. All
+modules are already installed, so you can copy an example you like from any page
+and paste the code into the editor. This will always be up to date with the
+latest version of the component library released. You don't have to worry about
+installing dependencies, upgrading to the latest version or adding any modules.
+You can also safe the prototype and share it with colleagues by forking the
+example on stackblitz. Happy prototyping.
+
+Go to
+[Stackblitz](https://stackblitz.com/github/dynatrace-oss/barista-examples/tree/master/prototype/?file=src%2Fapp%2Fapp.component.html)
+and start working there.
+
 ## Manual installation
 
 You can also install the Barista components library manually. Follow these steps
