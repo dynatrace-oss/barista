@@ -570,7 +570,7 @@
               "serverTarget": "barista-design-system:build-server:production"
             },
             "production-internal": {
-              "browserTarget": "barista-design-system:build:production-internal",
+              "browserTarget": "barista-design-system:build-frontend:production-internal",
               "serverTarget": "barista-design-system:build-server:production"
             }
           }
