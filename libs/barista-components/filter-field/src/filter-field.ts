@@ -947,13 +947,14 @@ export class DtFilterField<T>
     if (filterValues.length) {
       if (filterValues === this._currentFilterValues) {
         this._switchToRootDef(false);
+        this._emitCurrentFilterChanges([], filterValues);
       } else {
         this._updateTagData();
         this._updateAutocompleteOptionsOrGroups();
         this._filterByLabel = '';
+        this._emitFilterChanges([], removedFilters);
       }
       this._resetEditMode();
-      this._emitFilterChanges([], removedFilters);
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
