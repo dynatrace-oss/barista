@@ -14,15 +14,10 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { DtSunburst } from './sunburst';
-import { DtSunburstOverlay } from './sunburst.directive';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { Directive } from '@angular/core';
 
-@NgModule({
-  imports: [CommonModule, OverlayModule],
-  exports: [DtSunburst, DtSunburstOverlay],
-  declarations: [DtSunburst, DtSunburstOverlay],
+@Directive({
+  selector: 'ng-template[dtSunburstOverlay]',
+  exportAs: 'dtSunburstOverlay',
 })
-export class DtSunburstModule {}
+export class DtSunburstOverlay {}
