@@ -255,6 +255,7 @@ import { DtExampleSidenavDefault } from './sidenav/sidenav-default-example/siden
 import { DtExampleStepperDefault } from './stepper/stepper-default-example/stepper-default-example';
 import { DtExampleStepperEditable } from './stepper/stepper-editable-example/stepper-editable-example';
 import { DtExampleStepperLinear } from './stepper/stepper-linear-example/stepper-linear-example';
+import { DtExampleSunburstDefault } from './sunburst/sunburst-default-example/sunburst-default-example';
 import { DtExampleSwitchDark } from './switch/switch-dark-example/switch-dark-example';
 import { DtExampleSwitchDefault } from './switch/switch-default-example/switch-default-example';
 import { DtExampleSwitchResponsive } from './switch/switch-responsive-example/switch-responsive-example';
@@ -356,6 +357,7 @@ export { DtExamplesSelectModule } from './select/select-examples.module';
 export { DtExamplesShowMoreModule } from './show-more/show-more-examples.module';
 export { DtExamplesSidenavModule } from './sidenav/sidenav-examples.module';
 export { DtExamplesStepperModule } from './stepper/stepper-examples.module';
+export { DtSunburstExamplesModule } from './sunburst/sunburst-examples.module';
 export { DtExamplesSwitchModule } from './switch/switch-examples.module';
 export { DtExamplesTableModule } from './table/table-examples.module';
 export { DtExamplesTabsModule } from './tabs/tabs-examples.module';
@@ -598,6 +600,7 @@ export {
   DtExampleStepperDefault,
   DtExampleStepperEditable,
   DtExampleStepperLinear,
+  DtExampleSunburstDefault,
   DtExampleSwitchDark,
   DtExampleSwitchDefault,
   DtExampleSwitchResponsive,
@@ -933,6 +936,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleStepperDefault', DtExampleStepperDefault],
   ['DtExampleStepperEditable', DtExampleStepperEditable],
   ['DtExampleStepperLinear', DtExampleStepperLinear],
+  ['DtExampleSunburstDefault', DtExampleSunburstDefault],
   ['DtExampleSwitchDark', DtExampleSwitchDark],
   ['DtExampleSwitchDefault', DtExampleSwitchDefault],
   ['DtExampleSwitchResponsive', DtExampleSwitchResponsive],
