@@ -4,7 +4,11 @@
   [selected]="selectedInitial"
   (selectedChange)="select($event)"
   [valueDisplayMode]="valueDisplayMode"
-></dt-sunburst>
+>
+  <ng-template dtSunburstOverlay let-tooltip>
+    {{ tooltip.label }}: {{ tooltip.value }}
+  </ng-template>
+</dt-sunburst>
 
 <dt-switch (change)="toggleDisplayMode($event)">
   Show relative values

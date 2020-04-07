@@ -1,27 +1,35 @@
-<svg [attr.viewBox]="viewBox" [attr.width]="width">
-  <text class="dt-value dt-selected-value">
+<ng-content></ng-content>
+
+<svg [attr.viewBox]="viewBox" [attr.width]="width" #svg>
+  <text class="dt-sunburst-value dt-sunburst-selected-value">
     {{ labelAsAbsolute ? selectedValue : selectedRelativeValue | percent:'0.1'
     }}
   </text>
-  <text class="dt-label dt-selected-label">{{selectedLabel}}</text>
-  <ng-container *ngFor="let slice of slices">
+  <text class="dt-sunburst-label dt-sunburst-selected-label">
+    {{selectedLabel}}
+  </text>
+  <ng-container *ngFor="let slice of (slices || [])">
     <path
-      class="dt-slice"
-      [class.dt-slice--current]="slice.data.isCurrent"
+      class="dt-sunburst-slice"
+      [class.dt-sunburst-slice--current]="slice.data.isCurrent"
       [attr.d]="slice.path"
       [style.--slice-color]="slice.data.color"
       [style.--slice-color--hover]="slice.data.colorHover"
       (click)="select($event,slice)"
+      (mouseenter)="openOverlay( slice)"
+      (mouseleave)="closeOverlay()"
     />
     <g
       attr.transform="translate({{slice.labelPosition}})"
       *ngIf="slice.data.showLabel && slice.showLabel"
     >
-      <text class="dt-value dt-slice-value">
+      <text class="dt-sunburst-value dt-sunburst-slice-value">
         {{ labelAsAbsolute ? slice.data.value : slice.data.valueRelative |
         percent:'0.1' }}
       </text>
-      <text class=" dt-label dt-slice-label">{{slice.data.label}}</text>
+      <text class=" dt-sunburst-label dt-sunburst-slice-label">
+        {{slice.data.label}}
+      </text>
     </g>
   </ng-container>
 </svg>

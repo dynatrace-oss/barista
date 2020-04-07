@@ -862,7 +862,7 @@ class EventChartStaticDataWithLegendAndOverlay {
         This is the error legend
       </dt-event-chart-legend-item>
 
-      <ng-template dtEventChartOverlay let-tooltip>
+      <ng-template dtSunburstOverlay let-tooltip>
         <div *ngFor="let t of tooltip">
           {{ t.data }}
         </div>

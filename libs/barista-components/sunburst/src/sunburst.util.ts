@@ -54,6 +54,7 @@ export interface DtSunburstSlice
   extends d3.PieArcDatum<DtSunburstNodeInternal> {
   path: string | null;
   labelPosition: [number, number];
+  tooltipPosition: [number, number];
   showLabel: boolean;
 }
 
@@ -61,6 +62,7 @@ const SVG_SETTINGS = {
   outerRadius: 160,
   innerRadius: 64,
   labelOffsetRadius: 32,
+  tooltipOffsetRadius: 64,
   minAngleForLabel: (15 / 360) * 2 * Math.PI,
 };
 const IS_SEPARATOR = '.';
@@ -333,6 +335,13 @@ const getSlicesByParent = (
               sliceBoundaries.outerRadius + SVG_SETTINGS.labelOffsetRadius,
             outerRadius:
               sliceBoundaries.outerRadius + SVG_SETTINGS.labelOffsetRadius,
+          }),
+          tooltipPosition: d3.arc().centroid({
+            ...sliceBoundaries,
+            innerRadius:
+              sliceBoundaries.outerRadius + SVG_SETTINGS.tooltipOffsetRadius,
+            outerRadius:
+              sliceBoundaries.outerRadius + SVG_SETTINGS.tooltipOffsetRadius,
           }),
           showLabel:
             segment.endAngle - segment.startAngle >
