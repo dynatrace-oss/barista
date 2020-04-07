@@ -1,7 +1,7 @@
-name: "Slack"
-
-on: [release]
-
+name: "Slack production promotion"
+on:
+  release:
+    types: [published]
 jobs:
   barista-public-notification:
     runs-on: ubuntu-latest
