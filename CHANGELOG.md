@@ -1,3 +1,31 @@
+## 6.2.0 (2020-04-07)
+
+### Bug Fixes
+
+- **expandable-section, expandable-text, expandable-panel:** Added
+  `aria-controls` and `aria-expanded`.
+  ([f37a977](https://github.com/dynatrace-oss/barista/commit/f37a9773991023f9d0680b7e2edfa1ea95f1cece)),
+  closes [#788](https://github.com/dynatrace-oss/barista/issues/788)
+- **expandable-text:** Removes a default background on the trigger in Firefox.
+  ([ac4085d](https://github.com/dynatrace-oss/barista/commit/ac4085db06ecdbc8459ad54eb97374c840d42ec6))
+- **filter-field:** Fixes an issue where the `currentFilterChange` event was not
+  fired when a filter that is currently in progress was removed.
+  ([772348a](https://github.com/dynatrace-oss/barista/commit/772348ab644f6d4f027f779ea6703234358cac20))
+- **overlay:** Fixes a long standing issue with overlays being squashed and
+  positions being off when subelements of the trigger are hovered.
+  ([b575764](https://github.com/dynatrace-oss/barista/commit/b5757648c1b779432cf9adcee66760bcff840bb7))
+
+### Features
+
+- **chart:** Added animation for the chart heatfield.
+  ([00deddd](https://github.com/dynatrace-oss/barista/commit/00deddd44114b265a1986496d1d59dea87a92aff)),
+  closes [#476](https://github.com/dynatrace-oss/barista/issues/476)
+- **chart-heatfield:** Added close button to heatfield overlay.
+  ([7eaeef5](https://github.com/dynatrace-oss/barista/commit/7eaeef5105893ccaa3524b57a840d3d20d72a8d8))
+- **overlay:** Uses the FullscreenOverlayContainer now to properly handle
+  fullscreen mode.
+  ([d295c60](https://github.com/dynatrace-oss/barista/commit/d295c60fd812df22794ce0adce69595fbd069360))
+
 ## 6.1.1 (2020-03-30)
 
 ### Bug Fixes
