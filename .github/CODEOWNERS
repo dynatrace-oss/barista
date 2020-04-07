@@ -49,6 +49,7 @@
 /libs/barista-components/selection-area/** @ffriedl89 @lukasholzer
 /libs/barista-components/show-more/** @rowa-audil
 /libs/barista-components/stepper/** @ffriedl89 @thomaspink
+/libs/barista-components/sunburst/** @subarroca
 /libs/barista-components/switch/** @thomaspink
 /libs/barista-components/table/** @ffriedl89 @tomheller
 /libs/barista-components/tabs/** @ffriedl89 @thomaspink
@@ -144,6 +145,7 @@
 /apps/dev/src/selection-area/** @ffriedl89 @lukasholzer
 /apps/dev/src/show-more/** @rowa-audil
 /apps/dev/src/stepper/** @ffriedl89 @thomaspink
+/apps/dev/src/sunburst/** @subarroca
 /apps/dev/src/switch/** @thomaspink
 /apps/dev/src/table/** @ffriedl89 @tomheller
 /apps/dev/src/tabs/** @ffriedl89 @thomaspink

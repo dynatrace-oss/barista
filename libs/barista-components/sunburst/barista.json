@@ -1,0 +1,28 @@
+{
+  "title": "Sunburst",
+  "description": "",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "Salvador Subarroca",
+        "githubuser": "subarroca"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Xavier Javaloyas",
+        "githubuser": "xavi-j"
+      }
+    ]
+  },
+  "tags": [
+    "chart",
+    "radial chart",
+    "pie chart",
+    "donut chart",
+    "sunburst chart",
+    "angular",
+    "component"
+  ]
+}

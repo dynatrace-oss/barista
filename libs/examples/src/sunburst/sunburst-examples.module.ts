@@ -18,19 +18,9 @@ import { NgModule } from '@angular/core';
 import { DtSunburstModule } from '@dynatrace/barista-components/sunburst';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
-import { DtExampleSunburstDark } from './sunburst-dark-example/sunburst-dark-example';
-import { DtExampleSunburstDarkError } from './sunburst-dark-error-example/sunburst-dark-error-example';
-import { DtExampleSunburstInteractive } from './sunburst-interactive-example/sunburst-interactive-example';
-import { DtExampleSunburstError } from './sunburst-error-example/sunburst-error-example';
-import { DtExampleSunburstWarning } from './sunburst-warning-example/sunburst-warning-example';
+import { DtExampleSunburstDefault } from './sunburst-default-example/sunburst-default-example';
 
-export const DT_ALERT_EXAMPLES = [
-  DtExampleSunburstDark,
-  DtExampleSunburstDarkError,
-  DtExampleSunburstInteractive,
-  DtExampleSunburstError,
-  DtExampleSunburstWarning,
-];
+export const DT_ALERT_EXAMPLES = [DtExampleSunburstDefault];
 
 @NgModule({
   imports: [DtSunburstModule, DtButtonModule, DtThemingModule],
