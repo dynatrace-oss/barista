@@ -752,6 +752,52 @@ describe('DtFilterField', () => {
       subscription.unsubscribe();
     }));
 
+    it('should fire currentFilterChanges when an option is selected', fakeAsync(() => {
+      const spy = jest.fn();
+      const subscription = filterField.currentFilterChanges.subscribe(spy);
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+
+      const usaOption = options[1];
+      usaOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      subscription.unsubscribe();
+    }));
+
+    it('should fire currentFilterChanges when the current is removed with the BACKSPACE key', fakeAsync(() => {
+      filterField.focus();
+      zone.simulateMicrotasksEmpty();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      let options = getOptions(overlayContainerElement);
+
+      const usaOption = options[1];
+      usaOption.click();
+      zone.simulateMicrotasksEmpty();
+      fixture.detectChanges();
+
+      zone.simulateZoneExit();
+
+      const spy = jest.fn();
+      const subscription = filterField.currentFilterChanges.subscribe(spy);
+
+      const inputEl = getInput(fixture);
+      dispatchKeyboardEvent(inputEl, 'keydown', BACKSPACE);
+      fixture.detectChanges();
+      flush();
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      subscription.unsubscribe();
+    }));
+
     it('should switch back to root if unfinished filter is deleted with BACKSPACE', () => {
       filterField.focus();
       zone.simulateMicrotasksEmpty();
