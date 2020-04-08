@@ -64,18 +64,24 @@ pipeline {
                 writeFile(file: "${ENVIRONMENT_FILE}",  text: text)
               }
             }
-
-            dir(WORKSPACE_DIR) {
-              sh '''
-                rm -rf ./node_modules/@dynatrace/barista-icons
-                cp -R ./dist/tmp/barista-icons ./node_modules/@dynatrace/barista-icons
-              '''
-            }
           }
         }
 
         stage("Prepare Workspace") {
           steps {
+
+            script {
+              if (!(params.INTERNAL_VERSION ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ )) {
+                echo "Public build - Replace internal iconpack with public ones."
+                dir(WORKSPACE_DIR) {
+                  sh '''
+                    rm -rf ./node_modules/@dynatrace/barista-icons
+                    cp -R ./dist/tmp/barista-icons ./node_modules/@dynatrace/barista-icons
+                  '''
+                 }
+              }
+            }
+
             sh'''
               files="node_modules package-lock.sha1"
 
@@ -83,8 +89,23 @@ pipeline {
               do
                 ln -s "$WORKSPACE_DIR/$file" "$PWD/$BARISTA_PATH/$file"
               done
-
             '''
+
+            dir(BARISTA_PATH) {
+
+              script {
+                def oldsha = readFile(file: "package-lock.sha1").replace('./package-lock.json', '').trim()
+                def sha1sum = sha1(file: "package-lock.json")
+
+                if (!oldsha.equals(sha1sum)) {
+                  echo "⚠️ Need to install packages due to updated package-lock.json"
+
+                  sh '''
+                    npm ci --ignore-scripts
+                  '''
+                }
+              }
+            }
 
             dir(BARISTA_PATH) {
               configFileProvider([
