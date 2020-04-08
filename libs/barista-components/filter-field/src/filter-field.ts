@@ -153,6 +153,10 @@ export class DtFilterFieldCurrentFilterChangeEvent<T> {
 
 export const DT_FILTER_FIELD_TYPING_DEBOUNCE = 200;
 
+// We need to save the instance of the filterField that currently
+// has a flap open, to make sure we can close the old one.
+let currentlyOpenFilterField: DtFilterField<any> | null = null;
+
 @Component({
   selector: 'dt-filter-field',
   exportAs: 'dtFilterField',
@@ -254,7 +258,7 @@ export class DtFilterField<T>
       }
 
       if (this._disabled) {
-        this.closeFilterPanels();
+        this._closeFilterPanels();
 
         this.tags.forEach(item => {
           this._previousTagDisabledState.set(item, item.disabled);
@@ -479,7 +483,20 @@ export class DtFilterField<T>
       .monitor(this._elementRef.nativeElement, true)
       .pipe(takeUntil(this._destroy$))
       .subscribe(origin => {
+        // The focusMonitor fires on focus and on blur, that is why we need the check
+        // if the currentlyOpenFilterfield is not the one that is currently being
+        // focused.
+        if (
+          currentlyOpenFilterField !== null &&
+          currentlyOpenFilterField !== this
+        ) {
+          currentlyOpenFilterField._closeFilterPanels();
+        }
         this._isFocused = isDefined(origin);
+        // Assign the currently open filter field when it is focused.
+        if (this._isFocused) {
+          currentlyOpenFilterField = this;
+        }
       });
 
     // tslint:disable-next-line:no-any
@@ -521,6 +538,7 @@ export class DtFilterField<T>
   }
 
   ngOnDestroy(): void {
+    this._closeFilterPanels();
     this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     this._stateChanges.complete();
 
@@ -601,7 +619,7 @@ export class DtFilterField<T>
         );
       }
     } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
-      this.closeFilterPanels();
+      this._closeFilterPanels();
     } else {
       if (this._inputFieldKeyboardLocked) {
         return;
@@ -1221,11 +1239,14 @@ export class DtFilterField<T>
     this._switchToRootDef(false);
   }
 
-  private closeFilterPanels(): void {
+  private _closeFilterPanels(): void {
     this._autocompleteTrigger.closePanel();
     this._filterfieldRangeTrigger.closePanel();
     if (this._editModeStashedValue) {
       this._cancelEditMode();
+    }
+    if (currentlyOpenFilterField === this) {
+      currentlyOpenFilterField = null;
     }
   }
 }
