@@ -15,7 +15,7 @@
  */
 
 import { ElementRef, NgZone, QueryList } from '@angular/core';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 import {
   Observable,
   SchedulerLike,

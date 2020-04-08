@@ -23,4 +23,8 @@ module.exports = {
       },
     ],
   ],
+  moduleNameMapper: {
+    // map lodash-es to lodash bundle since jest needs commonjs
+    '^lodash-es$': 'node_modules/lodash/index.js',
+  },
 };

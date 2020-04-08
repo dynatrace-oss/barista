@@ -32,7 +32,7 @@ import {
   SeriesLineOptions,
   SeriesLineDataOptions,
 } from 'highcharts';
-import { merge } from 'lodash';
+import { merge } from 'lodash-es';
 import { BehaviorSubject } from 'rxjs';
 import {
   DtMicroChart,
