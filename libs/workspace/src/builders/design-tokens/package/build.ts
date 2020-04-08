@@ -19,7 +19,7 @@ import { promises as fs } from 'fs';
 import { join } from 'path';
 import { forkJoin, Observable, of, from } from 'rxjs';
 import { catchError, map, mapTo, switchMap, tap } from 'rxjs/operators';
-import { PackageJson, tryJsonParse } from '../../util/json-utils';
+import { PackageJson, tryJsonParse } from '@dynatrace/tools/shared';
 import { DesignTokensPackageOptions } from './schema';
 
 /**
@@ -87,11 +87,11 @@ function syncDependencyVersions(
   key: 'dependencies' | 'devDependencies' | 'peerDependencies',
 ): PackageJson {
   // Sync dependency versions, that are referenced in the release package.json
-  for (const dependencyKey of Object.keys(targetPackageJson[key])) {
+  for (const dependencyKey of Object.keys(targetPackageJson[key]!)) {
     const dependencyVersion =
-      sourcePackageJson.dependencies[dependencyKey] ||
-      sourcePackageJson.devDependencies[dependencyKey];
-    targetPackageJson[key][dependencyKey] = dependencyVersion;
+      sourcePackageJson.dependencies![dependencyKey] ||
+      sourcePackageJson.devDependencies![dependencyKey];
+    targetPackageJson[key]![dependencyKey] = dependencyVersion;
   }
   return targetPackageJson;
 }

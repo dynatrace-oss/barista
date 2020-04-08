@@ -69,7 +69,7 @@ test('Should throw an error when no package.json is found', async () => {
 });
 
 test('Should throw an error if the package.json contains an invalid version', async () => {
-  const packageJson: PackageJson = { version: 'x.x.x' };
+  const packageJson: PackageJson = { version: 'x.x.x' } as PackageJson;
   vol.fromJSON({
     '/package.json': JSON.stringify(packageJson),
   });

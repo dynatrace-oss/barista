@@ -16,15 +16,12 @@ jobs:
 
       - name: Link the node_modules and the builders in the current working directory
         run : |
+          cp -R "$WORKSPACE_DIR/dist" "$PWD/dist"
           ln -s "$WORKSPACE_DIR/node_modules" "$PWD/node_modules"
           ln -s "$WORKSPACE_DIR/package-lock.sha1" "$PWD/package-lock.sha1"
           ln -s "$WORKSPACE_DIR/entrypoint.sh" "$PWD/entrypoint.sh"
 
           sh ./.deployment/entrypoint.sh
-
-          # TODO: saving of the builders can be removed after #844 is merged
-          # THen the builders arn't located in the node modules anymore
-          cp -R "$WORKSPACE_DIR/dist/tmp/workspace" "$WORKSPACE_DIR/node_modules/@dynatrace/workspace"
 
       - name: Build Barista Design System
         run: |
