@@ -43,9 +43,6 @@
     "examples-tools": {
       "tags": ["type:tooling"]
     },
-    "builders": {
-      "tags": ["type:tooling"]
-    },
     "tools-release": {
       "tags": ["type:tooling"]
     },

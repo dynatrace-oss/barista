@@ -27,7 +27,7 @@ import { ParsedSuite } from './parsed-suite.interface';
 export async function junitFormatter(
   file: string,
   stylelintResults: LintResult[],
-) {
+): Promise<void> {
   const parsedResults = stylelintResults.map(result => parseSuite(result));
 
   // if we have an existing xml add the linted files to the xml

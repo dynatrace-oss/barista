@@ -62,7 +62,6 @@
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
     "import-blacklist": [true, "@dynatrace/barista-components"],
-
     "nx-enforce-module-boundaries": [
       true,
       {
@@ -83,12 +82,18 @@
           {
             "sourceTag": "scope:examples",
             "onlyDependOnLibsWithTags": ["scope:components", "scope:testing"]
+          },
+          {
+            "sourceTag": "type:tooling",
+            "onlyDependOnLibsWithTags": [
+              "type:tooling",
+              "type:shared",
+              "type:types"
+            ]
           }
         ]
       }
     ],
-
-    // Custom Rules
     "ts-loader": true,
     "dt-docs-import-barista": true,
     "dt-no-focused-tests": true,

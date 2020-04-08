@@ -17,7 +17,7 @@
 
 
 # Used by: /.deployment/workspace-base.Dockerfile
-!/libs/tools/builders
+!/libs/tools
 !/libs/workspace
 !/.deployment
 

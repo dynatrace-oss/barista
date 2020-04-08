@@ -76,14 +76,14 @@ pipeline {
                 dir(WORKSPACE_DIR) {
                   sh '''
                     rm -rf ./node_modules/@dynatrace/barista-icons
-                    cp -R ./dist/tmp/barista-icons ./node_modules/@dynatrace/barista-icons
+                    cp -R ./dist/tmp/barista-icons-public ./node_modules/@dynatrace/barista-icons
                   '''
                  }
               }
             }
 
             sh'''
-              files="node_modules package-lock.sha1"
+              files="node_modules dist package-lock.sha1"
 
               for file in $files
               do
