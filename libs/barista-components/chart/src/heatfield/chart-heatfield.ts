@@ -37,7 +37,7 @@ import {
   isDefined,
   mixinColor,
 } from '@dynatrace/barista-components/core';
-import { clamp, round } from 'lodash';
+import { clamp, round } from 'lodash-es';
 import { Subject } from 'rxjs';
 import { PlotBackgroundInfo } from '../utils';
 

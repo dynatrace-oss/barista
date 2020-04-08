@@ -19,7 +19,7 @@ import {
   Options as HighchartsOptions,
   SeriesPieOptions,
 } from 'highcharts';
-import { merge as lodashMerge } from 'lodash';
+import { merge as lodashMerge } from 'lodash-es';
 
 import {
   DtTheme,

@@ -46,7 +46,7 @@ import {
   SeriesLineDataOptions,
   SeriesLineOptions,
 } from 'highcharts';
-import { merge as lodashMerge } from 'lodash';
+import { merge as lodashMerge } from 'lodash-es';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { getDtMicrochartColorPalette } from './micro-chart-colors';
