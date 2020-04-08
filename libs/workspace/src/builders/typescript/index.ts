@@ -44,7 +44,7 @@ export async function executeCommand(
   };
 
   return new Promise((resolve, reject) => {
-    exec(command, options, (err, stdout, stderr) => {
+    exec(command, options, (err, stdout) => {
       if (err !== null) {
         reject(stdout);
       } else {

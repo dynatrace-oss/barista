@@ -4,7 +4,7 @@ FROM node:12-alpine as base
 WORKDIR /dynatrace
 
 RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh pv
+    apk add --no-cache bash git openssh
 
 COPY ./package.json ./package.json
 COPY ./package-lock.json ./package-lock.json
@@ -28,12 +28,11 @@ COPY ./tsconfig.json \
 #------------------------------------------------------------
 FROM base as workspace-builders
 
-COPY ./libs/tools/builders ./libs/tools/builders
 COPY ./libs/workspace ./libs/workspace
+COPY ./libs/tools ./libs/tools
 
 # Build our custom angular builders for the workspace
-RUN npm run builders:build && \
-    npm run ng build workspace
+RUN npm run ng build workspace
 
 #------------------------------------------------------------
 # The base image for the angular workspace with the builted
@@ -48,8 +47,8 @@ LABEL maintainer="Dynatrace DesignOps Team <designops@dynatrace.com>" \
 RUN ./node_modules/.bin/ngcc
 
 COPY --from=workspace-builders \
-     /dynatrace/node_modules/@dynatrace \
-     ./dist/tmp/
+     /dynatrace/dist \
+     ./dist
 
 # Cleanup image that only the files that are ignored by git are persisted.
 RUN rm -rf \
