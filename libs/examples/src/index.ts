@@ -203,6 +203,7 @@ import { DtExampleMicroChartInterpolated } from './micro-chart/micro-chart-inter
 import { DtExampleMicroChartStream } from './micro-chart/micro-chart-stream-example/micro-chart-stream-example';
 import { DtExampleOverlayComplexContent } from './overlay/overlay-complex-content-example/overlay-complex-content-example';
 import { DtExampleOverlayDefault } from './overlay/overlay-default-example/overlay-default-example';
+import { DtExampleOverlayFullscreen } from './overlay/overlay-fullscreen-example/overlay-fullscreen-example';
 import { DtExampleOverlayImplicitContext } from './overlay/overlay-implicit-context-example/overlay-implicit-context-example';
 import { DtExampleOverlayProgrammatic } from './overlay/overlay-programmatic-example/overlay-programmatic-example';
 import { DtExampleOverlayTile } from './overlay/overlay-tile-example/overlay-tile-example';
@@ -546,6 +547,7 @@ export {
   DtExampleMicroChartStream,
   DtExampleOverlayComplexContent,
   DtExampleOverlayDefault,
+  DtExampleOverlayFullscreen,
   DtExampleOverlayImplicitContext,
   DtExampleOverlayProgrammatic,
   DtExampleOverlayTile,
@@ -875,6 +877,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleMicroChartStream', DtExampleMicroChartStream],
   ['DtExampleOverlayComplexContent', DtExampleOverlayComplexContent],
   ['DtExampleOverlayDefault', DtExampleOverlayDefault],
+  ['DtExampleOverlayFullscreen', DtExampleOverlayFullscreen],
   ['DtExampleOverlayImplicitContext', DtExampleOverlayImplicitContext],
   ['DtExampleOverlayProgrammatic', DtExampleOverlayProgrammatic],
   ['DtExampleOverlayTile', DtExampleOverlayTile],
