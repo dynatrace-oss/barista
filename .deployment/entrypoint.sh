@@ -10,7 +10,7 @@ $(pwd)
 
 "
 
-if [ ! "$(sha1sum -c -s package-lock.sha1)" ]; then
+if [ ! "$(sha1sum -c package-lock.sha1)" ]; then
   echo "⚠️ Need to install packages due to updated package-lock.json"
   # When the checksums are not matching perform an npm install
   npm ci --ignore-scripts
