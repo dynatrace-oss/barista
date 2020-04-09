@@ -455,6 +455,11 @@ export class DtFilterField<T>
             // show the panel again.
             // Note: Also trigger openPanel if it already open, so it does a reposition and resize
             this._autocompleteTrigger.openPanel();
+            // If a range is currently open but an autocomplete should be shown
+            // we need to close the range panel again.
+            if (this._filterfieldRange.isOpen) {
+              this._filterfieldRangeTrigger.closePanel();
+            }
           } else if (isDtRangeDef(this._currentDef)) {
             this._filterfieldRangeTrigger.openPanel();
             this._filterfieldRangeTrigger.range.focus();
