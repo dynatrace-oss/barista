@@ -27,6 +27,7 @@ import {
   getFilterfieldTags,
   tagOverlay,
   setupSecondTestScenario,
+  filterFieldRangePanel,
 } from './filter-field.po';
 import { Selector } from 'testcafe';
 import { waitForAngular, resetWindowSizeToDefault } from '../../utils';
@@ -286,4 +287,32 @@ test('should remove all removable filters when clicking the clear-all button', a
     .wait(500)
     .expect(filterTags.count)
     .eql(1);
+});
+
+test('should close the range when blurring the filter field mid filter, returning back and deleting the current filter', async (testController: TestController) => {
+  // Setup the second datasource.
+  await testController
+    .click(setupSecondTestScenario)
+    // Wait for the filterfield to catch up.
+    .wait(500);
+
+  await clickOption(2);
+
+  await testController
+    .click(Selector('.outside'))
+    .expect(filterFieldRangePanel.exists)
+    .notOk();
+
+  // Focus the filter field again,
+  // press backspace - deleting the current filter
+  // the range should now be closed.
+  await focusFilterFieldInput();
+  await testController
+    .expect(filterFieldRangePanel.exists)
+    .ok()
+    .wait(250)
+    .pressKey('backspace')
+    .wait(250)
+    .expect(filterFieldRangePanel.exists)
+    .notOk();
 });
