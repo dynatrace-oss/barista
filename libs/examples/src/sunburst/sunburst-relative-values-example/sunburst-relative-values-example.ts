@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-export * from './src/sunburst.module';
-export * from './src/sunburst';
-export {
-  DtSunburstNode,
-  DtSunburstNodeInternal,
-  DtSunburstValueMode,
-} from './src/sunburst.util';
+import { Component } from '@angular/core';
+import { sunburstDefaultData } from '../sunburst-default-data';
+import { DtSunburstValueMode } from '@dynatrace/barista-components/sunburst';
+
+@Component({
+  selector: 'dt-example-sunburst-relative-values',
+  templateUrl: 'sunburst-relative-values-example.html',
+})
+export class DtExampleSunburstRelativeValues {
+  series = sunburstDefaultData;
+  DtSunburstValueMode = DtSunburstValueMode;
+}

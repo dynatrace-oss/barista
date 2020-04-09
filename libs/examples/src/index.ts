@@ -260,7 +260,9 @@ import { DtExampleSimpleSlider } from './slider/slider-simple-example/slider-sim
 import { DtExampleStepperDefault } from './stepper/stepper-default-example/stepper-default-example';
 import { DtExampleStepperEditable } from './stepper/stepper-editable-example/stepper-editable-example';
 import { DtExampleStepperLinear } from './stepper/stepper-linear-example/stepper-linear-example';
+import { DtExampleSunburstCustomColor } from './sunburst/sunburst-custom-color-example/sunburst-custom-color-example';
 import { DtExampleSunburstDefault } from './sunburst/sunburst-default-example/sunburst-default-example';
+import { DtExampleSunburstRelativeValues } from './sunburst/sunburst-relative-values-example/sunburst-relative-values-example';
 import { DtExampleSwitchDark } from './switch/switch-dark-example/switch-dark-example';
 import { DtExampleSwitchDefault } from './switch/switch-default-example/switch-default-example';
 import { DtExampleSwitchResponsive } from './switch/switch-responsive-example/switch-responsive-example';
@@ -612,7 +614,9 @@ export {
   DtExampleStepperDefault,
   DtExampleStepperEditable,
   DtExampleStepperLinear,
+  DtExampleSunburstCustomColor,
   DtExampleSunburstDefault,
+  DtExampleSunburstRelativeValues,
   DtExampleSwitchDark,
   DtExampleSwitchDefault,
   DtExampleSwitchResponsive,
@@ -953,7 +957,9 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleStepperDefault', DtExampleStepperDefault],
   ['DtExampleStepperEditable', DtExampleStepperEditable],
   ['DtExampleStepperLinear', DtExampleStepperLinear],
+  ['DtExampleSunburstCustomColor', DtExampleSunburstCustomColor],
   ['DtExampleSunburstDefault', DtExampleSunburstDefault],
+  ['DtExampleSunburstRelativeValues', DtExampleSunburstRelativeValues],
   ['DtExampleSwitchDark', DtExampleSwitchDark],
   ['DtExampleSwitchDefault', DtExampleSwitchDefault],
   ['DtExampleSwitchResponsive', DtExampleSwitchResponsive],

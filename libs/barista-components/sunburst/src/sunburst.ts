@@ -90,7 +90,7 @@ export class DtSunburst implements OnChanges {
 
   @Input() series: DtSunburstNode[];
   @Input() selected: DtSunburstNode[];
-  @Input() noSelectionLabel: string;
+  @Input() noSelectionLabel: string = 'All';
   @Input() valueDisplayMode: DtSunburstValueMode = DtSunburstValueMode.ABSOLUTE;
 
   @Output() selectedChange: EventEmitter<DtSunburstNode[]> = new EventEmitter();

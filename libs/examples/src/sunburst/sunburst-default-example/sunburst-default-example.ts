@@ -15,9 +15,12 @@
  */
 
 import { Component } from '@angular/core';
+import { sunburstDefaultData } from '../sunburst-default-data';
 
 @Component({
   selector: 'dt-example-sunburst-default',
   templateUrl: 'sunburst-default-example.html',
 })
-export class DtExampleSunburstDefault {}
+export class DtExampleSunburstDefault {
+  series = sunburstDefaultData;
+}
