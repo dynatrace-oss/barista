@@ -1,7 +1,11 @@
 {
   "title": "Sunburst",
-  "description": "",
+  "description": "The sunburst chart is used to display drilldown pie chart data",
+  "postid": "sunburst",
   "public": true,
+  "identifier": "Sb",
+  "themable": false,
+  "category": "components",
   "contributors": {
     "dev": [
       {

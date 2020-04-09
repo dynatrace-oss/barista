@@ -203,6 +203,7 @@ import { DtExampleMicroChartInterpolated } from './micro-chart/micro-chart-inter
 import { DtExampleMicroChartStream } from './micro-chart/micro-chart-stream-example/micro-chart-stream-example';
 import { DtExampleOverlayComplexContent } from './overlay/overlay-complex-content-example/overlay-complex-content-example';
 import { DtExampleOverlayDefault } from './overlay/overlay-default-example/overlay-default-example';
+import { DtExampleOverlayFullscreen } from './overlay/overlay-fullscreen-example/overlay-fullscreen-example';
 import { DtExampleOverlayImplicitContext } from './overlay/overlay-implicit-context-example/overlay-implicit-context-example';
 import { DtExampleOverlayProgrammatic } from './overlay/overlay-programmatic-example/overlay-programmatic-example';
 import { DtExampleOverlayTile } from './overlay/overlay-tile-example/overlay-tile-example';
@@ -255,7 +256,9 @@ import { DtExampleSidenavDefault } from './sidenav/sidenav-default-example/siden
 import { DtExampleStepperDefault } from './stepper/stepper-default-example/stepper-default-example';
 import { DtExampleStepperEditable } from './stepper/stepper-editable-example/stepper-editable-example';
 import { DtExampleStepperLinear } from './stepper/stepper-linear-example/stepper-linear-example';
+import { DtExampleSunburstCustomColor } from './sunburst/sunburst-custom-color-example/sunburst-custom-color-example';
 import { DtExampleSunburstDefault } from './sunburst/sunburst-default-example/sunburst-default-example';
+import { DtExampleSunburstRelativeValues } from './sunburst/sunburst-relative-values-example/sunburst-relative-values-example';
 import { DtExampleSwitchDark } from './switch/switch-dark-example/switch-dark-example';
 import { DtExampleSwitchDefault } from './switch/switch-default-example/switch-default-example';
 import { DtExampleSwitchResponsive } from './switch/switch-responsive-example/switch-responsive-example';
@@ -548,6 +551,7 @@ export {
   DtExampleMicroChartStream,
   DtExampleOverlayComplexContent,
   DtExampleOverlayDefault,
+  DtExampleOverlayFullscreen,
   DtExampleOverlayImplicitContext,
   DtExampleOverlayProgrammatic,
   DtExampleOverlayTile,
@@ -600,7 +604,9 @@ export {
   DtExampleStepperDefault,
   DtExampleStepperEditable,
   DtExampleStepperLinear,
+  DtExampleSunburstCustomColor,
   DtExampleSunburstDefault,
+  DtExampleSunburstRelativeValues,
   DtExampleSwitchDark,
   DtExampleSwitchDefault,
   DtExampleSwitchResponsive,
@@ -878,6 +884,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleMicroChartStream', DtExampleMicroChartStream],
   ['DtExampleOverlayComplexContent', DtExampleOverlayComplexContent],
   ['DtExampleOverlayDefault', DtExampleOverlayDefault],
+  ['DtExampleOverlayFullscreen', DtExampleOverlayFullscreen],
   ['DtExampleOverlayImplicitContext', DtExampleOverlayImplicitContext],
   ['DtExampleOverlayProgrammatic', DtExampleOverlayProgrammatic],
   ['DtExampleOverlayTile', DtExampleOverlayTile],
@@ -936,7 +943,9 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleStepperDefault', DtExampleStepperDefault],
   ['DtExampleStepperEditable', DtExampleStepperEditable],
   ['DtExampleStepperLinear', DtExampleStepperLinear],
+  ['DtExampleSunburstCustomColor', DtExampleSunburstCustomColor],
   ['DtExampleSunburstDefault', DtExampleSunburstDefault],
+  ['DtExampleSunburstRelativeValues', DtExampleSunburstRelativeValues],
   ['DtExampleSwitchDark', DtExampleSwitchDark],
   ['DtExampleSwitchDefault', DtExampleSwitchDefault],
   ['DtExampleSwitchResponsive', DtExampleSwitchResponsive],

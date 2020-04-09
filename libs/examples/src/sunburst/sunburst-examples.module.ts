@@ -18,13 +18,19 @@ import { NgModule } from '@angular/core';
 import { DtSunburstModule } from '@dynatrace/barista-components/sunburst';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { DtExampleSunburstRelativeValues } from './sunburst-relative-values-example/sunburst-relative-values-example';
+import { DtExampleSunburstCustomColor } from './sunburst-custom-color-example/sunburst-custom-color-example';
 import { DtExampleSunburstDefault } from './sunburst-default-example/sunburst-default-example';
 
-export const DT_ALERT_EXAMPLES = [DtExampleSunburstDefault];
+export const DT_SUNBURST_EXAMPLES = [
+  DtExampleSunburstDefault,
+  DtExampleSunburstRelativeValues,
+  DtExampleSunburstCustomColor,
+];
 
 @NgModule({
   imports: [DtSunburstModule, DtButtonModule, DtThemingModule],
-  declarations: [...DT_ALERT_EXAMPLES],
-  entryComponents: [...DT_ALERT_EXAMPLES],
+  declarations: [...DT_SUNBURST_EXAMPLES],
+  entryComponents: [...DT_SUNBURST_EXAMPLES],
 })
 export class DtSunburstExamplesModule {}

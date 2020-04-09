@@ -1,4 +1,8 @@
-<dt-sunburst noSelectionLabel="All" [series]="series">
+<dt-sunburst
+  noSelectionLabel="All"
+  [series]="series"
+  [valueDisplayMode]="DtSunburstValueMode.PERCENT"
+>
   <ng-template dtSunburstOverlay let-tooltip>
     {{ tooltip.label }}: {{ tooltip.value }}
   </ng-template>

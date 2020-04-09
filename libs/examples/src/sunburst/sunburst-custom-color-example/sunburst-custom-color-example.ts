@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-export * from './src/sunburst.module';
-export * from './src/sunburst';
-export {
-  DtSunburstNode,
-  DtSunburstNodeInternal,
-  DtSunburstValueMode,
-} from './src/sunburst.util';
+import { Component } from '@angular/core';
+import { sunburstColorData } from '../sunburst-color-data';
+
+@Component({
+  selector: 'dt-example-sunburst-custom-color',
+  templateUrl: 'sunburst-custom-color-example.html',
+})
+export class DtExampleSunburstCustomColor {
+  series = sunburstColorData;
+}
