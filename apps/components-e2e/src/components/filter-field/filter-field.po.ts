@@ -22,13 +22,13 @@ export const option = (nth: number) => Selector(`.dt-option:nth-child(${nth})`);
 export const clearAll = Selector('.dt-filter-field-clear-all-button');
 export const filterTags = Selector('dt-filter-field-tag');
 export const tagOverlay = Selector('.dt-overlay-container');
+export const filterFieldRangePanel = Selector('.dt-filter-field-range-panel');
 
 export const input = Selector('input');
 
 export const switchToFirstDatasource = Selector('#switchToFirstDatasource');
 export const switchToSecondDatasource = Selector('#switchToSecondDatasource');
 export const setupSecondTestScenario = Selector('#setupSecondTestScenario');
-
 export function clickOption(
   nth: number,
   testController?: TestController,
