@@ -15,8 +15,8 @@
  */
 
 import { Component } from '@angular/core';
-import { BehaviorSubject, Subscription, interval } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { BehaviorSubject, Subscription, interval, Subject } from 'rxjs';
+import { take, takeUntil, finalize } from 'rxjs/operators';
 
 const MAX_ROWS = 5;
 
@@ -27,15 +27,30 @@ const MAX_ROWS = 5;
 })
 export class DtExampleTableObservable {
   dataSource = new BehaviorSubject<object[]>([]);
+  cancelSubscriptionSource = new Subject<void>();
 
   // tslint:disable-next-line:no-magic-numbers
   private source = interval(1000);
   subscription: Subscription;
+  isSubscribed = false;
 
   startSubscription(): void {
-    this.subscription = this.source.pipe(take(MAX_ROWS)).subscribe((): void => {
-      this.getAnotherRow();
-    });
+    this.isSubscribed = true;
+    this.subscription = this.source
+      .pipe(
+        take(MAX_ROWS),
+        takeUntil(this.cancelSubscriptionSource),
+        finalize(() => {
+          this.isSubscribed = false;
+        }),
+      )
+      .subscribe((): void => {
+        this.getAnotherRow();
+      });
+  }
+
+  cancelSubscription(): void {
+    this.cancelSubscriptionSource.next();
   }
 
   clearRows(): void {

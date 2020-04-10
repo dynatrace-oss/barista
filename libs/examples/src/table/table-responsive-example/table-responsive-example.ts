@@ -63,7 +63,7 @@ export class DtExampleTableResponsive implements OnInit {
     },
   ];
 
-  _headerColumns = new Set(['host', 'cpu']);
+  _headerColumns = new Set();
 
   @ViewChild(DtContainerBreakpointObserver, { static: true })
   _tableBreakpointObserver: DtContainerBreakpointObserver;
@@ -72,6 +72,7 @@ export class DtExampleTableResponsive implements OnInit {
   _table: DtTable<any>; // tslint:disable-line: no-any
 
   private _tableNarrow = false;
+  private _baseColumns = ['host', 'cpu'];
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
@@ -84,13 +85,13 @@ export class DtExampleTableResponsive implements OnInit {
         // Show/hide header columns respecting
         // whether the table is in the narrow state
         if (this._tableNarrow) {
-          this._headerColumns.delete('memory');
-          this._headerColumns.delete('traffic');
-          this._headerColumns.add('details');
+          this._headerColumns = new Set(['details', ...this._baseColumns]);
         } else {
-          this._headerColumns.add('memory');
-          this._headerColumns.add('traffic');
-          this._headerColumns.delete('details');
+          this._headerColumns = new Set([
+            ...this._baseColumns,
+            'memory',
+            'traffic',
+          ]);
         }
 
         // Call render because we need to notify
