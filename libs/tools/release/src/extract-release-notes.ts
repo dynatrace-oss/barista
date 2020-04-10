@@ -31,9 +31,9 @@ export function extractReleaseNotes(
   const escapedVersion = versionName.replace(/\./g, '\\.');
 
   // Get the release header and the release body out of the changelog
-  // https://regex101.com/r/vwjiNT/1/
+  // https://regex101.com/r/0FrITQ/1
   const releaseNotesRegex = new RegExp(
-    `## (${escapedVersion}) \\(\\d{4}-\\d{2}-\\d{2}\\)([\\s\\S]+?)\\s##\\s`,
+    `## \\[(${escapedVersion})]\\(.*\\) \\(\\d{4}-\\d{2}-\\d{2}\\)([\\s\\S]+?)\\s##\\s`,
     'gm',
   );
 

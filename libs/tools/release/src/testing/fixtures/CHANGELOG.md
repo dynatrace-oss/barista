@@ -1,4 +1,4 @@
-## 4.15.1 (2019-12-02)
+## [4.15.1](https://github.com/dynatrace-oss/barista/releases/tag/4.15.1) (2019-12-02)
 
 ### Bug Fixes
 
