@@ -1,4 +1,4 @@
-## 5.0.0-rc.0 (2020-01-13)
+## [5.0.0-rc.0](https://github.com/dynatrace-oss/barista/releases/tag/5.0.0-rc.0) (2020-01-13)
 
 ### Breaking changes
 
