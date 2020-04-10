@@ -1,3 +1,19 @@
+<button
+  *ngIf="!isSubscribed; else cancel"
+  class="dt-example-button"
+  dt-button
+  (click)="startSubscription()"
+>
+  Start subscription
+</button>
+<button
+  class="dt-example-button"
+  dt-button
+  variant="secondary"
+  (click)="clearRows()"
+>
+  Clear
+</button>
 <dt-table [dataSource]="dataSource">
   <ng-container dtColumnDef="host" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
@@ -43,14 +59,8 @@
     </dt-empty-state-item>
   </dt-empty-state>
 </dt-table>
-<button class="dt-example-button" dt-button (click)="startSubscription()">
-  Start subscription
-</button>
-<button
-  class="dt-example-button"
-  dt-button
-  variant="secondary"
-  (click)="clearRows()"
->
-  Clear
-</button>
+<ng-template #cancel>
+  <button class="example-button" dt-button (click)="cancelSubscription()">
+    Cancel subscription
+  </button>
+</ng-template>
