@@ -107,7 +107,7 @@ test('Should throw an error when the github status is not successful', async () 
 
   const errorResponse = {
     data: { state: 'error' },
-  } as Octokit.Response<Octokit.ReposGetCombinedStatusForRefResponse>;
+  } as any;
 
   const octokitApi = new Octokit();
   jest
