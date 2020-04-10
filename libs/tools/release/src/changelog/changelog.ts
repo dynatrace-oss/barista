@@ -15,7 +15,7 @@
  */
 
 import { createReadStream, createWriteStream, promises as fs } from 'fs';
-import { mergeNodeStreams } from '../utils/merge-node-streams';
+import { concatenateNodeStreams } from '../utils/concatenate-node-streams';
 import { getNewChangelog } from './get-new-changelog';
 
 /** Default filename for the changelog. */
@@ -32,24 +32,21 @@ export async function prependChangelogFromLatestTag(
   });
 
   const newChangelogStream: any = getNewChangelog(headerPartial, releaseName);
-
   // Stream for reading the existing changelog. This is necessary because we want to
   // actually prepend the new changelog to the existing one.
-  const previousChangelogStream = createReadStream(changelogPath);
+  const previousChangelogStream: any = createReadStream(changelogPath);
 
-  // Sequentially merge the changelog output and the previous changelog stream, so that
+  // Sequentially concatenate the changelog output and the previous changelog stream, so that
   // the new changelog section comes before the existing versions. Afterwards, pipe into the
   // changelog file, so that the changes are reflected on file system.
-  const mergedCompleteChangelog = mergeNodeStreams(
+  const concatenatedCompleteChangelog = await concatenateNodeStreams(
     newChangelogStream,
     previousChangelogStream,
   );
 
   return new Promise<void | Error>((resolve, reject) => {
-    // Wait for the previous changelog to be completely read because otherwise we would
-    // read and write from the same source which causes the content to be thrown off.
-    previousChangelogStream.on('end', () => {
-      mergedCompleteChangelog
+    const writeToFile = () => {
+      concatenatedCompleteChangelog
         .pipe(createWriteStream(changelogPath))
         .once('error', (error: Error) => {
           reject(error);
@@ -57,6 +54,14 @@ export async function prependChangelogFromLatestTag(
         .once('finish', () => {
           resolve();
         });
-    });
+    };
+
+    // Wait for the previous changelog to be completely read because otherwise we would
+    // read and write from the same source which causes the content to be thrown off.
+    previousChangelogStream.on('end', writeToFile);
+    // or if it is already ended
+    if (previousChangelogStream.readableEnded) {
+      writeToFile();
+    }
   });
 }
