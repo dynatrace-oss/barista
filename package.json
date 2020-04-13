@@ -143,7 +143,7 @@
     "prettier": "1.19.1",
     "reflect-metadata": "^0.1.13",
     "sass-graph": "^3.0.4",
-    "semver": "^7.1.1",
+    "semver": "^7.2.2",
     "stylelint": "^13.2.1",
     "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^8.0.1",
