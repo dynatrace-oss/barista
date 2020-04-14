@@ -37,11 +37,7 @@ const markdown = new markdownIt({
   typographer: false,
 }).use(markdownItDeflist);
 
-markdown.block.ruler.before(
-  'html_block',
-  'custom_block',
-  baElementBlockIgnore as markdownIt.RuleBlock,
-);
+markdown.block.ruler.before('html_block', 'custom_block', baElementBlockIgnore);
 
 /**
  * Holds all UX content snippets fetched from Strapi.
