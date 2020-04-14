@@ -135,8 +135,8 @@ const fillDownNodes = (
 
   return {
     ...filledNode,
-    children: node.children?.map((child, i, children) =>
-      fillDownNodes(child, i, children, totalValue, filledNode),
+    children: node.children?.map((child, j, children) =>
+      fillDownNodes(child, j, children, totalValue, filledNode),
     ),
   };
 };
@@ -402,14 +402,21 @@ const getColor = (index: number, totalNodes: number): string =>
 /**
  * @description Get color ad colorHover of the palette
  *
- * @param isColoured sibling index
- * @param isCurrent number of children for parent node
+ * @param isColoured if it should be coloured
+ * @param isCurrentSelected if it's selected leaf
  * @param colorYes color for active
  * @param colorNo color for faded
  */
-const getColors = (isColoured, isCurrent, colorYes, colorNo) => ({
+const getColors = (
+  isColoured: boolean,
+  isCurrentSelected: boolean,
+  colorYes: DtColors | string,
+  colorNo: DtColors | string,
+) => ({
   color: isColoured ? colorYes : colorNo,
-  colorHover: `${isColoured ? colorYes : colorNo}${isCurrent ? '' : 99}`,
+  colorHover: `${isColoured ? colorYes : colorNo}${
+    isCurrentSelected ? '' : 99
+  }`,
 });
 
 /**

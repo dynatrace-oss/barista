@@ -232,7 +232,7 @@ describe('DtSunburst', () => {
     });
 
     describe('Template', () => {
-      beforeEach(function() {
+      beforeEach(function(): void {
         rootComponent.series = sunburstMock;
         fixture.detectChanges();
       });
