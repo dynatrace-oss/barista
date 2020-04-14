@@ -16,6 +16,7 @@
 
 import { PackageJson } from '@dynatrace/tools/shared';
 import { Octokit } from '@octokit/rest';
+import { OctokitResponse } from '@octokit/types';
 import * as childProcess from 'child_process';
 import { vol } from 'memfs';
 import { of } from 'rxjs';
@@ -107,7 +108,7 @@ test('Should throw an error when the github status is not successful', async () 
 
   const errorResponse = {
     data: { state: 'error' },
-  } as Octokit.Response<Octokit.ReposGetCombinedStatusForRefResponse>;
+  } as OctokitResponse<any>;
 
   const octokitApi = new Octokit();
   jest
