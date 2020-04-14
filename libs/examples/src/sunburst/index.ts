@@ -15,3 +15,6 @@
  */
 
 export * from './sunburst-examples.module';
+export * from './sunburst-custom-color-example/sunburst-custom-color-example';
+export * from './sunburst-default-example/sunburst-default-example';
+export * from './sunburst-relative-values-example/sunburst-relative-values-example';
