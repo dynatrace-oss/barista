@@ -161,7 +161,10 @@ jobs:
           command: npm ci --ignore-scripts &> /dev/null
       - run:
           name: Build Workspace package 📦
-          command: npm run ng build workspace
+          command: |
+            npm run ng run workspace:build
+            npm run ng run examples-tools:build
+            npm run ng run barista-tools:build
       - save_cache:
           key: npm-packages-{{ checksum "package-lock.json" }}
           paths:
@@ -200,33 +203,37 @@ jobs:
       - prepare_job
       - run: yarn nx format:check ${AFFECTED_ARGS} --parallel
 
-# - static codeanalysis of the files
-  lint:
+# - static codeanalysis of the workspace
+  lint-workspace:
     executor: barista
     steps:
       - prepare_job
       - run: ./node_modules/.bin/nx workspace-lint
-      - run: yarn nx affected:lint ${AFFECTED_ARGS} --parallel
+
+# - static codeanalysis of the files
+  lint:
+    executor: barista
+    parallelism: 2
+    steps:
+      - prepare_job
+      - run: yarn run-many --target lint
 
 # - static codeanalysis of the style files
   lint-styles:
     executor: barista
+    parallelism: 2
     steps:
       - prepare_job
-      - run: yarn nx affected --target=lint-styles ${AFFECTED_ARGS} --parallel
+      - run: yarn run-many --target lint-styles
 
 # - build all the packages
   build:
     executor: barista
     resource_class: xlarge
+    parallelism: 4
     steps:
       - prepare_job
-      - run:
-          name: Generate examples for the demo application
-          command: |
-            npm run examples-tools
-            npm run barista-tools
-      - run: yarn nx affected:build ${AFFECTED_ARGS} --configuration=production --exclude=examples-tools
+      - run: yarn run-many --target build --configuration production --increasedMemory 8192 --withDeps
       - persist_to_workspace:
           root: ~/barista
           paths:
@@ -253,9 +260,10 @@ jobs:
   unit-test:
     executor: barista
     resource_class: large
+    parallelism: 3
     steps:
       - prepare_job
-      - run: yarn nx affected:test ${AFFECTED_ARGS} --parallel --runInBand
+      - run: yarn run-many --target test --args="--runInBand"
       - store_test_results:
           path: dist/test-results
 
@@ -302,6 +310,7 @@ jobs:
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
+
 workflows:
   version: 2.1
 
@@ -326,6 +335,9 @@ workflows:
       - lint:
           requires:
             - install
+      - lint-workspace:
+          requires:
+            - install
       - lint-styles:
           requires:
             - install
@@ -337,10 +349,10 @@ workflows:
             - install
       - e2e-test-local:
           requires:
-            - build
+            - install
       - a11y:
           requires:
-            - build
+            - install
 
 # - Runs on every PR check
   pr-check:
@@ -370,6 +382,10 @@ workflows:
           context: barista
           requires:
             - install
+      - lint-workspace:
+          context: barista
+          requires:
+            - install
       - unit-test:
           context: barista
           requires:
@@ -379,11 +395,11 @@ workflows:
           # BROWSERSTACK_USERNAME is needed for browserstack automation
           context: barista
           requires:
-            - build
+            - install
       - a11y:
           context: barista
           requires:
-            - build
+            - install
       - build:
           context: barista
           requires:
