@@ -267,9 +267,11 @@ export class DtEmptyState
    * @breaking-change Remove with version 8.0.0
    */
   _updateLayout(): void {
-    const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
-      .width;
-    this._updateLayoutForSize(componentWidth);
+    if (this._platform.isBrowser) {
+      const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
+        .width;
+      this._updateLayoutForSize(componentWidth);
+    }
   }
 }
 

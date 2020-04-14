@@ -218,6 +218,32 @@
       "projectType": "application",
       "architect": {
         "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              {
+                "command": "npx ng run examples-tools:execute"
+              },
+              {
+                "command": "npx ng run demos:build-frontend"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "commands": [
+                {
+                  "command": "npx ng run examples-tools:execute"
+                },
+                {
+                  "command": "npx ng run demos:build-frontend:production"
+                }
+              ]
+            }
+          }
+        },
+        "build-frontend": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/demos",
@@ -280,10 +306,9 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "demos:build",
+            "browserTarget": "demos:build-frontend",
             "host": "0.0.0.0"
-          },
-          "configurations": {}
+          }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -304,7 +329,7 @@
             "files": ["apps/demos/src/**/*.scss"]
           }
         },
-        "a11y": {
+        "a11y-tests": {
           "builder": "@politie/angular-testcafe-builder:testcafe",
           "options": {
             "devServerTarget": "demos:serve",
@@ -334,6 +359,42 @@
               "concurrency": 1
             }
           }
+        },
+        "a11y": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              {
+                "command": "npx ng run examples-tools:execute"
+              },
+              {
+                "command": "npx ng run demos:a11y-tests"
+              }
+            ]
+          },
+          "configurations": {
+            "ci": {
+              "commands": [
+                {
+                  "command": "npx ng run examples-tools:execute"
+                },
+                {
+                  "command": "npx ng run demos:a11y-tests:ci"
+                }
+              ]
+            },
+            "watch": {
+              "commands": [
+                {
+                  "command": "npx ng run examples-tools:execute"
+                },
+                {
+                  "command": "npx ng run demos:a11y-tests:watch"
+                }
+              ]
+            }
+          }
         }
       }
     },
@@ -361,6 +422,16 @@
           "options": {
             "tsConfig": ["libs/tools/examples-tools/tsconfig.json"],
             "exclude": ["**/node_modules/**", "!tools/examples-tools/**"]
+          }
+        },
+        "execute": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "node dist/libs/tools/examples-tools/main.js"
+              }
+            ]
           }
         }
       }
@@ -395,6 +466,38 @@
       "projectType": "application",
       "architect": {
         "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              {
+                "command": "npx ng run examples-tools:execute"
+              },
+              {
+                "command": "npx ng run barista-tools:execute"
+              },
+              {
+                "command": "npx ng run barista-design-system:static-pages"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "commands": [
+                {
+                  "command": "npx ng run examples-tools:execute"
+                },
+                {
+                  "command": "npx ng run barista-tools:execute"
+                },
+                {
+                  "command": "npx ng run barista-design-system:static-pages:production"
+                }
+              ]
+            }
+          }
+        },
+        "static-pages": {
           "builder": "./dist/libs/workspace:build-barista",
           "options": {
             "browserTarget": "barista-design-system:build-frontend",
@@ -817,6 +920,16 @@
           },
           "configurations": {
             "production": {}
+          }
+        },
+        "execute": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "node dist/libs/tools/barista/main.js"
+              }
+            ]
           }
         },
         "test": {
