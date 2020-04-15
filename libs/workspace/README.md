@@ -2,6 +2,8 @@
 
 This library should contain all workspace related builders and schematics.
 
+test
+
 ## Important ⚠️
 
 If you import from other libraries make sure that the docker build is passing:
