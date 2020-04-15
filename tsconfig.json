@@ -47,6 +47,9 @@
       "@dynatrace/barista-components/checkbox": [
         "libs/barista-components/checkbox/index.ts"
       ],
+      "@dynatrace/barista-components/experimental/combobox": [
+        "libs/barista-components/experimental/combobox/index.ts"
+      ],
       "@dynatrace/barista-components/confirmation-dialog": [
         "libs/barista-components/confirmation-dialog/index.ts"
       ],

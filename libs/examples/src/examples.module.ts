@@ -30,6 +30,7 @@ import { DtButtonGroupExamplesModule } from './button-group/button-group-example
 import { DtCardExamplesModule } from './card/card-examples.module';
 import { DtChartExamplesModule } from './chart/chart-examples.module';
 import { DtCheckboxExamplesModule } from './checkbox/checkbox-examples.module';
+import { DtComboboxExamplesModule } from './combobox/combobox-examples.module';
 import { DtConfirmationDialogExamplesModule } from './confirmation-dialog/confirmation-dialog-examples.module';
 import { DtConsumptionExamplesModule } from './consumption/consumption-examples.module';
 import { DtContainerBreakpointObserverExamplesModule } from './container-breakpoint-observer/container-breakpoint-observer-examples.module';
@@ -96,6 +97,7 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtCardExamplesModule,
     DtChartExamplesModule,
     DtCheckboxExamplesModule,
+    DtComboboxExamplesModule,
     DtConfirmationDialogExamplesModule,
     DtConsumptionExamplesModule,
     DtContainerBreakpointObserverExamplesModule,

@@ -1,0 +1,96 @@
+@import '../../../style/font-mixins';
+@import '../../../core/src/style/variables';
+@import '../../../core/src/style/form-control';
+@import '../../../core/src/style/interactive-common';
+
+:host {
+  display: inline-block;
+  box-sizing: border-box;
+  outline: none;
+  @include dt-main-font();
+  @include dt-form-control();
+  @include dt-cdkmonitor-focus-style();
+
+  // Do not allow it to grow outside its wrapper
+  max-width: 100%;
+
+  .dt-combobox-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    fill: $gray-500;
+  }
+
+  &.dt-combobox-open .dt-combobox-arrow {
+    transform: rotate(180deg);
+  }
+
+  &:hover:not(.dt-select-disabled) {
+    border-color: $gray-500;
+    cursor: pointer;
+  }
+}
+
+:host.dt-combobox-disabled {
+  background-color: $gray-100;
+  color: $disabledcolor;
+
+  .dt-combobox-trigger {
+    pointer-events: none;
+  }
+
+  .dt-combobox-input,
+  .dt-combobox-input::placeholder {
+    color: $disabledcolor;
+  }
+}
+
+:host.dt-combobox-disabled .dt-combobox-arrow ::ng-deep svg {
+  fill: $disabledcolor;
+}
+
+.dt-combobox-trigger {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.dt-combobox-input {
+  @include dt-main-font();
+  appearance: none;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  text-decoration: none;
+  padding: 0 0 0 12px;
+  line-height: -moz-block-height;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-align: left;
+  border: none;
+  width: 100%;
+  outline: none;
+  min-height: 30px;
+  border-radius: 3px;
+}
+
+.dt-combobox-input::placeholder {
+  @include dt-main-font();
+}
+
+.dt-combobox-postfix {
+  justify-self: center;
+}
+
+.dt-combobox-arrow {
+  width: 16px;
+  transform: rotate(0);
+  transition: transform 150ms ease-out;
+  fill: $turquoise-600;
+
+  ::ng-deep svg {
+    width: 100%;
+    height: 100%;
+  }
+}

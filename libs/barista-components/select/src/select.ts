@@ -97,6 +97,7 @@ import {
   DT_UI_TEST_CONFIG,
   DtUiTestConfiguration,
   dtSetUiTestAttribute,
+  DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG,
 } from '@dynatrace/barista-components/core';
 import {
   DtFormField,
@@ -108,7 +109,7 @@ let uniqueId = 0;
 const LOG: DtLogger = DtLoggerFactory.create('DtSelect');
 
 /** The height of the select items. */
-export const SELECT_ITEM_HEIGHT = 32;
+export const SELECT_ITEM_HEIGHT = 28;
 
 /** The max height of the select's overlay panel */
 export const SELECT_PANEL_MAX_HEIGHT = 256;
@@ -137,9 +138,12 @@ export const _DtSelectMixinBase = mixinTabIndex(
   mixinDisabled(mixinErrorState(DtSelectBase)),
 );
 
-export function getDtSelectNonFunctionValueError(): Error {
-  return Error('`compareWith` must be a function.');
-}
+/**
+ * @deprecated Will be removed with v8.0.0 - will not throw an Error after 8.0.0 but instead use the Logger
+ * see combobox compareWith
+ */
+export const getDtSelectNonFunctionValueError = () =>
+  new Error(DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG);
 
 @Component({
   selector: 'dt-select',
@@ -882,8 +886,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
       : this._getOptionIndex(this._selectionModel.selected[0])!;
     selectedOptionOffset += _countGroupLabelsBeforeOption(
       selectedOptionOffset,
-      this.options,
-      this.optionGroups,
+      this.options.toArray(),
     );
 
     // We must maintain a scroll buffer so the selected option will be scrolled to the
@@ -920,8 +923,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     const activeOptionIndex = this._keyManager.activeItemIndex || 0;
     const labelCount = _countGroupLabelsBeforeOption(
       activeOptionIndex,
-      this.options,
-      this.optionGroups,
+      this.options.toArray(),
     );
 
     this.panel.nativeElement.scrollTop = _getOptionScrollPosition(

@@ -14,25 +14,30 @@
  * limitations under the License.
  */
 
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { DtOptionModule } from '@dynatrace/barista-components/core';
+import { FormsModule } from '@angular/forms';
 
-import { DtAutocomplete } from './autocomplete';
-import { DtAutocompleteOrigin } from './autocomplete-origin';
-import { DtAutocompleteTrigger } from './autocomplete-trigger';
+import { CommonModule } from '@angular/common';
+import { DtInputModule } from '@dynatrace/barista-components/input';
+import { DtCombobox } from './combobox';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, DtOptionModule, PortalModule],
-  exports: [
-    DtAutocompleteTrigger,
-    DtAutocomplete,
-    DtAutocompleteOrigin,
-    DtOptionModule,
+  exports: [DtCombobox],
+  declarations: [DtCombobox],
+  imports: [
+    CommonModule,
+    PortalModule,
+    FormsModule,
+    DtIconModule,
+    DtInputModule,
+    DtAutocompleteModule,
+    DtLoadingDistractorModule,
+    PortalModule,
   ],
-  declarations: [DtAutocompleteTrigger, DtAutocomplete, DtAutocompleteOrigin],
 })
-export class DtAutocompleteModule {}
+export class DtComboboxModule {}

@@ -1,0 +1,37 @@
+<dt-combobox
+  placeholder="Start typing or open dropdown for top list"
+  aria-label="A simple combobox example"
+  panelClass="my-demo-overlay-class"
+  [value]="_initialValue"
+  [loading]="_loading"
+  [displayWith]="_displayWith"
+  (openedChange)="openedChanged($event)"
+  (valueChange)="valueChanged($event)"
+  (filterChange)="filterChanged($event)"
+>
+  <dt-option *ngFor="let option of _options" [value]="option">
+    {{ option.name }}
+  </dt-option>
+</dt-combobox>
+<dt-select placeholder="Start typing or open dropdown for top list">
+  <dt-option value="1">
+    Value 1
+  </dt-option>
+  <dt-option value="2">
+    Value 2
+  </dt-option>
+</dt-select>
+
+<p>
+  Selected Value:
+  <em>{{ selectedValue || 'No value selected' }}</em>
+</p>
+<dt-combobox
+  placeholder="Choose your coffee"
+  [(ngModel)]="selectedValue"
+  aria-label="Choose your coffee"
+>
+  <dt-option *ngFor="let coffee of coffees" [value]="coffee.value">
+    {{ coffee.viewValue }}
+  </dt-option>
+</dt-combobox>
