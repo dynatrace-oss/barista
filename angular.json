@@ -2632,7 +2632,7 @@
           }
         },
         "lint-styles": {
-          "builder": "@dynatrace/barista-builders:stylelint",
+          "builder": "./dist/libs/workspace:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
@@ -2865,7 +2865,7 @@
           }
         },
         "lint-styles": {
-          "builder": "@dynatrace/barista-builders:stylelint",
+          "builder": "./dist/libs/workspace:stylelint",
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
