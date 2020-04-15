@@ -77,6 +77,7 @@ import { ToastDemo } from './toast/toast-demo.component';
 import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group-demo.component';
 import { TopBarNavigationDemo } from './top-bar-navigation/top-bar-navigation-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
+import { ComboboxDemo } from './combobox/combobox-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
@@ -88,6 +89,7 @@ const routes: Routes = [
   { path: 'card', component: CardDemo },
   { path: 'chart', component: ChartDemo },
   { path: 'checkbox', component: CheckboxDemo },
+  { path: 'combobox', component: ComboboxDemo },
   { path: 'consumption', component: ConsumptionDemo },
   { path: 'context-dialog', component: ContextDialogDemo },
   { path: 'confirmation-dialog', component: ConfirmationDialogDemo },

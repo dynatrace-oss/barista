@@ -91,9 +91,10 @@ import { TopBarNavigationDemo } from './top-bar-navigation/top-bar-navigation-de
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
-  DT_UI_TEST_CONFIG,
   DT_DEFAULT_UI_TEST_CONFIG,
+  DT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
+import { ComboboxDemo } from './combobox/combobox-demo.component';
 
 // tslint:disable-next-line: use-component-selector
 @Component({ template: '' })
@@ -121,6 +122,7 @@ export class NoopRouteComponent {}
     CardDemo,
     ChartDemo,
     CheckboxDemo,
+    ComboboxDemo,
     ConfirmationDialogDemo,
     ContextDialogDemo,
     CopyToClipboardDemo,

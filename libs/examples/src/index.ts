@@ -84,6 +84,7 @@ import { DtExampleCheckboxDark } from './checkbox/checkbox-dark-example/checkbox
 import { DtExampleCheckboxDefault } from './checkbox/checkbox-default-example/checkbox-default-example';
 import { DtExampleCheckboxIndeterminate } from './checkbox/checkbox-indeterminate-example/checkbox-indeterminate-example';
 import { DtExampleCheckboxResponsive } from './checkbox/checkbox-responsive-example/checkbox-responsive-example';
+import { DtExampleComboboxSimple } from './combobox/combobox-simple-example/combobox-simple-example';
 import { DtExampleConfirmationDialogDefault } from './confirmation-dialog/confirmation-dialog-default-example/confirmation-dialog-default-example';
 import { DtExampleConfirmationDialogShowBackdrop } from './confirmation-dialog/confirmation-dialog-show-backdrop-example/confirmation-dialog-show-backdrop-example';
 import { DtExampleConsumptionDefault } from './consumption/consumption-default-example/consumption-default-example';
@@ -331,6 +332,7 @@ export { DtButtonGroupExamplesModule } from './button-group/button-group-example
 export { DtCardExamplesModule } from './card/card-examples.module';
 export { DtChartExamplesModule } from './chart/chart-examples.module';
 export { DtCheckboxExamplesModule } from './checkbox/checkbox-examples.module';
+export { DtComboboxExamplesModule } from './combobox/combobox-examples.module';
 export { DtConfirmationDialogExamplesModule } from './confirmation-dialog/confirmation-dialog-examples.module';
 export { DtConsumptionExamplesModule } from './consumption/consumption-examples.module';
 export { DtContainerBreakpointObserverExamplesModule } from './container-breakpoint-observer/container-breakpoint-observer-examples.module';
@@ -445,6 +447,7 @@ export {
   DtExampleCheckboxDefault,
   DtExampleCheckboxIndeterminate,
   DtExampleCheckboxResponsive,
+  DtExampleComboboxSimple,
   DtExampleConfirmationDialogDefault,
   DtExampleConfirmationDialogShowBackdrop,
   DtExampleConsumptionDefault,
@@ -750,6 +753,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleCheckboxDefault', DtExampleCheckboxDefault],
   ['DtExampleCheckboxIndeterminate', DtExampleCheckboxIndeterminate],
   ['DtExampleCheckboxResponsive', DtExampleCheckboxResponsive],
+  ['DtExampleComboboxSimple', DtExampleComboboxSimple],
   ['DtExampleConfirmationDialogDefault', DtExampleConfirmationDialogDefault],
   [
     'DtExampleConfirmationDialogShowBackdrop',

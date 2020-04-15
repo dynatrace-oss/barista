@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 
-export * from './error-matcher';
-export * from './errors';
+import { Selector } from 'testcafe';
+
+export const combobox = Selector('#test-combobox');

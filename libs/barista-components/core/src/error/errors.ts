@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export * from './error-matcher';
-export * from './errors';
+export const DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG =
+  '`compareWith` must be a function.';

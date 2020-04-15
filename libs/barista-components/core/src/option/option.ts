@@ -27,13 +27,13 @@ import {
   OnDestroy,
   Optional,
   Output,
-  QueryList,
   ViewEncapsulation,
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
 import { _readKeyCode } from '../util/index';
 import { DtOptgroup } from './optgroup';
+import { Highlightable } from '@angular/cdk/a11y';
 
 let _uniqueId = 0;
 
@@ -69,7 +69,7 @@ export class DtOptionSelectionChange<T> {
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtOption<T> implements AfterViewChecked, OnDestroy {
+export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
   private _selected = false;
   private _active = false;
   private _disabled = false;
@@ -257,24 +257,18 @@ export class DtOption<T> implements AfterViewChecked, OnDestroy {
 /** Counts the amount of option group labels that precede the specified option. */
 export function _countGroupLabelsBeforeOption<T>(
   optionIndex: number,
-  options: QueryList<DtOption<T>>,
-  optionGroups: QueryList<DtOptgroup>,
+  options: DtOption<T>[],
 ): number {
-  if (optionGroups.length) {
-    const optionsArray = options.toArray();
-    const groups = optionGroups.toArray();
-    let groupCounter = 0;
+  if (options.some((option) => !!option.group)) {
+    const optionsArray = options;
+    const groups = new Set<DtOptgroup>();
 
     for (let i = 0; i < optionIndex + 1; i++) {
-      if (
-        optionsArray[i].group &&
-        optionsArray[i].group === groups[groupCounter]
-      ) {
-        groupCounter++;
+      if (optionsArray[i].group && !groups.has(optionsArray[i].group!)) {
+        groups.add(optionsArray[i].group!);
       }
     }
-
-    return groupCounter;
+    return groups.size;
   }
 
   return 0;

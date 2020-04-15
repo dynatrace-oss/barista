@@ -1,0 +1,29 @@
+{
+  "title": "Combobox",
+  "description": "The combobox component can be used to provide typeahead filtering for a list of options.",
+  "postid": "combobox",
+  "identifier": "Co",
+  "category": "components",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "Christoph Matscheko",
+        "gitHubUser": "heartdisease"
+      },
+      {
+        "name": "Fabian Friedl",
+        "gitHubUser": "ffriedl89"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
+  },
+  "properties": ["work in progress", "experimental"],
+  "related": ["input"],
+  "tags": ["angular", "component"]
+}

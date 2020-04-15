@@ -55,6 +55,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'combobox',
+    loadChildren: () =>
+      import('../components/combobox/combobox.module').then(
+        (module) => module.DtE2EComboboxModule,
+      ),
+  },
+  {
     path: 'consumption',
     loadChildren: () =>
       import('../components/consumption/consumption.module').then(

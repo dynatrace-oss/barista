@@ -58,6 +58,7 @@ import { DtTimelineChartModule } from '@dynatrace/barista-components/timeline-ch
 import { DtToggleButtonGroupModule } from '@dynatrace/barista-components/toggle-button-group';
 import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
 import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
+import { DtComboboxModule } from '@dynatrace/barista-components/experimental/combobox';
 
 @NgModule({
   imports: [
@@ -71,6 +72,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtButtonModule,
     DtCardModule,
     DtCheckboxModule,
+    DtComboboxModule,
     DtConsumptionModule,
     DtContainerBreakpointObserverModule,
     DtContainerBreakpointObserverModule,

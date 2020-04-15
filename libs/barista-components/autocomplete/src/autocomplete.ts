@@ -35,9 +35,11 @@ import {
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  OnDestroy,
 } from '@angular/core';
 
-import { DtOptgroup, DtOption } from '@dynatrace/barista-components/core';
+import { DtOption } from '@dynatrace/barista-components/core';
+import { Subscription } from 'rxjs';
 
 let _uniqueIdCounter = 0;
 
@@ -82,7 +84,8 @@ export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefault
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
+export class DtAutocomplete<T>
+  implements AfterContentInit, AfterViewInit, OnDestroy {
   /**
    * Whether the first option should be highlighted when the autocomplete panel is opened.
    * Can be configured globally through the `DT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
@@ -159,6 +162,9 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   /** @internal */
   _portal: TemplatePortal;
 
+  /** @internal Additional portal used when additional programmatic options need to be added */
+  _additionalPortal: TemplatePortal;
+
   /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
   id = `dt-autocomplete-${_uniqueIdCounter++}`;
 
@@ -176,12 +182,31 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
    * @internal References to all the options that are currently applied.
    */
   @ContentChildren(DtOption, { descendants: true })
-  _options: QueryList<DtOption<T>>;
+  private _projectedOptions: QueryList<DtOption<T>>;
 
-  /**
-   * @interal References to all the option groups that are currently applied.
-   */
-  @ContentChildren(DtOptgroup) _optionGroups: QueryList<DtOptgroup>;
+  /** @internal The options that are added programmatically and not part of the content children */
+  get _additionalOptions(): DtOption<T>[] {
+    return this._additionalOptionsInternal;
+  }
+  set _additionalOptions(val: DtOption<T>[]) {
+    this._additionalOptionsInternal = val;
+    this._combineOptions();
+    // only emit a changes event when content init is already done
+    // similar to the querylist changes event
+    if (this._initialized) {
+      this._options.notifyOnChanges();
+    }
+  }
+  private _additionalOptionsInternal: DtOption<T>[] = [];
+
+  /** @internal Querylist that combines projected & programmatic changes */
+  _options = new QueryList<DtOption<T>>();
+
+  /** Property to trace whether initialization is already done */
+  private _initialized = false;
+
+  private _projectedOptionsChangeSubscription: Subscription =
+    Subscription.EMPTY;
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -198,11 +223,27 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   }
 
   ngAfterContentInit(): void {
+    // Combine the changes first
+    this._combineOptions();
+    // init keymanager with custom querylist that combines projected and programmatic options
     this._keyManager = new ActiveDescendantKeyManager<DtOption<T>>(
       this._options,
     ).withWrap();
     // Set the initial visibility state.
     this._setVisibility();
+    this._projectedOptionsChangeSubscription = this._projectedOptions.changes.subscribe(
+      () => {
+        this._combineOptions();
+        this._options.notifyOnChanges();
+      },
+    );
+    // We need this property here so we don't emit a change event on the first changes for programmatic actions
+    // similar to what the querylist does
+    this._initialized = true;
+  }
+
+  ngOnDestroy(): void {
+    this._projectedOptionsChangeSubscription.unsubscribe();
   }
 
   /**
@@ -241,6 +282,14 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
   _emitSelectEvent(option: DtOption<T>): void {
     const event = new DtAutocompleteSelectedEvent(this, option);
     this.optionSelected.emit(event);
+  }
+
+  /** Combines the projected and the programmatic options and updates the querylist */
+  private _combineOptions(): void {
+    const options = this._projectedOptions
+      .toArray()
+      .concat(this._additionalOptionsInternal);
+    this._options.reset(options);
   }
 
   /** Sets the autocomplete visibility classes on a classlist based on the panel is visible. */

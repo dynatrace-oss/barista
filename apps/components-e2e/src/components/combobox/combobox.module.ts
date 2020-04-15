@@ -14,5 +14,18 @@
  * limitations under the License.
  */
 
-export * from './error-matcher';
-export * from './errors';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { DtE2ECombobox } from './combobox';
+import { DtComboboxModule } from '@dynatrace/barista-components/experimental/combobox';
+
+const routes: Route[] = [{ path: '', component: DtE2ECombobox }];
+
+@NgModule({
+  declarations: [DtE2ECombobox],
+  imports: [CommonModule, RouterModule.forChild(routes), DtComboboxModule],
+  exports: [],
+  providers: [],
+})
+export class DtE2EComboboxModule {}
