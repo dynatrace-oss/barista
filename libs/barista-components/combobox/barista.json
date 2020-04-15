@@ -1,0 +1,24 @@
+{
+  "title": "Combobox",
+  "description": "The combobox component can be used to [...].",
+  "postid": "combobox",
+  "identifier": "Co",
+  "category": "components",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "Christoph Matscheko",
+        "gitHubUser": "heartdisease"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Andreas Mayr",
+        "gitHubUser": "moarliman"
+      }
+    ]
+  },
+  "related": ["input"],
+  "tags": ["angular", "component"]
+}
