@@ -1388,6 +1388,46 @@
       },
       "schematics": {}
     },
+    "combobox": {
+      "projectType": "library",
+      "root": "libs/barista-components/combobox",
+      "sourceRoot": "libs/barista-components/combobox/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/combobox/tsconfig.lib.json",
+              "libs/barista-components/combobox/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/combobox/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "./dist/libs/workspace:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/barista-components/combobox/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/combobox/jest.config.js",
+            "tsConfig": "libs/barista-components/combobox/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/combobox/src/test-setup.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
     "confirmation-dialog": {
       "projectType": "library",
       "root": "libs/barista-components/confirmation-dialog",

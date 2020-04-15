@@ -73,6 +73,7 @@
         "card",
         "chart",
         "checkbox",
+        "combobox",
         "confirmation-dialog",
         "consumption",
         "container-breakpoint-observer",
@@ -155,6 +156,9 @@
       "tags": ["scope:components", "type:library"]
     },
     "checkbox": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "combobox": {
       "tags": ["scope:components", "type:library"]
     },
     "confirmation-dialog": {
