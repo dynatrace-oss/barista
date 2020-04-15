@@ -74,6 +74,7 @@ import { DtToastModule } from '@dynatrace/barista-components/toast';
 import { DtToggleButtonGroupModule } from '@dynatrace/barista-components/toggle-button-group';
 import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
 import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
+import { DtComboboxModule } from '@dynatrace/barista-components/experimental/combobox';
 
 /**
  * NgModule that includes all Dynatrace angular components modules that are required to serve the examples.
@@ -89,6 +90,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtCardModule,
     DtChartModule,
     DtCheckboxModule,
+    DtComboboxModule,
     DtConfirmationDialogModule,
     DtContextDialogModule,
     DtCopyToClipboardModule,

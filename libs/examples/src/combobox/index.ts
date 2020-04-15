@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export * from './error-matcher';
-export * from './errors';
+export * from './combobox-simple-example/combobox-simple-example';
+export * from './combobox-examples.module';

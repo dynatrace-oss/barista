@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export * from './error-matcher';
-export * from './errors';
+export { DtCombobox } from './src/combobox';
+export * from './src/combobox-module';

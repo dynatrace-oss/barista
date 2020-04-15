@@ -67,7 +67,6 @@ Thumbs.db
 
 .now
 
-
 # bazel
 bazel-*
 .bazelrc.user

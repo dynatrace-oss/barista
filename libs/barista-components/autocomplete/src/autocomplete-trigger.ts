@@ -25,16 +25,17 @@ import {
 import {
   Overlay,
   OverlayConfig,
+  OverlayContainer,
   OverlayRef,
   PositionStrategy,
   ViewportRuler,
-  OverlayContainer,
 } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
+  forwardRef,
   Host,
   Inject,
   Input,
@@ -42,43 +43,42 @@ import {
   OnDestroy,
   Optional,
   Provider,
-  forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-  EMPTY,
-  Observable,
-  Subject,
-  Subscription,
   defer,
+  EMPTY,
   fromEvent,
   merge,
+  Observable,
   of as observableOf,
+  Subject,
+  Subscription,
 } from 'rxjs';
 import {
   delay,
   filter,
   map,
-  startWith,
   switchMap,
   take,
   takeUntil,
   tap,
+  startWith,
 } from 'rxjs/operators';
 
 import {
-  DtOption,
-  DtOptionSelectionChange,
-  DtViewportResizer,
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition,
-  isDefined,
   _readKeyCode,
-  stringify,
-  DtFlexibleConnectedPositionStrategy,
-  dtSetUiTestAttribute,
   DT_UI_TEST_CONFIG,
+  DtFlexibleConnectedPositionStrategy,
+  DtOption,
+  DtOptionSelectionChange,
+  dtSetUiTestAttribute,
   DtUiTestConfiguration,
+  DtViewportResizer,
+  isDefined,
+  stringify,
 } from '@dynatrace/barista-components/core';
 import { DtFormField } from '@dynatrace/barista-components/form-field';
 
@@ -96,7 +96,7 @@ export const DT_AUTOCOMPLETE_VALUE_ACCESSOR: Provider = {
 };
 
 /** The height of the select items. */
-export const AUTOCOMPLETE_OPTION_HEIGHT = 32;
+export const AUTOCOMPLETE_OPTION_HEIGHT = 28;
 
 /** The max height of the select's overlay panel */
 export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
@@ -205,16 +205,18 @@ export class DtAutocompleteTrigger<T>
   /** Stream of changes to the selection state of the autocomplete options. */
   readonly optionSelections: Observable<DtOptionSelectionChange<T>> = defer(
     () => {
-      const options = this.autocomplete ? this.autocomplete._options : null;
+      const optionsChanged = this.autocomplete
+        ? this.autocomplete._options
+        : null;
 
-      if (options) {
-        return options.changes.pipe(
-          startWith(options),
-          switchMap(() =>
-            merge<DtOptionSelectionChange<T>>(
-              ...options.map((option) => option.selectionChange),
-            ),
-          ),
+      if (optionsChanged) {
+        return optionsChanged.changes.pipe(
+          startWith(optionsChanged),
+          switchMap(() => {
+            return merge<DtOptionSelectionChange<T>>(
+              ...optionsChanged.map((option) => option.selectionChange),
+            );
+          }),
         );
       }
 
@@ -690,8 +692,7 @@ export class DtAutocompleteTrigger<T>
     const index = this.autocomplete._keyManager.activeItemIndex || 0;
     const labelCount = _countGroupLabelsBeforeOption(
       index,
-      this.autocomplete._options,
-      this.autocomplete._optionGroups,
+      this.autocomplete._options.toArray(),
     );
 
     const newScrollPosition = _getOptionScrollPosition(

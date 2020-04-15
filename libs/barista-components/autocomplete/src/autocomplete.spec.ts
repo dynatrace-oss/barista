@@ -35,6 +35,9 @@ import {
   Type,
   ViewChild,
   ViewChildren,
+  TemplateRef,
+  ViewContainerRef,
+  AfterViewInit,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -78,6 +81,7 @@ import {
   MockNgZone,
   typeInElement,
 } from '@dynatrace/testing/browser';
+import { TemplatePortal } from '@angular/cdk/portal';
 
 describe('DtAutocomplete', () => {
   let overlayContainer: OverlayContainer;
@@ -727,7 +731,7 @@ describe('DtAutocomplete', () => {
     let UP_ARROW_EVENT: KeyboardEvent;
     let ENTER_EVENT: KeyboardEvent;
 
-    beforeEach(fakeAsync(() => {
+    beforeEach(() => {
       fixture = createComponent(SimpleAutocomplete);
       fixture.detectChanges();
 
@@ -739,18 +743,19 @@ describe('DtAutocomplete', () => {
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
       zone.simulateZoneExit();
-    }));
+    });
 
-    it('should not focus the option when DOWN key is pressed', () => {
+    it('should not focus the option when DOWN key is pressed', fakeAsync(() => {
       jest
         .spyOn(fixture.componentInstance.options.first, 'focus')
         .mockImplementation(() => {});
 
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
+
       expect(
         fixture.componentInstance.options.first.focus,
       ).not.toHaveBeenCalled();
-    });
+    }));
 
     it('should not close the panel when DOWN key is pressed', () => {
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
@@ -1594,6 +1599,19 @@ describe('DtAutocomplete', () => {
       );
     });
   });
+  describe('additional programmatic options', () => {
+    it('should add the additional option at the end of the normal content projected options', () => {
+      const fixture: ComponentFixture<PropagateAttribute> = createComponent(
+        ProgrammaticOptions,
+      );
+      fixture.detectChanges();
+      const trigger = fixture.componentInstance.trigger;
+      trigger.openPanel();
+      fixture.detectChanges();
+      expect(overlayContainerElement.textContent).toContain('First');
+      expect(overlayContainerElement.textContent).toContain('Second');
+    });
+  });
 });
 
 @Component({
@@ -1933,4 +1951,46 @@ class DynamicallyChangingAutocomplete {
 class PropagateAttribute {
   @ViewChild(DtAutocompleteTrigger, { static: false })
   trigger: DtAutocompleteTrigger<any>;
+}
+
+@Component({
+  template: `
+    <input
+      #input
+      dt-ui-test-id="autocomplete"
+      class="test"
+      type="text"
+      dtInput
+      [dtAutocomplete]="auto"
+    />
+    <dt-autocomplete #auto>
+      <dt-option [value]="0">First</dt-option>
+    </dt-autocomplete>
+
+    <ng-template>
+      <dt-option [value]="1">Second</dt-option>
+    </ng-template>
+  `,
+})
+class ProgrammaticOptions implements AfterViewInit {
+  @ViewChild(DtAutocompleteTrigger, { static: false })
+  trigger: DtAutocompleteTrigger<any>;
+
+  @ViewChild(TemplateRef) templateRef: TemplateRef<unknown>;
+
+  @ViewChild(DtAutocomplete, { static: true }) autocomplete: DtAutocomplete<
+    number
+  >;
+
+  @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
+
+  constructor(private _viewContainerRef: ViewContainerRef) {}
+
+  ngAfterViewInit(): void {
+    this.autocomplete._additionalPortal = new TemplatePortal(
+      this.templateRef,
+      this._viewContainerRef,
+    );
+    this.autocomplete._additionalOptions = [this.options.last];
+  }
 }

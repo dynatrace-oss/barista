@@ -1,0 +1,38 @@
+<div class="dt-combobox-trigger">
+  <input
+    #searchInput
+    #autocompleteTrigger="dtAutocompleteTrigger"
+    class="dt-combobox-input"
+    type="text"
+    [attr.aria-label]="ariaLabel || null"
+    [attr.aria-labelledby]="ariaLabelledBy || null"
+    [required]="required ? true : null"
+    [placeholder]="placeholder"
+    [dtAutocomplete]="autocomplete"
+  />
+  <dt-loading-spinner
+    class="dt-combobox-postfix dt-combobox-spinner"
+    *ngIf="_loading"
+  ></dt-loading-spinner>
+  <dt-icon
+    name="dropdownopen"
+    class="dt-combobox-postfix dt-combobox-arrow"
+    *ngIf="!_loading"
+    aria-hidden="true"
+    (click)="_toggle($event)"
+  ></dt-icon>
+</div>
+
+<dt-autocomplete
+  #autocomplete="dtAutocomplete"
+  class="dt-combobox-autocomplete"
+  [ngClass]="panelClass"
+  [displayWith]="displayWith"
+  (opened)="_opened()"
+  (closed)="_closed()"
+  (optionSelected)="_optionSelected($event)"
+></dt-autocomplete>
+
+<ng-template #autocompleteContent>
+  <ng-content></ng-content>
+</ng-template>

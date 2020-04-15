@@ -14,5 +14,10 @@
  * limitations under the License.
  */
 
-export * from './error-matcher';
-export * from './errors';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-e2e-combobox',
+  templateUrl: 'combobox.html',
+})
+export class DtE2ECombobox {}
