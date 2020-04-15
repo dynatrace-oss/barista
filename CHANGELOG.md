@@ -1,3 +1,42 @@
+## 6.3.0 (2020-04-15)
+
+### Bug Fixes
+
+- **filter-field:** Fixes a bug where the range overlay was not closed.
+  ([53aaeb0](https://github.com/dynatrace-oss/barista/commit/53aaeb0258da4b6a8f7d4ccdcb2513ec94d01ec8)),
+  closes [#178](https://github.com/dynatrace-oss/barista/issues/178)
+- **filter-field:** Fixes an issue where two filter field flaps were open at the
+  same time.
+  ([85feb21](https://github.com/dynatrace-oss/barista/commit/85feb21ee7181a3e5b384eba501894aff31744bd)),
+  closes [#840](https://github.com/dynatrace-oss/barista/issues/840)
+
+### Features
+
+- **chart:** Added support for observable as input for options.
+  ([c7aca9d](https://github.com/dynatrace-oss/barista/commit/c7aca9d2b366cb1a45162d3590d04b485e747abb))
+- **quick-filter:** Add a new quick filter component inside an experimental
+  package. The quick filter component is used to provide a quick way to operate
+  with the filter field inside a sidebar. Inside the quick filter only an
+  autocomplete with simple options can be displayed.
+  ([dc950e4](https://github.com/dynatrace-oss/barista/commit/dc950e4035c028ab60ca2036d9bc0a56db475b12)),
+  closes [#453](https://github.com/dynatrace-oss/barista/issues/453)
+  [#254](https://github.com/dynatrace-oss/barista/issues/254)
+- **slider:** Adding a new Slider component for number inputs. The Slider
+  essentially works as the html range element.
+  ([8b7b825](https://github.com/dynatrace-oss/barista/commit/8b7b8251380d8aacb36c73d8a98d8bc349ff4ce0))
+
+### Experimental Package ⚠️
+
+Components from the experimental package have to be imported via
+`@dynatrace/barista-components/experimental/...`. Those components are not meant
+to be used on production.
+
+The experimental package does not follow semantic versioning like the rest of
+the library does.
+
+This means that we might break the api in every version. It is only meant to be
+used for testing and feedback purpose!
+
 ## 6.2.0 (2020-04-07)
 
 ### Bug Fixes
