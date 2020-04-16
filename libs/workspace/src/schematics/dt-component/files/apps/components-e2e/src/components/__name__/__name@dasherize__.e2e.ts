@@ -14,5 +14,10 @@
  * limitations under the License.
  */
 
-export * from './builders/barista-build/builder';
-export * from './schematics/dt-component';
+import { <%= dasherize(name) } from './<%= dasherize(name).po';
+
+fixture('<%= capitalize(name)').page('http://localhost:4200/<%= dasherize(name)');
+
+test('should ', async (testController: TestController) => {
+
+});

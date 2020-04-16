@@ -13,6 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { NgModule } from '@angular/core';
+import { DtTimelineChartModule } from '@dynatrace/barista-components/timeline-chart';
+import { <%= classify(name) %>DefaultExample } from './<%= dasherize(name) %>-default-example/<%= dasherize(name) %>-default-example';
 
-export * from './builders/barista-build/builder';
-export * from './schematics/dt-component';
+@NgModule({
+  imports: [DtTimelineChartModule],
+  declarations: [<%= classify(name) %>DefaultExample],
+  entryComponents: [<%= classify(name) %>DefaultExample],
+})
+export class DtExamplesTimelineChartModule {}

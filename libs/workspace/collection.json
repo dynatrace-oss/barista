@@ -2,5 +2,12 @@
   "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "name": "workspace",
   "version": "0.0.1",
-  "schematics": {}
+  "schematics": {
+    "dt-component": {
+      "description": "Create a component with a demo",
+      "factory": "./src/schematics/dt-component/index",
+      "schema": "./src/schematics/dt-component/schema.json",
+      "aliases": ["dtc"]
+    }
+  }
 }

@@ -1,5 +1,4 @@
 const { join } = require('path');
-const { readFileSync } = require('fs');
 const TerserPlugin = require('terser-webpack-plugin');
 
 // ENTRY bundles
@@ -11,6 +10,7 @@ const entries = [
   'src/builders/stylelint/index.ts',
   'src/builders/design-tokens/build/index.ts',
   'src/builders/design-tokens/package/index',
+  'src/schematics/dt-component/index',
   'src/index.ts',
 ];
 

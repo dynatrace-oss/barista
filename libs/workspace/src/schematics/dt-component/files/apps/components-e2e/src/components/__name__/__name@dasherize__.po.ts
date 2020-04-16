@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 
-export * from './builders/barista-build/builder';
-export * from './schematics/dt-component';
+import { Selector } from 'testcafe';
+
+export const <%= dasherize(name) %> = Selector('#test-<%= dasherize(name) %>');

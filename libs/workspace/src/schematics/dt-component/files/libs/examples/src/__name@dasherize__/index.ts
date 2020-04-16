@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export * from './builders/barista-build/builder';
-export * from './schematics/dt-component';
+export * from './<%= dasherize(name)-examples.module';
+export * from './<%= dasherize(name)-default-example/<%= dasherize(name)-default-example';

@@ -14,5 +14,18 @@
  * limitations under the License.
  */
 
-export * from './builders/barista-build/builder';
-export * from './schematics/dt-component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { <%= moduleName %> } from '@dynatrace/barista-components/<%= dasherize(name) %>';
+import { DtE2EButton } from './<%= dasherize(name) %>';
+
+const routes: Route[] = [{ path: '', component: DtE2E<%= camelize(name) %> }];
+
+@NgModule({
+  declarations: [DtE2E<%= camelize(name) %>],
+  imports: [CommonModule, RouterModule.forChild(routes), <%= moduleName %>],
+  exports: [],
+  providers: [],
+})
+export class DtE2E<%= camelize(name) %>Module {}

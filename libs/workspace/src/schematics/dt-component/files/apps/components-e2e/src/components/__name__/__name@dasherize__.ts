@@ -14,5 +14,12 @@
  * limitations under the License.
  */
 
-export * from './builders/barista-build/builder';
-export * from './schematics/dt-component';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-e2e-<%= dasherize(name) %>',
+  templateUrl: '<%= dasherize(name) %>.html',
+})
+export class DtE2E<%= camelize(name) %> {
+
+}
