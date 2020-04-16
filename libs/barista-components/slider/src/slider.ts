@@ -376,6 +376,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
       filter(keyboardEvent => KEY_CODES_ARRAY.includes(keyboardEvent.keyCode)),
       map(keyboardEvent => {
         keyboardEvent.stopPropagation(); // global angular keydown would trigger CD.
+        keyboardEvent.preventDefault();
         const valueAddition = getKeyCodeValue(
           this._max,
           this.step,
