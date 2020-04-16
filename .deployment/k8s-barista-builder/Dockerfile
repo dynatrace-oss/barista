@@ -5,12 +5,15 @@ ARG BASE_IMAGE_REGISTRY
 
 FROM designops/workspace-base:${BASE_VERSION} as workspace
 
-COPY .npmrc ./
+COPY .npmrc \
+     package.json \
+     ./
 
 RUN rm -rf entrypoint.sh && \
+    mkdir -p ./dist/tmp && \
     cp -R ./node_modules/@dynatrace/barista-icons ./dist/tmp/barista-icons-public && \
     npm install @dynatrace/barista-icons @dynatrace/barista-fonts && \
-    rm -rf .npmrc
+    rm -rf .npmrc package.json
 
 FROM ${BASE_IMAGE_REGISTRY}/library/jenkins-slave-cluster-docker-image:5.2 as builder
 

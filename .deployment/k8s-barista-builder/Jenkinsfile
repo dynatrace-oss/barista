@@ -9,9 +9,10 @@ pipeline {
 
   options {
     ansiColor("xterm")
-		buildDiscarder(logRotator(numToKeepStr: '10'))
+    buildDiscarder(logRotator(numToKeepStr: '10'))
     disableConcurrentBuilds()
-		timeout(time: 30, unit: 'MINUTES')
+    skipDefaultCheckout true
+    timeout(time: 30, unit: 'MINUTES')
     timestamps()
   }
 
@@ -23,6 +24,38 @@ pipeline {
   }
 
   stages {
+
+    stage('Checkout Files') {
+      steps {
+        checkout([
+          $class: 'GitSCM',
+          branches: [
+            [name: '*/master']
+          ],
+          doGenerateSubmoduleConfigurations: false,
+          extensions: [
+            [
+              $class: 'CloneOption',
+              depth: 1,
+              noTags: false,
+              reference: '',
+              shallow: true
+            ],
+            [
+              $class: 'SparseCheckoutPaths',
+              sparseCheckoutPaths: [
+                [path: '.deployment/k8s-barista-builder'],
+                [path: 'package.json']
+              ]
+            ]
+          ],
+          submoduleCfg: [],
+          userRemoteConfigs: [
+            [url: 'https://github.com/dynatrace-oss/barista.git']
+          ]
+        ])
+      }
+    }
 
     stage("Add npmrc file for internal registry") {
       steps {
