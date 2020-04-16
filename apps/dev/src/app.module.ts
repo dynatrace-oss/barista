@@ -95,7 +95,7 @@ import {
 
 // tslint:disable-next-line: use-component-selector
 @Component({ template: '' })
-export class NoopRouteComponent { }
+export class NoopRouteComponent {}
 
 @NgModule({
   imports: [
@@ -178,4 +178,4 @@ export class NoopRouteComponent { }
     { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } },
   ],
 })
-export class AppModule { }
+export class AppModule {}

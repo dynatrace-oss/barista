@@ -107,4 +107,4 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtTreeTableModule,
   ],
 })
-export class BaristaModule { }
+export class BaristaModule {}

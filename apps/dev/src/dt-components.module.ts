@@ -138,4 +138,4 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtContainerBreakpointObserverModule,
   ],
 })
-export class DevAppDynatraceModule { }
+export class DevAppDynatraceModule {}
