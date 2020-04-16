@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-export const generateHeaderNoticeComment = (
-  commentStart = '/*',
-  commentLine = ' *',
-  commentEnd = ' */',
-) => `${commentStart}
-${commentLine} THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
-${commentLine} FILES, DO NOT CHANGE MANUALLY.
-${commentLine} TO GENERATE THESE FILES RUN \`ng build shared-design-tokens\`
-${commentEnd}
-`;
+/*
+ * THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
+ * FILES, DO NOT CHANGE MANUALLY.
+ * TO GENERATE THESE FILES RUN `ng build shared-design-tokens`
+ */
+
+export * from './global/palette';
+export * from './global/spacing';
+export * from './patterns/button';
