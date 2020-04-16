@@ -19,7 +19,7 @@ import { promises as fs } from 'fs';
 import { sync as globSync } from 'glob';
 import { Volume as memfsVolume } from 'memfs';
 import { Volume } from 'memfs/lib/volume';
-import { dirname, extname, join } from 'path';
+import { dirname, extname, join, resolve } from 'path';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { catchError, map, mapTo, switchMap } from 'rxjs/operators';
 import { registerFormat, convert, Format, TransformOptions } from 'theo';
@@ -30,6 +30,7 @@ import {
 import { DesignTokensBuildOptions } from './schema';
 import { parse, stringify } from 'yaml';
 import { generatePaletteAliases } from './palette-generators/palette-alias-generator';
+import { typescriptBarrelFileTemplate } from './token-converters/ts-barrel-file-template';
 import { generateHeaderNoticeComment } from './generate-header-notice-comment';
 
 /** Extend the deault provided theo formats with onces that we provide. */
@@ -134,6 +135,23 @@ export function designTokenConversion(
   );
 }
 
+/** Generate an index.ts barrel file that exports all design tokens. */
+export function generateTypescriptBarrelFile(
+  options: DesignTokensBuildOptions,
+  volume: Volume,
+): Volume {
+  const relativeImportPaths = Object.keys(volume.toJSON())
+    .filter(fileName => extname(fileName) === '.ts')
+    .map(fileName => fileName.replace('.ts', ''))
+    .map(fileName => fileName.replace(resolve(options.outputPath), '.'));
+  volume.writeFileSync(
+    join(options.outputPath, 'index.ts'),
+    typescriptBarrelFileTemplate(relativeImportPaths),
+  );
+
+  return volume;
+}
+
 /** Write all files within the memfs to the real file system. */
 async function commitVolumeToFileSystem(memoryVolume: Volume): Promise<void> {
   for (const [path, content] of Object.entries(memoryVolume.toJSON())) {
@@ -167,6 +185,7 @@ export function designTokensBuildBuilder(
     switchMap((entryFiles: string[]) =>
       designTokenConversion(options, entryFiles),
     ),
+    map(memoryVolume => generateTypescriptBarrelFile(options, memoryVolume)),
     switchMap(memoryVolume => commitVolumeToFileSystem(memoryVolume)),
     mapTo({
       success: true,
