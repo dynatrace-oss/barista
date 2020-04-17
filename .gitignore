@@ -64,3 +64,5 @@ Thumbs.db
 /src/barista/data/
 # Build of bitbucket-tools
 /tools/bitbucket-tools/dist/
+
+.now

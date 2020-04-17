@@ -30,6 +30,11 @@ jobs:
 
           npm run ng run barista-design-system:build:production
 
+      - name: Rename folder for zeit deployment
+        run: |
+          cd ./dist/apps/barista-design-system
+          mv browser barista
+
       - name: ZEIT Now Deployment
         id: now-deployment
         uses: amondnet/now-deployment@v1
@@ -37,8 +42,7 @@ jobs:
           zeit-token: ${{ secrets.ZEIT_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           now-args:
-            '--local-config now-preview.json --confirm
-            ./dist/apps/barista-design-system/browser'
+            '--confirm ./dist/apps/barista-design-system/barista'
 
       - name: Generating Lighthouse Report
         uses: jakejarvis/lighthouse-action@master
