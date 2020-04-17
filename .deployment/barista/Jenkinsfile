@@ -9,9 +9,9 @@ pipeline {
 
   parameters {
     booleanParam(
-      name: "INTERNAL_VERSION",
-      defaultValue: true,
-      description: "Build the internal version of Barista"
+      name: "PUBLIC_BUILD",
+      defaultValue: false,
+      description: "Build the public version of Barista"
     )
   }
 
@@ -48,14 +48,13 @@ pipeline {
 
         stage("Internal Preparations") {
           when {
-            expression { return params.INTERNAL_VERSION }
+            expression { return !params.PUBLIC_BUILD }
           }
           environment {
             BARISTA_SEARCH_ENDPOINT = credentials('barista-search-endpoint')
             ENVIRONMENT_FILE = 'apps/barista-design-system/src/environments/environment.internal.ts'
           }
           steps {
-
             dir(BARISTA_PATH) {
               script {
                 def text = readFile(file: "${ENVIRONMENT_FILE}")
@@ -69,18 +68,6 @@ pipeline {
 
         stage("Prepare Workspace") {
           steps {
-
-            script {
-              if (!(params.INTERNAL_VERSION ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ )) {
-                echo "Public build - Replace internal iconpack with public ones."
-                dir(WORKSPACE_DIR) {
-                  sh '''
-                    rm -rf ./node_modules/@dynatrace/barista-icons
-                    cp -R ./dist/tmp/barista-icons-public ./node_modules/@dynatrace/barista-icons
-                  '''
-                 }
-              }
-            }
 
             sh'''
               files="node_modules dist package-lock.sha1"
@@ -107,24 +94,29 @@ pipeline {
               }
             }
 
+            script {
+              if (params.PUBLIC_BUILD ==~ /(?i)(Y|YES|T|TRUE|ON|RUN)/ ) {
+                echo "Public build - Replace internal iconpack with public ones."
+                dir(WORKSPACE_DIR) {
+                  sh '''
+                    rm -rf ./node_modules/@dynatrace/barista-icons
+                    cp -R ./dist/tmp/barista-icons-public ./node_modules/@dynatrace/barista-icons
+                  '''
+                 }
+              }
+            }
+
             dir(BARISTA_PATH) {
               configFileProvider([
                 configFile(fileId: "barista-env", variable: "ENV")
               ]) {
-                sh '''
-                  mv "$ENV" .env
-
-                  # Set public build to the inverse of INTERNAL_VERSION
-                  if $INTERNAL_VERSION ; then
-                    PUBLIC_BUILD=false
-                  else
-                    PUBLIC_BUILD=true
-                  fi
+                sh """
+                  mv $ENV .env
 
                   echo "PUBLIC_BUILD=${PUBLIC_BUILD}" >> .env
 
                   cat .env
-                '''
+                """
               }
             }
           }
@@ -140,19 +132,28 @@ pipeline {
                 node dist/libs/tools/examples-tools/main.js
                 node dist/libs/tools/barista/main.js
 
-                if $INTERNAL_VERSION ; then
-                  configuration='production-internal'
-                else
+                if $PUBLIC_BUILD ; then
                   configuration='production'
+                else
+                  configuration='production-internal'
                 fi
+
+                cat dist/barista-data/routes.txt
 
                 node \
                   --max_old_space_size=8192 \
                   ./node_modules/.bin/ng run barista-design-system:build:${configuration}
               '''
 
-              stash includes: "dist/**/*", name: 'dist'
-              stash includes: ".deployment/**/*", name: 'deployment'
+              dir('dist') {
+                stash name: 'dist', useDefaultExcludes: false
+              }
+
+              dir('.deployment') {
+                stash name: 'deployment'
+              }
+
+              stash name: 'public-deployment', includes: 'now.json'
             }
 
           }
@@ -166,7 +167,61 @@ pipeline {
       }
     }
 
-    stage("Deploy Barista") {
+    stage("Deploy Barista Public") {
+      when {
+        expression { return params.PUBLIC_BUILD }
+      }
+      agent {
+        node {
+          label "k8s-barista-builder"
+        }
+      }
+
+      options {
+        skipDefaultCheckout true
+      }
+
+      stages {
+        stage("Deploy to Zeit") {
+          environment {
+            ZEIT_TOKEN = credentials("barista-zeit-deployment-token")
+          }
+          steps {
+            dir(BARISTA_PATH) {
+              configFileProvider([
+                configFile(fileId: "now-project-json", variable: "NOW_PROJECT")
+              ]) {
+                sh '''
+                  mkdir .now
+                  mv "$NOW_PROJECT" .now/project.json
+                '''
+              }
+              // Restore stashed dist for barista
+              unstash "public-deployment"
+
+              dir('dist') {
+                unstash "dist"
+                // rename folder for zeit deployment
+                sh "mv apps/barista-design-system/browser apps/barista-design-system/barista"
+              }
+
+              sh "now --confirm -t $ZEIT_TOKEN ./dist/apps/barista-design-system/barista"
+            }
+          }
+        }
+      }
+
+      post {
+        always {
+          cleanWs deleteDirs: true
+        }
+      }
+    }
+
+    stage("Deploy Barista Internal") {
+      when {
+        expression { return !params.PUBLIC_BUILD }
+      }
       agent {
         node {
           label "k8s-docker"
@@ -182,8 +237,12 @@ pipeline {
           steps {
             dir(BARISTA_PATH) {
               // Restore stashed dist for barista
-              unstash "dist"
-              unstash "deployment"
+              dir('dist') {
+                unstash "dist"
+              }
+              dir('.deployment') {
+                unstash "deployment"
+              }
 
               sh """
                 docker build \

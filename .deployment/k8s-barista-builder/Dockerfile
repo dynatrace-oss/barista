@@ -27,7 +27,7 @@ RUN  curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash - \
   && apt-get update \
   && apt-get install -y libgtk-3-0 libasound2 libxss1 nodejs pv \
   && apt-get clean \
-  && npm install -g n \
+  && npm install -g n now \
   && n ${NODE_VERSION} \
   && npm -v \
   && node -v
