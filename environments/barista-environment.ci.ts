@@ -19,7 +19,9 @@ import { config as dotenvConfig } from 'dotenv';
 
 dotenvConfig();
 
-const isPublicBuild = process.env.PUBLIC_BUILD !== 'false';
+const { PUBLIC_BUILD, STRAPI_ENDPOINT, INTERNAL_LINKS } = process.env;
+
+const isPublicBuild = PUBLIC_BUILD !== 'false';
 
 const iconChangelogName = `CHANGELOG${isPublicBuild ? '-public' : ''}.json`;
 
@@ -36,7 +38,7 @@ export const environment: BaEnvironment = {
   /** Path to the icons changelog relative to the icons root directory. */
   iconsChangelogFileName: `../barista-icons/_build/barista-icons/_templates/${iconChangelogName}`,
   /** URL/IP where the Strapi CMS is located. */
-  strapiEndpoint: process.env.STRAPI_ENDPOINT,
+  strapiEndpoint: STRAPI_ENDPOINT,
   /** Parts of internal URLs that should be removed on public build. */
-  internalLinks: process.env.INTERNAL_LINKS,
+  internalLinks: INTERNAL_LINKS,
 };
