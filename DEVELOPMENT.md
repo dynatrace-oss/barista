@@ -21,18 +21,28 @@
 The Barista repository has the following structure:
 
 - **apps**:
-  - barista: the Barista design system
+  - barista-design-system: the Barista design system.
+  - components-e2e: testapp to run UI/e2e tests.
   - demos: The preview app that includes all examples that get compiled and
-    bundled for the Barista design system
-  - components-e2e: testapp to run UI/e2e tests
-  - dev: local development app to test components
+    bundled for the Barista design system.
+  - dev: local development app to test components.
   - universal: app to verify that the components can be used in a serverside
-    rendered context
-- **components**: the Barista components library source code
-- **documentation**: additional documentation files
+    rendered context.
+- **conecpts**: describes some of the underlying concepts which are applied or
+  will be applied in our Barista design system.
+- **documentation**: additional documentation files.
 - **libs**: general libraries, e.g. testing library
-- **tools**: everything tooling-related like linting, releasing, schematics,
-  etc.
+  - barista-components: the Barista components library source code. There's a
+    separate library for each component.
+  - examples: contains all examples of compoents which are used by the demo and
+    the Barista design system app.
+  - shared: various shared libraries.
+  - testing: helpers for writing tests.
+  - tools: tooling- and ecosystem-related code like linting, releasing, etc.
+  - workspace: builders, schematics and scripts needed to build libraries,
+    create them and run them in our CI environment.
+- **tools**: more tooling- and ecosystem-related code for GitHub actions,
+  stylelinting, etc.
 
 ## Developing
 
