@@ -14,52 +14,12 @@
  * limitations under the License.
  */
 
-import { generateContrastColors } from './contrast-colors';
-// import { generateContrastColors } from '@adobe/leonardo-contrast-colors';
-
-/** Preliminary interface for the source of a generated palette. */
-interface FluidPaletteSource {
-  aliases: {
-    /** Root name of the alias. */
-    name: string;
-    /** Key color(s) on which the calculations are based on. */
-    keyColor: string | string[];
-    /** Base color used to calculate the contrast ratios to. */
-    baseColor: string;
-    /** Type of calculations that should be used. Currently only adobe-leonardo is available. */
-    type: 'adobe-leonardo' | undefined;
-    /** Colorspace to use */
-    colorspace: 'CAM02' | 'HSLuv';
-    /** List of shades that should be generated. */
-    shades: {
-      /** Name of the shade. */
-      name: string;
-      /** Target contrast ratio level. */
-      ratio: number;
-      /** Comment for this particular alias. */
-      comment: string;
-      /** Output alias name. */
-      aliasName: string;
-    }[];
-  }[];
-}
-
-interface FluidPaletteAlias {
-  [aliasName: string]: {
-    value: string;
-    comment?: string;
-    originalRatio?: number;
-  };
-}
-
-/** Preliminary interface for alias typings. */
-interface FluidPaletteAliases {
-  aliases: FluidPaletteAlias;
-  global: {
-    type: string;
-    category: string;
-  };
-}
+import { generateContrastColors } from '@dynatrace/shared/design-tokens';
+import {
+  FluidPaletteSource,
+  FluidPaletteAliases,
+  FluidPaletteAlias,
+} from '@dynatrace/shared/barista-definitions';
 
 /**
  * Generates a list of aliases for the color palette based on the source

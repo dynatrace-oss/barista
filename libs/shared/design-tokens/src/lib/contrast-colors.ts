@@ -23,7 +23,6 @@ Copyright 2019 Adobe. All rights reserved.
 This file is licensed to you under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License. You may obtain a copy
 of the License at http://www.apache.org/licenses/LICENSE-2.0
-
 Unless required by applicable law or agreed to in writing, software distributed under
 the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
 OF ANY KIND, either express or implied. See the License for the specific language
@@ -216,7 +215,7 @@ function binarySearch(list: any[], value: any, baseLum: any): number {
 }
 
 /** Calculate the luminance of an rgb color. */
-function luminance(r: number, g: number, b: number): number {
+export function luminance(r: number, g: number, b: number): number {
   let a = [r, g, b].map((v) => {
     v /= 255;
     return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
