@@ -93,7 +93,7 @@
     "max-line-length": 80,
     "linebreaks": "unix",
     "selector-class-pattern": [
-      "^_?(dt-|ba-|cdk-)",
+      "^_?(dt-|ba-|cdk-|design-tokens-ui-)",
       {
         "resolveNestedSelectors": true
       }

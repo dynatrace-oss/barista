@@ -1,0 +1,105 @@
+/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import 'variables.scss';
+@import '../../../styles/variables.scss';
+
+$default-width: 96px;
+$expanded-width: 220px;
+$logo-height: 28px;
+
+.design-tokens-ui-nav {
+  overflow-x: hidden;
+  width: $default-width;
+  transition: width 200ms, background-color 200ms, color 200ms;
+
+  &:hover {
+    background-color: rgba($color: white, $alpha: 0.65);
+    backdrop-filter: blur(0.7rem);
+    width: $expanded-width;
+
+    .design-tokens-ui-nav-item {
+      border-left-color: $gray-900;
+    }
+
+    .design-tokens-ui-nav-item .dt-icon {
+      fill: $gray-900;
+    }
+
+    .design-tokens-ui-nav-logo img {
+      filter: brightness(0);
+    }
+  }
+}
+
+.design-tokens-ui-nav--container {
+  margin-top: $logo-height + 20px;
+  height: calc(100vh - #{$logo-height} - 40px);
+  display: flex;
+  width: $expanded-width;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.design-tokens-ui-nav-item {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  height: 48px;
+  padding-left: 38px;
+  opacity: 60%;
+  color: $gray-900;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: border-left-color 200ms;
+
+  .dt-icon {
+    width: 48px;
+    display: inline-block;
+    margin-right: 12px;
+    fill: $text-color;
+    transition: fill 200ms;
+  }
+
+  &:hover,
+  &.design-tokens-ui-router-active {
+    border-left: 4px solid $text-color;
+    padding-left: 38px - 4px;
+  }
+
+  &.design-tokens-ui-router-active {
+    opacity: 100%;
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: 20px;
+  }
+}
+
+.design-tokens-ui-nav-logo {
+  position: fixed;
+  height: $logo-height;
+  margin: 20px;
+  z-index: 200;
+
+  img {
+    height: 100%;
+    transition: filter 200ms;
+  }
+}

@@ -30,8 +30,8 @@ import {
 import { DesignTokensBuildOptions } from './schema';
 import { parse, stringify } from 'yaml';
 import { generatePaletteAliases } from './palette-generators/palette-alias-generator';
-import { typescriptBarrelFileTemplate } from './token-converters/ts-barrel-file-template';
 import { generateHeaderNoticeComment } from './generate-header-notice-comment';
+import { typescriptBarrelFileTemplate } from './token-converters/ts-barrel-file-template';
 
 /** Extend the deault provided theo formats with onces that we provide. */
 type DtTheoFormats = Format | 'dt-scss' | 'typescript';
@@ -49,10 +49,24 @@ registerFormat('typescript', dtDesignTokensTypescriptConverter);
  * This is a temporary solution until we can replace theo with
  * our own generator that would be able to do this on the fly.
  */
-function generateColorPalette(cwd: string): Observable<void> {
+function generateColorPalette(
+  options: DesignTokensBuildOptions,
+  cwd: string,
+): Observable<void> {
   const colorFile = globSync('**/palette-source.alias.yml', { cwd })[0];
   return from(fs.readFile(join(cwd, colorFile), { encoding: 'utf-8' })).pipe(
     map((paletteSource: string) => parse(paletteSource)),
+    switchMap(async (paletteSource) => {
+      const targetDir = dirname(join(options.outputPath, colorFile));
+      await ensureDirectoryExists(targetDir);
+
+      // save palette source as JSON since we can't extract this information from the build files
+      await fs.writeFile(
+        join(options.outputPath, colorFile.replace('.yml', '.json')),
+        JSON.stringify(paletteSource, null, 2),
+      );
+      return paletteSource;
+    }),
     map((paletteSource) => generatePaletteAliases(paletteSource)),
     map((paletteTarget) => stringify(paletteTarget)),
     switchMap((paletteOutput) =>
@@ -62,6 +76,15 @@ function generateColorPalette(cwd: string): Observable<void> {
       ),
     ),
   );
+}
+
+/** Creates the given directory if it doesn't exist */
+async function ensureDirectoryExists(path: string): Promise<void> {
+  try {
+    await fs.access(path);
+  } catch (e) {
+    await fs.mkdir(path);
+  }
 }
 
 /**
@@ -122,6 +145,7 @@ export function designTokenConversion(
     conversions.push(
       runTokenConversion(file, options.baseDirectory, 'dt-scss', 'scss'),
       runTokenConversion(file, options.baseDirectory, 'typescript', 'ts'),
+      runTokenConversion(file, options.baseDirectory, 'raw.json', 'json'),
     );
   }
   return forkJoin(conversions).pipe(
@@ -174,6 +198,7 @@ export function designTokensBuildBuilder(
 
   // Start of by reading the required source entry files.
   return generateColorPalette(
+    options,
     join(context.workspaceRoot, options.baseDirectory),
   ).pipe(
     switchMap(() =>
