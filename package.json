@@ -154,7 +154,7 @@
     "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-prettier": "^1.1.1",
-    "stylelint-scss": "^3.16.1",
+    "stylelint-scss": "^3.17.1",
     "testcafe": "^1.6.1",
     "testcafe-browser-provider-browserstack": "^1.9.0",
     "testcafe-reporter-xunit": "^2.1.0",
