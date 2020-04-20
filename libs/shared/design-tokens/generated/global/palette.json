@@ -1,0 +1,466 @@
+{
+  "aliases": {
+    "color-neutral--darker": {
+      "value": "#222328",
+      "comment": "Darker neutral color shade",
+      "originalRatio": 15
+    },
+    "color-positive--lighter": {
+      "value": "#48a678",
+      "comment": "Lighter positive color shade",
+      "originalRatio": 3
+    },
+    "color-key--light": {
+      "value": "#1d6dee",
+      "comment": "Light key color shade",
+      "originalRatio": 4.5
+    },
+    "color-negative--darker": {
+      "value": "#903832",
+      "comment": "Darker negative color shade",
+      "originalRatio": 7.5
+    },
+    "color-warning--base": {
+      "value": "#83742f",
+      "comment": "Base warning color shade",
+      "originalRatio": 4.67
+    },
+    "color-warning--light": {
+      "value": "#95822f",
+      "comment": "Light warning color shade",
+      "originalRatio": 3.81
+    },
+    "color-negative--lighter": {
+      "value": "#e5736a",
+      "comment": "Lighter negative color shade",
+      "originalRatio": 3
+    },
+    "color-key--lightest": {
+      "value": "#abbfdf",
+      "comment": "Lightest key color shade",
+      "originalRatio": 1.8
+    },
+    "color-key--base": {
+      "value": "#2359b3",
+      "comment": "Base key color shade",
+      "originalRatio": 6.5
+    },
+    "color-neutral--lighter": {
+      "value": "#e5e6e9",
+      "comment": "Lighter neutral color shade",
+      "originalRatio": 1.2
+    },
+    "color-positive--darker": {
+      "value": "#385c48",
+      "comment": "Darker positive color shade",
+      "originalRatio": 7.5
+    },
+    "color-warning--dark": {
+      "value": "#74662d",
+      "comment": "Dark warning color shade",
+      "originalRatio": 5.68
+    },
+    "color-key--dark": {
+      "value": "#264986",
+      "comment": "Dark key color shade",
+      "originalRatio": 8.5
+    },
+    "color-neutral--base": {
+      "value": "#6d7488",
+      "comment": "Base neutral color shade",
+      "originalRatio": 4.5
+    },
+    "color-key--lighter": {
+      "value": "#7199db",
+      "comment": "Lighter key color shade",
+      "originalRatio": 2.8
+    },
+    "color-negative--base": {
+      "value": "#d23f3b",
+      "comment": "Base negative color shade",
+      "originalRatio": 4.67
+    },
+    "color-warning--lighter": {
+      "value": "#ab942e",
+      "comment": "Lighter warning color shade",
+      "originalRatio": 3
+    },
+    "color-neutral--dark": {
+      "value": "#40434d",
+      "comment": "Dark neutral color shade",
+      "originalRatio": 9.5
+    },
+    "color-positive--light": {
+      "value": "#46916b",
+      "comment": "Light positive color shade",
+      "originalRatio": 3.81
+    },
+    "color-positive--base": {
+      "value": "#438060",
+      "comment": "Base positive color shade",
+      "originalRatio": 4.67
+    },
+    "color-negative--dark": {
+      "value": "#b63d38",
+      "comment": "Dark negative color shade",
+      "originalRatio": 5.68
+    },
+    "color-warning--darker": {
+      "value": "#5f5529",
+      "comment": "Darker warning color shade",
+      "originalRatio": 7.5
+    },
+    "color-negative--light": {
+      "value": "#e0534c",
+      "comment": "Light negative color shade",
+      "originalRatio": 3.81
+    },
+    "color-key--darker": {
+      "value": "#22375b",
+      "comment": "Darker key color shade",
+      "originalRatio": 11.5
+    },
+    "color-neutral--light": {
+      "value": "#c7c9d0",
+      "comment": "Light neutral color shade",
+      "originalRatio": 1.6
+    },
+    "color-positive--dark": {
+      "value": "#3f7156",
+      "comment": "Dark positive color shade",
+      "originalRatio": 5.68
+    },
+    "color-key--darkest": {
+      "value": "#1b263c",
+      "comment": "Darkest key color shade",
+      "originalRatio": 14.5
+    }
+  },
+  "props": {
+    "fluid-color-key--lighter": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-key--lighter",
+      "value": "#7199db",
+      "meta": {
+        "friendlyName": "Key, lighter",
+        "sassVariable": "$color-key--lighter",
+        "customProperty": "--color-key--lighter",
+        "customizable": false
+      },
+      "originalValue": "{!color-key--lighter}"
+    },
+    "fluid-color-key--light": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-key--light",
+      "value": "#1d6dee",
+      "meta": {
+        "friendlyName": "Key, light",
+        "sassVariable": "$color-key--light",
+        "customProperty": "--color-key--light",
+        "customizable": false
+      },
+      "originalValue": "{!color-key--light}"
+    },
+    "fluid-color-key--base": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-key--base",
+      "value": "#2359b3",
+      "meta": {
+        "friendlyName": "Key, base",
+        "sassVariable": "$color-key--base",
+        "customProperty": "--color-key--base",
+        "customizable": false
+      },
+      "originalValue": "{!color-key--base}"
+    },
+    "fluid-color-key--dark": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-key--dark",
+      "value": "#264986",
+      "meta": {
+        "friendlyName": "Key, dark",
+        "sassVariable": "$color-key--dark",
+        "customProperty": "--color-key--dark",
+        "customizable": false
+      },
+      "originalValue": "{!color-key--dark}"
+    },
+    "fluid-color-key--darker": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-key--darker",
+      "value": "#22375b",
+      "meta": {
+        "friendlyName": "Key, darker",
+        "sassVariable": "$color-key--darker",
+        "customProperty": "--color-key--darker",
+        "customizable": false
+      },
+      "originalValue": "{!color-key--darker}"
+    },
+    "fluid-color-neutral--lighter": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-neutral--lighter",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Neutral, lighter",
+        "sassVariable": "$color-neutral--lighter",
+        "customProperty": "--color-neutral--lighter",
+        "customizable": false
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-color-neutral--light": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-neutral--light",
+      "value": "#c7c9d0",
+      "meta": {
+        "friendlyName": "Neutral, light",
+        "sassVariable": "$color-neutral--light",
+        "customProperty": "--color-neutral--light",
+        "customizable": false
+      },
+      "originalValue": "{!color-neutral--light}"
+    },
+    "fluid-color-neutral--base": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-neutral--base",
+      "value": "#6d7488",
+      "meta": {
+        "friendlyName": "Neutral, base",
+        "sassVariable": "$color-neutral--base",
+        "customProperty": "--color-neutral--base",
+        "customizable": false
+      },
+      "originalValue": "{!color-neutral--base}"
+    },
+    "fluid-color-neutral--dark": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-neutral--dark",
+      "value": "#40434d",
+      "meta": {
+        "friendlyName": "Neutral, dark",
+        "sassVariable": "$color-neutral--dark",
+        "customProperty": "--color-neutral--dark",
+        "customizable": false
+      },
+      "originalValue": "{!color-neutral--dark}"
+    },
+    "fluid-color-neutral--darker": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-neutral--darker",
+      "value": "#222328",
+      "meta": {
+        "friendlyName": "Neutral, darker",
+        "sassVariable": "$color-neutral--darker",
+        "customProperty": "--color-neutral--darker",
+        "customizable": false
+      },
+      "originalValue": "{!color-neutral--darker}"
+    },
+    "fluid-color-negative--lighter": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-negative--lighter",
+      "value": "#e5736a",
+      "meta": {
+        "friendlyName": "Negative, lighter",
+        "sassVariable": "$color-negative--lighter",
+        "customProperty": "--color-negative--lighter",
+        "customizable": false
+      },
+      "originalValue": "{!color-negative--lighter}"
+    },
+    "fluid-color-negative--light": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-negative--light",
+      "value": "#e0534c",
+      "meta": {
+        "friendlyName": "Negative, light",
+        "sassVariable": "$color-negative--light",
+        "customProperty": "--color-negative--light",
+        "customizable": false
+      },
+      "originalValue": "{!color-negative--light}"
+    },
+    "fluid-color-negative--base": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-negative--base",
+      "value": "#d23f3b",
+      "meta": {
+        "friendlyName": "Negative, base",
+        "sassVariable": "$color-negative--base",
+        "customProperty": "--color-negative--base",
+        "customizable": false
+      },
+      "originalValue": "{!color-negative--base}"
+    },
+    "fluid-color-negative--dark": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-negative--dark",
+      "value": "#b63d38",
+      "meta": {
+        "friendlyName": "Negative, dark",
+        "sassVariable": "$color-negative--dark",
+        "customProperty": "--color-negative--dark",
+        "customizable": false
+      },
+      "originalValue": "{!color-negative--dark}"
+    },
+    "fluid-color-negative--darker": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-negative--darker",
+      "value": "#903832",
+      "meta": {
+        "friendlyName": "Negative, darker",
+        "sassVariable": "$color-negative--darker",
+        "customProperty": "--color-negative--darker",
+        "customizable": false
+      },
+      "originalValue": "{!color-negative--darker}"
+    },
+    "fluid-color-warning--lighter": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-warning--lighter",
+      "value": "#ab942e",
+      "meta": {
+        "friendlyName": "Warning, lighter",
+        "sassVariable": "$color-warning--lighter",
+        "customProperty": "--color-warning--lighter",
+        "customizable": false
+      },
+      "originalValue": "{!color-warning--lighter}"
+    },
+    "fluid-color-warning--light": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-warning--light",
+      "value": "#95822f",
+      "meta": {
+        "friendlyName": "Warning, light",
+        "sassVariable": "$color-warning--light",
+        "customProperty": "--color-warning--light",
+        "customizable": false
+      },
+      "originalValue": "{!color-warning--light}"
+    },
+    "fluid-color-warning--base": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-warning--base",
+      "value": "#83742f",
+      "meta": {
+        "friendlyName": "Warning, base",
+        "sassVariable": "$color-warning--base",
+        "customProperty": "--color-warning--base",
+        "customizable": false
+      },
+      "originalValue": "{!color-warning--base}"
+    },
+    "fluid-color-warning--dark": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-warning--dark",
+      "value": "#74662d",
+      "meta": {
+        "friendlyName": "Warning, dark",
+        "sassVariable": "$color-warning--dark",
+        "customProperty": "--color-warning--dark",
+        "customizable": false
+      },
+      "originalValue": "{!color-warning--dark}"
+    },
+    "fluid-color-warning--darker": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-warning--darker",
+      "value": "#5f5529",
+      "meta": {
+        "friendlyName": "Warning, darker",
+        "sassVariable": "$color-warning--darker",
+        "customProperty": "--color-warning--darker",
+        "customizable": false
+      },
+      "originalValue": "{!color-warning--darker}"
+    },
+    "fluid-color-positive--lighter": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-positive--lighter",
+      "value": "#48a678",
+      "meta": {
+        "friendlyName": "Positive, lighter",
+        "sassVariable": "$color-positive--lighter",
+        "customProperty": "--color-positive--lighter",
+        "customizable": false
+      },
+      "originalValue": "{!color-positive--lighter}"
+    },
+    "fluid-color-positive--light": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-positive--light",
+      "value": "#46916b",
+      "meta": {
+        "friendlyName": "Positive, light",
+        "sassVariable": "$color-positive--light",
+        "customProperty": "--color-positive--light",
+        "customizable": false
+      },
+      "originalValue": "{!color-positive--light}"
+    },
+    "fluid-color-positive--base": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-positive--base",
+      "value": "#438060",
+      "meta": {
+        "friendlyName": "Positive, base",
+        "sassVariable": "$color-positive--base",
+        "customProperty": "--color-positive--base",
+        "customizable": false
+      },
+      "originalValue": "{!color-positive--base}"
+    },
+    "fluid-color-positive--dark": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-positive--dark",
+      "value": "#3f7156",
+      "meta": {
+        "friendlyName": "Positive, dark",
+        "sassVariable": "$color-positive--dark",
+        "customProperty": "--color-positive--dark",
+        "customizable": false
+      },
+      "originalValue": "{!color-positive--dark}"
+    },
+    "fluid-color-positive--darker": {
+      "type": "dt-palette",
+      "category": "dt-palette",
+      "name": "fluid-color-positive--darker",
+      "value": "#385c48",
+      "meta": {
+        "friendlyName": "Positive, darker",
+        "sassVariable": "$color-positive--darker",
+        "customProperty": "--color-positive--darker",
+        "customizable": false
+      },
+      "originalValue": "{!color-positive--darker}"
+    }
+  }
+}

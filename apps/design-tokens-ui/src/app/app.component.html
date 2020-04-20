@@ -1,0 +1,26 @@
+<design-tokens-ui-nav>
+  <a routerLink="/" designTokensUiNavLogo>
+    <img
+      src="https://dt-cdn.net/images/dynatrace-logo-rgb-cnh-800x142px-8ad53ac283.svg"
+      alt="Dynatrace logo"
+      width="146"
+      class="design-tokens-ui-top-logo"
+    />
+  </a>
+  <a
+    routerLink="/palette"
+    routerLinkActive="design-tokens-ui-router-active"
+    designTokensUiNavItem
+  >
+    <dt-icon name="color"></dt-icon>
+    <span i18n>Palettes</span>
+  </a>
+</design-tokens-ui-nav>
+
+<div class="design-tokens-ui-top-bar">
+  <!-- could be populated with buttons later (see mocks) -->
+</div>
+
+<main class="design-tokens-ui-main" dtTheme=":dark">
+  <router-outlet></router-outlet>
+</main>

@@ -325,7 +325,7 @@
       "tags": ["type:tooling", "type:shared"]
     },
     "shared-design-tokens": {
-      "tags": ["type:library"]
+      "tags": ["type:library", "type:shared"]
     },
     "fluid-button": {
       "tags": ["scope:elements", "type:library"],
@@ -337,6 +337,16 @@
     },
     "testing-custom-element": {
       "tags": ["scope:testing", "type:library"]
+    },
+    "design-tokens-ui": {
+      "tags": ["type:app"],
+      "implicitDependencies": ["shared-design-tokens"]
+    },
+    "design-tokens-ui-libs": {
+      "tags": ["type:library"]
+    },
+    "design-tokens-ui-input": {
+      "tags": ["type:library"]
     }
   }
 }
