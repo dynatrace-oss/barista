@@ -97,7 +97,7 @@
     "@nrwl/node": "^9.1.3",
     "@nrwl/nx-plugin": "^9.1.3",
     "@nrwl/workspace": "^9.1.3",
-    "@octokit/rest": "^17.2.1",
+    "@octokit/rest": "^17.5.1",
     "@politie/angular-testcafe-builder": "^2.0.5",
     "@types/chalk": "^0.4.31",
     "@types/cheerio": "^0.22.13",
