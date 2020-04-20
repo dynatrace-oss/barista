@@ -1,0 +1,461 @@
+{
+  "aliases": {
+    "spacing--3x-small": {
+      "value": "2px"
+    },
+    "spacing--2x-small": {
+      "value": "4px"
+    },
+    "spacing--x-large": {
+      "value": "48px"
+    },
+    "spacing--small": {
+      "value": "12px"
+    },
+    "spacing--0": {
+      "value": 0
+    },
+    "spacing--x-small": {
+      "value": "8px"
+    },
+    "spacing--3x-large": {
+      "value": "128px"
+    },
+    "spacing--2x-large": {
+      "value": "64px"
+    },
+    "spacing--medium": {
+      "value": "16px"
+    },
+    "spacing--large": {
+      "value": "32px"
+    },
+    "color-neutral--darker": {
+      "value": "#222328",
+      "comment": "Darker neutral color shade",
+      "originalRatio": 15
+    },
+    "color-positive--lighter": {
+      "value": "#48a678",
+      "comment": "Lighter positive color shade",
+      "originalRatio": 3
+    },
+    "color-key--light": {
+      "value": "#1d6dee",
+      "comment": "Light key color shade",
+      "originalRatio": 4.5
+    },
+    "color-negative--darker": {
+      "value": "#903832",
+      "comment": "Darker negative color shade",
+      "originalRatio": 7.5
+    },
+    "color-warning--base": {
+      "value": "#83742f",
+      "comment": "Base warning color shade",
+      "originalRatio": 4.67
+    },
+    "color-warning--light": {
+      "value": "#95822f",
+      "comment": "Light warning color shade",
+      "originalRatio": 3.81
+    },
+    "color-negative--lighter": {
+      "value": "#e5736a",
+      "comment": "Lighter negative color shade",
+      "originalRatio": 3
+    },
+    "color-key--lightest": {
+      "value": "#abbfdf",
+      "comment": "Lightest key color shade",
+      "originalRatio": 1.8
+    },
+    "color-key--base": {
+      "value": "#2359b3",
+      "comment": "Base key color shade",
+      "originalRatio": 6.5
+    },
+    "color-neutral--lighter": {
+      "value": "#e5e6e9",
+      "comment": "Lighter neutral color shade",
+      "originalRatio": 1.2
+    },
+    "color-positive--darker": {
+      "value": "#385c48",
+      "comment": "Darker positive color shade",
+      "originalRatio": 7.5
+    },
+    "color-warning--dark": {
+      "value": "#74662d",
+      "comment": "Dark warning color shade",
+      "originalRatio": 5.68
+    },
+    "color-key--dark": {
+      "value": "#264986",
+      "comment": "Dark key color shade",
+      "originalRatio": 8.5
+    },
+    "color-neutral--base": {
+      "value": "#6d7488",
+      "comment": "Base neutral color shade",
+      "originalRatio": 4.5
+    },
+    "color-key--lighter": {
+      "value": "#7199db",
+      "comment": "Lighter key color shade",
+      "originalRatio": 2.8
+    },
+    "color-negative--base": {
+      "value": "#d23f3b",
+      "comment": "Base negative color shade",
+      "originalRatio": 4.67
+    },
+    "color-warning--lighter": {
+      "value": "#ab942e",
+      "comment": "Lighter warning color shade",
+      "originalRatio": 3
+    },
+    "color-neutral--dark": {
+      "value": "#40434d",
+      "comment": "Dark neutral color shade",
+      "originalRatio": 9.5
+    },
+    "color-positive--light": {
+      "value": "#46916b",
+      "comment": "Light positive color shade",
+      "originalRatio": 3.81
+    },
+    "color-positive--base": {
+      "value": "#438060",
+      "comment": "Base positive color shade",
+      "originalRatio": 4.67
+    },
+    "color-negative--dark": {
+      "value": "#b63d38",
+      "comment": "Dark negative color shade",
+      "originalRatio": 5.68
+    },
+    "color-warning--darker": {
+      "value": "#5f5529",
+      "comment": "Darker warning color shade",
+      "originalRatio": 7.5
+    },
+    "color-negative--light": {
+      "value": "#e0534c",
+      "comment": "Light negative color shade",
+      "originalRatio": 3.81
+    },
+    "color-key--darker": {
+      "value": "#22375b",
+      "comment": "Darker key color shade",
+      "originalRatio": 11.5
+    },
+    "color-neutral--light": {
+      "value": "#c7c9d0",
+      "comment": "Light neutral color shade",
+      "originalRatio": 1.6
+    },
+    "color-positive--dark": {
+      "value": "#3f7156",
+      "comment": "Dark positive color shade",
+      "originalRatio": 5.68
+    },
+    "color-key--darkest": {
+      "value": "#1b263c",
+      "comment": "Darkest key color shade",
+      "originalRatio": 14.5
+    }
+  },
+  "props": {
+    "fluid-button--padding-small": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--padding-small",
+      "value": "8px 48px",
+      "meta": {
+        "friendlyName": "Fluid button padding small"
+      },
+      "originalValue": "{!spacing--x-small} {!spacing--x-large}"
+    },
+    "fluid-button--padding-medium": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--padding-medium",
+      "value": "12px 48px",
+      "meta": {
+        "friendlyName": "Fluid button padding medium"
+      },
+      "originalValue": "{!spacing--small} {!spacing--x-large}"
+    },
+    "fluid-button--padding-large": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--padding-large",
+      "value": "16px 48px",
+      "meta": {
+        "friendlyName": "Fluid button padding large"
+      },
+      "originalValue": "{!spacing--medium} {!spacing--x-large}"
+    },
+    "fluid-button--foreground-key": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-key",
+      "value": "#2359b3",
+      "meta": {
+        "friendlyName": "Fluid button, Key foreground color"
+      },
+      "originalValue": "{!color-key--base}"
+    },
+    "fluid-button--background-key": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-key",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button, Key background color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-key-hover": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-key-hover",
+      "value": "#264986",
+      "meta": {
+        "friendlyName": "Fluid button, Key foreground hover color"
+      },
+      "originalValue": "{!color-key--dark}"
+    },
+    "fluid-button--background-key-hover": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-key-hover",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button color, Key background hover color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-key-active": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-key-active",
+      "value": "#22375b",
+      "meta": {
+        "friendlyName": "Fluid button, Key foreground active color"
+      },
+      "originalValue": "{!color-key--darker}"
+    },
+    "fluid-button--background-key-active": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-key-active",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button color, Key background active color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-positive": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-positive",
+      "value": "#438060",
+      "meta": {
+        "friendlyName": "Fluid button, positive foreground color"
+      },
+      "originalValue": "{!color-positive--base}"
+    },
+    "fluid-button--background-positive": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-positive",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button, positive background color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-positive-hover": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-positive-hover",
+      "value": "#3f7156",
+      "meta": {
+        "friendlyName": "Fluid button, positive foreground hover color"
+      },
+      "originalValue": "{!color-positive--dark}"
+    },
+    "fluid-button--background-positive-hover": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-positive-hover",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button color, positive background hover color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-positive-active": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-positive-active",
+      "value": "#385c48",
+      "meta": {
+        "friendlyName": "Fluid button, positive foreground active color"
+      },
+      "originalValue": "{!color-positive--darker}"
+    },
+    "fluid-button--background-positive-active": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-positive-active",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button color, positive background active color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-warning": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-warning",
+      "value": "#83742f",
+      "meta": {
+        "friendlyName": "Fluid button, warning foreground color"
+      },
+      "originalValue": "{!color-warning--base}"
+    },
+    "fluid-button--background-warning": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-warning",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button, warning background color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-warning-hover": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-warning-hover",
+      "value": "#74662d",
+      "meta": {
+        "friendlyName": "Fluid button, warning foreground hover color"
+      },
+      "originalValue": "{!color-warning--dark}"
+    },
+    "fluid-button--background-warning-hover": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-warning-hover",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button color, warning background hover color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-warning-active": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-warning-active",
+      "value": "#5f5529",
+      "meta": {
+        "friendlyName": "Fluid button, warning foreground active color"
+      },
+      "originalValue": "{!color-warning--darker}"
+    },
+    "fluid-button--background-warning-active": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-warning-active",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button color, warning background active color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-negative": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-negative",
+      "value": "#d23f3b",
+      "meta": {
+        "friendlyName": "Fluid button, negative foreground color"
+      },
+      "originalValue": "{!color-negative--base}"
+    },
+    "fluid-button--background-negative": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-negative",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button, negative background color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-negative-hover": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-negative-hover",
+      "value": "#b63d38",
+      "meta": {
+        "friendlyName": "Fluid button, negative foreground hover color"
+      },
+      "originalValue": "{!color-negative--dark}"
+    },
+    "fluid-button--background-negative-hover": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-negative-hover",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button color, negative background hover color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-negative-active": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-negative-active",
+      "value": "#903832",
+      "meta": {
+        "friendlyName": "Fluid button, negative foreground active color"
+      },
+      "originalValue": "{!color-negative--darker}"
+    },
+    "fluid-button--background-negative-active": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-negative-active",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button color, negative background active color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    },
+    "fluid-button--foreground-disabled": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--foreground-disabled",
+      "value": "#40434d",
+      "meta": {
+        "friendlyName": "Fluid button, disabled foreground color"
+      },
+      "originalValue": "{!color-neutral--dark}"
+    },
+    "fluid-button--background-disabled": {
+      "type": "token",
+      "category": "global",
+      "name": "fluid-button--background-disabled",
+      "value": "#e5e6e9",
+      "meta": {
+        "friendlyName": "Fluid button, disabled background color"
+      },
+      "originalValue": "{!color-neutral--lighter}"
+    }
+  }
+}
