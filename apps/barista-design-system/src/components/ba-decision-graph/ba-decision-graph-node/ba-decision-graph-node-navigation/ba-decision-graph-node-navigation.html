@@ -1,12 +1,37 @@
-<button
-  class="ba-uxd-navigation-button"
-  *ngIf="_showBackButton"
-  (click)="undoLastStep()"
-  dt-button
-  variant="secondary"
->
-  Back
-</button>
-<button class="ba-uxd-navigation-button" (click)="resetToInitial()" dt-button>
-  Start Over
-</button>
+<div class="ba-uxd-navigation-wrapper">
+  <div class="ba-uxd-navigation">
+    <div *ngIf="!_inTasknode">
+      <button
+        class="ba-uxd-navigation-button"
+        *ngIf="_showBackButton"
+        (click)="undoLastStep()"
+        dt-button
+        variant="secondary"
+      >
+        Back
+      </button>
+      <button
+        class="ba-uxd-navigation-button"
+        (click)="resetToInitial()"
+        dt-button
+      >
+        Start Over
+      </button>
+    </div>
+    <div *ngIf="_inTasknode">
+      <button
+        class="ba-uxd-navigation-taskbutton"
+        *ngIf="_showBackButton"
+        (click)="undoLastStep()"
+      >
+        Back
+      </button>
+      <button
+        class="ba-uxd-navigation-taskbutton ba-uxd-navigation-taskbutton-startover"
+        (click)="resetToInitial()"
+      >
+        Start Over
+      </button>
+    </div>
+  </div>
+</div>

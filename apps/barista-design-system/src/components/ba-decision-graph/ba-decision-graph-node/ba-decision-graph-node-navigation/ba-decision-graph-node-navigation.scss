@@ -1,3 +1,53 @@
+@import 'colors';
+
+.ba-uxd-navigation-wrapper {
+  width: 76%;
+  margin: 0 auto;
+}
+
+.ba-uxd-navigation {
+  margin-left: 24px;
+}
+
 .ba-uxd-navigation-button {
   margin-right: 8px;
+  margin-bottom: 32px;
+}
+
+.ba-uxd-navigation-taskbutton {
+  background-color: transparent;
+  color: white;
+  // Make anchors render like buttons.
+  display: inline-block;
+  white-space: nowrap;
+  text-decoration: none;
+  text-align: center;
+  overflow: hidden;
+  vertical-align: middle;
+
+  height: 32px;
+  border: 1px solid white;
+  border-radius: 3px;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-right: 8px;
+  line-height: -moz-block-height;
+  background: transparent;
+
+  &:hover {
+    text-decoration: none;
+    background-color: $royalblue-700;
+  }
+}
+
+.ba-uxd-navigation-taskbutton-startover {
+  background-color: white;
+  color: $turquoise-600;
+  border-color: $white;
+
+  &:hover {
+    background-color: $gray-200;
+  }
 }

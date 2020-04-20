@@ -1,6 +1,6 @@
-<div *ngIf="_startnode">
+<div class="ba-uxd-node-wrapper" *ngIf="_startnode">
   <div #nodes *ngFor="let node of _decisionGraphSteps">
-    <div class="ba-uxd-node-wrapper" *ngIf="!node.tasknode">
+    <div class="ba-uxd-node" *ngIf="!node.tasknode">
       <div
         class="ba-uxd-node-content"
         [innerHTML]="getSanitizedNodeText(node.text)"
@@ -21,14 +21,23 @@
         </button>
       </div>
     </div>
-    <div
-      class="ba-uxd-task-node-wrapper"
-      *ngIf="node.tasknode"
-      [innerHTML]="getSanitizedNodeText(node.text)"
-    ></div>
   </div>
+</div>
+<ba-decision-graph-node-navigation
+  *ngIf="_decisionGraphSteps.length > 0 && !_tasknode"
+  [_inTasknode]="isTasknode()"
+  [_showBackButton]="_started"
+  (_resetToInitial)="resetToInitial()"
+  (_undoLastStep)="undoLastStep()"
+></ba-decision-graph-node-navigation>
+<div *ngIf="_tasknode" class="ba-uxd-task-node-wrapper">
+  <div
+    class="ba-uxd-task-node"
+    [innerHTML]="getSanitizedNodeText(_tasknode.text)"
+  ></div>
   <ba-decision-graph-node-navigation
-    *ngIf="_decisionGraphSteps.length > 0"
+    *ngIf="_decisionGraphSteps.length > 0 && _tasknode"
+    [_inTasknode]="isTasknode()"
     [_showBackButton]="_started"
     (_resetToInitial)="resetToInitial()"
     (_undoLastStep)="undoLastStep()"

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'ba-decision-graph-node-navigation',
@@ -24,6 +24,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class BaDecisiongraphNodeNavigation {
   @Input()
   _showBackButton: boolean;
+
+  @Input()
+  _inTasknode: boolean = false;
 
   @Output()
   _undoLastStep = new EventEmitter<void>();

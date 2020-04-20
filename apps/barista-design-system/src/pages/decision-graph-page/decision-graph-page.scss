@@ -1,0 +1,11 @@
+@import '../../styles/global/variables';
+
+:host {
+  display: block;
+}
+
+.ba-decision-graph-page {
+  width: 100%;
+  height: auto;
+  margin-top: 0.5rem;
+}

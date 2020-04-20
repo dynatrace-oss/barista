@@ -1,8 +1,13 @@
+@import '../../../styles/global/variables';
 @import 'colors';
 
 :host {
   display: flex;
   margin-bottom: 20px;
+}
+
+:host ::ng-deep button {
+  font-weight: normal;
 }
 
 :host ::ng-deep .ba-uxd-startnode p {
@@ -11,16 +16,35 @@
 
 .ba-uxd-startnode-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   width: 100%;
-  margin-bottom: 40px;
+  height: 100%;
+  margin: 52px 12px 40px;
+}
+
+@media only screen and (min-width: $screen-md) {
+  .ba-uxd-startnode-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (min-width: $screen-lg) {
+  .ba-uxd-startnode-grid {
+    grid-template-columns: repeat(2, 1fr);
+    width: 76%;
+    margin: 52px auto 40px;
+  }
 }
 
 .ba-uxd-startnode {
+  width: auto;
   background-color: $royalblue-800;
   border: 1px solid $gray-300;
   border-radius: 4px;
-  margin: 4px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  padding: 0;
+  outline: 0;
 
   &:hover {
     background-color: $royalblue-600;
@@ -43,8 +67,4 @@
   cursor: pointer;
   text-align: left;
   color: $white;
-  background-color: transparent;
-  padding: 0;
-  border: 0;
-  outline: 0;
 }

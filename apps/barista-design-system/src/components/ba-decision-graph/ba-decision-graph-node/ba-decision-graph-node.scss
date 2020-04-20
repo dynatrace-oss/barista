@@ -1,8 +1,10 @@
-@import 'interactive-common';
 @import 'colors';
+@import '../../../styles/global/variables';
 
 :host {
   max-width: 100%;
+  padding: 0;
+  margin: 0;
 }
 
 :host ::ng-deep button {
@@ -14,10 +16,21 @@
   margin-bottom: 0;
 }
 
-.ba-uxd-node-wrapper {
+.ba-uxd-node {
   margin-bottom: 68px;
   padding-left: 24px;
   border-left: 2px solid #ccc;
+}
+
+.ba-uxd-node-wrapper {
+  width: 100%;
+}
+
+@media only screen and (min-width: $screen-lg) {
+  .ba-uxd-node-wrapper {
+    width: 76%;
+    margin: 0 auto;
+  }
 }
 
 .ba-uxd-node-content {
@@ -28,10 +41,10 @@
 .ba-uxd-edge-button {
   height: 32px;
   min-width: 40px;
-  margin: 0 4px;
   padding-left: 15px;
   padding-right: 15px;
   border-radius: 3px;
+  border: none;
   color: white;
   background-color: $royalblue-600;
 
@@ -53,6 +66,7 @@
   width: 44px;
   border-radius: 22px;
   margin-right: 32px;
+  margin-left: 0;
   padding: 0;
 }
 
@@ -70,14 +84,23 @@
 }
 
 .ba-uxd-task-node-wrapper {
-  max-width: 120%;
   background-color: $royalblue-600;
-  color: white;
-  border-left: 2px solid $royalblue-600;
-  padding: 24px;
+  padding-top: 32px;
+  padding-bottom: 24px;
   margin-bottom: 44px;
 }
 
-.ba-uxd-navigation-button {
-  margin-right: 8px;
+.ba-uxd-task-node {
+  width: 100%;
+  margin: 8px;
+  color: white;
+  border-left: 2px solid $white;
+}
+
+@media only screen and (min-width: $screen-md) {
+  .ba-uxd-task-node {
+    width: 76%;
+    padding-left: 24px;
+    margin: 0 auto 24px;
+  }
 }
