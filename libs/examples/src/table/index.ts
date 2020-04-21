@@ -29,6 +29,9 @@ export * from './table-favorite-column-no-header-example/table-favorite-column-n
 export * from './table-interactive-rows-example/table-interactive-rows-example';
 export * from './table-loading-example/table-loading-example';
 export * from './table-observable-example/table-observable-example';
+export * from './table-order-column-example/table-order-column-example';
+export * from './table-order-expandable-example/table-order-expandable-example';
+export * from './table-order-observable-example/table-order-observable-example';
 export * from './table-pagination-example/table-pagination-example';
 export * from './table-problem-example/table-problem-example';
 export * from './table-responsive-example/table-responsive-example';

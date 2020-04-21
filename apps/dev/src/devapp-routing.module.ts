@@ -68,6 +68,7 @@ import { SliderDemo } from './slider/slider-demo.component';
 import { SunburstChartDemo } from './sunburst-chart/sunburst-chart-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
+import { TableOrderDemo } from './table-order/table-order-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
 import { TagDemo } from './tag/tag-demo.component';
 import { TileDemo } from './tile/tile-demo.component';
@@ -126,6 +127,7 @@ const routes: Routes = [
   { path: 'sunburst-chart', component: SunburstChartDemo },
   { path: 'switch', component: SwitchDemo },
   { path: 'table', component: TableDemo },
+  { path: 'table-order', component: TableOrderDemo },
   { path: 'tabs', component: TabsDemo },
   { path: 'tag', component: TagDemo },
   { path: 'tile', component: TileDemo },

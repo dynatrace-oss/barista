@@ -1,0 +1,29 @@
+<dt-table
+  [dataSource]="dataSource"
+  dtOrder
+  [dtOrderDisabled]="disableOrdering"
+  cdkDropList
+  [cdkDropListData]="dataSource"
+>
+  <dt-simple-order-column
+    name="order"
+    label="Order"
+    dtColumnProportion="0.2"
+  ></dt-simple-order-column>
+  <dt-simple-text-column
+    name="name"
+    label="Rule name"
+    sortable="false"
+  ></dt-simple-text-column>
+  <dt-header-row *dtHeaderRowDef="['order', 'name']"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['order', 'name']"></dt-row>
+</dt-table>
+
+<button
+  class="dt-toggle"
+  dt-button
+  variant="secondary"
+  (click)="disableOrdering = !disableOrdering"
+>
+  Toggle disable ordering
+</button>

@@ -1,0 +1,83 @@
+<h2>Simple table with reorder</h2>
+
+<dt-table
+  [dataSource]="dataSource"
+  dtOrder
+  [dtOrderDisabled]="disabled"
+  (dtOrderChange)="orderChanged($event)"
+  cdkDropList
+  [cdkDropListData]="dataSource"
+>
+  <dt-simple-order-column
+    name="order"
+    label="Order"
+    dtColumnProportion="0.2"
+  ></dt-simple-order-column>
+  <dt-simple-text-column
+    name="name"
+    label="Rule name"
+    sortable="false"
+  ></dt-simple-text-column>
+  <dt-header-row *dtHeaderRowDef="['order', 'name']"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['order', 'name']"></dt-row>
+</dt-table>
+
+<div class="buttons">
+  <button dt-button (click)="disabled = !disabled" id="disable-toggle">
+    {{ disabled ? 'Enable table reorder' : 'Disable table reorder' }}
+  </button>
+  <button dt-button (click)="changeOrder()" id="change-order">
+    Change order
+  </button>
+  <button dt-button (click)="switchData()" id="switch-data">
+    Switch data
+  </button>
+</div>
+
+<h2>Table with expandable rows and reorder</h2>
+
+<dt-table
+  [dataSource]="dataSource1"
+  dtOrder
+  cdkDropList
+  [cdkDropListData]="dataSource1"
+>
+  <dt-simple-order-column name="order" label="Order"></dt-simple-order-column>
+  <ng-container dtColumnDef="host" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
+  </ng-container>
+  <ng-container dtColumnDef="cpu" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>CPU</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.cpu }}</dt-cell>
+  </ng-container>
+  <ng-container dtColumnDef="memory" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Memory</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.memory }}</dt-cell>
+  </ng-container>
+  <ng-container dtColumnDef="traffic" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Traffic</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.traffic }}</dt-cell>
+  </ng-container>
+  <ng-container dtColumnDef="details" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
+    <dt-expandable-cell
+      *dtCellDef
+      ariaLabel="Expand the row"
+    ></dt-expandable-cell>
+  </ng-container>
+  <dt-header-row
+    *dtHeaderRowDef="['order', 'details', 'host', 'memory', 'cpu', 'traffic']"
+  ></dt-header-row>
+  <dt-expandable-row
+    *dtRowDef="
+      let row;
+      columns: ['order', 'details', 'host', 'memory', 'cpu', 'traffic']
+    "
+    [expanded]="row.expanded"
+  >
+    <ng-template dtExpandableRowContent>
+      Expandable content
+    </ng-template>
+  </dt-expandable-row>
+</dt-table>

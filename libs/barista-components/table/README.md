@@ -20,6 +20,9 @@ You have to import the `DtTableModule` to use the `dt-table`. If you want to use
 the `dt-expandable-cell` component, Angular's `BrowserAnimationsModule` is
 required for animations. For more details on this see
 [Step 2: Animations in the getting started guide](https://barista.dynatrace.com/components/get-started/#step-2-animations).
+If you want to use the `dt-simple-order-column`, Angular's `DragDropModule` is
+required for reordering table rows via drag and drop. For more details on this
+see [the Order section](/components/table#ordering).
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -77,9 +80,10 @@ problem indicators.
 
 #### Variants
 
-Currently there are three predefined versions of the `dtSimpleColumn` exposed:
-`dt-simple-number-column`, `dt-simple-text-column` and `dt-favorite-column`.
-There are only small differences between the number and text column:
+Currently there are four predefined versions of the `dtSimpleColumn` exposed:
+`dt-simple-number-column`, `dt-simple-text-column`, `dt-simple-order-column` and
+`dt-favorite-column`. There are only small differences between the number and
+text column:
 
 ##### dt-simple-text-column
 
@@ -93,6 +97,15 @@ There are only small differences between the number and text column:
 - Column alignment is set to `number` -> right
 - When no formatter is given, the `dtCount` formatter will automatically be
   applied, e.g. 1000 -> 1k
+
+##### dt-simple-order-column
+
+- When using the `dt-simple-order-column`, the data source provided for the
+  table must be of type `DtTableOrderDataSource`
+- The `dt-simple-order-column` also needs the `cdkDropList` directive and
+  `cdkDropListData` input to work
+- Column alignment is set to `text` -> left
+- Tables using the `dt-simple-order-column` can't be sorted or paginated
 
 ##### dt-favorite-column
 
@@ -171,9 +184,11 @@ The data source contains the data to be shown in the table. It can be an array,
 an observable holding an array or a `DataSource` object.
 
 The Angular components provide a `DtTableDataSource` that provides a lot of
-functionality (like filtering, sorting, pagination) already set up. For use
-cases that can not be implemented using the `DtTableDataSource` you can always
-create your own data source that implements the `DataSource` interface.
+functionality (like filtering, sorting, pagination) already set up. The
+`DtTableOrderDataSource` provides functionality to reorder the table, but does
+not work in combination with filtering, sorting or pagination. For use cases
+that can not be implemented using the `DtTableDataSource` you can always create
+your own data source that implements the `DataSource` interface.
 
 ## Sorting
 
@@ -250,6 +265,69 @@ direction. The event contains the following properties.
 | ----------- | ----------------- | ---------------------------------------------- |
 | `active`    | `string`          | The ID of the currently active column.         |
 | `direction` | `DtSortDirection` | The direction for the currently active column. |
+
+## Ordering
+
+The `DtOrder` and `dt-simple-order-column` in combination with Angular's
+`DragDropModule` are used to add ordering functionality to the table. To add
+ordering capabilities to a table, import the `DragDropModule` and add the
+`dtOrder` and `cdkDropList` directive and `cdkDropListData` input to the
+`dt-table` component.
+
+```html
+<dt-table ... dtOrder cdkDropList [cdkDropListData]="dataSource" ...></dt-table>
+```
+
+The `cdkDropListData` gets the same data as the table's `dataSource` input. When
+combining the `dt-simple-order-column` with other `dt-simple-column`s, their
+`sortable` input should be set to false. The `DtTableOrderDataSource` does not
+mutate the original data when ordering, if you want to persist the ordered state
+you have to take care of that yourself.
+
+<ba-live-example name="DtExampleTableOrderColumn" fullWidth></ba-live-example>
+
+### DtOrder
+
+You can set the following inputs and outputs on the `dtOrder` directive.
+
+#### Inputs
+
+| Name              | Type      | Default | Description                                        |
+| ----------------- | --------- | ------- | -------------------------------------------------- |
+| `dtOrderDisabled` | `boolean` | `false` | Whether ordering is disabled for the entire table. |
+
+#### Outputs
+
+| Name            | Type                               | Default | Description                                                                                                                            |
+| --------------- | ---------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `dtOrderChange` | `EventEmitter<DtOrderChangeEvent>` |         | Event emmited when the user changes the order of the table, either by dragging a row to a new position or by changing the input value. |
+
+#### Methods
+
+| Name    | Description                                            | Parameters                                      | Return value |
+| ------- | ------------------------------------------------------ | ----------------------------------------------- | ------------ |
+| `order` | Changes the position of a row based on the row's index | `currentIndex: number`<br>`targetIndex: number` |
+
+#### Ordering with expandable rows
+
+Ordering also works with custom columns and expandable rows.
+
+<ba-live-example name="DtExampleTableOrderExpandable"></ba-live-example>
+
+#### Ordering with data from observable
+
+<ba-live-example name="DtExampleTableOrderObservable"></ba-live-example>
+
+### DtOrderEvent
+
+The event emitted when the user changes the order of the table, either by
+dragging a row to a new position or by changing the input value. The event
+contains the following properties.
+
+| Name            | Type     | Description                                       |
+| --------------- | -------- | ------------------------------------------------- |
+| `previousIndex` | `number` | The index of the row prior to changing the order. |
+| `currentIndex`  | `number` | The index of the row after changing the order.    |
 
 ## Searching/Filtering
 

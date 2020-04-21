@@ -1,5 +1,6 @@
 .dt-simple-text-cell-data,
-.dt-simple-number-cell-data {
+.dt-simple-number-cell-data,
+.dt-simple-order-cell-data {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

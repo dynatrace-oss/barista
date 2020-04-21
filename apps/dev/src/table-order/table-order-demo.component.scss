@@ -1,0 +1,18 @@
+:host {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+}
+
+dt-pagination {
+  align-self: center;
+  margin: 1em 0;
+}
+
+h2:not(:first-of-type) {
+  margin-top: 4rem;
+}
+
+.buttons {
+  display: flex;
+}

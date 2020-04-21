@@ -42,6 +42,9 @@ import { DtExampleTableFavoriteColumnNoHeader } from './table-favorite-column-no
 import { DtExampleTableInteractiveRows } from './table-interactive-rows-example/table-interactive-rows-example';
 import { DtExampleTableLoading } from './table-loading-example/table-loading-example';
 import { DtExampleTableObservable } from './table-observable-example/table-observable-example';
+import { DtExampleTableOrderColumn } from './table-order-column-example/table-order-column-example';
+import { DtExampleTableOrderExpandable } from './table-order-expandable-example/table-order-expandable-example';
+import { DtExampleTableOrderObservable } from './table-order-observable-example/table-order-observable-example';
 import { DtExampleTablePagination } from './table-pagination-example/table-pagination-example';
 import { DtExampleTableProblem } from './table-problem-example/table-problem-example';
 import { DtExampleTableResponsive } from './table-responsive-example/table-responsive-example';
@@ -51,6 +54,7 @@ import { DtExampleTableSorting } from './table-sorting-example/table-sorting-exa
 import { DtExampleTableSortingMixedColumns } from './table-sorting-mixed-columns-example/table-sorting-mixed-columns-example';
 import { DtExampleTableStickyHeader } from './table-sticky-header-example/table-sticky-header-example';
 import { DtExampleTableWithInfoGroupCell } from './table-with-info-group-cell-example/table-with-info-group-cell-example';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
 
 export const DT_TABLE_EXAMPLES = [
@@ -68,6 +72,9 @@ export const DT_TABLE_EXAMPLES = [
   DtExampleTableInteractiveRows,
   DtExampleTableLoading,
   DtExampleTableObservable,
+  DtExampleTableOrderColumn,
+  DtExampleTableOrderExpandable,
+  DtExampleTableOrderObservable,
   DtExampleTablePagination,
   DtExampleTableProblem,
   DtExampleTableResponsive,
@@ -81,6 +88,7 @@ export const DT_TABLE_EXAMPLES = [
 @NgModule({
   imports: [
     CommonModule,
+    DragDropModule,
     FormsModule,
     DtKeyValueListModule,
     DtTableModule,
