@@ -152,9 +152,6 @@
       "@dynatrace/barista-components/select": [
         "libs/barista-components/select/index.ts"
       ],
-      "@dynatrace/barista-components/selection-area": [
-        "libs/barista-components/selection-area/index.ts"
-      ],
       "@dynatrace/barista-components/slider": [
         "libs/barista-components/slider/index.ts"
       ],
@@ -203,7 +200,6 @@
       "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
       "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
       "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
-      "@dynatrace/tools/environments": ["libs/tools/environments/src/index.ts"],
       "@dynatrace/shared/barista-definitions": [
         "libs/shared/barista-definitions/src/index.ts"
       ],
