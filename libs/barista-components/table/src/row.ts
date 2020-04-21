@@ -29,9 +29,20 @@ import {
   _addCssClass,
   _removeCssClass,
   _replaceCssClass,
+  isDefined,
 } from '@dynatrace/barista-components/core';
 
 import { DtCell } from './cell';
+import {
+  style,
+  transition,
+  animate,
+  trigger,
+  AnimationEvent,
+  keyframes,
+} from '@angular/animations';
+
+import type { DtOrderCell } from './order/order-cell';
 
 /**
  * Data row definition for the dt-table.
@@ -54,16 +65,43 @@ export class DtRowDef<T> extends CdkRowDef<T> {}
   host: {
     class: 'dt-row',
     role: 'row',
+    '[@orderChangedIndicatorAnimation]': '_orderChangedIndicatorAnimationState',
+    '(@orderChangedIndicatorAnimation.done)':
+      '_handleOrderChangedAnimationEvent($event)',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtRow',
+  animations: [
+    trigger('orderChangedIndicatorAnimation', [
+      transition('changed => void', [
+        animate(
+          '1500ms ease-out',
+          keyframes([
+            style({
+              'box-shadow': '2px 2px 8px 0 #b7b7b7',
+              'z-index': 1,
+            }),
+            style({
+              'box-shadow': '0 0 8px 0 transparent',
+            }),
+          ]),
+        ),
+      ]),
+    ]),
+  ],
 })
 export class DtRow extends CdkRow implements OnDestroy {
   /**
    * @internal Necessary due to the fact that we cannot get the DtRow via normal DI
    */
   static _mostRecentRow: DtRow | null = null;
+
+  /**
+   * @internal Animation state used for the row's animation indicating that
+   * the order has changed and the row jumped to a new spot
+   */
+  _orderChangedIndicatorAnimationState: 'void' | 'changed' = 'void';
 
   protected _cells = new Set<DtCell>();
   private _cellStateChangesSub = Subscription.EMPTY;
@@ -106,6 +144,25 @@ export class DtRow extends CdkRow implements OnDestroy {
     this._listenForStateChanges();
   }
 
+  /**
+   * Reset the row's animation state and the order cell's order changed property
+   * @param $event
+   */
+  _handleOrderChangedAnimationEvent($event: AnimationEvent): void {
+    if (
+      $event.fromState === 'void' &&
+      $event.toState === 'changed' &&
+      $event.phaseName === 'done'
+    ) {
+      this._orderChangedIndicatorAnimationState = 'void';
+      const orderCell = this._getChangedOrderCell();
+
+      if (orderCell) {
+        orderCell._animateOrderChangedIndicator = false;
+      }
+    }
+  }
+
   private _listenForStateChanges(): void {
     this._cellStateChangesSub.unsubscribe();
     const cells = Array.from(this._cells.values());
@@ -120,6 +177,7 @@ export class DtRow extends CdkRow implements OnDestroy {
     const hasError = !!cells.find((cell) => cell.hasError);
     const hasWarning = !!cells.find((cell) => cell.hasWarning);
     const hasIndicator = hasError || hasWarning;
+    const orderCell = this._getChangedOrderCell();
     if (hasIndicator) {
       _addCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
     } else {
@@ -145,5 +203,23 @@ export class DtRow extends CdkRow implements OnDestroy {
     } else {
       _removeCssClass(this._elementRef.nativeElement, 'dt-color-error');
     }
+
+    if (orderCell) {
+      this._orderChangedIndicatorAnimationState = 'changed';
+    }
+  }
+
+  /**
+   * Returns the row's order cell if it contains one and the cell's order
+   * has been changed, indicated by the '_animateOrderChangedIndicator' property
+   */
+  private _getChangedOrderCell(): DtOrderCell<any> | undefined {
+    return Array.from(this._cells.values()).find(
+      // Prevent circular reference by checking for the order-cell-specific property being defined
+      // instead of checking for the cell being an instance of DtOrderCell
+      (cell: DtOrderCell<any>) =>
+        isDefined(cell._animateOrderChangedIndicator) &&
+        cell._animateOrderChangedIndicator,
+    ) as DtOrderCell<any>;
   }
 }

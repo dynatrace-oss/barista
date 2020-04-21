@@ -1,0 +1,129 @@
+@import '../../../core/src/style/variables';
+@import '../../../core/src/style/form-control';
+@import '../../../style/font-mixins';
+@import '../table-mixins';
+
+/**
+ * Styling of the row, cdkDragPlaceholder and
+ * cdkDragPreview element
+ */
+::ng-deep .dt-table.cdk-drop-list {
+  // Timing for transitioning rows inside a cdk drop list table
+  .dt-row {
+    transition: transform 150ms ease-out;
+  }
+
+  .dt-row.cdk-drag-placeholder {
+    outline: 2px dashed $gray-400;
+    z-index: 1;
+  }
+
+  // Hide all child elements in drag placeholder
+  .dt-row.cdk-drag-placeholder * {
+    visibility: hidden;
+  }
+
+  /**
+  * Fixes a styling issue where expandable rows
+  * get higher after reordering
+  */
+  .dt-expandable-row-base-collapsed
+    + .dt-expandable-row-collapsible
+    .dt-expandable-row-expandable {
+    padding: 0;
+  }
+}
+
+::ng-deep {
+  // Row preview moving with the mouse
+  .dt-row.cdk-drag-preview {
+    @include dt-main-font();
+    box-shadow: 2px 2px 8px 0 $gray-400;
+    transition: box-shadow 150ms ease-out;
+  }
+
+  // Row preview dropping into position
+  .dt-row.cdk-drag-animating {
+    transition: transform 250ms ease-out;
+    animation: cdk-drag-shadow 250ms ease-out forwards;
+  }
+
+  // Styling of cells in the drag preview
+  .dt-row.cdk-drag-preview .dt-cell {
+    @include dt-base-cell-flex();
+  }
+
+  .dt-row.cdk-drag-preview
+    .dt-expandable-row-base-collapsed
+    + .dt-expandable-row-collapsible {
+    display: none;
+  }
+}
+
+@keyframes cdk-drag-shadow {
+  from {
+    box-shadow: 2px 2px 8px 0 $gray-400;
+  }
+  to {
+    box-shadow: 2px 2px 8px 0 transparent;
+  }
+}
+
+/**
+ * Styling of the order cell
+ */
+:host.dt-order-cell {
+  @include dt-base-cell-flex();
+
+  .dt-input[disabled] {
+    color: inherit;
+  }
+
+  .dt-input[disabled]:hover {
+    background: none;
+    border: 1px solid transparent;
+  }
+}
+
+.dt-simple-order-cell-data {
+  display: inline-flex;
+  align-items: center;
+}
+
+:host .dt-simple-order-column-icon {
+  margin-right: 4px;
+  width: auto;
+  height: 1rem;
+}
+
+::ng-deep .dt-table:not(.dt-order-disabled) .dt-simple-order-column-icon {
+  cursor: pointer;
+}
+
+:host .dt-simple-order-column-icon ::ng-deep svg {
+  width: auto;
+  fill: $turquoise-600;
+}
+
+:host-context(.dt-order-disabled) .dt-simple-order-column-icon ::ng-deep svg {
+  fill: $disabledcolor;
+}
+
+.dt-simple-order-column-input {
+  background: none;
+  border: 1px solid transparent;
+  text-align: left;
+}
+
+.dt-simple-order-column-input::placeholder {
+  opacity: 0.4;
+}
+
+.dt-simple-order-column-input:hover {
+  @include dt-form-control();
+}
+
+:host .dt-simple-order-input-invalid {
+  background: $red-200;
+  border: 1px solid $error-color;
+}

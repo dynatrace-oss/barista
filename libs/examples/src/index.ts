@@ -281,6 +281,9 @@ import { DtExampleTableFavoriteColumnNoHeader } from './table/table-favorite-col
 import { DtExampleTableInteractiveRows } from './table/table-interactive-rows-example/table-interactive-rows-example';
 import { DtExampleTableLoading } from './table/table-loading-example/table-loading-example';
 import { DtExampleTableObservable } from './table/table-observable-example/table-observable-example';
+import { DtExampleTableOrderColumn } from './table/table-order-column-example/table-order-column-example';
+import { DtExampleTableOrderExpandable } from './table/table-order-expandable-example/table-order-expandable-example';
+import { DtExampleTableOrderObservable } from './table/table-order-observable-example/table-order-observable-example';
 import { DtExampleTablePagination } from './table/table-pagination-example/table-pagination-example';
 import { DtExampleTableProblem } from './table/table-problem-example/table-problem-example';
 import { DtExampleTableResponsive } from './table/table-responsive-example/table-responsive-example';
@@ -637,6 +640,9 @@ export {
   DtExampleTableInteractiveRows,
   DtExampleTableLoading,
   DtExampleTableObservable,
+  DtExampleTableOrderColumn,
+  DtExampleTableOrderExpandable,
+  DtExampleTableOrderObservable,
   DtExampleTablePagination,
   DtExampleTableProblem,
   DtExampleTableResponsive,
@@ -989,6 +995,9 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTableInteractiveRows', DtExampleTableInteractiveRows],
   ['DtExampleTableLoading', DtExampleTableLoading],
   ['DtExampleTableObservable', DtExampleTableObservable],
+  ['DtExampleTableOrderColumn', DtExampleTableOrderColumn],
+  ['DtExampleTableOrderExpandable', DtExampleTableOrderExpandable],
+  ['DtExampleTableOrderObservable', DtExampleTableOrderObservable],
   ['DtExampleTablePagination', DtExampleTablePagination],
   ['DtExampleTableProblem', DtExampleTableProblem],
   ['DtExampleTableResponsive', DtExampleTableResponsive],

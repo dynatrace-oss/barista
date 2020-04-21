@@ -16,8 +16,10 @@
 
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkTableModule } from '@angular/cdk/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
@@ -43,12 +45,15 @@ import { DtRow, DtRowDef } from './row';
 import { DtTableSearch } from './search/index';
 import {
   DtSimpleNumberColumn,
+  DtSimpleOrderColumn,
   DtSimpleTextColumn,
   DtFavoriteColumn,
 } from './simple-columns/index';
 import { DtSort } from './sort/sort';
 import { DtSortHeader } from './sort/sort-header';
 import { DtTableLoadingState } from './states/index';
+import { DtOrder } from './order/order-directive';
+import { DtOrderCell } from './order/order-cell';
 import { DtTable } from './table';
 
 const EXPORTED_DECLARATIONS = [
@@ -64,12 +69,15 @@ const EXPORTED_DECLARATIONS = [
   DtExpandableRow,
   DtHeaderCell,
   DtHeaderCellDef,
+  DtOrder,
+  DtOrderCell,
   DtTableLoadingState,
   DtSort,
   DtSortHeader,
   DtTableSearch,
   DtSimpleTextColumn,
   DtSimpleNumberColumn,
+  DtSimpleOrderColumn,
   DtExpandableRowContent,
   DtFavoriteColumn,
 ];
@@ -79,6 +87,7 @@ const EXPORTED_DECLARATIONS = [
     CommonModule,
     PortalModule,
     CdkTableModule,
+    DragDropModule,
     DtIconModule,
     DtFormFieldModule,
     DtInputModule,
@@ -86,6 +95,7 @@ const EXPORTED_DECLARATIONS = [
     DtIndicatorModule,
     DtFormattersModule,
     DtEmptyStateModule,
+    ReactiveFormsModule,
   ],
   exports: [...EXPORTED_DECLARATIONS, DtIndicatorModule],
   declarations: [...EXPORTED_DECLARATIONS],

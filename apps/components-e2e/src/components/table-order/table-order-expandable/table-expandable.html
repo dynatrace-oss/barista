@@ -1,0 +1,32 @@
+<dt-table
+  [dataSource]="dataSource"
+  dtOrder
+  cdkDropList
+  [cdkDropListData]="dataSource"
+>
+  <dt-simple-order-column name="order" label="Order"></dt-simple-order-column>
+  <ng-container dtColumnDef="name" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
+    <dt-cell *dtCellDef="let row">{{ row.name }}</dt-cell>
+  </ng-container>
+  <ng-container dtColumnDef="details" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef>Details</dt-header-cell>
+    <dt-expandable-cell
+      *dtCellDef
+      ariaLabel="Expand the row"
+    ></dt-expandable-cell>
+  </ng-container>
+  <dt-header-row *dtHeaderRowDef="['order', 'details', 'name']"></dt-header-row>
+  <dt-expandable-row
+    *dtRowDef="let row; columns: ['order', 'details', 'name']"
+    [expanded]="row.expanded"
+  >
+    <ng-template dtExpandableRowContent>
+      no chart
+    </ng-template>
+  </dt-expandable-row>
+</dt-table>
+
+<button dt-button (click)="disabled = !disabled" id="disable-toggle">
+  Disable table reorder
+</button>

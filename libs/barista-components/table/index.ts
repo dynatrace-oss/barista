@@ -30,6 +30,11 @@ export * from './src/sort/sort';
 export * from './src/sort/sort-header';
 export * from './src/sort/sort-errors';
 
+/** ordering */
+export * from './src/order/order-cell';
+export * from './src/order/order-directive';
+export * from './src/table-order-data-source';
+
 export * from './src/base-table';
 
 export * from './src/table-data-source';

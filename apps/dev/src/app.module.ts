@@ -20,6 +20,7 @@ import {
   LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -79,6 +80,7 @@ import { SliderDemo } from './slider/slider-demo.component';
 import { SunburstChartDemo } from './sunburst-chart/sunburst-chart-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
+import { TableOrderDemo } from './table-order/table-order-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
 import { TagDemo } from './tag/tag-demo.component';
 import { TileDemo } from './tile/tile-demo.component';
@@ -106,6 +108,7 @@ export class NoopRouteComponent {}
     DevAppRoutingModule,
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
     DevAppDynatraceModule,
+    DragDropModule,
   ],
   declarations: [
     DevApp,
@@ -148,6 +151,7 @@ export class NoopRouteComponent {}
     SunburstChartDemo,
     SwitchDemo,
     TableDemo,
+    TableOrderDemo,
     TabsDemo,
     TagDemo,
     TileDemo,
