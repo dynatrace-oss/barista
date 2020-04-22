@@ -2,8 +2,7 @@
 @import 'colors';
 
 :host {
-  display: flex;
-  margin-bottom: 20px;
+  display: block;
 }
 
 :host ::ng-deep button {
@@ -16,10 +15,9 @@
 
 .ba-uxd-startnode-grid {
   display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  width: 100%;
+  grid-template-columns: 1fr;
   height: 100%;
-  margin: 52px 12px 40px;
+  margin: 52px 4px 0;
 }
 
 @media only screen and (min-width: $screen-md) {
@@ -30,41 +28,32 @@
 
 @media only screen and (min-width: $screen-lg) {
   .ba-uxd-startnode-grid {
-    grid-template-columns: repeat(2, 1fr);
     width: 76%;
     margin: 52px auto 40px;
   }
 }
 
+.ba-uxd-startnode-wrapper {
+  padding: 4px;
+}
+
 .ba-uxd-startnode {
-  width: auto;
+  width: fill-available;
   background-color: $royalblue-800;
   border: 1px solid $gray-300;
-  border-radius: 4px;
-  margin-right: 8px;
-  margin-bottom: 8px;
-  padding: 0;
+  border-radius: 3px;
+  padding: 20px;
   outline: 0;
+  font-size: 18px;
+  line-height: 28px;
+  text-align: left;
+  color: $white;
 
   &:hover {
-    background-color: $royalblue-600;
-    cursor: pointer;
-  }
-
-  &:active {
     background-color: $royalblue-600;
   }
 }
 
 .ba-uxd-startnode-visited {
   background-color: $royalblue-600;
-}
-
-.ba-uxd-startnode-content {
-  font-size: 18px;
-  line-height: 28px;
-  margin: 8px 12px;
-  cursor: pointer;
-  text-align: left;
-  color: $white;
 }

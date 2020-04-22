@@ -31,10 +31,12 @@
   (_undoLastStep)="undoLastStep()"
 ></ba-decision-graph-node-navigation>
 <div *ngIf="_tasknode" class="ba-uxd-task-node-wrapper">
-  <div
-    class="ba-uxd-task-node"
-    [innerHTML]="getSanitizedNodeText(_tasknode.text)"
-  ></div>
+  <div class="ba-uxd-task-node">
+    <div
+      class="ba-uxd-task-node-content"
+      [innerHTML]="getSanitizedNodeText(_tasknode.text)"
+    ></div>
+  </div>
   <ba-decision-graph-node-navigation
     *ngIf="_decisionGraphSteps.length > 0 && _tasknode"
     [_inTasknode]="isTasknode()"

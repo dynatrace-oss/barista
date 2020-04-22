@@ -1,12 +1,26 @@
 @import 'colors';
+@import '../../../../styles/global/variables';
 
 .ba-uxd-navigation-wrapper {
-  width: 76%;
+  width: 100%;
   margin: 0 auto;
+  margin-top: 32px;
+}
+
+@media only screen and (min-width: $screen-lg) {
+  .ba-uxd-navigation-wrapper {
+    width: 76%;
+  }
 }
 
 .ba-uxd-navigation {
-  margin-left: 24px;
+  margin-left: 18px;
+}
+
+@media only screen and (min-width: $screen-md) {
+  .ba-uxd-navigation {
+    margin-left: 32px;
+  }
 }
 
 .ba-uxd-navigation-button {
@@ -15,26 +29,23 @@
 }
 
 .ba-uxd-navigation-taskbutton {
-  background-color: transparent;
-  color: white;
-  // Make anchors render like buttons.
   display: inline-block;
+  height: 32px;
+  background-color: transparent;
+  color: $white;
+  border: 1px solid $white;
+  border-radius: 3px;
+  padding: 0 15px;
+  margin-right: 8px;
+
+  // Make anchors render like buttons.
   white-space: nowrap;
   text-decoration: none;
   text-align: center;
   overflow: hidden;
   vertical-align: middle;
-
-  height: 32px;
-  border: 1px solid white;
-  border-radius: 3px;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-right: 8px;
+  cursor: pointer;
   line-height: -moz-block-height;
-  background: transparent;
 
   &:hover {
     text-decoration: none;
@@ -43,7 +54,7 @@
 }
 
 .ba-uxd-navigation-taskbutton-startover {
-  background-color: white;
+  background-color: $white;
   color: $turquoise-600;
   border-color: $white;
 
