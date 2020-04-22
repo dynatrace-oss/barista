@@ -1,227 +1,276 @@
-@import '../../core/src/theming/theming';
-@import '../../core/src/style/interactive-common';
+.dt-button {
+  --dt-button-default-color: var(--dt-theme-main-default-color);
+  --dt-button-hover-color: var(--dt-theme-main-hover-color);
+  --dt-button-active-color: var(--dt-theme-main-active-color);
+}
 
-@mixin dt-theme-button($theme) {
-  $palette-names: 'main', 'warning', 'cta';
-  $default-palette: 'main';
+.dt-button.dt-color-warning {
+  --dt-button-default-color: var(--dt-warning-default-color);
+  --dt-button-hover-color: var(--dt-warning-hover-color);
+  --dt-button-active-color: var(--dt-warning-active-color);
+}
 
-  @each $name in $palette-names {
-    $is-dark: map-get($theme, 'is-dark');
-    $palette: dt-get-theme-palette($theme, $name);
-    $default-color: dt-get-theme-color($palette, 'default');
-    $hover-color: dt-get-theme-color($palette, 'hover');
-    $active-color: dt-get-theme-color($palette, 'active');
+.dt-button.dt-color-cta {
+  --dt-button-default-color: var(--dt-cta-default-color);
+  --dt-button-hover-color: var(--dt-cta-hover-color);
+  --dt-button-active-color: var(--dt-cta-active-color);
+}
 
-    // Temporary fix to not make button color depend on theme.
-    // We only have to override the main color because the warning and
-    // cta colors are the same across all themes for now.
-    @if ($name == 'main') {
-      @if ($is-dark == true) {
-        $default-color: $turquoise-500;
-        $hover-color: $turquoise-400;
-        $active-color: $turquoise-300;
-      } @else {
-        $default-color: $turquoise-600;
-        $hover-color: $turquoise-700;
-        $active-color: $turquoise-800;
-      }
+////////////////////////////
+// Primary Button
+////////////////////////////
+.dt-button-primary {
+  background: var(--dt-button-default-color);
+  border-color: var(--dt-button-default-color);
+  color: #ffffff;
+
+  .dt-button-icon .dt-icon svg {
+    fill: #ffffff;
+  }
+}
+
+.dt-button-primary:hover:not([disabled]) {
+  background: var(--dt-button-hover-color);
+  border-color: var(--dt-button-hover-color);
+  color: #ffffff;
+}
+
+.dt-button-primary:active:not([disabled]) {
+  background: var(--dt-button-active-color);
+  border-color: var(--dt-button-active-color);
+  color: #ffffff;
+}
+
+.dt-button-primary[disabled] {
+  background: $disabledcolor;
+  border-color: $disabledcolor;
+  color: #ffffff;
+
+  .dt-button-icon .dt-icon svg {
+    fill: #ffffff;
+  }
+}
+
+.dt-theme-dark {
+  .dt-button-primary,
+  .dt-button-primary:hover:not([disabled]),
+  .dt-button-primary:active:not([disabled]) {
+    border-color: #ffffff;
+  }
+
+  .dt-button-primary[disabled] {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+
+    .dt-button-icon .dt-icon svg {
+      fill: rgba(255, 255, 255, 0.6);
     }
+  }
+}
 
-    $namespace: '.dt-button';
-    @if $name != $default-palette {
-      $namespace: '.dt-button.dt-color-#{$name}';
+////////////////////////////
+// Secondary Button
+////////////////////////////
+.dt-button-secondary {
+  background: transparent;
+  border-color: var(--dt-button-default-color);
+  color: var(--dt-button-default-color);
+
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-default-color);
+  }
+}
+.dt-button-secondary:hover:not([disabled]) {
+  background: $gray-100;
+  border-color: var(--dt-button-hover-color);
+  color: var(--dt-button-hover-color);
+
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-hover-color);
+  }
+}
+.dt-button-secondary:active:not([disabled]) {
+  background: $gray-100;
+  border-color: var(--dt-button-active-color);
+  color: var(--dt-button-active-color);
+
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-active-color);
+  }
+}
+.dt-button-secondary[disabled] {
+  background: #ffffff;
+  border-color: $disabledcolor;
+  color: $disabledcolor;
+
+  .dt-button-icon .dt-icon svg {
+    fill: $disabledcolor;
+  }
+}
+
+.dt-theme-dark {
+  .dt-button-secondary,
+  .dt-button-secondary[disabled] {
+    background: transparent;
+    color: #ffffff;
+
+    .dt-button-icon .dt-icon svg {
+      fill: #ffffff;
     }
+  }
+  .dt-button-secondary:hover:not([disabled]) {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
 
-    @if ($is-dark == true) {
-      #{$namespace} {
-        // Apply focus to CDK focus monitored elements
-        @include dt-cdkmonitor-focus-style(true);
-      }
+    .dt-button-icon .dt-icon svg {
+      fill: #ffffff;
     }
+  }
+  .dt-button-secondary:active:not([disabled]) {
+    background: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
 
-    ////////////////////////////
-    // PRIMARY
-    ////////////////////////////
-    #{$namespace}.dt-button-primary {
-      background: $default-color;
-      border-color: $default-color;
-      color: #ffffff;
-
-      .dt-button-icon .dt-icon svg {
-        fill: #ffffff;
-      }
+    .dt-button-icon .dt-icon svg {
+      fill: #ffffff;
     }
-    #{$namespace}.dt-button-primary:hover:not([disabled]) {
-      background: $hover-color;
-      border-color: $hover-color;
-      color: #ffffff;
+  }
+  .dt-button-secondary[disabled] {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
+
+    .dt-button-icon .dt-icon svg {
+      fill: rgba(255, 255, 255, 0.6);
     }
-    #{$namespace}.dt-button-primary:active:not([disabled]) {
-      background: $active-color;
-      border-color: $active-color;
-      color: #ffffff;
+  }
+  .dt-button-secondary,
+  .dt-button-secondary:hover:not([disabled]) {
+    border-color: #ffffff;
+    color: $gray-100;
+  }
+  .dt-button-secondary:active:not([disabled]) {
+    border-color: #ffffff;
+    color: #ffffff;
+  }
+}
+
+////////////////////////////
+// Nested Buttons
+////////////////////////////
+.dt-button-nested {
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-default-color);
+  }
+}
+.dt-button-nested:hover:not([disabled]) {
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-hover-color);
+  }
+}
+.dt-button-nested:active:not([disabled]) {
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-active-color);
+  }
+}
+.dt-button-nested[disabled] {
+  .dt-button-icon .dt-icon svg {
+    fill: $disabledcolor;
+  }
+}
+
+.dt-theme-dark {
+  .dt-button-nested,
+  .dt-button-nested:hover:not([disabled]),
+  .dt-button-nested:active:not([disabled]) {
+    .dt-button-icon .dt-icon svg {
+      fill: #ffffff;
     }
-
-    @if ($is-dark == true) {
-      #{$namespace}.dt-button-primary,
-      #{$namespace}.dt-button-primary:hover:not([disabled]),
-      #{$namespace}.dt-button-primary:active:not([disabled]) {
-        border-color: #ffffff;
-      }
-      #{$namespace}.dt-button-primary[disabled] {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.6);
-
-        .dt-button-icon .dt-icon svg {
-          fill: rgba(255, 255, 255, 0.6);
-        }
-      }
-    } @else {
-      #{$namespace}.dt-button-primary[disabled] {
-        background: $disabledcolor;
-        border-color: $disabledcolor;
-        color: #ffffff;
-
-        .dt-button-icon .dt-icon svg {
-          fill: #ffffff;
-        }
-      }
+  }
+  .dt-button-nested:hover:not([disabled]) {
+    background: rgba(255, 255, 255, 0.2);
+  }
+  .dt-button-nested:active:not([disabled]) {
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .dt-button-nested[disabled] {
+    .dt-button-icon .dt-icon svg {
+      fill: rgba(255, 255, 255, 0.6);
     }
+  }
+}
 
-    ////////////////////////////
-    // SECONDARY
-    ////////////////////////////
-    #{$namespace}.dt-button-secondary {
-      background: transparent;
-      border-color: $default-color;
-      color: $default-color;
+////////////////////////////
+// Warning & Cta Buttons
+////////////////////////////
 
-      .dt-button-icon .dt-icon svg {
-        fill: $default-color;
-      }
+.dt-color-warning.dt-button-secondary,
+.dt-color-cta.dt-button-secondary {
+  background: transparent;
+  border-color: var(--dt-button-default-color);
+  color: var(--dt-button-default-color);
+
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-default-color);
+  }
+}
+.dt-color-warning.dt-button-secondary:hover:not([disabled]),
+.dt-color-cta.dt-button-secondary:hover:not([disabled]) {
+  background: $gray-100;
+  border-color: var(--dt-button-hover-color);
+  color: var(--dt-button-hover-color);
+
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-hover-color);
+  }
+}
+.dt-color-warning.dt-button-secondary:active:not([disabled]),
+.dt-color-cta.dt-button-secondary:active:not([disabled]) {
+  background: $gray-100;
+  border-color: var(--dt-button-active-color);
+  color: var(--dt-button-active-color);
+
+  .dt-button-icon .dt-icon svg {
+    fill: var(--dt-button-active-color);
+  }
+}
+
+.dt-theme-dark {
+  .dt-color-cta.dt-button-secondary,
+  .dt-color-cta.dt-button-secondary[disabled],
+  .dt-color-warning.dt-button-secondary,
+  .dt-color-warning.dt-button-secondary[disabled] {
+    background: transparent;
+    color: #ffffff;
+
+    .dt-button-icon .dt-icon svg {
+      fill: #ffffff;
     }
-    #{$namespace}.dt-button-secondary:hover:not([disabled]) {
-      background: $gray-100;
-      border-color: $hover-color;
-      color: $hover-color;
+  }
+  .dt-color-cta.dt-button-secondary:hover:not([disabled]),
+  .dt-color-warning.dt-button-secondary:hover:not([disabled]) {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
 
-      .dt-button-icon .dt-icon svg {
-        fill: $hover-color;
-      }
+    .dt-button-icon .dt-icon svg {
+      fill: #ffffff;
     }
-    #{$namespace}.dt-button-secondary:active:not([disabled]) {
-      background: $gray-100;
-      border-color: $active-color;
-      color: $active-color;
+  }
+  .dt-color-cta.dt-button-secondary:active:not([disabled]),
+  .dt-color-warning.dt-button-secondary:active:not([disabled]) {
+    background: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
 
-      .dt-button-icon .dt-icon svg {
-        fill: $active-color;
-      }
+    .dt-button-icon .dt-icon svg {
+      fill: #ffffff;
     }
+  }
+  .dt-color-cta.dt-button-secondary[disabled],
+  .dt-color-warning.dt-button-secondary[disabled] {
+    border-color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.6);
 
-    @if $is-dark == true {
-      #{$namespace}.dt-button-secondary,
-      #{$namespace}.dt-button-secondary[disabled] {
-        background: transparent;
-        color: #ffffff;
-
-        .dt-button-icon .dt-icon svg {
-          fill: #ffffff;
-        }
-      }
-      #{$namespace}.dt-button-secondary:hover:not([disabled]) {
-        background: rgba(255, 255, 255, 0.2);
-        color: #ffffff;
-
-        .dt-button-icon .dt-icon svg {
-          fill: #ffffff;
-        }
-      }
-      #{$namespace}.dt-button-secondary:active:not([disabled]) {
-        background: rgba(255, 255, 255, 0.3);
-        color: #ffffff;
-
-        .dt-button-icon .dt-icon svg {
-          fill: #ffffff;
-        }
-      }
-      #{$namespace}.dt-button-secondary[disabled] {
-        border-color: rgba(255, 255, 255, 0.2);
-        color: rgba(255, 255, 255, 0.6);
-
-        .dt-button-icon .dt-icon svg {
-          fill: rgba(255, 255, 255, 0.6);
-        }
-      }
-      // Main does not have the main color as a border
-      // so we have to specifiy it differently
-      @if $name == 'main' {
-        #{$namespace}.dt-button-secondary,
-        #{$namespace}.dt-button-secondary:hover:not([disabled]) {
-          border-color: #ffffff;
-          color: $gray-100;
-        }
-        #{$namespace}.dt-button-secondary:active:not([disabled]) {
-          border-color: #ffffff;
-          color: #ffffff;
-        }
-      }
-    } @else {
-      #{$namespace}.dt-button-secondary[disabled] {
-        background: #ffffff;
-        border-color: $disabledcolor;
-        color: $disabledcolor;
-
-        .dt-button-icon .dt-icon svg {
-          fill: $disabledcolor;
-        }
-      }
-    }
-
-    ////////////////////////////
-    // NESTED
-    ////////////////////////////
-    @if $is-dark == true {
-      #{$namespace}.dt-button-nested,
-      #{$namespace}.dt-button-nested:hover:not([disabled]),
-      #{$namespace}.dt-button-nested:active:not([disabled]) {
-        .dt-button-icon .dt-icon svg {
-          fill: #ffffff;
-        }
-      }
-      #{$namespace}.dt-button-nested:hover:not([disabled]) {
-        background: rgba(255, 255, 255, 0.2);
-      }
-      #{$namespace}.dt-button-nested:active:not([disabled]) {
-        background: rgba(255, 255, 255, 0.3);
-      }
-      #{$namespace}.dt-button-nested[disabled] {
-        .dt-button-icon .dt-icon svg {
-          fill: rgba(255, 255, 255, 0.6);
-        }
-      }
-    } @else {
-      #{$namespace}.dt-button-nested {
-        .dt-button-icon .dt-icon svg {
-          fill: $default-color;
-        }
-      }
-      #{$namespace}.dt-button-nested:hover:not([disabled]) {
-        .dt-button-icon .dt-icon svg {
-          fill: $hover-color;
-        }
-      }
-      #{$namespace}.dt-button-nested:active:not([disabled]) {
-        .dt-button-icon .dt-icon svg {
-          fill: $active-color;
-        }
-      }
-      #{$namespace}.dt-button-nested[disabled] {
-        .dt-button-icon .dt-icon svg {
-          fill: $disabledcolor;
-        }
-      }
+    .dt-button-icon .dt-icon svg {
+      fill: rgba(255, 255, 255, 0.6);
     }
   }
 }

@@ -1,0 +1,91 @@
+@import '../core/src/style/variables';
+
+/* theme turquoise */
+.dt-theme-turquoise {
+  --dt-theme-main-default-color: #{$turquoise-600};
+  --dt-theme-main-hover-color: #{$turquoise-700};
+  --dt-theme-main-active-color: #{$turquoise-800};
+  --dt-theme-main-background-color: #{$turquoise-100};
+  --dt-warning-default-color: #{$yellow-600};
+  --dt-warning-hover-color: #{$yellow-700};
+  --dt-warning-active-color: #{$yellow-800};
+  --dt-cta-default-color: #{$green-600};
+  --dt-cta-hover-color: #{$green-700};
+  --dt-cta-active-color: #{$green-800};
+}
+
+.dt-theme-turquoise.dt-theme-dark {
+  --dt-theme-main-default-color: #{$turquoise-500};
+  --dt-theme-main-hover-color: #{$turquoise-400};
+  --dt-theme-main-active-color: #{$turquoise-300};
+}
+
+/* theme blue  */
+.dt-theme-blue {
+  --dt-theme-main-default-color: #{$blue-600};
+  --dt-theme-main-hover-color: #{$blue-700};
+  --dt-theme-main-active-color: #{$blue-800};
+  --dt-theme-main-background-color: #{$blue-100};
+  --dt-warning-default-color: #{$yellow-600};
+  --dt-warning-hover-color: #{$yellow-700};
+  --dt-warning-active-color: #{$yellow-800};
+  --dt-cta-default-color: #{$green-600};
+  --dt-cta-hover-color: #{$green-700};
+  --dt-cta-active-color: #{$green-800};
+}
+
+.dt-theme-blue.dt-theme-dark {
+  --dt-theme-main-default-color: #{$blue-500};
+  --dt-theme-main-hover-color: #{$blue-400};
+  --dt-theme-main-active-color: #{$blue-300};
+}
+
+/* theme royalblue  */
+.dt-theme-royalblue {
+  --dt-theme-main-default-color: #{$royalblue-600};
+  --dt-theme-main-hover-color: #{$royalblue-700};
+  --dt-theme-main-active-color: #{$royalblue-800};
+  --dt-theme-main-background-color: #{$royalblue-100};
+  --dt-warning-default-color: #{$yellow-600};
+  --dt-warning-hover-color: #{$yellow-700};
+  --dt-warning-active-color: #{$yellow-800};
+  --dt-cta-default-color: #{$green-600};
+  --dt-cta-hover-color: #{$green-700};
+  --dt-cta-active-color: #{$green-800};
+}
+
+.dt-theme-royalblue.dt-theme-dark {
+  --dt-theme-main-default-color: #{$royalblue-500};
+  --dt-theme-main-hover-color: #{$royalblue-400};
+  --dt-theme-main-active-color: #{$royalblue-300};
+}
+
+/* theme purple */
+.dt-theme-purple {
+  --dt-theme-main-default-color: #{$purple-600};
+  --dt-theme-main-hover-color: #{$purple-700};
+  --dt-theme-main-active-color: #{$purple-800};
+  --dt-theme-main-background-color: #{$purple-100};
+  --dt-warning-default-color: #{$yellow-600};
+  --dt-warning-hover-color: #{$yellow-700};
+  --dt-warning-active-color: #{$yellow-800};
+  --dt-cta-default-color: #{$green-600};
+  --dt-cta-hover-color: #{$green-700};
+  --dt-cta-active-color: #{$green-800};
+}
+
+.dt-theme-purple.dt-theme-dark {
+  --dt-theme-main-default-color: #{$purple-500};
+  --dt-theme-main-hover-color: #{$purple-400};
+  --dt-theme-main-active-color: #{$purple-300};
+}
+
+/* warning and cta colors for dark theme */
+.dt-theme-dark {
+  --dt-warning-default-color: #{$yellow-600};
+  --dt-warning-hover-color: #{$yellow-500};
+  --dt-warning-active-color: #{$yellow-400};
+  --dt-cta-default-color: #{$green-500};
+  --dt-cta-hover-color: #{$green-400};
+  --dt-cta-active-color: #{$green-300};
+}
