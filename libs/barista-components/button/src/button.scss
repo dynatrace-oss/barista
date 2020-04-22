@@ -1,8 +1,6 @@
 @import '../../style/font-mixins';
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
-@import '../../core/src/theming/theming';
-@import './button-theme';
 
 .dt-button {
   @include dt-main-font(30px);
@@ -110,7 +108,4 @@ a.dt-button[disabled] {
   }
 }
 
-// Apply the button theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-button($dt-current-theme);
-}
+@import './button-theme';
