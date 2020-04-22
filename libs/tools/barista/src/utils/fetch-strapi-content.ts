@@ -27,6 +27,11 @@ interface FetchContentOptions {
   publicContent: boolean;
 }
 
+interface BaristaContentListParams {
+  public?: boolean;
+  _limit?: number;
+}
+
 /**
  * Fetches an array of elements from Strapi CMS.
  */
@@ -38,12 +43,17 @@ export async function fetchContentList<
   endpoint: string,
 ): Promise<T[]> {
   let requestPath = `/${contentType}`;
+  const params: BaristaContentListParams = {
+    _limit: 1000,
+  };
   // Only fetch content set to public when building the public version of Barista
   if (options.publicContent) {
-    requestPath = `${requestPath}?public=true`;
+    params.public = true;
   }
   const host = `${endpoint}${requestPath}`;
-  const strapiResponse = await Axios.get<T[]>(host);
+  const strapiResponse = await Axios.get<T[]>(host, {
+    params,
+  });
   return strapiResponse.data;
 }
 
