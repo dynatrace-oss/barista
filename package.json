@@ -37,7 +37,6 @@
     "examples-tools": "ng build examples-tools && node dist/libs/tools/examples-tools/main.js",
     "stage-release": "ng run tools-release:build-stage-release && node dist/libs/tools/stage-release/main.js",
     "publish-release": "ng run tools-release:build-publish-release && node dist/libs/tools/publish-release/main.js",
-    "breaking-changes": "gulp breaking-changes",
     "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt"
   },
   "author": "Dynatrace",
