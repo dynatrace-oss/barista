@@ -353,22 +353,7 @@
             "maxWorkers": 6
           },
           "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "environments/barista-environment.ts",
-                  "with": "environments/barista-environment.prod.ts"
-                }
-              ]
-            },
-            "ci": {
-              "fileReplacements": [
-                {
-                  "replace": "environments/barista-environment.ts",
-                  "with": "environments/barista-environment.ci.ts"
-                }
-              ]
-            }
+            "production": {}
           }
         },
         "lint": {
@@ -622,7 +607,7 @@
             "parallel": true,
             "commands": [
               {
-                "command": "npx ng run universal:build-frontend --configuration=production"
+                "command": "npx ng run universal:build-frontend:production"
               },
               {
                 "command": "npx ng run universal:build-server"
@@ -839,22 +824,7 @@
             "maxWorkers": 6
           },
           "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "environments/barista-environment.ts",
-                  "with": "environments/barista-environment.prod.ts"
-                }
-              ]
-            },
-            "ci": {
-              "fileReplacements": [
-                {
-                  "replace": "environments/barista-environment.ts",
-                  "with": "environments/barista-environment.ci.ts"
-                }
-              ]
-            }
+            "production": {}
           }
         },
         "test": {
@@ -977,14 +947,7 @@
             "maxWorkers": 6
           },
           "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "environments/barista-environment.ts",
-                  "with": "environments/barista-environment.prod.ts"
-                }
-              ]
-            }
+            "production": {}
           }
         },
         "lint": {

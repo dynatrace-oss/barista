@@ -14,48 +14,35 @@
  * limitations under the License.
  */
 
-import { isPublicBuild } from '@dynatrace/shared/node';
-import { config as dotenvConfig } from 'dotenv';
-import { join } from 'path';
 import { BaEnvironment } from './barista-environment.interface';
+import { config as dotenvConfig } from 'dotenv';
 
-// TODO: Remove all platform dependent usages like process and dotenv
-// load the environment variables from the .env file in your workspace
 dotenvConfig();
 
-/** The Barista project's root directory. */
-const ROOT_DIR = process.cwd();
+const {
+  PUBLIC_BUILD,
+  STRAPI_ENDPOINT: strapiEndpoint,
+  INTERNAL_LINKS: internalLinks,
+} = process.env;
 
-/** Root directory of the iconpack repository. */
-const ICONS_ROOT = join(ROOT_DIR, '../barista-icons/src');
+const isPublicBuild = PUBLIC_BUILD !== 'false';
 
-/** Path to the icons changelog relative to the iconpack root directory. */
-const ICONS_CHANGELOG = join(
-  ICONS_ROOT,
-  '../_build/barista-icons/_templates',
-  `CHANGELOG${isPublicBuild() ? '-public' : ''}.json`,
-);
-
-/** URL/IP where the Strapi CMS is located. */
-const STRAPI_ENDPOINT = process.env.STRAPI_ENDPOINT;
-
-/** Parts of internal URLs that should be removed on public build. */
-const INTERNAL_LINKS = process.env.INTERNAL_LINKS;
+const iconChangelogName = `CHANGELOG${isPublicBuild ? '-public' : ''}.json`;
 
 export const environment: BaEnvironment = {
-  rootDir: ROOT_DIR,
-  distDir: join(ROOT_DIR, 'dist/barista-data'),
-  examplesMetadataDir: join(ROOT_DIR, 'dist'),
+  rootDir: './',
+  distDir: './dist/barista-data',
+  examplesMetadataDir: './dist',
   examplesMetadataFileName: 'examples-metadata.json',
-  examplesLibDir: join(ROOT_DIR, 'libs/examples/src'),
-  shareableExamplesToolsDir: join(
-    ROOT_DIR,
-    'libs/tools/shareable-examples/src',
-  ),
-  demosAppDir: join(ROOT_DIR, 'apps/demos/src'),
-  baristaAppDir: join(ROOT_DIR, 'apps/barista-design-system/src'),
-  iconsRoot: ICONS_ROOT,
-  iconsChangelogFileName: ICONS_CHANGELOG,
-  strapiEndpoint: STRAPI_ENDPOINT,
-  internalLinks: INTERNAL_LINKS,
+  examplesLibDir: './libs/examples/src',
+  shareableExamplesToolsDir: './libs/tools/shareable-examples/src',
+  demosAppDir: './apps/demos/src',
+  baristaAppDir: './apps/barista-design-system/src',
+  iconsRoot: '../barista-icons/src',
+  /** Path to the icons changelog relative to the icons root directory. */
+  iconsChangelogFileName: `../barista-icons/_build/barista-icons/_templates/${iconChangelogName}`,
+  /** URL/IP where the Strapi CMS is located. */
+  strapiEndpoint,
+  /** Parts of internal URLs that should be removed on public build. */
+  internalLinks,
 };

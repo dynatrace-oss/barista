@@ -126,8 +126,8 @@ pipeline {
           steps {
             dir(BARISTA_PATH) {
               sh '''
-                npm run ng run examples-tools:build:ci
-                npm run ng run barista-tools:build:ci
+                npm run ng run examples-tools:build
+                npm run ng run barista-tools:build
 
                 node dist/libs/tools/examples-tools/main.js
                 node dist/libs/tools/barista/main.js

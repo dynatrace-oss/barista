@@ -203,7 +203,7 @@
       "@dynatrace/shared/barista-definitions": [
         "libs/shared/barista-definitions/src/index.ts"
       ],
-      "@environments/*": ["environments/*.ts"],
+      "@environments/*": ["environments/*"],
       "@dynatrace/shared/design-tokens": [
         "libs/shared/design-tokens/src/index.ts"
       ],
