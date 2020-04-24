@@ -1,0 +1,93 @@
+@import './stacked-series-chart-shared';
+
+/** HOW TO of layout
+
+See stacked-series-chart.layout.md
+*/
+
+:host(.dt-stacked-series-chart-column) {
+  .dt-stacked-series-chart-container {
+    justify-items: center;
+    grid-template-rows: 1fr auto;
+    @include gridPosition('grid-row', 2, 1);
+    grid-template-columns: auto repeat(
+        var(--dt-stacked-series-chart-track-amount),
+        1fr
+      );
+  }
+
+  /* TRACK + LABEL */
+  .dt-stacked-series-chart-track-label,
+  .dt-stacked-series-chart-track {
+    grid-column: calc(1 + var(--dt-stacked-series-chart-track-index));
+  }
+
+  .dt-stacked-series-chart-track-label {
+    align-self: center;
+  }
+
+  .dt-stacked-series-chart-track {
+    grid-row: 1;
+    flex-direction: column-reverse;
+    max-width: var(--dt-stacked-series-chart-max-bar-size);
+    width: 100%;
+  }
+
+  .dt-stacked-series-chart-label-none {
+    gap: 0;
+    grid-template-rows: 1fr;
+  }
+
+  /* SLICE */
+  .dt-stacked-series-chart-slice {
+    height: var(--dt-stacked-series-chart-length);
+  }
+
+  /* AXIS */
+  .dt-stacked-series-chart-series-axis {
+    grid-column: 1/-1;
+    border-bottom: 1px solid $axis-color;
+    width: 100%;
+    grid-row: 1;
+  }
+
+  .dt-stacked-series-chart-value-axis {
+    grid-column: 1;
+    border-right: 1px solid $axis-color;
+    height: 100%;
+    grid-row: 1/2;
+    grid-auto-rows: 1fr;
+    flex-direction: column-reverse;
+    text-align: right;
+  }
+
+  .dt-stacked-series-chart-axis-tick {
+    padding-right: $tick-gutter;
+    text-align: right;
+    height: 24px;
+    width: 64px;
+
+    top: calc(var(--dt-stacked-series-chart-tick-position) - 12px);
+    right: -1px;
+
+    &::after {
+      right: 0;
+      bottom: 50%;
+      width: $tick-length;
+    }
+  }
+
+  .dt-stacked-series-chart-slice-selected::before {
+    box-shadow: $selected-size 0 $selected-color inset,
+      -$selected-size 0 $selected-color inset;
+    right: -$selected-size;
+    left: -$selected-size;
+    top: 0;
+    bottom: 0;
+  }
+}
+
+:host(.dt-stacked-series-chart-with-value-axis.dt-stacked-series-chart-column)
+  .dt-stacked-series-chart-container {
+  padding-left: var(--dt-stacked-series-chart-value-axis-size);
+}

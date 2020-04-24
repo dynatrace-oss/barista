@@ -60,6 +60,7 @@ import { DtRadioModule } from '@dynatrace/barista-components/radio';
 import { DtSecondaryNavModule } from '@dynatrace/barista-components/secondary-nav';
 import { DtSelectModule } from '@dynatrace/barista-components/select';
 import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
+import { DtStackedSeriesChartModule } from '@dynatrace/barista-components/stacked-series-chart';
 import { DtStepperModule } from '@dynatrace/barista-components/stepper';
 import { DtSliderModule } from '@dynatrace/barista-components/slider';
 import { DtSunburstChartModule } from '@dynatrace/barista-components/sunburst-chart';
@@ -117,6 +118,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtSecondaryNavModule,
     DtSelectModule,
     DtShowMoreModule,
+    DtStackedSeriesChartModule,
     DtSunburstChartModule,
     DtSwitchModule,
     DtTableModule,

@@ -88,6 +88,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Secondary-nav', route: '/secondary-nav' },
     { name: 'Select', route: '/select' },
     { name: 'Show-more', route: '/show-more' },
+    { name: 'Stacked-series-chart', route: '/stacked-series-chart' },
     { name: 'Stepper', route: '/stepper' },
     { name: 'Slider', route: '/slider' },
     { name: 'Sunburst-chart', route: '/sunburst-chart' },

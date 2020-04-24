@@ -1,0 +1,118 @@
+@import '../../core/src/style/overlay';
+@import './stacked-series-chart-shared';
+/** HOW TO of layout
+
+See stacked-series-chart.layout.md
+*/
+
+:host {
+  display: grid;
+  align-items: center;
+  grid-template-rows: 1fr auto;
+
+  &.dt-stacked-series-chart-with-legend {
+    gap: $gap;
+  }
+}
+
+/** Chart orientation */
+.dt-stacked-series-chart-container {
+  display: grid;
+  grid-auto-flow: dense;
+  align-self: stretch;
+  gap: $gap;
+}
+
+/** Track */
+.dt-stacked-series-chart-track {
+  display: flex;
+}
+.dt-stacked-series-chart-track-background {
+  background: $track-color;
+}
+
+.dt-stacked-series-chart-track-selectable .dt-stacked-series-chart-slice {
+  cursor: pointer;
+}
+
+.dt-stacked-series-chart-slice {
+  background: var(--dt-stacked-series-chart-color);
+  box-sizing: content-box;
+  transition: width $hidden-transition-time, height $hidden-transition-time,
+    opacity $hover-transition-time;
+}
+
+.dt-stacked-series-chart-track-hoverable {
+  .dt-stacked-series-chart-slice:hover {
+    opacity: $hover-opacity;
+  }
+}
+
+/** Slice **/
+.dt-stacked-series-chart-slice-selected {
+  cursor: default;
+  position: relative;
+
+  &::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    border: $selected-border-size solid $selected-border-color;
+    border-radius: 3px;
+  }
+}
+
+/** Axis */
+.dt-stacked-series-chart-value-axis {
+  position: relative;
+}
+
+.dt-stacked-series-chart-axis-tick {
+  position: absolute;
+
+  &::after {
+    position: absolute;
+    display: block;
+    background: $axis-color;
+    width: 1px;
+    height: 1px;
+    content: ' ';
+  }
+}
+
+/** Legend */
+.dt-stacked-series-chart-legend {
+  display: flex;
+  padding: 0;
+  justify-self: center;
+}
+
+.dt-stacked-series-chart-legend-symbol {
+  display: block;
+  height: $bullet-height;
+  width: $bullet-height;
+  background: var(--dt-stacked-series-chart-color);
+  transition: background $hidden-transition-time;
+
+  &:hover {
+    opacity: $hover-opacity;
+  }
+}
+
+.dt-legend-item {
+  cursor: pointer;
+}
+
+.dt-stacked-series-chart-legend-item-hidden {
+  .dt-stacked-series-chart-legend-symbol {
+    background: $hidden-color;
+  }
+}
+
+/** Stacked series chart overlay */
+/** The selector is combined with the cdk-overlay-pane to
+increase the specificity to avoid edge cases where the cdk styles
+are loaded after the component's styles in the angular.json */
+::ng-deep .cdk-overlay-pane.dt-stacked-series-chart-overlay-panel {
+  @include dt-overlay-container();
+}

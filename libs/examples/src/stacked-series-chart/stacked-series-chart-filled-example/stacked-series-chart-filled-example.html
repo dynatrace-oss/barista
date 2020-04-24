@@ -1,0 +1,15 @@
+<dt-stacked-series-chart
+  [series]="series"
+  [fillMode]="fillMode"
+  valueDisplayMode="percent"
+>
+  <ng-template dtStackedSeriesChartOverlay let-tooltip>
+    {{ tooltip.origin.label }}: {{ tooltip.valueRelative * 100 | dtPercent }}
+  </ng-template>
+</dt-stacked-series-chart>
+
+<h6>Fill mode</h6>
+<dt-button-group [(value)]="fillMode">
+  <dt-button-group-item value="full">Full</dt-button-group-item>
+  <dt-button-group-item value="relative">Relative</dt-button-group-item>
+</dt-button-group>

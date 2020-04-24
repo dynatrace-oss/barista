@@ -1,0 +1,61 @@
+@import './stacked-series-chart-shared';
+
+/** HOW TO of layout
+
+See stacked-series-chart.layout.md
+*/
+
+:host(.dt-stacked-series-chart-bar) {
+  .dt-stacked-series-chart-container {
+    align-items: center;
+    grid-template-columns: auto 1fr;
+    @include gridPosition('grid-column', 1, 2);
+  }
+
+  /* TRACK */
+  .dt-stacked-series-chart-track {
+    min-height: 1px;
+    height: var(--dt-stacked-series-chart-max-bar-size);
+    grid-column: 2;
+  }
+
+  /* SLICE */
+  .dt-stacked-series-chart-slice {
+    width: var(--dt-stacked-series-chart-length);
+  }
+
+  .dt-stacked-series-chart-slice-selected::before {
+    box-shadow: 0 $selected-size $selected-color inset,
+      0 #{-$selected-size} $selected-color inset;
+    border: $selected-border-size solid $selected-border-color;
+    top: -$selected-size;
+    bottom: -$selected-size;
+    right: 0;
+    left: 0;
+  }
+
+  /* AXIS */
+  .dt-stacked-series-chart-series-axis {
+    display: none;
+  }
+
+  .dt-stacked-series-chart-value-axis {
+    grid-column: 2;
+    border-top: 1px solid $axis-color;
+    grid-row: calc(1 + var(--dt-stacked-series-chart-track-amount));
+    height: 40px;
+  }
+
+  .dt-stacked-series-chart-axis-tick {
+    padding-top: $tick-gutter;
+    text-align: center;
+    width: 100px;
+    left: (calc(var(--dt-stacked-series-chart-tick-position) - 50px));
+
+    &::after {
+      top: -1px;
+      left: 50%;
+      height: $tick-length;
+    }
+  }
+}

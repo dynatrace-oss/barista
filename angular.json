@@ -3056,6 +3056,46 @@
       },
       "schematics": {}
     },
+    "stacked-series-chart": {
+      "projectType": "library",
+      "root": "libs/barista-components/stacked-series-chart",
+      "sourceRoot": "libs/barista-components/stacked-series-chart/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/stacked-series-chart/tsconfig.lib.json",
+              "libs/barista-components/stacked-series-chart/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/stacked-series-chart/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "./dist/libs/workspace:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/barista-components/stacked-series-chart/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/stacked-series-chart/jest.config.js",
+            "tsConfig": "libs/barista-components/stacked-series-chart/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/stacked-series-chart/src/test-setup.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
     "stepper": {
       "projectType": "library",
       "root": "libs/barista-components/stepper",

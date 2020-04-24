@@ -62,6 +62,7 @@ import { RadioDemo } from './radio/radio-demo.component';
 import { SecondaryNavDemo } from './secondary-nav/secondary-nav-demo.component';
 import { SelectDemo } from './select/select-demo.component';
 import { ShowMoreDemo } from './show-more/show-more-demo.component';
+import { StackedSeriesChartDemo } from './stacked-series-chart/stacked-series-chart-demo.component';
 import { SidenavDemo } from './sidenav/sidenav-demo.component';
 import { StepperDemo } from './stepper/stepper-demo.component';
 import { SliderDemo } from './slider/slider-demo.component';
@@ -123,6 +124,7 @@ const routes: Routes = [
   { path: 'secondary-nav', component: SecondaryNavDemo },
   { path: 'select', component: SelectDemo },
   { path: 'show-more', component: ShowMoreDemo },
+  { path: 'stacked-series-chart', component: StackedSeriesChartDemo },
   { path: 'stepper', component: StepperDemo },
   { path: 'sunburst-chart', component: SunburstChartDemo },
   { path: 'switch', component: SwitchDemo },
