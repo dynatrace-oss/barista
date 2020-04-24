@@ -322,9 +322,11 @@
 
 <dt-top-bar-navigation></dt-top-bar-navigation>
 
-<dt-tag-list
-  ><dt-tag></dt-tag><dt-tag></dt-tag><dt-tag-add></dt-tag-add
-></dt-tag-list>
+<dt-tag-list>
+  <dt-tag></dt-tag>
+  <dt-tag></dt-tag>
+  <dt-tag-add></dt-tag-add>
+</dt-tag-list>
 
 <dt-stepper>
   <dt-step label="Step 1"></dt-step>
@@ -342,6 +344,12 @@
     <dt-sidenav-header></dt-sidenav-header>
   </dt-sidenav>
 </dt-sidenav-container>
+
+<dt-stacked-series-chart [series]="stackedSeriesChartSeries">
+  <ng-template dtStackedSeriesChartOverlay let-tooltip>
+    {{ tooltip.label }}: {{ tooltip.value }}
+  </ng-template>
+</dt-stacked-series-chart>
 
 <dt-container-breakpoint-observer>
   <p>This element is alway visible</p>

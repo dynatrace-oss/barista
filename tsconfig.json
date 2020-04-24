@@ -164,6 +164,9 @@
       "@dynatrace/barista-components/show-more": [
         "libs/barista-components/show-more/index.ts"
       ],
+      "@dynatrace/barista-components/stacked-series-chart": [
+        "libs/barista-components/stacked-series-chart/index.ts"
+      ],
       "@dynatrace/barista-components/stepper": [
         "libs/barista-components/stepper/index.ts"
       ],

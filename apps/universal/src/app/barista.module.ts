@@ -47,6 +47,7 @@ import { DtRadialChartModule } from '@dynatrace/barista-components/radial-chart'
 import { DtRadioModule } from '@dynatrace/barista-components/radio';
 import { DtSelectModule } from '@dynatrace/barista-components/select';
 import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
+import { DtStackedSeriesChartModule } from '@dynatrace/barista-components/stacked-series-chart';
 import { DtStepperModule } from '@dynatrace/barista-components/stepper';
 import { DtSliderModule } from '@dynatrace/barista-components/slider';
 import { DtSunburstChartModule } from '@dynatrace/barista-components/sunburst-chart';
@@ -99,6 +100,7 @@ import { DtComboboxModule } from '@dynatrace/barista-components/experimental/com
     DtSelectModule,
     DtShowMoreModule,
     DtSliderModule,
+    DtStackedSeriesChartModule,
     DtStepperModule,
     DtSunburstChartModule,
     DtSwitchModule,

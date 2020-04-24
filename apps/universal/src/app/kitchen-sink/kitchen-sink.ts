@@ -129,4 +129,59 @@ export class KitchenSink {
       ],
     },
   ];
+
+  stackedSeriesChartSeries = [
+    {
+      label: 'Espresso',
+      nodes: [
+        {
+          value: 1,
+          label: 'Coffee',
+        },
+      ],
+    },
+    {
+      label: 'Macchiato',
+      nodes: [
+        {
+          value: 2,
+          label: 'Coffee',
+        },
+        {
+          value: 1,
+          label: 'Milk',
+        },
+      ],
+    },
+    {
+      label: 'Americano',
+      nodes: [
+        {
+          value: 2,
+          label: 'Coffee',
+        },
+        {
+          value: 3,
+          label: 'Water',
+        },
+      ],
+    },
+    {
+      label: 'Mocha',
+      nodes: [
+        {
+          value: 2,
+          label: 'Coffee',
+        },
+        {
+          value: 2,
+          label: 'Chocolate',
+        },
+        {
+          value: 1,
+          label: 'Milk',
+        },
+      ],
+    },
+  ];
 }

@@ -1,0 +1,43 @@
+<dt-legend>
+  <dt-legend-item
+    *ngFor="let node of legends"
+    [style.--node-color]="node.color"
+    [class.dt-stacked-series-chart-demo-legend-hidden]="!node.visible"
+    (click)="_toggleNode(node)"
+  >
+    <dt-legend-symbol class="dt-stacked-series-chart-demo-legend-symbol">
+    </dt-legend-symbol>
+    {{ node.label }}
+  </dt-legend-item>
+</dt-legend>
+
+<dt-table [dataSource]="dataSource">
+  <dt-simple-text-column
+    name="label"
+    label="Show"
+    sortable="false"
+  ></dt-simple-text-column>
+  <ng-container dtColumnDef="nodes">
+    <dt-header-cell *dtHeaderCellDef>Episodes</dt-header-cell>
+
+    <dt-cell *dtCellDef="let row">
+      <dt-stacked-series-chart
+        [series]="[row]"
+        [legends]="legends"
+        [visibleLegend]="false"
+        [visibleLabel]="false"
+        [visibleValueAxis]="false"
+        max="121"
+      >
+        <ng-template dtStackedSeriesChartOverlay let-tooltip>
+          {{ tooltip.origin.label }}:
+          <strong>{{ tooltip.origin.value }} episodes</strong>
+        </ng-template>
+      </dt-stacked-series-chart>
+    </dt-cell>
+  </ng-container>
+
+  <dt-header-row *dtHeaderRowDef="['label', 'nodes']"></dt-header-row>
+
+  <dt-row *dtRowDef="let row; columns: ['label', 'nodes']"></dt-row>
+</dt-table>

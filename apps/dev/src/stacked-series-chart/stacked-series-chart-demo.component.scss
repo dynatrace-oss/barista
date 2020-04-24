@@ -1,0 +1,17 @@
+:host {
+  display: block;
+}
+
+dt-stacked-series-chart {
+  margin-bottom: 40px;
+
+  &.column {
+    min-height: 200px;
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}

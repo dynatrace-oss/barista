@@ -1,0 +1,25 @@
+@import '../../core/src/style/variables';
+
+$gap: 16px;
+$bullet-height: 12px;
+$track-color: $gray-200;
+$selected-size: 4px;
+$selected-color: rgba($turquoise-500, 0.2);
+$selected-border-color: $turquoise-500;
+$selected-border-size: 1px;
+$hover-transition-time: 0.1s;
+$hidden-color: $gray-300;
+$axis-color: $gray-300;
+$tick-gutter: 16px;
+$tick-length: 8px;
+$hidden-transition-time: 0.2s;
+$hover-opacity: 0.8;
+
+@mixin gridPosition($property, $label, $chart) {
+  .dt-stacked-series-chart-track-label {
+    #{$property}: $label;
+  }
+  .dt-stacked-series-chart-track {
+    #{$property}: $chart;
+  }
+}

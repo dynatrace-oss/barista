@@ -1,0 +1,95 @@
+<div
+  class="dt-stacked-series-chart-container"
+  [class.dt-stacked-series-chart-label-none]="!visibleLabel"
+  [style]="
+    _sanitizeCSS([
+      ['--dt-stacked-series-chart-track-amount', _tracks.length],
+      ['--dt-stacked-series-chart-max-bar-size', maxTrackSize + 'px'],
+      [
+        '--dt-stacked-series-chart-value-axis-size',
+        (valueDisplayMode === 'percent'
+          ? _valueAxisSize.relative
+          : _valueAxisSize.absolute) + 'em'
+      ]
+    ])
+  "
+>
+  <div
+    class="dt-stacked-series-chart-series-axis"
+    *ngIf="mode === 'column'"
+  ></div>
+
+  <ng-container
+    *ngFor="let track of _tracks; let i = index; trackBy: _trackByFn"
+  >
+    <span
+      *ngIf="visibleLabel"
+      class="dt-stacked-series-chart-track-label"
+      [style]="_sanitizeCSS([['--dt-stacked-series-chart-track-index', i + 1]])"
+    >
+      {{ track.origin.label }}
+    </span>
+
+    <div
+      class="dt-stacked-series-chart-track"
+      [class.dt-stacked-series-chart-track-selectable]="_selectable"
+      [class.dt-stacked-series-chart-track-background]="visibleTrackBackground"
+      [class.dt-stacked-series-chart-track-hoverable]="_overlay"
+      [style]="_sanitizeCSS([['--dt-stacked-series-chart-track-index', i + 1]])"
+    >
+      <span
+        *ngFor="let slice of track.nodes; trackBy: _trackByFn"
+        class="dt-stacked-series-chart-slice"
+        [class.dt-stacked-series-chart-slice-selected]="slice.selected"
+        [attr.aria-label]="slice.ariaLabel"
+        [style]="
+          _sanitizeCSS([
+            ['--dt-stacked-series-chart-color', slice.color],
+            ['--dt-stacked-series-chart-length', slice.length]
+          ])
+        "
+        (click)="_toggleSelect(track.origin, slice.origin)"
+        (mouseenter)="_handleOnSeriesMouseEnter($event, slice)"
+        (mousemove)="_handleOnSeriesMouseMove($event)"
+        (mouseleave)="_handleOnSeriesMouseLeave()"
+      >
+      </span>
+    </div>
+  </ng-container>
+
+  <div
+    class="dt-stacked-series-chart-value-axis"
+    *ngIf="visibleValueAxis"
+    #valueAxis
+  >
+    <span
+      *ngFor="let tick of _axisTicks"
+      class="dt-stacked-series-chart-axis-tick"
+      [style.--dt-stacked-series-chart-tick-position]="tick.pos + '%'"
+      >{{
+        valueDisplayMode === 'percent'
+          ? (tick.valueRelative * 100 | dtPercent)
+          : (tick.value | dtCount)
+      }}</span
+    >
+  </div>
+</div>
+
+<dt-legend class="dt-stacked-series-chart-legend" *ngIf="visibleLegend">
+  <dt-legend-item
+    *ngFor="let legend of _legends; let i = index"
+    [class.dt-stacked-series-chart-legend-item-hidden]="!legend.visible"
+    (click)="_toggleLegend(legend)"
+    [style]="_sanitizeCSS([['--dt-stacked-series-chart-color', legend.color]])"
+  >
+    <dt-legend-symbol class="dt-stacked-series-chart-legend-symbol">
+    </dt-legend-symbol>
+    <strong *ngIf="_canShowValue && valueDisplayMode === 'absolute'">
+      {{ _tracks[0].nodes[i].origin.value | dtCount }}
+    </strong>
+    <strong *ngIf="_canShowValue && valueDisplayMode === 'percent'">
+      {{ _tracks[0].nodes[i].valueRelative * 100 | dtPercent }}
+    </strong>
+    {{ legend.label }}
+  </dt-legend-item>
+</dt-legend>

@@ -181,6 +181,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'stacked-series-chart',
+    loadChildren: () =>
+      import(
+        '../components/stacked-series-chart/stacked-series-chart.module'
+      ).then((module) => module.DtE2EStackedSeriesChartModule),
+  },
+  {
     path: 'sunburst-chart',
     loadChildren: () =>
       import('../components/sunburst-chart/sunburst-chart.module').then(
