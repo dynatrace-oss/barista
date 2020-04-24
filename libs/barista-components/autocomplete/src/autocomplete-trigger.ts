@@ -23,6 +23,7 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 import {
+  FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayConfig,
   OverlayContainer,
