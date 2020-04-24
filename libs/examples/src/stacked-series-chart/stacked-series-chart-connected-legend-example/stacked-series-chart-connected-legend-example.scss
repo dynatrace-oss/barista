@@ -1,0 +1,17 @@
+@import '../../../../../libs/barista-components/core/src/style/variables';
+
+dt-stacked-series-chart {
+  width: 100%;
+}
+
+.dt-stacked-series-chart-demo-legend-symbol {
+  background: var(--node-color);
+  width: 12px;
+  height: 12px;
+}
+
+.dt-stacked-series-chart-demo-legend-hidden {
+  .dt-stacked-series-chart-demo-legend-symbol {
+    background-color: $gray-300;
+  }
+}

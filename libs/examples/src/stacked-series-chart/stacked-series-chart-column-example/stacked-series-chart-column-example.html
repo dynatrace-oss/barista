@@ -1,0 +1,12 @@
+<dt-stacked-series-chart
+  [series]="series"
+  mode="column"
+  maxTrackSize="32"
+  style="height: 200px;"
+>
+  <ng-template dtStackedSeriesChartOverlay let-tooltip>
+    <strong>{{ tooltip.seriesOrigin.label }}</strong>
+    <br />
+    {{ tooltip.origin.label }}: {{ tooltip.origin.value }}
+  </ng-template>
+</dt-stacked-series-chart>

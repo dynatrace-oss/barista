@@ -1,0 +1,7 @@
+<dt-stacked-series-chart [series]="series">
+  <ng-template dtStackedSeriesChartOverlay let-tooltip>
+    <strong>{{ tooltip.seriesOrigin.label }}</strong>
+    <br />
+    {{ tooltip.origin.label }}: {{ tooltip.origin.value }}
+  </ng-template>
+</dt-stacked-series-chart>

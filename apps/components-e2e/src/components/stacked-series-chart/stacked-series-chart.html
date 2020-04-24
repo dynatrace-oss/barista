@@ -1,0 +1,161 @@
+<dt-stacked-series-chart
+  style="min-height: 400px; width: 800px;"
+  id="test-stacked-series-chart"
+  [selected]="selected"
+  [selectable]="selectable"
+  (selectedChange)="selected = $event"
+  [mode]="mode"
+  [series]="usedSeries"
+  [valueDisplayMode]="valueDisplayMode"
+  [fillMode]="fillMode"
+  [visibleValueAxis]="visibleValueAxis"
+  [visibleLegend]="visibleLegend"
+  [visibleLabel]="visibleLabel"
+  [visibleTrackBackground]="visibleTrackBackground"
+  [maxTrackSize]="maxTrackSize"
+  [max]="max"
+  [legends]="usedLegends"
+>
+  <ng-template dtStackedSeriesChartOverlay let-tooltip>
+    <strong>{{ tooltip.seriesOrigin.label }}</strong>
+    <div>{{ tooltip.origin.label }}: {{ tooltip.origin.value }}</div>
+  </ng-template>
+</dt-stacked-series-chart>
+
+<div>
+  <button (click)="reset()" id="chart-reset">
+    Reset
+  </button>
+</div>
+
+<div>
+  <button (click)="mode = 'bar'" id="chart-mode-bar">
+    Bar
+  </button>
+  <button (click)="mode = 'column'" id="chart-mode-column">
+    Column
+  </button>
+</div>
+
+<div>
+  <button (click)="valueDisplayMode = 'none'" id="chart-value-mode-none">
+    None
+  </button>
+  <button
+    (click)="valueDisplayMode = 'absolute'"
+    id="chart-value-mode-absolute"
+  >
+    Absolute
+  </button>
+  <button (click)="valueDisplayMode = 'percent'" id="chart-value-mode-percent">
+    Percent
+  </button>
+</div>
+
+<div>
+  <button (click)="fillMode = 'full'" id="chart-fill-mode-full">
+    Full
+  </button>
+  <button (click)="fillMode = 'relative'" id="chart-fill-mode-relative">
+    Relative
+  </button>
+</div>
+
+<div>
+  <button (click)="usedSeries = series" id="chart-track-multi">
+    Multi track
+  </button>
+  <button (click)="usedSeries = [series[1]]" id="chart-track-single">
+    Single track
+  </button>
+</div>
+
+<div>
+  <button (click)="visibleValueAxis = true" id="chart-visible-value-axis">
+    Show value axis
+  </button>
+  <button (click)="visibleValueAxis = false" id="chart-non-visible-value-axis">
+    Hide value axis
+  </button>
+</div>
+
+<div>
+  <button (click)="visibleLegend = true" id="chart-visible-legend">
+    Show legend
+  </button>
+  <button (click)="visibleLegend = false" id="chart-non-visible-legend">
+    Hide legend
+  </button>
+</div>
+
+<div>
+  <button (click)="visibleLabel = true" id="chart-visible-label">
+    Show label
+  </button>
+  <button (click)="visibleLabel = false" id="chart-non-visible-label">
+    Hide label
+  </button>
+</div>
+
+<div>
+  <button
+    (click)="visibleTrackBackground = true"
+    id="chart-visible-track-background"
+  >
+    Show track background
+  </button>
+  <button
+    (click)="visibleTrackBackground = false"
+    id="chart-non-visible-track-background"
+  >
+    Hide track background
+  </button>
+</div>
+
+<div>
+  <button (click)="maxTrackSize = 8" id="chart-track-size-8">
+    Track size 8
+  </button>
+  <button (click)="maxTrackSize = 32" id="chart-track-size-32">
+    Track size 32
+  </button>
+</div>
+
+<div>
+  <button (click)="max = undefined" id="chart-no-max">
+    No max
+  </button>
+  <button (click)="max = 10" id="chart-max-10">
+    Max 10
+  </button>
+</div>
+
+<div>
+  <button (click)="usedLegends = legends" id="chart-set-legends">
+    Set legends
+  </button>
+  <button (click)="usedLegends = undefined" id="chart-unset-legends">
+    Unset legends
+  </button>
+</div>
+
+<div>
+  <button (click)="selectable = true" id="chart-selectable">
+    Selectable
+  </button>
+  <button (click)="selectable = false" id="chart-non-selectable">
+    Non selectable
+  </button>
+</div>
+
+<div>
+  <button
+    (click)="selected = [series[0], series[0].nodes[0]]"
+    id="chart-select"
+  >
+    Select
+  </button>
+  <button (click)="selected = []" id="chart-unselect">
+    Unselect
+  </button>
+</div>

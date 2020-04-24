@@ -1,0 +1,34 @@
+{
+  "title": "StackedSeriesChart",
+  "description": "The stacked-series-chart chart is used to display one level of related data in a horizontal stacked bar",
+  "postid": "stacked-series-chart",
+  "public": true,
+  "identifier": "Ss",
+  "themable": true,
+  "category": "components",
+  "contributors": {
+    "dev": [
+      {
+        "name": "Salvador Subarroca",
+        "githubuser": "subarroca"
+      },
+      {
+        "name": "Mireia Martín",
+        "githubuser": "airime"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Xavier Javaloyas",
+        "githubuser": "xavi-j"
+      }
+    ]
+  },
+  "tags": [
+    "chart",
+    "single stacked bar chart",
+    "bar chart",
+    "angular",
+    "component"
+  ]
+}

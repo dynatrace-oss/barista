@@ -1,0 +1,82 @@
+<dt-stacked-series-chart
+  [series]="series"
+  [selectable]="selectable"
+  [(selected)]="selected"
+  [valueDisplayMode]="valueDisplayMode"
+  [visibleLabel]="visibleLabel"
+  [visibleLegend]="visibleLegend"
+  [visibleValueAxis]="visibleValueAxis"
+  [fillMode]="fillMode"
+  [mode]="mode"
+  [maxTrackSize]="maxTrackSize"
+  [visibleTrackBackground]="visibleTrackBackground"
+  [class]="mode"
+>
+  <ng-template dtStackedSeriesChartOverlay let-tooltip>
+    <strong>{{ tooltip.seriesOrigin.label }}</strong>
+    <div>{{ tooltip.origin.label }}: {{ tooltip.origin.value }}</div>
+  </ng-template>
+</dt-stacked-series-chart>
+
+<div class="grid">
+  <div>
+    <h2>Mode</h2>
+    <h3>Orientation</h3>
+    <dt-button-group [(value)]="mode">
+      <dt-button-group-item value="bar">Bar</dt-button-group-item>
+      <dt-button-group-item value="column">Column</dt-button-group-item>
+    </dt-button-group>
+
+    <h3>
+      Value display mode
+    </h3>
+    <dt-button-group [(value)]="valueDisplayMode">
+      <dt-button-group-item value="none">None</dt-button-group-item>
+      <dt-button-group-item value="absolute">Absolute</dt-button-group-item>
+      <dt-button-group-item value="percent">Percent</dt-button-group-item>
+    </dt-button-group>
+
+    <h3>Fill mode</h3>
+    <dt-button-group [(value)]="fillMode">
+      <dt-button-group-item value="full">Full</dt-button-group-item>
+      <dt-button-group-item value="relative">Relative</dt-button-group-item>
+    </dt-button-group>
+
+    <h3>Amount of series</h3>
+    <dt-switch [ngModel]="multiSeries" (ngModelChange)="toggleSeries($event)"
+      >Multiple</dt-switch
+    >
+  </div>
+
+  <div>
+    <h2>Visibility</h2>
+    <h3>Value axis</h3>
+    <dt-switch [(ngModel)]="visibleValueAxis">Visible</dt-switch>
+
+    <h3>Label</h3>
+    <dt-switch [(ngModel)]="visibleLabel">Visible</dt-switch>
+
+    <h3>Track</h3>
+    <h4>Background</h4>
+    <dt-switch [(ngModel)]="visibleTrackBackground">Visible</dt-switch>
+
+    <h4>Max size</h4>
+    <dt-button-group [(value)]="maxTrackSize">
+      <dt-button-group-item value="">None</dt-button-group-item>
+      <dt-button-group-item value="8">8</dt-button-group-item>
+      <dt-button-group-item value="16">16</dt-button-group-item>
+      <dt-button-group-item value="32">32</dt-button-group-item>
+      <dt-button-group-item value="1000">1000</dt-button-group-item>
+    </dt-button-group>
+
+    <h3>Legend</h3>
+    <dt-switch [(ngModel)]="visibleLegend">Visible</dt-switch>
+  </div>
+
+  <div>
+    <h2>Selection</h2>
+    <dt-switch [(ngModel)]="selectable">Selectable</dt-switch>
+
+    <pre>{{ selected | json }}</pre>
+  </div>
+</div>

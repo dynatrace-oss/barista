@@ -1,0 +1,17 @@
+<dt-stacked-series-chart
+  [series]="series"
+  [visibleLabel]="false"
+  [valueDisplayMode]="valueDisplayMode"
+  [selectable]="true"
+>
+  <ng-template dtStackedSeriesChartOverlay let-tooltip>
+    {{ tooltip.origin.label }}: {{ tooltip.value }}
+  </ng-template>
+</dt-stacked-series-chart>
+
+<h6>Value display mode</h6>
+<dt-button-group [(value)]="valueDisplayMode">
+  <dt-button-group-item value="none">None</dt-button-group-item>
+  <dt-button-group-item value="absolute">Absolute</dt-button-group-item>
+  <dt-button-group-item value="percent">Percent</dt-button-group-item>
+</dt-button-group>

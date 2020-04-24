@@ -260,6 +260,11 @@ import { DtExampleSidenavDefault } from './sidenav/sidenav-default-example/siden
 import { DtExampleDisabledSlider } from './slider/slider-disabled-example/slider-disabled-example';
 import { DtExampleFractionSlider } from './slider/slider-fraction-example/slider-fraction-example';
 import { DtExampleSimpleSlider } from './slider/slider-simple-example/slider-simple-example';
+import { DtExampleStackedSeriesChartColumn } from './stacked-series-chart/stacked-series-chart-column-example/stacked-series-chart-column-example';
+import { DtExampleStackedSeriesChartConnectedLegend } from './stacked-series-chart/stacked-series-chart-connected-legend-example/stacked-series-chart-connected-legend-example';
+import { DtExampleStackedSeriesChartFilled } from './stacked-series-chart/stacked-series-chart-filled-example/stacked-series-chart-filled-example';
+import { DtExampleStackedSeriesChartGeneric } from './stacked-series-chart/stacked-series-chart-generic-example/stacked-series-chart-generic-example';
+import { DtExampleStackedSeriesChartSingle } from './stacked-series-chart/stacked-series-chart-single-example/stacked-series-chart-single-example';
 import { DtExampleStepperDefault } from './stepper/stepper-default-example/stepper-default-example';
 import { DtExampleStepperEditable } from './stepper/stepper-editable-example/stepper-editable-example';
 import { DtExampleStepperLinear } from './stepper/stepper-linear-example/stepper-linear-example';
@@ -373,6 +378,7 @@ export { DtExamplesSelectModule } from './select/select-examples.module';
 export { DtExamplesShowMoreModule } from './show-more/show-more-examples.module';
 export { DtExamplesSidenavModule } from './sidenav/sidenav-examples.module';
 export { DtExamplesSliderModule } from './slider/slider-examples.module';
+export { DtExamplesStackedSeriesChartModule } from './stacked-series-chart/stacked-series-chart-examples.module';
 export { DtExamplesStepperModule } from './stepper/stepper-examples.module';
 export { DtSunburstChartExamplesModule } from './sunburst-chart/sunburst-chart-examples.module';
 export { DtExamplesSwitchModule } from './switch/switch-examples.module';
@@ -622,6 +628,11 @@ export {
   DtExampleDisabledSlider,
   DtExampleFractionSlider,
   DtExampleSimpleSlider,
+  DtExampleStackedSeriesChartColumn,
+  DtExampleStackedSeriesChartConnectedLegend,
+  DtExampleStackedSeriesChartFilled,
+  DtExampleStackedSeriesChartGeneric,
+  DtExampleStackedSeriesChartSingle,
   DtExampleStepperDefault,
   DtExampleStepperEditable,
   DtExampleStepperLinear,
@@ -974,6 +985,14 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleDisabledSlider', DtExampleDisabledSlider],
   ['DtExampleFractionSlider', DtExampleFractionSlider],
   ['DtExampleSimpleSlider', DtExampleSimpleSlider],
+  ['DtExampleStackedSeriesChartColumn', DtExampleStackedSeriesChartColumn],
+  [
+    'DtExampleStackedSeriesChartConnectedLegend',
+    DtExampleStackedSeriesChartConnectedLegend,
+  ],
+  ['DtExampleStackedSeriesChartFilled', DtExampleStackedSeriesChartFilled],
+  ['DtExampleStackedSeriesChartGeneric', DtExampleStackedSeriesChartGeneric],
+  ['DtExampleStackedSeriesChartSingle', DtExampleStackedSeriesChartSingle],
   ['DtExampleStepperDefault', DtExampleStepperDefault],
   ['DtExampleStepperEditable', DtExampleStepperEditable],
   ['DtExampleStepperLinear', DtExampleStepperLinear],
