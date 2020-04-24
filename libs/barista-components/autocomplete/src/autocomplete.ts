@@ -38,6 +38,7 @@ import {
 } from '@angular/core';
 
 import { DtOptgroup, DtOption } from '@dynatrace/barista-components/core';
+import { startWith } from 'rxjs/operators';
 
 let _uniqueIdCounter = 0;
 
@@ -79,7 +80,7 @@ export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefault
     class: 'dt-autocomplete',
   },
   preserveWhitespaces: false,
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
@@ -203,6 +204,10 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
     ).withWrap();
     // Set the initial visibility state.
     this._setVisibility();
+
+    this._options.changes.pipe(startWith(null)).subscribe(() => {
+      console.log(this._options.length);
+    });
   }
 
   /**
@@ -211,6 +216,7 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
    */
   _setVisibility(): void {
     this.showPanel = !!this._options.length;
+    console.log('setVisibility', this._options.length);
     this._setVisibilityClasses(this._classList);
     this._changeDetectorRef.markForCheck();
   }

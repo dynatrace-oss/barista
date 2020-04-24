@@ -23,19 +23,20 @@ import {
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 import {
+  FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayConfig,
+  OverlayContainer,
   OverlayRef,
   PositionStrategy,
   ViewportRuler,
-  OverlayContainer,
-  FlexibleConnectedPositionStrategy,
 } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
+  forwardRef,
   Host,
   Inject,
   Input,
@@ -43,18 +44,17 @@ import {
   OnDestroy,
   Optional,
   Provider,
-  forwardRef,
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-  EMPTY,
-  Observable,
-  Subject,
-  Subscription,
   defer,
+  EMPTY,
   fromEvent,
   merge,
+  Observable,
   of as observableOf,
+  Subject,
+  Subscription,
 } from 'rxjs';
 import {
   delay,
@@ -68,18 +68,18 @@ import {
 } from 'rxjs/operators';
 
 import {
-  DtOption,
-  DtOptionSelectionChange,
-  DtViewportResizer,
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition,
-  isDefined,
   _readKeyCode,
-  stringify,
-  DtFlexibleConnectedPositionStrategy,
-  dtSetUiTestAttribute,
   DT_UI_TEST_CONFIG,
+  DtFlexibleConnectedPositionStrategy,
+  DtOption,
+  DtOptionSelectionChange,
+  dtSetUiTestAttribute,
   DtUiTestConfiguration,
+  DtViewportResizer,
+  isDefined,
+  stringify,
 } from '@dynatrace/barista-components/core';
 import { DtFormField } from '@dynatrace/barista-components/form-field';
 
@@ -170,6 +170,10 @@ export class DtAutocompleteTrigger<T>
 
   /** Whether or not the autocomplete panel is open. */
   get panelOpen(): boolean {
+    console.log(
+      'panelOpen getter',
+      this._overlayAttached && this.autocomplete.showPanel,
+    );
     return this._overlayAttached && this.autocomplete.showPanel;
   }
 
@@ -405,6 +409,7 @@ export class DtAutocompleteTrigger<T>
     if (keyCode === ESCAPE) {
       event.preventDefault();
     }
+    // debugger;
 
     if (this.activeOption && keyCode === ENTER && this.panelOpen) {
       this.activeOption._selectViaInteraction();

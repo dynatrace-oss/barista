@@ -20,11 +20,23 @@ import { FormsModule } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
 import { DtInputModule } from '@dynatrace/barista-components/input';
-import { DtCombobox, DtComboboxOption } from './combobox';
+import { DtCombobox } from './combobox';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
-  exports: [DtCombobox, DtComboboxOption],
-  declarations: [DtCombobox, DtComboboxOption],
-  imports: [CommonModule, FormsModule, DtInputModule],
+  exports: [DtCombobox],
+  declarations: [DtCombobox],
+  imports: [
+    CommonModule,
+    PortalModule,
+    FormsModule,
+    DtIconModule,
+    DtInputModule,
+    DtAutocompleteModule,
+    DtLoadingDistractorModule,
+  ],
 })
 export class DtComboboxModule {}

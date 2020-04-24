@@ -1,1 +1,40 @@
-<div>Combobox Placeholder</div>
+<dt-loading-spinner
+  class="dt-filter-field-spinner"
+  *ngIf="_loading"
+></dt-loading-spinner>
+
+<input
+  #searchInput
+  dtInput
+  class="ba-searchinput"
+  type="text"
+  [dtAutocomplete]="autocomplete"
+  [placeholder]="placeholder"
+  aria-label="Type to start searching..."
+/>
+
+<div class="dt-combobox-trigger" aria-hidden="true" (click)="toggle()">
+  <div class="dt-combobox-value" [ngSwitch]="empty">
+    <span class="dt-combobox-placeholder" *ngSwitchCase="true">
+      {{placeholder || '\u00A0'}}
+    </span>
+    <span class="dt-combobox-value-text" *ngSwitchCase="false">
+      {{triggerValue || '\u00A0'}}
+    </span>
+  </div>
+
+  <dt-icon name="dropdownopen" class="dt-combobox-arrow"></dt-icon>
+</div>
+
+<dt-autocomplete
+  #autocomplete="dtAutocomplete"
+  (optionSelected)="optionSelected($event)"
+  class="ba-search-autocomplete"
+>
+</dt-autocomplete>
+
+<ng-template #autocompleteContent>
+  <div class="dt-autocomplete-panel" role="listbox">
+    <ng-content></ng-content>
+  </div>
+</ng-template>
