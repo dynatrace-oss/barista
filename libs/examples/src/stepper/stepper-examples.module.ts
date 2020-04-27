@@ -44,6 +44,5 @@ export const DT_STEPPER_EXAMPLES = [
     DtButtonModule,
   ],
   declarations: [...DT_STEPPER_EXAMPLES],
-  entryComponents: [...DT_STEPPER_EXAMPLES],
 })
 export class DtExamplesStepperModule {}

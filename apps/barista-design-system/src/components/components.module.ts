@@ -14,22 +14,23 @@
  * limitations under the License.
  */
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { DtSwitchModule } from '@dynatrace/barista-components/switch';
-import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
-import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
-import { BaLiveExample } from './live-example/live-example';
-import { BaHeadlineLink } from './headline-link/headline-link';
-import { BaColorGrid } from './color-grid/color-grid';
-import { BaLayoutGrid } from './layout-grid/layout-grid';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
+import { DtSwitchModule } from '@dynatrace/barista-components/switch';
 import { BaColor } from './color-component/color';
-import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
+import { BaColorGrid } from './color-grid/color-grid';
 import { BaContentLink } from './content-link/content-link';
+import { BaHeadlineLink } from './headline-link/headline-link';
+import { BaIconColorWheel } from './icon-color-wheel/icon-color-wheel';
+import { BaLayoutGrid } from './layout-grid/layout-grid';
+import { BaLayoutGridItem } from './layout-grid/layout-grid-item';
+import { BaLiveExample } from './live-example/live-example';
 
 /**
  * The order of the following components is relevant in case they are nested.
@@ -50,6 +51,7 @@ export const BA_CONTENT_COMPONENTS: any[] = [
 @NgModule({
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     RouterModule,
     ClipboardModule,
     DtSwitchModule,
