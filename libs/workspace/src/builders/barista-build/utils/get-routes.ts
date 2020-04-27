@@ -14,17 +14,22 @@
  * limitations under the License.
  */
 
-import { JsonObject } from '@angular-devkit/core';
+import { BaristaBuildBuilderSchema } from '../schema';
+import { EOL } from 'os';
+import { readFileSync } from 'fs';
 
-export interface BaristaBuildBuilderSchema extends JsonObject {
-  /** Target to build. */
-  browserTarget: string;
-  /** Server target to use for rendering the app. */
-  serverTarget: string;
-  /** The output path of the generated files. */
-  outputPath: string;
-  /** Path to the file that holds the route information.  */
-  routesFile?: string;
-  /** Comma separated list of routes.  */
-  routes?: string[];
+/** Extract the route information out of the builder options */
+export function getRoutes(options: BaristaBuildBuilderSchema): string[] {
+  let routes: string[] = options.routes || ['/'];
+
+  if (options.routesFile) {
+    routes = routes.concat(
+      readFileSync(options.routesFile, 'utf-8')
+        .split(EOL)
+        .map(route => route.trim())
+        .filter(route => route?.length),
+    );
+  }
+
+  return [...new Set(routes)];
 }

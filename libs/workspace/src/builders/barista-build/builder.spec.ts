@@ -18,22 +18,24 @@ import { Architect } from '@angular-devkit/architect';
 import { TestingArchitectHost } from '@angular-devkit/architect/testing';
 import { schema } from '@angular-devkit/core';
 import { join } from 'path';
-import { of } from 'rxjs';
 import { BaristaBuildBuilderSchema } from './schema';
 
 // Mocked imports
-import * as devkitArchitect from '@angular-devkit/architect';
-import * as render from './prerender/render-routes';
+import * as childProcess from 'child_process';
+import * as utils from './utils';
 
 const options: BaristaBuildBuilderSchema = {
-  devServerTarget: 'barista-design-system:render:production',
+  browserTarget: 'barista-design-system:build-frontend:production',
+  serverTarget: 'barista-design-system:build-server:production',
   outputPath: '',
+  routes: ['test'],
 };
 
 describe('Barista Builder', () => {
   let architect: Architect;
   let architectHost: TestingArchitectHost;
-  let renderSpy: jest.SpyInstance<Promise<number>>;
+  let builderSpy: jest.SpyInstance<Promise<string>>;
+  let renderSpy: jest.SpyInstance<Promise<void>>;
 
   beforeEach(async () => {
     const registry = new schema.CoreSchemaRegistry();
@@ -43,20 +45,19 @@ describe('Barista Builder', () => {
     architect = new Architect(architectHost, registry);
 
     await architectHost.addBuilderFromPackage(join(__dirname, '../../..'));
+    builderSpy = jest
+      .spyOn(utils, 'scheduleBuilds')
+      .mockImplementation(async () =>
+        join(__dirname, 'fixtures/mock-server.js'),
+      );
     // mock the render Routes to test it separately
     renderSpy = jest
-      .spyOn(render, 'renderRoutes')
-      .mockImplementation(async () => 10);
+      .spyOn(utils, 'renderRoutes')
+      .mockImplementation(async () => {});
+  });
 
-    // mock the dev server
-    (devkitArchitect as any).scheduleTargetAndForget = jest
-      .fn()
-      .mockReturnValue(
-        of({
-          success: true,
-          baseUrl: 'http://localhost:4200',
-        }),
-      );
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
   it('can run successfully', async () => {
@@ -65,6 +66,8 @@ describe('Barista Builder', () => {
       '@dynatrace/workspace:build-barista',
       options,
     );
+
+    const forkSpy = jest.spyOn(childProcess, 'fork');
 
     // The "result" member (of type BuilderOutput) is the next output.
     const output = await run.result;
@@ -76,10 +79,21 @@ describe('Barista Builder', () => {
 
     // Expect that the builder succeeded
     expect(output.success).toBe(true);
+    expect(builderSpy).toHaveBeenCalledTimes(1);
+    expect(forkSpy).toHaveBeenNthCalledWith(
+      1,
+      expect.stringMatching(/mock-server\.js$/),
+      [],
+      { env: { PORT: '4200' }, silent: true },
+    );
     expect(renderSpy).toHaveBeenCalledTimes(1);
     expect(renderSpy).toHaveBeenCalledWith(
       expect.objectContaining({
-        baseURL: 'http://localhost:4200',
+        logger: expect.any(Object),
+        renderModule: expect.stringMatching(/renderer\.js$/),
+        port: 4200,
+        routes: ['test'],
+        outputPath: expect.any(String),
       }),
     );
   });
