@@ -88,6 +88,7 @@ export class BaApp implements OnInit, OnDestroy {
           const key = getPageKeyFromUrl(this._document, url);
           return this._pageService._cache.get(key);
         }),
+        filter<BaContentTypes>(Boolean),
         takeUntil(this._destroy$),
       )
       .subscribe(page => {

@@ -9,17 +9,29 @@
       "type": "string",
       "description": "The output path of the generated files."
     },
-    "devServerTarget": {
+    "browserTarget": {
       "type": "string",
-      "description": "The universal serve-ssr target that should be started."
+      "description": "Target to build.",
+      "pattern": "^[^:\\s]+:[^:\\s]+(:[^\\s]+)?$"
+    },
+    "serverTarget": {
+      "type": "string",
+      "description": "Server target to use for rendering the app.",
+      "pattern": "^[^:\\s]+:[^:\\s]+(:[^\\s]+)?$"
     },
     "routesFile": {
       "type": "string",
       "description": "Path to the file that holds the route information."
     },
     "routes": {
-      "type": "string",
-      "description": "Comma separated list of routes."
+      "type": "array",
+      "description": "List of routes",
+      "items": {
+        "minItems": 1,
+        "type": "string",
+        "uniqueItems": true
+      },
+      "default": []
     }
   }
 }

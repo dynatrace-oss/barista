@@ -19,7 +19,7 @@ import 'zone.js/dist/zone-node';
 import { APP_BASE_HREF } from '@angular/common';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { AppServerModule } from './main.server';
 
@@ -45,15 +45,15 @@ export function app(): express.Express {
   server.set('views', distFolder);
 
   server.get('/data/*.json', (req: express.Request, res: express.Response) => {
-    const path = req.url.replace(/^\/data/, '');
-    res.sendFile(path, {
-      root: join(process.cwd(), 'dist/barista-data'),
-      dotfiles: 'deny',
-      headers: {
-        'x-timestamp': Date.now(),
-        'x-sent': true,
-      },
-    });
+    const assetUrl = join(distFolder, req.url);
+
+    if (!existsSync(assetUrl)) {
+      res.sendStatus(404);
+      return;
+    }
+
+    const file = JSON.parse(readFileSync(assetUrl, 'utf-8'));
+    res.json(file);
   });
 
   // Serve static files from /browser
@@ -89,8 +89,7 @@ function run(): void {
 // The below code is to ensure that the server is run only when not requiring the bundle.
 declare const __non_webpack_require__: NodeRequire;
 const mainModule = __non_webpack_require__.main;
-const moduleFilename = (mainModule && mainModule.filename) || '';
-if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
+if (mainModule && mainModule.filename === __filename) {
   run();
 }
 

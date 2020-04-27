@@ -85,7 +85,6 @@ export class BaPageService<T = any> {
    */
   private _fetchPage(id: string): Observable<T> {
     const requestPath = `${environment.dataHost}/${id}.json`;
-
     return this._http
       .get<T>(requestPath, { responseType: 'json' })
       .pipe(tap(data => this._cache.set(id, data)));
