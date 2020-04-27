@@ -6,6 +6,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const entries = [
   'src/scripts/affected-args.ts',
   'src/builders/barista-build/builder.ts',
+  'src/builders/barista-build/renderer.ts',
   'src/builders/typescript/index.ts',
   'src/builders/packager/index.ts',
   'src/builders/stylelint/index.ts',

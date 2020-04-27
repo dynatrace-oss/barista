@@ -412,16 +412,19 @@
         "build": {
           "builder": "./dist/libs/workspace:build-barista",
           "options": {
-            "devServerTarget": "barista-design-system:serve-ssr",
+            "browserTarget": "barista-design-system:build-frontend",
+            "serverTarget": "barista-design-system:build-server",
             "outputPath": "dist/apps/barista-design-system/browser",
             "routesFile": "dist/barista-data/routes.txt"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "barista-design-system:serve-ssr:production"
+              "browserTarget": "barista-design-system:build-frontend:production",
+              "serverTarget": "barista-design-system:build-server:production"
             },
             "production-internal": {
-              "devServerTarget": "barista-design-system:serve-ssr:production-internal"
+              "browserTarget": "barista-design-system:build-frontend:production-internal",
+              "serverTarget": "barista-design-system:build-server:production"
             }
           }
         },
@@ -567,18 +570,7 @@
           "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
             "browserTarget": "barista-design-system:build-frontend",
-            "serverTarget": "barista-design-system:build-server",
-            "progress": false
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "barista-design-system:build-frontend:production",
-              "serverTarget": "barista-design-system:build-server:production"
-            },
-            "production-internal": {
-              "browserTarget": "barista-design-system:build-frontend:production-internal",
-              "serverTarget": "barista-design-system:build-server:production"
-            }
+            "serverTarget": "barista-design-system:build-server"
           }
         },
         "lint": {

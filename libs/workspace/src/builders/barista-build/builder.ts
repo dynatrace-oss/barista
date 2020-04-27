@@ -18,37 +18,23 @@ import {
   BuilderContext,
   BuilderOutput,
   createBuilder,
-  scheduleTargetAndForget,
-  targetFromTargetString,
 } from '@angular-devkit/architect';
 import { green } from 'chalk';
-import { readFileSync } from 'fs';
-import { EOL } from 'os';
+import { existsSync, renameSync } from 'fs';
 import { join } from 'path';
 import { from, Observable, of } from 'rxjs';
-import { catchError, concatMap, map, take } from 'rxjs/operators';
-import { renderRoutes } from './prerender/render-routes';
+import { catchError, finalize, mapTo, switchMap, tap } from 'rxjs/operators';
 import { BaristaBuildBuilderSchema } from './schema';
+import { getRoutes, renderRoutes, scheduleBuilds, startServer } from './utils';
 
-const COMPILE_ERROR =
-  'Could not compile application for server side rendering!';
+/**
+ * output file is placed in the build output next to the
+ * builder file.
+ */
+export const RENDERER_MODULE = join(__dirname, 'renderer.js');
 
-/** Starts the dev server and  */
-export function startDevServer(
-  target: string,
-  context: BuilderContext,
-): Observable<string> {
-  return from(
-    scheduleTargetAndForget(context, targetFromTargetString(target)),
-  ).pipe(
-    map(output => {
-      if (!output.success) {
-        throw new Error(COMPILE_ERROR);
-      }
-      return output.baseUrl as string;
-    }),
-  );
-}
+/** The server port where the server app is running on. */
+const SERVER_PORT = 4200;
 
 /** The main builder function to pre-render barista */
 export function runBuilder(
@@ -56,33 +42,44 @@ export function runBuilder(
   context: BuilderContext,
 ): Observable<BuilderOutput> {
   const outputPath = join(process.cwd(), options.outputPath);
+  const routes = getRoutes(options);
 
-  const routes = options.routes
-    ? options.routes.split(',')
-    : options.routesFile
-    ? readFileSync(options.routesFile, 'utf-8').split(EOL)
-    : ['/'];
+  // Process id of the spawned server that should be killed
+  // afterwards
+  let serverProcessId: number;
 
-  return startDevServer(options.devServerTarget, context).pipe(
-    concatMap(baseURL =>
+  return from(scheduleBuilds(options, context)).pipe(
+    tap(() => {
+      // rename the original index file to avoid race conditions.
+      const originalIndex = join(outputPath, 'index.html');
+      if (existsSync(originalIndex)) {
+        renameSync(originalIndex, join(outputPath, 'index.original.html'));
+      }
+    }),
+    switchMap(serverModule => startServer(serverModule, SERVER_PORT)),
+    tap(({ pid }) => {
+      serverProcessId = pid;
+      context.logger.info(green(`Server started with PID: ${pid}`));
+    }),
+    switchMap(() =>
       renderRoutes({
-        baseURL,
         outputPath,
         routes,
+        port: SERVER_PORT,
+        renderModule: RENDERER_MODULE,
         logger: context.logger,
       }),
     ),
-    take(1),
-    map(pages => {
-      context.logger.info(`\n✅ ${green(`Successfully rendered ${pages}!`)}`);
-      return { success: true };
-    }),
+    mapTo({ success: true }),
     catchError(error => {
       context.reportStatus(`Error: ${error.message}`);
       context.logger.error(error.message);
-      return of({
-        success: false,
-      });
+      return of({ success: false });
+    }),
+    finalize(() => {
+      if (serverProcessId) {
+        process.kill(serverProcessId);
+      }
     }),
   );
 }
