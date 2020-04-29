@@ -578,6 +578,4 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
 </ng-container>
 ```
 
-## Tables in use
-
 <ba-ux-snippet name="table-in-use"></ba-ux-snippet>
