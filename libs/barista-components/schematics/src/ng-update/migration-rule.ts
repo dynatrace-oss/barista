@@ -27,6 +27,7 @@ export type NullableMigrationRule = Constructor<
 /** Enum containing all target versions for the @dynatrace/barista-components package - add more if needed */
 export enum DtTargetVersion {
   V5 = '5.0.0',
+  V7 = '7.0.0',
 }
 
 /** Extending the cdk's migration rule for now since the targetVersion is limited to angulars versioning */

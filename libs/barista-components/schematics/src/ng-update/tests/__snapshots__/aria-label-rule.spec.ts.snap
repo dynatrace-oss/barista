@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Remove all deprecated aria-label properties and inputs Should remove all inputs from template files 1`] = `
+"<div ids=\\"1\\" test=\\"2\\"></div>
+<component attr.aria-label=\\"label\\"></component>
+<component ariaLabelClose=\\"close\\"></component>
+<component [ariaLabelClose]=\\"close\\"></component>
+<component ariaLabelLeftHandle=\\"left\\"></component>'
+"
+`;

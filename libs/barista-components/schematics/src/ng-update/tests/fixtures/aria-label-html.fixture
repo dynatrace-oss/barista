@@ -1,0 +1,5 @@
+<div ids="1" test="2"></div>
+<component aria-label="label"></component>
+<component aria-label-close="close"></component>
+<component [aria-label-close]="close"></component>
+<component aria-label-left-handle="left"></component>'

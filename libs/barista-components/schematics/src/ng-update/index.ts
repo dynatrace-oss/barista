@@ -26,6 +26,12 @@ import {
   removeCssSelectors,
   SecondaryEntryPointsRule,
 } from './update-5.0.0';
+import {
+  removeAriaLabelRule,
+  updateEmptyStates,
+  migratePeerDependecies,
+} from './update-7.0.0';
+import { PackageJson } from '../interfaces/package-json.interface';
 
 /** Data that can be populated for each version upgrade with changes that can be done automatically */
 const defaultUpgradeData: RuleUpgradeData = {
@@ -47,6 +53,35 @@ export function updateToV5(): Rule {
     createUpgradeRule(
       (DtTargetVersion.V5 as unknown) as TargetVersion,
       [SecondaryEntryPointsRule, LegacyImportsRule],
+      defaultUpgradeData,
+      onMigrationComplete,
+    ),
+  ]);
+}
+
+/** Entry point for the migration schematics with target of Dynatrace Barista components v7 */
+export function updateToV7(): Rule {
+  const updateDependecies: PackageJson = {
+    version: '',
+    license: '',
+    name: '',
+    optionalDependencies: {},
+    peerDependencies: {},
+    dependencies: {
+      'lodash-es': '4.17.15',
+      highcharts: '7.2.1',
+    },
+    devDependencies: {
+      '@types/lodash-es': '4.17.3',
+    },
+  };
+  return chain([
+    migratePeerDependecies(updateDependecies),
+    removeAriaLabelRule(),
+    updateEmptyStates(),
+    createUpgradeRule(
+      (DtTargetVersion.V7 as unknown) as TargetVersion,
+      [],
       defaultUpgradeData,
       onMigrationComplete,
     ),

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "lodash": "1.0.0",
+    "highcharts": "6.0.0"
+  },
+  "devDependencies": {
+    "some": "1.0.0"
+  }
+}

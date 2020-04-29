@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Remove all deprecated aria-label properties and inputs Should remove all deprecated aria-label properties from ts files 1`] = `
+"<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+<dt-empty-state></dt-empty-state>
+"
+`;

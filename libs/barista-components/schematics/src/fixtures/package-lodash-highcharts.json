@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "lodash": "1.0.0",
+    "hichcharts": "1.0.0"
+  }
+}

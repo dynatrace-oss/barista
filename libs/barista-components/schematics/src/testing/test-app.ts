@@ -112,6 +112,7 @@ export async function createTestCaseSetup(
   migrationName: string,
   collectionPath: string,
   inputFiles: string[],
+  fileType?: string,
 ): Promise<TestCaseSetup> {
   const runner = new SchematicTestRunner('schematics', collectionPath);
   const initialWorkingDir = process.cwd();
@@ -132,7 +133,9 @@ export async function createTestCaseSetup(
   // TypeScript compiler API won't be able to pick up the test cases.
   inputFiles.forEach((inputFilePath) => {
     const inputTestName = basename(inputFilePath, extname(inputFilePath));
-    const relativePath = `projects/lib-testing/src/tests/${inputTestName}.ts`;
+    const relativePath = fileType
+      ? `projects/lib-testing/src/tests/${inputTestName}.${fileType}`
+      : `projects/lib-testing/src/tests/${inputTestName}.ts`;
     const inputContent = readFileSync(inputFilePath, 'utf8');
 
     writeFile(relativePath, inputContent);

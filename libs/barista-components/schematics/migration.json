@@ -5,6 +5,11 @@
       "version": "5.0.0",
       "description": "Updates from the old @dynatrace/angular-components to the new @dynatrace/barista-components",
       "factory": "./src/ng-update/index#updateToV5"
+    },
+    "update-7.0.0": {
+      "version": "7.0.0",
+      "description": "Updates peerDependencies (lodash-es, highcharts) and deprecated template attributes",
+      "factory": "./src/ng-update/index#updateToV7"
     }
   }
 }

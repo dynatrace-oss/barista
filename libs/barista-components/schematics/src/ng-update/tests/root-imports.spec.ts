@@ -25,7 +25,7 @@ describe('v5 dynatrace angular components imports', () => {
       writeFile,
       removeTempDir,
     } = await createTestCaseSetup('update-5.0.0', migrationCollection, [
-      require.resolve('./root-imports-input.fixture'),
+      require.resolve('./fixtures/root-imports-input.fixture'),
     ]);
     const libDistPath = '/node_modules/@dynatrace/angular-components';
 

@@ -18,22 +18,21 @@ import { createTestCaseSetup } from '../../testing';
 
 export const migrationCollection = require.resolve('../../migration.json');
 
-describe('Migrate all legacy imports from the icon pack and the angular components', () => {
-  it('Should migrate all legacy imports from the icon pack and the angular components', async () => {
-    const {
-      runFixers,
-      appTree,
-      removeTempDir,
-    } = await createTestCaseSetup('update-5.0.0', migrationCollection, [
-      require.resolve('./fixtures/legacy-imports.fixture'),
-    ]);
+describe('Update lodash and highcharts peerDependecies', () => {
+  it('should update lodash and highcharts dependecies in package.json', async () => {
+    const { runFixers, appTree, removeTempDir } = await createTestCaseSetup(
+      'update-7.0.0',
+      migrationCollection,
+      [require.resolve('./fixtures/update-lodash-highcharts/package.fixture')],
+      'json',
+    );
 
     if (runFixers) {
       await runFixers();
     }
 
     expect(
-      appTree.readContent('projects/lib-testing/src/tests/legacy-imports.ts'),
+      appTree.readContent('projects/lib-testing/src/tests/package.json'),
     ).toMatchSnapshot();
 
     removeTempDir();
