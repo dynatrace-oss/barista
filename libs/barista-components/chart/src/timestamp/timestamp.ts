@@ -218,10 +218,10 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   readonly _switchToRange = new Subject<number>();
 
   /** @internal The maximum value that can be selected on the xAxis */
-  _maxValue: number;
+  _maxValue: number | null;
 
   /** @internal The minimal value that can be selected on the xAxis */
-  _minValue: number;
+  _minValue: number | null;
 
   /** @internal The offset of the plotBackground in relation to the chart container on the xAxis  */
   _plotBackgroundChartOffset = 0;

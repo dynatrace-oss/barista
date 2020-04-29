@@ -14,24 +14,30 @@
  * limitations under the License.
  */
 
-import { DataPoint } from 'highcharts';
+import { PointOptionsObject, SeriesArearangeDataOptions } from 'highcharts';
 
 import { randomize } from './randomize';
 
+// TODO: https://github.com/dynatrace-oss/barista/issues/959
+// Duplicate from libs/barista-components/core/src/util/type-util.ts
+function isDefined(value: any): boolean {
+  return value !== void 0 && value !== null;
+}
+
 export function generateAreaRangeData(
-  amountOrLineSeries: number | DataPoint[],
+  amountOrLineSeries: number | PointOptionsObject[],
   min: number,
   max: number,
   timestampStart?: number,
   timestampTick?: number,
-): DataPoint[] {
+): PointOptionsObject[] {
   if (min > max) {
     throw new Error(
       `Min value (${min}) must not be larger than max value (${max})`,
     );
   }
 
-  let data: DataPoint[];
+  let data: SeriesArearangeDataOptions[];
 
   if (!Array.isArray(amountOrLineSeries)) {
     if (amountOrLineSeries < 0) {
@@ -45,7 +51,7 @@ export function generateAreaRangeData(
 
     const amount = amountOrLineSeries as number;
 
-    data = new Array<DataPoint>(amount);
+    data = new Array<SeriesArearangeDataOptions>(amount);
 
     for (let i = 0; i < amount; i++) {
       data[i] = {
@@ -55,9 +61,9 @@ export function generateAreaRangeData(
       };
     }
   } else {
-    const lineSeries = amountOrLineSeries as DataPoint[];
+    const lineSeries = amountOrLineSeries as PointOptionsObject[];
 
-    data = new Array<DataPoint>(lineSeries.length);
+    data = new Array<PointOptionsObject>(lineSeries.length);
 
     for (let i = 0; i < lineSeries.length; i++) {
       const series = lineSeries[i];
@@ -70,8 +76,8 @@ export function generateAreaRangeData(
 
       data[i] = {
         x,
-        low: y !== undefined ? y - randomize(min, max) : undefined,
-        high: y !== undefined ? y + randomize(min, max) : undefined,
+        low: isDefined(y) ? y! - randomize(min, max) : undefined,
+        high: isDefined(y) ? y! + randomize(min, max) : undefined,
       };
     }
   }

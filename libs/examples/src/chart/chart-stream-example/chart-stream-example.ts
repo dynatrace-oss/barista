@@ -16,7 +16,7 @@
 
 // tslint:disable:no-magic-numbers
 import { Component } from '@angular/core';
-import { IndividualSeriesOptions } from 'highcharts';
+import { PlotSeriesOptions } from 'highcharts';
 import { Observable } from 'rxjs';
 
 import { DtChartExampleDataService } from '../chart-example-data.service';
@@ -32,7 +32,7 @@ export class DtExampleChartStream {
     },
     yAxis: [
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value}/min',
         },
@@ -50,13 +50,13 @@ export class DtExampleChartStream {
       },
     },
     tooltip: {
-      formatter(): string | boolean {
+      formatter(): string {
         return `${this.series.name}&nbsp${this.y}`;
       },
     },
   };
 
-  series$: Observable<IndividualSeriesOptions[]>;
+  series$: Observable<PlotSeriesOptions[]>;
 
   constructor(private _chartService: DtChartExampleDataService) {
     this.series$ = this._chartService.getStreamedChartdata();

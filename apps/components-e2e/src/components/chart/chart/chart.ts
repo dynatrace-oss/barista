@@ -16,10 +16,8 @@
 
 import { Component, DoCheck, ViewEncapsulation } from '@angular/core';
 
-import {
-  DtChartOptions,
-  DtChartSeries,
-} from '@dynatrace/barista-components/chart';
+import { DtChartOptions } from '@dynatrace/barista-components/chart';
+import { SeriesLineOptions } from 'highcharts';
 
 @Component({
   selector: 'dt-e2e-basic-chart',
@@ -33,9 +31,6 @@ export class BasicChart implements DoCheck {
   changedetectionCounter = 0;
 
   options: DtChartOptions = {
-    chart: {
-      type: 'line',
-    },
     xAxis: {
       type: 'datetime',
     },
@@ -44,8 +39,9 @@ export class BasicChart implements DoCheck {
       max: 200,
     },
   };
-  series: DtChartSeries[] = [
+  series: SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Actions/min',
       id: 'someMetricId',
       data: [

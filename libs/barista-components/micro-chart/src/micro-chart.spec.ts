@@ -18,24 +18,27 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, Type, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { AxisOptions, DataPoint } from 'highcharts';
-import { merge } from 'lodash';
-import { BehaviorSubject } from 'rxjs';
-import {
-  DtChartModule,
-  DtChartOptions,
-  DtChartSeries,
-} from '@dynatrace/barista-components/chart';
+import { DtChartModule } from '@dynatrace/barista-components/chart';
 import { DtMicroChartModule } from '@dynatrace/barista-components/micro-chart';
 import {
   DtColors,
   DtTheme,
   DtThemingModule,
 } from '@dynatrace/barista-components/theming';
-
-import { DtMicroChart } from './micro-chart';
+import {
+  AxisOptions,
+  SeriesLineOptions,
+  SeriesLineDataOptions,
+} from 'highcharts';
+import { merge } from 'lodash';
+import { BehaviorSubject } from 'rxjs';
+import {
+  DtMicroChart,
+  DtMicroChartOptions,
+  DtMicroChartSeries,
+} from './micro-chart';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 
 import objectContaining = jasmine.objectContaining;
@@ -149,8 +152,8 @@ describe('DtMicroChart', () => {
       const { fixture, microChartComponent } = setupTestCase(ThemeDynamic);
       fixture.detectChanges();
 
-      let data = microChartComponent.highchartsOptions.series![0]
-        .data as DataPoint[];
+      let data = (microChartComponent.highchartsOptions
+        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
       expect(data[0].marker).toEqual(
         objectContaining({ lineColor: DtColors.BLUE_600 }),
       );
@@ -158,8 +161,8 @@ describe('DtMicroChart', () => {
       fixture.componentInstance.theme = 'purple';
       fixture.detectChanges();
 
-      data = microChartComponent.highchartsOptions.series![0]
-        .data as DataPoint[];
+      data = (microChartComponent.highchartsOptions
+        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
       expect(data[0].marker).toEqual(
         objectContaining({ lineColor: DtColors.PURPLE_600 }),
       );
@@ -198,7 +201,7 @@ describe('DtMicroChart', () => {
       fixture.detectChanges();
 
       const series = microChartComponent.highchartsOptions
-        .series as DtChartSeries[];
+        .series as DtMicroChartSeries[];
 
       expect(series.length).toEqual(1);
       expect(series[0].data).toBeDefined();
@@ -211,8 +214,8 @@ describe('DtMicroChart', () => {
       const { fixture, microChartComponent } = setupTestCase(Series);
       fixture.detectChanges();
 
-      const data = microChartComponent.highchartsOptions.series![0]
-        .data as DataPoint[];
+      const data = (microChartComponent.highchartsOptions
+        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
 
       expect(data[0].dataLabels).toEqual(
         objectContaining({ verticalAlign: 'bottom', enabled: true }),
@@ -226,7 +229,8 @@ describe('DtMicroChart', () => {
       const { fixture, microChartComponent } = setupTestCase(Formatter);
       fixture.detectChanges();
 
-      const seriesData = microChartComponent.highchartsOptions.series![0].data!;
+      const seriesData = (microChartComponent.highchartsOptions
+        .series![0] as SeriesLineOptions).data!;
       expect(seriesData[0]).not.toHaveProperty('dataLabels');
       expect((seriesData[1] as any).dataLabels.formatter).toBeDefined();
       expect(seriesData[2]).not.toHaveProperty('dataLabels');
@@ -245,15 +249,15 @@ describe('DtMicroChart', () => {
 
       fixture.detectChanges();
       expect(microChartComponent.seriesId).toEqual('someId');
-      let data = microChartComponent.highchartsOptions.series![0]
-        .data as DataPoint[];
+      let data = (microChartComponent.highchartsOptions
+        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
       expect(data[0]).toEqual(objectContaining({ x: 1, y: 0 }));
       expect(data[1]).toEqual(objectContaining({ x: 2, y: 10 }));
 
       fixture.componentInstance.emitTestData();
       expect(microChartComponent.seriesId).toEqual('someOtherId');
-      data = microChartComponent.highchartsOptions.series![0]
-        .data as DataPoint[];
+      data = (microChartComponent.highchartsOptions
+        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
       expect(data[0]).toEqual(objectContaining({ x: 1, y: 20 }));
       expect(data[1]).toEqual(objectContaining({ x: 2, y: 30 }));
     });
@@ -316,8 +320,9 @@ describe('DtMicroChart', () => {
     '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
 class Series {
-  options: DtChartOptions = { chart: { type: 'line' } };
-  series: DtChartSeries = {
+  options: DtMicroChartOptions = {};
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [
@@ -338,8 +343,9 @@ class Series {
   `,
 })
 class Formatter {
-  options: DtChartOptions = { chart: { type: 'line' } };
-  series: DtChartSeries = {
+  options: DtMicroChartOptions = { chart: { type: 'line' } };
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [
@@ -363,8 +369,9 @@ class Formatter {
     '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
 class DefinedAxis {
-  options: DtChartOptions = { xAxis: {}, yAxis: {} };
-  series: DtChartSeries = {
+  options: DtMicroChartOptions = { xAxis: {}, yAxis: {} };
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [
@@ -380,8 +387,9 @@ class DefinedAxis {
     '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
 class DefinedAxisArray {
-  options: DtChartOptions = { xAxis: [{}], yAxis: [{}] };
-  series: DtChartSeries = {
+  options: DtMicroChartOptions = { xAxis: [{}], yAxis: [{}] };
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [
@@ -397,8 +405,9 @@ class DefinedAxisArray {
     '<dt-micro-chart [series]="series" [options]="options"></dt-micro-chart>',
 })
 class DefinedAxisEmptyArray {
-  options: DtChartOptions = { xAxis: [], yAxis: [] };
-  series: DtChartSeries = {
+  options: DtMicroChartOptions = { xAxis: [], yAxis: [] };
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [
@@ -418,8 +427,9 @@ class ThemeDynamic {
   @ViewChild(DtMicroChart, { static: true }) chart: DtMicroChart;
 
   theme = 'blue';
-  options: DtChartOptions = {};
-  series: DtChartSeries = {
+  options: DtMicroChartOptions = {};
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [
@@ -435,8 +445,9 @@ class ThemeDynamic {
     '<div dtTheme="blue"><dt-micro-chart [series]="series" [options]="options"></dt-micro-chart></div>',
 })
 class ThemeFixed {
-  options: DtChartOptions = {};
-  series: DtChartSeries = {
+  options: DtMicroChartOptions = {};
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [
@@ -451,7 +462,8 @@ class ThemeFixed {
   template: '<dt-micro-chart [series]="series"></dt-micro-chart>',
 })
 class NoOptions {
-  series: DtChartSeries = {
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [
@@ -530,8 +542,9 @@ class UnsupportedSeriesType {
   `,
 })
 class TooltipTest {
-  options: DtChartOptions = { chart: { type: 'line' } };
-  series: DtChartSeries = {
+  options: DtMicroChartOptions = { chart: { type: 'line' } };
+  series: DtMicroChartSeries = {
+    type: 'line',
     name: 'Actions/min',
     id: 'someMetricId',
     data: [

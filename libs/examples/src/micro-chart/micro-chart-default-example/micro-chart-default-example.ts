@@ -17,10 +17,8 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-
-import { DtChartSeries } from '@dynatrace/barista-components/chart';
 import { formatCount } from '@dynatrace/barista-components/formatters';
-
+import { SeriesLineOptions } from 'highcharts';
 import { generateData } from '../data';
 
 @Component({
@@ -28,7 +26,8 @@ import { generateData } from '../data';
   templateUrl: 'micro-chart-default-example.html',
 })
 export class DtExampleMicroChartDefault {
-  series: DtChartSeries = {
+  series: SeriesLineOptions = {
+    type: 'line',
     name: 'Requests',
     data: generateData(40, 1000, 2000, 1370304000000, 900000),
   };

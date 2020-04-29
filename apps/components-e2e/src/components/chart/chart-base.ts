@@ -19,17 +19,15 @@ import { map } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 import { options } from './chart-options';
 import { Observable } from 'rxjs';
-import { IndividualSeriesOptions } from 'highcharts';
+import { SeriesOptionsType } from 'highcharts';
 
 export abstract class DtE2EChartBase {
   validRange = false;
 
   options = options;
 
-  series$: Observable<
-    IndividualSeriesOptions[]
-  > = this._dataService
-    .getFixture<{ data: IndividualSeriesOptions[] }>('/data-small.json')
+  series$: Observable<SeriesOptionsType[]> = this._dataService
+    .getFixture<{ data: SeriesOptionsType[] }>('/data-small.json')
     .pipe(map((result) => result.data));
 
   constructor(private _dataService: DataService) {}

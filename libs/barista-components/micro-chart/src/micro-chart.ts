@@ -19,7 +19,9 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  forwardRef,
   Input,
+  isDevMode,
   OnDestroy,
   Optional,
   Output,
@@ -27,42 +29,45 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation,
-  forwardRef,
-  isDevMode,
 } from '@angular/core';
 import {
-  ColumnChartSeriesOptions,
-  DataPoint,
-  LineChartSeriesOptions,
+  DtChart,
+  DtChartOptions,
+  DtChartResolver,
+  DT_CHART_CONFIG,
+  DT_CHART_RESOLVER,
+} from '@dynatrace/barista-components/chart';
+import { DtTheme } from '@dynatrace/barista-components/theming';
+import {
   Options,
+  PointOptionsObject,
+  SeriesColumnDataOptions,
+  SeriesColumnOptions,
+  SeriesLineDataOptions,
+  SeriesLineOptions,
 } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-
-import {
-  DT_CHART_CONFIG,
-  DT_CHART_RESOLVER,
-  DtChart,
-  DtChartOptions,
-  DtChartResolver,
-  DtChartSeries,
-} from '@dynatrace/barista-components/chart';
-import { DtTheme } from '@dynatrace/barista-components/theming';
-
 import { getDtMicrochartColorPalette } from './micro-chart-colors';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import {
+  createDtMicrochartDefaultOptions,
+  createDtMicrochartMinMaxDataPointOptions,
   _DT_MICROCHART_COLUMN_DATAPOINT_OPTIONS,
   _DT_MICROCHART_MAX_DATAPOINT_OPTIONS,
   _DT_MICROCHART_MIN_DATAPOINT_OPTIONS,
-  createDtMicrochartDefaultOptions,
-  createDtMicrochartMinMaxDataPointOptions,
 } from './micro-chart-options';
 import {
   extractColumnGapDataPoints,
   extractLineGapDataPoints,
 } from './micro-chart-util';
+
+export type DtMicroChartOptions = DtChartOptions & {
+  interpolateGaps?: boolean;
+};
+
+export type DtMicroChartSeries = SeriesLineOptions | SeriesColumnOptions;
 
 const SUPPORTED_CHART_TYPES = ['line', 'column'];
 
@@ -110,26 +115,25 @@ export class DtMicroChart implements OnDestroy {
   _dtChart: DtChart;
 
   private _themeStateChangeSub = Subscription.EMPTY;
-  private _options: DtChartOptions;
+  private _options: DtMicroChartOptions;
   private _series:
-    | Observable<DtChartSeries[]>
-    | Observable<DtChartSeries>
-    | DtChartSeries[]
-    | DtChartSeries;
-  private _currentSeries: DtChartSeries;
+    | Observable<DtMicroChartSeries[] | DtMicroChartSeries>
+    | DtMicroChartSeries[]
+    | DtMicroChartSeries;
+  private _currentSeries: DtMicroChartSeries;
 
   /** @internal Transformed options to be applied to highcharts. */
-  _transformedOptions: DtChartOptions;
+  _transformedOptions: DtMicroChartOptions;
 
   /** @internal Transformed series to be applied to highcharts. */
-  _transformedSeries: Observable<DtChartSeries[]> | DtChartSeries[];
+  _transformedSeries: Observable<DtMicroChartSeries[]> | DtMicroChartSeries[];
 
   /** Options to configure the chart. */
   @Input()
-  get options(): DtChartOptions {
+  get options(): DtMicroChartOptions {
     return this._options;
   }
-  set options(options: DtChartOptions) {
+  set options(options: DtMicroChartOptions) {
     if (isDevMode()) {
       checkUnsupportedOptions(options);
     }
@@ -140,23 +144,23 @@ export class DtMicroChart implements OnDestroy {
   /** Series of data points or a stream rendered in this chart */
   @Input()
   get series():
-    | Observable<DtChartSeries[]>
-    | Observable<DtChartSeries>
-    | DtChartSeries[]
-    | DtChartSeries {
+    | Observable<DtMicroChartSeries[] | DtMicroChartSeries>
+    | DtMicroChartSeries[]
+    | DtMicroChartSeries {
     return this._series;
   }
   set series(
     series:
-      | Observable<DtChartSeries[]>
-      | Observable<DtChartSeries>
-      | DtChartSeries[]
-      | DtChartSeries,
+      | Observable<DtMicroChartSeries[] | DtMicroChartSeries>
+      | DtMicroChartSeries[]
+      | DtMicroChartSeries,
   ) {
     this._transformedSeries =
       series instanceof Observable
-        ? (series as Observable<DtChartSeries[] | DtChartSeries>).pipe(
-            map((s: DtChartSeries[] | DtChartSeries) =>
+        ? (series as Observable<
+            DtMicroChartSeries[] | DtMicroChartSeries
+          >).pipe(
+            map((s: DtMicroChartSeries[] | DtMicroChartSeries) =>
               this._transformSeries(s),
             ),
           )
@@ -208,7 +212,7 @@ export class DtMicroChart implements OnDestroy {
     this._themeStateChangeSub.unsubscribe();
   }
 
-  private _transformOptions(options: DtChartOptions): DtChartOptions {
+  private _transformOptions(options: DtMicroChartOptions): DtMicroChartOptions {
     const palette = getDtMicrochartColorPalette(this._theme);
     const defaultOptions = createDtMicrochartDefaultOptions(palette);
     const transformed = lodashMerge({}, defaultOptions, options);
@@ -216,10 +220,10 @@ export class DtMicroChart implements OnDestroy {
   }
 
   private _transformSeries(
-    series: DtChartSeries[] | DtChartSeries,
-  ): DtChartSeries[] {
-    // We are cloning the series here since we dont want to mutate the passed reference
-    const singleSeries: DtChartSeries = Array.isArray(series)
+    series: DtMicroChartSeries[] | DtMicroChartSeries,
+  ): DtMicroChartSeries[] {
+    // We are cloning the series here since we don't want to mutate the passed reference
+    const singleSeries: DtMicroChartSeries = Array.isArray(series)
       ? { ...series[0] }
       : { ...series };
 
@@ -228,7 +232,9 @@ export class DtMicroChart implements OnDestroy {
     }
 
     this._currentSeries = singleSeries;
-    const dataPoints = convertToDataPoints(singleSeries.data || [singleSeries]);
+    const dataPoints = singleSeries.data
+      ? convertToDataPoints(singleSeries.data!)
+      : [];
     const { min, max } = getMinMaxDataPoints(dataPoints);
     applyMinMaxOptions(
       min,
@@ -259,7 +265,7 @@ export class DtMicroChart implements OnDestroy {
 }
 
 /* Merges the passed options into all defined axis */
-function hideChartAxis(options: DtChartOptions): DtChartOptions {
+function hideChartAxis(options: DtMicroChartOptions): DtMicroChartOptions {
   ['xAxis', 'yAxis'].forEach((axisType) => {
     const axis = options[axisType];
     if (Array.isArray(axis)) {
@@ -277,13 +283,12 @@ function hideChartAxis(options: DtChartOptions): DtChartOptions {
 function convertToDataPoints(
   seriesData: Array<
     | number
-    | [number, number]
-    | [string, number]
-    | [string, number, number]
-    | [number, number, number]
-    | DataPoint
+    | [number | string, number | null]
+    | null
+    | SeriesColumnDataOptions
+    | SeriesLineDataOptions
   >,
-): DataPoint[] {
+): SeriesColumnDataOptions[] | SeriesLineDataOptions[] {
   return seriesData.map((dataPoint, index) => {
     if (typeof dataPoint === 'number') {
       return { x: index, y: dataPoint };
@@ -300,8 +305,11 @@ function convertToDataPoints(
 
 /** Find minium and maximum data points */
 function getMinMaxDataPoints(
-  dataPoints: DataPoint[],
-): { min: DataPoint; max: DataPoint } {
+  dataPoints: Array<SeriesColumnDataOptions | SeriesLineDataOptions>,
+): {
+  min: SeriesColumnDataOptions | SeriesLineDataOptions;
+  max: SeriesColumnDataOptions | SeriesLineDataOptions;
+} {
   // tslint:disable:align
   return dataPoints.reduce(
     (accumulator, currentDataPoint) => ({
@@ -321,8 +329,8 @@ function getMinMaxDataPoints(
 
 /** Apply default micro chart options to min & max data points, taking into account the given chart type */
 function applyMinMaxOptions(
-  min: DataPoint,
-  max: DataPoint,
+  min: SeriesColumnDataOptions | SeriesLineDataOptions,
+  max: SeriesColumnDataOptions | SeriesLineDataOptions,
   labelFormatter: (input: number) => string,
   theme?: DtTheme,
   chartType?: string,
@@ -364,7 +372,7 @@ function checkUnsupportedType(type?: string): void {
   }
 }
 
-function checkUnsupportedOptions(options: DtChartOptions): void {
+function checkUnsupportedOptions(options: DtMicroChartOptions): void {
   if (options.chart) {
     checkUnsupportedType(options.chart.type);
   }
@@ -372,34 +380,43 @@ function checkUnsupportedOptions(options: DtChartOptions): void {
 
 /** Apply count formatter to value to be displayed in data label */
 function addDataLabelFormatter(
-  dataPoint: DataPoint,
+  dataPoint: SeriesColumnDataOptions | SeriesLineDataOptions,
   formatter: (input: number) => string,
 ): void {
+  // If there are multiple dataPoints, we apply the formatter for the first one
+  // and clear out the others.
   if (dataPoint && dataPoint.dataLabels) {
-    dataPoint.dataLabels.formatter = () =>
-      dataPoint.y !== undefined ? formatter(dataPoint.y) : '';
+    if (Array.isArray(dataPoint.dataLabels)) {
+      dataPoint.dataLabels[0].formatter = () =>
+        dataPoint.y !== undefined ? formatter(dataPoint.y!) : '';
+      for (let i = 1; i < dataPoint.dataLabels.length; i++) {
+        dataPoint.dataLabels[i].formatter = () => '';
+      }
+    } else {
+      dataPoint.dataLabels.formatter = () =>
+        dataPoint.y !== undefined ? formatter(dataPoint.y!) : '';
+    }
   }
 }
 
 /**
  * Extracts a series of data points from the given series that contains data points interpolating missing data. The
  * interpolation is done differently for line and column charts, and is based on the chart type of the given options.
- * @param series The DtChartSeries containing data points with or without gaps
- * @param options The DtChartOptions containing information about the chart type and coloring
+ * @param series The DtMicroChartSeries containing data points with or without gaps
+ * @param options The DtMicroChartOptions containing information about the chart type and coloring
  */
 function extractGapSeries(
-  series: DtChartSeries,
-  options: DtChartOptions,
-): LineChartSeriesOptions | ColumnChartSeriesOptions {
-  const data = series.data as DataPoint[];
+  series: SeriesLineOptions | SeriesColumnOptions,
+  options: DtMicroChartOptions,
+): SeriesLineOptions | SeriesColumnOptions {
+  const data = series.data as PointOptionsObject[];
 
-  switch (options.chart && options.chart.type) {
+  switch (series.type) {
     case 'column':
       return {
         type: 'column',
         linkedTo: ':previous',
         data: extractColumnGapDataPoints(data),
-        dashStyle: 'Dash',
         color: 'transparent',
         borderColor: options.colors && options.colors[0],
         enableMouseTracking: false,

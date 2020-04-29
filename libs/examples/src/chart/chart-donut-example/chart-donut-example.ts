@@ -45,8 +45,9 @@ export class DtExampleChartDonut {
       },
     },
   };
-  series: Highcharts.PieChartSeriesOptions[] = [
+  series: Highcharts.SeriesPieOptions[] = [
     {
+      type: 'pie',
       data: [
         {
           name: 'Canada',

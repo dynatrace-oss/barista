@@ -396,11 +396,13 @@ class DummyChart implements AfterViewInit, OnDestroy {
   _chartObject = {
     xAxis: [
       {
-        getExtremes: (): Highcharts.Extremes => ({
+        getExtremes: (): Highcharts.ExtremesObject => ({
           dataMin: this.dataMin,
           dataMax: this.dataMax,
           min: this.axisMin,
           max: this.axisMax,
+          userMax: this.axisMax,
+          userMin: this.axisMin,
         }),
       },
     ],
@@ -422,7 +424,7 @@ class DummyChart implements AfterViewInit, OnDestroy {
     const plotWidth = this.width - PLOTMARGIN_LEFT - PLOTMARGIN_RIGHT;
     this.heatfield._initHeatfield(
       { height: 200, width: plotWidth, left: PLOTMARGIN_LEFT, top: 16 },
-      this._chartObject as Highcharts.ChartObject,
+      this._chartObject as Highcharts.Chart,
     );
   }
 

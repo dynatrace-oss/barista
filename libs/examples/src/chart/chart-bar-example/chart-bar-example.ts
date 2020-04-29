@@ -56,8 +56,9 @@ export class DtExampleChartBar {
       },
     },
   };
-  series: Highcharts.BarChartSeriesOptions[] = [
+  series: Highcharts.SeriesBarOptions[] = [
     {
+      type: 'bar',
       name: 'Metric',
       data: [60, 86, 25, 43, 28],
     },

@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-import { AxisOptions, Options as HighchartsOptions } from 'highcharts';
+import {
+  AxisOptions,
+  Options as HighchartsOptions,
+  SeriesPieOptions,
+} from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 
 import {
@@ -70,10 +74,10 @@ function mergeAxis(options: HighchartsOptions): HighchartsOptions {
 /**
  * Ensures that a formatter function is set and returns false
  * this is needed because we use a custom event inside the refresh function of Highcharts
- * to receive the data everytime the formatter function is called by highcharts
+ * to receive the data every time the formatter function is called by highcharts
  */
 function wrapTooltipFormatterFn(options: HighchartsOptions): HighchartsOptions {
-  options.tooltip!.formatter = function (): string | boolean {
+  options.tooltip!.formatter = function (): string | false {
     return false;
   };
   return options;
@@ -87,7 +91,7 @@ function mergeHighchartsColorOptions(
   let nrOfMetrics: number;
   // Number of metrics is different depending on the chart type.
   if (isPieChartOptions(options)) {
-    const pieSeries = options.series![0];
+    const pieSeries = options.series![0] as SeriesPieOptions;
     nrOfMetrics = pieSeries.data ? pieSeries.data.length : 0;
   } else {
     nrOfMetrics = options.series ? options.series.length : 0;

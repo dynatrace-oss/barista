@@ -28,14 +28,14 @@ export class DtExampleChartBehaviorSwitch {
     },
     yAxis: [
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value} %',
         },
         tickInterval: 5,
       },
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value}',
         },
@@ -55,7 +55,7 @@ export class DtExampleChartBehaviorSwitch {
     },
   };
 
-  cpuUsageSeries: Highcharts.IndividualSeriesOptions[] = [
+  cpuUsageSeries: Highcharts.SeriesOptionsType[] = [
     {
       name: 'CPU usage',
       type: 'line',
@@ -71,7 +71,7 @@ export class DtExampleChartBehaviorSwitch {
     },
   ];
 
-  retransmissionSeries: Highcharts.IndividualSeriesOptions[] = [
+  retransmissionSeries: Highcharts.SeriesOptionsType[] = [
     {
       name: 'Number of retransmissions',
       type: 'column',
@@ -87,7 +87,7 @@ export class DtExampleChartBehaviorSwitch {
     },
   ];
 
-  connectivitySeries: Highcharts.IndividualSeriesOptions[] = [
+  connectivitySeries: Highcharts.SeriesOptionsType[] = [
     {
       name: 'Network utilization',
       type: 'area',
@@ -104,7 +104,7 @@ export class DtExampleChartBehaviorSwitch {
   ];
 
   // Initialize chart series
-  series: Highcharts.IndividualSeriesOptions[] = this.cpuUsageSeries;
+  series: Highcharts.SeriesOptionsType[] = this.cpuUsageSeries;
 
   switchMetric(event: any): void {
     switch (event) {

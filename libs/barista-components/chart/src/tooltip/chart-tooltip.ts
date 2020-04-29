@@ -212,23 +212,24 @@ function getHighchartsTooltipPosition(
 ): { x: number; y: number } {
   const isPieChart = !isDefined(data.points);
   const hasAreaFirstSeries =
-    data.points && data.points[0].point && !data.points[0].point.tooltipPos;
+    data.points &&
+    data.points[0].point &&
+    !(data.points[0].point as any).tooltipPos;
   let x: number;
   // set y position for all charts in the middle of the plotbackground vertically
   // tslint:disable-next-line:no-magic-numbers
   let y = plotBackgroundInfo.height / 2 + plotBackgroundInfo.top;
   if (isPieChart) {
-    const tooltipPos = data.point!.point.tooltipPos;
+    const tooltipPos = (data.point!.point as any).tooltipPos;
     x = tooltipPos![0];
     // override the y position for pie charts
     y = tooltipPos![1];
   } else if (hasAreaFirstSeries) {
     const point = data.points![0].point;
-    const xAxis = data.points![0].series.xAxis;
-    x = xAxis.toPixels(point.x);
+    const xAxis = data.points![0].series!.xAxis;
+    x = xAxis.toPixels(point.x as number, false);
   } else {
-    const point = data.points![0].point;
-    x = point.tooltipPos![0] + plotBackgroundInfo.left;
+    x = (data.points![0].point as any).tooltipPos![0] + plotBackgroundInfo.left;
   }
 
   return { x, y };

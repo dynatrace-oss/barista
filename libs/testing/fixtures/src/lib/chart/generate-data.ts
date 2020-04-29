@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataPoint } from 'highcharts';
+import { PointOptionsObject } from 'highcharts';
 
 import { randomize } from './randomize';
 
@@ -25,7 +25,7 @@ export function generateData(
   timestampStart: number,
   timestampTick: number,
   generateGaps?: boolean,
-): DataPoint[] {
+): PointOptionsObject[] {
   if (amount < 0) {
     throw new Error('Amount must not be negative');
   }
@@ -35,7 +35,7 @@ export function generateData(
     );
   }
 
-  const data = new Array<DataPoint>(amount);
+  const data = new Array<PointOptionsObject>(amount);
 
   for (let i = 0; i < amount; i++) {
     data[i] = {

@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-import { AxisOptions, GlobalOptions } from 'highcharts';
+import {
+  AxisOptions,
+  Options,
+  SeriesLegendItemClickEventObject,
+} from 'highcharts';
 
 import { DtColors } from '@dynatrace/barista-components/theming';
 
@@ -54,8 +58,7 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
     series: {
       animation: {
         duration: 1000,
-        // tslint:disable-next-line:no-any
-        easing: DT_CHART_EASEINOUT as any, // As any to bypass highcharts types
+        easing: DT_CHART_EASEINOUT,
       },
       marker: {
         enabled: false,
@@ -66,8 +69,7 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
         },
       },
       events: {
-        // tslint:disable-next-line:no-any
-        legendItemClick: (e: any) => {
+        legendItemClick: (e: SeriesLegendItemClickEventObject) => {
           const chart = e.target.chart;
           const visibleSeriesCount = chart.series.reduce(
             (counter: number, s) => (s.visible ? counter + 1 : counter),
@@ -81,7 +83,7 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
     },
   },
   title: {
-    text: null,
+    text: undefined,
   },
   credits: {
     enabled: false,
@@ -116,7 +118,7 @@ export const DT_CHART_DEFAULT_AXIS_STYLES: AxisOptions = {
   tickLength: 4,
 };
 
-export const DT_CHART_DEFAULT_GLOBAL_OPTIONS: GlobalOptions = {
+export const DT_CHART_DEFAULT_GLOBAL_OPTIONS: Options = {
   lang: {
     numericSymbols: ['k', 'mil', 'bil'],
   },

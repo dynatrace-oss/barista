@@ -34,7 +34,7 @@ export class DtExampleChartLoading {
     },
     yAxis: [
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value}',
         },

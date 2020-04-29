@@ -47,21 +47,15 @@ import {
 import { DtTheme } from '@dynatrace/barista-components/theming';
 // tslint:disable-next-line:no-duplicate-imports
 import * as Highcharts from 'highcharts';
-// tslint:disable-next-line:no-duplicate-imports
+// tslint:disable-next-line: no-duplicate-imports
 import {
   addEvent as addHighchartsEvent,
   chart,
-  ChartObject,
-  IndividualSeriesOptions,
+  Chart,
   Options as HighchartsOptions,
+  SeriesOptions,
+  SeriesOptionsType,
   setOptions,
-  PlotOptions,
-  ColumnChart,
-  BarStates,
-  LineChart,
-  Marker,
-  MarkerHoverState,
-  MarkerState,
 } from 'highcharts';
 import { merge as lodashMerge } from 'lodash';
 import {
@@ -120,30 +114,8 @@ const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 // added in 6.
 export type DtChartOptions = HighchartsOptions & {
   series?: undefined;
-  tooltip?: { shared: boolean };
-  interpolateGaps?: boolean;
-  plotOptions?: PlotOptions & {
-    column?: ColumnChart & {
-      clip?: boolean;
-
-      states?: {
-        hover?: BarStates & { borderWidth: number };
-        select?: { color?: string };
-      };
-    };
-    line?: LineChart & {
-      marker?: Marker & {
-        states?: {
-          hover?: MarkerHoverState & {
-            halo: boolean;
-          };
-          select?: MarkerState;
-        };
-      };
-    };
-  };
 };
-export type DtChartSeries = IndividualSeriesOptions;
+export type DtChartSeries = SeriesOptions;
 
 // tslint:disable-next-line:no-any
 declare const window: any;
@@ -307,7 +279,7 @@ export class DtChart
   get seriesIds(): Array<string | undefined> | undefined {
     return (
       this._highchartsOptions.series &&
-      this._highchartsOptions.series.map((s: IndividualSeriesOptions) => s.id)
+      this._highchartsOptions.series.map((s: SeriesOptionsType) => s.id)
     );
   }
 
@@ -343,7 +315,7 @@ export class DtChart
   _timestamp?: DtChartTimestamp;
 
   private _series?: Observable<DtChartSeries[]> | DtChartSeries[];
-  private _currentSeries?: IndividualSeriesOptions[];
+  private _currentSeries?: DtChartSeries[];
   private _currentOptions: DtChartOptions;
   private _options: Observable<DtChartOptions> | DtChartOptions;
   private _dataSub: Subscription | null = null;
@@ -379,7 +351,7 @@ export class DtChart
   readonly _afterRender = new Subject<void>();
 
   /** @internal The highcharts chart object */
-  _chartObject: ChartObject | null;
+  _chartObject: Chart | null;
 
   /** @internal Whether the loading distractor should be shown. */
   get _isLoading(): boolean {
@@ -525,8 +497,9 @@ export class DtChart
   /** @internal Resets the pointer so Highcharts handles new mouse interactions correctly (e.g. after programmatic destruction of tooltips) */
   _resetHighchartsPointer(): void {
     this._ngZone.runOutsideAngular(() => {
-      // tslint:disable-next-line: no-any
-      (this._chartObject! as any).pointer.reset();
+      if (this._chartObject) {
+        this._chartObject.pointer.reset();
+      }
     });
   }
 

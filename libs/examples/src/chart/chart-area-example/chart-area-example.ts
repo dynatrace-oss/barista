@@ -32,14 +32,14 @@ export class DtExampleChartArea {
     },
     yAxis: [
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value} kbit/min',
         },
         tickInterval: 100,
       },
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value}/min',
         },
@@ -59,7 +59,7 @@ export class DtExampleChartArea {
     },
   };
 
-  series: Highcharts.IndividualSeriesOptions[] = [
+  series: Highcharts.SeriesOptionsType[] = [
     {
       name: 'Area 1',
       type: 'area',

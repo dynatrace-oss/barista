@@ -20,36 +20,34 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import {
-  ComponentFixture,
-  TestBed,
   async,
+  ComponentFixture,
   fakeAsync,
   flush,
   inject,
+  TestBed,
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-
 import {
   DtChart,
   DtChartModule,
   DtChartOptions,
-  DtChartSeries,
+  DtChartTooltipData,
 } from '@dynatrace/barista-components/chart';
+import {
+  DtUiTestConfiguration,
+  DT_UI_TEST_CONFIG,
+} from '@dynatrace/barista-components/core';
 import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
-
 import {
   createComponent,
   MockIntersectionObserver,
 } from '@dynatrace/testing/browser';
-import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
-import {
-  DT_UI_TEST_CONFIG,
-  DtUiTestConfiguration,
-} from '@dynatrace/barista-components/core';
+import { Axis, Point, Series, SeriesLineOptions } from 'highcharts';
 
 describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;
@@ -118,6 +116,7 @@ describe('DtChartTooltip', () => {
   it('should dismiss the overlay when the tooltip data event is called but has no data for the point', fakeAsync(() => {
     mockIntersectionObserver.mockAllIsIntersecting(true);
     const newData: DtChartTooltipData = { ...DUMMY_TOOLTIP_DATA_LINE_SERIES };
+    // we set points to undefined to simulate a tooltip event without point data
     newData.points = undefined;
     chartComponent._highChartsTooltipDataChanged$.next({ data: newData });
     fixture.detectChanges();
@@ -137,9 +136,9 @@ describe('DtChartTooltip', () => {
     expect(overlayContainerElement.innerHTML).not.toEqual('');
   }));
 
-  // This behaviour has been removed with pull request 410
+  // This behavior has been removed with pull request 410
   // https://github.com/dynatrace-oss/barista/pull/410 as it was causing
-  // inconsistent and unexpected behaviour with showing the tooltip.
+  // inconsistent and unexpected behavior with showing the tooltip.
   // it('should not show the tooltip if the chart is not in the viewport', fakeAsync(() => {
   //   mockIntersectionObserver.mockAllIsIntersecting(false);
   //   chartComponent._highChartsTooltipOpened$.next({
@@ -226,8 +225,9 @@ class ChartTest {
       max: 200,
     },
   };
-  series: DtChartSeries[] = [
+  series: SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Actions/min',
       id: 'someMetricId',
       data: [
@@ -237,6 +237,22 @@ class ChartTest {
     },
   ];
 }
+
+const FAKE_AXIS: Axis = ({
+  toPixels: (x) => x * 2,
+} as unknown) as Axis;
+
+const FAKE_SERIES: Series = {
+  name: 'Actions/min',
+  xAxis: FAKE_AXIS,
+  yAxis: FAKE_AXIS,
+} as Series;
+
+const FAKE_POINT: Point = ({
+  x: 1,
+  y: 1000,
+  tooltipPos: [1, 2, 3],
+} as unknown) as Point;
 
 const DUMMY_TOOLTIP_DATA_LINE_SERIES: DtChartTooltipData = {
   x: 0,
@@ -249,21 +265,8 @@ const DUMMY_TOOLTIP_DATA_LINE_SERIES: DtChartTooltipData = {
       color: '#ffffff',
       colorIndex: 0,
       percentage: 0,
-      point: {
-        x: 1,
-        y: 1000,
-        tooltipPos: [1, 2, 3],
-      },
-      series: {
-        name: 'Actions/min',
-        xAxis: {
-          toPixels: (x) => x * 2,
-        },
-        yAxis: {
-          toPixels: (y) => y * 2,
-        },
-      },
-      key: 0,
+      point: FAKE_POINT,
+      series: FAKE_SERIES,
     },
   ],
 };

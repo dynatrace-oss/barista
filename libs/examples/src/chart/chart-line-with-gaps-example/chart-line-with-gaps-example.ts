@@ -34,7 +34,7 @@ export class DtExampleChartLineWithGaps {
     },
     yAxis: [
       {
-        title: null,
+        title: undefined,
         type: 'linear',
         tickInterval: 25,
         labels: {
@@ -51,16 +51,19 @@ export class DtExampleChartLineWithGaps {
     },
   };
 
-  series: Highcharts.LineChartSeriesOptions[] = [
+  series: Highcharts.SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Requests',
       data: generateData(40, 0, 75, 1370304000000, 600000, true),
     },
     {
+      type: 'line',
       name: 'Failed requests',
       data: generateData(40, 0, 75, 1370304000000, 600000, true),
     },
     {
+      type: 'line',
       name: 'Failure rate',
       data: generateData(40, 0, 75, 1370304000000, 600000, true),
     },

@@ -16,9 +16,9 @@
 
 // tslint:disable no-magic-numbers no-any max-file-line-count
 
-import { DataPoint } from 'highcharts';
+import { SeriesArearangeDataOptions, PointOptionsObject } from 'highcharts';
 
-import { isNumber } from '@dynatrace/barista-components/core';
+import { isNumber, isDefined } from '@dynatrace/barista-components/core';
 
 export function randomize(min: number, max: number): number {
   if (min > max) {
@@ -36,7 +36,7 @@ export function generateData(
   timestampStart: number,
   timestampTick: number,
   generateGaps?: boolean,
-): DataPoint[] {
+): PointOptionsObject[] {
   if (amount < 0) {
     throw new Error('Amount must not be negative');
   }
@@ -46,7 +46,7 @@ export function generateData(
     );
   }
 
-  const data = new Array<DataPoint>(amount);
+  const data = new Array<PointOptionsObject>(amount);
 
   for (let i = 0; i < amount; i++) {
     data[i] = {
@@ -61,19 +61,19 @@ export function generateData(
 }
 
 export function generateAreaRangeData(
-  amountOrLineSeries: number | DataPoint[],
+  amountOrLineSeries: number | PointOptionsObject[],
   min: number,
   max: number,
   timestampStart?: number,
   timestampTick?: number,
-): DataPoint[] {
+): SeriesArearangeDataOptions[] {
   if (min > max) {
     throw new Error(
       `Min value (${min}) must not be larger than max value (${max})`,
     );
   }
 
-  let data: DataPoint[];
+  let data: SeriesArearangeDataOptions[];
 
   if (isNumber(amountOrLineSeries)) {
     if (amountOrLineSeries < 0) {
@@ -87,7 +87,7 @@ export function generateAreaRangeData(
 
     const amount = amountOrLineSeries as number;
 
-    data = new Array<DataPoint>(amount);
+    data = new Array<SeriesArearangeDataOptions>(amount);
 
     for (let i = 0; i < amount; i++) {
       data[i] = {
@@ -97,9 +97,9 @@ export function generateAreaRangeData(
       };
     }
   } else {
-    const lineSeries = amountOrLineSeries as DataPoint[];
+    const lineSeries = amountOrLineSeries as PointOptionsObject[];
 
-    data = new Array<DataPoint>(lineSeries.length);
+    data = new Array<SeriesArearangeDataOptions>(lineSeries.length);
 
     for (let i = 0; i < lineSeries.length; i++) {
       const series = lineSeries[i];
@@ -112,8 +112,8 @@ export function generateAreaRangeData(
 
       data[i] = {
         x,
-        low: y !== undefined ? y - randomize(min, max) : undefined,
-        high: y !== undefined ? y + randomize(min, max) : undefined,
+        low: isDefined(y) ? y! - randomize(min, max) : undefined,
+        high: isDefined(y) ? y! + randomize(min, max) : undefined,
       };
     }
   }
