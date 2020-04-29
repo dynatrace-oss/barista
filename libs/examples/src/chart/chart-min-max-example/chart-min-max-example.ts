@@ -54,7 +54,7 @@ export class DtExampleChartMinMax {
       },
     },
   };
-  series: Highcharts.IndividualSeriesOptions[] = [
+  series: Highcharts.SeriesOptionsType[] = [
     {
       name: 'Bar 1',
       type: 'column',
@@ -69,7 +69,7 @@ export class DtExampleChartMinMax {
       // types do not match up with the currently barista-supported version
       // of Highcharts.
       lineWidth: 0,
-    } as Highcharts.IndividualSeriesOptions,
+    } as Highcharts.SeriesOptionsType,
     {
       name: 'Line 1',
       type: 'line',

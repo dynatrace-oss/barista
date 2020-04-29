@@ -19,10 +19,7 @@ export * from './src/chart';
 export * from './src/chart-config';
 export * from './src/heatfield/index';
 export * from './src/tooltip/chart-tooltip';
-export {
-  DtChartTooltipPoint,
-  DtChartTooltipData,
-} from './src/highcharts/highcharts-tooltip-types';
+export { DtChartTooltipData } from './src/highcharts/highcharts-tooltip-types';
 
 export { DtChartRange } from './src/range/range';
 export { DtChartTimestamp } from './src/timestamp/timestamp';

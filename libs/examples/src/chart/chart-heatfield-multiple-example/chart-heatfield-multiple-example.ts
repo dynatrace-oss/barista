@@ -37,7 +37,7 @@ export class DtExampleChartHeatfieldMultiple {
     },
     yAxis: [
       {
-        title: null,
+        title: undefined,
         labels: {
           enabled: false,
         },
@@ -56,7 +56,7 @@ export class DtExampleChartHeatfieldMultiple {
     },
   };
 
-  series: Highcharts.IndividualSeriesOptions[] = [
+  series: Highcharts.SeriesOptionsType[] = [
     {
       name: 'Requests',
       type: 'line',

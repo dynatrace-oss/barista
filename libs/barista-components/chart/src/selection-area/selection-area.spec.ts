@@ -23,24 +23,22 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, Provider, Type } from '@angular/core';
 import {
   ComponentFixture,
-  TestBed,
   fakeAsync,
   flush,
   inject,
+  TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Subject } from 'rxjs';
-
 import { DtChartModule } from '@dynatrace/barista-components/chart';
 import * as formatters from '@dynatrace/barista-components/formatters';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
-
 import {
   dispatchKeyboardEvent,
   dispatchMouseEvent,
 } from '@dynatrace/testing/browser';
+import { Subject } from 'rxjs';
 import { ARIA_DEFAULT_CLOSE_LABEL } from '../range/constants';
 import { DtChartRange } from '../range/range';
 import * as streams from './streams';
@@ -394,14 +392,12 @@ const OPTIONS: Highcharts.Options = {
   },
   yAxis: [
     {
-      title: null,
       labels: {
         format: '{value}',
       },
       tickInterval: 10,
     },
     {
-      title: null,
       labels: {
         format: '{value}/min',
       },
@@ -421,7 +417,7 @@ const OPTIONS: Highcharts.Options = {
   },
 };
 
-const SERIES: Highcharts.IndividualSeriesOptions[] = [
+const SERIES: Highcharts.SeriesOptionsType[] = [
   {
     name: 'Requests',
     type: 'column',

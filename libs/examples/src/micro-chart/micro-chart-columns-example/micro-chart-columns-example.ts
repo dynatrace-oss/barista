@@ -17,13 +17,9 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-
-import {
-  DtChartOptions,
-  DtChartSeries,
-} from '@dynatrace/barista-components/chart';
-
+import { DtChartOptions } from '@dynatrace/barista-components/chart';
 import { generateData } from '../data';
+import { DtMicroChartSeries } from '@dynatrace/barista-components/micro-chart';
 
 @Component({
   selector: 'dt-example-micro-chart-columns',
@@ -36,7 +32,8 @@ export class DtExampleMicroChartColumns {
     },
   };
 
-  series: DtChartSeries = {
+  series: DtMicroChartSeries = {
+    type: 'column',
     name: 'Requests',
     data: generateData(40, 200000, 300000, 1370304000000, 900000),
   };

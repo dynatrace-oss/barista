@@ -248,15 +248,15 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
           if (timestamp) {
             timestamp._valueToPixels = xAxis.toPixels.bind(xAxis);
             timestamp._pixelsToValue = xAxis.toValue.bind(xAxis);
-            timestamp._maxValue = xAxis.dataMax;
-            timestamp._minValue = xAxis.dataMin;
+            timestamp._maxValue = xAxis.max;
+            timestamp._minValue = xAxis.min;
           }
 
           if (range) {
             range._valueToPixels = xAxis.toPixels.bind(xAxis);
             range._pixelsToValue = xAxis.toValue.bind(xAxis);
-            range._maxValue = xAxis.dataMax;
-            range._minValue = xAxis.dataMin;
+            range._maxValue = xAxis.max;
+            range._minValue = xAxis.min;
             range._maxWidth = _getElementBoundingClientRect(
               plotBackground,
             ).width;

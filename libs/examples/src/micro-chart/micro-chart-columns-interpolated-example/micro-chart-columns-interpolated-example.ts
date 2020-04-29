@@ -18,25 +18,22 @@
 
 import { Component } from '@angular/core';
 
-import {
-  DtChartOptions,
-  DtChartSeries,
-} from '@dynatrace/barista-components/chart';
-
 import { generateData } from '../data';
+import {
+  DtMicroChartOptions,
+  DtMicroChartSeries,
+} from '@dynatrace/barista-components/micro-chart';
 
 @Component({
   selector: 'dt-example-micro-chart-columns-interpolated',
   templateUrl: 'micro-chart-columns-interpolated-example.html',
 })
 export class DtExampleMicroChartColumnsInterpolated {
-  options: DtChartOptions = {
-    chart: {
-      type: 'column',
-    },
+  options: DtMicroChartOptions = {
     interpolateGaps: true,
   };
-  series: DtChartSeries = {
+  series: DtMicroChartSeries = {
+    type: 'column',
     name: 'Requests',
     data: generateData(40, 0, 200, 1370304000000, 900000).map(
       ([x, y]: [number, number]) => ({

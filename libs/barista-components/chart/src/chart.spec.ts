@@ -27,13 +27,18 @@ import {
   DtChartSeries,
   getDtHeatfieldUnsupportedChartError,
 } from '@dynatrace/barista-components/chart';
-import { createComponent } from '@dynatrace/testing/browser';
 import {
   DtThemingModule,
   DT_CHART_COLOR_PALETTES,
   DT_CHART_COLOR_PALETTE_ORDERED,
 } from '@dynatrace/barista-components/theming';
-import { IndividualSeriesOptions, AxisOptions, ChartOptions } from 'highcharts';
+import { createComponent } from '@dynatrace/testing/browser';
+import {
+  AxisOptions,
+  ChartOptions,
+  SeriesColumnOptions,
+  SeriesLineOptions,
+} from 'highcharts';
 import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {
@@ -77,7 +82,7 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       const series = chartComponent.highchartsOptions.series;
-      expect(series![0].data).toEqual([
+      expect((series![0] as SeriesColumnOptions).data).toEqual([
         [1523972199774, 0],
         [1523972201622, 10],
       ]);
@@ -91,9 +96,11 @@ describe('DtChart', () => {
       fixture.componentInstance.emitTestData();
       fixture.detectChanges();
       const secondSeries = chartComponent.highchartsOptions.series;
-      expect(firstSeries![0].data).toBeDefined();
-      expect(secondSeries![0].data).toBeDefined();
-      expect(firstSeries![0].data).not.toEqual(secondSeries![0].data);
+      expect((firstSeries![0] as SeriesLineOptions).data).toBeDefined();
+      expect((secondSeries![0] as SeriesLineOptions).data).toBeDefined();
+      expect((firstSeries![0] as SeriesLineOptions).data).not.toEqual(
+        (secondSeries![0] as SeriesLineOptions).data,
+      );
     });
 
     it('provides an array of ids for the series', () => {
@@ -221,6 +228,7 @@ describe('DtChart', () => {
 
       fixture.componentInstance.series = [
         {
+          type: 'line',
           name: 'Actions/min',
           id: 'someMetricId',
           data: [
@@ -240,8 +248,14 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
 
-      expect(chartComponent.highchartsOptions.series![0].color).toBe('#ff0000');
-      expect(chartComponent.highchartsOptions.series![1].color).toBe('#00ff00');
+      expect(
+        (chartComponent.highchartsOptions.series![0] as SeriesLineOptions)
+          .color,
+      ).toBe('#ff0000');
+      expect(
+        (chartComponent.highchartsOptions.series![1] as SeriesLineOptions)
+          .color,
+      ).toBe('#00ff00');
     });
 
     it('should choose the colors from the colorpalette of the theme for up to 3 series', () => {
@@ -431,8 +445,9 @@ class SeriesSingle {
       max: 200,
     },
   };
-  series: DtChartSeries[] = [
+  series: SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Actions/min',
       id: 'someMetricId',
       data: [
@@ -460,8 +475,9 @@ class SeriesMulti {
       max: 200,
     },
   };
-  series: DtChartSeries[] = [
+  series: SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Actions/min',
       id: 'someMetricId',
       data: [
@@ -470,6 +486,7 @@ class SeriesMulti {
       ],
     },
     {
+      type: 'line',
       name: 'Requests/min',
       id: 'someOtherMetricId',
       data: [
@@ -559,8 +576,9 @@ class SeriesColor {
       max: 200,
     },
   };
-  series: DtChartSeries[] = [
+  series: SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Actions/min',
       id: 'someMetricId',
       color: '#ff0000',
@@ -570,6 +588,7 @@ class SeriesColor {
       ],
     },
     {
+      type: 'line',
       name: 'Requests/min',
       id: 'someOtherMetricId',
       color: '#00ff00',
@@ -603,8 +622,9 @@ class SeriesTheme {
       max: 200,
     },
   };
-  series: DtChartSeries[] = [
+  series: SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Actions/min',
       id: 'someMetricId',
       data: [
@@ -613,6 +633,7 @@ class SeriesTheme {
       ],
     },
     {
+      type: 'line',
       name: 'Requests/min',
       id: 'someOtherMetricId',
       data: [
@@ -644,8 +665,9 @@ class SeriesMoreThanTheme {
       max: 200,
     },
   };
-  series: DtChartSeries[] = [
+  series: SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Actions/min',
       id: 'someMetricId',
       data: [
@@ -654,6 +676,7 @@ class SeriesMoreThanTheme {
       ],
     },
     {
+      type: 'line',
       name: 'Requests/min',
       id: 'someOtherMetricId',
       data: [
@@ -662,6 +685,7 @@ class SeriesMoreThanTheme {
       ],
     },
     {
+      type: 'line',
       name: 'Failed requests',
       id: 'testmetricId',
       data: [
@@ -670,6 +694,7 @@ class SeriesMoreThanTheme {
       ],
     },
     {
+      type: 'line',
       name: 'Successful requests',
       id: 'someOtherTestMetricId',
       data: [
@@ -701,10 +726,11 @@ class SeriesMoreThanOrderedColors {
       max: 200,
     },
   };
-  series: DtChartSeries[] = Array.from(
+  series: SeriesLineOptions[] = Array.from(
     Array(DT_CHART_COLOR_PALETTE_ORDERED.length + 1).keys(),
   ).map(
-    (): IndividualSeriesOptions => ({
+    (): SeriesLineOptions => ({
+      type: 'line',
       name: 'Actions/min',
       id: 'someMetricId',
       data: [
@@ -894,8 +920,9 @@ class DynamicOptions {
     },
   });
 
-  series: DtChartSeries[] = [
+  series: SeriesColumnOptions[] = [
     {
+      type: 'column',
       name: 'Actions/min',
       id: 'someid',
       data: [

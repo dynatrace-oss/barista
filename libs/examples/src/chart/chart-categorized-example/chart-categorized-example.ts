@@ -42,7 +42,7 @@ export class DtExampleChartCategorized {
     },
     yAxis: [
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value}',
         },
@@ -60,13 +60,13 @@ export class DtExampleChartCategorized {
       },
     },
     tooltip: {
-      formatter(): string | boolean {
+      formatter: function (): string {
         return `${this.series.name}&nbsp${this.y}`;
       },
     },
   };
 
-  series: Highcharts.IndividualSeriesOptions[] = [
+  series: Highcharts.SeriesOptionsType[] = [
     {
       name: 'Requests',
       type: 'column',

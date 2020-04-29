@@ -15,10 +15,8 @@
  */
 
 import { Component, ViewEncapsulation } from '@angular/core';
-import {
-  DtChartSeries,
-  DtChartOptions,
-} from '@dynatrace/barista-components/chart';
+import { DtChartOptions } from '@dynatrace/barista-components/chart';
+import { SeriesPieOptions } from 'highcharts';
 
 @Component({
   selector: 'dt-e2e-pie-chart',
@@ -46,8 +44,9 @@ export class PieChart {
     },
   };
 
-  pieSeries: DtChartSeries[] = [
+  pieSeries: SeriesPieOptions[] = [
     {
+      type: 'pie',
       name: 'Browsers',
       data: [
         {

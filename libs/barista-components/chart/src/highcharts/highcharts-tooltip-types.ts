@@ -14,38 +14,25 @@
  * limitations under the License.
  */
 
-import { ChartObject } from 'highcharts';
+import { Chart, Series, PointLabelObject } from 'highcharts';
 
+// We need to extend the Series interface here because highcharts does not provide
+// all properties that they set internally on the types -> there is a state property
+// set that we need to figure out if a series is hovered or not
 /** Interface for chart tooltip points inside the tooltip */
-export interface DtChartTooltipPoint {
-  x: number | string;
-  y: number;
-  total: number;
-  color: string;
-  colorIndex: number;
-  key: number;
-  percentage: number;
-  // Unfortunately the types for highcharts are not matching version 6 therefore the types are not assignable here
-  // TODO: update highcharts types as soon as the are available
-  // tslint:disable-next-line:no-any
-  point: {
-    x: number | string;
-    y: number;
-    tooltipPos?: number[];
-  };
-  // tslint:disable-next-line:no-any
-  series: any;
+export interface DtChartTooltipSeries extends Series {
+  state: string;
 }
 
 /** Interface for the chart tooltip data */
 export interface DtChartTooltipData {
-  x: number;
-  y: number;
-  points?: DtChartTooltipPoint[];
-  point?: DtChartTooltipPoint;
+  x?: number | string;
+  y?: number;
+  points?: PointLabelObject[];
+  point?: PointLabelObject;
   hoveredIndex?: number;
 }
 export interface DtChartTooltipEvent {
   data: DtChartTooltipData;
-  chart?: ChartObject;
+  chart?: Chart;
 }

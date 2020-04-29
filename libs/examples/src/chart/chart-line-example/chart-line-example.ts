@@ -47,28 +47,34 @@ export class DtExampleChartLine {
       },
     ],
   };
-  series: Highcharts.LineChartSeriesOptions[] = [
+  series: Highcharts.SeriesLineOptions[] = [
     {
+      type: 'line',
       name: 'Host 1',
       data: generateData(10, 0, 45, 1370304000000, 900000),
     },
     {
+      type: 'line',
       name: 'Host 2',
       data: generateData(10, 0, 45, 1370304000000, 900000),
     },
     {
+      type: 'line',
       name: 'Host 3',
       data: generateData(10, 0, 45, 1370304000000, 900000),
     },
     {
+      type: 'line',
       name: 'Host 4',
       data: generateData(10, 0, 45, 1370304000000, 900000),
     },
     {
+      type: 'line',
       name: 'Host 5',
       data: generateData(10, 0, 45, 1370304000000, 900000),
     },
     {
+      type: 'line',
       name: 'Host 6',
       data: generateData(10, 0, 45, 1370304000000, 900000),
     },

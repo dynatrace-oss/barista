@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataPoint } from 'highcharts';
+import { PointOptionsObject } from 'highcharts';
 
 import { isDefined } from '@dynatrace/barista-components/core';
 
@@ -23,7 +23,10 @@ import { isDefined } from '@dynatrace/barista-components/core';
  * @param idx The position within the data
  * @param data The data points
  */
-export function isDataMissing(idx: number, data: DataPoint[]): boolean {
+export function isDataMissing(
+  idx: number,
+  data: PointOptionsObject[],
+): boolean {
   return !data[idx] || !isDefined(data[idx].y);
 }
 
@@ -33,7 +36,7 @@ export function isDataMissing(idx: number, data: DataPoint[]): boolean {
  * @param idx The position within the data
  * @param data The data points
  */
-export function isGapStart(idx: number, data: DataPoint[]): boolean {
+export function isGapStart(idx: number, data: PointOptionsObject[]): boolean {
   return (
     isDataMissing(idx, data) && (!data[idx - 1] || isDefined(data[idx - 1].y))
   );
@@ -45,7 +48,7 @@ export function isGapStart(idx: number, data: DataPoint[]): boolean {
  * @param idx The position within the data
  * @param data The data points
  */
-export function isGapEnd(idx: number, data: DataPoint[]): boolean {
+export function isGapEnd(idx: number, data: PointOptionsObject[]): boolean {
   return (
     isDataMissing(idx, data) && (!data[idx + 1] || isDefined(data[idx + 1].y))
   );
@@ -56,7 +59,9 @@ export function isGapEnd(idx: number, data: DataPoint[]): boolean {
  * data is needed to return a gap list, otherwise the list will be empty.
  * @param data The data points
  */
-export function extractGaps(data: DataPoint[]): Array<[number, number]> {
+export function extractGaps(
+  data: PointOptionsObject[],
+): Array<[number, number]> {
   if (data.length === 0) {
     return [];
   }
@@ -64,7 +69,7 @@ export function extractGaps(data: DataPoint[]): Array<[number, number]> {
   const gaps: Array<[number, number]> = [];
   let gapStart = 0;
 
-  data.forEach((_p: DataPoint, i: number) => {
+  data.forEach((_p: PointOptionsObject, i: number) => {
     const isStartOfGap = isGapStart(i, data);
     const isEndOfGap = isGapEnd(i, data);
 
@@ -85,7 +90,9 @@ export function extractGaps(data: DataPoint[]): Array<[number, number]> {
  * in the graph (missing data).
  * @param data The data points
  */
-export function extractLineGapDataPoints(data: DataPoint[]): DataPoint[] {
+export function extractLineGapDataPoints(
+  data: PointOptionsObject[],
+): PointOptionsObject[] {
   if (data.length === 0) {
     return [];
   }
@@ -93,7 +100,7 @@ export function extractLineGapDataPoints(data: DataPoint[]): DataPoint[] {
   const gaps = extractGaps(data);
 
   return gaps.reduce(
-    (acc: DataPoint[], [startIndex, endIndex]: [number, number]) => {
+    (acc: PointOptionsObject[], [startIndex, endIndex]: [number, number]) => {
       const startDataPoint = data[startIndex - 1] || data[0];
       const endDataPoint = data[endIndex + 1] || data[data.length - 1];
 
@@ -119,14 +126,16 @@ export function extractLineGapDataPoints(data: DataPoint[]): DataPoint[] {
  * list of data points that match the following pattern: (x|y)*
  * @param data The data points
  */
-export function extractColumnGapDataPoints(data: DataPoint[]): DataPoint[] {
+export function extractColumnGapDataPoints(
+  data: PointOptionsObject[],
+): PointOptionsObject[] {
   if (data.length === 0) {
     return [];
   }
 
   const gaps = extractGaps(data);
   return gaps.reduce(
-    (acc: DataPoint[], [startIndex, endIndex]: [number, number]) => {
+    (acc: PointOptionsObject[], [startIndex, endIndex]: [number, number]) => {
       const startValue = data[startIndex - 1] && data[startIndex - 1].y;
       const endValue = data[endIndex + 1] && data[endIndex + 1].y;
 
@@ -140,6 +149,7 @@ export function extractColumnGapDataPoints(data: DataPoint[]): DataPoint[] {
         Array.from({ length: endIndex - startIndex + 1 }, (_, i: number) => ({
           x: data[i + startIndex].x,
           y: interpolatedValue,
+          dashStyle: 'Dash',
         })),
       );
     },

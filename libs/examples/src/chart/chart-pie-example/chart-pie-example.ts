@@ -28,7 +28,7 @@ export class DtExampleChartPie {
       type: 'pie',
     },
     tooltip: {
-      formatter(): string | boolean {
+      formatter(): string {
         return `${this.key}&nbsp${this.y}%`;
       },
     },
@@ -48,8 +48,9 @@ export class DtExampleChartPie {
     },
   };
 
-  series: Highcharts.IndividualSeriesOptions[] = [
+  series: Highcharts.SeriesPieOptions[] = [
     {
+      type: 'pie',
       name: 'Browsers',
       data: [
         {

@@ -181,7 +181,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
    * set by the chart via the `_initHeatfield` function that
    * is called by the chart.
    */
-  private _chartObject: Highcharts.ChartObject;
+  private _chartObject: Highcharts.Chart;
 
   constructor(
     elementRef: ElementRef,
@@ -202,7 +202,7 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
    */
   _initHeatfield(
     boundingBox: PlotBackgroundInfo,
-    chartObject: Highcharts.ChartObject,
+    chartObject: Highcharts.Chart,
   ): void {
     this._boundingBox = boundingBox;
     this._chartObject = chartObject;

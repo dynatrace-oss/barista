@@ -42,11 +42,9 @@ export class DtE2EDrawer {
   // error TS2742: The inferred type of 'series$' cannot be named without a reference to '...@types/highcharts'.
   // This is likely not portable. A type annotation is necessary.
   series$: Observable<
-    Highcharts.IndividualSeriesOptions[]
+    Highcharts.SeriesOptionsType[]
   > = this._dataService
-    .getFixture<{ data: Highcharts.IndividualSeriesOptions[] }>(
-      '/data-small.json',
-    )
+    .getFixture<{ data: Highcharts.SeriesOptionsType[] }>('/data-small.json')
     .pipe(map((result) => result.data));
 
   @ViewChild('container', { static: true })

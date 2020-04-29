@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DataPoint } from 'highcharts';
+import { PointOptionsObject } from 'highcharts';
 
 import { DtChartOptions } from '@dynatrace/barista-components/chart';
 import { DtColors } from '@dynatrace/barista-components/theming';
@@ -62,7 +62,6 @@ export function createDtMicrochartDefaultOptions(
             hover: {
               radius: 4,
               lineWidth: 2,
-              halo: false,
               lineWidthPlus: 0,
               lineColor: palette.primary,
               fillColor: palette.primary,
@@ -77,14 +76,8 @@ export function createDtMicrochartDefaultOptions(
       series: {
         dataLabels: {
           crop: false,
-          overflow: 'none',
           style: {
             fontWeight: 'normal',
-          },
-        },
-        states: {
-          hover: {
-            halo: false,
           },
         },
         marker: {
@@ -107,7 +100,7 @@ export function createDtMicrochartDefaultOptions(
 
 export function createDtMicrochartMinMaxDataPointOptions(
   palette: DtMicroChartColorPalette,
-): DataPoint {
+): PointOptionsObject {
   return {
     color: palette.darker,
     borderColor: palette.darker,

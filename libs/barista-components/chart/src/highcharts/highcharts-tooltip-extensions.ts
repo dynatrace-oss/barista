@@ -17,7 +17,9 @@
 import {
   DtChartTooltipData,
   DtChartTooltipEvent,
+  DtChartTooltipSeries,
 } from './highcharts-tooltip-types';
+import { Point, PointLabelObject } from 'highcharts';
 
 // tslint:disable-next-line: no-any
 declare var require: any;
@@ -30,18 +32,16 @@ export interface DtHcTooltipEventPayload {
 
 /** Function that gets the arguments from highcharts and extracts the tooltip data the same way highcharts does it internally */
 export function prepareTooltipData(
-  pointOrPoints: any | any[], // tslint:disable-line:no-any
+  pointOrPoints: Point | Point[],
 ): DtChartTooltipData {
   let data: DtChartTooltipData;
   if (Array.isArray(pointOrPoints)) {
-    // tslint:disable-next-line:no-any
-    const pointConfig: any[] = [];
-    // tslint:disable-next-line:no-any
+    const pointConfig: PointLabelObject[] = [];
     let hoveredIndex: number = -1;
 
-    highcharts.each(pointOrPoints, function (item: any, index: number): void {
+    highcharts.each(pointOrPoints, function (item: Point, index: number): void {
       const labelConfig = item.getLabelConfig();
-      if (labelConfig.series.state === 'hover') {
+      if ((labelConfig.series as DtChartTooltipSeries).state === 'hover') {
         hoveredIndex = index;
       }
       pointConfig.push(labelConfig);
@@ -97,7 +97,7 @@ export function addTooltipEvents(): boolean {
   });
 
   // this has to return something otherwise when running a build with the prod flag enabled
-  // uglify throws away this code because it does not produce sideeffects
+  // uglify throws away this code because it does not produce side effects
   return true;
 }
 

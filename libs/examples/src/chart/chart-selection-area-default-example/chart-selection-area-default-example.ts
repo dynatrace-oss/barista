@@ -44,14 +44,14 @@ export class DtExampleChartSelectionAreaDefault {
     },
     yAxis: [
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value}',
         },
         tickInterval: 10,
       },
       {
-        title: null,
+        title: undefined,
         labels: {
           format: '{value}/min',
         },
@@ -70,7 +70,7 @@ export class DtExampleChartSelectionAreaDefault {
       },
     },
   };
-  series: Highcharts.IndividualSeriesOptions[] = [
+  series: Highcharts.SeriesOptionsType[] = [
     {
       name: 'Requests',
       type: 'column',
