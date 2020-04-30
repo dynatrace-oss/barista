@@ -1,3 +1,18 @@
+## [6.4.0](https://github.com/dynatrace-oss/barista/compare/6.3.0...6.4.0) (2020-04-30)
+
+### Bug Fixes
+
+- **slider:** Prevent default behavior of keyboard events associated with the
+  slider.
+  ([9508a72](https://github.com/dynatrace-oss/barista/commit/9508a72a6db17cb9d46fe70b1860855b71c9395b))
+
+### Features
+
+- **drawer-table:** Added experimental drawer-table component.
+  ([cfd7766](https://github.com/dynatrace-oss/barista/commit/cfd7766f9ad32f100a9f4933ae3a817994f07890))
+- **sunburst-chart:** Added sunburst-chart component.
+  ([e929e09](https://github.com/dynatrace-oss/barista/commit/e929e09827ce028891996512e803b04bd719c857))
+
 ## 6.3.0 (2020-04-15)
 
 ### Bug Fixes
