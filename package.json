@@ -146,7 +146,7 @@
     "glob": "^7.1.6",
     "highcharts": "^7.2.1",
     "gonzales-pe": "^4.3.0",
-    "husky": "^4.2.3",
+    "husky": "^4.2.5",
     "inquirer": "^7.1.0",
     "jest": "25.2.4",
     "jest-environment-jsdom-sixteen": "^1.0.3",
