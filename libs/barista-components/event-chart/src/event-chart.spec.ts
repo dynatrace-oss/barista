@@ -25,7 +25,7 @@ import { By } from '@angular/platform-browser';
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 
 import { dispatchFakeEvent } from '@dynatrace/testing/browser';
-import { DtEventChart, roundUp, formatRelativeTimestamp } from './event-chart';
+import { DtEventChart } from './event-chart';
 import { DtEventChartSelectedEvent } from './event-chart-directives';
 import {
   DT_UI_TEST_CONFIG,
@@ -674,37 +674,24 @@ describe('DtEventChart', () => {
       );
       expect(selectedEvent).toBeNull();
     });
-  });
 
-  describe('x-axis', () => {
-    describe('formatRelativeTimestamp', () => {
-      it('should return milliseconds', () => {
-        expect(formatRelativeTimestamp(10)).toBe('10 ms');
-      });
+    describe('x-axis', () => {
+      it('should have formatted ticks', () => {
+        const axisLabels = fixture.debugElement
+          .queryAll(By.css('.dt-event-chart-tick-label'))
+          .map(el => el.nativeElement.textContent.trim());
 
-      it('should return seconds', () => {
-        expect(formatRelativeTimestamp(10_000)).toBe('10 s');
-      });
-
-      it('should return minutes', () => {
-        expect(formatRelativeTimestamp(600_000)).toBe('10 min');
-      });
-
-      it('should return hours', () => {
-        expect(formatRelativeTimestamp(2 * 60 * 60_000)).toBe('2 h');
-      });
-
-      it('should return days', () => {
-        expect(formatRelativeTimestamp(1.5 * 24 * 60 * 60_000)).toBe('1.5 d');
-      });
-    });
-    describe('roundUp', () => {
-      it('should return a rounded up number of 2 decimals', () => {
-        expect(roundUp(1.325, 2)).toBe(1.33);
-      });
-
-      it('should return less decimals if possible', () => {
-        expect(roundUp(1, 2)).toBe(1);
+        expect(axisLabels).toEqual([
+          '0 s',
+          '0.01 s',
+          '0.02 s',
+          '0.03 s',
+          '0.04 s',
+          '0.05 s',
+          '0.06 s',
+          '0.07 s',
+          '0.08 s',
+        ]);
       });
     });
   });
