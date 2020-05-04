@@ -81,12 +81,18 @@ import { DtEventChartLegend } from './event-chart-legend';
 import { dtCreateEventPath } from './merge-and-path/create-event-path';
 import { dtEventChartMergeEvents } from './merge-and-path/merge-events';
 import { RenderEvent } from './render-event.interface';
+import {
+  DtDuration,
+  DtTimeUnit,
+  DtFormattedValue,
+} from '@dynatrace/barista-components/formatters';
 
 const EVENT_BUBBLE_SIZE = 16;
 const EVENT_BUBBLE_SPACING = 4;
 
 const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
 const TICK_HEIGHT = 24;
+const TICK_WIDTH = 100;
 
 const LANE_HEIGHT = EVENT_BUBBLE_SIZE * 3;
 
@@ -212,7 +218,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   _renderPath: string | null = null;
 
   /** @internal X axis ticks that are being rendered in the svgCanvas. */
-  _renderTicks: { x: number; value: string }[] = [];
+  _renderTicks: { x: number; value: string | DtFormattedValue }[] = [];
 
   /** @internal The width of the svg. */
   _svgWidth = 0;
@@ -251,6 +257,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     private _appRef: ApplicationRef,
     private _injector: Injector,
     private _overlayService: Overlay,
+    private _durationPipe: DtDuration,
     @Inject(DOCUMENT) private _document: any,
     private _platform: Platform,
     /** @breaking-change: `_elementRef` will be mandatory with version 7.0.0 */
@@ -701,14 +708,16 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** Generates and updates the ticks for the x-axis. */
   private _updateTicks(min: number, max: number): void {
     const timeScale = this._getTimeScaleForEvents(min, max);
-    const dateTicks = timeScale.ticks();
+
+    const tickAmount = Math.floor(
+      (timeScale.range()[1] - timeScale.range()[0]) / TICK_WIDTH,
+    );
+    const dateTicks = timeScale.ticks(tickAmount);
     this._renderTicks = dateTicks.map((date) => {
       const timestamp = date.getTime();
       return {
         x: timeScale(timestamp),
-        // TODO @thomas.pink, @thomas.heller:
-        // Investigate if we should move the time formatting to a pipe
-        value: formatRelativeTimestamp(timestamp),
+        value: this._formatRelativeTimestamp(timestamp),
       };
     });
   }
@@ -809,39 +818,35 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
     patternDefsOutlet = outlet;
   }
+
+  /** Formats a relative timestamp into a readable text. */
+  private _formatRelativeTimestamp(
+    timestamp: number,
+  ): string | DtFormattedValue {
+    // TODO: once duration pipe returns a nice value maybe the unit is automatically chosen
+    let outputUnit = DtTimeUnit.SECOND;
+
+    const sec = 1000;
+    const min = sec * 60;
+    const hour = min * 60;
+    const day = hour * 24;
+
+    if (timestamp >= day) {
+      outputUnit = DtTimeUnit.DAY;
+    } else if (timestamp >= hour) {
+      outputUnit = DtTimeUnit.HOUR;
+    } else if (timestamp >= min) {
+      outputUnit = DtTimeUnit.MINUTE;
+    } else if (timestamp >= sec) {
+      outputUnit = DtTimeUnit.SECOND;
+    }
+
+    return this._durationPipe.transform(timestamp, 'PRECISE', outputUnit);
+  }
 }
 
 /** Determines if a passed parameter is part of the DtEventChartColors. */
 // tslint:disable-next-line: no-any
 function isValidColor(color: any): color is DtEventChartColors {
   return isDefined(color) && DT_EVENT_CHART_COLORS.indexOf(color) !== -1;
-}
-
-/** Formats a relative timestamp into a readable text. */
-export function formatRelativeTimestamp(timestamp: number): string {
-  const sec = 1000;
-  const min = sec * 60;
-  const hour = min * 60;
-  const day = hour * 24;
-  const decimals = 2;
-  if (timestamp >= day) {
-    return `${roundUp(timestamp / day, decimals)} d`;
-  } else if (timestamp >= hour) {
-    return `${roundUp(timestamp / hour, decimals)} h`;
-  } else if (timestamp >= min) {
-    return `${roundUp(timestamp / min, decimals)} min`;
-  } else if (timestamp >= sec) {
-    return `${roundUp(timestamp / sec, decimals)} s`;
-  }
-  return `${timestamp} ms`;
-}
-
-/**
- * Rounds the given number to the specified decimals.
- * @param num number to be rounded
- * @param decimals maximum amount of decimals
- * @returns rounded number
- */
-export function roundUp(num: number, decimals: number): number {
-  return Math.round(10 ** decimals * num) / 10 ** decimals;
 }
