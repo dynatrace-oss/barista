@@ -37,11 +37,8 @@ class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
     }
 
     if (
-      /** @breaking-change Remove the kebap-case version of the validation with 7.0.0 */
-      (hasTextContentAlternative(element, 'aria-label-save') ||
-        hasTextContentAlternative(element, 'ariaLabelSave')) &&
-      (hasTextContentAlternative(element, 'aria-label-cancel') ||
-        hasTextContentAlternative(element, 'ariaLabelCancel'))
+      hasTextContentAlternative(element, 'ariaLabelSave') &&
+      hasTextContentAlternative(element, 'ariaLabelCancel')
     ) {
       return;
     }
