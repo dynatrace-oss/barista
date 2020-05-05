@@ -62,8 +62,8 @@ const CHANGELOG_ACTION_MAP = {
 
 function getIconFilesByPath(rootPath: string): string[] {
   return readdirSync(rootPath)
-    .filter(name => extname(name) === '.svg')
-    .map(name => join(rootPath, name));
+    .filter((name) => extname(name) === '.svg')
+    .map((name) => join(rootPath, name));
 }
 
 /**

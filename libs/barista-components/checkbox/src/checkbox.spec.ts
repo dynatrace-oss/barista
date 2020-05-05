@@ -733,7 +733,8 @@ describe('DtCheckbox', () => {
       const [firstId, secondId] = fixture.debugElement
         .queryAll(By.directive(DtCheckbox))
         .map(
-          debugElement => debugElement.nativeElement.querySelector('input').id,
+          (debugElement) =>
+            debugElement.nativeElement.querySelector('input').id,
         );
 
       expect(firstId).toMatch(/dt-checkbox-\d+-input/);
@@ -989,9 +990,7 @@ class CheckboxWithTabIndex {
 
 /** Simple test component that accesses DtCheckbox using ViewChild. */
 @Component({
-  template: `
-    <dt-checkbox></dt-checkbox>
-  `,
+  template: ` <dt-checkbox></dt-checkbox> `,
 })
 class CheckboxUsingViewChild {
   @ViewChild(DtCheckbox) checkbox;
@@ -1003,33 +1002,25 @@ class CheckboxUsingViewChild {
 
 /** Simple test component with an aria-label set. */
 @Component({
-  template: `
-    <dt-checkbox aria-label="Super effective"></dt-checkbox>
-  `,
+  template: ` <dt-checkbox aria-label="Super effective"></dt-checkbox> `,
 })
 class CheckboxWithAriaLabel {}
 
 /** Simple test component with an aria-label set. */
 @Component({
-  template: `
-    <dt-checkbox aria-labelledby="some-id"></dt-checkbox>
-  `,
+  template: ` <dt-checkbox aria-labelledby="some-id"></dt-checkbox> `,
 })
 class CheckboxWithAriaLabelledby {}
 
 /** Simple test component with name attribute */
 @Component({
-  template: `
-    <dt-checkbox name="test-name"></dt-checkbox>
-  `,
+  template: ` <dt-checkbox name="test-name"></dt-checkbox> `,
 })
 class CheckboxWithNameAttribute {}
 
 /** Simple test component with change event */
 @Component({
-  template: `
-    <dt-checkbox (change)="lastEvent = $event"></dt-checkbox>
-  `,
+  template: ` <dt-checkbox (change)="lastEvent = $event"></dt-checkbox> `,
 })
 class CheckboxWithChangeEvent {
   lastEvent: DtCheckboxChange<any>;
@@ -1037,9 +1028,7 @@ class CheckboxWithChangeEvent {
 
 /** Test component with reactive forms */
 @Component({
-  template: `
-    <dt-checkbox [formControl]="formControl"></dt-checkbox>
-  `,
+  template: ` <dt-checkbox [formControl]="formControl"></dt-checkbox> `,
 })
 class CheckboxWithFormControl {
   formControl = new FormControl();
@@ -1047,9 +1036,7 @@ class CheckboxWithFormControl {
 
 /** Test component without label */
 @Component({
-  template: `
-    <dt-checkbox>{{ label }}</dt-checkbox>
-  `,
+  template: ` <dt-checkbox>{{ label }}</dt-checkbox> `,
 })
 class CheckboxWithoutLabel {
   label: string;
@@ -1057,16 +1044,12 @@ class CheckboxWithoutLabel {
 
 /** Test component with the native tabindex attribute. */
 @Component({
-  template: `
-    <dt-checkbox tabindex="5"></dt-checkbox>
-  `,
+  template: ` <dt-checkbox tabindex="5"></dt-checkbox> `,
 })
 class CheckboxWithTabindexAttr {}
 
 /** Test component with the native tabindex attribute. */
 @Component({
-  template: `
-    <dt-checkbox disabled></dt-checkbox>
-  `,
+  template: ` <dt-checkbox disabled></dt-checkbox> `,
 })
 class CheckboxDisabledAttribute {}

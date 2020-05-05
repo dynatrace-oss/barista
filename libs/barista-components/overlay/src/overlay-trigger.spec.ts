@@ -189,8 +189,9 @@ describe('DtOverlayTrigger', () => {
     ) as HTMLElement;
     // TODO: [e2e] computed style is not available in jsdom move to e2e test
     expect(overlayPane.style.transform).toEqual(
-      `translateX(${DT_OVERLAY_DEFAULT_OFFSET +
-        offset}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET}px)`,
+      `translateX(${
+        DT_OVERLAY_DEFAULT_OFFSET + offset
+      }px) translateY(${DT_OVERLAY_DEFAULT_OFFSET}px)`,
     );
   }));
 
@@ -215,8 +216,9 @@ describe('DtOverlayTrigger', () => {
 
     // TODO: [e2e] computed style is not available in jsdom move to e2e test
     expect(overlayPane.style.transform).toEqual(
-      `translateX(${DT_OVERLAY_DEFAULT_OFFSET}px) translateY(${DT_OVERLAY_DEFAULT_OFFSET +
-        offset}px)`,
+      `translateX(${DT_OVERLAY_DEFAULT_OFFSET}px) translateY(${
+        DT_OVERLAY_DEFAULT_OFFSET + offset
+      }px)`,
     );
   }));
 

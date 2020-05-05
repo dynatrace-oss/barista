@@ -167,7 +167,7 @@ describe('DtTagList', () => {
   // Mocks BoundClientRect for tagElementRefs
   function mockBoundingClientRectOnTagList(): void {
     fixture.componentInstance._tagElementRefs
-      .map(refs => refs.nativeElement)
+      .map((refs) => refs.nativeElement)
       .forEach((nativeElement, index) => {
         const mockedTop = index < 3 ? 0 : 40;
         jest.spyOn(nativeElement, 'getBoundingClientRect').mockReturnValue({
@@ -199,10 +199,7 @@ class DtTagListComponent implements OnInit {
   tags = new Set<string>();
 
   ngOnInit(): void {
-    this.tags
-      .add('Window')
-      .add('Managed')
-      .add('Errors');
+    this.tags.add('Window').add('Managed').add('Errors');
   }
 
   addTag(tag: string): void {

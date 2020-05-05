@@ -197,7 +197,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   ngAfterViewInit(): void {
     this._focusMonitor
       .monitor(this._inputElement.nativeElement, false)
-      .subscribe(focusOrigin => {
+      .subscribe((focusOrigin) => {
         this._onInputFocusChange(focusOrigin);
       });
   }

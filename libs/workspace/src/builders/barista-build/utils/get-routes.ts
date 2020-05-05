@@ -26,8 +26,8 @@ export function getRoutes(options: BaristaBuildBuilderSchema): string[] {
     routes = routes.concat(
       readFileSync(options.routesFile, 'utf-8')
         .split(EOL)
-        .map(route => route.trim())
-        .filter(route => route?.length),
+        .map((route) => route.trim())
+        .filter((route) => route?.length),
     );
   }
 

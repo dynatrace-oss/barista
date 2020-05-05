@@ -48,8 +48,8 @@ export class DtTabGroupNavigation
       .subscribe((event: DtTabChange) => {
         if (event.isUserInteraction) {
           const toRemove = this._getTabs()
-            .filter(tab => tab !== event.source)
-            .map(tab => tab.id);
+            .filter((tab) => tab !== event.source)
+            .map((tab) => tab.id);
           this._tabNavigationAdapter.update(event.source.id, toRemove);
         }
       });
@@ -67,9 +67,9 @@ export class DtTabGroupNavigation
   _updateWithTabIds(ids: string[]): void {
     const tabs = this._getTabs();
     if (tabs) {
-      const matchingTab = tabs.find(tab => !!ids.find(id => tab.id === id));
+      const matchingTab = tabs.find((tab) => !!ids.find((id) => tab.id === id));
       if (matchingTab && !matchingTab.disabled) {
-        tabs.forEach(tab => {
+        tabs.forEach((tab) => {
           // tslint:disable-next-line no-void-expression
           ids.includes(tab.id) ? tab._select(false) : tab._deselect();
         });

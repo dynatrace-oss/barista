@@ -93,7 +93,7 @@ export class BaScrollSpiedElementGroup {
     if (scrollTop + 1 >= maxScrollTop) {
       activeItem = this._spiedElements[0];
     } else {
-      activeItem = this._spiedElements.find(spiedElem => {
+      activeItem = this._spiedElements.find((spiedElem) => {
         if (spiedElem.top <= scrollTop) {
           return true;
         }
@@ -215,7 +215,7 @@ export class BaScrollSpyService {
   private _unspy(spiedGroup: BaScrollSpiedElementGroup): void {
     spiedGroup.activeScrollItem.complete();
     this._spiedElementGroups = this._spiedElementGroups.filter(
-      group => group !== spiedGroup,
+      (group) => group !== spiedGroup,
     );
 
     if (!this._spiedElementGroups.length) {

@@ -28,7 +28,7 @@ export async function getCommitMessagesInPullRequest(
     pull_number: prNumber,
   });
   const commitMessages = listCommitPessagesResponse.data.map(
-    commit => commit.commit.message,
+    (commit) => commit.commit.message,
   );
   return commitMessages;
 }

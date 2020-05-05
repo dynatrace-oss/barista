@@ -271,9 +271,7 @@ describe('DtExpandablePanel', () => {
 
 @Component({
   selector: 'dt-test-app',
-  template: `
-    <dt-expandable-panel>text</dt-expandable-panel>
-  `,
+  template: ` <dt-expandable-panel>text</dt-expandable-panel> `,
 })
 class ExpandablePanelComponent {}
 

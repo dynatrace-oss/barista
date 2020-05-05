@@ -134,7 +134,7 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
   @Output('opened') readonly _openedStream: Observable<
     void
   > = this.openChange.pipe(
-    filter(o => o),
+    filter((o) => o),
     map(() => {}),
   );
 
@@ -145,7 +145,7 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
   @Output('closed') readonly _closedStream: Observable<
     void
   > = this.openChange.pipe(
-    filter(o => !o),
+    filter((o) => !o),
     map(() => {}),
   );
 

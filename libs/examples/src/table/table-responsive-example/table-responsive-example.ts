@@ -79,7 +79,7 @@ export class DtExampleTableResponsive implements OnInit {
   ngOnInit(): void {
     this._tableBreakpointObserver
       .observe('(max-width: 1000px)')
-      .subscribe(event => {
+      .subscribe((event) => {
         this._tableNarrow = event.matches;
 
         // Show/hide header columns respecting

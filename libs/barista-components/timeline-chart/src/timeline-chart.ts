@@ -158,7 +158,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
     scale: ScaleLinear<number, number>,
     ticks: number[],
   ): void {
-    this._renderTicks = ticks.map(t => ({
+    this._renderTicks = ticks.map((t) => ({
       position: valueToPercentage(t, scale),
       value: t,
     }));
@@ -167,7 +167,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   /** Calculates the position and updates the timing marker objects that are actually rendered. */
   private _updateRenderTimingMarkers(scale: ScaleLinear<number, number>): void {
     this._renderTimingMarkers = this._timingMarkers
-      ? this._timingMarkers.toArray().map(marker => ({
+      ? this._timingMarkers.toArray().map((marker) => ({
           position: valueToPercentage(marker.value, scale),
           marker,
         }))
@@ -179,7 +179,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
     scale: ScaleLinear<number, number>,
   ): void {
     this._renderKeyTimingMarkers = this._keyTimingMarkers
-      ? this._keyTimingMarkers.toArray().map(marker => ({
+      ? this._keyTimingMarkers.toArray().map((marker) => ({
           position: valueToPercentage(marker.value, scale),
           marker,
         }))

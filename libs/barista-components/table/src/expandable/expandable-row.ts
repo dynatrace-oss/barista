@@ -140,12 +140,14 @@ export class DtExpandableRow extends DtRow
   >();
   /** @internal Event emitted when the row is expanded. */
   @Output('expanded') readonly _expandedStream = this.expandChange.pipe(
-    filter(changeEvent => changeEvent.row.expanded),
+    filter((changeEvent) => changeEvent.row.expanded),
   );
   /** @internal Event emitted when the row is collapsed. */
   @Output('collapsed') readonly _collapsedStream: Observable<
     DtExpandableRowChangeEvent
-  > = this.expandChange.pipe(filter(changeEvent => !changeEvent.row.expanded));
+  > = this.expandChange.pipe(
+    filter((changeEvent) => !changeEvent.row.expanded),
+  );
 
   @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
 
@@ -234,7 +236,7 @@ export class DtExpandableRow extends DtRow
     // Somehow a hack, a better solution would be appreciated.
     const cells = (this._rowRef
       .nativeElement as HTMLDivElement).querySelectorAll('dt-expandable-cell');
-    [].slice.call(cells).forEach(cell => {
+    [].slice.call(cells).forEach((cell) => {
       (expanded ? _addCssClass : _removeCssClass)(
         cell,
         'dt-expandable-cell-expanded',

@@ -55,7 +55,7 @@ export class DtIfContainerBreakpoint implements OnDestroy {
   set dtIfContainerBreakpoint(query: string | string[]) {
     this._breakpointSubscription.unsubscribe();
 
-    this._breakpointObserver.observe(query).subscribe(event => {
+    this._breakpointObserver.observe(query).subscribe((event) => {
       this._context.$implicit = this._context.dtIfContainerBreakpoint =
         event.matches;
       this._updateView();

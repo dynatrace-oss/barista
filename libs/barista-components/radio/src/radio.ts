@@ -219,7 +219,7 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   ngAfterViewInit(): void {
     this._focusMonitor
       .monitor(this._inputElement.nativeElement, false)
-      .subscribe(focusOrigin => {
+      .subscribe((focusOrigin) => {
         this._onInputFocusChange(focusOrigin);
       });
   }

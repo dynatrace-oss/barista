@@ -269,14 +269,18 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     const eventChanges$ = this._events.changes.pipe(
       takeUntil(this._destroy$),
       switchMap(() =>
-        merge(...this._events.map(e => e._stateChanges$)).pipe(startWith(null)),
+        merge(...this._events.map((e) => e._stateChanges$)).pipe(
+          startWith(null),
+        ),
       ),
     );
     // Get all state-changes events from the dt-event-chart-lane content children.
     const laneChanges$ = this._lanes.changes.pipe(
       takeUntil(this._destroy$),
       switchMap(() =>
-        merge(...this._lanes.map(e => e._stateChanges$)).pipe(startWith(null)),
+        merge(...this._lanes.map((e) => e._stateChanges$)).pipe(
+          startWith(null),
+        ),
       ),
     );
 
@@ -422,29 +426,31 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     path.push(`M ${renderEvent.x1 - eventBubbleRadius} ${renderEvent.y}`);
     // Curve up from center to top left
     path.push(
-      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${
-        renderEvent.x1
-      } ${renderEvent.y - eventBubbleRadius}`,
+      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${renderEvent.x1} ${
+        renderEvent.y - eventBubbleRadius
+      }`,
     );
     // Path the top border
     path.push(`H ${renderEvent.x2}`);
     // Curve to down from top right to center
     path.push(
-      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${renderEvent.x2 +
-        eventBubbleRadius} ${renderEvent.y}`,
+      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${
+        renderEvent.x2 + eventBubbleRadius
+      } ${renderEvent.y}`,
     );
     // Curve to down from center to bottom right
     path.push(
-      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${
-        renderEvent.x2
-      } ${renderEvent.y + eventBubbleRadius}`,
+      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${renderEvent.x2} ${
+        renderEvent.y + eventBubbleRadius
+      }`,
     );
     // Path the bottom border
     path.push(`H ${renderEvent.x1}`);
     // Curve to up from bottom left to center
     path.push(
-      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${renderEvent.x1 -
-        eventBubbleRadius} ${renderEvent.y}`,
+      `A ${eventBubbleRadius} ${eventBubbleRadius} 0 0 1 ${
+        renderEvent.x1 - eventBubbleRadius
+      } ${renderEvent.y}`,
     );
     return path.join(' ');
   }
@@ -624,7 +630,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   private _updateRenderLanes(): void {
     let y = 1;
     this._renderLanes = this._lanes
-      .map(lane => {
+      .map((lane) => {
         const renderLane = { lane, y };
         y += LANE_HEIGHT + 1;
         return renderLane;
@@ -696,7 +702,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   private _updateTicks(min: number, max: number): void {
     const timeScale = this._getTimeScaleForEvents(min, max);
     const dateTicks = timeScale.ticks();
-    this._renderTicks = dateTicks.map(date => {
+    this._renderTicks = dateTicks.map((date) => {
       const timestamp = date.getTime();
       return {
         x: timeScale(timestamp),
@@ -765,7 +771,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
   /** Tries to find a lane base on a provided name. */
   private _getLaneByName(name: string): DtEventChartLane | null {
-    return this._lanes.find(lane => lane.name === name) || null;
+    return this._lanes.find((lane) => lane.name === name) || null;
   }
 
   /** Returns the position (reversed index) of a lane. */

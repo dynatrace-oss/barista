@@ -472,7 +472,8 @@ describe('DtSwitch', () => {
       const [firstId, secondId] = fixture.debugElement
         .queryAll(By.directive(DtSwitch))
         .map(
-          debugElement => debugElement.nativeElement.querySelector('input').id,
+          (debugElement) =>
+            debugElement.nativeElement.querySelector('input').id,
         );
 
       expect(firstId).toMatch(/dt-switch-\d+-input/);
@@ -688,9 +689,7 @@ class SwitchWithTabIndex {
 }
 
 @Component({
-  template: `
-    <dt-switch></dt-switch>
-  `,
+  template: ` <dt-switch></dt-switch> `,
 })
 class SwitchUsingViewChild {
   @ViewChild(DtSwitch, { static: true }) switch;
@@ -701,56 +700,42 @@ class SwitchUsingViewChild {
 }
 
 @Component({
-  template: `
-    <dt-switch aria-label="Super effective"></dt-switch>
-  `,
+  template: ` <dt-switch aria-label="Super effective"></dt-switch> `,
 })
 class SwitchWithAriaLabel {}
 
 @Component({
-  template: `
-    <dt-switch aria-labelledby="some-id"></dt-switch>
-  `,
+  template: ` <dt-switch aria-labelledby="some-id"></dt-switch> `,
 })
 class SwitchWithAriaLabelledby {}
 
 @Component({
-  template: `
-    <dt-switch name="test-name"></dt-switch>
-  `,
+  template: ` <dt-switch name="test-name"></dt-switch> `,
 })
 class SwitchWithNameAttribute {}
 
 @Component({
-  template: `
-    <dt-switch (change)="lastEvent = $event"></dt-switch>
-  `,
+  template: ` <dt-switch (change)="lastEvent = $event"></dt-switch> `,
 })
 class SwitchWithChangeEvent {
   lastEvent: DtSwitchChange<any>;
 }
 
 @Component({
-  template: `
-    <dt-switch [formControl]="formControl"></dt-switch>
-  `,
+  template: ` <dt-switch [formControl]="formControl"></dt-switch> `,
 })
 class SwitchWithFormControl {
   formControl = new FormControl();
 }
 
 @Component({
-  template: `
-    <dt-switch>{{ label }}</dt-switch>
-  `,
+  template: ` <dt-switch>{{ label }}</dt-switch> `,
 })
 class SwitchWithoutLabel {
   label: string;
 }
 
 @Component({
-  template: `
-    <dt-switch tabindex="5"></dt-switch>
-  `,
+  template: ` <dt-switch tabindex="5"></dt-switch> `,
 })
 class SwitchWithTabindexAttr {}

@@ -2341,7 +2341,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
 
       positionChangeHandler = jasmine.createSpy('positionChange handler');
       onPositionChangeSubscription = strategy.positionChanges
-        .pipe(map(event => event.scrollableViewProperties))
+        .pipe(map((event) => event.scrollableViewProperties))
         .subscribe(positionChangeHandler);
 
       attachOverlay({ positionStrategy: strategy });

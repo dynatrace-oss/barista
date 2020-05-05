@@ -93,7 +93,7 @@ export class DtQuickFilterDefaultDataSource<
    * displayed by the DtQuickFilterViewer (filter-field)
    */
   connect(): Observable<DtNodeDef | null> {
-    return this._data$.pipe(map(data => this.transformObject(data)));
+    return this._data$.pipe(map((data) => this.transformObject(data)));
   }
 
   /** Used by the DtQuickFilter. Called when it is destroyed. No-op. */
@@ -247,7 +247,7 @@ export class DtQuickFilterDefaultDataSource<
     parent: DtNodeDef | null = null,
   ): DtNodeDef[] {
     return list
-      .map(item => this.transformObject(item, parent))
-      .filter(item => item !== null) as DtNodeDef[];
+      .map((item) => this.transformObject(item, parent))
+      .filter((item) => item !== null) as DtNodeDef[];
   }
 }

@@ -20,7 +20,7 @@ import { concatenateNodeStreams } from './concatenate-node-streams';
 const streamToString = (stream: Readable): Promise<string> => {
   return new Promise<string>((resolve, reject) => {
     const temp: string[] = [];
-    stream.on('data', chunk => {
+    stream.on('data', (chunk) => {
       temp.push(chunk.toString());
     });
     stream.on('end', () => {
@@ -73,7 +73,7 @@ test('test error stream, error thrown if something goes wrong', async () => {
     },
   });
   // based on https://jestjs.io/docs/en/asynchronous#resolves-rejects
-  return await concatenateNodeStreams(errorThrowingStream).catch(e =>
+  return await concatenateNodeStreams(errorThrowingStream).catch((e) =>
     expect(e.message).toMatch('error'),
   );
 });

@@ -448,7 +448,7 @@ function generateData(
   timestampTick: number,
 ): Array<[number, number]> {
   return Array.from(Array(amount).keys()).map(
-    v =>
+    (v) =>
       [timestampStart + timestampTick * v, randomize(min, max)] as [
         number,
         number,

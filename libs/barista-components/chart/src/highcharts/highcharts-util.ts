@@ -55,11 +55,11 @@ export function applyHighchartsColorOptions(
 /** Merge all axis of provide options with default axis styles. */
 function mergeAxis(options: HighchartsOptions): HighchartsOptions {
   const axisTypes = ['xAxis', 'yAxis'];
-  axisTypes.forEach(axisType => {
+  axisTypes.forEach((axisType) => {
     let axis: AxisOptions | AxisOptions[] = options[axisType];
     if (axis) {
       axis = Array.isArray(axis)
-        ? axis.map(a => lodashMerge({}, DT_CHART_DEFAULT_AXIS_STYLES, a))
+        ? axis.map((a) => lodashMerge({}, DT_CHART_DEFAULT_AXIS_STYLES, a))
         : lodashMerge({}, DT_CHART_DEFAULT_AXIS_STYLES, axis);
       options[axisType] = axis;
     }
@@ -73,7 +73,7 @@ function mergeAxis(options: HighchartsOptions): HighchartsOptions {
  * to receive the data everytime the formatter function is called by highcharts
  */
 function wrapTooltipFormatterFn(options: HighchartsOptions): HighchartsOptions {
-  options.tooltip!.formatter = function(): string | boolean {
+  options.tooltip!.formatter = function (): string | boolean {
     return false;
   };
   return options;

@@ -143,11 +143,13 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   /** Angular life-cycle hook that will be called after the view is initialized */
   ngAfterViewInit(): void {
     // When the filters changes apply them to the filter field
-    this._activeFilters$.pipe(takeUntil(this._destroy$)).subscribe(filters => {
-      if (this._filterField.filters !== filters) {
-        this._filterField.filters = filters;
-      }
-    });
+    this._activeFilters$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((filters) => {
+        if (this._filterField.filters !== filters) {
+          this._filterField.filters = filters;
+        }
+      });
   }
 
   /** Angular life-cycle hook that will be called on component destroy */

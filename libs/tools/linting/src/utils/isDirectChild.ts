@@ -27,7 +27,7 @@ import { isElementWithName } from './isElementWithName';
  * @returns Whether the child element could be found or not.
  */
 export function isDirectChild(element: ElementAst, childName: string): boolean {
-  const isChild = element.children.some(child =>
+  const isChild = element.children.some((child) =>
     isElementWithName(child, childName),
   );
 
@@ -35,9 +35,9 @@ export function isDirectChild(element: ElementAst, childName: string): boolean {
     return true;
   }
 
-  return element.children.some(child => {
+  return element.children.some((child) => {
     if (child instanceof EmbeddedTemplateAst) {
-      return child.children.some(grandchild =>
+      return child.children.some((grandchild) =>
         isElementWithName(grandchild, childName),
       );
     }

@@ -33,7 +33,7 @@ class DtContextDialogVisitor extends BasicTemplateAstVisitor {
 
   private _isCustomTrigger(element: ElementAst): boolean {
     const customTrigger = element.inputs.find(
-      el => el.name === 'dtContextDialogTrigger',
+      (el) => el.name === 'dtContextDialogTrigger',
     );
 
     if (

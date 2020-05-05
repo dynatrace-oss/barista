@@ -29,7 +29,9 @@ class DtInlineEditorVisitor extends BasicTemplateAstVisitor {
 
   private _validateElement(element: ElementAst): any {
     const attrs: AttrAst[] = element.attrs;
-    const isInlineEditor = attrs.some(attr => attr.name === 'dt-inline-editor');
+    const isInlineEditor = attrs.some(
+      (attr) => attr.name === 'dt-inline-editor',
+    );
     if (!isInlineEditor) {
       return;
     }

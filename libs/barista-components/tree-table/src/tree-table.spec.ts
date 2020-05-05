@@ -87,7 +87,7 @@ describe('DtTreeTable', () => {
     it('with the right accessibility roles', () => {
       expect(treeTableElement.getAttribute('role')).toBe('treegrid');
 
-      getRows(treeTableElement).forEach(row => {
+      getRows(treeTableElement).forEach((row) => {
         expect(row.getAttribute('role')).toBe('row');
       });
     });
@@ -511,7 +511,7 @@ class SimpleDtTreeTableApp {
   @ViewChild(DtTreeTable, { static: true }) tree: DtTreeTable<TestData>;
 
   constructor() {
-    this.underlyingDataSource.connect().subscribe(data => {
+    this.underlyingDataSource.connect().subscribe((data) => {
       this.dataSource.data = data;
     });
   }
@@ -586,15 +586,15 @@ class DtTreeTableWithNullOrUndefinedChild {
   });
 
   treeControl = new DtTreeControl<ExampleFlatNode>(
-    node => node.level,
-    node => node.expandable,
+    (node) => node.level,
+    (node) => node.expandable,
   );
 
   treeFlattener = new DtTreeFlattener(
     this.transformer,
-    node => node.level,
-    node => node.expandable,
-    node => node.children,
+    (node) => node.level,
+    (node) => node.expandable,
+    (node) => node.children,
   );
 
   dataSource = new DtTreeDataSource(
@@ -681,7 +681,7 @@ class WhenRowDtTreeTableApp {
   @ViewChild(DtTreeTable, { static: true }) tree: DtTreeTable<TestData>;
 
   constructor() {
-    this.underlyingDataSource.connect().subscribe(data => {
+    this.underlyingDataSource.connect().subscribe((data) => {
       this.dataSource.data = data;
     });
   }

@@ -33,7 +33,7 @@ class DtToggleButtonGroupVisitor extends BasicTemplateAstVisitor {
     }
 
     const isToggleButtonItem = element.attrs.some(
-      attr => attr.name === 'dt-toggle-button-item',
+      (attr) => attr.name === 'dt-toggle-button-item',
     );
     if (!isToggleButtonItem) {
       return;

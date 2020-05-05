@@ -47,7 +47,7 @@ export function splitStringIntoCommitMessage(original: string): CommitMessage {
     .replace('(', '')
     .replace(')', '')
     .split(',')
-    .map(component => (component || '').trim())
+    .map((component) => (component || '').trim())
     .filter(Boolean);
 
   const message = ((matching.groups && matching.groups.message) || '').trim();

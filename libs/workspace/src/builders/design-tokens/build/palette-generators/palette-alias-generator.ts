@@ -77,7 +77,7 @@ export function generatePaletteAliases(
         ? alias.keyColor
         : [alias.keyColor],
       base: alias.baseColor,
-      ratios: alias.shades.map(shade => shade.ratio),
+      ratios: alias.shades.map((shade) => shade.ratio),
       colorspace: alias.colorspace,
     };
     const contrastPalette = generateContrastColors(options);

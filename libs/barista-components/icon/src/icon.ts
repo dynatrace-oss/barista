@@ -99,7 +99,7 @@ export class DtIcon implements OnChanges {
           .getNamedSvgIcon(this.name)
           .pipe(take(1))
           .subscribe(
-            svg => {
+            (svg) => {
               this._setSvgElement(svg);
             },
             // We do not break the app when an icon could not be loaded

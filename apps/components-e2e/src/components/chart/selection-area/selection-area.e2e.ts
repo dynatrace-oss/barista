@@ -49,11 +49,7 @@ fixture('Selection Area')
   });
 
 test('should have the possibility to create a range and a timestamp', async (testController: TestController) => {
-  await testController
-    .expect(range.exists)
-    .ok()
-    .expect(timestamp.exists)
-    .ok();
+  await testController.expect(range.exists).ok().expect(timestamp.exists).ok();
 });
 
 test('should not have an initial selection', async (testController: TestController) => {
@@ -184,7 +180,7 @@ test('should close the overlay of a timestamp when the close overlay button was 
     .notOk();
 });
 
-chartClickTargets.forEach(selector => {
+chartClickTargets.forEach((selector) => {
   test(`Should create a timestamp on different chart regions`, async (testController: TestController) => {
     await createTimestamp({ x: 400, y: 100 }, selector, testController)
       .expect(timestampSelection.exists)
@@ -195,9 +191,7 @@ chartClickTargets.forEach(selector => {
 });
 
 test('should switch to a timestamp if there is a open range and a click will be performed', async (testController: TestController) => {
-  await createRange(550, { x: 300, y: 100 })
-    .expect(rangeSelection.exists)
-    .ok();
+  await createRange(550, { x: 300, y: 100 }).expect(rangeSelection.exists).ok();
 
   await createTimestamp(
     { x: 450, y: 100 },
@@ -226,10 +220,7 @@ test('should switch to a range if there is a open timestamp and a drag will be p
 });
 
 test('should focus the selection area if tab key is pressed', async (testController: TestController) => {
-  await testController
-    .pressKey('tab')
-    .expect(selectionArea.focused)
-    .ok();
+  await testController.pressKey('tab').expect(selectionArea.focused).ok();
 });
 
 test('should create an initial timestamp when the chart is focused and enter is pressed', async (testController: TestController) => {

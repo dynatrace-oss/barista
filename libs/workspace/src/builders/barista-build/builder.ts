@@ -56,7 +56,7 @@ export function runBuilder(
         renameSync(originalIndex, join(outputPath, 'index.original.html'));
       }
     }),
-    switchMap(serverModule => startServer(serverModule, SERVER_PORT)),
+    switchMap((serverModule) => startServer(serverModule, SERVER_PORT)),
     tap(({ pid }) => {
       serverProcessId = pid;
       context.logger.info(green(`Server started with PID: ${pid}`));
@@ -71,7 +71,7 @@ export function runBuilder(
       }),
     ),
     mapTo({ success: true }),
-    catchError(error => {
+    catchError((error) => {
       context.reportStatus(`Error: ${error.message}`);
       context.logger.error(error.message);
       return of({ success: false });

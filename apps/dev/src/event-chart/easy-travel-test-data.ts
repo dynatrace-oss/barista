@@ -138,7 +138,7 @@ export const EASY_TRAVEL_TEST_DATA = [
 
 export class EasyTravelDataSource implements EventChartDemoDataSource {
   getEvents(): EventChartDemoEvent[] {
-    return EASY_TRAVEL_TEST_DATA[0].data.map(obj => ({
+    return EASY_TRAVEL_TEST_DATA[0].data.map((obj) => ({
       value: obj.x,
       duration: obj.source.actionDuration || 0,
       lane: obj.y.toString(),
@@ -153,7 +153,7 @@ export class EasyTravelDataSource implements EventChartDemoDataSource {
     const lanes: EventChartDemoLane[] = [];
     for (const event of EASY_TRAVEL_TEST_DATA[0].data) {
       const name = event.y.toString();
-      if (!lanes.find(l => l.name === name)) {
+      if (!lanes.find((l) => l.name === name)) {
         // tslint:disable-next-line: no-any
         let color: any = 'default';
         if (event.marker.fillColor === '#dc172a') {

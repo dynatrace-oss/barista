@@ -442,7 +442,7 @@ class ErrorTabsTestApp implements OnDestroy {
   private _logSub: Subscription;
 
   constructor(public logConsumer: DtLogConsumer) {
-    this._logSub = logConsumer.consume().subscribe(val => {
+    this._logSub = logConsumer.consume().subscribe((val) => {
       this.lastLogEntry = val;
     });
   }

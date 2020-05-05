@@ -43,7 +43,7 @@ async function getDecoratorPropertyAssigments(
   // Iterate all properties within the decorator
   const decoratorPropertyAssignments = componentClass.decorator.properties
     // Filter everything that is not a property assignment
-    .filter(property => isPropertyAssignment(property));
+    .filter((property) => isPropertyAssignment(property));
   return decoratorPropertyAssignments as PropertyAssignment[];
 }
 
@@ -87,7 +87,7 @@ async function getStyleUrlsFromSourceFile(
     .map((property: PropertyAssignment) => {
       if (isArrayLiteralExpression(property.initializer)) {
         // Return every value in the array initializer
-        return property.initializer.elements.map(element =>
+        return property.initializer.elements.map((element) =>
           isStringLiteral(element) ? element.text : '',
         );
       }

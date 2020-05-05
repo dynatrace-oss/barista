@@ -29,7 +29,7 @@ class DtExpandableTriggerVisitor extends BasicTemplateAstVisitor {
 
   private _validateElement(element: ElementAst): any {
     const isExpandablePanelTrigger = element.inputs.some(
-      input => input.name === 'dtExpandablePanel',
+      (input) => input.name === 'dtExpandablePanel',
     );
     if (!isExpandablePanelTrigger) {
       return;

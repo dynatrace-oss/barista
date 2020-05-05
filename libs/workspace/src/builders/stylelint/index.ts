@@ -53,7 +53,7 @@ async function run(
       context.logger.info(SUCCESS_MESSAGE);
     }
 
-    const errors = lintingOutcome.results.filter(result => result.errored);
+    const errors = lintingOutcome.results.filter((result) => result.errored);
 
     if (errors.length) {
       context.logger.info(formatters.string(errors));

@@ -155,7 +155,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
 
     if (this._search !== null) {
       this._searchChangeSubscription = this._search.valueChange.subscribe(
-        event => {
+        (event) => {
           this._filter.next(event.value);
         },
       );
@@ -354,7 +354,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
     );
 
     this._renderChangesSubscription.unsubscribe();
-    this._renderChangesSubscription = paginatedData.subscribe(data => {
+    this._renderChangesSubscription = paginatedData.subscribe((data) => {
       this._renderData.next(data);
     });
   }

@@ -61,7 +61,7 @@ function addRoute(options: DtDemoOptions): Rule {
 }
 
 // tslint:disable-next-line:no-default-export
-export default function(options: DtDemoOptions): Rule {
+export default function (options: DtDemoOptions): Rule {
   if (!options.name) {
     throw new SchematicsException(
       `You need to specify a name using the --name flag`,

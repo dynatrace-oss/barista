@@ -207,7 +207,7 @@ export class DtInput extends _DtInputMixinBase
     'month',
     'time',
     'week',
-  ].filter(t => getSupportedInputTypes().has(t));
+  ].filter((t) => getSupportedInputTypes().has(t));
 
   private _uid = `dt-input-${nextUniqueId++}`;
   private _id: string;
@@ -237,7 +237,7 @@ export class DtInput extends _DtInputMixinBase
   ngOnInit(): void {
     this._autofillMonitor
       .monitor(this._elementRef.nativeElement)
-      .subscribe(event => {
+      .subscribe((event) => {
         this.autofilled = event.isAutofilled;
         this.stateChanges.next();
       });

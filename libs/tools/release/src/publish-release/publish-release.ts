@@ -130,8 +130,8 @@ export async function publishRelease(workspaceRoot: string): Promise<void> {
   await circleCiApi
     .getArtifactUrlForBranch(releaseCommit)
     .pipe(
-      map(artifacts => artifacts[0]),
-      switchMap(artifact =>
+      map((artifacts) => artifacts[0]),
+      switchMap((artifact) =>
         circleCiApi.downloadArtifact(artifact, artifactTar),
       ),
     )

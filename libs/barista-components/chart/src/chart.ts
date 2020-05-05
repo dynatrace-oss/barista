@@ -395,7 +395,7 @@ export class DtChart
   > = defer(() => {
     if (this._heatfields) {
       return merge<DtChartHeatfieldActiveChange>(
-        ...this._heatfields.map(heatfield => heatfield.activeChange),
+        ...this._heatfields.map((heatfield) => heatfield.activeChange),
       );
     }
 
@@ -444,7 +444,7 @@ export class DtChart
     }
     this._heatfieldActiveChanges
       .pipe(takeUntil(this._destroy$))
-      .subscribe(event => {
+      .subscribe((event) => {
         this._onHeatfieldActivate(event.source);
       });
 
@@ -467,11 +467,11 @@ export class DtChart
     this._heatfieldSelectionModel = new SelectionModel<DtChartHeatfield>();
     this._heatfieldSelectionModel.changed
       .pipe(takeUntil(this._destroy$))
-      .subscribe(event => {
-        event.added.forEach(heatfield => {
+      .subscribe((event) => {
+        event.added.forEach((heatfield) => {
           heatfield.active = true;
         });
-        event.removed.forEach(heatfield => {
+        event.removed.forEach((heatfield) => {
           heatfield.active = false;
         });
       });
@@ -492,7 +492,7 @@ export class DtChart
             const clientRect = getPlotBackgroundInfo(plotBackground);
 
             this._checkHeatfieldSupport();
-            this._heatfields.forEach(heatfield => {
+            this._heatfields.forEach((heatfield) => {
               heatfield._initHeatfield(clientRect, this._chartObject!);
             });
           }
@@ -566,7 +566,7 @@ export class DtChart
       });
 
     const tooltipOpened$ = this._highChartsTooltipOpened$.pipe(
-      map(event => new TooltipState(TooltipStateType.OPENED, event)),
+      map((event) => new TooltipState(TooltipStateType.OPENED, event)),
     );
 
     const tooltipClosed$ = this._highChartsTooltipOpened$.pipe(
@@ -585,7 +585,7 @@ export class DtChart
           distinctUntilChanged(compareTooltipEventChanged),
         ),
       ),
-      map(event => new TooltipState(TooltipStateType.UPDATED, event)),
+      map((event) => new TooltipState(TooltipStateType.UPDATED, event)),
     );
 
     merge(tooltipOpened$, tooltipClosed$, tooltipUpdated$)

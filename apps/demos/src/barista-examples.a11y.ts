@@ -50,12 +50,12 @@ const BLACKLIST: string[] = [
   'quick-filter-default-example',
 ];
 
-DT_DEMOS_EXAMPLE_NAV_ITEMS.forEach(component => {
+DT_DEMOS_EXAMPLE_NAV_ITEMS.forEach((component) => {
   fixture(component.name);
 
   component.examples
-    .filter(example => !BLACKLIST.includes(example.name))
-    .forEach(example => {
+    .filter((example) => !BLACKLIST.includes(example.name))
+    .forEach((example) => {
       test.page(`${BASEURL}${example.route}`)(
         example.name,
         async (testController: TestController) => {

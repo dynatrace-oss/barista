@@ -34,11 +34,11 @@ export function parseExistingSuite(suite: ExisitingTestSuite): ParsedSuite {
 
 /** Parses existing test cases to the parsed case definition */
 function parseExistingCases(testCases: ExisitingTestCase[]): ParsedCase[] {
-  return testCases.map(testCase => {
+  return testCases.map((testCase) => {
     const parsedCase: ParsedCase = { '@name': testCase.$.name };
 
     if (testCase.failure && testCase.failure.length) {
-      parsedCase.failure = testCase.failure.map(failure => ({
+      parsedCase.failure = testCase.failure.map((failure) => ({
         '#text': failure._.trim(),
         '@message': failure.$.message,
         '@type': failure.$.type,

@@ -27,7 +27,7 @@ export class DtExampleInlineEditorFailing {
   sampleModel = 'text content';
 
   failingSaveFunction(): Observable<void> {
-    return new Observable<void>(observer => {
+    return new Observable<void>((observer) => {
       setTimeout(() => {
         observer.error();
       }, TIMEOUT_MS);

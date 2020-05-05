@@ -109,7 +109,9 @@ export function updateFilter(filters: any[][], item: DtNodeDef): any[][] {
 /** @internal Remove a group from the filters array */
 export function unsetFilterGroup(filters: any[][], group: DtNodeDef): any[][] {
   if (group.option && group.option.viewValue) {
-    return filters.filter(filter => filter[0].name !== group.option!.viewValue);
+    return filters.filter(
+      (filter) => filter[0].name !== group.option!.viewValue,
+    );
   }
   return filters;
 }
@@ -130,7 +132,7 @@ export function findSelectedOption(
   item: DtNodeDef,
   distinct: boolean = false,
 ): number {
-  return filters.findIndex(path => {
+  return filters.findIndex((path) => {
     if (item.option && item.option.uid) {
       // split the uid in the parts that define the path
       // (like the user clicked through in the filter field)

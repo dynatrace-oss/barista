@@ -42,10 +42,10 @@ const backDrop = Selector('.dt-drawer-backdrop');
 const zIndexTest = Selector('#content-trigger');
 
 const scrollDistance = 50;
-const scrollDown = ClientFunction(distance => {
+const scrollDown = ClientFunction((distance) => {
   window.scrollBy(0, distance);
 });
-const scrollUp = ClientFunction(distance => {
+const scrollUp = ClientFunction((distance) => {
   window.scrollBy(0, -distance);
 });
 

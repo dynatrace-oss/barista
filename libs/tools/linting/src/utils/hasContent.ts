@@ -39,7 +39,7 @@ export function hasContent(element: ElementAst | EmbeddedTemplateAst): boolean {
     return false;
   }
 
-  return element.children.some(child => {
+  return element.children.some((child) => {
     if (child instanceof TextAst) {
       return hasTextContent(child);
     }
@@ -61,7 +61,7 @@ export function hasContentApartFrom(
     return false;
   }
 
-  return element.children.some(child => {
+  return element.children.some((child) => {
     if (child instanceof TextAst) {
       return hasTextContent(child);
     }

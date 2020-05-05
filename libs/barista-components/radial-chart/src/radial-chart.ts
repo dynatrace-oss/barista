@@ -189,7 +189,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
           switchMap(() =>
             this._radialChartSeries.length
               ? combineLatest(
-                  this._radialChartSeries.map(series => series._stateChanges),
+                  this._radialChartSeries.map((series) => series._stateChanges),
                 )
               : of(null),
           ),
@@ -214,7 +214,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
    */
   _updateRenderData(): void {
     if (this._radialChartSeries && this._radialChartSeries.length > 0) {
-      const seriesValues = this._radialChartSeries.map(s => s.value);
+      const seriesValues = this._radialChartSeries.map((s) => s.value);
       const arcs = generatePieArcData(seriesValues, this.maxValue);
       this._totalSeriesValue = getSum(seriesValues);
 

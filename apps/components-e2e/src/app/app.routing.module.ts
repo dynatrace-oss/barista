@@ -23,189 +23,189 @@ export const routes: Routes = [
     path: 'autocomplete',
     loadChildren: () =>
       import('../components/autocomplete/autocomplete.module').then(
-        module => module.DtE2EAutocompleteModule,
+        (module) => module.DtE2EAutocompleteModule,
       ),
   },
   {
     path: 'button',
     loadChildren: () =>
       import('../components/button/button.module').then(
-        module => module.DtE2EButtonModule,
+        (module) => module.DtE2EButtonModule,
       ),
   },
   {
     path: 'button-group',
     loadChildren: () =>
       import('../components/button-group/button-group.module').then(
-        module => module.DtE2EButtonGroupModule,
+        (module) => module.DtE2EButtonGroupModule,
       ),
   },
   {
     path: 'chart',
     loadChildren: () =>
       import('../components/chart/chart.module').then(
-        module => module.DtE2EChartModule,
+        (module) => module.DtE2EChartModule,
       ),
   },
   {
     path: 'checkbox',
     loadChildren: () =>
       import('../components/checkbox/checkbox.module').then(
-        module => module.DtE2ECheckboxModule,
+        (module) => module.DtE2ECheckboxModule,
       ),
   },
   {
     path: 'consumption',
     loadChildren: () =>
       import('../components/consumption/consumption.module').then(
-        module => module.DtE2EConsumptionModule,
+        (module) => module.DtE2EConsumptionModule,
       ),
   },
   {
     path: 'context-dialog',
     loadChildren: () =>
       import('../components/context-dialog/context-dialog.module').then(
-        module => module.DtE2eContextDialogModule,
+        (module) => module.DtE2eContextDialogModule,
       ),
   },
   {
     path: 'drawer',
     loadChildren: () =>
       import('../components/drawer/drawer.module').then(
-        module => module.DtE2EDrawerModule,
+        (module) => module.DtE2EDrawerModule,
       ),
   },
   {
     path: 'empty-state',
     loadChildren: () =>
       import('../components/empty-state/empty-state.module').then(
-        module => module.DtE2EEmptyStateModule,
+        (module) => module.DtE2EEmptyStateModule,
       ),
   },
   {
     path: 'event-chart',
     loadChildren: () =>
       import('../components/event-chart/event-chart.module').then(
-        module => module.DtE2EEventChartModule,
+        (module) => module.DtE2EEventChartModule,
       ),
   },
   {
     path: 'expandable-panel',
     loadChildren: () =>
       import('../components/expandable-panel/expandable-panel.module').then(
-        module => module.DtE2EExpandablePanelModule,
+        (module) => module.DtE2EExpandablePanelModule,
       ),
   },
   {
     path: 'expandable-section',
     loadChildren: () =>
       import('../components/expandable-section/expandable-section.module').then(
-        module => module.DtE2EExpandableSectionModule,
+        (module) => module.DtE2EExpandableSectionModule,
       ),
   },
   {
     path: 'filter-field',
     loadChildren: () =>
       import('../components/filter-field/filter-field.module').then(
-        module => module.DtE2EFilterFieldModule,
+        (module) => module.DtE2EFilterFieldModule,
       ),
   },
   {
     path: 'key-value-list',
     loadChildren: () =>
       import('../components/key-value-list/key-value-list.module').then(
-        module => module.DtE2EKeyValueListModule,
+        (module) => module.DtE2EKeyValueListModule,
       ),
   },
   {
     path: 'overlay',
     loadChildren: () =>
       import('../components/overlay/overlay.module').then(
-        module => module.DtE2EOverlayModule,
+        (module) => module.DtE2EOverlayModule,
       ),
   },
   {
     path: 'pagination',
     loadChildren: () =>
       import('../components/pagination/pagination.module').then(
-        module => module.DtE2EPaginationModule,
+        (module) => module.DtE2EPaginationModule,
       ),
   },
   {
     path: 'progress-bar',
     loadChildren: () =>
       import('../components/progress-bar/progress-bar.module').then(
-        module => module.DtE2EProgressBarModule,
+        (module) => module.DtE2EProgressBarModule,
       ),
   },
   {
     path: 'quick-filter',
     loadChildren: () =>
       import('../components/quick-filter/quick-filter.module').then(
-        module => module.DtE2EQuickFilterModule,
+        (module) => module.DtE2EQuickFilterModule,
       ),
   },
   {
     path: 'radial-chart',
     loadChildren: () =>
       import('../components/radial-chart/radial-chart.module').then(
-        module => module.DtE2ERadialChartModule,
+        (module) => module.DtE2ERadialChartModule,
       ),
   },
   {
     path: 'radio',
     loadChildren: () =>
       import('../components/radio/radio.module').then(
-        module => module.DtE2ERadioModule,
+        (module) => module.DtE2ERadioModule,
       ),
   },
   {
     path: 'select',
     loadChildren: () =>
       import('../components/select/select.module').then(
-        module => module.DtE2ESelectModule,
+        (module) => module.DtE2ESelectModule,
       ),
   },
   {
     path: 'show-more',
     loadChildren: () =>
       import('../components/show-more/show-more.module').then(
-        module => module.DtE2EShowMoreModule,
+        (module) => module.DtE2EShowMoreModule,
       ),
   },
   {
     path: 'switch',
     loadChildren: () =>
       import('../components/switch/switch.module').then(
-        module => module.DtE2ESwitchModule,
+        (module) => module.DtE2ESwitchModule,
       ),
   },
   {
     path: 'slider',
     loadChildren: () =>
       import('../components/slider/slider.module').then(
-        module => module.DtE2ESliderModule,
+        (module) => module.DtE2ESliderModule,
       ),
   },
   {
     path: 'tabs',
     loadChildren: () =>
       import('../components/tabs/tabs.module').then(
-        module => module.DtE2ETabsModule,
+        (module) => module.DtE2ETabsModule,
       ),
   },
   {
     path: 'tag',
     loadChildren: () =>
       import('../components/tag/tag.module').then(
-        module => module.DtE2ETagModule,
+        (module) => module.DtE2ETagModule,
       ),
   },
   {
     path: 'tile',
     loadChildren: () =>
       import('../components/tile/tile.module').then(
-        module => module.DtE2ETileModule,
+        (module) => module.DtE2ETileModule,
       ),
   },
   {
@@ -213,20 +213,20 @@ export const routes: Routes = [
     loadChildren: () =>
       import(
         '../components/confirmation-dialog/confirmation-dialog.module'
-      ).then(module => module.DtE2EConfirmationDialogModule),
+      ).then((module) => module.DtE2EConfirmationDialogModule),
   },
   {
     path: 'highlight',
     loadChildren: () =>
       import('../components/highlight/highlight.module').then(
-        module => module.DtE2EHighlightModule,
+        (module) => module.DtE2EHighlightModule,
       ),
   },
   {
     path: 'tree-table',
     loadChildren: () =>
       import('../components/tree-table/tree-table.module').then(
-        module => module.DtE2ETreeTableModule,
+        (module) => module.DtE2ETreeTableModule,
       ),
   },
 ];

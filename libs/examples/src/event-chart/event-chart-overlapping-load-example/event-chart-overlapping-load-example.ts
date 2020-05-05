@@ -316,7 +316,7 @@ export class DtExampleEventChartOverlappingLoad {
    */
   getEvents(): EventChartDemoEvent[] {
     const events: EventChartDemoEvent[] = [];
-    this.TEST_DATA.forEach(event => {
+    this.TEST_DATA.forEach((event) => {
       if (event.converted) {
         events.push({
           value: event.started,

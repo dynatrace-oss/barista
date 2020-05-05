@@ -34,9 +34,9 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 
     const attrs: AttrAst[] = element.attrs;
     const isNestedVariant = attrs.some(
-      attr => attr.name === 'variant' && attr.value === 'nested',
+      (attr) => attr.name === 'variant' && attr.value === 'nested',
     );
-    const isIconButton = attrs.some(attr => isIconButtonAttr(attr));
+    const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
 
     // dt-icon-button attribute required for nested buttons
     if (isNestedVariant && !isIconButton) {

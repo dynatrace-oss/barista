@@ -27,11 +27,11 @@ export async function generateDemosAppNavItems(
   const moduleFile = join(root, 'nav-items.ts');
 
   return transformAndWriteTemplate(
-    source => {
+    (source) => {
       let exampleClassNames: string[] = [];
       const navItems = packageMetadata
-        .map(packageMeta => {
-          const examples = packageMeta.examples.map(exampleMeta => {
+        .map((packageMeta) => {
+          const examples = packageMeta.examples.map((exampleMeta) => {
             const name = basename(exampleMeta.tsFileLocation).slice(0, -3);
             exampleClassNames.push(exampleMeta.className);
             return { name, route: `/${name}` };

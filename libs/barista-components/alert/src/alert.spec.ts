@@ -84,17 +84,13 @@ describe('DtAlert', () => {
 /** Test component that contains an DtAlert. */
 @Component({
   selector: 'dt-test-app',
-  template: `
-    <dt-alert severity="error"></dt-alert>
-  `,
+  template: ` <dt-alert severity="error"></dt-alert> `,
 })
 class TestApp {}
 
 /** Test component that is not visible by default. */
 @Component({
   selector: 'dt-test-app-empty',
-  template: `
-    <dt-alert></dt-alert>
-  `,
+  template: ` <dt-alert></dt-alert> `,
 })
 class TestAppEmpty {}

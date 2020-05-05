@@ -81,7 +81,7 @@ export function findChildByAttribute(
 ): ChildNode[] {
   if (
     element.attrs &&
-    (element.attrs as AttrAst[]).find(attr => attr.name === attrName)
+    (element.attrs as AttrAst[]).find((attr) => attr.name === attrName)
   ) {
     return [
       {

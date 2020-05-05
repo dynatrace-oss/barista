@@ -37,7 +37,7 @@ const toReplaceSelectors = [
 
 export function removeCssSelectors(): Rule {
   return (tree: Tree, _: SchematicContext) => {
-    const files = getMatchingFilesFromTree(tree, filePath =>
+    const files = getMatchingFilesFromTree(tree, (filePath) =>
       filePath.endsWith('.scss'),
     );
 

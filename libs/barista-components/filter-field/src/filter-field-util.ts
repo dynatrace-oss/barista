@@ -49,12 +49,12 @@ export function filterAutocompleteDef(
   filterText?: string,
 ): DtNodeDef | null {
   const optionsOrGroups = def
-    .autocomplete!.optionsOrGroups.map(optionOrGroup =>
+    .autocomplete!.optionsOrGroups.map((optionOrGroup) =>
       isDtGroupDef(optionOrGroup)
         ? filterGroupDef(optionOrGroup, distinctIds, filterText)
         : filterOptionDef(optionOrGroup, distinctIds, filterText),
     )
-    .filter(optionOrGroup => optionOrGroup !== null) as DtNodeDef[];
+    .filter((optionOrGroup) => optionOrGroup !== null) as DtNodeDef[];
   return def.autocomplete!.async || optionsOrGroups.length
     ? dtAutocompleteDef(
         def.data,
@@ -72,7 +72,7 @@ export function filterFreeTextDef(
   filterText?: string,
 ): DtNodeDef {
   const suggestions = def.freeText!.suggestions
-    ? def.freeText!.suggestions.filter(option =>
+    ? def.freeText!.suggestions.filter((option) =>
         filterOptionDef(option, new Set(), filterText),
       )
     : [];
@@ -95,7 +95,7 @@ export function filterGroupDef(
   selectedOptionIds: Set<string>,
   filterText?: string,
 ): DtNodeDef | null {
-  const options = def.group!.options.filter(option =>
+  const options = def.group!.options.filter((option) =>
     filterOptionDef(option, selectedOptionIds, filterText),
   );
   return options.length
@@ -192,7 +192,7 @@ export function optionOrGroupListFilteredPredicate(
 ): boolean {
   if (isDistinct) {
     return !optionsOrGroups.some(
-      optionOrGroup =>
+      (optionOrGroup) =>
         !optionOrGroupFilteredPredicate(
           optionOrGroup,
           selectedOptionIds,
@@ -200,7 +200,7 @@ export function optionOrGroupListFilteredPredicate(
         ),
     );
   }
-  return optionsOrGroups.some(optionOrGroup =>
+  return optionsOrGroups.some((optionOrGroup) =>
     optionOrGroupFilteredPredicate(
       optionOrGroup,
       selectedOptionIds,

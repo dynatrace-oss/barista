@@ -25,7 +25,7 @@ const highcharts = require('highcharts');
 
 export function applyHighchartsErrorHandler(): void {
   // tslint:disable-next-line:no-any
-  highcharts.error = function(code: number, stop: boolean): void {
+  highcharts.error = function (code: number, stop: boolean): void {
     const message = `HighCharts Error: www.highcharts.com/errors/${code}`;
     logger.error(message);
     if (stop) {

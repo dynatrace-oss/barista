@@ -136,12 +136,12 @@ export class DtExpandablePanel {
   /** @internal Event emitted when the panel is expanded. */
   @Output('expanded') readonly _panelExpanded: Observable<
     boolean
-  > = this.expandChange.pipe(filter(v => v));
+  > = this.expandChange.pipe(filter((v) => v));
 
   /**  @internal Event emitted when the panel is collapsed. */
   @Output('collapsed') readonly _panelCollapsed: Observable<
     boolean
-  > = this.expandChange.pipe(filter(v => !v));
+  > = this.expandChange.pipe(filter((v) => !v));
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 

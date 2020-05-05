@@ -245,7 +245,7 @@ describe('DtSunburstChart', () => {
     });
 
     describe('Template', () => {
-      beforeEach(function(): void {
+      beforeEach(function (): void {
         rootComponent.series = sunburstChartMock;
         fixture.detectChanges();
       });

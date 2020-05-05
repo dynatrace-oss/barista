@@ -28,14 +28,14 @@ export async function generateDemosAppRoutingModule(
   const moduleFile = join(root, 'app-routing.module.ts');
 
   return transformAndWriteTemplate(
-    source => {
+    (source) => {
       const imports = `import {\n  ${examplesMetadata
-        .map(meta => meta.className)
+        .map((meta) => meta.className)
         .join(',\n  ')}\n} from '@dynatrace/examples';`;
       source = source.replace('${imports}', imports);
 
       const routes = examplesMetadata
-        .map(metadata => {
+        .map((metadata) => {
           const fileName = basename(metadata.tsFileLocation).slice(0, -3);
           return `  { path: '${fileName}', component: ${metadata.className} }`;
         })

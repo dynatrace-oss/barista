@@ -292,9 +292,7 @@ describe('DtFilterFieldTag', () => {
 
 @Component({
   selector: 'test-app',
-  template: `
-    <dt-filter-field-tag [data]="dummy"></dt-filter-field-tag>
-  `,
+  template: ` <dt-filter-field-tag [data]="dummy"></dt-filter-field-tag> `,
 })
 export class TestApp {
   // we need to add this dummy data because the tags editable and deletable flags depend on the data being set

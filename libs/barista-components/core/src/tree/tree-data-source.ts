@@ -78,7 +78,7 @@ export class DtTreeFlattener<T, F> {
         if (Array.isArray(childrenNodes)) {
           this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
         } else {
-          childrenNodes!.pipe(take(1)).subscribe(children => {
+          childrenNodes!.pipe(take(1)).subscribe((children) => {
             this._flattenChildren(children, level, resultNodes, parentMap);
           });
         }
@@ -107,7 +107,9 @@ export class DtTreeFlattener<T, F> {
    */
   flattenNodes(structuredData: T[]): F[] {
     const resultNodes: F[] = [];
-    structuredData.forEach(node => this._flattenNode(node, 0, resultNodes, []));
+    structuredData.forEach((node) =>
+      this._flattenNode(node, 0, resultNodes, []),
+    );
     return resultNodes;
   }
 

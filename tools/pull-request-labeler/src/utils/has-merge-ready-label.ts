@@ -20,5 +20,5 @@ import { PullsGetResponse } from '@octokit/rest';
  * Checks if the pull request is already labeled with pr: merge-ready
  */
 export function hasMergeReadyLabel(pullRequest: PullsGetResponse): boolean {
-  return pullRequest.labels.some(label => label.name === 'pr: merge-ready');
+  return pullRequest.labels.some((label) => label.name === 'pr: merge-ready');
 }

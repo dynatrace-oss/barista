@@ -25,7 +25,7 @@ export function readFiles(
   const { files, exclude: ignore } = options;
 
   return files
-    .map(file => sync(file, { cwd: root, ignore, nodir: true }))
+    .map((file) => sync(file, { cwd: root, ignore, nodir: true }))
     .reduce((prev, curr) => prev.concat(curr), [])
-    .map(file => join(root, file));
+    .map((file) => join(root, file));
 }

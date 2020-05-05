@@ -1,7 +1,7 @@
 <div [dtTheme]="_getPageTheme()" class="ba-app-container">
   <ba-nav></ba-nav>
 
-  <ng-container *ngIf="(_breadcrumbs$ | async); let breadcrumbs">
+  <ng-container *ngIf="_breadcrumbs$ | async; let breadcrumbs">
     <dt-breadcrumbs
       aria-label="Breadcrumbs navigation"
       *ngIf="breadcrumbs.length > 1"
@@ -12,7 +12,7 @@
         dtBreadcrumbsItem
         class="ba-breadcrumb-item"
       >
-        {{crumb.label}}
+        {{ crumb.label }}
       </a>
     </dt-breadcrumbs>
   </ng-container>

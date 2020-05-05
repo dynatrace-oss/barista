@@ -30,7 +30,7 @@ export class DtExampleQuickFilterDefault {
   /** configuration for the quick filter */
   private _config: DtQuickFilterDefaultDataSourceConfig = {
     // Method to decide if a node should be displayed in the quick filter
-    showInSidebar: node =>
+    showInSidebar: (node) =>
       isObject(node) && node.name && node.name !== 'Not in Quickfilter',
   };
 

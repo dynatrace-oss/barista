@@ -257,10 +257,10 @@ const DUMMY_TOOLTIP_DATA_LINE_SERIES: DtChartTooltipData = {
       series: {
         name: 'Actions/min',
         xAxis: {
-          toPixels: x => x * 2,
+          toPixels: (x) => x * 2,
         },
         yAxis: {
-          toPixels: y => y * 2,
+          toPixels: (y) => y * 2,
         },
       },
       key: 0,

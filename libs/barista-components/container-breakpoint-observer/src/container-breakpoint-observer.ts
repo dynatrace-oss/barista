@@ -152,13 +152,13 @@ export class DtContainerBreakpointObserver implements OnDestroy {
     const queries = splitQueries(coerceArray(value));
     const observables = queries
       .map(
-        query =>
+        (query) =>
           this._registerQuery(query) && this._registerQuery(query)!.observable!,
       )
       .filter(Boolean) as Observable<InternalBreakpointState>[];
 
     return combineLatest(observables).pipe(
-      map(breakpointStates => {
+      map((breakpointStates) => {
         const response: DtBreakpointState = {
           matches: true,
           breakpoints: {},
@@ -231,7 +231,7 @@ export class DtContainerBreakpointObserver implements OnDestroy {
         this._placeholderContainer
       ) {
         this._intersectionObserver = new IntersectionObserver(
-          entries => {
+          (entries) => {
             for (const entry of entries) {
               for (const [queryString, query] of Array.from(
                 this._queries.entries(),
@@ -289,5 +289,5 @@ function splitQueries(queries: string[]): string[] {
   return queries
     .map((query: string) => query.split(','))
     .reduce((a1: string[], a2: string[]) => a1.concat(a2))
-    .map(query => query.trim());
+    .map((query) => query.trim());
 }

@@ -59,7 +59,7 @@ export function getSymbolName(node: any): string | undefined {
       return getSymbolName(node.declarationList);
     case ts.SyntaxKind.VariableDeclarationList:
       return node.declarations
-        .map(declaration => getSymbolName(declaration))
+        .map((declaration) => getSymbolName(declaration))
         .join(', ');
     // call expression that does not match the if case before.
     case ts.SyntaxKind.CallExpression:

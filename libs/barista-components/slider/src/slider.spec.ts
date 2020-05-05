@@ -874,9 +874,7 @@ class TestBigApp {
 
 @Component({
   selector: 'dt-default-test-app',
-  template: `
-    <dt-slider></dt-slider>
-  `,
+  template: ` <dt-slider></dt-slider> `,
 })
 class TestDefaultSliderApp {
   @ViewChild(DtSlider, { static: true })
@@ -894,5 +892,5 @@ class TestListenerSliderApp {
   @ViewChild(DtSlider, { static: true })
   slider: DtSlider;
 
-  handleChange = function(): void {};
+  handleChange = function (): void {};
 }

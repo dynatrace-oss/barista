@@ -121,7 +121,7 @@ export class DtOverlayRef<T> {
   /** Dismisses the overlay */
   dismiss(): void {
     this.containerInstance.exit();
-    this._disposableFns.forEach(fn => {
+    this._disposableFns.forEach((fn) => {
       fn();
     });
   }

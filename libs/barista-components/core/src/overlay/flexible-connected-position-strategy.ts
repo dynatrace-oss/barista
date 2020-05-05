@@ -1132,8 +1132,9 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
       // When using `bottom`, we adjust the y position such that it is the distance
       // from the bottom of the viewport rather than the top.
       const documentHeight = this._document.documentElement!.clientHeight;
-      styles.bottom = `${documentHeight -
-        (overlayPoint.y + this._overlayRect.height)}px`;
+      styles.bottom = `${
+        documentHeight - (overlayPoint.y + this._overlayRect.height)
+      }px`;
     } else {
       styles.top = coerceCssPixelValue(overlayPoint.y);
     }
@@ -1180,8 +1181,9 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
     // from the right edge of the viewport rather than the left edge.
     if (horizontalStyleProperty === 'right') {
       const documentWidth = this._document.documentElement!.clientWidth;
-      styles.right = `${documentWidth -
-        (overlayPoint.x + this._overlayRect.width)}px`;
+      styles.right = `${
+        documentWidth - (overlayPoint.x + this._overlayRect.width)
+      }px`;
     } else {
       styles.left = coerceCssPixelValue(overlayPoint.x);
     }
@@ -1201,7 +1203,7 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
     // TODO(jelbourn): instead of needing all of the client rects for these scrolling containers
     // every time, we should be able to use the scrollTop of the containers if the size of those
     // containers hasn't changed.
-    const scrollContainerBounds = this._scrollables.map(scrollable =>
+    const scrollContainerBounds = this._scrollables.map((scrollable) =>
       scrollable.getElementRef().nativeElement.getBoundingClientRect(),
     );
 
@@ -1286,7 +1288,7 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
 
     // TODO(crisbeto): remove these once Angular's template type
     // checking is advanced enough to catch these cases.
-    this._preferredPositions.forEach(pair => {
+    this._preferredPositions.forEach((pair) => {
       validateHorizontalPosition('originX', pair.originX);
       validateVerticalPosition('originY', pair.originY);
       validateHorizontalPosition('overlayX', pair.overlayX);
@@ -1297,7 +1299,7 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
   /** Adds a single CSS class or an array of classes on the overlay panel. */
   private _addPanelClasses(cssClasses: string | string[]) {
     if (this._pane) {
-      coerceArray(cssClasses).forEach(cssClass => {
+      coerceArray(cssClasses).forEach((cssClass) => {
         if (
           cssClass !== '' &&
           this._appliedPanelClasses.indexOf(cssClass) === -1
@@ -1312,7 +1314,7 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
   /** Clears the classes that the position strategy has applied from the overlay panel. */
   private _clearPanelClasses() {
     if (this._pane) {
-      this._appliedPanelClasses.forEach(cssClass => {
+      this._appliedPanelClasses.forEach((cssClass) => {
         this._pane.classList.remove(cssClass);
       });
       this._appliedPanelClasses = [];

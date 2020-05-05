@@ -236,7 +236,7 @@ export class BaLiveExample implements OnInit, OnDestroy {
     this._example$ = from(
       import(`../../../../../libs/examples/src/${this.directory}/index`),
     ).pipe(
-      map(es6Module => {
+      map((es6Module) => {
         return {
           component: es6Module[this.name],
           module: getNgModuleFromEs6Module(es6Module),

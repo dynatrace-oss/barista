@@ -40,10 +40,7 @@ fixture('Filter Field')
   });
 
 test('should not show a error box if there is no validator provided', async () => {
-  await clickOption(1)
-    .typeText(input, 'abc')
-    .expect(errorBox.exists)
-    .notOk();
+  await clickOption(1).typeText(input, 'abc').expect(errorBox.exists).notOk();
 });
 
 test('should show a error box if does not meet the validation function', async () => {

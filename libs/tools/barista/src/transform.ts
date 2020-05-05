@@ -75,7 +75,7 @@ export async function transformPage(
 }
 
 /** Transforms a markdown content into html. */
-export const markdownToHtmlTransformer: BaPageTransformer = async source => {
+export const markdownToHtmlTransformer: BaPageTransformer = async (source) => {
   const transformed = { ...source };
   if (source.content && source.content.length) {
     transformed.content = markdown.render(source.content);
@@ -84,7 +84,7 @@ export const markdownToHtmlTransformer: BaPageTransformer = async source => {
 };
 
 /** Sets additional tags for component pages. */
-export const componentTagsTransformer: BaPageTransformer = async source => {
+export const componentTagsTransformer: BaPageTransformer = async (source) => {
   const transformed = { ...source };
   const sourceTags = source.tags || [];
   const tagSet = new Set([...['component', 'angular'], ...sourceTags]);
@@ -93,11 +93,11 @@ export const componentTagsTransformer: BaPageTransformer = async source => {
 };
 
 /** Transforms UX slots from within the content and enriches slots with UX content from Strapi snippets. */
-export const uxSnippetTransformer: BaPageTransformer = async source => {
+export const uxSnippetTransformer: BaPageTransformer = async (source) => {
   const transformed = { ...source };
   await getSnippetData();
   if (source.content && source.content.length) {
-    transformed.content = runWithCheerio(source.content, $ => {
+    transformed.content = runWithCheerio(source.content, ($) => {
       const snippetSlots = $('ba-ux-snippet');
       if (snippetSlots.length) {
         snippetSlots.each((_, slot) => {
@@ -115,10 +115,12 @@ export const uxSnippetTransformer: BaPageTransformer = async source => {
 };
 
 /** Extracts H1 headlines and sets the title if possible. */
-export const extractH1ToTitleTransformer: BaPageTransformer = async source => {
+export const extractH1ToTitleTransformer: BaPageTransformer = async (
+  source,
+) => {
   const transformed = { ...source };
   if (source.content && source.content.length) {
-    transformed.content = runWithCheerio(source.content, $ => {
+    transformed.content = runWithCheerio(source.content, ($) => {
       const headlines = $('h1');
       if (headlines.length) {
         if (!transformed.title) {
@@ -132,11 +134,11 @@ export const extractH1ToTitleTransformer: BaPageTransformer = async source => {
 };
 
 /** Adds ids to each headline on the page. */
-export const headingIdTransformer: BaPageTransformer = async source => {
+export const headingIdTransformer: BaPageTransformer = async (source) => {
   const transformed = { ...source };
   if (source.content && source.content.length) {
     const headlinesLookup = new Map<string, number>();
-    transformed.content = runWithCheerio(source.content, $ => {
+    transformed.content = runWithCheerio(source.content, ($) => {
       const headlines = $('h2, h3, h4, h5, h6');
       if (headlines.length) {
         headlines.each((_, headline) => {
@@ -182,10 +184,10 @@ export const headingIdTransformer: BaPageTransformer = async source => {
 };
 
 /** Adds ids to each headline on the page. */
-export const copyHeadlineTransformer: BaPageTransformer = async source => {
+export const copyHeadlineTransformer: BaPageTransformer = async (source) => {
   const transformed = { ...source };
   if (source.content && source.content.length) {
-    transformed.content = runWithCheerio(source.content, $ => {
+    transformed.content = runWithCheerio(source.content, ($) => {
       const headlines = $('h2, h3, h4, h5, h6');
       if (headlines.length) {
         headlines.each((_, headline) => {
@@ -200,10 +202,10 @@ export const copyHeadlineTransformer: BaPageTransformer = async source => {
 };
 
 /** Replaces absolute href with contentLink */
-export const relativeUrlTransformer: BaPageTransformer = async source => {
+export const relativeUrlTransformer: BaPageTransformer = async (source) => {
   const transformed = { ...source };
   if (source.content && source.content.length) {
-    transformed.content = runWithCheerio(source.content, $ => {
+    transformed.content = runWithCheerio(source.content, ($) => {
       const links = $('a');
       links.each((_, link) => {
         const linkValue = $(link).attr('href');
@@ -239,14 +241,14 @@ export function internalLinksTransformerFactory(
   isPublic: boolean,
   internalLinkParts: string[],
 ): BaPageTransformer {
-  return async source => {
+  return async (source) => {
     if (!isPublic || !internalLinkParts.length) {
       return source;
     }
 
     const transformed = { ...source };
     const internalLinkSelectors = internalLinkParts
-      .map(selector => `a[href*="${selector}"]`)
+      .map((selector) => `a[href*="${selector}"]`)
       .join(',');
 
     transformed.content = runWithCheerio(source.content, ($: CheerioStatic) => {
@@ -265,7 +267,7 @@ export function internalLinksTransformerFactory(
 export function exampleInlineSourcesTransformerFactory(
   metadata: BaAllExamplesMetadata,
 ): BaPageTransformer {
-  return async source => {
+  return async (source) => {
     source.content = runWithCheerio(source.content, ($: CheerioStatic) => {
       $('ba-live-example').each((_index, element) => {
         const name = $(element).attr('name') || '';
@@ -298,7 +300,7 @@ export function exampleInlineSourcesTransformerFactory(
 export function internalContentTransformerFactory(
   isPublic: boolean,
 ): BaPageTransformer {
-  return async source => {
+  return async (source) => {
     const transformed = { ...source };
 
     // Content replacement only seems to work if there is at least one empty line

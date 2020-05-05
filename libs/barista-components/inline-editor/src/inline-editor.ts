@@ -335,7 +335,7 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
         () => {
           this._emitValue(value);
         },
-        error => {
+        (error) => {
           this._emitError(error);
         },
       );
@@ -426,10 +426,7 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
     if (this._ngZone.isStable) {
       fn();
     } else {
-      this._ngZone.onStable
-        .asObservable()
-        .pipe(take(1))
-        .subscribe(fn);
+      this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(fn);
     }
   }
 }

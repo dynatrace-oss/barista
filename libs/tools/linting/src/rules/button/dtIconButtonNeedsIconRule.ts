@@ -39,7 +39,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     const attrs: AttrAst[] = element.attrs;
-    const isIconButton = attrs.some(attr => isIconButtonAttr(attr));
+    const isIconButton = attrs.some((attr) => isIconButtonAttr(attr));
 
     if (isIconButton && !hasContent(element)) {
       addFailure(

@@ -149,7 +149,7 @@ export function createTransformer(
       }
       return visitEachChild(node, visit, context);
     }
-    return node => visitNode(node, visit);
+    return (node) => visitNode(node, visit);
   };
   return transformer;
 }
@@ -163,7 +163,7 @@ export async function getExampleModule(
   // and matches the pattern '.module.ts'
   const moduleFilePath = sync('*.module.ts', {
     cwd: resolve(exampleRoot, '../'),
-  }).map(file => join('../', file))[0];
+  }).map((file) => join('../', file))[0];
   const moduleAstFile = await tsCreateSourceFile(
     resolve(exampleRoot, moduleFilePath),
   );

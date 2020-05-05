@@ -346,5 +346,5 @@ export function _getSourceOfDtFilterValue<T>(value: _DtFilterValue): T {
 
 /** @internal */
 export function _getSourcesOfDtFilterValues(values: _DtFilterValue[]): any[] {
-  return values.map(value => _getSourceOfDtFilterValue<any>(value));
+  return values.map((value) => _getSourceOfDtFilterValue<any>(value));
 }

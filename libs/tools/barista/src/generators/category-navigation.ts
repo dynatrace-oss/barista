@@ -133,7 +133,7 @@ function orderSectionItems(
   // last. If more than one item doesn't have an order they are sorted alphabetically.
   for (const section of categoryNav.sections) {
     const sectionItems = section.items;
-    sectionItems.sort(function(
+    sectionItems.sort(function (
       a: BaCategoryNavigationSectionItem,
       b: BaCategoryNavigationSectionItem,
     ): number {
@@ -194,7 +194,7 @@ function isDirectory(path: string): boolean {
 
 /** Builds overview pages */
 export const overviewBuilder = async () => {
-  const allDirectories = readdirSync(environment.distDir).filter(dirPath =>
+  const allDirectories = readdirSync(environment.distDir).filter((dirPath) =>
     isDirectory(dirPath),
   );
 
@@ -202,7 +202,7 @@ export const overviewBuilder = async () => {
     navItems: [],
   };
 
-  const pages = allDirectories.map(async directory => {
+  const pages = allDirectories.map(async (directory) => {
     const path = join(environment.distDir, directory);
     let overviewPage: BaCategoryNavigation;
     const files = readdirSync(path);
@@ -303,7 +303,7 @@ export const overviewBuilder = async () => {
     );
   });
 
-  nav.navItems.sort(function(a: BaNavItem, b: BaNavItem): number {
+  nav.navItems.sort(function (a: BaNavItem, b: BaNavItem): number {
     if (a.order && b.order) {
       return a.order - b.order;
     }

@@ -35,14 +35,14 @@ export async function renderRoutes(options: {
   let renderCount = 0;
 
   const childProcesses = chunks.map(
-    chunkRoutes =>
+    (chunkRoutes) =>
       new Promise((resolve, reject) => {
         fork(renderModule, [
           outputPath,
           `http://localhost:${port}`,
           ...chunkRoutes,
         ])
-          .on('message', data => {
+          .on('message', (data) => {
             if (data.success) {
               logger.info(grey(`CREATE ${data.filePath} (${data.size} bytes)`));
               renderCount++;
