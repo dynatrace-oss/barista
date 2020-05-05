@@ -253,19 +253,19 @@ export class DtFilterField<T = any>
     if (coerced !== this._disabled) {
       this._disabled = coerced;
 
-      if (!this.tags || this.tags.length === 0) {
+      if (!this._tags || this._tags.length === 0) {
         return;
       }
 
       if (this._disabled) {
         this._closeFilterPanels();
 
-        this.tags.forEach((item) => {
+        this._tags.forEach((item) => {
           this._previousTagDisabledState.set(item, item.disabled);
           item.disabled = this._disabled;
         });
       } else {
-        this.tags.forEach(
+        this._tags.forEach(
           (item) =>
             (item.disabled = !!this._previousTagDisabledState.get(item)),
         );
@@ -298,10 +298,8 @@ export class DtFilterField<T = any>
   /**
    * List of tags that are the visual representation for selected nodes.
    * This can be used to disable certain tags or change their labeling.
-   * @deprecated use currentTags instead
-   * @breaking-change make private with 6.0.0
    */
-  @ViewChildren(DtFilterFieldTag) tags: QueryList<DtFilterFieldTag>;
+  @ViewChildren(DtFilterFieldTag) private _tags: QueryList<DtFilterFieldTag>;
 
   /** @internal List of current tags in the filter field */
   private _currentTags = new ReplaySubject<DtFilterFieldTag[]>(1);
@@ -535,11 +533,11 @@ export class DtFilterField<T = any>
         this._handleInputChange();
       });
     // tslint:disable-next-line: deprecation
-    this.tags.changes
+    this._tags.changes
       .pipe(startWith(null), takeUntil(this._destroy$))
       .subscribe(() => {
         // tslint:disable-next-line: deprecation
-        this._currentTags.next(this.tags.toArray());
+        this._currentTags.next(this._tags.toArray());
       });
   }
 
@@ -583,7 +581,7 @@ export class DtFilterField<T = any>
       if (needleFilterValueArr) {
         const filterIndex = this._findIndexForFilter(needleFilterValueArr);
         // tslint:disable-next-line: deprecation
-        return filterIndex !== -1 ? this.tags.toArray()[filterIndex] : null;
+        return filterIndex !== -1 ? this._tags.toArray()[filterIndex] : null;
       }
     }
     return null;
