@@ -104,17 +104,9 @@ export class DtMenuGroup {
   host: {
     class: 'dt-menu',
     role: 'menubar',
-    '[attr.aria-label]': 'ariaLabel',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtMenu {
-  /**
-   * Accessibility label describing the menu.
-   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
-   * @breaking-change to be removed in 6.0.0
-   */
-  @Input('aria-label') ariaLabel: string;
-}
+export class DtMenu {}
