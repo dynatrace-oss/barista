@@ -350,7 +350,8 @@
             "tsConfig": "libs/tools/examples-tools/tsconfig.json",
             "optimization": true,
             "progress": false,
-            "maxWorkers": 6
+            "maxWorkers": 6,
+            "buildLibsFromSource": true
           },
           "configurations": {
             "production": {}
@@ -790,7 +791,8 @@
                 "glob": "{package,builders,collection}.json",
                 "output": "."
               }
-            ]
+            ],
+            "buildLibsFromSource": true
           },
           "configurations": {
             "watch": {
@@ -813,7 +815,8 @@
             "tsConfig": "libs/tools/barista/tsconfig.json",
             "progress": false,
             "optimization": true,
-            "maxWorkers": 6
+            "maxWorkers": 6,
+            "buildLibsFromSource": true
           },
           "configurations": {
             "production": {}
@@ -864,7 +867,8 @@
             "main": "libs/tools/release/src/publish-release-cli.ts",
             "tsConfig": "libs/tools/release/tsconfig.json",
             "outputPath": "dist/libs/tools/publish-release",
-            "progress": false
+            "progress": false,
+            "buildLibsFromSource": true
           }
         },
         "build-stage-release": {
@@ -880,7 +884,8 @@
                 "input": "libs/tools/release/src/assets",
                 "output": "assets"
               }
-            ]
+            ],
+            "buildLibsFromSource": true
           }
         },
         "lint": {
@@ -936,7 +941,8 @@
             "main": "libs/tools/shareable-examples/src/main.ts",
             "tsConfig": "libs/tools/shareable-examples/tsconfig.json",
             "progress": false,
-            "maxWorkers": 6
+            "maxWorkers": 6,
+            "buildLibsFromSource": true
           },
           "configurations": {
             "production": {}
