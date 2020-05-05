@@ -40,7 +40,6 @@ import { _DtTableBase } from '@dynatrace/barista-components/table';
     class: 'dt-tree-table',
     '[class.dt-table-interactive-rows]': 'interactiveRows',
     role: 'treegrid',
-    '[attr.aria-label]': 'ariaLabel',
   },
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -49,12 +48,6 @@ import { _DtTableBase } from '@dynatrace/barista-components/table';
 export class DtTreeTable<T> extends _DtTableBase<T> {
   /** The tree control that handles expanding/collapsing or rows */
   @Input() treeControl: DtTreeControl<T>;
-  /**
-   * The aria label for the tree-table
-   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
-   * @breaking-change to be removed in 6.0.0
-   */
-  @Input('aria-label') ariaLabel: string;
 
   constructor(
     differs: IterableDiffers,
