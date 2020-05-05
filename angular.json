@@ -1743,46 +1743,6 @@
       },
       "schematics": {}
     },
-    "cta-card": {
-      "projectType": "library",
-      "root": "libs/barista-components/cta-card",
-      "sourceRoot": "libs/barista-components/cta-card/src",
-      "prefix": "dt",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/barista-components/cta-card/tsconfig.lib.json",
-              "libs/barista-components/cta-card/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/barista-components/cta-card/**"
-            ]
-          }
-        },
-        "lint-styles": {
-          "builder": "./dist/libs/workspace:stylelint",
-          "options": {
-            "stylelintConfig": ".stylelintrc",
-            "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/cta-card/**/*.scss"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/cta-card/jest.config.js",
-            "tsConfig": "libs/barista-components/cta-card/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/cta-card/src/test-setup.ts",
-            "passWithNoTests": true
-          }
-        }
-      },
-      "schematics": {}
-    },
     "drawer": {
       "projectType": "library",
       "root": "libs/barista-components/drawer",

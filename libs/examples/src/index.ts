@@ -107,8 +107,6 @@ import { DtExampleCopyToClipboardDefault } from './copy-to-clipboard/copy-to-cli
 import { DtExampleCopyToClipboardError } from './copy-to-clipboard/copy-to-clipboard-error-example/copy-to-clipboard-error-example';
 import { DtExampleCopyToClipboardSecondaryButton } from './copy-to-clipboard/copy-to-clipboard-secondary-button-example/copy-to-clipboard-secondary-button-example';
 import { DtExampleCopyToClipboardTextarea } from './copy-to-clipboard/copy-to-clipboard-textarea-example/copy-to-clipboard-textarea-example';
-import { DtExampleCtaCardClosable } from './cta-card/cta-card-closable-example/cta-card-closable-example';
-import { DtExampleCtaCardDefault } from './cta-card/cta-card-default-example/cta-card-default-example';
 import { DtExampleDrawerDefault } from './drawer/drawer-default-example/drawer-default-example';
 import { DtExampleDrawerDynamic } from './drawer/drawer-dynamic-example/drawer-dynamic-example';
 import { DtExampleDrawerNested } from './drawer/drawer-nested-example/drawer-nested-example';
@@ -334,7 +332,6 @@ export { DtConsumptionExamplesModule } from './consumption/consumption-examples.
 export { DtContainerBreakpointObserverExamplesModule } from './container-breakpoint-observer/container-breakpoint-observer-examples.module';
 export { DtContextDialogExamplesModule } from './context-dialog/context-dialog-examples.module';
 export { DtCopyToClipboardExamplesModule } from './copy-to-clipboard/copy-to-clipboard-examples.module';
-export { DtCtaCardExamplesModule } from './cta-card/cta-card-examples.module';
 export { DtDrawerExamplesModule } from './drawer/drawer-examples.module';
 export { DtDrawerTableExamplesModule } from './drawer-table/drawer-table-examples.module';
 export { DtEmptyStateExamplesModule } from './empty-state/empty-state-examples.module';
@@ -467,8 +464,6 @@ export {
   DtExampleCopyToClipboardError,
   DtExampleCopyToClipboardSecondaryButton,
   DtExampleCopyToClipboardTextarea,
-  DtExampleCtaCardClosable,
-  DtExampleCtaCardDefault,
   DtExampleDrawerDefault,
   DtExampleDrawerDynamic,
   DtExampleDrawerNested,
@@ -785,8 +780,6 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
     DtExampleCopyToClipboardSecondaryButton,
   ],
   ['DtExampleCopyToClipboardTextarea', DtExampleCopyToClipboardTextarea],
-  ['DtExampleCtaCardClosable', DtExampleCtaCardClosable],
-  ['DtExampleCtaCardDefault', DtExampleCtaCardDefault],
   ['DtExampleDrawerDefault', DtExampleDrawerDefault],
   ['DtExampleDrawerDynamic', DtExampleDrawerDynamic],
   ['DtExampleDrawerNested', DtExampleDrawerNested],

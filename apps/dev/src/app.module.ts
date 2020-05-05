@@ -28,7 +28,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DevAppRoutingModule } from './devapp-routing.module';
 import { DevApp } from './devapp.component';
 import { DevAppDynatraceModule } from './dt-components.module';
-
 import { AlertDemo } from './alert/alert-demo.component';
 import { AutocompleteDemo } from './autocomplete/autocomplete-demo.component';
 import { BarIndicatorDemo } from './bar-indicator/bar-indicator-demo.component';
@@ -43,7 +42,6 @@ import { ConsumptionDemo } from './consumption/consumption-demo.component';
 import { ContainerBreakpointObserverDemo } from './container-breakpoint-observer/container-breakpoint-observer-demo.component';
 import { ContextDialogDemo } from './context-dialog/context-dialog-demo.component';
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
-import { CtaCardDemo } from './cta-card/cta-card-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { DrawerTableDemo } from './drawer-table/drawer-table-demo.component';
 import { EmptyStateDemo } from './empty-state/empty-state-demo';
@@ -123,7 +121,7 @@ export class NoopRouteComponent {}
     ConfirmationDialogDemo,
     ContextDialogDemo,
     CopyToClipboardDemo,
-    CtaCardDemo,
+
     DrawerDemo,
     DrawerTableDemo,
     ExpandablePanelDemo,

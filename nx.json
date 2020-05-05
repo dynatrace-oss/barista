@@ -81,7 +81,6 @@
         "context-dialog",
         "copy-to-clipboard",
         "core",
-        "cta-card",
         "drawer",
         "drawer-table",
         "empty-state",
@@ -175,9 +174,6 @@
       "tags": ["scope:components", "type:library"]
     },
     "core": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "cta-card": {
       "tags": ["scope:components", "type:library"]
     },
     "drawer": {
