@@ -19,9 +19,6 @@
  */
 export enum DtColors {
   WHITE = '#ffffff',
-  /** @breaking-change Flat white will be removed with version 7.0.0 */
-  /** @deprecated Use DtColors.WHITE instead */
-  FLAT_WHITE = '#ffffff',
 
   BLUE_100 = '#e0f4fc',
   BLUE_200 = '#b4e5f9',
