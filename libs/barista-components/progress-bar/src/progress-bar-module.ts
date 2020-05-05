@@ -15,20 +15,13 @@
  */
 
 import { NgModule } from '@angular/core';
-import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
 
 import { DtProgressBar } from './progress-bar';
 import { DtProgressBarCount } from './progress-bar-count';
 import { DtProgressBarDescription } from './progress-bar-description';
 
 @NgModule({
-  exports: [
-    DtProgressBar,
-    DtProgressBarDescription,
-    DtProgressBarCount,
-    // @breaking-change Remove export in 6.0.0 (Issue #214 has to be solved first)
-    DtIndicatorModule,
-  ],
+  exports: [DtProgressBar, DtProgressBarDescription, DtProgressBarCount],
   declarations: [DtProgressBar, DtProgressBarDescription, DtProgressBarCount],
 })
 export class DtProgressBarModule {}
