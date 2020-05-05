@@ -29,7 +29,6 @@ import {
   PositionStrategy,
   ViewportRuler,
   OverlayContainer,
-  FlexibleConnectedPositionStrategy,
 } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -237,11 +236,8 @@ export class DtAutocompleteTrigger<T>
 
   /**
    * Strategy that is used to position the panel.
-   * @breaking-change Switch to only use DtFlexibleConnectedPositionStrategy with 7.0.0
    */
-  private _positionStrategy:
-    | FlexibleConnectedPositionStrategy
-    | DtFlexibleConnectedPositionStrategy;
+  private _positionStrategy: DtFlexibleConnectedPositionStrategy;
 
   /** Stream of keyboard events that can close the panel. */
   private readonly _closeKeyEventStream = new Subject<void>();
@@ -263,15 +259,12 @@ export class DtAutocompleteTrigger<T>
     private _changeDetectorRef: ChangeDetectorRef,
     private _viewportResizer: DtViewportResizer,
     private _zone: NgZone,
+    private _viewportRuler: ViewportRuler,
+    private _platform: Platform,
+    private _overlayContainer: OverlayContainer,
     @Optional() @Host() private _formField?: DtFormField<string>,
     // tslint:disable-next-line:no-any
     @Optional() @Inject(DOCUMENT) private _document?: any,
-    /** @breaking-change 7.0.0 Make the _viewportRuler non optional. */
-    @Optional() private _viewportRuler?: ViewportRuler,
-    /** @breaking-change 7.0.0 Make the _platform non optional. */
-    @Optional() private _platform?: Platform,
-    /** @breaking-change 7.0.0 Make the _overlayContainer non optional. */
-    @Optional() private _overlayContainer?: OverlayContainer,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
@@ -521,22 +514,13 @@ export class DtAutocompleteTrigger<T>
   }
 
   private _getOverlayPosition(): PositionStrategy {
-    /**
-     * @breaking-change Switch to only use the DtFlexibleConnectedPositionStrategy
-     * with 7.0.0
-     */
-    const originalPositionStrategy =
-      this._viewportRuler && this._platform && this._overlayContainer
-        ? new DtFlexibleConnectedPositionStrategy(
-            this._getConnectedElement(),
-            this._viewportRuler,
-            this._document,
-            this._platform,
-            this._overlayContainer,
-          )
-        : this._overlay
-            .position()
-            .flexibleConnectedTo(this._getConnectedElement());
+    const originalPositionStrategy = new DtFlexibleConnectedPositionStrategy(
+      this._getConnectedElement(),
+      this._viewportRuler,
+      this._document,
+      this._platform,
+      this._overlayContainer,
+    );
 
     this._positionStrategy = originalPositionStrategy
       .withFlexibleDimensions(false)
