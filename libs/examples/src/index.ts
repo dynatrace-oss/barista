@@ -158,7 +158,6 @@ import { DtExampleFormattersCount } from './formatters/formatters-count-example/
 import { DtExampleFormattersDuration } from './formatters/formatters-duration-example/formatters-duration-example';
 import { DtExampleFormattersPercent } from './formatters/formatters-percent-example/formatters-percent-example';
 import { DtExampleFormattersRate } from './formatters/formatters-rate-example/formatters-rate-example';
-import { DtExampleFormattersTime } from './formatters/formatters-time-example/formatters-time-example';
 import { DtExampleHighlightCaseSensitive } from './highlight/highlight-case-sensitive-example/highlight-case-sensitive-example';
 import { DtExampleHighlightDefault } from './highlight/highlight-default-example/highlight-default-example';
 import { DtExampleIconAll } from './icon/icon-all-example/icon-all-example';
@@ -513,7 +512,6 @@ export {
   DtExampleFormattersDuration,
   DtExampleFormattersPercent,
   DtExampleFormattersRate,
-  DtExampleFormattersTime,
   DtExampleHighlightCaseSensitive,
   DtExampleHighlightDefault,
   DtExampleIconAll,
@@ -847,7 +845,6 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleFormattersDuration', DtExampleFormattersDuration],
   ['DtExampleFormattersPercent', DtExampleFormattersPercent],
   ['DtExampleFormattersRate', DtExampleFormattersRate],
-  ['DtExampleFormattersTime', DtExampleFormattersTime],
   ['DtExampleHighlightCaseSensitive', DtExampleHighlightCaseSensitive],
   ['DtExampleHighlightDefault', DtExampleHighlightDefault],
   ['DtExampleIconAll', DtExampleIconAll],
