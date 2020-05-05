@@ -121,20 +121,6 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
     this._required = coerceBooleanProperty(value);
   }
 
-  /**
-   * Aria label of the inline-editor's save button.
-   * @deprecated `aria-label-save` does not conform with accessibility standards.
-   * Please use `ariaLabelSave` input instead.
-   * @breaking-change Will be removed in version 7.0.0
-   */
-  @Input('aria-label-save')
-  get depAriaLabelSave(): string {
-    return this._ariaLabelSave;
-  }
-  set depAriaLabelSave(value: string) {
-    this._ariaLabelSave = value;
-  }
-
   /** Aria label of the inline-editor's save button. */
   @Input()
   get ariaLabelSave(): string {
@@ -145,20 +131,6 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
   }
   /** @internal Aria label for the save button. */
   _ariaLabelSave: string;
-
-  /**
-   * Aria label of the inline-editor's cancel button.
-   * @deprecated `aria-label-cancel` does not conform with accessibility standards.
-   * Please use `ariaLabelCancel` input instead.
-   * @breaking-change Will be removed in version 7.0.0
-   */
-  @Input('aria-label-cancel')
-  get depAriaLabelCancel(): string {
-    return this._ariaLabelCancel;
-  }
-  set depAriaLabelCancel(value: string) {
-    this._ariaLabelCancel = value;
-  }
 
   /** Aria label of the inline-editor's cancel button. */
   @Input()
@@ -304,11 +276,6 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
     }
     this._destroy$.next();
     this._destroy$.complete();
-  }
-
-  /** @deprecated Will be removed in 6.0.0 */
-  onKeyDown(event: KeyboardEvent): void {
-    this._onKeyDown(event);
   }
 
   /** Enters the edit mode */
