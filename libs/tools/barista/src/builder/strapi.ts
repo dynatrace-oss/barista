@@ -66,7 +66,7 @@ export const strapiBuilder: BaPageBuilder = async (
   );
 
   // Filter pages with draft set to null or false
-  pagesData = pagesData.filter(page => !page.draft);
+  pagesData = pagesData.filter((page) => !page.draft);
 
   const transformed: BaPageBuildResult[] = [];
 
@@ -105,7 +105,7 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
   }
 
   // Set tags
-  const tags = page.tags.map(tag => tag.name) || [];
+  const tags = page.tags.map((tag) => tag.name) || [];
   if (tags.length > 0) {
     metaData.tags = tags;
   }
@@ -119,14 +119,14 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
   if (page.contributors && page.contributors.length > 0) {
     metaData.contributors = {};
     const uxSupport = page.contributors
-      .filter(c => !c.developer)
-      .map(c => ({
+      .filter((c) => !c.developer)
+      .map((c) => ({
         name: c.name,
         githubuser: c.githubuser,
       }));
     const devSupport = page.contributors
-      .filter(c => c.developer)
-      .map(c => ({
+      .filter((c) => c.developer)
+      .map((c) => ({
         name: c.name,
         githubuser: c.githubuser,
       }));

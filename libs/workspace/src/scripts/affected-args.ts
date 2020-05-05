@@ -89,7 +89,7 @@ export async function affectedArgs(): Promise<string> {
 // This should only run on direct execution with nodejs.
 if (!require.main?.filename) {
   affectedArgs()
-    .then(base => {
+    .then((base) => {
       const { BASH_ENV } = process.env;
       // Store the affected args in the $BASH_ENV variable that
       // is set through circle ci.
@@ -98,7 +98,7 @@ if (!require.main?.filename) {
         console.log(`Successfully added the --base=${base}`);
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.error(error);
       process.exit(1);
     });

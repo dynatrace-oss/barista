@@ -36,11 +36,7 @@ export class BaColor {
     this._hexcolor = DtColors[this._colorname];
     this._colorname =
       this._colorname.charAt(0) +
-      value
-        .slice(1)
-        .replace('-', ' ')
-        .replace('_', ' ')
-        .toLowerCase();
+      value.slice(1).replace('-', ' ').replace('_', ' ').toLowerCase();
   }
 
   /** @internal the hex value of the color */

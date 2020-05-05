@@ -209,7 +209,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     );
 
     this._mouseDownElements$ = this._plotBackground$.pipe(
-      map(plotBackground => [
+      map((plotBackground) => [
         plotBackground,
         ...this._getHighchartsSeriesGroupAndAxis(),
       ]),
@@ -218,7 +218,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     // get the BCR of the selection Area
     this._selectionAreaBcr$ = this._plotBackground$.pipe(
-      map(plotBackground => _getElementBoundingClientRect(plotBackground)),
+      map((plotBackground) => _getElementBoundingClientRect(plotBackground)),
       share(),
     );
 
@@ -226,7 +226,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // initial selection area.´
     fromEvent<KeyboardEvent>(this._elementRef.nativeElement, 'keydown')
       .pipe(
-        filter(event => _readKeyCode(event) === ENTER),
+        filter((event) => _readKeyCode(event) === ENTER),
         withLatestFrom(this._selectionAreaBcr$),
         takeUntil(this._destroy$),
       )
@@ -236,7 +236,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     this._plotBackground$
       .pipe(takeUntil(this._destroy$))
-      .subscribe(plotBackground => {
+      .subscribe((plotBackground) => {
         const range = this._chart._range;
         const timestamp = this._chart._timestamp;
 
@@ -489,14 +489,14 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
     // stream that emits a touch start on all mouse down elements
     const touchStart$ = this._mouseDownElements$.pipe(
-      switchMap(elements =>
+      switchMap((elements) =>
         getTouchStartStream(this._elementRef.nativeElement, elements),
       ),
       share(),
     );
 
     this._mousedown$ = this._mouseDownElements$.pipe(
-      switchMap(elements =>
+      switchMap((elements) =>
         getMouseDownStream(this._elementRef.nativeElement, elements),
       ),
       share(),
@@ -513,7 +513,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     );
 
     this._click$ = this._mouseDownElements$.pipe(
-      switchMap(elements =>
+      switchMap((elements) =>
         merge(
           getClickStream(
             this._elementRef.nativeElement,
@@ -629,7 +629,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         );
 
       const rangeCreate$ = this._selectionAreaBcr$.pipe(
-        switchMap(bcr =>
+        switchMap((bcr) =>
           getRangeCreateStream(
             merge(
               relativeTouchOrMouseDown(this._mousedown$),
@@ -643,7 +643,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
       const rangeResize$ = this._selectionAreaBcr$.pipe(
         filter(() => Boolean(this._chart._range)),
-        switchMap(bcr =>
+        switchMap((bcr) =>
           getRangeResizeStream(
             this._dragHandle$,
             dragHandleStart$,
@@ -666,9 +666,9 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       )
         .pipe(
           takeUntil(this._destroy$),
-          filter(area => this._isRangeInsideMaximumConstraint(area)),
+          filter((area) => this._isRangeInsideMaximumConstraint(area)),
         )
-        .subscribe(area => {
+        .subscribe((area) => {
           if (this._chart._range) {
             this._chart._range._area = area;
           }
@@ -692,7 +692,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
 
       startResizing$
         .pipe(
-          switchMap(startValue => release$.pipe(startWith(startValue))),
+          switchMap((startValue) => release$.pipe(startWith(startValue))),
           distinctUntilChanged(),
           takeUntil(this._destroy$),
         )
@@ -759,10 +759,10 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
       )
         .pipe(
           takeUntil(this._destroy$),
-          filter(event => !event.hidden),
+          filter((event) => !event.hidden),
           distinctUntilChanged(),
         )
-        .subscribe(state => {
+        .subscribe((state) => {
           if (
             this._chart._range &&
             state instanceof TimestampStateChangedEvent
@@ -825,7 +825,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         ),
       )
         .pipe(takeUntil(this._destroy$))
-        .subscribe(ref => {
+        .subscribe((ref) => {
           if (this._chart._range && this._chart._range._overlayTemplate) {
             this._updateOrCreateOverlay(this._chart._range, ref);
           }
@@ -862,7 +862,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
         this._zone,
       )
         .pipe(takeUntil(this._destroy$))
-        .subscribe(ref => {
+        .subscribe((ref) => {
           if (
             this._chart._timestamp &&
             this._chart._timestamp._overlayTemplate
@@ -907,7 +907,7 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     // hover is used to capture the mousemove on the selection area when pointer events
     // are disabled. So it collects all underlying areas and captures the mousemove
     const hover$ = this._mouseDownElements$.pipe(
-      switchMap(elements =>
+      switchMap((elements) =>
         getMouseMove(this._elementRef.nativeElement, elements),
       ),
       share(),

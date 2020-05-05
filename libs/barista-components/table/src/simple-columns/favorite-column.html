@@ -4,9 +4,9 @@
   [dtColumnProportion]="proportion"
 >
   <ng-container *dtHeaderCellDef>
-    <dt-header-cell [dt-sort-header]="sortable" start="desc"
-      >{{ label }}</dt-header-cell
-    >
+    <dt-header-cell [dt-sort-header]="sortable" start="desc">{{
+      label
+    }}</dt-header-cell>
   </ng-container>
   <dt-cell
     *dtCellDef="let data"
@@ -15,7 +15,10 @@
     [attr.title]="_isFavorite(data)"
   >
     <ng-container
-      *ngTemplateOutlet="favoriteTemplate; context:{ favorite: _isFavorite(data), data: data }"
+      *ngTemplateOutlet="
+        favoriteTemplate;
+        context: { favorite: _isFavorite(data), data: data }
+      "
     ></ng-container>
   </dt-cell>
 </ng-container>

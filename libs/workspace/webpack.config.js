@@ -16,7 +16,7 @@ const entries = [
   'src/index.ts',
 ];
 
-module.exports = config => {
+module.exports = (config) => {
   // enable dynamic chunks
   config.output.filename = '[name].js';
   // reset entries

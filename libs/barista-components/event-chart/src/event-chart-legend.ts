@@ -91,7 +91,7 @@ export class DtEventChartLegend<T> implements OnChanges {
       // don't look for another
       if (!neededLegends[currentLane][pattern][color]) {
         const selectedLegendItem = this.legendItems.find(
-          item =>
+          (item) =>
             item.lanes.includes(currentLane) &&
             item.pattern === renderEvent.pattern &&
             item.color === color,
@@ -103,7 +103,7 @@ export class DtEventChartLegend<T> implements OnChanges {
       }
     }
 
-    this._renderLegendItems = Array.from(legendItems).map(item => ({
+    this._renderLegendItems = Array.from(legendItems).map((item) => ({
       item,
       color: item.color,
       pattern: item.pattern,

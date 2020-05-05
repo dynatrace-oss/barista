@@ -87,7 +87,7 @@ function abbreviateNumber(sourceValue: number): string {
   let value = Math.abs(sourceValue);
   let postfix = '';
 
-  const level = ABBREVIATION_LEVELS.find(m => m.multiplier <= value);
+  const level = ABBREVIATION_LEVELS.find((m) => m.multiplier <= value);
 
   if (level !== undefined) {
     value = sourceValue / level.multiplier;

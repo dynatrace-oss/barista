@@ -32,7 +32,7 @@ export function isButtonElement(element: ElementAst): boolean {
 
   if (
     elementName === 'a' &&
-    !element.attrs.some(attr => isButtonAttr(attr) || isIconButtonAttr(attr))
+    !element.attrs.some((attr) => isButtonAttr(attr) || isIconButtonAttr(attr))
   ) {
     return false;
   }

@@ -118,34 +118,26 @@ describe('DtIndicator without table', () => {
 });
 
 @Component({
-  template: `
-    <span dtIndicator></span>
-  `,
+  template: ` <span dtIndicator></span> `,
 })
 class DtIndicatorBasic {
   @ViewChild(DtIndicator) indicator: DtIndicator;
 }
 
 @Component({
-  template: `
-    <span [dtIndicator]="active"></span>
-  `,
+  template: ` <span [dtIndicator]="active"></span> `,
 })
 class DtIndicatorWithActive {
   active = false;
 }
 
 @Component({
-  template: `
-    <span dtIndicator dtIndicatorColor="warning"></span>
-  `,
+  template: ` <span dtIndicator dtIndicatorColor="warning"></span> `,
 })
 class DtIndicatorWarning {}
 
 @Component({
-  template: `
-    <span dtIndicator [dtIndicatorColor]="color"></span>
-  `,
+  template: ` <span dtIndicator [dtIndicatorColor]="color"></span> `,
 })
 class DtIndicatorColor {
   color = 'warning';

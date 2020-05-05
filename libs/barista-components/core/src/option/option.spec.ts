@@ -94,9 +94,7 @@ describe('DtOption', () => {
 });
 
 @Component({
-  template: `
-    <dt-option [disabled]="disabled"></dt-option>
-  `,
+  template: ` <dt-option [disabled]="disabled"></dt-option> `,
 })
 class OptionWithDisable {
   disabled: boolean;

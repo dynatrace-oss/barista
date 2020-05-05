@@ -43,7 +43,7 @@ export function startServer(
     }
 
     if (child.stderr) {
-      child.stderr.on('data', error => {
+      child.stderr.on('data', (error) => {
         reject({ pid: child.pid, error: error.toString() });
       });
     }

@@ -65,13 +65,13 @@ export function updateNgModuleRule(options: ExtendedSchema): Rule {
 
     // Add the DtIconModule.forRoot
     const changes = [
-      sourceFile =>
+      (sourceFile) =>
         updateNgModuleDecoratorProperties(
           sourceFile,
           NgModuleProperties.Imports,
           iconModuleForRoot,
         ),
-      sourceFile =>
+      (sourceFile) =>
         addImportToSourceFile(
           sourceFile,
           ['DtIconModule'],
@@ -85,14 +85,14 @@ export function updateNgModuleRule(options: ExtendedSchema): Rule {
       : 'NoopAnimationsModule';
 
     // update of ngModule should be done before adding imports
-    changes.unshift(sourceFile =>
+    changes.unshift((sourceFile) =>
       updateNgModuleDecoratorProperties(
         sourceFile,
         NgModuleProperties.Imports,
         ts.createIdentifier(animationModule),
       ),
     );
-    changes.push(sourceFile =>
+    changes.push((sourceFile) =>
       addImportToSourceFile(
         sourceFile,
         [animationModule],

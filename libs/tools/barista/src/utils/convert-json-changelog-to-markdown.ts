@@ -44,7 +44,7 @@ export function convertJsonChangelogToMarkdown(
     }
     const changesList = changes
       .map(
-        change =>
+        (change) =>
           `* ${modeMessageMap.get(change.mode)} [${
             change.name
           }](/resources/icons/${change.name})`,

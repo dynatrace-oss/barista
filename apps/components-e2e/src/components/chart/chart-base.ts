@@ -30,7 +30,7 @@ export abstract class DtE2EChartBase {
     IndividualSeriesOptions[]
   > = this._dataService
     .getFixture<{ data: IndividualSeriesOptions[] }>('/data-small.json')
-    .pipe(map(result => result.data));
+    .pipe(map((result) => result.data));
 
   constructor(private _dataService: DataService) {}
 

@@ -120,7 +120,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     this._tabsSubscription = this._tabs.changes.subscribe(() => {
       this._validateTabs();
       // if selected tab got removed - select the first enabled again
-      if (!this._tabs.find(tab => tab === this._selected)) {
+      if (!this._tabs.find((tab) => tab === this._selected)) {
         this._selectTab();
       }
       // after tabs changed we need to subscribe again
@@ -140,8 +140,8 @@ export class DtTabGroup extends _DtTabGroupMixinBase
     this._selected = selected;
     if (this._tabs) {
       this._tabs
-        .filter(tab => tab !== selected)
-        .forEach(tab => {
+        .filter((tab) => tab !== selected)
+        .forEach((tab) => {
           tab._deselect();
         });
     }
@@ -164,7 +164,7 @@ export class DtTabGroup extends _DtTabGroupMixinBase
       this._tabStateSubscription.unsubscribe();
     }
     this._tabStateSubscription = merge(
-      ...this._tabs.map(tab => tab._stateChanges),
+      ...this._tabs.map((tab) => tab._stateChanges),
     ).subscribe(() => {
       /** check if the selected tab is disabled now */
       if (this._selected && this._selected.disabled) {
@@ -178,12 +178,12 @@ export class DtTabGroup extends _DtTabGroupMixinBase
   /** @internal Selects the tab  */
   _selectTab(): void {
     if (this._tabs) {
-      const hasEnabledTabs = this._tabs.some(t => !t.disabled);
+      const hasEnabledTabs = this._tabs.some((t) => !t.disabled);
       if (!hasEnabledTabs) {
         LOG.error(DT_TABGROUP_NO_ENABLED_TABS_ERROR);
         return;
       }
-      const selectedTabNotFound = !this._tabs.find(t => t === this._selected);
+      const selectedTabNotFound = !this._tabs.find((t) => t === this._selected);
       if (selectedTabNotFound) {
         const firstEnabled = this._findFirstEnabledTab();
         if (firstEnabled) {

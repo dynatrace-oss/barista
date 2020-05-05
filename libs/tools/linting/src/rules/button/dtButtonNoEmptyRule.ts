@@ -38,7 +38,7 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
     }
 
     const attrs: AttrAst[] = element.attrs;
-    const isButton = attrs.some(attr => isButtonAttr(attr));
+    const isButton = attrs.some((attr) => isButtonAttr(attr));
 
     if (isButton) {
       if (hasContent(element)) {

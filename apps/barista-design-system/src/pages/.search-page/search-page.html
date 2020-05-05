@@ -8,13 +8,13 @@
       </dt-form-field>
 
       <div
-        *ngFor="let result of (_searchResults$ | async)"
+        *ngFor="let result of _searchResults$ | async"
         class="ba-search-result-item"
       >
         <div>
-          <a class="dt-link dt-external" [href]="result.url"
-            >{{ result.title }}</a
-          >
+          <a class="dt-link dt-external" [href]="result.url">{{
+            result.title
+          }}</a>
           <p class="ba-search-contentextractions" *ngIf="result.contentMatches">
             <span
               dt-highlight
@@ -22,7 +22,7 @@
               *ngFor="let contentMatch of result.contentMatches"
               class="ba-search-contentmatch"
             >
-              {{contentMatch}}
+              {{ contentMatch }}
             </span>
           </p>
         </div>

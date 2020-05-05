@@ -278,9 +278,7 @@ describe('DtIcon without HttpClientModule', () => {
 });
 
 @Component({
-  template: `
-    <dt-icon [name]="iconName"></dt-icon>
-  `,
+  template: ` <dt-icon [name]="iconName"></dt-icon> `,
 })
 class IconWithName {
   iconName: string | undefined = '';

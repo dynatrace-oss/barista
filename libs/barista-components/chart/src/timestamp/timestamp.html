@@ -1,5 +1,7 @@
 <ng-template let-timestamp>
-  <span class="dt-selection-area-overlay-text">{{ timestamp | date: 'MMM d, HH:mm' }}</span>
+  <span class="dt-selection-area-overlay-text">{{
+    timestamp | date: 'MMM d, HH:mm'
+  }}</span>
   <ng-content select="[dtChartSelectionAreaAction]"></ng-content>
   <button
     dt-icon-button

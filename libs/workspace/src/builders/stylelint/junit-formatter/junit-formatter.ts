@@ -28,14 +28,14 @@ export async function junitFormatter(
   file: string,
   stylelintResults: LintResult[],
 ): Promise<void> {
-  const parsedResults = stylelintResults.map(result => parseSuite(result));
+  const parsedResults = stylelintResults.map((result) => parseSuite(result));
 
   // if we have an existing xml add the linted files to the xml
   if (existsSync(file)) {
     const existing = readFileSync(file).toString();
     const parsed: ExistingResult = await parseStringPromise(existing);
     if (parsed.testsuites && parsed.testsuites.testsuite) {
-      const transformed = parsed.testsuites.testsuite.map(suite =>
+      const transformed = parsed.testsuites.testsuite.map((suite) =>
         parseExistingSuite(suite),
       );
       parsedResults.push(...transformed);

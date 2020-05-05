@@ -8,10 +8,10 @@
 >
   <div class="dt-select-value" [ngSwitch]="empty">
     <span class="dt-select-placeholder" *ngSwitchCase="true">
-      {{placeholder || '\u00A0'}}
+      {{ placeholder || '\u00A0' }}
     </span>
     <span class="dt-select-value-text" *ngSwitchCase="false">
-      {{triggerValue || '\u00A0'}}
+      {{ triggerValue || '\u00A0' }}
     </span>
   </div>
 

@@ -156,7 +156,7 @@
       Start monitoring your Cloud Foundry foundation VMs
     </dt-cta-card-title>
 
-    <dt-cta-card-image><img src="/assets/cta-noagent.svg"/></dt-cta-card-image>
+    <dt-cta-card-image><img src="/assets/cta-noagent.svg" /></dt-cta-card-image>
 
     <dt-cta-card-title-actions aria-label="Close card">
       <button dt-icon-button variant="secondary" color="cta">
@@ -229,29 +229,29 @@
 
   <dt-header-row
     *dtHeaderRowDef="[
-          'usersId',
-          'sessionCount',
-          'averageDuration',
-          'errors',
-          'country',
-          'city',
-          'browserFamily',
-          'device'
-        ]"
+      'usersId',
+      'sessionCount',
+      'averageDuration',
+      'errors',
+      'country',
+      'city',
+      'browserFamily',
+      'device'
+    ]"
   ></dt-header-row>
   <dt-row
     *dtRowDef="
-          let row;
-          columns: [
-            'usersId',
-            'sessionCount',
-            'averageDuration',
-            'errors',
-            'country',
-            'city',
-            'browserFamily',
-            'device'
-          ]
-        "
+      let row;
+      columns: [
+        'usersId',
+        'sessionCount',
+        'averageDuration',
+        'errors',
+        'country',
+        'city',
+        'browserFamily',
+        'device'
+      ]
+    "
   ></dt-row>
 </dt-table>

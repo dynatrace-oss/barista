@@ -110,7 +110,7 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
   private _prepareItems(): void {
     this._shortcutItems = [];
 
-    this._items.forEach(item => {
+    this._items.forEach((item) => {
       // get the first letter
       const firstLetter = item.data.title[0].toLowerCase();
 

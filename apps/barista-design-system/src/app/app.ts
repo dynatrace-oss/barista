@@ -91,7 +91,7 @@ export class BaApp implements OnInit, OnDestroy {
         filter<BaContentTypes>(Boolean),
         takeUntil(this._destroy$),
       )
-      .subscribe(page => {
+      .subscribe((page) => {
         this._setMeta(page);
       });
   }
@@ -151,7 +151,7 @@ export class BaApp implements OnInit, OnDestroy {
       metaTags.push({ name: 'description', content: page.description });
     }
 
-    metaTags.forEach(tag => {
+    metaTags.forEach((tag) => {
       this._meta.updateTag(tag);
     });
 

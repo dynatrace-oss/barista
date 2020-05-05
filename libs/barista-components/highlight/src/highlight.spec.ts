@@ -378,9 +378,7 @@ class TestComponentWithStaticCaseSensitive {}
 class TestComponentWithHighlightedHtml {}
 
 @Component({
-  template: `
-    <dt-highlight [term]="value">HTTP-Monitoring</dt-highlight>
-  `,
+  template: ` <dt-highlight [term]="value">HTTP-Monitoring</dt-highlight> `,
 })
 class TestCasingHighlighted {
   value = 'HTTP';

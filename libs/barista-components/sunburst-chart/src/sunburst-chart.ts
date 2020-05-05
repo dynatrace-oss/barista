@@ -74,8 +74,9 @@ export class DtSunburstChart {
   // viewbox is originX originY width and height. With -width/2 -height/2 width height the center of the svg is (0,0)
   // this way we don't have to translate all the elements and it gets centered in the middle
   /** @internal viewbox representation */
-  readonly _viewBox = `-${VIEWBOX_WIDTH / 2} -${VIEWBOX_HEIGHT /
-    2} ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`;
+  readonly _viewBox = `-${VIEWBOX_WIDTH / 2} -${
+    VIEWBOX_HEIGHT / 2
+  } ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`;
 
   /** @internal Viewchild selection of the svg */
   @ViewChild('svg') _svgEl;
@@ -156,7 +157,7 @@ export class DtSunburstChart {
     if (slice) {
       this._selected = getSelectedNodes(this._filledSeries, slice.data);
 
-      this.selectedChange.emit(this._selected.map(node => node.origin));
+      this.selectedChange.emit(this._selected.map((node) => node.origin));
     } else {
       this._selected = [];
 

@@ -32,7 +32,7 @@ export async function getRelativeImportsFromSourceFile(
   // Get all relative imports from the example class file.
   const relativeImports = source.statements
     // Filter all statements that are importDeclarations
-    .filter(statement => isImportDeclaration(statement))
+    .filter((statement) => isImportDeclaration(statement))
     // Map it to the text of the moduleSpecifier
     .map((statement: ImportDeclaration) =>
       isStringLiteral(statement.moduleSpecifier)

@@ -17,7 +17,7 @@
 import { DELIMITER } from '@dynatrace/barista-components/filter-field';
 
 export function buildIdPathsFromFilters(filters: any[][]): string[] {
-  return filters.map(path =>
+  return filters.map((path) =>
     path.reduce(
       (previousValue, currentValue) =>
         `${previousValue.name}${DELIMITER}${currentValue.name}${DELIMITER}`,

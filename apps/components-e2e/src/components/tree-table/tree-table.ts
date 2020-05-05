@@ -172,7 +172,7 @@ export class DtE2ETreeTable implements OnDestroy {
     );
     this.dataChange.next(TESTDATA);
 
-    this._dataChangeSub = this.dataChange.subscribe(data => {
+    this._dataChangeSub = this.dataChange.subscribe((data) => {
       this.dataSource.data = data;
     });
   }

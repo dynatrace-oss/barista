@@ -143,7 +143,7 @@ describe('dt-quick-filter', () => {
       fixture.componentInstance._dataSource = new DtQuickFilterDefaultDataSource(
         FILTER_FIELD_TEST_DATA,
         {
-          showInSidebar: node => node.name !== 'Not in Quickfilter',
+          showInSidebar: (node) => node.name !== 'Not in Quickfilter',
         },
       );
       fixture.detectChanges();
@@ -158,7 +158,7 @@ describe('dt-quick-filter', () => {
       expect(changeSpy).toHaveBeenCalledTimes(0);
       const checkboxes = fixture.debugElement
         .queryAll(By.directive(DtCheckbox))
-        .map(el => el.query(By.css('label')));
+        .map((el) => el.query(By.css('label')));
 
       dispatchMouseEvent(checkboxes[1].nativeElement, 'click');
       fixture.detectChanges();
@@ -179,14 +179,12 @@ describe('dt-quick-filter', () => {
 function getGroupHeadlines(debugElement: DebugElement): string[] {
   return debugElement
     .queryAll(By.css('.dt-quick-filter-group-headline'))
-    .map(el => el.nativeElement.textContent.trim());
+    .map((el) => el.nativeElement.textContent.trim());
 }
 
 @Component({
   selector: 'dt-quick-filter-simple',
-  template: `
-    <dt-quick-filter></dt-quick-filter>
-  `,
+  template: ` <dt-quick-filter></dt-quick-filter> `,
 })
 class QuickFilterSimpleComponent {}
 

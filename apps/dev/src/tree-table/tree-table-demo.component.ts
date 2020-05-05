@@ -265,7 +265,7 @@ export class TreeTableDemo {
     );
     this.dataChange.next(TESTDATA);
 
-    this.dataChange.subscribe(data => {
+    this.dataChange.subscribe((data) => {
       this.dataSource.data = data;
     });
   }

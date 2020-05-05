@@ -62,7 +62,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
     () => {
       if (this._toggleButtonItems) {
         return merge<DtToggleButtonChange<T>>(
-          ...this._toggleButtonItems.map(toggleButton => toggleButton.change),
+          ...this._toggleButtonItems.map((toggleButton) => toggleButton.change),
         );
       }
 
@@ -109,11 +109,11 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
     // subscribe to value changes in the selection model and handle selects/deselects accordingly.
     this._toggleButtonSelectionModel.changed
       .pipe(takeUntil(this._destroy))
-      .subscribe(event => {
-        event.added.forEach(toggleButtonItem => {
+      .subscribe((event) => {
+        event.added.forEach((toggleButtonItem) => {
           toggleButtonItem.select();
         });
-        event.removed.forEach(toggleButtonItem => {
+        event.removed.forEach((toggleButtonItem) => {
           toggleButtonItem.deselect();
         });
       });
@@ -132,7 +132,9 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
       this._toggleButtonItems.length &&
       this._toggleButtonItems
         .toArray()
-        .find(toggleButton => toggleButton.selected && !toggleButton.disabled);
+        .find(
+          (toggleButton) => toggleButton.selected && !toggleButton.disabled,
+        );
 
     // If there is a preselected ToggleButtonItem in the list, set the selection
     // to the first preselected ToggleButtonItem that was found.
@@ -151,7 +153,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
     );
     this._itemSelectionChanges
       .pipe(takeUntil(changedOrDestroyed))
-      .subscribe(event => {
+      .subscribe((event) => {
         this._onItemSelect(event.source);
       });
   }

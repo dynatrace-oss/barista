@@ -2,11 +2,14 @@
 
 <svg [attr.viewBox]="_viewBox" #svg>
   <text class="dt-sunburst-chart-value dt-sunburst-chart-selected-value">
-    {{ _labelAsAbsolute ? _selectedValue : _selectedRelativeValue * 100 |
-    dtPercent }}
+    {{
+      _labelAsAbsolute
+        ? _selectedValue
+        : (_selectedRelativeValue * 100 | dtPercent)
+    }}
   </text>
   <text class="dt-sunburst-chart-label dt-sunburst-chart-selected-label">
-    {{_selectedLabel}}
+    {{ _selectedLabel }}
   </text>
   <ng-container *ngFor="let slice of _slices">
     <path
@@ -20,15 +23,18 @@
       (mouseleave)="closeOverlay()"
     />
     <g
-      attr.transform="translate({{slice.labelPosition}})"
+      attr.transform="translate({{ slice.labelPosition }})"
       *ngIf="slice.data.showLabel && slice.showLabel"
     >
       <text class="dt-sunburst-chart-value dt-sunburst-chart-slice-value">
-        {{ _labelAsAbsolute ? slice.data.value : slice.data.valueRelative * 100
-        | dtPercent }}
+        {{
+          _labelAsAbsolute
+            ? slice.data.value
+            : (slice.data.valueRelative * 100 | dtPercent)
+        }}
       </text>
-      <text class=" dt-sunburst-chart-label dt-sunburst-chart-slice-label">
-        {{slice.data.label}}
+      <text class="dt-sunburst-chart-label dt-sunburst-chart-slice-label">
+        {{ slice.data.label }}
       </text>
     </g>
   </ng-container>

@@ -11,7 +11,7 @@ import {
 import { DtExampleOptions } from './schema';
 
 // tslint:disable-next-line:no-default-export
-export default function(options: DtExampleOptions): Rule {
+export default function (options: DtExampleOptions): Rule {
   if (!options.name) {
     throw new SchematicsException(
       `You need to specify a name using the --name flag`,

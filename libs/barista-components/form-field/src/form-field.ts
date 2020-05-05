@@ -261,10 +261,10 @@ export class DtFormField<T>
 
       if (!this._getDisplayedError()) {
         const startHint = this._hintChildren
-          ? this._hintChildren.find(hint => hint.align === 'start')
+          ? this._hintChildren.find((hint) => hint.align === 'start')
           : null;
         const endHint = this._hintChildren
-          ? this._hintChildren.find(hint => hint.align === 'end')
+          ? this._hintChildren.find((hint) => hint.align === 'end')
           : null;
 
         if (startHint) {
@@ -275,7 +275,7 @@ export class DtFormField<T>
           ids.push(endHint.id);
         }
       } else if (this._errorChildren) {
-        ids = this._errorChildren.map(error => error.id);
+        ids = this._errorChildren.map((error) => error.id);
       }
       this._control.setDescribedByIds(ids);
     }

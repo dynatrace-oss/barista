@@ -39,13 +39,13 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
     }
 
     let childNodes: ChildNode[] = [];
-    cardChildren.forEach(childName => {
+    cardChildren.forEach((childName) => {
       childNodes = childNodes.concat(findChild(element, childName, 0));
     });
 
     const filteredChildren: string[] = childNodes
-      .filter(el => el.level > 1)
-      .map(el => el.name);
+      .filter((el) => el.level > 1)
+      .map((el) => el.name);
 
     if (filteredChildren.length < 1) {
       return;

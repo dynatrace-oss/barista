@@ -67,11 +67,11 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
     super();
     /** store tabIds from fragment and update  */
     _route.fragment
-      .pipe(filter(fragment => !!fragment))
-      .subscribe(fragmentText => {
-        const ids = fragmentText.split(',').map(id => id.trim());
+      .pipe(filter((fragment) => !!fragment))
+      .subscribe((fragmentText) => {
+        const ids = fragmentText.split(',').map((id) => id.trim());
         this._tabIds = new Set(ids);
-        this._controls.forEach(control => {
+        this._controls.forEach((control) => {
           control._updateWithTabIds(ids);
         });
       });
@@ -108,7 +108,7 @@ export class DtTabRouterFragmentAdapter extends DtTabNavigationAdapter {
     const usesHashLocationStrategy =
       this._locationStrategy instanceof HashLocationStrategy;
     if (!usesHashLocationStrategy) {
-      idsToRemove.forEach(i => {
+      idsToRemove.forEach((i) => {
         this._tabIds.delete(i);
       });
       this._tabIds.add(id);

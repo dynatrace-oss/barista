@@ -223,10 +223,7 @@ class DtTagComponent implements OnInit {
   tags = new Set<string>();
 
   ngOnInit(): void {
-    this.tags
-      .add('Window')
-      .add('Managed')
-      .add('Errors');
+    this.tags.add('Window').add('Managed').add('Errors');
   }
 
   addTag(tag: string): void {

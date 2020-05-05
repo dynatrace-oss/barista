@@ -71,7 +71,7 @@ function convertToUnit(
   conversions: DtUnitConversion[],
   inputUnit: string,
 ): number {
-  const conversion = conversions.find(m => m.unit === inputUnit);
+  const conversion = conversions.find((m) => m.unit === inputUnit);
   return conversion !== undefined ? input * conversion.multiplier : input;
 }
 
@@ -79,12 +79,12 @@ function getAutoUnitConversion(
   conversions: DtUnitConversion[],
   valueInUnit: number,
 ): DtUnitConversion | undefined {
-  return conversions.find(m => valueInUnit >= m.multiplier);
+  return conversions.find((m) => valueInUnit >= m.multiplier);
 }
 
 function getFixedUnitConversion(
   conversions: DtUnitConversion[],
   outputUnit: string,
 ): DtUnitConversion | undefined {
-  return conversions.find(m => m.unit === outputUnit);
+  return conversions.find((m) => m.unit === outputUnit);
 }

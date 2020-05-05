@@ -538,9 +538,7 @@ class TestAppDrawerOpened {
 }
 
 @Component({
-  template: `
-    <dt-drawer-container></dt-drawer-container>
-  `,
+  template: ` <dt-drawer-container></dt-drawer-container> `,
 })
 class NoDrawerTestApp {}
 

@@ -67,7 +67,7 @@ describe('Selection Area Streams', () => {
 
     relativeMousePositionSpy = jest
       .spyOn(utils, 'getRelativeMousePosition')
-      .mockImplementation(event => ({
+      .mockImplementation((event) => ({
         x: (event as MouseEvent).clientX - MOCK_BOUNDING_CLIENT_RECT.left,
         y: (event as MouseEvent).clientY - MOCK_BOUNDING_CLIENT_RECT.top,
       }));
@@ -87,7 +87,7 @@ describe('Selection Area Streams', () => {
     const dragEnd$ = timer(5).pipe(mapTo(createMouseEvent('mouseup')));
 
     const mouseMoveInterval = interval(1).pipe(
-      map(curX => createMouseEvent('mousemove', curX + 201, 100)),
+      map((curX) => createMouseEvent('mousemove', curX + 201, 100)),
       take(4),
     );
 
@@ -102,7 +102,7 @@ describe('Selection Area Streams', () => {
     // mock the capture and merge events to return our faked mousemove
 
     const mouseMoveInterval = interval(1).pipe(
-      map(curX => createMouseEvent('mousemove', curX + 201, 100)),
+      map((curX) => createMouseEvent('mousemove', curX + 201, 100)),
       take(4),
     );
 
@@ -375,7 +375,7 @@ describe('Selection Area Streams', () => {
     // create fake operator function getElementRef that returns the fake element ref
     jest
       .spyOn(utils, 'getElementRef')
-      .mockImplementation(() => input$ => input$.pipe(mapTo(fakeList.first)));
+      .mockImplementation(() => (input$) => input$.pipe(mapTo(fakeList.first)));
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
@@ -398,7 +398,7 @@ describe('Selection Area Streams', () => {
   it('should get a range stream for an increasing mousemove', () => {
     const dragStart$ = of({ x: 100, y: 100 });
     const dragMove$ = interval(2).pipe(
-      map(curX => ({ x: curX + 101, y: 100 })),
+      map((curX) => ({ x: curX + 101, y: 100 })),
       take(3),
     );
 
@@ -417,7 +417,7 @@ describe('Selection Area Streams', () => {
   it('should get a range stream that drops redundant values for an increasing mousemove', () => {
     const dragStart$ = of({ x: 100, y: 100 });
     const dragMove$ = interval(1).pipe(
-      map(curX => {
+      map((curX) => {
         const add = curX % 2 ? curX : curX + 1;
 
         return { x: add + 101, y: 100 };
@@ -440,7 +440,7 @@ describe('Selection Area Streams', () => {
   it('should create range resize stream on right handle drag', () => {
     const dragOrigin$ = of(DtSelectionAreaEventTarget.RightHandle);
     const dragMove$ = interval(2).pipe(
-      map(curX => ({ x: curX + 251, y: 30 })),
+      map((curX) => ({ x: curX + 251, y: 30 })),
       take(3),
     );
     let called = -1;
@@ -472,7 +472,7 @@ describe('Selection Area Streams', () => {
   it('should create range resize stream on left handle drag', () => {
     const dragOrigin$ = of(DtSelectionAreaEventTarget.LeftHandle);
     const dragMove$ = interval(2).pipe(
-      map(curX => ({ x: 99 - curX, y: 30 })),
+      map((curX) => ({ x: 99 - curX, y: 30 })),
       take(3),
     );
     let called = -1;

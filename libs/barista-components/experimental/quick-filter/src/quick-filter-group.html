@@ -3,7 +3,7 @@
   role="heading"
   [attr.aria-level]="groupHeadlineRole"
 >
-  {{ _getViewValue(_nodeDef)}}
+  {{ _getViewValue(_nodeDef) }}
 </div>
 
 <ng-template [ngIf]="_isDistinct()" [ngIfElse]="notDistinct">
@@ -19,7 +19,7 @@
       [value]="item"
       [checked]="_isActive(item)"
     >
-      {{_getViewValue(item)}}
+      {{ _getViewValue(item) }}
     </dt-radio-button>
   </dt-radio-group>
 </ng-template>
@@ -32,7 +32,7 @@
       [checked]="_isActive(item)"
       (change)="_selectCheckBox($event)"
     >
-      {{_getViewValue(item)}}
+      {{ _getViewValue(item) }}
     </dt-checkbox>
   </div>
 </ng-template>

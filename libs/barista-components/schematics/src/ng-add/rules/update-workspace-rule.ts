@@ -79,7 +79,7 @@ export function updateWorkspaceRule(options: ExtendedSchema): Rule {
     const rules: Rule[] = [];
 
     rules.push(
-      updateWorkspace(workspace => {
+      updateWorkspace((workspace) => {
         const angularApp = getProject(workspace, options.project);
 
         // only if build target is specified and the angular dev-kit

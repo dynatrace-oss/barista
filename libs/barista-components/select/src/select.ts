@@ -409,7 +409,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
   > = defer(() => {
     if (this.options) {
       return merge<DtOptionSelectionChange<T>>(
-        ...this.options.map(option => option.selectionChange),
+        ...this.options.map((option) => option.selectionChange),
       );
     }
 
@@ -510,11 +510,11 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
     this._selectionModel.changed
       .pipe(takeUntil(this._destroy))
-      .subscribe(event => {
-        event.added.forEach(option => {
+      .subscribe((event) => {
+        event.added.forEach((option) => {
           option.select();
         });
-        event.removed.forEach(option => {
+        event.removed.forEach((option) => {
           option.deselect();
         });
       });
@@ -944,7 +944,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
     this.optionSelectionChanges
       .pipe(takeUntil(changedOrDestroyed))
-      .subscribe(event => {
+      .subscribe((event) => {
         this._onSelect(event.source, event.isUserInput);
 
         if (event.isUserInput && this._panelOpen) {
@@ -955,7 +955,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
     // Listen to changes in the internal state of the options and react accordingly.
     // Handles cases like the labels of the selected options changing.
-    merge(...this.options.map(option => option._stateChanges))
+    merge(...this.options.map((option) => option._stateChanges))
       .pipe(takeUntil(changedOrDestroyed))
       .subscribe(() => {
         this._changeDetectorRef.markForCheck();
@@ -979,7 +979,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
 
   /** Records option IDs to pass to the aria-owns property. */
   private _setOptionIds(): void {
-    this._optionIds = this.options.map(option => option.id).join(' ');
+    this._optionIds = this.options.map((option) => option.id).join(' ');
   }
 
   /** Calculates the amount of items in the select. This includes options and group labels. */

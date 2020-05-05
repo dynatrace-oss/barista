@@ -86,14 +86,14 @@ describe('DtRadio', () => {
         By.directive(DtRadioButton),
       );
       radioInstances = radioDebugElements.map(
-        debugEl => debugEl.componentInstance,
+        (debugEl) => debugEl.componentInstance,
       );
 
       radioLabelElements = radioDebugElements.map(
-        debugEl => debugEl.query(By.css('label')).nativeElement,
+        (debugEl) => debugEl.query(By.css('label')).nativeElement,
       );
       radioInputElements = radioDebugElements.map(
-        debugEl => debugEl.query(By.css('input')).nativeElement,
+        (debugEl) => debugEl.query(By.css('input')).nativeElement,
       );
     }));
 
@@ -249,7 +249,7 @@ describe('DtRadio', () => {
 
       groupInstance.value = null;
 
-      expect(radioInstances.every(radio => !radio.checked)).toBe(true);
+      expect(radioInstances.every((radio) => !radio.checked)).toBe(true);
     });
 
     it(`should update the group's selected radio to null when unchecking that radio programmatically`, () => {
@@ -268,7 +268,7 @@ describe('DtRadio', () => {
 
       expect(changeSpy).not.toHaveBeenCalled();
       expect(groupInstance.value).toBeFalsy();
-      expect(radioInstances.every(radio => !radio.checked)).toBe(true);
+      expect(radioInstances.every((radio) => !radio.checked)).toBe(true);
       expect(groupInstance.selected).toBeNull();
     });
 
@@ -342,14 +342,14 @@ describe('DtRadio', () => {
         By.directive(DtRadioButton),
       );
       radioInstances = radioDebugElements.map(
-        debugEl => debugEl.componentInstance,
+        (debugEl) => debugEl.componentInstance,
       );
       innerRadios = fixture.debugElement.queryAll(
         By.css('input[type="radio"]'),
       );
 
       radioLabelElements = radioDebugElements.map(
-        debugEl => debugEl.query(By.css('label')).nativeElement,
+        (debugEl) => debugEl.query(By.css('label')).nativeElement,
       );
     });
 
@@ -523,18 +523,18 @@ describe('DtRadio', () => {
         By.directive(DtRadioButton),
       );
       seasonRadioInstances = radioDebugElements
-        .filter(debugEl => debugEl.componentInstance.name === 'season')
-        .map(debugEl => debugEl.componentInstance);
+        .filter((debugEl) => debugEl.componentInstance.name === 'season')
+        .map((debugEl) => debugEl.componentInstance);
       weatherRadioInstances = radioDebugElements
-        .filter(debugEl => debugEl.componentInstance.name === 'weather')
-        .map(debugEl => debugEl.componentInstance);
+        .filter((debugEl) => debugEl.componentInstance.name === 'weather')
+        .map((debugEl) => debugEl.componentInstance);
       fruitRadioInstances = radioDebugElements
-        .filter(debugEl => debugEl.componentInstance.name === 'fruit')
-        .map(debugEl => debugEl.componentInstance);
+        .filter((debugEl) => debugEl.componentInstance.name === 'fruit')
+        .map((debugEl) => debugEl.componentInstance);
 
       const fruitRadioNativeElements = radioDebugElements
-        .filter(debugEl => debugEl.componentInstance.name === 'fruit')
-        .map(debugEl => debugEl.nativeElement);
+        .filter((debugEl) => debugEl.componentInstance.name === 'fruit')
+        .map((debugEl) => debugEl.nativeElement);
 
       fruitRadioNativeInputs = [];
       for (const element of fruitRadioNativeElements) {
@@ -730,7 +730,7 @@ describe('DtRadio', () => {
         By.directive(DtRadioButton),
       );
       radioInstances = radioDebugElements.map(
-        debugEl => debugEl.componentInstance,
+        (debugEl) => debugEl.componentInstance,
       );
     }));
 
@@ -816,9 +816,7 @@ class RadioGroupWithNgModel {
 }
 
 @Component({
-  template: `
-    <dt-radio-button>One</dt-radio-button>
-  `,
+  template: ` <dt-radio-button>One</dt-radio-button> `,
 })
 class DisableableRadioButton {
   @ViewChild(DtRadioButton, { static: true }) radioButton;
@@ -840,9 +838,7 @@ class RadioGroupWithFormControl {
 }
 
 @Component({
-  template: `
-    <dt-radio-button [tabIndex]="tabIndex"></dt-radio-button>
-  `,
+  template: ` <dt-radio-button [tabIndex]="tabIndex"></dt-radio-button> `,
 })
 class FocusableRadioButton {
   tabIndex: number;
@@ -870,9 +866,7 @@ class InterleavedRadioGroup {
 
 @Component({
   selector: 'dt-transcluding-wrapper',
-  template: `
-    <div><ng-content></ng-content></div>
-  `,
+  template: ` <div><ng-content></ng-content></div> `,
 })
 class TranscludingWrapper {}
 

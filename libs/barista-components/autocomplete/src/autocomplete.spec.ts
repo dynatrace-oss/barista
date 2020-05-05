@@ -1232,7 +1232,7 @@ describe('DtAutocomplete', () => {
       fixture.detectChanges();
 
       const componentOptions = fixture.componentInstance.options.toArray();
-      componentOptions.forEach(option => jest.spyOn(option, 'deselect'));
+      componentOptions.forEach((option) => jest.spyOn(option, 'deselect'));
 
       expect(componentOptions[0].selected).toBe(true);
 
@@ -1245,7 +1245,7 @@ describe('DtAutocomplete', () => {
       expect(componentOptions[0].deselect).toHaveBeenCalled();
       componentOptions
         .slice(1)
-        .forEach(option => expect(option.deselect).not.toHaveBeenCalled());
+        .forEach((option) => expect(option.deselect).not.toHaveBeenCalled());
     }));
 
     it('should be able to preselect the first option', fakeAsync(() => {
@@ -1651,9 +1651,9 @@ class SimpleAutocomplete implements OnDestroy {
 
   constructor() {
     this.filteredStates = this.states;
-    this.valueSub = this.stateCtrl.valueChanges.subscribe(val => {
+    this.valueSub = this.stateCtrl.valueChanges.subscribe((val) => {
       this.filteredStates = val
-        ? this.states.filter(s => s.name.match(new RegExp(val, 'gi')))
+        ? this.states.filter((s) => s.name.match(new RegExp(val, 'gi')))
         : this.states;
     });
   }
@@ -1723,7 +1723,7 @@ class AutocompleteWithNativeInput {
       startWith(null),
       map((val: string) =>
         val
-          ? this.options.filter(option => new RegExp(val, 'gi').test(option))
+          ? this.options.filter((option) => new RegExp(val, 'gi').test(option))
           : this.options.slice(),
       ),
     );
@@ -1756,7 +1756,7 @@ class AutocompleteWithoutForms {
   }
 
   onInput(value: any): void {
-    this.filteredStates = this.states.filter(s =>
+    this.filteredStates = this.states.filter((s) =>
       new RegExp(value, 'gi').test(s),
     );
   }
@@ -1790,7 +1790,7 @@ class AutocompleteWithNgModel {
   }
 
   onInput(value: any): void {
-    this.filteredStates = this.states.filter(s =>
+    this.filteredStates = this.states.filter((s) =>
       new RegExp(value, 'gi').test(s),
     );
   }
@@ -1853,7 +1853,7 @@ class NgIfAutocomplete {
       startWith(null),
       map((val: string) =>
         val
-          ? this.options.filter(option => new RegExp(val, 'gi').test(option))
+          ? this.options.filter((option) => new RegExp(val, 'gi').test(option))
           : this.options.slice(),
       ),
     );

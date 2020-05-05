@@ -34,9 +34,9 @@ async function getExamplesInPackages(): Promise<ExamplePackageMetadata[]> {
   return (
     await Promise.all(
       readdirSync(environment.examplesLibDir)
-        .map(name => join(environment.examplesLibDir, name))
-        .filter(dir => lstatSync(dir).isDirectory())
-        .map(dir => getExamplePackageMetadata(dir)),
+        .map((name) => join(environment.examplesLibDir, name))
+        .filter((dir) => lstatSync(dir).isDirectory())
+        .map((dir) => getExamplePackageMetadata(dir)),
     )
   ).filter(Boolean) as ExamplePackageMetadata[];
 }
@@ -105,7 +105,7 @@ main()
   .then(() => {
     process.exit(0);
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });

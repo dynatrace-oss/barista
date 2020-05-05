@@ -15,7 +15,7 @@
 >
   <dt-option
     [value]="result"
-    *ngFor="let result of (searchResults$ | async)"
+    *ngFor="let result of searchResults$ | async"
     class="ba-searchresult"
     [title]="result.title"
   >

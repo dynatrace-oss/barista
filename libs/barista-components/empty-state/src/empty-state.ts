@@ -207,7 +207,7 @@ export class DtEmptyState
   ngAfterViewInit(): void {
     // Check if the browser supports the resizeObserver.
     if (this._platform.isBrowser && 'ResizeObserver' in window) {
-      this._containerSizeObserver = new window.ResizeObserver(entries => {
+      this._containerSizeObserver = new window.ResizeObserver((entries) => {
         if (entries && entries[0]) {
           // We need to wrap the call to the layout update into an additional
           // requestAnimationFrame, because the resize observer would trow a

@@ -27,7 +27,7 @@ export class DtExampleContainerBreakpointObserverDefault implements OnInit {
   breakpointObserver: DtContainerBreakpointObserver;
 
   ngOnInit(): void {
-    this.breakpointObserver.observe('(min-width: 400px)').subscribe(event => {
+    this.breakpointObserver.observe('(min-width: 400px)').subscribe((event) => {
       // tslint:disable-next-line: no-console
       console.log(`Matches '(min-width: 400px)':`, event.matches);
     });

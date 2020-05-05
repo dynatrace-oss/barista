@@ -76,14 +76,14 @@ export class ContainerBreakpointObserverDemo implements OnInit {
   ngOnInit(): void {
     this._breakpointObserver1
       .observe('(min-width: 300px), (max-width: 600px)')
-      .subscribe(result => {
+      .subscribe((result) => {
         this._matches = result.matches;
         this._changeDetectorRef.markForCheck();
       });
 
     this._tableBreakpointObserver2
       .observe('(max-width: 1000px)')
-      .subscribe(event => {
+      .subscribe((event) => {
         this._tableNarrow = event.matches;
 
         // Show/hide header columns respecting

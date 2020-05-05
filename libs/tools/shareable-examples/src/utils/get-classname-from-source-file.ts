@@ -27,7 +27,7 @@ export function DtTooManyClassesInExampleError(fileName: string): Error {
 export function getClassnameFromSourceFile(source: SourceFile): string {
   // Get the className of the example for later use.
   const classNodes = source.statements
-    .filter(statement => isClassDeclaration(statement))
+    .filter((statement) => isClassDeclaration(statement))
     .map((statement: ClassDeclaration) => statement.name!.escapedText);
 
   // Assume the last class within the example is the actual root example.

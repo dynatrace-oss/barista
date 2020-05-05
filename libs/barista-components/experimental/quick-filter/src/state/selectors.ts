@@ -28,7 +28,7 @@ export const getAutocompletes = (
   state$: Observable<QuickFilterState>,
 ): Observable<DtNodeDef[]> =>
   state$.pipe(
-    tap(state => {
+    tap((state) => {
       // apply the ids to the node to identify them later on
       if (state.nodeDef) {
         applyDtOptionIds(state.nodeDef);
@@ -41,7 +41,7 @@ export const getAutocompletes = (
     ),
     map(([{ autocomplete }, { showInSidebarFunction }]) =>
       autocomplete.optionsOrGroups.filter(
-        node => isDtAutocompleteDef(node) && showInSidebarFunction(node.data),
+        (node) => isDtAutocompleteDef(node) && showInSidebarFunction(node.data),
       ),
     ),
   );

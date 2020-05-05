@@ -192,7 +192,7 @@ export class DtCell implements AfterContentInit, OnDestroy {
           filter(() => !!this._indicators.length),
           switchMap(() =>
             merge(
-              ...this._indicators.map(indicator => indicator._stateChanges),
+              ...this._indicators.map((indicator) => indicator._stateChanges),
             ),
           ),
         );
@@ -227,7 +227,7 @@ export class DtCell implements AfterContentInit, OnDestroy {
       this._indicators &&
       isDefined(
         this._indicators.find(
-          indicator => indicator.active && indicator.color === indicatorType,
+          (indicator) => indicator.active && indicator.color === indicatorType,
         ),
       )
     );

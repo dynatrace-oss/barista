@@ -4,8 +4,12 @@
     *ngIf="loading"
   ></dt-loading-spinner>
   <div class="dt-filter-field-label">
-    <dt-icon *ngIf="!loading" name="filter" class="dt-filter-field-icon"></dt-icon>
-    <span>{{label}}</span>
+    <dt-icon
+      *ngIf="!loading"
+      name="filter"
+      class="dt-filter-field-icon"
+    ></dt-icon>
+    <span>{{ label }}</span>
   </div>
 
   <dt-filter-field-tag
@@ -22,10 +26,14 @@
     (click)="_clearAll()"
     *ngIf="clearAllLabel"
     [class.dt-filter-field-clear-all-button-hidden]="!_showClearAll"
-  >{{clearAllLabel}}</button>
+  >
+    {{ clearAllLabel }}
+  </button>
 
   <div class="dt-filter-field-infix">
-    <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{_filterByLabel}}</span>
+    <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{
+      _filterByLabel
+    }}</span>
     <input
       #input
       type="text"
@@ -34,7 +42,9 @@
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length || loading"
       [dtFilterFieldRange]="range"
-      [dtFilterFieldRangeDisabled]="!(_currentDef && !!_currentDef!.range) || loading"
+      [dtFilterFieldRangeDisabled]="
+        !(_currentDef && !!_currentDef!.range) || loading
+      "
       (keydown)="_handleInputKeyDown($event)"
       [value]="_inputValue"
       [disabled]="disabled"
@@ -56,12 +66,16 @@
             *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
           >
-            <dt-highlight [term]="_inputValue">{{optionDef.option!.viewValue}}</dt-highlight>
+            <dt-highlight [term]="_inputValue">{{
+              optionDef.option!.viewValue
+            }}</dt-highlight>
           </dt-option>
         </dt-optgroup>
         <ng-template #options>
           <dt-option [value]="optionOrGroupDef">
-            <dt-highlight [term]="_inputValue">{{ optionOrGroupDef.option!.viewValue}}</dt-highlight>
+            <dt-highlight [term]="_inputValue">{{
+              optionOrGroupDef.option!.viewValue
+            }}</dt-highlight>
           </dt-option>
         </ng-template>
       </ng-container>
@@ -69,7 +83,9 @@
 
     <dt-filter-field-range
       #range="dtFilterFieldRange"
-      [enabledOperators]="_currentDef && !!_currentDef!.range && _currentDef!.range!.operatorFlags"
+      [enabledOperators]="
+        _currentDef && !!_currentDef!.range && _currentDef!.range!.operatorFlags
+      "
       [unit]="_currentDef && !!_currentDef!.range && _currentDef!.range!.unit"
       (rangeSubmitted)="_handleRangeSubmitted($event)"
     ></dt-filter-field-range>
@@ -84,10 +100,7 @@
 </div>
 
 <div class="dt-filter-field-subscript-wrapper" *ngIf="_errors.length">
-  <div
-    class="dt-filter-field-error"
-    [@transitionErrors]="true"
-  >
+  <div class="dt-filter-field-error" [@transitionErrors]="true">
     <p *ngFor="let error of _errors">{{ error }}</p>
   </div>
 </div>

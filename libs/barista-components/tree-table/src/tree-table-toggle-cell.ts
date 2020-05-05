@@ -97,13 +97,13 @@ export class DtTreeTableToggleCell<T> extends DtCell
   /** Event that emits every time the cell/row is expanded */
   @Output('expanded')
   readonly treeExpanded: Observable<boolean> = this.expandChange.pipe(
-    filter(v => v),
+    filter((v) => v),
   );
 
   /** Event that emits every time the cell/row is collapsed */
   @Output()
   readonly collapsed: Observable<boolean> = this.expandChange.pipe(
-    filter(v => !v),
+    filter((v) => !v),
   );
 
   /** @internal Wether the row is expanded */

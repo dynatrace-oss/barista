@@ -26,7 +26,7 @@ export async function generateExamplesLibBarrelFile(
   const rootBarrelFile = join(examplesRoot, 'index.ts');
 
   return transformAndWriteTemplate(
-    source => {
+    (source) => {
       const imports: string[] = [];
       const exampleExports: string[] = [];
       const moduleExports: string[] = [];
@@ -62,7 +62,7 @@ export async function generateExamplesLibBarrelFile(
           imports.push(`import {${namedImports}} from '${path}';`);
           exampleExports.push(...symbolNames);
           examplesMapData.push(
-            ...symbolNames.map(name => `['${name}', ${name}]`),
+            ...symbolNames.map((name) => `['${name}', ${name}]`),
           );
         }
       }

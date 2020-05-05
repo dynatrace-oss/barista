@@ -62,7 +62,7 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this._activeItemsSubscription = this._tocService.activeItems.subscribe(
-      activeItems => {
+      (activeItems) => {
         this._zone.run(() => {
           this._activeItems = activeItems;
         });

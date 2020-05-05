@@ -14,7 +14,9 @@
     [attr.aria-controls]="_getTabContentId(tab.id)"
     [attr.aria-selected]="tab.selected"
     [attr.aria-label]="tab.ariaLabel || null"
-    [attr.aria-labelledby]="(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null"
+    [attr.aria-labelledby]="
+      !tab.ariaLabel && tab.ariaLabelledby ? tab.ariaLabelledby : null
+    "
     (click)="tab._select(true)"
   >
     <ng-template [cdkPortalOutlet]="tab.label"></ng-template>

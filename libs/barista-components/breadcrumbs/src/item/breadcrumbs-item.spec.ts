@@ -84,7 +84,7 @@ describe('DtBreadcrumbsItem', () => {
           href: 'http://google.com',
           expected: '/http:',
         },
-      ].forEach(testCase => {
+      ].forEach((testCase) => {
         it(`should render internal link for href ${testCase.href} if external set to false`, () => {
           const fixture = createComponent(TestBreadcrumbsItem);
           const component = fixture.componentInstance;
@@ -108,7 +108,7 @@ describe('DtBreadcrumbsItem', () => {
           href: 'test1/test2',
           expected: 'test1/test2',
         },
-      ].forEach(testCase => {
+      ].forEach((testCase) => {
         it(`should render external link for href ${testCase.href} if external set to true`, () => {
           const fixture = createComponent(TestBreadcrumbsItem);
           const component = fixture.componentInstance;
@@ -178,7 +178,7 @@ describe('DtBreadcrumbsItem', () => {
     });
 
     describe('link click handler', () => {
-      ['metaKey', 'shiftKey', 'ctrlKey'].forEach(key => {
+      ['metaKey', 'shiftKey', 'ctrlKey'].forEach((key) => {
         it(`should bubble the event if ${key} key is pressed`, () => {
           const event = createMouseEvent('click');
           const spied = jest
@@ -307,9 +307,7 @@ class TestBreadcrumbsItem {
 }
 
 @Component({
-  template: `
-    <dt-breadcrumbs-item [href]="href"></dt-breadcrumbs-item>
-  `,
+  template: ` <dt-breadcrumbs-item [href]="href"></dt-breadcrumbs-item> `,
 })
 class NonExternalBreadcrumbsItem {
   // tslint:disable-next-line no-any
@@ -327,9 +325,7 @@ class ExternalBreadcrumbsItem {
 }
 
 @Component({
-  template: `
-    <dt-breadcrumbs-item></dt-breadcrumbs-item>
-  `,
+  template: ` <dt-breadcrumbs-item></dt-breadcrumbs-item> `,
 })
 class EmptyBreadcrumbsItem {}
 

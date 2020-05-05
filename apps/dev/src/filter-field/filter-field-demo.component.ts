@@ -137,7 +137,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   _disabled = false;
 
   ngAfterViewInit(): void {
-    this.filterField.currentTags.subscribe(tags => {
+    this.filterField.currentTags.subscribe((tags) => {
       if (tags.length) {
         this._firstTag = tags[0];
       }

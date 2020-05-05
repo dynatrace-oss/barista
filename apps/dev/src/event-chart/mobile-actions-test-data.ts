@@ -457,7 +457,7 @@ const TEST_DATA = [
 export class MobileActionDataSource implements EventChartDemoDataSource {
   getEvents(): EventChartDemoEvent[] {
     const events: EventChartDemoEvent[] = [];
-    TEST_DATA.forEach(event => {
+    TEST_DATA.forEach((event) => {
       let color: DtEventChartColors = 'default';
       if (event.source.apdexRating !== 'Satisfying') {
         color = 'error';
@@ -494,7 +494,7 @@ export class MobileActionDataSource implements EventChartDemoDataSource {
   getLanes(): EventChartDemoLane[] {
     return TEST_DATA.reduce((lanes: EventChartDemoLane[], event, _source) => {
       const name = event.lane;
-      const exits = lanes.find(l => l.name === name);
+      const exits = lanes.find((l) => l.name === name);
       if (!exits) {
         lanes.push({
           name,

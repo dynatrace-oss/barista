@@ -369,17 +369,13 @@ describe('DtPagination', () => {
 
 @Component({
   selector: 'test-app',
-  template: `
-    <dt-pagination></dt-pagination>
-  `,
+  template: ` <dt-pagination></dt-pagination> `,
 })
 export class EmptyPagination {}
 
 @Component({
   selector: 'test-app',
-  template: `
-    <dt-pagination maxPages="10" #pagination></dt-pagination>
-  `,
+  template: ` <dt-pagination maxPages="10" #pagination></dt-pagination> `,
 })
 export class LegacyPagination {
   @ViewChild('pagination', { static: true }) pagination: DtPagination;

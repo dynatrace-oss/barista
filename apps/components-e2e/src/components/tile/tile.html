@@ -1,17 +1,17 @@
 <section>
   <div>
     <p>
-      isDisabled: {{isDisabled}}, clickCounter:
-      <span id="click-counter">{{clickCounter}}</span>
+      isDisabled: {{ isDisabled }}, clickCounter:
+      <span id="click-counter">{{ clickCounter }}</span>
     </p>
-    <button dt-button (click)="isDisabled=!isDisabled" id="disable-toggle">
+    <button dt-button (click)="isDisabled = !isDisabled" id="disable-toggle">
       Disable tiles
     </button>
   </div>
 
   <dt-tile
     [disabled]="isDisabled"
-    (click)="clickCounter=clickCounter+1"
+    (click)="clickCounter = clickCounter + 1"
     id="test-tile"
   >
     <dt-tile-title>Tile</dt-tile-title>

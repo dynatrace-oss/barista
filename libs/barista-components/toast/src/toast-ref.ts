@@ -103,9 +103,9 @@ export class DtToastRef {
       this._countdownSub = merge(this._pause$, this._resume$)
         .pipe(
           startWith(true),
-          switchMap(val => (val ? this._interval$ : EMPTY)),
+          switchMap((val) => (val ? this._interval$ : EMPTY)),
           scan((acc, curr) => (curr ? curr + acc : acc), this.duration),
-          takeWhile(v => v >= DT_TOAST_CHAR_READ_TIME),
+          takeWhile((v) => v >= DT_TOAST_CHAR_READ_TIME),
         )
         .subscribe({
           complete: () => {

@@ -29,7 +29,7 @@ export class DtFilterFieldControl extends FormControl {
   constructor(private _validators: DtFilterFieldValidator[] = []) {
     super(
       null,
-      _validators.map(validator => validator.validatorFn),
+      _validators.map((validator) => validator.validatorFn),
       null,
     );
   }
@@ -42,7 +42,9 @@ export class DtFilterFieldControl extends FormControl {
     this.updateValueAndValidity();
 
     return this._validators
-      .map(validator => (validator.validatorFn(this) ? validator.error : null))
+      .map((validator) =>
+        validator.validatorFn(this) ? validator.error : null,
+      )
       .filter(Boolean) as string[];
   }
 }

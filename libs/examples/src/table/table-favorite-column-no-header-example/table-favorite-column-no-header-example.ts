@@ -69,7 +69,7 @@ export class DtExampleTableFavoriteColumnNoHeader {
     this.dataSource = new DtTableDataSource(this.data);
     this.dataSource.addSortAccessorFunction(
       'memory',
-      row =>
+      (row) =>
         // Any accessor computation that returns a comparable value.
         (row.memoryPerc / 100) * row.memoryTotal,
     );

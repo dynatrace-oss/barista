@@ -46,12 +46,12 @@ export class DtExampleIconAll implements OnDestroy {
         .pipe(map((res: { icons: string[] }) => res.icons || [])),
       this._filterValue.pipe(
         debounceTime(200),
-        map(value => value.toUpperCase()),
+        map((value) => value.toUpperCase()),
       ),
     ]).pipe(
       map(([icons, filterValue]) =>
         icons.filter(
-          icon =>
+          (icon) =>
             filterValue === '' ||
             icon.toUpperCase().indexOf(filterValue) !== -1,
         ),

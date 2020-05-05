@@ -28,9 +28,9 @@ export function createInViewportStream(
   return typeof window !== 'undefined' &&
     // tslint:disable-next-line: no-any
     (window as Window & { IntersectionObserver: any }).IntersectionObserver
-    ? new Observable<IntersectionObserverEntry[]>(observer => {
+    ? new Observable<IntersectionObserverEntry[]>((observer) => {
         const intersectionObserver = new IntersectionObserver(
-          entries => {
+          (entries) => {
             observer.next(entries);
           },
           { threshold },
@@ -40,8 +40,8 @@ export function createInViewportStream(
           intersectionObserver.disconnect();
         };
       }).pipe(
-        flatMap(entries => entries),
-        map(entry => entry.isIntersecting),
+        flatMap((entries) => entries),
+        map((entry) => entry.isIntersecting),
         distinctUntilChanged(),
       )
     : of(true);

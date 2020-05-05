@@ -88,13 +88,13 @@ export const homepageBuilder: BaPageBuilder = async () => {
 
     // Filter page teasers that link to internal pages.
     if (isPublicBuild() && pageTeaserData.length) {
-      pageTeaserData = pageTeaserData.filter(teaser =>
+      pageTeaserData = pageTeaserData.filter((teaser) =>
         teaser.page ? teaser.page.public : true,
       );
     }
 
     // Filter page teasers that link to draft pages.
-    pageTeaserData = pageTeaserData.filter(teaser =>
+    pageTeaserData = pageTeaserData.filter((teaser) =>
       teaser.page ? !teaser.page.draft : true,
     );
 

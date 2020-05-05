@@ -39,7 +39,7 @@ export function prepareTooltipData(
     // tslint:disable-next-line:no-any
     let hoveredIndex: number = -1;
 
-    highcharts.each(pointOrPoints, function(item: any, index: number): void {
+    highcharts.each(pointOrPoints, function (item: any, index: number): void {
       const labelConfig = item.getLabelConfig();
       if (labelConfig.series.state === 'hover') {
         hoveredIndex = index;
@@ -67,7 +67,7 @@ export function prepareTooltipData(
  * Wraps the reset function of the pointer class to have events that we can listen to
  */
 export function addTooltipEvents(): boolean {
-  highcharts.wrap(highcharts.Pointer.prototype, 'reset', function(
+  highcharts.wrap(highcharts.Pointer.prototype, 'reset', function (
     proceed: any, // tslint:disable-line:no-any
   ): void {
     /**
@@ -79,7 +79,7 @@ export function addTooltipEvents(): boolean {
     highcharts.fireEvent(this.chart, 'tooltipClosed');
   });
 
-  highcharts.wrap(highcharts.Tooltip.prototype, 'refresh', function(
+  highcharts.wrap(highcharts.Tooltip.prototype, 'refresh', function (
     proceed: any, // tslint:disable-line:no-any
   ): void {
     const args = Array.prototype.slice.call(arguments, 1);

@@ -188,7 +188,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
 
     this._portalOutletSubscription = this._portalOutlet.attached
       .pipe(mapTo(this._emptyState.first))
-      .subscribe(emptyState => {
+      .subscribe((emptyState) => {
         // Update the layout of the empty state after it was attached
         emptyState._visible = true;
       });

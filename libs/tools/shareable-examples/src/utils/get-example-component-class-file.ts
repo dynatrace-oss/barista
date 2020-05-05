@@ -26,7 +26,7 @@ export async function getExampleComponentClassFile(
   // Resolve required files.
   const examplesSources = await fs.readdir(exampleRoot);
   const classFilePath = examplesSources.filter(
-    file => extname(file) === '.ts',
+    (file) => extname(file) === '.ts',
   )[0];
 
   // Add the exampleComponentClassFile to the dependency files.

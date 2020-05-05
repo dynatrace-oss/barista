@@ -76,7 +76,7 @@ export async function createFileSystemTestApp(
 
   // Since the TypeScript compiler API expects all files to be present on the real file system, we
   // map every file in the app tree to a temporary location on the file system.
-  appTree.files.forEach(f => {
+  appTree.files.forEach((f) => {
     writeFile(f, appTree.readContent(f));
   });
 
@@ -117,7 +117,7 @@ export async function createTestCaseSetup(
   const initialWorkingDir = process.cwd();
 
   let logOutput = '';
-  runner.logger.subscribe(entry => (logOutput += `${entry.message}\n`));
+  runner.logger.subscribe((entry) => (logOutput += `${entry.message}\n`));
 
   const {
     appTree,
@@ -130,7 +130,7 @@ export async function createTestCaseSetup(
 
   // Write each test-case input to the file-system. This is necessary because otherwise
   // TypeScript compiler API won't be able to pick up the test cases.
-  inputFiles.forEach(inputFilePath => {
+  inputFiles.forEach((inputFilePath) => {
     const inputTestName = basename(inputFilePath, extname(inputFilePath));
     const relativePath = `projects/lib-testing/src/tests/${inputTestName}.ts`;
     const inputContent = readFileSync(inputFilePath, 'utf8');
@@ -147,7 +147,7 @@ export async function createTestCaseSetup(
 
   writeFile(testAppTsconfigPath, JSON.stringify(testAppTsconfig, null, 2));
 
-  const runFixers = async function(): Promise<{ logOutput: string }> {
+  const runFixers = async function (): Promise<{ logOutput: string }> {
     // Switch to the new temporary directory to simulate that "ng update" is ran
     // from within the project.
     process.chdir(tempPath);
@@ -172,7 +172,7 @@ export function _patchTypeScriptDefaultLib(tree: Tree): void {
   // tslint:disable-next-line: no-unbound-method
   const _originalRead = tree.read;
   // tslint:disable-next-line: no-any
-  tree.read = function(filePath: string): Buffer | any {
+  tree.read = function (filePath: string): Buffer | any {
     // In case a file within the TypeScript package is requested, we read the file from
     // the real file system. This is necessary because within unit tests, the "typeScript"
     // package from within the Bazel "@npm" repository  is used. The virtual tree can't be

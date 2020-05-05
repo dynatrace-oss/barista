@@ -15,7 +15,9 @@
         <li
           *ngFor="let heading of _headings$ | async"
           class="ba-toc-item"
-          [class.ba-toc-item-active]="_activeItems && _activeItems[0] === heading"
+          [class.ba-toc-item-active]="
+            _activeItems && _activeItems[0] === heading
+          "
         >
           <a
             #headline
@@ -28,7 +30,9 @@
             <li
               *ngFor="let subheading of heading.subheadlines"
               class="ba-toc-item"
-              [class.ba-toc-item-active]="_activeItems && _activeItems[1] === subheading"
+              [class.ba-toc-item-active]="
+                _activeItems && _activeItems[1] === subheading
+              "
             >
               <a
                 #headline

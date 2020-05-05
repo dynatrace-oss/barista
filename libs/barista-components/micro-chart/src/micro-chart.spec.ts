@@ -267,7 +267,7 @@ describe('DtMicroChart', () => {
     });
 
     it('should reject not allowed types', () => {
-      ['pie', 'funnel', 'bar', 'arearange'].forEach(type => {
+      ['pie', 'funnel', 'bar', 'arearange'].forEach((type) => {
         expect(() => {
           const { fixture } = setupTestCase(Series);
           const options = fixture.componentInstance.options;
@@ -284,7 +284,7 @@ describe('DtMicroChart', () => {
       options.chart = {};
       const cases = ['line', 'column', undefined];
 
-      cases.forEach(type => {
+      cases.forEach((type) => {
         options.chart!.type = type;
         expect(() => {
           fixture.detectChanges();

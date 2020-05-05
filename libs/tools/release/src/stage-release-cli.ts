@@ -22,7 +22,7 @@ const ASSET_PATH = join(__dirname, './assets/changelog-header-template.hbs');
 
 stageRelease(WORKSPACE_ROOT, ASSET_PATH)
   .then()
-  .catch(error => {
+  .catch((error) => {
     console.log(error);
     process.exit(1);
   });

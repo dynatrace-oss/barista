@@ -27,7 +27,7 @@ export class DtExampleInlineEditorSuccessful {
   sampleModel = 'text content';
 
   successfulSaveFunction(): Observable<void> {
-    return new Observable<void>(observer => {
+    return new Observable<void>((observer) => {
       setTimeout(() => {
         observer.next();
         observer.complete();

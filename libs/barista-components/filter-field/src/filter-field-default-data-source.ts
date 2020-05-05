@@ -183,7 +183,7 @@ export class DtFilterFieldDefaultDataSource<
    * displayed by the DtFilterFieldViewer (filter-field)
    */
   connect(): Observable<DtNodeDef | null> {
-    return this._data$.pipe(map(data => this.transformObject(data)));
+    return this._data$.pipe(map((data) => this.transformObject(data)));
   }
 
   /** Used by the DtFilterField. Called when it is destroyed. No-op. */
@@ -342,7 +342,7 @@ export class DtFilterFieldDefaultDataSource<
     parent: DtNodeDef | null = null,
   ): DtNodeDef[] {
     return list
-      .map(item => this.transformObject(item, parent))
-      .filter(item => item !== null) as DtNodeDef[];
+      .map((item) => this.transformObject(item, parent))
+      .filter((item) => item !== null) as DtNodeDef[];
   }
 }

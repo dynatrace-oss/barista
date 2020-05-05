@@ -191,7 +191,7 @@ export class DtAutocompleteTrigger<T>
             .pipe(filter(() => this._overlayAttached))
         : observableOf(),
     ).pipe(
-      map(event => (event instanceof DtOptionSelectionChange ? event : null)),
+      map((event) => (event instanceof DtOptionSelectionChange ? event : null)),
     );
   }
 
@@ -213,7 +213,7 @@ export class DtAutocompleteTrigger<T>
           startWith(options),
           switchMap(() =>
             merge<DtOptionSelectionChange<T>>(
-              ...options.map(option => option.selectionChange),
+              ...options.map((option) => option.selectionChange),
             ),
           ),
         );
@@ -442,7 +442,7 @@ export class DtAutocompleteTrigger<T>
         this._element,
         this._config,
       );
-      this._overlayRef.keydownEvents().subscribe(event => {
+      this._overlayRef.keydownEvents().subscribe((event) => {
         const keyCode = _readKeyCode(event);
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
         // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
@@ -589,7 +589,7 @@ export class DtAutocompleteTrigger<T>
         .pipe(
           // create a new stream of panelClosingActions, replacing any previous streams
           // that were created, and flatten it so our stream only emits closing events...
-          switchMap(optionChange => {
+          switchMap((optionChange) => {
             this._resetActiveItem();
             this.autocomplete._setVisibility();
 
@@ -608,7 +608,7 @@ export class DtAutocompleteTrigger<T>
           take(1),
         )
         // set the value, close the panel, and complete.
-        .subscribe(event => {
+        .subscribe((event) => {
           this._setValueAndClose(event);
         })
     );
@@ -662,7 +662,7 @@ export class DtAutocompleteTrigger<T>
 
   /** Clear any previous selected option and emit a selection change event for this option */
   private _clearPreviousSelectedOption(skip: DtOption<T>): void {
-    this.autocomplete._options.forEach(option => {
+    this.autocomplete._options.forEach((option) => {
       if (option !== skip && option.selected) {
         option.deselect();
       }

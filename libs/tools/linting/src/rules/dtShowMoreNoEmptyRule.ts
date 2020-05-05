@@ -32,7 +32,7 @@ class DtShowMoreVisitor extends BasicTemplateAstVisitor {
     }
 
     const attrs: AttrAst[] = element.attrs;
-    const isShowMore = attrs.some(attr => attr.name === 'dt-show-more');
+    const isShowMore = attrs.some((attr) => attr.name === 'dt-show-more');
 
     if (!isShowMore) {
       return;

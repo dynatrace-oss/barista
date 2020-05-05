@@ -45,7 +45,7 @@ class DtTabVisitor extends BasicTemplateAstVisitor {
 
   private _isTabLabel(element: EmbeddedTemplateAst): boolean {
     return (
-      element.attrs && element.attrs.some(attr => attr.name === 'dtTabLabel')
+      element.attrs && element.attrs.some((attr) => attr.name === 'dtTabLabel')
     );
   }
 }

@@ -189,14 +189,14 @@ export function addToNgModule(
 ): InsertChange {
   const assignments = findNodes(sourceFile, ts.SyntaxKind.PropertyAssignment);
   const importSyntaxLists = assignments
-    .filter(c => c.getText().startsWith(position)) // filter by position
-    .map(c => c.getChildren())
+    .filter((c) => c.getText().startsWith(position)) // filter by position
+    .map((c) => c.getChildren())
     .reduce((acc, val) => acc.concat(val), []) // flatten
-    .filter(c => c.kind === ts.SyntaxKind.ArrayLiteralExpression) // filter out arrays
-    .filter(c => c.getText().match(filter)) // filter the one with other Dt***Module declarations
-    .map(c => c.getChildren())
+    .filter((c) => c.kind === ts.SyntaxKind.ArrayLiteralExpression) // filter out arrays
+    .filter((c) => c.getText().match(filter)) // filter the one with other Dt***Module declarations
+    .map((c) => c.getChildren())
     .reduce((acc, val) => acc.concat(val), []) // flatten
-    .filter(c => c.kind === ts.SyntaxKind.SyntaxList) as ts.SyntaxList[]; // remove tokens
+    .filter((c) => c.kind === ts.SyntaxKind.SyntaxList) as ts.SyntaxList[]; // remove tokens
   const indentation = getIndentation(importSyntaxLists);
   const toInsert = `${indentation}${name},`;
   return new InsertChange(sourcePath, importSyntaxLists[0].end, toInsert);

@@ -44,7 +44,7 @@ function addInstallTask(options: ExtendedSchema): Rule {
  * Schematic factory entry-point for the `ng-add` schematic. The ng-add schematic will be
  * automatically executed if developers run `ng add @dynatrace/barista-components`.
  */
-export default function(options: Schema): Rule {
+export default function (options: Schema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     // Package json that we ship with all the peer dependencies and the version
     const packageJSON = readFileFromTree(tree, '/package.json');

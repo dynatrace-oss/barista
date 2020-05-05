@@ -28,8 +28,8 @@ export async function updateTargetLabels(
   });
   // use the original labels without the target ones.
   const originalLabels = issue.data.labels
-    .filter(label => !label.name.startsWith('target'))
-    .map(label => label.name);
+    .filter((label) => !label.name.startsWith('target'))
+    .map((label) => label.name);
   // Join the original labels with the new target labels
   const filteredLabels = [...labels, ...originalLabels];
   // Update the issue labels.

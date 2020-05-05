@@ -27,7 +27,7 @@ export interface StateGroup {
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
 
-  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);
 };
 
 @Component({
@@ -86,11 +86,11 @@ export class DtExampleAutocompleteGroups implements OnInit {
   private _filterGroup(value: string): StateGroup[] {
     if (value) {
       return this.stateGroups
-        .map(group => ({
+        .map((group) => ({
           letter: group.letter,
           names: _filter(group.names, value),
         }))
-        .filter(group => group.names.length > 0);
+        .filter((group) => group.names.length > 0);
     }
 
     return this.stateGroups;

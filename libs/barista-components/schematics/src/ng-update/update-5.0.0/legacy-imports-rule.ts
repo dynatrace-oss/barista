@@ -50,7 +50,7 @@ export class LegacyImportsRule extends DtMigrationRule {
     const importLocation = moduleSpecifier.text;
 
     const legacyModuleImport = [...MODULE_SPECIFIERS.keys()].find(
-      moduleImport => !!importLocation.match(moduleImport),
+      (moduleImport) => !!importLocation.match(moduleImport),
     );
 
     // If the import module is not one of the legacy import locations, skip check.

@@ -87,7 +87,7 @@ export class BaPageService<T = any> {
     const requestPath = `${environment.dataHost}/${id}.json`;
     return this._http
       .get<T>(requestPath, { responseType: 'json' })
-      .pipe(tap(data => this._cache.set(id, data)));
+      .pipe(tap((data) => this._cache.set(id, data)));
   }
 }
 

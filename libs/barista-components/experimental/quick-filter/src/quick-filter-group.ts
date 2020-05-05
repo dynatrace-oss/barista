@@ -99,7 +99,7 @@ export class DtQuickFilterGroup {
   /** @internal Helper function that checks if nothing is selected inside a group */
   _isNothingSelected(): boolean {
     if (this._nodeDef.option && this._nodeDef.option.uid) {
-      const index = this._activeFilterPaths.findIndex(path =>
+      const index = this._activeFilterPaths.findIndex((path) =>
         path.startsWith(this._nodeDef.option!.uid!),
       );
       return index === -1;
@@ -137,7 +137,7 @@ export class DtQuickFilterGroup {
   _getOptions(): DtNodeDef[] {
     if (this._nodeDef?.autocomplete) {
       return this._nodeDef.autocomplete.optionsOrGroups.filter(
-        def => isDtOptionDef(def) && !isDtRenderType(def),
+        (def) => isDtOptionDef(def) && !isDtRenderType(def),
       );
     }
     return [];

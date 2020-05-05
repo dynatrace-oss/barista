@@ -29,15 +29,11 @@ export const getGroup = (group: string) =>
 
 /** get a group item by its group and its name */
 export const getGroupItem = (group: string, item: string) =>
-  getGroup(group)
-    .child('.dt-quick-filter-group-items > *')
-    .withText(item);
+  getGroup(group).child('.dt-quick-filter-group-items > *').withText(item);
 
 /** get the native input of the specified group item */
 export const getGroupItemInput = (group: string, item: string) =>
-  getGroupItem(group, item)
-    .child('label')
-    .child('input');
+  getGroupItem(group, item).child('label').child('input');
 
 /** get the selected item of the group */
 export const getSelectedItem = (groupText: string) =>

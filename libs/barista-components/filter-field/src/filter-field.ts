@@ -231,7 +231,7 @@ export class DtFilterField<T = any>
   /** Currently applied filters */
   @Input()
   get filters(): any[][] {
-    return this._filters.map(values => _getSourcesOfDtFilterValues(values));
+    return this._filters.map((values) => _getSourcesOfDtFilterValues(values));
   }
   set filters(value: any[][]) {
     this._tryApplyFilters(value);
@@ -260,13 +260,14 @@ export class DtFilterField<T = any>
       if (this._disabled) {
         this._closeFilterPanels();
 
-        this.tags.forEach(item => {
+        this.tags.forEach((item) => {
           this._previousTagDisabledState.set(item, item.disabled);
           item.disabled = this._disabled;
         });
       } else {
         this.tags.forEach(
-          item => (item.disabled = !!this._previousTagDisabledState.get(item)),
+          (item) =>
+            (item.disabled = !!this._previousTagDisabledState.get(item)),
         );
       }
 
@@ -487,7 +488,7 @@ export class DtFilterField<T = any>
     this._focusMonitor
       .monitor(this._elementRef.nativeElement, true)
       .pipe(takeUntil(this._destroy$))
-      .subscribe(origin => {
+      .subscribe((origin) => {
         // The focusMonitor fires on focus and on blur, that is why we need the check
         // if the currentlyOpenFilterfield is not the one that is currently being
         // focused.
@@ -738,7 +739,7 @@ export class DtFilterField<T = any>
 
   /** Returns the index in the filters for the filter values given or -1 if not found */
   private _findIndexForFilter(needleFilterValueArr: _DtFilterValue[]): number {
-    return this._filters.findIndex(filterValueArr => {
+    return this._filters.findIndex((filterValueArr) => {
       // check whether the length is the same, if not we can quit here
       if (filterValueArr.length !== needleFilterValueArr.length) {
         return false;
@@ -872,7 +873,7 @@ export class DtFilterField<T = any>
     }
 
     // Clear any previous selected option.
-    this._autocomplete._options.forEach(option => {
+    this._autocomplete._options.forEach((option) => {
       if (option.selected) {
         option.deselect();
       }
@@ -1004,8 +1005,8 @@ export class DtFilterField<T = any>
     this.filterChanges.emit(
       new DtFilterFieldChangeEvent(
         this,
-        added.map(values => _getSourcesOfDtFilterValues(values)),
-        removed.map(values => _getSourcesOfDtFilterValues(values)),
+        added.map((values) => _getSourcesOfDtFilterValues(values)),
+        removed.map((values) => _getSourcesOfDtFilterValues(values)),
         this.filters,
       ),
     );
@@ -1068,7 +1069,7 @@ export class DtFilterField<T = any>
       .connect()
       .pipe(takeUntil(this._destroy$))
       .subscribe(
-        def => {
+        (def) => {
           if (isAsyncDtAutocompleteDef(this._currentDef) && def) {
             this._asyncDefs.set(this._currentDef, def);
             if (
@@ -1226,7 +1227,7 @@ export class DtFilterField<T = any>
   }
 
   private _tryApplyFilters(filters: any[][]): void {
-    this._filters = filters.map(sources => {
+    this._filters = filters.map((sources) => {
       if (this._rootDef) {
         const values = findFilterValuesForSources(
           sources,

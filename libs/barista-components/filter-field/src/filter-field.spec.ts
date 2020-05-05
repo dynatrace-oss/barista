@@ -271,7 +271,7 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
 
       // then
-      const subscription = filterField.currentTags.subscribe(tags => {
+      const subscription = filterField.currentTags.subscribe((tags) => {
         for (const dtFilterFieldTag of tags) {
           expect(dtFilterFieldTag.disabled).toBeTruthy();
         }
@@ -307,7 +307,7 @@ describe('DtFilterField', () => {
 
       // Disable filter "AUT - Vienna"
       const sub1 = filterField.currentTags.subscribe(
-        tags => (tags[0].disabled = true),
+        (tags) => (tags[0].disabled = true),
       );
       tick();
       sub1.unsubscribe();
@@ -318,7 +318,7 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
 
       // then
-      const sub2 = filterField.currentTags.subscribe(tags => {
+      const sub2 = filterField.currentTags.subscribe((tags) => {
         expect(tags[0].disabled).toBeTruthy();
         expect(tags[1].disabled).toBeFalsy();
       });
@@ -540,7 +540,7 @@ describe('DtFilterField', () => {
 
       fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
-        ev => (filterChangeEvent = ev),
+        (ev) => (filterChangeEvent = ev),
       );
 
       fixture.detectChanges();
@@ -565,7 +565,7 @@ describe('DtFilterField', () => {
 
       fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
-        ev => (filterChangeEvent = ev),
+        (ev) => (filterChangeEvent = ev),
       );
 
       fixture.detectChanges();
@@ -1507,7 +1507,7 @@ describe('DtFilterField', () => {
 
       fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
-        ev => (filterChangeEvent = ev),
+        (ev) => (filterChangeEvent = ev),
       );
 
       const tags = fixture.debugElement.queryAll(
@@ -2088,7 +2088,7 @@ function getFilterTags(
 ): Array<FilterTagTestData> {
   return Array.from(
     fixture.debugElement.queryAll(By.css('.dt-filter-field-tag')),
-  ).map(ele => {
+  ).map((ele) => {
     const key: HTMLElement = ele.nativeElement.querySelector(
       '.dt-filter-field-tag-key',
     );
