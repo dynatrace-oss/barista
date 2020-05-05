@@ -42,12 +42,6 @@ The `dtRate` pipe provides a way to add a rate info to the value
 
 <ba-live-example name="DtExampleFormattersRate"></ba-live-example>
 
-### Time (deprecated - Will be removed with version 7.0.0)
-
-The `dtTime` pipe provides a way to format a input time to a timestamp
-
-<ba-live-example name="DtExampleFormattersTime"></ba-live-example>
-
 ### Duration
 
 The `dtDuration` pipe provides a way to format an input time to a timestamp

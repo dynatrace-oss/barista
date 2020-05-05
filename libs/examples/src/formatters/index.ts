@@ -21,4 +21,3 @@ export * from './formatters-duration-example/formatters-duration-example';
 export * from './formatters-examples.module';
 export * from './formatters-percent-example/formatters-percent-example';
 export * from './formatters-rate-example/formatters-rate-example';
-export * from './formatters-time-example/formatters-time-example';
