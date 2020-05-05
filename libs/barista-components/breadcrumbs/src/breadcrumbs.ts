@@ -20,7 +20,6 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  Input,
   OnDestroy,
   QueryList,
   ViewEncapsulation,
@@ -31,7 +30,6 @@ import { startWith, takeUntil } from 'rxjs/operators';
 import { Constructor, mixinColor } from '@dynatrace/barista-components/core';
 
 import { DtBreadcrumbsItem2 } from './breadcrumbs-item';
-import { DtBreadcrumbsItem } from './item/breadcrumbs-item';
 
 export type DtBreadcrumbThemePalette = 'main' | 'error' | 'neutral';
 
@@ -51,7 +49,6 @@ export const _DtBreadcrumbMixinBase = mixinColor<
   styleUrls: ['breadcrumbs.scss'],
   host: {
     class: 'dt-breadcrumbs',
-    '[attr.aria-label]': 'ariaLabel',
   },
   inputs: ['color'],
   preserveWhitespaces: false,
@@ -60,18 +57,7 @@ export const _DtBreadcrumbMixinBase = mixinColor<
 })
 export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
   implements AfterContentInit, OnDestroy {
-  /**
-   * Aria label for the breadcrumbs
-   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
-   * @breaking-change to be removed in 6.0.0
-   */
-  @Input('aria-label') ariaLabel: string;
-  // tslint:disable:deprecation
-  @ContentChildren(DtBreadcrumbsItem)
-  private _items: QueryList<DtBreadcrumbsItem>;
-  // tslint:enable:deprecation
-
-  @ContentChildren(DtBreadcrumbsItem2) private _items2: QueryList<
+  @ContentChildren(DtBreadcrumbsItem2) private _items: QueryList<
     DtBreadcrumbsItem2
   >;
 
@@ -88,14 +74,7 @@ export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
         // We need to notify the items whether they are the last one in the list,
         // because they use this information to determine their active state.
         this._items.forEach((item, index) => {
-          item._lastItem = this._items.length - 1 === index;
-        });
-      });
-    this._items2.changes
-      .pipe(startWith(null), takeUntil(this._destroy$))
-      .subscribe(() => {
-        this._items2.forEach((item, index) => {
-          item._setCurrent(this._items2.length - 1 === index);
+          item._setCurrent(this._items.length - 1 === index);
         });
       });
   }

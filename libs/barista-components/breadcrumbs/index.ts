@@ -17,4 +17,3 @@
 export * from './src/breadcrumbs-module';
 export * from './src/breadcrumbs';
 export * from './src/breadcrumbs-item';
-export * from './src/item/breadcrumbs-item';

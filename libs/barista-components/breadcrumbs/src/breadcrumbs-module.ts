@@ -21,19 +21,10 @@ import { RouterModule } from '@angular/router';
 
 import { DtBreadcrumbs } from './breadcrumbs';
 import { DtBreadcrumbsItem2 } from './breadcrumbs-item';
-import { DtBreadcrumbsItem } from './item/breadcrumbs-item';
 
 @NgModule({
-  exports: [
-    DtBreadcrumbs,
-    DtBreadcrumbsItem, // tslint:disable-line:deprecation
-    DtBreadcrumbsItem2,
-  ],
-  declarations: [
-    DtBreadcrumbs,
-    DtBreadcrumbsItem, // tslint:disable-line:deprecation
-    DtBreadcrumbsItem2,
-  ],
+  exports: [DtBreadcrumbs, DtBreadcrumbsItem2],
+  declarations: [DtBreadcrumbs, DtBreadcrumbsItem2],
   imports: [A11yModule, CommonModule, RouterModule],
 })
 export class DtBreadcrumbsModule {}
