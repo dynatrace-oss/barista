@@ -1,61 +1,16 @@
 <div style="margin-top: 16px;">
   <dt-breadcrumbs>
-    <dt-breadcrumbs-item>dt-breadcrumbs-item component</dt-breadcrumbs-item>
-  </dt-breadcrumbs>
-</div>
-
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs>
-    <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>
-    <dt-breadcrumbs-item [href]="['first', 'second', { param: 123 }]">
-      Second view
-    </dt-breadcrumbs-item>
-    <dt-breadcrumbs-item [href]="['first', 'second', { param: 123 }, 'third']">
-      Third view
-    </dt-breadcrumbs-item>
-    <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>
-  </dt-breadcrumbs>
-</div>
-
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs color="error">
-    <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>
-    <dt-breadcrumbs-item [href]="['first', 'second', { param: 123 }]">
-      Second view
-    </dt-breadcrumbs-item>
-    <dt-breadcrumbs-item [href]="['first', 'second', { param: 123 }, 'third']">
-      Third view
-    </dt-breadcrumbs-item>
-    <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>
-  </dt-breadcrumbs>
-</div>
-
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs color="neutral">
-    <dt-breadcrumbs-item href="first">First view</dt-breadcrumbs-item>
-    <dt-breadcrumbs-item [href]="['first', 'second', { param: 123 }]">
-      Second view
-    </dt-breadcrumbs-item>
-    <dt-breadcrumbs-item [href]="['first', 'second', { param: 123 }, 'third']">
-      Third view
-    </dt-breadcrumbs-item>
-    <dt-breadcrumbs-item>Current view</dt-breadcrumbs-item>
-  </dt-breadcrumbs>
-</div>
-
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs>
-    <a dtBreadcrumbsItem>dtBreadcrumbsItem directive</a>
+    <a dtBreadcrumbsItem>dt-breadcrumbs-item component</a>
   </dt-breadcrumbs>
 </div>
 
 <div style="margin-top: 16px;">
   <dt-breadcrumbs>
     <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem href="first/second">
+    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }]">
       Second view
     </a>
-    <a dtBreadcrumbsItem href="first/second/third">
+    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }, 'third']">
       Third view
     </a>
     <a dtBreadcrumbsItem>Current view</a>
@@ -65,10 +20,10 @@
 <div style="margin-top: 16px;">
   <dt-breadcrumbs color="error">
     <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem href="first/second">
+    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }]">
       Second view
     </a>
-    <a dtBreadcrumbsItem href="first/second/third">
+    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }, 'third']">
       Third view
     </a>
     <a dtBreadcrumbsItem>Current view</a>
@@ -78,12 +33,57 @@
 <div style="margin-top: 16px;">
   <dt-breadcrumbs color="neutral">
     <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem href="first/second">
+    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }]">
       Second view
     </a>
-    <a dtBreadcrumbsItem href="first/second/third">
+    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }, 'third']">
       Third view
     </a>
     <a dtBreadcrumbsItem>Current view</a>
+  </dt-breadcrumbs>
+</div>
+
+<div style="margin-top: 16px;">
+  <dt-breadcrumbs>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem>dtBreadcrumbsItem directive</a>
+  </dt-breadcrumbs>
+</div>
+
+<div style="margin-top: 16px;">
+  <dt-breadcrumbs>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first">First view</a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first/second">
+      Second view
+    </a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first/second/third">
+      Third view
+    </a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem>Current view</a>
+  </dt-breadcrumbs>
+</div>
+
+<div style="margin-top: 16px;">
+  <dt-breadcrumbs color="error">
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first">First view</a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first/second">
+      Second view
+    </a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first/second/third">
+      Third view
+    </a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem>Current view</a>
+  </dt-breadcrumbs>
+</div>
+
+<div style="margin-top: 16px;">
+  <dt-breadcrumbs color="neutral">
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first">First view</a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first/second">
+      Second view
+    </a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem href="first/second/third">
+      Third view
+    </a>
+    <a dtBreadcrumbsItem dtBreadcrumbsItem>Current view</a>
   </dt-breadcrumbs>
 </div>

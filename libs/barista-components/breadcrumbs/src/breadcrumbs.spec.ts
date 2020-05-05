@@ -36,29 +36,11 @@ describe('DtBreadcrumbs', () => {
       declarations: [
         TestBreadcrumbs,
         TestBreadcrumbsWithAriaAttr,
-        TestBreadcrumbsWithDeprecatedItems,
+        TestBreadcrumbsWithItems,
       ],
     });
     TestBed.compileComponents();
   }));
-
-  it('should set last property on last child for deprecated dt-breadcrumbs-item', () => {
-    const fixture = createComponent(TestBreadcrumbsWithDeprecatedItems);
-    const component = fixture.componentInstance;
-    const lastValues = component.items.map(
-      // tslint:disable-next-line:deprecation
-      (item: DtBreadcrumbsItem) => item._lastItem,
-    );
-    expect(lastValues).toEqual([false, false, true]);
-  });
-
-  it('should make sure aria current is set for deprecated dt-breadcrumbs-item', () => {
-    const fixture = createComponent(TestBreadcrumbsWithDeprecatedItems);
-    const lastItem = fixture.debugElement.query(
-      By.css('span[aria-current=page]'),
-    );
-    expect(lastItem).not.toBeFalsy();
-  });
 
   it('should make sure aria current is set', () => {
     const fixture = createComponent(TestBreadcrumbs);
@@ -91,7 +73,7 @@ class TestBreadcrumbs {
 
 @Component({
   template: `
-    <dt-breadcrumbs [aria-label]="'breadcrumbs'">
+    <dt-breadcrumbs [attr.aria-label]="'breadcrumbs'">
       <a dtBreadcrumbsItem></a>
       <a dtBreadcrumbsItem></a>
     </dt-breadcrumbs>
@@ -104,14 +86,13 @@ class TestBreadcrumbsWithAriaAttr {
 @Component({
   template: `
     <dt-breadcrumbs>
-      <dt-breadcrumbs-item></dt-breadcrumbs-item>
-      <dt-breadcrumbs-item></dt-breadcrumbs-item>
-      <dt-breadcrumbs-item></dt-breadcrumbs-item>
+      <a dtBreadcrumbsItem></a>
+      <a dtBreadcrumbsItem></a>
+      <a dtBreadcrumbsItem></a>
     </dt-breadcrumbs>
   `,
 })
-class TestBreadcrumbsWithDeprecatedItems {
-  // tslint:disable-next-line:deprecation
+class TestBreadcrumbsWithItems {
   @ViewChildren(DtBreadcrumbsItem) items: QueryList<DtBreadcrumbsItem>;
   @ViewChild(DtBreadcrumbs) breadcrumbs: DtBreadcrumbs;
 }

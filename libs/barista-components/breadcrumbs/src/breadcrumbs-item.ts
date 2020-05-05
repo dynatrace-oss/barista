@@ -29,7 +29,7 @@ import { Directive, ElementRef } from '@angular/core';
     class: 'dt-breadcrumbs-item',
   },
 })
-export class DtBreadcrumbsItem2 {
+export class DtBreadcrumbsItem {
   constructor(private readonly _elementRef: ElementRef<HTMLAnchorElement>) {}
 
   /** @internal */
