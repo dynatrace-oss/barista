@@ -23,7 +23,6 @@ import {
   PositionStrategy,
   ViewportRuler,
   OverlayContainer,
-  FlexibleConnectedPositionStrategy,
 } from '@angular/cdk/overlay';
 import {
   ChangeDetectorRef,
@@ -32,7 +31,6 @@ import {
   Input,
   NgZone,
   OnDestroy,
-  Optional,
   Inject,
 } from '@angular/core';
 import {
@@ -125,11 +123,8 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
 
   /**
    * Strategy that is used to position the panel.
-   * @breaking-change Switch to only use DtFlexibleConnectedPositionStrategy with 7.0.0
    */
-  private _positionStrategy:
-    | FlexibleConnectedPositionStrategy
-    | DtFlexibleConnectedPositionStrategy;
+  private _positionStrategy: DtFlexibleConnectedPositionStrategy;
 
   /** Whether the component has already been destroyed */
   private _componentDestroyed = false;
@@ -151,16 +146,12 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     private _elementRef: ElementRef,
     private _overlay: Overlay,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _viewportRuler: ViewportRuler,
+    private _platform: Platform,
+    private _overlayContainer: OverlayContainer,
     zone: NgZone,
-    /** @breaking-change 7.0.0 Make the _viewportRuler non-optional. */
-    @Optional() private _viewportRuler?: ViewportRuler,
-    /** @breaking-change 7.0.0 Make the _platform non-optional. */
-    @Optional() private _platform?: Platform,
-    /** @breaking-change 7.0.0 Make the _overlayContainer non-optional. */
-    @Optional() private _overlayContainer?: OverlayContainer,
-    /** @breaking-change 7.0.0 Make the _document non-optional. */
     // tslint:disable-next-line:no-any
-    @Optional() @Inject(DOCUMENT) private _document?: any,
+    @Inject(DOCUMENT) private _document: any,
   ) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
@@ -289,21 +280,13 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
 
   /** Returns the overlay position. */
   private _getOverlayPosition(): PositionStrategy {
-    /**
-     * @breaking-change Switch to only use the DtFlexibleConnectedPositionStrategy
-     * with 7.0.0
-     */
-    const originalPositionStrategy =
-      this._viewportRuler && this._platform && this._overlayContainer
-        ? new DtFlexibleConnectedPositionStrategy(
-            this._elementRef,
-            this._viewportRuler,
-            this._document,
-            this._platform,
-            this._overlayContainer,
-          )
-        : this._overlay.position().flexibleConnectedTo(this._elementRef);
-    this._positionStrategy = originalPositionStrategy
+    this._positionStrategy = new DtFlexibleConnectedPositionStrategy(
+      this._elementRef,
+      this._viewportRuler,
+      this._document,
+      this._platform,
+      this._overlayContainer,
+    )
       .withFlexibleDimensions(false)
       .withPush(false)
       .withPositions([
