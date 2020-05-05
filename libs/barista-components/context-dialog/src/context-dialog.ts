@@ -147,20 +147,6 @@ export class DtContextDialog extends _DtContextDialogMixinBase
   /** Aria reference to a label describing the context-dialog. */
   @Input('aria-labelledby') ariaLabelledBy: string;
 
-  /**
-   * Aria label of the context-dialog's close button.
-   * @deprecated `aria-label-close-button` does not conform with accessibility standards.
-   * Please use `ariaLabelClose` input instead.
-   * @breaking-change Will be removed in version 7.0.0
-   */
-  @Input('aria-label-close-button')
-  get depAriaLabelClose(): string {
-    return this._ariaLabelClose;
-  }
-  set depAriaLabelClose(value: string) {
-    this._ariaLabelClose = value;
-  }
-
   /** Aria label of the context-dialog's close button. */
   @Input()
   get ariaLabelClose(): string {
@@ -215,11 +201,10 @@ export class DtContextDialog extends _DtContextDialogMixinBase
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _focusTrapFactory: FocusTrapFactory,
+    private _elementRef: ElementRef<HTMLElement>,
     @Attribute('tabindex') tabIndex: string,
     // tslint:disable-next-line: no-any
     @Optional() @Inject(DOCUMENT) private _document: any,
-    /** @breaking-change: `_elementRef` will be mandatory with version 7.0.0 */
-    private _elementRef?: ElementRef<HTMLElement>,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
