@@ -94,8 +94,8 @@ export class DtIconRegistry {
     }
     // Fetch the icon from the config's URL, cache it, and return a copy.
     return this._loadSvgIconFromConfig(config).pipe(
-      tap(svg => (config.svgElement = svg)),
-      map(svg => cloneSvg(svg)),
+      tap((svg) => (config.svgElement = svg)),
+      map((svg) => cloneSvg(svg)),
     );
   }
 
@@ -114,7 +114,7 @@ export class DtIconRegistry {
       iconConfig.name,
     );
     return this._fetchUrl(url).pipe(
-      map(svgText => this._createSvgElementForSingleIcon(svgText)),
+      map((svgText) => this._createSvgElementForSingleIcon(svgText)),
     );
   }
 

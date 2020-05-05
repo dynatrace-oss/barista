@@ -85,7 +85,7 @@ export class BaTocService implements OnDestroy {
         this._scrollSpyInfo = this._scrollSpyService.spyOn(headlines);
       });
       this._activeItemSubscription = this._scrollSpyInfo!.active.subscribe(
-        scrollItem => {
+        (scrollItem) => {
           if (scrollItem) {
             for (const tocItem of this.tocItems) {
               const scrollItemId = scrollItem.element.getAttribute('id');
@@ -212,10 +212,7 @@ export class BaTocService implements OnDestroy {
     if (id) {
       _addToMap(id);
     } else {
-      id = (h.textContent || '')
-        .trim()
-        .toLowerCase()
-        .replace(/\W+/g, '-');
+      id = (h.textContent || '').trim().toLowerCase().replace(/\W+/g, '-');
       id = _addToMap(id);
       h.id = id;
     }

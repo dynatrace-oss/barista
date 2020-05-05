@@ -88,8 +88,8 @@ async function createStrapiSnippets(content: string): Promise<void> {
 /** Returns all markdown files of a given path. */
 function getMarkdownFilesByPath(rootPath: string): string[] {
   return readdirSync(rootPath)
-    .filter(name => extname(name) === '.md')
-    .map(name => join(rootPath, name));
+    .filter((name) => extname(name) === '.md')
+    .map((name) => join(rootPath, name));
 }
 
 /** Applies defaults to a metadata object */

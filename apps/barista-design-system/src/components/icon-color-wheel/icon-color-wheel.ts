@@ -73,7 +73,7 @@ export class BaIconColorWheel {
     this._renderSymbol = this._platform.isBrowser;
     const groupedBlobs = Object.keys(DtColors)
       /** breaking-change Can be removed when flat_white is removed from the color list. 7.0.0 */
-      .filter(key => key !== 'FLAT_WHITE') // no flat white for the color wheel
+      .filter((key) => key !== 'FLAT_WHITE') // no flat white for the color wheel
       .map((key): BaColorWheelBlob | undefined => {
         /* tslint:disable no-magic-numbers */
         const parts = key.split('_');

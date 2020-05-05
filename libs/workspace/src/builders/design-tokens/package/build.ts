@@ -45,7 +45,7 @@ export function designTokensPackageBuilder(
     ),
   ).pipe(
     // Wait for the result of the initial builder
-    switchMap(build => build.result),
+    switchMap((build) => build.result),
     // Copy the packageJson and prefill with version
     // sync dependencies when necessary.
     switchMap(() =>

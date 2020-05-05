@@ -656,7 +656,7 @@ describe('DtTable SimpleColumns', () => {
     it('should update the indicator if the hasProblem function is updated', () => {
       const fixture = createComponent(TestSimpleColumnsApp);
 
-      fixture.componentInstance.trafficHasProblem = data => {
+      fixture.componentInstance.trafficHasProblem = (data) => {
         if (data.traffic > 60000000) {
           return 'error';
         }
@@ -860,7 +860,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
   isSortable = true;
 
   percentageFormatter = formatPercent;
-  trafficFormatter = value =>
+  trafficFormatter = (value) =>
     formatBytes(formatRate(value, 's'), {
       inputUnit: 'byte',
       outputUnit: 'MB',
@@ -1011,7 +1011,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
   isSortable = true;
 
   percentageFormatter = formatPercent;
-  trafficFormatter = value =>
+  trafficFormatter = (value) =>
     formatBytes(formatRate(value, 's'), {
       inputUnit: 'byte',
       outputUnit: 'MB',

@@ -69,7 +69,7 @@ export class BaSearchPage implements BaPage, AfterViewInit {
     // Get the current query from the route and set it into the search
     // field if necessary.
     const currentRouteQuery$ = this._locationService.currentQuery$.pipe(
-      map(params => params.get('q')),
+      map((params) => params.get('q')),
       filter(Boolean),
       take(1),
       tap((query: string) => (this.queryValue = query!)),
@@ -85,7 +85,7 @@ export class BaSearchPage implements BaPage, AfterViewInit {
       map(() => this.queryValue),
       filter(Boolean),
       distinctUntilChanged(),
-      tap(query => this._locationService.go(`/search/?q=${query}`)),
+      tap((query) => this._locationService.go(`/search/?q=${query}`)),
     );
 
     // Subscribe to the current query and

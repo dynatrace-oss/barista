@@ -60,7 +60,7 @@ export function getAngularClassDecorator(
   decoratorName: AngularClassDecoratorName,
 ): Decorator | null {
   return (
-    getClassDecorators(node).find(decorator =>
+    getClassDecorators(node).find((decorator) =>
       isAngularClassDecorator(decorator, decoratorName),
     ) || null
   );

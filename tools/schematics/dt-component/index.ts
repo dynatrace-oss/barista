@@ -38,7 +38,7 @@ function addExportToRootIndex(options: DtComponentOptions): Rule {
     const rootPublicApi = getSourceFile(host, modulePath);
     const rootPublicApiNodes = getSourceNodes(rootPublicApi);
     let lastExportPos = 0;
-    rootPublicApiNodes.forEach(node => {
+    rootPublicApiNodes.forEach((node) => {
       if (node.kind === ts.SyntaxKind.ExportDeclaration) {
         lastExportPos = node.getEnd() + 1;
       }
@@ -303,13 +303,13 @@ function addReferenceToBaristaExamplesDtModules(
 }
 
 // tslint:disable-next-line: no-default-export
-export default function(options: DtComponentOptions): Rule {
+export default function (options: DtComponentOptions): Rule {
   options.moduleName = `Dt${strings.classify(options.name)}Module`;
   options.selector = `dt-${strings.dasherize(options.name)}`;
   options.docsComponent = `Docs${strings.classify(options.name)}Component`;
   const templateSource = apply(url('./files'), [
-    options.uitest ? noop() : filter(p => !p.startsWith('/ui-test-app')),
-    filter(p => !p.startsWith('/ui-tests')),
+    options.uitest ? noop() : filter((p) => !p.startsWith('/ui-test-app')),
+    filter((p) => !p.startsWith('/ui-tests')),
     template({
       ...strings,
       ...options,
@@ -317,7 +317,7 @@ export default function(options: DtComponentOptions): Rule {
     move('src'),
   ]);
   const uitestsTemplates = apply(url('./files'), [
-    filter(p => p.startsWith('/ui-tests')),
+    filter((p) => p.startsWith('/ui-tests')),
     template({
       ...strings,
       ...options,

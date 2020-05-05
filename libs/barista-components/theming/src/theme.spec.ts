@@ -179,9 +179,7 @@ describe('DtTheme', () => {
 
 @Component({
   selector: 'dt-test-app',
-  template: `
-    <section [dtTheme]="theme"></section>
-  `,
+  template: ` <section [dtTheme]="theme"></section> `,
 })
 class TestApp {
   theme = 'turquoise';
@@ -189,9 +187,7 @@ class TestApp {
 
 @Component({
   selector: 'dt-test-child',
-  template: `
-    <section class="child-section" [dtTheme]="theme"></section>
-  `,
+  template: ` <section class="child-section" [dtTheme]="theme"></section> `,
 })
 class TestAppChild {
   theme = ':dark';

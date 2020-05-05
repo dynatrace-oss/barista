@@ -180,7 +180,7 @@ function _squigglyLine(altText: string): string {
 }
 
 // tslint:disable-next-line:no-default-export
-export default function(options: DtLintingRuleOptions): Rule {
+export default function (options: DtLintingRuleOptions): Rule {
   options.name = _createRuleName(options.name, options.alttext);
 
   if (options.category) {

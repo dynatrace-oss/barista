@@ -81,7 +81,7 @@ export class DtDemosSideNav implements AfterContentInit, OnDestroy {
 
   ngAfterContentInit(): void {
     this._filteredComponentItems = [...this._componentItems];
-    this._urlSubscription = this._router.events.subscribe(event => {
+    this._urlSubscription = this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this._selectedComponentName = event.urlAfterRedirects.replace(
           /^\/?([A-Za-z0-9-]+)\/?.*$/,
@@ -110,12 +110,12 @@ export class DtDemosSideNav implements AfterContentInit, OnDestroy {
       const filterValue = this._componentItemsFilterValue.toLocaleLowerCase();
 
       this._filteredComponentItems = this._componentItems.filter(
-        componentItem => {
+        (componentItem) => {
           const componentItemName = componentItem.name.toLocaleLowerCase();
 
           return (
             componentItemName.includes(filterValue) ||
-            componentItem.examples.find(example =>
+            componentItem.examples.find((example) =>
               example.name.toLocaleLowerCase().includes(filterValue),
             ) !== undefined
           );

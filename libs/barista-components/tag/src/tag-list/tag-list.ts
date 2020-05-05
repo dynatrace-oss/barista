@@ -118,7 +118,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
             this._setWrapperBoundingProperties(false);
             const tagArray = this._tagElements.toArray();
             const index = getIndexForFirstHiddenTag(
-              tagArray.map(elRef => elRef.nativeElement),
+              tagArray.map((elRef) => elRef.nativeElement),
             );
             if (index !== 0) {
               this._handleWrapperProperties(tagArray, index);
@@ -163,7 +163,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
     const wrapperLeft = this._wrapperTagList.nativeElement.getBoundingClientRect()
       .left;
     this._wrapperWidth = getWrapperWidth(
-      tagArray.map(elRef => elRef.nativeElement)[index - 1],
+      tagArray.map((elRef) => elRef.nativeElement)[index - 1],
       wrapperLeft,
     );
     this._setWrapperBoundingProperties(true);
@@ -186,7 +186,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
 
   /** Saves Tag Add subscriptions and adds _expandTagList on dt-tag-add event of Tag Add Element */
   private _subscribeToTagAddElements(): void {
-    this._tagAddElements.map(el =>
+    this._tagAddElements.map((el) =>
       this._tagAddSubscriptions.push(
         el.tagAdded.pipe(takeUntil(this._destroy$)).subscribe(() => {
           this._expand();
@@ -198,7 +198,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
 
   /** Unsubscribes every tag-add subscription */
   private _unsubscribeFromTagAddElements(): void {
-    this._tagAddSubscriptions.forEach(subscribtion => {
+    this._tagAddSubscriptions.forEach((subscribtion) => {
       subscribtion.unsubscribe();
     });
     this._tagAddSubscriptions = [];

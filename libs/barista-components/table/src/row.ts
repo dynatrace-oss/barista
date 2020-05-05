@@ -110,15 +110,15 @@ export class DtRow extends CdkRow implements OnDestroy {
     this._cellStateChangesSub.unsubscribe();
     const cells = Array.from(this._cells.values());
     this._cellStateChangesSub = merge(
-      ...cells.map(cell => cell._stateChanges),
+      ...cells.map((cell) => cell._stateChanges),
     ).subscribe(() => {
       this._applyCssClasses(cells);
     });
   }
 
   private _applyCssClasses(cells: DtCell[]): void {
-    const hasError = !!cells.find(cell => cell.hasError);
-    const hasWarning = !!cells.find(cell => cell.hasWarning);
+    const hasError = !!cells.find((cell) => cell.hasError);
+    const hasWarning = !!cells.find((cell) => cell.hasWarning);
     const hasIndicator = hasError || hasWarning;
     if (hasIndicator) {
       _addCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');

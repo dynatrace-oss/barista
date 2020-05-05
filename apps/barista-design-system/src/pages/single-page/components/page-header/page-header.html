@@ -12,7 +12,9 @@
       <a *ngIf="content.wiki" class="ba-tag" href="{{ content.wiki }}"
         >UX Wiki page</a
       >
-      <dt-tag *ngFor="let property of content.properties">{{property}}</dt-tag>
+      <dt-tag *ngFor="let property of content.properties">{{
+        property
+      }}</dt-tag>
     </div>
     <div *ngIf="_showContributors" class="ba-contributors">
       <ba-contributors

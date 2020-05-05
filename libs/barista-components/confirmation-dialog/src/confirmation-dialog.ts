@@ -199,10 +199,10 @@ export class DtConfirmationDialog
     }
     // We need to defer this to the next cycle to avoid expression changed after checked errors
     Promise.resolve().then(() => {
-      this._stateChildren.forEach(child => {
+      this._stateChildren.forEach((child) => {
         child._updateActive(this._stateToSelect === child.name);
       });
-      if (this._stateChildren.some(child => child._isActive)) {
+      if (this._stateChildren.some((child) => child._isActive)) {
         this._positionState = 'up';
         DtConfirmationDialog._activeDialog = this;
       } else {

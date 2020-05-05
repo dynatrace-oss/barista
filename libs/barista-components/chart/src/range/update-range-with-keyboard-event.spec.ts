@@ -105,7 +105,7 @@ describe('DtChartRange update range with keyboard', () => {
     { key: END, handle: 'selected-area', range: { left: 400, width: 100 } },
   ];
 
-  commands.forEach(command => {
+  commands.forEach((command) => {
     const handle = command.handle;
     const event = createKeyboardEvent('keydown', command.key);
     const range = updateRangeWithKeyboardEvent(

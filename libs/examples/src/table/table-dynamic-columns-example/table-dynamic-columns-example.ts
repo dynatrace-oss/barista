@@ -43,7 +43,7 @@ export class DtExampleTableDynamicColumns {
       type: 'number',
     },
   ];
-  columnsName = this.columnsDef.map(col => col.id);
+  columnsName = this.columnsDef.map((col) => col.id);
 
   dataSource: object[] = [
     {

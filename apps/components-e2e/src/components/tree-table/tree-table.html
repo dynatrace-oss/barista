@@ -23,9 +23,9 @@
         Total time consumption
       </dt-tree-table-header-cell>
       <dt-cell *dtCellDef="let row">
-        {{row.blocked + "/" + row.totalTimeConsumption}}<br />
-        {{row.waiting + "/" + row.totalTimeConsumption}}<br />
-        {{row.running + "/" + row.totalTimeConsumption}}
+        {{ row.blocked + '/' + row.totalTimeConsumption }}<br />
+        {{ row.waiting + '/' + row.totalTimeConsumption }}<br />
+        {{ row.running + '/' + row.totalTimeConsumption }}
       </dt-cell>
     </ng-container>
 
@@ -63,19 +63,19 @@
 
     <dt-header-row
       *dtHeaderRowDef="[
-      'name',
-      'total',
-      'blocked',
-      'running',
-      'waiting',
-      'actions'
-    ]"
+        'name',
+        'total',
+        'blocked',
+        'running',
+        'waiting',
+        'actions'
+      ]"
     ></dt-header-row>
     <dt-tree-table-row
       *dtRowDef="
-      let row;
-      columns: ['name', 'total', 'blocked', 'running', 'waiting', 'actions']
-    "
+        let row;
+        columns: ['name', 'total', 'blocked', 'running', 'waiting', 'actions']
+      "
       [data]="row"
     ></dt-tree-table-row>
   </dt-tree-table>
@@ -89,11 +89,11 @@
 </section>
 
 <span class="expand-changed">{{ expandChangedCount }}</span>
-<span class="expand-changed-expanded-true"
-  >{{ expandChangedCountWithExpandTrue }}</span
->
-<span class="expand-changed-expanded-false"
-  >{{ expandChangedCountWithExpandFalse }}</span
->
+<span class="expand-changed-expanded-true">{{
+  expandChangedCountWithExpandTrue
+}}</span>
+<span class="expand-changed-expanded-false">{{
+  expandChangedCountWithExpandFalse
+}}</span>
 <span class="expanded">{{ expandedCount }}</span>
 <span class="collapsed">{{ collapsedCount }}</span>

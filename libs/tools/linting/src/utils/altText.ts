@@ -42,9 +42,9 @@ function hasAttribute(
 ): boolean {
   return (
     attrs.some(
-      attr =>
+      (attr) =>
         attr.name === name && (!requireValue || attr.value.trim().length > 0),
-    ) || inputs.some(input => input.name === name)
+    ) || inputs.some((input) => input.name === name)
   );
 }
 
@@ -104,7 +104,7 @@ export function createAltTextVisitor(
   };
   const matches = (ast: ElementAst): boolean =>
     Array.isArray(elements)
-      ? elements.some(elementName => matchesElement(ast, elementName))
+      ? elements.some((elementName) => matchesElement(ast, elementName))
       : matchesElement(ast, elements);
   const failureMessage = () => {
     let componentName;

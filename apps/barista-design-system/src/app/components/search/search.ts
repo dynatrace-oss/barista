@@ -56,9 +56,9 @@ export class BaSearch implements OnInit {
       }),
       distinctUntilChanged(),
       debounceTime(150),
-      switchMap(query => this._searchService.search(query)),
-      map(results =>
-        results.slice(0, 8).map(result => {
+      switchMap((query) => this._searchService.search(query)),
+      map((results) =>
+        results.slice(0, 8).map((result) => {
           result.title = result.title.replace('Barista - ', '');
           return result;
         }),

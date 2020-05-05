@@ -24,42 +24,42 @@ export const baristaRoutes: Route[] = [
     path: 'brand',
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
-        module => module.BaOverviewPageModule,
+        (module) => module.BaOverviewPageModule,
       ),
   },
   {
     path: 'resources',
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
-        module => module.BaOverviewPageModule,
+        (module) => module.BaOverviewPageModule,
       ),
   },
   {
     path: 'guidelines',
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
-        module => module.BaOverviewPageModule,
+        (module) => module.BaOverviewPageModule,
       ),
   },
   {
     path: 'components',
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
-        module => module.BaOverviewPageModule,
+        (module) => module.BaOverviewPageModule,
       ),
   },
   {
     path: 'patterns',
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
-        module => module.BaOverviewPageModule,
+        (module) => module.BaOverviewPageModule,
       ),
   },
   {
     path: '',
     loadChildren: () =>
       import('../pages/index-page/index-page.module').then(
-        module => module.BaIndexPageModule,
+        (module) => module.BaIndexPageModule,
       ),
   },
   { path: 'not-found', component: BaErrorPage },
@@ -67,7 +67,7 @@ export const baristaRoutes: Route[] = [
     path: '**',
     loadChildren: () =>
       import('../pages/single-page/single-page.module').then(
-        module => module.BaSinglePageModule,
+        (module) => module.BaSinglePageModule,
       ),
   },
 ];

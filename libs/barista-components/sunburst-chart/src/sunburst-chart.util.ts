@@ -124,7 +124,7 @@ const fillUpAndSortNodes = (node: DtSunburstChartNode) => {
     children,
     value: children ? getValue(children) : node.value ?? 0,
     depth: children
-      ? 1 + Math.max(...children?.map(child => child.depth ?? 0))
+      ? 1 + Math.max(...children?.map((child) => child.depth ?? 0))
       : 1,
   };
 };
@@ -171,7 +171,7 @@ export const getNodesWithState = (
   nodes: DtSunburstChartTooltipData[] = [],
   id?: string,
 ): DtSunburstChartTooltipData[] =>
-  nodes.map(node => ({
+  nodes.map((node) => ({
     ...node,
     children: getNodesWithState(node.children, id),
     ...getColors(
@@ -245,7 +245,7 @@ export const getSelectedNodesFromOutside = (
       selected,
     ) => {
       const currentNode = tree.currentLevel.find(
-        current => current.origin === selected,
+        (current) => current.origin === selected,
       );
       // TODO: this is assuming the values are correct. Otherwise we should provide an error
       if (currentNode) {
@@ -278,7 +278,7 @@ export const getSelectedId = (
       selectedNode,
     ) => {
       const index = tree.currentLevel.findIndex(
-        node => node.label === selectedNode.label,
+        (node) => node.label === selectedNode.label,
       );
 
       tree.id = getId(index, tree.id);
@@ -335,10 +335,10 @@ const getSlicesByParent = (
   const slices = pie<DtSunburstChartTooltipData>()
     .startAngle(startAngle)
     .endAngle(endAngle)
-    .value(d => d.value ?? 0)(nodes);
+    .value((d) => d.value ?? 0)(nodes);
 
   return slices
-    .filter(slice => slice.data.visible)
+    .filter((slice) => slice.data.visible)
     .reduce((paths, segment) => {
       const sliceBoundaries = {
         startAngle: segment.startAngle,
@@ -476,7 +476,7 @@ const isCurrent = (node, id?: string): boolean => !!id && node.id === id;
  * @param id
  */
 const isAncestor = (node, id?: string): boolean =>
-  !!id && getAncestorsIds(id).some(i => node.id === i);
+  !!id && getAncestorsIds(id).some((i) => node.id === i);
 
 /**
  * @description Get if node is sibling of ancestor of given id
@@ -485,4 +485,4 @@ const isAncestor = (node, id?: string): boolean =>
  * @param id
  */
 const isAncestorSibling = (node, id?: string): boolean =>
-  !!id && getAncestorsIds(id).some(i => isChild(node, i));
+  !!id && getAncestorsIds(id).some((i) => isChild(node, i));

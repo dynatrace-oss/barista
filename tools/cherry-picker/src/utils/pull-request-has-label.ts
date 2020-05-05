@@ -23,5 +23,5 @@ export function pullRequestHasLabel(
   pullRequest: PullsGetResponse,
   requiredLabel: string,
 ): boolean {
-  return pullRequest.labels.some(label => label.name === requiredLabel);
+  return pullRequest.labels.some((label) => label.name === requiredLabel);
 }

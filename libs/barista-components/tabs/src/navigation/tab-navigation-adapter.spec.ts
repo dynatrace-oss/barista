@@ -107,8 +107,6 @@ export class TabComponent {}
 
 @Component({
   selector: 'test-component',
-  template: `
-    <router-outlet></router-outlet>
-  `,
+  template: ` <router-outlet></router-outlet> `,
 })
 export class AppComponent {}

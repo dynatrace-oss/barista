@@ -20,4 +20,4 @@ import { DtE2EAppModule } from './app/app.module';
 
 platformBrowserDynamic()
   .bootstrapModule(DtE2EAppModule)
-  .catch(err => console.error(err));
+  .catch((err) => console.error(err));

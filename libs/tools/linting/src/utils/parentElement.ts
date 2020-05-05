@@ -32,7 +32,7 @@ function findMatch(
   parent: ParentElement,
   element: ElementAst,
 ): ElementAst | undefined {
-  return parent.children.find(child => {
+  return parent.children.find((child) => {
     if (isEqual(child, element)) {
       return true;
     }
@@ -55,9 +55,9 @@ export function getParentElement(
 ): ParentElement | undefined {
   const startLine = element.sourceSpan.start.line;
   const elementChildren = element.children
-    .filter(child => child instanceof ElementAst)
+    .filter((child) => child instanceof ElementAst)
     // Return only children with name when given.
-    .filter(child =>
+    .filter((child) =>
       childName ? (child as ElementAst).name === childName : true,
     );
   if (elementChildren.length < 1) {
@@ -81,7 +81,7 @@ export function getElementParent(
 ): ParentElement | undefined {
   const elementStartLine = element.sourceSpan.start.line;
   let matchingGroup;
-  parents.forEach(group => {
+  parents.forEach((group) => {
     // Get the parent with the highest start line number that is still below the
     // start line number of the current element.
     // Groups are sorted by startLine (see addParentElement function).
@@ -115,7 +115,7 @@ export function hasFormFieldParentWithLabel(
   const parentMatch = getElementParent(element, parents);
   if (parentMatch) {
     const hasDtLabel = parentMatch.children.find(
-      child => child.name === 'dt-label',
+      (child) => child.name === 'dt-label',
     );
     if (hasDtLabel) {
       return true;

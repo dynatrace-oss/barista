@@ -138,7 +138,7 @@ export class DtHighlight
     this._isInViewportSubscription = createInViewportStream(
       this._elementRef,
       0,
-    ).subscribe(value => {
+    ).subscribe((value) => {
       this._isInViewport = value;
       if (value) {
         this._highlight();
@@ -185,7 +185,7 @@ export class DtHighlight
       if (textContent !== null && Boolean(term && term.length)) {
         const flags = this._caseSensitive ? 'gm' : 'gmi';
         const regExp = new RegExp(`(${escapeRegExp(term)})`, flags);
-        const textTokens = textContent.split(regExp).filter(s => s.length);
+        const textTokens = textContent.split(regExp).filter((s) => s.length);
 
         for (const token of textTokens) {
           const text = this._document.createTextNode(token);

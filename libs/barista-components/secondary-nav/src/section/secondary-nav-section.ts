@@ -119,12 +119,12 @@ export class DtSecondaryNavSection {
   /** @internal Event emitted when the section is expanded. */
   @Output('expanded') readonly _sectionExpand: Observable<
     boolean
-  > = this.expandChange.pipe(filter(v => v));
+  > = this.expandChange.pipe(filter((v) => v));
 
   /** @internal Event emitted when the section is collapsed. */
   @Output('collapsed') readonly _sectionCollapse: Observable<
     boolean
-  > = this.expandChange.pipe(filter(v => !v));
+  > = this.expandChange.pipe(filter((v) => !v));
 
   /** @internal Subject used to communicate programmatic change of section opening and closing */
   _sectionExpandChange$: Subject<DtSecondaryNavSection> = new Subject();

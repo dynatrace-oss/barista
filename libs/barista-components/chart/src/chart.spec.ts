@@ -416,9 +416,7 @@ describe('DtChart', () => {
 /** Test component that contains an DtChart with static data */
 @Component({
   selector: 'dt-series-single',
-  template: `
-    <dt-chart [series]="series" [options]="options"></dt-chart>
-  `,
+  template: ` <dt-chart [series]="series" [options]="options"></dt-chart> `,
 })
 class SeriesSingle {
   options: DtChartOptions = {
@@ -447,9 +445,7 @@ class SeriesSingle {
 
 @Component({
   selector: 'dt-series-multi',
-  template: `
-    <dt-chart [series]="series" [options]="options"></dt-chart>
-  `,
+  template: ` <dt-chart [series]="series" [options]="options"></dt-chart> `,
 })
 class SeriesMulti {
   options: DtChartOptions = {
@@ -486,9 +482,7 @@ class SeriesMulti {
 
 @Component({
   selector: 'dt-no-series',
-  template: `
-    <dt-chart [options]="options"></dt-chart>
-  `,
+  template: ` <dt-chart [options]="options"></dt-chart> `,
 })
 class NoSeries {
   options: DtChartOptions = {
@@ -507,9 +501,7 @@ class NoSeries {
 
 @Component({
   selector: 'dt-dynamic-series',
-  template: `
-    <dt-chart [series]="series" [options]="options"></dt-chart>
-  `,
+  template: ` <dt-chart [series]="series" [options]="options"></dt-chart> `,
 })
 class DynamicSeries {
   options: DtChartOptions = {
@@ -552,9 +544,7 @@ class DynamicSeries {
 
 @Component({
   selector: 'dt-series-color',
-  template: `
-    <dt-chart [series]="series" [options]="options"></dt-chart>
-  `,
+  template: ` <dt-chart [series]="series" [options]="options"></dt-chart> `,
 })
 class SeriesColor {
   options: DtChartOptions = {
@@ -801,9 +791,7 @@ class PieChartOrderedColors {
 
 @Component({
   selector: 'dt-empty-series',
-  template: `
-    <dt-chart [series]="series" [options]="options"></dt-chart>
-  `,
+  template: ` <dt-chart [series]="series" [options]="options"></dt-chart> `,
 })
 class EmptySeries {
   options: DtChartOptions = {
@@ -816,9 +804,7 @@ class EmptySeries {
 
 @Component({
   selector: 'dt-empty-series',
-  template: `
-    <dt-chart [series]="series" [options]="options"></dt-chart>
-  `,
+  template: ` <dt-chart [series]="series" [options]="options"></dt-chart> `,
 })
 class Loading {
   // tslint:disable-next-line:no-any
@@ -892,9 +878,7 @@ class HeatfieldError {
 
 @Component({
   selector: 'dt-dynamic-series',
-  template: `
-    <dt-chart [series]="series" [options]="options"></dt-chart>
-  `,
+  template: ` <dt-chart [series]="series" [options]="options"></dt-chart> `,
 })
 class DynamicOptions {
   options = new BehaviorSubject({

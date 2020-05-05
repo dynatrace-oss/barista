@@ -36,17 +36,17 @@ function getExamplesInPackages(): string[] {
   // Read the root of the examples directory, all examples are grouped
   // by their root component.
   return readdirSync(environment.examplesLibDir)
-    .map(name => join(environment.examplesLibDir, name))
-    .filter(dir => lstatSync(dir).isDirectory())
-    .map(exampleRoot => {
+    .map((name) => join(environment.examplesLibDir, name))
+    .filter((dir) => lstatSync(dir).isDirectory())
+    .map((exampleRoot) => {
       // Read the examples within their root component context
       // to get all.
       return (
         readdirSync(exampleRoot)
-          .map(name => join(exampleRoot, name))
-          .filter(dir => lstatSync(dir).isDirectory())
+          .map((name) => join(exampleRoot, name))
+          .filter((dir) => lstatSync(dir).isDirectory())
           // Only include folders that end with 'example'
-          .filter(dir => dir.endsWith('example'))
+          .filter((dir) => dir.endsWith('example'))
       );
     })
     .reduce<string[]>((aggregator, examples) => {
@@ -116,7 +116,7 @@ main()
   .then(() => {
     process.exit(0);
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });

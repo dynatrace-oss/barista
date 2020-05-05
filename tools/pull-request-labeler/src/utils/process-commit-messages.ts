@@ -53,17 +53,17 @@ export function processCommitMessages(
   const targets: string[] = [];
   const errors: string[] = [];
   // Parse the commit messages and split them into their own components.
-  const parsedCommitMessages = commitMessages.map(commit =>
+  const parsedCommitMessages = commitMessages.map((commit) =>
     splitStringIntoCommitMessage(commit),
   );
 
   // Filter feature commits in the pull request.
   const featureCommits = parsedCommitMessages.filter(
-    commit => commit.type === CommitTypes.FEAT,
+    (commit) => commit.type === CommitTypes.FEAT,
   );
   // Filter fix commits in the pull request.
   const fixCommits = parsedCommitMessages.filter(
-    commit =>
+    (commit) =>
       commit.type === CommitTypes.FIX || commit.type === CommitTypes.PERF,
   );
   // If there are more than one feature commit, in the pull request
@@ -91,7 +91,7 @@ export function processCommitMessages(
     const hasFeatureCommits = featureCommits.length > 0;
     const hasFixCommits = fixCommits.length > 0;
     const hasBreakingCommits = parsedCommitMessages.some(
-      commit => commit.breakingChange,
+      (commit) => commit.breakingChange,
     );
     if (hasBreakingCommits) {
       // The pull request contains breaking changes, it should be

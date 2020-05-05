@@ -100,11 +100,11 @@ async function resolveStyles(
       if (property.name.getText() === 'styleUrls') {
         if (isArrayLiteralExpression(property.initializer)) {
           const paths = property.initializer.elements
-            .map(expression =>
+            .map((expression) =>
               expression.getText().match(/^(?:'|"|`)(.*)(?:'|"|`)$/),
             )
-            .filter(parts => parts && parts[1])
-            .map(parts => parts![1]);
+            .filter((parts) => parts && parts[1])
+            .map((parts) => parts![1]);
 
           const styleSources = {
             source: '',
@@ -170,16 +170,14 @@ export async function getExamplePackageMetadata(
   let moduleFile: string | null = null;
   let exampleDirs: string[] = [];
 
-  const fileOrDirs = readdirSync(dir).map(name => join(dir, name));
+  const fileOrDirs = readdirSync(dir).map((name) => join(dir, name));
 
   for (const fileOrDir of fileOrDirs) {
     const lstat = lstatSync(fileOrDir);
     if (
       !moduleFile &&
       lstat.isFile() &&
-      basename(fileOrDir)
-        .toLowerCase()
-        .endsWith('-examples.module.ts')
+      basename(fileOrDir).toLowerCase().endsWith('-examples.module.ts')
     ) {
       moduleFile = fileOrDir;
     } else if (lstat.isDirectory()) {
@@ -214,13 +212,11 @@ async function getExampleMetadataInDirs(
   let examples: ExampleMetadata[] = [];
   for (const exampleDir of exampleDirs) {
     const tsFiles = readdirSync(exampleDir)
-      .map(name => join(exampleDir, name))
+      .map((name) => join(exampleDir, name))
       .filter(
-        fileName =>
+        (fileName) =>
           lstatSync(fileName).isFile() &&
-          basename(fileName)
-            .toLowerCase()
-            .endsWith('.ts'),
+          basename(fileName).toLowerCase().endsWith('.ts'),
       );
     for (const fileName of tsFiles) {
       const meta = await getExampleMetadataObjects(fileName);

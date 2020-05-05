@@ -67,14 +67,14 @@ export function dtCreateEventPath<T>(renderEvents: RenderEvent<T>[]): string {
           // index of the last merged event, or is itself again a merged event
           // that includes the index.
           .filter(
-            event =>
+            (event) =>
               !!(
                 event.originalIndex &&
                 event.originalIndex < indexOfLastMergedEvent
               ) ||
               !!(
                 event.mergedWith &&
-                event.mergedWith.some(e => e < indexOfLastMergedEvent)
+                event.mergedWith.some((e) => e < indexOfLastMergedEvent)
               ),
           );
 

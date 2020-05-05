@@ -128,10 +128,7 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
 
   /** @internal References to the radio buttons of this group. */
   // tslint:disable-next-line:no-forward-ref
-  @ContentChildren(
-    forwardRef(() => DtRadioButton),
-    { descendants: true },
-  )
+  @ContentChildren(forwardRef(() => DtRadioButton), { descendants: true })
   _radios: QueryList<DtRadioButton<T>>;
 
   constructor(private _changeDetector: ChangeDetectorRef) {}
@@ -188,7 +185,7 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
 
   private _markRadiosForCheck(): void {
     if (this._radios) {
-      this._radios.forEach(radio => {
+      this._radios.forEach((radio) => {
         radio._markForCheck();
       });
     }
@@ -197,7 +194,7 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
   /** Set the name of every radio button to the groups name */
   private _updateRadioButtonNames(): void {
     if (this._radios) {
-      this._radios.forEach(radio => {
+      this._radios.forEach((radio) => {
         radio.name = this.name;
       });
     }
@@ -210,7 +207,7 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
       !(this._selected !== null && this._selected.value === this._value)
     ) {
       this._selected = null;
-      this._radios.forEach(radio => {
+      this._radios.forEach((radio) => {
         radio.checked = this.value === radio.value;
         if (radio.checked) {
           this._selected = radio;

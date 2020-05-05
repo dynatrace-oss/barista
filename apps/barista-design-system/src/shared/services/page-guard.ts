@@ -40,7 +40,7 @@ export class BaPageGuard implements CanActivate {
   ): Observable<boolean> {
     const url = getUrlPathName(this._document, state.url);
     return this._pageService._getPage(url).pipe(
-      catchError(error => {
+      catchError((error) => {
         console.error(error);
         this._router.navigate(['not-found']);
         return of(false);

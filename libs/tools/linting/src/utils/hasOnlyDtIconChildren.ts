@@ -43,14 +43,14 @@ function filterWhitespaceElements(element: TemplateAst): boolean {
  */
 export function hasOnlyDtIconChildren(element: ElementAst): boolean {
   return element.children
-    .filter(child => filterWhitespaceElements(child))
-    .every(child => {
+    .filter((child) => filterWhitespaceElements(child))
+    .every((child) => {
       if (isElementWithName(child, 'dt-icon')) {
         return true;
       }
 
       if (child instanceof EmbeddedTemplateAst) {
-        return child.children.every(grandchild =>
+        return child.children.every((grandchild) =>
           isElementWithName(grandchild, 'dt-icon'),
         );
       }

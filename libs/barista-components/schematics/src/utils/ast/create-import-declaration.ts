@@ -28,7 +28,7 @@ export function createImportDeclaration(
   path: string,
   named: boolean = true,
 ): ts.ImportDeclaration {
-  const importSpecifiers = symbolName.map(n =>
+  const importSpecifiers = symbolName.map((n) =>
     ts.createImportSpecifier(undefined, ts.createIdentifier(n)),
   );
 

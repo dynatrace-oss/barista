@@ -130,14 +130,14 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
 
   /** open all drawers in the container. */
   open(): void {
-    this._drawers.forEach(drawer => {
+    this._drawers.forEach((drawer) => {
       drawer.open();
     });
   }
 
   /** close all drawers in the container. */
   close(): void {
-    this._drawers.forEach(drawer => {
+    this._drawers.forEach((drawer) => {
       drawer.close();
     });
   }
@@ -249,7 +249,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
     this._start = this._end = null;
 
     // if there is only one drawer every thing is fine
-    this._drawers.forEach(drawer => {
+    this._drawers.forEach((drawer) => {
       if (drawer.position === 'end') {
         if (this._end !== null) {
           throw getDtDuplicateDrawerError('end');

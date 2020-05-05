@@ -33,7 +33,7 @@ const routes: Route[] = [
     path: 'selection-area',
     loadChildren: () =>
       import('./selection-area/selection-area.module').then(
-        m => m.DtE2ESelectionAreaModule,
+        (m) => m.DtE2ESelectionAreaModule,
       ),
   },
   { path: 'pie', component: PieChart },

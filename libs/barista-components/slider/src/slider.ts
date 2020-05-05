@@ -316,11 +316,13 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
   /** Update the slider thumb position based on value, min and max. */
   private _updateSliderPosition(value: number, min: number, max: number): void {
     const position: number = getSliderPositionBasedOnValue({ value, min, max });
-    this._thumb.nativeElement.style.transform = `translateX(-${100 -
-      position * 100}%)`;
+    this._thumb.nativeElement.style.transform = `translateX(-${
+      100 - position * 100
+    }%)`;
     this._sliderFill.nativeElement.style.transform = `scale3d(${position}, 1, 1)`;
-    this._sliderBackground.nativeElement.style.transform = `scale3d(${1 -
-      position}, 1, 1)`;
+    this._sliderBackground.nativeElement.style.transform = `scale3d(${
+      1 - position
+    }, 1, 1)`;
   }
 
   /**
@@ -339,10 +341,10 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
 
     const move$ = merge(
       fromEvent<MouseEvent>(window, 'mousemove').pipe(
-        map(mouseEvent => mouseEvent.clientX),
+        map((mouseEvent) => mouseEvent.clientX),
       ),
       fromEvent<TouchEvent>(window, 'touchmove').pipe(
-        map(touchEvent => touchEvent.changedTouches[0].clientX),
+        map((touchEvent) => touchEvent.changedTouches[0].clientX),
       ),
     );
 
@@ -366,15 +368,17 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
     const click$ = fromEvent<MouseEvent>(
       this._trackWrapper.nativeElement,
       'click',
-    ).pipe(map(mouseEvent => mouseEvent.clientX));
+    ).pipe(map((mouseEvent) => mouseEvent.clientX));
 
     // stream from keyboard events
     const keyDown$ = fromEvent<KeyboardEvent>(
       this._trackWrapper.nativeElement,
       'keydown',
     ).pipe(
-      filter(keyboardEvent => KEY_CODES_ARRAY.includes(keyboardEvent.keyCode)),
-      map(keyboardEvent => {
+      filter((keyboardEvent) =>
+        KEY_CODES_ARRAY.includes(keyboardEvent.keyCode),
+      ),
+      map((keyboardEvent) => {
         keyboardEvent.stopPropagation(); // global angular keydown would trigger CD.
         keyboardEvent.preventDefault();
         const valueAddition = getKeyCodeValue(
@@ -414,7 +418,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
        * distinctUntilChanged() purposefully left out, to round the value
        * and update the input field with the rounded value
        */
-      map(value => roundToSnap(value, this.step, this._min, this._max)),
+      map((value) => roundToSnap(value, this.step, this._min, this._max)),
     );
 
     merge(this._value$, inputValue$, mouse$, keyDown$)
@@ -422,7 +426,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
         filter(() => !this._isDisabled),
         takeUntil(this._destroy$),
       )
-      .subscribe(value => {
+      .subscribe((value) => {
         this._zone.run(() => this._updateSlider(value));
       });
   }

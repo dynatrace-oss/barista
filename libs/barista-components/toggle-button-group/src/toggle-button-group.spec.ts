@@ -67,7 +67,7 @@ describe('DtToggleButtonGroup', () => {
       itemElements = fixture.debugElement.queryAll(
         By.css('.dt-toggle-button-item'),
       );
-      itemComponents = itemElements.map(debugEl => debugEl.componentInstance);
+      itemComponents = itemElements.map((debugEl) => debugEl.componentInstance);
     });
 
     it('should exist', () => {
@@ -147,7 +147,7 @@ describe('DtToggleButtonGroup', () => {
       fixture.detectChanges();
 
       const selected = items
-        .map(item =>
+        .map((item) =>
           item.nativeElement.classList.contains(
             'dt-toggle-button-item-selected',
           ),
@@ -167,7 +167,7 @@ describe('DtToggleButtonGroup', () => {
       fixture.detectChanges();
 
       const selected = items
-        .map(item =>
+        .map((item) =>
           item.nativeElement.classList.contains(
             'dt-toggle-button-item-selected',
           ),
@@ -187,7 +187,7 @@ describe('DtToggleButtonGroup', () => {
       fixture.detectChanges();
 
       const selected = items
-        .map(item =>
+        .map((item) =>
           item.nativeElement.classList.contains(
             'dt-toggle-button-item-selected',
           ),

@@ -94,12 +94,12 @@ export class DtExpandableSection extends _ExpandableSectionBase
 
   /** @internal Event emitted when the section is expanded. */
   @Output('expanded') readonly _sectionExpanded = this.expandChange.pipe(
-    filter(v => v),
+    filter((v) => v),
   );
 
   /** @internal Event emitted when the section is collapsed. */
   @Output('collapsed') readonly _sectionCollapsed = this.expandChange.pipe(
-    filter(v => !v),
+    filter((v) => !v),
   );
 
   @ViewChild(DtExpandablePanel, { static: true })

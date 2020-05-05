@@ -115,7 +115,7 @@ export function startProfiling(ruleName: string): void {
 
   totalDurations[ruleName] = 0;
 
-  const performanceObserver = new PerformanceObserver(items => {
+  const performanceObserver = new PerformanceObserver((items) => {
     const duration = items.getEntries()[0].duration;
 
     totalDurations[ruleName] += duration;

@@ -164,19 +164,19 @@ describe('DtTable', () => {
       // Expected 4 header cells with the CSS .dt-table-column-align-center class applied
       expect(tableCellsAlignCenter.length).toBe(4);
 
-      tableColumnMinWidthCells.forEach(cell => {
+      tableColumnMinWidthCells.forEach((cell) => {
         expect(cell.nativeElement.style.minWidth).toBe('50px');
         expect(cell.nativeElement.style.flexGrow).toBeFalsy();
         expect(cell.nativeElement.style.flexShrink).toBeFalsy();
       });
 
-      tableColumnProportionCells.forEach(cell => {
+      tableColumnProportionCells.forEach((cell) => {
         expect(cell.nativeElement.style.minWidth).toBeFalsy();
         expect(cell.nativeElement.style.flexGrow).toBe('2');
         expect(cell.nativeElement.style.flexShrink).toBe('2');
       });
 
-      tableColumnMinWidthAndPropCells.forEach(cell => {
+      tableColumnMinWidthAndPropCells.forEach((cell) => {
         expect(cell.nativeElement.style.minWidth).toBe('50px');
         expect(cell.nativeElement.style.flexGrow).toBe('2');
         expect(cell.nativeElement.style.flexShrink).toBe('2');
@@ -287,7 +287,7 @@ describe('DtTable', () => {
       for (let i = 0; i < MAX_ITER; i++) {
         const newRow = {};
 
-        columns.forEach(elem => {
+        columns.forEach((elem) => {
           newRow[elem] = { [`${elem}`]: elem };
         });
 

@@ -373,7 +373,7 @@ class TestAppWithSuccessSave {
   model = 'content';
 
   save(): Observable<void> {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       observer.next();
       observer.complete();
     });
@@ -390,7 +390,7 @@ class TestAppWithFailureSave {
   model = 'content';
 
   save(): Observable<void> {
-    return new Observable(observer => {
+    return new Observable((observer) => {
       observer.error('some error');
       observer.complete();
     });
@@ -398,9 +398,7 @@ class TestAppWithFailureSave {
 }
 
 @Component({
-  template: `
-    <em dt-inline-editor required [(ngModel)]="model"></em>
-  `,
+  template: ` <em dt-inline-editor required [(ngModel)]="model"></em> `,
 })
 class TestComponentWithRequiredValidation {
   @ViewChild(DtInlineEditor) inlineEditor: DtInlineEditor;

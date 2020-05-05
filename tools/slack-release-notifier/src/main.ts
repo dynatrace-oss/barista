@@ -111,7 +111,7 @@ async function run(): Promise<void> {
   });
 }
 
-run().catch(error => {
+run().catch((error) => {
   console.log(error);
   process.exit(1);
 });

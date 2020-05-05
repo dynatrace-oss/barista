@@ -61,7 +61,7 @@ export class BaScrollToTop implements AfterViewInit, OnDestroy {
               currentScrollPosition >= this._threshold,
           ),
         )
-        .subscribe(isVisible => {
+        .subscribe((isVisible) => {
           // Only update the value if it has changed.
           if (isVisible !== this._showScrollToTop) {
             this._zone.run(() => {

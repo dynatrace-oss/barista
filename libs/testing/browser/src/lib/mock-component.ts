@@ -38,7 +38,7 @@ export function MockComponent(
 
   class Mock {}
 
-  metadata.outputs!.forEach(method => {
+  metadata.outputs!.forEach((method) => {
     Mock.prototype[method] = new EventEmitter<any>();
   });
 

@@ -485,7 +485,7 @@ describe('DtSelect', () => {
           const option = fixture.componentInstance.options.first;
           const spy = jest.fn();
           const subscription = option.selectionChange
-            .pipe(map(e => e.isUserInput))
+            .pipe(map((e) => e.isUserInput))
             .subscribe(spy);
 
           dispatchKeyboardEvent(select, 'keydown', DOWN_ARROW);

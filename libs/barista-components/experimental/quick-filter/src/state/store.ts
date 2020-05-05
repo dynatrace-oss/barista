@@ -75,14 +75,14 @@ class QuickFilterStore {
         withLatestFrom(this.state$),
         map(([action, state]) => reducer(state, action)),
       )
-      .subscribe(state => {
+      .subscribe((state) => {
         // Here the state gets modified through the outcome of the reducer
         this.state$.next(state);
       });
 
     // Each effect will get the stream of actions and will dispatch other actions in return
     // The emitted actions will be immediately dispatched through the normal store.dispatch()
-    merge(...effects.map(epic => epic(this.action$, this.state$))).subscribe(
+    merge(...effects.map((epic) => epic(this.action$, this.state$))).subscribe(
       (action: Action) => {
         this.dispatch(action);
       },

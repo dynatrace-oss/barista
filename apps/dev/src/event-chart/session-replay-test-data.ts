@@ -3239,7 +3239,7 @@ const TEST_DATA = [
 export class SessionReplayDataSource implements EventChartDemoDataSource {
   getEvents(): EventChartDemoEvent[] {
     const events: EventChartDemoEvent[] = [];
-    TEST_DATA.forEach(event => {
+    TEST_DATA.forEach((event) => {
       events.push({
         value: event.started,
         duration: Math.floor((event.actionDuration || 0) / 500), // Treat everything below 500 as 0
@@ -3265,7 +3265,7 @@ export class SessionReplayDataSource implements EventChartDemoDataSource {
   }
 
   getLanes(): EventChartDemoLane[] {
-    return ['Load', 'Xhr', 'UserTag', 'Conversion'].map(name => ({
+    return ['Load', 'Xhr', 'UserTag', 'Conversion'].map((name) => ({
       name,
       label: name,
       color: name === 'Conversion' ? 'conversion' : 'default',

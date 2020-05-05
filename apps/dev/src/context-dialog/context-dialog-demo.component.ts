@@ -33,6 +33,6 @@ export class ContextDialogDemo {
   panel = ['more', 'evenmore'];
 
   removeRow(row: { host: string; cpu: string }): void {
-    this.dataSource = this.dataSource.filter(r => r !== row);
+    this.dataSource = this.dataSource.filter((r) => r !== row);
   }
 }

@@ -153,7 +153,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
-    this._router.events.pipe(takeUntil(this._destroy$)).subscribe(event => {
+    this._router.events.pipe(takeUntil(this._destroy$)).subscribe((event) => {
       if (event instanceof NavigationEnd) {
         window.document.body.scrollIntoView(true);
       }
@@ -171,7 +171,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     } else {
       const filterValue = this._navItemsFilterValue.toLocaleLowerCase();
 
-      this._filteredNavItems = this.navItems.filter(navItem =>
+      this._filteredNavItems = this.navItems.filter((navItem) =>
         navItem.name.toLocaleLowerCase().includes(filterValue),
       );
     }

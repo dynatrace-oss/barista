@@ -424,10 +424,10 @@ function checkCellsSorted(
   colName?: string,
 ): boolean {
   const filteredCells = colName
-    ? cells.filter(cell => cell._columnDef.name === colName)
+    ? cells.filter((cell) => cell._columnDef.name === colName)
     : cells.toArray();
 
-  return filteredCells.every(cell => cell._isSorted === sorted);
+  return filteredCells.every((cell) => cell._isSorted === sorted);
 }
 /**
  * Performs a sequence of sorting on a single column to see if the sort directions are

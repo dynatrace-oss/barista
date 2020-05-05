@@ -23,7 +23,7 @@ const WORKSPACE_ROOT = process.env.WORKSPACE_ROOT || process.cwd();
 // /** Entry-point for the create release script. */
 publishRelease(WORKSPACE_ROOT)
   .then()
-  .catch(error => {
+  .catch((error) => {
     console.log(red(error));
     process.exit(1);
   });

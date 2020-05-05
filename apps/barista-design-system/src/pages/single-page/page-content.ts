@@ -56,7 +56,7 @@ export class BaPageContent implements OnDestroy {
     private _viewContainerRef: ViewContainerRef,
     private _injector: Injector,
   ) {
-    this._componentFactories = BA_CONTENT_COMPONENTS.map(componentType =>
+    this._componentFactories = BA_CONTENT_COMPONENTS.map((componentType) =>
       this._componentFactoryResolver.resolveComponentFactory(componentType),
     );
   }

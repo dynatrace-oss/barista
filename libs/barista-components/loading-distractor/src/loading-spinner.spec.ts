@@ -64,8 +64,6 @@ describe('DtLoadingSpinner', () => {
 
 @Component({
   selector: 'dt-test-app',
-  template: `
-    <dt-loading-spinner></dt-loading-spinner>
-  `,
+  template: ` <dt-loading-spinner></dt-loading-spinner> `,
 })
 class TestApp {}

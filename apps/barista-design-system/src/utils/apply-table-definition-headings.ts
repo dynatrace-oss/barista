@@ -24,9 +24,9 @@ export function applyTableDefinitionHeadingAttr(table: HTMLTableElement): void {
   if (!th.length) {
     th = [].slice.call(table.querySelectorAll('thead td'));
   }
-  const header = th.map(el => el.textContent);
+  const header = th.map((el) => el.textContent);
   const tr = table.querySelectorAll('tr');
-  tr.forEach(row => {
+  tr.forEach((row) => {
     const td = row.querySelectorAll('td');
     td.forEach((cell, i) => cell.setAttribute('data-th', header[i]));
   });

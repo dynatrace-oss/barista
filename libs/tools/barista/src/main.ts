@@ -105,7 +105,7 @@ async function buildPages(): Promise<void[]> {
   // Make sure dist dir is created
   mkdirSync(environment.distDir, { recursive: true });
 
-  const files = results.map(async result => {
+  const files = results.map(async (result) => {
     const outFile = join(environment.distDir, result.relativeOutFile);
 
     // Creating folder path if it does not exist
@@ -123,7 +123,7 @@ async function buildPages(): Promise<void[]> {
   const overviewPages = await overviewBuilder();
 
   const routes = sync(`${environment.distDir}/**/*.json`)
-    .map(file => {
+    .map((file) => {
       const path = file.replace(environment.distDir, '').replace(/\..+$/, ''); // replace the file ending
 
       switch (path) {
@@ -151,10 +151,10 @@ async function buildPages(): Promise<void[]> {
 }
 
 buildPages()
-  .then(async results => {
+  .then(async (results) => {
     console.log(`${results.length} pages created.`);
   })
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
     process.exit(1);
   });

@@ -1,6 +1,10 @@
 <div
   class="dt-expandable-row-base"
-  [ngClass]="expanded ? 'dt-expandable-row-base-expanded' : 'dt-expandable-row-base-collapsed'"
+  [ngClass]="
+    expanded
+      ? 'dt-expandable-row-base-expanded'
+      : 'dt-expandable-row-base-collapsed'
+  "
   #dtExpandableRow
 >
   <ng-container cdkCellOutlet></ng-container>
@@ -11,7 +15,7 @@
 >
   <div
     class="dt-expandable-row-expandable"
-    [ngClass]="{'dt-expandable-row-expandable-expanded': expanded}"
+    [ngClass]="{ 'dt-expandable-row-expandable-expanded': expanded }"
   >
     <ng-container
       *ngIf="expanded"

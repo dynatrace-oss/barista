@@ -348,7 +348,7 @@ export class TableComponent implements OnInit, OnDestroy {
   dataSource: DtTableDataSource<object>;
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);
-    this.dataSource.addSortAccessorFunction('memory', row => {
+    this.dataSource.addSortAccessorFunction('memory', (row) => {
       return (row.memoryPerc / 100) * row.memoryTotal;
     });
   }

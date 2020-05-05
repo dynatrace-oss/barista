@@ -45,7 +45,7 @@ export class Viewport {
   elementVisibility(el: Element | ElementRef): Observable<boolean> {
     const element = asElement(el);
     return this._change(element).pipe(
-      map(viewportRect => isElementVisible(element, viewportRect)),
+      map((viewportRect) => isElementVisible(element, viewportRect)),
       distinctUntilChanged(),
     );
   }
@@ -53,14 +53,14 @@ export class Viewport {
   /** Stream that emits when the element enters the viewport */
   elementEnter(el: Element | ElementRef): Observable<void> {
     return this.elementVisibility(el)
-      .pipe(filter(visibility => visibility))
+      .pipe(filter((visibility) => visibility))
       .pipe(map(() => void 0));
   }
 
   /** Stream that emits when the element leaves the viewport */
   elementLeave(el: Element | ElementRef): Observable<void> {
     return this.elementVisibility(el)
-      .pipe(filter(visibility => !visibility))
+      .pipe(filter((visibility) => !visibility))
       .pipe(map(() => void 0));
   }
 
@@ -70,7 +70,7 @@ export class Viewport {
       this._scrollDispatcher.scrolled(),
       this._viewportRuler.change(200),
       this._refresher.pipe(
-        filter(ctx => !ctx || asElement(context) === asElement(ctx)),
+        filter((ctx) => !ctx || asElement(context) === asElement(ctx)),
       ),
     ).pipe(map(() => this._viewportRuler.getViewportRect()));
   }

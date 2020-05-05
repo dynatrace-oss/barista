@@ -112,5 +112,5 @@ export function dtEventChartMergeEvents<T>(
   }
 
   // Filter out the renderEvents that have been merged in the process.
-  return renderEvents.filter(renderEvent => renderEvent.merged !== true);
+  return renderEvents.filter((renderEvent) => renderEvent.merged !== true);
 }

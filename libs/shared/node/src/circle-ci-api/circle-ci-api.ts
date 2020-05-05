@@ -97,11 +97,11 @@ export class CircleCiApi extends ContinuosIntegrationApi {
   /** Get the download url to the artifact for the provided branch */
   getArtifactUrlForBranch(commitSha: string): Observable<CircleArtifact[]> {
     return this._getPipeline(commitSha).pipe(
-      switchMap(pipeline =>
+      switchMap((pipeline) =>
         this._getWorkflow(pipeline.id, CIRCLE_WORKFLOW_NAME),
       ),
-      switchMap(workflow => this._getJob(workflow.id, CIRCLE_STAGE)),
-      switchMap(job => this._getArtifacts(job)),
+      switchMap((workflow) => this._getJob(workflow.id, CIRCLE_STAGE)),
+      switchMap((job) => this._getArtifacts(job)),
     );
   }
 
@@ -134,7 +134,7 @@ export class CircleCiApi extends ContinuosIntegrationApi {
   getCommitShaOfLastSuccessfulRun(branchName: string): Observable<string> {
     return this._getLastSuccessfulRun(branchName).pipe(
       pluck('id'),
-      switchMap(id => this._getPipelineFromWorkflow(id)),
+      switchMap((id) => this._getPipelineFromWorkflow(id)),
       map(({ vcs }) => vcs!.revision),
     );
   }
@@ -151,7 +151,7 @@ export class CircleCiApi extends ContinuosIntegrationApi {
       )
       .pipe(
         filterResponse<CircleRecentWorkflow>(
-          workflow => workflow.status === 'success',
+          (workflow) => workflow.status === 'success',
           NO_SUCCESSFUL_RUN_FOR_BRANCH(branchName),
         ),
       );
@@ -164,13 +164,13 @@ export class CircleCiApi extends ContinuosIntegrationApi {
         `project/${CIRCLE_PROJECT_SLUG}/pipeline`,
       )
       .pipe(
-        tap(response => {
+        tap((response) => {
           if (!response.items.length) {
             throw Error(NO_PIPELINE_FOUND_ERROR(commitSha));
           }
         }),
         filterResponse<CirclePipeline>(
-          pipeline => pipeline.vcs!.revision === commitSha,
+          (pipeline) => pipeline.vcs!.revision === commitSha,
           NO_PIPELINE_FOUND_ERROR(commitSha),
         ),
       );
@@ -179,7 +179,7 @@ export class CircleCiApi extends ContinuosIntegrationApi {
   private _getPipelineFromWorkflow(workflowId: string) {
     return this._apiClient.get<CircleWorkflow>(`workflow/${workflowId}`).pipe(
       pluck('pipeline_number'),
-      switchMap(pipelineNumber =>
+      switchMap((pipelineNumber) =>
         this._apiClient.get<CirclePipeline>(
           `project/${CIRCLE_PROJECT_SLUG}/pipeline/${pipelineNumber}`,
         ),
@@ -196,7 +196,7 @@ export class CircleCiApi extends ContinuosIntegrationApi {
       .get<CircleResponse<CircleWorkflow>>(`pipeline/${pipelineId}/workflow`)
       .pipe(
         filterResponse<CircleWorkflow>(
-          workflow => workflow.name === workflowName,
+          (workflow) => workflow.name === workflowName,
           WORKFLOW_NOT_FOUND_ERROR(workflowName),
         ),
       );
@@ -208,7 +208,7 @@ export class CircleCiApi extends ContinuosIntegrationApi {
       .get<CircleResponse<CircleJob>>(`workflow/${workflowId}/job`)
       .pipe(
         filterResponse<CircleJob>(
-          job => job.name === jobName,
+          (job) => job.name === jobName,
           JOB_NOT_FOUND_ERROR(jobName),
         ),
       );
@@ -221,8 +221,8 @@ export class CircleCiApi extends ContinuosIntegrationApi {
         `/project/${CIRCLE_PROJECT_SLUG}/${job.job_number}/artifacts`,
       )
       .pipe(
-        map(response => response.items),
-        tap(artifacts => {
+        map((response) => response.items),
+        tap((artifacts) => {
           if (!artifacts || !artifacts.length) {
             throw new Error(NO_ARTIFACTS_ERROR(job.name));
           }
@@ -240,9 +240,9 @@ export function filterResponse<T>(
   filterFunction: (item: T) => boolean,
   error?: string,
 ): OperatorFunction<CircleResponse<T>, T> {
-  return input$ =>
+  return (input$) =>
     input$.pipe(
-      map(response => {
+      map((response) => {
         const item = response.items.find(filterFunction);
         if (!item) {
           throw new Error(error || ITEM_NOT_FOUND_ERROR);

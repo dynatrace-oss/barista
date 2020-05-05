@@ -4,14 +4,24 @@
     [id]="id"
     (submit)="_handleSubmit($event)"
   >
-    <dt-button-group [(value)]="_selectedOperator" class="dt-filter-field-range-operators">
-      <dt-button-group-item *ngIf="_hasRangeOperator" value="range">Range</dt-button-group-item>
-      <dt-button-group-item *ngIf="_hasLowerEqualOperator" value="lower-equal">&le;</dt-button-group-item>
+    <dt-button-group
+      [(value)]="_selectedOperator"
+      class="dt-filter-field-range-operators"
+    >
+      <dt-button-group-item *ngIf="_hasRangeOperator" value="range"
+        >Range</dt-button-group-item
+      >
+      <dt-button-group-item *ngIf="_hasLowerEqualOperator" value="lower-equal"
+        >&le;</dt-button-group-item
+      >
       <dt-button-group-item
         *ngIf="_hasGreaterEqualOperator"
         value="greater-equal"
-      >&ge;</dt-button-group-item>
-      <dt-button-group-item *ngIf="_hasEqualOperator" value="equal">=</dt-button-group-item>
+        >&ge;</dt-button-group-item
+      >
+      <dt-button-group-item *ngIf="_hasEqualOperator" value="equal"
+        >=</dt-button-group-item
+      >
     </dt-button-group>
 
     <!-- Using &nbsp; because the spacings need to be exactly one whitespace so it look like a sentence -->
@@ -20,7 +30,8 @@
       [for]="_getLocalId('from')"
       class="dt-filter-field-range-label"
       i18n
-    >from</label>
+      >from</label
+    >
     <input
       type="text"
       required
@@ -32,10 +43,12 @@
       [attr.aria-label]="!_isOperatorType('range') ? 'from' : null"
       class="dt-filter-field-range-input"
     />
-    <span class="dt-filter-field-range-unit">{{unit}}</span>
+    <span class="dt-filter-field-range-unit">{{ unit }}</span>
 
     <ng-container *ngIf="_isOperatorType('range')">
-      <label [for]="_getLocalId('to')" class="dt-filter-field-range-label" i18n>to</label>
+      <label [for]="_getLocalId('to')" class="dt-filter-field-range-label" i18n
+        >to</label
+      >
       <input
         type="text"
         required
@@ -46,7 +59,7 @@
         [id]="_getLocalId('to')"
         class="dt-filter-field-range-input"
       />
-      <span class="dt-filter-field-range-unit">{{unit}}</span>
+      <span class="dt-filter-field-range-unit">{{ unit }}</span>
     </ng-container>
 
     <button
@@ -56,6 +69,8 @@
       variant="secondary"
       class="dt-filter-field-range-apply"
       i18n
-    >Apply</button>
+    >
+      Apply
+    </button>
   </form>
 </ng-template>

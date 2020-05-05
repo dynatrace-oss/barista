@@ -32,7 +32,7 @@ export class SunburstChartDemo {
   series = sunburstChartDemoData;
 
   select(selected: DtSunburstChartNode[] = []): void {
-    this.selected = selected.map(node => node.label);
+    this.selected = selected.map((node) => node.label);
   }
 
   toggleDisplayMode(event: DtSwitchChange<boolean>): void {

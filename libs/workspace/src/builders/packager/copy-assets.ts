@@ -30,7 +30,7 @@ export async function copyStyles(
     const fileGlob = sync(styleDef.glob, {
       cwd: join(context.workspaceRoot, styleDef.input),
     });
-    const directories = fileGlob.map(path =>
+    const directories = fileGlob.map((path) =>
       join(context.workspaceRoot, styleDef.input, dirname(path)),
     );
     const uniqueDirectories = [...new Set(directories)];

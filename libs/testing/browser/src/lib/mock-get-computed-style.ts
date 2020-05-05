@@ -21,7 +21,7 @@
 export function mockGetComputedStyle(value: string | undefined): void {
   Object.defineProperty(window, 'getComputedStyle', {
     value: () => ({
-      getPropertyValue: _prop => {
+      getPropertyValue: (_prop) => {
         return value;
       },
     }),

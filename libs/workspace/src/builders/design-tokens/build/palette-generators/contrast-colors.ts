@@ -91,7 +91,7 @@ function createScale(
     fullScale = true,
   } = config;
   let domains = (colorKeys || [])
-    .map(key => swatches! - swatches! * (hsluv(key).v / 100))
+    .map((key) => swatches! - swatches! * (hsluv(key).v / 100))
     .sort((a, b) => a - b)
     .concat(swatches!);
 
@@ -103,7 +103,7 @@ function createScale(
     .domain([1, swatches!])
     .range([1, swatches!]);
 
-  const sqrtDomainsMapped = domains.map(d => {
+  const sqrtDomainsMapped = domains.map((d) => {
     if (sqrtDomains(d) < 0) {
       return 0;
     }
@@ -121,7 +121,7 @@ function createScale(
     // Sort by lightness
     .sort((c1, c2) => c2.colorKeys[2] - c1.colorKeys[2])
     // Retrieve original RGB color
-    .map(data => colorKeys![data.index]);
+    .map((data) => colorKeys![data.index]);
 
   let colorsArray: any[] = [];
 
@@ -132,14 +132,14 @@ function createScale(
     } else {
       colorsArray = colorsArray.concat(sortedColor);
     }
-    colorsArray = colorsArray.map(d => jab(d));
+    colorsArray = colorsArray.map((d) => jab(d));
 
     scale = scaleLinear()
       .range(colorsArray)
       .domain(domains)
       .interpolate(interpolateJab);
   } else if (colorspace == 'HSLuv') {
-    colorsArray = colorsArray.map(d => hsluv(d));
+    colorsArray = colorsArray.map((d) => hsluv(d));
     if (fullScale == true) {
       colorsArray = colorsArray.concat(
         hsluv(NaN, NaN, 100),
@@ -158,9 +158,9 @@ function createScale(
   }
 
   // tslint:disable-next-line: variable-name
-  const Colors = range(swatches!).map(d => scale(d));
+  const Colors = range(swatches!).map((d) => scale(d));
 
-  const colors = Colors.filter(el => el != null);
+  const colors = Colors.filter((el) => el != null);
 
   // Return colors as hex values for interpolators.
   const colorsHex: string[] = [];
@@ -217,7 +217,7 @@ function binarySearch(list: any[], value: any, baseLum: any): number {
 
 /** Calculate the luminance of an rgb color. */
 function luminance(r: number, g: number, b: number): number {
-  let a = [r, g, b].map(v => {
+  let a = [r, g, b].map((v) => {
     v /= 255;
     return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
   });
@@ -262,7 +262,7 @@ export function generateContrastColors(
   });
   let baseV = hsluv(base).v / 100;
 
-  const costrastRange = range(swatches).map(d => {
+  const costrastRange = range(swatches).map((d) => {
     let rgbArray = [
       rgb(scaleData.scale(d)).r,
       rgb(scaleData.scale(d)).g,
@@ -274,7 +274,7 @@ export function generateContrastColors(
     return Number(ca);
   });
 
-  let contrasts = costrastRange.filter(el => el != null);
+  let contrasts = costrastRange.filter((el) => el != null);
 
   const newColors: string[] = [];
   ratios = ratios.map(Number);

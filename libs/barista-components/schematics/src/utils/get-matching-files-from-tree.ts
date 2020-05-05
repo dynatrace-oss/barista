@@ -26,7 +26,7 @@ export function getMatchingFilesFromTree(
   matcher: (filePath: string) => boolean,
 ): Set<string> {
   const files = new Set<string>();
-  tree.root.visit(file => {
+  tree.root.visit((file) => {
     if (matcher(file)) {
       files.add(file.toString());
     }

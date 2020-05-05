@@ -37,7 +37,7 @@ export async function getComponentSelectorFromSourceFile(
   // Iterate all properties within the decorator
   const selector = componentClass.decorator.properties
     // Filter everything that is not a property assignment
-    .filter(property => isPropertyAssignment(property))
+    .filter((property) => isPropertyAssignment(property))
     // Filter everything that is not the selector assignment
     .filter(
       (property: PropertyAssignment) => property.name.getText() === 'selector',

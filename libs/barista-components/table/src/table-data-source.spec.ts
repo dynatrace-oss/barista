@@ -298,7 +298,7 @@ describe('DtTableDataSource', () => {
 
       component.dataSource.addSortAccessorFunction(
         'memory',
-        row => row.memoryPerc % 30,
+        (row) => row.memoryPerc % 30,
       );
       fixture.detectChanges();
 
@@ -489,7 +489,7 @@ export class TableSortingMixedTestApp implements OnInit {
     this.dataSource = new DtTableDataSource(this.data);
     this.dataSource.addSortAccessorFunction(
       'memory',
-      row =>
+      (row) =>
         // Any accessor computation that returns a comparable value.
         (row.memoryPerc / 100) * row.memoryTotal,
     );

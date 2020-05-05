@@ -67,7 +67,7 @@ export function getMouseDownStream(
   mousedownElements: Element[],
 ): Observable<MouseEvent> {
   return captureAndMergeEvents('mousedown', mousedownElements).pipe(
-    filter(event => event.button === 0), // only emit left mouse
+    filter((event) => event.button === 0), // only emit left mouse
     tap(() => {
       _removeCssClass(target, NO_POINTER_EVENTS_CLASS);
     }),
@@ -155,7 +155,7 @@ export function getMouseOutStream(
   return captureAndMergeEvents('mouseout', mousedownElements).pipe(
     map((event: MouseEvent) => getRelativeMousePosition(event, target)),
     filter(
-      position =>
+      (position) =>
         position.x < 0 ||
         position.y < 0 ||
         position.x > targetBCR.width ||
@@ -327,7 +327,7 @@ export function getRangeCreateStream(
 ): Observable<{ left: number; width: number }> {
   return dragStart$.pipe(
     observeOn(animationFrameScheduler),
-    switchMap(start => dragMove$.pipe(map(move => [start, move]))),
+    switchMap((start) => dragMove$.pipe(map((move) => [start, move]))),
     map(([startPosition, endPosition]) =>
       calculatePosition(
         DtSelectionAreaEventTarget.Origin,

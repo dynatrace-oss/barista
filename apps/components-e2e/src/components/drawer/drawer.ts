@@ -47,7 +47,7 @@ export class DtE2EDrawer {
     .getFixture<{ data: Highcharts.IndividualSeriesOptions[] }>(
       '/data-small.json',
     )
-    .pipe(map(result => result.data));
+    .pipe(map((result) => result.data));
 
   @ViewChild('container', { static: true })
   container: DtDrawerContainer;

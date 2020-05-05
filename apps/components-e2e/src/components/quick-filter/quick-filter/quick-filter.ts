@@ -29,7 +29,7 @@ import { isObject } from 'util';
 const DATA = [FILTER_FIELD_TEST_DATA_VALIDATORS, FILTER_FIELD_TEST_DATA];
 
 const config: DtQuickFilterDefaultDataSourceConfig = {
-  showInSidebar: node =>
+  showInSidebar: (node) =>
     isObject(node) && node.name && node.name !== 'Not in Quickfilter',
 };
 

@@ -62,7 +62,7 @@ export async function promptForNewVersion(
       message: `What's the type of the new release?`,
       choices: versionChoices,
       default: versionChoices.findIndex(
-        choice => choice.releaseType === recommendedBump.releaseType,
+        (choice) => choice.releaseType === recommendedBump.releaseType,
       ),
     },
   ]);

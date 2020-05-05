@@ -34,5 +34,5 @@ export const typescriptBarrelFileTemplate = (files: string[]) => `/**
  */
 
 ${generateHeaderNoticeComment()}
-${files.map(file => `export * from '${file}';`).join(EOL)}
+${files.map((file) => `export * from '${file}';`).join(EOL)}
 `;

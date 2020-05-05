@@ -33,8 +33,8 @@ export class DtExampleAutocompleteControlValues implements OnInit {
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith<string | CountryOption>(''),
-      map(value => (typeof value === 'string' ? value : value.name)),
-      map(name => (name ? this._filter(name) : this.options.slice())),
+      map((value) => (typeof value === 'string' ? value : value.name)),
+      map((name) => (name ? this._filter(name) : this.options.slice())),
     );
   }
 
@@ -43,6 +43,6 @@ export class DtExampleAutocompleteControlValues implements OnInit {
   }
 
   private _filter(name: string): CountryOption[] {
-    return this.options.filter(option => countryCompareWithFn(option, name));
+    return this.options.filter((option) => countryCompareWithFn(option, name));
   }
 }

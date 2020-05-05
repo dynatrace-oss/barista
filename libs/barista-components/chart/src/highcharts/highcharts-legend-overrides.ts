@@ -30,7 +30,7 @@ export const configureLegendSymbols = ((): void => {
     return;
   }
 
-  highcharts.seriesTypes.area.prototype.drawLegendSymbol = function(
+  highcharts.seriesTypes.area.prototype.drawLegendSymbol = function (
     _legend: any, // tslint:disable-line:no-any
     item: any, // tslint:disable-line:no-any
   ): void {
@@ -40,7 +40,7 @@ export const configureLegendSymbols = ((): void => {
       .add(item.legendGroup);
   };
   // tslint:disable-next-line: no-any
-  highcharts.seriesTypes.line.prototype.drawLegendSymbol = function(
+  highcharts.seriesTypes.line.prototype.drawLegendSymbol = function (
     _legend: any, // tslint:disable-line:no-any
     item: any, // tslint:disable-line:no-any
   ): void {
@@ -51,7 +51,7 @@ export const configureLegendSymbols = ((): void => {
   };
 
   // tslint:disable-next-line: no-any
-  highcharts.seriesTypes.column.prototype.drawLegendSymbol = function(
+  highcharts.seriesTypes.column.prototype.drawLegendSymbol = function (
     _legend: any, // tslint:disable-line:no-any
     item: any, // tslint:disable-line:no-any
   ): void {

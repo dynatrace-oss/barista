@@ -53,9 +53,9 @@ function generateColorPalette(cwd: string): Observable<void> {
   const colorFile = globSync('**/palette-source.alias.yml', { cwd })[0];
   return from(fs.readFile(join(cwd, colorFile), { encoding: 'utf-8' })).pipe(
     map((paletteSource: string) => parse(paletteSource)),
-    map(paletteSource => generatePaletteAliases(paletteSource)),
-    map(paletteTarget => stringify(paletteTarget)),
-    switchMap(paletteOutput =>
+    map((paletteSource) => generatePaletteAliases(paletteSource)),
+    map((paletteTarget) => stringify(paletteTarget)),
+    switchMap((paletteOutput) =>
       fs.writeFile(
         join(cwd, colorFile.replace('-source', '')),
         `${generateHeaderNoticeComment('#', '#', '#')}${paletteOutput}`,
@@ -101,7 +101,7 @@ function runTokenConversion(
     },
   });
   return from(conversion).pipe(
-    map(convertedResult => ({
+    map((convertedResult) => ({
       content: convertedResult,
       path: outputFilename,
     })),
@@ -125,7 +125,7 @@ export function designTokenConversion(
     );
   }
   return forkJoin(conversions).pipe(
-    map(results => {
+    map((results) => {
       const volumeContent = results.reduce((aggregator, file) => {
         aggregator[file.path] = file.content;
         return aggregator;
@@ -141,9 +141,9 @@ export function generateTypescriptBarrelFile(
   volume: Volume,
 ): Volume {
   const relativeImportPaths = Object.keys(volume.toJSON())
-    .filter(fileName => extname(fileName) === '.ts')
-    .map(fileName => fileName.replace('.ts', ''))
-    .map(fileName => fileName.replace(resolve(options.outputPath), '.'));
+    .filter((fileName) => extname(fileName) === '.ts')
+    .map((fileName) => fileName.replace('.ts', ''))
+    .map((fileName) => fileName.replace(resolve(options.outputPath), '.'));
   volume.writeFileSync(
     join(options.outputPath, 'index.ts'),
     typescriptBarrelFileTemplate(relativeImportPaths),
@@ -185,8 +185,8 @@ export function designTokensBuildBuilder(
     switchMap((entryFiles: string[]) =>
       designTokenConversion(options, entryFiles),
     ),
-    map(memoryVolume => generateTypescriptBarrelFile(options, memoryVolume)),
-    switchMap(memoryVolume => commitVolumeToFileSystem(memoryVolume)),
+    map((memoryVolume) => generateTypescriptBarrelFile(options, memoryVolume)),
+    switchMap((memoryVolume) => commitVolumeToFileSystem(memoryVolume)),
     mapTo({
       success: true,
     }),

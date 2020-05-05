@@ -84,9 +84,7 @@ describe('DtTag', () => {
 /** Test component that contains an DtTag. */
 @Component({
   selector: 'dt-test-app',
-  template: `
-    <dt-tag>Value</dt-tag>
-  `,
+  template: ` <dt-tag>Value</dt-tag> `,
 })
 class TestAppSimple {}
 

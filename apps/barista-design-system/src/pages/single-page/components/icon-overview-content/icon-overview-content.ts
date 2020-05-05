@@ -64,10 +64,10 @@ export class BaIconOverviewContent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this._activatedRoute.queryParamMap
       .pipe(
-        map(queryParams => queryParams.get('iconFilter') || ''),
+        map((queryParams) => queryParams.get('iconFilter') || ''),
         takeUntil(this._destroy$),
       )
-      .subscribe(value => {
+      .subscribe((value) => {
         if (value.length) {
           this._inputElement.nativeElement.value = value;
         }
@@ -137,8 +137,9 @@ export function filterIcons(icons: BaIcon[], filterValue: string): BaIcon[] {
   return icons.filter(({ name, tags }) => {
     const nameMatch = stringIncludes(name, filterValue);
     const tagMatch =
-      tags.filter(Boolean).findIndex(tag => stringIncludes(tag, filterValue)) >
-      -1;
+      tags
+        .filter(Boolean)
+        .findIndex((tag) => stringIncludes(tag, filterValue)) > -1;
     return nameMatch || tagMatch;
   });
 }

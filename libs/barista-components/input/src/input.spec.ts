@@ -188,43 +188,33 @@ describe('DtInput without forms', () => {
 });
 
 @Component({
-  template: `
-    <input dtInput [required]="required" />
-  `,
+  template: ` <input dtInput [required]="required" /> `,
 })
 class DtInputWithRequired {
   required: boolean;
 }
 
 @Component({
-  template: `
-    <input dtInput id="test-id" />
-  `,
+  template: ` <input dtInput id="test-id" /> `,
 })
 class DtInputWithId {}
 
 @Component({
-  template: `
-    <input dtInput [placeholder]="placeholder" />
-  `,
+  template: ` <input dtInput [placeholder]="placeholder" /> `,
 })
 class DtInputPlaceholderAttr {
   placeholder = '';
 }
 
 @Component({
-  template: `
-    <input dtInput [disabled]="disabled" />
-  `,
+  template: ` <input dtInput [disabled]="disabled" /> `,
 })
 class DtInputWithDisabled {
   disabled: boolean;
 }
 
 @Component({
-  template: `
-    <input dtInput [type]="type" />
-  `,
+  template: ` <input dtInput [type]="type" /> `,
 })
 class DtInputWithType {
   type: string;
@@ -718,7 +708,7 @@ describe('DtFormField with forms', () => {
 
       const errorIds = fixture.debugElement
         .queryAll(By.css('.dt-error'))
-        .map(el => el.nativeElement.getAttribute('id'))
+        .map((el) => el.nativeElement.getAttribute('id'))
         .join(' ');
       describedBy = inputEl.getAttribute('aria-describedby');
       // errors should be shown
@@ -891,9 +881,7 @@ class DtInputLabelTestController {}
 class DtInputInvalidHintTestController {}
 
 @Component({
-  template: `
-    <dt-form-field><input /></dt-form-field>
-  `,
+  template: ` <dt-form-field><input /></dt-form-field> `,
 })
 class DtInputMissingDtInputTestController {}
 
@@ -909,9 +897,7 @@ class DtInputWithNgIf {
 }
 
 @Component({
-  template: `
-    <dt-form-field><input dtInput type="file"/></dt-form-field>
-  `,
+  template: ` <dt-form-field><input dtInput type="file" /></dt-form-field> `,
 })
 class DtInputInvalidTypeTestController {}
 
@@ -929,7 +915,7 @@ class DtInputHintTestController {
 
 @Component({
   template: `
-    <dt-form-field><input dtInput [disabled]="disabled"/></dt-form-field>
+    <dt-form-field><input dtInput [disabled]="disabled" /></dt-form-field>
   `,
 })
 class DtFormFieldWithDisabled {

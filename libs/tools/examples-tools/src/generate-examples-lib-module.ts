@@ -32,7 +32,7 @@ export async function generateExamplesLibModule(
   const outFile = join(targetDir, 'examples.module.ts');
 
   return transformAndWriteTemplate(
-    source => {
+    (source) => {
       const imports: string[] = [];
       const moduleNames: string[] = [];
       for (const packageMeta of examplesMetadata) {

@@ -69,10 +69,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   private _disabled = false;
 
   // tslint:disable-next-line: no-use-before-declare no-forward-ref
-  @ContentChildren(
-    forwardRef(() => DtButtonGroupItem),
-    { descendants: true },
-  )
+  @ContentChildren(forwardRef(() => DtButtonGroupItem), { descendants: true })
   private _items: QueryList<DtButtonGroupItem<T>>;
 
   /** Emits a stream when the value changes. */
@@ -117,7 +114,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
       // find if there is a selection
       // defer to next CD run - this is needed because we cannot update the item right away when there is no value set
       Promise.resolve().then(() => {
-        const selected = this._items.find(item => item.selected);
+        const selected = this._items.find((item) => item.selected);
         if (this.value === null) {
           this.value = selected ? selected.value : this._items.first.value;
         } else {
@@ -135,7 +132,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   /** trigger change detection for items */
   private _markItemsForCheck(): void {
     if (this._items) {
-      this._items.forEach(item => {
+      this._items.forEach((item) => {
         item._markForCheck();
       });
     }
@@ -144,7 +141,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   /** Updates the `selected` state of each item button based on the groups value. */
   private _updateSelectedItemFromValue(): void {
     if (this._items) {
-      this._items.forEach(item => {
+      this._items.forEach((item) => {
         item.selected = this.value === item.value;
       });
     }
@@ -172,9 +169,7 @@ export const _DtButtonGroupItem = mixinTabIndex(
 
 @Component({
   selector: 'dt-button-group-item',
-  template: `
-    <ng-content></ng-content>
-  `,
+  template: ` <ng-content></ng-content> `,
   exportAs: 'dtButtonGroupItem',
   host: {
     role: 'radio',

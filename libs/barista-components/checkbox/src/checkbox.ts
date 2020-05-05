@@ -269,7 +269,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   ngAfterViewInit(): void {
     this._focusMonitor
       .monitor(this._inputElement.nativeElement, false)
-      .subscribe(focusOrigin => {
+      .subscribe((focusOrigin) => {
         this._onInputFocusChange(focusOrigin);
       });
   }
