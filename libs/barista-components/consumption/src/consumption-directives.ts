@@ -14,13 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  Directive,
-  Input,
-  TemplateRef,
-  ViewChild,
-} from '@angular/core';
+import { Component, Directive, TemplateRef, ViewChild } from '@angular/core';
 
 /**
  * The consumption components' title.
@@ -66,17 +60,9 @@ export class DtConsumptionSubtitle {}
   host: {
     class: 'dt-consumption-icon',
     role: 'img',
-    '[attr.aria-label]': 'ariaLabel',
   },
 })
-export class DtConsumptionIcon {
-  /**
-   * Accessibility label describing the icon in the consumption component.
-   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
-   * @breaking-change to be removed in 6.0.0
-   */
-  @Input('aria-label') ariaLabel: string;
-}
+export class DtConsumptionIcon {}
 
 /**
  * A formatted value label shown below the progress bar.
