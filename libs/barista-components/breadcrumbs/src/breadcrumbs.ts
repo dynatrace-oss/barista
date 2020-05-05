@@ -20,7 +20,6 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  Input,
   OnDestroy,
   QueryList,
   ViewEncapsulation,
@@ -51,7 +50,6 @@ export const _DtBreadcrumbMixinBase = mixinColor<
   styleUrls: ['breadcrumbs.scss'],
   host: {
     class: 'dt-breadcrumbs',
-    '[attr.aria-label]': 'ariaLabel',
   },
   inputs: ['color'],
   preserveWhitespaces: false,
@@ -60,16 +58,8 @@ export const _DtBreadcrumbMixinBase = mixinColor<
 })
 export class DtBreadcrumbs extends _DtBreadcrumbMixinBase
   implements AfterContentInit, OnDestroy {
-  /**
-   * Aria label for the breadcrumbs
-   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
-   * @breaking-change to be removed in 6.0.0
-   */
-  @Input('aria-label') ariaLabel: string;
-  // tslint:disable:deprecation
   @ContentChildren(DtBreadcrumbsItem)
   private _items: QueryList<DtBreadcrumbsItem>;
-  // tslint:enable:deprecation
 
   @ContentChildren(DtBreadcrumbsItem2) private _items2: QueryList<
     DtBreadcrumbsItem2
