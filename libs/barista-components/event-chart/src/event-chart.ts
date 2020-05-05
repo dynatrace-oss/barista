@@ -260,8 +260,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     private _durationPipe: DtDuration,
     @Inject(DOCUMENT) private _document: any,
     private _platform: Platform,
-    /** @breaking-change: `_elementRef` will be mandatory with version 7.0.0 */
-    private _elementRef?: ElementRef<HTMLElement>,
+    private _elementRef: ElementRef<HTMLElement>,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
