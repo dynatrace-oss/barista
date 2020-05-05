@@ -48,14 +48,7 @@ import {
 } from './simple-columns/index';
 import { DtSort } from './sort/sort';
 import { DtSortHeader } from './sort/sort-header';
-import {
-  DtTableEmptyState,
-  DtTableEmptyStateDirective,
-  DtTableEmptyStateImage,
-  DtTableEmptyStateMessage,
-  DtTableEmptyStateTitle,
-  DtTableLoadingState,
-} from './states/index';
+import { DtTableLoadingState } from './states/index';
 import { DtTable } from './table';
 
 const EXPORTED_DECLARATIONS = [
@@ -71,11 +64,6 @@ const EXPORTED_DECLARATIONS = [
   DtExpandableRow,
   DtHeaderCell,
   DtHeaderCellDef,
-  DtTableEmptyState, // tslint:disable-line:deprecation
-  DtTableEmptyStateDirective, // tslint:disable-line:deprecation
-  DtTableEmptyStateImage, // tslint:disable-line:deprecation
-  DtTableEmptyStateTitle, // tslint:disable-line:deprecation
-  DtTableEmptyStateMessage, // tslint:disable-line:deprecation
   DtTableLoadingState,
   DtSort,
   DtSortHeader,
