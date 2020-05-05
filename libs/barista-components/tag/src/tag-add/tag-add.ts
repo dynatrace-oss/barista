@@ -134,11 +134,10 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _zone: NgZone,
+    private _elementRef: ElementRef<HTMLElement>,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
-    /** @breaking-change: `_elementRef` will be mandatory with version 7.0.0 */
-    private _elementRef?: ElementRef<HTMLElement>,
   ) {}
 
   ngAfterViewInit(): void {
