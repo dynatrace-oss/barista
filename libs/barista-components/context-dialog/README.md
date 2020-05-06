@@ -38,9 +38,9 @@ To make our components accessible it is obligatory to provide either an
 
 ## Outputs
 
-| Name            | Type                    | Description                                            |
-| --------------- | ----------------------- | ------------------------------------------------------ |
-| `openedChanged` | `EventEmitter<boolean>` | Event emitted when the context dialog opens or closes. |
+| Name           | Type                    | Description                                            |
+| -------------- | ----------------------- | ------------------------------------------------------ |
+| `openedChange` | `EventEmitter<boolean>` | Event emitted when the context dialog opens or closes. |
 
 ## Methods
 
