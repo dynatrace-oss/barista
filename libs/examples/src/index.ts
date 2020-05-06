@@ -146,6 +146,7 @@ import { DtExampleFilterFieldDistinct } from './filter-field/filter-field-distin
 import { DtExampleFilterFieldProgrammaticFilters } from './filter-field/filter-field-programmatic-filters-example/filter-field-programmatic-filters-example';
 import { DtExampleFilterFieldReadOnlyTags } from './filter-field/filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example';
 import { DtExampleFilterFieldUnique } from './filter-field/filter-field-unique-example/filter-field-unique-example';
+import { DtExampleFilterFieldValidator } from './filter-field/filter-field-validator-example/filter-field-validator-example';
 import { DtExampleFormFieldDefault } from './form-field/form-field-default-example/form-field-default-example';
 import { DtExampleFormFieldErrorCustomValidator } from './form-field/form-field-error-custom-validator-example/form-field-error-custom-validator-example';
 import { DtExampleFormFieldError } from './form-field/form-field-error-example/form-field-error-example';
@@ -500,6 +501,7 @@ export {
   DtExampleFilterFieldProgrammaticFilters,
   DtExampleFilterFieldReadOnlyTags,
   DtExampleFilterFieldUnique,
+  DtExampleFilterFieldValidator,
   DtExampleFormFieldDefault,
   DtExampleFormFieldErrorCustomValidator,
   DtExampleFormFieldError,
