@@ -47,6 +47,7 @@ const BLACKLIST: string[] = [
   'filter-field-programmatic-filters-example',
   'filter-field-readonly-non-editable-tags-example',
   'filter-field-unique-example',
+  'filter-field-validator-example',
   'quick-filter-default-example',
 ];
 
