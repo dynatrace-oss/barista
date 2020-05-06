@@ -30,6 +30,7 @@ Before you submit your pull request (PR) consider the following guidelines:
 
 - Search GitHub for an open or closed issue or PR that relates to your
   submission.
+- Fork barista into your namespace by using the fork button on github.
 - Make your changes in a new git branch: `git checkout -b my-fix-branch master`
 - Create your patch/fix/feature including appropriate tests.
 - Test your changes with our supported browsers.
@@ -42,11 +43,10 @@ Before you submit your pull request (PR) consider the following guidelines:
 - Commit your changes using a descriptive commit message that follows our
   [commit message conventions](#commit-message-guidelines).
 - Push your branch to GitHub.
-- Create a new pull request from your branch against the master branch.
-- The PR must be reviewed by [@thomas.pink](https://github.com/thomaspink),
-  [@fabian.fiedl](https://github.com/ffriedl89) and/or
-  [@thomas.heller](https://github.com/tomheller). Other reviewers will be added
-  depending on the owners-file or can be added optionally.
+- Create a new pull request from your branch against the dynatrace-oss:master
+  branch.
+- The PR reviewers will be added depending on the owners-file or can be added
+  optionally.
 - If we suggest changes then:
   - Make the required updates.
   - Re-run all tests to make sure they are still passing.
