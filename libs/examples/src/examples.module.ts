@@ -35,7 +35,6 @@ import { DtConsumptionExamplesModule } from './consumption/consumption-examples.
 import { DtContainerBreakpointObserverExamplesModule } from './container-breakpoint-observer/container-breakpoint-observer-examples.module';
 import { DtContextDialogExamplesModule } from './context-dialog/context-dialog-examples.module';
 import { DtCopyToClipboardExamplesModule } from './copy-to-clipboard/copy-to-clipboard-examples.module';
-import { DtCtaCardExamplesModule } from './cta-card/cta-card-examples.module';
 import { DtDrawerExamplesModule } from './drawer/drawer-examples.module';
 import { DtDrawerTableExamplesModule } from './drawer-table/drawer-table-examples.module';
 import { DtEmptyStateExamplesModule } from './empty-state/empty-state-examples.module';
@@ -101,7 +100,6 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtContainerBreakpointObserverExamplesModule,
     DtContextDialogExamplesModule,
     DtCopyToClipboardExamplesModule,
-    DtCtaCardExamplesModule,
     DtDrawerExamplesModule,
     DtDrawerTableExamplesModule,
     DtEmptyStateExamplesModule,

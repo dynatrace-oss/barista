@@ -28,7 +28,6 @@ import {
   Inject,
   Input,
   IterableDiffers,
-  NgZone,
   OnDestroy,
   QueryList,
   TemplateRef,
@@ -150,8 +149,6 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
     @Attribute('role') role: string,
-    /** @breaking-change: ngZone is no longer necessary in the table injectors, will be removed with 7.0.0 */
-    _ngZone: NgZone,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) document: any,
     platform: Platform,

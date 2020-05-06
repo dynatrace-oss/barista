@@ -65,9 +65,6 @@
       "@dynatrace/barista-components/core": [
         "libs/barista-components/core/index.ts"
       ],
-      "@dynatrace/barista-components/cta-card": [
-        "libs/barista-components/cta-card/index.ts"
-      ],
       "@dynatrace/barista-components/drawer": [
         "libs/barista-components/drawer/index.ts"
       ],

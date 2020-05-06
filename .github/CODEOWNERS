@@ -17,7 +17,6 @@
 /libs/barista-components/container-breakpoint-observer/** @thomaspink
 /libs/barista-components/context-dialog/** @ffriedl89 @NinaKammerlander
 /libs/barista-components/copy-to-clipboard/** @ffriedl89 @moertenschlag
-/libs/barista-components/cta-card/** @thomaspink
 /libs/barista-components/drawer/** @lukasholzer @rowa-audil
 /libs/barista-components/empty-state/** @lukasholzer @heartdisease
 /libs/barista-components/event-chart/** @thomaspink @tomheller
@@ -114,7 +113,6 @@
 /apps/dev/src/container-breakpoint-observer/** @thomaspink
 /apps/dev/src/context-dialog/** @ffriedl89 @NinaKammerlander
 /apps/dev/src/copy-to-clipboard/** @ffriedl89 @moertenschlag
-/apps/dev/src/cta-card/** @thomaspink
 /apps/dev/src/drawer/** @lukasholzer @rowa-audil
 /apps/dev/src/empty-state/** @lukasholzer @heartdisease
 /apps/dev/src/event-chart/** @thomaspink @tomheller
@@ -185,7 +183,6 @@
 /libs/examples/src/container-breakpoint-observer/** @thomaspink
 /libs/examples/src/context-dialog/** @ffriedl89 @NinaKammerlander
 /libs/examples/src/copy-to-clipboard/** @ffriedl89 @moertenschlag
-/libs/examples/src/cta-card/** @thomaspink
 /libs/examples/src/drawer/** @lukasholzer @rowa-audil
 /libs/examples/src/empty-state/** @lukasholzer @heartdisease
 /libs/examples/src/event-chart/** @thomaspink @tomheller

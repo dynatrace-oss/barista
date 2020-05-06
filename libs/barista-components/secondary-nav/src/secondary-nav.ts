@@ -56,7 +56,6 @@ export class DtSecondaryNavTitle {}
   styleUrls: ['secondary-nav.scss'],
   host: {
     class: 'dt-secondary-nav',
-    '[attr.aria-label]': 'ariaLabel',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,13 +64,6 @@ export class DtSecondaryNavTitle {}
   encapsulation: ViewEncapsulation.None,
 })
 export class DtSecondaryNav implements AfterViewInit, OnDestroy {
-  /**
-   * Accessibility label describing the nav.
-   * @deprecated use the native aria-label for strings and if you need a binding use [attr.aria-label]
-   * @breaking-change to be removed in 6.0.0
-   */
-  @Input('aria-label') ariaLabel: string;
-
   /** Whether the nav has multi section support. */
   @Input()
   get multi(): boolean {

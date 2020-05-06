@@ -103,19 +103,6 @@ export class DtPagination implements OnInit {
   }
   private _currentPage = 1;
 
-  /**
-   * Aria label for the previous page button. Defaults to "Previous page"
-   * @deprecated `aria-label-previous` does not conform with accessibility standards.
-   * Please use `ariaLabelPrevious` input instead.
-   * @breaking-change Will be removed in version 7.0.0
-   */
-  @Input('aria-label-previous')
-  get ariaPreviousLabel(): string {
-    return this._ariaLabelPrevious;
-  }
-  set ariaPreviousLabel(value: string) {
-    this._ariaLabelPrevious = value;
-  }
   /** Aria label for the previous page button. Defaults to "Previous page" */
   @Input()
   get ariaLabelPrevious(): string {
@@ -127,19 +114,6 @@ export class DtPagination implements OnInit {
   /** @internal Aria label for the previous page button. Defaults to "Previous page" */
   _ariaLabelPrevious = ARIA_DEFAULT_PREVIOUS_LABEL;
 
-  /**
-   * Aria label for the next page button. Defaults to "Next page"
-   * @deprecated `aria-label-next` does not conform with accessibility standards.
-   * Please use `ariaLabelNext` input instead.
-   * @breaking-change Will be removed in version 7.0.0
-   */
-  @Input('aria-label-next')
-  get ariaNextLabel(): string {
-    return this._ariaLabelNext;
-  }
-  set ariaNextLabel(value: string) {
-    this._ariaLabelNext = value;
-  }
   /** Aria label for the next page button. Defaults to "Next page" */
   @Input()
   get ariaLabelNext(): string {
@@ -154,19 +128,6 @@ export class DtPagination implements OnInit {
   /** Aria label for the pagination. Defaults to "Pagination" */
   @Input('aria-label') ariaLabel = ARIA_DEFAULT_LABEL;
 
-  /**
-   * Aria label for the ellipsis character. Defaults to "The next pages are ellipses"
-   * @deprecated `aria-label-ellipses` does not conform with accessibility standards.
-   * Please use `ariaLabelEllipsis` input instead.
-   * @breaking-change Will be removed in version 7.0.0
-   */
-  @Input('aria-label-ellipses')
-  get ariaLabelEllipses(): string {
-    return this._ariaLabelEllipsis;
-  }
-  set ariaLabelEllipses(value: string) {
-    this._ariaLabelEllipsis = value;
-  }
   /** Aria label for the ellipsis character. Defaults to "The next pages are ellipsis" */
   @Input()
   get ariaLabelEllipsis(): string {
@@ -178,19 +139,6 @@ export class DtPagination implements OnInit {
   /** @internal Aria label for the ellipsis character. Defaults to "The next pages are ellipsis" */
   _ariaLabelEllipsis = ARIA_DEFAULT_ELLIPSES;
 
-  /**
-   * Aria label for a page button (Page 1,2,3...). Defaults to "Page"
-   * @deprecated `aria-label-page` does not conform with accessibility standards.
-   * Please use `ariaLabelPage` input instead.
-   * @breaking-change Will be removed in version 7.0.0
-   */
-  @Input('aria-label-page')
-  get ariaPageLabel(): string {
-    return this._ariaLabelPage;
-  }
-  set ariaPageLabel(value: string) {
-    this._ariaLabelPage = value;
-  }
   /** Aria label for a page button (Page 1,2,3...). Defaults to "Page" */
   @Input()
   get ariaLabelPage(): string {
@@ -202,19 +150,6 @@ export class DtPagination implements OnInit {
   /** @internal Aria label for a page button (Page 1,2,3...). Defaults to "Page" */
   _ariaLabelPage = ARIA_DEFAULT_PAGE_LABEL;
 
-  /**
-   * Aria label for the current page button. Defaults to "You are currently on page"
-   * @deprecated `aria-label-current` does not conform with accessibility standards.
-   * Please use `ariaLabelCurrent` input instead.
-   * @breaking-change Will be removed in version 7.0.0
-   */
-  @Input('aria-label-current')
-  get ariaCurrentLabel(): string {
-    return this._ariaLabelCurrent;
-  }
-  set ariaCurrentLabel(value: string) {
-    this._ariaLabelCurrent = value;
-  }
   /** Aria label for the current page button. Defaults to "You are currently on page" */
   @Input()
   get ariaLabelCurrent(): string {
