@@ -1,0 +1,10 @@
+{
+  "$schema": "../../../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "update-7-0-0": {
+      "version": "7.0.0",
+      "description": "Updates to the Major Version 7.0.0",
+      "factory": "./src/migrations/update-7-0-0/update-7-0-0"
+    }
+  }
+}

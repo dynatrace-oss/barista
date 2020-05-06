@@ -1,6 +1,0 @@
-import { DtIconRegistry } from '@dynatrace/dt-iconpack';
-import * as IconPack from '@dynatrace/dt-iconpack';
-
-import { DtIcon } from '@dynatrace/angular-components/icon';
-
-import { DtButtonModule } from '@dynatrace/angular-components/button';

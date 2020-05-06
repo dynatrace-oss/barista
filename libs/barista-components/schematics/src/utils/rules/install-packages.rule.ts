@@ -14,6 +14,20 @@
  * limitations under the License.
  */
 
-export * from './legacy-imports-rule';
-export * from './secondary-entry-points-rule';
-export * from './remove-css-imports-rule';
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+
+/**
+ * @internal
+ * Install the dependencies from the package.json
+ */
+export function installPackagesRule<T extends { skipInstall?: boolean }>(
+  options?: T,
+): Rule {
+  return (host: Tree, context: SchematicContext) => {
+    if (!options?.skipInstall) {
+      context.addTask(new NodePackageInstallTask());
+    }
+    return host;
+  };
+}

@@ -5,11 +5,6 @@
       "description": "Add and migrate Dynatrace Angular Components to v5.",
       "factory": "./src/ng-add/index",
       "schema": "./src/ng-add/schema.json"
-    },
-    "update-5.0.0": {
-      "version": "5.0.0",
-      "description": "Updates from the old @dynatrace/angular-components to the new @dynatrace/barista-components",
-      "factory": "./src/ng-update/index#updateToV5"
     }
   }
 }

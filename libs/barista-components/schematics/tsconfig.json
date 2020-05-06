@@ -7,7 +7,7 @@
     "target": "es6",
     "types": ["node", "jest"]
   },
-  "files": ["./collection.json", "./migration.json"],
+  "files": ["./collection.json", "./migrations.json"],
   "include": ["**/*.ts", "src/**/*.json"],
   "exclude": ["src/fixtures/**/*"]
 }

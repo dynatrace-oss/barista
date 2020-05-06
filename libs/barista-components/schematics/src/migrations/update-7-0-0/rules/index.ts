@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-export * from './ast';
-export * from './get-matching-files-from-tree';
-export * from './json';
-export * from './read-file-from-tree';
-export * from './rules';
+export { updateDependenciesRule } from './update-dependencies.rule';
+export {
+  templateReplacementRule,
+  TemplateReplacementList,
+} from './template-replacement.rule';
