@@ -197,6 +197,17 @@ filter you can configure the filter to your needs by using the properties
 
 <ba-live-example name="DtExampleFilterFieldReadOnlyTags"></ba-live-example>
 
+### Validators
+
+Handling the user input with validators provides you with control over input
+requirements. E.g `Validators.required`  
+Angular exports a list of validators out of the box, as shown in the following
+example, but you can also create custom validators that need to conform to the
+angular validator interface.
+[Angular Form validators](https://angular.io/guide/form-validation#custom-validators)
+
+<ba-live-example name="DtExampleFilterFieldValidator"></ba-live-example>
+
 ### Handling operators (not yet implemented)
 
 <ba-ux-snippet name="filter-field-operators"></ba-ux-snippet>
