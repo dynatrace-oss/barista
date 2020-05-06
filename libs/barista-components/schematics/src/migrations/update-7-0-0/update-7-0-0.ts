@@ -14,20 +14,28 @@
  * limitations under the License.
  */
 
-import { SchematicsException, Tree } from '@angular-devkit/schematics';
-import { readFileFromTree } from '../read-file-from-tree';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import { updateDependenciesRule, templateReplacementRule } from './rules';
+import { installPackagesRule } from '../../utils';
+import { TEMPLATE_REPLACEMENTS } from './config/template-replacements';
 
 /**
- * This method is specifically for reading JSON files in a Tree
- * @param tree The tree tree
- * @param path The path to the JSON file
- * @returns The JSON data in the file.
+ * @internal
+ * Update rule for the version 7.0.0
  */
-export function readJsonFromTree<T = {}>(tree: Tree, path: string): T {
-  const content = readFileFromTree(tree, path);
-  try {
-    return JSON.parse(content);
-  } catch (e) {
-    throw new SchematicsException(`Cannot parse ${path}: ${e.message}`);
-  }
+export default function (): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const rule = chain([
+      updateDependenciesRule(),
+      templateReplacementRule(TEMPLATE_REPLACEMENTS),
+      installPackagesRule(),
+    ]);
+
+    return rule(tree, context);
+  };
 }

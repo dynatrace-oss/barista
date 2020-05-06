@@ -14,8 +14,19 @@
  * limitations under the License.
  */
 
-export * from './ast';
-export * from './get-matching-files-from-tree';
-export * from './json';
-export * from './read-file-from-tree';
-export * from './rules';
+/** Replaces a HTML Attribute on a list of elements returns the replaced content */
+export function replaceHtmlAttribute(
+  oldAttribute: string,
+  newAttribute: string,
+  elements: string[],
+  content: string,
+): string {
+  // https://regex101.com/r/EILoLP/2
+  const regex = new RegExp(
+    `<(${elements.join('|')})[\\s\\S]*?(\\[?${oldAttribute}\\]?)\\s*=`,
+    'gm',
+  );
+  return content.replace(regex, (match) => {
+    return match.replace(oldAttribute, newAttribute);
+  });
+}
