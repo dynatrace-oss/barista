@@ -6,7 +6,10 @@ warning or an error.
 This directive was introduced to add indicators in the `<dt-table>`, but can be
 used in other components as well to handle error or warning indications.
 
-<ba-live-example name="DtExampleTableProblem" fullwidth></ba-live-example>
+<ba-live-example name="DtExampleIndicatorDefault" fullwidth></ba-live-example>
+
+For a more complex example with the indicator in use visit:
+[Tree Table with DtIndicator](/components/tree-table#dtindicator)
 
 ## Imports
 

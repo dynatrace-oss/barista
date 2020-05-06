@@ -1,4 +1,4 @@
-@import '../theming/theming';
+@import '../../core/src/theming/theming';
 
 @mixin dt-theme-indicator($theme) {
   $palette-names: 'error', 'warning';

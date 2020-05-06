@@ -34,12 +34,12 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  DtIndicator,
   isDefined,
   _addCssClass,
   _parseCssValue,
   _removeCssClass,
 } from '@dynatrace/barista-components/core';
+import { DtIndicator } from '@dynatrace/barista-components/indicator';
 import { merge, Subject, Subscription } from 'rxjs';
 import { filter, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { DtRow } from './row';

@@ -14,5 +14,4 @@
  * limitations under the License.
  */
 
-export * from './indicator';
-export * from './indicator-module';
+import 'jest-preset-angular';

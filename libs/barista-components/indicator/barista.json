@@ -1,0 +1,22 @@
+{
+  "title": "Indicator",
+  "description": "The dtIndicator directive can be used with any component to indicate a warning or an error.",
+  "category": "components",
+  "properties": ["dev utility"],
+  "contributors": {
+    "dev": [
+      {
+        "name": "Fabian Friedl",
+        "githubuser": "ffriedl89"
+      }
+    ]
+  },
+  "tags": [
+    "component",
+    "angular",
+    "indicator",
+    "validation",
+    "warning",
+    "error"
+  ]
+}

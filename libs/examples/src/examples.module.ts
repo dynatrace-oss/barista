@@ -48,6 +48,7 @@ import { DtFormFieldExamplesModule } from './form-field/form-field-examples.modu
 import { DtFormattersExamplesModule } from './formatters/formatters-examples.module';
 import { DtHighlightExamplesModule } from './highlight/highlight-examples.module';
 import { DtIconExamplesModule } from './icon/icon-examples.module';
+import { DtIndicatorExamplesModule } from './indicator/indicator-examples.module';
 import { DtInfoGroupExamplesModule } from './info-group/info-group-examples.module';
 import { DtInlineEditorExamplesModule } from './inline-editor/inline-editor-examples.module';
 import { DtInputExamplesModule } from './input/input-examples.module';
@@ -114,6 +115,7 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtFormattersExamplesModule,
     DtHighlightExamplesModule,
     DtIconExamplesModule,
+    DtIndicatorExamplesModule,
     DtInfoGroupExamplesModule,
     DtInlineEditorExamplesModule,
     DtInputExamplesModule,

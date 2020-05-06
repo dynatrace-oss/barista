@@ -34,6 +34,7 @@ import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/
 import { DtFilterFieldModule } from '@dynatrace/barista-components/filter-field';
 import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
 import { DtInfoGroupModule } from '@dynatrace/barista-components/info-group';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
@@ -81,6 +82,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtExpandableTextModule,
     DtFilterFieldModule,
     DtHighlightModule,
+    DtIndicatorModule,
     DtInfoGroupModule,
     DtInputModule,
     DtLoadingDistractorModule,

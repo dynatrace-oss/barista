@@ -17,7 +17,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DtTableModule } from '@dynatrace/barista-components/table';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
-import { DtIndicatorModule } from '@dynatrace/barista-components/core';
+import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
 import { DtPaginationModule } from '@dynatrace/barista-components/pagination';
 import { DtShowMoreModule } from '@dynatrace/barista-components/show-more';
 import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';

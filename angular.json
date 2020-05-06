@@ -2132,6 +2132,46 @@
       },
       "schematics": {}
     },
+    "indicator": {
+      "projectType": "library",
+      "root": "libs/barista-components/indicator",
+      "sourceRoot": "libs/barista-components/indicator/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/indicator/tsconfig.lib.json",
+              "libs/barista-components/indicator/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/indicator/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "./dist/libs/workspace:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/barista-components/indicator/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/barista-components/indicator/jest.config.js",
+            "tsConfig": "libs/barista-components/indicator/tsconfig.spec.json",
+            "setupFile": "libs/barista-components/indicator/src/test-setup.ts",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
     "info-group": {
       "projectType": "library",
       "root": "libs/barista-components/info-group",

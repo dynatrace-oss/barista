@@ -44,6 +44,7 @@ import { FormFieldDemo } from './form-field/form-field-demo.component';
 import { FormattersDemo } from './formatters/formatters-demo.component';
 import { HighlightDemo } from './highlight/highlight-demo.component';
 import { IconDemo } from './icon/icon-demo.component';
+import { IndicatorDemo } from './indicator/indicator-demo.component';
 import { InfoGroupDemo } from './info-group/info-group-demo.component';
 import { InlineEditorDemo } from './inline-editor/inline-editor-demo.component';
 import { InputDemo } from './input/input-demo.component';
@@ -104,6 +105,7 @@ const routes: Routes = [
   { path: 'formatters', component: FormattersDemo },
   { path: 'highlight', component: HighlightDemo },
   { path: 'icon', component: IconDemo },
+  { path: 'indicator', component: IndicatorDemo },
   { path: 'info-group', component: InfoGroupDemo },
   { path: 'inline-editor', component: InlineEditorDemo },
   { path: 'input', component: InputDemo },

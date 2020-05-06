@@ -31,11 +31,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 import {
-  DtIndicatorModule,
   DtTreeControl,
   DtTreeDataSource,
   DtTreeFlattener,
 } from '@dynatrace/barista-components/core';
+import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DtTreeTable,

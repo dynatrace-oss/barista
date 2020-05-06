@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { DtButtonModule } from '@dynatrace/barista-components/button';
-import { DtIndicatorModule } from '@dynatrace/barista-components/core';
+import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
 import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';

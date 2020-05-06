@@ -43,6 +43,7 @@ import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
 import { DtInfoGroupModule } from '@dynatrace/barista-components/info-group';
 import { DtInlineEditorModule } from '@dynatrace/barista-components/inline-editor';
 import { DtInputModule } from '@dynatrace/barista-components/input';
@@ -102,6 +103,7 @@ import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
     DtFormattersModule,
     DtHighlightModule,
     DtIconModule,
+    DtIndicatorModule,
     DtInfoGroupModule,
     DtInlineEditorModule,
     DtInputModule,

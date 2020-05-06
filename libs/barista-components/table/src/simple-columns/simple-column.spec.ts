@@ -24,7 +24,7 @@ import { TestBed, async, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
+import { DtIndicatorThemePalette } from '@dynatrace/barista-components/indicator';
 import {
   DtFormattersModule,
   formatBytes,
