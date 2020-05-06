@@ -24,7 +24,7 @@ import { DtContextDialogModule } from '@dynatrace/barista-components/context-dia
 import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInfoGroupModule } from '@dynatrace/barista-components/info-group';
-import { DtIndicatorModule } from '@dynatrace/barista-components/core';
+import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtProgressBarModule } from '@dynatrace/barista-components/progress-bar';
 

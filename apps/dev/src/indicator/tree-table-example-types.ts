@@ -14,13 +14,29 @@
  * limitations under the License.
  */
 
-export * from './src/common-behaviours/index';
-export * from './src/error/index';
-export * from './src/util/index';
-export * from './src/logger/index';
-export * from './src/viewport/index';
-export * from './src/option/index';
-export * from './src/tree/index';
-export * from './src/animations/index';
-export * from './src/overlay/index';
-export * from './src/testing/index';
+import { DtIconType } from '@dynatrace/barista-icons';
+
+export class ThreadNode {
+  name: string;
+  threadlevel?: string;
+  totalTimeConsumption?: number;
+  blocked: number;
+  running: number;
+  waiting: number;
+  icon?: DtIconType;
+  children?: ThreadNode[];
+  isShowMore?: boolean;
+}
+
+export class ThreadFlatNode {
+  name: string;
+  threadlevel?: string;
+  totalTimeConsumption?: number;
+  blocked: number;
+  running: number;
+  waiting: number;
+  icon?: DtIconType;
+  level: number;
+  expandable: boolean;
+  isShowMore?: boolean;
+}

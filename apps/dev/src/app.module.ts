@@ -56,6 +56,7 @@ import { FormFieldDemo } from './form-field/form-field-demo.component';
 import { FormattersDemo } from './formatters/formatters-demo.component';
 import { HighlightDemo } from './highlight/highlight-demo.component';
 import { IconDemo } from './icon/icon-demo.component';
+import { IndicatorDemo } from './indicator/indicator-demo.component';
 import { InfoGroupDemo } from './info-group/info-group-demo.component';
 import { InlineEditorDemo } from './inline-editor/inline-editor-demo.component';
 import { InputDemo } from './input/input-demo.component';
@@ -156,6 +157,7 @@ export class NoopRouteComponent {}
     BarIndicatorDemo,
     TreeTableDemo,
     ToggleButtonGroupDemo,
+    IndicatorDemo,
     InfoGroupDemo,
     HighlightDemo,
     ConsumptionDemo,

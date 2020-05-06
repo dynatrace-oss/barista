@@ -24,7 +24,11 @@ import {
 } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { CanColor, Constructor, mixinColor } from '../common-behaviours/index';
+import {
+  CanColor,
+  Constructor,
+  mixinColor,
+} from '@dynatrace/barista-components/core';
 
 export type DtIndicatorThemePalette = 'error' | 'warning' | undefined;
 

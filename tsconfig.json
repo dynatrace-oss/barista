@@ -107,6 +107,9 @@
       "@dynatrace/barista-components/icon": [
         "libs/barista-components/icon/index.ts"
       ],
+      "@dynatrace/barista-components/indicator": [
+        "libs/barista-components/indicator/index.ts"
+      ],
       "@dynatrace/barista-components/info-group": [
         "libs/barista-components/info-group/index.ts"
       ],

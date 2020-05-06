@@ -165,6 +165,7 @@ import { DtExampleHighlightCaseSensitive } from './highlight/highlight-case-sens
 import { DtExampleHighlightDefault } from './highlight/highlight-default-example/highlight-default-example';
 import { DtExampleIconAll } from './icon/icon-all-example/icon-all-example';
 import { DtExampleIconDefault } from './icon/icon-default-example/icon-default-example';
+import { DtExampleIndicatorDefault } from './indicator/indicator-default-example/indicator-default-example';
 import { DtExampleInfoGroupDefault } from './info-group/info-group-default-example/info-group-default-example';
 import { DtExampleInfoGroupInCard } from './info-group/info-group-in-card-example/info-group-in-card-example';
 import { DtExampleInlineEditorApi } from './inline-editor/inline-editor-api-example/inline-editor-api-example';
@@ -346,6 +347,7 @@ export { DtFormFieldExamplesModule } from './form-field/form-field-examples.modu
 export { DtFormattersExamplesModule } from './formatters/formatters-examples.module';
 export { DtHighlightExamplesModule } from './highlight/highlight-examples.module';
 export { DtIconExamplesModule } from './icon/icon-examples.module';
+export { DtIndicatorExamplesModule } from './indicator/indicator-examples.module';
 export { DtInfoGroupExamplesModule } from './info-group/info-group-examples.module';
 export { DtInlineEditorExamplesModule } from './inline-editor/inline-editor-examples.module';
 export { DtInputExamplesModule } from './input/input-examples.module';
@@ -521,6 +523,7 @@ export {
   DtExampleHighlightDefault,
   DtExampleIconAll,
   DtExampleIconDefault,
+  DtExampleIndicatorDefault,
   DtExampleInfoGroupDefault,
   DtExampleInfoGroupInCard,
   DtExampleInlineEditorApi,
@@ -788,6 +791,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleDrawerDynamic', DtExampleDrawerDynamic],
   ['DtExampleDrawerNested', DtExampleDrawerNested],
   ['DtExampleDrawerOver', DtExampleDrawerOver],
+  ['DtExampleDrawerTableDefault', DtExampleDrawerTableDefault],
   ['DtExampleCustomEmptyStateTable', DtExampleCustomEmptyStateTable],
   ['DtExampleCustomEmptyState', DtExampleCustomEmptyState],
   ['DtExampleEmptyStateDefault', DtExampleEmptyStateDefault],
@@ -855,6 +859,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleHighlightDefault', DtExampleHighlightDefault],
   ['DtExampleIconAll', DtExampleIconAll],
   ['DtExampleIconDefault', DtExampleIconDefault],
+  ['DtExampleIndicatorDefault', DtExampleIndicatorDefault],
   ['DtExampleInfoGroupDefault', DtExampleInfoGroupDefault],
   ['DtExampleInfoGroupInCard', DtExampleInfoGroupInCard],
   ['DtExampleInlineEditorApi', DtExampleInlineEditorApi],

@@ -25,7 +25,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { DtIndicatorThemePalette } from '@dynatrace/barista-components/core';
+import { DtIndicatorThemePalette } from '@dynatrace/barista-components/indicator';
 import { DtFormattedValue } from '@dynatrace/barista-components/formatters';
 import { DtCellDef, DtColumnDef } from '../cell';
 import { DtHeaderCellDef } from '../header/header-cell';

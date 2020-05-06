@@ -29,6 +29,7 @@
 /libs/barista-components/formatters/** @ffriedl89 @rowa-audil
 /libs/barista-components/highlight/** @lukasholzer @thomaspink
 /libs/barista-components/icon/** @thomaspink
+/libs/barista-components/indicator/** @ffriedl89 @rowa-audil
 /libs/barista-components/info-group/** @ffriedl89 @NinaKammerlander
 /libs/barista-components/inline-editor/** @thomaspink
 /libs/barista-components/input/** @thomaspink
@@ -126,6 +127,7 @@
 /apps/dev/src/formatters/** @ffriedl89 @rowa-audil
 /apps/dev/src/highlight/** @lukasholzer @thomaspink
 /apps/dev/src/icon/** @thomaspink
+/apps/dev/src/indicator/** @ffriedl89 @rowa-audil
 /apps/dev/src/info-group/** @ffriedl89 @NinaKammerlander
 /apps/dev/src/inline-editor/** @thomaspink
 /apps/dev/src/input/** @thomaspink
@@ -197,6 +199,7 @@
 /libs/examples/src/formatters/** @ffriedl89 @rowa-audil
 /libs/examples/src/highlight/** @lukasholzer @thomaspink
 /libs/examples/src/icon/** @thomaspink
+/libs/examples/src/indicator/** @ffriedl89 @rowa-audil
 /libs/examples/src/info-group/** @ffriedl89 @NinaKammerlander
 /libs/examples/src/inline-editor/** @thomaspink
 /libs/examples/src/input/** @thomaspink

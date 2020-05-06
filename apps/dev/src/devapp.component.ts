@@ -70,6 +70,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Formatters', route: '/formatters' },
     { name: 'Highlight', route: '/highlight' },
     { name: 'Icon', route: '/icon' },
+    { name: 'Indicator', route: '/indicator' },
     { name: 'Info-group', route: '/info-group' },
     { name: 'Inline-editor', route: '/inline-editor' },
     { name: 'Input', route: '/input' },

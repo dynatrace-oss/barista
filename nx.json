@@ -92,6 +92,7 @@
         "formatters",
         "highlight",
         "icon",
+        "indicator",
         "info-group",
         "inline-editor",
         "input",
@@ -211,6 +212,9 @@
       "tags": ["scope:components", "type:library"]
     },
     "icon": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "indicator": {
       "tags": ["scope:components", "type:library"]
     },
     "info-group": {
