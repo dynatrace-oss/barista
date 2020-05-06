@@ -23,3 +23,4 @@ export * from './filter-field-examples.module';
 export * from './filter-field-programmatic-filters-example/filter-field-programmatic-filters-example';
 export * from './filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example';
 export * from './filter-field-unique-example/filter-field-unique-example';
+export * from './filter-field-validator-example/filter-field-validator-example';
