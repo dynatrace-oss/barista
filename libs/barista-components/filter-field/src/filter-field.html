@@ -23,7 +23,7 @@
     dt-button
     variant="secondary"
     class="dt-filter-field-clear-all-button"
-    (click)="_clearAll()"
+    (click)="_clearAll($event)"
     *ngIf="clearAllLabel"
     [class.dt-filter-field-clear-all-button-hidden]="!_showClearAll"
   >

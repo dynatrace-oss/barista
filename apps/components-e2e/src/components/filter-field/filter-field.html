@@ -1,11 +1,15 @@
 <button class="outside">Outside</button>
 
-<dt-filter-field
-  id="filter-field"
-  [dataSource]="_dataSource"
-  label="Filter by"
-  clearAllLabel="Clear all"
-></dt-filter-field>
+<form (submit)="onSubmit($event)">
+  <dt-filter-field
+    id="filter-field"
+    [dataSource]="_dataSource"
+    label="Filter by"
+    clearAllLabel="Clear all"
+  ></dt-filter-field>
+</form>
+
+<span id="form-submitted">{{ formSubmitted }}</span>
 
 <button id="switchToFirstDatasource" (click)="switchToDatasource(0)">
   Switch to first datasource
