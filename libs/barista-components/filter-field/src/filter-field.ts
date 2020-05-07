@@ -616,6 +616,12 @@ export class DtFilterField<T = any>
   /** @internal */
   _handleInputKeyDown(event: KeyboardEvent): void {
     const keyCode = _readKeyCode(event);
+    if (keyCode === ENTER) {
+      // We need to prevent the default here, in case this filter field
+      // is used within a form, we do not want to submit the form at this
+      // point.
+      event.preventDefault();
+    }
     if ([BACKSPACE, DELETE].includes(keyCode) && !this._inputValue.length) {
       if (this._currentFilterValues.length) {
         this._removeFilterAndEmit(this._currentFilterValues);
@@ -707,7 +713,11 @@ export class DtFilterField<T = any>
   }
 
   /** @internal Clears all filters and switch to root def. */
-  _clearAll(): void {
+  _clearAll(event: Event): void {
+    // We need to prevent the default here, in case this filter field
+    // is used within a form, we do not want to submit the form at this
+    // point.
+    event.preventDefault();
     // Only filters that are deletable should be removed
     // We need to aggregate the once that should be removed on the one hand,
     // so we can emit them to the consumer.

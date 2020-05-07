@@ -84,4 +84,11 @@ export class DtE2EFilterField implements OnDestroy {
         }
       });
   }
+
+  formSubmitted = false;
+  onSubmit(event: Event): void {
+    event.preventDefault();
+    this.formSubmitted = true;
+    this._changeDetectorRef.markForCheck();
+  }
 }
