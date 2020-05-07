@@ -515,7 +515,7 @@ export class DtAutocompleteTrigger<T>
   private _getOverlayConfig(): OverlayConfig {
     return new OverlayConfig({
       positionStrategy: this._getOverlayPosition(),
-      scrollStrategy: this._overlay.scrollStrategies.block(),
+      scrollStrategy: this._overlay.scrollStrategies.reposition(),
       maxWidth: this._getPanelWidth(),
     });
   }
