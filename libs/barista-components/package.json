@@ -22,7 +22,7 @@
     "@angular/common": "{{NG_VERSION}}",
     "@angular/animations": "{{NG_VERSION}}",
     "@angular/forms": "{{NG_VERSION}}",
-    "@dynatrace/barista-icons": ">= 3.0.0 < 4",
+    "@dynatrace/barista-icons": ">= 5.0.0 < 6",
     "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
     "@types/highcharts": "^5.0.23",
     "d3-scale": "^3.0.0",
