@@ -205,32 +205,34 @@ export class DtEmptyState
   }
 
   ngAfterViewInit(): void {
-    // Check if the browser supports the resizeObserver.
-    if (this._platform.isBrowser && 'ResizeObserver' in window) {
-      this._containerSizeObserver = new window.ResizeObserver((entries) => {
-        if (entries && entries[0]) {
-          // We need to wrap the call to the layout update into an additional
-          // requestAnimationFrame, because the resize observer would trow a
-          // javascript error when it is not able to process all entries within
-          // a single animation frame.
-          // From the specification:
-          // > This error means that ResizeObserver was not able to deliver all
-          // > observations within a single animation frame. It is benign (your
-          // > site will not break). - Aleksandar Totic
-          // https://stackoverflow.com/a/50387233
-          requestAnimationFrame(() => {
-            this._updateLayoutForSize(entries[0].contentRect.width);
-          });
-        }
-      });
-      this._containerSizeObserver.observe(this._elementRef.nativeElement);
-    } else {
-      this._viewportResizer
-        .change()
-        .pipe(startWith(null), takeUntil(this._destroy$))
-        .subscribe(() => {
-          this._updateLayout();
+    if (this._platform.isBrowser) {
+      // Check if the browser supports the resizeObserver.
+      if ('ResizeObserver' in window) {
+        this._containerSizeObserver = new window.ResizeObserver((entries) => {
+          if (entries && entries[0]) {
+            // We need to wrap the call to the layout update into an additional
+            // requestAnimationFrame, because the resize observer would trow a
+            // javascript error when it is not able to process all entries within
+            // a single animation frame.
+            // From the specification:
+            // > This error means that ResizeObserver was not able to deliver all
+            // > observations within a single animation frame. It is benign (your
+            // > site will not break). - Aleksandar Totic
+            // https://stackoverflow.com/a/50387233
+            requestAnimationFrame(() => {
+              this._updateLayoutForSize(entries[0].contentRect.width);
+            });
+          }
         });
+        this._containerSizeObserver.observe(this._elementRef.nativeElement);
+      } else {
+        this._viewportResizer
+          .change()
+          .pipe(startWith(null), takeUntil(this._destroy$))
+          .subscribe(() => {
+            this._updateLayout();
+          });
+      }
     }
   }
 
