@@ -1,0 +1,176 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Add E2E Component should change files appropriately 1`] = `
+"/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the \\"License\\");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an \\"AS IS\\" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+// @ts-nocheck
+// Code copy pasted from original app.routing.module
+// Used only for testing purposes
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+export const routes: Routes = [
+  {
+    path: 'autocomplete',
+    loadChildren: () =>
+      import('').then((module) => module.DtE2EAutocompleteModule),
+  },
+  {
+    path: 'button',
+    loadChildren: () => import('').then((module) => module.DtE2EButtonModule),
+  },
+  {
+    path: 'alert',
+    loadChildren: () =>
+      import('../components/alert/alert.module').then(
+        (module) => module.DtE2EAlertModule,
+      ),
+  },
+];
+
+@NgModule({
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+      anchorScrolling: 'enabled',
+      paramsInheritanceStrategy: 'always',
+      enableTracing: false, // Can be set for debugging the router
+      initialNavigation: 'enabled',
+    }),
+  ],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+"
+`;
+
+exports[`Add E2E Component should generate files with the appropriate content 1`] = `
+"/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the \\"License\\");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an \\"AS IS\\" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { alert } from './alert.po';
+
+fixture('Alert').page('http://localhost:4200/alert');
+
+test('should exists', async (testController: TestController) => {
+  await testController.expect(alert.exists).ok();
+});
+"
+`;
+
+exports[`Add E2E Component should generate files with the appropriate content 2`] = `
+"<dt-alert id=\\"test-alert\\"></dt-alert>
+"
+`;
+
+exports[`Add E2E Component should generate files with the appropriate content 3`] = `
+"/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the \\"License\\");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an \\"AS IS\\" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { DtAlertModule } from '@dynatrace/barista-components/alert';
+import { DtE2EAlert } from './alert';
+
+const routes: Route[] = [{ path: '', component: DtE2EAlert }];
+
+@NgModule({
+  declarations: [DtE2EAlert],
+  imports: [CommonModule, RouterModule.forChild(routes), DtAlertModule],
+})
+export class DtE2EAlertModule {}
+"
+`;
+
+exports[`Add E2E Component should generate files with the appropriate content 4`] = `
+"/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the \\"License\\");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an \\"AS IS\\" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Selector } from 'testcafe';
+
+export const alert = Selector('#test-alert');
+"
+`;
+
+exports[`Add E2E Component should generate files with the appropriate content 5`] = `
+"/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the \\"License\\");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an \\"AS IS\\" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-e2e-alert',
+  templateUrl: 'alert.html',
+})
+export class DtE2EAlert {}
+"
+`;

@@ -21,7 +21,7 @@ import {
   Style,
 } from '@schematics/angular/application/schema';
 import { Schema as WorkspaceOptions } from '@schematics/angular/workspace/schema';
-import { addFixtureToTree } from '.';
+import { addFixtureToTree } from './fixture';
 import { runExternalSchematic } from './run-schematic';
 
 export async function createWorkspace(tree?: Tree): Promise<UnitTestTree> {

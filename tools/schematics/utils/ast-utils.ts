@@ -23,51 +23,6 @@ import { DtComponentOptions } from '../dt-component/schema';
 import { commitChanges, InsertChange } from './change';
 import { addNavItem } from './nav-items';
 
-export function getSourceFile(host: Tree, path: string): ts.SourceFile {
-  const buffer = host.read(path);
-  if (!buffer) {
-    throw new SchematicsException(`File ${path} does not exist.`);
-  }
-  const content = buffer.toString();
-  return ts.createSourceFile(path, content, ts.ScriptTarget.Latest, true);
-}
-
-/**
- * Find all nodes from the AST in the subtree of node of SyntaxKind kind.
- */
-export function findNodes(
-  node: ts.Node,
-  kind: ts.SyntaxKind,
-  max: number = Infinity,
-): ts.Node[] {
-  if (!node || max === 0) {
-    return [];
-  }
-
-  const arr: ts.Node[] = [];
-  if (node.kind === kind) {
-    arr.push(node);
-    max--;
-  }
-  if (max > 0) {
-    for (const child of node.getChildren()) {
-      // tslint:disable-next-line: no-shadowed-variable
-      findNodes(child, kind, max).forEach((node: ts.Node) => {
-        if (max > 0) {
-          arr.push(node);
-        }
-        max--;
-      });
-
-      if (max <= 0) {
-        break;
-      }
-    }
-  }
-
-  return arr;
-}
-
 /**
  * Get all the nodes from a source.
  */
@@ -128,23 +83,6 @@ export function addDynatraceAngularComponentsImport(
   const indentation = getIndentation(lastNamedImport.elements);
   const toInsert = `${indentation}${symbolName},`;
   return new InsertChange(path, end, toInsert);
-}
-
-/**
- * Gets the indentation string for the last entry in NodeArray
- */
-export function getIndentation(
-  elements: ts.NodeArray<any> | ts.Node[],
-): string {
-  let indentation = '\n';
-  if (elements.length > 0) {
-    const text = elements[elements.length - 1].getFullText();
-    const matches = text.match(/^\r?\n\s*/);
-    if (matches && matches.length > 0) {
-      indentation = matches[0];
-    }
-  }
-  return indentation;
 }
 
 export function addImport(

@@ -5,6 +5,7 @@
 /apps/demos/src/nav-items.template
 
 /tools/schematics/*/files/**/*
+/libs/workspace/src/schematics/*/files/**/*
 
 /test/**/*
 /tools/stylelint/**/*

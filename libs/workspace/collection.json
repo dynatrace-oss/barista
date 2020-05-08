@@ -2,5 +2,12 @@
   "$schema": "../../node_modules/@angular-devkit/schematics/collection-schema.json",
   "name": "workspace",
   "version": "0.0.1",
-  "schematics": {}
+  "schematics": {
+    "dt-components-e2e": {
+      "description": "Create a new e2e setup in the components-e2e app for a given component name",
+      "factory": "./src/schematics/dt-component-e2e/index",
+      "schema": "./src/schematics/dt-component-e2e/schema.json",
+      "aliases": ["dt-e2e"]
+    }
+  }
 }
