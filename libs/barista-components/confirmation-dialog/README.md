@@ -87,6 +87,14 @@ To make our components accessible it is obligatory to provide either an
 | ------ | --------------- | ------- | -------------------------------------------------------------------------------------- |
 | `name` | `string | null` | `null`  | The name of the state that corresponds to this `dt-confirmation-dialog-state` element. |
 
+## Methods
+
+### dt-confirmation-dialog
+
+| Name               | Description                                  | Return value |
+| ------------------ | -------------------------------------------- | ------------ |
+| `focusAttention()` | Animates the dialog to focus user attention. | `void`       |
+
 ## Behavior
 
 <ba-ux-snippet name="confirmation-dialog-behavior"></ba-ux-snippet>

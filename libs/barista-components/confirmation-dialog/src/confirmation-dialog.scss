@@ -1,12 +1,15 @@
 @import '../../core/src/style/variables';
-@import './confirmation-dialog-responsive';
+
+.dt-confirmation-dialog-wrapper {
+  width: 100%;
+  padding: 16px;
+}
 
 .dt-confirmation-dialog-container {
-  @include dt-confirmation-dialog-responsive();
-  position: absolute;
-  background-color: $gray-700;
+  background-color: $gray-800;
   color: #ffffff;
-  width: 100%;
   vertical-align: middle;
-  bottom: 0;
+  border-radius: 3px;
+  box-shadow: 0 4px 12px 0 #00000066;
+  min-height: 54px;
 }

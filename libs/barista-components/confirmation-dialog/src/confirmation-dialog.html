@@ -1,11 +1,14 @@
 <ng-template>
-  <div
-    class="dt-confirmation-dialog-container"
-    dtTheme=":dark"
-    [attr.aria-label]="ariaLabel"
-    [attr.aria-labelledby]="ariaLabelledBy"
-    [@pop]="_positionState"
-  >
-    <ng-content></ng-content>
+  <div class="dt-confirmation-dialog-wrapper" [@pop]="_positionState">
+    <div
+      class="dt-confirmation-dialog-container"
+      dtTheme=":dark"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledBy"
+      [@wiggle]="_wiggleState"
+      (@wiggle.done)="_wiggleState = false"
+    >
+      <ng-content></ng-content>
+    </div>
   </div>
 </ng-template>
