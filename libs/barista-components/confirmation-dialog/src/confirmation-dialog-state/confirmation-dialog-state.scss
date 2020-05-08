@@ -1,24 +1,15 @@
 @import '../../../core/src/theming/theming';
-@import '../confirmation-dialog-responsive';
 
 .dt-confirmation-dialog-state-container {
-  @include dt-confirmation-dialog-responsive();
-  align-items: center;
-  display: flex;
-  justify-content: flex-end;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 0 16px 0 0;
+  display: block;
+  position: relative;
+  padding: 16px;
 }
 
 .dt-confirmation-dialog-state-container
   ::ng-deep
   .dt-confirmation-dialog-actions {
   display: flex;
-  justify-content: flex-end;
-  padding: 0 0 0 20px;
-  width: 100%; // forces the actions to wrap to bottom.
 }
 
 .dt-confirmation-dialog-state-container

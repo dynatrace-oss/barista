@@ -21,6 +21,7 @@ import { DtConfirmationDialog } from '@dynatrace/barista-components/confirmation
 @Component({
   templateUrl: 'confirmation-dialog-demo.component.html',
   selector: 'confirmation-dialog-dev-app-demo',
+  styleUrls: ['confirmation-dialog-demo.component.scss'],
 })
 export class ConfirmationDialogDemo {
   // the dialog's state input is bound to this field.
@@ -32,8 +33,8 @@ export class ConfirmationDialogDemo {
 
   dynamic = false;
 
-  @ViewChild(DtConfirmationDialog, { static: true })
-  dialog: DtConfirmationDialog;
+  @ViewChild('confirmationDialog', { static: true })
+  confirmationDialog: DtConfirmationDialog;
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
@@ -73,11 +74,16 @@ export class ConfirmationDialogDemo {
       this.showBackdrop = true;
       event.stopPropagation();
       event.preventDefault();
+      this.confirmationDialog.focusAttention();
     }
   }
 
   changeToDynamic(): void {
     this.dynamic = true;
     this.dialogState = 'dynamic';
+  }
+
+  toggleDirty(): void {
+    this.dialogState = this.dialogState == 'dirty' ? null : 'dirty';
   }
 }
