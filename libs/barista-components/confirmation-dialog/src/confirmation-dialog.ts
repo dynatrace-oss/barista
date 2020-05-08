@@ -16,6 +16,7 @@
 
 import {
   animate,
+  keyframes,
   state,
   style,
   transition,
@@ -51,6 +52,7 @@ import {
   DtUiTestConfiguration,
   dtSetUiTestAttribute,
   DT_UI_TEST_CONFIG,
+  DtViewportResizer,
 } from '@dynatrace/barista-components/core';
 
 import {
@@ -83,7 +85,7 @@ const LOG: DtLogger = DtLoggerFactory.create('DtConfirmationDialog');
       state(
         'down',
         style({
-          transform: `translateY(100%)`,
+          transform: 'translateY(100%)',
         }),
       ),
       transition('up => down', [
@@ -92,6 +94,20 @@ const LOG: DtLogger = DtLoggerFactory.create('DtConfirmationDialog');
       transition('down => up', [
         animate(`${DT_CONFIRMATION_POP_DURATION}ms ease`),
       ]),
+    ]),
+    trigger('wiggle', [
+      transition(
+        'false => true',
+        animate(
+          '400ms',
+          keyframes([
+            style({ transform: 'translateX(-4px)', offset: 0.2 }),
+            style({ transform: 'translateX( 3px)', offset: 0.4 }),
+            style({ transform: 'translateX(-2px)', offset: 0.6 }),
+            style({ transform: 'translateX( 1px)', offset: 0.8 }),
+          ]),
+        ),
+      ),
     ]),
   ],
 })
@@ -137,6 +153,10 @@ export class DtConfirmationDialog
   private _overlayRef: OverlayRef;
   private _showBackdrop = false;
   private _stateChildrenSubscription: Subscription = Subscription.EMPTY;
+  private _viewportChangesSubscription: Subscription = Subscription.EMPTY;
+
+  /** @internal holds the state for the wiggle animation */
+  _wiggleState: boolean = false;
 
   /** @internal holds the current position state for the animation */
   _positionState: 'down' | 'up' = 'down';
@@ -146,6 +166,7 @@ export class DtConfirmationDialog
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
+    private _viewportResizer: DtViewportResizer,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
@@ -177,6 +198,12 @@ export class DtConfirmationDialog
     this.state = null;
     this._overlayRef.dispose();
     this._stateChildrenSubscription.unsubscribe();
+    this._viewportChangesSubscription.unsubscribe();
+  }
+
+  /** Triggers an animation on the confirmation dialog to focus user attention */
+  focusAttention(): void {
+    this._wiggleState = true;
   }
 
   /** Updates the children's active properties and the position of the dialog depending on the state to select */
@@ -234,21 +261,45 @@ export class DtConfirmationDialog
 
   /** Creates and attaches the overlay to the dom */
   private _createAndAttachOverlay(): void {
+    const offsetLeft = this._viewportResizer.getOffset().left;
     const positionStrategy = this._overlay
       .position()
       .global()
-      .centerHorizontally()
-      .bottom(`0px`);
+      .left(`${offsetLeft}px`)
+      .bottom('0px');
 
     const overlayRef = this._overlay.create({
       ...{
         hasBackdrop: true,
         backdropClass: 'confirmation-dialog-backdrop',
-        width: '100%',
         panelClass: 'dt-confirmation-dialog-content',
+        // if the width is set to 100% the global positionstrategy will ignore any left offset
+        // specified in the position strategy - therefore we need to use calc for the width
+        width: getOverlayWidth(offsetLeft),
       },
       positionStrategy,
     });
+
+    this._viewportChangesSubscription = this._viewportResizer
+      .change()
+      .subscribe(() => {
+        const newOffset = this._viewportResizer.getOffset().left;
+        // The width needs to be updated before the positionstrategy is updated
+        // because the positionstrategy determines the left offset based on the value
+        // of width - if width is 100%, 100vw or max-width is 100% or 100vw
+        // the left offset is always set to 0
+        this._overlayRef.updateSize({ width: getOverlayWidth(newOffset) });
+        this._overlayRef.updatePositionStrategy(
+          // We need to create a new position strategy instance here otherwise the updatePositionStrategy
+          // performs an early access and noop
+          this._overlay
+            .position()
+            .global()
+            .left(`${newOffset}px`)
+            .bottom('0px'),
+        );
+      });
+
     dtSetUiTestAttribute(
       overlayRef.overlayElement,
       overlayRef.overlayElement.id,
@@ -268,4 +319,8 @@ export class DtConfirmationDialog
     }
     this._overlayRef = overlayRef;
   }
+}
+
+function getOverlayWidth(offsetLeft: number): string {
+  return offsetLeft > 0 ? `calc(100vw - ${offsetLeft}px)` : '100vw';
 }

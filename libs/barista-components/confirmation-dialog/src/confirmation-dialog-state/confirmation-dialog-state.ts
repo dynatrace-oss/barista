@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-import { animate, style, transition, trigger } from '@angular/animations';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
 } from '@angular/core';
-
-import { DT_CONFIRMATION_FADE_DURATION } from '../confirmation-dialog-constants';
 
 @Component({
   selector: 'dt-confirmation-dialog-state',
@@ -34,24 +31,6 @@ import { DT_CONFIRMATION_FADE_DURATION } from '../confirmation-dialog-constants'
   host: {
     '[attr.aria-hidden]': '!_isActive',
   },
-  animations: [
-    trigger('fade', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(
-          `${DT_CONFIRMATION_FADE_DURATION}ms ease-in-out`,
-          style({ opacity: 1 }),
-        ),
-      ]),
-      transition(':leave', [
-        style({ opacity: 1 }),
-        animate(
-          `${DT_CONFIRMATION_FADE_DURATION}ms ease-in-out`,
-          style({ opacity: 0 }),
-        ),
-      ]),
-    ]),
-  ],
 })
 export class DtConfirmationDialogState {
   /** The name of this particular state. */

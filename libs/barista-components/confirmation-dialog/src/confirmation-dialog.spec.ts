@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -27,15 +26,13 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {
-  DT_CONFIRMATION_FADE_DURATION,
-  DT_CONFIRMATION_POP_DURATION,
-} from './confirmation-dialog-constants';
+import { DT_CONFIRMATION_POP_DURATION } from './confirmation-dialog-constants';
 import { DtConfirmationDialogModule } from './confirmation-dialog-module';
 import { DtConfirmationDialog } from './confirmation-dialog';
 import {
   DT_UI_TEST_CONFIG,
   DtUiTestConfiguration,
+  DtViewportResizer,
 } from '@dynatrace/barista-components/core';
 
 describe('ConfirmationDialogComponent', () => {
@@ -43,6 +40,9 @@ describe('ConfirmationDialogComponent', () => {
   const DOWN = 'translateY(100%)';
 
   let overlayContainerElement: HTMLElement;
+  let overlayContainer: OverlayContainer;
+  let resizer: DtViewportResizer;
+
   const overlayConfig: DtUiTestConfiguration = {
     attributeName: 'dt-ui-test-id',
     constructOverlayAttributeValue(attributeName: string): string {
@@ -53,15 +53,32 @@ describe('ConfirmationDialogComponent', () => {
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [NoopAnimationsModule, DtConfirmationDialogModule],
-      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
+      providers: [
+        {
+          provide: DT_UI_TEST_CONFIG,
+          useValue: overlayConfig,
+        },
+      ],
       declarations: [TestComponent, DynamicStates, TwoDialogsComponent],
     }).compileComponents();
   }));
 
   beforeEach(inject(
-    [OverlayContainer, BreakpointObserver],
-    (oc: OverlayContainer) => {
+    [OverlayContainer, DtViewportResizer],
+    (oc: OverlayContainer, viewportResizer: DtViewportResizer) => {
+      overlayContainer = oc;
       overlayContainerElement = oc.getContainerElement();
+      resizer = viewportResizer;
+    },
+  ));
+
+  afterEach(inject(
+    [OverlayContainer],
+    (currentOverlayContainer: OverlayContainer) => {
+      // Since we're resetting the testing module in some of the tests,
+      // we can potentially have multiple overlay containers.
+      currentOverlayContainer.ngOnDestroy();
+      overlayContainer.ngOnDestroy();
     },
   ));
 
@@ -93,7 +110,6 @@ describe('ConfirmationDialogComponent', () => {
     it('should display matched dt-confirmation-dialog-state', fakeAsync(() => {
       fixture.componentInstance.testState = 'state1';
       fixture.detectChanges();
-      tick(DT_CONFIRMATION_FADE_DURATION);
       const activeState = getState(overlayContainerElement, 'state1');
       expect(activeState.textContent!.trim()).toEqual('state1');
     }));
@@ -132,7 +148,6 @@ describe('ConfirmationDialogComponent', () => {
     it('should be dimissed with ngOnDestroy ', fakeAsync(() => {
       fixture.componentInstance.testState = 'state1';
       fixture.detectChanges();
-      tick(DT_CONFIRMATION_FADE_DURATION);
       fixture.destroy();
       const dialog = getDialog(overlayContainerElement);
       expect(dialog).toBeNull();
@@ -146,9 +161,43 @@ describe('ConfirmationDialogComponent', () => {
       tick(DT_CONFIRMATION_POP_DURATION);
       fixture.componentInstance.testState = null;
       fixture.detectChanges();
-      tick(DT_CONFIRMATION_FADE_DURATION);
+      tick();
       expect((DtConfirmationDialog as any)._activeDialog).toBeNull();
       flush();
+    }));
+
+    it('should wiggle', fakeAsync(() => {
+      let componentInstance: TestComponent = fixture.componentInstance;
+      expect(componentInstance.dialog._wiggleState).toEqual(false);
+      componentInstance.dialog.focusAttention();
+      expect(componentInstance.dialog._wiggleState).toEqual(true);
+      fixture.detectChanges();
+      tick();
+      expect(componentInstance.dialog._wiggleState).toEqual(false);
+      fixture.detectChanges();
+
+      // wiggle again
+      componentInstance.dialog.focusAttention();
+      expect(componentInstance.dialog._wiggleState).toEqual(true);
+      fixture.detectChanges();
+      tick();
+      expect(componentInstance.dialog._wiggleState).toEqual(false);
+    }));
+
+    it('should react to viewport changes', fakeAsync(() => {
+      const leftOffset = 321;
+      spyOn(resizer, 'getOffset').and.returnValue({
+        left: leftOffset,
+        top: 987,
+      });
+
+      window.dispatchEvent(new Event('resize'));
+      tick(DT_CONFIRMATION_POP_DURATION);
+      fixture.detectChanges();
+      let overlayPane = overlayContainerElement.querySelector(
+        '.cdk-overlay-pane',
+      ) as HTMLElement;
+      expect(overlayPane.style.marginLeft).toBe(`${leftOffset}px`);
     }));
   });
 
@@ -185,7 +234,7 @@ describe('ConfirmationDialogComponent', () => {
 
       expect(
         (overlayContainerElement.querySelector(
-          '.dt-confirmation-dialog-container',
+          '.dt-confirmation-dialog-wrapper',
         ) as HTMLElement).style.transform,
       ).toBe('translateY(100%)');
     }));
@@ -203,7 +252,7 @@ describe('ConfirmationDialogComponent', () => {
     it('should dismiss first dialog if second becomes active', fakeAsync(() => {
       const dialogs = [].slice.apply(
         overlayContainerElement.querySelectorAll(
-          '.dt-confirmation-dialog-container',
+          '.dt-confirmation-dialog-wrapper',
         ),
       );
       expect(dialogs[0].style.transform).toEqual(UP);
@@ -250,7 +299,7 @@ function testTextContent(
 }
 
 function getDialog(oc: HTMLElement): HTMLElement {
-  return oc.querySelector('.dt-confirmation-dialog-container') as HTMLElement;
+  return oc.querySelector('.dt-confirmation-dialog-wrapper') as HTMLElement;
 }
 
 function getState(oc: HTMLElement, name: string): HTMLElement {
@@ -267,6 +316,7 @@ function getState(oc: HTMLElement, name: string): HTMLElement {
       dt-ui-test-id="confirmation-dialog"
       [state]="testState"
       [showBackdrop]="showBackdrop"
+      #dialog
     >
       <dt-confirmation-dialog-state name="state1">
         state1
@@ -280,6 +330,9 @@ function getState(oc: HTMLElement, name: string): HTMLElement {
 class TestComponent {
   testState: string | null = 'state1';
   showBackdrop: boolean;
+
+  @ViewChild('dialog', { static: true })
+  dialog: DtConfirmationDialog;
 }
 
 /** test component */
