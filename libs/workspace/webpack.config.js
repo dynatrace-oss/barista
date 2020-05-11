@@ -13,6 +13,7 @@ const entries = [
   'src/builders/stylelint/index.ts',
   'src/builders/design-tokens/build/index.ts',
   'src/builders/design-tokens/package/index.ts',
+  'src/builders/design-tokens/dependency-tree/index.ts',
   'src/builders/elements/index.ts',
   'src/index.ts',
 ];

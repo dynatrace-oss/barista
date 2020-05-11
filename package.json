@@ -147,6 +147,7 @@
     "extract-loader": "^5.0.1",
     "glob": "^7.1.6",
     "highcharts": "^7.2.1",
+    "gonzales-pe": "^4.3.0",
     "husky": "^4.2.3",
     "inquirer": "^7.1.0",
     "jest": "^24.8.0",
