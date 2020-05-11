@@ -158,7 +158,9 @@ jobs:
           <<: *npm_cache
       - run:
           name: Install npm dependencies 🐍
-          command: npm ci --ignore-scripts &> /dev/null
+          command: |
+            npm ci --ignore-scripts &> /dev/null
+            node ./node_modules/.bin/ngcc
       - run:
           name: Build Workspace package 📦
           command: |
