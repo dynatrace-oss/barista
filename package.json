@@ -110,7 +110,7 @@
     "@octokit/rest": "^17.5.1",
     "@politie/angular-testcafe-builder": "^2.0.5",
     "@types/chalk": "^0.4.31",
-    "@types/cheerio": "^0.22.13",
+    "@types/cheerio": "^0.22.18",
     "@types/d3-array": "^2.0.0",
     "@types/d3-color": "^1.2.2",
     "@types/d3-scale": "^2.2.0",
