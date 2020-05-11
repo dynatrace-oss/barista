@@ -138,7 +138,7 @@
     "conventional-changelog": "^3.0.5",
     "conventional-changelog-angular": "^5.0.6",
     "conventional-recommended-bump": "^6.0.5",
-    "css-loader": "^3.5.2",
+    "css-loader": "^3.5.3",
     "d3-array": "^2.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.15.2",
