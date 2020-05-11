@@ -178,7 +178,7 @@
     "vrsource-tslint-rules": "^6.0.0",
     "xml2js": "^0.4.22",
     "xmlbuilder": "^15.1.1",
-    "yaml": "^1.8.3",
+    "yaml": "^1.9.2",
     "yargs": "^15.3.1"
   }
 }
