@@ -34,7 +34,7 @@ const NX_META = resolve('dist/nxdeps.json');
  * --configuration <the configuration>
  * --withDeps
  */
-export async function runParallel(): Promise<string> {
+export async function runParallel(): Promise<string | null> {
   const { CIRCLE_NODE_INDEX, CIRCLE_NODE_TOTAL } = process.env;
   const currentNode = +(CIRCLE_NODE_INDEX || 0);
   const totalNodes = +(CIRCLE_NODE_TOTAL || 1);
@@ -99,6 +99,16 @@ export async function runParallel(): Promise<string> {
     chunks = splitArrayIntoChunks(projects, chunkSize);
   }
 
+  if (!chunks[currentNode] && !Array.isArray(chunks[currentNode])) {
+    console.log(
+      `---------------------------------------------------------------\n` +
+        ` $ ${grey('Nothing to run on Node: ' + currentNode)}\n\n` +
+        `---------------------------------------------------------------\n` +
+        ``,
+    );
+    return null;
+  }
+
   const currentChunk = chunks[currentNode].join(',');
 
   const flags = [
@@ -143,8 +153,10 @@ export async function runParallel(): Promise<string> {
 // This should only run on direct execution with nodejs.
 if (!require.main?.filename) {
   runParallel()
-    .then((command: string) => {
-      execSync(command, { stdio: [0, 1, 2] });
+    .then((command: string | null) => {
+      if (command) {
+        execSync(command, { stdio: [0, 1, 2] });
+      }
     })
     .catch((error) => {
       console.error(error);
