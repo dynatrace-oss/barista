@@ -31,6 +31,11 @@
       "schema": "./src/builders/design-tokens/package/schema.json",
       "description": "Run design tokens packager"
     },
+    "design-tokens-dependency-tree": {
+      "implementation": "./src/builders/design-tokens/dependency-tree/index",
+      "schema": "./src/builders/design-tokens/dependency-tree/schema.json",
+      "description": "Run design dependency tree generator for the design tokens"
+    },
     "elements": {
       "implementation": "./src/builders/elements/index",
       "schema": "./src/builders/elements/schema.json",

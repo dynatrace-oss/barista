@@ -3705,6 +3705,15 @@
             "releasePackageJson": "libs/shared/design-tokens/package.json",
             "outputPath": "dist/libs/shared/design-tokens/"
           }
+        },
+        "dependency-tree": {
+          "builder": "./dist/libs/workspace:design-tokens-dependency-tree",
+          "options": {
+            "tokenEntrypoints": ["global/**.yml", "patterns/**.yml"],
+            "componentFiles": ["libs/fluid-elements/**/!(*.spec).ts"],
+            "outputPath": "dist/libs/shared/design-tokens-dependency-graph/",
+            "baseDirectory": "libs/shared/design-tokens/src/lib"
+          }
         }
       }
     },
