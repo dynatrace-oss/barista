@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-@import '../../../../shared/design-tokens/generated/global/palette.scss';
+@import '~@dynatrace/fluid-design-tokens/global/palette';
 
 .design-tokens-ui-input {
-  --color: #{$light-background};
-  --color-line-unfocused: #{$fluid-color-neutral--base};
-  --color-line-invalid: #{$fluid-color-negative--light};
+  --color: var(--color-maxcontrast);
+  --color-line-unfocused: var(--color-neutral-100);
+  --color-line-invalid: var(--color-error-100);
 
   height: 32px;
   background: transparent;

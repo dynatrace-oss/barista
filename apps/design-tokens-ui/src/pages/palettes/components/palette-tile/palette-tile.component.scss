@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-@import 'colors';
+@import '~@dynatrace/fluid-design-tokens/global/palette';
 
 .design-tokens-ui-color-tile-content {
   display: flex;
   flex-direction: column;
-  background-color: rgba($color: $gray-700, $alpha: 0.4);
+  background-color: var(--color-neutral-60);
   border: 1px solid transparent;
   border-radius: 2px;
   height: 100%;
@@ -30,7 +30,7 @@
 
   :hover,
   &:hover {
-    border-color: $gray-500;
+    border-color: var(--color-neutral-100);
     text-decoration: none;
 
     .design-tokens-ui-palette-shade:not(:last-of-type) {
@@ -41,7 +41,7 @@
   .design-tokens-ui-color-tile-title {
     font-size: 1rem;
     margin-bottom: 16px;
-    color: $gray-200;
+    color: var(--color-maxcontrast);
   }
 
   .design-tokens-ui-color-palette-preview {

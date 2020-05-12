@@ -14,11 +14,28 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+const LOCAL_STORAGE_THEME_KEY = 'fluid-theme';
+
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'fluid-dev-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  host: {
+    '[class]': '"fluid-theme--" + _theme',
+  },
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+  /** @internal The current global theme */
+  _theme: string = 'abyss';
+
+  ngOnInit(): void {
+    this._theme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY) ?? 'abyss';
+  }
+
+  /** @internal Saves the theme in LocalStorage when changed to avoid reset on auto reload */
+  _themeChanged(theme: string): void {
+    localStorage.setItem(LOCAL_STORAGE_THEME_KEY, theme);
+  }
+}

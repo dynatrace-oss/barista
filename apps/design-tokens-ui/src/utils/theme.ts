@@ -14,18 +14,11 @@
  * limitations under the License.
  */
 
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-import { AppComponent } from './app.component';
-import { FluidRoutingModule } from './app.routing.module';
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, FluidRoutingModule, FormsModule],
-  providers: [],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-})
-export class AppModule {}
+/** Whether the theme is set to dark in the operating system settings */
+export function userPrefersDarkTheme(): boolean {
+  if (!window.matchMedia) {
+    // Use dark theme by default
+    return true;
+  }
+  return window.matchMedia('(prefers-color-scheme: dark)').matches;
+}

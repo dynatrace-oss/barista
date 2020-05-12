@@ -14,19 +14,23 @@
  * limitations under the License.
  */
 
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { userPrefersDarkTheme } from '../utils/theme';
 
 @Component({
   selector: 'design-tokens-ui-app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent implements OnInit, OnDestroy {
   /** @internal */
   _breadcrumbs: Breadcrumb[] = [];
+
+  /** @internal The current theme */
+  _theme: string = 'abyss';
 
   private _destroy$ = new Subject<void>();
 
@@ -40,6 +44,10 @@ export class AppComponent implements OnDestroy {
         (event: NavigationEnd) =>
           (this._breadcrumbs = this._createBreadcrumbs(event.url)),
       );
+  }
+
+  ngOnInit(): void {
+    this._setTheme(userPrefersDarkTheme() ? 'abyss' : 'surface');
   }
 
   ngOnDestroy(): void {
@@ -59,6 +67,20 @@ export class AppComponent implements OnDestroy {
         url: urlPart,
       };
     });
+  }
+
+  /** @internal sets a global theme on the body */
+  _setTheme(theme: string): void {
+    const currentTheme = [...(document.body.classList as any)].find((clazz) =>
+      clazz.startsWith('fluid-theme'),
+    );
+    if (currentTheme) {
+      document.body.classList.remove(currentTheme);
+    }
+
+    document.body.classList.add(`fluid-theme--${theme}`);
+    document.body.dispatchEvent(new Event('themechange'));
+    this._theme = theme;
   }
 }
 

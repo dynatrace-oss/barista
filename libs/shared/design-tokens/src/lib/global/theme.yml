@@ -1,0 +1,356 @@
+imports:
+  - ../aliases/palette.alias.yml
+  - ../aliases/base-color.alias.yml
+
+props:
+  - name: color-background
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-background}"
+      abyss: "{!color-abyss-background}"
+  - name: color-maxcontrast
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-maxcontrast}"
+      abyss: "{!color-abyss-maxcontrast}"
+  - name: color-primary-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-primary-70}"
+      abyss: "{!color-abyss-primary-70}"
+  - name: color-primary-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-primary-80}"
+      abyss: "{!color-abyss-primary-80}"
+  - name: color-primary-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-primary-90}"
+      abyss: "{!color-abyss-primary-90}"
+  - name: color-primary-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-primary-100}"
+      abyss: "{!color-abyss-primary-100}"
+  - name: color-primary-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-primary-110}"
+      abyss: "{!color-abyss-primary-110}"
+  - name: color-primary-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-primary-120}"
+      abyss: "{!color-abyss-primary-120}"
+  - name: color-primary-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-primary-130}"
+      abyss: "{!color-abyss-primary-130}"
+  - name: color-positive-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-positive-70}"
+      abyss: "{!color-abyss-positive-70}"
+  - name: color-positive-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-positive-80}"
+      abyss: "{!color-abyss-positive-80}"
+  - name: color-positive-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-positive-90}"
+      abyss: "{!color-abyss-positive-90}"
+  - name: color-positive-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-positive-100}"
+      abyss: "{!color-abyss-positive-100}"
+  - name: color-positive-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-positive-110}"
+      abyss: "{!color-abyss-positive-110}"
+  - name: color-positive-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-positive-120}"
+      abyss: "{!color-abyss-positive-120}"
+  - name: color-positive-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-positive-130}"
+      abyss: "{!color-abyss-positive-130}"
+  - name: color-warning-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-warning-70}"
+      abyss: "{!color-abyss-warning-70}"
+  - name: color-warning-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-warning-80}"
+      abyss: "{!color-abyss-warning-80}"
+  - name: color-warning-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-warning-90}"
+      abyss: "{!color-abyss-warning-90}"
+  - name: color-warning-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-warning-100}"
+      abyss: "{!color-abyss-warning-100}"
+  - name: color-warning-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-warning-110}"
+      abyss: "{!color-abyss-warning-110}"
+  - name: color-warning-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-warning-120}"
+      abyss: "{!color-abyss-warning-120}"
+  - name: color-warning-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-warning-130}"
+      abyss: "{!color-abyss-warning-130}"
+  - name: color-error-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-error-70}"
+      abyss: "{!color-abyss-error-70}"
+  - name: color-error-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-error-80}"
+      abyss: "{!color-abyss-error-80}"
+  - name: color-error-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-error-90}"
+      abyss: "{!color-abyss-error-90}"
+  - name: color-error-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-error-100}"
+      abyss: "{!color-abyss-error-100}"
+  - name: color-error-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-error-110}"
+      abyss: "{!color-abyss-error-110}"
+  - name: color-error-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-error-120}"
+      abyss: "{!color-abyss-error-120}"
+  - name: color-error-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-error-130}"
+      abyss: "{!color-abyss-error-130}"
+  - name: color-nasty-orange-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-nasty-orange-70}"
+      abyss: "{!color-abyss-nasty-orange-70}"
+  - name: color-nasty-orange-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-nasty-orange-80}"
+      abyss: "{!color-abyss-nasty-orange-80}"
+  - name: color-nasty-orange-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-nasty-orange-90}"
+      abyss: "{!color-abyss-nasty-orange-90}"
+  - name: color-nasty-orange-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-nasty-orange-100}"
+      abyss: "{!color-abyss-nasty-orange-100}"
+  - name: color-nasty-orange-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-nasty-orange-110}"
+      abyss: "{!color-abyss-nasty-orange-110}"
+  - name: color-nasty-orange-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-nasty-orange-120}"
+      abyss: "{!color-abyss-nasty-orange-120}"
+  - name: color-nasty-orange-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-nasty-orange-130}"
+      abyss: "{!color-abyss-nasty-orange-130}"
+  - name: color-hot-pink-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-hot-pink-70}"
+      abyss: "{!color-abyss-hot-pink-70}"
+  - name: color-hot-pink-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-hot-pink-80}"
+      abyss: "{!color-abyss-hot-pink-80}"
+  - name: color-hot-pink-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-hot-pink-90}"
+      abyss: "{!color-abyss-hot-pink-90}"
+  - name: color-hot-pink-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-hot-pink-100}"
+      abyss: "{!color-abyss-hot-pink-100}"
+  - name: color-hot-pink-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-hot-pink-110}"
+      abyss: "{!color-abyss-hot-pink-110}"
+  - name: color-hot-pink-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-hot-pink-120}"
+      abyss: "{!color-abyss-hot-pink-120}"
+  - name: color-hot-pink-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-hot-pink-130}"
+      abyss: "{!color-abyss-hot-pink-130}"
+  - name: color-soylent-green-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-soylent-green-70}"
+      abyss: "{!color-abyss-soylent-green-70}"
+  - name: color-soylent-green-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-soylent-green-80}"
+      abyss: "{!color-abyss-soylent-green-80}"
+  - name: color-soylent-green-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-soylent-green-90}"
+      abyss: "{!color-abyss-soylent-green-90}"
+  - name: color-soylent-green-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-soylent-green-100}"
+      abyss: "{!color-abyss-soylent-green-100}"
+  - name: color-soylent-green-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-soylent-green-110}"
+      abyss: "{!color-abyss-soylent-green-110}"
+  - name: color-soylent-green-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-soylent-green-120}"
+      abyss: "{!color-abyss-soylent-green-120}"
+  - name: color-soylent-green-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-soylent-green-130}"
+      abyss: "{!color-abyss-soylent-green-130}"
+  - name: color-naughty-purple-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-naughty-purple-70}"
+      abyss: "{!color-abyss-naughty-purple-70}"
+  - name: color-naughty-purple-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-naughty-purple-80}"
+      abyss: "{!color-abyss-naughty-purple-80}"
+  - name: color-naughty-purple-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-naughty-purple-90}"
+      abyss: "{!color-abyss-naughty-purple-90}"
+  - name: color-naughty-purple-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-naughty-purple-100}"
+      abyss: "{!color-abyss-naughty-purple-100}"
+  - name: color-naughty-purple-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-naughty-purple-110}"
+      abyss: "{!color-abyss-naughty-purple-110}"
+  - name: color-naughty-purple-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-naughty-purple-120}"
+      abyss: "{!color-abyss-naughty-purple-120}"
+  - name: color-naughty-purple-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-naughty-purple-130}"
+      abyss: "{!color-abyss-naughty-purple-130}"
+  - name: color-neutral-50
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-50}"
+      abyss: "{!color-abyss-neutral-50}"
+  - name: color-neutral-60
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-60}"
+      abyss: "{!color-abyss-neutral-60}"
+  - name: color-neutral-70
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-70}"
+      abyss: "{!color-abyss-neutral-70}"
+  - name: color-neutral-80
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-80}"
+      abyss: "{!color-abyss-neutral-80}"
+  - name: color-neutral-90
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-90}"
+      abyss: "{!color-abyss-neutral-90}"
+  - name: color-neutral-100
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-100}"
+      abyss: "{!color-abyss-neutral-100}"
+  - name: color-neutral-110
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-110}"
+      abyss: "{!color-abyss-neutral-110}"
+  - name: color-neutral-120
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-120}"
+      abyss: "{!color-abyss-neutral-120}"
+  - name: color-neutral-130
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-130}"
+      abyss: "{!color-abyss-neutral-130}"
+  - name: color-neutral-140
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-140}"
+      abyss: "{!color-abyss-neutral-140}"
+  - name: color-neutral-150
+    value: theme-specific
+    meta:
+      surface: "{!color-surface-neutral-150}"
+      abyss: "{!color-abyss-neutral-150}"
+
+format: theme
+
+global:
+  type: number
+  category: theme
