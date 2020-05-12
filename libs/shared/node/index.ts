@@ -14,4 +14,6 @@
  * limitations under the License.
  */
 
-export * from './builders/barista-build/builder';
+export * from './src/utils';
+export * from './src/interfaces';
+export * from './src/circle-ci-api';

@@ -149,9 +149,9 @@ export async function runParallel(): Promise<string | null> {
   return command.join(' ');
 }
 
-// if filename is set the file is executed via an import or require.
 // This should only run on direct execution with nodejs.
-if (!require.main?.filename) {
+// Wont be executed when the file is imported
+if (module === require.main) {
   runParallel()
     .then((command: string | null) => {
       if (command) {

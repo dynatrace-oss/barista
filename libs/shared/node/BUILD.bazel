@@ -3,17 +3,15 @@ package(default_visibility = ["//visibility:public"])
 load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
 
 ts_library(
-    name = "shared_node",
+    name = "node",
     srcs = glob(
-        include = ["src/**/*.ts"],
+        include = ["**/*.ts"],
         exclude = [
             "**/*.spec.ts",
             "src/test-setup.ts",
         ],
     ),
     module_name = "@dynatrace/shared/node",
-    module_root = "src",
-    runtime = "node",
     tsconfig = "tsconfig_lib",
     deps = [
         "@npm//@types/node",

@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
-export * from './utils';
-export * from './interfaces';
-export * from './circle-ci-api';
+/**
+ * This library has no public API!
+ * You never should import from this library!
+ */
+export default {};

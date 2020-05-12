@@ -16,7 +16,7 @@
 import { logging } from '@angular-devkit/core';
 import { grey, green } from 'chalk';
 import { fork } from 'child_process';
-import { chunk } from 'lodash';
+import { chunk } from 'lodash-es';
 import { cpus } from 'os';
 
 /** Collects a list of routes and get the html code of it */

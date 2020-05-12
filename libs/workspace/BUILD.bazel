@@ -1,9 +1,40 @@
 package(default_visibility = ["//visibility:public"])
 
 load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
-load("@build_bazel_rules_nodejs//:index.bzl", "copy_to_bin")
+load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
+load("@build_bazel_rules_nodejs//:index.bzl", "copy_to_bin", "nodejs_binary")
 
-# Additionally to the compiled files we need the jsons files for execution
+NPM_DEPENDENCIES = [
+    "@angular-devkit/architect",
+    "@angular-devkit/build-ng-packagr",
+    "@angular-devkit/core",
+    "@angular/cli",
+    "@nrwl/workspace",
+    "@octokit/rest",
+    "@types/node",
+    "axios",
+    "chalk",
+    "d3-array",
+    "d3-cam02",
+    "d3-color",
+    "d3-hsluv",
+    "d3-scale",
+    "glob",
+    "lodash-es",
+    "lodash",
+    "memfs",
+    "rxjs",
+    "sass-graph",
+    "stylelint",
+    "theo",
+    "tslib",
+    "typescript",
+    "xml2js",
+    "xmlbuilder",
+    "yargs",
+]
+
+# Additional to the compiled files we need the jsons files for execution
 copy_to_bin(
     name = "copy_jsons",
     srcs = [
@@ -15,10 +46,44 @@ copy_to_bin(
     ),
 )
 
-ts_library(
+nodejs_binary(
+    name = "affected_args",
+    data = ["//libs/workspace"],
+    entry_point = ":src/scripts/affected-args.bundled.js",
+)
+
+# nodejs_binary(
+#     name = "run_parallel",
+#     data = ["//libs/workspace"],
+#     entry_point = ":src/scripts/run-parallel.bundled.js",
+# )
+
+rollup_bundle(
     name = "workspace",
+    args = [
+        "-e",
+        ",".join(NPM_DEPENDENCIES)
+    ],
+    config_file = ":rollup.config.js",
+    output_dir = False,
+    entry_points = {
+        "src/scripts/affected-args.ts": "src/scripts/affected-args.bundled",
+        'src/scripts/run-parallel.ts': 'src/scripts/run-parallel.bundled',
+    },
+    format = "cjs",
+    sourcemap = "false",
+    deps = [
+        "compile",
+        "@npm//@rollup/plugin-json",
+        "@npm//rollup-plugin-commonjs",
+        "@npm//rollup-plugin-node-resolve",
+    ],
+)
+
+ts_library(
+    name = "compile",
     srcs = glob(
-        include = ["src/**/*.ts"],
+        include = ["**/*.ts"],
         exclude = [
             "**/*.spec.ts",
             "src/test-setup.ts",
@@ -26,34 +91,9 @@ ts_library(
     ),
     data = [":copy_jsons"],
     module_name = "@dynatrace/workspace",
-    module_root = "src",
     tsconfig = "tsconfig_lib",
-    deps = [
-        "//libs/shared/node:shared_node",
-        "@npm//@angular-devkit/architect",
-        "@npm//@angular-devkit/build-ng-packagr",
-        "@npm//@angular-devkit/core",
-        "@npm//@angular/cli",
-        "@npm//@nrwl/workspace",
-        "@npm//@octokit/rest",
-        "@npm//@types/node",
-        "@npm//axios",
-        "@npm//chalk",
-        "@npm//d3-array",
-        "@npm//d3-cam02",
-        "@npm//d3-color",
-        "@npm//d3-hsluv",
-        "@npm//d3-scale",
-        "@npm//glob",
-        "@npm//lodash",
-        "@npm//memfs",
-        "@npm//rxjs",
-        "@npm//sass-graph",
-        "@npm//stylelint",
-        "@npm//theo",
-        "@npm//xml2js",
-        "@npm//xmlbuilder",
-        "@npm//yargs",
+    deps = ["@npm//" + dep for dep in NPM_DEPENDENCIES] + [
+        "//libs/shared/node",
     ],
 )
 

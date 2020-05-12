@@ -85,9 +85,9 @@ export async function affectedArgs(): Promise<string> {
   return FALLBACK;
 }
 
-// if filename is set the file is executed via an import or require.
 // This should only run on direct execution with nodejs.
-if (!require.main?.filename) {
+// Wont be executed when the file is imported
+if (module === require.main) {
   affectedArgs()
     .then((base) => {
       const { BASH_ENV } = process.env;
