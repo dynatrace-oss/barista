@@ -18,8 +18,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtSelectModule } from '@dynatrace/barista-components/select';
+import { DtExpandableSectionModule } from '@dynatrace/barista-components/expandable-section';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
@@ -42,9 +45,12 @@ import '@dynatrace/fluid-elements/button';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     AppRoutingModule,
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
+    DtSelectModule,
     HttpClientModule,
+    DtExpandableSectionModule,
     PaletteServicesModule,
   ],
   providers: [],

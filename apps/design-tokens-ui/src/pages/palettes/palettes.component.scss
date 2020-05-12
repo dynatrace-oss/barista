@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-@import 'variables';
+@import '~@dynatrace/fluid-design-tokens/global/palette';
+
+:host {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
 
 .design-tokens-ui-palette-tile-grid {
   display: grid;
@@ -24,9 +31,9 @@
 }
 
 .design-tokens-ui-add-palette {
-  color: $gray-200;
+  color: var(--color-maxcontrast);
   height: 140px;
-  background-color: rgba($color: $gray-700, $alpha: 0.4);
+  background-color: var(--color-neutral-60);
   border: 1px solid transparent;
   border-radius: 2px;
   padding: 24px;
@@ -43,7 +50,7 @@
 
   :hover,
   &:hover {
-    border-color: $gray-500;
+    border-color: var(--color-neutral-100);
     text-decoration: none;
   }
 
@@ -51,7 +58,7 @@
     height: 28px;
     width: 28px;
     margin-right: 12px;
-    fill: $gray-200;
+    fill: var(--color-maxcontrast);
   }
 }
 

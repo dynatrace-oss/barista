@@ -19,31 +19,34 @@
 dt-select.dt-select {
   background: transparent;
   border: none;
-  color: $light-background;
+  color: var(--color-maxcontrast);
   border-bottom: 2px solid transparent;
   border-radius: 0;
   transition: border-bottom-color ease-out 100ms;
 
   dt-icon svg {
-    fill: $light-background !important;
+    fill: var(--color-maxcontrast) !important;
   }
 
   &.cdk-focused {
     outline: none !important;
-    border-bottom-color: $light-background !important;
+    border-bottom-color: var(--color-maxcontrast) !important;
   }
 }
 
 .dt-select-panel {
   margin-top: 4px;
-  background: rgba($color: $light-background, $alpha: 0.6) !important;
+  background: rgba(
+    $color: $fluid-color-surface-background,
+    $alpha: 0.6
+  ) !important;
   border: none !important;
   border-radius: 2px !important;
   backdrop-filter: blur(0.3rem);
 }
 
 dt-option.dt-option {
-  color: black;
+  color: $fluid-color-surface-maxcontrast;
   background: transparent;
   line-height: 40px;
   padding: 0 16px;
@@ -51,6 +54,29 @@ dt-option.dt-option {
 
   &.dt-option-active,
   &:hover {
-    background: rgba($color: $light-background, $alpha: 0.8) !important;
+    background: rgba(
+      $color: $fluid-color-surface-background,
+      $alpha: 0.8
+    ) !important;
+  }
+}
+
+.fluid-theme--surface {
+  .dt-select-panel {
+    border: 1px solid $fluid-color-surface-neutral-80 !important;
+    background: rgba(
+      $color: $fluid-color-surface-background,
+      $alpha: 0.7
+    ) !important;
+  }
+
+  dt-option.dt-option {
+    &.dt-option-active,
+    &:hover {
+      background: rgba(
+        $color: $fluid-color-surface-neutral-60,
+        $alpha: 0.9
+      ) !important;
+    }
   }
 }

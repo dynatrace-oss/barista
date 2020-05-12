@@ -1,3 +1,14 @@
+<label>Theme: </label>
+<select
+  [(ngModel)]="_theme"
+  (ngModelChange)="_themeChanged($event)"
+  aria-label="Theme selection"
+  class="design-tokens-ui-theme-select"
+>
+  <option value="abyss">Abyss</option>
+  <option value="surface">Surface</option>
+</select>
+
 <nav>
   <ul>
     <li><a routerLink="/button">Button</a></li>

@@ -23,7 +23,6 @@ import { FluidPaletteSourceAlias } from '@dynatrace/shared/barista-definitions';
 import { PaletteSourceService } from '../../services/palette';
 import {
   generatePaletteContrastColors,
-  getDarkerColor,
   getTextColorOnBackground,
 } from '../../utils/colors';
 import { takeUntil } from 'rxjs/operators';
@@ -89,9 +88,9 @@ export class PaletteDetailComponent implements OnDestroy {
   get style(): SafeStyle {
     // TODO: replace with new shades when naming scheme is implemented
     return this._sanitizer.bypassSecurityTrustStyle(
-      `--color: ${this.middleColor};
-       --color-dark: ${getDarkerColor(this.middleColor)};
-       --color-darker: ${getDarkerColor(this.middleColor, 2)};`,
+      `--color: ${this.getGeneratedContrastShade(0)};
+       --color-dark: ${this.getGeneratedContrastShade(1)};
+       --color-darker: ${this.getGeneratedContrastShade(2)};`,
     );
   }
 
@@ -168,9 +167,15 @@ export class PaletteDetailComponent implements OnDestroy {
     return getTextColorOnBackground(color);
   }
 
-  /** @internal The color in the middle of the contrast spectrum */
-  get middleColor(): string {
-    return this._contrastColors[Math.floor(this._contrastColors.length / 2)];
+  /**
+   * @internal Retrieve a contast shade relative to the base color
+   * @param shadeRelativeToBase zero for the base shade a negative or positive number
+   * for a lower or higher contrast compared to the base shade
+   */
+  getGeneratedContrastShade(shadeRelativeToBase: number): string {
+    // The base shade is located at the middle
+    const baseShadeIndex = Math.floor(this._contrastColors.length / 2);
+    return this._contrastColors[baseShadeIndex + shadeRelativeToBase];
   }
 
   /** @internal Adobe Leonardo URL for the current color palette */
