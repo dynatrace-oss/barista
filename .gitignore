@@ -66,3 +66,7 @@ Thumbs.db
 /tools/bitbucket-tools/dist/
 
 .now
+
+
+# bazel
+bazel-*
