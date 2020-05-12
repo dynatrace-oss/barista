@@ -24,9 +24,12 @@ $top-bar-margin-bottom: 12px;
   width: 100%;
   height: 100%;
   font-family: 'Roboto', sans-serif;
-  // TODO: replace with design tokens
-  background-color: $gray-900;
-  background: linear-gradient(90deg, $gray-860 0%, $gray-900 20%);
+  background-color: var(--color-neutral-50);
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-50) 0%,
+    var(--color-background) 20%
+  );
 }
 
 .design-tokens-ui-top-bar {
@@ -34,6 +37,9 @@ $top-bar-margin-bottom: 12px;
   margin-bottom: $top-bar-margin-bottom;
   height: $top-bar-navigation-height;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 }
 
 .design-tokens-ui-nav {
@@ -49,7 +55,10 @@ $top-bar-margin-bottom: 12px;
   );
 }
 
-.dt-button.dt-button-secondary:hover {
-  // TODO: replace with design tokens
-  background-color: $gray-800;
+.design-tokens-ui-theme-switcher {
+  display: inline-block;
+  font-size: 14px;
+  margin-bottom: 2px;
+  margin-right: 8px;
+  color: var(--color-neutral-140);
 }

@@ -39,8 +39,6 @@ import {
   easeOut,
 } from '../../../../utils/math';
 
-const TRANSPARENT_WHITE = `rgba(255, 255, 255, 0.5)`;
-
 @Component({
   selector: 'design-tokens-ui-contrast-distribution-curve',
   templateUrl: './contrast-distribution-curve.component.html',
@@ -96,7 +94,10 @@ export class ConstrastDistributionCurveComponent
   ngAfterViewInit(): void {
     merge(
       this._stateChanges$.pipe(debounceTime(200), mapTo(true)),
-      fromEvent(window, 'resize').pipe(debounceTime(300), mapTo(false)),
+      merge(
+        fromEvent(window, 'resize').pipe(debounceTime(300)),
+        fromEvent(document.body, 'themechange'),
+      ).pipe(mapTo(false)),
     )
       .pipe(startWith(true), takeUntil(this._destroy$))
       .subscribe((animate: boolean) => {
@@ -209,16 +210,17 @@ export class ConstrastDistributionCurveComponent
     this._drawGrid(context);
 
     // Leave some space on the edges to avoid cutoff
-    context.translate(0.015, 0.015);
-    context.scale(0.97, 0.97);
+    context.translate(0, 0.005);
+    context.scale(1, 0.99);
 
     this._drawCurve(context);
-    this._drawBlobs(context);
   }
 
   /** Draws the background grid */
   private _drawGrid(context: CanvasRenderingContext2D): void {
-    context.strokeStyle = TRANSPARENT_WHITE;
+    context.strokeStyle = getComputedStyle(context.canvas).getPropertyValue(
+      '--color-neutral-100',
+    );
     context.lineWidth = 0.0025;
 
     context.beginPath();
@@ -235,7 +237,9 @@ export class ConstrastDistributionCurveComponent
     // Curve
     context.beginPath();
 
-    context.strokeStyle = 'white';
+    context.strokeStyle = getComputedStyle(context.canvas).getPropertyValue(
+      '--color-maxcontrast',
+    );
     context.lineWidth = 0.0075;
     context.moveTo(0, this._interpolateAnimation(0));
 
@@ -245,62 +249,6 @@ export class ConstrastDistributionCurveComponent
     }
     context.stroke();
     context.closePath();
-  }
-
-  /** Draw indicators where the interpolation values are calculated */
-  private _drawBlobs(context: CanvasRenderingContext2D): void {
-    const radius = 0.015;
-    context.lineWidth = 0.0025;
-
-    // First and last
-    context.fillStyle = TRANSPARENT_WHITE;
-    context.strokeStyle = 'white';
-
-    context.beginPath();
-    context.ellipse(
-      0,
-      this._interpolateAnimation(0),
-      radius,
-      radius,
-      0,
-      0,
-      360,
-    );
-    context.fill();
-    context.stroke();
-
-    context.beginPath();
-    context.ellipse(
-      1,
-      this._interpolateAnimation(1),
-      radius,
-      radius,
-      0,
-      0,
-      360,
-    );
-    context.fill();
-    context.stroke();
-
-    // In-between
-    const distributionsToDraw = this.distributionCount - 1;
-    context.fillStyle = TRANSPARENT_WHITE;
-    context.strokeStyle = 'white';
-    for (let i = 1; i < distributionsToDraw; i++) {
-      const relativePos = i / distributionsToDraw;
-      context.beginPath();
-      context.ellipse(
-        relativePos,
-        this._interpolateAnimation(relativePos),
-        radius,
-        radius,
-        0,
-        0,
-        360,
-      );
-      context.fill();
-      context.stroke();
-    }
   }
 
   /** Interpolate between the two animated states with the given upper and lower easing functions and exponents */

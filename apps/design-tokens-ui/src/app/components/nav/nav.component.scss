@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-@import 'variables.scss';
 @import '../../../styles/variables.scss';
 
 $default-width: 96px;
@@ -32,15 +31,30 @@ $logo-height: 28px;
     width: $expanded-width;
 
     .design-tokens-ui-nav-item {
-      border-left-color: $gray-900;
+      border-left-color: var(--color-neutral-50);
     }
 
     .design-tokens-ui-nav-item .dt-icon {
-      fill: $gray-900;
+      fill: var(--color-neutral-50);
     }
 
     .design-tokens-ui-nav-logo img {
       filter: brightness(0);
+    }
+  }
+}
+
+.fluid-theme--surface .design-tokens-ui-nav {
+  /* Invert logo brightness in surface theme */
+  .design-tokens-ui-nav-logo img {
+    filter: brightness(0);
+  }
+
+  &:hover {
+    background-color: rgba($color: black, $alpha: 0.65);
+
+    .design-tokens-ui-nav-logo img {
+      filter: brightness(1);
     }
   }
 }
@@ -64,7 +78,7 @@ $logo-height: 28px;
   height: 48px;
   padding-left: 38px;
   opacity: 60%;
-  color: $gray-900;
+  color: var(--color-neutral-50);
   text-decoration: none;
   font-size: 1rem;
   transition: border-left-color 200ms;
@@ -73,13 +87,13 @@ $logo-height: 28px;
     width: 48px;
     display: inline-block;
     margin-right: 12px;
-    fill: $text-color;
+    fill: var(--color-neutral-150);
     transition: fill 200ms;
   }
 
   &:hover,
   &.design-tokens-ui-router-active {
-    border-left: 4px solid $text-color;
+    border-left: 4px solid var(--color-neutral-150);
     padding-left: 38px - 4px;
   }
 
