@@ -18,9 +18,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-secondary-nav-active',
-  styleUrls: ['./secondary-nav-active-example.scss'],
   templateUrl: './secondary-nav-active-example.html',
 })
-export class DtExampleSecondaryNavActive {
-  active = true;
-}
+export class DtExampleSecondaryNavActive {}

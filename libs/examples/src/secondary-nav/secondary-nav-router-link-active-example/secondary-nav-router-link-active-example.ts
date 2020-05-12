@@ -17,7 +17,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'dt-example-secondary-nav-expandable',
-  templateUrl: './secondary-nav-expandable-example.html',
+  selector: 'dt-example-secondary-nav-router-link-active',
+  templateUrl: './secondary-nav-router-link-active-example.html',
 })
-export class DtExampleSecondaryNavExpandable {}
+export class DtExampleSecondaryNavRouterLinkActive {}

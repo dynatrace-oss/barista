@@ -16,25 +16,51 @@ $dt-secondarynav-header-padding-left: 20px;
   font-weight: normal;
   margin: 0;
   display: block;
+  padding: 36px 0 24px 20px;
   padding: $dt-secondarynav-header-padding-top 0
     $dt-secondarynav-header-padding-bottom $dt-secondarynav-header-padding-left;
-}
-
-.dt-secondary-nav-action {
-  display: none;
 }
 
 .dt-secondary-nav-section {
   display: block;
 }
 
+.dt-secondary-nav-section .dt-secondary-nav-link {
+  color: $gray-700;
+  font-size: 14px;
+  line-height: 30px;
+  display: block;
+  text-decoration: none;
+  padding: 0;
+  border: 0;
+  height: auto;
+}
+
+.dt-secondary-nav-section .dt-secondary-nav-link:hover {
+  color: $turquoise-600;
+  background: none;
+  text-decoration: none;
+}
+
+.dt-secondary-nav-section .dt-secondary-nav-link.dt-secondary-nav-active {
+  font-weight: 700;
+  color: $turquoise-600;
+  background: none;
+}
+
+.dt-secondary-nav-section .dt-secondary-nav-link.dt-secondary-nav-active::after,
+.dt-secondary-nav-section
+  .dt-secondary-nav-link.dt-secondary-nav-active::before {
+  display: none;
+}
+
 .dt-secondary-nav-section-header {
   text-decoration: none;
   outline: none;
   height: 56px;
-  font-size: 15px;
+  font-size: 14px;
   color: $gray-700;
-  padding: 8px 0 8px 20px;
+  padding: 8px 0 8px 16px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -48,10 +74,13 @@ $dt-secondarynav-header-padding-left: 20px;
   font-family: inherit;
   align-items: unset;
   text-align: left;
+
+  @media (min-width: 460px) {
+    padding-left: 20px;
+  }
 }
 
 .dt-secondary-nav-section-header dt-icon {
-  display: none;
   width: 20px;
   height: 20px;
   position: absolute;
@@ -62,6 +91,19 @@ $dt-secondarynav-header-padding-left: 20px;
   fill: $turquoise-600;
   pointer-events: none;
   transition: all 150ms ease;
+}
+
+.dt-secondary-nav-section-header:hover {
+  background: $gray-200;
+  text-decoration: none;
+}
+
+.dt-secondary-nav-section-header:hover .dt-secondary-nav-section-title {
+  color: $turquoise-700;
+}
+.dt-secondary-nav-section-header .dt-secondary-nav-section-title {
+  // 52px represents the width of the dt-icon plus the padding around it
+  width: calc(100% - 52px);
 }
 
 .dt-secondary-nav-section-title {
@@ -108,82 +150,68 @@ $dt-secondarynav-header-padding-left: 20px;
 }
 
 .dt-secondary-nav-link {
-  color: $gray-700;
-  font-size: 14px;
-  line-height: 30px;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-decoration: none;
+  outline: none;
+  height: 56px;
+  padding: 8px 0 8px 20px;
+  border-width: 1px 0 0;
+  border-style: solid;
+  border-color: $gray-200;
+  color: $gray-700;
 }
 
 .dt-secondary-nav-link:hover {
-  color: $turquoise-600;
+  background: $gray-200;
   text-decoration: none;
 }
 
-.dt-secondary-nav-link.dt-secondary-nav-active {
-  font-weight: 700;
-  color: $turquoise-600;
-}
-
-// Expandable state
-.dt-secondary-nav-section.dt-secondary-nav-section-expandable
-  .dt-secondary-nav-section-header
-  dt-icon {
-  display: block;
-}
-
-.dt-secondary-nav-section.dt-secondary-nav-section-expandable
-  .dt-secondary-nav-section-title {
-  width: calc(100% - 52px);
-}
-
-.dt-secondary-nav-section.dt-secondary-nav-section-expandable
-  .dt-secondary-nav-section-description {
-  width: calc(100% - 52px);
+.dt-secondary-nav-link:hover .dt-secondary-nav-section-title {
+  color: $turquoise-700;
 }
 
 // Active state
+.dt-secondary-nav-active,
 .dt-secondary-nav-section.dt-secondary-nav-section-active {
   position: relative;
 }
 
+.dt-secondary-nav-active::after,
+.dt-secondary-nav-active::before,
 .dt-secondary-nav-section.dt-secondary-nav-section-active::after,
 .dt-secondary-nav-section.dt-secondary-nav-section-active::before {
   content: '';
   position: absolute;
   width: 100%;
   z-index: 1;
+  left: 0;
 }
 
+.dt-secondary-nav-active::before,
 .dt-secondary-nav-section.dt-secondary-nav-section-active::before {
   border-top: 1px solid $turquoise-600;
   top: 0;
 }
 
+.dt-secondary-nav-active::after,
 .dt-secondary-nav-section.dt-secondary-nav-section-active::after {
   border-bottom: 1px solid $turquoise-600;
   bottom: -1px;
 }
 
+.dt-secondary-nav-active,
 .dt-secondary-nav-section.dt-secondary-nav-section-active
   .dt-secondary-nav-section-header {
   background: $gray-200;
 }
 
+.dt-secondary-nav-active .dt-secondary-nav-section-title,
 .dt-secondary-nav-section.dt-secondary-nav-section-active
   .dt-secondary-nav-section-header
   .dt-secondary-nav-section-title {
   font-weight: 700;
-}
-
-// Hover state
-.dt-secondary-nav-section-header:hover {
-  background: $gray-200;
-  text-decoration: none;
-}
-
-.dt-secondary-nav-section-header:hover .dt-secondary-nav-section-title {
-  color: $turquoise-700;
 }
 
 // Expanded state

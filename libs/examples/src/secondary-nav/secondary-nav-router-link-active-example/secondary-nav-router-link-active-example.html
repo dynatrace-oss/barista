@@ -1,4 +1,4 @@
-<dt-secondary-nav aria-label="Active Section Secondary Nav Example">
+<dt-secondary-nav aria-label="Router Link Active Secondary Nav Example">
   <dt-secondary-nav-title>Settings</dt-secondary-nav-title>
   <dt-secondary-nav-section>
     <dt-secondary-nav-section-title>
@@ -7,7 +7,13 @@
     <dt-secondary-nav-section-description>
       Setup and overview
     </dt-secondary-nav-section-description>
-    <a dtSecondaryNavLink [dtSecondaryNavLinkActive]="true" routerLink="/">
+    <a
+      routerLinkActive
+      dtSecondaryNavLink
+      #rla="routerLinkActive"
+      routerLink="/components/secondary-nav"
+      [dtSecondaryNavLinkActive]="rla.isActive"
+    >
       Monitored technologies
     </a>
     <a dtSecondaryNavLink routerLink="/">Monitoring overview</a>

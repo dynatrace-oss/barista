@@ -32,15 +32,6 @@ import { takeUntil } from 'rxjs/operators';
 import { DtSecondaryNavSection } from './section/secondary-nav-section';
 
 @Directive({
-  selector: '[dtSecondaryNavLink]',
-  host: {
-    class: 'dt-secondary-nav-link',
-  },
-  exportAs: 'dtSecondaryNavLink',
-})
-export class DtSecondaryNavLink {}
-
-@Directive({
   selector: 'dt-secondary-nav-title',
   host: {
     class: 'dt-secondary-nav-title',

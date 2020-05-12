@@ -51,16 +51,6 @@ To make our components accessible it is obligatory to provide either an
 
 ## DtSecondaryNavSection
 
-### Inputs
-
-| Name         | Type      | Description                                                      |
-| ------------ | --------- | ---------------------------------------------------------------- |
-| `expanded`   | `boolean` | Whether or not the section is expanded.                          |
-| `expandable` | `boolean` | Whether or not the section can be expanded.                      |
-| `active`     | `boolean` | Whether or not the section is active and is highlighted.         |
-| `external`   | `boolean` | Whether or not the section link routes internally or externally. |
-| `href`       | `string`  | The router path or URL used for navigation.                      |
-
 ### Outputs
 
 | Name           | Type                    | Description                                     |
@@ -77,6 +67,14 @@ To make our components accessible it is obligatory to provide either an
 | ------- | -------- | ------------------------------------------------------------------------ |
 | `label` | `string` | The value used in the group label, displayed above the cluster of links. |
 
+## DtSecondaryNavLinkActive
+
+### Inputs
+
+| Name                       | Type      | Description                                                                          |
+| -------------------------- | --------- | ------------------------------------------------------------------------------------ |
+| `dtSecondaryNavLinkActive` | `boolean` | Whether or not a link should be active which would set the entire section to active. |
+
 ## Multiple sections open simultaneously
 
 By default, only one section can be opened at a time unless the `multi` input is
@@ -86,29 +84,26 @@ added to `<dt-secondary-nav>`.
 
 ## Setting an active section and link
 
-In order to set the section to a highlighted active state, the
-`<dt-secondary-nav-section>` has a `active` input that can be used as a
-directive or as an input. In order to set a `dtSecondaryNavLink` to a
-highlighted active state, you must add the following css class:
-`dt-secondary-nav-active`.
+In order to set the section to a highlighted active state, simply add the
+`dtSecondaryNavLinkActive` directive to any link in the nav, section, or groups.
+This will cause the element to be styled in the active design.
 
 <ba-live-example name="DtExampleSecondaryNavActive"></ba-live-example>
 
+## Using Angular RouterLinkActive
+
+In order to dynamically expand and activate a section or a link, you an use the
+`routerLinkActive` directive directly on a link inside or outside of a group.
+
+<ba-live-example name="DtExampleSecondaryNavRouterLinkActive"></ba-live-example>
+
 ## Setting external links
 
-`<dt-secondary-nav>` can be used to route to external links when the
-`expandable` input is not included or set to false. Then you must use the
-`external` input.
+`<dt-secondary-nav>` can be used to route to external links. Instead of using
+`<dt-secondary-nav-section>`, use an anchor with the `dtSecondaryNavLink`
+directive.
 
 <ba-live-example name="DtExampleSecondaryNavExternal"></ba-live-example>
-
-## Disabling expandable sections
-
-In order to disable the expanding behavior of a section and use it as a regular
-menu link, do not include the `expandable` input on
-`<dt-secondary-nav-section>`.
-
-<ba-live-example name="DtExampleSecondaryNavExpandable"></ba-live-example>
 
 ## Removing the title
 

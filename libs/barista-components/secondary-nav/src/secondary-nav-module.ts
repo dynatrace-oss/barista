@@ -16,33 +16,34 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtExpandablePanelModule } from '@dynatrace/barista-components/expandable-panel';
-import {
-  DtSecondaryNav,
-  DtSecondaryNavTitle,
-  DtSecondaryNavLink,
-} from './secondary-nav';
+import { DtSecondaryNav, DtSecondaryNavTitle } from './secondary-nav';
 import {
   DtSecondaryNavSection,
   DtSecondaryNavSectionTitle,
   DtSecondaryNavSectionDescription,
 } from './section/secondary-nav-section';
 import { DtSecondaryNavGroup } from './section/secondary-nav-group';
+import {
+  DtSecondaryNavLink,
+  DtSecondaryNavLinkActive,
+} from './section/secondary-nav-link';
 
 const EXPORTED_DECLARATIONS = [
   DtSecondaryNav,
-  DtSecondaryNavTitle,
-  DtSecondaryNavSection,
-  DtSecondaryNavSectionTitle,
-  DtSecondaryNavSectionDescription,
   DtSecondaryNavLink,
   DtSecondaryNavGroup,
+  DtSecondaryNavTitle,
+  DtSecondaryNavSection,
+  DtSecondaryNavLinkActive,
+
+  DtSecondaryNavSectionTitle,
+  DtSecondaryNavSectionDescription,
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule, DtIconModule, DtExpandablePanelModule],
+  imports: [CommonModule, DtIconModule, DtExpandablePanelModule],
   exports: [...EXPORTED_DECLARATIONS],
   declarations: [...EXPORTED_DECLARATIONS],
 })

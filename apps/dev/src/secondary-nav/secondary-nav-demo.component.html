@@ -1,30 +1,59 @@
 <div class="secondary-nav-demo" style="width: 284px;">
   <dt-secondary-nav aria-label="Dynamic Nav Example">
     <dt-secondary-nav-title>Dynamic example</dt-secondary-nav-title>
-    <dt-secondary-nav-section *ngFor="let section of menu" expandable>
-      <dt-secondary-nav-section-title>{{
-        section.title
-      }}</dt-secondary-nav-section-title>
-      <dt-secondary-nav-section-description>{{
-        section.description
-      }}</dt-secondary-nav-section-description>
-      <dt-secondary-nav-group
-        [label]="group.label"
-        *ngFor="let group of section.groups"
-      >
-        <ng-container *ngFor="let link of group.links">
-          <a
-            dtSecondaryNavLink
-            *ngIf="link.routerLink"
-            [routerLink]="link.routerLink"
-            >{{ link.label }}</a
-          >
-          <a dtSecondaryNavLink *ngIf="link.href" [href]="link.href">{{
-            link.label
-          }}</a>
-        </ng-container>
-      </dt-secondary-nav-group>
-    </dt-secondary-nav-section>
+
+    <ng-container *ngFor="let section of menu">
+      <dt-secondary-nav-section *ngIf="section.groups">
+        <dt-secondary-nav-section-title>{{
+          section.title
+        }}</dt-secondary-nav-section-title>
+        <dt-secondary-nav-section-description>{{
+          section.description
+        }}</dt-secondary-nav-section-description>
+        <dt-secondary-nav-group
+          [label]="group.label"
+          *ngFor="let group of section.groups"
+        >
+          <ng-container *ngFor="let link of group.links">
+            <a
+              dtSecondaryNavLink
+              *ngIf="link.routerLink"
+              [routerLink]="link.routerLink"
+              >{{ link.label }}</a
+            >
+            <a
+              dtSecondaryNavLink
+              *ngIf="link.href"
+              [href]="link.href"
+              [dtSecondaryNavLinkActive]="link.active"
+              >{{ link.label }}</a
+            >
+          </ng-container>
+        </dt-secondary-nav-group>
+      </dt-secondary-nav-section>
+      <ng-container *ngIf="!section.groups">
+        <a
+          dtSecondaryNavLink
+          [routerLink]="section.routerLink"
+          *ngIf="section.routerLink"
+        >
+          <dt-secondary-nav-section-title>{{
+            section.title
+          }}</dt-secondary-nav-section-title>
+          <dt-secondary-nav-section-description>{{
+            section.description
+          }}</dt-secondary-nav-section-description>
+        </a>
+        <a dtSecondaryNavLink [href]="section.href" *ngIf="section.href">
+          <dt-secondary-nav-section-title>{{
+            section.title
+          }}</dt-secondary-nav-section-title>
+          <dt-secondary-nav-section-description>{{
+            section.description
+          }}</dt-secondary-nav-section-description>
+        </a>
+      </ng-container>
+    </ng-container>
   </dt-secondary-nav>
 
   <button dt-button (click)="addMenuItem()" style="margin-top: 8px;">
@@ -33,84 +62,56 @@
 
   <br /><br /><br />
 
-  <dt-secondary-nav aria-label="Settings Nav Example" [multi]="false">
-    <dt-secondary-nav-title>Settings</dt-secondary-nav-title>
+  <br /><br /><br />
 
-    <dt-secondary-nav-section expandable active>
-      <dt-secondary-nav-section-title
-        >Active Section</dt-secondary-nav-section-title
-      >
-      <dt-secondary-nav-section-description
-        >Section with only groups</dt-secondary-nav-section-description
-      >
-      <dt-secondary-nav-group label="Group 1">
-        <a
-          dtSecondaryNavLink
-          routerLink="/"
-          [class.dt-secondary-nav-active]="true"
-          >Active link in group</a
-        >
-        <a dtSecondaryNavLink href="https://google.com"
-          >External link in group</a
-        >
-      </dt-secondary-nav-group>
-      <dt-secondary-nav-group label="Group 2">
-        <a dtSecondaryNavLink routerLink="/">Link in group</a>
-        <a dtSecondaryNavLink routerLink="/">Link in group</a>
-      </dt-secondary-nav-group>
-    </dt-secondary-nav-section>
+  <dt-secondary-nav>
+    <dt-secondary-nav-title>Secondary nav</dt-secondary-nav-title>
 
-    <dt-secondary-nav-section [expandable]="true">
+    <dt-secondary-nav-section>
       <dt-secondary-nav-section-title>Section</dt-secondary-nav-section-title>
-      <dt-secondary-nav-section-description
-        >Section with only links</dt-secondary-nav-section-description
-      >
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
+      <dt-secondary-nav-section-description>
+        Description
+      </dt-secondary-nav-section-description>
+      <dt-secondary-nav-group label="Group">
+        <a dtSecondaryNavLink routerLink="/">Link</a>
+        <a dtSecondaryNavLink routerLink="/">Link</a>
+        <a dtSecondaryNavLink routerLink="/">Link</a>
+      </dt-secondary-nav-group>
     </dt-secondary-nav-section>
 
-    <dt-secondary-nav-section [expandable]="true">
+    <dt-secondary-nav-section>
       <dt-secondary-nav-section-title>Section</dt-secondary-nav-section-title>
-      <dt-secondary-nav-section-description
-        >Section with groups and links</dt-secondary-nav-section-description
+      <dt-secondary-nav-section-description>
+        Description
+      </dt-secondary-nav-section-description>
+      <a
+        routerLinkActive
+        dtSecondaryNavLink
+        #rla="routerLinkActive"
+        routerLink="/secondary-nav"
+        [dtSecondaryNavLinkActive]="rla.isActive"
       >
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
-      <dt-secondary-nav-group label="Group 1">
-        <a dtSecondaryNavLink routerLink="/">Link in group</a>
-        <a dtSecondaryNavLink routerLink="/">Link in group</a>
+        Link, rla:{{ rla.isActive }}
+      </a>
+      <dt-secondary-nav-group label="Group">
+        <a dtSecondaryNavLink routerLink="/">Link</a>
+        <a dtSecondaryNavLink routerLink="/">Link</a>
       </dt-secondary-nav-group>
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
-      <dt-secondary-nav-group label="Group 2">
-        <a dtSecondaryNavLink routerLink="/">Link in group</a>
-        <a dtSecondaryNavLink routerLink="/">Link in group</a>
+      <dt-secondary-nav-group label="Group">
+        <a dtSecondaryNavLink href="https://google.com">Link</a>
+        <a dtSecondaryNavLink href="/">Link</a>
       </dt-secondary-nav-group>
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
     </dt-secondary-nav-section>
 
-    <dt-secondary-nav-section [expandable]="true">
-      <dt-secondary-nav-section-title
-        >Section without description</dt-secondary-nav-section-title
-      >
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
-      <a dtSecondaryNavLink routerLink="/">Link without group</a>
-    </dt-secondary-nav-section>
+    <a dtSecondaryNavLink routerLink="/">
+      <dt-secondary-nav-section-title>Section</dt-secondary-nav-section-title>
+      <dt-secondary-nav-section-description>
+        Description
+      </dt-secondary-nav-section-description>
+    </a>
 
-    <dt-secondary-nav-section href="https://google.com" [external]="true">
-      <dt-secondary-nav-section-title
-        >External Link</dt-secondary-nav-section-title
-      >
-      <dt-secondary-nav-section-description
-        >Non expanding section</dt-secondary-nav-section-description
-      >
-    </dt-secondary-nav-section>
-
-    <dt-secondary-nav-section href="/">
-      <dt-secondary-nav-section-title
-        >Link without description</dt-secondary-nav-section-title
-      >
-    </dt-secondary-nav-section>
+    <a dtSecondaryNavLink href="https://google.com">
+      <dt-secondary-nav-section-title>Section</dt-secondary-nav-section-title>
+    </a>
   </dt-secondary-nav>
 </div>
