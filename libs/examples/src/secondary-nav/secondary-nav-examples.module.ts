@@ -21,19 +21,19 @@ import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtExampleSecondaryNavActive } from './secondary-nav-active-example/secondary-nav-active-example';
 import { DtExampleSecondaryNavDefault } from './secondary-nav-default-example/secondary-nav-default-example';
-import { DtExampleSecondaryNavExpandable } from './secondary-nav-expandable-example/secondary-nav-expandable-example';
 import { DtExampleSecondaryNavExternal } from './secondary-nav-external-example/secondary-nav-external-example';
 import { DtExampleSecondaryNavMulti } from './secondary-nav-multi-example/secondary-nav-multi-example';
 import { DtExampleSecondaryNavTitle } from './secondary-nav-title-example/secondary-nav-title-example';
+import { DtExampleSecondaryNavRouterLinkActive } from './secondary-nav-router-link-active-example/secondary-nav-router-link-active-example';
 import { RouterModule } from '@angular/router';
 
 export const DT_SECONDARY_NAV_EXAMPLES = [
   DtExampleSecondaryNavActive,
   DtExampleSecondaryNavDefault,
-  DtExampleSecondaryNavExpandable,
   DtExampleSecondaryNavExternal,
   DtExampleSecondaryNavMulti,
   DtExampleSecondaryNavTitle,
+  DtExampleSecondaryNavRouterLinkActive,
 ];
 
 @NgModule({
@@ -48,4 +48,4 @@ export const DT_SECONDARY_NAV_EXAMPLES = [
   declarations: [...DT_SECONDARY_NAV_EXAMPLES],
   entryComponents: [...DT_SECONDARY_NAV_EXAMPLES],
 })
-export class DtExamplesSecondaryNAvModule {}
+export class DtExamplesSecondaryNavModule {}

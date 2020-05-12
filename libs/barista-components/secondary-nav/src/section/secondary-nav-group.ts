@@ -36,6 +36,6 @@ import {
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtSecondaryNavGroup {
-  /** The text value of the group header */
+  /** The text value of the group header. */
   @Input() label: string;
 }

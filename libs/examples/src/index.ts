@@ -236,9 +236,9 @@ import { DtExampleRadioNameGrouping } from './radio/radio-name-grouping-example/
 import { DtExampleRadioResponsive } from './radio/radio-responsive-example/radio-responsive-example';
 import { DtExampleSecondaryNavActive } from './secondary-nav/secondary-nav-active-example/secondary-nav-active-example';
 import { DtExampleSecondaryNavDefault } from './secondary-nav/secondary-nav-default-example/secondary-nav-default-example';
-import { DtExampleSecondaryNavExpandable } from './secondary-nav/secondary-nav-expandable-example/secondary-nav-expandable-example';
 import { DtExampleSecondaryNavExternal } from './secondary-nav/secondary-nav-external-example/secondary-nav-external-example';
 import { DtExampleSecondaryNavMulti } from './secondary-nav/secondary-nav-multi-example/secondary-nav-multi-example';
+import { DtExampleSecondaryNavRouterLinkActive } from './secondary-nav/secondary-nav-router-link-active-example/secondary-nav-router-link-active-example';
 import { DtExampleSecondaryNavTitle } from './secondary-nav/secondary-nav-title-example/secondary-nav-title-example';
 import { DtExampleSelectComplexValue } from './select/select-complex-value-example/select-complex-value-example';
 import { DtExampleSelectDefault } from './select/select-default-example/select-default-example';
@@ -360,7 +360,7 @@ export { DtProgressCircleExamplesModule } from './progress-circle/progress-circl
 export { DtQuickFilterExamplesModule } from './quick-filter/quick-filter-examples.module';
 export { DtRadialChartExamplesModule } from './radial-chart/radial-chart-examples.module';
 export { DtRadioExamplesModule } from './radio/radio-examples.module';
-export { DtExamplesSecondaryNAvModule } from './secondary-nav/secondary-nav-examples.module';
+export { DtExamplesSecondaryNavModule } from './secondary-nav/secondary-nav-examples.module';
 export { DtExamplesSelectModule } from './select/select-examples.module';
 export { DtExamplesShowMoreModule } from './show-more/show-more-examples.module';
 export { DtExamplesSidenavModule } from './sidenav/sidenav-examples.module';
@@ -590,9 +590,9 @@ export {
   DtExampleRadioResponsive,
   DtExampleSecondaryNavActive,
   DtExampleSecondaryNavDefault,
-  DtExampleSecondaryNavExpandable,
   DtExampleSecondaryNavExternal,
   DtExampleSecondaryNavMulti,
+  DtExampleSecondaryNavRouterLinkActive,
   DtExampleSecondaryNavTitle,
   DtExampleSelectComplexValue,
   DtExampleSelectDefault,
@@ -932,9 +932,12 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleRadioResponsive', DtExampleRadioResponsive],
   ['DtExampleSecondaryNavActive', DtExampleSecondaryNavActive],
   ['DtExampleSecondaryNavDefault', DtExampleSecondaryNavDefault],
-  ['DtExampleSecondaryNavExpandable', DtExampleSecondaryNavExpandable],
   ['DtExampleSecondaryNavExternal', DtExampleSecondaryNavExternal],
   ['DtExampleSecondaryNavMulti', DtExampleSecondaryNavMulti],
+  [
+    'DtExampleSecondaryNavRouterLinkActive',
+    DtExampleSecondaryNavRouterLinkActive,
+  ],
   ['DtExampleSecondaryNavTitle', DtExampleSecondaryNavTitle],
   ['DtExampleSelectComplexValue', DtExampleSelectComplexValue],
   ['DtExampleSelectDefault', DtExampleSelectDefault],

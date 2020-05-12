@@ -21,12 +21,16 @@ import {
   Component,
   Directive,
   EventEmitter,
-  Input,
   Output,
   ViewEncapsulation,
+  ContentChildren,
+  AfterContentInit,
+  QueryList,
+  OnDestroy,
 } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { DtSecondaryNavLinkActive } from './secondary-nav-link';
 
 @Directive({
   selector: 'dt-secondary-nav-section-title',
@@ -52,19 +56,14 @@ export class DtSecondaryNavSectionDescription {}
   templateUrl: 'secondary-nav-section.html',
   host: {
     class: 'dt-secondary-nav-section',
-    '[class.dt-secondary-nav-section-expandable]': 'expandable',
-    '[class.dt-secondary-nav-section-active]': 'active',
+    '[class.dt-secondary-nav-section-active]': '_active',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSecondaryNavSection {
-  /** The path or url used for navigation. */
-  @Input() href: string;
-
+export class DtSecondaryNavSection implements AfterContentInit, OnDestroy {
   /** Whether the section is open or closed. */
-  @Input()
   get expanded(): boolean {
     return this._expanded;
   }
@@ -78,40 +77,18 @@ export class DtSecondaryNavSection {
       this._changeDetectorRef.markForCheck();
     }
   }
+  /** Whether the section is expanded. */
   private _expanded = false;
 
-  /** Whether the section is expandable. */
-  @Input()
-  get expandable(): boolean {
-    return this._expandable;
-  }
-  set expandable(value: boolean) {
-    this._expandable = coerceBooleanProperty(value);
-  }
-  private _expandable = false;
+  /** Destroy subject that fires when the component is destroyed. */
+  private _destroy$ = new Subject<void>();
 
-  /** Whether the section is external. */
-  @Input()
-  get external(): boolean {
-    return this._external;
-  }
-  set external(value: boolean) {
-    this._external = coerceBooleanProperty(value);
-  }
-  private _external = false;
+  /** @internal Whether the section is active. */
+  _active = false;
 
-  /** Whether the section is active. */
-  @Input()
-  get active(): boolean {
-    return this._active;
-  }
-  set active(value: boolean) {
-    this._active = coerceBooleanProperty(value);
-    if (this._active && this._expandable) {
-      this.expanded = true;
-    }
-  }
-  private _active = false;
+  /** List of all active links within the section. */
+  @ContentChildren(DtSecondaryNavLinkActive, { descendants: true })
+  private _activeLinks: QueryList<DtSecondaryNavLinkActive>;
 
   /** Event emitted when the section's expandable state changes. */
   @Output() readonly expandChange = new EventEmitter<boolean>();
@@ -130,6 +107,38 @@ export class DtSecondaryNavSection {
   _sectionExpandChange$: Subject<DtSecondaryNavSection> = new Subject();
 
   constructor(private readonly _changeDetectorRef: ChangeDetectorRef) {}
+
+  ngAfterContentInit(): void {
+    this._checkForActiveStates();
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
+  /** @internal Check if sections has any active links or groups with active links within them */
+  _checkForActiveStates(): void {
+    // Check if section has any active links, and activate + expand the entire section
+    // Includes a setTimeout((), 0) because the RouterLinkActive directive uses Promise.resolve().then(())
+    // https://github.com/angular/angular/blob/master/packages/router/src/directives/router_link_active.ts#L125
+    setTimeout(() => {
+      if (
+        this._activeLinks.some(
+          (activeLink) => activeLink.dtSecondaryNavLinkActive,
+        )
+      ) {
+        this._activateAndExpandSection();
+      }
+      this._changeDetectorRef.markForCheck();
+    }, 0);
+  }
+
+  /** @internal Enable active styling and expand section */
+  _activateAndExpandSection(): void {
+    this._active = true;
+    this._expanded = true;
+  }
 
   /** @internal Emit toggle change when section is clicked. */
   _sectionExpanded(): void {

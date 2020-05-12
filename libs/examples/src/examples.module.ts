@@ -64,7 +64,7 @@ import { DtProgressCircleExamplesModule } from './progress-circle/progress-circl
 import { DtQuickFilterExamplesModule } from './quick-filter/quick-filter-examples.module';
 import { DtRadialChartExamplesModule } from './radial-chart/radial-chart-examples.module';
 import { DtRadioExamplesModule } from './radio/radio-examples.module';
-import { DtExamplesSecondaryNAvModule } from './secondary-nav/secondary-nav-examples.module';
+import { DtExamplesSecondaryNavModule } from './secondary-nav/secondary-nav-examples.module';
 import { DtExamplesSelectModule } from './select/select-examples.module';
 import { DtExamplesShowMoreModule } from './show-more/show-more-examples.module';
 import { DtExamplesSidenavModule } from './sidenav/sidenav-examples.module';
@@ -130,7 +130,7 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtQuickFilterExamplesModule,
     DtRadialChartExamplesModule,
     DtRadioExamplesModule,
-    DtExamplesSecondaryNAvModule,
+    DtExamplesSecondaryNavModule,
     DtExamplesSelectModule,
     DtExamplesShowMoreModule,
     DtExamplesSidenavModule,

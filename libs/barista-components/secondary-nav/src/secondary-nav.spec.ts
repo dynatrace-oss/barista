@@ -20,6 +20,7 @@ import {
   TestBed,
   fakeAsync,
   flush,
+  tick,
 } from '@angular/core/testing';
 import {
   Component,
@@ -33,13 +34,10 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
 import { DtSecondaryNavSection } from './section/secondary-nav-section';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createComponent } from '@dynatrace/testing/browser';
 
-describe('single section', () => {
-  let fixture: ComponentFixture<SingleSection>;
-  let trigger: HTMLElement;
-
+describe('DtSecondaryNav', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -48,164 +46,157 @@ describe('single section', () => {
         NoopAnimationsModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
-      declarations: [SingleSection],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SingleSection);
-    fixture.detectChanges();
-    trigger = fixture.debugElement.query(
-      By.css('.dt-secondary-nav-section-header'),
-    ).nativeElement;
-  });
-
-  const clickSectionHeader = () => {
-    trigger.click();
-    fixture.detectChanges();
-    flush();
-  };
-
-  it('should open the closed panel', fakeAsync(() => {
-    clickSectionHeader();
-
-    expect(fixture.componentInstance.section.expanded).toBe(true);
-  }));
-
-  it('should close the panel after it is opened', fakeAsync(() => {
-    clickSectionHeader();
-    clickSectionHeader();
-
-    expect(fixture.componentInstance.section.expanded).toBe(false);
-  }));
-});
-
-describe('single section active', () => {
-  let fixture: ComponentFixture<SingleSectionActive>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtSecondaryNavModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+      declarations: [
+        SingleSection,
+        SingleSectionActive,
+        SingleSectionNoExpand,
+        MultiSection,
+        SingleSectionWithActiveLink,
       ],
-      declarations: [SingleSectionActive],
     }).compileComponents();
   }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SingleSectionActive);
-    fixture.detectChanges();
-  });
+  describe('single section', () => {
+    let fixture: ComponentFixture<SingleSection>;
+    let trigger: HTMLElement;
 
-  it('should open the active section', fakeAsync(() => {
-    expect(fixture.componentInstance.section.expanded).toBe(true);
-  }));
-
-  it('should activate the open section', fakeAsync(() => {
-    expect(fixture.componentInstance.section.active).toBe(true);
-  }));
-});
-
-describe('single section no expand', () => {
-  let fixture: ComponentFixture<SingleSectionNoExpand>;
-  let trigger: HTMLElement;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtSecondaryNavModule,
-        HttpClientTestingModule,
-        RouterTestingModule,
-        NoopAnimationsModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [SingleSectionNoExpand],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SingleSectionNoExpand);
-    fixture.detectChanges();
-    trigger = fixture.debugElement.query(
-      By.css('.dt-secondary-nav-section-header'),
-    ).nativeElement;
-  });
-
-  it('should not open the non-expandable panel when clicked', fakeAsync(() => {
-    trigger.click();
-    fixture.detectChanges();
-    flush();
-
-    expect(fixture.componentInstance.section.expanded).toBe(false);
-  }));
-});
-
-describe('multi section', () => {
-  let fixture: ComponentFixture<MultiSection>;
-  let debugElements: DebugElement[];
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtSecondaryNavModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [MultiSection],
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MultiSection);
-    fixture.detectChanges();
-    debugElements = fixture.debugElement.queryAll(
-      By.css('.dt-secondary-nav-section-header'),
-    );
-  });
-
-  it('should open the second section', fakeAsync(() => {
-    const desiredSection = 2;
-    // Click the second section
-    debugElements.forEach((section, index) => {
-      if (index === desiredSection - 1) {
-        section.nativeElement.click();
-        fixture.detectChanges();
-        flush();
-      }
+    beforeEach(() => {
+      fixture = createComponent(SingleSection);
+      trigger = fixture.debugElement.query(
+        By.css('.dt-secondary-nav-section-header'),
+      ).nativeElement;
     });
-    // Check that the second section opened
-    fixture.componentInstance.sections.forEach(
-      (section: DtSecondaryNavSection, index) => {
+
+    const clickSectionHeader = () => {
+      trigger.click();
+      fixture.detectChanges();
+      flush();
+    };
+
+    it('should open the closed panel', fakeAsync(() => {
+      clickSectionHeader();
+
+      expect(fixture.componentInstance.section.expanded).toBe(true);
+    }));
+
+    it('should close the panel after it is opened', fakeAsync(() => {
+      clickSectionHeader();
+      clickSectionHeader();
+
+      expect(fixture.componentInstance.section.expanded).toBe(false);
+    }));
+  });
+
+  describe('single section active', () => {
+    let fixture: ComponentFixture<SingleSectionActive>;
+
+    beforeEach(() => {
+      fixture = createComponent(SingleSectionActive);
+    });
+
+    it('should open the active section', fakeAsync(() => {
+      expect(fixture.componentInstance.section.expanded).toBe(false);
+    }));
+
+    it('should activate the open section', fakeAsync(() => {
+      expect(fixture.componentInstance.section._active).toBe(false);
+    }));
+  });
+
+  describe('single section no expand', () => {
+    let fixture: ComponentFixture<SingleSectionNoExpand>;
+    let trigger: HTMLElement;
+
+    beforeEach(() => {
+      fixture = createComponent(SingleSectionNoExpand);
+      trigger = fixture.debugElement.query(
+        By.css('.dt-secondary-nav-section-header'),
+      ).nativeElement;
+    });
+
+    it('should not open the non-expandable panel when clicked', fakeAsync(() => {
+      trigger.click();
+      fixture.detectChanges();
+      flush();
+
+      expect(fixture.componentInstance.section.expanded).toBe(true);
+    }));
+  });
+
+  describe('multi section', () => {
+    let fixture: ComponentFixture<MultiSection>;
+    let debugElements: DebugElement[];
+
+    beforeEach(() => {
+      fixture = createComponent(MultiSection);
+      debugElements = fixture.debugElement.queryAll(
+        By.css('.dt-secondary-nav-section-header'),
+      );
+    });
+
+    it('should open the second section', fakeAsync(() => {
+      const desiredSection = 2;
+      // Click the second section
+      debugElements.forEach((section, index) => {
         if (index === desiredSection - 1) {
-          expect(section.expanded).toBe(true);
+          section.nativeElement.click();
+          fixture.detectChanges();
+          flush();
         }
-      },
-    );
-  }));
+      });
+      // Check that the second section opened
+      fixture.componentInstance.sections.forEach(
+        (section: DtSecondaryNavSection, index) => {
+          if (index === desiredSection - 1) {
+            expect(section.expanded).toBe(true);
+          }
+        },
+      );
+    }));
 
-  it('should not open the first section', fakeAsync(() => {
-    const desiredSection = 2;
-    // Click the second section
-    debugElements.forEach((section, index) => {
-      if (index === desiredSection - 1) {
-        section.nativeElement.click();
-        fixture.detectChanges();
-        flush();
-      }
-    });
-    // Check that the first section is not opened
-    fixture.componentInstance.sections.forEach(
-      (section: DtSecondaryNavSection, index) => {
-        if (index !== desiredSection - 1) {
-          expect(section.expanded).toBe(false);
+    it('should not open the first section', fakeAsync(() => {
+      const desiredSection = 2;
+      // Click the second section
+      debugElements.forEach((section, index) => {
+        if (index === desiredSection - 1) {
+          section.nativeElement.click();
+          fixture.detectChanges();
+          flush();
         }
-      },
-    );
-  }));
+      });
+      // Check that the first section is not opened
+      fixture.componentInstance.sections.forEach(
+        (section: DtSecondaryNavSection, index) => {
+          if (index !== desiredSection - 1) {
+            expect(section.expanded).toBe(false);
+          }
+        },
+      );
+    }));
+  });
+
+  describe('single selection with active router link', () => {
+    let fixture: ComponentFixture<SingleSectionWithActiveLink>;
+
+    beforeEach(() => {
+      fixture = TestBed.createComponent(SingleSectionWithActiveLink);
+    });
+
+    it('should have the section expanded where the active link is in', fakeAsync(() => {
+      // Set the initial value before the component is initialized
+      fixture.componentInstance.linkActive = true;
+      fixture.detectChanges();
+      tick();
+      expect(fixture.componentInstance.section.expanded).toBeTruthy();
+    }));
+
+    it('should not have the section expanded where the active link is in', fakeAsync(() => {
+      fixture.componentInstance.linkActive = false;
+      fixture.detectChanges();
+      tick();
+      expect(fixture.componentInstance.section.expanded).toBeFalsy();
+    }));
+  });
 });
 
 @Component({
@@ -213,7 +204,7 @@ describe('multi section', () => {
   template: `
     <dt-secondary-nav>
       <dt-secondary-nav-title>Secondary nav</dt-secondary-nav-title>
-      <dt-secondary-nav-section expandable>
+      <dt-secondary-nav-section>
         <dt-secondary-nav-section-title>Section</dt-secondary-nav-section-title>
         <dt-secondary-nav-section-description
           >Description</dt-secondary-nav-section-description
@@ -236,7 +227,7 @@ class SingleSection {
   template: `
     <dt-secondary-nav>
       <dt-secondary-nav-title>Secondary nav</dt-secondary-nav-title>
-      <dt-secondary-nav-section expandable active>
+      <dt-secondary-nav-section>
         <dt-secondary-nav-section-title>Section</dt-secondary-nav-section-title>
         <dt-secondary-nav-section-description
           >Description</dt-secondary-nav-section-description
@@ -246,7 +237,7 @@ class SingleSection {
           <a dtSecondaryNavLink routerLink="/">Link</a>
         </dt-secondary-nav-group>
       </dt-secondary-nav-section>
-      <dt-secondary-nav-section expandable>
+      <dt-secondary-nav-section>
         <dt-secondary-nav-section-title>Section</dt-secondary-nav-section-title>
         <dt-secondary-nav-section-description
           >Description</dt-secondary-nav-section-description
@@ -287,7 +278,7 @@ class SingleSectionNoExpand {
   template: `
     <dt-secondary-nav>
       <dt-secondary-nav-title>Secondary nav</dt-secondary-nav-title>
-      <dt-secondary-nav-section expandable>
+      <dt-secondary-nav-section>
         <dt-secondary-nav-section-title
           >Section 1</dt-secondary-nav-section-title
         >
@@ -299,7 +290,7 @@ class SingleSectionNoExpand {
           <a dtSecondaryNavLink routerLink="/">Link</a>
         </dt-secondary-nav-group>
       </dt-secondary-nav-section>
-      <dt-secondary-nav-section expandable>
+      <dt-secondary-nav-section>
         <dt-secondary-nav-section-title
           >Section 2</dt-secondary-nav-section-title
         >
@@ -317,4 +308,35 @@ class SingleSectionNoExpand {
 class MultiSection {
   @ViewChildren(DtSecondaryNavSection)
   sections: QueryList<DtSecondaryNavSection>;
+}
+
+@Component({
+  selector: 'single-section-with-active-link',
+  template: `
+    <dt-secondary-nav>
+      <dt-secondary-nav-title>Secondary nav</dt-secondary-nav-title>
+      <dt-secondary-nav-section>
+        <dt-secondary-nav-section-title>Section</dt-secondary-nav-section-title>
+        <dt-secondary-nav-section-description
+          >Description</dt-secondary-nav-section-description
+        >
+        <dt-secondary-nav-group label="Group">
+          <a dtSecondaryNavLink routerLink="/">Link</a>
+          <a
+            routerLinkActive
+            dtSecondaryNavLink
+            [dtSecondaryNavLinkActive]="linkActive"
+          >
+            Link
+          </a>
+        </dt-secondary-nav-group>
+      </dt-secondary-nav-section>
+    </dt-secondary-nav>
+  `,
+})
+class SingleSectionWithActiveLink {
+  @ViewChild(DtSecondaryNavSection, { static: true })
+  section: DtSecondaryNavSection;
+
+  linkActive = true;
 }

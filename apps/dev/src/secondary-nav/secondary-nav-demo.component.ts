@@ -21,11 +21,30 @@ import { Component } from '@angular/core';
   templateUrl: './secondary-nav-demo.component.html',
 })
 export class SecondaryNavDemo {
-  count = 3;
   menu = [
     {
-      title: 'Section 1',
-      description: 'Description 1',
+      title: 'Item 1',
+      description: 'Description',
+      groups: [
+        {
+          label: 'Group 1',
+          links: [
+            { routerLink: '/test', label: 'link 1' },
+            { href: 'https://google.com', label: 'link 2', active: true },
+          ],
+        },
+        {
+          label: 'Group 2',
+          links: [
+            { routerLink: '/', label: 'link 1' },
+            { routerLink: '/', label: 'link 2' },
+          ],
+        },
+      ],
+    },
+    {
+      title: 'Item 2',
+      description: 'Description',
       groups: [
         {
           label: 'Group 1',
@@ -44,31 +63,21 @@ export class SecondaryNavDemo {
       ],
     },
     {
-      title: 'Section 2',
-      description: 'Description 1',
-      groups: [
-        {
-          label: 'Group 1',
-          links: [
-            { routerLink: '/test', label: 'link 1' },
-            { href: 'https://google.com', label: 'link 2' },
-          ],
-        },
-        {
-          label: 'Group 2',
-          links: [
-            { routerLink: '/', label: 'link 1' },
-            { routerLink: '/', label: 'link 2' },
-          ],
-        },
-      ],
+      title: 'Item 3',
+      description: 'Non expanding link',
+      routerLink: '/',
+    },
+    {
+      title: 'Item 4',
+      description: 'Non expanding external link',
+      href: 'https://google.com',
     },
   ];
 
   addMenuItem(): void {
     this.menu.push({
-      title: `Section ${this.count} (push)`,
-      description: 'Description 1',
+      title: `Item ${this.menu.length + 1} (push)`,
+      description: 'Description',
       groups: [
         {
           label: 'Group 1',
@@ -86,6 +95,5 @@ export class SecondaryNavDemo {
         },
       ],
     });
-    this.count = this.count + 1;
   }
 }
