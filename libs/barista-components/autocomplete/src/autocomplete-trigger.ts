@@ -60,7 +60,6 @@ import {
   delay,
   filter,
   map,
-  startWith,
   switchMap,
   take,
   takeUntil,
@@ -97,7 +96,7 @@ export const DT_AUTOCOMPLETE_VALUE_ACCESSOR: Provider = {
 };
 
 /** The height of the select items. */
-export const AUTOCOMPLETE_OPTION_HEIGHT = 32;
+export const AUTOCOMPLETE_OPTION_HEIGHT = 28;
 
 /** The max height of the select's overlay panel */
 export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
@@ -210,14 +209,13 @@ export class DtAutocompleteTrigger<T>
   /** Stream of changes to the selection state of the autocomplete options. */
   readonly optionSelections: Observable<DtOptionSelectionChange<T>> = defer(
     () => {
-      const options = this.autocomplete ? this.autocomplete._options : null;
+      const options = this.autocomplete ? this.autocomplete._options$ : null;
 
       if (options) {
-        return options.changes.pipe(
-          startWith(options),
-          switchMap(() =>
+        return options.pipe(
+          switchMap((entries) =>
             merge<DtOptionSelectionChange<T>>(
-              ...options.map((option) => option.selectionChange),
+              ...entries.map((option) => option.selectionChange),
             ),
           ),
         );
@@ -564,7 +562,7 @@ export class DtAutocompleteTrigger<T>
    */
   private _subscribeToClosingActions(): Subscription {
     const firstStable = this._zone.onStable.asObservable().pipe(take(1));
-    const optionChanges = this.autocomplete._options.changes.pipe(
+    const optionChanges = this.autocomplete._options$.pipe(
       tap(() => {
         this._positionStrategy.reapplyLastPosition();
       }),
@@ -697,7 +695,6 @@ export class DtAutocompleteTrigger<T>
     const labelCount = _countGroupLabelsBeforeOption(
       index,
       this.autocomplete._options,
-      this.autocomplete._optionGroups,
     );
 
     const newScrollPosition = _getOptionScrollPosition(

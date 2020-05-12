@@ -37,12 +37,7 @@ import {
   DtAutocompleteSelectedEvent,
 } from '@dynatrace/barista-components/autocomplete';
 import { fromEvent, Subscription } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  startWith,
-} from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import {
   CanDisable,
   DtOption,
@@ -163,20 +158,10 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
         distinctUntilChanged(),
         debounceTime(150),
       )
-      .subscribe(query => this.filterChange.emit(query));
+      .subscribe((query) => this.filterChange.emit(query));
   }
 
   ngAfterViewInit(): void {
-    this._options.changes
-      .pipe(
-        startWith(this._options),
-        map((options: QueryList<DtOption<T>>) => {
-          return options?.toArray() ?? [];
-        }),
-      )
-      .subscribe(options => {
-        console.log(options);
-      });
     this._autocomplete._portal = new TemplatePortal(
       this.templatePortalContent,
       this._viewContainerRef,

@@ -108,7 +108,7 @@ let uniqueId = 0;
 const LOG: DtLogger = DtLoggerFactory.create('DtSelect');
 
 /** The height of the select items. */
-export const SELECT_ITEM_HEIGHT = 32;
+export const SELECT_ITEM_HEIGHT = 28;
 
 /** The max height of the select's overlay panel */
 export const SELECT_PANEL_MAX_HEIGHT = 256;
@@ -882,8 +882,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
       : this._getOptionIndex(this._selectionModel.selected[0])!;
     selectedOptionOffset += _countGroupLabelsBeforeOption(
       selectedOptionOffset,
-      this.options,
-      this.optionGroups,
+      this.options.toArray(),
     );
 
     // We must maintain a scroll buffer so the selected option will be scrolled to the
@@ -920,8 +919,7 @@ export class DtSelect<T> extends _DtSelectMixinBase
     const activeOptionIndex = this._keyManager.activeItemIndex || 0;
     const labelCount = _countGroupLabelsBeforeOption(
       activeOptionIndex,
-      this.options,
-      this.optionGroups,
+      this.options.toArray(),
     );
 
     this.panel.nativeElement.scrollTop = _getOptionScrollPosition(

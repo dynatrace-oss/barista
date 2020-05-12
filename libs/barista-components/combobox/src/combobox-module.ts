@@ -37,6 +37,7 @@ import { PortalModule } from '@angular/cdk/portal';
     DtInputModule,
     DtAutocompleteModule,
     DtLoadingDistractorModule,
+    PortalModule,
   ],
 })
 export class DtComboboxModule {}

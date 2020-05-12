@@ -16,10 +16,10 @@
 <div class="dt-combobox-trigger" aria-hidden="true" (click)="toggle()">
   <div class="dt-combobox-value" [ngSwitch]="empty">
     <span class="dt-combobox-placeholder" *ngSwitchCase="true">
-      {{placeholder || '\u00A0'}}
+      {{ placeholder || '\u00A0' }}
     </span>
     <span class="dt-combobox-value-text" *ngSwitchCase="false">
-      {{triggerValue || '\u00A0'}}
+      {{ triggerValue || '\u00A0' }}
     </span>
   </div>
 
