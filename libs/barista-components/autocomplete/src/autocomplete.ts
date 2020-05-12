@@ -16,7 +16,7 @@
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
+import { TemplatePortal } from '@angular/cdk/portal';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -37,7 +37,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { DtOptgroup, DtOption } from '@dynatrace/barista-components/core';
+import { DtOption } from '@dynatrace/barista-components/core';
 import { BehaviorSubject } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 
