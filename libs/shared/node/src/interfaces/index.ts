@@ -16,4 +16,3 @@
 
 export * from './package-json';
 export * from './package-lock-json';
-export * from './nx-json';

@@ -19,7 +19,8 @@ import { join } from 'path';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { catchError, map, mapTo, switchMap, tap } from 'rxjs/operators';
 import { ElementsOptions } from './schema';
-import { tryJsonParse, NxJson } from '@dynatrace/shared/node';
+import { tryJsonParse } from '@dynatrace/shared/node';
+import { NxJson } from '@nrwl/workspace';
 import { copyRootPackageJson } from '../../utils/copy-root-package-json';
 
 /**

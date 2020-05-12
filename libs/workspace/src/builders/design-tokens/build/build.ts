@@ -101,7 +101,7 @@ function runTokenConversion(
     },
   });
   return from(conversion).pipe(
-    map((convertedResult) => ({
+    map((convertedResult: string) => ({
       content: convertedResult,
       path: outputFilename,
     })),

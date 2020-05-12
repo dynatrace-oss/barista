@@ -4,5 +4,5 @@
     "types": ["node", "jest"],
     "downlevelIteration": true
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.d.ts"]
 }
