@@ -31,10 +31,12 @@
   (optionSelected)="optionSelected($event)"
   class="ba-search-autocomplete"
 >
+  <dt-optgroup label="Group 1">
+    <dt-option>First default</dt-option>
+    <dt-option>Second default</dt-option>
+  </dt-optgroup>
 </dt-autocomplete>
 
 <ng-template #autocompleteContent>
-  <div class="dt-autocomplete-panel" role="listbox">
-    <ng-content></ng-content>
-  </div>
+  <ng-content></ng-content>
 </ng-template>

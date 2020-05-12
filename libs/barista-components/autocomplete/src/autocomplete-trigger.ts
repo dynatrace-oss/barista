@@ -169,10 +169,6 @@ export class DtAutocompleteTrigger<T>
 
   /** Whether or not the autocomplete panel is open. */
   get panelOpen(): boolean {
-    console.log(
-      'panelOpen getter',
-      this._overlayAttached && this.autocomplete.showPanel,
-    );
     return this._overlayAttached && this.autocomplete.showPanel;
   }
 

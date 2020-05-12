@@ -16,7 +16,7 @@
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import {
   AfterContentInit,
   AfterViewInit,
@@ -174,16 +174,13 @@ export class DtAutocomplete<T> implements AfterContentInit, AfterViewInit {
    */
   @ViewChild('panel') _panel: ElementRef;
 
+  _additionalPortal: TemplatePortal;
+
   /**
    * @internal References to all the options that are currently applied.
    */
   @ContentChildren(DtOption, { descendants: true })
   _projectedOptions: QueryList<DtOption<T>>;
-
-  /**
-   * @interal References to all the option groups that are currently applied.
-   */
-  @ContentChildren(DtOptgroup) _optionGroups: QueryList<DtOptgroup>;
 
   get _additionalOptions(): DtOption<T>[] {
     return this._additionalOptionsInternal;

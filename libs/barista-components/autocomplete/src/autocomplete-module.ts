@@ -23,9 +23,10 @@ import { DtOptionModule } from '@dynatrace/barista-components/core';
 import { DtAutocomplete } from './autocomplete';
 import { DtAutocompleteOrigin } from './autocomplete-origin';
 import { DtAutocompleteTrigger } from './autocomplete-trigger';
+import { PortalModule } from '@angular/cdk/portal';
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, DtOptionModule],
+  imports: [CommonModule, OverlayModule, DtOptionModule, PortalModule],
   exports: [
     DtAutocompleteTrigger,
     DtAutocomplete,

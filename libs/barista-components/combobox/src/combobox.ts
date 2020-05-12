@@ -162,10 +162,11 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   }
 
   ngAfterViewInit(): void {
-    this._autocomplete._portal = new TemplatePortal(
+    this._autocomplete._additionalPortal = new TemplatePortal(
       this.templatePortalContent,
       this._viewContainerRef,
     );
+    this._autocomplete._additionalOptions = this._options.toArray();
   }
 
   ngOnDestroy(): void {
