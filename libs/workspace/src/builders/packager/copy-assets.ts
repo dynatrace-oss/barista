@@ -34,9 +34,12 @@ export async function copyStyles(
       join(context.workspaceRoot, styleDef.input, dirname(path)),
     );
     const uniqueDirectories = [...new Set(directories)];
-    const allStyleDependencies = uniqueDirectories.reduce((aggr, dir) => {
-      return aggr.concat(Object.keys(parseDir(dir).index));
-    }, [] as string[]);
+    const allStyleDependencies = uniqueDirectories.reduce(
+      (aggr: string[], dir: string) => {
+        return aggr.concat(Object.keys(parseDir(dir).index));
+      },
+      [],
+    ) as string[];
 
     for (const stylesheetFilePath of allStyleDependencies) {
       await copyAsset(stylesheetFilePath, context, styleDef);
