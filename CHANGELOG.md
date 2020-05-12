@@ -1,3 +1,24 @@
+## [6.5.0](https://github.com/dynatrace-oss/barista/compare/6.4.0...6.5.0) (2020-05-12)
+
+### Bug Fixes
+
+- **autocomplete:** Fixes an issue with the positioning of the overlay.
+  ([e00d9ba](https://github.com/dynatrace-oss/barista/commit/e00d9baf7ca216ad87110712691a42879a7201d2)),
+  closes [#926](https://github.com/dynatrace-oss/barista/issues/926)
+- **empty-state:** Fixed ssr rendering for the empty-state component
+  ([76f9a5b](https://github.com/dynatrace-oss/barista/commit/76f9a5b03f79290b2437c59863767835f6d6ded0))
+- **filter-field:** Fixes an issue with filter field usage in forms.
+  ([192e0a7](https://github.com/dynatrace-oss/barista/commit/192e0a73de673cc4d1b9a363698b9555c5701c84))
+
+### Features
+
+- **button:** Changed button theming to custom properties
+  ([f698f58](https://github.com/dynatrace-oss/barista/commit/f698f5885e5aa642d9551314662ab3a68e0c1424))
+- **event-chart:** Use duration pipe in axis
+  ([b951077](https://github.com/dynatrace-oss/barista/commit/b951077f95727044868d4ac0895f1ead4315ae77))
+- **sunburst-chart:** Added missing sunburst package to bundle.
+  ([b21ebb8](https://github.com/dynatrace-oss/barista/commit/b21ebb8125b210f05a863a3116f6dd110c60a0e7))
+
 ## [6.4.0](https://github.com/dynatrace-oss/barista/compare/6.3.0...6.4.0) (2020-04-30)
 
 ### Bug Fixes
