@@ -1,35 +1,767 @@
 {
+  "format": "theme",
+  "props": {
+    "color-background": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-background",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#FAFBFB",
+        "abyss": "#111216"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-maxcontrast": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-maxcontrast",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#111216",
+        "abyss": "#FAFBFB"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-primary-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-primary-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#b0bfd5",
+        "abyss": "#2f476d"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-primary-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-primary-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#7e99c5",
+        "abyss": "#3761a2"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-primary-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-primary-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#4774be",
+        "abyss": "#3873cd"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-primary-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-primary-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#0d55c4",
+        "abyss": "#3682f4"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-primary-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-primary-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#1c4891",
+        "abyss": "#73a0e4"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-primary-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-primary-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#1d3662",
+        "abyss": "#a0bbe3"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-primary-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-primary-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#182740",
+        "abyss": "#c6d4e9"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-positive-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-positive-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#d6e0da",
+        "abyss": "#355d47"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-positive-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-positive-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#a6bfb1",
+        "abyss": "#408b64"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-positive-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-positive-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#5e9176",
+        "abyss": "#3fab77"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-positive-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-positive-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#207450",
+        "abyss": "#36c687"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-positive-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-positive-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#255d42",
+        "abyss": "#85d2a8"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-positive-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-positive-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#224332",
+        "abyss": "#b7e1c9"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-positive-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-positive-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#1c3125",
+        "abyss": "#e1f1e8"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-warning-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-warning-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#efeee8",
+        "abyss": "#8b712c"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-warning-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-warning-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#dedaca",
+        "abyss": "#ba9329"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-warning-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-warning-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#c0b48b",
+        "abyss": "#dead1e"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-warning-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-warning-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#906e00",
+        "abyss": "#fcc301"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-warning-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-warning-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#715913",
+        "abyss": "#f9d87c"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-warning-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-warning-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#514217",
+        "abyss": "#f8eabb"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-warning-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-warning-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#3b3015",
+        "abyss": "#f8f1d3"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-error-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-error-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#ebc7c5",
+        "abyss": "#743137"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-error-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-error-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#e19995",
+        "abyss": "#a63c47"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-error-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-error-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#d66261",
+        "abyss": "#cf3f52"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-error-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-error-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#c20c29",
+        "abyss": "#f33d5a"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-error-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-error-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#962027",
+        "abyss": "#f77680"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-error-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-error-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#692122",
+        "abyss": "#f7a2a6"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-error-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-error-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#481b1a",
+        "abyss": "#f7c8ca"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-nasty-orange-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-nasty-orange-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#ead6c9",
+        "abyss": "#613f27"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-nasty-orange-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-nasty-orange-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#dfb69b",
+        "abyss": "#a66432"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-nasty-orange-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-nasty-orange-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#ce7f4b",
+        "abyss": "#d67b33"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-nasty-orange-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-nasty-orange-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#be5602",
+        "abyss": "#fd8c30"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-nasty-orange-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-nasty-orange-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#884417",
+        "abyss": "#fcac6e"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-nasty-orange-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-nasty-orange-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#613518",
+        "abyss": "#facaa5"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-nasty-orange-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-nasty-orange-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#442715",
+        "abyss": "#f9e7d8"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-hot-pink-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-hot-pink-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#e9c6d4",
+        "abyss": "#51263a"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-hot-pink-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-hot-pink-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#de97b4",
+        "abyss": "#8e3461"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-hot-pink-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-hot-pink-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#d8719f",
+        "abyss": "#bb367c"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-hot-pink-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-hot-pink-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#cc1d7f",
+        "abyss": "#e13093"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-hot-pink-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-hot-pink-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#992b63",
+        "abyss": "#e571a9"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-hot-pink-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-hot-pink-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#6c2848",
+        "abyss": "#e99ebe"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-hot-pink-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-hot-pink-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#4b2133",
+        "abyss": "#edc4d5"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-soylent-green-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-soylent-green-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#c3d2d2",
+        "abyss": "#365b5b"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-soylent-green-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-soylent-green-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#9fb9b9",
+        "abyss": "#408787"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-soylent-green-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-soylent-green-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#6e9a9a",
+        "abyss": "#419898"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-soylent-green-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-soylent-green-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#297878",
+        "abyss": "#3cb4b4"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-soylent-green-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-soylent-green-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#2b5f5e",
+        "abyss": "#81c5c4"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-soylent-green-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-soylent-green-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#264645",
+        "abyss": "#b1d6d6"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-soylent-green-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-soylent-green-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#1f3131",
+        "abyss": "#d9eae9"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-naughty-purple-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-naughty-purple-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#d6cbdd",
+        "abyss": "#3b3040"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-naughty-purple-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-naughty-purple-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#a885bf",
+        "abyss": "#70587e"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-naughty-purple-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-naughty-purple-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#9a69b8",
+        "abyss": "#926fa7"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-naughty-purple-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-naughty-purple-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#9151b5",
+        "abyss": "#ae80c9"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-naughty-purple-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-naughty-purple-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#704588",
+        "abyss": "#bd9fd0"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-naughty-purple-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-naughty-purple-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#50365e",
+        "abyss": "#cebbda"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-naughty-purple-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-naughty-purple-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#382841",
+        "abyss": "#e0d8e7"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-50": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-50",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#eff0f2",
+        "abyss": "#1b1c1f"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-60": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-60",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#e5e6e9",
+        "abyss": "#232327"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-70": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-70",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#dcdee2",
+        "abyss": "#282a2e"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-80": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-80",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#c7c9d0",
+        "abyss": "#36383e"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-90": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-90",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#9ca1ad",
+        "abyss": "#515461"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-100": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-100",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#6d7488",
+        "abyss": "#757c91"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-110": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-110",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#525664",
+        "abyss": "#999ead"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-120": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-120",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#41444d",
+        "abyss": "#b5b8c2"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-130": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-130",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#313339",
+        "abyss": "#ced0d6"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-140": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-140",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#222328",
+        "abyss": "#e5e6e9"
+      },
+      "originalValue": "theme-specific"
+    },
+    "color-neutral-150": {
+      "type": "number",
+      "category": "theme",
+      "name": "color-neutral-150",
+      "value": "theme-specific",
+      "meta": {
+        "surface": "#121315",
+        "abyss": "#fafbfb"
+      },
+      "originalValue": "theme-specific"
+    }
+  },
   "aliases": {
-    "spacing--3x-small": {
-      "value": "2px"
-    },
-    "spacing--2x-small": {
-      "value": "4px"
-    },
-    "spacing--x-large": {
-      "value": "48px"
-    },
-    "spacing--small": {
-      "value": "12px"
-    },
-    "spacing--0": {
-      "value": 0
-    },
-    "spacing--x-small": {
-      "value": "8px"
-    },
-    "spacing--3x-large": {
-      "value": "128px"
-    },
-    "spacing--2x-large": {
-      "value": "64px"
-    },
-    "spacing--medium": {
-      "value": "16px"
-    },
-    "spacing--large": {
-      "value": "32px"
-    },
     "color-abyss-neutral-50": {
       "value": "#1b1c1f",
       "comment": "abyss neutral, contrast 50",
@@ -699,38 +1431,18 @@
       "value": "#481b1a",
       "comment": "surface error, contrast 130",
       "originalRatio": 14
-    }
-  },
-  "props": {
-    "fluid-button--padding-small": {
-      "type": "token",
-      "category": "global",
-      "name": "fluid-button--padding-small",
-      "value": "8px 48px",
-      "meta": {
-        "friendlyName": "Fluid button padding small"
-      },
-      "originalValue": "{!spacing--x-small} {!spacing--x-large}"
     },
-    "fluid-button--padding-medium": {
-      "type": "token",
-      "category": "global",
-      "name": "fluid-button--padding-medium",
-      "value": "12px 48px",
-      "meta": {
-        "friendlyName": "Fluid button padding medium"
-      },
-      "originalValue": "{!spacing--small} {!spacing--x-large}"
+    "color-abyss-background": {
+      "value": "#111216"
     },
-    "fluid-button--padding-large": {
-      "type": "token",
-      "category": "global",
-      "name": "fluid-button--padding-large",
-      "value": "16px 48px",
-      "meta": {
-        "friendlyName": "Fluid button padding large"
-      },
-      "originalValue": "{!spacing--medium} {!spacing--x-large}"
+    "color-abyss-maxcontrast": {
+      "value": "#FAFBFB"
+    },
+    "color-surface-background": {
+      "value": "#FAFBFB"
+    },
+    "color-surface-maxcontrast": {
+      "value": "#111216"
     }
   }
 }

@@ -14,17 +14,77 @@
  * limitations under the License.
  */
 import { generateHeaderNoticeComment } from '../generate-header-notice-comment';
+import { ImmutableStyleMap } from 'theo';
 
-export const dtDesignTokensScssConverter = `${generateHeaderNoticeComment()}
-{{#each props as |prop|}}
-{{#if prop.comment}}
-{{{trimLeft (indent (comment (trim prop.comment)))}}}
-{{/if}}
-{{# if prop.meta.customizable}}
-\${{prop.name}}: {{#eq prop.type "string"}}"{{/eq}}{{{prop.value}}}{{#eq prop.type "string"}}"{{/eq}} !default;
---{{prop.name}}: {{#eq prop.type "string"}}"{{/eq}}{{{prop.value}}}{{#eq prop.type "string"}}"{{/eq}}; // This property can be customized
-{{else}}
-\${{prop.name}}: {{#eq prop.type "string"}}"{{/eq}}{{{prop.value}}}{{#eq prop.type "string"}}"{{/eq}} !default;
-{{/if}}
-{{/each}}
-`;
+class DesignTokensScssConverter {
+  private _props: any;
+  private _format: string;
+
+  constructor({ props, format }: any) {
+    this._props = props;
+    this._format = format;
+  }
+
+  renderProps(): string {
+    let output = '';
+    for (const prop of this._props) {
+      output += this.renderComment(prop);
+
+      const value = prop.type === 'string' ? `"${prop.value}"` : prop.value;
+      output += `\$${prop.name}: ${value} !default;\n`;
+
+      if (prop.meta.customizable) {
+        output += `${this.renderCustomProperty(
+          prop.name,
+          prop.value,
+        )} // This property can be customized\n`;
+      }
+    }
+    return output;
+  }
+
+  renderThemes(): string {
+    let output = '';
+    output += this.renderTheme('abyss');
+    output += '\n';
+    output += this.renderTheme('surface');
+    return output;
+  }
+
+  renderTheme(theme: string): string {
+    let output = `.fluid-theme--${theme} {\n`;
+    for (const prop of this._props) {
+      output += this.renderComment(prop);
+      output += `  ${this.renderCustomProperty(prop.name, prop.meta[theme])}\n`;
+    }
+    output += '}\n';
+
+    return output;
+  }
+
+  renderCustomProperty(name: string, value: string): string {
+    return `--${name}: ${value};`;
+  }
+
+  renderComment(prop: any): string {
+    return prop.comment && prop.comment.trim().length > 0
+      ? `/* ${prop.comment.trim()} */\n`
+      : '';
+  }
+
+  render(): string {
+    let output = `${generateHeaderNoticeComment()}\n`;
+    switch (this._format) {
+      case 'theme':
+        output += this.renderThemes();
+        break;
+      default:
+        output += this.renderProps();
+    }
+
+    return output;
+  }
+}
+
+export const dtDesignTokensScssConverter = (result: ImmutableStyleMap) =>
+  new DesignTokensScssConverter(result.toJS()).render();

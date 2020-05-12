@@ -6,36 +6,36 @@
   --fluid-button--padding-medium: #{$fluid-button--padding-medium};
   --fluid-button--padding-large: #{$fluid-button--padding-large};
 
-  --fluid-button--foreground-key: #{$fluid-button--foreground-key};
-  --fluid-button--background-key: #{$fluid-button--background-key};
-  --fluid-button--foreground-key-hover: #{$fluid-button--foreground-key-hover};
-  --fluid-button--background-key-hover: #{$fluid-button--background-key-hover};
-  --fluid-button--foreground-key-active: #{$fluid-button--foreground-key-active};
-  --fluid-button--background-key-active: #{$fluid-button--background-key-active};
+  --fluid-button--foreground-key: var(--color-primary-100);
+  --fluid-button--background-key: var(--color-neutral-60);
+  --fluid-button--foreground-key-hover: var(--color-primary-110);
+  --fluid-button--background-key-hover: var(--color-neutral-60);
+  --fluid-button--foreground-key-active: var(--color-primary-120);
+  --fluid-button--background-key-active: var(--color-neutral-60);
 
-  --fluid-button--foreground-positive: #{$fluid-button--foreground-positive};
-  --fluid-button--background-positive: #{$fluid-button--background-positive};
-  --fluid-button--foreground-positive-hover: #{$fluid-button--foreground-positive-hover};
-  --fluid-button--background-positive-hover: #{$fluid-button--background-positive-hover};
-  --fluid-button--foreground-positive-active: #{$fluid-button--foreground-positive-active};
-  --fluid-button--background-positive-active: #{$fluid-button--background-positive-active};
+  --fluid-button--foreground-positive: var(--color-positive-100);
+  --fluid-button--background-positive: var(--color-neutral-60);
+  --fluid-button--foreground-positive-hover: var(--color-positive-110);
+  --fluid-button--background-positive-hover: var(--color-neutral-60);
+  --fluid-button--foreground-positive-active: var(--color-positive-120);
+  --fluid-button--background-positive-active: var(--color-neutral-60);
 
-  --fluid-button--foreground-warning: #{$fluid-button--foreground-warning};
-  --fluid-button--background-warning: #{$fluid-button--background-warning};
-  --fluid-button--foreground-warning-hover: #{$fluid-button--foreground-warning-hover};
-  --fluid-button--background-warning-hover: #{$fluid-button--background-warning-hover};
-  --fluid-button--foreground-warning-active: #{$fluid-button--foreground-warning-active};
-  --fluid-button--background-warning-active: #{$fluid-button--background-warning-active};
+  --fluid-button--foreground-warning: var(--color-warning-100);
+  --fluid-button--background-warning: var(--color-neutral-60);
+  --fluid-button--foreground-warning-hover: var(--color-warning-110);
+  --fluid-button--background-warning-hover: var(--color-neutral-60);
+  --fluid-button--foreground-warning-active: var(--color-warning-120);
+  --fluid-button--background-warning-active: var(--color-neutral-60);
 
-  --fluid-button--foreground-negative: #{$fluid-button--foreground-negative};
-  --fluid-button--background-negative: #{$fluid-button--background-negative};
-  --fluid-button--foreground-negative-hover: #{$fluid-button--foreground-negative-hover};
-  --fluid-button--background-negative-hover: #{$fluid-button--background-negative-hover};
-  --fluid-button--foreground-negative-active: #{$fluid-button--foreground-negative-active};
-  --fluid-button--background-negative-active: #{$fluid-button--background-negative-active};
+  --fluid-button--foreground-negative: var(--color-negative-100);
+  --fluid-button--background-negative: var(--color-neutral-60);
+  --fluid-button--foreground-negative-hover: var(--color-negative-110);
+  --fluid-button--background-negative-hover: var(--color-neutral-60);
+  --fluid-button--foreground-negative-active: var(--color-negative-120);
+  --fluid-button--background-negative-active: var(--color-neutral-60);
 
-  --fluid-button--foreground-disabled: #{$fluid-button--foreground-disabled};
-  --fluid-button--background-disabled: #{$fluid-button--background-disabled};
+  --fluid-button--foreground-disabled: var(--color-neutral-100);
+  --fluid-button--background-disabled: var(--color-neutral-60);
 }
 
 :host([disabled]) {

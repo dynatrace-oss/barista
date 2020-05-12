@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-// TODO: move to design tokens
-$light-background: #fafbfb;
-$dark-background: #111216;
+@import '~@dynatrace/fluid-design-tokens/global/palette';
 
 @import 'link.scss';
 @import '../input/src/lib/input.component';
