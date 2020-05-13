@@ -31,6 +31,7 @@
     "help": "nx help",
     "nx": "node --max_old_space_size=8192 ./node_modules/.bin/nx",
     "ng": "ng",
+    "bazel": "bazelisk",
     "barista-tools": "ng build barista-tools && node dist/libs/tools/barista/main.js",
     "shareable-examples": "ng build tools-shareable-examples && node dist/libs/tools/shareable-examples/main.js",
     "barista": "npm run examples-tools && npm run barista-tools && ng run barista-design-system:serve-ssr",
@@ -38,7 +39,8 @@
     "examples-tools": "ng build examples-tools && node dist/libs/tools/examples-tools/main.js",
     "stage-release": "ng run tools-release:build-stage-release && node dist/libs/tools/stage-release/main.js",
     "publish-release": "ng run tools-release:build-publish-release && node dist/libs/tools/publish-release/main.js",
-    "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt"
+    "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt",
+    "bazel:format": "npm run bazel run //:buildifier"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
@@ -91,7 +93,6 @@
     "@angular/platform-server": "^9.1.6",
     "@angular/router": "^9.1.6",
     "@bazel/bazelisk": "^1.4.0",
-    "@bazel/buildifier": "^3.0.0",
     "@bazel/ibazel": "^0.13.0",
     "@bazel/typescript": "^1.6.1",
     "@commitlint/cli": "^8.2.0",

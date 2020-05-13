@@ -1,6 +1,15 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_config")
+load("@com_github_bazelbuild_buildtools//buildifier:def.bzl", "buildifier")
 
 package(default_visibility = ["//:__subpackages__"])
 
 # Allow any ts_library rules in this workspace to reference the config
-exports_files(["tsconfig.json"], visibility = ["//visibility:public"])
+exports_files(
+    ["tsconfig.json"],
+    visibility = ["//visibility:public"],
+)
+
+# Reformats files
+buildifier(
+    name = "buildifier",
+)
