@@ -1,3 +1,10 @@
+## [6.5.1](https://github.com/dynatrace-oss/barista/compare/6.5.0...6.5.1) (2020-05-13)
+
+### Style Fixes
+
+Fixes a regression within the disabled state colors in multiple components.
+([f7ed0ba](https://github.com/dynatrace-oss/barista/commit/c42b5407971d1b09c47eed6a79b2e45d24b58d8f))
+
 ## [6.5.0](https://github.com/dynatrace-oss/barista/compare/6.4.0...6.5.0) (2020-05-12)
 
 ### Bug Fixes
