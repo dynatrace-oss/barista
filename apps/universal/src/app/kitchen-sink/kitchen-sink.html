@@ -376,6 +376,18 @@
   <dt-option>option 3</dt-option>
 </dt-combobox>
 
+<dt-combobox placeholder="Start typing or open dropdown for top list">
+  <dt-optgroup label="Group 1">
+    <dt-option>Value 1</dt-option>
+    <dt-option>Value 2</dt-option>
+    <dt-option>Value 3</dt-option>
+  </dt-optgroup>
+
+  <dt-option>Value 1</dt-option>
+  <dt-option>Value 2</dt-option>
+  <dt-option>Value 3</dt-option>
+</dt-combobox>
+
 <dt-sunburst-chart noSelectionLabel="All" [series]="sunburstChartSeries">
   <ng-template dtSunburstChartOverlay let-tooltip>
     {{ tooltip.label }}: {{ tooltip.value }}

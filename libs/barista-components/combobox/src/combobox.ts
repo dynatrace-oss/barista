@@ -17,6 +17,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
@@ -99,10 +100,12 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     DtFormFieldControl<T> {
   @Input() id: string;
   @Input() value: T | null;
+  @Input() loading: boolean = false;
   @Input() required: boolean = false;
   @Input() panelClass: string = '';
   @Input() placeholder: string | undefined;
   @Input() compareWith: (v1: T, v2: T) => boolean = (v1, v2) => v1 === v2;
+  @Input() displayWith: (value: T) => string = (value: T) => `${value}`;
 
   @Input() autofilled?: boolean | undefined;
   @Input() focused: boolean;
@@ -112,19 +115,16 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   @Output() openedChange = new EventEmitter<boolean>();
 
   @ViewChild('searchInput', { static: true }) _searchInput: ElementRef;
-
   @ViewChild('autocompleteContent') templatePortalContent: TemplateRef<any>;
-
   @ViewChild(DtAutocomplete) _autocomplete: DtAutocomplete<T>;
 
   @ContentChildren(DtOption, { descendants: true })
   _options: QueryList<DtOption<T>>;
 
-  empty = true;
-  triggerValue = '';
-  displayWith: any;
-
-  _loading = false;
+  get empty(): boolean {
+    return this.value === null;
+  }
+  _displayString = '';
 
   private _filterChangeSubscription: Subscription;
 
@@ -135,6 +135,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     @Optional() public _parentFormGroup: FormGroupDirective,
     @Optional() public ngControl: NgControl,
     private _viewContainerRef: ViewContainerRef,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     super(
       _elementRef,
@@ -178,7 +179,13 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   }
 
   optionSelected(event: DtAutocompleteSelectedEvent<T>): void {
-    this.valueChange.emit(event.option.value);
+    const value = event.option.value;
+
+    this.value = value;
+    this._displayString = this.displayWith(value);
+    this._changeDetectorRef.markForCheck();
+
+    this.valueChange.emit(value);
   }
 
   setDescribedByIds(ids: string[]): void {
@@ -187,5 +194,13 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
 
   onContainerClick(event: MouseEvent): void {
     console.log(`onContainerClick(${event})`);
+  }
+
+  _opened(): void {
+    this.openedChange.emit(true);
+  }
+
+  _closed(): void {
+    this.openedChange.emit(false);
   }
 }

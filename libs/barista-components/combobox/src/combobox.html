@@ -1,40 +1,40 @@
 <dt-loading-spinner
   class="dt-filter-field-spinner"
-  *ngIf="_loading"
+  *ngIf="loading"
 ></dt-loading-spinner>
 
 <input
   #searchInput
   dtInput
-  class="ba-searchinput"
+  class="dt-combobox-searchinput"
   type="text"
-  [dtAutocomplete]="autocomplete"
+  [value]="_displayString"
   [placeholder]="placeholder"
+  [dtAutocomplete]="autocomplete"
   aria-label="Type to start searching..."
 />
 
 <div class="dt-combobox-trigger" aria-hidden="true" (click)="toggle()">
-  <div class="dt-combobox-value" [ngSwitch]="empty">
-    <span class="dt-combobox-placeholder" *ngSwitchCase="true">
-      {{ placeholder || '\u00A0' }}
-    </span>
-    <span class="dt-combobox-value-text" *ngSwitchCase="false">
-      {{ triggerValue || '\u00A0' }}
-    </span>
-  </div>
+  <!--  <div class="dt-combobox-value" [ngSwitch]="empty">-->
+  <!--    <span class="dt-combobox-placeholder" *ngSwitchCase="true">-->
+  <!--      {{ placeholder || '\u00A0' }}-->
+  <!--    </span>-->
+  <!--    <span class="dt-combobox-value-text" *ngSwitchCase="false">-->
+  <!--      {{ triggerValue || '\u00A0' }}-->
+  <!--    </span>-->
+  <!--  </div>-->
 
   <dt-icon name="dropdownopen" class="dt-combobox-arrow"></dt-icon>
 </div>
 
 <dt-autocomplete
   #autocomplete="dtAutocomplete"
+  [displayWith]="displayWith"
+  (opened)="_opened()"
+  (closed)="_closed()"
   (optionSelected)="optionSelected($event)"
-  class="ba-search-autocomplete"
+  class="dt-combobox-autocomplete"
 >
-  <dt-optgroup label="Group 1">
-    <dt-option>First default</dt-option>
-    <dt-option>Second default</dt-option>
-  </dt-optgroup>
 </dt-autocomplete>
 
 <ng-template #autocompleteContent>

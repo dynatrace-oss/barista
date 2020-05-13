@@ -33,8 +33,9 @@ const allOptions: { name: string; value: string }[] = [
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComboboxDemo {
-  initialValue = allOptions[0];
-  options: { name: string; value: string }[] = [...allOptions];
+  _initialValue = allOptions[0];
+  _options = [...allOptions];
+  _displayWith = (option: { name: string; value: string }) => option.name;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
@@ -48,8 +49,8 @@ export class ComboboxDemo {
 
   filterChanged(event: string): void {
     console.log(`filterChanged: '${event}'`);
-    this.options = allOptions.filter(
-      option => option.value.toLowerCase().indexOf(event.toLowerCase()) >= 0,
+    this._options = allOptions.filter(
+      (option) => option.value.toLowerCase().indexOf(event.toLowerCase()) >= 0,
     );
     this._changeDetectorRef.markForCheck();
   }

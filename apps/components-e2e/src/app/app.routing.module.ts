@@ -58,7 +58,7 @@ export const routes: Routes = [
     path: 'combobox',
     loadChildren: () =>
       import('../components/combobox/combobox.module').then(
-        module => module.DtE2EComboboxModule,
+        (module) => module.DtE2EComboboxModule,
       ),
   },
   {

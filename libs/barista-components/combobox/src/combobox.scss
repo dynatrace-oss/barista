@@ -1,8 +1,29 @@
+@import '../../style/font-mixins';
+@import '../../core/src/style/variables';
+@import '../../core/src/style/form-control';
+@import '../../core/src/style/interactive-common';
+
 :host {
-  display: block;
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  outline: none;
+  max-width: 100%;
+  @include dt-main-font();
+  @include dt-form-control();
+  @include dt-cdkmonitor-focus-style();
 }
 
 .dt-combobox-trigger {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+.dt-combobox-arrow {
+  fill: $linkcolor;
+  width: 16px;
+  height: 16px;
 }
 
 .dt-combobox-value {
@@ -14,7 +35,5 @@
 .dt-combobox-value-text {
 }
 
-.dt-combobox-arrow {
-  width: 12px;
-  height: 12px;
+.dt-combobox-autocomplete {
 }
