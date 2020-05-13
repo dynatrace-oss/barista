@@ -14,25 +14,18 @@
  * limitations under the License.
  */
 
-import { A11yModule } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Route, RouterModule } from '@angular/router';
+import { DtBreadcrumbsModule } from '@dynatrace/barista-components/breadcrumbs';
+import { DtE2EBreadcrumbs } from './breadcrumbs';
 
-import { DtBreadcrumbs } from './breadcrumbs';
-import { DtBreadcrumbsItem2 } from './breadcrumbs-item';
-import { PortalModule } from '@angular/cdk/portal';
-import { OverlayModule } from '@angular/cdk/overlay';
+const routes: Route[] = [{ path: '', component: DtE2EBreadcrumbs }];
 
 @NgModule({
-  exports: [DtBreadcrumbs, DtBreadcrumbsItem2, OverlayModule],
-  declarations: [DtBreadcrumbs, DtBreadcrumbsItem2],
-  imports: [
-    A11yModule,
-    CommonModule,
-    RouterModule,
-    PortalModule,
-    OverlayModule,
-  ],
+  declarations: [DtE2EBreadcrumbs],
+  imports: [CommonModule, RouterModule.forChild(routes), DtBreadcrumbsModule],
+  exports: [],
+  providers: [],
 })
-export class DtBreadcrumbsModule {}
+export class DtE2EBreadcrumbsModule {}

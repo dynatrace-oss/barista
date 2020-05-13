@@ -14,25 +14,11 @@
  * limitations under the License.
  */
 
-import { A11yModule } from '@angular/cdk/a11y';
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
-
-import { DtBreadcrumbs } from './breadcrumbs';
 import { DtBreadcrumbsItem2 } from './breadcrumbs-item';
-import { PortalModule } from '@angular/cdk/portal';
-import { OverlayModule } from '@angular/cdk/overlay';
 
-@NgModule({
-  exports: [DtBreadcrumbs, DtBreadcrumbsItem2, OverlayModule],
-  declarations: [DtBreadcrumbs, DtBreadcrumbsItem2],
-  imports: [
-    A11yModule,
-    CommonModule,
-    RouterModule,
-    PortalModule,
-    OverlayModule,
-  ],
-})
-export class DtBreadcrumbsModule {}
+/** @internal Returns the first focusable breadcrumb item of the given list */
+export function findFirstFocusableItem(
+  items: DtBreadcrumbsItem2[],
+): DtBreadcrumbsItem2 | undefined {
+  return items.find((item) => item._isFocusable);
+}

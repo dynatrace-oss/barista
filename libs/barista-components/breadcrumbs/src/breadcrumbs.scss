@@ -1,5 +1,6 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
+@import '../../core/src/style/overlay';
 @import '../../style/font-mixins';
 @import './breadcrumbs-theme';
 
@@ -7,12 +8,17 @@ $height: 32px;
 $arrow-width: 8px;
 $arrow-padding: 2px;
 
+$dt-breadcrumb-max-width: 250px;
+$dt-breadcrumbs-panel-max-height: 256px;
+$dt-breadcrumbs-panel-max-width: 400px !default;
+$dt-breadcrumbs-panel-min-width: 112px !default;
+
 :host {
   display: flex;
-  background-color: #ffffff;
 }
 
-:host ::ng-deep a.dt-breadcrumbs-item {
+:host ::ng-deep a.dt-breadcrumbs-item,
+:host .dt-breadcrumb-collapsed-trigger {
   &,
   &:visited {
     @include dt-main-font($height);
@@ -20,30 +26,29 @@ $arrow-padding: 2px;
     position: relative;
     height: $height;
     margin-top: 0;
-    margin-left: $arrow-padding;
-    padding: 0 10px 0 #{$arrow-width + 8px};
-    color: #ffffff;
+    margin-left: #{-$arrow-width + $arrow-padding};
+    padding: 0 #{$arrow-width + 8px};
+    color: $white;
     white-space: nowrap;
     text-decoration: none;
+    z-index: 1;
   }
 
-  &:not(:last-child) {
-    @include dt-interactive-reset();
-    @include dt-cdkmonitor-focus-style();
+  &.dt-breadcrumbs-item-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   &:first-child {
     margin-left: 0;
-    padding-left: 14px;
-
-    &::before {
-      display: none;
-    }
+    padding-left: 12px;
   }
 
   &:last-child {
-    flex-grow: 1;
-
     &::after {
       display: none;
     }
@@ -51,25 +56,91 @@ $arrow-padding: 2px;
 
   &::before,
   &::after {
-    content: ' ';
+    content: '';
     position: absolute;
     display: block;
     top: 0;
     width: $arrow-width * 2;
     height: $height;
     box-sizing: border-box;
-    border-color: transparent transparent transparent #ffffff;
+    border-color: $white $white $white transparent;
     border-style: solid;
     border-width: #{$height / 2} $arrow-width;
+    z-index: -2;
   }
 
   &::before {
     left: 0;
-    z-index: 1;
+    width: calc(100% - #{$arrow-width});
   }
 
   &::after {
-    left: 100%;
-    z-index: 2;
+    left: calc(100% - #{$arrow-width});
+    z-index: -1;
+  }
+}
+
+.dt-breadcrumb-collapsed-trigger {
+  padding: 0 8px 0 #{$arrow-width};
+  line-height: $height;
+  @include dt-interactive-reset();
+
+  &:focus {
+    outline: none;
+  }
+}
+
+::ng-deep .dt-breadcrumbs-overlay {
+  background: $white;
+  box-sizing: border-box;
+  border: 1px solid $disabledcolor;
+  border-radius: 0 0 3px 3px;
+  max-height: $dt-breadcrumbs-panel-max-height;
+  min-width: $dt-breadcrumbs-panel-min-width;
+  max-width: $dt-breadcrumbs-panel-max-width;
+  will-change: transform;
+
+  // Prevents the content from repainting on scroll.
+  backface-visibility: hidden;
+
+  // Makes sure the opening scale animation starts from the top
+  transform-origin: left top;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
+}
+
+::ng-deep .dt-breadcrumb-collapsed-container {
+  display: none;
+}
+
+::ng-deep .cdk-overlay-pane .dt-breadcrumb-collapsed-container {
+  display: block;
+  width: 100%;
+}
+
+::ng-deep .cdk-overlay-pane .dt-breadcrumbs-item {
+  @include dt-main-font();
+  display: block;
+  max-width: $dt-breadcrumb-max-width;
+  padding: 0 12px;
+  font-size: 14px;
+  line-height: 28px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-variant: tabular-nums;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    background-color: $turquoise-100;
+    outline: none;
+  }
+
+  &.dt-breadcrumbs-item-non-interactive {
+    color: $disabledcolor;
+    background-color: inherit;
+    cursor: default;
   }
 }

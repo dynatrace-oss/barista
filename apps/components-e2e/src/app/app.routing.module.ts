@@ -41,6 +41,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'breadcrumbs',
+    loadChildren: () =>
+      import('../components/breadcrumbs/breadcrumbs.module').then(
+        (module) => module.DtE2EBreadcrumbsModule,
+      ),
+  },
+  {
     path: 'chart',
     loadChildren: () =>
       import('../components/chart/chart.module').then(
