@@ -117,6 +117,18 @@ describe('Update 7.0.0', () => {
         'should migrate the table empty state to the empty state component with directive on the message',
       fileName: 'libs/feature-a/src/lib/table-empty-state.html',
     },
+    {
+      description: 'should not migrate i18n aria label attributes',
+      fileName: 'libs/feature-a/src/lib/secondary-nav.html',
+    },
+    {
+      description: 'should not migrate normal aria label attributes',
+      fileName: 'libs/feature-a/src/lib/secondary-nav-aria-label.html',
+    },
+    {
+      description: 'should migrate aria label bindings',
+      fileName: 'libs/feature-a/src/lib/aria-label-binding.html',
+    },
   ];
 
   describe('Template replacements', () => {
@@ -195,6 +207,22 @@ function addHTMLFiles(): Tree {
       <dt-table-empty-state-message i18n *ngIf="(filtersApplied$ | async)">Amend the timeframe you're querying within or review your query to make your statement less restrictive</dt-table-empty-state-message>
     </dt-table-empty-state>
   </div>`,
+  );
+
+  tree.create(
+    'libs/feature-a/src/lib/secondary-nav.html',
+    `<dt-secondary-nav i18n-aria-label aria-label="Deployment status"></dt-secondary-nav>`,
+  );
+
+  tree.create(
+    'libs/feature-a/src/lib/secondary-nav-aria-label.html',
+    `<dt-secondary-nav aria-label="Deployment status"></dt-secondary-nav>`,
+  );
+
+  tree.create(
+    'libs/feature-a/src/lib/aria-label-binding.html',
+    `<dt-secondary-nav [attr.aria-label]="'Deployment status'"></dt-secondary-nav>
+     <dt-secondary-nav [attr.aria-label]="somevar"></dt-secondary-nav>`,
   );
 
   return tree;
