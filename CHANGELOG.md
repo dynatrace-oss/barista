@@ -1,4 +1,4 @@
-## [7.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/6.0.0...7.0.0-rc.0) (2020-05-12)
+## [7.0.0-rc.1](https://github.com/dynatrace-oss/barista/compare/6.0.0...7.0.0-rc.1) (2020-05-13)
 
 Most of the breaking changes will be fixed automatically by running
 `ng update @dynatrace/barista-components`.
