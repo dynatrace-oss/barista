@@ -497,6 +497,19 @@
                   "command": "npx ng run barista-design-system:static-pages:production"
                 }
               ]
+            },
+            "production-internal": {
+              "commands": [
+                {
+                  "command": "npx ng run examples-tools:execute"
+                },
+                {
+                  "command": "npx ng run barista-tools:execute"
+                },
+                {
+                  "command": "npx ng run barista-design-system:static-pages:production-internal"
+                }
+              ]
             }
           }
         },
