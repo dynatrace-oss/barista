@@ -876,6 +876,13 @@
             "passWithNoTests": true
           }
         },
+        "build-bazel": {
+          "builder": "@angular/bazel:build",
+          "options": {
+            "targetLabel": "//libs/workspace",
+            "bazelCommand": "build"
+          }
+        },
         "build": {
           "builder": "@nrwl/node:build",
           "options": {

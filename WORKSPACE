@@ -15,8 +15,8 @@ http_archive(
 
 # Install all dependencies with npm
 load("@build_bazel_rules_nodejs//:index.bzl", "npm_install", "check_bazel_version")
-# The minimum bazel version to use with this repo is v3.1.0.
-check_bazel_version("3.1.0")
+# The minimum bazel version to use with this repo is v2.1.0.
+check_bazel_version("2.1.0")
 
 npm_install(
   name = "npm",
