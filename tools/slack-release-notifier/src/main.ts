@@ -20,8 +20,7 @@ import { IncomingWebhook } from '@slack/webhook';
 import { ReposGetReleaseByTagResponse } from '@octokit/rest';
 
 import { getReleaseType, getTextForReleaseType } from './utils/release-type';
-import { convertToMrkdwn } from './utils/convert-to-mrkdwn';
-import { fancifyText } from './utils/fancify-text';
+import { convertToSlackBlocks } from './utils/text-conversion';
 
 function getReleaseTitle(release: ReposGetReleaseByTagResponse) {
   if (!release.name) {
@@ -90,16 +89,8 @@ async function run(): Promise<void> {
           url: release.html_url,
         },
       },
-      {
-        type: 'section',
-        text: {
-          type: 'mrkdwn',
-          // Print text if body is empty since the Slack API doesn't like empty strings here
-          text:
-            convertToMrkdwn(fancifyText(release.body)) ||
-            'Check out GitHub for more info.',
-        },
-      },
+      ...(convertToSlackBlocks(release.body) ||
+        'Check out GitHub for more information.'),
       {
         type: 'section',
         text: {
