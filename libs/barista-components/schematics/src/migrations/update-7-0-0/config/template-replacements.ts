@@ -149,10 +149,10 @@ export const TEMPLATE_REPLACEMENTS: TemplateReplacementList[] = [
       ),
   },
   {
-    needle: 'aria-label=',
+    needle: '[aria-label]=',
     replacement: (content) =>
       replaceHtmlAttribute(
-        'aria-label',
+        '[aria-label]',
         '[attr.aria-label]',
         [
           'dt-breadcrumbs',
