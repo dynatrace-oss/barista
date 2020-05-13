@@ -4,6 +4,7 @@ package(default_visibility = ["//apps/components-e2e:__subpackages__"])
 
 ROUTES = [
     "//apps/components-e2e/src/components/autocomplete",
+    "//apps/components-e2e/src/components/breadcrumbs",
     "//apps/components-e2e/src/components/button",
     "//apps/components-e2e/src/components/button-group",
     "//apps/components-e2e/src/components/chart",

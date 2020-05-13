@@ -17,11 +17,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'breadcrumbs-dev-app-demo',
-  templateUrl: './breadcrumbs-demo.component.html',
-  styleUrls: ['./breadcrumbs-demo.component.scss'],
+  selector: 'dt-e2e-breadcrumbs',
+  templateUrl: 'breadcrumbs.html',
 })
-export class BreadcrumbsDemo {
+export class DtE2EBreadcrumbs {
+  changeBreadcrumbs = false;
   hideBreadcrumbs = false;
-  hideBreadcrumbs1 = false;
 }

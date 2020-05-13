@@ -1,0 +1,26 @@
+<dt-breadcrumbs *ngIf="!changeBreadcrumbs">
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem href="">1</a>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem>Second</a>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem href="">Third view</a>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem
+    >dt-breadcrumbs-item component dt-breadcrumbs-item component
+    dt-breadcrumbs-item component</a
+  >
+</dt-breadcrumbs>
+
+<dt-breadcrumbs *ngIf="changeBreadcrumbs">
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem href="">First Breadcrumb</a>
+  <a dtBreadcrumbsItem>Second</a>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem href="">Third view</a>
+  <a dtBreadcrumbsItem
+    >dt-breadcrumbs-item component dt-breadcrumbs-item component
+    dt-breadcrumbs-item component</a
+  >
+</dt-breadcrumbs>
+
+<button (click)="changeBreadcrumbs = true" id="change-breadcrumbs">
+  Change text
+</button>
+<button (click)="hideBreadcrumbs = true" id="hide-breadcrumbs">
+  Hide breadcrumbs
+</button>

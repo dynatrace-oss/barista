@@ -1,1 +1,12 @@
+<button
+  #collapseTrigger
+  class="dt-breadcrumb-collapsed-trigger"
+  *ngIf="_hasHiddenItems"
+  [title]="_transplantedItemsString"
+  (click)="_toggleOverlay()"
+  (keydown.tab)="_handleOverlayTriggerKeydown($event)"
+  aria-controls="dt-breadcrumb-collapsed-container"
+>
+  &hellip;
+</button>
 <ng-content></ng-content>

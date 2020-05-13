@@ -1,90 +1,49 @@
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs>
-    <a dtBreadcrumbsItem>dt-breadcrumbs-item component</a>
-  </dt-breadcrumbs>
-</div>
+<button (click)="hideBreadcrumbs = !hideBreadcrumbs" id="hide-breadcrumbs">
+  Toggle breadcrumbs
+</button>
 
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs>
-    <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }]">
-      Second view
-    </a>
-    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }, 'third']">
-      Third view
-    </a>
-    <a dtBreadcrumbsItem>Current view</a>
-  </dt-breadcrumbs>
-</div>
+<br />
+<br />
+<dt-breadcrumbs>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem href="">1</a>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem> Second </a>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem href="">
+    dt-breadcrumbs-item component dt-breadcrumbs-item component
+    dt-breadcrumbs-item component
+  </a>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem href=""> Third view </a>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem
+    >dt-breadcrumbs-item component dt-breadcrumbs-item component
+    dt-breadcrumbs-item component</a
+  >
+</dt-breadcrumbs>
+<br />
 
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs color="error">
-    <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }]">
-      Second view
-    </a>
-    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }, 'third']">
-      Third view
-    </a>
-    <a dtBreadcrumbsItem>Current view</a>
-  </dt-breadcrumbs>
-</div>
+<button (click)="hideBreadcrumbs1 = !hideBreadcrumbs1" id="hide-breadcrumbs">
+  Toggle breadcrumbs
+</button>
+<br />
+<br />
+<dt-breadcrumbs>
+  <a dtBreadcrumbsItem>1</a>
+  <a dtBreadcrumbsItem> Second </a>
+  <a *ngIf="!hideBreadcrumbs1" dtBreadcrumbsItem href="">
+    dt-breadcrumbs-item component dt-breadcrumbs-item component
+    dt-breadcrumbs-item component
+  </a>
+  <a *ngIf="!hideBreadcrumbs1" dtBreadcrumbsItem href=""> Third view </a>
+  <a dtBreadcrumbsItem
+    >dt-breadcrumbs-item component dt-breadcrumbs-item component
+    dt-breadcrumbs-item component</a
+  >
+</dt-breadcrumbs>
 
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs color="neutral">
-    <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }]">
-      Second view
-    </a>
-    <a dtBreadcrumbsItem [href]="['first', 'second', { param: 123 }, 'third']">
-      Third view
-    </a>
-    <a dtBreadcrumbsItem>Current view</a>
-  </dt-breadcrumbs>
-</div>
-
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs>
-    <a dtBreadcrumbsItem>dtBreadcrumbsItem directive</a>
-  </dt-breadcrumbs>
-</div>
-
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs
-    >‚
-    <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem href="first/second">
-      Second view
-    </a>
-    <a dtBreadcrumbsItem href="first/second/third">
-      Third view
-    </a>
-    <a dtBreadcrumbsItem>Current view</a>
-  </dt-breadcrumbs>
-</div>
-
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs color="error">
-    <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem href="first/second">
-      Second view
-    </a>
-    <a dtBreadcrumbsItem href="first/second/third">
-      Third view
-    </a>
-    <a dtBreadcrumbsItem>Current view</a>
-  </dt-breadcrumbs>
-</div>
-
-<div style="margin-top: 16px;">
-  <dt-breadcrumbs color="neutral">
-    <a dtBreadcrumbsItem href="first">First view</a>
-    <a dtBreadcrumbsItem href="first/second">
-      Second view
-    </a>
-    <a dtBreadcrumbsItem href="first/second/third">
-      Third view
-    </a>
-    <a dtBreadcrumbsItem>Current view</a>
-  </dt-breadcrumbs>
-</div>
+<dt-breadcrumbs>
+  <a *ngIf="!hideBreadcrumbs" dtBreadcrumbsItem>First Breadcrumb</a>
+  <a dtBreadcrumbsItem>Second</a>
+  <a dtBreadcrumbsItem href="">Third view</a>
+  <a dtBreadcrumbsItem
+    >dt-breadcrumbs-item component dt-breadcrumbs-item component
+    dt-breadcrumbs-item component</a
+  >
+</dt-breadcrumbs>
