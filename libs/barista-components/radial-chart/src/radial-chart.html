@@ -22,7 +22,9 @@
     <dt-legend-item *ngFor="let series of _renderData">
       <dt-legend-symbol
         class="dt-radial-chart-legend-symbol"
-        [style.--dt-radial-chart-legend-symbol-color]="series.color"
+        [style]="
+          _sanitizeCSS('--dt-radial-chart-legend-symbol-color', series.color)
+        "
       >
       </dt-legend-symbol>
       <strong>{{ series.value }}</strong> {{ series.name }}

@@ -17,15 +17,16 @@ text {
   fill: var(--dt-sunburst-chart-slice-color);
 
   &:hover {
-    fill: var(
-      --dt-sunburst-chart-slice-color--hover,
-      var(--dt-sunburst-chart-slice-color)
-    );
+    opacity: 0.8;
   }
 }
 
 .dt-sunburst-chart-slice-current {
   cursor: default;
+
+  &:hover {
+    opacity: 1;
+  }
 }
 
 .dt-sunburst-chart-label {

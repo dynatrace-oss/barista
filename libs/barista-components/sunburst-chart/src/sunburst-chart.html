@@ -16,8 +16,9 @@
       class="dt-sunburst-chart-slice"
       [class.dt-sunburst-chart-slice-current]="slice.data.isCurrent"
       [attr.d]="slice.path"
-      [style.--dt-sunburst-chart-slice-color]="slice.data.color"
-      [style.--dt-sunburst-chart-slice-color--hover]="slice.data.colorHover"
+      [attr.style]="
+        _sanitizeCSS('--dt-sunburst-chart-slice-color', slice.data.color)
+      "
       (click)="_select($event, slice)"
       (mouseenter)="openOverlay(slice)"
       (mouseleave)="closeOverlay()"
