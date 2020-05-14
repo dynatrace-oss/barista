@@ -76,7 +76,7 @@ export const _DtComboboxMixinBase = mixinTabIndex(
     '[class.dt-checkbox-disabled]': 'disabled',
     '[class.dt-checkbox-invalid]': 'errorState',
     '[class.dt-checkbox-required]': 'required',
-    // '[class.dt-checkbox-open]': 'panelOpen',
+    '[class.dt-checkbox-open]': '_panelOpen',
     '[attr.id]': 'id',
     '[attr.tabindex]': 'tabIndex',
     // '[attr.aria-label]': '_getAriaLabel()',
@@ -125,6 +125,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     return this.value === null;
   }
   _displayString = '';
+  _panelOpen = false;
 
   private _filterChangeSubscription: Subscription;
 
@@ -196,10 +197,14 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   }
 
   _opened(): void {
+    this._panelOpen = true;
     this.openedChange.emit(true);
+    this._changeDetectorRef.markForCheck();
   }
 
   _closed(): void {
+    this._panelOpen = false;
     this.openedChange.emit(false);
+    this._changeDetectorRef.markForCheck();
   }
 }

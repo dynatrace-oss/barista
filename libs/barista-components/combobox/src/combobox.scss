@@ -12,12 +12,22 @@
   @include dt-main-font();
   @include dt-form-control();
   @include dt-cdkmonitor-focus-style();
+
+  .dt-combobox-arrow {
+    transform: rotate(0);
+    transition: transform 150ms ease-out;
+  }
+
+  &.dt-checkbox-open .dt-combobox-arrow {
+    transform: rotate(180deg);
+  }
 }
 
 .dt-combobox-trigger {
   position: absolute;
   top: 4px;
   right: 8px;
+  pointer-events: none;
 }
 
 .dt-combobox-arrow {
