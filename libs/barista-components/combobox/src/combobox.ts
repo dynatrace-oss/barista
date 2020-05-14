@@ -182,7 +182,6 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     const value = event.option.value;
 
     this.value = value;
-    this._displayString = this.displayWith(value);
     this._changeDetectorRef.markForCheck();
 
     this.valueChange.emit(value);

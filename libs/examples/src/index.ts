@@ -114,8 +114,8 @@ import { DtExampleDrawerNested } from './drawer/drawer-nested-example/drawer-nes
 import { DtExampleDrawerOver } from './drawer/drawer-over-example/drawer-over-example';
 import { DtExampleDrawerTableDefault } from './drawer-table/drawer-table-default-example/drawer-table-default-example';
 import {
-  DtExampleCustomEmptyState,
   DtExampleCustomEmptyStateTable,
+  DtExampleCustomEmptyState,
 } from './empty-state/empty-state-custom-empty-state-table-example/empty-state-custom-empty-state-table-example';
 import { DtExampleEmptyStateDefault } from './empty-state/empty-state-default-example/empty-state-default-example';
 import { DtExampleEmptyStateInCard } from './empty-state/empty-state-in-card-example/empty-state-in-card-example';

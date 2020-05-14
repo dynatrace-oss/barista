@@ -16,11 +16,13 @@
 import { NgModule } from '@angular/core';
 import { DtComboboxModule } from '@dynatrace/barista-components/combobox';
 import { DtExampleComboboxSimple } from './combobox-simple-example/combobox-simple-example';
+import { DtOptionModule } from '@dynatrace/barista-components/core';
+import { CommonModule } from '@angular/common';
 
 export const DT_COMBOBOX_EXAMPLES = [DtExampleComboboxSimple];
 
 @NgModule({
-  imports: [DtComboboxModule],
+  imports: [DtComboboxModule, DtOptionModule, CommonModule],
   declarations: [...DT_COMBOBOX_EXAMPLES],
   entryComponents: [...DT_COMBOBOX_EXAMPLES],
 })

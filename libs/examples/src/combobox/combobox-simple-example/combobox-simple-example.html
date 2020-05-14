@@ -1,3 +1,12 @@
-<dt-combobox>
-  <dt-combobox-option>Option</dt-combobox-option>
+<dt-combobox
+  [value]="_initialValue"
+  [displayWith]="_displayWith"
+  placeholder="Start typing or open dropdown for top list"
+  (openedChange)="openedChanged($event)"
+  (valueChange)="valueChanged($event)"
+  (filterChange)="filterChanged($event)"
+>
+  <dt-option *ngFor="let option of _options" [value]="option">
+    {{ option.name }}
+  </dt-option>
 </dt-combobox>
