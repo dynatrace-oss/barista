@@ -1,5 +1,3 @@
-@import '../../core/src/style/variables';
-@import '../../core/src/theming/theming';
 @import './bar-indicator-theme';
 
 :host {
@@ -21,8 +19,4 @@
 :host.dt-bar-indicator-end .dt-bar-indicator-bar {
   left: auto;
   right: 0;
-}
-
-@include dt-apply-theme() {
-  @include dt-theme-bar-indicator($dt-current-theme);
 }
