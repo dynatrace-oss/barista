@@ -54,7 +54,7 @@ export interface DtSunburstChartTooltipData {
   depth: number;
   /** Color for this node in this state */
   color: DtColors | string;
-  /** Color for this node when hovering in this state */
+  /** @deprecated Color for this node when hovering in this state */
   colorHover: DtColors | string;
   /** If node is the deepest selected one */
   isCurrent: boolean;

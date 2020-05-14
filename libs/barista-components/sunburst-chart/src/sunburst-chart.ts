@@ -50,6 +50,8 @@ import {
   getValue,
 } from './sunburst-chart.util';
 import { Platform } from '@angular/cdk/platform';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { DtColors } from '@dynatrace/barista-components/theming';
 
 const OVERLAY_PANEL_CLASS = 'dt-sunburst-chart-overlay-panel';
 const VIEWBOX_WIDTH = 480;
@@ -144,6 +146,8 @@ export class DtSunburstChart {
     private _overlayService: Overlay,
     private _viewContainerRef: ViewContainerRef,
     private _platform: Platform,
+    // TODO: remove this sanitizer when ivy is no longer opt out
+    private _sanitizer: DomSanitizer,
     private _elementRef?: ElementRef<HTMLElement>,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
@@ -287,5 +291,13 @@ export class DtSunburstChart {
           slice.tooltipPosition[1] * (rect.height / VIEWBOX_HEIGHT),
       };
     }
+  }
+
+  /**
+   * Sanitization of the custom property is necessary as, custom property assignments do not work
+   * in a viewEngine setup. This can be removed with angular version 10, if ivy is no longer opt out.
+   */
+  _sanitizeCSS(prop: string, value: string | number | DtColors): SafeStyle {
+    return this._sanitizer.bypassSecurityTrustStyle(`${prop}: ${value}`);
   }
 }

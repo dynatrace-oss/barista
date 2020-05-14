@@ -31,7 +31,10 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import { DT_CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/barista-components/theming';
+import {
+  DT_CHART_COLOR_PALETTE_ORDERED,
+  DtColors,
+} from '@dynatrace/barista-components/theming';
 import { isNumber } from '@dynatrace/barista-components/core';
 import { PieArcDatum } from 'd3-shape';
 import { combineLatest, of, Subject } from 'rxjs';
@@ -44,6 +47,7 @@ import {
   generatePieArcData,
   getSum,
 } from './utils/radial-chart-utils';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 /** Size of the inner (empty) circle in proportion to the circle's radius. */
 const DONUT_INNER_CIRCLE_FRACTION = 0.8;
@@ -168,6 +172,8 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     private _elementRef: ElementRef<HTMLElement>,
     private _changeDetectorRef: ChangeDetectorRef,
     private _platform: Platform,
+    // TODO: remove this sanitizer when ivy is no longer opt out
+    private _sanitizer: DomSanitizer,
   ) {}
 
   /** AfterContentInit hook */
@@ -273,5 +279,13 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
       name: series.name,
       value: series.value,
     };
+  }
+
+  /**
+   * Sanitization of the custom property is necessary as, custom property assignments do not work
+   * in a viewEngine setup. This can be removed with angular version 10, if ivy is no longer opt out.
+   */
+  _sanitizeCSS(prop: string, value: string | number | DtColors): SafeStyle {
+    return this._sanitizer.bypassSecurityTrustStyle(`${prop}: ${value}`);
   }
 }

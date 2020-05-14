@@ -81,21 +81,21 @@ This `DtSunburstChartNode` holds the information for every slice in the chart.
 The context of the overlay will be set to DtSunburstChartTooltipData object
 containing useful information that can be used inside the overlay's template
 
-| Name            | Type                           | Description                                                                     |
-| --------------- | ------------------------------ | ------------------------------------------------------------------------------- |
-| `origin`        | `DtSunburstChartNode`          | Node passed by user in `series` array.                                          |
-| `id`            | `string`                       | Internal identifier.                                                            |
-| `label`         | `string`                       | Name of the node to be shown. Copied from `origin.label`.                       |
-| `value`         | `number`                       | Numeric value. Copied from `origin.value` or calculated from `origin.children`. |
-| `valueRelative` | `number`                       | Numeric percentage value based on this node vs sum of top level.                |
-| `children`      | `DtSunburstChartTooltipData[]` | Array of nodes belonging to this parent.                                        |
-| `depth`         | `number`                       | Number of levels of children.                                                   |
-| `color`         | `DtColors | string`            | Color for this node in this state.                                              |
-| `colorHover`    | `DtColors | string`            | Color for this node when hovering in this state.                                |
-| `isCurrent`     | `boolean`                      | If node is the deepest selected one.                                            |
-| `visible`       | `boolean`                      | If node is visible in the sunburst-chart.                                       |
-| `active`        | `boolean`                      | If node or child are selected.                                                  |
-| `showLabel`     | `boolean`                      | If label should be shown based on selection and a minimum angle of slice.       |
+| Name                      | Type                           | Description                                                                     |
+| ------------------------- | ------------------------------ | ------------------------------------------------------------------------------- |
+| `origin`                  | `DtSunburstChartNode`          | Node passed by user in `series` array.                                          |
+| `id`                      | `string`                       | Internal identifier.                                                            |
+| `label`                   | `string`                       | Name of the node to be shown. Copied from `origin.label`.                       |
+| `value`                   | `number`                       | Numeric value. Copied from `origin.value` or calculated from `origin.children`. |
+| `valueRelative`           | `number`                       | Numeric percentage value based on this node vs sum of top level.                |
+| `children`                | `DtSunburstChartTooltipData[]` | Array of nodes belonging to this parent.                                        |
+| `depth`                   | `number`                       | Number of levels of children.                                                   |
+| `color`                   | `DtColors | string`            | Color for this node in this state.                                              |
+| `colorHover` (deprecated) | `DtColors | string`            | Color for this node when hovering in this state.                                |
+| `isCurrent`               | `boolean`                      | If node is the deepest selected one.                                            |
+| `visible`                 | `boolean`                      | If node is visible in the sunburst-chart.                                       |
+| `active`                  | `boolean`                      | If node or child are selected.                                                  |
+| `showLabel`               | `boolean`                      | If label should be shown based on selection and a minimum angle of slice.       |
 
 ## Examples
 
