@@ -3,7 +3,7 @@
 <svg [attr.viewBox]="_viewBox" #svg>
   <text class="dt-sunburst-chart-value dt-sunburst-chart-selected-value">
     {{
-      _labelAsAbsolute
+      _valueAsAbsolute
         ? _selectedValue
         : (_selectedRelativeValue * 100 | dtPercent)
     }}
@@ -29,7 +29,7 @@
     >
       <text class="dt-sunburst-chart-value dt-sunburst-chart-slice-value">
         {{
-          _labelAsAbsolute
+          _valueAsAbsolute
             ? slice.data.value
             : (slice.data.valueRelative * 100 | dtPercent)
         }}

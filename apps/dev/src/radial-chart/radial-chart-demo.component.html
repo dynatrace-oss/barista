@@ -3,12 +3,16 @@
     [type]="type"
     [maxValue]="maxValue"
     [legendPosition]="legendPosition"
+    [valueDisplayMode]="valueAsRelative ? 'percent' : 'absolute'"
+    [selectable]="selectable"
   >
     <dt-radial-chart-series
       *ngFor="let s of renderedSeries"
       [name]="s.name"
       [color]="s.color"
       [value]="s.value"
+      [selected]="s === selected"
+      (selectedChange)="_select($event, s)"
     >
     </dt-radial-chart-series>
     <ng-template dtRadialChartOverlay let-series>
@@ -97,5 +101,37 @@
         Randomize color values
       </dt-checkbox>
     </div>
+
+    <div>
+      <dt-checkbox
+        [checked]="valueAsRelative"
+        (change)="valueAsRelative = !valueAsRelative"
+      >
+        Value as relative
+      </dt-checkbox>
+    </div>
+  </div>
+  <div class="selection">
+    <h2>Selection</h2>
+
+    <div>
+      <dt-checkbox [checked]="selectable" (change)="selectable = !selectable">
+        Selectable
+      </dt-checkbox>
+    </div>
+
+    <button
+      dt-button
+      variant="secondary"
+      (click)="_uiSelect(true, renderedSeries[0])"
+    >
+      select first
+    </button>
+
+    <button dt-button variant="secondary" (click)="_uiSelect(false)">
+      deselect
+    </button>
+
+    <pre>{{ selected | json }}</pre>
   </div>
 </div>

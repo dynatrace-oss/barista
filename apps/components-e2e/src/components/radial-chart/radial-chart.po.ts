@@ -21,9 +21,26 @@ export const chartTypePie = Selector('#chart-type-pie');
 export const chartTypeDonut = Selector('#chart-type-donut');
 export const overlay = Selector('.dt-overlay-container');
 
-export const pieChrome = Selector('.dt-radial-chart-series-group:nth-child(1)');
-export const pieSafari = Selector('.dt-radial-chart-series-group:nth-child(2)');
-export const pieFirefox = Selector(
-  '.dt-radial-chart-series-group:nth-child(3)',
+export const pieChrome = Selector(
+  '.dt-radial-chart-series-group:nth-of-type(1)',
 );
-export const pieEdge = Selector('.dt-radial-chart-series-group:nth-child(4)');
+export const pieSafari = Selector(
+  '.dt-radial-chart-series-group:nth-of-type(2)',
+);
+export const pieFirefox = Selector(
+  '.dt-radial-chart-series-group:nth-of-type(3)',
+);
+export const pieEdge = Selector('.dt-radial-chart-series-group:nth-of-type(4)');
+export const pieSelected = Selector('.dt-radial-chart-path-selected');
+
+export const legendChrome = Selector('dt-legend-item:nth-of-type(1)');
+
+// interaction
+
+export const absoluteBtn = Selector('#chart-value-mode-absolute');
+export const percentBtn = Selector('#chart-value-mode-percent');
+
+export const selectableBtn = Selector('#chart-selectable');
+export const nonSelectableBtn = Selector('#chart-non-selectable');
+
+export const setSelectBtn = Selector('#chart-set-select');

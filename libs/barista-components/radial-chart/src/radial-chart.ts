@@ -31,13 +31,14 @@ import {
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core';
-import {
-  DT_CHART_COLOR_PALETTE_ORDERED,
-  DtColors,
-} from '@dynatrace/barista-components/theming';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import { isNumber } from '@dynatrace/barista-components/core';
+import {
+  DtColors,
+  DT_CHART_COLOR_PALETTE_ORDERED,
+} from '@dynatrace/barista-components/theming';
 import { PieArcDatum } from 'd3-shape';
-import { combineLatest, of, Subject } from 'rxjs';
+import { merge, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { DtRadialChartOverlayData } from './radial-chart-path';
 import { DtRadialChartSeries } from './radial-chart-series';
@@ -47,10 +48,12 @@ import {
   generatePieArcData,
   getSum,
 } from './utils/radial-chart-utils';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 
 /** Size of the inner (empty) circle in proportion to the circle's radius. */
 const DONUT_INNER_CIRCLE_FRACTION = 0.8;
+
+/** Minimum width of the chart */
+const MIN_WIDTH = 400;
 
 @Directive({
   selector: '[dtRadialChartOverlay]',
@@ -94,8 +97,11 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     return this._maxValue;
   }
   set maxValue(value: number | null) {
-    this._maxValue = coerceNumberProperty(value);
-    this._updateRenderData();
+    const coercedValue = coerceNumberProperty(value);
+    if (coercedValue !== this._maxValue) {
+      this._maxValue = coercedValue;
+      this._updateRenderData();
+    }
   }
   private _maxValue: number | null = null;
 
@@ -108,6 +114,24 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     this._legendPosition = value;
   }
   private _legendPosition: 'right' | 'bottom' = 'right';
+
+  /** Sets the display mode for the radial-chart values to either 'percent' or 'absolute'.  */
+  @Input() valueDisplayMode: 'absolute' | 'percent' = 'absolute';
+
+  /** Sets the display mode for the radial-chart values to either 'percent' or 'absolute'.  */
+  @Input()
+  get selectable(): boolean {
+    return this._selectable;
+  }
+  set selectable(value: boolean) {
+    if (value !== this._selectable) {
+      this._selectable = value;
+      this._select();
+
+      this._updateRenderData();
+    }
+  }
+  _selectable: boolean = false;
 
   /** @internal Series data, <dt-radial-chart-series> */
   @ContentChildren(DtRadialChartSeries) _radialChartSeries: QueryList<
@@ -129,7 +153,17 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
 
   /** @internal The chart's radius. */
   get _radius(): number {
-    return this._width / 2;
+    return this._width / 2 - 16;
+  }
+
+  /** @internal External selection radius. */
+  get _externalSelectionRadius(): number {
+    return this._radius + 8;
+  }
+
+  /** @internal Internal selection radius. */
+  get _internalSelectionRadius(): number {
+    return this._radius + 4;
   }
 
   /**
@@ -178,33 +212,34 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
 
   /** AfterContentInit hook */
   ngAfterContentInit(): void {
-    if (this._platform.isBrowser) {
-      /**
-       * Initially set the width of the SVG to the available width
-       * to calculate the radius and the viewbox.
-       */
-      this._width = this._elementRef.nativeElement.getBoundingClientRect().width;
-      this._updateRenderData();
+    this._updateDimensions();
 
-      /**
-       * Fires every time a value within one of the series changes
-       * or the series data itself gets an update (one series is added or removed).
-       */
-      this._radialChartSeries.changes
-        .pipe(
-          switchMap(() =>
-            this._radialChartSeries.length
-              ? combineLatest(
-                  this._radialChartSeries.map((series) => series._stateChanges),
-                )
-              : of(null),
+    /**
+     * Fires every time a value within one of the series changes
+     * or the series data itself gets an update (one series is added or removed).
+     */
+    //updated segments
+    const seriesChanges$ = merge(
+      this._radialChartSeries.changes.pipe(
+        switchMap(() =>
+          merge(
+            ...this._radialChartSeries.map((series) => series._stateChanges$),
           ),
-          takeUntil(this._destroy$),
-        )
-        .subscribe((): void => {
-          this._updateRenderData();
-        });
-    }
+        ),
+      ),
+    );
+
+    // initial segments
+    const initialSeries$ = merge(
+      ...this._radialChartSeries.map((series) => series._stateChanges$),
+    ).pipe(takeUntil(seriesChanges$));
+
+    merge(initialSeries$, seriesChanges$)
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._updateDimensions();
+        this._changeDetectorRef.markForCheck();
+      });
   }
 
   /** OnDestroy hook */
@@ -213,6 +248,17 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     this._destroy$.complete();
   }
 
+  /** @internal gets the dimensions of the component and renders */
+  _updateDimensions(): void {
+    if (this._platform.isBrowser) {
+      this._width = Math.max(
+        MIN_WIDTH,
+        this._elementRef.nativeElement.getBoundingClientRect().width,
+      );
+
+      this._updateRenderData();
+    }
+  }
   /**
    * Updates _renderData used within the template.
    * Calculates all arc-, SVG-path- and background-data
@@ -262,22 +308,43 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
         arcData.endAngle,
       ) || '';
 
+    const selectionPath =
+      generatePathData(
+        this._externalSelectionRadius,
+        this._internalSelectionRadius,
+        arcData.startAngle,
+        arcData.endAngle,
+      ) || '';
+
+    const hoverPath =
+      generatePathData(
+        this._externalSelectionRadius,
+        this._radius,
+        arcData.startAngle,
+        arcData.endAngle,
+      ) || '';
+
     // The series' color overrides the given color from the chart color palette.
     const color = series.color ? series.color : chartColor;
 
-    // The path's aria label consists of the series' name, value and the chart's max-value
-    const ariaLabel = `${series.name}: ${series.value} of ${
+    const max =
       this.maxValue && this.maxValue >= totalSeriesValue
         ? this.maxValue
-        : totalSeriesValue
-    }`;
+        : totalSeriesValue;
+
+    // The path's aria label consists of the series' name, value and the chart's max-value
+    const ariaLabel = `${series.name}: ${series.value} of ${max}`;
 
     return {
       path,
+      selectionPath,
+      hoverPath,
       color,
       ariaLabel,
       name: series.name,
       value: series.value,
+      valueRelative: series.value / max,
+      origin: series,
     };
   }
 
@@ -287,5 +354,27 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
    */
   _sanitizeCSS(prop: string, value: string | number | DtColors): SafeStyle {
     return this._sanitizer.bypassSecurityTrustStyle(`${prop}: ${value}`);
+  }
+
+  /**
+   * @internal Emits the data of the selected event and
+   * registers the event as selected.
+   */
+  _select(series?: DtRadialChartRenderData): void {
+    // deselect any other
+    if (this._radialChartSeries) {
+      this._radialChartSeries
+        .filter((s) => !this.selectable || (s !== series?.origin && s.selected))
+        .forEach((s) => {
+          s.selected = false;
+          s.selectedChange.emit(false);
+        });
+    }
+
+    if (series && this.selectable) {
+      // select current
+      series.origin.selected = !series.origin.selected;
+      series.origin.selectedChange.emit(series.origin.selected);
+    }
   }
 }

@@ -41,7 +41,7 @@
 /libs/barista-components/pagination/** @lukasholzer
 /libs/barista-components/progress-bar/** @tomheller
 /libs/barista-components/progress-circle/** @ffriedl89 @tomheller
-/libs/barista-components/radial-chart/** @tomheller
+/libs/barista-components/radial-chart/** @tomheller @subarroca
 /libs/barista-components/radio/** @thomaspink
 /libs/barista-components/schematics/** @lukasholzer
 /libs/barista-components/secondary-nav/** @areknow @thomaspink
@@ -138,7 +138,7 @@
 /apps/dev/src/pagination/** @lukasholzer
 /apps/dev/src/progress-bar/** @tomheller
 /apps/dev/src/progress-circle/** @ffriedl89 @tomheller
-/apps/dev/src/radial-chart/** @tomheller
+/apps/dev/src/radial-chart/** @tomheller @subarroca
 /apps/dev/src/radio/** @thomaspink
 /apps/dev/src/secondary-nav/** @areknow @thomaspink
 /apps/dev/src/select/** @thomaspink

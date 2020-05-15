@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, Input, TemplateRef, AfterContentInit } from '@angular/core';
+import { AfterContentInit, Component, Input, TemplateRef } from '@angular/core';
 import { DtOverlayTrigger } from '@dynatrace/barista-components/overlay';
 import { DtRadialChartRenderData } from './utils/radial-chart-interfaces';
 
@@ -27,7 +27,9 @@ export interface DtRadialChartOverlayData {
 @Component({
   selector: 'svg:g[dt-radial-chart-path]',
   templateUrl: 'radial-chart-path.html',
+  styleUrls: ['radial-chart-path.scss'],
   host: {
+    '[class.dt-radial-chart-path-selected]': 'series.origin.selected',
     '(mouseenter)': 'overlayTemplate && _handleMouseEnter($event)',
     '(mouseleave)': 'overlayTemplate && _handleMouseLeave($event)',
   },

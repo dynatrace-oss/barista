@@ -24,11 +24,13 @@ class MyModule {}
 
 ## DtRadialChart inputs
 
-| Name             | Type                 | Default | Description                                                                                                                        |
-| ---------------- | -------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `type`           | `'pie' | 'donut'`    | `'pie'` | The chart type; can be either a pie chart or a donut chart.                                                                        |
-| `maxValue`       | `number`             | `null`  | The maximum chart value that defines the full circle. If not set the maximum value is equal to the sum of all chart series values. |
-| `legendPosition` | `'right' | 'bottom'` | `right` | Defines where the chart's legend is placed.                                                                                        |
+| Name               | Type                     | Default      | Description                                                                                                                        |
+| ------------------ | ------------------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `type`             | `'pie' | 'donut'`        | `'pie'`      | The chart type; can be either a pie chart or a donut chart.                                                                        |
+| `maxValue`         | `number`                 | `null`       | The maximum chart value that defines the full circle. If not set the maximum value is equal to the sum of all chart series values. |
+| `legendPosition`   | `'right' | 'bottom'`     | `right`      | Defines where the chart's legend is placed.                                                                                        |
+| `valueDisplayMode` | `'absolute' | 'percent'` | `'absolute'` | Mode of value visualization. It can be `percent` or `absolute`.                                                                    |
+| `selectable`       | `boolean`                | false        | Sets the display mode for the sunburst-chart values to either 'percent' or 'absolute'.                                             |
 
 ### Max value
 
@@ -50,11 +52,19 @@ You can specify the position of the radial chart by adjusting the value of the
 
 ## DtRadialChartSeries inputs
 
-| Name    | Type     | Default                             | Description                                                  |
-| ------- | -------- | ----------------------------------- | ------------------------------------------------------------ |
-| `value` | `number` | -                                   | The series value (required).                                 |
-| `name`  | `string` | -                                   | The series name (required).                                  |
-| `color` | `string` | `DT_CHART_COLOR_PALETTE_ORDERED[i]` | The color in which the series is displayed within the chart. |
+| Name            | Type      | Default                             | Description                                                      |
+| --------------- | --------- | ----------------------------------- | ---------------------------------------------------------------- |
+| `value`         | `number`  | -                                   | The series value (required).                                     |
+| `name`          | `string`  | -                                   | The series name (required).                                      |
+| `color`         | `string`  | `DT_CHART_COLOR_PALETTE_ORDERED[i]` | The color in which the series is displayed within the chart.     |
+| `valueRelative` | `number`  | -                                   | Numeric percentage value based on this node vs sum of top level. |
+| `selected`      | `boolean` | false                               | Marks series as selected.                                        |
+
+#### Outputs
+
+| Name             | Type                    | Description                   |
+| ---------------- | ----------------------- | ----------------------------- |
+| `selectedChange` | `EventEmitter<boolean>` | Emits when event is selected. |
 
 ### Series color
 

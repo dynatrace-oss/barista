@@ -29,6 +29,10 @@ text {
   display: flex;
 }
 
+.dt-radial-chart-series-group {
+  outline: none;
+}
+
 :host.dt-radial-chart-legend-right .dt-radial-chart-wrapper {
   flex-direction: row;
   align-items: center;

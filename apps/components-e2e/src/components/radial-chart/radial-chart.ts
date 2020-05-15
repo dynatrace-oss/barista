@@ -23,8 +23,10 @@ import { Component } from '@angular/core';
 })
 export class DtE2ERadialChart {
   type: 'pie' | 'donut' = 'pie';
+  valueDisplayMode: 'absolute' | 'percent';
+  selectable: boolean;
 
-  chartSeries = [
+  chartSeries: { name: string; value: number; selected?: boolean }[] = [
     {
       name: 'Chrome',
       value: 43,
