@@ -22,7 +22,8 @@ class MyModule {}
 ## Initialization
 
 To create a `dtSunburstChart` in a minimal configuration, only `series`
-attribute is required to create a valid output.
+attribute is required to create a valid output. Only 3 levels are allowed at the
+moment
 
 <ba-live-example name="DtExampleSunburstChartDefault" fullwidth></ba-live-example>
 
