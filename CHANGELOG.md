@@ -1,3 +1,24 @@
+## [7.0.0-rc.2](https://github.com/dynatrace-oss/barista/compare/7.0.0-rc.1...7.0.0-rc.2) (2020-05-15)
+
+### Bug Fixes
+
+- **sunburst-chart,radial-chart:** Fix css custom properties inside template for
+  view engine consumers.
+  ([67caf42](https://github.com/dynatrace-oss/barista/commit/67caf425e78d9464017df9173fa38ab6671f1fa5))
+
+### Features
+
+- **secondary-nav:** Refactor secondary-nav.
+  ([8aa5d6a](https://github.com/dynatrace-oss/barista/commit/8aa5d6aec35616d40bf601638a85eebc224c7d8b)),
+  closes [#465](https://github.com/dynatrace-oss/barista/issues/465)
+
+### BREAKING CHANGES
+
+- **secondary-nav:** the API has been simplified and the dependency on the
+  Router has been removed.
+- **sunburst-chart,radial-chart:** Added DomSanitizer as non optional parameter
+  to the components constructor.
+
 ## [7.0.0-rc.1](https://github.com/dynatrace-oss/barista/compare/6.0.0...7.0.0-rc.1) (2020-05-13)
 
 Most of the breaking changes will be fixed automatically by running
