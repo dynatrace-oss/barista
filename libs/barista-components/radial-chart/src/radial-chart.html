@@ -1,9 +1,5 @@
 <div class="dt-radial-chart-wrapper">
-  <svg
-    [attr.viewBox]="_viewBox"
-    [attr.width]="_width"
-    class="dt-radial-chart-svg"
-  >
+  <svg [attr.viewBox]="_viewBox" class="dt-radial-chart-svg">
     <svg:path
       *ngIf="_hasBackground"
       [attr.d]="_backgroundPath"
@@ -16,6 +12,7 @@
       [series]="series"
       [totalValue]="_totalSeriesValue"
       [overlayTemplate]="_overlay"
+      (click)="_select(series)"
     ></svg:g>
   </svg>
   <dt-legend class="dt-radial-chart-legend">
@@ -27,7 +24,12 @@
         "
       >
       </dt-legend-symbol>
-      <strong>{{ series.value }}</strong> {{ series.name }}
+      <strong>{{
+        valueDisplayMode === 'absolute'
+          ? series.value
+          : (series.valueRelative * 100 | dtPercent)
+      }}</strong>
+      {{ series.name }}
     </dt-legend-item>
   </dt-legend>
 </div>

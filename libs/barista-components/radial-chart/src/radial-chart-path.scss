@@ -1,0 +1,23 @@
+@import '../../core/src/style/variables';
+
+:host:not(.dt-radial-chart-path-selected):hover {
+  .dt-radial-chart-path-hover {
+    opacity: 0.3;
+  }
+}
+
+:host(.dt-radial-chart-path-selected) {
+  .dt-radial-chart-path-selection {
+    opacity: 1;
+  }
+}
+
+.dt-radial-chart-path {
+  transition: 0.2s opacity;
+  stroke: $white;
+}
+
+.dt-radial-chart-path-hover,
+.dt-radial-chart-path-selection {
+  opacity: 0;
+}

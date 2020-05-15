@@ -23,6 +23,7 @@ import { Component } from '@angular/core';
 })
 export class DtExampleRadialChartLegend {
   legendPosition: 'right' | 'bottom' = 'right';
+  valueDisplayMode: 'absolute' | 'percent' = 'absolute';
 
   _chartSeries = [
     {
@@ -42,8 +43,4 @@ export class DtExampleRadialChartLegend {
       value: 9,
     },
   ];
-
-  toggleLegendPosition(): void {
-    this.legendPosition = this.legendPosition === 'right' ? 'bottom' : 'right';
-  }
 }

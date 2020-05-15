@@ -97,7 +97,7 @@ export class DtSunburstChart {
   /** @internal Relative value of selected element to be displayed */
   _selectedRelativeValue: number;
   /** @internal Marks if absolute value should be shown or percent instead */
-  _labelAsAbsolute: boolean = true;
+  _valueAsAbsolute: boolean = true;
 
   /** Series input for the sunburst-chart, should be an array of nodes with their children (i.e [A,B,C]). */
   @Input()
@@ -127,7 +127,7 @@ export class DtSunburstChart {
   /** Sets the display mode for the sunburst-chart values to either 'percent' or 'absolute'.  */
   @Input()
   set valueDisplayMode(value: 'absolute' | 'percent') {
-    this._labelAsAbsolute = value !== 'percent';
+    this._valueAsAbsolute = value !== 'percent';
   }
 
   /** Event that fires when a node is clicked with an array of selected nodes (i.e [A, A.1, A.1.a])  */

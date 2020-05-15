@@ -1,8 +1,21 @@
-<button dt-button variant="secondary" (click)="toggleLegendPosition()">
-  Toggle legend position
-</button>
+<div class="options">
+  Legend position
+  <dt-button-group [(value)]="legendPosition">
+    <dt-button-group-item value="bottom">Bottom</dt-button-group-item>
+    <dt-button-group-item value="right">Right</dt-button-group-item>
+  </dt-button-group>
 
-<dt-radial-chart [legendPosition]="legendPosition">
+  Value display mode
+  <dt-button-group [(value)]="valueDisplayMode">
+    <dt-button-group-item value="absolute">Absolute</dt-button-group-item>
+    <dt-button-group-item value="percent">Percent</dt-button-group-item>
+  </dt-button-group>
+</div>
+
+<dt-radial-chart
+  [legendPosition]="legendPosition"
+  [valueDisplayMode]="valueDisplayMode"
+>
   <dt-radial-chart-series
     *ngFor="let s of _chartSeries"
     [value]="s.value"
