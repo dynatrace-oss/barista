@@ -24,18 +24,20 @@ import {
   TestBed,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   DtUiTestConfiguration,
   DT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 import { DtSunburstChart } from './sunburst-chart';
 import { sunburstChartMock } from './sunburst-chart.mock';
 import { DtSunburstChartModule } from './sunburst-chart.module';
 import {
   DtSunburstChartNode,
-  DtSunburstChartSlice,
+  DtSunburstChartNodeSlice,
 } from './sunburst-chart.util';
 
 describe('DtSunburstChart', () => {
@@ -55,8 +57,9 @@ describe('DtSunburstChart', () => {
   let selectSpy;
 
   const selectors = {
-    overlay: '.dt-sunburst-chart-overlay-panel',
+    overlay: '.dt-overlay-container',
     sunburst: 'dt-sunburst-chart',
+    segment: '[dt-sunburst-chart-segment]',
     slice: '.dt-sunburst-chart-slice',
     sliceLabel: '.dt-sunburst-chart-slice-label',
     selectedSlice: '.dt-sunburst-chart-slice-current',
@@ -97,7 +100,7 @@ describe('DtSunburstChart', () => {
         expect(slices.length).toEqual(2);
 
         expect(slices[0].nativeElement.getAttribute('d')).toBe(
-          'M5.3884459162483544e-15,-88A88,88,0,1,1,5.3884459162483544e-15,88L3.91886975727153e-15,64A64,64,0,1,0,3.91886975727153e-15,-64Z',
+          'M8.817456953860943e-15,-144A144,144,0,1,1,8.817456953860943e-15,144L6.858022075225178e-15,112A112,112,0,1,0,6.858022075225178e-15,-112Z',
         );
       });
     });
@@ -116,6 +119,7 @@ describe('DtSunburstChart', () => {
           {
             children: [
               {
+                ariaLabel: 'Blue in Purple is 1',
                 color: '#fff29a',
                 depth: 1,
                 id: '0.0',
@@ -125,6 +129,7 @@ describe('DtSunburstChart', () => {
                 origin: expect.any(Object),
               },
               {
+                ariaLabel: 'Red in Purple is 3',
                 color: '#fff29a',
                 depth: 1,
                 id: '0.1',
@@ -134,6 +139,7 @@ describe('DtSunburstChart', () => {
                 origin: expect.any(Object),
               },
             ],
+            ariaLabel: 'Purple is 4',
             color: '#fff29a',
             depth: 2,
             id: '0',
@@ -180,6 +186,7 @@ describe('DtSunburstChart', () => {
         const selected = {
           data: {
             origin: sunburstChartMock[1].children[0],
+            ariaLabel: 'Yellow in green is 3',
             active: false,
             childre: [],
             color: '',
@@ -196,13 +203,13 @@ describe('DtSunburstChart', () => {
           endAngle: 0,
           index: 0,
           labelPosition: [0, 0],
-          tooltipPosition: [0, 0],
           padAngle: 0,
           path: '',
           showLabel: true,
           startAngle: 0,
+          tooltipPosition: [0, 0],
           value: 3,
-        } as DtSunburstChartSlice;
+        } as DtSunburstChartNodeSlice;
 
         rootComponent.series = sunburstChartMock;
         fixture.detectChanges();
@@ -221,9 +228,11 @@ describe('DtSunburstChart', () => {
         rootComponent.series = sunburstChartMock;
         fixture.detectChanges();
 
-        const firstSlice = fixture.debugElement.query(By.css(selectors.slice));
+        const firstSegment = fixture.debugElement.query(
+          By.css(selectors.segment),
+        );
 
-        dispatchFakeEvent(firstSlice.nativeNode, 'click');
+        dispatchFakeEvent(firstSegment.nativeNode, 'click');
         fixture.detectChanges();
 
         const selectedSlice = fixture.debugElement.query(
@@ -231,7 +240,7 @@ describe('DtSunburstChart', () => {
         );
 
         expect(selectedSlice.nativeElement.getAttribute('d')).toBe(
-          'M6.858022075225178e-15,-112A112,112,0,1,1,6.858022075225178e-15,112L3.91886975727153e-15,64A64,64,0,1,0,3.91886975727153e-15,-64Z',
+          'M9.797174393178826e-15,-160A160,160,0,1,1,9.797174393178826e-15,160L6.858022075225178e-15,112A112,112,0,1,0,6.858022075225178e-15,-112Z',
         );
       });
 
@@ -351,6 +360,8 @@ describe('DtSunburstChart', () => {
           HttpClientTestingModule,
           DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
           DtSunburstChartModule,
+          DtOverlayModule,
+          NoopAnimationsModule,
         ],
         declarations: [TestWithOverlayApp],
         providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
@@ -379,7 +390,7 @@ describe('DtSunburstChart', () => {
     });
 
     it('should display an overlay when hovering over a slice', () => {
-      const firstSlice = fixture.debugElement.query(By.css(selectors.slice));
+      const firstSlice = fixture.debugElement.query(By.css(selectors.segment));
 
       dispatchFakeEvent(firstSlice.nativeElement, 'mouseenter');
       fixture.detectChanges();
@@ -389,7 +400,7 @@ describe('DtSunburstChart', () => {
       );
       expect(overlayPane).toBeDefined();
 
-      const overlayContent = (overlayPane!.textContent || '').trim();
+      const overlayContent = (overlayPane!.textContent ?? '').trim();
       expect(overlayContent).toBe('Purple');
     });
 

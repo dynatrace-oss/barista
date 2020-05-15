@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { TemplatePortal } from '@angular/cdk/portal';
+import { Platform } from '@angular/cdk/platform';
 import {
+  AfterContentInit,
   ChangeDetectionStrategy,
   Component,
   ContentChild,
@@ -24,23 +24,32 @@ import {
   EventEmitter,
   Inject,
   Input,
+  OnDestroy,
   Optional,
   Output,
+  QueryList,
   TemplateRef,
   ViewChild,
+  ViewChildren,
   ViewContainerRef,
   ViewEncapsulation,
+  ChangeDetectorRef,
 } from '@angular/core';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import {
-  dtSetUiTestAttribute,
   DtUiTestConfiguration,
   DT_UI_TEST_CONFIG,
+  DtViewportResizer,
 } from '@dynatrace/barista-components/core';
+import { DtOverlay, DtOverlayRef } from '@dynatrace/barista-components/overlay';
+import { DtColors } from '@dynatrace/barista-components/theming';
+import { Subject, animationFrameScheduler } from 'rxjs';
+import { DtSunburstChartSegment } from './sunburst-chart-segment';
 import { DtSunburstChartOverlay } from './sunburst-chart.directive';
 import {
-  DtSunburstChartTooltipData,
   DtSunburstChartNode,
-  DtSunburstChartSlice,
+  DtSunburstChartNodeSlice,
+  DtSunburstChartTooltipData,
   fillNodes,
   getNodesWithState,
   getSelectedId,
@@ -49,13 +58,11 @@ import {
   getSlices,
   getValue,
 } from './sunburst-chart.util';
-import { Platform } from '@angular/cdk/platform';
-import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { DtColors } from '@dynatrace/barista-components/theming';
+import { takeUntil } from 'rxjs/operators';
+import { Overlay } from '@angular/cdk/overlay';
 
-const OVERLAY_PANEL_CLASS = 'dt-sunburst-chart-overlay-panel';
-const VIEWBOX_WIDTH = 480;
-const VIEWBOX_HEIGHT = 400;
+/** Minimum width of the chart */
+const MIN_WIDTH = 480;
 
 /**
  * Sunburst chart is a donut chart with multiple levels that get unfolded on click and show an overlay on hover
@@ -72,33 +79,7 @@ const VIEWBOX_HEIGHT = 400;
   },
   exportAs: 'dtSunburstChart',
 })
-export class DtSunburstChart {
-  // viewbox is originX originY width and height. With -width/2 -height/2 width height the center of the svg is (0,0)
-  // this way we don't have to translate all the elements and it gets centered in the middle
-  /** @internal viewbox representation */
-  readonly _viewBox = `-${VIEWBOX_WIDTH / 2} -${
-    VIEWBOX_HEIGHT / 2
-  } ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`;
-
-  /** @internal Viewchild selection of the svg */
-  @ViewChild('svg') _svgEl;
-
-  @ContentChild(DtSunburstChartOverlay, { read: TemplateRef })
-  private _overlay: TemplateRef<DtSunburstChartOverlay>;
-
-  private _filledSeries: DtSunburstChartTooltipData[];
-  /** @internal Slices to be painted */
-  _slices: DtSunburstChartSlice[] = [];
-
-  /** @internal Label of selected element to be displayed */
-  _selectedLabel: string;
-  /** @internal Value of selected element to be displayed */
-  _selectedValue: number;
-  /** @internal Relative value of selected element to be displayed */
-  _selectedRelativeValue: number;
-  /** @internal Marks if absolute value should be shown or percent instead */
-  _valueAsAbsolute: boolean = true;
-
+export class DtSunburstChart implements AfterContentInit, OnDestroy {
   /** Series input for the sunburst-chart, should be an array of nodes with their children (i.e [A,B,C]). */
   @Input()
   get series(): DtSunburstChartNode[] {
@@ -135,27 +116,142 @@ export class DtSunburstChart {
     DtSunburstChartNode[]
   > = new EventEmitter();
 
-  /** Template portal for the default overlay */
-  // tslint:disable-next-line: use-default-type-parameter no-any
-  private _portal: TemplatePortal<any> | null;
+  /** @internal Overlay template */
+  @ContentChild(DtSunburstChartOverlay, { static: false, read: TemplateRef })
+  _overlay: TemplateRef<DtSunburstChartTooltipData>;
+
+  /** @internal Viewchild selection of the svg */
+  @ViewChild('svg') _svgEl;
+
+  /** @internal Viewchildren selection for the slices */
+  @ViewChildren(DtSunburstChartSegment) private _segments: QueryList<
+    DtSunburstChartSegment
+  >;
+
+  /** Slices to be painted. Exposed so users can open overlays */
+  get slices(): DtSunburstChartNodeSlice[] {
+    return this._slices;
+  }
+  _slices: DtSunburstChartNodeSlice[] = [];
+
+  /** @internal The chart's width based on the viewport width. */
+  _width = MIN_WIDTH;
+
+  /** @internal The chart's radius. */
+  get _radius(): number {
+    return this._width / 2;
+  }
+
+  // viewbox is originX originY width and height. With -width/2 -height/2 width height the center of the svg is (0,0)
+  // this way we don't have to translate all the elements and it gets centered in the middle
+  /** @internal viewbox representation */
+  get _viewBox(): string {
+    return `${-this._width / 2} ${-this._width / 2} ${this._width} ${
+      this._width
+    }`;
+  }
+
+  /** @internal Label of selected element to be displayed */
+  _selectedLabel: string;
+  /** @internal Value of selected element to be displayed */
+  _selectedValue: number;
+  /** @internal Relative value of selected element to be displayed */
+  _selectedRelativeValue: number;
+  /** @internal Marks if absolute value should be shown or percent instead */
+  _valueAsAbsolute: boolean = true;
+
+  private _filledSeries: DtSunburstChartTooltipData[];
 
   /** Reference to the open overlay. */
-  private _overlayRef: OverlayRef;
+  private _overlayRef: DtOverlayRef<DtSunburstChartTooltipData> | null;
+
+  /** @internal Destroy subject to clear subscriptions on component destroy. */
+  private readonly _destroy$ = new Subject<void>();
 
   constructor(
-    private _overlayService: Overlay,
-    private _viewContainerRef: ViewContainerRef,
+    /** @breaking-change Deprecate ViewContainerRef in version 8.0.0 */
+    _overlayService: Overlay,
+    /** @breaking-change Deprecate ViewContainerRef in version 8.0.0 */
+    _viewContainerRef: ViewContainerRef,
     private _platform: Platform,
     // TODO: remove this sanitizer when ivy is no longer opt out
     private _sanitizer: DomSanitizer,
-    private _elementRef?: ElementRef<HTMLElement>,
-    @Optional()
-    @Inject(DT_UI_TEST_CONFIG)
-    private _config?: DtUiTestConfiguration,
+    private _elementRef: ElementRef<HTMLElement>,
+    /** @breaking-change Make the DtViewportResizer mandatory in version 8.0.0 */
+    @Optional() private _resizer?: DtViewportResizer,
+    /** @breaking-change Make the ChangeDetectorRef mandatory in version 8.0.0 */
+    @Optional() private _changeDetectorRef?: ChangeDetectorRef,
+    @Optional() @Inject(DT_UI_TEST_CONFIG) _config?: DtUiTestConfiguration,
+    /** @breaking-change Make the DtOverlay mandatory in version 8.0.0 */
+    @Optional() private _dtOverlayService?: DtOverlay,
   ) {}
 
+  /** AfterContentInit hook */
+  ngAfterContentInit(): void {
+    this._updateDimensions();
+
+    if (this._resizer) {
+      this._resizer
+        .change()
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(() =>
+          animationFrameScheduler.schedule(
+            () => {
+              this._updateDimensions();
+              if (this._changeDetectorRef) {
+                this._changeDetectorRef.markForCheck();
+              }
+            },
+            0,
+            0,
+          ),
+        );
+    }
+  }
+
+  /** OnDestroy hook */
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
+
+  /** Puts the overlay in place. */
+  openOverlay(node: DtSunburstChartNodeSlice): void {
+    const segment = this._segments.find(
+      (segm) => segm.slice.data === node.data,
+    );
+    if (segment) {
+      const element = segment.elementRef.nativeElement as HTMLElement;
+      this._revealOverlay(
+        element,
+        element.getBoundingClientRect().left,
+        element.getBoundingClientRect().top,
+        node.data,
+      );
+    }
+  }
+
+  /** Programmatically close the overlay. */
+  closeOverlay(): void {
+    if (this._overlayRef) {
+      this._overlayRef.dismiss();
+      this._overlayRef = null;
+    }
+  }
+
+  /** @internal gets the dimensions of the component and renders */
+  _updateDimensions(): void {
+    if (this._platform.isBrowser) {
+      this._width = Math.max(
+        MIN_WIDTH,
+        this._elementRef.nativeElement.getBoundingClientRect().width,
+      );
+      this._render();
+    }
+  }
+
   /** @internal selects a slice or unselects the current selected if no slice is given  */
-  _select(event?: MouseEvent, slice?: DtSunburstChartSlice): void {
+  _select(event?: MouseEvent, slice?: DtSunburstChartNodeSlice): void {
     event?.stopPropagation();
 
     if (slice) {
@@ -175,13 +271,56 @@ export class DtSunburstChart {
     this._render();
   }
 
+  /**
+   * @internal
+   * Handles the mouseEnter on a slice.
+   * Creates an overlay if it is necessary.
+   */
+  _handleOnMouseEnter(
+    event: MouseEvent,
+    slice: DtSunburstChartTooltipData,
+  ): void {
+    this._revealOverlay(
+      event.target as HTMLElement,
+      event.offsetX,
+      event.offsetY,
+      slice,
+    );
+  }
+
+  /**
+   * @internal
+   * Handles the mouseMove on a slice.
+   * Updates the position of the overlay to create a mouseFollow position
+   */
+  _handleOnMouseMove(event: MouseEvent): void {
+    // TODO: remove this `if` once dtOverlayService is mandatory
+    if (this._dtOverlayService) {
+      if (this._overlayRef) {
+        this._dtOverlayService._positionStrategy.setOrigin({
+          x: event.clientX,
+          y: event.clientY,
+        });
+        this._overlayRef.updatePosition();
+      }
+    }
+  }
+
+  /**
+   * Sanitization of the custom property is necessary as, custom property assignments do not work
+   * in a viewEngine setup. This can be removed with angular version 10, if ivy is no longer opt out.
+   */
+  _sanitizeCSS(prop: string, value: string | number | DtColors): SafeStyle {
+    return this._sanitizer.bypassSecurityTrustStyle(`${prop}: ${value}`);
+  }
+
   /** Calculates visible slices based on their state */
   private _render(): void {
     const nodesWithState = getNodesWithState(
       this._filledSeries,
       getSelectedId(this._filledSeries, this._selected),
     );
-    this._slices = getSlices(nodesWithState);
+    this._slices = getSlices(nodesWithState, this._radius);
 
     if (this._selected && this._selected.length) {
       this._selectedLabel = this._selected.slice(-1)[0].label ?? '';
@@ -194,118 +333,24 @@ export class DtSunburstChart {
       this._selectedRelativeValue = 1;
     }
   }
-  /** Programmatically close the overlay. */
-  closeOverlay(): void {
-    this._dismissOverlay();
-  }
 
-  /** Puts the overlay in place. */
-  openOverlay(node: DtSunburstChartSlice): void {
-    const origin = this._getOriginFromSlice(node);
-
-    this._dismissOverlay();
-    if (origin) {
-      //  TODO: lukas.holzer
-      // Bazel cannot resolve the extends of the interface properly and
-      // throws error: Property 'data' does not exist on type 'DtSunburstChartSlice'.
-      // @ts-ignore
-      this._createOverlay(origin, node.data);
-    }
-  }
-
-  /** Creates the overlay and attaches it. */
-  private _createOverlay(
-    origin: { x: number; y: number },
-    node: DtSunburstChartTooltipData,
+  private _revealOverlay(
+    target: HTMLElement,
+    x: number,
+    y: number,
+    slice: DtSunburstChartTooltipData,
   ): void {
-    // If we do not have an overlay defined, we do not need to attach it
-    if (!this._overlay) {
-      return;
+    this.closeOverlay();
+
+    // TODO: remove this `if` once dtOverlayService is mandatory
+    if (this._dtOverlayService) {
+      if (this._overlay && !this._overlayRef) {
+        this._overlayRef = this._dtOverlayService.create<
+          DtSunburstChartTooltipData
+        >(target, this._overlay);
+        this._dtOverlayService._positionStrategy.setOrigin({ x, y });
+        this._overlayRef.updateImplicitContext(slice);
+      }
     }
-
-    // Create the template portal
-    if (!this._portal) {
-      // tslint:disable-next-line: no-any
-      this._portal = new TemplatePortal<any>(
-        this._overlay,
-        this._viewContainerRef,
-        { $implicit: node },
-      );
-    }
-
-    const positionStrategy = this._overlayService
-      .position()
-      .flexibleConnectedTo(origin)
-      .setOrigin(origin)
-      .withPositions([
-        {
-          originX: 'center',
-          originY: 'center',
-          overlayX: 'center',
-          overlayY: 'center',
-        },
-      ])
-      .withFlexibleDimensions(true)
-      .withPush(false)
-      .withGrowAfterOpen(true)
-      .withViewportMargin(0)
-      .withLockedPosition(false);
-
-    const overlayConfig = new OverlayConfig({
-      positionStrategy,
-      panelClass: OVERLAY_PANEL_CLASS,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
-    });
-    this._overlayRef = this._overlayService.create(overlayConfig);
-
-    // If the portal is not yet attached to the overlay, attach it.
-    if (!this._overlayRef.hasAttached()) {
-      this._overlayRef.attach(this._portal);
-    }
-    dtSetUiTestAttribute(
-      this._overlayRef.overlayElement,
-      this._overlayRef.overlayElement.id,
-      this._elementRef,
-      this._config,
-    );
-  }
-
-  /** Dismisses the overlay. */
-  private _dismissOverlay(): void {
-    if (this._overlayRef) {
-      this._overlayRef.detach();
-      this._portal = null;
-    }
-  }
-  /**
-   * Calculates the origin for the overlay based on the target of the
-   * event passed into it.
-   */
-  private _getOriginFromSlice(
-    slice: DtSunburstChartSlice,
-  ): { x: number; y: number } | undefined {
-    if (this._platform.isBrowser) {
-      const rect: DOMRect = this._svgEl.nativeElement.getBoundingClientRect();
-
-      // Update the position for the overlay.
-      return {
-        x:
-          rect.left +
-          rect.width / 2 +
-          slice.tooltipPosition[0] * (rect.width / VIEWBOX_WIDTH),
-        y:
-          rect.top +
-          rect.height / 2 +
-          slice.tooltipPosition[1] * (rect.height / VIEWBOX_HEIGHT),
-      };
-    }
-  }
-
-  /**
-   * Sanitization of the custom property is necessary as, custom property assignments do not work
-   * in a viewEngine setup. This can be removed with angular version 10, if ivy is no longer opt out.
-   */
-  _sanitizeCSS(prop: string, value: string | number | DtColors): SafeStyle {
-    return this._sanitizer.bypassSecurityTrustStyle(`${prop}: ${value}`);
   }
 }

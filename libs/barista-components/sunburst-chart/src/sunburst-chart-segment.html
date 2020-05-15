@@ -1,0 +1,22 @@
+<svg:path
+  class="dt-sunburst-chart-slice"
+  [class.dt-sunburst-chart-slice-current]="slice.data.isCurrent"
+  [attr.d]="slice.path"
+  [attr.aria-label]="slice.data.ariaLabel"
+/>
+
+<svg:g
+  attr.transform="translate({{ slice.labelPosition }})"
+  *ngIf="slice.data.showLabel && slice.showLabel"
+>
+  <text class="dt-sunburst-chart-value dt-sunburst-chart-slice-value">
+    {{
+      valueAsAbsolute
+        ? slice.data.value
+        : (slice.data.valueRelative * 100 | dtPercent)
+    }}
+  </text>
+  <text class="dt-sunburst-chart-label dt-sunburst-chart-slice-label">
+    {{ slice.data.label }}
+  </text>
+</svg:g>

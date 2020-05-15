@@ -14,8 +14,11 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
-import { DtSunburstChartNode } from '@dynatrace/barista-components/sunburst-chart';
+import { Component, ViewChild } from '@angular/core';
+import {
+  DtSunburstChartNode,
+  DtSunburstChart,
+} from '@dynatrace/barista-components/sunburst-chart';
 import { DtSwitchChange } from '@dynatrace/barista-components/switch';
 import { sunburstChartDemoData } from './sunburst-chart-demo-data';
 
@@ -31,11 +34,20 @@ export class SunburstChartDemo {
 
   series = sunburstChartDemoData;
 
+  @ViewChild(DtSunburstChart) chart: DtSunburstChart;
+
   select(selected: DtSunburstChartNode[] = []): void {
     this.selected = selected.map((node) => node.label);
   }
 
   toggleDisplayMode(event: DtSwitchChange<boolean>): void {
     this.valueDisplayMode = event.checked ? 'percent' : 'absolute';
+  }
+
+  openOverlay(): void {
+    this.chart.openOverlay(this.chart._slices[0]);
+  }
+  closeOverlay(): void {
+    this.chart.closeOverlay();
   }
 }
