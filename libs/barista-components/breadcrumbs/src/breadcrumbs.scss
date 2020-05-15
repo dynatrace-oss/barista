@@ -1,8 +1,7 @@
-@import '../../core/src/theming/theming';
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
 @import '../../style/font-mixins';
-@import 'breadcrumbs-theme';
+@import './breadcrumbs-theme';
 
 $height: 32px;
 $arrow-width: 8px;
@@ -11,10 +10,6 @@ $arrow-padding: 2px;
 :host {
   display: flex;
   background-color: #ffffff;
-}
-
-@include dt-apply-theme() {
-  @include dt-theme-breadcrumbs($dt-current-theme, $dt-current-theme-name);
 }
 
 :host ::ng-deep a.dt-breadcrumbs-item {

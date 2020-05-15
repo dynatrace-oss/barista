@@ -1,56 +1,40 @@
-@import '../../core/src/style/interactive-common';
+:host.dt-color-main {
+  --dt-breadcrumbs-item-default-color: var(--dt-theme-main-default-color);
+  --dt-breadcrumbs-item-hover-color: var(--dt-theme-main-hover-color);
+  --dt-breadcrumbs-item-active-color: var(--dt-theme-main-active-color);
+}
 
-@mixin dt-theme-breadcrumbs($theme, $theme-name) {
-  $palette-names: 'main', 'error', 'neutral';
-  $default-palette: 'main';
+:host.dt-color-error {
+  --dt-breadcrumbs-item-default-color: var(--dt-error-default-color);
+  --dt-breadcrumbs-item-hover-color: var(--dt-error-hover-color);
+  --dt-breadcrumbs-item-active-color: var(--dt-error-active-color);
+}
 
-  @each $name in $palette-names {
-    $is-dark: map-get($theme, 'is-dark');
-    $palette: dt-get-theme-palette($theme, $name);
-    $default-color: dt-get-theme-color($palette, 'default');
-    $hover-color: dt-get-theme-color($palette, 'hover');
-    $active-color: dt-get-theme-color($palette, 'active');
+:host.dt-color-neutral {
+  --dt-breadcrumbs-item-default-color: var(--dt-neutral-default-color);
+  --dt-breadcrumbs-item-hover-color: var(--dt-neutral-hover-color);
+  --dt-breadcrumbs-item-active-color: var(--dt-neutral-active-color);
+}
 
-    $namespace: ':host';
-    @if ($name != $default-palette) {
-      $namespace: ':host.dt-color-#{$name}';
-    }
+:host ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link,
+:host ::ng-deep a.dt-breadcrumbs-item:not(:last-child) {
+  background: var(--dt-breadcrumbs-item-active-color);
 
-    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link,
-    #{$namespace} ::ng-deep a.dt-breadcrumbs-item:not(:last-child) {
-      background-color: $active-color;
-
-      &::after {
-        border-left-color: $active-color;
-      }
-
-      @if ($is-dark == true) {
-        // Apply focus to CDK focus monitored elements
-        @include dt-cdkmonitor-focus-style(true);
-      }
-    }
-
-    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:hover,
-    #{$namespace} ::ng-deep a.dt-breadcrumbs-item:not(:last-child):hover {
-      background-color: $hover-color;
-
-      &::after {
-        border-left-color: $hover-color;
-      }
-    }
-
-    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:active,
-    #{$namespace} ::ng-deep a.dt-breadcrumbs-item:not(:last-child):active {
-      background-color: $active-color;
-
-      &::after {
-        border-left-color: $active-color;
-      }
-    }
-
-    #{$namespace} ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-non-clickable,
-    #{$namespace} ::ng-deep a.dt-breadcrumbs-item:last-child {
-      background-color: $default-color;
-    }
+  &::after {
+    border-left-color: var(--dt-breadcrumbs-item-active-color);
   }
+}
+
+:host ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-link:hover,
+:host ::ng-deep a.dt-breadcrumbs-item:not(:last-child):hover {
+  background-color: var(--dt-breadcrumbs-item-hover-color);
+
+  &::after {
+    border-left-color: var(--dt-breadcrumbs-item-hover-color);
+  }
+}
+
+:host ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-non-clickable,
+:host ::ng-deep a.dt-breadcrumbs-item:last-child {
+  background: var(--dt-breadcrumbs-item-default-color);
 }
