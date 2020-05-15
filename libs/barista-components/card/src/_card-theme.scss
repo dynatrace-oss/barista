@@ -1,26 +1,15 @@
-@import '../../core/src/theming/theming';
+.dt-theme-dark {
+  .dt-card {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.2);
 
-@mixin dt-theme-card($theme) {
-  $is-dark: map-get($theme, 'is-dark');
+    .dt-card-icon svg {
+      fill: #ffffff;
+    }
 
-  @if ($is-dark == true) {
-    .dt-card {
+    .dt-card-title,
+    .dt-card-subtitle {
       color: #ffffff;
-      background: rgba(255, 255, 255, 0.2);
-
-      .dt-card-icon svg {
-        fill: #ffffff;
-      }
-
-      .dt-card-title,
-      .dt-card-subtitle {
-        color: #ffffff;
-      }
     }
   }
-}
-
-// Apply the card theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-card($dt-current-theme);
 }
