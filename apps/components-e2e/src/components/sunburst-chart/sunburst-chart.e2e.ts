@@ -46,7 +46,7 @@ test('should enable selection and select with absolute values', async (testContr
   await testController
     .expect(segments.count)
     .eql(6)
-    .click(sliceShephard)
+    .click(sliceShephard, { offsetY: -20 })
     .expect(centralLabel.textContent)
     .match(/Shephard/)
     .expect(centralValue.textContent)
@@ -66,7 +66,7 @@ test('should enable selection and select with relative values', async (testContr
     .expect(segments.count)
     .eql(6)
     .click(percentBtn)
-    .click(sliceShephard)
+    .click(sliceShephard, { offsetY: -20 })
     .expect(centralLabel.textContent)
     .match(/Shephard/)
     .expect(centralValue.textContent)
@@ -84,7 +84,7 @@ test('should enable selection and select with relative values', async (testContr
 
 test('should show overlay on hover', async (testController: TestController) => {
   await testController
-    .hover(sliceShephard, hover)
+    .hover(sliceShephard, { ...hover, offsetY: -20 })
     .expect(overlay.exists)
     .ok()
     .expect(overlay.textContent)

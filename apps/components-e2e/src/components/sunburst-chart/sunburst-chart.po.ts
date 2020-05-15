@@ -18,7 +18,7 @@ import { Selector } from 'testcafe';
 
 export const body = Selector('body');
 export const chart = Selector('test-sunburst-chart');
-export const overlay = Selector('.dt-sunburst-chart-overlay-panel');
+export const overlay = Selector('.dt-overlay-container');
 
 export const centralLabel = Selector('.dt-sunburst-chart-selected-label');
 export const centralValue = Selector('.dt-sunburst-chart-selected-value');
@@ -26,10 +26,10 @@ export const centralValue = Selector('.dt-sunburst-chart-selected-value');
 export const absoluteBtn = Selector('#chart-value-mode-absolute');
 export const percentBtn = Selector('#chart-value-mode-percent');
 
-export const segments = Selector('.dt-sunburst-chart-group');
-export const sliceShephard = Selector(
-  '.dt-sunburst-chart-group:nth-of-type(5) .dt-sunburst-chart-slice',
-);
-export const valueJack = Selector(
-  '.dt-sunburst-chart-group:nth-of-type(8) .dt-sunburst-chart-slice-label',
-);
+export const segments = Selector('[dt-sunburst-chart-segment]');
+export const sliceShephard = Selector('[dt-sunburst-chart-segment]')
+  .nth(4)
+  .find('.dt-sunburst-chart-slice');
+export const valueJack = Selector('[dt-sunburst-chart-segment]')
+  .nth(7)
+  .find('.dt-sunburst-chart-slice-label');

@@ -20,10 +20,15 @@ import { DtSunburstChart } from './sunburst-chart';
 import { DtSunburstChartOverlay } from './sunburst-chart.directive';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
+import { DtSunburstChartSegment } from './sunburst-chart-segment';
 
 @NgModule({
   imports: [CommonModule, OverlayModule, DtFormattersModule],
   exports: [DtSunburstChart, DtSunburstChartOverlay],
-  declarations: [DtSunburstChart, DtSunburstChartOverlay],
+  declarations: [
+    DtSunburstChart,
+    DtSunburstChartOverlay,
+    DtSunburstChartSegment,
+  ],
 })
 export class DtSunburstChartModule {}
