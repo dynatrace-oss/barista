@@ -125,6 +125,7 @@ import {
   isDtOptionDef,
   isDtRangeDef,
   _isDtRangeValue,
+  isPartialDtAutocompleteDef,
 } from './types';
 
 // tslint:disable:no-any
@@ -1079,7 +1080,11 @@ export class DtFilterField<T = any>
       .pipe(takeUntil(this._destroy$))
       .subscribe(
         (def) => {
-          if (isAsyncDtAutocompleteDef(this._currentDef) && def) {
+          if (
+            (isAsyncDtAutocompleteDef(this._currentDef) ||
+              isPartialDtAutocompleteDef(this._currentDef)) &&
+            def
+          ) {
             this._asyncDefs.set(this._currentDef, def);
             if (
               def &&

@@ -56,6 +56,11 @@ export const TEST_DATA = {
       autocomplete: [],
     },
     {
+      name: 'CH (async, partial)',
+      async: true,
+      autocomplete: [],
+    },
+    {
       name: 'Different Country',
       suggestions: [{ name: 'IT' }, { name: 'ES' }, { name: 'UK' }],
       validators: [
@@ -104,4 +109,26 @@ export const TEST_DATA_ASYNC_2 = {
       validators: [{ validatorFn: Validators.required, error: 'is required' }],
     },
   ],
+};
+
+export const TEST_DATA_PARTIAL = {
+  name: 'CH (async, partial)',
+  autocomplete: [
+    { name: 'Zürich' },
+    { name: 'Genf' },
+    { name: 'Basel' },
+    { name: 'Bern' },
+  ],
+  partial: true,
+};
+
+export const TEST_DATA_PARTIAL_2 = {
+  name: 'CH (async, partial)',
+  autocomplete: [
+    { name: 'Zug' },
+    { name: 'Schaffhausen' },
+    { name: 'Luzern' },
+    { name: 'St. Gallen' },
+  ],
+  partial: true,
 };

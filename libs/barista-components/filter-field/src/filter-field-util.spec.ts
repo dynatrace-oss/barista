@@ -86,6 +86,7 @@ describe('DtFilterField Util', () => {
         [optionDef],
         false,
         false,
+        false,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(
@@ -97,6 +98,7 @@ describe('DtFilterField Util', () => {
         [optionDefInGroup],
         null,
         [optionDefInGroup],
+        false,
         false,
         false,
       );
@@ -111,6 +113,7 @@ describe('DtFilterField Util', () => {
         [optionDef, optionDefInGroup],
         null,
         [optionDef, optionDefInGroup],
+        false,
         false,
         false,
       );
@@ -128,6 +131,7 @@ describe('DtFilterField Util', () => {
         [optionDef, optionDefInGroup],
         false,
         false,
+        false,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       optionDefInGroup.option!.parentAutocomplete = autocompleteDef;
@@ -143,6 +147,7 @@ describe('DtFilterField Util', () => {
         [optionDef],
         false,
         false,
+        false,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(
@@ -154,6 +159,7 @@ describe('DtFilterField Util', () => {
         [optionDefInGroup],
         null,
         [optionDefInGroup],
+        false,
         false,
         false,
       );
@@ -168,6 +174,7 @@ describe('DtFilterField Util', () => {
         [optionDef, optionDefInGroup],
         null,
         [optionDef, optionDefInGroup],
+        false,
         false,
         false,
       );
@@ -382,6 +389,7 @@ describe('DtFilterField Util', () => {
         [optionDef],
         false,
         false,
+        false,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
@@ -416,6 +424,7 @@ describe('DtFilterField Util', () => {
           [groupDef],
           false,
           false,
+          false,
         );
         optionDef.option!.parentAutocomplete = autocompleteDef;
         optionDef.option!.parentGroup = groupDef;
@@ -441,6 +450,7 @@ describe('DtFilterField Util', () => {
         [optionDef],
         false,
         false,
+        false,
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
       expect(findDefForSource(optionSource, autocompleteDef)).toBe(optionDef);
@@ -461,6 +471,7 @@ describe('DtFilterField Util', () => {
         autocompleteSource,
         null,
         [optionDef],
+        false,
         false,
         false,
       );
@@ -486,6 +497,7 @@ describe('DtFilterField Util', () => {
         autocompleteSource,
         null,
         [optionDef],
+        false,
         false,
         false,
       );
@@ -526,6 +538,7 @@ describe('DtFilterField Util', () => {
         autocompleteSource,
         null,
         [groupDef],
+        false,
         false,
         false,
       );
@@ -574,12 +587,14 @@ describe('DtFilterField Util', () => {
         [innerOptionDef],
         false,
         false,
+        false,
       );
       innerOptionDef.option!.parentAutocomplete = outerOptionAutocompleteDef;
       const rootAutocompleteDef = dtAutocompleteDef(
         rootAutocompleteSource,
         null,
         [outerOptionAutocompleteDef],
+        false,
         false,
         false,
       );
@@ -627,6 +642,7 @@ describe('DtFilterField Util', () => {
         [freeTextDef],
         false,
         false,
+        false,
       );
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
 
@@ -666,6 +682,7 @@ describe('DtFilterField Util', () => {
         autocompleteSource,
         null,
         [groupDef],
+        false,
         false,
         false,
       );
@@ -779,6 +796,7 @@ describe('DtFilterField Util', () => {
           [],
           false,
           false,
+          false,
         ) as any;
         expect(optionSelectedPredicate(optionDef, selectedIds, false)).toBe(
           true,
@@ -804,6 +822,7 @@ describe('DtFilterField Util', () => {
           optionSource,
           optionDef,
           [],
+          false,
           false,
           false,
         ) as any;
@@ -945,21 +964,21 @@ describe('DtFilterField Util', () => {
 
   describe('defDistinctPredicate', () => {
     it('should return true if an autocomplete is async and also an option; it is not selected and not distinct', () => {
-      let def = dtAutocompleteDef({}, null, [], false, true);
+      let def = dtAutocompleteDef({}, null, [], false, true, false);
       def = dtOptionDef({}, null, 'foo', 'id0', def, null) as any;
       const ids = new Set(['id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(true);
     });
 
     it('should return true if an autocomplete is async and also an option; it is selected but not distinct', () => {
-      let def = dtAutocompleteDef({}, null, [], false, true);
+      let def = dtAutocompleteDef({}, null, [], false, true, false);
       def = dtOptionDef({}, def, 'foo', 'id0', def, null) as any;
       const ids = new Set(['id0', 'id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(true);
     });
 
     it('should return false if an autocomplete is async and also an option; it is selected and distinct', () => {
-      let def = dtAutocompleteDef({}, null, [], true, true);
+      let def = dtAutocompleteDef({}, null, [], true, true, false);
       def = dtOptionDef({}, null, 'foo', 'id0', def, null) as any;
       const ids = new Set(['id0', 'id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(false);

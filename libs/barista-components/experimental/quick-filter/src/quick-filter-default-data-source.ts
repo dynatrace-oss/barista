@@ -142,6 +142,7 @@ export class DtQuickFilterDefaultDataSource<
       [],
       !!data.distinct,
       !!data.async,
+      !!data.partial,
     );
     def.autocomplete!.optionsOrGroups = this.transformList(
       data.autocomplete,

@@ -4,6 +4,7 @@
   [disabled]="_disabled"
   label="Filter by"
   clearAllLabel="Clear all"
+  (inputChange)="inputChange($event)"
   (filterChanges)="filterChanges($event)"
   (currentFilterChanges)="currentFilterChanges($event)"
 ></dt-filter-field>

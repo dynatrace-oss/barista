@@ -18,13 +18,13 @@ import { buildData } from './reducer';
 
 test('should build the data with an object', () => {
   const data = { name: 'Linz' };
-  const autocomplete = dtAutocompleteDef(data, null, [], false, false);
+  const autocomplete = dtAutocompleteDef(data, null, [], false, false, false);
   expect(buildData(autocomplete)).toMatchObject([data]);
 });
 
 test('should build the data with undefined', () => {
   const data = undefined;
-  const autocomplete = dtAutocompleteDef(data, null, [], false, false);
+  const autocomplete = dtAutocompleteDef(data, null, [], false, false, false);
 
   expect(buildData(autocomplete)).toMatchObject([data]);
 });
