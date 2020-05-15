@@ -20,10 +20,16 @@ import { DtLegendModule } from '@dynatrace/barista-components/legend';
 import { DtRadialChart, DtRadialChartOverlay } from './radial-chart';
 import { DtRadialChartSeries } from './radial-chart-series';
 import { DtRadialChartPath } from './radial-chart-path';
+import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 
 @NgModule({
-  imports: [CommonModule, DtLegendModule],
-  exports: [DtRadialChart, DtRadialChartSeries, DtRadialChartOverlay],
+  imports: [CommonModule, DtLegendModule, DtFormattersModule],
+  exports: [
+    DtRadialChart,
+    DtRadialChartSeries,
+    DtRadialChartOverlay,
+    DtFormattersModule,
+  ],
   declarations: [
     DtRadialChart,
     DtRadialChartSeries,

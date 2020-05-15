@@ -1,6 +1,18 @@
 <svg:path
-  class="dt-radial-chart-series"
+  class="dt-radial-chart-path dt-radial-chart-series"
   [attr.d]="series.path"
   [attr.fill]="series.color"
   [attr.aria-label]="series.ariaLabel"
+></svg:path>
+
+<svg:path
+  class="dt-radial-chart-path dt-radial-chart-path-hover"
+  [attr.fill]="series.color"
+  [attr.d]="series.hoverPath"
+></svg:path>
+
+<svg:path
+  class="dt-radial-chart-path dt-radial-chart-path-selection"
+  [attr.fill]="series.color"
+  [attr.d]="series.selectionPath"
 ></svg:path>

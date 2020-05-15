@@ -24,15 +24,21 @@ import {
   DtRadialChartModule,
   DtRadialChartSeries,
 } from '@dynatrace/barista-components/radial-chart';
-import { createComponent } from '@dynatrace/testing/browser';
+import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 
 interface DemoChartData {
   name: string;
   value: number;
   color?: string;
+  selected?: boolean;
 }
 
 describe('DtRadialChart', () => {
+  const selectors = {
+    pathGroup: 'g[dt-radial-chart-path]',
+    series: '.dt-radial-chart-series',
+  };
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [DtRadialChartModule],
@@ -82,28 +88,28 @@ describe('DtRadialChart', () => {
       expect(seriesChildrenLength).toBe(3);
     });
 
-    describe('dt-radial-chart svg data', () => {
+    describe('svg data', () => {
       it('should render the correct amount of paths', () => {
-        const allSeriesPaths = chartSVG.querySelectorAll('path');
+        const allSeriesPaths = chartSVG.querySelectorAll(selectors.pathGroup);
         expect(allSeriesPaths.length).toBe(4);
       });
 
       it('should render the correct amount of paths after adding a series', () => {
         chartComponent._chartSeries.push(testSeriesData);
         fixture.detectChanges();
-        const allSeriesPaths = chartSVG.querySelectorAll('path');
+        const allSeriesPaths = chartSVG.querySelectorAll(selectors.pathGroup);
         expect(allSeriesPaths.length).toBe(5);
       });
 
       it('should render the correct amount of paths after removing a series', () => {
         chartComponent._chartSeries = chartComponent._chartSeries.slice(0, -1);
         fixture.detectChanges();
-        const allSeriesPaths = chartSVG.querySelectorAll('path');
+        const allSeriesPaths = chartSVG.querySelectorAll(selectors.pathGroup);
         expect(allSeriesPaths.length).toBe(3);
       });
     });
 
-    describe('dt-radial-chart max value', () => {
+    describe('max value', () => {
       const backgroundPathSelector = '.dt-radial-chart-background';
 
       it('should not render a background when no maxValue is given for the chart', () => {
@@ -145,89 +151,145 @@ describe('DtRadialChart', () => {
       });
     });
 
-    describe('dt-radial-chart-series colors', () => {
-      it('should use the sorted chart colors when no color is given', () => {
-        const seriesPaths = chartSVG.querySelectorAll(
-          '.dt-radial-chart-series',
+    describe('selection', () => {
+      it('should not allow selection if selectable is false', () => {
+        chartComponent._selectable = false;
+        fixture.detectChanges();
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[0],
+          'click',
         );
-        expect(seriesPaths.length).toBe(4);
-        expect(seriesPaths[0].getAttribute('fill')).toBe(
-          DT_CHART_COLOR_PALETTE_ORDERED[0],
-        );
-        expect(seriesPaths[1].getAttribute('fill')).toBe(
-          DT_CHART_COLOR_PALETTE_ORDERED[1],
-        );
-        expect(seriesPaths[2].getAttribute('fill')).toBe(
-          DT_CHART_COLOR_PALETTE_ORDERED[2],
-        );
-        expect(seriesPaths[3].getAttribute('fill')).toBe(
-          DT_CHART_COLOR_PALETTE_ORDERED[3],
-        );
+
+        expect(chartComponent._chartSeries[0].selected).toBeFalsy();
       });
 
-      it('should use the given color instead of the sorted chart color palette', () => {
-        chartComponent._chartSeries.push(testSeriesData);
+      it('should select and deselect if selectable is true', () => {
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[0],
+          'click',
+        );
+
+        expect(chartComponent._chartSeries[0].selected).toBeTruthy();
+
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[0],
+          'click',
+        );
+
+        expect(chartComponent._chartSeries[0].selected).toBeFalsy();
+      });
+
+      it('should deselect previous on new selection', () => {
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[0],
+          'click',
+        );
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[1],
+          'click',
+        );
+
+        expect(chartComponent._chartSeries[0].selected).toBeFalsy();
+        expect(chartComponent._chartSeries[1].selected).toBeTruthy();
+      });
+
+      it('should not allow external selection if selectable is false', () => {
+        chartComponent._selectable = false;
         fixture.detectChanges();
-        const seriesPaths = chartSVG.querySelectorAll(
-          '.dt-radial-chart-series',
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[0],
+          'click',
         );
-        expect(seriesPaths[4].getAttribute('fill')).not.toBe(
-          DT_CHART_COLOR_PALETTE_ORDERED[4],
+
+        expect(chartComponent._chartSeries[0].selected).toBeFalsy();
+      });
+
+      it('should allow external selection if selectable is true', () => {
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[0],
+          'click',
         );
-        expect(seriesPaths[4].getAttribute('fill')).toBe('#123456');
+
+        expect(chartComponent._chartSeries[0].selected).toBeTruthy();
       });
     });
 
-    describe('dt-radial-chart-series aria-label', () => {
-      it('should render an aria-label containing the series name, current value and total value', () => {
-        const seriesPaths = chartSVG.querySelectorAll(
-          '.dt-radial-chart-series',
-        );
-        expect(seriesPaths[0].getAttribute('aria-label')).toBe(
-          'Chrome: 43 of 89',
-        );
-        expect(seriesPaths[2].getAttribute('aria-label')).toBe(
-          'Firefox: 15 of 89',
-        );
+    describe('Series', () => {
+      describe('colors', () => {
+        it('should use the sorted chart colors when no color is given', () => {
+          const seriesPaths = chartSVG.querySelectorAll(selectors.series);
+          expect(seriesPaths.length).toBe(4);
+          expect(seriesPaths[0].getAttribute('fill')).toBe(
+            DT_CHART_COLOR_PALETTE_ORDERED[0],
+          );
+          expect(seriesPaths[1].getAttribute('fill')).toBe(
+            DT_CHART_COLOR_PALETTE_ORDERED[1],
+          );
+          expect(seriesPaths[2].getAttribute('fill')).toBe(
+            DT_CHART_COLOR_PALETTE_ORDERED[2],
+          );
+          expect(seriesPaths[3].getAttribute('fill')).toBe(
+            DT_CHART_COLOR_PALETTE_ORDERED[3],
+          );
+        });
+
+        it('should use the given color instead of the sorted chart color palette', () => {
+          chartComponent._chartSeries.push(testSeriesData);
+          fixture.detectChanges();
+          const seriesPaths = chartSVG.querySelectorAll(selectors.series);
+          expect(seriesPaths[4].getAttribute('fill')).not.toBe(
+            DT_CHART_COLOR_PALETTE_ORDERED[4],
+          );
+          expect(seriesPaths[4].getAttribute('fill')).toBe('#123456');
+        });
       });
 
-      it('should update aria-labels when a new series is added', () => {
-        chartComponent._chartSeries.push(testSeriesData);
-        fixture.detectChanges();
-        const seriesPaths = chartSVG.querySelectorAll(
-          '.dt-radial-chart-series',
-        );
-        expect(seriesPaths[0].getAttribute('aria-label')).toBe(
-          'Chrome: 43 of 99',
-        );
-        expect(seriesPaths[2].getAttribute('aria-label')).toBe(
-          'Firefox: 15 of 99',
-        );
-        expect(seriesPaths[4].getAttribute('aria-label')).toBe(
-          'Testseries: 10 of 99',
-        );
-      });
+      describe('aria-label', () => {
+        it('should render an aria-label containing the series name, current value and total value', () => {
+          const seriesPaths = chartSVG.querySelectorAll(selectors.series);
+          expect(seriesPaths[0].getAttribute('aria-label')).toBe(
+            'Chrome: 43 of 89',
+          );
+          expect(seriesPaths[2].getAttribute('aria-label')).toBe(
+            'Firefox: 15 of 89',
+          );
+        });
 
-      it('should update aria-labels when a series is removed', () => {
-        chartComponent._chartSeries = chartComponent._chartSeries.slice(0, -1);
-        fixture.detectChanges();
-        const seriesPaths = chartSVG.querySelectorAll(
-          '.dt-radial-chart-series',
-        );
-        expect(seriesPaths[0].getAttribute('aria-label')).toBe(
-          'Chrome: 43 of 80',
-        );
-      });
+        it('should update aria-labels when a new series is added', () => {
+          chartComponent._chartSeries.push(testSeriesData);
+          fixture.detectChanges();
+          const seriesPaths = chartSVG.querySelectorAll(selectors.series);
+          expect(seriesPaths[0].getAttribute('aria-label')).toBe(
+            'Chrome: 43 of 99',
+          );
+          expect(seriesPaths[2].getAttribute('aria-label')).toBe(
+            'Firefox: 15 of 99',
+          );
+          expect(seriesPaths[4].getAttribute('aria-label')).toBe(
+            'Testseries: 10 of 99',
+          );
+        });
 
-      it('should update aria-labels when a max value is set', () => {
-        chartComponent._maxValue = 100;
-        fixture.detectChanges();
-        const seriesPaths = chartSVG.querySelectorAll(
-          '.dt-radial-chart-series',
-        );
-        expect(seriesPaths[0].getAttribute('aria-label')).toBe(
-          'Chrome: 43 of 100',
-        );
+        it('should update aria-labels when a series is removed', () => {
+          chartComponent._chartSeries = chartComponent._chartSeries.slice(
+            0,
+            -1,
+          );
+          fixture.detectChanges();
+          const seriesPaths = chartSVG.querySelectorAll(selectors.series);
+          expect(seriesPaths[0].getAttribute('aria-label')).toBe(
+            'Chrome: 43 of 80',
+          );
+        });
+
+        it('should update aria-labels when a max value is set', () => {
+          chartComponent._maxValue = 100;
+          fixture.detectChanges();
+          const seriesPaths = chartSVG.querySelectorAll(selectors.series);
+          expect(seriesPaths[0].getAttribute('aria-label')).toBe(
+            'Chrome: 43 of 100',
+          );
+        });
       });
     });
   });
@@ -237,12 +299,14 @@ describe('DtRadialChart', () => {
 @Component({
   selector: 'dt-pie-chart',
   template: `
-    <dt-radial-chart [maxValue]="_maxValue">
+    <dt-radial-chart [maxValue]="_maxValue" [selectable]="_selectable">
       <dt-radial-chart-series
         *ngFor="let s of _chartSeries"
         [value]="s.value"
         [name]="s.name"
         [color]="s.color"
+        [selected]="s.selected"
+        (selectedChange)="s.selected = $event"
       >
       </dt-radial-chart-series>
     </dt-radial-chart>
@@ -271,4 +335,6 @@ class PieChart {
   ];
 
   _maxValue: number | null = null;
+
+  _selectable: boolean = true;
 }

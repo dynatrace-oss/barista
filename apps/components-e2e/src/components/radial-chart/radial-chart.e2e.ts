@@ -24,6 +24,13 @@ import {
   pieEdge,
   pieFirefox,
   pieSafari,
+  selectableBtn,
+  setSelectBtn,
+  pieSelected,
+  nonSelectableBtn,
+  legendChrome,
+  percentBtn,
+  absoluteBtn,
 } from './radial-chart.po';
 
 // Reduced speed of hovering should get our e2e tests stable.
@@ -34,6 +41,7 @@ const hover: MouseActionOptions = {
   // The issue #646 is opened for this.
   speed: 0.01,
 };
+const pathSelectedClassname = 'dt-radial-chart-path-selected';
 
 fixture('Radial chart')
   .page('http://localhost:4200/radial-chart')
@@ -89,4 +97,42 @@ test('should show correct overlay contents when hovering over pies', async (test
     .hover(pieEdge, hover)
     .expect(overlay.textContent)
     .match(/Microsoft Edge: 9 of 89/);
+});
+
+test('should enable selection and select', async (testController: TestController) => {
+  await testController
+    // selectable + input
+    .click(selectableBtn)
+    .click(setSelectBtn)
+    .expect(pieChrome.classNames)
+    .contains(pathSelectedClassname)
+    // non selectable
+    .click(nonSelectableBtn)
+    .expect(pieSelected.exists)
+    .notOk()
+    // selectable + click
+    .click(selectableBtn)
+    .click(pieChrome)
+    .expect(pieChrome.classNames)
+    .contains(pathSelectedClassname)
+    // deselect
+    .click(pieChrome)
+    .expect(pieSelected.exists)
+    .notOk()
+    // select other
+    .click(pieChrome)
+    .click(pieFirefox)
+    .expect(pieChrome.classNames)
+    .notContains(pathSelectedClassname)
+    .expect(pieFirefox.classNames)
+    .contains(pathSelectedClassname);
+});
+test('should show legend with percent and absolute values', async (testController: TestController) => {
+  await testController
+    .click(absoluteBtn)
+    .expect(legendChrome.textContent)
+    .match(/43 Chrome/)
+    .click(percentBtn)
+    .expect(legendChrome.textContent)
+    .match(/48\.3 % Chrome/);
 });

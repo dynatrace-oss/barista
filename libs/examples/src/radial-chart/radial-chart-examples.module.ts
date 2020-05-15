@@ -17,6 +17,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
 import { DtRadialChartModule } from '@dynatrace/barista-components/radial-chart';
 import { DtExampleRadialChartCustomColors } from './radial-chart-custom-colors-example/radial-chart-custom-colors-example';
 import { DtExampleRadialChartDefaultDonut } from './radial-chart-default-donut-example/radial-chart-default-donut-example';
@@ -26,7 +27,12 @@ import { DtExampleRadialChartLegend } from './radial-chart-legend-example/radial
 import { DtExampleRadialChartOverlay } from './radial-chart-overlay-example/radial-chart-overlay-example';
 
 @NgModule({
-  imports: [CommonModule, DtRadialChartModule, DtButtonModule],
+  imports: [
+    CommonModule,
+    DtRadialChartModule,
+    DtButtonModule,
+    DtButtonGroupModule,
+  ],
   declarations: [
     DtExampleRadialChartCustomColors,
     DtExampleRadialChartDefaultDonut,
