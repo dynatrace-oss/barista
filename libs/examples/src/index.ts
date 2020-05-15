@@ -143,6 +143,7 @@ import { DtExampleFilterFieldClearall } from './filter-field/filter-field-cleara
 import { DtExampleFilterFieldDefault } from './filter-field/filter-field-default-example/filter-field-default-example';
 import { DtExampleFilterFieldDisabled } from './filter-field/filter-field-disabled-example/filter-field-disabled-example';
 import { DtExampleFilterFieldDistinct } from './filter-field/filter-field-distinct-example/filter-field-distinct-example';
+import { DtExampleFilterFieldPartial } from './filter-field/filter-field-partial-example/filter-field-partial-example';
 import { DtExampleFilterFieldProgrammaticFilters } from './filter-field/filter-field-programmatic-filters-example/filter-field-programmatic-filters-example';
 import { DtExampleFilterFieldReadOnlyTags } from './filter-field/filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example';
 import { DtExampleFilterFieldUnique } from './filter-field/filter-field-unique-example/filter-field-unique-example';
@@ -498,6 +499,7 @@ export {
   DtExampleFilterFieldDefault,
   DtExampleFilterFieldDisabled,
   DtExampleFilterFieldDistinct,
+  DtExampleFilterFieldPartial,
   DtExampleFilterFieldProgrammaticFilters,
   DtExampleFilterFieldReadOnlyTags,
   DtExampleFilterFieldUnique,
@@ -826,6 +828,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleFilterFieldDefault', DtExampleFilterFieldDefault],
   ['DtExampleFilterFieldDisabled', DtExampleFilterFieldDisabled],
   ['DtExampleFilterFieldDistinct', DtExampleFilterFieldDistinct],
+  ['DtExampleFilterFieldPartial', DtExampleFilterFieldPartial],
   [
     'DtExampleFilterFieldProgrammaticFilters',
     DtExampleFilterFieldProgrammaticFilters,

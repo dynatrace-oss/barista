@@ -802,6 +802,82 @@ describe('DtFilterField', () => {
       const options = getOptions(overlayContainerElement);
       expect(options.length).toBe(0);
     }));
+
+    it('should add partial update to the autocomplete', fakeAsync(() => {
+      const DATA = {
+        autocomplete: [
+          {
+            name: 'AUT',
+            autocomplete: [
+              { name: 'Linz' },
+              { name: 'Vienna' },
+              { name: 'Graz' },
+            ],
+          },
+          {
+            name: 'CH (async, partial)',
+            async: true,
+            autocomplete: [],
+          },
+        ],
+      };
+
+      const DATA_PARTIAL = {
+        name: 'CH (async, partial)',
+        autocomplete: [
+          { name: 'Zürich' },
+          { name: 'Genf' },
+          { name: 'Basel' },
+          { name: 'Bern' },
+        ],
+        partial: true,
+      };
+
+      const DATA_PARTIAL_2 = {
+        name: 'CH (async, partial)',
+        autocomplete: [
+          { name: 'Zug' },
+          { name: 'Schaffhausen' },
+          { name: 'Luzern' },
+          { name: 'St. Gallen' },
+        ],
+        partial: true,
+      };
+
+      fixture.componentInstance.dataSource.data = DATA;
+      fixture.detectChanges();
+      filterField.focus();
+      advanceFilterfieldCycle(true, true);
+
+      getAndClickOption(overlayContainerElement, 1);
+
+      let options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(0);
+
+      fixture.componentInstance.dataSource.data = DATA_PARTIAL;
+      fixture.detectChanges();
+      advanceFilterfieldCycle(true, true);
+      tick();
+
+      options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(4);
+      expect(options[0].textContent).toContain('Zürich');
+      expect(options[1].textContent).toContain('Genf');
+      expect(options[2].textContent).toContain('Basel');
+      expect(options[3].textContent).toContain('Bern');
+
+      fixture.componentInstance.dataSource.data = DATA_PARTIAL_2;
+      fixture.detectChanges();
+      advanceFilterfieldCycle(true, true);
+      tick();
+
+      options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(4);
+      expect(options[0].textContent).toContain('Zug');
+      expect(options[1].textContent).toContain('Schaffhausen');
+      expect(options[2].textContent).toContain('Luzern');
+      expect(options[3].textContent).toContain('St. Gallen');
+    }));
   });
 
   describe('with range option', () => {

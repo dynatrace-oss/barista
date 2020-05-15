@@ -45,6 +45,7 @@ export interface DtNodeDef<D = unknown> {
 export interface DtAutocompleteDef<OpGr = unknown, Op = unknown> {
   distinct: boolean;
   async: boolean;
+  partial?: boolean;
   operators: DtNodeDef<Op>[];
   optionsOrGroups: DtNodeDef<OpGr>[];
 }
@@ -156,10 +157,11 @@ export function dtAutocompleteDef<D = unknown, OG = unknown, Op = unknown>(
   optionsOrGroups: DtNodeDef<OG>[],
   distinct: boolean,
   async: boolean,
+  partial: boolean = false,
 ): DtNodeDef<D> & { autocomplete: DtAutocompleteDef<OG, Op> } {
   const def = {
     ...nodeDef(data, existingNodeDef),
-    autocomplete: { optionsOrGroups, distinct, async, operators: [] },
+    autocomplete: { optionsOrGroups, distinct, async, partial, operators: [] },
   };
   def.nodeFlags |= DtNodeFlags.TypeAutocomplete;
   return def;
@@ -182,6 +184,17 @@ export function isAsyncDtAutocompleteDef<D>(
     isDtAutocompleteDef<D>(def) &&
     isDtOptionDef<D>(def) &&
     def.autocomplete.async
+  );
+}
+
+export function isPartialDtAutocompleteDef(
+  def: any,
+): def is DtNodeDef & {
+  autocomplete: DtAutocompleteDef;
+  option: DtOptionDef;
+} {
+  return (
+    isDtAutocompleteDef(def) && isDtOptionDef(def) && !!def.autocomplete.partial
   );
 }
 

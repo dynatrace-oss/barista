@@ -27,7 +27,13 @@ import {
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
 import { MULTIDIMENSIONAL_ANALYSIS } from './multidimensional-analysis';
-import { TEST_DATA, TEST_DATA_ASYNC, TEST_DATA_ASYNC_2 } from './testdata';
+import {
+  TEST_DATA,
+  TEST_DATA_ASYNC,
+  TEST_DATA_ASYNC_2,
+  TEST_DATA_PARTIAL,
+  TEST_DATA_PARTIAL_2,
+} from './testdata';
 
 // tslint:disable:no-any
 
@@ -130,6 +136,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   private _activeDataSourceName = 'TEST_DATA';
   private _tagChangesSub = Subscription.EMPTY;
   private _timerHandle: number;
+  private _partialFilter: boolean;
   _firstTag: DtFilterFieldTag;
 
   _dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
@@ -168,6 +175,26 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
       this._timerHandle = setTimeout(() => {
         this._dataSource.data = TEST_DATA_ASYNC_2;
       }, 2000);
+    } else if (event.currentFilter[0] === TEST_DATA.autocomplete[4]) {
+      this._partialFilter = true;
+      // Simulate async data loading
+      this._timerHandle = setTimeout(() => {
+        this._dataSource.data = TEST_DATA_PARTIAL;
+      }, 2000);
+    }
+  }
+
+  inputChange(inputText: string): void {
+    // Cancel current timer if running
+    clearTimeout(this._timerHandle);
+
+    if (this._partialFilter && inputText.length > 0) {
+      // Explicitly set loading state, as the automatic loading state only works with async, not partial
+      this.filterField.loading = true;
+      // Simulate partial data loading where we would pass inputText along
+      this._timerHandle = setTimeout(() => {
+        this._dataSource.data = TEST_DATA_PARTIAL_2;
+      }, 1000);
     }
   }
 

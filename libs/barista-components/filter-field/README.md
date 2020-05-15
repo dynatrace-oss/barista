@@ -68,6 +68,16 @@ data and apply it to the data source.
 
 <ba-live-example name="DtExampleFilterFieldAsync"></ba-live-example>
 
+## Server side filtered partial options
+
+When loading data asynchronously, there might be the need to filter the options
+on the server side, as there simply are too many options to return at once. You
+can do this by initially setting the `async: true` property. For every response
+you get with the server side filtered data, you need to set the `partial: true`
+property, when replacing the datasource with the partially loaded data.
+
+<ba-live-example name="DtExampleFilterFieldPartial"></ba-live-example>
+
 ## Unique free-text or range options
 
 It is possible to set a free-text or range option to be unique. So it can only

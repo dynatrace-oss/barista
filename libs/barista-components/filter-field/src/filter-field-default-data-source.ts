@@ -63,6 +63,7 @@ export interface DtFilterFieldDefaultDataSourceAutocomplete {
   >;
   distinct?: boolean;
   async?: boolean;
+  partial?: boolean;
 }
 
 /** Shape of an object to be usable as a free text variant */
@@ -238,6 +239,7 @@ export class DtFilterFieldDefaultDataSource
       [],
       !!data.distinct,
       !!data.async,
+      !!data.partial,
     );
     def.autocomplete!.optionsOrGroups = this.transformList(
       data.autocomplete,

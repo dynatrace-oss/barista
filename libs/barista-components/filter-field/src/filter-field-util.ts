@@ -37,6 +37,7 @@ import {
   isDtRangeDef,
   _isDtRangeValue,
   isDtRenderType,
+  isPartialDtAutocompleteDef,
   DtOptionDef,
 } from './types';
 
@@ -63,6 +64,7 @@ export function filterAutocompleteDef(
         optionsOrGroups,
         def.autocomplete!.distinct,
         def.autocomplete!.async,
+        def.autocomplete!.partial,
       )
     : null;
 }
@@ -359,7 +361,7 @@ export function findFilterValuesForSources<T>(
         if (isLastSource) {
           return null;
         }
-        if (isAsyncDtAutocompleteDef(def)) {
+        if (isAsyncDtAutocompleteDef(def) || isPartialDtAutocompleteDef(def)) {
           const asyncDef = asyncDefs.get(def);
           if (asyncDef) {
             parentDef = asyncDef;
