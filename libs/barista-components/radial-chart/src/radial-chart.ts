@@ -55,7 +55,7 @@ const DONUT_INNER_CIRCLE_FRACTION = 0.8;
 @Directive({
   selector: '[dtRadialChartOverlay]',
 })
-export class DtRadialChartOverlay {}
+export class DtRadialChartOverlay { }
 
 @Component({
   selector: 'dt-radial-chart',
@@ -109,6 +109,25 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   }
   private _legendPosition: 'right' | 'bottom' = 'right';
 
+  /** Sets the display mode for the sunburst-chart values to either 'percent' or 'absolute'.  */
+  @Input()
+  set valueDisplayMode(value: 'absolute' | 'percent') {
+    this._valueAsAbsolute = value !== 'percent';
+  }
+  /** @internal Marks if absolute value should be shown or percent instead */
+  _valueAsAbsolute: boolean = true;
+
+  /** Sets the display mode for the sunburst-chart values to either 'percent' or 'absolute'.  */
+  @Input()
+  get selectable(): boolean {
+    return this._selectable;
+  }
+  set selectable(value: boolean) {
+    this._selectable = value;
+    this._select();
+  }
+  _selectable: boolean = false;
+
   /** @internal Series data, <dt-radial-chart-series> */
   @ContentChildren(DtRadialChartSeries) _radialChartSeries: QueryList<
     DtRadialChartSeries
@@ -129,8 +148,14 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
 
   /** @internal The chart's radius. */
   get _radius(): number {
-    return this._width / 2;
+    return this._width / 2 - 16;
   }
+
+  /** @internal External selection radius. */
+  get _externalBorderRadius(): number { return this._width / 2 };
+
+  /** @internal Internal selection radius. */
+  get _internalBorderRadius(): number { return this._width / 2 - 8 };
 
   /**
    * @internal
@@ -160,7 +185,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   get _viewBox(): string {
     return `${-this._width / 2} ${-this._width / 2} ${this._width} ${
       this._width
-    }`;
+      }`;
   }
 
   /** @internal The chart's inner radius based on the chart type and defined fraction. */
@@ -174,7 +199,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     private _platform: Platform,
     // TODO: remove this sanitizer when ivy is no longer opt out
     private _sanitizer: DomSanitizer,
-  ) {}
+  ) { }
 
   /** AfterContentInit hook */
   ngAfterContentInit(): void {
@@ -195,8 +220,8 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
           switchMap(() =>
             this._radialChartSeries.length
               ? combineLatest(
-                  this._radialChartSeries.map((series) => series._stateChanges),
-                )
+                this._radialChartSeries.map((series) => series._stateChanges),
+              )
               : of(null),
           ),
           takeUntil(this._destroy$),
@@ -262,22 +287,34 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
         arcData.endAngle,
       ) || '';
 
+    const borderPath =
+      generatePathData(
+        this._externalBorderRadius,
+        this._internalBorderRadius,
+        arcData.startAngle,
+        arcData.endAngle,
+      ) || '';
+
     // The series' color overrides the given color from the chart color palette.
     const color = series.color ? series.color : chartColor;
 
-    // The path's aria label consists of the series' name, value and the chart's max-value
-    const ariaLabel = `${series.name}: ${series.value} of ${
+    const max =
       this.maxValue && this.maxValue >= totalSeriesValue
         ? this.maxValue
-        : totalSeriesValue
-    }`;
+        : totalSeriesValue;
+
+    // The path's aria label consists of the series' name, value and the chart's max-value
+    const ariaLabel = `${series.name}: ${series.value} of ${max}`;
 
     return {
       path,
+      borderPath,
       color,
       ariaLabel,
       name: series.name,
       value: series.value,
+      valueRelative: series.value / max,
+      origin: series,
     };
   }
 
@@ -287,5 +324,27 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
    */
   _sanitizeCSS(prop: string, value: string | number | DtColors): SafeStyle {
     return this._sanitizer.bypassSecurityTrustStyle(`${prop}: ${value}`);
+  }
+
+  /**
+   * @internal Emits the data of the selected event and
+   * registers the event as selected.
+   */
+  _select(series?: DtRadialChartRenderData): void {
+    // deselect any other
+    if (this._radialChartSeries) {
+      this._radialChartSeries
+        .filter((s) => s !== series?.origin && s.selected)
+        .forEach((s) => {
+          s.selected = false;
+          s.selectedChange.emit(false);
+        });
+    }
+
+    if (series && this.selectable) {
+      // select current
+      series.origin.selected = !series.origin.selected;
+      series.origin.selectedChange.emit(series.origin.selected);
+    }
   }
 }

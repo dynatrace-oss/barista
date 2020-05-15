@@ -3,17 +3,18 @@
     [type]="type"
     [maxValue]="maxValue"
     [legendPosition]="legendPosition"
-  >
+    [valueDisplayMode]="valueAsRelative ? 'percent' : 'absolute'"
+    [selectable]="selectable">
     <dt-radial-chart-series
       *ngFor="let s of renderedSeries"
       [name]="s.name"
       [color]="s.color"
       [value]="s.value"
-    >
+      [selected]="s===selected"
+      (selectedChange)="_select($event, s)">
     </dt-radial-chart-series>
     <ng-template dtRadialChartOverlay let-series>
-      <strong>{{ series.name }}</strong
-      >: {{ series.value }} of {{ series.totalValue | number }}
+      <strong>{{ series.name }}</strong>: {{ series.value }} of {{ series.totalValue | number }}
     </ng-template>
   </dt-radial-chart>
 </div>
@@ -23,13 +24,10 @@
     <h2>Test data</h2>
     <strong>Chart type:</strong> {{ type }}<br />
     <strong>Sorted by value:</strong> {{ sorted }}<br />
-    <strong>Maximum value:</strong
-    ><span
+    <strong>Maximum value:</strong><span
       [dtIndicator]="maxValue && maxValue! < sumAllSeries"
-      dtIndicatorColor="error"
-    >
-      {{ maxValue }}</span
-    ><br />
+      dtIndicatorColor="error">
+      {{ maxValue }}</span><br />
     <strong>Sum of series values:</strong> {{ sumAllSeries }}<br />
     <strong>Series data</strong>
     <ul *ngFor="let series of allSeries">
@@ -43,8 +41,7 @@
     <button
       dt-button
       variant="secondary"
-      (click)="type = type === 'pie' ? 'donut' : 'pie'"
-    >
+      (click)="type = type === 'pie' ? 'donut' : 'pie'">
       Toggle chart type
     </button>
     <button dt-button variant="secondary" (click)="_toggleLegendPosition()">
@@ -57,14 +54,12 @@
         dtInput
         [(ngModel)]="maxValue"
         placeholder="no max value set"
-        min="0"
-      />
+        min="0" />
     </dt-form-field>
     <button
       dt-button
       variant="secondary"
-      (click)="maxValue = maxValue ? null : maxValuePreset"
-    >
+      (click)="maxValue = maxValue ? null : maxValuePreset">
       toggle max value
     </button>
     <h3>Modify series</h3>
@@ -72,16 +67,14 @@
       <button
         dt-button
         variant="secondary"
-        (click)="_addRandomDataToRenderedSeries()"
-      >
+        (click)="_addRandomDataToRenderedSeries()">
         add random series
       </button>
       <button
         dt-button
         variant="secondary"
         (click)="_removeLastSeries()"
-        [disabled]="renderedSeries.length < 1"
-      >
+        [disabled]="renderedSeries.length < 1">
         remove series
       </button>
 
@@ -92,10 +85,27 @@
     <div>
       <dt-checkbox
         [checked]="randomizeColors"
-        (change)="randomizeColors = !randomizeColors"
-      >
+        (change)="randomizeColors = !randomizeColors">
         Randomize color values
       </dt-checkbox>
     </div>
+    <div>
+      <dt-checkbox [checked]="selectable" (change)="selectable = !selectable">
+        Selectable
+      </dt-checkbox>
+    </div>
+
+    <div>
+      <dt-checkbox
+        [checked]="valueAsRelative"
+        (change)="valueAsRelative = !valueAsRelative">
+        Value as relative
+      </dt-checkbox>
+    </div>
+  </div>
+  <div class="selection">
+    <h2>Selection</h2>
+
+    <pre>{{ selected | json }}</pre>
   </div>
 </div>

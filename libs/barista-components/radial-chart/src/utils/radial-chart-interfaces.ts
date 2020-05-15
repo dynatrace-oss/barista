@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import { DtRadialChartSeries } from '../radial-chart-series';
+
 /**
  * @internal
  * Interface for the radial chart render data,
@@ -23,7 +25,10 @@
 export interface DtRadialChartRenderData {
   name: string;
   path: string;
+  borderPath: string;
   color: string;
   value: number;
+  valueRelative: number;
   ariaLabel: string;
+  origin: DtRadialChartSeries;
 }

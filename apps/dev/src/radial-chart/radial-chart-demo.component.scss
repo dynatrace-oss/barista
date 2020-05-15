@@ -3,8 +3,9 @@ button {
   margin-bottom: 8px;
 }
 
-.dt-radial-chart ::ng-deep svg {
-  max-width: 700px;
+.dt-radial-chart {
+  max-width: 400px;
+  margin: auto;
 }
 
 .dt-form-field {

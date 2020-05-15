@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtRadialChartModule } from '@dynatrace/barista-components/radial-chart';
 import { DtExampleRadialChartCustomColors } from './radial-chart-custom-colors-example/radial-chart-custom-colors-example';
 import { DtExampleRadialChartDefaultDonut } from './radial-chart-default-donut-example/radial-chart-default-donut-example';
 import { DtExampleRadialChartDefaultPie } from './radial-chart-default-pie-example/radial-chart-default-pie-example';
-import { DtExampleRadialChartMaxValue } from './radial-chart-max-value-example/radial-chart-max-value-example';
 import { DtExampleRadialChartLegend } from './radial-chart-legend-example/radial-chart-legend-example';
+import { DtExampleRadialChartMaxValue } from './radial-chart-max-value-example/radial-chart-max-value-example';
 import { DtExampleRadialChartOverlay } from './radial-chart-overlay-example/radial-chart-overlay-example';
 
 @NgModule({
@@ -36,4 +36,4 @@ import { DtExampleRadialChartOverlay } from './radial-chart-overlay-example/radi
     DtExampleRadialChartOverlay,
   ],
 })
-export class DtRadialChartExamplesModule {}
+export class DtRadialChartExamplesModule { }

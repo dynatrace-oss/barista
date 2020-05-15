@@ -1,0 +1,18 @@
+@import '../../core/src/style/variables';
+
+:host:hover{
+  .dt-radial-chart-series-border:not(.dt-radial-chart-series-border-selected){
+opacity: 0.8;
+  }
+}
+
+.dt-radial-chart-series-border{
+transition: 0.2s opacity,0.2s fill;
+opacity: 0;
+pointer-events: none;
+}
+  
+.dt-radial-chart-series-border-selected{
+  opacity: 1;
+  fill: $turquoise-500;
+}

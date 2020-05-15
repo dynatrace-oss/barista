@@ -20,6 +20,8 @@ import {
   OnChanges,
   OnDestroy,
   isDevMode,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { _isValidColorHexValue } from '@dynatrace/barista-components/core';
@@ -35,6 +37,12 @@ export class DtRadialChartSeries implements OnChanges, OnDestroy {
 
   /** The series name (required) */
   @Input() name: string;
+
+  /** Marks series as selected */
+  @Input() selected: boolean = false;
+
+  /** Emits when event is selected. */
+  @Output() selectedChange = new EventEmitter<boolean>();
 
   /**
    * The series color value (optional)

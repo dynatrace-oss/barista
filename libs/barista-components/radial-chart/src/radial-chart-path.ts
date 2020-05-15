@@ -27,6 +27,7 @@ export interface DtRadialChartOverlayData {
 @Component({
   selector: 'svg:g[dt-radial-chart-path]',
   templateUrl: 'radial-chart-path.html',
+  styleUrls: ['radial-chart-path.scss'],
   host: {
     '(mouseenter)': 'overlayTemplate && _handleMouseEnter($event)',
     '(mouseleave)': 'overlayTemplate && _handleMouseLeave($event)',

@@ -28,10 +28,11 @@ interface DemoChartData {
 })
 export class RadialChartDemo {
   type = 'pie'; // pie | donut
-  maxValuePreset = 100;
+  maxValuePreset = 50;
   maxValue: number | null = this.maxValuePreset;
   randomizeColors = false;
   legendPosition = 'bottom';
+  valueAsRelative = true;
 
   randomColors = [
     '#31339c',
@@ -73,6 +74,8 @@ export class RadialChartDemo {
   renderedSeries: DemoChartData[] = [...this.allSeries];
   sumAllSeries = this.allSeries.reduce((agg, cur) => agg + cur.value, 0);
   sorted = false;
+  selectable = true;
+  selected = this.series1;
 
   _toggleSorting(): void {
     this.sorted = !this.sorted;
@@ -118,5 +121,11 @@ export class RadialChartDemo {
 
   _toggleLegendPosition(): void {
     this.legendPosition = this.legendPosition === 'bottom' ? 'right' : 'bottom';
+  }
+
+  _select(isSelected: boolean, series): void {
+    console.log(isSelected, series);
+
+    this.selected = isSelected ? series : undefined;
   }
 }
