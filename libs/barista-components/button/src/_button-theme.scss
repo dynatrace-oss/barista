@@ -1,7 +1,7 @@
 .dt-button {
-  --dt-button-default-color: var(--dt-theme-main-default-color);
-  --dt-button-hover-color: var(--dt-theme-main-hover-color);
-  --dt-button-active-color: var(--dt-theme-main-active-color);
+  --dt-button-default-color: #{$turquoise-600};
+  --dt-button-hover-color: #{$turquoise-700};
+  --dt-button-active-color: #{$turquoise-800};
 }
 
 .dt-button.dt-color-warning {
