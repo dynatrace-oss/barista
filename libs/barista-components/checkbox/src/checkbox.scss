@@ -1,7 +1,6 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
 @import '../../core/src/style/transition';
-@import '../../core/src/theming/theming';
 @import '../../style/font-mixins';
 @import './checkbox-theme';
 
@@ -197,9 +196,4 @@ $dt-checkbox-size: 20px;
   &.dt-checkbox-anim-indeterminate-unchecked .dt-checkbox-indeterminate {
     opacity: 0;
   }
-}
-
-// Apply the checkbox theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-checkbox($dt-current-theme);
 }
