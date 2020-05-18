@@ -18,8 +18,8 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { HttpClient } from '@angular/common/http';
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, NgZone } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtCheckbox } from '@dynatrace/barista-components/checkbox';
@@ -28,6 +28,7 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   createComponent,
   dispatchMouseEvent,
+  MockNgZone,
 } from '@dynatrace/testing/browser';
 import { FILTER_FIELD_TEST_DATA } from '@dynatrace/testing/fixtures';
 import { of } from 'rxjs';
@@ -38,6 +39,7 @@ import { DtQuickFilterModule } from './quick-filter.module';
 describe('dt-quick-filter', () => {
   let instanceDebugElement: DebugElement;
   let quickFilterInstance: DtQuickFilter;
+  let zone: MockNgZone;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -54,6 +56,7 @@ describe('dt-quick-filter', () => {
             get: jest.fn().mockReturnValue(of('<svg></svg>')),
           },
         },
+        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
       ],
     });
     TestBed.compileComponents();
@@ -172,6 +175,33 @@ describe('dt-quick-filter', () => {
       ]);
       changeSpy.mockClear();
     });
+
+    it('should propagate currentFilterChanges event when emitted on the filter field', fakeAsync(() => {
+      const spy = jest.fn();
+      const subscription = quickFilterInstance.currentFilterChanges.subscribe(
+        spy,
+      );
+      zone.simulateZoneExit();
+
+      filterFieldInstance.currentFilterChanges.emit();
+      expect(spy).toHaveBeenCalledTimes(1);
+
+      subscription.unsubscribe();
+    }));
+
+    it('should propagate inputChange event when emitted on the filter field', fakeAsync(() => {
+      const spy = jest.fn();
+      const subscription = quickFilterInstance.inputChange.subscribe(spy);
+      zone.simulateZoneExit();
+
+      filterFieldInstance.inputChange.emit('x');
+      expect(spy).toHaveBeenCalledWith('x');
+
+      filterFieldInstance.inputChange.emit('xy');
+      expect(spy).toHaveBeenCalledWith('xy');
+
+      subscription.unsubscribe();
+    }));
   });
 });
 
