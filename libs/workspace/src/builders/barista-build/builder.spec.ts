@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+import * as fs from 'fs';
+import { Volume } from 'memfs';
+
 import { Architect } from '@angular-devkit/architect';
 import { TestingArchitectHost } from '@angular-devkit/architect/testing';
 import { schema } from '@angular-devkit/core';
@@ -30,6 +33,11 @@ const options: BaristaBuildBuilderSchema = {
   outputPath: '',
   routes: ['test'],
 };
+
+afterEach(() => {
+  // Reset the mocked fs
+  (fs as any).reset();
+});
 
 describe('Barista Builder', () => {
   let architect: Architect;
@@ -96,5 +104,40 @@ describe('Barista Builder', () => {
         outputPath: expect.any(String),
       }),
     );
+  });
+
+  it('should rename the original index correctly and render the pages', async () => {
+    const vol = Volume.fromJSON(
+      {
+        'index.html': 'original-index',
+      },
+      '/root/dist/',
+    );
+
+    // Merge the current fs with the mocked volume
+    const fsMock: any = fs;
+    fsMock.use(vol);
+
+    // A "run" can have multiple outputs, and contains progress information.
+    const run = await architect.scheduleBuilder(
+      '@dynatrace/workspace:build-barista',
+      { ...options, outputPath: '/root/dist' } as any,
+    );
+
+    // The "result" member (of type BuilderOutput) is the next output.
+    const output = await run.result;
+
+    // Stop the builder from running. This stops Architect from keeping
+    // the builder-associated states in memory, since builders keep waiting
+    // to be scheduled.
+    await run.stop();
+
+    expect(output.success).toBe(true);
+    // Should rename the index correctly
+    expect(vol.toJSON()).toMatchInlineSnapshot(`
+      Object {
+        "/root/dist/index.original.html": "original-index",
+      }
+    `);
   });
 });

@@ -41,7 +41,7 @@ export function runBuilder(
   options: BaristaBuildBuilderSchema,
   context: BuilderContext,
 ): Observable<BuilderOutput> {
-  const outputPath = join(process.cwd(), options.outputPath);
+  const outputPath = options.outputPath;
   const routes = getRoutes(options);
 
   // Process id of the spawned server that should be killed

@@ -13,3 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+jest.mock('fs', () => {
+  const actualFs = jest.requireActual('fs');
+  const unionfs = require('unionfs').default;
+  unionfs.reset = () => {
+    // fss is unionfs' list of overlays
+    unionfs.fss = [actualFs];
+  };
+  return unionfs.use(actualFs);
+});
