@@ -37,6 +37,7 @@ import {
   isDtRangeDef,
   _isDtRangeValue,
   isDtRenderType,
+  DtOptionDef,
 } from './types';
 
 /**
@@ -257,7 +258,6 @@ function isOptionSelected(def: DtNodeDef, selectedIds: Set<string>): boolean {
 }
 
 /** Transforms a RangeSource to the Tag data values. */
-// tslint:disable-next-line: no-any
 function transformRangeSourceToTagData(
   result: _DtRangeValue,
 ): { separator: string; value: string } {
@@ -333,9 +333,9 @@ export function createTagDataForFilterValues(
 
 export function findFilterValuesForSources<T>(
   sources: T[],
-  rootDef: DtNodeDef,
-  asyncDefs: Map<DtNodeDef, DtNodeDef>,
-  dataSource: DtFilterFieldDataSource,
+  rootDef: DtNodeDef<T>,
+  asyncDefs: Map<DtNodeDef<T>, DtNodeDef<T>>,
+  dataSource: DtFilterFieldDataSource<T>,
 ): _DtFilterValue[] | null {
   const foundValues: _DtFilterValue[] = [];
   let parentDef = rootDef;
@@ -363,7 +363,7 @@ export function findFilterValuesForSources<T>(
           const asyncDef = asyncDefs.get(def);
           if (asyncDef) {
             parentDef = asyncDef;
-            foundValues.push(def, asyncDef as _DtAutocompleteValue);
+            foundValues.push(def, asyncDef as _DtAutocompleteValue<T>);
           } else {
             parentDef = def;
             foundValues.push(def);
@@ -388,19 +388,19 @@ export function findFilterValuesForSources<T>(
 }
 
 /** Tries to find a definition for the provided source. It will start the lookup at the provided def. */
-export function findDefForSource(
-  source: any, // tslint:disable-line:no-any
+export function findDefForSource<D>(
+  source: D,
   def: DtNodeDef,
-): DtNodeDef | null {
-  if (isDtAutocompleteDef(def)) {
+): DtNodeDef<D> | null {
+  if (isDtAutocompleteDef<unknown, D>(def)) {
     for (const optionOrGroup of def.autocomplete.optionsOrGroups) {
       if (isDtOptionDef(optionOrGroup) && optionOrGroup.data === source) {
-        return optionOrGroup;
+        return optionOrGroup as DtNodeDef<D>;
       }
       if (isDtGroupDef(optionOrGroup)) {
         for (const option of optionOrGroup.group.options) {
           if (option.data === source) {
-            return option;
+            return option as DtNodeDef<D>;
           }
         }
       }
@@ -421,8 +421,8 @@ export function findDefForSource(
 export const DELIMITER = '◬';
 
 /** Peeks into a option node definition and returns its distinct id or creates a new one. */
-export function peekOptionId(
-  def: DtNodeDef,
+export function peekOptionId<T>(
+  def: DtNodeDef<T> & { option: DtOptionDef },
   prefix?: string,
   prefixOnly?: boolean,
 ): string {
@@ -435,7 +435,7 @@ export function peekOptionId(
 
 /** Generates a new option id for the provided node def. */
 export function generateOptionId(
-  def: DtNodeDef,
+  def: DtNodeDef<unknown>,
   prefix: string = '',
   prefixOnly: boolean = false,
 ): string {
@@ -449,7 +449,7 @@ export function generateOptionId(
 
 /** Generates and applies ids for the provided option and all its children. */
 export function applyDtOptionIds(
-  def: DtNodeDef,
+  def: DtNodeDef<unknown>,
   prefix: string = '',
   skipRootDef: boolean = false,
 ): void {
@@ -471,8 +471,8 @@ export function applyDtOptionIds(
 
 /** Checks whether two autocomplete values are both options and have the same uid */
 export function isDtAutocompleteValueEqual(
-  a: _DtAutocompleteValue,
-  b: _DtAutocompleteValue,
+  a: _DtAutocompleteValue<unknown>,
+  b: _DtAutocompleteValue<unknown>,
   prefix?: string,
 ): boolean {
   return peekOptionId(a, prefix) === peekOptionId(b, prefix);

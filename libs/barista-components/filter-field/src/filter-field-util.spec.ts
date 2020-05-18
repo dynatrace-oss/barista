@@ -779,7 +779,7 @@ describe('DtFilterField Util', () => {
           [],
           false,
           false,
-        );
+        ) as any;
         expect(optionSelectedPredicate(optionDef, selectedIds, false)).toBe(
           true,
         );
@@ -806,7 +806,7 @@ describe('DtFilterField Util', () => {
           [],
           false,
           false,
-        );
+        ) as any;
         expect(optionSelectedPredicate(optionDef, selectedIds, true)).toBe(
           false,
         );
@@ -946,21 +946,21 @@ describe('DtFilterField Util', () => {
   describe('defDistinctPredicate', () => {
     it('should return true if an autocomplete is async and also an option; it is not selected and not distinct', () => {
       let def = dtAutocompleteDef({}, null, [], false, true);
-      def = dtOptionDef({}, null, 'foo', 'id0', def, null);
+      def = dtOptionDef({}, null, 'foo', 'id0', def, null) as any;
       const ids = new Set(['id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(true);
     });
 
     it('should return true if an autocomplete is async and also an option; it is selected but not distinct', () => {
       let def = dtAutocompleteDef({}, null, [], false, true);
-      def = dtOptionDef({}, def, 'foo', 'id0', def, null);
+      def = dtOptionDef({}, def, 'foo', 'id0', def, null) as any;
       const ids = new Set(['id0', 'id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(true);
     });
 
     it('should return false if an autocomplete is async and also an option; it is selected and distinct', () => {
       let def = dtAutocompleteDef({}, null, [], true, true);
-      def = dtOptionDef({}, null, 'foo', 'id0', def, null);
+      def = dtOptionDef({}, null, 'foo', 'id0', def, null) as any;
       const ids = new Set(['id0', 'id1']);
       expect(defDistinctPredicate(def, ids, false)).toBe(false);
     });
@@ -1196,7 +1196,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       const b = dtOptionDef(
         optionSource,
         null,
@@ -1204,7 +1204,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeTruthy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeTruthy();
     });
@@ -1217,7 +1217,7 @@ describe('DtFilterField Util', () => {
         `${optionSource.name}${DELIMITER}`,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       const b = dtOptionDef(
         optionSource,
         null,
@@ -1225,7 +1225,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeTruthy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeTruthy();
     });
@@ -1240,7 +1240,7 @@ describe('DtFilterField Util', () => {
         `${prefix}${optionSource.name}${DELIMITER}`,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       const b = dtOptionDef(
         optionSource,
         null,
@@ -1248,7 +1248,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b, prefix)).toBeTruthy();
       expect(isDtAutocompleteValueEqual(b, a, prefix)).toBeTruthy();
     });
@@ -1262,7 +1262,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       const optionSourceB = { name: 'Option 2' };
       const b = dtOptionDef(
         optionSourceB,
@@ -1271,7 +1271,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeFalsy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeFalsy();
     });
@@ -1284,7 +1284,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       const optionSourceB = { name: 'Option 2' };
       const b = dtOptionDef(
         optionSourceB,
@@ -1293,7 +1293,7 @@ describe('DtFilterField Util', () => {
         `${optionSourceB.name}${DELIMITER}`,
         null,
         null,
-      ) as _DtAutocompleteValue;
+      ) as _DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeFalsy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeFalsy();
     });

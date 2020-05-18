@@ -62,8 +62,8 @@ export const updateFilter = (item: DtNodeDef) =>
   action<DtNodeDef>(ActionType.UPDATE_FILTER, item);
 
 /** Action that subscribes to a new data source */
-export const switchDataSource = (item: DtFilterFieldDataSource) =>
-  action<DtFilterFieldDataSource>(ActionType.SWITCH_DATA_SOURCE, item);
+export const switchDataSource = (item: DtFilterFieldDataSource<any>) =>
+  action<DtFilterFieldDataSource<any>>(ActionType.SWITCH_DATA_SOURCE, item);
 
 /** Action that updates the data source */
 export const updateDataSource = (nodeDef: DtNodeDef) =>

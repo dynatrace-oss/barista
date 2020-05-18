@@ -15,11 +15,9 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-
 import {
   DtFilterField,
   DtFilterFieldDefaultDataSource,
-  DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
 
 @Component({
@@ -64,7 +62,5 @@ export class DtExampleFilterFieldClearall<T> {
   ];
   _filters = [this._linzFilter];
 
-  _dataSource = new DtFilterFieldDefaultDataSource<
-    DtFilterFieldDefaultDataSourceType
-  >(this.DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
 }

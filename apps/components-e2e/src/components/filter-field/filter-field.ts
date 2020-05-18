@@ -44,18 +44,14 @@ const DATA = [FILTER_FIELD_TEST_DATA_VALIDATORS, FILTER_FIELD_TEST_DATA];
 export class DtE2EFilterField implements OnDestroy {
   destroy$ = new Subject<void>();
 
-  _dataSource = new DtFilterFieldDefaultDataSource<
-    DtFilterFieldDefaultDataSourceType
-  >(DATA[0]);
+  _dataSource = new DtFilterFieldDefaultDataSource(DATA[0]);
 
   @ViewChild(DtFilterField, { static: true }) _filterfield: DtFilterField<
     DtFilterFieldDefaultDataSourceType
   >;
 
   switchToDatasource(targetIndex: number): void {
-    this._dataSource = new DtFilterFieldDefaultDataSource<
-      DtFilterFieldDefaultDataSourceType
-    >(DATA[targetIndex]);
+    this._dataSource = new DtFilterFieldDefaultDataSource(DATA[targetIndex]);
   }
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}

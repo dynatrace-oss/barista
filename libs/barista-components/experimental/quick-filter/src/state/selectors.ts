@@ -22,6 +22,7 @@ import { Observable } from 'rxjs';
 import { filter, map, pluck, tap, withLatestFrom } from 'rxjs/operators';
 import { DtQuickFilterDataSource } from '../quick-filter-data-source';
 import { QuickFilterState } from './store';
+import { isDefined } from '@dynatrace/barista-components/core';
 
 /** @internal Select all autocompletes from the root Node Def from the store */
 export const getAutocompletes = (
@@ -35,13 +36,15 @@ export const getAutocompletes = (
       }
     }),
     pluck('nodeDef'),
-    filter(isDtAutocompleteDef),
+    filter((state) => isDefined(state) && isDtAutocompleteDef(state)),
     withLatestFrom(
       getDataSource(state$).pipe(filter<DtQuickFilterDataSource>(Boolean)),
     ),
-    map(([{ autocomplete }, { showInSidebarFunction }]) =>
-      autocomplete.optionsOrGroups.filter(
-        (node) => isDtAutocompleteDef(node) && showInSidebarFunction(node.data),
+    map(([nodeDef, dataSource]) =>
+      nodeDef!.autocomplete!.optionsOrGroups.filter(
+        (node) =>
+          isDtAutocompleteDef(node) &&
+          dataSource.showInSidebarFunction(node.data),
       ),
     ),
   );
