@@ -234,4 +234,8 @@ describe('Barista transformers', () => {
       );
     });
   });
+
+  describe('TOC Generator', async () => {
+    const content = `<h2 id=\"imports\">Imports<ba-headline-link id=\"imports\"></ba-headline-link></h2>\n<p>You have to import</p>\n<h2 id=\"initialization\">Initialization<ba-headline-link id=\"initialization\"></ba-headline-link></h2>`;
+  });
 });
