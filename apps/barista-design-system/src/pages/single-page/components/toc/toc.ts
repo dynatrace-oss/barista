@@ -14,22 +14,11 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  ViewChildren,
-  OnInit,
-  AfterViewInit,
-  OnDestroy,
-  NgZone,
-  Inject,
-} from '@angular/core';
-import {
-  BaTocService,
-  BaTocItem,
-} from '../../../../shared/services/toc.service';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+import { DOCUMENT, Location } from '@angular/common';
+import { TableOfContents } from '@dynatrace/shared/barista-definitions';
+import { BaScrollSpyService } from '../../../../shared/services/scroll-spy.service';
 import { Subscription } from 'rxjs';
-import { Platform } from '@angular/cdk/platform';
-import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'ba-toc',
@@ -39,46 +28,53 @@ import { DOCUMENT } from '@angular/common';
     class: 'ba-toc',
   },
 })
-export class BaToc implements OnInit, AfterViewInit, OnDestroy {
-  /** @internal all TOC entries */
-  @ViewChildren('headline') _headlines;
+export class BaToc implements OnInit, OnDestroy {
+  /** Contains the toc items of the page, coming from page-content component */
+  @Input()
+  tocItems: TableOfContents[];
 
   /** @internal whether the TOC is expanded  */
   _expandToc: boolean;
-  /** @internal all headlines, which should be represented in the TOC  */
-  _headings$ = this._tocService.tocList;
-  /** @internal the TOC entries that are currently active */
-  _activeItems: BaTocItem[] = [];
 
-  /** Subscription on active TOC items */
-  private _activeItemsSubscription = Subscription.EMPTY;
+  /** @internal the TOC items that are currently active */
+  _activeItems: TableOfContents[] = [];
+
+  private _scrollSpySubscription: Subscription = Subscription.EMPTY;
 
   constructor(
-    private _tocService: BaTocService,
-    private _zone: NgZone,
-    private _platform: Platform,
+    private _scrollSpyService: BaScrollSpyService,
+    private _location: Location,
     @Inject(DOCUMENT) private _document: any,
   ) {}
 
   ngOnInit(): void {
-    this._activeItemsSubscription = this._tocService.activeItems.subscribe(
-      (activeItems) => {
-        this._zone.run(() => {
-          this._activeItems = activeItems;
-        });
-      },
+    const headlines = [].slice.call(
+      this._document.querySelectorAll(
+        '.ba-single-page-content h2, .ba-single-page-content h3',
+      ),
     );
-  }
 
-  ngAfterViewInit(): void {
-    Promise.resolve().then(() => {
-      const docElement = this._document.getElementById('main') || undefined;
-      this._tocService.genToc(docElement);
-    });
+    this._scrollSpySubscription = this._scrollSpyService
+      .spyOn(headlines)
+      .subscribe((activeItemId) => {
+        this._activeItems = [];
+        for (const tocItem of this.tocItems) {
+          if (tocItem.id === activeItemId) {
+            this._activeItems.push(tocItem);
+          }
+          if (tocItem.children) {
+            for (const tocSubItem of tocItem.children) {
+              if (tocSubItem.id === activeItemId) {
+                this._activeItems.push(tocItem, tocSubItem);
+              }
+            }
+          }
+        }
+      });
   }
 
   ngOnDestroy(): void {
-    this._activeItemsSubscription.unsubscribe();
+    this._scrollSpySubscription.unsubscribe();
   }
 
   /** @internal toggle the expandable menu */
@@ -87,23 +83,15 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /** @internal handle the click on a TOC item */
-  _handleTocClick(ev: MouseEvent): void {
-    /* Preventing the default behavior is necessary, because on Angular component pages
-     * there's a base URL defined and the on-page-links are always relative to "/"
-     * and not to the current page. */
-    ev.preventDefault();
-    ev.stopImmediatePropagation();
-    const targetId = (ev.currentTarget as HTMLElement).getAttribute('href');
-    const target = this._document.querySelector(targetId || '');
-
-    if (this._platform.isBrowser && target) {
-      // Has to be set manually because of preventDefault() above.
-      window.location.hash = targetId || '';
-      requestAnimationFrame(() => {
-        target.scrollIntoView({
-          behavior: 'smooth',
-        });
+  _handleTocClick(target: string): void {
+    this._location.go(`${this._location.path()}#${target}`);
+    const targetHeadline = this._document.querySelector(
+      `h2[id="${target}"], h3[id="${target}"]`,
+    );
+    requestAnimationFrame(() => {
+      targetHeadline.scrollIntoView({
+        behavior: 'smooth',
       });
-    }
+    });
   }
 }

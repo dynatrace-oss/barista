@@ -33,7 +33,6 @@ import { BaSidenav } from './components/sidenav';
 import { BaToc } from './components/toc';
 import { BaPageContent } from './page-content';
 import { BaSinglePage } from './single-page';
-import { BaTocService } from '../../shared/services/toc.service';
 import { BaScrollSpyService } from '../../shared/services/scroll-spy.service';
 
 export const routes: Route[] = [
@@ -65,6 +64,6 @@ export const routes: Route[] = [
     BaSidenav,
     BaToc,
   ],
-  providers: [BaRecentlyOrderedService, BaScrollSpyService, BaTocService],
+  providers: [BaRecentlyOrderedService, BaScrollSpyService],
 })
 export class BaSinglePageModule {}

@@ -36,6 +36,7 @@ import {
   headingIdTransformer,
   copyHeadlineTransformer,
   relativeUrlTransformer,
+  tableOfContentGenerator,
 } from '../transform';
 
 import { slugify } from '../utils/slugify';
@@ -52,6 +53,7 @@ const TRANSFORMERS: BaPageTransformer[] = [
   headingIdTransformer,
   copyHeadlineTransformer,
   relativeUrlTransformer,
+  tableOfContentGenerator,
 ];
 
 /** Creates snippets in Strapi that do not exist already. */

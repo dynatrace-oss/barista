@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-import { BaPageLayoutType } from '@dynatrace/shared/barista-definitions';
+import {
+  BaPageLayoutType,
+  TableOfContents,
+} from '@dynatrace/shared/barista-definitions';
 
 import {
   componentTagsTransformer,
@@ -23,6 +26,7 @@ import {
   headingIdTransformer,
   internalContentTransformerFactory,
   relativeUrlTransformer,
+  tableOfContentGenerator,
 } from './transform';
 
 describe('Barista transformers', () => {
@@ -232,6 +236,28 @@ describe('Barista transformers', () => {
         <a contentLink="../">Back</a>
       `,
       );
+    });
+  });
+
+  describe('TOC Generator', () => {
+    it('should generate toc', async () => {
+      const content = `<h2 id=\"hl1\">hl1</h2>\n<h2 id=\"hl2\">hl2</h2><h3 id=\"shl1\">shl1</h3>`;
+      const transformed = await tableOfContentGenerator({
+        title: 'toc',
+        toc: true,
+        layout: BaPageLayoutType.Default,
+        content,
+      });
+      const toc: TableOfContents[] = [
+        { headline: 'hl1', id: 'hl1' },
+        {
+          headline: 'hl2',
+          id: 'hl2',
+          children: [{ headline: 'shl1', id: 'shl1' }],
+        },
+      ];
+
+      expect(transformed.tocitems).toMatchObject(toc);
     });
   });
 });

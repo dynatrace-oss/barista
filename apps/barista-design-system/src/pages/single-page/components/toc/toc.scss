@@ -29,6 +29,18 @@
   display: none;
 }
 
+.ba-toc-link {
+  cursor: pointer;
+  text-decoration: none;
+  color: $turquoise-600;
+  transition: color 0.1s ease-out;
+
+  &:hover {
+    text-decoration: underline;
+    color: $turquoise-700;
+  }
+}
+
 .ba-toc-list .ba-toc-item::before {
   background-color: $gray-300;
 }
