@@ -38,7 +38,7 @@ export const ofType = <T>(
 /** Connects to a new Data dataSource */
 export const switchDataSourceEffect: Effect = (action$: Observable<Action>) =>
   action$.pipe(
-    ofType<DtFilterFieldDataSource>(ActionType.SWITCH_DATA_SOURCE),
+    ofType<DtFilterFieldDataSource<any>>(ActionType.SWITCH_DATA_SOURCE),
     switchMap((action) => action.payload!.connect()),
     map((nodeDef: DtNodeDef) => updateDataSource(nodeDef)),
   );

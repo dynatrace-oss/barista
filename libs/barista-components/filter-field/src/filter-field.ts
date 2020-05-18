@@ -194,15 +194,15 @@ export class DtFilterField<T = any>
 
   /** The data source instance that should be connected to the filter field. */
   @Input()
-  get dataSource(): DtFilterFieldDataSource {
+  get dataSource(): DtFilterFieldDataSource<T> {
     return this._dataSource;
   }
-  set dataSource(dataSource: DtFilterFieldDataSource) {
+  set dataSource(dataSource: DtFilterFieldDataSource<T>) {
     if (this._dataSource !== dataSource) {
       this._switchDataSource(dataSource);
     }
   }
-  private _dataSource: DtFilterFieldDataSource;
+  private _dataSource: DtFilterFieldDataSource<T>;
   private _dataSubscription: Subscription | null;
   private _stateChanges = new Subject<void>();
   private _outsideClickSubscription: Subscription | null;
@@ -669,9 +669,10 @@ export class DtFilterField<T = any>
     if (!this._currentFilterValues.length && event.data.filterValues.length) {
       const value = event.data.filterValues[0];
       if (
-        (_isDtAutocompleteValue(value) && isDtAutocompleteDef(value)) ||
-        isDtRangeDef(value) ||
-        isDtFreeTextDef(value)
+        _isDtAutocompleteValue(value) &&
+        (isDtAutocompleteDef(value) ||
+          isDtRangeDef(value) ||
+          isDtFreeTextDef(value))
       ) {
         const removed = event.data.filterValues.splice(1);
         // Keep the removed values in the stashed member, to reapply them if necessary.
@@ -859,7 +860,7 @@ export class DtFilterField<T = any>
   private _handleAutocompleteSelected(
     event: DtAutocompleteSelectedEvent<DtNodeDef>,
   ): void {
-    const optionDef = event.option.value as _DtAutocompleteValue;
+    const optionDef = event.option.value as _DtAutocompleteValue<T>;
     this._peekCurrentFilterValues().push(optionDef);
     // Reset input value to empty string after handling the value provided by the autocomplete.
     // Otherwise the value of the autocomplete would be in the input elements and the next options
@@ -1061,7 +1062,7 @@ export class DtFilterField<T = any>
    * Takes a new data source and switches the filter date to the provided one.
    * Handles all the disconnecting and data switching.
    */
-  private _switchDataSource(dataSource: DtFilterFieldDataSource): void {
+  private _switchDataSource(dataSource: DtFilterFieldDataSource<T>): void {
     if (this._dataSource) {
       this._dataSource.disconnect();
     }
@@ -1208,7 +1209,7 @@ export class DtFilterField<T = any>
       currentFilterNodeDefsOrSources &&
       currentFilterNodeDefsOrSources.length
     ) {
-      const def = currentFilterNodeDefsOrSources[0];
+      const def = currentFilterNodeDefsOrSources[0] as _DtAutocompleteValue<T>;
       if (isDtOptionDef(def)) {
         this._filterByLabel = def.option.viewValue;
       }

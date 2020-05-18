@@ -15,11 +15,9 @@
  */
 
 import { Component } from '@angular/core';
-
 import {
   DtFilterFieldCurrentFilterChangeEvent,
   DtFilterFieldDefaultDataSource,
-  DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
 
 // tslint:disable: no-any
@@ -52,9 +50,7 @@ export class DtExampleFilterFieldAsync {
     autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
   };
 
-  _dataSource = new DtFilterFieldDefaultDataSource<
-    DtFilterFieldDefaultDataSourceType
-  >(this.DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
 
   currentFilterChanged(
     event: DtFilterFieldCurrentFilterChangeEvent<any>,

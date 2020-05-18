@@ -55,7 +55,5 @@ export class DtExampleFilterFieldUnique {
     ],
   };
 
-  _dataSource = new DtFilterFieldDefaultDataSource<
-    DtFilterFieldDefaultDataSourceType
-  >(this.DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
 }

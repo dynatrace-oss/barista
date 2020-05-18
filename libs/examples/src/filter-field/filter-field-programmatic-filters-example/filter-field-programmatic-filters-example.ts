@@ -15,11 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-
-import {
-  DtFilterFieldDefaultDataSource,
-  DtFilterFieldDefaultDataSourceType,
-} from '@dynatrace/barista-components/filter-field';
+import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
 
 @Component({
   selector: 'dt-example-filter-field-programmatic-filters',
@@ -60,9 +56,7 @@ export class DtExampleFilterFieldProgrammaticFilters {
     ],
   };
 
-  _dataSource = new DtFilterFieldDefaultDataSource<
-    DtFilterFieldDefaultDataSourceType
-  >(this.DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
 
   _filters = [
     // Filter AUT -> Vienna

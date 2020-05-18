@@ -2159,9 +2159,7 @@ function isClearAllVisible(fixture: ComponentFixture<any>): boolean {
 })
 export class TestApp {
   // tslint:disable-next-line:no-any
-  dataSource = new DtFilterFieldDefaultDataSource<any>(
-    FILTER_FIELD_TEST_DATA_ASYNC,
-  );
+  dataSource = new DtFilterFieldDefaultDataSource(FILTER_FIELD_TEST_DATA_ASYNC);
 
   label = 'Filter by';
   clearAllLabel = 'Clear all';

@@ -132,7 +132,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   private _timerHandle: number;
   _firstTag: DtFilterFieldTag;
 
-  _dataSource = new DtFilterFieldDefaultDataSource<any>(TEST_DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
   _loading = false;
   _disabled = false;
 

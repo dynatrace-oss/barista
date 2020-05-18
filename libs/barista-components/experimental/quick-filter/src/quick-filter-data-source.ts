@@ -21,13 +21,13 @@ import {
 } from '@dynatrace/barista-components/filter-field';
 
 export abstract class DtQuickFilterDataSource<T = any>
-  implements DtFilterFieldDataSource {
+  implements DtFilterFieldDataSource<T> {
   /**
    * Used by the DtFilterFieldControl. Called when it connects to the data source.
    * Should return a stream of data that will be transformed, filtered and
    * displayed by the DtFilterField and the DtFilterFieldControl.
    */
-  abstract connect(): Observable<DtNodeDef | null>;
+  abstract connect(): Observable<DtNodeDef<T> | null>;
 
   /** Used by the DtFilterField. Called when it is destroyed. */
   abstract disconnect(): void;
@@ -55,42 +55,42 @@ export abstract class DtQuickFilterDataSource<T = any>
     data: T,
     parent: DtNodeDef | null,
     existingDef: DtNodeDef | null,
-  ): DtNodeDef;
+  ): DtNodeDef<T>;
 
   /** Transforms the provided data into a DtNodeDef which contains a DtOptionDef. */
   abstract transformOption(
     data: T,
     parentAutocompleteOrOption: DtNodeDef | null,
     existingDef: DtNodeDef | null,
-  ): DtNodeDef;
+  ): DtNodeDef<T>;
 
   /** Transforms the provided data into a DtNodeDef which contains a DtGroupDef. */
   abstract transformGroup(
     data: T,
     parentAutocomplete: DtNodeDef | null,
     existingDef: DtNodeDef | null,
-  ): DtNodeDef;
+  ): DtNodeDef<T>;
 
   /** Transforms the provided data into a DtNodeDef which contains a DtFreeTextDef. */
   abstract transformFreeText(
     data: T,
     parent: DtNodeDef | null,
     existingDef: DtNodeDef | null,
-  ): DtNodeDef;
+  ): DtNodeDef<T>;
 
   /** Transforms the provided data into a DtNodeDef which contains a DtRangeDef. */
   abstract transformRange(
     data: T,
     parent: DtNodeDef | null,
     existingDef: DtNodeDef | null,
-  ): DtNodeDef;
+  ): DtNodeDef<T>;
 
   /** Transforms the provided data into a DtNodeDef. */
   abstract transformObject(
     data: T | null,
     parent: DtNodeDef | null,
-  ): DtNodeDef | null;
+  ): DtNodeDef<T> | null;
 
   /** Transforms the provided list of data objects into an array of DtNodeDefs. */
-  abstract transformList(list: T[], parent: DtNodeDef | null): DtNodeDef[];
+  abstract transformList(list: T[], parent: DtNodeDef | null): DtNodeDef<T>[];
 }
