@@ -17,7 +17,7 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { isEmpty, isNumber } from '@dynatrace/barista-components/core';
+import { isEmpty, isNumberLike } from '@dynatrace/barista-components/core';
 
 import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { DtRateUnit } from '../unit';
@@ -42,7 +42,7 @@ export class DtRate implements PipeTransform {
     if (input instanceof DtFormattedValue) {
       return formatRate(input, rateUnit);
     }
-    if (isNumber(input)) {
+    if (isNumberLike(input)) {
       return formatRate(coerceNumberProperty(input), rateUnit);
     }
 

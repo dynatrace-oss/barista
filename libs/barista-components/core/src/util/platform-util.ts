@@ -114,7 +114,7 @@ export function _parseCssValue(
   input: any,
 ): { value: number; unit: string } | null {
   if (isNumber(input)) {
-    return { value: parseFloat(input), unit: 'px' };
+    return { value: input, unit: 'px' };
   }
   if (isString(input)) {
     const result = input.match(/^[\d\.]+/);

@@ -15,26 +15,33 @@
  */
 
 /** Checks if the provided value is defined and not null */
-// tslint:disable-next-line:no-any
-export function isDefined(value: any): boolean {
-  return value !== void 0 && value !== null;
+export function isDefined<T>(value: T): value is NonNullable<T> {
+  return value !== null && value !== undefined;
 }
 
 /** Checks if the provided value is not empty and not null */
 // tslint:disable-next-line:no-any
-export function isEmpty(value: any): boolean {
+export function isEmpty(value: any): value is null | undefined | '' {
   return value === null || value === undefined || value === '';
 }
 
 /**
- * Checks if the provided value is a number
- * this function can be used to check for numbers instead of corceNumberProperty from the cdk
+ * Checks if the provided value is a number.
+ * This function can be used to check for numbers instead of coerceNumberProperty from the cdk
  * because coerceNumberProperty returns 0 for invalid values
  */
 // tslint:disable-next-line:no-any
-export function isNumber(value: any): boolean {
+export function isNumber(value: any): value is number {
+  return Number.isFinite(value);
+}
+
+/**
+ * Checks if the provided value is number like,
+ * which includes numbers or strings that can be easily converted to numbers.
+ */
+// tslint:disable-next-line: no-any
+export function isNumberLike(value: any): boolean {
   // parsefloat handles null, '', NaN, undefined - for everything else we check with Number
-  // tslint:disable-next-line:no-any
   return (
     typeof value !== 'symbol' &&
     !isNaN(parseFloat(value)) &&
@@ -44,12 +51,12 @@ export function isNumber(value: any): boolean {
 
 /** Checks if the provided value is a real object. */
 // tslint:disable-next-line: no-any
-export function isObject(value: any): boolean {
+export function isObject(value: any): value is { [key: string]: any } {
   return isDefined(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
 /** Helper function which evaluates if the passed value is a string. */
 // tslint:disable-next-line: no-any
-export function isString(value: any): boolean {
+export function isString(value: any): value is string {
   return typeof value === 'string';
 }
