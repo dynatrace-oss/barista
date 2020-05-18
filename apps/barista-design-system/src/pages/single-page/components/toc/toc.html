@@ -4,42 +4,41 @@
     (click)="_expandTocMenu()"
     [ngClass]="{ 'ba-is-active': _expandToc }"
   >
-    <a
-      href="#"
+    <p
       class="ba-toc-header ba-expandable-trigger ba-expandable-trigger-right"
       data-initialized="true"
-      >On this page</a
     >
+      On this page
+    </p>
     <div class="ba-toc-content ba-expandable-content">
       <ul class="ba-toc-list ba-list">
         <li
-          *ngFor="let heading of _headings$ | async"
+          *ngFor="let headline of tocItems"
           class="ba-toc-item"
           [class.ba-toc-item-active]="
-            _activeItems && _activeItems[0] === heading
+            _activeItems &&
+            _activeItems[0] &&
+            _activeItems[0].id === headline.id
           "
         >
-          <a
-            #headline
-            href="{{ heading.href }}"
-            class="ba-toc-link"
-            (click)="_handleTocClick($event)"
-            >{{ heading.title }}</a
-          >
-          <ul *ngIf="heading.hasSubheadlines" class="ba-toc-ul">
+          <span class="ba-toc-link" (click)="_handleTocClick(headline.id)">
+            {{ headline.headline }}
+          </span>
+          <ul *ngIf="headline.children" class="ba-toc-ul">
             <li
-              *ngFor="let subheading of heading.subheadlines"
+              *ngFor="let subheadline of headline.children"
               class="ba-toc-item"
               [class.ba-toc-item-active]="
-                _activeItems && _activeItems[1] === subheading
+                _activeItems &&
+                _activeItems[1] &&
+                _activeItems[1].id === subheadline.id
               "
             >
-              <a
-                #headline
-                href="{{ subheading.href }}"
+              <span
                 class="ba-toc-link"
-                (click)="_handleTocClick($event)"
-                >{{ subheading.title }}</a
+                (click)="_handleTocClick(subheadline.id)"
+              >
+                {{ subheadline.headline }}</span
               >
             </li>
           </ul>

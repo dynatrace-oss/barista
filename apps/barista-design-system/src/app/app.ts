@@ -84,10 +84,9 @@ export class BaApp implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._url$
       .pipe(
-        map((url: string) => {
-          const key = getPageKeyFromUrl(this._document, url);
-          return this._pageService._cache.get(key);
-        }),
+        map((url: string) => getPageKeyFromUrl(this._document, url)),
+        distinctUntilChanged(),
+        map((key: string) => this._pageService._cache.get(key)),
         filter<BaContentTypes>(Boolean),
         takeUntil(this._destroy$),
       )

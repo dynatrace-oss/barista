@@ -38,14 +38,14 @@ import { BaLiveExample } from './live-example/live-example';
  * comes before the grid and the grid before the color-grid.
  */
 export const BA_CONTENT_COMPONENTS: any[] = [
-  BaIconColorWheel,
-  BaLiveExample,
-  BaHeadlineLink,
   BaColor,
+  BaColorGrid,
   BaContentLink,
+  BaIconColorWheel,
+  BaHeadlineLink,
   BaLayoutGridItem,
   BaLayoutGrid,
-  BaColorGrid,
+  BaLiveExample,
 ];
 
 @NgModule({
