@@ -1,25 +1,4 @@
-## [7.0.0-rc.2](https://github.com/dynatrace-oss/barista/compare/7.0.0-rc.1...7.0.0-rc.2) (2020-05-15)
-
-### Bug Fixes
-
-- **sunburst-chart,radial-chart:** Fix css custom properties inside template for
-  view engine consumers.
-  ([67caf42](https://github.com/dynatrace-oss/barista/commit/67caf425e78d9464017df9173fa38ab6671f1fa5))
-
-### Features
-
-- **secondary-nav:** Refactor secondary-nav.
-  ([8aa5d6a](https://github.com/dynatrace-oss/barista/commit/8aa5d6aec35616d40bf601638a85eebc224c7d8b)),
-  closes [#465](https://github.com/dynatrace-oss/barista/issues/465)
-
-### BREAKING CHANGES
-
-- **secondary-nav:** the API has been simplified and the dependency on the
-  Router has been removed.
-- **sunburst-chart,radial-chart:** Added DomSanitizer as non optional parameter
-  to the components constructor.
-
-## [7.0.0-rc.1](https://github.com/dynatrace-oss/barista/compare/6.0.0...7.0.0-rc.1) (2020-05-13)
+## [7.0.0-rc.3](https://github.com/dynatrace-oss/barista/compare/6.0.0...7.0.0-rc.3) (2020-05-18)
 
 Most of the breaking changes will be fixed automatically by running
 `ng update @dynatrace/barista-components`.
@@ -71,8 +50,13 @@ Most of the breaking changes will be fixed automatically by running
   [#684](https://github.com/dynatrace-oss/barista/issues/684)
 - **secondary-nav:** Remove deprecated aria-label input attributes.
   ([550fdcd](https://github.com/dynatrace-oss/barista/commit/550fdcdeda689d498672a914c0a2940e5255629f))
+- **secondary-nav:** Refactor secondary-nav.
+  ([8aa5d6a](https://github.com/dynatrace-oss/barista/commit/8aa5d6aec35616d40bf601638a85eebc224c7d8b)),
+  closes [#465](https://github.com/dynatrace-oss/barista/issues/465)
 - **sidenav:** Fixes wrong exportAs property for the sidenav-header
   ([5647ae0](https://github.com/dynatrace-oss/barista/commit/5647ae094f3ea17c8fff859a2dd2279300e5cd6e))
+- **sunburst-chart, radial-chart:** Added DomSanitizer as non optional parameter
+  to the components constructor.
 - **table:** Remove unnecessary ng_Zone from constructor and table empty states.
   ([de89e60](https://github.com/dynatrace-oss/barista/commit/de89e6087461615d02039f3a41d19a0dcf74fe7d))
 - **tag:** Make elementRef mandatory.
@@ -133,6 +117,12 @@ Most of the breaking changes will be fixed automatically by running
 - **indicator:** Moved to its own package. Import DtIndicatorModule and
   DtIndicatorThemePalette from @dynatrace/barista-components/indicator instead
   of \*/core
+
+### Bug Fixes
+
+- **sunburst-chart,radial-chart:** Fix css custom properties inside template for
+  view engine consumers.
+  ([67caf42](https://github.com/dynatrace-oss/barista/commit/67caf425e78d9464017df9173fa38ab6671f1fa5))
 
 ## [6.5.2](https://github.com/dynatrace-oss/barista/compare/6.5.1...6.5.2) (2020-05-18)
 
