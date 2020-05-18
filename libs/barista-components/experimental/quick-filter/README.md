@@ -46,6 +46,8 @@ sidebar you can leverage the `<dt-quick-filter-title>` and
 
 ## Outputs
 
-| Name            | Type                                     | Description                                                                                                 |
-| --------------- | ---------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `filterChanges` | `EventEmitter<DtQuickFilterChangeEvent>` | Event emitted when filters have been updated by user interaction. Wont be triggered by programmatic changes |
+| Name                   | Type                                                  | Description                                                                                                 |
+| ---------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `filterChanges`        | `EventEmitter<DtQuickFilterChangeEvent>`              | Event emitted when filters have been updated by user interaction. Wont be triggered by programmatic changes |
+| `currentFilterChanges` | `EventEmitter<DtQuickFilterCurrentFilterChangeEvent>` | Event emitted when filters in the filter field of the quick filter are edited.                              |
+| `inputChange`          | `EventEmitter<string>`                                | Event emitted when the input value in the filter field of the quick filter changes.                         |

@@ -21,6 +21,7 @@ import {
   Directive,
   EventEmitter,
   Input,
+  NgZone,
   OnDestroy,
   Output,
   ViewChild,
@@ -29,9 +30,10 @@ import {
 import {
   DtFilterField,
   DtFilterFieldChangeEvent,
+  DtFilterFieldCurrentFilterChangeEvent,
 } from '@dynatrace/barista-components/filter-field';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { switchMap, take, takeUntil } from 'rxjs/operators';
 import { DtQuickFilterDataSource } from './quick-filter-data-source';
 import { Action, setFilters, switchDataSource } from './state/actions';
 import { quickFilterReducer } from './state/reducer';
@@ -64,6 +66,14 @@ export class DtQuickFilterSubTitle {}
  */
 export class DtQuickFilterChangeEvent<T> extends DtFilterFieldChangeEvent<T> {}
 
+/**
+ * The `DtQuickFilterCurrentFilterChangeEvent` is a class that is used to transport data.
+ * It contains the partially added or removed filters of the filter field.
+ */
+export class DtQuickFilterCurrentFilterChangeEvent<
+  T
+> extends DtFilterFieldCurrentFilterChangeEvent<T> {}
+
 @Component({
   selector: 'dt-quick-filter',
   exportAs: 'dtQuickFilter',
@@ -77,10 +87,24 @@ export class DtQuickFilterChangeEvent<T> extends DtFilterFieldChangeEvent<T> {}
   encapsulation: ViewEncapsulation.Emulated,
 })
 export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
+  /** Emits an event with the current value of the input field every time the user types. */
+  @Output() readonly inputChange: Observable<string> = this._zone.onStable.pipe(
+    take(1),
+    switchMap(() => this._filterField.inputChange.asObservable()),
+  );
+
   /** Emits when a new filter has been added or removed. */
   @Output() readonly filterChanges = new EventEmitter<
     DtQuickFilterChangeEvent<T>
   >();
+
+  /** Emits when a part has been added to the currently active filter. */
+  @Output() readonly currentFilterChanges: Observable<
+    DtQuickFilterCurrentFilterChangeEvent<T>
+  > = this._zone.onStable.pipe(
+    take(1),
+    switchMap(() => this._filterField.currentFilterChanges.asObservable()),
+  );
 
   /**
    * @internal
@@ -139,6 +163,8 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
 
   /** Subject that is used for bulk unsubscribing */
   private _destroy$ = new Subject<void>();
+
+  constructor(private _zone: NgZone) {}
 
   /** Angular life-cycle hook that will be called after the view is initialized */
   ngAfterViewInit(): void {
