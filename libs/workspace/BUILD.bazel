@@ -4,35 +4,7 @@ load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
 load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
 load("@build_bazel_rules_nodejs//:index.bzl", "copy_to_bin", "nodejs_binary")
 
-NPM_DEPENDENCIES = [
-    "@angular-devkit/architect",
-    "@angular-devkit/build-ng-packagr",
-    "@angular-devkit/core",
-    "@angular/cli",
-    "@nrwl/workspace",
-    "@octokit/rest",
-    "@types/node",
-    "axios",
-    "chalk",
-    "d3-array",
-    "d3-cam02",
-    "d3-color",
-    "d3-hsluv",
-    "d3-scale",
-    "glob",
-    "lodash-es",
-    "lodash",
-    "memfs",
-    "rxjs",
-    "sass-graph",
-    "stylelint",
-    "theo",
-    "tslib",
-    "typescript",
-    "xml2js",
-    "xmlbuilder",
-    "yargs",
-]
+load(":dependencies.bzl", "NPM_DEPENDENCIES")
 
 # Additional to the compiled files we need the jsons files for execution
 copy_to_bin(
@@ -62,21 +34,22 @@ rollup_bundle(
     name = "workspace",
     args = [
         "-e",
-        ",".join(NPM_DEPENDENCIES)
+        ",".join(NPM_DEPENDENCIES),
     ],
     config_file = ":rollup.config.js",
-    output_dir = False,
-    entry_points = {
-        "src/scripts/affected-args.ts": "src/scripts/affected-args.bundled",
-        'src/scripts/run-parallel.ts': 'src/scripts/run-parallel.bundled',
-    },
-    format = "cjs",
+    entry_point = "index",
+    # entry_points = {
+    #     "src/scripts/affected-args.ts": "src/scripts/affected-args.bundled",
+    #     "src/scripts/run-parallel.ts": "src/scripts/run-parallel.bundled",
+    #     "src/builders/barista-build/builder.ts": "src/builders/barista-build/builder.bundled",
+    # },
+    # format = "cjs",
+    # output_dir = True,
     sourcemap = "false",
     deps = [
-        "compile",
         "@npm//@rollup/plugin-json",
-        "@npm//rollup-plugin-commonjs",
-        "@npm//rollup-plugin-node-resolve",
+        "@npm//@rollup/plugin-node-resolve",
+        "compile",
     ],
 )
 
