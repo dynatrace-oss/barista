@@ -134,6 +134,13 @@ Most of the breaking changes will be fixed automatically by running
   DtIndicatorThemePalette from @dynatrace/barista-components/indicator instead
   of \*/core
 
+## [6.5.2](https://github.com/dynatrace-oss/barista/compare/6.5.1...6.5.2) (2020-05-18)
+
+### Bug Fixes
+
+- **button:** Fixes the regression that button colors changed due to the theme.
+  ([2d0bafc](https://github.com/dynatrace-oss/barista/commit/2d0bafc2cb588c88e32a02fbd8a86a7cda7ac20f))
+
 ## [6.5.1](https://github.com/dynatrace-oss/barista/compare/6.5.0...6.5.1) (2020-05-13)
 
 ### Style Fixes
