@@ -17,6 +17,7 @@
 import {
   BaAllExamplesMetadata,
   BaSinglePageContent,
+  TableOfContents,
 } from '@dynatrace/shared/barista-definitions';
 import * as markdownIt from 'markdown-it';
 import * as markdownItDeflist from 'markdown-it-deflist';
@@ -233,6 +234,45 @@ export const relativeUrlTransformer: BaPageTransformer = async (source) => {
       });
     });
   }
+  return transformed;
+};
+
+/** generates a toc json containing headlines with children */
+export const tableOfContentGenerator: BaPageTransformer = async (source) => {
+  const transformed = { ...source };
+  let toc: TableOfContents[] = [];
+  if (source.toc) {
+    // generate TOC and at to source
+    // Find Headlines and corresponding subheadlines (h2 > h3)
+    transformed.content = runWithCheerio(source.content, ($) => {
+      const headlines = $('h2, h3');
+      let currentH2 = -1;
+      headlines.each((_index, headline) => {
+        const headlineId = $(headline).attr('id');
+        const headlineText = $(headline).text();
+        if (headline.tagName === 'h2') {
+          currentH2++;
+          toc.push({
+            id: headlineId!,
+            headline: headlineText!,
+          });
+        } else if (headline.tagName === 'h3') {
+          // Add subheadlines array when needed
+          if (!toc[currentH2].children) {
+            toc[currentH2] = {
+              ...toc[currentH2],
+              children: [],
+            };
+          }
+          toc[currentH2].children!.push({
+            id: headlineId!,
+            headline: headlineText!,
+          });
+        }
+      });
+    });
+  }
+  transformed.tocitems = toc;
   return transformed;
 };
 

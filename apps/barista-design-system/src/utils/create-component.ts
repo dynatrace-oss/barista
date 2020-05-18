@@ -26,15 +26,15 @@ import {
  * Creates a new component instance at the position of a placeholder element.
  * Per default the placeholder element is then removed.
  */
-export function createComponent(
+export function createComponent<T>(
   factory: ComponentFactory<any>,
   viewContainerRef: ViewContainerRef,
   injector: Injector,
   placeholderElement: Element,
   projectableNodes: any[][] = [],
   shouldRemovePlaceholder: boolean = true,
-): ComponentRef<unknown> {
-  const componentRef = viewContainerRef.createComponent(
+): ComponentRef<T> {
+  const componentRef: ComponentRef<T> = viewContainerRef.createComponent(
     factory,
     viewContainerRef.length,
     injector,
@@ -43,18 +43,33 @@ export function createComponent(
 
   // At this point the component has been instantiated,
   // so we move it to the location in the DOM of the placeholder element.
-  placeholderElement.parentElement!.insertBefore(
+  const inserted = placeholderElement.parentElement!.insertBefore(
     getComponentRootNode(componentRef),
     placeholderElement,
   );
+  // Get all attributes from placeholder element
+  const attributes = Array.from(placeholderElement.attributes);
 
   // Try applying inputs.
   // Note: This can only be done with static attributes, not bindings!
   for (const input of factory.inputs) {
     if (placeholderElement.hasAttribute(input.templateName)) {
       const value = placeholderElement.getAttribute(input.templateName);
+      // apply the matched attributes to the inputs of the created components
       componentRef.instance[input.propName] = value || input.templateName;
+      // remove matches from attributes array so we can apply the remaining attributes at the end
+      // otherwise the attributes that are already handled as inputs by angular
+      // might cause problems
+      attributes.splice(
+        attributes.findIndex((attr) => attr.value === value),
+        1,
+      );
     }
+  }
+
+  // Set remaining attributes on inserted component
+  for (const attr of attributes) {
+    inserted.setAttribute(attr.name, attr.value);
   }
 
   // Now we can safely remove to placeholder element.
@@ -69,7 +84,6 @@ export function createComponent(
 function getComponentRootNode(
   componentRef: ComponentRef<unknown>,
 ): HTMLElement {
-  // tslint:disable-next-line: no-any
   return (componentRef.hostView as EmbeddedViewRef<unknown>)
     .rootNodes[0] as HTMLElement;
 }

@@ -28,7 +28,6 @@ import {
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
 import { Platform } from '@angular/cdk/platform';
-
 @Component({
   selector: 'ba-single-page',
   templateUrl: 'single-page.html',
@@ -49,7 +48,7 @@ export class BaSinglePage implements OnInit, AfterViewInit {
     private _pageService: BaPageService<BaSinglePageContent>,
     private _recentlyOrderedService: BaRecentlyOrderedService,
     private _platform: Platform,
-    @Inject(DOCUMENT) private _document: any,
+    @Inject(DOCUMENT) private _document: Document,
   ) {}
 
   ngOnInit(): void {
