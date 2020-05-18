@@ -176,7 +176,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   }
 
   /** @internal Bubble the filter field change event through */
-  _filterFiledChanged(change: DtFilterFieldChangeEvent<T>): void {
+  _filterFieldChanged(change: DtFilterFieldChangeEvent<T>): void {
     this._store.dispatch(setFilters(change.filters));
     this.filterChanges.emit(change);
   }
