@@ -16,7 +16,7 @@
 
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { isEmpty, isNumber } from '@dynatrace/barista-components/core';
+import { isEmpty, isNumberLike } from '@dynatrace/barista-components/core';
 
 import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { KILO_MULTIPLIER } from '../number-formatter';
@@ -51,7 +51,7 @@ export class DtKilobytes implements PipeTransform {
         outputUnit: DtUnit.KILO_BYTES,
       });
     }
-    if (isNumber(input)) {
+    if (isNumberLike(input)) {
       return formatBytes(input, {
         factor,
         inputUnit,

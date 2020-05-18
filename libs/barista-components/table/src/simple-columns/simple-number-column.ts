@@ -21,7 +21,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { isDefined, isNumber } from '@dynatrace/barista-components/core';
+import { isDefined, isNumberLike } from '@dynatrace/barista-components/core';
 import { formatCount } from '@dynatrace/barista-components/formatters';
 
 import { DtTable } from '../table';
@@ -58,7 +58,7 @@ export class DtSimpleNumberColumn<T> extends DtSimpleColumnBase<T> {
       ? this.displayAccessor(data, this.name)
       : (data as any)[this.name]; // tslint:disable-line:no-any
 
-    if (isNumber(output) && !isDefined(this.formatter)) {
+    if (isNumberLike(output) && !isDefined(this.formatter)) {
       return formatCount(output);
     }
     return this.formatter ? this.formatter(output) : output;

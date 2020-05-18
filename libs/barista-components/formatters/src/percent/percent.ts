@@ -16,7 +16,7 @@
 
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { isEmpty, isNumber } from '@dynatrace/barista-components/core';
+import { isEmpty, isNumberLike } from '@dynatrace/barista-components/core';
 
 import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { formatPercent } from './percent-formatter';
@@ -35,7 +35,7 @@ export class DtPercent implements PipeTransform {
     if (isEmpty(input)) {
       return NO_DATA;
     }
-    if (isNumber(input)) {
+    if (isNumberLike(input)) {
       return formatPercent(input, maxPrecision);
     }
 

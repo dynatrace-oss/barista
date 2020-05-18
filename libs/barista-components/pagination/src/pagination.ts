@@ -27,7 +27,7 @@ import {
 } from '@angular/core';
 import { AsyncSubject } from 'rxjs';
 
-import { isNumber } from '@dynatrace/barista-components/core';
+import { isNumberLike } from '@dynatrace/barista-components/core';
 
 import { calculatePages } from './pagination-calculate-pages';
 import {
@@ -65,7 +65,7 @@ export class DtPagination implements OnInit {
   }
   set length(value: number) {
     const length = coerceNumberProperty(value);
-    if (isNumber(value) && this._length !== length) {
+    if (isNumberLike(value) && this._length !== length) {
       this._length = length;
       this._updateItems();
       this._changeDetectorRef.markForCheck();
@@ -80,7 +80,7 @@ export class DtPagination implements OnInit {
   }
   set pageSize(value: number) {
     const pageSize = coerceNumberProperty(value);
-    if (isNumber(value) && this._pageSize !== pageSize) {
+    if (isNumberLike(value) && this._pageSize !== pageSize) {
       this._pageSize = pageSize;
       this._updateItems();
       this._changeDetectorRef.markForCheck();
@@ -95,7 +95,7 @@ export class DtPagination implements OnInit {
   }
   set currentPage(value: number) {
     const currentPage = coerceNumberProperty(value);
-    if (isNumber(value) && this._currentPage !== currentPage) {
+    if (isNumberLike(value) && this._currentPage !== currentPage) {
       this._currentPage = currentPage;
       this._updateItems();
       this._changeDetectorRef.markForCheck();

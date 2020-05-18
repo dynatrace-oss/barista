@@ -17,7 +17,7 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { isEmpty, isNumber } from '@dynatrace/barista-components/core';
+import { isEmpty, isNumberLike } from '@dynatrace/barista-components/core';
 
 import { DtFormattedValue, NO_DATA } from '../formatted-value';
 import { DtTimeUnit } from '../unit';
@@ -44,7 +44,7 @@ export class DtDuration implements PipeTransform {
     if (isEmpty(duration)) {
       return NO_DATA;
     }
-    return isNumber(duration)
+    return isNumberLike(duration)
       ? formatDuration(
           coerceNumberProperty(duration),
           formatMethod,

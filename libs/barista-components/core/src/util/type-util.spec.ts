@@ -17,7 +17,13 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { isDefined, isEmpty, isNumber, isObject } from './type-util';
+import {
+  isDefined,
+  isEmpty,
+  isNumber,
+  isObject,
+  isNumberLike,
+} from './type-util';
 
 describe('TypeUtil', () => {
   describe('isDefined', () => {
@@ -107,8 +113,8 @@ describe('TypeUtil', () => {
     it('should be false if the value is a string that cannot be converted', () => {
       expect(isNumber('random')).toBeFalsy();
     });
-    it('should be true if the value is a string can be converted', () => {
-      expect(isNumber('123')).toBeTruthy();
+    it('should be false if the value is a string can be converted', () => {
+      expect(isNumber('123')).toBeFalsy();
     });
     it('should be false if the value is a boolean', () => {
       expect(isNumber(true)).toBeFalsy();
@@ -124,6 +130,46 @@ describe('TypeUtil', () => {
       expect(isNumber(() => {})).toBeFalsy();
       expect(isNumber(A)).toBeFalsy();
       expect(isNumber(new A())).toBeFalsy();
+    });
+  });
+
+  describe('isNumberLike', () => {
+    it('should be false if the value is undefined or null', () => {
+      expect(isNumberLike(void 0)).toBeFalsy();
+      expect(isNumberLike(undefined)).toBeFalsy();
+      expect(isNumberLike(null)).toBeFalsy();
+    });
+    it('should be false if the value is an empty string', () => {
+      expect(isNumberLike('')).toBeFalsy();
+    });
+    it('should be true if the value is a number', () => {
+      expect(isNumberLike(-1)).toBeTruthy();
+      expect(isNumberLike(0)).toBeTruthy();
+      expect(isNumberLike(1)).toBeTruthy();
+    });
+    it('should be false if the value is a string containing numbers', () => {
+      expect(isNumberLike('123test')).toBeFalsy();
+    });
+    it('should be false if the value is a string that cannot be converted', () => {
+      expect(isNumberLike('random')).toBeFalsy();
+    });
+    it('should be true if the value is a string can be converted', () => {
+      expect(isNumberLike('123')).toBeTruthy();
+    });
+    it('should be false if the value is a boolean', () => {
+      expect(isNumberLike(true)).toBeFalsy();
+      expect(isNumberLike(false)).toBeFalsy();
+    });
+    it('should be false if the value is a symbol', () => {
+      expect(isNumberLike(Symbol('foo'))).toBeFalsy();
+    });
+    it('should be false if the value is a complex object or function', () => {
+      class A {}
+      expect(isNumberLike({})).toBeFalsy();
+      expect(isNumberLike([])).toBeFalsy();
+      expect(isNumberLike(() => {})).toBeFalsy();
+      expect(isNumberLike(A)).toBeFalsy();
+      expect(isNumberLike(new A())).toBeFalsy();
     });
   });
 
