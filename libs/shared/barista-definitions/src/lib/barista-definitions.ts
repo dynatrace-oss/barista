@@ -161,7 +161,7 @@ export interface TOC {
   headlines: Headline[];
 }
 
-interface Headline {
+export interface Headline {
   id: string;
   headline: string;
   children?: Headline[];

@@ -4,23 +4,25 @@
     (click)="_expandTocMenu()"
     [ngClass]="{ 'ba-is-active': _expandToc }"
   >
-    <a
+    <p
       href="#"
       class="ba-toc-header ba-expandable-trigger ba-expandable-trigger-right"
       data-initialized="true"
-      >On this page</a
     >
+      On this page
+    </p>
     <div class="ba-toc-content ba-expandable-content">
       <ul class="ba-toc-list ba-list">
         <li
           *ngFor="let headline of tocitems.headlines"
           class="ba-toc-item"
           [class.ba-toc-item-active]="
-            _activeItems && _activeItems[0] === headline
+            _activeItems[0] && _activeItems[0].headlines[0] === headline
           "
         >
           <a
             #headline
+            id="{{ headline.id }}"
             href="#{{ headline.id }}"
             class="ba-toc-link"
             (click)="_handleTocClick($event)"
@@ -32,11 +34,12 @@
               *ngFor="let subheadline of headline.children"
               class="ba-toc-item"
               [class.ba-toc-item-active]="
-                _activeItems && _activeItems[1] === subheadline
+                _currentActiveHeadline === subheadline
               "
             >
               <a
                 #headline
+                id="{{ subheadline.id }}"
                 href="#{{ subheadline.id }}"
                 class="ba-toc-link"
                 (click)="_handleTocClick($event)"

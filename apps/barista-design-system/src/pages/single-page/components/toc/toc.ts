@@ -29,7 +29,7 @@ import { BaTocService } from '../../../../shared/services/toc.service';
 import { Subscription } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { TOC } from '@dynatrace/shared/barista-definitions';
+import { TOC, Headline } from '@dynatrace/shared/barista-definitions';
 
 @Component({
   selector: 'ba-toc',
@@ -50,6 +50,8 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
   _expandToc: boolean;
   /** @internal the TOC entries that are currently active */
   _activeItems: TOC[] = [];
+  /** @internal the currently active TOC item */
+  _currentActiveHeadline: Headline[] = [];
 
   /** Subscription on active TOC items */
   private _activeItemsSubscription = Subscription.EMPTY;
@@ -62,10 +64,14 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this._tocService.tocItems = this.tocitems;
     this._activeItemsSubscription = this._tocService.activeItems.subscribe(
       (activeItems) => {
         this._zone.run(() => {
-          this._activeItems.push(activeItems);
+          this._activeItems = [activeItems];
+          if (activeItems) {
+            this._currentActiveHeadline = activeItems.headlines;
+          }
         });
       },
     );
@@ -75,8 +81,8 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     Promise.resolve().then(() => {
-      const docElement = this._document.getElementById('main') || undefined;
-      this._tocService.genToc(docElement);
+      const docElement = this._document.getElementById('toc') || undefined;
+      this._tocService.startScrollSpy(docElement);
     });
   }
 

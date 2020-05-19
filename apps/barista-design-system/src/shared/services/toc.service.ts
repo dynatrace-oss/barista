@@ -52,7 +52,7 @@ export class BaTocService implements OnDestroy {
   /**
    * generate the toc and start the scroll spy to find the currently active toc item
    */
-  genToc(docElement?: Element, _docId: string = ''): void {
+  startScrollSpy(docElement?: Element, _docId: string = ''): void {
     this._resetScrollSpyInfo();
 
     if (!docElement) {
@@ -60,13 +60,11 @@ export class BaTocService implements OnDestroy {
       return;
     }
 
-    // ! HEADLINES is empty. Selector wrong?
     const headlines = this._findTocHeadings(docElement);
-    // debugger;
     console.log(headlines);
     // this.tocItems = this._refractorTocItems(headlines, docId);
     this.tocList.next(this.tocItems);
-
+    console.log(this.tocList);
     // TODO: whole scroll spy logic has to be fixed! It was not refactored
     // during the angular router refactoring
     if (this._platform.isBrowser) {
@@ -79,6 +77,7 @@ export class BaTocService implements OnDestroy {
           if (scrollItem) {
             for (const tocItem of this.tocItems.headlines) {
               const scrollItemId = scrollItem.element.getAttribute('id');
+              // debugger;
               if (tocItem.id === scrollItemId) {
                 this.activeItems.next({ headlines: [tocItem] });
               }
@@ -106,10 +105,7 @@ export class BaTocService implements OnDestroy {
   private _findTocHeadings(docElement: Element): HTMLHeadingElement[] {
     // Only select direct children of the #all-content wrapper to not
     // select headlines that are part of examples.
-    return querySelectorAll<HTMLHeadingElement>(
-      docElement,
-      '#all-content > #headline',
-    );
+    return querySelectorAll<HTMLHeadingElement>(docElement, 'a');
     // '#all-content > h2[id], #all-content > h3[id]',
   }
 
