@@ -29,7 +29,7 @@ import { addFixtureToTree, getNewFiles } from '../utils/test-utils';
 
 const fixturesFolder = join(__dirname, './fixtures');
 
-describe('Add E2E Component', () => {
+describe('Add Dev Component', () => {
   const workspaceOptions: WorkspaceOptions = {
     name: 'workspace',
     newProjectRoot: 'apps',
@@ -76,8 +76,20 @@ describe('Add E2E Component', () => {
 
     await addFixtureToTree(
       initialTree,
-      'app.routing.module.ts.fixture.ts',
-      'apps/components-e2e/src/app/app.routing.module.ts',
+      'app.module.ts.fixture',
+      'apps/dev/src/app.module.ts',
+      fixturesFolder,
+    );
+    await addFixtureToTree(
+      initialTree,
+      'devapp-routing.module.fixture',
+      'apps/dev/src/devapp-routing.module.ts',
+      fixturesFolder,
+    );
+    await addFixtureToTree(
+      initialTree,
+      'devapp.component.ts.fixture',
+      'apps/dev/src/devapp.component.ts',
       fixturesFolder,
     );
 
@@ -86,23 +98,21 @@ describe('Add E2E Component', () => {
 
   it('should add the necessary files', async () => {
     const result = await schematicRunner
-      .runSchematicAsync('dt-e2e', { name: 'alert' }, initialTree)
+      .runSchematicAsync('dt-dev', { name: 'alert' }, initialTree)
       .toPromise();
 
     const newFiles = getNewFiles(result.files, initialFiles);
 
     expect(newFiles).toEqual([
-      '/apps/components-e2e/src/components/alert/alert.e2e.ts',
-      '/apps/components-e2e/src/components/alert/alert.html',
-      '/apps/components-e2e/src/components/alert/alert.module.ts',
-      '/apps/components-e2e/src/components/alert/alert.po.ts',
-      '/apps/components-e2e/src/components/alert/alert.ts',
+      '/apps/dev/src/alert/alert-demo.component.html',
+      '/apps/dev/src/alert/alert-demo.component.scss',
+      '/apps/dev/src/alert/alert-demo.component.ts',
     ]);
   });
 
   it('should generate files with the appropriate content', async () => {
     const result = await schematicRunner
-      .runSchematicAsync('dt-e2e', { name: 'alert' }, initialTree)
+      .runSchematicAsync('dt-dev', { name: 'alert' }, initialTree)
       .toPromise();
 
     const newFiles = getNewFiles(result.files, initialFiles);
@@ -111,25 +121,29 @@ describe('Add E2E Component', () => {
 
   it('should change files appropriately', async () => {
     const result = await schematicRunner
-      .runSchematicAsync('dt-e2e', { name: 'alert' }, initialTree)
+      .runSchematicAsync('dt-dev', { name: 'alert' }, initialTree)
       .toPromise();
 
+    expect(result.readContent('apps/dev/src/app.module.ts')).toMatchSnapshot();
     expect(
-      result.readContent('apps/components-e2e/src/app/app.routing.module.ts'),
+      result.readContent('apps/dev/src/devapp-routing.module.ts'),
+    ).toMatchSnapshot();
+    expect(
+      result.readContent('apps/dev/src/devapp.component.ts'),
     ).toMatchSnapshot();
   });
 
   it('should throw error if we already have the files in there', async () => {
     await addFixtureToTree(
       initialTree,
-      'alert.fixture.ts',
-      '/apps/components-e2e/src/components/alert/alert.ts',
+      'alert-demo.component.fixture',
+      '/apps/dev/src/alert/alert-demo.component.html',
       fixturesFolder,
     );
 
     await expect(
       schematicRunner
-        .runSchematicAsync('dt-e2e', { name: 'alert' }, initialTree)
+        .runSchematicAsync('dt-dev', { name: 'alert' }, initialTree)
         .toPromise(),
     ).rejects.toThrow();
   });

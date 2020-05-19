@@ -27,9 +27,10 @@ import {
 import { formatFiles } from '@nrwl/workspace';
 import { join } from 'path';
 import * as ts from 'typescript';
-import { findNodes, getIndentation, getSourceFile } from '../utils/ast-utils';
+import { findNodes, getSourceFile } from '../utils/ast-utils';
 import { commitChanges, InsertChange } from '../utils/change';
 import { DtComponentE2EOptions } from './schema';
+import { generateComponentOptions } from '../utils/schematics-utils';
 interface DtE2EExtendedOptions {
   selector: string;
   componentModule: {
@@ -41,15 +42,6 @@ interface DtE2EExtendedOptions {
     module: string;
   };
   name: string;
-}
-
-function generateComponentOptions(
-  name: string,
-): { name: string; package: string } {
-  return {
-    name: `Dt${strings.classify(name)}Module`,
-    package: `@dynatrace/barista-components/${strings.dasherize(name)}`,
-  };
 }
 
 function generateE2EComponentOptions(
