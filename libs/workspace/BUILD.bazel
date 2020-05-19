@@ -1,6 +1,6 @@
-package(default_visibility = ["//visibility:public"])
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
 
-load("@npm_bazel_typescript//:index.bzl", "ts_config")
+package(default_visibility = ["//visibility:public"])
 
 ts_config(
     name = "tsconfig_lib",

@@ -48,7 +48,7 @@ executors:
     working_directory: ~/barista
     docker:
       # Also check build-docker-image if you want to bump Bazel bersion
-      - image: designops/workspace-bazel:bazel-3.2.0
+      - image: designops/workspace-bazel:bazel-3.3.1
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -171,6 +171,30 @@ commands:
             source ~/.bashrc
             bazel test $(bazel query "attr(generator_function, stylelint, //...)") --profile=./profile.gz --record_full_profiler_data
 
+  run_bazel_jest:
+    description: >-
+      Runs Jest unit tests via Bazel
+    steps:
+      - run:
+          when: always
+          name: Bazel Jest
+          command: |
+            shopt -s expand_aliases
+            source ~/.bashrc
+            bazel test $(bazel query "attr(generator_function, jest, //...)") --profile=./profile.gz --record_full_profiler_data
+
+  run_bazel_build:
+    description: >-
+      Builds all build targets via Bazel
+    steps:
+      - run:
+          when: always
+          name: Bazel Build
+          command: |
+            shopt -s expand_aliases
+            source ~/.bashrc
+            bazel build //... --profile=./profile.gz --record_full_profiler_data
+
   get_bazel_testlogs:
     description: >-
       Stores the Bazel Testlogs
@@ -211,13 +235,13 @@ jobs:
           # Don't forget to adapt push command and bazel executor if you want to bump the Bazel version
           command: |
             docker build -t $WORKSPACE_IMAGE:latest ./ -f ./.deployment/workspace-base.Dockerfile
-            docker build -t $BAZEL_IMAGE:bazel-3.2.0 ./ -f ./.deployment/workspace-bazel.Dockerfile --build-arg bazel_version=3.2.0
+            docker build -t $BAZEL_IMAGE:bazel-3.3.1 ./ -f ./.deployment/workspace-bazel.Dockerfile --build-arg bazel_version=3.3.1
 
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
             docker push $WORKSPACE_IMAGE:latest
-            docker push $BAZEL_IMAGE:bazel-3.2.0
+            docker push $BAZEL_IMAGE:bazel-3.3.1
 
 # - install npm dependencies
   install:
@@ -229,7 +253,7 @@ jobs:
       - run:
           name: Install npm dependencies 🐍
           command: |
-            npm ci --ignore-scripts &> /dev/null
+            npm ci --ignore-scripts
             node ./node_modules/.bin/ngcc
       - run:
           name: Build Workspace package 📦
@@ -425,7 +449,7 @@ jobs:
 # - static codeanalysis of the style files
   bazel_stylelint:
     executor: bazel
-    resource_class: xlarge
+    resource_class: large
     steps:
       - setup_bazel_ci
       - run_bazel_stylelint
@@ -434,15 +458,28 @@ jobs:
           path: ./profile.gz
           destination: bazel-performance-profile
 
+# - unit testing with jest
+  bazel_unit_test:
+    executor: bazel
+    resource_class: large
+    steps:
+      - setup_bazel_ci
+      - run_bazel_jest
+      - get_bazel_testlogs
+      - store_artifacts:
+          path: ./profile.gz
+          destination: bazel-performance-profile
+
 # - build all targets with bazel
-  # bazel_build:
-  #   executor: bazel
-  #   resource_class: xlarge
-  #   steps:
-  #     - setup_bazel_ci
-  #     - run:
-  #         name: Run Build
-  #         command: bazel build //...
+  bazel_build:
+    executor: bazel
+    resource_class: xlarge
+    steps:
+      - setup_bazel_ci
+      - run_bazel_build
+      - store_artifacts:
+          path: ./profile.gz
+          destination: bazel-performance-profile
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -458,13 +495,6 @@ jobs:
 workflows:
   version: 2.1
 
-  bazelify:
-    jobs:
-      - bazel_stylelint:
-          context: barista
-      # - bazel_build:
-      #     context: barista
-
 # - Publish the workspace image on every master build
   workspace-build:
     jobs:
@@ -478,6 +508,12 @@ workflows:
 
   fork-check:
     jobs:
+      - bazel_stylelint:
+          <<: *filter_forks
+      - bazel_unit_test:
+          <<: *filter_forks
+      - bazel_build:
+          <<: *filter_forks
       - install:
           <<: *filter_forks
       - check-formatting:
@@ -489,8 +525,6 @@ workflows:
       - lint-workspace:
           requires:
             - install
-      - bazel_stylelint:
-          <<: *filter_forks
       - unit-test:
           requires:
             - install
@@ -507,6 +541,15 @@ workflows:
 # - Runs on every PR check
   pr-check:
     jobs:
+      - bazel_stylelint:
+          <<: *filter_branches
+          context: barista
+      - bazel_unit_test:
+          <<: *filter_branches
+          context: barista
+      - bazel_build:
+          <<: *filter_branches
+          context: barista
       - install:
           <<: *filter_branches
           context: barista
