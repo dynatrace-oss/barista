@@ -1,0 +1,11 @@
+load("@npm_angular_bazel//:index.bzl", "ng_package")
+load(":config.bzl", "BARISTA_COMPONENTS_TARGETS")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_package(
+    name = "barista-components",
+    srcs = ["package.json"],
+    entry_point = ":index.ts",
+    deps = BARISTA_COMPONENTS_TARGETS,
+)

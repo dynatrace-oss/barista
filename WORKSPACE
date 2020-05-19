@@ -6,11 +6,30 @@ workspace(
 # These rules are built-into Bazel but we need to load them first to download more rules
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
-# Add NodeJS rules
+# The nodejs rules
+RULES_NODEJS_VERSION = "1.6.1"
+
+RULES_NODEJS_SHA256 = "d14076339deb08e5460c221fae5c5e9605d2ef4848eee1f0c81c9ffdc1ab31c1"
+
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "d14076339deb08e5460c221fae5c5e9605d2ef4848eee1f0c81c9ffdc1ab31c1",
-    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/1.6.1/rules_nodejs-1.6.1.tar.gz"],
+    sha256 = RULES_NODEJS_SHA256,
+    url = "https://github.com/bazelbuild/rules_nodejs/releases/download/%s/rules_nodejs-%s.tar.gz" % (RULES_NODEJS_VERSION, RULES_NODEJS_VERSION),
+)
+
+# Rules for compiling sass
+RULES_SASS_VERSION = "1.26.3"
+
+RULES_SASS_SHA256 = "9dcfba04e4af896626f4760d866f895ea4291bc30bf7287887cefcf4707b6a62"
+
+http_archive(
+    name = "io_bazel_rules_sass",
+    sha256 = RULES_SASS_SHA256,
+    strip_prefix = "rules_sass-%s" % RULES_SASS_VERSION,
+    urls = [
+        "https://github.com/bazelbuild/rules_sass/archive/%s.zip" % RULES_SASS_VERSION,
+        "https://mirror.bazel.build/github.com/bazelbuild/rules_sass/archive/%s.zip" % RULES_SASS_VERSION,
+    ],
 )
 
 http_archive(
@@ -74,6 +93,17 @@ install_bazel_dependencies()
 load("@npm_bazel_typescript//:index.bzl", "ts_setup_workspace")
 
 ts_setup_workspace()
+
+# Fetch required transitive dependencies. This is an optional step because you
+# can always fetch the required NodeJS transitive dependency on your own.
+load("@io_bazel_rules_sass//:package.bzl", "rules_sass_dependencies")
+
+rules_sass_dependencies()
+
+# Setup repositories which are needed for the Sass rules.
+load("@io_bazel_rules_sass//:defs.bzl", "sass_repositories")
+
+sass_repositories()
 
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
 

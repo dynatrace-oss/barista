@@ -1,3 +1,8 @@
+# Make TypeScript and Angular compilation fast, by keeping a few copies of the
+# compiler running as daemons, and cache SourceFile AST's to reduce parse time.
+build --strategy=TypeScriptCompile=worker
+build --strategy=AngularTemplateCompile=worker
+
 # Don't create bazel-* symlinks in the WORKSPACE directory.
 # These require .gitignore and may scare users.
 # Also, it's a workaround for https://github.com/bazelbuild/rules_typescript/issues/12
@@ -5,3 +10,22 @@
 #
 # Instead, you should run `bazel info bazel-bin` to find out where the outputs went.
 build --symlink_prefix=dist/
+
+# Use the Angular Ivy compiler
+# See https://github.com/angular/angular/blob/master/docs/BAZEL.md#various-flags-used-for-tests
+build --define=angular_ivy_enabled=True
+
+
+# Disable sandbox on Mac OS for performance reason.
+build --spawn_strategy=local
+run --spawn_strategy=local
+test --spawn_strategy=local
+
+
+################################
+# Local Environment Setup      #
+#  Needs to be last statement  #
+################################
+# Load any settings which are specific to the current user. Needs to be *last* statement
+# in this config, as the user configuration should be able to overwrite flags from this file.
+try-import .bazelrc.user
