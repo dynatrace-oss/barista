@@ -49,6 +49,7 @@ COMPONENTS = [
     "select",
     "show-more",
     "slider",
+    "stacked-series-chart",
     "stepper",
     "style",
     "sunburst-chart",

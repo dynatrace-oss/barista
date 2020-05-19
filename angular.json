@@ -1137,7 +1137,7 @@
         "packagr": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "libs/barista-components/tsconfig.lib.json",
+            "tsConfig": "libs/barista-components/tsconfig.json",
             "project": "libs/barista-components/ng-package.json"
           }
         },
@@ -1311,15 +1311,6 @@
               "**/node_modules/**",
               "!libs/barista-components/button/**/*"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/button/jest.config.js",
-            "tsConfig": "libs/barista-components/button/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/button/src/test-setup.ts",
-            "passWithNoTests": true
           }
         }
       },
@@ -1652,15 +1643,6 @@
               "**/node_modules/**",
               "!libs/barista-components/core/**/*"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/core/jest.config.js",
-            "tsConfig": "libs/barista-components/core/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/core/src/test-setup.ts",
-            "passWithNoTests": true
           }
         }
       },
@@ -2008,14 +1990,6 @@
               "**/node_modules/**",
               "!libs/barista-components/icon/**/*"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/icon/jest.config.js",
-            "tsConfig": "libs/barista-components/icon/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/icon/src/test-setup.ts"
           }
         }
       },

@@ -1,6 +1,6 @@
 @import '../../../styles/global/variables';
 @import '../../../styles/global/mixins';
-@import 'colors';
+@import '../../../../../libs/barista-components/core/src/style/colors';
 
 :host {
   @include iconButton();
