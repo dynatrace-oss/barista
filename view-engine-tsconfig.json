@@ -1,0 +1,28 @@
+{
+  "//-1": "Workaround for https://github.com/angular/angular/issues/18810",
+  "//-2": "This file is required because when using the Angular NPM packages and building",
+  "//-3": "with AOT compilation, NGC needs the \"ngsummary.json\" files.",
+  "angularCompilerOptions": {
+    "//-1": "In snapshot builds the compiler-cli will now use ngtsc by default.",
+    "//-2": "In order to be able to build the summary files, we need to use ngc.",
+    "enableIvy": false
+  },
+  "compilerOptions": {
+    "module": "umd",
+    "moduleResolution": "node",
+    "lib": ["dom", "es2015"],
+    "experimentalDecorators": true,
+    "types": []
+  },
+  "include": ["node_modules/@angular/**/*"],
+  "exclude": [
+    "node_modules/@angular/**/schematics/**",
+    "node_modules/@angular/**/testing/**",
+    "node_modules/@angular/bazel/**",
+    "node_modules/@angular/common/upgrade*",
+    "node_modules/@angular/compiler-cli/**",
+    "node_modules/@angular/dev-infra-private/**",
+    "node_modules/@angular/router/upgrade*",
+    "node_modules/@angular/localize/**"
+  ]
+}

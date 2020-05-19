@@ -1,0 +1,13 @@
+diff --git a/node_modules/@bazel/typescript/internal/common/tsconfig.bzl b/node_modules/@bazel/typescript/internal/common/tsconfig.bzl
+index fc1d6f7..9af2e92 100755
+--- a/node_modules/@bazel/typescript/internal/common/tsconfig.bzl
++++ b/node_modules/@bazel/typescript/internal/common/tsconfig.bzl
+@@ -264,7 +264,7 @@ def create_tsconfig(
+         # We don't support this compiler option (See github #32), so
+         # always emit declaration files in the same location as outDir.
+         "declarationDir": "/".join([workspace_path, outdir_path]),
+-        "stripInternal": True,
++        "stripInternal": False,
+ 
+         # Embed source maps and sources in .js outputs
+         "inlineSourceMap": True,

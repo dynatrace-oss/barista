@@ -21,14 +21,15 @@ ARG bazel_version
 RUN ls && bazel-${bazel_version} sync --repository_cache=/root/repocache \
  && bazel-${bazel_version} info
 
-
 FROM bazel-installed
 
 ARG bazel_version
 
 WORKDIR /root/barista
 
-RUN echo alias bazel=bazel-${bazel_version} > ~/.bashrc
-
 COPY --from=fetcher /root/repocache /root/repocache
 
+RUN useradd -ms /bin/bash thebarista && chown thebarista /root
+USER thebarista
+
+RUN echo alias bazel=bazel-${bazel_version} > ~/.bashrc
