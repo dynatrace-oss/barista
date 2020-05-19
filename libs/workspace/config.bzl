@@ -1,3 +1,5 @@
+load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
+
 # All dependencies form the workspace library that are needed by rollup
 # as external dependency and by the ts_library rule as deps.
 NPM_DEPENDENCIES = [
@@ -28,4 +30,5 @@ NPM_DEPENDENCIES = [
     "xml2js",
     "xmlbuilder",
     "yargs",
+    "yaml",
 ]

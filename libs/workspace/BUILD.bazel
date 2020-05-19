@@ -3,8 +3,8 @@ package(default_visibility = ["//visibility:public"])
 load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
 load("@npm_bazel_rollup//:index.bzl", "rollup_bundle")
 load("@build_bazel_rules_nodejs//:index.bzl", "copy_to_bin", "nodejs_binary")
+load(":config.bzl", "NPM_DEPENDENCIES")
 
-load(":dependencies.bzl", "NPM_DEPENDENCIES")
 
 # Additional to the compiled files we need the jsons files for execution
 copy_to_bin(
@@ -24,32 +24,43 @@ nodejs_binary(
     entry_point = ":src/scripts/affected-args.bundled.js",
 )
 
-# nodejs_binary(
-#     name = "run_parallel",
-#     data = ["//libs/workspace"],
-#     entry_point = ":src/scripts/run-parallel.bundled.js",
-# )
+nodejs_binary(
+    name = "run_parallel",
+    data = ["//libs/workspace"],
+    entry_point = ":src/scripts/run-parallel.bundled.js",
+)
+
+filegroup(
+  name = "bundles",
+
+)
 
 rollup_bundle(
-    name = "workspace",
+    name = "bundled",
     args = [
         "-e",
         ",".join(NPM_DEPENDENCIES),
     ],
     config_file = ":rollup.config.js",
-    entry_point = "index",
-    # entry_points = {
-    #     "src/scripts/affected-args.ts": "src/scripts/affected-args.bundled",
-    #     "src/scripts/run-parallel.ts": "src/scripts/run-parallel.bundled",
-    #     "src/builders/barista-build/builder.ts": "src/builders/barista-build/builder.bundled",
-    # },
-    # format = "cjs",
-    # output_dir = True,
+    entry_points = {
+        "src/scripts/affected-args.ts": "scripts/affected-args",
+        "src/scripts/run-parallel.ts": "scripts/run-parallel",
+        "src/builders/barista-build/builder.ts": "builders/barista-build/builder",
+        "src/builders/barista-build/renderer.ts": "builders/barista-build/renderer",
+        "src/builders/typescript/index.ts": "builders/typescript/index",
+        "src/builders/packager/index.ts": "builders/packager/index",
+        "src/builders/stylelint/index.ts": "builders/stylelint/index",
+        "src/builders/design-tokens/build/index.ts": "builders/design-tokens/build/index",
+        "src/builders/design-tokens/package/index.ts": "builders/design-tokens/package/index",
+        "src/builders/elements/index.ts": "builders/elements/index",
+    },
+    format = "cjs",
+    output_dir = True,
     sourcemap = "false",
     deps = [
+        ":compile",
         "@npm//@rollup/plugin-json",
         "@npm//@rollup/plugin-node-resolve",
-        "compile",
     ],
 )
 
@@ -58,7 +69,7 @@ ts_library(
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [
-            "**/*.spec.ts",
+          "**/*.spec.ts",
             "src/test-setup.ts",
         ],
     ),
