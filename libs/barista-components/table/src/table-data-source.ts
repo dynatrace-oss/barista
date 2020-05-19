@@ -104,7 +104,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
   private readonly _internalPageChanges = new Subject<void>();
 
   /** Used for unsubscribing */
-  private readonly _destroy = new Subject<void>();
+  private readonly _destroy$ = new Subject<void>();
 
   /**
    * Subscription to the changes that should trigger an update to the table's rendered rows, such
@@ -447,7 +447,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
    */
   connect(_table: DtTable<T>): Observable<T[]> {
     _table._dataAccessors
-      .pipe(takeUntil(this._destroy))
+      .pipe(takeUntil(this._destroy$))
       .subscribe(({ comparatorMap, displayAccessorMap, sortAccessorMap }) => {
         this._displayAccessorMap = displayAccessorMap;
         this._simpleColumnSortAccessorMap = sortAccessorMap;
@@ -464,8 +464,8 @@ export class DtTableDataSource<T> extends DataSource<T> {
     this._renderChangesSubscription.unsubscribe();
     this._searchChangeSubscription.unsubscribe();
 
-    this._destroy.next();
-    this._destroy.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   /**
