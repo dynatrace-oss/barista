@@ -11,7 +11,7 @@
   <text class="dt-sunburst-chart-label dt-sunburst-chart-selected-label">
     {{ _selectedLabel }}
   </text>
-  <ng-container *ngFor="let slice of _slices">
+  <g *ngFor="let slice of _slices" class="dt-sunburst-chart-group">
     <path
       class="dt-sunburst-chart-slice"
       [class.dt-sunburst-chart-slice-current]="slice.data.isCurrent"
@@ -38,5 +38,5 @@
         {{ slice.data.label }}
       </text>
     </g>
-  </ng-container>
+  </g>
 </svg>
