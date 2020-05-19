@@ -158,6 +158,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    super.ngOnDestroy();
     this._destroy$.next();
     this._destroy$.complete();
     this._portalOutletSubscription.unsubscribe();
