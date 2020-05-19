@@ -38,6 +38,13 @@ executors:
     working_directory: ~/barista
     docker:
       - image: circleci/node:lts-browsers
+
+  # Debian base image with Google Cloud sdk installed
+  gcp-sdk:
+    working_directory: ~/barista
+    docker:
+      - image: google/cloud-sdk:latest
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   P A T T E R N S:
@@ -120,6 +127,23 @@ commands:
               circleci step halt
             fi
 
+  install_gh_cli:
+    description: >-
+      Installs GH cli on Debian based OS
+    steps:
+      - run:
+          name: Install CLI
+          command: curl -Lsfo ./gh.deb https://github.com/cli/cli/releases/download/v0.8.0/gh_0.8.0_linux_amd64.deb && apt install ./gh.deb && rm ./gh.deb
+
+  rotate_keys:
+    description: >-
+      Rotates build cache access keys
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run:
+          name: Rotate keys
+          command: ls -la tools #sh ./tools/build-cache/rotate_keys.sh
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -303,6 +327,15 @@ jobs:
       - store_test_results:
           path: dist/demos-a11y
 
+# - rotate cache keys
+  key_rotator:
+    executor: gcp-sdk
+    resource_class: small
+    steps:
+      - checkout
+      - install_gh_cli
+      - rotate_keys
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   W O R K F L O W S:
@@ -325,6 +358,14 @@ workflows:
               only: master
           # DOCKERHUB_USER is used for publishing
           # DOCKERHUB_PASSWORD is used for publishing
+          context: barista
+
+  key_rotation:
+    jobs:
+      - key_rotator:
+          filters:
+            branches:
+              only: bazel/research-build-cache
           context: barista
 
   fork-check:

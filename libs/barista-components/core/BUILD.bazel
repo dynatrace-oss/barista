@@ -1,0 +1,100 @@
+load("@npm_bazel_typescript//:index.bzl", "ts_config")
+load("@npm_angular_bazel//:index.bzl", "ng_package")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("//tools:defaults.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_package(
+    name = "package",
+    entry_point = ":index.ts",
+    deps = [
+        ":core",
+    ],
+)
+
+ng_module(
+    name = "core",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        ":src/option/option.css",
+        ":src/option/optgroup.css",
+    ] + glob(["src/**/*.html"]),
+    module_name = "@dynatrace/barista-components/core",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "@npm//@angular/animations",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
+        "@npm//rxjs",
+    ],
+)
+
+# ng_module(
+#     name = "core",
+#     srcs = glob(
+#         include = ["**/*.ts"],
+#         exclude = [
+#             "**/*.spec.ts",
+#             "src/test-setup.ts",
+#         ],
+#     ),
+#     assets = [
+#         ":src/option/option.css",
+#         ":src/option/optgroup.css",
+#     ] + glob(["src/**/*.html"]),
+#     generate_ve_shims = True,
+#     module_name = "@dynatrace/barista-components/core",
+#     tsconfig = "tsconfig_lib",
+#     deps = [
+#         "@npm//@angular/animations",
+#         "@npm//@angular/cdk",
+#         "@npm//@angular/common",
+#         "@npm//@angular/core",
+#         "@npm//@angular/forms",
+#         "@npm//@angular/platform-browser",
+#         "@npm//rxjs",
+#     ],
+# )
+
+sass_library(
+    name = "core_scss_lib",
+    srcs = glob(
+        ["src/**/_*.scss"],
+    ),
+    deps = [
+        # "//src/cdk/a11y:a11y_scss_lib",
+        # "//src/cdk/overlay:overlay_scss_lib",
+        # "//src/cdk/text-field:text_field_scss_lib",
+    ],
+)
+
+sass_binary(
+    name = "option_scss",
+    src = "src/option/option.scss",
+    deps = [":core_scss_lib"],
+)
+
+sass_binary(
+    name = "optgroup_scss",
+    src = "src/option/optgroup.scss",
+    deps = [":core_scss_lib"],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//:tsconfig.json",
+    ],
+)
