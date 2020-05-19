@@ -21,6 +21,11 @@ build --spawn_strategy=local
 run --spawn_strategy=local
 test --spawn_strategy=local
 
+################################
+#  Remote build cache          #
+################################
+build --remote_http_cache=https://storage.googleapis.com/dt-barista-build-cache
+build --remote_upload_local_results=false
 
 ################################
 #  Remote build cache          #
