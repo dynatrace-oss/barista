@@ -168,7 +168,7 @@ export class DtCell implements AfterContentInit, OnDestroy {
         .subscribe((sort: DtSortEvent) => {
           // If event is void, it is being unregisterd.
           this._isSorted = sort.active === this._columnDef.name;
-          this._changeDetectorRef.detectChanges();
+          this._changeDetectorRef.markForCheck();
         });
     }
 
