@@ -16,10 +16,10 @@
 
 // tslint:disable:no-magic-numbers
 import { Component } from '@angular/core';
-import { PlotSeriesOptions } from 'highcharts';
 import { Observable } from 'rxjs';
 
 import { DtChartExampleDataService } from '../chart-example-data.service';
+import { DtChartSeries } from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-stream',
@@ -56,7 +56,7 @@ export class DtExampleChartStream {
     },
   };
 
-  series$: Observable<PlotSeriesOptions[]>;
+  series$: Observable<DtChartSeries[]>;
 
   constructor(private _chartService: DtChartExampleDataService) {
     this.series$ = this._chartService.getStreamedChartdata();
