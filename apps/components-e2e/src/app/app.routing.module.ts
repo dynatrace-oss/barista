@@ -174,6 +174,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'sunburst-chart',
+    loadChildren: () =>
+      import('../components/sunburst-chart/sunburst-chart.module').then(
+        (module) => module.DtE2ESunburstChartModule,
+      ),
+  },
+  {
     path: 'switch',
     loadChildren: () =>
       import('../components/switch/switch.module').then(
