@@ -8,6 +8,12 @@
       "factory": "./src/schematics/dt-component-e2e/index",
       "schema": "./src/schematics/dt-component-e2e/schema.json",
       "aliases": ["dt-e2e"]
+    },
+    "dt-components-dev": {
+      "description": "Create a new dev setup in the dev/demos app for a given component name",
+      "factory": "./src/schematics/dt-component-dev/index",
+      "schema": "./src/schematics/dt-component-dev/schema.json",
+      "aliases": ["dt-dev"]
     }
   }
 }
