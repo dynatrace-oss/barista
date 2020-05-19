@@ -1,4 +1,4 @@
-# Shipped schematics
+# E2E Test component schematics
 
 This schematics generates the component for barista e2e tests. The only needed
 parameter is the name of the component.
