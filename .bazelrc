@@ -1,3 +1,8 @@
+# Make TypeScript and Angular compilation fast, by keeping a few copies of the
+# compiler running as daemons, and cache SourceFile AST's to reduce parse time.
+build --strategy=TypeScriptCompile=worker
+build --strategy=AngularTemplateCompile=worker
+
 # Don't create bazel-* symlinks in the WORKSPACE directory.
 # These require .gitignore and may scare users.
 # Also, it's a workaround for https://github.com/bazelbuild/rules_typescript/issues/12
@@ -5,6 +10,30 @@
 #
 # Instead, you should run `bazel info bazel-bin` to find out where the outputs went.
 build --symlink_prefix=dist/
+
+# Use the Angular Ivy compiler
+# See https://github.com/angular/angular/blob/master/docs/BAZEL.md#various-flags-used-for-tests
+# build --define=angular_ivy_enabled=False
+
+# When running `bazel coverage` --instrument_test_targets needs to be set in order to
+# collect coverage information from test targets
+coverage --instrument_test_targets
+
+# Disable sandbox on Mac OS for performance reason.
+build --spawn_strategy=local
+run --spawn_strategy=local
+test --spawn_strategy=local
+
+
+build --remote_http_cache=https://storage.googleapis.com/dt-barista-build-cache
+build --remote_upload_local_results=false
+
+################################
+# --config=debug               #
+################################
+
+# Enable debugging tests with --config=debug
+test:debug --test_arg=--node_options=--inspect-brk --test_output=streamed --test_strategy=exclusive --test_timeout=9999 --nocache_test_results
 
 
 ################################

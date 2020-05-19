@@ -18,6 +18,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es2015",
+    "esModuleInterop": true,
     "typeRoots": ["node_modules/@types", "@types"],
     "paths": {
       "@dynatrace/barista-components/alert": [

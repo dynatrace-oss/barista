@@ -1,0 +1,22 @@
+load("//tools/bazel_rules:index.bzl", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "stacked-series-chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ) + glob([
+        "**/*.html",
+        "**/*.scss",
+    ]),
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)
