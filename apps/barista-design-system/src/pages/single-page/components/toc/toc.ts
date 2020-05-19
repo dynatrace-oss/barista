@@ -23,11 +23,9 @@ import {
   NgZone,
   Inject,
   Input,
+  QueryList,
 } from '@angular/core';
-import {
-  BaTocService,
-  BaTocItem,
-} from '../../../../shared/services/toc.service';
+import { BaTocService } from '../../../../shared/services/toc.service';
 import { Subscription } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
@@ -46,14 +44,12 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
   tocitems: TOC;
 
   /** @internal all TOC entries */
-  @ViewChildren('headline') _headlines;
+  @ViewChildren('headline') _headlines: QueryList<HTMLElement>;
 
   /** @internal whether the TOC is expanded  */
   _expandToc: boolean;
-  /** @internal all headlines, which should be represented in the TOC  */
-  _headings$ = this._tocService.tocList;
   /** @internal the TOC entries that are currently active */
-  _activeItems: BaTocItem[] = [];
+  _activeItems: TOC[] = [];
 
   /** Subscription on active TOC items */
   private _activeItemsSubscription = Subscription.EMPTY;
@@ -69,10 +65,12 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
     this._activeItemsSubscription = this._tocService.activeItems.subscribe(
       (activeItems) => {
         this._zone.run(() => {
-          this._activeItems = activeItems;
+          this._activeItems.push(activeItems);
         });
       },
     );
+    // tslint:disable-next-line: no-debugger
+    // debugger;
   }
 
   ngAfterViewInit(): void {
