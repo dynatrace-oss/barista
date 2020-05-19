@@ -27,12 +27,10 @@ import { TOC } from '@dynatrace/shared/barista-definitions';
 
 @Injectable()
 export class BaTocService implements OnDestroy {
-  /** the list of toc items */
-  tocList = new ReplaySubject<TOC>(1);
   /** the currently active toc item */
   activeItems = new ReplaySubject<TOC>(1);
   /** all toc items */
-  tocItems: TOC; // ! Remove
+  tocItems: TOC;
 
   private _scrollSpyInfo: BaScrollSpyInfo | null = null;
 
@@ -56,16 +54,10 @@ export class BaTocService implements OnDestroy {
     this._resetScrollSpyInfo();
 
     if (!docElement) {
-      this.tocList.next();
       return;
     }
 
     const headlines = this._findTocHeadings(docElement);
-    console.log(headlines);
-    // this.tocItems = this._refractorTocItems(headlines, docId);
-    this.tocList.next(this.tocItems);
-    console.log(this.tocList);
-    // TODO: whole scroll spy logic has to be fixed! It was not refactored
     // during the angular router refactoring
     if (this._platform.isBrowser) {
       this._zone.runOutsideAngular(() => {
@@ -77,7 +69,6 @@ export class BaTocService implements OnDestroy {
           if (scrollItem) {
             for (const tocItem of this.tocItems.headlines) {
               const scrollItemId = scrollItem.element.getAttribute('id');
-              // debugger;
               if (tocItem.id === scrollItemId) {
                 this.activeItems.next({ headlines: [tocItem] });
               }
@@ -98,15 +89,16 @@ export class BaTocService implements OnDestroy {
   /** reset the toc  */
   reset(): void {
     this._resetScrollSpyInfo();
-    this.tocList.next();
   }
 
   /** get all headlines used in the toc */
   private _findTocHeadings(docElement: Element): HTMLHeadingElement[] {
     // Only select direct children of the #all-content wrapper to not
     // select headlines that are part of examples.
-    return querySelectorAll<HTMLHeadingElement>(docElement, 'a');
-    // '#all-content > h2[id], #all-content > h3[id]',
+    return querySelectorAll<HTMLHeadingElement>(
+      docElement,
+      '#all-content > h2[id], #all-content > h3[id]',
+    );
   }
 
   /** reset the scrollspyinfo if it exists */
@@ -120,15 +112,7 @@ export class BaTocService implements OnDestroy {
   }
 }
 
-// Helpers
-function querySelectorAll<K extends keyof HTMLElementTagNameMap>(
-  parent: Element,
-  selector: K,
-): HTMLElementTagNameMap[K][];
-function querySelectorAll<K extends keyof SVGElementTagNameMap>(
-  parent: Element,
-  selector: K,
-): SVGElementTagNameMap[K][];
+// helper funtion returning an element array
 function querySelectorAll<E extends Element = Element>(
   parent: Element,
   selector: string,

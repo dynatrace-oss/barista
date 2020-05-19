@@ -16,9 +16,7 @@
         <li
           *ngFor="let headline of tocitems.headlines"
           class="ba-toc-item"
-          [class.ba-toc-item-active]="
-            _activeItems[0] && _activeItems[0].headlines[0] === headline
-          "
+          [class.ba-toc-item-active]="_activeItems.headlines[0] === headline"
         >
           <a
             #headline
@@ -34,7 +32,7 @@
               *ngFor="let subheadline of headline.children"
               class="ba-toc-item"
               [class.ba-toc-item-active]="
-                _currentActiveHeadline === subheadline
+                _activeItems.headlines[1] === subheadline
               "
             >
               <a

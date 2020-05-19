@@ -49,9 +49,7 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
   /** @internal whether the TOC is expanded  */
   _expandToc: boolean;
   /** @internal the TOC entries that are currently active */
-  _activeItems: TOC[] = [];
-  /** @internal the currently active TOC item */
-  _currentActiveHeadline: Headline[] = [];
+  _activeItems: TOC = { headlines: [] };
 
   /** Subscription on active TOC items */
   private _activeItemsSubscription = Subscription.EMPTY;
@@ -68,20 +66,18 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
     this._activeItemsSubscription = this._tocService.activeItems.subscribe(
       (activeItems) => {
         this._zone.run(() => {
-          this._activeItems = [activeItems];
           if (activeItems) {
-            this._currentActiveHeadline = activeItems.headlines;
+            this._activeItems = activeItems;
           }
         });
+        console.log(this._activeItems);
       },
     );
-    // tslint:disable-next-line: no-debugger
-    // debugger;
   }
 
   ngAfterViewInit(): void {
     Promise.resolve().then(() => {
-      const docElement = this._document.getElementById('toc') || undefined;
+      const docElement = this._document.getElementById('main') || undefined;
       this._tocService.startScrollSpy(docElement);
     });
   }
@@ -114,5 +110,22 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
         });
       });
     }
+  }
+
+  checkForActive(headline: Headline): boolean {
+    let activate = false;
+    if (
+      this._activeItems &&
+      this._activeItems[0] &&
+      this._activeItems[0].headlines[0].children
+    ) {
+      // debugger;
+      this._activeItems[0].headlines[0].children.forEach((headlineChild) => {
+        if (headlineChild === headline) {
+          activate = true;
+        }
+      });
+    }
+    return activate;
   }
 }
