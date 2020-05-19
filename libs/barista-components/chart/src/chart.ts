@@ -53,9 +53,13 @@ import {
   chart,
   Chart,
   Options as HighchartsOptions,
-  SeriesOptions,
-  SeriesOptionsType,
   setOptions,
+  SeriesBarOptions,
+  SeriesColumnOptions,
+  SeriesLineOptions,
+  SeriesAreaOptions,
+  SeriesArearangeOptions,
+  SeriesPieOptions,
 } from 'highcharts';
 import { merge as lodashMerge } from 'lodash-es';
 import {
@@ -115,7 +119,13 @@ const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 export type DtChartOptions = HighchartsOptions & {
   series?: undefined;
 };
-export type DtChartSeries = SeriesOptions;
+export type DtChartSeries =
+  | SeriesBarOptions
+  | SeriesColumnOptions
+  | SeriesLineOptions
+  | SeriesAreaOptions
+  | SeriesArearangeOptions
+  | SeriesPieOptions;
 
 // tslint:disable-next-line:no-any
 declare const window: any;
@@ -279,7 +289,7 @@ export class DtChart
   get seriesIds(): Array<string | undefined> | undefined {
     return (
       this._highchartsOptions.series &&
-      this._highchartsOptions.series.map((s: SeriesOptionsType) => s.id)
+      this._highchartsOptions.series.map((s: DtChartSeries) => s.id)
     );
   }
 
