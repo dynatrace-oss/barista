@@ -1,0 +1,18 @@
+<dt-sunburst-chart
+  id="test-sunburst-chart"
+  noSelectionLabel="All"
+  [series]="series"
+  (selectedChange)="selected = $event"
+  [valueDisplayMode]="valueDisplayMode"
+>
+  <ng-template dtSunburstChartOverlay let-tooltip>
+    {{ tooltip.label }}: {{ tooltip.value }}
+  </ng-template>
+</dt-sunburst-chart>
+
+<button (click)="valueDisplayMode = 'absolute'" id="chart-value-mode-absolute">
+  Absolute
+</button>
+<button (click)="valueDisplayMode = 'percent'" id="chart-value-mode-percent">
+  Percent
+</button>
