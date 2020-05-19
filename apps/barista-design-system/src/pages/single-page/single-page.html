@@ -22,7 +22,10 @@
     </article>
   </main>
 
-  <ba-toc *ngIf="!_isIconOverview && _pageContent.toc !== false"></ba-toc>
+  <ba-toc
+    *ngIf="!_isIconOverview && _pageContent.toc !== false"
+    [tocitems]="_pageContent.tocitems"
+  ></ba-toc>
 
   <ba-page-footer
     [tags]="_pageContent.tags"

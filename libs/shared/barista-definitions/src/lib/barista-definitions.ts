@@ -50,10 +50,7 @@ export interface BaSinglePageMeta extends BaPageMetaBase {
 
 export interface BaSinglePageContent extends BaSinglePageMeta {
   content: string;
-}
-
-export interface BaSinglePageContentToc extends BaSinglePageContent {
-  toclist: TOC;
+  tocitems?: TOC;
 }
 
 export interface BaErrorPageContent extends BaPageMetaBase {
@@ -161,16 +158,11 @@ export type BaContentTypes =
   | BaCategoryNavigationContent;
 
 export interface TOC {
-  mainheadlines: Headline[];
+  headlines: Headline[];
 }
 
 interface Headline {
+  id: string;
   headline: string;
-  text: string;
-  subheadlines?: Subheadline[];
-}
-
-interface Subheadline {
-  subheadline: string;
-  subText: string;
+  children?: Headline[];
 }

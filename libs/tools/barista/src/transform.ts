@@ -17,7 +17,6 @@
 import {
   BaAllExamplesMetadata,
   BaSinglePageContent,
-  BaSinglePageContentToc,
   TOC,
 } from '@dynatrace/shared/barista-definitions';
 import * as markdownIt from 'markdown-it';
@@ -240,8 +239,7 @@ export const relativeUrlTransformer: BaPageTransformer = async (source) => {
 
 export const tocGenerator: BaPageTransformer = async (source) => {
   const transformed = { ...source };
-  let transformedExtended: BaSinglePageContentToc | undefined;
-  let toc: TOC = { mainheadlines: [] };
+  let toc: TOC = { headlines: [] };
   if (source.toc) {
     // generate TOC and at to source
     // Find Headlines and corresponding subheadlines (h2 > h3)
@@ -253,51 +251,29 @@ export const tocGenerator: BaPageTransformer = async (source) => {
         const headlineText = $(headline).text();
         if (headline.tagName === 'h2') {
           currentH2++;
-          toc.mainheadlines.push({
-            headline: headlineId!,
-            text: headlineText!,
+          toc.headlines.push({
+            id: headlineId!,
+            headline: headlineText!,
           });
         } else if (headline.tagName === 'h3') {
           // Add subheadlines array when needed
-          if (!toc.mainheadlines[currentH2].subheadlines) {
-            toc.mainheadlines[currentH2] = {
-              ...toc.mainheadlines[currentH2],
-              subheadlines: [],
+          if (!toc.headlines[currentH2].children) {
+            toc.headlines[currentH2] = {
+              ...toc.headlines[currentH2],
+              children: [],
             };
           }
-          toc.mainheadlines[currentH2].subheadlines!.push({
-            subheadline: headlineId!,
-            subText: headlineText!,
+          toc.headlines[currentH2].children!.push({
+            id: headlineId!,
+            headline: headlineText!,
           });
         }
       });
-      transformedExtended = { ...transformed, toclist: toc };
     });
-    if (transformedExtended !== undefined) {
-      return transformedExtended;
-    }
   }
+  transformed.tocitems = toc;
   return transformed;
 };
-
-// const mockTOC: TOC = {
-//   headlines: [
-//     {
-//       headline: 'bar-indicator-in-use',
-//       text: 'Bar indicator in use',
-//       subheadlines: [
-//         {
-//           subheadline: 'theming-and-validation',
-//           subText: 'Theming and validation',
-//         },
-//         {
-//           subheadline: 'alignment',
-//           subText: 'Aligment',
-//         },
-//       ],
-//     },
-//   ],
-// };
 
 /** Removes internal links from the content on public build. */
 export function internalLinksTransformerFactory(

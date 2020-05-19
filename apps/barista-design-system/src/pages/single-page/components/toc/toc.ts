@@ -22,6 +22,7 @@ import {
   OnDestroy,
   NgZone,
   Inject,
+  Input,
 } from '@angular/core';
 import {
   BaTocService,
@@ -30,6 +31,7 @@ import {
 import { Subscription } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
+import { TOC } from '@dynatrace/shared/barista-definitions';
 
 @Component({
   selector: 'ba-toc',
@@ -40,6 +42,9 @@ import { DOCUMENT } from '@angular/common';
   },
 })
 export class BaToc implements OnInit, AfterViewInit, OnDestroy {
+  @Input()
+  tocitems: TOC;
+
   /** @internal all TOC entries */
   @ViewChildren('headline') _headlines;
 
