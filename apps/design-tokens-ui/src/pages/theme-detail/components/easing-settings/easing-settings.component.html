@@ -1,0 +1,19 @@
+<design-tokens-ui-easing-type-select
+  [(exponent)]="options.lowerExponent"
+  [(type)]="options.lowerEasing"
+  (exponentChange)="_updateOptions()"
+  (typeChange)="_updateOptions()"
+>
+</design-tokens-ui-easing-type-select>
+
+<design-tokens-ui-distribution-curve
+  [generationOptions]="options"
+></design-tokens-ui-distribution-curve>
+
+<design-tokens-ui-easing-type-select
+  [(exponent)]="options.upperExponent"
+  [(type)]="options.upperEasing"
+  (exponentChange)="_updateOptions()"
+  (typeChange)="_updateOptions()"
+>
+</design-tokens-ui-easing-type-select>

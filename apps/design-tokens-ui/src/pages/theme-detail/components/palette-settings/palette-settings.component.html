@@ -1,0 +1,55 @@
+<a class="design-tokens-ui-basic-link" routerLink="../">
+  <h2 class="design-tokens-ui-back-link">
+    {{ _paletteName | humanize }}<span i18n> settings</span>
+  </h2>
+</a>
+
+<h3 i18n>Color</h3>
+
+<design-tokens-ui-color-picker
+  #keyColorPicker
+  [color]="_keyColor$ | async"
+></design-tokens-ui-color-picker>
+
+<div class="design-tokens-ui-setting design-tokens-ui-labelled-input">
+  <label class="settings-label" id="color-space-interpolation" i18n
+    >Color space interpolation:</label
+  >
+  <dt-select
+    [ngModel]="(_palette$ | async)?.tokenData.colorspace"
+    (ngModelChange)="_colorspace = $event"
+    aria-labelledby="color-space-interpolation"
+  >
+    <dt-option value="CAM02">CIECAM02</dt-option>
+    <dt-option value="LCH">Lch</dt-option>
+    <dt-option value="LAB">Lab</dt-option>
+    <dt-option value="HSL">HSL</dt-option>
+    <dt-option value="HSLuv">HSLuv</dt-option>
+    <dt-option value="HSV">HSV</dt-option>
+    <dt-option value="RGB">RGB</dt-option>
+  </dt-select>
+</div>
+
+<dt-checkbox
+  [ngModel]="_generationOptions$ | async"
+  (ngModelChange)="_setGenerationOptionsEnabled($event)"
+  >Override global settings</dt-checkbox
+>
+
+<ng-container *ngIf="_generationOptions$ | async">
+  <h3>Settings</h3>
+
+  <design-tokens-ui-shared-generation-settings
+    [options]="(_palette$ | async)?.tokenData.generationOptions"
+    (optionsChange)="_generationOptions = $event"
+  ></design-tokens-ui-shared-generation-settings>
+
+  <h3 i18n>Curves</h3>
+
+  <design-tokens-ui-easing-settings
+    [options]="_generationOptions$ | async"
+    (optionsChange)="_generationOptions = $event"
+    [distributionCount]="(_palette$ | async)?.tokenData.shades.length"
+  >
+  </design-tokens-ui-easing-settings>
+</ng-container>

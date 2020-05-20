@@ -25,6 +25,21 @@ $logo-height: 28px;
   width: $default-width;
   transition: width 200ms, background-color 200ms, color 200ms;
 
+  .design-tokens-ui-nav-logo {
+    width: 28px;
+    height: $logo-height;
+    overflow: hidden;
+
+    display: block;
+    margin: 20px;
+    z-index: 200;
+
+    img {
+      height: 100%;
+      transition: filter 200ms;
+    }
+  }
+
   &:hover {
     background-color: rgba($color: white, $alpha: 0.65);
     backdrop-filter: blur(0.7rem);
@@ -38,8 +53,12 @@ $logo-height: 28px;
       fill: var(--color-neutral-50);
     }
 
-    .design-tokens-ui-nav-logo img {
-      filter: brightness(0);
+    .design-tokens-ui-nav-logo {
+      width: 100%;
+
+      img {
+        filter: brightness(0);
+      }
     }
   }
 }
@@ -60,7 +79,6 @@ $logo-height: 28px;
 }
 
 .design-tokens-ui-nav--container {
-  margin-top: $logo-height + 20px;
   height: calc(100vh - #{$logo-height} - 40px);
   display: flex;
   width: $expanded-width;
@@ -103,17 +121,5 @@ $logo-height: 28px;
 
   &:not(:last-of-type) {
     margin-bottom: 20px;
-  }
-}
-
-.design-tokens-ui-nav-logo {
-  position: fixed;
-  height: $logo-height;
-  margin: 20px;
-  z-index: 200;
-
-  img {
-    height: 100%;
-    transition: filter 200ms;
   }
 }

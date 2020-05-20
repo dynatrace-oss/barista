@@ -17,7 +17,17 @@
 /** Preliminary interface for the source of a generated palette. */
 export interface FluidPaletteSource {
   aliases: FluidPaletteSourceAlias[];
+  meta: any;
 }
+
+export type FluidPaletteColorspace =
+  | 'CAM02'
+  | 'HSLuv'
+  | 'Lch'
+  | 'Lab'
+  | 'HSL'
+  | 'HSV'
+  | 'RGB';
 
 export interface FluidPaletteSourceAlias {
   /** Root name of the alias. */
@@ -29,11 +39,13 @@ export interface FluidPaletteSourceAlias {
   /** Type of calculations that should be used. Currently only adobe-leonardo is available. */
   type: 'adobe-leonardo' | undefined;
   /** Colorspace to use */
-  colorspace: 'CAM02' | 'HSLuv';
+  colorspace: FluidPaletteColorspace;
   /** List of shades that should be generated. */
   shades: FluidPaletteSourceShade[];
   /** Function easing options */
-  generationOptions: FluidPaletteGenerationOptions;
+  generationOptions?: FluidPaletteGenerationOptions;
+  /** The theme this palette belongs to */
+  theme: string;
 }
 
 /** Definition for a shade of color */
@@ -65,7 +77,14 @@ export interface FluidPaletteAliases {
   };
 }
 
-export type FluidEasingType = 'ease-in' | 'ease-out' | 'ease-in-out';
+export type FluidEasingType =
+  | 'ease-in'
+  | 'ease-out'
+  | 'ease-in-out-quad'
+  | 'ease-in-out-cubic'
+  | 'ease-in-expo'
+  | 'ease-out-expo'
+  | 'ease-in-out-expo';
 
 /** Data required for automated palette generation */
 export interface FluidPaletteGenerationOptions {
@@ -83,4 +102,6 @@ export interface FluidPaletteGenerationOptions {
   minContrast: number;
   /** Maximum contrast value */
   maxContrast: number;
+  /** Whether these generation options are used globally for a theme */
+  globalType?: boolean;
 }

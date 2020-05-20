@@ -4264,6 +4264,41 @@
           "style": "scss"
         }
       }
+    },
+    "design-tokens-ui-shared": {
+      "projectType": "library",
+      "root": "libs/design-tokens-ui/shared",
+      "sourceRoot": "libs/design-tokens-ui/shared/src",
+      "prefix": "design-tokens-ui",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/design-tokens-ui/shared/tsconfig.lib.json",
+              "libs/design-tokens-ui/shared/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/design-tokens-ui/shared/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/design-tokens-ui/shared/jest.config.js",
+            "tsConfig": "libs/design-tokens-ui/shared/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/design-tokens-ui/shared/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
     }
   },
   "defaultProject": "dev",

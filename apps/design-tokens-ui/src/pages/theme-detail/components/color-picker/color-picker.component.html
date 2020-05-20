@@ -1,0 +1,17 @@
+<svg
+  class="design-tokens-ui-eyedropper"
+  [style.fill]="_iconColor"
+  width="19"
+  height="19"
+  viewBox="0 0 19 19"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <path
+    d="M18.42 4.34003L14.67 0.590027L10.85 4.41003L8.91 2.50003L7.5 3.91003L8.92 5.33003L0 14.25V19H4.75L13.67 10.08L15.09 11.5L16.5 10.09L14.58 8.17003L18.42 4.34003ZM3.92 17L2 15.08L10.06 7.02003L11.98 8.94003L3.92 17Z"
+  />
+</svg>
+<input
+  type="color"
+  [(ngModel)]="color"
+  (ngModelChange)="colorChange.emit(color)"
+/>

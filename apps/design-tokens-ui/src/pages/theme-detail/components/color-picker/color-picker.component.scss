@@ -1,0 +1,92 @@
+/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/* stylelint-disable */
+// Partly sourced from
+// https://github.com/adobe/leonardo/blob/master/packages/ui/src/scss/colorinputs.scss
+/*
+Copyright 2019 Adobe. All rights reserved.
+This file is licensed to you under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License. You may obtain a copy
+of the License at http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+OF ANY KIND, either express or implied. See the License for the specific language
+governing permissions and limitations under the License.
+*/
+/* stylelint-enable */
+
+@import 'interactive-common';
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
+
+:host {
+  display: block;
+  position: relative;
+}
+
+input {
+  appearance: none;
+  height: 40px;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  border-collapse: collapse;
+  outline: none;
+  cursor: pointer;
+
+  &:focus {
+    @include dt-focus-style(false);
+  }
+
+  &::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border: none;
+  }
+
+  &::-webkit-color-swatch {
+    border: none;
+  }
+
+  // Separate selectors are used here since joined selector
+  // &::-webkit-color-swatch, &::-moz-color-swatch {...} breaks in Chrome
+  &::-webkit-color-swatch {
+    border: 1px solid var(--color-neutral-120);
+  }
+
+  &::-moz-color-swatch {
+    border: 1px solid var(--color-neutral-120);
+  }
+
+  &:hover {
+    &::-webkit-color-swatch {
+      border: 1px solid var(--color-maxcontrast);
+    }
+
+    &::-moz-color-swatch {
+      border: 1px solid var(--color-maxcontrast);
+    }
+  }
+}
+
+.design-tokens-ui-eyedropper {
+  position: absolute;
+  height: 16px;
+  top: $fluid-spacing--small;
+  left: $fluid-spacing--small;
+  pointer-events: none;
+}

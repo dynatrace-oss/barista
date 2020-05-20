@@ -19,16 +19,23 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'palette',
+    path: 'theme',
     loadChildren: () =>
-      import('../pages/palettes/palettes.module').then(
-        (module) => module.PalettesModule,
+      import('../pages/themes/themes.module').then(
+        (module) => module.ThemesModule,
       ),
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('../pages/home/home.module').then((module) => module.HomeModule),
   },
 ];
 
 @NgModule({
   exports: [RouterModule],
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { paramsInheritanceStrategy: 'always' }),
+  ],
 })
 export class AppRoutingModule {}

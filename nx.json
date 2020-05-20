@@ -361,6 +361,9 @@
     },
     "design-tokens-ui-input": {
       "tags": ["type:library"]
+    },
+    "design-tokens-ui-shared": {
+      "tags": ["type:library", "type:shared"]
     }
   }
 }

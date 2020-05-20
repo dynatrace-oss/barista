@@ -249,6 +249,12 @@
       ],
       "@dynatrace/design-tokens-ui/input": [
         "libs/design-tokens-ui/input/src/index.ts"
+      ],
+      "@dynatrace/design-tokens-ui/easing-settings": [
+        "libs/design-tokens-ui/easing-settings/src/index.ts"
+      ],
+      "@dynatrace/design-tokens-ui/shared": [
+        "libs/design-tokens-ui/shared/src/index.ts"
       ]
     },
     "plugins": [
