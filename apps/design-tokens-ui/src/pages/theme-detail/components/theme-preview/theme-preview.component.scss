@@ -1,0 +1,73 @@
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
+
+:host {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  grid-gap: $fluid-spacing--medium;
+  --gap: 0;
+
+  &.design-tokens-ui-gaps {
+    --gap: #{$fluid-spacing--small};
+  }
+}
+
+.design-tokens-ui-shades {
+  margin-bottom: $fluid-spacing--medium;
+
+  &:hover .design-tokens-ui-shade-description {
+    opacity: 1;
+  }
+
+  .design-tokens-ui-palette-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0 0 $fluid-spacing--medium 0;
+  }
+
+  &.design-tokens-ui-palette-link-active .design-tokens-ui-palette-name {
+    font-weight: 700;
+  }
+
+  .design-tokens-ui-shades--preview-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    height: 100%;
+    min-height: 250px;
+    max-height: 440px;
+  }
+}
+
+.design-tokens-ui-shade-preview {
+  display: flex;
+  height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $fluid-spacing--medium;
+  background-color: white;
+  flex-grow: 1;
+  transition: margin-bottom 200ms ease-out;
+
+  &:not(:last-of-type) {
+    margin-bottom: var(--gap);
+  }
+
+  .design-tokens-ui-shade-description {
+    opacity: 0;
+    transition: opacity 100ms ease-out;
+  }
+
+  .design-tokens-ui-shade-name {
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .design-tokens-ui-shade-color {
+    font-family: monospace;
+    text-align: right;
+    margin-left: $fluid-spacing--small;
+  }
+}

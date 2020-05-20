@@ -14,8 +14,25 @@
  * limitations under the License.
  */
 
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
+
 @font-face {
   font-family: 'Roboto';
   src: url('/assets/fonts/Roboto-Regular.woff2') format('woff2');
   font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/assets/fonts/Roboto-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
 }

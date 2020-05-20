@@ -8,27 +8,14 @@
     />
   </a>
   <a
-    routerLink="/palette"
+    routerLink="/theme"
     routerLinkActive="design-tokens-ui-router-active"
     designTokensUiNavItem
   >
     <dt-icon name="color"></dt-icon>
-    <span i18n>Palettes</span>
+    <span i18n>Themes</span>
   </a>
 </design-tokens-ui-nav>
-
-<div class="design-tokens-ui-top-bar">
-  <label class="design-tokens-ui-theme-switcher" i18n>Theme: </label>
-  <dt-select
-    [ngModel]="_theme"
-    (ngModelChange)="_setTheme($event)"
-    aria-label="Theme selection"
-    class="design-tokens-ui-theme-select"
-  >
-    <dt-option value="abyss">Abyss</dt-option>
-    <dt-option value="surface">Surface</dt-option>
-  </dt-select>
-</div>
 
 <main class="design-tokens-ui-main">
   <router-outlet></router-outlet>

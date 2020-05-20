@@ -4094,7 +4094,6 @@
             ],
             "styles": [
               "libs/barista-components/style/index.scss",
-              "libs/design-tokens-ui/style/main.scss",
               "apps/design-tokens-ui/src/styles.scss"
             ],
             "stylePreprocessorOptions": {
@@ -4197,11 +4196,6 @@
           }
         }
       }
-    },
-    "design-tokens-ui-libs": {
-      "projectType": "library",
-      "root": "libs/design-tokens-ui",
-      "sourceRoot": "libs/design-tokens-ui"
     },
     "design-tokens-ui-input": {
       "projectType": "library",
@@ -4446,6 +4440,50 @@
             "tsConfig": "libs/shared/design-system/interfaces/tsconfig.spec.json",
             "passWithNoTests": true,
             "setupFile": "libs/shared/design-system/interfaces/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "design-tokens-ui-shared": {
+      "projectType": "library",
+      "root": "libs/design-tokens-ui/shared",
+      "sourceRoot": "libs/design-tokens-ui/shared/src",
+      "prefix": "design-tokens-ui",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/design-tokens-ui/shared/tsconfig.lib.json",
+              "libs/design-tokens-ui/shared/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/design-tokens-ui/shared/**"
+            ]
+          }
+        },
+        "lint-styles": {
+          "builder": "./dist/libs/workspace:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/design-tokens-ui/style/**/*.scss"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/design-tokens-ui/shared/jest.config.js",
+            "tsConfig": "libs/design-tokens-ui/shared/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/design-tokens-ui/shared/src/test-setup.ts"
           }
         }
       },

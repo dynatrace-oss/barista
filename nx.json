@@ -353,9 +353,6 @@
       "tags": ["type:app"],
       "implicitDependencies": ["shared-design-tokens"]
     },
-    "design-tokens-ui-libs": {
-      "tags": ["type:library"]
-    },
     "design-tokens-ui-input": {
       "tags": ["type:library"]
     },
@@ -370,6 +367,9 @@
       "tags": ["type:library", "type:shared"]
     },
     "shared-design-system-interfaces": {
+      "tags": ["type:library", "type:shared"]
+    },
+    "design-tokens-ui-shared": {
       "tags": ["type:library", "type:shared"]
     }
   }
