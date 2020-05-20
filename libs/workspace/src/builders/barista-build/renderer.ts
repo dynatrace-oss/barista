@@ -15,7 +15,7 @@
  */
 
 import axios from 'axios';
-import { mkdirSync, promises as fs, readFile } from 'fs';
+import { mkdirSync, promises as fs } from 'fs';
 import { dirname, join } from 'path';
 
 /** generates the html filename out of a route */
