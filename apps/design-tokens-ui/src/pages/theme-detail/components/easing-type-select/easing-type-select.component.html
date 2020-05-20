@@ -1,0 +1,42 @@
+<div class="design-tokens-ui-setting design-tokens-ui-select-setting">
+  <label class="design-tokens-ui-settings-label" i18n>Easing:</label>
+  <dt-select
+    [ngModel]="_customExponent ? 'custom' : _presetType"
+    (ngModelChange)="_presetType = $event"
+  >
+    <dt-option value="linear">Linear</dt-option>
+    <dt-option value="ease-in-quad">Ease In Quad</dt-option>
+    <dt-option value="ease-out-quad">Ease Out Quad</dt-option>
+    <dt-option value="ease-in-out-quad">Ease In Out Quad</dt-option>
+    <dt-option value="ease-in-cubic">Ease In Cubic</dt-option>
+    <dt-option value="ease-out-cubic">Ease Out Cubic</dt-option>
+    <dt-option value="ease-in-out-cubic">Ease In Out Cubic</dt-option>
+    <dt-option value="ease-in-expo">Ease In Expo</dt-option>
+    <dt-option value="ease-out-expo">Ease Out Expo</dt-option>
+    <dt-option value="ease-in-out-expo">Ease In Out Expo</dt-option>
+    <dt-option value="custom">Custom</dt-option>
+    <dt-option value="invalid" hidden>Invalid setting</dt-option>
+  </dt-select>
+</div>
+
+<div
+  class="design-tokens-ui-setting design-tokens-ui-labelled-input"
+  *ngIf="_customExponent"
+>
+  <label class="design-tokens-ui-settings-label" i18n>Exponent:</label>
+
+  <input
+    type="text"
+    class="design-tokens-ui-exponent-input"
+    inputmode="numeric"
+    pattern="[0-9\.]*"
+    designTokensUiInput
+    designTokensUiValidateExponent
+    #exponentModel="ngModel"
+    [ngModel]="exponent"
+    (ngModelChange)="
+      exponentModel.valid ? exponentChange.emit($event) : undefined
+    "
+    aria-label="Lower exponent"
+  />
+</div>

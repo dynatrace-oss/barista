@@ -16,7 +16,11 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  APP_INITIALIZER,
+} from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
@@ -26,7 +30,7 @@ import { DtExpandableSectionModule } from '@dynatrace/barista-components/expanda
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { PaletteServicesModule } from '../services/palette';
+import { AppThemeService } from '../services/app-theme';
 import {
   NavComponent,
   NavItemDirective,
@@ -51,9 +55,18 @@ import '@dynatrace/fluid-elements/button';
     DtSelectModule,
     HttpClientModule,
     DtExpandableSectionModule,
-    PaletteServicesModule,
   ],
-  providers: [],
+  providers: [
+    AppThemeService,
+    {
+      // The default style must be set on app startup
+      provide: APP_INITIALIZER,
+      useFactory: (themeService: AppThemeService) => () =>
+        themeService.initialize(),
+      deps: [AppThemeService],
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

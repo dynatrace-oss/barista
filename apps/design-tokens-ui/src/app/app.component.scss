@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
 @import 'font-styles.scss';
 @import '../styles/variables.scss';
-
-$top-bar-margin-bottom: 12px;
 
 :host {
   display: block;
@@ -28,18 +27,8 @@ $top-bar-margin-bottom: 12px;
   background: linear-gradient(
     90deg,
     var(--color-neutral-50) 0%,
-    var(--color-background) 20%
+    var(--color-background) 15%
   );
-}
-
-.design-tokens-ui-top-bar {
-  padding: 20px;
-  margin-bottom: $top-bar-margin-bottom;
-  height: $top-bar-navigation-height;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 }
 
 .design-tokens-ui-nav {
@@ -49,16 +38,7 @@ $top-bar-margin-bottom: 12px;
 }
 
 .design-tokens-ui-main {
-  margin-left: 132px;
-  height: calc(
-    100vh - #{$top-bar-navigation-height} - #{$top-bar-margin-bottom}
-  );
-}
-
-.design-tokens-ui-theme-switcher {
-  display: inline-block;
-  font-size: 14px;
-  margin-bottom: 2px;
-  margin-right: 8px;
-  color: var(--color-neutral-140);
+  padding: 0 $fluid-spacing--large 0 132px;
+  height: 100vh;
+  overflow: auto;
 }
