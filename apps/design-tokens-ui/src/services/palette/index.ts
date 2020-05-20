@@ -14,5 +14,4 @@
  * limitations under the License.
  */
 
-export * from './palette.module';
 export * from './palette-source.service';

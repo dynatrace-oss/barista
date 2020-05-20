@@ -1,0 +1,50 @@
+<div class="design-tokens-ui-setting design-tokens-ui-labelled-input">
+  <label class="settings-label" i18n>Upper contrast:</label>
+  <input
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9\.]*"
+    designTokensUiInput
+    designTokensUiValidateContrast
+    #minContrastModel="ngModel"
+    [ngModel]="_minContrast"
+    (ngModelChange)="
+      minContrastModel.valid ? (_minContrast = $event) : undefined
+    "
+    aria-label="Upper contrast"
+  />
+</div>
+
+<div class="design-tokens-ui-setting design-tokens-ui-labelled-input">
+  <label class="settings-label" i18n>Base contrast:</label>
+  <input
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9\.]*"
+    designTokensUiInput
+    designTokensUiValidateContrast
+    #baseContrastModel="ngModel"
+    [ngModel]="_baseContrast"
+    (ngModelChange)="
+      baseContrastModel.valid ? (_baseContrast = $event) : undefined
+    "
+    aria-label="Base contrast"
+  />
+</div>
+
+<div class="design-tokens-ui-setting design-tokens-ui-labelled-input">
+  <label class="settings-label" i18n>Lower contrast:</label>
+  <input
+    type="text"
+    inputmode="numeric"
+    pattern="[0-9\.]*"
+    designTokensUiInput
+    designTokensUiValidateContrast
+    #maxContrastModel="ngModel"
+    [ngModel]="_maxContrast"
+    (ngModelChange)="
+      maxContrastModel.valid ? (_maxContrast = $event) : undefined
+    "
+    aria-label="Lower contrast"
+  />
+</div>

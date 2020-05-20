@@ -1,0 +1,10 @@
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
+
+:host {
+  display: block;
+  margin: $fluid-spacing--x-small $fluid-spacing--0 $fluid-spacing--medium;
+}
+
+dt-option[hidden] {
+  display: none;
+}

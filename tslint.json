@@ -93,11 +93,11 @@
           },
           {
             "sourceTag": "type:shared",
-            "onlyDependsOnLibsWithTags": ["type:shared"]
+            "onlyDependOnLibsWithTags": ["type:shared"]
           },
           {
             "sourceTag": "type:library",
-            "onlyDependsOnLibsWithTags": ["type:library", "type:shared"]
+            "onlyDependOnLibsWithTags": ["type:library", "type:shared"]
           }
         ]
       }

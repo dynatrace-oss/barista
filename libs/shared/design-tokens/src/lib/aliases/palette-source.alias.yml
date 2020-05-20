@@ -1,6 +1,7 @@
 aliases:
-  - name: primary-abyss
-    keyColor: "#3481f4"
+  - name: primary
+    theme: abyss
+    keyColor: "#3481F4"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -33,8 +34,9 @@ aliases:
         ratio: 12.5
         comment: abyss primary, contrast 130
         aliasName: color-abyss-primary-130
-  - name: positive-abyss
-    keyColor: "#36c687"
+  - name: positive
+    theme: abyss
+    keyColor: "#36C687"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -67,8 +69,9 @@ aliases:
         ratio: 16
         comment: abyss positive, contrast 130
         aliasName: color-abyss-positive-130
-  - name: warning-abyss
-    keyColor: "#fdc300"
+  - name: warning
+    theme: abyss
+    keyColor: "#FDC300"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -101,8 +104,9 @@ aliases:
         ratio: 16.5
         comment: abyss warning, contrast 130
         aliasName: color-abyss-warning-130
-  - name: error-abyss
-    keyColor: "#f43d5a"
+  - name: error
+    theme: abyss
+    keyColor: "#F43D5A"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -135,8 +139,9 @@ aliases:
         ratio: 12.5
         comment: abyss error, contrast 130
         aliasName: color-abyss-error-130
-  - name: nasty-orange-abyss
-    keyColor: "#fd8c30"
+  - name: nasty-orange
+    theme: abyss
+    keyColor: "#FD8C30"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -169,8 +174,9 @@ aliases:
         ratio: 15.5
         comment: abyss nasty-orange, contrast 130
         aliasName: color-abyss-nasty-orange-130
-  - name: hot-pink-abyss
-    keyColor: "#e13093"
+  - name: hot-pink
+    theme: abyss
+    keyColor: "#E13093"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -203,8 +209,9 @@ aliases:
         ratio: 12
         comment: abyss hot-pink, contrast 130
         aliasName: color-abyss-hot-pink-130
-  - name: soylent-green-abyss
-    keyColor: "#3cb5b5"
+  - name: soylent-green
+    theme: abyss
+    keyColor: "#3CB5B5"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -237,8 +244,9 @@ aliases:
         ratio: 15
         comment: abyss soylent-green, contrast 130
         aliasName: color-abyss-soylent-green-130
-  - name: naughty-purple-abyss
-    keyColor: "#ae80c9"
+  - name: naughty-purple
+    theme: abyss
+    keyColor: "#AE80C9"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -271,8 +279,9 @@ aliases:
         ratio: 13.5
         comment: abyss naughty-purple, contrast 130
         aliasName: color-abyss-naughty-purple-130
-  - name: neutral-abyss
-    keyColor: "#757c91"
+  - name: neutral
+    theme: abyss
+    keyColor: "#757C91"
     baseColor: "#111216"
     type: adobe-leonardo
     colorspace: CAM02
@@ -321,9 +330,10 @@ aliases:
         ratio: 18
         comment: abyss neutral, contrast 150
         aliasName: color-abyss-neutral-150
-  - name: primary-surface
-    keyColor: "#0b55c4"
-    baseColor: "#fafbfb"
+  - name: primary
+    theme: surface
+    keyColor: "#0B55C4"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: HSL
     shades:
@@ -355,7 +365,8 @@ aliases:
         ratio: 14.5
         comment: surface primary, contrast 130
         aliasName: color-surface-primary-130
-  - name: positive-surface
+  - name: positive
+    theme: surface
     keyColor: "#207550"
     baseColor: "#fafbfb"
     type: adobe-leonardo
@@ -389,9 +400,10 @@ aliases:
         ratio: 13.5
         comment: surface positive, contrast 130
         aliasName: color-surface-positive-130
-  - name: warning-surface
-    keyColor: "#906e00"
-    baseColor: "#fafbfb"
+  - name: warning
+    theme: surface
+    keyColor: "#906E00"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: CAM02
     shades:
@@ -423,9 +435,10 @@ aliases:
         ratio: 12.4
         comment: surface warning, contrast 130
         aliasName: color-surface-warning-130
-  - name: error-surface
-    keyColor: "#c20b29"
-    baseColor: "#fafbfb"
+  - name: error
+    theme: surface
+    keyColor: "#C20B29"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: CAM02
     shades:
@@ -457,9 +470,10 @@ aliases:
         ratio: 14
         comment: surface error, contrast 130
         aliasName: color-surface-error-130
-  - name: nasty-orange-surface
-    keyColor: "#be5602"
-    baseColor: "#fafbfb"
+  - name: nasty-orange
+    theme: surface
+    keyColor: "#BE5602"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: HSL
     shades:
@@ -491,9 +505,10 @@ aliases:
         ratio: 13
         comment: surface nasty-orange, contrast 130
         aliasName: color-surface-nasty-orange-130
-  - name: hot-pink-surface
-    keyColor: "#cc1d7f"
-    baseColor: "#fafbfb"
+  - name: hot-pink
+    theme: surface
+    keyColor: "#CC1D7F"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: HSL
     shades:
@@ -525,7 +540,8 @@ aliases:
         ratio: 13
         comment: surface hot-pink, contrast 130
         aliasName: color-surface-hot-pink-130
-  - name: soylent-green-surface
+  - name: soylent-green
+    theme: surface
     keyColor: "#287878"
     baseColor: "#fafbfb"
     type: adobe-leonardo
@@ -559,9 +575,10 @@ aliases:
         ratio: 13
         comment: surface soylent-green, contrast 130
         aliasName: color-surface-soylent-green-130
-  - name: naughty-purple-surface
-    keyColor: "#9151b5"
-    baseColor: "#fafbfb"
+  - name: naughty-purple
+    theme: surface
+    keyColor: "#9151B5"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: CAM02
     shades:
@@ -593,9 +610,10 @@ aliases:
         ratio: 13
         comment: surface naughty-purple, contrast 130
         aliasName: color-surface-naughty-purple-130
-  - name: neutral-surface
-    keyColor: "#6c7387"
-    baseColor: "#fafbfb"
+  - name: neutral
+    theme: surface
+    keyColor: "#6C7387"
+    baseColor: "#FAFBFB"
     type: adobe-leonardo
     colorspace: CAM02
     shades:

@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
+@import '~@dynatrace/fluid-design-tokens/global/palette';
 @import '~@dynatrace/fluid-design-tokens/global/theme';
 
+@import './styles/link';
+@import './styles/input';
 @import './styles/fonts';
 @import './styles/variables';
 @import './styles/overrides/select';
+@import './styles/overrides/checkbox';
 
 *,
 *::before,
@@ -40,6 +44,7 @@ body {
   height: 100vh;
   margin: 0;
   padding: 0;
+  color: var(--color-maxcontrast);
 }
 
 h1,
@@ -48,6 +53,33 @@ h3,
 h4,
 h5,
 h6,
+input,
 label {
   color: var(--color-maxcontrast);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 40px;
+  font-weight: 500;
+  margin: $fluid-spacing--large 0;
+}
+
+h2 {
+  font-size: 25px;
+  margin: $fluid-spacing--large 0;
+}
+
+h3 {
+  font-size: 20px;
+  margin: $fluid-spacing--large 0;
+  font-weight: 700;
+}
+
+body,
+input,
+label {
+  font-size: 16px;
+  letter-spacing: 0.01em;
 }

@@ -32,18 +32,19 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ],
 })
 export class DesignTokensUiInputComponent implements ControlValueAccessor {
-  onChange = (_: string) => {};
+  onChange = (_: string | number) => {};
   onTouched = () => {};
 
   constructor(private _elementRef: ElementRef) {}
 
   writeValue(value: string): void {
-    this._elementRef.nativeElement.value =
-      value !== undefined && value !== null ? value : '';
-    this.onChange(value);
+    const convertedValue = this._convertValue(value);
+
+    this._elementRef.nativeElement.value = convertedValue;
+    this.onChange(convertedValue);
   }
 
-  registerOnChange(fn: (value: string) => void): void {
+  registerOnChange(fn: (value: string | number) => void): void {
     this.onChange = fn;
   }
 
@@ -53,6 +54,18 @@ export class DesignTokensUiInputComponent implements ControlValueAccessor {
 
   /** @internal Handles the input change - noop method */
   _onInput(event: Event): void {
-    this.onChange((event.target as HTMLInputElement).value);
+    const value = this._convertValue((event.target as HTMLInputElement).value);
+    this.onChange(value);
+  }
+
+  /** Convert values in numeric input fields to numbers */
+  private _convertValue(value: string): string | number {
+    if (
+      this._elementRef.nativeElement.getAttribute('inputmode') === 'numeric'
+    ) {
+      return parseFloat(value) ?? 0;
+    } else {
+      return value ?? '';
+    }
   }
 }

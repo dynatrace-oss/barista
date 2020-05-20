@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@import '../../../../../libs/design-tokens-ui/style/main';
-
 dt-select.dt-select {
   background: transparent;
   border: none;
@@ -23,6 +21,13 @@ dt-select.dt-select {
   border-bottom: 2px solid transparent;
   border-radius: 0;
   transition: border-bottom-color ease-out 100ms;
+  font-size: 16px;
+  line-height: unset;
+  font-family: unset;
+
+  .dt-select-arrow {
+    height: 28px !important;
+  }
 
   dt-icon svg {
     fill: var(--color-maxcontrast) !important;
@@ -41,16 +46,17 @@ dt-select.dt-select {
     $alpha: 0.6
   ) !important;
   border: none !important;
-  border-radius: 2px !important;
+  border-radius: 0 !important;
+  max-height: 400px !important;
   backdrop-filter: blur(0.3rem);
 }
 
 dt-option.dt-option {
   color: $fluid-color-surface-maxcontrast;
   background: transparent;
-  line-height: 40px;
-  padding: 0 16px;
+  padding: $fluid-spacing--small;
   transition: background-color ease-out 100ms;
+  font-size: 1rem;
 
   &.dt-option-active,
   &:hover {

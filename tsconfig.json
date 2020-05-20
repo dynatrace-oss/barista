@@ -241,9 +241,6 @@
         "libs/shared/design-tokens/generated/patterns/*.json"
       ],
       "@environments/*": ["environments/*"],
-      "@dynatrace/design-tokens-ui/design-tokens-ui-input": [
-        "libs/design-tokens-ui/design-tokens-ui-input/src/index.ts"
-      ],
       "@dynatrace/design-tokens-ui/input": [
         "libs/design-tokens-ui/input/src/index.ts"
       ],
@@ -255,6 +252,9 @@
       ],
       "@dynatrace/shared/design-system/interfaces": [
         "libs/shared/design-system/interfaces/src/index.ts"
+      ],
+      "@dynatrace/design-tokens-ui/shared": [
+        "libs/design-tokens-ui/shared/src/index.ts"
       ]
     },
     "plugins": [
