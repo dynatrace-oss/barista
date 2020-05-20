@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { generateContrastColors } from '@dynatrace/shared/design-tokens';
+import { generateContrastColors } from '@adobe/leonardo-contrast-colors';
 import {
   FluidPaletteSource,
   FluidPaletteAliases,

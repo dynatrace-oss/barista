@@ -17,7 +17,7 @@
 import {
   luminance,
   generateContrastColors,
-} from '@dynatrace/shared/design-tokens';
+} from '@adobe/leonardo-contrast-colors';
 import { rgb } from 'd3-color';
 import { FluidPaletteSourceAlias } from '@dynatrace/shared/barista-definitions';
 
