@@ -1,4 +1,4 @@
-## [7.0.0-rc.3](https://github.com/dynatrace-oss/barista/compare/6.0.0...7.0.0-rc.3) (2020-05-18)
+## [7.0.0-rc.4](https://github.com/dynatrace-oss/barista/compare/6.0.0...7.0.0-rc.4) (2020-05-20)
 
 Most of the breaking changes will be fixed automatically by running
 `ng update @dynatrace/barista-components`.
@@ -24,6 +24,8 @@ Most of the breaking changes will be fixed automatically by running
   ([b5d0136](https://github.com/dynatrace-oss/barista/commit/b5d0136788ecbd5dd36512523126ffe4804dc849))
 - **consumption:** Remove deprecated aria-label input attributes.
   ([695fd35](https://github.com/dynatrace-oss/barista/commit/695fd35a0f23bb2c0ca8892f9a8ebfd1ef106397))
+- **core:** `isNumber` now returns false for number strings like `"12"` as
+  expected. Added `isNumberLike` function for these number-string cases.
 - **cta-card:** Removes component.
   ([bcfdff5](https://github.com/dynatrace-oss/barista/commit/bcfdff50a7c2baf55607962e7be43c4214462f0b))
 - **event-chart:** Makes elementRef mandatory.
@@ -31,6 +33,12 @@ Most of the breaking changes will be fixed automatically by running
 - **filter-field:** Removes FlexibleConnectedPositionStrategy, makes
   \_viewportRuler, \_platform and \_overlayContainer mandatory and makes tags
   private.
+- **filter-field, quick-filter:** The filter-field data source as well as the
+  quick-filter data source and their transform methods have Generics in place to
+  define the structure of the passed in data. The filter-fields default
+  data-source no longer takes a generic, as the structure of the data is already
+  defined there. The Node definitions now take optional generics for the
+  consumer to specify the structure of the data.
   ([8a0ceb0](https://github.com/dynatrace-oss/barista/commit/8a0ceb033ad459f30870895baf17ea842d87b1e6))
 - **indicator:** Adds DtIndicator directive as its own package.
   ([ba28cda](https://github.com/dynatrace-oss/barista/commit/ba28cdaa1d77f6107fa35dcd0b7045617d705481))
@@ -72,6 +80,31 @@ Most of the breaking changes will be fixed automatically by running
 
 - Switched to lodash-es as a peerDependency.
   ([37d626c](https://github.com/dynatrace-oss/barista/commit/37d626c9ca32737f986550ba64efeb3962cef7d2))
+
+### Bug Fixes
+
+- **core:** Fixes issue where the `isNumber` util function also returns true if
+  it is a number-string. Added `isNumberLike` function for these number-string
+  cases.
+  ([f8cb6da](https://github.com/dynatrace-oss/barista/commit/f8cb6da0514c82f30c8867be9e451aa26bb299b2))
+- **table:** Fixes an issue where the table tried to render after it was
+  destroyed.
+  ([9e7aa5a](https://github.com/dynatrace-oss/barista/commit/9e7aa5a5e516a7566ce1067eed1eab7ca4fafbb1)),
+  closes [#1046](https://github.com/dynatrace-oss/barista/issues/1046)
+
+### Features
+
+- **bar-indicator:** Changes styling to use custom properties
+  ([193b3e5](https://github.com/dynatrace-oss/barista/commit/193b3e5b80303c2753a8cd8253a0b376df4cb577))
+- **breadcrumbs:** Changes styling to use custom properties
+  ([e33547a](https://github.com/dynatrace-oss/barista/commit/e33547a6b00131bb65ec86af638213b5f343da87))
+- **card:** Changes styling to use custom properties
+  ([b5e1b7f](https://github.com/dynatrace-oss/barista/commit/b5e1b7f57c9d000d8e9a2af6a0ee248f952ebb00))
+- **checkbox:** Changes styling to use custom properties
+  ([701aadc](https://github.com/dynatrace-oss/barista/commit/701aadcb0ec38939345e9c9c4393aa0249114340))
+- **filter-field, quick-filter:** Improved typing across the filter-field, it's
+  node definitions, data-sources and the quick-filter component.
+  ([f9db6a5](https://github.com/dynatrace-oss/barista/commit/f9db6a59014fe252d5c962d5c419d007c49b6e2f))
 
 ### Major version information
 
