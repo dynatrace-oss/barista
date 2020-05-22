@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BaPageLayoutType } from '@dynatrace/shared/barista-definitions';
+import { BaPageLayoutType, TOC } from '@dynatrace/shared/barista-definitions';
 
 import {
   componentTagsTransformer,
@@ -23,6 +23,7 @@ import {
   headingIdTransformer,
   internalContentTransformerFactory,
   relativeUrlTransformer,
+  tocGenerator,
 } from './transform';
 
 describe('Barista transformers', () => {
@@ -235,7 +236,26 @@ describe('Barista transformers', () => {
     });
   });
 
-  describe('TOC Generator', async () => {
-    const content = `<h2 id=\"imports\">Imports<ba-headline-link id=\"imports\"></ba-headline-link></h2>\n<p>You have to import</p>\n<h2 id=\"initialization\">Initialization<ba-headline-link id=\"initialization\"></ba-headline-link></h2>`;
+  describe('TOC Generator', () => {
+    it('should generate toc', async () => {
+      const content = `<h2 id=\"hl1\">hl1</h2>\n<h2 id=\"hl2\">hl2</h2><h3 id=\"shl1\">shl1</h3>`;
+      const transformed = await tocGenerator({
+        title: 'toc',
+        toc: true,
+        layout: BaPageLayoutType.Default,
+        content,
+      });
+      const toc: TOC = {
+        headlines: [
+          { headline: 'hl1', id: 'hl1' },
+          {
+            headline: 'hl2',
+            id: 'hl2',
+            children: [{ headline: 'shl1', id: 'shl1' }],
+          },
+        ],
+      };
+      expect(transformed.tocitems).toMatchObject(toc);
+    });
   });
 });

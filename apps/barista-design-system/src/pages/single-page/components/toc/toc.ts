@@ -29,7 +29,7 @@ import { BaTocService } from '../../../../shared/services/toc.service';
 import { Subscription } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
-import { TOC, Headline } from '@dynatrace/shared/barista-definitions';
+import { TOC } from '@dynatrace/shared/barista-definitions';
 
 @Component({
   selector: 'ba-toc',
