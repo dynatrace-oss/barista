@@ -110,21 +110,4 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
       });
     }
   }
-
-  checkForActive(headline: Headline): boolean {
-    let activate = false;
-    if (
-      this._activeItems &&
-      this._activeItems[0] &&
-      this._activeItems[0].headlines[0].children
-    ) {
-      // debugger;
-      this._activeItems[0].headlines[0].children.forEach((headlineChild) => {
-        if (headlineChild === headline) {
-          activate = true;
-        }
-      });
-    }
-    return activate;
-  }
 }
