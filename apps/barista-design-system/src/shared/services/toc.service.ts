@@ -15,9 +15,9 @@
  */
 
 import { Injectable, OnDestroy, NgZone } from '@angular/core';
-import { ReplaySubject, Subscription } from 'rxjs';
+import { ReplaySubject, Subscription, Observable } from 'rxjs';
 
-import { BaScrollSpyInfo, BaScrollSpyService } from './scroll-spy.service';
+import { BaScrollItem, BaScrollSpyService } from './scroll-spy.service';
 import { Platform } from '@angular/cdk/platform';
 import { TOC } from '@dynatrace/shared/barista-definitions';
 
@@ -32,7 +32,7 @@ export class BaTocService implements OnDestroy {
   /** all toc items */
   tocItems: TOC;
 
-  private _scrollSpyInfo: BaScrollSpyInfo | null = null;
+  private _scrollSpyInfo: Observable<BaScrollItem | null>;
 
   /** Subscription on active items coming from scroll spy. */
   private _activeItemSubscription = Subscription.EMPTY;
@@ -48,7 +48,7 @@ export class BaTocService implements OnDestroy {
   }
 
   /**
-   * generate the toc and start the scroll spy to find the currently active toc item
+   * start the scroll spy to find the currently active toc item
    */
   startScrollSpy(docElement?: Element, _docId: string = ''): void {
     this._resetScrollSpyInfo();
@@ -64,7 +64,7 @@ export class BaTocService implements OnDestroy {
         // start the scroll spy
         this._scrollSpyInfo = this._scrollSpyService.spyOn(headlines);
       });
-      this._activeItemSubscription = this._scrollSpyInfo!.active.subscribe(
+      this._activeItemSubscription = this._scrollSpyInfo!.subscribe(
         (scrollItem) => {
           if (scrollItem) {
             for (const tocItem of this.tocItems.headlines) {
@@ -104,8 +104,7 @@ export class BaTocService implements OnDestroy {
   /** reset the scrollspyinfo if it exists */
   private _resetScrollSpyInfo(): void {
     if (this._scrollSpyInfo) {
-      this._scrollSpyInfo.unspy();
-      this._scrollSpyInfo = null;
+      this._scrollSpyService.unspy();
     }
 
     this.activeItems.next(undefined);

@@ -70,7 +70,6 @@ export class BaToc implements OnInit, AfterViewInit, OnDestroy {
             this._activeItems = activeItems;
           }
         });
-        console.log(this._activeItems);
       },
     );
   }
