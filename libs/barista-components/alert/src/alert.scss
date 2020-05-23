@@ -2,7 +2,6 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
 @import '../../core/src/theming/theming';
-@import './alert-theme';
 
 :host {
   @include dt-main-font();
@@ -44,7 +43,4 @@
   flex-grow: 1;
 }
 
-// Apply the alert theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-alert($dt-current-theme);
-}
+@import './alert-theme';
