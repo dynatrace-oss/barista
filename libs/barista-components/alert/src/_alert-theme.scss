@@ -1,36 +1,20 @@
-@import '../../core/src/theming/theming';
+:host {
+  --dt-alert-default-color: var(--dt-error-default-color);
+}
 
-@mixin dt-theme-alert($theme) {
-  $error-palette: dt-get-theme-palette($theme, error);
-  $error-color: dt-get-theme-color($error-palette, default);
-  $warning-palette: dt-get-theme-palette($theme, warning);
-  $warning-color: dt-get-theme-color($warning-palette, default);
-  $is-dark: map-get($theme, 'is-dark');
+:host.dt-alert-warning {
+  --dt-alert-default-color: var(--dt-warning-default-color);
+}
 
-  :host {
-    .dt-alert-icon-container {
-      background-color: $error-color;
-    }
-    .dt-alert-text-container {
-      border-color: $error-color;
-    }
-  }
+.dt-alert-icon-container {
+  background-color: var(--dt-alert-default-color);
+}
+.dt-alert-text-container {
+  border-color: var(--dt-alert-default-color);
+}
 
-  :host.dt-alert-warning {
-    .dt-alert-icon-container {
-      background-color: $warning-color;
-    }
-    .dt-alert-text-container {
-      border-color: $warning-color;
-    }
-  }
-
-  @if ($is-dark == true) {
-    :host.dt-alert-warning,
-    :host {
-      .dt-alert-text-container {
-        border-color: transparent;
-      }
-    }
+:host-context(.dt-theme-dark) {
+  .dt-alert-text-container {
+    border-color: transparent;
   }
 }
