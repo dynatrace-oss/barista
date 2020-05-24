@@ -1,45 +1,32 @@
-@import '../../core/src/style/variables';
-@import '../../core/src/theming/theming';
+:host {
+  --dt-button-group-default-color: var(--dt-theme-main-default-color);
+  --dt-button-group-hover-color: var(--dt-theme-main-hover-color);
+  --dt-button-group-active-color: var(--dt-theme-main-active-color);
+  --dt-button-group-background-color: #{$gray-100};
+}
 
-@mixin dt-theme-button-group-item($theme) {
-  $palette-names: 'main', 'error';
-  $default-palette: 'main';
+:host.dt-color-error {
+  --dt-button-group-default-color: var(--dt-error-default-color);
+  --dt-button-group-hover-color: var(--dt-error-hover-color);
+  --dt-button-group-active-color: var(--dt-error-active-color);
+}
 
-  @each $name in $palette-names {
-    $palette: dt-get-theme-palette($theme, $name);
-    $default-color: dt-get-theme-color($palette, 'default');
-    $hover-color: dt-get-theme-color($palette, 'hover');
-    $active-color: dt-get-theme-color($palette, 'active');
-    $background-color: $gray-100;
-    $border-color: $gray-300;
+:host.dt-button-group-item:not(.dt-button-group-item-disabled) {
+  color: var(--dt-button-group-default-color);
+}
 
-    $namespace: ':host';
-    @if $name != $default-palette {
-      $namespace: ':host.dt-color-#{$name}';
-    }
+:host.dt-button-group-item:hover {
+  color: var(--dt-button-group-hover-color);
+  border-color: var(--dt-button-group-hover-color);
+}
 
-    #{$namespace} {
-      border-color: $border-color;
-    }
-
-    #{$namespace}.dt-button-group-item:not(.dt-button-group-item-disabled) {
-      color: $default-color;
-    }
-
-    #{$namespace}.dt-button-group-item:hover {
-      color: $hover-color;
-      border-color: $hover-color;
-    }
-
-    #{$namespace}.dt-button-group-item.dt-button-group-item-selected,
-    #{$namespace}.dt-button-group-item:active {
-      &:not(.dt-button-group-item-disabled) {
-        z-index: 1;
-        position: relative;
-        color: $active-color;
-        background-color: $background-color;
-        border-color: $active-color;
-      }
-    }
+:host.dt-button-group-item.dt-button-group-item-selected,
+:host.dt-button-group-item:active {
+  &:not(.dt-button-group-item-disabled) {
+    z-index: 1;
+    position: relative;
+    color: var(--dt-button-group-active-color);
+    background-color: var(--dt-button-group-background-color);
+    border-color: var(--dt-button-group-active-color);
   }
 }
