@@ -2,7 +2,6 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
 @import '../../core/src/theming/theming';
-@import './button-group-item-theme';
 
 :host {
   background-color: transparent;
@@ -47,7 +46,4 @@
   }
 }
 
-// Apply the button-group-item theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-button-group-item($dt-current-theme);
-}
+@import './button-group-item-theme';
