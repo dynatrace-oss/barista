@@ -328,6 +328,7 @@ jobs:
     steps:
       - checkout
       - setup_bazel_ci
+      - bazel_build
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
