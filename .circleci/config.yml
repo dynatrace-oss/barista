@@ -126,8 +126,18 @@ commands:
       - attach_workspace:
           at: ~/barista
       - run:
-          name: Rotate keys
-          command: ls -la tools #sh ./tools/build-cache/setup_ci_build_cache.sh
+          name: Prepare cache key
+          command: cd tools/build-cache && sh setup_ci_build_cache.sh
+
+  bazel_build:
+    description: >-
+      Example Bazel build step with cache access
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run:
+          name: Run build
+          command: npm run bazel:build
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #

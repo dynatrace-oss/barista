@@ -40,7 +40,8 @@
     "stage-release": "ng run tools-release:build-stage-release && node dist/libs/tools/stage-release/main.js",
     "publish-release": "ng run tools-release:build-publish-release && node dist/libs/tools/publish-release/main.js",
     "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt",
-    "bazel:format": "npm run bazel run //:buildifier"
+    "bazel:format": "npm run bazel run //:buildifier",
+    "bazel:build": "bazel build --remote_upload_local_results=true --google_credentials=tools/build-cache/cache-write-key.json //libs/barista-components/core:package"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",

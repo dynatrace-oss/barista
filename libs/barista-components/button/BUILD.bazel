@@ -16,7 +16,7 @@ ng_module(
     assets = [
         ":src/button.css",
     ] + glob(["src/**/*.html"]),
-    # generate_ve_shims = True,
+    generate_ve_shims = True,
     module_name = "@dynatrace/barista-components/button",
     tsconfig = "tsconfig_lib",
     deps = [
