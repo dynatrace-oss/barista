@@ -324,7 +324,7 @@ jobs:
 # - Setup bazel ci
   bazel_ci:
     executor: barista
-    resource_class: small
+    resource_class: medium
     steps:
       - checkout
       - setup_bazel_ci
