@@ -39,12 +39,6 @@ executors:
     docker:
       - image: circleci/node:lts-browsers
 
-  # Debian base image with Google Cloud sdk installed
-  gcp-sdk:
-    working_directory: ~/barista
-    docker:
-      - image: google/cloud-sdk:latest
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   P A T T E R N S:
@@ -70,8 +64,6 @@ filter_branches: &filter_branches
         - /^cherry-pick-.*/
         # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
         - /pull\/[0-9]+/
-
-
 
 defaults: &defaults
   working_directory: ~/barista
@@ -127,23 +119,15 @@ commands:
               circleci step halt
             fi
 
-  install_gh_cli:
+  setup_bazel_ci:
     description: >-
-      Installs GH cli on Debian based OS
-    steps:
-      - run:
-          name: Install CLI
-          command: curl -Lsfo ./gh.deb https://github.com/cli/cli/releases/download/v0.8.0/gh_0.8.0_linux_amd64.deb && apt install ./gh.deb && rm ./gh.deb
-
-  rotate_keys:
-    description: >-
-      Rotates build cache access keys
+      Sets up the build cache for Bazel
     steps:
       - attach_workspace:
           at: ~/barista
       - run:
           name: Rotate keys
-          command: ls -la tools #sh ./tools/build-cache/rotate_keys.sh
+          command: ls -la tools #sh ./tools/build-cache/setup_ci_build_cache.sh
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -327,14 +311,13 @@ jobs:
       - store_test_results:
           path: dist/demos-a11y
 
-# - rotate cache keys
-  key_rotator:
-    executor: gcp-sdk
+# - Setup bazel ci
+  bazel_ci:
+    executor: barista
     resource_class: small
     steps:
       - checkout
-      - install_gh_cli
-      - rotate_keys
+      - setup_bazel_ci
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -360,9 +343,9 @@ workflows:
           # DOCKERHUB_PASSWORD is used for publishing
           context: barista
 
-  key_rotation:
+  bazel_ci_workflow:
     jobs:
-      - key_rotator:
+      - bazel_ci:
           filters:
             branches:
               only: bazel/research-build-cache
