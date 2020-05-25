@@ -15,10 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import {
-  DtFilterFieldDefaultDataSource,
-  DtFilterFieldDefaultDataSourceType,
-} from '@dynatrace/barista-components/filter-field';
+import { DtFilterFieldDefaultDataSource } from '@dynatrace/barista-components/filter-field';
 import { Validators } from '@angular/forms';
 
 @Component({
@@ -42,7 +39,5 @@ export class DtExampleFilterFieldValidator {
       },
     ],
   };
-  _dataSource = new DtFilterFieldDefaultDataSource<
-    DtFilterFieldDefaultDataSourceType
-  >(this.DATA);
+  _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
 }
