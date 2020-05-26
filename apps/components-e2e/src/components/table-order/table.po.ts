@@ -34,5 +34,9 @@ export const getDragDistance = async (
     .nth(targetIndex)
     .getBoundingClientRectProperty('top');
 
-  return targetPosY - posY;
+  // Round this value as testCafe expects the dragOffset
+  // to be an interger and due to rounding issues,
+  // boundingClientBoxes can restult in floating point
+  // issues.
+  return Math.round(targetPosY - posY);
 };
