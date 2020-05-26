@@ -17,6 +17,7 @@ h2 {
 }
 
 h3 {
+  @include dt-h3-font();
 }
 
 pre,
