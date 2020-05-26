@@ -150,11 +150,11 @@ export class DependencyGraph {
    * https://graphviz.gitlab.io/_pages/doc/info/lang.html
    */
   convertToDotGraph(): string {
-    const graph: string[] = ['graph "token-dependencies" {'];
+    const graph: string[] = ['digraph "token-dependencies" {'];
 
     for (const node of this._nodes.values()) {
       for (const dependency of node.dependencies) {
-        graph.push(`"${node.name}" -- "${dependency.name}";`);
+        graph.push(`"${node.name}" -> "${dependency.name}";`);
       }
     }
     graph.push('}');

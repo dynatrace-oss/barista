@@ -23,7 +23,7 @@
 export const THEMES = {
   ABYSS: {
     COLOR_BACKGROUND: '#111216',
-    COLOR_MAXCONTRAST: '#FAFBFB',
+    COLOR_MAXCONTRAST: '#fafbfb',
     COLOR_PRIMARY_70: '#2f476d',
     COLOR_PRIMARY_80: '#3761a2',
     COLOR_PRIMARY_90: '#3873cd',
@@ -93,7 +93,7 @@ export const THEMES = {
     COLOR_NEUTRAL_150: '#fafbfb',
   },
   SURFACE: {
-    COLOR_BACKGROUND: '#FAFBFB',
+    COLOR_BACKGROUND: '#fafbfb',
     COLOR_MAXCONTRAST: '#111216',
     COLOR_PRIMARY_70: '#9ac0f9',
     COLOR_PRIMARY_80: '#5998f6',

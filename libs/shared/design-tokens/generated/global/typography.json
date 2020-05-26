@@ -1,76 +1,382 @@
 {
   "outputs": [
     {
-      "type": "scss",
-      "formatter": "dt-scss"
+      "type": "css",
+      "formatter": "dt-css-typography"
     },
     {
-      "type": "ts",
-      "formatter": "dt-typescript"
+      "type": "scss",
+      "formatter": "dt-scss-typography"
     }
   ],
   "props": {
-    "fluid-button--padding-small": {
-      "type": "token",
-      "category": "global",
-      "name": "fluid-button--padding-small",
-      "value": "8px 48px",
-      "meta": {
-        "friendlyName": "Fluid button padding small"
+    "heading-1": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "heading-1",
+      "value": {
+        "fontSize": "2.027rem",
+        "fontWeight": "500",
+        "lineHeight": "38px",
+        "textTransform": "none"
       },
-      "originalValue": "{!spacing--x-small} {!spacing--x-large}"
+      "comment": "Token contains the styles for a headline 1",
+      "meta": {
+        "friendlyName": "Headline 1",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".heading-1",
+        "mixinName": "heading-1"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-4xl}",
+        "fontWeight": "{!typography--emphasis-medium}",
+        "lineHeight": "{!typography--line-height-4xl}",
+        "textTransform": "none"
+      }
     },
-    "fluid-button--padding-medium": {
-      "type": "token",
-      "category": "global",
-      "name": "fluid-button--padding-medium",
-      "value": "12px 48px",
-      "meta": {
-        "friendlyName": "Fluid button padding medium"
+    "heading-2": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "heading-2",
+      "value": {
+        "fontSize": "1.802rem",
+        "fontWeight": "500",
+        "lineHeight": "34px",
+        "textTransform": "none"
       },
-      "originalValue": "{!spacing--small} {!spacing--x-large}"
+      "comment": "Token contains the styles for a headline 2",
+      "meta": {
+        "friendlyName": "Headline 2",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".heading-2",
+        "mixinName": "heading-2"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-3xl}",
+        "fontWeight": "{!typography--emphasis-medium}",
+        "lineHeight": "{!typography--line-height-3xl}",
+        "textTransform": "none"
+      }
     },
-    "fluid-button--padding-large": {
-      "type": "token",
-      "category": "global",
-      "name": "fluid-button--padding-large",
-      "value": "16px 48px",
-      "meta": {
-        "friendlyName": "Fluid button padding large"
+    "heading-3": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "heading-3",
+      "value": {
+        "fontSize": "1.602rem",
+        "fontWeight": "500",
+        "lineHeight": "30px",
+        "textTransform": "none"
       },
-      "originalValue": "{!spacing--medium} {!spacing--x-large}"
+      "comment": "Token contains the styles for a headline 3",
+      "meta": {
+        "friendlyName": "Headline 3",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".heading-3",
+        "mixinName": "heading-3"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-2xl}",
+        "fontWeight": "{!typography--emphasis-medium}",
+        "lineHeight": "{!typography--line-height-2xl}",
+        "textTransform": "none"
+      }
+    },
+    "heading-4": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "heading-4",
+      "value": {
+        "fontSize": "1.424rem",
+        "fontWeight": "500",
+        "lineHeight": "27px",
+        "textTransform": "none"
+      },
+      "comment": "Token contains the styles for a headline 4",
+      "meta": {
+        "friendlyName": "Headline 4",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".heading-4",
+        "mixinName": "heading-4"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-xl}",
+        "fontWeight": "{!typography--emphasis-medium}",
+        "lineHeight": "{!typography--line-height-xl}",
+        "textTransform": "none"
+      }
+    },
+    "heading-5": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "heading-5",
+      "value": {
+        "fontSize": "1.266rem",
+        "fontWeight": "500",
+        "lineHeight": "24px",
+        "textTransform": "none"
+      },
+      "comment": "Token contains the styles for a headline 5",
+      "meta": {
+        "friendlyName": "Headline 5",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".heading-5",
+        "mixinName": "heading-5"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-l}",
+        "fontWeight": "{!typography--emphasis-medium}",
+        "lineHeight": "{!typography--line-height-l}",
+        "textTransform": "none"
+      }
+    },
+    "heading-6": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "heading-6",
+      "value": {
+        "fontSize": "1.125rem",
+        "fontWeight": "500",
+        "lineHeight": "21px",
+        "textTransform": "none"
+      },
+      "comment": "Token contains the styles for a headline 6",
+      "meta": {
+        "friendlyName": "Headline 6",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".heading-6",
+        "mixinName": "heading-6"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-m}",
+        "fontWeight": "{!typography--emphasis-medium}",
+        "lineHeight": "{!typography--line-height-m}",
+        "textTransform": "none"
+      }
+    },
+    "body": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "body",
+      "value": {
+        "fontSize": "1rem",
+        "fontWeight": "400",
+        "lineHeight": "19px",
+        "textTransform": "none"
+      },
+      "comment": "Token contains the styles for a body text",
+      "meta": {
+        "friendlyName": "Body",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".body",
+        "mixinName": "body"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size}",
+        "fontWeight": "{!typography--emphasis-regular}",
+        "lineHeight": "{!typography--line-height}",
+        "textTransform": "none"
+      }
+    },
+    "body-emphasized": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "body-emphasized",
+      "value": {
+        "fontSize": "1rem",
+        "fontWeight": "500",
+        "lineHeight": "19px",
+        "textTransform": "none"
+      },
+      "comment": "Token contains the styles for a body emphasized text",
+      "meta": {
+        "friendlyName": "Body emphasized",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".body-emphasized",
+        "mixinName": "body-emphasized"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size}",
+        "fontWeight": "{!typography--emphasis-medium}",
+        "lineHeight": "{!typography--line-height}",
+        "textTransform": "none"
+      }
+    },
+    "body-super-emphasized": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "body-super-emphasized",
+      "value": {
+        "fontSize": "1rem",
+        "fontWeight": "700",
+        "lineHeight": "19px",
+        "textTransform": "none"
+      },
+      "comment": "Token contains the styles for a body super emphasized text",
+      "meta": {
+        "friendlyName": "Body super emphasized",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".body-super-emphasized",
+        "mixinName": "body-super-emphasized"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size}",
+        "fontWeight": "{!typography--emphasis-high}",
+        "lineHeight": "{!typography--line-height}",
+        "textTransform": "none"
+      }
+    },
+    "body-uppercased": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "body-uppercased",
+      "value": {
+        "fontSize": "0.89rem",
+        "fontWeight": "400",
+        "lineHeight": "17px",
+        "textTransform": "uppercase"
+      },
+      "comment": "Token contains the styles for a body uppercased text",
+      "meta": {
+        "friendlyName": "Body uppercased",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".body-uppercased",
+        "mixinName": "body-uppercased"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-s}",
+        "fontWeight": "{!typography--emphasis-regular}",
+        "lineHeight": "{!typography--line-height-s}",
+        "textTransform": "uppercase"
+      }
+    },
+    "body-uppercased-emphasized": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "body-uppercased-emphasized",
+      "value": {
+        "fontSize": "0.89rem",
+        "fontWeight": "500",
+        "lineHeight": "17px",
+        "textTransform": "uppercase"
+      },
+      "comment": "Token contains the styles for a body uppercased emphasized text",
+      "meta": {
+        "friendlyName": "Body uppercased emphasized",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".body-uppercased-emphasized",
+        "mixinName": "body-uppercased-emphasized"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-s}",
+        "fontWeight": "{!typography--emphasis-medium}",
+        "lineHeight": "{!typography--line-height-s}",
+        "textTransform": "uppercase"
+      }
+    },
+    "body-uppercased-super-emphasized": {
+      "type": "tokens",
+      "category": "typography",
+      "name": "body-uppercased-super-emphasized",
+      "value": {
+        "fontSize": "0.89rem",
+        "fontWeight": "700",
+        "lineHeight": "17px",
+        "textTransform": "uppercase"
+      },
+      "comment": "Token contains the styles for a body uppercased super emphasized text",
+      "meta": {
+        "friendlyName": "Body uppercased super emphasized",
+        "pangram": "The quick brown fox jumps over a lazy dog",
+        "selector": ".body-uppercased-super-emphasized",
+        "mixinName": "body-uppercased-super-emphasized"
+      },
+      "originalValue": {
+        "fontSize": "{!typography--font-size-s}",
+        "fontWeight": "{!typography--emphasis-high}",
+        "lineHeight": "{!typography--line-height-s}",
+        "textTransform": "uppercase"
+      }
     }
   },
   "aliases": {
-    "spacing--3x-small": {
-      "value": "2px"
+    "font-family-sans-serif": {
+      "value": "Roboto, Helvetica, sans-serif"
     },
-    "spacing--2x-small": {
-      "value": "4px"
+    "font-family-serif": {
+      "value": "serif"
     },
-    "spacing--x-large": {
-      "value": "48px"
+    "font-family-monospaced": {
+      "value": "monospace"
     },
-    "spacing--small": {
-      "value": "12px"
+    "typography--emphasis-high": {
+      "value": 700
     },
-    "spacing--0": {
-      "value": 0
+    "typography--font-size-2xl": {
+      "value": "1.602rem"
     },
-    "spacing--x-small": {
-      "value": "8px"
+    "typography--line-height-2xl": {
+      "value": "30px"
     },
-    "spacing--3x-large": {
-      "value": "128px"
+    "typography--font-size-3xl": {
+      "value": "1.802rem"
     },
-    "spacing--2x-large": {
-      "value": "64px"
+    "typography--line-height-3xl": {
+      "value": "34px"
     },
-    "spacing--medium": {
-      "value": "16px"
+    "typography--font-size-4xl": {
+      "value": "2.027rem"
     },
-    "spacing--large": {
-      "value": "32px"
+    "typography--line-height-4xl": {
+      "value": "38px"
+    },
+    "typography--font-size-l": {
+      "value": "1.266rem"
+    },
+    "typography--line-height-l": {
+      "value": "24px"
+    },
+    "typography--font-size": {
+      "value": "1rem"
+    },
+    "typography--font-size-m": {
+      "value": "1.125rem"
+    },
+    "typography--line-height-xl": {
+      "value": "27px"
+    },
+    "typography--font-size-2xs": {
+      "value": "0.702rem"
+    },
+    "typography--line-height-m": {
+      "value": "21px"
+    },
+    "typography--font-size-xl": {
+      "value": "1.424rem"
+    },
+    "typography--line-height-2xs": {
+      "value": "13px"
+    },
+    "typography--line-height": {
+      "value": "19px"
+    },
+    "typography--font-size-s": {
+      "value": "0.89rem"
+    },
+    "typography--line-height-s": {
+      "value": "17px"
+    },
+    "typography--emphasis-medium": {
+      "value": 500
+    },
+    "typography--line-height-xs": {
+      "value": "15px"
+    },
+    "typography--font-size-xs": {
+      "value": "0.79rem"
+    },
+    "typography--emphasis-regular": {
+      "value": 400
     },
     "color-abyss-neutral-50": {
       "value": "#1b1c1f",

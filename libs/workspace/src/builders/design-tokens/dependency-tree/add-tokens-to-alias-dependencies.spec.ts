@@ -15,12 +15,10 @@
  */
 
 import { DependencyGraph } from './dependency-graph';
-import {
-  TokenFile,
-  processTokenFile,
-} from './add-tokens-to-alias-dependencies';
+import { processTokenFile } from './add-tokens-to-alias-dependencies';
+import { DesignTokenSource } from '../interfaces/design-token-source';
 
-describe('Tokenfile dependency analyzer', () => {
+describe('DesignTokenSource dependency analyzer', () => {
   let graph: DependencyGraph;
 
   beforeEach(() => {
@@ -28,7 +26,7 @@ describe('Tokenfile dependency analyzer', () => {
   });
 
   test('if file with a single prop with single values is processed correctly', () => {
-    const file: TokenFile = {
+    const file: DesignTokenSource = {
       props: [
         {
           name: 'fluid-button-spacing',
@@ -46,7 +44,7 @@ describe('Tokenfile dependency analyzer', () => {
   });
 
   test('if file with multiple props with single values is processed correctly', () => {
-    const file: TokenFile = {
+    const file: DesignTokenSource = {
       props: [
         {
           name: 'fluid-button-spacing',
@@ -74,11 +72,35 @@ describe('Tokenfile dependency analyzer', () => {
   });
 
   test('if file with a single prop with multi value values is processed correctly', () => {
-    const file: TokenFile = {
+    const file: DesignTokenSource = {
       props: [
         {
           name: 'fluid-button-spacing',
           value: '{!fluid-spacing-0} {!fluid-spacing-small}',
+        },
+      ],
+    };
+    processTokenFile(graph, file);
+    expect(
+      graph.getNode({ name: 'fluid-button-spacing', type: 'token' }),
+    ).not.toBeNull();
+    expect(
+      graph.getNode({ name: 'fluid-spacing-0', type: 'alias' }),
+    ).not.toBeNull();
+    expect(
+      graph.getNode({ name: 'fluid-spacing-small', type: 'alias' }),
+    ).not.toBeNull();
+  });
+
+  test('if the prop is correctly processed if it holds multiple values', () => {
+    const file: DesignTokenSource = {
+      props: [
+        {
+          name: 'fluid-button-spacing',
+          value: {
+            spacingX: '{!fluid-spacing-0}',
+            spacingY: '{!fluid-spacing-small}',
+          },
         },
       ],
     };

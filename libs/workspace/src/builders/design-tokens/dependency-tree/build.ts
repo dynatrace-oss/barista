@@ -15,7 +15,7 @@
  */
 
 import { BuilderContext, BuilderOutput } from '@angular-devkit/architect';
-import { writeFileSync } from 'fs';
+import { writeFileSync, mkdirSync } from 'fs';
 import { Observable, of } from 'rxjs';
 import { catchError, mapTo, switchMap, tap } from 'rxjs/operators';
 import { DesignTokensDependencyTreeOptions } from './schema';
@@ -40,6 +40,10 @@ export function designTokensDependencyTreeBuilder(
     switchMap((dependencyGraph) =>
       processComponentsDependencies(dependencyGraph, context, options),
     ),
+    tap(() => {
+      // Ensure the output directory is there
+      mkdirSync(options.outputPath, { recursive: true });
+    }),
     tap((dependencyGraph) =>
       writeFileSync(
         join(options.outputPath, 'dependencytree.json'),
