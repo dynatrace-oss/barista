@@ -65,3 +65,9 @@ props:
 global:
   type: number
   category: spacing
+
+outputs:
+- type: scss
+  formatter: dt-scss
+- type: ts
+  formatter: dt-typescript

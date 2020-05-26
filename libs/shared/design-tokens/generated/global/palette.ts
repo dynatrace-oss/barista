@@ -21,7 +21,7 @@
  */
 
 export const FLUID_COLOR_ABYSS_BACKGROUND = '#111216';
-export const FLUID_COLOR_ABYSS_MAXCONTRAST = '#FAFBFB';
+export const FLUID_COLOR_ABYSS_MAXCONTRAST = '#fafbfb';
 export const FLUID_COLOR_ABYSS_PRIMARY_70 = '#2f476d';
 export const FLUID_COLOR_ABYSS_PRIMARY_80 = '#3761a2';
 export const FLUID_COLOR_ABYSS_PRIMARY_90 = '#3873cd';
@@ -89,7 +89,7 @@ export const FLUID_COLOR_ABYSS_NEUTRAL_120 = '#b5b8c2';
 export const FLUID_COLOR_ABYSS_NEUTRAL_130 = '#ced0d6';
 export const FLUID_COLOR_ABYSS_NEUTRAL_140 = '#e5e6e9';
 export const FLUID_COLOR_ABYSS_NEUTRAL_150 = '#fafbfb';
-export const FLUID_COLOR_SURFACE_BACKGROUND = '#FAFBFB';
+export const FLUID_COLOR_SURFACE_BACKGROUND = '#fafbfb';
 export const FLUID_COLOR_SURFACE_MAXCONTRAST = '#111216';
 export const FLUID_COLOR_SURFACE_PRIMARY_70 = '#9ac0f9';
 export const FLUID_COLOR_SURFACE_PRIMARY_80 = '#5998f6';

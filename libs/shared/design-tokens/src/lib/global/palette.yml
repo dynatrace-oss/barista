@@ -973,3 +973,9 @@ props:
 global:
   type: dt-palette
   category: dt-palette
+
+outputs:
+- type: scss
+  formatter: dt-scss
+- type: ts
+  formatter: dt-typescript

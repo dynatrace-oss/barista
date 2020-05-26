@@ -15,7 +15,7 @@
  */
 
 import { BuilderContext, BuilderOutput } from '@angular-devkit/architect';
-import { promises as fs } from 'fs';
+import { promises as fs, readFileSync } from 'fs';
 import { sync as globSync } from 'glob';
 import { Volume as memfsVolume } from 'memfs';
 import { Volume } from 'memfs/lib/volume';
@@ -26,15 +26,21 @@ import { registerFormat, convert, Format, TransformOptions } from 'theo';
 import {
   dtDesignTokensScssConverter,
   dtDesignTokensTypescriptConverter,
+  dtDesignTokensScssThemeConverter,
+  dtDesignTokensTypescriptThemeConverter,
+  dtDesignTokensScssTypographyConverter,
+  dtDesignTokensCssTypographyConverter,
 } from './token-converters';
 import { DesignTokensBuildOptions } from './schema';
 import { parse, stringify } from 'yaml';
 import { generatePaletteAliases } from './palette-generators/palette-alias-generator';
 import { generateHeaderNoticeComment } from './generate-header-notice-comment';
 import { typescriptBarrelFileTemplate } from './token-converters/ts-barrel-file-template';
-
-/** Extend the deault provided theo formats with onces that we provide. */
-type DtTheoFormats = Format | 'dt-scss' | 'typescript';
+import {
+  DesignTokenSource,
+  DesignTokenFormatters,
+} from '../interfaces/design-token-source';
+import { executeCommand } from '@dynatrace/shared/node';
 
 /** Simple representation of a design token file. */
 interface DesignTokenFile {
@@ -43,7 +49,11 @@ interface DesignTokenFile {
 }
 
 registerFormat('dt-scss', dtDesignTokensScssConverter);
-registerFormat('typescript', dtDesignTokensTypescriptConverter);
+registerFormat('dt-scss-typography', dtDesignTokensScssTypographyConverter);
+registerFormat('dt-scss-theme', dtDesignTokensScssThemeConverter);
+registerFormat('dt-css-typography', dtDesignTokensCssTypographyConverter);
+registerFormat('dt-typescript', dtDesignTokensTypescriptConverter);
+registerFormat('dt-typescript-theme', dtDesignTokensTypescriptThemeConverter);
 
 /**
  * This is a temporary solution until we can replace theo with
@@ -72,7 +82,7 @@ function generateColorPalette(
     switchMap((paletteOutput) =>
       fs.writeFile(
         join(cwd, colorFile.replace('-source', '')),
-        `${generateHeaderNoticeComment('#', '#', '#')}${paletteOutput}`,
+        `${generateHeaderNoticeComment('#', '#', '#')}\n${paletteOutput}`,
       ),
     ),
   );
@@ -107,7 +117,7 @@ function readSourceFiles(
 function runTokenConversion(
   file: string,
   baseDirectory: string,
-  formatType: DtTheoFormats,
+  formatType: DesignTokenFormatters,
   outfileExtension: string,
 ): Observable<DesignTokenFile> {
   const outputFilename = file.replace(extname(file), `.${outfileExtension}`);
@@ -142,9 +152,22 @@ export function designTokenConversion(
   const conversions: Observable<DesignTokenFile>[] = [];
   // Create conversion observables for all entry files and all formats.
   for (const file of entryFiles) {
+    const fileSource = readFileSync(join(options.baseDirectory, file), {
+      encoding: 'utf-8',
+    });
+    const yamlFileSource: DesignTokenSource = parse(fileSource);
+    // Add the conversion for evey defined output in the source yaml file.
+    for (const output of yamlFileSource.outputs ?? []) {
+      conversions.push(
+        runTokenConversion(
+          file,
+          options.baseDirectory,
+          output.formatter,
+          output.type,
+        ),
+      );
+    }
     conversions.push(
-      runTokenConversion(file, options.baseDirectory, 'dt-scss', 'scss'),
-      runTokenConversion(file, options.baseDirectory, 'typescript', 'ts'),
       runTokenConversion(file, options.baseDirectory, 'raw.json', 'json'),
     );
   }
@@ -212,6 +235,7 @@ export function designTokensBuildBuilder(
     ),
     map((memoryVolume) => generateTypescriptBarrelFile(options, memoryVolume)),
     switchMap((memoryVolume) => commitVolumeToFileSystem(memoryVolume)),
+    switchMap(() => executeCommand('npm run format:write')),
     mapTo({
       success: true,
     }),

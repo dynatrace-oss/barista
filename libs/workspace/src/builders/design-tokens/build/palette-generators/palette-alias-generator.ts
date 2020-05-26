@@ -17,9 +17,9 @@
 import { generateContrastColors } from '@adobe/leonardo-contrast-colors';
 import {
   FluidPaletteSource,
-  FluidPaletteAliases,
   FluidPaletteAlias,
 } from '@dynatrace/shared/barista-definitions';
+import { DesignTokenSource } from '../../interfaces/design-token-source';
 
 /**
  * Generates a list of aliases for the color palette based on the source
@@ -28,7 +28,7 @@ import {
  */
 export function generatePaletteAliases(
   paletteSource: FluidPaletteSource,
-): FluidPaletteAliases {
+): DesignTokenSource {
   const aliases: FluidPaletteAlias = {};
 
   for (const alias of paletteSource.aliases) {
