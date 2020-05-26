@@ -2,7 +2,7 @@
   "aliases": [
     {
       "name": "primary-abyss",
-      "keyColor": "#3481F4",
+      "keyColor": "#3481f4",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -53,7 +53,7 @@
     },
     {
       "name": "positive-abyss",
-      "keyColor": "#36C687",
+      "keyColor": "#36c687",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -104,7 +104,7 @@
     },
     {
       "name": "warning-abyss",
-      "keyColor": "#FDC300",
+      "keyColor": "#fdc300",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -155,7 +155,7 @@
     },
     {
       "name": "error-abyss",
-      "keyColor": "#F43D5A",
+      "keyColor": "#f43d5a",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -206,7 +206,7 @@
     },
     {
       "name": "nasty-orange-abyss",
-      "keyColor": "#FD8C30",
+      "keyColor": "#fd8c30",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -257,7 +257,7 @@
     },
     {
       "name": "hot-pink-abyss",
-      "keyColor": "#E13093",
+      "keyColor": "#e13093",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -308,7 +308,7 @@
     },
     {
       "name": "soylent-green-abyss",
-      "keyColor": "#3CB5B5",
+      "keyColor": "#3cb5b5",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -359,7 +359,7 @@
     },
     {
       "name": "naughty-purple-abyss",
-      "keyColor": "#AE80C9",
+      "keyColor": "#ae80c9",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -410,7 +410,7 @@
     },
     {
       "name": "neutral-abyss",
-      "keyColor": "#757C91",
+      "keyColor": "#757c91",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
@@ -485,8 +485,8 @@
     },
     {
       "name": "primary-surface",
-      "keyColor": "#0B55C4",
-      "baseColor": "#FAFBFB",
+      "keyColor": "#0b55c4",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "HSL",
       "shades": [
@@ -537,7 +537,7 @@
     {
       "name": "positive-surface",
       "keyColor": "#207550",
-      "baseColor": "#FAFBFB",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "HSL",
       "shades": [
@@ -587,8 +587,8 @@
     },
     {
       "name": "warning-surface",
-      "keyColor": "#906E00",
-      "baseColor": "#FAFBFB",
+      "keyColor": "#906e00",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
       "shades": [
@@ -638,8 +638,8 @@
     },
     {
       "name": "error-surface",
-      "keyColor": "#C20B29",
-      "baseColor": "#FAFBFB",
+      "keyColor": "#c20b29",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
       "shades": [
@@ -689,8 +689,8 @@
     },
     {
       "name": "nasty-orange-surface",
-      "keyColor": "#BE5602",
-      "baseColor": "#FAFBFB",
+      "keyColor": "#be5602",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "HSL",
       "shades": [
@@ -740,8 +740,8 @@
     },
     {
       "name": "hot-pink-surface",
-      "keyColor": "#CC1D7F",
-      "baseColor": "#FAFBFB",
+      "keyColor": "#cc1d7f",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "HSL",
       "shades": [
@@ -792,7 +792,7 @@
     {
       "name": "soylent-green-surface",
       "keyColor": "#287878",
-      "baseColor": "#FAFBFB",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "HSL",
       "shades": [
@@ -842,8 +842,8 @@
     },
     {
       "name": "naughty-purple-surface",
-      "keyColor": "#9151B5",
-      "baseColor": "#FAFBFB",
+      "keyColor": "#9151b5",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
       "shades": [
@@ -893,8 +893,8 @@
     },
     {
       "name": "neutral-surface",
-      "keyColor": "#6C7387",
-      "baseColor": "#FAFBFB",
+      "keyColor": "#6c7387",
+      "baseColor": "#fafbfb",
       "type": "adobe-leonardo",
       "colorspace": "CAM02",
       "shades": [

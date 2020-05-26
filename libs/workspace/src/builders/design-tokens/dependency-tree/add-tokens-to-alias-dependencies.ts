@@ -23,36 +23,51 @@ import { parse } from 'yaml';
 import { DependencyGraph } from './dependency-graph';
 import { findSourceFiles } from './find-source-files';
 import { DesignTokensDependencyTreeOptions } from './schema';
-
-export interface TokenFile {
-  alias?: { [key: string]: string };
-  props?: any[];
-}
+import {
+  DesignTokenSource,
+  DesignTokenProp,
+} from '../interfaces/design-token-source';
 
 /** Process the token file and add dependencies to the graph.  */
 export function processTokenFile(
   dependencyGraph: DependencyGraph,
-  tokens: TokenFile,
+  tokens: DesignTokenSource,
 ): void {
   // Itereate through all the props within a token file and create a token
   // for each prop defined here.
   // Additionally will create an alias type token, if
   // one is used in the value of the prop
-  for (const { name, value } of tokens.props || []) {
+  const props: DesignTokenProp[] = Array.isArray(tokens.props)
+    ? tokens.props
+    : Object.entries(
+        tokens.props as { [key: string]: DesignTokenProp },
+      ).map(([key, value]) => ({ name: key, ...value }));
+  for (const { name, value } of props ?? []) {
     const re = /{!(.+?)}/g;
-    let match: RegExpExecArray | null;
-    do {
-      match = re.exec(value);
-      if (match) {
-        dependencyGraph.addDependency(
-          {
-            name,
-            type: 'token',
-          },
-          { name: match[1], type: 'alias' },
-        );
-      }
-    } while (match);
+    // check if the value is a string as we need to deal
+    // with sub value tokens as well.
+    let values: string[] = [];
+    if (typeof value === 'string') {
+      values = [value];
+    } else {
+      values = Object.values(value);
+    }
+    // iterate over the found values
+    for (const processValue of values) {
+      let match: RegExpExecArray | null;
+      do {
+        match = re.exec(processValue);
+        if (match) {
+          dependencyGraph.addDependency(
+            {
+              name,
+              type: 'token',
+            },
+            { name: match[1], type: 'alias' },
+          );
+        }
+      } while (match);
+    }
   }
 }
 
@@ -74,7 +89,9 @@ export function addTokensToAliasDependenciesToGraph(
           // Yaml parse the files
           map((tokenFile: string) => parse(tokenFile)),
           // Run the file through the processor
-          tap((tokens: TokenFile) => processTokenFile(dependencyGraph, tokens)),
+          tap((tokens: DesignTokenSource) =>
+            processTokenFile(dependencyGraph, tokens),
+          ),
         ),
       );
       return forkJoin(fileProcesses);
