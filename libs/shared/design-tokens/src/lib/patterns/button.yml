@@ -21,3 +21,9 @@ props:
 global:
   type: token
   category: global
+
+outputs:
+- type: scss
+  formatter: dt-scss
+- type: ts
+  formatter: dt-typescript

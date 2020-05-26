@@ -18,29 +18,9 @@ import { ImmutableStyleMap } from 'theo';
 
 class DesignTokensScssConverter {
   private _props: any;
-  private _format: string;
 
-  constructor({ props, format }: any) {
+  constructor({ props }: any) {
     this._props = props;
-    this._format = format;
-  }
-
-  renderProps(): string {
-    let output = '';
-    for (const prop of this._props) {
-      output += this.renderComment(prop);
-
-      const value = prop.type === 'string' ? `"${prop.value}"` : prop.value;
-      output += `\$${prop.name}: ${value} !default;\n`;
-
-      if (prop.meta.customizable) {
-        output += `${this.renderCustomProperty(
-          prop.name,
-          prop.value,
-        )} // This property can be customized\n`;
-      }
-    }
-    return output;
   }
 
   renderThemes(): string {
@@ -55,7 +35,10 @@ class DesignTokensScssConverter {
     let output = `.fluid-theme--${theme} {\n`;
     for (const prop of this._props) {
       output += this.renderComment(prop);
-      output += `  ${this.renderCustomProperty(prop.name, prop.meta[theme])}\n`;
+      output += `  ${this.renderCustomProperty(
+        prop.name,
+        prop.value[theme],
+      )}\n`;
     }
     output += '}\n';
 
@@ -73,18 +56,11 @@ class DesignTokensScssConverter {
   }
 
   render(): string {
-    let output = `${generateHeaderNoticeComment()}\n`;
-    switch (this._format) {
-      case 'theme':
-        output += this.renderThemes();
-        break;
-      default:
-        output += this.renderProps();
-    }
-
-    return output;
+    return [`${generateHeaderNoticeComment()}\n`, this.renderThemes()].join(
+      '\n',
+    );
   }
 }
 
-export const dtDesignTokensScssConverter = (result: ImmutableStyleMap) =>
+export const dtDesignTokensScssThemeConverter = (result: ImmutableStyleMap) =>
   new DesignTokensScssConverter(result.toJS()).render();

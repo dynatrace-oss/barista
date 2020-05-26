@@ -14,12 +14,21 @@
  * limitations under the License.
  */
 
-export const generateHeaderNoticeComment = (
-  commentStart = '/*',
-  commentLine = ' *',
-  commentEnd = ' */',
-) => `${commentStart}
-${commentLine} THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
-${commentLine} FILES, DO NOT CHANGE MANUALLY.
-${commentLine} TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
-${commentEnd}`;
+import { Prop } from 'theo';
+
+/** Renders a comment in from a prop */
+export function renderComment(prop: Prop): string {
+  // Early exit if there is no comment in there
+  if (!prop.has('comment')) {
+    return '';
+  }
+
+  // If there is a comment defined, generate a multi line
+  // comment output
+  const comment = (prop.get('comment') as string)
+    .split('\n')
+    .map((line) => ` * ${line}`)
+    .join('\n');
+
+  return ['/*', comment, ' */'].join('\n');
+}

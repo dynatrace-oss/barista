@@ -1,688 +1,14 @@
 {
-  "aliases": {
-    "color-abyss-neutral-50": {
-      "value": "#1b1c1f",
-      "comment": "abyss neutral, contrast 50",
-      "originalRatio": 1.1
-    },
-    "color-surface-neutral-110": {
-      "value": "#525664",
-      "comment": "surface neutral, contrast 110",
-      "originalRatio": 7
-    },
-    "color-abyss-warning-110": {
-      "value": "#f9d87c",
-      "comment": "abyss warning, contrast 110",
-      "originalRatio": 13.5
-    },
-    "color-surface-error-120": {
-      "value": "#692122",
-      "comment": "surface error, contrast 120",
-      "originalRatio": 11
-    },
-    "color-abyss-primary-90": {
-      "value": "#3873cd",
-      "comment": "abyss primary, contrast 90",
-      "originalRatio": 4
-    },
-    "color-surface-hot-pink-130": {
-      "value": "#5b0d38",
-      "comment": "surface hot-pink, contrast 130",
-      "originalRatio": 13
-    },
-    "color-surface-positive-90": {
-      "value": "#2a9868",
-      "comment": "surface positive, contrast 90",
-      "originalRatio": 3.5
-    },
-    "color-surface-nasty-orange-130": {
-      "value": "#4e2301",
-      "comment": "surface nasty-orange, contrast 130",
-      "originalRatio": 13
-    },
-    "color-surface-neutral-100": {
-      "value": "#6d7488",
-      "comment": "surface neutral, contrast 100",
-      "originalRatio": 4.5
-    },
-    "color-abyss-naughty-purple-130": {
-      "value": "#e0d8e7",
-      "comment": "abyss naughty-purple, contrast 130",
-      "originalRatio": 13.5
-    },
-    "color-abyss-warning-100": {
-      "value": "#fcc301",
-      "comment": "abyss warning, contrast 100",
-      "originalRatio": 11.5
-    },
-    "color-surface-error-110": {
-      "value": "#962027",
-      "comment": "surface error, contrast 110",
-      "originalRatio": 8
-    },
-    "color-surface-hot-pink-120": {
-      "value": "#7b114c",
-      "comment": "surface hot-pink, contrast 120",
-      "originalRatio": 10
-    },
-    "color-surface-positive-80": {
-      "value": "#4ecf96",
-      "comment": "surface positive, contrast 80",
-      "originalRatio": 1.9
-    },
-    "color-surface-nasty-orange-120": {
-      "value": "#6a3001",
-      "comment": "surface nasty-orange, contrast 120",
-      "originalRatio": 10
-    },
-    "color-abyss-naughty-purple-120": {
-      "value": "#cebbda",
-      "comment": "abyss naughty-purple, contrast 120",
-      "originalRatio": 10.5
-    },
-    "color-surface-error-100": {
-      "value": "#c20c29",
-      "comment": "surface error, contrast 100",
-      "originalRatio": 6
-    },
-    "color-abyss-primary-80": {
-      "value": "#3761a2",
-      "comment": "abyss primary, contrast 80",
-      "originalRatio": 3
-    },
-    "color-surface-hot-pink-110": {
-      "value": "#a41766",
-      "comment": "surface hot-pink, contrast 110",
-      "originalRatio": 7
-    },
-    "color-surface-positive-70": {
-      "value": "#b1ead1",
-      "comment": "surface positive, contrast 70",
-      "originalRatio": 1.3
-    },
-    "color-surface-nasty-orange-110": {
-      "value": "#8e4001",
-      "comment": "surface nasty-orange, contrast 110",
-      "originalRatio": 7
-    },
-    "color-abyss-naughty-purple-110": {
-      "value": "#bd9fd0",
-      "comment": "abyss naughty-purple, contrast 110",
-      "originalRatio": 8
-    },
-    "color-abyss-primary-70": {
-      "value": "#2f476d",
-      "comment": "abyss primary, contrast 70",
-      "originalRatio": 2
-    },
-    "color-abyss-naughty-purple-90": {
-      "value": "#926fa7",
-      "comment": "abyss naughty-purple, contrast 90",
-      "originalRatio": 4.5
-    },
-    "color-surface-nasty-orange-100": {
-      "value": "#be5602",
-      "comment": "surface nasty-orange, contrast 100",
-      "originalRatio": 4.5
-    },
-    "color-surface-nasty-orange-90": {
-      "value": "#ee6c03",
-      "comment": "surface nasty-orange, contrast 90",
-      "originalRatio": 3
-    },
-    "color-surface-positive-130": {
-      "value": "#0e3223",
-      "comment": "surface positive, contrast 130",
-      "originalRatio": 13.5
-    },
-    "color-abyss-naughty-purple-100": {
-      "value": "#ae80c9",
-      "comment": "abyss naughty-purple, contrast 100",
-      "originalRatio": 6
-    },
-    "color-abyss-primary-130": {
-      "value": "#c6d4e9",
-      "comment": "abyss primary, contrast 130",
-      "originalRatio": 12.5
-    },
-    "color-surface-hot-pink-90": {
-      "value": "#e861ad",
-      "comment": "surface hot-pink, contrast 90",
-      "originalRatio": 3
-    },
-    "color-surface-hot-pink-100": {
-      "value": "#cc1d7f",
-      "comment": "surface hot-pink, contrast 100",
-      "originalRatio": 5
-    },
-    "color-abyss-naughty-purple-80": {
-      "value": "#70587e",
-      "comment": "abyss naughty-purple, contrast 80",
-      "originalRatio": 3
-    },
-    "color-surface-nasty-orange-80": {
-      "value": "#fdac69",
-      "comment": "surface nasty-orange, contrast 80",
-      "originalRatio": 1.8
-    },
-    "color-surface-positive-120": {
-      "value": "#134630",
-      "comment": "surface positive, contrast 120",
-      "originalRatio": 10.5
-    },
-    "color-abyss-primary-120": {
-      "value": "#a0bbe3",
-      "comment": "abyss primary, contrast 120",
-      "originalRatio": 9.5
-    },
-    "color-surface-hot-pink-80": {
-      "value": "#ef8cc3",
-      "comment": "surface hot-pink, contrast 80",
-      "originalRatio": 2.2
-    },
-    "color-abyss-naughty-purple-70": {
-      "value": "#3b3040",
-      "comment": "abyss naughty-purple, contrast 70",
-      "originalRatio": 1.5
-    },
-    "color-surface-nasty-orange-70": {
-      "value": "#fed2af",
-      "comment": "surface nasty-orange, contrast 70",
-      "originalRatio": 1.35
-    },
-    "color-surface-positive-110": {
-      "value": "#1a5d40",
-      "comment": "surface positive, contrast 110",
-      "originalRatio": 7.5
-    },
-    "color-abyss-primary-110": {
-      "value": "#73a0e4",
-      "comment": "abyss primary, contrast 110",
-      "originalRatio": 7
-    },
-    "color-surface-hot-pink-70": {
-      "value": "#f6c0de",
-      "comment": "surface hot-pink, contrast 70",
-      "originalRatio": 1.5
-    },
-    "color-surface-error-90": {
-      "value": "#d66261",
-      "comment": "surface error, contrast 90",
-      "originalRatio": 3.5
-    },
-    "color-abyss-warning-90": {
-      "value": "#dead1e",
-      "comment": "abyss warning, contrast 90",
-      "originalRatio": 9
-    },
-    "color-abyss-neutral-150": {
-      "value": "#fafbfb",
-      "comment": "abyss neutral, contrast 150",
-      "originalRatio": 18
-    },
-    "color-surface-neutral-90": {
-      "value": "#9ca1ad",
-      "comment": "surface neutral, contrast 90",
-      "originalRatio": 2.5
-    },
-    "color-surface-positive-100": {
-      "value": "#207450",
-      "comment": "surface positive, contrast 100",
-      "originalRatio": 5.5
-    },
-    "color-abyss-primary-100": {
-      "value": "#3682f4",
-      "comment": "abyss primary, contrast 100",
-      "originalRatio": 5
-    },
-    "color-surface-error-80": {
-      "value": "#e19995",
-      "comment": "surface error, contrast 80",
-      "originalRatio": 2.2
-    },
-    "color-abyss-warning-80": {
-      "value": "#ba9329",
-      "comment": "abyss warning, contrast 80",
-      "originalRatio": 6.5
-    },
-    "color-abyss-neutral-140": {
-      "value": "#e5e6e9",
-      "comment": "abyss neutral, contrast 140",
-      "originalRatio": 15
-    },
-    "color-surface-neutral-80": {
-      "value": "#c7c9d0",
-      "comment": "surface neutral, contrast 80",
-      "originalRatio": 1.6
-    },
-    "color-surface-error-70": {
-      "value": "#ebc7c5",
-      "comment": "surface error, contrast 70",
-      "originalRatio": 1.5
-    },
-    "color-surface-neutral-70": {
-      "value": "#dcdee2",
-      "comment": "surface neutral, contrast 70",
-      "originalRatio": 1.3
-    },
-    "color-surface-soylent-green-130": {
-      "value": "#113434",
-      "comment": "surface soylent-green, contrast 130",
-      "originalRatio": 13
-    },
-    "color-abyss-warning-70": {
-      "value": "#8b712c",
-      "comment": "abyss warning, contrast 70",
-      "originalRatio": 4
-    },
-    "color-abyss-neutral-130": {
-      "value": "#ced0d6",
-      "comment": "abyss neutral, contrast 130",
-      "originalRatio": 12.2
-    },
-    "color-surface-neutral-60": {
-      "value": "#e5e6e9",
-      "comment": "surface neutral, contrast 60",
-      "originalRatio": 1.2
-    },
-    "color-surface-soylent-green-120": {
-      "value": "#184747",
-      "comment": "surface soylent-green, contrast 120",
-      "originalRatio": 10
-    },
-    "color-abyss-neutral-120": {
-      "value": "#b5b8c2",
-      "comment": "abyss neutral, contrast 120",
-      "originalRatio": 9.5
-    },
-    "color-abyss-error-130": {
-      "value": "#f7c8ca",
-      "comment": "abyss error, contrast 130",
-      "originalRatio": 12.5
-    },
-    "color-surface-neutral-50": {
-      "value": "#eff0f2",
-      "comment": "surface neutral, contrast 50",
-      "originalRatio": 1.1
-    },
-    "color-surface-soylent-green-110": {
-      "value": "#206060",
-      "comment": "surface soylent-green, contrast 110",
-      "originalRatio": 7
-    },
-    "color-abyss-neutral-110": {
-      "value": "#999ead",
-      "comment": "abyss neutral, contrast 110",
-      "originalRatio": 7
-    },
-    "color-abyss-error-120": {
-      "value": "#f7a2a6",
-      "comment": "abyss error, contrast 120",
-      "originalRatio": 9.5
-    },
-    "color-surface-soylent-green-100": {
-      "value": "#287878",
-      "comment": "surface soylent-green, contrast 100",
-      "originalRatio": 5
-    },
-    "color-abyss-positive-90": {
-      "value": "#3fab77",
-      "comment": "abyss positive, contrast 90",
-      "originalRatio": 6.5
-    },
-    "color-surface-naughty-purple-130": {
-      "value": "#382841",
-      "comment": "surface naughty-purple, contrast 130",
-      "originalRatio": 13
-    },
-    "color-surface-primary-90": {
-      "value": "#156df2",
-      "comment": "surface primary, contrast 90",
-      "originalRatio": 4.5
-    },
-    "color-abyss-neutral-100": {
-      "value": "#757c91",
-      "comment": "abyss neutral, contrast 100",
-      "originalRatio": 4.5
-    },
-    "color-abyss-error-110": {
-      "value": "#f77680",
-      "comment": "abyss error, contrast 110",
-      "originalRatio": 7
-    },
-    "color-abyss-positive-80": {
-      "value": "#408b64",
-      "comment": "abyss positive, contrast 80",
-      "originalRatio": 4.5
-    },
-    "color-surface-naughty-purple-120": {
-      "value": "#50365e",
-      "comment": "surface naughty-purple, contrast 120",
-      "originalRatio": 10
-    },
-    "color-surface-primary-80": {
-      "value": "#5998f6",
-      "comment": "surface primary, contrast 80",
-      "originalRatio": 2.8
-    },
-    "color-abyss-error-100": {
-      "value": "#f33d5a",
-      "comment": "abyss error, contrast 100",
-      "originalRatio": 5
-    },
-    "color-abyss-positive-70": {
-      "value": "#355d47",
-      "comment": "abyss positive, contrast 70",
-      "originalRatio": 2.5
-    },
-    "color-surface-naughty-purple-110": {
-      "value": "#704588",
-      "comment": "surface naughty-purple, contrast 110",
-      "originalRatio": 7
-    },
-    "color-surface-primary-70": {
-      "value": "#9ac0f9",
-      "comment": "surface primary, contrast 70",
-      "originalRatio": 1.8
-    },
-    "color-abyss-nasty-orange-90": {
-      "value": "#d67b33",
-      "comment": "abyss nasty-orange, contrast 90",
-      "originalRatio": 6
-    },
-    "color-surface-naughty-purple-100": {
-      "value": "#9151b5",
-      "comment": "surface naughty-purple, contrast 100",
-      "originalRatio": 5
-    },
-    "color-abyss-hot-pink-90": {
-      "value": "#bb367c",
-      "comment": "abyss hot-pink, contrast 90",
-      "originalRatio": 3.5
-    },
-    "color-abyss-nasty-orange-80": {
-      "value": "#a66432",
-      "comment": "abyss nasty-orange, contrast 80",
-      "originalRatio": 4
-    },
-    "color-abyss-hot-pink-80": {
-      "value": "#8e3461",
-      "comment": "abyss hot-pink, contrast 80",
-      "originalRatio": 2.5
-    },
-    "color-abyss-nasty-orange-70": {
-      "value": "#613f27",
-      "comment": "abyss nasty-orange, contrast 70",
-      "originalRatio": 2
-    },
-    "color-abyss-soylent-green-90": {
-      "value": "#419898",
-      "comment": "abyss soylent-green, contrast 90",
-      "originalRatio": 5.5
-    },
-    "color-abyss-hot-pink-70": {
-      "value": "#51263a",
-      "comment": "abyss hot-pink, contrast 70",
-      "originalRatio": 1.5
-    },
-    "color-abyss-soylent-green-80": {
-      "value": "#408787",
-      "comment": "abyss soylent-green, contrast 80",
-      "originalRatio": 4.5
-    },
-    "color-surface-warning-90": {
-      "value": "#c0b48b",
-      "comment": "surface warning, contrast 90",
-      "originalRatio": 2
-    },
-    "color-surface-warning-130": {
-      "value": "#3b3015",
-      "comment": "surface warning, contrast 130",
-      "originalRatio": 12.4
-    },
-    "color-abyss-soylent-green-70": {
-      "value": "#365b5b",
-      "comment": "abyss soylent-green, contrast 70",
-      "originalRatio": 2.5
-    },
-    "color-surface-warning-80": {
-      "value": "#dedaca",
-      "comment": "surface warning, contrast 80",
-      "originalRatio": 1.35
-    },
-    "color-abyss-soylent-green-130": {
-      "value": "#d9eae9",
-      "comment": "abyss soylent-green, contrast 130",
-      "originalRatio": 15
-    },
-    "color-surface-warning-120": {
-      "value": "#514217",
-      "comment": "surface warning, contrast 120",
-      "originalRatio": 9.5
-    },
-    "color-surface-warning-70": {
-      "value": "#efeee8",
-      "comment": "surface warning, contrast 70",
-      "originalRatio": 1.12
-    },
-    "color-abyss-soylent-green-120": {
-      "value": "#b1d6d6",
-      "comment": "abyss soylent-green, contrast 120",
-      "originalRatio": 12
-    },
-    "color-surface-warning-110": {
-      "value": "#715913",
-      "comment": "surface warning, contrast 110",
-      "originalRatio": 6.5
-    },
-    "color-abyss-hot-pink-130": {
-      "value": "#edc4d5",
-      "comment": "abyss hot-pink, contrast 130",
-      "originalRatio": 12
-    },
-    "color-abyss-soylent-green-110": {
-      "value": "#81c5c4",
-      "comment": "abyss soylent-green, contrast 110",
-      "originalRatio": 9.5
-    },
-    "color-surface-warning-100": {
-      "value": "#906e00",
-      "comment": "surface warning, contrast 100",
-      "originalRatio": 4.6
-    },
-    "color-abyss-nasty-orange-130": {
-      "value": "#f9e7d8",
-      "comment": "abyss nasty-orange, contrast 130",
-      "originalRatio": 15.5
-    },
-    "color-abyss-hot-pink-120": {
-      "value": "#e99ebe",
-      "comment": "abyss hot-pink, contrast 120",
-      "originalRatio": 9
-    },
-    "color-abyss-soylent-green-100": {
-      "value": "#3cb4b4",
-      "comment": "abyss soylent-green, contrast 100",
-      "originalRatio": 7.5
-    },
-    "color-abyss-nasty-orange-120": {
-      "value": "#facaa5",
-      "comment": "abyss nasty-orange, contrast 120",
-      "originalRatio": 12.5
-    },
-    "color-abyss-hot-pink-110": {
-      "value": "#e571a9",
-      "comment": "abyss hot-pink, contrast 110",
-      "originalRatio": 6.5
-    },
-    "color-abyss-nasty-orange-110": {
-      "value": "#fcac6e",
-      "comment": "abyss nasty-orange, contrast 110",
-      "originalRatio": 10
-    },
-    "color-abyss-hot-pink-100": {
-      "value": "#e13093",
-      "comment": "abyss hot-pink, contrast 100",
-      "originalRatio": 4.5
-    },
-    "color-surface-primary-130": {
-      "value": "#052554",
-      "comment": "surface primary, contrast 130",
-      "originalRatio": 14.5
-    },
-    "color-abyss-positive-130": {
-      "value": "#e1f1e8",
-      "comment": "abyss positive, contrast 130",
-      "originalRatio": 16
-    },
-    "color-abyss-nasty-orange-100": {
-      "value": "#fd8c30",
-      "comment": "abyss nasty-orange, contrast 100",
-      "originalRatio": 8
-    },
-    "color-surface-naughty-purple-90": {
-      "value": "#9a69b8",
-      "comment": "surface naughty-purple, contrast 90",
-      "originalRatio": 4
-    },
-    "color-surface-primary-120": {
-      "value": "#073477",
-      "comment": "surface primary, contrast 120",
-      "originalRatio": 11.5
-    },
-    "color-abyss-positive-120": {
-      "value": "#b7e1c9",
-      "comment": "abyss positive, contrast 120",
-      "originalRatio": 13
-    },
-    "color-surface-naughty-purple-80": {
-      "value": "#a885bf",
-      "comment": "surface naughty-purple, contrast 80",
-      "originalRatio": 3
-    },
-    "color-surface-primary-110": {
-      "value": "#0945a0",
-      "comment": "surface primary, contrast 110",
-      "originalRatio": 8.5
-    },
-    "color-abyss-positive-110": {
-      "value": "#85d2a8",
-      "comment": "abyss positive, contrast 110",
-      "originalRatio": 10.5
-    },
-    "color-abyss-error-90": {
-      "value": "#cf3f52",
-      "comment": "abyss error, contrast 90",
-      "originalRatio": 4
-    },
-    "color-surface-naughty-purple-70": {
-      "value": "#d6cbdd",
-      "comment": "surface naughty-purple, contrast 70",
-      "originalRatio": 1.5
-    },
-    "color-surface-soylent-green-90": {
-      "value": "#36a1a1",
-      "comment": "surface soylent-green, contrast 90",
-      "originalRatio": 3
-    },
-    "color-surface-primary-100": {
-      "value": "#0b55c5",
-      "comment": "surface primary, contrast 100",
-      "originalRatio": 6.5
-    },
-    "color-abyss-positive-100": {
-      "value": "#36c687",
-      "comment": "abyss positive, contrast 100",
-      "originalRatio": 8.5
-    },
-    "color-abyss-error-80": {
-      "value": "#a63c47",
-      "comment": "abyss error, contrast 80",
-      "originalRatio": 3
-    },
-    "color-abyss-neutral-90": {
-      "value": "#515461",
-      "comment": "abyss neutral, contrast 90",
-      "originalRatio": 2.5
-    },
-    "color-surface-neutral-150": {
-      "value": "#121315",
-      "comment": "surface neutral, contrast 150",
-      "originalRatio": 18
-    },
-    "color-surface-soylent-green-80": {
-      "value": "#51c5c5",
-      "comment": "surface soylent-green, contrast 80",
-      "originalRatio": 2
-    },
-    "color-abyss-error-70": {
-      "value": "#743137",
-      "comment": "abyss error, contrast 70",
-      "originalRatio": 2
-    },
-    "color-abyss-neutral-80": {
-      "value": "#36383e",
-      "comment": "abyss neutral, contrast 80",
-      "originalRatio": 1.6
-    },
-    "color-surface-neutral-140": {
-      "value": "#222328",
-      "comment": "surface neutral, contrast 140",
-      "originalRatio": 15
-    },
-    "color-surface-soylent-green-70": {
-      "value": "#95dcdc",
-      "comment": "surface soylent-green, contrast 70",
-      "originalRatio": 1.5
-    },
-    "color-abyss-neutral-70": {
-      "value": "#282a2e",
-      "comment": "abyss neutral, contrast 70",
-      "originalRatio": 1.3
-    },
-    "color-surface-neutral-130": {
-      "value": "#313339",
-      "comment": "surface neutral, contrast 130",
-      "originalRatio": 12.2
-    },
-    "color-abyss-warning-130": {
-      "value": "#f8f1d3",
-      "comment": "abyss warning, contrast 130",
-      "originalRatio": 16.5
-    },
-    "color-abyss-neutral-60": {
-      "value": "#232327",
-      "comment": "abyss neutral, contrast 60",
-      "originalRatio": 1.2
-    },
-    "color-surface-neutral-120": {
-      "value": "#41444d",
-      "comment": "surface neutral, contrast 120",
-      "originalRatio": 9.5
-    },
-    "color-abyss-warning-120": {
-      "value": "#f8eabb",
-      "comment": "abyss warning, contrast 120",
-      "originalRatio": 15.5
-    },
-    "color-surface-error-130": {
-      "value": "#481b1a",
-      "comment": "surface error, contrast 130",
-      "originalRatio": 14
-    },
-    "color-abyss-background": {
-      "value": "#111216"
-    },
-    "color-abyss-maxcontrast": {
-      "value": "#FAFBFB"
-    },
-    "color-surface-background": {
-      "value": "#FAFBFB"
-    },
-    "color-surface-maxcontrast": {
-      "value": "#111216"
+  "outputs": [
+    {
+      "type": "scss",
+      "formatter": "dt-scss"
+    },
+    {
+      "type": "ts",
+      "formatter": "dt-typescript"
     }
-  },
+  ],
   "props": {
     "fluid-color-abyss-background": {
       "type": "dt-palette",
@@ -701,7 +27,7 @@
       "type": "dt-palette",
       "category": "dt-palette",
       "name": "fluid-color-abyss-maxcontrast",
-      "value": "#FAFBFB",
+      "value": "#fafbfb",
       "meta": {
         "friendlyName": "abyss maxcontrast",
         "sassVariable": "$color-abyss-maxcontrast",
@@ -1585,7 +911,7 @@
       "type": "dt-palette",
       "category": "dt-palette",
       "name": "fluid-color-surface-background",
-      "value": "#FAFBFB",
+      "value": "#fafbfb",
       "meta": {
         "friendlyName": "surface background",
         "sassVariable": "$color-surface-background",
@@ -2477,6 +1803,690 @@
         "customizable": false
       },
       "originalValue": "{!color-surface-neutral-150}"
+    }
+  },
+  "aliases": {
+    "color-abyss-neutral-50": {
+      "value": "#1b1c1f",
+      "comment": "abyss neutral, contrast 50",
+      "originalRatio": 1.1
+    },
+    "color-surface-neutral-110": {
+      "value": "#525664",
+      "comment": "surface neutral, contrast 110",
+      "originalRatio": 7
+    },
+    "color-abyss-warning-110": {
+      "value": "#f9d87c",
+      "comment": "abyss warning, contrast 110",
+      "originalRatio": 13.5
+    },
+    "color-surface-error-120": {
+      "value": "#692122",
+      "comment": "surface error, contrast 120",
+      "originalRatio": 11
+    },
+    "color-abyss-primary-90": {
+      "value": "#3873cd",
+      "comment": "abyss primary, contrast 90",
+      "originalRatio": 4
+    },
+    "color-surface-hot-pink-130": {
+      "value": "#5b0d38",
+      "comment": "surface hot-pink, contrast 130",
+      "originalRatio": 13
+    },
+    "color-surface-positive-90": {
+      "value": "#2a9868",
+      "comment": "surface positive, contrast 90",
+      "originalRatio": 3.5
+    },
+    "color-surface-nasty-orange-130": {
+      "value": "#4e2301",
+      "comment": "surface nasty-orange, contrast 130",
+      "originalRatio": 13
+    },
+    "color-surface-neutral-100": {
+      "value": "#6d7488",
+      "comment": "surface neutral, contrast 100",
+      "originalRatio": 4.5
+    },
+    "color-abyss-naughty-purple-130": {
+      "value": "#e0d8e7",
+      "comment": "abyss naughty-purple, contrast 130",
+      "originalRatio": 13.5
+    },
+    "color-abyss-warning-100": {
+      "value": "#fcc301",
+      "comment": "abyss warning, contrast 100",
+      "originalRatio": 11.5
+    },
+    "color-surface-error-110": {
+      "value": "#962027",
+      "comment": "surface error, contrast 110",
+      "originalRatio": 8
+    },
+    "color-surface-hot-pink-120": {
+      "value": "#7b114c",
+      "comment": "surface hot-pink, contrast 120",
+      "originalRatio": 10
+    },
+    "color-surface-positive-80": {
+      "value": "#4ecf96",
+      "comment": "surface positive, contrast 80",
+      "originalRatio": 1.9
+    },
+    "color-surface-nasty-orange-120": {
+      "value": "#6a3001",
+      "comment": "surface nasty-orange, contrast 120",
+      "originalRatio": 10
+    },
+    "color-abyss-naughty-purple-120": {
+      "value": "#cebbda",
+      "comment": "abyss naughty-purple, contrast 120",
+      "originalRatio": 10.5
+    },
+    "color-surface-error-100": {
+      "value": "#c20c29",
+      "comment": "surface error, contrast 100",
+      "originalRatio": 6
+    },
+    "color-abyss-primary-80": {
+      "value": "#3761a2",
+      "comment": "abyss primary, contrast 80",
+      "originalRatio": 3
+    },
+    "color-surface-hot-pink-110": {
+      "value": "#a41766",
+      "comment": "surface hot-pink, contrast 110",
+      "originalRatio": 7
+    },
+    "color-surface-positive-70": {
+      "value": "#b1ead1",
+      "comment": "surface positive, contrast 70",
+      "originalRatio": 1.3
+    },
+    "color-surface-nasty-orange-110": {
+      "value": "#8e4001",
+      "comment": "surface nasty-orange, contrast 110",
+      "originalRatio": 7
+    },
+    "color-abyss-naughty-purple-110": {
+      "value": "#bd9fd0",
+      "comment": "abyss naughty-purple, contrast 110",
+      "originalRatio": 8
+    },
+    "color-abyss-primary-70": {
+      "value": "#2f476d",
+      "comment": "abyss primary, contrast 70",
+      "originalRatio": 2
+    },
+    "color-abyss-naughty-purple-90": {
+      "value": "#926fa7",
+      "comment": "abyss naughty-purple, contrast 90",
+      "originalRatio": 4.5
+    },
+    "color-surface-nasty-orange-100": {
+      "value": "#be5602",
+      "comment": "surface nasty-orange, contrast 100",
+      "originalRatio": 4.5
+    },
+    "color-surface-nasty-orange-90": {
+      "value": "#ee6c03",
+      "comment": "surface nasty-orange, contrast 90",
+      "originalRatio": 3
+    },
+    "color-surface-positive-130": {
+      "value": "#0e3223",
+      "comment": "surface positive, contrast 130",
+      "originalRatio": 13.5
+    },
+    "color-abyss-naughty-purple-100": {
+      "value": "#ae80c9",
+      "comment": "abyss naughty-purple, contrast 100",
+      "originalRatio": 6
+    },
+    "color-abyss-primary-130": {
+      "value": "#c6d4e9",
+      "comment": "abyss primary, contrast 130",
+      "originalRatio": 12.5
+    },
+    "color-surface-hot-pink-90": {
+      "value": "#e861ad",
+      "comment": "surface hot-pink, contrast 90",
+      "originalRatio": 3
+    },
+    "color-surface-hot-pink-100": {
+      "value": "#cc1d7f",
+      "comment": "surface hot-pink, contrast 100",
+      "originalRatio": 5
+    },
+    "color-abyss-naughty-purple-80": {
+      "value": "#70587e",
+      "comment": "abyss naughty-purple, contrast 80",
+      "originalRatio": 3
+    },
+    "color-surface-nasty-orange-80": {
+      "value": "#fdac69",
+      "comment": "surface nasty-orange, contrast 80",
+      "originalRatio": 1.8
+    },
+    "color-surface-positive-120": {
+      "value": "#134630",
+      "comment": "surface positive, contrast 120",
+      "originalRatio": 10.5
+    },
+    "color-abyss-primary-120": {
+      "value": "#a0bbe3",
+      "comment": "abyss primary, contrast 120",
+      "originalRatio": 9.5
+    },
+    "color-surface-hot-pink-80": {
+      "value": "#ef8cc3",
+      "comment": "surface hot-pink, contrast 80",
+      "originalRatio": 2.2
+    },
+    "color-abyss-naughty-purple-70": {
+      "value": "#3b3040",
+      "comment": "abyss naughty-purple, contrast 70",
+      "originalRatio": 1.5
+    },
+    "color-surface-nasty-orange-70": {
+      "value": "#fed2af",
+      "comment": "surface nasty-orange, contrast 70",
+      "originalRatio": 1.35
+    },
+    "color-surface-positive-110": {
+      "value": "#1a5d40",
+      "comment": "surface positive, contrast 110",
+      "originalRatio": 7.5
+    },
+    "color-abyss-primary-110": {
+      "value": "#73a0e4",
+      "comment": "abyss primary, contrast 110",
+      "originalRatio": 7
+    },
+    "color-surface-hot-pink-70": {
+      "value": "#f6c0de",
+      "comment": "surface hot-pink, contrast 70",
+      "originalRatio": 1.5
+    },
+    "color-surface-error-90": {
+      "value": "#d66261",
+      "comment": "surface error, contrast 90",
+      "originalRatio": 3.5
+    },
+    "color-abyss-warning-90": {
+      "value": "#dead1e",
+      "comment": "abyss warning, contrast 90",
+      "originalRatio": 9
+    },
+    "color-abyss-neutral-150": {
+      "value": "#fafbfb",
+      "comment": "abyss neutral, contrast 150",
+      "originalRatio": 18
+    },
+    "color-surface-neutral-90": {
+      "value": "#9ca1ad",
+      "comment": "surface neutral, contrast 90",
+      "originalRatio": 2.5
+    },
+    "color-surface-positive-100": {
+      "value": "#207450",
+      "comment": "surface positive, contrast 100",
+      "originalRatio": 5.5
+    },
+    "color-abyss-primary-100": {
+      "value": "#3682f4",
+      "comment": "abyss primary, contrast 100",
+      "originalRatio": 5
+    },
+    "color-surface-error-80": {
+      "value": "#e19995",
+      "comment": "surface error, contrast 80",
+      "originalRatio": 2.2
+    },
+    "color-abyss-warning-80": {
+      "value": "#ba9329",
+      "comment": "abyss warning, contrast 80",
+      "originalRatio": 6.5
+    },
+    "color-abyss-neutral-140": {
+      "value": "#e5e6e9",
+      "comment": "abyss neutral, contrast 140",
+      "originalRatio": 15
+    },
+    "color-surface-neutral-80": {
+      "value": "#c7c9d0",
+      "comment": "surface neutral, contrast 80",
+      "originalRatio": 1.6
+    },
+    "color-surface-error-70": {
+      "value": "#ebc7c5",
+      "comment": "surface error, contrast 70",
+      "originalRatio": 1.5
+    },
+    "color-surface-neutral-70": {
+      "value": "#dcdee2",
+      "comment": "surface neutral, contrast 70",
+      "originalRatio": 1.3
+    },
+    "color-surface-soylent-green-130": {
+      "value": "#113434",
+      "comment": "surface soylent-green, contrast 130",
+      "originalRatio": 13
+    },
+    "color-abyss-warning-70": {
+      "value": "#8b712c",
+      "comment": "abyss warning, contrast 70",
+      "originalRatio": 4
+    },
+    "color-abyss-neutral-130": {
+      "value": "#ced0d6",
+      "comment": "abyss neutral, contrast 130",
+      "originalRatio": 12.2
+    },
+    "color-surface-neutral-60": {
+      "value": "#e5e6e9",
+      "comment": "surface neutral, contrast 60",
+      "originalRatio": 1.2
+    },
+    "color-surface-soylent-green-120": {
+      "value": "#184747",
+      "comment": "surface soylent-green, contrast 120",
+      "originalRatio": 10
+    },
+    "color-abyss-neutral-120": {
+      "value": "#b5b8c2",
+      "comment": "abyss neutral, contrast 120",
+      "originalRatio": 9.5
+    },
+    "color-abyss-error-130": {
+      "value": "#f7c8ca",
+      "comment": "abyss error, contrast 130",
+      "originalRatio": 12.5
+    },
+    "color-surface-neutral-50": {
+      "value": "#eff0f2",
+      "comment": "surface neutral, contrast 50",
+      "originalRatio": 1.1
+    },
+    "color-surface-soylent-green-110": {
+      "value": "#206060",
+      "comment": "surface soylent-green, contrast 110",
+      "originalRatio": 7
+    },
+    "color-abyss-neutral-110": {
+      "value": "#999ead",
+      "comment": "abyss neutral, contrast 110",
+      "originalRatio": 7
+    },
+    "color-abyss-error-120": {
+      "value": "#f7a2a6",
+      "comment": "abyss error, contrast 120",
+      "originalRatio": 9.5
+    },
+    "color-surface-soylent-green-100": {
+      "value": "#287878",
+      "comment": "surface soylent-green, contrast 100",
+      "originalRatio": 5
+    },
+    "color-abyss-positive-90": {
+      "value": "#3fab77",
+      "comment": "abyss positive, contrast 90",
+      "originalRatio": 6.5
+    },
+    "color-surface-naughty-purple-130": {
+      "value": "#382841",
+      "comment": "surface naughty-purple, contrast 130",
+      "originalRatio": 13
+    },
+    "color-surface-primary-90": {
+      "value": "#156df2",
+      "comment": "surface primary, contrast 90",
+      "originalRatio": 4.5
+    },
+    "color-abyss-neutral-100": {
+      "value": "#757c91",
+      "comment": "abyss neutral, contrast 100",
+      "originalRatio": 4.5
+    },
+    "color-abyss-error-110": {
+      "value": "#f77680",
+      "comment": "abyss error, contrast 110",
+      "originalRatio": 7
+    },
+    "color-abyss-positive-80": {
+      "value": "#408b64",
+      "comment": "abyss positive, contrast 80",
+      "originalRatio": 4.5
+    },
+    "color-surface-naughty-purple-120": {
+      "value": "#50365e",
+      "comment": "surface naughty-purple, contrast 120",
+      "originalRatio": 10
+    },
+    "color-surface-primary-80": {
+      "value": "#5998f6",
+      "comment": "surface primary, contrast 80",
+      "originalRatio": 2.8
+    },
+    "color-abyss-error-100": {
+      "value": "#f33d5a",
+      "comment": "abyss error, contrast 100",
+      "originalRatio": 5
+    },
+    "color-abyss-positive-70": {
+      "value": "#355d47",
+      "comment": "abyss positive, contrast 70",
+      "originalRatio": 2.5
+    },
+    "color-surface-naughty-purple-110": {
+      "value": "#704588",
+      "comment": "surface naughty-purple, contrast 110",
+      "originalRatio": 7
+    },
+    "color-surface-primary-70": {
+      "value": "#9ac0f9",
+      "comment": "surface primary, contrast 70",
+      "originalRatio": 1.8
+    },
+    "color-abyss-nasty-orange-90": {
+      "value": "#d67b33",
+      "comment": "abyss nasty-orange, contrast 90",
+      "originalRatio": 6
+    },
+    "color-surface-naughty-purple-100": {
+      "value": "#9151b5",
+      "comment": "surface naughty-purple, contrast 100",
+      "originalRatio": 5
+    },
+    "color-abyss-hot-pink-90": {
+      "value": "#bb367c",
+      "comment": "abyss hot-pink, contrast 90",
+      "originalRatio": 3.5
+    },
+    "color-abyss-nasty-orange-80": {
+      "value": "#a66432",
+      "comment": "abyss nasty-orange, contrast 80",
+      "originalRatio": 4
+    },
+    "color-abyss-hot-pink-80": {
+      "value": "#8e3461",
+      "comment": "abyss hot-pink, contrast 80",
+      "originalRatio": 2.5
+    },
+    "color-abyss-nasty-orange-70": {
+      "value": "#613f27",
+      "comment": "abyss nasty-orange, contrast 70",
+      "originalRatio": 2
+    },
+    "color-abyss-soylent-green-90": {
+      "value": "#419898",
+      "comment": "abyss soylent-green, contrast 90",
+      "originalRatio": 5.5
+    },
+    "color-abyss-hot-pink-70": {
+      "value": "#51263a",
+      "comment": "abyss hot-pink, contrast 70",
+      "originalRatio": 1.5
+    },
+    "color-abyss-soylent-green-80": {
+      "value": "#408787",
+      "comment": "abyss soylent-green, contrast 80",
+      "originalRatio": 4.5
+    },
+    "color-surface-warning-90": {
+      "value": "#c0b48b",
+      "comment": "surface warning, contrast 90",
+      "originalRatio": 2
+    },
+    "color-surface-warning-130": {
+      "value": "#3b3015",
+      "comment": "surface warning, contrast 130",
+      "originalRatio": 12.4
+    },
+    "color-abyss-soylent-green-70": {
+      "value": "#365b5b",
+      "comment": "abyss soylent-green, contrast 70",
+      "originalRatio": 2.5
+    },
+    "color-surface-warning-80": {
+      "value": "#dedaca",
+      "comment": "surface warning, contrast 80",
+      "originalRatio": 1.35
+    },
+    "color-abyss-soylent-green-130": {
+      "value": "#d9eae9",
+      "comment": "abyss soylent-green, contrast 130",
+      "originalRatio": 15
+    },
+    "color-surface-warning-120": {
+      "value": "#514217",
+      "comment": "surface warning, contrast 120",
+      "originalRatio": 9.5
+    },
+    "color-surface-warning-70": {
+      "value": "#efeee8",
+      "comment": "surface warning, contrast 70",
+      "originalRatio": 1.12
+    },
+    "color-abyss-soylent-green-120": {
+      "value": "#b1d6d6",
+      "comment": "abyss soylent-green, contrast 120",
+      "originalRatio": 12
+    },
+    "color-surface-warning-110": {
+      "value": "#715913",
+      "comment": "surface warning, contrast 110",
+      "originalRatio": 6.5
+    },
+    "color-abyss-hot-pink-130": {
+      "value": "#edc4d5",
+      "comment": "abyss hot-pink, contrast 130",
+      "originalRatio": 12
+    },
+    "color-abyss-soylent-green-110": {
+      "value": "#81c5c4",
+      "comment": "abyss soylent-green, contrast 110",
+      "originalRatio": 9.5
+    },
+    "color-surface-warning-100": {
+      "value": "#906e00",
+      "comment": "surface warning, contrast 100",
+      "originalRatio": 4.6
+    },
+    "color-abyss-nasty-orange-130": {
+      "value": "#f9e7d8",
+      "comment": "abyss nasty-orange, contrast 130",
+      "originalRatio": 15.5
+    },
+    "color-abyss-hot-pink-120": {
+      "value": "#e99ebe",
+      "comment": "abyss hot-pink, contrast 120",
+      "originalRatio": 9
+    },
+    "color-abyss-soylent-green-100": {
+      "value": "#3cb4b4",
+      "comment": "abyss soylent-green, contrast 100",
+      "originalRatio": 7.5
+    },
+    "color-abyss-nasty-orange-120": {
+      "value": "#facaa5",
+      "comment": "abyss nasty-orange, contrast 120",
+      "originalRatio": 12.5
+    },
+    "color-abyss-hot-pink-110": {
+      "value": "#e571a9",
+      "comment": "abyss hot-pink, contrast 110",
+      "originalRatio": 6.5
+    },
+    "color-abyss-nasty-orange-110": {
+      "value": "#fcac6e",
+      "comment": "abyss nasty-orange, contrast 110",
+      "originalRatio": 10
+    },
+    "color-abyss-hot-pink-100": {
+      "value": "#e13093",
+      "comment": "abyss hot-pink, contrast 100",
+      "originalRatio": 4.5
+    },
+    "color-surface-primary-130": {
+      "value": "#052554",
+      "comment": "surface primary, contrast 130",
+      "originalRatio": 14.5
+    },
+    "color-abyss-positive-130": {
+      "value": "#e1f1e8",
+      "comment": "abyss positive, contrast 130",
+      "originalRatio": 16
+    },
+    "color-abyss-nasty-orange-100": {
+      "value": "#fd8c30",
+      "comment": "abyss nasty-orange, contrast 100",
+      "originalRatio": 8
+    },
+    "color-surface-naughty-purple-90": {
+      "value": "#9a69b8",
+      "comment": "surface naughty-purple, contrast 90",
+      "originalRatio": 4
+    },
+    "color-surface-primary-120": {
+      "value": "#073477",
+      "comment": "surface primary, contrast 120",
+      "originalRatio": 11.5
+    },
+    "color-abyss-positive-120": {
+      "value": "#b7e1c9",
+      "comment": "abyss positive, contrast 120",
+      "originalRatio": 13
+    },
+    "color-surface-naughty-purple-80": {
+      "value": "#a885bf",
+      "comment": "surface naughty-purple, contrast 80",
+      "originalRatio": 3
+    },
+    "color-surface-primary-110": {
+      "value": "#0945a0",
+      "comment": "surface primary, contrast 110",
+      "originalRatio": 8.5
+    },
+    "color-abyss-positive-110": {
+      "value": "#85d2a8",
+      "comment": "abyss positive, contrast 110",
+      "originalRatio": 10.5
+    },
+    "color-abyss-error-90": {
+      "value": "#cf3f52",
+      "comment": "abyss error, contrast 90",
+      "originalRatio": 4
+    },
+    "color-surface-naughty-purple-70": {
+      "value": "#d6cbdd",
+      "comment": "surface naughty-purple, contrast 70",
+      "originalRatio": 1.5
+    },
+    "color-surface-soylent-green-90": {
+      "value": "#36a1a1",
+      "comment": "surface soylent-green, contrast 90",
+      "originalRatio": 3
+    },
+    "color-surface-primary-100": {
+      "value": "#0b55c5",
+      "comment": "surface primary, contrast 100",
+      "originalRatio": 6.5
+    },
+    "color-abyss-positive-100": {
+      "value": "#36c687",
+      "comment": "abyss positive, contrast 100",
+      "originalRatio": 8.5
+    },
+    "color-abyss-error-80": {
+      "value": "#a63c47",
+      "comment": "abyss error, contrast 80",
+      "originalRatio": 3
+    },
+    "color-abyss-neutral-90": {
+      "value": "#515461",
+      "comment": "abyss neutral, contrast 90",
+      "originalRatio": 2.5
+    },
+    "color-surface-neutral-150": {
+      "value": "#121315",
+      "comment": "surface neutral, contrast 150",
+      "originalRatio": 18
+    },
+    "color-surface-soylent-green-80": {
+      "value": "#51c5c5",
+      "comment": "surface soylent-green, contrast 80",
+      "originalRatio": 2
+    },
+    "color-abyss-error-70": {
+      "value": "#743137",
+      "comment": "abyss error, contrast 70",
+      "originalRatio": 2
+    },
+    "color-abyss-neutral-80": {
+      "value": "#36383e",
+      "comment": "abyss neutral, contrast 80",
+      "originalRatio": 1.6
+    },
+    "color-surface-neutral-140": {
+      "value": "#222328",
+      "comment": "surface neutral, contrast 140",
+      "originalRatio": 15
+    },
+    "color-surface-soylent-green-70": {
+      "value": "#95dcdc",
+      "comment": "surface soylent-green, contrast 70",
+      "originalRatio": 1.5
+    },
+    "color-abyss-neutral-70": {
+      "value": "#282a2e",
+      "comment": "abyss neutral, contrast 70",
+      "originalRatio": 1.3
+    },
+    "color-surface-neutral-130": {
+      "value": "#313339",
+      "comment": "surface neutral, contrast 130",
+      "originalRatio": 12.2
+    },
+    "color-abyss-warning-130": {
+      "value": "#f8f1d3",
+      "comment": "abyss warning, contrast 130",
+      "originalRatio": 16.5
+    },
+    "color-abyss-neutral-60": {
+      "value": "#232327",
+      "comment": "abyss neutral, contrast 60",
+      "originalRatio": 1.2
+    },
+    "color-surface-neutral-120": {
+      "value": "#41444d",
+      "comment": "surface neutral, contrast 120",
+      "originalRatio": 9.5
+    },
+    "color-abyss-warning-120": {
+      "value": "#f8eabb",
+      "comment": "abyss warning, contrast 120",
+      "originalRatio": 15.5
+    },
+    "color-surface-error-130": {
+      "value": "#481b1a",
+      "comment": "surface error, contrast 130",
+      "originalRatio": 14
+    },
+    "color-abyss-background": {
+      "value": "#111216"
+    },
+    "color-abyss-maxcontrast": {
+      "value": "#fafbfb"
+    },
+    "color-surface-background": {
+      "value": "#fafbfb"
+    },
+    "color-surface-maxcontrast": {
+      "value": "#111216"
     }
   }
 }

@@ -34,30 +34,17 @@ const LICENSE_HEADER = `/**
 
 class DesignTokensTypescriptConverter {
   private _props: any;
-  private _format: string;
 
-  constructor({ props, format }: any) {
+  constructor({ props }: any) {
     this._props = props;
-    this._format = format;
-  }
-
-  renderProps(): string {
-    let output = '';
-    for (const prop of this._props) {
-      output += this.renderComment(prop);
-      output += `export const ${this.transformName(prop.name)} = '${
-        prop.value
-      }'\n`;
-    }
-    return output;
   }
 
   renderThemes(): string {
     return `
 export const THEMES = {
   ${this.renderTheme('abyss')},
-  ${this.renderTheme('surface')}
-}`;
+  ${this.renderTheme('surface')},
+};`;
   }
 
   renderTheme(theme: string): string {
@@ -65,7 +52,7 @@ export const THEMES = {
     for (const prop of this._props) {
       output += this.renderComment(prop);
       output += `    ${this.transformName(prop.name)}: '${
-        prop.meta[theme]
+        prop.value[theme]
       }',\n`;
     }
     output += '  }';
@@ -84,19 +71,15 @@ export const THEMES = {
   }
 
   render(): string {
-    let output = `${LICENSE_HEADER}\n\n`;
-    output += `${generateHeaderNoticeComment()}\n`;
-    switch (this._format) {
-      case 'theme':
-        output += this.renderThemes();
-        break;
-      default:
-        output += this.renderProps();
-    }
-
-    return output;
+    return [
+      `${LICENSE_HEADER}\n`,
+      generateHeaderNoticeComment(),
+      this.renderThemes(),
+      '',
+    ].join('\n');
   }
 }
 
-export const dtDesignTokensTypescriptConverter = (result: ImmutableStyleMap) =>
-  new DesignTokensTypescriptConverter(result.toJS()).render();
+export const dtDesignTokensTypescriptThemeConverter = (
+  result: ImmutableStyleMap,
+) => new DesignTokensTypescriptConverter(result.toJS()).render();
