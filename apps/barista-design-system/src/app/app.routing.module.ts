@@ -20,6 +20,13 @@ import { Route, RouterModule } from '@angular/router';
 import { BaErrorPage } from '../pages/error-page/error-page';
 
 export const baristaRoutes: Route[] = [
+  // We need to add the path to index here since the routes are used for ssr
+  // and if index is called and not redirected we end up with an empty prerendered page for the
+  // homepage
+  {
+    path: 'index',
+    redirectTo: '',
+  },
   {
     path: 'brand',
     loadChildren: () =>
