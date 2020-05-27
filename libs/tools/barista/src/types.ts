@@ -140,5 +140,5 @@ export interface BaStrapiDecisionGraphNode
 export interface BaStrapiDecisionGraphEdge {
   id: number;
   text: string;
-  uxdNode: BaStrapiDecisionGraphNodeBase;
+  uxd_node: BaStrapiDecisionGraphNodeBase;
 }

@@ -49,7 +49,7 @@ export async function uxDecisionGraphGenerator(): Promise<never[] | undefined> {
     text: markdown.render(data.text),
     path: data.path.map((pathData) => ({
       text: pathData.text,
-      uxd_node: pathData.uxdNode.id,
+      uxd_node: pathData.uxd_node.id,
     })),
   }));
 
