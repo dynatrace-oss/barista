@@ -1,79 +1,82 @@
-## [7.0.0-rc.5](https://github.com/dynatrace-oss/barista/compare/6.0.0...7.0.0-rc.5) (2020-05-20)
+## [7.0.0](https://github.com/dynatrace-oss/barista/compare/6.5.2...7.0.0) (2020-05-27)
 
 Most of the breaking changes will be fixed automatically by running
-`ng update @dynatrace/barista-components`.
+`ng update @dynatrace/barista-components`. Some required changes like highcharts
+type changes require context and therefore cannot be automated. See our
+[migration guide](https://github.com/dynatrace-oss/barista/blob/master/documentation/migration-guide.md)
+for further information on how to migrate.
 
 ### BREAKING CHANGES
 
-- **autocomplete:** Removes FlexibleConnectedPositionStrategy and makes
-  \_viewportRuler, \_platform and \_overlayContainer mandatory.
+- **autocomplete:** Removed FlexibleConnectedPositionStrategy and makes
+  \_viewportRuler, \_platform and \_overlayContainer mandatory in the
+  constructor.
   ([ed57594](https://github.com/dynatrace-oss/barista/commit/ed57594ac332405636173286da14b1ee4f65d0a5))
-- **breadcrumbs:** Remove deprecated breadcrumb-item component and deprecated
+- **breadcrumbs:** Removed deprecated breadcrumb-item component and deprecated
   aria-label input attributes.
   ([f8019e0](https://github.com/dynatrace-oss/barista/commit/f8019e058c7ec9ebf1f704b8185c67fd8751596c))
-- **button:** Changed button theming to custom properties
-  ([c831b03](https://github.com/dynatrace-oss/barista/commit/c831b03398a340c0a469bfbdfbc7578f301f7a2f))
-- **chart:** Remove deprecated aria-label input attributes.
+- **chart:** Removed deprecated aria-label input attributes.
   ([7b1ef74](https://github.com/dynatrace-oss/barista/commit/7b1ef74ced19e1e1da86fe73a2356aba5bbf6408))
-- **chart:** Updating to highcharts 7 types.
+- **chart:** Updated to highcharts 7 and removing third party typings for
+  highcharts.
   ([58a0297](https://github.com/dynatrace-oss/barista/commit/58a0297caaab3013a696dd8ee89acc370d5eeba0))
-- **colors:** Removes \$flat-white and FLAT_WHITE.
+- **colors:** Removed \$flat-white and FLAT_WHITE.
   ([230d208](https://github.com/dynatrace-oss/barista/commit/230d2082ea799bcab575d6ca14e95a68d67327cc))
-- **context-dialog:** Remove deprecated aria-label input attribute and makes
-  elementRef mandatory.
+- **context-dialog:** Removed deprecated aria-label input attribute and makes
+  elementRef mandatory in the constructor.
   ([b5d0136](https://github.com/dynatrace-oss/barista/commit/b5d0136788ecbd5dd36512523126ffe4804dc849))
-- **consumption:** Remove deprecated aria-label input attributes.
+- **consumption:** Removed deprecated aria-label input attributes.
   ([695fd35](https://github.com/dynatrace-oss/barista/commit/695fd35a0f23bb2c0ca8892f9a8ebfd1ef106397))
 - **core:** `isNumber` now returns false for number strings like `"12"` as
   expected. Added `isNumberLike` function for these number-string cases.
-- **cta-card:** Removes component.
+- **cta-card:** Removed deprecated component. Use `dt-card` and `dt-empty-state`
+  instead.
   ([bcfdff5](https://github.com/dynatrace-oss/barista/commit/bcfdff50a7c2baf55607962e7be43c4214462f0b))
-- **event-chart:** Makes elementRef mandatory.
+- **event-chart:** Made elementRef mandatory in the constructor.
   ([568dc1d](https://github.com/dynatrace-oss/barista/commit/568dc1dc751bfdd8dee6f24042f7e814aac64ff9))
-- **filter-field:** Removes FlexibleConnectedPositionStrategy, makes
-  \_viewportRuler, \_platform and \_overlayContainer mandatory and makes tags
-  private.
+- **filter-field:** Removed FlexibleConnectedPositionStrategy, makes
+  \_viewportRuler, \_platform and \_overlayContainer mandatory in the
+  constructor and makes `tags` private.
 - **filter-field, quick-filter:** The filter-field data source as well as the
-  quick-filter data source and their transform methods have Generics in place to
-  define the structure of the passed in data. The filter-fields default
-  data-source no longer takes a generic, as the structure of the data is already
-  defined there. The Node definitions now take optional generics for the
-  consumer to specify the structure of the data.
+  quick-filter data source and their transform methods have generics in place to
+  define the structure of the passed data. The filter-fields default data-source
+  no longer takes a generic, as the structure of the data is already defined
+  there. The node definitions now take optional generics for the consumer to
+  specify the structure of the data.
   ([8a0ceb0](https://github.com/dynatrace-oss/barista/commit/8a0ceb033ad459f30870895baf17ea842d87b1e6))
-- **indicator:** Adds DtIndicator directive as its own package.
+- **indicator:** Moved dtIndicator directive to its own package. Import
+  `DtIndicatorModule` from `@dynatrace/barista-components/indicator` now.
   ([ba28cda](https://github.com/dynatrace-oss/barista/commit/ba28cdaa1d77f6107fa35dcd0b7045617d705481))
-- **inline-editor:** Remove deprecated aria-label input attributes.
+- **inline-editor:** Removed deprecated aria-label input attributes.
   ([6be8f30](https://github.com/dynatrace-oss/barista/commit/6be8f304ed922133ea1dc2295cdaf7355d8616ce))
-- **linting:** Removes kebab-case validation.
+- **linting:** Removed kebab-case validation for certain aria attributes.
   ([5859b19](https://github.com/dynatrace-oss/barista/commit/5859b19be978dc97b39464183fc10eb5872cc12f))
-- **menu:** Remove deprecated aria-label input attributes.
+- **menu:** Removed deprecated aria-label input attributes.
   ([0bf77b6](https://github.com/dynatrace-oss/barista/commit/0bf77b64486afc55da68902f3538e3b64ec9d602))
-- **pagination:** Remove deprecated aria label input attributes.
+- **pagination:** Removed deprecated aria label input attributes.
   ([4d84a0a](https://github.com/dynatrace-oss/barista/commit/4d84a0a798efc1f403c5b392a5cd9d3e22d701a3))
-- **progress-bar:** Remove DtIndicatorModule export from module.
+- **progress-bar:** Removed DtIndicatorModule export from module.
   ([2bc59e5](https://github.com/dynatrace-oss/barista/commit/2bc59e503ba6b865cf45b2d1282f95b468448f9a))
-- **radio, checkbox, switch:** Disabled labels have a higher contrast color now.
-  ([34b1bf9](https://github.com/dynatrace-oss/barista/commit/34b1bf9364de391cd148b7d4aaa2e5e974c32651)),
-  closes [#684](https://github.com/dynatrace-oss/barista/issues/684)
-  [#684](https://github.com/dynatrace-oss/barista/issues/684)
-- **secondary-nav:** Remove deprecated aria-label input attributes.
+- **secondary-nav:** Removed deprecated aria-label input attributes.
   ([550fdcd](https://github.com/dynatrace-oss/barista/commit/550fdcdeda689d498672a914c0a2940e5255629f))
-- **secondary-nav:** Refactor secondary-nav.
+- **secondary-nav:** Removed dependency on RouterModule for the secondary-nav
+  module. Removed `href` input, use `routerLink` and `dtSecondaryNavLinkActive`
+  when needed instead.
   ([8aa5d6a](https://github.com/dynatrace-oss/barista/commit/8aa5d6aec35616d40bf601638a85eebc224c7d8b)),
   closes [#465](https://github.com/dynatrace-oss/barista/issues/465)
-- **sidenav:** Fixes wrong exportAs property for the sidenav-header
+- **sidenav:** Fixed wrong exportAs property for the sidenav-header
   ([5647ae0](https://github.com/dynatrace-oss/barista/commit/5647ae094f3ea17c8fff859a2dd2279300e5cd6e))
 - **sunburst-chart, radial-chart:** Added DomSanitizer as non optional parameter
   to the components constructor.
-- **table:** Remove unnecessary ng_Zone from constructor and table empty states.
+- **table:** Removed unnecessary NgZone from constructor and table empty states.
   ([de89e60](https://github.com/dynatrace-oss/barista/commit/de89e6087461615d02039f3a41d19a0dcf74fe7d))
-- **tag:** Make elementRef mandatory.
+- **tag:** Made elementRef mandatory in the constructor.
   ([6ba927e](https://github.com/dynatrace-oss/barista/commit/6ba927e0bd8772dea616ef2c0d44ed68fa3b58cb))
-- **timestamp:** Remove deprecated aria-label input attributes.
+- **timestamp:** Removed deprecated aria-label input attributes.
   ([1f9cdba](https://github.com/dynatrace-oss/barista/commit/1f9cdba2ed6c72bd0f9dd1330dd323099259ab38))
 - **time-formatter:** Removed deprecated dtTime formatter.
   ([0f281fc](https://github.com/dynatrace-oss/barista/commit/0f281fc08fd8ffaf46df18e31d1c54f80941f7a7))
-- **tree-table:** Remove deprecated aria-label input attributes.
+- **tree-table:** Removed deprecated aria-label input attributes.
   ([11d083d](https://github.com/dynatrace-oss/barista/commit/11d083d94698e0b23bb8c502932bc6b58d7c89ca))
 
 ### Performance Improvements
@@ -83,34 +86,53 @@ Most of the breaking changes will be fixed automatically by running
 
 ### Bug Fixes
 
-- **core:** Fixes issue where the `isNumber` util function also returns true if
-  it is a number-string. Added `isNumberLike` function for these number-string
-  cases.
-  ([f8cb6da](https://github.com/dynatrace-oss/barista/commit/f8cb6da0514c82f30c8867be9e451aa26bb299b2))
-- **table:** Fixes an issue where the table tried to render after it was
+- **button:** Increased specificity for anchor button selectors that conflicted
+  with visited link overrides.
+  ([23bee1c](https://github.com/dynatrace-oss/barista/commit/23bee1c409b38767a09cb58c3cfa0c4ed71f5eff))
+- **styles:** Added back missing styles definition for h3.
+  ([ab8a372](https://github.com/dynatrace-oss/barista/commit/ab8a372685caeac23006fb2027b75bc0bdbcadac)),
+  closes [#1081](https://github.com/dynatrace-oss/barista/issues/1081)
+- **sunburst-chart,radial-chart:** Fixed custom properties inside template for
+  view engine consumers.
+  ([67caf42](https://github.com/dynatrace-oss/barista/commit/67caf425e78d9464017df9173fa38ab6671f1fa5))
+- **table:** Fixed an issue where the table tried to render after it was
   destroyed.
   ([9e7aa5a](https://github.com/dynatrace-oss/barista/commit/9e7aa5a5e516a7566ce1067eed1eab7ca4fafbb1)),
   closes [#1046](https://github.com/dynatrace-oss/barista/issues/1046)
 
 ### Features
 
-- **bar-indicator:** Changes styling to use custom properties
+- **bar-indicator:** Changed styling to use custom properties.
   ([193b3e5](https://github.com/dynatrace-oss/barista/commit/193b3e5b80303c2753a8cd8253a0b376df4cb577))
-- **breadcrumbs:** Changes styling to use custom properties
+- **breadcrumbs:** Changed styling to use custom properties.
   ([e33547a](https://github.com/dynatrace-oss/barista/commit/e33547a6b00131bb65ec86af638213b5f343da87))
-- **card:** Changes styling to use custom properties
+- **button:** Changed styling to custom properties.
+  ([c831b03](https://github.com/dynatrace-oss/barista/commit/c831b03398a340c0a469bfbdfbc7578f301f7a2f))
+- **card:** Changed styling to use custom properties.
   ([b5e1b7f](https://github.com/dynatrace-oss/barista/commit/b5e1b7f57c9d000d8e9a2af6a0ee248f952ebb00))
-- **checkbox:** Changes styling to use custom properties
+- **checkbox:** Changed styling to use custom properties.
   ([701aadc](https://github.com/dynatrace-oss/barista/commit/701aadcb0ec38939345e9c9c4393aa0249114340))
-- **filter-field, quick-filter:** Improved typing across the filter-field, it's
+- **confirmation-dialog:** Updated styling and added an animation to focus user
+  attention.
+  ([bdb7f0e](https://github.com/dynatrace-oss/barista/commit/bdb7f0e6d04479dbeb08f04feb7a5d035917038b))
+- **filter-field:** Added partial option.
+  ([ee205ef](https://github.com/dynatrace-oss/barista/commit/ee205ef73c593c299dbed7794c0c08f01ab4e7b5)),
+  closes [#868](https://github.com/dynatrace-oss/barista/issues/868)
+- **filter-field, quick-filter:** Improved typing across the filter-field, its
   node definitions, data-sources and the quick-filter component.
   ([f9db6a5](https://github.com/dynatrace-oss/barista/commit/f9db6a59014fe252d5c962d5c419d007c49b6e2f))
+- **schematics:** Added schematic to generate e2e component setup inside barista
+  repository.
+  ([4c0231a](https://github.com/dynatrace-oss/barista/commit/4c0231af7e76ba03532be93f29deb3d960655653))
+- **table:** Added drag & drop order functionality to the table. Use in
+  combination with the `DtTableOrderDataSource`.
+  ([c56c005](https://github.com/dynatrace-oss/barista/commit/c56c005b14ea7bf93a0646ff5374f8e2c3c3b645))
 
 ### Major version information
 
 - Install lodash-es instead of lodash now. Previously lodash was installed with
   angular automatically.
-- We remove `@types/highcharts` dependency and switched to the shipped typings
+- We removed `@types/highcharts` dependency and switched to the shipped typings
   by highcharts. The chart and microchart typings now extend from the highcharts
   types.
 - **chart:** Will require the highcharts 7 update as dependency.
@@ -150,12 +172,6 @@ Most of the breaking changes will be fixed automatically by running
 - **indicator:** Moved to its own package. Import DtIndicatorModule and
   DtIndicatorThemePalette from @dynatrace/barista-components/indicator instead
   of \*/core
-
-### Bug Fixes
-
-- **sunburst-chart,radial-chart:** Fix css custom properties inside template for
-  view engine consumers.
-  ([67caf42](https://github.com/dynatrace-oss/barista/commit/67caf425e78d9464017df9173fa38ab6671f1fa5))
 
 ## [6.5.2](https://github.com/dynatrace-oss/barista/compare/6.5.1...6.5.2) (2020-05-18)
 
