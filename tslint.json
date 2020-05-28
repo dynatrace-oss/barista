@@ -61,7 +61,7 @@
     "no-output-on-prefix": true,
     "template-no-negated-async": true,
     "use-lifecycle-interface": true,
-    "import-blacklist": [true, "@dynatrace/barista-components"],
+    "import-blacklist": [true, "@dynatrace/barista-components", "lodash"],
     "nx-enforce-module-boundaries": [
       true,
       {

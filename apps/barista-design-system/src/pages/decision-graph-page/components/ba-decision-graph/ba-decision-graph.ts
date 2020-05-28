@@ -17,8 +17,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaUxdNode } from '@dynatrace/shared/barista-definitions';
 import { BaPageService } from '../../../../shared/services/page.service';
-// TODO: Use lodash-es instead. PR: https://github.com/dynatrace-oss/barista/pull/846
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 @Component({
   selector: 'ba-decision-graph',
