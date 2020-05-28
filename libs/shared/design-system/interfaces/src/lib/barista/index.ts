@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-export * from './lib/barista-definitions';
-export * from './lib/barista-backend-api-definitions';
-export * from './lib/design-tokens-definitions';
-export * from './lib/example-definitions';
+export * from './barista-backend-api-definitions';
+export * from './barista-definitions';
+export * from './example-definitions';

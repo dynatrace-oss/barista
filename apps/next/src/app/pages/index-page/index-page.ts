@@ -14,20 +14,31 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaPageService } from '@dynatrace/shared/data-access-strapi';
-import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
+import { NextPage } from '@dynatrace/shared/design-system/interfaces';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-  selector: 'ba-index-page',
+  selector: 'next-index-page',
   templateUrl: './index-page.html',
   styleUrls: ['./index-page.scss'],
   host: {
-    class: 'ba-page',
+    class: 'next-page',
   },
 })
-export class BaIndexPage {
-  content = this._pageService._getCurrentPage();
+export class NextIndexPage implements OnInit {
+  page = this._pageService._getCurrentPage();
+  content: SafeHtml;
 
-  constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
+  constructor(
+    private _pageService: BaPageService<NextPage>,
+    private _sanitizer: DomSanitizer,
+  ) {}
+
+  ngOnInit(): void {
+    if (this.page?.content) {
+      this.content = this._sanitizer.bypassSecurityTrustHtml(this.page.content);
+    }
+  }
 }

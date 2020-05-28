@@ -24,16 +24,23 @@ import {
   Input,
   OnDestroy,
   ViewContainerRef,
+  InjectionToken,
+  Inject,
+  Type,
 } from '@angular/core';
 
-import { BA_CONTENT_COMPONENTS } from '../../components';
-import { createComponent } from '../../utils/create-component';
+import { createComponent } from './utils/create-component';
+
+export const DS_CONTENT_COMPONENT_LIST_TOKEN = new InjectionToken<
+  Type<unknown>[]
+>('DsContentComponentList');
 
 @Component({
-  selector: 'ba-page-content',
+  selector: 'ds-page-content',
   template: '',
 })
-export class BaPageContent implements OnDestroy {
+export class DsPageContent implements OnDestroy {
+  /** Represents the content of a page. It contains text and component selectors */
   @Input()
   get data(): string {
     return this._data;
@@ -55,8 +62,10 @@ export class BaPageContent implements OnDestroy {
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _viewContainerRef: ViewContainerRef,
     private _injector: Injector,
+    @Inject(DS_CONTENT_COMPONENT_LIST_TOKEN)
+    private _componentList: Type<unknown>[],
   ) {
-    this._componentFactories = BA_CONTENT_COMPONENTS.map((componentType) =>
+    this._componentFactories = this._componentList.map((componentType) =>
       this._componentFactoryResolver.resolveComponentFactory(componentType),
     );
   }

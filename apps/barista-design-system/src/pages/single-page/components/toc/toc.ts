@@ -16,7 +16,7 @@
 
 import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { DOCUMENT, Location } from '@angular/common';
-import { TableOfContents } from '@dynatrace/shared/barista-definitions';
+import { TableOfContents } from '@dynatrace/shared/design-system/interfaces';
 import { BaScrollSpyService } from '../../../../shared/services/scroll-spy.service';
 import { Subscription } from 'rxjs';
 

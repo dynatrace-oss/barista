@@ -22,7 +22,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
-import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/barista-definitions';
+import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
 
 @Component({
   selector: 'a[ba-tile]',

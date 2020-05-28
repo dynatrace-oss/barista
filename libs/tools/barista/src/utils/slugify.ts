@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 
-export function slugify(str: string): string {
-  const escapedTitle = str
-    .toLowerCase()
-    .trim()
-    .replace(/ /g, '-')
-    .replace(/[^\w-]/g, '')
-    .replace(/_/g, '-');
-  return escapedTitle;
+export function slugify(str: string): string | null {
+  if (str !== null) {
+    const escapedTitle = str
+      .toLowerCase()
+      .trim()
+      .replace(/ /g, '-')
+      .replace(/[^\w-]/g, '')
+      .replace(/_/g, '-');
+    return escapedTitle;
+  }
+  return str;
 }

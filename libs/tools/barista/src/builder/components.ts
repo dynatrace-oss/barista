@@ -22,7 +22,7 @@ import Axios from 'axios';
 import {
   BaSinglePageMeta,
   BaPageLayoutType,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import { environment } from '@environments/barista-environment';
 
 import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from '../types';

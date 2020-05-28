@@ -18,7 +18,7 @@ import { generateContrastColors } from '@adobe/leonardo-contrast-colors';
 import {
   FluidPaletteSource,
   FluidPaletteAlias,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import { DesignTokenSource } from '../../interfaces/design-token-source';
 
 /**

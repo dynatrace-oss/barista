@@ -17,7 +17,7 @@
 import {
   FluidPaletteGenerationOptions,
   FluidEasingType,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import { easeIn, easeOut, easeInOut } from './math';
 
 /** Applies easing of the given type and alpha to t. */

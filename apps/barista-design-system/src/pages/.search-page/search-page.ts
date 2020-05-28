@@ -25,7 +25,7 @@ import {
 import {
   BaSinglePageContent,
   BaSearchResult,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import { Observable, fromEvent, merge, EMPTY } from 'rxjs';
 import {
   debounceTime,

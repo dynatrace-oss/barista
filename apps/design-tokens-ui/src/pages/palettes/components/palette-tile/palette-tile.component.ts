@@ -15,7 +15,7 @@
  */
 
 import { Component, Input, OnInit } from '@angular/core';
-import { FluidPaletteSourceAlias } from '@dynatrace/shared/barista-definitions';
+import { FluidPaletteSourceAlias } from '@dynatrace/shared/design-system/interfaces';
 import { generatePaletteContrastColors } from '../../../../utils/colors';
 
 @Component({
