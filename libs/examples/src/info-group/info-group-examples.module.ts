@@ -22,14 +22,8 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtExampleInfoGroupDefault } from './info-group-default-example/info-group-default-example';
 import { DtExampleInfoGroupInCard } from './info-group-in-card-example/info-group-in-card-example';
 
-export const DT_INFO_GROUP_EXAMPLES = [
-  DtExampleInfoGroupDefault,
-  DtExampleInfoGroupInCard,
-];
-
 @NgModule({
   imports: [DtInfoGroupModule, DtCardModule, DtIconModule],
-  declarations: [...DT_INFO_GROUP_EXAMPLES],
-  entryComponents: [...DT_INFO_GROUP_EXAMPLES],
+  declarations: [DtExampleInfoGroupDefault, DtExampleInfoGroupInCard],
 })
 export class DtInfoGroupExamplesModule {}

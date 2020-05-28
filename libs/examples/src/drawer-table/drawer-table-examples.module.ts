@@ -18,11 +18,8 @@ import { DtExampleDrawerTableDefault } from './drawer-table-default-example/draw
 import { DtTableModule } from '@dynatrace/barista-components/table';
 import { NgModule } from '@angular/core';
 
-export const DT_DRAWER_TABLE_EXAMPLES = [DtExampleDrawerTableDefault];
-
 @NgModule({
   imports: [DtDrawerTableModule, DtTableModule],
-  declarations: [...DT_DRAWER_TABLE_EXAMPLES],
-  entryComponents: [...DT_DRAWER_TABLE_EXAMPLES],
+  declarations: [DtExampleDrawerTableDefault],
 })
 export class DtDrawerTableExamplesModule {}

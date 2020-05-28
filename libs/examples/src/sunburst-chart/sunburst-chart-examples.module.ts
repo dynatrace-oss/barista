@@ -23,12 +23,6 @@ import { DtExampleSunburstChartDefault } from './sunburst-chart-default-example/
 import { DtExampleSunburstChartRelativeValues } from './sunburst-chart-relative-values-example/sunburst-chart-relative-values-example';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 
-export const DT_SUNBURST_CHART_EXAMPLES = [
-  DtExampleSunburstChartDefault,
-  DtExampleSunburstChartRelativeValues,
-  DtExampleSunburstChartCustomColor,
-];
-
 @NgModule({
   imports: [
     DtSunburstChartModule,
@@ -36,7 +30,10 @@ export const DT_SUNBURST_CHART_EXAMPLES = [
     DtThemingModule,
     DtFormattersModule,
   ],
-  declarations: [...DT_SUNBURST_CHART_EXAMPLES],
-  entryComponents: [...DT_SUNBURST_CHART_EXAMPLES],
+  declarations: [
+    DtExampleSunburstChartDefault,
+    DtExampleSunburstChartRelativeValues,
+    DtExampleSunburstChartCustomColor,
+  ],
 })
 export class DtSunburstChartExamplesModule {}

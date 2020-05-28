@@ -24,12 +24,6 @@ import { DtExampleMenuDefault } from './menu-default-example/menu-default-exampl
 import { DtExampleMenuWithinContextDialog } from './menu-within-context-dialog-example/menu-within-context-dialog-example';
 import { DtExampleMenuWithinDrawer } from './menu-within-drawer-example/menu-within-drawer-example';
 
-export const DT_MENU_EXAMPLES = [
-  DtExampleMenuDefault,
-  DtExampleMenuWithinContextDialog,
-  DtExampleMenuWithinDrawer,
-];
-
 @NgModule({
   imports: [
     DtMenuModule,
@@ -37,7 +31,10 @@ export const DT_MENU_EXAMPLES = [
     DtDrawerModule,
     DtCheckboxModule,
   ],
-  declarations: [...DT_MENU_EXAMPLES],
-  entryComponents: [...DT_MENU_EXAMPLES],
+  declarations: [
+    DtExampleMenuDefault,
+    DtExampleMenuWithinContextDialog,
+    DtExampleMenuWithinDrawer,
+  ],
 })
 export class DtMenuExamplesModule {}

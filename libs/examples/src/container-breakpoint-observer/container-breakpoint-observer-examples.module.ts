@@ -19,14 +19,12 @@ import { DtExampleContainerBreakpointObserverDefault } from './container-breakpo
 import { DtExampleContainerBreakpointObserverIf } from './container-breakpoint-observer-if-example/container-breakpoint-observer-if-example';
 import { DtExampleContainerBreakpointObserverIfElse } from './container-breakpoint-observer-if-else-example/container-breakpoint-observer-if-else-example';
 
-export const DT_CONTAINER_BREAKPOINT_OBSERVER_EXAMPLES = [
-  DtExampleContainerBreakpointObserverDefault,
-  DtExampleContainerBreakpointObserverIf,
-  DtExampleContainerBreakpointObserverIfElse,
-];
 @NgModule({
   imports: [DtContainerBreakpointObserverModule],
-  declarations: [...DT_CONTAINER_BREAKPOINT_OBSERVER_EXAMPLES],
-  entryComponents: [...DT_CONTAINER_BREAKPOINT_OBSERVER_EXAMPLES],
+  declarations: [
+    DtExampleContainerBreakpointObserverDefault,
+    DtExampleContainerBreakpointObserverIf,
+    DtExampleContainerBreakpointObserverIfElse,
+  ],
 })
 export class DtContainerBreakpointObserverExamplesModule {}

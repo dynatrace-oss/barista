@@ -17,11 +17,8 @@ import { NgModule } from '@angular/core';
 import { DtExpandableTextModule } from '@dynatrace/barista-components/expandable-text';
 import { DtExampleExpandableTextDefault } from './expandable-text-default-example/expandable-text-default-example';
 
-export const DT_EXPANDABLE_TEXT_EXAMPLES = [DtExampleExpandableTextDefault];
-
 @NgModule({
   imports: [DtExpandableTextModule],
-  declarations: [...DT_EXPANDABLE_TEXT_EXAMPLES],
-  entryComponents: [...DT_EXPANDABLE_TEXT_EXAMPLES],
+  declarations: [DtExampleExpandableTextDefault],
 })
 export class DtExpandableTextExamplesModule {}

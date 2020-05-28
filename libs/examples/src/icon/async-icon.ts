@@ -38,7 +38,7 @@ import { take } from 'rxjs/operators';
   styles: ['dt-icon { display: inline-block; width: 3rem; height: 3rem; }'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtIconAsync implements OnDestroy {
+export class DtExampleSharedIconAsync implements OnDestroy {
   @Input() name: DtIconType;
   _show = false;
 
