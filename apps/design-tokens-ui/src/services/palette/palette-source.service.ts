@@ -21,8 +21,7 @@ import {
   FluidPaletteSourceAlias,
   FluidPaletteSource,
 } from '@dynatrace/shared/barista-definitions';
-// TODO: switch to lodash-es when available.
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { stringify } from 'yaml';
 
 const LEONARDO_BASE_URL = 'https://leonardocolor.io/';
