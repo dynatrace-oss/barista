@@ -1,5 +1,27 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should create declarations and exports in the decorator 1`] = `
+"import { DtChartExampleDataService } from './chart-example-data.service';
+import { DtExampleChartMinMax } from './chart-min-max-example/chart-min-max-example';
+@NgModule({
+    imports: [
+        CommonModule,
+        DtChartModule,
+        DtKeyValueListModule,
+        DtButtonModule,
+        DtButtonGroupModule,
+    ],
+    declarations: [
+        DtExampleChartMinMax,
+    ],
+    providers: [DtChartExampleDataService],
+    exports: [DtExampleChartMinMax]
+})
+export class DtChartExamplesModule {
+}
+"
+`;
+
 exports[`should remove all relative imports, which are not related to the current example 1`] = `
 "import { NgModule } from '@angular/core';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
@@ -20,27 +42,5 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTileModule } from '@dynatrace/barista-components/tile';
 import { SomeService } from './example.service.ts';
 import { DtExampleOverlayDefault } from './overlay-default-example/overlay-default-example';
-"
-`;
-
-exports[`should remove the examples array in the module file 1`] = `
-"export const shouldStayArray = ['hello'];
-"
-`;
-
-exports[`should replace declarations and entryComponents in the module decorator 1`] = `
-"@NgModule({
-    imports: [
-        DtOverlayModule,
-        DtButtonModule,
-        DtTileModule,
-        DtKeyValueListModule,
-        DtIconModule,
-    ],
-    declarations: [DtExampleOverlayDefault, DtExampleOverlayProgrammaticDummy],
-    exports: [DtExampleOverlayDefault, DtExampleOverlayProgrammaticDummy],
-})
-export class DtOverlayExamplesModule {
-}
 "
 `;
