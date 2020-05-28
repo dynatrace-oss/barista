@@ -356,12 +356,7 @@ workflows:
 
   bazel_ci_workflow:
     jobs:
-      - install:
-          <<: *filter_branches
-          context: barista
       - bazel_ci:
-          requires:
-            - install
           filters:
             branches:
               only: bazel/research-build-cache
