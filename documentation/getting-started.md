@@ -195,7 +195,7 @@ to the your app module.
   declarations: [...],
   imports: [
     ...
-    DtIconMoudle.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
+    DtIconModule.forRoot({ svgIconLocation: `/assets/icons/{{name}}.svg` }),
   ],
   bootstrap: [...],
 })
