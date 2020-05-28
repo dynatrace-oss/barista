@@ -28,15 +28,6 @@ import {
   DtExampleCustomEmptyState,
 } from './empty-state-custom-empty-state-table-example/empty-state-custom-empty-state-table-example';
 
-export const DT_EMPTY_STATE_EXAMPLES = [
-  DtExampleEmptyStateDefault,
-  DtExampleEmptyStateInCard,
-  DtExampleEmptyStateMultipleItems,
-  DtExampleEmptyStateMultipleItemsInCard,
-  DtExampleCustomEmptyStateTable,
-  DtExampleCustomEmptyState,
-];
-
 @NgModule({
   imports: [
     DtEmptyStateModule,
@@ -45,7 +36,13 @@ export const DT_EMPTY_STATE_EXAMPLES = [
     DtCardModule,
     DtTableModule,
   ],
-  declarations: [...DT_EMPTY_STATE_EXAMPLES],
-  entryComponents: [...DT_EMPTY_STATE_EXAMPLES],
+  declarations: [
+    DtExampleEmptyStateDefault,
+    DtExampleEmptyStateInCard,
+    DtExampleEmptyStateMultipleItems,
+    DtExampleEmptyStateMultipleItemsInCard,
+    DtExampleCustomEmptyStateTable,
+    DtExampleCustomEmptyState,
+  ],
 })
 export class DtEmptyStateExamplesModule {}

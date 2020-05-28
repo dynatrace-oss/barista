@@ -20,4 +20,4 @@ import { Component } from '@angular/core';
   selector: 'dt-example-overlay-programmatic-dummy',
   template: 'overlay',
 })
-export class DtExampleOverlayProgrammaticDummy {}
+export class DtExampleSharedOverlayProgrammaticDummy {}

@@ -22,16 +22,13 @@ import { DtExampleExpandablePanelDisabled } from './expandable-panel-disabled-ex
 import { DtExampleExpandablePanelDynamicTrigger } from './expandable-panel-dynamic-trigger-example/expandable-panel-dynamic-trigger-example';
 import { DtExampleExpandablePanelProgrammatic } from './expandable-panel-programmatic-example/expandable-panel-programmatic-example';
 
-export const DT_EXPANDABLE_PANEL_EXAMPLES = [
-  DtExampleExpandablePanelDefault,
-  DtExampleExpandablePanelDisabled,
-  DtExampleExpandablePanelDynamicTrigger,
-  DtExampleExpandablePanelProgrammatic,
-];
-
 @NgModule({
   imports: [CommonModule, DtExpandablePanelModule, DtButtonModule],
-  declarations: [...DT_EXPANDABLE_PANEL_EXAMPLES],
-  entryComponents: [...DT_EXPANDABLE_PANEL_EXAMPLES],
+  declarations: [
+    DtExampleExpandablePanelDefault,
+    DtExampleExpandablePanelDisabled,
+    DtExampleExpandablePanelDynamicTrigger,
+    DtExampleExpandablePanelProgrammatic,
+  ],
 })
 export class DtExpandablePanelExamplesModule {}

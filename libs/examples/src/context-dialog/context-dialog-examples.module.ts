@@ -29,17 +29,6 @@ import { DtExampleContextDialogFooter } from './context-dialog-footer-example/co
 import { DtExampleContextDialogInteractive } from './context-dialog-interactive-example/context-dialog-interactive-example';
 import { DtExampleContextDialogPreviousFocus } from './context-dialog-previous-focus-example/context-dialog-previous-focus-example';
 
-export const DT_CONTEXT_DIALOG_EXAMPLES = [
-  DtExampleContextDialogActions,
-  DtExampleContextDialogCustomIcon,
-  DtExampleContextDialogDark,
-  DtExampleContextDialogDefault,
-  DtExampleContextDialogHeader,
-  DtExampleContextDialogInteractive,
-  DtExampleContextDialogPreviousFocus,
-  DtExampleContextDialogFooter,
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -49,7 +38,15 @@ export const DT_CONTEXT_DIALOG_EXAMPLES = [
     DtIconModule,
     DtThemingModule,
   ],
-  declarations: [...DT_CONTEXT_DIALOG_EXAMPLES],
-  entryComponents: [...DT_CONTEXT_DIALOG_EXAMPLES],
+  declarations: [
+    DtExampleContextDialogActions,
+    DtExampleContextDialogCustomIcon,
+    DtExampleContextDialogDark,
+    DtExampleContextDialogDefault,
+    DtExampleContextDialogHeader,
+    DtExampleContextDialogInteractive,
+    DtExampleContextDialogPreviousFocus,
+    DtExampleContextDialogFooter,
+  ],
 })
 export class DtContextDialogExamplesModule {}

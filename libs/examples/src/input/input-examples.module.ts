@@ -29,16 +29,6 @@ import { DtExampleInputNgModel } from './input-ng-model-example/input-ng-model-e
 import { DtExampleInputTextarea } from './input-textarea-example/input-textarea-example';
 import { DtExampleInputOptional } from './input-optional-example/input-optional-example';
 
-export const DT_INPUT_EXAMPLES = [
-  DtExampleInputDark,
-  DtExampleInputDefault,
-  DtExampleInputDisabledReadonly,
-  DtExampleInputForm,
-  DtExampleInputNgModel,
-  DtExampleInputTextarea,
-  DtExampleInputOptional,
-];
-
 @NgModule({
   imports: [
     FormsModule,
@@ -47,7 +37,14 @@ export const DT_INPUT_EXAMPLES = [
     DtFormFieldModule,
     DtThemingModule,
   ],
-  declarations: [...DT_INPUT_EXAMPLES],
-  entryComponents: [...DT_INPUT_EXAMPLES],
+  declarations: [
+    DtExampleInputDark,
+    DtExampleInputDefault,
+    DtExampleInputDisabledReadonly,
+    DtExampleInputForm,
+    DtExampleInputNgModel,
+    DtExampleInputTextarea,
+    DtExampleInputOptional,
+  ],
 })
 export class DtInputExamplesModule {}

@@ -32,18 +32,6 @@ import { DtExampleProgressBarWithCountAndDescriptionIndicator } from './progress
 import { DtExampleProgressBarWithDescription } from './progress-bar-with-description-example/progress-bar-with-description-example';
 import { DtExampleProgressBarWithCount } from './progress-bar-with-count-example/progress-bar-with-count-example';
 
-export const DT_PROGRESS_BAR_EXAMPLES = [
-  DtExampleProgressBarChange,
-  DtExampleProgressBarDark,
-  DtExampleProgressBarDefault,
-  DtExampleProgressBarRightAligned,
-  DtExampleProgressBarWithColor,
-  DtExampleProgressBarWithCountAndDescription,
-  DtExampleProgressBarWithCountAndDescriptionIndicator,
-  DtExampleProgressBarWithCount,
-  DtExampleProgressBarWithDescription,
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -53,7 +41,16 @@ export const DT_PROGRESS_BAR_EXAMPLES = [
     DtIndicatorModule,
     DtButtonGroupModule,
   ],
-  declarations: [...DT_PROGRESS_BAR_EXAMPLES],
-  entryComponents: [...DT_PROGRESS_BAR_EXAMPLES],
+  declarations: [
+    DtExampleProgressBarChange,
+    DtExampleProgressBarDark,
+    DtExampleProgressBarDefault,
+    DtExampleProgressBarRightAligned,
+    DtExampleProgressBarWithColor,
+    DtExampleProgressBarWithCountAndDescription,
+    DtExampleProgressBarWithCountAndDescriptionIndicator,
+    DtExampleProgressBarWithCount,
+    DtExampleProgressBarWithDescription,
+  ],
 })
 export class DtProgressBarExamplesModule {}
