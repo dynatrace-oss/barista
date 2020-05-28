@@ -22,16 +22,13 @@ import { DtExampleCheckboxDefault } from './checkbox-default-example/checkbox-de
 import { DtExampleCheckboxIndeterminate } from './checkbox-indeterminate-example/checkbox-indeterminate-example';
 import { DtExampleCheckboxResponsive } from './checkbox-responsive-example/checkbox-responsive-example';
 
-export const DT_CHECKBOX_EXAMPLES = [
-  DtExampleCheckboxDark,
-  DtExampleCheckboxDefault,
-  DtExampleCheckboxIndeterminate,
-  DtExampleCheckboxResponsive,
-];
-
 @NgModule({
   imports: [CommonModule, DtThemingModule, DtCheckboxModule],
-  declarations: [...DT_CHECKBOX_EXAMPLES],
-  entryComponents: [...DT_CHECKBOX_EXAMPLES],
+  declarations: [
+    DtExampleCheckboxDark,
+    DtExampleCheckboxDefault,
+    DtExampleCheckboxIndeterminate,
+    DtExampleCheckboxResponsive,
+  ],
 })
 export class DtCheckboxExamplesModule {}

@@ -24,17 +24,14 @@ import { DtExampleAlertInteractive } from './alert-interactive-example/alert-int
 import { DtExampleAlertError } from './alert-error-example/alert-error-example';
 import { DtExampleAlertWarning } from './alert-warning-example/alert-warning-example';
 
-export const DT_ALERT_EXAMPLES = [
-  DtExampleAlertDark,
-  DtExampleAlertDarkError,
-  DtExampleAlertInteractive,
-  DtExampleAlertError,
-  DtExampleAlertWarning,
-];
-
 @NgModule({
   imports: [DtAlertModule, DtButtonModule, DtThemingModule],
-  declarations: [...DT_ALERT_EXAMPLES],
-  entryComponents: [...DT_ALERT_EXAMPLES],
+  declarations: [
+    DtExampleAlertDark,
+    DtExampleAlertDarkError,
+    DtExampleAlertInteractive,
+    DtExampleAlertError,
+    DtExampleAlertWarning,
+  ],
 })
 export class DtAlertExamplesModule {}

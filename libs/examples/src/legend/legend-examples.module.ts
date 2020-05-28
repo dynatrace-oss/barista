@@ -24,13 +24,6 @@ import { DtExampleLegendOverlay } from './legend-overlay-example/legend-overlay-
 import { DtExampleLegendSymbolAttribute } from './legend-symbol-attribute-example/legend-symbol-attribute-example';
 import { DtExampleLegendTimelineChart } from './legend-timeline-chart-example/legend-timeline-chart-example';
 
-export const DT_LEGEND_EXAMPLES = [
-  DtExampleLegendDefault,
-  DtExampleLegendOverlay,
-  DtExampleLegendSymbolAttribute,
-  DtExampleLegendTimelineChart,
-];
-
 @NgModule({
   imports: [
     DtLegendModule,
@@ -38,7 +31,11 @@ export const DT_LEGEND_EXAMPLES = [
     DtOverlayModule,
     DtTimelineChartModule,
   ],
-  declarations: [...DT_LEGEND_EXAMPLES],
-  entryComponents: [...DT_LEGEND_EXAMPLES],
+  declarations: [
+    DtExampleLegendDefault,
+    DtExampleLegendOverlay,
+    DtExampleLegendSymbolAttribute,
+    DtExampleLegendTimelineChart,
+  ],
 })
 export class DtLegendExamplesModule {}

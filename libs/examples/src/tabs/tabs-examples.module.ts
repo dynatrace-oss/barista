@@ -21,14 +21,12 @@ import { DtExampleTabsDynamic } from './tabs-dynamic-example/tabs-dynamic-exampl
 import { DtExampleTabsDefault } from './tabs-default-example/tabs-default-example';
 import { DtExampleTabsInteractive } from './tabs-interactive-example/tabs-interactive-example';
 
-export const DT_TABS_EXAMPLES = [
-  DtExampleTabsDefault,
-  DtExampleTabsDynamic,
-  DtExampleTabsInteractive,
-];
 @NgModule({
   imports: [DtTabsModule, DtButtonModule, CommonModule],
-  declarations: [...DT_TABS_EXAMPLES],
-  entryComponents: [...DT_TABS_EXAMPLES],
+  declarations: [
+    DtExampleTabsDefault,
+    DtExampleTabsDynamic,
+    DtExampleTabsInteractive,
+  ],
 })
 export class DtExamplesTabsModule {}

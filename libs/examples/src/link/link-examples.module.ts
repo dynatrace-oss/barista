@@ -21,16 +21,13 @@ import { DtExampleLinkExternal } from './link-external-example/link-external-exa
 import { DtExampleLinkNotification } from './link-notification-example/link-notification-example';
 import { DtExampleLinkSimple } from './link-simple-example/link-simple-example';
 
-export const DT_LINK_EXAMPLES = [
-  DtExampleLinkDark,
-  DtExampleLinkExternal,
-  DtExampleLinkNotification,
-  DtExampleLinkSimple,
-];
-
 @NgModule({
   imports: [DtThemingModule],
-  declarations: [...DT_LINK_EXAMPLES],
-  entryComponents: [...DT_LINK_EXAMPLES],
+  declarations: [
+    DtExampleLinkDark,
+    DtExampleLinkExternal,
+    DtExampleLinkNotification,
+    DtExampleLinkSimple,
+  ],
 })
 export class DtLinkExamplesModule {}

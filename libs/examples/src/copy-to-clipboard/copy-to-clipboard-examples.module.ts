@@ -28,16 +28,6 @@ import { DtExampleCopyToClipboardError } from './copy-to-clipboard-error-example
 import { DtExampleCopyToClipboardTextarea } from './copy-to-clipboard-textarea-example/copy-to-clipboard-textarea-example';
 import { DtExampleCopyToClipboardSecondaryButton } from './copy-to-clipboard-secondary-button-example/copy-to-clipboard-secondary-button-example';
 
-export const DT_COPY_TO_CLIPBOARD_EXAMPLES = [
-  DtExampleCopyToClipboardCallback,
-  DtExampleCopyToClipboardContext,
-  DtExampleCopyToClipboardDark,
-  DtExampleCopyToClipboardDefault,
-  DtExampleCopyToClipboardError,
-  DtExampleCopyToClipboardSecondaryButton,
-  DtExampleCopyToClipboardTextarea,
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -47,7 +37,14 @@ export const DT_COPY_TO_CLIPBOARD_EXAMPLES = [
     DtContextDialogModule,
     DtThemingModule,
   ],
-  declarations: [...DT_COPY_TO_CLIPBOARD_EXAMPLES],
-  entryComponents: [...DT_COPY_TO_CLIPBOARD_EXAMPLES],
+  declarations: [
+    DtExampleCopyToClipboardCallback,
+    DtExampleCopyToClipboardContext,
+    DtExampleCopyToClipboardDark,
+    DtExampleCopyToClipboardDefault,
+    DtExampleCopyToClipboardError,
+    DtExampleCopyToClipboardSecondaryButton,
+    DtExampleCopyToClipboardTextarea,
+  ],
 })
 export class DtCopyToClipboardExamplesModule {}

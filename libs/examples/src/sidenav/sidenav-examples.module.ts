@@ -17,11 +17,8 @@ import { NgModule } from '@angular/core';
 import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
 import { DtExampleSidenavDefault } from './sidenav-default-example/sidenav-default-example';
 
-export const DT_SIDENAV_EXAMPLES = [DtExampleSidenavDefault];
-
 @NgModule({
   imports: [DtDrawerModule],
-  declarations: [...DT_SIDENAV_EXAMPLES],
-  entryComponents: [...DT_SIDENAV_EXAMPLES],
+  declarations: [DtExampleSidenavDefault],
 })
 export class DtExamplesSidenavModule {}

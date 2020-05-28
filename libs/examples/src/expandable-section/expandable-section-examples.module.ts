@@ -23,17 +23,14 @@ import { DtExampleExpandableSectionDisabled } from './expandable-section-disable
 import { DtExampleExpandableSectionInteractive } from './expandable-section-interactive-example/expandable-section-interactive-example';
 import { DtExampleExpandableSectionOpen } from './expandable-section-open-example/expandable-section-open-example';
 
-export const DT_EXPANDABLE_SECTION_EXAMPLES = [
-  DtExampleExpandableSectionDark,
-  DtExampleExpandableSectionDefault,
-  DtExampleExpandableSectionDisabled,
-  DtExampleExpandableSectionInteractive,
-  DtExampleExpandableSectionOpen,
-];
-
 @NgModule({
   imports: [DtExpandableSectionModule, DtThemingModule, DtButtonModule],
-  declarations: [...DT_EXPANDABLE_SECTION_EXAMPLES],
-  entryComponents: [...DT_EXPANDABLE_SECTION_EXAMPLES],
+  declarations: [
+    DtExampleExpandableSectionDark,
+    DtExampleExpandableSectionDefault,
+    DtExampleExpandableSectionDisabled,
+    DtExampleExpandableSectionInteractive,
+    DtExampleExpandableSectionOpen,
+  ],
 })
 export class DtExpandableSectionExamplesModule {}

@@ -25,16 +25,6 @@ import { DtExampleInlineEditorSuccessful } from './inline-editor-successful-exam
 import { DtExampleInlineEditorValidation } from './inline-editor-validation-example/inline-editor-validation-example';
 import { DtExampleInlineEditorRequired } from './inline-editor-required-example/inline-editor-required-example';
 
-export const DT_INLINE_EDITOR_EXAMPLES = [
-  DtExampleInlineEditorApi,
-  DtExampleInlineEditorDefault,
-  DtExampleInlineEditorFailing,
-  DtExampleInlineEditorFailing,
-  DtExampleInlineEditorRequired,
-  DtExampleInlineEditorSuccessful,
-  DtExampleInlineEditorValidation,
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +32,14 @@ export const DT_INLINE_EDITOR_EXAMPLES = [
     FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [...DT_INLINE_EDITOR_EXAMPLES],
-  entryComponents: [...DT_INLINE_EDITOR_EXAMPLES],
+  declarations: [
+    DtExampleInlineEditorApi,
+    DtExampleInlineEditorDefault,
+    DtExampleInlineEditorFailing,
+    DtExampleInlineEditorFailing,
+    DtExampleInlineEditorRequired,
+    DtExampleInlineEditorSuccessful,
+    DtExampleInlineEditorValidation,
+  ],
 })
 export class DtInlineEditorExamplesModule {}
