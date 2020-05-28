@@ -126,8 +126,8 @@ commands:
       - attach_workspace:
           at: ~/barista
       - run:
-          name: Prepare cache key
-          command: cd tools/build-cache && sh setup_ci_build_cache.sh
+          name: Setup Bazel CI
+          command: npm install -G @bazel/bazelisk && cd tools/build-cache && sh setup_ci_build_cache.sh
 
   bazel_build:
     description: >-
