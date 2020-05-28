@@ -1,4 +1,4 @@
-load(":defaults.bzl", "join")
+load("//tools:defaults.bzl", "join")
 
 ESM5Info = provider(
     doc = "Typescript compilation outputs in ES5 syntax with ES Modules",
@@ -107,7 +107,7 @@ es5_aspect = aspect(
             cfg = "host",
         ),
         "_modify_tsconfig": attr.label(
-            default = Label("//tools:modify_tsconfig"),
+            default = Label("//tools/ng_package:modify_tsconfig"),
             executable = True,
             cfg = "host",
         ),

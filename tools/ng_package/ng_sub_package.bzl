@@ -1,9 +1,7 @@
 load("@build_bazel_rules_nodejs//:providers.bzl", "DeclarationInfo", "JSEcmaScriptModuleInfo", "JSNamedModuleInfo", "node_modules_aspect", "run_node")
 load("@build_bazel_rules_nodejs//internal/linker:link_node_modules.bzl", "module_mappings_aspect")
-load(":esm5.bzl", "es5_aspect", "flatten_esm5", "esm5_root_dir")
-load(":defaults.bzl", "copy_file", "join")
-
-_ROLLUP_CONFIG = "//tools:rollup.config.js"
+load(":esm5.bzl", "es5_aspect", "esm5_root_dir", "flatten_esm5")
+load("//tools:defaults.bzl", "copy_file", "join")
 
 def _filter_js(files):
     return [f for f in files if f.extension == "js" or f.extension == "mjs"]
@@ -16,18 +14,16 @@ def _get_bundle_name(input):
 
     return input_file.basename
 
-
-def _ng_package_impl(ctx):
-    print("RUN PACKAGE IMPLEMENTATION")
+def _ng_sub_package_impl(ctx):
     # The directory of the package
     build_dir = ctx.build_file_path.replace("BUILD.bazel", "")
 
     bundle_name = _get_bundle_name(ctx.attr.entry_point)
 
     rollup_outputs = [
-      ctx.actions.declare_file('bundles/' + bundle_name + ".umd.js"),
-      ctx.actions.declare_file('fesm2015/' + bundle_name + ".js"),
-      ctx.actions.declare_file('fesm5/' + bundle_name + ".js"),
+        ctx.actions.declare_file("bundles/" + bundle_name + ".umd.js"),
+        ctx.actions.declare_file("fesm2015/" + bundle_name + ".js"),
+        ctx.actions.declare_file("fesm5/" + bundle_name + ".js"),
     ]
 
     files = []
@@ -42,7 +38,6 @@ def _ng_package_impl(ctx):
         if JSNamedModuleInfo in dep:
             files.extend(dep[JSNamedModuleInfo].sources.to_list())
 
-
     for file in flatten_esm5(ctx).to_list():
         # correct the destination path to be inside an esm5 folder
         dest_file_path = file.short_path.replace(build_dir + esm5_root_dir(ctx) + "/" + build_dir, "esm5/")
@@ -50,9 +45,11 @@ def _ng_package_impl(ctx):
         copy_file(ctx, file, dest_file)
         files.append(dest_file)
 
-
-
     rollup_inputs = _filter_js(ctx.files.entry_point) + files
+    rollup_globals = ctx.attr.globals
+
+    rollup_externals = rollup_globals.keys()
+    rollup_externals.append("tslib")
 
     # Create a rollup config file out of the rollup config template in the
     # tools folder. Then add the config to the inputs that it is available for
@@ -62,11 +59,13 @@ def _ng_package_impl(ctx):
         template = ctx.file._rollup_config,
         output = config,
         substitutions = {
-            "{base_path}": join([ctx.bin_dir.path,build_dir]),
-            "{entry_point_name}": "index"
+            "{base_path}": join([ctx.bin_dir.path, build_dir]),
+            "{entry_point_name}": "index",
+            "'{rollup_globals}'": "{%s}" % ", ".join(["'%s': '%s'" % g for g in rollup_globals.items()]),
+            "'{rollup-externals}'": "[%s]" % ", ".join(["'%s'" % e for e in rollup_externals]),
         },
     )
-    
+
     rollup_inputs.append(config)
 
     rollup_args = ["--config", config.path]
@@ -83,13 +82,13 @@ def _ng_package_impl(ctx):
     Creating Angular Package:
     - %s
 --------------------------------------------
-        """ % build_dir[:-1],
+""" % build_dir[:-1],
     )
 
     return [DefaultInfo(files = depset(rollup_outputs))]
 
-ng_package = rule(
-    implementation = _ng_package_impl,
+ng_sub_package = rule(
+    implementation = _ng_sub_package_impl,
     attrs = {
         "rollup_bin": attr.label(
             doc = "Target that executes the rollup binary",
@@ -106,8 +105,17 @@ ng_package = rule(
             mandatory = True,
             doc = "The list of SubPackages that should be bundled",
         ),
+        "globals": attr.string_dict(
+            doc = """A dict of symbols that reference external scripts.
+            The keys are variable names that appear in the program,
+            and the values are the symbol to reference at runtime in a global context (UMD bundles).
+            For example, a program referencing @angular/core should use ng.core
+            as the global reference, so Angular users should include the mapping
+            `"@angular/core":"ng.core"` in the globals.""",
+            default = {},
+        ),
         "_rollup_config": attr.label(
-            default = Label(_ROLLUP_CONFIG),
+            default = Label("//tools/ng_package:rollup.config.js"),
             allow_single_file = True,
         ),
     },

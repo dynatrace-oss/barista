@@ -1,29 +1,23 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
-load("//tools:defaults.bzl", "ng_module")
-load("//tools:ng_package.bzl", "ng_package")
+load("//tools:index.bzl", "ng_module",  "ng_sub_package")
 
 package(default_visibility = ["//visibility:public"])
 
-ng_package(
-    name = "package",
+ng_sub_package(
+    name = "core",
     entry_point = ":index.ts",
     deps = [
-      ":test"
-    ]
-)
-
-ts_library(
-  name = "test",
-  srcs = ["index.ts", "src/test.ts"],
-  deps = [
-    "@npm//tslib"
-  ],
-  # tsconfig = "tsconfig_lib",
+      ":core_compile"
+    ],
+    globals = {
+        "@angular/cdk/coercion": "ng.cdk.coercion",
+        "rxjs": "rxjs"
+    }
 )
 
 ng_module(
-    name = "core",
+    name = "core_compile",
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [

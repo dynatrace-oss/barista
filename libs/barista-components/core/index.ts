@@ -16,7 +16,7 @@
 
 // export * from './src/common-behaviours/index';
 // export * from './src/error/index';
-// export * from './src/util/index';
+export * from './src/util/index';
 // export * from './src/logger/index';
 // export * from './src/viewport/index';
 // export * from './src/option/index';
@@ -24,5 +24,3 @@
 // export * from './src/animations/index';
 // export * from './src/overlay/index';
 // export * from './src/testing/index';
-
-export { getNumber, ValidNumber } from './src/test';

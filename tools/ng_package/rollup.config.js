@@ -5,6 +5,13 @@ const { sync } = require('glob');
 const BASE_PATH = '{base_path}';
 const ENTRY_POINT_NAME = '{entry_point_name}';
 
+const plugins = [];
+
+const commonOutput = {
+  globals: '{rollup_globals}',
+  sourcemap: true,
+};
+
 export default (args) => {
   return [
     {
@@ -13,9 +20,11 @@ export default (args) => {
         {
           file: join(BASE_PATH, `fesm5/${ENTRY_POINT_NAME}.js`),
           format: 'es',
-          sourcemap: true,
+          ...commonOutput,
         },
       ],
+      external: '{rollup-externals}',
+      plugins,
     },
     {
       input: join(BASE_PATH, `${ENTRY_POINT_NAME}.mjs`),
@@ -23,16 +32,17 @@ export default (args) => {
         {
           file: join(BASE_PATH, `fesm2015/${ENTRY_POINT_NAME}.js`),
           format: 'es',
-          sourcemap: true,
+          ...commonOutput,
         },
         {
           file: join(BASE_PATH, `bundles/${ENTRY_POINT_NAME}.umd.js`),
           name: ENTRY_POINT_NAME,
           format: 'umd',
-          sourcemap: true,
+          ...commonOutput,
         },
       ],
-      plugins: [],
+      external: '{rollup-externals}',
+      plugins,
     },
   ];
 };

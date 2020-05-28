@@ -1,0 +1,16 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
+exports_files(["rollup.config.js"])
+
+filegroup(
+    name = "empty_node_modules",
+    srcs = [],
+)
+
+nodejs_binary(
+    name = "modify_tsconfig",
+    data = ["modify-tsconfig.js"],
+    entry_point = ":modify-tsconfig.js",
+    node_modules = ":empty_node_modules",
+    visibility = ["//visibility:public"],
+)
