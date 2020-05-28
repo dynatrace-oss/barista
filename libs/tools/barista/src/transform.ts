@@ -18,7 +18,7 @@ import {
   BaAllExamplesMetadata,
   BaSinglePageContent,
   TableOfContents,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import * as markdownIt from 'markdown-it';
 import * as markdownItDeflist from 'markdown-it-deflist';
 import { environment } from '@environments/barista-environment';

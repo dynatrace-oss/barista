@@ -21,7 +21,7 @@ import { Event, NavigationEnd, Router } from '@angular/router';
 import {
   BaContentTypes,
   BaPageLayoutType,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import { Subject } from 'rxjs';
 import {
   distinctUntilChanged,

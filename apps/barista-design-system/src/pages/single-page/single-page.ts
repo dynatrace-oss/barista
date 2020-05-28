@@ -20,7 +20,7 @@ import { Router } from '@angular/router';
 import {
   BaPageLayoutType,
   BaSinglePageContent,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import {
   BaPageService,
   getUrlPathName,

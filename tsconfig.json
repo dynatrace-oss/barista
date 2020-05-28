@@ -212,9 +212,6 @@
       "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
       "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
       "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
-      "@dynatrace/shared/barista-definitions": [
-        "libs/shared/barista-definitions/src/index.ts"
-      ],
       "@dynatrace/shared/node": ["libs/shared/node/src/index.ts"],
       "@dynatrace/shared/design-tokens": [
         "libs/shared/design-tokens/src/index.ts"
@@ -252,6 +249,12 @@
       ],
       "@dynatrace/shared/data-access-strapi": [
         "libs/shared/data-access-strapi/src/index.ts"
+      ],
+      "@dynatrace/shared/design-system/ui": [
+        "libs/shared/design-system/ui/src/index.ts"
+      ],
+      "@dynatrace/shared/design-system/interfaces": [
+        "libs/shared/design-system/interfaces/src/index.ts"
       ]
     },
     "plugins": [

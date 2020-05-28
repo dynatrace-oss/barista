@@ -18,7 +18,7 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 
-import { BaPageLink } from '@dynatrace/shared/barista-definitions';
+import { BaPageLink } from '@dynatrace/shared/design-system/interfaces';
 import { getUrlPathName } from '@dynatrace/shared/data-access-strapi';
 
 const LOCAL_STORAGE_KEY = 'barista-recently-ordered';

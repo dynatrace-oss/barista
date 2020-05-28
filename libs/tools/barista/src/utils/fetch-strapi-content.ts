@@ -22,6 +22,8 @@ import {
   BaStrapiCTA,
   BaStrapiPageTeaser,
   BaStrapiDecisionGraphNode,
+  NextStrapiPage,
+  NextContentType,
 } from '../types';
 
 interface FetchContentOptions {
@@ -42,8 +44,9 @@ export async function fetchContentList<
     | BaStrapiSnippet
     | BaStrapiPageTeaser
     | BaStrapiDecisionGraphNode
+    | NextStrapiPage
 >(
-  contentType: BaStrapiContentType,
+  contentType: BaStrapiContentType | NextContentType,
   options: FetchContentOptions,
   endpoint: string,
 ): Promise<T[]> {
@@ -66,9 +69,14 @@ export async function fetchContentList<
  * Fetches a single item from Strapi CMS by ID.
  */
 export async function fetchContentItemById<
-  T extends BaStrapiPage | BaStrapiSnippet | BaStrapiPageTeaser | BaStrapiCTA
+  T extends
+    | BaStrapiPage
+    | BaStrapiSnippet
+    | BaStrapiPageTeaser
+    | BaStrapiCTA
+    | NextStrapiPage
 >(
-  contentType: BaStrapiContentType,
+  contentType: BaStrapiContentType | NextContentType,
   id: string,
   options: FetchContentOptions,
   endpoint: string,
@@ -87,9 +95,14 @@ export async function fetchContentItemById<
  * Fetches a single item from Strapi CMS by field.
  */
 export async function fetchContentItemByField<
-  T extends BaStrapiPage | BaStrapiSnippet | BaStrapiPageTeaser | BaStrapiCTA
+  T extends
+    | BaStrapiPage
+    | BaStrapiSnippet
+    | BaStrapiPageTeaser
+    | BaStrapiCTA
+    | NextStrapiPage
 >(
-  contentType: BaStrapiContentType,
+  contentType: BaStrapiContentType | NextContentType,
   fieldName: string,
   fieldValue: string,
   options: FetchContentOptions,

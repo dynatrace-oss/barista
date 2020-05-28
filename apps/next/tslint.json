@@ -2,7 +2,7 @@
   "extends": "../../tslint.json",
   "rules": {
     "directive-selector": [true, "attribute", "x", "camelCase"],
-    "component-selector": [false],
+    "component-selector": [false, "element", "next", "kebab-case"],
     "dt-require-license-banner": true
   },
   "linterOptions": {

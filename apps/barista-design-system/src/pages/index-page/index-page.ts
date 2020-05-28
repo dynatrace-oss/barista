@@ -17,7 +17,7 @@
 import { Component } from '@angular/core';
 import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 import { environment } from '../../environments/environment';
-import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
+import { BaSinglePageContent } from '@dynatrace/shared/design-system/interfaces';
 import {
   BaRecentlyOrderedService,
   BaRecentlyOrderedItem,

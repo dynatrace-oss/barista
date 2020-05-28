@@ -16,7 +16,7 @@
 
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FluidPaletteSourceAlias } from '@dynatrace/shared/barista-definitions';
+import { FluidPaletteSourceAlias } from '@dynatrace/shared/design-system/interfaces';
 import { PaletteSourceService } from '../../services/palette';
 import { DEFAULT_GENERATION_OPTIONS } from '../../utils/palette-generation';
 

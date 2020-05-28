@@ -15,56 +15,43 @@
  */
 
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtInputModule } from '@dynatrace/barista-components/input';
-import { DtTagModule } from '@dynatrace/barista-components/tag';
-import { BaComponentsModule } from '../../components';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
-import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
-import { BaContributors } from './components/contributors';
-import { BaIconOverviewContent } from './components/icon-overview-content';
-import { BaLazyIcon } from './components/lazy-icon';
-import { BaPageFooter } from './components/page-footer';
-import { BaPageHeader } from './components/page-header';
-import { BaSidenav } from './components/sidenav';
-import { BaToc } from './components/toc';
-import { BaPageContent } from './page-content';
-import { BaSinglePage } from './single-page';
-import { BaTocService } from '../../shared/services/toc.service';
-import { BaScrollSpyService } from '../../shared/services/scroll-spy.service';
+import {
+  BaPageGuard,
+  BaPageService,
+} from '@dynatrace/shared/data-access-strapi';
+import { NextSinglePage } from './single-page';
+import {
+  SharedDesignSystemUiModule,
+  DS_CONTENT_COMPONENT_LIST_TOKEN,
+} from '@dynatrace/shared/design-system/ui';
+import { NextPageFooter } from './components/page-footer';
 
 export const routes: Route[] = [
   {
     path: '',
-    component: BaSinglePage,
+    component: NextSinglePage,
     canActivate: [BaPageGuard],
   },
 ];
+
+export const DS_CONTENT_TYPES: Type<unknown>[] = [];
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    BaComponentsModule,
-    DtTagModule,
-    DtFormFieldModule,
-    DtInputModule,
-    DtIconModule,
+    SharedDesignSystemUiModule,
   ],
-  declarations: [
-    BaSinglePage,
-    BaPageContent,
-    BaPageFooter,
-    BaPageHeader,
-    BaIconOverviewContent,
-    BaContributors,
-    BaLazyIcon,
-    BaSidenav,
-    BaToc,
+  declarations: [NextSinglePage, NextPageFooter],
+  providers: [
+    BaPageGuard,
+    BaPageService,
+    {
+      provide: DS_CONTENT_COMPONENT_LIST_TOKEN,
+      useValue: DS_CONTENT_TYPES,
+    },
   ],
-  providers: [BaRecentlyOrderedService, BaScrollSpyService, BaTocService],
 })
-export class BaSinglePageModule {}
+export class NextSinglePageModule {}

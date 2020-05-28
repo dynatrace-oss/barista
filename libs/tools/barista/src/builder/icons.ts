@@ -22,7 +22,7 @@ import {
   BaSinglePageContent,
   BaPageLayoutType,
   BaIcon,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import { isPublicBuild } from '@dynatrace/shared/node';
 import { environment } from '@environments/barista-environment';
 
