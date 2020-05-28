@@ -1,17 +1,39 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 
-def _debug(vars, scope = "Barista Components", *args):
+def join(array):
+    "Joins a string by its seperator used for path merging"
+    return  "/".join([p for p in array if p])
+
+
+def debug(vars, *args):
     """Debug function that prints verbose output with a debug flag.
+
+    Prints a debug message if "--define=VERBOSE_LOGS=true" is specified.
 
     Args:
       vars: The vars from the context `ctx.vars`
-      scope: The scope of logging
       *args: The Arguments that should be printed
 
     """
+    scope = "Barista Components"
+
     if "VERBOSE_LOGS" in vars.keys():
         print("[" + scope + "]", args)
 
+def copy_file(ctx, src_file, dest_file):
+    """Copies a file to the destination path
+
+    Args:
+        ctx: The rule context
+        src_file: The file that should be copied
+        dest_file: The destination filename where it should be copied to
+    """
+    debug(ctx.var, "copy ", src_file.short_path, " to ", dest_file)
+    ctx.actions.expand_template(
+        output = dest_file,
+        template = src_file,
+        substitutions = {},
+    )
 
 def ng_module(deps = [], **kwargs):
     """Used for building Angular Modules

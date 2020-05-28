@@ -2,14 +2,6 @@ const { writeFileSync, readFileSync } = require('fs');
 const { posix } = require('path');
 
 function main(args) {
-  console.log(`
-
-MODIFY TSCONFIG
-===============================
-
-`);
-  console.log(args);
-
   if (args.length < 3) {
     console.error(
       'Usage: $0 input.tsconfig.json output.tsconfig.json newRoot binDir',
