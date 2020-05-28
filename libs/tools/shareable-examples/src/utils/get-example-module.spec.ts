@@ -97,49 +97,60 @@ import { DtExampleOverlayImplicitContext } from './overlay-implicit-context-exam
   ).toMatchSnapshot();
 });
 
-it('should remove the examples array in the module file', () => {
+it('should create declarations and exports in the decorator', () => {
   const source = createSourceFile(
     'dummy.ts',
     `
-export const shouldStayArray = ['hello'];
+import { DtExampleChartAreaRange } from './chart-arearange-example/chart-arearange-example';
+import { DtExampleChartBar } from './chart-bar-example/chart-bar-example';
+import { DtExampleChartBehaviorSwitch } from './chart-behavior-switch-example/chart-behavior-switch-example';
+import { DtExampleChartCategorized } from './chart-categorized-example/chart-categorized-example';
+import { DtExampleChartDefault } from './chart-default-example/chart-default-example';
+import { DtExampleChartDonut } from './chart-donut-example/chart-donut-example';
+import { DtChartExampleDataService } from './chart-example-data.service';
+import { DtExampleChartHeatfield } from './chart-heatfield-example/chart-heatfield-example';
+import { DtExampleChartHeatfieldMultiple } from './chart-heatfield-multiple-example/chart-heatfield-multiple-example';
+import { DtExampleChartLine } from './chart-line-example/chart-line-example';
+import { DtExampleChartLineWithGaps } from './chart-line-with-gaps-example/chart-line-with-gaps-example';
+import { DtExampleChartLoading } from './chart-loading-example/chart-loading-example';
+import { DtExampleChartMinMax } from './chart-min-max-example/chart-min-max-example';
+import { DtExampleChartOrderedColors } from './chart-ordered-colors-example/chart-ordered-colors-example';
+import { DtExampleChartPie } from './chart-pie-example/chart-pie-example';
+import { DtExampleChartSelectionAreaDefault } from './chart-selection-area-default-example/chart-selection-area-default-example';
+import { DtExampleChartSinglePointData } from './chart-single-data-point-example/chart-single-data-point-example';
+import { DtExampleChartStream } from './chart-stream-example/chart-stream-example';
 
-export const DT_OVERLAY_EXAMPLES = [
-  DtExampleOverlayComplexContent,
-  DtExampleOverlayDefault,
-  DtExampleOverlayImplicitContext,
-  DtExampleOverlayProgrammatic,
-  DtExampleOverlayTile,
-];
-    `,
-    ScriptTarget.Latest,
-    true, // setParentNodes
-    ScriptKind.TS,
-  );
-  expect(
-    transformFile(
-      source,
-      'barista-components/src/overlay-default-example/overlay-default-example',
-      'DtExampleOverlayDefault',
-    ),
-  ).toMatchSnapshot();
-});
-
-it('should replace declarations and entryComponents in the module decorator', () => {
-  const source = createSourceFile(
-    'dummy.ts',
-    `
 @NgModule({
   imports: [
-    DtOverlayModule,
-    DtButtonModule,
-    DtTileModule,
+    CommonModule,
+    DtChartModule,
     DtKeyValueListModule,
-    DtIconModule,
+    DtButtonModule,
+    DtButtonGroupModule,
   ],
-  declarations: [...DT_OVERLAY_EXAMPLES, DtExampleOverlayProgrammaticDummy],
-  entryComponents: [...DT_OVERLAY_EXAMPLES, DtExampleOverlayProgrammaticDummy],
+  declarations: [
+    DtExampleChartArea,
+    DtExampleChartAreaRange,
+    DtExampleChartBar,
+    DtExampleChartBehaviorSwitch,
+    DtExampleChartCategorized,
+    DtExampleChartDefault,
+    DtExampleChartDonut,
+    DtExampleChartHeatfield,
+    DtExampleChartHeatfieldMultiple,
+    DtExampleChartLine,
+    DtExampleChartLineWithGaps,
+    DtExampleChartLoading,
+    DtExampleChartMinMax,
+    DtExampleChartOrderedColors,
+    DtExampleChartPie,
+    DtExampleChartSelectionAreaDefault,
+    DtExampleChartSinglePointData,
+    DtExampleChartStream,
+  ],
+  providers: [DtChartExampleDataService],
 })
-export class DtOverlayExamplesModule {}
+export class DtChartExamplesModule {}
     `,
     ScriptTarget.Latest,
     true, // setParentNodes
@@ -148,8 +159,8 @@ export class DtOverlayExamplesModule {}
   expect(
     transformFile(
       source,
-      'barista-components/src/overlay-default-example/overlay-default-example',
-      'DtExampleOverlayDefault',
+      'barista-components/src/chart-min-max-example/chart-min-max-example',
+      'DtExampleChartMinMax',
     ),
   ).toMatchSnapshot();
 });

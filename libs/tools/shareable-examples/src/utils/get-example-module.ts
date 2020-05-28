@@ -33,12 +33,30 @@ import {
   PropertyAssignment,
   ImportDeclaration,
   isSpreadElement,
-  createPropertyAssignment,
   isStringLiteral,
   isNamedImports,
+  isIdentifier,
   ImportSpecifier,
+  isObjectLiteralExpression,
+  ObjectLiteralExpression,
+  createPropertyAssignment,
+  createArrayLiteral,
+  createNodeArray,
 } from 'typescript';
 import { ExampleAstFile } from './examples.interface';
+
+function isNgModuleObject(node: Node): node is ObjectLiteralExpression {
+  return (
+    isObjectLiteralExpression(node) &&
+    node.properties.some((propertyAssignment) => {
+      return (
+        propertyAssignment.name &&
+        isIdentifier(propertyAssignment.name) &&
+        propertyAssignment.name.text === 'declarations'
+      );
+    })
+  );
+}
 
 /**
  * Creates a transformer to prepare the examples module, this includes the following:
@@ -54,45 +72,44 @@ export function createTransformer(
   const transformer: TransformerFactory<SourceFile> = (
     context: TransformationContext,
   ) => {
-    let importsFromExampleFile: string | undefined;
+    const importsFromExampleFile: string[] = [];
 
-    function visitSpraedDeclarationAndReplaceIt(node: Node): Node | undefined {
+    function visitDeclarationAndEntryComponentsAndRemoveUnused(
+      node: Node,
+    ): Node | undefined {
       if (isSpreadElement(node)) {
-        return importsFromExampleFile
-          ? createIdentifier(importsFromExampleFile)
+        return importsFromExampleFile.length
+          ? createIdentifier(importsFromExampleFile.join(', '))
           : createIdentifier(exampleClassName);
       }
-      return visitEachChild(node, visitSpraedDeclarationAndReplaceIt, context);
+      // If the node is an identifier, includes `DtExample` and is not in the
+      // import list, remove it from the declarations
+      if (
+        isIdentifier(node) &&
+        node.text.includes('DtExample') &&
+        // Remove DtExamples except for the ones that are deleted
+        !node.text.includes('DtExampleShared') &&
+        !importsFromExampleFile.includes(node.text)
+      ) {
+        return undefined;
+      }
+      // Replace examples that are not needed in this module
+      return visitEachChild(
+        node,
+        visitDeclarationAndEntryComponentsAndRemoveUnused,
+        context,
+      );
     }
 
     /** Visit a propertyAssignment and determine which assignments need to be rewritten. */
     function visitPropertyAssignment(
       node: PropertyAssignment,
     ): Node | undefined {
-      const assignmentName = node.name.getText();
-      // Replace the spread in the declarations with the one component
-      // we want to keep in there.
-      if (assignmentName === 'declarations') {
-        return visitEachChild(
-          node,
-          visitSpraedDeclarationAndReplaceIt,
-          context,
-        );
-      }
-      // Replace the entryComponents assignment with an exports,
-      // to be able to use the component outside of the declaring module.
-      if (assignmentName === 'entryComponents') {
-        const entryComponentsNode = visitEachChild(
-          node,
-          visitSpraedDeclarationAndReplaceIt,
-          context,
-        );
-        return createPropertyAssignment(
-          'exports',
-          entryComponentsNode.initializer,
-        );
-      }
-      return node;
+      return visitEachChild(
+        node,
+        visitDeclarationAndEntryComponentsAndRemoveUnused,
+        context,
+      );
     }
 
     /** Visit an importDeclaration and remove imports if necessary. */
@@ -121,9 +138,11 @@ export function createTransformer(
         node.importClause.namedBindings &&
         isNamedImports(node.importClause.namedBindings)
       ) {
-        importsFromExampleFile = node.importClause.namedBindings.elements
-          .map((element: ImportSpecifier) => element.name.text)
-          .join(', ');
+        importsFromExampleFile.push(
+          ...node.importClause.namedBindings.elements.map(
+            (element: ImportSpecifier) => element.name.text,
+          ),
+        );
       }
       return node;
     }
@@ -143,9 +162,33 @@ export function createTransformer(
         }
       }
 
+      if (isNgModuleObject(node)) {
+        node.properties = createNodeArray([
+          ...node.properties,
+          createPropertyAssignment(
+            createIdentifier('exports'),
+            createArrayLiteral(
+              importsFromExampleFile.map((exampleImport) =>
+                createIdentifier(exampleImport),
+              ),
+            ),
+          ),
+        ]);
+        return visitEachChild(node, visit, context);
+      }
+
       // Replace the declarations and entryComponents assignments
       if (isPropertyAssignment(node)) {
-        return visitNode(node, visitPropertyAssignment);
+        if (
+          node.name &&
+          isIdentifier(node.name) &&
+          node.name.text === 'declarations'
+        ) {
+          const declarations = visitNode(node, visitPropertyAssignment);
+
+          return declarations;
+        }
+        return node;
       }
       return visitEachChild(node, visit, context);
     }
