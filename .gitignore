@@ -70,3 +70,4 @@ Thumbs.db
 
 # bazel
 bazel-*
+.bazelrc.user
