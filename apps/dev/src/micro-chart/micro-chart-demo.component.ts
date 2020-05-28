@@ -17,7 +17,7 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
-import { merge as lodashMerge } from 'lodash';
+import { merge as lodashMerge } from 'lodash-es';
 
 import { generateData } from '../chart/chart-data';
 
