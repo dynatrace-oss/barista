@@ -1,7 +1,7 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_config")
-load("@npm_angular_bazel//:index.bzl", "ng_package", "ng_module")
+load("@npm_angular_bazel//:index.bzl", "ng_package")#, "ng_module")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
-#load("//tools:defaults.bzl", "ng_module")
+load("//tools:defaults.bzl", "ng_module")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -13,32 +13,6 @@ ng_package(
     ],
 )
 
-# ng_module(
-#     name = "core",
-#     srcs = glob(
-#         include = ["**/*.ts"],
-#         exclude = [
-#             "**/*.spec.ts",
-#             "src/test-setup.ts",
-#         ],
-#     ),
-#     angular_assets = [
-#         ":src/option/option.css",
-#         ":src/option/optgroup.css",
-#     ] + glob(["src/**/*.html"]),
-#     module_name = "@dynatrace/barista-components/core",
-#     tsconfig = "tsconfig_lib",
-#     deps = [
-#         "@npm//@angular/animations",
-#         "@npm//@angular/cdk",
-#         "@npm//@angular/common",
-#         "@npm//@angular/core",
-#         "@npm//@angular/forms",
-#         "@npm//@angular/platform-browser",
-#         "@npm//rxjs",
-#     ],
-# )
-
 ng_module(
     name = "core",
     srcs = glob(
@@ -48,11 +22,10 @@ ng_module(
             "src/test-setup.ts",
         ],
     ),
-    assets = [
+    angular_assets = [
         ":src/option/option.css",
         ":src/option/optgroup.css",
     ] + glob(["src/**/*.html"]),
-    #generate_ve_shims = True,
     module_name = "@dynatrace/barista-components/core",
     tsconfig = "tsconfig_lib",
     deps = [
@@ -65,6 +38,33 @@ ng_module(
         "@npm//rxjs",
     ],
 )
+
+# ng_module(
+#     name = "core",
+#     srcs = glob(
+#         include = ["**/*.ts"],
+#         exclude = [
+#             "**/*.spec.ts",
+#             "src/test-setup.ts",
+#         ],
+#     ),
+#     assets = [
+#         ":src/option/option.css",
+#         ":src/option/optgroup.css",
+#     ] + glob(["src/**/*.html"]),
+#     #generate_ve_shims = True,
+#     module_name = "@dynatrace/barista-components/core",
+#     tsconfig = "tsconfig_lib",
+#     deps = [
+#         "@npm//@angular/animations",
+#         "@npm//@angular/cdk",
+#         "@npm//@angular/common",
+#         "@npm//@angular/core",
+#         "@npm//@angular/forms",
+#         "@npm//@angular/platform-browser",
+#         "@npm//rxjs",
+#     ],
+# )
 
 sass_library(
     name = "core_scss_lib",
