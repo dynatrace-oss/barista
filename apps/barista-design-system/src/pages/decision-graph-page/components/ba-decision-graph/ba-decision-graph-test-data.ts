@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BaUxdNode } from '@dynatrace/shared/barista-definitions';
+import { BaUxdNode } from '@dynatrace/shared/design-system/interfaces';
 
 export const nodes: BaUxdNode[] = [
   {

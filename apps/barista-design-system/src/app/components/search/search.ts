@@ -23,7 +23,7 @@ import {
   debounceTime,
   switchMap,
 } from 'rxjs/operators';
-import { BaSearchResult } from '@dynatrace/shared/barista-definitions';
+import { BaSearchResult } from '@dynatrace/shared/design-system/interfaces';
 import { DtAutocompleteSelectedEvent } from '@dynatrace/barista-components/autocomplete';
 import { Router } from '@angular/router';
 

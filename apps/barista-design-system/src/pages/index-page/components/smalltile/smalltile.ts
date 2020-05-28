@@ -16,7 +16,7 @@
 
 import { Component, Input } from '@angular/core';
 
-import { BaPageLink } from '@dynatrace/shared/barista-definitions';
+import { BaPageLink } from '@dynatrace/shared/design-system/interfaces';
 
 const DEFAULT_PAGE_THEME = 'turquoise';
 

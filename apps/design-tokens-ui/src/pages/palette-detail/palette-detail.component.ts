@@ -18,7 +18,7 @@ import { Component, OnDestroy, HostBinding } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { FluidPaletteSourceAlias } from '@dynatrace/shared/barista-definitions';
+import { FluidPaletteSourceAlias } from '@dynatrace/shared/design-system/interfaces';
 
 import { PaletteSourceService } from '../../services/palette';
 import {

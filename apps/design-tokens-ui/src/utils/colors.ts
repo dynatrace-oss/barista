@@ -19,7 +19,7 @@ import {
   generateContrastColors,
 } from '@adobe/leonardo-contrast-colors';
 import { rgb } from 'd3-color';
-import { FluidPaletteSourceAlias } from '@dynatrace/shared/barista-definitions';
+import { FluidPaletteSourceAlias } from '@dynatrace/shared/design-system/interfaces';
 
 /** Luminance threshold when at which a dark text color should be used  */
 const TEXT_COLOR_LUMINANCE_THRESHOLD = 0.45;

@@ -54,9 +54,6 @@
     "tools-shareable-examples": {
       "tags": ["type:tooling"]
     },
-    "shared-barista-definitions": {
-      "tags": ["type:types", "type:library"]
-    },
     "examples": {
       "tags": ["scope:examples", "type:library"]
     },
@@ -368,6 +365,12 @@
     },
     "shared-data-access-strapi": {
       "tags": ["scope:cms", "type:shared", "type:library"]
+    },
+    "shared-design-system-ui": {
+      "tags": ["type:library", "type:shared"]
+    },
+    "shared-design-system-interfaces": {
+      "tags": ["type:library", "type:shared"]
     }
   }
 }

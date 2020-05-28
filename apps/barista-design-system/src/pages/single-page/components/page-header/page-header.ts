@@ -16,7 +16,7 @@
 
 import { Component, Input } from '@angular/core';
 
-import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
+import { BaSinglePageContent } from '@dynatrace/shared/design-system/interfaces';
 
 @Component({
   selector: 'ba-page-header',

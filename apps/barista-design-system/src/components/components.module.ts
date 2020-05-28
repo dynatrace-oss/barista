@@ -16,7 +16,7 @@
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+import { NgModule, Type } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
@@ -37,15 +37,15 @@ import { BaLiveExample } from './live-example/live-example';
  * Inner components must be instantiated first. This is why the grid-item
  * comes before the grid and the grid before the color-grid.
  */
-export const BA_CONTENT_COMPONENTS: any[] = [
+export const BA_CONTENT_COMPONENTS: Type<unknown>[] = [
+  BaIconColorWheel,
+  BaLiveExample,
+  BaHeadlineLink,
   BaColor,
   BaColorGrid,
   BaContentLink,
-  BaIconColorWheel,
-  BaHeadlineLink,
   BaLayoutGridItem,
   BaLayoutGrid,
-  BaLiveExample,
 ];
 
 @NgModule({

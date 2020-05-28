@@ -24,7 +24,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaIcon } from '@dynatrace/shared/barista-definitions';
+import { BaIcon } from '@dynatrace/shared/design-system/interfaces';
 import { fromEvent, Subject } from 'rxjs';
 import {
   debounceTime,

@@ -31,7 +31,7 @@ import {
 import {
   BaIndexPageContent,
   BaPageLayoutType,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 
 const TILES_MOSTORDERED = [
   {

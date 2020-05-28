@@ -21,7 +21,7 @@ import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
-import { BaComponentsModule } from '../../components';
+import { BaComponentsModule, BA_CONTENT_COMPONENTS } from '../../components';
 import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { BaContributors } from './components/contributors';
@@ -31,9 +31,12 @@ import { BaPageFooter } from './components/page-footer';
 import { BaPageHeader } from './components/page-header';
 import { BaSidenav } from './components/sidenav';
 import { BaToc } from './components/toc';
-import { BaPageContent } from './page-content';
 import { BaSinglePage } from './single-page';
 import { BaScrollSpyService } from '../../shared/services/scroll-spy.service';
+import {
+  SharedDesignSystemUiModule,
+  DS_CONTENT_COMPONENT_LIST_TOKEN,
+} from '@dynatrace/shared/design-system/ui';
 
 export const routes: Route[] = [
   {
@@ -52,10 +55,10 @@ export const routes: Route[] = [
     DtFormFieldModule,
     DtInputModule,
     DtIconModule,
+    SharedDesignSystemUiModule,
   ],
   declarations: [
     BaSinglePage,
-    BaPageContent,
     BaPageFooter,
     BaPageHeader,
     BaIconOverviewContent,
@@ -64,6 +67,13 @@ export const routes: Route[] = [
     BaSidenav,
     BaToc,
   ],
-  providers: [BaRecentlyOrderedService, BaScrollSpyService],
+  providers: [
+    BaRecentlyOrderedService,
+    BaScrollSpyService,
+    {
+      provide: DS_CONTENT_COMPONENT_LIST_TOKEN,
+      useValue: BA_CONTENT_COMPONENTS,
+    },
+  ],
 })
 export class BaSinglePageModule {}

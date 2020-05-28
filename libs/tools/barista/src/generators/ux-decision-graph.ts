@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { BaUxdNode } from '@dynatrace/shared/barista-definitions';
+import { BaUxdNode } from '@dynatrace/shared/design-system/interfaces';
 import { environment } from '@environments/barista-environment';
 import { promises as fs } from 'fs';
 import * as markdownIt from 'markdown-it';

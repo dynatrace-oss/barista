@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 import {
   BaErrorPageContent,
   BaPageLayoutType,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

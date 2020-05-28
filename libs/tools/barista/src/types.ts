@@ -22,7 +22,7 @@ import {
   BaPageTeaser,
   BaPageLink,
   BaContributor,
-} from '@dynatrace/shared/barista-definitions';
+} from '@dynatrace/shared/design-system/interfaces';
 
 /** Page builder types */
 export type BaPageTransformer = (
@@ -141,4 +141,12 @@ export interface BaStrapiDecisionGraphEdge {
   id: number;
   text: string;
   uxd_node: BaStrapiDecisionGraphNodeBase;
+}
+
+export enum NextContentType {
+  NextPages = 'nextpages',
+}
+
+export interface NextStrapiPage extends BaStrapiPage {
+  group: string;
 }

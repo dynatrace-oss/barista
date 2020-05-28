@@ -15,7 +15,7 @@
  */
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { BaUxdNode } from '@dynatrace/shared/barista-definitions';
+import { BaUxdNode } from '@dynatrace/shared/design-system/interfaces';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
