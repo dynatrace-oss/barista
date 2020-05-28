@@ -1,7 +1,7 @@
-load("@npm_bazel_typescript//:index.bzl", "ts_config")
-load("@npm_angular_bazel//:index.bzl", "ng_package")
+load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 load("//tools:defaults.bzl", "ng_module")
+load("//tools:ng_package.bzl", "ng_package")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -9,8 +9,17 @@ ng_package(
     name = "package",
     entry_point = ":index.ts",
     deps = [
-        ":core",
-    ],
+      ":test"
+    ]
+)
+
+ts_library(
+  name = "test",
+  srcs = ["index.ts", "src/test.ts"],
+  deps = [
+    "@npm//tslib"
+  ],
+  # tsconfig = "tsconfig_lib",
 )
 
 ng_module(
@@ -26,6 +35,9 @@ ng_module(
         ":src/option/option.css",
         ":src/option/optgroup.css",
     ] + glob(["src/**/*.html"]),
+    data = [
+        ":package.json",
+    ],
     module_name = "@dynatrace/barista-components/core",
     tsconfig = "tsconfig_lib",
     deps = [
@@ -39,43 +51,11 @@ ng_module(
     ],
 )
 
-# ng_module(
-#     name = "core",
-#     srcs = glob(
-#         include = ["**/*.ts"],
-#         exclude = [
-#             "**/*.spec.ts",
-#             "src/test-setup.ts",
-#         ],
-#     ),
-#     assets = [
-#         ":src/option/option.css",
-#         ":src/option/optgroup.css",
-#     ] + glob(["src/**/*.html"]),
-#     generate_ve_shims = True,
-#     module_name = "@dynatrace/barista-components/core",
-#     tsconfig = "tsconfig_lib",
-#     deps = [
-#         "@npm//@angular/animations",
-#         "@npm//@angular/cdk",
-#         "@npm//@angular/common",
-#         "@npm//@angular/core",
-#         "@npm//@angular/forms",
-#         "@npm//@angular/platform-browser",
-#         "@npm//rxjs",
-#     ],
-# )
-
 sass_library(
     name = "core_scss_lib",
     srcs = glob(
         ["src/**/_*.scss"],
     ),
-    deps = [
-        # "//src/cdk/a11y:a11y_scss_lib",
-        # "//src/cdk/overlay:overlay_scss_lib",
-        # "//src/cdk/text-field:text_field_scss_lib",
-    ],
 )
 
 sass_binary(
@@ -96,5 +76,13 @@ ts_config(
     deps = [
         "tsconfig.json",
         "//:tsconfig.json",
+    ],
+)
+
+filegroup(
+    name = "source_files",
+    srcs = glob(["**/*.ts"]),
+    data = [
+        ":package.json",
     ],
 )

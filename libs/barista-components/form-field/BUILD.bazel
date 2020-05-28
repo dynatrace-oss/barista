@@ -1,0 +1,52 @@
+load("@npm_bazel_typescript//:index.bzl", "ts_config")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("//tools:defaults.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "form-field",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        ":src/form-field.css",
+    ] + glob(["src/**/*.html"]),
+    module_name = "@dynatrace/barista-components/form-field",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "//libs/barista-components/core",
+        "@npm//@angular/core",
+        "@npm//@angular/animations",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/forms",
+        "@npm//rxjs",
+    ],
+)
+
+sass_library(
+    name = "form-field_scss_lib",
+    srcs = glob(
+        ["src/**/_*.scss"],
+    ),
+)
+
+sass_binary(
+    name = "form-field_scss",
+    src = "src/form-field.scss",
+    deps = [":form-field_scss_lib"],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//:tsconfig.json",
+    ],
+)

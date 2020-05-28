@@ -10,7 +10,13 @@
     "enableIvy": false
   },
   "compilerOptions": {
-    "types": ["node", "jest"]
+    "allowJs": true,
+    "declaration": true,
+    "inlineSources": true,
+    "lib": ["dom", "es2018"],
+    "outDir": "../../dist/out-tsc",
+    "target": "es2015"
   },
-  "include": ["**/*.ts"]
+  "files": ["index.ts"],
+  "include": ["**/*.d.ts"]
 }

@@ -1,11 +1,71 @@
-load("@npm_angular_bazel//:index.bzl", "ng_package")
-load(":config.bzl", "BARISTA_COMPONENTS_TARGETS")
+load("@npm//ng-packagr:index.bzl", "ng_packagr")
+load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
+load("@npm//rollup:index.bzl", "rollup")
 
 package(default_visibility = ["//visibility:public"])
 
-ng_package(
-    name = "barista-components",
-    srcs = ["package.json"],
-    entry_point = ":index.ts",
-    deps = BARISTA_COMPONENTS_TARGETS,
+rollup(
+    name = "package",
+    args = [
+        "-c libs/barista-components/rollup.config.js",
+    ],
+    data = [
+        "//libs/barista-components/core",
+        ":package.json",
+    ],
+    output_dir = True,
 )
+
+
+
+
+
+
+ng_packagr(
+    name = "barista-components",
+    args = [
+        "-p libs/barista-components/ng-package.json",
+        # "-c libs/barista-components/tsconfig.json",
+    ],
+    data = [
+        ":index",
+        ":ng-package.json",
+        ":package.json",
+        # ":tsconfig.json",
+        # "//:tsconfig.json",
+        "//libs/barista-components/core:source_files",
+    ],
+    # output_dir = True,
+    # deps = [
+    #     # ":core",
+    # ],
+)
+
+ts_library(
+    name = "index",
+    srcs = [":index.ts"],
+    tsconfig = "tsconfig",
+)
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    deps = [
+        "//:tsconfig.json",
+    ],
+)
+
+# ng_package(
+#     name = "barista-components",
+#     srcs = ["package.json"],
+#     entry_point = ":index.ts",
+#     deps = BARISTA_COMPONENTS_TARGETS,
+# )
+
+#         nodejs_binary(
+#     entry_point = "@npm//:node_modules/ng-packagr/cli/main.js",
+#     install_source_map_support = False,
+#     data = ["@npm//ng-packagr:ng-packagr"] + kwargs.pop("data", []),
+#     templated_args = ["--nobazel_patch_module_resolver"] + kwargs.pop("templated_args", []),
+#     **kwargs
+# )

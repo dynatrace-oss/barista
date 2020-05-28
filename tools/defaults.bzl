@@ -1,5 +1,18 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 
+def _debug(vars, scope = "Barista Components", *args):
+    """Debug function that prints verbose output with a debug flag.
+
+    Args:
+      vars: The vars from the context `ctx.vars`
+      scope: The scope of logging
+      *args: The Arguments that should be printed
+
+    """
+    if "VERBOSE_LOGS" in vars.keys():
+        print("[" + scope + "]", args)
+
+
 def ng_module(deps = [], **kwargs):
     """Used for building Angular Modules
 

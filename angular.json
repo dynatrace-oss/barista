@@ -1722,6 +1722,13 @@
       "sourceRoot": "libs/barista-components/core/src",
       "prefix": "dt",
       "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "project": "libs/barista-components/core/ng-package.json",
+            "tsConfig": "libs/barista-components/core/tsconfig.lib.json"
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
