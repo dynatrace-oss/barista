@@ -23,17 +23,14 @@ import { DtExampleMicroChartDefault } from './micro-chart-default-example/micro-
 import { DtExampleMicroChartColumnsInterpolated } from './micro-chart-columns-interpolated-example/micro-chart-columns-interpolated-example';
 import { DtExampleMicroChartStream } from './micro-chart-stream-example/micro-chart-stream-example';
 
-export const DT_MICRO_CHART_EXAMPLES = [
-  DtExampleMicroChartColumns,
-  DtExampleMicroChartColumnsInterpolated,
-  DtExampleMicroChartDefault,
-  DtExampleMicroChartInterpolated,
-  DtExampleMicroChartStream,
-];
-
 @NgModule({
   imports: [DtMicroChartModule, DtFormattersModule],
-  declarations: [...DT_MICRO_CHART_EXAMPLES],
-  entryComponents: [...DT_MICRO_CHART_EXAMPLES],
+  declarations: [
+    DtExampleMicroChartColumns,
+    DtExampleMicroChartColumnsInterpolated,
+    DtExampleMicroChartDefault,
+    DtExampleMicroChartInterpolated,
+    DtExampleMicroChartStream,
+  ],
 })
 export class DtMicroChartExamplesModule {}

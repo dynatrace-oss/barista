@@ -22,15 +22,12 @@ import { DtExampleKeyValueListDefault } from './key-value-list-default-example/k
 import { DtExampleKeyValueListLongtext } from './key-value-list-longtext-example/key-value-list-longtext-example';
 import { DtExampleKeyValueListMulticolumn } from './key-value-list-multicolumn-example/key-value-list-multicolumn-example';
 
-export const DT_KEY_VALUE_LIST_EXAMPLES = [
-  DtExampleKeyValueListDefault,
-  DtExampleKeyValueListLongtext,
-  DtExampleKeyValueListMulticolumn,
-];
-
 @NgModule({
   imports: [CommonModule, DtKeyValueListModule],
-  declarations: [...DT_KEY_VALUE_LIST_EXAMPLES],
-  entryComponents: [...DT_KEY_VALUE_LIST_EXAMPLES],
+  declarations: [
+    DtExampleKeyValueListDefault,
+    DtExampleKeyValueListLongtext,
+    DtExampleKeyValueListMulticolumn,
+  ],
 })
 export class DtKeyValueListExamplesModule {}

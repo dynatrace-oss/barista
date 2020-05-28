@@ -25,18 +25,15 @@ import { DtExampleCardFooterActions } from './card-footer-actions-example/card-f
 import { DtExampleCardIcon } from './card-icon-example/card-icon-example';
 import { DtExampleCardSubtitle } from './card-subtitle-example/card-subtitle-example';
 
-export const DT_CARD_EXAMPLES = [
-  DtExampleCardActionButtons,
-  DtExampleCardDark,
-  DtExampleCardDefault,
-  DtExampleCardFooterActions,
-  DtExampleCardIcon,
-  DtExampleCardSubtitle,
-];
-
 @NgModule({
   imports: [DtCardModule, DtIconModule, DtThemingModule, DtButtonModule],
-  declarations: [...DT_CARD_EXAMPLES],
-  entryComponents: [...DT_CARD_EXAMPLES],
+  declarations: [
+    DtExampleCardActionButtons,
+    DtExampleCardDark,
+    DtExampleCardDefault,
+    DtExampleCardFooterActions,
+    DtExampleCardIcon,
+    DtExampleCardSubtitle,
+  ],
 })
 export class DtCardExamplesModule {}

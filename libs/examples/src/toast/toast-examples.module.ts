@@ -23,10 +23,6 @@ import { DtExampleToastDefault } from './toast-default-example/toast-default-exa
 import { DtExampleToastDynamicMsg } from './toast-dynamic-msg-example/toast-dynamic-msg-example';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 
-export const DT_TOAST_EXAMPLES = [
-  DtExampleToastDefault,
-  DtExampleToastDynamicMsg,
-];
 @NgModule({
   imports: [
     CommonModule,
@@ -36,7 +32,6 @@ export const DT_TOAST_EXAMPLES = [
     DtButtonModule,
     DtFormFieldModule,
   ],
-  declarations: [...DT_TOAST_EXAMPLES],
-  entryComponents: [...DT_TOAST_EXAMPLES],
+  declarations: [DtExampleToastDefault, DtExampleToastDynamicMsg],
 })
 export class DtToastExamplesModule {}

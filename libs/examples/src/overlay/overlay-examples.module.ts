@@ -26,16 +26,7 @@ import { DtExampleOverlayFullscreen } from './overlay-fullscreen-example/overlay
 import { DtExampleOverlayImplicitContext } from './overlay-implicit-context-example/overlay-implicit-context-example';
 import { DtExampleOverlayProgrammatic } from './overlay-programmatic-example/overlay-programmatic-example';
 import { DtExampleOverlayTile } from './overlay-tile-example/overlay-tile-example';
-import { DtExampleOverlayProgrammaticDummy } from './overlay-example-dummy-component';
-
-export const DT_OVERLAY_EXAMPLES = [
-  DtExampleOverlayComplexContent,
-  DtExampleOverlayDefault,
-  DtExampleOverlayFullscreen,
-  DtExampleOverlayImplicitContext,
-  DtExampleOverlayProgrammatic,
-  DtExampleOverlayTile,
-];
+import { DtExampleSharedOverlayProgrammaticDummy } from './overlay-example-dummy-component';
 
 @NgModule({
   imports: [
@@ -45,7 +36,15 @@ export const DT_OVERLAY_EXAMPLES = [
     DtKeyValueListModule,
     DtIconModule,
   ],
-  declarations: [...DT_OVERLAY_EXAMPLES, DtExampleOverlayProgrammaticDummy],
-  entryComponents: [...DT_OVERLAY_EXAMPLES, DtExampleOverlayProgrammaticDummy],
+  declarations: [
+    DtExampleOverlayComplexContent,
+    DtExampleOverlayDefault,
+    DtExampleOverlayFullscreen,
+    DtExampleOverlayImplicitContext,
+    DtExampleOverlayProgrammatic,
+    DtExampleOverlayTile,
+    DtExampleSharedOverlayProgrammaticDummy,
+  ],
+  entryComponents: [DtExampleSharedOverlayProgrammaticDummy],
 })
 export class DtOverlayExamplesModule {}

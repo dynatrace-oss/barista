@@ -18,11 +18,9 @@ import { NgModule } from '@angular/core';
 import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/quick-filter';
 import { DtExampleQuickFilterDefault } from './quick-filter-default-example/quick-filter-default-example';
 
-export const DT_QUICK_FILTER_EXAMPLES = [DtExampleQuickFilterDefault];
-
 @NgModule({
   imports: [DtQuickFilterModule],
-  declarations: [...DT_QUICK_FILTER_EXAMPLES],
-  entryComponents: [...DT_QUICK_FILTER_EXAMPLES],
+  declarations: [DtExampleQuickFilterDefault],
+  entryComponents: [DtExampleQuickFilterDefault],
 })
 export class DtQuickFilterExamplesModule {}

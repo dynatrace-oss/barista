@@ -23,11 +23,6 @@ import { DtExampleTopBarNavigationDrawer } from './top-bar-navigation-drawer-exa
 import { DtExampleTopBarNavigationDefault } from './top-bar-navigation-default-example/top-bar-navigation-default-example';
 import { CommonModule } from '@angular/common';
 
-export const DT_TOP_BAR_NAVIGATION_EXAMPLES = [
-  DtExampleTopBarNavigationDrawer,
-  DtExampleTopBarNavigationDefault,
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -35,7 +30,9 @@ export const DT_TOP_BAR_NAVIGATION_EXAMPLES = [
     DtTopBarNavigationModule,
     DtDrawerModule,
   ],
-  declarations: [...DT_TOP_BAR_NAVIGATION_EXAMPLES],
-  entryComponents: [...DT_TOP_BAR_NAVIGATION_EXAMPLES],
+  declarations: [
+    DtExampleTopBarNavigationDrawer,
+    DtExampleTopBarNavigationDefault,
+  ],
 })
 export class DtExamplesTopBarNavigationModule {}

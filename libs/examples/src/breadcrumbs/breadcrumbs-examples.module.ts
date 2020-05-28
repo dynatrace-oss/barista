@@ -24,13 +24,6 @@ import { DtExampleBreadcrumbsDark } from './breadcrumbs-dark-example/breadcrumbs
 import { DtExampleBreadcrumbsDefault } from './breadcrumbs-default-example/breadcrumbs-default-example';
 import { DtExampleBreadcrumbsObservable } from './breadcrumbs-observable-example/breadcrumbs-observable-example';
 
-export const DT_BREADCRUMBS_EXAMPLES = [
-  DtExampleBreadcrumbsColor,
-  DtExampleBreadcrumbsDark,
-  DtExampleBreadcrumbsDefault,
-  DtExampleBreadcrumbsObservable,
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -38,7 +31,11 @@ export const DT_BREADCRUMBS_EXAMPLES = [
     DtButtonGroupModule,
     DtThemingModule,
   ],
-  declarations: [...DT_BREADCRUMBS_EXAMPLES],
-  entryComponents: [...DT_BREADCRUMBS_EXAMPLES],
+  declarations: [
+    DtExampleBreadcrumbsColor,
+    DtExampleBreadcrumbsDark,
+    DtExampleBreadcrumbsDefault,
+    DtExampleBreadcrumbsObservable,
+  ],
 })
 export class DtBreadcrumbsExamplesModule {}
