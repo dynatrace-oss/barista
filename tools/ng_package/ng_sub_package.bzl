@@ -1,9 +1,62 @@
 load("@build_bazel_rules_nodejs//:providers.bzl", "DeclarationInfo", "JSEcmaScriptModuleInfo", "JSNamedModuleInfo", "node_modules_aspect", "run_node")
 load("@build_bazel_rules_nodejs//internal/linker:link_node_modules.bzl", "module_mappings_aspect")
 load(":esm5.bzl", "es5_aspect", "esm5_root_dir", "flatten_esm5")
-load("//tools:defaults.bzl", "copy_file", "join")
+load("//tools:defaults.bzl", "copy_file", "join", "convert_kebab_case_to_camel_case")
+
+
+
+# Convert from a package name on npm to an identifier that's a legal global symbol
+#  @angular/core -> ng.core
+#  @angular/platform-browser-dynamic/testing -> ng.platformBrowserDynamic.testing
+def _global_name(package_name):
+    # strip npm scoped package qualifier
+    start = 1 if package_name.startswith("@") else 0
+    parts = package_name[start:].split("/")
+    result_parts = []
+    for p in parts:
+        # Special case for angular's short name
+        if p == "angular":
+            result_parts.append("ng")
+        else:
+            result_parts.append(convert_kebab_case_to_camel_case(p))
+    return ".".join(result_parts)
+
+WELL_KNOWN_GLOBALS = {p: _global_name(p) for p in [
+    "@angular/upgrade",
+    "@angular/upgrade/static",
+    "@angular/forms",
+    "@angular/core/testing",
+    "@angular/core",
+    "@angular/platform-server/testing",
+    "@angular/platform-server",
+    "@angular/platform-webworker-dynamic",
+    "@angular/platform-webworker",
+    "@angular/common/testing",
+    "@angular/common",
+    "@angular/common/http/testing",
+    "@angular/common/http",
+    "@angular/elements",
+    "@angular/platform-browser-dynamic/testing",
+    "@angular/platform-browser-dynamic",
+    "@angular/compiler/testing",
+    "@angular/compiler",
+    "@angular/animations",
+    "@angular/animations/browser/testing",
+    "@angular/animations/browser",
+    "@angular/service-worker/config",
+    "@angular/service-worker",
+    "@angular/platform-browser/testing",
+    "@angular/platform-browser",
+    "@angular/platform-browser/animations",
+    "@angular/router/upgrade",
+    "@angular/router/testing",
+    "@angular/router",
+    "rxjs",
+    "rxjs/operators",
+]}
 
 def _filter_js(files):
+    "Filter the files out where the extension is .js or .mjs"
     return [f for f in files if f.extension == "js" or f.extension == "mjs"]
 
 def _get_bundle_name(input):
@@ -18,7 +71,12 @@ def _ng_sub_package_impl(ctx):
     # The directory of the package
     build_dir = ctx.build_file_path.replace("BUILD.bazel", "")
 
-    bundle_name = _get_bundle_name(ctx.attr.entry_point)
+    entry_point_name = _get_bundle_name(ctx.attr.entry_point)
+
+    bundle_name = "{label}_{bundle_name}".format(
+        label = ctx.label.name,
+        bundle_name = entry_point_name
+    )
 
     rollup_outputs = [
         ctx.actions.declare_file("bundles/" + bundle_name + ".umd.js"),
@@ -27,6 +85,7 @@ def _ng_sub_package_impl(ctx):
     ]
 
     files = []
+    declarations = []
 
     for dep in ctx.attr.deps:
         if JSEcmaScriptModuleInfo in dep:
@@ -34,6 +93,7 @@ def _ng_sub_package_impl(ctx):
 
         if DeclarationInfo in dep:
             files.extend(dep[DeclarationInfo].declarations.to_list())
+            declarations.extend(dep[DeclarationInfo].declarations.to_list())
 
         if JSNamedModuleInfo in dep:
             files.extend(dep[JSNamedModuleInfo].sources.to_list())
@@ -46,7 +106,7 @@ def _ng_sub_package_impl(ctx):
         files.append(dest_file)
 
     rollup_inputs = _filter_js(ctx.files.entry_point) + files
-    rollup_globals = ctx.attr.globals
+    rollup_globals = dict(WELL_KNOWN_GLOBALS, **ctx.attr.globals)
 
     rollup_externals = rollup_globals.keys()
     rollup_externals.append("tslib")
@@ -60,9 +120,11 @@ def _ng_sub_package_impl(ctx):
         output = config,
         substitutions = {
             "{base_path}": join([ctx.bin_dir.path, build_dir]),
-            "{entry_point_name}": "index",
+            "{entry_point_name}": entry_point_name,
+            "{bundle_name}": bundle_name,
             "'{rollup_globals}'": "{%s}" % ", ".join(["'%s': '%s'" % g for g in rollup_globals.items()]),
             "'{rollup-externals}'": "[%s]" % ", ".join(["'%s'" % e for e in rollup_externals]),
+
         },
     )
 
@@ -85,7 +147,11 @@ def _ng_sub_package_impl(ctx):
 """ % build_dir[:-1],
     )
 
-    return [DefaultInfo(files = depset(rollup_outputs))]
+    return [
+        DefaultInfo(files = depset(
+            rollup_outputs + declarations
+        ))
+    ]
 
 ng_sub_package = rule(
     implementation = _ng_sub_package_impl,

@@ -1,5 +1,13 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 
+# Convert from some-kebab-case to someKebabCase
+def convert_kebab_case_to_camel_case(s):
+    "Convert a string from kebab-case to camelCase"
+    parts = s.split("-")
+
+    # First letter in the result is always unchanged
+    return s[0] + "".join([p.capitalize() for p in parts])[1:]
+
 def join(array):
     "Joins a string by its seperator used for path merging"
     return  "/".join([p for p in array if p])

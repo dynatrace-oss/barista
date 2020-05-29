@@ -17,7 +17,7 @@
 // export * from './src/common-behaviours/index';
 // export * from './src/error/index';
 export * from './src/util/index';
-// export * from './src/logger/index';
+export * from './src/logger/index';
 // export * from './src/viewport/index';
 // export * from './src/option/index';
 // export * from './src/tree/index';

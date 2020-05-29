@@ -1,44 +1,15 @@
 load("@npm//ng-packagr:index.bzl", "ng_packagr")
 load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
-load("@npm//rollup:index.bzl", "rollup")
+load("//tools:index.bzl", "ng_package")
+load("@build_bazel_rules_nodejs//:index.bzl", "pkg_npm")
 
 package(default_visibility = ["//visibility:public"])
 
-rollup(
-    name = "package",
-    args = [
-        "-c libs/barista-components/rollup.config.js",
-    ],
-    data = [
-        "//libs/barista-components/core",
-        ":package.json",
-    ],
-    output_dir = True,
-)
-
-
-
-
-
-
-ng_packagr(
+pkg_npm(
     name = "barista-components",
-    args = [
-        "-p libs/barista-components/ng-package.json",
-        # "-c libs/barista-components/tsconfig.json",
-    ],
-    data = [
-        ":index",
-        ":ng-package.json",
-        ":package.json",
-        # ":tsconfig.json",
-        # "//:tsconfig.json",
-        "//libs/barista-components/core:source_files",
-    ],
-    # output_dir = True,
-    # deps = [
-    #     # ":core",
-    # ],
+    deps = [
+        "//libs/barista-components/core"
+    ]
 )
 
 ts_library(
