@@ -14,3 +14,9 @@ nodejs_binary(
     node_modules = ":empty_node_modules",
     visibility = ["//visibility:public"],
 )
+
+nodejs_binary(
+    name = "barista_package",
+    entry_point = ":barista-package.js",
+    install_source_map_support = False,
+)

@@ -1,5 +1,16 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_library")
 
+# Private helper function to get all d.ts files from a list of files
+def filter_files(files, extension = ".ts"):
+    """Util function to filter for specific files
+
+        Args:
+            files: List of files to filter for.
+            extension: The extension that should be filtered for.
+    """
+    return [file for file in files if file.path.endswith(extension)]
+
+
 # Convert from some-kebab-case to someKebabCase
 def convert_kebab_case_to_camel_case(s):
     "Convert a string from kebab-case to camelCase"
