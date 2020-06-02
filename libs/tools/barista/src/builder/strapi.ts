@@ -158,6 +158,11 @@ function strapiMetaData(page: BaStrapiPage): BaSinglePageMeta {
     category: page.category ? page.category.title : '',
   };
 
+  // Set navgroup
+  if (page.group) {
+    metaData.navGroup = page.group;
+  }
+
   // Set description
   if (page.description) {
     metaData.description = page.description;
