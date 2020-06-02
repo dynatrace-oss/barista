@@ -1,12 +1,17 @@
-const { join } = require('path');
-const { sync } = require('glob');
+import { join } from 'path';
+import resolve from '@rollup/plugin-node-resolve';
 
 // will be replaced via bazels expand_template substitutions
 const BASE_PATH = '{base_path}';
 const ENTRY_POINT_NAME = '{entry_point_name}';
 const BUNDLE_NAME = '{bundle_name}';
 
-const plugins = [];
+const plugins = [
+  resolve({
+    browser: true,
+    mainFields: ['browser', 'jsnext', 'module', 'main'],
+  }),
+];
 
 const commonOutput = {
   globals: '{rollup_globals}',

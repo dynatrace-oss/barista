@@ -12,6 +12,7 @@ ng_sub_package(
     ],
     globals = {
         "@angular/cdk/coercion": "ng.cdk.coercion",
+        "@angular/cdk/keycodes": "ng.cdk.keycodes",
         "rxjs": "rxjs"
     }
 )
@@ -33,7 +34,7 @@ ng_module(
         ":package.json",
     ],
     module_name = "@dynatrace/barista-components/core",
-    tsconfig = "tsconfig_lib",
+    # tsconfig = "tsconfig_lib",
     deps = [
         "@npm//@angular/animations",
         "@npm//@angular/cdk",

@@ -1,11 +1,24 @@
 load("@npm_bazel_typescript//:index.bzl", "ts_config")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
-load("//tools:defaults.bzl", "ng_module")
+load("//tools:index.bzl", "ng_module",  "ng_sub_package")
 
 package(default_visibility = ["//visibility:public"])
 
-ng_module(
+ng_sub_package(
     name = "icon",
+    entry_point = ":index.ts",
+    deps = [
+      ":icon_compile"
+    ],
+    globals = {
+        # "@angular/cdk/coercion": "ng.cdk.coercion",
+        # "@angular/cdk/keycodes": "ng.cdk.keycodes",
+        "rxjs": "rxjs"
+    }
+)
+
+ng_module(
+    name = "icon_compile",
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [
@@ -19,7 +32,7 @@ ng_module(
     module_name = "@dynatrace/barista-components/icon",
     tsconfig = "tsconfig_lib",
     deps = [
-        "//libs/barista-components/core",
+        "//libs/barista-components/core:core_compile",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@dynatrace/barista-icons",
