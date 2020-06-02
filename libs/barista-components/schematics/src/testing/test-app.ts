@@ -66,7 +66,9 @@ export async function createFileSystemTestApp(
   runner: SchematicTestRunner,
 ): Promise<TestCaseSetup> {
   const tempFileSystemHost = new TempScopedNodeJsSyncHost();
-  const hostTree = new HostTree(tempFileSystemHost);
+  // Needs to be typecast as the @angular/devkit/core has a locked
+  // version of rxjs dependency which mismatches with our installed one.
+  const hostTree = new HostTree(tempFileSystemHost as any);
   const appTree: UnitTestTree = await createTestApp(
     runner,
     { name: 'lib-testing' },
