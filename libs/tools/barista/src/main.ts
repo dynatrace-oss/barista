@@ -30,7 +30,11 @@ import {
 } from './transform';
 import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from './types';
 import { sync } from 'glob';
-import { uxDecisionGraphGenerator, overviewBuilder } from './generators';
+import {
+  uxDecisionGraphGenerator,
+  overviewBuilder,
+  navigationBuilder,
+} from './generators';
 import { options } from 'yargs';
 import {
   getExamplesInPackages,
@@ -160,6 +164,9 @@ async function buildPages(): Promise<void[]> {
 
   const allPages = await Promise.all(files);
   const overviewPages = await overviewBuilder();
+  if (next) {
+    await navigationBuilder();
+  }
   if (!isPublicBuild()) {
     await uxDecisionGraphGenerator();
   }

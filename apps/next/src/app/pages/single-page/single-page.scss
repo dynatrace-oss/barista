@@ -1,13 +1,9 @@
+@import '../../styles/page';
+
 :host {
   display: block;
 }
 
-.next-single-page-grid {
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  grid-template-areas: 'sidenav main toc';
-}
-
-.next-single-page-main {
+.next-page-main {
   grid-area: main;
 }
