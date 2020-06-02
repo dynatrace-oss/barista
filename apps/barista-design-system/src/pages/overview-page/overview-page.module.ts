@@ -17,7 +17,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { BaPageGuard } from '../../shared/services/page-guard';
+import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
 import { BaOverviewPage } from './overview-page';
 import { BaTile } from './components/tile';
 

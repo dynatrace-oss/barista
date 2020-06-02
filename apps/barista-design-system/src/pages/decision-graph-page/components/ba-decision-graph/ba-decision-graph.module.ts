@@ -23,7 +23,7 @@ import {
   BaDecisionGraphNode,
   BaDecisiongraphNodeNavigation,
 } from './ba-decision-graph-node';
-import { BaPageService } from '../../../../shared/services/page.service';
+import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 
 @NgModule({
   imports: [CommonModule, BrowserModule],
