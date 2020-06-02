@@ -349,6 +349,12 @@
     },
     "design-tokens-ui-input": {
       "tags": ["type:library"]
+    },
+    "next": {
+      "tags": []
+    },
+    "shared-data-access-strapi": {
+      "tags": []
     }
   }
 }
