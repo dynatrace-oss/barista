@@ -1,0 +1,11 @@
+{
+  "extends": "../../tslint.json",
+  "rules": {
+    "directive-selector": [true, "attribute", "x", "camelCase"],
+    "component-selector": [false],
+    "dt-require-license-banner": true
+  },
+  "linterOptions": {
+    "exclude": ["!**/*"]
+  }
+}

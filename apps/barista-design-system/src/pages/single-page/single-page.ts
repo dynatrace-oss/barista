@@ -24,7 +24,7 @@ import {
 import {
   BaPageService,
   getUrlPathName,
-} from '../../shared/services/page.service';
+} from '@dynatrace/shared/data-access-strapi';
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
 import { Platform } from '@angular/cdk/platform';

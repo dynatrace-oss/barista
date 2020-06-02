@@ -18,5 +18,4 @@ export const environment = {
   deployUrl: '/',
   internal: false,
   searchEndpoint: 'TDB',
-  dataHost: '/data',
 };

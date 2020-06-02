@@ -1,0 +1,74 @@
+@import '~@dynatrace/fluid-design-tokens/global/theme';
+
+.fluid-theme--abyss {
+  --body-background-color: var(--color-neutral-60);
+  --alternative-background-color: var(--color-background);
+}
+
+.fluid-theme--surface {
+  --body-background-color: var(--color-background);
+  --alternative-background-color: var(--color-neutral-60);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  width: 100vw;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p {
+  color: var(--color-maxcontrast);
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+.next-btn-icon {
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+  background-color: transparent;
+
+  svg path {
+    fill: var(--color-maxcontrast);
+  }
+}

@@ -4264,6 +4264,136 @@
           "style": "scss"
         }
       }
+    },
+    "next": {
+      "projectType": "application",
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "apps/next",
+      "sourceRoot": "apps/next/src",
+      "prefix": "x",
+      "architect": {
+        "build": {
+          "builder": "@angular-builders/custom-webpack:browser",
+          "options": {
+            "outputPath": "dist/apps/next",
+            "index": "apps/next/src/index.html",
+            "main": "apps/next/src/main.ts",
+            "polyfills": "apps/next/src/polyfills.ts",
+            "tsConfig": "apps/next/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/next/src/favicon.ico", "apps/next/src/assets"],
+            "styles": ["apps/next/src/styles.scss"],
+            "scripts": [],
+            "customWebpackConfig": {
+              "path": "./apps/next/webpack.config.js"
+            }
+          },
+          "configurations": {
+            "production-internal": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/next/src/environments/environment.ts",
+                  "with": "apps/next/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "next:build"
+          },
+          "configurations": {
+            "production-internal": {
+              "browserTarget": "next:build:production"
+            }
+          },
+          "customWebpackConfig": {
+            "path": "./apps/next/webpack.config.js"
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "next:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/next/tsconfig.app.json",
+              "apps/next/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/next/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/next/jest.config.js",
+            "tsConfig": "apps/next/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "apps/next/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "shared-data-access-strapi": {
+      "projectType": "library",
+      "root": "libs/shared/data-access-strapi",
+      "sourceRoot": "libs/shared/data-access-strapi/src",
+      "prefix": "dynatrace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/data-access-strapi/tsconfig.lib.json",
+              "libs/shared/data-access-strapi/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/data-access-strapi/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/data-access-strapi/jest.config.js",
+            "tsConfig": "libs/shared/data-access-strapi/tsconfig.spec.json",
+            "passWithNoTests": true,
+            "setupFile": "libs/shared/data-access-strapi/src/test-setup.ts"
+          }
+        }
+      },
+      "schematics": {}
     }
   },
   "defaultProject": "dev",

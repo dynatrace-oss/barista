@@ -18,5 +18,4 @@ export const environment = {
   deployUrl: '/',
   internal: true,
   searchEndpoint: '{{BARISTA_INTERNAL_SEARCH_ENDPOINT}}',
-  dataHost: '/data',
 };

@@ -34,6 +34,7 @@ export class BaPageGuard implements CanActivate {
     @Inject(DOCUMENT) private _document: any,
   ) {}
 
+  /** Checks whether a given route can be navigated to */
   canActivate(
     _route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
