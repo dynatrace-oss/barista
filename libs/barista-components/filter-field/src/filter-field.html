@@ -15,6 +15,7 @@
   <dt-filter-field-tag
     *ngFor="let tagData of _prefixTagData"
     [data]="tagData"
+    [_filterFieldDisabled]="disabled"
     (remove)="_handleTagRemove($event)"
     (edit)="_handleTagEdit($event)"
   ></dt-filter-field-tag>
@@ -94,6 +95,7 @@
   <dt-filter-field-tag
     *ngFor="let tagData of _suffixTagData"
     [data]="tagData"
+    [_filterFieldDisabled]="disabled"
     (remove)="_handleTagRemove($event)"
     (edit)="_handleTagEdit($event)"
   ></dt-filter-field-tag>

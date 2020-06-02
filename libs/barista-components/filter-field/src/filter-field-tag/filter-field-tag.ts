@@ -43,7 +43,7 @@ import { Subject } from 'rxjs';
   host: {
     '[attr.role]': `'option'`,
     class: 'dt-filter-field-tag',
-    '[class.dt-filter-field-tag-disabled]': 'disabled',
+    '[class.dt-filter-field-tag-disabled]': '_filterFieldDisabled || disabled',
   },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
@@ -88,6 +88,16 @@ export class DtFilterFieldTag implements OnDestroy {
     this.deletable = !coercedValue;
     this._changeDetectorRef.markForCheck();
   }
+
+  @Input()
+  get _filterFieldDisabled(): boolean {
+    return this._parentFilterFieldDisabled;
+  }
+  set _filterFieldDisabled(value: boolean) {
+    this._parentFilterFieldDisabled = value;
+    this._changeDetectorRef.markForCheck();
+  }
+  private _parentFilterFieldDisabled: boolean = false;
 
   /** Whether the tag is editable. */
   get editable(): boolean {

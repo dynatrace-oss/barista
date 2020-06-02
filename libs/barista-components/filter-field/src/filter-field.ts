@@ -249,7 +249,6 @@ export class DtFilterField<T = any>
     return this._disabled;
   }
   set disabled(value: boolean) {
-    // tslint:disable: deprecation
     const coerced = coerceBooleanProperty(value);
     if (coerced !== this._disabled) {
       this._disabled = coerced;
@@ -274,8 +273,6 @@ export class DtFilterField<T = any>
 
       this._changeDetectorRef.markForCheck();
     }
-
-    // tslint:enable: deprecation
   }
   private _disabled = false;
   private _previousTagDisabledState: Map<DtFilterFieldTag, boolean> = new Map<
@@ -394,8 +391,10 @@ export class DtFilterField<T = any>
   /** @internal Whether the clear all button is shown. */
   get _showClearAll(): boolean {
     return Boolean(
-      // Show button only if we are not in the edit mode
-      this._rootDef === this._currentDef &&
+      // If the filterfield itself is disabled, don't show the clear all
+      !this._disabled &&
+        // Show button only if we are not in the edit mode
+        this._rootDef === this._currentDef &&
         // and only if there are actual filters that can be cleared
         this._filters.length &&
         // The button should also only be visible if the filter field is not focused
@@ -533,11 +532,9 @@ export class DtFilterField<T = any>
       .subscribe(() => {
         this._handleInputChange();
       });
-    // tslint:disable-next-line: deprecation
     this._tags.changes
       .pipe(startWith(null), takeUntil(this._destroy$))
       .subscribe(() => {
-        // tslint:disable-next-line: deprecation
         this._currentTags.next(this._tags.toArray());
       });
   }
@@ -581,7 +578,6 @@ export class DtFilterField<T = any>
 
       if (needleFilterValueArr) {
         const filterIndex = this._findIndexForFilter(needleFilterValueArr);
-        // tslint:disable-next-line: deprecation
         return filterIndex !== -1 ? this._tags.toArray()[filterIndex] : null;
       }
     }
