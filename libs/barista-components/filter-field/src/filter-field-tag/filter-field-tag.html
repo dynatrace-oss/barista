@@ -24,7 +24,7 @@
     dt-button
     variant="nested"
     class="dt-filter-field-tag-label"
-    [disabled]="!editable"
+    [disabled]="_filterFieldDisabled || !editable"
     (click)="_handleEdit($event)"
   >
     <ng-container *ngTemplateOutlet="tagContent"></ng-container>
@@ -34,7 +34,7 @@
   dt-icon-button
   variant="nested"
   class="dt-filter-field-tag-button"
-  [disabled]="!deletable"
+  [disabled]="_filterFieldDisabled || !deletable"
   (click)="_handleRemove($event)"
 >
   <dt-icon name="abort" class="dt-filter-field-tag-icon"></dt-icon>
