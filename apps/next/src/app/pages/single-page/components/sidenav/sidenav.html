@@ -1,3 +1,14 @@
-<div>
-  sidenav
+<div *ngFor="let section of sidenavData.sections" class="ds-sidenav-section">
+  <header class="ds-sidenav-section-title">{{section.title}}</header>
+  <ul>
+    <li *ngFor="let item of section.items">
+      <a
+        class="ds-sidenav-item"
+        [routerLink]="item.link"
+        routerLinkActive="ds-sidenav-item-active"
+      >
+        {{ item.title }}
+      </a>
+    </li>
+  </ul>
 </div>

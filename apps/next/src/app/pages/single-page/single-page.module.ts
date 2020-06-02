@@ -27,6 +27,7 @@ import {
   DS_CONTENT_COMPONENT_LIST_TOKEN,
 } from '@dynatrace/shared/design-system/ui';
 import { NextPageFooter } from './components/page-footer';
+import { DsSidenav } from './components/sidenav';
 
 export const routes: Route[] = [
   {
@@ -44,7 +45,7 @@ export const DS_CONTENT_TYPES: Type<unknown>[] = [];
     RouterModule.forChild(routes),
     SharedDesignSystemUiModule,
   ],
-  declarations: [SinglePage, NextPageFooter],
+  declarations: [SinglePage, NextPageFooter, DsSidenav],
   providers: [
     DsPageGuard,
     DsPageService,

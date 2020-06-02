@@ -16,3 +16,4 @@
 
 export * from './category-navigation';
 export * from './ux-decision-graph';
+export * from './ds-navigation';

@@ -2,64 +2,10 @@
 
 .next-page-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: 270px minmax(0, 1fr) 280px;
+  grid-template-rows: repeat(2, max-content) 1fr;
   grid-template-areas:
-    'title'
-    'meta'
-    'main'
-    'footer';
-  padding: $fluid-spacing--medium;
-  grid-row-gap: 1.5rem;
-}
-
-@media (min-width: $screen-md) {
-  .next-page-grid {
-    grid-template-columns: minmax(0, 1fr) 230px;
-    grid-column-gap: $fluid-spacing--large;
-    grid-row-gap: $fluid-spacing--large;
-    grid-template-areas:
-      'title title'
-      'main meta'
-      'footer .';
-    padding: $fluid-spacing--medium;
-  }
-
-  .next-single-page-content::before {
-    height: $fluid-spacing--large;
-  }
-}
-
-@media (min-width: $screen-lg) {
-  .next-page-grid {
-    grid-column-gap: $fluid-spacing--x-large;
-    grid-template-areas:
-      'title .'
-      'main meta'
-      'footer .';
-    padding: $fluid-spacing--medium $fluid-spacing--large;
-  }
-}
-
-@media (min-width: $screen-xxl) {
-  .next-page-grid {
-    grid-template-columns: 300px minmax(0, 1fr) 280px;
-    grid-template-rows: repeat(2, max-content) 1fr;
-    grid-template-areas:
-      'sidenav title .'
-      'sidenav main meta'
-      'sidenav footer .';
-    padding: $fluid-spacing--medium $fluid-spacing--medium
-      $fluid-spacing--medium $fluid-spacing--0;
-  }
-}
-
-/* All columns + column gaps (3rem) + padding-right (1rem) = 1738px */
-@media (min-width: 1740px) {
-  .next-page-grid {
-    grid-template-columns: 300px auto 950px 280px auto;
-    grid-template-areas:
-      'sidenav . title . .'
-      'sidenav . main meta .'
-      'sidenav . footer meta .';
-  }
+    'sidenav title .'
+    'sidenav main meta'
+    'sidenav footer .';
 }

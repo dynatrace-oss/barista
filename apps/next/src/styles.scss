@@ -5,11 +5,13 @@
 .fluid-theme--abyss {
   --body-background-color: var(--color-neutral-60);
   --alternative-background-color: var(--color-background);
+  --alternative-font-color: var(--color-neutral-100);
 }
 
 .fluid-theme--surface {
   --body-background-color: var(--color-background);
   --alternative-background-color: var(--color-neutral-60);
+  --alternative-font-color: var(--color-neutral-100);
 }
 
 * {
