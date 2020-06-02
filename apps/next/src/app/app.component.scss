@@ -1,0 +1,8 @@
+main {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: var(--body-background-color);
+  color: var(--body-background-color);
+  transition: background-color 500ms ease-in-out;
+}

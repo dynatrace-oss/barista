@@ -24,7 +24,6 @@ import {
 } from '@dynatrace/shared/barista-definitions';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 
 const ERROR_PAGE_404: BaErrorPageContent = {
   title: 'Error 404',
@@ -84,7 +83,7 @@ export class BaPageService<T = any> {
    * @param id - page id (path).
    */
   private _fetchPage(id: string): Observable<T> {
-    const requestPath = `${environment.dataHost}/${id}.json`;
+    const requestPath = `/data/${id}.json`;
     return this._http
       .get<T>(requestPath, { responseType: 'json' })
       .pipe(tap((data) => this._cache.set(id, data)));

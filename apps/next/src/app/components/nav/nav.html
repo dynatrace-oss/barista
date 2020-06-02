@@ -1,0 +1,34 @@
+<nav class="next-nav">
+  <div class="next-nav-wrapper">
+    <a class="next-nav-brand" routerLink="/">
+      Dynatrace Design System
+    </a>
+    <nav class="next-nav-bar">
+      <ul class="next-nav-list">
+        <li class="next-nav-item" *ngFor="let item of (_navData$)?.navItems">
+          <a
+            class="next-nav-link"
+            [routerLink]="item.url"
+            routerLinkActive="next-nav-link-active"
+            >{{ item.label }}</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="next-barista-theme">
+    <a class="next-back-to-barista" href="https://barista.dynatrace.com/">
+      back to barista
+    </a>
+    <button
+      class="next-theme-switch next-btn-icon"
+      (click)="_themeService.toggle()"
+    >
+      <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16.667 12.758L19.425 10l-2.758-2.758V3.333h-3.909L10 .575 7.242 3.333H3.333v3.909L.575 10l2.758 2.758v3.909h3.909L10 19.425l2.758-2.758h3.909v-3.909zM10 15V5c2.758 0 5 2.242 5 5s-2.242 5-5 5z"
+        />
+      </svg>
+    </button>
+  </div>
+</nav>

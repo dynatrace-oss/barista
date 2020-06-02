@@ -25,6 +25,8 @@ const types = [
   'chore',
   /** Changes that affect the design system app/build  */
   'barista',
+  /** Changes that affect the design system app/build  */
+  'ds',
 ];
 
 module.exports = {

@@ -16,7 +16,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BaUxdNode } from '@dynatrace/shared/barista-definitions';
-import { BaPageService } from '../../../../shared/services/page.service';
+import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 import { cloneDeep } from 'lodash-es';
 
 @Component({

@@ -9,6 +9,7 @@ RUN ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled && \
     rm -rf /etc/nginx/conf.d/default.conf
 
 COPY dist/apps/barista-design-system/browser /var/www/barista
+COPY dist/apps/next /var/www/next
 
 EXPOSE 80
 
