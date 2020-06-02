@@ -325,6 +325,29 @@ describe('DtFilterField', () => {
       tick();
       sub2.unsubscribe();
     }));
+
+    it('should disable programmatically set tags when they are set during a disabled state', fakeAsync(() => {
+      // given
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
+      fixture.detectChanges();
+
+      // when
+      filterField.disabled = true;
+      const filters = [
+        [
+          FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT.autocomplete[0],
+          FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT.autocomplete[0]
+            .autocomplete[0],
+        ],
+      ];
+      filterField.filters = filters;
+      fixture.detectChanges();
+      advanceFilterfieldCycle(true, true);
+      const tags = getFilterTags(fixture);
+      expect(tags[0].ele.nativeElement.getAttribute('class')).toContain(
+        'dt-filter-field-tag-disabled',
+      );
+    }));
   });
 
   describe('labeling', () => {
