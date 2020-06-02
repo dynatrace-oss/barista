@@ -1,6 +1,5 @@
 @import '../../../core/src/style/variables';
 @import '../../../core/src/style/overlay';
-@import './chart-heatfield-theme';
 
 $animation-duration: 150ms;
 $animation-delay: 40ms;
@@ -53,7 +52,4 @@ $animation-delay: 40ms;
   margin-top: -$overlay-container-padding;
 }
 
-// Apply the heatfield theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-chart-heatfield($dt-current-theme);
-}
+@import './chart-heatfield-theme';

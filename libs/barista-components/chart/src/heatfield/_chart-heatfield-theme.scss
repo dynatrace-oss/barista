@@ -1,34 +1,31 @@
-@import '../../../core/src/style/variables';
-@import '../../../core/src/theming/theming';
+:host {
+  --dt-chart-heatfield-default-color: var(--dt-theme-main-default-color);
+  --dt-chart-heatfield-hover-color: var(--dt-theme-main-hover-color);
+  --dt-chart-heatfield-active-color: var(--dt-theme-main-active-color);
+  --dt-chart-heatfield-background-color: var(--dt-theme-main-background-color);
+}
 
-@mixin dt-theme-chart-heatfield($theme) {
-  $palette-names: 'main', 'error';
-  $default-palette: 'error';
+:host.dt-color-error {
+  --dt-chart-heatfield-default-color: var(--dt-error-default-color);
+  --dt-chart-heatfield-hover-color: var(--dt-error-hover-color);
+  --dt-chart-heatfield-active-color: var(--dt-error-active-color);
+  --dt-chart-heatfield-background-color: var(
+    --dt-error-active-background-color
+  );
+}
 
-  @each $name in $palette-names {
-    $palette: dt-get-theme-palette($theme, $name);
-    $default-color: dt-get-theme-color($palette, 'default');
-    $hover-color: dt-get-theme-color($palette, 'hover');
-    $active-color: dt-get-theme-color($palette, 'active');
-    $background-color: dt-get-theme-color($palette, 'background');
+.dt-chart-heatfield-marker {
+  background-color: var(--dt-chart-heatfield-default-color);
+}
+.dt-chart-heatfield-marker.dt-chart-heatfield-active {
+  background-color: var(--dt-chart-heatfield-active-color);
+}
 
-    $namespace: ':host.dt-color-#{$name}';
+.dt-chart-heatfield-marker:hover,
+.dt-chart-heatfield-marker:focus {
+  background-color: var(--dt-chart-heatfield-hover-color);
+}
 
-    #{$namespace} .dt-chart-heatfield-marker {
-      background-color: $default-color;
-    }
-
-    #{$namespace} .dt-chart-heatfield-marker.dt-chart-heatfield-active {
-      background-color: $active-color;
-    }
-
-    #{$namespace} .dt-chart-heatfield-marker:hover,
-    #{$namespace} .dt-chart-heatfield-marker:focus {
-      background-color: $hover-color;
-    }
-
-    #{$namespace} .dt-chart-heatfield-backdrop {
-      background-color: $background-color;
-    }
-  }
+.dt-chart-heatfield-backdrop {
+  background-color: var(--dt-chart-heatfield-background-color);
 }
