@@ -45,6 +45,11 @@
       "implementation": "./src/builders/elements/index",
       "schema": "./src/builders/elements/schema.json",
       "description": "Run individual element builds and package them into one publishable library"
+    },
+    "affected-e2e": {
+      "implementation": "./src/builders/affected-e2e/index",
+      "schema": "./src/builders/affected-e2e/schema.json",
+      "description": "Run affected e2e tests for components"
     }
   }
 }

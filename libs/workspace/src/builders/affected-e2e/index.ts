@@ -14,24 +14,11 @@
  * limitations under the License.
  */
 
-import { execSync } from 'child_process';
+import { createBuilder } from '@angular-devkit/architect';
+import { JsonObject } from '@angular-devkit/core';
+import { affectedE2EBuilder } from './build';
+import { AffectedE2EOptions } from './schema';
 
-/** Get a list of affected libraries with the target */
-export function getAffectedProjects(
-  baseSha: string,
-  target?: string,
-): string[] {
-  const command = [`npx nx print-affected`, `--base=${baseSha}`];
-
-  if (target) {
-    command.push(`--target=${target}`);
-  }
-
-  const affected = execSync(command.join(' ')).toString().trim();
-
-  const parsed = JSON.parse(affected);
-
-  return target
-    ? parsed.tasks.map((task) => task.target.project).sort()
-    : parsed.projects.sort();
-}
+export default createBuilder<AffectedE2EOptions & JsonObject>(
+  affectedE2EBuilder,
+);
