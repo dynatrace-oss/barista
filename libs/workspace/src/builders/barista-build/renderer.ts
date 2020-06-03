@@ -78,5 +78,5 @@ export async function render(
 /** Renders each route that is provided via the process args */
 (async () => {
   const [outputPath, baseUrl, ...routes] = process.argv.slice(2);
-  render(outputPath, baseUrl, routes);
+  await render(outputPath, baseUrl, routes);
 })().catch();
