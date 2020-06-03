@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "DtComponentExample",
+  "title": "DtComponent Example Schema",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the example",
+      "default": "default",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "What Name would you like to use for the example?"
+    },
+    "component": {
+      "type": "string",
+      "description": "Name of the component",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      },
+      "x-prompt": "What component does the example belong to?"
+    }
+  }
+}
