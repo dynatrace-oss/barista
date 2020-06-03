@@ -1,0 +1,29 @@
+load("@npm_bazel_typescript//:index.bzl", "ts_library")
+load("//tools/bazel_rules:index.bzl", "rollup")
+
+rollup(
+    name = "barista-build",
+    assets = ["schema.json"],
+    entry_point = {"builder.ts": "builder.bundled.js"},
+    deps = [":compile"],
+)
+
+ts_library(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+        ],
+    ),
+    tsconfig = "//libs/workspace:tsconfig_lib",
+    deps = [
+        "@npm//@angular-devkit/architect",
+        "@npm//@angular-devkit/core",
+        "@npm//@types/node",
+        "@npm//axios",
+        "@npm//chalk",
+        "@npm//lodash",
+        "@npm//rxjs",
+    ],
+)
