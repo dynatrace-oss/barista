@@ -1,5 +1,9 @@
 <ng-template>
-  <div class="dt-confirmation-dialog-wrapper" [@pop]="_positionState">
+  <div
+    class="dt-confirmation-dialog-wrapper"
+    [@pop]="_positionState"
+    (@pop.done)="_popDone()"
+  >
     <div
       class="dt-confirmation-dialog-container"
       dtTheme=":dark"
