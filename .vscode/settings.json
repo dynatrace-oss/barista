@@ -2,6 +2,5 @@
   "editor.tabSize": 2,
   "files.eol": "\n",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "bazel.buildifierExecutable": "node_modules/.bin/buildifier"
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
