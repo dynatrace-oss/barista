@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-import { execSync } from 'child_process';
-
-/** Get a list of affected libraries with the target */
-export function getAffectedProjects(
-  baseSha: string,
-  target?: string,
-): string[] {
-  const command = [`npx nx print-affected`, `--base=${baseSha}`];
-
-  if (target) {
-    command.push(`--target=${target}`);
-  }
-
-  const affected = execSync(command.join(' ')).toString().trim();
-
-  const parsed = JSON.parse(affected);
-
-  return target
-    ? parsed.tasks.map((task) => task.target.project).sort()
-    : parsed.projects.sort();
+/** The options that can be used with the elements builder */
+export interface AffectedE2EOptions {
+  /** Target of the configuration that should be scheduled */
+  e2eTarget: string;
+  /**
+   * The app root of the end to end test that should be scanned for
+   * modules using the affected components.
+   */
+  testAppSourceFolder: string;
 }
