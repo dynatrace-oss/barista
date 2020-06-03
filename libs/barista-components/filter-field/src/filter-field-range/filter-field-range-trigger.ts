@@ -196,12 +196,11 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
       this.range.closed.emit();
     }
 
-    this.range._isOpen = false;
-    this._detachOverlay();
-
     // Note that in some cases this can end up being called after the component is destroyed.
     // Add a check to ensure that we don't try to run change detection on a destroyed view.
     if (!this._componentDestroyed) {
+      this.range._isOpen = false;
+      this._detachOverlay();
       // We need to trigger change detection manually, because
       // `fromEvent` doesn't seem to do it at the proper time.
       // This ensures that the label is reset when the
