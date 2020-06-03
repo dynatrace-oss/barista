@@ -78,23 +78,6 @@ test('should open popup after click start, swap after click save and close', asy
     .expect(successDialog.count)
     .eql(0);
 });
-test('should should not open dialog when backdrop is enabled', async (testController: TestController) => {
-  await testController
-    .expect(saveButton.count)
-    .eql(0)
-    .expect(dirtyDialog.count)
-    .eql(0)
-    .expect(successDialog.count)
-    .eql(0)
-    .click(enableBackdropButton)
-    .click(openDialogButton)
-    .expect(saveButton.count)
-    .eql(0)
-    .expect(dirtyDialog.count)
-    .eql(0)
-    .expect(successDialog.count)
-    .eql(0);
-});
 
 test('should propagate attribute to overlay', async (testController: TestController) => {
   await testController
