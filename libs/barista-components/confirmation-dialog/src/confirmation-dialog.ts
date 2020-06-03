@@ -150,7 +150,7 @@ export class DtConfirmationDialog
   private readonly _stateChildren: QueryList<DtConfirmationDialogState>;
   /** A static reference to the currently active dialog to prevent multiple */
   private static _activeDialog: DtConfirmationDialog | null = null;
-  private _overlayRef: OverlayRef;
+  private _overlayRef: OverlayRef | null = null;
   private _showBackdrop = false;
   private _stateChildrenSubscription: Subscription = Subscription.EMPTY;
   private _viewportChangesSubscription: Subscription = Subscription.EMPTY;
@@ -173,15 +173,19 @@ export class DtConfirmationDialog
   ) {}
 
   ngAfterContentChecked(): void {
-    if (this._selectedState !== this._stateToSelect) {
+    // Initally we get undefined and null for selectedState and stateToSelect which would not pass
+    // the equal check. Therefore we need to check whether one of them is defined to not
+    // create the overlay instantly on the first run
+    if (
+      this._selectedState !== this._stateToSelect &&
+      (this._stateToSelect || this._selectedState)
+    ) {
       this._update();
       this._selectedState = this._stateToSelect;
     }
   }
 
   ngAfterContentInit(): void {
-    this._createAndAttachOverlay();
-    this._updateBackdropVisibility();
     this._stateChildrenSubscription = this._stateChildren.changes.subscribe(
       () => {
         this._update();
@@ -196,7 +200,7 @@ export class DtConfirmationDialog
     }
     // clear state and dispose overlay.
     this.state = null;
-    this._overlayRef.dispose();
+    this._overlayRef?.dispose();
     this._stateChildrenSubscription.unsubscribe();
     this._viewportChangesSubscription.unsubscribe();
   }
@@ -206,8 +210,20 @@ export class DtConfirmationDialog
     this._wiggleState = true;
   }
 
+  /** @internal Callback for the animation done on the pop animation */
+  _popDone(): void {
+    if (this._positionState === 'down') {
+      this._overlayRef?.detach();
+      this._overlayRef = null;
+    }
+  }
+
   /** Updates the children's active properties and the position of the dialog depending on the state to select */
   private _update(): void {
+    if (!this._overlayRef) {
+      this._createAndAttachOverlay();
+      this._updateBackdropVisibility();
+    }
     // handle old dialog already being displayed by closing it and showing a warning in dev mode.
     if (this._stateToSelect) {
       if (
@@ -261,6 +277,8 @@ export class DtConfirmationDialog
 
   /** Creates and attaches the overlay to the dom */
   private _createAndAttachOverlay(): void {
+    this._viewportChangesSubscription.unsubscribe();
+
     const offsetLeft = this._viewportResizer.getOffset().left;
     const positionStrategy = this._overlay
       .position()
@@ -280,6 +298,8 @@ export class DtConfirmationDialog
       positionStrategy,
     });
 
+    this._overlayRef = overlayRef;
+
     this._viewportChangesSubscription = this._viewportResizer
       .change()
       .subscribe(() => {
@@ -288,8 +308,8 @@ export class DtConfirmationDialog
         // because the positionstrategy determines the left offset based on the value
         // of width - if width is 100%, 100vw or max-width is 100% or 100vw
         // the left offset is always set to 0
-        this._overlayRef.updateSize({ width: getOverlayWidth(newOffset) });
-        this._overlayRef.updatePositionStrategy(
+        this._overlayRef?.updateSize({ width: getOverlayWidth(newOffset) });
+        this._overlayRef?.updatePositionStrategy(
           // We need to create a new position strategy instance here otherwise the updatePositionStrategy
           // performs an early access and noop
           this._overlay
