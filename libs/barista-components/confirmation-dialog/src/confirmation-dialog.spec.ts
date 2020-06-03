@@ -37,7 +37,6 @@ import {
 
 describe('ConfirmationDialogComponent', () => {
   const UP = 'translateY(0)';
-  const DOWN = 'translateY(100%)';
 
   let overlayContainerElement: HTMLElement;
   let overlayContainer: OverlayContainer;
@@ -96,15 +95,16 @@ describe('ConfirmationDialogComponent', () => {
       expect(dialog.style.transform).toEqual(UP);
     }));
 
-    it('should not pop up if state does not match any child', fakeAsync(() => {
+    it('should not create an overlay if state does not match any child', fakeAsync(() => {
       fixture.componentInstance.testState = 'missingState';
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
+      flush();
       const dialog = getDialog(overlayContainerElement);
-      expect(dialog.style.transform).toEqual(DOWN);
+      expect(dialog).toBeNull();
     }));
 
     it('should display matched dt-confirmation-dialog-state', fakeAsync(() => {
@@ -222,21 +222,15 @@ describe('ConfirmationDialogComponent', () => {
       fixture = TestBed.createComponent(DynamicStates);
       fixture.componentInstance.changeToDynamic();
       fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
+      tick(DT_CONFIRMATION_POP_DURATION);
 
       fixture.componentInstance.hasDynamic = false;
       fixture.detectChanges();
-      tick();
+      tick(DT_CONFIRMATION_POP_DURATION);
       fixture.detectChanges();
-      tick();
-      fixture.detectChanges();
-
-      expect(
-        (overlayContainerElement.querySelector(
-          '.dt-confirmation-dialog-wrapper',
-        ) as HTMLElement).style.transform,
-      ).toBe('translateY(100%)');
+      flush();
+      const dialog = getDialog(overlayContainerElement);
+      expect(dialog).toBeNull();
     }));
   });
 
@@ -255,17 +249,19 @@ describe('ConfirmationDialogComponent', () => {
           '.dt-confirmation-dialog-wrapper',
         ),
       );
+      // There should only be one dialog wrapper created
+      expect(dialogs.length).toBe(1);
       expect(dialogs[0].style.transform).toEqual(UP);
-      expect(dialogs[1].style.transform).toEqual(DOWN);
       fixture.componentInstance.secondDialogState = 'state2';
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
+      flush();
       const dialog1State = getState(overlayContainerElement, 'state1');
       const dialog2State = getState(overlayContainerElement, 'state2');
-      expect(dialog1State.textContent).toEqual('');
+      expect(dialog1State).toBeNull();
       expect(dialog2State.textContent!.trim()).toEqual('state2');
     }));
   });
@@ -275,6 +271,7 @@ describe('ConfirmationDialogComponent', () => {
       fixture.componentInstance.testState = 'missingState';
       fixture.detectChanges();
       tick();
+      flush();
       expect(overlayContainerElement.innerHTML).toContain(
         'dt-ui-test-id="confirmation-dialog-overlay',
       );
