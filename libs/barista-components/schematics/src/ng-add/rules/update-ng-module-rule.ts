@@ -63,13 +63,25 @@ export function updateNgModuleRule(options: ExtendedSchema): Rule {
       ],
     );
 
-    // Add the DtIconModule.forRoot
+    // Add the DtIconModule.forRoot and add the HttpClientModule
     const changes = [
       (sourceFile) =>
         updateNgModuleDecoratorProperties(
           sourceFile,
           NgModuleProperties.Imports,
           iconModuleForRoot,
+        ),
+      (sourceFile) =>
+        updateNgModuleDecoratorProperties(
+          sourceFile,
+          NgModuleProperties.Imports,
+          ts.createIdentifier('HttpClientModule'),
+        ),
+      (sourceFile) =>
+        addImportToSourceFile(
+          sourceFile,
+          ['HttpClientModule'],
+          '@angular/common/http',
         ),
       (sourceFile) =>
         addImportToSourceFile(
