@@ -20,7 +20,8 @@
 // Primary Button
 ////////////////////////////
 .dt-button-primary,
-a.dt-button-primary {
+a.dt-button-primary,
+a.dt-button-primary:visited {
   background: var(--dt-button-default-color);
   border-color: var(--dt-button-default-color);
   color: #ffffff;
@@ -74,7 +75,8 @@ a.dt-button-primary {
 // Secondary Button
 ////////////////////////////
 .dt-button-secondary,
-a.dt-button-secondary {
+a.dt-button-secondary,
+a.dt-button-secondary:visited {
   background: transparent;
   border-color: var(--dt-button-default-color);
   color: var(--dt-button-default-color);
