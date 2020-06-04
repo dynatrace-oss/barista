@@ -14,8 +14,8 @@ props:
     meta:
       friendlyName: Headline 1
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .heading-1
-      mixinName: heading-1
+      selector: .dt-h1
+      mixinName: dt-h1
   - name: heading-2
     value:
       fontSize: '{!typography--font-size-3xl}'
@@ -26,8 +26,8 @@ props:
     meta:
       friendlyName: Headline 2
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .heading-2
-      mixinName: heading-2
+      selector: .dt-h2
+      mixinName: dt-h2
   - name: heading-3
     value:
       fontSize: '{!typography--font-size-2xl}'
@@ -38,8 +38,8 @@ props:
     meta:
       friendlyName: Headline 3
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .heading-3
-      mixinName: heading-3
+      selector: .dt-h3
+      mixinName: dt-h3
   - name: heading-4
     value:
       fontSize: '{!typography--font-size-xl}'
@@ -50,8 +50,8 @@ props:
     meta:
       friendlyName: Headline 4
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .heading-4
-      mixinName: heading-4
+      selector: .dt-h4
+      mixinName: dt-h4
   - name: heading-5
     value:
       fontSize: '{!typography--font-size-l}'
@@ -62,8 +62,8 @@ props:
     meta:
       friendlyName: Headline 5
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .heading-5
-      mixinName: heading-5
+      selector: .dt-h5
+      mixinName: dt-h5
   - name: heading-6
     value:
       fontSize: '{!typography--font-size-m}'
@@ -74,8 +74,8 @@ props:
     meta:
       friendlyName: Headline 6
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .heading-6
-      mixinName: heading-6
+      selector: .dt-h6
+      mixinName: dt-h6
 
   - name: body
     value:
@@ -87,8 +87,8 @@ props:
     meta:
       friendlyName: Body
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .body
-      mixinName: body
+      selector: .dt-text
+      mixinName: dt-text
   - name: body-emphasized
     value:
       fontSize: '{!typography--font-size}'
@@ -99,8 +99,8 @@ props:
     meta:
       friendlyName: Body emphasized
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .body-emphasized
-      mixinName: body-emphasized
+      selector: .dt-text-em
+      mixinName: dt-text-em
   - name: body-super-emphasized
     value:
       fontSize: '{!typography--font-size}'
@@ -111,8 +111,8 @@ props:
     meta:
       friendlyName: Body super emphasized
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .body-super-emphasized
-      mixinName: body-super-emphasized
+      selector: .dt-text-sem
+      mixinName: dt-text-sem
   - name: body-uppercased
     value:
       fontSize: '{!typography--font-size-s}'
@@ -123,8 +123,8 @@ props:
     meta:
       friendlyName: Body uppercased
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .body-uppercased
-      mixinName: body-uppercased
+      selector: .dt-text-u
+      mixinName: dt-text-u
   - name: body-uppercased-emphasized
     value:
       fontSize: '{!typography--font-size-s}'
@@ -135,8 +135,8 @@ props:
     meta:
       friendlyName: Body uppercased emphasized
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .body-uppercased-emphasized
-      mixinName: body-uppercased-emphasized
+      selector: .dt-text-u-em
+      mixinName: dt-text-u-em
   - name: body-uppercased-super-emphasized
     value:
       fontSize: '{!typography--font-size-s}'
@@ -148,8 +148,8 @@ props:
     meta:
       friendlyName: Body uppercased super emphasized
       pangram: 'The quick brown fox jumps over a lazy dog'
-      selector: .body-uppercased-super-emphasized
-      mixinName: body-uppercased-super-emphasized
+      selector: .dt-text-u-sem
+      mixinName: dt-text-u-sem
 
 global:
   type: tokens

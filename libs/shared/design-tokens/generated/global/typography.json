@@ -24,8 +24,8 @@
       "meta": {
         "friendlyName": "Headline 1",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".heading-1",
-        "mixinName": "heading-1"
+        "selector": ".dt-heading-1",
+        "mixinName": "dt-heading-1"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-4xl}",
@@ -48,8 +48,8 @@
       "meta": {
         "friendlyName": "Headline 2",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".heading-2",
-        "mixinName": "heading-2"
+        "selector": ".dt-heading-2",
+        "mixinName": "dt-heading-2"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-3xl}",
@@ -72,8 +72,8 @@
       "meta": {
         "friendlyName": "Headline 3",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".heading-3",
-        "mixinName": "heading-3"
+        "selector": ".dt-heading-3",
+        "mixinName": "dt-heading-3"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-2xl}",
@@ -96,8 +96,8 @@
       "meta": {
         "friendlyName": "Headline 4",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".heading-4",
-        "mixinName": "heading-4"
+        "selector": ".dt-heading-4",
+        "mixinName": "dt-heading-4"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-xl}",
@@ -120,8 +120,8 @@
       "meta": {
         "friendlyName": "Headline 5",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".heading-5",
-        "mixinName": "heading-5"
+        "selector": ".dt-heading-5",
+        "mixinName": "dt-heading-5"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-l}",
@@ -144,8 +144,8 @@
       "meta": {
         "friendlyName": "Headline 6",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".heading-6",
-        "mixinName": "heading-6"
+        "selector": ".dt-heading-6",
+        "mixinName": "dt-heading-6"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-m}",
@@ -168,8 +168,8 @@
       "meta": {
         "friendlyName": "Body",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".body",
-        "mixinName": "body"
+        "selector": ".dt-body",
+        "mixinName": "dt-body"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size}",
@@ -192,8 +192,8 @@
       "meta": {
         "friendlyName": "Body emphasized",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".body-emphasized",
-        "mixinName": "body-emphasized"
+        "selector": ".dt-body-emphasized",
+        "mixinName": "dt-body-emphasized"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size}",
@@ -216,8 +216,8 @@
       "meta": {
         "friendlyName": "Body super emphasized",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".body-super-emphasized",
-        "mixinName": "body-super-emphasized"
+        "selector": ".dt-body-super-emphasized",
+        "mixinName": "dt-body-super-emphasized"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size}",
@@ -240,8 +240,8 @@
       "meta": {
         "friendlyName": "Body uppercased",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".body-uppercased",
-        "mixinName": "body-uppercased"
+        "selector": ".dt-body-uppercased",
+        "mixinName": "dt-body-uppercased"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-s}",
@@ -264,8 +264,8 @@
       "meta": {
         "friendlyName": "Body uppercased emphasized",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".body-uppercased-emphasized",
-        "mixinName": "body-uppercased-emphasized"
+        "selector": ".dt-body-uppercased-emphasized",
+        "mixinName": "dt-body-uppercased-emphasized"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-s}",
@@ -288,8 +288,8 @@
       "meta": {
         "friendlyName": "Body uppercased super emphasized",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".body-uppercased-super-emphasized",
-        "mixinName": "body-uppercased-super-emphasized"
+        "selector": ".dt-body-uppercased-super-emphasized",
+        "mixinName": "dt-body-uppercased-super-emphasized"
       },
       "originalValue": {
         "fontSize": "{!typography--font-size-s}",
