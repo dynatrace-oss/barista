@@ -159,6 +159,10 @@ export class DtSunburstChart {
     event?.stopPropagation();
 
     if (slice) {
+      //  TODO: lukas.holzer
+      // Bazel cannot resolve the extends of the interface properly and
+      // throws error: Property 'data' does not exist on type 'DtSunburstChartSlice'.
+      // @ts-ignore
       this._selected = getSelectedNodes(this._filledSeries, slice.data);
 
       this.selectedChange.emit(this._selected.map((node) => node.origin));
@@ -201,6 +205,10 @@ export class DtSunburstChart {
 
     this._dismissOverlay();
     if (origin) {
+      //  TODO: lukas.holzer
+      // Bazel cannot resolve the extends of the interface properly and
+      // throws error: Property 'data' does not exist on type 'DtSunburstChartSlice'.
+      // @ts-ignore
       this._createOverlay(origin, node.data);
     }
   }

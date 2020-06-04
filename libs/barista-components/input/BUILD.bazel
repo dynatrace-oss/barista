@@ -1,0 +1,22 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
+
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "input",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ) + [":input_scss_lib"] + glob([
+        "**/*.html",
+        "**/*.scss",
+    ]),
+)
+
+sass_library(
+    name = "input_scss_lib",
+    srcs = ["src/input.scss"],
+)
