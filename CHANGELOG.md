@@ -1,3 +1,23 @@
+## [7.0.1](https://github.com/dynatrace-oss/barista/compare/7.0.0...7.0.1) (2020-06-04)
+
+### Bug Fixes
+
+- **button:** Increases specificity even more on links since source order
+  mattered with the last update.
+  ([096af95](https://github.com/dynatrace-oss/barista/commit/096af953b45fb723d4945a12023cb439ae45c267))
+- **confirmation-dialog:** Fixes an issue that the confirmation dialog was
+  blocking interactions although it was not visible.
+  ([96ca9f7](https://github.com/dynatrace-oss/barista/commit/96ca9f76db491374fa28b466d562e700aa010fc3))
+- **filter-field:** Fixes an issue where tags were not disabled when the
+  filter-field was.
+  ([d25622a](https://github.com/dynatrace-oss/barista/commit/d25622ab3a0054334081af369683ddc58d35dcc5)),
+  closes [#1097](https://github.com/dynatrace-oss/barista/issues/1097)
+- **filter-field:** Fixes an issue where the range caused an error after its
+  destruction.
+  ([e1cf261](https://github.com/dynatrace-oss/barista/commit/e1cf261b602db3823cf2bc0dc07fdd4a42cf8e9f))
+- **quick-filter:** Typo in method name.
+  ([90e08f0](https://github.com/dynatrace-oss/barista/commit/90e08f028eac5d1398493446d9ccc9bb21da73d8))
+
 ## [7.0.0](https://github.com/dynatrace-oss/barista/compare/6.5.2...7.0.0) (2020-05-27)
 
 Most of the breaking changes will be fixed automatically by running
