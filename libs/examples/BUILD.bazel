@@ -1,0 +1,17 @@
+load("//libs/barista-components:config.bzl", "COMPONENT_TARGETS")
+
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "examples",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ) + glob([
+        "**/*.html",
+        "**/*.scss",
+    ]) + ["//libs/testing/fixtures"] + COMPONENT_TARGETS,
+)
