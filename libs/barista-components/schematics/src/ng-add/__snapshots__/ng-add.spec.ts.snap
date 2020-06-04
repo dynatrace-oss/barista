@@ -441,6 +441,7 @@ exports[`New workspace should add all the required modules in a fresh create ang
 "import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
@@ -450,7 +451,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' })
+        DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]
@@ -521,6 +523,7 @@ exports[`New workspace should add import the No operation animations module from
 "import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 @NgModule({
@@ -530,7 +533,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     imports: [
         BrowserModule,
         NoopAnimationsModule,
-        DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' })
+        DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]
