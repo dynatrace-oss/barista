@@ -1,0 +1,22 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
+
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "icon",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ) + [
+        ":icon_scss_lib"],
+)
+
+sass_library(
+    name = "icon_scss_lib",
+    srcs = glob(
+        ["**/*.scss"],
+    ),
+)

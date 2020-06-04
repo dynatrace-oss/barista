@@ -1,0 +1,27 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
+
+package(default_visibility = ["//:__subpackages__"])
+
+filegroup(
+    name = "indicator",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ) + glob([
+        "**/*.html",
+        "**/*.scss",
+    ]) + [
+        ":indicator_scss_lib",
+    ],
+)
+
+sass_library(
+    name = "indicator_scss_lib",
+    srcs = [
+        "src/indicator.scss",
+        "src/indicator-theme.scss",
+    ],
+)

@@ -4,5 +4,5 @@
     "outDir": "../../../dist/out-tsc",
     "types": []
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.d.ts"]
 }
