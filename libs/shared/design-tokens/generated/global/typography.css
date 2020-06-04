@@ -7,7 +7,7 @@
 /*
  * Token contains the styles for a headline 1
  */
-.heading-1 {
+.dt-heading-1 {
   font-size: 2.027rem;
   font-weight: 500;
   line-height: 38px;
@@ -17,7 +17,7 @@
 /*
  * Token contains the styles for a headline 2
  */
-.heading-2 {
+.dt-heading-2 {
   font-size: 1.802rem;
   font-weight: 500;
   line-height: 34px;
@@ -27,7 +27,7 @@
 /*
  * Token contains the styles for a headline 3
  */
-.heading-3 {
+.dt-heading-3 {
   font-size: 1.602rem;
   font-weight: 500;
   line-height: 30px;
@@ -37,7 +37,7 @@
 /*
  * Token contains the styles for a headline 4
  */
-.heading-4 {
+.dt-heading-4 {
   font-size: 1.424rem;
   font-weight: 500;
   line-height: 27px;
@@ -47,7 +47,7 @@
 /*
  * Token contains the styles for a headline 5
  */
-.heading-5 {
+.dt-heading-5 {
   font-size: 1.266rem;
   font-weight: 500;
   line-height: 24px;
@@ -57,7 +57,7 @@
 /*
  * Token contains the styles for a headline 6
  */
-.heading-6 {
+.dt-heading-6 {
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 21px;
@@ -67,7 +67,7 @@
 /*
  * Token contains the styles for a body text
  */
-.body {
+.dt-body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 19px;
@@ -77,7 +77,7 @@
 /*
  * Token contains the styles for a body emphasized text
  */
-.body-emphasized {
+.dt-body-emphasized {
   font-size: 1rem;
   font-weight: 500;
   line-height: 19px;
@@ -87,7 +87,7 @@
 /*
  * Token contains the styles for a body super emphasized text
  */
-.body-super-emphasized {
+.dt-body-super-emphasized {
   font-size: 1rem;
   font-weight: 700;
   line-height: 19px;
@@ -97,7 +97,7 @@
 /*
  * Token contains the styles for a body uppercased text
  */
-.body-uppercased {
+.dt-body-uppercased {
   font-size: 0.89rem;
   font-weight: 400;
   line-height: 17px;
@@ -107,7 +107,7 @@
 /*
  * Token contains the styles for a body uppercased emphasized text
  */
-.body-uppercased-emphasized {
+.dt-body-uppercased-emphasized {
   font-size: 0.89rem;
   font-weight: 500;
   line-height: 17px;
@@ -117,7 +117,7 @@
 /*
  * Token contains the styles for a body uppercased super emphasized text
  */
-.body-uppercased-super-emphasized {
+.dt-body-uppercased-super-emphasized {
   font-size: 0.89rem;
   font-weight: 700;
   line-height: 17px;

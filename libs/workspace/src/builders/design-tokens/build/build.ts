@@ -30,6 +30,7 @@ import {
   dtDesignTokensTypescriptThemeConverter,
   dtDesignTokensScssTypographyConverter,
   dtDesignTokensCssTypographyConverter,
+  dtDesignTokensCssSpacingConverter,
 } from './token-converters';
 import { DesignTokensBuildOptions } from './schema';
 import { parse, stringify } from 'yaml';
@@ -52,6 +53,7 @@ registerFormat('dt-scss', dtDesignTokensScssConverter);
 registerFormat('dt-scss-typography', dtDesignTokensScssTypographyConverter);
 registerFormat('dt-scss-theme', dtDesignTokensScssThemeConverter);
 registerFormat('dt-css-typography', dtDesignTokensCssTypographyConverter);
+registerFormat('dt-css-spacing', dtDesignTokensCssSpacingConverter);
 registerFormat('dt-typescript', dtDesignTokensTypescriptConverter);
 registerFormat('dt-typescript-theme', dtDesignTokensTypescriptThemeConverter);
 

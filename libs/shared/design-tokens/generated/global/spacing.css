@@ -1,0 +1,475 @@
+/*
+ * THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
+ * FILES, DO NOT CHANGE MANUALLY.
+ * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
+ */
+
+.dt-m-0 {
+  margin: 0;
+}
+.dt-mx-0 {
+  margin-left: 0;
+  margin-right: 0;
+}
+.dt-my-0 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.dt-mt-0 {
+  margin-top: 0;
+}
+.dt-mr-0 {
+  margin-right: 0;
+}
+.dt-mb-0 {
+  margin-bottom: 0;
+}
+.dt-ml-0 {
+  margin-left: 0;
+}
+.dt-p-0 {
+  padding: 0;
+}
+.dt-px-0 {
+  padding-left: 0;
+  padding-right: 0;
+}
+.dt-py-0 {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.dt-pt-0 {
+  padding-top: 0;
+}
+.dt-pr-0 {
+  padding-right: 0;
+}
+.dt-pb-0 {
+  padding-bottom: 0;
+}
+.dt-pl-0 {
+  padding-left: 0;
+}
+
+.dt-m-3xs {
+  margin: 2px;
+}
+.dt-mx-3xs {
+  margin-left: 2px;
+  margin-right: 2px;
+}
+.dt-my-3xs {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+.dt-mt-3xs {
+  margin-top: 2px;
+}
+.dt-mr-3xs {
+  margin-right: 2px;
+}
+.dt-mb-3xs {
+  margin-bottom: 2px;
+}
+.dt-ml-3xs {
+  margin-left: 2px;
+}
+.dt-p-3xs {
+  padding: 2px;
+}
+.dt-px-3xs {
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.dt-py-3xs {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+.dt-pt-3xs {
+  padding-top: 2px;
+}
+.dt-pr-3xs {
+  padding-right: 2px;
+}
+.dt-pb-3xs {
+  padding-bottom: 2px;
+}
+.dt-pl-3xs {
+  padding-left: 2px;
+}
+
+.dt-m-2xs {
+  margin: 4px;
+}
+.dt-mx-2xs {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.dt-my-2xs {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.dt-mt-2xs {
+  margin-top: 4px;
+}
+.dt-mr-2xs {
+  margin-right: 4px;
+}
+.dt-mb-2xs {
+  margin-bottom: 4px;
+}
+.dt-ml-2xs {
+  margin-left: 4px;
+}
+.dt-p-2xs {
+  padding: 4px;
+}
+.dt-px-2xs {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+.dt-py-2xs {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.dt-pt-2xs {
+  padding-top: 4px;
+}
+.dt-pr-2xs {
+  padding-right: 4px;
+}
+.dt-pb-2xs {
+  padding-bottom: 4px;
+}
+.dt-pl-2xs {
+  padding-left: 4px;
+}
+
+.dt-m-xs {
+  margin: 8px;
+}
+.dt-mx-xs {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.dt-my-xs {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+.dt-mt-xs {
+  margin-top: 8px;
+}
+.dt-mr-xs {
+  margin-right: 8px;
+}
+.dt-mb-xs {
+  margin-bottom: 8px;
+}
+.dt-ml-xs {
+  margin-left: 8px;
+}
+.dt-p-xs {
+  padding: 8px;
+}
+.dt-px-xs {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.dt-py-xs {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.dt-pt-xs {
+  padding-top: 8px;
+}
+.dt-pr-xs {
+  padding-right: 8px;
+}
+.dt-pb-xs {
+  padding-bottom: 8px;
+}
+.dt-pl-xs {
+  padding-left: 8px;
+}
+
+.dt-m-s {
+  margin: 12px;
+}
+.dt-mx-s {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+.dt-my-s {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+.dt-mt-s {
+  margin-top: 12px;
+}
+.dt-mr-s {
+  margin-right: 12px;
+}
+.dt-mb-s {
+  margin-bottom: 12px;
+}
+.dt-ml-s {
+  margin-left: 12px;
+}
+.dt-p-s {
+  padding: 12px;
+}
+.dt-px-s {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.dt-py-s {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.dt-pt-s {
+  padding-top: 12px;
+}
+.dt-pr-s {
+  padding-right: 12px;
+}
+.dt-pb-s {
+  padding-bottom: 12px;
+}
+.dt-pl-s {
+  padding-left: 12px;
+}
+
+.dt-m-m {
+  margin: 16px;
+}
+.dt-mx-m {
+  margin-left: 16px;
+  margin-right: 16px;
+}
+.dt-my-m {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.dt-mt-m {
+  margin-top: 16px;
+}
+.dt-mr-m {
+  margin-right: 16px;
+}
+.dt-mb-m {
+  margin-bottom: 16px;
+}
+.dt-ml-m {
+  margin-left: 16px;
+}
+.dt-p-m {
+  padding: 16px;
+}
+.dt-px-m {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.dt-py-m {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.dt-pt-m {
+  padding-top: 16px;
+}
+.dt-pr-m {
+  padding-right: 16px;
+}
+.dt-pb-m {
+  padding-bottom: 16px;
+}
+.dt-pl-m {
+  padding-left: 16px;
+}
+
+.dt-m-l {
+  margin: 32px;
+}
+.dt-mx-l {
+  margin-left: 32px;
+  margin-right: 32px;
+}
+.dt-my-l {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+.dt-mt-l {
+  margin-top: 32px;
+}
+.dt-mr-l {
+  margin-right: 32px;
+}
+.dt-mb-l {
+  margin-bottom: 32px;
+}
+.dt-ml-l {
+  margin-left: 32px;
+}
+.dt-p-l {
+  padding: 32px;
+}
+.dt-px-l {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+.dt-py-l {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+.dt-pt-l {
+  padding-top: 32px;
+}
+.dt-pr-l {
+  padding-right: 32px;
+}
+.dt-pb-l {
+  padding-bottom: 32px;
+}
+.dt-pl-l {
+  padding-left: 32px;
+}
+
+.dt-m-xl {
+  margin: 48px;
+}
+.dt-mx-xl {
+  margin-left: 48px;
+  margin-right: 48px;
+}
+.dt-my-xl {
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+.dt-mt-xl {
+  margin-top: 48px;
+}
+.dt-mr-xl {
+  margin-right: 48px;
+}
+.dt-mb-xl {
+  margin-bottom: 48px;
+}
+.dt-ml-xl {
+  margin-left: 48px;
+}
+.dt-p-xl {
+  padding: 48px;
+}
+.dt-px-xl {
+  padding-left: 48px;
+  padding-right: 48px;
+}
+.dt-py-xl {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+.dt-pt-xl {
+  padding-top: 48px;
+}
+.dt-pr-xl {
+  padding-right: 48px;
+}
+.dt-pb-xl {
+  padding-bottom: 48px;
+}
+.dt-pl-xl {
+  padding-left: 48px;
+}
+
+.dt-m-2xl {
+  margin: 64px;
+}
+.dt-mx-2xl {
+  margin-left: 64px;
+  margin-right: 64px;
+}
+.dt-my-2xl {
+  margin-top: 64px;
+  margin-bottom: 64px;
+}
+.dt-mt-2xl {
+  margin-top: 64px;
+}
+.dt-mr-2xl {
+  margin-right: 64px;
+}
+.dt-mb-2xl {
+  margin-bottom: 64px;
+}
+.dt-ml-2xl {
+  margin-left: 64px;
+}
+.dt-p-2xl {
+  padding: 64px;
+}
+.dt-px-2xl {
+  padding-left: 64px;
+  padding-right: 64px;
+}
+.dt-py-2xl {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+.dt-pt-2xl {
+  padding-top: 64px;
+}
+.dt-pr-2xl {
+  padding-right: 64px;
+}
+.dt-pb-2xl {
+  padding-bottom: 64px;
+}
+.dt-pl-2xl {
+  padding-left: 64px;
+}
+
+.dt-m-3xl {
+  margin: 128px;
+}
+.dt-mx-3xl {
+  margin-left: 128px;
+  margin-right: 128px;
+}
+.dt-my-3xl {
+  margin-top: 128px;
+  margin-bottom: 128px;
+}
+.dt-mt-3xl {
+  margin-top: 128px;
+}
+.dt-mr-3xl {
+  margin-right: 128px;
+}
+.dt-mb-3xl {
+  margin-bottom: 128px;
+}
+.dt-ml-3xl {
+  margin-left: 128px;
+}
+.dt-p-3xl {
+  padding: 128px;
+}
+.dt-px-3xl {
+  padding-left: 128px;
+  padding-right: 128px;
+}
+.dt-py-3xl {
+  padding-top: 128px;
+  padding-bottom: 128px;
+}
+.dt-pt-3xl {
+  padding-top: 128px;
+}
+.dt-pr-3xl {
+  padding-right: 128px;
+}
+.dt-pb-3xl {
+  padding-bottom: 128px;
+}
+.dt-pl-3xl {
+  padding-left: 128px;
+}

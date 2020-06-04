@@ -18,5 +18,6 @@ export * from './dt-scss';
 export * from './dt-scss-theme';
 export * from './dt-scss-typography';
 export * from './dt-css-typography';
+export * from './dt-css-spacing';
 export * from './dt-typescript';
 export * from './dt-typescript-theme';
