@@ -1,0 +1,26 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
+
+package(default_visibility = ["//visibility:public"])
+
+filegroup(
+    name = "core",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ) + [
+        ":core_scss_lib",
+    ] + glob([
+        "**/*.html",
+        "**/*.scss",
+    ]),
+)
+
+sass_library(
+    name = "core_scss_lib",
+    srcs = glob(
+        ["src/**/_*.scss"],
+    ),
+)
