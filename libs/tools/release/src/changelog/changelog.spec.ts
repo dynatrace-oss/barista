@@ -15,7 +15,7 @@
  */
 jest.mock('conventional-changelog');
 
-import { createReadStream, promises as fs } from 'fs';
+import { promises as fs } from 'fs';
 import { vol } from 'memfs';
 import { getFixture } from '../testing/get-fixture';
 import { prependChangelogFromLatestTag } from './changelog';
@@ -32,14 +32,13 @@ beforeEach(() => {
   vol.fromJSON({
     '/CHANGELOG.md': getFixture('CHANGELOG-minimal.md'),
     '/header.hbs': '',
-    newChangelog: newChangelogContent,
   });
 });
 
 test('should prepend the changelog if there is an existing one', async () => {
   jest
     .spyOn(changelog, 'getNewChangelog')
-    .mockImplementation(() => createReadStream('newChangelog'));
+    .mockImplementation(() => Promise.resolve(newChangelogContent));
 
   await prependChangelogFromLatestTag('/CHANGELOG.md', '/header.hbs');
 

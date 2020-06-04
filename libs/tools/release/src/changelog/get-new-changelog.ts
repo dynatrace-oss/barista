@@ -15,21 +15,28 @@
  */
 
 import * as conventionalChangelog from 'conventional-changelog';
-import { Readable } from 'stream';
 
 /** Generates the new changelog based on the git history */
-export function getNewChangelog(
+export async function getNewChangelog(
   headerPartial: string,
   releaseName: string,
-): Readable {
-  return conventionalChangelog(
-    { preset: 'angular' },
-    { title: releaseName },
-    null, // raw-commits options
-    {}, // commit parser options
-    {
-      // writer options
-      headerPartial,
-    },
-  );
+): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    const chunks: any = [];
+    conventionalChangelog(
+      { preset: 'angular' },
+      { title: releaseName },
+      null, // raw-commits options
+      {}, // commit parser options
+      {
+        // writer options
+        headerPartial,
+      },
+    )
+      .on('data', (chunk) => chunks.push(chunk))
+      .on('end', () => {
+        resolve(Buffer.concat(chunks).toString('utf8'));
+      })
+      .on('error', (err) => reject(err));
+  });
 }
