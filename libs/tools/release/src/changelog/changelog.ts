@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import { createReadStream, createWriteStream, promises as fs } from 'fs';
-import { concatenateNodeStreams } from '../utils/concatenate-node-streams';
+import { promises as fs } from 'fs';
 import { getNewChangelog } from './get-new-changelog';
 
 /** Default filename for the changelog. */
@@ -26,42 +25,19 @@ export async function prependChangelogFromLatestTag(
   changelogPath: string,
   headerPartialPath: string,
   releaseName: string = '',
-): Promise<void | Error> {
+): Promise<void> {
   const headerPartial = await fs.readFile(headerPartialPath, {
     encoding: 'utf-8',
   });
 
-  const newChangelogStream: any = getNewChangelog(headerPartial, releaseName);
-  // Stream for reading the existing changelog. This is necessary because we want to
-  // actually prepend the new changelog to the existing one.
-  const previousChangelogStream: any = createReadStream(changelogPath);
-
-  // Sequentially concatenate the changelog output and the previous changelog stream, so that
-  // the new changelog section comes before the existing versions. Afterwards, pipe into the
-  // changelog file, so that the changes are reflected on file system.
-  const concatenatedCompleteChangelog = await concatenateNodeStreams(
-    newChangelogStream,
-    previousChangelogStream,
+  const newChangelog: string = await getNewChangelog(
+    headerPartial,
+    releaseName,
   );
 
-  return new Promise<void | Error>((resolve, reject) => {
-    const writeToFile = () => {
-      concatenatedCompleteChangelog
-        .pipe(createWriteStream(changelogPath))
-        .once('error', (error: Error) => {
-          reject(error);
-        })
-        .once('finish', () => {
-          resolve();
-        });
-    };
-
-    // Wait for the previous changelog to be completely read because otherwise we would
-    // read and write from the same source which causes the content to be thrown off.
-    previousChangelogStream.on('end', writeToFile);
-    // or if it is already ended
-    if (previousChangelogStream.readableEnded) {
-      writeToFile();
-    }
+  const previousChangelog: string = await fs.readFile(changelogPath, {
+    encoding: 'utf-8',
   });
+
+  await fs.writeFile(changelogPath, `${newChangelog}${previousChangelog}`);
 }
