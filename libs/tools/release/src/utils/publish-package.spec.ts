@@ -28,7 +28,7 @@ let processSpy: jest.SpyInstance;
 const root = platform() === 'win32' ? `${cwd().split(sep)[0]}${sep}` : '/';
 
 beforeEach(() => {
-  process.chdir('/');
+  jest.spyOn(process, 'cwd').mockImplementation(() => root);
   vol.reset();
   vol.fromJSON({
     '/components/package.json': JSON.stringify({ version: '5.0.0' }),
@@ -49,7 +49,7 @@ afterEach(() => {
 });
 
 test('should call the npm and yarn publish commands with the right arguments', async () => {
-  await publishPackage('/', '/components', VERSION);
+  await publishPackage(root, '/components', VERSION);
 
   expect(processSpy).toHaveBeenCalledTimes(2);
   expect(processSpy).toHaveBeenNthCalledWith(

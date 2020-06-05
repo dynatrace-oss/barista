@@ -68,25 +68,30 @@ it('should capture an internal server error on route failure', async () => {
   expect.assertions(3);
 });
 
-it('should capture a child process crash', async () => {
-  try {
-    forkPid = (
-      await startServer(fakeServerPath, 3333, {
-        FAKE_ERROR: 'true',
-      })
-    ).pid;
-  } catch (error) {
-    forkPid = error.pid;
-    expect(error.error).toMatch(/Error: FAKED ERROR/);
-  } finally {
-    expect(typeof forkPid).toBe('number');
-    process.kill(forkPid);
-  }
+// Skip this test on windows, as it is flaky
+// TODO: Figure out on how to test this properly in the future.
+(process.platform === 'win32' ? it.skip : it)(
+  'should capture a child process crash',
+  async () => {
+    try {
+      forkPid = (
+        await startServer(fakeServerPath, 3333, {
+          FAKE_ERROR: 'true',
+        })
+      ).pid;
+    } catch (error) {
+      forkPid = error.pid;
+      expect(error.error).toMatch(/Error: FAKED ERROR/);
+    } finally {
+      expect(typeof forkPid).toBe('number');
+      process.kill(forkPid);
+    }
 
-  expect(forkSpy).toHaveBeenNthCalledWith(1, fakeServerPath, [], {
-    env: { FAKE_ERROR: 'true', PORT: '3333' },
-    silent: true,
-  });
-  // check if the catch tree was run
-  expect.assertions(3);
-});
+    expect(forkSpy).toHaveBeenNthCalledWith(1, fakeServerPath, [], {
+      env: { FAKE_ERROR: 'true', PORT: '3333' },
+      silent: true,
+    });
+    // check if the catch tree was run
+    expect.assertions(3);
+  },
+);
