@@ -208,6 +208,7 @@ export class DtConfirmationDialog
   /** Triggers an animation on the confirmation dialog to focus user attention */
   focusAttention(): void {
     this._wiggleState = true;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** @internal Callback for the animation done on the pop animation */
@@ -255,8 +256,8 @@ export class DtConfirmationDialog
           DtConfirmationDialog._activeDialog = null;
         }
       }
+      this._changeDetectorRef.markForCheck();
     });
-    this._changeDetectorRef.markForCheck();
   }
 
   /**
