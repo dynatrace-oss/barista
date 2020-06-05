@@ -5,3 +5,10 @@
 #
 # Instead, you should run `bazel info bazel-bin` to find out where the outputs went.
 build --symlink_prefix=dist/
+
+
+################################
+#  Remote build cache          #
+################################
+build --remote_http_cache=https://storage.googleapis.com/dt-barista-build-cache
+build --remote_upload_local_results=false
