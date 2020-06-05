@@ -23,6 +23,7 @@ import { getPullRequestDetails } from './utils/get-pull-request-details';
 import { isMasterTarget } from './utils/is-master-target';
 import { hasMergeReadyLabel } from './utils/has-merge-ready-label';
 import { addRebaseLabel } from './utils/add-rebase-label';
+import { pullRequestAddComment } from './utils/pull-request-add-comment';
 
 function getPrNumber(): number | undefined {
   const pullRequest = context.payload.pull_request;
@@ -64,6 +65,27 @@ async function run() {
   const commitMessages = await getCommitMessagesInPullRequest(client, prNumber);
 
   const { errors, targets } = processCommitMessages(commitMessages);
+
+  // Check if the PR is coming from the action is not allowed to
+  // add labels to the PR / issue due to security / token restrictions
+  // outlined here https://github.com/actions/first-interaction/issues/10
+  // We instead add a comment to the PR,
+  // letting the maintainers know that they
+  // need to cherry pick manually and to which targets
+  if (pullRequestDetails.head.repo.fork) {
+    console.log('this is a forked PR');
+    const comment = `The pull-request-labeler action is not allowed to
+modify labels from forks due to security limitations
+added by github.
+`;
+    console.log(comment);
+    await pullRequestAddComment(
+      client,
+      prNumber,
+      comment,
+    );
+    return;
+  }
 
   if (errors.length) {
     await addRebaseLabel(client, prNumber);
