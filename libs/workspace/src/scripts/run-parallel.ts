@@ -17,7 +17,7 @@
 import { tryJsonParse } from '@dynatrace/shared/node';
 import { grey } from 'chalk';
 import { execSync } from 'child_process';
-import { resolve } from 'path';
+import { resolve, normalize } from 'path';
 import { options } from 'yargs';
 import { affectedArgs } from './affected-args';
 import {
@@ -135,7 +135,7 @@ export async function runParallel(): Promise<string | null> {
     baseCommand.push(`--max_old_space_size=${increasedMemory}`);
   }
 
-  baseCommand.push('./node_modules/.bin/nx run-many');
+  baseCommand.push(normalize('./node_modules/@nrwl/cli/bin/nx.js run-many'));
 
   const command = [...baseCommand, ...flags];
 

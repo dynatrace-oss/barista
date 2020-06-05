@@ -19,7 +19,7 @@ import {
   BuilderOutput,
   createBuilder,
 } from '@angular-devkit/architect';
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { statSync } from 'fs';
 import { TypescriptBuilderOptions } from './schema';
 import { JsonObject } from '@angular-devkit/core';
@@ -47,7 +47,7 @@ async function run(
   }
   try {
     const logOutput = await executeCommand(
-      `node_modules/.bin/tsc -p ${configFile}${outDirArgument}`,
+      `${resolve('node_modules/.bin/tsc')} -p ${configFile}${outDirArgument}`,
     );
     if (logOutput) {
       context.logger.info(logOutput);

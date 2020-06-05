@@ -18,7 +18,7 @@ import * as fs from 'fs';
 import { Volume } from 'memfs';
 
 import { render, generateFileName } from './renderer';
-import { join } from 'path';
+import { join, normalize } from 'path';
 import { startServer } from './utils';
 
 let forkPid: number;
@@ -42,7 +42,9 @@ it('should test all variants of the index route', () => {
   expect(generateFileName('/')).toMatch('index.html');
   expect(generateFileName('index')).toMatch('index.html');
   expect(generateFileName('/index')).toMatch('index.html');
-  expect(generateFileName('/components')).toMatch('components/index.html');
+  expect(generateFileName('/components')).toMatch(
+    normalize('components/index.html'),
+  );
 });
 
 it('should render all routes correctly', async () => {
@@ -66,12 +68,12 @@ it('should render all routes correctly', async () => {
   ]);
 
   expect(spy).toHaveBeenNthCalledWith(1, {
-    filePath: '/test-root/index.html',
+    filePath: normalize('/test-root/index.html'),
     size: '13',
     success: true,
   });
   expect(spy).toHaveBeenNthCalledWith(2, {
-    filePath: '/test-root/components/index.html',
+    filePath: normalize('/test-root/components/index.html'),
     size: '13',
     success: true,
   });
