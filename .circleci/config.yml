@@ -38,6 +38,7 @@ executors:
     working_directory: ~/barista
     docker:
       - image: circleci/node:lts-browsers
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   P A T T E R N S:
@@ -63,8 +64,6 @@ filter_branches: &filter_branches
         - /^cherry-pick-.*/
         # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
         - /pull\/[0-9]+/
-
-
 
 defaults: &defaults
   working_directory: ~/barista
@@ -120,6 +119,25 @@ commands:
               circleci step halt
             fi
 
+  setup_bazel_ci:
+    description: >-
+      Sets up the build cache for Bazel
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run:
+          name: Setup Bazel CI
+          command: npm install -G @bazel/bazelisk && cd tools/bazel_build_cache && sh setup_ci_build_cache.sh
+
+  bazel_build:
+    description: >-
+      Example Bazel build step with cache access
+    steps:
+      - attach_workspace:
+          at: ~/barista
+      - run:
+          name: Run build
+          command: npm run bazel:build
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -303,6 +321,15 @@ jobs:
       - store_test_results:
           path: dist/demos-a11y
 
+# - Execute a small target with Bazel
+  bazel_ci:
+    executor: barista
+    resource_class: medium
+    steps:
+      - checkout
+      - setup_bazel_ci
+      - bazel_build
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   W O R K F L O W S:
@@ -413,3 +440,5 @@ workflows:
           context: barista
           requires:
             - build
+      - bazel_ci:
+          context: barista
