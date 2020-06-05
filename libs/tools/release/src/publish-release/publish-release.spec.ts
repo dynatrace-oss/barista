@@ -49,7 +49,7 @@ const root = platform() === 'win32' ? `${cwd().split(sep)[0]}${sep}` : '/';
 beforeEach(() => {
   // Mock console logs away we don't want to bloat the output
   jest.spyOn(console, 'info').mockImplementation();
-  process.chdir('/');
+  jest.spyOn(process, 'cwd').mockImplementation(() => root);
   vol.reset();
 });
 
