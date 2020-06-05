@@ -204,6 +204,7 @@ export class DtConfirmationDialog
   /** Triggers an animation on the confirmation dialog to focus user attention */
   focusAttention(): void {
     this._wiggleState = true;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Updates the children's active properties and the position of the dialog depending on the state to select */
@@ -239,8 +240,8 @@ export class DtConfirmationDialog
           DtConfirmationDialog._activeDialog = null;
         }
       }
+      this._changeDetectorRef.markForCheck();
     });
-    this._changeDetectorRef.markForCheck();
   }
 
   /**
