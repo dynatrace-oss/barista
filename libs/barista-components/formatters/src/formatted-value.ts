@@ -50,23 +50,39 @@ export class DtFormattedValue {
     return this._formattedData;
   }
 
-  /** @return the string as a combination of the display data */
-  toString(): string {
-    if (this._formattedData.displayValue === undefined) {
-      return NO_DATA;
+  /** Formatted display unit composed by unit and rate unit */
+  get formattedDisplayUnit(): string {
+    const {
+      displayUnit,
+      displayWhiteSpace,
+      displayRateUnit,
+    } = this._formattedData;
+
+    if (displayUnit !== undefined && displayRateUnit !== undefined) {
+      return `${displayUnit}${displayWhiteSpace ? ' ' : ''}/${displayRateUnit}`;
     }
-    let text = this._formattedData.displayValue;
-    if (this._formattedData.displayUnit !== undefined) {
-      text = `${text} ${this._formattedData.displayUnit}`;
+    if (displayUnit !== undefined) {
+      return displayUnit;
     }
-    if (this._formattedData.displayRateUnit !== undefined) {
-      text =
-        this._formattedData.displayUnit !== undefined ||
-        this._formattedData.displayWhiteSpace === false
-          ? `${text}/${this._formattedData.displayRateUnit}`
-          : `${text} /${this._formattedData.displayRateUnit}`;
+    if (displayRateUnit !== undefined) {
+      return `/${displayRateUnit}`;
     }
 
-    return text;
+    return '';
+  }
+
+  /** @return the string as a combination of the display data */
+  toString(): string {
+    const { displayValue } = this._formattedData;
+    if (displayValue === undefined) {
+      return NO_DATA;
+    }
+
+    const displayUnit = this.formattedDisplayUnit;
+    if (displayUnit === '') {
+      return displayValue;
+    }
+
+    return `${displayValue} ${displayUnit}`;
   }
 }
