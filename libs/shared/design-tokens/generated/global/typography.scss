@@ -7,7 +7,8 @@
 /*
  * Token contains the styles for a headline 1
  */
-@mixin fluid-dt-heading-1() {
+@mixin fluid-dt-h1() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 2.027rem;
   font-weight: 500;
   line-height: 38px;
@@ -17,7 +18,8 @@
 /*
  * Token contains the styles for a headline 2
  */
-@mixin fluid-dt-heading-2() {
+@mixin fluid-dt-h2() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 1.802rem;
   font-weight: 500;
   line-height: 34px;
@@ -27,7 +29,8 @@
 /*
  * Token contains the styles for a headline 3
  */
-@mixin fluid-dt-heading-3() {
+@mixin fluid-dt-h3() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 1.602rem;
   font-weight: 500;
   line-height: 30px;
@@ -37,7 +40,8 @@
 /*
  * Token contains the styles for a headline 4
  */
-@mixin fluid-dt-heading-4() {
+@mixin fluid-dt-h4() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 1.424rem;
   font-weight: 500;
   line-height: 27px;
@@ -47,7 +51,8 @@
 /*
  * Token contains the styles for a headline 5
  */
-@mixin fluid-dt-heading-5() {
+@mixin fluid-dt-h5() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 1.266rem;
   font-weight: 500;
   line-height: 24px;
@@ -57,7 +62,8 @@
 /*
  * Token contains the styles for a headline 6
  */
-@mixin fluid-dt-heading-6() {
+@mixin fluid-dt-h6() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 21px;
@@ -67,17 +73,19 @@
 /*
  * Token contains the styles for a body text
  */
-@mixin fluid-dt-body() {
+@mixin fluid-dt-text() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 19px;
+  line-height: 24px;
   text-transform: none;
 }
 
 /*
  * Token contains the styles for a body emphasized text
  */
-@mixin fluid-dt-body-emphasized() {
+@mixin fluid-dt-text-em() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   line-height: 19px;
@@ -87,7 +95,8 @@
 /*
  * Token contains the styles for a body super emphasized text
  */
-@mixin fluid-dt-body-super-emphasized() {
+@mixin fluid-dt-text-sem() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   line-height: 19px;
@@ -97,7 +106,8 @@
 /*
  * Token contains the styles for a body uppercased text
  */
-@mixin fluid-dt-body-uppercased() {
+@mixin fluid-dt-text-u() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 0.89rem;
   font-weight: 400;
   line-height: 17px;
@@ -107,7 +117,8 @@
 /*
  * Token contains the styles for a body uppercased emphasized text
  */
-@mixin fluid-dt-body-uppercased-emphasized() {
+@mixin fluid-dt-text-u-em() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 0.89rem;
   font-weight: 500;
   line-height: 17px;
@@ -117,7 +128,8 @@
 /*
  * Token contains the styles for a body uppercased super emphasized text
  */
-@mixin fluid-dt-body-uppercased-super-emphasized() {
+@mixin fluid-dt-text-u-sem() {
+  font-family: Roboto, Helvetica, sans-serif;
   font-size: 0.89rem;
   font-weight: 700;
   line-height: 17px;

@@ -15,6 +15,7 @@
       "category": "typography",
       "name": "heading-1",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "2.027rem",
         "fontWeight": "500",
         "lineHeight": "38px",
@@ -24,10 +25,11 @@
       "meta": {
         "friendlyName": "Headline 1",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-heading-1",
-        "mixinName": "dt-heading-1"
+        "selector": ".dt-h1",
+        "mixinName": "dt-h1"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-4xl}",
         "fontWeight": "{!typography--emphasis-medium}",
         "lineHeight": "{!typography--line-height-4xl}",
@@ -39,6 +41,7 @@
       "category": "typography",
       "name": "heading-2",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "1.802rem",
         "fontWeight": "500",
         "lineHeight": "34px",
@@ -48,10 +51,11 @@
       "meta": {
         "friendlyName": "Headline 2",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-heading-2",
-        "mixinName": "dt-heading-2"
+        "selector": ".dt-h2",
+        "mixinName": "dt-h2"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-3xl}",
         "fontWeight": "{!typography--emphasis-medium}",
         "lineHeight": "{!typography--line-height-3xl}",
@@ -63,6 +67,7 @@
       "category": "typography",
       "name": "heading-3",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "1.602rem",
         "fontWeight": "500",
         "lineHeight": "30px",
@@ -72,10 +77,11 @@
       "meta": {
         "friendlyName": "Headline 3",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-heading-3",
-        "mixinName": "dt-heading-3"
+        "selector": ".dt-h3",
+        "mixinName": "dt-h3"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-2xl}",
         "fontWeight": "{!typography--emphasis-medium}",
         "lineHeight": "{!typography--line-height-2xl}",
@@ -87,6 +93,7 @@
       "category": "typography",
       "name": "heading-4",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "1.424rem",
         "fontWeight": "500",
         "lineHeight": "27px",
@@ -96,10 +103,11 @@
       "meta": {
         "friendlyName": "Headline 4",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-heading-4",
-        "mixinName": "dt-heading-4"
+        "selector": ".dt-h4",
+        "mixinName": "dt-h4"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-xl}",
         "fontWeight": "{!typography--emphasis-medium}",
         "lineHeight": "{!typography--line-height-xl}",
@@ -111,6 +119,7 @@
       "category": "typography",
       "name": "heading-5",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "1.266rem",
         "fontWeight": "500",
         "lineHeight": "24px",
@@ -120,10 +129,11 @@
       "meta": {
         "friendlyName": "Headline 5",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-heading-5",
-        "mixinName": "dt-heading-5"
+        "selector": ".dt-h5",
+        "mixinName": "dt-h5"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-l}",
         "fontWeight": "{!typography--emphasis-medium}",
         "lineHeight": "{!typography--line-height-l}",
@@ -135,6 +145,7 @@
       "category": "typography",
       "name": "heading-6",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "1.125rem",
         "fontWeight": "500",
         "lineHeight": "21px",
@@ -144,10 +155,11 @@
       "meta": {
         "friendlyName": "Headline 6",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-heading-6",
-        "mixinName": "dt-heading-6"
+        "selector": ".dt-h6",
+        "mixinName": "dt-h6"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-m}",
         "fontWeight": "{!typography--emphasis-medium}",
         "lineHeight": "{!typography--line-height-m}",
@@ -159,22 +171,24 @@
       "category": "typography",
       "name": "body",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "1rem",
         "fontWeight": "400",
-        "lineHeight": "19px",
+        "lineHeight": "24px",
         "textTransform": "none"
       },
       "comment": "Token contains the styles for a body text",
       "meta": {
         "friendlyName": "Body",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-body",
-        "mixinName": "dt-body"
+        "selector": ".dt-text",
+        "mixinName": "dt-text"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size}",
         "fontWeight": "{!typography--emphasis-regular}",
-        "lineHeight": "{!typography--line-height}",
+        "lineHeight": "{!typography--line-height-l}",
         "textTransform": "none"
       }
     },
@@ -183,6 +197,7 @@
       "category": "typography",
       "name": "body-emphasized",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "1rem",
         "fontWeight": "500",
         "lineHeight": "19px",
@@ -192,10 +207,11 @@
       "meta": {
         "friendlyName": "Body emphasized",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-body-emphasized",
-        "mixinName": "dt-body-emphasized"
+        "selector": ".dt-text-em",
+        "mixinName": "dt-text-em"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size}",
         "fontWeight": "{!typography--emphasis-medium}",
         "lineHeight": "{!typography--line-height}",
@@ -207,6 +223,7 @@
       "category": "typography",
       "name": "body-super-emphasized",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "1rem",
         "fontWeight": "700",
         "lineHeight": "19px",
@@ -216,10 +233,11 @@
       "meta": {
         "friendlyName": "Body super emphasized",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-body-super-emphasized",
-        "mixinName": "dt-body-super-emphasized"
+        "selector": ".dt-text-sem",
+        "mixinName": "dt-text-sem"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size}",
         "fontWeight": "{!typography--emphasis-high}",
         "lineHeight": "{!typography--line-height}",
@@ -231,6 +249,7 @@
       "category": "typography",
       "name": "body-uppercased",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "0.89rem",
         "fontWeight": "400",
         "lineHeight": "17px",
@@ -240,10 +259,11 @@
       "meta": {
         "friendlyName": "Body uppercased",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-body-uppercased",
-        "mixinName": "dt-body-uppercased"
+        "selector": ".dt-text-u",
+        "mixinName": "dt-text-u"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-s}",
         "fontWeight": "{!typography--emphasis-regular}",
         "lineHeight": "{!typography--line-height-s}",
@@ -255,6 +275,7 @@
       "category": "typography",
       "name": "body-uppercased-emphasized",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "0.89rem",
         "fontWeight": "500",
         "lineHeight": "17px",
@@ -264,10 +285,11 @@
       "meta": {
         "friendlyName": "Body uppercased emphasized",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-body-uppercased-emphasized",
-        "mixinName": "dt-body-uppercased-emphasized"
+        "selector": ".dt-text-u-em",
+        "mixinName": "dt-text-u-em"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-s}",
         "fontWeight": "{!typography--emphasis-medium}",
         "lineHeight": "{!typography--line-height-s}",
@@ -279,6 +301,7 @@
       "category": "typography",
       "name": "body-uppercased-super-emphasized",
       "value": {
+        "fontFamily": "Roboto, Helvetica, sans-serif",
         "fontSize": "0.89rem",
         "fontWeight": "700",
         "lineHeight": "17px",
@@ -288,10 +311,11 @@
       "meta": {
         "friendlyName": "Body uppercased super emphasized",
         "pangram": "The quick brown fox jumps over a lazy dog",
-        "selector": ".dt-body-uppercased-super-emphasized",
-        "mixinName": "dt-body-uppercased-super-emphasized"
+        "selector": ".dt-text-u-sem",
+        "mixinName": "dt-text-u-sem"
       },
       "originalValue": {
+        "fontFamily": "{!font-family-sans-serif}",
         "fontSize": "{!typography--font-size-s}",
         "fontWeight": "{!typography--emphasis-high}",
         "lineHeight": "{!typography--line-height-s}",

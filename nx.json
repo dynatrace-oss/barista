@@ -130,7 +130,7 @@
     },
     "package-elements": {
       "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["fluid-button"]
+      "implicitDependencies": ["fluid-button", "fluid-checkbox"]
     },
     "alert": {
       "tags": ["scope:components", "type:library"]
@@ -334,6 +334,10 @@
       "tags": ["type:library", "type:shared"]
     },
     "fluid-button": {
+      "tags": ["scope:elements", "type:library"],
+      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
+    },
+    "fluid-checkbox": {
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
