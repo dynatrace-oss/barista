@@ -16,7 +16,18 @@
 
 import { Selector } from 'testcafe';
 
-fixture('Scroll Spy - ALERT').page('http://localhost:4200/components/alert');
+// tslint:disable-next-line: dt-no-focused-tests
+fixture
+  .only('Scroll Spy - ALERT')
+  .page('http://localhost:4200/components/alert');
+
+/**
+ * * TESTCASES TO COVER:
+ * - Highlight the first toc item when clicked on the first.
+ * - Highlight the second item when scrolled to the second.
+ * - Highlight the last item when scrolled to the bottom.
+ * - Highlight sub item when scrolled + clicked on that item.
+ */
 
 test('should highlight correct headline after scrolling', async (testController: TestController) => {
   await testController
