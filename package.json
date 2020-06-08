@@ -123,7 +123,7 @@
     "@types/glob": "^7.1.1",
     "@types/inquirer": "^6.5.0",
     "@types/jest": "25.2.3",
-    "@types/lodash": "^4.14.150",
+    "@types/lodash": "^4.14.155",
     "@types/lodash-es": "^4.17.3",
     "@types/markdown-it": "^10.0.1",
     "@types/node": "^12.12.29",
