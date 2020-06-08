@@ -1,3 +1,5 @@
+load("//tools/bazel_rules:index.bzl", "stylelint")
+
 package(default_visibility = ["//visibility:public"])
 
 filegroup(
@@ -12,4 +14,9 @@ filegroup(
         "**/*.html",
         "**/*.scss",
     ]),
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
 )
