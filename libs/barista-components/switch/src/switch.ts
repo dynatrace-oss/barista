@@ -32,12 +32,16 @@ import {
   ViewChild,
   ViewEncapsulation,
   forwardRef,
+  Optional,
+  Self,
+  OnChanges,
+  Inject,
 } from '@angular/core';
 import {
   CheckboxRequiredValidator,
   ControlValueAccessor,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
+  NgControl,
 } from '@angular/forms';
 
 import {
@@ -48,20 +52,11 @@ import {
   _addCssClass,
   _removeCssClass,
 } from '@dynatrace/barista-components/core';
+import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
+import { Subject } from 'rxjs';
 
 // Increasing integer for generating unique ids for switch components.
 let nextUniqueId = 0;
-
-/**
- * Provider Expression that allows dt-switch to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)].
- */
-export const DT_SWITCH_CONTROL_VALUE_ACCESSOR: Provider = {
-  provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line: no-use-before-declare no-forward-ref
-  useExisting: forwardRef(() => DtSwitch),
-  multi: true,
-};
 
 /** Change event object emitted by DtSwitch */
 export interface DtSwitchChange<T> {
@@ -86,7 +81,7 @@ export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
     '[class.dt-switch-disabled]': 'disabled',
     '(focus)': '_inputElement.nativeElement.focus()',
   },
-  providers: [DT_SWITCH_CONTROL_VALUE_ACCESSOR],
+  providers: [{ provide: DtFormFieldControl, useExisting: DtSwitch }],
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
@@ -96,8 +91,10 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     CanDisable,
     HasTabIndex,
     OnDestroy,
+    OnChanges,
     AfterViewInit,
-    ControlValueAccessor {
+    ControlValueAccessor,
+    DtFormFieldControl<T> {
   /** Whether or not the switch is checked. */
   @Input()
   get checked(): boolean {
@@ -107,6 +104,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     const coercedValue = coerceBooleanProperty(value);
     if (coercedValue !== this._checked) {
       this._checked = coercedValue;
+      this.stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -171,8 +169,26 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     return `${this.id}-input`;
   }
 
+  /** Implemented as part of DtFormFieldControl. */
+  readonly stateChanges = new Subject<void>();
+
+  /** Implemented as part of DtFormFieldControl. */
+  focused = false;
+
+  /** Implemented as part of DtFormFieldControl. */
+  empty = false;
+
+  /** Implemented as part of DtFormFieldControl. */
+  errorState = false;
+
+  /** @internal Implemented as part of DtFormFieldControl. */
+  _boxControl = false;
+
   /** @internal Implemented as part of the ControlValueAccessor */
   _onTouched: () => void = () => {};
+
+  /** @internal The aria-describedby attribute on the input for improved a11y. */
+  _ariaDescribedby: string;
 
   private _checked = false;
   private _uid = `dt-switch-${nextUniqueId++}`;
@@ -186,8 +202,21 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     private _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
     @Attribute('tabindex') tabIndex: string,
+    // @breaking-change 8.0.0 Remove the default null assignment and the @Inject
+    // Change to:
+    // @Optional() @Self() public ngControl: NgControl;
+    @Inject(NgControl)
+    @Optional()
+    @Self()
+    public ngControl: NgControl | null = null,
   ) {
     super();
+
+    if (this.ngControl) {
+      // Note: we provide the value accessor through here, instead of
+      // the `providers` to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -202,7 +231,12 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
       });
   }
 
+  ngOnChanges(): void {
+    this.stateChanges.next();
+  }
+
   ngOnDestroy(): void {
+    this.stateChanges.complete();
     this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
   }
 
@@ -261,6 +295,24 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   /** Focuses the slide-toggle. */
   focus(): void {
     this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+  }
+
+  /** Implemented as part of DtFormFieldControl. */
+  setDescribedByIds(ids: string[]): void {
+    this._ariaDescribedby = ids.join(' ');
+  }
+
+  /** Implemented as part of DtFormFieldControl. */
+  onContainerClick(): void {
+    this.focus();
+  }
+
+  /** @internal Callback for the cases where the focused state of the input changes. */
+  _focusChanged(isFocused: boolean): void {
+    if (isFocused !== this.focused) {
+      this.focused = isFocused;
+      this.stateChanges.next();
+    }
   }
 
   private _onInputFocusChange(focusOrigin: FocusOrigin): void {

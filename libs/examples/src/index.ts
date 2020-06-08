@@ -845,6 +845,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ],
   ['DtExampleFilterFieldReadOnlyTags', DtExampleFilterFieldReadOnlyTags],
   ['DtExampleFilterFieldUnique', DtExampleFilterFieldUnique],
+  ['DtExampleFilterFieldValidator', DtExampleFilterFieldValidator],
   ['DtExampleFormFieldDefault', DtExampleFormFieldDefault],
   [
     'DtExampleFormFieldErrorCustomValidator',
