@@ -66,6 +66,7 @@ let nextUniqueId = 0;
     '[class.dt-form-field-invalid]': '_control.errorState',
     '[class.dt-form-field-disabled]': '_control.disabled',
     '[class.dt-form-field-autofilled]': '_control.autofilled',
+    '[class.dt-form-field-non-box]': '_control._boxControl === false',
     '[class.dt-form-field-empty]': '_control.empty',
     '[class.dt-focused]': '_control.focused',
     '[class.ng-untouched]': '_shouldForward("untouched")',

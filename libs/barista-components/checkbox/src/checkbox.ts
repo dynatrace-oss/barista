@@ -26,29 +26,34 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  forwardRef,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
+  Optional,
   Output,
   Provider,
+  Self,
   ViewChild,
   ViewEncapsulation,
-  forwardRef,
+  Inject,
 } from '@angular/core';
 import {
   CheckboxRequiredValidator,
   ControlValueAccessor,
+  NgControl,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-
 import {
   CanDisable,
   HasTabIndex,
-  _addCssClass,
   mixinDisabled,
   mixinTabIndex,
+  _addCssClass,
 } from '@dynatrace/barista-components/core';
+import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
+import { Subject } from 'rxjs';
 
 /**
  * Checkbox IDs need to be unique across components, so this counter exists outside of
@@ -67,17 +72,6 @@ export const enum TransitionCheckState {
   /** The state representing the component when it's becoming indeterminate. */
   Indeterminate,
 }
-
-/**
- * Provider Expression that allows dt-checkbox to register as a ControlValueAccessor.
- * This allows it to support [(ngModel)].
- */
-export const DT_CHECKBOX_CONTROL_VALUE_ACCESSOR: Provider = {
-  provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line: no-use-before-declare no-forward-ref
-  useExisting: forwardRef(() => DtCheckbox),
-  multi: true,
-};
 
 /** Change event object emitted by DtCheckbox */
 export interface DtCheckboxChange<T> {
@@ -105,7 +99,7 @@ export const _DtCheckboxMixinBase = mixinTabIndex(
     '(focus)': '_inputElement.nativeElement.focus()',
   },
   inputs: ['disabled', 'tabIndex'],
-  providers: [DT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
+  providers: [{ provide: DtFormFieldControl, useExisting: DtCheckbox }],
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -117,7 +111,9 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     AfterViewInit,
     OnDestroy,
     OnInit,
-    ControlValueAccessor {
+    OnChanges,
+    ControlValueAccessor,
+    DtFormFieldControl<T> {
   /** Whether or not the checkbox is checked. */
   @Input()
   get checked(): boolean {
@@ -132,6 +128,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
           ? TransitionCheckState.Checked
           : TransitionCheckState.Unchecked,
       );
+      this.stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -223,6 +220,21 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   /** @internal The native radio input element */
   @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
+  /** Implemented as part of DtFormFieldControl. */
+  readonly stateChanges = new Subject<void>();
+
+  /** Implemented as part of DtFormFieldControl. */
+  focused = false;
+
+  /** Implemented as part of DtFormFieldControl. */
+  empty = false;
+
+  /** Implemented as part of DtFormFieldControl. */
+  errorState = false;
+
+  /** @internal Implemented as part of DtFormFieldControl. */
+  _boxControl = false;
+
   /** @internal Returns the unique id for the visual hidden input. */
   get _inputId(): string {
     return `${this.id}-input`;
@@ -230,6 +242,9 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
 
   /** @internal Implemented as part of the ValueAccessor interface */
   _onTouched: () => void = () => {};
+
+  /** @internal The aria-describedby attribute on the input for improved a11y. */
+  _ariaDescribedby: string;
 
   private _checked = false;
   private _uid = `dt-checkbox-${nextUniqueId++}`;
@@ -247,8 +262,21 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     private _focusMonitor: FocusMonitor,
     private _platform: Platform,
     @Attribute('tabindex') tabIndex: string,
+    // @breaking-change 8.0.0 Remove the default null assignment and the @Inject
+    // Change to:
+    // @Optional() @Self() public ngControl: NgControl;
+    @Inject(NgControl)
+    @Optional()
+    @Self()
+    public ngControl: NgControl | null = null,
   ) {
     super();
+
+    if (this.ngControl) {
+      // Note: we provide the value accessor through here, instead of
+      // the `providers` to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -274,7 +302,12 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
       });
   }
 
+  ngOnChanges(): void {
+    this.stateChanges.next();
+  }
+
   ngOnDestroy(): void {
+    this.stateChanges.complete();
     this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
   }
 
@@ -286,6 +319,16 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   /** Toggles the `checked` state of the checkbox. */
   toggle(): void {
     this.checked = !this.checked;
+  }
+
+  /** Implemented as part of DtFormFieldControl. */
+  setDescribedByIds(ids: string[]): void {
+    this._ariaDescribedby = ids.join(' ');
+  }
+
+  /** Implemented as part of DtFormFieldControl. */
+  onContainerClick(): void {
+    this.focus();
   }
 
   /** @internal Handles the click on the input element. */
@@ -318,6 +361,14 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   /** @internal Transforms the checked and indeterminate state to a string consumed by aria-checked. */
   _getAriaChecked(): 'true' | 'false' | 'mixed' {
     return this.checked ? 'true' : this.indeterminate ? 'mixed' : 'false';
+  }
+
+  /** @internal Callback for the cases where the focused state of the input changes. */
+  _focusChanged(isFocused: boolean): void {
+    if (isFocused !== this.focused) {
+      this.focused = isFocused;
+      this.stateChanges.next();
+    }
   }
 
   /** Implemented as a part of ControlValueAccessor. */

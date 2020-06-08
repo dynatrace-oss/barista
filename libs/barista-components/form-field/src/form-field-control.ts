@@ -57,6 +57,9 @@ export abstract class DtFormFieldControl<T> {
   /** Whether the control is in an error state. */
   readonly errorState: boolean;
 
+  /** @internal Whether the control is a box control and does use the border from the form-field. */
+  readonly _boxControl?: boolean;
+
   /** Sets the list of element IDs that currently describe this control. */
   abstract setDescribedByIds(ids: string[]): void;
 

@@ -12,10 +12,16 @@
 
 .dt-form-field-body {
   @include dt-form-control-body();
+}
 
-  .dt-focused & {
-    @include dt-focus-style();
-  }
+.dt-form-field-non-box .dt-form-field-body {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+.dt-focused:not(.dt-form-field-non-box) .dt-form-field-body {
+  @include dt-focus-style();
 }
 
 .dt-form-field-prefix,

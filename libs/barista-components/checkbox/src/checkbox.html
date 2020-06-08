@@ -13,8 +13,11 @@
     [attr.aria-label]="ariaLabel || null"
     [attr.aria-labelledby]="ariaLabelledby"
     [attr.aria-checked]="_getAriaChecked()"
+    [attr.aria-describedby]="_ariaDescribedby || null"
     (change)="_onInputChange($event)"
     (click)="_onInputClick($event)"
+    (blur)="_focusChanged(false)"
+    (focus)="_focusChanged(true)"
   />
   <div class="dt-checkbox-container">
     <div class="dt-checkbox-icon">
