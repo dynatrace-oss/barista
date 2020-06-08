@@ -31,7 +31,6 @@
     "help": "nx help",
     "nx": "node --max_old_space_size=8192 ./node_modules/.bin/nx",
     "ng": "ng",
-    "bazel": "bazelisk",
     "barista-tools": "ng build barista-tools && node dist/libs/tools/barista/main.js",
     "shareable-examples": "ng build tools-shareable-examples && node dist/libs/tools/shareable-examples/main.js",
     "barista": "npm run examples-tools && npm run barista-tools && ng run barista-design-system:serve-ssr",
@@ -42,8 +41,8 @@
     "publish-release": "ng run tools-release:build-publish-release && node dist/libs/tools/publish-release/main.js",
     "publish-release-next": "ng run tools-release:build-publish-release-next && node dist/libs/tools/publish-release-next/main.js",
     "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt",
-    "bazel:format": "bazel build //:buildifier",
-    "bazel:build": "bazel build //libs/workspace/src/builders/barista-build --remote_upload_local_results=true --google_credentials=tools/bazel_build_cache/cache-write-key.json"
+    "bazel": "bazelisk",
+    "bazel:build": "bazel build ... --remote_upload_local_results=true --google_credentials=tools/bazel_build_cache/cache-write-key.json"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
