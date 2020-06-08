@@ -1,3 +1,4 @@
+load("//tools/bazel_rules:index.bzl", "stylelint")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
 
 package(default_visibility = ["//:__subpackages__"])
@@ -24,4 +25,9 @@ sass_library(
         "src/indicator.scss",
         "src/indicator-theme.scss",
     ],
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
 )

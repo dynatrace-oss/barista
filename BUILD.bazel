@@ -7,6 +7,9 @@ exports_files(
     [
         "tsconfig.json",
         "angular.json",
+        # Stylelint and prettier config are neeeded for style linting
+        ".stylelintrc",
+        "prettier.config.js",
     ],
     visibility = ["//visibility:public"],
 )
