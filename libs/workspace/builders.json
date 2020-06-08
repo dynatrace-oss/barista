@@ -2,7 +2,7 @@
   "$schema": "../../node_modules/@angular-devkit/architect/src/builders-schema.json",
   "builders": {
     "build-barista": {
-      "implementation": "./src/builders/barista-build/builder",
+      "implementation": "./src/builders/barista-build/builder.bundled",
       "schema": "./src/builders/barista-build/schema.json",
       "description": "The build-barista builder is used to generate static html pages for barista."
     },

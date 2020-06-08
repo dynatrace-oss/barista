@@ -10,8 +10,7 @@ filegroup(
             "**/*.spec.ts",
             "src/test-setup.ts",
         ],
-    ) + [
-        ":icon_scss_lib"],
+    ) + [":icon_scss_lib"],
 )
 
 sass_library(

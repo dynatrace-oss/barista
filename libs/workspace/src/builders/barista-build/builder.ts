@@ -31,7 +31,7 @@ import { getRoutes, renderRoutes, scheduleBuilds, startServer } from './utils';
  * output file is placed in the build output next to the
  * builder file.
  */
-export const RENDERER_MODULE = join(__dirname, 'renderer.js');
+export const RENDERER_MODULE = join(__dirname, 'renderer.bundled.js');
 
 /** The server port where the server app is running on. */
 const SERVER_PORT = 4200;

@@ -515,12 +515,13 @@
           }
         },
         "static-pages": {
-          "builder": "./dist/libs/workspace:build-barista",
+          "builder": "/private/var/tmp/_bazel_lukas.holzer/14b203e5dd3ee3cb631c98babb73d5eb/execroot/dynatrace/bazel-out/darwin-fastbuild/bin/libs/workspace:build-barista",
           "options": {
             "browserTarget": "barista-design-system:build-frontend",
             "serverTarget": "barista-design-system:build-server",
             "outputPath": "dist/apps/barista-design-system/browser",
-            "routesFile": "dist/barista-data/routes.txt"
+            "routes": ["/"],
+            "//routesFile": "dist/barista-data/routes.txt"
           },
           "configurations": {
             "production": {

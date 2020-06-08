@@ -1,4 +1,7 @@
 load("//tools/bazel_rules:index.bzl", "architect")
+load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
+
+package(default_visibility = ["//apps/barista-design-system:__subpackages__"])
 
 architect(
     name = "barista-design-system",
@@ -11,24 +14,28 @@ architect(
     ) + [
         "browserslist",
         "tsconfig.app.json",
+        "tsconfig.server.json",
         "tsconfig.json",
         "@npm//@angular/cdk",
-        "@npm//@angular/localize",
-        "@npm//@angular/core",
         "@npm//@angular/common",
+        "@npm//@angular/core",
         "@npm//@angular/forms",
+        "@npm//@angular/localize",
         "@npm//@angular/platform-browser-dynamic",
         "@npm//@angular/platform-browser",
+        "@npm//@angular/platform-server",
         "@npm//@angular/router",
         "@npm//@dynatrace/barista-fonts",
         "@npm//@dynatrace/barista-icons",
+        "@npm//@nguniversal/express-engine",
+        "@npm//d3-scale",
+        "@npm//d3-shape",
+        "@npm//highcharts",
         "@npm//highlight-ts",
         "@npm//lodash-es",
         "@npm//tslib",
         "@npm//zone.js",
-        "@npm//d3-scale",
-        "@npm//d3-shape",
-        "@npm//highcharts",
+        "//apps/barista-design-system/src/styles",
         "//libs/barista-components/autocomplete",
         "//libs/barista-components/breadcrumbs",
         "//libs/barista-components/button",
@@ -44,6 +51,7 @@ architect(
         "//libs/barista-components/toast",
         "//libs/examples",
         "//libs/shared/barista-definitions",
+        "//libs/workspace",
     ],
-    target = "barista-design-system:build-frontend",
+    target = "barista-design-system:static-pages",
 )

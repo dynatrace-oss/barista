@@ -1,0 +1,13 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
+
+package(default_visibility = ["//apps/barista-design-system:__subpackages__"])
+
+sass_library(
+    name = "styles",
+    srcs = glob(
+        ["**/*.scss"],
+    ),
+    deps = [
+        "//libs/barista-components/style",
+    ],
+)
