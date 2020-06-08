@@ -1,0 +1,36 @@
+<p>Checked {{ _isChecked() }} | Indeterminate {{ _isIndeterminate() }}</p>
+<fluid-checkbox
+  [disabled]="disabled"
+  [checked]="_isChecked()"
+  [indeterminate]="_isIndeterminate()"
+  (change)="changeAll($event)"
+>
+  I am the label
+</fluid-checkbox>
+
+<fluid-checkbox
+  [disabled]="disabled"
+  [checked]="_checkbox1"
+  (change)="_checkbox1 = $event.checked"
+>
+  I am the label 1
+</fluid-checkbox>
+
+<dt-checkbox (change)="_checkbox2 = $event.checked" [checked]="_checkbox2">
+  I am the label
+</dt-checkbox>
+
+<div>
+  <button (click)="disabled = !disabled">Toggle disabled</button>
+  <!-- <button (click)="checked = !checked">Toggle checked</button> -->
+  <!-- <button (click)="indeterminate = !indeterminate">Toggle indeterminate</button> -->
+</div>
+
+<div>
+  <h2>Logs</h2>
+  <code *ngFor="let log of logs">
+    <pre>
+    {{ log | json }}
+    </pre>
+  </code>
+</div>

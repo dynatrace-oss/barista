@@ -222,6 +222,12 @@
       "@dynatrace/fluid-elements/button": [
         "libs/fluid-elements/button/src/index.ts"
       ],
+      "@dynatrace/fluid-elements/checkbox": [
+        "libs/fluid-elements/checkbox/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/label": [
+        "libs/fluid-elements/label/src/index.ts"
+      ],
       "@dynatrace/testing/custom-element": [
         "libs/testing/custom-element/src/index.ts"
       ],
