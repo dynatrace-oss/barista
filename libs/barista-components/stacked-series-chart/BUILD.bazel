@@ -3,7 +3,7 @@ load("//tools/bazel_rules:index.bzl", "stylelint")
 package(default_visibility = ["//visibility:public"])
 
 filegroup(
-    name = "experimental",
+    name = "stacked-series-chart",
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [

@@ -3,7 +3,7 @@
 #--------------------------
 **
 
-#--------------------------
+#--------------------------a
 # allow explicit
 #--------------------------
 !package.json
@@ -23,3 +23,13 @@
 
 # Used by: /.deployment/barista/barista-internal.Dockerfile
 !/dist/apps/barista-design-system/browser
+
+!/tools/bazel_build_cache
+
+!/WORKSPACE
+!/BUILD.bazel
+!/libs
+!/tools
+!.bazelrc
+!.bazelversion
+!.bazelignore

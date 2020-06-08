@@ -1,10 +1,9 @@
-load("//libs/barista-components:config.bzl", "COMPONENT_TARGETS")
 load("//tools/bazel_rules:index.bzl", "stylelint")
 
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["//visibility:public"])
 
 filegroup(
-    name = "examples",
+    name = "combobox",
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [
@@ -14,10 +13,10 @@ filegroup(
     ) + glob([
         "**/*.html",
         "**/*.scss",
-    ]) + ["//libs/testing/fixtures"] + COMPONENT_TARGETS,
+    ]),
 )
 
 stylelint(
     name = "stylelint",
-    srcs = glob(["**/*.scss"]) + [":.stylelintrc"],
+    srcs = glob(["**/*.scss"]),
 )

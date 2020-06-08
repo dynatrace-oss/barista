@@ -4,7 +4,7 @@ load("//tools/bazel_rules:index.bzl", "stylelint")
 package(default_visibility = ["//:__subpackages__"])
 
 filegroup(
-    name = "examples",
+    name = "design-tokens",
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [
@@ -19,5 +19,5 @@ filegroup(
 
 stylelint(
     name = "stylelint",
-    srcs = glob(["**/*.scss"]) + [":.stylelintrc"],
+    srcs = glob(["**/*.scss"]),
 )

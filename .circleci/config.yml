@@ -1,3 +1,6 @@
+# Documentation about the 2.1 file format can be found here:
+# https://circleci.com/docs/reference-2-1/
+
 version: 2.1
 
 orbs:
@@ -19,6 +22,7 @@ executors:
     working_directory: ~/barista
     environment:
       WORKSPACE_IMAGE: designops/workspace-base
+      BAZEL_IMAGE: designops/workspace-bazel
     docker:
       - image: circleci/buildpack-deps:stretch
 
@@ -40,6 +44,11 @@ executors:
     docker:
       - image: circleci/node:lts-browsers
 
+  bazel:
+    working_directory: ~/barista
+    docker:
+      - image: designops/workspace-bazel:latest
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   P A T T E R N S:
@@ -48,6 +57,9 @@ executors:
 #   This is a yml feature to reduce redundancy.
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+bazel_cache: &bazel_cache v1-dt-barista-{{ checksum ".bazelversion" }}-{{ checksum "WORKSPACE" }}-{{ checksum "package-lock.json" }}
+bazel_cache_fallback: &bazel_cache_fallback v1-dt-barista-{{ checksum ".bazelversion" }}
 
 filter_forks: &filter_forks
   filters:
@@ -65,12 +77,6 @@ filter_branches: &filter_branches
         - /^cherry-pick-.*/
         # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
         - /pull\/[0-9]+/
-
-defaults: &defaults
-  working_directory: ~/barista
-  docker:
-    - image: circleci/node:12
-
 
 npm_cache: &npm_cache
   keys:
@@ -124,8 +130,9 @@ commands:
 
   skip_for_forked_pull_requests:
     description: >-
-      If this build is from a fork, stop executing the current job and return success.
-      This is needed to avoid steps that will fail due to missing credentials.
+      If this build is from a fork, stop executing the current job and return
+      success. This is needed to avoid steps that will fail due to missing
+      credentials.
     steps:
       - run:
           name: Early return if this build is from a forked PR
@@ -139,21 +146,31 @@ commands:
     description: >-
       Sets up the build cache for Bazel
     steps:
-      - attach_workspace:
-          at: ~/barista
+      - checkout
+      - restore_cache:
+          keys:
+            - *bazel_cache
+            - *bazel_cache_fallback
       - run:
-          name: Setup Bazel CI
-          command: npm install -G @bazel/bazelisk && cd tools/bazel_build_cache && sh setup_ci_build_cache.sh
+          name: Setting up Bazel configuration for CI
+          command: echo "import %workspace%/.circleci/bazel.rc" >> ./.bazelrc
+      - run:
+          name: Setup Bazel Build Cache
+          command: cd ./tools/bazel_build_cache && sh setup_ci_build_cache.sh
 
-  bazel_build:
+  get_bazel_testlogs:
     description: >-
-      Example Bazel build step with cache access
+      Stores the Bazel Testlogs
     steps:
-      - attach_workspace:
-          at: ~/barista
       - run:
-          name: Run build
-          command: npm run bazel:build
+          when: always
+          name: Gather Bazel Testlogs
+          command: |
+            BAZEL_TESTLOGS="$(bazel info bazel-testlogs)"
+            cp -R $BAZEL_TESTLOGS ./testlogs
+      - store_test_results:
+          path: ./testlogs
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -177,11 +194,15 @@ jobs:
           command: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
       - run:
           name: Build Docker Image
-          command: docker build -t $WORKSPACE_IMAGE:latest ./ -f ./.deployment/workspace-base.Dockerfile
+          command: |
+            docker build -t $WORKSPACE_IMAGE:latest ./ -f ./.deployment/workspace-base.Dockerfile
+            docker build -t $BAZEL_IMAGE:latest ./ -f ./.deployment/workspace-bazel.Dockerfile
+
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
             docker push $WORKSPACE_IMAGE:latest
+            docker push $BAZEL_IMAGE:latest
 
 # - install npm dependencies
   install:
@@ -282,14 +303,6 @@ jobs:
     steps:
       - prepare_job
       - run: yarn run-many --target lint
-
-# - static codeanalysis of the style files
-  lint-styles:
-    executor: barista
-    parallelism: 2
-    steps:
-      - prepare_job
-      - run: yarn run-many --target lint-styles
 
 # - build all the packages
   build:
@@ -394,14 +407,30 @@ jobs:
       - store_test_results:
           path: dist/demos-a11y
 
-# - Execute a small target with Bazel
-  bazel_ci:
-    executor: barista
-    resource_class: medium
+# - static codeanalysis of the style files
+  bazel_stylelint:
+    executor: bazel
+    resource_class: xlarge
     steps:
-      - checkout
       - setup_bazel_ci
-      - bazel_build
+      - run:
+          name: Run Stylelint
+          command: bazel query "attr(generator_function, stylelint, //...)" | xargs bazel test --profile=./profile.gz --record_full_profiler_data
+      - get_bazel_testlogs
+      - store_artifacts:
+          path: ./profile.gz
+          destination: bazel-performance-profile
+
+# - build all targets with bazel
+  # bazel_build:
+  #   executor: bazel
+  #   resource_class: xlarge
+  #   steps:
+  #     - setup_bazel_ci
+  #     - run:
+  #         name: Run Build
+  #         command: bazel build //...
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -415,6 +444,13 @@ jobs:
 
 workflows:
   version: 2.1
+
+  bazelify:
+    jobs:
+      - bazel_stylelint:
+          context: barista
+      # - bazel_build:
+      #     context: barista
 
 # - Publish the workspace image on every master build
   workspace-build:
@@ -440,9 +476,8 @@ workflows:
       - lint-workspace:
           requires:
             - install
-      - lint-styles:
-          requires:
-            - install
+      - bazel_stylelint:
+          <<: *filter_forks
       - unit-test:
           requires:
             - install
@@ -480,10 +515,6 @@ workflows:
           context: barista
           requires:
             - install
-      - lint-styles:
-          context: barista
-          requires:
-            - install
       - lint-workspace:
           context: barista
           requires:
@@ -517,9 +548,6 @@ workflows:
           context: barista
           requires:
             - build
-      - bazel_ci:
-          <<: *filter_branches
-          context: barista
 
   # Workflow for running build and test on windows
   win-check:
