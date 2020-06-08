@@ -1,3 +1,4 @@
+load("//tools/bazel_rules:index.bzl", "stylelint")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
 
 package(default_visibility = ["//:__subpackages__"])
@@ -8,7 +9,12 @@ sass_library(
         ["**/*.scss"],
     ),
     deps = [
-        "//libs/barista-components/input:input_scss_lib",
         "//libs/barista-components/indicator:indicator_scss_lib",
+        "//libs/barista-components/input:input_scss_lib",
     ],
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
 )

@@ -1,3 +1,4 @@
+load("//tools/bazel_rules:index.bzl", "stylelint")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
 
 package(default_visibility = ["//visibility:public"])
@@ -10,8 +11,7 @@ filegroup(
             "**/*.spec.ts",
             "src/test-setup.ts",
         ],
-    ) + [
-        ":icon_scss_lib"],
+    ) + [":icon_scss_lib"],
 )
 
 sass_library(
@@ -19,4 +19,9 @@ sass_library(
     srcs = glob(
         ["**/*.scss"],
     ),
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
 )

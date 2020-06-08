@@ -1,3 +1,4 @@
+load("//tools/bazel_rules:index.bzl", "stylelint")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
 
 package(default_visibility = ["//visibility:public"])
@@ -19,4 +20,9 @@ filegroup(
 sass_library(
     name = "input_scss_lib",
     srcs = ["src/input.scss"],
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
 )
