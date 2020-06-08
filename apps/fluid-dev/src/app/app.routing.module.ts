@@ -26,6 +26,13 @@ export const fluidRoutes: Route[] = [
         (module) => module.FluidButtonPageModule,
       ),
   },
+  {
+    path: 'checkbox',
+    loadChildren: () =>
+      import('../pages/checkbox/checkbox-page.module').then(
+        (module) => module.FluidCheckboxPageModule,
+      ),
+  },
 ];
 
 @NgModule({

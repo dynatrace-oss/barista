@@ -25,6 +25,7 @@ function generateCssSelectorForProp(prop: Prop): string {
   return `
 ${renderComment(prop)}
 ${prop.getIn(['meta', 'selector'])} {
+  font-family: ${prop.getIn(['value', 'fontFamily'])};
   font-size: ${prop.getIn(['value', 'fontSize'])};
   font-weight: ${prop.getIn(['value', 'fontWeight'])};
   line-height: ${prop.getIn(['value', 'lineHeight'])};

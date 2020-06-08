@@ -6,6 +6,7 @@ imports:
 props:
   - name: heading-1
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-4xl}'
       fontWeight: '{!typography--emphasis-medium}'
       lineHeight: '{!typography--line-height-4xl}'
@@ -18,6 +19,7 @@ props:
       mixinName: dt-h1
   - name: heading-2
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-3xl}'
       fontWeight: '{!typography--emphasis-medium}'
       lineHeight: '{!typography--line-height-3xl}'
@@ -30,6 +32,7 @@ props:
       mixinName: dt-h2
   - name: heading-3
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-2xl}'
       fontWeight: '{!typography--emphasis-medium}'
       lineHeight: '{!typography--line-height-2xl}'
@@ -42,6 +45,7 @@ props:
       mixinName: dt-h3
   - name: heading-4
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-xl}'
       fontWeight: '{!typography--emphasis-medium}'
       lineHeight: '{!typography--line-height-xl}'
@@ -54,6 +58,7 @@ props:
       mixinName: dt-h4
   - name: heading-5
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-l}'
       fontWeight: '{!typography--emphasis-medium}'
       lineHeight: '{!typography--line-height-l}'
@@ -66,6 +71,7 @@ props:
       mixinName: dt-h5
   - name: heading-6
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-m}'
       fontWeight: '{!typography--emphasis-medium}'
       lineHeight: '{!typography--line-height-m}'
@@ -79,9 +85,10 @@ props:
 
   - name: body
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size}'
       fontWeight: '{!typography--emphasis-regular}'
-      lineHeight: '{!typography--line-height}'
+      lineHeight: '{!typography--line-height-l}'
       textTransform: none
     comment: Token contains the styles for a body text
     meta:
@@ -91,6 +98,7 @@ props:
       mixinName: dt-text
   - name: body-emphasized
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size}'
       fontWeight: '{!typography--emphasis-medium}'
       lineHeight: '{!typography--line-height}'
@@ -103,6 +111,7 @@ props:
       mixinName: dt-text-em
   - name: body-super-emphasized
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size}'
       fontWeight: '{!typography--emphasis-high}'
       lineHeight: '{!typography--line-height}'
@@ -115,6 +124,7 @@ props:
       mixinName: dt-text-sem
   - name: body-uppercased
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-s}'
       fontWeight: '{!typography--emphasis-regular}'
       lineHeight: '{!typography--line-height-s}'
@@ -127,6 +137,7 @@ props:
       mixinName: dt-text-u
   - name: body-uppercased-emphasized
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-s}'
       fontWeight: '{!typography--emphasis-medium}'
       lineHeight: '{!typography--line-height-s}'
@@ -139,6 +150,7 @@ props:
       mixinName: dt-text-u-em
   - name: body-uppercased-super-emphasized
     value:
+      fontFamily: '{!font-family-sans-serif}'
       fontSize: '{!typography--font-size-s}'
       fontWeight: '{!typography--emphasis-high}'
       lineHeight: '{!typography--line-height-s}'
