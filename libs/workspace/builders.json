@@ -6,11 +6,6 @@
       "schema": "./src/builders/barista-build/schema.json",
       "description": "The build-barista builder is used to generate static html pages for barista."
     },
-    "stylelint": {
-      "implementation": "./src/builders/stylelint/index",
-      "schema": "./src/builders/stylelint/schema.json",
-      "description": "Run stylelint against all style files."
-    },
     "packager": {
       "implementation": "./src/builders/packager/index",
       "schema": "./src/builders/packager/schema.json",
