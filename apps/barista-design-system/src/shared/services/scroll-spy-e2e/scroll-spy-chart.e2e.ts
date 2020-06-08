@@ -14,26 +14,43 @@
  * limitations under the License.
  */
 
-import { Selector } from 'testcafe';
+import { Selector, ClientFunction } from 'testcafe';
 
-fixture('Scroll Spy - CHART').page('http://localhost:4200/components/chart');
+// tslint:disable-next-line: dt-no-focused-tests
+fixture('Scroll Spy - TABLE').page('http://localhost:4200/components/table');
 
-test('should highlight correct headline after scrolling', async (testController: TestController) => {
+const scroll = ClientFunction(function (x: number): void {
+  window.scrollBy(0, x);
+});
+
+test('should highlight the first toc item when first toc anchor is clicked', async (testController: TestController) => {
   await testController
-    .wait(200)
-    .click('a[id="imports"')
-    .wait(200)
+    .click('a[id="imports"]')
     .expect(
-      Selector('a.ba-toc-item.ba-toc-item-active').getStyleProperty(
-        'background-color',
-      ),
+      Selector('li.ba-toc-item:first-child').hasClass('ba-toc-item-active'),
     )
-    .eql('rgb(82, 108, 255)');
+    .ok();
+});
 
+// tslint:disable-next-line: dt-no-focused-tests
+test('should highlight headline sorting then subheadline DtSort when scrolling further', async (testController: TestController) => {
   await testController
-    .wait(200)
-    .click('a[id="legend"')
-    .wait(200)
-    .expect(Selector('a[id="legend"]').getStyleProperty('background-color'))
-    .eql('rgb(82, 108, 255)');
+    .wait(2000)
+    .navigateTo('http://localhost:4200/components/table#sorting')
+    .wait(2000)
+    .expect(
+      Selector('li.ba-toc-item:nth-child(6)').hasClass('ba-toc-item-active'),
+    )
+    .ok()
+    .click('a[id="dtsort"]')
+    .expect(Selector('li ul li.ba-toc-item.ba-toc-item-active').exists)
+    .ok();
+});
+
+test('should highlight the last toc item after scrolling to the very bottom of the page', async (testController: TestController) => {
+  await testController.wait(500);
+  await scroll(100000);
+  await testController
+    .expect(Selector('li ul li.ba-toc-item.ba-toc-item-active').exists)
+    .ok();
 });

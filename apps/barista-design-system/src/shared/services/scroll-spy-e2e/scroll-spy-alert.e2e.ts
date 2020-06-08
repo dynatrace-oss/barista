@@ -14,30 +14,49 @@
  * limitations under the License.
  */
 
-import { Selector } from 'testcafe';
+import { Selector, ClientFunction } from 'testcafe';
 
-// tslint:disable-next-line: dt-no-focused-tests
-fixture
-  .only('Scroll Spy - ALERT')
-  .page('http://localhost:4200/components/alert');
+fixture('Scroll Spy - ALERT').page('http://localhost:4200/components/alert');
 
-/**
- * * TESTCASES TO COVER:
- * - Highlight the first toc item when clicked on the first.
- * - Highlight the second item when scrolled to the second.
- * - Highlight the last item when scrolled to the bottom.
- * - Highlight sub item when scrolled + clicked on that item.
- */
+const scroll = ClientFunction(function (x: number): void {
+  window.scrollBy(0, x);
+});
 
-test('should highlight correct headline after scrolling', async (testController: TestController) => {
+test('should highlight the first toc item when first toc anchor is clicked', async (testController: TestController) => {
   await testController
-    .wait(200)
-    .click('a[id="do-s-and-don-ts"')
-    .wait(200)
+    .click('a[id="imports"]')
+    .wait(1000)
     .expect(
-      Selector('a.ba-toc-item.ba-toc-item-active').getStyleProperty(
-        'background-color',
-      ),
+      Selector('li.ba-toc-item:first-child').hasClass('ba-toc-item-active'),
     )
-    .eql('rgb(82, 108, 255)');
+    .ok();
+});
+
+test('should highlight the last toc item after click on last toc item anchor', async (testController: TestController) => {
+  await testController
+    .click('a[id="do-s-and-don-ts"')
+    .expect(
+      Selector('li.ba-toc-item:last-child').hasClass('ba-toc-item-active'),
+    )
+    .ok();
+});
+
+test('should highlight the second item after scrolling down', async (testController: TestController) => {
+  await testController
+    .wait(1000)
+    .navigateTo('http://localhost:4200/components/alert#initialization')
+    .expect(
+      Selector('li.ba-toc-item:nth-child(2)').hasClass('ba-toc-item-active'),
+    )
+    .ok();
+});
+
+test('should highlight the last toc item after scrolling to the very bottom of the page', async (testController: TestController) => {
+  await testController.wait(500);
+  await scroll(100000);
+  await testController
+    .expect(
+      Selector('li.ba-toc-item:last-child').hasClass('ba-toc-item-active'),
+    )
+    .ok();
 });
