@@ -82,9 +82,9 @@ import { dtCreateEventPath } from './merge-and-path/create-event-path';
 import { dtEventChartMergeEvents } from './merge-and-path/merge-events';
 import { RenderEvent } from './render-event.interface';
 import {
-  DtDuration,
   DtTimeUnit,
   DtFormattedValue,
+  formatDuration,
 } from '@dynatrace/barista-components/formatters';
 
 const EVENT_BUBBLE_SIZE = 16;
@@ -257,7 +257,6 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     private _appRef: ApplicationRef,
     private _injector: Injector,
     private _overlayService: Overlay,
-    private _durationPipe: DtDuration,
     @Inject(DOCUMENT) private _document: any,
     private _platform: Platform,
     private _elementRef: ElementRef<HTMLElement>,
@@ -840,7 +839,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       outputUnit = DtTimeUnit.SECOND;
     }
 
-    return this._durationPipe.transform(timestamp, 'PRECISE', outputUnit);
+    return formatDuration(timestamp, 'PRECISE', outputUnit);
   }
 }
 
