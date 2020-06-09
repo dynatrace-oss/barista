@@ -4216,11 +4216,6 @@
         }
       }
     },
-    "design-tokens-ui-libs": {
-      "projectType": "library",
-      "root": "libs/design-tokens-ui",
-      "sourceRoot": "libs/design-tokens-ui"
-    },
     "design-tokens-ui-input": {
       "projectType": "library",
       "root": "libs/design-tokens-ui/input",

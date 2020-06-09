@@ -55,7 +55,7 @@
       "tags": ["type:tooling"]
     },
     "shared-barista-definitions": {
-      "tags": ["type:types", "type:library"]
+      "tags": ["type:types", "type:library", "type:shared"]
     },
     "examples": {
       "tags": ["scope:examples", "type:library"]
@@ -355,9 +355,6 @@
     "design-tokens-ui": {
       "tags": ["type:app"],
       "implicitDependencies": ["shared-design-tokens"]
-    },
-    "design-tokens-ui-libs": {
-      "tags": ["type:library"]
     },
     "design-tokens-ui-input": {
       "tags": ["type:library"]
