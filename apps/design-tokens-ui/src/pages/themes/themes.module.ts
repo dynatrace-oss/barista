@@ -18,7 +18,6 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, ActivatedRouteSnapshot } from '@angular/router';
 
-import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
 
@@ -43,7 +42,6 @@ import { ThemeTileComponent } from './components/theme-tile/theme-tile.component
         },
       },
     ]),
-    DtButtonModule,
     DtIconModule,
     DtTopBarNavigationModule,
     PipesModule,

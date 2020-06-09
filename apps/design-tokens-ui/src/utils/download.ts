@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { getTextColorOnBackground } from '../../../../utils/colors';
+export function downloadStringAsTextFile(
+  fileName: string,
+  text: string,
+  doc: Document,
+): void {
+  const element = doc.createElement('a');
+  element.setAttribute(
+    'href',
+    `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`,
+  );
+  element.setAttribute('download', fileName);
 
-@Component({
-  selector: 'design-tokens-ui-color-picker',
-  templateUrl: './color-picker.component.html',
-  styleUrls: ['./color-picker.component.scss'],
-})
-export class ColorPickerComponent {
-  /** Current color */
-  @Input() color: string = '';
+  element.style.display = 'none';
+  doc.body.appendChild(element);
 
-  /** Fired when the color has changed */
-  @Output() colorChange: EventEmitter<string> = new EventEmitter<string>();
+  element.click();
 
-  /** @internal */
-  get _iconColor(): string {
-    return getTextColorOnBackground(this.color);
-  }
+  doc.body.removeChild(element);
 }
