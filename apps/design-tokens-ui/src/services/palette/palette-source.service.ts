@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import { Injectable, Inject, OnDestroy } from '@angular/core';
+import { Injectable, OnDestroy, Inject } from '@angular/core';
 import { Router, ParamMap, ActivationStart } from '@angular/router';
 import { cloneDeep, flatMap, isEqual, uniq } from 'lodash-es';
-import { BehaviorSubject, Subject } from 'rxjs';
 import {
   map,
   filter,
@@ -43,6 +42,9 @@ import {
 } from '@dynatrace/design-tokens-ui/shared';
 import { StyleOverridesService } from '../style-overrides';
 import { generatePaletteContrastColors } from '../../utils/colors';
+import { StatefulServiceBase } from '../stateful-service';
+import { downloadStringAsTextFile } from '../../utils/download';
+import { Subject } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 
 const YAML_FILE_NAME = 'palette-source.alias.yml';
@@ -81,12 +83,8 @@ export const getKeyColor = (palette: Palette) =>
 @Injectable({
   providedIn: 'root',
 })
-export class PaletteSourceService implements OnDestroy {
-  private _previousState: State | undefined;
-
-  /** Observable with the current state */
-  state$ = new BehaviorSubject<State>({ themes: [] });
-
+export class PaletteSourceService extends StatefulServiceBase<State>
+  implements OnDestroy {
   /** Observable with all themes */
   themes$ = this.state$.pipe(map((state) => state.themes));
 
@@ -110,6 +108,8 @@ export class PaletteSourceService implements OnDestroy {
     private _styleOverridesService: StyleOverridesService,
     @Inject(DOCUMENT) private _document: Document,
   ) {
+    super();
+
     // Deep copy the palette source to avoid mutating the imported object
     const palettes = cloneDeep(
       (paletteSource as any).default,
@@ -182,14 +182,6 @@ export class PaletteSourceService implements OnDestroy {
           currentPaletteName: params.get('palette') ?? undefined,
         }));
       });
-
-    // Show a warning message if there are unsaved changes when closing the page
-    window.addEventListener('beforeunload', (event) => {
-      if (this.hasPendingChanges) {
-        event.preventDefault();
-        event.returnValue = ''; // Required for some browsers
-      }
-    });
   }
 
   ngOnDestroy(): void {
@@ -197,42 +189,13 @@ export class PaletteSourceService implements OnDestroy {
     this._destroy$.complete();
   }
 
-  /** Returns the current state mapped to the given selector */
-  selectState<T>(selector: (state: State) => T): T {
-    return selector(this.state$.getValue());
-  }
-
-  /** Overwrites the current state */
-  modifyState(changeFn: (state: State) => State): void {
-    const currentState = this.state$.getValue();
-    const newState = changeFn(currentState);
-
-    if (!isEqual(currentState, newState)) {
-      this.state$.next(newState);
-    }
-  }
-
-  /** Records the current state to be able to restore it later */
-  saveStateSnapshot(): void {
-    this._previousState = this.state$.getValue();
-  }
-
-  /** Applies changes to the edited theme, deleting the previously stored snapshot. */
-  applyChanges(): void {
-    this._previousState = undefined;
-    this.state$.next(this.state$.getValue());
-  }
-
   /** Restores the last saved state. */
   revertChanges(): void {
-    if (this._previousState) {
-      this.state$.next(this._previousState);
-      this._previousState = undefined;
+    super.revertChanges();
 
-      // Make sure to reset the previous state in the UI
-      this.overrideStylesForThemePalettes();
-      this.overrideStylesForThemeBaseColor();
-    }
+    // Make sure to reset the previous state in the UI
+    this.overrideStylesForThemePalettes();
+    this.overrideStylesForThemeBaseColor();
   }
 
   /** Whether the current state has pending changes */
@@ -240,7 +203,7 @@ export class PaletteSourceService implements OnDestroy {
     // To check for changes between the current and the saved state,
     // we need to get rid of the generated colors in the palettes since
     // they are lazily generated when displaying the page
-    return this._checkStateModified((state) => ({
+    return this.checkStateModified((state) => ({
       ...state,
       themes: state.themes.map((theme) => ({
         ...theme,
@@ -455,7 +418,7 @@ export class PaletteSourceService implements OnDestroy {
 
   /** Exports all palettes as a YAML file */
   exportYaml(): void {
-    const themes = this.state$.getValue().themes;
+    const themes = this.selectState((state) => state.themes);
 
     const themeGenerationOptions = new Map<
       string,
@@ -493,37 +456,7 @@ export class PaletteSourceService implements OnDestroy {
       aliases,
     });
 
-    const element = this._document.createElement('a');
-    element.setAttribute(
-      'href',
-      `data:text/plain;charset=utf-8,${encodeURIComponent(yaml)}`,
-    );
-    element.setAttribute('download', YAML_FILE_NAME);
-
-    element.style.display = 'none';
-    this._document.body.appendChild(element);
-
-    element.click();
-
-    this._document.body.removeChild(element);
-  }
-
-  /**
-   * Checks whether some properties have changed from the previous state.
-   * Can be used to determine if the current state is "dirty".
-   * @param propertySelector Function that takes a state and returns which properties should be compared
-   */
-  private _checkStateModified(
-    propertySelector: (state: State) => Object,
-  ): boolean {
-    if (!this._previousState) {
-      return false;
-    }
-
-    return !isEqual(
-      propertySelector(this.state$.getValue()),
-      propertySelector(this._previousState),
-    );
+    downloadStringAsTextFile(YAML_FILE_NAME, yaml, this._document);
   }
 
   private _canSkipPaletteGeneration(prev: Theme, curr: Theme): boolean {

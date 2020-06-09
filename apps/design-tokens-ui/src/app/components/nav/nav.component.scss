@@ -15,6 +15,7 @@
  */
 
 @import '../../../styles/variables.scss';
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
 
 $default-width: 96px;
 $expanded-width: 220px;
@@ -120,6 +121,6 @@ $logo-height: 28px;
   }
 
   &:not(:last-of-type) {
-    margin-bottom: 20px;
+    margin-bottom: $fluid-spacing--large;
   }
 }
