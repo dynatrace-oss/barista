@@ -26,6 +26,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'spacing',
+    loadChildren: () =>
+      import('../pages/spacings/spacings.module').then(
+        (module) => module.SpacingsModule,
+      ),
+  },
+  {
     path: '',
     redirectTo: 'theme',
     pathMatch: 'full',
