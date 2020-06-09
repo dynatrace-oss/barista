@@ -105,3 +105,8 @@ export interface FluidPaletteGenerationOptions {
   /** Whether these generation options are used globally for a theme */
   globalType?: boolean;
 }
+
+/** Simple generic key-value design token */
+export interface FluidKeyValueTokens {
+  [name: string]: string;
+}
