@@ -56,6 +56,14 @@ export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
   },
   plotOptions: {
     series: {
+      states: {
+        inactive: {
+          // This handles enabling / disabling the inactive state
+          // Inactive state happens for example when a series has data missing (null as value for datapoints)
+          // by default the series in area charts gets hidden up from v7. Setting this to 1 disables this behavior
+          opacity: 1,
+        },
+      },
       animation: {
         duration: 1000,
         easing: DT_CHART_EASEINOUT,
