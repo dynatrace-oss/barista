@@ -19,7 +19,7 @@ import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
 
 import { BaPageLink } from '@dynatrace/shared/barista-definitions';
-import { getUrlPathName } from './page.service';
+import { getUrlPathName } from 'libs/shared/data-access-strapi/src/lib/page.service';
 
 const LOCAL_STORAGE_KEY = 'barista-recently-ordered';
 const NUMBER_OF_RECENT_ITEMS = 7;

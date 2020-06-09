@@ -146,7 +146,7 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtToastExamplesModule,
     DtToggleButtonGroupExamplesModule,
     DtExamplesTopBarNavigationModule,
-    DtExamplesTreeTableModule,
-  ],
+    DtExamplesTreeTableModule
+  ]
 })
-export class DtExamplesModule {}
+export class DtExamplesModule { }

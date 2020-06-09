@@ -17,7 +17,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaDecisionGraph } from './ba-decision-graph';
-import { BaPageService } from '../../../../shared/services/page.service';
+import { BaPageService } from 'libs/shared/data-access-strapi/src/lib/page.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { nodes } from './ba-decision-graph-test-data';

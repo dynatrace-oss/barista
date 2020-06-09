@@ -22,7 +22,7 @@ import {
 import { AppModule } from './app.module';
 import { BaApp } from './app';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { UniversalInterceptor } from '../shared/services/universal.interceptor';
+import { UniversalInterceptor } from 'libs/shared/data-access-strapi/src/lib/universal.interceptor';
 
 @NgModule({
   imports: [AppModule, ServerModule, ServerTransferStateModule],

@@ -20,7 +20,7 @@ import { Route, RouterModule } from '@angular/router';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { BaDecisionGraphPage } from './decision-graph-page';
-import { BaPageGuard } from '../../shared/services/page-guard';
+import { BaPageGuard } from 'libs/shared/data-access-strapi/src/lib/page-guard';
 import { BaDecisionGraph } from './components/ba-decision-graph/ba-decision-graph';
 import {
   BaDecisionGraphNode,

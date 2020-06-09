@@ -35,7 +35,7 @@ import {
   BaPageService,
   getPageKeyFromUrl,
   getUrlPathName,
-} from '../shared/services/page.service';
+} from 'libs/shared/data-access-strapi/src/lib/page.service';
 
 const PAGE_THEME_MAP = new Map<string, string>([
   ['brand', 'purple'],

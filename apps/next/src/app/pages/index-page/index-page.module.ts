@@ -18,10 +18,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { BaPageGuard } from 'libs/shared/data-access-strapi/src/lib/page-guard';
-import { BaSmallTile } from './components/smalltile';
 import { BaIndexPage } from './index-page';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
-import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 
 export const routes: Route[] = [
   {
@@ -33,7 +31,7 @@ export const routes: Route[] = [
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes), DtThemingModule],
-  declarations: [BaIndexPage, BaSmallTile],
-  providers: [BaRecentlyOrderedService],
+  declarations: [BaIndexPage],
+  providers: [],
 })
 export class BaIndexPageModule {}

@@ -24,7 +24,7 @@ import {
 } from '@dynatrace/shared/barista-definitions';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
+import { environment } from 'apps/barista-design-system/src/environments/environment';
 
 const ERROR_PAGE_404: BaErrorPageContent = {
   title: 'Error 404',

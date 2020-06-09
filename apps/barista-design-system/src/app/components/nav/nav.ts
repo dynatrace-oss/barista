@@ -16,7 +16,7 @@
 
 import { Component } from '@angular/core';
 import { BaNav as Navigation } from '@dynatrace/shared/barista-definitions';
-import { BaPageService } from '../../../shared/services/page.service';
+import { BaPageService } from 'libs/shared/data-access-strapi/src/lib/page.service';
 import { environment } from '../../../environments/environment';
 
 @Component({

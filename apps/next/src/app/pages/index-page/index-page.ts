@@ -16,18 +16,21 @@
 
 import { Component } from '@angular/core';
 import { BaPageService } from 'libs/shared/data-access-strapi/src/lib/page.service';
+import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 
 @Component({
-  selector: 'ba-error-page',
-  templateUrl: 'error-page.html',
-  styleUrls: ['error-page.scss'],
+  selector: 'ba-index-page',
+  templateUrl: './index-page.html',
+  styleUrls: ['./index-page.scss'],
   host: {
-    role: 'main',
     class: 'ba-page',
   },
 })
-export class BaErrorPage {
+export class BaIndexPage {
   content = this._pageService._getCurrentPage();
 
-  constructor(private _pageService: BaPageService) {}
+  constructor(
+    private _pageService: BaPageService<BaSinglePageContent>,
+  ) {
+  }
 }
