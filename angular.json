@@ -706,6 +706,65 @@
             "setupFile": "apps/barista-design-system/src/test-setup.ts",
             "passWithNoTests": true
           }
+        },
+        "e2e-testrun": {
+          "builder": "@politie/angular-testcafe-builder:testcafe",
+          "options": {
+            "devServerTarget": "barista-design-system:serve",
+            "src": "apps/barista-design-system/src/**/*.{e2e,po}.ts",
+            "stopOnFirstFail": false,
+            "browsers": ["chrome"],
+            "screenshots": {
+              "path": "./dist/barista-design-system/screenshots",
+              "takeOnFails": true,
+              "pathPattern": "test-${TEST_INDEX}-${FILE_INDEX}_${QUARANTINE_ATTEMPT}",
+              "fullPage": true
+            },
+            "reporters": [
+              {
+                "name": "spec"
+              },
+              {
+                "name": "xunit",
+                "output": "dist/barista-design-system/report.xml"
+              }
+            ],
+            "concurrency": 1,
+            "skipJsErrors": false
+          },
+          "configurations": {
+            "remote-pr": {
+              "browsers": ["browserstack:edge@18:windows"],
+              "concurrency": 4
+            },
+            "ci": {
+              "browsers": ["chrome:headless"],
+              "concurrency": 5
+            },
+            "watch": {
+              "browsers": ["chrome"],
+              "stopOnFirstFail": false,
+              "live": true,
+              "concurrency": 1
+            }
+          }
+        },
+        "e2e": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              {
+                "command": "npx ng run examples-tools:execute"
+              },
+              {
+                "command": "npx ng run barista-tools:execute"
+              },
+              {
+                "command": "npx ng run barista-design-system:e2e-testrun"
+              }
+            ]
+          }
         }
       }
     },
