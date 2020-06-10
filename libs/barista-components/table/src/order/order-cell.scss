@@ -86,13 +86,13 @@
 }
 
 .dt-simple-order-cell-data {
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 1fr minmax(2.5rem, auto);
   align-items: center;
+  gap: 4px;
 }
 
 :host .dt-simple-order-column-icon {
-  margin-right: 4px;
-  width: auto;
   height: 1rem;
 }
 
