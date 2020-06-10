@@ -23,3 +23,11 @@ build --define=NG_BUILD_CACHE=false
 # When running `bazel coverage` --instrument_test_targets needs to be set in order to
 # collect coverage information from test targets
 coverage --instrument_test_targets
+
+################################
+# Local Environment Setup      #
+#  Needs to be last statement  #
+################################
+# Load any settings which are specific to the current user. Needs to be *last* statement
+# in this config, as the user configuration should be able to overwrite flags from this file.
+try-import .bazelrc.user
