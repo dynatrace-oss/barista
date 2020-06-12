@@ -3,11 +3,14 @@
   <input
     type="text"
     inputmode="numeric"
+    pattern="[0-9\.]*"
     designTokensUiInput
     designTokensUiValidateContrast
     #minContrastModel="ngModel"
-    [(ngModel)]="options.minContrast"
-    (ngModelChange)="minContrastModel.valid ? _optionsChanged() : undefined"
+    [ngModel]="_minContrast"
+    (ngModelChange)="
+      minContrastModel.valid ? (_minContrast = $event) : undefined
+    "
     aria-label="Upper contrast"
   />
 </div>
@@ -17,11 +20,14 @@
   <input
     type="text"
     inputmode="numeric"
+    pattern="[0-9\.]*"
     designTokensUiInput
     designTokensUiValidateContrast
     #baseContrastModel="ngModel"
-    [(ngModel)]="options.baseContrast"
-    (ngModelChange)="baseContrastModel.valid ? _optionsChanged() : undefined"
+    [ngModel]="_baseContrast"
+    (ngModelChange)="
+      baseContrastModel.valid ? (_baseContrast = $event) : undefined
+    "
     aria-label="Base contrast"
   />
 </div>
@@ -31,11 +37,14 @@
   <input
     type="text"
     inputmode="numeric"
+    pattern="[0-9\.]*"
     designTokensUiInput
     designTokensUiValidateContrast
     #maxContrastModel="ngModel"
-    [(ngModel)]="options.maxContrast"
-    (ngModelChange)="maxContrastModel.valid ? _optionsChanged() : undefined"
+    [ngModel]="_maxContrast"
+    (ngModelChange)="
+      maxContrastModel.valid ? (_maxContrast = $event) : undefined
+    "
     aria-label="Lower contrast"
   />
 </div>

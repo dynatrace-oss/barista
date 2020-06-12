@@ -30,9 +30,7 @@ import { DtExpandableSectionModule } from '@dynatrace/barista-components/expanda
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { PaletteServicesModule } from '../services/palette';
 import { AppThemeService } from '../services/app-theme';
-import { StyleOverridesService } from '../services/style-overrides';
 import {
   NavComponent,
   NavItemDirective,
@@ -57,7 +55,6 @@ import '@dynatrace/fluid-elements/button';
     DtSelectModule,
     HttpClientModule,
     DtExpandableSectionModule,
-    PaletteServicesModule,
   ],
   providers: [
     AppThemeService,
@@ -69,7 +66,6 @@ import '@dynatrace/fluid-elements/button';
       deps: [AppThemeService],
       multi: true,
     },
-    StyleOverridesService,
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

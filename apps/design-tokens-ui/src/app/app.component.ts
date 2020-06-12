@@ -33,8 +33,8 @@ export class AppComponent implements OnDestroy {
   constructor(router: Router) {
     router.events
       .pipe(
-        takeUntil(this._destroy$),
         filter((event) => event instanceof NavigationEnd),
+        takeUntil(this._destroy$),
       )
       .subscribe(
         (event: NavigationEnd) =>

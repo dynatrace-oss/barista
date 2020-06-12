@@ -28,7 +28,7 @@ export class ThemeDetailGuard
 
   canActivate(): boolean {
     // Save a snapshot when we start editing
-    this._paletteSourceService.pushState();
+    this._paletteSourceService.saveStateSnapshot();
     return true;
   }
 

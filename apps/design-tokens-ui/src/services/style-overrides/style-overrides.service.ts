@@ -19,7 +19,9 @@ import { Injectable } from '@angular/core';
 /**
  * Utility for live overwriting styles in the UI
  */
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class StyleOverridesService {
   private _overrideStyleElement: HTMLStyleElement;
 

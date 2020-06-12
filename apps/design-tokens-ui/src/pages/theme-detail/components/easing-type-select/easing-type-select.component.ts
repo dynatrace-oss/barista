@@ -57,9 +57,36 @@ export class EasingTypeSelectComponent {
 
   /** Returns a user-friendly preset type for the current easing function and exponent */
   get _presetType(): EasingFunctionPreset {
-    switch (this.type) {
+    return this._typeAndExponentToPreset(this.type, this.exponent);
+  }
+
+  /** Sets the easing function exponent from the given preset */
+  set _presetType(preset: EasingFunctionPreset) {
+    this._customExponent = preset === 'custom';
+
+    const [type, exponent] = this._presetToTypeAndExponent(
+      preset,
+      this.type,
+      this.exponent,
+    );
+
+    if (type !== this.type) {
+      this.typeChange.emit(type);
+      this.type = type;
+    }
+    if (exponent !== this.exponent) {
+      this.exponentChange.emit(exponent);
+      this.exponent = exponent;
+    }
+  }
+
+  private _typeAndExponentToPreset(
+    type: FluidEasingType,
+    exponent: number,
+  ): EasingFunctionPreset {
+    switch (type) {
       case 'ease-in':
-        switch (this.exponent) {
+        switch (exponent) {
           case 1:
             return 'linear';
           case 2:
@@ -71,7 +98,7 @@ export class EasingTypeSelectComponent {
         }
 
       case 'ease-out':
-        switch (this.exponent) {
+        switch (exponent) {
           case 1:
             return 'linear';
           case 2:
@@ -87,31 +114,17 @@ export class EasingTypeSelectComponent {
       case 'ease-in-expo':
       case 'ease-out-expo':
       case 'ease-in-out-expo':
-        return this.type;
+        return type;
 
       default:
         return 'invalid';
     }
   }
 
-  /** Sets the easing function exponent from the given preset */
-  set _presetType(preset: EasingFunctionPreset) {
-    this._customExponent = preset === 'custom';
-
-    const [type, exponent] = this._presetToTypeAndExponent(preset);
-
-    if (type !== this.type) {
-      this.typeChange.emit(type);
-      this.type = type;
-    }
-    if (exponent !== this.exponent) {
-      this.exponentChange.emit(exponent);
-      this.exponent = exponent;
-    }
-  }
-
   private _presetToTypeAndExponent(
     preset: EasingFunctionPreset,
+    defaultType: FluidEasingType,
+    defaultExponent: number,
   ): [FluidEasingType, number] {
     switch (preset) {
       case 'linear':
@@ -130,12 +143,12 @@ export class EasingTypeSelectComponent {
       case 'ease-in-expo':
       case 'ease-out-expo':
       case 'ease-in-out-expo':
-        return [preset, this.exponent];
+        return [preset, defaultExponent];
 
       case 'custom':
         return ['ease-in', 1.5];
       default:
-        return [this.type, this.exponent];
+        return [defaultType, defaultExponent];
     }
   }
 }

@@ -15,7 +15,10 @@
  */
 
 import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { FluidPaletteGenerationOptions } from '@dynatrace/shared/barista-definitions';
+import {
+  FluidPaletteGenerationOptions,
+  FluidEasingType,
+} from '@dynatrace/shared/barista-definitions';
 import { DEFAULT_GENERATION_OPTIONS } from '@dynatrace/design-tokens-ui/shared';
 
 @Component({
@@ -29,9 +32,56 @@ export class EasingSettingsComponent {
   /** Fired when the easing functions change */
   @Output() optionsChange = new EventEmitter<FluidPaletteGenerationOptions>();
 
-  /** @internal Change detection workaround to update the curve */
-  _updateOptions(): void {
-    this.options = { ...this.options };
-    this.optionsChange.emit(this.options);
+  /** @internal */
+  get _upperEasing(): FluidEasingType {
+    return this.options.upperEasing;
+  }
+
+  /** @internal */
+  set _upperEasing(type: FluidEasingType) {
+    // Emit a new object to make change detection on the curve work
+    this.optionsChange.emit({
+      ...this.options,
+      upperEasing: type,
+    });
+  }
+
+  /** @internal */
+  get _lowerEasing(): FluidEasingType {
+    return this.options.lowerEasing;
+  }
+
+  /** @internal */
+  set _lowerEasing(type: FluidEasingType) {
+    this.optionsChange.emit({
+      ...this.options,
+      lowerEasing: type,
+    });
+  }
+
+  /** @internal */
+  get _upperExponent(): number {
+    return this.options.upperExponent;
+  }
+
+  /** @internal */
+  set _upperExponent(exponent: number) {
+    this.optionsChange.emit({
+      ...this.options,
+      upperExponent: exponent,
+    });
+  }
+
+  /** @internal */
+  get _lowerExponent(): number {
+    return this.options.lowerExponent;
+  }
+
+  /** @internal */
+  set _lowerExponent(exponent: number) {
+    this.optionsChange.emit({
+      ...this.options,
+      lowerExponent: exponent,
+    });
   }
 }

@@ -1,6 +1,6 @@
 <a class="design-tokens-ui-basic-link" routerLink="../">
   <h2 class="design-tokens-ui-back-link">
-    {{ _paletteName | humanize }}<span i18n> settings</span>
+    {{ (_palette$ | async)?.name | humanize }}<span i18n> settings</span>
   </h2>
 </a>
 
@@ -40,7 +40,7 @@
   <h3>Settings</h3>
 
   <design-tokens-ui-shared-generation-settings
-    [options]="(_palette$ | async)?.tokenData.generationOptions"
+    [options]="_generationOptions$ | async"
     (optionsChange)="_generationOptions = $event"
   ></design-tokens-ui-shared-generation-settings>
 

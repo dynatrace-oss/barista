@@ -16,11 +16,6 @@
 
 @import '~@dynatrace/fluid-design-tokens/global/spacing';
 
-/* stylelint-disable max-line-length */
-$external-link-icon: '%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20512%20512%22%3E%0A%20%20%3Cpath%20d%3D%22M400%20253.588V400H112V112h146.412l-48-48H80c-8.837%200-16%207.164-16%2016v352c0%208.837%207.163%2016%2016%2016h352c8.837%200%2016-7.163%2016-16V301.588l-48-48z%20M278.294%2064l62.226%2062.225L210.745%20256%20256%20301.255%20385.775%20171.48%20448%20233.706V64z%22%2F%3E%0A%3C%2Fsvg%3E';
-$back-link-icon: '<svg width="30" height="30" viewBox="0 -5 10 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.51232 2.2625L7.74982 0.5L0.249817 8L7.74982 15.5L9.51232 13.7375L3.78732 8L9.51232 2.2625Z" fill="white"/></svg>';
-/* stylelint-enable */
-
 .design-tokens-ui-link {
   color: var(--color);
   text-decoration: none;
@@ -44,7 +39,7 @@ $back-link-icon: '<svg width="30" height="30" viewBox="0 -5 10 26" fill="none" x
   display: inline-block;
   width: 30px;
   height: 30px;
-  mask-image: url('data:image/svg+xml;utf8,#{$back-link-icon}');
+  mask-image: url('/assets/images/back-link-icon.svg');
   background-color: var(--color-maxcontrast);
   background-position: center;
   background-repeat: no-repeat;
@@ -65,7 +60,7 @@ $external-link-icon-size: 1.06em;
     width: $external-link-icon-size;
     height: $external-link-icon-size;
 
-    mask-image: url('data:image/svg+xml,#{$external-link-icon}');
+    mask-image: url('/assets/images/external-link-icon.svg');
     background-color: var(--color);
   }
 

@@ -4284,6 +4284,15 @@
             ]
           }
         },
+        "lint-styles": {
+          "builder": "./dist/libs/workspace:stylelint",
+          "options": {
+            "stylelintConfig": ".stylelintrc",
+            "reportFile": "dist/stylelint/report.xml",
+            "exclude": ["**/node_modules/**"],
+            "files": ["libs/design-tokens-ui/style/**/*.scss"]
+          }
+        },
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {

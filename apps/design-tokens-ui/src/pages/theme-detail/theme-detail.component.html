@@ -1,5 +1,5 @@
 <div class="design-tokens-ui-button-header">
-  <h1>{{ _themeName | humanize }}</h1>
+  <h1>{{ (_theme$ | async)?.name | humanize }}</h1>
   <fluid-button emphasis="high" i18n (click)="_saveChanges()"
     >Save changes</fluid-button
   >

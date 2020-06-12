@@ -15,21 +15,12 @@
  */
 
 import { Component, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subject, Observable } from 'rxjs';
-import {
-  takeUntil,
-  switchMap,
-  filter,
-  tap,
-  map,
-  debounceTime,
-} from 'rxjs/operators';
+import { takeUntil, map } from 'rxjs/operators';
 
 import { FluidPaletteGenerationOptions } from '@dynatrace/shared/barista-definitions';
 import { Theme } from '@dynatrace/design-tokens-ui/shared';
 import { PaletteSourceService } from '../../../../services/palette';
-import { StyleOverridesService } from '../../../../services/style-overrides';
 import { ColorPickerComponent } from '../color-picker/color-picker.component';
 
 @Component({
@@ -44,7 +35,7 @@ export class ThemeSettingsComponent implements AfterViewInit, OnDestroy {
   _themeName: string;
 
   /** @internal Returns the current theme */
-  _theme$: Observable<Theme>;
+  _theme$: Observable<Theme | undefined>;
 
   /** @internal Generation options of the current theme */
   _globalGenerationOptions$: Observable<
@@ -56,45 +47,22 @@ export class ThemeSettingsComponent implements AfterViewInit, OnDestroy {
 
   private _destroy$ = new Subject<void>();
 
-  constructor(
-    private _paletteSourceService: PaletteSourceService,
-    private _styleOverridesService: StyleOverridesService,
-    route: ActivatedRoute,
-  ) {
-    this._theme$ = route.params.pipe(
-      switchMap((params) => _paletteSourceService.getTheme(params.theme)),
-      takeUntil(this._destroy$),
-      filter(Boolean),
-      tap((theme: Theme) => {
-        this._themeName = theme.name;
-      }),
-    );
+  constructor(private _paletteSourceService: PaletteSourceService) {
+    this._theme$ = _paletteSourceService.theme$;
 
     this._globalGenerationOptions$ = this._theme$.pipe(
-      map((theme) => theme.globalGenerationOptions),
+      map((theme) => theme?.globalGenerationOptions),
     );
 
-    this._baseColor$ = this._theme$.pipe(
-      map((theme) => this._paletteSourceService.getThemeBaseColor(theme)),
-    );
+    this._baseColor$ = _paletteSourceService.themeBaseColor$;
   }
 
   ngAfterViewInit(): void {
     // Listen to the event manually since change detection makes Chrome's color picker very unresponsive
     this.baseColorPicker.colorChange
-      .pipe(
-        takeUntil(this._destroy$),
-        tap((color) =>
-          this._styleOverridesService.addColorOverride(
-            this._themeName,
-            'background',
-            color,
-          ),
-        ),
-        debounceTime(250),
-      )
+      .pipe(takeUntil(this._destroy$))
       .subscribe((color) => {
-        this._baseColor = color;
+        this._paletteSourceService.setThemeBaseColor(color);
       });
   }
 
@@ -105,24 +73,9 @@ export class ThemeSettingsComponent implements AfterViewInit, OnDestroy {
 
   /** @internal Sets the global generation options for the current theme */
   set _globalGenerationOptions(newOptions: FluidPaletteGenerationOptions) {
-    this._paletteSourceService.modifyTheme(this._themeName, (theme) => ({
+    this._paletteSourceService.modifyCurrentTheme((theme) => ({
       ...theme,
       globalGenerationOptions: newOptions,
-    }));
-  }
-
-  /** @internal Sets the base color for the current theme */
-  set _baseColor(color: string) {
-    // The base color must be saved in all individual palettes
-    // due to the way the design token builder works
-    this._paletteSourceService.modifyTheme(this._themeName, (theme) => ({
-      ...theme,
-      palettes: [
-        ...theme.palettes.map((palette) => ({
-          ...palette,
-          tokenData: { ...palette.tokenData, baseColor: color },
-        })),
-      ],
     }));
   }
 }

@@ -15,15 +15,21 @@
  */
 
 import { Injectable } from '@angular/core';
-import { cloneDeep, flatMap, isEqual } from 'lodash-es';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { map, take, first } from 'rxjs/operators';
+import { Router, ParamMap, ActivationStart } from '@angular/router';
+import { cloneDeep, flatMap, isEqual, uniq } from 'lodash-es';
+import { BehaviorSubject } from 'rxjs';
+import {
+  map,
+  filter,
+  distinctUntilChanged,
+  debounceTime,
+  share,
+} from 'rxjs/operators';
 import { stringify } from 'yaml';
 
 import * as paletteSource from '@dynatrace/fluid-design-tokens-meta/aliases/palette-source.alias';
 import { THEMES } from '@dynatrace/fluid-design-tokens';
 import {
-  FluidPaletteSourceAlias,
   FluidPaletteSource,
   FluidPaletteGenerationOptions,
 } from '@dynatrace/shared/barista-definitions';
@@ -32,26 +38,72 @@ import {
   Palette,
   easeWithOptions,
   remapRange,
+  DEFAULT_GENERATION_OPTIONS,
 } from '@dynatrace/design-tokens-ui/shared';
 import { StyleOverridesService } from '../style-overrides';
-import { StateSnapshotStack } from '../../utils/state-snapshot-stack';
 import { generatePaletteContrastColors } from '../../utils/colors';
 
 const YAML_FILE_NAME = 'palette-source.alias.yml';
 
 interface State {
   themes: Theme[];
+  currentThemeName?: string;
+  currentPaletteName?: string;
 }
 
-@Injectable()
-export class PaletteSourceService {
-  private _stateSnapshots: StateSnapshotStack<State>;
+// Selectors
+export const getCurrentTheme = (state: State) =>
+  state.themes.find((theme) => theme.name === state.currentThemeName);
 
+export const getGlobalGenerationOptions = (theme: Theme | undefined) =>
+  theme?.globalGenerationOptions;
+
+export const getCurrentPalette = (state: State) =>
+  getCurrentTheme(state)?.palettes.find(
+    (palette) => palette.name === state.currentPaletteName,
+  );
+
+export const getPaletteGenerationOptions = (palette: Palette | undefined) =>
+  palette?.tokenData.generationOptions;
+
+export const getThemeBaseColor = (theme: Theme | undefined) =>
+  theme?.palettes && theme.palettes.length > 0
+    ? theme.palettes[0].tokenData.baseColor
+    : '#ffffff';
+
+export const getKeyColor = (palette: Palette) =>
+  Array.isArray(palette.tokenData.keyColor)
+    ? palette.tokenData.keyColor[0]
+    : palette.tokenData.keyColor;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class PaletteSourceService {
+  private _previousState: State | undefined;
+
+  /** Observable with the current state */
   state$ = new BehaviorSubject<State>({ themes: [] });
 
+  /** Observable with all themes */
   themes$ = this.state$.pipe(map((state) => state.themes));
 
-  constructor(private _styleOverridesService: StyleOverridesService) {
+  /** Observable with the current theme */
+  theme$ = this.state$.pipe(map(getCurrentTheme));
+
+  /** Observable with the current theme's base color */
+  themeBaseColor$ = this.theme$.pipe(map(getThemeBaseColor));
+
+  /** Observable with the current theme's palette */
+  palette$ = this.state$.pipe(map(getCurrentPalette));
+
+  /** Observable with the current palette's key color */
+  keyColor$ = this.palette$.pipe(filter(Boolean), map(getKeyColor));
+
+  constructor(
+    router: Router,
+    private _styleOverridesService: StyleOverridesService,
+  ) {
     // Deep copy the palette source to avoid mutating the imported object
     const palettes = cloneDeep(
       (paletteSource as any).default,
@@ -81,8 +133,43 @@ export class PaletteSourceService {
       })),
     };
 
-    this.setState(initialState);
-    this._stateSnapshots = new StateSnapshotStack(this.state$);
+    this.modifyState(() => initialState);
+
+    // Only regenerate all palette colors if relevant properties changed
+    this.theme$
+      .pipe(
+        share(),
+        distinctUntilChanged(this._canSkipPaletteGeneration),
+        filter<Theme>(Boolean),
+        debounceTime(200),
+      )
+      .subscribe((theme) => {
+        for (const palette of theme.palettes) {
+          this.regeneratePaletteColors(palette);
+        }
+        this.overrideStylesForThemePalettes();
+      });
+
+    // Regenerate palette on changes
+    this.palette$
+      .pipe(share(), filter<Palette>(Boolean), debounceTime(200))
+      .subscribe((palette) => {
+        this.regeneratePaletteColors(palette);
+        this.overrideStylesForThemePalettes();
+      });
+
+    router.events
+      .pipe(
+        filter((evt) => evt instanceof ActivationStart),
+        map((evt: ActivationStart) => evt.snapshot.paramMap),
+      )
+      .subscribe((params: ParamMap) => {
+        this.modifyState((state) => ({
+          ...state,
+          currentThemeName: params.get('theme') ?? undefined,
+          currentPaletteName: params.get('palette') ?? undefined,
+        }));
+      });
 
     // Show a warning message if there are unsaved changes when closing the page
     window.addEventListener('beforeunload', (event) => {
@@ -93,45 +180,50 @@ export class PaletteSourceService {
     });
   }
 
-  /**
-   * Overwrites the current state
-   */
-  setState(newState: State): void {
-    if (!isEqual(newState, this.state$.getValue())) {
+  /** Returns the current state mapped to the given selector */
+  selectState<T>(selector: (state: State) => T): T {
+    return selector(this.state$.getValue());
+  }
+
+  /** Overwrites the current state */
+  modifyState(changeFn: (state: State) => State): void {
+    const currentState = this.state$.getValue();
+    const newState = changeFn(currentState);
+
+    if (!isEqual(currentState, newState)) {
       this.state$.next(newState);
     }
   }
 
-  /**
-   * Records the current state to be able to restore it later
-   */
-  pushState(): void {
-    this._stateSnapshots.pushState();
+  /** Records the current state to be able to restore it later */
+  saveStateSnapshot(): void {
+    this._previousState = this.state$.getValue();
   }
 
-  /**
-   * Saves changes to the edited theme
-   */
+  /** Applies changes to the edited theme, deleting the previously stored snapshot. */
   applyChanges(): void {
-    this._stateSnapshots.commitState();
+    this._previousState = undefined;
+    this.state$.next(this.state$.getValue());
   }
 
-  /**
-   * Restores the last saved state
-   * @see PaletteSourceService#pushState
-   */
+  /** Restores the last saved state. */
   revertChanges(): void {
-    this._stateSnapshots.revertState();
+    if (this._previousState) {
+      this.state$.next(this._previousState);
+      this._previousState = undefined;
+
+      // Make sure to reset the previous state in the UI
+      this.overrideStylesForThemePalettes();
+      this.overrideStylesForThemeBaseColor();
+    }
   }
 
-  /**
-   * Whether the current state has pending changes
-   */
+  /** Whether the current state has pending changes */
   get hasPendingChanges(): boolean {
     // To check for changes between the current and the saved state,
     // we need to get rid of the generated colors in the palettes since
     // they are lazily generated when displaying the page
-    return this._stateSnapshots.checkStateModified((state) => ({
+    return this._checkStateModified((state) => ({
       ...state,
       themes: state.themes.map((theme) => ({
         ...theme,
@@ -144,66 +236,97 @@ export class PaletteSourceService {
   }
 
   /**
-   * Returns an observable with a theme from the state
-   * @param name The name of the theme that should be retrieved
-   */
-  getTheme(name: string): Observable<Theme | undefined> {
-    return this.themes$.pipe(
-      map((themes) => themes.find((theme) => theme.name === name)),
-    );
-  }
-
-  /**
-   * Returns an observable with a palette from the state
-   * @param themeName The name of the theme that contains the target palette
-   * @param paletteName The name of the palette that should be retrieved from the state
-   */
-  getPalette(
-    themeName: string,
-    paletteName: string,
-  ): Observable<Palette | undefined> {
-    return this.getTheme(themeName).pipe(
-      map((theme) =>
-        theme?.palettes.find((palette) => palette.name === paletteName),
-      ),
-    );
-  }
-
-  /**
    * Helper function for modifying a theme in the current state
-   * @param themeName The name of the theme that should be modified
    * @param changeFn A function that takes the theme as an argument and returns a new theme object
    */
-  modifyTheme(themeName: string, changeFn: (theme: Theme) => Theme): void {
-    const state = this.state$.getValue();
-    this.state$.next({
+  modifyCurrentTheme(changeFn: (theme: Theme) => Theme): void {
+    this.modifyState((state) => ({
       ...state,
       themes: [
         ...state.themes.map((theme) =>
-          theme.name === themeName ? changeFn(theme) : theme,
+          theme.name === state.currentThemeName ? changeFn(theme) : theme,
         ),
       ],
-    });
+    }));
   }
 
   /**
    * Helper function for modifying a palette in the current state
-   * @param themeName The name of the theme that contains the target palette
-   * @param paletteName The name of the palette that should be modified
+   * @param palette The palette that should be modified
    * @param changeFn A function that takes the palette as an argument and returns a new palette object
    */
   modifyPalette(
-    themeName: string,
-    paletteName: string,
+    palette: Palette,
     changeFn: (palette: Palette) => Palette,
   ): void {
-    this.modifyTheme(themeName, (theme) => ({
+    this.modifyCurrentTheme((theme) => ({
       ...theme,
       palettes: [
-        ...theme.palettes.map((palette) =>
-          palette.name === paletteName ? changeFn(palette) : palette,
+        ...theme.palettes.map((p) =>
+          p.name === palette.name ? changeFn(palette) : p,
         ),
       ],
+    }));
+  }
+
+  /**
+   * Helper function for modifying a palette in the current theme
+   * @param changeFn A function that takes the palette as an argument and returns a new palette object
+   */
+  modifyCurrentPalette(changeFn: (palette: Palette) => Palette): void {
+    const currentPalette = this.selectState(getCurrentPalette)!;
+    this.modifyPalette(currentPalette, changeFn);
+  }
+
+  /** Creates the global generation options for the current theme. */
+  createGlobalGenerationOptions(): void {
+    this.modifyCurrentTheme((theme) => ({
+      ...theme,
+      globalGenerationOptions: { ...DEFAULT_GENERATION_OPTIONS },
+    }));
+  }
+
+  /** Modifies the base color of the current theme. */
+  setThemeBaseColor(color: string): void {
+    // The base color must be saved in all individual palettes
+    // due to the way the design token builder works
+    this.modifyCurrentTheme((theme) => ({
+      ...theme,
+      palettes: [
+        ...theme.palettes.map((palette) => ({
+          ...palette,
+          tokenData: { ...palette.tokenData, baseColor: color },
+        })),
+      ],
+    }));
+
+    this.overrideStylesForThemeBaseColor();
+  }
+
+  setPaletteGenerationOptionsEnabled(enable: boolean): void {
+    const state = this.state$.getValue();
+    const currentGenerationOptions = getPaletteGenerationOptions(
+      getCurrentPalette(state),
+    );
+
+    let newGenerationOptions:
+      | FluidPaletteGenerationOptions
+      | undefined = currentGenerationOptions;
+    if (currentGenerationOptions && !enable) {
+      newGenerationOptions = undefined;
+    } else if (!currentGenerationOptions && enable) {
+      const theme = getCurrentTheme(state);
+      newGenerationOptions = {
+        ...(theme?.globalGenerationOptions ?? DEFAULT_GENERATION_OPTIONS),
+      };
+    }
+
+    this.modifyCurrentPalette((palette) => ({
+      ...palette,
+      tokenData: {
+        ...palette.tokenData,
+        generationOptions: newGenerationOptions,
+      },
     }));
   }
 
@@ -211,27 +334,17 @@ export class PaletteSourceService {
    * Generates palette colors from palette shades of a given palette
    * @param themeName The name of the theme that contains the target palette
    * @param paletteName The name of the palette to generate colors for
-   * @param recalculateDistributions Whether the contrast distribution values should also be recalculated
    */
-  async regeneratePaletteColors(
-    themeName: string,
-    paletteName: string,
-    recalculateDistributions: boolean,
-  ): Promise<void> {
-    const [currentPalette, currentTheme] = await combineLatest(
-      this.getPalette(themeName, paletteName),
-      this.getTheme(themeName),
-    )
-      .pipe(take(1))
-      .toPromise();
+  regeneratePaletteColors(palette: Palette): void {
+    const currentTheme = this.selectState(getCurrentTheme);
+    if (!currentTheme) return;
 
-    if (!currentPalette || !currentTheme) return;
-
-    let tokenData = { ...currentPalette.tokenData };
-    if (recalculateDistributions) {
-      const distributions = await this.calculateDistributions(
-        currentPalette,
-        currentPalette.tokenData.generationOptions! ??
+    let tokenData = { ...palette.tokenData };
+    if (currentTheme.globalGenerationOptions) {
+      // Distributions can only be recalculated if global or local generation options are set
+      const distributions = this.calculateDistributions(
+        palette,
+        palette.tokenData.generationOptions! ??
           currentTheme.globalGenerationOptions,
       );
       tokenData.shades = tokenData.shades.map((shade, index) => ({
@@ -240,7 +353,7 @@ export class PaletteSourceService {
       }));
     }
 
-    this.modifyPalette(themeName, paletteName, (palette) => ({
+    this.modifyPalette(palette, () => ({
       ...palette,
       generatedColors: generatePaletteContrastColors(tokenData),
       tokenData,
@@ -248,10 +361,10 @@ export class PaletteSourceService {
   }
 
   /** Recalculates the shade distributions for the provided palette using the provided generation options */
-  async calculateDistributions(
+  calculateDistributions(
     palette: Palette,
     generationOptions: FluidPaletteGenerationOptions,
-  ): Promise<number[]> {
+  ): number[] {
     const { baseContrast, minContrast, maxContrast } = generationOptions;
     const distributionCount = palette.tokenData.shades.length;
 
@@ -282,8 +395,8 @@ export class PaletteSourceService {
   }
 
   /** Applies the theme's palettes to the UI */
-  async overrideStylesForThemePalettes(themeName: string): Promise<void> {
-    const theme = await this.getTheme(themeName).pipe(first()).toPromise();
+  overrideStylesForThemePalettes(): void {
+    const theme = this.selectState(getCurrentTheme);
     if (!theme) return;
 
     for (const palette of theme.palettes) {
@@ -312,40 +425,26 @@ export class PaletteSourceService {
   }
 
   /** Applies the theme base color to the UI as a background color */
-  async overrideStylesForThemeBaseColor(themeName: string): Promise<void> {
-    const theme = await this.getTheme(themeName).pipe(first()).toPromise();
+  overrideStylesForThemeBaseColor(): void {
+    const theme = this.selectState(getCurrentTheme);
     if (!theme) return;
 
     this._styleOverridesService.addColorOverride(
       theme.name,
       'background',
-      this.getThemeBaseColor(theme),
+      getThemeBaseColor(theme),
     );
   }
 
-  /** Returns the first key color for the given palette */
-  getKeyColor(palette: FluidPaletteSourceAlias): string {
-    return Array.isArray(palette.keyColor)
-      ? palette.keyColor[0]
-      : palette.keyColor;
-  }
-
-  /** Utility for retrieving a theme's base color from its palettes */
-  getThemeBaseColor(theme: Theme): string {
-    return theme.palettes.length
-      ? theme.palettes[0].tokenData.baseColor
-      : '#ffffff';
-  }
-
   /** Exports all palettes as a YAML file */
-  async exportYaml(): Promise<void> {
-    const themes = await this.themes$.pipe(first()).toPromise();
+  exportYaml(): void {
+    const themes = this.state$.getValue().themes;
 
     const themeGenerationOptions = new Map<
       string,
       FluidPaletteGenerationOptions
     >();
-    for (const theme of themes.filter(() => theme.globalGenerationOptions)) {
+    for (const theme of themes.filter((t) => t.globalGenerationOptions)) {
       themeGenerationOptions.set(theme.name, {
         ...theme.globalGenerationOptions,
         globalType: true,
@@ -353,7 +452,7 @@ export class PaletteSourceService {
     }
 
     const meta = themes
-      .filter((filter) => filter.globalGenerationOptions)
+      .filter((theme) => theme.globalGenerationOptions)
       .reduce((object, theme) => {
         object[theme.name] = {
           generationOptions: themeGenerationOptions.get(theme.name),
@@ -390,5 +489,37 @@ export class PaletteSourceService {
     element.click();
 
     document.body.removeChild(element);
+  }
+
+  /**
+   * Checks whether some properties have changed from the previous state.
+   * Can be used to determine if the current state is "dirty".
+   * @param propertySelector Function that takes a state and returns which properties should be compared
+   */
+  private _checkStateModified(
+    propertySelector: (state: State) => Object,
+  ): boolean {
+    if (!this._previousState) {
+      return false;
+    }
+
+    return !isEqual(
+      propertySelector(this.state$.getValue()),
+      propertySelector(this._previousState),
+    );
+  }
+
+  private _canSkipPaletteGeneration(prev: Theme, curr: Theme): boolean {
+    if (!prev || !curr) {
+      return false;
+    }
+
+    const distinctBaseColors = (theme: Theme) =>
+      uniq(theme.palettes.map((palette) => palette.tokenData.baseColor));
+
+    return (
+      prev.globalGenerationOptions === curr.globalGenerationOptions &&
+      isEqual(distinctBaseColors(prev), distinctBaseColors(curr))
+    );
   }
 }

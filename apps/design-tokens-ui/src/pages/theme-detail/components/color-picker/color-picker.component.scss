@@ -58,10 +58,6 @@ input {
     border: none;
   }
 
-  &::-webkit-color-swatch {
-    border: none;
-  }
-
   // Separate selectors are used here since joined selector
   // &::-webkit-color-swatch, &::-moz-color-swatch {...} breaks in Chrome
   &::-webkit-color-swatch {

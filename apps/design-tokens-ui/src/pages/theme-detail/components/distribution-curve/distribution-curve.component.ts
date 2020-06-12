@@ -26,7 +26,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Subject, fromEvent, merge, of } from 'rxjs';
-import { takeUntil, debounceTime, mapTo, skip } from 'rxjs/operators';
+import { takeUntil, debounceTime, mapTo } from 'rxjs/operators';
 import {
   normalizeToRange,
   lerp,
@@ -81,7 +81,7 @@ export class DistributionCurveComponent
   ngAfterViewInit(): void {
     merge(
       of(this.generationOptions, mapTo(false)), // First draw immediately after view init
-      this._stateChanges$.pipe(debounceTime(200), skip(1), mapTo(true)), // Animate on state changes (skip initial event)
+      this._stateChanges$.pipe(debounceTime(200), mapTo(true)), // Animate on state changes
       fromEvent(window, 'resize').pipe(debounceTime(300)).pipe(mapTo(false)),
     )
       .pipe(takeUntil(this._destroy$))

@@ -30,7 +30,41 @@ export class SharedGenerationSettingsComponent {
   @Output() optionsChange = new EventEmitter<FluidPaletteGenerationOptions>();
 
   /** @internal */
-  _optionsChanged(): void {
-    this.optionsChange.emit({ ...this.options });
+  get _minContrast(): number {
+    return this.options.minContrast;
+  }
+
+  /** @internal */
+  set _minContrast(value: number) {
+    this.optionsChange.emit({
+      ...this.options,
+      minContrast: value,
+    });
+  }
+
+  /** @internal */
+  get _baseContrast(): number {
+    return this.options.baseContrast;
+  }
+
+  /** @internal */
+  set _baseContrast(value: number) {
+    this.optionsChange.emit({
+      ...this.options,
+      baseContrast: value,
+    });
+  }
+
+  /** @internal */
+  get _maxContrast(): number {
+    return this.options.maxContrast;
+  }
+
+  /** @internal */
+  set _maxContrast(value: number) {
+    this.optionsChange.emit({
+      ...this.options,
+      maxContrast: value,
+    });
   }
 }
