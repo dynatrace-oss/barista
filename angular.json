@@ -3746,6 +3746,7 @@
           "builder": "./dist/libs/workspace:design-tokens-build",
           "options": {
             "entrypoints": ["global/**.yml", "patterns/**.yml"],
+            "aliasesEntrypoints": ["aliases/**.yml"],
             "outputPath": "libs/shared/design-tokens/generated/",
             "baseDirectory": "libs/shared/design-tokens/src/lib"
           }

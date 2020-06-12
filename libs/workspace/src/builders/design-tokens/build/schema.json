@@ -15,12 +15,25 @@
         "type": "string"
       }
     },
+    "aliasesEntrypoints": {
+      "type": "array",
+      "description": "List of glob patterns for alias files to build JSON metadata for as required by some applications.",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
     "outputPath": {
       "type": "string",
       "description": "Defines the output directory for the design tokens"
     }
   },
   "additionalProperties": false,
-  "required": ["entrypoints", "outputPath", "baseDirectory"],
+  "required": [
+    "entrypoints",
+    "aliasesEntrypoints",
+    "outputPath",
+    "baseDirectory"
+  ],
   "definitions": {}
 }
