@@ -20,6 +20,8 @@ export interface DesignTokensBuildOptions {
   baseDirectory: string;
   /** List of glob patterns that should be searched for design token input files. */
   entrypoints: string[];
+  /** List of glob patterns for alias files to build JSON metadata for as required by some applications. */
+  aliasesEntrypoints: string[];
   /** Output path that defines the destination directory. */
   outputPath: string;
 }
