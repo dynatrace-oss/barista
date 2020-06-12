@@ -59,24 +59,10 @@ registerFormat('dt-typescript-theme', dtDesignTokensTypescriptThemeConverter);
  * This is a temporary solution until we can replace theo with
  * our own generator that would be able to do this on the fly.
  */
-function generateColorPalette(
-  options: DesignTokensBuildOptions,
-  cwd: string,
-): Observable<void> {
+function generateColorPalette(cwd: string): Observable<void> {
   const colorFile = globSync('**/palette-source.alias.yml', { cwd })[0];
   return from(fs.readFile(join(cwd, colorFile), { encoding: 'utf-8' })).pipe(
     map((paletteSource: string) => parse(paletteSource)),
-    switchMap(async (paletteSource) => {
-      const targetDir = dirname(join(options.outputPath, colorFile));
-      await ensureDirectoryExists(targetDir);
-
-      // save palette source as JSON since we can't extract this information from the build files
-      await fs.writeFile(
-        join(options.outputPath, colorFile.replace('.yml', '.json')),
-        JSON.stringify(paletteSource, null, 2),
-      );
-      return paletteSource;
-    }),
     map((paletteSource) => generatePaletteAliases(paletteSource)),
     map((paletteTarget) => stringify(paletteTarget)),
     switchMap((paletteOutput) =>
@@ -86,15 +72,6 @@ function generateColorPalette(
       ),
     ),
   );
-}
-
-/** Creates the given directory if it doesn't exist */
-async function ensureDirectoryExists(path: string): Promise<void> {
-  try {
-    await fs.access(path);
-  } catch (e) {
-    await fs.mkdir(path);
-  }
 }
 
 /**
@@ -199,6 +176,38 @@ export function generateTypescriptBarrelFile(
   return volume;
 }
 
+/**
+ * Add JSON versions of the original alias YAML files for
+ * consumption by the design tokens UI.
+ */
+export async function addAliasMetadataFiles(
+  baseDirectory: string,
+  options: DesignTokensBuildOptions,
+  volume: Volume,
+): Promise<Volume> {
+  const aliasFiles = await readSourceFiles(
+    options.aliasesEntrypoints || [],
+    baseDirectory,
+  ).toPromise();
+
+  for (const file of aliasFiles) {
+    const filePath = join(baseDirectory, file);
+    const fileSource = readFileSync(filePath, {
+      encoding: 'utf-8',
+    });
+    const jsonSource = JSON.stringify(parse(fileSource));
+
+    const absoluteOutputPath = join(resolve(options.outputPath), file).replace(
+      extname(file),
+      '.json',
+    );
+    volume.mkdirSync(dirname(absoluteOutputPath), { recursive: true });
+    volume.writeFileSync(absoluteOutputPath, jsonSource);
+  }
+
+  return volume;
+}
+
 /** Write all files within the memfs to the real file system. */
 async function commitVolumeToFileSystem(memoryVolume: Volume): Promise<void> {
   for (const [path, content] of Object.entries(memoryVolume.toJSON())) {
@@ -216,12 +225,8 @@ export function designTokensBuildBuilder(
   options: DesignTokensBuildOptions,
   context: BuilderContext,
 ): Observable<BuilderOutput> {
-  // Start by reading the palette source file and generating
-  // the color palette based on its input
-
   // Start of by reading the required source entry files.
   return generateColorPalette(
-    options,
     join(context.workspaceRoot, options.baseDirectory),
   ).pipe(
     switchMap(() =>
@@ -234,6 +239,13 @@ export function designTokensBuildBuilder(
       designTokenConversion(options, entryFiles),
     ),
     map((memoryVolume) => generateTypescriptBarrelFile(options, memoryVolume)),
+    switchMap((memoryVolume) =>
+      addAliasMetadataFiles(
+        join(context.workspaceRoot, options.baseDirectory),
+        options,
+        memoryVolume,
+      ),
+    ),
     switchMap((memoryVolume) => commitVolumeToFileSystem(memoryVolume)),
     switchMap(() => executeCommand('npm run format:write')),
     mapTo({
