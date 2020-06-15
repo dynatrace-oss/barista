@@ -25,35 +25,39 @@ import {
   Output,
   QueryList,
   forwardRef,
+  Inject,
+  Optional,
+  Self,
 } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NgControl } from '@angular/forms';
 
 import { CanDisable } from '@dynatrace/barista-components/core';
+import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
 
 import { DtRadioButton, DtRadioChange } from './radio';
+import { Subject } from 'rxjs';
 
 let nextUniqueId = 0;
 
 @Directive({
   selector: 'dt-radio-group',
   exportAs: 'dtRadioGroup',
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      // tslint:disable-next-line:no-forward-ref
-      useExisting: forwardRef(() => DtRadioGroup),
-      multi: true,
-    },
-  ],
+  providers: [{ provide: DtFormFieldControl, useExisting: DtRadioGroup }],
   host: {
     role: 'radiogroup',
     class: 'dt-radio-group',
+    '[attr.aria-describedby]': '_ariaDescribedby',
   },
   inputs: ['disabled'],
 })
-export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
+export class DtRadioGroup<T>
+  implements
+    AfterContentInit,
+    CanDisable,
+    ControlValueAccessor,
+    DtFormFieldControl<T> {
   private _value: T | null = null;
-  private _name = `dt-radio-group-${nextUniqueId++}`;
+  private _name = `dt-radio-group-${this.id}`;
   private _selected: DtRadioButton<T> | null = null;
   private _disabled = false;
   private _required = false;
@@ -79,6 +83,7 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
       this._value = newValue;
       this._updateSelectedRadioFromValue();
       this._checkSelectedRadioButton();
+      this.stateChanges.next();
     }
   }
 
@@ -91,6 +96,7 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
     this._selected = selected;
     this.value = selected ? selected.value : null;
     this._checkSelectedRadioButton();
+    this.stateChanges.next();
   }
 
   /** Whether the radio group is disabled */
@@ -113,10 +119,39 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
     this._markRadiosForCheck();
   }
 
+  /** Unique id of the element. */
+  @Input()
+  get id(): string {
+    return this._id;
+  }
+  set id(value: string) {
+    this._id = value || this._uid;
+  }
+  private _uid = `dt-checkbox-${nextUniqueId++}`;
+  private _id: string;
+
   /** Emits when a radio of this group is changed. */
   // Disabling no-output-native rule because we want to keep a similar API to the native radio group
   // tslint:disable-next-line: no-output-native
   @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
+
+  /** Implemented as part of DtFormFieldControl. */
+  readonly stateChanges = new Subject<void>();
+
+  /** Implemented as part of DtFormFieldControl. */
+  focused = false;
+
+  /** Implemented as part of DtFormFieldControl. */
+  empty = false;
+
+  /** Implemented as part of DtFormFieldControl. */
+  errorState = false;
+
+  /** @internal Implemented as part of DtFormFieldControl. */
+  _boxControl = false;
+
+  /** @internal The aria-describedby attribute on the input for improved a11y. */
+  _ariaDescribedby: string;
 
   /**
    * @internal Part of the ControlValueAccessor interface.
@@ -131,13 +166,37 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
   @ContentChildren(forwardRef(() => DtRadioButton), { descendants: true })
   _radios: QueryList<DtRadioButton<T>>;
 
-  constructor(private _changeDetector: ChangeDetectorRef) {}
+  constructor(
+    private _changeDetector: ChangeDetectorRef,
+    // @breaking-change 8.0.0 Remove the default null assignment and the @Inject
+    // Change to:
+    // @Optional() @Self() public ngControl: NgControl;
+    @Inject(NgControl)
+    @Optional()
+    @Self()
+    public ngControl: NgControl | null = null,
+  ) {
+    if (this.ngControl) {
+      // Note: we provide the value accessor through here, instead of
+      // the `providers` to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
+
+    // Force setter to be called in case id was not specified.
+    this.id = this.id;
+  }
 
   ngAfterContentInit(): void {
     // Mark this component as initialized in AfterContentInit because the initial value can
     // possibly be set by NgModel on DtRadioGroup, and it is possible that the OnInit of the
     // NgModel occurs *after* the OnInit of the DtRadioGroup.
     this._isInitialized = true;
+  }
+
+  focus(): void {
+    if (this._radios.first) {
+      this._radios.first.focus();
+    }
   }
 
   /** @internal Checks the selected radio button */
@@ -180,6 +239,21 @@ export class DtRadioGroup<T> implements AfterContentInit, CanDisable {
   /** Implemented as a part of ControlValueAccessor. */
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+    this._changeDetector.markForCheck();
+  }
+
+  /** Implemented as part of DtFormFieldControl. */
+  setDescribedByIds(ids: string[]): void {
+    this._ariaDescribedby = ids.join(' ');
+  }
+
+  /** Implemented as part of DtFormFieldControl. */
+  onContainerClick(): void {
+    this.focus();
+  }
+
+  _updateFocused(): void {
+    this.focused = this._radios.some((radio) => radio._focused);
     this._changeDetector.markForCheck();
   }
 

@@ -14,6 +14,8 @@
     [attr.aria-describedby]="ariaDescribedby"
     (change)="_onInputChange($event)"
     (click)="_onInputClick($event)"
+    (blur)="_focusChanged(false)"
+    (focus)="_focusChanged(true)"
   />
   <div class="dt-radio-container">
     <div class="dt-radio-outer-circle"></div>
