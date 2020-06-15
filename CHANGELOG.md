@@ -1,3 +1,33 @@
+## [7.1.0](https://github.com/dynatrace-oss/barista/compare/7.0.0...7.1.0) (2020-06-15)
+
+### Bug Fixes
+
+- **chart:** Fixes showing inactive series opaque.
+  ([42930cd](https://github.com/dynatrace-oss/barista/commit/42930cde30e7db91e2879451a0b7b36ec3799807)),
+  closes [#1146](https://github.com/dynatrace-oss/barista/issues/1146)
+- **confirmation-dialog:** Fixes an issue that focusAttention needs mark for
+  check if triggered in some edge cases.
+  ([6ca6191](https://github.com/dynatrace-oss/barista/commit/6ca6191f768dc49513ba7ae7045c3bcef8cdeb2c))
+- **event-chart:** Fixes an issue that the event chart was falsly getting the
+  pipe for formatting the duration via DI, which resulted in a runtime error in
+  ivy.
+  ([7cbfce6](https://github.com/dynatrace-oss/barista/commit/7cbfce601efc00f1f3c37b7d7878289a2eaca82b))
+
+### Features
+
+- **button-group:** Changed styling to custom properties.
+  ([baba021](https://github.com/dynatrace-oss/barista/commit/baba02148feff02f4a65bd0deebe00b661c86c12))
+- **combobox:** Added experimental combobox component.
+  ([d618bcd](https://github.com/dynatrace-oss/barista/commit/d618bcd92556dda336cd3385c3c97b501fcc32b8))
+- **dependencies:** Increases version range of supported barista-icons package
+  to all 6.x versions.
+  ([2922073](https://github.com/dynatrace-oss/barista/commit/29220737fd596645892fd74f4e096ac6a792ba49))
+- **formatters:** Exposed formatted display unit in DtFormattedValue.
+  ([4a38142](https://github.com/dynatrace-oss/barista/commit/4a38142073c46376fad761faa86d4ba1228b75d5))
+- **quick-filter:** Propagate filter-field events.
+  ([0c44e64](https://github.com/dynatrace-oss/barista/commit/0c44e64039c5d54b057151752553bc029f819228)),
+  closes [#1025](https://github.com/dynatrace-oss/barista/issues/1025)
+
 ## [7.0.1](https://github.com/dynatrace-oss/barista/compare/7.0.0...7.0.1) (2020-06-04)
 
 ### Bug Fixes
