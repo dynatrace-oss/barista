@@ -192,6 +192,9 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   /** @internal The native radio input element */
   @ViewChild('input', { static: true }) _inputElement: ElementRef;
 
+  /** @internal Whether the radio is currently focused */
+  _focused = false;
+
   constructor(
     private _elementRef: ElementRef,
     private _changeDetector: ChangeDetectorRef,
@@ -232,6 +235,14 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   /** Focuses the radio button. */
   focus(): void {
     this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+  }
+
+  /** @internal Callback for the cases where the focused state of the input changes. */
+  _focusChanged(isFocused: boolean): void {
+    if (isFocused !== this._focused) {
+      this._focused = isFocused;
+      this._radioGroup._updateFocused();
+    }
   }
 
   /** @internal Handles the click on the hidden radio input. */
