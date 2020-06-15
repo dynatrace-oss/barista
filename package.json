@@ -160,7 +160,7 @@
     "lodash": "^4.17.15",
     "markdown-it": "^10.0.0",
     "markdown-it-deflist": "^2.0.3",
-    "memfs": "^3.0.3",
+    "memfs": "^3.2.0",
     "ng-packagr": "^9.1.5",
     "prettier": "^2.0.5",
     "reflect-metadata": "^0.1.13",
