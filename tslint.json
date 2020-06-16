@@ -90,6 +90,14 @@
               "type:shared",
               "type:types"
             ]
+          },
+          {
+            "sourceTag": "type:shared",
+            "onlyDependsOnLibsWithTags": ["type:shared"]
+          },
+          {
+            "sourceTag": "type:library",
+            "onlyDependsOnLibsWithTags": ["type:library", "type:shared"]
           }
         ]
       }
