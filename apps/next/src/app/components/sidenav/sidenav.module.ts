@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-export * from './lib/page-guard';
-export * from './lib/page.service';
-export * from './lib/universal.interceptor';
+import { NgModule } from '@angular/core';
+
+import { Sidenav } from './sidenav';
+
+@NgModule({
+  imports: [],
+  exports: [],
+  declarations: [Sidenav],
+  providers: [],
+})
+export class SidenavModule {}

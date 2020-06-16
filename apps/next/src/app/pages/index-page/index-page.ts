@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { BaPageService } from 'libs/shared/data-access-strapi/src/lib/page.service';
+import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 
 @Component({
@@ -29,8 +29,5 @@ import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 export class BaIndexPage {
   content = this._pageService._getCurrentPage();
 
-  constructor(
-    private _pageService: BaPageService<BaSinglePageContent>,
-  ) {
-  }
+  constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
 }

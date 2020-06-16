@@ -351,10 +351,12 @@
       "tags": ["type:library"]
     },
     "next": {
-      "tags": []
+      "tags": ["scope:next", "type:next"],
+      "implicitDependencies": ["fluid-button"]
     },
     "shared-data-access-strapi": {
-      "tags": []
+      "tags": ["scope:cms", "type:shared"],
+      "implicitDependencies": ["barista-definitions"]
     }
   }
 }

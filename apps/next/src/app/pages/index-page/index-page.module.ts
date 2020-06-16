@@ -17,9 +17,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { BaPageGuard } from 'libs/shared/data-access-strapi/src/lib/page-guard';
 import { BaIndexPage } from './index-page';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
 
 export const routes: Route[] = [
   {

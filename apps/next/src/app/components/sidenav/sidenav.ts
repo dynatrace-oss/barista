@@ -14,6 +14,21 @@
  * limitations under the License.
  */
 
-export * from './lib/page-guard';
-export * from './lib/page.service';
-export * from './lib/universal.interceptor';
+import { Component, OnInit, Input } from '@angular/core';
+
+@Component({
+  selector: 'sidenav',
+  templateUrl: 'sidenav.html',
+})
+export class Sidenav implements OnInit {
+  /** Contains all section for a corresponding page group */
+  @Input()
+  set sections(sections: String[]) {
+    this._sections = sections;
+  }
+  _sections: String[];
+
+  constructor() {}
+
+  ngOnInit(): void {}
+}
