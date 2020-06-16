@@ -26,9 +26,6 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 
-import { BA_CONTENT_COMPONENTS } from '../../components';
-import { createComponent } from '../../utils/create-component';
-
 @Component({
   selector: 'ba-page-content',
   template: '',

@@ -15,12 +15,8 @@
  */
 
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import {
-  BaSinglePageContent,
-} from '@dynatrace/shared/barista-definitions';
-import {
-  BaPageService,
-} from 'libs/shared/data-access-strapi/src/lib/page.service';
+import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
+import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 
 @Component({
   selector: 'ba-single-page',
@@ -34,15 +30,9 @@ export class BaSinglePage implements OnInit, AfterViewInit {
   /** @internal The current page content from the cms */
   _pageContent = this._pageService._getCurrentPage();
 
-  constructor(
-    private _pageService: BaPageService<BaSinglePageContent>,
-  ) {}
+  constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
-
-  ngAfterViewInit(): void {
-
-  }
+  ngAfterViewInit(): void {}
 }
