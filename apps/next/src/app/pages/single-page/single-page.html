@@ -1,0 +1,15 @@
+<div class="next-page-grid" *ngIf="_pageContent">
+  <nav
+    next-sidenav
+    *ngIf="_pageContent.sidenav"
+    [sidenavData]="_pageContent.sidenav"
+  ></nav>
+
+  <main class="next-page-main" id="main" role="main">
+    <article class="next-single-page-content">
+        <ba-page-content [data]="_pageContent.content"></ba-page-content>
+    </article>
+  </main>
+
+  <next-page-footer></next-page-footer>
+</div>
