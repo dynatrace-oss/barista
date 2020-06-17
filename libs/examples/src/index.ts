@@ -153,6 +153,7 @@ import { DtExampleFormFieldDefault } from './form-field/form-field-default-examp
 import { DtExampleFormFieldErrorCustomValidator } from './form-field/form-field-error-custom-validator-example/form-field-error-custom-validator-example';
 import { DtExampleFormFieldError } from './form-field/form-field-error-example/form-field-error-example';
 import { DtExampleFormFieldHint } from './form-field/form-field-hint-example/form-field-hint-example';
+import { DtExampleFormFieldNonBoxControl } from './form-field/form-field-non-box-control-example/form-field-non-box-control-example';
 import { DtExampleFormFieldPrefixSuffix } from './form-field/form-field-prefix-suffix-example/form-field-prefix-suffix-example';
 import { DtExampleFormFieldServerValidation } from './form-field/form-field-server-validation/form-field-server-validation-example';
 import { DtExampleFormattersBits } from './formatters/formatters-bits-example/formatters-bits-example';
@@ -514,6 +515,7 @@ export {
   DtExampleFormFieldErrorCustomValidator,
   DtExampleFormFieldError,
   DtExampleFormFieldHint,
+  DtExampleFormFieldNonBoxControl,
   DtExampleFormFieldPrefixSuffix,
   DtExampleFormFieldServerValidation,
   DtExampleFormattersBits,
@@ -853,6 +855,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ],
   ['DtExampleFormFieldError', DtExampleFormFieldError],
   ['DtExampleFormFieldHint', DtExampleFormFieldHint],
+  ['DtExampleFormFieldNonBoxControl', DtExampleFormFieldNonBoxControl],
   ['DtExampleFormFieldPrefixSuffix', DtExampleFormFieldPrefixSuffix],
   ['DtExampleFormFieldServerValidation', DtExampleFormFieldServerValidation],
   ['DtExampleFormattersBits', DtExampleFormattersBits],

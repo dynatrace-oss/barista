@@ -29,8 +29,10 @@ import { DtExampleFormFieldError } from './form-field-error-example/form-field-e
 import { DtExampleFormFieldHint } from './form-field-hint-example/form-field-hint-example';
 import { DtExampleFormFieldPrefixSuffix } from './form-field-prefix-suffix-example/form-field-prefix-suffix-example';
 import { DtExampleFormFieldServerValidation } from './form-field-server-validation/form-field-server-validation-example';
+import { DtExampleFormFieldNonBoxControl } from './form-field-non-box-control-example/form-field-non-box-control-example';
 import { DtAlertModule } from '@dynatrace/barista-components/alert';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { DtCheckboxModule } from '@dynatrace/barista-components/checkbox';
 
 @NgModule({
   imports: [
@@ -44,6 +46,7 @@ import { DtThemingModule } from '@dynatrace/barista-components/theming';
     DtLoadingDistractorModule,
     DtAlertModule,
     DtThemingModule,
+    DtCheckboxModule,
   ],
   declarations: [
     DtExampleFormFieldDefault,
@@ -52,6 +55,7 @@ import { DtThemingModule } from '@dynatrace/barista-components/theming';
     DtExampleFormFieldHint,
     DtExampleFormFieldPrefixSuffix,
     DtExampleFormFieldServerValidation,
+    DtExampleFormFieldNonBoxControl,
   ],
 })
 export class DtFormFieldExamplesModule {}
