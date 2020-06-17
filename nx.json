@@ -57,6 +57,9 @@
     "shared-barista-definitions": {
       "tags": ["type:types", "type:library"]
     },
+    "shared-next-definitions": {
+      "tags": ["type:types", "type:library"]
+    },
     "examples": {
       "tags": ["scope:examples", "type:library"]
     },

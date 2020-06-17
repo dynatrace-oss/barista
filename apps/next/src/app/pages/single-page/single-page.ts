@@ -26,7 +26,7 @@ import { BaPageService } from '@dynatrace/shared/data-access-strapi';
     class: 'ba-page',
   },
 })
-export class BaSinglePage implements OnInit, AfterViewInit {
+export class NextSinglePage implements OnInit, AfterViewInit {
   /** @internal The current page content from the cms */
   _pageContent = this._pageService._getCurrentPage();
 

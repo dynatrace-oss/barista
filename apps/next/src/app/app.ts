@@ -15,19 +15,12 @@
  */
 
 import { Component } from '@angular/core';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
-import { NextPage } from '@dynatrace/shared/next-definitions';
 
 @Component({
-  selector: 'ba-index-page',
-  templateUrl: './index-page.html',
-  styleUrls: ['./index-page.scss'],
-  host: {
-    class: 'ba-page',
-  },
+  selector: 'x-root',
+  templateUrl: './app.html',
+  styleUrls: ['./app.scss'],
 })
-export class NextIndexPage {
-  content = this._pageService._getCurrentPage();
-
-  constructor(private _pageService: BaPageService<NextPage>) {}
+export class AppComponent {
+  title = 'next';
 }

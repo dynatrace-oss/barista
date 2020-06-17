@@ -17,16 +17,24 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './app';
 import { RouterModule } from '@angular/router';
+import { NextRoutingModule } from './app.routing.module';
+import {
+  BaPageService,
+  BaPageGuard,
+} from '@dynatrace/shared/data-access-strapi';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    NextRoutingModule,
+    HttpClientModule,
     RouterModule.forRoot([], { initialNavigation: 'enabled' }),
   ],
-  providers: [],
+  providers: [BaPageService, BaPageGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

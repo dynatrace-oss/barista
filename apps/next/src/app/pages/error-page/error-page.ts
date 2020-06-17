@@ -15,12 +15,19 @@
  */
 
 import { Component } from '@angular/core';
+import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { NextPage } from '@dynatrace/shared/next-definitions';
 
 @Component({
-  selector: 'x-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  selector: 'next-error-page',
+  templateUrl: './error-page.html',
+  styleUrls: ['./error-page.scss'],
+  host: {
+    class: 'next-page',
+  },
 })
-export class AppComponent {
-  title = 'next';
+export class NextErrorPage {
+  content = this._pageService._getCurrentPage();
+
+  constructor(private _pageService: BaPageService<NextPage>) {}
 }

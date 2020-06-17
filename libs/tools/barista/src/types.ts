@@ -150,5 +150,5 @@ export enum NextContentType {
 export interface NextStrapiPage extends BaStrapiBase {
   content: string;
   group: string;
-  section: string;
+  section: string | null;
 }

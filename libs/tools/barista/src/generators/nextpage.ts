@@ -15,11 +15,12 @@
  */
 
 import { environment } from '@environments/barista-environment';
-import { promises as fs } from 'fs';
 import * as markdownIt from 'markdown-it';
 import { join } from 'path';
 import { NextStrapiPage, NextContentType } from '../types';
 import { fetchContentList } from '../utils/fetch-strapi-content';
+import { slugify } from '../utils/slugify';
+import { existsSync, mkdir, writeFile } from 'fs';
 
 const markdown = new markdownIt({
   html: true,
@@ -39,22 +40,61 @@ export async function nextPagesGenerator(): Promise<never[] | undefined> {
     { publicContent: false },
     environment.strapiEndpoint,
   );
+  if (!existsSync(join(environment.distDir, 'next'))) {
+    mkdir(join(environment.distDir, 'next'), () => {});
+  }
 
-  const nextPages: NextStrapiPage[] = contentList.map((data) => ({
-    id: data.id,
-    created_at: data.created_at,
-    updated_at: data.updated_at,
-    content: markdown.render(data.content),
-    group: data.group,
-    section: data.section,
-  }));
+  contentList.forEach((data) => {
+    const sectionData = data.section !== null ? slugify(data.section) : null;
 
-  await fs.writeFile(
-    join(environment.distDir, 'next-pages.json'),
-    JSON.stringify(nextPages, null, 2),
+    const nextPage = {
+      id: data.id,
+      created_at: data.created_at,
+      updated_at: data.updated_at,
+      content: markdown.render(data.content),
+      group: slugify(data.group),
+      section: sectionData,
+    };
+
+    if (data.section !== null) {
+      generateDetailPage(nextPage, slugify(data.group), slugify(data.section));
+    } else {
+      generateOverviewPage(nextPage, slugify(data.group));
+    }
+  });
+}
+
+async function generateOverviewPage(
+  nextPage: NextStrapiPage,
+  dataGroup: string,
+): Promise<void> {
+  writeFile(
+    join(environment.distDir, `next/${dataGroup}.json`),
+    JSON.stringify(nextPage, null, 2),
     {
       flag: 'w', // "w" -> Create file if it does not exist
       encoding: 'utf8',
     },
+    () => {},
+  );
+}
+
+async function generateDetailPage(
+  nextPage: NextStrapiPage,
+  dataGroup: string,
+  dataSection: string,
+): Promise<void> {
+  mkdir(join(environment.distDir, `next/${dataGroup}`), () => {});
+  writeFile(
+    join(
+      environment.distDir,
+      `next/${slugify(dataGroup)}/${slugify(dataSection)}.json`,
+    ),
+    JSON.stringify(nextPage, null, 2),
+    {
+      flag: 'w', // "w" -> Create file if it does not exist
+      encoding: 'utf8',
+    },
+    () => {},
   );
 }
