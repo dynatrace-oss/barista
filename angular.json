@@ -3589,6 +3589,24 @@
         }
       }
     },
+    "shared-next-definitions": {
+      "root": "libs/shared/next-definitions",
+      "sourceRoot": "libs/shared/next-definitions/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/shared/next-definitions/tsconfig.lib.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/next-definitions/**"
+            ]
+          }
+        }
+      }
+    },
     "testing-node": {
       "root": "libs/testing/node",
       "sourceRoot": "libs/testing/node/src",
@@ -4115,7 +4133,15 @@
             "polyfills": "apps/next/src/polyfills.ts",
             "tsConfig": "apps/next/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/next/src/favicon.ico", "apps/next/src/assets"],
+            "assets": [
+              "apps/next/src/favicon.ico",
+              "apps/next/src/assets",
+              {
+                "glob": "**/*.json",
+                "input": "dist/next-data",
+                "output": "/data"
+              }
+            ],
             "styles": ["apps/next/src/styles.scss"],
             "scripts": []
           },

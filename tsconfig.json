@@ -209,6 +209,9 @@
       "@dynatrace/shared/barista-definitions": [
         "libs/shared/barista-definitions/src/index.ts"
       ],
+      "@dynatrace/shared/next-definitions": [
+        "libs/shared/next-definitions/src/index.ts"
+      ],
       "@dynatrace/shared/node": ["libs/shared/node/src/index.ts"],
       "@dynatrace/shared/design-tokens": [
         "libs/shared/design-tokens/src/index.ts"

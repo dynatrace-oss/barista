@@ -147,8 +147,6 @@ export enum NextContentType {
   NextPages = 'nextpages',
 }
 
-export interface NextStrapiPage extends BaStrapiBase {
-  content: string;
+export interface NextStrapiPage extends BaStrapiPage {
   group: string;
-  section: string;
 }

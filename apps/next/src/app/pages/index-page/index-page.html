@@ -1,9 +1,8 @@
 <main>
   <h1>NiceHeadline</h1>
-  <div class="ba-page-content" *ngIf="content">
-    {{ content }}
-  </div>
-  <div class="ba-page-content" *ngIf="!content">
+  <div class="ba-page-content" *ngIf="page" [innerHTML]="content"></div>
+  <div class="ba-page-content" *ngIf="!page">
     <p>No content found</p>
   </div>
+  <router-outlet></router-outlet>
 </main>
