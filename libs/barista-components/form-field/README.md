@@ -24,6 +24,27 @@ have imported the specific component module (e.g. `DtInputModule`).
 class MyModule {}
 ```
 
+## Compatible barista form-controls
+
+The following barista form-controls are compatible with the form-field.
+
+- [Input](https://barista.dynatrace.com/components/input)
+- [Select](https://barista.dynatrace.com/components/select)
+- [Checkbox](https://barista.dynatrace.com/components/checkbox)
+- [Switch](https://barista.dynatrace.com/components/switch)
+- [Radio-group](https://barista.dynatrace.com/components/radio#radio-groups)
+
+## Custom form-control
+
+To make your custom form-control compatible with the form-field, your control
+needs to implement the
+[`DtFormFieldControl`](https://github.com/dynatrace-oss/barista/blob/master/libs/barista-components/form-field/src/form-field-control.ts)
+interface.
+
+_Note_: Your custom form-control also needs to support `ngModel`. This can be
+done by implementing the `ControlValueAccessor` interface shipped by the
+`@angular/forms` package.
+
 ## Label
 
 A label can be applied by adding a `<dt-label>` element. `<dt-form-field>` takes
@@ -57,3 +78,7 @@ an element inside the `<dt-form-field>` will designate it as the prefix.
 Similarly, adding `dtSuffix` will designate it as the suffix.
 
 <ba-live-example name="DtExampleFormFieldPrefixSuffix"></ba-live-example>
+
+**Note: Prefix or suffix may only be used for input and select controls!**
+
+<ba-live-example name="DtExampleFormFieldNonBoxControl"></ba-live-example>
