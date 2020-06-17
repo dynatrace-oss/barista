@@ -142,3 +142,13 @@ export interface BaStrapiDecisionGraphEdge {
   text: string;
   uxd_node: BaStrapiDecisionGraphNodeBase;
 }
+
+export enum NextContentType {
+  NextPages = 'nextpages',
+}
+
+export interface NextStrapiPage extends BaStrapiBase {
+  content: string;
+  group: string;
+  section: string;
+}

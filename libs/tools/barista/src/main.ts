@@ -24,7 +24,6 @@ import { componentsBuilder } from './builder/components';
 import { homepageBuilder } from './builder/homepage';
 import { iconsBuilder } from './builder/icons';
 import { strapiBuilder } from './builder/strapi';
-import { overviewBuilder } from './generators/category-navigation';
 import {
   exampleInlineSourcesTransformerFactory,
   internalContentTransformerFactory,
@@ -32,7 +31,11 @@ import {
 } from './transform';
 import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from './types';
 import { sync } from 'glob';
-import { uxDecisionGraphGenerator } from './generators/ux-decision-graph';
+import {
+  uxDecisionGraphGenerator,
+  nextPagesGenerator,
+  overviewBuilder,
+} from './generators';
 
 // Add your page-builder to this map to register it.
 const BUILDERS = new Map<string, BaPageBuilder>([
@@ -124,6 +127,7 @@ async function buildPages(): Promise<void[]> {
   const overviewPages = await overviewBuilder();
   if (!isPublicBuild()) {
     await uxDecisionGraphGenerator();
+    await nextPagesGenerator();
   }
 
   const routes = sync(`${environment.distDir}/**/*.json`)

@@ -355,8 +355,7 @@
       "implicitDependencies": ["fluid-button"]
     },
     "shared-data-access-strapi": {
-      "tags": ["scope:cms", "type:shared"],
-      "implicitDependencies": ["barista-definitions"]
+      "tags": ["scope:cms", "type:shared"]
     }
   }
 }
