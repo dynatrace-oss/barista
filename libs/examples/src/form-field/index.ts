@@ -21,3 +21,4 @@ export * from './form-field-examples.module';
 export * from './form-field-hint-example/form-field-hint-example';
 export * from './form-field-prefix-suffix-example/form-field-prefix-suffix-example';
 export * from './form-field-server-validation/form-field-server-validation-example';
+export * from './form-field-non-box-control-example/form-field-non-box-control-example';
