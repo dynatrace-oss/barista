@@ -24,6 +24,4 @@ import { Component } from '@angular/core';
     class: 'next-page-footer',
   },
 })
-export class BaPageFooter {
-
-}
+export class BaPageFooter {}

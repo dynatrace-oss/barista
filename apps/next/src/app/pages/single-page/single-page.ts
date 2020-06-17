@@ -32,7 +32,9 @@ export class BaSinglePage implements OnInit, AfterViewInit {
 
   constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this._pageContent);
+  }
 
   ngAfterViewInit(): void {}
 }
