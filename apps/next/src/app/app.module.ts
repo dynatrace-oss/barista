@@ -16,9 +16,7 @@
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { AppComponent } from './app';
-import { RouterModule } from '@angular/router';
+import { Next } from './app';
 import { NextRoutingModule } from './app.routing.module';
 import {
   BaPageService,
@@ -27,14 +25,9 @@ import {
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    NextRoutingModule,
-    HttpClientModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
-  ],
+  declarations: [Next],
+  imports: [BrowserModule, NextRoutingModule, HttpClientModule],
   providers: [BaPageService, BaPageGuard],
-  bootstrap: [AppComponent],
+  bootstrap: [Next],
 })
-export class AppModule {}
+export class NextModule {}

@@ -4133,7 +4133,15 @@
             "polyfills": "apps/next/src/polyfills.ts",
             "tsConfig": "apps/next/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/next/src/favicon.ico", "apps/next/src/assets"],
+            "assets": [
+              "apps/next/src/favicon.ico",
+              "apps/next/src/assets",
+              {
+                "glob": "**/*.json",
+                "input": "dist/next-data",
+                "output": "/data"
+              }
+            ],
             "styles": ["apps/next/src/styles.scss"],
             "scripts": []
           },

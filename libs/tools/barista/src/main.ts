@@ -15,7 +15,6 @@
  */
 
 import { isPublicBuild } from '@dynatrace/shared/node';
-import { environment } from '@environments/barista-environment';
 import { green } from 'chalk';
 import { existsSync, mkdirSync, promises as fs } from 'fs';
 import { EOL } from 'os';
@@ -31,18 +30,20 @@ import {
 } from './transform';
 import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from './types';
 import { sync } from 'glob';
-import {
-  uxDecisionGraphGenerator,
-  nextPagesGenerator,
-  overviewBuilder,
-} from './generators';
+import { uxDecisionGraphGenerator, overviewBuilder } from './generators';
+import { options } from 'yargs';
 
 // Add your page-builder to this map to register it.
-const BUILDERS = new Map<string, BaPageBuilder>([
+
+const BARISTA_BUILDERS = new Map<string, BaPageBuilder>([
   ['components-builder', componentsBuilder],
   ['strapi-builder', strapiBuilder],
   ['homepage-builder', homepageBuilder],
   ['icons-builder', iconsBuilder],
+]);
+
+const NEXT_BUILDERS = new Map<string, BaPageBuilder>([
+  ['strapi-builder', strapiBuilder],
 ]);
 
 /**
@@ -50,9 +51,10 @@ const BUILDERS = new Map<string, BaPageBuilder>([
  * some arguments from the process environment.
  * Transformers should be pure for testing.
  */
-function createInternalLinksTransformer(): BaPageTransformer {
-  const internalLinkArg = environment.internalLinks;
-  const internalLinkParts = internalLinkArg ? internalLinkArg.split(',') : [];
+function createInternalLinksTransformer(
+  linkReplacement?: string,
+): BaPageTransformer {
+  const internalLinkParts = linkReplacement ? linkReplacement.split(',') : [];
   const isPublic = isPublicBuild();
   return internalLinksTransformerFactory(isPublic, internalLinkParts);
 }
@@ -73,13 +75,15 @@ function createInternalContentTransformer(): BaPageTransformer {
 async function createExampleInlineSourcesTransformer(): Promise<
   BaPageTransformer
 > {
-  if (!existsSync(environment.examplesMetadataDir)) {
+  const examplesMetadataDir = './dist';
+  const examplesMetadataFileName = 'examples-metadata.json';
+  if (!existsSync(examplesMetadataDir)) {
     throw new Error(
-      `"${environment.examplesMetadataFileName}" not found. Make sure to run "examples-tools" first.`,
+      `"${examplesMetadataFileName}" not found. Make sure to run "examples-tools" first.`,
     );
   }
   const examplesMetadata = await fs.readFile(
-    join(environment.examplesMetadataDir, environment.examplesMetadataFileName),
+    join(examplesMetadataDir, examplesMetadataFileName),
     {
       encoding: 'utf8',
     },
@@ -87,21 +91,33 @@ async function createExampleInlineSourcesTransformer(): Promise<
 
   return exampleInlineSourcesTransformerFactory(JSON.parse(examplesMetadata));
 }
+const nextEnvironment = { distDir: 'dist/next-data' };
+const baristaEnvironment = { distDir: 'dist/barista-data' };
 
 /** Builds pages using all registered builders. */
 async function buildPages(): Promise<void[]> {
-  const globalTransformers = [
-    await createExampleInlineSourcesTransformer(),
-    createInternalLinksTransformer(),
-    createInternalContentTransformer(),
-  ];
+  const { next, linkReplacement } = options({
+    next: { type: 'boolean', alias: 'n', default: false },
+    linkReplacement: { type: 'string', alias: 'lr' },
+  }).argv;
+  console.log('Next: ', next);
+  const environment = next ? nextEnvironment : baristaEnvironment;
+  const globalTransformers = next
+    ? []
+    : [
+        await createExampleInlineSourcesTransformer(),
+        createInternalLinksTransformer(linkReplacement),
+        createInternalContentTransformer(),
+      ];
 
-  const builders = Array.from(BUILDERS.values());
+  const builders = Array.from(
+    next ? NEXT_BUILDERS.values() : BARISTA_BUILDERS.values(),
+  );
   // Run each builder and collect all build results
   const results = await builders.reduce<Promise<BaPageBuildResult[]>>(
     async (aggregatedResults, currentBuilder) => [
       ...(await aggregatedResults),
-      ...(await currentBuilder(globalTransformers)),
+      ...(await currentBuilder(globalTransformers, next)),
     ],
     Promise.resolve([]),
   );
@@ -127,7 +143,6 @@ async function buildPages(): Promise<void[]> {
   const overviewPages = await overviewBuilder();
   if (!isPublicBuild()) {
     await uxDecisionGraphGenerator();
-    await nextPagesGenerator();
   }
 
   const routes = sync(`${environment.distDir}/**/*.json`)
@@ -147,12 +162,10 @@ async function buildPages(): Promise<void[]> {
     .join(EOL);
 
   const routesFile = join(environment.distDir, 'routes.txt');
-  // write the routes to a own file that can be used for pre rendering
+  // write the barista and next routes to a own file that can be used for pre rendering
   fs.writeFile(routesFile, routes, 'utf-8');
   console.log(
-    green(
-      '\n✅ Successfully created routes.txt file for pre-rendering barista\n',
-    ),
+    green('\n✅ Successfully created routes.txt file for pre-rendering\n'),
   );
 
   return [...allPages, ...overviewPages];

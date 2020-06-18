@@ -31,7 +31,7 @@ export const routes: Route[] = [
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes), DtThemingModule],
-  declarations: [NextErrorPage],
+  declarations: [],
   providers: [],
 })
-export class NextIndexPageModule {}
+export class ErrorPageModule {}

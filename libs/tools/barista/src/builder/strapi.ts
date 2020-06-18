@@ -29,6 +29,8 @@ import {
   BaPageTransformer,
   BaStrapiPage,
   BaStrapiContentType,
+  NextStrapiPage,
+  NextContentType,
 } from '../types';
 
 import { fetchContentList } from '../utils/fetch-strapi-content';
@@ -52,6 +54,7 @@ const TRANSFORMERS: BaPageTransformer[] = [
 /** Page-builder for Strapi CMS pages. */
 export const strapiBuilder: BaPageBuilder = async (
   globalTransformers: BaPageTransformer[],
+  next: boolean = false,
 ) => {
   // Return here if no endpoint is given.
   if (!environment.strapiEndpoint) {
@@ -59,11 +62,17 @@ export const strapiBuilder: BaPageBuilder = async (
     return [];
   }
 
-  let pagesData = await fetchContentList<BaStrapiPage>(
-    BaStrapiContentType.Pages,
-    { publicContent: isPublicBuild() },
-    environment.strapiEndpoint,
-  );
+  let pagesData = next
+    ? await fetchContentList<NextStrapiPage>(
+        NextContentType.NextPages,
+        { publicContent: false },
+        environment.strapiEndpoint,
+      )
+    : await fetchContentList<BaStrapiPage>(
+        BaStrapiContentType.Pages,
+        { publicContent: isPublicBuild() },
+        environment.strapiEndpoint,
+      );
 
   // Filter pages with draft set to null or false
   pagesData = pagesData.filter((page) => !page.draft);

@@ -33,7 +33,7 @@ export class NextSinglePage implements OnInit, AfterViewInit {
   constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
 
   ngOnInit(): void {
-    console.log(this._pageContent);
+    console.log('here');
   }
 
   ngAfterViewInit(): void {}

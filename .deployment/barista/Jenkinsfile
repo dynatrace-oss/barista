@@ -129,8 +129,14 @@ pipeline {
                 npm run ng run examples-tools:build
                 npm run ng run barista-tools:build
 
+                if $INTERNAL_LINKS ; then
+                  args='--linkReplacement=$INTERNAL_LINKS'
+                else
+                  args=''
+
                 node dist/libs/tools/examples-tools/main.js
-                node dist/libs/tools/barista/main.js
+                node dist/libs/tools/barista/main.js ${args}
+                node dist/libs/tools/barista/main.js --next=true ${args}
 
                 if $PUBLIC_BUILD ; then
                   configuration='production'
