@@ -23,6 +23,8 @@ import { getPullRequestDetails } from './utils/get-pull-request-details';
 import { isMasterTarget } from './utils/is-master-target';
 import { hasMergeReadyLabel } from './utils/has-merge-ready-label';
 import { addRebaseLabel } from './utils/add-rebase-label';
+import { getApprovalCount } from './utils/get-approval-count';
+import { getPullRequestReviews } from './utils/get-pull-request-reviews';
 
 function getPrNumber(): number | undefined {
   const pullRequest = context.payload.pull_request;
@@ -58,6 +60,26 @@ async function run() {
 
   if (!isMasterTarget(pullRequestDetails.base)) {
     console.log('Target branch is not master, exiting');
+    return;
+  }
+
+  // If it has a merge ready label, but no approvals remove
+  // the merge ready label and all targets again.
+  const reviews = await getPullRequestReviews(client, prNumber);
+  if (
+    hasMergeReadyLabel(pullRequestDetails) &&
+    getApprovalCount(reviews) === 0
+  ) {
+    // remove the pr: merge-ready label
+    await client.issues.removeLabel({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: prNumber,
+      name: 'pr: merge-ready',
+    });
+    // remove all target labels
+    await updateTargetLabels(client, prNumber, []);
+    console.log('has not enough approvals, removing labels');
     return;
   }
 
