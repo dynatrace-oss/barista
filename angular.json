@@ -543,6 +543,7 @@
             "polyfills": "apps/barista-design-system/src/polyfills.ts",
             "progress": false,
             "aot": true,
+            "preserveSymlinks": true,
             "assets": [
               {
                 "glob": "**",
