@@ -27,6 +27,7 @@ import {
 } from '@angular/core';
 import { Subject, fromEvent, merge, of } from 'rxjs';
 import { takeUntil, debounceTime, mapTo } from 'rxjs/operators';
+import { isEqual } from 'lodash-es';
 import {
   normalizeToRange,
   lerp,
@@ -96,7 +97,14 @@ export class DistributionCurveComponent
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this._stateChanges$.next(changes.generationOptions.currentValue);
+    if (
+      !isEqual(
+        changes.generationOptions.currentValue,
+        changes.generationOptions.previousValue,
+      )
+    ) {
+      this._stateChanges$.next(changes.generationOptions.currentValue);
+    }
   }
 
   ngOnDestroy(): void {
