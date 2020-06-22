@@ -10,6 +10,10 @@
     "releasePackageJson": {
       "type": "string",
       "description": "The path to the package.json used for the release."
+    },
+    "packageVersion": {
+      "type": "string",
+      "description": "Package version that is used to release"
     }
   },
   "additionalProperties": false,

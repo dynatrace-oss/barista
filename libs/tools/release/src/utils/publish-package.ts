@@ -68,7 +68,6 @@ export async function yarnPublish(
     `--new-version=${version.raw}`,
     packagePath,
   ];
-
   try {
     await createInternalNpmrcFile(workspace);
     await executeCommand(command.join(' '));
