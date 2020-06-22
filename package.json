@@ -151,7 +151,7 @@
     "gonzales-pe": "^4.3.0",
     "highcharts": "^7.2.1",
     "husky": "^4.2.5",
-    "inquirer": "^7.1.0",
+    "inquirer": "^7.2.0",
     "jest": "25.2.4",
     "jest-environment-jsdom-sixteen": "^1.0.3",
     "jest-junit": "^10.0.0",
