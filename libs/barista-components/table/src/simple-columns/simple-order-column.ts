@@ -21,7 +21,16 @@ import {
 } from '@angular/core';
 
 import { DtSimpleColumnBase } from './simple-column-base';
+import { DtTableOrderDataSource } from '../table-order-data-source';
+import { Observable } from 'rxjs';
 
+/**
+ * @deprecated Using a simple order column does not work after angular version 9.1.6 anymore -
+ * please use the dt-order-cell directly inside the table definition
+ * We will abandon the simple column approach due to changedetection issues
+ * when a row affects another one in the future
+ * To be removed with 8.0.0
+ */
 @Component({
   selector: 'dt-simple-order-column',
   templateUrl: 'simple-order-column.html',
@@ -37,4 +46,10 @@ import { DtSimpleColumnBase } from './simple-column-base';
     { provide: DtSimpleColumnBase, useExisting: DtSimpleOrderColumn },
   ],
 })
-export class DtSimpleOrderColumn<T> extends DtSimpleColumnBase<T> {}
+export class DtSimpleOrderColumn<T> extends DtSimpleColumnBase<T> {
+  _getIndex(data: T): Observable<number> {
+    return (this.table.dataSource as DtTableOrderDataSource<
+      T
+    >)._dataIndexObservableMap.get(data)!;
+  }
+}
