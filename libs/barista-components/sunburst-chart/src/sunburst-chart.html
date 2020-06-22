@@ -1,42 +1,31 @@
 <ng-content></ng-content>
 
-<svg [attr.viewBox]="_viewBox" #svg>
-  <text class="dt-sunburst-chart-value dt-sunburst-chart-selected-value">
+<svg [attr.viewBox]="_viewBox" [attr.width]="_width" #svg>
+  <g
+    *ngFor="let slice of _slices"
+    dt-sunburst-chart-segment
+    (mouseenter)="_handleOnMouseEnter($event, slice.data)"
+    (mousemove)="_handleOnMouseMove($event)"
+    (mouseleave)="_handleOnMouseLeave($event)"
+    [slice]="slice"
+    [valueAsAbsolute]="_valueAsAbsolute"
+    [attr.style]="
+      _sanitizeCSS('--dt-sunburst-chart-slice-color', slice.data.color)
+    "
+    (click)="_select($event, slice)"
+  ></g>
+</svg>
+
+<div class="dt-sunburst-chart-selected-info">
+  <p class="dt-sunburst-chart-selected-value">
     {{
       _valueAsAbsolute
         ? _selectedValue
         : (_selectedRelativeValue * 100 | dtPercent)
     }}
-  </text>
-  <text class="dt-sunburst-chart-label dt-sunburst-chart-selected-label">
+  </p>
+
+  <p class="dt-sunburst-chart-selected-label">
     {{ _selectedLabel }}
-  </text>
-  <g *ngFor="let slice of _slices" class="dt-sunburst-chart-group">
-    <path
-      class="dt-sunburst-chart-slice"
-      [class.dt-sunburst-chart-slice-current]="slice.data.isCurrent"
-      [attr.d]="slice.path"
-      [attr.style]="
-        _sanitizeCSS('--dt-sunburst-chart-slice-color', slice.data.color)
-      "
-      (click)="_select($event, slice)"
-      (mouseenter)="openOverlay(slice)"
-      (mouseleave)="closeOverlay()"
-    />
-    <g
-      attr.transform="translate({{ slice.labelPosition }})"
-      *ngIf="slice.data.showLabel && slice.showLabel"
-    >
-      <text class="dt-sunburst-chart-value dt-sunburst-chart-slice-value">
-        {{
-          _valueAsAbsolute
-            ? slice.data.value
-            : (slice.data.valueRelative * 100 | dtPercent)
-        }}
-      </text>
-      <text class="dt-sunburst-chart-label dt-sunburst-chart-slice-label">
-        {{ slice.data.label }}
-      </text>
-    </g>
-  </g>
-</svg>
+  </p>
+</div>

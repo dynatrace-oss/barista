@@ -1,0 +1,28 @@
+@import '../../core/src/style/variables';
+@import '../../core/src/style/overlay';
+
+.dt-sunburst-chart-slice {
+  stroke: $white;
+  cursor: pointer;
+  fill: var(--dt-sunburst-chart-slice-color);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.dt-sunburst-chart-slice-current {
+  cursor: default;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+text {
+  text-anchor: middle;
+}
+
+.dt-sunburst-chart-label {
+  transform: translateY(1.4rem);
+}

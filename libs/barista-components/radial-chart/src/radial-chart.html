@@ -2,11 +2,13 @@
   <svg
     [attr.viewBox]="_viewBox"
     [attr.width]="_width"
-    class="dt-radial-chart-svg">
+    class="dt-radial-chart-svg"
+  >
     <svg:path
       *ngIf="_hasBackground"
       [attr.d]="_backgroundPath"
-      class="dt-radial-chart-background"></svg:path>
+      class="dt-radial-chart-background"
+    ></svg:path>
     <svg:g
       class="dt-radial-chart-series-group"
       dt-radial-chart-path
@@ -14,7 +16,8 @@
       [series]="series"
       [totalValue]="_totalSeriesValue"
       [overlayTemplate]="_overlay"
-      (click)="_select(series)"></svg:g>
+      (click)="_select(series)"
+    ></svg:g>
   </svg>
   <dt-legend class="dt-radial-chart-legend">
     <dt-legend-item *ngFor="let series of _renderData">
@@ -22,7 +25,8 @@
         class="dt-radial-chart-legend-symbol"
         [style]="
           _sanitizeCSS('--dt-radial-chart-legend-symbol-color', series.color)
-        ">
+        "
+      >
       </dt-legend-symbol>
       <strong *ngIf="_valueAsAbsolute">{{ series.value }}</strong>
       <strong *ngIf="!_valueAsAbsolute">{{

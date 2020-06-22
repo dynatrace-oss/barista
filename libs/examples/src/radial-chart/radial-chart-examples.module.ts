@@ -36,4 +36,4 @@ import { DtExampleRadialChartOverlay } from './radial-chart-overlay-example/radi
     DtExampleRadialChartOverlay,
   ],
 })
-export class DtRadialChartExamplesModule { }
+export class DtRadialChartExamplesModule {}

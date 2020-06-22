@@ -22,7 +22,8 @@ class MyModule {}
 ## Initialization
 
 To create a `dtSunburstChart` in a minimal configuration, only `series`
-attribute is required to create a valid output.
+attribute is required to create a valid output. Only 3 levels are allowed at the
+moment
 
 <ba-live-example name="DtExampleSunburstChartDefault" fullwidth></ba-live-example>
 
@@ -47,10 +48,10 @@ attribute is required to create a valid output.
 
 #### Methods
 
-| Name           | Params                              | Description                         |
-| -------------- | ----------------------------------- | ----------------------------------- |
-| `openOverlay`  | `node: DtSunburstChartTooltipNode>` | Open an overlay for the given node. |
-| `closeOverlay` |                                     | Closes the overlay if open.         |
+| Name           | Params                              | Description                                     |
+| -------------- | ----------------------------------- | ----------------------------------------------- |
+| `openOverlay`  | `node: DtSunburstChartTooltipNode>` | Deprecated. Open an overlay for the given node. |
+| `closeOverlay` |                                     | Deprecated. Closes the overlay if open.         |
 
 ### DtSunburstChartOverlay
 

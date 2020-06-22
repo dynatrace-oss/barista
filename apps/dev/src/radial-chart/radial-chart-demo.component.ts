@@ -123,9 +123,7 @@ export class RadialChartDemo {
     this.legendPosition = this.legendPosition === 'bottom' ? 'right' : 'bottom';
   }
 
-  _select(isSelected: boolean, series): void {
-    console.log(isSelected, series);
-
+  _select(isSelected: boolean, series: any): void {
     this.selected = isSelected ? series : undefined;
   }
 }

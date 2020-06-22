@@ -64,9 +64,11 @@ export interface DtSunburstChartTooltipData {
   active: boolean;
   /** If label should be shown based on selection and a minimum angle of slice */
   showLabel: boolean;
+  /** Label for screen readers */
+  ariaLabel: string;
 }
 
-export interface DtSunburstChartSlice
+export interface DtSunburstChartNodeSlice
   extends PieArcDatum<DtSunburstChartTooltipData> {
   path: string | null;
   labelPosition: [number, number];
@@ -75,8 +77,9 @@ export interface DtSunburstChartSlice
 }
 
 const SVG_SETTINGS = {
-  outerRadius: 160,
-  innerRadius: 64,
+  ringWidthRadius: 32,
+  borderWidthRadius: 16,
+  // innerRadius: 64,
   // radius for the centroid of label
   labelOffsetRadius: 32,
   // radius for the centroid of tooltip so it does not overlap the slice causing a possible flickering
@@ -85,6 +88,7 @@ const SVG_SETTINGS = {
   minAngleForLabel: (15 / 360) * 2 * Math.PI,
 };
 const IS_SEPARATOR = '.';
+const MAX_LEVELS = 3;
 
 /*
  *
@@ -151,6 +155,9 @@ const fillDownNodes = (
     color:
       node.origin.color ?? (parent ? parent.color : getColor(i, nodes.length)),
     valueRelative: node.value / totalValue,
+    ariaLabel: parent
+      ? `${node.origin.label} in ${parent.origin.label} is ${node.value}`
+      : `${node.origin.label} is ${node.value}`,
   };
 
   return {
@@ -304,7 +311,8 @@ export const getSelectedId = (
  */
 export const getSlices = (
   nodes: DtSunburstChartTooltipData[],
-): DtSunburstChartSlice[] => {
+  radius: number,
+): DtSunburstChartNodeSlice[] => {
   const numLevels = nodes.reduce(
     (maxLevel, node) => Math.max(maxLevel, node.depth),
     0,
@@ -312,7 +320,10 @@ export const getSlices = (
 
   return getSlicesByParent(
     nodes,
-    (SVG_SETTINGS.outerRadius - SVG_SETTINGS.innerRadius) / (numLevels * 2),
+    radius -
+      Math.min(numLevels, MAX_LEVELS) *
+        (SVG_SETTINGS.ringWidthRadius + SVG_SETTINGS.borderWidthRadius) -
+      SVG_SETTINGS.labelOffsetRadius,
   );
 };
 
@@ -327,11 +338,10 @@ export const getSlices = (
  */
 const getSlicesByParent = (
   nodes: DtSunburstChartTooltipData[],
-  radiusWidth: number,
-  innerRadius: number = SVG_SETTINGS.innerRadius,
+  innerRadius: number,
   startAngle: number = 0,
   endAngle: number = 2 * Math.PI,
-): DtSunburstChartSlice[] => {
+): DtSunburstChartNodeSlice[] => {
   const slices = pie<DtSunburstChartTooltipData>()
     .startAngle(startAngle)
     .endAngle(endAngle)
@@ -343,8 +353,11 @@ const getSlicesByParent = (
       const sliceBoundaries = {
         startAngle: segment.startAngle,
         endAngle: segment.endAngle,
-        innerRadius: innerRadius,
-        outerRadius: radiusWidth * (segment.data.active ? 2 : 1) + innerRadius,
+        innerRadius,
+        outerRadius:
+          innerRadius +
+          SVG_SETTINGS.ringWidthRadius +
+          (segment.data.active ? SVG_SETTINGS.borderWidthRadius : 0),
       };
       return [
         ...paths,
@@ -371,8 +384,7 @@ const getSlicesByParent = (
         },
         ...getSlicesByParent(
           segment.data.children ?? [],
-          radiusWidth,
-          radiusWidth * (segment.data.active ? 2 : 1) + innerRadius,
+          sliceBoundaries.outerRadius,
           segment.startAngle,
           segment.endAngle,
         ),

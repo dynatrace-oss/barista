@@ -2,47 +2,26 @@
 @import '../../core/src/style/overlay';
 
 :host {
-  display: block;
+  display: grid;
+  text-align: center;
 }
+
+.dt-sunburst-chart-selected-info,
 svg {
-  width: 100%;
-}
-text {
-  text-anchor: middle;
+  grid-area: 1/1;
 }
 
-.dt-sunburst-chart-slice {
-  stroke: $white;
-  cursor: pointer;
-  fill: var(--dt-sunburst-chart-slice-color);
-
-  &:hover {
-    opacity: 0.8;
-  }
+svg {
+  margin: auto;
 }
 
-.dt-sunburst-chart-slice-current {
-  cursor: default;
-
-  &:hover {
-    opacity: 1;
-  }
+p {
+  margin: 0;
 }
 
-.dt-sunburst-chart-label {
-  transform: translateY(0.9rem);
-  font-size: 0.9rem;
-}
-
-.dt-sunburst-chart-value {
-  transform: translateY(-0.1rem);
-  font-size: 1rem;
-}
-
-/** SunburstChart overlay */
-/** The selector is combined with the cdk-overlay-pane to
-increase the specificity to avoid edge cases where the cdk styles
-are loaded after the component's styles in the angular.json */
-::ng-deep .cdk-overlay-pane.dt-sunburst-chart-overlay-panel {
-  @include dt-overlay-container();
+.dt-sunburst-chart-selected-info {
+  justify-self: center;
+  align-self: center;
+  text-align: center;
+  max-width: 30%;
 }

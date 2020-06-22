@@ -55,7 +55,7 @@ const DONUT_INNER_CIRCLE_FRACTION = 0.8;
 @Directive({
   selector: '[dtRadialChartOverlay]',
 })
-export class DtRadialChartOverlay { }
+export class DtRadialChartOverlay {}
 
 @Component({
   selector: 'dt-radial-chart',
@@ -152,10 +152,14 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   }
 
   /** @internal External selection radius. */
-  get _externalBorderRadius(): number { return this._width / 2 };
+  get _externalBorderRadius(): number {
+    return this._width / 2;
+  }
 
   /** @internal Internal selection radius. */
-  get _internalBorderRadius(): number { return this._width / 2 - 8 };
+  get _internalBorderRadius(): number {
+    return this._width / 2 - 8;
+  }
 
   /**
    * @internal
@@ -185,7 +189,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   get _viewBox(): string {
     return `${-this._width / 2} ${-this._width / 2} ${this._width} ${
       this._width
-      }`;
+    }`;
   }
 
   /** @internal The chart's inner radius based on the chart type and defined fraction. */
@@ -199,7 +203,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     private _platform: Platform,
     // TODO: remove this sanitizer when ivy is no longer opt out
     private _sanitizer: DomSanitizer,
-  ) { }
+  ) {}
 
   /** AfterContentInit hook */
   ngAfterContentInit(): void {
@@ -220,8 +224,8 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
           switchMap(() =>
             this._radialChartSeries.length
               ? combineLatest(
-                this._radialChartSeries.map((series) => series._stateChanges),
-              )
+                  this._radialChartSeries.map((series) => series._stateChanges),
+                )
               : of(null),
           ),
           takeUntil(this._destroy$),
