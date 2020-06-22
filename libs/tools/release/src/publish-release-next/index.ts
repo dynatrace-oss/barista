@@ -14,14 +14,4 @@
  * limitations under the License.
  */
 
-/** The options that can be used with the elements builder */
-export interface ElementsOptions {
-  /** The path to the package.json used for the release. */
-  releasePackageJson: string;
-  /** The tag within the nx projects that is included for this build. */
-  buildTag?: string;
-  /** The path where the elements target should built to. */
-  outputPath: string;
-  /** Package version that is used in the release */
-  packageVersion: string;
-}
+export { publishReleaseNext } from './publish-release-next';

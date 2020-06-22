@@ -1006,6 +1006,16 @@
             "buildLibsFromSource": true
           }
         },
+        "build-publish-release-next": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "main": "libs/tools/release/src/publish-release-next-cli.ts",
+            "tsConfig": "libs/tools/release/tsconfig.json",
+            "outputPath": "dist/libs/tools/publish-release-next",
+            "progress": false,
+            "buildLibsFromSource": true
+          }
+        },
         "build-stage-release": {
           "builder": "@nrwl/node:build",
           "options": {
