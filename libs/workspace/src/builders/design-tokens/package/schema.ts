@@ -20,4 +20,6 @@ export interface DesignTokensPackageOptions {
   outputPath: string;
   /** The path to the package.json used for the release. */
   releasePackageJson: string;
+  /** Package version that is used in the release */
+  packageVersion: string;
 }

@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-/** The options that can be used with the elements builder */
-export interface ElementsOptions {
-  /** The path to the package.json used for the release. */
-  releasePackageJson: string;
-  /** The tag within the nx projects that is included for this build. */
-  buildTag?: string;
-  /** The path where the elements target should built to. */
-  outputPath: string;
-  /** Package version that is used in the release */
-  packageVersion: string;
-}
+import { red } from 'chalk';
+import { publishReleaseNext } from './publish-release-next';
+
+/** The root of the barista git repo where the git commands should be executed */
+const WORKSPACE_ROOT = process.env.WORKSPACE_ROOT || process.cwd();
+
+// /** Entry-point for the create release script. */
+publishReleaseNext(WORKSPACE_ROOT)
+  .then()
+  .catch((error) => {
+    console.log(red(error));
+    process.exit(1);
+  });

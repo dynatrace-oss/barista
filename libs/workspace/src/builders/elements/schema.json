@@ -15,6 +15,10 @@
       "type": "string",
       "default": "scope:elements",
       "description": "The tag within the nx projects that is included for this build."
+    },
+    "packageVersion": {
+      "type": "string",
+      "description": "Package version that is used to release"
     }
   },
   "additionalProperties": false,

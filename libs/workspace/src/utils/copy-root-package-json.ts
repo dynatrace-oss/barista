@@ -34,6 +34,7 @@ export function copyRootPackageJson(
   context: BuilderContext,
   releasePackageJsonPath: string,
   outputPath: string,
+  packageVersion?: string,
 ): Observable<void> {
   context.logger.info(`Reading root package.json and release package.json`);
   return forkJoin(
@@ -45,7 +46,11 @@ export function copyRootPackageJson(
     map(([projectPackageJson, releasePackageJson]) => {
       context.logger.info(`Syncing dependencies and metadata`);
       // Sync the main package version over
-      releasePackageJson.version = projectPackageJson.version;
+      if (packageVersion) {
+        releasePackageJson.version = packageVersion;
+      } else {
+        releasePackageJson.version = projectPackageJson.version;
+      }
       // Sync licence and author over
       releasePackageJson.license = projectPackageJson.license;
       releasePackageJson.author = projectPackageJson.author;

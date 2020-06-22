@@ -60,6 +60,7 @@ export function elementsBuilder(
         context,
         options.releasePackageJson,
         options.outputPath,
+        options.packageVersion,
       ),
     ),
     tap(() => context.logger.info('Build successful.')),
