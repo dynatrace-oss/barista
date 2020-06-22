@@ -5,11 +5,11 @@
   cdkDropList
   [cdkDropListData]="dataSource"
 >
-  <dt-simple-order-column
-    name="order"
-    label="Order"
-    dtColumnProportion="0.2"
-  ></dt-simple-order-column>
+  <ng-container [dtColumnDef]="'order'" dtColumnAlign="text">
+    <dt-header-cell *dtHeaderCellDef>Order</dt-header-cell>
+    <dt-order-cell *dtCellDef="let data; let index = index" [index]="index">
+    </dt-order-cell>
+  </ng-container>
   <dt-simple-text-column
     name="name"
     label="Rule name"
