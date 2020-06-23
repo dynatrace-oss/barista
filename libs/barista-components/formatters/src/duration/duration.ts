@@ -34,12 +34,14 @@ export class DtDuration implements PipeTransform {
    * @param formatMethod DtDurationMode Configuration for formatting the output
    * @param outputUnit dtTimeUnit | undefined value describing the unit to which it should format
    * @param inputUnit dtTimeUnit value describing which unit the duration is in
+   * @param maxDecimals max amount of decimals
    */
   transform(
     duration: any,
     formatMethod: DurationMode,
     outputUnit: DtTimeUnit | undefined,
     inputUnit: DtTimeUnit = DtTimeUnit.MILLISECOND,
+    maxDecimals?: number,
   ): DtFormattedValue | string {
     if (isEmpty(duration)) {
       return NO_DATA;
@@ -50,6 +52,7 @@ export class DtDuration implements PipeTransform {
           formatMethod,
           outputUnit,
           inputUnit,
+          maxDecimals,
         )
       : NO_DATA;
   }
