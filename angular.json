@@ -75,7 +75,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/dev/tsconfig.app.json"],
-            "exclude": ["**/node_modules/**", "!apps/dev/**"]
+            "exclude": ["**/node_modules/**", "!apps/dev/**/*"]
           }
         }
       }
@@ -201,7 +201,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["apps/components-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/components-e2e/**"]
+            "exclude": ["**/node_modules/**", "!apps/components-e2e/**/*"]
           }
         },
         "test": {
@@ -320,7 +320,7 @@
               "apps/demos/tsconfig.app.json",
               "apps/demos/tsconfig.a11y.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/demos/**"]
+            "exclude": ["**/node_modules/**", "!apps/demos/**/*"]
           }
         },
         "lint-styles": {
@@ -450,7 +450,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["libs/examples/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/examples/**"]
+            "exclude": ["**/node_modules/**", "!libs/examples/**/*"]
           }
         },
         "lint-styles": {
@@ -686,7 +686,10 @@
               "apps/barista-design-system/tsconfig.app.json",
               "apps/barista-design-system/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/barista-design-system/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/barista-design-system/**/*"
+            ]
           }
         },
         "lint-styles": {
@@ -805,7 +808,7 @@
               "apps/universal/tsconfig.app.json",
               "apps/universal/tsconfig.server.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/universal/**"]
+            "exclude": ["**/node_modules/**", "!apps/universal/**/*"]
           }
         },
         "serve-ssr": {
@@ -879,7 +882,7 @@
               "libs/workspace/tsconfig.lib.json",
               "libs/workspace/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/workspace/**"]
+            "exclude": ["**/node_modules/**", "!libs/workspace/**/*"]
           }
         },
         "test": {
@@ -1060,7 +1063,10 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": ["tools/pull-request-labeler/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/pull-request-labeler/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!tools/pull-request-labeler/**/*"
+            ]
           }
         },
         "test": {
@@ -1130,7 +1136,7 @@
           "options": {
             "tslintConfig": "libs/tools/linting/tslint-self.json",
             "tsConfig": "libs/tools/linting/tsconfig.json",
-            "exclude": ["**/node_modules/**", "!libs/tools/linting/**"]
+            "exclude": ["**/node_modules/**", "!libs/tools/linting/**/*"]
           }
         }
       }
@@ -1191,7 +1197,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/alert/**"
+              "!libs/barista-components/alert/**/*"
             ]
           }
         },
@@ -1231,7 +1237,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/autocomplete/**"
+              "!libs/barista-components/autocomplete/**/*"
             ]
           }
         },
@@ -1271,7 +1277,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/bar-indicator/**"
+              "!libs/barista-components/bar-indicator/**/*"
             ]
           }
         },
@@ -1311,7 +1317,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/breadcrumbs/**"
+              "!libs/barista-components/breadcrumbs/**/*"
             ]
           }
         },
@@ -1351,7 +1357,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/button/**"
+              "!libs/barista-components/button/**/*"
             ]
           }
         },
@@ -1391,7 +1397,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/button-group/**"
+              "!libs/barista-components/button-group/**/*"
             ]
           }
         },
@@ -1431,7 +1437,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/card/**"
+              "!libs/barista-components/card/**/*"
             ]
           }
         },
@@ -1471,7 +1477,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/chart/**"
+              "!libs/barista-components/chart/**/*"
             ]
           }
         },
@@ -1511,7 +1517,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/checkbox/**"
+              "!libs/barista-components/checkbox/**/*"
             ]
           }
         },
@@ -1551,7 +1557,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/experimental/combobox/**"
+              "!libs/barista-components/experimental/combobox/**/*"
             ]
           }
         },
@@ -1591,7 +1597,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/confirmation-dialog/**"
+              "!libs/barista-components/confirmation-dialog/**/*"
             ]
           }
         },
@@ -1631,7 +1637,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/consumption/**"
+              "!libs/barista-components/consumption/**/*"
             ]
           }
         },
@@ -1671,7 +1677,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/container-breakpoint-observer/**"
+              "!libs/barista-components/container-breakpoint-observer/**/*"
             ]
           }
         },
@@ -1713,7 +1719,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/context-dialog/**"
+              "!libs/barista-components/context-dialog/**/*"
             ]
           }
         },
@@ -1753,7 +1759,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/copy-to-clipboard/**"
+              "!libs/barista-components/copy-to-clipboard/**/*"
             ]
           }
         },
@@ -1793,7 +1799,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/core/**"
+              "!libs/barista-components/core/**/*"
             ]
           }
         },
@@ -1833,7 +1839,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/drawer/**"
+              "!libs/barista-components/drawer/**/*"
             ]
           }
         },
@@ -1873,7 +1879,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/experimental/drawer-table/**"
+              "!libs/barista-components/experimental/drawer-table/**/*"
             ]
           }
         },
@@ -1915,7 +1921,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/empty-state/**"
+              "!libs/barista-components/empty-state/**/*"
             ]
           }
         },
@@ -1955,7 +1961,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/event-chart/**"
+              "!libs/barista-components/event-chart/**/*"
             ]
           }
         },
@@ -1995,7 +2001,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/expandable-panel/**"
+              "!libs/barista-components/expandable-panel/**/*"
             ]
           }
         },
@@ -2034,7 +2040,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/expandable-section/**"
+              "!libs/barista-components/expandable-section/**/*"
             ]
           }
         },
@@ -2073,7 +2079,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/expandable-text/**"
+              "!libs/barista-components/expandable-text/**/*"
             ]
           }
         },
@@ -2112,7 +2118,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/filter-field/**"
+              "!libs/barista-components/filter-field/**/*"
             ]
           }
         },
@@ -2150,7 +2156,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/form-field/**"
+              "!libs/barista-components/form-field/**/*"
             ]
           }
         },
@@ -2181,7 +2187,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/formatters/**"
+              "!libs/barista-components/formatters/**/*"
             ]
           }
         },
@@ -2220,7 +2226,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/highlight/**"
+              "!libs/barista-components/highlight/**/*"
             ]
           }
         },
@@ -2259,7 +2265,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/icon/**"
+              "!libs/barista-components/icon/**/*"
             ]
           }
         },
@@ -2298,7 +2304,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/indicator/**"
+              "!libs/barista-components/indicator/**/*"
             ]
           }
         },
@@ -2338,7 +2344,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/info-group/**"
+              "!libs/barista-components/info-group/**/*"
             ]
           }
         },
@@ -2378,7 +2384,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/inline-editor/**"
+              "!libs/barista-components/inline-editor/**/*"
             ]
           }
         },
@@ -2417,7 +2423,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/input/**"
+              "!libs/barista-components/input/**/*"
             ]
           }
         },
@@ -2456,7 +2462,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/key-value-list/**"
+              "!libs/barista-components/key-value-list/**/*"
             ]
           }
         },
@@ -2495,7 +2501,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/legend/**"
+              "!libs/barista-components/legend/**/*"
             ]
           }
         },
@@ -2535,7 +2541,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/loading-distractor/**"
+              "!libs/barista-components/loading-distractor/**/*"
             ]
           }
         },
@@ -2574,7 +2580,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/menu/**"
+              "!libs/barista-components/menu/**/*"
             ]
           }
         },
@@ -2614,7 +2620,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/micro-chart/**"
+              "!libs/barista-components/micro-chart/**/*"
             ]
           }
         },
@@ -2653,7 +2659,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/overlay/**"
+              "!libs/barista-components/overlay/**/*"
             ]
           }
         },
@@ -2692,7 +2698,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/pagination/**"
+              "!libs/barista-components/pagination/**/*"
             ]
           }
         },
@@ -2731,7 +2737,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/progress-bar/**"
+              "!libs/barista-components/progress-bar/**/*"
             ]
           }
         },
@@ -2770,7 +2776,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/progress-circle/**"
+              "!libs/barista-components/progress-circle/**/*"
             ]
           }
         },
@@ -2809,7 +2815,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/experimental/quick-filter/**"
+              "!libs/barista-components/experimental/quick-filter/**/*"
             ]
           }
         },
@@ -2849,7 +2855,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/radial-chart/**"
+              "!libs/barista-components/radial-chart/**/*"
             ]
           }
         },
@@ -2888,7 +2894,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/radio/**"
+              "!libs/barista-components/radio/**/*"
             ]
           }
         },
@@ -2933,7 +2939,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/schematics/**"
+              "!libs/barista-components/schematics/**/*"
             ]
           }
         },
@@ -2962,7 +2968,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/secondary-nav/**"
+              "!libs/barista-components/secondary-nav/**/*"
             ]
           }
         },
@@ -3002,7 +3008,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/select/**"
+              "!libs/barista-components/select/**/*"
             ]
           }
         },
@@ -3042,7 +3048,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/slider/**"
+              "!libs/barista-components/slider/**/*"
             ]
           }
         },
@@ -3082,7 +3088,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/show-more/**"
+              "!libs/barista-components/show-more/**/*"
             ]
           }
         },
@@ -3162,7 +3168,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/stepper/**"
+              "!libs/barista-components/stepper/**/*"
             ]
           }
         },
@@ -3202,7 +3208,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/sunburst-chart/**"
+              "!libs/barista-components/sunburst-chart/**/*"
             ]
           }
         },
@@ -3246,7 +3252,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/switch/**"
+              "!libs/barista-components/switch/**/*"
             ]
           }
         },
@@ -3286,7 +3292,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/table/**"
+              "!libs/barista-components/table/**/*"
             ]
           }
         },
@@ -3326,7 +3332,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/tabs/**"
+              "!libs/barista-components/tabs/**/*"
             ]
           }
         },
@@ -3364,7 +3370,10 @@
               "libs/barista-components/tag/tsconfig.lib.json",
               "libs/barista-components/tag/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/barista-components/tag/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/tag/**/*"
+            ]
           }
         },
         "lint-styles": {
@@ -3403,7 +3412,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/theming/**"
+              "!libs/barista-components/theming/**/*"
             ]
           }
         },
@@ -3443,7 +3452,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/tile/**"
+              "!libs/barista-components/tile/**/*"
             ]
           }
         },
@@ -3483,7 +3492,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/timeline-chart/**"
+              "!libs/barista-components/timeline-chart/**/*"
             ]
           }
         },
@@ -3523,7 +3532,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/toast/**"
+              "!libs/barista-components/toast/**/*"
             ]
           }
         },
@@ -3563,7 +3572,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/toggle-button-group/**"
+              "!libs/barista-components/toggle-button-group/**/*"
             ]
           }
         },
@@ -3603,7 +3612,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/top-bar-navigation/**"
+              "!libs/barista-components/top-bar-navigation/**/*"
             ]
           }
         },
@@ -3643,7 +3652,7 @@
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/tree-table/**"
+              "!libs/barista-components/tree-table/**/*"
             ]
           }
         },
@@ -3680,7 +3689,7 @@
             "tsConfig": ["libs/shared/barista-definitions/tsconfig.lib.json"],
             "exclude": [
               "**/node_modules/**",
-              "!libs/shared/barista-definitions/**"
+              "!libs/shared/barista-definitions/**/*"
             ]
           }
         }
@@ -3699,7 +3708,7 @@
               "libs/testing/node/tsconfig.lib.json",
               "libs/testing/node/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/testing/node/**"]
+            "exclude": ["**/node_modules/**", "!libs/testing/node/**/*"]
           }
         },
         "test": {
@@ -3725,7 +3734,7 @@
               "libs/testing/browser/tsconfig.lib.json",
               "libs/testing/browser/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/testing/browser/**"]
+            "exclude": ["**/node_modules/**", "!libs/testing/browser/**/*"]
           }
         },
         "test": {
@@ -3751,7 +3760,7 @@
               "libs/testing/fixtures/tsconfig.lib.json",
               "libs/testing/fixtures/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/testing/fixtures/**"]
+            "exclude": ["**/node_modules/**", "!libs/testing/fixtures/**/*"]
           }
         },
         "test": {
@@ -3867,7 +3876,10 @@
               "libs/fluid-elements/button/tsconfig.lib.json",
               "libs/fluid-elements/button/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/fluid-elements/button/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/fluid-elements/button/**/*"
+            ]
           }
         },
         "test": {
@@ -3983,7 +3995,7 @@
               "apps/fluid-dev/tsconfig.app.json",
               "apps/fluid-dev/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/fluid-dev/**"]
+            "exclude": ["**/node_modules/**", "!apps/fluid-dev/**/*"]
           }
         },
         "test": {
@@ -4010,7 +4022,10 @@
               "libs/testing/custom-element/tsconfig.lib.json",
               "libs/testing/custom-element/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/testing/custom-element/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/testing/custom-element/**/*"
+            ]
           }
         },
         "test": {
@@ -4170,7 +4185,7 @@
               "apps/design-tokens-ui/tsconfig.app.json",
               "apps/design-tokens-ui/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/design-tokens-ui/**"]
+            "exclude": ["**/node_modules/**", "!apps/design-tokens-ui/**/*"]
           }
         },
         "lint-styles": {
@@ -4211,7 +4226,10 @@
               "libs/design-tokens-ui/input/tsconfig.lib.json",
               "libs/design-tokens-ui/input/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/design-tokens-ui/input/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/design-tokens-ui/input/**/*"
+            ]
           }
         },
         "lint-styles": {
