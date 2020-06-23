@@ -39,6 +39,7 @@ describe('DtDurationPipe', () => {
     inputUnit: DtTimeUnit;
     outputUnit: DtTimeUnit | undefined;
     output: string;
+    maxDecimals?: number;
   }
 
   let pipe: DtDuration;
@@ -187,11 +188,19 @@ describe('DtDurationPipe', () => {
           output: '0.5 s',
         },
         {
-          input: 1.5,
+          input: 1234.5678,
           outputUnit: DtTimeUnit.SECOND,
           inputUnit: DtTimeUnit.MILLISECOND,
           precision: 'PRECISE',
-          output: '0.0015 s',
+          output: '1.2345678 s',
+        },
+        {
+          input: 1.6,
+          outputUnit: DtTimeUnit.SECOND,
+          inputUnit: DtTimeUnit.MILLISECOND,
+          precision: 'PRECISE',
+          output: '0.002 s',
+          maxDecimals: 3,
         },
         {
           input: 30000,
@@ -244,6 +253,7 @@ describe('DtDurationPipe', () => {
                 'PRECISE',
                 testCasePrecision.outputUnit,
                 testCasePrecision.inputUnit,
+                testCasePrecision.maxDecimals,
               )
               .toString()
               .trim(),

@@ -170,6 +170,7 @@ You can specify the following properties on your options:
 | `formatMethod` | `'DEFAULT | 'PRECISE' | number` | `'DEFAULT'`    | Formatting/Precision mode configuring the output |
 | `outputUnit`   | `DtTimeUnit`                    | `undefined`    | Which unit to transform the input to             |
 | `inputUnit`    | `DtTimeUnit`                    | `Milliseconds` | Which timeunit is used for the input             |
+| `maxDecimals`  | `number`                        | 5              | Max amount of decimals                           |
 
 #### Examples
 
