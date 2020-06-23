@@ -31,6 +31,7 @@ describe('DtDurationFormatter', () => {
     formatMethod: string;
     outPut: Output[];
     displayedOutPut: string;
+    maxDecimals?: number;
   }
 
   describe('dtTransformResultPrecise() with OutputUnit', () => {
@@ -225,6 +226,20 @@ describe('DtDurationFormatter', () => {
           displayedOutPut: '29629.656 h',
         },
         {
+          duration: 1234.569,
+          inputUnit: DtTimeUnit.DAY,
+          outputUnit: DtTimeUnit.HOUR,
+          formatMethod: 'PRECISE',
+          maxDecimals: 2,
+          outPut: [
+            {
+              timeUnit: DtTimeUnit.HOUR,
+              duration: '29629.66',
+            },
+          ],
+          displayedOutPut: '29629.66 h',
+        },
+        {
           duration: 12345.5,
           inputUnit: DtTimeUnit.MILLISECOND,
           outputUnit: DtTimeUnit.MICROSECOND,
@@ -285,6 +300,7 @@ describe('DtDurationFormatter', () => {
               testCase.inputUnit,
               testCase.outputUnit,
               formatMethod,
+              testCase.maxDecimals,
             )!,
           );
           testCase.outPut.forEach((output: Output, index) => {

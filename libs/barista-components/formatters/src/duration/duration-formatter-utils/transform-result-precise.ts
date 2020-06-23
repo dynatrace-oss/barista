@@ -28,6 +28,7 @@ import { dtConvertToMilliseconds } from './convert-to-milliseconds';
  * @param inputUnit dtTimeUnit value describing which unit the duration is in
  * @param outputUnit dtTimeUnit | undefined value describing the unit to which it should format
  * @param formatMethod the formatting method
+ * @param maxDecimals max amount of decimals
  */
 
 export function dtTransformResultPrecise(
@@ -35,20 +36,22 @@ export function dtTransformResultPrecise(
   inputUnit: DtTimeUnit,
   outputUnit: DtTimeUnit | undefined,
   formatMethod: DurationMode,
+  maxDecimals?: number,
 ): Map<DtTimeUnit, string> | undefined {
   const amount =
     inputUnit === DtTimeUnit.MILLISECOND
       ? duration
       : dtConvertToMilliseconds(duration, inputUnit);
   return outputUnit !== undefined
-    ? calcResult(amount!, formatMethod, outputUnit)
-    : calcResult(amount!, formatMethod, inputUnit);
+    ? calcResult(amount!, formatMethod, outputUnit, maxDecimals)
+    : calcResult(amount!, formatMethod, inputUnit, maxDecimals);
 }
 
 function calcResult(
   amount: number,
   formatMethod: DurationMode,
   unit: DtTimeUnit,
+  maxDecimals: number | undefined,
 ): Map<DtTimeUnit, string> {
   let result = new Map<DtTimeUnit, string>();
   if (formatMethod === 'PRECISE') {
@@ -56,6 +59,9 @@ function calcResult(
     // Need to move the comma since IEEE can't handle floating point numbers very well.
     if (unit === DtTimeUnit.MICROSECOND || unit === DtTimeUnit.NANOSECOND) {
       amount *= MOVE_COMMA;
+    }
+    if (maxDecimals) {
+      amount = Math.round(amount * 10 ** maxDecimals) / 10 ** maxDecimals;
     }
     result.set(unit, amount.toString());
   } else {

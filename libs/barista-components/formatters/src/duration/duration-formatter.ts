@@ -31,12 +31,14 @@ import {
  * @param formatMethod the formatting method
  * @param outputUnit dtTimeUnit | undefined value describing the unit to which it should format e.g to seconds
  * @param inputUnit dtTimeUnit value describing which unit the duration is in (default: milliseconds)
+ * @param maxDecimals max amount of decimals
  */
 export function formatDuration(
   duration: number,
   formatMethod: DurationMode = 'DEFAULT',
   outputUnit?: DtTimeUnit,
   inputUnit: DtTimeUnit = DtTimeUnit.MILLISECOND,
+  maxDecimals?: number,
 ): DtFormattedValue | string {
   const inputData: SourceData = {
     input: duration,
@@ -52,7 +54,13 @@ export function formatDuration(
   }
   const result =
     outputUnit || formatMethod === 'PRECISE'
-      ? dtTransformResultPrecise(duration, inputUnit, outputUnit, formatMethod)
+      ? dtTransformResultPrecise(
+          duration,
+          inputUnit,
+          outputUnit,
+          formatMethod,
+          maxDecimals,
+        )
       : dtTransformResult(duration, inputUnit, formatMethod);
 
   // Return NO_DATA when inputUnit is invalid
