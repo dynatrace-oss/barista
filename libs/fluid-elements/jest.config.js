@@ -2,7 +2,6 @@ const rootConfig = require('../../jest.config');
 
 module.exports = {
   ...rootConfig,
-  testEnvironment: 'jest-environment-jsdom-sixteen',
   transformIgnorePatterns: [
     // We need to allowlist lit-html and lit-element so that jest will
     // transform their code, as it is not shipped.
