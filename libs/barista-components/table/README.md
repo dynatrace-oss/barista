@@ -268,21 +268,20 @@ direction. The event contains the following properties.
 
 ## Ordering
 
-The `DtOrder` and `dt-simple-order-column` in combination with Angular's
-`DragDropModule` are used to add ordering functionality to the table. To add
-ordering capabilities to a table, import the `DragDropModule` and add the
-`dtOrder` and `cdkDropList` directive and `cdkDropListData` input to the
-`dt-table` component.
+The `DtOrder` and `dt-order-cell` in combination with Angular's `DragDropModule`
+are used to add ordering functionality to the table. To add ordering
+capabilities to a table, import the `DragDropModule` and add the `dtOrder` and
+`cdkDropList` directive and `cdkDropListData` input to the `dt-table` component.
 
 ```html
 <dt-table ... dtOrder cdkDropList [cdkDropListData]="dataSource" ...></dt-table>
 ```
 
 The `cdkDropListData` gets the same data as the table's `dataSource` input. When
-combining the `dt-simple-order-column` with other `dt-simple-column`s, their
-`sortable` input should be set to false. The `DtTableOrderDataSource` does not
-mutate the original data when ordering, if you want to persist the ordered state
-you have to take care of that yourself.
+combining the `dt-order-cell` with `dt-simple-column`s, their `sortable` input
+should be set to false. The `DtTableOrderDataSource` does not mutate the
+original data when ordering, if you want to persist the ordered state you have
+to take care of that yourself.
 
 <ba-live-example name="DtExampleTableOrderColumn" fullWidth></ba-live-example>
 

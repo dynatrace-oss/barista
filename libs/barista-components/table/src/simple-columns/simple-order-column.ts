@@ -21,8 +21,6 @@ import {
 } from '@angular/core';
 
 import { DtSimpleColumnBase } from './simple-column-base';
-import { DtTableOrderDataSource } from '../table-order-data-source';
-import { Observable } from 'rxjs';
 
 /**
  * @deprecated Using a simple order column does not work after angular version 9.1.6 anymore -
@@ -46,10 +44,4 @@ import { Observable } from 'rxjs';
     { provide: DtSimpleColumnBase, useExisting: DtSimpleOrderColumn },
   ],
 })
-export class DtSimpleOrderColumn<T> extends DtSimpleColumnBase<T> {
-  _getIndex(data: T): Observable<number> {
-    return (this.table.dataSource as DtTableOrderDataSource<
-      T
-    >)._dataIndexObservableMap.get(data)!;
-  }
-}
+export class DtSimpleOrderColumn<T> extends DtSimpleColumnBase<T> {}
