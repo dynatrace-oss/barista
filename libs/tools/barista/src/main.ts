@@ -100,7 +100,6 @@ async function buildPages(): Promise<void[]> {
     next: { type: 'boolean', alias: 'n', default: false },
     linkReplacement: { type: 'string', alias: 'lr' },
   }).argv;
-  console.log('Next: ', next);
   const environment = next ? nextEnvironment : baristaEnvironment;
   const globalTransformers = next
     ? []

@@ -14,20 +14,4 @@
  * limitations under the License.
  */
 
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { Next } from './app';
-import { NextRoutingModule } from './app.routing.module';
-import {
-  BaPageService,
-  BaPageGuard,
-} from '@dynatrace/shared/data-access-strapi';
-import { HttpClientModule } from '@angular/common/http';
-
-@NgModule({
-  declarations: [Next],
-  imports: [BrowserModule, NextRoutingModule, HttpClientModule],
-  providers: [BaPageService, BaPageGuard],
-  bootstrap: [Next],
-})
-export class NextModule {}
+export * from './next-sidenav';

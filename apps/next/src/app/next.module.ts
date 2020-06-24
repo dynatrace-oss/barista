@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
-import { NextIndexPage } from './index-page';
-import { DtThemingModule } from '@dynatrace/barista-components/theming';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
-
-export const routes: Route[] = [
-  {
-    path: '',
-    component: NextIndexPage,
-    canActivate: [BaPageGuard],
-  },
-];
+import { Next } from './next';
+import { NextRoutingModule } from './next.routing.module';
+import {
+  BaPageService,
+  BaPageGuard,
+} from '@dynatrace/shared/data-access-strapi';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes), DtThemingModule],
-  declarations: [NextIndexPage],
-  providers: [],
+  declarations: [Next],
+  imports: [BrowserModule, NextRoutingModule, HttpClientModule],
+  providers: [BaPageService, BaPageGuard],
+  bootstrap: [Next],
 })
-export class NextIndexPageModule {}
+export class NextModule {}

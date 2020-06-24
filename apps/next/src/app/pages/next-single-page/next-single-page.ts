@@ -19,11 +19,11 @@ import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 
 @Component({
-  selector: 'ba-single-page',
-  templateUrl: 'single-page.html',
-  styleUrls: ['single-page.scss'],
+  selector: 'next-single-page',
+  templateUrl: 'next-single-page.html',
+  styleUrls: ['next-single-page.scss'],
   host: {
-    class: 'ba-page',
+    class: 'next-page',
   },
 })
 export class NextSinglePage implements OnInit, AfterViewInit {
@@ -32,9 +32,7 @@ export class NextSinglePage implements OnInit, AfterViewInit {
 
   constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
 
-  ngOnInit(): void {
-    console.log('here');
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {}
 }

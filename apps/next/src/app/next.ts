@@ -14,26 +14,13 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
-import {
-  BaPageGuard,
-  BaPageService,
-} from '@dynatrace/shared/data-access-strapi';
-import { NextSinglePage } from './single-page';
+import { Component } from '@angular/core';
 
-export const routes: Route[] = [
-  {
-    path: '',
-    component: NextSinglePage,
-    canActivate: [BaPageGuard],
-  },
-];
-
-@NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes)],
-  declarations: [],
-  providers: [BaPageGuard, BaPageService],
+@Component({
+  selector: 'x-root',
+  templateUrl: './next.html',
+  styleUrls: ['./next.scss'],
 })
-export class NextSinglePageModule {}
+export class Next {
+  title = 'next';
+}

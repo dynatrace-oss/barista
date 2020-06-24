@@ -16,7 +16,7 @@
 
 import { enableProdMode, ViewEncapsulation } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { NextModule } from './app/app.module';
+import { NextModule } from './app/next.module';
 import { environment } from './environments/environment';
 
 if (environment.production) {

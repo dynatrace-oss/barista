@@ -30,7 +30,7 @@ export const nextRoutes: Route[] = [
   {
     path: '**',
     loadChildren: () =>
-      import('./pages/single-page/single-page.module').then(
+      import('./pages/single-page/next-single-page.module').then(
         (module) => module.NextSinglePageModule,
       ),
   },

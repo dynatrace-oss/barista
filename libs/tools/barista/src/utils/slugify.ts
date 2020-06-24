@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export function slugify(str: string): string {
+export function slugify(str: string): string | null {
   if (str !== null) {
     const escapedTitle = str
       .toLowerCase()

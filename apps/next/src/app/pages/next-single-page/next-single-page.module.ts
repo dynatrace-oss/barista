@@ -14,20 +14,26 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
-import { NextPage } from '@dynatrace/shared/next-definitions';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import {
+  BaPageGuard,
+  BaPageService,
+} from '@dynatrace/shared/data-access-strapi';
+import { NextSinglePage } from './next-single-page';
 
-@Component({
-  selector: 'next-error-page',
-  templateUrl: './error-page.html',
-  styleUrls: ['./error-page.scss'],
-  host: {
-    class: 'next-page',
+export const routes: Route[] = [
+  {
+    path: '',
+    component: NextSinglePage,
+    canActivate: [BaPageGuard],
   },
-})
-export class NextErrorPage {
-  content = this._pageService._getCurrentPage();
+];
 
-  constructor(private _pageService: BaPageService<NextPage>) {}
-}
+@NgModule({
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  declarations: [],
+  providers: [BaPageGuard, BaPageService],
+})
+export class NextSinglePageModule {}

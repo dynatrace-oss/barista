@@ -20,11 +20,11 @@ import { NextPage } from '@dynatrace/shared/next-definitions';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-  selector: 'ba-index-page',
-  templateUrl: './index-page.html',
-  styleUrls: ['./index-page.scss'],
+  selector: 'next-index-page',
+  templateUrl: './next-index-page.html',
+  styleUrls: ['./next-index-page.scss'],
   host: {
-    class: 'ba-page',
+    class: 'next-page',
   },
 })
 export class NextIndexPage implements OnInit {

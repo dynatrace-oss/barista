@@ -14,17 +14,24 @@
  * limitations under the License.
  */
 
-import { Component, Input } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { NextErrorPage } from './next-error-page';
+import { DtThemingModule } from '@dynatrace/barista-components/theming';
+import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
 
-@Component({
-  selector: 'nav[next-sidenav]',
-  templateUrl: 'sidenav.html',
-  styleUrls: ['sidenav.scss'],
-  host: {
-    class: 'next-sidenav',
+export const routes: Route[] = [
+  {
+    path: '',
+    component: NextErrorPage,
+    canActivate: [BaPageGuard],
   },
+];
+
+@NgModule({
+  imports: [CommonModule, RouterModule.forChild(routes), DtThemingModule],
+  declarations: [],
+  providers: [],
 })
-export class BaSidenav {
-  /** all sidenav items */
-  @Input() sidenavData;
-}
+export class ErrorPageModule {}

@@ -14,4 +14,17 @@
  * limitations under the License.
  */
 
-export * from './sidenav';
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'nav[next-sidenav]',
+  templateUrl: 'next-sidenav.html',
+  styleUrls: ['next-sidenav.scss'],
+  host: {
+    class: 'next-sidenav',
+  },
+})
+export class NextSidenav {
+  /** all sidenav items */
+  @Input() sidenavData;
+}

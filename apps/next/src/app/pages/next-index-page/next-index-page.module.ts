@@ -17,21 +17,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { NextErrorPage } from './error-page';
+import { NextIndexPage } from './next-index-page';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
 
 export const routes: Route[] = [
   {
     path: '',
-    component: NextErrorPage,
+    component: NextIndexPage,
     canActivate: [BaPageGuard],
   },
 ];
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes), DtThemingModule],
-  declarations: [],
+  declarations: [NextIndexPage],
   providers: [],
 })
-export class ErrorPageModule {}
+export class NextIndexPageModule {}
