@@ -46,6 +46,14 @@ export function designTokensPackageBuilder(
   ).pipe(
     // Wait for the result of the initial builder
     switchMap((build) => build.result),
+    switchMap(() =>
+      context.scheduleTarget({
+        target: 'tailwindcss',
+        project: 'shared-design-tokens',
+      }),
+    ),
+    // Wait for the result of the tailwinds builder
+    switchMap((build) => build.result),
     // Copy the packageJson and prefill with version
     // sync dependencies when necessary.
     switchMap(() =>

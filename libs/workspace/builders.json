@@ -36,6 +36,11 @@
       "schema": "./src/builders/design-tokens/dependency-tree/schema.json",
       "description": "Run design dependency tree generator for the design tokens"
     },
+    "design-tokens-tailwindcss": {
+      "implementation": "./src/builders/design-tokens/tailwindcss/index",
+      "schema": "./src/builders/design-tokens/tailwindcss/schema.json",
+      "description": "Run design tokens tailwindcss converter"
+    },
     "elements": {
       "implementation": "./src/builders/elements/index",
       "schema": "./src/builders/elements/schema.json",
