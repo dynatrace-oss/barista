@@ -22,7 +22,8 @@ const scroll = ClientFunction(function (x: number): void {
   window.scrollBy(0, x);
 });
 
-test('should highlight the first toc item when first toc anchor is clicked', async (testController: TestController) => {
+// tslint:disable-next-line: dt-no-focused-tests
+test.only('should highlight the first toc item when first toc anchor is clicked', async (testController: TestController) => {
   await testController
     .click('a[id="imports"]')
     .wait(1000)
