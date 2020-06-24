@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "design-tokens-tailwindcss",
+  "type": "object",
+  "properties": {
+    "baseDirectory": {
+      "type": "string",
+      "description": "Base directory that the glob of entrypoints uses. It is also considered the project root for relative imports."
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "Defines the output directory for the tailwindcss file"
+    },
+    "themeFile": {
+      "type": "string",
+      "description": "Path to the theme file that should be used to define color variables."
+    }
+  },
+  "additionalProperties": false,
+  "required": ["baseDirectory", "outputPath", "themeFile"],
+  "definitions": {}
+}

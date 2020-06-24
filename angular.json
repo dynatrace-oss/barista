@@ -3826,6 +3826,14 @@
             "outputPath": "dist/libs/shared/design-tokens-dependency-graph/",
             "baseDirectory": "libs/shared/design-tokens/src/lib"
           }
+        },
+        "tailwindcss": {
+          "builder": "./dist/libs/workspace:design-tokens-tailwindcss",
+          "options": {
+            "baseDirectory": "libs/shared/design-tokens/src/lib",
+            "outputPath": "dist/libs/shared/design-tokens/fluid-tailwind.css",
+            "themeFile": "libs/shared/design-tokens/generated/global/theme.scss"
+          }
         }
       }
     },
