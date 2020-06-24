@@ -17,27 +17,33 @@
 import { Route, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NextErrorPage } from './pages/error-page/error-page';
 
 export const nextRoutes: Route[] = [
   {
     path: '',
     loadChildren: () =>
-      import('./pages/index-page/index-page.module').then(
+      import('./pages/next-index-page/next-index-page.module').then(
         (module) => module.NextIndexPageModule,
       ),
   },
   {
     path: '**',
     loadChildren: () =>
-      import('./pages/single-page/next-single-page.module').then(
+      import('./pages/next-single-page/next-single-page.module').then(
         (module) => module.NextSinglePageModule,
+      ),
+  },
+  {
+    path: 'not-found',
+    loadChildren: () =>
+      import('./pages/next-error-page/next-error-page.module').then(
+        (module) => module.NextErrorPageModule,
       ),
   },
 ];
 
 @NgModule({
-  declarations: [NextErrorPage],
+  declarations: [],
   imports: [
     CommonModule,
     RouterModule.forRoot(nextRoutes, {

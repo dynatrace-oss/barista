@@ -34,4 +34,4 @@ export const routes: Route[] = [
   declarations: [],
   providers: [],
 })
-export class ErrorPageModule {}
+export class NextErrorPageModule {}

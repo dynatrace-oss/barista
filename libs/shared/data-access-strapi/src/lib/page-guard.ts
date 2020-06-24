@@ -39,7 +39,6 @@ export class BaPageGuard implements CanActivate {
     _route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean> {
-    console.log(_route, state);
     const url = getUrlPathName(this._document, state.url);
     return this._pageService._getPage(url).pipe(
       catchError((error) => {
