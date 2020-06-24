@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 import { NextPage } from '@dynatrace/shared/next-definitions';
+import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'next-error-page',
@@ -26,8 +27,18 @@ import { NextPage } from '@dynatrace/shared/next-definitions';
     class: 'next-page',
   },
 })
-export class NextErrorPage {
-  content = this._pageService._getCurrentPage();
+export class NextErrorPage implements OnInit {
+  page = this._pageService._getCurrentPage();
+  content: SafeHtml;
 
-  constructor(private _pageService: BaPageService<NextPage>) {}
+  constructor(
+    private _pageService: BaPageService<NextPage>,
+    private _sanitizer: DomSanitizer,
+  ) {}
+
+  ngOnInit(): void {
+    if (this.page?.content) {
+      this.content = this._sanitizer.bypassSecurityTrustHtml(this.page.content);
+    }
+  }
 }
