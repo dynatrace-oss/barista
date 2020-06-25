@@ -492,9 +492,13 @@ workflows:
           context: barista
           requires:
             - install
-      - e2e-test-browserstack:
+      # - e2e-test-browserstack:
           # BROWSERSTACK_ACCESS_KEY is needed for browserstack automation
           # BROWSERSTACK_USERNAME is needed for browserstack automation
+          # context: barista
+          # requires:
+            # - install
+      - e2e-test-local:
           context: barista
           requires:
             - install
@@ -514,12 +518,14 @@ workflows:
           requires:
             - build
       - bazel_ci:
+          <<: *filter_branches
           context: barista
 
   # Workflow for running build and test on windows
   win-check:
     jobs:
       - install-win:
+          <<: *filter_branches
           context: barista
       - build-win:
           context: barista
