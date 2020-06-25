@@ -16,7 +16,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BaUxdNode } from '@dynatrace/shared/barista-definitions';
-import { BaPageService } from 'libs/shared/data-access-strapi/src/lib/page.service';
+import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 // TODO: Use lodash-es instead. PR: https://github.com/dynatrace-oss/barista/pull/846
 import { cloneDeep } from 'lodash';
 

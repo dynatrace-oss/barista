@@ -24,7 +24,7 @@ import {
   ViewContainerRef,
   Injector,
 } from '@angular/core';
-import { BaPageService } from 'libs/shared/data-access-strapi/src/lib/page.service';
+import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 import { createComponent } from '../../utils/create-component';
 import {
