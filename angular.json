@@ -733,6 +733,13 @@
             "skipJsErrors": false
           },
           "configurations": {
+            "remote": {
+              "browsers": [
+                "browserstack:chrome",
+                "browserstack:edge@18:windows"
+              ],
+              "concurrency": 2
+            },
             "remote-pr": {
               "browsers": ["browserstack:edge@18:windows"],
               "concurrency": 4
@@ -766,9 +773,14 @@
             ]
           },
           "configurations": {
+            "remote": {
+              "commands": [
+                {
+                  "command": "npx ng run barista-design-system:e2e-testrun --configuration=remote"
+                }
+              ]
+            },
             "remote-pr": {
-              "browsers": ["browserstack:edge@18:windows"],
-              "concurrency": 4,
               "commands": [
                 {
                   "command": "npx ng run barista-design-system:e2e-testrun --configuration=remote-pr"
@@ -776,8 +788,6 @@
               ]
             },
             "ci": {
-              "browsers": ["chrome:headless"],
-              "concurrency": 5,
               "commands": [
                 {
                   "command": "npx ng run barista-design-system:e2e-testrun --configuration=ci"
@@ -785,9 +795,6 @@
               ]
             },
             "watch": {
-              "browsers": ["chrome"],
-              "stopOnFirstFail": false,
-              "live": true,
               "commands": [
                 {
                   "command": "npx ng run barista-design-system:e2e-testrun --configuration=watch"
