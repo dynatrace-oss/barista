@@ -19,15 +19,15 @@ import { NgModule } from '@angular/core';
 import { Next } from './next';
 import { NextRoutingModule } from './next.routing.module';
 import {
-  BaPageService,
-  BaPageGuard,
+  DSPageService,
+  DSPageGuard,
 } from '@dynatrace/shared/data-access-strapi';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [Next],
   imports: [BrowserModule, NextRoutingModule, HttpClientModule],
-  providers: [BaPageService, BaPageGuard],
+  providers: [DSPageService, DSPageGuard],
   bootstrap: [Next],
 })
 export class NextModule {}

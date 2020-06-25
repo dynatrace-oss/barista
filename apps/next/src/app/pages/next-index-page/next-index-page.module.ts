@@ -19,13 +19,13 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { NextIndexPage } from './next-index-page';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
+import { DSPageGuard } from '@dynatrace/shared/data-access-strapi';
 
 export const routes: Route[] = [
   {
     path: '',
     component: NextIndexPage,
-    canActivate: [BaPageGuard],
+    canActivate: [DSPageGuard],
   },
 ];
 

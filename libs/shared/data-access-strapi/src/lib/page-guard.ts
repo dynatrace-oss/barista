@@ -24,12 +24,12 @@ import {
 } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, mapTo } from 'rxjs/operators';
-import { BaPageService, getUrlPathName } from './page.service';
+import { DSPageService, getUrlPathName } from './page.service';
 
 @Injectable()
-export class BaPageGuard implements CanActivate {
+export class DSPageGuard implements CanActivate {
   constructor(
-    private _pageService: BaPageService,
+    private _pageService: DSPageService,
     private _router: Router,
     @Inject(DOCUMENT) private _document: any,
   ) {}

@@ -22,7 +22,7 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { BaComponentsModule } from '../../components';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
+import { DSPageGuard } from '@dynatrace/shared/data-access-strapi';
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { BaContributors } from './components/contributors';
 import { BaIconOverviewContent } from './components/icon-overview-content';
@@ -40,7 +40,7 @@ export const routes: Route[] = [
   {
     path: '',
     component: BaSinglePage,
-    canActivate: [BaPageGuard],
+    canActivate: [DSPageGuard],
   },
 ];
 

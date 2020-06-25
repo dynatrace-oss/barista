@@ -30,8 +30,8 @@ import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { environment } from '../environments/environment';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DSPageGuard } from '@dynatrace/shared/data-access-strapi';
+import { DSPageService } from '@dynatrace/shared/data-access-strapi';
 import { BaApp } from './app';
 import { BaRoutingModule } from './app.routing.module';
 import { BaFooter } from './components/footer';
@@ -63,8 +63,8 @@ import {
   ],
   declarations: [BaApp, BaScrollToTop, BaNav, BaFooter, BaSearch],
   providers: [
-    BaPageService,
-    BaPageGuard,
+    DSPageService,
+    DSPageGuard,
     {
       provide: BaSearchService,
       useFactory: (http: HttpClient) => {

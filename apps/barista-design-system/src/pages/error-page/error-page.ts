@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DSPageService } from '@dynatrace/shared/data-access-strapi';
 
 @Component({
   selector: 'ba-error-page',
@@ -29,5 +29,5 @@ import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 export class BaErrorPage {
   content = this._pageService._getCurrentPage();
 
-  constructor(private _pageService: BaPageService) {}
+  constructor(private _pageService: DSPageService) {}
 }

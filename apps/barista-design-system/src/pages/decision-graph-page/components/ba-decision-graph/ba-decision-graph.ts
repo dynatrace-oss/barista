@@ -16,7 +16,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BaUxdNode } from '@dynatrace/shared/barista-definitions';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DSPageService } from '@dynatrace/shared/data-access-strapi';
 // TODO: Use lodash-es instead. PR: https://github.com/dynatrace-oss/barista/pull/846
 import { cloneDeep } from 'lodash';
 
@@ -38,7 +38,7 @@ export class BaDecisionGraph implements OnInit {
   /** @internal Contains the startnode the user has selected */
   _selectedNode: BaUxdNode | undefined;
 
-  constructor(private _pageService: BaPageService<any>) {}
+  constructor(private _pageService: DSPageService<any>) {}
 
   ngOnInit(): void {
     this._decisionGraphData$.subscribe((data) => {

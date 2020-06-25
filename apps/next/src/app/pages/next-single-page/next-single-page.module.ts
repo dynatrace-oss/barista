@@ -18,8 +18,8 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import {
-  BaPageGuard,
-  BaPageService,
+  DSPageGuard,
+  DSPageService,
 } from '@dynatrace/shared/data-access-strapi';
 import { NextSinglePage } from './next-single-page';
 
@@ -27,13 +27,13 @@ export const routes: Route[] = [
   {
     path: '',
     component: NextSinglePage,
-    canActivate: [BaPageGuard],
+    canActivate: [DSPageGuard],
   },
 ];
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes)],
   declarations: [],
-  providers: [BaPageGuard, BaPageService],
+  providers: [DSPageGuard, DSPageService],
 })
 export class NextSinglePageModule {}

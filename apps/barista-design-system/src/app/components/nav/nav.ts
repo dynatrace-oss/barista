@@ -16,7 +16,7 @@
 
 import { Component } from '@angular/core';
 import { BaNav as Navigation } from '@dynatrace/shared/barista-definitions';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DSPageService } from '@dynatrace/shared/data-access-strapi';
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -37,5 +37,5 @@ export class BaNav {
   /** @internal whether the menu is shown in the mobile version */
   _showMenu = false;
 
-  constructor(private _pageService: BaPageService<Navigation>) {}
+  constructor(private _pageService: DSPageService<Navigation>) {}
 }

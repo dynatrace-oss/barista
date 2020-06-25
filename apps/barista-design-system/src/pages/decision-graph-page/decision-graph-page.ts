@@ -24,7 +24,7 @@ import {
   ViewContainerRef,
   Injector,
 } from '@angular/core';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DSPageService } from '@dynatrace/shared/data-access-strapi';
 import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
 import { createComponent } from '../../utils/create-component';
 import {
@@ -56,7 +56,7 @@ export class BaDecisionGraphPage implements OnInit {
   private _componentRefs: ComponentRef<any>[] = [];
 
   constructor(
-    private _pageService: BaPageService<BaSinglePageContent>,
+    private _pageService: DSPageService<BaSinglePageContent>,
     private _elementRef: ElementRef<HTMLElement>,
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _viewContainerRef: ViewContainerRef,

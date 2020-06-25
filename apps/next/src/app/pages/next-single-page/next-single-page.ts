@@ -16,7 +16,7 @@
 
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DSPageService } from '@dynatrace/shared/data-access-strapi';
 
 @Component({
   selector: 'next-single-page',
@@ -30,7 +30,7 @@ export class NextSinglePage implements OnInit, AfterViewInit {
   /** @internal The current page content from the cms */
   _pageContent = this._pageService._getCurrentPage();
 
-  constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
+  constructor(private _pageService: DSPageService<BaSinglePageContent>) {}
 
   ngOnInit(): void {}
 

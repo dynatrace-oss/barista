@@ -19,13 +19,13 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { NextErrorPage } from './next-error-page';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
+import { DSPageGuard } from '@dynatrace/shared/data-access-strapi';
 
 export const routes: Route[] = [
   {
     path: '',
     component: NextErrorPage,
-    canActivate: [BaPageGuard],
+    canActivate: [DSPageGuard],
   },
 ];
 

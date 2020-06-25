@@ -20,7 +20,7 @@ import { Route, RouterModule } from '@angular/router';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { BaDecisionGraphPage } from './decision-graph-page';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
+import { DSPageGuard } from '@dynatrace/shared/data-access-strapi';
 import { BaDecisionGraph } from './components/ba-decision-graph/ba-decision-graph';
 import {
   BaDecisionGraphNode,
@@ -32,7 +32,7 @@ export const routes: Route[] = [
   {
     path: '',
     component: BaDecisionGraphPage,
-    canActivate: [BaPageGuard],
+    canActivate: [DSPageGuard],
   },
 ];
 
