@@ -17,7 +17,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { BaPageGuard } from '../../../../../@dynatrace/shared/data-access-strapi';
+import { DSPageGuard } from '@dynatrace/shared/data-access-strapi';
 import { BaSearch } from './components/search';
 import { BaSearchPage } from './search-page';
 
@@ -25,7 +25,7 @@ export const routes: Route[] = [
   {
     path: '',
     component: BaSearchPage,
-    canActivate: [BaPageGuard],
+    canActivate: [DSPageGuard],
   },
 ];
 
