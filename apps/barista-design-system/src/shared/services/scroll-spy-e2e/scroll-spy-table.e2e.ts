@@ -25,25 +25,10 @@ const scroll = ClientFunction(function (x: number): void {
 
 test('should highlight the first toc item when first toc anchor is clicked', async (testController: TestController) => {
   await testController
-    .click('a[id="imports"]')
+    .click('span.ba-toc-link:first-child')
     .expect(
       Selector('li.ba-toc-item:first-child').hasClass('ba-toc-item-active'),
     )
-    .ok();
-});
-
-// tslint:disable-next-line: dt-no-focused-tests
-test('should highlight headline sorting then subheadline DtSort when scrolling further', async (testController: TestController) => {
-  await testController
-    .wait(2000)
-    .navigateTo('http://localhost:4200/components/table#sorting')
-    .wait(2000)
-    .expect(
-      Selector('li.ba-toc-item:nth-child(6)').hasClass('ba-toc-item-active'),
-    )
-    .ok()
-    .click('a[id="dtsort"]')
-    .expect(Selector('li ul li.ba-toc-item.ba-toc-item-active').exists)
     .ok();
 });
 

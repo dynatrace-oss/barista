@@ -23,9 +23,9 @@ const scroll = ClientFunction(function (x: number): void {
 });
 
 // tslint:disable-next-line: dt-no-focused-tests
-test.only('should highlight the first toc item when first toc anchor is clicked', async (testController: TestController) => {
+test('should highlight the first toc item when first toc anchor is clicked', async (testController: TestController) => {
   await testController
-    .click('a[id="imports"]')
+    .click('span.ba-toc-link:first-child')
     .wait(1000)
     .expect(
       Selector('li.ba-toc-item:first-child').hasClass('ba-toc-item-active'),
@@ -35,7 +35,7 @@ test.only('should highlight the first toc item when first toc anchor is clicked'
 
 test('should highlight the last toc item after click on last toc item anchor', async (testController: TestController) => {
   await testController
-    .click('a[id="do-s-and-don-ts"')
+    .click('span.ba-toc-link:last-child')
     .expect(
       Selector('li.ba-toc-item:last-child').hasClass('ba-toc-item-active'),
     )
