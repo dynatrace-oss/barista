@@ -55,6 +55,7 @@ a.dt-button-primary:visited {
 
 .dt-theme-dark {
   .dt-button-primary,
+  a.dt-button-primary:visited,
   .dt-button-primary:hover:not([disabled]),
   .dt-button-primary:active:not([disabled]) {
     border-color: #ffffff;
@@ -115,7 +116,8 @@ a.dt-button-secondary:visited {
 
 .dt-theme-dark {
   .dt-button-secondary,
-  .dt-button-secondary[disabled] {
+  .dt-button-secondary[disabled],
+  a.dt-button-secondary:visited {
     background: transparent;
     color: #ffffff;
 
@@ -148,10 +150,12 @@ a.dt-button-secondary:visited {
     }
   }
   .dt-button-secondary,
+  a.dt-button-secondary:visited,
   .dt-button-secondary:hover:not([disabled]) {
     border-color: #ffffff;
     color: $gray-100;
   }
+  a.dt-button-secondary:visited,
   .dt-button-secondary:active:not([disabled]) {
     border-color: #ffffff;
     color: #ffffff;
