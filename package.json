@@ -42,7 +42,9 @@
     "publish-release-next": "ng run tools-release:build-publish-release-next && node dist/libs/tools/publish-release-next/main.js",
     "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt",
     "bazel:format": "bazel build //:buildifier",
-    "bazel:build": "bazel build //libs/workspace/src/builders/barista-build --remote_upload_local_results=true --google_credentials=tools/bazel_build_cache/cache-write-key.json"
+    "bazel:build": "bazel build //libs/workspace/src/builders/barista-build --remote_upload_local_results=true --google_credentials=tools/bazel_build_cache/cache-write-key.json",
+    "api-guard:generate": "ts-api-guardian --outDir api_guard --rootDir dist/libs/components/ --allowModuleIdentifiers Highcharts dist/libs/components/*/index.d.ts",
+    "api-guard:verify": "node dist/libs/workspace/src/scripts/api-guard-verify.js --verifyDir api_guard --rootDir dist/libs/components/ --allowModuleIdentifiers Highcharts dist/libs/components/*/index.d.ts"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
@@ -179,6 +181,7 @@
     "testcafe-reporter-xunit": "^2.1.0",
     "theo": "^8.1.5",
     "ts-jest": "^26.1.1",
+    "ts-api-guardian": "^0.5.0",
     "ts-node": "^8.10.2",
     "tsickle": "^0.38.1",
     "tslib": "^1.10.0",

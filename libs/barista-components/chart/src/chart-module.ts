@@ -28,7 +28,7 @@ import { DtChart } from './chart';
 import { DtChartHeatfield } from './heatfield/chart-heatfield';
 import { DtChartRange } from './range/range';
 import { DtChartSelectionAreaAction } from './selection-area/overlay-action';
-import { DtChartSelectionArea } from './selection-area/selection-area';
+import { _DtChartSelectionArea } from './selection-area/selection-area';
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
 
@@ -53,6 +53,6 @@ const COMPONENTS = [
     DtFormattersModule,
   ],
   exports: [...COMPONENTS],
-  declarations: [...COMPONENTS, DtChartSelectionArea],
+  declarations: [...COMPONENTS, _DtChartSelectionArea],
 })
 export class DtChartModule {}

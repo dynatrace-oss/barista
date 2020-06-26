@@ -128,7 +128,8 @@ import {
     '[attr.tabindex]': '0',
   },
 })
-export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
+// tslint:disable-next-line: class-name
+export class _DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** @internal The timestamp that follows the mouse */
   @ViewChild('hairline', { static: true })
   _hairline: ElementRef<HTMLDivElement>;

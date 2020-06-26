@@ -33,6 +33,7 @@ export async function executeCommand(
   return new Promise((resolve, reject) => {
     exec(command, options, (err, stdout, _) => {
       if (err !== null) {
+        console.error(err);
         reject(stdout);
       } else {
         resolve(stdout);

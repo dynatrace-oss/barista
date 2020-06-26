@@ -403,6 +403,17 @@ jobs:
       - setup_bazel_ci
       - bazel_build
 
+# - Execute the Api guardian
+  component_api_integrity:
+    executor: barista
+    resource_class: medium
+    steps:
+      - prepare_job
+      - run: npm run api-guard:verify
+      - store_artifacts:
+          path: dist/api-diff.patch
+          destination: api-diff.patch
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   W O R K F L O W S:
@@ -449,6 +460,9 @@ workflows:
       - build:
           requires:
             - install
+      - component_api_integrity:
+          requires:
+            - build
       - e2e-test-local:
           requires:
             - install
@@ -510,6 +524,10 @@ workflows:
           context: barista
           requires:
             - install
+      - component_api_integrity:
+          context: barista
+          requires:
+            - build
       - store-build-artifacts:
           filters:
             branches:
