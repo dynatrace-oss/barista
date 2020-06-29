@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+export * from './calendar-min-max-example/calendar-min-max-example';
 export * from './datepicker-dark-example/datepicker-dark-example';
 export * from './datepicker-default-example/datepicker-default-example';
 export * from './datepicker-examples.module';

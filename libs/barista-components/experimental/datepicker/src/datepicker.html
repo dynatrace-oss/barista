@@ -1,0 +1,61 @@
+<button
+  dt-button
+  cdkInitialFocus
+  [attr.tabindex]="tabIndex"
+  [attr.aria-disabled]="disabled"
+  [attr.aria-label]="valueLabel"
+  [disabled]="disabled"
+  aria-haspopup="dialog"
+  cdk-overlay-origin
+  (click)="toggle()"
+  #origin="cdkOverlayOrigin"
+>
+  {{ valueLabel }}
+  <span class="dt-time-label" *ngIf="_isTimeLabelAvailable()">
+    {{ _timeLabel }}
+  </span>
+</button>
+
+<ng-template
+  cdk-connected-overlay
+  cdkConnectedOverlayLockPosition
+  cdkConnectedOverlayHasBackdrop
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayScrollStrategy]="_scrollStrategy"
+  [cdkConnectedOverlayOpen]="panelOpen"
+  [cdkConnectedOverlayPositions]="_positions"
+  (backdropClick)="close()"
+  (attach)="_onAttached()"
+  (detach)="close()"
+>
+  <div
+    #panel
+    cdkTrapFocus
+    cdkTrapFocusAutoCapture
+    class="dt-datepicker-panel"
+    [class.dt-datepicker-panel-done-animating]="_panelDoneAnimating"
+    [ngClass]="panelClass"
+    [@transformPanel]="'showing'"
+    aria-modal="true"
+    role="dialog"
+  >
+    <div
+      class="dt-datepicker-content"
+      [@fadeInContent]="'showing'"
+      (@fadeInContent.start)="_onFadeInStart()"
+      (@fadeInContent.done)="_onFadeInDone()"
+    >
+      <dt-calendar
+        [selected]="value"
+        [startAt]="startAt"
+        [showTodayButton]="showTodayButton"
+        (selectedChange)="_setSelectedValue($event)"
+      ></dt-calendar>
+      <dt-timepicker
+        *ngIf="isTimeEnabled"
+        [valueLabel]="valueLabel"
+      ></dt-timepicker>
+    </div>
+  </div>
+</ng-template>

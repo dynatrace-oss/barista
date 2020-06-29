@@ -15,6 +15,9 @@ ng_module_view_engine(
     ),
     angular_assets = [
         ":styles",
+        "src/datepicker.html",
+        "src/calendar.html",
+        "src/calendar-body.html",
         "src/timepicker.html",
         "src/timeinput.html",
     ],
@@ -58,6 +61,9 @@ sass_library(
 multi_sass_binary(
     name = "styles",
     srcs = [
+        "src/datepicker.scss",
+        "src/calendar-body.scss",
+        "src/calendar.scss",
         "src/timepicker.scss",
         "src/timeinput.scss",
         ":theme"
