@@ -5,7 +5,7 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom-sixteen',
   coverageDirectory: '../../../coverage/testing/custom-element',
   transformIgnorePatterns: [
-    // We need to whitelist lit-html and lit-element so that jest will
+    // We need to allowlist lit-html and lit-element so that jest will
     // transform their code, as it is not shipped.
     'node_modules/(?!(lit-html|lit-element)/)',
   ],
