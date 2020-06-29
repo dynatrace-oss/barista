@@ -95,7 +95,6 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DT_DEFAULT_UI_TEST_CONFIG,
   DT_UI_TEST_CONFIG,
-  DtNativeDateModule,
   DT_OVERLAY_THEMING_CONFIG,
   DT_DEFAULT_DARK_THEMING_CONFIG,
 } from '@dynatrace/barista-components/core';
@@ -115,7 +114,6 @@ export class NoopRouteComponent {}
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
     DevAppDynatraceModule,
     DragDropModule,
-    DtNativeDateModule,
   ],
   declarations: [
     DevApp,

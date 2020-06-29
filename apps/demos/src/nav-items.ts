@@ -449,6 +449,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'datepicker-default-example',
         route: '/datepicker-default-example',
       },
+      {
+        name: 'calendar-min-max-example',
+        route: '/calendar-min-max-example',
+      },
     ],
   },
   {

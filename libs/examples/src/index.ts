@@ -333,6 +333,7 @@ import { DtExampleTreeTableProblemIndicator } from './tree-table/tree-table-prob
 import { DtExampleTreeTableSimple } from './tree-table/tree-table-simple-example/tree-table-simple-example';
 import { DtExampleComboboxCustomOptionHeight } from './combobox/combobox-custom-option-height-example/combobox-custom-option-height-example';
 import { DtExampleFilterFieldInfiniteDataDepth } from './filter-field/filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example';
+import { DtExampleCalendarMinMax } from './datepicker/calendar-min-max-example/calendar-min-max-example';
 import { DtExampleDatepickerDark } from './datepicker/datepicker-dark-example/datepicker-dark-example';
 import { DtExampleDatepickerDefault } from './datepicker/datepicker-default-example/datepicker-default-example';
 
@@ -710,6 +711,7 @@ export {
   DtExampleTreeTableSimple,
   DtExampleFilterFieldInfiniteDataDepth,
   DtExampleSelectCustomValueTemplate,
+  DtExampleCalendarMinMax,
   DtExampleDatepickerDark,
   DtExampleDatepickerDefault,
 };
@@ -828,6 +830,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleDrawerNested', DtExampleDrawerNested],
   ['DtExampleDrawerOver', DtExampleDrawerOver],
   ['DtExampleDrawerTableDefault', DtExampleDrawerTableDefault],
+  ['DtExampleCalendarMinMax', DtExampleCalendarMinMax],
   ['DtExampleDatepickerDark', DtExampleDatepickerDark],
   ['DtExampleDatepickerDefault', DtExampleDatepickerDefault],
   ['DtExampleCustomEmptyStateTable', DtExampleCustomEmptyStateTable],

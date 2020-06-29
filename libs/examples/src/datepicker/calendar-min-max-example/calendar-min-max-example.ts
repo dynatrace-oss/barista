@@ -19,23 +19,15 @@ import { DtDateAdapter } from '@dynatrace/barista-components/core';
 import { DtDatePicker } from '@dynatrace/barista-components/experimental/datepicker';
 
 @Component({
-  selector: 'demo-component',
-  templateUrl: 'datepicker-demo.component.html',
-  styleUrls: ['datepicker-demo.component.scss'],
+  selector: 'dt-example-calendar-minmax',
+  templateUrl: 'calendar-min-max-example.html',
+  styleUrls: ['calendar-min-max-example.scss'],
 })
-export class DatepickerDemo {
+export class DtExampleCalendarMinMax {
+  showTodayButton = false;
   startAt = new Date(2020, 7, 31);
   minDate = new Date(2020, 5, 31);
   maxDate = new Date(2020, 11, 31);
-  isDatepickerDisabled = false;
-  isTimepickerDisabled = false;
-  isDarkDatepickerDisabled = false;
-  isDarkTimepickerDisabled = false;
-  isDatepickerTimeEnabled = true;
-  isDarkDatepickerTimeEnabled = true;
-  showTodayButton = false;
-  isDatepickerTodayButtonShown = false;
-  isDarkDatepickerTodayButtonShown = false;
 
   @ViewChild('datepickerMinDate') datepickerMinDate: DtDatePicker<any>;
 

@@ -22,10 +22,19 @@ import { FormsModule } from '@angular/forms';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInputModule } from '@dynatrace/barista-components/input';
+import { DtCalendar } from './calendar';
+import { DtCalendarBody } from './calendar-body';
+import { DtDatePicker } from './datepicker';
 import { DtTimeInput } from './timeinput';
 import { DtTimepicker } from './timepicker';
 
-const COMPONENTS = [DtTimepicker, DtTimeInput];
+const COMPONENTS = [
+  DtDatePicker,
+  DtCalendar,
+  DtCalendarBody,
+  DtTimepicker,
+  DtTimeInput,
+];
 
 @NgModule({
   imports: [

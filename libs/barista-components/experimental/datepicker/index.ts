@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+export * from './src/calendar-body';
+export * from './src/calendar';
 export * from './src/timeinput';
 export * from './src/timepicker';
+export * from './src/datepicker';
 export * from './src/datepicker-module';

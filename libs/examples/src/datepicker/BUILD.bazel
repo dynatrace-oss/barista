@@ -15,8 +15,10 @@ ng_module(
     angular_assets = [
         "datepicker-dark-example/datepicker-dark-example.html",
         "datepicker-default-example/datepicker-default-example.html",
+        "calendar-min-max-example/calendar-min-max-example.html",
         ":styles_dark_example",
         ":styles_default_example",
+        ":styles_min_max_example",
     ],
     module_name = "@dynatrace/barista-examples/datepicker",
     tsconfig = "//libs/examples:tsconfig_lib",
@@ -38,6 +40,11 @@ sass_binary(
 sass_binary(
     name = "styles_default_example",
     src = "datepicker-default-example/datepicker-default-example.scss",
+)
+
+sass_binary(
+    name = "styles_min_max_example",
+    src = "calendar-min-max-example/calendar-min-max-example.scss",
 )
 
 stylelint(
