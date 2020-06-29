@@ -3351,6 +3351,51 @@
         }
       }
     },
+    "fluid-tab-group": {
+      "root": "libs/fluid-elements/tab-group",
+      "sourceRoot": "libs/fluid-elements/tab-group/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/tab-group",
+            "main": "libs/fluid-elements/tab-group/src/index.ts",
+            "tsConfig": "libs/fluid-elements/tab-group/tsconfig.lib.json",
+            "webpackConfig": "libs/fluid-elements/webpack.config.js",
+            "buildLibsFromSource": true
+          },
+          "configurations": {
+            "production": {
+              "extractLicenses": true,
+              "optimization": true
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/fluid-elements/tab-group/tsconfig.lib.json",
+              "libs/fluid-elements/tab-group/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/fluid-elements/tab-group/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/fluid-elements/tab-group/jest.config.js",
+            "tsConfig": "libs/fluid-elements/tab-group/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "fluid-dev": {
       "projectType": "application",
       "schematics": {

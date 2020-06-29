@@ -1,0 +1,71 @@
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
+@import '~@dynatrace/fluid-design-tokens/global/typography';
+
+:host {
+  /**
+   * Legibility definitions should probably be
+   * shipped or imported from a core
+  */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  margin-right: $fluid-spacing--medium;
+}
+
+/**
+* Disabled state
+*/
+:host([disabled]) {
+  pointer-events: none;
+
+  .fluid-tab {
+    color: var(--color-neutral-80);
+
+    &:hover::after {
+      background-color: none;
+    }
+  }
+}
+
+::slotted(*) {
+  text-decoration: none;
+  color: var(--color-maxcontrast);
+}
+
+.fluid-tab {
+  @include fluid-dt-text();
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  color: var(--color-neutral-100);
+  white-space: unset;
+
+  &:hover {
+    color: var(--color-neutral-150);
+    &::after {
+      background-color: var(--color-neutral-100);
+    }
+  }
+
+  &::after {
+    position: absolute;
+    width: 100%;
+    height: $fluid-spacing--3x-small;
+    background-color: transparent;
+    bottom: -$fluid-spacing--3x-small;
+    left: 0;
+    content: '';
+  }
+}
+
+.fluid-state--active {
+  color: var(--color-neutral-150);
+
+  &:hover::after {
+    background-color: var(--color-primary-100);
+  }
+
+  &::after {
+    background-color: var(--color-primary-100);
+  }
+}
