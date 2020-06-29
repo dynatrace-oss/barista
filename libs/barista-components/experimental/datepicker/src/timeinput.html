@@ -1,0 +1,51 @@
+<div
+  class="dt-timeinput-wrapper"
+  cdkMonitorSubtreeFocus
+  (cdkFocusChange)="_onInputBlur($event)"
+>
+  <div class="dt-timeinput-input">
+    <input
+      dtInput
+      #hours
+      type="number"
+      autocomplete="off"
+      maxlength="2"
+      min="0"
+      max="23"
+      placeholder="hh"
+      inputmode="numeric"
+      [disabled]="disabled"
+      [attr.aria-disabled]="disabled"
+      [ngModel]="hour"
+      (input)="_handleHourInput($event)"
+      (keydown)="_handleKeydown($event)"
+      (keyup)="_onHourKeyUp($event)"
+      (paste)="_onTimePaste($event)"
+      aria-label="Please insert the hour"
+    />
+  </div>
+  <span
+    class="dt-timeinput-separator"
+    [ngClass]="{ 'dt-timeinput-separator-disabled': disabled }"
+    >:</span
+  >
+  <div class="dt-timeinput-input">
+    <input
+      dtInput
+      #minutes
+      type="number"
+      autocomplete="off"
+      min="0"
+      max="59"
+      maxlength="2"
+      placeholder="mm"
+      inputmode="numeric"
+      [disabled]="disabled"
+      [attr.aria-disabled]="disabled"
+      [ngModel]="minute"
+      (input)="_handleMinuteInput($event)"
+      (keydown)="_handleKeydown($event)"
+      aria-label="Please insert the minutes"
+    />
+  </div>
+</div>

@@ -83,6 +83,7 @@ import { DtToastExamplesModule } from './toast/toast-examples.module';
 import { DtToggleButtonGroupExamplesModule } from './toggle-button-group/toggle-button-group-examples.module';
 import { DtExamplesTopBarNavigationModule } from './top-bar-navigation/top-bar-navigation-examples.module';
 import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.module';
+import { DtExamplesDatepickerModule } from './datepicker/datepicker-examples.module';
 
 /**
  * NgModule that includes all example components
@@ -151,6 +152,7 @@ import { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.modu
     DtToggleButtonGroupExamplesModule,
     DtExamplesTopBarNavigationModule,
     DtExamplesTreeTableModule,
+    DtExamplesDatepickerModule,
   ],
 })
 export class DtExamplesModule {}

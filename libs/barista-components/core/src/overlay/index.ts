@@ -15,3 +15,4 @@
  */
 
 export * from './flexible-connected-position-strategy';
+export * from './overlay-theming-configuration';

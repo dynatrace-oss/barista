@@ -75,6 +75,7 @@
         "context-dialog",
         "copy-to-clipboard",
         "core",
+        "datepicker",
         "drawer",
         "drawer-table",
         "empty-state",
@@ -179,6 +180,9 @@
       "tags": ["scope:components", "type:library"]
     },
     "core": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "datepicker": {
       "tags": ["scope:components", "type:library"]
     },
     "drawer": {

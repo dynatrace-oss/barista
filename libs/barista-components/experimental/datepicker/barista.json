@@ -1,0 +1,32 @@
+{
+  "title": "Datepicker",
+  "description": "ToDo",
+  "postid": "datepicker",
+  "identifier": "Da",
+  "category": "components",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "Thomas Pink",
+        "githubuser": "thomaspink"
+      },
+      {
+        "name": "Alexandra Râpeanu",
+        "githubuser": "nimrod13"
+      },
+      {
+        "name": "Rowa Audil",
+        "githubuser": "rowa-audil"
+      }
+    ],
+    "ux": [
+      {
+        "name": "Ursula Wieshofer",
+        "githubuser": "ursula-wieshofer"
+      }
+    ]
+  },
+  "properties": ["work in progress", "experimental"],
+  "tags": ["datepicker", "component", "angular"]
+}

@@ -43,6 +43,7 @@ import { ConsumptionDemo } from './consumption/consumption-demo.component';
 import { ContainerBreakpointObserverDemo } from './container-breakpoint-observer/container-breakpoint-observer-demo.component';
 import { ContextDialogDemo } from './context-dialog/context-dialog-demo.component';
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
+import { DatepickerDemo } from './datepicker/datepicker-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { DrawerTableDemo } from './drawer-table/drawer-table-demo.component';
 import { EmptyStateDemo } from './empty-state/empty-state-demo';
@@ -94,6 +95,9 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   DT_DEFAULT_UI_TEST_CONFIG,
   DT_UI_TEST_CONFIG,
+  DtNativeDateModule,
+  DT_OVERLAY_THEMING_CONFIG,
+  DT_DEFAULT_DARK_THEMING_CONFIG,
 } from '@dynatrace/barista-components/core';
 import { ComboboxDemo } from './combobox/combobox-demo.component';
 
@@ -111,6 +115,7 @@ export class NoopRouteComponent {}
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
     DevAppDynatraceModule,
     DragDropModule,
+    DtNativeDateModule,
   ],
   declarations: [
     DevApp,
@@ -127,7 +132,7 @@ export class NoopRouteComponent {}
     ConfirmationDialogDemo,
     ContextDialogDemo,
     CopyToClipboardDemo,
-
+    DatepickerDemo,
     DrawerDemo,
     DrawerTableDemo,
     ExpandablePanelDemo,
@@ -184,6 +189,10 @@ export class NoopRouteComponent {}
     Location,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: DT_UI_TEST_CONFIG, useValue: DT_DEFAULT_UI_TEST_CONFIG },
+    {
+      provide: DT_OVERLAY_THEMING_CONFIG,
+      useValue: DT_DEFAULT_DARK_THEMING_CONFIG,
+    },
     { provide: STEPPER_GLOBAL_OPTIONS, useValue: { showError: true } },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -30,6 +30,7 @@ import { DtConsumptionModule } from '@dynatrace/barista-components/consumption';
 import { DtContainerBreakpointObserverModule } from '@dynatrace/barista-components/container-breakpoint-observer';
 import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
 import { DtCopyToClipboardModule } from '@dynatrace/barista-components/copy-to-clipboard';
+import { DtDatepickerModule } from '@dynatrace/barista-components/experimental/datepicker';
 import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
 import { DtDrawerTableModule } from '@dynatrace/barista-components/experimental/drawer-table';
 import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
@@ -95,6 +96,7 @@ import { DtComboboxModule } from '@dynatrace/barista-components/experimental/com
     DtConfirmationDialogModule,
     DtContextDialogModule,
     DtCopyToClipboardModule,
+    DtDatepickerModule,
     DtDrawerModule,
     DtDrawerTableModule,
     DtExpandablePanelModule,

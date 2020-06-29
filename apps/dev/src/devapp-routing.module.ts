@@ -31,6 +31,7 @@ import { ConsumptionDemo } from './consumption/consumption-demo.component';
 import { ContainerBreakpointObserverDemo } from './container-breakpoint-observer/container-breakpoint-observer-demo.component';
 import { ContextDialogDemo } from './context-dialog/context-dialog-demo.component';
 import { CopyToClipboardDemo } from './copy-to-clipboard/copy-to-clipboard-demo.component';
+import { DatepickerDemo } from './datepicker/datepicker-demo.component';
 import { DrawerDemo } from './drawer/drawer-demo.component';
 import { DrawerTableDemo } from './drawer-table/drawer-table-demo.component';
 import { EmptyStateDemo } from './empty-state/empty-state-demo';
@@ -95,6 +96,7 @@ const routes: Routes = [
   { path: 'context-dialog', component: ContextDialogDemo },
   { path: 'confirmation-dialog', component: ConfirmationDialogDemo },
   { path: 'copy-to-clipboard', component: CopyToClipboardDemo },
+  { path: 'datepicker', component: DatepickerDemo },
   { path: 'drawer', component: DrawerDemo },
   { path: 'drawer-table', component: DrawerTableDemo },
   { path: 'empty-state', component: EmptyStateDemo },
