@@ -324,6 +324,7 @@ import {
   DtExampleComboboxCustomOptionHeight,
   DtExampleFilterFieldInfiniteDataDepth,
   DtExampleSelectCustomValueTemplate,
+  DtExampleCalendarMinMax,
   DtExampleDatepickerDark,
   DtExampleDatepickerDefault
 } from '@dynatrace/barista-examples';
@@ -583,6 +584,7 @@ const ROUTES: Routes = [
   { path: 'drawer-dynamic-example', component: DtExampleDrawerDynamic },
   { path: 'drawer-nested-example', component: DtExampleDrawerNested },
   { path: 'drawer-over-example', component: DtExampleDrawerOver },
+  { path: 'calendar-min-max-example', component: DtExampleCalendarMinMax},
   { path: 'datepicker-dark-example', component: DtExampleDatepickerDark},
   { path: 'datepicker-default-example', component: DtExampleDatepickerDefault},
   {

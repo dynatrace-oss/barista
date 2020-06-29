@@ -20,7 +20,9 @@ import {
   isValidMinute,
   isValid,
   isPastedTimeValid,
+  isOutsideMinMaxRange,
 } from './util';
+import { DtNativeDateAdapter } from '@dynatrace/barista-components/core';
 
 describe('timeinput', () => {
   describe('valueTo2DigitString', () => {
@@ -31,6 +33,232 @@ describe('timeinput', () => {
     it('should prepend zeros for numbers smaller than 10', () => {
       expect(valueTo2DigitString(0)).toBe('00');
       expect(valueTo2DigitString(8)).toBe('08');
+    });
+  });
+
+  describe('isOutsideMinMaxRange', () => {
+    const dateAdapter = new DtNativeDateAdapter();
+    it('should return true if a date earlier than the minDate is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2010, 1, 1),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeTruthy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 1, 1),
+          dateAdapter,
+          new Date(2015, 1, 2),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeTruthy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2014, 11, 11),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeTruthy();
+    });
+    it('should return false if a date equal to the minDate or maxDate is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 1, 1),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 11, 11),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeFalsy();
+    });
+    it('should return false if minDate and maxDate are equal and a date equal to them is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 1, 1),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 1, 1),
+        ),
+      ).toBeFalsy();
+    });
+    it('should return true if minDate and maxDate are equal and any other date is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 1, 2),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 1, 1),
+        ),
+      ).toBeTruthy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 11, 12),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 1, 1),
+        ),
+      ).toBeTruthy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 5, 7),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 1, 1),
+        ),
+      ).toBeTruthy();
+    });
+    it('should return false if a date within range is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 5, 5),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 1, 2),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 11, 10),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeFalsy();
+    });
+    it('should return true if a date later than the maxDate is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2020, 1, 1),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeTruthy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2016, 1, 1),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 11),
+        ),
+      ).toBeTruthy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2015, 11, 11),
+          dateAdapter,
+          new Date(2015, 1, 1),
+          new Date(2015, 11, 10),
+        ),
+      ).toBeTruthy();
+    });
+    it('should return false if minDate and maxDate are null and any date is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(new Date(2020, 1, 1), dateAdapter),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(new Date(1900, 1, 1), dateAdapter),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(new Date(20160, 1, 1), dateAdapter),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(new Date(11, 11, 11), dateAdapter),
+      ).toBeFalsy();
+    });
+    it('should return false if minDate is null and a date less or equal to maxDate is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2020, 1, 1),
+          dateAdapter,
+          null,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2020, 11, 10),
+          dateAdapter,
+          null,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2020, 11, 11),
+          dateAdapter,
+          null,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeFalsy();
+    });
+    it('should return true if minDate is null and a date greater than maxDate is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2021, 11, 11),
+          dateAdapter,
+          null,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeTruthy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2020, 11, 12),
+          dateAdapter,
+          null,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeTruthy();
+    });
+    it('should return false if maxDate is null and a date greater or equal to minDate is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2021, 1, 1),
+          dateAdapter,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeFalsy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2020, 11, 11),
+          dateAdapter,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeFalsy();
+    });
+    it('should return true if maxDate is null and a date less than minDate is passed in', () => {
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2020, 10, 11),
+          dateAdapter,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeTruthy();
+      expect(
+        isOutsideMinMaxRange(
+          new Date(2020, 11, 10),
+          dateAdapter,
+          new Date(2020, 11, 11),
+        ),
+      ).toBeTruthy();
     });
   });
 

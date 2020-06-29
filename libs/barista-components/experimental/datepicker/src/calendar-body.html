@@ -1,0 +1,54 @@
+<span
+  [attr.id]="_labelid"
+  class="dt-calendar-body-header-label"
+  aria-live="polite"
+  >{{ _label }}</span
+>
+
+<table
+  class="dt-calendar-table"
+  role="grid"
+  [attr.aria-labelledby]="ariaLabelledby || _labelid"
+  [attr.aria-describedby]="ariaLabelledby || _labelid"
+>
+  <thead class="dt-calendar-table-header">
+    <tr>
+      <th
+        scope="col"
+        *ngFor="let day of _weekdays"
+        [attr.aria-label]="day.long"
+        [attr.abbr]="day.short"
+      >
+        {{ day.short }}
+      </th>
+    </tr>
+  </thead>
+  <tbody class="dt-calendar-table-body">
+    <tr
+      *ngFor="let week of _weeks; let weekIndex = index"
+      role="row"
+      class="dt-calendar-table-row"
+    >
+      <td
+        *ngIf="weekIndex === 0 && _firstRowOffset"
+        aria-hidden="true"
+        [attr.colspan]="_firstRowOffset"
+      ></td>
+      <td
+        *ngFor="let cell of week; let dateIndex = index"
+        role="gridcell"
+        class="dt-calendar-table-cell"
+        [class.dt-calendar-cell-disabled]="_isOutsideMinMaxRange(cell.rawValue)"
+        [class.dt-calendar-active]="_isSame(cell, activeDate)"
+        [class.dt-calendar-selected]="_isSame(cell, selected)"
+        [attr.aria-selected]="_isSame(cell, selected)"
+        [attr.aria-label]="cell.ariaLabel"
+        (click)="_cellClicked(cell)"
+      >
+        <div class="dt-calendar-table-cell-inner">
+          {{ cell.displayValue }}
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,38 @@
+@import '../../../core/src/style/colors';
+@import './calendar-header-theme';
+
+:host {
+  display: block;
+}
+
+.dt-calendar-header {
+  display: flex;
+}
+
+.dt-calendar-header-button {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.dt-calendar-header-label {
+  flex-grow: 1;
+  flex-shrink: 1;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.dt-calendar-header-button-prev-year ::ng-deep svg {
+  transform: rotate(90deg);
+}
+
+.dt-calendar-header-button-prev-month ::ng-deep svg {
+  transform: rotate(180deg);
+}
+
+.dt-calendar-header-button-next-year ::ng-deep svg {
+  transform: rotate(-90deg);
+}
+
+.dt-calendar-body + .dt-button {
+  margin-top: 10px;
+}

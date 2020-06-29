@@ -1,5 +1,31 @@
 <div dtTheme=":dark" class="dt-example-dark">
+  <h2>Full Dark Mode Datepicker</h2>
+
+  <dt-datepicker
+    [startAt]="startAt"
+    [disabled]="isDatepickerDisabled"
+    [isTimeEnabled]="isDatepickerTimeEnabled"
+    [showTodayButton]="showTodayButton"
+  ></dt-datepicker>
+  <dt-checkbox [(ngModel)]="isDatepickerDisabled">Disabled</dt-checkbox>
+  <dt-checkbox [(ngModel)]="isDatepickerTimeEnabled"
+    >Enabled Time Mode</dt-checkbox
+  >
+  <dt-checkbox [(ngModel)]="showTodayButton">Enable Today Button</dt-checkbox>
+
+  <h2>Dark Mode Calendar</h2>
+
+  <dt-calendar
+    [startAt]="startAt"
+    [showTodayButton]="showTodayButton"
+  ></dt-calendar>
+
+  <h2>Dark Mode Calendar Body Only</h2>
+
+  <dt-calendar-body [activeDate]="startAt"></dt-calendar-body>
+
   <h2>Dark Mode Timepicker</h2>
+
   <dt-timepicker [disabled]="isTimepickerDisabled"></dt-timepicker>
   <dt-checkbox [(ngModel)]="isTimepickerDisabled">Disabled</dt-checkbox>
 </div>

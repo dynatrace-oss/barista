@@ -29,13 +29,50 @@ const INVALID_TIME_FORMAT_REGEX = /[0]{3,}|[.+-]|[0]{2}[0-9]/g;
 const HOURMIN_REGEX = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/g;
 
 /** Checks whether the provided object is a valid date and returns it; null otherwise. */
-export function getValidDateOrNull<D>(
-  dateAdapter: DtDateAdapter<D>,
+export function getValidDateOrNull<T>(
+  dateAdapter: DtDateAdapter<T>,
   obj: any,
-): D | null {
+): T | null {
   return dateAdapter.isDateInstance(obj) && dateAdapter.isValid(obj)
     ? obj
     : null;
+}
+
+/**
+ * Check if the given date is outside the min and max dates.
+ * @param date
+ * The date that need to be checked.
+ * @param dateAdapter
+ * The date adapter being used should be passed in here.
+ * @param min?
+ * The minimum date or null.
+ * @param max?
+ * The maximum date or null.
+ * @param ignoreDay
+ * If ignoreDay is set to true, check only using the month and year, while ignoring the day.
+ * This is necessary for the calendar header buttons, which need to be enabled when switching to next/prev years regardless of the day.
+ * @returns boolean
+ */
+export function isOutsideMinMaxRange<T>(
+  date: T,
+  dateAdapter: DtDateAdapter<T>,
+  min?: T | null,
+  max?: T | null,
+  ignoreDay: boolean = false,
+): boolean {
+  const compareFct = ignoreDay
+    ? (first: T, second: T) => dateAdapter.compareDateIgnoreDay(first, second)
+    : (first: T, second: T) => dateAdapter.compareDate(first, second);
+
+  if (min && compareFct(date, min) < 0) {
+    return true;
+  }
+
+  if (max && compareFct(date, max) > 0) {
+    return true;
+  }
+
+  return false;
 }
 
 /** Check if the hour value is valid. */

@@ -1,0 +1,58 @@
+@import '../../../core/src/style/variables';
+@import './calendar-body-theme';
+
+:host {
+  display: block;
+  outline: none;
+}
+
+.dt-calendar-table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.dt-calendar-table-header th {
+  text-align: center;
+  padding: 0 0 8px;
+  width: 14%;
+}
+
+.dt-calendar-table-cell {
+  position: relative;
+  text-align: center;
+  outline: none;
+  cursor: pointer;
+}
+
+.dt-calendar-table-cell:not(.dt-calendar-selected):hover
+  .dt-calendar-table-cell-inner {
+  background: $gray-200;
+}
+
+.dt-calendar-table-cell-inner {
+  padding: 2px 0;
+  border: 1px solid white;
+  border-radius: 3px;
+}
+
+.dt-calendar-active .dt-calendar-table-cell-inner {
+  border-color: $disabledcolor;
+}
+
+:host:focus .dt-calendar-active .dt-calendar-table-cell-inner {
+  border-color: $turquoise-600;
+}
+
+.dt-calendar-selected .dt-calendar-table-cell-inner {
+  background-color: $turquoise-600;
+  color: white;
+}
+
+.dt-calendar-body-header-label {
+  display: none;
+}
+
+.dt-calendar-cell-disabled {
+  color: $disabledcolor;
+}
