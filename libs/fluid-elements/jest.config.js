@@ -4,7 +4,7 @@ module.exports = {
   ...rootConfig,
   testEnvironment: 'jest-environment-jsdom-sixteen',
   transformIgnorePatterns: [
-    // We need to whitelist lit-html and lit-element so that jest will
+    // We need to allowlist lit-html and lit-element so that jest will
     // transform their code, as it is not shipped.
     'node_modules/(?!(lit-html|lit-element)/)',
   ],
