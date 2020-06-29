@@ -1,0 +1,112 @@
+load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary", "sass_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module_view_engine(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        ":styles",
+        "src/timepicker.html",
+        "src/timeinput.html",
+    ],
+    module_name = "@dynatrace/barista-components/experimental/datepicker",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/theming:compile",
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/overlay:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/common",
+        "@npm//@angular/cdk",
+        "@npm//@angular/forms",
+        "@npm//rxjs",
+    ],
+)
+
+filegroup(
+    name = "datepicker",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ) + glob([
+        "**/*.html",
+        "**/*.scss",
+    ]),
+)
+
+sass_library(
+    name = "theme",
+    srcs = ["src/_calendar-body-theme.scss", "src/_calendar-header-theme.scss", "src/_timeinput-theme.scss"]
+)
+
+multi_sass_binary(
+    name = "styles",
+    srcs = [
+        "src/timepicker.scss",
+        "src/timeinput.scss",
+        ":theme"
+    ]
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)
+
+jest(
+    name = "test",
+    srcs = glob(include = ["**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    setup_file = ":src/test-setup.ts",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+        "//libs/testing/browser",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/theming:compile",
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/overlay:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/cdk",
+        "@npm//@angular/forms",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)

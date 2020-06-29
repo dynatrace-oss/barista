@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-export * from './src/common-behaviours/index';
-export * from './src/error/index';
-export * from './src/util/index';
-export * from './src/logger/index';
-export * from './src/viewport/index';
-export * from './src/option/index';
-export * from './src/tree/index';
-export * from './src/animations/index';
-export * from './src/overlay/index';
-export * from './src/testing/index';
-export * from './src/date/index';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'demo-component',
+  templateUrl: 'datepicker-demo.component.html',
+  styleUrls: ['datepicker-demo.component.scss'],
+})
+export class DatepickerDemo {
+  isTimepickerDisabled = false;
+  isDarkTimepickerDisabled = false;
+}

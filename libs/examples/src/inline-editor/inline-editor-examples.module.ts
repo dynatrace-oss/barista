@@ -36,7 +36,6 @@ import { DtExampleInlineEditorRequired } from './inline-editor-required-example/
     DtExampleInlineEditorApi,
     DtExampleInlineEditorDefault,
     DtExampleInlineEditorFailing,
-    DtExampleInlineEditorFailing,
     DtExampleInlineEditorRequired,
     DtExampleInlineEditorSuccessful,
     DtExampleInlineEditorValidation,

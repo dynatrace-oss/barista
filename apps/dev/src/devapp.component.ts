@@ -58,6 +58,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     },
     { name: 'Context-dialog', route: '/context-dialog' },
     { name: 'Copy-to-clipboard', route: '/copy-to-clipboard' },
+    { name: 'Datepicker', route: '/datepicker' },
     { name: 'Drawer', route: '/drawer' },
     { name: 'Drawer-table', route: '/drawer-table' },
     { name: 'Empty-state', route: '/empty-state' },

@@ -68,6 +68,9 @@
       "@dynatrace/barista-components/core": [
         "libs/barista-components/core/index.ts"
       ],
+      "@dynatrace/barista-components/experimental/datepicker": [
+        "libs/barista-components/experimental/datepicker/index.ts"
+      ],
       "@dynatrace/barista-components/drawer": [
         "libs/barista-components/drawer/index.ts"
       ],

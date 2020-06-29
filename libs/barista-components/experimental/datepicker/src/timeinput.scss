@@ -1,0 +1,73 @@
+@import '../../../style/font-mixins';
+@import '../../../core/src/style/form-control';
+@import '../../../core/src/style/interactive-common';
+@import './timeinput-theme';
+
+:host {
+  display: block;
+}
+
+.dt-timeinput-wrapper {
+  display: flex;
+  width: 100%;
+  @include dt-main-font();
+  @include dt-form-control();
+  --timeinput-separator-disabled: #{$gray-130};
+  --timeinput-separator-disabled-dark: #{$gray-500};
+}
+
+.dt-timeinput-input {
+  display: block;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 100%;
+
+  input {
+    display: block;
+    width: 100%;
+    height: 100%;
+    @include dt-main-font();
+    appearance: none;
+    outline: none;
+    border: 0;
+    border-radius: 0;
+    text-align: center;
+
+    &[disabled] {
+      color: $disabledcolor;
+    }
+
+    &:focus {
+      @include dt-no-focus-style();
+    }
+  }
+
+  input[type='number'] {
+    appearance: textfield;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    appearance: none;
+  }
+}
+
+.dt-timeinput-input::-webkit-inner-spin-button,
+.dt-timeinput-input::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.dt-timeinput-separator {
+  display: block;
+  text-align: center;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 0 4px;
+}
+
+.dt-timeinput-separator-disabled {
+  background-color: var(--timeinput-separator-disabled);
+  color: $disabledcolor;
+  pointer-events: none;
+}

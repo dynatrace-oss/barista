@@ -1,0 +1,17 @@
+<h1>Datepicker</h1>
+
+<h2>Timepicker</h2>
+
+<dt-timepicker [disabled]="isTimepickerDisabled"></dt-timepicker>
+
+<dt-checkbox [(ngModel)]="isTimepickerDisabled">Disabled</dt-checkbox>
+
+<div dtTheme=":dark" class="dt-example-dark">
+  <h2>Dark Mode Timepicker</h2>
+
+  <dt-timepicker
+    dtTheme=":dark"
+    [disabled]="isDarkTimepickerDisabled"
+  ></dt-timepicker>
+  <dt-checkbox [(ngModel)]="isDarkTimepickerDisabled">Disabled</dt-checkbox>
+</div>

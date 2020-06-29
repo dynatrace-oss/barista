@@ -22,6 +22,7 @@ COMPONENTS = [
     "expandable-section",
     "expandable-text",
     "experimental/combobox",
+    "experimental/datepicker",
     "experimental/drawer-table",
     "quick-filter",
     "filter-field",
