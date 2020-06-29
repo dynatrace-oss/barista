@@ -33,6 +33,13 @@ export const fluidRoutes: Route[] = [
         (module) => module.FluidCheckboxPageModule,
       ),
   },
+  {
+    path: 'tab',
+    loadChildren: () =>
+      import('../pages/tab/tab-page.module').then(
+        (module) => module.FluidTabPageModule,
+      ),
+  },
 ];
 
 @NgModule({
