@@ -22,7 +22,7 @@ function tick(): Promise<void> {
   return Promise.resolve();
 }
 
-describe('Fluid button', () => {
+describe('Fluid checkbox', () => {
   let fixture: FluidCheckbox;
   let changeSpy: jest.Mock;
   let indeterminateChangeSpy: jest.Mock;
