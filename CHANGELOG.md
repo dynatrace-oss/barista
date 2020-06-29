@@ -1,3 +1,38 @@
+## [7.2.0](https://github.com/dynatrace-oss/barista/compare/7.1.0...7.2.0) (2020-06-29)
+
+### Bug Fixes
+
+- **button:** Fixes an issue where visited a[dt-button] components had the wrong
+  style.
+  ([6f8c9a7](https://github.com/dynatrace-oss/barista/commit/6f8c9a7d8e4a002ed7929b91cefacdcb1ef17b14)),
+  closes [#1202](https://github.com/dynatrace-oss/barista/issues/1202)
+- **quickfilter:** Fixes an issue where the content received a scrollbar due to
+  wrong box-sizing applied.
+  ([5415f2f](https://github.com/dynatrace-oss/barista/commit/5415f2fc94d98889cf3fa40ea431bf3e2e2e8d46))
+- **table:** Fixes a CD issue when using the simple order column with an Angular
+  version higher than 9.1.6.
+  ([0233e5e](https://github.com/dynatrace-oss/barista/commit/0233e5eea007b64ed66ec08d1c79b23e96777a40))
+- **table:** Reorder input being cut off in Firefox.
+  ([5542623](https://github.com/dynatrace-oss/barista/commit/554262315ad896cfb7584f6e8023a4480c82cf73)),
+  closes [#1132](https://github.com/dynatrace-oss/barista/issues/1132)
+
+### Features
+
+- **alert:** Changes styling to use custom properties.
+  ([4527735](https://github.com/dynatrace-oss/barista/commit/45277357d305c5179df241d2dd500ef559c2937b))
+- **checkbox, switch:** Added support as a form-field-control.
+  ([3e84703](https://github.com/dynatrace-oss/barista/commit/3e847039bef13557d227f286149dfc3e41d9e75d)),
+  closes [#1120](https://github.com/dynatrace-oss/barista/issues/1120)
+- **radial-chart:** Add selection and percent values
+  ([3c26ead](https://github.com/dynatrace-oss/barista/commit/3c26ead152de3bc47587fa9b9a2e37adb93a3778))
+- **radio:** Added support as a form-field-control.
+  ([5f9f70e](https://github.com/dynatrace-oss/barista/commit/5f9f70ec25e37708582476045c8a5cc86d687987)),
+  closes [#1121](https://github.com/dynatrace-oss/barista/issues/1121)
+- **stacked-series-chart:** Create component
+  ([5335956](https://github.com/dynatrace-oss/barista/commit/5335956ab8e23cbceb99150b27ce29e588a65699))
+- Added compatibility to include @dynatrace/barista-icons@7.0.0
+  ([47a29cb](https://github.com/dynatrace-oss/barista/commit/47a29cb886127a035cd7b39f2d66b1fd25188cd0))
+
 ## [7.1.0](https://github.com/dynatrace-oss/barista/compare/7.0.0...7.1.0) (2020-06-15)
 
 ### Bug Fixes
