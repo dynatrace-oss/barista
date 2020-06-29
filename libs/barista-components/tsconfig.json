@@ -48,6 +48,9 @@
       "path": "./core/tsconfig.json"
     },
     {
+      "path": "./datepicker/tsconfig.json"
+    },
+    {
       "path": "./form-field/tsconfig.json"
     },
     {

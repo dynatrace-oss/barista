@@ -1,0 +1,20 @@
+:host-context(.dt-theme-dark),
+:host(.dt-theme-dark) {
+  background-color: $gray-700;
+  color: $white;
+
+  .dt-button.dt-button-nested:hover:not([disabled]),
+  .dt-button.dt-button-nested:active:not([disabled]) {
+    background: $gray-500;
+  }
+
+  .dt-button-nested.dt-calendar-header-button ::ng-deep svg,
+  .dt-button-nested.dt-calendar-header-button:hover:not([disabled])
+    ::ng-deep
+    svg,
+  .dt-button-nested.dt-calendar-header-button:active:not([disabled])
+    ::ng-deep
+    svg {
+    fill: var(--dt-button-default-color);
+  }
+}

@@ -1,0 +1,16 @@
+:host-context(.dt-theme-dark),
+:host(.dt-theme-dark) {
+  background-color: $gray-700;
+  color: $white;
+
+  .dt-calendar-table-cell:not(.dt-calendar-active) {
+    .dt-calendar-table-cell-inner {
+      border-color: $gray-700;
+    }
+  }
+
+  .dt-calendar-table-cell:not(.dt-calendar-selected):hover
+    .dt-calendar-table-cell-inner {
+    background: $gray-500;
+  }
+}

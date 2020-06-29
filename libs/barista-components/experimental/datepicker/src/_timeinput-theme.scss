@@ -1,0 +1,16 @@
+:host-context(.dt-theme-dark) {
+  border: none;
+
+  .dt-timeinput-input input,
+  .dt-timeinput-input input,
+  .dt-timeinput-separator {
+    background-color: $gray-800;
+    color: $white;
+  }
+
+  .dt-timeinput-separator-disabled,
+  .dt-timeinput-input input[disabled] {
+    background-color: var(--timeinput-separator-disabled-dark);
+    color: $disabledcolor;
+  }
+}
