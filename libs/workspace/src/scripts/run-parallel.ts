@@ -71,9 +71,9 @@ export async function runParallel(): Promise<string | null> {
   }).argv;
 
   const baseSha = await affectedArgs();
-  const blackList = exclude?.split(',') ?? [];
+  const blockList = exclude?.split(',') ?? [];
   const projects = getAffectedProjects(baseSha, target).filter(
-    (project) => !blackList.includes(project),
+    (project) => !blockList.includes(project),
   );
   const chunkSize = Math.ceil(projects.length / totalNodes);
 

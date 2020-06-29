@@ -20,8 +20,8 @@ import { DT_DEMOS_EXAMPLE_NAV_ITEMS } from './nav-items';
 const rules = require('../rules.a11y.json');
 const BASEURL = `http://localhost:4200/`;
 
-/** Blacklisted default examples */
-const BLACKLIST: string[] = [
+/** Blocklist default examples */
+const BLOCKLIST: string[] = [
   // Disabled because the select in that example fails the a11y test
   // because a `listbox` role needs to contain `list` or `option` items
   // Since these are projected into an overlay, this is tricky.
@@ -56,7 +56,7 @@ DT_DEMOS_EXAMPLE_NAV_ITEMS.forEach((component) => {
   fixture(component.name);
 
   component.examples
-    .filter((example) => !BLACKLIST.includes(example.name))
+    .filter((example) => !BLOCKLIST.includes(example.name))
     .forEach((example) => {
       test.page(`${BASEURL}${example.route}`)(
         example.name,
