@@ -1,0 +1,75 @@
+<!-- Tab-List -->
+<fluid-tab-group (activeTabChanged)="handleChange($event)">
+  <!-- Tabs -->
+  <fluid-tab [tabid]="'section1'">
+    Build
+  </fluid-tab>
+  <fluid-tab [tabid]="'section2'">
+    Type
+  </fluid-tab>
+  <fluid-tab [tabid]="'section3'">
+    History
+  </fluid-tab>
+  <fluid-tab [tabid]="'section4'" *ngIf="showLastTab" [disabled]="disabled">
+    Saved Queries
+  </fluid-tab>
+</fluid-tab-group>
+<button (click)="showLastTab = !showLastTab">Toggle last tab</button>
+<button (click)="disabled = !disabled">Toggle disabled ({{ disabled }})</button>
+<!-- Sections -->
+<div *ngIf="false">
+  <h3>
+    These sections are a placeholder for the later implementation of a
+    switchable content component
+  </h3>
+  <section id="section1">
+    <h4>Section 1</h4>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam euismod,
+      tortor nec pharetra ultricies, ante erat imperdiet velit, nec laoreet enim
+      lacus a velit. Nam luctus, enim in interdum condimentum, nisl diam iaculis
+      lorem, vel volutpat mi leo sit amet lectus. Praesent non odio bibendum
+      magna bibendum accumsan.
+    </p>
+  </section>
+  <section id="section2">
+    <h4>Section 2</h4>
+    <p>
+      Nullam at diam nec arcu suscipit auctor non a erat. Sed et magna semper,
+      eleifend magna non, facilisis nisl. Proin et est et lorem dictum finibus
+      ut nec turpis. Aenean nisi tortor, euismod a mauris a, mattis scelerisque
+      tortor. Sed dolor risus, varius a nibh id, condimentum lacinia est. In
+      lacinia cursus odio a aliquam. Curabitur tortor magna, laoreet ut rhoncus
+      at, sodales consequat tellus.
+    </p>
+  </section>
+  <section id="section3">
+    <h4>Section 3</h4>
+    <p>
+      Phasellus ac tristique orci. Nulla maximus justo nec dignissim consequat.
+      Sed vehicula diam sit amet mi efficitur vehicula in in nisl. Aliquam erat
+      volutpat. Suspendisse lorem turpis, accumsan consequat consectetur
+      gravida, pellentesque ac ante. Aliquam in commodo ligula, sit amet mollis
+      neque. Vestibulum at facilisis massa.
+    </p>
+  </section>
+  <section id="section4">
+    <h4>Section 4</h4>
+    <p>
+      Nam luctus, enim in interdum condimentum, nisl diam iaculis lorem, vel
+      volutpat mi leo sit amet lectus. Praesent non odio bibendum magna bibendum
+      accumsan. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam
+      euismod, tortor nec pharetra ultricies, ante erat imperdiet velit, nec
+      laoreet enim lacus a velit.
+    </p>
+  </section>
+</div>
+
+<div>
+  <h2>Logs</h2>
+  <code *ngFor="let log of logs">
+    <pre>
+    {{ log | json }}
+    </pre>
+  </code>
+</div>

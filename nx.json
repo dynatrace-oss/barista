@@ -128,7 +128,11 @@
     },
     "package-elements": {
       "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["fluid-button", "fluid-checkbox"]
+      "implicitDependencies": [
+        "fluid-button",
+        "fluid-checkbox",
+        "fluid-tab-group"
+      ]
     },
     "alert": {
       "tags": ["scope:components", "type:library"]
@@ -339,6 +343,10 @@
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
     "fluid-checkbox": {
+      "tags": ["scope:elements", "type:library"],
+      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
+    },
+    "fluid-tab-group": {
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
