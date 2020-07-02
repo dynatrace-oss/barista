@@ -58,6 +58,8 @@ async function run() {
     return;
   }
 
+  console.log(client);
+
   if (!isMasterTarget(pullRequestDetails.base)) {
     console.log('Target branch is not master, exiting');
     return;
