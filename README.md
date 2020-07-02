@@ -11,7 +11,7 @@ ingredients to create extraordinary user experiences. Like a barista picks the
 best ingredients for their coffee – and we love coffee!
 
 One major part of the Barista design system is our
-[components library](https://github.com/dynatrace-oss/barista/tree/master/components)
+[components library](https://github.com/dynatrace-oss/barista/tree/master/libs/barista-components)
 written in Angular.
 
 ## Getting started
