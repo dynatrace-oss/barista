@@ -2,92 +2,76 @@
 version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
-  SNYK-JS-DOTPROP-543489:
-    - conventional-changelog-angular > compare-func > dot-prop:
-        reason: >-
-          Currently there is no fix for this issue. Created an issue:
-          https://github.com/conventional-changelog/conventional-changelog/issues/592
-        expires: '2020-03-04T12:24:56.781Z'
-  SNYK-JS-MINIMIST-559764:
-    - '@angular/localize > @babel/core > json5 > minimist':
-        reason: None given
-        expires: '2020-04-10T15:13:07.689Z'
-  SNYK-JS-YARGSPARSER-560381:
-    - '@angular/localize > yargs > yargs-parser':
-        reason: >-
-          @angular/localize has fixed its dependency and we cannot do anything
-          about it but wait until they update
-        expires: '2020-04-16T11:57:00.980Z'
   SNYK-JS-LODASH-567746:
     - '@angular/localize > @babel/core > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.727Z'
+        expires: '2020-09-02T11:07:39.727Z'
     - '@angular/localize > @babel/core > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.727Z'
+        expires: '2020-09-02T11:07:39.727Z'
     - '@angular/localize > @babel/core > @babel/generator > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.727Z'
+        expires: '2020-09-02T11:07:39.727Z'
     - '@angular/localize > @babel/core > @babel/traverse > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.727Z'
+        expires: '2020-09-02T11:07:39.727Z'
     - '@angular/localize > @babel/core > @babel/generator > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.727Z'
+        expires: '2020-09-02T11:07:39.727Z'
     - '@angular/localize > @babel/core > @babel/template > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.727Z'
+        expires: '2020-09-02T11:07:39.727Z'
     - '@angular/localize > @babel/core > @babel/traverse > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.728Z'
+        expires: '2020-09-02T11:07:39.728Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.728Z'
+        expires: '2020-09-02T11:07:39.728Z'
     - '@angular/localize > @babel/core > @babel/traverse > @babel/generator > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.728Z'
+        expires: '2020-09-02T11:07:39.728Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.728Z'
+        expires: '2020-09-02T11:07:39.728Z'
     - '@angular/localize > @babel/core > @babel/traverse > @babel/generator > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.728Z'
+        expires: '2020-09-02T11:07:39.728Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/template > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.728Z'
+        expires: '2020-09-02T11:07:39.728Z'
     - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.728Z'
+        expires: '2020-09-02T11:07:39.728Z'
     - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.728Z'
+        expires: '2020-09-02T11:07:39.728Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.729Z'
+        expires: '2020-09-02T11:07:39.729Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.729Z'
+        expires: '2020-09-02T11:07:39.729Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.729Z'
+        expires: '2020-09-02T11:07:39.729Z'
     - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.729Z'
+        expires: '2020-09-02T11:07:39.729Z'
     - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.729Z'
+        expires: '2020-09-02T11:07:39.729Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.730Z'
+        expires: '2020-09-02T11:07:39.730Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.730Z'
+        expires: '2020-09-02T11:07:39.730Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.730Z'
+        expires: '2020-09-02T11:07:39.730Z'
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
         reason: Lodash is a transient dependency and out of our control
-        expires: '2020-07-02T11:07:39.730Z'
+        expires: '2020-09-02T11:07:39.730Z'
     - lodash:
         reason: None given
         expires: '2020-05-30T14:31:45.395Z'
