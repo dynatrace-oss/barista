@@ -57,6 +57,92 @@ export * from './test-component-complex-example/test-component-complex-example';
 "
 `;
 
+exports[`Add Example Component should change files appropriately 3`] = `
+"import { Type } from '@angular/core';
+
+import { DtExampleAlertDarkError } from './alert/alert-dark-error-example/alert-dark-error-example';
+import { DtExampleAlertDark } from './alert/alert-dark-example/alert-dark-example';
+import { DtExampleAlertError } from './alert/alert-error-example/alert-error-example';
+import { DtExampleComplexTestComponent } from '././test-component/test-component-complex-example/test-component-complex-example';
+export { DtExamplesModule } from './examples.module';
+export { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.module';
+export {
+  DtExampleAlertDarkError,
+  DtExampleAlertDark,
+  DtExampleTreeTableSimple,
+  DtExampleComplexTestComponent,
+};
+
+export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
+  ['DtExampleAlertDarkError', DtExampleAlertDarkError],
+  ['DtExampleAlertDark', DtExampleAlertDark],
+  ['DtExampleComplexTestComponent', DtExampleComplexTestComponent],
+]);
+"
+`;
+
+exports[`Add Example Component should change files appropriately 4`] = `""`;
+
+exports[`Add Example Component should change files appropriately 5`] = `
+"import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import {
+  DtExampleTreeTableProblemIndicator,
+  DtExampleTreeTableSimple,
+  DtExampleComplexTestComponent,
+} from '@dynatrace/examples';
+
+const ROUTES: Routes = [
+  { path: 'alert-dark-error-example', component: DtExampleAlertDarkError },
+  { path: 'tree-table-default-example', component: DtExampleTreeTableDefault },
+  {
+    path: 'tree-table-problem-indicator-example',
+    component: DtExampleTreeTableProblemIndicator,
+  },
+  { path: 'tree-table-simple-example', component: DtExampleTreeTableSimple },
+  {
+    path: 'test-component-complex-example',
+    component: DtExampleComplexTestComponent,
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(ROUTES)],
+  exports: [RouterModule],
+})
+export class DtDemosAppRoutingModule {}
+"
+`;
+
+exports[`Add Example Component should change files appropriately 6`] = `
+"export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
+  {
+    name: 'alert',
+    examples: [
+      {
+        name: 'alert-dark-error-example',
+        route: '/alert-dark-error-example',
+      },
+    ],
+  },
+  {
+    name: 'test-component',
+    examples: [
+      {
+        name: 'autocomplete-attach-different-element-example',
+        route: '/autocomplete-attach-different-element-example',
+      },
+      {
+        name: 'test-component-complex-example',
+        route: '/test-component-complex-example',
+      },
+    ],
+  },
+];
+"
+`;
+
 exports[`Add Example Component should generate files with the appropriate content 1`] = `
 "/**
  * @license

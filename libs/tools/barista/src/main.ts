@@ -15,7 +15,7 @@
  */
 
 import { isPublicBuild } from '@dynatrace/shared/node';
-import { green } from 'chalk';
+import { green, bold } from 'chalk';
 import { existsSync, mkdirSync, promises as fs } from 'fs';
 import { EOL } from 'os';
 import { dirname, join } from 'path';
@@ -32,6 +32,10 @@ import { BaPageBuilder, BaPageBuildResult, BaPageTransformer } from './types';
 import { sync } from 'glob';
 import { uxDecisionGraphGenerator, overviewBuilder } from './generators';
 import { options } from 'yargs';
+import {
+  getExamplesInPackages,
+  generateExamplesLibMetadataFile,
+} from './utils/examples';
 
 // Add your page-builder to this map to register it.
 
@@ -100,6 +104,21 @@ async function buildPages(): Promise<void[]> {
     next: { type: 'boolean', alias: 'n', default: false },
     linkReplacement: { type: 'string', alias: 'lr' },
   }).argv;
+
+  console.log(`Generating examples lib metadata file for barista`);
+  const packageMetas = await getExamplesInPackages();
+  const metadataFile = await generateExamplesLibMetadataFile(packageMetas);
+  console.log(green(`  ✓   Created "${metadataFile}"`));
+
+  console.log(
+    bold(
+      green(
+        `✓ All content for the demos & barista app has been successfully generated`,
+      ),
+    ),
+  );
+  console.log();
+
   const environment = next ? nextEnvironment : baristaEnvironment;
   const globalTransformers = next
     ? []

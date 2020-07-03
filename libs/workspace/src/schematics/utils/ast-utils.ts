@@ -16,6 +16,7 @@
 
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
+import { InsertChange } from './change';
 
 export function getSourceFile(host: Tree, path: string): ts.SourceFile {
   const buffer = host.read(path);
@@ -77,4 +78,47 @@ export function getIndentation(
     }
   }
   return indentation;
+}
+
+/**
+ * This function adds import statement based o the parameters.
+ * @param sourceFile The file to add the import into.
+ * @param name Name of the needed import.
+ * @param importPath The path of the import.
+ * @param modulePath The path of module file to add the import into.
+ */
+export function addImport(
+  sourceFile: ts.SourceFile,
+  name: string,
+  importPath: string,
+  modulePath: string,
+): InsertChange {
+  const lastImport = findNodes(
+    sourceFile,
+    ts.SyntaxKind.ImportDeclaration,
+  ).pop() as ts.ImportDeclaration;
+  // +1 because of new line
+  const end = lastImport.end + 1;
+  const toInsertImport = `import { ${name} } from './${importPath}';`;
+  return new InsertChange(modulePath, end, toInsertImport);
+}
+
+/**
+ * Add export statement to barrel files.
+ * @param sourceFile The source of the file.
+ * @param exportPath The path that we need to export.
+ * @param modulePath The path of the file.
+ */
+export function addExport(
+  sourceFile: ts.SourceFile,
+  exportPath: string,
+  modulePath: string,
+): InsertChange {
+  const lastExport = findNodes(
+    sourceFile,
+    ts.SyntaxKind.ExportDeclaration,
+  ).pop() as ts.ExportDeclaration;
+  const end = lastExport.end + 1;
+  const toInsertExport = `export * from './${exportPath}';`;
+  return new InsertChange(modulePath, end, toInsertExport);
 }

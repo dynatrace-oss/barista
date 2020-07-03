@@ -56,10 +56,6 @@ Thumbs.db
 *.gdsl
 .metadata
 
-# Examples build
-/apps/demos/src/app-routing.module.ts
-/apps/demos/src/nav-items.ts
-
 # Barista
 /src/barista/data/
 # Build of bitbucket-tools

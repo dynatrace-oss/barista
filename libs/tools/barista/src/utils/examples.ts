@@ -14,11 +14,25 @@
  * limitations under the License.
  */
 
-import { promises as fs, mkdirSync } from 'fs';
-import { join, basename } from 'path';
-import { BaAllExamplesMetadata } from '@dynatrace/shared/design-system/interfaces';
+import { mkdirSync, promises as fs, readdirSync, lstatSync } from 'fs';
 import { environment } from '@environments/barista-environment';
-import { ExamplePackageMetadata } from './metadata';
+import { join, basename } from 'path';
+import { ExamplePackageMetadata, getExamplePackageMetadata } from './metadata';
+import { BaAllExamplesMetadata } from '@dynatrace/shared/design-system/interfaces';
+
+/** Collect all files containing examples in the demos app. */
+export async function getExamplesInPackages(): Promise<
+  ExamplePackageMetadata[]
+> {
+  return (
+    await Promise.all(
+      readdirSync(environment.examplesLibDir)
+        .map((name) => join(environment.examplesLibDir, name))
+        .filter((dir) => lstatSync(dir).isDirectory())
+        .map((dir) => getExamplePackageMetadata(dir)),
+    )
+  ).filter(Boolean) as ExamplePackageMetadata[];
+}
 
 /** Generates the metadata file for the examples library. */
 export async function generateExamplesLibMetadataFile(

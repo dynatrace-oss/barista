@@ -1,0 +1,13 @@
+import { NgModule } from '@angular/core';
+import { DtAlertExamplesModule } from './alert/alert-examples.module';
+
+/**
+ * NgModule that includes all example components
+ */
+@NgModule({
+  imports: [
+    DtAlertExamplesModule,
+    DtAutocompleteExamplesModule,
+  ],
+})
+export class DtExamplesModule {}
