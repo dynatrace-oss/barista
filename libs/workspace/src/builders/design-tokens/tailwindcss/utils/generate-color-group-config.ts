@@ -17,8 +17,8 @@
 import { DesignTokenSource } from '../../interfaces/design-token-source';
 
 /** Removes the color and theme prefix from the color name. */
-function replaceColorPrefixes(colorname: string): string {
-  return colorname.replace('color-abyss', '').replace('color-surface', '');
+export function replaceColorPrefixes(colorname: string): string {
+  return colorname.replace('color-abyss-', '').replace('color-surface-', '');
 }
 
 /** Generates themed colors versions */
