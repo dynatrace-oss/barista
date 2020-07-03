@@ -20,7 +20,7 @@ import { promises as fs } from 'fs';
 import * as markdownIt from 'markdown-it';
 import { join } from 'path';
 import { BaStrapiContentType, BaStrapiDecisionGraphNode } from '../types';
-import { fetchContentList } from '../utils/fetch-strapi-content';
+import { fetchContentList } from '@dynatrace/shared/data-access-strapi';
 
 const markdown = new markdownIt({
   html: true,

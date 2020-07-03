@@ -17,3 +17,4 @@
 export * from './lib/page-guard';
 export * from './lib/page.service';
 export * from './lib/universal.interceptor';
+export * from './lib/fetch-strapi-content';

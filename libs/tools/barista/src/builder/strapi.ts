@@ -33,7 +33,7 @@ import {
   NextContentType,
 } from '../types';
 
-import { fetchContentList } from '../utils/fetch-strapi-content';
+import { fetchContentList } from '@dynatrace/shared/data-access-strapi';
 import { slugify } from '../utils/slugify';
 
 import {
