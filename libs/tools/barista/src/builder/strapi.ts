@@ -42,6 +42,7 @@ import {
   headingIdTransformer,
   copyHeadlineTransformer,
   relativeUrlTransformer,
+  tableOfContentGenerator,
 } from '../transform';
 
 const TRANSFORMERS: BaPageTransformer[] = [
@@ -49,6 +50,7 @@ const TRANSFORMERS: BaPageTransformer[] = [
   headingIdTransformer,
   copyHeadlineTransformer,
   relativeUrlTransformer,
+  tableOfContentGenerator,
 ];
 
 /** Page-builder for Strapi CMS pages. */
