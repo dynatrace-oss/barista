@@ -57,21 +57,24 @@ export class BaScrollSpyService {
 
   /** Start spying on an element array of headlines returning a stream with the active item */
   spyOn(elements: Element[]): Observable<string | null> {
-    const headlines$ = this._zone.onStable.pipe(
-      take(1),
-      map(() => {
-        return this._calculateTopValues(elements);
-      }),
-    );
-    // Resize and Scroll trigger event calculates top values and active item.
-    return merge(
-      fromEvent(window, 'resize').pipe(auditTime(300)),
-      fromEvent(window, 'scroll').pipe(auditTime(50)),
-    ).pipe(
-      startWith(null),
-      withLatestFrom(headlines$),
-      map(([_ev, ele]) => this._findActiveItemId(ele)),
-    );
+    if (this._platform.isBrowser) {
+      const headlines$ = this._zone.onStable.pipe(
+        take(1),
+        map(() => {
+          return this._calculateTopValues(elements);
+        }),
+      );
+      // Resize and Scroll trigger event calculates top values and active item.
+      return merge(
+        fromEvent(window, 'resize').pipe(auditTime(300)),
+        fromEvent(window, 'scroll').pipe(auditTime(50)),
+      ).pipe(
+        startWith(null),
+        withLatestFrom(headlines$),
+        map(([_ev, ele]) => this._findActiveItemId(ele)),
+      );
+    }
+    return of(null);
   }
 
   /** Calculates top bounding properties for an element array */
