@@ -24,7 +24,7 @@ import * as markdownItDeflist from 'markdown-it-deflist';
 import { environment } from '@environments/barista-environment';
 import { isPublicBuild } from '@dynatrace/shared/node';
 import { baElementBlockIgnore } from './markdown-custom-elements-ignore';
-import { fetchContentList } from './utils/fetch-strapi-content';
+import { fetchContentList } from '@dynatrace/shared/data-access-strapi';
 import { runWithCheerio } from './utils/run-with-cheerio';
 import { parse } from 'url';
 
