@@ -40,10 +40,15 @@ export async function fetchContentList<T>(
   options: FetchContentOptions,
   endpoint: string,
 ): Promise<T[]> {
-  const params = {
+  const params: { _limit?: number; public?: boolean } = {
     _limit: 1000,
-    public: options.publicContent,
   };
+  // We cannot pass public false as a param in cases where public
+  // is not part of the model. Strapi throws an error when an unknown param is
+  // provided even if it is false.
+  if (options.publicContent) {
+    params.public = true;
+  }
   return getStrapiContent(`/${contentType}`, params, endpoint);
 }
 
