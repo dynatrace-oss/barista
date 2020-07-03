@@ -3,7 +3,7 @@ load("@npm_bazel_typescript//:index.bzl", "ts_config", "ts_library")
 package(default_visibility = ["//visibility:public"])
 
 filegroup(
-    name = "barista-definitions",
+    name = "design-system-interfaces",
     srcs = glob(
         include = ["**/*.ts"],
         exclude = [
@@ -14,9 +14,9 @@ filegroup(
 )
 
 ts_library(
-    name = "barista-definitions_compile",
+    name = "design-system-interfaces_compile",
     srcs = glob(["src/**/*.ts"]),
-    module_name = "@dynatrace/shared/barista-definitions",
+    module_name = "@dynatrace/shared/design-system/interfaces",
     module_root = "src",
     tsconfig = "tsconfig_lib",
     deps = [

@@ -15,11 +15,11 @@
  */
 
 import { Component } from '@angular/core';
-import { BaSinglePageContent } from '@dynatrace/shared/barista-definitions';
+import { BaSinglePageContent } from '@dynatrace/shared/design-system/interfaces';
 import { BaPageService } from '@dynatrace/shared/data-access-strapi';
 
 @Component({
-  selector: 'ba-single-page',
+  selector: 'next-single-page',
   templateUrl: 'single-page.html',
   styleUrls: ['single-page.scss'],
   host: {
