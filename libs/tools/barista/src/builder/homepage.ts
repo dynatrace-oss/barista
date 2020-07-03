@@ -19,7 +19,7 @@ import { environment } from '@environments/barista-environment';
 import {
   fetchContentList,
   fetchContentItemById,
-} from '../utils/fetch-strapi-content';
+} from '@dynatrace/shared/data-access-strapi';
 
 import {
   BaPageBuildResult,
