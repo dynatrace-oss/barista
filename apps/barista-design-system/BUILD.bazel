@@ -43,7 +43,7 @@ architect(
         "//libs/barista-components/theming",
         "//libs/barista-components/toast",
         "//libs/examples",
-        "//libs/shared/barista-definitions",
+        "//libs/shared/design-system/interfaces",
     ],
     target = "barista-design-system:build-frontend",
 )
