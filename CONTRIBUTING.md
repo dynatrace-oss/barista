@@ -92,6 +92,7 @@ Must be one of the following:
   angular-cli related changes
 - **chore**: Other changes that don't modify src or test files
 - **barista**: Changes that affect the design system app/build
+- **ds**: Changes that affect the design system app/build
 
 ### Scope
 

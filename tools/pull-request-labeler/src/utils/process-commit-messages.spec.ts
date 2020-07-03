@@ -90,3 +90,10 @@ it('should fail if there are mixed commits present', () => {
   ]);
   expect(result.targets).toHaveLength(0);
 });
+
+it('should add minor and patch labels to a ds commits', () => {
+  const commits = ['ds: Add something for design system.'];
+  const result = processCommitMessages(commits);
+  expect(result.errors).toHaveLength(0);
+  expect(result.targets).toEqual(['target: minor', 'target: patch']);
+});
