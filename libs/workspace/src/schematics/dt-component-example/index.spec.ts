@@ -74,6 +74,34 @@ describe('Add Example Component', () => {
       )
       .toPromise();
 
+    await addFixtureToTree(
+      initialTree,
+      'examples.module.ts.fixture',
+      '/libs/examples/src/examples.module.ts',
+      fixturesFolder,
+    );
+
+    await addFixtureToTree(
+      initialTree,
+      'examplesIndex.ts.fixtures',
+      '/libs/examples/src/index.ts',
+      fixturesFolder,
+    );
+
+    await addFixtureToTree(
+      initialTree,
+      'app-routing.module.ts.fixture',
+      '/apps/demos/src/app-routing.module.ts',
+      fixturesFolder,
+    );
+
+    await addFixtureToTree(
+      initialTree,
+      'nav-items.ts.fixture',
+      '/apps/demos/src/nav-items.ts',
+      fixturesFolder,
+    );
+
     initialFiles = initialTree.files;
   });
 
@@ -140,6 +168,20 @@ describe('Add Example Component', () => {
 
     expect(
       result.readContent('/libs/examples/src/test-component/index.ts'),
+    ).toMatchSnapshot();
+
+    expect(result.readContent('/libs/examples/src/index.ts')).toMatchSnapshot();
+
+    expect(
+      result.readContent('/libs/examples/src/examples.module.ts.ts'),
+    ).toMatchSnapshot();
+
+    expect(
+      result.readContent('/apps/demos/src/app-routing.module.ts'),
+    ).toMatchSnapshot();
+
+    expect(
+      result.readContent('/apps/demos/src/nav-items.ts'),
     ).toMatchSnapshot();
   });
 });

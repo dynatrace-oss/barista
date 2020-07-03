@@ -1,0 +1,20 @@
+export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
+  {
+    name: 'alert',
+    examples: [
+      {
+        name: 'alert-dark-error-example',
+        route: '/alert-dark-error-example',
+      },
+    ],
+  },
+  {
+    name: 'test-component',
+    examples: [
+      {
+        name: 'autocomplete-attach-different-element-example',
+        route: '/autocomplete-attach-different-element-example',
+      },
+    ],
+  },
+];

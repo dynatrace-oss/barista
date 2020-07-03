@@ -20,11 +20,10 @@
     "barista-design-system": {
       "tags": ["type:app"],
       "//": "The order of the properties does matter! they are executed at build time from last to first.",
-      "implicitDependencies": ["barista-tools", "examples-tools"]
+      "implicitDependencies": ["barista-tools"]
     },
     "demos": {
-      "tags": ["type:app"],
-      "implicitDependencies": ["examples-tools"]
+      "tags": ["type:app"]
     },
     "components-e2e": {
       "tags": ["type:e2e"],
@@ -40,9 +39,6 @@
       "tags": ["type:tooling"]
     },
     "barista-tools": {
-      "tags": ["type:tooling"]
-    },
-    "examples-tools": {
       "tags": ["type:tooling"]
     },
     "tools-release": {

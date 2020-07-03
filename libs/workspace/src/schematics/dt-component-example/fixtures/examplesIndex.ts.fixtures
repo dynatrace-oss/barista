@@ -1,0 +1,18 @@
+import { Type } from '@angular/core';
+
+import { DtExampleAlertDarkError } from './alert/alert-dark-error-example/alert-dark-error-example';
+import { DtExampleAlertDark } from './alert/alert-dark-example/alert-dark-example';
+import { DtExampleAlertError } from './alert/alert-error-example/alert-error-example';
+
+export { DtExamplesModule } from './examples.module';
+export { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.module';
+export {
+  DtExampleAlertDarkError,
+  DtExampleAlertDark,
+  DtExampleTreeTableSimple,
+};
+
+export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
+  ['DtExampleAlertDarkError', DtExampleAlertDarkError],
+  ['DtExampleAlertDark', DtExampleAlertDark],
+]);
