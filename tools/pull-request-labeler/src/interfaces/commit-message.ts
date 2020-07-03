@@ -26,6 +26,7 @@ export enum CommitTypes {
   CI = 'ci',
   CHORE = 'chore',
   BARISTA = 'barista',
+  DS = 'ds',
 }
 
 export interface CommitMessage {
