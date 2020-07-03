@@ -53,7 +53,7 @@ export function generateFontSize(
       // for the tailwind config.
       // Transforming `typography--font-size-4xl` to `4xl`.
       const transformedName =
-        typoAliasName.replace('typography--font-size-', '') || 'base';
+        typoAliasName.replace(/typography--font-size-?/, '') || 'base';
       fontSizeConfig[transformedName] = typoAliasValue;
     }
   }
@@ -99,7 +99,7 @@ export function generateLineHeights(
       // for the tailwind config.
       // Transforming it from `typography--line-height-4xl` to `4xl`
       const transformedName =
-        typoAliasName.replace('typography--line-height-', '') || 'base';
+        typoAliasName.replace(/typography--line-height-?/, '') || 'base';
       lineHeightConfig[transformedName] = typoAliasValue;
     }
   }
