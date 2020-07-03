@@ -241,9 +241,6 @@
             "parallel": false,
             "commands": [
               {
-                "command": "npx ng run examples-tools:execute"
-              },
-              {
                 "command": "npx ng run demos:build-frontend"
               }
             ]
@@ -251,9 +248,6 @@
           "configurations": {
             "production": {
               "commands": [
-                {
-                  "command": "npx ng run examples-tools:execute"
-                },
                 {
                   "command": "npx ng run demos:build-frontend:production"
                 }
@@ -375,9 +369,6 @@
             "parallel": false,
             "commands": [
               {
-                "command": "npx ng run examples-tools:execute"
-              },
-              {
                 "command": "npx ng run demos:a11y-tests"
               }
             ]
@@ -386,9 +377,6 @@
             "ci": {
               "commands": [
                 {
-                  "command": "npx ng run examples-tools:execute"
-                },
-                {
                   "command": "npx ng run demos:a11y-tests:ci"
                 }
               ]
@@ -396,52 +384,10 @@
             "watch": {
               "commands": [
                 {
-                  "command": "npx ng run examples-tools:execute"
-                },
-                {
                   "command": "npx ng run demos:a11y-tests:watch"
                 }
               ]
             }
-          }
-        }
-      }
-    },
-    "examples-tools": {
-      "root": "libs/tools/examples-tools",
-      "sourceRoot": "libs/tools/examples-tools/src",
-      "projectType": "library",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/libs/tools/examples-tools",
-            "main": "libs/tools/examples-tools/src/main.ts",
-            "tsConfig": "libs/tools/examples-tools/tsconfig.json",
-            "optimization": true,
-            "progress": false,
-            "maxWorkers": 6,
-            "buildLibsFromSource": true
-          },
-          "configurations": {
-            "production": {}
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/tools/examples-tools/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/examples-tools/**"]
-          }
-        },
-        "execute": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "commands": [
-              {
-                "command": "node dist/libs/tools/examples-tools/main.js"
-              }
-            ]
           }
         }
       }
@@ -472,9 +418,6 @@
             "parallel": false,
             "commands": [
               {
-                "command": "npx ng run examples-tools:execute"
-              },
-              {
                 "command": "npx ng run barista-tools:execute"
               },
               {
@@ -486,9 +429,6 @@
             "production": {
               "commands": [
                 {
-                  "command": "npx ng run examples-tools:execute"
-                },
-                {
                   "command": "npx ng run barista-tools:execute"
                 },
                 {
@@ -498,9 +438,6 @@
             },
             "production-internal": {
               "commands": [
-                {
-                  "command": "npx ng run examples-tools:execute"
-                },
                 {
                   "command": "npx ng run barista-tools:execute"
                 },

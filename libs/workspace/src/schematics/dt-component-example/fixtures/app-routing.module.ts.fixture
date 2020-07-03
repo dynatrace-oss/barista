@@ -1,0 +1,23 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import {
+  DtExampleTreeTableProblemIndicator,
+  DtExampleTreeTableSimple,
+} from '@dynatrace/examples';
+
+const ROUTES: Routes = [
+  { path: 'alert-dark-error-example', component: DtExampleAlertDarkError },
+  { path: 'tree-table-default-example', component: DtExampleTreeTableDefault },
+  {
+    path: 'tree-table-problem-indicator-example',
+    component: DtExampleTreeTableProblemIndicator,
+  },
+  { path: 'tree-table-simple-example', component: DtExampleTreeTableSimple },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(ROUTES)],
+  exports: [RouterModule],
+})
+export class DtDemosAppRoutingModule {}

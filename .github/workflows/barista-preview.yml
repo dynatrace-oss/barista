@@ -27,7 +27,6 @@ jobs:
       - name: Build Barista Design System
         run: |
           npm run ng build workspace
-          npm run examples-tools
           npm run barista-tools
 
           npm run ng run barista-design-system:build:production

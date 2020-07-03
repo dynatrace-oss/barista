@@ -235,7 +235,6 @@ jobs:
           name: Build Workspace package 📦
           command: |
             npm run ng run workspace:build
-            npm run ng run examples-tools:build
             npm run ng run barista-tools:build
       - save_cache:
           key: npm-packages-v1-{{ checksum "package-lock.json" }}
