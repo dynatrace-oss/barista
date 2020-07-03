@@ -16,7 +16,7 @@
 
 import { Component } from '@angular/core';
 import { BaPageService } from '@dynatrace/shared/data-access-strapi';
-import { NextPage } from '../../shared/next-definitions';
+import { NextPage } from '@dynatrace/shared/design-system/interfaces';
 
 @Component({
   selector: 'next-error-page',
