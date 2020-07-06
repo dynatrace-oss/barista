@@ -13,3 +13,11 @@
     {{ option.name }}
   </dt-option>
 </dt-combobox>
+
+<dt-select>
+  <dt-option *ngFor="let option of _options" [value]="option">
+    {{ option.name }}
+  </dt-option>
+</dt-select>
+
+<button dt-button (click)="setOptions()">Set options</button>
