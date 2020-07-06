@@ -51,7 +51,7 @@ export function affectedE2EBuilder(
       const nxJson = readNxJson();
       // Figure out which of the affected projects are actually components.
       const affectedComponents = projects.filter((component) => {
-        return (nxJson.projects[component].tags || []).includes(
+        return (nxJson.projects[component]?.tags || []).includes(
           'scope:components',
         );
       });
