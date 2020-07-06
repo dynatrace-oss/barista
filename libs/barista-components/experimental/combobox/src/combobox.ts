@@ -50,6 +50,7 @@ import {
   takeUntil,
   take,
   switchMap,
+  startWith,
 } from 'rxjs/operators';
 import {
   CanDisable,
@@ -109,11 +110,12 @@ export const _DtComboboxMixinBase = mixinTabIndex(
   host: {
     class: 'dt-combobox',
     // role: 'listbox', // TODO ChMa: a11y build still fails with "Certain ARIA roles must contain particular children"
+    // Moved dt-combobox-open to trigger, because the host seems to be out of sync with the members when using
+    // a class binding on the host
     '[class.dt-combobox-loading]': '_loading',
     '[class.dt-combobox-disabled]': 'disabled',
     '[class.dt-combobox-invalid]': 'errorState',
     '[class.dt-combobox-required]': 'required',
-    '[class.dt-combobox-open]': '_panelOpen',
     '[attr.id]': 'id',
     '[attr.tabindex]': 'tabIndex',
     '[attr.aria-required]': 'required.toString()',
@@ -238,7 +240,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
 
   /** @internal The trigger of the internal autocomplete trigger */
   @ViewChild('autocompleteTrigger', { static: true })
-  _autocompleteTrigger: DtAutocompleteTrigger<any>;
+  _autocompleteTrigger: DtAutocompleteTrigger<T>;
   /** @internal The elementRef of the input used internally */
   @ViewChild('searchInput', { static: true }) _searchInput: ElementRef;
   /**
@@ -253,7 +255,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   @ContentChildren(DtOption, { descendants: true })
   _options: QueryList<DtOption<T>>;
 
-  /** @return <code>false</code> if no value is currently selected. */
+  /** Whether the selection is currently empty. */
   get empty(): boolean {
     return !this._selectionModel || this._selectionModel.isEmpty();
   }
@@ -268,7 +270,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     return !this.empty ? this._selectionModel.selected[0].viewValue : '';
   }
 
-  /** @internal is <code>false</code> if the autocomplete panel is not shown */
+  /** @internal whether the autocomplete panel is shown. Initially false. */
   _panelOpen = false;
 
   /** @internal `View -> model callback called when value changes` */
@@ -350,7 +352,11 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
       this._templatePortalContent,
       this._viewContainerRef,
     );
-    this._autocomplete._additionalOptions = this._options.toArray();
+    this._options.changes.pipe(startWith(null)).subscribe(() => {
+      this._autocomplete._additionalOptions = this._options.toArray();
+      this._resetOptions();
+      this._initializeSelection();
+    });
     this._autocompleteTrigger.registerOnChange(() => this._onChange);
     this._autocompleteTrigger.registerOnTouched(() => this._onTouched);
   }
@@ -399,7 +405,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   /** Sets the combobox's value. Part of the ControlValueAccessor. */
   writeValue(value: T): void {
     if (this._options) {
-      this._setSelectionByValue(value);
+      // this._setSelectionByValue(value);
       if (this._autocompleteTrigger) {
         this._autocompleteTrigger.writeValue(value);
       }
@@ -497,45 +503,87 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      this._setSelectionByValue(
-        this.ngControl ? this.ngControl.value : this._value,
-      );
+      // this._setSelectionByValue(
+      //   this.ngControl ? this.ngControl.value : this._value,
+      // );
     });
   }
 
   /** Updates the selection by value using selection model and keymanager to handle the active item */
-  private _setSelectionByValue(value: T): void {
-    this._selectionModel.clear();
-    const correspondingOption = this._selectValue(value);
+  // private _setSelectionByValue(value: T): void {
+  //   this._selectionModel.clear();
+  //   const correspondingOption = this._selectValue(value);
 
-    // Shift focus to the active item. Note that we shouldn't do this in multiple
-    // mode, because we don't know what option the user interacted with last.
-    if (correspondingOption && this._autocomplete?._keyManager) {
-      this._autocomplete._keyManager.setActiveItem(correspondingOption);
-    }
+  //   // Shift focus to the active item
+  //   if (correspondingOption && this._autocomplete?._keyManager) {
+  //     this._autocomplete._keyManager.setActiveItem(correspondingOption);
+  //   }
 
-    this._changeDetectorRef.markForCheck();
-  }
+  //   this._changeDetectorRef.markForCheck();
+  // }
 
   /** Searches for an option matching the value and selects it if found */
-  private _selectValue(value: T): DtOption<T> | undefined {
-    const correspondingOption = this._options.find((option: DtOption<T>) => {
-      try {
-        // Treat null as a special reset value.
-        return (
-          isDefined(option.value) && this._compareWith(option.value, value)
-        );
-      } catch (error) {
-        // Notify developers of errors in their comparator.
-        LOG.warn(error);
-        return false;
-      }
-    });
+  // private _selectValue(value: T): DtOption<T> | undefined {
+  //   const correspondingOption = this._options.find((option: DtOption<T>) => {
+  //     try {
+  //       // Treat null as a special reset value.
+  //       return (
+  //         isDefined(option.value) && this._compareWith(option.value, value)
+  //       );
+  //     } catch (error) {
+  //       // Notify developers of errors in their comparator.
+  //       LOG.warn(error);
+  //       return false;
+  //     }
+  //   });
 
-    if (correspondingOption) {
-      this._selectionModel.select(correspondingOption);
+  //   if (correspondingOption) {
+  //     this._selectionModel.select(correspondingOption);
+  //   }
+
+  //   return correspondingOption;
+  // }
+
+  /** Invoked when an option is clicked. */
+  private _onSelect(option: DtOption<T>, isUserInput: boolean): void {
+    debugger;
+    const wasSelected = this._selectionModel.isSelected(option);
+
+    if (isDefined(option.value)) {
+      if (option.selected) {
+        this._selectionModel.select(option);
+      } else {
+        this._selectionModel.deselect(option);
+      }
+
+      if (isUserInput) {
+        this._autocomplete._keyManager.setActiveItem(option);
+      }
+    } else {
+      option.deselect();
+      this._selectionModel.clear();
+      this._propagateChanges(option.value);
     }
 
-    return correspondingOption;
+    if (wasSelected !== this._selectionModel.isSelected(option)) {
+      this._propagateChanges();
+    }
+
+    this.stateChanges.next();
+  }
+
+  private _resetOptions(): void {
+    const changedOrDestroyed = merge(this._options.changes, this._destroy);
+
+    this.optionSelectionChanges
+      .pipe(takeUntil(changedOrDestroyed))
+      .subscribe((event) => {
+        this._onSelect(event.source, event.isUserInput);
+
+        if (event.isUserInput && this._panelOpen) {
+          this.close();
+          //this.focus();
+        }
+      });
   }
 }

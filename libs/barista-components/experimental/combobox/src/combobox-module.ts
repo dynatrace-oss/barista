@@ -25,9 +25,10 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 import { PortalModule } from '@angular/cdk/portal';
+import { DtOptionModule } from '@dynatrace/barista-components/core';
 
 @NgModule({
-  exports: [DtCombobox],
+  exports: [DtCombobox, DtOptionModule],
   declarations: [DtCombobox],
   imports: [
     CommonModule,
