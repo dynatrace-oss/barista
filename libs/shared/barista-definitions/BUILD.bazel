@@ -14,7 +14,7 @@ filegroup(
 )
 
 ts_library(
-    name = "barista-definitions_compile",
+    name = "compile",
     srcs = glob(["src/**/*.ts"]),
     module_name = "@dynatrace/shared/barista-definitions",
     module_root = "src",

@@ -1,0 +1,31 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
+nodejs_binary(
+    name = "cli",
+    data = [":compile"],
+    entry_point = ":cli.ts",
+)
+
+ts_library(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    deps = [
+        "//libs/shared/barista-definitions:compile",
+        "//libs/shared/node",
+        "//libs/workspace/src/builders/design-tokens/interfaces",
+        "@npm//@adobe/leonardo-contrast-colors",
+        "@npm//@angular-devkit/architect",
+        "@npm//@angular-devkit/core",
+        "@npm//@types/node",
+        "@npm//glob",
+        "@npm//memfs",
+        "@npm//rxjs",
+        "@npm//theo",
+        "@npm//yaml",
+        "@npm//yargs",
+    ],
+)
