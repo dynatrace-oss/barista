@@ -21,14 +21,14 @@
     fill: $gray-500;
   }
 
-  &.dt-combobox-open .dt-combobox-arrow {
-    transform: rotate(180deg);
-  }
-
   &:hover:not(.dt-select-disabled) {
     border-color: $gray-500;
     cursor: pointer;
   }
+}
+
+.dt-combobox-open .dt-combobox-arrow {
+  transform: rotate(180deg);
 }
 
 :host.dt-combobox-disabled {

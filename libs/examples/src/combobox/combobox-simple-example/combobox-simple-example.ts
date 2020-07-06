@@ -31,11 +31,15 @@ const allOptions: { name: string; value: string }[] = [
 })
 export class DtExampleComboboxSimple {
   _initialValue = allOptions[0];
-  _options = [...allOptions];
+  _options: { name: string; value: string }[] = [];
   _loading = false;
   _displayWith = (option: { name: string; value: string }) => option.name;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+
+  setOptions(): void {
+    this._options = [...allOptions];
+  }
 
   openedChanged(event: boolean): void {
     console.log(`openedChanged: '${event}'`);
