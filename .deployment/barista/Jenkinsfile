@@ -133,6 +133,7 @@ pipeline {
                   args='--linkReplacement=$INTERNAL_LINKS'
                 else
                   args=''
+                fi
 
                 node dist/libs/tools/examples-tools/main.js
                 node dist/libs/tools/barista/main.js ${args}
