@@ -147,7 +147,7 @@ pipeline {
                   # Build next section of the design system
                   node \
                   --max_old_space_size=8192 \
-                  ./node_modules/.bin/ng run next:build:production-internal
+                  ./node_modules/.bin/ng run next:build:production-internal --base-href='/next/'
                 fi
 
                 cat dist/barista-data/routes.txt
