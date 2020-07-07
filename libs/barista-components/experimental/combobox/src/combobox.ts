@@ -45,7 +45,6 @@ import {
 import { fromEvent, Subject, Observable, defer, merge } from 'rxjs';
 import {
   debounceTime,
-  distinctUntilChanged,
   map,
   takeUntil,
   take,
@@ -67,12 +66,7 @@ import {
   DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG,
 } from '@dynatrace/barista-components/core';
 import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
-import {
-  FormGroupDirective,
-  NgControl,
-  NgForm,
-  ControlValueAccessor,
-} from '@angular/forms';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -87,6 +81,10 @@ export class DtComboboxChange<T> {
     /** Current value of the combobox that emitted the event. */
     public value: T,
   ) {}
+}
+
+export class DtComboboxFilterChange {
+  constructor(public filter: string, public isResetEvent: boolean = false) {}
 }
 
 export class DtComboboxBase {
@@ -135,7 +133,6 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     OnDestroy,
     CanDisable,
     HasTabIndex,
-    ControlValueAccessor,
     DtFormFieldControl<T> {
   /** The ID for the combobox. */
   @Input() id: string;
@@ -146,7 +143,6 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   }
   set value(newValue: T) {
     if (newValue !== this._value) {
-      this.writeValue(newValue);
       this._value = newValue;
     }
   }
@@ -162,14 +158,6 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
 
     if (coercedValue !== this._loading) {
       this._loading = coercedValue;
-
-      if (this._loading) {
-        this._reopenAutocomplete = true;
-        this._autocompleteTrigger.closePanel();
-      } else if (this._reopenAutocomplete) {
-        this._reopenAutocomplete = false;
-        this._autocompleteTrigger.openPanel();
-      }
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -193,7 +181,8 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   /**
    * Function to compare the option values with the selected values. The first argument
    * is a value from an option. The second is a value from the selection. A boolean
-   * should be returned.
+   * should be returned. This function is needed to match new options that come in at runtime with the value
+   * that was stored previously.
    * Defaults to value equality.
    */
   @Input()
@@ -218,7 +207,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   /** Event emitted when the selected value has been changed by the user. */
   @Output() readonly selectionChange = new EventEmitter<DtComboboxChange<T>>();
   /** Event emitted when the filter changes. */
-  @Output() filterChange = new EventEmitter<string>();
+  @Output() filterChange = new EventEmitter<DtComboboxFilterChange>();
   /** Event emitted when the combobox panel has been toggled. */
   @Output() openedChange = new EventEmitter<boolean>();
 
@@ -265,24 +254,12 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     return this._selectionModel.selected[0];
   }
 
-  /** The value displayed in the trigger. */
-  get triggerValue(): string {
-    return !this.empty ? this._selectionModel.selected[0].viewValue : '';
-  }
-
   /** @internal whether the autocomplete panel is shown. Initially false. */
   _panelOpen = false;
-
-  /** @internal `View -> model callback called when value changes` */
-  _onChange: (value: any) => void = () => {};
-
-  /** @internal `View -> model callback called when combobox has been touched` */
-  _onTouched = () => {};
 
   /** @internal Deals with the selection logic. */
   _selectionModel: SelectionModel<DtOption<T>>;
 
-  private _reopenAutocomplete = false;
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
@@ -305,12 +282,6 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
       ngControl,
     );
 
-    if (this.ngControl) {
-      // Note: we provide the value accessor through here, instead of
-      // the `providers` to avoid running into a circular import.
-      this.ngControl.valueAccessor = this;
-    }
-
     this.tabIndex = parseInt(tabIndex, 10) || 0;
 
     // Force setter to be called in case id was not specified.
@@ -327,11 +298,12 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
           event.stopPropagation();
           return this._searchInput.nativeElement.value;
         }),
-        distinctUntilChanged(),
         debounceTime(150),
         takeUntil(this._destroy),
       )
-      .subscribe((query) => this.filterChange.emit(query));
+      .subscribe((query) => {
+        this.filterChange.emit(new DtComboboxFilterChange(query));
+      });
   }
 
   ngAfterContentInit(): void {
@@ -354,11 +326,18 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     );
     this._options.changes.pipe(startWith(null)).subscribe(() => {
       this._autocomplete._additionalOptions = this._options.toArray();
-      this._resetOptions();
-      this._initializeSelection();
+      this._setSelectionByValue(this._value);
     });
-    this._autocompleteTrigger.registerOnChange(() => this._onChange);
-    this._autocompleteTrigger.registerOnTouched(() => this._onTouched);
+
+    this._autocompleteTrigger.panelClosingActions.subscribe((event) => {
+      // Whenever the panelCloses without a selection event we need to reset the
+      // value in the input to the currently selected value
+      if (!event) {
+        this._resetInputValue();
+      }
+    });
+
+    this._resetInputValue();
   }
 
   ngOnDestroy(): void {
@@ -366,75 +345,14 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     this._destroy.complete();
   }
 
-  /** Toggles the panel containing the options of the combobox */
-  toggle(): void {
-    // TODO: note that currently if the toggle method is called inside an event handler
-    // e.g. onclick of a button and the event is not stopped from bubbling to the document
-    // the click outside event stream in the autocomplete fires and immediately closes the overlay after opening
-    if (this._panelOpen) {
-      this.close();
-    } else {
-      this.open();
-    }
-  }
-
-  /** Opens the panel containing the options of the combobox */
-  open(): void {
-    this._panelOpen = true;
-    this._autocompleteTrigger.openPanel(); // implicitly triggers _opened()
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /** Closes the panel containing the options of the combobox */
-  close(): void {
-    this._panelOpen = false;
-    this._autocompleteTrigger.closePanel(); // implicitly triggers _closed()
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /** Sets the list of element IDs that currently describe this control. */
+  // /** Sets the list of element IDs that currently describe this control. Part of the FormFieldControl */
   setDescribedByIds(_: string[]): void {
     // TODO ChMa: implement (what does this even do?)
   }
 
-  /** Handles a click on the control's container. */
+  // /** Handles a click on the control's container.Part of the FormFieldControl */
   onContainerClick(_: MouseEvent): void {
     // TODO ChMa: implement (do we even need this handler?)
-  }
-
-  /** Sets the combobox's value. Part of the ControlValueAccessor. */
-  writeValue(value: T): void {
-    if (this._options) {
-      // this._setSelectionByValue(value);
-      if (this._autocompleteTrigger) {
-        this._autocompleteTrigger.writeValue(value);
-      }
-    }
-  }
-
-  /**
-   * Saves a callback function to be invoked when the select's value
-   * changes from user input. Part of the ControlValueAccessor.
-   */
-  registerOnChange(fn: (value: any) => {}): void {
-    this._onChange = fn;
-    this._autocompleteTrigger.registerOnChange(fn);
-  }
-
-  /**
-   * Saves a callback function to be invoked when the combobox is blurred
-   * by the user. Part of the ControlValueAccessor.
-   */
-  registerOnTouched(fn: () => {}): void {
-    this._onTouched = fn;
-    this._autocompleteTrigger.registerOnTouched(fn);
-  }
-
-  /** Disables the combobox. Part of the ControlValueAccessor. */
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    this._changeDetectorRef.markForCheck();
-    this.stateChanges.next();
   }
 
   /** @internal called when the user selects a different option */
@@ -451,14 +369,12 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     } else {
       option.deselect();
       this._selectionModel.clear();
-      this._propagateChanges(option.value);
+      this._propagateChanges();
     }
 
     if (wasSelected !== this._selectionModel.isSelected(option)) {
       this._propagateChanges();
     }
-
-    this.stateChanges.next();
 
     this._changeDetectorRef.markForCheck();
   }
@@ -471,7 +387,10 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     event.preventDefault();
     event.stopPropagation();
 
-    this.toggle();
+    this._panelOpen
+      ? this._autocompleteTrigger.closePanel()
+      : this._autocompleteTrigger.openPanel();
+    this._changeDetectorRef.markForCheck();
   }
 
   /** @internal called when dt-autocomplete emits an open event */
@@ -489,13 +408,17 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   }
 
   /** Emits change event to set the model value. */
-  private _propagateChanges(fallbackValue?: T): void {
-    const valueToEmit = this.selected ? this.selected.value : fallbackValue;
+  private _propagateChanges(): void {
+    const valueToEmit = this.selected ? this.selected.value : null;
     this._value = valueToEmit!;
-    this.valueChange.emit(valueToEmit);
-    this._onChange(valueToEmit!);
-    this.selectionChange.emit(new DtComboboxChange(this, valueToEmit!));
+    this.valueChange.emit(valueToEmit!);
     this._changeDetectorRef.markForCheck();
+  }
+
+  private _resetInputValue(): void {
+    const value = this.selected ? this.displayWith(this.selected.value) : '';
+    this._searchInput.nativeElement.value = value;
+    this.filterChange.next(new DtComboboxFilterChange(value, true));
   }
 
   /** Handles the initial value selection */
@@ -503,87 +426,43 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     // Defer setting the value in order to avoid the "Expression
     // has changed after it was checked" errors from Angular.
     Promise.resolve().then(() => {
-      // this._setSelectionByValue(
-      //   this.ngControl ? this.ngControl.value : this._value,
-      // );
+      this._setSelectionByValue(
+        this.ngControl ? this.ngControl.value : this._value,
+      );
     });
   }
 
   /** Updates the selection by value using selection model and keymanager to handle the active item */
-  // private _setSelectionByValue(value: T): void {
-  //   this._selectionModel.clear();
-  //   const correspondingOption = this._selectValue(value);
+  private _setSelectionByValue(value: T): void {
+    const correspondingOption = this._selectValue(value);
 
-  //   // Shift focus to the active item
-  //   if (correspondingOption && this._autocomplete?._keyManager) {
-  //     this._autocomplete._keyManager.setActiveItem(correspondingOption);
-  //   }
-
-  //   this._changeDetectorRef.markForCheck();
-  // }
-
-  /** Searches for an option matching the value and selects it if found */
-  // private _selectValue(value: T): DtOption<T> | undefined {
-  //   const correspondingOption = this._options.find((option: DtOption<T>) => {
-  //     try {
-  //       // Treat null as a special reset value.
-  //       return (
-  //         isDefined(option.value) && this._compareWith(option.value, value)
-  //       );
-  //     } catch (error) {
-  //       // Notify developers of errors in their comparator.
-  //       LOG.warn(error);
-  //       return false;
-  //     }
-  //   });
-
-  //   if (correspondingOption) {
-  //     this._selectionModel.select(correspondingOption);
-  //   }
-
-  //   return correspondingOption;
-  // }
-
-  /** Invoked when an option is clicked. */
-  private _onSelect(option: DtOption<T>, isUserInput: boolean): void {
-    debugger;
-    const wasSelected = this._selectionModel.isSelected(option);
-
-    if (isDefined(option.value)) {
-      if (option.selected) {
-        this._selectionModel.select(option);
-      } else {
-        this._selectionModel.deselect(option);
-      }
-
-      if (isUserInput) {
-        this._autocomplete._keyManager.setActiveItem(option);
-      }
-    } else {
-      option.deselect();
-      this._selectionModel.clear();
-      this._propagateChanges(option.value);
+    // Shift focus to the active item
+    if (correspondingOption && this._autocomplete?._keyManager) {
+      this._autocomplete._keyManager.setActiveItem(correspondingOption);
     }
 
-    if (wasSelected !== this._selectionModel.isSelected(option)) {
-      this._propagateChanges();
-    }
-
-    this.stateChanges.next();
+    this._changeDetectorRef.markForCheck();
   }
 
-  private _resetOptions(): void {
-    const changedOrDestroyed = merge(this._options.changes, this._destroy);
+  /** Searches for an option matching the value and selects it if found */
+  private _selectValue(value: T): DtOption<T> | undefined {
+    const correspondingOption = this._options.find((option: DtOption<T>) => {
+      try {
+        // Treat null as a special reset value.
+        return (
+          isDefined(option.value) && this._compareWith(option.value, value)
+        );
+      } catch (error) {
+        // Notify developers of errors in their comparator.
+        LOG.warn(error);
+        return false;
+      }
+    });
 
-    this.optionSelectionChanges
-      .pipe(takeUntil(changedOrDestroyed))
-      .subscribe((event) => {
-        this._onSelect(event.source, event.isUserInput);
+    if (correspondingOption) {
+      this._selectionModel.select(correspondingOption);
+    }
 
-        if (event.isUserInput && this._panelOpen) {
-          this.close();
-          //this.focus();
-        }
-      });
+    return correspondingOption;
   }
 }
