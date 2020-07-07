@@ -14,5 +14,5 @@
  * limitations under the License.
  */
 
-export { DtCombobox } from './src/combobox';
+export { DtCombobox, DtComboboxFilterChange } from './src/combobox';
 export * from './src/combobox-module';
