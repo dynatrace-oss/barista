@@ -17,6 +17,7 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { timer } from 'rxjs';
+import { DtComboboxFilterChange } from '@dynatrace/barista-components/experimental/combobox';
 
 const allOptions: { name: string; value: string }[] = [
   { name: 'Value 1', value: '[value: Value 1]' },
@@ -31,7 +32,10 @@ const allOptions: { name: string; value: string }[] = [
 })
 export class DtExampleComboboxSimple {
   _initialValue = allOptions[0];
-  _options: { name: string; value: string }[] = [];
+  _options = [...allOptions].filter(
+    (option) =>
+      option.name.toLowerCase().indexOf(allOptions[0].name.toLowerCase()) >= 0,
+  );
   _loading = false;
   _displayWith = (option: { name: string; value: string }) => option.name;
 
@@ -45,22 +49,25 @@ export class DtExampleComboboxSimple {
     console.log(`openedChanged: '${event}'`);
   }
 
-  valueChanged(event: string): void {
-    console.log(`valueChanged: '${event}'`);
+  valueChanged(event: { name: string; value: string }): void {
+    this._options = [...allOptions].filter(
+      (option) =>
+        option.name.toLowerCase().indexOf(event.name.toLowerCase()) >= 0,
+    );
   }
 
-  filterChanged(event: string): void {
-    console.log(`filterChanged: '${event}'`);
-
-    this._loading = true;
-    this._changeDetectorRef.markForCheck();
+  filterChanged(event: DtComboboxFilterChange): void {
+    if (!event.isResetEvent) {
+      this._loading = true;
+      this._changeDetectorRef.markForCheck();
+    }
 
     timer(1500)
       .pipe(take(1))
       .subscribe(() => {
         this._options = allOptions.filter(
           (option) =>
-            option.value.toLowerCase().indexOf(event.toLowerCase()) >= 0,
+            option.name.toLowerCase().indexOf(event.filter.toLowerCase()) >= 0,
         );
         this._loading = false;
         this._changeDetectorRef.markForCheck();

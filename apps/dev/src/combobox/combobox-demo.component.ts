@@ -19,7 +19,6 @@ import {
   ChangeDetectorRef,
   Component,
   ViewChild,
-  AfterViewInit,
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 import { timer } from 'rxjs';
@@ -29,9 +28,9 @@ import {
 } from '@dynatrace/barista-components/experimental/combobox';
 
 const allOptions: { name: string; value: string }[] = [
-  { name: 'Value 1', value: '[value: Value 1]' },
-  { name: 'Value 2', value: '[value: Value 2]' },
   { name: 'Value 3', value: '[value: Value 3]' },
+  { name: 'Value 2', value: '[value: Value 2]' },
+  { name: 'Value 31', value: '[value: Value 31]' },
   { name: 'Value 4', value: '[value: Value 4]' },
 ];
 
@@ -40,7 +39,7 @@ const allOptions: { name: string; value: string }[] = [
   templateUrl: 'combobox-demo.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ComboboxDemo implements AfterViewInit {
+export class ComboboxDemo {
   @ViewChild(DtCombobox) combobox: DtCombobox<any>;
 
   _initialValue = allOptions[0];
@@ -53,12 +52,6 @@ export class ComboboxDemo implements AfterViewInit {
   _displayWith = (option: { name: string; value: string }) => option.name;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
-
-  ngAfterViewInit(): void {
-    this.combobox.selectionChange.subscribe((val) => {
-      console.log(val);
-    });
-  }
 
   openedChanged(event: boolean): void {
     console.log(`openedChanged: '${event}'`);
@@ -73,8 +66,6 @@ export class ComboboxDemo implements AfterViewInit {
   }
 
   filterChanged(event: DtComboboxFilterChange): void {
-    console.log(`filterChanged: '${event}'`);
-
     if (!event.isResetEvent) {
       this._loading = true;
       this._changeDetectorRef.markForCheck();
