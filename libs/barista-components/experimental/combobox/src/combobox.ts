@@ -36,6 +36,7 @@ import {
   Attribute,
   AfterContentInit,
   NgZone,
+  Inject,
 } from '@angular/core';
 import {
   DtAutocomplete,
@@ -44,12 +45,12 @@ import {
 } from '@dynatrace/barista-components/autocomplete';
 import { fromEvent, Subject, Observable, defer, merge } from 'rxjs';
 import {
-  debounceTime,
   map,
   takeUntil,
   take,
   switchMap,
   startWith,
+  tap,
 } from 'rxjs/operators';
 import {
   CanDisable,
@@ -70,6 +71,7 @@ import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
+import { DOCUMENT } from '@angular/common';
 
 const LOG: DtLogger = DtLoggerFactory.create('DtCombobox');
 
@@ -158,6 +160,11 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
 
     if (coercedValue !== this._loading) {
       this._loading = coercedValue;
+      if (this._loading) {
+        this._autocompleteTrigger.closePanel();
+      } else if (this.focused) {
+        this._autocompleteTrigger.openPanel();
+      }
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -175,8 +182,6 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   @Input('aria-label') ariaLabel: string;
   /** Input that can be used to specify the `aria-labelledby` attribute. */
   @Input('aria-labelledby') ariaLabelledBy: string;
-  /** Whether the control is focused. (TODO ChMa: implement!) */
-  @Input() focused: boolean;
 
   /**
    * Function to compare the option values with the selected values. The first argument
@@ -204,8 +209,6 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
 
   /** Event emitted when a new value has been selected. */
   @Output() valueChange = new EventEmitter<T>();
-  /** Event emitted when the selected value has been changed by the user. */
-  @Output() readonly selectionChange = new EventEmitter<DtComboboxChange<T>>();
   /** Event emitted when the filter changes. */
   @Output() filterChange = new EventEmitter<DtComboboxFilterChange>();
   /** Event emitted when the combobox panel has been toggled. */
@@ -254,6 +257,10 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     return this._selectionModel.selected[0];
   }
 
+  get focused(): boolean {
+    return this._searchInput.nativeElement === this._document.activeElement;
+  }
+
   /** @internal whether the autocomplete panel is shown. Initially false. */
   _panelOpen = false;
 
@@ -273,6 +280,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
+    @Inject(DOCUMENT) private _document: any,
   ) {
     super(
       _elementRef,
@@ -294,16 +302,19 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
 
     fromEvent(this._searchInput.nativeElement, 'input')
       .pipe(
+        tap(() => this._autocompleteTrigger.openPanel()),
         map((event: KeyboardEvent): string => {
           event.stopPropagation();
           return this._searchInput.nativeElement.value;
         }),
-        debounceTime(150),
         takeUntil(this._destroy),
       )
       .subscribe((query) => {
         this.filterChange.emit(new DtComboboxFilterChange(query));
       });
+    fromEvent(this._searchInput.nativeElement, 'blur').subscribe(() => {
+      this._resetInputValue();
+    });
   }
 
   ngAfterContentInit(): void {
@@ -326,6 +337,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     );
     this._options.changes.pipe(startWith(null)).subscribe(() => {
       this._autocomplete._additionalOptions = this._options.toArray();
+
       this._setSelectionByValue(this._value);
     });
 
