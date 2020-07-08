@@ -5,4 +5,5 @@ package(default_visibility = ["//:__subpackages__"])
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
+    allow_empty_input = True,
 )
