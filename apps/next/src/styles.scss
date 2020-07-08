@@ -32,12 +32,37 @@ html {
 }
 
 body {
+  @include fluid-dt-text();
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   margin: $fluid-spacing--0;
   padding: $fluid-spacing--0;
   font-family: sans-serif;
+}
+
+h1 {
+  @include fluid-dt-h1();
+}
+
+h2 {
+  @include fluid-dt-h2();
+}
+
+h3 {
+  @include fluid-dt-h3();
+}
+
+h4 {
+  @include fluid-dt-h4();
+}
+
+h5 {
+  @include fluid-dt-h5();
+}
+
+h6  {
+  @include fluid-dt-h6();
 }
 
 h1,
