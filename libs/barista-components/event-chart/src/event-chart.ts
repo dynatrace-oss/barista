@@ -92,7 +92,7 @@ const EVENT_BUBBLE_SPACING = 4;
 
 const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
 const TICK_HEIGHT = 24;
-const TICK_WIDTH = 100;
+const TICK_WIDTH = 140;
 
 const LANE_HEIGHT = EVENT_BUBBLE_SIZE * 3;
 
@@ -839,7 +839,13 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       outputUnit = DtTimeUnit.SECOND;
     }
 
-    return formatDuration(timestamp, 'PRECISE', outputUnit);
+    return formatDuration(
+      timestamp,
+      'PRECISE',
+      outputUnit,
+      DtTimeUnit.MILLISECOND,
+      2,
+    );
   }
 }
 
