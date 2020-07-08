@@ -4288,14 +4288,15 @@
               {
                 "glob": "**/*.json",
                 "input": "dist/next-data",
-                "output": "/data"
+                "output": "/next/data"
               }
             ],
             "styles": ["apps/next/src/styles.scss"],
             "scripts": [],
             "customWebpackConfig": {
               "path": "./apps/next/webpack.config.js"
-            }
+            },
+            "baseHref": "/next"
           },
           "configurations": {
             "production-internal": {
