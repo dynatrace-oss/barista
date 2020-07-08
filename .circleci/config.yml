@@ -6,7 +6,7 @@ version: 2.1
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.1
   snyk: snyk/snyk@0.0.8
-  # win: circleci/windows@2.2.0
+  win: circleci/windows@2.2.0
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -83,10 +83,10 @@ npm_cache: &npm_cache
     - npm-packages-v1-{{ checksum "package-lock.json" }}
     - npm-packages-v1-
 
-# npm_cache_win: &npm_cache_win
-#   keys:
-#     - win-npm-packages-v1-{{ checksum "package-lock.json" }}
-#     - win-npm-packages-v1-
+npm_cache_win: &npm_cache_win
+  keys:
+    - win-npm-packages-v1-{{ checksum "package-lock.json" }}
+    - win-npm-packages-v1-
 
 # The last sha of the branch that holds the previous commit sha.
 # could be either master, 4.x or 4.10.x
@@ -232,33 +232,33 @@ jobs:
             - .
 
 # - install npm dependencies on a windows machine
-  # install-win:
-  #   executor:
-  #     name: win/default
-  #     size: "medium"
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         <<: *npm_cache_win
-  #     - run:
-  #         name: Install npm dependencies 🦎
-  #         command: |
-  #           npm ci --ignore-scripts *>$null
-  #           .\node_modules\.bin\ngcc
-  #     - run:
-  #         name: Build Workspace package 📦
-  #         command: |
-  #           npm run ng run workspace:build
-  #           npm run ng run examples-tools:build
-  #           npm run ng run barista-tools:build
-  #     - save_cache:
-  #         key: win-npm-packages-v1-{{ checksum "package-lock.json" }}
-  #         paths:
-  #           - node_modules
-  #     - persist_to_workspace:
-  #         root: C:\Users\circleci\project\
-  #         paths:
-  #           - .
+  install-win:
+    executor:
+      name: win/default
+      size: "medium"
+    steps:
+      - checkout
+      - restore_cache:
+          <<: *npm_cache_win
+      - run:
+          name: Install npm dependencies 🦎
+          command: |
+            npm ci --ignore-scripts *>$null
+            .\node_modules\.bin\ngcc
+      - run:
+          name: Build Workspace package 📦
+          command: |
+            npm run ng run workspace:build
+            npm run ng run examples-tools:build
+            npm run ng run barista-tools:build
+      - save_cache:
+          key: win-npm-packages-v1-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: C:\Users\circleci\project\
+          paths:
+            - .
 
 # - sonar checks
   sonar:
@@ -317,21 +317,21 @@ jobs:
           paths:
             - .
 # - build all the packages on windows
-  # build-win:
-  #   executor:
-  #     name: win/default
-  #     size: "medium"
-  #   parallelism: 4
-  #   steps:
-  #     - prepare_job_win
-  #     - run:
-  #         name: Run parallel build
-  #         command: |
-  #           node dist\libs\workspace\src\scripts\run-parallel.js --target build --configuration production --increasedMemory 8192 --withDeps
-  #     - persist_to_workspace:
-  #         root: C:\Users\circleci\project\
-  #         paths:
-  #           - .
+  build-win:
+    executor:
+      name: win/default
+      size: "medium"
+    parallelism: 4
+    steps:
+      - prepare_job_win
+      - run:
+          name: Run parallel build
+          command: |
+            node dist\libs\workspace\src\scripts\run-parallel.js --target build --configuration production --increasedMemory 8192 --withDeps
+      - persist_to_workspace:
+          root: C:\Users\circleci\project\
+          paths:
+            - .
 
 # - pack and upload the build artifacts of the components library
   store-build-artifacts:
@@ -362,16 +362,16 @@ jobs:
           path: dist/test-results
 
 # - run unit tests on windows
-  # unit-test-win:
-  #   executor:
-  #     name: win/default
-  #     size: "medium"
-  #   parallelism: 3
-  #   steps:
-  #     - prepare_job_win
-  #     - run: node dist\libs\workspace\src\scripts\run-parallel.js --target test --args="--runInBand"
-  #     - store_test_results:
-  #         path: dist\test-results
+  unit-test-win:
+    executor:
+      name: win/default
+      size: "medium"
+    parallelism: 3
+    steps:
+      - prepare_job_win
+      - run: node dist\libs\workspace\src\scripts\run-parallel.js --target test --args="--runInBand"
+      - store_test_results:
+          path: dist\test-results
 
 # - run end to end tests
   e2e-test-browserstack:
@@ -550,17 +550,17 @@ workflows:
             - build
 
   # Workflow for running build and test on windows
-  # win-check:
-  #   jobs:
-  #     - install-win:
-  #         <<: *filter_branches
-  #         context: barista
-  #     - build-win:
-  #         context: barista
-  #         requires:
-  #           - install-win
-  #     - unit-test-win:
-  #         context: barista
-  #         requires:
-  #           - install-win
+  win-check:
+    jobs:
+      - install-win:
+          <<: *filter_branches
+          context: barista
+      - build-win:
+          context: barista
+          requires:
+            - install-win
+      - unit-test-win:
+          context: barista
+          requires:
+            - install-win
 
