@@ -15,7 +15,7 @@
  */
 
 import { CommonModule } from '@angular/common';
-import { NgModule, Type } from '@angular/core';
+import { NgModule, Type, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import {
   DsPageGuard,
@@ -53,5 +53,6 @@ export const DS_CONTENT_TYPES: Type<unknown>[] = [];
       useValue: DS_CONTENT_TYPES,
     },
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SinglePageModule {}
