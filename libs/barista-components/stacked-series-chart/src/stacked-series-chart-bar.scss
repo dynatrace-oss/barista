@@ -12,11 +12,19 @@ See stacked-series-chart.layout.md
     @include gridPosition('grid-column', 1, 2);
   }
 
+  .dt-stacked-series-chart-label-none.dt-stacked-series-chart-container {
+    grid-template-columns: 1fr;
+  }
+
   /* TRACK */
   .dt-stacked-series-chart-track {
     min-height: 1px;
     height: var(--dt-stacked-series-chart-max-bar-size);
     grid-column: 2;
+  }
+
+  .dt-stacked-series-chart-label-none .dt-stacked-series-chart-track {
+    grid-column: 1;
   }
 
   /* SLICE */
@@ -44,6 +52,10 @@ See stacked-series-chart.layout.md
     border-top: 1px solid $axis-color;
     grid-row: calc(1 + var(--dt-stacked-series-chart-track-amount));
     height: 40px;
+  }
+
+  .dt-stacked-series-chart-label-none .dt-stacked-series-chart-value-axis {
+    grid-column: 1;
   }
 
   .dt-stacked-series-chart-axis-tick {

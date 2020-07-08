@@ -65,7 +65,11 @@
     <span
       *ngFor="let tick of _axisTicks"
       class="dt-stacked-series-chart-axis-tick"
-      [style.--dt-stacked-series-chart-tick-position]="tick.pos + '%'"
+      [style]="
+        _sanitizeCSS([
+          ['--dt-stacked-series-chart-tick-position', tick.pos + '%']
+        ])
+      "
       >{{
         valueDisplayMode === 'percent'
           ? (tick.valueRelative * 100 | dtPercent)
