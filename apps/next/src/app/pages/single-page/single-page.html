@@ -1,7 +1,7 @@
-<div class="next-page-grid" *ngIf="_pageContent">
+<div class="next-single-page-grid" *ngIf="_pageContent">
   <nav next-sidenav *ngIf="_pageContent.sidenav"></nav>
 
-  <main class="next-page-main" id="main" role="main">
+  <main class="next-single-page-main">
     <article class="next-single-page-content">
       <ds-page-content [data]="_pageContent.content"></ds-page-content>
     </article>

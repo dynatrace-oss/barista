@@ -360,8 +360,7 @@
       "tags": ["type:library"]
     },
     "next": {
-      "tags": ["scope:design-system", "type:app"],
-      "implicitDependencies": ["fluid-button"]
+      "tags": ["scope:design-system", "type:app"]
     },
     "shared-data-access-strapi": {
       "tags": ["scope:cms", "type:shared", "type:library"]
