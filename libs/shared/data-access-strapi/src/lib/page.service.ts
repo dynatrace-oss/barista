@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, APP_BASE_HREF } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   BaErrorPageContent,
@@ -44,13 +44,18 @@ export class BaPageService<T = any> {
   /** Caches pages once they have been loaded. */
   _cache = new Map<string, T>();
 
+  /** Base href of the application */
+  private _baseHref: string;
+
   constructor(
     private _http: HttpClient,
     private _router: Router,
     @Inject(DOCUMENT) private _document: any,
+    @Optional() @Inject(APP_BASE_HREF) _baseHref: string,
   ) {
     this._cache.set('not-found', ERROR_PAGE as any);
     this._cache.set('404', ERROR_PAGE_404 as any);
+    this._baseHref = _baseHref || '';
   }
 
   /** Retrieves the current page based on the current route */
@@ -83,7 +88,7 @@ export class BaPageService<T = any> {
    * @param id - page id (path).
    */
   private _fetchPage(id: string): Observable<T> {
-    const requestPath = `/data/${id}.json`;
+    const requestPath = `${this._baseHref}/data/${id}.json`;
     return this._http
       .get<T>(requestPath, { responseType: 'json' })
       .pipe(tap((data) => this._cache.set(id, data)));
@@ -107,6 +112,6 @@ export function getUrlPathName(document: Document, url: string): string {
   // Use the browsers capabilities to get the pathname out of an url
   // with an anchor element this strips hashes and query params away from the url
   const a = document.createElement('a');
-  a.href = url;
+  a.href = url || '/';
   return a.pathname.substr(1);
 }

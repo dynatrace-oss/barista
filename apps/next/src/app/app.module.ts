@@ -25,11 +25,16 @@ import {
   BaPageGuard,
   BaPageService,
 } from '@dynatrace/shared/data-access-strapi';
+import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, Nav],
   imports: [BrowserModule, HttpClientModule, NextRoutingModule],
-  providers: [BaPageGuard, BaPageService],
+  providers: [
+    BaPageGuard,
+    BaPageService,
+    { provide: APP_BASE_HREF, useValue: '/next' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
