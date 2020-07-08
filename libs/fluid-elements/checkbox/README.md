@@ -28,3 +28,13 @@ A basic representation of the checkbox input
 | Name | Description                                                  |
 | ---- | ------------------------------------------------------------ |
 |      | Default slot lets the user provide a label for the checkbox. |
+
+## CSS Custom Properties
+
+| Property                             | Description                                                           |
+| ------------------------------------ | --------------------------------------------------------------------- |
+| `--fluid-checkbox--background-color` | Customize the background color of the checked/indeterminate checkbox. |
+| `--fluid-checkbox--border-color`     | Customize the border color of the checkbox.                           |
+| `--fluid-checkbox--box-glow-color`   | Customize the color of the checkbox glow when hovering.               |
+| `--fluid-checkbox--label-color`      | Customize the label color.                                            |
+| `--fluid-checkbox--mark-color`       | Customize the color of the mark / indeterminate marker.               |
