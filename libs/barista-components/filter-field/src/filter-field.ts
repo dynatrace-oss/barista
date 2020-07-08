@@ -945,7 +945,11 @@ export class DtFilterField<T = any>
 
   /** Write a value to the filter field control if there is a control active */
   private _writeControlValue(value: string): void {
-    if (this._control) {
+    // Only write the value when it is actually different
+    // setting the value to it's old value and marking the control
+    // dirty will trigger validation too many times, resulting in a flickering
+    // of the validation flag.
+    if (this._control && this._control.value !== value) {
       this._control.setValue(value);
       this._control.markAsDirty();
       this._control.markAsTouched();
