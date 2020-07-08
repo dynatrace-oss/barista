@@ -54,6 +54,11 @@ export class FluidCheckboxIndeterminateChangeEvent extends CustomEvent<any> {
  * to user interaction.
  * @fires indeterminateChange - Event that is being fired when the indeterminate
  * state of the checkbox changes.
+ * @cssprop --fluid-checkbox--label-color - Customize the label color.
+ * @cssprop --fluid-checkbox--box-glow-color - Customize the color of the checkbox glow when hovering.
+ * @cssprop --fluid-checkbox--border-color - Customize the border color of the checkbox.
+ * @cssprop --fluid-checkbox--background-color - Customize the background color of the checked/indeterminate checkbox.
+ * @cssprop --fluid-checkbox--mark-color - Customize the color of the mark / indeterminate marker.
  */
 export class FluidCheckbox extends LitElement {
   /**
