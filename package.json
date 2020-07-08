@@ -7,7 +7,7 @@
     "dev": "ng serve dev",
     "test": "npm run affected:test -- --parallel",
     "lint": "nx workspace-lint && npm run affected:lint -- --parallel && npm run affected:stylelint -- --parallel",
-    "e2e": "ng e2e components-e2e",
+    "e2e": "ng run components-e2e:e2e-all",
     "universal": "ng build universal",
     "postinstall": "node postinstall.js",
     "build:components": "npm run build components",
