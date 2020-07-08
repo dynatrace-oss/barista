@@ -9,6 +9,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+
+  --fluid-checkbox--label-color: var(--color-neutral-150);
+  --fluid-checkbox--box-glow-color: var(--color-neutral-150);
+  --fluid-checkbox--border-color: var(--color-neutral-150);
+  --fluid-checkbox--background-color: var(--color-primary-100);
+  --fluid-checkbox--mark-color: var(--color-background);
 }
 
 /**
@@ -18,7 +24,7 @@
   pointer-events: none;
 
   .fluid-label {
-    color: var(--color-neutral-150);
+    color: var(--fluid-checkbox--label-color);
     opacity: 0.5;
   }
 
@@ -35,7 +41,7 @@
 
 .fluid-label {
   @include fluid-dt-text();
-  color: var(--color-neutral-150);
+  color: var(--fluid-checkbox--label-color);
   margin-left: $fluid-spacing--x-small;
 }
 
@@ -69,7 +75,7 @@ label {
 }
 
 .fluid-svg-checkbox-background {
-  fill: var(--color-neutral-150);
+  fill: var(--fluid-checkbox--box-glow-color);
   // TODO: Replace with opacity token
   opacity: 0;
   // TODO: Replace with transition and animation tokens
@@ -78,7 +84,7 @@ label {
 }
 
 .fluid-svg-checkbox-rect {
-  stroke: var(--color-neutral-150);
+  stroke: var(--fluid-checkbox--border-color);
   fill: transparent;
 }
 
@@ -89,20 +95,20 @@ label {
 
 .fluid-state--checked {
   .fluid-svg-checkbox-rect {
-    fill: var(--color-primary-100);
-    stroke: var(--color-primary-100);
+    fill: var(--fluid-checkbox--background-color);
+    stroke: var(--fluid-checkbox--background-color);
   }
   .fluid-svg-checkbox-tick {
-    fill: var(--color-background);
+    fill: var(--fluid-checkbox--mark-color);
   }
 }
 
 .fluid-state--indeterminate {
   .fluid-svg-checkbox-rect {
-    fill: var(--color-primary-100);
-    stroke: var(--color-primary-100);
+    fill: var(--fluid-checkbox--background-color);
+    stroke: var(--fluid-checkbox--background-color);
   }
   .fluid-svg-checkbox-indeterminate {
-    fill: var(--color-background);
+    fill: var(--fluid-checkbox--mark-color);
   }
 }
