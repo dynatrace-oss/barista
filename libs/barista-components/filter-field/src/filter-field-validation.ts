@@ -28,7 +28,7 @@ export interface DtFilterFieldValidator {
 export class DtFilterFieldControl extends FormControl {
   constructor(private _validators: DtFilterFieldValidator[] = []) {
     super(
-      null,
+      '',
       _validators.map((validator) => validator.validatorFn),
       null,
     );
