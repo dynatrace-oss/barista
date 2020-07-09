@@ -20,8 +20,8 @@
 
 export const environment = {
   internal: true,
-  dataHost: '/data',
   production: false,
+  baseHref: '',
 };
 
 /*

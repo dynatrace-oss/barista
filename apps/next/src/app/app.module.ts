@@ -26,6 +26,7 @@ import {
   BaPageService,
 } from '@dynatrace/shared/data-access-strapi';
 import { APP_BASE_HREF } from '@angular/common';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, Nav],
@@ -33,7 +34,7 @@ import { APP_BASE_HREF } from '@angular/common';
   providers: [
     BaPageGuard,
     BaPageService,
-    { provide: APP_BASE_HREF, useValue: '/next' },
+    { provide: APP_BASE_HREF, useValue: environment.baseHref },
   ],
   bootstrap: [AppComponent],
 })
