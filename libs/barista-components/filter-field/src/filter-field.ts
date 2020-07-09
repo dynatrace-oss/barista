@@ -985,7 +985,6 @@ export class DtFilterField<T = any>
       } else {
         this._updateTagData();
         this._updateAutocompleteOptionsOrGroups();
-        this._filterByLabel = '';
         this._emitFilterChanges([], removedFilters);
       }
       this._resetEditMode();
