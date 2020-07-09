@@ -60,7 +60,10 @@ export async function generateTailwindcssConfig(
     purge: [],
     theme: {
       // Backgrounds
-      backgroundColor: (theme) => theme('colors'),
+      backgroundColor: (theme) => ({
+        transparent: 'transparent',
+        ...theme('colors'),
+      }),
       backgroundOpacity: (theme) => theme('opacity'),
       backgroundPosition: false,
       backgroundSize: false,
@@ -71,8 +74,6 @@ export async function generateTailwindcssConfig(
         default: theme('colors.neutral.100', 'currentColor'),
       }),
       borderOpacity: (theme) => theme('opacity'),
-      borderWidth: false,
-      borderRadius: false,
 
       // Box shadows
       boxShadow: false,
@@ -93,7 +94,6 @@ export async function generateTailwindcssConfig(
       fontSize: generateFontSize(sourceMap.get('typography')!),
       fontWeight: generateFontWeight(sourceMap.get('typography')!),
 
-      inset: false,
       letterSpacing: false,
       lineHeight: generateLineHeights(sourceMap.get('typography')!),
 
