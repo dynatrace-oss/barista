@@ -1,3 +1,24 @@
+## [7.3.0](https://github.com/dynatrace-oss/barista/compare/7.2.0...7.3.0) (2020-07-09)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue that options were not handled correctly when
+  changed at runtime.
+  ([457ce87](https://github.com/dynatrace-oss/barista/commit/457ce87093acf05d0abd4d65dce9e804094832a9))
+- **confirmation-dialog:** Fixes issue where the spacing between the content and
+  actions is too small.
+  ([eda4145](https://github.com/dynatrace-oss/barista/commit/eda4145097ba582b1aa10ffaa5835c4cbe7f23f8)),
+  closes [#1148](https://github.com/dynatrace-oss/barista/issues/1148)
+- **stacked-series-chart:** Sanitize axis ticks position
+  ([43b0340](https://github.com/dynatrace-oss/barista/commit/43b03407e80b5f46287fd7171cd54f02b741136c))
+
+### Features
+
+- **schematics:** Add example component generation.
+  ([138cb87](https://github.com/dynatrace-oss/barista/commit/138cb87efca0a3a55c87c547b9d5e0a4d9ad8740))
+- **sunburst-chart:** Add ariaLabel and responsiveness
+  ([e588f07](https://github.com/dynatrace-oss/barista/commit/e588f07bbc09505df1d7ee58937f42213fdda762))
+
 ## [7.2.0](https://github.com/dynatrace-oss/barista/compare/7.1.0...7.2.0) (2020-06-29)
 
 ### Bug Fixes
