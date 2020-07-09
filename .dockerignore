@@ -23,6 +23,7 @@
 
 # Used by: /.deployment/barista/barista-internal.Dockerfile
 !/dist/apps/barista-design-system/browser
+!/dist/apps/next/
 
 !/tools/bazel_build_cache
 

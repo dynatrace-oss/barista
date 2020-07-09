@@ -3673,15 +3673,14 @@
               {
                 "glob": "**/*.json",
                 "input": "dist/next-data",
-                "output": "/next/data"
+                "output": "/data"
               }
             ],
             "styles": ["apps/next/src/styles.scss"],
             "scripts": [],
             "customWebpackConfig": {
               "path": "./apps/next/webpack.config.js"
-            },
-            "baseHref": "/next"
+            }
           },
           "configurations": {
             "production-internal": {
@@ -3710,7 +3709,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "baseHref": "/next",
+              "deployUrl": "/next/"
             }
           }
         },
