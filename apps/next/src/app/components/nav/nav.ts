@@ -16,6 +16,8 @@
 
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThemeService } from '../../theme.service';
+import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'next-nav',
@@ -28,30 +30,16 @@ import { ThemeService } from '../../theme.service';
 })
 export class Nav {
   /** @internal Data needed to render the navigation. */
-  _navData$ = {
-    navItems: [
-      {
-        url: 'overview',
-        label: 'Overview',
-      },
-      {
-        url: 'design',
-        label: 'Design',
-      },
-      {
-        url: 'develop',
-        label: 'Develop',
-      },
-      {
-        url: 'components',
-        label: 'Components',
-      },
-      {
-        url: 'design-tokens',
-        label: 'Design Tokens',
-      },
-    ],
-  };
-
-  constructor(public _themeService: ThemeService) {}
+  _navData$ = this._pageService.getCategories().pipe(
+    map((data) =>
+      data.map((category) => ({
+        section: category,
+        link: category.toLowerCase(),
+      })),
+    ),
+  );
+  constructor(
+    public _themeService: ThemeService,
+    private _pageService: BaPageService,
+  ) {}
 }

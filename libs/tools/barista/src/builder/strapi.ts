@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { join } from 'path';
+import { join, dirname } from 'path';
 
 import {
   BaSinglePageMeta,
@@ -31,6 +31,7 @@ import {
   BaStrapiContentType,
   NextStrapiPage,
   NextContentType,
+  BaStrapiCategory,
 } from '../types';
 
 import { fetchContentList } from '@dynatrace/shared/data-access-strapi';
@@ -45,6 +46,7 @@ import {
   tableOfContentGenerator,
   headlineClassTransformer,
 } from '../transform';
+import { mkdirSync, writeFileSync } from 'fs';
 
 const TRANSFORMERS: BaPageTransformer[] = [
   markdownToHtmlTransformer,
@@ -59,10 +61,10 @@ const TRANSFORMERS: BaPageTransformer[] = [
 export const strapiBuilder: BaPageBuilder = async (
   globalTransformers: BaPageTransformer[],
   next: boolean = false,
+  dsEnvironment: { distDir: string },
 ) => {
   // Return here if no endpoint is given.
   if (!environment.strapiEndpoint) {
-    console.log('No Strapi endpoint given.');
     return [];
   }
 
@@ -78,12 +80,34 @@ export const strapiBuilder: BaPageBuilder = async (
         environment.strapiEndpoint,
       );
 
+  let categoriesData: BaStrapiCategory[] = [];
+
+  categoriesData = await fetchContentList<BaStrapiCategory>(
+    BaStrapiContentType.Categories,
+    { publicContent: isPublicBuild() },
+    environment.strapiEndpoint,
+  );
+
+  categoriesData = next
+    ? categoriesData.filter((data) => data.nextpages.length > 0)
+    : categoriesData.filter((data) => data.pages.length > 0);
+
   // Filter pages with draft set to null or false
   pagesData = pagesData.filter((page) => !page.draft);
 
+  // Results from transforming the pagecontent
   const transformed: BaPageBuildResult[] = [];
 
+  // Array of categories for corresponding design systems
+  const categories: string[] = [];
+
   for (const page of pagesData) {
+    // Check if any pages have no a category assigned. These pages would be considered main pages.
+    // E.g. A page like the overview page describing the Design System itself does not relate to any category (angular-components or design-tokens for example).
+    // It is considered a main (or landing page) that the user should be able to navigate to.
+    if (next && page.category === null) {
+      categories.push(page.title);
+    }
     const pageDir = page.category ? page.category.title.toLowerCase() : '/';
     const relativeOutFile = page.slug
       ? join(pageDir, `${page.slug}.json`)
@@ -98,8 +122,30 @@ export const strapiBuilder: BaPageBuilder = async (
     transformed.push({ pageContent, relativeOutFile });
   }
 
+  categories.push(...categoriesData.map((category) => category.title));
+
+  writeCategoriesJson(dsEnvironment, categories);
+
   return transformed;
 };
+
+/**
+ * Creates a file containing an array of the categories from strapi
+ */
+function writeCategoriesJson(
+  dsEnvironment: { distDir: string },
+  categories: string[],
+): void {
+  const outFile = join(dsEnvironment.distDir, 'categories.json');
+
+  // Creating folder path if it does not exist
+  mkdirSync(dirname(outFile), { recursive: true });
+
+  // Write file with page content to disc.
+  writeFileSync(outFile, JSON.stringify(categories), {
+    encoding: 'utf8',
+  });
+}
 
 /**
  * Transform page metadata fetched from strapi

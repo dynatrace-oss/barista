@@ -63,6 +63,7 @@ export enum BaStrapiContentType {
   Pageteasers = 'pageteasers',
   CTAs = 'ctas',
   UXDNodes = 'decisiongraphs',
+  Categories = 'categories',
 }
 
 /** Base interface for Strapi content types */
@@ -80,6 +81,8 @@ export interface BaStrapiContributor extends BaStrapiBase, BaContributor {
 /** Strapi category */
 export interface BaStrapiCategory extends BaStrapiBase {
   title: string;
+  pages: string[];
+  nextpages: string[];
 }
 
 /** Strapi tag */

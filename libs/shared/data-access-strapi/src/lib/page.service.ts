@@ -84,6 +84,17 @@ export class DsPageService<T = any> {
   }
 
   /**
+   * Provides an array of categories for the Design System as an observable.
+   */
+  getCategories(): Observable<string[]> {
+    const requestPath = `${this._baseHref}/data/categories.json`;
+
+    return this._http.get<string[]>(requestPath, {
+      responseType: 'json',
+    });
+  }
+
+  /**
    * Fetches page from data source.
    * @param id - page id (path).
    */
