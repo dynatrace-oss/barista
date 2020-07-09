@@ -5,12 +5,12 @@
     </a>
     <nav class="next-nav-bar">
       <ul class="next-nav-list">
-        <li class="next-nav-item" *ngFor="let item of (_navData$)?.navItems">
+        <li class="next-nav-item" *ngFor="let item of (_navData$ | async)">
           <a
             class="next-nav-link"
-            [routerLink]="item.url"
+            [routerLink]="item.link"
             routerLinkActive="next-nav-link-active"
-            >{{ item.label }}</a
+            >{{ item.section }}</a
           >
         </li>
       </ul>
