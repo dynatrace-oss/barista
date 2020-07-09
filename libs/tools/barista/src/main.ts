@@ -91,6 +91,7 @@ async function createExampleInlineSourcesTransformer(): Promise<
 
   return exampleInlineSourcesTransformerFactory(JSON.parse(examplesMetadata));
 }
+/** Defines the paths for our DS's */
 const nextEnvironment = { distDir: 'dist/next-data' };
 const baristaEnvironment = { distDir: 'dist/barista-data' };
 
@@ -116,7 +117,7 @@ async function buildPages(): Promise<void[]> {
   const results = await builders.reduce<Promise<BaPageBuildResult[]>>(
     async (aggregatedResults, currentBuilder) => [
       ...(await aggregatedResults),
-      ...(await currentBuilder(globalTransformers, next)),
+      ...(await currentBuilder(globalTransformers, next, environment)),
     ],
     Promise.resolve([]),
   );
