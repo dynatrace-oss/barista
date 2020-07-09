@@ -47,7 +47,8 @@ executors:
   bazel:
     working_directory: ~/barista
     docker:
-      - image: designops/workspace-bazel:latest
+      # Also check build-docker-image if you want to bump Bazel bersion
+      - image: designops/workspace-bazel:bazel-3.2.0
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -144,7 +145,7 @@ commands:
 
   setup_bazel_ci:
     description: >-
-      Sets up the build cache for Bazel
+      Sets up the CI to use Bazel
     steps:
       - checkout
       - restore_cache:
@@ -158,6 +159,18 @@ commands:
           name: Setup Bazel Build Cache
           command: cd ./tools/bazel_build_cache && sh setup_ci_build_cache.sh
 
+  run_bazel_stylelint:
+    description: >-
+      Runs stylelint via Bazel
+    steps:
+      - run:
+          when: always
+          name: Bazel styleint
+          command: |
+            shopt -s expand_aliases
+            source ~/.bashrc
+            bazel test $(bazel query "attr(generator_function, stylelint, //...)") --profile=./profile.gz --record_full_profiler_data
+
   get_bazel_testlogs:
     description: >-
       Stores the Bazel Testlogs
@@ -166,11 +179,12 @@ commands:
           when: always
           name: Gather Bazel Testlogs
           command: |
+            shopt -s expand_aliases
+            source ~/.bashrc
             BAZEL_TESTLOGS="$(bazel info bazel-testlogs)"
             cp -R $BAZEL_TESTLOGS ./testlogs
       - store_test_results:
           path: ./testlogs
-
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -194,15 +208,16 @@ jobs:
           command: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
       - run:
           name: Build Docker Image
+          # Don't forget to adapt push command and bazel executor if you want to bump the Bazel version
           command: |
             docker build -t $WORKSPACE_IMAGE:latest ./ -f ./.deployment/workspace-base.Dockerfile
-            docker build -t $BAZEL_IMAGE:latest ./ -f ./.deployment/workspace-bazel.Dockerfile
+            docker build -t $BAZEL_IMAGE:bazel-3.2.0 ./ -f ./.deployment/workspace-bazel.Dockerfile --build-arg bazel_version=3.2.0
 
       - run:
           name: Publish Docker Image to Docker Hub
           command: |
             docker push $WORKSPACE_IMAGE:latest
-            docker push $BAZEL_IMAGE:latest
+            docker push $BAZEL_IMAGE:bazel-3.2.0
 
 # - install npm dependencies
   install:
@@ -413,9 +428,7 @@ jobs:
     resource_class: xlarge
     steps:
       - setup_bazel_ci
-      - run:
-          name: Run Stylelint
-          command: bazel query "attr(generator_function, stylelint, //...)" | xargs bazel test --profile=./profile.gz --record_full_profiler_data
+      - run_bazel_stylelint
       - get_bazel_testlogs
       - store_artifacts:
           path: ./profile.gz
