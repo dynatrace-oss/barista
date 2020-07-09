@@ -4,7 +4,7 @@ aliases:
     keyColor: "#3481F4"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 2
@@ -39,7 +39,7 @@ aliases:
     keyColor: "#36C687"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 2.5
@@ -74,7 +74,7 @@ aliases:
     keyColor: "#FDC300"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 4
@@ -109,7 +109,7 @@ aliases:
     keyColor: "#F43D5A"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 2
@@ -144,7 +144,7 @@ aliases:
     keyColor: "#FD8C30"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 2
@@ -179,7 +179,7 @@ aliases:
     keyColor: "#E13093"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 1.5
@@ -214,7 +214,7 @@ aliases:
     keyColor: "#3CB5B5"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 2.5
@@ -249,7 +249,7 @@ aliases:
     keyColor: "#AE80C9"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 1.5
@@ -281,10 +281,10 @@ aliases:
         aliasName: color-abyss-naughty-purple-130
   - name: neutral
     theme: abyss
-    keyColor: "#757C91"
+    keyColor: "#747B90"
     baseColor: "#111216"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-50
         ratio: 1.1
@@ -405,7 +405,7 @@ aliases:
     keyColor: "#906E00"
     baseColor: "#FAFBFB"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 1.12
@@ -440,7 +440,7 @@ aliases:
     keyColor: "#C20B29"
     baseColor: "#FAFBFB"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 1.5
@@ -580,7 +580,7 @@ aliases:
     keyColor: "#9151B5"
     baseColor: "#FAFBFB"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-70
         ratio: 1.5
@@ -612,10 +612,10 @@ aliases:
         aliasName: color-surface-naughty-purple-130
   - name: neutral
     theme: surface
-    keyColor: "#6C7387"
+    keyColor: "#747B90"
     baseColor: "#FAFBFB"
     type: adobe-leonardo
-    colorspace: CAM02
+    colorspace: HSL
     shades:
       - name: contrast-50
         ratio: 1.1
