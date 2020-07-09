@@ -5,127 +5,127 @@
 #
 aliases:
   color-abyss-primary-70:
-    value: "#2f476d"
+    value: "#084298"
     comment: abyss primary, contrast 70
     originalRatio: 2
   color-abyss-primary-80:
-    value: "#3761a2"
+    value: "#0b5ace"
     comment: abyss primary, contrast 80
     originalRatio: 3
   color-abyss-primary-90:
-    value: "#3873cd"
+    value: "#136cf2"
     comment: abyss primary, contrast 90
     originalRatio: 4
   color-abyss-primary-100:
-    value: "#3682f4"
+    value: "#3582f4"
     comment: abyss primary, contrast 100
     originalRatio: 5
   color-abyss-primary-110:
-    value: "#73a0e4"
+    value: "#659ff7"
     comment: abyss primary, contrast 110
     originalRatio: 7
   color-abyss-primary-120:
-    value: "#a0bbe3"
+    value: "#91bbf9"
     comment: abyss primary, contrast 120
     originalRatio: 9.5
   color-abyss-primary-130:
-    value: "#c6d4e9"
+    value: "#bbd5fb"
     comment: abyss primary, contrast 130
     originalRatio: 12.5
   color-abyss-positive-70:
-    value: "#355d47"
+    value: "#1a6142"
     comment: abyss positive, contrast 70
     originalRatio: 2.5
   color-abyss-positive-80:
-    value: "#408b64"
+    value: "#268d60"
     comment: abyss positive, contrast 80
     originalRatio: 4.5
   color-abyss-positive-90:
-    value: "#3fab77"
+    value: "#2fad76"
     comment: abyss positive, contrast 90
     originalRatio: 6.5
   color-abyss-positive-100:
-    value: "#36c687"
+    value: "#36c587"
     comment: abyss positive, contrast 100
     originalRatio: 8.5
   color-abyss-positive-110:
-    value: "#85d2a8"
+    value: "#69d6a7"
     comment: abyss positive, contrast 110
     originalRatio: 10.5
   color-abyss-positive-120:
-    value: "#b7e1c9"
+    value: "#a2e6c8"
     comment: abyss positive, contrast 120
     originalRatio: 13
   color-abyss-positive-130:
-    value: "#e1f1e8"
+    value: "#d6f4e7"
     comment: abyss positive, contrast 130
     originalRatio: 16
   color-abyss-warning-70:
-    value: "#8b712c"
+    value: "#917000"
     comment: abyss warning, contrast 70
     originalRatio: 4
   color-abyss-warning-80:
-    value: "#ba9329"
+    value: "#bd9200"
     comment: abyss warning, contrast 80
     originalRatio: 6.5
   color-abyss-warning-90:
-    value: "#dead1e"
+    value: "#e0ad00"
     comment: abyss warning, contrast 90
     originalRatio: 9
   color-abyss-warning-100:
-    value: "#fcc301"
+    value: "#fcc300"
     comment: abyss warning, contrast 100
     originalRatio: 11.5
   color-abyss-warning-110:
-    value: "#f9d87c"
+    value: "#ffd752"
     comment: abyss warning, contrast 110
     originalRatio: 13.5
   color-abyss-warning-120:
-    value: "#f8eabb"
+    value: "#ffe99d"
     comment: abyss warning, contrast 120
     originalRatio: 15.5
   color-abyss-warning-130:
-    value: "#f8f1d3"
+    value: "#fff0bf"
     comment: abyss warning, contrast 130
     originalRatio: 16.5
   color-abyss-error-70:
-    value: "#743137"
+    value: "#90081e"
     comment: abyss error, contrast 70
     originalRatio: 2
   color-abyss-error-80:
-    value: "#a63c47"
+    value: "#c20b28"
     comment: abyss error, contrast 80
     originalRatio: 3
   color-abyss-error-90:
-    value: "#cf3f52"
+    value: "#e60d30"
     comment: abyss error, contrast 90
     originalRatio: 4
   color-abyss-error-100:
-    value: "#f33d5a"
+    value: "#f43b58"
     comment: abyss error, contrast 100
     originalRatio: 5
   color-abyss-error-110:
-    value: "#f77680"
+    value: "#f77589"
     comment: abyss error, contrast 110
     originalRatio: 7
   color-abyss-error-120:
-    value: "#f7a2a6"
+    value: "#fa9fae"
     comment: abyss error, contrast 120
     originalRatio: 9.5
   color-abyss-error-130:
-    value: "#f7c8ca"
+    value: "#fcc6ce"
     comment: abyss error, contrast 130
     originalRatio: 12.5
   color-abyss-nasty-orange-70:
-    value: "#613f27"
+    value: "#743501"
     comment: abyss nasty-orange, contrast 70
     originalRatio: 2
   color-abyss-nasty-orange-80:
-    value: "#a66432"
+    value: "#bc5602"
     comment: abyss nasty-orange, contrast 80
     originalRatio: 4
   color-abyss-nasty-orange-90:
-    value: "#d67b33"
+    value: "#ed6b02"
     comment: abyss nasty-orange, contrast 90
     originalRatio: 6
   color-abyss-nasty-orange-100:
@@ -133,27 +133,27 @@ aliases:
     comment: abyss nasty-orange, contrast 100
     originalRatio: 8
   color-abyss-nasty-orange-110:
-    value: "#fcac6e"
+    value: "#feab67"
     comment: abyss nasty-orange, contrast 110
     originalRatio: 10
   color-abyss-nasty-orange-120:
-    value: "#facaa5"
+    value: "#fec89d"
     comment: abyss nasty-orange, contrast 120
     originalRatio: 12.5
   color-abyss-nasty-orange-130:
-    value: "#f9e7d8"
+    value: "#ffe6d1"
     comment: abyss nasty-orange, contrast 130
     originalRatio: 15.5
   color-abyss-hot-pink-70:
-    value: "#51263a"
+    value: "#640f3f"
     comment: abyss hot-pink, contrast 70
     originalRatio: 1.5
   color-abyss-hot-pink-80:
-    value: "#8e3461"
+    value: "#a01764"
     comment: abyss hot-pink, contrast 80
     originalRatio: 2.5
   color-abyss-hot-pink-90:
-    value: "#bb367c"
+    value: "#c81d7d"
     comment: abyss hot-pink, contrast 90
     originalRatio: 3.5
   color-abyss-hot-pink-100:
@@ -161,55 +161,55 @@ aliases:
     comment: abyss hot-pink, contrast 100
     originalRatio: 4.5
   color-abyss-hot-pink-110:
-    value: "#e571a9"
+    value: "#ea6db3"
     comment: abyss hot-pink, contrast 110
     originalRatio: 6.5
   color-abyss-hot-pink-120:
-    value: "#e99ebe"
+    value: "#f098c9"
     comment: abyss hot-pink, contrast 120
     originalRatio: 9
   color-abyss-hot-pink-130:
-    value: "#edc4d5"
+    value: "#f6c0de"
     comment: abyss hot-pink, contrast 130
     originalRatio: 12
   color-abyss-soylent-green-70:
-    value: "#365b5b"
+    value: "#1f5d5d"
     comment: abyss soylent-green, contrast 70
     originalRatio: 2.5
   color-abyss-soylent-green-80:
-    value: "#408787"
+    value: "#2d8989"
     comment: abyss soylent-green, contrast 80
     originalRatio: 4.5
   color-abyss-soylent-green-90:
-    value: "#419898"
+    value: "#339a9a"
     comment: abyss soylent-green, contrast 90
     originalRatio: 5.5
   color-abyss-soylent-green-100:
-    value: "#3cb4b4"
+    value: "#3cb5b5"
     comment: abyss soylent-green, contrast 100
     originalRatio: 7.5
   color-abyss-soylent-green-110:
-    value: "#81c5c4"
+    value: "#5dc9c9"
     comment: abyss soylent-green, contrast 110
     originalRatio: 9.5
   color-abyss-soylent-green-120:
-    value: "#b1d6d6"
+    value: "#94dcdc"
     comment: abyss soylent-green, contrast 120
     originalRatio: 12
   color-abyss-soylent-green-130:
-    value: "#d9eae9"
+    value: "#c9eded"
     comment: abyss soylent-green, contrast 130
     originalRatio: 15
   color-abyss-naughty-purple-70:
-    value: "#3b3040"
+    value: "#462658"
     comment: abyss naughty-purple, contrast 70
     originalRatio: 1.5
   color-abyss-naughty-purple-80:
-    value: "#70587e"
+    value: "#8246a5"
     comment: abyss naughty-purple, contrast 80
     originalRatio: 3
   color-abyss-naughty-purple-90:
-    value: "#926fa7"
+    value: "#9d65be"
     comment: abyss naughty-purple, contrast 90
     originalRatio: 4.5
   color-abyss-naughty-purple-100:
@@ -217,35 +217,35 @@ aliases:
     comment: abyss naughty-purple, contrast 100
     originalRatio: 6
   color-abyss-naughty-purple-110:
-    value: "#bd9fd0"
+    value: "#c09cd5"
     comment: abyss naughty-purple, contrast 110
     originalRatio: 8
   color-abyss-naughty-purple-120:
-    value: "#cebbda"
+    value: "#d3b9e1"
     comment: abyss naughty-purple, contrast 120
     originalRatio: 10.5
   color-abyss-naughty-purple-130:
-    value: "#e0d8e7"
+    value: "#e5d6ed"
     comment: abyss naughty-purple, contrast 130
     originalRatio: 13.5
   color-abyss-neutral-50:
-    value: "#1b1c1f"
+    value: "#1a1c21"
     comment: abyss neutral, contrast 50
     originalRatio: 1.1
   color-abyss-neutral-60:
-    value: "#232327"
+    value: "#21242a"
     comment: abyss neutral, contrast 60
     originalRatio: 1.2
   color-abyss-neutral-70:
-    value: "#282a2e"
+    value: "#272a31"
     comment: abyss neutral, contrast 70
     originalRatio: 1.3
   color-abyss-neutral-80:
-    value: "#36383e"
+    value: "#343842"
     comment: abyss neutral, contrast 80
     originalRatio: 1.6
   color-abyss-neutral-90:
-    value: "#515461"
+    value: "#505564"
     comment: abyss neutral, contrast 90
     originalRatio: 2.5
   color-abyss-neutral-100:
@@ -257,15 +257,15 @@ aliases:
     comment: abyss neutral, contrast 110
     originalRatio: 7
   color-abyss-neutral-120:
-    value: "#b5b8c2"
+    value: "#b5b9c4"
     comment: abyss neutral, contrast 120
     originalRatio: 9.5
   color-abyss-neutral-130:
-    value: "#ced0d6"
+    value: "#ced1d8"
     comment: abyss neutral, contrast 130
     originalRatio: 12.2
   color-abyss-neutral-140:
-    value: "#e5e6e9"
+    value: "#e5e6ea"
     comment: abyss neutral, contrast 140
     originalRatio: 15
   color-abyss-neutral-150:
@@ -329,59 +329,59 @@ aliases:
     comment: surface positive, contrast 130
     originalRatio: 13.5
   color-surface-warning-70:
-    value: "#efeee8"
+    value: "#ffedb2"
     comment: surface warning, contrast 70
     originalRatio: 1.12
   color-surface-warning-80:
-    value: "#dedaca"
+    value: "#ffd651"
     comment: surface warning, contrast 80
     originalRatio: 1.35
   color-surface-warning-90:
-    value: "#c0b48b"
+    value: "#e2ac00"
     comment: surface warning, contrast 90
     originalRatio: 2
   color-surface-warning-100:
-    value: "#906e00"
+    value: "#8f6e00"
     comment: surface warning, contrast 100
     originalRatio: 4.6
   color-surface-warning-110:
-    value: "#715913"
+    value: "#735700"
     comment: surface warning, contrast 110
     originalRatio: 6.5
   color-surface-warning-120:
-    value: "#514217"
+    value: "#544100"
     comment: surface warning, contrast 120
     originalRatio: 9.5
   color-surface-warning-130:
-    value: "#3b3015"
+    value: "#3f3000"
     comment: surface warning, contrast 130
     originalRatio: 12.4
   color-surface-error-70:
-    value: "#ebc7c5"
+    value: "#fbc0ca"
     comment: surface error, contrast 70
     originalRatio: 1.5
   color-surface-error-80:
-    value: "#e19995"
+    value: "#f88b9d"
     comment: surface error, contrast 80
     originalRatio: 2.2
   color-surface-error-90:
-    value: "#d66261"
+    value: "#f4425f"
     comment: surface error, contrast 90
     originalRatio: 3.5
   color-surface-error-100:
-    value: "#c20c29"
+    value: "#c20b29"
     comment: surface error, contrast 100
     originalRatio: 6
   color-surface-error-110:
-    value: "#962027"
+    value: "#9e0921"
     comment: surface error, contrast 110
     originalRatio: 8
   color-surface-error-120:
-    value: "#692122"
+    value: "#780719"
     comment: surface error, contrast 120
     originalRatio: 11
   color-surface-error-130:
-    value: "#481b1a"
+    value: "#590513"
     comment: surface error, contrast 130
     originalRatio: 14
   color-surface-nasty-orange-70:
@@ -469,15 +469,15 @@ aliases:
     comment: surface soylent-green, contrast 130
     originalRatio: 13
   color-surface-naughty-purple-70:
-    value: "#d6cbdd"
+    value: "#dcc8e8"
     comment: surface naughty-purple, contrast 70
     originalRatio: 1.5
   color-surface-naughty-purple-80:
-    value: "#a885bf"
+    value: "#af80c9"
     comment: surface naughty-purple, contrast 80
     originalRatio: 3
   color-surface-naughty-purple-90:
-    value: "#9a69b8"
+    value: "#9e65be"
     comment: surface naughty-purple, contrast 90
     originalRatio: 4
   color-surface-naughty-purple-100:
@@ -485,35 +485,35 @@ aliases:
     comment: surface naughty-purple, contrast 100
     originalRatio: 5
   color-surface-naughty-purple-110:
-    value: "#704588"
+    value: "#753f94"
     comment: surface naughty-purple, contrast 110
     originalRatio: 7
   color-surface-naughty-purple-120:
-    value: "#50365e"
+    value: "#572e6d"
     comment: surface naughty-purple, contrast 120
     originalRatio: 10
   color-surface-naughty-purple-130:
-    value: "#382841"
+    value: "#402250"
     comment: surface naughty-purple, contrast 130
     originalRatio: 13
   color-surface-neutral-50:
-    value: "#eff0f2"
+    value: "#eff0f3"
     comment: surface neutral, contrast 50
     originalRatio: 1.1
   color-surface-neutral-60:
-    value: "#e5e6e9"
+    value: "#e5e7ea"
     comment: surface neutral, contrast 60
     originalRatio: 1.2
   color-surface-neutral-70:
-    value: "#dcdee2"
+    value: "#dcdee3"
     comment: surface neutral, contrast 70
     originalRatio: 1.3
   color-surface-neutral-80:
-    value: "#c7c9d0"
+    value: "#c6c9d1"
     comment: surface neutral, contrast 80
     originalRatio: 1.6
   color-surface-neutral-90:
-    value: "#9ca1ad"
+    value: "#9ba1b0"
     comment: surface neutral, contrast 90
     originalRatio: 2.5
   color-surface-neutral-100:
@@ -521,23 +521,23 @@ aliases:
     comment: surface neutral, contrast 100
     originalRatio: 4.5
   color-surface-neutral-110:
-    value: "#525664"
+    value: "#515666"
     comment: surface neutral, contrast 110
     originalRatio: 7
   color-surface-neutral-120:
-    value: "#41444d"
+    value: "#404450"
     comment: surface neutral, contrast 120
     originalRatio: 9.5
   color-surface-neutral-130:
-    value: "#313339"
+    value: "#30333c"
     comment: surface neutral, contrast 130
     originalRatio: 12.2
   color-surface-neutral-140:
-    value: "#222328"
+    value: "#21242a"
     comment: surface neutral, contrast 140
     originalRatio: 15
   color-surface-neutral-150:
-    value: "#121315"
+    value: "#111316"
     comment: surface neutral, contrast 150
     originalRatio: 18
 global:

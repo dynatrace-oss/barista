@@ -6,7 +6,7 @@
       "keyColor": "#3481F4",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -58,7 +58,7 @@
       "keyColor": "#36C687",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -110,7 +110,7 @@
       "keyColor": "#FDC300",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -162,7 +162,7 @@
       "keyColor": "#F43D5A",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -214,7 +214,7 @@
       "keyColor": "#FD8C30",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -266,7 +266,7 @@
       "keyColor": "#E13093",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -318,7 +318,7 @@
       "keyColor": "#3CB5B5",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -370,7 +370,7 @@
       "keyColor": "#AE80C9",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -419,10 +419,10 @@
     {
       "name": "neutral",
       "theme": "abyss",
-      "keyColor": "#757C91",
+      "keyColor": "#747B90",
       "baseColor": "#111216",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-50",
@@ -602,7 +602,7 @@
       "keyColor": "#906E00",
       "baseColor": "#FAFBFB",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -654,7 +654,7 @@
       "keyColor": "#C20B29",
       "baseColor": "#FAFBFB",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -862,7 +862,7 @@
       "keyColor": "#9151B5",
       "baseColor": "#FAFBFB",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-70",
@@ -911,10 +911,10 @@
     {
       "name": "neutral",
       "theme": "surface",
-      "keyColor": "#6C7387",
+      "keyColor": "#747B90",
       "baseColor": "#FAFBFB",
       "type": "adobe-leonardo",
-      "colorspace": "CAM02",
+      "colorspace": "HSL",
       "shades": [
         {
           "name": "contrast-50",
