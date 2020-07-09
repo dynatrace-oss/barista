@@ -901,6 +901,45 @@ describe('DtFilterField', () => {
       expect(options[2].textContent).toContain('Luzern');
       expect(options[3].textContent).toContain('St. Gallen');
     }));
+
+    it('should have the correct prefix when a filter is set and gets deleted in flight', () => {
+      filterField.focus();
+      advanceFilterfieldCycle();
+
+      // Set a filter first
+      getAndClickOption(overlayContainerElement, 1);
+      advanceFilterfieldCycle();
+      getAndClickOption(overlayContainerElement, 0);
+      advanceFilterfieldCycle();
+
+      // Get in flight of the next filter
+      getAndClickOption(overlayContainerElement, 0);
+      advanceFilterfieldCycle();
+
+      let category = fixture.debugElement.query(
+        By.css('.dt-filter-field-category'),
+      );
+      expect(category.nativeElement.textContent.trim()).toEqual('AUT');
+
+      // While in flight, delete the first tag
+      const tags = getFilterTags(fixture);
+      const { deleteButton } = getTagButtons(tags[0]);
+      deleteButton.click();
+      advanceFilterfieldCycle();
+
+      // Expect the category to still be there.
+      category = fixture.debugElement.query(
+        By.css('.dt-filter-field-category'),
+      );
+      expect(category).not.toBe(null);
+      expect(category.nativeElement.textContent.trim()).toEqual('AUT');
+
+      // Expect the options to be the same.
+      const options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(2);
+      expect(options[0].textContent).toContain('Upper Austria');
+      expect(options[1].textContent).toContain('Vienna');
+    });
   });
 
   describe('with range option', () => {
