@@ -1,23 +1,25 @@
-@import '../../core/src/theming/theming';
+.dt-tile {
+  --dt-tile-default-color: #{$gray-700};
+}
 
-@mixin dt-theme-tile($theme) {
-  $palette-names: 'main', 'error', 'recovered';
-  $default-palette: 'main';
+.dt-tile.dt-color-main {
+  --dt-tile-default-color: var(--dt-theme-main-default-color);
+}
 
-  .dt-tile:not(.dt-tile-disabled) {
-    @each $name in $palette-names {
-      $palette: dt-get-theme-palette($theme, $name);
-      $default-color: dt-get-theme-color($palette, 'default');
+.dt-tile.dt-color-error {
+  --dt-tile-default-color: var(--dt-error-default-color);
+}
 
-      &.dt-color-#{$name} {
-        &:hover {
-          border-color: $default-color;
-        }
+.dt-tile.dt-color-recovered {
+  --dt-tile-default-color: var(--dt-recovered-default-color);
+}
 
-        .dt-tile-icon {
-          background-color: $default-color;
-        }
-      }
-    }
+.dt-tile:not(.dt-tile-disabled) {
+  &:hover {
+    border-color: var(--dt-tile-default-color);
+  }
+
+  .dt-tile-icon {
+    background-color: var(--dt-tile-default-color);
   }
 }
