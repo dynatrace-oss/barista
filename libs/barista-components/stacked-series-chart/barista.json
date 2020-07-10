@@ -1,5 +1,5 @@
 {
-  "title": "StackedSeriesChart",
+  "title": "Stacked series chart",
   "description": "The stacked-series-chart chart is used to display one level of related data in a horizontal stacked bar",
   "postid": "stacked-series-chart",
   "public": true,
