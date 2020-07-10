@@ -22,7 +22,11 @@ export * from './src/filter-field-range/filter-field-range-trigger';
 export * from './src/filter-field-data-source';
 export * from './src/filter-field-default-data-source';
 export * from './src/filter-field-errors';
-export { applyDtOptionIds, DELIMITER } from './src/filter-field-util';
+export {
+  applyDtOptionIds,
+  DELIMITER,
+  defaultTagDataForFilterValuesParser,
+} from './src/filter-field-util';
 export {
   DtNodeFlags,
   DtNodeDef,
@@ -44,4 +48,10 @@ export {
   dtGroupDef,
   isDtGroupDef,
   isDtRenderType,
+  DtFilterValue,
+  DtFilterFieldTagData,
+  isDtAutocompleteValue,
+  isDtFreeTextValue,
+  isDtRangeValue,
 } from './src/types';
+export { DT_FILTER_VALUES_PARSER_CONFIG } from './src/filter-field-config';

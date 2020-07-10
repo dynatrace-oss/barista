@@ -308,48 +308,54 @@ export function isDtNodeDef<D = unknown>(def: any): def is DtNodeDef<D> {
   return isObject(def) && isDefined<DtNodeFlags>(def.nodeFlags);
 }
 
-/** @internal Holds all the view values and the original filter source for providing it to the DtFilterFieldTag to display. */
+/** Holds all the view values and the original filter source for providing it to the DtFilterFieldTag to display. */
 // tslint:disable-next-line: class-name
-export class _DtFilterFieldTagData {
+export class DtFilterFieldTagData {
   constructor(
     public key: string | null,
     public value: string | null,
     public separator: string | null,
     public isFreeText: boolean,
-    public filterValues: _DtFilterValue[],
+    public filterValues: DtFilterValue[],
     public editable: boolean = true,
     public deletable: boolean = true,
   ) {}
 }
 
-/** @internal */
-export type _DtFreeTextValue = string;
+/** Possible categories of values that one filter tag can be */
+export type DtFilterValue =
+  | DtAutocompleteValue<any>
+  | DtFreeTextValue
+  | DtRangeValue;
 
-/** @internal */
-export function isDtFreeTextValue(value: any): value is _DtFreeTextValue {
+/** One of the categories of values that one filter tag can be */
+export type DtFreeTextValue = string;
+
+/** Checks if a given value is of category DtFreeTextValue */
+export function isDtFreeTextValue(value: any): value is DtFreeTextValue {
   return typeof value === 'string';
 }
 
-/** @internal */
-export type _DtAutocompleteValue<T> = DtNodeDef<T> & { option: DtOptionDef };
+/** One of the categories of values that one filter tag can be */
+export type DtAutocompleteValue<T> = DtNodeDef<T> & { option: DtOptionDef };
 
-/** @internal */
-export function _isDtAutocompleteValue<T>(
+/** Checks if a given value is of category DtAutocompleteValue */
+export function isDtAutocompleteValue<T>(
   value: any,
-): value is _DtAutocompleteValue<T> {
+): value is DtAutocompleteValue<T> {
   return isDtOptionDef(value);
 }
 
-/** @internal */
+/** One of the categories of values that one filter tag can be */
 // tslint:disable-next-line: class-name
-export interface _DtRangeValue {
+export interface DtRangeValue {
   range: number | [number, number];
   operator: string;
   unit?: string;
 }
 
-/** @internal */
-export function _isDtRangeValue(value: any): value is _DtRangeValue {
+/** Checks if a given value is of category DtRangeValue */
+export function isDtRangeValue(value: any): value is DtRangeValue {
   return (
     isObject(value) &&
     value.hasOwnProperty('operator') &&
@@ -358,17 +364,11 @@ export function _isDtRangeValue(value: any): value is _DtRangeValue {
 }
 
 /** @internal */
-export type _DtFilterValue =
-  | _DtAutocompleteValue<any>
-  | _DtFreeTextValue
-  | _DtRangeValue;
-
-/** @internal */
-export function _getSourceOfDtFilterValue<T>(value: _DtFilterValue): T {
+export function _getSourceOfDtFilterValue<T>(value: DtFilterValue): T {
   return isDtNodeDef(value) ? value.data : value;
 }
 
 /** @internal */
-export function _getSourcesOfDtFilterValues(values: _DtFilterValue[]): any[] {
+export function _getSourcesOfDtFilterValues(values: DtFilterValue[]): any[] {
   return values.map((value) => _getSourceOfDtFilterValue<any>(value));
 }

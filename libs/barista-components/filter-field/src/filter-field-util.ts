@@ -18,24 +18,24 @@ import { isDefined } from '@dynatrace/barista-components/core';
 
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
-  _DtAutocompleteValue,
-  _DtFilterFieldTagData,
-  _DtFilterValue,
-  _DtFreeTextValue,
+  DtAutocompleteValue,
+  DtFilterFieldTagData,
+  DtFilterValue,
+  DtFreeTextValue,
   DtNodeDef,
-  _DtRangeValue,
+  DtRangeValue,
   dtAutocompleteDef,
   dtFreeTextDef,
   dtGroupDef,
   isAsyncDtAutocompleteDef,
   isDtAutocompleteDef,
-  _isDtAutocompleteValue,
+  isDtAutocompleteValue,
   isDtFreeTextDef,
   isDtFreeTextValue,
   isDtGroupDef,
   isDtOptionDef,
   isDtRangeDef,
-  _isDtRangeValue,
+  isDtRangeValue,
   isDtRenderType,
   isPartialDtAutocompleteDef,
   DtOptionDef,
@@ -261,7 +261,7 @@ function isOptionSelected(def: DtNodeDef, selectedIds: Set<string>): boolean {
 
 /** Transforms a RangeSource to the Tag data values. */
 function transformRangeSourceToTagData(
-  result: _DtRangeValue,
+  result: DtRangeValue,
 ): { separator: string; value: string } {
   if (result.operator === 'range') {
     return {
@@ -288,11 +288,11 @@ function transformRangeSourceToTagData(
   return { separator, value };
 }
 
-export function createTagDataForFilterValues(
-  filterValues: _DtFilterValue[],
+export function defaultTagDataForFilterValuesParser(
+  filterValues: DtFilterValue[],
   editable?: boolean,
   deletable?: boolean,
-): _DtFilterFieldTagData | null {
+): DtFilterFieldTagData | null {
   let key: string | null = null;
   let value: string | null = null;
   let separator: string | null = null;
@@ -300,7 +300,7 @@ export function createTagDataForFilterValues(
   let isFirstValue = true;
 
   for (const filterValue of filterValues) {
-    if (_isDtAutocompleteValue(filterValue)) {
+    if (isDtAutocompleteValue(filterValue)) {
       if (isFirstValue && filterValues.length > 1) {
         key = filterValue.option.viewValue;
       }
@@ -312,7 +312,7 @@ export function createTagDataForFilterValues(
         separator = '~';
       }
       break;
-    } else if (_isDtRangeValue(filterValue)) {
+    } else if (isDtRangeValue(filterValue)) {
       // Assigning variables destructed variables to already defined ones needs to be within braces.
       ({ value, separator } = transformRangeSourceToTagData(filterValue));
       break;
@@ -321,7 +321,7 @@ export function createTagDataForFilterValues(
   }
 
   return filterValues.length && value !== null
-    ? new _DtFilterFieldTagData(
+    ? new DtFilterFieldTagData(
         key,
         value,
         separator,
@@ -338,8 +338,8 @@ export function findFilterValuesForSources<T>(
   rootDef: DtNodeDef<T>,
   asyncDefs: Map<DtNodeDef<T>, DtNodeDef<T>>,
   dataSource: DtFilterFieldDataSource<T>,
-): _DtFilterValue[] | null {
-  const foundValues: _DtFilterValue[] = [];
+): DtFilterValue[] | null {
+  const foundValues: DtFilterValue[] = [];
   let parentDef = rootDef;
 
   for (let i = 0; i < sources.length; i++) {
@@ -352,7 +352,7 @@ export function findFilterValuesForSources<T>(
     if (
       isLastSource &&
       ((isDtFreeTextValue(source) && isDtFreeTextDef(parentDef)) ||
-        (_isDtRangeValue(source) && isDtRangeDef(parentDef)))
+        (isDtRangeValue(source) && isDtRangeDef(parentDef)))
     ) {
       foundValues.push(source);
       return foundValues;
@@ -365,7 +365,7 @@ export function findFilterValuesForSources<T>(
           const asyncDef = asyncDefs.get(def);
           if (asyncDef) {
             parentDef = asyncDef;
-            foundValues.push(def, asyncDef as _DtAutocompleteValue<T>);
+            foundValues.push(def, asyncDef as DtAutocompleteValue<T>);
           } else {
             parentDef = def;
             foundValues.push(def);
@@ -473,8 +473,8 @@ export function applyDtOptionIds(
 
 /** Checks whether two autocomplete values are both options and have the same uid */
 export function isDtAutocompleteValueEqual(
-  a: _DtAutocompleteValue<unknown>,
-  b: _DtAutocompleteValue<unknown>,
+  a: DtAutocompleteValue<unknown>,
+  b: DtAutocompleteValue<unknown>,
   prefix?: string,
 ): boolean {
   return peekOptionId(a, prefix) === peekOptionId(b, prefix);
@@ -482,17 +482,14 @@ export function isDtAutocompleteValueEqual(
 
 /** Checks whether two freetext values are equal */
 export function isDtFreeTextValueEqual(
-  a: _DtFreeTextValue,
-  b: _DtFreeTextValue,
+  a: DtFreeTextValue,
+  b: DtFreeTextValue,
 ): boolean {
   return a === b;
 }
 
 /** Checks whether two range values are equal */
-export function isDtRangeValueEqual(
-  a: _DtRangeValue,
-  b: _DtRangeValue,
-): boolean {
+export function isDtRangeValueEqual(a: DtRangeValue, b: DtRangeValue): boolean {
   if (a.operator === b.operator && a.unit === b.unit) {
     return Array.isArray(a.range) && Array.isArray(b.range)
       ? a.range.join(DELIMITER) === b.range.join(DELIMITER)

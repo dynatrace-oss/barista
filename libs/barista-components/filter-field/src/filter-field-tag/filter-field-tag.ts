@@ -29,7 +29,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 
-import { _DtFilterFieldTagData } from '../types';
+import { DtFilterFieldTagData } from '../types';
 import { DtOverlayConfig } from '@dynatrace/barista-components/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { take, takeUntil, switchMap } from 'rxjs/operators';
@@ -58,16 +58,16 @@ export class DtFilterFieldTag implements OnDestroy {
 
   /** Tag data object that contains view values for displaying (like key, value and separator) and the original source. */
   @Input()
-  get data(): _DtFilterFieldTagData {
+  get data(): DtFilterFieldTagData {
     return this._data;
   }
-  set data(value: _DtFilterFieldTagData) {
+  set data(value: DtFilterFieldTagData) {
     if (value !== this._data) {
       this._stateChanges$.next();
     }
     this._data = value;
   }
-  private _data: _DtFilterFieldTagData;
+  private _data: DtFilterFieldTagData;
 
   /** Emits when the filter should be removed (usually by clicking the remove button). */
   @Output() readonly remove = new EventEmitter<DtFilterFieldTag>();

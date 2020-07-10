@@ -50,6 +50,7 @@ import {
   ViewChild,
   ViewChildren,
   ViewEncapsulation,
+  OnInit,
 } from '@angular/core';
 import {
   fromEvent,
@@ -101,7 +102,6 @@ import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-ran
 import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
 import {
   applyDtOptionIds,
-  createTagDataForFilterValues,
   filterAutocompleteDef,
   filterFreeTextDef,
   findFilterValuesForSources,
@@ -112,21 +112,26 @@ import {
 } from './filter-field-util';
 import { DtFilterFieldControl } from './filter-field-validation';
 import {
-  _DtAutocompleteValue,
-  _DtFilterFieldTagData,
-  _DtFilterValue,
+  DtAutocompleteValue,
+  DtFilterFieldTagData,
+  DtFilterValue,
   DtNodeDef,
   _getSourcesOfDtFilterValues,
   isAsyncDtAutocompleteDef,
   isDtAutocompleteDef,
-  _isDtAutocompleteValue,
+  isDtAutocompleteValue,
   isDtFreeTextDef,
   isDtFreeTextValue,
   isDtOptionDef,
   isDtRangeDef,
-  _isDtRangeValue,
+  isDtRangeValue,
   isPartialDtAutocompleteDef,
 } from './types';
+import {
+  DT_FILTER_VALUES_PARSER_CONFIG,
+  DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG,
+  TagParserFunction,
+} from './filter-field-config';
 
 // tslint:disable:no-any
 
@@ -183,7 +188,7 @@ let currentlyOpenFilterField: DtFilterField<any> | null = null;
   ],
 })
 export class DtFilterField<T = any>
-  implements CanDisable, AfterViewInit, OnDestroy, OnChanges {
+  implements CanDisable, OnInit, AfterViewInit, OnDestroy, OnChanges {
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
 
@@ -192,6 +197,15 @@ export class DtFilterField<T = any>
 
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
+
+  /** A function to override the default or injected configuration for tag parsing */
+  @Input() customTagParser:
+    | ((
+        filterValues: DtFilterValue[],
+        editable?: boolean,
+        deletable?: boolean,
+      ) => DtFilterFieldTagData | null)
+    | null = null;
 
   /** The data source instance that should be connected to the filter field. */
   @Input()
@@ -238,7 +252,7 @@ export class DtFilterField<T = any>
     this._tryApplyFilters(value);
     this._changeDetectorRef.markForCheck();
   }
-  private _filters: _DtFilterValue[][] = [];
+  private _filters: DtFilterValue[][] = [];
 
   /** Set the Aria-Label attribute */
   @Input('aria-label') ariaLabel = '';
@@ -333,7 +347,7 @@ export class DtFilterField<T = any>
   >;
 
   /** @internal List of sources of the filter that the user currently works on. */
-  _currentFilterValues: _DtFilterValue[] = [];
+  _currentFilterValues: DtFilterValue[] = [];
 
   /**
    * @internal
@@ -357,13 +371,13 @@ export class DtFilterField<T = any>
   _autocompleteOptionsOrGroups: DtNodeDef[] = [];
 
   /** @internal Filter nodes to be rendered _before_ the input element. */
-  _prefixTagData: _DtFilterFieldTagData[] = [];
+  _prefixTagData: DtFilterFieldTagData[] = [];
 
   /** @internal Filter nodes to be rendered _after_ the input element. */
-  _suffixTagData: _DtFilterFieldTagData[] = [];
+  _suffixTagData: DtFilterFieldTagData[] = [];
 
   /** Holds all tagdata including the data for a tag that might be edited */
-  tagData: _DtFilterFieldTagData[] = [];
+  tagData: DtFilterFieldTagData[] = [];
 
   /**
    * @internal
@@ -413,7 +427,7 @@ export class DtFilterField<T = any>
   private readonly _destroy$ = new Subject<void>();
 
   /** Member value that holds the previous filter values, to reset them if edit-mode is cancelled. */
-  private _editModeStashedValue: _DtFilterValue[] | null;
+  private _editModeStashedValue: DtFilterValue[] | null;
 
   /** Whether the filter field or one of it's child elements is focused. */
   private _isFocused = false;
@@ -426,10 +440,17 @@ export class DtFilterField<T = any>
     private _zone: NgZone,
     private _focusMonitor: FocusMonitor,
     private _elementRef: ElementRef,
-    // tslint:disable-next-line:no-any
-    @Optional() @Inject(DOCUMENT) private _document: any,
     defaultErrorStateMatcher: ErrorStateMatcher,
+    // tslint:disable-next-line:no-any
+    @Optional()
+    @Inject(DOCUMENT)
+    private _document: any,
+    @Optional()
+    @Inject(DT_FILTER_VALUES_PARSER_CONFIG)
+    private tagValuesParser: TagParserFunction,
   ) {
+    this.tagValuesParser =
+      this.tagValuesParser || DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG;
     this.errorStateMatcher = defaultErrorStateMatcher;
     this._stateChanges
       .pipe(
@@ -472,6 +493,14 @@ export class DtFilterField<T = any>
           this.focus();
         }
       });
+  }
+
+  ngOnInit(): void {
+    // If a custom parser is set in the input, prioritize the input one over the
+    // privided or default one.
+    if (this.customTagParser) {
+      this.tagValuesParser = this.customTagParser;
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -673,7 +702,7 @@ export class DtFilterField<T = any>
     if (!this._currentFilterValues.length && event.data.filterValues.length) {
       const value = event.data.filterValues[0];
       if (
-        _isDtAutocompleteValue(value) &&
+        isDtAutocompleteValue(value) &&
         (isDtAutocompleteDef(value) ||
           isDtRangeDef(value) ||
           isDtFreeTextDef(value))
@@ -693,7 +722,7 @@ export class DtFilterField<T = any>
         if (removed.length === 1) {
           // Needed to reassign in order for typescript to understand the type.
           const recentRangeValue = removed[0];
-          if (_isDtRangeValue(recentRangeValue) && this._currentDef.range) {
+          if (isDtRangeValue(recentRangeValue) && this._currentDef.range) {
             // Needed to set this in typescript, because template binding of input would be evaluated to late.
             this._filterfieldRange.enabledOperators = this._currentDef.range.operatorFlags;
             this._filterfieldRange._setValues(recentRangeValue.range);
@@ -729,8 +758,8 @@ export class DtFilterField<T = any>
     const { remaining, removed } = this.tagData.reduce(
       (
         aggregator: {
-          remaining: _DtFilterValue[][];
-          removed: _DtFilterValue[][];
+          remaining: DtFilterValue[][];
+          removed: DtFilterValue[][];
         },
         data,
       ) => {
@@ -751,7 +780,7 @@ export class DtFilterField<T = any>
   }
 
   /** Returns the index in the filters for the filter values given or -1 if not found */
-  private _findIndexForFilter(needleFilterValueArr: _DtFilterValue[]): number {
+  private _findIndexForFilter(needleFilterValueArr: DtFilterValue[]): number {
     return this._filters.findIndex((filterValueArr) => {
       // check whether the length is the same, if not we can quit here
       if (filterValueArr.length !== needleFilterValueArr.length) {
@@ -767,16 +796,16 @@ export class DtFilterField<T = any>
           (isDtFreeTextValue(filterValue) &&
             isDtFreeTextValue(needleFilterValue) &&
             isDtFreeTextValueEqual(filterValue, needleFilterValue)) ||
-          (_isDtRangeValue(filterValue) &&
-            _isDtRangeValue(needleFilterValue) &&
+          (isDtRangeValue(filterValue) &&
+            isDtRangeValue(needleFilterValue) &&
             isDtRangeValueEqual(filterValue, needleFilterValue))
         ) {
           idx++;
           continue;
         }
         if (
-          _isDtAutocompleteValue(filterValue) &&
-          _isDtAutocompleteValue(needleFilterValue) &&
+          isDtAutocompleteValue(filterValue) &&
+          isDtAutocompleteValue(needleFilterValue) &&
           isDtAutocompleteValueEqual(filterValue, needleFilterValue, prefix)
         ) {
           prefix = peekOptionId(filterValue, undefined, true);
@@ -864,7 +893,7 @@ export class DtFilterField<T = any>
   private _handleAutocompleteSelected(
     event: DtAutocompleteSelectedEvent<DtNodeDef>,
   ): void {
-    const optionDef = event.option.value as _DtAutocompleteValue<T>;
+    const optionDef = event.option.value as DtAutocompleteValue<T>;
     this._peekCurrentFilterValues().push(optionDef);
     // Reset input value to empty string after handling the value provided by the autocomplete.
     // Otherwise the value of the autocomplete would be in the input elements and the next options
@@ -967,7 +996,7 @@ export class DtFilterField<T = any>
    * Returns the currentFilterSources. If no currentFilterSources are available, a new one is created.
    * These sources will also be added to the global list of filters if they are not already part of it.
    */
-  private _peekCurrentFilterValues(): _DtFilterValue[] {
+  private _peekCurrentFilterValues(): DtFilterValue[] {
     let values = this._currentFilterValues;
     if (!values) {
       values = [];
@@ -983,7 +1012,7 @@ export class DtFilterField<T = any>
    * Removes a filter (a list of sources) from the list of current selected ones.
    * It is usually called when the user clicks the remove button of a filter
    */
-  private _removeFilterAndEmit(filterValues: _DtFilterValue[]): void {
+  private _removeFilterAndEmit(filterValues: DtFilterValue[]): void {
     const removedFilters = this._removeFilter(filterValues);
     if (filterValues.length) {
       if (filterValues === this._currentFilterValues) {
@@ -1001,8 +1030,8 @@ export class DtFilterField<T = any>
   }
 
   /** Removes a filter (a list of sources) from the list of current selected ones. */
-  private _removeFilter(filterValues: _DtFilterValue[]): _DtFilterValue[][] {
-    let removedFilters: _DtFilterValue[][] = [];
+  private _removeFilter(filterValues: DtFilterValue[]): DtFilterValue[][] {
+    let removedFilters: DtFilterValue[][] = [];
     const removableIndex = this._filters.indexOf(filterValues);
     if (removableIndex !== -1) {
       removedFilters = this._filters.splice(removableIndex, 1);
@@ -1015,8 +1044,8 @@ export class DtFilterField<T = any>
    * so the consumer can not override it from the outside.
    */
   private _emitFilterChanges(
-    added: _DtFilterValue[][],
-    removed: _DtFilterValue[][],
+    added: DtFilterValue[][],
+    removed: DtFilterValue[][],
   ): void {
     this.filterChanges.emit(
       new DtFilterFieldChangeEvent(
@@ -1029,8 +1058,8 @@ export class DtFilterField<T = any>
   }
 
   private _emitCurrentFilterChanges(
-    addedValues: _DtFilterValue[],
-    removedValues: _DtFilterValue[],
+    addedValues: DtFilterValue[],
+    removedValues: DtFilterValue[],
   ): void {
     this.currentFilterChanges.emit(
       new DtFilterFieldCurrentFilterChangeEvent(
@@ -1171,12 +1200,12 @@ export class DtFilterField<T = any>
     if (this._rootDef) {
       const splitIndex = this._filters.indexOf(this._currentFilterValues);
       const tags = this._filters.map((values, i) => {
-        let prevData: _DtFilterFieldTagData | undefined;
+        let prevData: DtFilterFieldTagData | undefined;
         if (this.tagData.length) {
           prevData = this.tagData[i];
         }
         return (
-          createTagDataForFilterValues(
+          this.tagValuesParser(
             values,
             prevData && prevData.editable,
             prevData && prevData.deletable,
@@ -1189,12 +1218,12 @@ export class DtFilterField<T = any>
 
       this._prefixTagData = this.tagData
         .slice(0, this._currentFilterValues.length ? splitIndex : undefined)
-        .filter((tag: _DtFilterFieldTagData | null) => tag !== null);
+        .filter((tag: DtFilterFieldTagData | null) => tag !== null);
 
       this._suffixTagData = this._currentFilterValues.length
         ? this.tagData
             .slice(this._filters.indexOf(this._currentFilterValues) + 1)
-            .filter((tag: _DtFilterFieldTagData | null) => tag !== null)
+            .filter((tag: DtFilterFieldTagData | null) => tag !== null)
         : [];
     }
   }
@@ -1230,7 +1259,7 @@ export class DtFilterField<T = any>
       currentFilterNodeDefsOrSources &&
       currentFilterNodeDefsOrSources.length
     ) {
-      const def = currentFilterNodeDefsOrSources[0] as _DtAutocompleteValue<T>;
+      const def = currentFilterNodeDefsOrSources[0] as DtAutocompleteValue<T>;
       if (isDtOptionDef(def)) {
         this._filterByLabel = def.option.viewValue;
       }
@@ -1246,7 +1275,7 @@ export class DtFilterField<T = any>
     for (const currentFilter of this._filters) {
       let currentId = '';
       for (const value of currentFilter) {
-        if (_isDtAutocompleteValue(value)) {
+        if (isDtAutocompleteValue(value)) {
           const id = peekOptionId(value, currentId);
           ids.add(id);
           currentId = id;
