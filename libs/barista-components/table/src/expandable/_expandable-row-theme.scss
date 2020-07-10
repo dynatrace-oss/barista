@@ -11,7 +11,7 @@
   }
 
   :host {
-    .dt-expandable-row-base-expanded {
+    > .dt-expandable-row-base-expanded {
       border-top-color: $border-color;
 
       $bg-color: get-color($theme-name, 100);
@@ -35,7 +35,7 @@
     $default-color: dt-get-theme-color($palette, 'default');
 
     :host.dt-table-row-indicator.dt-color-#{$name}
-      .dt-expandable-row-base::before {
+      > .dt-expandable-row-base::before {
       background-color: $default-color;
     }
   }
