@@ -1,8 +1,6 @@
 @import '../../style/font-mixins';
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
-@import '../../core/src/theming/theming';
-@import './tile-theme';
 
 .dt-tile {
   display: block;
@@ -134,7 +132,4 @@
   color: $gray-300;
 }
 
-// Apply the tile theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-tile($dt-current-theme);
-}
+@import './tile-theme';
