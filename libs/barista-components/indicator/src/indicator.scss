@@ -1,7 +1,10 @@
-@import './indicator-theme';
-@import '../../core/src/theming/theming';
+.dt-indicator-active.dt-color-error {
+  --dt-indicator-color: var(--dt-error-default-color);
+}
+.dt-indicator-active.dt-color-warning {
+  --dt-indicator-color: var(--dt-warning-default-color);
+}
 
-// Apply the indicator theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-indicator($dt-current-theme);
+.dt-indicator-active {
+  color: var(--dt-indicator-color);
 }
