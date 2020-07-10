@@ -19,6 +19,7 @@ import { DtFilterFieldModule } from '@dynatrace/barista-components/filter-field'
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtExampleFilterFieldAsync } from './filter-field-async-example/filter-field-async-example';
 import { DtExampleFilterFieldClearall } from './filter-field-clearall-example/filter-field-clearall-example';
+import { DtExampleFilterFieldCustomParser } from './filter-field-custom-parser-example/filter-field-custom-parser-example';
 import { DtExampleFilterFieldDefault } from './filter-field-default-example/filter-field-default-example';
 import { DtExampleFilterFieldDisabled } from './filter-field-disabled-example/filter-field-disabled-example';
 import { DtExampleFilterFieldDistinct } from './filter-field-distinct-example/filter-field-distinct-example';
@@ -33,6 +34,7 @@ import { DtExampleFilterFieldValidator } from './filter-field-validator-example/
   declarations: [
     DtExampleFilterFieldAsync,
     DtExampleFilterFieldClearall,
+    DtExampleFilterFieldCustomParser,
     DtExampleFilterFieldDefault,
     DtExampleFilterFieldDistinct,
     DtExampleFilterFieldPartial,

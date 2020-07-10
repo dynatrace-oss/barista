@@ -141,6 +141,7 @@ import { DtExampleExpandableSectionOpen } from './expandable-section/expandable-
 import { DtExampleExpandableTextDefault } from './expandable-text/expandable-text-default-example/expandable-text-default-example';
 import { DtExampleFilterFieldAsync } from './filter-field/filter-field-async-example/filter-field-async-example';
 import { DtExampleFilterFieldClearall } from './filter-field/filter-field-clearall-example/filter-field-clearall-example';
+import { DtExampleFilterFieldCustomParser } from './filter-field/filter-field-custom-parser-example/filter-field-custom-parser-example';
 import { DtExampleFilterFieldDefault } from './filter-field/filter-field-default-example/filter-field-default-example';
 import { DtExampleFilterFieldDisabled } from './filter-field/filter-field-disabled-example/filter-field-disabled-example';
 import { DtExampleFilterFieldDistinct } from './filter-field/filter-field-distinct-example/filter-field-distinct-example';
@@ -510,6 +511,7 @@ export {
   DtExampleExpandableTextDefault,
   DtExampleFilterFieldAsync,
   DtExampleFilterFieldClearall,
+  DtExampleFilterFieldCustomParser,
   DtExampleFilterFieldDefault,
   DtExampleFilterFieldDisabled,
   DtExampleFilterFieldDistinct,
@@ -850,6 +852,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleExpandableTextDefault', DtExampleExpandableTextDefault],
   ['DtExampleFilterFieldAsync', DtExampleFilterFieldAsync],
   ['DtExampleFilterFieldClearall', DtExampleFilterFieldClearall],
+  ['DtExampleFilterFieldCustomParser', DtExampleFilterFieldCustomParser],
   ['DtExampleFilterFieldDefault', DtExampleFilterFieldDefault],
   ['DtExampleFilterFieldDisabled', DtExampleFilterFieldDisabled],
   ['DtExampleFilterFieldDistinct', DtExampleFilterFieldDistinct],
