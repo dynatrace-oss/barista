@@ -43,7 +43,7 @@ import {
 
 import { mockObjectProperty } from '@dynatrace/testing/node';
 
-import { _DtFilterFieldTagData } from '../types';
+import { DtFilterFieldTagData } from '../types';
 import { DtOverlayTrigger } from '@dynatrace/barista-components/overlay';
 
 describe('DtFilterFieldTag', () => {
@@ -237,7 +237,7 @@ describe('DtFilterFieldTag', () => {
 
       // Set the larger field value dynamically without destroying the
       // tag component.
-      fixture.componentInstance.dummy = new _DtFilterFieldTagData(
+      fixture.componentInstance.dummy = new DtFilterFieldTagData(
         'AUT',
         'A larger value, value does not matter because scrollWidth is mocked',
         ':',
@@ -296,5 +296,5 @@ describe('DtFilterFieldTag', () => {
 })
 export class TestApp {
   // we need to add this dummy data because the tags editable and deletable flags depend on the data being set
-  dummy = new _DtFilterFieldTagData('AUT', 'Linz', ':', false, []);
+  dummy = new DtFilterFieldTagData('AUT', 'Linz', ':', false, []);
 }

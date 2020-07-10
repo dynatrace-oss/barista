@@ -29,7 +29,7 @@ import {
 // Import locally because utils are not exported for the public
 import {
   DELIMITER,
-  createTagDataForFilterValues,
+  defaultTagDataForFilterValuesParser,
   defDistinctPredicate,
   defUniquePredicate,
   findDefForSource,
@@ -45,9 +45,9 @@ import {
   filterAutocompleteDef,
 } from './filter-field-util';
 import {
-  _DtAutocompleteValue,
-  _DtFilterValue,
-  _DtRangeValue,
+  DtAutocompleteValue,
+  DtFilterValue,
+  DtRangeValue,
   dtRangeDef,
   isDtFreeTextDef,
   DtNodeDef,
@@ -503,8 +503,8 @@ describe('DtFilterField Util', () => {
       );
       optionDef.option!.parentAutocomplete = autocompleteDef;
 
-      const values = [optionDef] as _DtFilterValue[];
-      const tagData = createTagDataForFilterValues(values);
+      const values = [optionDef] as DtFilterValue[];
+      const tagData = defaultTagDataForFilterValuesParser(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe(null);
@@ -546,8 +546,8 @@ describe('DtFilterField Util', () => {
       optionDef.option!.parentGroup = groupDef;
       groupDef.group!.parentAutocomplete = autocompleteDef;
 
-      const values = [optionDef] as _DtFilterValue[];
-      const tagData = createTagDataForFilterValues(values);
+      const values = [optionDef] as DtFilterValue[];
+      const tagData = defaultTagDataForFilterValuesParser(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe(null);
@@ -600,8 +600,8 @@ describe('DtFilterField Util', () => {
       );
       outerOptionAutocompleteDef.option!.parentAutocomplete = rootAutocompleteDef;
 
-      const values = [outerOptionDef, innerOptionDef] as _DtFilterValue[];
-      const tagData = createTagDataForFilterValues(values);
+      const values = [outerOptionDef, innerOptionDef] as DtFilterValue[];
+      const tagData = defaultTagDataForFilterValuesParser(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe('Outer Option');
@@ -613,7 +613,7 @@ describe('DtFilterField Util', () => {
 
     it('should create a tag object out of a single free text', () => {
       const values = ['Some Text'];
-      const tagData = createTagDataForFilterValues(values);
+      const tagData = defaultTagDataForFilterValuesParser(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe(null);
@@ -646,8 +646,8 @@ describe('DtFilterField Util', () => {
       );
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
 
-      const values = [freeTextDef, 'Some Text'] as _DtFilterValue[];
-      const tagData = createTagDataForFilterValues(values);
+      const values = [freeTextDef, 'Some Text'] as DtFilterValue[];
+      const tagData = defaultTagDataForFilterValuesParser(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe('Option 1');
@@ -690,8 +690,8 @@ describe('DtFilterField Util', () => {
       freeTextDef.option!.parentAutocomplete = autocompleteDef;
       groupDef.group!.parentAutocomplete = autocompleteDef;
 
-      const values = [optionDef, 'Some Text'] as _DtFilterValue[];
-      const tagData = createTagDataForFilterValues(values);
+      const values = [optionDef, 'Some Text'] as DtFilterValue[];
+      const tagData = defaultTagDataForFilterValuesParser(values);
 
       expect(tagData).not.toBeNull();
       expect(tagData!.key).toBe('Option 1');
@@ -1165,13 +1165,13 @@ describe('DtFilterField Util', () => {
 
   describe('isDtRangeValueEqual', () => {
     it('should return true if range values are equal', () => {
-      const test: _DtRangeValue = { operator: '=', range: 1 };
+      const test: DtRangeValue = { operator: '=', range: 1 };
       expect(isDtRangeValueEqual(test, test)).toBeTruthy();
 
-      const test1: _DtRangeValue = { operator: 'range', range: [1, 2] };
+      const test1: DtRangeValue = { operator: 'range', range: [1, 2] };
       expect(isDtRangeValueEqual(test1, test1)).toBeTruthy();
 
-      const test2: _DtRangeValue = {
+      const test2: DtRangeValue = {
         operator: 'range',
         range: [1, 2],
         unit: 's',
@@ -1179,28 +1179,28 @@ describe('DtFilterField Util', () => {
       expect(isDtRangeValueEqual(test2, test2)).toBeTruthy();
     });
     it('should return true if range values have different array instances but the same values within', () => {
-      const a: _DtRangeValue = { operator: 'range', range: [1, 2] };
-      const b: _DtRangeValue = { operator: 'range', range: [1, 2] };
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: [1, 2] };
       expect(isDtRangeValueEqual(a, b)).toBeTruthy();
     });
     it('should return false when a has unit set but b does not', () => {
-      const a: _DtRangeValue = { operator: 'range', range: [1, 2] };
-      const b: _DtRangeValue = { operator: 'range', range: [1, 2], unit: 's' };
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: [1, 2], unit: 's' };
       expect(isDtRangeValueEqual(a, b)).toBeFalsy();
     });
     it('should return false when a has different numbers in the range array than b', () => {
-      const a: _DtRangeValue = { operator: 'range', range: [1, 2] };
-      const b: _DtRangeValue = { operator: 'range', range: [2, 3] };
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: [2, 3] };
       expect(isDtRangeValueEqual(a, b)).toBeFalsy();
     });
     it('should return false when a has the range numbers ordered differently than than b', () => {
-      const a: _DtRangeValue = { operator: 'range', range: [1, 2] };
-      const b: _DtRangeValue = { operator: 'range', range: [2, 1] };
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: [2, 1] };
       expect(isDtRangeValueEqual(a, b)).toBeFalsy();
     });
     it('should return false when a has the range array and b has a number', () => {
-      const a: _DtRangeValue = { operator: 'range', range: [1, 2] };
-      const b: _DtRangeValue = { operator: 'range', range: 1 };
+      const a: DtRangeValue = { operator: 'range', range: [1, 2] };
+      const b: DtRangeValue = { operator: 'range', range: 1 };
       expect(isDtRangeValueEqual(a, b)).toBeFalsy();
     });
   });
@@ -1215,7 +1215,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       const b = dtOptionDef(
         optionSource,
         null,
@@ -1223,7 +1223,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeTruthy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeTruthy();
     });
@@ -1236,7 +1236,7 @@ describe('DtFilterField Util', () => {
         `${optionSource.name}${DELIMITER}`,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       const b = dtOptionDef(
         optionSource,
         null,
@@ -1244,7 +1244,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeTruthy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeTruthy();
     });
@@ -1259,7 +1259,7 @@ describe('DtFilterField Util', () => {
         `${prefix}${optionSource.name}${DELIMITER}`,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       const b = dtOptionDef(
         optionSource,
         null,
@@ -1267,7 +1267,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b, prefix)).toBeTruthy();
       expect(isDtAutocompleteValueEqual(b, a, prefix)).toBeTruthy();
     });
@@ -1281,7 +1281,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       const optionSourceB = { name: 'Option 2' };
       const b = dtOptionDef(
         optionSourceB,
@@ -1290,7 +1290,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeFalsy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeFalsy();
     });
@@ -1303,7 +1303,7 @@ describe('DtFilterField Util', () => {
         null,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       const optionSourceB = { name: 'Option 2' };
       const b = dtOptionDef(
         optionSourceB,
@@ -1312,7 +1312,7 @@ describe('DtFilterField Util', () => {
         `${optionSourceB.name}${DELIMITER}`,
         null,
         null,
-      ) as _DtAutocompleteValue<any>;
+      ) as DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeFalsy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeFalsy();
     });

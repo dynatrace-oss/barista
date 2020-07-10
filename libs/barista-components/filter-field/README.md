@@ -199,13 +199,25 @@ tags get disabled and therefore cannot be modified by the user.
 ### Readonly, non-deletable & non-editable tags
 
 The filter field creates a `DtFilterFieldTag` for each active filter. You can
-get subscribe to the list of current tags with the `currentTags` observable. By
+get subscribed to the list of current tags with the `currentTags` observable. By
 using the utility method `getTagForFilter` you can find a `DtFilterFieldTag`
 instance created for a given filter. After getting the tag instance for your
 filter you can configure the filter to your needs by using the properties
 `editable`, `deletable` and `disabled`.
 
 <ba-live-example name="DtExampleFilterFieldReadOnlyTags"></ba-live-example>
+
+### Changing the default parsing of filter values
+
+The filter field exposes a `defaultTagDataForFilterValuesParser` function,
+describing how the key:value pairs of each chosen filter should be parsed and
+shown. However, this function can be extended and replaced through the
+`DT_FILTER_VALUES_PARSER_CONFIG` token, which can be injected in the parent
+component and assigned a function of your own. In addition, this token can also
+be overriden with an input function specific to the component using that filter
+instance.
+
+<ba-live-example name="DtExampleFilterFieldCustomParser"></ba-live-example>
 
 ### Validators
 

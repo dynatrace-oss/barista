@@ -38,6 +38,7 @@ import {
   dtRangeDef,
   DT_FILTER_FIELD_TYPING_DEBOUNCE,
   getDtFilterFieldRangeNoOperatorsError,
+  DT_FILTER_VALUES_PARSER_CONFIG,
 } from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
@@ -53,6 +54,12 @@ import {
   FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT,
   FILTER_FIELD_TEST_DATA_SINGLE_OPTION,
 } from '@dynatrace/testing/fixtures';
+import { defaultTagDataForFilterValuesParser } from './filter-field-util';
+import {
+  DtFilterValue,
+  DtFilterFieldTagData,
+  isDtAutocompleteValue,
+} from './types';
 
 const TEST_DATA_SUGGESTIONS = {
   autocomplete: [
@@ -206,7 +213,11 @@ describe('DtFilterField', () => {
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
         DtFilterFieldModule,
       ],
-      declarations: [TestApp],
+      declarations: [
+        TestApp,
+        TestAppCustomParserConfig,
+        TestAppCustomParserInput,
+      ],
       providers: [
         { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
       ],
@@ -232,11 +243,13 @@ describe('DtFilterField', () => {
     },
   ));
 
-  it('should focus the input field when focusing the host', () => {
-    const input = fixture.debugElement.query(By.css('.dt-filter-field-input'))
-      .nativeElement;
-    filterField.focus();
-    expect(document.activeElement).toBe(input);
+  describe('focus on input', () => {
+    it('should focus the input field when focusing the host', () => {
+      const input = fixture.debugElement.query(By.css('.dt-filter-field-input'))
+        .nativeElement;
+      filterField.focus();
+      expect(document.activeElement).toBe(input);
+    });
   });
 
   describe('disabled', () => {
@@ -2170,6 +2183,184 @@ describe('DtFilterField', () => {
       filterChangesSubscription.unsubscribe();
     });
   });
+
+  describe('tag parser function override by injection token configuration', () => {
+    // Autocomplete filter for AUT -> Upper Austria -> Cities -> Linz
+    const autocompleteFilter = [
+      TEST_DATA_EDITMODE.autocomplete[0],
+      (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+      (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+        .autocomplete[0].options[0],
+    ];
+
+    let fixtureCustom: ComponentFixture<TestAppCustomParserConfig>;
+    beforeEach(() => {
+      fixtureCustom = createComponent(TestAppCustomParserConfig);
+      filterField = fixtureCustom.debugElement.query(
+        By.directive(DtFilterField),
+      ).componentInstance;
+
+      fixtureCustom.componentInstance.dataSource.data = TEST_DATA_EDITMODE;
+      advanceFilterfieldCycle();
+
+      // Set filters as a starting point
+      filterField.filters = [autocompleteFilter];
+      fixtureCustom.detectChanges();
+    });
+
+    it('should have the correct filters set as a starting point', () => {
+      const tags = getFilterTags(fixtureCustom);
+      expect(tags[0].key).toBe('AUT.Upper Austria');
+      expect(tags[0].separator).toBe(':');
+      expect(tags[0].value).toBe('Linz');
+    });
+
+    it('should be able to edit and reach one level of depth', () => {
+      const tags = fixtureCustom.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[0].nativeElement.click();
+      advanceFilterfieldCycle();
+
+      // Open first level of AUT (first tag)
+      const options = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(options.length).toBe(2);
+
+      // Select Vienna
+      options[1].click();
+      advanceFilterfieldCycle();
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixtureCustom);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Vienna');
+    });
+
+    it('should be able to edit and reach two levels of depth', () => {
+      const tags = fixtureCustom.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[0].nativeElement.click();
+      advanceFilterfieldCycle();
+
+      // Open first level of AUT (first tag)
+      const options = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(options.length).toBe(2);
+
+      // Select Upper Austria again
+      options[0].click();
+      advanceFilterfieldCycle();
+
+      // Open cities of Upper Austria
+      const cities = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(cities.length).toBe(3);
+
+      // Select Wels
+      cities[1].click();
+      advanceFilterfieldCycle();
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixtureCustom);
+
+      expect(filterTags[0].key).toBe('AUT.Upper Austria');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Wels');
+    });
+  });
+
+  describe('tag parser function override by input', () => {
+    // Autocomplete filter for AUT -> Upper Austria -> Cities -> Linz
+    const autocompleteFilter = [
+      TEST_DATA_EDITMODE.autocomplete[0],
+      (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+      (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+        .autocomplete[0].options[0],
+    ];
+
+    let fixtureCustom: ComponentFixture<TestAppCustomParserInput>;
+    beforeEach(() => {
+      fixtureCustom = createComponent(TestAppCustomParserInput);
+      filterField = fixtureCustom.debugElement.query(
+        By.directive(DtFilterField),
+      ).componentInstance;
+
+      fixtureCustom.componentInstance.dataSource.data = TEST_DATA_EDITMODE;
+      advanceFilterfieldCycle();
+
+      // Set filters as a starting point
+      filterField.filters = [autocompleteFilter];
+      fixtureCustom.detectChanges();
+    });
+
+    it('should have the correct filters set as a starting point', () => {
+      const tags = getFilterTags(fixtureCustom);
+      expect(tags[0].key).toBe('AUT.Upper Austria');
+      expect(tags[0].separator).toBe(':');
+      expect(tags[0].value).toBe('Linz');
+    });
+
+    it('should be able to edit and reach one level of depth', () => {
+      const tags = fixtureCustom.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[0].nativeElement.click();
+      advanceFilterfieldCycle();
+
+      // Open first level of AUT (first tag)
+      const options = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(options.length).toBe(2);
+
+      // Select Vienna
+      options[1].click();
+      advanceFilterfieldCycle();
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixtureCustom);
+
+      expect(filterTags[0].key).toBe('AUT');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Vienna');
+    });
+
+    it('should be able to edit and reach two levels of depth', () => {
+      const tags = fixtureCustom.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[0].nativeElement.click();
+      advanceFilterfieldCycle();
+
+      // Open first level of AUT (first tag)
+      const options = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(options.length).toBe(2);
+
+      // Select Upper Austria again
+      options[0].click();
+      advanceFilterfieldCycle();
+
+      // Open cities of Upper Austria
+      const cities = getOptions(overlayContainerElement);
+      // Make sure that the autocomplete actually opened.
+      expect(cities.length).toBe(3);
+
+      // Select Wels
+      cities[1].click();
+      advanceFilterfieldCycle();
+
+      // Read the filters again and make expectations
+      const filterTags = getFilterTags(fixtureCustom);
+
+      expect(filterTags[0].key).toBe('AUT.Upper Austria');
+      expect(filterTags[0].separator).toBe(':');
+      expect(filterTags[0].value).toBe('Wels');
+    });
+  });
 });
 
 function getOptions(overlayContainerElement: HTMLElement): HTMLElement[] {
@@ -2285,6 +2476,32 @@ function isClearAllVisible(fixture: ComponentFixture<any>): boolean {
   );
 }
 
+export function customParser(
+  filterValues: DtFilterValue[],
+  editable?: boolean,
+  deletable?: boolean,
+): DtFilterFieldTagData | null {
+  const tagData = defaultTagDataForFilterValuesParser(
+    filterValues,
+    editable,
+    deletable,
+  );
+  if (tagData) {
+    let isFirstValue = true;
+    for (const filterValue of filterValues) {
+      if (isDtAutocompleteValue(filterValue)) {
+        if (isFirstValue && filterValues.length > 1) {
+          tagData.key = filterValue.option.viewValue;
+        } else if (filterValue.autocomplete && filterValues.length > 1) {
+          tagData.key = tagData.key + '.' + filterValue.option.viewValue;
+        }
+        isFirstValue = false;
+      }
+    }
+  }
+  return tagData;
+}
+
 @Component({
   selector: 'test-app',
   template: `
@@ -2301,6 +2518,54 @@ export class TestApp {
 
   label = 'Filter by';
   clearAllLabel = 'Clear all';
+
+  @ViewChild(DtFilterField) filterField: DtFilterField<any>;
+}
+
+@Component({
+  selector: 'test-app',
+  template: `
+    <dt-filter-field
+      [dataSource]="dataSource"
+      [label]="label"
+      [clearAllLabel]="clearAllLabel"
+    ></dt-filter-field>
+  `,
+  providers: [
+    {
+      provide: DT_FILTER_VALUES_PARSER_CONFIG,
+      useValue: customParser,
+    },
+  ],
+})
+export class TestAppCustomParserConfig {
+  // tslint:disable-next-line:no-any
+  dataSource = new DtFilterFieldDefaultDataSource(FILTER_FIELD_TEST_DATA_ASYNC);
+
+  label = 'Filter by';
+  clearAllLabel = 'Clear all';
+
+  @ViewChild(DtFilterField) filterField: DtFilterField<any>;
+}
+
+@Component({
+  selector: 'test-app',
+  template: `
+    <dt-filter-field
+      [dataSource]="dataSource"
+      [label]="label"
+      [clearAllLabel]="clearAllLabel"
+      [customTagParser]="parserFn"
+    ></dt-filter-field>
+  `,
+})
+export class TestAppCustomParserInput {
+  // tslint:disable-next-line:no-any
+  dataSource = new DtFilterFieldDefaultDataSource(FILTER_FIELD_TEST_DATA_ASYNC);
+
+  label = 'Filter by';
+  clearAllLabel = 'Clear all';
+  parserFn = customParser;
 
   @ViewChild(DtFilterField) filterField: DtFilterField<any>;
 }
