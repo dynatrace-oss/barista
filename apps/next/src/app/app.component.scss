@@ -1,7 +1,9 @@
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
+
 main {
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  margin: $fluid-spacing--0;
+  padding: $fluid-spacing--0;
   background-color: var(--body-background-color);
   color: var(--body-background-color);
   transition: background-color 500ms ease-in-out;

@@ -1,4 +1,6 @@
 @import '~@dynatrace/fluid-design-tokens/global/theme';
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
+@import '~@dynatrace/fluid-design-tokens/global/typography';
 
 .fluid-theme--abyss {
   --body-background-color: var(--color-neutral-60);
@@ -20,22 +22,21 @@
 }
 
 html {
+  @include fluid-dt-text();
   box-sizing: border-box;
   width: 100vw;
   height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  font-size: 16px;
-  line-height: 1.5;
 }
 
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  margin: $fluid-spacing--0;
+  padding: $fluid-spacing--0;
   font-family: sans-serif;
 }
 
@@ -50,21 +51,9 @@ p {
   color: var(--color-maxcontrast);
 }
 
-a {
-  text-decoration: none;
-}
-
-button {
-  border: none;
-}
-
-button:focus {
-  outline: none;
-}
-
 .next-btn-icon {
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: $fluid-spacing--0;
+  padding-right: $fluid-spacing--0;
   text-align: center;
   background-color: transparent;
 

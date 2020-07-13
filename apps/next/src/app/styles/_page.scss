@@ -1,3 +1,5 @@
+@import '~@dynatrace/fluid-design-tokens/global/spacing';
+
 .next-page-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -6,35 +8,35 @@
     'meta'
     'main'
     'footer';
-  padding: 1rem;
+  padding: $fluid-spacing--medium;
   grid-row-gap: 1.5rem;
 }
 
 @media (min-width: $screen-md) {
   .next-page-grid {
     grid-template-columns: minmax(0, 1fr) 230px;
-    grid-column-gap: 2rem;
-    grid-row-gap: 2rem;
+    grid-column-gap: $fluid-spacing--large;
+    grid-row-gap: $fluid-spacing--large;
     grid-template-areas:
       'title title'
       'main meta'
       'footer .';
-    padding: 1rem;
+    padding: $fluid-spacing--medium;
   }
 
   .next-single-page-content::before {
-    height: 2rem;
+    height: $fluid-spacing--large;
   }
 }
 
 @media (min-width: $screen-lg) {
   .next-page-grid {
-    grid-column-gap: 3rem;
+    grid-column-gap: $fluid-spacing--x-large;
     grid-template-areas:
       'title .'
       'main meta'
       'footer .';
-    padding: 1rem 2rem;
+    padding: $fluid-spacing--medium $fluid-spacing--large;
   }
 }
 
@@ -46,7 +48,8 @@
       'sidenav title .'
       'sidenav main meta'
       'sidenav footer .';
-    padding: 1rem 1rem 1rem 0;
+    padding: $fluid-spacing--medium $fluid-spacing--medium
+      $fluid-spacing--medium $fluid-spacing--0;
   }
 }
 

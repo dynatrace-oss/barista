@@ -17,7 +17,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
+import { DsPageGuard } from '@dynatrace/shared/data-access-strapi';
 import { BaSmallTile } from './components/smalltile';
 import { BaIndexPage } from './index-page';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
@@ -27,7 +27,7 @@ export const routes: Route[] = [
   {
     path: '',
     component: BaIndexPage,
-    canActivate: [BaPageGuard],
+    canActivate: [DsPageGuard],
   },
 ];
 

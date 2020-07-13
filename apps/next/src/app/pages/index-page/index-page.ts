@@ -15,24 +15,24 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
-import { NextPage } from '@dynatrace/shared/design-system/interfaces';
+import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPage } from '@dynatrace/shared/design-system/interfaces';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
-  selector: 'next-index-page',
+  selector: 'ds-index-page',
   templateUrl: './index-page.html',
   styleUrls: ['./index-page.scss'],
   host: {
-    class: 'next-page',
+    class: 'ds-index-page',
   },
 })
-export class NextIndexPage implements OnInit {
+export class IndexPage implements OnInit {
   page = this._pageService._getCurrentPage();
   content: SafeHtml;
 
   constructor(
-    private _pageService: BaPageService<NextPage>,
+    private _pageService: DsPageService<DsPage>,
     private _sanitizer: DomSanitizer,
   ) {}
 

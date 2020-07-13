@@ -22,8 +22,8 @@ import { Nav } from './components/nav';
 import { NextRoutingModule } from './app.routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import {
-  BaPageGuard,
-  BaPageService,
+  DsPageGuard,
+  DsPageService,
 } from '@dynatrace/shared/data-access-strapi';
 import { APP_BASE_HREF } from '@angular/common';
 import { environment } from '../environments/environment';
@@ -32,8 +32,8 @@ import { environment } from '../environments/environment';
   declarations: [AppComponent, Nav],
   imports: [BrowserModule, HttpClientModule, NextRoutingModule],
   providers: [
-    BaPageGuard,
-    BaPageService,
+    DsPageGuard,
+    DsPageService,
     { provide: APP_BASE_HREF, useValue: environment.baseHref },
   ],
   bootstrap: [AppComponent],

@@ -25,7 +25,7 @@ import {
 } from '@angular/core';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { fromEvent, Subscription } from 'rxjs';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/data-access-strapi';
 import { BaTile } from './components/tile';
 import { DOCUMENT } from '@angular/common';
 import { BaCategoryNavigation } from '@dynatrace/shared/design-system/interfaces';
@@ -59,7 +59,7 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
 
   constructor(
     private _platform: Platform,
-    private _pageService: BaPageService,
+    private _pageService: DsPageService,
     @Inject(DOCUMENT) private _document: any,
   ) {
     // check the local storage and set the initial value for the display of the tiles
