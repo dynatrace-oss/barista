@@ -101,7 +101,7 @@
     "@bazel/ibazel": "^0.13.0",
     "@bazel/typescript": "^1.6.1",
     "@commitlint/cli": "^8.2.0",
-    "@nguniversal/builders": "^9.1.1",
+    "@nguniversal/builders": "^10.0.1",
     "@nguniversal/express-engine": "^9.1.1",
     "@nguniversal/module-map-ngfactory-loader": "^9.0.0-next.9",
     "@nrwl/angular": "^9.4.5",
