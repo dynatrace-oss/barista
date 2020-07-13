@@ -17,7 +17,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { BaPageGuard } from '@dynatrace/shared/data-access-strapi';
+import { DsPageGuard } from '@dynatrace/shared/data-access-strapi';
 import { BaOverviewPage } from './overview-page';
 import { BaTile } from './components/tile';
 
@@ -25,7 +25,7 @@ export const routes: Route[] = [
   {
     path: '',
     component: BaOverviewPage,
-    canActivate: [BaPageGuard],
+    canActivate: [DsPageGuard],
   },
 ];
 

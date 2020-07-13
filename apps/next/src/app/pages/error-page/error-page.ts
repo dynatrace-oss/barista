@@ -15,19 +15,19 @@
  */
 
 import { Component } from '@angular/core';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
-import { NextPage } from '@dynatrace/shared/design-system/interfaces';
+import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPage } from '@dynatrace/shared/design-system/interfaces';
 
 @Component({
-  selector: 'next-error-page',
+  selector: 'ds-error-page',
   templateUrl: './error-page.html',
   styleUrls: ['./error-page.scss'],
   host: {
-    class: 'next-page',
+    class: 'ds-error-page',
   },
 })
-export class NextErrorPage {
+export class ErrorPage {
   content = this._pageService._getCurrentPage();
 
-  constructor(private _pageService: BaPageService<NextPage>) {}
+  constructor(private _pageService: DsPageService<DsPage>) {}
 }

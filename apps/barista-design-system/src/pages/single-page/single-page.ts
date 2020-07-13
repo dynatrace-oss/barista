@@ -22,7 +22,7 @@ import {
   BaSinglePageContent,
 } from '@dynatrace/shared/design-system/interfaces';
 import {
-  BaPageService,
+  DsPageService,
   getUrlPathName,
 } from '@dynatrace/shared/data-access-strapi';
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
@@ -45,7 +45,7 @@ export class BaSinglePage implements OnInit, AfterViewInit {
 
   constructor(
     private _router: Router,
-    private _pageService: BaPageService<BaSinglePageContent>,
+    private _pageService: DsPageService<BaSinglePageContent>,
     private _recentlyOrderedService: BaRecentlyOrderedService,
     private _platform: Platform,
     @Inject(DOCUMENT) private _document: Document,

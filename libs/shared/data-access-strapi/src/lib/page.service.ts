@@ -40,7 +40,7 @@ const ERROR_PAGE: BaErrorPageContent = {
 };
 
 @Injectable()
-export class BaPageService<T = any> {
+export class DsPageService<T = any> {
   /** Caches pages once they have been loaded. */
   _cache = new Map<string, T>();
 

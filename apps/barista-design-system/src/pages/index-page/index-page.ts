@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/data-access-strapi';
 import { environment } from '../../environments/environment';
 import { BaSinglePageContent } from '@dynatrace/shared/design-system/interfaces';
 import {
@@ -42,7 +42,7 @@ export class BaIndexPage {
   _showOrderedItems: boolean = false;
 
   constructor(
-    private _pageService: BaPageService<BaSinglePageContent>,
+    private _pageService: DsPageService<BaSinglePageContent>,
     private _recentlyOrderedService: BaRecentlyOrderedService,
   ) {
     const items = this._recentlyOrderedService.getPages();

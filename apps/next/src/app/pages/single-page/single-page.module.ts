@@ -18,10 +18,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule, Type } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import {
-  BaPageGuard,
-  BaPageService,
+  DsPageGuard,
+  DsPageService,
 } from '@dynatrace/shared/data-access-strapi';
-import { NextSinglePage } from './single-page';
+import { SinglePage } from './single-page';
 import {
   SharedDesignSystemUiModule,
   DS_CONTENT_COMPONENT_LIST_TOKEN,
@@ -31,8 +31,8 @@ import { NextPageFooter } from './components/page-footer';
 export const routes: Route[] = [
   {
     path: '',
-    component: NextSinglePage,
-    canActivate: [BaPageGuard],
+    component: SinglePage,
+    canActivate: [DsPageGuard],
   },
 ];
 
@@ -44,14 +44,14 @@ export const DS_CONTENT_TYPES: Type<unknown>[] = [];
     RouterModule.forChild(routes),
     SharedDesignSystemUiModule,
   ],
-  declarations: [NextSinglePage, NextPageFooter],
+  declarations: [SinglePage, NextPageFooter],
   providers: [
-    BaPageGuard,
-    BaPageService,
+    DsPageGuard,
+    DsPageService,
     {
       provide: DS_CONTENT_COMPONENT_LIST_TOKEN,
       useValue: DS_CONTENT_TYPES,
     },
   ],
 })
-export class NextSinglePageModule {}
+export class SinglePageModule {}

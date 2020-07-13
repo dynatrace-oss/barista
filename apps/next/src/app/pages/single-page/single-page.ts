@@ -16,19 +16,19 @@
 
 import { Component } from '@angular/core';
 import { BaSinglePageContent } from '@dynatrace/shared/design-system/interfaces';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/data-access-strapi';
 
 @Component({
-  selector: 'next-single-page',
+  selector: 'ds-single-page',
   templateUrl: 'single-page.html',
   styleUrls: ['single-page.scss'],
   host: {
-    class: 'ba-page',
+    class: 'ds-single-page',
   },
 })
-export class NextSinglePage {
+export class SinglePage {
   /** @internal The current page content from the cms */
   _pageContent = this._pageService._getCurrentPage();
 
-  constructor(private _pageService: BaPageService<BaSinglePageContent>) {}
+  constructor(private _pageService: DsPageService<BaSinglePageContent>) {}
 }

@@ -16,7 +16,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BaUxdNode } from '@dynatrace/shared/design-system/interfaces';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/data-access-strapi';
 import { cloneDeep } from 'lodash-es';
 
 @Component({
@@ -37,7 +37,7 @@ export class BaDecisionGraph implements OnInit {
   /** @internal Contains the startnode the user has selected */
   _selectedNode: BaUxdNode | undefined;
 
-  constructor(private _pageService: BaPageService<any>) {}
+  constructor(private _pageService: DsPageService<any>) {}
 
   ngOnInit(): void {
     this._decisionGraphData$.subscribe((data) => {

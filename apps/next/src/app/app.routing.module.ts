@@ -17,27 +17,27 @@
 import { Route, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NextErrorPage } from './pages/error-page/error-page';
+import { ErrorPage } from './pages/error-page/error-page';
 
 export const nextRoutes: Route[] = [
   {
     path: '',
     loadChildren: () =>
       import('./pages/index-page/index-page.module').then(
-        (module) => module.NextIndexPageModule,
+        (module) => module.IndexPageModule,
       ),
   },
   {
     path: '**',
     loadChildren: () =>
       import('./pages/single-page/single-page.module').then(
-        (module) => module.NextSinglePageModule,
+        (module) => module.SinglePageModule,
       ),
   },
 ];
 
 @NgModule({
-  declarations: [NextErrorPage],
+  declarations: [ErrorPage],
   imports: [
     CommonModule,
     RouterModule.forRoot(nextRoutes, {
