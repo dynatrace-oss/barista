@@ -32,7 +32,7 @@ import {
   takeUntil,
 } from 'rxjs/operators';
 import {
-  BaPageService,
+  DsPageService,
   getPageKeyFromUrl,
   getUrlPathName,
 } from '@dynatrace/shared/data-access-strapi';
@@ -74,7 +74,7 @@ export class BaApp implements OnInit, OnDestroy {
   private _destroy$ = new Subject<void>();
 
   constructor(
-    private _pageService: BaPageService,
+    private _pageService: DsPageService,
     private _router: Router,
     private _meta: Meta,
     private _title: Title,

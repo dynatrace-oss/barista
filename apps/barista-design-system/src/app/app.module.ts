@@ -31,8 +31,8 @@ import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { environment } from '../environments/environment';
 import {
-  BaPageGuard,
-  BaPageService,
+  DsPageGuard,
+  DsPageService,
 } from '@dynatrace/shared/data-access-strapi';
 import { BaApp } from './app';
 import { BaRoutingModule } from './app.routing.module';
@@ -65,8 +65,8 @@ import {
   ],
   declarations: [BaApp, BaScrollToTop, BaNav, BaFooter, BaSearch],
   providers: [
-    BaPageService,
-    BaPageGuard,
+    DsPageService,
+    DsPageGuard,
     {
       provide: BaSearchService,
       useFactory: (http: HttpClient) => {

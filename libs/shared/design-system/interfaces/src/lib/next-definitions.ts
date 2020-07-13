@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export interface NextPage {
+export interface DsPage {
   content: string;
   group: string;
   section: string;

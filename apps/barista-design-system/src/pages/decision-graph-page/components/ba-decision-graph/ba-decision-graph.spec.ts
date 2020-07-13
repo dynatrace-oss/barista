@@ -17,7 +17,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BaDecisionGraph } from './ba-decision-graph';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/data-access-strapi';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { nodes } from './ba-decision-graph-test-data';
@@ -42,7 +42,7 @@ describe('BaDecisionGraph', () => {
         BaDecisionGraphStartnode,
         BaDecisiongraphNodeNavigation,
       ],
-      providers: [BaPageService],
+      providers: [DsPageService],
     }).compileComponents();
   }));
 
