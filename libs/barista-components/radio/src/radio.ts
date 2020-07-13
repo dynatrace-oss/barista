@@ -210,12 +210,14 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
         }
       },
     );
+    if (this._radioGroup) {
+      this.name = this._radioGroup.name;
+    }
   }
 
   ngOnInit(): void {
     if (this._radioGroup) {
       this.checked = this._radioGroup.value === this._value;
-      this.name = this._radioGroup.name;
     }
   }
 
@@ -241,7 +243,9 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   _focusChanged(isFocused: boolean): void {
     if (isFocused !== this._focused) {
       this._focused = isFocused;
-      this._radioGroup._updateFocused();
+      if (this._radioGroup) {
+        this._radioGroup._updateFocused();
+      }
     }
   }
 

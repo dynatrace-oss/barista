@@ -57,7 +57,7 @@ export class DtRadioGroup<T>
     ControlValueAccessor,
     DtFormFieldControl<T> {
   private _value: T | null = null;
-  private _name = `dt-radio-group-${this.id}`;
+  private _name = `dt-radio-group-${nextUniqueId++}`;
   private _selected: DtRadioButton<T> | null = null;
   private _disabled = false;
   private _required = false;
@@ -125,9 +125,8 @@ export class DtRadioGroup<T>
     return this._id;
   }
   set id(value: string) {
-    this._id = value || this._uid;
+    this._id = value || this._name;
   }
-  private _uid = `dt-checkbox-${nextUniqueId++}`;
   private _id: string;
 
   /** Emits when a radio of this group is changed. */

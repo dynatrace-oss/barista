@@ -17,7 +17,13 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
@@ -52,6 +58,7 @@ describe('DtRadio', () => {
         RadioGroupWithNgModel,
         RadioGroupWithFormControl,
         StandaloneRadioButtons,
+        DoubleRadioGroups,
         InterleavedRadioGroup,
         TranscludingWrapper,
       ],
@@ -311,6 +318,40 @@ describe('DtRadio', () => {
       expect(radioInstances[0].checked).toBeTruthy();
       expect(radioInstances[1].checked).toBeFalsy();
       expect(radioInstances[2].checked).toBeFalsy();
+    });
+  });
+
+  describe('two separate radio groups', () => {
+    let fixture: ComponentFixture<DoubleRadioGroups>;
+    let testComponent: DoubleRadioGroups;
+    let radioDebugElements: DebugElement[];
+    let radioLabelElements: HTMLLabelElement[];
+
+    beforeEach(() => {
+      fixture = createComponent(DoubleRadioGroups);
+
+      testComponent = fixture.debugElement.componentInstance;
+
+      radioDebugElements = fixture.debugElement.queryAll(
+        By.directive(DtRadioButton),
+      );
+
+      radioLabelElements = radioDebugElements.map(
+        (debugEl) => debugEl.query(By.css('label')).nativeElement,
+      );
+    });
+
+    it('should not influence the other radio group', () => {
+      const groups = testComponent.groups.toArray();
+      expect(groups[0].value).toBe('Group1-Option1');
+      expect(groups[1].value).toBe('Group2-Option1');
+
+      // Click 'Group1-Option2'
+      radioLabelElements[1].click();
+      fixture.detectChanges();
+
+      expect(groups[0].value).toBe('Group1-Option2');
+      expect(groups[1].value).toBe('Group2-Option1');
     });
   });
 
@@ -835,6 +876,24 @@ class DisableableRadioButton {
 })
 class RadioGroupWithFormControl {
   formControl = new FormControl();
+}
+
+@Component({
+  template: `
+    <dt-radio-group>
+      <dt-radio-button value="Group1-Option1" checked>One</dt-radio-button>
+      <dt-radio-button value="Group1-Option2">Two</dt-radio-button>
+      <dt-radio-button value="Group1-Option3">Three</dt-radio-button>
+    </dt-radio-group>
+    <dt-radio-group>
+      <dt-radio-button value="Group2-Option1" checked>One</dt-radio-button>
+      <dt-radio-button value="Group2-Option2">Two</dt-radio-button>
+      <dt-radio-button value="Group2-Option3">Three</dt-radio-button>
+    </dt-radio-group>
+  `,
+})
+class DoubleRadioGroups {
+  @ViewChildren(DtRadioGroup) groups: QueryList<DtRadioGroup<any>>;
 }
 
 @Component({
