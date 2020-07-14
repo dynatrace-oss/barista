@@ -844,7 +844,6 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       'PRECISE',
       outputUnit,
       DtTimeUnit.MILLISECOND,
-      2,
     );
   }
 }
