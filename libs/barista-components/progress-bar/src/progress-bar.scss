@@ -1,7 +1,5 @@
 @import '../../style/font-mixins';
 @import '../../core/src/style/variables';
-@import '../../core/src/theming/theming';
-@import './progress-bar-theme';
 
 :host {
   display: block;
@@ -48,6 +46,4 @@
   right: 0;
 }
 
-@include dt-apply-theme() {
-  @include dt-theme-progress-bar($dt-current-theme);
-}
+@import './progress-bar-theme';
