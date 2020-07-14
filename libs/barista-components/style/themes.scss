@@ -1,23 +1,69 @@
 @import '../core/src/style/variables';
 
+.dt-theme-turquoise,
+.dt-theme-blue,
+.dt-theme-royalblue,
+.dt-theme-purple {
+  --dt-accent-default-color: #{$turquoise-600};
+  --dt-accent-hover-color: #{$turquoise-700};
+  --dt-accent-active-color: #{$turquoise-800};
+  --dt-accent-active-background-color: #{$turquoise-100};
+
+  --dt-warning-default-color: #{$yellow-600};
+  --dt-warning-hover-color: #{$yellow-700};
+  --dt-warning-active-color: #{$yellow-800};
+  --dt-warning-active-background-color: #{$yellow-100};
+
+  --dt-error-default-color: #{$red-600};
+  --dt-error-hover-color: #{$red-700};
+  --dt-error-active-color: #{$red-800};
+  --dt-error-active-background-color: #{$red-100};
+
+  --dt-recovered-default-color: #{$green-600};
+  --dt-recovered-hover-color: #{$green-700};
+  --dt-recovered-active-color: #{$green-800};
+  --dt-recovered-active-background-color: #{$green-100};
+
+  --dt-cta-default-color: #{$green-600};
+  --dt-cta-hover-color: #{$green-700};
+  --dt-cta-active-color: #{$green-800};
+  --dt-cta-active-background-color: #{$green-100};
+}
+
+/* Accent, warning, error and cta colors for dark theme */
+.dt-theme-dark {
+  --dt-accent-default-color: #{$turquoise-500};
+  --dt-accent-hover-color: #{$turquoise-400};
+  --dt-accent-active-color: #{$turquoise-300};
+  --dt-accent-active-background-color: #{$turquoise-100};
+
+  --dt-warning-default-color: #{$yellow-600};
+  --dt-warning-hover-color: #{$yellow-500};
+  --dt-warning-active-color: #{$yellow-400};
+  --dt-warning-active-background-color: #{$yellow-100};
+
+  --dt-error-default-color: #{$red-400};
+  --dt-error-hover-color: #{$red-300};
+  --dt-error-active-color: #{$red-200};
+  --dt-error-active-background-color: #{$red-100};
+
+  --dt-recovered-default-color: #{$green-500};
+  --dt-recovered-hover-color: #{$green-400};
+  --dt-recovered-active-color: #{$green-300};
+  --dt-recovered-active-background-color: #{$green-100};
+
+  --dt-cta-default-color: #{$green-500};
+  --dt-cta-hover-color: #{$green-400};
+  --dt-cta-active-color: #{$green-300};
+  --dt-cta-active-background-color: #{$green-100};
+}
+
 /* theme turquoise */
 .dt-theme-turquoise {
   --dt-theme-main-default-color: #{$turquoise-600};
   --dt-theme-main-hover-color: #{$turquoise-700};
   --dt-theme-main-active-color: #{$turquoise-800};
   --dt-theme-main-background-color: #{$turquoise-100};
-  --dt-warning-default-color: #{$yellow-600};
-  --dt-warning-hover-color: #{$yellow-700};
-  --dt-warning-active-color: #{$yellow-800};
-  --dt-error-default-color: #{$red-600};
-  --dt-error-hover-color: #{$red-700};
-  --dt-error-active-color: #{$red-800};
-  --dt-recovered-default-color: #{$green-600};
-  --dt-recovered-hover-color: #{$green-700};
-  --dt-recovered-active-color: #{$green-800};
-  --dt-cta-default-color: #{$green-600};
-  --dt-cta-hover-color: #{$green-700};
-  --dt-cta-active-color: #{$green-800};
 }
 
 .dt-theme-turquoise.dt-theme-dark {
@@ -32,18 +78,6 @@
   --dt-theme-main-hover-color: #{$blue-700};
   --dt-theme-main-active-color: #{$blue-800};
   --dt-theme-main-background-color: #{$blue-100};
-  --dt-warning-default-color: #{$yellow-600};
-  --dt-warning-hover-color: #{$yellow-700};
-  --dt-warning-active-color: #{$yellow-800};
-  --dt-error-default-color: #{$red-600};
-  --dt-error-hover-color: #{$red-700};
-  --dt-error-active-color: #{$red-800};
-  --dt-recovered-default-color: #{$green-600};
-  --dt-recovered-hover-color: #{$green-700};
-  --dt-recovered-active-color: #{$green-800};
-  --dt-cta-default-color: #{$green-600};
-  --dt-cta-hover-color: #{$green-700};
-  --dt-cta-active-color: #{$green-800};
 }
 
 .dt-theme-blue.dt-theme-dark {
@@ -58,18 +92,6 @@
   --dt-theme-main-hover-color: #{$royalblue-700};
   --dt-theme-main-active-color: #{$royalblue-800};
   --dt-theme-main-background-color: #{$royalblue-100};
-  --dt-warning-default-color: #{$yellow-600};
-  --dt-warning-hover-color: #{$yellow-700};
-  --dt-warning-active-color: #{$yellow-800};
-  --dt-error-default-color: #{$red-600};
-  --dt-error-hover-color: #{$red-700};
-  --dt-error-active-color: #{$red-800};
-  --dt-recovered-default-color: #{$green-600};
-  --dt-recovered-hover-color: #{$green-700};
-  --dt-recovered-active-color: #{$green-800};
-  --dt-cta-default-color: #{$green-600};
-  --dt-cta-hover-color: #{$green-700};
-  --dt-cta-active-color: #{$green-800};
 }
 
 .dt-theme-royalblue.dt-theme-dark {
@@ -84,38 +106,10 @@
   --dt-theme-main-hover-color: #{$purple-700};
   --dt-theme-main-active-color: #{$purple-800};
   --dt-theme-main-background-color: #{$purple-100};
-  --dt-warning-default-color: #{$yellow-600};
-  --dt-warning-hover-color: #{$yellow-700};
-  --dt-warning-active-color: #{$yellow-800};
-  --dt-error-default-color: #{$red-600};
-  --dt-error-hover-color: #{$red-700};
-  --dt-error-active-color: #{$red-800};
-  --dt-recovered-default-color: #{$green-600};
-  --dt-recovered-hover-color: #{$green-700};
-  --dt-recovered-active-color: #{$green-800};
-  --dt-cta-default-color: #{$green-600};
-  --dt-cta-hover-color: #{$green-700};
-  --dt-cta-active-color: #{$green-800};
 }
 
 .dt-theme-purple.dt-theme-dark {
   --dt-theme-main-default-color: #{$purple-500};
   --dt-theme-main-hover-color: #{$purple-400};
   --dt-theme-main-active-color: #{$purple-300};
-}
-
-/* warning and cta colors for dark theme */
-.dt-theme-dark {
-  --dt-warning-default-color: #{$yellow-600};
-  --dt-warning-hover-color: #{$yellow-500};
-  --dt-warning-active-color: #{$yellow-400};
-  --dt-error-default-color: #{$red-600};
-  --dt-error-hover-color: #{$red-700};
-  --dt-error-active-color: #{$red-800};
-  --dt-recovered-default-color: #{$green-600};
-  --dt-recovered-hover-color: #{$green-700};
-  --dt-recovered-active-color: #{$green-800};
-  --dt-cta-default-color: #{$green-500};
-  --dt-cta-hover-color: #{$green-400};
-  --dt-cta-active-color: #{$green-300};
 }
