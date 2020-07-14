@@ -34,6 +34,13 @@ export const fluidRoutes: Route[] = [
       ),
   },
   {
+    path: 'switch',
+    loadChildren: () =>
+      import('../pages/switch/switch-page.module').then(
+        (module) => module.FluidSwitchPageModule,
+      ),
+  },
+  {
     path: 'tab',
     loadChildren: () =>
       import('../pages/tab/tab-page.module').then(
