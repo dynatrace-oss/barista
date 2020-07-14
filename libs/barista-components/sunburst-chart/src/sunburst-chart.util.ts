@@ -18,7 +18,7 @@ import {
   DtColors,
   DT_CHART_COLOR_PALETTE_ORDERED,
 } from '@dynatrace/barista-components/theming';
-import { pie, PieArcDatum, arc } from 'd3-shape';
+import { pie, arc } from 'd3-shape';
 
 /**
  * DtSunburstChartNode represents a single node within the sunburst datastructure.
@@ -68,8 +68,41 @@ export interface DtSunburstChartTooltipData {
   ariaLabel: string;
 }
 
-export interface DtSunburstChartNodeSlice
-  extends PieArcDatum<DtSunburstChartTooltipData> {
+// TODO: Remove this when we either ship the types for d3-shape as a peer-dependency
+export interface DtSunburstChartNodeSlice {
+  /**
+   * The input datum; the corresponding element in the input
+   * data array of the Pie generator.
+   */
+  data: DtSunburstChartTooltipData;
+  /**
+   * The numeric value of the arc.
+   */
+  value: number;
+  /**
+   * The zero-based sorted index of the arc.
+   */
+  index: number;
+  /**
+   * The start angle of the arc.
+   * If the pie generator was configured to be used for the arc generator,
+   * then the units are in radians with 0 at -y (12 o’clock) and positive angles
+   * proceeding clockwise.
+   */
+  startAngle: number;
+  /**
+   * The end angle of the arc.
+   * If the pie generator was configured to be used for the arc generator,
+   * then the units are in radians with 0 at -y (12 o’clock) and positive angles
+   * proceeding clockwise.
+   */
+  endAngle: number;
+  /**
+   * The pad angle of the arc. If the pie generator was configured to be used
+   * for the arc generator, than the units are in radians.
+   */
+  padAngle: number;
+
   path: string | null;
   labelPosition: [number, number];
   tooltipPosition: [number, number];
