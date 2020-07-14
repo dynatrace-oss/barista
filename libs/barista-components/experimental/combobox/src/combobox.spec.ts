@@ -38,6 +38,7 @@ import { DtCombobox } from './combobox';
 import { DtComboboxModule } from './combobox-module';
 import { CommonModule } from '@angular/common';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { Subject } from 'rxjs';
 
 function focusInput(input: HTMLInputElement): void {
   dispatchFakeEvent(input, 'focusin');
@@ -120,13 +121,34 @@ describe('Combobox', () => {
       overlayContainerElement.querySelectorAll('dt-option').length,
     ).toEqual(3);
   }));
+
+  it('should set the value in the input correctly if a value is set at runtime', fakeAsync(() => {
+    fixture.componentInstance.setOptions();
+    fixture.detectChanges();
+    expect(input.value).toBe('');
+    expect(input.placeholder).toBe('My placeholder');
+
+    fixture.componentInstance.value$.next({
+      name: 'Value 2',
+      value: '[value: Value 2]',
+    });
+    fixture.detectChanges();
+    expect(input.value).toBe('Value 2');
+  }));
 });
 
 /** Test component */
 @Component({
   selector: 'dt-test',
   template: `
-    <dt-combobox (opened)="openedSpy()" (closed)="closedSpy()">
+    <dt-combobox
+      (opened)="openedSpy()"
+      (closed)="closedSpy()"
+      [value]="value$ | async"
+      placeholder="My placeholder"
+      [compareWith]="compareFn"
+      [displayWith]="displayFn"
+    >
       <dt-option *ngFor="let option of options" [value]="option">
         {{ option.name }}
       </dt-option>
@@ -137,6 +159,19 @@ class TestComponent {
   options: { name: string; value: string }[] = [];
   openedSpy = jest.fn();
   closedSpy = jest.fn();
+
+  value$ = new Subject<{ name: string; value: string }>();
+
+  compareFn(
+    v1: { name: string; value: string },
+    v2: { name: string; value: string },
+  ): boolean {
+    return v1.value === v2.value;
+  }
+
+  displayFn(val: { name: string; value: string }): string {
+    return val.name;
+  }
 
   setOptions(): void {
     this.options = [

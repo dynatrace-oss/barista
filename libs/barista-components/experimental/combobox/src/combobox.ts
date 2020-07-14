@@ -146,6 +146,8 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   set value(newValue: T) {
     if (newValue !== this._value) {
       this._value = newValue;
+      this._setSelectionByValue(newValue);
+      this._resetInputValue();
     }
   }
   private _value: T;
@@ -254,7 +256,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
 
   /** The currently selected option. */
   get selected(): DtOption<T> {
-    return this._selectionModel.selected[0];
+    return this._selectionModel && this._selectionModel.selected[0];
   }
 
   get focused(): boolean {
@@ -458,18 +460,20 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
 
   /** Searches for an option matching the value and selects it if found */
   private _selectValue(value: T): DtOption<T> | undefined {
-    const correspondingOption = this._options.find((option: DtOption<T>) => {
-      try {
-        // Treat null as a special reset value.
-        return (
-          isDefined(option.value) && this._compareWith(option.value, value)
-        );
-      } catch (error) {
-        // Notify developers of errors in their comparator.
-        LOG.warn(error);
-        return false;
-      }
-    });
+    const correspondingOption =
+      this._options &&
+      this._options.find((option: DtOption<T>) => {
+        try {
+          // Treat null as a special reset value.
+          return (
+            isDefined(option.value) && this._compareWith(option.value, value)
+          );
+        } catch (error) {
+          // Notify developers of errors in their comparator.
+          LOG.warn(error);
+          return false;
+        }
+      });
 
     if (correspondingOption) {
       this._selectionModel.select(correspondingOption);
