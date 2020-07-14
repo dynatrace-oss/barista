@@ -225,6 +225,9 @@
       "@dynatrace/fluid-elements/checkbox": [
         "libs/fluid-elements/checkbox/src/index.ts"
       ],
+      "@dynatrace/fluid-elements/switch": [
+        "libs/fluid-elements/switch/src/index.ts"
+      ],
       "@dynatrace/fluid-elements/tab-group": [
         "libs/fluid-elements/tab-group/src/index.ts"
       ],
