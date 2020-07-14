@@ -1,3 +1,30 @@
+## [7.4.0](https://github.com/dynatrace-oss/barista/compare/7.3.0...7.4.0) (2020-07-14)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue with setting the value not updating the input
+  correctly.
+  ([79f77cf](https://github.com/dynatrace-oss/barista/commit/79f77cf2002b5adbacb3081a0797c50afcf4806f))
+- **event-chart:** Fixes an issue with the xAxis formatting
+  ([97e9d69](https://github.com/dynatrace-oss/barista/commit/97e9d693a5dce50cc9651f07a79b3cc5200584cb))
+- **filter-field:** Fixes an issue with the infix when deleting a filter while
+  in flight.
+  ([62b4465](https://github.com/dynatrace-oss/barista/commit/62b4465b4b24e67cb10db25ab67274c66ddb8ae0)),
+  closes [#1264](https://github.com/dynatrace-oss/barista/issues/1264)
+- **filter-field:** Fixes an issue with validation flickering on free text.
+  ([8175d0c](https://github.com/dynatrace-oss/barista/commit/8175d0cba0188dde54dff30c729bc2cf86dc1af5)),
+  closes [#1180](https://github.com/dynatrace-oss/barista/issues/1180)
+- **radio:** Fixes an issue where the radio-group interfered with other groups.
+  ([178d665](https://github.com/dynatrace-oss/barista/commit/178d6659d1c0ee1ae78a9ef855ac052df872a123)),
+  closes [#1270](https://github.com/dynatrace-oss/barista/issues/1270)
+- **sunburst-chart:** Fixes an issue with missing types dependency.
+  ([e251789](https://github.com/dynatrace-oss/barista/commit/e2517891977e018cedf80f70652853f34348ceb6))
+
+### Features
+
+- **formatters:** Added maxDecimals option to duration formatter
+  ([fb757c6](https://github.com/dynatrace-oss/barista/commit/fb757c654bc265e05b050e733a9e10d1dfc384ab))
+
 ## [7.3.0](https://github.com/dynatrace-oss/barista/compare/7.2.0...7.3.0) (2020-07-09)
 
 ### Bug Fixes
