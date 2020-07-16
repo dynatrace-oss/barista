@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@import '~@dynatrace/fluid-design-tokens/global/spacing';
+@import './variables';
 
 .design-tokens-ui-link {
   color: var(--color);

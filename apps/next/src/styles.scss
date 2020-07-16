@@ -1,6 +1,6 @@
-@import '~@dynatrace/fluid-design-tokens/global/theme';
-@import '~@dynatrace/fluid-design-tokens/global/spacing';
-@import '~@dynatrace/fluid-design-tokens/global/typography';
+@import '../../../libs/shared/design-tokens/generated/global/theme';
+@import '../../../libs/shared/design-tokens/generated/global/spacing';
+@import '../../../libs/shared/design-tokens/generated/global/typography';
 
 .fluid-theme--abyss {
   --body-background-color: var(--color-neutral-60);

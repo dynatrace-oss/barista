@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { generateHeaderNoticeComment } from '../generate-header-notice-comment';
+import { generateHeaderNoticeComment, renderComment } from '../utils';
 import { ImmutableStyleMap, Prop } from 'theo';
-import { renderComment } from './util/render-comment';
 
 /**
  * Generate a scss typography mixin for the typography set.

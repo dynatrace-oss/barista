@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@import '~@dynatrace/fluid-design-tokens/global/palette';
-
 .design-tokens-ui-input {
   --color: var(--color-maxcontrast);
   --color-line-unfocused: var(--color-neutral-100);

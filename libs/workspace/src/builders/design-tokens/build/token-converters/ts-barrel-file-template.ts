@@ -15,7 +15,7 @@
  */
 
 import { EOL } from 'os';
-import { generateHeaderNoticeComment } from '../generate-header-notice-comment';
+import { generateHeaderNoticeComment } from '../utils/generate-header-notice-comment';
 
 export const typescriptBarrelFileTemplate = (files: string[]) => `/**
  * @license

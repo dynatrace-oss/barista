@@ -27,4 +27,7 @@ export interface PackageJson {
   };
   license?: string;
   author?: string;
+  main?: string;
+  module?: string;
+  typings?: string;
 }
