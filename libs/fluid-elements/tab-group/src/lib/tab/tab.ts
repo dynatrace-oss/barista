@@ -20,13 +20,18 @@ import {
   property,
   TemplateResult,
   html,
+  css,
+  unsafeCSS,
+  customElement,
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
-import styles from './tab.scss';
+import { FluidTabDisabledEvent, FluidTabActivatedEvent } from '../tab-events';
+
 import {
-  FluidTabDisabledEvent,
-  FluidTabActivatedEvent,
-} from '../../utils/tab-events';
+  FLUID_SPACING_3X_SMALL,
+  FLUID_SPACING_MEDIUM,
+  fluidDtText,
+} from '@dynatrace/fluid-design-tokens';
 
 let _unique = 0;
 
@@ -36,10 +41,75 @@ let _unique = 0;
  * @element fluid-tab
  * @slot - Default slot to provide a label for the tab.
  */
+@customElement('fluid-tab')
 export class FluidTab extends LitElement {
   /** Styles for the tab component */
   static get styles(): CSSResult {
-    return styles;
+    return css`
+      :host {
+        /**
+        * Legibility definitions should probably be
+        * shipped or imported from a core
+        */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        margin-right: ${unsafeCSS(FLUID_SPACING_MEDIUM)};
+      }
+
+      /**
+       * Disabled state
+       */
+      :host([disabled]) {
+        pointer-events: none;
+      }
+      :host([disabled]) .fluid-tab {
+        color: var(--color-neutral-80);
+      }
+      :host([disabled]) .fluid-tab:hover::after {
+        background-color: none;
+      }
+
+      ::slotted(*) {
+        text-decoration: none;
+        color: var(--color-maxcontrast);
+      }
+
+      .fluid-tab {
+        ${unsafeCSS(fluidDtText())};
+        cursor: pointer;
+        display: inline-block;
+        position: relative;
+        color: var(--color-neutral-100);
+        white-space: unset;
+      }
+
+      .fluid-tab::after {
+        position: absolute;
+        width: 100%;
+        height: ${unsafeCSS(FLUID_SPACING_3X_SMALL)};
+        background-color: transparent;
+        bottom: -${unsafeCSS(FLUID_SPACING_3X_SMALL)};
+        left: 0;
+        content: '';
+      }
+      .fluid-tab:hover {
+        color: var(--color-neutral-150);
+      }
+      .fluid-tab:hover::after {
+        background-color: var(--color-neutral-100);
+      }
+
+      .fluid-state--active {
+        color: var(--color-neutral-150);
+      }
+      .fluid-state--active:hover::after {
+        background-color: var(--color-primary-100);
+      }
+      .fluid-state--active::after {
+        background-color: var(--color-primary-100);
+      }
+    `;
   }
 
   /**
@@ -138,8 +208,4 @@ export class FluidTab extends LitElement {
       <slot></slot>
     </span>`;
   }
-}
-
-if (!customElements.get('fluid-tab')) {
-  customElements.define('fluid-tab', FluidTab);
 }

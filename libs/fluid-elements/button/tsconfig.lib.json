@@ -3,12 +3,11 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
     "moduleResolution": "node",
-    "types": ["node", "css-modules"],
+    "types": ["node"],
     "lib": ["dom", "es2018"]
   },
   "include": ["**/*.ts"],

@@ -20,30 +20,23 @@ import {
   CSSResult,
   TemplateResult,
   property,
+  css,
+  unsafeCSS,
+  customElement,
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
-import styles from './checkbox.scss';
 import { SPACE } from '@dynatrace/shared/keycodes';
+import {
+  FLUID_SPACING_2X_SMALL,
+  FLUID_SPACING_X_SMALL,
+  fluidDtText,
+} from '@dynatrace/fluid-design-tokens';
+import {
+  FluidCheckboxChangeEvent,
+  FluidCheckboxIndeterminateChangeEvent,
+} from './checkbox-events';
 
 let uniqueCounter = 0;
-
-/**
- * Custom event implementation that mimics a native change event.
- */
-export class FluidCheckboxChangeEvent extends CustomEvent<any> {
-  constructor(public checked: boolean) {
-    super('change', { bubbles: true, composed: true });
-  }
-}
-
-/**
- * Custom event implementation for the IndeterminateChange event.
- */
-export class FluidCheckboxIndeterminateChangeEvent extends CustomEvent<any> {
-  constructor(public checked: boolean) {
-    super('indeterminateChange', { bubbles: true, composed: true });
-  }
-}
 
 // TODO: Add required property and validation?
 
@@ -61,6 +54,7 @@ export class FluidCheckboxIndeterminateChangeEvent extends CustomEvent<any> {
  * @cssprop --fluid-checkbox--background-color - Customize the background color of the checked/indeterminate checkbox.
  * @cssprop --fluid-checkbox--mark-color - Customize the color of the mark / indeterminate marker.
  */
+@customElement('fluid-checkbox')
 export class FluidCheckbox extends LitElement {
   /**
    * Unique identifier used for the id and label connection
@@ -73,7 +67,112 @@ export class FluidCheckbox extends LitElement {
 
   /** Styles for the button component */
   static get styles(): CSSResult {
-    return styles;
+    return css`
+      :host {
+        /**
+        * Legibility definitions should probably be
+        * shipped or imported from a core
+        */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+
+        --fluid-checkbox--label-color: var(--color-neutral-150);
+        --fluid-checkbox--box-glow-color: var(--color-neutral-150);
+        --fluid-checkbox--border-color: var(--color-neutral-150);
+        --fluid-checkbox--background-color: var(--color-primary-100);
+        --fluid-checkbox--mark-color: var(--color-background);
+      }
+
+      /**
+      * Disabled state
+      */
+      :host([disabled]) {
+        pointer-events: none;
+      }
+      :host([disabled]) .fluid-label {
+        color: var(--fluid-checkbox--label-color);
+        opacity: 0.5;
+      }
+      :host([disabled]) .fluid-svg-checkbox {
+        opacity: 0.5;
+      }
+
+      .fluid-checkbox {
+        margin-left: -${unsafeCSS(FLUID_SPACING_2X_SMALL)};
+        display: flex;
+        position: relative;
+      }
+
+      .fluid-label {
+        ${unsafeCSS(fluidDtText())};
+        color: var(--fluid-checkbox--label-color);
+        margin-left: ${unsafeCSS(FLUID_SPACING_X_SMALL)};
+      }
+
+      label {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+      }
+      label:hover .fluid-svg-checkbox-background {
+        opacity: 0.1;
+        transform: scale(1);
+      }
+
+      .fluid-checkbox-input {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        top: -${unsafeCSS(FLUID_SPACING_2X_SMALL)};
+        left: -${unsafeCSS(FLUID_SPACING_2X_SMALL)};
+        opacity: 0;
+      }
+
+      .fluid-svg-checkbox {
+        /* TODO: Maybe move this one into the design tokens as soon as we
+        figure out how to map designToken values to viewBox values of
+        svgs? */
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+
+      .fluid-svg-checkbox-background {
+        fill: var(--fluid-checkbox--box-glow-color);
+        /* TODO: Replace with opacity token */
+        opacity: 0;
+        /* TODO: Replace with transition and animation tokens */
+        transition: opacity 125ms ease-in-out, transform 125ms ease-in-out;
+        transform: scale(0);
+      }
+
+      .fluid-svg-checkbox-rect {
+        stroke: var(--fluid-checkbox--border-color);
+        fill: transparent;
+      }
+
+      .fluid-svg-checkbox-tick,
+      .fluid-svg-checkbox-indeterminate {
+        fill: transparent;
+      }
+
+      .fluid-state--checked .fluid-svg-checkbox-rect {
+        fill: var(--fluid-checkbox--background-color);
+        stroke: var(--fluid-checkbox--background-color);
+      }
+      .fluid-state--checked .fluid-svg-checkbox-tick {
+        fill: var(--fluid-checkbox--mark-color);
+      }
+
+      .fluid-state--indeterminate .fluid-svg-checkbox-rect {
+        fill: var(--fluid-checkbox--background-color);
+        stroke: var(--fluid-checkbox--background-color);
+      }
+      .fluid-state--indeterminate .fluid-svg-checkbox-indeterminate {
+        fill: var(--fluid-checkbox--mark-color);
+      }
+    `;
   }
 
   /**
@@ -306,8 +405,4 @@ export class FluidCheckbox extends LitElement {
   toggle(): void {
     this.checked = !this.checked;
   }
-}
-
-if (!customElements.get('fluid-checkbox')) {
-  customElements.define('fluid-checkbox', FluidCheckbox);
 }

@@ -30,7 +30,7 @@ governing permissions and limitations under the License.
 /* stylelint-enable */
 
 @import 'interactive-common';
-@import '~@dynatrace/fluid-design-tokens/global/spacing';
+@import '../../../../styles/variables';
 
 :host {
   display: block;

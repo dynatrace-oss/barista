@@ -15,9 +15,9 @@
  */
 
 import { FluidTabGroup } from './tab-group';
-import { FluidTab } from './tab/tab';
 import { dispatchKeyboardEvent } from '@dynatrace/testing/browser';
 import { ARROW_RIGHT, SPACE } from '@dynatrace/shared/keycodes';
+import { FluidTab } from '../tab/tab';
 
 function tick(): Promise<void> {
   return Promise.resolve();
