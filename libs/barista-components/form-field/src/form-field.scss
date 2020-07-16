@@ -22,6 +22,10 @@
 
 .dt-focused:not(.dt-form-field-non-box) .dt-form-field-body {
   @include dt-focus-style();
+
+  .dt-input:focus:not([disabled]) {
+    @include dt-no-focus-style();
+  }
 }
 
 .dt-form-field-prefix,
