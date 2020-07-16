@@ -195,6 +195,7 @@ export class FluidCheckbox extends LitElement {
           ?checked="${this.checked}"
           ?disabled="${this.disabled}"
           @change="${this._handleInputChange}"
+          tabindex="-1"
         />
         <label for="${this._unique}">
           <svg
@@ -202,6 +203,7 @@ export class FluidCheckbox extends LitElement {
             viewBox="0 0 24 24"
             tabindex="${this.disabled ? -1 : 0}"
             @keyup="${this._handleKeyup}"
+            @keydown="${this._handleKeydown}"
           >
             <g transform="translate(12, 12)">
               <rect
@@ -278,6 +280,16 @@ export class FluidCheckbox extends LitElement {
   private _handleKeyup(event: KeyboardEvent): void {
     const proxiedEvent = new KeyboardEvent(event.type, event);
     this._inputElement.dispatchEvent(proxiedEvent);
+  }
+
+  /**
+   * Event handler to prevent scroll.
+   * @param event
+   */
+  private _handleKeydown(event: KeyboardEvent): void {
+    if (event.keyCode === 32) {
+      event.preventDefault();
+    }
   }
 
   /**

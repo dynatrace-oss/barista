@@ -40,7 +40,7 @@ describe('Fluid checkbox', () => {
   }
 
   beforeEach(() => {
-    // Register the element, if it is not yet registed
+    // Register the element, if it is not yet registered
     if (!customElements.get('fluid-checkbox')) {
       customElements.define('fluid-checkbox', FluidCheckbox);
     }
@@ -225,7 +225,7 @@ describe('Fluid checkbox', () => {
       expect(checkbox?.getAttribute('tabindex')).toBe('0');
     });
 
-    it('should have a tabindex of -1 on the triggerable element when disabeld', async () => {
+    it('should have a tabindex of -1 on the triggerable element when disabled', async () => {
       fixture.disabled = true;
       await tick();
       const checkbox = fixture.shadowRoot?.querySelector('svg');
