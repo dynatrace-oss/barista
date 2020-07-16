@@ -23,8 +23,12 @@ $dt-select-panel-min-width: 112px !default;
   }
 
   &.dt-select-disabled {
-    background-color: $gray-100;
+    background-color: $gray-130;
     color: $disabledcolor;
+
+    .dt-select-value .dt-select-placeholder {
+      @include dt-form-control-disabled-placeholder();
+    }
   }
 
   &.dt-select-open {
@@ -56,6 +60,10 @@ $dt-select-panel-min-width: 112px !default;
   // 29px to give the text a bit more room to breath. Safari breaks line with
   // 30 px (30px is the trigger size)
   width: calc(100% - 29px);
+
+  .dt-select-placeholder {
+    @include dt-form-control-placeholder();
+  }
 }
 
 .dt-select-value-text {

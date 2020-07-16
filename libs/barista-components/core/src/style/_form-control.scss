@@ -66,3 +66,12 @@
   box-sizing: border-box;
   white-space: normal;
 }
+
+@mixin dt-form-control-placeholder() {
+  opacity: 1; // Because it's different in eg.: Firefox
+  color: $placeholdercolor;
+}
+
+@mixin dt-form-control-disabled-placeholder() {
+  color: $disabledcolor;
+}
