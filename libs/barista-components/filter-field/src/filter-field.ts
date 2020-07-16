@@ -633,6 +633,13 @@ export class DtFilterField<T = any>
       }
       const value = this._inputEl.nativeElement.value;
       this._writeControlValue(value);
+      // Mark the value as dirty and touched to force a validation at this point
+      // If the user without typing anything wants to submit the value,
+      // the validation needs to run.
+      if (this._control) {
+        this._control.markAsDirty();
+        this._control.markAsTouched();
+      }
       this._validateInput();
       if (
         keyCode === ENTER &&

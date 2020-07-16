@@ -72,6 +72,15 @@ test('should hide the error box when the node was deleted', async () => {
     .notOk();
 });
 
+test('should show the error box when the user tries to submit an empty value', async () => {
+  await clickOption(3)
+    .pressKey('enter', { speed: 0.1 })
+    .expect(errorBox.exists)
+    .ok()
+    .expect(errorBox.innerText)
+    .match(/field is required/gm);
+});
+
 test('should remove all filters when clicking the clear-all button', async () => {
   // Create a new filter by clicking the outer- and inner-option
   await clickOption(4);
