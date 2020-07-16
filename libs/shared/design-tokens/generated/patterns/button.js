@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-/** The options that can be used with the elements builder */
-export interface ElementsOptions {
-  /** The path to the package.json used for the release. */
-  releasePackageJson: string;
-  /** The tag within the nx projects that is included for this build. */
-  buildTag?: string;
-  /** The path where the elements target should built to. */
-  outputPath: string;
-  /** Package version that is used in the release */
-  packageVersion: string;
-}
+/*
+ * THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
+ * FILES, DO NOT CHANGE MANUALLY.
+ * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
+ */
+
+export const FLUID_BUTTON_PADDING_SMALL = '8px 48px';
+export const FLUID_BUTTON_PADDING_MEDIUM = '12px 48px';
+export const FLUID_BUTTON_PADDING_LARGE = '16px 48px';

@@ -21,3 +21,7 @@ export * from './dt-css-typography';
 export * from './dt-css-spacing';
 export * from './dt-typescript';
 export * from './dt-typescript-theme';
+export * from './dt-typescript-typography';
+export * from './dt-javascript';
+export * from './js-barrel-file-template';
+export * from './ts-barrel-file-template';

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { generateHeaderNoticeComment } from '../generate-header-notice-comment';
+import { generateHeaderNoticeComment } from '../utils';
 
-export const dtDesignTokensTypescriptConverter = `/**
+export const LICENSE_HEADER = `/**
  * @license
  * Copyright 2020 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,9 @@ export const dtDesignTokensTypescriptConverter = `/**
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ */`;
+
+export const dtDesignTokensTypescriptConverter = `${LICENSE_HEADER}
 
 ${generateHeaderNoticeComment()}
 

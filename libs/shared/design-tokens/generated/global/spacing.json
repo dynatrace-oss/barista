@@ -11,6 +11,10 @@
     {
       "type": "ts",
       "formatter": "dt-typescript"
+    },
+    {
+      "type": "js",
+      "formatter": "dt-javascript"
     }
   ],
   "props": {

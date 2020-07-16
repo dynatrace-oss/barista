@@ -16,10 +16,9 @@
 
 import { BuilderContext, BuilderOutput } from '@angular-devkit/architect';
 import { promises as fs, readFileSync } from 'fs';
-import { sync as globSync } from 'glob';
 import { Volume as memfsVolume } from 'memfs';
 import { Volume } from 'memfs/lib/volume';
-import { dirname, extname, join, resolve } from 'path';
+import { dirname, extname, join } from 'path';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { catchError, map, mapTo, switchMap } from 'rxjs/operators';
 import { registerFormat, convert, Format, TransformOptions } from 'theo';
@@ -31,17 +30,24 @@ import {
   dtDesignTokensScssTypographyConverter,
   dtDesignTokensCssTypographyConverter,
   dtDesignTokensCssSpacingConverter,
+  dtDesignTokensJavascriptConverter,
+  dtDesignTokensTypescriptTypographyConverter,
 } from './token-converters';
 import { DesignTokensBuildOptions } from './schema';
-import { parse, stringify } from 'yaml';
-import { generatePaletteAliases } from './palette-generators/palette-alias-generator';
-import { generateHeaderNoticeComment } from './generate-header-notice-comment';
-import { typescriptBarrelFileTemplate } from './token-converters/ts-barrel-file-template';
+import { parse } from 'yaml';
 import {
   DesignTokenSource,
   DesignTokenFormatters,
 } from '../interfaces/design-token-source';
 import { executeCommand } from '@dynatrace/shared/node';
+import {
+  generateColorPalette,
+  readSourceFiles,
+  generateTypescriptBarrelFile,
+  generateEcmascriptBarrelFile,
+  addAliasMetadataFiles,
+} from './utils';
+import { dtDesignTokensJavascriptTypographyConverter } from './token-converters/dt-javascript-typography';
 
 /** Simple representation of a design token file. */
 interface DesignTokenFile {
@@ -56,41 +62,15 @@ registerFormat('dt-css-typography', dtDesignTokensCssTypographyConverter);
 registerFormat('dt-css-spacing', dtDesignTokensCssSpacingConverter);
 registerFormat('dt-typescript', dtDesignTokensTypescriptConverter);
 registerFormat('dt-typescript-theme', dtDesignTokensTypescriptThemeConverter);
-
-/**
- * This is a temporary solution until we can replace theo with
- * our own generator that would be able to do this on the fly.
- */
-function generateColorPalette(cwd: string): Observable<void> {
-  const colorFile = globSync('**/palette-source.alias.yml', { cwd })[0];
-  return from(fs.readFile(join(cwd, colorFile), { encoding: 'utf-8' })).pipe(
-    map((paletteSource: string) => parse(paletteSource)),
-    map((paletteSource) => generatePaletteAliases(paletteSource)),
-    map((paletteTarget) => stringify(paletteTarget)),
-    switchMap((paletteOutput) =>
-      fs.writeFile(
-        join(cwd, colorFile.replace('-source', '')),
-        `${generateHeaderNoticeComment('#', '#', '#')}\n${paletteOutput}`,
-      ),
-    ),
-  );
-}
-
-/**
- * Globs over all entrypoint patterns, finds the files that should be processed.
- * @param entrypoints - Globbing pattern of all entry points.
- * @param cwd - Relative directory that is used as a root for the globbing patterns.
- */
-function readSourceFiles(
-  entrypoints: string[],
-  cwd: string,
-): Observable<string[]> {
-  const entrypointFiles: string[] = [];
-  for (const globPattern of entrypoints) {
-    entrypointFiles.push(...globSync(globPattern, { cwd }));
-  }
-  return of(entrypointFiles);
-}
+registerFormat(
+  'dt-typescript-typography',
+  dtDesignTokensTypescriptTypographyConverter,
+);
+registerFormat('dt-javascript', dtDesignTokensJavascriptConverter);
+registerFormat(
+  'dt-javascript-typography',
+  dtDesignTokensJavascriptTypographyConverter,
+);
 
 /** Run the conversion for a single file through the theo converter. */
 function runTokenConversion(
@@ -161,55 +141,6 @@ export function designTokenConversion(
   );
 }
 
-/** Generate an index.ts barrel file that exports all design tokens. */
-export function generateTypescriptBarrelFile(
-  options: DesignTokensBuildOptions,
-  volume: Volume,
-): Volume {
-  const relativeImportPaths = Object.keys(volume.toJSON())
-    .filter((fileName) => extname(fileName) === '.ts')
-    .map((fileName) => fileName.replace('.ts', ''))
-    .map((fileName) => fileName.replace(resolve(options.outputPath), '.'));
-  volume.writeFileSync(
-    join(options.outputPath, 'index.ts'),
-    typescriptBarrelFileTemplate(relativeImportPaths),
-  );
-
-  return volume;
-}
-
-/**
- * Add JSON versions of the original alias YAML files for
- * consumption by the design tokens UI.
- */
-export async function addAliasMetadataFiles(
-  baseDirectory: string,
-  options: DesignTokensBuildOptions,
-  volume: Volume,
-): Promise<Volume> {
-  const aliasFiles = await readSourceFiles(
-    options.aliasesEntrypoints || [],
-    baseDirectory,
-  ).toPromise();
-
-  for (const file of aliasFiles) {
-    const filePath = join(baseDirectory, file);
-    const fileSource = readFileSync(filePath, {
-      encoding: 'utf-8',
-    });
-    const jsonSource = JSON.stringify(parse(fileSource));
-
-    const absoluteOutputPath = join(resolve(options.outputPath), file).replace(
-      extname(file),
-      '.json',
-    );
-    volume.mkdirSync(dirname(absoluteOutputPath), { recursive: true });
-    volume.writeFileSync(absoluteOutputPath, jsonSource);
-  }
-
-  return volume;
-}
-
 /** Write all files within the memfs to the real file system. */
 async function commitVolumeToFileSystem(memoryVolume: Volume): Promise<void> {
   for (const [path, content] of Object.entries(memoryVolume.toJSON())) {
@@ -241,6 +172,7 @@ export function designTokensBuildBuilder(
       designTokenConversion(options, entryFiles),
     ),
     map((memoryVolume) => generateTypescriptBarrelFile(options, memoryVolume)),
+    map((memoryVolume) => generateEcmascriptBarrelFile(options, memoryVolume)),
     switchMap((memoryVolume) =>
       addAliasMetadataFiles(
         join(context.workspaceRoot, options.baseDirectory),

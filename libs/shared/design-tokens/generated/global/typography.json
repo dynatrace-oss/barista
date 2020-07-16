@@ -7,6 +7,14 @@
     {
       "type": "scss",
       "formatter": "dt-scss-typography"
+    },
+    {
+      "type": "ts",
+      "formatter": "dt-typescript-typography"
+    },
+    {
+      "type": "js",
+      "formatter": "dt-javascript-typography"
     }
   ],
   "props": {

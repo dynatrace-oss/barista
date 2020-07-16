@@ -23,4 +23,5 @@
 export * from './global/palette';
 export * from './global/spacing';
 export * from './global/theme';
+export * from './global/typography';
 export * from './patterns/button';

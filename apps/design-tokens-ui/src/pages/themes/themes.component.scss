@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-@import '~@dynatrace/fluid-design-tokens/global/palette';
-@import '~@dynatrace/fluid-design-tokens/global/spacing';
+@import '../../styles/variables';
 
 :host {
   display: block;

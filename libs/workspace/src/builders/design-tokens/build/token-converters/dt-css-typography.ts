@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { generateHeaderNoticeComment } from '../generate-header-notice-comment';
+import { generateHeaderNoticeComment, renderComment } from '../utils';
 import { ImmutableStyleMap, Prop } from 'theo';
-import { renderComment } from './util/render-comment';
 
 /**
  * Generate a css rule for typography.
