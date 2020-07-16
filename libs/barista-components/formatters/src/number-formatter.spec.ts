@@ -194,6 +194,11 @@ describe('FormatterUtil', () => {
       },
       {
         input: 0.123456789,
+        maxPrecision: 0,
+        output: '< 1',
+      },
+      {
+        input: 0.123456789,
         maxPrecision: 1,
         output: '0.1',
       },
@@ -225,6 +230,11 @@ describe('FormatterUtil', () => {
       {
         input: 0.0001,
         output: '< 0.001',
+      },
+      {
+        input: 0.0001,
+        maxPrecision: 0,
+        output: '< 1',
       },
       {
         input: 0.0001,

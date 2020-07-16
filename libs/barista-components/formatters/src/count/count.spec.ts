@@ -22,6 +22,7 @@ describe('DtCount', () => {
   interface TestCase {
     input: number;
     inputUnit: DtUnit | string;
+    maxPrecision?: number;
     output: string;
   }
 
@@ -113,6 +114,47 @@ describe('DtCount', () => {
     it('should handle 0', () => {
       expect(pipe.transform('0').toString()).toEqual('0');
       expect(pipe.transform(0).toString()).toEqual('0');
+    });
+  });
+
+  describe('Transforming input with max precision', () => {
+    [
+      {
+        input: 0.50234,
+        inputUnit: DtUnit.COUNT,
+        maxPrecision: 0,
+        output: '< 1',
+      },
+      {
+        input: 1.50234,
+        inputUnit: DtUnit.COUNT,
+        maxPrecision: 0,
+        output: '2',
+      },
+      {
+        input: 20000001,
+        inputUnit: DtUnit.COUNT,
+        maxPrecision: 0,
+        output: '20mil',
+      },
+      {
+        input: 0.50234,
+        inputUnit: DtUnit.COUNT,
+        maxPrecision: 5,
+        output: '0.50234',
+      },
+    ].forEach((testCase: TestCase) => {
+      it(`should display ${testCase.input} without unit`, () => {
+        expect(
+          pipe
+            .transform(
+              testCase.input,
+              testCase.inputUnit,
+              testCase.maxPrecision,
+            )
+            .toString(),
+        ).toEqual(testCase.output);
+      });
     });
   });
 });

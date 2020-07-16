@@ -30,20 +30,22 @@ export class DtCount implements PipeTransform {
   /**
    * @param input - The value to be formatted as an abbreviation
    * @param inputUnit - The unit for the input number. Default is DtUnit.COUNT
+   * @param maxPrecision - The maximum amount of digits to be used, if provided
    */
   transform(
     // tslint:disable-next-line:no-any
     input: any,
     inputUnit: DtUnit | string = DtUnit.COUNT,
+    maxPrecision?: number,
   ): DtFormattedValue | string {
     if (isEmpty(input)) {
       return NO_DATA;
     }
     if (input instanceof DtFormattedValue) {
-      return formatCount(input, inputUnit);
+      return formatCount(input, inputUnit, maxPrecision);
     }
     if (isNumberLike(input)) {
-      return formatCount(coerceNumberProperty(input), inputUnit);
+      return formatCount(coerceNumberProperty(input), inputUnit, maxPrecision);
     }
 
     return NO_DATA;

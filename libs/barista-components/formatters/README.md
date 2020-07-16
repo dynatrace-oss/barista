@@ -69,19 +69,21 @@ fields, which are described in a table below:
 The `formatCount` function provides a way to format numbers as abbreviations
 outside the template. The function takes the following parameters:
 
-| Name        | Type                        | Default      | Description                                                                                                                     |
-| ----------- | --------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| `input`     | `DtFormattedValue | number` |              | numeric value to be transformed by the pipe                                                                                     |
-| `inputUnit` | `DtUnit | string`           | `Unit.COUNT` | input unit, if not default - displayed together with the formatted value; does not yet support plurals and internationalization |
+| Name           | Type                        | Default      | Description                                                                                                                     |
+| -------------- | --------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| `input`        | `DtFormattedValue | number` |              | numeric value to be transformed by the pipe                                                                                     |
+| `inputUnit`    | `DtUnit | string`           | `Unit.COUNT` | input unit, if not default - displayed together with the formatted value; does not yet support plurals and internationalization |
+| `maxPrecision` | `number`                    | 3            | maximum amount of digits to be used                                                                                             |
 
 ### Percent
 
 The `formatPercent` function provides a way to format percents, adjusting
 precision outside the template. The function takes the following parameters:
 
-| Name    | Type     | Default | Description                                 |
-| ------- | -------- | ------- | ------------------------------------------- |
-| `input` | `number` |         | numeric value to be transformed by the pipe |
+| Name           | Type     | Default | Description                                 |
+| -------------- | -------- | ------- | ------------------------------------------- |
+| `input`        | `number` |         | numeric value to be transformed by the pipe |
+| `maxPrecision` | `number` | 3       | maximum amount of digits to be used         |
 
 ### Bits
 
