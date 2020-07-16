@@ -18,7 +18,7 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es2015",
-    "typeRoots": ["node_modules/@types", "@types"],
+    "typeRoots": ["node_modules/@types"],
     "paths": {
       "@dynatrace/barista-components/alert": [
         "libs/barista-components/alert/index.ts"

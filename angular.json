@@ -3021,10 +3021,8 @@
       "sourceRoot": "libs/fluid-elements",
       "architect": {
         "build": {
-          "builder": "./dist/libs/workspace:elements",
+          "builder": "./dist/libs/workspace:package-all-elements",
           "options": {
-            "releasePackageJson": "libs/fluid-elements/package.json",
-            "outputPath": "dist/libs/fluid-elements",
             "buildTag": "scope:elements"
           },
           "configurations": {
@@ -3040,19 +3038,21 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "./dist/libs/workspace:typescript",
           "options": {
-            "outputPath": "dist/libs/fluid-elements/button",
-            "main": "libs/fluid-elements/button/src/index.ts",
             "tsConfig": "libs/fluid-elements/button/tsconfig.lib.json",
-            "webpackConfig": "libs/fluid-elements/webpack.config.js",
-            "buildLibsFromSource": true
+            "outDir": "dist/out-tsc"
           },
           "configurations": {
-            "production": {
-              "extractLicenses": true,
-              "optimization": true
-            }
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/button",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/button/src/index.js",
+            "project": "libs/fluid-elements/button/package.json"
           }
         },
         "lint": {
@@ -3085,19 +3085,21 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "./dist/libs/workspace:typescript",
           "options": {
-            "outputPath": "dist/libs/fluid-elements/checkbox",
-            "main": "libs/fluid-elements/checkbox/src/index.ts",
             "tsConfig": "libs/fluid-elements/checkbox/tsconfig.lib.json",
-            "webpackConfig": "libs/fluid-elements/webpack.config.js",
-            "buildLibsFromSource": true
+            "outDir": "dist/out-tsc"
           },
           "configurations": {
-            "production": {
-              "extractLicenses": true,
-              "optimization": true
-            }
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/checkbox",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/checkbox/src/index.js",
+            "project": "libs/fluid-elements/checkbox/package.json"
           }
         },
         "lint": {
@@ -3130,19 +3132,21 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "./dist/libs/workspace:typescript",
           "options": {
-            "outputPath": "dist/libs/fluid-elements/switch",
-            "main": "libs/fluid-elements/switch/src/index.ts",
             "tsConfig": "libs/fluid-elements/switch/tsconfig.lib.json",
-            "webpackConfig": "libs/fluid-elements/webpack.config.js",
-            "buildLibsFromSource": true
+            "outDir": "dist/out-tsc"
           },
           "configurations": {
-            "production": {
-              "extractLicenses": true,
-              "optimization": true
-            }
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/switch",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/switch/src/index.js",
+            "project": "libs/fluid-elements/switch/package.json"
           }
         },
         "lint": {
@@ -3172,19 +3176,21 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/node:build",
+          "builder": "./dist/libs/workspace:typescript",
           "options": {
-            "outputPath": "dist/libs/fluid-elements/tab-group",
-            "main": "libs/fluid-elements/tab-group/src/index.ts",
             "tsConfig": "libs/fluid-elements/tab-group/tsconfig.lib.json",
-            "webpackConfig": "libs/fluid-elements/webpack.config.js",
-            "buildLibsFromSource": true
+            "outDir": "dist/out-tsc"
           },
           "configurations": {
-            "production": {
-              "extractLicenses": true,
-              "optimization": true
-            }
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/tab-group",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/tab-group/src/index.js",
+            "project": "libs/fluid-elements/tab-group/package.json"
           }
         },
         "lint": {
@@ -3222,7 +3228,7 @@
       "prefix": "fluid",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/fluid-dev",
             "index": "apps/fluid-dev/src/index.html",
@@ -3235,10 +3241,7 @@
               "apps/fluid-dev/src/assets"
             ],
             "styles": ["apps/fluid-dev/src/styles.scss"],
-            "scripts": [],
-            "customWebpackConfig": {
-              "path": "./apps/fluid-dev/webpack.config.js"
-            }
+            "scripts": []
           }
         },
         "serve": {
@@ -3250,9 +3253,6 @@
             "production": {
               "browserTarget": "fluid-dev:build:production"
             }
-          },
-          "customWebpackConfig": {
-            "path": "./apps/fluid-dev/webpack.config.js"
           }
         },
         "extract-i18n": {
@@ -3334,13 +3334,10 @@
                 "command": "npm run ng run design-tokens-ui:build-frontend"
               }
             ]
-          },
-          "customWebpackConfig": {
-            "path": "./apps/design-tokens-ui/webpack.config.js"
           }
         },
         "build-frontend": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/design-tokens-ui",
             "index": "apps/design-tokens-ui/src/index.html",
@@ -3385,10 +3382,7 @@
                 "libs/barista-components/style/"
               ]
             },
-            "scripts": [],
-            "customWebpackConfig": {
-              "path": "./apps/design-tokens-ui/webpack.config.js"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -3431,12 +3425,9 @@
           }
         },
         "dev-server": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "design-tokens-ui:build-frontend",
-            "customWebpackConfig": {
-              "path": "./apps/design-tokens-ui/webpack.config.js"
-            }
+            "browserTarget": "design-tokens-ui:build-frontend"
           },
           "configurations": {
             "production": {
@@ -3518,7 +3509,7 @@
       "prefix": "x",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/next",
             "index": "apps/next/src/index.html",
@@ -3536,11 +3527,7 @@
               }
             ],
             "styles": ["apps/next/src/styles.scss"],
-            "scripts": [],
-            "customWebpackConfig": {
-              "path": "./apps/next/webpack.config.js"
-            },
-            "baseHref": "/next"
+            "scripts": []
           },
           "configurations": {
             "production-internal": {
@@ -3574,7 +3561,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "next:build"
           },
@@ -3582,9 +3569,6 @@
             "production-internal": {
               "browserTarget": "next:build:production"
             }
-          },
-          "customWebpackConfig": {
-            "path": "./apps/next/webpack.config.js"
           }
         },
         "extract-i18n": {

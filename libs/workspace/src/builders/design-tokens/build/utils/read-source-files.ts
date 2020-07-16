@@ -14,9 +14,20 @@
  * limitations under the License.
  */
 
-import { createBuilder } from '@angular-devkit/architect';
-import { JsonObject } from '@angular-devkit/core';
-import { elementsBuilder } from './build';
-import { ElementsOptions } from './schema';
-
-export default createBuilder<ElementsOptions & JsonObject>(elementsBuilder);
+import { sync as globSync } from 'glob';
+import { Observable, of } from 'rxjs';
+/**
+ * Globs over all entrypoint patterns, finds the files that should be processed.
+ * @param entrypoints - Globbing pattern of all entry points.
+ * @param cwd - Relative directory that is used as a root for the globbing patterns.
+ */
+export function readSourceFiles(
+  entrypoints: string[],
+  cwd: string,
+): Observable<string[]> {
+  const entrypointFiles: string[] = [];
+  for (const globPattern of entrypoints) {
+    entrypointFiles.push(...globSync(globPattern, { cwd }));
+  }
+  return of(entrypointFiles);
+}

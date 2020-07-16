@@ -18,10 +18,9 @@ import { BuilderContext, BuilderOutput } from '@angular-devkit/architect';
 import { join } from 'path';
 import { forkJoin, from, Observable, of } from 'rxjs';
 import { catchError, map, mapTo, switchMap, tap } from 'rxjs/operators';
-import { ElementsOptions } from './schema';
+import { ElementsPackageAllOptions } from './schema';
 import { tryJsonParse } from '@dynatrace/shared/node';
 import { NxJson } from '@nrwl/workspace';
-import { copyRootPackageJson } from '../../utils/copy-root-package-json';
 
 /**
  * Custom builder for the web-components package builder.
@@ -29,8 +28,8 @@ import { copyRootPackageJson } from '../../utils/copy-root-package-json';
  * with a given tag in the nx.json. It is primarily used to run and package
  * the web-components part of the library.
  */
-export function elementsBuilder(
-  options: ElementsOptions,
+export function elementsBuildAndPackageBuilder(
+  options: ElementsPackageAllOptions,
   context: BuilderContext,
 ): Observable<BuilderOutput> {
   const project = context.target?.project ?? '';
@@ -51,30 +50,24 @@ export function elementsBuilder(
     ),
     // Create and schedule all other builds.
     switchMap((targetProjects: string[]) => {
-      const targets = createProjectBuildStreams(context, targetProjects);
-      return forkJoin(...targets);
+      const builds = createProjectStreams(context, targetProjects, 'build');
+      return forkJoin(builds).pipe(
+        switchMap(() =>
+          forkJoin(...createProjectStreams(context, targetProjects, 'package')),
+        ),
+      );
     }),
-    switchMap(() =>
-      // Copy the root package json and sync dependency versions.
-      copyRootPackageJson(
-        context,
-        options.releasePackageJson,
-        options.outputPath,
-        options.packageVersion,
-      ),
-    ),
     tap(() => context.logger.info('Build successful.')),
-    // When the builds have finished, create the root package json
-    // and return the results.
     mapTo({
       success: true,
     }),
-    catchError((error) =>
-      of({
+    catchError((error) => {
+      console.log(error);
+      return of({
         success: false,
         error: (error as Error).message,
-      }),
-    ),
+      });
+    }),
   );
 }
 
@@ -95,25 +88,26 @@ function filterTaggedProjects(
 }
 
 /** Create a builder stream array for all targets. */
-function createProjectBuildStreams(
+function createProjectStreams(
   context: BuilderContext,
   targetProjects: string[],
+  target: string,
 ): Observable<BuilderOutput>[] {
   return targetProjects.map((targetProject: string) => {
     return from(
       context.scheduleTarget({
-        target: 'build',
+        target: target,
         project: targetProject,
       }),
     ).pipe(
-      tap(() => context.logger.info(`Building ${targetProject}...`)),
+      tap(() => context.logger.info(`Running ${target}: ${targetProject}...`)),
       switchMap((build) => build.result),
       tap((result) => {
         // Throw and break the whole pipe if an error occurs.
         if (result.error) {
           throw new Error(result.error);
         }
-        context.logger.info(`Successfully built ${targetProject}`);
+        context.logger.info(`Successfully finshed ${target}: ${targetProject}`);
       }),
     );
   });

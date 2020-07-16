@@ -83,3 +83,5 @@ outputs:
   formatter: dt-css-spacing
 - type: ts
   formatter: dt-typescript
+- type: js
+  formatter: dt-javascript

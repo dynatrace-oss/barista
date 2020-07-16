@@ -20,11 +20,17 @@ import {
   html,
   property,
   CSSResult,
+  css,
+  unsafeCSS,
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import { FluidSwitchChangeEvent } from './switch-events';
-import styles from './switch.scss';
 import { SPACE } from '@dynatrace/shared/keycodes';
+
+import {
+  FLUID_SPACING_3X_SMALL,
+  fluidDtText,
+} from '@dynatrace/fluid-design-tokens';
 
 let uniqueCounter = 0;
 
@@ -56,7 +62,114 @@ export class FluidSwitch extends LitElement {
 
   /** Styles for the button component */
   static get styles(): CSSResult {
-    return styles;
+    return css`
+      :host {
+        /**
+        * Legibility definitions should probably be
+        * shipped or imported from a core
+        */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        --fluid-switch--label-color: var(--color-neutral-150);
+        --fluid-switch--fill: var(--color-background);
+        --fluid-switch--container: var(--color-maxcontrast);
+        --fluid-switch--container-fill-checked: var(--color-primary-100);
+        --fluid-switch--knob-checked: var(--color-background);
+        --fluid-switch--knob: var(--color-maxcontrast);
+        --fluid-switch--focus: var(--color-maxcontrast);
+      }
+      :host([disabled]) {
+        pointer-events: none;
+      }
+      :host([disabled]) .fluid-switch > * {
+        opacity: 0.5;
+      }
+      .fluid-switch {
+        display: flex;
+        position: relative;
+      }
+      :host([disabled]) .fluid-switch-input, /* Checkbox should be hidden in the disabled state as well. */
+      .fluid-switch-input {
+        position: absolute;
+        width: 35px;
+        height: 20px;
+        top: 7px;
+        left: 6px;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .fluid-switch-input:hover ~ .fluid-switch-label .fluid-switch-glow {
+        opacity: 0.1;
+      }
+      .fluid-svg-switch:active {
+        outline: none; /* This is needed to prevent the outline around the switch on click. */
+      }
+      .fluid-svg-switch.checked .fluid-switch-knob {
+        transform: translateX(16px);
+        transition: transform 0.3s;
+      }
+      .fluid-svg-switch.checked .fluid-switch-fill {
+        fill: var(--fluid-switch--container-fill-checked);
+      }
+      .fluid-svg-switch.checked .fluid-switch-knob {
+        fill: var(--fluid-switch--knob-checked);
+      }
+      .fluid-svg-switch.checked .fluid-switch-container {
+        stroke: var(--fluid-switch--container-fill-checked);
+      }
+      .fluid-svg-switch.checked:hover .fluid-switch-glow {
+        opacity: 0.1;
+      }
+      .fluid-svg-switch.checked .fluid-switch-glow {
+        transition: transform 0.3s;
+        transform: translateX(16px);
+      }
+      .fluid-svg-switch {
+        cursor: pointer;
+      }
+      .fluid-svg-switch .fluid-switch-knob {
+        transition: transform 0.3s;
+      }
+      .fluid-svg-switch .fluid-switch-fill {
+        fill: var(--fluid-switch--fill);
+      }
+      .fluid-svg-switch .fluid-switch-knob {
+        fill: var(--fluid-switch--knob);
+      }
+      .fluid-svg-switch .fluid-switch-container {
+        stroke: var(--fluid-switch--container);
+      }
+      .fluid-svg-switch:hover .fluid-switch-glow {
+        opacity: 0.1;
+      }
+      .fluid-switch-glow {
+        opacity: 0;
+        fill: var(--fluid-switch--focus);
+      }
+      .fluid-svg-switch .fluid-switch-glow {
+        transition: transform 0.3s;
+      }
+      .fluid-label {
+        ${unsafeCSS(fluidDtText())};
+        display: inline-flex;
+        margin-left: ${unsafeCSS(FLUID_SPACING_3X_SMALL)};
+        color: var(--fluid-switch--label-color);
+      }
+      .fluid-switch-label:hover .fluid-switch-glow {
+        opacity: 0.1;
+      }
+
+      label {
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+      }
+      label:hover .fluid-knob--hover {
+        opacity: 0.1;
+        transform: scale(1);
+      }
+    `;
   }
 
   /** Whether the switch is disabled or not */

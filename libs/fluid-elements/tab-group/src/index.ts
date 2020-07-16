@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 
-export * from './lib/tab-group';
+export * from './lib/tab-group/tab-group';
 export * from './lib/tab/tab';
+export * from './lib/tab-events';

@@ -4,7 +4,7 @@
     "outDir": "../../../dist/out-tsc",
     "module": "CommonJS",
     "allowJs": true,
-    "types": ["jest", "node", "css-modules"],
+    "types": ["jest", "node"],
     "target": "es2015",
     "lib": ["dom", "es2018"]
   },

@@ -17,8 +17,9 @@
 import { options } from 'yargs';
 import { green, bold } from 'chalk';
 import { yarnPublish, NO_TOKEN_PROVIDED_ERROR } from '../utils';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { SemVer } from 'semver';
+import { sync } from 'glob';
 
 export async function publishReleaseNext(workspaceRoot: string): Promise<void> {
   const { packageVersion } = options({
@@ -53,12 +54,18 @@ export async function publishReleaseNext(workspaceRoot: string): Promise<void> {
   );
   console.info(green('Successfully published design tokens'));
 
-  // Publish design tokens
-  console.info('Publishing web components');
-  await yarnPublish(
-    join(workspaceRoot, './dist/libs/fluid-elements/'),
-    version,
-    workspaceRoot,
-  );
-  console.info(green('Successfully published web components'));
+  // Publish elements
+  const packages = sync('**/package.json', {
+    cwd: './dist/libs/fluid-elements',
+  });
+  for (const elementPackage of packages) {
+    const packageName = dirname(elementPackage);
+    console.info('Publishing web component', packageName);
+    await yarnPublish(
+      join(workspaceRoot, './dist/libs/fluid-elements/', packageName),
+      version,
+      workspaceRoot,
+    );
+    console.info(green('Successfully published web component', packageName));
+  }
 }
