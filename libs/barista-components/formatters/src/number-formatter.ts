@@ -60,7 +60,7 @@ function adjustPrecision(value: number, maxPrecision?: number): string {
   const calcValue = Math.abs(value);
   const minValue =
     1 /
-    Math.pow(10, Math.max(maxPrecision || DEFAULT_PRECISION_FOR_MIN_VALUE, 0));
+    Math.pow(10, Math.max(maxPrecision ?? DEFAULT_PRECISION_FOR_MIN_VALUE, 0));
 
   let digits = 0;
   if (calcValue === 0) {
@@ -71,7 +71,7 @@ function adjustPrecision(value: number, maxPrecision?: number): string {
     } else {
       return `< ${minValue}`;
     }
-  } else if (maxPrecision) {
+  } else if (maxPrecision !== undefined) {
     digits = maxPrecision;
   } else if (calcValue < 1) {
     digits = 3;
