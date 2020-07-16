@@ -23,6 +23,14 @@
   outline: none;
   @include dt-form-control();
 
+  &::placeholder {
+    @include dt-form-control-placeholder();
+  }
+
+  &[disabled]::placeholder {
+    @include dt-form-control-disabled-placeholder();
+  }
+
   &:hover:not([disabled]) {
     border-color: $gray-500;
   }
