@@ -12,6 +12,11 @@
   }
 }
 
+@mixin dt-no-focus-style() {
+  outline-offset: 0;
+  outline: transparent none 0;
+}
+
 // Mixin applying the cdk-keyboard-focus and cdk-program-focus
 // to the calling selector and applies the dt-focus-style
 @mixin dt-cdkmonitor-focus-style($is-dark: false) {
