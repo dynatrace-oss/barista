@@ -1,6 +1,30 @@
-load("//tools/bazel_rules:index.bzl", "stylelint")
+load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary", "sass_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
 package(default_visibility = ["//visibility:public"])
+
+ng_module_view_engine(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        ":button-group-styles",
+    ],
+    module_name = "@dynatrace/barista-components/button-group",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "//libs/barista-components/core:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+    ],
+)
 
 filegroup(
     name = "button-group",
@@ -16,7 +40,49 @@ filegroup(
     ]),
 )
 
+sass_library(
+    name = "theme",
+    srcs = ["src/_button-group-item-theme.scss"],
+)
+
+multi_sass_binary(
+    name = "button-group-styles",
+    srcs = ["src/button-group.scss", "src/button-group-item.scss", ":theme"]
+)
+
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
+)
+
+jest(
+    name = "test",
+    srcs = glob(include = ["**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    setup_file = ":src/test-setup.ts",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+        "//libs/testing/browser",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser"
+    ],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
 )
