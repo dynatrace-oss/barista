@@ -184,6 +184,20 @@ export const headingIdTransformer: BaPageTransformer = async (source) => {
   return transformed;
 };
 
+/** Adds a class to a headline element named after the tagname of the element (e.g <h1>...</h1> -> <h1 class="h1">...</h1>) */
+export const headlineClassTransformer: BaPageTransformer = async (source) => {
+  const transformed = { ...source };
+  if (source.content && source.content.length) {
+    transformed.content = runWithCheerio(source.content, ($) => {
+      const headlines = $('h1, h2, h3, h4, h5, h6');
+      headlines.each((_, headline) => {
+        $(headline).addClass(headline.tagName);
+      });
+    });
+  }
+  return transformed;
+};
+
 /** Adds ids to each headline on the page. */
 export const copyHeadlineTransformer: BaPageTransformer = async (source) => {
   const transformed = { ...source };
