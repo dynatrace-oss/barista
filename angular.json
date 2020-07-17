@@ -1156,15 +1156,6 @@
               "!libs/barista-components/autocomplete/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/autocomplete/jest.config.js",
-            "tsConfig": "libs/barista-components/autocomplete/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/autocomplete/src/test-setup.ts",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
@@ -2005,14 +1996,6 @@
               "**/node_modules/**",
               "!libs/barista-components/input/**/*"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/input/jest.config.js",
-            "tsConfig": "libs/barista-components/input/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/input/src/test-setup.ts"
           }
         }
       },
