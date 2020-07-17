@@ -1188,15 +1188,6 @@
               "!libs/barista-components/alert/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/alert/jest.config.js",
-            "tsConfig": "libs/barista-components/alert/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/alert/src/test-setup.ts",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
