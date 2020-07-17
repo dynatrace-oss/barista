@@ -17,6 +17,7 @@ import { environment } from '@environments/barista-environment';
 import { resolve, relative } from 'path';
 import { promises as fs } from 'fs';
 import { ExampleFile } from './examples.interface';
+import { PackageJson } from '@dynatrace/shared/node';
 
 /** Get all boilerplate code files that are required to have a complete project. */
 export async function getBoilerplateFiles(
@@ -73,16 +74,40 @@ export async function getBoilerplateFiles(
   });
 
   // package.json
-  const packageJson = await fs.readFile(
+  const templatePackageJson = await fs.readFile(
     resolve(
       environment.shareableExamplesToolsDir,
       'templates/package-shareable-example.json.template',
     ),
     { encoding: 'utf-8' },
   );
+  const rootPackageJson = await fs.readFile('./package.json', {
+    encoding: 'utf-8',
+  });
+  // Parse the package.json and root packageJson
+  const packageJson = templatePackageJson.replace(
+    /{{EXAMPLE_NAME}}/g,
+    exampleClassName,
+  );
+  const parsedPackageJson: PackageJson = JSON.parse(packageJson);
+  const parsedRootPackageJson: PackageJson = JSON.parse(rootPackageJson);
+
+  // Sync the dependency versions from root over to the example.
+  for (const dependency of Object.keys(parsedPackageJson.dependencies || {})) {
+    // For packages within barista, we want to keet the latest version installed.
+    if (dependency.startsWith('@dynatrace/')) {
+      parsedPackageJson.dependencies![dependency] = 'latest';
+    } else {
+      // console.log(dependency, parsedRootPackageJson.dependencies[])
+      parsedPackageJson.dependencies![dependency] =
+        parsedRootPackageJson.dependencies![dependency] ||
+        parsedRootPackageJson.devDependencies![dependency];
+    }
+  }
+
   files.push({
     path: resolve(environment.examplesLibDir, '../package.json'),
-    content: packageJson.replace(/{{EXAMPLE_NAME}}/g, exampleClassName),
+    content: JSON.stringify(parsedPackageJson, null, 2),
   });
 
   // app/app.component.ts
