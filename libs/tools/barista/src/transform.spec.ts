@@ -27,6 +27,7 @@ import {
   internalContentTransformerFactory,
   relativeUrlTransformer,
   tableOfContentGenerator,
+  headlineClassTransformer,
 } from './transform';
 
 describe('Barista transformers', () => {
@@ -145,6 +146,20 @@ describe('Barista transformers', () => {
       });
       expect(transformed.content).toBe(
         '<h2 id="h1-definitions">1. Definitions.</h2>',
+      );
+    });
+  });
+
+  describe('headingClassTransformer', () => {
+    it('Should add classes to headlines corresponding to level of the element', async () => {
+      const content = `<h1>h1</h1><h2>h2</h2><h3>h3</h3><h4>h4</h4><h5>h5</h5>`;
+      const transformed = await headlineClassTransformer({
+        title: '',
+        layout: BaPageLayoutType.Default,
+        content,
+      });
+      expect(transformed.content).toBe(
+        '<h1 class="h1">h1</h1><h2 class="h2">h2</h2><h3 class="h3">h3</h3><h4 class="h4">h4</h4><h5 class="h5">h5</h5>',
       );
     });
   });
