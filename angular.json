@@ -1250,15 +1250,6 @@
               "!libs/barista-components/bar-indicator/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/bar-indicator/jest.config.js",
-            "tsConfig": "libs/barista-components/bar-indicator/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/bar-indicator/src/test-setup.ts",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
