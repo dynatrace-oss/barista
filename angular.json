@@ -1334,15 +1334,6 @@
               "!libs/barista-components/button-group/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/button-group/jest.config.js",
-            "tsConfig": "libs/barista-components/button-group/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/button-group/src/test-setup.ts",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
