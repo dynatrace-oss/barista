@@ -1209,15 +1209,6 @@
               "!libs/barista-components/breadcrumbs/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/breadcrumbs/jest.config.js",
-            "tsConfig": "libs/barista-components/breadcrumbs/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/breadcrumbs/src/test-setup.ts",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
