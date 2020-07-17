@@ -18,7 +18,6 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { ErrorPage } from './error-page';
-import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { DsPageGuard } from '@dynatrace/shared/data-access-strapi';
 
 export const routes: Route[] = [
@@ -30,7 +29,7 @@ export const routes: Route[] = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes), DtThemingModule],
+  imports: [CommonModule, RouterModule.forChild(routes)],
   declarations: [],
   providers: [],
 })
