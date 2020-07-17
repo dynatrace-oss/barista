@@ -351,8 +351,7 @@
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
     "fluid-dev": {
-      "tags": ["type:app"],
-      "implicitDependencies": ["fluid-button"]
+      "tags": ["type:app"]
     },
     "testing-custom-element": {
       "tags": ["scope:testing", "type:library"]
