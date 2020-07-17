@@ -1275,15 +1275,6 @@
               "!libs/barista-components/card/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/card/jest.config.js",
-            "tsConfig": "libs/barista-components/card/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/card/src/test-setup.ts",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
