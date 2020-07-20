@@ -4,11 +4,12 @@ A basic representation of the checkbox input
 
 ## Properties
 
-| Property        | Attribute       | Type      | Default | Description                                 |
-| --------------- | --------------- | --------- | ------- | ------------------------------------------- |
-| `checked`       | `checked`       | `boolean` |         | Defines if the checkbox is checked or not.  |
-| `disabled`      | `disabled`      | `boolean` | false   | Defines if the checkbox is disabled or not. |
-| `indeterminate` | `indeterminate` | `boolean` |         | Indeterminate state property.               |
+| Property        | Attribute       | Type      | Default | Description                                     |
+| --------------- | --------------- | --------- | ------- | ----------------------------------------------- |
+| `checked`       | `checked`       | `boolean` |         | Defines if the checkbox is checked or not.      |
+| `disabled`      | `disabled`      | `boolean` | false   | Defines if the checkbox is disabled or not.     |
+| `indeterminate` | `indeterminate` | `boolean` |         | Indeterminate state property.                   |
+| `value`         | `value`         | `string`  | "on"    | The value attribute of the native input element |
 
 ## Methods
 

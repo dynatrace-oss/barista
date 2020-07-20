@@ -150,6 +150,27 @@ describe('Fluid switch', () => {
     });
   });
 
+  describe('value', () => {
+    it('should have the correct default set', async () => {
+      const shadowedInput = fixture.shadowRoot?.querySelector('input');
+      expect(shadowedInput?.getAttribute('value')).toBe('on');
+    });
+
+    it('should set the value to customvalue when the property is set', async () => {
+      fixture.value = 'customvalue';
+      await tick();
+      const shadowedInput = fixture.shadowRoot?.querySelector('input');
+      expect(shadowedInput?.getAttribute('value')).toBe('customvalue');
+    });
+
+    it('should set the value to customvalue when the attribute is set', async () => {
+      fixture.setAttribute('value', 'customvalue');
+      await tick();
+      const shadowedInput = fixture.shadowRoot?.querySelector('input');
+      expect(shadowedInput?.getAttribute('value')).toBe('customvalue');
+    });
+  });
+
   describe('tabindex', () => {
     it('should have a tabindex on the triggerable element when enabled', () => {
       const checkbox = fixture.shadowRoot?.querySelector('svg');

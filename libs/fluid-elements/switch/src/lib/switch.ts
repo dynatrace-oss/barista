@@ -28,6 +28,22 @@ import { SPACE } from '@dynatrace/shared/keycodes';
 
 let uniqueCounter = 0;
 
+/**
+ * A basic representation of the switch input
+ * @element fluid-switch
+ * @slot - Default slot lets the user provide a label for the switch.
+ * @fires change - Event that is being fired when the switch state changes due
+ * to user interaction.
+ * @cssprop --fluid-switch--label-color - Customize the label color.
+ * @cssprop --fluid-switch--fill - Customize the switch fill color.
+ * @cssprop --fluid-switch--container - Customize the container color.
+ * @cssprop --fluid-switch--container-fill-checked - Customize the fill color when
+ * the switch is in the checked state.
+ * @cssprop --fluid-switch--knob-checked - Customize the knob color when
+ * the switch is in the checked state.
+ * @cssprop --fluid-switch--knob - Customize the knob color.
+ * @cssprop --fluid-switch--focus - Customize the focus color.
+ */
 export class FluidSwitch extends LitElement {
   /**
    * Unique identifier used for the id and label connection
@@ -47,7 +63,12 @@ export class FluidSwitch extends LitElement {
   @property({ type: Boolean, reflect: true })
   disabled = false;
 
-  /** Whether the switch is active or not */
+  /** The value attribute of the native input element */
+  @property({ type: String, reflect: true })
+  // Default string for the value is 'on' from MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox#Additional_attributes)
+  value = 'on';
+
+  /** Whether the switch is considered `on` or `off`. */
   @property({ type: Boolean, reflect: true })
   set checked(value: boolean) {
     const oldValue = this.checked;
@@ -81,6 +102,7 @@ export class FluidSwitch extends LitElement {
         tabindex="-1"
         focusable="false"
         type="checkbox"
+        value="${this.value}"
         ?checked="${this.checked}"
         ?disabled="${this.disabled}"
         @change="${this._handleInputChange}"
