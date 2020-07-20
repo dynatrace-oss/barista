@@ -27,7 +27,7 @@ def ng_module(deps = [], **kwargs):
         **kwargs
     )
 
-def ng_module_view_engine(angular_assets, deps = [], **kwargs):
+def ng_module_view_engine(angular_assets = [], deps = [], **kwargs):
     _ng_module(
         assets = angular_assets,
         deps = ["@npm//tslib"] + deps,
