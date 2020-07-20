@@ -1,7 +1,6 @@
 @import '../../core/src/style/overlay';
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
-@import './consumption-theme';
 
 :host {
   display: block;
@@ -56,6 +55,7 @@
   margin-bottom: 6px;
 }
 
-@include dt-apply-theme() {
-  @include dt-theme-consumption($dt-current-theme);
+/** Color the consumption count red, if the state is error */
+:host.dt-color-error ::ng-deep .dt-consumption-count {
+  color: var(--dt-error-default-color);
 }
