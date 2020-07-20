@@ -1,6 +1,6 @@
 const { sync } = require('resolve');
 const { readFileSync, existsSync } = require('fs');
-const { resolve, parse } = require('path');
+const { resolve, parse, join } = require('path');
 
 // Get the module mappings out of the module mappings file from bazel
 const moduleMappingFile = process.env.BAZEL_TEST_MODULE_MAPPING;
@@ -59,6 +59,10 @@ function resolvePath(moduleId) {
       moduleId.replace(item, moduleMappings.get(item)),
     );
   }
+
+  // If we cannot replace the file with a mapping then it might be inside a module without
+  // module name so the moduleId will consist out of `dynatrace/path/to/module`
+  return resolveModuleFileName(moduleId.replace('dynatrace/', ''));
 }
 
 /**
@@ -81,7 +85,7 @@ function resolvePath(moduleId) {
  */
 function moduleResolver(moduleId, options) {
   // resolve workspace imports with the bazel module mappings
-  if (moduleId.startsWith('@dynatrace')) {
+  if (moduleId.startsWith('@dynatrace') || moduleId.startsWith('dynatrace')) {
     const resolved = resolvePath(moduleId);
     // if undefined it might be a published @dynatrace import that has to be resolved
     // via the node_modules with the `sync` operation later on
