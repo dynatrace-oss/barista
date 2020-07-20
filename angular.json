@@ -2808,15 +2808,6 @@
               "!libs/barista-components/tile/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/tile/jest.config.js",
-            "tsConfig": "libs/barista-components/tile/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/tile/src/test-setup.ts",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
