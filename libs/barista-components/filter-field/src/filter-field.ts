@@ -1100,6 +1100,16 @@ export class DtFilterField<T = any>
             this._removeFilter(this._currentFilterValues);
             this._currentFilterValues = [];
             this._filterByLabel = '';
+
+            // If the current def is a range during the reset,
+            // we need to handle a couple of extra things about the range, i.e.
+            // closing it and restoring the focus.
+            if (isDtRangeDef(this._currentDef)) {
+              if (this._filterfieldRange.isOpen) {
+                this._filterfieldRangeTrigger.closePanel();
+                this.focus();
+              }
+            }
           }
           this._currentDef = def;
           this._updateControl();
