@@ -1,7 +1,4 @@
 @import '../../style/font-mixins';
-@import '../../core/src/style/variables';
-@import '../../core/src/theming/theming';
-@import './progress-circle-theme';
 
 :host {
   display: inline-block;
@@ -48,7 +45,4 @@
   }
 }
 
-// Apply the progress-circle theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-progress-circle($dt-current-theme);
-}
+@import './progress-circle-theme';
