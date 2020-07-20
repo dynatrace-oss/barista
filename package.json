@@ -91,7 +91,7 @@
     "@angular-devkit/build-angular": "^0.901.9",
     "@angular-devkit/build-ng-packagr": "^0.901.9",
     "@angular/bazel": "^9.1.11",
-    "@angular/cli": "^9.1.9",
+    "@angular/cli": "^10.0.3",
     "@angular/compiler": "^9.1.11",
     "@angular/compiler-cli": "^9.1.11",
     "@angular/language-service": "^9.1.11",
