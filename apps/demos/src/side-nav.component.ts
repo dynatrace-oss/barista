@@ -28,8 +28,12 @@ import { Subscription } from 'rxjs';
 
 interface ComponentItem {
   name: string;
+  expanded?: boolean;
   examples: Array<{ name: string; route: string }>;
 }
+
+/** Key under which the current filter is being persisted into the session storage. */
+const FILTER_SESSION_STORAGE_KEY = 'demos-filter';
 
 @Component({
   selector: 'dt-demos-side-nav',
@@ -48,6 +52,7 @@ export class DtDemosSideNav implements AfterContentInit, OnDestroy {
   }
   set componentItems(values: ComponentItem[]) {
     this._componentItems = values;
+    this._createExampleSuggestionsSource();
     this._updateFilteredComponentItems();
   }
 
@@ -61,12 +66,22 @@ export class DtDemosSideNav implements AfterContentInit, OnDestroy {
     if (this._componentItemsFilterValue !== filterValue) {
       this._componentItemsFilterValue = filterValue;
       this._updateFilteredComponentItems();
+
+      if (window && window.sessionStorage) {
+        window.sessionStorage.setItem(FILTER_SESSION_STORAGE_KEY, filterValue);
+      }
     }
   }
 
   get filteredComponentItems(): ComponentItem[] {
     return this._filteredComponentItems;
   }
+
+  /** Array of examples that are listed in the suggestions */
+  exampleSuggestionsSource: string[] = [];
+
+  /** Array of examples that are listed in the suggestions */
+  exampleSuggestions: string[] = [];
 
   private _selectedComponentName = '';
   private _componentItemsFilterValue = '';
@@ -92,6 +107,12 @@ export class DtDemosSideNav implements AfterContentInit, OnDestroy {
         window.document.body.scrollIntoView(true);
       }
     });
+
+    if (window && window.sessionStorage) {
+      const savedFilter =
+        window.sessionStorage.getItem(FILTER_SESSION_STORAGE_KEY) || '';
+      this.componentItemsFilterValue = savedFilter;
+    }
   }
 
   ngOnDestroy(): void {
@@ -103,26 +124,51 @@ export class DtDemosSideNav implements AfterContentInit, OnDestroy {
     return this._selectedComponentName === componentName;
   }
 
+  /** Update the filtered elements for render in the sidebar. */
   private _updateFilteredComponentItems(): void {
     if (this._componentItemsFilterValue.length === 0) {
       this._filteredComponentItems = [...this._componentItems];
+      this.exampleSuggestions = this.exampleSuggestionsSource;
     } else {
       const filterValue = this._componentItemsFilterValue.toLocaleLowerCase();
 
-      this._filteredComponentItems = this._componentItems.filter(
-        (componentItem) => {
-          const componentItemName = componentItem.name.toLocaleLowerCase();
-
-          return (
-            componentItemName.includes(filterValue) ||
-            componentItem.examples.find((example) =>
-              example.name.toLocaleLowerCase().includes(filterValue),
-            ) !== undefined
-          );
-        },
+      this.exampleSuggestions = this.exampleSuggestionsSource.filter(
+        (suggestion) => suggestion.toLocaleLowerCase().includes(filterValue),
       );
+
+      this._filteredComponentItems = this._componentItems
+        .map((componentItem) => {
+          const filteredExamples = componentItem.examples.filter((example) =>
+            example.name.includes(filterValue),
+          );
+          if (filteredExamples.length > 0) {
+            return {
+              ...componentItem,
+              examples: filteredExamples,
+              expanded: true,
+            };
+          }
+        })
+        .filter(Boolean) as ComponentItem[];
     }
 
     this._changeDetectorRef.markForCheck();
+  }
+
+  /**
+   * Create a flat representation of all examples in their component groups
+   * to provide them as suggestions in the autocomplete.
+   */
+  private _createExampleSuggestionsSource(): void {
+    if (this.componentItems) {
+      this.exampleSuggestionsSource = Object.values(this.componentItems).reduce<
+        string[]
+      >((aggregator, componentGroup) => {
+        aggregator.push(
+          ...componentGroup.examples.map((example) => example.name),
+        );
+        return aggregator;
+      }, []);
+    }
   }
 }
