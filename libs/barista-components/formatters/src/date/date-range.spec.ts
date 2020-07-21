@@ -17,16 +17,20 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-const logger = {
+// Jest fails with this error:
+// Note: This is a precaution to guard against uninitialized mock variables.
+// If it is ensured that the mock is required lazily, variable names prefixed
+// with `mock` (case insensitive) are permitted.
+const mockLogger = {
   error: jest.fn(),
 };
 
-const loggerSpy = jest.spyOn(logger, 'error');
+const loggerSpy = jest.spyOn(mockLogger, 'error');
 
 // Mock needs to be done before importing from the module
 jest.mock('@dynatrace/barista-components/core', () => ({
   DtLoggerFactory: {
-    create: () => logger,
+    create: () => mockLogger,
   },
 }));
 
@@ -39,7 +43,7 @@ import {
 
 describe('DtDateRange', () => {
   let pipe: DtDateRange;
-  let spiedDate: jest.SpyInstance;
+  let spiedDate: any; // jest.SpyInstance;
 
   beforeEach(() => {
     pipe = new DtDateRange('en-US');
