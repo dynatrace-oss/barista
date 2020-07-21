@@ -4,5 +4,6 @@ package(default_visibility = ["//:__subpackages__"])
 
 stylelint(
     name = "stylelint",
-    srcs = glob(["**/*.scss"]) + [":.stylelintrc"],
+    srcs = glob(["**/*.scss"]),
+    config = ":.stylelintrc"
 )
