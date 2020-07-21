@@ -70,17 +70,26 @@ export function affectedE2EBuilder(
           transformModulePathToGlob(affectedModule),
         ),
       );
-      context.logger.info(`
+      if (globSource.length > 0) {
+        context.logger.info(`
 Running e2e tests matching the following globs
-${globSource.map((comp) => `- ${comp}`).join('\n')}
-`);
-      const e2eTarget = targetFromTargetString(options.e2eTarget);
-      return context.scheduleTarget(e2eTarget, { src: globSource });
+        ${globSource.map((comp) => `- ${comp}`).join('\n')}
+        `);
+        const e2eTarget = targetFromTargetString(options.e2eTarget);
+        return from(
+          context.scheduleTarget(e2eTarget, { src: globSource }),
+        ).pipe(
+          // Wait for the output and result Observable to resolve
+          switchMap((build) => forkJoin(build.output, build.result)),
+          // Switch over to the result of the e2e target
+          map((results) => results[1]),
+        );
+      }
+      context.logger.info(`
+No e2e tests to run.
+      `);
+      return of({ success: true });
     }),
-    // Wait for the output and result Observable to resolve
-    switchMap((build) => forkJoin(build.output, build.result)),
-    // Switch over to the result of the e2e target
-    map((results) => results[1]),
     catchError((error: Error) => {
       context.logger.error(error.stack!);
       return of({
