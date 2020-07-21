@@ -1814,14 +1814,6 @@
               "!libs/barista-components/formatters/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/formatters/jest.config.js",
-            "tsConfig": "libs/barista-components/formatters/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/formatters/src/test-setup.ts"
-          }
         }
       },
       "schematics": {}

@@ -31,7 +31,6 @@ def jest_macro(
             setup_file,
             "@npm//jest-preset-angular",
             "@npm//jest-junit",
-            "//:jest.config.js",
 
             # needed by the runner and resolver
             "//tools/bazel_rules/jest:jest-runner.js",
