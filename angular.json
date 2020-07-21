@@ -2010,14 +2010,6 @@
               "!libs/barista-components/key-value-list/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/key-value-list/jest.config.js",
-            "tsConfig": "libs/barista-components/key-value-list/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/key-value-list/src/test-setup.ts"
-          }
         }
       },
       "schematics": {}
