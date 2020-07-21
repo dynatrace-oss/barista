@@ -3,6 +3,7 @@
   <form class="dt-demos-side-nav-searchform" novalidate>
     <input
       dtInput
+      #filterInput
       [dtAutocomplete]="auto"
       [(ngModel)]="componentItemsFilterValue"
       type="search"
@@ -12,10 +13,10 @@
     />
     <dt-autocomplete #auto="dtAutocomplete">
       <dt-option
-        *ngFor="let navItem of filteredComponentItems"
-        [value]="navItem.name"
+        *ngFor="let suggestion of exampleSuggestions"
+        [value]="suggestion"
       >
-        {{ navItem.name }}
+        {{ suggestion }}
       </dt-option>
     </dt-autocomplete>
   </form>
@@ -33,11 +34,8 @@
         <span>{{ component.name }}</span>
         <dt-icon name="dropdownopen"></dt-icon>
       </button>
-
       <dt-expandable-panel
-        [expanded]="
-          expandablePanel.expanded || _isSelectedComponent(component.name)
-        "
+        [expanded]="expandablePanel.expanded || component.expanded"
         #expandablePanel
       >
         <ul>
