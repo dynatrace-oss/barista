@@ -2146,14 +2146,6 @@
               "!libs/barista-components/overlay/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/overlay/jest.config.js",
-            "tsConfig": "libs/barista-components/overlay/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/overlay/src/test-setup.ts"
-          }
         }
       },
       "schematics": {}
