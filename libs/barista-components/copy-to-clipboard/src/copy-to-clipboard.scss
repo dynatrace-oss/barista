@@ -1,10 +1,13 @@
 @import '../../core/src/style/variables';
-@import '../../core/src/theming/theming';
-@import './copy-to-clipboard-theme';
 
 :host {
   width: 100%;
   display: flex;
+  --dt-copy-to-clipboard-button-success-background: #{$green-500};
+  --dt-copy-to-clipboard-button-success-bordercolor: #{$green-500};
+  --dt-copy-to-clipboard-button-success-input-bordercolor: #{$green-500};
+  --dt-copy-to-clipboard-button-dark-input-bordercolor: #{$gray-900};
+  --dt-copy-to-clipboard-button-dark-input-color: #{$gray-400};
 
   .dt-copy-to-clipboard-input-wrap {
     flex-grow: 1;
@@ -12,7 +15,8 @@
   }
 
   ::ng-deep .dt-copy-to-clipboard-successful.dt-input:not([disabled]) {
-    border: 1px solid $green-500;
+    border: 1px solid
+      var(--dt-copy-to-clipboard-button-success-input-bordercolor);
     box-shadow: none;
   }
 
@@ -23,12 +27,22 @@
   ::ng-deep button.dt-button.dt-copy-to-clipboard-successful,
   ::ng-deep
     button.dt-button.dt-copy-to-clipboard-successful:hover:not([disabled]) {
-    background-color: $green-500;
-    border: 1px solid $green-500;
+    background-color: var(--dt-copy-to-clipboard-button-success-background);
+    border: 1px solid var(--dt-copy-to-clipboard-button-success-bordercolor);
     box-shadow: none;
   }
 }
-// Apply the button theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-copy-to-clipboard($dt-current-theme);
+
+/* Dark theme */
+:host-context(.dt-theme-dark) {
+  --dt-copy-to-clipboard-button-success-background: #{$green-500};
+  --dt-copy-to-clipboard-button-success-bordercolor: #{$white};
+
+  /* Change the style of the dt-input to look hollow in default
+   * and within the context dialog */
+  ::ng-deep .dt-input,
+  .dt-context-dialog-content :host ::ng-deep .dt-input {
+    background-color: var(--dt-copy-to-clipboard-button-dark-input-bordercolor);
+    color: var(--dt-copy-to-clipboard-button-dark-input-color);
+  }
 }
