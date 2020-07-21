@@ -1,0 +1,15 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+
+package(default_visibility = ["//:__subpackages__"])
+
+ts_library(
+    name = "stylelint",
+    srcs = glob(["**/*.ts"]),
+    deps = [
+        "@npm//@types/node",
+        "@npm//stylelint",
+        "@npm//tslib",
+        "@npm//xmlbuilder",
+        "@npm//yargs",
+    ],
+)
