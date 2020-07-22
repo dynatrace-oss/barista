@@ -2055,14 +2055,6 @@
               "!libs/barista-components/loading-distractor/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/loading-distractor/jest.config.js",
-            "tsConfig": "libs/barista-components/loading-distractor/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/loading-distractor/src/test-setup.ts"
-          }
         }
       },
       "schematics": {}
