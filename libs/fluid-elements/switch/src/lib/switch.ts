@@ -24,6 +24,7 @@ import {
 import { classMap } from 'lit-html/directives/class-map';
 import { FluidSwitchChangeEvent } from './switch-events';
 import styles from './switch.scss';
+import { SPACE } from '@dynatrace/shared/keycodes';
 
 let uniqueCounter = 0;
 
@@ -143,7 +144,7 @@ export class FluidSwitch extends LitElement {
    * @param event
    */
   private _handleKeyDown(event: KeyboardEvent): void {
-    if (event.keyCode === 32) {
+    if (event.code === SPACE) {
       event.preventDefault();
     }
   }
@@ -152,7 +153,7 @@ export class FluidSwitch extends LitElement {
    * Handling the key up event on the svg.
    */
   private _handleKeyUp(event: KeyboardEvent): void {
-    if (event.keyCode === 32) {
+    if (event.code === SPACE) {
       this._inputElement.click();
     }
   }

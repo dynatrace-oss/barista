@@ -16,6 +16,8 @@
 
 import { FluidTabGroup } from './tab-group';
 import { FluidTab } from './tab/tab';
+import { dispatchKeyboardEvent } from '@dynatrace/testing/browser';
+import { ARROW_RIGHT, SPACE } from '@dynatrace/shared/keycodes';
 
 function tick(): Promise<void> {
   return Promise.resolve();
@@ -84,19 +86,19 @@ describe('Fluid tab group', () => {
       await tick();
       expect(fixture.getAttribute('activetabid')).toBe('section2');
     });
-    // Todo: Find out how to dispatch a keyboard event
-    // it('should set last activetabid attribute when using key events', async () => {
-    //   const tab = fixture.querySelector<FluidTab>('fluid-tab');
-    //   console.log(fixture.shadowRoot?.querySelector('ul'));
-    //   tab?.focus();
-    //   await tick();
-    //   expect(fixture.getAttribute('activetabid')).toBe('section1');
-    //   dispatchKeyboardEvent(tab!, 'keydown', RIGHT_ARROW);
-    //   await tick();
-    //   expect(keyDownSpy).toBeCalledTimes(1);
-    //   expect(activeTabChangedSpy).toHaveBeenCalledTimes(1);
-    //   expect(fixture.getAttribute('activetabid')).toBe('section2');
-    // });
+
+    it('should set last activetabid attribute when using key events', async () => {
+      const tab = fixture.querySelector<FluidTab>('fluid-tab');
+      tab?.focus();
+      await tick();
+      expect(fixture.getAttribute('activetabid')).toBe('section1');
+      dispatchKeyboardEvent(tab!, 'keydown', ARROW_RIGHT);
+      await tick();
+      expect(keyDownSpy).toBeCalledTimes(1);
+      dispatchKeyboardEvent(document.activeElement!, 'keydown', SPACE);
+      expect(activeTabChangedSpy).toHaveBeenCalledTimes(1);
+      expect(fixture.getAttribute('activetabid')).toBe('section2');
+    });
   });
 
   describe('tabindex attribute', () => {
@@ -122,24 +124,23 @@ describe('Fluid tab group', () => {
     // Should have tabindex -1 when element is disabled
   });
 
-  // Todo: Add tests covering the activeTabChanged event when clicking and using keydown
-  // describe('activeTabChanged event', () => {
-  //   it('should fire an event when a tab is clicked', async () => {
-  //     const tab = fixture
-  //       .querySelector('fluid-tab')
-  //       ?.shadowRoot?.querySelector('li') as HTMLLIElement;
-  //     tab?.click();
-  //     await tick();
-  //     expect(activeTabChangedSpy).toBeCalledTimes(1);
-  //   });
+  describe('activeTabChanged event', () => {
+    it('should fire an event when a tab is clicked', async () => {
+      const tab = fixture
+        .querySelector('fluid-tab[tabid="section2"]')
+        ?.shadowRoot?.querySelector('span') as HTMLSpanElement;
+      tab?.click();
+      await tick();
+      expect(activeTabChangedSpy).toBeCalledTimes(1);
+    });
 
-  //   // tslint:disable-next-line: dt-no-focused-tests
-  //   it('should fire an event when using the key events', async () => {
-  //     const tab = fixture.querySelector<FluidTab>('fluid-tab');
-  //     tab?.focus();
-  //     tab?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
-  //     await tick();
-  //     expect(activeTabChangedSpy).toBeCalledTimes(1);
-  //   });
-  // });
+    it('should fire an event when using the key events', async () => {
+      const tab = fixture.querySelector<FluidTab>('fluid-tab');
+      tab?.focus();
+      dispatchKeyboardEvent(tab!, 'keydown', ARROW_RIGHT);
+      await tick();
+      dispatchKeyboardEvent(document.activeElement!, 'keydown', SPACE);
+      expect(activeTabChangedSpy).toBeCalledTimes(1);
+    });
+  });
 });

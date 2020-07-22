@@ -28,6 +28,12 @@ import {
   FluidTabDisabledEvent,
   FluidTabGroupActiveTabChanged,
 } from '../utils/tab-events';
+import {
+  ENTER,
+  SPACE,
+  ARROW_RIGHT,
+  ARROW_LEFT,
+} from '@dynatrace/shared/keycodes';
 
 /**
  * This is a experimental version of the tab group component
@@ -66,7 +72,7 @@ export class FluidTabGroup extends LitElement {
   /** Sets the active tab on keydown (ArrowLeft and ArrowRight to select / Enter and Space to confirm) */
   private handleKeyDown(event: KeyboardEvent): void {
     // Enter Space controll (validate selection)
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.code === ENTER || event.code === SPACE) {
       // Set all tabs to active false
       for (const tab of this.tabChildren) {
         tab.active = false;
@@ -82,17 +88,17 @@ export class FluidTabGroup extends LitElement {
       this.dispatchEvent(new FluidTabGroupActiveTabChanged(this.activetabid));
     }
     // Arrow control (navigate tabs)
-    if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+    if (event.code === ARROW_RIGHT || event.code === ARROW_LEFT) {
       // Loops over to find
       let index = this.tabChildren.findIndex(
         (tab: FluidTab) => this.activetabid === tab.tabid,
       );
 
       const oldIndex = index;
-      if (event.key === 'ArrowRight') {
+      if (event.code === ARROW_RIGHT) {
         index += 1;
       }
-      if (event.key === 'ArrowLeft') {
+      if (event.code === ARROW_LEFT) {
         index -= 1;
       }
       if (index > this.tabChildren.length - 1) {
@@ -105,7 +111,6 @@ export class FluidTabGroup extends LitElement {
       this.tabChildren[index].tabindex = 0;
       this.tabChildren[oldIndex].tabindex = -1;
       this.activetabid = this.tabChildren[index].tabid;
-      console.log(this.tabChildren);
     }
   }
 

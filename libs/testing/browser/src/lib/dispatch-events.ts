@@ -35,17 +35,37 @@ export function dispatchFakeEvent(
   return dispatchEvent(node, createFakeEvent(type, canBubble));
 }
 
+/** Shorthand to dispatch a keyboard event with a specified code */
+export function dispatchKeyboardEvent(
+  node: Node,
+  type: string,
+  code: string,
+  target?: Element,
+): KeyboardEvent;
 /** Shorthand to dispatch a keyboard event with a specified key code. */
 export function dispatchKeyboardEvent(
   node: Node,
   type: string,
   keyCode: number,
   target?: Element,
+): KeyboardEvent;
+export function dispatchKeyboardEvent(
+  node: Node,
+  type: string,
+  keycodeOrCode: number | string,
+  target?: Element,
 ): KeyboardEvent {
-  return dispatchEvent(
-    node,
-    createKeyboardEvent(type, keyCode, target),
-  ) as KeyboardEvent;
+  if (typeof keycodeOrCode === 'number') {
+    return dispatchEvent(
+      node,
+      createKeyboardEvent(type, keycodeOrCode, target),
+    ) as KeyboardEvent;
+  } else {
+    return dispatchEvent(
+      node,
+      createKeyboardEvent(type, keycodeOrCode, target),
+    ) as KeyboardEvent;
+  }
 }
 
 /** Shorthand to dispatch a mouse event on the specified coordinates. */

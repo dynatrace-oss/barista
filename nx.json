@@ -378,6 +378,9 @@
     },
     "design-tokens-ui-shared": {
       "tags": ["type:library", "type:shared"]
+    },
+    "shared-keycodes": {
+      "tags": ["type:library", "type:shared"]
     }
   }
 }
