@@ -44,3 +44,253 @@ export const sunburstChartMock = [
     ],
   },
 ];
+
+export const sunburstChartExtendedMock = [
+  {
+    label: 'APAC',
+    children: [
+      {
+        label: '8:00 p.m.',
+        children: [
+          {
+            value: 3,
+            label: 'Dude — 8:00 p.m.',
+          },
+          {
+            value: 5,
+            label: 'Guy — 8:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '9:00 p.m.',
+        children: [
+          {
+            value: 3,
+            label: 'Dude — 9:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '10:00 p.m.',
+        children: [
+          {
+            value: 3,
+            label: 'Dude — 10:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '11:00 p.m.',
+        children: [
+          {
+            value: 5,
+            label: 'Dude — 11:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '12:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Girl — 12:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '1:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Girl — 1:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '2:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Girl  — 2:00 a.m.',
+          },
+          {
+            value: 4,
+            label: 'Person  — 2:00 a.m.',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'EMEA',
+    children: [
+      {
+        label: '3:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Thomas — 3:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '4:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Thomas — 4:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '5:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Thomas — 5:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '6:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Thomas — 6:00 a.m.',
+          },
+          {
+            value: 4,
+            label: 'Frunk — 6:00 a.m.',
+          },
+          {
+            value: 4,
+            label: 'Spain — 6:00 a.m.',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'NORAM',
+    children: [
+      {
+        label: '7:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Alex — 7:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '8:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Alex — 8:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '9:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Alex — 9:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '10:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Alex — 10:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '11:00 a.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Josh — 11:00 a.m.',
+          },
+        ],
+      },
+      {
+        label: '12:00 p.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Anthony — 12:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '1:00 p.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Ben — 1:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '2:00 p.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Ben — 2:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '3:00 p.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Ben — 3:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '4:00 p.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Justin — 4:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '5:00 p.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Justin — 5:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '6:00 p.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Daniel — 6:00 p.m.',
+          },
+        ],
+      },
+      {
+        label: '7:00 p.m.',
+        children: [
+          {
+            value: 4,
+            label: 'Daniel — 7:00 p.m.',
+          },
+        ],
+      },
+    ],
+  },
+];

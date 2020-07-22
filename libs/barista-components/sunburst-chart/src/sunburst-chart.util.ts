@@ -504,8 +504,9 @@ const getAncestorsIds = (id: string): string[] =>
  * @param id
  */
 const isChild = (node, id?: string): boolean =>
-  !!id && node.id.indexOf(id) === 0 && getLevel(node.id) === getLevel(id) + 1;
-
+  !!id &&
+  node.id.replace(new RegExp(`\\${IS_SEPARATOR}\\w+$`), '') === id &&
+  getLevel(node.id) === getLevel(id) + 1;
 /**
  * @description Get if node matches given id
  *
