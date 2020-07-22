@@ -16,8 +16,7 @@
 
 import { Selector } from 'testcafe';
 
-export const body = Selector('body');
-export const chart = Selector('test-sunburst-chart');
+export const root = Selector('dt-sunburst-chart');
 export const overlay = Selector('.dt-overlay-container');
 
 export const centralLabel = Selector('.dt-sunburst-chart-selected-label');
