@@ -16,7 +16,7 @@
 
 import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 import {
-  body,
+  root,
   centralLabel,
   centralValue,
   overlay,
@@ -26,12 +26,9 @@ import {
   percentBtn,
 } from './sunburst-chart.po';
 
-// Reduced speed of hovering should get our e2e tests stable.
-// We should think about removing the dtOverlay and using the cdk one,
-// that is not flaky on other e2e tests #86
-const hover: MouseActionOptions = {
-  // Slowest possible speed should help as workaround til the issue is fixed.
-  // The issue #646 is opened for this.
+// Reduced speed of mouse actions should get our e2e tests stable.
+// We should think about removing the dtOverlay and using the cdk one.
+const mouseInteraction: MouseActionOptions = {
   speed: 0.6,
 };
 
@@ -46,7 +43,7 @@ test('should enable selection and select with absolute values', async (testContr
   await testController
     .expect(segments.count)
     .eql(6)
-    .click(sliceShephard, { offsetY: -20 })
+    .click(sliceShephard, { ...mouseInteraction, offsetY: -20 })
     .expect(centralLabel.textContent)
     .match(/Shephard/)
     .expect(centralValue.textContent)
@@ -55,7 +52,7 @@ test('should enable selection and select with absolute values', async (testContr
     .eql(9)
     .expect(valueJack.textContent)
     .match(/Jack/)
-    .click(body)
+    .click(root, mouseInteraction)
     .expect(centralLabel.textContent)
     .match(/All/)
     .expect(centralValue.textContent)
@@ -65,8 +62,8 @@ test('should enable selection and select with relative values', async (testContr
   await testController
     .expect(segments.count)
     .eql(6)
-    .click(percentBtn)
-    .click(sliceShephard, { offsetY: -20 })
+    .click(percentBtn, mouseInteraction)
+    .click(sliceShephard, { ...mouseInteraction, offsetY: -20 })
     .expect(centralLabel.textContent)
     .match(/Shephard/)
     .expect(centralValue.textContent)
@@ -75,7 +72,7 @@ test('should enable selection and select with relative values', async (testContr
     .eql(9)
     .expect(valueJack.textContent)
     .match(/Jack/)
-    .click(body)
+    .click(root, mouseInteraction)
     .expect(centralLabel.textContent)
     .match(/All/)
     .expect(centralValue.textContent)
@@ -84,12 +81,12 @@ test('should enable selection and select with relative values', async (testContr
 
 test('should show overlay on hover', async (testController: TestController) => {
   await testController
-    .hover(sliceShephard, { ...hover, offsetY: -20 })
+    .hover(sliceShephard, { ...mouseInteraction, offsetY: -20 })
     .expect(overlay.exists)
     .ok()
     .expect(overlay.textContent)
     .match(/Shephard: 23/)
-    .hover(body, { ...hover, offsetX: 10, offsetY: 10 })
+    .hover(root, { ...mouseInteraction, offsetX: 10, offsetY: 10 })
     .expect(overlay.exists)
     .notOk();
 });
