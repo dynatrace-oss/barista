@@ -5,6 +5,11 @@ package(default_visibility = ["//:__subpackages__"])
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
-    config = ":.stylelintrc",
     allow_empty_input = True,
+    config = ":.stylelintrc"
+)
+
+filegroup(
+    name = "readme",
+    srcs = ["README.md"]
 )

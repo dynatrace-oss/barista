@@ -1,0 +1,74 @@
+load("@npm//@11ty/eleventy:index.bzl", "eleventy")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
+load("//tools/bazel_rules:index.bzl", "rollup")
+
+sass_library(
+    name = "scss_lib",
+    srcs = glob(
+        ["_styles/**/_*.scss"],
+    ),
+)
+sass_binary(
+    name = "styles",
+    src = "_styles/main.scss",
+    deps = [":scss_lib"],
+)
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    deps = [
+        "tsconfig.json",
+        "//:tsconfig.json",
+    ]
+)
+
+ts_library(
+    name = "scripts",
+    srcs = glob(
+        ["_scripts/**/*.ts"],
+    ),
+    tsconfig = ":tsconfig",
+)
+
+# rollup(
+#     name = "bundle",
+#     assets = [],
+#     entry_point = {"main.ts": "main.bundled.js"},
+#     deps = [":scripts"],
+# )
+
+data = glob(["**/*"]) + [
+    ":styles",
+    ":scripts",
+    "//libs/fluid-elements/button:readme",
+    "//libs/fluid-elements/checkbox:readme",
+    "//libs/fluid-elements/switch:readme",
+    "//libs/fluid-elements/tab-group:readme"
+]
+
+eleventy(
+    name = "serve",
+    templated_args = [
+        "--serve",
+        "--config apps/design-system/.eleventy.js"
+    ],
+    data = data
+)
+
+eleventy(
+    name = "build",
+    templated_args = [
+        "--config apps/design-system/.eleventy.js"
+    ],
+    data = data
+)
+
+
+pkg_web(
+    name = "design-system",
+    additional_root_paths = ["dist"],
+    srcs = [":build"]
+)

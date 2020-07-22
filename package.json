@@ -87,6 +87,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
+    "@11ty/eleventy": "^0.11.0",
     "@adobe/leonardo-contrast-colors": "^1.0.0-alpha.5",
     "@angular-builders/custom-webpack": "^10.0.0",
     "@angular-devkit/architect-cli": "^0.1000.4",

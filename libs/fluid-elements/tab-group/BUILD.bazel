@@ -8,3 +8,8 @@ stylelint(
     config = ":.stylelintrc",
     allow_empty_input = True,
 )
+
+filegroup(
+    name = "readme",
+    srcs = ["README.md"]
+)
