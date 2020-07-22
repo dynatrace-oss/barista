@@ -22,7 +22,7 @@ import {
 
 import { DtColors } from '@dynatrace/barista-components/theming';
 
-import { DtChartOptions } from './chart';
+import { DtChartOptions } from './chart.interface';
 
 // tslint:disable:no-magic-numbers
 /** Custom highcharts easing function */

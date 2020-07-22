@@ -14,16 +14,26 @@
  * limitations under the License.
  */
 
-export * from './src/chart-module';
-export * from './src/chart';
-export * from './src/chart.interface';
-export * from './src/chart-config';
-export * from './src/heatfield/index';
-export * from './src/tooltip/chart-tooltip';
-export { DtChartTooltipData } from './src/highcharts/highcharts-tooltip-types';
+import {
+  Options,
+  SeriesBarOptions,
+  SeriesColumnOptions,
+  SeriesLineOptions,
+  SeriesAreaOptions,
+  SeriesArearangeOptions,
+  SeriesPieOptions,
+} from 'highcharts';
 
-export { DtChartRange } from './src/range/range';
-export { DtChartTimestamp } from './src/timestamp/timestamp';
-export { DtChartSelectionAreaAction } from './src/selection-area/overlay-action';
+/** DtChartOptions extending the highcharts options with the series */
+export type DtChartOptions = Options & {
+  series?: undefined;
+};
 
-export { DtChartSelectionArea as _DtChartSelectionArea } from './src/selection-area/selection-area';
+/** Chart series types */
+export type DtChartSeries =
+  | SeriesBarOptions
+  | SeriesColumnOptions
+  | SeriesLineOptions
+  | SeriesAreaOptions
+  | SeriesArearangeOptions
+  | SeriesPieOptions;

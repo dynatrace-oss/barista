@@ -293,7 +293,7 @@ describe('DtChart Range', () => {
     let fixture: ComponentFixture<RangeTestBindingValuesComponent>;
     let fixtureA11y: ComponentFixture<RangeA11yTestComponent>;
     let range: DtChartRange;
-    let spiedDate: jest.SpyInstance;
+    let spiedDate: any; // jest.SpyInstance;
 
     beforeEach(() => {
       fixture = TestBed.createComponent<RangeTestBindingValuesComponent>(

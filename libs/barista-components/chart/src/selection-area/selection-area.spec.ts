@@ -42,6 +42,7 @@ import { Subject } from 'rxjs';
 import { ARIA_DEFAULT_CLOSE_LABEL } from '../range/constants';
 import { DtChartRange } from '../range/range';
 import * as streams from './streams';
+import type { Options, SeriesOptionsType } from 'highcharts';
 
 jest
   .spyOn(formatters, 'dtFormatDateRange')
@@ -386,7 +387,7 @@ export class RangeOnlyChart {
   series = SERIES;
 }
 
-const OPTIONS: Highcharts.Options = {
+const OPTIONS: Options = {
   xAxis: {
     type: 'datetime',
   },
@@ -417,7 +418,7 @@ const OPTIONS: Highcharts.Options = {
   },
 };
 
-const SERIES: Highcharts.SeriesOptionsType[] = [
+const SERIES: SeriesOptionsType[] = [
   {
     name: 'Requests',
     type: 'column',
