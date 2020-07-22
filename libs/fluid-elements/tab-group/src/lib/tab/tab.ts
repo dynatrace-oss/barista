@@ -25,7 +25,12 @@ import {
   customElement,
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
-import { FluidTabDisabledEvent, FluidTabActivatedEvent } from '../tab-events';
+import {
+  FluidTabDisabledEvent,
+  FluidTabActivatedEvent,
+  FluidTabBlurredEvent,
+  FluidTabActiveSetEvent,
+} from '../tab-events';
 
 import {
   FLUID_SPACING_3X_SMALL,
@@ -33,6 +38,7 @@ import {
   fluidDtText,
 } from '@dynatrace/fluid-design-tokens';
 
+/** A unique id */
 let _unique = 0;
 
 /**
@@ -116,6 +122,10 @@ export class FluidTab extends LitElement {
       .fluid-state--active::after {
         background-color: var(--fluid-tab--active-underline-color);
       }
+
+      .fluid-tab:not(.fluid-state--tabbed) {
+        outline: none;
+      }
     `;
   }
 
@@ -155,16 +165,8 @@ export class FluidTab extends LitElement {
    * @attr
    * @type number
    */
-  @property({ type: Number, reflect: true })
-  get tabindex(): number {
-    return this._tabindex;
-  }
-  set tabindex(value: number) {
-    this._tabindex = value;
-    // TODO: Figure out why using the old value does not work. The attribute vanishes in the dom/is not set
-    this.requestUpdate('tabindex');
-  }
-  private _tabindex = 0;
+  @property({ type: Number, reflect: false })
+  tabindex = 0;
 
   /**
    * Defines whether a tab is active or not
@@ -175,24 +177,62 @@ export class FluidTab extends LitElement {
   get active(): boolean {
     return this._active;
   }
-  set active(active: boolean) {
+  set active(value: boolean) {
+    const oldActive = this._active;
     // Only set active true if not disabled
-    this._active = this.disabled === false ? active : false;
-    // TODO: Figure out why using the old value does not work. The attribute vanishes in the dom/is not set
-    this.requestUpdate('active');
+    this._active = this.disabled === false ? value : false;
+    this.requestUpdate('active', oldActive);
     this.tabindex = this.active ? 0 : -1;
+    if (value) {
+      this._dispatchActiveSetEvent();
+    }
   }
   private _active = false;
 
-  /** Dispatches the custom event  */
-  private dispatchActiveTabEvent(): void {
+  /** Defines whether the user focused an element by tabbing or not */
+  @property({ type: Boolean, reflect: false })
+  get tabbed(): boolean {
+    return this._tabbed;
+  }
+  set tabbed(value: boolean) {
+    const oldTabbed = this.tabbed;
+    this._tabbed = value;
+    this.requestUpdate('tabbed', oldTabbed);
+    this.tabindex = value === true ? 0 : -1;
+  }
+  private _tabbed = false;
+
+  /** Contains the span element of this template */
+  private _rootElement: HTMLSpanElement;
+
+  /** First updated lifecycle */
+  firstUpdated(props: Map<string | number | symbol, unknown>): void {
+    super.firstUpdated(props);
+    this._rootElement = this.shadowRoot?.querySelector(
+      '.fluid-tab',
+    )! as HTMLSpanElement;
+  }
+
+  private _dispatchActiveSetEvent(): void {
+    this.dispatchEvent(new FluidTabActiveSetEvent(this.tabid));
+  }
+
+  /** Dispatches the custom event with the tabid of the clicked tab  */
+  private _dispatchActiveTabEvent(): void {
     this.dispatchEvent(new FluidTabActivatedEvent(this.tabid));
   }
 
-  /** Handles the click event */
+  /** Handles the click event. Dispatches the tab when a new tab was clicked */
   private handleClick(): void {
     if (!this._active) {
-      this.dispatchActiveTabEvent();
+      this._dispatchActiveTabEvent();
+    }
+  }
+
+  /** Fires an event if the focused tab was tabbed to but not set to active */
+  private handleBlur(): void {
+    if (this.tabbed && !this.active) {
+      this.dispatchEvent(new FluidTabBlurredEvent(this.tabid));
     }
   }
 
@@ -203,16 +243,24 @@ export class FluidTab extends LitElement {
   render(): TemplateResult {
     const classes = {
       'fluid-tab': true,
+      'fluid-state--tabbed': this.tabbed,
       'fluid-state--active': this._active,
     };
 
     // Linebreak causes the element to have a space
     return html`<span
       class=${classMap(classes)}
+      tabindex=${this.tabindex}
       ?disabled="${this.disabled}"
       @click="${this.handleClick}"
+      @blur="${this.handleBlur}"
     >
       <slot></slot>
     </span>`;
+  }
+
+  /** Focuses the span element in the template */
+  focus(): void {
+    this._rootElement.focus();
   }
 }

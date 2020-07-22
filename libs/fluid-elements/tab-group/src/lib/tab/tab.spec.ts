@@ -28,13 +28,11 @@ function getTabRootElement(
 
 describe('Fluid tab', () => {
   let fixture: FluidTab;
-  let tabActivated: jest.Mock;
+  let tabActivatedSpy: jest.Mock;
 
   /** Checks if the current fixture has an active tab */
   function isActive(): boolean {
-    return (
-      fixture.shadowRoot?.querySelector('fluid-state--active') !== undefined
-    );
+    return fixture.shadowRoot?.querySelector('.fluid-state--active') !== null;
   }
 
   beforeEach(() => {
@@ -52,8 +50,8 @@ describe('Fluid tab', () => {
     // Add spied eventListeners
     fixture = document.querySelector<FluidTab>('fluid-tab')!;
 
-    tabActivated = jest.fn();
-    fixture.addEventListener('tabActivated', tabActivated);
+    tabActivatedSpy = jest.fn();
+    fixture.addEventListener('tabActivated', tabActivatedSpy);
   });
 
   afterEach(() => {
@@ -65,7 +63,6 @@ describe('Fluid tab', () => {
   });
 
   describe('active attribute', () => {
-    // Attributes: tabid, disabled, active
     it('should set the state to active when the attribute is set to true', async () => {
       fixture.setAttribute('active', '');
       await tick();
@@ -73,11 +70,32 @@ describe('Fluid tab', () => {
       expect(isActive()).toBeTruthy();
     });
 
-    it('should set the state to active when the attribute is set to true', async () => {
+    it('should set the state to active when the property is set to true', async () => {
       fixture.active = true;
       await tick();
       expect(fixture.active).toBeTruthy();
       expect(isActive()).toBeTruthy();
+    });
+
+    it('should remove active when the attribute is removed', async () => {
+      fixture.setAttribute('active', 'true');
+      await tick();
+      fixture.removeAttribute('active');
+      await tick();
+      expect(fixture.active).toBeFalsy();
+    });
+
+    it('should remove active when the property is set to false', async () => {
+      fixture.active = true;
+      await tick();
+      expect(
+        fixture.shadowRoot
+          ?.querySelector('span')
+          ?.classList.contains('fluid-state--active'),
+      ).toBeTruthy();
+      fixture.active = false;
+      await tick();
+      expect(fixture.getAttribute('active')).toBeFalsy();
     });
   });
 
@@ -132,11 +150,11 @@ describe('Fluid tab', () => {
     });
   });
 
-  describe('tabActivated', () => {
+  describe('tabActivated Event', () => {
     it('should fire event when tab is clicked', async () => {
       getTabRootElement(fixture)?.click();
       await tick();
-      expect(tabActivated).toHaveBeenCalledTimes(1);
+      expect(tabActivatedSpy).toHaveBeenCalledTimes(1);
     });
   });
 });
