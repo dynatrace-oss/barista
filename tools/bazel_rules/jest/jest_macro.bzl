@@ -35,7 +35,7 @@ def jest_macro(
             # needed by the runner and resolver
             "//tools/bazel_rules/jest:jest-runner.js",
             "//tools/bazel_rules/jest:jest-resolver.js",
-            # "@npm//yargs",
+            "@npm//lodash", # used by the module name mapper
         ],
         entry_point = "//tools/bazel_rules/jest:jest-runner.js",
         templated_args = [

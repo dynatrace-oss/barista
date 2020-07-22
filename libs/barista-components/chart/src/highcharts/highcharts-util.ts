@@ -26,7 +26,7 @@ import {
   getDtChartColorPalette,
 } from '@dynatrace/barista-components/theming';
 
-import { DtChartOptions, DtChartSeries } from '../chart';
+import { DtChartOptions, DtChartSeries } from '../chart.interface';
 import {
   DT_CHART_DEFAULT_AXIS_STYLES,
   DT_CHART_DEFAULT_OPTIONS,

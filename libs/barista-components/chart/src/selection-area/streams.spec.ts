@@ -59,7 +59,7 @@ const MOVE_VALUES = {
 describe('Selection Area Streams', () => {
   let selectionArea: HTMLElement;
   let testScheduler: TestScheduler;
-  let relativeMousePositionSpy: jest.SpyInstance;
+  let relativeMousePositionSpy: any; // jest.SpyInstance;
 
   beforeEach(() => {
     // tslint:disable ban

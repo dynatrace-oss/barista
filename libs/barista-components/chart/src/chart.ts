@@ -54,12 +54,6 @@ import {
   Chart,
   Options as HighchartsOptions,
   setOptions,
-  SeriesBarOptions,
-  SeriesColumnOptions,
-  SeriesLineOptions,
-  SeriesAreaOptions,
-  SeriesArearangeOptions,
-  SeriesPieOptions,
 } from 'highcharts';
 import { merge as lodashMerge } from 'lodash-es';
 import {
@@ -109,23 +103,9 @@ import { DtChartRange } from './range/range';
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { getPlotBackgroundInfo } from './utils';
+import { DtChartOptions, DtChartSeries } from './chart.interface';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
-
-// As we have to use highchart types version 5 with highcharts 6
-// some properties are missing. To make it work we have to extend
-// the highcharts 5 typings with the properties that have been
-// added in 6.
-export type DtChartOptions = HighchartsOptions & {
-  series?: undefined;
-};
-export type DtChartSeries =
-  | SeriesBarOptions
-  | SeriesColumnOptions
-  | SeriesLineOptions
-  | SeriesAreaOptions
-  | SeriesArearangeOptions
-  | SeriesPieOptions;
 
 // tslint:disable-next-line:no-any
 declare const window: any;
