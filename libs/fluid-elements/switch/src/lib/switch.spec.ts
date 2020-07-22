@@ -15,7 +15,7 @@
  */
 
 import { FluidSwitch } from './switch';
-import { SPACE } from '@angular/cdk/keycodes';
+import { SPACE } from '@dynatrace/shared/keycodes';
 import { dispatchKeyboardEvent } from '@dynatrace/testing/browser';
 
 function tick(): Promise<void> {

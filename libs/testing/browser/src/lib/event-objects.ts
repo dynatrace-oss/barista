@@ -71,28 +71,38 @@ export function createTouchEvent(
 /** Dispatches a keydown event from an element. */
 export function createKeyboardEvent(
   type: string,
+  code: string,
+  _target?: Element,
+  key?: string,
+): KeyboardEvent;
+export function createKeyboardEvent(
+  type: string,
   keyCode: number,
-  target?: Element,
+  _target?: Element,
+  key?: string,
+): KeyboardEvent;
+export function createKeyboardEvent(
+  type: string,
+  keycodeOrCode: string | number,
+  _target?: Element,
   key?: string,
 ): KeyboardEvent {
-  // tslint:disable-next-line:no-any
-  const event = document.createEvent('KeyboardEvent') as any;
-  const originalPreventDefault = event.preventDefault;
+  const initializer: KeyboardEventInit = {
+    key,
+    bubbles: true,
+    cancelable: true,
+    view: window,
+  };
 
-  // Firefox does not support `initKeyboardEvent`, but supports `initKeyEvent`.
-  if (event.initKeyEvent) {
-    event.initKeyEvent(type, true, true, window, 0, 0, 0, 0, 0, keyCode);
+  if (typeof keycodeOrCode === 'number') {
+    (initializer as any).keyCode = keycodeOrCode;
   } else {
-    event.initKeyboardEvent(type, true, true, window, 0, key, 0, '', false);
+    initializer.code = keycodeOrCode;
   }
 
-  // Webkit Browsers don't set the keyCode when calling the init function.
-  // See related bug https://bugs.webkit.org/show_bug.cgi?id=16735
-  Object.defineProperties(event, {
-    keyCode: { get: () => keyCode },
-    key: { get: () => key },
-    target: { get: () => target },
-  });
+  // tslint:disable-next-line:no-any
+  const event = new KeyboardEvent(type, initializer);
+  const originalPreventDefault = event.preventDefault;
 
   // IE won't set `defaultPrevented` on synthetic events so we need to do it manually.
   event.preventDefault = function (): void {
