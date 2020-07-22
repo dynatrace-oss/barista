@@ -230,7 +230,7 @@ describe('DtChart Timestamp', () => {
     let fixture: ComponentFixture<TimestampTestBindingValuesComponent>;
     let fixtureA11y: ComponentFixture<TimestampTestA11yComponent>;
     let timestamp: DtChartTimestamp;
-    let spiedDate: jest.SpyInstance;
+    let spiedDate: any; // jest.SpyInstance;
 
     beforeEach(() => {
       fixture = TestBed.createComponent<TimestampTestBindingValuesComponent>(

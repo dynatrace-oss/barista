@@ -4,6 +4,8 @@ const { resolve, parse, join } = require('path');
 
 // Get the module mappings out of the module mappings file from bazel
 const moduleMappingFile = process.env.BAZEL_TEST_MODULE_MAPPING;
+// bazel run files helper used to resolve paths that are created with `$(location ...)`
+const runFilesHelper = require(`${process.env.BAZEL_NODE_RUNFILES_HELPER}`);
 
 if (!moduleMappingFile) {
   throw new Error('No bazel test directory provided!');
@@ -84,6 +86,11 @@ function resolvePath(moduleId) {
  * @param {string} options.rootDir
  */
 function moduleResolver(moduleId, options) {
+  if (moduleId === 'lodash-es') {
+    // map lodash-es to lodash bundle since jest needs commonjs
+    return runFilesHelper.resolve('npm/node_modules/lodash/index.js'); //'node_modules/lodash/index.js',
+  }
+
   // resolve workspace imports with the bazel module mappings
   if (moduleId.startsWith('@dynatrace') || moduleId.startsWith('dynatrace')) {
     const resolved = resolvePath(moduleId);
