@@ -16,21 +16,35 @@
 
 /** Custom event implementation fires when the active tab has changes */
 export class FluidTabGroupActiveTabChanged extends CustomEvent<any> {
-  constructor(public activeTab: string) {
+  constructor(public activeTabId: string) {
     super('activeTabChanged', { bubbles: true, composed: true });
   }
 }
 
 /** Custom event implementation that fires when a tab is clicked providing the active tab id  */
 export class FluidTabActivatedEvent extends CustomEvent<any> {
-  constructor(public activeTab: string) {
+  constructor(public tabId: string) {
     super('tabActivated', { bubbles: true, composed: true });
+  }
+}
+
+/** Custom event implementation that fires when the active attribute was set */
+export class FluidTabActiveSetEvent extends CustomEvent<any> {
+  constructor(public tabId: string) {
+    super('activeSet', { bubbles: true, composed: true });
   }
 }
 
 /** Custom event implementation that fires when a tab is disabled providing the disabled tab id  */
 export class FluidTabDisabledEvent extends CustomEvent<any> {
-  constructor(public disableTab: string) {
+  constructor(public tabId: string) {
     super('disabled', { bubbles: true, composed: true });
+  }
+}
+
+/** Custom event implementation that fires when a tab is blurred */
+export class FluidTabBlurredEvent extends CustomEvent<any> {
+  constructor(public tabId: string) {
+    super('blur', { bubbles: true, composed: true });
   }
 }

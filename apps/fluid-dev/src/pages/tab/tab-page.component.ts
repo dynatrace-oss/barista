@@ -24,6 +24,8 @@ import '@dynatrace/fluid-elements/tab-group';
 export class FluidTabPage {
   disabled = false;
 
+  active = false;
+
   showLastTab = true;
 
   logs: Event[] = [];

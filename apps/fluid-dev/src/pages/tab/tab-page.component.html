@@ -1,19 +1,20 @@
 <!-- Tab-List -->
 <fluid-tab-group (activeTabChanged)="handleChange($event)">
   <!-- Tabs -->
-  <fluid-tab [tabid]="'section1'">
+  <fluid-tab tabid="section1" active="active">
     Build
   </fluid-tab>
-  <fluid-tab [tabid]="'section2'">
+  <fluid-tab tabid="section2">
     Type
   </fluid-tab>
-  <fluid-tab [tabid]="'section3'">
+  <fluid-tab tabid="section3">
     History
   </fluid-tab>
-  <fluid-tab [tabid]="'section4'" *ngIf="showLastTab" [disabled]="disabled">
+  <fluid-tab tabid="section4" *ngIf="showLastTab" [disabled]="disabled">
     Saved Queries
   </fluid-tab>
 </fluid-tab-group>
+<button (click)="active = !active">Toggle active</button>
 <button (click)="showLastTab = !showLastTab">Toggle last tab</button>
 <button (click)="disabled = !disabled">Toggle disabled ({{ disabled }})</button>
 <!-- Sections -->
@@ -64,6 +65,14 @@
     </p>
   </section>
 </div>
+
+<p>
+  Tab A is set active and the Tab-groups activetabid is B
+</p>
+<fluid-tab-group activeTabId="b">
+  <fluid-tab tabid="a" active>A</fluid-tab>
+  <fluid-tab tabid="b">B</fluid-tab>
+</fluid-tab-group>
 
 <div>
   <h2>Logs</h2>
