@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-import { sunburstChartMock } from './sunburst-chart.mock';
+import {
+  sunburstChartMock,
+  sunburstChartExtendedMock,
+} from './sunburst-chart.mock';
 import {
   fillNodes,
   getNodesWithState,
@@ -322,6 +325,38 @@ describe('SunburstChart util', () => {
       const actual = getNodesWithState(filledNodes, '1.0');
 
       expect(actual).toEqual(expected);
+    });
+
+    it('should set visible the proper node based on the selected id', () => {
+      const SELECTED_PARTENT_NODE = '2';
+      const SELECTED_CHILD_NODE = '1';
+      const SIBLING_NODE = '12';
+
+      const actualResults = getNodesWithState(
+        fillNodes(sunburstChartExtendedMock),
+        `${SELECTED_PARTENT_NODE}.${SELECTED_CHILD_NODE}`,
+      );
+      const selectedGrandParent = actualResults.find(
+        (i) => i.id === SELECTED_PARTENT_NODE,
+      );
+
+      const selectedParent = selectedGrandParent?.children?.find(
+        (i) => i.id === `${SELECTED_PARTENT_NODE}.${SELECTED_CHILD_NODE}`,
+      );
+      const selectedChild = selectedParent?.children?.find(
+        (i) => i.id === `${SELECTED_PARTENT_NODE}.${SELECTED_CHILD_NODE}.0`,
+      );
+
+      const selectedSiblingParent = selectedGrandParent?.children?.find(
+        (i) => i.id === `${SELECTED_PARTENT_NODE}.${SIBLING_NODE}`,
+      );
+      const sibling = selectedSiblingParent?.children?.find(
+        (i) => i.id === `${SELECTED_PARTENT_NODE}.${SIBLING_NODE}.0`,
+      );
+
+      expect(selectedChild?.visible).toBeTruthy();
+
+      expect(sibling?.visible).toBeFalsy();
     });
   });
 
