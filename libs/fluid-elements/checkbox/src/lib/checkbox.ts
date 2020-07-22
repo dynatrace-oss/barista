@@ -23,6 +23,7 @@ import {
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import styles from './checkbox.scss';
+import { SPACE } from '@dynatrace/shared/keycodes';
 
 let uniqueCounter = 0;
 
@@ -287,7 +288,7 @@ export class FluidCheckbox extends LitElement {
    * @param event
    */
   private _handleKeydown(event: KeyboardEvent): void {
-    if (event.keyCode === 32) {
+    if (event.code === SPACE) {
       event.preventDefault();
     }
   }

@@ -3758,6 +3758,21 @@
           "style": "scss"
         }
       }
+    },
+    "shared-keycodes": {
+      "root": "libs/shared/keycodes",
+      "sourceRoot": "libs/shared/keycodes/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/shared/keycodes/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/shared/keycodes/**/*"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "dev",

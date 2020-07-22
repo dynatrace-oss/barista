@@ -261,7 +261,8 @@
       ],
       "@dynatrace/design-tokens-ui/shared": [
         "libs/design-tokens-ui/shared/src/index.ts"
-      ]
+      ],
+      "@dynatrace/shared/keycodes": ["libs/shared/keycodes/src/index.ts"]
     },
     "plugins": [
       {
