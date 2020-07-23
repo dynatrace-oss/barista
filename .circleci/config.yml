@@ -472,7 +472,7 @@ jobs:
 # - build all targets with bazel
   bazel_build:
     executor: bazel
-    resource_class: xlarge
+    resource_class: large
     steps:
       - setup_bazel_ci
       - run_bazel_build
