@@ -26,7 +26,7 @@ export interface ElementQuery {
   value: string;
 }
 
-const QUERY_REGEX = /^\s*\(\s*(min|max)-(width|height)\s*:\s*([\w\d]+)\s*\)\s*$/;
+const QUERY_REGEX = /^(?:\s*all\sand)*\s*\(\s*(min|max)-(width|height)\s*:\s*([\w\d]+)\s*\)\s*$/;
 
 /** @internal */
 // tslint:disable-next-line: interface-over-type-literal
@@ -60,6 +60,9 @@ export function convertQuery(query: string): ElementQuery | QueryResultToken {
 
     // To filter out `not all`, corrupt strings or valid media queries
     // we do not support (such as `screen`) we run it through our RegEx.
+    // Additionally this will remove any queries starting with `all and`
+    // as they are obsolete, but added by window.matchMedia(query)
+    // in Microsoft Edge.
     const parts = converted.match(QUERY_REGEX);
 
     return parts
