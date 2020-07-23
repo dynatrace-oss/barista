@@ -91,5 +91,16 @@ describe('Query', () => {
         value: '300px',
       });
     });
+
+    it('should return an element query if its a valid query string but polluted with `all and`', () => {
+      window.matchMedia = () =>
+        ({ media: 'all and (min-width: 300px)' } as any);
+
+      expect(convertQuery('(min-width: 300px)')).toMatchObject({
+        range: 'min',
+        feature: 'width',
+        value: '300px',
+      });
+    });
   });
 });
