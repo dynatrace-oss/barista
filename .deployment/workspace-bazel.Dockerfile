@@ -29,7 +29,7 @@ WORKDIR /root/barista
 
 COPY --from=fetcher /root/repocache /root/repocache
 
-RUN useradd -ms /bin/bash thebarista && chown thebarista /root
+RUN useradd -ms /bin/bash thebarista && chown -R thebarista /root
 USER thebarista
 
 RUN echo alias bazel=bazel-${bazel_version} > ~/.bashrc
