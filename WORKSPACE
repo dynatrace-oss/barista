@@ -1,6 +1,6 @@
 # The nodejs rules
-RULES_NODEJS_VERSION = "2.0.0-rc.1"
-RULES_NODEJS_SHA256 = "aa0b0a71afd4e1f203b7092c3284a6606a5bfac77e0bd31f071b37bcac0f7cf3"
+RULES_NODEJS_VERSION = "2.0.0"
+RULES_NODEJS_SHA256 = "5bf77cc2d13ddf9124f4c1453dd96063774d755d4fc75d922471540d1c9a8ea8"
 # Rules for compiling sass
 RULES_SASS_VERSION = "1.26.3"
 RULES_SASS_SHA256 = "9dcfba04e4af896626f4760d866f895ea4291bc30bf7287887cefcf4707b6a62"
@@ -53,11 +53,6 @@ npm_install(
 load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 
 install_bazel_dependencies(suppress_warning = True)
-
-# Setup the rules_typescript tooolchain
-load("@npm//@bazel/typescript:index.bzl", "ts_setup_workspace")
-
-ts_setup_workspace()
 
 # Setup the rules_sass toolchain
 load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
