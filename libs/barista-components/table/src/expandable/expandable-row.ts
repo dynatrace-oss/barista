@@ -17,10 +17,9 @@
 import {
   animate,
   keyframes,
-  state,
   style,
-  transition,
-  trigger,
+  AnimationBuilder,
+  AnimationFactory,
 } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
@@ -42,8 +41,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
-import { Observable, Subscription } from 'rxjs';
-import { filter, startWith } from 'rxjs/operators';
+import { Observable, Subscription, BehaviorSubject } from 'rxjs';
+import { filter, startWith, distinctUntilChanged } from 'rxjs/operators';
 
 import {
   _addCssClass,
@@ -54,6 +53,32 @@ import { DtRow } from '../row';
 import { DtTable } from '../table';
 
 let nextUniqueId = 0;
+
+const COLLAPSE_ANIMATE = [
+  animate(
+    '225ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+    keyframes([
+      style({ height: 'auto', visibility: 'hidden', offset: 0 }),
+      style({
+        height: '0px',
+        minHeight: '0',
+        visibility: 'hidden',
+        offset: 1,
+      }),
+    ]),
+  ),
+];
+
+const EXPAND_ANIMATE = [
+  animate(
+    '225ms cubic-bezier(0.4, 0.0, 0.2, 1)',
+    keyframes([
+      style({ height: 'auto', visibility: 'hidden', offset: 0.95 }),
+      style({ height: 'auto', visibility: 'visible', offset: 1 }),
+    ]),
+  ),
+];
+
 export class DtExpandableRowChangeEvent {
   constructor(public row: DtExpandableRow) {}
 }
@@ -69,40 +94,6 @@ export class DtExpandableRowContent {}
  * Adds the right class and role.
  */
 @Component({
-  animations: [
-    trigger('detailExpand', [
-      state(
-        'collapsed',
-        style({ height: '0px', minHeight: '0', visibility: 'hidden' }),
-      ),
-      state('expanded', style({ height: 'auto', visibility: 'visible' })),
-      transition(
-        'collapsed => expanded',
-        animate(
-          '225ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-          keyframes([
-            style({ height: 'auto', visibility: 'hidden', offset: 0.95 }),
-            style({ height: 'auto', visibility: 'visible', offset: 1 }),
-          ]),
-        ),
-      ),
-      transition(
-        'expanded => collapsed',
-        animate(
-          '225ms cubic-bezier(0.4, 0.0, 0.2, 1)',
-          keyframes([
-            style({ height: 'auto', visibility: 'hidden', offset: 0 }),
-            style({
-              height: '0px',
-              minHeight: '0',
-              visibility: 'hidden',
-              offset: 1,
-            }),
-          ]),
-        ),
-      ),
-    ]),
-  ],
   selector: 'dt-expandable-row',
   templateUrl: './expandable-row.html',
   styleUrls: ['./expandable-row.scss'],
@@ -119,6 +110,15 @@ export class DtExpandableRow extends DtRow
   implements OnDestroy, AfterContentInit {
   private _expanded = false;
   private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
+
+  /** Animation state of the expanded / collapsed row. */
+  private _animationState = new BehaviorSubject<'collapsed' | 'expanded'>(
+    'collapsed',
+  );
+  /** AnimationFactory for the collapse animation. */
+  private _collapseAnimation: AnimationFactory;
+  /** AnimationFactory for the expand animation. */
+  private _expandAnimation: AnimationFactory;
 
   /** The expanded state of the row. */
   @Input()
@@ -151,6 +151,9 @@ export class DtExpandableRow extends DtRow
 
   @ViewChild('dtExpandableRow', { static: true }) private _rowRef: ElementRef;
 
+  @ViewChild('expandableAnimationContainer', { static: true })
+  private _animationContainerRef: ElementRef;
+
   /** Querylist of content templates */
   @ContentChildren(DtExpandableRowContent, { read: TemplateRef })
   // tslint:disable-next-line: no-any
@@ -168,6 +171,7 @@ export class DtExpandableRow extends DtRow
     private _changeDetectorRef: ChangeDetectorRef,
     private _expansionDispatcher: UniqueSelectionDispatcher,
     elementRef: ElementRef,
+    _animationBuilder: AnimationBuilder,
   ) {
     super(elementRef);
     this._table._hasExpandableRows = true;
@@ -185,6 +189,9 @@ export class DtExpandableRow extends DtRow
         this._collapse();
       }
     });
+
+    this._collapseAnimation = _animationBuilder.build(COLLAPSE_ANIMATE);
+    this._expandAnimation = _animationBuilder.build(EXPAND_ANIMATE);
   }
 
   ngAfterContentInit(): void {
@@ -195,6 +202,25 @@ export class DtExpandableRow extends DtRow
           this._expandableContentTemplates.first || null;
         this._changeDetectorRef.markForCheck();
       });
+
+    this._animationState.pipe(distinctUntilChanged()).subscribe((state) => {
+      if (state === 'collapsed') {
+        // We need to recreate the player connected to the native element
+        // as the table recycles the elements internally and
+        // the angular decorator animation did not pick up on that change.
+        const collapsePlayer = this._collapseAnimation.create(
+          this._animationContainerRef.nativeElement,
+        );
+        collapsePlayer.play();
+      }
+
+      if (state === 'expanded') {
+        const expandPlayer = this._expandAnimation.create(
+          this._animationContainerRef.nativeElement,
+        );
+        expandPlayer.play();
+      }
+    });
   }
 
   ngOnDestroy(): void {
@@ -204,6 +230,7 @@ export class DtExpandableRow extends DtRow
 
   private _expand(): void {
     if (!this._expanded) {
+      this._animationState.next('expanded');
       this._expanded = true;
       this._setExpandableCell(true);
       this.expandChange.emit(new DtExpandableRowChangeEvent(this));
@@ -214,6 +241,7 @@ export class DtExpandableRow extends DtRow
   /** @internal Collapses the row */
   _collapse(): void {
     if (this._expanded) {
+      this._animationState.next('collapsed');
       this._expanded = false;
       this._setExpandableCell(false);
       this.expandChange.emit(new DtExpandableRowChangeEvent(this));
@@ -224,6 +252,7 @@ export class DtExpandableRow extends DtRow
   /** @internal Expands the row. This is only called as a result of an user action. */
   _expandViaInteraction(): void {
     if (!this._expanded) {
+      this._animationState.next('expanded');
       this._expanded = true;
       this._setExpandableCell(true);
       this._expansionDispatcher.notify(this._uniqueId, this._table._uniqueId);
