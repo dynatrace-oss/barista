@@ -168,9 +168,18 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
 
   /** Angular life-cycle hook that will be called after the view is initialized */
   ngAfterViewInit(): void {
-    // When the filters changes apply them to the filter field
-    this._activeFilters$
-      .pipe(takeUntil(this._destroy$))
+    // We need to wait for the first on stable call, otherwise the
+    // underlying filterfield will thow an expression changed after checked
+    // error. Deferring the first filter setting.
+    // Relates to a very weird and hard to reproduce bug described in
+    // https://github.com/dynatrace-oss/barista/issues/1305
+    this._zone.onStable
+      .pipe(
+        take(1),
+        switchMap(() => this._activeFilters$),
+        takeUntil(this._destroy$),
+      )
+      // When the filters changes apply them to the filter field
       .subscribe((filters) => {
         if (this._filterField.filters !== filters) {
           this._filterField.filters = filters;
