@@ -14,17 +14,7 @@ filegroup(
     ) + glob([
         "**/*.html",
         "**/*.scss",
-    ]) + [
-        ":indicator_scss_lib",
-    ],
-)
-
-sass_library(
-    name = "indicator_scss_lib",
-    srcs = [
-        "src/indicator.scss",
-        "src/indicator-theme.scss",
-    ],
+    ])
 )
 
 stylelint(
