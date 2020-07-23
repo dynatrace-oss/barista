@@ -27,14 +27,6 @@ import { CommonModule } from '@angular/common';
 import { DtTableModule } from '@dynatrace/barista-components/table';
 import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
 
-export const DT_SINGLE_STACKED_SERIES_CHART_EXAMPLES = [
-  DtExampleStackedSeriesChartSingle,
-  DtExampleStackedSeriesChartConnectedLegend,
-  DtExampleStackedSeriesChartGeneric,
-  DtExampleStackedSeriesChartFilled,
-  DtExampleStackedSeriesChartColumn,
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -44,7 +36,19 @@ export const DT_SINGLE_STACKED_SERIES_CHART_EXAMPLES = [
     DtLegendModule,
     DtTableModule,
   ],
-  declarations: [...DT_SINGLE_STACKED_SERIES_CHART_EXAMPLES],
-  entryComponents: [...DT_SINGLE_STACKED_SERIES_CHART_EXAMPLES],
+  declarations: [
+    DtExampleStackedSeriesChartSingle,
+    DtExampleStackedSeriesChartConnectedLegend,
+    DtExampleStackedSeriesChartGeneric,
+    DtExampleStackedSeriesChartFilled,
+    DtExampleStackedSeriesChartColumn,
+  ],
+  entryComponents: [
+    DtExampleStackedSeriesChartSingle,
+    DtExampleStackedSeriesChartConnectedLegend,
+    DtExampleStackedSeriesChartGeneric,
+    DtExampleStackedSeriesChartFilled,
+    DtExampleStackedSeriesChartColumn,
+  ],
 })
 export class DtExamplesStackedSeriesChartModule {}

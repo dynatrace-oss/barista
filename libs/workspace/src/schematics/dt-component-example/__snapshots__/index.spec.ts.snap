@@ -20,14 +20,11 @@ import { NgModule } from '@angular/core';
 import { DtTestComponentModule } from '@dynatrace/barista-components/test-component';
 import { DtExampleSimpleTestComponent } from './test-component-simple-example/test-component-simple-example';
 import { DtExampleComplexTestComponent } from './test-component-complex-example/test-component-complex-example';
-export const DT_TEST_COMPONENT_EXAMPLES = [
-  DtExampleSimpleTestComponent,
-  DtExampleComplexTestComponent,
-];
+export const DT_TEST_COMPONENT_EXAMPLES = [DtExampleSimpleTestComponent];
 
 @NgModule({
   imports: [DtTestComponentModule],
-  declarations: [...DT_TEST_COMPONENT_EXAMPLES],
+  declarations: [...DT_TEST_COMPONENT_EXAMPLES, DtExampleComplexTestComponent],
   entryComponents: [...DT_TEST_COMPONENT_EXAMPLES],
 })
 export class DtExamplesTestComponentModule {}
@@ -185,12 +182,9 @@ import { NgModule } from '@angular/core';
 import { DtTestComponentModule } from '@dynatrace/barista-components/test-component';
 import { DtExampleSimpleTestComponent } from './test-component-simple-example/test-component-simple-example';
 
-export const DT_TEST_COMPONENT_EXAMPLES = [DtExampleSimpleTestComponent];
-
 @NgModule({
   imports: [DtTestComponentModule],
-  declarations: [...DT_TEST_COMPONENT_EXAMPLES],
-  entryComponents: [...DT_TEST_COMPONENT_EXAMPLES],
+  declarations: [DtExampleSimpleTestComponent],
 })
 export class DtExamplesTestComponentModule {}
 "
@@ -227,3 +221,13 @@ import { Component } from '@angular/core';
 export class DtExampleSimpleTestComponent {}
 "
 `;
+
+exports[`Add Example Component should provide meaningful error message if barrel index.ts modification is not successful 1`] = `"There was a problem modifying 'libs/examples/src/index.ts: Cannot read property 'end' of undefined"`;
+
+exports[`Add Example Component should provide meaningful error message if component app-routing.module.ts modification is not successful 1`] = `"There was a problem modifying 'app-routing.module.ts': Cannot read property 'importClause' of undefined"`;
+
+exports[`Add Example Component should provide meaningful error message if component index.ts modification is not successful 1`] = `"There was a problem updating 'libs/examples/src/test-component/index.ts' : Cannot read property 'end' of undefined"`;
+
+exports[`Add Example Component should provide meaningful error message if component nav-items.ts modification is not successful 1`] = `"There was a problem updating 'apps/demos/src/nav-items.ts' : Cannot read property 'initializer' of undefined"`;
+
+exports[`Add Example Component should throw error if there was a problem updating examples.module file 1`] = `"A merge conflicted on path \\"/libs/examples/src/test/test-test-example/test-test-example.ts\\"."`;
