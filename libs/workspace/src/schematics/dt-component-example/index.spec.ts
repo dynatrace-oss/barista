@@ -184,4 +184,125 @@ describe('Add Example Component', () => {
       result.readContent('/apps/demos/src/nav-items.ts'),
     ).toMatchSnapshot();
   });
+
+  it('should throw error if we already have the files in there', async () => {
+    await addFixtureToTree(
+      initialTree,
+      'test-test-example.fixture',
+      '/libs/examples/src/test/test-test-example/test-test-example.ts',
+      fixturesFolder,
+    );
+
+    await expect(
+      schematicRunner
+        .runSchematicAsync(
+          'dt-example',
+          { name: 'test', component: 'test' },
+          initialTree,
+        )
+        .toPromise(),
+    ).rejects.toThrow();
+  });
+
+  it('should throw error if there was a problem updating examples.module file', async () => {
+    await addFixtureToTree(
+      initialTree,
+      'faulty.fixture',
+      '/libs/examples/src/test/test-test-example/test-test-example.ts',
+      fixturesFolder,
+    );
+
+    await expect(
+      schematicRunner
+        .runSchematicAsync(
+          'dt-example',
+          { name: 'test', component: 'test' },
+          initialTree,
+        )
+        .toPromise(),
+    ).rejects.toThrowErrorMatchingSnapshot();
+  });
+
+  it('should provide meaningful error message if component index.ts modification is not successful', async () => {
+    await addFixtureToTree(
+      initialTree,
+      'test-component-examples.module.ts.fixture',
+      '/libs/examples/src/test-component/test-component-examples.module.ts',
+      fixturesFolder,
+    );
+
+    await addFixtureToTree(
+      initialTree,
+      'faulty.fixture',
+      '/libs/examples/src/test-component/index.ts',
+      fixturesFolder,
+    );
+
+    await expect(
+      schematicRunner
+        .runSchematicAsync(
+          'dt-example',
+          { name: 'complex', component: 'TestComponent' },
+          initialTree,
+        )
+        .toPromise(),
+    ).rejects.toThrowErrorMatchingSnapshot();
+  });
+
+  it('should provide meaningful error message if component nav-items.ts modification is not successful', async () => {
+    await addFixtureToTree(
+      initialTree,
+      'faulty.fixture',
+      '/apps/demos/src/nav-items.ts',
+      fixturesFolder,
+    );
+
+    await expect(
+      schematicRunner
+        .runSchematicAsync(
+          'dt-example',
+          { name: 'complex', component: 'TestComponent' },
+          initialTree,
+        )
+        .toPromise(),
+    ).rejects.toThrowErrorMatchingSnapshot();
+  });
+
+  it('should provide meaningful error message if component app-routing.module.ts modification is not successful', async () => {
+    await addFixtureToTree(
+      initialTree,
+      'faulty.fixture',
+      '/apps/demos/src/app-routing.module.ts',
+      fixturesFolder,
+    );
+
+    await expect(
+      schematicRunner
+        .runSchematicAsync(
+          'dt-example',
+          { name: 'complex', component: 'TestComponent' },
+          initialTree,
+        )
+        .toPromise(),
+    ).rejects.toThrowErrorMatchingSnapshot();
+  });
+
+  it('should provide meaningful error message if barrel index.ts modification is not successful', async () => {
+    await addFixtureToTree(
+      initialTree,
+      'faulty.fixture',
+      '/libs/examples/src/index.ts',
+      fixturesFolder,
+    );
+
+    await expect(
+      schematicRunner
+        .runSchematicAsync(
+          'dt-example',
+          { name: 'complex', component: 'TestComponent' },
+          initialTree,
+        )
+        .toPromise(),
+    ).rejects.toThrowErrorMatchingSnapshot();
+  });
 });

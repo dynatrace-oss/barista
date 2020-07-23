@@ -20,11 +20,9 @@ import { DtOptionModule } from '@dynatrace/barista-components/core';
 import { CommonModule } from '@angular/common';
 import { DtSelectModule } from '@dynatrace/barista-components/select';
 
-export const DT_COMBOBOX_EXAMPLES = [DtExampleComboboxSimple];
-
 @NgModule({
   imports: [DtComboboxModule, DtOptionModule, CommonModule, DtSelectModule],
-  declarations: [...DT_COMBOBOX_EXAMPLES],
-  entryComponents: [...DT_COMBOBOX_EXAMPLES],
+  declarations: [DtExampleComboboxSimple],
+  entryComponents: [DtExampleComboboxSimple],
 })
 export class DtComboboxExamplesModule {}

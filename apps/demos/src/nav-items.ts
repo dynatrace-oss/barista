@@ -1175,6 +1175,40 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
     ],
   },
   {
+    name: 'combobox',
+    examples: [
+      {
+        name: 'combobox-simple-example',
+        route: '/combobox-simple-example',
+      },
+    ],
+  },
+  {
+    name: 'stacked-series-chart',
+    examples: [
+      {
+        name: 'stacked-series-chart-single-example',
+        route: '/stacked-series-chart-single-example',
+      },
+      {
+        name: 'stacked-series chart-connected-legend-example',
+        route: '/stacked-series-chart-connected-legend-example',
+      },
+      {
+        name: 'stacked-series-chart-generic-example',
+        route: '/stacked-series-chart-generic-example',
+      },
+      {
+        name: 'stacked-series-chart-filled-example',
+        route: '/stacked-series-chart-filled-example',
+      },
+      {
+        name: 'stacked-series-chart-column-example',
+        route: '/stacked-series-chart-column-example',
+      },
+    ],
+  },
+  {
     name: 'slider',
     examples: [
       {
