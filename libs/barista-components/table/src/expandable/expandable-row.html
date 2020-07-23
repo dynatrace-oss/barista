@@ -9,10 +9,7 @@
 >
   <ng-container cdkCellOutlet></ng-container>
 </div>
-<div
-  [@detailExpand]="expanded ? 'expanded' : 'collapsed'"
-  class="dt-expandable-row-collapsible"
->
+<div #expandableAnimationContainer class="dt-expandable-row-collapsible">
   <div
     class="dt-expandable-row-expandable"
     [ngClass]="{ 'dt-expandable-row-expandable-expanded': expanded }"
