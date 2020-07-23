@@ -9,7 +9,6 @@ sass_library(
         ["**/*.scss"],
     ),
     deps = [
-        "//libs/barista-components/indicator:indicator_scss_lib",
         "//libs/barista-components/input:theme",
     ],
 )
