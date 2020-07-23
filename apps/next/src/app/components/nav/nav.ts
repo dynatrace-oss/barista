@@ -16,7 +16,7 @@
 
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThemeService } from '../../theme.service';
-import { BaPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/data-access-strapi';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -40,6 +40,6 @@ export class Nav {
   );
   constructor(
     public _themeService: ThemeService,
-    private _pageService: BaPageService,
+    private _pageService: DsPageService,
   ) {}
 }
