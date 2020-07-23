@@ -131,14 +131,9 @@ function generateModuleFileContent(options: DtExampleExtendedOptions): string {
   import { ${options.componentModule.name} } from '${options.componentModule.package}';
   import { ${options.exampleComponent.component} } from './${options.exampleRoute}';
 
-  export const ${options.exampleComponent.modulesConstant} = [
-    ${options.exampleComponent.component},
-  ];
-
   @NgModule({
     imports: [${options.componentModule.name}],
-    declarations: [...${options.exampleComponent.modulesConstant}],
-    entryComponents: [...${options.exampleComponent.modulesConstant}],
+    declarations: [${options.exampleComponent.component}],
   })
   export class ${options.examplesModule} {}`;
 }
@@ -149,46 +144,50 @@ function generateModuleFileContent(options: DtExampleExtendedOptions): string {
  */
 function updateModules(options: DtExampleExtendedOptions): Rule {
   return (host: Tree) => {
-    // add import
-    const modulePath = join(
-      'libs',
-      'examples',
-      'src',
-      options.dashName,
-      `${options.dashName}-examples.module.ts`,
-    );
-    const sourceFile = getSourceFile(host, modulePath);
+    try {
+      // add import
+      const modulePath = join(
+        'libs',
+        'examples',
+        'src',
+        options.dashName,
+        `${options.dashName}-examples.module.ts`,
+      );
+      const sourceFile = getSourceFile(host, modulePath);
 
-    const importChange = addImport(
-      sourceFile,
-      options.exampleComponent.component,
-      options.exampleRoute,
-      modulePath,
-    );
+      const importChange = addImport(
+        sourceFile,
+        options.exampleComponent.component,
+        options.exampleRoute,
+        modulePath,
+      );
+      // find last module in the array, and add new module
+      const modulesDeclaration = findNodes(
+        sourceFile,
+        ts.SyntaxKind.PropertyAssignment,
+      ).find(
+        (node: ts.PropertyAssignment) => node.name.getText() === 'declarations',
+      ) as ts.PropertyAssignment;
+      const modulesElements = (modulesDeclaration.initializer as ts.ArrayLiteralExpression)
+        .elements;
+      const lastElement = modulesElements[modulesElements.length - 1];
+      const end = modulesElements.hasTrailingComma
+        ? lastElement.getEnd() + 1
+        : lastElement.getEnd();
+      const routesChange = new InsertChange(
+        modulePath,
+        end,
+        `${modulesElements.hasTrailingComma ? ' ' : ', '}${
+          options.exampleComponent.component
+        }`,
+      );
 
-    // find last module in the array, and add new module
-    const modulesDeclaration = findNodes(
-      sourceFile,
-      ts.SyntaxKind.VariableDeclaration,
-    ).find(
-      (node: ts.VariableDeclaration) =>
-        node.name.getText() === options.exampleComponent.modulesConstant,
-    ) as ts.VariableDeclaration;
-    const modulesElements = (modulesDeclaration.initializer as ts.ArrayLiteralExpression)
-      .elements;
-    const lastElement = modulesElements[modulesElements.length - 1];
-    const end = modulesElements.hasTrailingComma
-      ? lastElement.getEnd() + 1
-      : lastElement.getEnd();
-    const routesChange = new InsertChange(
-      modulePath,
-      end,
-      `${modulesElements.hasTrailingComma ? ' ' : ', '}${
-        options.exampleComponent.component
-      }`,
-    );
-
-    return commitChanges(host, [importChange, routesChange], modulePath);
+      return commitChanges(host, [importChange, routesChange], modulePath);
+    } catch (error) {
+      throw new Error(
+        `There was a problem updating ${options.dashName}-examples.module.ts ${error.message}`,
+      );
+    }
   };
 }
 
@@ -198,22 +197,28 @@ function updateModules(options: DtExampleExtendedOptions): Rule {
  */
 function updateIndex(options: DtExampleExtendedOptions): Rule {
   return (host: Tree) => {
-    // add export to index.ts
-    const indexPath = join(
-      'libs',
-      'examples',
-      'src',
-      options.dashName,
-      'index.ts',
-    );
-    const sourceIndexFile = getSourceFile(host, indexPath);
-    const exportChange = addExport(
-      sourceIndexFile,
-      options.exampleRoute,
-      indexPath,
-    );
+    try {
+      // add export to index.ts
+      const indexPath = join(
+        'libs',
+        'examples',
+        'src',
+        options.dashName,
+        'index.ts',
+      );
+      const sourceIndexFile = getSourceFile(host, indexPath);
+      const exportChange = addExport(
+        sourceIndexFile,
+        options.exampleRoute,
+        indexPath,
+      );
 
-    return commitChanges(host, exportChange, indexPath);
+      return commitChanges(host, exportChange, indexPath);
+    } catch (error) {
+      throw new Error(
+        `There was a problem updating 'libs/examples/src/${options.dashName}/index.ts' : ${error.message}`,
+      );
+    }
   };
 }
 
