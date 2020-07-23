@@ -101,7 +101,7 @@ describe('dt-quick-filter', () => {
       );
     });
 
-    it('should set the filters on the filter field if they are set on the quick-filter', () => {
+    it('should set the filters on the filter field if they are set on the quick-filter', fakeAsync(() => {
       expect(quickFilterInstance.filters).toHaveLength(0);
       const filters = [
         [
@@ -111,9 +111,10 @@ describe('dt-quick-filter', () => {
       ];
 
       quickFilterInstance.filters = filters;
-      fixture.detectChanges();
+      zone.simulateZoneExit();
+
       expect(filterFieldInstance.filters).toMatchObject(filters);
-    });
+    }));
 
     it('should reset the filters if the data source gets switched', () => {
       quickFilterInstance.filters = [
@@ -156,12 +157,15 @@ describe('dt-quick-filter', () => {
       expect(groups).toMatchObject(['AUT', 'USA']);
     });
 
-    it('should dispatch an event with the changes on selecting an option', () => {
+    it('should dispatch an event with the changes on selecting an option', fakeAsync(() => {
       const changeSpy = jest.spyOn(fixture.componentInstance, 'filterChanges');
       expect(changeSpy).toHaveBeenCalledTimes(0);
       const checkboxes = fixture.debugElement
         .queryAll(By.directive(DtCheckbox))
         .map((el) => el.query(By.css('label')));
+
+      // Zone must be stable at least once before the quickfilter can be interacted with.
+      zone.simulateZoneExit();
 
       dispatchMouseEvent(checkboxes[1].nativeElement, 'click');
       fixture.detectChanges();
@@ -174,7 +178,7 @@ describe('dt-quick-filter', () => {
         ],
       ]);
       changeSpy.mockClear();
-    });
+    }));
 
     it('should propagate currentFilterChanges event when emitted on the filter field', fakeAsync(() => {
       const spy = jest.fn();
