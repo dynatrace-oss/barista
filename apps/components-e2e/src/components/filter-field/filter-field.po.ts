@@ -20,10 +20,14 @@ export const errorBox = Selector('.dt-filter-field-error');
 export const filterField = Selector('.dt-filter-field');
 export const options = Selector('.dt-option');
 export const option = (nth: number) => Selector(`.dt-option:nth-child(${nth})`);
+export const multiSelectOption = (nth: number) =>
+  Selector(`.dt-option:nth-child(${nth}) input`);
+export const multiSelectApply = Selector(`.dt-filter-field-multi-select-apply`);
 export const clearAll = Selector('.dt-filter-field-clear-all-button');
 export const filterTags = Selector('dt-filter-field-tag');
 export const tagOverlay = Selector('.dt-overlay-container');
 export const filterFieldRangePanel = Selector('.dt-filter-field-range-panel');
+export const multiSelectPanel = Selector('.dt-filter-field-multi-select-panel');
 
 /** Selector for the delete button (x) on a filter with a specific text */
 export const tagDeleteButton = (filterText: string) =>
@@ -45,6 +49,16 @@ export function clickOption(
   return controller
     .click(filterField, { speed: 0.4 })
     .click(option(nth), { speed: 0.4 });
+}
+export function clickMultiSelectOption(
+  nth: number,
+  testController?: TestController,
+): TestControllerPromise {
+  const controller = testController || t;
+
+  return controller
+    .click(filterField, { speed: 0.4 })
+    .click(multiSelectOption(nth), { speed: 0.4 });
 }
 
 /** Focus the input of the filter field to send key events to it. */

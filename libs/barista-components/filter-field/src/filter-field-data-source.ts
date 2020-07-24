@@ -48,6 +48,10 @@ export abstract class DtFilterFieldDataSource<T> {
   // tslint:disable-next-line: no-any
   abstract isRange(data: any): boolean;
 
+  /** Whether the provided data object can be transformed into an DtMultiSelectDef. */
+  // tslint:disable-next-line: no-any
+  abstract isMultiSelect(data: any): boolean;
+
   /** Transforms the provided data into a DtNodeDef which contains a DtAutocompleteDef. */
   abstract transformAutocomplete(
     data: T,
@@ -78,6 +82,13 @@ export abstract class DtFilterFieldDataSource<T> {
 
   /** Transforms the provided data into a DtNodeDef which contains a DtRangeDef. */
   abstract transformRange(
+    data: any,
+    parent: DtNodeDef<T> | null,
+    existingDef: DtNodeDef<T> | null,
+  ): DtNodeDef;
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtMultiSelectDef. */
+  abstract transformMultiSelect(
     data: any,
     parent: DtNodeDef<T> | null,
     existingDef: DtNodeDef<T> | null,

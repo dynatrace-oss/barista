@@ -83,11 +83,12 @@ property, when replacing the datasource with the partially loaded data.
 
 <ba-live-example name="DtExampleFilterFieldPartial"></ba-live-example>
 
-## Unique free-text or range options
+## Unique free-text, range or multiselect options
 
 It is possible to set a free-text or range option to be unique. So it can only
-be added once regardless of the value the user added to the free-text input
-field or into the range inputs.
+be added once regardless of the value the user added to the input field.
+
+Multiselection is unique by default.
 
 <ba-live-example name="DtExampleFilterFieldUnique"></ba-live-example>
 
@@ -103,6 +104,10 @@ Every filter is an array of:
   user. This includes the range operator (`DtFilterFieldRangeOperator`), the
   unit (`string`) of the selected values and the range itself (which can either
   be one `number` value or a `number` tuple).
+- Multi select filters: array of objects that have been selected via a multi
+  select list with checkboxes (the objects are exactly the ones the consumer has
+  provided via the data source). The suggested items can also be refined by
+  typing.
 
 ### Receiving the selected filters
 
@@ -186,10 +191,19 @@ node objects:
 | `isDtOptionDef`       | Whether the provided definition object is of type `NodeDef` and consists of an option definition.                      |
 | `dtGroupDef`          | Creates a node definition object or extends one and applies a group definition object based on the parameters.         |
 | `isDtGroupDef`        | Whether the provided definition object is of type `NodeDef` and consists of a group definition.                        |
+| `dtMultiSelectDef`    | Creates a node definition object or extends one and applies a multi select definition object based on the parameters.  |
+| `isDtMultiSelectDef`  | Whether the provided definition object is of type `NodeDef` and consists of a multi select definition.                 |
 
 ## Behavior
 
 <ba-ux-snippet name="filter-field-behavior"></ba-ux-snippet>
+
+### Multi selection of filter values
+
+Multi select lets users choose more than one value for the same field. The
+result is an array of the same objects the user has passed in the data source.
+
+<ba-live-example name="DtExampleFilterFieldMultiSelect"></ba-live-example>
 
 ### Clear filters
 
@@ -243,10 +257,6 @@ angular validator interface.
 ### Handling operators (not yet implemented)
 
 <ba-ux-snippet name="filter-field-operators"></ba-ux-snippet>
-
-### Multiselection of filter values (not yet implemented)
-
-<ba-ux-snippet name="filter-field-multiselection"></ba-ux-snippet>
 
 ### Help and errors (not yet implemented)
 

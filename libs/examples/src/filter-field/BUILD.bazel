@@ -24,14 +24,15 @@ ng_module(
         "filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example.html",
         "filter-field-unique-example/filter-field-unique-example.html",
         "filter-field-validator-example/filter-field-validator-example.html",
+        "filter-field-multi-select-example/filter-field-multi-select-example.html",
     ],
     module_name = "@dynatrace/barista-examples/filter-field",
     tsconfig = "//libs/examples:tsconfig_lib",
     deps = [
         "//libs/barista-components/filter-field:compile",
         "//libs/barista-components/input:compile",
-        "@npm//rxjs",
         "@npm//@angular/core",
         "@npm//@angular/forms",
+        "@npm//rxjs",
     ],
 )

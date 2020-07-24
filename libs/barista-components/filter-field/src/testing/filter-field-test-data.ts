@@ -50,6 +50,36 @@ export const TEST_DATA_RANGE = {
   ],
 };
 
+export const TEST_DATA_MULTI_SELECT = {
+  autocomplete: [
+    {
+      name: 'Seasoning',
+      multiOptions: [
+        { name: 'None' },
+        {
+          name: 'Homemade',
+          options: [{ name: 'Ketchup' }, { name: 'Mustard' }, { name: 'Mayo' }],
+        },
+      ],
+    },
+  ],
+};
+
+export const TEST_DATA_MULTI_SELECT_EDIT_MODE = {
+  autocomplete: [
+    {
+      name: 'Seasoning',
+      multiOptions: [
+        { name: 'None' },
+        {
+          name: 'Homemade',
+          options: [{ name: 'Ketchup' }, { name: 'Mustard' }, { name: 'Mayo' }],
+        },
+      ],
+    },
+  ],
+};
+
 export const TEST_DATA_EDITMODE = {
   autocomplete: [
     {

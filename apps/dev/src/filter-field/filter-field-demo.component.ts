@@ -15,20 +15,20 @@
  */
 
 import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
-import { Subscription } from 'rxjs';
-
 import {
+  defaultTagDataForFilterValuesParser,
   DtFilterField,
+  DtFilterFieldChangeEvent,
   DtFilterFieldCurrentFilterChangeEvent,
   DtFilterFieldDefaultDataSource,
   DtFilterFieldTag,
-  DtFilterValue,
   DtFilterFieldTagData,
-  defaultTagDataForFilterValuesParser,
+  DtFilterValue,
 } from '@dynatrace/barista-components/filter-field';
-
+import { Subscription } from 'rxjs';
 import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
+import { MULTI_SELECT_DATA } from './multi-select';
 import { MULTIDIMENSIONAL_ANALYSIS } from './multidimensional-analysis';
 import {
   TEST_DATA,
@@ -44,6 +44,7 @@ const DATA_SETS = new Map<string, any>([
   ['TEST_DATA', TEST_DATA],
   ['KUBERNETES_DATA', KUBERNETES_DATA],
   ['COMPLEX_DATA', COMPLEX_DATA],
+  ['MULTI_SELECT_DATA', MULTI_SELECT_DATA],
   ['MULTIDIMENSIONAL_ANALYSIS', MULTIDIMENSIONAL_ANALYSIS],
 ]);
 
@@ -145,6 +146,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   _dataSource = new DtFilterFieldDefaultDataSource(TEST_DATA);
   _loading = false;
   _disabled = false;
+  _filters;
 
   ngAfterViewInit(): void {
     this.filterField.currentTags.subscribe((tags) => {
@@ -162,8 +164,8 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     this._tagChangesSub.unsubscribe();
   }
 
-  filterChanges(event: any): void {
-    console.log(event);
+  filterChanges(event: DtFilterFieldChangeEvent<any>): void {
+    this._filters = event.filters;
   }
 
   currentFilterChanges(
@@ -244,18 +246,16 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   }
 
   filters = [
-    // Free text
-    [
-      TEST_DATA.autocomplete[0],
-      TEST_DATA.autocomplete[0].autocomplete![2],
-      'foo',
-    ],
-
-    // async data
-    [TEST_DATA.autocomplete[2], (TEST_DATA_ASYNC as any).autocomplete[0]],
-
-    // option as a string
-    [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
+    // // Free text
+    // [
+    //   TEST_DATA.autocomplete[0],
+    //   TEST_DATA.autocomplete[0].autocomplete![2],
+    //   'foo',
+    // ],
+    // // async data
+    // [TEST_DATA.autocomplete[2], (TEST_DATA_ASYNC as any).autocomplete[0]],
+    // // option as a string
+    // [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
   ];
 
   getTagForFilter(): void {
