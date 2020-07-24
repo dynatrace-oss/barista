@@ -54,6 +54,21 @@ export class DtExampleFilterFieldUnique implements AfterViewInit, OnDestroy {
         },
         unique: true,
       },
+      {
+        name: 'Unique colors',
+        multiOptions: [
+          { name: 'Rainbow' },
+          {
+            name: 'Warm',
+            options: [{ name: 'Red' }, { name: 'Orange' }, { name: 'Yellow' }],
+          },
+          {
+            name: 'Cold',
+            options: [{ name: 'Green' }, { name: 'Blue' }, { name: 'Purple' }],
+          },
+        ],
+        unique: true,
+      },
     ],
   };
 

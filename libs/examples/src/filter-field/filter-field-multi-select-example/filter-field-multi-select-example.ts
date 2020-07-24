@@ -14,45 +14,20 @@
  * limitations under the License.
  */
 
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
+
 import {
-  DtFilterField,
   DtFilterFieldDefaultDataSource,
+  DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
 
 @Component({
-  selector: 'dt-example-filter-field-clearall',
-  templateUrl: 'filter-field-clearall-example.html',
+  selector: 'dt-example-filter-field-multi-select',
+  templateUrl: 'filter-field-multi-select-example.html',
 })
-export class DtExampleFilterFieldClearall<T> {
-  @ViewChild(DtFilterField, { static: true }) filterField: DtFilterField<T>;
-  private DATA = {
+export class DtExampleFilterFieldMultiSelect {
+  private DATA: DtFilterFieldDefaultDataSourceType = {
     autocomplete: [
-      {
-        name: 'AUT',
-        autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
-      },
-      {
-        name: 'USA',
-        autocomplete: [
-          { name: 'San Francisco' },
-          { name: 'Los Angeles' },
-          { name: 'New York' },
-          { name: 'Custom', suggestions: [] },
-        ],
-      },
-      {
-        name: 'Requests per minute',
-        range: {
-          operators: {
-            range: true,
-            equal: true,
-            greaterThanEqual: true,
-            lessThanEqual: true,
-          },
-          unit: 's',
-        },
-      },
       {
         name: 'Colors',
         multiOptions: [
@@ -69,12 +44,6 @@ export class DtExampleFilterFieldClearall<T> {
       },
     ],
   };
-
-  private _linzFilter = [
-    this.DATA.autocomplete[0],
-    this.DATA.autocomplete[0].autocomplete![0],
-  ];
-  _filters = [this._linzFilter];
 
   _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
 }

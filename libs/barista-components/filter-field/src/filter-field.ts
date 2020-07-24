@@ -43,6 +43,7 @@ import {
   NgZone,
   OnChanges,
   OnDestroy,
+  OnInit,
   Optional,
   Output,
   QueryList,
@@ -50,30 +51,7 @@ import {
   ViewChild,
   ViewChildren,
   ViewEncapsulation,
-  OnInit,
 } from '@angular/core';
-import {
-  fromEvent,
-  merge,
-  Observable,
-  of as observableOf,
-  ReplaySubject,
-  Subject,
-  Subscription,
-} from 'rxjs';
-import {
-  debounceTime,
-  delay,
-  filter,
-  startWith,
-  switchMap,
-  take,
-  takeUntil,
-  map,
-  distinctUntilChanged,
-  tap,
-} from 'rxjs/operators';
-
 import {
   DtAutocomplete,
   DtAutocompleteSelectedEvent,
@@ -87,12 +65,42 @@ import {
   isDefined,
   _readKeyCode,
 } from '@dynatrace/barista-components/core';
-
+import {
+  fromEvent,
+  merge,
+  Observable,
+  of as observableOf,
+  ReplaySubject,
+  Subject,
+  Subscription,
+} from 'rxjs';
+import {
+  debounceTime,
+  delay,
+  distinctUntilChanged,
+  filter,
+  map,
+  startWith,
+  switchMap,
+  take,
+  takeUntil,
+  tap,
+} from 'rxjs/operators';
+import {
+  DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG,
+  DT_FILTER_VALUES_PARSER_CONFIG,
+  TagParserFunction,
+} from './filter-field-config';
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
   getDtFilterFieldApplyFilterNoRootDataProvidedError,
   getDtFilterFieldApplyFilterParseError,
 } from './filter-field-errors';
+import {
+  DtFilterFieldMultiSelect,
+  DtFilterFieldMultiSelectSubmittedEvent,
+} from './filter-field-multi-select/filter-field-multi-select';
+import { DtFilterFieldMultiSelectTrigger } from './filter-field-multi-select/filter-field-multi-select-trigger';
 import {
   DtFilterFieldRange,
   DtFilterFieldRangeOperator,
@@ -104,6 +112,7 @@ import {
   applyDtOptionIds,
   filterAutocompleteDef,
   filterFreeTextDef,
+  filterMultiSelectDef,
   findFilterValuesForSources,
   isDtAutocompleteValueEqual,
   isDtFreeTextValueEqual,
@@ -116,23 +125,21 @@ import {
   DtFilterFieldTagData,
   DtFilterValue,
   DtNodeDef,
-  _getSourcesOfDtFilterValues,
+  DtOptionDef,
   isAsyncDtAutocompleteDef,
+  isAsyncDtMultiSelectDef,
   isDtAutocompleteDef,
   isDtAutocompleteValue,
   isDtFreeTextDef,
   isDtFreeTextValue,
+  isDtMultiSelectDef,
+  isDtMultiSelectValue,
   isDtOptionDef,
   isDtRangeDef,
   isDtRangeValue,
   isPartialDtAutocompleteDef,
-  DtOptionDef,
+  _getSourcesOfDtFilterValues,
 } from './types';
-import {
-  DT_FILTER_VALUES_PARSER_CONFIG,
-  DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG,
-  TagParserFunction,
-} from './filter-field-config';
 
 // tslint:disable:no-any
 
@@ -352,13 +359,21 @@ export class DtFilterField<T = any>
   @ViewChild(DtAutocompleteTrigger, { static: true })
   _autocompleteTrigger: DtAutocompleteTrigger<DtNodeDef>;
 
-  /** @internal The range trigger that is placed on the input element */
+  /** @internal The range input element */
   @ViewChild(DtFilterFieldRange, { static: true })
   _filterfieldRange: DtFilterFieldRange;
 
   /** @internal The range trigger that is placed on the input element */
   @ViewChild(DtFilterFieldRangeTrigger, { static: true })
   _filterfieldRangeTrigger: DtFilterFieldRangeTrigger;
+
+  /** @internal The multi select input element */
+  @ViewChild(DtFilterFieldMultiSelect, { static: true })
+  _multiSelect: DtFilterFieldMultiSelect<DtNodeDef>;
+
+  /** @internal The multis select that is placed on the input element */
+  @ViewChild(DtFilterFieldMultiSelectTrigger, { static: true })
+  _multiSelectTrigger: DtFilterFieldMultiSelectTrigger<DtNodeDef>;
 
   /** @internal Querylist of the autocompletes provided by ng-content */
   @ViewChild(DtAutocomplete, { static: true }) _autocomplete: DtAutocomplete<
@@ -388,6 +403,9 @@ export class DtFilterField<T = any>
 
   /** @internal Holds the list of options and groups for displaying it in the autocomplete */
   _autocompleteOptionsOrGroups: DtNodeDef[] = [];
+
+  /** @internal Holds the list of options and groups for displaying it in the multiSelect */
+  _multiSelectOptionsOrGroups: DtNodeDef[] = [];
 
   /** @internal Filter nodes to be rendered _before_ the input element. */
   _prefixTagData: DtFilterFieldTagData[] = [];
@@ -437,6 +455,7 @@ export class DtFilterField<T = any>
         // we also need to check for those.
         !this._autocomplete.isOpen &&
         !this._filterfieldRange.isOpen &&
+        !this._multiSelect.isOpen &&
         // A label has to be provided to show the button.
         this.clearAllLabel,
     );
@@ -507,9 +526,11 @@ export class DtFilterField<T = any>
             }
           } else if (isDtRangeDef(this._currentDef)) {
             this._filterfieldRangeTrigger.openPanel();
-            this._filterfieldRangeTrigger.range.focus();
+            this._filterfieldRangeTrigger.element.focus();
             // need to return here, otherwise the focus would jump back into the filter field
             return;
+          } else if (isDtMultiSelectDef(this._currentDef)) {
+            this._multiSelectTrigger.openPanel();
           }
           // It is necessary to restore the focus back to the input field
           // so the user can directly continue creating more filter nodes.
@@ -775,6 +796,7 @@ export class DtFilterField<T = any>
         isDtAutocompleteValue(value) &&
         (isDtAutocompleteDef(value) ||
           isDtRangeDef(value) ||
+          isDtMultiSelectDef(value) ||
           isDtFreeTextDef(value))
       ) {
         const removed = event.data.filterValues.splice(1);
@@ -787,6 +809,7 @@ export class DtFilterField<T = any>
         this._updateControl();
         this._updateLoading();
         this._updateAutocompleteOptionsOrGroups();
+        this._updateMultiSelectOptionsOrGroups();
         // If the currently edited part is a range it should pre-fill the
         // previously set values.
         if (removed.length === 1) {
@@ -800,6 +823,9 @@ export class DtFilterField<T = any>
               recentRangeValue.operator as DtFilterFieldRangeOperator,
             );
           }
+        }
+        if (isDtMultiSelectValue<T>(value)) {
+          this._multiSelect._setInitialSelection(removed as (T & DtNodeDef)[]);
         }
         this._updateFilterByLabel();
         this._updateTagData();
@@ -842,6 +868,7 @@ export class DtFilterField<T = any>
     );
     this._filters = remaining;
     this._switchToRootDef(false);
+    this._multiSelect._setInitialSelection([]);
 
     if (removed.length) {
       this._emitFilterChanges([], removed);
@@ -926,6 +953,7 @@ export class DtFilterField<T = any>
       this._getFreeTextOutsideClickStream(),
       this._autocomplete.closed,
       this._filterfieldRange.closed,
+      this._multiSelect.closed,
     )
       .pipe(filter(() => isDefined(this._editModeStashedValue)))
       .subscribe(() => {
@@ -1006,7 +1034,8 @@ export class DtFilterField<T = any>
     if (
       isDtAutocompleteDef(optionDef) ||
       isDtFreeTextDef(optionDef) ||
-      isDtRangeDef(optionDef)
+      isDtRangeDef(optionDef) ||
+      isDtMultiSelectDef(optionDef)
     ) {
       this._currentDef = optionDef;
       this._updateControl();
@@ -1058,6 +1087,28 @@ export class DtFilterField<T = any>
     });
     this._filterfieldRangeTrigger.closePanel(false);
     this._isFocused = true;
+    this._writeInputValue('');
+    this._switchToRootDef(true);
+
+    // if any changes happen, cancel the edit-mode.
+    this._resetEditMode();
+
+    this._stateChanges.next();
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal */
+  _handleMultiSelectSubmitted(
+    event: DtFilterFieldMultiSelectSubmittedEvent<T>,
+  ): void {
+    for (let option of event.multiSelect) {
+      this._peekCurrentFilterValues().push(
+        option as T & DtNodeDef<DtOptionDef> & { option: DtOptionDef },
+      );
+    }
+
+    this._multiSelectTrigger.closePanel(false);
+    // this._isFocused = true;
     this._writeInputValue('');
     this._switchToRootDef(true);
 
@@ -1125,9 +1176,11 @@ export class DtFilterField<T = any>
       } else {
         this._updateTagData();
         this._updateAutocompleteOptionsOrGroups();
+        this._updateMultiSelectOptionsOrGroups();
         this._emitFilterChanges([], removedFilters);
       }
       this._resetEditMode();
+      this._closeFilterPanels();
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
@@ -1356,6 +1409,29 @@ export class DtFilterField<T = any>
     }
   }
 
+  /** Updates the list of options or groups displayed in the multi select overlay */
+  private _updateMultiSelectOptionsOrGroups(): void {
+    const currentDef = this._currentDef;
+
+    if (
+      isDtMultiSelectDef(currentDef) &&
+      !isAsyncDtMultiSelectDef(currentDef)
+    ) {
+      this._multiSelect._setInitialSelection([]);
+
+      const def = filterMultiSelectDef(
+        currentDef,
+        this._getSelectedOptionIds(),
+        this._inputValue,
+      );
+      this._multiSelectOptionsOrGroups = def
+        ? def.multiSelect!.multiOptions
+        : [];
+    } else {
+      this._multiSelectOptionsOrGroups = [];
+    }
+  }
+
   /** Updates the filterByLabel with the view value of the first currently active filter source. */
   private _updateFilterByLabel(): void {
     const currentFilterNodeDefsOrSources = this._currentFilterValues;
@@ -1411,6 +1487,8 @@ export class DtFilterField<T = any>
   private _closeFilterPanels(): void {
     this._autocompleteTrigger.closePanel();
     this._filterfieldRangeTrigger.closePanel();
+    this._multiSelectTrigger.closePanel();
+
     if (this._editModeStashedValue) {
       this._cancelEditMode();
     }

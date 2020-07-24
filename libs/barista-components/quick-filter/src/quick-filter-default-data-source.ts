@@ -18,6 +18,7 @@ import { isDefined, isObject } from '@dynatrace/barista-components/core';
 import {
   DtNodeDef,
   dtRangeDef,
+  dtMultiSelectDef,
   dtFreeTextDef,
   dtGroupDef,
   dtOptionDef,
@@ -29,6 +30,7 @@ import {
   DtFilterFieldDefaultDataSourceRange,
   dtAutocompleteDef,
   isDtGroupDef,
+  DtFilterFieldDefaultDataSourceMultiSelect,
 } from '@dynatrace/barista-components/filter-field';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -132,6 +134,11 @@ export class DtQuickFilterDefaultDataSource<
     return isObject(data) && isObject(data.range);
   }
 
+  /** Whether the provided data object is of type MultiSelectData */
+  isMultiSelect(data: any): data is DtQuickFilterDefaultDataSourceRange {
+    return isObject(data) && Array.isArray(data.multiOptions);
+  }
+
   /** Transforms the provided data into a DtNodeDef which contains a DtAutocompleteDef. */
   transformAutocomplete(
     data: DtQuickFilterDefaultDataSourceAutocomplete,
@@ -218,6 +225,15 @@ export class DtQuickFilterDefaultDataSource<
       data.range.unit,
       isDefined(data.unique) ? data.unique! : false,
     );
+  }
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtMultiSelectDef. */
+  transformMultiSelect(
+    data: DtFilterFieldDefaultDataSourceMultiSelect,
+  ): DtNodeDef<DtFilterFieldDefaultDataSourceMultiSelect> {
+    const def = dtMultiSelectDef(data, null, [], !!data.async);
+    def.multiSelect!.multiOptions = this.transformList(data.multiOptions, def);
+    return def;
   }
 
   /** Transforms the provided data into a DtNodeDef. */

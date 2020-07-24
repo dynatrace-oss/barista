@@ -15,30 +15,32 @@
  */
 
 import { isDefined } from '@dynatrace/barista-components/core';
-
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
+  dtAutocompleteDef,
   DtAutocompleteValue,
   DtFilterFieldTagData,
   DtFilterValue,
-  DtFreeTextValue,
-  DtNodeDef,
-  DtRangeValue,
-  dtAutocompleteDef,
   dtFreeTextDef,
+  DtFreeTextValue,
   dtGroupDef,
+  dtMultiSelectDef,
+  DtNodeDef,
+  DtOptionDef,
+  DtRangeValue,
   isAsyncDtAutocompleteDef,
   isDtAutocompleteDef,
   isDtAutocompleteValue,
   isDtFreeTextDef,
   isDtFreeTextValue,
   isDtGroupDef,
+  isDtMultiSelectDef,
   isDtOptionDef,
   isDtRangeDef,
   isDtRangeValue,
   isDtRenderType,
   isPartialDtAutocompleteDef,
-  DtOptionDef,
+  isDtMultiSelectValue,
 } from './types';
 
 /**
@@ -57,6 +59,7 @@ export function filterAutocompleteDef(
         : filterOptionDef(optionOrGroup, distinctIds, filterText),
     )
     .filter((optionOrGroup) => optionOrGroup !== null) as DtNodeDef[];
+
   return def.autocomplete!.async || optionsOrGroups.length
     ? dtAutocompleteDef(
         def.data,
@@ -130,6 +133,27 @@ export function filterOptionDef(
     : null;
 }
 
+/**
+ * Either returns the provided multiSelect def or null on whether the multiSelect still contains
+ * options or groups after filtering them based on the predicate functions below.
+ */
+export function filterMultiSelectDef(
+  def: DtNodeDef,
+  distinctIds: Set<string>,
+  filterText?: string,
+): DtNodeDef | null {
+  const multiOptions = def
+    .multiSelect!.multiOptions.map((optionOrGroup) =>
+      isDtGroupDef(optionOrGroup)
+        ? filterGroupDef(optionOrGroup, distinctIds, filterText)
+        : filterOptionDef(optionOrGroup, distinctIds, filterText),
+    )
+    .filter((optionOrGroup) => optionOrGroup !== null) as DtNodeDef[];
+  return def.multiSelect!.async || multiOptions.length
+    ? dtMultiSelectDef(def.data, def, multiOptions, def.multiSelect!.async)
+    : null;
+}
+
 /** Predicate function to check whether the provided node def should be in the filtered result. */
 export function defDistinctPredicate(
   def: DtNodeDef,
@@ -180,6 +204,7 @@ export function defUniquePredicate(
 ): boolean {
   return !(
     ((isDtFreeTextDef(def) && def.freeText.unique) ||
+      isDtMultiSelectDef(def) ||
       (isDtRangeDef(def) && def.range!.unique)) &&
     isDtOptionDef(def) &&
     def.option.uid &&
@@ -293,14 +318,24 @@ export function defaultTagDataForFilterValuesParser(
   editable?: boolean,
   deletable?: boolean,
 ): DtFilterFieldTagData | null {
+  const valueSeparator = ', ';
   let key: string | null = null;
-  let value: string | null = null;
+  let value: string = '';
+  let multiValues: string[] = [];
   let separator: string | null = null;
   let isFreeText = false;
   let isFirstValue = true;
 
   for (const filterValue of filterValues) {
-    if (isDtAutocompleteValue(filterValue)) {
+    // For multiselect, first value is of multiselect type, subsequent are options
+    if (isDtMultiSelectValue(filterValues[0])) {
+      if (isFirstValue && filterValues.length > 1) {
+        key = (filterValue as DtAutocompleteValue<any>).option?.viewValue ?? '';
+      }
+      multiValues.push(
+        (filterValue as DtAutocompleteValue<any>).option?.viewValue ?? '',
+      );
+    } else if (isDtAutocompleteValue(filterValue)) {
       if (isFirstValue && filterValues.length > 1) {
         key = filterValue.option.viewValue;
       }
@@ -318,6 +353,10 @@ export function defaultTagDataForFilterValuesParser(
       break;
     }
     isFirstValue = false;
+  }
+
+  if (multiValues.length) {
+    value = multiValues.slice(1).join(valueSeparator);
   }
 
   return filterValues.length && value !== null

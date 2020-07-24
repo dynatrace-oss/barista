@@ -29,6 +29,7 @@ import { DtExampleFilterFieldProgrammaticFilters } from './filter-field-programm
 import { DtExampleFilterFieldReadOnlyTags } from './filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example';
 import { DtExampleFilterFieldUnique } from './filter-field-unique-example/filter-field-unique-example';
 import { DtExampleFilterFieldValidator } from './filter-field-validator-example/filter-field-validator-example';
+import { DtExampleFilterFieldMultiSelect } from './filter-field-multi-select-example/filter-field-multi-select-example';
 
 @NgModule({
   imports: [DtFilterFieldModule, DtInputModule],
@@ -45,6 +46,7 @@ import { DtExampleFilterFieldValidator } from './filter-field-validator-example/
     DtExampleFilterFieldReadOnlyTags,
     DtExampleFilterFieldUnique,
     DtExampleFilterFieldValidator,
+    DtExampleFilterFieldMultiSelect,
   ],
 })
 export class DtFilterFieldExamplesModule {}

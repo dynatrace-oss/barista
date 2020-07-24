@@ -19,14 +19,17 @@ import { NgModule } from '@angular/core';
 
 import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
-import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
-import { DtOptionModule } from '@dynatrace/barista-components/core';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
+import { DtCheckboxModule } from '@dynatrace/barista-components/checkbox';
+import { DtOptionModule } from '@dynatrace/barista-components/core';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 
 import { DtFilterField } from './filter-field';
+import { DtFilterFieldMultiSelect } from './filter-field-multi-select/filter-field-multi-select';
+import { DtFilterFieldMultiSelectTrigger } from './filter-field-multi-select/filter-field-multi-select-trigger';
 import { DtFilterFieldRange } from './filter-field-range/filter-field-range';
 import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-range-trigger';
 import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
@@ -44,6 +47,7 @@ import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
     DtLoadingDistractorModule,
     DtOverlayModule,
     DtHighlightModule,
+    DtCheckboxModule,
   ],
   exports: [
     DtAutocompleteModule,
@@ -56,6 +60,8 @@ import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
     DtFilterFieldTag,
     DtFilterFieldRange,
     DtFilterFieldRangeTrigger,
+    DtFilterFieldMultiSelect,
+    DtFilterFieldMultiSelectTrigger,
   ],
 })
 export class DtFilterFieldModule {}
