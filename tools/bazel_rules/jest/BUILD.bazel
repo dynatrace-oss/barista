@@ -2,4 +2,4 @@ load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
 
 package(default_visibility = ["//:__subpackages__"])
 
-exports_files(["jest-runner.js", "jest-resolver.js"])
+exports_files(["jest-runner.js", "jest-resolver.js", 'jest-reporter.js'])

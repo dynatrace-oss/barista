@@ -2,19 +2,8 @@ load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
 
 package(default_visibility = ["//visibility:public"])
 
-filegroup(
-    name = "design-system-interfaces",
-    srcs = glob(
-        include = ["**/*.ts"],
-        exclude = [
-            "**/*.spec.ts",
-            "src/test-setup.ts",
-        ],
-    ),
-)
-
 ts_library(
-    name = "design-system-interfaces_compile",
+    name = "interfaces",
     srcs = glob(["src/**/*.ts"]),
     module_name = "@dynatrace/shared/design-system/interfaces",
     module_root = "src",

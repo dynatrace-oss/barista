@@ -13,21 +13,23 @@ function updateJestConfig(configPath, suiteName, suitePath) {
   const { dir, ext, name } = parse(configPath);
   const parsed = JSON.parse(readFileSync(configPath, 'utf-8'));
 
-  parsed.reporters = [
-    'default',
-    [
-      'jest-junit',
-      {
-        suiteName: `//${suitePath}:${suiteName}`,
-        outputDirectory: dirname(process.env.XML_OUTPUT_FILE),
-        outputName: './test.xml',
-        classNameTemplate: '{classname}-{title}',
-        titleTemplate: '{classname}-{title}',
-        ancestorSeparator: ' › ',
-        usePathForSuiteName: 'true',
-      },
-    ],
-  ];
+  if (process.env.XML_OUTPUT_FILE) {
+    parsed.reporters = [
+      'default',
+      [
+        'jest-junit',
+        {
+          suiteName: `//${suitePath}:${suiteName}`,
+          outputDirectory: dirname(process.env.XML_OUTPUT_FILE),
+          outputName: './test.xml',
+          classNameTemplate: '{classname}-{title}',
+          titleTemplate: '{classname}-{title}',
+          ancestorSeparator: ' › ',
+          usePathForSuiteName: 'true',
+        },
+      ],
+    ];
+  }
 
   const updatedFileName = join(dir, `${name}-updated${ext}`);
   writeFileSync(updatedFileName, JSON.stringify(parsed, undefined, 2));
@@ -36,7 +38,13 @@ function updateJestConfig(configPath, suiteName, suitePath) {
 }
 
 async function main() {
-  const { jestConfig, setupFile, files, suite, test } = argv;
+  const { jestConfig, setupFile, files, suite, update } = argv;
+
+  // if (update) {
+  //   console.log('a;lskdjf;lasjkdf');
+  //   process.exit(0);
+  // }
+
   const jestConfigPath = updateJestConfig(
     resolve(jestConfig),
     suite,
@@ -67,6 +75,10 @@ async function main() {
       rootDir: resolve('./'),
       colors: false,
       setupFilesAfterEnv: [testSetupFile],
+      reporters: [
+        'default',
+        resolve('tools/bazel_rules/jest/jest-reporter.js'),
+      ],
     },
     [jestConfigPath],
   );
