@@ -47,6 +47,10 @@
       [dtFilterFieldRangeDisabled]="
         !(_currentDef && !!_currentDef!.range) || loading
       "
+      [dtFilterFieldMultiSelect]="multiSelect"
+      [dtFilterFieldMultiSelectDisabled]="
+        !(_currentDef && !!_currentDef!.multiSelect) || loading
+      "
       (keydown)="_handleInputKeyDown($event)"
       [value]="_inputValue"
       [disabled]="disabled"
@@ -95,6 +99,19 @@
       [unit]="_currentDef && !!_currentDef!.range && _currentDef!.range!.unit"
       (rangeSubmitted)="_handleRangeSubmitted($event)"
     ></dt-filter-field-range>
+
+    <dt-filter-field-multi-select
+      #multiSelect="dtFilterFieldMultiSelect"
+      (multiSelectSubmitted)="_handleMultiSelectSubmitted($event)"
+      [optionsOrGroups]="
+        _currentDef &&
+        !!_currentDef!.multiSelect &&
+        _currentDef!.multiSelect!.multiOptions
+      "
+      [inputValue]="_inputValue"
+      panelWidth="400px"
+    >
+    </dt-filter-field-multi-select>
   </div>
 
   <dt-filter-field-tag

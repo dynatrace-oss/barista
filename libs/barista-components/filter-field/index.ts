@@ -20,6 +20,8 @@ export * from './src/filter-field-tag/filter-field-tag';
 export * from './src/filter-field-range/filter-field-range';
 export * from './src/filter-field-range/filter-field-range-trigger';
 export * from './src/filter-field-data-source';
+export * from './src/filter-field-multi-select/filter-field-multi-select';
+export * from './src/filter-field-multi-select/filter-field-multi-select-trigger';
 export * from './src/filter-field-default-data-source';
 export * from './src/filter-field-errors';
 export {
@@ -43,6 +45,7 @@ export {
   isDtFreeTextDef,
   dtRangeDef,
   isDtRangeDef,
+  dtMultiSelectDef,
   dtOptionDef,
   isDtOptionDef,
   dtGroupDef,

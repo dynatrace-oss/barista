@@ -53,6 +53,20 @@ export class DtExampleFilterFieldDisabled {
           unit: 's',
         },
       },
+      {
+        name: 'Colors',
+        multiOptions: [
+          { name: 'Rainbow' },
+          {
+            name: 'Warm',
+            options: [{ name: 'Red' }, { name: 'Orange' }, { name: 'Yellow' }],
+          },
+          {
+            name: 'Cold',
+            options: [{ name: 'Green' }, { name: 'Blue' }, { name: 'Purple' }],
+          },
+        ],
+      },
     ],
   };
 

@@ -47,6 +47,9 @@ export abstract class DtQuickFilterDataSource<T = any>
   /** Whether the provided data object can be transformed into an DtRangeDef. */
   abstract isRange(data: T): boolean;
 
+  /** Whether the provided data object can be transformed into an DtMultiSelectDef. */
+  abstract isMultiSelect(data: T): boolean;
+
   /** A function that receives each node and needs to return whether the given node should be shown in the sidebar */
   abstract showInSidebarFunction = (_node: any): boolean => true;
 
@@ -80,6 +83,13 @@ export abstract class DtQuickFilterDataSource<T = any>
 
   /** Transforms the provided data into a DtNodeDef which contains a DtRangeDef. */
   abstract transformRange(
+    data: T,
+    parent: DtNodeDef | null,
+    existingDef: DtNodeDef | null,
+  ): DtNodeDef<T>;
+
+  /** Transforms the provided data into a DtNodeDef which contains a DtMultiSelectDef. */
+  abstract transformMultiSelect(
     data: T,
     parent: DtNodeDef | null,
     existingDef: DtNodeDef | null,

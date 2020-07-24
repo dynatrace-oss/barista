@@ -34,6 +34,7 @@ ng_module_view_engine(
         ":src/filter-field.html",
         ":src/filter-field-tag/filter-field-tag.html",
         ":src/filter-field-range/filter-field-range.html",
+        ":src/filter-field-multi-select/filter-field-multi-select.html",
     ],
     module_name = "@dynatrace/barista-components/filter-field",
     tsconfig = "tsconfig_lib",
@@ -47,12 +48,14 @@ ng_module_view_engine(
         "//libs/barista-components/autocomplete:compile",
         "//libs/barista-components/button:compile",
         "//libs/barista-components/button-group:compile",
+        "//libs/barista-components/checkbox:compile",
         "@npm//@angular/animations",
         "@npm//@angular/common",
         "@npm//@angular/cdk",
         "@npm//@angular/forms",
         "@npm//@angular/core",
         "@npm//rxjs",
+        "@npm//lodash-es",
     ],
 )
 
@@ -62,6 +65,7 @@ multi_sass_binary(
         "src/filter-field.scss",
         "src/filter-field-tag/filter-field-tag.scss",
         "src/filter-field-range/filter-field-range.scss",
+        "src/filter-field-multi-select/filter-field-multi-select.scss",
     ]
 )
 

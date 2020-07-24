@@ -18,20 +18,21 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Validators } from '@angular/forms';
-
 import {
   dtAutocompleteDef,
   dtFreeTextDef,
   dtGroupDef,
   dtOptionDef,
 } from '@dynatrace/barista-components/filter-field';
-
 // Import locally because utils are not exported for the public
 import {
-  DELIMITER,
   defaultTagDataForFilterValuesParser,
   defDistinctPredicate,
   defUniquePredicate,
+  DELIMITER,
+  filterAutocompleteDef,
+  filterGroupDef,
+  filterOptionDef,
   findDefForSource,
   generateOptionId,
   isDtAutocompleteValueEqual,
@@ -40,17 +41,15 @@ import {
   optionOrGroupFilteredPredicate,
   optionSelectedPredicate,
   peekOptionId,
-  filterOptionDef,
-  filterGroupDef,
-  filterAutocompleteDef,
 } from './filter-field-util';
 import {
   DtAutocompleteValue,
   DtFilterValue,
-  DtRangeValue,
-  dtRangeDef,
-  isDtFreeTextDef,
+  dtMultiSelectDef,
   DtNodeDef,
+  dtRangeDef,
+  DtRangeValue,
+  isDtFreeTextDef,
 } from './types';
 
 describe('DtFilterField Util', () => {
@@ -700,6 +699,105 @@ describe('DtFilterField Util', () => {
       expect(tagData!.isFreeText).toBe(true);
       expect(tagData!.filterValues).toBe(values);
     });
+
+    it('should create a tag data object out of multi select with one option', () => {
+      const categSource = { name: 'Category' };
+      const optionSource = { name: 'Option 1' };
+      const groupSource = { options: [categSource] };
+      const multiSelectSource = [groupSource];
+
+      const optionDef = dtOptionDef(
+        optionSource,
+        null,
+        optionSource.name,
+        null,
+        null,
+        null,
+      );
+      const multiSelectOptionDef = dtOptionDef(
+        multiSelectSource,
+        null,
+        categSource.name,
+        null,
+        null,
+        null,
+      );
+      const multiSelectDef = dtMultiSelectDef(
+        null,
+        multiSelectOptionDef,
+        [optionDef],
+        false,
+      );
+      optionDef.option!.parentAutocomplete = multiSelectDef;
+      optionDef.option!.parentGroup = multiSelectDef;
+
+      const values = [multiSelectDef, optionDef] as DtFilterValue[];
+      const tagData = defaultTagDataForFilterValuesParser(values);
+
+      expect(tagData).not.toBeNull();
+      expect(tagData!.key).toBe(categSource.name);
+      expect(tagData!.value).toBe('Option 1');
+      expect(tagData!.separator).toBe(null);
+      expect(tagData!.isFreeText).toBe(false);
+      expect(tagData!.filterValues).toBe(values);
+    });
+
+    it('should create a tag data object out of multi select with more than one option', () => {
+      const categSource = { name: 'Category' };
+      const option1Source = { name: 'Option 1' };
+      const option2Source = { name: 'Option 2' };
+      const groupSource = { options: [categSource] };
+      const multiSelectSource = [groupSource];
+
+      const option1Def = dtOptionDef(
+        option1Source,
+        null,
+        option1Source.name,
+        null,
+        null,
+        null,
+      );
+      const option2Def = dtOptionDef(
+        option2Source,
+        null,
+        option2Source.name,
+        null,
+        null,
+        null,
+      );
+      const multiSelectOptionDef = dtOptionDef(
+        multiSelectSource,
+        null,
+        categSource.name,
+        null,
+        null,
+        null,
+      );
+      const multiSelectDef = dtMultiSelectDef(
+        null,
+        multiSelectOptionDef,
+        [option1Def, option2Def],
+        false,
+      );
+      option1Def.option!.parentAutocomplete = multiSelectDef;
+      option1Def.option!.parentGroup = multiSelectDef;
+      option2Def.option!.parentAutocomplete = multiSelectDef;
+      option2Def.option!.parentGroup = multiSelectDef;
+
+      const values = [
+        multiSelectDef,
+        option1Def,
+        option2Def,
+      ] as DtFilterValue[];
+      const tagData = defaultTagDataForFilterValuesParser(values);
+
+      expect(tagData).not.toBeNull();
+      expect(tagData!.key).toBe(categSource.name);
+      expect(tagData!.value).toBe('Option 1, Option 2');
+      expect(tagData!.separator).toBe(null);
+      expect(tagData!.isFreeText).toBe(false);
+      expect(tagData!.filterValues).toBe(values);
+    });
   });
 
   describe('optionFilterTextPredicate', () => {
@@ -1114,6 +1212,26 @@ describe('DtFilterField Util', () => {
       expect(defUniquePredicate(rangeDef, selectedIds)).toBe(false);
     });
 
+    it('should return false if the unique multiSelect is already in the selectedIds', () => {
+      const optionSource = { name: 'Option 1', uid: '1' };
+      const selectedIds = new Set([optionSource.uid]);
+      const optionDef = dtOptionDef(
+        optionSource,
+        null,
+        optionSource.name,
+        optionSource.uid,
+        null,
+        null,
+      );
+      const multiSelectDef = dtMultiSelectDef(
+        optionSource,
+        optionDef,
+        [],
+        true,
+      );
+      expect(defUniquePredicate(multiSelectDef, selectedIds)).toBe(false);
+    });
+
     it('should return true if the unique freetext is not already in the selectedIds', () => {
       const optionSource = { name: 'Option 1', uid: '1' };
       const selectedIds = new Set<string>();
@@ -1160,6 +1278,26 @@ describe('DtFilterField Util', () => {
         false,
       );
       expect(defUniquePredicate(rangeDef, selectedIds)).toBe(true);
+    });
+
+    it('should return false if multiSelect', () => {
+      const optionSource = { name: 'Option 1', uid: '1' };
+      const selectedIds = new Set([optionSource.uid]);
+      const optionDef = dtOptionDef(
+        optionSource,
+        null,
+        optionSource.name,
+        optionSource.uid,
+        null,
+        null,
+      );
+      const multiSelectDef = dtMultiSelectDef(
+        optionSource,
+        optionDef,
+        [],
+        true,
+      );
+      expect(defUniquePredicate(multiSelectDef, selectedIds)).toBe(false);
     });
   });
 
