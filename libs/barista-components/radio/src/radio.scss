@@ -1,11 +1,23 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
 @import '../../core/src/style/transition';
-@import '../../core/src/theming/theming';
 @import '../../style/font-mixins';
-@import './radio-theme';
 
 $dt-radio-size: 20px;
+
+:host {
+  --dt-radio-default-color: var(--dt-accent-default-color);
+  --dt-radio-hover-color: var(--dt-accent-hover-color);
+  --dt-radio-active-color: var(--dt-accent-active-color);
+  --dt-radio-disabled-color: #{$disabledcolor};
+}
+
+:host-context(.dt-theme-dark) {
+  --dt-radio-default-color: #{$white};
+  --dt-radio-hover-color: #{$white};
+  --dt-radio-active-color: #{$white};
+  --dt-radio-disabled-color: #{$gray-500};
+}
 
 .dt-radio-label {
   cursor: pointer;
@@ -45,7 +57,7 @@ $dt-radio-size: 20px;
   margin: 0;
   padding: 0;
   border-radius: 50%;
-  border: solid 2px $turquoise-600;
+  border: solid 2px var(--dt-radio-default-color);
   @include dt-form-input-color-transition();
 }
 
@@ -57,7 +69,7 @@ $dt-radio-size: 20px;
   width: $dt-radio-size;
   height: $dt-radio-size;
   border-radius: 50%;
-  background-color: $turquoise-600;
+  background-color: var(--dt-radio-default-color);
   @include dt-form-input-color-transition();
   transition-property: transform, background-color;
 
@@ -73,21 +85,21 @@ $dt-radio-size: 20px;
 
   &:hover {
     .dt-radio-outer-circle {
-      border-color: $turquoise-700;
+      border-color: var(--dt-radio-hover-color);
     }
 
     .dt-radio-inner-circle {
-      background-color: $turquoise-700;
+      background-color: var(--dt-radio-hover-color);
     }
   }
 
   &:active {
     .dt-radio-outer-circle {
-      border-color: $turquoise-800;
+      border-color: var(--dt-radio-active-color);
     }
 
     .dt-radio-inner-circle {
-      background-color: $turquoise-800;
+      background-color: var(--dt-radio-active-color);
     }
   }
 
@@ -105,16 +117,27 @@ $dt-radio-size: 20px;
     }
 
     .dt-radio-outer-circle {
-      border-color: $disabledcolor;
+      border-color: var(--dt-radio-disabled-color);
     }
 
     .dt-radio-inner-circle {
-      background-color: $disabledcolor;
+      background-color: var(--dt-radio-disabled-color);
     }
   }
 }
 
-// Apply the radio theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-radio($dt-current-theme);
+:host-context(.dt-theme-dark) {
+  .dt-radio-content {
+    color: var(--dt-radio-default-color);
+  }
+
+  &:hover .dt-radio-outer-circle {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &.dt-radio-disabled {
+    .dt-radio-outer-circle {
+      background-color: transparent;
+    }
+  }
 }
