@@ -189,6 +189,11 @@ describe('FormatterUtil', () => {
         output: '< 1',
       },
       {
+        input: 1.123456789,
+        maxPrecision: -1,
+        output: '1',
+      },
+      {
         input: 0.123456789,
         output: '0.123',
       },
@@ -262,7 +267,7 @@ describe('FormatterUtil', () => {
         output: '-0.001',
       },
     ].forEach((testCase: TestCase) => {
-      it(`should return ${testCase.input} with max precision`, () => {
+      it(`should return ${testCase.output} with input ${testCase.output} and max precision set to ${testCase.maxPrecision}`, () => {
         expect(
           adjustNumber(
             testCase.input,
