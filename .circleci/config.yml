@@ -157,7 +157,7 @@ commands:
           command: echo "import %workspace%/.circleci/bazel.rc" >> ./.bazelrc
       - run:
           name: Setup Bazel Build Cache
-          command: cd ./tools/bazel_build_cache && sh setup_ci_build_cache.sh
+          command: cd ./tools/bazel_build_cache && ./setup_ci_build_cache.sh
 
   run_bazel_stylelint:
     description: >-

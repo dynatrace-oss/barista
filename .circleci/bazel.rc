@@ -19,4 +19,4 @@ build --local_ram_resources=14336
 build --local_cpu_resources=8
 
 # Set credentials for build cache enabling will be handled in the setup file
-build --google_credentials=./tools/bazel_build_cache/cache-write-key.json
+
