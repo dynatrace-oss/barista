@@ -80,7 +80,7 @@ function adjustPrecision(value: number, maxPrecision?: number): string {
   } else if (calcValue < 100) {
     digits = 1;
   }
-  return formatNumber(value, 'en-US', `0.0-${digits}`);
+  return formatNumber(value, 'en-US', `0.0-${digits < 0 ? 0 : digits}`);
 }
 
 function abbreviateNumber(sourceValue: number): string {
