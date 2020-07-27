@@ -84,7 +84,9 @@ export const strapiBuilder: BaPageBuilder = async (
 
   categoriesData = await fetchContentList<BaStrapiCategory>(
     BaStrapiContentType.Categories,
-    { publicContent: isPublicBuild() },
+    // Categories have no affiliation with public / internal
+    // which let's the request fail if public is built.
+    { publicContent: false },
     environment.strapiEndpoint,
   );
 
