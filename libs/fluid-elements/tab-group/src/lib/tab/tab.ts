@@ -55,6 +55,13 @@ export class FluidTab extends LitElement {
         -moz-osx-font-smoothing: grayscale;
         text-rendering: optimizeLegibility;
         margin-right: ${unsafeCSS(FLUID_SPACING_MEDIUM)};
+
+        --fluid-tab--label-color: var(--color-neutral-100);
+        --fluid-tab--label-hover-color: var(--color-neutral-150);
+        --fluid-tab--label-active-color: var(--color-neutral-150);
+        --fluid-tab--label-disabled-color: var(--color-neutral-80);
+        --fluid-tab--active-underline-color: var(--color-primary-100);
+        --fluid-tab--hover-underline-color: var(--color-neutral-100);
       }
 
       /**
@@ -64,7 +71,7 @@ export class FluidTab extends LitElement {
         pointer-events: none;
       }
       :host([disabled]) .fluid-tab {
-        color: var(--color-neutral-80);
+        color: var(--fluid-tab--label-disabled-color);
       }
       :host([disabled]) .fluid-tab:hover::after {
         background-color: none;
@@ -72,7 +79,7 @@ export class FluidTab extends LitElement {
 
       ::slotted(*) {
         text-decoration: none;
-        color: var(--color-maxcontrast);
+        color: var(--fluid-tab--label-color);
       }
 
       .fluid-tab {
@@ -80,7 +87,7 @@ export class FluidTab extends LitElement {
         cursor: pointer;
         display: inline-block;
         position: relative;
-        color: var(--color-neutral-100);
+        color: var(--fluid-tab--label-color);
         white-space: unset;
       }
 
@@ -94,20 +101,20 @@ export class FluidTab extends LitElement {
         content: '';
       }
       .fluid-tab:hover {
-        color: var(--color-neutral-150);
+        color: var(--fluid-tab--label-hover-color);
       }
       .fluid-tab:hover::after {
-        background-color: var(--color-neutral-100);
+        background-color: var(--fluid-tab--hover-underline-color);
       }
 
       .fluid-state--active {
-        color: var(--color-neutral-150);
+        color: var(--fluid-tab--label-active-color);
       }
       .fluid-state--active:hover::after {
-        background-color: var(--color-primary-100);
+        background-color: var(--fluid-tab--active-underline-color);
       }
       .fluid-state--active::after {
-        background-color: var(--color-primary-100);
+        background-color: var(--fluid-tab--active-underline-color);
       }
     `;
   }
