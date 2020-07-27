@@ -1,3 +1,63 @@
+## [7.5.0](https://github.com/dynatrace-oss/barista/compare/7.4.0...7.5.0) (2020-07-27)
+
+### Bug Fixes
+
+- **container-breakdown-observer:** Fixes an issue where query parsing was not
+  working in Edge.
+  ([d8e5453](https://github.com/dynatrace-oss/barista/commit/d8e54539692d90447a06c4e70a871ef593d05c85)),
+  closes [#1346](https://github.com/dynatrace-oss/barista/issues/1346)
+- **filter-field:** Fixes an issue where the range stayed open when datasource
+  was updated.
+  ([d5fbe71](https://github.com/dynatrace-oss/barista/commit/d5fbe714211fd76487dfffe219c424910cd45e07)),
+  closes [#1256](https://github.com/dynatrace-oss/barista/issues/1256)
+- **filter-field:** Fixes an issue with the error validation when trying to
+  submit an empty value.
+  ([6d1e93d](https://github.com/dynatrace-oss/barista/commit/6d1e93deb8673285c57a1c3b705ae84f03766e5a)),
+  closes [#1299](https://github.com/dynatrace-oss/barista/issues/1299)
+- **input:** Fixes extra outlines when placed inside dt-form-field component.
+  ([f0df782](https://github.com/dynatrace-oss/barista/commit/f0df78204a61045185f1d7ec6f59511f9f2b41f3)),
+  closes [#999](https://github.com/dynatrace-oss/barista/issues/999)
+- **input, select, combobox:** Unified placeholder color.
+  ([95f3b7d](https://github.com/dynatrace-oss/barista/commit/95f3b7d78f6d17c455d475ac7503a8e4211d49a4)),
+  closes [#866](https://github.com/dynatrace-oss/barista/issues/866)
+- **quick-filter:** Fixes an issue where an ExpressionChangedAfterChecked error
+  was thrown when filters were set programmatically.
+  ([2b993f3](https://github.com/dynatrace-oss/barista/commit/2b993f3b322a5e5c51eeebd462500d40648044ba)),
+  closes [#1305](https://github.com/dynatrace-oss/barista/issues/1305)
+- **select:** Fixes border issue when select is used inside dt-form-field
+  component.
+  ([356026e](https://github.com/dynatrace-oss/barista/commit/356026e0fb2fb67a2f1471496ad638da97bd3cb6))
+- **sunburst-chart:** Fixes an issue that multiple children were opened when
+  they had the same starting name.
+  ([759e97e](https://github.com/dynatrace-oss/barista/commit/759e97e5ff49558b47f661f6edb30c9e98bd2f12))
+- **table:** Fixes an issue where an expandable-row had a broken style after
+  table-sorting.
+  ([8e3a111](https://github.com/dynatrace-oss/barista/commit/8e3a11172002936e728fb04a47b37c6d35a75feb)),
+  closes [#1353](https://github.com/dynatrace-oss/barista/issues/1353)
+
+### Features
+
+- **chart:** Switched theming to custom properties.
+  ([33b2185](https://github.com/dynatrace-oss/barista/commit/33b21854a1a3ec40d8ce0407fc555539586fe278))
+- **consumption:** Switched theming to custom properties.
+  ([c41f87b](https://github.com/dynatrace-oss/barista/commit/c41f87b1b6ef2f7a206a6f2f6cc4478b00192920))
+- **copy-to-clipboard:** Switched theming to custom properties.
+  ([bbaae5b](https://github.com/dynatrace-oss/barista/commit/bbaae5b6ae7caf9cb3820f299d37c176a7980733))
+- **formatters:** Added maxPrecision parameter to count formatters to control
+  the amount of decimals.
+  ([bac398f](https://github.com/dynatrace-oss/barista/commit/bac398f9201fe192c72c68c37d7cab21619df2d5))
+- **indicator:** Switched theming to custom properties.
+  ([7692798](https://github.com/dynatrace-oss/barista/commit/7692798071c1384b1aae802d4fedb2f596b26205))
+- **progress-bar:** Switched theming to custom properties.
+  ([d49a9ec](https://github.com/dynatrace-oss/barista/commit/d49a9ec29ab33c73634720ca0dd9824c5b479932)),
+  closes [#1056](https://github.com/dynatrace-oss/barista/issues/1056)
+- **progress-circle:** Switched theming to custom properties.
+  ([017921d](https://github.com/dynatrace-oss/barista/commit/017921dce077e06db9a33ed41a76e6cec5adce7b))
+- **radio:** Switched theming to custom properties.
+  ([23df291](https://github.com/dynatrace-oss/barista/commit/23df291c8e3b15bc1110144980548a4ec2ec0194))
+- **tile:** Switched theming to custom properties.
+  ([a8ccf30](https://github.com/dynatrace-oss/barista/commit/a8ccf302b291df6a1a8d916dcb4a0a042c87aec0))
+
 ## [7.4.0](https://github.com/dynatrace-oss/barista/compare/7.3.0...7.4.0) (2020-07-14)
 
 ### Bug Fixes
