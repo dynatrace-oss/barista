@@ -26,4 +26,5 @@ openssl aes-256-cbc -salt -a -d\
   -in "${DIR}/cache-write-key.json.enc" \
   -pass "pass:${BAZEL_REMOTE_CACHE_PASSWORD}"
 
+echo "build --google_credentials=./tools/bazel_build_cache/cache-write-key.json" >> ../../.circleci/bazel.rc
 echo "build --remote_upload_local_results=true" >> ../../.circleci/bazel.rc
