@@ -1,8 +1,6 @@
 @import '../../style/font-mixins';
 @import '../../core/src/style/interactive-common';
 @import '../../core/src/style/variables';
-@import '../../core/src/theming/theming';
-@import './show-more-theme';
 
 :host {
   border: 0;
@@ -17,19 +15,33 @@
   background: none;
   appearance: none;
 
+  --dt-show-more-default-color: var(--dt-accent-default-color);
+  --dt-show-more-hover-color: var(--dt-accent-hover-color);
+  --dt-show-more-active-color: var(--dt-accent-active-color);
+  --dt-show-more-disabled-color: #{$disabledcolor};
+
   @include dt-cdkmonitor-focus-style();
+}
+
+:host-context(.dt-theme-dark) {
+  --dt-show-more-default-color: var(--dt-accent-default-color);
+  --dt-show-more-hover-color: var(--dt-accent-hover-color);
+  --dt-show-more-active-color: var(--dt-accent-active-color);
+  --dt-show-more-disabled-color: #{$gray-500};
+
+  @include dt-cdkmonitor-focus-style(true);
 }
 
 .dt-show-more-label {
   @include dt-main-font();
-  color: $turquoise-600;
+  color: var(--dt-show-more-default-color);
 }
 
 .dt-show-more-icon {
   display: inline-block;
   width: 28px;
   height: 28px;
-  fill: $turquoise-600;
+  fill: var(--dt-show-more-default-color);
   transform: rotate(0deg);
   transition: transform 400ms;
 }
@@ -38,11 +50,11 @@
   cursor: pointer;
 
   .dt-show-more-label {
-    color: $turquoise-700;
+    color: var(--dt-show-more-hover-color);
   }
 
   .dt-show-more-icon {
-    fill: $turquoise-700;
+    fill: var(--dt-show-more-hover-color);
   }
 }
 
@@ -51,11 +63,11 @@
   outline: none;
 
   .dt-show-more-label {
-    color: $disabledcolor;
+    color: var(--dt-show-more-disabled-color);
   }
 
   .dt-show-more-icon {
-    fill: $disabledcolor;
+    fill: var(--dt-show-more-disabled-color);
   }
 }
 
@@ -63,6 +75,14 @@
   transform: rotate(180deg);
 }
 
-@include dt-apply-theme() {
-  @include dt-theme-show-more($dt-current-theme);
+:host-context(.dt-theme-dark) {
+  .dt-show-more-label {
+    color: $gray-200;
+  }
+
+  &:hover:not(.dt-show-more-disabled) {
+    .dt-show-more-label {
+      color: #ffffff;
+    }
+  }
 }
