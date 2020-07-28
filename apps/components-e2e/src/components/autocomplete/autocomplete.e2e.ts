@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-import { autocompleteInput, overlayPane } from './autocomplete.po';
+import {
+  autocompleteInput,
+  overlayPane,
+  option1,
+  option3,
+  option2,
+} from './autocomplete.po';
 import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 
 fixture('Autocomplete')
@@ -29,4 +35,22 @@ test('should propagate attribute to overlay', async (testController: TestControl
     .click(autocompleteInput, { speed: 0.5 })
     .expect(overlayPane.getAttribute('dt-ui-test-id'))
     .contains('autocomplete-overlay');
+});
+
+test('should highlight the correct option after navigating using mouse and keyboard', async (testController: TestController) => {
+  await testController
+    .click(autocompleteInput, { speed: 0.5 })
+    .pressKey('down')
+    .expect(option1.classNames)
+    .contains('dt-option-active')
+    .hover(overlayPane)
+    .expect(option1.classNames)
+    .notContains('dt-option-active')
+    .expect(option2.classNames)
+    .contains('dt-option-active')
+    .pressKey('down')
+    .expect(option2.classNames)
+    .notContains('dt-option-active')
+    .expect(option3.classNames)
+    .contains('dt-option-active');
 });

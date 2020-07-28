@@ -18,3 +18,7 @@ import { Selector } from 'testcafe';
 
 export const autocompleteInput = Selector('input');
 export const overlayPane = Selector('.cdk-overlay-pane');
+
+export const option1 = Selector('#dt-option-0');
+export const option2 = Selector('#dt-option-1');
+export const option3 = Selector('#dt-option-2');

@@ -28,12 +28,14 @@ import {
   Optional,
   Output,
   ViewEncapsulation,
+  NgZone,
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, fromEvent } from 'rxjs';
 
 import { _readKeyCode } from '../util/index';
 import { DtOptgroup } from './optgroup';
 import { Highlightable } from '@angular/cdk/a11y';
+import { takeUntil } from 'rxjs/operators';
 
 let _uniqueId = 0;
 
@@ -99,6 +101,9 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
    */
   readonly _stateChanges = new Subject<void>();
 
+  /** Subject used for unsubscribing */
+  private _destroy$ = new Subject<void>();
+
   /** The unique ID of the option. */
   get id(): string {
     return this._id;
@@ -126,6 +131,11 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
     private _element: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
     @Optional() readonly group?: DtOptgroup,
+    /**
+     * @deprecated
+     * @breaking-change Will be mandatory with verion 9.0.
+     */
+    @Optional() private _ngZone?: NgZone,
   ) {}
 
   ngAfterViewChecked(): void {
@@ -142,10 +152,21 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
         this._stateChanges.next();
       }
     }
+    if (this._ngZone) {
+      this._ngZone.runOutsideAngular(() => {
+        fromEvent(this._element.nativeElement, 'mouseover')
+          .pipe(takeUntil(this._destroy$))
+          .subscribe(() => {
+            this._handleMouseOver();
+          });
+      });
+    }
   }
 
   ngOnDestroy(): void {
     this._stateChanges.complete();
+    this._destroy$.next();
+    this._destroy$.complete();
   }
 
   /** Selects the option. */
@@ -223,6 +244,16 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
     event.stopImmediatePropagation();
 
     this._selectViaInteraction();
+  }
+
+  /** Contains the hovered option as a stream */
+  _optionHovered = new Subject<DtOption<T>>();
+
+  /** @internal Handles mousemove on the option and selects the not active option */
+  _handleMouseOver(): void {
+    if (!this.active) {
+      this._optionHovered.next(this);
+    }
   }
 
   /**
