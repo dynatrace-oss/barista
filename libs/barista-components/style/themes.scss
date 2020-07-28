@@ -1,5 +1,6 @@
 @import '../core/src/style/variables';
 
+:root,
 .dt-theme-turquoise,
 .dt-theme-blue,
 .dt-theme-royalblue,
@@ -59,6 +60,7 @@
 }
 
 /* theme turquoise */
+:root,
 .dt-theme-turquoise {
   --dt-theme-main-default-color: #{$turquoise-600};
   --dt-theme-main-hover-color: #{$turquoise-700};
