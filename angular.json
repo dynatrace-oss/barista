@@ -1074,7 +1074,7 @@
         "packagr": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "libs/barista-components/tsconfig.json",
+            "tsConfig": "libs/barista-components/tsconfig.lib.json",
             "project": "libs/barista-components/ng-package.json"
           }
         },
