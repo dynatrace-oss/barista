@@ -148,7 +148,6 @@
     "d3-array": "^2.4.0",
     "dotenv": "^8.2.0",
     "express": "^4.15.2",
-    "extract-loader": "^5.0.1",
     "glob": "^7.1.6",
     "gonzales-pe": "^4.3.0",
     "highcharts": "^7.2.1",
