@@ -20,7 +20,45 @@ import {
   DtQuickFilterDefaultDataSource,
   DtQuickFilterDefaultDataSourceConfig,
 } from '@dynatrace/barista-components/experimental/quick-filter';
-import { FILTER_FIELD_TEST_DATA as filterFieldData } from '@dynatrace/testing/fixtures';
+
+const filterFieldData = {
+  autocomplete: [
+    {
+      name: 'AUT',
+      distinct: true,
+      autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
+    },
+    {
+      name: 'USA',
+      autocomplete: [
+        { name: 'San Francisco' },
+        { name: 'Los Angeles' },
+        { name: 'New York' },
+        { name: 'Custom', suggestions: [] },
+      ],
+    },
+    {
+      name: 'Requests per minute',
+      range: {
+        operators: {
+          range: true,
+          equal: true,
+          greaterThanEqual: true,
+          lessThanEqual: true,
+        },
+      },
+      unit: 's',
+    },
+    {
+      name: 'Not in Quickfilter',
+      autocomplete: [
+        { name: 'Option1' },
+        { name: 'Option2' },
+        { name: 'Option3' },
+      ],
+    },
+  ],
+};
 
 @Component({
   selector: 'dt-example-quick-filter-default',
