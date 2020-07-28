@@ -18,3 +18,7 @@ import { Selector } from 'testcafe';
 
 export const select = Selector('#select');
 export const overlayPane = Selector('.cdk-overlay-pane');
+
+export const option2 = Selector('#dt-option-1');
+export const option3 = Selector('#dt-option-2');
+export const option4 = Selector('#dt-option-3');

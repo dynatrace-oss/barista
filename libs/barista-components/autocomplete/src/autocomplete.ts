@@ -36,10 +36,13 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
   OnDestroy,
+  NgZone,
+  Optional,
 } from '@angular/core';
 
 import { DtOption } from '@dynatrace/barista-components/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject, merge } from 'rxjs';
+import { switchMap, startWith, takeUntil } from 'rxjs/operators';
 
 let _uniqueIdCounter = 0;
 
@@ -208,18 +211,39 @@ export class DtAutocomplete<T>
   private _projectedOptionsChangeSubscription: Subscription =
     Subscription.EMPTY;
 
+  /** Subject used for unsubscribing */
+  private _destroy$ = new Subject<void>();
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
     private _viewContainerRef: ViewContainerRef,
     @Inject(DT_AUTOCOMPLETE_DEFAULT_OPTIONS)
     defaults: DtAutocompleteDefaultOptions,
+    /**
+     * @deprecated
+     * @breaking-change Will be mandatory with verion 9.0.0
+     */
+    @Optional() private _ngZone?: NgZone,
   ) {
     this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
   }
 
   ngAfterViewInit(): void {
     this._portal = new TemplatePortal(this._template, this._viewContainerRef);
+    this._options.changes
+      .pipe(
+        startWith(null),
+        switchMap(() =>
+          merge(...this._options.map((option) => option._optionHovered)),
+        ),
+        takeUntil(this._destroy$),
+      )
+      .subscribe((option) => {
+        this._ngZone?.run(() => {
+          this._keyManager.setActiveItem(option);
+        });
+      });
   }
 
   ngAfterContentInit(): void {
