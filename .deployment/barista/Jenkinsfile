@@ -313,10 +313,15 @@ pipeline {
         }
       }
     }
+  }
 
+  post {
+      failure {
+      withCredentials([string(credentialsId: 'slack-gorilla-webhook-url', variable: 'SLACK_HOOK')]) {
+        sh """
+          curl --request POST --url $SLACK_HOOK --header 'content-type: application/json' --data '{\"text\": \"Barista build failed <https://webkins.lab.dynatrace.org/job/barista/job/barista-publish/$BUILD_NUMBER/|(Build link)>\"}'
+        """
+      }
+    }
   }
 }
-
-
-
-
