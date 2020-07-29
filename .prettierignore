@@ -6,6 +6,7 @@
 
 /tools/schematics/*/files/**/*
 /libs/workspace/src/schematics/*/files/**/*
+/libs/tools/linting/src/test/**/test.ts.lint
 
 /test/**/*
 /tools/stylelint/**/*

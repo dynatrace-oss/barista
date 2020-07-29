@@ -42,7 +42,8 @@
     "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt",
     "bazel": "bazelisk",
     "bazel:test": "bazelisk query \"attr(generator_function, jest, //...)\" | xargs bazelisk test",
-    "bazel:stylelint": "bazelisk query \"attr(generator_function, stylelint, //...)\" | xargs bazelisk test"
+    "bazel:stylelint": "bazelisk query \"attr(generator_function, stylelint, //...)\" | xargs bazelisk test",
+    "linting:test": "npx tslint --rules-dir dist/libs/components/tslint/src/rules --test libs/tools/linting/src/test/**/tslint.json"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",

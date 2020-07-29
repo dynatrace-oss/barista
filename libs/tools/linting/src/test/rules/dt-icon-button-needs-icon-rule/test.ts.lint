@@ -18,6 +18,14 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A dt-icon-button must contain dt-icon elements only. No other nested elements are allowed.]
     <button dt-icon-button variant="secondary"></button>
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A dt-icon-button must not be empty, but must contain a dt-icon element.]
+    <button *ngIf="isClearButtonAvailable(context.uiSchema, context.control)"
+            dt-icon-button
+            dtSuffix
+            variant="nested"
+            aria-label="Clear selection" i18n-aria-label
+            title="Clear selection" i18n-title>
+      <dt-icon name="abort" (click)="clearControl(context.control, $event)"></dt-icon>
+    </button>
   `,
 })
 class TestClass { }

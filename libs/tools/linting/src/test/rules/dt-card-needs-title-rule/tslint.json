@@ -1,5 +1,5 @@
 {
-  "rulesDirectory": "../../../../../dist/lib/tslint/rules/card",
+  "rulesDirectory": "../../../../../../../dist/libs/components/tslint/src/rules/card",
   "rules": {
     "dt-card-needs-title": true
   }

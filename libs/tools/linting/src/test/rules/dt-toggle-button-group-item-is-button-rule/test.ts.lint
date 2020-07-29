@@ -18,6 +18,27 @@
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~   [A toggle button group item must always be a button.]
       button text
     </span>
+
+    <dt-toggle-button-group
+      (change)="handleChange($event)"
+      class="findings__toggle">
+      <button
+        *ngFor="let item of buttonGroup"
+        [value]="item.value"
+        [selected]="selected?.includes(item.value)"
+        [attr.uitestid]="uitestid + '-group-button_' + item.value | lowercase"
+        [ngClass]="item.class"
+        dt-toggle-button-item
+        class="findings__toggle-item">
+        <dt-toggle-button-item-icon *ngIf="item.icon">
+          <dt-icon name="{{item.icon}}"></dt-icon>
+        </dt-toggle-button-item-icon>
+        <div
+          [attr.uitestid]="uitestid + '-button-count_' + item.value | lowercase" i18n>
+          <ng-container *ngTemplateOutlet="default;context:item"></ng-container>
+        </div>
+      </button>
+    </dt-toggle-button-group>
   `,
 })
 class TestClass { }

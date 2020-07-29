@@ -17,7 +17,7 @@
       [(ngModel)]="sampleModel"
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
       ariaLabelSave="Save text">
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [An inline editor must provide alternative texts for the save and the cancel button.]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ [An inline editor must provide alternative texts for the save and the cancel button.]
     </em>
     <span>model: <code>{{ sampleModel }}</code></span>
 
