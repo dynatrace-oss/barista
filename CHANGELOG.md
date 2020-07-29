@@ -1,3 +1,13 @@
+## [7.5.1](https://github.com/dynatrace-oss/barista/compare/7.5.0...7.5.1) (2020-07-29)
+
+### Bug Fixes
+
+- **bundle:** Fixes imports between submodules in the compiled bundle.
+  ([edf2a81](https://github.com/dynatrace-oss/barista/commit/edf2a815147591ec9e18edb16d928c31fe920218))
+- **formatters:** Fixes a bug throwing an errror when setting maxPrecision lower
+  than 0 and the input higher that 1
+  ([9c7c728](https://github.com/dynatrace-oss/barista/commit/9c7c728baa905e05ec7e6663773d515d1578b873))
+
 ## [7.5.0](https://github.com/dynatrace-oss/barista/compare/7.4.0...7.5.0) (2020-07-27)
 
 ### Bug Fixes
