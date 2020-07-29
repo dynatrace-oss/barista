@@ -1,0 +1,35 @@
+<nav class="ds-nav">
+  <div class="ds-nav-wrapper">
+    <a class="ds-nav-brand" href="/">
+      Dynatrace Design System
+    </a>
+    <nav class="ds-nav-bar">
+      <ul class="ds-nav-list">
+        {% for item in categories %}
+        <li class="ds-nav-item">
+          <a
+            class="ds-nav-link"
+            href="/{{item | slug}}"
+            >{{ item }}</a
+          >
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  <div class="ds-barista-theme">
+    <a class="ds-back-to-barista" href="https://barista.dynatrace.com/">
+      back to barista
+    </a>
+    <button
+      class="ds-theme-switch ds-btn-icon"
+    >
+      <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M16.667 12.758L19.425 10l-2.758-2.758V3.333h-3.909L10 .575 7.242 3.333H3.333v3.909L.575 10l2.758 2.758v3.909h3.909L10 19.425l2.758-2.758h3.909v-3.909zM10 15V5c2.758 0 5 2.242 5 5s-2.242 5-5 5z"
+        />
+      </svg>
+    </button>
+  </div>
+</nav>
+

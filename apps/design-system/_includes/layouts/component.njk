@@ -1,86 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href='/assets/css/main.css' />
-</head>
-<body class="fluid-theme--abyss">
-  <main>
-    <div class="nav-host">
-      <nav class="next-nav">
-        <div class="next-nav-wrapper">
-          <a class="next-nav-brand" href="/">
-            Dynatrace Design System
-          </a>
-          <nav class="next-nav-bar">
-            <ul class="next-nav-list">
-              {% for item in categories %}
-              <li class="next-nav-item">
-                <a
-                  class="next-nav-link"
-                  href="{{item}}"
-                  >{{ item }}</a
-                >
-              </li>
-              {% endfor %}
-            </ul>
-          </nav>
-        </div>
-        <div class="next-barista-theme">
-          <a class="next-back-to-barista" href="https://barista.dynatrace.com/">
-            back to barista
-          </a>
-          <button
-            class="next-theme-switch next-btn-icon"
-          >
-            <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M16.667 12.758L19.425 10l-2.758-2.758V3.333h-3.909L10 .575 7.242 3.333H3.333v3.909L.575 10l2.758 2.758v3.909h3.909L10 19.425l2.758-2.758h3.909v-3.909zM10 15V5c2.758 0 5 2.242 5 5s-2.242 5-5 5z"
-              />
-            </svg>
-          </button>
-        </div>
-      </nav>
-    </div>
-    <div class="page-host">
-      <div class="next-page-grid">
-        <!-- <nav next-sidenav *ngIf="_pageContent.sidenav"></nav> -->
-        <ul class="sidenav" >
-          {% for sidenavComp in components %}
-          <li><a href="/component/{{sidenavComp.title | slug }}">{{ sidenavComp.title }}</a></li>
-          {% endfor %}
-        </ul>
-        <main class="next-page-main" id="main" role="main">
-          <article class="next-single-page-content">
-            {% for contributor in component.contributors %}
-              <p>{{contributor.name}}</p>
-            {% endfor %}
+---
+layout: layouts/base.njk
+---
 
-            {{ component.content | markdownify | safe }}
-          </article>
-        </main>
+{% extends "layouts/layout-variants/with-sidebar.njk" %}
 
-      </div>
+{% block sidebar %}
+  {% for section in componentSidebar %}
+  <div class="ds-sidenav-section">
+    <header class="ds-sidenav-section-title">{{section.title | title}}</header>
+    <ul>
+    {% for item in section.items %}
+      <li>
+        <a
+          class="ds-sidenav-item {{"ds-sidenav-item-active" if item.link in page.url}}"
+          href="{{item.link}}"
+        >
+          {{ item.title }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+{% endblock %}
 
-    </div>
-  </main>
+{% block main %}
+  {{ component.content | markdownify | safe }}
 
-  <script src="/assets/js/main.js"></script>
-
-  <script>
-    const themeSwitch = document.querySelector('.next-theme-switch');
-    themeSwitch.addEventListener('click', () => {
-      if (document.body.classList.contains('fluid-theme--abyss')) {
-        document.body.classList.remove('fluid-theme--abyss');
-        document.body.classList.add('fluid-theme--surface');
-      } else {
-        document.body.classList.add('fluid-theme--abyss');
-        document.body.classList.remove('fluid-theme--surface');
-      }
-    });
-  </script>
-
-</body>
-</html>
+  {% if component.readmeContent %}
+  
+  <h2>API Docs<h2>
+  {{ component.readmeContent | markdownify |safe }}
+  {% endif %}
+{% endblock %}

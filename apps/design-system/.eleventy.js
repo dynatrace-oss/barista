@@ -1,14 +1,25 @@
 const markdownIt = require('markdown-it');
-const md = markdownIt();
+const md = markdownIt({
+  html: true,
+  linkify: true,
+  typographer: true,
+});
 
 module.exports = function (config) {
   config.addFilter('markdownify', function (input) {
     return md.render(input);
   });
+
   config.addPassthroughCopy({
     'apps/design-system/_styles/*.css': 'assets/css',
     'apps/design-system/_scripts/*.js': 'assets/js',
   });
+
+  config.addFilter('log', function (input) {
+    console.log('🤡', input);
+    return input;
+  });
+
   return {
     dir: {
       input: 'apps/design-system/',

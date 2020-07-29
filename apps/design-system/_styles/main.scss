@@ -1,5 +1,5 @@
-@import './variables';
-
-body {
-  background-color: $bg;
-}
+@import './base';
+@import './theme';
+@import './layouts';
+@import './top-navigation';
+@import './sidebar';

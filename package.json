@@ -152,6 +152,7 @@
     "express": "^4.15.2",
     "glob": "^7.1.6",
     "gonzales-pe": "^4.3.0",
+    "gray-matter": "^4.0.2",
     "highcharts": "^7.2.1",
     "husky": "^4.2.5",
     "inquirer": "^7.3.0",

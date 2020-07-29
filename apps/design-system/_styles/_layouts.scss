@@ -1,0 +1,34 @@
+@import './variables';
+
+body {
+  min-height: 100vh;
+  margin: $fluid-spacing--0;
+  padding: $fluid-spacing--0;
+  background-color: var(--body-background-color);
+  color: var(--alternative-font-color);
+  transition: background-color 500ms ease-in-out;
+}
+
+.ds-main-layout-with-sidebar .ds-page-grid {
+  display: grid;
+  grid-template-columns: 270px minmax(0, 1fr) 280px;
+  grid-template-rows: repeat(2, max-content) 1fr;
+  grid-template-areas:
+    'sidenav title .'
+    'sidenav main meta'
+    'sidenav footer .';
+}
+
+.ds-page-content {
+  padding: 0 $fluid-spacing--small;
+}
+
+// .ds-main-layout-without-sidebar .ds-page-grid {
+//   display: grid;
+//   grid-template-columns: minmax(0, 1fr) 280px;
+//   grid-template-rows: max-content 1fr;
+//   grid-template-areas:
+//     'title .'
+//     'main meta'
+//     'footer .';
+// }

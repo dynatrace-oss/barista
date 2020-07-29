@@ -1,0 +1,17 @@
+<div class="ds-main ds-main-layout-with-sidebar">
+  <div class="ds-page-grid">
+    <ul class="ds-sidebar" >
+      {% block sidebar %}
+      {% endblock %}
+    </ul>
+
+
+    <main class="ds-page-main" id="main" role="main">
+      <article class="ds-page-content">
+      {% block main %}
+      {% endblock %}
+      </article>
+    </main>
+
+  </div>
+</div>

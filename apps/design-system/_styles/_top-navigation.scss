@@ -1,0 +1,70 @@
+@import './variables';
+
+.ds-nav {
+  background-color: var(--alternative-background-color);
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+}
+
+.ds-nav-wrapper {
+  display: flex;
+}
+
+.ds-btn-icon {
+  padding-left: $fluid-spacing--0;
+  padding-right: $fluid-spacing--0;
+  text-align: center;
+  background-color: transparent;
+
+  svg path {
+    fill: var(--color-maxcontrast);
+  }
+}
+
+.ds-theme-switch {
+  padding-left: $fluid-spacing--small;
+  display: flex;
+  align-items: center;
+  border: none;
+}
+
+.ds-nav-item {
+  padding-left: $fluid-spacing--small;
+}
+
+.ds-nav-list {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: $fluid-spacing--small;
+  list-style-type: none;
+}
+
+.ds-nav-brand {
+  font-weight: bold;
+  padding: $fluid-spacing--small;
+  font-size: large;
+  display: flex;
+  align-items: center;
+}
+
+.ds-nav-link {
+  text-decoration: none;
+  padding-bottom: $fluid-spacing--2x-small;
+}
+
+.ds-back-to-barista {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: small;
+}
+
+.ds-nav-link-active {
+  border-bottom: var(--color-primary-100) solid 2px;
+}
+
+.ds-barista-theme {
+  display: flex;
+  align-items: center;
+  padding-right: $fluid-spacing--x-small;
+}
