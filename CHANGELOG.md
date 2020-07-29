@@ -1,3 +1,15 @@
+## [7.6.0](https://github.com/dynatrace-oss/barista/compare/7.5.0...7.6.0) (2020-07-29)
+
+### Bug Fixes
+
+- **theming:** Fixes an issue where custom properties were not set to default.
+  ([e1913e6](https://github.com/dynatrace-oss/barista/commit/e1913e6494520bc50fbf2eac61d199d8af0cfacd))
+
+### Features
+
+- **table:** Add capability to have a row selection using a checkbox column
+  ([7569ea3](https://github.com/dynatrace-oss/barista/commit/7569ea364da93d55637df48b2df2c570eb895f26))
+
 ## [7.5.1](https://github.com/dynatrace-oss/barista/compare/7.5.0...7.5.1) (2020-07-29)
 
 ### Bug Fixes
