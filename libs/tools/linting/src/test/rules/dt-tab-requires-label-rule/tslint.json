@@ -1,5 +1,5 @@
 {
-  "rulesDirectory": "../../../../../dist/lib/tslint/rules/tabs",
+  "rulesDirectory": "../../../../../../../dist/libs/components/tslint/src/rules/tabs",
   "rules": {
     "dt-tab-requires-label": true
   }
