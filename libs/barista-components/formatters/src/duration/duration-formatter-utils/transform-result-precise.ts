@@ -18,9 +18,8 @@ import { DtTimeUnit } from '../../unit';
 import {
   CONVERSION_FACTORS_TO_MS,
   DurationMode,
-  MOVE_COMMA,
 } from '../duration-formatter-constants';
-import { dtConvertToMilliseconds } from './convert-to-milliseconds';
+import { dtConvertToUnit } from './convert-to-unit';
 
 /**
  * Calculates the duration precisely. Will convert duration to the inputUnit or to the outputUnit if set. (floating point number for its corelated unit)
@@ -38,10 +37,7 @@ export function dtTransformResultPrecise(
   formatMethod: DurationMode,
   maxDecimals?: number,
 ): Map<DtTimeUnit, string> | undefined {
-  const amount =
-    inputUnit === DtTimeUnit.MILLISECOND
-      ? duration
-      : dtConvertToMilliseconds(duration, inputUnit);
+  const amount = dtConvertToUnit(duration, inputUnit);
   return outputUnit !== undefined
     ? calcResult(amount!, formatMethod, outputUnit, maxDecimals)
     : calcResult(amount!, formatMethod, inputUnit, maxDecimals);
@@ -56,10 +52,6 @@ function calcResult(
   let result = new Map<DtTimeUnit, string>();
   if (formatMethod === 'PRECISE') {
     amount = amount / CONVERSION_FACTORS_TO_MS.get(unit)!;
-    // Need to move the comma since IEEE can't handle floating point numbers very well.
-    if (unit === DtTimeUnit.MICROSECOND || unit === DtTimeUnit.NANOSECOND) {
-      amount *= MOVE_COMMA;
-    }
     if (maxDecimals) {
       amount = Math.round(amount * 10 ** maxDecimals) / 10 ** maxDecimals;
     }

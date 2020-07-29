@@ -29,7 +29,7 @@ describe('DtDurationPipe', () => {
   interface TestCaseToUnit {
     input: number;
     inputUnit: DtTimeUnit | undefined;
-    outputUnit: DtTimeUnit;
+    outputUnit: DtTimeUnit | undefined;
     output: string;
   }
 
@@ -160,6 +160,54 @@ describe('DtDurationPipe', () => {
         outputUnit: DtTimeUnit.HOUR,
         output: '< 1 h',
       },
+      {
+        input: 1,
+        outputUnit: DtTimeUnit.NANOSECOND,
+        inputUnit: DtTimeUnit.NANOSECOND,
+        output: '1 ns',
+      },
+      {
+        input: 1000,
+        outputUnit: DtTimeUnit.MICROSECOND,
+        inputUnit: DtTimeUnit.NANOSECOND,
+        output: '1 µs',
+      },
+      {
+        input: 1,
+        outputUnit: DtTimeUnit.MICROSECOND,
+        inputUnit: DtTimeUnit.NANOSECOND,
+        output: '< 1 µs',
+      },
+      {
+        input: 1,
+        outputUnit: undefined,
+        inputUnit: DtTimeUnit.MICROSECOND,
+        output: '1 µs',
+      },
+      {
+        input: 1000,
+        outputUnit: undefined,
+        inputUnit: DtTimeUnit.MICROSECOND,
+        output: '1 ms',
+      },
+      {
+        input: 1001,
+        outputUnit: undefined,
+        inputUnit: DtTimeUnit.MICROSECOND,
+        output: '1 ms 1 µs',
+      },
+      {
+        input: 1000000000,
+        outputUnit: DtTimeUnit.SECOND,
+        inputUnit: DtTimeUnit.NANOSECOND,
+        output: '1 s',
+      },
+      {
+        input: 100000,
+        outputUnit: DtTimeUnit.SECOND,
+        inputUnit: DtTimeUnit.NANOSECOND,
+        output: '< 1 s',
+      },
     ].forEach((testCaseToUnit: TestCaseToUnit) => {
       it(`should display ${testCaseToUnit.output} when input is ${testCaseToUnit.input}, inputUnit is '${testCaseToUnit.inputUnit}' and outputUnit is '${testCaseToUnit.outputUnit}'`, () => {
         expect(
@@ -236,13 +284,6 @@ describe('DtDurationPipe', () => {
           inputUnit: DtTimeUnit.MILLISECOND,
           precision: 'PRECISE',
           output: '-0.5 s',
-        },
-        {
-          input: 0,
-          outputUnit: DtTimeUnit.SECOND,
-          inputUnit: DtTimeUnit.MILLISECOND,
-          precision: 'PRECISE',
-          output: '0 s',
         },
       ].forEach((testCasePrecision: TestCasePrecision) => {
         it(`should display ${testCasePrecision.output} when input is ${testCasePrecision.input}, inputUnit is '${testCasePrecision.inputUnit}', outputUnit is '${testCasePrecision.outputUnit}' and precision mode is ${testCasePrecision.precision}`, () => {

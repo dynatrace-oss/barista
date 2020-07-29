@@ -191,8 +191,7 @@ describe('DtDurationFormatter', () => {
         displayedOutput: '1 µs 1 ns',
       },
     ].forEach((testCase: TestCase) => {
-      // tslint:disable-next-line: dt-no-focused-tests
-      it.only(`Duration '${testCase.duration}', input unit '${testCase.inputUnit}' should equal to '${testCase.displayedOutput}'`, () => {
+      it(`Duration '${testCase.duration}', input unit '${testCase.inputUnit}' should equal to '${testCase.displayedOutput}'`, () => {
         const formatMethod: DurationMode = toDurationMode(
           testCase.formatMethod,
         )!;
@@ -211,7 +210,7 @@ describe('DtDurationFormatter', () => {
       });
     });
 
-    describe('dtTransformResult() Mode: Custom', () => {
+    describe('dtTransformResult() Mode: Custom amount of units', () => {
       [
         {
           duration: 123456789,

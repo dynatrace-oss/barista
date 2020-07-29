@@ -34,7 +34,7 @@ describe('DtDurationFormatter', () => {
     maxDecimals?: number;
   }
 
-  describe('dtTransformResultPrecise() with OutputUnit', () => {
+  describe('dtTransformResultPrecise() Mode: OutputUnit', () => {
     [
       {
         duration: 1,
@@ -145,7 +145,7 @@ describe('DtDurationFormatter', () => {
       });
     });
 
-    describe('dtTransformResultPrecise() Mode: Precise', () => {
+    describe('dtTransformResultPrecise() Mode: Precise + Output Unit', () => {
       [
         {
           duration: 1500,

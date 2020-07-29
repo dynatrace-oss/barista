@@ -19,8 +19,8 @@ import {
   CONVERSION_FACTORS_TO_MS,
   CONVERSIONUNITS,
   DurationMode,
-  MOVE_COMMA,
 } from '../duration-formatter-constants';
+import { dtConvertToUnit } from './convert-to-unit';
 
 /**
  * Calculates output duration in either "DEFAULT" or "CUSTOM" mode.
@@ -38,18 +38,15 @@ export function dtTransformResult(
   const result = new Map<DtTimeUnit, string>();
   const unitsToDisplay =
     typeof formatMethod === 'number' ? formatMethod : CONVERSIONUNITS;
-  let rest = duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!;
+  let rest = dtConvertToUnit(duration, inputUnit);
+  // debugger;
   let displayedUnits = 0;
-
+  let amount;
   for (const key of Array.from(CONVERSION_FACTORS_TO_MS.keys())) {
-    if (key === DtTimeUnit.MICROSECOND) {
-      rest = Math.round(rest * MOVE_COMMA); // handles IEEE floating point number problem
-    }
-    const amount = Math.trunc(rest / CONVERSION_FACTORS_TO_MS.get(key)!);
+    amount = Math.trunc(rest / CONVERSION_FACTORS_TO_MS.get(key)!);
     if (displayedUnits < unitsToDisplay) {
       if (amount > 0) {
         result.set(key, amount.toString());
-        // Only increase when a unit with a value bigger than 0 exists
         displayedUnits++;
       } else if (displayedUnits > 0) {
         // Only increase when a unit with a value is already set

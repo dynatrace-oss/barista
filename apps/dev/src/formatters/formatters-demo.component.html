@@ -13,6 +13,12 @@
 <h2>Count</h2>
 <p>Default: {{ exampleValue | dtCount }}</p>
 <p>With unit: {{ exampleValue | dtCount: 'req.' }}</p>
+<h2>Duration</h2>
+<p>Default: {{ exampleValue | dtDuration: 'DEFAULT' }}</p>
+<p>
+  Format: precise & chaining duration + rate:
+  {{ exampleValue | dtDuration: 'PRECISE' | dtRate: 'min' }}
+</p>
 <h2>Percent</h2>
 <p>Default: {{ exampleValue | dtPercent }}</p>
 <p>Max precision 1: {{ exampleValue | dtPercent: 1 }}</p>
@@ -22,9 +28,3 @@
 <p>per second: {{ exampleValue | dtCount | dtRate: 's' }}</p>
 <p>Chaining rate + bytes: {{ exampleValue | dtRate: 's' | dtBytes }}</p>
 <p>Chaining bytes + rate: {{ exampleValue | dtBytes | dtRate: 's' }}</p>
-<h2>Duration</h2>
-<p>Default: {{ exampleValue | dtDuration: 'DEFAULT' }}</p>
-<p>
-  Format: precise & chaining duration + rate:
-  {{ exampleValue | dtDuration: 'PRECISE' | dtRate: 'min' }}
-</p>
