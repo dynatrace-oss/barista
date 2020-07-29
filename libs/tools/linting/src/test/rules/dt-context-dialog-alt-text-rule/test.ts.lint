@@ -10,7 +10,7 @@
   </dt-context-dialog>
 
   <dt-context-dialog ariaLabelClose="Close context dialog">
-  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  [A context dialog must provide alternative texts for the open and the close buttons. Use the aria-label and the ariaLabelClose input.]
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  [A context dialog must provide alternative texts for the open and the close buttons. Use the aria-label and the ariaLabelClose input.]
     <p>Your dashboard "real user monitoring" is only visible to you</p>
   </dt-context-dialog>
 

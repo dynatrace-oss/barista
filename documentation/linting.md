@@ -92,6 +92,6 @@ fail as expected. All test files can be found in
 the following commands:
 
 ```
-yarn tslint:build
-yarn tslint:test
+ng run linting:build
+yarn linting:test
 ```
