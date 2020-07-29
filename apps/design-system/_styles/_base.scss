@@ -26,6 +26,10 @@ body {
   font-family: sans-serif;
 }
 
+img {
+  max-width: 100%;
+}
+
 h1 {
   @include fluid-dt-h1();
 }

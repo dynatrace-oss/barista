@@ -1,13 +1,12 @@
 ---
-layout: layouts/base.njk
+layout: layouts/page.njk
 tags:
   - myComponents
 pagination:
-  alias: nonComponentPage
+  alias: post
   data: nonComponentPages
   size: 1
   addAllPagesToCollections: true
-permalink: "{{ nonComponentPage.slug }}/index.html"
+permalink: "{{ post.slug }}/index.html"
 ---
 
-{{ nonComponentPage.content | markdownify | safe }}

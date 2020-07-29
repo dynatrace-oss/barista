@@ -1,0 +1,9 @@
+---
+layout: layouts/base.njk
+---
+
+{% extends "layouts/layout-variants/without-sidebar.njk" %}
+
+{% block main %}
+  {{ post.content | markdownify | safe }}
+{% endblock %}

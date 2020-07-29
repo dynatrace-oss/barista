@@ -23,12 +23,8 @@ body {
   padding: 0 $fluid-spacing--small;
 }
 
-// .ds-main-layout-without-sidebar .ds-page-grid {
-//   display: grid;
-//   grid-template-columns: minmax(0, 1fr) 280px;
-//   grid-template-rows: max-content 1fr;
-//   grid-template-areas:
-//     'title .'
-//     'main meta'
-//     'footer .';
-// }
+.ds-main-layout-without-sidebar .ds-page-grid {
+  max-width: 80ch;
+  margin-left: auto;
+  margin-right: auto;
+}

@@ -25,11 +25,11 @@ layout: layouts/base.njk
 {% endblock %}
 
 {% block main %}
-  {{ component.content | markdownify | safe }}
+  {{ post.content | markdownify | safe }}
 
-  {% if component.readmeContent %}
+  {% if post.readmeContent %}
   
   <h2>API Docs<h2>
-  {{ component.readmeContent | markdownify |safe }}
+  {{ post.readmeContent | markdownify |safe }}
   {% endif %}
 {% endblock %}
