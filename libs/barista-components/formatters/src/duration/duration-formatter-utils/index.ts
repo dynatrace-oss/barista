@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export * from './convert-to-milliseconds';
+export * from './convert-to-unit';
 export * from './transform-result';
 export * from './transform-result-precise';

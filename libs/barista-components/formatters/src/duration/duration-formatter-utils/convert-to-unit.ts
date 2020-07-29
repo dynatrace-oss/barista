@@ -21,18 +21,18 @@ import {
 } from '../duration-formatter-constants';
 
 /**
- * Converts any duration to milliseconds
+ * Converts any duration to a Unit
  * @param duration numeric time value
  * @param inputUnit dtTimeUnit value describing which unit the duration is in
  */
-export function dtConvertToMilliseconds(
+export function dtConvertToUnit(
   duration: number,
   inputUnit: DtTimeUnit,
-): number | undefined {
-  if (duration >= 0) {
-    return inputUnit === DtTimeUnit.MICROSECOND ||
-      inputUnit === DtTimeUnit.NANOSECOND
-      ? (duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!) / MOVE_COMMA
+): number {
+  const convertedDuration =
+    duration < 1
+      ? (duration * MOVE_COMMA * CONVERSION_FACTORS_TO_MS.get(inputUnit)!) /
+        MOVE_COMMA
       : duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!;
-  }
+  return convertedDuration;
 }

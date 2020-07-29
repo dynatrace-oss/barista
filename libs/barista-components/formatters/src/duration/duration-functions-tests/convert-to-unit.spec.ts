@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { dtConvertToMilliseconds } from '../duration-formatter-utils';
+import { dtConvertToUnit } from '../duration-formatter-utils';
 import { DtTimeUnit } from '../../unit';
 
 describe('DtDurationFormatter', () => {
@@ -24,107 +24,107 @@ describe('DtDurationFormatter', () => {
     output: number;
   }
 
-  describe('dtConvertToMilliseconds()', () => {
+  describe('dtConvertToUnit()', () => {
     [
       {
         duration: 1,
         inputUnit: DtTimeUnit.MILLISECOND,
-        output: 1,
+        output: 1000000,
       },
       {
         duration: 999.99,
         inputUnit: DtTimeUnit.MILLISECOND,
-        output: 999.99,
+        output: 999990000,
       },
       {
         duration: 1,
         inputUnit: DtTimeUnit.SECOND,
-        output: 1000,
+        output: 1000000000,
       },
       {
         duration: 1.5,
         inputUnit: DtTimeUnit.SECOND,
-        output: 1500,
+        output: 1500000000,
       },
       {
         duration: 1,
         inputUnit: DtTimeUnit.MINUTE,
-        output: 60000,
+        output: 60000000000,
       },
       {
         duration: 0.5,
         inputUnit: DtTimeUnit.MINUTE,
-        output: 30000,
+        output: 30000000000,
       },
       {
         duration: 0.00005,
         inputUnit: DtTimeUnit.MINUTE,
-        output: 3,
+        output: 3000000,
       },
       {
         duration: 1,
         inputUnit: DtTimeUnit.HOUR,
-        output: 3600000,
+        output: 3600000000000,
       },
       {
         duration: 1,
         inputUnit: DtTimeUnit.DAY,
-        output: 86400000,
+        output: 86400000000000,
       },
       {
         duration: 1,
         inputUnit: DtTimeUnit.MONTH,
-        output: 2627999423.9999995,
+        output: 2627999423999999.5,
       },
       {
         duration: 1,
         inputUnit: DtTimeUnit.YEAR,
-        output: 31535993088,
+        output: 31535993088000000,
       },
       {
         duration: 1,
         inputUnit: DtTimeUnit.MICROSECOND,
-        output: 0.001,
+        output: 1000,
       },
       {
         duration: 1000,
         inputUnit: DtTimeUnit.MICROSECOND,
-        output: 1,
+        output: 1000000,
       },
       {
         duration: 123.455,
         inputUnit: DtTimeUnit.MICROSECOND,
-        output: 0.123455,
+        output: 123455,
       },
       {
         duration: 1,
         inputUnit: DtTimeUnit.NANOSECOND,
-        output: 0.000001,
+        output: 1,
       },
       {
         duration: 1000000,
         inputUnit: DtTimeUnit.NANOSECOND,
-        output: 1,
+        output: 1000000,
       },
       {
         duration: 123.455,
         inputUnit: DtTimeUnit.NANOSECOND,
-        output: 0.000123455,
+        output: 123.455,
       },
       {
         duration: -123.455,
         inputUnit: DtTimeUnit.NANOSECOND,
-        output: undefined,
+        output: -123.455,
       },
       {
         duration: -0.001,
         inputUnit: DtTimeUnit.NANOSECOND,
-        output: undefined,
+        output: -0.001,
       },
       {
         duration: -1,
         inputUnit: DtTimeUnit.NANOSECOND,
-        output: undefined,
+        output: -1,
       },
       {
         duration: 0,
@@ -133,9 +133,9 @@ describe('DtDurationFormatter', () => {
       },
     ].forEach((testCase: TestCase) => {
       it(`Duration '${testCase.duration}', input unit '${testCase.inputUnit}' should equal to '${testCase.output}'`, () => {
-        expect(
-          dtConvertToMilliseconds(testCase.duration, testCase.inputUnit),
-        ).toBe(testCase.output);
+        expect(dtConvertToUnit(testCase.duration, testCase.inputUnit)).toBe(
+          testCase.output,
+        );
       });
     });
   });

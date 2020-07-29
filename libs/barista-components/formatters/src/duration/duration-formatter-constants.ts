@@ -33,19 +33,19 @@ export function toDurationMode(
 // tslint:disable: no-magic-numbers
 /** Factorials needed for converting milliseconds to other time units */
 export const CONVERSION_FACTORS_TO_MS = new Map<DtTimeUnit, number>([
-  [DtTimeUnit.YEAR, 12 * 30.41666 * 24 * 60 * 60 * 1000],
-  [DtTimeUnit.MONTH, 30.41666 * 24 * 60 * 60 * 1000],
-  [DtTimeUnit.DAY, 24 * 60 * 60 * 1000],
-  [DtTimeUnit.HOUR, 60 * 60 * 1000],
-  [DtTimeUnit.MINUTE, 60 * 1000],
-  [DtTimeUnit.SECOND, 1000],
-  [DtTimeUnit.MILLISECOND, 1],
-  [DtTimeUnit.MICROSECOND, 1000], // Has to be handled differently because IEEE can't handle floating point numbers very well
-  [DtTimeUnit.NANOSECOND, 1], // Has to be handled differently because IEEE can't handle floating point numbers very well
+  [DtTimeUnit.YEAR, 12 * 30.41666 * 24 * 60 * 60 * 1000000000],
+  [DtTimeUnit.MONTH, 30.41666 * 24 * 60 * 60 * 1000000000],
+  [DtTimeUnit.DAY, 24 * 60 * 60 * 1000000000],
+  [DtTimeUnit.HOUR, 60 * 60 * 1000000000],
+  [DtTimeUnit.MINUTE, 60 * 1000000000],
+  [DtTimeUnit.SECOND, 1000000000],
+  [DtTimeUnit.MILLISECOND, 1000000],
+  [DtTimeUnit.MICROSECOND, 1000],
+  [DtTimeUnit.NANOSECOND, 1],
 ]);
 
 /** Default for the conversionunit when no formatmethod is passed as a number. */
 export const CONVERSIONUNITS = 3;
 
-/** Use when converting a duration to micro- or nanoseconds */
-export const MOVE_COMMA = 1000000;
+/** Converting numbers like 0.001001 won't return the intended result so the comma needs to be moved. */
+export const MOVE_COMMA = 100000000000;
