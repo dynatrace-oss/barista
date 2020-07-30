@@ -25,7 +25,6 @@ export const DT_TEST_COMPONENT_EXAMPLES = [DtExampleSimpleTestComponent];
 @NgModule({
   imports: [DtTestComponentModule],
   declarations: [...DT_TEST_COMPONENT_EXAMPLES, DtExampleComplexTestComponent],
-  entryComponents: [...DT_TEST_COMPONENT_EXAMPLES],
 })
 export class DtExamplesTestComponentModule {}
 "

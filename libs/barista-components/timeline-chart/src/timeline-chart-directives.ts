@@ -48,6 +48,7 @@ export class DtTimelineChartOverlayTitle {}
 export class DtTimelineChartOverlayText {}
 
 /** @internal Base class for sharing common logic between marker types. */
+@Directive()
 export class DtTimelineChartMarker {
   /** The actual value of the marker. */
   @Input()

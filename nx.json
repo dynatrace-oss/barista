@@ -3,10 +3,10 @@
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
-    "tsconfig.json": "*",
     "tslint.json": "*",
     "nx.json": "*",
-    ".circleci/config.yml": "*"
+    ".circleci/config.yml": "*",
+    "tsconfig.base.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
@@ -382,5 +382,8 @@
     "shared-keycodes": {
       "tags": ["type:library", "type:shared"]
     }
+  },
+  "affected": {
+    "defaultBase": "master"
   }
 }

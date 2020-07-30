@@ -26,7 +26,7 @@ import {
   groupByDependencies,
 } from './util';
 
-const NX_META = resolve('dist/nxdeps.json');
+const NX_META = resolve('node_modules/.cache/nx/nxdeps.json');
 
 /**
  * options to pass to the script:
@@ -83,7 +83,7 @@ export async function runParallel(): Promise<string | null> {
     // The nx meta gets generated through the print-affected command
     // that is executed via the `getAffectedProjects`
     const nxMeta = await tryJsonParse<any>(NX_META);
-    const nxDependencies = nxMeta.projectGraph.dependencies;
+    const nxDependencies = nxMeta.dependencies;
 
     const projectsWithDependencies = projects.map((project) => {
       const deps = nxDependencies[project]

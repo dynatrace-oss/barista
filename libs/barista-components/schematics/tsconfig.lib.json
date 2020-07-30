@@ -9,5 +9,7 @@
     "types": [],
     "lib": ["dom", "es2018"]
   },
-  "exclude": ["**/*.spec.ts", "src/fixtures/**/*"]
+  "exclude": ["**/*.spec.ts", "src/fixtures/**/*"],
+  "files": ["collection.json", "migrations.json"],
+  "include": ["**/*.ts", "src/**/*.json"]
 }

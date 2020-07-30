@@ -31,7 +31,11 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtChartModule } from '@dynatrace/barista-components/chart';
-import * as formatters from '@dynatrace/barista-components/formatters';
+// We have to import from the file directly as barrel files only expose getters no setters.
+// To mock the specific function of the file we have to import the file and disable the
+// module boundaries linting rule.
+// tslint:disable-next-line: nx-enforce-module-boundaries
+import * as formatters from '../../../formatters/src/date/date-range';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import {

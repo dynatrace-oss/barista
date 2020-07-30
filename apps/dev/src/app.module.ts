@@ -179,7 +179,6 @@ export class NoopRouteComponent {}
     SidenavDemo,
     ContainerBreakpointObserverDemo,
   ],
-  entryComponents: [DevApp],
   bootstrap: [DevApp],
   providers: [
     Location,

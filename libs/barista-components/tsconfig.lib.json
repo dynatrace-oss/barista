@@ -3,13 +3,12 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "baseUrl": ".",
-    /* The root dirs here are essential to have the correct
-     imports between modules for the packagr */
     "rootDirs": [".", "../../dist/libs/components"],
     "target": "es2015",
     "declaration": true,
     "inlineSources": true,
     "types": [],
     "lib": ["dom", "es2018"]
-  }
+  },
+  "include": ["**/*.ts"]
 }

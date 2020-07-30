@@ -22,7 +22,11 @@ import { Subject, interval, of, timer } from 'rxjs';
 import { delay, map, mapTo, take } from 'rxjs/operators';
 import { TestScheduler } from 'rxjs/testing';
 
-import * as core from '@dynatrace/barista-components/core';
+// We have to import from the file directly as barrel files only expose getters no setters.
+// To mock the specific function of the file we have to import the file and disable the
+// module boundaries linting rule.
+// tslint:disable-next-line: nx-enforce-module-boundaries
+import * as platformUtil from '../../../core/src/util/platform-util';
 
 import { createMouseEvent, MockNgZone } from '@dynatrace/testing/browser';
 import * as utils from '../utils';
@@ -131,7 +135,7 @@ describe('Selection Area Streams', () => {
     const captureSpy = jest
       .spyOn(utils, 'captureAndMergeEvents')
       .mockReturnValue(of(fakeMouseDown));
-    const coreSpy = jest.spyOn(core, '_removeCssClass');
+    const coreSpy = jest.spyOn(platformUtil, '_removeCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
@@ -140,8 +144,8 @@ describe('Selection Area Streams', () => {
       // need to execute all side effects before expecting
       flush();
 
-      expect(core._removeCssClass).toHaveBeenCalledTimes(1);
-      expect(core._removeCssClass).toHaveBeenCalledWith(
+      expect(platformUtil._removeCssClass).toHaveBeenCalledTimes(1);
+      expect(platformUtil._removeCssClass).toHaveBeenCalledWith(
         selectionArea,
         NO_POINTER_EVENTS_CLASS,
       );
@@ -157,7 +161,7 @@ describe('Selection Area Streams', () => {
   it('should create a mouseup stream that triggers a side effect', () => {
     const fakeMouseUp = createMouseEvent('mouseup');
 
-    const coreSpy = jest.spyOn(core, '_addCssClass');
+    const coreSpy = jest.spyOn(platformUtil, '_addCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(
@@ -166,8 +170,8 @@ describe('Selection Area Streams', () => {
       // need to execute all side effects before expecting
       flush();
 
-      expect(core._addCssClass).toHaveBeenCalledTimes(1);
-      expect(core._addCssClass).toHaveBeenCalledWith(
+      expect(platformUtil._addCssClass).toHaveBeenCalledTimes(1);
+      expect(platformUtil._addCssClass).toHaveBeenCalledWith(
         selectionArea,
         NO_POINTER_EVENTS_CLASS,
       );
@@ -201,7 +205,7 @@ describe('Selection Area Streams', () => {
     const captureSpy = jest
       .spyOn(utils, 'captureAndMergeEvents')
       .mockReturnValue(of(fakeMouseDown));
-    const cssClassSpy = jest.spyOn(core, '_removeCssClass');
+    const cssClassSpy = jest.spyOn(platformUtil, '_removeCssClass');
 
     testScheduler.run(({ expectObservable, flush }) => {
       expectObservable(getMouseDownStream(selectionArea, [selectionArea])).toBe(
@@ -210,7 +214,7 @@ describe('Selection Area Streams', () => {
       // need to execute all side effects before expecting
       flush();
 
-      expect(core._removeCssClass).not.toHaveBeenCalled();
+      expect(platformUtil._removeCssClass).not.toHaveBeenCalled();
       expect(utils.captureAndMergeEvents).toHaveBeenCalledWith('mousedown', [
         selectionArea,
       ]);

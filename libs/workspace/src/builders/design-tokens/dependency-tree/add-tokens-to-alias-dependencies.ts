@@ -39,9 +39,9 @@ export function processTokenFile(
   // one is used in the value of the prop
   const props: DesignTokenProp[] = Array.isArray(tokens.props)
     ? tokens.props
-    : Object.entries(
-        tokens.props as { [key: string]: DesignTokenProp },
-      ).map(([key, value]) => ({ name: key, ...value }));
+    : Array.from(
+        Object.values(tokens.props as { [key: string]: DesignTokenProp }),
+      );
   for (const { name, value } of props ?? []) {
     const re = /{!(.+?)}/g;
     // check if the value is a string as we need to deal

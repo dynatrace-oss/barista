@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.json",
+  "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
     "resolveJsonModule": true,
@@ -7,7 +7,15 @@
     "target": "es6",
     "types": ["node", "jest"]
   },
-  "files": ["./collection.json", "./migrations.json"],
-  "include": ["**/*.ts", "src/**/*.json"],
-  "exclude": ["src/fixtures/**/*"]
+  "files": [],
+  "include": [],
+  "exclude": ["src/fixtures/**/*"],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

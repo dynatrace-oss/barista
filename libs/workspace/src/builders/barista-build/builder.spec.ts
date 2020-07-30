@@ -25,7 +25,14 @@ import { BaristaBuildBuilderSchema } from './schema';
 
 // Mocked imports
 import * as childProcess from 'child_process';
-import * as utils from './utils';
+import * as scheduleBuilds from './utils/schedule-builds';
+import * as renderRoutes from './utils/render-routes';
+jest.mock('./utils/schedule-builds', () => ({
+  scheduleBuilds: jest.fn(),
+}));
+jest.mock('./utils/render-routes', () => ({
+  renderRoutes: jest.fn(),
+}));
 
 const options: BaristaBuildBuilderSchema = {
   browserTarget: 'barista-design-system:build-frontend:production',
@@ -54,13 +61,13 @@ describe('Barista Builder', () => {
 
     await architectHost.addBuilderFromPackage(join(__dirname, '../../..'));
     builderSpy = jest
-      .spyOn(utils, 'scheduleBuilds')
+      .spyOn(scheduleBuilds, 'scheduleBuilds')
       .mockImplementation(async () =>
         join(__dirname, 'fixtures/mock-server.js'),
       );
     // mock the render Routes to test it separately
     renderSpy = jest
-      .spyOn(utils, 'renderRoutes')
+      .spyOn(renderRoutes, 'renderRoutes')
       .mockImplementation(async () => {});
   });
 

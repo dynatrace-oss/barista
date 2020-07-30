@@ -666,7 +666,15 @@ export class DtChart
 
   /** Checks if a heatfield is supported with the chart options if not throw an error */
   private _checkHeatfieldSupport(): void {
-    if (this._currentOptions?.xAxis![0]?.categories) {
+    // When using optional chaining here instead like this._currentOptions?.xAxis![0]?.categories
+    // typescript seems to have an error in v3.9 that crashes the build
+    // with Error: Debug Failure. Invalid cast. The supplied value [object Object] did not pass the test 'isOptionalChain'
+    if (
+      this._currentOptions &&
+      this._currentOptions.xAxis &&
+      this._currentOptions.xAxis[0] &&
+      this._currentOptions.xAxis[0].categories
+    ) {
       throw getDtHeatfieldUnsupportedChartError();
     }
   }
