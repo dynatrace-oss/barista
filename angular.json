@@ -223,8 +223,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/components-e2e/jest.config.js",
-            "tsConfig": "apps/components-e2e/tsconfig.spec.json",
-            "setupFile": "apps/components-e2e/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -630,8 +628,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/barista-design-system/jest.config.js",
-            "tsConfig": "apps/barista-design-system/tsconfig.spec.json",
-            "setupFile": "apps/barista-design-system/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -814,8 +810,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/workspace/jest.config.js",
-            "tsConfig": "libs/workspace/tsconfig.spec.json",
-            "setupFile": "libs/workspace/src/test-setup.ts",
             "passWithNoTests": true
           }
         },
@@ -889,7 +883,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tools/barista/jest.config.js",
-            "tsConfig": "libs/tools/barista/tsconfig.spec.json",
             "passWithNoTests": true
           }
         },
@@ -972,8 +965,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tools/release/jest.config.js",
-            "tsConfig": "libs/tools/release/tsconfig.spec.json",
-            "setupFile": "libs/tools/release/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -998,8 +989,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "tools/pull-request-labeler/jest.config.js",
-            "tsConfig": "tools/pull-request-labeler/tsconfig.spec.json",
-            "setupFile": "tools/pull-request-labeler/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1034,9 +1023,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/tools/shareable-examples/jest.config.js",
-            "tsConfig": "libs/tools/shareable-examples/tsconfig.spec.json",
-            "setupFile": "libs/tools/shareable-examples/src/test-setup.ts"
+            "jestConfig": "libs/tools/shareable-examples/jest.config.js"
           }
         }
       }
@@ -1306,8 +1293,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/checkbox/jest.config.js",
-            "tsConfig": "libs/barista-components/checkbox/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/checkbox/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1337,8 +1322,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/experimental/combobox/jest.config.js",
-            "tsConfig": "libs/barista-components/experimental/combobox/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/experimental/combobox/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1368,8 +1351,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/confirmation-dialog/jest.config.js",
-            "tsConfig": "libs/barista-components/confirmation-dialog/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/confirmation-dialog/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1399,8 +1380,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/consumption/jest.config.js",
-            "tsConfig": "libs/barista-components/consumption/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/consumption/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1430,8 +1409,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/container-breakpoint-observer/jest.config.js",
-            "tsConfig": "libs/barista-components/container-breakpoint-observer/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/container-breakpoint-observer/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1461,8 +1438,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/context-dialog/jest.config.js",
-            "tsConfig": "libs/barista-components/context-dialog/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/context-dialog/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1492,8 +1467,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/copy-to-clipboard/jest.config.js",
-            "tsConfig": "libs/barista-components/copy-to-clipboard/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/copy-to-clipboard/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1545,8 +1518,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/drawer/jest.config.js",
-            "tsConfig": "libs/barista-components/drawer/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/drawer/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1576,8 +1547,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/experimental/drawer-table/jest.config.js",
-            "tsConfig": "libs/barista-components/experimental/drawer-table/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/experimental/drawer-table/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1607,8 +1576,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/empty-state/jest.config.js",
-            "tsConfig": "libs/barista-components/empty-state/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/empty-state/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1638,8 +1605,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/event-chart/jest.config.js",
-            "tsConfig": "libs/barista-components/event-chart/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/event-chart/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1668,9 +1633,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/expandable-panel/jest.config.js",
-            "tsConfig": "libs/barista-components/expandable-panel/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/expandable-panel/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/expandable-panel/jest.config.js"
           }
         }
       },
@@ -1698,9 +1661,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/expandable-section/jest.config.js",
-            "tsConfig": "libs/barista-components/expandable-section/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/expandable-section/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/expandable-section/jest.config.js"
           }
         }
       },
@@ -1728,9 +1689,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/expandable-text/jest.config.js",
-            "tsConfig": "libs/barista-components/expandable-text/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/expandable-text/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/expandable-text/jest.config.js"
           }
         }
       },
@@ -1868,8 +1827,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/indicator/jest.config.js",
-            "tsConfig": "libs/barista-components/indicator/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/indicator/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1899,8 +1856,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/info-group/jest.config.js",
-            "tsConfig": "libs/barista-components/info-group/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/info-group/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -1929,9 +1884,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/inline-editor/jest.config.js",
-            "tsConfig": "libs/barista-components/inline-editor/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/inline-editor/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/inline-editor/jest.config.js"
           }
         }
       },
@@ -2004,8 +1957,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/legend/jest.config.js",
-            "tsConfig": "libs/barista-components/legend/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/legend/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2057,8 +2008,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/menu/jest.config.js",
-            "tsConfig": "libs/barista-components/menu/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/menu/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2087,9 +2036,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/micro-chart/jest.config.js",
-            "tsConfig": "libs/barista-components/micro-chart/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/micro-chart/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/micro-chart/jest.config.js"
           }
         }
       },
@@ -2139,9 +2086,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/pagination/jest.config.js",
-            "tsConfig": "libs/barista-components/pagination/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/pagination/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/pagination/jest.config.js"
           }
         }
       },
@@ -2169,9 +2114,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/progress-bar/jest.config.js",
-            "tsConfig": "libs/barista-components/progress-bar/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/progress-bar/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/progress-bar/jest.config.js"
           }
         }
       },
@@ -2199,9 +2142,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/progress-circle/jest.config.js",
-            "tsConfig": "libs/barista-components/progress-circle/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/progress-circle/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/progress-circle/jest.config.js"
           }
         }
       },
@@ -2229,9 +2170,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/experimental/quick-filter/jest.config.js",
-            "tsConfig": "libs/barista-components/experimental/quick-filter/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/experimental/quick-filter/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/experimental/quick-filter/jest.config.js"
           }
         }
       }
@@ -2258,9 +2197,7 @@
         "test": {
           "builder": "@nrwl/jest:jest",
           "options": {
-            "jestConfig": "libs/barista-components/radial-chart/jest.config.js",
-            "tsConfig": "libs/barista-components/radial-chart/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/radial-chart/src/test-setup.ts"
+            "jestConfig": "libs/barista-components/radial-chart/jest.config.js"
           }
         }
       },
@@ -2317,7 +2254,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/schematics/jest.config.js",
-            "tsConfig": "libs/barista-components/schematics/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -2346,8 +2282,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/secondary-nav/jest.config.js",
-            "tsConfig": "libs/barista-components/secondary-nav/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/secondary-nav/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2377,8 +2311,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/select/jest.config.js",
-            "tsConfig": "libs/barista-components/select/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/select/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2408,8 +2340,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/slider/jest.config.js",
-            "tsConfig": "libs/barista-components/slider/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/slider/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2439,8 +2369,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/show-more/jest.config.js",
-            "tsConfig": "libs/barista-components/show-more/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/show-more/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2470,8 +2398,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/stacked-series-chart/jest.config.js",
-            "tsConfig": "libs/barista-components/stacked-series-chart/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/stacked-series-chart/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2501,8 +2427,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/stepper/jest.config.js",
-            "tsConfig": "libs/barista-components/stepper/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/stepper/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2532,9 +2456,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/sunburst-chart/jest.config.js",
-            "tsConfig": "libs/barista-components/sunburst-chart/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/barista-components/sunburst-chart/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -2567,8 +2489,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/switch/jest.config.js",
-            "tsConfig": "libs/barista-components/switch/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/switch/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2598,8 +2518,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/table/jest.config.js",
-            "tsConfig": "libs/barista-components/table/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/table/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2717,8 +2635,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/timeline-chart/jest.config.js",
-            "tsConfig": "libs/barista-components/timeline-chart/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/timeline-chart/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2748,8 +2664,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/toast/jest.config.js",
-            "tsConfig": "libs/barista-components/toast/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/toast/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2779,8 +2693,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/toggle-button-group/jest.config.js",
-            "tsConfig": "libs/barista-components/toggle-button-group/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/toggle-button-group/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2810,8 +2722,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/top-bar-navigation/jest.config.js",
-            "tsConfig": "libs/barista-components/top-bar-navigation/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/top-bar-navigation/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2841,8 +2751,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/barista-components/tree-table/jest.config.js",
-            "tsConfig": "libs/barista-components/tree-table/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/tree-table/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -2869,7 +2777,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/testing/node/jest.config.js",
-            "tsConfig": "libs/testing/node/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -2895,7 +2802,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/testing/browser/jest.config.js",
-            "tsConfig": "libs/testing/browser/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -2921,7 +2827,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/testing/fixtures/jest.config.js",
-            "tsConfig": "libs/testing/fixtures/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -2943,8 +2848,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/node/jest.config.js",
-            "tsConfig": "libs/shared/node/tsconfig.spec.json",
-            "setupFile": "libs/shared/node/src/test-setup.ts",
             "passWithNoTests": true
           }
         }
@@ -3048,7 +2951,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/fluid-elements/button/jest.config.js",
-            "tsConfig": "libs/fluid-elements/button/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -3095,7 +2997,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/fluid-elements/checkbox/jest.config.js",
-            "tsConfig": "libs/fluid-elements/checkbox/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -3139,7 +3040,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/fluid-elements/switch/jest.config.js",
-            "tsConfig": "libs/fluid-elements/switch/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -3186,7 +3086,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/fluid-elements/tab-group/jest.config.js",
-            "tsConfig": "libs/fluid-elements/tab-group/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -3251,9 +3150,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/fluid-dev/jest.config.js",
-            "tsConfig": "apps/fluid-dev/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/fluid-dev/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -3281,7 +3178,6 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/testing/custom-element/jest.config.js",
-            "tsConfig": "libs/testing/custom-element/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
@@ -3431,9 +3327,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/design-tokens-ui/jest.config.js",
-            "tsConfig": "apps/design-tokens-ui/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/design-tokens-ui/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -3461,9 +3355,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/design-tokens-ui/input/jest.config.js",
-            "tsConfig": "libs/design-tokens-ui/input/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/design-tokens-ui/input/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -3569,9 +3461,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "apps/next/jest.config.js",
-            "tsConfig": "apps/next/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "apps/next/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       }
@@ -3599,9 +3489,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/data-access-strapi/jest.config.js",
-            "tsConfig": "libs/shared/data-access-strapi/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/shared/data-access-strapi/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -3630,9 +3518,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/design-system/ui/jest.config.js",
-            "tsConfig": "libs/shared/design-system/ui/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/shared/design-system/ui/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -3665,9 +3551,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/shared/design-system/interfaces/jest.config.js",
-            "tsConfig": "libs/shared/design-system/interfaces/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/shared/design-system/interfaces/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },
@@ -3700,9 +3584,7 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/design-tokens-ui/shared/jest.config.js",
-            "tsConfig": "libs/design-tokens-ui/shared/tsconfig.spec.json",
-            "passWithNoTests": true,
-            "setupFile": "libs/design-tokens-ui/shared/src/test-setup.ts"
+            "passWithNoTests": true
           }
         }
       },

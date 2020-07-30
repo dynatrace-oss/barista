@@ -25,5 +25,6 @@ ts_library(
         "@npm//chalk",
         "@npm//lodash",
         "@npm//rxjs",
+        "@npm//tslib",
     ],
 )

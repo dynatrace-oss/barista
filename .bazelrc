@@ -4,12 +4,11 @@ build --strategy=TypeScriptCompile=worker
 build --strategy=AngularTemplateCompile=worker
 
 # Don't create bazel-* symlinks in the WORKSPACE directory.
-# These require .gitignore and may scare users.
-# Also, it's a workaround for https://github.com/bazelbuild/rules_typescript/issues/12
-# which affects the common case of having `tsconfig.json` in the WORKSPACE directory.
-#
-# Instead, you should run `bazel info bazel-bin` to find out where the outputs went.
-build --symlink_prefix=dist/
+# These require .gitignore and may scare users. Also, it's a workaround for
+# https://github.com/bazelbuild/rules_typescript/issues/12 which affects the common case of
+# having `tsconfig.json` in the WORKSPACE directory. Instead, you should run
+# `bazel info output_base` to find out where the outputs went.
+build --symlink_prefix=/
 
 # Use the Angular Ivy compiler
 # See https://github.com/angular/angular/blob/master/docs/BAZEL.md#various-flags-used-for-tests

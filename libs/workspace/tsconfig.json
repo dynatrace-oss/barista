@@ -1,9 +1,18 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node", "jest"],
     "downlevelIteration": true
   },
-  "include": ["**/*.d.ts"],
-  "exclude": ["src/schematics/*/files"]
+  "include": [],
+  "exclude": ["src/schematics/*/files"],
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

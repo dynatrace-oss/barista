@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
     "annotateForClosureCompiler": true,
     "skipTemplateCodegen": true,
@@ -14,5 +14,71 @@
   "compilerOptions": {
     "types": ["node", "jest"]
   },
-  "include": ["**/*.ts"]
+  "include": [],
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
+    {
+      "path": "./alert/tsconfig.json"
+    },
+    {
+      "path": "./autocomplete/tsconfig.json"
+    },
+    {
+      "path": "./bar-indicator/tsconfig.json"
+    },
+    {
+      "path": "./breadcrumbs/tsconfig.json"
+    },
+    {
+      "path": "./button/tsconfig.json"
+    },
+    {
+      "path": "./button-group/tsconfig.json"
+    },
+    {
+      "path": "./card/tsconfig.json"
+    },
+    {
+      "path": "./chart/tsconfig.json"
+    },
+    {
+      "path": "./core/tsconfig.json"
+    },
+    {
+      "path": "./form-field/tsconfig.json"
+    },
+    {
+      "path": "./formatters/tsconfig.json"
+    },
+    {
+      "path": "./icon/tsconfig.json"
+    },
+    {
+      "path": "./input/tsconfig.json"
+    },
+    {
+      "path": "./key-value-list/tsconfig.json"
+    },
+    {
+      "path": "./loading-distractor/tsconfig.json"
+    },
+    {
+      "path": "./overlay/tsconfig.json"
+    },
+    {
+      "path": "./tabs/tsconfig.json"
+    },
+    {
+      "path": "./tag/tsconfig.json"
+    },
+    {
+      "path": "./theming/tsconfig.json"
+    },
+    {
+      "path": "./tile/tsconfig.json"
+    }
+  ]
 }

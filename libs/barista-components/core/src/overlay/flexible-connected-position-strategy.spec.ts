@@ -44,7 +44,7 @@ import { map } from 'rxjs/operators';
 
 import { MockNgZone } from '@dynatrace/testing/browser';
 import { ConnectedOverlayPositionChange } from './connected-position';
-import { DtFlexibleConnectedPositionStrategy } from '.';
+import { DtFlexibleConnectedPositionStrategy } from './flexible-connected-position-strategy';
 
 window.scroll = jest.fn();
 

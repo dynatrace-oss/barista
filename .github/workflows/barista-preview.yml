@@ -20,16 +20,15 @@ jobs:
           cp -R "$WORKSPACE_DIR/dist" "$PWD/dist"
           ln -s "$WORKSPACE_DIR/node_modules" "$PWD/node_modules"
           ln -s "$WORKSPACE_DIR/package-lock.sha1" "$PWD/package-lock.sha1"
-          ln -s "$WORKSPACE_DIR/entrypoint.sh" "$PWD/entrypoint.sh"
 
-          sh ./.deployment/entrypoint.sh
+          ./.deployment/entrypoint.sh
 
       - name: Build Barista Design System
         run: |
-          npm run ng build workspace
-          npm run barista-tools
-
-          npm run ng run barista-design-system:build:production
+          npm run ng run workspace:build
+          npm run ng run barista-tools:build
+          npm run ng run barista-tools:execute
+          npm run ng run barista-design-system:static-pages:production
 
       - name: ZEIT Now Deployment
         id: now-deployment

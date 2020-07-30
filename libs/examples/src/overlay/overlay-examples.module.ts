@@ -45,6 +45,5 @@ import { DtExampleSharedOverlayProgrammaticDummy } from './overlay-example-dummy
     DtExampleOverlayTile,
     DtExampleSharedOverlayProgrammaticDummy,
   ],
-  entryComponents: [DtExampleSharedOverlayProgrammaticDummy],
 })
 export class DtOverlayExamplesModule {}

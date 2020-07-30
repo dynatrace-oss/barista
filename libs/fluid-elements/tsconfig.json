@@ -1,7 +1,22 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node", "jest"]
   },
-  "include": ["**/*.d.ts"]
+  "include": [],
+  "files": [],
+  "references": [
+    {
+      "path": "./button/tsconfig.json"
+    },
+    {
+      "path": "./checkbox/tsconfig.json"
+    },
+    {
+      "path": "./switch/tsconfig.json"
+    },
+    {
+      "path": "./tab-group/tsconfig.json"
+    }
+  ]
 }

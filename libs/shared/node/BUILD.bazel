@@ -1,6 +1,6 @@
-package(default_visibility = ["//visibility:public"])
-
 load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
+
+package(default_visibility = ["//visibility:public"])
 
 ts_library(
     name = "shared_node",
@@ -19,6 +19,7 @@ ts_library(
         "@npm//@types/node",
         "@npm//axios",
         "@npm//rxjs",
+        "@npm//tslib",
         "@npm//typescript",
     ],
 )
@@ -28,6 +29,6 @@ ts_config(
     src = "tsconfig.lib.json",
     deps = [
         "tsconfig.json",
-        "//:tsconfig.json",
+        "//:tsconfig.base.json",
     ],
 )

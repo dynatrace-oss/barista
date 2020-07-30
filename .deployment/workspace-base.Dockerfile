@@ -16,7 +16,7 @@ RUN sha1sum ./package-lock.json > package-lock.sha1
 # install dependencies without postinstall script
 RUN npm ci --ignore-scripts
 
-COPY ./tsconfig.json \
+COPY ./tsconfig.base.json \
      ./angular.json \
      ./nx.json \
      # to
@@ -52,7 +52,7 @@ COPY --from=workspace-builders \
 
 # Cleanup image that only the files that are ignored by git are persisted.
 RUN rm -rf \
-  tsconfig.json \
+  tsconfig.base.json \
   angular.json \
   nx.json \
   package.json \

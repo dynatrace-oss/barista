@@ -22,7 +22,10 @@ import { SourceFile } from 'typescript';
 import { addFailure, hasContent } from '../../utils';
 
 class DtTabVisitor extends BasicTemplateAstVisitor {
-  visitEmbeddedTemplate(template: EmbeddedTemplateAst, context: any): void {
+  // Codelyzer in v6 has a dependency to angular 9 and therefore
+  // we have to type the element as any, otherwise the installed
+  // angular v10 and v9 conflict with their types
+  visitEmbeddedTemplate(template: any, context: any): void {
     this._validateElement(template);
     super.visitEmbeddedTemplate(template, context);
   }

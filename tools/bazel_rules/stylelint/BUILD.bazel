@@ -5,6 +5,7 @@ package(default_visibility = ["//:__subpackages__"])
 ts_library(
     name = "stylelint",
     srcs = glob(["**/*.ts"]),
+    tsconfig = "//:tsconfig.base.json",
     deps = [
         "@npm//@types/node",
         "@npm//stylelint",

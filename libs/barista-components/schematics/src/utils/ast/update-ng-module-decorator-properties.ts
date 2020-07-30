@@ -30,7 +30,6 @@ export const enum NgModuleProperties {
   declarations = 'declarations', // The set of components, directives, and pipes (declarables) that belong to this module.
   Imports = 'imports', // The set of NgModules whose exported declarables are available to templates in this module.
   Exports = 'exports', // The set of components, directives, and pipes declared in this NgModule that can be used in the template of any component that is part of an NgModule that imports this NgModule. Exported declarations are the module's public API.
-  EntryComponents = 'entryComponents', // The set of components to compile when this NgModule is defined, so that they can be dynamically loaded into the view.
   Bootstrap = 'bootstrap', // The set of components that are bootstrapped when this module is bootstrapped. The components listed here are automatically added to entryComponents.
   Schemas = 'schemas', // The set of schemas that declare elements to be allowed in the NgModule. Elements and properties that are neither Angular components nor directives must be declared in a schema.
   Id = 'id', // A name or path that uniquely identifies this NgModule in getModuleFactory. If left undefined, the NgModule is not registered with getModuleFactory.

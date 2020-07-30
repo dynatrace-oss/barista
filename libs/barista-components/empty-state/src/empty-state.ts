@@ -286,6 +286,7 @@ export class DtEmptyState
  * layout call, when the layout updates are triggered by the resize observer.
  * @breaking-change Remove the viewportResizer in version 8.0.0
  */
+@Directive()
 export class DtCustomEmptyStateBase {
   /** @internal Finds the empty state inside the component */
   @ViewChild(DtEmptyState) _emptyState: DtEmptyState;

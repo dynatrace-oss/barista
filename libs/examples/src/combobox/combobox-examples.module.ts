@@ -23,6 +23,5 @@ import { DtSelectModule } from '@dynatrace/barista-components/select';
 @NgModule({
   imports: [DtComboboxModule, DtOptionModule, CommonModule, DtSelectModule],
   declarations: [DtExampleComboboxSimple],
-  entryComponents: [DtExampleComboboxSimple],
 })
 export class DtComboboxExamplesModule {}

@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import { noop, Tree, externalSchematic } from '@angular-devkit/schematics';
+import { noop, Tree } from '@angular-devkit/schematics';
 import { UnitTestTree } from '@angular-devkit/schematics/testing';
 import {
   addFixtureToTree,
@@ -24,14 +23,14 @@ import {
 } from '../testing';
 import { readFileFromTree, readJsonFromTree } from '../utils';
 import { Schema } from './schema';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import {
   COULD_NOT_FIND_PROJECT_ERROR,
   COULD_NOT_FIND_DEFAULT_PROJECT_ERROR,
 } from './rules';
 // use glob import for mocking
-// tslint:disable-next-line: no-duplicate-imports
-import * as rules from './rules';
+import * as updateWorkspaceRule from './rules/update-workspace-rule';
+import * as schematics from '@angular-devkit/schematics/src/rules/schematic';
+import * as tasks from '@angular-devkit/schematics/tasks/package-manager/install-task';
 
 export async function testNgAdd(
   testTree: Tree,
@@ -59,8 +58,8 @@ describe('Migrate existing angular-components to barista components', () => {
   let externalSchematicsSpy: jest.SpyInstance;
 
   beforeEach(async () => {
-    externalSchematicsSpy = (externalSchematic as any) = jest
-      .fn()
+    externalSchematicsSpy = jest
+      .spyOn(schematics, 'externalSchematic')
       .mockReturnValue(noop());
     await addLegacyComponents(tree);
   });
@@ -81,7 +80,7 @@ describe('Migrate existing angular-components to barista components', () => {
 
   it('should call the migration schematic when legacy imports are detected', async () => {
     const ruleSpy = jest
-      .spyOn(rules, 'updateWorkspaceRule')
+      .spyOn(updateWorkspaceRule, 'updateWorkspaceRule')
       .mockReturnValue(noop);
     await testNgAdd(tree);
     expect(externalSchematicsSpy).toBeCalledTimes(1);
@@ -95,7 +94,7 @@ describe('Migrate existing angular-components to barista components', () => {
 
   it('should update imports of @dynatrace/angular-components to barista-components in package.json', async () => {
     const ruleSpy = jest
-      .spyOn(rules, 'updateWorkspaceRule')
+      .spyOn(updateWorkspaceRule, 'updateWorkspaceRule')
       .mockReturnValue(noop);
     await testNgAdd(tree);
     expect(readJsonFromTree(tree, '/package.json')).toMatchSnapshot();
@@ -230,13 +229,16 @@ describe('New workspace', () => {
   });
 
   it('should install all the dependencies when skipInstall is set to false', async () => {
-    const devkitTasksMock = ((NodePackageInstallTask as any) = jest
-      .fn()
-      .mockImplementation(() => ({
-        toConfiguration: jest.fn().mockReturnValue({
-          name: 'node-package',
-        }),
-      })));
+    const devkitTasksMock = jest
+      .spyOn(tasks, 'NodePackageInstallTask')
+      .mockImplementation(
+        () =>
+          ({
+            toConfiguration: jest.fn().mockReturnValue({
+              name: 'node-package',
+            }),
+          } as any),
+      );
 
     await testNgAdd(tree, { project: undefined, skipInstall: false });
     expect(devkitTasksMock).toHaveBeenCalledTimes(1);

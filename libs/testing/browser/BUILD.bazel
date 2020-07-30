@@ -16,6 +16,7 @@ ts_library(
     deps = [
         "@npm//@angular/core",
         "@npm//@types/jest",
+        "@npm//tslib",
     ],
 )
 
@@ -24,7 +25,7 @@ ts_config(
     src = "tsconfig.lib.json",
     deps = [
         "tsconfig.json",
-        "//:tsconfig.json",
+        "//:tsconfig.base.json",
     ],
 )
 
@@ -33,6 +34,6 @@ ts_config(
     src = "tsconfig.spec.json",
     deps = [
         "tsconfig.json",
-        "//:tsconfig.json",
+        "//:tsconfig.base.json",
     ],
 )

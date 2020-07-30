@@ -262,7 +262,7 @@ describe('DtFormField without forms', () => {
 
   // Safari Desktop and IE don't support type="date" and fallback to type="text".
   it('should be treated as empty if type is date in Safari Desktop or IE', fakeAsync(() => {
-    const platform = new Platform();
+    const platform = new Platform({} as any);
 
     if (platform.TRIDENT || (platform.SAFARI && !platform.IOS)) {
       const fixture = createComponent(DtInputDateTestController);

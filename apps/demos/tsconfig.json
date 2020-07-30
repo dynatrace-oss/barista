@@ -1,7 +1,16 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node", "testcafe"]
   },
-  "include": ["**/*.ts"]
+  "include": [],
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.a11y.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
 }

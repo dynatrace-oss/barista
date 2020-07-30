@@ -32,11 +32,13 @@ import {
   GET_LOCAL_DOES_NOT_MATCH_UPSTREAM,
   NO_TOKEN_PROVIDED_ERROR,
   parsePackageVersion,
-  shouldRelease,
 } from '../utils';
 // used for mocking
-// tslint:disable-next-line: no-duplicate-imports
-import * as utils from '../utils';
+import * as shouldRelease from '../utils/should-release';
+import * as unpackTarFile from '../utils/unpack-tar';
+import * as createFolder from '../utils/create-folder';
+import * as createReleaseTag from '../utils/create-release-tag';
+import * as verifyGithub from '../git/verify-github-status';
 import * as prompts from '../prompts';
 import { publishRelease } from './publish-release';
 import axios from 'axios';
@@ -94,9 +96,9 @@ test('Should return false if branch is not a valid release branch', async () => 
     .spyOn(GitClient.prototype, 'getLastCommit')
     .mockImplementation(() => '1234');
 
-  expect(shouldRelease(new GitClient(process.cwd()), parse('4.15.3')!)).toBe(
-    false,
-  );
+  expect(
+    shouldRelease.shouldRelease(new GitClient(process.cwd()), parse('4.15.3')!),
+  ).toBe(false);
 });
 
 test('Should throw an error when the github status is not successful', async () => {
@@ -200,15 +202,17 @@ describe('publish release', () => {
 
   test('should run the whole publish pipeline successfully', async () => {
     const commitSha = 'dff6e4181d8589592ab5e568872cccb2ddfb5ef3';
-    jest.spyOn(utils, 'shouldRelease').mockReturnValue(true);
-    jest.spyOn(git, 'verifyPassingGithubStatus').mockImplementation();
-    jest.spyOn(git, 'verifyNoUncommittedChanges').mockImplementation();
-    jest.spyOn(git, 'verifyLocalCommitsMatchUpstream').mockImplementation();
+    jest.spyOn(shouldRelease, 'shouldRelease').mockReturnValue(true);
+    jest.spyOn(verifyGithub, 'verifyPassingGithubStatus').mockImplementation();
+    jest.spyOn(verifyGithub, 'verifyNoUncommittedChanges').mockImplementation();
+    jest
+      .spyOn(verifyGithub, 'verifyLocalCommitsMatchUpstream')
+      .mockImplementation();
     jest
       .spyOn(GitClient.prototype, 'getLocalCommitSha')
       .mockReturnValue(commitSha);
 
-    jest.spyOn(utils, 'createFolder').mockImplementation();
+    jest.spyOn(createFolder, 'createFolder').mockImplementation();
 
     jest
       .spyOn(CircleCiApi.prototype, 'getArtifactUrlForBranch')
@@ -227,9 +231,11 @@ describe('publish release', () => {
       .spyOn(CircleCiApi.prototype, 'downloadArtifact')
       .mockImplementation(() => of());
 
-    jest.spyOn(utils, 'unpackTarFile').mockImplementation();
+    jest.spyOn(unpackTarFile, 'unpackTarFile').mockImplementation();
     jest.spyOn(GitClient.prototype, 'hasLocalTag').mockReturnValue(true);
-    jest.spyOn(utils, 'createReleaseTag').mockImplementation(async () => {});
+    jest
+      .spyOn(createReleaseTag, 'createReleaseTag')
+      .mockImplementation(async () => {});
     jest
       .spyOn(prompts, 'promptConfirmReleasePublish')
       .mockImplementation(async () => {});

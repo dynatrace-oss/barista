@@ -8,7 +8,7 @@ def architect_macro(
     # additional data that is needed for the architect to run
     additional_data = [
         "//:angular.json",
-        "//:tsconfig.json",
+        "//:tsconfig.base.json",
         "@npm//@angular-devkit/build-angular",
         "@npm//@angular-devkit/architect-cli",
         "@npm//@angular/cli",

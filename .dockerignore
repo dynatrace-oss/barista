@@ -10,7 +10,7 @@
 !package-lock.json
 
 # Used by multiple projects:
-!tsconfig.json
+!tsconfig.base.json
 !angular.json
 !nx.json
 !.npmrc

@@ -825,7 +825,6 @@ export class TestExpandableComponent {}
 @NgModule({
   imports: [CommonModule],
   declarations: [TestExpandableComponent],
-  entryComponents: [TestExpandableComponent],
 })
 export class TestExpandableComponentModule {}
 

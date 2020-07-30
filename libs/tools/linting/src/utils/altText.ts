@@ -119,7 +119,10 @@ export function createAltTextVisitor(
   };
 
   return class AltTextVisitor extends BasicTemplateAstVisitor {
-    visitElement(ast: ElementAst, context: any): void {
+    // Codelyzer in v6 has a dependency to angular 9 and therefore
+    // we have to type the element as any, otherwise the installed
+    // angular v10 and v9 conflict with their types
+    visitElement(ast: any, context: any): void {
       if (matches(ast) && !hasTextContentAlternative(ast)) {
         addFailure(this, ast, failureMessage());
       }

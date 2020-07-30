@@ -1,8 +1,14 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "types": ["node", "jest", "testcafe"],
-    "downlevelIteration": true
-  },
-  "include": ["**/*.ts"]
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.server.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ]
 }

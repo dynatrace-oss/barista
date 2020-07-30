@@ -57,7 +57,6 @@ import { environment } from './environments/environment';
     DtInputModule,
   ],
   declarations: [DtDemosApp, DtDemosSideNav],
-  entryComponents: [DtDemosApp],
   bootstrap: [DtDemosApp],
 })
 export class DtDemosAppModule {}
