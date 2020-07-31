@@ -149,7 +149,9 @@ export async function getBoilerplateFiles(
     exampleModulePath,
   )
     // remove the .ts extension for imports
-    .replace('.ts', '');
+    .replace('.ts', '')
+    // replace \ with /
+    .replace(/\\/g, '/');
 
   files.push({
     path: resolve(environment.examplesLibDir, 'app/app.module.ts'),
