@@ -2,7 +2,7 @@ load("@npm//@11ty/eleventy:index.bzl", "eleventy")
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
 load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
-load("//tools/bazel_rules:index.bzl", "rollup")
+load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
 
 sass_library(
     name = "scss_lib",
@@ -33,16 +33,19 @@ ts_library(
     tsconfig = ":tsconfig",
 )
 
-# rollup(
-#     name = "bundle",
-#     assets = [],
-#     entry_point = {"main.ts": "main.bundled.js"},
-#     deps = [":scripts"],
-# )
+rollup_bundle(
+    name = "bundle",
+    entry_point = "_scripts/main.ts",
+    deps = [
+        ":scripts",
+    ],
+    # config_file = "//libs/fluid-elements:rollup.config.js",
+    format = "umd",
+)
 
 data = glob(["**/*"]) + [
     ":styles",
-    ":scripts",
+    ":bundle",
     "//libs/fluid-elements/button:readme",
     "//libs/fluid-elements/checkbox:readme",
     "//libs/fluid-elements/switch:readme",

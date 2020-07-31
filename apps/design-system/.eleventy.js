@@ -12,7 +12,7 @@ module.exports = function (config) {
 
   config.addPassthroughCopy({
     'apps/design-system/_styles/*.css': 'assets/css',
-    'apps/design-system/_scripts/*.js': 'assets/js',
+    'apps/design-system/bundle.js': 'assets/js/main.js',
   });
 
   config.addFilter('log', function (input) {
