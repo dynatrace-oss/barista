@@ -9,17 +9,17 @@
     "dev": [
       {
         "name": "Christoph Matscheko",
-        "gitHubUser": "heartdisease"
+        "githubuser": "heartdisease"
       },
       {
         "name": "Fabian Friedl",
-        "gitHubUser": "ffriedl89"
+        "githubuser": "ffriedl89"
       }
     ],
     "ux": [
       {
         "name": "Andreas Mayr",
-        "gitHubUser": "moarliman"
+        "githubuser": "moarliman"
       }
     ]
   },
