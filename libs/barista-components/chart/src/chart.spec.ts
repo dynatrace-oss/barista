@@ -32,7 +32,10 @@ import {
   DT_CHART_COLOR_PALETTES,
   DT_CHART_COLOR_PALETTE_ORDERED,
 } from '@dynatrace/barista-components/theming';
-import { createComponent } from '@dynatrace/testing/browser';
+import {
+  createComponent,
+  dispatchMouseEvent,
+} from '@dynatrace/testing/browser';
 import {
   AxisOptions,
   ChartOptions,
@@ -424,6 +427,140 @@ describe('DtChart', () => {
         expect.assertions(1);
       }
     }));
+  });
+
+  describe('series visibility', () => {
+    it('should retain the visibilty of a series when new data is set via an observable', () => {
+      const fixture = createComponent(DynamicSeries);
+      const fixtureNative = fixture.debugElement.nativeElement;
+      fixture.detectChanges();
+
+      fixture.componentInstance.series.next([
+        {
+          name: 'Actions/min',
+          id: 'someid',
+          data: [
+            [1523972199774, 0],
+            [1523972201622, 10],
+          ],
+        },
+        {
+          name: 'Requests/min',
+          id: 'another id',
+          data: [
+            [1523972199774, 0],
+            [1523972201622, 10],
+          ],
+        },
+      ]);
+      fixture.detectChanges();
+
+      const legendItem = fixtureNative.querySelector('.highcharts-legend-item');
+
+      // Expect both series to be there.
+      expect(fixtureNative.querySelectorAll('.highcharts-series')).toHaveLength(
+        2,
+      );
+      dispatchMouseEvent(legendItem, 'click');
+      fixture.detectChanges();
+
+      // Expect series 0 to have visibility hidden set
+      let series0 = fixtureNative.querySelector('.highcharts-series-0');
+      expect(series0.getAttribute('visibility')).toBe('hidden');
+
+      // set the next data
+      fixture.componentInstance.series.next([
+        {
+          name: 'Actions/min',
+          id: 'someid',
+          data: [
+            [1523972199775, 0],
+            [1523972201623, 10],
+          ],
+        },
+        {
+          name: 'Requests/min',
+          id: 'another id',
+          data: [
+            [1523972199775, 0],
+            [1523972201623, 10],
+          ],
+        },
+      ]);
+      fixture.detectChanges();
+
+      // Expect series 0 to still be hidden.
+      series0 = fixtureNative.querySelector('.highcharts-series-0');
+      expect(series0.getAttribute('visibility')).toBe('hidden');
+    });
+
+    it('should retain the visibilty of a series when new data is set as array', () => {
+      const fixture = createComponent(SeriesMulti);
+      const fixtureNative = fixture.debugElement.nativeElement;
+      fixture.detectChanges();
+
+      fixture.componentInstance.series = [
+        {
+          name: 'Actions/min',
+          type: 'line',
+          id: 'someid',
+          data: [
+            [1523972199774, 0],
+            [1523972201622, 10],
+          ],
+        },
+        {
+          name: 'Requests/min',
+          type: 'line',
+          id: 'another id',
+          data: [
+            [1523972199774, 0],
+            [1523972201622, 10],
+          ],
+        },
+      ];
+      fixture.detectChanges();
+
+      const legendItem = fixtureNative.querySelector('.highcharts-legend-item');
+
+      // Expect both series to be there.
+      expect(fixtureNative.querySelectorAll('.highcharts-series')).toHaveLength(
+        2,
+      );
+      dispatchMouseEvent(legendItem, 'click');
+      fixture.detectChanges();
+
+      // Expect series 0 to have visibility hidden set
+      let series0 = fixtureNative.querySelector('.highcharts-series-0');
+      expect(series0.getAttribute('visibility')).toBe('hidden');
+
+      // set the next data
+      fixture.componentInstance.series = [
+        {
+          name: 'Actions/min',
+          type: 'line',
+          id: 'someid',
+          data: [
+            [1523972199775, 0],
+            [1523972201623, 10],
+          ],
+        },
+        {
+          name: 'Requests/min',
+          type: 'line',
+          id: 'another id',
+          data: [
+            [1523972199775, 0],
+            [1523972201623, 10],
+          ],
+        },
+      ];
+      fixture.detectChanges();
+
+      // Expect series 0 to still be hidden.
+      series0 = fixtureNative.querySelector('.highcharts-series-0');
+      expect(series0.getAttribute('visibility')).toBe('hidden');
+    });
   });
 });
 
