@@ -210,14 +210,12 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
         }
       },
     );
-    if (this._radioGroup) {
-      this.name = this._radioGroup.name;
-    }
   }
 
   ngOnInit(): void {
     if (this._radioGroup) {
       this.checked = this._radioGroup.value === this._value;
+      this.name = this._radioGroup.name;
     }
   }
 
