@@ -28,6 +28,7 @@ import { Observable, OperatorFunction, fromEvent, merge } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 import { _readKeyCode } from '@dynatrace/barista-components/core';
+import { DtChartSeries } from './chart.interface';
 
 /** @internal Highcharts plot background dimensions */
 export interface PlotBackgroundInfo {
@@ -279,5 +280,23 @@ export function getPlotBackgroundInfo(
     height: parseInt(plotBackground.getAttribute('height')!, 10) || 0,
     left: parseInt(plotBackground.getAttribute('x')!, 10) || 0,
     top: parseInt(plotBackground.getAttribute('y')!, 10) || 0,
+  };
+}
+
+/**
+ * Retains the visibility setting of a series, if the series was already
+ * set to not visible via highcharts legend clicks or settings.
+ */
+export function retainSeriesVisibility(
+  oldSeries: Highcharts.Series[] | undefined,
+): (singleSeries: DtChartSeries) => DtChartSeries {
+  return (singleSeries: DtChartSeries) => {
+    const previeousSingleSeries = oldSeries?.find(
+      (s) => s.name === singleSeries.name,
+    );
+    if (previeousSingleSeries) {
+      singleSeries.visible = previeousSingleSeries.visible;
+    }
+    return singleSeries;
   };
 }

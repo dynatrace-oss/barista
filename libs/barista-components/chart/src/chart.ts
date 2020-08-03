@@ -102,7 +102,7 @@ import {
 import { DtChartRange } from './range/range';
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
-import { getPlotBackgroundInfo } from './utils';
+import { getPlotBackgroundInfo, retainSeriesVisibility } from './utils';
 import { DtChartOptions, DtChartSeries } from './chart.interface';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
@@ -231,11 +231,15 @@ export class DtChart
     }
     if (series instanceof Observable) {
       this._dataSub = series.subscribe((s: DtChartSeries[]) => {
-        this._currentSeries = s;
+        this._currentSeries = s.map(
+          retainSeriesVisibility(this._chartObject?.series),
+        );
         this._update();
       });
     } else {
-      this._currentSeries = series;
+      this._currentSeries = !series
+        ? series
+        : series.map(retainSeriesVisibility(this._chartObject?.series));
     }
     this._series = series;
     this._changeDetectorRef.markForCheck();
@@ -594,7 +598,6 @@ export class DtChart
     this._chartObject = this._ngZone.runOutsideAngular(() =>
       chart(this._container.nativeElement, this.highchartsOptions),
     );
-
     this._chartObject.series.forEach((series, index) => {
       addHighchartsEvent(series, 'hide', () => {
         if (this._currentSeries) {
