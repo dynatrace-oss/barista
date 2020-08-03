@@ -89,7 +89,7 @@
     "@adobe/leonardo-contrast-colors": "^1.0.0-alpha.5",
     "@angular-builders/custom-webpack": "^9.1.0",
     "@angular-devkit/architect-cli": "^0.901.8",
-    "@angular-devkit/build-angular": "^0.901.9",
+    "@angular-devkit/build-angular": "^0.901.12",
     "@angular-devkit/build-ng-packagr": "^0.901.9",
     "@angular/bazel": "^9.1.11",
     "@angular/cli": "^9.1.9",
