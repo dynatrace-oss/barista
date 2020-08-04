@@ -22,7 +22,7 @@ import { Observable } from 'rxjs';
 @Directive({
   // The @Directive with selector is required here because we're still running a lot of things
   // against ViewEngine where directives without selectors are not allowed.
-  // @breaking-change Will be removed with upgrade to angular 10.0.0.
+  // @breaking-change Will be removed with switch to ivy.
   // convert to a selectorless Directive after we switch to Ivy.
   selector: 'do-not-use-abstract-dt-form-field-control',
 })
