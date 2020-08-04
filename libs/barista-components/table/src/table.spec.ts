@@ -17,6 +17,8 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
+import { CommonModule } from '@angular/common';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   Component,
   DebugElement,
@@ -26,6 +28,20 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  DtCustomEmptyState,
+  DtEmptyState,
+  DtEmptyStateModule,
+} from '@dynatrace/barista-components/empty-state';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
+import {
+  DtLoadingDistractor,
+  DtLoadingDistractorModule,
+} from '@dynatrace/barista-components/loading-distractor';
 import {
   DtCell,
   DtExpandableCell,
@@ -37,24 +53,6 @@ import {
   DtTableLoadingState,
   DtTableModule,
 } from '@dynatrace/barista-components/table';
-import {
-  DtEmptyState,
-  DtEmptyStateModule,
-  DtCustomEmptyState,
-  DtCustomEmptyStateBase,
-} from '@dynatrace/barista-components/empty-state';
-import {
-  DtLoadingDistractor,
-  DtLoadingDistractorModule,
-} from '@dynatrace/barista-components/loading-distractor';
-import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
-
-import { By } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtTable', () => {
@@ -893,4 +891,4 @@ export class TestCustomEmptyStateApp {
     </dt-empty-state>
   `,
 })
-export class CustomEmptyState extends DtCustomEmptyStateBase {}
+export class CustomEmptyState {}
