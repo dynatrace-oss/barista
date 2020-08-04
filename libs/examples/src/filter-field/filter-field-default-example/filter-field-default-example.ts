@@ -25,29 +25,23 @@ export class DtExampleFilterFieldDefault {
   private DATA = {
     autocomplete: [
       {
-        name: 'AUT',
-        autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
-      },
-      {
-        name: 'USA',
+        name: 'items',
         autocomplete: [
-          { name: 'San Francisco' },
-          { name: 'Los Angeles' },
-          { name: 'New York' },
-          { name: 'Custom', suggestions: [], validators: [] },
+          { name: 'first item' },
+          { name: 'second item' },
+          { name: 'third item' },
+          { name: 'fourth item' },
+          { name: 'fifth item' },
+          { name: 'sixth item' },
+          { name: 'seventh item' },
+          { name: 'eighth item' },
+          { name: 'ninth item' },
+          { name: 'tenth item' },
+          { name: 'eleventh item' },
+          { name: 'twelfth item' },
+          { name: 'some very long item' },
+          { name: 'some even much longer item' },
         ],
-      },
-      {
-        name: 'Requests per minute',
-        range: {
-          operators: {
-            range: true,
-            equal: true,
-            greaterThanEqual: true,
-            lessThanEqual: true,
-          },
-          unit: 's',
-        },
       },
     ],
   };

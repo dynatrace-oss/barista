@@ -30,6 +30,7 @@ import {
   Optional,
   ViewChild,
   ViewEncapsulation,
+  AfterContentInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -77,7 +78,12 @@ function escapeRegExp(text: string): string {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtHighlight
-  implements AfterContentChecked, AfterViewInit, OnChanges, OnDestroy {
+  implements
+    AfterContentChecked,
+    AfterContentInit,
+    AfterViewInit,
+    OnChanges,
+    OnDestroy {
   /**
    * The caseSensitive input can be set to search for case sensitive occurrences.
    * Per default the search is case insensitive.
@@ -146,6 +152,16 @@ export class DtHighlight
     });
   }
 
+  ngAfterContentInit(): void {
+    // Initially we need to run and force highlight once
+    // to move the text content value into the visible span
+    // Otherwise some layouts will be tripped up, as the visible span
+    // would be 0x0 pixels large.
+    const textContent = this._getTextContent();
+    this._textContent = textContent;
+    this._highlight(true);
+  }
+
   ngOnDestroy(): void {
     this._isInViewportSubscription.unsubscribe();
   }
@@ -164,14 +180,13 @@ export class DtHighlight
   }
 
   /** The highlight function triggers the highlighting process if we are in a browser context. */
-  private _highlight(): void {
+  private _highlight(force: boolean = false): void {
     // Make sure to only update the highlight if it is in the viewport.
     // This is needed because the highlight component can possibly be
     // rendered a lot if it is used for example in a big data table or autocomplete.
-    if (!this._isInViewport || !this._document) {
+    if (!force && (!this._isInViewport || !this._document)) {
       return;
     }
-
     // As we create the highlight nodes with browser native functions we do not depend on Angular's CD.
     // So we can run this code outside the zone to boost performance.
     this._zone.runOutsideAngular(() => {
@@ -181,7 +196,6 @@ export class DtHighlight
 
       // Remove the old nodes.
       removeNodeChildren(transformedEl);
-
       if (textContent !== null && Boolean(term && term.length)) {
         const flags = this._caseSensitive ? 'gm' : 'gmi';
         const regExp = new RegExp(`(${escapeRegExp(term)})`, flags);

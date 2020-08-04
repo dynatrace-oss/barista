@@ -22,5 +22,20 @@ import { Component } from '@angular/core';
 })
 export class DtExampleAutocompleteDefault {
   value: string;
-  options: string[] = ['One', 'Two', 'Three'];
+  options: string[] = [
+    'first item',
+    'second item',
+    'third item',
+    'fourth item',
+    'fifth item',
+    'sixth item',
+    'seventh item',
+    'eighth item',
+    'ninth item',
+    'tenth item',
+    'eleventh item',
+    'twelfth item',
+    'some very long item',
+    'some even much longer item',
+  ];
 }
