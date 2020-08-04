@@ -21,21 +21,18 @@ import {
   ContentChildren,
   Directive,
   EventEmitter,
+  forwardRef,
   Input,
+  Optional,
   Output,
   QueryList,
-  forwardRef,
-  Inject,
-  Optional,
   Self,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-
 import { CanDisable } from '@dynatrace/barista-components/core';
 import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
-
-import { DtRadioButton, DtRadioChange } from './radio';
 import { Subject } from 'rxjs';
+import { DtRadioButton, DtRadioChange } from './radio';
 
 let nextUniqueId = 0;
 
@@ -167,13 +164,7 @@ export class DtRadioGroup<T>
 
   constructor(
     private _changeDetector: ChangeDetectorRef,
-    // @breaking-change 8.0.0 Remove the default null assignment and the @Inject
-    // Change to:
-    // @Optional() @Self() public ngControl: NgControl;
-    @Inject(NgControl)
-    @Optional()
-    @Self()
-    public ngControl: NgControl | null = null,
+    @Optional() @Self() public ngControl: NgControl,
   ) {
     if (this.ngControl) {
       // Note: we provide the value accessor through here, instead of
