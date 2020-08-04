@@ -37,7 +37,6 @@ import {
   Self,
   ViewChild,
   ViewEncapsulation,
-  Inject,
 } from '@angular/core';
 import {
   CheckboxRequiredValidator,
@@ -48,9 +47,9 @@ import {
 import {
   CanDisable,
   HasTabIndex,
-  _addCssClass,
   mixinDisabled,
   mixinTabIndex,
+  _addCssClass,
 } from '@dynatrace/barista-components/core';
 import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
 import { Subject } from 'rxjs';
@@ -262,13 +261,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
     private _focusMonitor: FocusMonitor,
     private _platform: Platform,
     @Attribute('tabindex') tabIndex: string,
-    // @breaking-change 8.0.0 Remove the default null assignment and the @Inject
-    // Change to:
-    // @Optional() @Self() public ngControl: NgControl;
-    @Inject(NgControl)
-    @Optional()
-    @Self()
-    public ngControl: NgControl | null = null,
+    @Optional() @Self() public ngControl: NgControl,
   ) {
     super();
 
