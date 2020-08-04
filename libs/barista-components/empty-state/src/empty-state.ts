@@ -34,15 +34,10 @@ import {
   OnDestroy,
   QueryList,
   ViewEncapsulation,
-  ViewChild,
 } from '@angular/core';
+import { _toggleCssClass } from '@dynatrace/barista-components/core';
 import { Subject } from 'rxjs';
-import { takeUntil, startWith } from 'rxjs/operators';
-
-import {
-  DtViewportResizer,
-  _toggleCssClass,
-} from '@dynatrace/barista-components/core';
+import { takeUntil } from 'rxjs/operators';
 
 /** The min-width from which empty state items are displayed horizontally. */
 const ITEMS_HORIZONTAL_BREAKPOINT = 540;
@@ -190,11 +185,6 @@ export class DtEmptyState
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
-    /**
-     * @deprecated Remove the viewportResizer from the constructor as it is no longer needed.
-     * @breaking-change Remove the viewportResizer in version 8.0.0
-     */
-    private _viewportResizer: DtViewportResizer,
     private _platform: Platform,
   ) {}
 
@@ -225,13 +215,6 @@ export class DtEmptyState
           }
         });
         this._containerSizeObserver.observe(this._elementRef.nativeElement);
-      } else {
-        this._viewportResizer
-          .change()
-          .pipe(startWith(null), takeUntil(this._destroy$))
-          .subscribe(() => {
-            this._updateLayout();
-          });
       }
     }
   }
@@ -260,45 +243,6 @@ export class DtEmptyState
       this._elementRef.nativeElement,
       'dt-empty-state-items-horizontal',
     );
-  }
-
-  /**
-   * @internal
-   * Updates the layout according to the width of the container (horizontal or vertical)
-   * @deprecated will be removed once the viewportResizer is removed from the constructor.
-   * @breaking-change Remove with version 8.0.0
-   */
-  _updateLayout(): void {
-    if (this._platform.isBrowser) {
-      const componentWidth = this._elementRef.nativeElement.getBoundingClientRect()
-        .width;
-      this._updateLayoutForSize(componentWidth);
-    }
-  }
-}
-
-/**
- * Empty state base class that needs to be implemented by every custom
- * empty state that is used inside the table. It provides a proxy to the updateLayout
- * function of the empty state that will be called by the table.
- *
- * @deprecated Remove this class, as it is no longer needed to proxy the update
- * layout call, when the layout updates are triggered by the resize observer.
- * @breaking-change Remove the viewportResizer in version 8.0.0
- */
-@Directive()
-export class DtCustomEmptyStateBase {
-  /** @internal Finds the empty state inside the component */
-  @ViewChild(DtEmptyState) _emptyState: DtEmptyState;
-
-  /**
-   * @internal
-   * Proxies the update layout function of the empty state
-   * to react to layout changes.
-   */
-  _updateLayout(): void {
-    // If we have an empty state proxy the updateLayout function
-    this._emptyState?._updateLayout();
   }
 }
 
