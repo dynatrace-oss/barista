@@ -18,6 +18,7 @@ import { Platform } from '@angular/cdk/platform';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   ElementRef,
@@ -31,19 +32,18 @@ import {
   TemplateRef,
   ViewChild,
   ViewChildren,
-  ViewContainerRef,
   ViewEncapsulation,
-  ChangeDetectorRef,
 } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import {
   DtUiTestConfiguration,
-  DT_UI_TEST_CONFIG,
   DtViewportResizer,
+  DT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
 import { DtOverlay, DtOverlayRef } from '@dynatrace/barista-components/overlay';
 import { DtColors } from '@dynatrace/barista-components/theming';
-import { Subject, animationFrameScheduler } from 'rxjs';
+import { animationFrameScheduler, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { DtSunburstChartSegment } from './sunburst-chart-segment';
 import { DtSunburstChartOverlay } from './sunburst-chart.directive';
 import {
@@ -58,8 +58,6 @@ import {
   getSlices,
   getValue,
 } from './sunburst-chart.util';
-import { takeUntil } from 'rxjs/operators';
-import { Overlay } from '@angular/cdk/overlay';
 
 /** Minimum width of the chart */
 const MIN_WIDTH = 480;
@@ -169,21 +167,17 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   private readonly _destroy$ = new Subject<void>();
 
   constructor(
-    /** @breaking-change Deprecate ViewContainerRef in version 8.0.0 */
-    _overlayService: Overlay,
-    /** @breaking-change Deprecate ViewContainerRef in version 8.0.0 */
-    _viewContainerRef: ViewContainerRef,
     private _platform: Platform,
-    // TODO: remove this sanitizer when ivy is no longer opt out
+    /**
+     * @deprecated Remove this sanitizer when we ship the library with ivy
+     * @breaking-change (Version: TBD) when the library can be shipped with ivy.
+     */
     private _sanitizer: DomSanitizer,
     private _elementRef: ElementRef<HTMLElement>,
-    /** @breaking-change Make the DtViewportResizer mandatory in version 8.0.0 */
-    @Optional() private _resizer?: DtViewportResizer,
-    /** @breaking-change Make the ChangeDetectorRef mandatory in version 8.0.0 */
-    @Optional() private _changeDetectorRef?: ChangeDetectorRef,
+    private _resizer: DtViewportResizer,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _dtOverlayService: DtOverlay,
     @Optional() @Inject(DT_UI_TEST_CONFIG) _config?: DtUiTestConfiguration,
-    /** @breaking-change Make the DtOverlay mandatory in version 8.0.0 */
-    @Optional() private _dtOverlayService?: DtOverlay,
   ) {}
 
   /** AfterContentInit hook */
