@@ -35,7 +35,6 @@ import {
   Optional,
   Self,
   OnChanges,
-  Inject,
 } from '@angular/core';
 import {
   CheckboxRequiredValidator,
@@ -202,13 +201,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
     private _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
     @Attribute('tabindex') tabIndex: string,
-    // @breaking-change 8.0.0 Remove the default null assignment and the @Inject
-    // Change to:
-    // @Optional() @Self() public ngControl: NgControl;
-    @Inject(NgControl)
-    @Optional()
-    @Self()
-    public ngControl: NgControl | null = null,
+    @Optional() @Self() public ngControl: NgControl,
   ) {
     super();
 
