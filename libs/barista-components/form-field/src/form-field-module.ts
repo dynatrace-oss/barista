@@ -36,7 +36,7 @@ import { DtFormFieldControl } from './form-field-control';
     DtError,
     DtPrefix,
     DtSuffix,
-    // @breaking-change Will be removed with upgrade to angular 10.0.0.
+    // @breaking-change Will be removed with upgrade to ivy for libraries
     // can be removed once `DtFormFieldControl` is turned into a selector-less directive.
     DtFormFieldControl as any,
   ],
