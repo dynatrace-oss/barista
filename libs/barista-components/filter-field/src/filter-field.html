@@ -66,6 +66,7 @@
           <dt-option
             *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
+            [attr.title]="_getTitle(optionDef.option)"
           >
             <dt-highlight [term]="_inputValue">{{
               optionDef.option!.viewValue
@@ -73,7 +74,10 @@
           </dt-option>
         </dt-optgroup>
         <ng-template #options>
-          <dt-option [value]="optionOrGroupDef">
+          <dt-option
+            [value]="optionOrGroupDef"
+            [attr.title]="_getTitle(optionOrGroupDef.option)"
+          >
             <dt-highlight [term]="_inputValue">{{
               optionOrGroupDef.option!.viewValue
             }}</dt-highlight>

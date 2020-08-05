@@ -178,3 +178,13 @@ button.dt-filter-field-clear-all-button-hidden {
 .dt-filter-field-error p {
   margin: 0;
 }
+
+::ng-deep .dt-filter-field-panel .dt-option {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+::ng-deep .dt-filter-field-panel .dt-highlight {
+  display: inline;
+}
