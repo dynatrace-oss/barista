@@ -126,6 +126,7 @@ import {
   isDtRangeDef,
   isDtRangeValue,
   isPartialDtAutocompleteDef,
+  DtOptionDef,
 } from './types';
 import {
   DT_FILTER_VALUES_PARSER_CONFIG,
@@ -777,6 +778,18 @@ export class DtFilterField<T = any>
       this._emitFilterChanges([], removed);
     }
     this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal Get the title for an option in case is will overflow */
+  _getTitle(optionDef: DtOptionDef): string | null {
+    // 42 is an estimation based on the width of a `0` character in the current
+    // font-size and how many would fit the option until showing the ellipsis.
+    // This might result in showing the title too soon if there are a lot of
+    // slim charaters in the value or showing it too lat if there are too many
+    // wide characters in the value.
+    return optionDef && optionDef.viewValue.length > 42
+      ? optionDef.viewValue
+      : null;
   }
 
   /** Returns the index in the filters for the filter values given or -1 if not found */
