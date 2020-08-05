@@ -51,6 +51,7 @@ import {
   switchMap,
   startWith,
   tap,
+  debounceTime,
 } from 'rxjs/operators';
 import {
   CanDisable,
@@ -305,6 +306,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     fromEvent(this._searchInput.nativeElement, 'input')
       .pipe(
         tap(() => this._autocompleteTrigger.openPanel()),
+        debounceTime(100),
         map((event: KeyboardEvent): string => {
           event.stopPropagation();
           return this._searchInput.nativeElement.value;
@@ -314,9 +316,11 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
       .subscribe((query) => {
         this.filterChange.emit(new DtComboboxFilterChange(query));
       });
-    fromEvent(this._searchInput.nativeElement, 'blur').subscribe(() => {
-      this._resetInputValue();
-    });
+    fromEvent(this._searchInput.nativeElement, 'blur')
+      .pipe(takeUntil(this._destroy))
+      .subscribe(() => {
+        this._resetInputValue();
+      });
   }
 
   ngAfterContentInit(): void {
