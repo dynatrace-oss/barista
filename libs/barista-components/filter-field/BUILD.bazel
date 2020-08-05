@@ -1,4 +1,6 @@
-load("//tools/bazel_rules:index.bzl", "stylelint")
+load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -16,7 +18,91 @@ filegroup(
     ]),
 )
 
+ng_module_view_engine(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        ":styles",
+        ":src/filter-field.html",
+        ":src/filter-field-tag/filter-field-tag.html",
+        ":src/filter-field-range/filter-field-range.html",
+    ],
+    module_name = "@dynatrace/barista-components/filter-field",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/highlight:compile",
+        "//libs/barista-components/overlay:compile",
+        "//libs/barista-components/loading-distractor:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/autocomplete:compile",
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/button-group:compile",
+        "@npm//@angular/animations",
+        "@npm//@angular/common",
+        "@npm//@angular/cdk",
+        "@npm//@angular/forms",
+        "@npm//@angular/core",
+        "@npm//rxjs",
+    ],
+)
+
+multi_sass_binary(
+    name = "styles",
+    srcs = [
+        "src/filter-field.scss",
+        "src/filter-field-tag/filter-field-tag.scss",
+        "src/filter-field-range/filter-field-range.scss",
+    ]
+)
+
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
+)
+
+jest(
+    name = "test",
+    srcs = glob(include = ["**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    setup_file = ":src/test-setup.ts",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+        "//libs/testing/browser",
+        "//libs/testing/node",
+        "//libs/testing/fixtures",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/overlay:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/cdk",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
 )
