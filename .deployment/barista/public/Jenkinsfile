@@ -14,7 +14,6 @@ pipeline {
   environment {
     WORKSPACE_DIR = "/home/dynatrace"
     BARISTA_PATH = "barista"
-    ICONS_PATH = "barista-icons"
     FRONTEND_IMAGE_NAME = "designops/barista-app-frontend"
     BITBUCKET_URL = credentials("bitbucket-url")
     DOCKER_REGISTRY = credentials("docker-registry")

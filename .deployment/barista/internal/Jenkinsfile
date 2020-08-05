@@ -10,7 +10,6 @@ pipeline {
   environment {
     WORKSPACE_DIR = "/home/dynatrace"
     BARISTA_PATH = "barista"
-    ICONS_PATH = "barista-icons"
     FRONTEND_IMAGE_NAME = "designops/barista-app-frontend"
     BITBUCKET_URL = credentials("bitbucket-url")
     DOCKER_REGISTRY = credentials("docker-registry")
@@ -26,18 +25,6 @@ pipeline {
       }
 
       stages {
-        stage("Checkout barista icons") {
-          steps {
-            checkout changelog: false, poll: false, scm: [
-              $class: "GitSCM",
-              branches: [[name: "*/master"]],
-              doGenerateSubmoduleConfigurations: false,
-              extensions: [[$class: "RelativeTargetDirectory", relativeTargetDir: "$ICONS_PATH"]],
-              submoduleCfg: [], userRemoteConfigs: [[url: "${BITBUCKET_URL}scm/wx/barista-icons.git" ]]
-            ]
-          }
-        }
-
         stage("Workspace Preparations") {
           environment {
             BARISTA_SEARCH_ENDPOINT = credentials('barista-search-endpoint')
@@ -81,7 +68,6 @@ pipeline {
                   sh 'npm install @dynatrace/barista-icons @dynatrace/barista-fonts --ignore-scripts'
                 }
               }
-
               configFileProvider([
                 configFile(fileId: "barista-env", variable: "ENV")
               ]) {
