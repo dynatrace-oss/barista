@@ -38,7 +38,7 @@ export const environment: BaEnvironment = {
   shareableExamplesToolsDir: './libs/tools/shareable-examples/src',
   demosAppDir: './apps/demos/src',
   baristaAppDir: './apps/barista-design-system/src',
-  iconsRoot: '../barista-icons/src',
+  iconsRoot: './node_modules/@dynatrace/barista-icons',
   /** Path to the icons changelog relative to the icons root directory. */
   iconsChangelogFileName: `../barista-icons/_build/barista-icons/_templates/${iconChangelogName}`,
   /** URL/IP where the Strapi CMS is located. */
