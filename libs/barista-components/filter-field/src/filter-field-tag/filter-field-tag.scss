@@ -85,6 +85,9 @@
 .dt-filter-field-tag-value {
   color: $turquoise-600;
   margin-left: 4px;
+  max-width: 250px;
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 
 .dt-filter-field-tag-label .dt-filter-field-tag-value {
