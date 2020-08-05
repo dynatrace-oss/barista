@@ -5,6 +5,11 @@
       "version": "7.0.0",
       "description": "Updates to the Major Version 7.0.0",
       "factory": "./src/migrations/update-7-0-0/update-7-0-0"
+    },
+    "update-8-0-0": {
+      "version": "8.0.0",
+      "description": "Updates to the Major Version 8.0.0",
+      "factory": "./src/migrations/update-8-0-0/update-8-0-0"
     }
   }
 }
