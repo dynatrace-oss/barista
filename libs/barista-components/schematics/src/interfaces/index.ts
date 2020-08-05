@@ -14,6 +14,4 @@
  * limitations under the License.
  */
 
-export * from './read-json-from-tree';
-export * from './update-dependency';
-export * from './update-json-in-tree';
+export * from './package-json.interface';

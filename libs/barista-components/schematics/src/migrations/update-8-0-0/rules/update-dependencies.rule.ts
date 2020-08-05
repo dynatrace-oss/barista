@@ -15,7 +15,7 @@
  */
 
 import { Rule } from '@angular-devkit/schematics';
-import { PackageJson } from '../../../interfaces';
+import { PackageJson } from '../../../interfaces/package-json.interface';
 import { updateDependency, updateJsonInTree } from '../../../utils';
 
 /**
@@ -24,13 +24,8 @@ import { updateDependency, updateJsonInTree } from '../../../utils';
  */
 export function updateDependenciesRule(): Rule {
   return updateJsonInTree<PackageJson>('/package.json', (json) => {
-    updateDependency(json, '@dynatrace/barista-components', '^7.0.0');
-    updateDependency(json, '@dynatrace/barista-icons', '^5.0.0');
-    updateDependency(json, 'highcharts', '^7.2.1', false);
-    // remove highcharts types as they are shipped now
-    updateDependency(json, '@types/highcharts', undefined as any, false);
-
-    json.dependencies['lodash-es'] = '^4.17.15';
+    updateDependency(json, '@dynatrace/barista-components', '^8.0.0');
+    updateDependency(json, '@dynatrace/barista-icons', '^7.5.0');
 
     return json;
   });

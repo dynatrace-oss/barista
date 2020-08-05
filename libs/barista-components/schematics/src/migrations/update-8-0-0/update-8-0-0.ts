@@ -14,6 +14,23 @@
  * limitations under the License.
  */
 
-export * from './read-json-from-tree';
-export * from './update-dependency';
-export * from './update-json-in-tree';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree,
+} from '@angular-devkit/schematics';
+import { installPackagesRule } from '../../utils';
+import { updateDependenciesRule } from './rules';
+
+/**
+ * @internal
+ * Update rule for the version 8.0.0
+ */
+export default function (): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+    const rule = chain([updateDependenciesRule(), installPackagesRule()]);
+
+    return rule(tree, context);
+  };
+}
