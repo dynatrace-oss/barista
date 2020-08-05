@@ -1754,14 +1754,6 @@
               "!libs/barista-components/filter-field/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/filter-field/jest.config.js",
-            "tsConfig": "libs/barista-components/filter-field/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/filter-field/src/test-setup.ts"
-          }
         }
       },
       "schematics": {}
@@ -1826,14 +1818,6 @@
               "**/node_modules/**",
               "!libs/barista-components/highlight/**/*"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/highlight/jest.config.js",
-            "tsConfig": "libs/barista-components/highlight/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/highlight/src/test-setup.ts"
           }
         }
       },
