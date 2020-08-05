@@ -128,12 +128,19 @@ function createRollupConfig(
               'libs/shared/design-tokens/generated/index.js',
             ),
           },
+          {
+            find: '@dynatrace/shared/keycodes',
+            replacement: resolve(
+              context.workspaceRoot,
+              'libs/shared/keycodes/src/index.ts',
+            ),
+          },
         ],
       }),
       localResolve(),
       rollupResolve({
         preferBuiltins: true,
-        extensions: ['.js'],
+        extensions: ['.js', '.ts'],
       }),
     ],
   };

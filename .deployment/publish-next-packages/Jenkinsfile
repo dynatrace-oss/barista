@@ -12,25 +12,6 @@ pipeline {
 
   stages {
 
-    stage('Checkout specified branch') {
-      steps {
-        checkout([
-          $class: 'GitSCM',
-          branches: [[name: "master"]],
-          doGenerateSubmoduleConfigurations: false,
-          extensions: [[
-            $class: 'LocalBranch',
-            localBranch: "master"
-          ]],
-          gitTool: 'Default',
-          submoduleCfg: [],
-          userRemoteConfigs: [[
-            url: 'https://github.com/dynatrace-oss/barista.git'
-          ]]
-        ])
-      }
-    }
-
     stage('Install dependencies') {
       steps {
         nodejs(nodeJSInstallationName: 'Node 12.x') {

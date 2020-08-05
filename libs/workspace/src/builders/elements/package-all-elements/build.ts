@@ -53,7 +53,11 @@ export function elementsBuildAndPackageBuilder(
       const builds = createProjectStreams(context, targetProjects, 'build');
       return forkJoin(builds).pipe(
         switchMap(() =>
-          forkJoin(...createProjectStreams(context, targetProjects, 'package')),
+          forkJoin(
+            ...createProjectStreams(context, targetProjects, 'package', {
+              packageVersion: options.packageVersion,
+            }),
+          ),
         ),
       );
     }),
@@ -92,13 +96,17 @@ function createProjectStreams(
   context: BuilderContext,
   targetProjects: string[],
   target: string,
+  customOptions: any = {},
 ): Observable<BuilderOutput>[] {
   return targetProjects.map((targetProject: string) => {
     return from(
-      context.scheduleTarget({
-        target: target,
-        project: targetProject,
-      }),
+      context.scheduleTarget(
+        {
+          target: target,
+          project: targetProject,
+        },
+        customOptions,
+      ),
     ).pipe(
       tap(() => context.logger.info(`Running ${target}: ${targetProject}...`)),
       switchMap((build) => build.result),
