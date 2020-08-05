@@ -2284,14 +2284,6 @@
               "!libs/barista-components/radio/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/radio/jest.config.js",
-            "tsConfig": "libs/barista-components/radio/tsconfig.spec.json",
-            "setupFile": "libs/barista-components/radio/src/test-setup.ts"
-          }
         }
       },
       "schematics": {}
