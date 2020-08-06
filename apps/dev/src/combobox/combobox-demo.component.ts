@@ -26,30 +26,54 @@ import {
   DtCombobox,
   DtComboboxFilterChange,
 } from '@dynatrace/barista-components/experimental/combobox';
+import { DT_OPTION_CONFIG } from '@dynatrace/barista-components/autocomplete';
 
-const allOptions: { name: string; value: string }[] = [
-  { name: 'Value 3', value: '[value: Value 3]' },
+interface ComboboxDemoOption {
+  readonly name: string;
+  readonly value: string;
+}
+
+const customOptionHeight = 40;
+const allOptions: ComboboxDemoOption[] = [
+  { name: 'Value 1', value: '[value: Value 1]' },
   { name: 'Value 2', value: '[value: Value 2]' },
-  { name: 'Value 31', value: '[value: Value 31]' },
+  { name: 'Value 3', value: '[value: Value 3]' },
   { name: 'Value 4', value: '[value: Value 4]' },
+  { name: 'Value 5', value: '[value: Value 5]' },
+  { name: 'Value 6', value: '[value: Value 6]' },
+  { name: 'Value 7', value: '[value: Value 7]' },
+  { name: 'Value 8', value: '[value: Value 8]' },
+  { name: 'Value 9', value: '[value: Value 9]' },
+  { name: 'Value 10', value: '[value: Value 10]' },
 ];
+
+/**
+ * Factory function for generating a filter function for a given filter string.
+ *
+ * @param filter Text to filter options for
+ */
+function optionFilter(filter: string): (option: ComboboxDemoOption) => boolean {
+  return (option: ComboboxDemoOption): boolean => {
+    return option.value.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+  };
+}
 
 @Component({
   selector: 'combobox-dev-app-demo',
   templateUrl: 'combobox-demo.component.html',
+  styleUrls: ['combobox-demo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    { provide: DT_OPTION_CONFIG, useValue: { height: customOptionHeight } },
+  ],
 })
 export class ComboboxDemo {
   @ViewChild(DtCombobox) combobox: DtCombobox<any>;
 
   _initialValue = allOptions[0];
-  _options = [...allOptions].filter(
-    (option) =>
-      option.value.toLowerCase().indexOf(allOptions[0].value.toLowerCase()) >=
-      0,
-  );
+  _options = [...allOptions];
   _loading = false;
-  _displayWith = (option: { name: string; value: string }) => option.name;
+  _displayWith = (option: ComboboxDemoOption) => option.name;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
@@ -57,12 +81,9 @@ export class ComboboxDemo {
     console.log(`openedChanged: '${event}'`);
   }
 
-  valueChanged(event: { name: string; value: string }): void {
+  valueChanged(event: ComboboxDemoOption): void {
     console.log('valueChanged', event);
-    this._options = [...allOptions].filter(
-      (option) =>
-        option.value.toLowerCase().indexOf(event.value.toLowerCase()) >= 0,
-    );
+    this._options = [...allOptions].filter(optionFilter(event.value));
   }
 
   filterChanged(event: DtComboboxFilterChange): void {
@@ -74,19 +95,9 @@ export class ComboboxDemo {
     timer(1500)
       .pipe(take(1))
       .subscribe(() => {
-        this._options = allOptions.filter(
-          (option) =>
-            option.value.toLowerCase().indexOf(event.filter.toLowerCase()) >= 0,
-        );
+        this._options = allOptions.filter(optionFilter(event.filter));
         this._loading = false;
         this._changeDetectorRef.markForCheck();
       });
   }
-
-  selectedValue: string;
-  coffees = [
-    { value: 'ThePerfectPour', viewValue: 'ThePerfectPour' },
-    { value: 'Affogato', viewValue: 'Affogato' },
-    { value: 'Americano', viewValue: 'Americano' },
-  ];
 }

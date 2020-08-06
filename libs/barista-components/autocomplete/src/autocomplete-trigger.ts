@@ -38,6 +38,7 @@ import {
   forwardRef,
   Host,
   Inject,
+  InjectionToken,
   Input,
   NgZone,
   OnDestroy,
@@ -59,11 +60,11 @@ import {
   delay,
   filter,
   map,
+  startWith,
   switchMap,
   take,
   takeUntil,
   tap,
-  startWith,
 } from 'rxjs/operators';
 
 import {
@@ -95,11 +96,45 @@ export const DT_AUTOCOMPLETE_VALUE_ACCESSOR: Provider = {
   multi: true,
 };
 
-/** The height of the select items. */
+/** Interface for InjectionToken to configure properties of DtOptions. */
+export interface DtOptionConfiguration {
+  height: number;
+}
+
+/** InjectionToken of the DtOption configuration. */
+export const DT_OPTION_CONFIG = new InjectionToken<DtOptionConfiguration>(
+  'DT_OPTION_CONFIGURATION',
+);
+
+/** The default height of the select items. */
 export const AUTOCOMPLETE_OPTION_HEIGHT = 28;
 
-/** The max height of the select's overlay panel */
+/** The default max height of the overlay panel containing the options */
 export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
+
+/**
+ * Calculates the actual height of an option and the maximum panel height
+ * based on a given preferred option height.
+ *
+ * @param preferredOptionHeight The intended option height
+ */
+export function calculateOptionHeight(
+  preferredOptionHeight: number,
+): { height: number; maxPanelHeight: number } {
+  const height =
+    preferredOptionHeight > AUTOCOMPLETE_OPTION_HEIGHT
+      ? preferredOptionHeight
+      : AUTOCOMPLETE_OPTION_HEIGHT;
+
+  return {
+    height,
+    maxPanelHeight:
+      AUTOCOMPLETE_PANEL_MAX_HEIGHT % height === 0 ||
+      height > AUTOCOMPLETE_PANEL_MAX_HEIGHT
+        ? height * 2 - height / 2
+        : AUTOCOMPLETE_PANEL_MAX_HEIGHT,
+  };
+}
 
 @Directive({
   selector: `input[dtAutocomplete], textarea[dtAutocomplete]`,
@@ -123,6 +158,9 @@ export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
 })
 export class DtAutocompleteTrigger<T>
   implements ControlValueAccessor, OnDestroy {
+  private _optionHeight: number;
+  private _maxPanelHeight: number;
+
   private _autocomplete: DtAutocomplete<T>;
   private _autocompleteDisabled = false;
   private _overlayRef: OverlayRef | null;
@@ -270,6 +308,9 @@ export class DtAutocompleteTrigger<T>
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
+    @Optional()
+    @Inject(DT_OPTION_CONFIG)
+    optionConfig?: DtOptionConfiguration,
   ) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
@@ -297,6 +338,11 @@ export class DtAutocompleteTrigger<T>
           }
         });
     }
+
+    const heightConfig = calculateOptionHeight(optionConfig?.height ?? 0);
+
+    this._optionHeight = heightConfig.height;
+    this._maxPanelHeight = heightConfig.maxPanelHeight;
   }
 
   ngOnDestroy(): void {
@@ -697,9 +743,9 @@ export class DtAutocompleteTrigger<T>
 
     const newScrollPosition = _getOptionScrollPosition(
       index + labelCount,
-      AUTOCOMPLETE_OPTION_HEIGHT,
+      this._optionHeight,
       this.autocomplete._getScrollTop(),
-      AUTOCOMPLETE_PANEL_MAX_HEIGHT,
+      this._maxPanelHeight,
     );
 
     this.autocomplete._setScrollTop(newScrollPosition);

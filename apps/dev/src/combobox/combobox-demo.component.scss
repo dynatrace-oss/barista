@@ -1,0 +1,14 @@
+.oversized-option {
+  line-height: 40px;
+
+  // increase rule specificity
+  &.oversized-option {
+    &:nth-child(n + 1) {
+      background-color: #ff8;
+    }
+
+    &:nth-child(2n) {
+      background-color: #998;
+    }
+  }
+}

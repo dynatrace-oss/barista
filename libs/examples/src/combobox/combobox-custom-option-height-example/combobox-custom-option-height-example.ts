@@ -21,16 +21,25 @@ import {
   DtCombobox,
   DtComboboxFilterChange,
 } from '@dynatrace/barista-components/experimental/combobox';
+import { DT_OPTION_CONFIG } from '@dynatrace/barista-components/autocomplete';
 
 interface ExampleComboboxOption {
   readonly name: string;
   readonly value: string;
 }
 
+const customOptionHeight = 40;
 const allOptions: ExampleComboboxOption[] = [
   { name: 'Value 1', value: '[value: Value 1]' },
   { name: 'Value 2', value: '[value: Value 2]' },
   { name: 'Value 3', value: '[value: Value 3]' },
+  { name: 'Value 4', value: '[value: Value 4]' },
+  { name: 'Value 5', value: '[value: Value 5]' },
+  { name: 'Value 6', value: '[value: Value 6]' },
+  { name: 'Value 7', value: '[value: Value 7]' },
+  { name: 'Value 8', value: '[value: Value 8]' },
+  { name: 'Value 9', value: '[value: Value 9]' },
+  { name: 'Value 10', value: '[value: Value 10]' },
 ];
 
 /**
@@ -47,10 +56,14 @@ function optionFilter(
 }
 
 @Component({
-  selector: 'dt-example-simple-combobox',
-  templateUrl: './combobox-simple-example.html',
+  selector: 'dt-example-custom-option-height-combobox',
+  templateUrl: './combobox-custom-option-height-example.html',
+  styleUrls: ['./combobox-custom-option-height-example.scss'],
+  providers: [
+    { provide: DT_OPTION_CONFIG, useValue: { height: customOptionHeight } },
+  ],
 })
-export class DtExampleComboboxSimple {
+export class DtExampleComboboxCustomOptionHeight {
   @ViewChild(DtCombobox) combobox: DtCombobox<any>;
 
   _initialValue = allOptions[0];
