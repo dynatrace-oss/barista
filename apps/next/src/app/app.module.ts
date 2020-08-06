@@ -21,10 +21,7 @@ import { AppComponent } from './app.component';
 import { Nav } from './components/nav';
 import { NextRoutingModule } from './app.routing.module';
 import { HttpClientModule } from '@angular/common/http';
-import {
-  DsPageGuard,
-  DsPageService,
-} from '@dynatrace/shared/data-access-strapi';
+import { DsPageGuard, DsPageService } from '@dynatrace/shared/design-system/ui';
 import { APP_BASE_HREF } from '@angular/common';
 import { environment } from '../environments/environment';
 

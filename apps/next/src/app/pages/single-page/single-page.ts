@@ -16,7 +16,7 @@
 
 import { Component } from '@angular/core';
 import { BaSinglePageContent } from '@dynatrace/shared/design-system/interfaces';
-import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import '@dynatrace/fluid-elements/button';
 
 @Component({

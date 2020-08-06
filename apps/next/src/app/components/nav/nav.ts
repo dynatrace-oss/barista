@@ -16,7 +16,7 @@
 
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ThemeService } from '../../theme.service';
-import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { map } from 'rxjs/operators';
 
 @Component({

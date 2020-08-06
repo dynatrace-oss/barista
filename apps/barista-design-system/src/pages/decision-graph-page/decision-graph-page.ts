@@ -24,9 +24,11 @@ import {
   ViewContainerRef,
   Injector,
 } from '@angular/core';
-import { DsPageService } from '@dynatrace/shared/data-access-strapi';
 import { BaSinglePageContent } from '@dynatrace/shared/design-system/interfaces';
-import { createComponent } from '@dynatrace/shared/design-system/ui';
+import {
+  createComponent,
+  DsPageService,
+} from '@dynatrace/shared/design-system/ui';
 import {
   BaDecisionGraph,
   BaDecisionGraphStartnode,

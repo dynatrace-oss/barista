@@ -22,7 +22,12 @@ ts_library(
     deps = [
         "@npm//@angular/core",
         "@npm//@angular/common",
+        "@npm//@angular/router",
+        "@npm//@nguniversal/express-engine",
+        "@npm//rxjs",
+        "@npm//express",
         "@npm//tslib",
+        "//libs/shared/design-system/interfaces:design-system-interfaces_compile",
     ],
 )
 

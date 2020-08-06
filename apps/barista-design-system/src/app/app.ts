@@ -35,7 +35,7 @@ import {
   DsPageService,
   getPageKeyFromUrl,
   getUrlPathName,
-} from '@dynatrace/shared/data-access-strapi';
+} from '@dynatrace/shared/design-system/ui';
 
 const PAGE_THEME_MAP = new Map<string, string>([
   ['brand', 'purple'],

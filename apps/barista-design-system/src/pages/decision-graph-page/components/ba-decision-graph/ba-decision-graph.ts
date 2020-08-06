@@ -16,7 +16,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { BaUxdNode } from '@dynatrace/shared/design-system/interfaces';
-import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { cloneDeep } from 'lodash-es';
 
 @Component({
