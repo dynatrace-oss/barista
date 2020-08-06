@@ -1,3 +1,23 @@
+## [7.7.0](https://github.com/dynatrace-oss/barista/compare/7.6.0...7.7.0) (2020-08-06)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue where series visibility was not retained over new
+  data set.
+  ([23815c6](https://github.com/dynatrace-oss/barista/commit/23815c6be05d3dc3e2f4ee9394c6f4a9f7a7a2ce)),
+  closes [#1412](https://github.com/dynatrace-oss/barista/issues/1412)
+- **filter-field:** Fixes an issue where long free-text values exceed the border
+  of the overlay.
+  ([9d5f935](https://github.com/dynatrace-oss/barista/commit/9d5f9359e74325f936fe51660ca1771b65bfce89)),
+  closes [#1439](https://github.com/dynatrace-oss/barista/issues/1439)
+
+### Features
+
+- **filter-field:** Added options for user-defined tag parser function
+  ([e16948a](https://github.com/dynatrace-oss/barista/commit/e16948ada75aef50e3fb931f0b5f0299b6e480b7))
+- **show-more:** Changed theming to custom properties.
+  ([54314a0](https://github.com/dynatrace-oss/barista/commit/54314a03e9237cbc332aec9088629e6d0f5d2d6b))
+
 ## [7.6.0](https://github.com/dynatrace-oss/barista/compare/7.5.1...7.6.0) (2020-07-29)
 
 ### Bug Fixes
