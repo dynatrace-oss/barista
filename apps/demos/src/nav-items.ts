@@ -309,6 +309,19 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
     ],
   },
   {
+    name: 'combobox',
+    examples: [
+      {
+        name: 'combobox-simple-example',
+        route: '/combobox-simple-example',
+      },
+      {
+        name: 'combobox-custom-option-height-example',
+        route: '/combobox-custom-option-height-example',
+      },
+    ],
+  },
+  {
     name: 'confirmation-dialog',
     examples: [
       {
@@ -1171,15 +1184,6 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
       {
         name: 'sidenav-default-example',
         route: '/sidenav-default-example',
-      },
-    ],
-  },
-  {
-    name: 'combobox',
-    examples: [
-      {
-        name: 'combobox-simple-example',
-        route: '/combobox-simple-example',
       },
     ],
   },

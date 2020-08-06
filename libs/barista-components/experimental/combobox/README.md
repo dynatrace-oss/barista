@@ -59,6 +59,8 @@ FormsModule (NgModel) and ReactiveFormsModule (FormControl, FormGroup, etc.).
 | `value`    | `T`       | The form value of the option.   |
 | `disabled` | `boolean` | Whether the option is disabled. |
 
+<ba-live-example name="DtExampleComboboxSimple"></ba-live-example>
+
 ## DtCombobox Outputs
 
 | Name         | Type                    | Description                                           |
@@ -66,3 +68,12 @@ FormsModule (NgModel) and ReactiveFormsModule (FormControl, FormGroup, etc.).
 | valueChange  | `EventEmitter<T>`       | Event emitted when a new value has been selected.     |
 | filterChange | `EventEmitter<string>`  | Event emitted when the filter changes.                |
 | openedChange | `EventEmitter<boolean>` | Event emitted when the select panel has been toggled. |
+
+## Configuration options
+
+If your use case requires the options to be a different height, it can be
+configured using the `DT_OPTION_CONFIG` injection token. Note that the
+`dt-option` elements need to be styled manually, the combobox will not
+automatically change the height of the options.
+
+<ba-live-example name="DtExampleComboboxCustomOptionHeight"></ba-live-example>

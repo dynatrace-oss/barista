@@ -114,8 +114,8 @@ import { DtExampleDrawerNested } from './drawer/drawer-nested-example/drawer-nes
 import { DtExampleDrawerOver } from './drawer/drawer-over-example/drawer-over-example';
 import { DtExampleDrawerTableDefault } from './drawer-table/drawer-table-default-example/drawer-table-default-example';
 import {
-  DtExampleCustomEmptyStateTable,
   DtExampleCustomEmptyState,
+  DtExampleCustomEmptyStateTable,
 } from './empty-state/empty-state-custom-empty-state-table-example/empty-state-custom-empty-state-table-example';
 import { DtExampleEmptyStateDefault } from './empty-state/empty-state-default-example/empty-state-default-example';
 import { DtExampleEmptyStateInCard } from './empty-state/empty-state-in-card-example/empty-state-in-card-example';
@@ -329,6 +329,7 @@ import { DtExampleTreeTableAsyncShowMore } from './tree-table/tree-table-async-s
 import { DtExampleTreeTableDefault } from './tree-table/tree-table-default-example/tree-table-default-example';
 import { DtExampleTreeTableProblemIndicator } from './tree-table/tree-table-problem-indicator-example/tree-table-problem-indicator-example';
 import { DtExampleTreeTableSimple } from './tree-table/tree-table-simple-example/tree-table-simple-example';
+import { DtExampleComboboxCustomOptionHeight } from './combobox/combobox-custom-option-height-example/combobox-custom-option-height-example';
 
 export { DtExamplesModule } from './examples.module';
 export { DtAlertExamplesModule } from './alert/alert-examples.module';
@@ -457,6 +458,7 @@ export {
   DtExampleCheckboxIndeterminate,
   DtExampleCheckboxResponsive,
   DtExampleComboboxSimple,
+  DtExampleComboboxCustomOptionHeight,
   DtExampleConfirmationDialogDefault,
   DtExampleConfirmationDialogShowBackdrop,
   DtExampleConsumptionDefault,
@@ -771,6 +773,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleCheckboxIndeterminate', DtExampleCheckboxIndeterminate],
   ['DtExampleCheckboxResponsive', DtExampleCheckboxResponsive],
   ['DtExampleComboboxSimple', DtExampleComboboxSimple],
+  ['DtExampleComboboxCustomOptionHeight', DtExampleComboboxCustomOptionHeight],
   ['DtExampleConfirmationDialogDefault', DtExampleConfirmationDialogDefault],
   [
     'DtExampleConfirmationDialogShowBackdrop',
