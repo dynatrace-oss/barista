@@ -42,10 +42,6 @@ describe('BaDecisionGraphNode', () => {
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
   it('should set next node to decisiongraph steps', () => {
     expect(component._decisionGraphSteps.length).toBe(1);
     const buttonElement = fixture.debugElement.query(By.css('.ba-uxd-yes-edge'))
@@ -119,11 +115,7 @@ describe('BaDecisionGraphNode', () => {
     component.node = wrongIdNode;
     fixture.detectChanges();
     expect(component._decisionGraphSteps.length).toBe(1);
-    dispatchFakeEvent(
-      fixture.debugElement.query(By.css('.ba-uxd-edge-button')).nativeElement,
-      'click',
-    );
-    expect(component._decisionGraphSteps.length).toBe(1);
+    expect(() => component.setNextNode(component.node.path[0])).toThrowError();
   });
 
   it('should set started to false when steps array is lower than 2', () => {
