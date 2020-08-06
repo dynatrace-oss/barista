@@ -1,0 +1,139 @@
+pipeline {
+  agent {
+    node {
+      label "k8s-barista-builder-public"
+    }
+  }
+
+  options {
+    ansiColor("xterm")
+    timeout(time: 4, unit: "HOURS")
+    timestamps()
+  }
+
+  environment {
+    WORKSPACE_DIR = "/home/dynatrace"
+    BARISTA_PATH = "barista"
+    ICONS_PATH = "barista-icons"
+    FRONTEND_IMAGE_NAME = "designops/barista-app-frontend"
+    BITBUCKET_URL = credentials("bitbucket-url")
+    DOCKER_REGISTRY = credentials("docker-registry")
+  }
+
+  stages {
+    stage("Prepare Workspace") {
+      steps {
+
+        sh'''
+          files="node_modules dist package-lock.sha1"
+
+          for file in $files
+          do
+            ln -s "$WORKSPACE_DIR/$file" "$PWD/$BARISTA_PATH/$file"
+          done
+        '''
+
+        dir(BARISTA_PATH) {
+
+          script {
+            def oldsha = readFile(file: "package-lock.sha1").replace('./package-lock.json', '').trim()
+            def sha1sum = sha1(file: "package-lock.json")
+
+            echo "STORED SHA: " + oldsha
+            echo "CURRENT SHA: " + sha1sum
+
+            if (!oldsha.equals(sha1sum)) {
+              echo "⚠️ Need to install packages due to updated package-lock.json"
+
+              // Delete the symlink of the node_modules first before performing an install
+              // this has to be done as ngcc has to reprocess the entries and it will fail with the symlink
+              sh '''
+                rm -rf node_modules
+                npm ci --ignore-scripts
+              '''
+            }
+          }
+
+          configFileProvider([
+            configFile(fileId: "barista-env", variable: "ENV")
+          ]) {
+            sh """
+              mv $ENV .env
+
+              echo "PUBLIC_BUILD=true" >> .env
+
+              cat .env
+            """
+          }
+        }
+      }
+    }
+
+    stage("Build Barista") {
+      steps {
+        dir(BARISTA_PATH) {
+          sh '''
+            npm run ng run barista-tools:build
+
+            if $INTERNAL_LINKS ; then
+              args='--linkReplacement=$INTERNAL_LINKS'
+            else
+              args=''
+            fi
+
+            node dist/libs/tools/barista/main.js ${args}
+
+            cat dist/barista-data/routes.txt
+
+            node \
+              --max_old_space_size=8192 \
+              ./node_modules/.bin/ng run barista-design-system:static-pages:production
+          '''
+        }
+      }
+    }
+
+    stage("Deploy to Vercel") {
+      environment {
+        ZEIT_TOKEN = credentials("barista-zeit-deployment-token")
+      }
+
+      steps {
+        dir(BARISTA_PATH) {
+
+          configFileProvider([
+            configFile(fileId: "now-project-json", variable: "NOW_PROJECT")
+          ]) {
+            sh '''
+              mv ./dist/apps/barista-design-system/browser ./dist/apps/barista-design-system/barista
+              mkdir ./dist/apps/barista-design-system/barista/.vercel
+              mv "$NOW_PROJECT" ./dist/apps/barista-design-system/barista/.vercel/project.json
+            '''
+          }
+
+
+          sh "vercel -t $ZEIT_TOKEN ./dist/apps/barista-design-system/barista"
+        }
+      }
+    }
+
+  }
+
+  post {
+    always {
+      cleanWs deleteDirs: true
+    }
+
+    failure {
+      withCredentials([string(credentialsId: 'slack-dodos-notification-token', variable: 'SLACK_HOOK')]) {
+
+        sh """
+          curl --request POST \
+                --url $SLACK_HOOK \
+                --header 'content-type: application/json' \
+                --data '{\"text\": \"Barista public build failed <https://webkins.lab.dynatrace.org/job/barista/job/barista-publish/$BUILD_NUMBER/|(Build link)>\"}'
+        """
+      }
+    }
+  }
+}

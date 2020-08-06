@@ -1,0 +1,228 @@
+pipeline {
+  agent none
+
+  options {
+    ansiColor("xterm")
+    timeout(time: 4, unit: "HOURS")
+    timestamps()
+  }
+
+  environment {
+    WORKSPACE_DIR = "/home/dynatrace"
+    BARISTA_PATH = "barista"
+    ICONS_PATH = "barista-icons"
+    FRONTEND_IMAGE_NAME = "designops/barista-app-frontend"
+    BITBUCKET_URL = credentials("bitbucket-url")
+    DOCKER_REGISTRY = credentials("docker-registry")
+  }
+
+  stages {
+
+    stage("Build Barista") {
+      agent {
+        node {
+          label "k8s-barista-builder-internal"
+        }
+      }
+
+      stages {
+        stage("Checkout barista icons") {
+          steps {
+            checkout changelog: false, poll: false, scm: [
+              $class: "GitSCM",
+              branches: [[name: "*/master"]],
+              doGenerateSubmoduleConfigurations: false,
+              extensions: [[$class: "RelativeTargetDirectory", relativeTargetDir: "$ICONS_PATH"]],
+              submoduleCfg: [], userRemoteConfigs: [[url: "${BITBUCKET_URL}scm/wx/barista-icons.git" ]]
+            ]
+          }
+        }
+
+        stage("Workspace Preparations") {
+          environment {
+            BARISTA_SEARCH_ENDPOINT = credentials('barista-search-endpoint')
+            ENVIRONMENT_FILE = 'apps/barista-design-system/src/environments/environment.internal.ts'
+          }
+
+          steps {
+
+            sh'''
+              files="node_modules dist package-lock.sha1 .npmrc"
+
+              for file in $files
+              do
+                ln -s "$WORKSPACE_DIR/$file" "$PWD/$BARISTA_PATH/$file"
+              done
+            '''
+
+            dir(BARISTA_PATH) {
+              script {
+                def text = readFile(file: "${ENVIRONMENT_FILE}")
+                text = text.replaceAll("\\{\\{BARISTA_INTERNAL_SEARCH_ENDPOINT\\}\\}", "${BARISTA_SEARCH_ENDPOINT}")
+                echo text
+                writeFile(file: "${ENVIRONMENT_FILE}",  text: text)
+
+                // check if the package-lock is diverging from the one in
+                def oldsha = readFile(file: "package-lock.sha1").replace('./package-lock.json', '').trim()
+                def sha1sum = sha1(file: "package-lock.json")
+
+                echo "STORED SHA: " + oldsha
+                echo "CURRENT SHA: " + sha1sum
+
+                if (!oldsha.equals(sha1sum)) {
+                  echo "⚠️ Need to install packages due to updated package-lock.json"
+                  // Delete the symlink of the node_modules first before performing an install
+                  // this has to be done as ngcc has to reprocess the entries and it will fail with the symlink
+                  sh 'rm -rf node_modules'
+
+                  // Install the icons as they have a different shasum and the integrity check will fail
+                  // this is due to the .npmrc file.
+                  // This will install the other dependencies as well in the updated version
+                  sh 'npm install @dynatrace/barista-icons @dynatrace/barista-fonts --ignore-scripts'
+                }
+              }
+
+              configFileProvider([
+                configFile(fileId: "barista-env", variable: "ENV")
+              ]) {
+                sh """
+                  mv $ENV .env
+
+                  echo "PUBLIC_BUILD=false" >> .env
+
+                  cat .env
+                """
+              }
+            }
+          }
+        }
+
+        stage("Build Barista") {
+          steps {
+            dir(BARISTA_PATH) {
+              sh '''
+                npm run ng run barista-tools:build
+                npm run ng run barista-tools:execute
+
+                cat dist/barista-data/routes.txt
+
+                node \
+                  --preserve-symlinks \
+                  --max_old_space_size=8192 \
+                  ./node_modules/.bin/ng run barista-design-system:static-pages:production-internal
+              '''
+
+              dir('dist') {
+                stash name: 'dist', useDefaultExcludes: false
+              }
+
+              dir('.deployment') {
+                stash name: 'deployment'
+              }
+            }
+
+          }
+        }
+      }
+
+      post {
+        always {
+          cleanWs deleteDirs: true
+        }
+      }
+    }
+
+    stage("Deploy Barista Internal") {
+
+      agent {
+        node {
+          label "k8s-docker"
+        }
+      }
+
+      options {
+        skipDefaultCheckout true
+      }
+
+      stages {
+        stage("Build Docker image") {
+          steps {
+            dir(BARISTA_PATH) {
+              // Restore stashed dist for barista
+              dir('dist') {
+                unstash "dist"
+              }
+              dir('.deployment') {
+                unstash "deployment"
+              }
+
+              sh """
+                docker build \
+                  --no-cache \
+                  --pull \
+                  -t ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE_NAME}:${BUILD_NUMBER} \
+                  . \
+                  -f .deployment/barista/internal/Dockerfile
+              """
+            }
+          }
+        }
+
+        stage("Tag Docker image") {
+          steps {
+            sh """
+              docker tag \
+                ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE_NAME}:${BUILD_NUMBER} \
+                ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE_NAME}:latest
+            """
+          }
+        }
+
+        stage("Push image to Registry") {
+          environment {
+            DOCKER_CRED = credentials('robot-designops-harbor')
+          }
+          steps {
+            sh """
+              docker login -u \'${DOCKER_CRED_USR}\' -p ${DOCKER_CRED_PSW} ${env.DOCKER_REGISTRY}
+
+              docker push ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE_NAME}:${BUILD_NUMBER}
+              docker push ${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE_NAME}:latest
+            """
+          }
+        }
+
+        stage("Deploy to Kubernetes") {
+          environment {
+            K8S_TOKEN = credentials("barista-deployer")
+            K8S_API = credentials("k8-api")
+          }
+          steps {
+            sh """
+              kubectl -n barista set image deployment/barista-frontend \
+                barista-frontend=${env.DOCKER_REGISTRY}/${env.FRONTEND_IMAGE_NAME}:${env.BUILD_NUMBER} \
+                --server=\'${env.K8S_API}\' \
+                --token=\'${env.K8S_TOKEN}\'
+            """
+          }
+        }
+
+      }
+
+      post {
+        always {
+          cleanWs deleteDirs: true
+        }
+
+        failure {
+          withCredentials([string(credentialsId: 'slack-gorilla-webhook-url', variable: 'SLACK_HOOK')]) {
+            sh """
+              curl --request POST --url $SLACK_HOOK --header 'content-type: application/json' --data '{\"text\": \"Barista internal build failed <https://webkins.lab.dynatrace.org/job/barista/job/barista-publish/$BUILD_NUMBER/|(Build link)>\"}'
+            """
+          }
+        }
+      }
+    }
+
+  } // stages
+}
