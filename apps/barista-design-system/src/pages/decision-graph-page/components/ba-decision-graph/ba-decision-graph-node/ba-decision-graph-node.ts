@@ -95,7 +95,7 @@ export class BaDecisionGraphNode implements AfterViewInit {
       this.nodes.last.nativeElement.scrollIntoView({ behavior: 'smooth' });
       this._started = true;
     } else {
-      console.error(`Next node not found. Node id: ${selectedEdge.uxd_node}`);
+      throw new Error(`Next node not found. Node id: ${selectedEdge.uxd_node}`);
     }
   }
 
