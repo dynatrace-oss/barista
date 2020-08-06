@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { ErrorPage } from './error-page';
-import { DsPageGuard } from '@dynatrace/shared/data-access-strapi';
+import { DsPageGuard } from '@dynatrace/shared/design-system/ui';
 
 export const routes: Route[] = [
   {

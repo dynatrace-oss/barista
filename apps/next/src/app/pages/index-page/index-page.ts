@@ -15,7 +15,7 @@
  */
 
 import { Component, OnInit } from '@angular/core';
-import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { DsPage } from '@dynatrace/shared/design-system/interfaces';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 

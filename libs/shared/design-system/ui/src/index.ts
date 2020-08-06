@@ -17,3 +17,6 @@
 export * from './lib/shared-design-system-ui.module';
 export * from './lib/page-content';
 export * from './lib/utils/create-component';
+export * from './lib/universal.interceptor';
+export * from './lib/page-guard';
+export * from './lib/page.service';

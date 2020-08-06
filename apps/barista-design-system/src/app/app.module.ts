@@ -30,10 +30,7 @@ import { DtAutocompleteModule } from '@dynatrace/barista-components/autocomplete
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { environment } from '../environments/environment';
-import {
-  DsPageGuard,
-  DsPageService,
-} from '@dynatrace/shared/data-access-strapi';
+import { DsPageGuard, DsPageService } from '@dynatrace/shared/design-system/ui';
 import { BaApp } from './app';
 import { BaRoutingModule } from './app.routing.module';
 import { BaFooter } from './components/footer';

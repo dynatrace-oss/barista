@@ -15,17 +15,9 @@
  */
 
 import { Injectable, Inject, NgZone } from '@angular/core';
-import {
-  BehaviorSubject,
-  fromEvent,
-  Subject,
-  merge,
-  Observable,
-  of,
-} from 'rxjs';
+import { fromEvent, merge, Observable, of } from 'rxjs';
 import {
   auditTime,
-  takeUntil,
   take,
   map,
   withLatestFrom,

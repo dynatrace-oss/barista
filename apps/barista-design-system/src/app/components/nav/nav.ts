@@ -16,7 +16,7 @@
 
 import { Component } from '@angular/core';
 import { BaNav as Navigation } from '@dynatrace/shared/design-system/interfaces';
-import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { environment } from '../../../environments/environment';
 
 @Component({

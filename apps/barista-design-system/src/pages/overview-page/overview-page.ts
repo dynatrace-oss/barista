@@ -25,7 +25,7 @@ import {
 } from '@angular/core';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { fromEvent, Subscription } from 'rxjs';
-import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { BaTile } from './components/tile';
 import { DOCUMENT } from '@angular/common';
 import { BaCategoryNavigation } from '@dynatrace/shared/design-system/interfaces';

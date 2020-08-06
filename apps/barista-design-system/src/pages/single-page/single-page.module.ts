@@ -22,7 +22,6 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { BaComponentsModule, BA_CONTENT_COMPONENTS } from '../../components';
-import { DsPageGuard } from '@dynatrace/shared/data-access-strapi';
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { BaContributors } from './components/contributors';
 import { BaIconOverviewContent } from './components/icon-overview-content';
@@ -36,6 +35,7 @@ import { BaScrollSpyService } from '../../shared/services/scroll-spy.service';
 import {
   SharedDesignSystemUiModule,
   DS_CONTENT_COMPONENT_LIST_TOKEN,
+  DsPageGuard,
 } from '@dynatrace/shared/design-system/ui';
 
 export const routes: Route[] = [

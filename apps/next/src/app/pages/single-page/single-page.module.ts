@@ -17,12 +17,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule, Type, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
+import { SinglePage } from './single-page';
 import {
   DsPageGuard,
   DsPageService,
-} from '@dynatrace/shared/data-access-strapi';
-import { SinglePage } from './single-page';
-import {
   SharedDesignSystemUiModule,
   DS_CONTENT_COMPONENT_LIST_TOKEN,
 } from '@dynatrace/shared/design-system/ui';

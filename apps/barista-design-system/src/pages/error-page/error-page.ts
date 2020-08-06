@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { DsPageService } from '@dynatrace/shared/data-access-strapi';
+import { DsPageService } from '@dynatrace/shared/design-system/ui';
 
 @Component({
   selector: 'ba-error-page',

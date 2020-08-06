@@ -40,7 +40,7 @@ export class BaSearchService implements BaSearchServiceInterface {
 
 @Injectable()
 export class BaExternalSearchService implements BaSearchServiceInterface {
-  search(query: string): Observable<BaSearchResult[]> {
+  search(_query: string): Observable<BaSearchResult[]> {
     throw new Error('Not yet implemented');
   }
 }
