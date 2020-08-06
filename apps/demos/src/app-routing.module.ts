@@ -320,6 +320,7 @@ import {
   DtExampleTreeTableDefault,
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
+  DtExampleComboboxCustomOptionHeight,
 } from '@dynatrace/examples';
 
 // The Routing Module replaces the routing configuration in the root or feature module.
@@ -477,6 +478,14 @@ const ROUTES: Routes = [
     component: DtExampleCheckboxResponsive,
   },
   {
+    path: 'combobox-simple-example',
+    component: DtExampleComboboxSimple,
+  },
+  {
+    path: 'combobox-custom-option-height-example',
+    component: DtExampleComboboxCustomOptionHeight,
+  },
+  {
     path: 'confirmation-dialog-default-example',
     component: DtExampleConfirmationDialogDefault,
   },
@@ -492,10 +501,6 @@ const ROUTES: Routes = [
   {
     path: 'consumption-warning-example',
     component: DtExampleConsumptionWarning,
-  },
-  {
-    path: 'combobox-simple-example',
-    component: DtExampleComboboxSimple,
   },
   {
     path: 'container-breakpoint-observer-default-example',

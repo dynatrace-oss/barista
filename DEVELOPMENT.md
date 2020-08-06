@@ -101,3 +101,17 @@ If you want to run the design system itself including the demos embedded use
 ```
 npm run barista
 ```
+
+### Adding new examples
+
+To add a new example for an existing or new component, a particular schematic
+must be executed for generating the boiler plate code and registering the
+example components:
+
+```
+ng build workspace
+ng g ./dist/libs/workspace:dt-example --name={example-name} --component={component}
+```
+
+More information about shipped schematics can be found
+[here](./libs/workspace/src/schematics/dt-component-example/README.md).
