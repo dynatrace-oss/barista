@@ -3,19 +3,34 @@ ARG BASE_VERSION=latest
 # Will be set on Jenkins
 ARG BASE_IMAGE_REGISTRY
 
-FROM designops/workspace-base:${BASE_VERSION} as workspace
+
+#------------------------------------------------------------
+# Temporary layer to build the public image
+#------------------------------------------------------------
+FROM designops/workspace-base:${BASE_VERSION} as workspace-public
+
+# No actions required only for the copy from statement
+
+#------------------------------------------------------------
+# Temporary layer to build the internal image with icons
+#------------------------------------------------------------
+FROM designops/workspace-base:${BASE_VERSION} as workspace-internal
 
 COPY .npmrc \
+     package-lock.json \
      package.json \
      ./
 
-RUN rm -rf entrypoint.sh && \
-    mkdir -p ./dist/tmp && \
-    cp -R ./node_modules/@dynatrace/barista-icons ./dist/tmp/barista-icons-public && \
-    npm install @dynatrace/barista-icons @dynatrace/barista-fonts && \
-    rm -rf .npmrc package.json
+RUN rm -rf package-lock.sha1 && \
+    npm install @dynatrace/barista-icons @dynatrace/barista-fonts --ignore-scripts && \
+    # Create a new shasum from package-lock.json to compare
+    # later if a further install have to be done.
+    sha1sum ./package-lock.json > package-lock.sha1
 
-FROM ${BASE_IMAGE_REGISTRY}/library/jenkins-slave-cluster-docker-image:5.2 as builder
+#------------------------------------------------------------
+# Temporary layer as base for a jenkins agent
+#------------------------------------------------------------
+FROM ${BASE_IMAGE_REGISTRY}/library/jenkins-slave-cluster-docker-image:5.2 as jenkins-agent
 
 LABEL maintainer="Dynatrace DesignOps Team <designops@dynatrace.com>" \
       description="This image is used as build agent for our Jenkins build"
@@ -27,11 +42,26 @@ RUN  curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
   && apt-get update \
   && apt-get install -y libgtk-3-0 libasound2 libxss1 nodejs pv \
   && apt-get clean \
-  && npm install -g n now \
+  && npm install -g n \
   && n ${NODE_VERSION} \
   && npm -v \
   && node -v
 
 WORKDIR /home/dynatrace
 
-COPY --from=workspace /dynatrace/ ./
+
+#------------------------------------------------------------
+# The base image for barista public agent
+#------------------------------------------------------------
+FROM jenkins-agent as public
+
+RUN npm i -g vercel
+
+COPY --from=workspace-public /dynatrace/ ./
+
+#------------------------------------------------------------
+# The base image for barista internal agent
+#------------------------------------------------------------
+FROM jenkins-agent as internal
+
+COPY --from=workspace-internal /dynatrace/ ./

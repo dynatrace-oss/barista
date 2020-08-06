@@ -17,7 +17,8 @@ pipeline {
   }
 
   environment {
-    IMAGE_NAME = "designops/jenkins-barista-builder"
+    IMAGE_NAME_PUBLIC = "designops/jenkins-barista-builder-public"
+    IMAGE_NAME_INTERNAL = "designops/jenkins-barista-builder-internal"
     DOCKERFILE = ".deployment/k8s-barista-builder/Dockerfile"
     DOCKER_REGISTRY = credentials("docker-registry")
     LEGACY_DOCKER_REGISTRY = credentials("legacy-docker-registry")
@@ -30,7 +31,7 @@ pipeline {
         checkout([
           $class: 'GitSCM',
           branches: [
-            [name: '*/master']
+            [name: '*/ci/1405-simplify-barista-publish']
           ],
           doGenerateSubmoduleConfigurations: false,
           extensions: [
@@ -45,7 +46,8 @@ pipeline {
               $class: 'SparseCheckoutPaths',
               sparseCheckoutPaths: [
                 [path: '.deployment/k8s-barista-builder'],
-                [path: 'package.json']
+                [path: 'package.json'],
+                [path: 'package-lock.json']
               ]
             ]
           ],
@@ -69,14 +71,14 @@ pipeline {
       }
     }
 
-
-    stage("Build Docker image") {
+    stage("Build Docker image for internal") {
       steps {
         sh """
           docker build \
             --no-cache \
             --pull \
-            -t ${env.DOCKER_REGISTRY}/${IMAGE_NAME}:latest \
+            --target internal \
+            -t ${env.DOCKER_REGISTRY}/${IMAGE_NAME_INTERNAL}:latest \
             . \
             -f ${DOCKERFILE} \
             --build-arg BASE_IMAGE_REGISTRY='${env.LEGACY_DOCKER_REGISTRY}'
@@ -84,7 +86,22 @@ pipeline {
       }
     }
 
-    stage("Push image to Registry") {
+    stage("Build Docker image for public") {
+      steps {
+        sh """
+          docker build \
+            --no-cache \
+            --pull \
+            --target public \
+            -t ${env.DOCKER_REGISTRY}/${IMAGE_NAME_PUBLIC}:latest \
+            . \
+            -f ${DOCKERFILE} \
+            --build-arg BASE_IMAGE_REGISTRY='${env.LEGACY_DOCKER_REGISTRY}'
+        """
+      }
+    }
+
+    stage("Push images to Registry") {
       environment {
         DOCKER_CRED = credentials('robot-designops-harbor')
       }
@@ -92,7 +109,8 @@ pipeline {
         sh """
           docker login -u \'${DOCKER_CRED_USR}\' -p ${DOCKER_CRED_PSW} ${env.DOCKER_REGISTRY}
 
-          docker push ${env.DOCKER_REGISTRY}/${IMAGE_NAME}:latest
+          docker push ${env.DOCKER_REGISTRY}/${IMAGE_NAME_PUBLIC}:latest
+          docker push ${env.DOCKER_REGISTRY}/${IMAGE_NAME_INTERNAL}:latest
         """
       }
     }
