@@ -588,6 +588,7 @@
             "stylePreprocessorOptions": {
               "includePaths": ["libs/barista-components/core/src/style/"]
             },
+            "preserveSymlinks": true,
             "progress": false
           },
           "configurations": {

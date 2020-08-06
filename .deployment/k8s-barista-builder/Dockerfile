@@ -21,11 +21,7 @@ COPY .npmrc \
      package.json \
      ./
 
-RUN rm -rf package-lock.sha1 && \
-    npm install @dynatrace/barista-icons @dynatrace/barista-fonts --ignore-scripts && \
-    # Create a new shasum from package-lock.json to compare
-    # later if a further install have to be done.
-    sha1sum ./package-lock.json > package-lock.sha1
+RUN npm install @dynatrace/barista-icons @dynatrace/barista-fonts
 
 #------------------------------------------------------------
 # Temporary layer as base for a jenkins agent
