@@ -2484,13 +2484,6 @@
               "!libs/barista-components/switch/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/switch/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
