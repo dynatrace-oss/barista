@@ -1,0 +1,9 @@
+name: 'Bazel Pipeline'
+steps:
+  - id: 'build'
+    name: ':bazel: Build'
+    commands: './.buildkite/build.sh'
+
+  - id: 'unit-test'
+    name: ':bazel: Test'
+    commands: './.buildkite/test.sh'
