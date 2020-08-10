@@ -1,3 +1,20 @@
+## [8.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/7.0.0...8.0.0-rc.0) (2020-08-10)
+
+### BREAKING CHANGES
+
+- **empty-state:** Remove `ViewportResizer` from constructor and let the resize
+  observer handle the layout changes. Therefore the custom empty state base
+  class is not needed anymore and was removed.
+- **radio-group:** Remove custom injection of `ngControl` and default null
+  assignment.
+- **switch:** Remove custom injection of `ngControl` and default null
+  assignment.
+- **checkbox:** Remove custom injection of `ngControl` and default null
+  assignment.
+- **sunburst-chart:** Made multiple constructor parameters required.
+- Updated Angular peer dependency version to 10.x
+- Added tslib 2.x as a dependency
+
 ## [7.7.0](https://github.com/dynatrace-oss/barista/compare/7.6.0...7.7.0) (2020-08-06)
 
 ### Bug Fixes
