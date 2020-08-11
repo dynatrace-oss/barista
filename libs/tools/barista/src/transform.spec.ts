@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-import {
-  BaPageLayoutType,
-  TableOfContents,
-} from '@dynatrace/shared/design-system/interfaces';
+import { BaPageLayoutType } from '@dynatrace/shared/design-system/interfaces';
 
 import {
   componentTagsTransformer,
@@ -29,6 +26,12 @@ import {
   tableOfContentGenerator,
   headlineClassTransformer,
 } from './transform';
+import {
+  TOC_NO_H2,
+  TOC_MULTIPLE_CHILDS,
+  TOC_WITH_H4,
+  TOC_LARGE_AMOUNT,
+} from './fixtures/toc';
 
 describe('Barista transformers', () => {
   const testpage = {
@@ -255,24 +258,63 @@ describe('Barista transformers', () => {
   });
 
   describe('TOC Generator', () => {
-    it('should generate toc', async () => {
-      const content = `<h2 id=\"hl1\">hl1</h2>\n<h2 id=\"hl2\">hl2</h2><h3 id=\"shl1\">shl1</h3>`;
-      const transformed = await tableOfContentGenerator({
-        title: 'toc',
-        toc: true,
-        layout: BaPageLayoutType.Default,
-        content,
-      });
-      const toc: TableOfContents[] = [
-        { headline: 'hl1', id: 'hl1' },
-        {
-          headline: 'hl2',
-          id: 'hl2',
-          children: [{ headline: 'shl1', id: 'shl1' }],
-        },
-      ];
+    it('should work if no H2 headline is provided as well', async () => {
+      const { tocitems } = await tableOfContentGenerator(TOC_NO_H2);
+      expect(tocitems).toMatchObject([
+        expect.objectContaining({ id: 'first-id', level: 3 }),
+        expect.objectContaining({ id: 'second-id', level: 3 }),
+        expect.objectContaining({ id: 'third-id', level: 3 }),
+      ]);
+    });
 
-      expect(transformed.tocitems).toMatchObject(toc);
+    it('should generate toc for multiple children', async () => {
+      const { tocitems } = await tableOfContentGenerator(TOC_MULTIPLE_CHILDS);
+      expect(tocitems).toHaveLength(1);
+      expect(tocitems![0]).toMatchObject(
+        expect.objectContaining({
+          id: 'first-id',
+          level: 2,
+          children: [
+            expect.objectContaining({ id: 'second-id', level: 3 }),
+            expect.objectContaining({ id: 'third-id', level: 3 }),
+          ],
+        }),
+      );
+    });
+
+    it('should strip H4 headlines out for the toc', async () => {
+      const { tocitems } = await tableOfContentGenerator(TOC_WITH_H4);
+      expect(tocitems).toHaveLength(1);
+      expect(tocitems![0]).toMatchObject(
+        expect.objectContaining({
+          id: 'first-id',
+          level: 2,
+          children: [expect.objectContaining({ id: 'third-id', level: 3 })],
+        }),
+      );
+    });
+
+    it('should work with a huge set of headlines', async () => {
+      const { tocitems } = await tableOfContentGenerator(TOC_LARGE_AMOUNT);
+      expect(tocitems).toMatchObject([
+        expect.objectContaining({
+          id: 'first-id',
+          level: 2,
+          children: [
+            expect.objectContaining({ id: 'second-id', level: 3 }),
+            expect.objectContaining({ id: 'fourth-id', level: 3 }),
+          ],
+        }),
+        expect.objectContaining({
+          id: 'fifth-id',
+          level: 2,
+          children: [
+            expect.objectContaining({ id: 'sixth-id', level: 3 }),
+            expect.objectContaining({ id: 'seventh-id', level: 3 }),
+            expect.objectContaining({ id: 'eight-id', level: 3 }),
+          ],
+        }),
+      ]);
     });
   });
 });

@@ -866,7 +866,9 @@
             "buildLibsFromSource": true
           },
           "configurations": {
-            "production": {}
+            "watch": {
+              "watch": true
+            }
           }
         },
         "execute": {

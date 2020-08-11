@@ -184,7 +184,8 @@ export interface BaUxdEdge {
 }
 
 export interface TableOfContents {
-  id?: string;
-  headline?: string;
-  children?: TableOfContents[];
+  id: string;
+  headline: string;
+  level: number;
+  children: TableOfContents[];
 }
