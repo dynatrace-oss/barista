@@ -254,39 +254,43 @@ export const relativeUrlTransformer: BaPageTransformer = async (source) => {
 /** generates a toc json containing headlines with children */
 export const tableOfContentGenerator: BaPageTransformer = async (source) => {
   const transformed = { ...source };
-  let toc: TableOfContents[] = [];
+  const items: TableOfContents[] = [];
   if (source.toc) {
-    // generate TOC and at to source
-    // Find Headlines and corresponding subheadlines (h2 > h3)
-    transformed.content = runWithCheerio(source.content, ($) => {
-      const headlines = $('h2, h3');
-      let currentH2 = -1;
-      headlines.each((_index, headline) => {
-        const headlineId = $(headline).attr('id');
-        const headlineText = $(headline).text();
-        if (headline.tagName === 'h2') {
-          currentH2++;
-          toc.push({
-            id: headlineId!,
-            headline: headlineText!,
-          });
-        } else if (headline.tagName === 'h3') {
-          // Add subheadlines array when needed
-          if (!toc[currentH2].children) {
-            toc[currentH2] = {
-              ...toc[currentH2],
-              children: [],
-            };
+    try {
+      // generate TOC and at to source
+      // Find Headlines and corresponding subheadlines (h2 > h3)
+      transformed.content = runWithCheerio(source.content, ($) => {
+        const headlines = $('h2, h3');
+
+        headlines.each((_index, headlineElement) => {
+          const id = `${$(headlineElement).attr('id')}`;
+          const headline = `${$(headlineElement).text()}`;
+          const item: TableOfContents = {
+            level: parseInt(headlineElement.tagName.slice(1), 10),
+            id,
+            headline,
+            children: [],
+          };
+
+          const lastItemIndex = items.length - 1;
+          if (lastItemIndex < 0 || items[lastItemIndex].level >= item.level) {
+            items.push(item);
+          } else {
+            // find the next parent headline to put the children in
+            for (let i = items.length - 1; i >= 0; i--) {
+              if (items[i].level < item.level) {
+                items[i].children.push(item);
+                break;
+              }
+            }
           }
-          toc[currentH2].children!.push({
-            id: headlineId!,
-            headline: headlineText!,
-          });
-        }
+        });
       });
-    });
+    } catch (error) {
+      console.error(`Failed to generate TOC for: ${source.title}`);
+    }
   }
-  transformed.tocitems = toc;
+  transformed.tocitems = items;
   return transformed;
 };
 

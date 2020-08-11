@@ -1,13 +1,16 @@
 {
   "extends": "../../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "../../../dist/out-tsc",
-    "types": ["node", "jest"]
+    "types": ["node", "jest"],
+    "downlevelIteration": true
   },
-  "exclude": ["**/*.spec.ts"],
   "include": [],
+  "exclude": ["src/schematics/*/files"],
   "files": [],
   "references": [
+    {
+      "path": "./tsconfig.lib.json"
+    },
     {
       "path": "./tsconfig.spec.json"
     }
