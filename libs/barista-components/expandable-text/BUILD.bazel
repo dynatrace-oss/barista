@@ -1,4 +1,4 @@
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
 load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
@@ -20,9 +20,12 @@ ng_module_view_engine(
     module_name = "@dynatrace/barista-components/expandable-text",
     tsconfig = "tsconfig_lib",
     deps = [
+        "//libs/barista-components/core:compile",
         "//libs/barista-components/icon:compile",
-        "@npm//@angular/core",
+        "@npm//@angular/cdk",
         "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//rxjs",
     ],
 )
 
@@ -42,7 +45,7 @@ filegroup(
 
 sass_binary(
     name = "styles",
-    src = "src/expandable-text.scss"
+    src = "src/expandable-text.scss",
 )
 
 stylelint(
@@ -62,7 +65,7 @@ jest(
         "//libs/testing/browser",
         "@npm//@angular/common",
         "@npm//@angular/core",
-        "@npm//@angular/platform-browser"
+        "@npm//@angular/platform-browser",
     ],
 )
 
