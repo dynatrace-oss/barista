@@ -74,7 +74,7 @@ describe('DtDurationFormatter', () => {
       {
         duration: 1,
         inputUnit: DtTimeUnit.MONTH,
-        output: 2627999423999999.5,
+        output: 2627999424000000,
       },
       {
         duration: 1,

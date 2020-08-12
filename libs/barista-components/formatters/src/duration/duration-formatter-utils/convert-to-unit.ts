@@ -18,6 +18,7 @@ import { DtTimeUnit } from '../../unit';
 import {
   CONVERSION_FACTORS_TO_MS,
   MOVE_COMMA,
+  conversionFactorSetup,
 } from '../duration-formatter-constants';
 
 /**
@@ -29,6 +30,7 @@ export function dtConvertToUnit(
   duration: number,
   inputUnit: DtTimeUnit,
 ): number {
+  conversionFactorSetup();
   const convertedDuration =
     duration < 1
       ? (duration * MOVE_COMMA * CONVERSION_FACTORS_TO_MS.get(inputUnit)!) /

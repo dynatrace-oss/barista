@@ -16,6 +16,16 @@
 
 import { DtTimeUnit } from '../unit';
 
+const nanosecond = 1;
+const microsecond = nanosecond * 1000;
+const millisecond = microsecond * 1000;
+const second = millisecond * 1000;
+const minute = second * 60;
+const hour = minute * 60;
+const day = hour * 24;
+const month = day * 30.41666;
+const year = month * 12;
+
 export type DurationMode = 'DEFAULT' | 'PRECISE' | number;
 
 export function toDurationMode(
@@ -30,22 +40,29 @@ export function toDurationMode(
   }
 }
 
-// tslint:disable: no-magic-numbers
+export function conversionFactorSetup(): void {
+  if (CONVERSION_FACTORS_TO_MS.size <= 0) {
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.YEAR, year);
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.MONTH, month);
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.DAY, day);
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.HOUR, hour);
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.MINUTE, minute);
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.SECOND, second);
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.MILLISECOND, millisecond);
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.MICROSECOND, microsecond);
+    CONVERSION_FACTORS_TO_MS.set(DtTimeUnit.NANOSECOND, nanosecond);
+  }
+}
+
 /** Factorials needed for converting milliseconds to other time units */
-export const CONVERSION_FACTORS_TO_MS = new Map<DtTimeUnit, number>([
-  [DtTimeUnit.YEAR, 12 * 30.41666 * 24 * 60 * 60 * 1000000000],
-  [DtTimeUnit.MONTH, 30.41666 * 24 * 60 * 60 * 1000000000],
-  [DtTimeUnit.DAY, 24 * 60 * 60 * 1000000000],
-  [DtTimeUnit.HOUR, 60 * 60 * 1000000000],
-  [DtTimeUnit.MINUTE, 60 * 1000000000],
-  [DtTimeUnit.SECOND, 1000000000],
-  [DtTimeUnit.MILLISECOND, 1000000],
-  [DtTimeUnit.MICROSECOND, 1000],
-  [DtTimeUnit.NANOSECOND, 1],
-]);
+export const CONVERSION_FACTORS_TO_MS = new Map<DtTimeUnit, number>([]);
 
 /** Default for the conversionunit when no formatmethod is passed as a number. */
 export const CONVERSIONUNITS = 3;
 
-/** Converting numbers like 0.001001 won't return the intended result so the comma needs to be moved. */
-export const MOVE_COMMA = 100000000000;
+/**
+ * The 0.001001 edge case loses accuracy due to IEEE's floating point calculation (64 bit)
+ * To preserve the accuracy the value is multiplied by this specific number.
+ * Generally use this number for floating number issues.
+ */
+export const MOVE_COMMA = 100_000_000_000;

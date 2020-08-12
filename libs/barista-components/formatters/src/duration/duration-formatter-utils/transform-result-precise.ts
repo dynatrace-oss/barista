@@ -18,6 +18,7 @@ import { DtTimeUnit } from '../../unit';
 import {
   CONVERSION_FACTORS_TO_MS,
   DurationMode,
+  conversionFactorSetup,
 } from '../duration-formatter-constants';
 import { dtConvertToUnit } from './convert-to-unit';
 
@@ -49,6 +50,7 @@ function calcResult(
   unit: DtTimeUnit,
   maxDecimals: number | undefined,
 ): Map<DtTimeUnit, string> {
+  conversionFactorSetup();
   let result = new Map<DtTimeUnit, string>();
   if (formatMethod === 'PRECISE') {
     amount = amount / CONVERSION_FACTORS_TO_MS.get(unit)!;
