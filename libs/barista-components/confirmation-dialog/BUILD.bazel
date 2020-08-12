@@ -16,6 +16,7 @@ ng_module_view_engine(
     angular_assets = [
         ":styles",
         ":src/confirmation-dialog.html",
+        ":src/confirmation-dialog-state/confirmation-dialog-state.html",
     ],
     module_name = "@dynatrace/barista-components/confirmation-dialog",
     tsconfig = "tsconfig_lib",
@@ -23,9 +24,11 @@ ng_module_view_engine(
         "//libs/barista-components/core:compile",
         "//libs/barista-components/icon:compile",
         "//libs/barista-components/theming:compile",
+        "@npm//@angular/animations",
         "@npm//@angular/cdk",
         "@npm//@angular/core",
         "@npm//@angular/common",
+        "@npm//rxjs",
     ],
 )
 
@@ -68,10 +71,12 @@ jest(
         "//libs/barista-components/icon:compile",
         "//libs/barista-components/theming:compile",
         "//libs/testing/browser",
+        "@npm//@angular/animations",
         "@npm//@angular/cdk",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
+        "@npm//rxjs",
     ],
 )
 
