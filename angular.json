@@ -1342,13 +1342,6 @@
               "!libs/barista-components/confirmation-dialog/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/confirmation-dialog/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
