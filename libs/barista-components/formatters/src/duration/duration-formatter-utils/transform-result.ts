@@ -19,6 +19,7 @@ import {
   CONVERSION_FACTORS_TO_MS,
   CONVERSIONUNITS,
   DurationMode,
+  conversionFactorSetup,
 } from '../duration-formatter-constants';
 import { dtConvertToUnit } from './convert-to-unit';
 
@@ -38,8 +39,8 @@ export function dtTransformResult(
   const result = new Map<DtTimeUnit, string>();
   const unitsToDisplay =
     typeof formatMethod === 'number' ? formatMethod : CONVERSIONUNITS;
+  conversionFactorSetup();
   let rest = dtConvertToUnit(duration, inputUnit);
-  // debugger;
   let displayedUnits = 0;
   let amount;
   for (const key of Array.from(CONVERSION_FACTORS_TO_MS.keys())) {
