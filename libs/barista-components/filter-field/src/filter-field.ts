@@ -629,6 +629,10 @@ export class DtFilterField<T = any>
 
   /** @internal Keep track of the values in the input fields. Write the current value to the _inputValue property */
   _handleInputChange(): void {
+    if (this._loading) {
+      return;
+    }
+
     const value = this._inputEl.nativeElement.value;
     this._writeControlValue(value);
     this._updateAutocompleteOptionsOrGroups();
@@ -640,6 +644,10 @@ export class DtFilterField<T = any>
 
   /** @internal */
   _handleInputKeyDown(event: KeyboardEvent): void {
+    if (this._loading) {
+      return;
+    }
+
     const keyCode = _readKeyCode(event);
     if (keyCode === ENTER) {
       // We need to prevent the default here, in case this filter field

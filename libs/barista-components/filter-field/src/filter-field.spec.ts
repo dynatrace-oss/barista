@@ -953,6 +953,48 @@ describe('DtFilterField', () => {
       expect(options[0].textContent).toContain('Upper Austria');
       expect(options[1].textContent).toContain('Vienna');
     });
+
+    it('should mark the input as readonly while loading async data', () => {
+      const DATA = {
+        autocomplete: [
+          {
+            name: 'AUT',
+            async: true,
+            autocomplete: [],
+          },
+        ],
+      };
+      const ASYNC_DATA = {
+        name: 'AUT',
+        autocomplete: [
+          {
+            name: 'Linz',
+          },
+        ],
+      };
+
+      const input = getInput(fixture);
+
+      fixture.componentInstance.dataSource.data = DATA;
+      fixture.detectChanges();
+      filterField.focus();
+      advanceFilterfieldCycle();
+
+      // No readonly attribute should be present at the beginning.
+      expect(input.readOnly).toBeFalsy();
+
+      getAndClickOption(overlayContainerElement, 0);
+
+      // readonly should be added while waiting for the data to be loaded
+      expect(input.readOnly).toBeTruthy();
+
+      fixture.componentInstance.dataSource.data = ASYNC_DATA;
+      fixture.detectChanges();
+      advanceFilterfieldCycle(true, true);
+
+      // readonly should be removed after the async data is loaded
+      expect(input.readOnly).toBeFalsy();
+    });
   });
 
   describe('with range option', () => {
