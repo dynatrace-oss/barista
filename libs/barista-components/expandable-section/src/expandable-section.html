@@ -20,9 +20,11 @@
 
 <dt-expandable-panel
   #expandablepanel
-  [id]="[id]"
+  [id]="id"
+  [expanded]="expanded"
+  [disabled]="disabled"
   class="dt-expandable-section-container"
-  (expandChange)="expandChange.emit($event)"
+  (expandChange)="_panelExpandChange($event)"
 >
   <ng-content></ng-content>
 </dt-expandable-panel>
