@@ -29,6 +29,9 @@ function updateJestConfig(configPath, suiteName, suitePath) {
     ],
   ];
 
+  // Ensure that jest prints out all console.logs
+  parsed.verbose = false;
+
   const updatedFileName = join(dir, `${name}-updated${ext}`);
   writeFileSync(updatedFileName, JSON.stringify(parsed, undefined, 2));
 

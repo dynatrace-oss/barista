@@ -33,7 +33,7 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtExpandableSection', () => {
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
@@ -41,10 +41,14 @@ describe('DtExpandableSection', () => {
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
         DtExpandableSectionModule,
       ],
-      declarations: [TestApp],
+      declarations: [
+        TestApp,
+        StaticExpandedAttrTestApp,
+        StaticDisabledAttrTestApp,
+      ],
     });
     TestBed.compileComponents();
-  }));
+  });
 
   describe('dt-expandable-section', () => {
     let fixture: ComponentFixture<TestApp>;
@@ -103,7 +107,7 @@ describe('DtExpandableSection', () => {
       expect(expandableSectionInstance.expanded).toBe(false);
     });
 
-    // test expanded and disabled state
+    // test opened and disabled state
     it('should close when open and disabled', () => {
       expandableSectionInstance.open();
       expect(expandableSectionInstance.expanded).toBe(true);
@@ -231,6 +235,7 @@ describe('DtExpandableSection', () => {
     // check collapsed and expandChange outputs
     it('should fire collapsed and expandChange events on close', () => {
       expandableSectionInstance.expanded = true;
+      fixture.detectChanges();
       const collapsedSpy = jest.fn();
       const changedSpy = jest.fn();
       const instance = instanceDebugElement.componentInstance;
@@ -249,6 +254,34 @@ describe('DtExpandableSection', () => {
       changedSubscription.unsubscribe();
     });
   });
+
+  describe('dt-expandable-section static attributes', () => {
+    it('should reflect the expandable attribute to the property', () => {
+      const fixture = createComponent(StaticExpandedAttrTestApp);
+      const instanceDebugElement = fixture.debugElement.query(
+        By.directive(DtExpandableSection),
+      );
+      const expandableSectionInstance = instanceDebugElement.injector.get<
+        DtExpandableSection
+      >(DtExpandableSection);
+      fixture.detectChanges();
+
+      expect(expandableSectionInstance.expanded).toBe(true);
+    });
+
+    it('should reflect the disabled attribute to the property', () => {
+      const fixture = createComponent(StaticDisabledAttrTestApp);
+      const instanceDebugElement = fixture.debugElement.query(
+        By.directive(DtExpandableSection),
+      );
+      const expandableSectionInstance = instanceDebugElement.injector.get<
+        DtExpandableSection
+      >(DtExpandableSection);
+      fixture.detectChanges();
+
+      expect(expandableSectionInstance.disabled).toBe(true);
+    });
+  });
 });
 
 @Component({
@@ -263,3 +296,25 @@ describe('DtExpandableSection', () => {
 class TestApp {
   id: string | null;
 }
+
+@Component({
+  selector: 'dt-static-attr-test-app',
+  template: `
+    <dt-expandable-section expanded>
+      <dt-expandable-section-header>Header</dt-expandable-section-header>
+      text
+    </dt-expandable-section>
+  `,
+})
+class StaticExpandedAttrTestApp {}
+
+@Component({
+  selector: 'dt-static-attr-test-app',
+  template: `
+    <dt-expandable-section disabled>
+      <dt-expandable-section-header>Header</dt-expandable-section-header>
+      text
+    </dt-expandable-section>
+  `,
+})
+class StaticDisabledAttrTestApp {}

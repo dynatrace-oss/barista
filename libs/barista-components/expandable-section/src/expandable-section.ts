@@ -22,14 +22,10 @@ import {
   Directive,
   EventEmitter,
   Input,
-  OnChanges,
   Output,
-  SimpleChanges,
-  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { CanDisable, HasId, mixinId } from '@dynatrace/barista-components/core';
-import { DtExpandablePanel } from '@dynatrace/barista-components/expandable-panel';
 import { filter } from 'rxjs/operators';
 
 @Directive({
@@ -66,28 +62,28 @@ export const _ExpandableSectionBase = mixinId(
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtExpandableSection extends _ExpandableSectionBase
-  implements CanDisable, HasId, OnChanges {
+  implements CanDisable, HasId {
   /** Whether the expandable section is expanded. */
   @Input()
   get expanded(): boolean {
-    return this._panel.expanded;
+    return !this.disabled && this._expanded;
   }
   set expanded(value: boolean) {
-    this._panel.expanded = coerceBooleanProperty(value);
+    this._expanded = coerceBooleanProperty(value);
     this._changeDetectorRef.markForCheck();
   }
+  private _expanded = false;
 
   /** Whether the expandable section is disabled. */
   @Input()
   get disabled(): boolean {
-    return Boolean(this._panel?.disabled);
+    return this._disabled;
   }
   set disabled(value: boolean) {
-    if (this._panel) {
-      this._panel.disabled = coerceBooleanProperty(value);
-      this._changeDetectorRef.markForCheck();
-    }
+    this._disabled = coerceBooleanProperty(value);
+    this._changeDetectorRef.markForCheck();
   }
+  private _disabled = false;
 
   /** Event emitted when the section's expandable state changes. */
   @Output() readonly expandChange = new EventEmitter<boolean>();
@@ -102,17 +98,8 @@ export class DtExpandableSection extends _ExpandableSectionBase
     filter((v) => !v),
   );
 
-  @ViewChild(DtExpandablePanel, { static: true })
-  private _panel: DtExpandablePanel;
-
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     super();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.disabled?.firstChange) {
-      this._panel.disabled = this.disabled;
-    }
   }
 
   /**
@@ -120,22 +107,31 @@ export class DtExpandableSection extends _ExpandableSectionBase
    */
   toggle(): void {
     if (!this.disabled) {
-      this._panel.toggle();
-      this._changeDetectorRef.markForCheck();
+      if (this._expanded) {
+        this.close();
+      } else {
+        this.open();
+      }
     }
   }
 
   /** Sets the expanded state of the panel to false. */
   close(): void {
-    this._panel.close();
+    this._expanded = false;
     this._changeDetectorRef.markForCheck();
   }
 
   /** Sets the expanded state of the panel to true. */
   open(): void {
     if (!this.disabled) {
-      this._panel.open();
+      this._expanded = true;
       this._changeDetectorRef.markForCheck();
     }
+  }
+
+  _panelExpandChange(value: boolean): void {
+    this._expanded = value;
+    this.expandChange.next(value);
+    this._changeDetectorRef.markForCheck();
   }
 }
