@@ -1,0 +1,31 @@
+<fluid-button-group
+  (checkedChange)="handleChange($event)"
+  [disabled]="disableall"
+>
+  <fluid-button-group-item name="btngrp">
+    Options 1
+  </fluid-button-group-item>
+  <fluid-button-group-item name="btngrp" [disabled]="disable">
+    Buildingsteps 2
+  </fluid-button-group-item>
+  <fluid-button-group-item *ngIf="show" name="btngrp">
+    Xylophone 3
+  </fluid-button-group-item>
+</fluid-button-group>
+<br />
+<fluid-button-group-item name="btngrp">
+  Option
+</fluid-button-group-item>
+
+<button (click)="disable = !disable">Disabled item</button>
+<button (click)="disableall = !disableall">Disabled all</button>
+<button (click)="show = !show">Show last item</button>
+
+<div>
+  <h2>Logs</h2>
+  <code *ngFor="let log of logs">
+    <pre>
+    {{ log | json }}
+    </pre>
+  </code>
+</div>

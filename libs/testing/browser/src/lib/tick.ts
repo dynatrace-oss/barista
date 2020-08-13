@@ -14,14 +14,7 @@
  * limitations under the License.
  */
 
-export * from './lib/create-component';
-export * from './lib/dispatch-events';
-export * from './lib/event-objects';
-export * from './lib/mock-component';
-export * from './lib/mock-ng-zone';
-export * from './lib/request-animation-frame';
-export * from './lib/type-in-element';
-export * from './lib/wrapped-error-message';
-export * from './lib/mock-intersection-observer';
-export * from './lib/mock-get-computed-style';
-export * from './lib/tick';
+/** This helper function resolves promises so that modifications in the dom take place */
+export function tick(): Promise<void> {
+  return Promise.resolve();
+}

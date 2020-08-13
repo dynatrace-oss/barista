@@ -1,6 +1,6 @@
 {
-  "name": "@dynatrace/fluid-switch",
-  "description": "Dynatrace switch element based on web-components",
+  "name": "@dynatrace/fluid-button-group",
+  "description": "Dynatrace button group element based on web-components",
   "version": "",
   "repository": {
     "type": "git",

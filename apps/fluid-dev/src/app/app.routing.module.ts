@@ -27,6 +27,13 @@ export const fluidRoutes: Route[] = [
       ),
   },
   {
+    path: 'button-group',
+    loadChildren: () =>
+      import('../pages/button-group/button-group-page.module').then(
+        (module) => module.FluidButtonGroupPageModule,
+      ),
+  },
+  {
     path: 'checkbox',
     loadChildren: () =>
       import('../pages/checkbox/checkbox-page.module').then(

@@ -1,6 +1,6 @@
 {
-  "name": "@dynatrace/fluid-switch",
-  "description": "Dynatrace switch element based on web-components",
+  "name": "@dynatrace/fluid-core",
+  "description": "Dynatrace fluid-element core utilities",
   "version": "",
   "repository": {
     "type": "git",
@@ -19,5 +19,7 @@
     "lit-element": "",
     "lit-html": ""
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "@dynatrace/shared/keycodes": ""
+  }
 }
