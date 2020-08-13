@@ -2913,6 +2913,45 @@
         }
       }
     },
+    "fluid-button-group": {
+      "root": "libs/fluid-elements/button-group",
+      "sourceRoot": "libs/fluid-elements/button-group/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "./dist/libs/workspace:typescript",
+          "options": {
+            "tsConfig": "libs/fluid-elements/button-group/tsconfig.lib.json",
+            "outDir": "dist/out-tsc"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/button-group",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/button-group/src/index.js",
+            "project": "libs/fluid-elements/button-group/package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/fluid-elements/button-group/tsconfig.lib.json",
+              "libs/fluid-elements/button-group/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/fluid-elements/button-group/**/*"
+            ]
+          }
+        }
+      }
+    },
     "fluid-checkbox": {
       "root": "libs/fluid-elements/checkbox",
       "sourceRoot": "libs/fluid-elements/checkbox/src",
@@ -2955,6 +2994,32 @@
           "options": {
             "jestConfig": "libs/fluid-elements/checkbox/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "fluid-core": {
+      "root": "libs/fluid-elements/core",
+      "sourceRoot": "libs/fluid-elements/core/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "./dist/libs/workspace:typescript",
+          "options": {
+            "tsConfig": "libs/fluid-elements/core/tsconfig.lib.json",
+            "outDir": "dist/out-tsc"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/core",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/core/src/index.js",
+            "project": "libs/fluid-elements/core/package.json"
           }
         }
       }
