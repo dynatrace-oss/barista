@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../dist/out-tsc",
+    "module": "CommonJS",
+    "allowJs": true,
+    "types": ["jest", "node"],
+    "target": "es2015",
+    "lib": ["dom", "es2018"]
+  },
+  "include": ["**/*.spec.ts", "**/*.d.ts"]
+}

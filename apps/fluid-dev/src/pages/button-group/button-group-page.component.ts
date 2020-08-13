@@ -13,15 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Component } from '@angular/core';
+import '@dynatrace/fluid-elements/button-group';
 
-export * from './lib/create-component';
-export * from './lib/dispatch-events';
-export * from './lib/event-objects';
-export * from './lib/mock-component';
-export * from './lib/mock-ng-zone';
-export * from './lib/request-animation-frame';
-export * from './lib/type-in-element';
-export * from './lib/wrapped-error-message';
-export * from './lib/mock-intersection-observer';
-export * from './lib/mock-get-computed-style';
-export * from './lib/tick';
+@Component({
+  selector: 'fluid-button-page',
+  templateUrl: 'button-group-page.component.html',
+})
+export class FluidButtonGroupPage {
+  disable = false;
+  disableall = false;
+  show = true;
+
+  logs: Event[] = [];
+
+  handleChange(evt: Event): void {
+    console.log(evt);
+    this.logs.push(evt);
+  }
+}
