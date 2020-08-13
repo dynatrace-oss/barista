@@ -15,7 +15,12 @@
  */
 
 import { getNextGroupItemIndex } from './get-next-group-item-index';
-import { ARROW_RIGHT, ARROW_LEFT } from '@dynatrace/shared/keycodes';
+import {
+  ARROW_RIGHT,
+  ARROW_LEFT,
+  ARROW_UP,
+  ARROW_DOWN,
+} from '@dynatrace/shared/keycodes';
 
 describe('get next group item index', () => {
   it('should get 1 if the index is 0 and ARROW_RIGHT and the length is 4', () => {
@@ -30,6 +35,18 @@ describe('get next group item index', () => {
   it('should get 0 if the index is 3 and ARROW_RIGHT and the length is 4', () => {
     expect(getNextGroupItemIndex(3, 4, ARROW_RIGHT)).toBe(0);
   });
+  it('should get 1 if the index is 0 and ARROW_DOWN and the length is 4', () => {
+    expect(getNextGroupItemIndex(0, 4, ARROW_DOWN)).toBe(1);
+  });
+  it('should get 2 if the index is 1 and ARROW_DOWN and the length is 4', () => {
+    expect(getNextGroupItemIndex(1, 4, ARROW_DOWN)).toBe(2);
+  });
+  it('should get 3 if the index is 2 and ARROW_DOWN and the length is 4', () => {
+    expect(getNextGroupItemIndex(2, 4, ARROW_DOWN)).toBe(3);
+  });
+  it('should get 0 if the index is 3 and ARROW_DOWN and the length is 4', () => {
+    expect(getNextGroupItemIndex(3, 4, ARROW_DOWN)).toBe(0);
+  });
   it('should get 3 if the index is 0 and ARROW_LEFT and the length is 4', () => {
     expect(getNextGroupItemIndex(0, 4, ARROW_LEFT)).toBe(3);
   });
@@ -41,5 +58,17 @@ describe('get next group item index', () => {
   });
   it('should get 0 if the index is 1 and ARROW_LEFT and the length is 4', () => {
     expect(getNextGroupItemIndex(1, 4, ARROW_LEFT)).toBe(0);
+  });
+  it('should get 3 if the index is 0 and ARROW_UP and the length is 4', () => {
+    expect(getNextGroupItemIndex(0, 4, ARROW_UP)).toBe(3);
+  });
+  it('should get 2 if the index is 3 and ARROW_UP and the length is 4', () => {
+    expect(getNextGroupItemIndex(3, 4, ARROW_UP)).toBe(2);
+  });
+  it('should get 1 if the index is 2 and ARROW_UP and the length is 4', () => {
+    expect(getNextGroupItemIndex(2, 4, ARROW_UP)).toBe(1);
+  });
+  it('should get 0 if the index is 1 and ARROW_UP and the length is 4', () => {
+    expect(getNextGroupItemIndex(1, 4, ARROW_UP)).toBe(0);
   });
 });
