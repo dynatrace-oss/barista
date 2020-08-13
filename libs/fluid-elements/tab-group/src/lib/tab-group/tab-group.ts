@@ -46,6 +46,7 @@ import {
   FLUID_SPACING_0,
   FLUID_SPACING_MEDIUM,
 } from '@dynatrace/fluid-design-tokens';
+import { getNextGroupItemIndex } from '@dynatrace/fluid-elements/core';
 
 /**
  * This is a experimental version of the tab group component
@@ -155,17 +156,7 @@ export class FluidTabGroup extends LitElement {
         (tab: FluidTab) => tab.tabindex === 0,
       );
       const oldIndex = index;
-      if (event.code === ARROW_RIGHT) {
-        index += 1;
-      }
-      if (event.code === ARROW_LEFT) {
-        index -= 1;
-      }
-      if (index > this.tabChildren.length - 1) {
-        index = 0;
-      } else if (index < 0) {
-        index = this.tabChildren.length - 1;
-      }
+      index = getNextGroupItemIndex(index, this.tabChildren.length, event.code);
 
       this.tabChildren[index].tabbed = true;
       this.tabChildren[oldIndex].tabbed = false;

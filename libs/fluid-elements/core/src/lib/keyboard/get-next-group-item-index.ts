@@ -14,14 +14,24 @@
  * limitations under the License.
  */
 
-export * from './lib/create-component';
-export * from './lib/dispatch-events';
-export * from './lib/event-objects';
-export * from './lib/mock-component';
-export * from './lib/mock-ng-zone';
-export * from './lib/request-animation-frame';
-export * from './lib/type-in-element';
-export * from './lib/wrapped-error-message';
-export * from './lib/mock-intersection-observer';
-export * from './lib/mock-get-computed-style';
-export * from './lib/tick';
+import { ARROW_LEFT, ARROW_RIGHT } from '@dynatrace/shared/keycodes';
+
+/** Calculate based on a length and the direction (arrow key) what the next index is supporting rotationing */
+export function getNextGroupItemIndex(
+  index: number,
+  length: number,
+  key: string,
+): number {
+  if (key === ARROW_RIGHT) {
+    index += 1;
+  }
+  if (key === ARROW_LEFT) {
+    index -= 1;
+  }
+  if (index > length - 1) {
+    index = 0;
+  } else if (index < 0) {
+    index = length - 1;
+  }
+  return index;
+}

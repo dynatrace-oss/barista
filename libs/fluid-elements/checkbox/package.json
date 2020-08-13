@@ -19,5 +19,7 @@
     "lit-element": "",
     "lit-html": ""
   },
-  "peerDependencies": {}
+  "peerDependencies": {
+    "@dynatrace/shared/keycodes": ""
+  }
 }
