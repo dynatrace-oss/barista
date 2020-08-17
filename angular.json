@@ -833,11 +833,6 @@
                 "input": "./libs/workspace",
                 "glob": "{package,builders,collection}.json",
                 "output": "."
-              },
-              {
-                "input": "./libs/workspace/src",
-                "glob": "schematics/*/files/**/*.{ts,html,json,md,scss}",
-                "output": "./src"
               }
             ],
             "buildLibsFromSource": true
