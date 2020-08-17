@@ -1,0 +1,101 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library", "ts_config")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "figma_bundle", "figma_plugin")
+load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
+load("@npm//@bazel/terser:index.bzl", "terser_minified")
+
+package(default_visibility = ["//:__subpackages__"])
+
+# Allow any ts_library rules in this workspace to reference the config
+exports_files(
+    [
+        "tsconfig.json",
+        "rollup.config.js",
+        "manifest.json",
+    ],
+    visibility = ["//apps/figma-design-tokens:__subpackages__"],
+)
+
+sass_binary(
+    name = "styles",
+    src = "src/styles.scss",
+    include_paths = ["node_modules"],
+    sourcemap = False,
+)
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+    deps = [
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_library(
+    name = "compile",
+    srcs = glob(["src/**/*.ts"]),
+    deps = [
+        "@npm//@figma/plugin-typings",
+        "//libs/shared/design-tokens",
+        "@npm//axios",
+        "@npm//tslib",
+        "@npm//lit-element",
+    ],
+    tsconfig = "tsconfig"
+)
+
+rollup_bundle(
+    name = "bundle_code",
+    deps = [
+        ":compile",
+        "@npm//tslib",
+        "@npm//@rollup/plugin-node-resolve",
+        "@npm//@rollup/plugin-commonjs",
+        "@npm//@rollup/plugin-json",
+        "@npm//@rollup/plugin-replace",
+    ],
+    entry_point = "src/code.ts",
+    config_file = "rollup.config.js",
+    sourcemap = "false",
+)
+
+terser_minified(
+    name = "minify_code",
+    src = ":bundle_code",
+    sourcemap = False
+)
+
+rollup_bundle(
+    name = "bundle_worker_js",
+    deps = [
+        ":compile",
+        "@npm//tslib",
+        "@npm//@rollup/plugin-node-resolve",
+        "@npm//@rollup/plugin-commonjs",
+        "@npm//@rollup/plugin-json",
+    ],
+    entry_point = "src/worker.ts",
+    config_file = "rollup.config.js",
+    sourcemap = "false",
+)
+
+terser_minified(
+    name = "minify_worker_js",
+    src = ":bundle_worker_js",
+    sourcemap = False
+)
+
+figma_bundle(
+    name = "build_worker",
+    srcs = [
+        ":minify_worker_js",
+        ":styles",
+    ],
+)
+
+figma_plugin(
+    name = "figma-design-tokens",
+    manifest_json = ":manifest.json",
+    code_js = ":minify_code",
+    worker_html = ":build_worker",
+)
