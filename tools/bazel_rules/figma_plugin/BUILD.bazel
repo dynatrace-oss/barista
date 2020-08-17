@@ -1,0 +1,11 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
+package(default_visibility = ["//:__subpackages__"])
+
+exports_files(["copy-plugin-files.js"])
+
+nodejs_binary(
+    name = "figma_plugin_binary",
+    entry_point = "//tools/bazel_rules/figma_plugin:copy-plugin-files.js",
+    data = ["@npm//yargs"],
+)

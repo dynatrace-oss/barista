@@ -1,0 +1,47 @@
+{
+  "name": "Design Tokens",
+  "id": "873122287503778713",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "worker.html",
+  "menu": [
+    { "name": "Set theme to Abyss", "command": "set-theme:abyss" },
+    { "name": "Set theme to Surface", "command": "set-theme:surface" },
+    { "separator": true },
+
+    { "name": "Add plugin buttons", "command": "noop" },
+    { "separator": true },
+
+    {
+      "name": "Admin",
+      "menu": [
+        {
+          "name": "Import tokens and upload styles",
+          "command": "sync-publish"
+        },
+        { "name": "Migrate color names", "command": "migrate" }
+      ]
+    },
+    {
+      "name": "Advanced",
+      "menu": [
+        { "name": "Clear cached tokens", "command": "dev:clear-cache" },
+        { "name": "Delete color tokens", "command": "dev:delete-color-tokens" },
+        { "name": "Only import tokens", "command": "sync" },
+        { "name": "Only upload local styles", "command": "publish" }
+      ]
+    }
+  ],
+  "relaunchButtons": [
+    {
+      "command": "set-theme:abyss",
+      "name": "Set theme to Abyss",
+      "multipleSelection": true
+    },
+    {
+      "command": "set-theme:surface",
+      "name": "Set theme to Surface",
+      "multipleSelection": true
+    }
+  ]
+}

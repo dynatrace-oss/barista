@@ -1,0 +1,11 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
+package(default_visibility = ["//:__subpackages__"])
+
+exports_files(["create-figma-bundle.js"])
+
+nodejs_binary(
+    name = "figma_bundle_binary",
+    entry_point = "//tools/bazel_rules/figma_bundle:create-figma-bundle.js",
+    data = ["@npm//yargs"],
+)
