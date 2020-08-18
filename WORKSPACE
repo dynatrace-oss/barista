@@ -42,6 +42,7 @@ check_bazel_version("3.1.0")
 # Install all dependencies with npm
 npm_install(
     name = "npm",
+    data = ["//:postinstall.js"],
     package_json = "//:package.json",
     package_lock_json = "//:package-lock.json",
     symlink_node_modules = True,

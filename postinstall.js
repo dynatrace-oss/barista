@@ -1,54 +1,35 @@
 // This script will be executed on npm postinstall and is a
 // migration script for the phase where we support building with bazel
 // and without.
-const { exec } = require('child_process');
 const { resolve } = require('path');
 const { sync } = require('glob');
 const { writeFileSync, readFileSync } = require('fs');
+const { exec, set } = require('shelljs');
 
 const MAIN_FIELD_NAME = 'main';
 const NGCC_MAIN_FIELD_NAME = 'main_ivy_ngcc';
 const NGCC_BINARY = resolve('./node_modules/.bin/ngcc');
 const NGC_BINARY = resolve('./node_modules/.bin/ngc');
 
-async function main() {
-  // Applying all the patches to the packages
-  await execCommand(`node ${require.resolve('patch-package')}`);
-  // when running with bazel we need to perform a ngcc to compile
-  // all dependencies for ivy. If we are not run by bazel just build
-  // the workspace library. With bazel this is already in the build cache.
+set('-e');
 
-  // Generate Angular ngfactory.js, ngsummary.js files for the dependencies,
-  // that are needed for ViewEngine
-  await execCommand(`${NGC_BINARY} -p view-engine-tsconfig.json`);
-  // Generate Ivy entry points
-  await execCommand(
-    `${NGCC_BINARY} --properties es2015 browser module main --first-only --create-ivy-entry-points`,
-  );
-  // link the ivy entry points
-  updateNgccMainFields();
+// when running with bazel we need to perform a ngcc to compile
+// all dependencies for ivy. If we are not run by bazel just build
+// the workspace library. With bazel this is already in the build cache.
 
-  if (!process.env.BAZEL_NPM_INSTALL) {
-    await execCommand(`npm run ng build workspace`);
-  }
-}
+// Generate Angular ngfactory.js, ngsummary.js files for the dependencies,
+// that are needed for ViewEngine
+exec(`${NGC_BINARY} -p view-engine-tsconfig.json`);
+// Generate Ivy entry points
+exec(
+  `${NGCC_BINARY} --properties es2015 browser module main --first-only --create-ivy-entry-points`,
+);
 
-/**
- * Executes a shell command and return it as a Promise.
- * @param cmd {string}
- * @return {Promise<string>}
- */
-function execCommand(cmd) {
-  return new Promise((resolve, reject) => {
-    exec(cmd, (error, stdout, stderr) => {
-      if (error) {
-        return reject(error);
-      }
-      const output = stdout ? stdout : stderr;
-      console.log(output);
-      resolve(output);
-    });
-  });
+// link the ivy entry points
+updateNgccMainFields();
+
+if (!process.env.BAZEL_NPM_INSTALL) {
+  exec('npm run ng build workspace');
 }
 
 /**
@@ -86,12 +67,3 @@ function updateNgccMainFields() {
     }
   });
 }
-
-main()
-  .then(() => {
-    console.log('✅ Successfully run postinstall script!');
-  })
-  .catch((error) => {
-    console.error(error);
-    process.exit(1);
-  });
