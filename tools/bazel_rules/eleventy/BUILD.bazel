@@ -1,0 +1,20 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+
+package(default_visibility = ["//:__subpackages__"])
+
+exports_files([".eleventy.js"])
+
+ts_library(
+    name = "eleventy",
+    srcs = glob(["**/*.ts"]),
+    tsconfig = "//:tsconfig.base.json",
+    deps = [
+        "@npm//@11ty/eleventy",
+        "@npm//@types/node",
+        "@npm//lodash",
+        "@npm//markdown-it",
+        "@npm//@types/markdown-it",
+        "@npm//tslib",
+        "@npm//yargs",
+    ],
+)

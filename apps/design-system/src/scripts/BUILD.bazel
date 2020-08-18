@@ -1,0 +1,21 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
+
+package(default_visibility = ["//apps/design-system:__subpackages__"])
+
+ts_library(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+    ),
+    tsconfig = "//apps/design-system:tsconfig_app",
+)
+
+rollup_bundle(
+    name = "scripts",
+    entry_point = "main.ts",
+    format = "umd",
+    deps = [
+        ":compile",
+    ],
+)

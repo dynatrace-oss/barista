@@ -1,77 +1,58 @@
-load("@npm//@11ty/eleventy:index.bzl", "eleventy")
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
-load("@build_bazel_rules_nodejs//:index.bzl", "pkg_web")
-load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
-load("@npm//@bazel/rollup:index.bzl", "rollup_bundle")
+load("//tools/bazel_rules:index.bzl", "eleventy")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
 
-sass_library(
-    name = "scss_lib",
-    srcs = glob(
-        ["_styles/**/_*.scss"],
-    ),
-)
-sass_binary(
-    name = "styles",
-    src = "_styles/main.scss",
-    deps = [":scss_lib"],
+package(default_visibility = ["//apps/design-system:__subpackages__"])
+
+eleventy(
+    name = "design-system",
+    assets = [
+        "//apps/design-system/src/scripts",
+        "//apps/design-system/src/styles",
+    ],
+    data = ["//apps/design-system/src/data"],
+    files = [
+        "//libs/fluid-elements/button:README.md",
+        "//libs/fluid-elements/checkbox:README.md",
+        "//libs/fluid-elements/switch:README.md",
+        "//libs/fluid-elements/tab-group:README.md",
+    ],
+    templates = [
+        "src/component.njk",
+        "src/non-component-pages.njk",
+    ] + glob(["src/templates/**/*.njk"]),
 )
 
 ts_config(
-    name = "tsconfig",
-    src = "tsconfig.json",
+    name = "tsconfig_app",
+    src = "tsconfig.app.json",
     deps = [
-        "tsconfig.json",
-        "//:tsconfig.json",
-    ]
+        ":tsconfig.json",
+        "//:tsconfig.base.json",
+    ],
 )
 
-ts_library(
-    name = "scripts",
-    srcs = glob(
-        ["_scripts/**/*.ts"],
-    ),
-    tsconfig = ":tsconfig",
-)
-
-rollup_bundle(
-    name = "bundle",
-    entry_point = "_scripts/main.ts",
+ts_config(
+    name = "tsconfig_data",
+    src = "tsconfig.data.json",
     deps = [
-        ":scripts",
+        ":tsconfig.json",
+        "//:tsconfig.base.json",
     ],
-    # config_file = "//libs/fluid-elements:rollup.config.js",
-    format = "umd",
 )
 
-data = glob(["**/*"]) + [
-    ":styles",
-    ":bundle",
-    "//libs/fluid-elements/button:readme",
-    "//libs/fluid-elements/checkbox:readme",
-    "//libs/fluid-elements/switch:readme",
-    "//libs/fluid-elements/tab-group:readme"
-]
+# eleventy(
+#     name = "serve",
+#     templated_args = [
+#         "--serve",
+#         "--config apps/design-system/.eleventy.js"
+#     ],
+#     data = data
+# )
 
-eleventy(
-    name = "serve",
-    templated_args = [
-        "--serve",
-        "--config apps/design-system/.eleventy.js"
-    ],
-    data = data
-)
-
-eleventy(
-    name = "build",
-    templated_args = [
-        "--config apps/design-system/.eleventy.js"
-    ],
-    data = data
-)
-
-
-pkg_web(
-    name = "design-system",
-    additional_root_paths = ["dist"],
-    srcs = [":build"]
-)
+# eleventy(
+#     name = "build",
+#     templated_args = [
+#         "--config apps/design-system/.eleventy.js"
+#     ],
+#     data = data
+# )

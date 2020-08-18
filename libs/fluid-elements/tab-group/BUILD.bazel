@@ -2,14 +2,11 @@ load("//tools/bazel_rules:index.bzl", "stylelint")
 
 package(default_visibility = ["//:__subpackages__"])
 
+exports_files(["README.md"])
+
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
-    config = ":.stylelintrc",
     allow_empty_input = True,
-)
-
-filegroup(
-    name = "readme",
-    srcs = ["README.md"]
+    config = ":.stylelintrc",
 )
