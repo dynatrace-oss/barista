@@ -23,7 +23,7 @@ export class FluidTabGroupActiveTabChanged extends CustomEvent<any> {
 
 /** Custom event implementation that fires when a tab is clicked providing the active tab id  */
 export class FluidTabActivatedEvent extends CustomEvent<any> {
-  constructor(public tabId: string) {
+  constructor(public activeTabId: string) {
     super('tabActivated', { bubbles: true, composed: true });
   }
 }
