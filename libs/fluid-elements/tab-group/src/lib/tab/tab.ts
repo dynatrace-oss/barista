@@ -27,7 +27,6 @@ import {
 import { classMap } from 'lit-html/directives/class-map';
 import {
   FluidTabDisabledEvent,
-  FluidTabActivatedEvent,
   FluidTabBlurredEvent,
   FluidTabActiveSetEvent,
 } from '../tab-events';
@@ -152,7 +151,7 @@ export class FluidTab extends LitElement {
       this._disabled = value;
       this.requestUpdate('disabled', oldValue);
       if (this._disabled) {
-        this.active = false;
+        this._active = false;
         this.tabindex = -1;
         this.dispatchEvent(new FluidTabDisabledEvent(this.tabid));
       }
@@ -182,12 +181,49 @@ export class FluidTab extends LitElement {
     // Only set active true if not disabled
     this._active = this.disabled === false ? value : false;
     this.requestUpdate('active', oldActive);
-    this.tabindex = this.active ? 0 : -1;
+    this.tabindex = this._active ? 0 : -1;
     if (value) {
       this._dispatchActiveSetEvent();
     }
   }
   private _active = false;
+
+  /**
+   * Role of the tab.
+   * @private - An internal prop that should not appear in the readme and should
+   * not be set by the outside.
+   */
+  @property({
+    type: String,
+    reflect: true,
+  })
+  role: string = 'tab';
+
+  /**
+   * Aria-selected attribute of the checkbox.
+   * @private - An internal prop that should not appear in the readme and should
+   * not be set by the outside.
+   */
+  @property({
+    type: String,
+    reflect: true,
+    attribute: 'aria-selected',
+  })
+  ariaSelected: string = 'false';
+
+  /** Update lifecycle */
+  update(props: Map<string | number | symbol, unknown>): void {
+    // Aria-selected depends on the value of active, but is never actually
+    // set by the litElement reactivity. In the updated lifeCycle
+    // we need to manually update the ariaSelected attribute here.
+    this.ariaSelected = this._active.toString();
+    // Changing the aria-selected or any observed property in the update, will
+    // add it to the updated properties. When calling super first in, the change
+    // of properties in the update call will trigger an update, as the properties
+    // will have changed after the super.update() call. To prevent an additional
+    // cycle, we make the modifications before calling the super lifecycle
+    super.update(props);
+  }
 
   /** Defines whether the user focused an element by tabbing or not */
   @property({ type: Boolean, reflect: false })
@@ -195,7 +231,7 @@ export class FluidTab extends LitElement {
     return this._tabbed;
   }
   set tabbed(value: boolean) {
-    const oldTabbed = this.tabbed;
+    const oldTabbed = this._tabbed;
     this._tabbed = value;
     this.requestUpdate('tabbed', oldTabbed);
     this.tabindex = value === true ? 0 : -1;
@@ -217,21 +253,22 @@ export class FluidTab extends LitElement {
     this.dispatchEvent(new FluidTabActiveSetEvent(this.tabid));
   }
 
-  /** Dispatches the custom event with the tabid of the clicked tab  */
+  /** Dispatches the custom event with the this tabid  */
   private _dispatchActiveTabEvent(): void {
-    this.dispatchEvent(new FluidTabActivatedEvent(this.tabid));
+    this.dispatchEvent(new FluidTabActiveSetEvent(this.tabid));
   }
 
   /** Handles the click event. Dispatches the tab when a new tab was clicked */
   private handleClick(): void {
     if (!this._active) {
+      this.active = true;
       this._dispatchActiveTabEvent();
     }
   }
 
   /** Fires an event if the focused tab was tabbed to but not set to active */
   private handleBlur(): void {
-    if (this.tabbed && !this.active) {
+    if (this._tabbed && !this._active) {
       this.dispatchEvent(new FluidTabBlurredEvent(this.tabid));
     }
   }
@@ -243,7 +280,7 @@ export class FluidTab extends LitElement {
   render(): TemplateResult {
     const classes = {
       'fluid-tab': true,
-      'fluid-state--tabbed': this.tabbed,
+      'fluid-state--tabbed': this._tabbed,
       'fluid-state--active': this._active,
     };
 

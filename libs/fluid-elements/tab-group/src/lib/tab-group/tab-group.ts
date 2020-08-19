@@ -27,11 +27,11 @@ import {
 
 import { FluidTab } from '../tab/tab';
 import {
-  FluidTabActivatedEvent,
   FluidTabDisabledEvent,
-  FluidTabGroupActiveTabChanged,
   FluidTabBlurredEvent,
   FluidTabActiveSetEvent,
+  FluidTabGroupActiveTabChanged,
+  FluidTabActivatedEvent,
 } from '../tab-events';
 import {
   ENTER,
@@ -87,13 +87,13 @@ export class FluidTabGroup extends LitElement {
    * @type string
    */
   @property({ type: String, reflect: true })
-  activeTabId: string;
+  activetabid: string;
 
   /** Sets the activeTabId. Handles programatically calling the active setter on the fluid-tab */
   private _setActiveTabId(activeSetEvent: FluidTabActiveSetEvent): void {
-    this.activeTabId = activeSetEvent.tabId;
+    this.activetabid = activeSetEvent.tabId;
     for (const tab of this.tabChildren) {
-      if (tab.tabid !== this.activeTabId) {
+      if (tab.tabid !== this.activetabid) {
         tab.active = false;
       }
     }
@@ -102,7 +102,7 @@ export class FluidTabGroup extends LitElement {
   /** Sets the active tab on click */
   private _handleClick(event: FluidTabActivatedEvent): void {
     const toActivateTab = this.tabChildren.find(
-      (tabItem) => tabItem.tabid === event.tabId,
+      (tabItem) => tabItem.tabid === event.activeTabId,
     );
 
     if (toActivateTab) {
@@ -113,11 +113,11 @@ export class FluidTabGroup extends LitElement {
         toResetTab.active = false;
         toResetTab.tabbed = false;
       }
-      this.activeTabId = event.tabId;
+      this.activetabid = event.activeTabId;
 
       toActivateTab.active = true;
       toActivateTab.tabindex = 0;
-      this.dispatchEvent(new FluidTabGroupActiveTabChanged(event.tabId));
+      this.dispatchEvent(new FluidTabGroupActiveTabChanged(event.activeTabId));
     }
   }
 
@@ -145,8 +145,8 @@ export class FluidTabGroup extends LitElement {
         }
 
         toBeActivatedTab.active = true;
-        this.activeTabId = toBeActivatedTab.tabid;
-        this.dispatchEvent(new FluidTabGroupActiveTabChanged(this.activeTabId));
+        this.activetabid = toBeActivatedTab.tabid;
+        this.dispatchEvent(new FluidTabGroupActiveTabChanged(this.activetabid));
       }
     }
     // Arrow control (navigate tabs)
@@ -182,12 +182,12 @@ export class FluidTabGroup extends LitElement {
 
   /** Checks whether the next tab is also disabled or not and sets the next available tab as active  */
   private _handleDisabled(disableTabEvent: FluidTabDisabledEvent): void {
-    if (this.activeTabId === disableTabEvent.tabId) {
+    if (this.activetabid === disableTabEvent.tabId) {
       this.setFirstEnabledTabActive();
     }
   }
 
-  /** Resets the tabindex if the user lost focus without activating the selected tab */
+  /** Resets the tabindex if the user lost focus without activating the activated tab */
   private _handleBlur(event: FluidTabBlurredEvent): void {
     // Sets the selected but not activated tabs tabindex to -1
     const toDisableTabIndexTab = this.tabChildren.find(
@@ -215,7 +215,7 @@ export class FluidTabGroup extends LitElement {
     const activeTab = this.tabChildren.find((tab) => tab.active);
     if (activeTab) {
       activeTab.tabindex = 0;
-      this.activeTabId = activeTab.tabid;
+      this.activetabid = activeTab.tabid;
     } else {
       this.setFirstEnabledTabActive();
     }
@@ -244,16 +244,16 @@ export class FluidTabGroup extends LitElement {
   /** Sets an available tab to active. (Not disabled) */
   setFirstEnabledTabActive(): void {
     let tabToEnable;
-    if (this.activeTabId) {
+    if (this.activetabid) {
       tabToEnable = this.tabChildren.find(
-        (tab) => tab.tabid === this.activeTabId,
+        (tab) => tab.tabid === this.activetabid,
       );
     } else {
       tabToEnable = this.tabChildren.find((tab) => !tab.disabled);
     }
     if (tabToEnable) {
       tabToEnable.active = true;
-      this.activeTabId = tabToEnable.tabid;
+      this.activetabid = tabToEnable.tabid;
     }
   }
 
