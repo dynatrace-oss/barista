@@ -53,7 +53,7 @@ let uniqueCounter = 0;
 export class FluidSwitch extends LitElement {
   /**
    * Unique identifier used for the id and label connection
-   * within the checkbox.
+   * within the switch.
    */
   private _unique = `fluid-switch-${uniqueCounter++}`;
 
@@ -89,7 +89,7 @@ export class FluidSwitch extends LitElement {
         display: flex;
         position: relative;
       }
-      :host([disabled]) .fluid-switch-input, /* Checkbox should be hidden in the disabled state as well. */
+      :host([disabled]) .fluid-switch-input, /* Switch should be hidden in the disabled state as well. */
       .fluid-switch-input {
         position: absolute;
         width: 35px;
@@ -193,10 +193,49 @@ export class FluidSwitch extends LitElement {
   }
   private _checked = false;
 
+  /**
+   * Role of the switch.
+   * @private - An internal prop that should not appear in the readme and should
+   * not be set by the outside.
+   */
+  @property({
+    type: String,
+    reflect: true,
+  })
+  role: string = 'switch';
+
+  /**
+   * Aria-checked attribute of the switch.
+   * @private - An internal prop that should not appear in the readme and should
+   * not be set by the outside.
+   */
+  @property({
+    type: String,
+    reflect: true,
+    attribute: 'aria-checked',
+  })
+  ariaChecked: string = 'false';
+
   /** First updated lifecycle */
   firstUpdated(props: Map<string | number | symbol, unknown>): void {
     super.firstUpdated(props);
     this._inputElement = this.shadowRoot?.querySelector('input')!;
+  }
+
+  /** Update lifecycle */
+  update(props: Map<string | number | symbol, unknown>): void {
+    // Aria-checked depends on the value of checked, but is never actually
+    // set by the litElement reactivity. In the updated lifeCycle
+    // we need to manually update the ariaChecked attribute here.
+    if (props.has('checked')) {
+      this.ariaChecked = this.checked.toString();
+    }
+    // Changing the aria-checked or any observed property in the update, will
+    // add it to the updated properties. When calling super first in, the change
+    // of properties in the update call will trigger an update, as the properties
+    // will have changed after the super.update() call. To prevent an additional
+    // cycle, we make the modifications before calling the super lifecycle
+    super.update(props);
   }
 
   /**

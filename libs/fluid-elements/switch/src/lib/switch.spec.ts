@@ -112,6 +112,42 @@ describe('Fluid switch', () => {
     });
   });
 
+  describe('aria-checked attribute', () => {
+    it('should have aria-checked set to false by default', () => {
+      expect(fixture.hasAttribute('aria-checked')).toBeTruthy();
+      expect(fixture.getAttribute('aria-checked')).toBe('false');
+    });
+
+    it('should have aria-checked set to false when the switch is not checked', async () => {
+      fixture.checked = false;
+      await tick();
+      expect(fixture.hasAttribute('aria-checked')).toBeTruthy();
+      expect(fixture.getAttribute('aria-checked')).toBe('false');
+    });
+
+    it('should have aria-checked set to true when the switch is checked', async () => {
+      fixture.checked = true;
+      await tick();
+      expect(fixture.hasAttribute('aria-checked')).toBeTruthy();
+      expect(fixture.getAttribute('aria-checked')).toBe('true');
+    });
+
+    it('should have aria-checked set to true when the switch is clicked', async () => {
+      const label = fixture.shadowRoot?.querySelector('label');
+      label?.click();
+      await tick();
+      expect(fixture.hasAttribute('aria-checked')).toBeTruthy();
+      expect(fixture.getAttribute('aria-checked')).toBe('true');
+    });
+    it('should have aria-checked set to true when the switch is focused and space is pressed', async () => {
+      const checkbox = fixture.shadowRoot?.querySelector('svg');
+      dispatchKeyboardEvent(checkbox!, 'keyup', SPACE);
+      await tick();
+      expect(fixture.hasAttribute('aria-checked')).toBeTruthy();
+      expect(fixture.getAttribute('aria-checked')).toBe('true');
+    });
+  });
+
   describe('disabled attribute', () => {
     it('should set the disabled state when the attribute is present', async () => {
       fixture.setAttribute('disabled', '');
