@@ -1,6 +1,6 @@
 const { sync } = require('resolve');
-const { readFileSync, existsSync } = require('fs');
-const { resolve, parse, join } = require('path');
+const { readFileSync, existsSync, lstatSync } = require('fs');
+const { resolve } = require('path');
 
 // Get the module mappings out of the module mappings file from bazel
 const moduleMappingFile = process.env.BAZEL_TEST_MODULE_MAPPING;
@@ -29,6 +29,10 @@ for (const [key, value] of Object.entries(mappings.modules)) {
 function resolveModuleFileName(fileName) {
   const absolutePath = resolve(fileName);
 
+  if (existsSync(absolutePath) && lstatSync(absolutePath).isFile()) {
+    return absolutePath;
+  }
+
   if (existsSync(`${absolutePath}.js`)) {
     return `${absolutePath}.js`;
   }
@@ -40,6 +44,11 @@ function resolveModuleFileName(fileName) {
   // TODO: lukas.holzer find a more elegant solution for getting the module_root
   if (existsSync(`${absolutePath}/src/index.js`)) {
     return `${absolutePath}/src/index.js`;
+  }
+
+  // TODO: lukas.holzer find a more elegant solution for getting the module_root for design tokens
+  if (existsSync(`${absolutePath}/generated/index.js`)) {
+    return `${absolutePath}/generated/index.js`;
   }
 }
 
@@ -86,9 +95,23 @@ function resolvePath(moduleId) {
  * @param {string} options.rootDir
  */
 function moduleResolver(moduleId, options) {
-  if (moduleId === 'lodash-es') {
-    // map lodash-es to lodash bundle since jest needs commonjs
-    return runFilesHelper.resolve('npm/node_modules/lodash/index.js'); //'node_modules/lodash/index.js',
+  if (moduleId.startsWith('lit-html')) {
+    const absPath = runFilesHelper.resolve(
+      'dynatrace/tools/bazel_rules/jest/lit-html',
+    );
+    return resolveModuleFileName(moduleId.replace('lit-html', absPath));
+  }
+
+  if (moduleId.startsWith('lit-element')) {
+    const absPath = runFilesHelper.resolve(
+      'dynatrace/tools/bazel_rules/jest/lit-element/lit-element.js',
+    );
+    return resolveModuleFileName(moduleId.replace('lit-element', absPath));
+  }
+
+  switch (moduleId) {
+    case 'lodash-es':
+      return runFilesHelper.resolve('npm/lodash-es/lodash-es.umd.js');
   }
 
   // resolve workspace imports with the bazel module mappings
