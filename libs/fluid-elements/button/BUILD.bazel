@@ -1,4 +1,4 @@
-load("//tools/bazel_rules:index.bzl", "stylelint")
+load("//tools/bazel_rules:index.bzl", "jest", "stylelint")
 load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
 
 package(default_visibility = ["//libs/fluid-elements:__subpackages__"])
@@ -23,6 +23,16 @@ ts_library(
     ],
 )
 
+jest(
+    name = "test",
+    srcs = glob(include = ["src/**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+    ],
+)
+
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
@@ -33,6 +43,15 @@ stylelint(
 ts_config(
     name = "tsconfig_lib",
     src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
     deps = [
         "tsconfig.json",
         "//libs/barista-components:tsconfig",

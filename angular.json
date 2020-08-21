@@ -2915,13 +2915,6 @@
               "!libs/fluid-elements/button/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/fluid-elements/button/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
