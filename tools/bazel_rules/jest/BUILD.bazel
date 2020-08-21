@@ -1,5 +1,42 @@
-load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
+load("@npm//@babel/cli:index.bzl", "babel")
 
 package(default_visibility = ["//:__subpackages__"])
 
-exports_files(["jest-runner.js", "jest-resolver.js"])
+exports_files([
+    "jest-runner.js",
+    "jest-resolver.js",
+])
+
+babel(
+    name = "lit-html",
+    testonly = True,
+    args = [
+        "external/npm/node_modules/lit-html",
+        "--config-file ./$(location :babel.config.js)",
+        "-d",
+        "$(@D)/",
+    ],
+    data = [
+        "babel.config.js",
+        "@npm//@babel/preset-env",
+        "@npm//lit-html",
+    ],
+    output_dir = True,
+)
+
+babel(
+    name = "lit-element",
+    testonly = True,
+    args = [
+        "external/npm/node_modules/lit-element",
+        "--config-file ./$(location :babel.config.js)",
+        "-d",
+        "$(@D)/",
+    ],
+    data = [
+        "babel.config.js",
+        "@npm//@babel/preset-env",
+        "@npm//lit-element",
+    ],
+    output_dir = True,
+)
