@@ -1,0 +1,28 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
+package(default_visibility = ["//:__subpackages__"])
+
+ts_library(
+    name = "compile",
+    srcs = glob(["src/**/*.ts"]),
+    runtime = "node",
+    tsconfig = "//:tsconfig.base.json",
+    deps = [
+        "//libs/shared/design-system/interfaces:design-system-interfaces_compile",
+        "//tools/design-tokens/shared",
+        "@npm//@types/node",
+        "@npm//tslib",
+        "@npm//@adobe/leonardo-contrast-colors",
+        "@npm//yaml",
+        "@npm//yargs",
+    ],
+)
+
+nodejs_binary(
+  name = "generate-color-palette",
+  entry_point = "src/main.ts",
+  data = [
+    ":compile"
+  ],
+)

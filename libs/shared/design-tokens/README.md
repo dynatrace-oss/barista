@@ -9,12 +9,11 @@ them controlable, while we are iterating over the generation algorithms.
 
 ## Running the build command
 
-This library uses nx workspace builders to generate its output.
-
-Run the following command to update the current design tokens.
+Run the following command to build the design tokens tokens with Bazel and copy
+the output to the `generated` directory.
 
 ```sh
-ng build workspace && ng run shared-design-tokens:build
+npm run design-tokens:build
 ```
 
 ## Running the package command

@@ -16,11 +16,6 @@
       "schema": "./src/builders/typescript/schema.json",
       "description": "Compile typescript files."
     },
-    "design-tokens-build": {
-      "implementation": "./src/builders/design-tokens/build/index",
-      "schema": "./src/builders/design-tokens/build/schema.json",
-      "description": "Run design tokens build"
-    },
     "design-tokens-package": {
       "implementation": "./src/builders/design-tokens/package/index",
       "schema": "./src/builders/design-tokens/package/schema.json",
