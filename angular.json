@@ -2803,7 +2803,7 @@
     },
     "shared-node": {
       "root": "libs/shared/node",
-      "sourceRoot": "libs/shared/node/src",
+      "sourceRoot": "libs/shared/node",
       "projectType": "library",
       "architect": {
         "lint": {
@@ -2829,12 +2829,14 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "./dist/libs/workspace:design-tokens-build",
+          "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "entrypoints": ["global/**.yml", "patterns/**.yml"],
-            "aliasesEntrypoints": ["aliases/**.yml"],
-            "outputPath": "libs/shared/design-tokens/generated/",
-            "baseDirectory": "libs/shared/design-tokens/src/lib"
+            "parallel": false,
+            "commands": [
+              {
+                "command": "npm run design-tokens:build"
+              }
+            ]
           }
         },
         "package": {
@@ -3164,20 +3166,6 @@
       "prefix": "design-tokens-ui",
       "architect": {
         "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "parallel": false,
-            "commands": [
-              {
-                "command": "npm run ng run shared-design-tokens:build"
-              },
-              {
-                "command": "npm run ng run design-tokens-ui:build-frontend"
-              }
-            ]
-          }
-        },
-        "build-frontend": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/design-tokens-ui",
@@ -3268,7 +3256,7 @@
         "dev-server": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "design-tokens-ui:build-frontend"
+            "browserTarget": "design-tokens-ui:build"
           },
           "configurations": {
             "production": {

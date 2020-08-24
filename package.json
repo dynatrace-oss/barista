@@ -40,6 +40,8 @@
     "publish-release": "ng run tools-release:build-publish-release && node dist/libs/tools/publish-release/main.js",
     "publish-release-next": "ng run tools-release:build-publish-release-next && node dist/libs/tools/publish-release-next/main.js",
     "barista:prerender": "ng run barista-design-system:prerender --routesFile dist/barista-data/routes.txt",
+    "design-tokens:build": "bazelisk build //libs/shared/design-tokens:build && npm run copy-generated-tokens && npm run format:write",
+    "copy-generated-tokens": "node tools/shell-helpers/copy-folder.js $(bazelisk info bazel-genfiles)/libs/shared/design-tokens/build libs/shared/design-tokens/generated",
     "bazel": "bazelisk",
     "bazel:test": "bazelisk query \"attr(generator_function, jest, //...)\" | xargs bazelisk test",
     "bazel:stylelint": "bazelisk query \"attr(generator_function, stylelint, //...)\" | xargs bazelisk test",
