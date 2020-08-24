@@ -212,7 +212,7 @@
       "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
       "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
       "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
-      "@dynatrace/shared/node": ["libs/shared/node/src/index.ts"],
+      "@dynatrace/shared/node": ["libs/shared/node/index.ts"],
       "@dynatrace/shared/design-tokens": [
         "libs/shared/design-tokens/src/index.ts"
       ],
