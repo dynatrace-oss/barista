@@ -1,4 +1,5 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
+load("//tools/design-tokens:index.bzl", "build_design_tokens", "generate_color_palette")
 
 package(default_visibility = ["//:__subpackages__"])
 
@@ -11,4 +12,15 @@ ts_library(
     deps = [
         "@npm//tslib",
     ],
+)
+
+generate_color_palette(
+    name = "color_palette",
+    palette_aliases = "src/lib/aliases/palette-source.alias.yml",
+)
+
+build_design_tokens(
+  name = "build",
+  entrypoints = glob(["src/lib/global/*.yml", "src/lib/patterns/*.yml"]),
+  aliases_entrypoints = glob(["src/lib/aliases/*.yml"]) + [":color_palette"]
 )
