@@ -53,6 +53,10 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 }
 
 /**
+ * @deprecated Will be removed with v9.0.0 as tslint is deprecated and won't be supported anymore.
+ * There will be no replacement for eslint. Instead take a look on our design system how the
+ * component should be used.
+ *
  * The dtNestedButtonIsIconButtonRule ensures that a nested button is always an icon-button.
  *
  * The following example passes the button lint checks:
