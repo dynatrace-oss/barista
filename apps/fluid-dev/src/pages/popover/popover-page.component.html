@@ -1,0 +1,58 @@
+<div class="force-scroll">Scroll down</div>
+
+<div class="fluid-popover-grid">
+  <div class="fluid-popover-grid-item">
+    <p>Default Popover</p>
+    <fluid-button #anchor1 (click)="open1 = !open1" size="medium"
+      >Toggle</fluid-button
+    >
+    <fluid-popover [anchor]="anchor1" [open]="open1"
+      ><div class="popover-content"><p>Popover</p></div></fluid-popover
+    >
+  </div>
+  <div class="fluid-popover-grid-item">
+    <p>Popover with changed placement</p>
+    <fluid-button #anchor2 (click)="open2 = !open2" size="medium"
+      >Toggle</fluid-button
+    >
+    <fluid-popover [anchor]="anchor2" placement="top" [open]="open2"
+      ><div class="popover-content"><p>Popover</p></div></fluid-popover
+    >
+  </div>
+  <div class="fluid-popover-grid-item">
+    <p>Popover with offset</p>
+    <fluid-button #anchor3 (click)="open3 = !open3" size="medium"
+      >Toggle</fluid-button
+    >
+    <fluid-popover [anchor]="anchor3" [open]="open3" offset="[0, 20]"
+      ><div class="popover-content"><p>Popover</p></div></fluid-popover
+    >
+  </div>
+  <div class="fluid-popover-grid-item">
+    <p>Popover with custom fallback placement</p>
+    <fluid-button #anchor4 (click)="open4 = !open4" size="medium"
+      >Toggle</fluid-button
+    >
+    <fluid-popover
+      [anchor]="anchor4"
+      [open]="open4"
+      [fallbackplacement]="['left-end', 'right-start', 'top-end']"
+      ><div class="popover-content"><p>Popover</p></div></fluid-popover
+    >
+  </div>
+  <div class="fluid-popover-grid-item">
+    <p>Popover with custom fallback and offset function</p>
+    <fluid-button #anchor5 (click)="open5 = !open5" size="medium"
+      >Toggle</fluid-button
+    >
+    <fluid-popover
+      [anchor]="anchor5"
+      [open]="open5"
+      [offset]="customOffsetFn"
+      [fallbackplacement]="['left-end', 'right-start', 'top-end']"
+      ><div class="popover-content"><p>Popover</p></div></fluid-popover
+    >
+  </div>
+</div>
+
+<div class="force-scroll"></div>

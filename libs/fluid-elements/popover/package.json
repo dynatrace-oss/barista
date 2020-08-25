@@ -1,0 +1,23 @@
+{
+  "name": "@dynatrace/fluid-popover",
+  "description": "Dynatrace popover element based on web-components",
+  "version": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dynatrace-oss/barista"
+  },
+  "keywords": [
+    "dynatrace",
+    "components"
+  ],
+  "license": "Apache-2.0",
+  "homepage": "https://barista.dynatrace.com",
+  "bugs": {
+    "url": "https://github.com/dynatrace-oss/barista/issues"
+  },
+  "dependencies": {
+    "lit-element": "",
+    "lit-html": ""
+  },
+  "peerDependencies": {}
+}

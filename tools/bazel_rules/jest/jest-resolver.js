@@ -109,6 +109,15 @@ function moduleResolver(moduleId, options) {
     return resolveModuleFileName(moduleId.replace('lit-element', absPath));
   }
 
+  if (moduleId.startsWith('@popperjs')) {
+    const absPath = runFilesHelper.resolve(
+      'dynatrace/tools/bazel_rules/jest/popperjs',
+    );
+    return resolveModuleFileName(
+      moduleId.replace('@popperjs/core/lib', absPath),
+    );
+  }
+
   switch (moduleId) {
     case 'lodash-es':
       return runFilesHelper.resolve('npm/lodash-es/lodash-es.umd.js');
