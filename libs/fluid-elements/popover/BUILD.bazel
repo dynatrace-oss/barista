@@ -1,0 +1,10 @@
+load("//tools/bazel_rules:index.bzl", "stylelint")
+
+package(default_visibility = ["//:__subpackages__"])
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+    config = ":.stylelintrc",
+    allow_empty_input = True,
+)
