@@ -1,0 +1,35 @@
+imports:
+  - '../aliases/spacing.alias.yml'
+  - '../aliases/palette.alias.yml'
+props:
+  # --------
+  # Paddings
+  # --------
+  - name: fluid-input--padding
+    value: '{!spacing--x-small}'
+    meta:
+      friendlyName: 'Fluid input padding'
+  - name: fluid-input--padding-inline
+    value: '{!spacing--x-small}'
+    meta:
+      friendlyName: 'Fluid input padding inline axis'
+  - name: fluid-input--padding-block
+    value: '{!spacing--x-small}'
+    meta:
+      friendlyName: 'Fluid input padding block axis'
+  - name: fluid-input--box-shadow
+    value: '0 3px 10px'
+    meta:
+      friendlyName: 'Fluid input box shadow'
+
+global:
+  type: token
+  category: global
+
+outputs:
+  - type: scss
+    formatter: dt-scss
+  - type: ts
+    formatter: dt-typescript
+  - type: js
+    formatter: dt-javascript

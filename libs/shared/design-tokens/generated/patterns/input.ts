@@ -20,9 +20,7 @@
  * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
-export * from './global/palette';
-export * from './global/spacing';
-export * from './global/theme';
-export * from './global/typography';
-export * from './patterns/button';
-export * from './patterns/input';
+export const FLUID_INPUT_PADDING = '8px';
+export const FLUID_INPUT_PADDING_INLINE = '8px';
+export const FLUID_INPUT_PADDING_BLOCK = '8px';
+export const FLUID_INPUT_BOX_SHADOW = '0 3px 10px';
