@@ -1,14 +1,14 @@
-<div class="dt-simple-order-cell-data" cdkDrag cdkDragRootElement=".dt-row">
+<div class="dt-order-cell-data" cdkDrag cdkDragRootElement=".dt-row">
   <dt-icon
-    class="dt-simple-order-column-icon"
+    class="dt-order-cell-icon"
     name="drag-handle"
     cdkDragHandle
   ></dt-icon>
   <input
     #orderInput
     dtInput
-    class="dt-simple-order-column-input"
-    [class.dt-simple-order-input-invalid]="!_orderFormControl.valid"
+    class="dt-order-cell-input"
+    [class.dt-order-cell-input-invalid]="!_orderFormControl.valid"
     type="text"
     inputmode="numeric"
     placeholder="{{ index }}"

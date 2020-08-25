@@ -18,8 +18,8 @@ import { Selector } from 'testcafe';
 
 export const disableButton = Selector('#disable-toggle');
 export const changeOrderButton = Selector('#change-order');
-export const dragHandles = Selector('.dt-simple-order-column-icon');
-export const orderInputs = Selector('.dt-simple-order-column-input');
+export const dragHandles = Selector('.dt-order-cell-icon');
+export const orderInputs = Selector('.dt-order-cell-input');
 export const expandButtons = Selector('.dt-expandable-cell .dt-button');
 export const dataCells = Selector('.dt-cell.dt-table-column-name');
 

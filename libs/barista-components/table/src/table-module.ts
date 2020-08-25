@@ -47,7 +47,6 @@ import { DtTableSearch } from './search/index';
 import {
   DtFavoriteColumn,
   DtSimpleNumberColumn,
-  DtSimpleOrderColumn,
   DtSimpleTextColumn,
 } from './simple-columns/index';
 import { DtSort } from './sort/sort';
@@ -83,7 +82,6 @@ const EXPORTED_DECLARATIONS = [
   DtTableSearch,
   DtSimpleTextColumn,
   DtSimpleNumberColumn,
-  DtSimpleOrderColumn,
   DtExpandableRowContent,
   DtFavoriteColumn,
   DtTableSelection,

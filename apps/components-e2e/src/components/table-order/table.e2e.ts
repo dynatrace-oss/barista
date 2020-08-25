@@ -205,7 +205,7 @@ test('input - should invalidate the input', async (testController: TestControlle
   await testController
     .typeText(orderInputs.nth(0), ' ', { replace: true })
     .expect(orderInputs.nth(0).classNames)
-    .contains('dt-simple-order-input-invalid');
+    .contains('dt-order-cell-input-invalid');
 });
 
 test('input - should not reorder the table if the input is invalid', async (testController: TestController) => {
