@@ -240,6 +240,9 @@
       "@dynatrace/fluid-elements/switch": [
         "libs/fluid-elements/switch/src/index.ts"
       ],
+      "@dynatrace/fluid-elements/option": [
+        "libs/fluid-elements/option/src/index.ts"
+      ],
       "@dynatrace/fluid-elements/popover": [
         "libs/fluid-elements/popover/src/index.ts"
       ],
