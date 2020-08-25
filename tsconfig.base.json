@@ -234,6 +234,9 @@
       "@dynatrace/fluid-elements/input": [
         "libs/fluid-elements/input/src/index.ts"
       ],
+      "@dynatrace/fluid-elements/icon": [
+        "libs/fluid-elements/icon/src/index.ts"
+      ],
       "@dynatrace/fluid-elements/switch": [
         "libs/fluid-elements/switch/src/index.ts"
       ],

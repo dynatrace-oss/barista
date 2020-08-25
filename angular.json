@@ -2968,6 +2968,32 @@
         }
       }
     },
+    "fluid-icon": {
+      "root": "libs/fluid-elements/icon",
+      "sourceRoot": "libs/fluid-elements/icon/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/fluid-elements/icon/tsconfig.lib.json",
+              "libs/fluid-elements/icon/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/fluid-elements/icon/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/fluid-elements/icon/jest.config.js",
+            "tsConfig": "libs/fluid-elements/icon/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "fluid-switch": {
       "root": "libs/fluid-elements/switch",
       "sourceRoot": "libs/fluid-elements/switch/src",
