@@ -55,6 +55,7 @@ def jest_macro(
             # umd modules for fluid elements
             "//tools/bazel_rules/jest:lit-html",
             "//tools/bazel_rules/jest:lit-element",
+            "//tools/bazel_rules/jest:popperjs",
 
             # needed by the runner and resolver
             "//tools/bazel_rules/jest:jest-runner.js",

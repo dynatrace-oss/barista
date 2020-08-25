@@ -40,3 +40,20 @@ babel(
     ],
     output_dir = True,
 )
+
+babel(
+    name = "popperjs",
+    testonly = True,
+    args = [
+        "external/npm/node_modules/@popperjs/core/lib",
+        "--config-file ./$(location :babel.config.js)",
+        "-d",
+        "$(@D)/",
+    ],
+    data = [
+        "babel.config.js",
+        "@npm//@babel/preset-env",
+        "@npm//@popperjs",
+    ],
+    output_dir = True,
+)
