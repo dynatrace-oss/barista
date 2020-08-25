@@ -41,6 +41,13 @@ export const fluidRoutes: Route[] = [
       ),
   },
   {
+    path: 'icon',
+    loadChildren: () =>
+      import('../pages/icon/icon-page.module').then(
+        (module) => module.FluidIconPageModule,
+      ),
+  },
+  {
     path: 'popover',
     loadChildren: () =>
       import('../pages/popover/popover-page.module').then(
