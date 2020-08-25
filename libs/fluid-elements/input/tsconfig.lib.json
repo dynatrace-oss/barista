@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../dist/out-tsc",
+    "allowSyntheticDefaultImports": true,
+    "target": "es2015",
+    "declaration": true,
+    "inlineSources": true,
+    "moduleResolution": "node",
+    "types": ["node"],
+    "lib": ["dom", "es2018"]
+  },
+  "exclude": ["**/*.spec.ts"],
+  "include": ["**/*.ts"]
+}

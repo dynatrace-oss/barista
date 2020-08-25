@@ -2959,6 +2959,42 @@
         }
       }
     },
+    "fluid-input": {
+      "root": "libs/fluid-elements/input",
+      "sourceRoot": "libs/fluid-elements/input/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "./dist/libs/workspace:typescript",
+          "options": {
+            "tsConfig": "libs/fluid-elements/input/tsconfig.lib.json",
+            "outDir": "dist/out-tsc"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/input",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/input/src/index.js",
+            "project": "libs/fluid-elements/input/package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/fluid-elements/input/tsconfig.lib.json",
+              "libs/fluid-elements/input/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/fluid-elements/input/**/*"]
+          }
+        }
+      }
+    },
     "fluid-switch": {
       "root": "libs/fluid-elements/switch",
       "sourceRoot": "libs/fluid-elements/switch/src",
