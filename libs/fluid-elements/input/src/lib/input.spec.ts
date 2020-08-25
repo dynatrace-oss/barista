@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-/*
- * THIS FILE IS GENERATED BASED ON THE DESIGN TOKENS DEFINED IN THE src/**.yml
- * FILES, DO NOT CHANGE MANUALLY.
- * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
- */
+import { FluidInput } from './input';
 
-export * from './global/palette';
-export * from './global/spacing';
-export * from './global/theme';
-export * from './global/typography';
-export * from './patterns/button';
-export * from './patterns/input';
+describe('Fluid input', () => {
+  let fixture: FluidInput;
+
+  beforeEach(() => {
+    if (!customElements.get('fluid-input')) {
+      customElements.define('fluid-input', FluidInput);
+    }
+    document.body.innerHTML =
+      '<fluid-input hint="FluidInput hint."><label slot="label">Fluid Input Label</label><input type="text" placeholder="Fluid Input" /></fluid-input>';
+    fixture = document.querySelector<FluidInput>('fluid-input')!;
+  });
+
+  it('should create the input', async () => {
+    expect(fixture).not.toBe(null);
+  });
+});
