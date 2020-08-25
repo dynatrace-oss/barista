@@ -1,0 +1,52 @@
+load("//tools/bazel_rules:index.bzl", "jest", "stylelint")
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
+
+package(default_visibility = ["//libs/fluid-elements:__subpackages__"])
+
+ts_library(
+    name = "compile",
+    srcs = glob(
+        include = ["src/**/*.ts"],
+        exclude = [
+            "src/**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    module_name = "@dynatrace/fluid-elements/icon",
+    module_root = "src",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "//libs/shared/design-tokens",
+        "@npm//lit-element",
+        "@npm//lit-html",
+        "@npm//tslib",
+    ],
+)
+
+jest(
+    name = "test",
+    srcs = glob(include = ["src/**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
