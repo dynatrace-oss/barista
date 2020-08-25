@@ -41,6 +41,13 @@ export const fluidRoutes: Route[] = [
       ),
   },
   {
+    path: 'popover',
+    loadChildren: () =>
+      import('../pages/popover/popover-page.module').then(
+        (module) => module.FluidPopoverPageModule,
+      ),
+  },
+  {
     path: 'switch',
     loadChildren: () =>
       import('../pages/switch/switch-page.module').then(

@@ -353,6 +353,10 @@
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
+    "fluid-popover": {
+      "tags": ["scope:elements", "type:library"],
+      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
+    },
     "fluid-switch": {
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]

@@ -237,6 +237,9 @@
       "@dynatrace/fluid-elements/switch": [
         "libs/fluid-elements/switch/src/index.ts"
       ],
+      "@dynatrace/fluid-elements/popover": [
+        "libs/fluid-elements/popover/src/index.ts"
+      ],
       "@dynatrace/fluid-elements/tab-group": [
         "libs/fluid-elements/tab-group/src/index.ts"
       ],

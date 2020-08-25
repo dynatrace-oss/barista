@@ -1,0 +1,29 @@
+fluid-button {
+  display: inline-block;
+}
+
+.fluid-popover-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.fluid-popover-grid-item {
+  padding: 1rem;
+}
+
+.popover-content {
+  padding: 1rem;
+
+  p {
+    margin: 0;
+  }
+}
+
+.force-scroll-start {
+  height: 50vh;
+}
+
+.force-scroll {
+  height: 100vh;
+}
