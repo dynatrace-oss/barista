@@ -8,7 +8,7 @@
   cdkDropList
   [cdkDropListData]="dataSource"
 >
-  <ng-container [dtColumnDef]="'order'" dtColumnAlign="text">
+  <ng-container dtColumnDef="order" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>Order</dt-header-cell>
     <dt-order-cell *dtCellDef="let data; let index = index" [index]="index">
     </dt-order-cell>
@@ -42,7 +42,7 @@
   cdkDropList
   [cdkDropListData]="dataSource1"
 >
-  <ng-container [dtColumnDef]="'order'" dtColumnAlign="text">
+  <ng-container dtColumnDef="order" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>Order</dt-header-cell>
     <dt-order-cell *dtCellDef="let data; let index = index" [index]="index">
     </dt-order-cell>

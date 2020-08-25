@@ -85,45 +85,45 @@
   }
 }
 
-.dt-simple-order-cell-data {
+.dt-order-cell-data {
   display: grid;
   grid-template-columns: 1fr minmax(2.5rem, auto);
   align-items: center;
   gap: 4px;
 }
 
-:host .dt-simple-order-column-icon {
+:host .dt-order-cell-icon {
   height: 1rem;
 }
 
-::ng-deep .dt-table:not(.dt-order-disabled) .dt-simple-order-column-icon {
+::ng-deep .dt-table:not(.dt-order-disabled) .dt-order-cell-icon {
   cursor: pointer;
 }
 
-:host .dt-simple-order-column-icon ::ng-deep svg {
+:host .dt-order-cell-icon ::ng-deep svg {
   width: auto;
   fill: $turquoise-600;
 }
 
-:host-context(.dt-order-disabled) .dt-simple-order-column-icon ::ng-deep svg {
+:host-context(.dt-order-disabled) .dt-order-cell-icon ::ng-deep svg {
   fill: $disabledcolor;
 }
 
-.dt-simple-order-column-input {
+.dt-order-cell-input {
   background: none;
   border: 1px solid transparent;
   text-align: left;
 }
 
-.dt-simple-order-column-input::placeholder {
+.dt-order-cell-input::placeholder {
   opacity: 0.4;
 }
 
-.dt-simple-order-column-input:hover {
+.dt-order-cell-input:hover {
   @include dt-form-control();
 }
 
-:host .dt-simple-order-input-invalid {
+:host .dt-order-cell-input-invalid {
   background: $red-200;
   border: 1px solid $error-color;
 }

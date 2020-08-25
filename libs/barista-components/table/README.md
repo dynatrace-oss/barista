@@ -20,9 +20,9 @@ You have to import the `DtTableModule` to use the `dt-table`. If you want to use
 the `dt-expandable-cell` component, Angular's `BrowserAnimationsModule` is
 required for animations. For more details on this see
 [Step 2: Animations in the getting started guide](https://barista.dynatrace.com/components/get-started/#step-2-animations).
-If you want to use the `dt-simple-order-column`, Angular's `DragDropModule` is
-required for reordering table rows via drag and drop. For more details on this
-see [the Order section](/components/table#ordering).
+If you want to use the `dt-order-cell`, Angular's `DragDropModule` is required
+for reordering table rows via drag and drop. For more details on this see
+[the Order section](/components/table#ordering).
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -80,10 +80,9 @@ problem indicators.
 
 #### Variants
 
-Currently there are four predefined versions of the `dtSimpleColumn` exposed:
-`dt-simple-number-column`, `dt-simple-text-column`, `dt-simple-order-column` and
-`dt-favorite-column`. There are only small differences between the number and
-text column:
+Currently there are three predefined versions of the `dtSimpleColumn` exposed:
+`dt-simple-number-column`, `dt-simple-text-column` and `dt-favorite-column`.
+There are only small differences between the number and text column:
 
 ##### dt-simple-text-column
 
@@ -97,15 +96,6 @@ text column:
 - Column alignment is set to `number` -> right
 - When no formatter is given, the `dtCount` formatter will automatically be
   applied, e.g. 1000 -> 1k
-
-##### dt-simple-order-column
-
-- When using the `dt-simple-order-column`, the data source provided for the
-  table must be of type `DtTableOrderDataSource`
-- The `dt-simple-order-column` also needs the `cdkDropList` directive and
-  `cdkDropListData` input to work
-- Column alignment is set to `text` -> left
-- Tables using the `dt-simple-order-column` can't be sorted or paginated
 
 ##### dt-favorite-column
 
@@ -272,6 +262,9 @@ The `DtOrder` and `dt-order-cell` in combination with Angular's `DragDropModule`
 are used to add ordering functionality to the table. To add ordering
 capabilities to a table, import the `DragDropModule` and add the `dtOrder` and
 `cdkDropList` directive and `cdkDropListData` input to the `dt-table` component.
+When using the `dt-order-cell`, the data source provided for the table must be
+of type `DtTableOrderDataSource`. Tables using the `dt-order-column` can't be
+sorted or paginated.
 
 ```html
 <dt-table ... dtOrder cdkDropList [cdkDropListData]="dataSource" ...></dt-table>
