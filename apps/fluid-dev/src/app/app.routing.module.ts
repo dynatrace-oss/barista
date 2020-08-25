@@ -61,6 +61,13 @@ export const fluidRoutes: Route[] = [
         (module) => module.FluidTabPageModule,
       ),
   },
+  {
+    path: 'combobox',
+    loadChildren: () =>
+      import('../pages/combo-box/combo-box-page.module').then(
+        (module) => module.FluidComboBoxPageModule,
+      ),
+  },
 ];
 
 @NgModule({
