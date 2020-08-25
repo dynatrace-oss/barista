@@ -87,7 +87,7 @@ a.dt-button-secondary:visited {
   }
 }
 .dt-button-secondary:hover:not([disabled]) {
-  background: $gray-100;
+  background: rgba(255, 255, 255, 0.2);
   border-color: var(--dt-button-hover-color);
   color: var(--dt-button-hover-color);
 
@@ -96,7 +96,7 @@ a.dt-button-secondary:visited {
   }
 }
 .dt-button-secondary:active:not([disabled]) {
-  background: $gray-100;
+  background: rgba(255, 255, 255, 0.2);
   border-color: var(--dt-button-active-color);
   color: var(--dt-button-active-color);
 
