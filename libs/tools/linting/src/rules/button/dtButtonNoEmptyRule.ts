@@ -58,6 +58,10 @@ class DtButtonVisitor extends BasicTemplateAstVisitor {
 }
 
 /**
+ * @deprecated Will be removed with v9.0.0 as tslint is deprecated and won't be supported anymore.
+ * There will be no replacement for eslint. Instead take a look on our design system how the
+ * component should be used.
+ *
  * The dtButtonNoEmptyRule ensures that a button always contains text/content.
  *
  * The following examples pass the button lint checks:

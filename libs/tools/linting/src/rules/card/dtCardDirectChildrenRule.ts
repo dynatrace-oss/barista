@@ -66,6 +66,10 @@ class DtCardVisitor extends BasicTemplateAstVisitor {
 }
 
 /**
+ * @deprecated Will be removed with v9.0.0 as tslint is deprecated and won't be supported anymore.
+ * There will be no replacement for eslint. Instead take a look on our design system how the
+ * component should be used.
+ *
  * The dtCardDirectChildrenRule ensures that the defined elements are always direct children of a dt-card.
  *
  * The following example passes the check:
