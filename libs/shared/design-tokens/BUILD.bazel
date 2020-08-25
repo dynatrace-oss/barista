@@ -1,23 +1,14 @@
-load("//libs/barista-components:config.bzl", "COMPONENT_TARGETS")
-load("//tools/bazel_rules:index.bzl", "stylelint")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
 
 package(default_visibility = ["//:__subpackages__"])
 
-filegroup(
+ts_library(
     name = "design-tokens",
-    srcs = glob(
-        include = ["**/*.ts"],
-        exclude = [
-            "**/*.spec.ts",
-            "src/test-setup.ts",
-        ],
-    ) + glob([
-        "**/*.html",
-        "**/*.scss",
-    ]) + ["//libs/testing/fixtures"] + COMPONENT_TARGETS,
-)
-
-stylelint(
-    name = "stylelint",
-    srcs = glob(["**/*.scss"]),
+    srcs = glob(["generated/**/*.ts"]),
+    module_name = "@dynatrace/fluid-design-tokens",
+    module_root = "generated",
+    tsconfig = "//:tsconfig.base.json",
+    deps = [
+        "@npm//tslib",
+    ],
 )
