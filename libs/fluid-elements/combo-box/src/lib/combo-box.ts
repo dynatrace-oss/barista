@@ -29,6 +29,12 @@ import { ifDefined } from 'lit-html/directives/if-defined';
 import { unsafeHTML } from 'lit-html/directives/unsafe-html';
 import type { Placement } from '@popperjs/core/lib';
 
+import {
+  ENTER,
+  ARROW_DOWN,
+  ARROW_UP,
+  ESCAPE,
+} from '@dynatrace/shared/keycodes';
 import '@dynatrace/fluid-elements/icon';
 import '@dynatrace/fluid-elements/input';
 import '@dynatrace/fluid-elements/option';
@@ -225,6 +231,7 @@ export class FluidComboBox extends LitElement {
   private _selectionModel: SelectionModel<any>;
 
   /** Index of the currently focused item */
+  @property({ type: Number, attribute: false })
   private _focusedItemIndex = -1;
 
   constructor() {
@@ -288,6 +295,62 @@ export class FluidComboBox extends LitElement {
   }
 
   /**
+   * Handle keydown events
+   * @param event
+   */
+  private _handleKeydown(event: KeyboardEvent): void {
+    const keyCode = event.code;
+
+    switch (keyCode) {
+      case ENTER:
+        if (!this._popoverOpen) {
+          this._setPopoverState(true);
+        } else if (this._focusedItemIndex > -1) {
+          const option = this.shadowRoot!.querySelector(
+            `[data-index="${this._focusedItemIndex}"]`,
+          ) as FluidOption;
+          option.selected = true;
+        }
+        break;
+      case ESCAPE:
+        if (this._popoverOpen) {
+          this._setPopoverState(false);
+        }
+        break;
+      case ARROW_DOWN:
+      case ARROW_UP:
+        if (!this._popoverOpen) {
+          this._setPopoverState(true);
+        }
+        this._setFocusedItem(keyCode);
+        break;
+      default:
+        if (!this._popoverOpen) {
+          this._setPopoverState(true);
+        }
+    }
+  }
+
+  /**
+   * TODO: switch to utility function as soon as the button-group PR is merged
+   * Sets the index of the currently focused combo-box-option
+   * @param keyCode Right or left arrow keycode
+   */
+  private _setFocusedItem(keyCode: string): void {
+    if (keyCode === ARROW_UP) {
+      this._focusedItemIndex -= 1;
+      if (this._focusedItemIndex < 0) {
+        this._focusedItemIndex = this.options.length - 1;
+      }
+    } else {
+      this._focusedItemIndex += 1;
+      if (this._focusedItemIndex >= this._options.length) {
+        this._focusedItemIndex = 0;
+      }
+    }
+  }
+
+  /**
    * Render function of the custom element. It is called when one of the
    * observedProperties (annotated with @property) changes.
    */
@@ -306,8 +369,8 @@ export class FluidComboBox extends LitElement {
           aria-label=${ifDefined(this.arialabel)}
           aria-labelledby=${ifDefined(this.arialabelledby)}
           placeholder=${this.placeholder}
-          @focus=${() => this._setPopoverState(true)}
           @blur=${this._handleBlur}
+          @keydown=${this._handleKeydown}
           ?required=${this.required}
           ?disabled=${this.disabled}
         />
