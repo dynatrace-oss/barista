@@ -138,13 +138,6 @@ export const _DtSelectMixinBase = mixinTabIndex(
   mixinDisabled(mixinErrorState(DtSelectBase)),
 );
 
-/**
- * @deprecated Will be removed with v8.0.0 - will not throw an Error after 8.0.0 but instead use the Logger
- * see combobox compareWith
- */
-export const getDtSelectNonFunctionValueError = () =>
-  new Error(DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG);
-
 @Component({
   selector: 'dt-select',
   exportAs: 'dtSelect',
@@ -360,9 +353,11 @@ export class DtSelect<T> extends _DtSelectMixinBase
   set compareWith(fn: (v1: T, v2: T) => boolean) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof fn !== 'function') {
-      throw getDtSelectNonFunctionValueError();
+      LOG.error(DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG);
+    } else {
+      this._compareWith = fn;
     }
-    this._compareWith = fn;
+
     if (this._selectionModel) {
       // A different comparator means the selection could change.
       this._initializeSelection();
