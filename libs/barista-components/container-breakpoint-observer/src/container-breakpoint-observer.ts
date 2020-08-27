@@ -28,6 +28,7 @@ import {
 } from '@angular/core';
 import { Observable, Observer, Subject, combineLatest } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
+import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 import { getDtContainerBreakpointObserverInvalidQueryError } from './container-breakpoint-observer-errors';
 import {
@@ -36,6 +37,8 @@ import {
   convertQuery,
   isElementQuery,
 } from './query';
+
+const LOG: DtLogger = DtLoggerFactory.create('DtContainerBreakpointObserver');
 
 /**
  * @internal
@@ -273,7 +276,20 @@ export class DtContainerBreakpointObserver implements OnDestroy {
       placeholder.style.height =
         elementQuery.feature === 'height' ? elementQuery.value : '1px';
       placeholder.className = PLACEHOLDER_ELEMENT_CLASS;
-      this._placeholderContainer.nativeElement.append(placeholder);
+      try {
+        this._placeholderContainer.nativeElement.append(placeholder);
+      } catch (ex) {
+        // This try/catch is there to track down the js-error described the issue #1526.
+        // TODO: Remove if no errors appear in the future or if the root cause has been found.
+        const hasAppendMethod =
+          typeof this._placeholderContainer.nativeElement.append === 'function';
+        LOG.error(
+          `Could not create placeholder-container. ` +
+            `Element-name: ${this._placeholderContainer.nativeElement.tagName}; ` +
+            `Has append method: ${hasAppendMethod}`,
+          ex,
+        );
+      }
 
       return placeholder;
     }
