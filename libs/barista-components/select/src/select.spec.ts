@@ -67,18 +67,13 @@ import {
 } from '@dynatrace/barista-components/core';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import {
-  DtSelect,
-  DtSelectModule,
-  getDtSelectNonFunctionValueError,
-} from '@dynatrace/barista-components/select';
+import { DtSelect, DtSelectModule } from '@dynatrace/barista-components/select';
 import {
   dispatchEvent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
   createComponent,
   createKeyboardEvent,
-  wrappedErrorMessage,
 } from '@dynatrace/testing/browser';
 
 describe('DtSelect', () => {
@@ -1734,16 +1729,6 @@ describe('DtSelect', () => {
 
         expect(instance.selectedFood.value).toEqual('steak-0');
         expect(instance.select.selected).toBeUndefined();
-      }));
-
-      it('should throw an error when using a non-function comparator', fakeAsync(() => {
-        instance.useNullComparator();
-
-        expect(() => {
-          fixture.detectChanges();
-        }).toThrowError(
-          wrappedErrorMessage(getDtSelectNonFunctionValueError()),
-        );
       }));
     });
   });

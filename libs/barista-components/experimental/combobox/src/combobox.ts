@@ -201,8 +201,10 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
     // tslint:disable-next-line:strict-type-predicates
     if (typeof fn !== 'function') {
       LOG.error(DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG);
+    } else {
+      this._compareWith = fn;
     }
-    this._compareWith = fn;
+
     if (this._selectionModel) {
       // A different comparator means the selection could change.
       this._initializeSelection();
