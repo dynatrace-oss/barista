@@ -17,7 +17,7 @@
     "url": "https://github.com/dynatrace-oss/barista/issues"
   },
   "peerDependencies": {
-    "@angular/cdk": "{{NG_VERSION}}",
+    "@angular/cdk": ">= 10.0.0 < 10.1.2",
     "@angular/core": "{{NG_VERSION}}",
     "@angular/common": "{{NG_VERSION}}",
     "@angular/animations": "{{NG_VERSION}}",
