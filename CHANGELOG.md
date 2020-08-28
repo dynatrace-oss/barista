@@ -1,3 +1,56 @@
+## [8.0.0-rc.1](https://github.com/dynatrace-oss/barista/compare/7.0.0...8.0.0-rc.1) (2020-08-28)
+
+### Bug Fixes
+
+- **button:** Fixes an issue with secondary theme hover and active state
+  ([a602f6b](https://github.com/dynatrace-oss/barista/commit/a602f6b936c8788636e85b300ee627d28f8b922f))
+- **combobox:** Fixes an issue where the value was reset.
+  ([9c18bef](https://github.com/dynatrace-oss/barista/commit/9c18befee670b50c1385998d3e80ee377c18925e)),
+  closes [#1427](https://github.com/dynatrace-oss/barista/issues/1427)
+- **container-breakpoint-observer:** Added logging information where the
+  placeholder container is applied so tracking this issue if it is occurring
+  again is easier.
+  ([f98469a](https://github.com/dynatrace-oss/barista/commit/f98469adedae6854d271140a0a26737b7be97d6a)),
+  closes [#1526](https://github.com/dynatrace-oss/barista/issues/1526)
+- **duration-formatter:** Fixes incorrect results when units are below
+  milliseconds
+  ([b9affb7](https://github.com/dynatrace-oss/barista/commit/b9affb7afb512967b050875b2681c4d0f3d2a93b))
+- **expandable-section:** Fixes an issue where the inital state set via dom
+  attribute for `disabled` and `expandable` is not applied correctly.
+  ([4bc7094](https://github.com/dynatrace-oss/barista/commit/4bc7094f3b17c74f02b5849e91ae1bd765d31548)),
+  closes [#1489](https://github.com/dynatrace-oss/barista/issues/1489)
+  [#1472](https://github.com/dynatrace-oss/barista/issues/1472)
+- **filter-field:** Fixes an issue where the user can interact while in loading
+  state.
+  ([7b593b7](https://github.com/dynatrace-oss/barista/commit/7b593b7635897a1de53543228fcdc5ce14b92347)),
+  closes [#1464](https://github.com/dynatrace-oss/barista/issues/1464)
+- **filter-field:** Fixes an issue with overflowing suggestions.
+  ([644c00f](https://github.com/dynatrace-oss/barista/commit/644c00f05a473ef61d35662183529c0c628c20c2)),
+  closes [#1440](https://github.com/dynatrace-oss/barista/issues/1440)
+- **highlight:** Fixes an issue where the highlight would break layouts.
+  ([2e5e656](https://github.com/dynatrace-oss/barista/commit/2e5e656eaebd6b089ed6e39ad78b40554351fdc6)),
+  closes [#1420](https://github.com/dynatrace-oss/barista/issues/1420)
+
+### BREAKING CHANGES
+
+- **select, combobox:** The deprecated function for creating an error object in
+  the select component has been removed. An error message is now logged instead.
+- **table:** Removed the simple order column, as it stopped working with Angular
+  Version 9.1.6. Instead use the `dt-order-cell` directly in the table
+  definition.
+- **empty-state:** Remove `ViewportResizer` from constructor and let the resize
+  observer handle the layout changes. Therefore the custom empty state base
+  class is not needed anymore and was removed.
+- **radio-group:** Remove custom injection of `ngControl` and default null
+  assignment.
+- **switch:** Remove custom injection of `ngControl` and default null
+  assignment.
+- **checkbox:** Remove custom injection of `ngControl` and default null
+  assignment.
+- **sunburst-chart:** Made multiple constructor parameters required.
+- Updated Angular peer dependency version to 10.x
+- Added tslib 2.x as a dependency
+
 ## [8.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/7.0.0...8.0.0-rc.0) (2020-08-10)
 
 ### BREAKING CHANGES
