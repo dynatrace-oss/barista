@@ -15,8 +15,8 @@
  */
 
 import {
-  html,
   LitElement,
+  html,
   property,
   CSSResult,
   TemplateResult,

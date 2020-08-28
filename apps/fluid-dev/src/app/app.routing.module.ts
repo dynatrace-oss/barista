@@ -41,6 +41,13 @@ export const fluidRoutes: Route[] = [
       ),
   },
   {
+    path: 'design-system-provider',
+    loadChildren: () =>
+      import(
+        '../pages/design-system-provider/design-system-provider-page.module'
+      ).then((module) => module.FluidDesignSystemProviderPageModule),
+  },
+  {
     path: 'switch',
     loadChildren: () =>
       import('../pages/switch/switch-page.module').then(

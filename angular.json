@@ -3024,6 +3024,45 @@
         }
       }
     },
+    "fluid-design-system-provider": {
+      "root": "libs/fluid-elements/design-system-provider",
+      "sourceRoot": "libs/fluid-elements/design-system-provider/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "./dist/libs/workspace:typescript",
+          "options": {
+            "tsConfig": "libs/fluid-elements/design-system-provider/tsconfig.lib.json",
+            "outDir": "dist/out-tsc"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/design-system-provider",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/design-system-provider/src/index.js",
+            "project": "libs/fluid-elements/design-system-provider/package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/fluid-elements/design-system-provider/tsconfig.lib.json",
+              "libs/fluid-elements/design-system-provider/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/fluid-elements/design-system-provider/**"
+            ]
+          }
+        }
+      }
+    },
     "fluid-input": {
       "root": "libs/fluid-elements/input",
       "sourceRoot": "libs/fluid-elements/input/src",

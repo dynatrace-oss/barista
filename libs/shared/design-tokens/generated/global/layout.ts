@@ -20,10 +20,6 @@
  * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
-export * from './global/layout';
-export * from './global/palette';
-export * from './global/spacing';
-export * from './global/theme';
-export * from './global/typography';
-export * from './patterns/button';
-export * from './patterns/input';
+export const FLUID_LAYOUT_DENSE = '0.7';
+export const FLUID_LAYOUT_DEFAULT = '1';
+export const FLUID_LAYOUT_LOOSE = '1.3';

@@ -4,6 +4,9 @@
  * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
-$fluid-button--padding-small: 8px 48px !default;
-$fluid-button--padding-medium: 12px 48px !default;
-$fluid-button--padding-large: 16px 48px !default;
+$fluid-button--padding-small: var(--fluid-spacing--x-small)
+  var(--fluid-spacing--x-large) !default;
+$fluid-button--padding-medium: var(--fluid-spacing--small)
+  var(--fluid-spacing--x-large) !default;
+$fluid-button--padding-large: var(--fluid-spacing--medium)
+  var(--fluid-spacing--x-large) !default;

@@ -33,7 +33,6 @@ import {
 
 import {
   FLUID_SPACING_3X_SMALL,
-  FLUID_SPACING_MEDIUM,
   fluidDtText,
 } from '@dynatrace/fluid-design-tokens';
 
@@ -56,10 +55,7 @@ export class FluidTab extends LitElement {
         * Legibility definitions should probably be
         * shipped or imported from a core
         */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-        margin-right: ${unsafeCSS(FLUID_SPACING_MEDIUM)};
+        margin-right: var(--fluid-spacing--medium);
 
         --fluid-tab--label-color: var(--color-neutral-100);
         --fluid-tab--label-hover-color: var(--color-neutral-150);
@@ -99,9 +95,14 @@ export class FluidTab extends LitElement {
       .fluid-tab::after {
         position: absolute;
         width: 100%;
+
+        /*
+         * A hardcoded value is used instead of a custom property here
+         * since the layout density would affect the height as well
+         */
         height: ${unsafeCSS(FLUID_SPACING_3X_SMALL)};
         background-color: transparent;
-        bottom: -${unsafeCSS(FLUID_SPACING_3X_SMALL)};
+        bottom: calc(var(--fluid-spacing--3x-small) * -1);
         left: 0;
         content: '';
       }

@@ -6,15 +6,15 @@ props:
   # Paddings
   # --------
   - name: fluid-button--padding-small
-    value: '{!spacing--x-small} {!spacing--x-large}'
+    value: 'var(--fluid-spacing--x-small) var(--fluid-spacing--x-large)'
     meta:
       friendlyName: "Fluid button padding small"
   - name: fluid-button--padding-medium
-    value: '{!spacing--small} {!spacing--x-large}'
+    value: 'var(--fluid-spacing-s-mall) var(--fluid-spacing--x-large)'
     meta:
       friendlyName: "Fluid button padding medium"
   - name: fluid-button--padding-large
-    value: '{!spacing--medium} {!spacing--x-large}'
+    value: 'var(--fluid-spacing--medium) var(--fluid-spacing--x-large)'
     meta:
       friendlyName: "Fluid button padding large"
 

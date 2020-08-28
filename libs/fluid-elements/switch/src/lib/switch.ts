@@ -27,10 +27,7 @@ import { classMap } from 'lit-html/directives/class-map';
 import { FluidSwitchChangeEvent } from './switch-events';
 import { SPACE } from '@dynatrace/shared/keycodes';
 
-import {
-  FLUID_SPACING_3X_SMALL,
-  fluidDtText,
-} from '@dynatrace/fluid-design-tokens';
+import { fluidDtText } from '@dynatrace/fluid-design-tokens';
 
 let uniqueCounter = 0;
 
@@ -64,13 +61,6 @@ export class FluidSwitch extends LitElement {
   static get styles(): CSSResult {
     return css`
       :host {
-        /**
-        * Legibility definitions should probably be
-        * shipped or imported from a core
-        */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
         --fluid-switch--label-color: var(--color-neutral-150);
         --fluid-switch--fill: var(--color-background);
         --fluid-switch--container: var(--color-maxcontrast);
@@ -153,7 +143,7 @@ export class FluidSwitch extends LitElement {
       .fluid-label {
         ${unsafeCSS(fluidDtText())};
         display: inline-flex;
-        margin-left: ${unsafeCSS(FLUID_SPACING_3X_SMALL)};
+        margin-left: var(--fluid-spacing--3x-small);
         color: var(--fluid-switch--label-color);
       }
       .fluid-switch-label:hover .fluid-switch-glow {

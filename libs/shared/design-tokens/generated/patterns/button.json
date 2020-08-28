@@ -18,31 +18,31 @@
       "type": "token",
       "category": "global",
       "name": "fluid-button--padding-small",
-      "value": "8px 48px",
+      "value": "var(--fluid-spacing--x-small) var(--fluid-spacing--x-large)",
       "meta": {
         "friendlyName": "Fluid button padding small"
       },
-      "originalValue": "{!spacing--x-small} {!spacing--x-large}"
+      "originalValue": "var(--fluid-spacing--x-small) var(--fluid-spacing--x-large)"
     },
     "fluid-button--padding-medium": {
       "type": "token",
       "category": "global",
       "name": "fluid-button--padding-medium",
-      "value": "12px 48px",
+      "value": "var(--fluid-spacing--small) var(--fluid-spacing--x-large)",
       "meta": {
         "friendlyName": "Fluid button padding medium"
       },
-      "originalValue": "{!spacing--small} {!spacing--x-large}"
+      "originalValue": "var(--fluid-spacing--small) var(--fluid-spacing--x-large)"
     },
     "fluid-button--padding-large": {
       "type": "token",
       "category": "global",
       "name": "fluid-button--padding-large",
-      "value": "16px 48px",
+      "value": "var(--fluid-spacing--medium) var(--fluid-spacing--x-large)",
       "meta": {
         "friendlyName": "Fluid button padding large"
       },
-      "originalValue": "{!spacing--medium} {!spacing--x-large}"
+      "originalValue": "var(--fluid-spacing--medium) var(--fluid-spacing--x-large)"
     }
   },
   "aliases": {

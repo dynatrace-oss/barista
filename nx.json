@@ -127,6 +127,7 @@
       "implicitDependencies": [
         "fluid-button",
         "fluid-button-group",
+        "fluid-design-system-provider",
         "fluid-checkbox",
         "fluid-switch",
         "fluid-tab-group",
@@ -346,6 +347,10 @@
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
     "fluid-checkbox": {
+      "tags": ["scope:elements", "type:library"],
+      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
+    },
+    "fluid-design-system-provider": {
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },

@@ -1,0 +1,29 @@
+imports:
+  - "../aliases/layout.alias.yml"
+
+props:
+  - name: fluid-layout--dense
+    value: '{!layout--dense}'
+    meta:
+      friendlyName: "Dense layout"
+      customizable: false
+  - name: fluid-layout--default
+    value: '{!layout--default}'
+    meta:
+      friendlyName: "Default layout density"
+      customizable: false
+  - name: fluid-layout--loose
+    value: '{!layout--loose}'
+    meta:
+      friendlyName: "Loose layout density"
+      customizable: false
+
+global:
+  type: number
+  category: layout
+
+outputs:
+  - type: ts
+    formatter: dt-typescript
+  - type: js
+    formatter: dt-javascript

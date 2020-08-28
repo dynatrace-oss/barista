@@ -13,6 +13,9 @@
       "path": "./checkbox/tsconfig.json"
     },
     {
+      "path": "./provider/tsconfig.json"
+    },
+    {
       "path": "./switch/tsconfig.json"
     },
     {

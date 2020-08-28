@@ -1,0 +1,58 @@
+{
+  "outputs": [
+    {
+      "type": "ts",
+      "formatter": "dt-typescript"
+    },
+    {
+      "type": "js",
+      "formatter": "dt-javascript"
+    }
+  ],
+  "props": {
+    "fluid-layout--dense": {
+      "type": "number",
+      "category": "layout",
+      "name": "fluid-layout--dense",
+      "value": "0.7",
+      "meta": {
+        "friendlyName": "Dense layout",
+        "customizable": false
+      },
+      "originalValue": "{!layout--dense}"
+    },
+    "fluid-layout--default": {
+      "type": "number",
+      "category": "layout",
+      "name": "fluid-layout--default",
+      "value": "1",
+      "meta": {
+        "friendlyName": "Default layout density",
+        "customizable": false
+      },
+      "originalValue": "{!layout--default}"
+    },
+    "fluid-layout--loose": {
+      "type": "number",
+      "category": "layout",
+      "name": "fluid-layout--loose",
+      "value": "1.3",
+      "meta": {
+        "friendlyName": "Loose layout density",
+        "customizable": false
+      },
+      "originalValue": "{!layout--loose}"
+    }
+  },
+  "aliases": {
+    "layout--dense": {
+      "value": 0.7
+    },
+    "layout--default": {
+      "value": 1
+    },
+    "layout--loose": {
+      "value": 1.3
+    }
+  }
+}

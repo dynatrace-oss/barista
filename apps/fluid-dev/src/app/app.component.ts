@@ -17,18 +17,19 @@
 const LOCAL_STORAGE_THEME_KEY = 'fluid-theme';
 
 import { Component, OnInit } from '@angular/core';
+import '@dynatrace/fluid-elements/design-system-provider';
 
 @Component({
   selector: 'fluid-dev-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  host: {
-    '[class]': '"fluid-theme--" + _theme',
-  },
 })
 export class AppComponent implements OnInit {
   /** @internal The current global theme */
   _theme: string = 'abyss';
+
+  /** @internal The current global layout density */
+  _layoutDensity: string = 'default';
 
   ngOnInit(): void {
     this._theme = localStorage.getItem(LOCAL_STORAGE_THEME_KEY) ?? 'abyss';

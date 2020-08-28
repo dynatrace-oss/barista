@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "layout--dense": 0.7,
+    "layout--default": 1,
+    "layout--loose": 1.3
+  }
+}

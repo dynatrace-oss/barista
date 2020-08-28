@@ -20,6 +20,7 @@
  * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
+export * from './global/layout';
 export * from './global/palette';
 export * from './global/spacing';
 export * from './global/typography';

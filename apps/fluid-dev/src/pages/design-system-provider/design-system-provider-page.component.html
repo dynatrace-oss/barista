@@ -1,0 +1,23 @@
+<p><strong>Nested provider</strong></p>
+
+<div>
+  <label>Theme: </label>
+  <select [(ngModel)]="_theme" aria-label="Theme selection">
+    <option value="abyss">Abyss</option>
+    <option value="surface">Surface</option>
+  </select>
+</div>
+
+<div>
+  <label>Layout density: </label>
+  <select [(ngModel)]="_layoutDensity" aria-label="Layout density selection">
+    <option value="dense">Dense</option>
+    <option value="default">Default</option>
+    <option value="loose">Loose</option>
+  </select>
+</div>
+
+<fluid-design-system-provider [theme]="_theme" [layoutDensity]="_layoutDensity">
+  <fluid-button>Button</fluid-button>
+  <fluid-checkbox>Checkbox</fluid-checkbox>
+</fluid-design-system-provider>

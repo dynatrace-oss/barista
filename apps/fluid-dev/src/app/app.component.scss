@@ -1,15 +1,18 @@
 :host {
-  display: block;
-  height: 100%;
-  background-color: var(--color-background);
-  color: var(--color-maxcontrast);
-  box-sizing: border-box; // Avoid second scrollbar
-  padding: 8px;
-  overflow: auto;
-
   * {
     box-sizing: content-box;
   }
+}
+
+.root-provider {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  box-sizing: border-box; // Avoid second scrollbar
+  overflow: auto;
+  display: block;
+  background-color: var(--color-background);
+  color: var(--color-maxcontrast);
 }
 
 .main {

@@ -1,0 +1,12 @@
+fluid-design-system-provider {
+  display: flex;
+  flex-direction: row;
+
+  padding: var(--fluid-spacing-small);
+  background-color: var(--color-background);
+  color: var(--color-maxcontrast);
+
+  * {
+    margin-right: var(--fluid-spacing-medium);
+  }
+}

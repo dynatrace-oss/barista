@@ -15,8 +15,8 @@
  */
 
 import {
-  html,
   LitElement,
+  html,
   CSSResult,
   TemplateResult,
   property,
@@ -26,11 +26,7 @@ import {
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import { SPACE } from '@dynatrace/shared/keycodes';
-import {
-  FLUID_SPACING_2X_SMALL,
-  FLUID_SPACING_X_SMALL,
-  fluidDtText,
-} from '@dynatrace/fluid-design-tokens';
+import { fluidDtText } from '@dynatrace/fluid-design-tokens';
 import {
   FluidCheckboxChangeEvent,
   FluidCheckboxIndeterminateChangeEvent,
@@ -69,14 +65,6 @@ export class FluidCheckbox extends LitElement {
   static get styles(): CSSResult {
     return css`
       :host {
-        /**
-        * Legibility definitions should probably be
-        * shipped or imported from a core
-        */
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-
         --fluid-checkbox--label-color: var(--color-neutral-150);
         --fluid-checkbox--box-glow-color: var(--color-neutral-150);
         --fluid-checkbox--border-color: var(--color-neutral-150);
@@ -99,7 +87,7 @@ export class FluidCheckbox extends LitElement {
       }
 
       .fluid-checkbox {
-        margin-left: -${unsafeCSS(FLUID_SPACING_2X_SMALL)};
+        margin-left: calc(var(--fluid-spacing--2x-small) * -1)
         display: flex;
         position: relative;
       }
@@ -107,7 +95,7 @@ export class FluidCheckbox extends LitElement {
       .fluid-label {
         ${unsafeCSS(fluidDtText())};
         color: var(--fluid-checkbox--label-color);
-        margin-left: ${unsafeCSS(FLUID_SPACING_X_SMALL)};
+        margin-left: var(--fluid-spacing--x-small);
       }
 
       label {
@@ -124,8 +112,8 @@ export class FluidCheckbox extends LitElement {
         position: absolute;
         width: 24px;
         height: 24px;
-        top: -${unsafeCSS(FLUID_SPACING_2X_SMALL)};
-        left: -${unsafeCSS(FLUID_SPACING_2X_SMALL)};
+        top: calc(var(--fluid-spacing--2x-small) * -1);
+        left: calc(var(--fluid-spacing--2x-small) * -1);
         opacity: 0;
       }
 

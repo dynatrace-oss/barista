@@ -1,24 +1,43 @@
-<label>Theme: </label>
-<select
-  [(ngModel)]="_theme"
-  (ngModelChange)="_themeChanged($event)"
-  aria-label="Theme selection"
-  class="design-tokens-ui-theme-select"
+<fluid-design-system-provider
+  [theme]="_theme"
+  [layoutDensity]="_layoutDensity"
+  class="root-provider"
 >
-  <option value="abyss">Abyss</option>
-  <option value="surface">Surface</option>
-</select>
+  <div>
+    <label>Theme: </label>
+    <select
+      [(ngModel)]="_theme"
+      (ngModelChange)="_themeChanged($event)"
+      aria-label="Theme selection"
+    >
+      <option value="abyss">Abyss</option>
+      <option value="surface">Surface</option>
+    </select>
+  </div>
 
-<nav>
-  <ul>
-    <li><a routerLink="/button">Button</a></li>
-    <li><a routerLink="/button-group">Button-Group</a></li>
-    <li><a routerLink="/checkbox">Checkbox</a></li>
-    <li><a routerLink="/tab">Tab</a></li>
-    <li><a routerLink="/switch">Switch</a></li>
-  </ul>
-</nav>
+  <div>
+    <label>Layout density: </label>
+    <select [(ngModel)]="_layoutDensity" aria-label="Layout density selection">
+      <option value="dense">Dense</option>
+      <option value="default">Default</option>
+      <option value="loose">Loose</option>
+    </select>
+  </div>
 
-<main class="main">
-  <router-outlet></router-outlet>
-</main>
+  <nav>
+    <ul>
+      <li><a routerLink="/button">Button</a></li>
+      <li><a routerLink="/button-group">Button-Group</a></li>
+      <li><a routerLink="/checkbox">Checkbox</a></li>
+      <li>
+        <a routerLink="/design-system-provider">Design System Provider</a>
+      </li>
+      <li><a routerLink="/tab">Tab</a></li>
+      <li><a routerLink="/switch">Switch</a></li>
+    </ul>
+  </nav>
+
+  <main class="main">
+    <router-outlet></router-outlet>
+  </main>
+</fluid-design-system-provider>

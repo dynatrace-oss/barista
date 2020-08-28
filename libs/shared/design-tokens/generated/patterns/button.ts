@@ -20,6 +20,9 @@
  * TO GENERATE THESE FILES RUN 'ng build shared-design-tokens'
  */
 
-export const FLUID_BUTTON_PADDING_SMALL = '8px 48px';
-export const FLUID_BUTTON_PADDING_MEDIUM = '12px 48px';
-export const FLUID_BUTTON_PADDING_LARGE = '16px 48px';
+export const FLUID_BUTTON_PADDING_SMALL =
+  'var(--fluid-spacing--x-small) var(--fluid-spacing--x-large)';
+export const FLUID_BUTTON_PADDING_MEDIUM =
+  'var(--fluid-spacing--small) var(--fluid-spacing--x-large)';
+export const FLUID_BUTTON_PADDING_LARGE =
+  'var(--fluid-spacing--medium) var(--fluid-spacing--x-large)';
