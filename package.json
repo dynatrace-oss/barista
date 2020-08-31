@@ -144,7 +144,7 @@
     "codelyzer": "^6.0.0",
     "conventional-changelog": "^3.1.21",
     "conventional-changelog-angular": "^5.0.6",
-    "conventional-recommended-bump": "^6.0.5",
+    "conventional-recommended-bump": "^6.0.10",
     "css-loader": "^3.5.3",
     "dotenv": "^8.2.0",
     "express": "^4.15.2",
