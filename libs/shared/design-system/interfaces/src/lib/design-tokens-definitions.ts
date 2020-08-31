@@ -23,8 +23,8 @@ export interface FluidPaletteSource {
 export type FluidPaletteColorspace =
   | 'CAM02'
   | 'HSLuv'
-  | 'Lch'
-  | 'Lab'
+  | 'LCH'
+  | 'LAB'
   | 'HSL'
   | 'HSV'
   | 'RGB';
