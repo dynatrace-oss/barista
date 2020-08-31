@@ -13,7 +13,7 @@ common --curses=yes
 common --color=yes
 # width of the terminal emulator of buildkite
 common --terminal_columns=143
-common --show_timestamps
+# common --show_timestamps
 common --verbose_failures
 
 # Save downloaded repositories in a location that can be cached by Buildkite. This helps us

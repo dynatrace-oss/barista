@@ -6,4 +6,5 @@ steps:
 
   - id: 'unit-test'
     name: ':bazel: Test'
+    parallelism: 4
     commands: './.buildkite/test.sh'
