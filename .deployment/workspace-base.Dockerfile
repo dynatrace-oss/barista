@@ -7,14 +7,14 @@ RUN apk update && apk upgrade && \
     apk add --no-cache bash git openssh
 
 COPY ./package.json ./package.json
-COPY ./package-lock.json ./package-lock.json
+COPY ./yarn.lock ./yarn.lock
 
 # Create shasum from package.json to compare
 # later if a further install have to be done.
-RUN sha1sum ./package-lock.json > package-lock.sha1
+RUN sha1sum ./yarn.lock > yarn.lock.sha1
 
 # install dependencies without postinstall script
-RUN npm ci --ignore-scripts
+RUN yarn install --frozen-lockfile --ignore-scripts
 
 COPY ./tsconfig.base.json \
      ./angular.json \
@@ -56,7 +56,7 @@ RUN rm -rf \
   angular.json \
   nx.json \
   package.json \
-  package-lock.json
+  yarn.lock
 
 COPY  ./.deployment/entrypoint.sh /dynatrace/entrypoint.sh
 

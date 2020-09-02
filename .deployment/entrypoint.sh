@@ -12,17 +12,17 @@ $(pwd)
 
 "
 
-oldSha=$(cat ./package-lock.sha1)
-currentSha="$(sha1sum ./package-lock.json)"
+oldSha=$(cat ./yarn.lock.sha1)
+currentSha="$(sha1sum ./yarn.lock)"
 
 if [ "$oldSha" != "$currentSha" ]; then
-  echo "⚠️ Need to install packages due to updated package-lock.json"
+  echo "⚠️ Need to install packages due to updated yarn.lock"
   # When the checksums are not matching perform an npm install
   # removing the node_modules is neccessary on github actions according to some
   # weired permission staff that occures through symlinked node_modules from the
   # docker image
   rm -rf node_modules
-  npm ci --ignore-scripts
+  yarn install --frozen-lockfile --ignore-scripts
   echo "Successfully updated all packages!"
 else
   echo "All packages are up to date! 🐙"

@@ -19,7 +19,7 @@ jobs:
         run : |
           cp -R "$WORKSPACE_DIR/dist" "$PWD/dist"
           ln -s "$WORKSPACE_DIR/node_modules" "$PWD/node_modules"
-          ln -s "$WORKSPACE_DIR/package-lock.sha1" "$PWD/package-lock.sha1"
+          ln -s "$WORKSPACE_DIR/yarn.lock.sha1" "$PWD/yarn.lock.sha1"
 
           ./.deployment/entrypoint.sh
 

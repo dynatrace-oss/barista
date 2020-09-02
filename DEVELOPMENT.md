@@ -9,11 +9,11 @@
 
 1. Install npm dependencies
    ```
-   npm install
+   yarn install
    ```
 2. Build the Barista components library
    ```
-   npm run build
+   yarn build
    ```
 
 ## Repository structure

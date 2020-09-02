@@ -40,14 +40,18 @@ http_archive(
 ###########################################
 # Npm Install and Typescript Sass support #
 ###########################################
-load("@build_bazel_rules_nodejs//:index.bzl", "check_bazel_version", "npm_install")
+load("@build_bazel_rules_nodejs//:index.bzl", "check_bazel_version", "yarn_install")
 
 # The minimum bazel version to use with this repo is v3.1.0.
 check_bazel_version("3.1.0")
 
 # Install all dependencies with npm
-npm_install(
+yarn_install(
     name = "npm",
+    # Redirects Yarn `stdout` output to `stderr`. This ensures that stdout is not accidentally
+    # polluted when Bazel runs Yarn. Workaround until the upstream fix is available:
+    # https://github.com/bazelbuild/bazel/pull/10611.
+    args = ["1>&2"],
     data = [
         "//:patches/@angular+bazel+10.0.6.patch",
         "//:patches/@bazel+typescript+2.0.3.patch",
@@ -55,8 +59,8 @@ npm_install(
         "//:view-engine-tsconfig.json"
     ],
     package_json = "//:package.json",
-    package_lock_json = "//:package-lock.json",
-    symlink_node_modules = True,
+    yarn_lock = "//:yarn.lock",
+    quiet = False,
 )
 
 # Install the @angular/bazel package into @npm_angular_bazel

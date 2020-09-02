@@ -17,11 +17,11 @@ FROM designops/workspace-base:${BASE_VERSION} as workspace-public
 FROM designops/workspace-base:${BASE_VERSION} as workspace-internal
 
 COPY .npmrc \
-     package-lock.json \
+     yarn.lock \
      package.json \
      ./
 
-RUN npm install @dynatrace/barista-icons @dynatrace/barista-fonts
+RUN yarn install @dynatrace/barista-icons @dynatrace/barista-fonts
 
 #------------------------------------------------------------
 # Temporary layer as base for a jenkins agent
@@ -38,9 +38,9 @@ RUN  curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
   && apt-get update \
   && apt-get install -y libgtk-3-0 libasound2 libxss1 nodejs pv \
   && apt-get clean \
-  && npm install -g n \
+  && yarn install -g n \
   && n ${NODE_VERSION} \
-  && npm -v \
+  && yarn -v \
   && node -v
 
 WORKDIR /home/dynatrace

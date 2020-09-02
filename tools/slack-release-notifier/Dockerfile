@@ -2,7 +2,7 @@ FROM node:12-alpine
 
 COPY \
   ./package.json  \
-  ./package-lock.json \
+  ./yarn.lock \
   ./tsconfig.json \
   /slack-release-notifier/
 COPY ./entrypoint.sh /entrypoint.sh
@@ -13,7 +13,7 @@ COPY ./src/ /slack-release-notifier/src/
 RUN apk update && apk upgrade && \
     apk add --no-cache bash git openssh
 
-RUN cd /slack-release-notifier && npm ci
+RUN cd /slack-release-notifier && yarn install --frozen-lockfile
 
 RUN chmod +x /entrypoint.sh
 

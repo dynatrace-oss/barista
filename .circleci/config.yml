@@ -59,7 +59,7 @@ executors:
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-bazel_cache: &bazel_cache v1-dt-barista-{{ checksum ".bazelversion" }}-{{ checksum "WORKSPACE" }}-{{ checksum "package-lock.json" }}
+bazel_cache: &bazel_cache v1-dt-barista-{{ checksum ".bazelversion" }}-{{ checksum "WORKSPACE" }}-{{ checksum "yarn.lock" }}
 bazel_cache_fallback: &bazel_cache_fallback v1-dt-barista-{{ checksum ".bazelversion" }}
 
 filter_forks: &filter_forks
@@ -79,15 +79,15 @@ filter_branches: &filter_branches
         # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
         - /pull\/[0-9]+/
 
-npm_cache: &npm_cache
+yarn_cache: &yarn_cache
   keys:
-    - npm-packages-v1-{{ checksum "package-lock.json" }}
-    - npm-packages-v1-
+    - yarn-packages-v1-{{ checksum "yarn.lock" }}
+    - yarn-packages-v1-
 
-# npm_cache_win: &npm_cache_win
+# yarn_cache_win: &yarn_cache_win
 #   keys:
-#     - win-npm-packages-v1-{{ checksum "package-lock.json" }}
-#     - win-npm-packages-v1-
+#     - win-yarn-packages-v1-{{ checksum "yarn.lock" }}
+#     - win-yarn-packages-v1-
 
 # The last sha of the branch that holds the previous commit sha.
 # could be either master, 4.x or 4.10.x
@@ -249,19 +249,19 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          <<: *npm_cache
+          <<: *yarn_cache
       - run:
           name: Install npm dependencies 🐍
           command: |
-            npm ci --ignore-scripts
+            yarn install --frozen-lockfile --ignore-scripts
             node ./node_modules/.bin/ngcc
       - run:
           name: Build Workspace package 📦
           command: |
-            npm run ng run workspace:build
-            npm run ng run barista-tools:build
+            yarn ng run workspace:build
+            yarn ng run barista-tools:build
       - save_cache:
-          key: npm-packages-v1-{{ checksum "package-lock.json" }}
+          key: yarn-packages-v1-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
       - persist_to_workspace:
@@ -277,20 +277,20 @@ jobs:
   #   steps:
   #     - checkout
   #     - restore_cache:
-  #         <<: *npm_cache_win
+  #         <<: *yarn_cache_win
   #     - run:
   #         name: Install npm dependencies 🦎
   #         command: |
-  #           npm ci --ignore-scripts *>$null
+  #           yarn install --frozen-lockfile --ignore-scripts *>$null
   #           .\node_modules\.bin\ngcc
   #     - run:
   #         name: Build Workspace package 📦
   #         command: |
-  #           npm run ng run workspace:build
-  #           npm run ng run examples-tools:build
-  #           npm run ng run barista-tools:build
+  #           yarn ng run workspace:build
+  #           yarn ng run examples-tools:build
+  #           yarn ng run barista-tools:build
   #     - save_cache:
-  #         key: win-npm-packages-v1-{{ checksum "package-lock.json" }}
+  #         key: win-yarn-packages-v1-{{ checksum "yarn.lock" }}
   #         paths:
   #           - node_modules
   #     - persist_to_workspace:

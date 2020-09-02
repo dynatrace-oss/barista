@@ -7,7 +7,7 @@
 # allow explicit
 #--------------------------
 !package.json
-!package-lock.json
+!yarn.lock
 
 # Used by multiple projects:
 !tsconfig.base.json

@@ -50,7 +50,7 @@ pipeline {
       steps {
         nodejs(nodeJSInstallationName: 'Node 12.x') {
           ansiColor('xterm') {
-            sh 'npm ci'
+            sh 'yarn install --frozen-lockfile'
           }
         }
       }

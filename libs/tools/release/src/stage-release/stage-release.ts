@@ -68,7 +68,7 @@ export async function stageRelease(
   const currentVersion = await parsePackageVersion(workspaceRoot);
   const packageJsonPath = join(workspaceRoot, 'package.json');
   const packageJson = await tryJsonParse<PackageJson>(packageJsonPath);
-  const packageLockJsonPath = join(workspaceRoot, 'package-lock.json');
+  const packageLockJsonPath = join(workspaceRoot, 'yarn.lock');
   const packageLockJson = await tryJsonParse<PackageLockJson>(
     packageLockJsonPath,
   );

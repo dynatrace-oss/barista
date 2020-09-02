@@ -24,7 +24,7 @@ pipeline {
       steps {
 
         sh'''
-          files="node_modules dist package-lock.sha1"
+          files="node_modules dist yarn.lock.sha1"
 
           for file in $files
           do
@@ -35,20 +35,20 @@ pipeline {
         dir(BARISTA_PATH) {
 
           script {
-            def oldsha = readFile(file: "package-lock.sha1").replace('./package-lock.json', '').trim()
-            def sha1sum = sha1(file: "package-lock.json")
+            def oldsha = readFile(file: "yarn.lock.sha1").replace('./yarn.lock', '').trim()
+            def sha1sum = sha1(file: "yarn.lock")
 
             echo "STORED SHA: " + oldsha
             echo "CURRENT SHA: " + sha1sum
 
             if (!oldsha.equals(sha1sum)) {
-              echo "⚠️ Need to install packages due to updated package-lock.json"
+              echo "⚠️ Need to install packages due to updated yarn.lock"
 
               // Delete the symlink of the node_modules first before performing an install
               // this has to be done as ngcc has to reprocess the entries and it will fail with the symlink
               sh '''
                 rm -rf node_modules
-                npm ci --ignore-scripts
+                yarn install --frozen-lockfile --ignore-scripts
               '''
             }
           }

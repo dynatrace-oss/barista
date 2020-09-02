@@ -47,7 +47,7 @@ pipeline {
               sparseCheckoutPaths: [
                 [path: '.deployment/k8s-barista-builder'],
                 [path: 'package.json'],
-                [path: 'package-lock.json']
+                [path: 'yarn.lock']
               ]
             ]
           ],
