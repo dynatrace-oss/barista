@@ -86,7 +86,7 @@ export class FluidPopover extends LitElement {
         ${unsafeCSS(fluidDtText())};
         display: none;
         overflow: scroll;
-        max-height: 350px;
+        max-height: 250px;
         background: var(--fluid-popover--background);
         box-shadow: ${unsafeCSS(FLUID_INPUT_BOX_SHADOW)} rgba(21, 23, 27, 0.2);
         transition: opacity 1500ms ease-in-out;
@@ -159,11 +159,18 @@ export class FluidPopover extends LitElement {
   private _offset: FluidPopoverOffset;
 
   /**
-   * FLuid popover container element
+   * @internal FLuid popover scroll container element
    * @type HTMLDivElement
    */
   @query(`.fluid-popover`)
-  private _popover: HTMLDivElement;
+  _popoverContainer: HTMLDivElement;
+
+  /**
+   * @internal FLuid popover elements container element
+   * @type HTMLDivElement
+   */
+  @query(`.fluid-popover-elements-container`)
+  _popoverElementsContainer: HTMLDivElement;
 
   /** Instance of the created popper.js popover */
   private _popperPopoverInstance: Instance | null;
@@ -187,10 +194,14 @@ export class FluidPopover extends LitElement {
 
   /** Create a popperjs popover */
   private _createPopover(): void {
-    this._popperPopoverInstance = createPopper(this.anchor, this._popover, {
-      placement: this.placement,
-      modifiers: [flip, preventOverflow, offset],
-    });
+    this._popperPopoverInstance = createPopper(
+      this.anchor,
+      this._popoverContainer,
+      {
+        placement: this.placement,
+        modifiers: [flip, preventOverflow, offset],
+      },
+    );
   }
 
   /** Destroy the popperjs popover instance */
@@ -214,6 +225,7 @@ export class FluidPopover extends LitElement {
   render(): TemplateResult {
     const classMapData = {
       'fluid-popover': true,
+      'fluid-popover-scroll-container': true,
       'fluid-popover--open': this.open,
     };
 
@@ -223,7 +235,9 @@ export class FluidPopover extends LitElement {
         @mouseenter=${this._toggleMouseInside}
         @mouseleave=${this._toggleMouseInside}
       >
-        <slot></slot>
+        <div class="fluid-popover-elements-container">
+          <slot></slot>
+        </div>
       </div>
     `;
   }
