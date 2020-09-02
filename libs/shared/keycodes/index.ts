@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from './lib/keycodes';
+export * from './src/lib/keycodes';
