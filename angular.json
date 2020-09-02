@@ -3551,7 +3551,7 @@
     },
     "shared-keycodes": {
       "root": "libs/shared/keycodes",
-      "sourceRoot": "libs/shared/keycodes/src",
+      "sourceRoot": "libs/shared/keycodes",
       "projectType": "library",
       "schematics": {},
       "architect": {

@@ -132,7 +132,7 @@ function createRollupConfig(
             find: '@dynatrace/shared/keycodes',
             replacement: resolve(
               context.workspaceRoot,
-              'libs/shared/keycodes/src/index.ts',
+              'libs/shared/keycodes/index.ts',
             ),
           },
         ],
