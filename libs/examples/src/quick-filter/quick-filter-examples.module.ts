@@ -16,10 +16,11 @@
 
 import { NgModule } from '@angular/core';
 import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/quick-filter';
+import { DtExampleQuickFilterAsync } from './quick-filter-async-example/quick-filter-async-example';
 import { DtExampleQuickFilterDefault } from './quick-filter-default-example/quick-filter-default-example';
 
 @NgModule({
   imports: [DtQuickFilterModule],
-  declarations: [DtExampleQuickFilterDefault],
+  declarations: [DtExampleQuickFilterDefault, DtExampleQuickFilterAsync],
 })
 export class DtQuickFilterExamplesModule {}

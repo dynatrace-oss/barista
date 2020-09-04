@@ -14,5 +14,6 @@
  * limitations under the License.
  */
 
+export * from './quick-filter-async-example/quick-filter-async-example';
 export * from './quick-filter-default-example/quick-filter-default-example';
 export * from './quick-filter-examples.module';

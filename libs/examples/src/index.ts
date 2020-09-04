@@ -228,6 +228,7 @@ import { DtExampleProgressCircleDefault } from './progress-circle/progress-circl
 import { DtExampleProgressCircleWithColor } from './progress-circle/progress-circle-with-color-example/progress-circle-with-color-example';
 import { DtExampleProgressCircleWithIcon } from './progress-circle/progress-circle-with-icon-example/progress-circle-with-icon-example';
 import { DtExampleProgressCircleWithText } from './progress-circle/progress-circle-with-text-example/progress-circle-with-text-example';
+import { DtExampleQuickFilterAsync } from './quick-filter/quick-filter-async-example/quick-filter-async-example';
 import { DtExampleQuickFilterDefault } from './quick-filter/quick-filter-default-example/quick-filter-default-example';
 import { DtExampleRadialChartCustomColors } from './radial-chart/radial-chart-custom-colors-example/radial-chart-custom-colors-example';
 import { DtExampleRadialChartDefaultDonut } from './radial-chart/radial-chart-default-donut-example/radial-chart-default-donut-example';
@@ -600,6 +601,7 @@ export {
   DtExampleProgressCircleWithColor,
   DtExampleProgressCircleWithIcon,
   DtExampleProgressCircleWithText,
+  DtExampleQuickFilterAsync,
   DtExampleQuickFilterDefault,
   DtExampleRadialChartCustomColors,
   DtExampleRadialChartDefaultDonut,
@@ -957,6 +959,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleProgressCircleWithColor', DtExampleProgressCircleWithColor],
   ['DtExampleProgressCircleWithIcon', DtExampleProgressCircleWithIcon],
   ['DtExampleProgressCircleWithText', DtExampleProgressCircleWithText],
+  ['DtExampleQuickFilterAsync', DtExampleQuickFilterAsync],
   ['DtExampleQuickFilterDefault', DtExampleQuickFilterDefault],
   ['DtExampleRadialChartCustomColors', DtExampleRadialChartCustomColors],
   ['DtExampleRadialChartDefaultDonut', DtExampleRadialChartDefaultDonut],
