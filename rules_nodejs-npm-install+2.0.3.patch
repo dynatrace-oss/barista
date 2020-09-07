@@ -1,0 +1,13 @@
+diff --git internal/npm_install/npm_install.bzl internal/npm_install/npm_install.bzl
+index 7bbe1297..9dfb51c3 100644
+--- internal/npm_install/npm_install.bzl
++++ internal/npm_install/npm_install.bzl
+@@ -225,7 +225,7 @@ set -e
+         repository_ctx.file(
+             "_npm.cmd",
+             content = """@echo off
+-cd /D "{root}" && "{npm}" {npm_args}
++cd /D "{root}" && npm {npm_args}
+ """.format(
+                 root = root,
+                 npm = repository_ctx.path(npm),
