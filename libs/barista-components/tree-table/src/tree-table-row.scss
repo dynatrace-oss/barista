@@ -35,6 +35,18 @@
   &:nth-child(odd) ::ng-deep .dt-tree-toggle-cell {
     border-left: solid 1px $dt-table-row-color-odd;
   }
+
+  &::ng-deep .dt-tree-toggle-cell {
+    max-width: 24vw;
+  }
+
+  &::ng-deep .dt-tree-toggle-cell:hover {
+    max-width: 100vw;
+  }
+
+  &::ng-deep .dt-info-group-title {
+    text-overflow: ellipsis;
+  }
 }
 
 :host.dt-table-row-indicator ::ng-deep .dt-tree-table-toggle-cell-wrap::before {
