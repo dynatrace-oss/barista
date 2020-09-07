@@ -25,6 +25,9 @@ http_archive(
     name = "build_bazel_rules_nodejs",
     sha256 = RULES_NODEJS_SHA256,
     url = "https://github.com/bazelbuild/rules_nodejs/releases/download/%s/rules_nodejs-%s.tar.gz" % (RULES_NODEJS_VERSION, RULES_NODEJS_VERSION),
+    patches = [
+      "//:rules_nodejs-npm-install+2.0.3.patch",
+    ]
 )
 
 http_archive(
@@ -56,6 +59,7 @@ npm_install(
     ],
     package_json = "//:package.json",
     package_lock_json = "//:package-lock.json",
+    quiet = False,
     symlink_node_modules = True,
 )
 
