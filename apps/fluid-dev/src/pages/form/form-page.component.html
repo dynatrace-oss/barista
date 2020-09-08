@@ -1,0 +1,35 @@
+<fluid-form (onSubmit)="handleSubmit($event)">
+  <fluid-checkbox [disabled]="false" name="fluid-checkbox">
+    I am the label
+  </fluid-checkbox>
+  <br />
+  <input id="native-checkbox" name="native-checkbox" type="checkbox" /><label
+    for="native-checkbox"
+    >I am a native checkbox label</label
+  >
+  <br />
+
+  <fluid-switch name="fluid-switch" checked="checked">Switch</fluid-switch>
+
+  <fluid-switch
+    name="fluid-switch-DISABLED"
+    checked="checked"
+    disabled="disabled"
+    >Disabled, should not submit value</fluid-switch
+  >
+
+  <input name="name" type="text" value="something" />
+
+  <div>
+    <input name="name-inside-div" type="text" value="something-from-div" />
+  </div>
+
+  <select name="name-select">
+    <option value="">--Please choose an option--</option>
+    <option value="dog">Dog</option>
+    <option value="cat">Cat</option>
+  </select>
+  <br />
+  <textarea name="textarea">textare value</textarea>
+  <br />
+</fluid-form>

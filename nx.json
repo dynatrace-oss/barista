@@ -351,6 +351,10 @@
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
+    "fluid-elements-fluid-form": {
+      "tags": ["scope:elements", "type:library"],
+      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
+    },
     "fluid-dev": {
       "tags": ["type:app"]
     },

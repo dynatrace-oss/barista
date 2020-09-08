@@ -181,6 +181,15 @@ export class FluidSwitch extends LitElement {
   // Default string for the value is 'on' from MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox#Additional_attributes)
   value = 'on';
 
+  /**
+   * Name of the value that is represented by the switch.
+   */
+  @property({
+    type: String,
+    reflect: true,
+  })
+  name: string;
+
   /** Whether the switch is considered `on` or `off`. */
   @property({ type: Boolean, reflect: true })
   set checked(value: boolean) {

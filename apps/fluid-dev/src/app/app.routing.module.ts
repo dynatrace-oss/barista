@@ -47,6 +47,13 @@ export const fluidRoutes: Route[] = [
         (module) => module.FluidTabPageModule,
       ),
   },
+  {
+    path: 'form',
+    loadChildren: () =>
+      import('../pages/form/form-page.module').then(
+        (module) => module.FluidFormPageModule,
+      ),
+  },
 ];
 
 @NgModule({

@@ -262,7 +262,10 @@
       "@dynatrace/design-tokens-ui/shared": [
         "libs/design-tokens-ui/shared/src/index.ts"
       ],
-      "@dynatrace/shared/keycodes": ["libs/shared/keycodes/src/index.ts"]
+      "@dynatrace/shared/keycodes": ["libs/shared/keycodes/src/index.ts"],
+      "@dynatrace/fluid-elements/fluid-form": [
+        "libs/fluid-elements/fluid-form/src/index.ts"
+      ]
     },
     "plugins": [
       {

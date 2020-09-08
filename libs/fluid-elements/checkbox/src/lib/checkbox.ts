@@ -189,7 +189,7 @@ export class FluidCheckbox extends LitElement {
   /** The value attribute of the native input element */
   @property({ type: String, reflect: true })
   // Default string for the value is 'on' from MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input/checkbox#Additional_attributes)
-  value = 'on';
+  value: string = 'on';
 
   /**
    * Defines if the checkbox is checked or not.
@@ -233,6 +233,15 @@ export class FluidCheckbox extends LitElement {
     }
   }
   private _indeterminate = false;
+
+  /**
+   * Name of the value that is represented by the checkbox.
+   */
+  @property({
+    type: String,
+    reflect: true,
+  })
+  name: string;
 
   /**
    * Role of the checkbox.

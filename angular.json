@@ -3577,6 +3577,35 @@
           }
         }
       }
+    },
+    "fluid-elements-fluid-form": {
+      "root": "libs/fluid-elements/fluid-form",
+      "sourceRoot": "libs/fluid-elements/fluid-form/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/fluid-elements/fluid-form/tsconfig.lib.json",
+              "libs/fluid-elements/fluid-form/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/fluid-elements/fluid-form/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/fluid-elements/fluid-form/jest.config.js",
+            "tsConfig": "libs/fluid-elements/fluid-form/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "defaultProject": "dev",
