@@ -41,12 +41,12 @@ import {
   mixinColor,
   mixinTabIndex,
   _readKeyCode,
+  HasElementRef,
 } from '@dynatrace/barista-components/core';
 
-export class DtButtonGroupBase {
-  disabled: boolean;
-}
-export const _DtButtonGroup = mixinTabIndex(DtButtonGroupBase);
+export const _DtButtonGroup = mixinTabIndex(
+  class {} as Constructor<CanDisable>,
+);
 
 @Component({
   selector: 'dt-button-group',
@@ -156,15 +156,14 @@ export interface DtButtonGroupItemSelectionChange<T> {
 
 export type DtButtonGroupThemePalette = 'main' | 'error';
 export class DtButtonGroupItemBase {
-  /** Whether the button group item is disabled. */
-  disabled: boolean;
   constructor(public _elementRef: ElementRef) {}
 }
+
 export const _DtButtonGroupItem = mixinTabIndex(
-  mixinColor<Constructor<DtButtonGroupItemBase>, DtButtonGroupThemePalette>(
-    DtButtonGroupItemBase,
-    'main',
-  ),
+  mixinColor<
+    Constructor<CanDisable & HasElementRef>,
+    DtButtonGroupThemePalette
+  >(DtButtonGroupItemBase as Constructor<CanDisable & HasElementRef>, 'main'),
 );
 
 @Component({
@@ -247,7 +246,8 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
   constructor(
     private _buttonGroup: DtButtonGroup<T>,
     private _changeDetectorRef: ChangeDetectorRef,
-    _elementRef: ElementRef,
+    /** @internal */
+    public _elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
   ) {
     super(_elementRef);
