@@ -2974,6 +2974,24 @@
       "projectType": "library",
       "schematics": {},
       "architect": {
+        "build": {
+          "builder": "./dist/libs/workspace:typescript",
+          "options": {
+            "tsConfig": "libs/fluid-elements/icon/tsconfig.lib.json",
+            "outDir": "dist/out-tsc"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/icon",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/icon/src/index.js",
+            "project": "libs/fluid-elements/icon/package.json"
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -2982,14 +3000,6 @@
               "libs/fluid-elements/icon/tsconfig.spec.json"
             ],
             "exclude": ["**/node_modules/**", "!libs/fluid-elements/icon/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/fluid-elements/icon/jest.config.js",
-            "tsConfig": "libs/fluid-elements/icon/tsconfig.spec.json",
-            "passWithNoTests": true
           }
         }
       }
