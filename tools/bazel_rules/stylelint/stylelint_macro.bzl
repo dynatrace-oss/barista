@@ -18,7 +18,7 @@ def stylelint_macro(
         **kwargs: remaining args to pass to the stylelint_test rule
     """
 
-    args = ["--files=\"$(location %s)\"" % s for s in srcs]
+    args = ["--files=\"$(rootpath %s)\"" % s for s in srcs]
 
     if config:
         srcs.append(config)
@@ -26,7 +26,7 @@ def stylelint_macro(
         config = "//:.stylelintrc"
 
     # append the config file
-    args.append("--config $(location %s)" % config)
+    args.append("--config $(rootpath %s)" % config)
 
     # # If no tests are matching the glob the process wont exit if set
     if allow_empty_input:

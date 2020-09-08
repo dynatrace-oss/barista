@@ -8,8 +8,10 @@ const { writeFileSync, readFileSync } = require('fs');
 
 const MAIN_FIELD_NAME = 'main';
 const NGCC_MAIN_FIELD_NAME = 'main_ivy_ngcc';
-const NGCC_BINARY = resolve('./node_modules/.bin/ngcc');
-const NGC_BINARY = resolve('./node_modules/.bin/ngc');
+const NGCC_BINARY = resolve(
+  './node_modules/@angular/compiler-cli/ngcc/main-ngcc.js',
+);
+const NGC_BINARY = resolve('./node_modules/@angular/compiler-cli/src/main.js');
 
 async function main() {
   // Applying all the patches to the packages
@@ -20,10 +22,10 @@ async function main() {
 
   // Generate Angular ngfactory.js, ngsummary.js files for the dependencies,
   // that are needed for ViewEngine
-  await execCommand(`${NGC_BINARY} -p view-engine-tsconfig.json`);
+  await execCommand(`node ${NGC_BINARY} -p view-engine-tsconfig.json`);
   // Generate Ivy entry points
   await execCommand(
-    `${NGCC_BINARY} --properties es2015 browser module main --first-only --create-ivy-entry-points`,
+    `node ${NGCC_BINARY} --properties es2015 browser module main --first-only --create-ivy-entry-points`,
   );
   // link the ivy entry points
   updateNgccMainFields();
