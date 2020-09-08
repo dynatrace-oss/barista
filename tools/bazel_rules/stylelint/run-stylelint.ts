@@ -16,16 +16,14 @@
 import { lint, LinterResult } from 'stylelint';
 import { junitFormatter, createXML } from './junit-formatter';
 import { writeFileSync } from 'fs';
+import { resolve, relative } from 'path';
 import { options } from 'yargs';
 
-const { BAZEL_NODE_RUNFILES_HELPER, XML_OUTPUT_FILE } = process.env;
+const { XML_OUTPUT_FILE } = process.env;
 
-if (!BAZEL_NODE_RUNFILES_HELPER || !XML_OUTPUT_FILE) {
+if (!XML_OUTPUT_FILE) {
   throw new Error('Bazel environment variables are not set!');
 }
-
-// bazel run files helper used to resolve paths that are created with `$(location ...)`
-const runFilesHelper = require(BAZEL_NODE_RUNFILES_HELPER);
 
 const { files, allowEmpty, config } = options({
   files: { type: 'array', default: [] },
@@ -44,16 +42,29 @@ async function main(): Promise<void> {
     };
   } else {
     lintingOutcome = await lint({
-      configFile: runFilesHelper.resolve(config),
-      files: files.map((f) => runFilesHelper.resolve(f)),
+      configFile: resolve(config),
+      files: files.map((f) => resolve(f)),
+      disableDefaultIgnores: true,
       formatter: junitFormatter,
     });
   }
 
   writeFileSync(XML_OUTPUT_FILE as string, lintingOutcome.output);
 
+  const lintResult = lintingOutcome.results.map((suite) => {
+    const file = relative(process.cwd(), suite.source);
+    const warnings = suite.warnings.map((c) => `L${c.line}: ${c.text}`);
+    const icon = suite.errored ? '\u2705' : '\u274C';
+
+    return `
+${icon} ${file} ${warnings.length ? '\n\n' + warnings.join('\n') : ''}`;
+  });
+
   if (lintingOutcome.errored) {
-    throw new Error('Lint errors found in the listed files.');
+    throw new Error(`Lint errors found in the listed files:
+
+${lintResult}
+`);
   }
 }
 

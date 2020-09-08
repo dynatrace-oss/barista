@@ -1,0 +1,16 @@
+diff --git a/node_modules/stylelint/lib/standalone.js b/node_modules/stylelint/lib/standalone.js
+index 630af7e..dbf55e7 100644
+--- a/node_modules/stylelint/lib/standalone.js
++++ b/node_modules/stylelint/lib/standalone.js
+@@ -198,9 +198,9 @@ module.exports = function(options) {
+ 		fileCache = new FileCache(cacheLocation);
+ 		// Remove cache file if cache option is disabled
+ 		fileCache.destroy();
+-	}
++ }
+ 
+-	return globby(fileList, globbyOptions)
++ return Promise.resolve(fileList)
+ 		.then((filePaths) => {
+ 			// The ignorer filter needs to check paths relative to cwd
+ 			filePaths = filterFilePaths(
