@@ -44,7 +44,7 @@
     "copy-generated-tokens": "node tools/shell-helpers/copy-folder.js $(bazelisk info bazel-genfiles)/libs/shared/design-tokens/build libs/shared/design-tokens/generated",
     "bazel": "bazelisk",
     "bazel:test": "bazelisk query \"attr(generator_function, jest, //...)\" | xargs bazelisk test",
-    "bazel:stylelint": "bazelisk query \"attr(generator_function, stylelint, //...)\" | xargs bazelisk test",
+    "bazel:stylelint": "node tools/scripts/stylelint.js",
     "linting:test": "npx tslint --rules-dir dist/libs/components/tslint/src/rules --test libs/tools/linting/src/test/**/tslint.json"
   },
   "author": "Dynatrace",
@@ -173,6 +173,7 @@
     "sass-graph": "^3.0.5",
     "sass-loader": "^8.0.2",
     "semver": "^7.3.2",
+    "shelljs": "^0.8.4",
     "stylelint": "^13.2.1",
     "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^8.0.2",

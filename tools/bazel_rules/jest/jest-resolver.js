@@ -1,9 +1,14 @@
 const { sync } = require('resolve');
 const { readFileSync, existsSync, lstatSync } = require('fs');
-const { resolve } = require('path');
+const { resolve, join } = require('path');
 
 // Get the module mappings out of the module mappings file from bazel
-const moduleMappingFile = process.env.BAZEL_TEST_MODULE_MAPPING;
+const [bazelPackage, bazelTarget] = process.env.BAZEL_TARGET.split(':');
+const moduleMappingFile = join(
+  bazelPackage.replace('//', ''),
+  `_${bazelTarget}.module_mappings.json`,
+);
+
 // bazel run files helper used to resolve paths that are created with `$(location ...)`
 const runFilesHelper = require(`${process.env.BAZEL_NODE_RUNFILES_HELPER}`);
 

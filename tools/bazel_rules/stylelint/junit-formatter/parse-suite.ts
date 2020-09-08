@@ -15,15 +15,12 @@
  */
 
 import { LintResult, Warning } from 'stylelint';
-import { relative, join } from 'path';
+import { relative } from 'path';
 import { ParsedSuite, ParsedCase } from './parsed-suite.interface';
-
-// bazel run files helper used to resolve paths that are created with `$(location ...)`
-const { dir, workspace } = require(`${process.env.BAZEL_NODE_RUNFILES_HELPER}`);
 
 /** Creates an object that can be used to create an XML out of the provided lint result */
 export function parseSuite(testSuite: LintResult): ParsedSuite {
-  const name = relative(join(dir, workspace), testSuite.source);
+  const name = relative(process.cwd(), testSuite.source);
   const failuresCount = testSuite.warnings.length;
   const testCases = testSuite.errored
     ? testSuite.warnings.map((testCase: Warning) =>

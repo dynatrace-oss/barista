@@ -5,6 +5,8 @@ const { argv } = require('yargs');
 
 // Path of the test.sh binary that gets created from the nodejs_test
 const { TEST_BINARY } = process.env;
+// Bazels node runfiles helper
+const RUNFILES_HELPER = require(process.env.BAZEL_NODE_RUNFILES_HELPER);
 
 /**
  * Updates the jest config json with additional properties
@@ -48,35 +50,33 @@ function updateJestConfig(suiteName, config = undefined) {
 async function main() {
   const { jestConfig, setupFile, files, suite } = argv;
   const jestConfigPath = updateJestConfig(suite, jestConfig);
-  const base = dirname(jestConfigPath);
-
-  process.env.BAZEL_TEST_MODULE_MAPPING = join(
-    dirname(TEST_BINARY),
-    `_${suite}.module_mappings.json`,
-  );
 
   const resolvedFiles = files
     .split(',')
-    .map((source) => join(base, source).replace(/ts$/, 'js'));
+    .map((source) =>
+      join(RUNFILES_HELPER.package, source).replace(/ts$/, 'js'),
+    );
 
-  const cliArgs = {
-    /**
-     * This is a hack to avoid using the jest-haste-map fs that does not support symbolic links
-     * https://github.com/facebook/metro/issues/1#issuecomment-641633646
-     */
-    _: resolvedFiles,
-    runTestsByPath: true,
-    verbose: true,
-    resolver: resolve('tools/bazel_rules/jest/jest-resolver.js'),
-    rootDir: resolve('./'),
-    colors: false,
-  };
-
-  if (setupFile) {
-    cliArgs.setupFilesAfterEnv = [resolve(setupFile).replace(/ts$/, 'js')];
-  }
-
-  const { results } = await runCLI(cliArgs, [jestConfigPath]);
+  const { results } = await runCLI(
+    {
+      /**
+       * This is a hack to avoid using the jest-haste-map fs that does not support symbolic links
+       * https://github.com/facebook/metro/issues/1#issuecomment-641633646
+       */
+      _: resolvedFiles,
+      setupFilesAfterEnv: setupFile
+        ? [resolve(setupFile).replace(/ts$/, 'js')]
+        : [],
+      runTestsByPath: true,
+      verbose: true,
+      expand: true,
+      cache: false,
+      resolver: resolve('tools/bazel_rules/jest/jest-resolver.js'),
+      rootDir: resolve('./'),
+      colors: true,
+    },
+    [jestConfigPath],
+  );
 
   if (!results.success) {
     throw new Error(`Failed executing jest tests`);
