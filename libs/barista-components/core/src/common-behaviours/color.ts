@@ -70,7 +70,6 @@ export function mixinColor<
     // tslint:disable-next-line:no-any
     constructor(...args: any[]) {
       super(...args);
-
       // Set the default color that can be specified from the mixin.
       this.color = defaultColor as P;
     }
