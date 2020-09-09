@@ -1,3 +1,18 @@
+## [8.0.1](https://github.com/dynatrace-oss/barista/compare/8.0.0...8.0.1) (2020-09-09)
+
+### Bug Fixes
+
+- **button-group:** Fixes a regression that was introduced with the update to
+  the new typescript version.
+  ([0193f0b](https://github.com/dynatrace-oss/barista/commit/0193f0b69f0913e44edc1ca2dfcf698320ee5488)),
+  closes [#1577](https://github.com/dynatrace-oss/barista/issues/1577)
+- **option:** Fixes the behavior of selecting an option with mouse and keyboard,
+  solving the issue of multiple options being selected.
+  ([21addc2](https://github.com/dynatrace-oss/barista/commit/21addc244a532d0117d7d46392f1f517340117a1))
+- **tree-table:** Fixes an overflow issue, when the info-group contains a long
+  text.
+  ([b71371c](https://github.com/dynatrace-oss/barista/commit/b71371c43231cfd3b17e8b1397afe681d176ca5b))
+
 ## [8.0.0](https://github.com/dynatrace-oss/barista/compare/7.7.0...8.0.0) (2020-08-31)
 
 ### Bug Fixes
