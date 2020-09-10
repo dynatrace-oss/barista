@@ -16,6 +16,7 @@
 
 import { Selector } from 'testcafe';
 
+export const treeTable = Selector('.dt-tree-table');
 export const toggleButtons = Selector('.dt-tree-table-toggle');
 export const treeTableRows = Selector('dt-tree-table-row');
 export const expandChangedCount = Selector('.expand-changed');
