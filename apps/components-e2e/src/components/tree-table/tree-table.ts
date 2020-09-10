@@ -36,7 +36,7 @@ const TESTDATA: ThreadNode[] = [
     children: [
       {
         name:
-          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
+          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
         icon: 'airplane',
         threadlevel: 'S1',
         totalTimeConsumption: 150,
