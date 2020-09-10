@@ -14,3 +14,10 @@
   align-items: center;
   position: relative;
 }
+
+.dt-tree-table-content {
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

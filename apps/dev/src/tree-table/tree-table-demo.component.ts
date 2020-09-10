@@ -27,8 +27,7 @@ import {
 
 const TESTDATA: ThreadNode[] = [
   {
-    name:
-      'hz.hzInstance_1_cluster.threadhz.hzInstance_1_cluster.threadhz.hzInstance_1_cluster.threadhz.hzInstance_1_cluster.thread',
+    name: 'hz.hzInstance_1_cluster.threadhz.hzInstance_1_cluster.thread',
     icon: 'airplane',
     threadlevel: 'S0',
     totalTimeConsumption: 150,
@@ -50,7 +49,7 @@ const TESTDATA: ThreadNode[] = [
     children: [
       {
         name:
-          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
+          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1hz.hzInstance_1hz.hzInstance_1hz.hzInstance_1_cluster.thread-1hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
         icon: 'airplane',
         threadlevel: 'S1',
         totalTimeConsumption: 150,

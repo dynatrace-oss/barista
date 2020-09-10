@@ -24,6 +24,7 @@ import {
   collapseAllBtn,
   expandChangedCountWithExpandedTrue,
   expandChangedCountWithExpandedFalse,
+  treeTable,
 } from './tree-table.po';
 import { waitForAngular } from '../../utils/wait-for-angular';
 import { resetWindowSizeToDefault } from '../../utils';
@@ -105,4 +106,11 @@ test('should increase expand counter when expandAll was clicked', async (testCon
     .eql('2')
     .expect(collapsedCount.textContent)
     .eql('2');
+});
+
+test('should hide text in ellipsis when when the text is to large and show the text when hovering', async (testController: TestController) => {
+  await testController
+    .click(toggleButtons)
+    .expect(treeTable.offsetWidth < treeTable.scrollWidth)
+    .eql(false);
 });
