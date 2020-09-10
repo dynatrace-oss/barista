@@ -1553,13 +1553,6 @@
               "!libs/barista-components/empty-state/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/empty-state/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
