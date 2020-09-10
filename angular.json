@@ -1611,12 +1611,6 @@
               "!libs/barista-components/expandable-panel/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/expandable-panel/jest.config.js"
-          }
         }
       },
       "schematics": {}
