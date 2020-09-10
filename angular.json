@@ -1415,13 +1415,6 @@
               "!libs/barista-components/context-dialog/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/context-dialog/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
