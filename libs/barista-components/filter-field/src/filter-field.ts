@@ -530,6 +530,10 @@ export class DtFilterField<T = any>
         // Assign the currently open filter field when it is focused.
         if (this._isFocused) {
           currentlyOpenFilterField = this;
+        } else {
+          // Clear pending input values on focus loss to communicate that the input
+          // wasn't applied as a filter
+          this._writeInputValue('');
         }
       });
 
