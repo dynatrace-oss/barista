@@ -252,6 +252,20 @@ describe('DtFilterField', () => {
     });
   });
 
+  describe('focus loss', () => {
+    it('should clear the current input value', fakeAsync(() => {
+      const input = fixture.debugElement.query(By.css('.dt-filter-field-input'))
+        .nativeElement;
+
+      filterField.focus();
+      typeIntoFilterElement('foo');
+      input.blur();
+      tick();
+
+      expect(input.value).toBe('');
+    }));
+  });
+
   describe('disabled', () => {
     it('should disable the input if filter field is disabled', () => {
       // when
