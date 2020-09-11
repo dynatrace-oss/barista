@@ -2142,12 +2142,6 @@
               "!libs/barista-components/experimental/quick-filter/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/experimental/quick-filter/jest.config.js"
-          }
         }
       }
     },
