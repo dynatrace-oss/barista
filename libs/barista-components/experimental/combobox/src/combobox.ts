@@ -275,6 +275,9 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
+  /** @internal Helps determine if the selection happened programmatically, or the first time. */
+  private _initialOptionChange: boolean = true;
+
   constructor(
     public _elementRef: ElementRef,
     @Optional() public _defaultErrorStateMatcher: ErrorStateMatcher,
@@ -343,11 +346,16 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
       this._templatePortalContent,
       this._viewContainerRef,
     );
-    this._options.changes.pipe(startWith(null)).subscribe(() => {
-      this._autocomplete._additionalOptions = this._options.toArray();
-
-      this._setSelectionByValue(this._value);
-    });
+    this._options.changes
+      .pipe(startWith(null))
+      .pipe(takeUntil(this._destroy))
+      .subscribe(() => {
+        this._autocomplete._additionalOptions = this._options.toArray();
+        this._setSelectionByValue(this._value, this._initialOptionChange);
+        if (this._initialOptionChange) {
+          this._initialOptionChange = false;
+        }
+      });
 
     this._autocompleteTrigger.panelClosingActions.subscribe((event) => {
       // Whenever the panelCloses without a selection event we need to reset the
@@ -453,8 +461,8 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   }
 
   /** Updates the selection by value using selection model and keymanager to handle the active item */
-  private _setSelectionByValue(value: T): void {
-    const correspondingOption = this._selectValue(value);
+  private _setSelectionByValue(value: T, triggered: boolean = true): void {
+    const correspondingOption = this._selectValue(value, triggered);
 
     // Shift focus to the active item
     if (correspondingOption && this._autocomplete?._keyManager) {
@@ -465,7 +473,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
   }
 
   /** Searches for an option matching the value and selects it if found */
-  private _selectValue(value: T): DtOption<T> | undefined {
+  private _selectValue(value: T, triggered: boolean): DtOption<T> | undefined {
     const correspondingOption =
       this._options &&
       this._options.find((option: DtOption<T>) => {
@@ -481,7 +489,7 @@ export class DtCombobox<T> extends _DtComboboxMixinBase
         }
       });
 
-    if (correspondingOption) {
+    if (correspondingOption && triggered) {
       this._selectionModel.select(correspondingOption);
     }
 
