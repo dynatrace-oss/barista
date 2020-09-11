@@ -1979,13 +1979,6 @@
               "!libs/barista-components/menu/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/menu/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
