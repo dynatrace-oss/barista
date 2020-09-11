@@ -67,6 +67,13 @@ set up a sidenav we use two components: `dt-sidenav-container` which act as a
 structural container for our content, sidenav and `dt-sidenav` which represents
 the added side content. The component is always at the root of the page.
 
+## Shrinking behaviour
+
+If the `mode` is set to `side`, the drawer will show the side content next to
+the primary content, causing the primary content to shrink in width. If the
+width of the drawer is less than 1024 pixels, however, it will act as an overlay
+on top of the main content instead.
+
 ## Basic example
 
 ```html
