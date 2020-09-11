@@ -1998,12 +1998,6 @@
               "!libs/barista-components/pagination/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/pagination/jest.config.js"
-          }
         }
       },
       "schematics": {}
