@@ -2008,12 +2008,6 @@
               "!libs/barista-components/micro-chart/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/micro-chart/jest.config.js"
-          }
         }
       },
       "schematics": {}
