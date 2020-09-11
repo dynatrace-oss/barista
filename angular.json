@@ -1451,13 +1451,6 @@
               "!libs/barista-components/copy-to-clipboard/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/copy-to-clipboard/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
