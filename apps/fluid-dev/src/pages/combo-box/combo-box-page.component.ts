@@ -13,11 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+
 import '@dynatrace/fluid-elements/combo-box';
+
+/**
+ * @license
+ * Copyright 2020 Dynatrace LLC
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 
 // tslint:disable-next-line: no-duplicate-imports
 import { FluidComboBox } from '@dynatrace/fluid-elements/combo-box';
+
 // import { SelectionModel } from '../../../../../libs/fluid-elements/combo-box/src/lib/SelectionModel';
 
 @Component({
@@ -146,8 +164,10 @@ export class FluidComboBoxPage implements AfterViewInit {
 
   optionsAplenty: string[] = [];
 
-  @ViewChild('comboBoxCustomTemplate') _comboBoxCustomTemplate: FluidComboBox;
-  @ViewChild('comboBoxDisableAtRuntime') _comboBoxDisable: FluidComboBox;
+  @ViewChild('comboBoxCustomTemplate') _comboBoxCustomTemplate: FluidComboBox<
+    any
+  >;
+  @ViewChild('comboBoxDisableAtRuntime') _comboBoxDisable: FluidComboBox<any>;
 
   constructor() {
     // const selectionModel = new SelectionModel<string>();
@@ -157,6 +177,10 @@ export class FluidComboBoxPage implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    // this.optionStrings = [];
+    // for (let i = 0; i < 1000000; i += 1) {
+    //   this.optionStrings.push({ text: `option${i}` });
+    // }
     // setTimeout(() => {
     //   for (let i = 0; i < 1000; i += 1) {
     //     this.optionsAplenty.push(`option${i}`);
@@ -170,9 +194,7 @@ export class FluidComboBoxPage implements AfterViewInit {
     // }, 5000);
   }
 
-  optionTemplateFn(option: { count: number; text: string }): string {
-    return `<option>${option.count % 2 === 0 ? `${option.count} ` : ''} ${
-      option.text
-    }</option>`;
+  optionTemplateFn(option: { text: string }): string {
+    return `${option.text}`;
   }
 }

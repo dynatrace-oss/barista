@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import '@dynatrace/fluid-elements/checkbox';
+
 import {
   CSSResult,
   LitElement,
@@ -24,10 +26,8 @@ import {
   property,
   unsafeCSS,
 } from 'lit-element';
-import { nothing } from 'lit-html';
-import '@dynatrace/fluid-elements/checkbox';
-import { FLUID_INPUT_PADDING } from '@dynatrace/fluid-design-tokens';
 
+import { FLUID_INPUT_PADDING } from '@dynatrace/fluid-design-tokens';
 import { FluidOptionSelectedChangeEvent } from './option-events';
 
 let _unique = 0;
@@ -53,11 +53,16 @@ export class FluidOption extends LitElement {
         );
       }
 
-      .combo-box-option {
-        display: inline-grid;
-        grid-auto-flow: column;
-        align-items: center;
+      .fluid-option {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: start;
         padding: ${unsafeCSS(FLUID_INPUT_PADDING)};
+      }
+
+      .fluid-icon {
+        width: auto;
+        height: 1rem;
       }
     `;
   }
@@ -74,7 +79,7 @@ export class FluidOption extends LitElement {
    * @attr
    */
   @property({ type: Boolean, reflect: true })
-  checkbox = true;
+  checkbox = false;
 
   /**
    * Defines whether the option is selected
@@ -90,13 +95,6 @@ export class FluidOption extends LitElement {
   @property({ type: Boolean, reflect: true })
   focused = false;
 
-  /**
-   * Defines whether the selected indicator is displayed
-   * @attr
-   */
-  @property({ type: Boolean, reflect: true })
-  selectedindicator = false;
-
   private _handleClick(): void {
     this.dispatchEvent(new FluidOptionSelectedChangeEvent(this.optionid));
   }
@@ -107,18 +105,17 @@ export class FluidOption extends LitElement {
    */
   render(): TemplateResult {
     return html`
-      <div
-        id=${this.optionid}
-        class="combo-box-option"
-        @click=${this._handleClick}
-      >
+      <div id=${this.optionid} class="fluid-option" @click=${this._handleClick}>
         ${this.checkbox
           ? html`<fluid-checkbox ?checked=${this.selected}></fluid-checkbox>`
-          : nothing}
+          : html`<span></span>`}
         <slot></slot>
-        ${this.selectedindicator && this.selected
-          ? html`<span>selected</span>`
-          : nothing}
+        ${!this.checkbox && this.selected
+          ? html`<fluid-icon
+              class="fluid-icon"
+              name="dropdownopen"
+            ></fluid-icon>`
+          : html`<span></span>`}
       </div>
     `;
   }

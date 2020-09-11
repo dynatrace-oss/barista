@@ -86,7 +86,8 @@ export class FluidPopover extends LitElement {
         ${unsafeCSS(fluidDtText())};
         display: none;
         overflow: scroll;
-        max-height: 250px;
+        max-height: 350px;
+        max-width: 250px;
         background: var(--fluid-popover--background);
         box-shadow: ${unsafeCSS(FLUID_INPUT_BOX_SHADOW)} rgba(21, 23, 27, 0.2);
         transition: opacity 1500ms ease-in-out;
@@ -235,9 +236,7 @@ export class FluidPopover extends LitElement {
         @mouseenter=${this._toggleMouseInside}
         @mouseleave=${this._toggleMouseInside}
       >
-        <div class="fluid-popover-elements-container">
-          <slot></slot>
-        </div>
+        <slot></slot>
       </div>
     `;
   }

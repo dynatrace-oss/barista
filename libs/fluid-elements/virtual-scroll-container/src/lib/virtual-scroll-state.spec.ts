@@ -14,5 +14,20 @@
  * limitations under the License.
  */
 
-export * from './lib/keyboard';
-export * from './lib/selection';
+import { VirtualScrollState } from './virtual-scroll-state';
+
+function tick(): Promise<void> {
+  return Promise.resolve();
+}
+
+describe('Fluid button', () => {
+  let instance: VirtualScrollState;
+
+  beforeEach(() => {
+    instance = new VirtualScrollState();
+  });
+
+  it('should create the scroll state instance', async () => {
+    expect(instance).not.toBe(null);
+  });
+});

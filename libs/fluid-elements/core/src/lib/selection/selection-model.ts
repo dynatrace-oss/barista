@@ -27,14 +27,13 @@ export class SelectionModel<T> {
       this._selected = Array.from(this._selection.values());
     }
 
-    return this._selected;
+    return this._selected.sort();
   }
   private _selected: T[] | null;
 
   constructor(private _multiple: boolean, initialSelection?: T[]) {
     if (initialSelection && initialSelection.length) {
       if (this._multiple) {
-        console.log(initialSelection);
         initialSelection.forEach((item) => this.select(item));
       } else {
         this.select(initialSelection[0]);
