@@ -1928,13 +1928,6 @@
               "!libs/barista-components/legend/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/legend/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
