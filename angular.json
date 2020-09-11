@@ -1393,13 +1393,6 @@
               "!libs/barista-components/container-breakpoint-observer/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/container-breakpoint-observer/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
