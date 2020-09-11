@@ -1856,12 +1856,6 @@
               "!libs/barista-components/inline-editor/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/inline-editor/jest.config.js"
-          }
         }
       },
       "schematics": {}
