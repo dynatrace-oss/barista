@@ -27,6 +27,7 @@ import {
 } from '@angular/core';
 import { CanDisable, HasId, mixinId } from '@dynatrace/barista-components/core';
 import { filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Directive({
   exportAs: 'dtExpandableSectionHeader',
@@ -89,14 +90,14 @@ export class DtExpandableSection extends _ExpandableSectionBase
   @Output() readonly expandChange = new EventEmitter<boolean>();
 
   /** @internal Event emitted when the section is expanded. */
-  @Output('expanded') readonly _sectionExpanded = this.expandChange.pipe(
-    filter((v) => v),
-  );
+  @Output('expanded') readonly _sectionExpanded: Observable<
+    boolean
+  > = this.expandChange.pipe(filter((v) => v));
 
   /** @internal Event emitted when the section is collapsed. */
-  @Output('collapsed') readonly _sectionCollapsed = this.expandChange.pipe(
-    filter((v) => !v),
-  );
+  @Output('collapsed') readonly _sectionCollapsed: Observable<
+    boolean
+  > = this.expandChange.pipe(filter((v) => !v));
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     super();
