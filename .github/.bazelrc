@@ -1,0 +1,21 @@
+# Print all enabled Bazel flags in CI mode. This makes it easier to debug and reproduce
+# Bazel issues that show up on Github Actions.
+common --announce_rc
+
+# recommended options by bazel founders from BazelCon2019
+# https://youtu.be/j332WfhNAFg?t=993
+common --show_progress_rate_limit=5
+common --curses=yes
+common --color=yes
+common --show_timestamps
+common --verbose_failures
+
+# Save downloaded repositories in a location that can be cached by Github Actions. This helps us
+# speeding up the analysis time significantly with Bazel managed node dependencies on the CI.
+build --repository_cache=/home/runner/.cache/bazel-repo-cache
+
+# Setup disk_cache as it is way faster then the remote cache
+build --disk_cache=/home/runner/.cache/bazel-disk-cache
+
+test --build_tests_only
+test --flaky_test_attempts=3
