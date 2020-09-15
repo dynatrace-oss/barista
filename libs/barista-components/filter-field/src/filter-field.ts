@@ -200,13 +200,21 @@ export class DtFilterField<T = any>
   @Input() errorStateMatcher: ErrorStateMatcher;
 
   /** A function to override the default or injected configuration for tag parsing */
-  @Input() customTagParser:
-    | ((
-        filterValues: DtFilterValue[],
-        editable?: boolean,
-        deletable?: boolean,
-      ) => DtFilterFieldTagData | null)
-    | null = null;
+  @Input()
+  get customTagParser(): TagParserFunction | null {
+    return this._customTagParser;
+  }
+  set customTagParser(value: TagParserFunction | null) {
+    this._customTagParser = value;
+
+    if (value !== null) {
+      this.tagValuesParser = value;
+    }
+
+    this._updateTagData();
+    this._changeDetectorRef.markForCheck();
+  }
+  private _customTagParser: TagParserFunction | null = null;
 
   /** The data source instance that should be connected to the filter field. */
   @Input()

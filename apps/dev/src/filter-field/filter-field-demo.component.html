@@ -4,6 +4,8 @@
   [disabled]="_disabled"
   label="Filter by"
   clearAllLabel="Clear all"
+  [filters]="filters"
+  [customTagParser]="customParser"
   (inputChange)="inputChange($event)"
   (filterChanges)="filterChanges($event)"
   (currentFilterChanges)="currentFilterChanges($event)"
