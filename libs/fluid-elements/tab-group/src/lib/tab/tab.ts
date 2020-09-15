@@ -23,6 +23,7 @@ import {
   css,
   unsafeCSS,
   customElement,
+  PropertyValues,
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import {
@@ -242,7 +243,7 @@ export class FluidTab extends LitElement {
   private _rootElement: HTMLSpanElement;
 
   /** First updated lifecycle */
-  firstUpdated(props: Map<string | number | symbol, unknown>): void {
+  firstUpdated(props: PropertyValues): void {
     super.firstUpdated(props);
     this._rootElement = this.shadowRoot?.querySelector(
       '.fluid-tab',

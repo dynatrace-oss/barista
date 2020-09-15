@@ -40,10 +40,10 @@ A basic representation of the button-group wrapper for button-group-items
 
 ## Properties
 
-| Property    | Attribute   | Type             | Description                                                 |
-| ----------- | ----------- | ---------------- | ----------------------------------------------------------- |
-| `checkedId` | `checkedId` | `string || null` | Currently checked button group item.                        |
-| `disabled`  | `disabled`  | `boolean`        | Whether the component and the children are disabled or not. |
+| Property     | Attribute   | Type             | Description                                                 |
+| ------------ | ----------- | ---------------- | ----------------------------------------------------------- |
+| `checkedId`  | `checkedId` | `string || null` | Currently checked button group item.                        |
+| `disableAll` | `disabled`  | `boolean`        | Whether the component and the children are disabled or not. |
 
 ## Slots
 
