@@ -22,6 +22,9 @@ import {
   DtFilterFieldCurrentFilterChangeEvent,
   DtFilterFieldDefaultDataSource,
   DtFilterFieldTag,
+  DtFilterValue,
+  DtFilterFieldTagData,
+  defaultTagDataForFilterValuesParser,
 } from '@dynatrace/barista-components/filter-field';
 
 import { COMPLEX_DATA } from './data';
@@ -235,10 +238,42 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
       ];
     }
   }
+
+  filters = [
+    // Free text
+    [
+      TEST_DATA.autocomplete[0],
+      TEST_DATA.autocomplete[0].autocomplete![2],
+      'foo',
+    ],
+
+    // async data
+    [TEST_DATA.autocomplete[2], (TEST_DATA_ASYNC as any).autocomplete[0]],
+
+    // option as a string
+    [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
+  ];
+
   getTagForFilter(): void {
     const rangeTag = this.filterField.getTagForFilter(blaRange);
     rangeTag!.deletable = false;
     const freeTag = this.filterField.getTagForFilter(blaFree);
     freeTag!.editable = false;
+  }
+
+  customParser(
+    filterValues: DtFilterValue[],
+    editable?: boolean,
+    deletable?: boolean,
+  ): DtFilterFieldTagData | null {
+    const tagData = defaultTagDataForFilterValuesParser(
+      filterValues,
+      editable,
+      deletable,
+    );
+    if (tagData) {
+      tagData.key = '❤ ' + tagData.key;
+    }
+    return tagData;
   }
 }
