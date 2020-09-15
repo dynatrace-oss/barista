@@ -30,7 +30,6 @@ import {
   Optional,
   ViewChild,
   ViewEncapsulation,
-  AfterContentInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -78,12 +77,7 @@ function escapeRegExp(text: string): string {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtHighlight
-  implements
-    AfterContentChecked,
-    AfterContentInit,
-    AfterViewInit,
-    OnChanges,
-    OnDestroy {
+  implements AfterContentChecked, AfterViewInit, OnChanges, OnDestroy {
   /**
    * The caseSensitive input can be set to search for case sensitive occurrences.
    * Per default the search is case insensitive.
@@ -140,6 +134,14 @@ export class DtHighlight
   }
 
   ngAfterViewInit(): void {
+    // Initially we need to run and force highlight once
+    // to move the text content value into the visible span
+    // Otherwise some layouts will be tripped up, as the visible span
+    // would be 0x0 pixels large.
+    const textContent = this._getTextContent();
+    this._textContent = textContent;
+    this._highlight(true);
+
     // Observable whether the component is in the viewport.
     this._isInViewportSubscription = createInViewportStream(
       this._elementRef,
@@ -150,16 +152,6 @@ export class DtHighlight
         this._highlight();
       }
     });
-  }
-
-  ngAfterContentInit(): void {
-    // Initially we need to run and force highlight once
-    // to move the text content value into the visible span
-    // Otherwise some layouts will be tripped up, as the visible span
-    // would be 0x0 pixels large.
-    const textContent = this._getTextContent();
-    this._textContent = textContent;
-    this._highlight(true);
   }
 
   ngOnDestroy(): void {
