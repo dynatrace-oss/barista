@@ -116,9 +116,9 @@ describe('Fluid button-group', () => {
     });
   });
 
-  describe('disabled attribute', () => {
+  describe('disableAll attribute', () => {
     it('should disable every item if attribute is set', async () => {
-      fixture.setAttribute('disabled', '');
+      fixture.setAttribute('disableAll', '');
       await tick();
       expect(
         fixture.querySelector<FluidButtonGroupItem>(
@@ -137,7 +137,7 @@ describe('Fluid button-group', () => {
       ).toBe(true);
     });
     it('should disable every item if property is set to true', async () => {
-      fixture.disabled = true;
+      fixture.disableAll = true;
       await tick();
       expect(
         fixture.querySelector<FluidButtonGroupItem>(
@@ -156,7 +156,7 @@ describe('Fluid button-group', () => {
       ).toBe(true);
     });
     it('should enable every item if property is reset', async () => {
-      fixture.disabled = true;
+      fixture.disableAll = true;
       await tick();
       expect(
         fixture.querySelector<FluidButtonGroupItem>(
@@ -173,7 +173,7 @@ describe('Fluid button-group', () => {
           'fluid-button-group-item:nth-child(3)',
         )?.disabled,
       ).toBe(true);
-      fixture.disabled = false;
+      fixture.disableAll = false;
       await tick();
       expect(
         fixture.querySelector<FluidButtonGroupItem>(

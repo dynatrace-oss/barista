@@ -23,6 +23,7 @@ import {
   css,
   unsafeCSS,
   customElement,
+  PropertyValues,
 } from 'lit-element';
 import { classMap } from 'lit-html/directives/class-map';
 import { SPACE } from '@dynatrace/shared/keycodes';
@@ -258,13 +259,13 @@ export class FluidCheckbox extends LitElement {
   ariaChecked: string = 'false';
 
   /** First updated lifecycle */
-  firstUpdated(props: Map<string | number | symbol, unknown>): void {
+  firstUpdated(props: PropertyValues): void {
     super.firstUpdated(props);
     this._inputElement = this.shadowRoot?.querySelector('input')!;
   }
 
   /** Update lifecycle */
-  update(props: Map<string | number | symbol, unknown>): void {
+  update(props: PropertyValues): void {
     // Aria-checked depends on the value of checked, but is never actually
     // set by the litElement reactivity. In the updated lifeCycle
     // we need to manually update the ariaChecked attribute here.
