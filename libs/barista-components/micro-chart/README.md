@@ -45,12 +45,6 @@ To use a micro chart, add the `<dt-micro-chart>` element to the view and set
 | `seriesId`          | `string | undefined` | Gets the series ID of the series currently used in the chart. |
 | `highchartsOptions` | `Options`            | Returns highchart options which are used in the chart.        |
 
-## Content children
-
-As the microchart component is a wrapper for charts, the same content children –
-e.g. a `dt-chart-tooltip` – can be used. Find details on the
-[chart page](/components/charts/).
-
 ## Variants
 
 <ba-ux-snippet name="micro-chart-variants"></ba-ux-snippet>
