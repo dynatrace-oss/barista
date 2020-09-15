@@ -89,16 +89,16 @@ export class FluidButtonGroup extends LitElement {
    * @type boolean
    */
   @property({ type: Boolean, reflect: true })
-  get disabled(): boolean {
-    return this._disabled;
+  get disableAll(): boolean {
+    return this._disableAll;
   }
-  set disabled(value: boolean) {
+  set disableAll(value: boolean) {
     const oldValue = value;
-    this._disabled = value;
-    this.requestUpdate('disabled', oldValue);
+    this._disableAll = value;
+    this.requestUpdate('disableAll', oldValue);
     this._setDisabledOnEveryItem();
   }
-  private _disabled = false;
+  private _disableAll = false;
 
   /**
    * Role of the radio-group.
@@ -212,7 +212,7 @@ export class FluidButtonGroup extends LitElement {
   /** Disables every item in the group */
   private _setDisabledOnEveryItem(): void {
     for (const item of this._buttonGroupItems) {
-      item.disabled = this._disabled;
+      item.disabled = this._disableAll;
     }
   }
 }

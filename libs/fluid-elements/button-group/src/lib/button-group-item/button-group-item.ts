@@ -83,12 +83,10 @@ export class FluidButtonGroupItem extends LitElement {
       }
 
       :host([disabled]) .fluid-label {
-        // TODO: Should be replaced by an opacity token at some point.
         opacity: 0.5;
       }
 
       :host([disabled]) .fluid-button-group-item-svg {
-        // TODO: Should be replaced by an opacity token at some point.
         opacity: 0.5;
       }
 
