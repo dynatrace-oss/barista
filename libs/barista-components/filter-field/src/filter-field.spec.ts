@@ -499,8 +499,10 @@ describe('DtFilterField', () => {
 
       options = getOptions(overlayContainerElement);
       expect(options.length).toBe(2);
-      expect(options[0].textContent!.trim()).toBe('Los Angeles');
-      expect(options[1].textContent!.trim()).toBe('San Fran');
+      // We use contain in favor of toBe as the text has to be inside twice due to the highlight
+      // The second occurrence is hidden by display:none
+      expect(options[0].textContent).toContain('Los Angeles');
+      expect(options[1].textContent).toContain('San Fran');
 
       zone.simulateZoneExit();
     }));
@@ -524,7 +526,9 @@ describe('DtFilterField', () => {
 
       options = getOptions(overlayContainerElement);
       expect(options.length).toBe(1);
-      expect(options[0].textContent!.trim()).toBe('Upper Austria');
+      // We use contain in favor of toBe as the text has to be inside twice due to the highlight
+      // The second occurrence is hidden by display:none
+      expect(options[0].textContent).toContain('Upper Austria');
       tick();
     }));
 
@@ -786,7 +790,9 @@ describe('DtFilterField', () => {
       advanceFilterfieldCycle();
 
       options = getOptions(overlayContainerElement);
-      expect(options[0].textContent).toMatch(/^\s*AUT\s*$/);
+      // We use contain in favor of toBe as the text has to be inside twice due to the highlight
+      // The second occurrence is hidden by display:none
+      expect(options[0].textContent).toContain('AUT');
     });
 
     it('should switch back from root after deleting a unfinished freetext filter with BACKSPACE', () => {
@@ -803,9 +809,11 @@ describe('DtFilterField', () => {
       expect(tags.length).toBe(0);
 
       const options = getOptions(overlayContainerElement);
-      expect(options[0].textContent).toMatch(/^\s*AUT\s*$/);
-      expect(options[1].textContent).toMatch(/^\s*USA\s*$/);
-      expect(options[2].textContent).toMatch(/^\s*Free\s*$/);
+      // We use contain in favor of toBe as the text has to be inside twice due to the highlight
+      // The second occurrence is hidden by display:none
+      expect(options[0].textContent).toContain('AUT');
+      expect(options[1].textContent).toContain('USA');
+      expect(options[2].textContent).toContain('Free');
     });
 
     it('should remove a parent from an autocomplete if it is distinct and an option has been selected', () => {
