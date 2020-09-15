@@ -460,7 +460,7 @@ jobs:
 # - unit testing with jest
   bazel_unit_test:
     executor: bazel
-    resource_class: large
+    resource_class: xlarge
     steps:
       - setup_bazel_ci
       - run_bazel_jest
