@@ -1,3 +1,21 @@
+## [8.0.2](https://github.com/dynatrace-oss/barista/compare/8.0.1...8.0.2) (2020-09-16)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue where the value was not reset.
+  ([139f97f](https://github.com/dynatrace-oss/barista/commit/139f97f11755f2c0063bd3d78bff73780bb52f6c))
+- **filter-field:** Fixed UX problem where text that wasn't applied to the
+  filter would remain after losing focus.
+  ([dbddb97](https://github.com/dynatrace-oss/barista/commit/dbddb973f650812bf0d98c7995d126475198c6a3))
+- **filter-field:** Fixes an issue where custom tag parsers are not applied on
+  filters set initially.
+  ([c43b0a4](https://github.com/dynatrace-oss/barista/commit/c43b0a4f8e64bdfa80108a76471c0c437d254355)),
+  closes [#1591](https://github.com/dynatrace-oss/barista/issues/1591)
+- **filter-field:** Fixes an issue where suggestions are not displayed in MS
+  Edge.
+  ([43733a1](https://github.com/dynatrace-oss/barista/commit/43733a1ceeafb8da23ee9a3ffb89b47b300521b4)),
+  closes [#1558](https://github.com/dynatrace-oss/barista/issues/1558)
+
 ## [8.0.1](https://github.com/dynatrace-oss/barista/compare/8.0.0...8.0.1) (2020-09-09)
 
 ### Bug Fixes
