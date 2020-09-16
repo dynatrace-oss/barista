@@ -6,6 +6,10 @@
   --dt-alert-default-color: var(--dt-warning-default-color);
 }
 
+:host.dt-alert-info {
+  --dt-alert-default-color: var(--dt-accent-default-color);
+}
+
 .dt-alert-icon-container {
   background-color: var(--dt-alert-default-color);
 }

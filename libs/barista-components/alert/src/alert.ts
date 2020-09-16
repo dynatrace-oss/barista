@@ -20,6 +20,13 @@ import {
   Input,
   ViewEncapsulation,
 } from '@angular/core';
+import { DtIconType } from '@dynatrace/barista-icons';
+
+const ALERT_SEVERITY_TO_ICON_MAP: Record<string, DtIconType> = {
+  error: 'criticalevent',
+  warning: 'incident',
+  info: 'information',
+};
 
 @Component({
   selector: 'dt-alert',
@@ -29,6 +36,7 @@ import {
     role: 'alert',
     class: 'dt-alert',
     '[class.dt-alert-warning]': 'severity === "warning"',
+    '[class.dt-alert-info]': 'severity === "info"',
   },
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,5 +44,12 @@ import {
 })
 export class DtAlert {
   /** The severity type of the alert. */
-  @Input() severity: 'error' | 'warning' = 'error';
+  @Input() severity: 'error' | 'warning' | 'info' = 'error';
+
+  get severityIcon(): DtIconType {
+    return (
+      ALERT_SEVERITY_TO_ICON_MAP[this.severity] ??
+      ALERT_SEVERITY_TO_ICON_MAP.error
+    );
+  }
 }
