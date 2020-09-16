@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { sep, join } from 'path';
+import { join } from 'path';
 
 /** Finds the innermost folder that contains all the given paths */
 export function findCommonRootPath(paths: string[]): string | undefined {
   for (const path of paths) {
-    const pathParts = path.split(sep);
+    const pathParts = path.split('/');
 
     for (let i = pathParts.length - 1; i >= 0; i--) {
       const subPath = join(...pathParts.slice(0, i));
