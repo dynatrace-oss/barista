@@ -22,11 +22,13 @@ import {
   QueryList,
   ViewChildren,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { BaTile } from './components/tile';
+import { componentImgUrlJson } from './component-img-urls';
 import { DOCUMENT } from '@angular/common';
 import { BaCategoryNavigation } from '@dynatrace/shared/design-system/interfaces';
 
@@ -40,7 +42,7 @@ const LOCALSTORAGEKEY = 'baristaGridview';
     class: 'ba-page',
   },
 })
-export class BaOverviewPage implements AfterViewInit, OnDestroy {
+export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
   content = this._pageService._getCurrentPage() as BaCategoryNavigation;
 
   /** @internal whether the tiles are currently displayed as list */
@@ -67,6 +69,10 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
       const localStorageState = localStorage.getItem(LOCALSTORAGEKEY);
       this._listViewActive = localStorageState !== 'tiles';
     }
+  }
+
+  ngOnInit(): void {
+    this._prepareItemsImgs();
   }
 
   /**
@@ -100,6 +106,21 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
       this._listViewActive
         ? localStorage.setItem(LOCALSTORAGEKEY, 'list')
         : localStorage.setItem(LOCALSTORAGEKEY, 'tiles');
+    }
+  }
+
+  /**
+   * Add image url for the component preview to be displayed
+   */
+  private _prepareItemsImgs(): void {
+    const components = this.content.sections.filter(
+      (section) => section.title === 'Components',
+    )[0].items;
+    for (const component of components) {
+      const componentImg = componentImgUrlJson.find(
+        (item) => item.component === component.title,
+      );
+      component.imgUrl = componentImg?.url;
     }
   }
 
@@ -155,5 +176,12 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
     }
 
     this._previousKey = key;
+  }
+
+  isComponentPreview(title: string): boolean {
+    if (title === 'Components') {
+      return true;
+    }
+    return false;
   }
 }
