@@ -1,54 +1,107 @@
-<div
-  *ngIf="_hasBadge"
-  class="ba-tile-status"
-  [class.ba-tile-badge-warning]="_deprecated || _experimental"
-  [class.ba-tile-badge-workinprogress]="_workinprogress"
-  [class.ba-tile-badge-favorite]="_favorite"
->
-  <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
-    <polygon points="50,0 0,0 50,50" />
-  </svg>
-  <img
-    *ngIf="_workinprogress"
-    src="/assets/maintenance-royalblue.svg"
-    alt="Work in progress indicator"
-    class="ba-tile-status-icon"
-  />
-  <img
-    *ngIf="_experimental"
-    src="/assets/laboratory-white.svg"
-    alt="Experimental indicator"
-    class="ba-tile-status-icon"
-  />
-  <img
-    *ngIf="_favorite"
-    src="/assets/favorite-white.svg"
-    alt="Favorite indicator"
-    class="ba-tile-status-icon"
-  />
-  <img
-    *ngIf="_deprecated"
-    src="/assets/incident-white.svg"
-    alt="Deprecated indicator"
-    class="ba-tile-status-icon"
-  />
-</div>
-<div class="ba-tile-content">
-  <div class="ba-tile-header">
-    <div class="ba-tile-identifier">
-      {{ data.identifier }}
-    </div>
-    <div class="ba-tile-headertext">
-      <div class="ba-tile-title">{{ data.title }}</div>
-      <div class="ba-tile-type">{{ data.section }}</div>
-    </div>
+<ng-container *ngIf="!data.imgUrl">
+  <div
+    *ngIf="_hasBadge"
+    class="ba-tile-status"
+    [class.ba-tile-badge-warning]="_deprecated || _experimental"
+    [class.ba-tile-badge-workinprogress]="_workinprogress"
+    [class.ba-tile-badge-favorite]="_favorite"
+  >
+    <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
+      <polygon points="50,0 0,0 50,50" />
+    </svg>
+    <img
+      *ngIf="_workinprogress"
+      src="/assets/maintenance-royalblue.svg"
+      alt="Work in progress indicator"
+      class="ba-tile-status-icon"
+    />
+    <img
+      *ngIf="_experimental"
+      src="/assets/laboratory-white.svg"
+      alt="Experimental indicator"
+      class="ba-tile-status-icon"
+    />
+    <img
+      *ngIf="_favorite"
+      src="/assets/favorite-white.svg"
+      alt="Favorite indicator"
+      class="ba-tile-status-icon"
+    />
+    <img
+      *ngIf="_deprecated"
+      src="/assets/incident-white.svg"
+      alt="Deprecated indicator"
+      class="ba-tile-status-icon"
+    />
   </div>
-  <ng-container *ngIf="!listView">
-    <div class="ba-tile-description">
-      {{ data.description }}
+  <div class="ba-tile-content">
+    <div class="ba-tile-header">
+      <div class="ba-tile-identifier">
+        {{ data.identifier }}
+      </div>
+      <div class="ba-tile-headertext">
+        <div class="ba-tile-title">{{ data.title }}</div>
+        <div class="ba-tile-type">{{ data.section }}</div>
+      </div>
     </div>
-    <div class="ba-tile-footer">
-      <span>{{ data.title }} details&nbsp;→</span>
-    </div>
-  </ng-container>
-</div>
+    <ng-container *ngIf="!listView">
+      <div class="ba-tile-description">
+        {{ data.description }}
+      </div>
+      <div class="ba-tile-footer">
+        <span>{{ data.title }} details&nbsp;→</span>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+<ng-container *ngIf="data.imgUrl">
+  <div class="ba-tile-img-preview">
+    <img class="ba-tile-img" src="{{ data.imgUrl }}" />
+  </div>
+  <div
+    *ngIf="_hasBadge"
+    class="ba-tile-status"
+    [class.ba-tile-badge-warning]="_deprecated || _experimental"
+    [class.ba-tile-badge-workinprogress]="_workinprogress"
+    [class.ba-tile-badge-favorite]="_favorite"
+  >
+    <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
+      <polygon points="50,0 0,0 50,50" />
+    </svg>
+    <img
+      *ngIf="_workinprogress"
+      src="/assets/maintenance-royalblue.svg"
+      alt="Work in progress indicator"
+      class="ba-tile-status-icon"
+    />
+    <img
+      *ngIf="_experimental"
+      src="/assets/laboratory-white.svg"
+      alt="Experimental indicator"
+      class="ba-tile-status-icon"
+    />
+    <img
+      *ngIf="_favorite"
+      src="/assets/favorite-white.svg"
+      alt="Favorite indicator"
+      class="ba-tile-status-icon"
+    />
+    <img
+      *ngIf="_deprecated"
+      src="/assets/incident-white.svg"
+      alt="Deprecated indicator"
+      class="ba-tile-status-icon"
+    />
+  </div>
+  <div class="ba-tile-content">
+    <div class="ba-tile-title">{{ data.title }}</div>
+    <ng-container *ngIf="!listView">
+      <div class="ba-tile-description">
+        {{ data.description }}
+      </div>
+      <div class="ba-tile-footer">
+        <span>{{ data.title }} details&nbsp;→</span>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

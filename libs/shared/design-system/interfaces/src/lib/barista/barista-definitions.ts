@@ -100,7 +100,7 @@ export interface BaCategoryNavigationContent extends BaPageMetaBase {
 
 export interface BaCategoryNavigationSection {
   title?: string;
-  items: BaCategoryNavigationSectionItem[];
+  items: BaCategoryNavigationSectionItemImg[];
 }
 
 export interface BaCategoryNavigation {
@@ -120,6 +120,11 @@ export interface BaCategoryNavigationSectionItem {
   description: string;
   order?: number;
   active?: boolean;
+}
+
+export interface BaCategoryNavigationSectionItemImg
+  extends BaCategoryNavigationSectionItem {
+  imgUrl?: string;
 }
 
 /** Index page content */

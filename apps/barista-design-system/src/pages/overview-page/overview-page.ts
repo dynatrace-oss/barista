@@ -22,13 +22,17 @@ import {
   QueryList,
   ViewChildren,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { BaTile } from './components/tile';
 import { DOCUMENT } from '@angular/common';
-import { BaCategoryNavigation } from '@dynatrace/shared/design-system/interfaces';
+import {
+  BaCategoryNavigation,
+  BaCategoryNavigationSectionItemImg,
+} from '@dynatrace/shared/design-system/interfaces';
 
 const LOCALSTORAGEKEY = 'baristaGridview';
 
@@ -40,8 +44,11 @@ const LOCALSTORAGEKEY = 'baristaGridview';
     class: 'ba-page',
   },
 })
-export class BaOverviewPage implements AfterViewInit, OnDestroy {
+export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
   content = this._pageService._getCurrentPage() as BaCategoryNavigation;
+
+  /** @internal */
+  _componentsWithImgURL: BaCategoryNavigationSectionItemImg[] = [];
 
   /** @internal whether the tiles are currently displayed as list */
   _listViewActive = true;
@@ -69,11 +76,16 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
     }
   }
 
+  ngOnInit(): void {
+    this._prepareItemsImgs();
+  }
+
   /**
    * prepare the items that should be available via shortcuts
    * and subscribe for keyup events
    */
   ngAfterViewInit(): void {
+    console.log(this.content.sections[0].items[0].title);
     this._prepareItems();
     this._keyUpSubscription = fromEvent(this._document, 'keyup').subscribe(
       (evt: KeyboardEvent) => {
@@ -101,6 +113,36 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
         ? localStorage.setItem(LOCALSTORAGEKEY, 'list')
         : localStorage.setItem(LOCALSTORAGEKEY, 'tiles');
     }
+  }
+
+  private _imgUrlJson = [
+    {
+      component: 'Alert',
+      url: 'https://dt-cdn.net/images/barista-preview-alert-600-f6dbfd0273.png',
+    },
+    {
+      component: 'Bar indicator',
+      url:
+        'https://dt-cdn.net/images/barista-preview-barindicator-600-e21e2903f1.png',
+    },
+    {
+      component: 'Breadcrumbs',
+      url:
+        'https://dt-cdn.net/images/barista-preview-breadcrumbs-1024-fd7bd72db1.png',
+    },
+  ];
+
+  private _prepareItemsImgs(): void {
+    const components = this.content.sections.filter(
+      (section) => section.title === 'Components',
+    )[0].items;
+    for (const component of components) {
+      const componentImg = this._imgUrlJson.find(
+        (item) => item.component === component.title,
+      );
+      component.imgUrl = componentImg?.url;
+    }
+    console.log(this.content.sections[1].items);
   }
 
   /**
