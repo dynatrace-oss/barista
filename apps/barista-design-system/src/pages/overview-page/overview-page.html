@@ -34,12 +34,22 @@
           [ngClass]="{ 'ba-tilegrid-listview': _listViewActive }"
         >
           <li *ngFor="let item of section.items">
-            <a
-              ba-tile
-              [routerLink]="item.link"
-              [data]="item"
-              [listView]="_listViewActive"
-            ></a>
+            <ng-container *ngIf="!isComponentPreview(section.title)">
+              <a
+                ba-tile
+                [routerLink]="item.link"
+                [data]="item"
+                [listView]="_listViewActive"
+              ></a>
+            </ng-container>
+            <ng-container *ngIf="isComponentPreview(section.title)">
+              <a
+                ba-component-preview-tile
+                [routerLink]="item.link"
+                [data]="item"
+                [listView]="_listViewActive"
+              ></a>
+            </ng-container>
           </li>
         </ul>
       </nav>
