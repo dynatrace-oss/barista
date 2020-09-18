@@ -34,22 +34,20 @@
   />
 </div>
 <ng-container>
+  <div class="ba-tile-img-preview">
+    <img *ngIf="data.imgUrl" class="ba-tile-img" src="{{ data.imgUrl }}" />
+    <img
+      *ngIf="!data.imgUrl"
+      class="ba-tile-img"
+      width="200"
+      src="https://dt-cdn.net/images/no-preview-image-382-7ee956b3a7.png"
+    />
+  </div>
   <div class="ba-tile-content">
-    <div class="ba-tile-header">
-      <div class="ba-tile-identifier">
-        {{ data.identifier }}
-      </div>
-      <div class="ba-tile-headertext">
-        <div class="ba-tile-title">{{ data.title }}</div>
-        <div class="ba-tile-type">{{ data.section }}</div>
-      </div>
-    </div>
+    <div class="ba-tile-title">{{ data.title }}</div>
     <ng-container *ngIf="!listView">
       <div class="ba-tile-description">
         {{ data.description }}
-      </div>
-      <div class="ba-tile-footer">
-        <span>{{ data.title }} details&nbsp;→</span>
       </div>
     </ng-container>
   </div>

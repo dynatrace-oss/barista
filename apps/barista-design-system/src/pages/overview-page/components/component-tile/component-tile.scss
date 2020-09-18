@@ -79,11 +79,6 @@ $gridgap: 20px;
     margin: 1rem 1.5rem 1rem 1.5rem;
   }
 
-  .ba-tile-header {
-    display: flex;
-    align-items: center;
-  }
-
   .ba-tile-img-preview {
     border-bottom: 1px solid #ddd;
     height: 162px;
@@ -95,24 +90,6 @@ $gridgap: 20px;
   .ba-tile-img {
     max-width: 100%;
     max-height: 100%;
-    margin: 8px;
-  }
-
-  .ba-tile-headertext {
-    font-size: 1.2rem;
-  }
-
-  .ba-tile-identifier {
-    font-size: $tilefontsize-big;
-    margin-right: 1.5rem;
-    min-width: 60px;
-    text-align: center;
-  }
-
-  .ba-tile-type {
-    font-size: 0.9rem;
-    color: $gray-500;
-    line-height: 1.2;
   }
 
   .ba-tile-title {
@@ -124,11 +101,6 @@ $gridgap: 20px;
     margin: 1rem 0 0;
     flex-grow: 1;
     color: $textcolor;
-  }
-
-  .ba-tile-footer {
-    color: $gray-500;
-    margin-top: 2rem;
   }
 
   .ba-tile-status {

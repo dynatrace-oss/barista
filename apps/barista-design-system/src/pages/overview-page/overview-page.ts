@@ -28,6 +28,7 @@ import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { BaTile } from './components/tile';
+import { componentImgUrlJson } from './component-img-urls';
 import { DOCUMENT } from '@angular/common';
 import {
   BaCategoryNavigation,
@@ -115,29 +116,12 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  private _imgUrlJson = [
-    {
-      component: 'Alert',
-      url: 'https://dt-cdn.net/images/barista-preview-alert-600-f6dbfd0273.png',
-    },
-    {
-      component: 'Bar indicator',
-      url:
-        'https://dt-cdn.net/images/barista-preview-barindicator-600-e21e2903f1.png',
-    },
-    {
-      component: 'Breadcrumbs',
-      url:
-        'https://dt-cdn.net/images/barista-preview-breadcrumbs-1024-fd7bd72db1.png',
-    },
-  ];
-
   private _prepareItemsImgs(): void {
     const components = this.content.sections.filter(
       (section) => section.title === 'Components',
     )[0].items;
     for (const component of components) {
-      const componentImg = this._imgUrlJson.find(
+      const componentImg = componentImgUrlJson.find(
         (item) => item.component === component.title,
       );
       component.imgUrl = componentImg?.url;
@@ -197,5 +181,12 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     this._previousKey = key;
+  }
+
+  checkSectionTypeComponent(title: string): boolean {
+    if (title === 'Components') {
+      return true;
+    }
+    return false;
   }
 }
