@@ -184,7 +184,7 @@
     "theo": "^8.1.5",
     "ts-jest": "^26.3.0",
     "ts-node": "^8.10.2",
-    "tsickle": "^0.38.1",
+    "tsickle": "^0.39.1",
     "tslib": "^2.0.0",
     "tslint": "~6.1.0",
     "tslint-config-prettier": "^1.18.0",
