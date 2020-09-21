@@ -107,7 +107,7 @@
     "@bazel/ibazel": "^0.13.1",
     "@bazel/typescript": "^2.0.3",
     "@commitlint/cli": "^9.1.2",
-    "@nguniversal/builders": "^10.0.1",
+    "@nguniversal/builders": "^10.1.0",
     "@nguniversal/express-engine": "^10.0.1",
     "@nrwl/angular": "^10.0.7",
     "@nrwl/jest": "^10.0.7",
