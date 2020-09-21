@@ -25,14 +25,14 @@ import {
 import { BaCategoryNavigationSectionItemImg } from '@dynatrace/shared/design-system/interfaces';
 
 @Component({
-  selector: 'a[ba-component-tile]',
-  templateUrl: 'component-tile.html',
-  styleUrls: ['component-tile.scss'],
+  selector: 'a[ba-component-preview-tile]',
+  templateUrl: 'component-preview-tile.html',
+  styleUrls: ['component-preview-tile.scss'],
   host: {
-    class: 'ba-component-tile',
+    class: 'ba-component-preview-tile',
   },
 })
-export class BaComponentTile implements OnChanges {
+export class BaComponentPreviewTile implements OnChanges {
   /** The component preview to display */
   @Input() data: BaCategoryNavigationSectionItemImg;
 

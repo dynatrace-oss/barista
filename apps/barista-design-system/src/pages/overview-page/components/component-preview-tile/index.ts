@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from './component-tile';
+export * from './component-preview-tile';

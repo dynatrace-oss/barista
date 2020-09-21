@@ -5,6 +5,7 @@ $tilesize: 290px;
 $tilefontsize: 28px;
 $tilefontsize-big: 42px;
 $gridgap: 20px;
+$imagesize: 156px;
 
 @mixin tile-theme($link-color, $hover-color, $active-color) {
   color: $link-color;
@@ -14,7 +15,7 @@ $gridgap: 20px;
     border-color: $hover-color;
     text-decoration: none;
 
-    &.ba-tile-img-preview {
+    &.ba-tile-image-preview {
       border-bottom: 1px solid #ddd;
     }
   }
@@ -29,7 +30,7 @@ $gridgap: 20px;
     border-color: $active-color;
   }
 
-  .ba-tile-img {
+  .ba-tile-image {
     color: $hover-color;
   }
 
@@ -79,7 +80,7 @@ $gridgap: 20px;
     margin: 1rem 1.5rem;
   }
 
-  .ba-tile-img-preview {
+  .ba-tile-image-preview {
     border-bottom: 1px solid #ddd;
     height: 156px;
     display: flex;
@@ -87,7 +88,7 @@ $gridgap: 20px;
     justify-content: center;
   }
 
-  .ba-tile-img {
+  .ba-tile-image {
     max-width: 100%;
     max-height: 100%;
   }

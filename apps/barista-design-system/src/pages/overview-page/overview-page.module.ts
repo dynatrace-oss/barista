@@ -20,7 +20,7 @@ import { Route, RouterModule } from '@angular/router';
 import { DsPageGuard } from '@dynatrace/shared/design-system/ui';
 import { BaOverviewPage } from './overview-page';
 import { BaTile } from './components/tile';
-import { BaComponentTile } from './components/component-tile';
+import { BaComponentPreviewTile } from './components/component-preview-tile';
 
 export const routes: Route[] = [
   {
@@ -32,6 +32,6 @@ export const routes: Route[] = [
 
 @NgModule({
   imports: [CommonModule, RouterModule.forChild(routes)],
-  declarations: [BaOverviewPage, BaTile, BaComponentTile],
+  declarations: [BaOverviewPage, BaTile, BaComponentPreviewTile],
 })
 export class BaOverviewPageModule {}

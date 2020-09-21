@@ -68,10 +68,9 @@ $gridgap: 20px;
 
   .ba-tile-content {
     display: flex;
-    position: relative;
     flex-direction: column;
     justify-content: space-between;
-    height: auto;
+    height: 100%;
     margin: 1rem 1.5rem;
   }
 

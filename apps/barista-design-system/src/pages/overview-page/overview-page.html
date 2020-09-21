@@ -44,10 +44,9 @@
             </ng-container>
             <ng-container *ngIf="isComponentPreview(section.title)">
               <a
-                ba-component-tile
+                ba-component-preview-tile
                 [routerLink]="item.link"
                 [data]="item"
-                [listView]="_listViewActive"
               ></a>
             </ng-container>
           </li>
