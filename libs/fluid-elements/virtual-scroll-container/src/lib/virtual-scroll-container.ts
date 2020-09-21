@@ -182,6 +182,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
       this._virtualScrollBufferObserver.disconnect();
     }
     this._renderedItems = [];
+    this._cachedItems.clear();
     this._scrollState.itemsCount = this._items.length;
   }
 
@@ -212,7 +213,9 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
       } else {
         renderedItem = html`
           <div
-            class="fluid-virtual-scroll-item ${this.itemclass}"
+            class="fluid-virtual-scroll-item ${this.itemclass
+              ? this.itemclass
+              : ''}"
             data-index="${i}"
           >
             ${this.renderItemFn(this._items[i])}

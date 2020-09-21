@@ -185,8 +185,9 @@ export class FluidComboBox<T> extends LitElement {
   set options(value: T[]) {
     const oldOptions = this._options;
     this._options = value;
-    this._filteredOptions = this.filterOptionsFn(this._options, this._filter);
+    this._setOptionFocus(false);
     this._focusedOptionIndex = -1;
+    this._filteredOptions = this.filterOptionsFn(this._options, this._filter);
     this.requestUpdate(`options`, oldOptions);
   }
   private _options: T[] = [];
@@ -367,9 +368,8 @@ export class FluidComboBox<T> extends LitElement {
         // Open popover if closed and navigate through options
         if (!this._popoverOpen) {
           this._openPopover();
-        } else {
-          this._updateFocusedOptionIndex(keyCode);
         }
+        this._updateFocusedOptionIndex(keyCode);
         break;
       default:
         break;
@@ -525,7 +525,7 @@ export class FluidComboBox<T> extends LitElement {
   private _updateFocusedOptionIndex(keyCode: string): void {
     if (
       (keyCode === ARROW_DOWN &&
-        this._focusedOptionIndex === this._options.length - 1) ||
+        this._focusedOptionIndex === this._filteredOptions.length - 1) ||
       (keyCode === ARROW_UP && this._focusedOptionIndex === 0)
     ) {
       return;
@@ -534,7 +534,7 @@ export class FluidComboBox<T> extends LitElement {
     this._setOptionFocus(false);
     this._focusedOptionIndex = getNextGroupItemIndex(
       this._focusedOptionIndex,
-      this._options.length,
+      this._filteredOptions.length,
       keyCode,
     );
     this._setOptionFocus(true);
@@ -547,7 +547,9 @@ export class FluidComboBox<T> extends LitElement {
   private _setOptionFocus(focus: boolean): void {
     if (this._focusedOptionIndex >= 0) {
       const option = this._virtualScrollContainer.shadowRoot!.querySelector(
-        `.fluid-combo-box-option[data-index="${this._focusedOptionIndex}"]`,
+        `.fluid-combo-box-option[data-index="${this._getOptionIndex(
+          this._filteredOptions[this._focusedOptionIndex],
+        )}"]`,
       ) as FluidOption;
 
       if (option) {
