@@ -34,12 +34,18 @@
   />
 </div>
 <div class="ba-tile-img-preview">
-  <img *ngIf="data.imgUrl" class="ba-tile-img" src="{{ data.imgUrl }}" />
+  <img
+    *ngIf="data.imgUrl"
+    class="ba-tile-img"
+    src="{{ data.imgUrl }}"
+    alt="component preview image"
+  />
   <img
     *ngIf="!data.imgUrl"
     class="ba-tile-img"
     width="200"
     src="https://dt-cdn.net/images/no-preview-image-382-7ee956b3a7.png"
+    alt="placeholder - no component preview image"
   />
 </div>
 <div class="ba-tile-content">
