@@ -34,7 +34,7 @@
           [ngClass]="{ 'ba-tilegrid-listview': _listViewActive }"
         >
           <li *ngFor="let item of section.items">
-            <ng-container *ngIf="!checkSectionTypeComponent(section.title)">
+            <ng-container *ngIf="!isComponentPreview(section.title)">
               <a
                 ba-tile
                 [routerLink]="item.link"
@@ -42,7 +42,7 @@
                 [listView]="_listViewActive"
               ></a>
             </ng-container>
-            <ng-container *ngIf="checkSectionTypeComponent(section.title)">
+            <ng-container *ngIf="isComponentPreview(section.title)">
               <a
                 ba-component-tile
                 [routerLink]="item.link"

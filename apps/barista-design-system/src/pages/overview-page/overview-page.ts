@@ -86,7 +86,6 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
    * and subscribe for keyup events
    */
   ngAfterViewInit(): void {
-    console.log(this.content.sections[0].items[0].title);
     this._prepareItems();
     this._keyUpSubscription = fromEvent(this._document, 'keyup').subscribe(
       (evt: KeyboardEvent) => {
@@ -183,7 +182,7 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
     this._previousKey = key;
   }
 
-  checkSectionTypeComponent(title: string): boolean {
+  isComponentPreview(title: string): boolean {
     if (title === 'Components') {
       return true;
     }

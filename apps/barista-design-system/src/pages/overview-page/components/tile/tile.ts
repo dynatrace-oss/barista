@@ -19,11 +19,10 @@ import {
   ElementRef,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
 } from '@angular/core';
 
-import { BaCategoryNavigationSectionItemImg } from '@dynatrace/shared/design-system/interfaces';
+import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
 
 @Component({
   selector: 'a[ba-tile]',
@@ -33,8 +32,8 @@ import { BaCategoryNavigationSectionItemImg } from '@dynatrace/shared/design-sys
     class: 'ba-tile',
   },
 })
-export class BaTile implements OnInit, OnChanges {
-  @Input() data: BaCategoryNavigationSectionItemImg;
+export class BaTile implements OnChanges {
+  @Input() data: BaCategoryNavigationSectionItem;
   @Input() listView = true;
 
   /** @internal whether the tile has the badge 'favorite' */
@@ -57,11 +56,6 @@ export class BaTile implements OnInit, OnChanges {
   /** set the focus on the nativeElement */
   focus(): void {
     this._elementRef.nativeElement.focus();
-  }
-
-  // tslint:disable-next-line: use-lifecycle-interface
-  ngOnInit(): void {
-    console.log(this.data.imgUrl, 'here');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
