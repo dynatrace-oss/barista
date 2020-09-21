@@ -203,6 +203,13 @@ export class FluidComboBox<T> extends LitElement {
   private _filter = ``;
 
   /**
+   * Defines whether the options can be filtered.
+   * @attr
+   */
+  @property({ type: Boolean, reflect: true })
+  filterable = true;
+
+  /**
    * Defines whether multiple options can be selected.
    * @attr
    */
@@ -282,14 +289,17 @@ export class FluidComboBox<T> extends LitElement {
   /** Index of the currently focused option */
   private _focusedOptionIndex = -1;
 
+  /** Defines if mouseenter events of options should be handled or not */
+  private _ignoreOptionMouseenter = false;
+
   /** Render function used for rendering options in the virtual scroll container */
   private _renderVirtualScrollItemFn = (option: T) => {
     return html`
       <fluid-option
         class="fluid-combo-box-option"
         data-index=${this._getOptionIndex(option)}
-        @mouseenter=${this._handleItemMouseenter.bind(this)}
-        @mouseleave=${this._handleItemMouseleave}
+        @mouseenter=${this._handleOptionMouseenter.bind(this)}
+        @mouseleave=${this._handleOptionMouseleave}
         @selectedChange=${this._handleSelectedChange.bind(this)}
         .checkbox=${this.multiselect}
         .selectedIndicator=${!this.multiselect}
@@ -447,15 +457,21 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /** Set the index of the currently focused option when hovering an option */
-  private _handleItemMouseenter(event: MouseEvent): void {
-    const option = event.target as FluidOption;
-    const optionIndex = parseInt(option.dataset.index!);
-    this._focusedOptionIndex = optionIndex;
-    this._setOptionFocus(true);
+  private _handleOptionMouseenter(event: MouseEvent): void {
+    if (!this._ignoreOptionMouseenter) {
+      console.log(`handle mouseenter`);
+      const option = event.target as FluidOption;
+      const optionIndex = parseInt(option.dataset.index!);
+      this._focusedOptionIndex = optionIndex;
+      this._setOptionFocus(true);
+    } else {
+      console.log(`ignore mouseenter`);
+      this._ignoreOptionMouseenter = false;
+    }
   }
 
   /** Set option to not focused on mouse leave */
-  private _handleItemMouseleave(event: MouseEvent): void {
+  private _handleOptionMouseleave(event: MouseEvent): void {
     const option = event.target as FluidOption;
     option.focused = false;
   }
@@ -569,10 +585,12 @@ export class FluidComboBox<T> extends LitElement {
       this._virtualScrollContainer._scrollContainer.scrollBy({
         top: optionBCR.top - containerBCR.top,
       });
+      this._ignoreOptionMouseenter = true;
     } else if (optionBCR.bottom > containerBCR.bottom) {
       this._virtualScrollContainer._scrollContainer.scrollBy({
         top: optionBCR.bottom - containerBCR.bottom,
       });
+      this._ignoreOptionMouseenter = true;
     }
   }
 
@@ -618,6 +636,7 @@ export class FluidComboBox<T> extends LitElement {
           @input=${debounce(250, this._handleInput) as () => void}
           .required=${this.required}
           .disabled=${this.disabled}
+          ?readonly=${!this.filterable}
         />
         <fluid-icon
           class=${classMap(iconClassMapData)}

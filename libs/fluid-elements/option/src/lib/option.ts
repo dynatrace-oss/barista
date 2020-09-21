@@ -45,8 +45,7 @@ export class FluidOption extends LitElement {
         --fluid-option--background-opacity-hover: 0.2;
       }
 
-      :host([focused]),
-      :host(:hover) {
+      :host([focused]) {
         background-color: rgba(
           var(--fluid-option--background-key),
           var(--fluid-option--background-opacity-hover)
