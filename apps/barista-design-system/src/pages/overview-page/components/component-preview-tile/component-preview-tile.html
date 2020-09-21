@@ -50,7 +50,9 @@
 </div>
 <div class="ba-tile-content">
   <div class="ba-tile-title">{{ data.title }}</div>
-  <div class="ba-tile-description">
-    {{ data.description }}
-  </div>
+  <ng-container *ngIf="!listView">
+    <div class="ba-tile-description">
+      {{ data.description }}
+    </div>
+  </ng-container>
 </div>

@@ -30,10 +30,7 @@ import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { BaTile } from './components/tile';
 import { componentImgUrlJson } from './component-img-urls';
 import { DOCUMENT } from '@angular/common';
-import {
-  BaCategoryNavigation,
-  BaCategoryNavigationSectionItemImg,
-} from '@dynatrace/shared/design-system/interfaces';
+import { BaCategoryNavigation } from '@dynatrace/shared/design-system/interfaces';
 
 const LOCALSTORAGEKEY = 'baristaGridview';
 
@@ -47,9 +44,6 @@ const LOCALSTORAGEKEY = 'baristaGridview';
 })
 export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
   content = this._pageService._getCurrentPage() as BaCategoryNavigation;
-
-  /** @internal */
-  _componentsWithImgURL: BaCategoryNavigationSectionItemImg[] = [];
 
   /** @internal whether the tiles are currently displayed as list */
   _listViewActive = true;
@@ -115,6 +109,9 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
+  /**
+   * Add image url for the component preview to be displayed
+   */
   private _prepareItemsImgs(): void {
     const components = this.content.sections.filter(
       (section) => section.title === 'Components',
@@ -125,7 +122,6 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
       );
       component.imgUrl = componentImg?.url;
     }
-    console.log(this.content.sections[1].items);
   }
 
   /**

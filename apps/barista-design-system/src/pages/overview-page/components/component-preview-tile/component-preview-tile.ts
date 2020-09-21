@@ -36,6 +36,9 @@ export class BaComponentPreviewTile implements OnChanges {
   /** The component preview to display */
   @Input() data: BaCategoryNavigationSectionItemImg;
 
+  /** Whether to display the description or not */
+  @Input() listView = true;
+
   /** @internal whether the tile has the badge 'favorite' */
   _favorite = false;
 
