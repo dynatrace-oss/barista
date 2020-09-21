@@ -66,7 +66,10 @@ import {
   FluidPopoverOffset,
 } from '@dynatrace/fluid-elements/popover';
 // tslint:disable-next-line: no-duplicate-imports
-import { FluidVirtualScrollContainer } from '@dynatrace/fluid-elements/virtual-scroll-container';
+import {
+  FluidVirtualScrollContainer,
+  FluidVirtualScrollContainerRenderedItemsChange,
+} from '@dynatrace/fluid-elements/virtual-scroll-container';
 
 let _unique = 0;
 
@@ -89,23 +92,6 @@ const FALLBACK_PLACEMENT: Placement[] = [`right`, `left`, `top-start`];
  * This is an experimental combo-box element built with lit-elements and
  * web-components. It registers itself as `fluid-combo-box` custom element.
  * @element fluid-combo-box
- * @cssprop --fluid-combo-box--foreground-key - Controls the foreground color for the key setting.
- * @cssprop --fluid-combo-box--background-key - Controls the background color for the key setting.
- * @cssprop --fluid-combo-box--border-key - Controls the border color for the key setting.
- * @cssprop --fluid-combo-box--foreground-key-hover - Controls the foreground hover color for the key setting.
- * @cssprop --fluid-combo-box--background-key-hover - Controls the background hover color for the key setting.
- * @cssprop --fluid-combo-box--border-key-hover - Controls the border hover color for the key setting.
- * @cssprop --fluid-combo-box--foreground-key-focus - Controls the foreground focus color for the key setting.
- * @cssprop --fluid-combo-box--background-key-focus - Controls the background focus color for the key setting.
- * @cssprop --fluid-combo-box--border-key-focus - Controls the border focus color for the key setting.
- * @cssprop --fluid-combo-box--foreground-negative - Controls the foreground color for the negative setting.
- * @cssprop --fluid-combo-box--border-negative - Controls the border color for the negative setting.
- * @cssprop --fluid-combo-box--foreground-negative-hover - Controls the foreground hover color for the negative setting.
- * @cssprop --fluid-combo-box--border-negative-hover - Controls the border hover color for the negative setting.
- * @cssprop --fluid-combo-box--foreground-negative-focus - Controls the foreground focus color for the negative setting.
- * @cssprop --fluid-combo-box--border-negative-focus - Controls the border focus color for the negative setting.
- * @cssprop --fluid-combo-box--foreground-disabled - Controls the foreground color for the disabled state.
- * @cssprop --fluid-combo-box--background-disabled - Controls the background color for the disabled state.
  */
 @customElement('fluid-combo-box')
 export class FluidComboBox<T> extends LitElement {
@@ -474,6 +460,21 @@ export class FluidComboBox<T> extends LitElement {
     option.focused = false;
   }
 
+  private _handleRenderedItemsChange(
+    event: FluidVirtualScrollContainerRenderedItemsChange,
+  ): void {
+    const { first, last } = event.range;
+    for (let i = first; i <= last; i += 1) {
+      const option = this._virtualScrollContainer.shadowRoot!.querySelector(
+        `.fluid-combo-box-option[data-index="${i}"]`,
+      ) as FluidOption;
+
+      if (option) {
+        option.selected = this._selectionModel.isSelected(i);
+      }
+    }
+  }
+
   /**
    * Creates or destroys the options popover and sets `_popoverOpen` accordingly
    * Else, popperjs would calculate the updates for an existing popover even if it is not visible
@@ -636,6 +637,7 @@ export class FluidComboBox<T> extends LitElement {
           .items=${this._filteredOptions}
           .renderItemFn=${this._renderVirtualScrollItemFn}
           .noitemsmessage=${this.emptymessage}
+          @renderedItemsChange=${this._handleRenderedItemsChange}
         ></fluid-virtual-scroll-container>
       </fluid-popover>
     `;

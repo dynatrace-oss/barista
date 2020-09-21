@@ -14,5 +14,13 @@
  * limitations under the License.
  */
 
-export * from './lib/virtual-scroll-container';
-export * from './lib/virtual-scroll-events';
+import { FluidVirtualScrollRenderedItemRange } from './virtual-scroll-state';
+
+/** Custom event implementation fires when the active tab has changes */
+export class FluidVirtualScrollContainerRenderedItemsChange extends CustomEvent<
+  any
+> {
+  constructor(public range: FluidVirtualScrollRenderedItemRange) {
+    super('renderedItemsChange', { bubbles: true, composed: true });
+  }
+}

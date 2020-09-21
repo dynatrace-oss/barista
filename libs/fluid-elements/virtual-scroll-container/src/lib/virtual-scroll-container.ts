@@ -26,12 +26,12 @@ import {
   query,
   unsafeCSS,
 } from 'lit-element';
-
-// tslint:disable-next-line: nx-enforce-module-boundaries
-import { VirtualScrollState } from './virtual-scroll-state';
 import { render } from 'lit-html';
 
 import { FLUID_INPUT_PADDING } from '@dynatrace/fluid-design-tokens';
+
+import { VirtualScrollState } from './virtual-scroll-state';
+import { FluidVirtualScrollContainerRenderedItemsChange } from './virtual-scroll-events';
 
 let _unique = 0;
 
@@ -278,6 +278,12 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
 
       // Update observed items
       this._observeVirtualScrollPadding();
+
+      this.dispatchEvent(
+        new FluidVirtualScrollContainerRenderedItemsChange(
+          this._scrollState.renderedItemsRange,
+        ),
+      );
     });
   }
 

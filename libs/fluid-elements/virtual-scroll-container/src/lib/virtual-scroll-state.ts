@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-export interface VirtualScrollOptions {
+export interface FluidVirtualScrollOptions {
   itemsBatchSize?: number;
   itemsBufferSize?: number;
 }
 
-export interface RenderedItemRange {
+export interface FluidVirtualScrollRenderedItemRange {
   first: number;
   last: number;
 }
@@ -46,13 +46,15 @@ export class VirtualScrollState {
    * a copy right away instead.
    * @ ChMa: pls explain again why it should be copied? I forgot what the potential issue was...
    */
-  get renderedItemsRange(): Readonly<RenderedItemRange> {
+  get renderedItemsRange(): Readonly<FluidVirtualScrollRenderedItemRange> {
     return this._renderedItemsRange;
   }
-  private _renderedItemsRange: RenderedItemRange = Object.seal({
-    first: 0,
-    last: 0,
-  });
+  private _renderedItemsRange: FluidVirtualScrollRenderedItemRange = Object.seal(
+    {
+      first: 0,
+      last: 0,
+    },
+  );
 
   /** Empty placeholder before the rendered items to correctly render the scrollbar */
   get startPlaceholderSize(): number {
@@ -113,7 +115,10 @@ export class VirtualScrollState {
   /** Number of currently rendered end buffer items */
   private _endItemsBufferSize = 0;
 
-  constructor({ itemsBatchSize, itemsBufferSize }: VirtualScrollOptions = {}) {
+  constructor({
+    itemsBatchSize,
+    itemsBufferSize,
+  }: FluidVirtualScrollOptions = {}) {
     this._itemsBatchSize = itemsBatchSize
       ? itemsBatchSize
       : VIRTUAL_SCROLL_BATCH_SIZE;
