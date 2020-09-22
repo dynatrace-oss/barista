@@ -22,13 +22,11 @@ import {
   QueryList,
   ViewChildren,
   Inject,
-  OnInit,
 } from '@angular/core';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { fromEvent, Subscription } from 'rxjs';
 import { DsPageService } from '@dynatrace/shared/design-system/ui';
 import { BaTile } from './components/tile';
-import { componentImgUrlJson } from './component-img-urls';
 import { DOCUMENT } from '@angular/common';
 import { BaCategoryNavigation } from '@dynatrace/shared/design-system/interfaces';
 
@@ -42,7 +40,7 @@ const LOCALSTORAGEKEY = 'baristaGridview';
     class: 'ba-page',
   },
 })
-export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
+export class BaOverviewPage implements AfterViewInit, OnDestroy {
   content = this._pageService._getCurrentPage() as BaCategoryNavigation;
 
   /** @internal whether the tiles are currently displayed as list */
@@ -69,11 +67,6 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
       const localStorageState = localStorage.getItem(LOCALSTORAGEKEY);
       this._listViewActive = localStorageState !== 'tiles';
     }
-  }
-
-  ngOnInit(): void {
-    console.log(this.content);
-    this._prepareItemsImgs();
   }
 
   /**
@@ -107,21 +100,6 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
       this._listViewActive
         ? localStorage.setItem(LOCALSTORAGEKEY, 'list')
         : localStorage.setItem(LOCALSTORAGEKEY, 'tiles');
-    }
-  }
-
-  /**
-   * Add image url for the component preview to be displayed
-   */
-  private _prepareItemsImgs(): void {
-    const components = this.content.sections.filter(
-      (section) => section.title === 'Components',
-    )[0].items;
-    for (const component of components) {
-      const componentImg = componentImgUrlJson.find(
-        (item) => item.component === component.title,
-      );
-      component.imgUrl = componentImg?.url;
     }
   }
 
