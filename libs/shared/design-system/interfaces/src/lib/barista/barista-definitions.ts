@@ -46,7 +46,7 @@ export interface BaSinglePageMeta extends BaPageMetaBase {
   themable?: boolean;
   order?: number;
   sidenav?: BaCategoryNavigation;
-  image?: string;
+  imageUrl?: string;
 }
 
 export interface BaDecisionGraphPageMeta extends BaPageMetaBase {
@@ -121,7 +121,7 @@ export interface BaCategoryNavigationSectionItem {
   description: string;
   order?: number;
   active?: boolean;
-  imgUrl?: string;
+  imageUrl?: string;
 }
 
 /** Index page content */
