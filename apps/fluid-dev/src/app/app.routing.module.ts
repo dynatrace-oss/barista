@@ -41,6 +41,13 @@ export const fluidRoutes: Route[] = [
       ),
   },
   {
+    path: 'icon',
+    loadChildren: () =>
+      import('../pages/icon/icon-page.module').then(
+        (module) => module.FluidIconPageModule,
+      ),
+  },
+  {
     path: 'switch',
     loadChildren: () =>
       import('../pages/switch/switch-page.module').then(

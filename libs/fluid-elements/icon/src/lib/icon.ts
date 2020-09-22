@@ -34,7 +34,16 @@ const ARROW_DOWN_ICON = html`<svg
   />
 </svg>`;
 
-export type FluidIconType = 'arrow-down';
+const CHECKMARK_ICON = html`
+  <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12">
+    <polygon
+      points="4.1,9.3 0,5.2 1.4,3.9 4.1,6.6 10.6,0 12,1.4 "
+      transform="translate(0,1)"
+    />
+  </svg>
+`;
+
+export type FluidIconType = 'arrow-down' | 'checkmark';
 
 @customElement('fluid-icon')
 export class FluidIcon extends LitElement {
@@ -47,7 +56,7 @@ export class FluidIcon extends LitElement {
 
       svg {
         height: 100%;
-        fill: var(--fluid-input--foreground);
+        fill: #0b55c4;
       }
     `;
   }
@@ -68,6 +77,8 @@ export class FluidIcon extends LitElement {
     switch (this.name) {
       case 'arrow-down':
         return ARROW_DOWN_ICON;
+      case 'checkmark':
+        return CHECKMARK_ICON;
       default:
         console.error('No icon selected');
         return html``;
