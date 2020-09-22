@@ -111,6 +111,7 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
     layout: BaPageLayoutType.Default,
     order: baristaMetadata.order,
     navGroup: baristaMetadata.navGroup,
+    image: baristaMetadata.image,
   };
 
   return metadataWithDefaults;
@@ -181,6 +182,8 @@ export const componentsBuilder: BaPageBuilder = async (
         [...TRANSFORMERS, ...globalTransformers],
       );
       transformed.push({ pageContent, relativeOutFile });
+
+      // * Here barista.json (baristaMetaData) is read. In there you can find the image url
 
       // Look for <ba-ux-snippet> placeholders within the content and create
       // snippets in Strapi for those slots.

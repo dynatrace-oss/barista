@@ -72,6 +72,7 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    console.log(this.content);
     this._prepareItemsImgs();
   }
 

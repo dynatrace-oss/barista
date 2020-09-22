@@ -22,7 +22,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 
-import { BaCategoryNavigationSectionItemImg } from '@dynatrace/shared/design-system/interfaces';
+import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
 
 @Component({
   selector: 'a[ba-component-preview-tile]',
@@ -34,7 +34,7 @@ import { BaCategoryNavigationSectionItemImg } from '@dynatrace/shared/design-sys
 })
 export class BaComponentPreviewTile implements OnChanges {
   /** The component preview to display */
-  @Input() data: BaCategoryNavigationSectionItemImg;
+  @Input() data: BaCategoryNavigationSectionItem;
 
   /** Whether to display the description or not */
   @Input() listView = true;

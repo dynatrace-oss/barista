@@ -22,5 +22,6 @@
     ]
   },
   "related": ["pagination"],
-  "tags": ["component", "angular", "pagination", "show more", "pager"]
+  "tags": ["component", "angular", "pagination", "show more", "pager"],
+  "image": "https://dt-cdn.net/images/barista-preview-show-more-624-833564091e.png"
 }
