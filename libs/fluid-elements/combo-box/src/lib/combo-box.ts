@@ -288,17 +288,13 @@ export class FluidComboBox<T> extends LitElement {
   /** Index of the currently focused option */
   private _focusedOptionIndex = -1;
 
-  /** Defines if mouseenter events of options should be handled or not */
-  private _ignoreOptionMouseenter = false;
-
   /** Render function used for rendering options in the virtual scroll container */
   private _renderVirtualScrollItemFn = (option: T) => {
     return html`
       <fluid-combo-box-option
         class="fluid-combo-box-option"
         data-index=${this._getOptionIndex(option)}
-        @mouseenter=${this._handleOptionMouseenter.bind(this)}
-        @mouseleave=${this._handleOptionMouseleave}
+        @mousemove=${this._handleOptionMousemove.bind(this)}
         @selectedChange=${this._handleSelectedChange.bind(this)}
         .checkbox=${this.multiselect}
         .selectedIndicator=${!this.multiselect}
@@ -471,22 +467,17 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /** Set the index of the currently focused option when hovering an option */
-  private _handleOptionMouseenter(event: MouseEvent): void {
-    if (!this._ignoreOptionMouseenter) {
-      this._setOptionFocus(false);
-      const option = event.target as FluidComboBoxOption;
-      const optionIndex = parseInt(option.dataset.index!);
-      this._focusedOptionIndex = optionIndex;
-      this._setOptionFocus(true);
-    } else {
-      this._ignoreOptionMouseenter = false;
-    }
-  }
-
-  /** Set option to not focused on mouse leave */
-  private _handleOptionMouseleave(event: MouseEvent): void {
+  private _handleOptionMousemove(event: MouseEvent): void {
     const option = event.target as FluidComboBoxOption;
-    option.focused = false;
+
+    if (option.focused) {
+      return;
+    }
+
+    this._setOptionFocus(false);
+    const optionIndex = parseInt(option.dataset.index!);
+    this._focusedOptionIndex = optionIndex;
+    this._setOptionFocus(true);
   }
 
   /**
@@ -499,16 +490,14 @@ export class FluidComboBox<T> extends LitElement {
     const { first, last } = event.range;
 
     for (let i = first; i <= last; i += 1) {
+      const optionIndex = this._getOptionIndex(this._filteredOptions[i]);
       const option = this._virtualScrollContainer.shadowRoot!.querySelector(
-        `.fluid-combo-box-option[data-index="${i}"]`,
+        `.fluid-combo-box-option[data-index="${optionIndex}"]`,
       ) as FluidComboBoxOption;
 
       if (option) {
-        option.selected = this._selectionModel.isSelected(i);
-
-        if (i === this._focusedOptionIndex) {
-          option.focused = true;
-        }
+        option.selected = this._selectionModel.isSelected(optionIndex);
+        option.focused = i === this._focusedOptionIndex;
       }
     }
   }
@@ -548,7 +537,9 @@ export class FluidComboBox<T> extends LitElement {
   /** Trigger selected change with currently focused option */
   private _setSelectedOption(): void {
     const option = this._virtualScrollContainer.shadowRoot!.querySelector(
-      `.fluid-combo-box-option[data-index="${this._focusedOptionIndex}"]`,
+      `.fluid-combo-box-option[data-index="${this._getOptionIndex(
+        this._filteredOptions[this._focusedOptionIndex],
+      )}"]`,
     ) as FluidComboBoxOption;
 
     if (option) {
@@ -575,7 +566,75 @@ export class FluidComboBox<T> extends LitElement {
       this._filteredOptions.length,
       keyCode,
     );
+
+    if (
+      this._focusedOptionIndex <
+      this._virtualScrollContainer._scrollState.renderedItemsRange.first
+    ) {
+      this._focusedOptionIndex = this._getFirstVisibleOptionIndex();
+    } else if (
+      this._focusedOptionIndex >
+      this._virtualScrollContainer._scrollState.renderedItemsRange.last
+    ) {
+      this._focusedOptionIndex = this._getLastVisibleOptionIndex();
+    }
     this._setOptionFocus(true);
+  }
+
+  private _getFirstVisibleOptionIndex(): number {
+    let optionIndex = 0;
+    let currentIndex = this._virtualScrollContainer._scrollState
+      .renderedItemsRange.first;
+    const containerBCR = this._virtualScrollContainer.getBoundingClientRect();
+
+    while (!optionIndex) {
+      const option = this._virtualScrollContainer.shadowRoot!.querySelector(
+        `.fluid-combo-box-option[data-index="${this._getOptionIndex(
+          this._filteredOptions[currentIndex],
+        )}"]`,
+      );
+
+      if (option) {
+        const optionBCR = option.getBoundingClientRect();
+        if (optionBCR.top >= containerBCR.top) {
+          optionIndex = currentIndex;
+        }
+
+        currentIndex += 1;
+      } else {
+        break;
+      }
+    }
+
+    return optionIndex;
+  }
+
+  private _getLastVisibleOptionIndex(): number {
+    let optionIndex = 0;
+    let currentIndex = this._virtualScrollContainer._scrollState
+      .renderedItemsRange.last;
+    const containerBCR = this._virtualScrollContainer.getBoundingClientRect();
+
+    while (!optionIndex) {
+      const option = this._virtualScrollContainer.shadowRoot!.querySelector(
+        `.fluid-combo-box-option[data-index="${this._getOptionIndex(
+          this._filteredOptions[currentIndex],
+        )}"]`,
+      );
+
+      if (option) {
+        const optionBCR = option.getBoundingClientRect();
+        if (optionBCR.bottom <= containerBCR.bottom) {
+          optionIndex = currentIndex;
+        }
+
+        currentIndex -= 1;
+      } else {
+        break;
+      }
+    }
+
+    return optionIndex;
   }
 
   /**
@@ -609,12 +668,10 @@ export class FluidComboBox<T> extends LitElement {
       this._virtualScrollContainer._scrollContainer.scrollBy({
         top: optionBCR.top - containerBCR.top,
       });
-      this._ignoreOptionMouseenter = true;
     } else if (optionBCR.bottom > containerBCR.bottom) {
       this._virtualScrollContainer._scrollContainer.scrollBy({
         top: optionBCR.bottom - containerBCR.bottom,
       });
-      this._ignoreOptionMouseenter = true;
     }
   }
 

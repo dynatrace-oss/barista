@@ -145,6 +145,9 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
   @query(`.fluid-virtual-scroll-container`)
   _scrollContainer: HTMLDivElement;
 
+  /** @internal State of the virtual scroll */
+  _scrollState = new VirtualScrollState();
+
   /** Reference of the virtual scroll items container */
   @query(`.fluid-virtual-scroll-items-container`)
   private _scrollItemsContainer: HTMLDivElement;
@@ -156,9 +159,6 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
   /** Reference of the placeholder below the rendered items */
   @query(`.fluid-virtual-scroll-end-placeholder`)
   private _scrollEndPlaceholder: HTMLDivElement;
-
-  /** State of the virtual scroll */
-  private _scrollState = new VirtualScrollState();
 
   /** Defines whether the initially visible items have been rendered */
   private _initialRenderDone = false;
@@ -198,7 +198,6 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
 
   /** Render items to display when the popover is first opened */
   private _renderInitialVirtualScrollItems(): void {
-    console.log(`render initial items`);
     this._renderVirtualScrollItems();
 
     if (!this._initialRenderDone) {
@@ -208,7 +207,6 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
 
   /** Render new virtual scroll items and add them to the list of rendered items */
   private _renderVirtualScrollItems(): void {
-    console.log(`render virtual scroll items`);
     // First and last index of the range to be rendered
     const { first, last } = this._scrollState.renderedItemsRange;
 
