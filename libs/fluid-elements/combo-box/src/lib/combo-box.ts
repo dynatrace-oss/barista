@@ -391,7 +391,12 @@ export class FluidComboBox<T> extends LitElement {
    * Opens the popover if not already open and if a filter value is present
    */
   private _handleKeyup({ code }: KeyboardEvent): void {
-    if (code !== ESCAPE && !this._popoverOpen && this._input.value) {
+    if (
+      code !== ESCAPE &&
+      code !== ENTER &&
+      !this._popoverOpen &&
+      this._input.value
+    ) {
       this._openPopover();
     }
   }
@@ -710,14 +715,14 @@ export class FluidComboBox<T> extends LitElement {
           aria-label=${ifDefined(this.arialabel)}
           aria-labelledby=${ifDefined(this.arialabelledby)}
           placeholder=${this.placeholder}
+          .required=${this.required}
+          .disabled=${this.disabled}
+          ?readonly=${!this.filterable}
           @focus=${this._handleFocus}
           @blur=${this._handleBlur}
           @keydown=${this._handleKeydown}
           @keyup=${this._handleKeyup}
           @input=${debounce(250, this._handleInput) as () => void}
-          .required=${this.required}
-          .disabled=${this.disabled}
-          ?readonly=${!this.filterable}
         />
         <fluid-icon
           class=${classMap(iconClassMapData)}
@@ -728,12 +733,12 @@ export class FluidComboBox<T> extends LitElement {
         ></fluid-icon>
       </fluid-input>
       <fluid-popover
-        @mouseenter=${this._handlePopoverEnter}
-        @mouseleave=${this._handlePopoverLeave}
         .anchor=${this._input}
         .open=${this._popoverOpen}
         .offset=${_offset}
         .fallbackplacement=${FALLBACK_PLACEMENT}
+        @mouseenter=${this._handlePopoverEnter}
+        @mouseleave=${this._handlePopoverLeave}
       >
         <fluid-virtual-scroll-container
           .items=${this._filteredOptions}
