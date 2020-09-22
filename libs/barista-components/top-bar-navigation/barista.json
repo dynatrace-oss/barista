@@ -17,5 +17,6 @@
       }
     ]
   },
-  "related": ["drawer", "menu", "navigation", "secondary-nav"]
+  "related": ["drawer", "menu", "navigation", "secondary-nav"],
+  "image": "https://dt-cdn.net/images/barista-preview-top-nav-624-efcf7286c1.png"
 }
