@@ -24,5 +24,6 @@
     ]
   },
   "tags": ["chart", "event-chart", "component", "angular"],
-  "related": ["chart", "micro-chart", "timeline-chart"]
+  "related": ["chart", "micro-chart", "timeline-chart"],
+  "image": "https://dt-cdn.net/images/barista-preview-event-chart-780-e9a616f445.png"
 }

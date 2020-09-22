@@ -180,6 +180,7 @@ function getOverviewSectionItem(
     link: `/${filepath}`,
     badge: properties,
     order: filecontent.order,
+    imgUrl: filecontent.image,
   };
 }
 

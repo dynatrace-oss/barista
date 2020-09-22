@@ -22,5 +22,13 @@
       }
     ]
   },
-  "tags": ["saving", "save", "cancel", "saving bar", "settings", "confirmation"]
+  "tags": [
+    "saving",
+    "save",
+    "cancel",
+    "saving bar",
+    "settings",
+    "confirmation"
+  ],
+  "image": "https://dt-cdn.net/images/barista-preview-quick-filter-1000-6ce2f220be.png"
 }
