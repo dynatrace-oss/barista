@@ -183,8 +183,6 @@ export const componentsBuilder: BaPageBuilder = async (
       );
       transformed.push({ pageContent, relativeOutFile });
 
-      // * Here barista.json (baristaMetaData) is read. In there you can find the image url
-
       // Look for <ba-ux-snippet> placeholders within the content and create
       // snippets in Strapi for those slots.
       await createStrapiSnippets(pageContent.content);
