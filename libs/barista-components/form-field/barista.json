@@ -21,5 +21,6 @@
   },
   "properties": ["work in progress"],
   "related": ["input", "validation"],
-  "tags": ["input fields", "forms", "form validation", "angular", "component"]
+  "tags": ["input fields", "forms", "form validation", "angular", "component"],
+  "image": "https://dt-cdn.net/images/barista-preview-form-field-600-b19d1b6c80.png"
 }

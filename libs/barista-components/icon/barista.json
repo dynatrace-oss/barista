@@ -20,5 +20,6 @@
     ]
   },
   "related": ["button", "copy-to-clipboard", "show-more"],
-  "tags": ["angular", "component"]
+  "tags": ["angular", "component"],
+  "image": "https://dt-cdn.net/images/barista-preview-icon-600-154281ac8d.png"
 }

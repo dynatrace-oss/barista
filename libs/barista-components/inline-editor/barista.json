@@ -15,5 +15,6 @@
   },
   "angular": "inline-editor",
   "related": ["input"],
-  "tags": ["component", "directive", "angular", "edit", "inline edit", "input"]
+  "tags": ["component", "directive", "angular", "edit", "inline edit", "input"],
+  "image": "https://dt-cdn.net/images/barista-preview-info-group-600-8da14b0dfe.png"
 }

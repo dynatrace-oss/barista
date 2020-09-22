@@ -19,5 +19,13 @@
     ]
   },
   "themable": true,
-  "tags": ["nav", "component", "angular", "navbar", "navigation", "breadcrumbs"]
+  "tags": [
+    "nav",
+    "component",
+    "angular",
+    "navbar",
+    "navigation",
+    "breadcrumbs"
+  ],
+  "image": "https://dt-cdn.net/images/barista-preview-breadcrumbs-596-e79048a9a9.png"
 }
