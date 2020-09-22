@@ -63,7 +63,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
 
         width: 100%;
         height: 100%;
-        max-height: 250px;
+        max-height: 350px;
         overflow: scroll;
       }
 
@@ -84,6 +84,13 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
    */
   @property({ type: String, reflect: true })
   scrollcontainerid = `fluid-virtual-scroll-container-${_unique++}`;
+
+  /**
+   * Defines the class(es) to add to the rendered virtual scroll items
+   * @attr
+   */
+  @property({ type: Boolean, reflect: true })
+  equalitemsheight: boolean = false;
 
   /**
    * Defines the class(es) to add to the rendered virtual scroll items
@@ -135,15 +142,18 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
   trackByFn: (option: T) => any = (option: T): any => option;
 
   /** @internal Reference of the scroll container */
-  @query(`#fluid-virtual-scroll-container-${_unique}`)
+  @query(`.fluid-virtual-scroll-container`)
   _scrollContainer: HTMLDivElement;
 
+  /** Reference of the virtual scroll items container */
   @query(`.fluid-virtual-scroll-items-container`)
   private _scrollItemsContainer: HTMLDivElement;
 
+  /** Reference of the placeholder above the rendered items */
   @query(`.fluid-virtual-scroll-start-placeholder`)
   private _scrollStartPlaceholder: HTMLDivElement;
 
+  /** Reference of the placeholder below the rendered items */
   @query(`.fluid-virtual-scroll-end-placeholder`)
   private _scrollEndPlaceholder: HTMLDivElement;
 
@@ -188,6 +198,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
 
   /** Render items to display when the popover is first opened */
   private _renderInitialVirtualScrollItems(): void {
+    console.log(`render initial items`);
     this._renderVirtualScrollItems();
 
     if (!this._initialRenderDone) {
@@ -197,6 +208,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
 
   /** Render new virtual scroll items and add them to the list of rendered items */
   private _renderVirtualScrollItems(): void {
+    console.log(`render virtual scroll items`);
     // First and last index of the range to be rendered
     const { first, last } = this._scrollState.renderedItemsRange;
 
@@ -243,7 +255,46 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
     // Render items into the virtual scroll container
     render(html`${this._renderedItems}`, this._scrollItemsContainer);
 
+    if (this.equalitemsheight) {
+      this._setEqualItemsHeight();
+    } else {
+      this._cacheItemsHeight();
+    }
+
+    // After the items have been rendered, update the observed items and dispatch
+    // an event notifying listeners that the range of rendered items has changed
     requestAnimationFrame(() => {
+      // Update observed items
+      this._observeVirtualScrollPadding();
+
+      this.dispatchEvent(
+        new FluidVirtualScrollContainerRenderedItemsChange(
+          this._scrollState.renderedItemsRange,
+        ),
+      );
+    });
+  }
+
+  /**
+   * In case the render method gets called due to an update to
+   * one of the observed properties, we have to also re-render
+   * the currently displayed virtual scroll items
+   */
+  private _renderExistingVirtualScrollItems(): void {
+    render(html`${this._renderedItems}`, this._scrollItemsContainer);
+
+    this.requestUpdate();
+  }
+
+  /** Store the height of the first item in a css property to set all items' height equally */
+  private _setEqualItemsHeight(): void {
+    requestAnimationFrame(() => {
+      // First and last index of the range to be rendered
+      const { first, last } = this._scrollState.renderedItemsRange;
+
+      // If all items should be equally high and the height is not yet set,
+      // get the height of the first combo-box option and set the item-height
+      // css property to the retrieved value
       if (
         parseInt(
           window
@@ -269,7 +320,10 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
           );
 
           if (item) {
-            item.classList.add(`fluid-virtual-scroll-item--fixed-height`);
+            // Add fixed-height class to every item if applicable
+            if (this.equalitemsheight) {
+              item.classList.add(`fluid-virtual-scroll-item--fixed-height`);
+            }
 
             const itemId = this.trackByFn(this._items[i]);
             this._cachedItems.get(
@@ -278,27 +332,31 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
           }
         }
       }
-
-      // Update observed items
-      this._observeVirtualScrollPadding();
-
-      this.dispatchEvent(
-        new FluidVirtualScrollContainerRenderedItemsChange(
-          this._scrollState.renderedItemsRange,
-        ),
-      );
     });
   }
 
-  /**
-   * In case the render method gets called due to an update to
-   * one of the observed properties, we have to also re-render
-   * the currently displayed virtual scroll items
-   */
-  private _renderExistingVirtualScrollItems(): void {
-    render(html`${this._renderedItems}`, this._scrollItemsContainer);
+  /** Add the items height to the cached item */
+  private _cacheItemsHeight(): void {
+    requestAnimationFrame(() => {
+      // First and last index of the range to be rendered
+      const { first, last } = this._scrollState.renderedItemsRange;
 
-    this.requestUpdate();
+      // Store the height of the rendered item
+      for (let i = first; i <= last; i += 1) {
+        if (!this._cachedItems.get(this.trackByFn(this._items[i]))?.height) {
+          const item = this._scrollContainer.querySelector(
+            `.fluid-virtual-scroll-item[data-index="${i}"]`,
+          );
+
+          if (item) {
+            const itemId = this.trackByFn(this._items[i]);
+            this._cachedItems.get(
+              itemId,
+            )!.height = item.getBoundingClientRect().height;
+          }
+        }
+      }
+    });
   }
 
   /**

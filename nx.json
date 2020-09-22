@@ -365,10 +365,6 @@
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
-    "fluid-option": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
     "fluid-popover": {
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]

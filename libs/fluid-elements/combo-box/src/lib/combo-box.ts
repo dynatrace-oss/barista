@@ -50,16 +50,10 @@ import {
 
 import '@dynatrace/fluid-elements/icon';
 import '@dynatrace/fluid-elements/input';
-import '@dynatrace/fluid-elements/option';
 import '@dynatrace/fluid-elements/popover';
 import '@dynatrace/fluid-elements/virtual-scroll-container';
 // tslint:disable-next-line: no-duplicate-imports
 import { FluidInput } from '@dynatrace/fluid-elements/input';
-// tslint:disable-next-line: no-duplicate-imports
-import {
-  FluidOption,
-  FluidOptionSelectedChangeEvent,
-} from '@dynatrace/fluid-elements/option';
 // tslint:disable-next-line: no-duplicate-imports
 import {
   FluidPopover,
@@ -70,6 +64,11 @@ import {
   FluidVirtualScrollContainer,
   FluidVirtualScrollContainerRenderedItemsChange,
 } from '@dynatrace/fluid-elements/virtual-scroll-container';
+
+import './combo-box-option/combo-box-option';
+// tslint:disable-next-line: no-duplicate-imports
+import { FluidComboBoxOption } from './combo-box-option/combo-box-option';
+import { FluidComboBoxOptionSelectedChangeEvent } from './combo-box-option/combo-box-option-events';
 
 let _unique = 0;
 
@@ -199,9 +198,6 @@ export class FluidComboBox<T> extends LitElement {
   @property({ type: Array, reflect: false })
   _filteredOptions: T[];
 
-  /** Current value list of items is filtered by */
-  private _filter = ``;
-
   /**
    * Defines whether the options can be filtered.
    * @attr
@@ -280,6 +276,9 @@ export class FluidComboBox<T> extends LitElement {
   @query(`fluid-virtual-scroll-container`)
   private _virtualScrollContainer: FluidVirtualScrollContainer<T>;
 
+  /** Current value list of items is filtered by */
+  private _filter = ``;
+
   /** Used to correctly handle blurring the input */
   private _insidePopover = false;
 
@@ -295,7 +294,7 @@ export class FluidComboBox<T> extends LitElement {
   /** Render function used for rendering options in the virtual scroll container */
   private _renderVirtualScrollItemFn = (option: T) => {
     return html`
-      <fluid-option
+      <fluid-combo-box-option
         class="fluid-combo-box-option"
         data-index=${this._getOptionIndex(option)}
         @mouseenter=${this._handleOptionMouseenter.bind(this)}
@@ -305,7 +304,7 @@ export class FluidComboBox<T> extends LitElement {
         .selectedIndicator=${!this.multiselect}
       >
         ${unsafeHTML(this.renderOptionFn(option))}
-      </fluid-option>
+      </fluid-combo-box-option>
     `;
   };
 
@@ -326,6 +325,9 @@ export class FluidComboBox<T> extends LitElement {
 
   /** Handles focusing of the input field */
   private _handleFocus(): void {
+    if (!this.filterable) {
+      this._openPopover();
+    }
     this._input.value = this._filter;
   }
 
@@ -375,6 +377,8 @@ export class FluidComboBox<T> extends LitElement {
         break;
       case ARROW_DOWN:
       case ARROW_UP:
+        event.preventDefault();
+
         // Open popover if closed and navigate through options
         if (!this._popoverOpen) {
           this._openPopover();
@@ -386,9 +390,12 @@ export class FluidComboBox<T> extends LitElement {
     }
   }
 
-  /** Handle keyup events */
-  private _handleKeyup(): void {
-    if (!this._popoverOpen && this._input.value) {
+  /**
+   * Handle keyup events
+   * Opens the popover if not already open and if a filter value is present
+   */
+  private _handleKeyup({ code }: KeyboardEvent): void {
+    if (code !== ESCAPE && !this._popoverOpen && this._input.value) {
       this._openPopover();
     }
   }
@@ -413,25 +420,32 @@ export class FluidComboBox<T> extends LitElement {
    * Add selected option to the selection model and close the popover
    * @param event
    */
-  private _handleSelectedChange(event: FluidOptionSelectedChangeEvent): void {
+  private _handleSelectedChange(
+    event: FluidComboBoxOptionSelectedChangeEvent,
+  ): void {
     // Deselect currently selected option and close popover if multiselect is disabled
     if (!this.multiselect) {
       const selectedOption = this._virtualScrollContainer.shadowRoot!.querySelector(
         `.fluid-combo-box-option[data-index="${this._selectionModel.selected[0]}"]`,
       );
       if (selectedOption) {
-        (selectedOption as FluidOption).selected = false;
+        (selectedOption as FluidComboBoxOption).selected = false;
       }
 
       this._closePopover();
     }
 
-    const option = event.target as FluidOption;
+    const option = event.target as FluidComboBoxOption;
     const optionIndex = parseInt(option.dataset.index!);
 
     // Toggle selection of target option
     this._selectionModel.toggle(optionIndex);
     option.selected = this._selectionModel.isSelected(optionIndex);
+
+    // Set the input value if options are not filterable
+    if (!this.filterable) {
+      this._setInputValue();
+    }
 
     this.requestUpdate();
   }
@@ -459,34 +473,42 @@ export class FluidComboBox<T> extends LitElement {
   /** Set the index of the currently focused option when hovering an option */
   private _handleOptionMouseenter(event: MouseEvent): void {
     if (!this._ignoreOptionMouseenter) {
-      console.log(`handle mouseenter`);
-      const option = event.target as FluidOption;
+      this._setOptionFocus(false);
+      const option = event.target as FluidComboBoxOption;
       const optionIndex = parseInt(option.dataset.index!);
       this._focusedOptionIndex = optionIndex;
       this._setOptionFocus(true);
     } else {
-      console.log(`ignore mouseenter`);
       this._ignoreOptionMouseenter = false;
     }
   }
 
   /** Set option to not focused on mouse leave */
   private _handleOptionMouseleave(event: MouseEvent): void {
-    const option = event.target as FluidOption;
+    const option = event.target as FluidComboBoxOption;
     option.focused = false;
   }
 
+  /**
+   * Called when the range of items to render is updated by the virtual scroll container
+   * Sets the selected and focused state of the rendered items
+   */
   private _handleRenderedItemsChange(
     event: FluidVirtualScrollContainerRenderedItemsChange,
   ): void {
     const { first, last } = event.range;
+
     for (let i = first; i <= last; i += 1) {
       const option = this._virtualScrollContainer.shadowRoot!.querySelector(
         `.fluid-combo-box-option[data-index="${i}"]`,
-      ) as FluidOption;
+      ) as FluidComboBoxOption;
 
       if (option) {
         option.selected = this._selectionModel.isSelected(i);
+
+        if (i === this._focusedOptionIndex) {
+          option.focused = true;
+        }
       }
     }
   }
@@ -527,7 +549,7 @@ export class FluidComboBox<T> extends LitElement {
   private _setSelectedOption(): void {
     const option = this._virtualScrollContainer.shadowRoot!.querySelector(
       `.fluid-combo-box-option[data-index="${this._focusedOptionIndex}"]`,
-    ) as FluidOption;
+    ) as FluidComboBoxOption;
 
     if (option) {
       this._handleSelectedChange({ target: option } as any);
@@ -557,7 +579,7 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /**
-   * Set the focus of option at currently focused index
+   * Set the focus of the option at the currently focused index
    * @param focus
    */
   private _setOptionFocus(focus: boolean): void {
@@ -566,7 +588,7 @@ export class FluidComboBox<T> extends LitElement {
         `.fluid-combo-box-option[data-index="${this._getOptionIndex(
           this._filteredOptions[this._focusedOptionIndex],
         )}"]`,
-      ) as FluidOption;
+      ) as FluidComboBoxOption;
 
       if (option) {
         option.focused = focus;
@@ -577,7 +599,9 @@ export class FluidComboBox<T> extends LitElement {
     }
   }
 
-  private _adjustVirtualScrollContainerScroll(option: FluidOption): void {
+  private _adjustVirtualScrollContainerScroll(
+    option: FluidComboBoxOption,
+  ): void {
     const containerBCR = this._virtualScrollContainer.getBoundingClientRect();
     const optionBCR = option.getBoundingClientRect();
 
@@ -658,6 +682,7 @@ export class FluidComboBox<T> extends LitElement {
           .items=${this._filteredOptions}
           .renderItemFn=${this._renderVirtualScrollItemFn}
           .noitemsmessage=${this.emptymessage}
+          equalitemsheight
           @renderedItemsChange=${this._handleRenderedItemsChange}
         ></fluid-virtual-scroll-container>
       </fluid-popover>

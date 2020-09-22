@@ -3077,35 +3077,6 @@
         }
       }
     },
-    "fluid-option": {
-      "root": "libs/fluid-elements/option",
-      "sourceRoot": "libs/fluid-elements/option/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/fluid-elements/option/tsconfig.lib.json",
-              "libs/fluid-elements/option/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/fluid-elements/option/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/fluid-elements/option/jest.config.js",
-            "tsConfig": "libs/fluid-elements/option/tsconfig.spec.json",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "fluid-popover": {
       "root": "libs/fluid-elements/popover",
       "sourceRoot": "libs/fluid-elements/popover/src",

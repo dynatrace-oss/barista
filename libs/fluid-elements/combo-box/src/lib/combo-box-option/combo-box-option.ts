@@ -28,12 +28,12 @@ import {
 } from 'lit-element';
 
 import { FLUID_INPUT_PADDING } from '@dynatrace/fluid-design-tokens';
-import { FluidOptionSelectedChangeEvent } from './option-events';
+import { FluidComboBoxOptionSelectedChangeEvent } from './combo-box-option-events';
 
 let _unique = 0;
 
-@customElement(`fluid-option`)
-export class FluidOption extends LitElement {
+@customElement(`fluid-combo-box-option`)
+export class FluidComboBoxOption extends LitElement {
   /** Styles for the option component */
   static get styles(): CSSResult {
     return css`
@@ -41,18 +41,18 @@ export class FluidOption extends LitElement {
         cursor: pointer;
         display: block;
 
-        --fluid-option--background-key: 108, 115, 135;
-        --fluid-option--background-opacity-hover: 0.2;
+        --fluid-combo-box-option--background-key: 108, 115, 135;
+        --fluid-combo-box-option--background-opacity-hover: 0.2;
       }
 
       :host([focused]) {
         background-color: rgba(
-          var(--fluid-option--background-key),
-          var(--fluid-option--background-opacity-hover)
+          var(--fluid-combo-box-option--background-key),
+          var(--fluid-combo-box-option--background-opacity-hover)
         );
       }
 
-      .fluid-option {
+      .fluid-combo-box-option {
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: start;
@@ -71,7 +71,7 @@ export class FluidOption extends LitElement {
    * @attr
    */
   @property({ type: String, reflect: true })
-  optionid = `fluid-option-${_unique++}`;
+  optionid = `fluid-combo-box-option-${_unique++}`;
 
   /**
    * Defines whether a selection checkbox is displayed
@@ -95,7 +95,9 @@ export class FluidOption extends LitElement {
   focused = false;
 
   private _handleClick(): void {
-    this.dispatchEvent(new FluidOptionSelectedChangeEvent(this.optionid));
+    this.dispatchEvent(
+      new FluidComboBoxOptionSelectedChangeEvent(this.optionid),
+    );
   }
 
   /**
@@ -104,7 +106,11 @@ export class FluidOption extends LitElement {
    */
   render(): TemplateResult {
     return html`
-      <div id=${this.optionid} class="fluid-option" @click=${this._handleClick}>
+      <div
+        id=${this.optionid}
+        class="fluid-combo-box-option"
+        @click=${this._handleClick}
+      >
         ${this.checkbox
           ? html`<fluid-checkbox ?checked=${this.selected}></fluid-checkbox>`
           : html`<span></span>`}

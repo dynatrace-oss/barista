@@ -15,7 +15,7 @@
  */
 
 /** Custom event implementation fires when the active tab has changes */
-export class FluidOptionSelectedChangeEvent extends CustomEvent<any> {
+export class FluidComboBoxOptionSelectedChangeEvent extends CustomEvent<any> {
   constructor(public option: string) {
     super('selectedChange', { bubbles: true, composed: true });
   }

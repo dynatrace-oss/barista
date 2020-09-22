@@ -1,6 +1,0 @@
-{
-  "extends": "../../../../.stylelintrc",
-  "rules": {
-    "no-missing-end-of-source-newline": false
-  }
-}

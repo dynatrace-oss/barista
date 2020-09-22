@@ -185,7 +185,6 @@ export class VirtualScrollState {
 
   /** Calculate the size of the start and end placeholder based on the average item height */
   calculatePlaceholderSize(): void {
-    console.log(`calculate placeholders`);
     this._startPlaceholderSize =
       this._renderedItemsRange.first * this.avgItemHeight;
     this._endPlaceholderSize =
