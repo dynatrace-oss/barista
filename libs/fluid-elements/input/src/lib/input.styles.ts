@@ -168,8 +168,7 @@ export const inputStyles: CSSResult = css`
 
   ::slotted(input) {
     ${unsafeCSS(fluidDtText())};
-    padding: ${unsafeCSS(FLUID_INPUT_PADDING)};
-    padding-left: 0;
+    padding: ${unsafeCSS(FLUID_INPUT_PADDING)} 0;
     width: 100%;
     appearance: none;
     background: none;
@@ -193,6 +192,6 @@ export const inputStyles: CSSResult = css`
 
   ::slotted(fluid-icon) {
     height: 100%;
-    fill: var(--fluid-input--foreground);
+    --fluid-icon--primary-color: var(--fluid-input--foreground);
   }
 `;
