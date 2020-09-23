@@ -26,9 +26,9 @@ bazelBin=$(node -p "require('@bazel/bazelisk/bazelisk.js').getNativeBinary()")
 # Provide the bazel binary globally. We don't want to access the binary
 # through Node as it could result in limited memory.
 sudo chmod a+x ${bazelBin}
-rm $(which bazel)
-sudo ln -fs ${bazelBin} "$(which bazel)"
-
+bazel=$(which bazel)
+rm -f ${bazel}
+sudo ln -fs ${bazelBin} "${bazel}"
 
 # then switch to buildkite-agent user
 # $ sudo -su buildkite-agent
