@@ -127,13 +127,13 @@ export class VirtualScrollState {
       : VIRTUAL_SCROLL_BUFFER_SIZE;
   }
 
-  /** Initialize the array of items to render for the virtual scroll */
+  /** Initializes the array of items to render for the virtual scroll */
   addInitialItemsBatch(): void {
     this._appendItems(this._itemsBatchSize);
     this._initialBatches += 1;
   }
 
-  /** Add new items to the start of the list, remove items from the end */
+  /** Adds new items to the start of the list, remove items from the end */
   updateStartScrollBuffer(): void {
     const prevRenderedItemsCount = this._renderedItemsCount();
 
@@ -157,7 +157,7 @@ export class VirtualScrollState {
     this._calculateObservedItemsIndices();
   }
 
-  /** Add new items to the end of the list, remove items from the start */
+  /** Adds new items to the end of the list, remove items from the start */
   updateEndScrollBuffer(): void {
     const prevRenderedItemsCount = this._renderedItemsCount();
 
@@ -183,7 +183,7 @@ export class VirtualScrollState {
     this._calculateObservedItemsIndices();
   }
 
-  /** Calculate the size of the start and end placeholder based on the average item height */
+  /** Calculates the size of the start and end placeholder based on the average item height */
   calculatePlaceholderSize(): void {
     this._startPlaceholderSize =
       this._renderedItemsRange.first * this.avgItemHeight;
@@ -192,7 +192,7 @@ export class VirtualScrollState {
       this.avgItemHeight;
   }
 
-  /** Reset the virtual scroll state */
+  /** Resets the virtual scroll state */
   reset(): void {
     this.avgItemHeight = 0;
     this.lastItemRendered = false;
@@ -210,18 +210,19 @@ export class VirtualScrollState {
     this._endItemsBufferSize = 0;
   }
 
-  /** Add items to the end of the rendered items array */
+  /** Adds items to the end of the rendered items array */
   private _appendItems(itemCount: number): void {
     this._calculateRenderedItemsRange(itemCount, this._lastRenderedItemIndex);
   }
 
-  /** Add items to the beginning of the rendered items array */
+  /** Adds items to the beginning of the rendered items array */
   private _prependItems(itemCount: number): void {
     const startAt = this._firstRenderedItemIndex - this._itemsBufferSize - 1;
 
     this._calculateRenderedItemsRange(itemCount, startAt);
   }
 
+  /** Calculates the range of items to render */
   private _calculateRenderedItemsRange(
     itemCount: number,
     startAt: number,
@@ -269,6 +270,7 @@ export class VirtualScrollState {
     this._renderedItemsRange.last = this._lastRenderedItemIndex;
   }
 
+  /** Calculates the indices of the first and last item to be observed */
   private _calculateObservedItemsIndices(): void {
     if (this._itemsCount <= this._renderedItemsCount()) {
       // No need to observe anything since there are not enough items to scroll virtually
@@ -299,6 +301,7 @@ export class VirtualScrollState {
     }
   }
 
+  /** Calculates the number of currently rendered items */
   private _renderedItemsCount(): number {
     return this._renderedItemsRange.last - this._renderedItemsRange.first + 1;
   }

@@ -184,7 +184,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
    */
   private _observedItemsIndices: Set<number> = new Set();
 
-  /** Reset virtual scroll */
+  /** Resets virtual scroll */
   private _resetVirtualScroll(): void {
     this._scrollState.reset();
     this._initialRenderDone = false;
@@ -196,7 +196,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
     this._scrollState.itemsCount = this._items.length;
   }
 
-  /** Render items to display when the popover is first opened */
+  /** Renders items to display when the popover is first opened */
   private _renderInitialVirtualScrollItems(): void {
     this._renderVirtualScrollItems();
 
@@ -205,7 +205,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
     }
   }
 
-  /** Render new virtual scroll items and add them to the list of rendered items */
+  /** Renders new virtual scroll items and add them to the list of rendered items */
   private _renderVirtualScrollItems(): void {
     // First and last index of the range to be rendered
     const { first, last } = this._scrollState.renderedItemsRange;
@@ -274,6 +274,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
   }
 
   /**
+   * Re-renders currently displayed virtual scroll items
    * In case the render method gets called due to an update to
    * one of the observed properties, we have to also re-render
    * the currently displayed virtual scroll items
@@ -284,7 +285,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
     this.requestUpdate();
   }
 
-  /** Store the height of the first item in a css property to set all items' height equally */
+  /** Stores the height of the first item in a css property to set all items' height equally */
   private _setEqualItemsHeight(): void {
     requestAnimationFrame(() => {
       // First and last index of the range to be rendered
@@ -333,7 +334,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
     });
   }
 
-  /** Add the items height to the cached item */
+  /** Adds the items height to the cached item */
   private _cacheItemsHeight(): void {
     requestAnimationFrame(() => {
       // First and last index of the range to be rendered
@@ -358,7 +359,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
   }
 
   /**
-   * Observe intersections of the middle item of the scroll buffer
+   * Observes intersections of the middle item of the scroll buffer
    * As soon as it is half visible, another batch of items is rendered
    */
   private _observeVirtualScrollPadding(): void {
@@ -381,7 +382,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
   }
 
   /**
-   * Handle intersection of items observed for updating the virtual scroll buffer
+   * Handles intersection of items observed for updating the virtual scroll buffer
    * @param observedItems List of observed items whose intersection ratio changed
    */
   private _handlePaddingIntersection(
@@ -450,7 +451,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
     });
   }
 
-  /** Clear items observed for handling the virtual scroll buffer */
+  /** Clears items observed for handling the virtual scroll buffer */
   private _clearVirtualScrollBufferObserver(): void {
     this._virtualScrollBufferObserver.disconnect();
     this._observedItemsIndices.clear();
@@ -494,7 +495,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
   }
 
   /**
-   * Calculate average item height of the currently rendered items
+   * Calculates average item height of the currently rendered items
    * and set the height of the placeholders
    */
   private _updatePlaceholders(): void {
@@ -523,7 +524,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
     });
   }
 
-  /** Set the height of the placeholder */
+  /** Sets the height of the placeholder */
   private _setPlaceholders(): void {
     if (this._items.length) {
       this._scrollStartPlaceholder.style.height = `${this._scrollState.startPlaceholderSize}px`;
@@ -535,7 +536,7 @@ export class FluidVirtualScrollContainer<T> extends LitElement {
   }
 
   /**
-   * Create intersection observers for observing
+   * Creates intersection observers for observing
    * the items in the virtual scroll container
    */
   firstUpdated(props: PropertyValues): void {

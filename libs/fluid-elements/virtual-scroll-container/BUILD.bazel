@@ -12,7 +12,7 @@ ts_library(
             "src/test-setup.ts",
         ],
     ),
-    module_name = "@dynatrace/fluid-elements/combo-box",
+    module_name = "@dynatrace/fluid-elements/virtual-scroll-container",
     module_root = "src",
     tsconfig = "tsconfig_lib",
     deps = [

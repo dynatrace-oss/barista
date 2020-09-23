@@ -16,18 +16,14 @@
 
 import { VirtualScrollState } from './virtual-scroll-state';
 
-function tick(): Promise<void> {
-  return Promise.resolve();
-}
-
-describe('Fluid button', () => {
+describe(`Fluid virtual scroll state`, () => {
   let instance: VirtualScrollState;
 
   beforeEach(() => {
     instance = new VirtualScrollState();
   });
 
-  it('should create the scroll state instance', async () => {
+  it(`should create the scroll state instance`, async () => {
     expect(instance).not.toBe(null);
   });
 });

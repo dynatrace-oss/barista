@@ -94,9 +94,18 @@ export class FluidComboBoxOption extends LitElement {
   @property({ type: Boolean, reflect: true })
   focused = false;
 
+  /**
+   * Handles click events
+   * Dispatches a selected change event
+   */
   private _handleClick(): void {
+    this.selected = !this.selected;
+
     this.dispatchEvent(
-      new FluidComboBoxOptionSelectedChangeEvent(this.optionid),
+      new FluidComboBoxOptionSelectedChangeEvent({
+        optionId: this.optionid,
+        selected: this.selected,
+      }),
     );
   }
 
@@ -116,10 +125,7 @@ export class FluidComboBoxOption extends LitElement {
           : html`<span></span>`}
         <slot></slot>
         ${!this.checkbox && this.selected
-          ? html`<fluid-icon
-              class="fluid-icon"
-              name="dropdownopen"
-            ></fluid-icon>`
+          ? html`<fluid-icon class="fluid-icon" name="checkmark"></fluid-icon>`
           : html`<span></span>`}
       </div>
     `;

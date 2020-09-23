@@ -53,6 +53,8 @@ import '@dynatrace/fluid-elements/input';
 import '@dynatrace/fluid-elements/popover';
 import '@dynatrace/fluid-elements/virtual-scroll-container';
 // tslint:disable-next-line: no-duplicate-imports
+import { FluidIcon } from '@dynatrace/fluid-elements/icon';
+// tslint:disable-next-line: no-duplicate-imports
 import { FluidInput } from '@dynatrace/fluid-elements/input';
 // tslint:disable-next-line: no-duplicate-imports
 import {
@@ -71,18 +73,6 @@ import { FluidComboBoxOption } from './combo-box-option/combo-box-option';
 import { FluidComboBoxOptionSelectedChangeEvent } from './combo-box-option/combo-box-option-events';
 
 let _unique = 0;
-
-// Offset of the popover
-const _offset: FluidPopoverOffset = ({ placement }) => {
-  if (placement.includes(`right`) || placement.includes(`left`)) {
-    return [0, 3 * parseInt(FLUID_INPUT_PADDING_INLINE)];
-  }
-
-  return [
-    -parseInt(FLUID_INPUT_PADDING_INLINE),
-    parseInt(FLUID_INPUT_PADDING_BLOCK),
-  ];
-};
 
 // Fallback placement of the popover
 const FALLBACK_PLACEMENT: Placement[] = [`right`, `left`, `top-start`];
@@ -135,7 +125,7 @@ export class FluidComboBox<T> extends LitElement {
   disabled = false;
 
   /**
-   * Defines whether the combo-box selection is valid.
+   * Defines whether the combo-box selection is required.
    * @attr
    */
   @property({ type: Boolean, reflect: true })
@@ -162,7 +152,7 @@ export class FluidComboBox<T> extends LitElement {
    * @type string
    */
   @property({ type: String, reflect: false })
-  placeholder: string = '';
+  placeholder: string = ``;
 
   /**
    * Defines the text to display if no options are available.
@@ -170,7 +160,7 @@ export class FluidComboBox<T> extends LitElement {
    * @type string
    */
   @property({ type: String, reflect: false })
-  emptymessage: string = 'No options to choose from.';
+  emptymessage: string = `No options to choose from.`;
 
   /**
    * Array of options to display in the popover.
@@ -192,7 +182,7 @@ export class FluidComboBox<T> extends LitElement {
   private _options: T[] = [];
 
   /**
-   * @internal
+   * @internal Array of filtered options ultimately displayed in the popover
    * @type array
    */
   @property({ type: Array, reflect: false })
@@ -221,7 +211,7 @@ export class FluidComboBox<T> extends LitElement {
   arialabel: string;
 
   /**
-   * Defines the aria label of the combo-box input field.
+   * Defines the aria labelled by of the combo-box input field.
    * @attr
    * @type string
    */
@@ -238,7 +228,7 @@ export class FluidComboBox<T> extends LitElement {
   renderOptionFn: (option: T) => string = (option: T) => `${option}`;
 
   /**
-   * Defines the function to use for getting the selected options' display name
+   * Defines the function to use for getting the selected option's display name
    * By default returns the option as string
    * @attr
    * @type function
@@ -248,7 +238,7 @@ export class FluidComboBox<T> extends LitElement {
 
   /**
    * Defines the function to use for filtering the options
-   * By default compares the string values of options and filter
+   * By default checks if the option string includes the filter value
    * @attr
    * @type function
    */
@@ -268,6 +258,10 @@ export class FluidComboBox<T> extends LitElement {
   @query(`.fluid-combo-box-input`)
   private _input: HTMLInputElement;
 
+  /** Reference of the input icon */
+  @query(`fluid-icon`)
+  private _icon: FluidIcon;
+
   /** Reference of the popover component */
   @query(`fluid-popover`)
   private _popover: FluidPopover;
@@ -276,17 +270,63 @@ export class FluidComboBox<T> extends LitElement {
   @query(`fluid-virtual-scroll-container`)
   private _virtualScrollContainer: FluidVirtualScrollContainer<T>;
 
-  /** Current value list of items is filtered by */
+  /** Current value the list of items is filtered by */
   private _filter = ``;
 
-  /** Used to correctly handle blurring the input */
+  /**
+   * Used to correctly handle blurring the input
+   * The input would lose focus when the user clicks inside the popover
+   * This flag is used to correctly handle this case
+   */
   private _insidePopover = false;
 
-  /** Selection model for handling options selection */
+  /** Selection model for handling options' selection */
   private _selectionModel: SelectionModel<any>;
 
-  /** Index of the currently focused option */
+  /**
+   * Index of the currently focused option
+   * Corresponds to the index of the option in the filtered options array
+   */
   private _focusedOptionIndex = -1;
+
+  // Offset of the popover
+  private _offset: FluidPopoverOffset = ({ placement }) => {
+    if (placement.includes(`left`)) {
+      // Shift popover to the left for input container padding + background overshoot
+      // The input background is bigger than the actual input the popover is anchored to
+      /*
+      Popover      InputContainer
+      ----------   --------------------------------
+               |   |   Label                      |
+               |   |------------------------------|
+               |<->|<->|Input               ||X|  |
+               |   |------------------------------|
+      ----------   --------------------------------
+    */
+      return [0, 2 * parseInt(FLUID_INPUT_PADDING_INLINE)];
+    } else if (placement.includes(`right`)) {
+      // Shift popover to the right for icon width + 2 x padding
+      /*
+      InputContainer                     Popover
+      --------------------------------   -----------
+      |   Label                      |   |
+      |------------------------------|   |
+      |   |Input               ||X|  |   |
+      |------------------------------|   |
+      |                         <-><-><->|
+      --------------------------------   -----------
+    */
+      return [
+        0,
+        2 * parseInt(FLUID_INPUT_PADDING_INLINE) + this._icon.clientWidth,
+      ];
+    }
+
+    return [
+      -parseInt(FLUID_INPUT_PADDING_INLINE),
+      parseInt(FLUID_INPUT_PADDING_BLOCK),
+    ];
+  };
 
   /** Render function used for rendering options in the virtual scroll container */
   private _renderVirtualScrollItemFn = (option: T) => {
@@ -304,12 +344,12 @@ export class FluidComboBox<T> extends LitElement {
     `;
   };
 
-  /** Returns the actual index of the option in the options array */
+  /** Returns the index of the option in the unfiltered options array */
   private _getOptionIndex(option: T): number {
     return this._options.indexOf(option);
   }
 
-  /** Toggle the popover state when clicking on the icon */
+  /** Toggles the popover state when clicking on the icon */
   private _handleIconClick(): void {
     if (this._popoverOpen) {
       this._closePopover();
@@ -319,7 +359,7 @@ export class FluidComboBox<T> extends LitElement {
     }
   }
 
-  /** Handles focusing of the input field */
+  /** Handles focus events of the input field */
   private _handleFocus(): void {
     if (!this.filterable) {
       this._openPopover();
@@ -328,7 +368,7 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /**
-   * Handles blurring of the input field
+   * Handles blur events of the input field
    * As long as the user is inside the popover,
    * the input should keep the focus
    */
@@ -347,7 +387,7 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /**
-   * Handle keydown events
+   * Handles keydown events
    * @param event
    */
   private _handleKeydown(event: KeyboardEvent): void {
@@ -373,6 +413,7 @@ export class FluidComboBox<T> extends LitElement {
         break;
       case ARROW_DOWN:
       case ARROW_UP:
+        // Prevent default behaviour of scrolling the page up/down
         event.preventDefault();
 
         // Open popover if closed and navigate through options
@@ -387,7 +428,7 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /**
-   * Handle keyup events
+   * Handles keyup events
    * Opens the popover if not already open and if a filter value is present
    */
   private _handleKeyup({ code }: KeyboardEvent): void {
@@ -401,7 +442,7 @@ export class FluidComboBox<T> extends LitElement {
     }
   }
 
-  /** Handle change of the input value */
+  /** Handles change of the input value */
   private _handleInput(): void {
     this._filteredOptions = this.filterOptionsFn(
       this._options,
@@ -410,15 +451,15 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /**
-   * Handle mousedown on the icon
-   * Prevent the input blur event from firing to correctly open/close the popover
+   * Handles mousedown on the icon
+   * Prevents the input blur event from firing to correctly open/close the popover
    */
   private _handleIconMousedown(event: MouseEvent): void {
     event.preventDefault();
   }
 
   /**
-   * Add selected option to the selection model and close the popover
+   * Toggles the selected state of the target option
    * @param event
    */
   private _handleSelectedChange(
@@ -426,11 +467,14 @@ export class FluidComboBox<T> extends LitElement {
   ): void {
     // Deselect currently selected option and close popover if multiselect is disabled
     if (!this.multiselect) {
-      const selectedOption = this._virtualScrollContainer.shadowRoot!.querySelector(
+      const selectedOption = this._virtualScrollContainer.shadowRoot!.querySelector<
+        FluidComboBoxOption
+      >(
         `.fluid-combo-box-option[data-index="${this._selectionModel.selected[0]}"]`,
       );
+
       if (selectedOption) {
-        (selectedOption as FluidComboBoxOption).selected = false;
+        selectedOption.selected = false;
       }
 
       this._closePopover();
@@ -439,9 +483,12 @@ export class FluidComboBox<T> extends LitElement {
     const option = event.target as FluidComboBoxOption;
     const optionIndex = parseInt(option.dataset.index!);
 
-    // Toggle selection of target option
-    this._selectionModel.toggle(optionIndex);
-    option.selected = this._selectionModel.isSelected(optionIndex);
+    // Update selection model according to the target option's selected state
+    if (event.data.selected) {
+      this._selectionModel.select(optionIndex);
+    } else {
+      this._selectionModel.deselect(optionIndex);
+    }
 
     // Set the input value if options are not filterable
     if (!this.filterable) {
@@ -452,7 +499,7 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /**
-   * Set flag to determine if the focus should be kept on
+   * Sets flag to determine if the focus should be kept on
    * the input when the input would usually be blurred
    * @param event Event emitted when the mouse enters/leaves the popover
    */
@@ -462,7 +509,7 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /**
-   * Set flag to determine if the focus should be kept on
+   * Sets flag to determine if the focus should be kept on
    * the input when the input would usually be blurred
    * @param event Event emitted when the mouse enters/leaves the popover
    */
@@ -471,7 +518,7 @@ export class FluidComboBox<T> extends LitElement {
     this._fluidInput._preventBlur = false;
   }
 
-  /** Set the index of the currently focused option when hovering an option */
+  /** Sets the index of the currently focused option when hovering an option */
   private _handleOptionMousemove(event: MouseEvent): void {
     const option = event.target as FluidComboBoxOption;
 
@@ -481,8 +528,10 @@ export class FluidComboBox<T> extends LitElement {
 
     this._setOptionFocus(false);
     const optionIndex = parseInt(option.dataset.index!);
-    this._focusedOptionIndex = optionIndex;
-    this._setOptionFocus(true);
+    this._focusedOptionIndex = this._filteredOptions.indexOf(
+      this._options[optionIndex],
+    );
+    option.focused = true;
   }
 
   /**
@@ -496,9 +545,9 @@ export class FluidComboBox<T> extends LitElement {
 
     for (let i = first; i <= last; i += 1) {
       const optionIndex = this._getOptionIndex(this._filteredOptions[i]);
-      const option = this._virtualScrollContainer.shadowRoot!.querySelector(
-        `.fluid-combo-box-option[data-index="${optionIndex}"]`,
-      ) as FluidComboBoxOption;
+      const option = this._virtualScrollContainer.shadowRoot!.querySelector<
+        FluidComboBoxOption
+      >(`.fluid-combo-box-option[data-index="${optionIndex}"]`);
 
       if (option) {
         option.selected = this._selectionModel.isSelected(optionIndex);
@@ -507,10 +556,7 @@ export class FluidComboBox<T> extends LitElement {
     }
   }
 
-  /**
-   * Creates or destroys the options popover and sets `_popoverOpen` accordingly
-   * Else, popperjs would calculate the updates for an existing popover even if it is not visible
-   */
+  /** Opens the options popover and sets it's width to the width of the input */
   private _openPopover(): void {
     this._popoverOpen = true;
 
@@ -521,10 +567,7 @@ export class FluidComboBox<T> extends LitElement {
     this._virtualScrollContainer.render();
   }
 
-  /**
-   * Creates or destroys the options popover and sets `_popoverOpen` accordingly
-   * Else, popperjs would calculate the updates for an existing popover even if it is not visible
-   */
+  /** Closes the options popover */
   private _closePopover(): void {
     this._popoverOpen = false;
   }
@@ -539,13 +582,15 @@ export class FluidComboBox<T> extends LitElement {
     this._input.value = displayNames.join(`, `);
   }
 
-  /** Trigger selected change with currently focused option */
+  /** Triggers selected change with currently focused option */
   private _setSelectedOption(): void {
-    const option = this._virtualScrollContainer.shadowRoot!.querySelector(
+    const option = this._virtualScrollContainer.shadowRoot!.querySelector<
+      FluidComboBoxOption
+    >(
       `.fluid-combo-box-option[data-index="${this._getOptionIndex(
         this._filteredOptions[this._focusedOptionIndex],
       )}"]`,
-    ) as FluidComboBoxOption;
+    );
 
     if (option) {
       this._handleSelectedChange({ target: option } as any);
@@ -557,6 +602,7 @@ export class FluidComboBox<T> extends LitElement {
    * @param keyCode Right or left arrow keycode
    */
   private _updateFocusedOptionIndex(keyCode: string): void {
+    // Prevent cycling
     if (
       (keyCode === ARROW_DOWN &&
         this._focusedOptionIndex === this._filteredOptions.length - 1) ||
@@ -565,13 +611,18 @@ export class FluidComboBox<T> extends LitElement {
       return;
     }
 
+    // Reset focus of currently focused option
     this._setOptionFocus(false);
+    // Increase/decrease index of focused option
     this._focusedOptionIndex = getNextGroupItemIndex(
       this._focusedOptionIndex,
       this._filteredOptions.length,
       keyCode,
     );
 
+    // If the new index is outside the range of currently rendered options, which
+    // might happen when the user first hovers an item, then scrolls up/down, get
+    // the first or last visible item's index
     if (
       this._focusedOptionIndex <
       this._virtualScrollContainer._scrollState.renderedItemsRange.first
@@ -583,16 +634,18 @@ export class FluidComboBox<T> extends LitElement {
     ) {
       this._focusedOptionIndex = this._getLastVisibleOptionIndex();
     }
-    this._setOptionFocus(true);
+    // Set the focus of the option at the new index
+    this._setOptionFocus();
   }
 
+  /** Iterates over currently rendered options and returns the index of the first visible */
   private _getFirstVisibleOptionIndex(): number {
     let optionIndex = 0;
     let currentIndex = this._virtualScrollContainer._scrollState
       .renderedItemsRange.first;
     const containerBCR = this._virtualScrollContainer.getBoundingClientRect();
 
-    while (!optionIndex) {
+    do {
       const option = this._virtualScrollContainer.shadowRoot!.querySelector(
         `.fluid-combo-box-option[data-index="${this._getOptionIndex(
           this._filteredOptions[currentIndex],
@@ -609,18 +662,19 @@ export class FluidComboBox<T> extends LitElement {
       } else {
         break;
       }
-    }
+    } while (!optionIndex);
 
     return optionIndex;
   }
 
+  /** Iterates over currently rendered options and returns the index of the last visible */
   private _getLastVisibleOptionIndex(): number {
     let optionIndex = 0;
     let currentIndex = this._virtualScrollContainer._scrollState
       .renderedItemsRange.last;
     const containerBCR = this._virtualScrollContainer.getBoundingClientRect();
 
-    while (!optionIndex) {
+    do {
       const option = this._virtualScrollContainer.shadowRoot!.querySelector(
         `.fluid-combo-box-option[data-index="${this._getOptionIndex(
           this._filteredOptions[currentIndex],
@@ -637,22 +691,24 @@ export class FluidComboBox<T> extends LitElement {
       } else {
         break;
       }
-    }
+    } while (!optionIndex);
 
     return optionIndex;
   }
 
   /**
-   * Set the focus of the option at the currently focused index
+   * Sets the focus of the option at the currently focused index
    * @param focus
    */
-  private _setOptionFocus(focus: boolean): void {
+  private _setOptionFocus(focus: boolean = true): void {
     if (this._focusedOptionIndex >= 0) {
-      const option = this._virtualScrollContainer.shadowRoot!.querySelector(
+      const option = this._virtualScrollContainer.shadowRoot!.querySelector<
+        FluidComboBoxOption
+      >(
         `.fluid-combo-box-option[data-index="${this._getOptionIndex(
           this._filteredOptions[this._focusedOptionIndex],
         )}"]`,
-      ) as FluidComboBoxOption;
+      );
 
       if (option) {
         option.focused = focus;
@@ -663,6 +719,10 @@ export class FluidComboBox<T> extends LitElement {
     }
   }
 
+  /**
+   * Adjusts the scroll position of the virtual scroll container
+   * to fully show the currently focused option
+   */
   private _adjustVirtualScrollContainerScroll(
     option: FluidComboBoxOption,
   ): void {
@@ -681,7 +741,7 @@ export class FluidComboBox<T> extends LitElement {
   }
 
   /**
-   * Create selection model after the properties have been updated once,
+   * Creates selection model after the properties have been updated once,
    * else the multiselect property would not yet be set to the desired value
    */
   firstUpdated(props: PropertyValues): void {
@@ -726,7 +786,7 @@ export class FluidComboBox<T> extends LitElement {
         />
         <fluid-icon
           class=${classMap(iconClassMapData)}
-          name="dropdownopen"
+          name="arrow-down"
           slot="icon"
           @mousedown=${this._handleIconMousedown}
           @click=${this._handleIconClick}
@@ -735,7 +795,7 @@ export class FluidComboBox<T> extends LitElement {
       <fluid-popover
         .anchor=${this._input}
         .open=${this._popoverOpen}
-        .offset=${_offset}
+        .offset=${this._offset}
         .fallbackplacement=${FALLBACK_PLACEMENT}
         @mouseenter=${this._handlePopoverEnter}
         @mouseleave=${this._handlePopoverLeave}
