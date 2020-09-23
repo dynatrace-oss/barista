@@ -1,0 +1,6 @@
+set -eu
+echo '--- :eagle: set environment'
+
+# we need to set git clean flags to get rid of removing node_modules directory
+# this level up the buildspeed
+export BUILDKITE_GIT_CLEAN_FLAGS='-ffxq'
