@@ -1,3 +1,12 @@
+## [8.0.3](https://github.com/dynatrace-oss/barista/compare/8.0.2...8.0.3) (2020-09-23)
+
+### Bug Fixes
+
+- **filter-field:** Reverts a commit that introduced a bug when selecting
+  suggestion values.
+  ([4ad27e0](https://github.com/dynatrace-oss/barista/commit/4ad27e0caf2efcb194c24eaa281d2c8125e1c93a)),
+  closes [#1632](https://github.com/dynatrace-oss/barista/issues/1632)
+
 ## [8.0.2](https://github.com/dynatrace-oss/barista/compare/8.0.1...8.0.2) (2020-09-16)
 
 ### Bug Fixes
