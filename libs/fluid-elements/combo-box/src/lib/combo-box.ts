@@ -593,7 +593,8 @@ export class FluidComboBox<T> extends LitElement {
     );
 
     if (option) {
-      this._handleSelectedChange({ target: option } as any);
+      // Emit click on option to trigger selected change event
+      (option.shadowRoot!.firstElementChild! as HTMLElement).click();
     }
   }
 
