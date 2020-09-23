@@ -14,7 +14,8 @@ common --color=yes
 # width of the terminal emulator of buildkite
 common --terminal_columns=143
 # common --show_timestamps
-common --verbose_failures
+build --verbose_failures
+test --verbose_failures
 
 # Save downloaded repositories in a location that can be cached by Buildkite. This helps us
 # speeding up the analysis time significantly with Bazel managed node dependencies on the CI.
