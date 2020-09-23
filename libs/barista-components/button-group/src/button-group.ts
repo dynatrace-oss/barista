@@ -65,7 +65,7 @@ export const _DtButtonGroup = mixinTabIndex(
 })
 export class DtButtonGroup<T> extends _DtButtonGroup
   implements CanDisable, HasTabIndex, AfterContentInit {
-  private _value: T | null = null;
+  private _value: T | string | null = null;
   private _disabled = false;
 
   // tslint:disable-next-line: no-use-before-declare no-forward-ref
@@ -73,14 +73,14 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   private _items: QueryList<DtButtonGroupItem<T>>;
 
   /** Emits a stream when the value changes. */
-  @Output() readonly valueChange = new EventEmitter<T | null>();
+  @Output() readonly valueChange = new EventEmitter<T | string | null>();
 
   /** The value of the button group. */
   @Input()
-  get value(): T | null {
+  get value(): T | string | null {
     return !this.disabled ? this._value : null;
   }
-  set value(newValue: T | null) {
+  set value(newValue: T | string | null) {
     if (this._value !== newValue) {
       this._value = newValue;
       this._updateSelectedItemFromValue();
@@ -151,7 +151,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
 /** Change event object emitted by DtRadioButton */
 export interface DtButtonGroupItemSelectionChange<T> {
   source: DtButtonGroupItem<T>;
-  value: T | null;
+  value: T | string | null;
 }
 
 export type DtButtonGroupThemePalette = 'main' | 'error';
@@ -166,9 +166,12 @@ export const _DtButtonGroupItem = mixinTabIndex(
   >(DtButtonGroupItemBase as Constructor<CanDisable & HasElementRef>, 'main'),
 );
 
+// Increasing integer for generating unique values for button-group-item components.
+let nextUniqueValue = 0;
+
 @Component({
   selector: 'dt-button-group-item',
-  template: ` <ng-content></ng-content> `,
+  template: `<ng-content></ng-content> `,
   exportAs: 'dtButtonGroupItem',
   host: {
     role: 'radio',
@@ -194,8 +197,9 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     HasTabIndex,
     AfterContentInit,
     OnDestroy {
+  private _uniqueValue = `dt-button-group-value-${nextUniqueValue++}`;
   private _selected = false;
-  private _value: T;
+  private _value: T | string = this._uniqueValue;
   private _disabled = false;
 
   /** Emits a stream when this item is selected or deselected. */
@@ -231,10 +235,10 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
 
   /** The bound value. */
   @Input()
-  get value(): T {
+  get value(): T | string {
     return this._value;
   }
-  set value(newValue: T) {
+  set value(newValue: T | string) {
     this._value = newValue;
   }
 
