@@ -1,6 +1,6 @@
 # Workspace library
 
-This library should contain all workspace related builders and schematics.
+This library should contain all workspace related builders.
 
 ## Important ⚠️
 

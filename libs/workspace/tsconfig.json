@@ -5,7 +5,7 @@
     "downlevelIteration": true
   },
   "include": [],
-  "exclude": ["src/schematics/*/files"],
+  "exclude": [],
   "files": [],
   "references": [
     {
