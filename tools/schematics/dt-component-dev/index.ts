@@ -26,11 +26,10 @@ import {
 } from '@angular-devkit/schematics';
 import { join } from 'path';
 import * as ts from 'typescript';
-import { findNodes, getSourceFile, getIndentation } from '../utils/ast-utils';
+import { findNodes, getIndentation, getSourceFile } from '../utils/ast-utils';
 import { commitChanges, InsertChange } from '../utils/change';
 import { generateComponentOptions } from '../utils/schematics-utils';
 import { DtComponentDevOptions } from './schema';
-import { extend } from 'lodash-es';
 
 interface DtDevExtendedOptions {
   selector: string;
