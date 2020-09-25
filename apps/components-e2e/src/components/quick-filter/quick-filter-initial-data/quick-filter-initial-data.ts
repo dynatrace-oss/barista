@@ -37,4 +37,13 @@ export class DtE2EQuickFilterInitialData {
       FILTER_FIELD_TEST_DATA.autocomplete[1].autocomplete![2],
     ],
   ];
+
+  changeInitialFilters(): void {
+    this._initialFilters = [
+      [
+        FILTER_FIELD_TEST_DATA.autocomplete[1],
+        FILTER_FIELD_TEST_DATA.autocomplete[1].autocomplete![2],
+      ],
+    ];
+  }
 }

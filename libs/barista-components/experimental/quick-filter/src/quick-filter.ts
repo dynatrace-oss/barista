@@ -31,13 +31,26 @@ import {
   DtFilterField,
   DtFilterFieldChangeEvent,
   DtFilterFieldCurrentFilterChangeEvent,
+  DtFilterValue,
+  isDtAutocompleteValue,
+  _getSourcesOfDtFilterValues,
 } from '@dynatrace/barista-components/filter-field';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { switchMap, take, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { DtQuickFilterDataSource } from './quick-filter-data-source';
-import { Action, setFilters, switchDataSource } from './state/actions';
+import {
+  Action,
+  addInitialFilters,
+  setFilters,
+  switchDataSource,
+} from './state/actions';
 import { quickFilterReducer } from './state/reducer';
-import { getAutocompletes, getDataSource, getFilters } from './state/selectors';
+import {
+  getAutocompletes,
+  getDataSource,
+  getFilters,
+  getInitialFilters,
+} from './state/selectors';
 import { createQuickFilterStore, QuickFilterState } from './state/store';
 
 /** Directive that is used to place a title inside the quick filters sidebar */
@@ -143,7 +156,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     return this._filterField.filters;
   }
   set filters(filters: T[][]) {
-    this._store.dispatch(setFilters(filters));
+    this._store.dispatch(addInitialFilters(filters));
   }
 
   /**
@@ -169,21 +182,33 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   /** Angular life-cycle hook that will be called after the view is initialized */
   ngAfterViewInit(): void {
     // We need to wait for the first on stable call, otherwise the
-    // underlying filterfield will thow an expression changed after checked
+    // underlying filter field will throw an expression changed after checked
     // error. Deferring the first filter setting.
     // Relates to a very weird and hard to reproduce bug described in
     // https://github.com/dynatrace-oss/barista/issues/1305
-    this._zone.onStable
+    const stable$ = this._zone.onStable.pipe(take(1));
+
+    stable$
       .pipe(
-        take(1),
         switchMap(() => this._activeFilters$),
+        map((filters) =>
+          filters.map((values) => _getSourcesOfDtFilterValues(values)),
+        ),
         takeUntil(this._destroy$),
       )
-      // When the filters changes apply them to the filter field
       .subscribe((filters) => {
-        if (this._filterField.filters !== filters) {
-          this._filterField.filters = filters;
-        }
+        this._filterField.filters = filters;
+      });
+
+    stable$
+      .pipe(
+        switchMap(() => this._store.select(getInitialFilters)),
+        filter<any[][]>(Boolean),
+        takeUntil(this._destroy$),
+      )
+      .subscribe((filters) => {
+        this._filterField.filters = filters;
+        this._store.dispatch(setFilters(this._getFilteredValues()));
       });
   }
 
@@ -212,7 +237,15 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
 
   /** @internal Bubble the filter field change event through */
   _filterFieldChanged(change: DtFilterFieldChangeEvent<T>): void {
-    this._store.dispatch(setFilters(change.filters));
+    // Filter only autocomplete filters as we don't use free-text and range in the quick-filter
+    this._store.dispatch(setFilters(this._getFilteredValues()));
     this.filterChanges.emit(change);
+  }
+
+  /** Get the filter Values from the Filter Field with only the displayable autocompletes */
+  private _getFilteredValues(): DtFilterValue[][] {
+    return this._filterField._filterValues.filter((group) =>
+      group.every((value) => isDtAutocompleteValue(value)),
+    );
   }
 }

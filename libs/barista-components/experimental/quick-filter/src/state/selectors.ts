@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { isDefined } from '@dynatrace/barista-components/core';
 import {
   applyDtOptionIds,
   DtNodeDef,
   isDtAutocompleteDef,
 } from '@dynatrace/barista-components/filter-field';
 import { Observable } from 'rxjs';
-import { filter, map, pluck, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, tap, withLatestFrom } from 'rxjs/operators';
 import { DtQuickFilterDataSource } from '../quick-filter-data-source';
 import { QuickFilterState } from './store';
-import { isDefined } from '@dynatrace/barista-components/core';
 
 /** @internal Select all autocompletes from the root Node Def from the store */
 export const getAutocompletes = (
@@ -35,7 +35,7 @@ export const getAutocompletes = (
         applyDtOptionIds(state.nodeDef);
       }
     }),
-    pluck('nodeDef'),
+    map(({ nodeDef }) => nodeDef),
     filter((state) => isDefined(state) && isDtAutocompleteDef(state)),
     withLatestFrom(
       getDataSource(state$).pipe(filter<DtQuickFilterDataSource>(Boolean)),
@@ -51,8 +51,12 @@ export const getAutocompletes = (
 
 /** @internal Select the data Source from the store */
 export const getDataSource = (state$: Observable<QuickFilterState>) =>
-  state$.pipe(pluck('dataSource'));
+  state$.pipe(map((state) => state?.dataSource));
 
 /** @internal Select the actual applied filters */
 export const getFilters = (state$: Observable<QuickFilterState>) =>
-  state$.pipe(pluck('filters'));
+  state$.pipe(map(({ filters }) => filters));
+
+/** @internal Get the initial filters */
+export const getInitialFilters = (state$: Observable<QuickFilterState>) =>
+  state$.pipe(map(({ initialFilters }) => initialFilters));

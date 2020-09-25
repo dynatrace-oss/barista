@@ -24,13 +24,13 @@ import {
   FILTER_FIELD_TEST_DATA,
   FILTER_FIELD_TEST_DATA_VALIDATORS,
 } from '@dynatrace/testing/fixtures';
-import { isObject } from 'util';
+import { isObject } from 'lodash-es';
 
 const DATA = [FILTER_FIELD_TEST_DATA_VALIDATORS, FILTER_FIELD_TEST_DATA];
 
 const config: DtQuickFilterDefaultDataSourceConfig = {
   showInSidebar: (node) =>
-    isObject(node) && node.name && node.name !== 'Not in Quickfilter',
+    (isObject(node) as any) && node.name && node.name !== 'Not in Quickfilter',
 };
 
 @Component({

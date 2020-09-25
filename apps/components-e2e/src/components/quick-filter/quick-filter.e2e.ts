@@ -26,6 +26,7 @@ import {
   getSelectedItem,
 } from './quick-filter.po';
 import { resetWindowSizeToDefault } from '../../utils';
+import { Selector } from 'testcafe';
 
 fixture('Quick Filter')
   .page('http://localhost:4200/quick-filter')
@@ -155,4 +156,20 @@ test('when the distinct group get set to the any option, then remove the group f
     .eql(['USANew York', 'AUTGraz'])
     .expect(getSelectedItem('AUT').textContent)
     .match(/Graz/);
+});
+
+test('should be possible to change the filters via binding on the quick-filter', async (testController: TestController) => {
+  await testController
+    .expect(getFilterfieldTags())
+    .eql(['AUTVienna', 'USANew York'])
+    .click(tagDeleteButton('New York'), { speed: 0.4 })
+    .expect(getFilterfieldTags())
+    .eql(['AUTVienna'])
+    .click(Selector('.change-filter-binding'))
+    .expect(getFilterfieldTags())
+    .eql(['USANew York'])
+    .expect(getSelectedItem('USA').textContent)
+    .match(/New York/)
+    .expect(getSelectedItem('AUT').textContent)
+    .match(/Any/);
 });

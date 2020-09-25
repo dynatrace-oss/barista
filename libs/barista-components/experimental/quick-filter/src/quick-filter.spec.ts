@@ -123,6 +123,7 @@ describe('dt-quick-filter', () => {
           FILTER_FIELD_TEST_DATA.autocomplete[0].autocomplete![0],
         ],
       ];
+      zone.simulateZoneExit();
       fixture.detectChanges();
 
       fixture.componentInstance._dataSource = new DtQuickFilterDefaultDataSource(
@@ -131,8 +132,8 @@ describe('dt-quick-filter', () => {
           showInSidebar: () => true,
         },
       );
+      zone.simulateZoneExit();
       fixture.detectChanges();
-
       expect(filterFieldInstance.filters).toMatchObject([]);
       expect(quickFilterInstance.filters).toMatchObject([]);
     });

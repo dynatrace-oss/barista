@@ -9,7 +9,7 @@
 <ng-template [ngIf]="_isDistinct()" [ngIfElse]="notDistinct">
   <dt-radio-group
     class="dt-quick-filter-group-items"
-    (change)="_selectOption($event)"
+    (change)="_selectOption($event, _nodeDef)"
   >
     <dt-radio-button [checked]="_isNothingSelected()" (change)="_unsetGroup()">
       Any
@@ -30,7 +30,7 @@
       *ngFor="let item of _getOptions()"
       [value]="item"
       [checked]="_isActive(item)"
-      (change)="_selectCheckBox($event)"
+      (change)="_selectCheckBox($event, _nodeDef)"
     >
       {{ _getViewValue(item) }}
     </dt-checkbox>

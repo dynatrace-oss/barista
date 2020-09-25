@@ -19,12 +19,24 @@ import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { DtFilterFieldModule } from '@dynatrace/barista-components/filter-field';
 import { DtE2EFilterField } from './filter-field';
+import {
+  DtExampleFilterFieldAsync,
+  DtFilterFieldExamplesModule,
+} from '@dynatrace/examples/filter-field';
 
-const routes: Route[] = [{ path: '', component: DtE2EFilterField }];
+const routes: Route[] = [
+  { path: '', component: DtE2EFilterField },
+  { path: 'async', component: DtExampleFilterFieldAsync },
+];
 
 @NgModule({
   declarations: [DtE2EFilterField],
-  imports: [CommonModule, RouterModule.forChild(routes), DtFilterFieldModule],
+  imports: [
+    CommonModule,
+    DtFilterFieldExamplesModule,
+    RouterModule.forChild(routes),
+    DtFilterFieldModule,
+  ],
   exports: [],
   providers: [],
 })

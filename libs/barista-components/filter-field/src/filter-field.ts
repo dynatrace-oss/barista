@@ -261,6 +261,10 @@ export class DtFilterField<T = any>
     this._tryApplyFilters(value);
     this._changeDetectorRef.markForCheck();
   }
+  /** @internal */
+  get _filterValues(): DtFilterValue[][] {
+    return this._filters;
+  }
   private _filters: DtFilterValue[][] = [];
 
   /** Set the Aria-Label attribute */

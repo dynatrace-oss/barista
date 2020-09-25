@@ -53,5 +53,7 @@ export {
   isDtAutocompleteValue,
   isDtFreeTextValue,
   isDtRangeValue,
+  DtAutocompleteValue,
+  _getSourcesOfDtFilterValues,
 } from './src/types';
 export { DT_FILTER_VALUES_PARSER_CONFIG } from './src/filter-field-config';
