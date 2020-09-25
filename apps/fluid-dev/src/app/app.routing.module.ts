@@ -68,6 +68,13 @@ export const fluidRoutes: Route[] = [
         (module) => module.FluidTabPageModule,
       ),
   },
+  {
+    path: 'virtual-scroll-container',
+    loadChildren: () =>
+      import(
+        '../pages/virtual-scroll-container/virtual-scroll-container-page.module'
+      ).then((module) => module.FluidVirtualScrollContainerPageModule),
+  },
 ];
 
 @NgModule({
