@@ -75,6 +75,13 @@ export const fluidRoutes: Route[] = [
         '../pages/virtual-scroll-container/virtual-scroll-container-page.module'
       ).then((module) => module.FluidVirtualScrollContainerPageModule),
   },
+  {
+    path: 'combobox',
+    loadChildren: () =>
+      import('../pages/combo-box/combo-box-page.module').then(
+        (module) => module.FluidComboBoxPageModule,
+      ),
+  },
 ];
 
 @NgModule({

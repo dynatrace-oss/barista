@@ -14,5 +14,9 @@
  * limitations under the License.
  */
 
-export * from './lib/keyboard';
-export * from './lib/selection';
+/** Event emitted when the filter value changed */
+export class FluidComboBoxFilterChange extends CustomEvent<any> {
+  constructor(public filter: string) {
+    super('filterChange', { bubbles: true, composed: true });
+  }
+}

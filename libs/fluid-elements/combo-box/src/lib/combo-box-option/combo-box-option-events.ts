@@ -14,5 +14,9 @@
  * limitations under the License.
  */
 
-export * from './lib/keyboard';
-export * from './lib/selection';
+/** Custom event implementation fires when the active tab has changes */
+export class FluidComboBoxOptionSelectedChangeEvent extends CustomEvent<any> {
+  constructor(public data: { optionId: string; selected: boolean }) {
+    super('selectedChange', { bubbles: true, composed: true });
+  }
+}

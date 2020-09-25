@@ -192,6 +192,6 @@ export const inputStyles: CSSResult = css`
 
   ::slotted(fluid-icon) {
     height: 100%;
-    --fluid-icon--primary-color: var(--fluid-input--foreground);
+    --fluid-icon--color: var(--fluid-input--foreground);
   }
 `;

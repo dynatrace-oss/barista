@@ -1,0 +1,13 @@
+.outerclass {
+  display: block;
+}
+
+.lorem-ipsum {
+  max-width: 980px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}

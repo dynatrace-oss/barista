@@ -14,5 +14,4 @@
  * limitations under the License.
  */
 
-export * from './lib/keyboard';
-export * from './lib/selection';
+export * from './lib/combo-box';

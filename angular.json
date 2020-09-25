@@ -2932,6 +2932,45 @@
         }
       }
     },
+    "fluid-combo-box": {
+      "root": "libs/fluid-elements/combo-box",
+      "sourceRoot": "libs/fluid-elements/combo-box/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "./dist/libs/workspace:typescript",
+          "options": {
+            "tsConfig": "libs/fluid-elements/combo-box/tsconfig.lib.json",
+            "outDir": "dist/out-tsc"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "package": {
+          "builder": "./dist/libs/workspace:package-element",
+          "options": {
+            "outputPath": "dist/libs/fluid-elements/combo-box",
+            "entryFile": "dist/out-tsc/libs/fluid-elements/combo-box/src/index.js",
+            "project": "libs/fluid-elements/combo-box/package.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/fluid-elements/combo-box/tsconfig.lib.json",
+              "libs/fluid-elements/combo-box/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/fluid-elements/combo-box/**/*"
+            ]
+          }
+        }
+      }
+    },
     "fluid-input": {
       "root": "libs/fluid-elements/input",
       "sourceRoot": "libs/fluid-elements/input/src",

@@ -12,14 +12,22 @@ ts_library(
             "src/test-setup.ts",
         ],
     ),
-    module_name = "@dynatrace/fluid-elements/icon",
+    module_name = "@dynatrace/fluid-elements/combo-box",
     module_root = "src",
     tsconfig = "tsconfig_lib",
     deps = [
         "//libs/shared/design-tokens",
+        "//libs/shared/keycodes",
+        "//libs/fluid-elements/checkbox:compile",
+        "//libs/fluid-elements/core:compile",
+        "//libs/fluid-elements/icon:compile",
+        "//libs/fluid-elements/input:compile",
+        "//libs/fluid-elements/popover:compile",
+        "//libs/fluid-elements/virtual-scroll-container:compile",
         "@npm//lit-element",
         "@npm//lit-html",
         "@npm//tslib",
+        "@npm//lodash-es",
     ],
 )
 

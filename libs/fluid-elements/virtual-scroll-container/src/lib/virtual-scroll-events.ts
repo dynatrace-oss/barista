@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/** Custom event implementation fires when the active tab has changes */
+/** Event emitted when the range of rendered items changed */
 export class FluidVirtualScrollContainerRenderedItemsChange extends CustomEvent<
   any
 > {

@@ -14,5 +14,21 @@
  * limitations under the License.
  */
 
-export * from './lib/keyboard';
-export * from './lib/selection';
+import { CommonModule } from '@angular/common';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { FluidComboBoxPage } from './combo-box-page.component';
+
+export const routes: Route[] = [
+  {
+    path: '',
+    component: FluidComboBoxPage,
+  },
+];
+
+@NgModule({
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  declarations: [FluidComboBoxPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class FluidComboBoxPageModule {}

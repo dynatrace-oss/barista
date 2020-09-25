@@ -159,11 +159,11 @@ export class FluidPopover extends LitElement {
   private _offset: FluidPopoverOffset;
 
   /**
-   * FLuid popover container element
+   * @internal FLuid popover container element
    * @type HTMLDivElement
    */
   @query(`.fluid-popover`)
-  private _popover: HTMLDivElement;
+  _popoverContainer: HTMLDivElement;
 
   /** Clone of the offset modifier to be able to adjust the offsets of individual popovers */
   private _offsetModifier = Object.assign({}, offset);
@@ -190,10 +190,14 @@ export class FluidPopover extends LitElement {
 
   /** Create a popperjs popover */
   private _createPopover(): void {
-    this._popperPopoverInstance = createPopper(this.anchor, this._popover, {
-      placement: this.placement,
-      modifiers: [preventOverflow, this._flipModifier, this._offsetModifier],
-    });
+    this._popperPopoverInstance = createPopper(
+      this.anchor,
+      this._popoverContainer,
+      {
+        placement: this.placement,
+        modifiers: [preventOverflow, this._flipModifier, this._offsetModifier],
+      },
+    );
   }
 
   /** Destroy the popperjs popover instance */

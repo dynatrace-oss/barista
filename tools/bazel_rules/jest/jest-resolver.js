@@ -1,6 +1,6 @@
 const { sync } = require('resolve');
 const { readFileSync, existsSync, lstatSync } = require('fs');
-const { resolve, join } = require('path');
+const { resolve, join, basename } = require('path');
 
 // Get the module mappings out of the module mappings file from bazel
 const [bazelPackage, bazelTarget] = process.env.BAZEL_TARGET.split(':');
@@ -54,6 +54,11 @@ function resolveModuleFileName(fileName) {
   // TODO: lukas.holzer find a more elegant solution for getting the module_root for design tokens
   if (existsSync(`${absolutePath}/generated/index.js`)) {
     return `${absolutePath}/generated/index.js`;
+  }
+
+  // TODO: lukas.holzer find a more elegant solution for getting the module_root for lit-html
+  if (existsSync(`${absolutePath}/${basename(absolutePath)}.js`)) {
+    return `${absolutePath}/${basename(absolutePath)}.js`;
   }
 }
 
