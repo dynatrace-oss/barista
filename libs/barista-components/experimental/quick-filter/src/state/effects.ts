@@ -19,26 +19,26 @@ import {
   DtNodeDef,
 } from '@dynatrace/barista-components/filter-field';
 import { MonoTypeOperatorFunction, Observable } from 'rxjs';
-import { filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap, take } from 'rxjs/operators';
 import { Action, ActionType, updateDataSource } from './actions';
 import { QuickFilterState } from './store';
 
-/** Type for an effect */
+/** @internal Type for an effect */
 export type Effect = (
   action$: Observable<Action>,
   state$?: Observable<QuickFilterState>,
 ) => Observable<Action>;
 
-/** Operator to filter actions */
+/** @internal Operator to filter actions */
 export const ofType = <T>(
   ...types: ActionType[]
 ): MonoTypeOperatorFunction<Action<T>> =>
   filter((action: Action) => types.indexOf(action.type) > -1);
 
-/** Connects to a new Data dataSource */
+/** @internal Connects to a new Data dataSource */
 export const switchDataSourceEffect: Effect = (action$: Observable<Action>) =>
   action$.pipe(
     ofType<DtFilterFieldDataSource<any>>(ActionType.SWITCH_DATA_SOURCE),
-    switchMap((action) => action.payload!.connect()),
+    switchMap((action) => action.payload!.connect().pipe(take(1))),
     map((nodeDef: DtNodeDef) => updateDataSource(nodeDef)),
   );

@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-import { DELIMITER } from '@dynatrace/barista-components/filter-field';
+import { DtAutocompleteValue } from '@dynatrace/barista-components/filter-field';
 
-export function buildIdPathsFromFilters(filters: any[][]): string[] {
-  return filters.map((path) =>
-    path.reduce(
-      (previousValue, currentValue) =>
-        `${previousValue.name}${DELIMITER}${currentValue.name}${DELIMITER}`,
-    ),
-  );
+/** @internal Build an array of uids from the options without the groups */
+export function buildIdPathsFromFilters(
+  filters: DtAutocompleteValue<any>[][],
+): string[] {
+  return filters.map((group) => group[group.length - 1].option?.uid || '');
 }
