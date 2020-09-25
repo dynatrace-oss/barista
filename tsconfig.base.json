@@ -249,6 +249,9 @@
       "@dynatrace/fluid-elements/label": [
         "libs/fluid-elements/label/src/index.ts"
       ],
+      "@dynatrace/fluid-elements/virtual-scroll-container": [
+        "libs/fluid-elements/virtual-scroll-container/src/index.ts"
+      ],
       "@dynatrace/testing/custom-element": [
         "libs/testing/custom-element/src/index.ts"
       ],
