@@ -14,37 +14,37 @@
  * limitations under the License.
  */
 
-import { strings } from '@angular-devkit/core';
+import { normalize, strings } from '@angular-devkit/core';
+import { formatFiles } from '@nrwl/workspace';
 import {
   apply,
   chain,
   mergeWith,
+  move,
+  noop,
   Rule,
   template,
-  move,
   Tree,
   url,
-  noop,
+  SchematicContext,
 } from '@angular-devkit/schematics';
-import { formatFiles } from '@nrwl/workspace';
-import { DtComponentExampleOptions } from './schema';
-import { normalize } from '@angular-devkit/core';
-import { LICENSE_HEADER } from '../../utils/common-utils';
 import { join } from 'path';
-import {
-  getSourceFile,
-  findNodes,
-  addImport,
-  addExport,
-} from '../utils/ast-utils';
 import * as ts from 'typescript';
-import { commitChanges, InsertChange } from '../utils/change';
 import {
-  updateExamplesModule,
-  changeRoutingModule,
+  addExport,
+  addImport,
+  findNodes,
+  getSourceFile,
+} from '../utils/ast-utils';
+import { commitChanges, InsertChange } from '../utils/change';
+import { LICENSE_HEADER } from '../utils/common-utils';
+import {
   changeNavigation,
+  changeRoutingModule,
   updateExamplesBarrel,
+  updateExamplesModule,
 } from './example-tools.utils';
+import { DtComponentExampleOptions } from './schema';
 
 export interface DtExampleExtendedOptions {
   componentSelector: string;
@@ -227,7 +227,7 @@ function updateIndex(options: DtExampleExtendedOptions): Rule {
  * @param options
  */
 export default function (options: DtComponentExampleOptions): Rule {
-  return async (tree: Tree) => {
+  return (tree: Tree, schematicContext: SchematicContext) => {
     const dashName = strings.dasherize(options.component);
     const exampleId = `${dashName}-${strings.dasherize(options.name)}`;
     const extendedOptions: DtExampleExtendedOptions = {
@@ -281,6 +281,6 @@ export default function (options: DtComponentExampleOptions): Rule {
       changeRoutingModule(extendedOptions),
       changeNavigation(extendedOptions, isNewComponent),
       formatFiles(),
-    ]);
+    ])(tree, schematicContext);
   };
 }

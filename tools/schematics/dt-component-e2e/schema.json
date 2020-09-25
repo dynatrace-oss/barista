@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "DtComponentDev",
-  "title": "DtComponent Dev Schema",
+  "id": "dt-component-e2e",
+  "title": "Generate e2e testing component.",
   "type": "object",
   "properties": {
     "name": {
@@ -11,7 +11,7 @@
         "$source": "argv",
         "index": 0
       },
-      "x-prompt": "What name would you like to use for your Dev component?"
+      "x-prompt": "What name would you like to use for your e2e component?"
     }
   }
 }
