@@ -15,56 +15,62 @@
  */
 import {
   DtFilterFieldDataSource,
+  DtFilterValue,
   DtNodeDef,
 } from '@dynatrace/barista-components/filter-field';
 
-/** Enum for all the possible action types */
+/** @internal Enum for all the possible action types */
 export enum ActionType {
   INIT = '@@actions init',
   ADD_FILTER = '@@actions add filter',
   REMOVE_FILTER = '@@actions remove filter',
   UPDATE_FILTER = '@@actions update filter',
   SET_FILTERS = '@@actions set filters',
+  ADD_INITIAL_FILTERS = '@@actions add initial filters',
   UNSET_FILTER_GROUP = '@@actions unset filter group',
   SWITCH_DATA_SOURCE = '@@actions  switch dataSource',
   UPDATE_DATA_SOURCE = '@@actions update dataSource',
 }
 
-/** Interface for an action */
+/** @internal Interface for an action */
 export interface Action<T = any> {
   readonly type: ActionType;
   payload?: T;
 }
-/** Function which helps to create actions without mistakes */
+/** @internal Function which helps to create actions without mistakes */
 export const action = <T>(type: ActionType, payload?: T): Action<T> => ({
   type,
   payload,
 });
 
-/** Action that sets filters (Bulk operation for addFilter) */
-export const setFilters = (filters: any[][]) =>
-  action<any[][]>(ActionType.SET_FILTERS, filters);
+/** @internal Action that sets filters (Bulk operation for addFilter) */
+export const setFilters = (filters: DtFilterValue[][]) =>
+  action<DtFilterValue[][]>(ActionType.SET_FILTERS, filters);
 
-/** Action that unsets a filter group */
+/** @internal Initial filters are set via binding on the quick filter so they are not in the value data format. */
+export const addInitialFilters = (filters: any[][]) =>
+  action<any[][]>(ActionType.ADD_INITIAL_FILTERS, filters);
+
+/** @internal Action that unsets a filter group */
 export const unsetFilterGroup = (group: DtNodeDef) =>
   action<DtNodeDef>(ActionType.UNSET_FILTER_GROUP, group);
 
-/** Action that adds a filter */
-export const addFilter = (item: DtNodeDef) =>
-  action<DtNodeDef>(ActionType.ADD_FILTER, item);
+/** @internal Action that adds a filter */
+export const addFilter = (filter: DtNodeDef[]) =>
+  action<DtNodeDef[]>(ActionType.ADD_FILTER, filter);
 
-/** Action that removes a filter */
-export const removeFilter = (item: DtNodeDef) =>
-  action<DtNodeDef>(ActionType.REMOVE_FILTER, item);
+/** @internal Action that removes a filter */
+export const removeFilter = (uid: string) =>
+  action<string>(ActionType.REMOVE_FILTER, uid);
 
-/** Action that updates a filter */
-export const updateFilter = (item: DtNodeDef) =>
-  action<DtNodeDef>(ActionType.UPDATE_FILTER, item);
+/** @internal Action that updates a filter */
+export const updateFilter = (filter: DtNodeDef[]) =>
+  action<DtNodeDef[]>(ActionType.UPDATE_FILTER, filter);
 
-/** Action that subscribes to a new data source */
+/** @internal Action that subscribes to a new data source */
 export const switchDataSource = (item: DtFilterFieldDataSource<any>) =>
   action<DtFilterFieldDataSource<any>>(ActionType.SWITCH_DATA_SOURCE, item);
 
-/** Action that updates the data source */
+/** @internal Action that updates the data source */
 export const updateDataSource = (nodeDef: DtNodeDef) =>
   action<DtNodeDef>(ActionType.UPDATE_DATA_SOURCE, nodeDef);

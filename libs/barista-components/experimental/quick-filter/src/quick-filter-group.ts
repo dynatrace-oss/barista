@@ -25,6 +25,7 @@ import {
 } from '@angular/core';
 import { DtCheckboxChange } from '@dynatrace/barista-components/checkbox';
 import {
+  DtAutocompleteValue,
   DtNodeDef,
   isDtOptionDef,
   isDtRenderType,
@@ -51,7 +52,7 @@ import {
     class: 'dt-quick-filter-group',
   },
 })
-export class DtQuickFilterGroup {
+export class DtQuickFilterGroup<T = any> {
   /**
    * @internal
    * The aria-level of the group headlines for the document outline.
@@ -63,7 +64,7 @@ export class DtQuickFilterGroup {
 
   /** @internal The list of all active filters */
   @Input()
-  set activeFilters(filters: any[][]) {
+  set activeFilters(filters: DtAutocompleteValue<T>[][]) {
     this._activeFilterPaths = buildIdPathsFromFilters(filters || []);
     this._changeDetectorRef.markForCheck();
   }
@@ -82,17 +83,17 @@ export class DtQuickFilterGroup {
   }
 
   /** @internal Updates a radio box */
-  _selectOption(change: DtRadioChange<DtNodeDef>): void {
+  _selectOption(change: DtRadioChange<DtNodeDef>, group: DtNodeDef): void {
     if (change.value) {
-      this.filterChange.emit(updateFilter(change.value));
+      this.filterChange.emit(updateFilter([group, change.value]));
     }
   }
 
   /** @internal Select or deselect a checkbox */
-  _selectCheckBox(change: DtCheckboxChange<DtNodeDef>): void {
+  _selectCheckBox(change: DtCheckboxChange<DtNodeDef>, group: DtNodeDef): void {
     const action = change.checked
-      ? addFilter(change.source.value)
-      : removeFilter(change.source.value);
+      ? addFilter([group, change.source.value])
+      : removeFilter(change.source.value.option!.uid!);
     this.filterChange.emit(action);
   }
 

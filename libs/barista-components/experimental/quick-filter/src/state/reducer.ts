@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
-import {
-  DELIMITER,
-  DtNodeDef,
-} from '@dynatrace/barista-components/filter-field';
+import { DtAutocompleteValue } from '@dynatrace/barista-components/filter-field';
 import { Action, ActionType } from './actions';
 import { initialState, QuickFilterState } from './store';
 
@@ -50,9 +47,16 @@ export function quickFilterReducer(
       }
       return { ...initialState, dataSource: action.payload };
     case ActionType.UPDATE_DATA_SOURCE:
-      return { ...state, nodeDef: action.payload };
+      return {
+        ...state,
+        filters: [],
+        nodeDef: action.payload,
+      };
     case ActionType.SET_FILTERS:
-      return { ...state, filters: action.payload };
+      // reset the initial filters as we have already applied them if there are one.
+      return { ...state, filters: action.payload, initialFilters: undefined };
+    case ActionType.ADD_INITIAL_FILTERS:
+      return { ...state, initialFilters: action.payload };
     case ActionType.UNSET_FILTER_GROUP:
       return {
         ...state,
@@ -77,13 +81,19 @@ export function quickFilterReducer(
 // # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 /** @internal Add a filter to the filters array */
-export function addFilter(filters: any[][], item: DtNodeDef): any[][] {
-  return [...filters, buildData(item)];
+export function addFilter(
+  filters: DtAutocompleteValue<any>[][],
+  filter: DtAutocompleteValue<any>[],
+): DtAutocompleteValue<any>[][] {
+  return [...filters, filter];
 }
 
 /** @internal Remove a filter from the filters array */
-export function removeFilter(filters: any[][], item: DtNodeDef): any[][] {
-  const index = findSelectedOption(filters, item, false);
+export function removeFilter(
+  filters: DtAutocompleteValue<any>[][],
+  uid: string,
+): DtAutocompleteValue<any>[][] {
+  const index = findSelectedOption(filters, uid, false);
   const updatedState = [...filters];
 
   if (index > -1) {
@@ -94,70 +104,48 @@ export function removeFilter(filters: any[][], item: DtNodeDef): any[][] {
 }
 
 /** @internal Update a filter inside the filters array */
-export function updateFilter(filters: any[][], item: DtNodeDef): any[][] {
-  const index = findSelectedOption(filters, item, true);
-
+export function updateFilter(
+  filters: DtAutocompleteValue<any>[][],
+  filter: DtAutocompleteValue<any>[],
+): DtAutocompleteValue<any>[][] {
+  const uid = filter[filter.length - 1].option.uid;
+  const index = findSelectedOption(filters, uid, true);
+  // if the filter is not in the filters list add it
   if (index < 0) {
-    return addFilter(filters, item);
+    return addFilter(filters, filter);
   }
-
-  filters[index] = buildData(item);
-
+  // replace the existing filter
+  filters[index] = filter;
   return filters;
 }
 
 /** @internal Remove a group from the filters array */
-export function unsetFilterGroup(filters: any[][], group: DtNodeDef): any[][] {
-  if (group.option && group.option.viewValue) {
-    return filters.filter(
-      (filter) => filter[0].name !== group.option!.viewValue,
-    );
-  }
-  return filters;
-}
-
-/** @internal Build the quick filter data out of a node definition */
-export function buildData(item: DtNodeDef): any[] {
-  const data = [item.data];
-
-  if (item.option && item.option.parentAutocomplete) {
-    data.unshift(item.option.parentAutocomplete.data);
-  }
-  return data;
+export function unsetFilterGroup(
+  filters: DtAutocompleteValue<any>[][],
+  group: DtAutocompleteValue<any>,
+): DtAutocompleteValue<any>[][] {
+  const index = findSelectedOption(filters, group.option.uid, true);
+  return filters.filter((_, i) => i !== index);
 }
 
 /** @internal Find a filter inside the filters array based on a NodeDef */
 export function findSelectedOption(
-  filters: any[][],
-  item: DtNodeDef,
+  filters: DtAutocompleteValue<any>[][],
+  uid: string | null,
   distinct: boolean = false,
 ): number {
   return filters.findIndex((path) => {
-    if (item.option && item.option.uid) {
-      // split the uid in the parts that define the path
-      // (like the user clicked through in the filter field)
-      const parts = item.option.uid.split(DELIMITER);
-
-      // if the option is distinct we only have to check for the groups name because
-      // there can only be one distinct option selected so we know immediately if it is selected
-      if (distinct && parts[0] === path[0].name) {
-        return true;
-      }
-
-      // if it is not distinct we have to build the full path out of the current filters to check
-      // wether the path matches them provided node definition
-      const dataPath = path.reduce(
-        (previousValue, currentValue) =>
-          `${previousValue.name}${DELIMITER}${currentValue.name}${DELIMITER}`,
-      );
-
-      // if the built path for the filters inside the array is equal to the option
-      // in the provided nodeDef then we found our selected option
-      if (item.option.uid === dataPath) {
-        return true;
-      }
+    if (!uid) {
+      return false;
     }
-
-    return false;
+    // if the option is distinct we only have to check for the groups name because
+    // there can only be one distinct option selected so we know immediately if it is selected
+    if (distinct && uid.startsWith(path[0].option.uid!)) {
+      return true;
+    }
+    // if the last items uid in the path is equal to the uid, then we found our option.
+    if (uid === path[path.length - 1].option.uid) {
+      return true;
+    }
   });
 }

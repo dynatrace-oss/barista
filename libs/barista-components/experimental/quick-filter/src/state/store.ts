@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-import { DtNodeDef } from '@dynatrace/barista-components/filter-field';
+import {
+  DtAutocompleteValue,
+  DtNodeDef,
+} from '@dynatrace/barista-components/filter-field';
 import { BehaviorSubject, merge, Observable } from 'rxjs';
 import { map, shareReplay, withLatestFrom } from 'rxjs/operators';
 import { DtQuickFilterDataSource } from '../quick-filter-data-source';
@@ -28,8 +31,10 @@ export interface QuickFilterState {
   nodeDef?: DtNodeDef;
   /** The dataSource that is connected with the QuickFilter */
   dataSource?: DtQuickFilterDataSource;
-  /** Array of all active filters */
-  filters: any[][];
+  /** Array of all active filter values (internal filter representation of the filter field) */
+  filters: DtAutocompleteValue<any>[][];
+  /** Initial Filter array that might be added via a binding to the quick filter */
+  initialFilters?: any[][];
 }
 
 /** @internal The initial QuickFilter state */
