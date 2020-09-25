@@ -369,6 +369,10 @@
       "tags": ["scope:elements", "type:library"],
       "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
     },
+    "fluid-virtual-scroll-container": {
+      "tags": ["scope:elements", "type:library"],
+      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
+    },
     "fluid-core": {
       "tags": ["scope:elements", "type:library"]
     },

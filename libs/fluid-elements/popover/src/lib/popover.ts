@@ -84,7 +84,7 @@ export class FluidPopover extends LitElement {
       .fluid-popover {
         ${unsafeCSS(fluidDtText())};
         display: none;
-        overflow: scroll;
+        overflow: hidden;
         background: var(--fluid-popover--background);
         box-shadow: 0 3px 10px rgba(21, 23, 27, 0.2);
         transition: opacity 1500ms ease-in-out;
