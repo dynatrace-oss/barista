@@ -32,62 +32,42 @@ import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system
     class: 'ba-tile',
   },
 })
-export class BaTile implements OnChanges {
-  @Input() data: BaCategoryNavigationSectionItem;
+export class BaTile {
+  _data: BaCategoryNavigationSectionItem;
+
+  /** The component preview to display */
+  @Input() set data(data: BaCategoryNavigationSectionItem) {
+    this._data = data;
+    this._badge.length = 0;
+
+    if (data.badge && data.badge.includes('favorite')) {
+      this._badge = ['/assets/favorite-white.svg', 'ba-tile-badge-favorite'];
+    }
+    if (data.badge && data.badge.includes('deprecated')) {
+      this._badge = ['/assets/incident-white.svg', 'ba-tile-badge-warning'];
+    }
+    if (data.badge && data.badge.includes('experimental')) {
+      this._badge = ['/assets/laboratory-white.svg', 'ba-tile-badge-warning'];
+    }
+    if (data.badge && data.badge.includes('work in progress')) {
+      this._badge = [
+        '/assets/maintenance-royalblue.svg',
+        'ba-tile-badge-workinprogress',
+      ];
+    }
+  }
+  get data(): BaCategoryNavigationSectionItem {
+    return this._data;
+  }
   @Input() listView = true;
 
-  /** @internal whether the tile has the badge 'favorite' */
-  _favorite = false;
-
-  /** @internal whether the tile has the badge 'deprecated' */
-  _deprecated = false;
-
-  /** @internal whether the tile has the badge 'experimental' */
-  _experimental = false;
-
-  /** @internal whether the tile has the badge 'workinprogress' */
-  _workinprogress = false;
-
   /** @internal whether the tile has a badge */
-  _hasBadge = false;
+  _badge: string[] = [];
 
   constructor(private _elementRef: ElementRef) {}
 
   /** set the focus on the nativeElement */
   focus(): void {
     this._elementRef.nativeElement.focus();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.data) {
-      this._setBadge();
-    }
-  }
-
-  /** if the tile has badge properties, only set one of the badge states to true, as only one state can be displayed */
-  private _setBadge(): void {
-    this._favorite = false;
-    this._hasBadge = false;
-    this._deprecated = false;
-    this._experimental = false;
-
-    if (this.data.badge && this.data.badge.includes('favorite')) {
-      this._favorite = true;
-    } else if (this.data.badge && this.data.badge.includes('deprecated')) {
-      this._deprecated = true;
-    } else if (this.data.badge && this.data.badge.includes('experimental')) {
-      this._experimental = true;
-    } else if (
-      this.data.badge &&
-      this.data.badge.includes('work in progress')
-    ) {
-      this._workinprogress = true;
-    }
-
-    this._hasBadge =
-      this._favorite ||
-      this._deprecated ||
-      this._experimental ||
-      this._workinprogress;
   }
 }
