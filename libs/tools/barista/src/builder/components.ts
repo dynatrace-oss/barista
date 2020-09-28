@@ -111,7 +111,10 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
     layout: BaPageLayoutType.Default,
     order: baristaMetadata.order,
     navGroup: baristaMetadata.navGroup,
-    image: baristaMetadata.image,
+    imageUrl:
+      baristaMetadata.imageUrl === undefined
+        ? 'https://dt-cdn.net/images/no-preview-image-382-7ee956b3a7.png'
+        : baristaMetadata.imageUrl,
   };
 
   return metadataWithDefaults;

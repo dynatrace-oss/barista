@@ -1,47 +1,22 @@
-<div
-  *ngIf="_hasBadge"
-  class="ba-tile-status"
-  [class.ba-tile-badge-warning]="_deprecated || _experimental"
-  [class.ba-tile-badge-workinprogress]="_workinprogress"
-  [class.ba-tile-badge-favorite]="_favorite"
->
+<div *ngIf="_badge.length > 0" class="ba-tile-status {{ _badge[1] }}">
   <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
     <polygon points="50,0 0,0 50,50" />
   </svg>
   <img
-    *ngIf="_workinprogress"
-    src="/assets/maintenance-royalblue.svg"
+    src="{{ _badge[0] }}"
     alt="Work in progress indicator"
-    class="ba-tile-status-icon"
-  />
-  <img
-    *ngIf="_experimental"
-    src="/assets/laboratory-white.svg"
-    alt="Experimental indicator"
-    class="ba-tile-status-icon"
-  />
-  <img
-    *ngIf="_favorite"
-    src="/assets/favorite-white.svg"
-    alt="Favorite indicator"
-    class="ba-tile-status-icon"
-  />
-  <img
-    *ngIf="_deprecated"
-    src="/assets/incident-white.svg"
-    alt="Deprecated indicator"
     class="ba-tile-status-icon"
   />
 </div>
 <div class="ba-tile-image-preview">
   <img
-    *ngIf="data.imageUrl"
+    *ngIf="_data.imageUrl"
     class="ba-tile-image"
-    src="{{ data.imageUrl }}"
+    src="{{ _data.imageUrl }}"
     alt="component preview image"
   />
   <img
-    *ngIf="!data.imageUrl"
+    *ngIf="!_data.imageUrl"
     class="ba-tile-image"
     width="200"
     src="https://dt-cdn.net/images/no-preview-image-382-7ee956b3a7.png"
@@ -49,10 +24,10 @@
   />
 </div>
 <div class="ba-tile-content">
-  <div class="ba-tile-title">{{ data.title }}</div>
+  <div class="ba-tile-title">{{ _data.title }}</div>
   <ng-container *ngIf="!listView">
     <div class="ba-tile-description">
-      {{ data.description }}
+      {{ _data.description }}
     </div>
   </ng-container>
 </div>
