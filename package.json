@@ -90,7 +90,7 @@
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@adobe/leonardo-contrast-colors": "^1.0.0-alpha.7",
+    "@adobe/leonardo-contrast-colors": "^1.0.0-alpha.8",
     "@angular-builders/custom-webpack": "^10.0.1",
     "@angular-devkit/architect-cli": "^0.1000.4",
     "@angular-devkit/build-angular": "^0.1000.8",
