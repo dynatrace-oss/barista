@@ -36,6 +36,6 @@
     "msg",
     "feedback"
   ],
-  "image": "https://dt-cdn.net/images/barista-preview-alert-600-f6dbfd0273.png",
+  "imageUrl": "https://dt-cdn.net/images/barista-preview-alert-600-f6dbfd0273.png",
   "related": ["validation"]
 }
