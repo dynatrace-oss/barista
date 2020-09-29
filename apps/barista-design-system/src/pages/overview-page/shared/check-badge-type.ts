@@ -17,28 +17,30 @@
 export function checkBadgeType(
   badge: string[],
 ): { icon: string; style: string } | undefined {
+  let _badge: { icon: string; style: string } | undefined = undefined;
   if (badge && badge.includes('favorite')) {
-    return {
+    _badge = {
       icon: '/assets/favorite-white.svg',
       style: 'ba-tile-badge-favorite',
     };
   }
   if (badge && badge.includes('deprecated')) {
-    return {
+    _badge = {
       icon: '/assets/incident-white.svg',
       style: 'ba-tile-badge-warning',
     };
   }
   if (badge && badge.includes('experimental')) {
-    return {
+    _badge = {
       icon: '/assets/laboratory-white.svg',
       style: 'ba-tile-badge-warning',
     };
   }
   if (badge && badge.includes('work in progress')) {
-    return {
+    _badge = {
       icon: '/assets/maintenance-royalblue.svg',
       style: 'ba-tile-badge-workinprogress',
     };
   }
+  return _badge;
 }
