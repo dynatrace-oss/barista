@@ -42,7 +42,7 @@ export class BaComponentPreviewTile {
   /** Whether to display the description or not */
   @Input() listView = true;
 
-  /** @internal whether the tile has a badge */
+  /** @internal whether the tile has a badge and what type of badge */
   _badge: { icon: string; style: string } | undefined;
 
   constructor(private _elementRef: ElementRef) {}
