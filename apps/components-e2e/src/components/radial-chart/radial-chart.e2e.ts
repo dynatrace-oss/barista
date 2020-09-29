@@ -16,21 +16,20 @@
 
 import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 import {
+  absoluteBtn,
   body,
   chartTypeDonut,
   chartTypePie,
+  chrome,
+  edge,
+  firefox,
+  nonSelectableBtn,
   overlay,
-  pieChrome,
-  pieEdge,
-  pieFirefox,
-  pieSafari,
+  percentBtn,
+  pieSelected,
+  safari,
   selectableBtn,
   setSelectBtn,
-  pieSelected,
-  nonSelectableBtn,
-  legendChrome,
-  percentBtn,
-  absoluteBtn,
 } from './radial-chart.po';
 
 // Reduced speed of hovering should get our e2e tests stable.
@@ -42,6 +41,8 @@ const hover: MouseActionOptions = {
   speed: 0.01,
 };
 const pathSelectedClassname = 'dt-radial-chart-path-selected';
+const legendInactiveClassname = 'dt-radial-chart-legend-item-inactive';
+const inactiveColor = /rgb\(248, 248, 248\)/;
 
 fixture('Radial chart')
   .page('http://localhost:4200/radial-chart')
@@ -52,7 +53,7 @@ fixture('Radial chart')
 
 test('should show overlay on hover', async (testController: TestController) => {
   await testController
-    .hover(pieChrome, hover)
+    .hover(chrome.pie, hover)
     .expect(overlay.exists)
     .ok()
     .expect(overlay.textContent)
@@ -64,7 +65,7 @@ test('should show overlay on hover', async (testController: TestController) => {
 
 test('should show correct overlays when switching from pie to donut chart and back', async (testController: TestController) => {
   await testController
-    .hover(pieChrome, hover)
+    .hover(chrome.pie, hover)
     .expect(overlay.exists)
     .ok()
     .click(chartTypeDonut, { speed: 0.3 })
@@ -77,7 +78,7 @@ test('should show correct overlays when switching from pie to donut chart and ba
     .expect(overlay.exists)
     .ok()
     .click(chartTypePie, { speed: 0.3 })
-    .hover(pieChrome, hover)
+    .hover(chrome.pie, hover)
     .expect(overlay.exists)
     .ok();
 });
@@ -85,16 +86,16 @@ test('should show correct overlays when switching from pie to donut chart and ba
 test('should show correct overlay contents when hovering over pies', async (testController: TestController) => {
   await testController
     .click(body, { speed: 0.5, offsetX: 0, offsetY: 0 }) // triggering change detection
-    .hover(pieChrome, hover)
+    .hover(chrome.pie, hover)
     .expect(overlay.textContent)
     .match(/Chrome: 43 of 89/)
-    .hover(pieSafari, hover)
+    .hover(safari.pie, hover)
     .expect(overlay.textContent)
     .match(/Safari: 22 of 89/)
-    .hover(pieFirefox, hover)
+    .hover(firefox.pie, hover)
     .expect(overlay.textContent)
     .match(/Firefox: 15 of 89/)
-    .hover(pieEdge, hover)
+    .hover(edge.pie, hover)
     .expect(overlay.textContent)
     .match(/Microsoft Edge: 9 of 89/);
 });
@@ -104,7 +105,7 @@ test('should enable selection and select', async (testController: TestController
     // selectable + input
     .click(selectableBtn)
     .click(setSelectBtn)
-    .expect(pieChrome.classNames)
+    .expect(chrome.pie.classNames)
     .contains(pathSelectedClassname)
     // non selectable
     .click(nonSelectableBtn)
@@ -112,27 +113,62 @@ test('should enable selection and select', async (testController: TestController
     .notOk()
     // selectable + click
     .click(selectableBtn)
-    .click(pieChrome)
-    .expect(pieChrome.classNames)
+    .click(chrome.pie)
+    .expect(chrome.pie.classNames)
     .contains(pathSelectedClassname)
     // deselect
-    .click(pieChrome)
+    .click(chrome.pie)
     .expect(pieSelected.exists)
     .notOk()
     // select other
-    .click(pieChrome)
-    .click(pieFirefox)
-    .expect(pieChrome.classNames)
+    .click(chrome.pie)
+    .click(firefox.pie)
+    .expect(chrome.pie.classNames)
     .notContains(pathSelectedClassname)
-    .expect(pieFirefox.classNames)
+    .expect(firefox.pie.classNames)
     .contains(pathSelectedClassname);
 });
 test('should show legend with percent and absolute values', async (testController: TestController) => {
   await testController
     .click(absoluteBtn)
-    .expect(legendChrome.textContent)
+    .expect(chrome.legend.textContent)
     .match(/43 Chrome/)
     .click(percentBtn)
-    .expect(legendChrome.textContent)
+    .expect(chrome.legend.textContent)
     .match(/48\.3 % Chrome/);
+});
+
+test('should fade legend and slice', async (testController: TestController) => {
+  await testController
+    .click(chrome.legend)
+    .expect(chrome.legend.classNames)
+    .contains(legendInactiveClassname)
+    .expect(chrome.legendSymbol.getStyleProperty('background-color'))
+    .match(inactiveColor)
+    .expect(chrome.piePath.getStyleProperty('fill'))
+    .match(inactiveColor);
+});
+
+test('should keep at least one slice active', async (testController: TestController) => {
+  await testController
+    .click(chrome.legend)
+    .click(firefox.legend)
+    .click(edge.legend)
+    .click(safari.legend)
+    .expect(chrome.legendSymbol.getStyleProperty('background-color'))
+    .match(inactiveColor)
+    .expect(chrome.piePath.getStyleProperty('fill'))
+    .match(inactiveColor)
+    .expect(firefox.legendSymbol.getStyleProperty('background-color'))
+    .match(inactiveColor)
+    .expect(chrome.piePath.getStyleProperty('fill'))
+    .match(inactiveColor)
+    .expect(edge.legendSymbol.getStyleProperty('background-color'))
+    .match(inactiveColor)
+    .expect(edge.piePath.getStyleProperty('fill'))
+    .match(inactiveColor)
+    .expect(safari.legendSymbol.getStyleProperty('background-color'))
+    .notMatch(inactiveColor)
+    .expect(safari.piePath.getStyleProperty('fill'))
+    .notMatch(inactiveColor);
 });

@@ -16,6 +16,7 @@
 
 import { AfterContentInit, Component, Input, TemplateRef } from '@angular/core';
 import { DtOverlayTrigger } from '@dynatrace/barista-components/overlay';
+import { DtColors } from '@dynatrace/barista-components/theming';
 import { DtRadialChartRenderData } from './utils/radial-chart-interfaces';
 
 export interface DtRadialChartOverlayData {
@@ -73,5 +74,10 @@ export class DtRadialChartPath
         },
       };
     }
+  }
+
+  /** @internal Get slice color based on its status */
+  get color(): string {
+    return this.series.origin.active ? this.series.color : DtColors.GRAY_100;
   }
 }

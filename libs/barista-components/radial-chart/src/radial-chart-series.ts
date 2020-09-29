@@ -41,6 +41,9 @@ export class DtRadialChartSeries implements OnChanges, OnDestroy {
   /** Marks series as selected */
   @Input() selected: boolean = false;
 
+  /** Marks series as active according to legend */
+  @Input() active: boolean = true;
+
   /** Emits when event is selected. */
   @Output() selectedChange = new EventEmitter<boolean>();
 
