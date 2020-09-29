@@ -21,19 +21,23 @@ export const chartTypePie = Selector('#chart-type-pie');
 export const chartTypeDonut = Selector('#chart-type-donut');
 export const overlay = Selector('.dt-overlay-container');
 
-export const pieChrome = Selector(
-  '.dt-radial-chart-series-group:nth-of-type(1)',
-);
-export const pieSafari = Selector(
-  '.dt-radial-chart-series-group:nth-of-type(2)',
-);
-export const pieFirefox = Selector(
-  '.dt-radial-chart-series-group:nth-of-type(3)',
-);
-export const pieEdge = Selector('.dt-radial-chart-series-group:nth-of-type(4)');
-export const pieSelected = Selector('.dt-radial-chart-path-selected');
+const getBrowserSelectors = (nth: number) => ({
+  pie: Selector(`.dt-radial-chart-series-group:nth-of-type(${nth})`),
+  piePath: Selector(
+    `.dt-radial-chart-series-group:nth-of-type(${nth}) .dt-radial-chart-series`,
+  ),
+  legend: Selector(`dt-legend-item:nth-of-type(${nth})`),
+  legendSymbol: Selector(
+    `dt-legend-item:nth-of-type(${nth}) .dt-radial-chart-legend-symbol`,
+  ),
+});
 
-export const legendChrome = Selector('dt-legend-item:nth-of-type(1)');
+export const chrome = getBrowserSelectors(1);
+export const safari = getBrowserSelectors(2);
+export const firefox = getBrowserSelectors(3);
+export const edge = getBrowserSelectors(4);
+
+export const pieSelected = Selector('.dt-radial-chart-path-selected');
 
 // interaction
 

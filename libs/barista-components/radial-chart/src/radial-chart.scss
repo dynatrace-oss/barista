@@ -25,6 +25,10 @@ text {
   background-color: var(--dt-radial-chart-legend-symbol-color);
 }
 
+.dt-radial-chart-legend-item-inactive .dt-radial-chart-legend-symbol {
+  background-color: $gray-100;
+}
+
 .dt-radial-chart-wrapper {
   display: flex;
 }

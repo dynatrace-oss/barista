@@ -16,7 +16,11 @@
     ></svg:g>
   </svg>
   <dt-legend class="dt-radial-chart-legend">
-    <dt-legend-item *ngFor="let series of _renderData">
+    <dt-legend-item
+      *ngFor="let series of _renderData"
+      (click)="_toggleLegend(series)"
+      [class.dt-radial-chart-legend-item-inactive]="!series.origin.active"
+    >
       <dt-legend-symbol
         class="dt-radial-chart-legend-symbol"
         [style]="
