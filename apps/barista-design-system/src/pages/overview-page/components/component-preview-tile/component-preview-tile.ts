@@ -16,7 +16,7 @@
 
 import { Component, ElementRef, Input } from '@angular/core';
 import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
-import { checkBadgeType } from '../../shared/check-badge-type';
+import { BadgeType, Badge } from '../../shared';
 
 @Component({
   selector: 'a[ba-component-preview-tile]',
@@ -26,14 +26,11 @@ import { checkBadgeType } from '../../shared/check-badge-type';
     class: 'ba-component-preview-tile',
   },
 })
-export class BaComponentPreviewTile {
-  _data: BaCategoryNavigationSectionItem;
-
-  /** The component preview to display */
+export class BaComponentPreviewTile extends Badge {
+  /** The component preview data to display */
   @Input() set data(data: BaCategoryNavigationSectionItem) {
     this._data = data;
-
-    this._badge = checkBadgeType(data.badge);
+    this.checkBadgeType(data.badge);
   }
   get data(): BaCategoryNavigationSectionItem {
     return this._data;
@@ -42,10 +39,14 @@ export class BaComponentPreviewTile {
   /** Whether to display the description or not */
   @Input() listView = true;
 
-  /** @internal whether the tile has a badge and what type of badge */
-  _badge: { icon: string; style: string } | undefined;
+  _data: BaCategoryNavigationSectionItem;
 
-  constructor(private _elementRef: ElementRef) {}
+  /** @internal whether the tile has a badge and what type of badge */
+  _badge: BadgeType | undefined;
+
+  constructor(private _elementRef: ElementRef) {
+    super();
+  }
 
   /** set the focus on the nativeElement */
   focus(): void {
