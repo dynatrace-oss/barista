@@ -134,7 +134,7 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  /** Sets to preview if the overview contains components, that can be previewed */
+  /** Turns off listview if the overview contains components. */
   _setComponentPreview(): void {
     if (
       this.content.sections.find((section) =>
