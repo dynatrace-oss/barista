@@ -31,6 +31,7 @@ import {
 } from './event-chart-demo-data';
 import { MobileActionDataSource } from './mobile-actions-test-data';
 import { SessionReplayDataSource } from './session-replay-test-data';
+import { BigTimeDataSource } from './big-time-test-data';
 
 interface DataSet {
   key: string;
@@ -41,6 +42,7 @@ const DATA_SETS: DataSet[] = [
   { key: 'easy travel', dataSource: new EasyTravelDataSource() },
   { key: 'session replay', dataSource: new SessionReplayDataSource() },
   { key: 'mobile actions replay', dataSource: new MobileActionDataSource() },
+  { key: 'big time', dataSource: new BigTimeDataSource() },
 ];
 
 @Component({

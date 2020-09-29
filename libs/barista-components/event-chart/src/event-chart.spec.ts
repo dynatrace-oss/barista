@@ -676,21 +676,45 @@ describe('DtEventChart', () => {
     });
 
     describe('x-axis', () => {
-      it('should have formatted ticks', () => {
+      it('should have formatted ticks for seconds', () => {
         const axisLabels = fixture.debugElement
           .queryAll(By.css('.dt-event-chart-tick-label'))
           .map((el) => el.nativeElement.textContent.trim());
 
         expect(axisLabels).toEqual([
           '0 s',
-          '0.01 s',
+          '15 s',
+          '30 s',
+          '45 s',
+          '1 min',
+          '1 min 15 s',
+        ]);
+      });
+
+      it('should have formatted ticks for bigger than seconds', () => {
+        fixture = TestBed.createComponent(EventChartDynamicData);
+        const canvas = fixture.debugElement.query(
+          By.css('.dt-event-chart-canvas'),
+        );
+        // Mock the clientWidth function of the canvas, to accurately get
+        // merging and rendering values. Otherwhise jsDom would return 0 for
+        // clientWidth.
+        jest
+          .spyOn(canvas.nativeElement, 'clientWidth', 'get')
+          .mockImplementation(() => 1024);
+        fixture.detectChanges();
+
+        const axisLabels = fixture.debugElement
+          .queryAll(By.css('.dt-event-chart-tick-label'))
+          .map((el) => el.nativeElement.textContent.trim());
+
+        expect(axisLabels).toEqual([
+          '0 s',
           '0.02 s',
-          '0.03 s',
           '0.04 s',
-          '0.05 s',
           '0.06 s',
-          '0.07 s',
           '0.08 s',
+          '0.1 s',
         ]);
       });
     });
@@ -703,19 +727,25 @@ describe('DtEventChart', () => {
   template: `
     <dt-event-chart>
       <dt-event-chart-event value="0" lane="xhr"></dt-event-chart-event>
-      <dt-event-chart-event value="15" lane="xhr"></dt-event-chart-event>
+      <dt-event-chart-event value="15000" lane="xhr"></dt-event-chart-event>
       <dt-event-chart-event
-        value="25"
+        value="25000"
         lane="xhr"
         color="error"
       ></dt-event-chart-event>
-      <dt-event-chart-event value="10" lane="user-event"></dt-event-chart-event>
       <dt-event-chart-event
-        value="35"
-        lane="xhr"
-        duration="15"
+        value="10000"
+        lane="user-event"
       ></dt-event-chart-event>
-      <dt-event-chart-event value="75" lane="user-event"></dt-event-chart-event>
+      <dt-event-chart-event
+        value="35000"
+        lane="xhr"
+        duration="15000"
+      ></dt-event-chart-event>
+      <dt-event-chart-event
+        value="75000"
+        lane="user-event"
+      ></dt-event-chart-event>
 
       <dt-event-chart-lane
         name="xhr"
