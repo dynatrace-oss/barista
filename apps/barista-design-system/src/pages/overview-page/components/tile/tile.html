@@ -1,9 +1,9 @@
-<div *ngIf="_badge.length > 0" class="ba-tile-status {{ _badge[1] }}">
+<div *ngIf="_badge" class="ba-tile-status {{ _badge.style }}">
   <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
     <polygon points="50,0 0,0 50,50" />
   </svg>
   <img
-    src="{{ _badge[0] }}"
+    src="{{ _badge.icon }}"
     alt="Work in progress indicator"
     class="ba-tile-status-icon"
   />
