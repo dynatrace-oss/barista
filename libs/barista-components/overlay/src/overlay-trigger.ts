@@ -167,7 +167,7 @@ export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
 
   /** @internal Ensures the trigger is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    if (!this.disabled) {
+    if (!this.disabled && this._content) {
       const keyCode = _readKeyCode(event);
       if (keyCode === ENTER || keyCode === SPACE) {
         event.preventDefault();
