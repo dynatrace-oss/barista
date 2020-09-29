@@ -29,6 +29,7 @@ import { BadgeType, Badge } from '../../shared';
 })
 export class BaTile extends Badge {
   /** The component preview to display */
+  _data: BaCategoryNavigationSectionItem;
   @Input() set data(data: BaCategoryNavigationSectionItem) {
     this._data = data;
     this.checkBadgeType(data.badge);
@@ -37,8 +38,6 @@ export class BaTile extends Badge {
     return this._data;
   }
   @Input() listView = true;
-
-  _data: BaCategoryNavigationSectionItem;
 
   /** @internal whether the tile has a badge and what type of badge */
   _badge: BadgeType | undefined;
