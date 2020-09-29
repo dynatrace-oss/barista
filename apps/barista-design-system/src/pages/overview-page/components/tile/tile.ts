@@ -47,7 +47,7 @@ export class BaTile {
   }
   @Input() listView = true;
 
-  /** @internal whether the tile has a badge */
+  /** @internal whether the tile has a badge and what type of badge */
   _badge: { icon: string; style: string } | undefined;
 
   constructor(private _elementRef: ElementRef) {}
