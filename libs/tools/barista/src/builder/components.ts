@@ -113,7 +113,7 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
     navGroup: baristaMetadata.navGroup,
     imageUrl:
       baristaMetadata.imageUrl === undefined
-        ? 'https://dt-cdn.net/images/no-preview-image-382-7ee956b3a7.png'
+        ? 'https://dt-cdn.net/images/no-preview-image-624-596cc6d26b.png'
         : baristaMetadata.imageUrl,
   };
 

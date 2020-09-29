@@ -75,6 +75,7 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
    */
   ngAfterViewInit(): void {
     this._prepareItems();
+    this._setComponentPreview();
     this._keyUpSubscription = fromEvent(this._document, 'keyup').subscribe(
       (evt: KeyboardEvent) => {
         const keyCode = _readKeyCode(evt);
@@ -129,6 +130,16 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
     });
   }
 
+  _setComponentPreview(): void {
+    if (
+      this.content.sections.find((section) =>
+        this.isComponentPreview(section.title),
+      )
+    ) {
+      this._listViewActive = false;
+    }
+  }
+
   /**
    * focus the first element, that starts with the pressed letter.
    * if the same key is pressed again, focus the next element, that starts
@@ -157,8 +168,8 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
     this._previousKey = key;
   }
 
-  isComponentPreview(title: string): boolean {
-    if (title === 'Components') {
+  isComponentPreview(title: string | undefined): boolean {
+    if (title && title === 'Components') {
       return true;
     }
     return false;
