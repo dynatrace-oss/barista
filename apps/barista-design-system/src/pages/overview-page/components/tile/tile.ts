@@ -23,6 +23,7 @@ import {
 } from '@angular/core';
 
 import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
+import { checkBadgeType } from '../../shared/check-badge-type';
 
 @Component({
   selector: 'a[ba-tile]',
@@ -38,23 +39,8 @@ export class BaTile {
   /** The component preview to display */
   @Input() set data(data: BaCategoryNavigationSectionItem) {
     this._data = data;
-    this._badge.length = 0;
 
-    if (data.badge && data.badge.includes('favorite')) {
-      this._badge = ['/assets/favorite-white.svg', 'ba-tile-badge-favorite'];
-    }
-    if (data.badge && data.badge.includes('deprecated')) {
-      this._badge = ['/assets/incident-white.svg', 'ba-tile-badge-warning'];
-    }
-    if (data.badge && data.badge.includes('experimental')) {
-      this._badge = ['/assets/laboratory-white.svg', 'ba-tile-badge-warning'];
-    }
-    if (data.badge && data.badge.includes('work in progress')) {
-      this._badge = [
-        '/assets/maintenance-royalblue.svg',
-        'ba-tile-badge-workinprogress',
-      ];
-    }
+    this._badge = checkBadgeType(data.badge);
   }
   get data(): BaCategoryNavigationSectionItem {
     return this._data;
@@ -62,7 +48,7 @@ export class BaTile {
   @Input() listView = true;
 
   /** @internal whether the tile has a badge */
-  _badge: string[] = [];
+  _badge: { icon: string; style: string } | undefined;
 
   constructor(private _elementRef: ElementRef) {}
 
