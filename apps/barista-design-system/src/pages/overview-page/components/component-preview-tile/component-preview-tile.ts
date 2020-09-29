@@ -28,6 +28,7 @@ import { BadgeType, Badge } from '../../shared';
 })
 export class BaComponentPreviewTile extends Badge {
   /** The component preview data to display */
+  _data: BaCategoryNavigationSectionItem;
   @Input() set data(data: BaCategoryNavigationSectionItem) {
     this._data = data;
     this.checkBadgeType(data.badge);
@@ -38,8 +39,6 @@ export class BaComponentPreviewTile extends Badge {
 
   /** Whether to display the description or not */
   @Input() listView = true;
-
-  _data: BaCategoryNavigationSectionItem;
 
   /** @internal whether the tile has a badge and what type of badge */
   _badge: BadgeType | undefined;
