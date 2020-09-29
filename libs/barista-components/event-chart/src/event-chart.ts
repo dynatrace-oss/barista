@@ -839,13 +839,15 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       outputUnit = DtTimeUnit.SECOND;
     }
 
-    return formatDuration(
-      timestamp,
-      'PRECISE',
-      outputUnit,
-      DtTimeUnit.MILLISECOND,
-      2,
-    );
+    if (outputUnit === DtTimeUnit.SECOND)
+      return formatDuration(
+        timestamp,
+        'PRECISE',
+        outputUnit,
+        DtTimeUnit.MILLISECOND,
+        2,
+      );
+    else return formatDuration(timestamp, 'DEFAULT');
   }
 }
 
