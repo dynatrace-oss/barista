@@ -22,7 +22,6 @@ import {
   QueryList,
   ViewChildren,
   Inject,
-  OnInit,
 } from '@angular/core';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { fromEvent, Subscription } from 'rxjs';
@@ -41,7 +40,7 @@ const LOCALSTORAGEKEY = 'baristaGridview';
     class: 'ba-page',
   },
 })
-export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
+export class BaOverviewPage implements AfterViewInit, OnDestroy {
   content = this._pageService._getCurrentPage() as BaCategoryNavigation;
 
   /** @internal whether the tiles are currently displayed as list */
@@ -68,10 +67,6 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
       const localStorageState = localStorage.getItem(LOCALSTORAGEKEY);
       this._listViewActive = localStorageState !== 'tiles';
     }
-  }
-
-  ngOnInit(): void {
-    this._setComponentPreview();
   }
 
   /**
@@ -132,17 +127,6 @@ export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
         this._shortcutItems[firstLetter] = [item];
       }
     });
-  }
-
-  /** Turns off listview if the overview contains components. */
-  _setComponentPreview(): void {
-    if (
-      this.content.sections.find((section) =>
-        this.isComponentPreview(section.title),
-      )
-    ) {
-      this._listViewActive = false;
-    }
   }
 
   /**
