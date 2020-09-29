@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-import {
-  Component,
-  ElementRef,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 
 import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
-import { checkBadgeType } from '../../shared/check-badge-type';
+import { BadgeType, Badge } from '../../shared';
 
 @Component({
   selector: 'a[ba-tile]',
@@ -33,24 +27,25 @@ import { checkBadgeType } from '../../shared/check-badge-type';
     class: 'ba-tile',
   },
 })
-export class BaTile {
-  _data: BaCategoryNavigationSectionItem;
-
+export class BaTile extends Badge {
   /** The component preview to display */
   @Input() set data(data: BaCategoryNavigationSectionItem) {
     this._data = data;
-
-    this._badge = checkBadgeType(data.badge);
+    this.checkBadgeType(data.badge);
   }
   get data(): BaCategoryNavigationSectionItem {
     return this._data;
   }
   @Input() listView = true;
 
-  /** @internal whether the tile has a badge and what type of badge */
-  _badge: { icon: string; style: string } | undefined;
+  _data: BaCategoryNavigationSectionItem;
 
-  constructor(private _elementRef: ElementRef) {}
+  /** @internal whether the tile has a badge and what type of badge */
+  _badge: BadgeType | undefined;
+
+  constructor(private _elementRef: ElementRef) {
+    super();
+  }
 
   /** set the focus on the nativeElement */
   focus(): void {

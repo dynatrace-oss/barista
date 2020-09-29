@@ -14,33 +14,43 @@
  * limitations under the License.
  */
 
-export function checkBadgeType(
-  badge: string[],
-): { icon: string; style: string } | undefined {
-  let _badge: { icon: string; style: string } | undefined = undefined;
-  if (badge && badge.includes('favorite')) {
-    _badge = {
-      icon: '/assets/favorite-white.svg',
-      style: 'ba-tile-badge-favorite',
-    };
+import { BadgeType } from './badge-type';
+
+export class Badge {
+  /** Badge to be checked */
+  _badge: BadgeType | undefined = undefined;
+  set badge(badge: BadgeType | undefined) {
+    this._badge = badge;
   }
-  if (badge && badge.includes('deprecated')) {
-    _badge = {
-      icon: '/assets/incident-white.svg',
-      style: 'ba-tile-badge-warning',
-    };
+  get badge(): BadgeType | undefined {
+    return this._badge;
   }
-  if (badge && badge.includes('experimental')) {
-    _badge = {
-      icon: '/assets/laboratory-white.svg',
-      style: 'ba-tile-badge-warning',
-    };
+
+  /** Checks what type of badge has been propagated and sets the corresponding icon and style class */
+  checkBadgeType(badge: string[]): void {
+    if (badge.includes('favorite')) {
+      this._badge = {
+        icon: '/assets/favorite-white.svg',
+        style: 'ba-tile-badge-favorite',
+      };
+    }
+    if (badge.includes('deprecated')) {
+      this._badge = {
+        icon: '/assets/incident-white.svg',
+        style: 'ba-tile-badge-warning',
+      };
+    }
+    if (badge.includes('experimental')) {
+      this._badge = {
+        icon: '/assets/laboratory-white.svg',
+        style: 'ba-tile-badge-warning',
+      };
+    }
+    if (badge.includes('work in progress')) {
+      this._badge = {
+        icon: '/assets/maintenance-royalblue.svg',
+        style: 'ba-tile-badge-workinprogress',
+      };
+    }
   }
-  if (badge && badge.includes('work in progress')) {
-    _badge = {
-      icon: '/assets/maintenance-royalblue.svg',
-      style: 'ba-tile-badge-workinprogress',
-    };
-  }
-  return _badge;
 }
