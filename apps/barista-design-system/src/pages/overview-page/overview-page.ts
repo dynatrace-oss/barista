@@ -22,6 +22,7 @@ import {
   QueryList,
   ViewChildren,
   Inject,
+  OnInit,
 } from '@angular/core';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { fromEvent, Subscription } from 'rxjs';
@@ -40,7 +41,7 @@ const LOCALSTORAGEKEY = 'baristaGridview';
     class: 'ba-page',
   },
 })
-export class BaOverviewPage implements AfterViewInit, OnDestroy {
+export class BaOverviewPage implements OnInit, AfterViewInit, OnDestroy {
   content = this._pageService._getCurrentPage() as BaCategoryNavigation;
 
   /** @internal whether the tiles are currently displayed as list */
@@ -69,13 +70,16 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
     }
   }
 
+  ngOnInit(): void {
+    this._setComponentPreview();
+  }
+
   /**
    * prepare the items that should be available via shortcuts
    * and subscribe for keyup events
    */
   ngAfterViewInit(): void {
     this._prepareItems();
-    this._setComponentPreview();
     this._keyUpSubscription = fromEvent(this._document, 'keyup').subscribe(
       (evt: KeyboardEvent) => {
         const keyCode = _readKeyCode(evt);
@@ -130,6 +134,7 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
     });
   }
 
+  /** Sets to preview if the overview contains components, that can be previewed */
   _setComponentPreview(): void {
     if (
       this.content.sections.find((section) =>
