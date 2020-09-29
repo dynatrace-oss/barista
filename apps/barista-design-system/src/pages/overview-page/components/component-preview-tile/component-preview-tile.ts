@@ -32,22 +32,30 @@ export class BaComponentPreviewTile {
   /** The component preview to display */
   @Input() set data(data: BaCategoryNavigationSectionItem) {
     this._data = data;
-    this._badge.length = 0;
 
     if (data.badge && data.badge.includes('favorite')) {
-      this._badge = ['/assets/favorite-white.svg', 'ba-tile-badge-favorite'];
+      this._badge = {
+        icon: '/assets/favorite-white.svg',
+        style: 'ba-tile-badge-favorite',
+      };
     }
     if (data.badge && data.badge.includes('deprecated')) {
-      this._badge = ['/assets/incident-white.svg', 'ba-tile-badge-warning'];
+      this._badge = {
+        icon: '/assets/incident-white.svg',
+        style: 'ba-tile-badge-warning',
+      };
     }
     if (data.badge && data.badge.includes('experimental')) {
-      this._badge = ['/assets/laboratory-white.svg', 'ba-tile-badge-warning'];
+      this._badge = {
+        icon: '/assets/laboratory-white.svg',
+        style: 'ba-tile-badge-warning',
+      };
     }
     if (data.badge && data.badge.includes('work in progress')) {
-      this._badge = [
-        '/assets/maintenance-royalblue.svg',
-        'ba-tile-badge-workinprogress',
-      ];
+      this._badge = {
+        icon: '/assets/maintenance-royalblue.svg',
+        style: 'ba-tile-badge-workinprogress',
+      };
     }
   }
   get data(): BaCategoryNavigationSectionItem {
@@ -58,7 +66,7 @@ export class BaComponentPreviewTile {
   @Input() listView = true;
 
   /** @internal whether the tile has a badge */
-  _badge: string[] = [];
+  _badge: { icon: string; style: string };
 
   constructor(private _elementRef: ElementRef) {}
 
