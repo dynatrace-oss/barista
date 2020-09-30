@@ -16,7 +16,7 @@
 
 import { Component, ElementRef, Input } from '@angular/core';
 import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
-import { BadgeType, Badge } from '../../shared';
+import { BaOverviewTile } from '../../shared';
 
 @Component({
   selector: 'a[ba-component-preview-tile]',
@@ -26,7 +26,7 @@ import { BadgeType, Badge } from '../../shared';
     class: 'ba-component-preview-tile',
   },
 })
-export class BaComponentPreviewTile extends Badge {
+export class BaComponentPreviewTile extends BaOverviewTile {
   /** Set the data needed to render */
   @Input() set data(data: BaCategoryNavigationSectionItem) {
     this._data = data;
@@ -40,12 +40,7 @@ export class BaComponentPreviewTile extends Badge {
   /** Whether to display the description or not */
   @Input() listView = true;
 
-  constructor(private _elementRef: ElementRef) {
-    super();
-  }
-
-  /** set the focus on the nativeElement */
-  focus(): void {
-    this._elementRef.nativeElement.focus();
+  constructor(private _elementReference: ElementRef) {
+    super(_elementReference);
   }
 }
