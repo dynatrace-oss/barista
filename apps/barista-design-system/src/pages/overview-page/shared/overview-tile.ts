@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
+import { ElementRef } from '@angular/core';
 import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
 import { BadgeType } from './badge-type';
 
-export class Badge {
+export class BaOverviewTile {
   /** Data for the preview */
   _data: BaCategoryNavigationSectionItem;
 
@@ -29,6 +30,8 @@ export class Badge {
   protected get badge(): BadgeType | undefined {
     return this._badge;
   }
+
+  constructor(private _elementRef: ElementRef) {}
 
   /** Checks what type of badge has been propagated and sets the corresponding icon and style class */
   protected _checkBadgeType(badge: string[]): void {
@@ -56,5 +59,10 @@ export class Badge {
         style: 'ba-tile-badge-workinprogress',
       };
     }
+  }
+
+  /** set the focus on the nativeElement */
+  protected _focus(): void {
+    this._elementRef.nativeElement.focus();
   }
 }

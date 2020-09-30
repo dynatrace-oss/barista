@@ -15,4 +15,4 @@
  */
 
 export * from './badge-type';
-export * from './check-badge-type';
+export * from './overview-tile';
