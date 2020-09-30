@@ -6,17 +6,17 @@
 </div>
 <div class="ba-tile-image-preview">
   <img
-    *ngIf="_data.imageUrl"
+    *ngIf="data.imageUrl"
     class="ba-tile-image"
-    src="{{ _data.imageUrl }}"
+    src="{{ data.imageUrl }}"
     alt="component preview image"
   />
 </div>
 <div class="ba-tile-content">
-  <div class="ba-tile-title">{{ _data.title }}</div>
+  <div class="ba-tile-title">{{ data.title }}</div>
   <ng-container *ngIf="!listView">
     <div class="ba-tile-description">
-      {{ _data.description }}
+      {{ data.description }}
     </div>
   </ng-container>
 </div>
