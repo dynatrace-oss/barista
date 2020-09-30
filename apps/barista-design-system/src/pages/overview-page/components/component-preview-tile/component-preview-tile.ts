@@ -27,14 +27,8 @@ import { BaOverviewTile } from '../../shared';
   },
 })
 export class BaComponentPreviewTile extends BaOverviewTile {
-  /** Set the data needed to render */
-  @Input() set data(data: BaCategoryNavigationSectionItem) {
-    this._data = data;
-    this._checkBadgeType(data.badge);
-  }
-  /** Get the rendered data */
-  get data(): BaCategoryNavigationSectionItem {
-    return this._data;
+  @Input() set inputData(inputData: BaCategoryNavigationSectionItem) {
+    this.data = inputData;
   }
 
   /** Whether to display the description or not */

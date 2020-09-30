@@ -20,7 +20,16 @@ import { BadgeType } from './badge-type';
 
 export class BaOverviewTile {
   /** Data for the preview */
-  _data: BaCategoryNavigationSectionItem;
+  private _data: BaCategoryNavigationSectionItem;
+  /** Set the data needed to render */
+  set data(data: BaCategoryNavigationSectionItem) {
+    this._data = data;
+    this._checkBadgeType(data.badge);
+  }
+  /** The preview data */
+  get data(): BaCategoryNavigationSectionItem {
+    return this._data;
+  }
 
   /** Badge to be checked */
   _badge: BadgeType | undefined = undefined;
