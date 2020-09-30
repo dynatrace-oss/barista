@@ -28,15 +28,10 @@ import { BaOverviewTile } from '../../shared';
   },
 })
 export class BaTile extends BaOverviewTile {
-  /** Set the data needed to render */
-  @Input() set data(data: BaCategoryNavigationSectionItem) {
-    this._data = data;
-    this._checkBadgeType(data.badge);
+  @Input() set inputData(inputData: BaCategoryNavigationSectionItem) {
+    this.data = inputData;
   }
-  /** Get the rendered data */
-  get data(): BaCategoryNavigationSectionItem {
-    return this._data;
-  }
+
   @Input() listView = true;
 
   constructor(private _elementReference: ElementRef) {
