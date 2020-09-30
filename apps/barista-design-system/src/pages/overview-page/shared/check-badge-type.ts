@@ -14,20 +14,24 @@
  * limitations under the License.
  */
 
+import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
 import { BadgeType } from './badge-type';
 
 export class Badge {
+  /** Data for the preview */
+  _data: BaCategoryNavigationSectionItem;
+
   /** Badge to be checked */
   _badge: BadgeType | undefined = undefined;
-  set badge(badge: BadgeType | undefined) {
+  protected set badge(badge: BadgeType | undefined) {
     this._badge = badge;
   }
-  get badge(): BadgeType | undefined {
+  protected get badge(): BadgeType | undefined {
     return this._badge;
   }
 
   /** Checks what type of badge has been propagated and sets the corresponding icon and style class */
-  checkBadgeType(badge: string[]): void {
+  protected _checkBadgeType(badge: string[]): void {
     if (badge.includes('favorite')) {
       this._badge = {
         icon: '/assets/favorite-white.svg',
