@@ -1,0 +1,36 @@
+<dt-chart [options]="options" [series]="series">
+  <dt-chart-heatfield
+    *ngFor="let heatfield of heatfields"
+    [start]="heatfield.start"
+    [end]="heatfield.end"
+  >
+    heatfield content
+  </dt-chart-heatfield>
+</dt-chart>
+
+<button (click)="heatfields = [{ start: 3000, end: 4000 }]">
+  update Heatfields
+</button>
+<hr />
+
+<dt-chart [options]="options" [series]="series">
+  <dt-chart-heatfield
+    *ngFor="let heatfield of heatfields$ | async"
+    [start]="heatfield.start"
+    [end]="heatfield.end"
+  >
+    heatfield content
+  </dt-chart-heatfield>
+</dt-chart>
+
+<button
+  id="update-heatfield-stream"
+  (click)="
+    heatfields$.next([
+      { start: 70000, end: 90000 },
+      { start: 50000, end: 60000 }
+    ])
+  "
+>
+  update Heatfields stream
+</button>

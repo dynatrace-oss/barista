@@ -21,6 +21,7 @@ import { DtChartModule } from '@dynatrace/barista-components/chart';
 import { BasicChart } from './chart/chart';
 import { ChartHighchartsUI } from './highcharts/chart-highcharts-ui';
 import { PieChart } from './pie-chart/pie-chart';
+import { Heatfield } from './heatfield/heatfield';
 import {
   DT_UI_TEST_CONFIG,
   DT_DEFAULT_UI_TEST_CONFIG,
@@ -29,6 +30,7 @@ import {
 const routes: Route[] = [
   { path: '', component: BasicChart },
   { path: 'highcharts', component: ChartHighchartsUI },
+  { path: 'heatfield', component: Heatfield },
   {
     path: 'selection-area',
     loadChildren: () =>
@@ -40,7 +42,7 @@ const routes: Route[] = [
 ];
 
 @NgModule({
-  declarations: [BasicChart, ChartHighchartsUI, PieChart],
+  declarations: [BasicChart, ChartHighchartsUI, PieChart, Heatfield],
   imports: [CommonModule, RouterModule.forChild(routes), DtChartModule],
   exports: [],
   providers: [

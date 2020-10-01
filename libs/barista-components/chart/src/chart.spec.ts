@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { async, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtChart,
@@ -45,7 +45,7 @@ import {
 import { BehaviorSubject } from 'rxjs';
 
 describe('DtChart', () => {
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [DtChartModule, DtThemingModule],
       declarations: [
@@ -68,7 +68,7 @@ describe('DtChart', () => {
     });
 
     TestBed.compileComponents();
-  }));
+  });
 
   describe('Data', () => {
     it('should display static data', () => {
@@ -412,20 +412,24 @@ describe('DtChart', () => {
       const fixture = createComponent(HeatfieldError);
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
-      fixture.detectChanges();
-
+      chartComponent._plotBackground$ = new BehaviorSubject(
+        (rect as unknown) as SVGRectElement,
+      );
       try {
-        chartComponent._plotBackground$ = new BehaviorSubject(
-          (rect as unknown) as SVGRectElement,
-        );
-        chartComponent._afterRender.next();
-        tick(1000);
+        fixture.detectChanges();
+        flush();
       } catch (e) {
         expect(e.message).toBe(getDtHeatfieldUnsupportedChartError().message);
       } finally {
-        tick(1000);
         expect.assertions(1);
+        fixture.destroy();
       }
+      // This was the only solution to clear the pending timers in the queue.
+      // If I would do a tick or flush it would trigger the error again and then it fails with the
+      // getDtHeatfieldUnsupportedChartError twice.
+      (global as any).Zone.current.get(
+        'FakeAsyncTestZoneSpec',
+      ).pendingTimers = [];
     }));
   });
 

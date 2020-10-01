@@ -67,7 +67,6 @@ import {
 import {
   delay,
   distinctUntilChanged,
-  filter,
   map,
   mapTo,
   startWith,
@@ -82,6 +81,7 @@ import {
   DT_CHART_DEFAULT_CONFIG,
 } from './chart-config';
 import { DT_CHART_DEFAULT_GLOBAL_OPTIONS } from './chart-options';
+import { DtChartOptions, DtChartSeries } from './chart.interface';
 import {
   DtChartHeatfield,
   DtChartHeatfieldActiveChange,
@@ -103,7 +103,6 @@ import { DtChartRange } from './range/range';
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { getPlotBackgroundInfo, retainSeriesVisibility } from './utils';
-import { DtChartOptions, DtChartSeries } from './chart.interface';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
@@ -319,6 +318,9 @@ export class DtChart
 
   /** Deals with the selection logic. */
   private _heatfieldSelectionModel: SelectionModel<DtChartHeatfield>;
+  /** The subscription for the selection model */
+  private _heatfieldSelectionModelSubscription: Subscription =
+    Subscription.EMPTY;
 
   /** @internal Emits the tooltip data when it changed */
   _highChartsTooltipDataChanged$ = new Subject<DtChartTooltipEvent>();
@@ -389,7 +391,7 @@ export class DtChart
       this._viewportResizer
         .change()
         // delay to postpone the reflow to the next change detection cycle
-        .pipe(takeUntil(this._destroy$), delay(0))
+        .pipe(delay(0), takeUntil(this._destroy$))
         .subscribe(() => {
           if (this._chartObject) {
             this._ngZone.runOutsideAngular(() => {
@@ -408,11 +410,6 @@ export class DtChart
           }
         });
     }
-    this._heatfieldActiveChanges
-      .pipe(takeUntil(this._destroy$))
-      .subscribe((event) => {
-        this._onHeatfieldActivate(event.source);
-      });
 
     // uses the ContentChild of the DtChartTooltip to toggle and update
     // the tooltip according to the highcharts events.
@@ -430,40 +427,66 @@ export class DtChart
   }
 
   ngAfterContentInit(): void {
-    this._heatfieldSelectionModel = new SelectionModel<DtChartHeatfield>();
-    this._heatfieldSelectionModel.changed
-      .pipe(takeUntil(this._destroy$))
+    //============================================================
+    // Initialize heat-fields
+    //============================================================
+    const heatFields$ = this._heatfields.changes.pipe(
+      startWith(null),
+      switchMap(() => this._ngZone.onStable.pipe(take(1))),
+      map(() => this._heatfields.toArray()),
+    );
+
+    heatFields$
+      .pipe(withLatestFrom(this._plotBackground$), takeUntil(this._destroy$))
+      .subscribe(([heatfields, plotBackground]) => {
+        this._initHeatFields(heatfields, plotBackground!);
+      });
+
+    heatFields$
+      .pipe(
+        switchMap(() => this._heatfieldActiveChanges),
+        takeUntil(this._destroy$),
+      )
       .subscribe((event) => {
+        this._onHeatfieldActivate(event.source);
+      });
+
+    //============================================================
+    // Selection Area
+    //============================================================
+    if (this._range || this._timestamp) {
+      this._hasSelectionArea = true;
+    }
+  }
+
+  private _initHeatFields(
+    heatfields: DtChartHeatfield[],
+    plotBackground: SVGRectElement,
+  ): void {
+    if (heatfields.length === 0) {
+      // no heatfields so we can skip this
+      return;
+    }
+
+    const clientRect = getPlotBackgroundInfo(plotBackground);
+
+    this._checkHeatfieldSupport();
+    heatfields.forEach((heatfield) => {
+      heatfield._initHeatfield(clientRect, this._chartObject!);
+    });
+
+    this._heatfieldSelectionModelSubscription.unsubscribe();
+    this._heatfieldSelectionModel = new SelectionModel<DtChartHeatfield>();
+    this._heatfieldSelectionModelSubscription = this._heatfieldSelectionModel.changed.subscribe(
+      (event) => {
         event.added.forEach((heatfield) => {
           heatfield.active = true;
         });
         event.removed.forEach((heatfield) => {
           heatfield.active = false;
         });
-      });
-
-    if (this._range || this._timestamp) {
-      this._hasSelectionArea = true;
-    }
-
-    if (this._heatfields.length) {
-      this._afterRender
-        .pipe(
-          withLatestFrom(this._plotBackground$),
-          filter(Boolean),
-          takeUntil(this._destroy$),
-        )
-        .subscribe(([_void, plotBackground]) => {
-          if (this._chartObject) {
-            const clientRect = getPlotBackgroundInfo(plotBackground);
-
-            this._checkHeatfieldSupport();
-            this._heatfields.forEach((heatfield) => {
-              heatfield._initHeatfield(clientRect, this._chartObject!);
-            });
-          }
-        });
-    }
+      },
+    );
   }
 
   ngOnDestroy(): void {
@@ -471,6 +494,8 @@ export class DtChart
     // to clear off any tooltips, that would still be open.
     this._highChartsTooltipClosed$.next();
     this._highChartsTooltipClosed$.complete();
+
+    this._heatfieldSelectionModelSubscription.unsubscribe();
 
     this._destroy$.next();
     this._destroy$.complete();
