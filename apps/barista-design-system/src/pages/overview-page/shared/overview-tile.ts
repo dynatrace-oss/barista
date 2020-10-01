@@ -14,64 +14,67 @@
  * limitations under the License.
  */
 
-import { ElementRef } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
 import { BadgeType } from './badge-type';
 
+@Component({
+  template: '',
+})
 export class BaOverviewTile {
-  /** Data for the preview */
-  private _data: BaCategoryNavigationSectionItem;
-  /** Set the data needed to render */
-  set data(data: BaCategoryNavigationSectionItem) {
-    this._data = data;
-    this._checkBadgeType(data.badge);
-  }
   /** The preview data */
+  @Input()
   get data(): BaCategoryNavigationSectionItem {
     return this._data;
   }
+  set data(data: BaCategoryNavigationSectionItem) {
+    this._data = data;
+    this._badge = checkBadgeType(data.badge);
+  }
+  /** Data for the preview */
+  private _data: BaCategoryNavigationSectionItem;
 
-  /** Badge to be checked */
-  _badge: BadgeType | undefined = undefined;
-  protected set badge(badge: BadgeType | undefined) {
+  set badge(badge: BadgeType | undefined) {
     this._badge = badge;
   }
-  protected get badge(): BadgeType | undefined {
+  get badge(): BadgeType | undefined {
     return this._badge;
   }
+  /** Badge to be checked */
+  private _badge: BadgeType | undefined = undefined;
 
   constructor(private _elementRef: ElementRef) {}
-
-  /** Checks what type of badge has been propagated and sets the corresponding icon and style class */
-  protected _checkBadgeType(badge: string[]): void {
-    if (badge.includes('favorite')) {
-      this._badge = {
-        icon: '/assets/favorite-white.svg',
-        style: 'ba-tile-badge-favorite',
-      };
-    }
-    if (badge.includes('deprecated')) {
-      this._badge = {
-        icon: '/assets/incident-white.svg',
-        style: 'ba-tile-badge-warning',
-      };
-    }
-    if (badge.includes('experimental')) {
-      this._badge = {
-        icon: '/assets/laboratory-white.svg',
-        style: 'ba-tile-badge-warning',
-      };
-    }
-    if (badge.includes('work in progress')) {
-      this._badge = {
-        icon: '/assets/maintenance-royalblue.svg',
-        style: 'ba-tile-badge-workinprogress',
-      };
-    }
-  }
 
   /** set the focus on the nativeElement */
   protected _focus(): void {
     this._elementRef.nativeElement.focus();
+  }
+}
+
+/** Checks what type of badge has been propagated and sets the corresponding icon and style class */
+function checkBadgeType(badge: string[]): BadgeType | undefined {
+  if (badge.includes('deprecated')) {
+    return {
+      icon: '/assets/incident-white.svg',
+      style: 'ba-tile-badge-warning',
+    };
+  }
+  if (badge.includes('experimental')) {
+    return {
+      icon: '/assets/laboratory-white.svg',
+      style: 'ba-tile-badge-warning',
+    };
+  }
+  if (badge.includes('work in progress')) {
+    return {
+      icon: '/assets/maintenance-royalblue.svg',
+      style: 'ba-tile-badge-workinprogress',
+    };
+  }
+  if (badge.includes('favorite')) {
+    return {
+      icon: '/assets/favorite-white.svg',
+      style: 'ba-tile-badge-favorite',
+    };
   }
 }
