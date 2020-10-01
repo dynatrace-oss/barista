@@ -1,8 +1,8 @@
-<div *ngIf="_badge" class="ba-tile-status {{ _badge.style }}">
+<div *ngIf="badge" class="ba-tile-status {{ badge.style }}">
   <svg class="ba-tile-status-icon-triangle" viewBox="0 0 50 50">
     <polygon points="50,0 0,0 50,50" />
   </svg>
-  <img src="{{ _badge.icon }}" alt="tile status" class="ba-tile-status-icon" />
+  <img src="{{ badge.icon }}" alt="tile status" class="ba-tile-status-icon" />
 </div>
 <div class="ba-tile-content">
   <div class="ba-tile-header">
