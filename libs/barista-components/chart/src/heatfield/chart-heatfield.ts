@@ -24,6 +24,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   Output,
   ViewChild,
@@ -77,7 +78,7 @@ export const _DtHeatfieldMixinBase = mixinColor<
   animations: [dtFadeAnimation],
 })
 export class DtChartHeatfield extends _DtHeatfieldMixinBase
-  implements CanColor<DtChartHeatfieldThemePalette>, OnDestroy {
+  implements CanColor<DtChartHeatfieldThemePalette>, OnChanges, OnDestroy {
   /** Event emitted when the option is selected or deselected. */
   @Output() readonly activeChange = new EventEmitter<
     DtChartHeatfieldActiveChange
@@ -86,33 +87,10 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
   /** @internal The current state of the animation. */
   _overlayAnimationState: 'void' | 'fadeIn' = 'void';
 
-  private _start: number;
-
   /** Start on the xAxis of the chart for the heatfield */
-  @Input()
-  get start(): number {
-    return this._start;
-  }
-  set start(val: number) {
-    if (this._start !== val) {
-      this._start = val;
-      this._updatePosition();
-    }
-  }
-
-  private _end: number;
-
+  @Input() start: number;
   /** End on the xAxis of the chart for the heatfield */
-  @Input()
-  get end(): number {
-    return this._end;
-  }
-  set end(val: number) {
-    if (this._end !== val) {
-      this._end = val;
-      this._updatePosition();
-    }
-  }
+  @Input() end: number;
 
   private _active = false;
 
@@ -190,6 +168,10 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
     super(elementRef);
   }
 
+  ngOnChanges(): void {
+    this._updatePosition();
+  }
+
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
@@ -242,11 +224,11 @@ export class DtChartHeatfield extends _DtHeatfieldMixinBase
         const pxPerUnit =
           this._boundingBox.width / (extremes.max - extremes.min);
         const left =
-          (clamp(this._start, extremes.min, extremes.max) - extremes.min) *
+          (clamp(this.start, extremes.min, extremes.max) - extremes.min) *
           pxPerUnit;
         // calculate the width based on start/end values or from start to the edge of the chart
-        const width = isDefined(this._end)
-          ? (clamp(this._end, extremes.min, extremes.max) - extremes.min) *
+        const width = isDefined(this.end)
+          ? (clamp(this.end, extremes.min, extremes.max) - extremes.min) *
               pxPerUnit -
             left
           : (extremes.max - extremes.min) * pxPerUnit - left;
