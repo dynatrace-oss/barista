@@ -6,7 +6,7 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@actions/core": "^1.2.3",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^1.1.0",
     "@slack/webhook": "^5.0.3",
     "github-cherry-pick": "^1.1.0",
