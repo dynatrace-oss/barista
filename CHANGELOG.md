@@ -1,3 +1,45 @@
+## [8.1.0](https://github.com/dynatrace-oss/barista/compare/8.0.0...8.1.0) (2020-10-01)
+
+### Bug Fixes
+
+- **button-group:** Fix a regression that was introduced with the update to the
+  new typescript version.
+  ([a3b7382](https://github.com/dynatrace-oss/barista/commit/a3b7382e691f36d85984be4be381c13b0013c6da)),
+  closes [#1577](https://github.com/dynatrace-oss/barista/issues/1577)
+- **combobox:** Fix reset behaviour.
+  ([f6742c2](https://github.com/dynatrace-oss/barista/commit/f6742c2c879c24c8c83252559d395c90152b4fbe))
+- **filter-field:** Fixed UX problem where text that wasn't applied to the
+  filter would remain after losing focus.
+  ([a5af7fd](https://github.com/dynatrace-oss/barista/commit/a5af7fdf81cb878224522e793c184f5ef6fa638f))
+- **filter-field:** Fixes an issue where custom tag parsers are not applied on
+  filters set initially.
+  ([ab5edc5](https://github.com/dynatrace-oss/barista/commit/ab5edc55bdecfc1c43146f63f9783bf93b59cdd4)),
+  closes [#1591](https://github.com/dynatrace-oss/barista/issues/1591)
+- **filter-field:** Fixes an issue where suggestions are not displayed in MS
+  Edge.
+  ([b88539b](https://github.com/dynatrace-oss/barista/commit/b88539bc47814ae7a15927645654300901d95b85)),
+  closes [#1558](https://github.com/dynatrace-oss/barista/issues/1558)
+- **filter-field:** Reverts a commit that introduced a bug when selecting
+  suggestion values.
+  ([dd08844](https://github.com/dynatrace-oss/barista/commit/dd08844f24ea710a6bb79fadfb114e627112c131)),
+  closes [#1632](https://github.com/dynatrace-oss/barista/issues/1632)
+- **option:** Fixes the behaviour of selecting an option with mouse and
+  keyboard, solving the issue of multiple options being selected.
+  ([21addc2](https://github.com/dynatrace-oss/barista/commit/21addc244a532d0117d7d46392f1f517340117a1))
+- **quick-filter:** Use internal uid for the filter generation.
+  ([eafc15c](https://github.com/dynatrace-oss/barista/commit/eafc15c05269df28543d8c1f7bf3b6b6136f9ea5)),
+  closes [#1647](https://github.com/dynatrace-oss/barista/issues/1647)
+  [#1522](https://github.com/dynatrace-oss/barista/issues/1522)
+- **tree-table:** Fixes overflow when info-group contains long texts
+  ([c9f1413](https://github.com/dynatrace-oss/barista/commit/c9f1413a2a9f5f8b4a76301aae516afeb1e389f4))
+
+### Features
+
+- **alert:** Introduce `info` severity type
+  ([5856d36](https://github.com/dynatrace-oss/barista/commit/5856d36dcda9a306c4c53342ab2f0efc69191f3f))
+- **combobox:** Introduce injection token to configure option height.
+  ([8342c18](https://github.com/dynatrace-oss/barista/commit/8342c1819cf264d38843ef529cb03535e9064a28))
+
 ## [8.0.3](https://github.com/dynatrace-oss/barista/compare/8.0.2...8.0.3) (2020-09-23)
 
 ### Bug Fixes
