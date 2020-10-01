@@ -15,7 +15,6 @@
  */
 
 import { Component, ElementRef, Input } from '@angular/core';
-import { BaCategoryNavigationSectionItem } from '@dynatrace/shared/design-system/interfaces';
 import { BaOverviewTile } from '../../shared';
 
 @Component({
@@ -27,14 +26,10 @@ import { BaOverviewTile } from '../../shared';
   },
 })
 export class BaComponentPreviewTile extends BaOverviewTile {
-  @Input() set inputData(inputData: BaCategoryNavigationSectionItem) {
-    this.data = inputData;
-  }
-
   /** Whether to display the description or not */
   @Input() listView = true;
 
-  constructor(private _elementReference: ElementRef) {
+  constructor(_elementReference: ElementRef) {
     super(_elementReference);
   }
 }
