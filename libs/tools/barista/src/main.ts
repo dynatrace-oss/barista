@@ -86,9 +86,7 @@ async function createExampleInlineSourcesTransformer(): Promise<
   const examplesMetadataDir = './dist';
   const examplesMetadataFileName = 'examples-metadata.json';
   if (!existsSync(examplesMetadataDir)) {
-    throw new Error(
-      `"${examplesMetadataFileName}" not found. Make sure to run "examples-tools" first.`,
-    );
+    throw new Error(`"${examplesMetadataFileName}" not found.`);
   }
   const examplesMetadata = await fs.readFile(
     join(examplesMetadataDir, examplesMetadataFileName),
