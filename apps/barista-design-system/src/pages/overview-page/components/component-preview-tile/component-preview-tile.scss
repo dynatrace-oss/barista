@@ -63,8 +63,6 @@ $imagesize: 156px;
   position: relative;
   overflow: hidden;
 
-  @include tile-theme($turquoise-600, $turquoise-600, $turquoise-700);
-
   .ba-tile-badge-warning {
     .ba-tile-status-icon-triangle {
       fill: $yellow-600;
@@ -72,12 +70,7 @@ $imagesize: 156px;
   }
 
   .ba-tile-content {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    justify-content: space-between;
-    height: auto;
-    margin: 1rem 1.5rem;
+    padding: 1rem 1.5rem;
   }
 
   .ba-tile-image-preview {
