@@ -20,14 +20,16 @@ ul {
 }
 
 .ba-tilegrid {
-  display: block;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 1rem;
   width: 100%;
   margin-top: 1rem;
+  margin-bottom: 1rem;
 
   .ba-tile {
     min-width: $tilesize;
     flex-basis: $tilesize;
-    margin: 1rem;
   }
 
   .ba-tile-identifier {
@@ -44,10 +46,6 @@ ul {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
-
-    .ba-tile {
-      margin: 0;
-    }
   }
 }
 
