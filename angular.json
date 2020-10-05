@@ -2000,12 +2000,6 @@
               "!libs/barista-components/progress-bar/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/progress-bar/jest.config.js"
-          }
         }
       },
       "schematics": {}
