@@ -417,7 +417,7 @@ export class DtStackedSeriesChart implements OnDestroy {
       this._axisTicks = scale.ticks(tickAmount).map((value) => {
         return {
           // for column scale must be inverted but d3 does not allow a reverse scale
-          pos: this.mode === 'bar' ? scale(value) : 100 - scale(value),
+          pos: this.mode === 'bar' ? scale(value)! : 100 - scale(value)!,
           value: value,
           valueRelative: this.max ? value / this.max : 0,
         };

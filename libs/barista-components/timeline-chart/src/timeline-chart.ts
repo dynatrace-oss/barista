@@ -210,6 +210,6 @@ function valueToPercentage(
 ): number {
   return (
     // tslint:disable-next-line: no-magic-numbers
-    Math.round((scale(value) / 100) * POSITION_PRECISION) / POSITION_PRECISION
+    Math.round((scale(value)! / 100) * POSITION_PRECISION) / POSITION_PRECISION
   );
 }
