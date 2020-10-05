@@ -2500,13 +2500,6 @@
               "!libs/barista-components/timeline-chart/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/timeline-chart/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
