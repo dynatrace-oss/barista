@@ -20,7 +20,7 @@
   border-color: var(--dt-button-group-hover-color);
 }
 
-:host.dt-button-group-item.dt-button-group-item-selected,
+:host.dt-button-group-item.dt-button-group-item-checked,
 :host.dt-button-group-item:active {
   &:not(.dt-button-group-item-disabled) {
     z-index: 1;

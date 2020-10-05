@@ -22,8 +22,8 @@ export const groupItem = (item: number, group = 1) =>
 export const labelText = async (group = 1) =>
   Selector(`#lblGroup-${group}`).textContent;
 
-export const isSelected = async (item: Selector) =>
-  item.hasClass('dt-button-group-item-selected');
+export const isChecked = async (item: Selector) =>
+  item.hasClass('dt-button-group-item-checked');
 
 export const isDisabled = async (item: Selector) =>
   item.hasClass('dt-button-group-item-disabled');
