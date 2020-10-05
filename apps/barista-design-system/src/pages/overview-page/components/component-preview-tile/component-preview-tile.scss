@@ -10,7 +10,6 @@ $imagesize: 156px;
 @mixin tile-theme($link-color, $hover-color, $active-color) {
   color: $link-color;
 
-  :hover,
   &:hover {
     border-color: $hover-color;
     text-decoration: none;
@@ -20,12 +19,10 @@ $imagesize: 156px;
     }
   }
 
-  :focus,
   &:focus {
     outline: 2px solid $hover-color;
   }
 
-  :active,
   &:active {
     border-color: $active-color;
   }
@@ -34,15 +31,13 @@ $imagesize: 156px;
     color: $hover-color;
   }
 
-  .ba-tile-badge-favorite,
-  &.ba-tile-badge-favorite {
+  .ba-tile-badge-favorite {
     .ba-tile-status-icon-triangle {
       fill: $link-color;
     }
   }
 
-  .ba-tile-badge-workinprogress,
-  &.ba-tile-badge-workinprogress {
+  .ba-tile-badge-workinprogress {
     .ba-tile-status-icon-triangle {
       fill: #ffffff;
     }
