@@ -2028,12 +2028,6 @@
               "!libs/barista-components/progress-circle/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/progress-circle/jest.config.js"
-          }
         }
       },
       "schematics": {}
