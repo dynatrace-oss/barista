@@ -2270,13 +2270,6 @@
               "!libs/barista-components/stacked-series-chart/**"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/stacked-series-chart/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
