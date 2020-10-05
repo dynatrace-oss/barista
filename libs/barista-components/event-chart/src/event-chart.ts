@@ -662,14 +662,14 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
           // tslint:disable-next-line: no-magic-numbers
           const y = lanePos * (LANE_HEIGHT + 1) + LANE_HEIGHT / 2;
 
-          const x1 = scale(event.value);
+          const x1 = scale(event.value)!;
           let x2 = x1;
 
           // If the event has a duration the event is a sausage instead of a
           // single point, which means we need to calculate the x value
           // of the events end.
           if (event.duration) {
-            x2 = scale(event.value + event.duration);
+            x2 = scale(event.value + event.duration)!;
           }
 
           // Determine the color of the RenderEvent based on
@@ -714,7 +714,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     this._renderTicks = dateTicks.map((date) => {
       const timestamp = date.getTime();
       return {
-        x: timeScale(timestamp),
+        x: timeScale(timestamp)!,
         value: this._formatRelativeTimestamp(timestamp),
       };
     });
