@@ -22,6 +22,9 @@ import { BadgeType } from './badge-type';
   template: '',
 })
 export class BaOverviewTile {
+  /** Whether to display the tiles in listview or not */
+  @Input() listView = true;
+
   /** The preview data */
   @Input()
   get data(): BaCategoryNavigationSectionItem {
