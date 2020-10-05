@@ -2529,13 +2529,6 @@
               "!libs/barista-components/toast/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/toast/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
