@@ -2587,13 +2587,6 @@
               "!libs/barista-components/top-bar-navigation/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/top-bar-navigation/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
