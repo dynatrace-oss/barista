@@ -2343,13 +2343,6 @@
               "!libs/barista-components/table/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/table/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}

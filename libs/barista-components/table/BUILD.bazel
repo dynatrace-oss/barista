@@ -1,6 +1,63 @@
-load("//tools/bazel_rules:index.bzl", "stylelint")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
 package(default_visibility = ["//visibility:public"])
+
+ng_module_view_engine(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        ":styles",
+        ":styles_cell",
+        ":styles_expandable_cell",
+        ":styles_expandable_row",
+        ":styles_header_row",
+        ":styles_order_cell",
+        ":styles_row",
+        ":styles_search",
+        ":styles_selectors",
+        ":styles_favorite_column",
+        ":styles_simple_column",
+        ":styles_sort_header",
+        "src/expandable/expandable-cell.html",
+        "src/expandable/expandable-row.html",
+        "src/order/order-cell.html",
+        "src/search/table-search.html",
+        "src/simple-columns/favorite-column.html",
+        "src/simple-columns/simple-number-column.html",
+        "src/simple-columns/simple-text-column.html",
+        "src/sort/sort-header.html",
+        "src/table.html",
+    ],
+    module_name = "@dynatrace/barista-components/table",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/checkbox:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/empty-state:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/indicator:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/loading-distractor:compile",
+        "//libs/barista-components/pagination:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/animations",
+        "@npm//@angular/forms",
+        "@npm//rxjs",
+    ],
+)
 
 filegroup(
     name = "table",
@@ -16,7 +73,138 @@ filegroup(
     ]),
 )
 
+sass_binary(
+    name = "styles",
+    src = "src/table.scss",
+    deps = [
+        ":scss_lib",
+        "//libs/barista-components/core:scss_lib",
+        "//libs/barista-components/style:style",
+    ]
+)
+
+sass_binary(
+    name = "styles_cell",
+    src = "src/cell.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_expandable_cell",
+    src = "src/expandable/expandable-cell.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_expandable_row",
+    src = "src/expandable/expandable-row.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_header_row",
+    src = "src/header/header-row.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_order_cell",
+    src = "src/order/order-cell.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_row",
+    src = "src/row.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_search",
+    src = "src/search/table-search.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_selectors",
+    src = "src/selection/selectors.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_favorite_column",
+    src = "src/simple-columns/favorite-column.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_simple_column",
+    src = "src/simple-columns/simple-column.scss",
+    deps = [":scss_lib"],
+)
+
+sass_binary(
+    name = "styles_sort_header",
+    src = "src/sort/sort-header.scss",
+    deps = [":scss_lib"],
+)
+
+sass_library(
+    name = "scss_lib",
+    srcs = glob(
+        ["src/**/_*.scss"],
+    ),
+)
+
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
+)
+
+jest(
+    name = "test",
+    srcs = glob(include = ["**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    setup_file = ":src/test-setup.ts",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+        "//libs/testing/browser",
+        "@npm//@angular/platform-browser",
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/checkbox:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/empty-state:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/indicator:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/loading-distractor:compile",
+        "//libs/barista-components/pagination:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/animations",
+        "@npm//@angular/forms",
+        "@npm//rxjs",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
 )

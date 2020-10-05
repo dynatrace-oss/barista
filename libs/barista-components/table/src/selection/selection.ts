@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-import { SelectionModel } from '@angular/cdk/collections';
+import { SelectionChange, SelectionModel } from '@angular/cdk/collections';
+import { Observable } from 'rxjs';
 import {
   Directive,
   Output,
@@ -65,7 +66,9 @@ export class DtTableSelection<T> implements OnInit {
    * The event contains rows that were added and removed from the selection
    */
   @Output('dtTableSelectionChange')
-  readonly selectionChange = this._selectionModel.changed.asObservable();
+  readonly selectionChange: Observable<
+    SelectionChange<T>
+  > = this._selectionModel.changed.asObservable();
 
   /**
    * The rows that should be selected initially
