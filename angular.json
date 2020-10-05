@@ -2212,13 +2212,6 @@
               "!libs/barista-components/slider/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/slider/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
