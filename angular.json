@@ -2558,13 +2558,6 @@
               "!libs/barista-components/toggle-button-group/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/toggle-button-group/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
