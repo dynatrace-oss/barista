@@ -493,8 +493,8 @@ describe('DtSlider', () => {
       } = getElements(fixture);
       const { slider } = testComponent;
 
-      //<any, any> is needed because _updateSlider is private
-      const update = jest.spyOn<any, any>(slider, '_updateSlider');
+      // "as any" is needed because _updateSlider is private
+      const update = jest.spyOn(slider as any, '_updateSlider');
       slider.disabled = true;
 
       dispatchMouseEvent(sliderWrapper, 'click', 150);
