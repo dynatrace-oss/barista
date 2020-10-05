@@ -54,14 +54,24 @@ To apply the button group component, use the `<dt-button-group>` and
 
 ## Button group item inputs
 
-| Name           | Type                  | Default     | Description                                                                                            |
-| -------------- | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
-| `<ng-content>` |                       |             | The content which is displayed inside of the item. This should only be text.                           |
-| `value`        | `T | undefined`       | `undefined` | The associated value of this item                                                                      |
-| `disabled`     | `boolean | undefined` | `undefined` | Sets disabled state if property is set and the value is truthy or undefined                            |
-| `tabIndex`     | `number`              | `0`         | Sets and gets the tabIndex property                                                                    |
-| `selected`     | `boolean`             | `false`     | Sets or gets the selected state of this item                                                           |
-| `color`        | `'main' | 'error'`    | `main`      | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>error</code></li></ul> |
+| Name                    | Type                  | Default     | Description                                                                                            |
+| ----------------------- | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------ |
+| `<ng-content>`          |                       |             | The content which is displayed inside of the item. This should only be text.                           |
+| `value`                 | `T | undefined`       | `undefined` | The associated value of this item                                                                      |
+| `disabled`              | `boolean | undefined` | `undefined` | Sets disabled state if property is set and the value is truthy or undefined                            |
+| `tabIndex`              | `number`              | `0`         | Sets and gets the tabIndex property                                                                    |
+| _deprecated_ `selected` | `boolean`             | `false`     | Sets or gets the selected state of this item                                                           |
+| `checked`               | `boolean`             | `false`     | Sets or gets the checked state of this item                                                            |
+| `color`                 | `'main' | 'error'`    | `main`      | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>error</code></li></ul> |
+
+The property `selected` is deprecated and will be renamed to `checked` in
+version 9.0.0
+
+## Button group item outputs
+
+| Name            | Type                                       | Description                                        |
+| --------------- | ------------------------------------------ | -------------------------------------------------- |
+| `checkedChange` | `event<DtButtonGroupItemCheckedChange<T>>` | Emits an event when the checked attribute changed. |
 
 ## Button group item methods
 

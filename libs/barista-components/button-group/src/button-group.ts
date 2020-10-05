@@ -83,7 +83,7 @@ export class DtButtonGroup<T> extends _DtButtonGroup
   set value(newValue: T | null) {
     if (this._value !== newValue) {
       this._value = newValue;
-      this._updateSelectedItemFromValue();
+      this._updateCheckedItemFromValue();
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -114,11 +114,11 @@ export class DtButtonGroup<T> extends _DtButtonGroup
       // find if there is a selection
       // defer to next CD run - this is needed because we cannot update the item right away when there is no value set
       Promise.resolve().then(() => {
-        const selected = this._items.find((item) => item.selected);
+        const checked = this._items.find((item) => item.checked);
         if (this.value === null) {
-          this.value = selected ? selected.value : this._items.first.value;
+          this.value = checked ? checked.value : this._items.first.value;
         } else {
-          this._updateSelectedItemFromValue();
+          this._updateCheckedItemFromValue();
         }
       });
     }
@@ -138,18 +138,27 @@ export class DtButtonGroup<T> extends _DtButtonGroup
     }
   }
 
-  /** Updates the `selected` state of each item button based on the groups value. */
-  private _updateSelectedItemFromValue(): void {
+  /** Updates the `checked` state of each item button based on the groups value. */
+  private _updateCheckedItemFromValue(): void {
     if (this._items) {
       this._items.forEach((item) => {
-        item.selected = this.value === item.value;
+        item.checked = this.value === item.value;
       });
     }
   }
 }
 
-/** Change event object emitted by DtRadioButton */
+/**
+ * @deprecated
+ * @breaking-change Will be removed with version 9.0.0. Please use the `DtButtonGroupItemCheckedChange` instead
+ */
 export interface DtButtonGroupItemSelectionChange<T> {
+  source: DtButtonGroupItem<T>;
+  value: T | null;
+}
+
+/** Change event object emitted by DtRadioButton */
+export interface DtButtonGroupItemCheckedChange<T> {
   source: DtButtonGroupItem<T>;
   value: T | null;
 }
@@ -173,12 +182,12 @@ export const _DtButtonGroupItem = mixinTabIndex(
   host: {
     role: 'radio',
     class: 'dt-button-group-item',
-    '[attr.aria-selected]': 'selected',
-    '[class.dt-button-group-item-selected]': 'selected',
+    '[attr.aria-checked]': 'checked',
+    '[class.dt-button-group-item-checked]': 'checked',
     '[attr.aria-disabled]': 'disabled',
     '[class.dt-button-group-item-disabled]': 'disabled',
     '[attr.tabindex]': 'tabIndex',
-    '(click)': '_onSelect($event)',
+    '(click)': '_onChecked($event)',
     '(keydown)': '_handleKeydown($event)',
   },
   styleUrls: ['button-group-item.scss'],
@@ -194,24 +203,44 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     HasTabIndex,
     AfterContentInit,
     OnDestroy {
-  private _selected = false;
+  private _checked = false;
   private _value: T;
   private _disabled = false;
 
-  /** Emits a stream when this item is selected or deselected. */
+  /**
+   * @deprecated
+   * @breaking-change will be removed with version 9.0.0 please use the `checkedChange` instead.
+   */
   @Output() readonly selectionChange = new EventEmitter<
     DtButtonGroupItemSelectionChange<T>
   >();
 
-  /** Whether the button-group item is selected. */
+  /** Emits a stream when this item is checked or unchecked. */
+  @Output() readonly checkedChange = new EventEmitter<
+    DtButtonGroupItemCheckedChange<T>
+  >();
+
+  /**
+   * @deprecated
+   * @breaking-change will be removed with version 9.0.0 please use the `checked` property instead.
+   */
   @Input()
   get selected(): boolean {
-    return this._selected && !this.disabled;
+    return this.checked;
   }
   set selected(value: boolean) {
+    this.checked = value;
+  }
+
+  /** Whether the button-group item is checked. */
+  @Input()
+  get checked(): boolean {
+    return this._checked && !this.disabled;
+  }
+  set checked(value: boolean) {
     const newValue = coerceBooleanProperty(value);
-    if (this._selected !== newValue) {
-      this._selected = newValue;
+    if (this._checked !== newValue) {
+      this._checked = newValue;
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -223,8 +252,8 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
   }
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
-    if (this._disabled && this._selected) {
-      this._selected = false;
+    if (this._disabled && this._checked) {
+      this._checked = false;
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -264,12 +293,14 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     this._focusMonitor.stopMonitoring(this._elementRef);
   }
 
-  /** @internal Selects this item. */
-  _onSelect(event: Event): void {
+  /** @internal Checks this item. */
+  _onChecked(event: Event): void {
     event.stopPropagation();
     const groupValueChanged =
       this._buttonGroup && this.value !== this._buttonGroup.value;
+    // TODO: Version 9.0.0 remove this event emission.
     this.selectionChange.emit({ source: this, value: this.value });
+    this.checkedChange.emit({ source: this, value: this.value });
 
     if (this._buttonGroup && groupValueChanged) {
       this._buttonGroup.value = this.value;
@@ -277,11 +308,11 @@ export class DtButtonGroupItem<T> extends _DtButtonGroupItem
     }
   }
 
-  /** @internal Ensures the option is selected when activated from the keyboard. */
+  /** @internal Ensures the option is checked when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
     const keyCode = _readKeyCode(event);
     if (keyCode === ENTER || keyCode === SPACE) {
-      this._onSelect(event);
+      this._onChecked(event);
 
       // Prevent the page from scrolling down and form submits.
       event.preventDefault();
