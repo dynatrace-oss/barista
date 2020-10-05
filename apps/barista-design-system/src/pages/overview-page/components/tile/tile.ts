@@ -28,12 +28,6 @@ import { BaOverviewTile } from '../../shared';
   },
 })
 export class BaTile extends BaOverviewTile {
-  @Input() set inputData(inputData: BaCategoryNavigationSectionItem) {
-    this.data = inputData;
-  }
-
-  @Input() listView = true;
-
   constructor(private _elementReference: ElementRef) {
     super(_elementReference);
   }
