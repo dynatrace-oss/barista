@@ -2299,13 +2299,6 @@
               "!libs/barista-components/stepper/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/stepper/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
