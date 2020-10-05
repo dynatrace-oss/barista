@@ -176,9 +176,16 @@ export class BaIconColorWheel {
    * Handle the click on a blob
    */
   _handleBlobClick(fillColor: string, colorName: string): void {
-    const svgSourceDOM = document.getElementById(this._iconId);
-    svgSourceDOM!.querySelector('svg')!.setAttribute('fill', fillColor);
-    const svgSource = svgSourceDOM!.innerHTML || '';
+    const svgElement = document
+      .getElementById(this._iconId)!
+      .querySelector('svg')!;
+    svgElement.setAttribute('fill', fillColor);
+
+    // Required for Firefox compatibility
+    // https://stackoverflow.com/questions/28690643/firefox-error-rendering-an-svg-image-to-html5-canvas-with-drawimage
+    svgElement.setAttribute('width', '512');
+    svgElement.setAttribute('height', '512');
+    const svgSource = svgElement.outerHTML || '';
 
     if (this._convertToPng) {
       this._downloadPNG(svgSource, this.name, colorName);
@@ -205,7 +212,7 @@ export class BaIconColorWheel {
       // once the image is loaded, draw it on the canvas
       context.drawImage(img, 0, 0);
       const name = `${iconName}-${colorName}.png`;
-      const data = canvas.toDataURL('img/png');
+      const data = canvas.toDataURL('image/png');
       if (!window.navigator.msSaveOrOpenBlob) {
         // get the dataURI as PNG
         this._downloadData(name, data);
