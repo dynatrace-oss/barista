@@ -26,9 +26,6 @@ import { BaOverviewTile } from '../../shared';
   },
 })
 export class BaComponentPreviewTile extends BaOverviewTile {
-  /** Whether to display the description or not */
-  @Input() listView = true;
-
   constructor(_elementReference: ElementRef) {
     super(_elementReference);
   }
