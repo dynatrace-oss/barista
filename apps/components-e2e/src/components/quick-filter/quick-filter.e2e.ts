@@ -23,7 +23,11 @@ import {
 import {
   getGroupItem,
   getGroupItemInput,
+  getGroupItems,
   getSelectedItem,
+  getShowMoreButton,
+  getShowMoreText,
+  quickFilterBackButton,
 } from './quick-filter.po';
 import { resetWindowSizeToDefault } from '../../utils';
 import { Selector } from 'testcafe';
@@ -172,4 +176,47 @@ test('should be possible to change the filters via binding on the quick-filter',
     .match(/New York/)
     .expect(getSelectedItem('AUT').textContent)
     .match(/Any/);
+});
+
+fixture('Quick Filter with show more')
+  .page('http://localhost:4200/quick-filter/examples/show-more')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
+
+test('should check the show more with non distinct values', async (testController: TestController) => {
+  await testController
+    .expect(getShowMoreText('Country'))
+    .eql('There are 26 States available')
+    .expect(getGroupItems('Country').count)
+    .eql(4)
+    .click(getShowMoreButton('Country'))
+    .expect(getGroupItems('Country').count)
+    .eql(30)
+    .click(getGroupItem('Country', 'State 23'))
+    .expect(getFilterfieldTags())
+    .eql(['CountryState 23'])
+    .click(quickFilterBackButton)
+    .click(getGroupItem('Country', 'State 2'))
+    .expect(getFilterfieldTags())
+    .eql(['CountryState 23', 'CountryState 2']);
+});
+
+test('should check the show more with distinct values', async (testController: TestController) => {
+  await testController
+    .expect(getShowMoreText('Value'))
+    .eql('There are 996 Options available')
+    .expect(getGroupItems('Value').count)
+    .eql(5)
+    .click(getGroupItem('Value', 'Value 2'))
+    .expect(getFilterfieldTags())
+    .eql(['ValueValue 2'])
+    .click(getShowMoreButton('Value'))
+    .expect(getGroupItems('Value').count)
+    .notEql(1000) // should not render all options due to virtual scrolling
+    .click(getGroupItem('Value', 'Value 23'))
+    .click(quickFilterBackButton)
+    .expect(getFilterfieldTags())
+    .eql(['ValueValue 23']);
 });

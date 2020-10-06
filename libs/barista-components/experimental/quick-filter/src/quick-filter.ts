@@ -19,11 +19,13 @@ import {
   ChangeDetectionStrategy,
   Component,
   Directive,
+  ElementRef,
   EventEmitter,
   Input,
   NgZone,
   OnDestroy,
   Output,
+  TemplateRef,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
@@ -41,7 +43,9 @@ import { DtQuickFilterDataSource } from './quick-filter-data-source';
 import {
   Action,
   addInitialFilters,
+  isFilterChangeAction,
   setFilters,
+  showGroupInDetailView,
   switchDataSource,
 } from './state/actions';
 import { quickFilterReducer } from './state/reducer';
@@ -50,6 +54,7 @@ import {
   getDataSource,
   getFilters,
   getInitialFilters,
+  getIsDetailView,
 } from './state/selectors';
 import { createQuickFilterStore, QuickFilterState } from './state/store';
 
@@ -138,6 +143,19 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   /** Set the Aria-Label attribute */
   @Input('aria-label') ariaLabel = '';
 
+  /**
+   * Template for the show more text of the group
+   * The implicit context of the template is the count of the remaining items,
+   * the view value can be accessed through the group variable
+   *
+   * @example
+   * ```HTML
+   * <ng-template #showMore let-count let-group="group">
+   * </ng-template>
+   * ```
+   */
+  @Input() showMoreTemplate: TemplateRef<{ $implicit: number; group: string }>;
+
   /** The data source instance that should be connected to the filter field. */
   @Input()
   get dataSource(): DtQuickFilterDataSource {
@@ -164,6 +182,12 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    */
   @Input() groupHeadlineRole: number = 3;
 
+  /**
+   * The maximum amount of items that should be displayed in the quick filter
+   * sidebar. If there are more they are hidden behind a show more functionality
+   */
+  @Input() maxGroupItems = 5;
+
   /** The store where the data flow is managed */
   private _store = createQuickFilterStore(quickFilterReducer);
 
@@ -173,14 +197,23 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   readonly _filterFieldDataSource$ = this._store.select(getDataSource);
   /** @internal the list of all current active filters */
   readonly _activeFilters$ = this._store.select(getFilters);
+  /** @internal If a show more detail page should be shown */
+  readonly _isDetailView$ = this._store.select(getIsDetailView);
+  /** @internal The height of the virtual scroll container */
+  _virtualScrollHeight = 0;
 
   /** Subject that is used for bulk unsubscribing */
   private _destroy$ = new Subject<void>();
 
-  constructor(private _zone: NgZone) {}
+  constructor(
+    private _zone: NgZone,
+    private _elementRef: ElementRef<HTMLElement>,
+  ) {}
 
   /** Angular life-cycle hook that will be called after the view is initialized */
   ngAfterViewInit(): void {
+    // Set the height for the virtual scroll container
+    this._virtualScrollHeight = this._getVirtualScrollContainerHeight();
     // We need to wait for the first on stable call, otherwise the
     // underlying filter field will throw an expression changed after checked
     // error. Deferring the first filter setting.
@@ -218,6 +251,11 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     this._destroy$.complete();
   }
 
+  /** @internal Closes the detail view and shows all groups */
+  _goBackFromDetail(): void {
+    this._store.dispatch(showGroupInDetailView(undefined));
+  }
+
   /**
    * @internal
    * When the user selects an option in the quick filter an action gets passed
@@ -225,14 +263,16 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    */
   _changeFilter(action: Action): void {
     this._store.dispatch(action);
-    this.filterChanges.emit(
-      new DtQuickFilterChangeEvent(
-        this._filterField,
-        [],
-        [],
-        this._filterField.filters,
-      ),
-    );
+    if (isFilterChangeAction(action)) {
+      this.filterChanges.emit(
+        new DtQuickFilterChangeEvent(
+          this._filterField,
+          [],
+          [],
+          this._filterField.filters,
+        ),
+      );
+    }
   }
 
   /** @internal Bubble the filter field change event through */
@@ -247,5 +287,22 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     return this._filterField._filterValues.filter((group) =>
       group.every((value) => isDtAutocompleteValue(value)),
     );
+  }
+
+  /** Get the height for the virtual scroll container */
+  private _getVirtualScrollContainerHeight(): number {
+    const groups: HTMLElement[] =
+      [].slice.call(
+        this._elementRef.nativeElement.querySelectorAll(
+          '.dt-quick-filter-group',
+        ),
+      ) || [];
+
+    return (
+      groups.reduce(
+        (height, group) => (height += group.getBoundingClientRect().height),
+        0,
+      ) - 28
+    ); // the 28 is the height of a group headline;
   }
 }

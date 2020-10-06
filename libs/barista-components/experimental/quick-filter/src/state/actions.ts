@@ -28,6 +28,7 @@ export enum ActionType {
   SET_FILTERS = '@@actions set filters',
   ADD_INITIAL_FILTERS = '@@actions add initial filters',
   UNSET_FILTER_GROUP = '@@actions unset filter group',
+  HIGHLIGHT_GROUP = '@@actions highlight filter group',
   SWITCH_DATA_SOURCE = '@@actions  switch dataSource',
   UPDATE_DATA_SOURCE = '@@actions update dataSource',
 }
@@ -55,6 +56,10 @@ export const addInitialFilters = (filters: any[][]) =>
 export const unsetFilterGroup = (group: DtNodeDef) =>
   action<DtNodeDef>(ActionType.UNSET_FILTER_GROUP, group);
 
+/** @internal Highlights a filter group */
+export const showGroupInDetailView = (id: string | undefined) =>
+  action<string | undefined>(ActionType.HIGHLIGHT_GROUP, id);
+
 /** @internal Action that adds a filter */
 export const addFilter = (filter: DtNodeDef[]) =>
   action<DtNodeDef[]>(ActionType.ADD_FILTER, filter);
@@ -74,3 +79,17 @@ export const switchDataSource = (item: DtFilterFieldDataSource<any>) =>
 /** @internal Action that updates the data source */
 export const updateDataSource = (nodeDef: DtNodeDef) =>
   action<DtNodeDef>(ActionType.UPDATE_DATA_SOURCE, nodeDef);
+
+/** @internal Detects if an action should emit a change event to the consumer */
+export function isFilterChangeAction(generalAction: Action): boolean {
+  switch (generalAction.type) {
+    case ActionType.ADD_FILTER:
+    case ActionType.REMOVE_FILTER:
+    case ActionType.UPDATE_FILTER:
+    case ActionType.UNSET_FILTER_GROUP:
+    case ActionType.SET_FILTERS:
+      return true;
+    default:
+      return false;
+  }
+}
