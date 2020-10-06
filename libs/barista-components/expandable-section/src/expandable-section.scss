@@ -1,11 +1,61 @@
 @import '../../style/font-mixins';
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
-@import '../../core/src/theming/theming';
-@import './expandable-section-theme';
 
 :host {
   box-sizing: border-box;
+  --dt-expandable-section-arrow-default-color: var(--dt-accent-default-color);
+  --dt-expandable-section-arrow-hover-color: var(--dt-accent-hover-color);
+  --dt-expandable-section-disabled-color: #{$gray-300};
+  --dt-expandable-section-header-line-default-color: #{$gray-500};
+}
+
+:host-context(.dt-theme-dark) {
+  --dt-expandable-section-header-dark-default-color: #{$gray-200};
+  --dt-expandable-section-header-dark-hover-color: #{$white};
+  --dt-expandable-section-header-line-dark-default-color: #{$gray-400};
+  --dt-expandable-section-header-line-dark-hover-color: #{$gray-200};
+  --dt-expandable-section-disabled-dark-color: #{$gray-500};
+
+  &:not(.dt-expandable-section-disabled) {
+    .dt-expandable-section-header-trigger:focus {
+      @include dt-focus-style(true);
+    }
+  }
+
+  .dt-expandable-section-header,
+  .dt-expandable-section-header-trigger {
+    color: var(--dt-expandable-section-header-dark-default-color);
+
+    ~ .dt-expandable-section-header-line {
+      border-bottom-color: var(
+        --dt-expandable-section-header-line-dark-default-color
+      );
+    }
+  }
+
+  .dt-expandable-section-header-trigger:hover {
+    color: var(--dt-expandable-section-header-dark-hover-color);
+
+    ~ .dt-expandable-section-header-line {
+      border-bottom-color: var(
+        --dt-expandable-section-header-line-dark-hover-color
+      );
+    }
+  }
+
+  &.dt-expandable-section-disabled .dt-expandable-section-header,
+  &.dt-expandable-section-disabled .dt-expandable-section-header-trigger {
+    color: var(--dt-expandable-section-disabled-dark-color);
+
+    .dt-expandable-section-arrow ::ng-deep svg {
+      fill: var(--dt-expandable-section-disabled-dark-color);
+    }
+
+    ~ .dt-expandable-section-header-line {
+      border-bottom-color: var(--dt-expandable-section-disabled-dark-color);
+    }
+  }
 }
 
 .dt-expandable-section-header {
@@ -20,7 +70,7 @@
     height: 16px;
     margin-left: -2px;
     margin-top: -2px;
-    fill: $turquoise-600;
+    fill: var(--dt-expandable-section-arrow-default-color);
     vertical-align: middle;
     transition: 0.125s;
     transform: rotate(-90deg);
@@ -39,7 +89,8 @@
 
 .dt-expandable-section-header-line {
   flex-grow: 1;
-  border-bottom: 1px solid $gray-500;
+  border-bottom: 1px solid
+    var(--dt-expandable-section-header-line-default-color);
 }
 
 .dt-expandable-section-header-trigger {
@@ -59,11 +110,11 @@
   color: $gray-900;
 
   .dt-expandable-section-arrow ::ng-deep svg {
-    fill: $turquoise-700;
+    fill: var(--dt-expandable-section-arrow-hover-color);
   }
 
   ~ .dt-expandable-section-header-line {
-    border-bottom-color: $gray-700;
+    border-bottom-color: var(--dt-neutral-hover-color);
   }
 }
 
@@ -72,15 +123,15 @@
 
   .dt-expandable-section-header,
   .dt-expandable-section-header-trigger {
-    color: $gray-300;
+    color: var(--dt-expandable-section-disabled-color);
 
     .dt-expandable-section-arrow ::ng-deep svg {
-      fill: $gray-300;
+      fill: var(--dt-expandable-section-disabled-color);
     }
   }
 
   .dt-expandable-section-header-line {
-    border-bottom: 1px solid $gray-300;
+    border-bottom: 1px solid var(--dt-expandable-section-disabled-color);
   }
 }
 
@@ -93,9 +144,4 @@
 .dt-expandable-section-container {
   margin-left: 20px;
   margin-top: 12px;
-}
-
-// Apply the expandable section theme
-@include dt-apply-theme() {
-  @include dt-theme-expandable-section($dt-current-theme);
 }
