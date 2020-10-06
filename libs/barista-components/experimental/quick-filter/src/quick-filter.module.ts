@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtCheckboxModule } from '@dynatrace/barista-components/checkbox';
 import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
 import { DtFilterFieldModule } from '@dynatrace/barista-components/filter-field';
+import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtRadioModule } from '@dynatrace/barista-components/radio';
 import {
+  DtQuickFilter,
   DtQuickFilterSubTitle,
   DtQuickFilterTitle,
-  DtQuickFilter,
 } from './quick-filter';
 import { DtQuickFilterGroup } from './quick-filter-group';
 
@@ -36,6 +39,9 @@ const COMPONENTS = [DtQuickFilter, DtQuickFilterSubTitle, DtQuickFilterTitle];
     DtFilterFieldModule,
     DtCheckboxModule,
     DtRadioModule,
+    DtButtonModule,
+    DtIconModule,
+    ScrollingModule,
   ],
   exports: COMPONENTS,
   declarations: [...COMPONENTS, DtQuickFilterGroup],

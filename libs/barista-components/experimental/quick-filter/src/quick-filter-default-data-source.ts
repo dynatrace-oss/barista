@@ -60,7 +60,7 @@ export type DtQuickFilterDefaultDataSourceOption =
       DtQuickFilterDefaultDataSourceSimpleOption);
 
 export interface DtQuickFilterDefaultDataSourceConfig {
-  showInSidebar: (node: any) => boolean;
+  showInSidebar?: (node: any) => boolean;
 }
 
 export class DtQuickFilterDefaultDataSource<
@@ -78,10 +78,10 @@ export class DtQuickFilterDefaultDataSource<
 
   constructor(
     initialData: T = (null as unknown) as T,
-    config: DtQuickFilterDefaultDataSourceConfig,
+    config: DtQuickFilterDefaultDataSourceConfig = {},
   ) {
     this._data$ = new BehaviorSubject<T>(initialData);
-    this.showInSidebarFunction = config.showInSidebar;
+    this.showInSidebarFunction = config?.showInSidebar || (() => true);
   }
 
   /** Function that evaluates if a node should be displayed in the quick filter sidebar */

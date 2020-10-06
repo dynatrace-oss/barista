@@ -35,6 +35,8 @@ export interface QuickFilterState {
   filters: DtAutocompleteValue<any>[][];
   /** Initial Filter array that might be added via a binding to the quick filter */
   initialFilters?: any[][];
+  /** The group that is displayed in detail through the show more */
+  groupInDetailView?: string;
 }
 
 /** @internal The initial QuickFilter state */
