@@ -16,20 +16,23 @@
 
 import { Selector } from 'testcafe';
 
-export const quickFilterCloseButton = Selector('.dt-quick-filter-close');
-export const quickFilterOpenButton = Selector('.dt-quick-filter-open');
 export const quickFilterGroup = Selector('.dt-quick-filter-group');
+export const quickFilterBackButton = Selector('.dt-back-to-quick-filter');
+
+/** get a group headline */
+const groupHeadline = (group: string) =>
+  quickFilterGroup.child('.dt-quick-filter-group-headline').withText(group);
 
 /** get a group by its name */
-export const getGroup = (group: string) =>
-  quickFilterGroup
-    .child('.dt-quick-filter-group-headline')
-    .withText(group)
-    .sibling();
+export const getGroup = (group: string) => groupHeadline(group).sibling();
+
+/** get all items inside a group */
+export const getGroupItems = (group: string) =>
+  getGroup(group).find('.dt-radio-button,.dt-checkbox');
 
 /** get a group item by its group and its name */
 export const getGroupItem = (group: string, item: string) =>
-  getGroup(group).child('.dt-quick-filter-group-items > *').withText(item);
+  getGroupItems(group).withText(item);
 
 /** get the native input of the specified group item */
 export const getGroupItemInput = (group: string, item: string) =>
@@ -38,3 +41,11 @@ export const getGroupItemInput = (group: string, item: string) =>
 /** get the selected item of the group */
 export const getSelectedItem = (groupText: string) =>
   getGroup(groupText).child('.dt-checkbox-checked, .dt-radio-checked');
+
+/** Get the show more text of a group */
+export const getShowMoreText = (group: string) =>
+  groupHeadline(group).sibling('.dt-quick-filter-show-more-text').innerText;
+
+/** Get the show more button of a group */
+export const getShowMoreButton = (group: string) =>
+  groupHeadline(group).sibling('button');

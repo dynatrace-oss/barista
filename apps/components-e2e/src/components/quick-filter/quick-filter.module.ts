@@ -26,6 +26,13 @@ const routes: Route[] = [
   { path: '', component: DtE2EQuickFilter },
   { path: 'initial-data', component: DtE2EQuickFilterInitialData },
   { path: 'async', component: DtE2EQuickFilterAsync },
+  {
+    path: 'examples',
+    loadChildren: () =>
+      import('@dynatrace/examples/quick-filter').then(
+        (m) => m.DtQuickFilterExamplesModule,
+      ),
+  },
 ];
 
 @NgModule({

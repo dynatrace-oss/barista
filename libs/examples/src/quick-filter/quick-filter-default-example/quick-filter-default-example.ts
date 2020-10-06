@@ -24,6 +24,52 @@ import {
 const filterFieldData = {
   autocomplete: [
     {
+      name: 'Locations',
+      options: [
+        {
+          name: 'State',
+          value: 'state',
+          autocomplete: [
+            {
+              name: 'Oberösterreich',
+              value: 'OOE',
+              autocomplete: [
+                { name: 'Linz' },
+                { name: 'Wels' },
+                { name: 'Steyr' },
+              ],
+            },
+            {
+              name: 'Niederösterreich',
+              value: 'NOE',
+              autocomplete: [
+                { name: 'St. Pölten' },
+                { name: 'Melk' },
+                { name: 'Krems' },
+              ],
+            },
+            {
+              name: 'Wien',
+              value: 'W',
+            },
+            {
+              name: 'Tirol',
+              value: 'TRL',
+            },
+            {
+              name: 'Salzburg',
+              value: 'SBZ',
+            },
+          ],
+        },
+        {
+          name: 'Custom',
+          value: 'custom-location',
+          suggestions: [],
+        },
+      ],
+    },
+    {
       name: 'AUT',
       distinct: true,
       autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
@@ -56,6 +102,15 @@ const filterFieldData = {
         { name: 'Option2' },
         { name: 'Option3' },
       ],
+    },
+    {
+      name: 'Long Array',
+      async: true,
+      distinct: true,
+      totalCount: 50000,
+      autocomplete: Array.from(new Array(150), (_, i) => ({
+        name: `Option${i + 1}`,
+      })),
     },
   ],
 };

@@ -6,35 +6,77 @@
   {{ _getViewValue(_nodeDef) }}
 </div>
 
-<ng-template [ngIf]="_isDistinct()" [ngIfElse]="notDistinct">
-  <dt-radio-group
-    class="dt-quick-filter-group-items"
-    (change)="_selectOption($event, _nodeDef)"
+<div class="dt-quick-filter-group-items">
+  <dt-radio-button
+    *ngIf="_isDistinct"
+    [checked]="_isNothingSelected()"
+    [name]="_nodeDef.option?.uid"
+    (change)="_unsetGroup()"
   >
-    <dt-radio-button [checked]="_isNothingSelected()" (change)="_unsetGroup()">
-      Any
-    </dt-radio-button>
-    <dt-radio-button
-      *ngFor="let item of _getOptions()"
-      [value]="item"
-      [checked]="_isActive(item)"
-    >
-      {{ _getViewValue(item) }}
-    </dt-radio-button>
-  </dt-radio-group>
-</ng-template>
+    Any
+  </dt-radio-button>
 
-<ng-template #notDistinct>
-  <div class="dt-quick-filter-group-items">
-    <dt-checkbox
-      *ngFor="let item of _getOptions()"
-      [value]="item"
-      [checked]="_isActive(item)"
-      (change)="_selectCheckBox($event, _nodeDef)"
+  <ng-container *ngIf="!isDetail; else virtualScroll">
+    <ng-container
+      *ngFor="let item of _options"
+      [ngTemplateOutlet]="_itemTemplate"
+      [ngTemplateOutletContext]="{ $implicit: item }"
+    ></ng-container>
+  </ng-container>
+  <ng-template #virtualScroll>
+    <cdk-virtual-scroll-viewport
+      [itemSize]="_itemSize"
+      [style.height.px]="virtualScrollHeight"
     >
-      {{ _getViewValue(item) }}
-    </dt-checkbox>
-  </div>
-</ng-template>
+      <ng-container
+        *cdkVirtualFor="let item of _options"
+        [ngTemplateOutlet]="_itemTemplate"
+        [ngTemplateOutletContext]="{ $implicit: item }"
+      ></ng-container>
+    </cdk-virtual-scroll-viewport>
+  </ng-template>
+</div>
 
 <ng-content></ng-content>
+
+<ng-container *ngIf="_truncatedGroupItems && !isDetail">
+  <ng-container
+    [ngTemplateOutlet]="showMoreTemplate || _defaultShowMoreTemplate"
+    [ngTemplateOutletContext]="{
+      $implicit: _showMoreCount,
+      count: _showMoreCount,
+      group: _getViewValue(_nodeDef)
+    }"
+  ></ng-container>
+
+  <button class="dt-show-more" (click)="_showMore()">
+    View More
+  </button>
+</ng-container>
+
+<ng-template #checkBox let-item>
+  <dt-checkbox
+    [value]="item"
+    [checked]="_isActive(item)"
+    (change)="_selectCheckBox($event)"
+  >
+    {{ _getViewValue(item) }}
+  </dt-checkbox>
+</ng-template>
+
+<ng-template #radioButton let-item>
+  <dt-radio-button
+    [value]="item"
+    [checked]="_isActive(item)"
+    (change)="_selectOption($event)"
+    [name]="_nodeDef.option?.uid"
+  >
+    {{ _getViewValue(item) }}
+  </dt-radio-button>
+</ng-template>
+
+<ng-template #defaultShowMoreText let-count>
+  <p class="dt-quick-filter-show-more-text">
+    +{{ count }} options in the filter field
+  </p>
+</ng-template>

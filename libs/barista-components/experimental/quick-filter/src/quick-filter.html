@@ -6,7 +6,10 @@
   [aria-label]="ariaLabel"
 ></dt-filter-field>
 
-<dt-drawer-container class="dt-quick-filter-drawer">
+<dt-drawer-container
+  class="dt-quick-filter-drawer"
+  [class.dt-quick-filter-detail]="_isDetailView$ | async"
+>
   <dt-drawer #drawer opened>
     <button
       *ngIf="drawer.opened"
@@ -17,13 +20,21 @@
       ◀︎
     </button>
 
-    <ng-content select="dt-quick-filter-title"></ng-content>
-    <ng-content select="dt-quick-filter-sub-title"></ng-content>
+    <ng-container *ngIf="_isDetailView$ | async; else quickFilterHeader">
+      <button class="dt-back-to-quick-filter" (click)="_goBackFromDetail()">
+        <dt-icon name="left"></dt-icon>
+        Back to quick filters
+      </button>
+    </ng-container>
 
     <dt-quick-filter-group
       *ngFor="let nodeDef of _autocompleteData$ | async"
       [groupHeadlineRole]="groupHeadlineRole"
+      [maxGroupItems]="maxGroupItems"
+      [virtualScrollHeight]="_virtualScrollHeight"
+      [showMoreTemplate]="showMoreTemplate"
       [activeFilters]="_activeFilters$ | async"
+      [isDetail]="_isDetailView$ | async"
       [nodeDef]="nodeDef"
       (filterChange)="_changeFilter($event)"
     ></dt-quick-filter-group>
@@ -41,3 +52,8 @@
     <ng-content></ng-content>
   </div>
 </dt-drawer-container>
+
+<ng-template #quickFilterHeader>
+  <ng-content select="dt-quick-filter-title"></ng-content>
+  <ng-content select="dt-quick-filter-sub-title"></ng-content>
+</ng-template>
