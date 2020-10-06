@@ -15,12 +15,17 @@
  */
 
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   EventEmitter,
   Input,
+  NgZone,
   Output,
+  TemplateRef,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { DtCheckboxChange } from '@dynatrace/barista-components/checkbox';
@@ -31,11 +36,13 @@ import {
   isDtRenderType,
 } from '@dynatrace/barista-components/filter-field';
 import { DtRadioChange } from '@dynatrace/barista-components/radio';
+import { take } from 'rxjs/operators';
 import { buildIdPathsFromFilters } from './quick-filter-utils';
 import {
   Action,
   addFilter,
   removeFilter,
+  showGroupInDetailView,
   unsetFilterGroup,
   updateFilter,
 } from './state/actions';
@@ -52,15 +59,56 @@ import {
     class: 'dt-quick-filter-group',
   },
 })
-export class DtQuickFilterGroup<T = any> {
-  /**
-   * @internal
-   * The aria-level of the group headlines for the document outline.
-   */
+export class DtQuickFilterGroup<T = any> implements AfterViewInit {
+  /** @internal Emits a new action that changes the filter  */
+  @Output() readonly filterChange = new EventEmitter<Action>();
+
+  /** @internal template to render a multi select option */
+  @ViewChild('checkBox', { static: true })
+  _checkBoxTemplate: TemplateRef<DtNodeDef>;
+  /** @internal template to render a distinct option */
+  @ViewChild('radioButton', { static: true })
+  _radioButtonTemplate: TemplateRef<DtNodeDef>;
+  /** @internal Default template for the show more context */
+  @ViewChild('defaultShowMoreText', { static: true })
+  _defaultShowMoreTemplate: TemplateRef<number>;
+
+  /** @internal The aria-level of the group headlines for the document outline. */
   @Input() groupHeadlineRole: number = 3;
 
+  /** @internal The height for the virtual scroll container needs a fixed height */
+  @Input() virtualScrollHeight: number = 0;
+
+  /** @internal Template for the show more text of the group */
+  @Input() showMoreTemplate: TemplateRef<{ $implicit: number; group: string }>;
+
+  /**
+   * @internal
+   * If the view is the detail view of the show more
+   */
+  @Input()
+  get isDetail(): boolean {
+    return this._isDetail;
+  }
+  set isDetail(detail: boolean) {
+    this._isDetail = detail;
+    this._options = this._getOptions(this._nodeDef);
+  }
+  private _isDetail = false;
+
+  /**
+   * @internal
+   * The maximum amount of items that should be displayed in the quick filter
+   * sidebar. If there are more they are hidden behind a show more functionality
+   */
+  @Input() maxGroupItems: number = Infinity;
+
   /** @internal The nodeDef of the autocomplete that should be rendered */
-  @Input('nodeDef') _nodeDef: DtNodeDef;
+  @Input()
+  set nodeDef(def: DtNodeDef) {
+    this._nodeDef = def;
+    this._options = this._getOptions(this._nodeDef);
+  }
 
   /** @internal The list of all active filters */
   @Input()
@@ -69,13 +117,67 @@ export class DtQuickFilterGroup<T = any> {
     this._changeDetectorRef.markForCheck();
   }
 
-  /** @internal Emits a new action that changes the filter  */
-  @Output() readonly filterChange = new EventEmitter<Action>();
+  /**
+   * @internal
+   * Detect if the nodeDef of the autocomplete is distinct.
+   * Needed to differentiate between radios or checkboxes.
+   */
+  get _isDistinct(): boolean {
+    return !!this._nodeDef.autocomplete?.distinct;
+  }
+
+  /** @internal The template for the group items */
+  get _itemTemplate(): TemplateRef<DtNodeDef> {
+    if (this._isDistinct) {
+      return this._radioButtonTemplate;
+    }
+    return this._checkBoxTemplate;
+  }
+
+  /** @internal The nodeDef of the autocomplete that should be rendered */
+  _nodeDef: DtNodeDef;
+  /**
+   * @internal
+   * Holds all options that can be displayed.
+   * They can only be displayed if it is an option of an autocomplete that
+   * is not a render type, so it only has a text.
+   */
+  _options: DtNodeDef[] = [];
+  /** @internal If the group items are truncated and hidden behind a show more */
+  _truncatedGroupItems = false;
+  /** @internal The count of the truncated items */
+  _showMoreCount = 0;
+  /**
+   * @internal
+   * The item size of one item for the virtual scroll container
+   * Default 22 as it is a standard height of a checkbox
+   */
+  _itemSize: number = 22;
 
   /** A list of active filter ids */
   private _activeFilterPaths: string[] = [];
 
-  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _elementRef: ElementRef<HTMLElement>,
+    private _zone: NgZone,
+  ) {}
+
+  ngAfterViewInit(): void {
+    this._zone.onStable.pipe(take(1)).subscribe(() => {
+      const item = this._elementRef.nativeElement.querySelector(
+        '.dt-radio-button,.dt-checkbox',
+      ) as HTMLElement;
+      this._itemSize = item?.getBoundingClientRect().height || 22;
+    });
+  }
+
+  /** @internal Show all items from the group */
+  _showMore(): void {
+    this.filterChange.emit(
+      showGroupInDetailView(this._nodeDef.option?.uid || undefined),
+    );
+  }
 
   /** @internal Method that is used to unset a whole filter group */
   _unsetGroup(): void {
@@ -83,16 +185,16 @@ export class DtQuickFilterGroup<T = any> {
   }
 
   /** @internal Updates a radio box */
-  _selectOption(change: DtRadioChange<DtNodeDef>, group: DtNodeDef): void {
+  _selectOption(change: DtRadioChange<DtNodeDef>): void {
     if (change.value) {
-      this.filterChange.emit(updateFilter([group, change.value]));
+      this.filterChange.emit(updateFilter([this._nodeDef, change.value]));
     }
   }
 
   /** @internal Select or deselect a checkbox */
-  _selectCheckBox(change: DtCheckboxChange<DtNodeDef>, group: DtNodeDef): void {
+  _selectCheckBox(change: DtCheckboxChange<DtNodeDef>): void {
     const action = change.checked
-      ? addFilter([group, change.source.value])
+      ? addFilter([this._nodeDef, change.source.value])
       : removeFilter(change.source.value.option!.uid!);
     this.filterChange.emit(action);
   }
@@ -115,18 +217,9 @@ export class DtQuickFilterGroup<T = any> {
     );
   }
 
-  /**
-   * @internal
-   * Helper function that checks if the nodeDef of the autocomplete is distinct.
-   * Needed to differentiate between radios or checkboxes.
-   */
-  _isDistinct(): boolean {
-    return !!this._nodeDef.autocomplete?.distinct;
-  }
-
   /** @internal Helper function that returns safely the viewValue of a nodeDef */
   _getViewValue(nodeDef: DtNodeDef): string {
-    return nodeDef?.option ? nodeDef.option.viewValue : '';
+    return nodeDef?.option?.viewValue || '';
   }
 
   /**
@@ -135,11 +228,17 @@ export class DtQuickFilterGroup<T = any> {
    * They can only be displayed if it is an option of an autocomplete that
    * is not a render type so only have a text.
    */
-  _getOptions(): DtNodeDef[] {
-    if (this._nodeDef?.autocomplete) {
-      return this._nodeDef.autocomplete.optionsOrGroups.filter(
+  private _getOptions(nodeDef: DtNodeDef): DtNodeDef[] {
+    if (nodeDef?.autocomplete) {
+      const items = nodeDef.autocomplete.optionsOrGroups.filter(
         (def) => isDtOptionDef(def) && !isDtRenderType(def),
       );
+      if (!this.isDetail && items.length > this.maxGroupItems) {
+        this._truncatedGroupItems = true;
+        this._showMoreCount = items.length - this.maxGroupItems;
+        return items.slice(0, this.maxGroupItems);
+      }
+      return items;
     }
     return [];
   }

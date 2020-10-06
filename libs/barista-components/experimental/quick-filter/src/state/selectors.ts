@@ -18,9 +18,10 @@ import {
   applyDtOptionIds,
   DtNodeDef,
   isDtAutocompleteDef,
+  isDtGroupDef,
 } from '@dynatrace/barista-components/filter-field';
 import { Observable } from 'rxjs';
-import { filter, map, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, withLatestFrom } from 'rxjs/operators';
 import { DtQuickFilterDataSource } from '../quick-filter-data-source';
 import { QuickFilterState } from './store';
 
@@ -29,24 +30,29 @@ export const getAutocompletes = (
   state$: Observable<QuickFilterState>,
 ): Observable<DtNodeDef[]> =>
   state$.pipe(
-    tap((state) => {
+    map((state) => {
       // apply the ids to the node to identify them later on
       if (state.nodeDef) {
         applyDtOptionIds(state.nodeDef);
       }
+      return state.nodeDef;
     }),
-    map(({ nodeDef }) => nodeDef),
-    filter((state) => isDefined(state) && isDtAutocompleteDef(state)),
+    filter((nodeDef) => isDefined(nodeDef) && isDtAutocompleteDef(nodeDef)),
     withLatestFrom(
       getDataSource(state$).pipe(filter<DtQuickFilterDataSource>(Boolean)),
+      state$.pipe(map(({ groupInDetailView }) => groupInDetailView)),
     ),
-    map(([nodeDef, dataSource]) =>
-      nodeDef!.autocomplete!.optionsOrGroups.filter(
-        (node) =>
-          isDtAutocompleteDef(node) &&
-          dataSource.showInSidebarFunction(node.data),
-      ),
-    ),
+    map(([nodeDef, dataSource, detailGroup]) => {
+      const filtered = filterNodeDefs(
+        nodeDef!.autocomplete!.optionsOrGroups,
+      ).filter((node) => dataSource.showInSidebarFunction(node.data));
+
+      if (detailGroup) {
+        return filtered.filter((node) => node.option?.uid === detailGroup);
+      }
+
+      return filtered;
+    }),
   );
 
 /** @internal Select the data Source from the store */
@@ -60,3 +66,29 @@ export const getFilters = (state$: Observable<QuickFilterState>) =>
 /** @internal Get the initial filters */
 export const getInitialFilters = (state$: Observable<QuickFilterState>) =>
   state$.pipe(map(({ initialFilters }) => initialFilters));
+
+/** @internal Get if the show more detail page is shown */
+export const getIsDetailView = (state$: Observable<QuickFilterState>) =>
+  state$.pipe(map(({ groupInDetailView }) => Boolean(groupInDetailView)));
+
+/**
+ * Filter out all display able autocomplete out of the defs and groups
+ * @param nodeDefs The defs that should be checked
+ */
+function filterNodeDefs(nodeDefs: DtNodeDef[]): DtNodeDef[] {
+  const defs: DtNodeDef[] = [];
+
+  nodeDefs.forEach((def) => {
+    // Add all autocomplete defs to the defs array
+    if (isDtAutocompleteDef(def)) {
+      defs.push(def);
+    }
+
+    if (isDtGroupDef(def)) {
+      // parse the children of a group as well
+      defs.push(...filterNodeDefs(def.group.options));
+    }
+  });
+
+  return defs;
+}

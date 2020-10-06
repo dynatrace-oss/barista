@@ -68,6 +68,8 @@ export function quickFilterReducer(
       return { ...state, filters: updateFilter(state.filters, action.payload) };
     case ActionType.REMOVE_FILTER:
       return { ...state, filters: removeFilter(state.filters, action.payload) };
+    case ActionType.HIGHLIGHT_GROUP:
+      return { ...state, groupInDetailView: action.payload };
     default:
       // Default return the same state as it was passed so don't modify anything
       return state;
@@ -108,15 +110,16 @@ export function updateFilter(
   filters: DtAutocompleteValue<any>[][],
   filter: DtAutocompleteValue<any>[],
 ): DtAutocompleteValue<any>[][] {
+  const updatedState = [...filters];
   const uid = filter[filter.length - 1].option.uid;
-  const index = findSelectedOption(filters, uid, true);
+  const index = findSelectedOption(updatedState, uid, true);
   // if the filter is not in the filters list add it
   if (index < 0) {
-    return addFilter(filters, filter);
+    return addFilter(updatedState, filter);
   }
   // replace the existing filter
-  filters[index] = filter;
-  return filters;
+  updatedState[index] = filter;
+  return updatedState;
 }
 
 /** @internal Remove a group from the filters array */
