@@ -48,15 +48,9 @@ stylelint(
     srcs = glob(["**/*.scss"]),
 )
 
-sass_library(
-    name = "theme",
-    srcs = ["src/_expandable-section-theme.scss"],
-)
-
 sass_binary(
     name = "styles",
     src = "src/expandable-section.scss",
-    deps = [":theme"],
 )
 
 jest(
