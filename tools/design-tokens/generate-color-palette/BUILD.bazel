@@ -16,6 +16,7 @@ ts_library(
         "@npm//@adobe/leonardo-contrast-colors",
         "@npm//yaml",
         "@npm//yargs",
+        "@npm//@types/yargs",
     ],
 )
 

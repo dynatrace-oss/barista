@@ -12,5 +12,6 @@ ts_library(
         "@npm//tslib",
         "@npm//xmlbuilder",
         "@npm//yargs",
+        "@npm//@types/yargs",
     ],
 )
