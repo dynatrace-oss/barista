@@ -166,9 +166,7 @@ You want to add the table header by adding a `<dt-header-row>` inside the
 The next step is to add the row where the columns get rendered. You can do this
 by adding the `<dt-tree-table-row>` inside the `<dt-tree-table>` tag. You can
 specify the columns that should be rendered and don't forget to bind the row's
-data to the `<dt-tree-table-row>`s data input `[data]="row"`. The text contained
-will be cut to preserve the width correctly. Hovering over the cell/text will
-reveal the whole text.
+data to the `<dt-tree-table-row>`s data input `[data]="row"`.
 
 ```html
 <dt-tree-table-row
