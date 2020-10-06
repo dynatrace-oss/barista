@@ -30,14 +30,14 @@ export function main(): void {
     out: { type: 'string' },
   }).argv;
 
-  const colorFileContents = readFileSync(colorFile, {
+  const colorFileContents = readFileSync(colorFile!, {
     encoding: 'utf-8',
   });
   const paletteSource = parse(colorFileContents);
   const aliases = generatePaletteAliases(paletteSource);
   const paletteOutput = stringify(aliases);
   writeFileSync(
-    out,
+    out!,
     `${generateHeaderNoticeComment('#', '#', '#')}\n${paletteOutput}`,
   );
 }
