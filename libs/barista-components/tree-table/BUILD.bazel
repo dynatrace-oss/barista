@@ -1,6 +1,42 @@
-load("//tools/bazel_rules:index.bzl", "stylelint")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
 package(default_visibility = ["//visibility:public"])
+
+ng_module_view_engine(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        ":styles",
+        ":styles_header_cell",
+        ":styles_row",
+        ":styles_toggle_cell",
+        "src/tree-table.html",
+        "src/tree-table-header-cell.html",
+        "src/tree-table-row.html",
+        "src/tree-table-toggle-cell.html",
+    ],
+    module_name = "@dynatrace/barista-components/tree-table",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/indicator:compile",
+        "//libs/barista-components/table:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//rxjs",
+    ],
+)
 
 filegroup(
     name = "tree-table",
@@ -16,7 +52,73 @@ filegroup(
     ]),
 )
 
+sass_binary(
+    name = "styles",
+    src = "src/tree-table.scss",
+)
+
+sass_binary(
+    name = "styles_header_cell",
+    src = "src/tree-table-header-cell.scss",
+)
+
+sass_binary(
+    name = "styles_row",
+    src = "src/tree-table-row.scss",
+    deps = ["styles_row_theme"]
+)
+
+sass_library(
+    name = "styles_row_theme",
+    srcs = ["src/_tree-table-row-theme.scss"],
+)
+
+sass_binary(
+    name = "styles_toggle_cell",
+    src = "src/tree-table-toggle-cell.scss",
+)
+
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
+)
+
+jest(
+    name = "test",
+    srcs = glob(include = ["**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    setup_file = ":src/test-setup.ts",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+        "//libs/testing/browser",
+        "@npm//@angular/platform-browser",
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/indicator:compile",
+        "//libs/barista-components/table:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//rxjs",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
 )
