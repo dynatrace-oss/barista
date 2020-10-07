@@ -1,6 +1,33 @@
-load("//tools/bazel_rules:index.bzl", "stylelint")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
 package(default_visibility = ["//visibility:public"])
+
+ng_module_view_engine(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        ":styles",
+        "src/drawer-table.html",
+    ],
+    module_name = "@dynatrace/barista-components/drawer-table",
+    tsconfig = "tsconfig_lib",
+    deps = [
+        "@npm//@angular/core",
+        "@npm//@angular/common",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/drawer:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/table:compile",
+    ],
+)
 
 filegroup(
     name = "drawer-table",
@@ -16,7 +43,49 @@ filegroup(
     ]),
 )
 
+sass_binary(
+    name = "styles",
+    src = "src/drawer-table.scss",
+)
+
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
+)
+
+jest(
+    name = "test",
+    srcs = glob(include = ["**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    setup_file = ":src/test-setup.ts",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+        "//libs/testing/browser",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/core",
+        "@npm//@angular/common",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/drawer:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/table:compile",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
+    deps = [
+        "tsconfig.json",
+        "//libs/barista-components:tsconfig",
+    ],
 )
