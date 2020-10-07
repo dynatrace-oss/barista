@@ -1554,13 +1554,6 @@
               "!libs/barista-components/event-chart/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/event-chart/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
