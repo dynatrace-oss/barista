@@ -67,7 +67,7 @@ export class DtOptionSelectionChange<T> {
     class: 'dt-option',
   },
   styleUrls: ['option.scss'],
-  template: '<ng-content></ng-content>',
+  templateUrl: 'option.html',
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

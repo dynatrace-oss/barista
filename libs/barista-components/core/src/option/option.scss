@@ -3,16 +3,17 @@
 
 :host {
   @include dt-main-font();
-  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  box-sizing: border-box;
+  align-items: center;
   padding: 0 12px;
   font-size: 14px;
   line-height: 28px;
-  cursor: default;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  outline: none;
-  font-variant: tabular-nums;
 
   &:not(.dt-option-disabled).dt-option-active {
     background-color: $turquoise-100;
@@ -26,4 +27,12 @@
   &.dt-option-disabled {
     color: $disabledcolor;
   }
+}
+
+.dt-option-label {
+  display: inline-block;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

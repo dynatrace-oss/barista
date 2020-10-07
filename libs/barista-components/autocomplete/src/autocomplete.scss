@@ -22,6 +22,13 @@ $dt-autocomplete-panel-min-width: 112px !default;
   -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
 }
 
+@supports (-moz-appearance: none) {
+  .dt-autocomplete-panel {
+    width: calc(100% + 20px);
+    flex-shrink: 0; // to not shrink on FF if there is a scroll bar
+  }
+}
+
 .dt-autocomplete-hidden {
   display: none;
 }
