@@ -2541,13 +2541,6 @@
               "!libs/barista-components/tree-table/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/tree-table/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
