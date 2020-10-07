@@ -2065,12 +2065,6 @@
               "!libs/barista-components/radial-chart/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/radial-chart/jest.config.js"
-          }
         }
       },
       "schematics": {}
