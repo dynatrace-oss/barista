@@ -1313,13 +1313,6 @@
               "!libs/barista-components/experimental/combobox/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/experimental/combobox/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
