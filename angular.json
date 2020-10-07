@@ -1503,13 +1503,6 @@
               "!libs/barista-components/experimental/drawer-table/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/experimental/drawer-table/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
