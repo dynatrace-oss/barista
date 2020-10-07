@@ -1364,13 +1364,6 @@
               "!libs/barista-components/consumption/**/*"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/barista-components/consumption/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       },
       "schematics": {}
