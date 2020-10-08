@@ -1,0 +1,16 @@
+diff --git a/node_modules/@angular-devkit/schematics/tools/node-module-engine-host.js b/node_modules/@angular-devkit/schematics/tools/node-module-engine-host.js
+index a20cf2b..abc4225 100644
+--- a/node_modules/@angular-devkit/schematics/tools/node-module-engine-host.js
++++ b/node_modules/@angular-devkit/schematics/tools/node-module-engine-host.js
+@@ -45,6 +45,11 @@ class NodeModulesEngineHost extends file_system_engine_host_base_1.FileSystemEng
+         const resolveOptions = {
+             paths: requester ? [path_1.dirname(requester), ...(this.paths || [])] : this.paths,
+         };
++        // This path include a malformed path on Win for some reason, eg. /C/barista ...
++        // When patching in C:/barista the resolver can find the needed files.
++        if (process.platform === 'win32') {
++          resolveOptions.paths.push(path_1.resolve(process.cwd()));
++        }
+         // Try to resolve as a package
+         try {
+             const packageJsonPath = require.resolve(path_1.join(name, 'package.json'), resolveOptions);
