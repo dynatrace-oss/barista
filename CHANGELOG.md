@@ -1,3 +1,17 @@
+## [8.1.1](https://github.com/dynatrace-oss/barista/compare/8.1.0...8.1.1) (2020-10-08)
+
+### Bug Fixes
+
+- **chart:** Fix dynamic heatfield generation that was not possible.
+  ([796b9e9](https://github.com/dynatrace-oss/barista/commit/796b9e9dcc373f85f4e73719a9d4686287fa3062)),
+  closes [#1580](https://github.com/dynatrace-oss/barista/issues/1580)
+- **event-chart:** Display human readable time
+  ([819f1a8](https://github.com/dynatrace-oss/barista/commit/819f1a8384e3a418c3896dbefebca4af9127b691))
+- **tree-table:** Fixes the tree-table by reverting the changes causing unwanted
+  behavior of the text to expand on hover, back to overflow: hidden and
+  text-overflow: ellipsis
+  ([ee6c28b](https://github.com/dynatrace-oss/barista/commit/ee6c28ba388215dfb24c2f00dfe5367907bfefeb))
+
 ## [8.1.0](https://github.com/dynatrace-oss/barista/compare/8.0.0...8.1.0) (2020-10-01)
 
 ### Bug Fixes
