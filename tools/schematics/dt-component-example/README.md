@@ -14,4 +14,4 @@ hand.
 ## Usage
 
 - Please run:
-  `nx workspace-schematic dt-component-dev {name of your example} {name of your component}`
+  `nx workspace-schematic dt-component-example {name of your example} {name of your component}`

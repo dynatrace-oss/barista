@@ -1,0 +1,25 @@
+{
+  "title": "",
+  "description": "",
+  "postid": "<%= dasherize(name) %>",
+  "identifier": "",
+  "category": "components",
+  "public": true,
+  "contributors": {
+    "dev": [
+      {
+        "name": "",
+        "gitHubUser": ""
+      }
+    ],
+    "ux": [
+      {
+        "name": "",
+        "gitHubUser": ""
+      }
+    ]
+  },
+  "related": [],
+  "tags": ["angular", "component"],
+  "imageUrl": ""
+}

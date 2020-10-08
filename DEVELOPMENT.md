@@ -171,9 +171,10 @@ must be executed for generating the boilerplate code and registering the example
 components:
 
 ```
-ng build workspace
-ng g ./dist/libs/workspace:dt-example --name={example-name} --component={component}
+nx workspace-schematic dt-component-example {name of your component}
 ```
 
+You can also run this schematic from the Nx console.
+
 More information about shipped schematics can be found
-[here](./libs/workspace/src/schematics/dt-component-example/README.md).
+[here](https://github.com/dynatrace-oss/barista/tree/master/tools/schematics).
