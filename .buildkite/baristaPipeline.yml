@@ -1,0 +1,37 @@
+tasks:
+  default:
+    build:
+      trigger:
+        - test
+      pre_cmd:
+        - echo "Pre command"
+      bazel_flags:
+        - "--keep_going"
+      bazel_cmd:
+        - "//..."
+      post_cmd:
+        - echo "Post command"
+    test:
+      bazel_flags:
+        - "--keep_going"
+      bazel_cmd:
+        - "//..."
+  windows10:
+    build:
+      disable: true
+      trigger:
+        - test
+      bazel_flags:
+        - "--keep_going"
+      pre_cmd:
+        - dir
+      bazel_cmd:
+        - "//..."
+      post_cmd:
+        - dir
+    test:
+      disable: true
+      bazel_flags:
+        - "--keep_going"
+      bazel_cmd:
+        - "//..."
