@@ -122,13 +122,16 @@ def arg_hander_command(args):
 
     # bazel build info file
     build_event_file = "build_event_file.json"
+    profile = "profile-{}{}.gz".format(args.target, args.shard if int(args.shard) != 0 else "")
 
     if args.target == "test" and 'parallel' in stage[args.target] and int(
             args.shard) != 0:
         bazel_flags = stage[args.target]["bazel_flags"] if "bazel_flags" in stage[
             args.target] else []
         # add build event json
-        bazel_flags += ["--build_event_json_file={}".format(build_event_file)]
+        bazel_flags += ["--build_event_json_file={}".format(build_event_file),
+                        "--profile={}".format(profile),
+                        "--record_full_profiler_data"]
         execute_command(
             [BAZELBIN] + [args.target.split("_")[0]] + test_sharding(
                 int(args.shard)), fail_if_nonzero=not in_ci())
@@ -137,13 +140,18 @@ def arg_hander_command(args):
             bazel_flags = stage[args.target]["bazel_flags"] if "bazel_flags" in stage[
                 args.target] else []
             # add build event json
-            bazel_flags += ["--build_event_json_file={}".format(build_event_file)]
+            bazel_flags += ["--build_event_json_file={}".format(build_event_file),
+                        "--profile={}".format(profile),
+                        "--record_full_profiler_data"]
             execute_command(
                 [BAZELBIN] + [args.target] + stage[args.target][
                     'bazel_cmd'] + bazel_flags,
                 fail_if_nonzero=not(args.target == "test" and in_ci()))
         if 'cmd' in stage[args.target]:
             execute_shell_commands(stage[args.target]['cmd'])
+
+    # upload profile
+    upload_files([profile])
 
     # analyse Test logs and fail afterwards
     if upload_test_logs_from_bep(build_event_file) > 0:
@@ -159,9 +167,15 @@ def in_ci():
         return True
     return False
 
+def upload_files(files):
+    """ upload to buildkite"""
+    if not in_ci():
+        return 0
+    execute_command(
+        ["buildkite-agent", "artifact", "upload", ";".join(files)])
 
 def upload_test_logs_from_bep(bep_file):
-    """ upload logs to buildkite"""
+    """ gather logs for buildkite"""
     if not in_ci():
         return 0
 
@@ -176,8 +190,7 @@ def upload_test_logs_from_bep(bep_file):
                 os.chdir(tmpdir)
                 test_logs = [os.path.relpath(file, tmpdir) for file in files_to_upload]
                 test_logs = sorted(test_logs)
-                execute_command(
-                    ["buildkite-agent", "artifact", "upload", ";".join(test_logs)])
+                upload_files(test_logs)
             finally:
                 os.chdir(cwd)
         return len(all_test_logs)
