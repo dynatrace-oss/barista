@@ -1,0 +1,13 @@
+# Documentation:
+# https://buildkite.com/docs/agent/v3/hooks
+
+# The script should immediately exit if any command in the script fails.
+set -eux
+echo '--- :house_with_garden: Setting up the environment'
+
+echo "Adding CI specific bazel.rc"
+# import the buildkite bazel rc
+echo "import %workspace%/.buildkite/bazel.rc" >> ./.bazelrc
+
+echo "--- Workspace information"
+bazel info
