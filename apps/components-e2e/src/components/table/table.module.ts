@@ -23,7 +23,7 @@ import {
   DT_UI_TEST_CONFIG,
   DT_DEFAULT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
-import { DtE2ETable } from './table-order/table';
+import { DtE2ETable } from './table/table';
 import { DtE2ETableExpandable } from './table-order-expandable/table-expandable';
 
 const routes: Route[] = [

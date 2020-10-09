@@ -1,0 +1,57 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "chart-base.ts",
+            "chart-options.ts",
+            "**/*.po.ts",
+            "**/*.e2e.ts",
+        ],
+    ),
+    angular_assets = [
+        "chart/chart.html",
+        "heatfield/heatfield.html",
+        "highcharts/chart-highcharts-ui.html",
+        "pie-chart/pie-chart.html",
+    ],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//apps/components-e2e/src/components/chart/selection-area",
+        "//libs/barista-components/chart:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/testing/fixtures",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+        "@npm//highcharts",
+        "@npm//rxjs",
+    ],
+)
+
+ts_library(
+    name = "chart-base",
+    srcs = ["chart-base.ts"],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        ":chart-options",
+        "//apps/components-e2e/src/services",
+        "@npm//highcharts",
+        "@npm//rxjs",
+        "@npm//tslib",
+    ],
+)
+
+ts_library(
+    name = "chart-options",
+    srcs = ["chart-options.ts"],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "@npm//tslib",
+    ],
+)

@@ -209,9 +209,9 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'table-order',
+    path: 'table',
     loadChildren: () =>
-      import('../components/table-order/table.module').then(
+      import('../components/table/table.module').then(
         (module) => module.DtE2ETableModule,
       ),
   },

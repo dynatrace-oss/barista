@@ -1,0 +1,28 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "drawer",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.po.ts",
+            "**/*.e2e.ts",
+        ],
+    ),
+    angular_assets = ["drawer.html"],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//apps/components-e2e/src/components/chart:chart-options",
+        "//apps/components-e2e/src/services",
+        "//libs/barista-components/chart:compile",
+        "//libs/barista-components/drawer:compile",
+        "//libs/barista-components/overlay:compile",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+        "@npm//rxjs",
+    ],
+)

@@ -1,0 +1,25 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "filter-field",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.po.ts",
+            "**/*.e2e.ts",
+        ],
+    ),
+    angular_assets = ["filter-field.html"],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//libs/barista-components/filter-field:compile",
+        "//libs/examples/src/filter-field",
+        "//libs/testing/fixtures",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+        "@npm//rxjs",
+    ],
+)

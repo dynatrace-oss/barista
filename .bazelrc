@@ -100,7 +100,11 @@ build --strategy=AngularTemplateCompile=worker
 
 # Use the Angular Ivy compiler
 # See https://github.com/angular/angular/blob/master/docs/BAZEL.md#various-flags-used-for-tests
-# build --define=angular_ivy_enabled=False
+build:view-engine --define=angular_ivy_enabled=False
+build:ivy --define=angular_ivy_enabled=True
+
+# Set Ivy as the default
+build --config=view-engine
 
 # Angular Architect (Angular CLI)
 # The Angular CLI will by default try to write to a cache, but under Bazel it's a read only fs

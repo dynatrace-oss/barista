@@ -28,7 +28,17 @@ import { options as chartOptions } from '../chart/chart-options';
 @Component({
   selector: 'dt-e2e-drawer',
   templateUrl: 'drawer.html',
-  styleUrls: ['drawer.scss'],
+  styles: [
+    `
+      .content-trigger {
+        position: absolute;
+        top: 0;
+        right: 0;
+        // this is the highest possible z-index (integer max range)
+        z-index: 2147483647;
+      }
+    `,
+  ],
 })
 export class DtE2EDrawer {
   openCount = 0;

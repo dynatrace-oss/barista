@@ -17,7 +17,7 @@ ng_module_view_engine(
         ":styles",
         "src/combobox.html",
     ],
-    module_name = "@dynatrace/barista-components/combobox",
+    module_name = "@dynatrace/barista-components/experimental/combobox",
     tsconfig = "tsconfig_lib",
     deps = [
         "@npm//@angular/core",
