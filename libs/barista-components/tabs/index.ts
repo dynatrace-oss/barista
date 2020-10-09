@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-export * from './src/tabs-module';
-export * from './src/tab-group';
-export * from './src/tab/tab';
-export * from './src/tab/tab-label';
 export * from './src/navigation/tab-group-navigation';
 export * from './src/navigation/tab-navigation-adapter';
+export * from './src/tab-group';
+export * from './src/tab/tab';
+export * from './src/tab/tab-body';
+export * from './src/tab/tab-content';
+export * from './src/tab/tab-label';
+export * from './src/tabs-module';

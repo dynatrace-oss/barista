@@ -1,0 +1,14 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "services",
+    srcs = glob(["**/*.ts"]),
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//rxjs",
+    ],
+)

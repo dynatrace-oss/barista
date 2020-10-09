@@ -39,6 +39,7 @@ http_archive(
         "https://github.com/bazelbuild/rules_sass/archive/%s.zip" % RULES_SASS_VERSION,
         "https://mirror.bazel.build/github.com/bazelbuild/rules_sass/archive/%s.zip" % RULES_SASS_VERSION,
     ],
+    patches = [ "//:rules_sass-pr-122.patch"]
 )
 
 ###########################################

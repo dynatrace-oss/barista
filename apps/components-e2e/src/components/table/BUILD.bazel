@@ -1,0 +1,27 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "table",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.po.ts",
+            "**/*.e2e.ts",
+        ],
+    ),
+    angular_assets = [
+        "table/table.html",
+        "table-order-expandable/table-expandable.html",
+    ],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/table:compile",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+    ],
+)

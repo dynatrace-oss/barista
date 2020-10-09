@@ -1,0 +1,34 @@
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "src",
+    srcs = [
+        "main.dev.ts",
+        "main.prod.ts",
+    ],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//apps/components-e2e/src/app",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+    ],
+)
+
+sass_binary(
+    name = "styles",
+    src = "main.scss",
+    include_paths = ["external/npm"],
+    output_name = "styles.css",
+    deps = [
+        "//libs/barista-components/style",
+    ],
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+    config = "//apps/components-e2e:.stylelintrc",
+)

@@ -1,5 +1,6 @@
 load("//libs/barista-components:config.bzl", "COMPONENT_TARGETS")
 load("//tools/bazel_rules:index.bzl", "stylelint")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
 
 package(default_visibility = ["//:__subpackages__"])
 
@@ -20,5 +21,14 @@ filegroup(
 stylelint(
     name = "stylelint",
     srcs = glob(["**/*.scss"]),
-    config = ":.stylelintrc"
+    config = ":.stylelintrc",
+)
+
+ts_config(
+    name = "tsconfig-lib",
+    src = ":tsconfig.lib.json",
+    deps = [
+        ":tsconfig.json",
+        "//:tsconfig.base.json",
+    ],
 )
