@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-export * from './src/stacked-series-chart.module';
+export * from './/src/stacked-series-chart-overlay.directive';
 export * from './src/stacked-series-chart';
+export * from './src/stacked-series-chart.module';
 export {
+  DtStackedSeriesChartFillMode,
+  DtStackedSeriesChartLegend,
+  DtStackedSeriesChartMode,
   DtStackedSeriesChartNode,
   DtStackedSeriesChartSeries,
   DtStackedSeriesChartTooltipData,
   DtStackedSeriesChartValueDisplayMode,
-  DtStackedSeriesChartMode,
-  DtStackedSeriesChartFillMode,
-  DtStackedSeriesChartLegend,
 } from './src/stacked-series-chart.util';

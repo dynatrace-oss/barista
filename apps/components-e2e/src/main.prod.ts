@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-export * from './src/context-dialog';
-export * from './src/context-dialog-module';
-export * from './src/context-dialog-trigger';
-export * from './src/footer/context-dialog-footer';
-export * from './src/header/context-dialog-header';
-export * from './src/header/context-dialog-header-title';
+// Used to launch the application under Bazel production mode.
+import { enableProdMode } from '@angular/core';
+import { platformBrowser } from '@angular/platform-browser';
+import { DtE2EAppModule } from './app/app.module';
+
+enableProdMode();
+platformBrowser().bootstrapModule(DtE2EAppModule);

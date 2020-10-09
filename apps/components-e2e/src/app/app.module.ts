@@ -20,9 +20,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtE2EApp } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
-import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 
 @NgModule({
   declarations: [DtE2EApp],
@@ -32,8 +32,8 @@ import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
     ReactiveFormsModule,
     HttpClientModule,
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
-    AppRoutingModule,
     DtOverlayModule,
+    AppRoutingModule,
   ],
   bootstrap: [DtE2EApp],
 })

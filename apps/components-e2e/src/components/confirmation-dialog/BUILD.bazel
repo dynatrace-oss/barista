@@ -1,0 +1,23 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "confirmation-dialog",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.po.ts",
+            "**/*.e2e.ts",
+        ],
+    ),
+    angular_assets = ["confirmation-dialog.html"],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//libs/barista-components/confirmation-dialog:compile",
+        "//libs/barista-components/core:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+    ],
+)

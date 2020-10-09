@@ -1,0 +1,618 @@
+diff --git sass/BUILD sass/BUILD
+index 5ebb982..fe3c556 100644
+--- sass/BUILD
++++ sass/BUILD
+@@ -1,7 +1,7 @@
+-package(default_visibility = ["//visibility:public"])
+-
+ load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+
++package(default_visibility = ["//visibility:public"])
++
+ exports_files([
+     "sass.bzl",
+     "sass_repositories.bzl",
+@@ -10,10 +10,11 @@ exports_files([
+ # Executable for the sass_binary rule
+ nodejs_binary(
+     name = "sass",
+-    entry_point = "sass_wrapper",
+     data = [
+-        ":sass_wrapper.js",
+-        "@build_bazel_rules_sass_deps//sass",
++        ":dart-sass.js",
+         "@build_bazel_rules_sass_deps//@bazel/worker",
++        "@build_bazel_rules_sass_deps//sass",
++        "@build_bazel_rules_sass_deps//yargs",
+     ],
++    entry_point = "dart-sass.js",
+ )
+diff --git sass/dart-sass.js sass/dart-sass.js
+new file mode 100644
+index 0000000..9be02e2
+--- /dev/null
++++ sass/dart-sass.js
+@@ -0,0 +1,157 @@
++/**
++ * @license
++ * Copyright Google Inc. All Rights Reserved.
++ * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE.txt file.
++ *
++ * A Sass compiler wrapper that supports bazel persistent worker protocol.
++ *
++ * Bazel can spawn a persistent worker process that handles multiple invocations.
++ * It can also be invoked with an argument file to run once and exit.
++ */
++'use strict';
++
++const worker = require('@bazel/worker');
++const sass = require('sass');
++const yargs = require('yargs/yargs');
++const fs = require('fs');
++const path = require('path');
++
++if (require.main === module) {
++  // Bazel will pass a special argument to the program when it's running us as a worker
++  if (worker.runAsWorker(process.argv)) {
++    worker.debug('Running as a Bazel worker');
++
++    worker.runWorkerLoop(main);
++  } else {
++    // Running standalone so stdout is available as usual
++    console.debug('Running as a standalone process');
++
++    // The first argument to the program is prefixed with '@'
++    // because Bazel does that for param files. Strip it first.
++    const paramFile = process.argv[2].replace(/^@/, '');
++    const args = fs.readFileSync(paramFile, 'utf-8').trim().split('\n');
++
++    // Bazel is just running the program as a single action, don't act like a worker
++    if (!main(args)) {
++      process.exitCode = 1;
++    }
++  }
++}
++
++/**
++ * Main function that passes the arguments from the worker or standalone to the
++ * dart sass compiler
++ * @param {string[]} argv The parsed command line args
++ * @returns {boolean} Returns true if the compilation was successful.
++ */
++function main(argv) {
++  // IMPORTANT don't log with console.out - stdout is reserved for the worker protocol.
++  // This is true for any code running in the program, even if it comes from a third-party library.
++  const { files, style, loadPaths, noSourceMap, embedSources } = yargs(
++    argv
++  ).options({
++    files: { array: true, default: [] },
++    style: { string: true, default: 'compressed' },
++    noSourceMap: { boolean: true, default: false },
++    'embed-sources': { boolean: true },
++    'load-paths': { array: true, default: [] },
++  }).argv;
++
++  for (let i = 0, max = files.length; i < max; i++) {
++    const [input, outFile] = files[i].split(':');
++    compileDartSass({
++      style,
++      outFile,
++      input,
++      embedSources,
++      sourceMap: !noSourceMap,
++      loadPaths,
++    });
++  }
++
++  return true;
++}
++
++/**
++ * Function that uses the dart sass nodeJS API to compile sass to css
++ * https://sass-lang.com/documentation/js-api
++ * @param {object} config Configuration that should be passed to the render function
++ * @param {string} config.input The sass file that should be compiled
++ * @param {string} config.outFile The css file that should be written
++ * @param {boolean} config.embedSources If the source Maps should be embedded
++ * @param {boolean} config.sourceMap If source maps should be written (default `true`)
++ * @param {string[]} config.loadPaths This array of strings option provides load paths for Sass to look for imports.
++ * @param {'compressed' | 'expanded'} config.style Output style of the resulting css
++ * @returns {void}
++ */
++function compileDartSass(config) {
++  // IMPORTANT don't log with console.out - stdout is reserved for the worker protocol.
++  // This is true for any code running in the program, even if it comes from a third-party library.
++
++  // use renderSync() as it is almost twice as fast as render() according to the
++  // official documentation.
++  const result = sass.renderSync({
++    style: config.style,
++    // This option defines one or more additional handlers for loading files
++    // when a @use rule or an @import rule is encountered. This should handle the
++    // common WebPack import style from node_modules starting with ~
++    importer: function (url) {
++      if (url.startsWith('~')) {
++        const resolvedFile = resolveScssFile(
++          path.resolve(url.replace('~', '../../external/npm/node_modules/'))
++        );
++
++        if (resolvedFile) {
++          return {
++            file: resolvedFile,
++          };
++        }
++      }
++      // null, which indicates that it doesn't recognize the URL and another
++      // importer should be tried instead.
++      return null;
++    },
++    sourceMap: config.sourceMap,
++    sourceMapContents: config.embedSources,
++    sourceMapEmbed: config.embedSources,
++    includePaths: [...config.loadPaths, '../../external/npm/node_modules/'],
++    file: config.input,
++    outFile: config.outFile,
++  });
++
++  fs.writeFileSync(config.outFile, result.css);
++
++  if (config.sourceMap) {
++    fs.writeFileSync(`${config.outFile}.map`, result.map);
++  }
++}
++
++/**
++ * Function to resolve a path for a supported import style file ending.
++ * https://sass-lang.com/documentation/at-rules/import#finding-the-file
++ * @param {string} importPath The import path where it should try to resolve the
++ * style file that can be imported or referenced via use
++ * @returns {string|undefined} Returns the resolved path if the file exists or undefined
++ * if it cannot resolve the path.
++ */
++function resolveScssFile(importPath) {
++  const fileName = path.basename(importPath);
++  const variants = [
++    `${importPath}.scss`,
++    `${importPath}.sass`,
++    `${importPath}.css`,
++    `${importPath}/${fileName}.scss`,
++    `${importPath}/${fileName}.sass`,
++    `${importPath}/_${fileName}.scss`,
++    `${importPath}/_${fileName}.sass`,
++    `${importPath}/_index.scss`,
++    `${importPath}/_index.sass`,
++  ];
++
++  for (let i = 0, max = variants.length; i < max; i++) {
++    // return the variant if the file exist
++    if (fs.existsSync(variants[i]) && fs.lstatSync(variants[i]).isFile()) {
++      return variants[i];
++    }
++  }
++}
+diff --git sass/package.json sass/package.json
+index e098532..16fb82d 100644
+--- sass/package.json
++++ sass/package.json
+@@ -1,6 +1,7 @@
+ {
+   "devDependencies": {
+     "@bazel/worker": "latest",
++    "yargs": "~16.0.3",
+     "sass": "1.26.3"
+   }
+ }
+diff --git sass/sass.bzl sass/sass.bzl
+index 1601e34..e3b889b 100644
+--- sass/sass.bzl
++++ sass/sass.bzl
+@@ -72,35 +72,24 @@ def _sass_library_impl(ctx):
+ def _run_sass(ctx, input, css_output, map_output = None):
+     """run_sass performs an action to compile a single Sass file into CSS."""
+
+-    # The Sass CLI expects inputs like
+-    # sass <flags> <input_filename> <output_filename>
+     args = ctx.actions.args()
+
+-    # By default, the CLI of Sass writes the output file even if compilation failures have been
+-    # reported. We don't want this behavior in the Bazel action, as writing the actual output
+-    # file could let the compilation action appear successful. Instead, if we do not write any
+-    # file on error, Bazel will never report the action as successful if an error occurred.
+-    # https://sass-lang.com/documentation/cli/dart-sass#error-css
+-    args.add("--no-error-css")
+-
+     # Flags (see https://github.com/sass/dart-sass/blob/master/lib/src/executable/options.dart)
+-    args.add_joined(["--style", ctx.attr.output_style], join_with = "=")
++    args.add("--style='%s'" % ctx.attr.output_style)
+
+     if not ctx.attr.sourcemap:
+-        args.add("--no-source-map")
++        args.add("--noSourceMap")
+     elif ctx.attr.sourcemap_embed_sources:
+         args.add("--embed-sources")
+
+     # Sources for compilation may exist in the source tree, in bazel-bin, or bazel-genfiles.
+     for prefix in [".", ctx.var["BINDIR"], ctx.var["GENDIR"]]:
+-        args.add("--load-path=%s/" % prefix)
++        args.add("--load-paths='%s/'" % prefix)
+         for include_path in ctx.attr.include_paths:
+-            args.add("--load-path=%s/%s" % (prefix, include_path))
++            args.add("--load-paths='%s/%s'" % (prefix, include_path))
++
++    args.add("--files='%s:%s'" % (input.path, css_output.path))
+
+-    # Last arguments are input and output paths
+-    # Note that the sourcemap is implicitly written to a path the same as the
+-    # css with the added .map extension.
+-    args.add_all([input.path, css_output.path])
+     args.use_param_file("@%s", use_always = True)
+     args.set_param_file_format("multiline")
+
+@@ -236,89 +225,91 @@ sass_binary = rule(
+ )
+
+ def _multi_sass_binary_impl(ctx):
+-  """multi_sass_binary accepts a list of sources and compile all in one pass.
+-
+-  Args:
+-    ctx: The Bazel build context
+-
+-  Returns:
+-    The multi_sass_binary rule.
+-  """
+-
+-  inputs = ctx.files.srcs
+-  outputs = []
+-  # Every non-partial Sass file will produce one CSS output file and,
+-  # optionally, one sourcemap file.
+-  for f in inputs:
+-    # Sass partial files (prefixed with an underscore) do not produce any
+-    # outputs.
+-    if f.basename.startswith("_"):
+-      continue
+-    name = _strip_extension(f.basename)
+-    outputs.append(ctx.actions.declare_file(
+-      name + ".css",
+-      sibling = f,
+-    ))
+-    if ctx.attr.sourcemap:
+-      outputs.append(ctx.actions.declare_file(
+-        name + ".css.map",
+-        sibling = f,
+-      ))
++    """multi_sass_binary accepts a list of sources and compile all in one pass.
+
+-  # Use the package directory as the compilation root given to the Sass compiler
+-  root_dir = ctx.label.package
++    Args:
++      ctx: The Bazel build context
+
+-  # Declare arguments passed through to the Sass compiler.
+-  # Start with flags and then expected program arguments.
+-  args = ctx.actions.args()
+-  args.add("--style", ctx.attr.output_style)
+-  args.add("--load-path", root_dir)
++    Returns:
++      The multi_sass_binary rule.
++    """
+
+-  if not ctx.attr.sourcemap:
+-    args.add("--no-source-map")
++    inputs = ctx.files.srcs
+
+-  args.add(root_dir + ":" + ctx.bin_dir.path + '/' + root_dir)
+-  args.use_param_file("@%s", use_always = True)
+-  args.set_param_file_format("multiline")
++    # Declare arguments passed through to the Sass JavaScript API wrapper.
++    args = ctx.actions.args()
++    outputs = []
++
++    # Every non-partial Sass file will produce one CSS output file and,
++    # optionally, one sourcemap file.
++    for f in inputs:
++        # Sass partial files (prefixed with an underscore) do not produce any
++        # outputs.
++        if f.basename.startswith("_"):
++            continue
++        name = _strip_extension(f.basename)
++        output = ctx.actions.declare_file(
++            name + ".css",
++            sibling = f,
++        )
++        outputs.append(output)
++        args.add("--files='%s:%s'" % (f.path, output.path))
++        if ctx.attr.sourcemap:
++            outputs.append(ctx.actions.declare_file(
++                name + ".css.map",
++                sibling = f,
++            ))
++
++    # Use the package directory as the compilation root given to the Sass compiler
++    root_dir = (ctx.label.workspace_root + "/" if ctx.label.workspace_root else "") + ctx.label.package
++
++    args.add("--style='%s'" % ctx.attr.output_style)
++    args.add("--load-paths='%s'" % root_dir)
+
+-  if inputs:
+-    ctx.actions.run(
+-        inputs = inputs,
+-        outputs = outputs,
+-        executable = ctx.executable.compiler,
+-        arguments = [args],
+-        mnemonic = "SassCompiler",
+-        progress_message = "Compiling Sass",
+-    )
++    if not ctx.attr.sourcemap:
++        args.add("--noSourceMap")
++
++    args.use_param_file("@%s", use_always = True)
++    args.set_param_file_format("multiline")
+
+-  return [DefaultInfo(files = depset(outputs))]
++    if inputs:
++        ctx.actions.run(
++            inputs = inputs,
++            outputs = outputs,
++            executable = ctx.executable.compiler,
++            arguments = [args],
++            mnemonic = "SassCompiler",
++            progress_message = "Compiling Sass",
++        )
++
++    return [DefaultInfo(files = depset(outputs))]
+
+ multi_sass_binary = rule(
+-  implementation = _multi_sass_binary_impl,
+-  attrs = {
+-    "srcs": attr.label_list(
+-      doc = "A list of Sass files and associated assets to compile",
+-      allow_files = _ALLOWED_SRC_FILE_EXTENSIONS,
+-      allow_empty = True,
+-      mandatory = True,
+-    ),
+-    "sourcemap": attr.bool(
+-      doc = "Whether sourcemaps should be emitted",
+-      default = True,
+-    ),
+-    "output_style": attr.string(
+-      doc = "How to style the compiled CSS",
+-      default = "compressed",
+-      values = [
+-        "expanded",
+-        "compressed",
+-      ],
+-    ),
+-    "compiler": attr.label(
+-      doc = _COMPILER_ATTR_DOC,
+-      default = Label("//sass"),
+-      executable = True,
+-      cfg = "host",
+-    ),
+-  }
++    implementation = _multi_sass_binary_impl,
++    attrs = {
++        "srcs": attr.label_list(
++            doc = "A list of Sass files and associated assets to compile",
++            allow_files = _ALLOWED_SRC_FILE_EXTENSIONS,
++            allow_empty = True,
++            mandatory = True,
++        ),
++        "sourcemap": attr.bool(
++            doc = "Whether sourcemaps should be emitted",
++            default = True,
++        ),
++        "output_style": attr.string(
++            doc = "How to style the compiled CSS",
++            default = "compressed",
++            values = [
++                "expanded",
++                "compressed",
++            ],
++        ),
++        "compiler": attr.label(
++            doc = _COMPILER_ATTR_DOC,
++            default = Label("//sass"),
++            executable = True,
++            cfg = "host",
++        ),
++    },
+ )
+diff --git sass/sass_wrapper.js sass/sass_wrapper.js
+deleted file mode 100644
+index 88271a5..0000000
+--- sass/sass_wrapper.js
++++ /dev/null
+@@ -1,38 +0,0 @@
+-/**
+- * @license
+- * Copyright Google Inc. All Rights Reserved.
+- * Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE.txt file.
+- *
+- * A Sass compiler wrapper that supports bazel persistent worker protocol.
+- *
+- * Bazel can spawn a persistent worker process that handles multiple invocations.
+- * It can also be invoked with an argument file to run once and exit.
+- */
+-"use strict";
+-
+-const {debug, runAsWorker, runWorkerLoop} = require('@bazel/worker');
+-const sass = require('sass');
+-const fs = require('fs');
+-
+-const args = process.argv.slice(2);
+-if (runAsWorker(args)) {
+-  debug('Starting Sass compiler persistent worker...');
+-  runWorkerLoop(args => sass.cli_pkg_main_0_(args));
+-  // Note: intentionally don't process.exit() here, because runWorkerLoop
+-  // is waiting for async callbacks from node.
+-} else {
+-  debug('Running a single build...');
+-  if (args.length === 0) throw new Error('Not enough arguments');
+-  if (args.length !== 1) {
+-    throw new Error('Expected one argument: path to flagfile');
+-  }
+-
+-  // Bazel worker protocol expects the only arg to be @<path_to_flagfile>.
+-  // When we are running a single build, we remove the @ prefix and read the list
+-  // of actual arguments line by line.
+-  const configFile = args[0].replace(/^@+/, '');
+-  const configContent = fs.readFileSync(configFile, 'utf8').trim();
+-  sass.cli_pkg_main_0_(configContent.split('\n'));
+-}
+-
+-process.exitCode = 0;
+diff --git sass/yarn.lock sass/yarn.lock
+index 2d21734..60f1653 100644
+--- sass/yarn.lock
++++ sass/yarn.lock
+@@ -72,6 +72,18 @@
+   resolved "https://registry.yarnpkg.com/@types/node/-/node-10.14.17.tgz#b96d4dd3e427382482848948041d3754d40fd5ce"
+   integrity sha512-p/sGgiPaathCfOtqu2fx5Mu1bcjuP8ALFg4xpGgNkcin7LwRyzUKniEHBKdcE1RPsenq5JVPIpMTJSygLboygQ==
+
++ansi-regex@^5.0.0:
++  version "5.0.0"
++  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.0.tgz#388539f55179bf39339c81af30a654d69f87cb75"
++  integrity sha512-bY6fj56OUQ0hU1KjFNDQuJFezqKdrAyFdIevADiqrWHwSlbmBNMHp5ak2f40Pm8JTFyM2mqxkG6ngkHO11f/lg==
++
++ansi-styles@^4.0.0:
++  version "4.3.0"
++  resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-4.3.0.tgz#edd803628ae71c04c85ae7a0906edad34b648937"
++  integrity sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==
++  dependencies:
++    color-convert "^2.0.1"
++
+ anymatch@^3.0.1:
+   version "3.1.0"
+   resolved "https://registry.yarnpkg.com/anymatch/-/anymatch-3.1.0.tgz#e609350e50a9313b472789b2f14ef35808ee14d6"
+@@ -107,6 +119,37 @@ braces@^3.0.2:
+   optionalDependencies:
+     fsevents "^2.0.6"
+
++cliui@^7.0.0:
++  version "7.0.1"
++  resolved "https://registry.yarnpkg.com/cliui/-/cliui-7.0.1.tgz#a4cb67aad45cd83d8d05128fc9f4d8fbb887e6b3"
++  integrity sha512-rcvHOWyGyid6I1WjT/3NatKj2kDt9OdSHSXpyLXaMWFbKpGACNW8pRhhdPUq9MWUOdwn8Rz9AVETjF4105rZZQ==
++  dependencies:
++    string-width "^4.2.0"
++    strip-ansi "^6.0.0"
++    wrap-ansi "^7.0.0"
++
++color-convert@^2.0.1:
++  version "2.0.1"
++  resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-2.0.1.tgz#72d3a68d598c9bdb3af2ad1e84f21d896abd4de3"
++  integrity sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==
++  dependencies:
++    color-name "~1.1.4"
++
++color-name@~1.1.4:
++  version "1.1.4"
++  resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
++  integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
++
++emoji-regex@^8.0.0:
++  version "8.0.0"
++  resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
++  integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
++
++escalade@^3.0.2:
++  version "3.1.0"
++  resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.1.0.tgz#e8e2d7c7a8b76f6ee64c2181d6b8151441602d4e"
++  integrity sha512-mAk+hPSO8fLDkhV7V0dXazH5pDc6MrjBTPyD3VeKzxnVFjH1MIxbCdqGZB9O8+EwWakZs3ZCbDS4IpRt79V1ig==
++
+ fill-range@^7.0.1:
+   version "7.0.1"
+   resolved "https://registry.yarnpkg.com/fill-range/-/fill-range-7.0.1.tgz#1919a6a7c75fe38b2c7c77e5198535da9acdda40"
+@@ -119,6 +162,11 @@ fsevents@^2.0.6:
+   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.0.7.tgz#382c9b443c6cbac4c57187cdda23aa3bf1ccfc2a"
+   integrity sha512-a7YT0SV3RB+DjYcppwVDLtn13UQnmg0SWZS7ezZD0UjnLwXmy8Zm21GMVGLaFGimIqcvyMQaOJBrop8MyOp1kQ==
+
++get-caller-file@^2.0.5:
++  version "2.0.5"
++  resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
++  integrity sha512-DyFP3BM/3YHTQOCUL/w0OZHR0lpKeGrxotcHWcqNEdnltqFwXVfhEBQ94eIo34AfQpo0rGki4cyIiftY06h2Fg==
++
+ glob-parent@^5.0.0:
+   version "5.0.0"
+   resolved "https://registry.yarnpkg.com/glob-parent/-/glob-parent-5.0.0.tgz#1dc99f0f39b006d3e92c2c284068382f0c20e954"
+@@ -138,6 +186,11 @@ is-extglob@^2.1.1:
+   resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
+   integrity sha1-qIwCU1eR8C7TfHahueqXc8gz+MI=
+
++is-fullwidth-code-point@^3.0.0:
++  version "3.0.0"
++  resolved "https://registry.yarnpkg.com/is-fullwidth-code-point/-/is-fullwidth-code-point-3.0.0.tgz#f116f8064fe90b3f7844a38997c0b75051269f1d"
++  integrity sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==
++
+ is-glob@^4.0.1:
+   version "4.0.1"
+   resolved "https://registry.yarnpkg.com/is-glob/-/is-glob-4.0.1.tgz#7567dbe9f2f5e2467bc77ab83c4a29482407a5dc"
+@@ -191,6 +244,11 @@ readdirp@^3.1.1:
+   dependencies:
+     picomatch "^2.0.4"
+
++require-directory@^2.1.1:
++  version "2.1.1"
++  resolved "https://registry.yarnpkg.com/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
++  integrity sha1-jGStX9MNqxyXbiNE/+f3kqam30I=
++
+ sass@1.26.3:
+   version "1.26.3"
+   resolved "https://registry.yarnpkg.com/sass/-/sass-1.26.3.tgz#412df54486143b76b5a65cdf7569e86f44659f46"
+@@ -198,9 +256,57 @@ sass@1.26.3:
+   dependencies:
+     chokidar ">=2.0.0 <4.0.0"
+
++string-width@^4.1.0, string-width@^4.2.0:
++  version "4.2.0"
++  resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.0.tgz#952182c46cc7b2c313d1596e623992bd163b72b5"
++  integrity sha512-zUz5JD+tgqtuDjMhwIg5uFVV3dtqZ9yQJlZVfq4I01/K5Paj5UHj7VyrQOJvzawSVlKpObApbfD0Ed6yJc+1eg==
++  dependencies:
++    emoji-regex "^8.0.0"
++    is-fullwidth-code-point "^3.0.0"
++    strip-ansi "^6.0.0"
++
++strip-ansi@^6.0.0:
++  version "6.0.0"
++  resolved "https://registry.yarnpkg.com/strip-ansi/-/strip-ansi-6.0.0.tgz#0b1571dd7669ccd4f3e06e14ef1eed26225ae532"
++  integrity sha512-AuvKTrTfQNYNIctbR1K/YGTR1756GycPsg7b9bdV9Duqur4gv6aKqHXah67Z8ImS7WEz5QVcOtlfW2rZEugt6w==
++  dependencies:
++    ansi-regex "^5.0.0"
++
+ to-regex-range@^5.0.1:
+   version "5.0.1"
+   resolved "https://registry.yarnpkg.com/to-regex-range/-/to-regex-range-5.0.1.tgz#1648c44aae7c8d988a326018ed72f5b4dd0392e4"
+   integrity sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==
+   dependencies:
+     is-number "^7.0.0"
++
++wrap-ansi@^7.0.0:
++  version "7.0.0"
++  resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
++  integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
++  dependencies:
++    ansi-styles "^4.0.0"
++    string-width "^4.1.0"
++    strip-ansi "^6.0.0"
++
++y18n@^5.0.1:
++  version "5.0.2"
++  resolved "https://registry.yarnpkg.com/y18n/-/y18n-5.0.2.tgz#48218df5da2731b4403115c39a1af709c873f829"
++  integrity sha512-CkwaeZw6dQgqgPGeTWKMXCRmMcBgETFlTml1+ZOO+q7kGst8NREJ+eWwFNPVUQ4QGdAaklbqCZHH6Zuep1RjiA==
++
++yargs-parser@^20.0.0:
++  version "20.2.1"
++  resolved "https://registry.yarnpkg.com/yargs-parser/-/yargs-parser-20.2.1.tgz#28f3773c546cdd8a69ddae68116b48a5da328e77"
++  integrity sha512-yYsjuSkjbLMBp16eaOt7/siKTjNVjMm3SoJnIg3sEh/JsvqVVDyjRKmaJV4cl+lNIgq6QEco2i3gDebJl7/vLA==
++
++yargs@~16.0.3:
++  version "16.0.3"
++  resolved "https://registry.yarnpkg.com/yargs/-/yargs-16.0.3.tgz#7a919b9e43c90f80d4a142a89795e85399a7e54c"
++  integrity sha512-6+nLw8xa9uK1BOEOykaiYAJVh6/CjxWXK/q9b5FpRgNslt8s22F2xMBqVIKgCRjNgGvGPBy8Vog7WN7yh4amtA==
++  dependencies:
++    cliui "^7.0.0"
++    escalade "^3.0.2"
++    get-caller-file "^2.0.5"
++    require-directory "^2.1.1"
++    string-width "^4.2.0"
++    y18n "^5.0.1"
++    yargs-parser "^20.0.0"

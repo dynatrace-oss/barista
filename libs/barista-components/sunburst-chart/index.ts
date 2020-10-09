@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-export * from './src/sunburst-chart.module';
 export * from './src/sunburst-chart';
+export * from './src/sunburst-chart.directive';
+export * from './src/sunburst-chart.module';
 export {
   DtSunburstChartNode,
   DtSunburstChartTooltipData,

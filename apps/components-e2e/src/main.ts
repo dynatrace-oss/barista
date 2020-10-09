@@ -14,6 +14,13 @@
  * limitations under the License.
  */
 
+// TODO: Remove once the app can be served with bazel
+// This main entry point is used to launch the app under the
+// @angular-devkit/build-angular, which is the default CLI
+// builder. Note that for AOT, the CLI will magically replace
+// the bootstrap by switching platform-browser-dynamic with
+// platform-browser.
+// This file is completely unused in the Bazel build.
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { DtE2EAppModule } from './app/app.module';

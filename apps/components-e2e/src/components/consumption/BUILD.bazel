@@ -1,0 +1,25 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "consumption",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.po.ts",
+            "**/*.e2e.ts",
+        ],
+    ),
+    angular_assets = ["consumption.html"],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//libs/barista-components/consumption:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/overlay:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+    ],
+)

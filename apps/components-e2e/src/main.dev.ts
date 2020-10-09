@@ -14,13 +14,8 @@
  * limitations under the License.
  */
 
-import { generateData } from '@dynatrace/testing/fixtures';
+// Used to launch the application under Bazel development mode.
+import { platformBrowser } from '@angular/platform-browser';
+import { DtE2EAppModule } from './app/app.module';
 
-export const series: Highcharts.IndividualSeriesOptions[] = [
-  {
-    name: 'Requests',
-    type: 'column',
-    yAxis: 1,
-    data: generateData(40, 0, 200, 1370304000000, 900000),
-  },
-];
+platformBrowser().bootstrapModule(DtE2EAppModule);

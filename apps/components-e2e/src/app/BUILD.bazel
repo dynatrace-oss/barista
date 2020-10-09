@@ -1,0 +1,55 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ROUTES = [
+    "//apps/components-e2e/src/components/autocomplete",
+    "//apps/components-e2e/src/components/button",
+    "//apps/components-e2e/src/components/button-group",
+    "//apps/components-e2e/src/components/chart",
+    "//apps/components-e2e/src/components/checkbox",
+    "//apps/components-e2e/src/components/combobox",
+    "//apps/components-e2e/src/components/confirmation-dialog",
+    "//apps/components-e2e/src/components/consumption",
+    "//apps/components-e2e/src/components/context-dialog",
+    "//apps/components-e2e/src/components/drawer",
+    "//apps/components-e2e/src/components/empty-state",
+    "//apps/components-e2e/src/components/event-chart",
+    "//apps/components-e2e/src/components/expandable-panel",
+    "//apps/components-e2e/src/components/expandable-section",
+    "//apps/components-e2e/src/components/filter-field",
+    "//apps/components-e2e/src/components/highlight",
+    "//apps/components-e2e/src/components/key-value-list",
+    "//apps/components-e2e/src/components/overlay",
+    "//apps/components-e2e/src/components/pagination",
+    "//apps/components-e2e/src/components/progress-bar",
+    "//apps/components-e2e/src/components/quick-filter",
+    "//apps/components-e2e/src/components/radial-chart",
+    "//apps/components-e2e/src/components/radio",
+    "//apps/components-e2e/src/components/select",
+    "//apps/components-e2e/src/components/show-more",
+    "//apps/components-e2e/src/components/slider",
+    "//apps/components-e2e/src/components/stacked-series-chart",
+    "//apps/components-e2e/src/components/sunburst-chart",
+    "//apps/components-e2e/src/components/switch",
+    "//apps/components-e2e/src/components/table",
+    "//apps/components-e2e/src/components/tabs",
+    "//apps/components-e2e/src/components/tag",
+    "//apps/components-e2e/src/components/tile",
+    "//apps/components-e2e/src/components/tree-table",
+]
+
+ng_module(
+    name = "app",
+    srcs = glob(["*.ts"]),
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = ROUTES + [
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/overlay:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/router",
+    ],
+)
