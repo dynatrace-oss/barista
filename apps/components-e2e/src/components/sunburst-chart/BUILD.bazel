@@ -1,0 +1,24 @@
+
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "sunburst-chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.po.ts",
+            "**/*.e2e.ts",
+        ],
+    ),
+    angular_assets = ["sunburst-chart.html"],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//libs/barista-components/sunburst-chart:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+    ],
+)

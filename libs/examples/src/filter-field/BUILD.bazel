@@ -1,0 +1,17 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//:__subpackages__"])
+
+ng_module(
+    name = "filter-field",
+    srcs = glob(["**/*.ts"]),
+    angular_assets = glob(["**/*.html"]),
+    module_name = "@dynatrace/examples/filter-field",
+    tsconfig = "//libs/examples:tsconfig-lib",
+    deps = [
+        "//libs/barista-components/filter-field:compile",
+        "//libs/barista-components/input:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+    ],
+)

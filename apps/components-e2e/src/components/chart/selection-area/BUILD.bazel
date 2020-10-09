@@ -1,0 +1,29 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
+
+ng_module(
+    name = "selection-area",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.po.ts",
+            "**/*.e2e.ts",
+        ],
+    ),
+    angular_assets = [
+        "range/range.html",
+        "timestamp/timestamp.html",
+        "selection-area.html",
+    ],
+    tsconfig = "//apps/components-e2e:tsconfig-app",
+    deps = [
+        "//apps/components-e2e/src/components/chart:chart-base",
+        "//apps/components-e2e/src/services",
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/chart:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/router",
+    ],
+)

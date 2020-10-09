@@ -1,9 +1,14 @@
-load("//tools/bazel_rules:index.bzl", "stylelint")
+load("@npm//@bazel/typescript:index.bzl", "ts_config")
 
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["//apps/components-e2e:__subpackages__"])
 
-stylelint(
-    name = "stylelint",
-    srcs = glob(["**/*.scss"]),
-    config = ":.stylelintrc"
+exports_files([".stylelintrc"])
+
+ts_config(
+    name = "tsconfig-app",
+    src = ":tsconfig.app.json",
+    deps = [
+        ":tsconfig.json",
+        "//:tsconfig.base.json",
+    ],
 )

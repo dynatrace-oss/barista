@@ -25,8 +25,8 @@ import {
   changeOrderButton,
 } from './table.po';
 
-fixture('Table Order')
-  .page('http://localhost:4200/table-order')
+fixture('Table')
+  .page('http://localhost:4200/table')
   .beforeEach(async () => {
     await resetWindowSizeToDefault();
     await waitForAngular();
@@ -39,21 +39,6 @@ test('should only be draggable at the drag handle', async (testController: TestC
     .expect(dataCells.nth(1).textContent)
     .eql('II')
     .drag(dataCells.nth(0), 0, await getDragDistance(0, 1), {
-      speed: 0.2,
-    })
-    .expect(dataCells.nth(0).textContent)
-    .eql('I')
-    .expect(dataCells.nth(1).textContent)
-    .eql('II');
-});
-
-test('should only be draggable at the drag handle', async (testController: TestController) => {
-  await testController
-    .expect(dataCells.nth(0).textContent)
-    .eql('I')
-    .expect(dataCells.nth(1).textContent)
-    .eql('II')
-    .drag(orderInputs.nth(0), 0, await getDragDistance(0, 1), {
       speed: 0.2,
     })
     .expect(dataCells.nth(0).textContent)
@@ -252,7 +237,7 @@ test('input - should not reorder the table if disabled', async (testController: 
 });
 
 fixture('Table Order Expandable')
-  .page('http://localhost:4200/table-order/expandable')
+  .page('http://localhost:4200/table/expandable')
   .beforeEach(async () => {
     await resetWindowSizeToDefault();
     await waitForAngular();

@@ -1,7 +1,7 @@
 load("//tools/bazel_rules:index.bzl", "stylelint")
-load("@io_bazel_rules_sass//:defs.bzl", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["//visibility:public"])
 
 sass_library(
     name = "style",
@@ -9,8 +9,40 @@ sass_library(
         ["**/*.scss"],
     ),
     deps = [
+        ":angular_cdk",
         "//libs/barista-components/input:theme",
     ],
+)
+
+sass_library(
+    name = "angular_cdk",
+    srcs = [
+        "@npm//:node_modules/@angular/cdk/_a11y.scss",
+        "@npm//:node_modules/@angular/cdk/_overlay.scss",
+    ],
+)
+
+sass_library(
+    name = "barista_font",
+    srcs = [
+        "@npm//:node_modules/@dynatrace/barista-fonts/typography.scss",
+    ],
+)
+
+sass_binary(
+    name = "index",
+    src = "index.scss",
+    include_paths = ["external/npm"],
+    deps = [
+        ":barista_font",
+        ":style",
+    ],
+)
+
+sass_binary(
+    name = "main",
+    src = "main.scss",
+    deps = [":style"],
 )
 
 stylelint(
