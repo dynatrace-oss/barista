@@ -67,3 +67,7 @@ Thumbs.db
 bazel-*
 .bazelrc.user
 repocache
+
+/build_event_file.json
+
+/.venv/**

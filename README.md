@@ -1,6 +1,7 @@
 # Barista components and design system
 
 [![CircleCI](https://circleci.com/gh/dynatrace-oss/barista/tree/master.svg?style=svg)](https://circleci.com/gh/dynatrace-oss/barista/tree/master)
+[![Build status](https://badge.buildkite.com/804634c49653559b831d816cc5f6f51f96050aa360f4dd0460.svg)](https://buildkite.com/dynatrace/barista)
 ![npm version](https://img.shields.io/npm/v/@dynatrace/barista-components)
 ![contributors](https://img.shields.io/github/contributors/dynatrace-oss/barista)
 ![commit activity](https://img.shields.io/github/commit-activity/w/dynatrace-oss/barista)

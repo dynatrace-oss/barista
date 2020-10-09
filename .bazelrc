@@ -110,6 +110,13 @@ build --define=NG_BUILD_CACHE=false
 build --remote_http_cache=https://storage.googleapis.com/dt-barista-build-cache
 build --remote_upload_local_results=false
 
+# Buildbuddy                   #
+################################
+
+build --bes_results_url=https://app.buildbuddy.io/invocation/
+build --bes_backend=grpcs://3FYUwbkPYtsbI7kPS3XF@cloud.buildbuddy.io
+
+################################
 
 # ------------------------------------------------------------------------------------------------
 # Possible overrides
