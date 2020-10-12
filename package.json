@@ -174,7 +174,7 @@
     "sass-loader": "^8.0.2",
     "semver": "^7.3.2",
     "shelljs": "^0.8.4",
-    "stylelint": "^13.2.1",
+    "stylelint": "^13.7.2",
     "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-prettier": "^1.1.1",
