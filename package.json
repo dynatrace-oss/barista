@@ -185,7 +185,7 @@
     "testcafe-reporter-xunit": "^2.1.0",
     "theo": "^8.1.5",
     "ts-jest": "^26.3.0",
-    "ts-node": "^8.10.2",
+    "ts-node": "^9.0.0",
     "tsickle": "^0.39.1",
     "tslib": "^2.0.0",
     "tslint": "~6.1.0",
