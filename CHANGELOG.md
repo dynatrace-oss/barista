@@ -1,3 +1,16 @@
+## [8.1.2](https://github.com/dynatrace-oss/barista/compare/8.1.1...8.1.2) (2020-10-12)
+
+### Bug Fixes
+
+- **option:** Fixes an issue with the scrollbar on firefox causing text to be
+  cut short unintentionally.
+  ([cb38a50](https://github.com/dynatrace-oss/barista/commit/cb38a506f96ea2da0c9eb797a9f5e2d6398b5c34))
+
+### Experimental Package ⚠️
+
+- **quick-filter:** Add show more functionality to the quick-filter component
+  and enable group handling in the data source.
+
 ## [8.1.1](https://github.com/dynatrace-oss/barista/compare/8.1.0...8.1.1) (2020-10-08)
 
 ### Bug Fixes
