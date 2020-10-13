@@ -8,6 +8,7 @@ on:
     branches:
       - master
     paths:
+      - '.github/workflows/design-tokens-ui.yml'
       - '.deployment/design-tokens-ui/**'
       - 'apps/design-tokens-ui/**'
       - 'libs/design-tokens-ui/**'
@@ -59,30 +60,34 @@ jobs:
 
       - name: Build Design Tokens UI
         run: |
+          npm ci
           npm run ng run design-tokens-ui:build:production
 
       - name: Add Vercel configuration
-        run: mv ./.deployment/design-tokens-ui/vercel.json ./dist/apps/design-tokens-ui/vercel.json
+        run:
+          mv ./.deployment/design-tokens-ui/vercel.json
+          ./dist/apps/design-tokens-ui/vercel.json
 
       - name: Vercel Staging Deployment
         if: github.event_name == 'pull_request'
         id: vercel-action-staging
-        uses: amondnet/vercel-action@v19.0.1+3
+        uses: amondnet/vercel-action@v19.0.1+4
         with:
           vercel-token: ${{ secrets.ZEIT_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
           vercel-project-id: ${{ secrets.VERCEL_DESIGN_TOKENS_UI_PROJECT_ID}}
+          vercel-args: '--scope dynatrace-oss --confirm ./'
           working-directory: ./dist/apps/design-tokens-ui
 
       - name: Vercel Production Deployment
         id: vercel-action-production
         if: github.event_name == 'push'
-        uses: amondnet/vercel-action@v19.0.1+3
+        uses: amondnet/vercel-action@v19.0.1+4
         with:
           vercel-token: ${{ secrets.ZEIT_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--prod'
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
+          vercel-args: '--prod --scope dynatrace-oss --confirm ./'
           vercel-project-id: ${{ secrets.VERCEL_DESIGN_TOKENS_UI_PROJECT_ID}}
           working-directory: ./dist/apps/design-tokens-ui

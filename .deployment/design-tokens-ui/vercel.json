@@ -1,11 +1,17 @@
 {
   "version": 2,
+  "scope": "dynatrace-oss",
   "public": false,
   "github": {
     "enabled": false
   },
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/.*", "dest": "/index.html" }
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/.*",
+      "dest": "/index.html"
+    }
   ]
 }
