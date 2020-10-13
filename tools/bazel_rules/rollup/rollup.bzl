@@ -16,8 +16,9 @@ def _npm_deps_aspect(target, ctx):
 
     # If the target is not from the external npm repository it is a target
     # like the ts_library with dependencies
-    for dep in ctx.rule.attr.deps:
-        deps.append(dep.label.package)
+    if hasattr(ctx.rule.attr, 'deps'):
+        for dep in ctx.rule.attr.deps:
+            deps.append(dep.label.package)
 
     return [NpmDepsInfo(
         transitive_dependencies = deps,

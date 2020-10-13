@@ -20,6 +20,14 @@ export interface DesignTokensBuildOptions {
   entrypoints: string[];
   /** List of glob patterns for alias files to build JSON metadata for as required by some applications. */
   aliasesEntrypoints: string[];
-  /** Output path that defines the destination directory. */
-  outputPath: string;
+  /** Output path that defines the destination directory for Typescript files. */
+  typescriptOutputPath: string;
+  /** Output path that defines the destination directory for Javascript files. */
+  javascriptOutputPath: string;
+  /** Output path that defines the destination directory for SCSS files. */
+  scssOutputPath: string;
+  /** Output path that defines the destination directory for CSS files. */
+  cssOutputPath: string;
+  /** Output path that defines the destination directory for JSON files. */
+  jsonOutputPath: string;
 }

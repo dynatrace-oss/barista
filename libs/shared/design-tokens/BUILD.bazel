@@ -1,13 +1,16 @@
 load("@npm//@bazel/typescript:index.bzl", "ts_library")
 load("//tools/design-tokens:index.bzl", "build_design_tokens", "generate_color_palette")
 
+# TODO: remove this
+load("//tools/bazel_rules:index.bzl", "rollup")
+
 package(default_visibility = ["//:__subpackages__"])
 
 ts_library(
     name = "design-tokens",
-    srcs = glob(["generated/**/*.ts"]),
+    srcs = [":build"],
     module_name = "@dynatrace/fluid-design-tokens",
-    module_root = "generated",
+    module_root = "build",
     tsconfig = "//:tsconfig.base.json",
     deps = [
         "@npm//tslib",
@@ -20,7 +23,23 @@ generate_color_palette(
 )
 
 build_design_tokens(
-  name = "build",
-  entrypoints = glob(["src/lib/global/*.yml", "src/lib/patterns/*.yml"]),
-  aliases_entrypoints = glob(["src/lib/aliases/*.yml"]) + [":color_palette"]
+    name = "build",
+    entrypoints = glob(["src/lib/global/*.yml", "src/lib/patterns/*.yml"]),
+    aliases_entrypoints = glob(["src/lib/aliases/*.yml"]) + [":color_palette"]
+)
+
+ts_library(
+    name = "testlib",
+    srcs = ["dummy.ts"],
+    tsconfig = "//:tsconfig.base.json",
+    deps = [
+        ":design-tokens",
+        "@npm//tslib",
+    ],
+)
+
+rollup(
+    name = "testbuild",
+    entry_point = {"dummy.ts": "dummy.build.js"},
+    deps = [":testlib"],
 )

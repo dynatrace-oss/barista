@@ -101,6 +101,7 @@ function runTokenConversion(
 export function designTokenConversion(
   options: DesignTokensBuildOptions,
   baseDirectory: string,
+  baseOutputPath: string,
 ): Observable<Volume> {
   const conversions: Observable<DesignTokenFile>[] = [];
   // Create conversion observables for all entry files and all formats.
@@ -125,7 +126,7 @@ export function designTokenConversion(
         aggregator[baseDirectoryRelativePath] = file.content;
         return aggregator;
       }, {});
-      return memfsVolume.fromJSON(volumeContent, options.outputPath);
+      return memfsVolume.fromJSON(volumeContent, baseOutputPath);
     }),
   );
 }
@@ -133,11 +134,14 @@ export function designTokenConversion(
 /** Write all files within the memfs to the real file system. */
 async function commitVolumeToFileSystem(
   memoryVolume: Volume,
-  outputPath: string,
+  outputPathMap: { [fileType: string]: string },
 ): Promise<void> {
   for (const [path, content] of Object.entries(memoryVolume.toJSON())) {
-    const fullPath = join(outputPath, path);
-    console.log(fullPath);
+    const fileEnding = path.split('.')?.pop();
+    if (!fileEnding || !outputPathMap[fileEnding]) {
+      throw new Error(`Unknown file type: ${fileEnding}`);
+    }
+    const fullPath = join(outputPathMap[fileEnding], path);
     const containingFolder = dirname(fullPath);
     await fs.mkdir(containingFolder, { recursive: true });
     await fs.writeFile(fullPath, content);
@@ -152,8 +156,20 @@ export function main(): Promise<void> {
   const options = yargsOptions({
     entrypoints: { type: 'array' },
     aliasesEntrypoints: { type: 'array' },
-    outputPath: { type: 'string' },
+    typescriptOutputPath: { type: 'string' },
+    javascriptOutputPath: { type: 'string' },
+    scssOutputPath: { type: 'string' },
+    cssOutputPath: { type: 'string' },
+    jsonOutputPath: { type: 'string' },
   }).argv as DesignTokensBuildOptions;
+
+  const outputPathMap = {
+    ts: options.typescriptOutputPath,
+    js: options.javascriptOutputPath,
+    scss: options.scssOutputPath,
+    css: options.cssOutputPath,
+    json: options.jsonOutputPath,
+  };
 
   // Find the base path containing design tokens since passing a list of files
   // instead of a directory is the preferred way with Bazel.
@@ -164,15 +180,22 @@ export function main(): Promise<void> {
         'Please check the paths that were passed to this tool.',
     );
   }
+  const baseOutputPath = findCommonRootPath(Object.values(outputPathMap));
+  if (!baseOutputPath) {
+    throw new Error(
+      "Couldn't find a common output path. " +
+        'Please check the paths that were passed to this tool.',
+    );
+  }
 
   // Start of by reading the required source entry files.
-  return designTokenConversion(options, baseDirectory)
+  return designTokenConversion(options, baseDirectory, baseOutputPath)
     .pipe(
       map((memoryVolume) => generateTypescriptBarrelFile(memoryVolume)),
       map((memoryVolume) => generateEcmascriptBarrelFile(memoryVolume)),
       switchMap((memoryVolume) => addAliasMetadataFiles(options, memoryVolume)),
       switchMap((memoryVolume) =>
-        commitVolumeToFileSystem(memoryVolume, options.outputPath),
+        commitVolumeToFileSystem(memoryVolume, outputPathMap),
       ),
     )
     .toPromise();
