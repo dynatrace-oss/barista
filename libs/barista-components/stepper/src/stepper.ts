@@ -65,6 +65,7 @@ export class DtStepper extends CdkStepper implements AfterContentInit {
   @ContentChildren(forwardRef(() => DtStep)) _steps: QueryList<DtStep>;
 
   ngAfterContentInit(): void {
+    super.ngAfterContentInit();
     // Mark the component for change detection whenever the content children query changes
     this.steps.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
       this._stateChanged();
