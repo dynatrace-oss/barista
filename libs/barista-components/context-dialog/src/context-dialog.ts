@@ -268,7 +268,7 @@ export class DtContextDialog extends _DtContextDialogMixinBase
         this._overlayRef.overlayElement,
       );
       this._focusTrap
-        .focusLastTabbableElementWhenReady()
+        .focusFirstTabbableElementWhenReady()
         .catch((error: Error) => {
           if (isDevMode()) {
             LOG.debug('Error when trying to set initial focus', error);
