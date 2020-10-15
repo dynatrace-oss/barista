@@ -262,6 +262,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    * to this function that will be dispatched to the store
    */
   _changeFilter(action: Action): void {
+    this._virtualScrollHeight = this._getVirtualScrollContainerHeight();
     this._store.dispatch(action);
     if (isFilterChangeAction(action)) {
       this.filterChanges.emit(
