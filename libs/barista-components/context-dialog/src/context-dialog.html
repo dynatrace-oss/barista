@@ -14,6 +14,11 @@
 </button>
 <ng-template>
   <div class="dt-context-dialog-panel" #panel role="dialog" dtTheme=":dark">
+    <ng-content select="dt-context-dialog-header"></ng-content>
+    <div class="dt-context-dialog-content" [ngClass]="overlayPanelClass">
+      <ng-content></ng-content>
+    </div>
+    <ng-content select="dt-context-dialog-footer"></ng-content>
     <button
       dt-icon-button
       variant="secondary"
@@ -24,10 +29,5 @@
     >
       <dt-icon name="abort"></dt-icon>
     </button>
-    <ng-content select="dt-context-dialog-header"></ng-content>
-    <div class="dt-context-dialog-content" [ngClass]="overlayPanelClass">
-      <ng-content></ng-content>
-    </div>
-    <ng-content select="dt-context-dialog-footer"></ng-content>
   </div>
 </ng-template>
