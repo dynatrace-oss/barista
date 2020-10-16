@@ -5,6 +5,7 @@ tasks:
         - test
       pre_cmd:
         - echo "Pre command"
+        - .buildkite/build_cache/setup_ci_build_cache.sh
       bazel_flags:
         - "--keep_going"
       bazel_cmd:
@@ -25,6 +26,7 @@ tasks:
         - "--keep_going"
       pre_cmd:
         - dir
+        - bash -c ".buildkite/build_cache/setup_ci_build_cache.sh"
       bazel_cmd:
         - "//..."
       post_cmd:

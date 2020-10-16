@@ -79,7 +79,7 @@ def execute_shell_commands(commands):
     if is_windows():
         print_collapsed_group(":cmd: Setup (Windows Commands)")
         for cmd in commands:
-            execute_command(cmd.split(" "), shell=True)
+            execute_command(cmd, shell=True)
     else:
         print_collapsed_group(":bash: Setup (Shell Commands)")
         shell_command = "\n".join(["set -e"] + commands)
@@ -92,7 +92,10 @@ def execute_command(args, shell=False, fail_if_nonzero=True, cwd=None,
     Execute command
     """
     if print_output:
-        eprint(" ".join(args))
+        if isinstance(args, str):
+            eprint(args)
+        else:
+            eprint(" ".join(args))
     return subprocess.run(
         args, shell=shell, check=fail_if_nonzero, env=os.environ, cwd=cwd
     ).returncode
