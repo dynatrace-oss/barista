@@ -86,7 +86,7 @@
     "lit-element": "^2.3.1",
     "lit-html": "^1.2.1",
     "lodash-es": "^4.17.15",
-    "rxjs": "^6.6.2",
+    "rxjs": "^6.6.3",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
