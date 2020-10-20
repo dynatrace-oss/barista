@@ -11,6 +11,7 @@ import tempfile
 import subprocess
 from shutil import copyfile
 import sys
+import time
 from urllib.request import url2pathname
 from urllib.parse import urlparse
 import yaml
@@ -125,7 +126,15 @@ def arg_hander_command(args):
 
     # bazel build info file
     build_event_file = "build_event_file.json"
+
+    execution_log = None # default -> disabled
+    if 'execution_log_binary_file' in stage[args.target] and stage[args.target]['execution_log_binary_file']:
+        execution_log = "execution-{}-{}.log".format(args.target, int(time.time()))
+
     profile = "profile-{}{}.gz".format(args.target, args.shard if int(args.shard) != 0 else "")
+
+    # buildkite files for uplaod
+    files_for_upload = [profile]
 
     if args.target == "test" and 'parallel' in stage[args.target] and int(
             args.shard) != 0:
@@ -135,6 +144,9 @@ def arg_hander_command(args):
         bazel_flags += ["--build_event_json_file={}".format(build_event_file),
                         "--profile={}".format(profile),
                         "--record_full_profiler_data"]
+        if execution_log:
+            bazel_flags += ["--execution_log_binary_file={}".format(execution_log)]
+            files_for_upload.append(execution_log)
         execute_command(
             [BAZELBIN] + [args.target.split("_")[0]] + test_sharding(
                 int(args.shard)), fail_if_nonzero=not in_ci())
@@ -146,6 +158,9 @@ def arg_hander_command(args):
             bazel_flags += ["--build_event_json_file={}".format(build_event_file),
                         "--profile={}".format(profile),
                         "--record_full_profiler_data"]
+            if execution_log:
+                bazel_flags += ["--execution_log_binary_file={}".format(execution_log)]
+                files_for_upload.append(execution_log)
             execute_command(
                 [BAZELBIN] + [args.target] + stage[args.target][
                     'bazel_cmd'] + bazel_flags,
@@ -154,7 +169,7 @@ def arg_hander_command(args):
             execute_shell_commands(stage[args.target]['cmd'])
 
     # upload profile
-    upload_files([profile])
+    upload_files(files_for_upload)
 
     # analyse Test logs and fail afterwards
     if upload_test_logs_from_bep(build_event_file) > 0:
@@ -174,7 +189,7 @@ def upload_files(files):
     """ upload to buildkite"""
     if not in_ci():
         return 0
-    execute_command(
+    return execute_command(
         ["buildkite-agent", "artifact", "upload", ";".join(files)])
 
 def upload_test_logs_from_bep(bep_file):

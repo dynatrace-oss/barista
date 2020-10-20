@@ -1,6 +1,7 @@
 tasks:
   default:
     build:
+      execution_log_binary_file: false
       trigger:
         - test
       pre_cmd:
@@ -13,6 +14,7 @@ tasks:
       post_cmd:
         - echo "Post command"
     test:
+      execution_log_binary_file: false
       bazel_flags:
         - "--keep_going"
       bazel_cmd:
@@ -29,8 +31,6 @@ tasks:
         - bash -c ".buildkite/build_cache/setup_ci_build_cache.sh"
       bazel_cmd:
         - "//..."
-      post_cmd:
-        - dir
     test:
       disable: true
       bazel_flags:

@@ -29,6 +29,8 @@ async function main() {
   );
   // link the ivy entry points
   updateNgccMainFields();
+  // remove man page path to get rid of bazel cache error while running tests
+  removeManPagePath();
 
   if (!process.env.BAZEL_NPM_INSTALL) {
     await execCommand(`npm run ng build workspace`);
@@ -84,6 +86,26 @@ function updateNgccMainFields() {
     ) {
       // Update the main field to point to the ngcc main script.
       parsedJson[MAIN_FIELD_NAME] = parsedJson[NGCC_MAIN_FIELD_NAME];
+      writeFileSync(filePath, JSON.stringify(parsedJson, null, 2));
+    }
+  });
+}
+
+/**
+ * Remove man package json entry to get rid of insufficient use of bazel cache because
+ * man page path are used in package.json (sshpk)
+ * e.g.
+ *   "man": [
+ *      "/var/lib/buildkite-agent/builds/designops-buildkite-i-0e57b7da3745f484a-1/dynatrace/bazel/node_modules/sshpk/man/man1/sshpk-conv.1",
+ *      "/var/lib/buildkite-agent/builds/designops-buildkite-i-0e57b7da3745f484a-1/dynatrace/bazel/node_modules/sshpk/man/man1/sshpk-sign.1",
+ *      "/var/lib/buildkite-agent/builds/designops-buildkite-i-0e57b7da3745f484a-1/dynatrace/bazel/node_modules/sshpk/man/man1/sshpk-verify.1"
+ *    ],
+ */
+function removeManPagePath() {
+  sync('node_modules/sshpk/package.json').forEach((filePath) => {
+    const parsedJson = JSON.parse(readFileSync(filePath, 'utf8'));
+    if (parsedJson['man']) {
+      delete parsedJson['man'];
       writeFileSync(filePath, JSON.stringify(parsedJson, null, 2));
     }
   });
