@@ -8,9 +8,9 @@ package(default_visibility = ["//:__subpackages__"])
 
 ts_library(
     name = "design-tokens",
-    srcs = [":build"],
+    srcs = [":build_ts"],
     module_name = "@dynatrace/fluid-design-tokens",
-    module_root = "build",
+    module_root = "build_ts/ts",
     tsconfig = "//:tsconfig.base.json",
     deps = [
         "@npm//tslib",
@@ -23,9 +23,17 @@ generate_color_palette(
 )
 
 build_design_tokens(
-    name = "build",
+    name = "build_ts",
     entrypoints = glob(["src/lib/global/*.yml", "src/lib/patterns/*.yml"]),
-    aliases_entrypoints = glob(["src/lib/aliases/*.yml"]) + [":color_palette"]
+    aliases_entrypoints = glob(["src/lib/aliases/*.yml"]) + [":color_palette"],
+    output_types = ['ts']
+)
+
+build_design_tokens(
+    name = "build_assets",
+    entrypoints = glob(["src/lib/global/*.yml", "src/lib/patterns/*.yml"]),
+    aliases_entrypoints = glob(["src/lib/aliases/*.yml"]) + [":color_palette"],
+    output_types = ['js', 'css', 'scss', 'json']
 )
 
 ts_library(

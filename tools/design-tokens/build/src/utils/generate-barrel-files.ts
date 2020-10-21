@@ -26,6 +26,7 @@ export function generateTypescriptBarrelFile(volume: Volume): Volume {
     .map((fileName) => fileName.replace('.ts', ''))
     .map((fileName) => fileName.replace('.ts', ''))
     .map((fileName) => '.' + fileName);
+
   volume.writeFileSync(
     '/index.ts',
     typescriptBarrelFileTemplate(relativeImportPaths),
@@ -39,6 +40,7 @@ export function generateEcmascriptBarrelFile(volume: Volume): Volume {
     .filter((fileName) => extname(fileName) === '.js')
     .map((fileName) => fileName.replace('.js', ''))
     .map((fileName) => '.' + fileName);
+
   volume.writeFileSync(
     '/index.js',
     ecmascriptBarrelFileTemplate(relativeImportPaths),

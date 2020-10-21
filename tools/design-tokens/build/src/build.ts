@@ -100,6 +100,7 @@ function runTokenConversion(
  */
 export function designTokenConversion(
   options: DesignTokensBuildOptions,
+  outputPathMap: { [fileType: string]: string },
   baseDirectory: string,
   baseOutputPath: string,
 ): Observable<Volume> {
@@ -112,9 +113,16 @@ export function designTokenConversion(
     const yamlFileSource: DesignTokenSource = parse(fileSource);
     // Add the conversion for evey defined output in the source yaml file.
     for (const output of yamlFileSource.outputs ?? []) {
-      conversions.push(runTokenConversion(file, output.formatter, output.type));
+      if (outputPathMap[output.type]) {
+        conversions.push(
+          runTokenConversion(file, output.formatter, output.type),
+        );
+      }
     }
-    conversions.push(runTokenConversion(file, 'raw.json', 'json'));
+
+    if (outputPathMap.json) {
+      conversions.push(runTokenConversion(file, 'raw.json', 'json'));
+    }
   }
 
   return forkJoin(conversions).pipe(
@@ -170,6 +178,7 @@ export function main(): Promise<void> {
     css: options.cssOutputPath,
     json: options.jsonOutputPath,
   };
+  console.log(outputPathMap);
 
   // Find the base path containing design tokens since passing a list of files
   // instead of a directory is the preferred way with Bazel.
@@ -180,7 +189,9 @@ export function main(): Promise<void> {
         'Please check the paths that were passed to this tool.',
     );
   }
-  const baseOutputPath = findCommonRootPath(Object.values(outputPathMap));
+  const baseOutputPath = findCommonRootPath(
+    Object.values(outputPathMap).filter(Boolean),
+  );
   if (!baseOutputPath) {
     throw new Error(
       "Couldn't find a common output path. " +
@@ -189,17 +200,36 @@ export function main(): Promise<void> {
   }
 
   // Start of by reading the required source entry files.
-  return designTokenConversion(options, baseDirectory, baseOutputPath)
+  return designTokenConversion(
+    options,
+    outputPathMap,
+    baseDirectory,
+    baseOutputPath,
+  )
     .pipe(
-      map((memoryVolume) => generateTypescriptBarrelFile(memoryVolume)),
-      map((memoryVolume) => generateEcmascriptBarrelFile(memoryVolume)),
-      switchMap((memoryVolume) => addAliasMetadataFiles(options, memoryVolume)),
+      map((memoryVolume) =>
+        outputPathMap.ts
+          ? generateTypescriptBarrelFile(memoryVolume)
+          : memoryVolume,
+      ),
+      map((memoryVolume) =>
+        outputPathMap.js
+          ? generateEcmascriptBarrelFile(memoryVolume)
+          : memoryVolume,
+      ),
+      switchMap((memoryVolume) =>
+        outputPathMap.json
+          ? addAliasMetadataFiles(options, memoryVolume)
+          : Promise.resolve(memoryVolume),
+      ),
       switchMap((memoryVolume) =>
         commitVolumeToFileSystem(memoryVolume, outputPathMap),
       ),
     )
     .toPromise();
 }
+
+console.log('asdfsfasdf');
 
 main()
   .then(() => {

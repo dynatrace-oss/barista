@@ -22,25 +22,57 @@ def _build_design_tokens_impl(ctx):
     inputs.extend(entrypoint_files)
     inputs.extend(aliases_entrypoint_files)
 
-    typescript_output_dir = ctx.actions.declare_directory(ctx.attr.typescript_output_directory_name)
-    javascript_output_dir = ctx.actions.declare_directory(ctx.attr.javascript_output_directory_name)
-    scss_output_dir = ctx.actions.declare_directory(ctx.attr.scss_output_directory_name)
-    css_output_dir = ctx.actions.declare_directory(ctx.attr.css_output_directory_name)
-    json_output_dir = ctx.actions.declare_directory(ctx.attr.json_output_directory_name)
-
-    outputs = [typescript_output_dir, javascript_output_dir, scss_output_dir, css_output_dir, json_output_dir]
-
     args = []
     args.append("--entrypoints")
     args.extend([file.path for file in entrypoint_files])
     args.append("--aliases-entrypoints")
     args.extend([file.path for file in aliases_entrypoint_files])
 
-    args.extend(["--typescript-output-path", typescript_output_dir.path])
-    args.extend(["--javascript-output-path", javascript_output_dir.path])
-    args.extend(["--scss-output-path", scss_output_dir.path])
-    args.extend(["--css-output-path", css_output_dir.path])
-    args.extend(["--json-output-path", json_output_dir.path])
+    output_dir = ctx.attr.output_dir
+    output_types = ctx.attr.output_types
+    outputs = []
+    file_infos = []
+    default_files = []
+
+    typescript_output_dir = None
+    javascript_output_dir = None
+    scss_output_dir = None
+    css_output_dir = None
+    json_output_dir = None
+
+    if 'ts' in output_types:
+        typescript_output_dir = ctx.actions.declare_directory(output_dir + '/ts')
+        outputs.append(typescript_output_dir)
+        args.extend(["--typescript-output-path", typescript_output_dir.path])
+         # Factory functions should be used for TS and JS providers
+        default_files.append(typescript_output_dir)
+
+    if 'js' in output_types:
+        javascript_output_dir = ctx.actions.declare_directory(output_dir + '/js')
+        outputs.append(javascript_output_dir)
+        args.extend(["--javascript-output-path", javascript_output_dir.path])
+        file_infos.append(js_module_info(sources = depset([javascript_output_dir])))
+
+    if 'scss' in output_types:
+        scss_output_dir = ctx.actions.declare_directory(output_dir + '/scss')
+        outputs.append(scss_output_dir)
+        args.extend(["--scss-output-path", scss_output_dir.path])
+        file_infos.append(SassInfo(transitive_sources = depset([css_output_dir])))
+
+    if 'css' in output_types:
+        css_output_dir = ctx.actions.declare_directory(output_dir + '/css')
+        outputs.append(css_output_dir)
+        args.extend(["--css-output-path", css_output_dir.path])
+        default_files.append(scss_output_dir)
+
+    if 'json' in output_types:
+        json_output_dir = ctx.actions.declare_directory(output_dir + '/json')
+        outputs.append(json_output_dir)
+        args.extend(["--json-output-path", json_output_dir.path])
+        default_files.append(json_output_dir)
+
+    if len(default_files) > 0:
+        file_infos.append(DefaultInfo(files = depset(default_files)))
 
     ctx.actions.run(
         mnemonic = "DesignTokensBuild",
@@ -52,13 +84,7 @@ def _build_design_tokens_impl(ctx):
         tools = [executable]
     )
 
-    return [
-        # Factory functions should be used for TS and JS providers
-        declaration_info(declarations = depset([typescript_output_dir])),
-        js_module_info(sources = depset([javascript_output_dir])),
-        SassInfo(transitive_sources = depset([scss_output_dir])),
-        DefaultInfo(files = depset([css_output_dir, json_output_dir])),
-    ]
+    return file_infos
 
 build_design_tokens = rule(
     implementation = _build_design_tokens_impl,
@@ -79,20 +105,12 @@ build_design_tokens = rule(
             default = [],
             doc = "Alias entry point tokens .yml files",
         ),
-        "typescript_output_directory_name": attr.string(
-            doc = "Target output directory for Typescript files",
+        "output_dir": attr.string(
+            doc = "Directory where the output files should be generated",
         ),
-        "javascript_output_directory_name": attr.string(
-            doc = "Target output directory for Javascript files",
-        ),
-        "scss_output_directory_name": attr.string(
-            doc = "Target output directory for SCSS files",
-        ),
-        "css_output_directory_name": attr.string(
-            doc = "Target output directory for CSS files",
-        ),
-        "json_output_directory_name": attr.string(
-            doc = "Target output directory for JSON files",
+        "output_types": attr.string_list(
+            default = [],
+            doc = "Output types that should be generated. 'ts', 'js', 'scss', 'css' and 'json' are supported.",
         ),
     },
 )
@@ -100,10 +118,6 @@ build_design_tokens = rule(
 def build_design_tokens_macro(name, **kwargs):
     build_design_tokens(
         name = name,
-        typescript_output_directory_name = name + "/ts",
-        javascript_output_directory_name = name + "/js",
-        scss_output_directory_name = name + "/scss",
-        css_output_directory_name = name + "/css",
-        json_output_directory_name = name + "/json",
+        output_dir = name,
         **kwargs
     )
