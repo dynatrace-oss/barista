@@ -1,5 +1,5 @@
 load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
-load("@npm//@bazel/typescript:index.bzl", "ts_config")
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_library")
 load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
 package(default_visibility = ["//visibility:public"])
@@ -11,6 +11,7 @@ filegroup(
         exclude = [
             "**/*.spec.ts",
             "src/test-setup.ts",
+            "src/testing/**/*.ts",
         ],
     ) + glob([
         "**/*.html",
@@ -25,6 +26,7 @@ ng_module_view_engine(
         exclude = [
             "**/*.spec.ts",
             "src/test-setup.ts",
+            "src/testing/**/*.ts",
         ],
     ),
     angular_assets = [
@@ -68,6 +70,23 @@ stylelint(
     srcs = glob(["**/*.scss"]),
 )
 
+ts_library(
+    name = "test_utils",
+    srcs = glob(["src/testing/**/*.ts"]),
+    tsconfig = ":tsconfig_lib",
+    deps = [
+        ":compile",
+        "//libs/testing/browser",
+        "//libs/testing/node",
+        "//libs/testing/fixtures",
+        "//libs/barista-components/icon:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+        "@npm//@angular/cdk",
+    ]
+)
+
 jest(
     name = "test",
     srcs = glob(include = ["**/*.spec.ts"]),
@@ -76,6 +95,7 @@ jest(
     ts_config = ":tsconfig_test",
     deps = [
         ":compile",
+        ":test_utils",
         "//libs/testing/browser",
         "//libs/testing/node",
         "//libs/testing/fixtures",
