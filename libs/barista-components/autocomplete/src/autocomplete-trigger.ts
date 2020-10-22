@@ -80,6 +80,9 @@ import {
   DtViewportResizer,
   isDefined,
   stringify,
+  ViewportBoundaries,
+  mixinViewportBoundaries,
+  Constructor,
 } from '@dynatrace/barista-components/core';
 import { DtFormField } from '@dynatrace/barista-components/form-field';
 
@@ -136,6 +139,14 @@ export function calculateOptionHeight(
   };
 }
 
+// Boilerplate for applying mixins to DtAutocompleteTrigger.
+export class DtAutocompleteTriggerBase {
+  constructor(public _viewportResizer: DtViewportResizer) {}
+}
+export const _DtAutocompleteTriggerMixinBase = mixinViewportBoundaries<
+  Constructor<DtAutocompleteTriggerBase>
+>(DtAutocompleteTriggerBase);
+
 @Directive({
   selector: `input[dtAutocomplete], textarea[dtAutocomplete]`,
   exportAs: 'dtAutocompleteTrigger',
@@ -157,6 +168,7 @@ export function calculateOptionHeight(
   providers: [DT_AUTOCOMPLETE_VALUE_ACCESSOR],
 })
 export class DtAutocompleteTrigger<T>
+  extends _DtAutocompleteTriggerMixinBase
   implements ControlValueAccessor, OnDestroy {
   private _optionHeight: number;
   private _maxPanelHeight: number;
@@ -291,13 +303,14 @@ export class DtAutocompleteTrigger<T>
   /** Old value of the native input. Used to work around issues with the `input` event on IE. */
   private _previousValue: string | number | null;
 
-  private _destroy$ = new Subject<void>();
+  /** The stream that holds the viewport boundaries in order to be able to limit where an overlay can be positioned */
+  private _viewportBoundaries: ViewportBoundaries = { left: 0, top: 0 };
 
   constructor(
     private _element: ElementRef<HTMLInputElement>,
     private _overlay: Overlay,
     private _changeDetectorRef: ChangeDetectorRef,
-    private _viewportResizer: DtViewportResizer,
+    public _viewportResizer: DtViewportResizer,
     private _zone: NgZone,
     private _viewportRuler: ViewportRuler,
     private _platform: Platform,
@@ -312,6 +325,7 @@ export class DtAutocompleteTrigger<T>
     @Inject(DT_OPTION_CONFIG)
     optionConfig?: DtOptionConfiguration,
   ) {
+    super(_viewportResizer);
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
       _zone.runOutsideAngular(() => {
@@ -328,16 +342,23 @@ export class DtAutocompleteTrigger<T>
       });
     }
 
-    if (this._viewportResizer) {
-      this._viewportResizer
-        .change()
-        .pipe(takeUntil(this._destroy$))
-        .subscribe(() => {
-          if (this.panelOpen && this._overlayRef) {
-            this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
-          }
-        });
-    }
+    this._viewportResizer
+      .change()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        if (this.panelOpen && this._overlayRef) {
+          this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
+        }
+      });
+
+    this._viewportBoundaries$.subscribe((boundaries) => {
+      this._viewportBoundaries = boundaries;
+      if (this.panelOpen) {
+        // attachOverlay updates the position strategy of an already existing
+        // overlay
+        this._attachOverlay();
+      }
+    });
 
     const heightConfig = calculateOptionHeight(optionConfig?.height ?? 0);
 
@@ -495,7 +516,9 @@ export class DtAutocompleteTrigger<T>
     } else {
       // Update the panel width and position in case anything has changed.
       this._overlayRef.updateSize({ maxWidth: this._getPanelWidth() });
-      this._overlayRef.updatePosition();
+      this._overlayRef.updatePositionStrategy(
+        this._getOverlayPositionStrategy(),
+      );
     }
 
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
@@ -555,13 +578,13 @@ export class DtAutocompleteTrigger<T>
   // TODO: reconsider if this config should be providable
   private _getOverlayConfig(): OverlayConfig {
     return new OverlayConfig({
-      positionStrategy: this._getOverlayPosition(),
+      positionStrategy: this._getOverlayPositionStrategy(),
       scrollStrategy: this._overlay.scrollStrategies.reposition(),
       maxWidth: this._getPanelWidth(),
     });
   }
 
-  private _getOverlayPosition(): PositionStrategy {
+  private _getOverlayPositionStrategy(): PositionStrategy {
     const originalPositionStrategy = new DtFlexibleConnectedPositionStrategy(
       this._getConnectedElement(),
       this._viewportRuler,
@@ -573,6 +596,7 @@ export class DtAutocompleteTrigger<T>
     this._positionStrategy = originalPositionStrategy
       .withFlexibleDimensions(false)
       .withPush(false)
+      .withViewportBoundaries(this._viewportBoundaries)
       .withPositions([
         {
           originX: 'start',
