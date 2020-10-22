@@ -32,6 +32,7 @@ import {
   NgZone,
   OnDestroy,
   Inject,
+  Optional,
 } from '@angular/core';
 import {
   EMPTY,
@@ -42,16 +43,27 @@ import {
   merge,
   of as observableOf,
 } from 'rxjs';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map, take, takeUntil } from 'rxjs/operators';
 
 import {
   _readKeyCode,
   DtFlexibleConnectedPositionStrategy,
+  DtViewportResizer,
+  mixinViewportBoundaries,
+  Constructor,
 } from '@dynatrace/barista-components/core';
 
 import { DtFilterFieldRange } from './filter-field-range';
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
+
+// Boilerplate for applying mixins to DtFilterFieldRangeTrigger.
+export class DtFilterFieldRangeTriggerBase {
+  constructor(public _viewportResizer: DtViewportResizer) {}
+}
+export const _DtFilterFieldRangeTriggerMixinBase = mixinViewportBoundaries<
+  Constructor<DtFilterFieldRangeTriggerBase>
+>(DtFilterFieldRangeTriggerBase);
 
 @Directive({
   selector: `input[dtFilterFieldRange]`,
@@ -62,7 +74,9 @@ import { DOCUMENT } from '@angular/common';
     '[attr.aria-owns]': '(rangeDisabled || !panelOpen) ? null : range?.id',
   },
 })
-export class DtFilterFieldRangeTrigger implements OnDestroy {
+export class DtFilterFieldRangeTrigger
+  extends _DtFilterFieldRangeTriggerMixinBase
+  implements OnDestroy {
   /** The filter-field range panel to be attached to this trigger. */
   @Input('dtFilterFieldRange')
   get range(): DtFilterFieldRange {
@@ -132,15 +146,15 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
   /** The subscription for closing actions (some are bound to document). */
   private _closingActionsSubscription = EMPTY.subscribe();
 
-  /** The subscription for the window blur event */
-  private _windowBlurSubscription = EMPTY.subscribe();
-
   /**
    * Whether the autocomplete can open the next time it is focused. Used to prevent a focused,
    * closed autocomplete from being reopened if the user switches to another browser tab and then
    * comes back.
    */
   private _canOpenOnNextFocus = true;
+
+  /** The current viewport boundaries */
+  private _viewportBoundaries = { left: 0, top: 0 };
 
   constructor(
     private _elementRef: ElementRef,
@@ -152,27 +166,34 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     zone: NgZone,
     // tslint:disable-next-line:no-any
     @Inject(DOCUMENT) private _document: any,
+    //  @breaking-change Will be made mandatory with 9.0.0
+    @Optional() public _viewportResizer: DtViewportResizer,
   ) {
+    super(_viewportResizer);
     // tslint:disable-next-line:strict-type-predicates
     if (typeof window !== 'undefined') {
       zone.runOutsideAngular(() => {
-        this._windowBlurSubscription = fromEvent(window, 'blur').subscribe(
-          () => {
+        fromEvent(window, 'blur')
+          .pipe(takeUntil(this._destroy$))
+          .subscribe(() => {
             // If the user blurred the window while the autocomplete is focused, it means that it'll be
             // refocused when they come back. In this case we want to skip the first focus event, if the
             // pane was closed, in order to avoid reopening it unintentionally.
             this._canOpenOnNextFocus =
               document.activeElement !== this._elementRef.nativeElement ||
               this.panelOpen;
-          },
-        );
+          });
       });
     }
+    this._viewportBoundaries$.subscribe((boundaries) => {
+      this._viewportBoundaries = boundaries;
+    });
   }
 
   ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
     this._closingActionsSubscription.unsubscribe();
-    this._windowBlurSubscription.unsubscribe();
     this._componentDestroyed = true;
     this._destroyPanel();
     this._closeKeyEventStream.complete();
@@ -239,6 +260,10 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     }
     if (this._overlayRef && !this._overlayRef.hasAttached()) {
       this._overlayRef.attach(this._range._portal);
+      // Always unsubscribe here, it might happen that no
+      // closing action was triggered in between 2 calls
+      // to this method
+      this._closingActionsSubscription.unsubscribe();
       this._closingActionsSubscription = this._subscribeToClosingActions();
     }
 
@@ -246,7 +271,7 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     this.range.opened.emit();
 
     if (this.panelOpen) {
-      this._overlayRef.updatePosition();
+      this._overlayRef.updatePositionStrategy(this._getOverlayPosition());
     }
 
     this.range._markForCheck();
@@ -288,6 +313,7 @@ export class DtFilterFieldRangeTrigger implements OnDestroy {
     )
       .withFlexibleDimensions(false)
       .withPush(false)
+      .withViewportBoundaries(this._viewportBoundaries)
       .withPositions([
         {
           originX: 'start',

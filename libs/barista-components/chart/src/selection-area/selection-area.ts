@@ -50,6 +50,8 @@ import {
   _readKeyCode,
   _removeCssClass,
   ViewportBoundaries,
+  mixinViewportBoundaries,
+  Constructor,
 } from '@dynatrace/barista-components/core';
 import {
   animationFrameScheduler,
@@ -58,8 +60,6 @@ import {
   fromEvent,
   merge,
   Observable,
-  of,
-  Subject,
 } from 'rxjs';
 import {
   concatMapTo,
@@ -68,7 +68,6 @@ import {
   map,
   mapTo,
   share,
-  shareReplay,
   startWith,
   switchMap,
   take,
@@ -115,6 +114,14 @@ import {
   getTouchStream,
 } from './streams';
 
+// Boilerplate for applying mixins to DtChartSelectionArea.
+export class DtChartSelectionAreaBase {
+  constructor(public _viewportResizer: DtViewportResizer) {}
+}
+export const _DtChartSelectionAreaMixinBase = mixinViewportBoundaries<
+  Constructor<DtChartSelectionAreaBase>
+>(DtChartSelectionAreaBase);
+
 @Component({
   selector: 'dt-chart-selection-area',
   templateUrl: 'selection-area.html',
@@ -128,7 +135,9 @@ import {
     '[attr.tabindex]': '0',
   },
 })
-export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
+export class DtChartSelectionArea
+  extends _DtChartSelectionAreaMixinBase
+  implements AfterContentInit, OnDestroy {
   /** @internal The timestamp that follows the mouse */
   @ViewChild('hairline', { static: true })
   _hairline: ElementRef<HTMLDivElement>;
@@ -172,11 +181,6 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
   /** Stream that holds the Bounding Client Rect of the selection area. set after Highcharts render */
   private _selectionAreaBcr$: Observable<ClientRect> = EMPTY;
 
-  /** Subject to unsubscribe from every subscription */
-  private _destroy$ = new Subject<void>();
-
-  private _viewportBoundaries$: Observable<ViewportBoundaries> = EMPTY;
-
   constructor(
     @SkipSelf() private _chart: DtChart,
     private _elementRef: ElementRef<HTMLElement>,
@@ -189,18 +193,13 @@ export class DtChartSelectionArea implements AfterContentInit, OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
-    @Optional() private _viewportResizer: DtViewportResizer,
-  ) {}
+    //  @breaking-change Will be made mandatory with 9.0.0
+    @Optional() public _viewportResizer: DtViewportResizer,
+  ) {
+    super(_viewportResizer);
+  }
 
   ngAfterContentInit(): void {
-    this._viewportBoundaries$ = this._viewportResizer
-      ? this._viewportResizer.offset$.pipe(
-          startWith({ top: 0, left: 0 }),
-          distinctUntilChanged(),
-          shareReplay(),
-        )
-      : of({ left: 0, top: 0 });
-
     this._plotBackground$ = this._chart._afterRender.asObservable().pipe(
       concatMapTo(this._chart._plotBackground$),
       // plot background can be null as well

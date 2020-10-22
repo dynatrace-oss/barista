@@ -22,3 +22,4 @@ export * from './progress';
 export * from './tabindex';
 export * from './dom-exit';
 export * from './id';
+export * from './viewport-boundaries';
