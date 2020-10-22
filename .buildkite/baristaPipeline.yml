@@ -5,13 +5,11 @@ tasks:
       trigger:
         - test
       pre_cmd:
-        - echo "Pre command"
+        - .buildkite/build_cache/setup_ci_build_cache.sh
       bazel_flags:
         - "--keep_going"
       bazel_cmd:
         - "//..."
-      post_cmd:
-        - echo "Post command"
     test:
       execution_log_binary_file: false
       bazel_flags:
@@ -20,13 +18,13 @@ tasks:
         - "//..."
   windows10:
     build:
-      disable: true
+      disable: false
       trigger:
         - test
       bazel_flags:
         - "--keep_going"
       pre_cmd:
-        - dir
+        - bash -c ".buildkite/build_cache/setup_ci_build_cache.sh"
       bazel_cmd:
         - "//..."
     test:
