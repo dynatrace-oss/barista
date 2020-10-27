@@ -21,18 +21,17 @@ import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/
 import { DtE2EQuickFilter } from './quick-filter/quick-filter';
 import { DtE2EQuickFilterInitialData } from './quick-filter-initial-data/quick-filter-initial-data';
 import { DtE2EQuickFilterAsync } from './quick-filter-async/quick-filter-async';
+import {
+  DtExampleQuickFilterDefault,
+  DtExampleQuickFilterCustomShowMore,
+} from '@dynatrace/examples/quick-filter';
 
 const routes: Route[] = [
   { path: '', component: DtE2EQuickFilter },
   { path: 'initial-data', component: DtE2EQuickFilterInitialData },
   { path: 'async', component: DtE2EQuickFilterAsync },
-  {
-    path: 'examples',
-    loadChildren: () =>
-      import('@dynatrace/examples/quick-filter').then(
-        (m) => m.DtQuickFilterExamplesModule,
-      ),
-  },
+  { path: 'examples/default', component: DtExampleQuickFilterDefault },
+  { path: 'examples/show-more', component: DtExampleQuickFilterCustomShowMore },
 ];
 
 @NgModule({
