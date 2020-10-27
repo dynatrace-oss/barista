@@ -19,7 +19,7 @@ import { DtQuickFilterDefaultDataSource } from '@dynatrace/barista-components/ex
 
 @Component({
   selector: 'dt-example-quick-filter-custom-show-more',
-  templateUrl: 'custom-show-more.html',
+  templateUrl: 'quick-filter-custom-show-more-example.html',
 })
 export class DtExampleQuickFilterCustomShowMore {
   _dataSource = new DtQuickFilterDefaultDataSource({
