@@ -1039,6 +1039,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'quick-filter-default-example',
         route: '/quick-filter-default-example',
       },
+      {
+        name: 'quick-filter-custom-show-more-example',
+        route: '/quick-filter-custom-show-more-example',
+      },
     ],
   },
   {

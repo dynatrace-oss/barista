@@ -13,6 +13,5 @@ ng_module(
         "//libs/barista-components/experimental/quick-filter:compile",
         "@npm//@angular/common",
         "@npm//@angular/core",
-        "@npm//@angular/router",
     ],
 )

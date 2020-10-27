@@ -221,6 +221,7 @@ import {
   DtExampleProgressCircleWithIcon,
   DtExampleProgressCircleWithText,
   DtExampleQuickFilterDefault,
+  DtExampleQuickFilterCustomShowMore,
   DtExampleRadialChartCustomColors,
   DtExampleRadialChartDefaultDonut,
   DtExampleRadialChartDefaultPie,
@@ -912,6 +913,10 @@ const ROUTES: Routes = [
   {
     path: 'quick-filter-default-example',
     component: DtExampleQuickFilterDefault,
+  },
+  {
+    path: 'quick-filter-custom-show-more-example',
+    component: DtExampleQuickFilterCustomShowMore,
   },
   {
     path: 'radial-chart-custom-colors-example',

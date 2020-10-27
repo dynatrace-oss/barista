@@ -50,6 +50,7 @@ const BLOCKLIST: string[] = [
   'filter-field-unique-example',
   'filter-field-validator-example',
   'quick-filter-default-example',
+  'quick-filter-custom-show-more-example',
 ];
 
 DT_DEMOS_EXAMPLE_NAV_ITEMS.forEach((component) => {
