@@ -14,16 +14,5 @@
  * limitations under the License.
  */
 
-export interface BaEnvironment {
-  rootDir: string;
-  distDir: string;
-  examplesMetadataFileName: string;
-  examplesLibDir: string;
-  shareableExamplesToolsDir: string;
-  demosAppDir: string;
-  baristaAppDir: string;
-  iconsRoot: string;
-  iconsChangelogFileName: string;
-  strapiEndpoint: string | undefined;
-  internalLinks: string | undefined;
-}
+// Required for the Bazel build.
+declare module 'markdown-it-deflist';

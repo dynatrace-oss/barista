@@ -1,0 +1,96 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library", "ts_config")
+load("@build_bazel_rules_nodejs//:index.bzl", "npm_package_bin", "nodejs_binary")
+load("//tools/bazel_rules:index.bzl", "jest")
+
+package(default_visibility = ["//:__subpackages__"])
+
+ts_library(
+    name = "compile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    deps = [
+        "//libs/shared/node",
+        "//libs/shared/design-system/interfaces:design-system-interfaces_compile",
+        "//libs/shared/data-access-strapi:compile",
+        "//environments",
+        "@npm//tslib",
+        "@npm//@types/node",
+        "@npm//@types/cheerio",
+        "@npm//@types/markdown-it",
+        "@npm//@types/yargs",
+        "@npm//axios",
+        "@npm//chalk",
+        "@npm//cheerio",
+        "@npm//glob",
+        "@npm//markdown-it",
+        "@npm//markdown-it-deflist",
+        "@npm//typescript",
+        "@npm//yargs",
+    ],
+    tsconfig = "tsconfig_lib"
+)
+
+nodejs_binary(
+    name = "barista_tools_binary",
+    data = [":compile"],
+    entry_point = "src/main.ts",
+)
+
+# This rule generates a warning from Bazel since the output is a directory instead of an
+# explicit list of files. This is unavoidable due to the dynamic nature of the Barista builder.
+genrule(
+    name = "barista",
+    cmd = "$(execpath :barista_tools_binary) --dist-root=$(OUTS) --next=false",
+    outs = ["barista-build"],
+    tools = [":barista_tools_binary"],
+)
+
+jest(
+    name = "test",
+    srcs = glob(include = ["**/*.spec.ts"]),
+    jest_config = ":jest.config.json",
+    ts_config = ":tsconfig_test",
+    deps = [
+        ":compile",
+        "//libs/testing/browser",
+        "//libs/shared/node",
+        "//libs/shared/design-system/interfaces:design-system-interfaces_compile",
+        "//libs/shared/data-access-strapi:compile",
+        "//environments",
+        "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
+        "@npm//@types/node",
+        "@npm//@types/cheerio",
+        "@npm//@types/markdown-it",
+        "@npm//@types/yargs",
+        "@npm//axios",
+        "@npm//chalk",
+        "@npm//cheerio",
+        "@npm//glob",
+        "@npm//markdown-it",
+        "@npm//markdown-it-deflist",
+        "@npm//typescript",
+        "@npm//yargs",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_lib",
+    src = "tsconfig.lib.json",
+    deps = [
+        "//:tsconfig.base.json",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = "tsconfig.spec.json",
+    deps = [
+        "//:tsconfig.base.json",
+    ],
+)

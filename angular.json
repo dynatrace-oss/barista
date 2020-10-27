@@ -877,13 +877,6 @@
             ]
           }
         },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tools/barista/jest.config.js",
-            "passWithNoTests": true
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -3400,7 +3393,7 @@
     "shared-data-access-strapi": {
       "projectType": "library",
       "root": "libs/shared/data-access-strapi",
-      "sourceRoot": "libs/shared/data-access-strapi/src",
+      "sourceRoot": "libs/shared/data-access-strapi",
       "prefix": "dynatrace",
       "architect": {
         "lint": {

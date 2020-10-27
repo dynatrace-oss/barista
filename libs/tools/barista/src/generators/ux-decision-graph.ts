@@ -28,7 +28,9 @@ const markdown = new markdownIt({
 });
 
 /** Generates data for the UX Decision Graph */
-export async function uxDecisionGraphGenerator(): Promise<never[] | undefined> {
+export async function uxDecisionGraphGenerator(
+  distDir: string,
+): Promise<never[] | undefined> {
   // Return here if no endpoint is given.
   if (!environment.strapiEndpoint) {
     console.log('No Strapi endpoint given.');
@@ -54,7 +56,7 @@ export async function uxDecisionGraphGenerator(): Promise<never[] | undefined> {
   }));
 
   await fs.writeFile(
-    join(environment.distDir, 'uxdg-data.json'),
+    join(distDir, 'uxdg-data.json'),
     JSON.stringify(graphData, null, 2),
     {
       flag: 'w', // "w" -> Create file if it does not exist

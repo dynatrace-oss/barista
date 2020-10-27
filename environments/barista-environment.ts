@@ -32,7 +32,6 @@ const iconChangelogName = `CHANGELOG${isPublicBuild ? '-public' : ''}.json`;
 export const environment: BaEnvironment = {
   rootDir: './',
   distDir: './dist/barista-data',
-  examplesMetadataDir: './dist',
   examplesMetadataFileName: 'examples-metadata.json',
   examplesLibDir: './libs/examples/src',
   shareableExamplesToolsDir: './libs/tools/shareable-examples/src',
