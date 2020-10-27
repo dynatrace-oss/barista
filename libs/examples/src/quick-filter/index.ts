@@ -14,6 +14,6 @@
  * limitations under the License.
  */
 
-export * from './custom-show-more/custom-show-more';
+export * from './quick-filter-custom-show-more-example/quick-filter-custom-show-more-example';
 export * from './quick-filter-default-example/quick-filter-default-example';
 export * from './quick-filter-examples.module';
