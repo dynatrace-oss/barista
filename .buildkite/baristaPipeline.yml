@@ -27,6 +27,8 @@ tasks:
         - bash -c ".buildkite/build_cache/setup_ci_build_cache.sh"
       bazel_cmd:
         - "//..."
+      post_cmd:
+        - bazel shutdown
     test:
       disable: true
       bazel_flags:
