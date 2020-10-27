@@ -1,6 +1,6 @@
 {
-  "title": "Quick Filter (experimental)",
-  "description": "",
+  "title": "Quick Filter",
+  "description": "The quick filter component enables quick filter actions for a filter field through a side bar.",
   "public": true,
   "contributors": {
     "dev": [
@@ -16,7 +16,7 @@
       }
     ]
   },
-  "properties": ["work in progress", "experimental"],
+  "properties": [],
   "related": ["filter field"],
   "tags": ["filter", "filter field", "quick filter", "angular", "component"],
   "imageUrl": "https://dt-cdn.net/images/barista-preview-quick-filter-1000-6ce2f220be.png"

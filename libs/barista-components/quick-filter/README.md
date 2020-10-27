@@ -1,8 +1,4 @@
-# Quick Filter (experimental)
-
-Note: This component is still experimental, use with caution! The API is NOT
-stable, and might change in minor or patch versions of the library. Help us get
-this component out of the experimental state by providing feedback.
+# Quick Filter
 
 <ba-ux-snippet name="quick-filter-intro"></ba-ux-snippet>
 
@@ -18,7 +14,7 @@ You have to import the `DtQuickFilterModule` when you want to use the
 
 ```typescript
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/quick-filter';
+import { DtQuickFilterModule } from '@dynatrace/barista-components/quick-filter';
 
 @NgModule({
   imports: [BrowserAnimationsModule, DtQuickFilterModule],

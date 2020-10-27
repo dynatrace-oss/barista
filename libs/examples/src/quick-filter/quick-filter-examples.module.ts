@@ -16,7 +16,7 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/quick-filter';
+import { DtQuickFilterModule } from '@dynatrace/barista-components/quick-filter';
 import { DtExampleQuickFilterCustomShowMore } from './quick-filter-custom-show-more-example/quick-filter-custom-show-more-example';
 import { DtExampleQuickFilterDefault } from './quick-filter-default-example/quick-filter-default-example';
 

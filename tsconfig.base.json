@@ -89,8 +89,8 @@
       "@dynatrace/barista-components/experimental/drawer-table": [
         "libs/barista-components/experimental/drawer-table/index.ts"
       ],
-      "@dynatrace/barista-components/experimental/quick-filter": [
-        "libs/barista-components/experimental/quick-filter/index.ts"
+      "@dynatrace/barista-components/quick-filter": [
+        "libs/barista-components/quick-filter/index.ts"
       ],
       "@dynatrace/barista-components/filter-field": [
         "libs/barista-components/filter-field/index.ts"

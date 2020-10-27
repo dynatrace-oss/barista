@@ -19,7 +19,7 @@ ng_module_view_engine(
         "src/quick-filter-group.html",
         "src/quick-filter.html",
     ],
-    module_name = "@dynatrace/barista-components/experimental/quick-filter",
+    module_name = "@dynatrace/barista-components/quick-filter",
     tsconfig = "tsconfig_lib",
     deps = [
         "//libs/barista-components/checkbox:compile",

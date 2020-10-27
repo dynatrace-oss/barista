@@ -10,7 +10,7 @@ ng_module(
     tsconfig = "//libs/examples:tsconfig-lib",
     deps = [
         "//libs/barista-components/core:compile",
-        "//libs/barista-components/experimental/quick-filter:compile",
+        "//libs/barista-components/quick-filter:compile",
         "@npm//@angular/common",
         "@npm//@angular/core",
     ],

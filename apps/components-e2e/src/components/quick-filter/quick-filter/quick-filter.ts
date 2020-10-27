@@ -19,7 +19,7 @@ import {
   DtQuickFilterDefaultDataSource,
   DtQuickFilterDefaultDataSourceConfig,
   DtQuickFilterChangeEvent,
-} from '@dynatrace/barista-components/experimental/quick-filter';
+} from '@dynatrace/barista-components/quick-filter';
 import {
   FILTER_FIELD_TEST_DATA,
   FILTER_FIELD_TEST_DATA_VALIDATORS,

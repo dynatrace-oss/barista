@@ -23,7 +23,7 @@ COMPONENTS = [
     "expandable-text",
     "experimental/combobox",
     "experimental/drawer-table",
-    "experimental/quick-filter",
+    "quick-filter",
     "filter-field",
     "form-field",
     "formatters",

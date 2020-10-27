@@ -21,7 +21,7 @@ import {
   DtQuickFilterDefaultDataSourceConfig,
   DtQuickFilterCurrentFilterChangeEvent,
   DtQuickFilterDefaultDataSourceType,
-} from '@dynatrace/barista-components/experimental/quick-filter';
+} from '@dynatrace/barista-components/quick-filter';
 
 const filterFieldData = {
   autocomplete: [
