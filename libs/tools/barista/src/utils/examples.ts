@@ -37,6 +37,7 @@ export async function getExamplesInPackages(): Promise<
 /** Generates the metadata file for the examples library. */
 export async function generateExamplesLibMetadataFile(
   packageMetadata: ExamplePackageMetadata[],
+  distDir: string,
 ): Promise<string> {
   const metadata: BaAllExamplesMetadata = {};
 
@@ -52,11 +53,8 @@ export async function generateExamplesLibMetadataFile(
     }
   }
 
-  mkdirSync(environment.examplesMetadataDir, { recursive: true });
-  const outFile = join(
-    environment.examplesMetadataDir,
-    environment.examplesMetadataFileName,
-  );
+  mkdirSync(distDir, { recursive: true });
+  const outFile = join(distDir, environment.examplesMetadataFileName);
 
   await fs.writeFile(outFile, JSON.stringify(metadata, null, 2), {
     flag: 'w', // "w" -> Create file if it does not exist

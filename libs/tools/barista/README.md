@@ -11,18 +11,19 @@ components-page-builder.
 
 All other content is fetched from a CMS hosted internally.
 
-## Bulid & run
+## Build & run
 
-Use the following command to build the page builder:
-
-```
-ng build barista-components/barista-tools
-```
-
-Use the following command to run the page builder:
+First, create a `.env` file in the project root with the following contents:
 
 ```
-node dist/libs/tools/barista/main.js
+STRAPI_ENDPOINT="[URL to Strapi...]"
+PUBLIC_BUILD=[true|false]
+```
+
+Now use the following command to run the page builder:
+
+```
+bazel build //libs/tools/barista
 ```
 
 ### Environment variables

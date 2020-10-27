@@ -1,0 +1,15 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_library")
+
+package(default_visibility = ["//:__subpackages__"])
+
+ts_library(
+    name = "environments",
+    module_name = "@environments",
+    srcs = glob(["**/*.ts"]),
+    deps = [
+        "@npm//@types/node",
+        "@npm//tslib",
+        "@npm//dotenv",
+    ],
+    tsconfig = "//:tsconfig.base.json",
+)
