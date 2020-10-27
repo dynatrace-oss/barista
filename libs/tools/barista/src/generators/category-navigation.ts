@@ -31,7 +31,6 @@ import {
   BaNavItem,
   BaPageLayoutType,
 } from '@dynatrace/shared/design-system/interfaces';
-import { environment } from '@environments/barista-environment';
 
 // for now we manually select highlighted items, later this data can maybe be fetched from google analytics
 const highlightedItems = [
@@ -187,16 +186,16 @@ function getOverviewSectionItem(
 /** Check if given path is a directory within environment.distDir. */
 function isDirectory(path: string): boolean {
   try {
-    return lstatSync(join(environment.distDir, path)).isDirectory();
+    return lstatSync(path).isDirectory();
   } catch {
     return false;
   }
 }
 
 /** Builds overview pages */
-export const overviewBuilder = async () => {
-  const allDirectories = readdirSync(environment.distDir).filter((dirPath) =>
-    isDirectory(dirPath),
+export const overviewBuilder = async (distDir: string) => {
+  const allDirectories = readdirSync(distDir).filter((dirPath) =>
+    isDirectory(join(distDir, dirPath)),
   );
 
   let nav: BaNav = {
@@ -204,7 +203,7 @@ export const overviewBuilder = async () => {
   };
 
   const pages = allDirectories.map(async (directory) => {
-    const path = join(environment.distDir, directory);
+    const path = join(distDir, directory);
     let overviewPage: BaCategoryNavigation;
     const files = readdirSync(path);
 
@@ -292,7 +291,7 @@ export const overviewBuilder = async () => {
 
     addSidenavToPages(files, overviewPage, path);
 
-    const overviewfilepath = join(environment.distDir, `${directory}.json`);
+    const overviewfilepath = join(distDir, `${directory}.json`);
     // Write file with page content to disc.
     return fs.writeFile(
       overviewfilepath,
@@ -316,14 +315,10 @@ export const overviewBuilder = async () => {
     return -1;
   });
 
-  await fs.writeFile(
-    join(environment.distDir, 'nav.json'),
-    JSON.stringify(nav, null, 2),
-    {
-      flag: 'w', // "w" -> Create file if it does not exist
-      encoding: 'utf8',
-    },
-  );
+  await fs.writeFile(join(distDir, 'nav.json'), JSON.stringify(nav, null, 2), {
+    flag: 'w', // "w" -> Create file if it does not exist
+    encoding: 'utf8',
+  });
 
   return Promise.all(pages);
 };

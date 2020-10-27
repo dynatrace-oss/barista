@@ -269,7 +269,7 @@
         "libs/design-tokens-ui/input/src/index.ts"
       ],
       "@dynatrace/shared/data-access-strapi": [
-        "libs/shared/data-access-strapi/src/index.ts"
+        "libs/shared/data-access-strapi/index.ts"
       ],
       "@dynatrace/shared/design-system/ui": [
         "libs/shared/design-system/ui/src/index.ts"

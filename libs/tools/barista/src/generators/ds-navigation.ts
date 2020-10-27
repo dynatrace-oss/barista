@@ -19,9 +19,10 @@ import { promises as fs, readdirSync, lstatSync } from 'fs';
 
 import { DsSideNavContent } from '../types';
 
-const distDir = './dist/next-data';
-
-function addNavSection(sideNav: DsSideNavContent, navGroup: string) {
+function addNavSection(
+  sideNav: DsSideNavContent,
+  navGroup: string,
+): DsSideNavContent {
   let newSideNav = { ...sideNav };
   for (const section of newSideNav.sections) {
     if (section.title && navGroup == section.title) {
@@ -36,16 +37,16 @@ function addNavSection(sideNav: DsSideNavContent, navGroup: string) {
 /** Check if given path is a directory within distDir. */
 function isDirectory(path: string): boolean {
   try {
-    return lstatSync(join(distDir, path)).isDirectory();
+    return lstatSync(path).isDirectory();
   } catch {
     return false;
   }
 }
 
 /** Builds navigation */
-export const navigationBuilder = async () => {
+export const navigationBuilder = async (distDir: string) => {
   const allDirectories = readdirSync(distDir).filter((dirPath) =>
-    isDirectory(dirPath),
+    isDirectory(join(distDir, dirPath)),
   );
 
   for (const directory of allDirectories) {

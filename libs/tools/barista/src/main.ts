@@ -81,36 +81,47 @@ function createInternalContentTransformer(): BaPageTransformer {
  * Creates the exampleInlineSourcesTransformer by loading the example
  * metadata-json and calling the factory with it.
  */
-async function createExampleInlineSourcesTransformer(): Promise<
-  BaPageTransformer
-> {
-  const examplesMetadataDir = './dist';
-  const examplesMetadataFileName = 'examples-metadata.json';
-  if (!existsSync(examplesMetadataDir)) {
-    throw new Error(`"${examplesMetadataFileName}" not found.`);
+async function createExampleInlineSourcesTransformer(
+  distDir: string,
+): Promise<BaPageTransformer> {
+  const examplesMetadataPath = join(distDir, 'examples-metadata.json');
+  if (!existsSync(examplesMetadataPath)) {
+    throw new Error(`"${examplesMetadataPath}" not found.`);
   }
-  const examplesMetadata = await fs.readFile(
-    join(examplesMetadataDir, examplesMetadataFileName),
-    {
-      encoding: 'utf8',
-    },
-  );
+  const examplesMetadata = await fs.readFile(examplesMetadataPath, {
+    encoding: 'utf8',
+  });
 
   return exampleInlineSourcesTransformerFactory(JSON.parse(examplesMetadata));
 }
 /** Defines the paths for our DS's */
-const nextEnvironment = { distDir: 'dist/next-data' };
-const baristaEnvironment = { distDir: 'dist/barista-data' };
+const nextDataDistDir = 'next-data';
+const baristaDataDistDir = 'barista-data';
 
 /** Builds pages using all registered builders. */
 async function buildPages(): Promise<void[]> {
-  const { next } = options({
+  let { next, distRoot } = options({
     next: { type: 'boolean', alias: 'n', default: false },
+    distRoot: { type: 'string' },
   }).argv;
+
+  if (!distRoot) {
+    // Fallback for backwards compatibility with the Angular CLI build,
+    // must be set when using Bazel.
+    distRoot = './dist';
+  }
+
+  const dataDistDir = join(
+    distRoot,
+    next ? nextDataDistDir : baristaDataDistDir,
+  );
 
   console.log(`Generating examples lib metadata file for barista`);
   const packageMetas = await getExamplesInPackages();
-  const metadataFile = await generateExamplesLibMetadataFile(packageMetas);
+  const metadataFile = await generateExamplesLibMetadataFile(
+    packageMetas,
+    distRoot,
+  );
   console.log(green(`  ✓   Created "${metadataFile}"`));
 
   console.log(
@@ -122,11 +133,11 @@ async function buildPages(): Promise<void[]> {
   );
   console.log();
 
-  const env = next ? nextEnvironment : baristaEnvironment;
+  const env = { distDir: dataDistDir };
   const globalTransformers = next
     ? []
     : [
-        await createExampleInlineSourcesTransformer(),
+        await createExampleInlineSourcesTransformer(distRoot),
         createInternalLinksTransformer(environment.internalLinks),
         createInternalContentTransformer(),
       ];
@@ -144,10 +155,10 @@ async function buildPages(): Promise<void[]> {
   );
 
   // Make sure dist dir is created
-  mkdirSync(env.distDir, { recursive: true });
+  mkdirSync(dataDistDir, { recursive: true });
 
   const files = results.map(async (result) => {
-    const outFile = join(env.distDir, result.relativeOutFile);
+    const outFile = join(dataDistDir!, result.relativeOutFile);
 
     // Creating folder path if it does not exist
     mkdirSync(dirname(outFile), { recursive: true });
@@ -161,17 +172,17 @@ async function buildPages(): Promise<void[]> {
   });
 
   const allPages = await Promise.all(files);
-  const overviewPages = await overviewBuilder();
+  const overviewPages = await overviewBuilder(dataDistDir);
   if (next) {
-    await navigationBuilder();
+    await navigationBuilder(dataDistDir);
   }
   if (!isPublicBuild()) {
-    await uxDecisionGraphGenerator();
+    await uxDecisionGraphGenerator(dataDistDir);
   }
 
-  const routes = sync(`${env.distDir}/**/*.json`)
+  const routes = sync(`${dataDistDir}/**/*.json`)
     .map((file) => {
-      const path = file.replace(env.distDir, '').replace(/\..+$/, ''); // replace the file ending
+      const path = file.replace(dataDistDir, '').replace(/\..+$/, ''); // replace the file ending
 
       switch (path) {
         case 'index':
@@ -185,9 +196,9 @@ async function buildPages(): Promise<void[]> {
     .filter(Boolean)
     .join(EOL);
 
-  const routesFile = join(env.distDir, 'routes.txt');
+  const routesFile = join(dataDistDir, 'routes.txt');
   // write the barista and next routes to a own file that can be used for pre rendering
-  fs.writeFile(routesFile, routes, 'utf-8');
+  await fs.writeFile(routesFile, routes, 'utf-8');
   console.log(
     green('\n✅ Successfully created routes.txt file for pre-rendering\n'),
   );

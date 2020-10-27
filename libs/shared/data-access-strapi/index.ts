@@ -14,4 +14,4 @@
  * limitations under the License.
  */
 
-export * from './lib/fetch-strapi-content';
+export * from './src/lib/fetch-strapi-content';

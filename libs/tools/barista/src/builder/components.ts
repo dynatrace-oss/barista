@@ -71,7 +71,7 @@ async function createStrapiSnippets(content: string): Promise<void> {
         const exists = (await Axios.get(`${host}?slotId=${name}`)).data.length;
         if (!exists) {
           // Create new entry for given slotId
-          Axios.post(host, {
+          await Axios.post(host, {
             title: '',
             slotId: name,
             content: '',
