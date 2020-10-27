@@ -2000,20 +2000,20 @@
     },
     "quick-filter": {
       "projectType": "library",
-      "root": "libs/barista-components/experimental/quick-filter",
-      "sourceRoot": "libs/barista-components/experimental/quick-filter/src",
+      "root": "libs/barista-components/quick-filter",
+      "sourceRoot": "libs/barista-components/quick-filter/src",
       "prefix": "dt",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/barista-components/experimental/quick-filter/tsconfig.lib.json",
-              "libs/barista-components/experimental/quick-filter/tsconfig.spec.json"
+              "libs/barista-components/quick-filter/tsconfig.lib.json",
+              "libs/barista-components/quick-filter/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/experimental/quick-filter/**/*"
+              "!libs/barista-components/quick-filter/**/*"
             ]
           }
         }

@@ -19,7 +19,7 @@ import { isObject } from '@dynatrace/barista-components/core';
 import {
   DtQuickFilterDefaultDataSource,
   DtQuickFilterDefaultDataSourceConfig,
-} from '@dynatrace/barista-components/experimental/quick-filter';
+} from '@dynatrace/barista-components/quick-filter';
 
 const filterFieldData = {
   autocomplete: [
