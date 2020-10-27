@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-import { DtQuickFilterDefaultDataSource } from '@dynatrace/barista-components/experimental/quick-filter';
+import { DtQuickFilterDefaultDataSource } from '@dynatrace/barista-components/quick-filter';
 
 @Component({
   selector: 'dt-example-quick-filter-custom-show-more',

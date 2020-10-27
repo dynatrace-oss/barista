@@ -19,7 +19,7 @@ ng_module(
     tsconfig = "//apps/components-e2e:tsconfig-app",
     deps = [
         "//libs/barista-components/core:compile",
-        "//libs/barista-components/experimental/quick-filter:compile",
+        "//libs/barista-components/quick-filter:compile",
         "//libs/examples/src/quick-filter",
         "//libs/testing/fixtures",
         "@npm//@angular/common",

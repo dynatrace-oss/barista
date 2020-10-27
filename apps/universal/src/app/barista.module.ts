@@ -30,7 +30,7 @@ import { DtDrawerModule } from '@dynatrace/barista-components/drawer';
 import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
 import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
 import { DtExpandableTextModule } from '@dynatrace/barista-components/expandable-text';
-import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/quick-filter';
+import { DtQuickFilterModule } from '@dynatrace/barista-components/quick-filter';
 import { DtFilterFieldModule } from '@dynatrace/barista-components/filter-field';
 import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
 import { DtIconModule } from '@dynatrace/barista-components/icon';

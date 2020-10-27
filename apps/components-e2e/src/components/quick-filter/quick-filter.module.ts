@@ -17,7 +17,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
-import { DtQuickFilterModule } from '@dynatrace/barista-components/experimental/quick-filter';
+import { DtQuickFilterModule } from '@dynatrace/barista-components/quick-filter';
 import { DtE2EQuickFilter } from './quick-filter/quick-filter';
 import { DtE2EQuickFilterInitialData } from './quick-filter-initial-data/quick-filter-initial-data';
 import { DtE2EQuickFilterAsync } from './quick-filter-async/quick-filter-async';
