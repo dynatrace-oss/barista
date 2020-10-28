@@ -54,7 +54,6 @@ check_bazel_version("3.1.0")
 npm_install(
     name = "npm",
     data = [
-        "//:patches/@angular+bazel+10.0.6.patch",
         "//:patches/@bazel+typescript+2.0.3.patch",
         "//:patches/jest-haste-map+26.1.0.patch",
         "//:patches/stylelint+13.2.1.patch",
