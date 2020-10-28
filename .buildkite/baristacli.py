@@ -51,6 +51,8 @@ class BuildKiteConfigError(ValueError):
 class BazelFailingTests(Exception):
     """ BazelFailingTests Exception"""
 
+class BazelBuildError(Exception):
+    """ BazelBuildError Exception"""
 
 def is_windows():
     """
@@ -136,6 +138,8 @@ def arg_hander_command(args):
     # buildkite files for uplaod
     files_for_upload = [profile]
 
+    rv = 0
+
     if args.target == "test" and 'parallel' in stage[args.target] and int(
             args.shard) != 0:
         bazel_flags = stage[args.target]["bazel_flags"] if "bazel_flags" in stage[
@@ -161,12 +165,15 @@ def arg_hander_command(args):
             if execution_log:
                 bazel_flags += ["--execution_log_binary_file={}".format(execution_log)]
                 files_for_upload.append(execution_log)
-            execute_command(
+            rv = execute_command(
                 [BAZELBIN] + [args.target] + stage[args.target][
                     'bazel_cmd'] + bazel_flags,
-                fail_if_nonzero=not(args.target == "test" and in_ci()))
+                fail_if_nonzero=False)
         if 'cmd' in stage[args.target]:
             execute_shell_commands(stage[args.target]['cmd'])
+
+    if "post_cmd" in stage[args.target]:
+        execute_shell_commands(stage[args.target]['post_cmd'])
 
     # upload profile
     upload_files(files_for_upload)
@@ -175,8 +182,8 @@ def arg_hander_command(args):
     if upload_test_logs_from_bep(build_event_file) > 0:
         raise BazelFailingTests("Tests failed")
 
-    if "post_cmd" in stage[args.target]:
-        execute_shell_commands(stage[args.target]['post_cmd'])
+    if rv != 0:
+        raise BazelBuildError("Build failed")
 
 
 def in_ci():
