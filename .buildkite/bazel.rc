@@ -4,7 +4,7 @@
 
 # Print all enabled Bazel flags in CI mode. This makes it easier to debug and reproduce
 # Bazel issues that show up on Buildkite.
-common --announce_rc
+# common --announce_rc
 
 # recommended options by bazel founders from BazelCon2019
 # https://youtu.be/j332WfhNAFg?t=993
