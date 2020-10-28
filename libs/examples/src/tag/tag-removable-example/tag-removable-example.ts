@@ -20,4 +20,22 @@ import { Component } from '@angular/core';
   selector: 'dt-example-tag-removable',
   templateUrl: './tag-removable-example.html',
 })
-export class DtExampleTagRemovable {}
+export class DtExampleTagRemovable {
+  // Tags array
+  tags: string[] = ['This is a removable tag 0'];
+
+  // Counter to differentiate the tags visually.
+  private counter = 1;
+
+  // Demo behaviour that will add a new tag to the list.
+  addTags(): void {
+    this.tags.push(`This is a removable tag ${this.counter}`);
+    this.counter++;
+  }
+
+  // Remove tag function, that will remove the passed tag from the
+  // tags array.
+  removeTag(tag: string): void {
+    this.tags.splice(this.tags.indexOf(tag), 1);
+  }
+}
