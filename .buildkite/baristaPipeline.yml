@@ -10,12 +10,16 @@ tasks:
         - "--keep_going"
       bazel_cmd:
         - "//..."
+      post_cmd:
+        - bazel shutdown
     test:
       execution_log_binary_file: false
       bazel_flags:
         - "--keep_going"
       bazel_cmd:
         - "//..."
+      post_cmd:
+        - bazel shutdown
   windows10:
     build:
       disable: false
@@ -35,3 +39,5 @@ tasks:
         - "--keep_going"
       bazel_cmd:
         - "//..."
+      post_cmd:
+        - bazel shutdown
