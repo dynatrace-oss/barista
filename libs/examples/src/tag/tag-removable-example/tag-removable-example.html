@@ -1,3 +1,8 @@
-<dt-tag-list aria-label="A list of tags showing custom groupings."
-  ><dt-tag removable>This can be removed</dt-tag></dt-tag-list
->
+<dt-tag-list aria-label="A list of tags showing custom groupings.">
+  <dt-tag *ngFor="let tag of tags" removable (removed)="removeTag(tag)"
+    >{{tag}}
+  </dt-tag>
+</dt-tag-list>
+<p>
+  <button dt-button (click)="addTags()">Add another tag</button>
+</p>
