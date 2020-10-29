@@ -23,10 +23,10 @@ To use the alert component, add the `<dt-alert>` element to your page.
 
 ## Inputs
 
-| Name           | Type                     | Default | Description                                                      |
-| -------------- | ------------------------ | ------- | ---------------------------------------------------------------- |
-| `severity`     | `error | warning | info` | `error` | Sets the alert severity.                                         |
-| `<ng-content>` |                          |         | The text (error/warning/info) message which should be displayed. |
+| Name           | Type   | Default | Description                                                      |
+| -------------- | ------ | ------- | ---------------------------------------------------------------- |
+| `severity`     | `error | warning | info`                                                            | `error` | Sets the alert severity. |
+| `<ng-content>` |        |         | The text (error/warning/info) message which should be displayed. |
 
 ## Variants
 

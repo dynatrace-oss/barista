@@ -205,7 +205,8 @@ export const _DtSelectMixinBase = mixinTabIndex(
   ],
   providers: [{ provide: DtFormFieldControl, useExisting: DtSelect }],
 })
-export class DtSelect<T> extends _DtSelectMixinBase
+export class DtSelect<T>
+  extends _DtSelectMixinBase
   implements
     OnInit,
     AfterContentInit,

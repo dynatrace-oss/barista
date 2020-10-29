@@ -42,11 +42,11 @@ FormsModule (NgModel) and ReactiveFormsModule (FormControl, FormGroup, etc.).
 | Name              | Type                   | Default Value            | Description                                                                                                      |
 | ----------------- | ---------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------------------- |
 | `id`              | `string`               | `''`                     | The ID for the combobox.                                                                                         |
-| `value`           | `T | null`             | `null`                   | The currently selected value in the combobox.                                                                    |
+| `value`           | `T                     | null`                    | `null`                                                                                                           | The currently selected value in the combobox. |
 | `loading`         | `boolean`              | `false`                  | When set to true, a loading indicator is shown to show to the user that data is currently being loaded/filtered. |
 | `required`        | `boolean`              | `false`                  | Whether the control is required.                                                                                 |
 | `panelClass`      | `string`               | `''`                     | An arbitrary class name that is added to the combobox dropdown.                                                  |
-| `placeholder`     | `string | undefined`   | `undefined`              | A placeholder text for the input field.                                                                          |
+| `placeholder`     | `string                | undefined`               | `undefined`                                                                                                      | A placeholder text for the input field. |
 | `displayWith`     | `(value: T) => string` | (value: T) =>`\${value}` | A function returning a display name for a given object that represents an option from the combobox.              |
 | `aria-label`      | `string`               | `undefined`              | Aria label of the select.                                                                                        |
 | `aria-labelledby` | `string`               | `undefined`              | Input that can be used to specify the `aria-labelledby` attribute.                                               |
