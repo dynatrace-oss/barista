@@ -77,7 +77,8 @@ export const _DtHeatfieldMixinBase = mixinColor<
   inputs: ['color'],
   animations: [dtFadeAnimation],
 })
-export class DtChartHeatfield extends _DtHeatfieldMixinBase
+export class DtChartHeatfield
+  extends _DtHeatfieldMixinBase
   implements CanColor<DtChartHeatfieldThemePalette>, OnChanges, OnDestroy {
   /** Event emitted when the option is selected or deselected. */
   @Output() readonly activeChange = new EventEmitter<

@@ -24,13 +24,13 @@ class MyModule {}
 
 ## DtRadialChart inputs
 
-| Name               | Type                     | Default      | Description                                                                                                                        |
-| ------------------ | ------------------------ | ------------ | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `type`             | `'pie' | 'donut'`        | `'pie'`      | The chart type; can be either a pie chart or a donut chart.                                                                        |
-| `maxValue`         | `number`                 | `null`       | The maximum chart value that defines the full circle. If not set the maximum value is equal to the sum of all chart series values. |
-| `legendPosition`   | `'right' | 'bottom'`     | `right`      | Defines where the chart's legend is placed.                                                                                        |
-| `valueDisplayMode` | `'absolute' | 'percent'` | `'absolute'` | Mode of value visualization. It can be `percent` or `absolute`.                                                                    |
-| `selectable`       | `boolean`                | false        | Sets the display mode for the sunburst-chart values to either 'percent' or 'absolute'.                                             |
+| Name               | Type        | Default    | Description                                                                                                                        |
+| ------------------ | ----------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `type`             | `'pie'      | 'donut'`   | `'pie'`                                                                                                                            | The chart type; can be either a pie chart or a donut chart. |
+| `maxValue`         | `number`    | `null`     | The maximum chart value that defines the full circle. If not set the maximum value is equal to the sum of all chart series values. |
+| `legendPosition`   | `'right'    | 'bottom'`  | `right`                                                                                                                            | Defines where the chart's legend is placed. |
+| `valueDisplayMode` | `'absolute' | 'percent'` | `'absolute'`                                                                                                                       | Mode of value visualization. It can be `percent` or `absolute`. |
+| `selectable`       | `boolean`   | false      | Sets the display mode for the sunburst-chart values to either 'percent' or 'absolute'.                                             |
 
 ### Max value
 

@@ -1,3 +1,50 @@
+## [8.2.0](https://github.com/dynatrace-oss/barista/compare/8.1.0...8.2.0) (2020-10-29)
+
+### Note
+
+With this release the quickfilter component was moved from the experimental
+package and becomes stable. All imports from
+`@dynatrace/barista-components/experimental/quick-filter` need to be changed to
+`@dynatrace/barista-components/quick-filter`. Thanks to everyone who helped
+test, develop and provided feedback. Future changes for the quick-filter will
+follow semantic versioning from now on.
+
+### Bug Fixes
+
+- **chart:** Fix dynamic heatfield generation that was not possible.
+  ([796b9e9](https://github.com/dynatrace-oss/barista/commit/796b9e9dcc373f85f4e73719a9d4686287fa3062)),
+  closes [#1580](https://github.com/dynatrace-oss/barista/issues/1580)
+- **context-dialog:** Focuses the first tabbable element inside the overlay
+  context instead of the last.
+  ([8b83638](https://github.com/dynatrace-oss/barista/commit/8b836387bb3271a7605c2a22db1cd733d38791af))
+- **event-chart:** Display human readable time
+  ([819f1a8](https://github.com/dynatrace-oss/barista/commit/819f1a8384e3a418c3896dbefebca4af9127b691))
+- **examples:** Bumps @angular/cdk from 10.1.1 to 10.2.4 which fixes the table's
+  and tree-table's stackblitz issues due to a regression.
+  ([0573542](https://github.com/dynatrace-oss/barista/commit/05735421b88672394a49a528e1ef015a8a870d93))
+- **filter-field, autocomplete:** Fixes an issue that the panels did not react
+  to viewport boundaries correctly.
+  ([2aac52b](https://github.com/dynatrace-oss/barista/commit/2aac52bbd48a0c612defb662d5d4f580b49e5c78)),
+  closes [#1747](https://github.com/dynatrace-oss/barista/issues/1747)
+- **quick-filter:** Fixes a bug that didn't show any options when the view-more
+  button was clicked.
+  ([f96e3c5](https://github.com/dynatrace-oss/barista/commit/f96e3c5ba0397b982d2e6940384911e8425692bb))
+- **option:** Fixes an issue with the scrollbar on firefox causing text to be
+  cut short unintentionally.
+  ([928ff1d](https://github.com/dynatrace-oss/barista/commit/928ff1dc7dcfe8098f7e8c26427c1d54d6855238))
+- **tree-table:** Fixes the tree-table by reverting the changes causing unwanted
+  behaviour of the text to expand on hover, back to overflow: hidden and
+  text-overflow: ellipsis
+  ([de61612](https://github.com/dynatrace-oss/barista/commit/de61612b9ba03c94160b304e25af3127d1c09b04))
+
+### Features
+
+- **quick-filter:** Move the quick filter component out of the experimental
+  package.
+  ([17ea085](https://github.com/dynatrace-oss/barista/commit/17ea085c85bc032343e45b9823a8b94f52c6c141))
+- **radial-chart:** Makes the legend interactable.
+  ([76afff4](https://github.com/dynatrace-oss/barista/commit/76afff44caecd4b8452835a3a1a7f4ec3fccc1c5))
+
 ## [8.1.2](https://github.com/dynatrace-oss/barista/compare/8.1.1...8.1.2) (2020-10-12)
 
 ### Bug Fixes

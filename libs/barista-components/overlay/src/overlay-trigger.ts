@@ -58,7 +58,8 @@ export const _DtOverlayTriggerMixin = mixinTabIndex(
   },
   inputs: ['disabled', 'tabIndex'],
 })
-export class DtOverlayTrigger<T> extends _DtOverlayTriggerMixin
+export class DtOverlayTrigger<T>
+  extends _DtOverlayTriggerMixin
   implements CanDisable, HasTabIndex, OnDestroy {
   private _content: TemplateRef<T>;
   private _config: DtOverlayConfig = new DtOverlayConfig();

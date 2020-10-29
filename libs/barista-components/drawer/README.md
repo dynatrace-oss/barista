@@ -29,11 +29,11 @@ the content that should be pushed to off-canvas.
 
 ## Inputs
 
-| Name       | Type              | Default   | Description                                                                                                                      |
-| ---------- | ----------------- | --------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| `mode`     | `'side' | 'over'` | `'side'`  | The behavior of the drawer, can overlay over or shrink the primary content.                                                      |
-| `position` | `'start' | 'end'` | `'start'` | Defines if the drawer is on the left or right side in a container. _(A drawer container can only have one drawer per position.)_ |
-| `opened`   | `boolean`         | `false`   | The actual open state of the drawer.                                                                                             |
+| Name       | Type      | Default | Description                          |
+| ---------- | --------- | ------- | ------------------------------------ |
+| `mode`     | `'side'   | 'over'` | `'side'`                             | The behavior of the drawer, can overlay over or shrink the primary content. |
+| `position` | `'start'  | 'end'`  | `'start'`                            | Defines if the drawer is on the left or right side in a container. _(A drawer container can only have one drawer per position.)_ |
+| `opened`   | `boolean` | `false` | The actual open state of the drawer. |
 
 ## Outputs
 
@@ -78,9 +78,7 @@ on top of the main content instead.
 
 ```html
 <dt-sidenav-container>
-  <dt-sidenav mode="side" opened>
-    Sidenav content
-  </dt-sidenav>
+  <dt-sidenav mode="side" opened> Sidenav content </dt-sidenav>
   Main content
 </dt-sidenav-container>
 ```
@@ -90,9 +88,7 @@ on top of the main content instead.
 ```html
 <dt-sidenav-container>
   <dt-sidenav mode="side" opened]>
-    <dt-sidenav-header>
-      Title
-    </dt-sidenav-header>
+    <dt-sidenav-header> Title </dt-sidenav-header>
     Sidenav content
   </dt-sidenav>
   Main content

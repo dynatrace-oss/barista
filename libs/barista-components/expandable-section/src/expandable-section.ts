@@ -62,7 +62,8 @@ export const _ExpandableSectionBase = mixinId(
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtExpandableSection extends _ExpandableSectionBase
+export class DtExpandableSection
+  extends _ExpandableSectionBase
   implements CanDisable, HasId {
   /** Whether the expandable section is expanded. */
   @Input()

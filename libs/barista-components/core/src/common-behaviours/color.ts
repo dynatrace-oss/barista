@@ -106,7 +106,8 @@ export const _DtColorMixinBase = mixinColor(DtColorBase);
   exportAs: 'dtColor',
   inputs: ['color'],
 })
-export class DtColor extends _DtColorMixinBase
+export class DtColor
+  extends _DtColorMixinBase
   implements CanColor<DtThemePalette> {
   constructor(elementRef: ElementRef) {
     super(elementRef);

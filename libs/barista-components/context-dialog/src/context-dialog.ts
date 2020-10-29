@@ -125,7 +125,8 @@ export const DT_CONTEXT_DIALOG_CONFIG = new InjectionToken<OverlayConfig>(
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtContextDialog extends _DtContextDialogMixinBase
+export class DtContextDialog
+  extends _DtContextDialogMixinBase
   implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit {
   /** The class that traps and manages focus within the overlay. */
   private _focusTrap: FocusTrap | null;

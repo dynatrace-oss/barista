@@ -63,7 +63,8 @@ export const _DtButtonGroup = mixinTabIndex(
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtButtonGroup<T> extends _DtButtonGroup
+export class DtButtonGroup<T>
+  extends _DtButtonGroup
   implements CanDisable, HasTabIndex, AfterContentInit {
   private _value: T | null = null;
   private _disabled = false;
@@ -196,7 +197,8 @@ export const _DtButtonGroupItem = mixinTabIndex(
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtButtonGroupItem<T> extends _DtButtonGroupItem
+export class DtButtonGroupItem<T>
+  extends _DtButtonGroupItem
   implements
     CanDisable,
     CanColor<DtButtonGroupThemePalette>,

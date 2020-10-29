@@ -128,7 +128,8 @@ export const _DtComboboxMixinBase = mixinTabIndex(
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtCombobox<T> extends _DtComboboxMixinBase
+export class DtCombobox<T>
+  extends _DtComboboxMixinBase
   implements
     OnInit,
     AfterContentInit,
