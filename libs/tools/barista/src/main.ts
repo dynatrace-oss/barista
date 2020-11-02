@@ -40,6 +40,7 @@ import {
   getExamplesInPackages,
   generateExamplesLibMetadataFile,
 } from './utils/examples';
+import { environment } from '@environments/barista-environment';
 
 // Add your page-builder to this map to register it.
 
@@ -103,9 +104,8 @@ const baristaEnvironment = { distDir: 'dist/barista-data' };
 
 /** Builds pages using all registered builders. */
 async function buildPages(): Promise<void[]> {
-  const { next, linkReplacement } = options({
+  const { next } = options({
     next: { type: 'boolean', alias: 'n', default: false },
-    linkReplacement: { type: 'string', alias: 'lr' },
   }).argv;
 
   console.log(`Generating examples lib metadata file for barista`);
@@ -122,12 +122,12 @@ async function buildPages(): Promise<void[]> {
   );
   console.log();
 
-  const environment = next ? nextEnvironment : baristaEnvironment;
+  const env = next ? nextEnvironment : baristaEnvironment;
   const globalTransformers = next
     ? []
     : [
         await createExampleInlineSourcesTransformer(),
-        createInternalLinksTransformer(linkReplacement),
+        createInternalLinksTransformer(environment.internalLinks),
         createInternalContentTransformer(),
       ];
 
@@ -138,16 +138,16 @@ async function buildPages(): Promise<void[]> {
   const results = await builders.reduce<Promise<BaPageBuildResult[]>>(
     async (aggregatedResults, currentBuilder) => [
       ...(await aggregatedResults),
-      ...(await currentBuilder(globalTransformers, next, environment)),
+      ...(await currentBuilder(globalTransformers, next, env)),
     ],
     Promise.resolve([]),
   );
 
   // Make sure dist dir is created
-  mkdirSync(environment.distDir, { recursive: true });
+  mkdirSync(env.distDir, { recursive: true });
 
   const files = results.map(async (result) => {
-    const outFile = join(environment.distDir, result.relativeOutFile);
+    const outFile = join(env.distDir, result.relativeOutFile);
 
     // Creating folder path if it does not exist
     mkdirSync(dirname(outFile), { recursive: true });
@@ -169,9 +169,9 @@ async function buildPages(): Promise<void[]> {
     await uxDecisionGraphGenerator();
   }
 
-  const routes = sync(`${environment.distDir}/**/*.json`)
+  const routes = sync(`${env.distDir}/**/*.json`)
     .map((file) => {
-      const path = file.replace(environment.distDir, '').replace(/\..+$/, ''); // replace the file ending
+      const path = file.replace(env.distDir, '').replace(/\..+$/, ''); // replace the file ending
 
       switch (path) {
         case 'index':
@@ -185,7 +185,7 @@ async function buildPages(): Promise<void[]> {
     .filter(Boolean)
     .join(EOL);
 
-  const routesFile = join(environment.distDir, 'routes.txt');
+  const routesFile = join(env.distDir, 'routes.txt');
   // write the barista and next routes to a own file that can be used for pre rendering
   fs.writeFile(routesFile, routes, 'utf-8');
   console.log(
