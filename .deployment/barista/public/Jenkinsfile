@@ -74,13 +74,7 @@ pipeline {
           sh '''
             npm run ng run barista-tools:build
 
-            if $INTERNAL_LINKS ; then
-              args='--linkReplacement=$INTERNAL_LINKS'
-            else
-              args=''
-            fi
-
-            node dist/libs/tools/barista/main.js ${args}
+            node dist/libs/tools/barista/main.js
 
             cat dist/barista-data/routes.txt
 
