@@ -162,7 +162,7 @@
     "jest-serializer-path": "^0.1.15",
     "lodash": "^4.17.20",
     "markdown-it": "^11.0.0",
-    "markdown-it-deflist": "^2.0.3",
+    "markdown-it-deflist": "^2.1.0",
     "memfs": "^3.2.0",
     "ng-packagr": "^10.0.3",
     "patch-package": "^6.2.2",
