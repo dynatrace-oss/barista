@@ -59,8 +59,11 @@ executors:
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-bazel_cache: &bazel_cache v1-dt-barista-{{ checksum ".bazelversion" }}-{{ checksum "WORKSPACE" }}-{{ checksum "package-lock.json" }}
-bazel_cache_fallback: &bazel_cache_fallback v1-dt-barista-{{ checksum ".bazelversion" }}
+bazel_cache:
+  &bazel_cache v1-dt-barista-{{ checksum ".bazelversion" }}-{{ checksum
+  "WORKSPACE" }}-{{ checksum "package-lock.json" }}
+bazel_cache_fallback:
+  &bazel_cache_fallback v1-dt-barista-{{ checksum ".bazelversion" }}
 
 filter_forks: &filter_forks
   filters:
@@ -98,7 +101,6 @@ set_env: &set_env
   name: Setup Environment Variables
   command: node dist/libs/workspace/src/scripts/affected-args.js
 
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   C O M M A N D S:
@@ -117,7 +119,7 @@ commands:
           at: ~/barista
       - run:
           name: Setup Environment Variables
-          command:  node dist/libs/workspace/src/scripts/affected-args.js
+          command: node dist/libs/workspace/src/scripts/affected-args.js
   prepare_job_win:
     description: >-
       Prepares the workspace with the correct working directory and sets the
@@ -127,7 +129,7 @@ commands:
           at: C:\Users\circleci\project\
       - run:
           name: Setup Environment Variables
-          command:  node dist\libs\workspace\src\scripts\affected-args.js
+          command: node dist\libs\workspace\src\scripts\affected-args.js
 
   skip_for_forked_pull_requests:
     description: >-
@@ -219,8 +221,7 @@ commands:
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 jobs:
-
-# - Builds docker image for workspace
+  # - Builds docker image for workspace
   build-docker-image:
     executor: docker-publisher
     steps:
@@ -243,7 +244,7 @@ jobs:
             docker push $WORKSPACE_IMAGE:latest
             docker push $BAZEL_IMAGE:bazel-3.3.1
 
-# - install npm dependencies
+  # - install npm dependencies
   install:
     executor: barista
     steps:
@@ -269,7 +270,7 @@ jobs:
           paths:
             - .
 
-# - install npm dependencies on a windows machine
+  # - install npm dependencies on a windows machine
   # install-win:
   #   executor:
   #     name: win/default
@@ -298,7 +299,7 @@ jobs:
   #         paths:
   #           - .
 
-# - sonar checks
+  # - sonar checks
   sonar:
     executor: buildpack
     environment:
@@ -310,7 +311,7 @@ jobs:
           at: ~/barista
       - sonarcloud/scan
 
-# - snyk security checks
+  # - snyk security checks
   security-checks:
     executor: buildpack
     steps:
@@ -320,21 +321,21 @@ jobs:
       - snyk/scan:
           organization: dynatrace-oss
 
-# - check formatting if all files are formatted with prettier
+  # - check formatting if all files are formatted with prettier
   check-formatting:
     executor: barista
     steps:
       - prepare_job
       - run: yarn nx format:check ${AFFECTED_ARGS} --parallel
 
-# - static codeanalysis of the workspace
+  # - static codeanalysis of the workspace
   lint-workspace:
     executor: barista
     steps:
       - prepare_job
       - run: ./node_modules/.bin/nx workspace-lint
 
-# - static codeanalysis of the files
+  # - static codeanalysis of the files
   lint:
     executor: barista
     parallelism: 2
@@ -342,19 +343,21 @@ jobs:
       - prepare_job
       - run: yarn run-many --target lint
 
-# - build all the packages
+  # - build all the packages
   build:
     executor: barista
     resource_class: xlarge
     parallelism: 4
     steps:
       - prepare_job
-      - run: yarn run-many --target build --configuration production --increasedMemory 8192 --withDeps
+      - run:
+          yarn run-many --target build --configuration production
+          --increasedMemory 8192 --withDeps
       - persist_to_workspace:
           root: ~/barista
           paths:
             - .
-# - build all the packages on windows
+  # - build all the packages on windows
   # build-win:
   #   executor:
   #     name: win/default
@@ -371,7 +374,7 @@ jobs:
   #         paths:
   #           - .
 
-# - pack and upload the build artifacts of the components library
+  # - pack and upload the build artifacts of the components library
   store-build-artifacts:
     executor: barista
     steps:
@@ -388,7 +391,7 @@ jobs:
           path: dist/libs/components.tar.gz
           destination: barista-components
 
-# - run unit tests
+  # - run unit tests
   unit-test:
     executor: barista
     resource_class: large
@@ -399,7 +402,7 @@ jobs:
       - store_test_results:
           path: dist/test-results
 
-# - run unit tests on windows
+  # - run unit tests on windows
   # unit-test-win:
   #   executor:
   #     name: win/default
@@ -411,7 +414,7 @@ jobs:
   #     - store_test_results:
   #         path: dist\test-results
 
-# - run end to end tests
+  # - run end to end tests
   e2e-test-browserstack:
     executor: barista
     resource_class: large
@@ -425,7 +428,7 @@ jobs:
       - store_test_results:
           path: dist/components-e2e
 
-# - run end to end tests
+  # - run end to end tests
   e2e-test-local:
     executor: barista-browsers
     resource_class: large
@@ -435,17 +438,19 @@ jobs:
       - store_test_results:
           path: dist/components-e2e
 
-# - run a11y tests
+  # - run a11y tests
   a11y:
     executor: barista-browsers
     resource_class: large
     steps:
       - prepare_job
-      - run: yarn nx affected --target=a11y ${AFFECTED_ARGS} --parallel --configuration=ci
+      - run:
+          yarn nx affected --target=a11y ${AFFECTED_ARGS} --parallel
+          --configuration=ci
       - store_test_results:
           path: dist/demos-a11y
 
-# - static codeanalysis of the style files
+  # - static codeanalysis of the style files
   bazel_stylelint:
     executor: bazel
     resource_class: xlarge
@@ -457,7 +462,7 @@ jobs:
           path: ./profile.gz
           destination: bazel-performance-profile
 
-# - unit testing with jest
+  # - unit testing with jest
   bazel_unit_test:
     executor: bazel
     resource_class: xlarge
@@ -469,7 +474,7 @@ jobs:
           path: ./profile.gz
           destination: bazel-performance-profile
 
-# - build all targets with bazel
+  # - build all targets with bazel
   bazel_build:
     executor: bazel
     resource_class: xlarge
@@ -480,7 +485,6 @@ jobs:
           path: ./profile.gz
           destination: bazel-performance-profile
 
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   W O R K F L O W S:
@@ -490,20 +494,19 @@ jobs:
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-
 workflows:
   version: 2.1
 
-# - Publish the workspace image on every master build
-  workspace-build:
-    jobs:
-      - build-docker-image:
-          filters:
-            branches:
-              only: master
-          # DOCKERHUB_USER is used for publishing
-          # DOCKERHUB_PASSWORD is used for publishing
-          context: barista
+  # - Publish the workspace image on every master build
+  # workspace-build:
+  #   jobs:
+  # - build-docker-image:
+  #     filters:
+  #       branches:
+  #         only: master
+  #     # DOCKERHUB_USER is used for publishing
+  #     # DOCKERHUB_PASSWORD is used for publishing
+  #     context: barista
 
   fork-check:
     jobs:
@@ -537,7 +540,7 @@ workflows:
           requires:
             - install
 
-# - Runs on every PR check
+  # - Runs on every PR check
   pr-check:
     jobs:
       - bazel_stylelint:
@@ -579,11 +582,11 @@ workflows:
           requires:
             - install
       # - e2e-test-browserstack:
-          # BROWSERSTACK_ACCESS_KEY is needed for browserstack automation
-          # BROWSERSTACK_USERNAME is needed for browserstack automation
-          # context: barista
-          # requires:
-            # - install
+      # BROWSERSTACK_ACCESS_KEY is needed for browserstack automation
+      # BROWSERSTACK_USERNAME is needed for browserstack automation
+      # context: barista
+      # requires:
+      # - install
       - e2e-test-local:
           context: barista
           requires:
@@ -618,4 +621,3 @@ workflows:
   #         context: barista
   #         requires:
   #           - install-win
-
