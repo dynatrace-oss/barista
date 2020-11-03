@@ -75,6 +75,12 @@ pipeline {
         }
       }
     }
+
+    stage('Trigger barista-examples-build') {
+      steps {
+        build quietPeriod: 0, wait: false, propagate: false, job: 'barista/barista-examples-builder'
+      }
+    }
   }
 
   post {
