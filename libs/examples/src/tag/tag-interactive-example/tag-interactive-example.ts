@@ -15,20 +15,57 @@
  */
 
 import { Component } from '@angular/core';
-
-import { DtTag } from '@dynatrace/barista-components/tag';
+interface TagData {
+  displayValue: string;
+  value: string;
+  key: string;
+  title: string;
+}
 
 @Component({
   selector: 'dt-example-tag-interactive',
   templateUrl: './tag-interactive-example.html',
+  styleUrls: ['./tag-interactive-example.scss'],
 })
 export class DtExampleTagInteractive {
-  value1 = 'My value 1';
-  value2 = 'My value 2';
   canRemove = false;
-  hasKey = false;
+  showKey = false;
 
-  doRemove(tag: DtTag<string>): void {
-    window.alert(`Tag removed: ${tag.value}`);
+  tags: TagData[] = [
+    {
+      displayValue: 'Windows',
+      value: 'My value 1',
+      key: '[AWS]OSType:',
+      title: 'My custom tooltip',
+    },
+    {
+      displayValue: 'Managed',
+      value: 'My value 2',
+      key: '[AWS]Category:',
+      title: 'Another custom tooltip',
+    },
+  ];
+
+  // Keeps the removed tags, to be restored.
+  removed: TagData[] = [];
+
+  /**
+   * Remove the passed element from the tags list and store it
+   * in the removed array for restoration.
+   */
+  doRemove(tag: TagData): void {
+    const selectedTag = this.tags.find((t) => t.value === tag.value);
+    if (selectedTag) {
+      this.removed.push(selectedTag);
+      this.tags.splice(this.tags.indexOf(selectedTag), 1);
+    }
+  }
+
+  /** Restores the removed tags, does not restore the order of the list though. */
+  undoRemove(): void {
+    const lastRemoved = this.removed.pop();
+    if (lastRemoved) {
+      this.tags.push(lastRemoved);
+    }
   }
 }
