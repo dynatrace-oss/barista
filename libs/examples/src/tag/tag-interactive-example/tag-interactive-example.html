@@ -1,36 +1,31 @@
 <dt-tag-list aria-label="A list of tags applying to the current host">
   <dt-tag
+    *ngFor="let tag of tags"
     [removable]="canRemove"
-    [value]="value1"
-    (removed)="doRemove(tag1)"
-    #tag1
-    title="My custom tooltip"
+    [value]="tag.value"
+    (removed)="doRemove(tag)"
+    [title]="tag.title"
   >
-    <dt-tag-key *ngIf="hasKey">[AWS]OSType:</dt-tag-key>
-    Windows
-  </dt-tag>
-  <dt-tag
-    [removable]="canRemove"
-    [value]="value2"
-    (removed)="doRemove(tag2)"
-    #tag2
-    title="Another tooltip"
-  >
-    <dt-tag-key *ngIf="hasKey">[AWS]Category:</dt-tag-key>
-    Managed
+    <dt-tag-key *ngIf="showKey">{{tag.key}}</dt-tag-key>
+    {{tag.displayValue}}
   </dt-tag>
 </dt-tag-list>
-<button
-  dt-button
-  (click)="canRemove = !canRemove"
-  [variant]="canRemove ? 'primary' : 'secondary'"
->
-  Toggle removable
-</button>
-<button
-  dt-button
-  (click)="hasKey = !hasKey"
-  [variant]="hasKey ? 'primary' : 'secondary'"
->
-  Toggle key
-</button>
+<p>
+  <button
+    dt-button
+    (click)="canRemove = !canRemove"
+    [variant]="canRemove ? 'primary' : 'secondary'"
+  >
+    Toggle removable
+  </button>
+  <button
+    dt-button
+    (click)="showKey = !showKey"
+    [variant]="showKey ? 'primary' : 'secondary'"
+  >
+    Toggle key
+  </button>
+  <button dt-button (click)="undoRemove()" [disabled]="removed.length === 0">
+    Undo remove
+  </button>
+</p>
