@@ -15,7 +15,6 @@ ng_module_view_engine(
     ),
     angular_assets = [
         ":styles",
-        ":_styles_theme",
         "src/info-group.html",
     ],
     module_name = "@dynatrace/barista-components/info-group",
@@ -40,13 +39,8 @@ filegroup(
 )
 
 sass_binary(
-  name = "styles",
-  src = "src/info-group.scss",
-)
-
-sass_binary(
-    name = "_styles_theme",
-    src = "src/_info-group-theme.scss",
+    name = "styles",
+    src = "src/info-group.scss",
 )
 
 stylelint(
@@ -63,8 +57,8 @@ jest(
     deps = [
         ":compile",
         "//libs/testing/browser",
-        "@npm//@angular/platform-browser",
         "@npm//@angular/core",
+        "@npm//@angular/platform-browser",
     ],
 )
 
