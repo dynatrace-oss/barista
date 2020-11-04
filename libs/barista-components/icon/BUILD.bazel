@@ -1,4 +1,4 @@
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
 load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
@@ -36,22 +36,14 @@ filegroup(
             "src/test-setup.ts",
         ],
     ) + [
-        ":scss_lib",
         ":styles",
     ],
-)
-
-sass_library(
-    name = "scss_lib",
-    srcs = glob(
-        ["src/**/_*.scss"],
-    ),
 )
 
 sass_binary(
     name = "styles",
     src = "src/icon.scss",
-    deps = [":scss_lib"],
+    deps = [],
 )
 
 stylelint(

@@ -1,6 +1,4 @@
 @import '../../style/font-mixins';
-@import '../../core/src/theming/theming';
-@import './info-group-theme';
 
 :host {
   display: flex;
@@ -49,6 +47,6 @@
   }
 }
 
-@include dt-apply-theme() {
-  @include dt-theme-info-group($dt-current-theme);
+:host ::ng-deep .dt-info-group-icon {
+  --dt-icon-color: var(--dt-theme-main-default-color);
 }
