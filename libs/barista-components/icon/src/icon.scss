@@ -1,4 +1,4 @@
-@import './icon-theme';
+@import '../../core/src/style/variables';
 
 .dt-icon {
   display: inline-block;
@@ -6,7 +6,40 @@
   width: 100%;
 }
 
-// Apply the icon theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-icon($dt-current-theme);
+.dt-icon svg {
+  fill: var(--dt-icon-color);
+}
+
+.dt-icon.dt-color-main {
+  --dt-icon-color: var(--dt-theme-main-default-color);
+}
+.dt-icon.dt-color-accent {
+  --dt-icon-color: var(--dt-accent-default-color);
+}
+.dt-icon.dt-color-warning {
+  --dt-icon-color: var(--dt-warning-default-color);
+}
+.dt-icon.dt-color-error {
+  --dt-icon-color: var(--dt-error-default-color);
+}
+.dt-icon.dt-color-cta {
+  --dt-icon-color: var(--dt-cta-default-color);
+}
+.dt-icon.dt-color-light {
+  --dt-icon-color: #{$white};
+}
+.dt-icon.dt-color-dark {
+  --dt-icon-color: #{$gray-300};
+}
+
+.dt-theme-dark {
+  .dt-icon.dt-color-main,
+  .dt-icon.dt-color-accent,
+  .dt-icon.dt-color-warning,
+  .dt-icon.dt-color-error,
+  .dt-icon.dt-color-cta,
+  .dt-icon.dt-color-light,
+  .dt-icon.dt-color-dark {
+    --dt-icon-color: #{$white};
+  }
 }
