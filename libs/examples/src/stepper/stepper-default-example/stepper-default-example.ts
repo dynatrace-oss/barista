@@ -22,23 +22,7 @@ import { DtStepper } from '@dynatrace/barista-components/stepper';
 @Component({
   selector: 'dt-example-stepper-default',
   templateUrl: './stepper-default-example.html',
-  styles: [
-    `
-      .monitor-type-wrapper {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 1rem;
-        max-width: 800px;
-      }
-      .monitor-type {
-        display: grid;
-        grid-template-rows: auto auto 1fr auto;
-      }
-      .monitor-type img {
-        justify-self: center;
-      }
-    `,
-  ],
+  styleUrls: ['./stepper-default-example.scss'],
 })
 export class DtExampleStepperDefault implements OnInit {
   @ViewChild(DtStepper, { static: true }) stepper: DtStepper;
