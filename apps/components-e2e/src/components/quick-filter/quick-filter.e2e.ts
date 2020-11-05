@@ -19,6 +19,7 @@ import {
   clearAll,
   getFilterfieldTags,
   tagDeleteButton,
+  clickOption,
 } from '../filter-field/filter-field.po';
 import {
   getGroupItem,
@@ -28,6 +29,7 @@ import {
   getShowMoreButton,
   getShowMoreText,
   quickFilterBackButton,
+  filterFieldInput,
 } from './quick-filter.po';
 import { resetWindowSizeToDefault } from '../../utils';
 import { Selector } from 'testcafe';
@@ -124,6 +126,40 @@ test('if it is possible to delete an option via the filter field', async (testCo
     .expect(getGroupItemInput('USA', 'New York').checked)
     .ok()
     .expect(getGroupItemInput('USA', 'Los Angeles').checked)
+    .notOk();
+});
+
+test('if it is possible to set free text filters via the filter field', async (testController: TestController) => {
+  // Click option USA
+  await clickOption(2);
+  // Click option Custom
+  await clickOption(4);
+  await testController
+    .typeText(filterFieldInput, 'San Antonio')
+    .pressKey('Enter')
+    .expect(getFilterfieldTags())
+    .eql(['USASan Antonio']);
+});
+
+test('if it is possible to add and remove a quickfilter after a free text was set', async (testController: TestController) => {
+  // Click option USA
+  await clickOption(2);
+  // Click option Custom
+  await clickOption(4);
+  await testController
+    .typeText(filterFieldInput, 'San Antonio')
+    .pressKey('Enter')
+    .expect(getFilterfieldTags())
+    .eql(['USASan Antonio'])
+    .click(getGroupItem('USA', 'San Francisco'))
+    .expect(getFilterfieldTags())
+    .eql(['USASan Antonio', 'USASan Francisco'])
+    .expect(getGroupItemInput('USA', 'San Francisco').checked)
+    .ok()
+    .click(tagDeleteButton('San Francisco'), { speed: 0.4 })
+    .expect(getFilterfieldTags())
+    .eql(['USASan Antonio'])
+    .expect(getGroupItemInput('USA', 'San Francisco').checked)
     .notOk();
 });
 

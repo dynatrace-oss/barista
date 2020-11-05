@@ -18,6 +18,7 @@ import { Selector } from 'testcafe';
 
 export const quickFilterGroup = Selector('.dt-quick-filter-group');
 export const quickFilterBackButton = Selector('.dt-back-to-quick-filter');
+export const filterFieldInput = Selector('.dt-filter-field-input');
 
 /** get a group headline */
 const groupHeadline = (group: string) =>
