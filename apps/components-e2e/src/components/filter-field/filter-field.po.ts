@@ -17,7 +17,7 @@
 import { Selector, t, ClientFunction } from 'testcafe';
 
 export const errorBox = Selector('.dt-filter-field-error');
-export const filterField = Selector('#filter-field');
+export const filterField = Selector('.dt-filter-field');
 export const option = (nth: number) => Selector(`.dt-option:nth-child(${nth})`);
 export const clearAll = Selector('.dt-filter-field-clear-all-button');
 export const filterTags = Selector('dt-filter-field-tag');

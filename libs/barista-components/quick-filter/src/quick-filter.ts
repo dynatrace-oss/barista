@@ -36,6 +36,7 @@ import {
   DtFilterValue,
   isDtAutocompleteValue,
   _getSourcesOfDtFilterValues,
+  isDtFreeTextValue,
 } from '@dynatrace/barista-components/filter-field';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
@@ -286,7 +287,9 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   /** Get the filter Values from the Filter Field with only the displayable autocompletes */
   private _getFilteredValues(): DtFilterValue[][] {
     return this._filterField._filterValues.filter((group) =>
-      group.every((value) => isDtAutocompleteValue(value)),
+      group.every(
+        (value) => isDtAutocompleteValue(value) || isDtFreeTextValue(value),
+      ),
     );
   }
 
