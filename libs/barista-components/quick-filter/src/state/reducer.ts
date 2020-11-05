@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
+import {
+  DtLogger,
+  DtLoggerFactory,
+  isObject,
+} from '@dynatrace/barista-components/core';
 import { DtAutocompleteValue } from '@dynatrace/barista-components/filter-field';
 import { Action, ActionType } from './actions';
 import { initialState, QuickFilterState } from './store';
@@ -147,7 +151,10 @@ export function findSelectedOption(
       return true;
     }
     // if the last items uid in the path is equal to the uid, then we found our option.
-    if (uid === path[path.length - 1].option.uid) {
+    if (
+      isObject(path[path.length - 1].option) &&
+      uid === path[path.length - 1].option.uid
+    ) {
       return true;
     }
   });
