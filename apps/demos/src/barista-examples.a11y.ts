@@ -49,6 +49,7 @@ const BLOCKLIST: string[] = [
   'filter-field-readonly-non-editable-tags-example',
   'filter-field-unique-example',
   'filter-field-validator-example',
+  'filter-field-infinite-data-depth-example',
   'quick-filter-default-example',
   'quick-filter-custom-show-more-example',
 ];

@@ -27,6 +27,9 @@ class MyModule {}
 | `disabled`   | `boolean`                 | `false` | Whether the filter-field is disabled.                                                                            |
 | `aria-label` | `string`                  |         | Sets the value for the Aria-Label attribute.                                                                     |
 
+_Note: Check out the [Data source](components/filter-field#data-source) section
+to understand how to provide the correct data structure for the filter-field._
+
 ## Outputs
 
 | Name                   | Type                                                  | Description                                                                                                              |
@@ -43,10 +46,10 @@ class MyModule {}
 
 ## Methods
 
-| Name                             | Return value              | Description                                                                  |
-| -------------------------------- | ------------------------- | ---------------------------------------------------------------------------- |
-| `getTagForFilter(needle: any[])` | `DtFilterFieldTag | null` | Returns a `DtFilterFieldTag` if one can be found for the given filter needle |
-| `focus`                          | `void`                    | Focuses the filter field                                                     |
+| Name                             | Return value               | Description                                                                  |
+| -------------------------------- | -------------------------- | ---------------------------------------------------------------------------- |
+| `getTagForFilter(needle: any[])` | `DtFilterFieldTag \| null` | Returns a `DtFilterFieldTag` if one can be found for the given filter needle |
+| `focus`                          | `void`                     | Focuses the filter field                                                     |
 
 ## Distinct options
 
@@ -151,12 +154,17 @@ interface.
 
 The filter-field provides a default implementation of a `DataSource`, named
 `DtFilterFieldDefaultDataSource`, that takes a specific form of data
-(`DtFilterFieldDefaultDataSourceType`). If your data has a different form you
-can either transform your data so the default data source can understand it, or
-you create your own custom data source.
+(`DtFilterFieldDefaultDataSourceType`). The filter-field supports many layers of
+nesting for autocomplete nodes. You can have as many autocomplete nodes nested
+as you need. E.g. Having "continent > country > region > city" as 3 layers of
+autocomplete works perfectly fine. Nodes that can only be leaf nodes are
+free-text, range and options.
 
-When creating a custom data source, we also provide a lot of utility functions
-for converting and creating data into the form of definition node objects the
+<ba-live-example name="DtExampleFilterFieldInfiniteDataDepth"></ba-live-example>
+
+If your data has a different structure create your own custom data source. When
+creating a custom data source, we also provide a lot of utility functions for
+converting and creating data into the form of definition node objects the
 filter-field can understand. You can also take a look at the implementation of
 the `DtFilterFieldDefaultDataSource` to get a better understanding on how to
 create a custom data source.
