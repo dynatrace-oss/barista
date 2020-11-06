@@ -322,6 +322,7 @@ import {
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
   DtExampleComboboxCustomOptionHeight,
+  DtExampleFilterFieldInfiniteDataDepth,
 } from '@dynatrace/examples';
 
 // The Routing Module replaces the routing configuration in the root or feature module.
@@ -691,6 +692,10 @@ const ROUTES: Routes = [
     component: DtExampleFilterFieldDistinct,
   },
   {
+    path: 'filter-field-infinite-data-depth-example',
+    component: DtExampleFilterFieldInfiniteDataDepth,
+  },
+  {
     path: 'filter-field-partial-example',
     component: DtExampleFilterFieldPartial,
   },
@@ -992,11 +997,26 @@ const ROUTES: Routes = [
   { path: 'slider-simple-example', component: DtExampleSimpleSlider },
   { path: 'slider-fraction-example', component: DtExampleFractionSlider },
   { path: 'slider-disabled-example', component: DtExampleDisabledSlider },
-  { path: 'stacked-series-chart-single-example', component: DtExampleStackedSeriesChartSingle},
-  { path: 'stacked-series-chart-connected-legend-example', component: DtExampleStackedSeriesChartConnectedLegend},
-  { path: 'stacked-series-chart-generic-example', component: DtExampleStackedSeriesChartGeneric},
-  { path: 'stacked-series-chart-filled-example', component: DtExampleStackedSeriesChartFilled},
-  { path: 'stacked-series-chart-column-example', component: DtExampleStackedSeriesChartColumn},
+  {
+    path: 'stacked-series-chart-single-example',
+    component: DtExampleStackedSeriesChartSingle,
+  },
+  {
+    path: 'stacked-series-chart-connected-legend-example',
+    component: DtExampleStackedSeriesChartConnectedLegend,
+  },
+  {
+    path: 'stacked-series-chart-generic-example',
+    component: DtExampleStackedSeriesChartGeneric,
+  },
+  {
+    path: 'stacked-series-chart-filled-example',
+    component: DtExampleStackedSeriesChartFilled,
+  },
+  {
+    path: 'stacked-series-chart-column-example',
+    component: DtExampleStackedSeriesChartColumn,
+  },
   { path: 'stepper-default-example', component: DtExampleStepperDefault },
   { path: 'stepper-editable-example', component: DtExampleStepperEditable },
   { path: 'stepper-linear-example', component: DtExampleStepperLinear },
