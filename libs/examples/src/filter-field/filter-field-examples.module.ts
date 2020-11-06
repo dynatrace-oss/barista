@@ -23,6 +23,7 @@ import { DtExampleFilterFieldCustomParser } from './filter-field-custom-parser-e
 import { DtExampleFilterFieldDefault } from './filter-field-default-example/filter-field-default-example';
 import { DtExampleFilterFieldDisabled } from './filter-field-disabled-example/filter-field-disabled-example';
 import { DtExampleFilterFieldDistinct } from './filter-field-distinct-example/filter-field-distinct-example';
+import { DtExampleFilterFieldInfiniteDataDepth } from './filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example';
 import { DtExampleFilterFieldPartial } from './filter-field-partial-example/filter-field-partial-example';
 import { DtExampleFilterFieldProgrammaticFilters } from './filter-field-programmatic-filters-example/filter-field-programmatic-filters-example';
 import { DtExampleFilterFieldReadOnlyTags } from './filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example';
@@ -37,6 +38,7 @@ import { DtExampleFilterFieldValidator } from './filter-field-validator-example/
     DtExampleFilterFieldCustomParser,
     DtExampleFilterFieldDefault,
     DtExampleFilterFieldDistinct,
+    DtExampleFilterFieldInfiniteDataDepth,
     DtExampleFilterFieldPartial,
     DtExampleFilterFieldProgrammaticFilters,
     DtExampleFilterFieldDisabled,

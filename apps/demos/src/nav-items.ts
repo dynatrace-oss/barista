@@ -613,6 +613,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         route: '/filter-field-distinct-example',
       },
       {
+        name: 'filter-field-infinite-data-depth-example',
+        route: '/filter-field-infinite-data-depth-example',
+      },
+      {
         name: 'filter-field-partial-example',
         route: '/filter-field-partial-example',
       },

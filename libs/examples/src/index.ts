@@ -331,7 +331,7 @@ import { DtExampleTreeTableDefault } from './tree-table/tree-table-default-examp
 import { DtExampleTreeTableProblemIndicator } from './tree-table/tree-table-problem-indicator-example/tree-table-problem-indicator-example';
 import { DtExampleTreeTableSimple } from './tree-table/tree-table-simple-example/tree-table-simple-example';
 import { DtExampleComboboxCustomOptionHeight } from './combobox/combobox-custom-option-height-example/combobox-custom-option-height-example';
-
+import { DtExampleFilterFieldInfiniteDataDepth } from './filter-field/filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example';
 export { DtExamplesModule } from './examples.module';
 export { DtAlertExamplesModule } from './alert/alert-examples.module';
 export { DtAutocompleteExamplesModule } from './autocomplete/autocomplete-examples.module';
@@ -703,6 +703,7 @@ export {
   DtExampleTreeTableDefault,
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
+  DtExampleFilterFieldInfiniteDataDepth,
 };
 
 export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
@@ -1076,4 +1077,8 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTreeTableDefault', DtExampleTreeTableDefault],
   ['DtExampleTreeTableProblemIndicator', DtExampleTreeTableProblemIndicator],
   ['DtExampleTreeTableSimple', DtExampleTreeTableSimple],
+  [
+    'DtExampleFilterFieldInfiniteDataDepth',
+    DtExampleFilterFieldInfiniteDataDepth,
+  ],
 ]);
