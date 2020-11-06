@@ -177,6 +177,14 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    */
   _animationEnd = new Subject<AnimationEvent>();
 
+  /**
+   * @internal
+   * Width that will be set when the Drawer is closing to keep
+   * the drawer from relayouting and adjusting it's size
+   * due to the flex container.
+   */
+  _closedWidth: number | null;
+
   /** Used to skip the initial animation */
   private _enableAnimations = false;
 
@@ -264,6 +272,16 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    */
   toggle(opened: boolean = !this.opened): void {
     this._opened = opened;
+
+    // When the drawer is closed, we need to fix
+    // it's width to the original size to prevent relayout
+    // If the drawer would change size during this process,
+    // a drift would appear like in APM-266068
+    if (this._opened === false) {
+      this._closedWidth = this._width;
+    } else {
+      this._closedWidth = null;
+    }
 
     this._animationState = opened
       ? this._enableAnimations
