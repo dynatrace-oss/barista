@@ -2,11 +2,6 @@
   <dt-label>Value to be transformed</dt-label>
   <input dtInput [(ngModel)]="exampleValue" />
 </dt-form-field>
-<p>DEFAULT {{ exampleValue | dtDuration }}: {{ exampleValue | dtDuration }}</p>
-<p>
-  PRECISE + outputUnit {{ exampleValue | dtDuration: 'PRECISE':'s' }}: {{
-  exampleValue | dtDuration: 'PRECISE':'s' }}
-</p>
-<p>
-  CUSTOM {{ exampleValue | dtDuration: 5 }}: {{ exampleValue | dtDuration: 5 }}
-</p>
+<p>DEFAULT: {{ exampleValue | dtDuration }}</p>
+<p>PRECISE + outputUnit: {{ exampleValue | dtDuration: 'PRECISE':'s' }}</p>
+<p>CUSTOM: {{ exampleValue | dtDuration: 5 }}</p>

@@ -43,6 +43,17 @@ export function dtTransformResult(
   let rest = dtConvertToUnit(duration, inputUnit);
   let displayedUnits = 0;
   let amount;
+
+  // Edge case if the duration is exactly 0
+  // we cannot run through the loop, because it would
+  // never output.
+  // The check `if (amount > 0) {` is necessary with a >
+  // to keep the fall over conversion to the next
+  // unit correct and cannot be changed.
+  if (duration === 0 && typeof formatMethod === 'number') {
+    result.set(inputUnit, duration.toString());
+  }
+
   for (const key of Array.from(CONVERSION_FACTORS_TO_MS.keys())) {
     amount = Math.trunc(rest / CONVERSION_FACTORS_TO_MS.get(key)!);
     if (displayedUnits < unitsToDisplay) {
