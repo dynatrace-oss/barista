@@ -1,3 +1,7 @@
-<div class="dt-drawer-body">
+<div
+  class="dt-drawer-body"
+  [style.min-width.px]="_closedWidth"
+  [style.max-width.px]="_closedWidth"
+>
   <ng-content></ng-content>
 </div>
