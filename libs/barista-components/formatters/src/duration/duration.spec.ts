@@ -395,5 +395,8 @@ describe('DtDurationPipe', () => {
         '< 1 ms',
       );
     });
+    it('should handle 0 with formatMode number', () => {
+      expect(pipe.transform('0', 5, undefined).toString()).toEqual('0 ms');
+    });
   });
 });
