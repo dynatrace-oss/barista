@@ -110,7 +110,7 @@
     "@bazel/terser": "^2.2.1",
     "@bazel/typescript": "^2.2.1",
     "@commitlint/cli": "^9.1.2",
-    "@figma/plugin-typings": "^1.16.1",
+    "@figma/plugin-typings": "^1.18.2",
     "@nguniversal/builders": "^10.1.0",
     "@nguniversal/express-engine": "^10.1.0",
     "@nrwl/angular": "^10.0.13",
