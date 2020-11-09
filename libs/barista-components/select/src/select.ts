@@ -44,6 +44,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChild,
   ContentChildren,
   DoCheck,
   ElementRef,
@@ -103,6 +104,7 @@ import {
   DtFormField,
   DtFormFieldControl,
 } from '@dynatrace/barista-components/form-field';
+import { DtSelectValueTemplate } from './select-value-template';
 
 let uniqueId = 0;
 
@@ -437,6 +439,10 @@ export class DtSelect<T>
   /** Overlay pane containing the options. */
   @ViewChild(CdkConnectedOverlay)
   overlayDir: CdkConnectedOverlay;
+
+  /** @internal Custom trigger template. */
+  @ContentChild(DtSelectValueTemplate)
+  _customValueTemplate: DtSelectValueTemplate;
 
   /** All of the defined select options. */
   @ContentChildren(DtOption, { descendants: true }) options: QueryList<

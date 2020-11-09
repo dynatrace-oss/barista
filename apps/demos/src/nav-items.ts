@@ -1163,6 +1163,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'select-with-icons-example',
         route: '/select-with-icons-example',
       },
+      {
+        name: 'select-custom-value-template-example',
+        route: '/select-custom-value-template-example',
+      },
     ],
   },
   {

@@ -35,6 +35,7 @@ const BLOCKLIST: string[] = [
   'select-groups-example',
   'select-value-example',
   'select-with-icons-example',
+  'select-custom-value-template-example',
 
   // Disabled the filter field tests, because their `combobox` role does not
   // fulfil all requirements of a combobox.
