@@ -79,7 +79,13 @@ export class DtCellDef extends CdkCellDef {}
 export class DtColumnDef extends CdkColumnDef implements OnChanges {
   /** Unique name for this column. */
   // tslint:disable-next-line:no-input-rename
-  @Input('dtColumnDef') name: string;
+  @Input('dtColumnDef')
+  get name(): string {
+    return this._name;
+  }
+  set name(name: string) {
+    this._setNameInput(name);
+  }
 
   /** The alignment of the colums */
   // tslint:disable-next-line:no-input-rename
