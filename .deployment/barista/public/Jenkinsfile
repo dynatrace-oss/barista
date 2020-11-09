@@ -105,7 +105,7 @@ pipeline {
           }
 
 
-          sh "vercel -t $ZEIT_TOKEN ./dist/apps/barista-design-system/barista"
+          sh "vercel -t $ZEIT_TOKEN --prod ./dist/apps/barista-design-system/barista"
         }
       }
     }
