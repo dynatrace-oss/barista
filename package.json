@@ -99,7 +99,7 @@
     "@angular/cli": "^10.2.0",
     "@angular/compiler": "^10.2.0",
     "@angular/compiler-cli": "^10.2.0",
-    "@angular/language-service": "^10.2.0",
+    "@angular/language-service": "^10.2.2",
     "@angular/platform-browser-dynamic": "^10.2.0",
     "@angular/platform-server": "^10.2.0",
     "@angular/router": "^10.2.0",
