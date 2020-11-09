@@ -1,3 +1,18 @@
+## [8.3.0](https://github.com/dynatrace-oss/barista/compare/8.2.0...8.3.0) (2020-11-09)
+
+### Bug Fixes
+
+- **formatters:** Fixes an issue with 0 edge-case in number format mode.
+  ([a9c04aa](https://github.com/dynatrace-oss/barista/commit/a9c04aa4a173dde490a09926b6f468b4d376b56c))
+- **quick-filter:** Fixes an issue where free-text could not be set in a
+  quick-filter environment.
+  ([2b36cdd](https://github.com/dynatrace-oss/barista/commit/2b36cdd948d0e2638bd6eca7340652b6f50fd06a))
+
+### Features
+
+- **icon, info-group:** Switch theming to css-custom-properties.
+  ([df67f1e](https://github.com/dynatrace-oss/barista/commit/df67f1e32889c5e6995797e48718f9bace73a06d))
+
 ## [8.2.0](https://github.com/dynatrace-oss/barista/compare/8.1.0...8.2.0) (2020-10-29)
 
 ### Note
