@@ -55,7 +55,10 @@ export class DtExampleFilterFieldAsync {
   currentFilterChanged(
     event: DtFilterFieldCurrentFilterChangeEvent<any>,
   ): void {
-    if (event.added[0] === this.DATA.autocomplete[0]) {
+    if (
+      event.added[0] === this.DATA.autocomplete[0] ||
+      this.ASYNC_DATA.autocomplete.find((name) => name === event.removed[0])
+    ) {
       // Emulate a http request
       setTimeout(() => {
         this._dataSource.data = this.ASYNC_DATA;
