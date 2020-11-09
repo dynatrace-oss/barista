@@ -125,7 +125,7 @@
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "@types/chalk": "^0.4.31",
+    "@types/chalk": "^2.2.0",
     "@types/cheerio": "^0.22.21",
     "@types/d3-array": "^2.0.0",
     "@types/d3-color": "^1.2.2",
