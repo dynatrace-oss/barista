@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
-export * from './src/select-module';
-export * from './src/select';
-export * from './src/select-value-template';
+import { Component } from '@angular/core';
+
+/**
+ * Allows the user to customize the trigger that is displayed when the select has a value.
+ */
+@Component({
+  selector: 'dt-select-value-template',
+  template: '<ng-content></ng-content>',
+  host: {
+    class: 'dt-select-value-template',
+  },
+})
+export class DtSelectValueTemplate {}

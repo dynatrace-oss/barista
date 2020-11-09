@@ -1,0 +1,15 @@
+<dt-select
+  placeholder="Choose your color"
+  [(ngModel)]="selectedValue"
+  aria-label="Choose your color"
+>
+  <dt-select-value-template>
+    <span [style.background]="selectedValue?.value"></span>
+  </dt-select-value-template>
+  <dt-option *ngFor="let color of colors" [value]="color">
+    <div>
+      <span [style.background]="color.value"></span>
+      {{ color.viewValue }}
+    </div>
+  </dt-option>
+</dt-select>

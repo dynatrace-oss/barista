@@ -10,8 +10,16 @@
     <span class="dt-select-placeholder" *ngSwitchCase="true">
       {{ placeholder || '\u00A0' }}
     </span>
-    <span class="dt-select-value-text" *ngSwitchCase="false">
-      {{ triggerValue || '\u00A0' }}
+    <span
+      class="dt-select-value-text"
+      *ngSwitchCase="false"
+      [ngSwitch]="!!_customValueTemplate"
+    >
+      <span *ngSwitchDefault>{{ triggerValue || '\u00A0' }}</span>
+      <ng-content
+        select="dt-select-value-template"
+        *ngSwitchCase="true"
+      ></ng-content>
     </span>
   </div>
 

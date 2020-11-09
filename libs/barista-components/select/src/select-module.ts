@@ -23,10 +23,11 @@ import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { DtSelect } from './select';
+import { DtSelectValueTemplate } from './select-value-template';
 
 @NgModule({
   imports: [CommonModule, OverlayModule, DtIconModule, DtOptionModule],
-  exports: [DtFormFieldModule, DtOptionModule, DtSelect],
-  declarations: [DtSelect],
+  exports: [DtFormFieldModule, DtOptionModule, DtSelect, DtSelectValueTemplate],
+  declarations: [DtSelect, DtSelectValueTemplate],
 })
 export class DtSelectModule {}

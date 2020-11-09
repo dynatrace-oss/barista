@@ -247,6 +247,7 @@ import { DtExampleSecondaryNavMulti } from './secondary-nav/secondary-nav-multi-
 import { DtExampleSecondaryNavRouterLinkActive } from './secondary-nav/secondary-nav-router-link-active-example/secondary-nav-router-link-active-example';
 import { DtExampleSecondaryNavTitle } from './secondary-nav/secondary-nav-title-example/secondary-nav-title-example';
 import { DtExampleSelectComplexValue } from './select/select-complex-value-example/select-complex-value-example';
+import { DtExampleSelectCustomValueTemplate } from './select/select-custom-value-template-example/select-custom-value-template-example';
 import { DtExampleSelectDefault } from './select/select-default-example/select-default-example';
 import { DtExampleSelectDisabled } from './select/select-disabled-example/select-disabled-example';
 import { DtExampleSelectFormField } from './select/select-form-field-example/select-form-field-example';
@@ -704,6 +705,7 @@ export {
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
   DtExampleFilterFieldInfiniteDataDepth,
+  DtExampleSelectCustomValueTemplate,
 };
 
 export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
@@ -989,6 +991,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleSelectGroups', DtExampleSelectGroups],
   ['DtExampleSelectValue', DtExampleSelectValue],
   ['DtExampleSelectWithIcons', DtExampleSelectWithIcons],
+  ['DtExampleSelectCustomValueTemplate', DtExampleSelectCustomValueTemplate],
   ['DtExampleShowMoreDark', DtExampleShowMoreDark],
   ['DtExampleShowMoreDefault', DtExampleShowMoreDefault],
   ['DtExampleShowMoreDisabled', DtExampleShowMoreDisabled],

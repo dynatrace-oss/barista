@@ -41,17 +41,17 @@ in the Angular forms documentation).
 
 ## DtSelect inputs
 
-| Name                | Type                                                       | Description                                                                                                                                                                                                       |
-| ------------------- | ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `placeholder`       | `string`                                                   | Placeholder to be shown if no value has been selected.                                                                                                                                                            |
-| `required`          | `boolean`                                                  | Whether the component is required.                                                                                                                                                                                |
-| `compareWith`       | `(v1: T, v2: T) => boolean`                                | Function to compare the option values with the selected values. The first argument is a value from an option. The second is a value from the selection. A boolean should be returned. Defaults to value equality. |
-| `value`             | `T`                                                        | Value of the select control.                                                                                                                                                                                      |
-| `id`                | `string`                                                   | Unique id of the element.                                                                                                                                                                                         |
-| `aria-label`        | `string`                                                   | Aria label of the select. If not specified, the placeholder will be used as label.                                                                                                                                |
-| `aria-labelledby`   | `string`                                                   | Input that can be used to specify the `aria-labelledby` attribute.                                                                                                                                                |
-| `errorStateMatcher` | `ErrorStateMatcher`                                        | Object used to control when error messages are shown.                                                                                                                                                             |
-| `panelClass`        | `string | string[] | Set<string> | { [key: string]: any }` | Classes to be passed to the select panel. Supports the same syntax as `ngClass`.                                                                                                                                  |
+| Name                | Type                        | Description                                                                                                                                                                                                       |
+| ------------------- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `placeholder`       | `string`                    | Placeholder to be shown if no value has been selected.                                                                                                                                                            |
+| `required`          | `boolean`                   | Whether the component is required.                                                                                                                                                                                |
+| `compareWith`       | `(v1: T, v2: T) => boolean` | Function to compare the option values with the selected values. The first argument is a value from an option. The second is a value from the selection. A boolean should be returned. Defaults to value equality. |
+| `value`             | `T`                         | Value of the select control.                                                                                                                                                                                      |
+| `id`                | `string`                    | Unique id of the element.                                                                                                                                                                                         |
+| `aria-label`        | `string`                    | Aria label of the select. If not specified, the placeholder will be used as label.                                                                                                                                |
+| `aria-labelledby`   | `string`                    | Input that can be used to specify the `aria-labelledby` attribute.                                                                                                                                                |
+| `errorStateMatcher` | `ErrorStateMatcher`         | Object used to control when error messages are shown.                                                                                                                                                             |
+| `panelClass`        | `string                     | string[]                                                                                                                                                                                                          | Set<string> | { [key: string]: any }` | Classes to be passed to the select panel. Supports the same syntax as `ngClass`. |
 
 ## DtSelect outputs
 
@@ -118,6 +118,14 @@ It is possible to use icons to differentiate between the types of items in a
 select.
 
 <ba-live-example name="DtExampleSelectWithIcons"></ba-live-example>
+
+## Custom trigger
+
+It is possible to customize the trigger that is displayed when the select has a
+value. By using the property `<dt-select-value-template>` it's possible to
+stablish a new template for the selected value.
+
+<ba-live-example name="DtExampleSelectCustomValueTemplate"></ba-live-example>
 
 ## Accessibility
 

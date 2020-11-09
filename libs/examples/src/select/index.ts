@@ -23,3 +23,4 @@ export * from './select-forms-example/select-forms-example';
 export * from './select-groups-example/select-groups-example';
 export * from './select-value-example/select-value-example';
 export * from './select-with-icons-example/select-with-icons-example';
+export * from './select-custom-value-template-example/select-custom-value-template-example';
