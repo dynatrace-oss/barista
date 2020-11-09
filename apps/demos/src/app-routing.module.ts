@@ -323,6 +323,7 @@ import {
   DtExampleTreeTableSimple,
   DtExampleComboboxCustomOptionHeight,
   DtExampleFilterFieldInfiniteDataDepth,
+  DtExampleSelectCustomValueTemplate,
 } from '@dynatrace/examples';
 
 // The Routing Module replaces the routing configuration in the root or feature module.
@@ -1157,6 +1158,10 @@ const ROUTES: Routes = [
     component: DtExampleTreeTableProblemIndicator,
   },
   { path: 'tree-table-simple-example', component: DtExampleTreeTableSimple },
+  {
+    path: 'select-custom-value-template-example',
+    component: DtExampleSelectCustomValueTemplate,
+  },
 ];
 
 @NgModule({

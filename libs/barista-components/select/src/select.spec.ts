@@ -75,6 +75,7 @@ import {
   createComponent,
   createKeyboardEvent,
 } from '@dynatrace/testing/browser';
+import { DtSelectValueTemplate } from './select-value-template';
 
 describe('DtSelect', () => {
   let overlayContainer: OverlayContainer;
@@ -119,6 +120,7 @@ describe('DtSelect', () => {
         SelectWithGroupsAndNgContainer,
         SelectWithFormFieldLabel,
         SelectWithOptionValueZero,
+        SelectWithCustomTrigger,
       ]);
     }));
 
@@ -682,6 +684,57 @@ describe('DtSelect', () => {
           expect(groups[1].getAttribute('aria-disabled')).toBe('true');
         }));
       });
+    });
+
+    describe('custom trigger', () => {
+      let fixture: ComponentFixture<SelectWithCustomTrigger>;
+      let trigger: HTMLElement;
+
+      beforeEach(fakeAsync(() => {
+        fixture = createComponent(SelectWithCustomTrigger);
+        trigger = fixture.debugElement.query(By.css('.dt-select-trigger'))
+          .nativeElement;
+      }));
+
+      it('should be undefined', fakeAsync(() => {
+        trigger.click();
+        fixture.detectChanges();
+        flush();
+
+        const option = overlayContainerElement.querySelector(
+          'dt-option',
+        ) as HTMLElement;
+        option.click();
+        fixture.detectChanges();
+        flush();
+
+        const customTrigger = fixture.debugElement.query(
+          By.directive(DtSelectValueTemplate),
+        );
+
+        expect(customTrigger).toBeNull();
+      }));
+
+      it('should be defined', fakeAsync(() => {
+        trigger.click();
+        fixture.detectChanges();
+        flush();
+
+        fixture.componentInstance._customTemplate = true;
+
+        const option = overlayContainerElement.querySelector(
+          'dt-option',
+        ) as HTMLElement;
+        option.click();
+        fixture.detectChanges();
+        flush();
+
+        const customTrigger = fixture.debugElement.query(
+          By.directive(DtSelectValueTemplate),
+        );
+
+        expect(customTrigger).toBeDefined();
+      }));
     });
 
     describe('overlay panel', () => {
@@ -2493,5 +2546,32 @@ class ResetValuesSelect {
   `,
 })
 class SelectWithOptionValueZero {
+  @ViewChild(DtSelect) select: DtSelect<any>;
+}
+
+@Component({
+  template: `
+    <dt-form-field>
+      <dt-select placeholder="Service" [formControl]="control">
+        <dt-select-value-template *ngIf="_customTemplate">
+          <dt-icon [name]="control.value?.value"></dt-icon>
+        </dt-select-value-template>
+        <dt-option *ngFor="let service of services" [value]="service">
+          {{ service.viewValue }}
+        </dt-option>
+        <dt-option>None</dt-option>
+      </dt-select>
+    </dt-form-field>
+  `,
+})
+class SelectWithCustomTrigger {
+  services: any[] = [
+    { value: 'cloud-spanner', viewValue: 'Cloud Spanner' },
+    { value: 'cloud-sql', viewValue: 'Cloud SQL' },
+    { value: 'cloud-storage', viewValue: 'Cloud Storage' },
+  ];
+  control = new FormControl();
+  _customTemplate: boolean = false;
+
   @ViewChild(DtSelect) select: DtSelect<any>;
 }

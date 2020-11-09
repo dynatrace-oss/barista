@@ -22,6 +22,7 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtCheckboxModule } from '@dynatrace/barista-components/checkbox';
 import { DtExampleSelectComplexValue } from './select-complex-value-example/select-complex-value-example';
+import { DtExampleSelectCustomValueTemplate } from './select-custom-value-template-example/select-custom-value-template-example';
 import { DtExampleSelectDefault } from './select-default-example/select-default-example';
 import { DtExampleSelectDisabled } from './select-disabled-example/select-disabled-example';
 import { DtExampleSelectFormField } from './select-form-field-example/select-form-field-example';
@@ -49,6 +50,7 @@ import { DtExampleSelectValue } from './select-value-example/select-value-exampl
     DtExampleSelectGroups,
     DtExampleSelectValue,
     DtExampleSelectWithIcons,
+    DtExampleSelectCustomValueTemplate,
   ],
 })
 export class DtExamplesSelectModule {}
