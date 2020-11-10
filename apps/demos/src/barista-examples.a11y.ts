@@ -51,6 +51,12 @@ const BLOCKLIST: string[] = [
   'filter-field-validator-example',
   'quick-filter-default-example',
   'quick-filter-custom-show-more-example',
+
+  // Combobox a11y test are also disabled
+  // for similar reasons as the select and filter field
+  // are disabled.
+  'combobox-simple-example',
+  'combobox-custom-option-height-example',
 ];
 
 DT_DEMOS_EXAMPLE_NAV_ITEMS.forEach((component) => {

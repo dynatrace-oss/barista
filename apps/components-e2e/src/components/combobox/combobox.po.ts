@@ -16,4 +16,14 @@
 
 import { Selector } from 'testcafe';
 
-export const combobox = Selector('#test-combobox');
+export const combobox = Selector('.dt-combobox');
+export const comboboxInput = Selector(
+  '.dt-autocomplete-trigger.dt-combobox-input',
+);
+export const comboboxOverlayPane = Selector('.cdk-overlay-pane');
+
+export const option = comboboxOverlayPane.find('.dt-option');
+
+export const loadingIndicator = Selector(
+  '.dt-combobox-postfix.dt-combobox-spinner',
+);
