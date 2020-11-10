@@ -13,11 +13,14 @@ ng_module(
     ),
     angular_assets = [
         "table/table.html",
+        "table-simple/table-simple.html",
         "table-order-expandable/table-expandable.html",
     ],
     tsconfig = "//apps/components-e2e:tsconfig-app",
     deps = [
         "//libs/barista-components/core:compile",
+        "//libs/barista-components/empty-state:compile",
+        "//libs/barista-components/loading-distractor:compile",
         "//libs/barista-components/table:compile",
         "@npm//@angular/cdk",
         "@npm//@angular/common",

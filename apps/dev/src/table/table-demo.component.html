@@ -8,6 +8,7 @@
 <ng-container>
   <dt-table
     [dataSource]="dataSource"
+    [loading]="tableLoading"
     dtTableSelection
     [dtTableSelectionInitial]="data.slice(0, 1)"
     [dtTableIsRowDisabled]="disabledPredicate"
@@ -44,6 +45,18 @@
         ariaLabel="Expand the row"
       ></dt-expandable-cell>
     </ng-container>
+    <dt-loading-distractor dtTableLoadingState>
+      Loading...
+    </dt-loading-distractor>
+    <dt-empty-state role="row">
+      <dt-empty-state-item role="cell">
+        <dt-empty-state-item-title aria-level="1">
+          No data that matches your query
+        </dt-empty-state-item-title>
+        Amend the timefrime you're querying within or review your query to make
+        your statement less restrictive.
+      </dt-empty-state-item>
+    </dt-empty-state>
     <dt-header-row
       *dtHeaderRowDef="[
         'select',
@@ -65,7 +78,7 @@
         <dt-chart [options]="options" [series]="series">
           <dt-chart-tooltip>
             <ng-template let-tooltip>
-              <dt-key-value-list style="min-width: 100px;">
+              <dt-key-value-list style="min-width: 100px">
                 <dt-key-value-list-item *ngFor="let data of tooltip.points">
                   <dt-key-value-list-key>
                     {{ data.series.name }}
@@ -79,9 +92,7 @@
           </dt-chart-tooltip>
         </dt-chart>
       </ng-template>
-      <ng-template dtExpandableRowContent *ngIf="show">
-        no chart
-      </ng-template>
+      <ng-template dtExpandableRowContent *ngIf="show"> no chart </ng-template>
     </dt-expandable-row>
   </dt-table>
 
