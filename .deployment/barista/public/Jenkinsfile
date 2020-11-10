@@ -83,6 +83,16 @@ pipeline {
               ./node_modules/.bin/ng run barista-design-system:static-pages:production
           '''
         }
+
+        configFileProvider([
+          configFile(fileId: "barista-env", variable: "ENV")
+        ]) {
+          sh '''
+            mv $ENV .env
+
+            node tools/scripts/internal-link-checker.js
+          '''
+        }
       }
     }
 
