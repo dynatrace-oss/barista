@@ -39,8 +39,8 @@ export const FILTER_FIELD_TEST_DATA = {
           greaterThanEqual: true,
           lessThanEqual: true,
         },
+        unit: 's',
       },
-      unit: 's',
     },
     {
       name: 'Not in Quickfilter',
