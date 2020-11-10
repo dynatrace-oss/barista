@@ -111,6 +111,8 @@ export const DT_CONTEXT_DIALOG_CONFIG = new InjectionToken<OverlayConfig>(
   'dt-context-dialog-config',
 );
 
+const DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH = 328;
+
 @Component({
   selector: 'dt-context-dialog',
   templateUrl: 'context-dialog.html',
@@ -316,11 +318,12 @@ export class DtContextDialog
       .withViewportMargin(0)
       .withLockedPosition(false);
 
-    const defaultConfig = {
+    const defaultConfig: OverlayConfig = {
       positionStrategy,
       scrollStrategy: this._overlay.scrollStrategies.block(),
       backdropClass: 'cdk-overlay-transparent-backdrop',
       hasBackdrop: true,
+      maxWidth: DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH,
     };
 
     const overlayConfig = this._userConfig
