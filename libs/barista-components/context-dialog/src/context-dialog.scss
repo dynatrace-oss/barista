@@ -2,7 +2,6 @@
 @import '../../core/src/style/variables';
 
 $panel-padding: 12px;
-$dialog-max-width: 328px;
 $context-dialog-panel-padding: 12px;
 $panel-padding-btn: 38px;
 $context-dialog-top-header-padding: 8px;
@@ -19,7 +18,6 @@ $context-dialog-top-header-padding: 8px;
   position: relative;
   transform-origin: top right;
   color: #ffffff;
-  max-width: $dialog-max-width;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
