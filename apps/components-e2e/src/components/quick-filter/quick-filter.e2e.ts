@@ -20,6 +20,7 @@ import {
   getFilterfieldTags,
   tagDeleteButton,
   clickOption,
+  filterFieldRangePanel,
 } from '../filter-field/filter-field.po';
 import {
   getGroupItem,
@@ -159,6 +160,51 @@ test('if it is possible to add and remove a quickfilter after a free text was se
     .click(tagDeleteButton('San Francisco'), { speed: 0.4 })
     .expect(getFilterfieldTags())
     .eql(['USASan Antonio'])
+    .expect(getGroupItemInput('USA', 'San Francisco').checked)
+    .notOk();
+});
+
+test('if it is possible to set a range filter via the filter field', async (testController: TestController) => {
+  // Select the range
+  await clickOption(3);
+  await testController
+    // Expect the range panel to be open
+    .expect(filterFieldRangePanel.exists)
+    .ok()
+    // Fill the range panel and submit
+    .typeText('#dt-filter-field-range-0-from', '5')
+    .typeText('#dt-filter-field-range-0-to', '10')
+    .click('button[type=submit]')
+    // Expect the range tag to be set
+    .expect(getFilterfieldTags())
+    .eql(['Requests per minute5s - 10s']);
+});
+
+test('if it is possible to add and remove a quickfilter after a range was added', async (testController: TestController) => {
+  // Select the range
+  await clickOption(3);
+  await testController
+    // Expect the range panel to be open
+    .expect(filterFieldRangePanel.exists)
+    .ok()
+    // Fill the range panel and submit
+    .typeText('#dt-filter-field-range-0-from', '5')
+    .typeText('#dt-filter-field-range-0-to', '10')
+    .click('button[type=submit]')
+    // Expect the range tag to be set
+    .expect(getFilterfieldTags())
+    .eql(['Requests per minute5s - 10s'])
+    // Click the quickfilter USA San Francisco
+    .click(getGroupItem('USA', 'San Francisco'))
+    // Expect the USA filter to be added
+    .expect(getFilterfieldTags())
+    .eql(['Requests per minute5s - 10s', 'USASan Francisco'])
+    // Delete the quick filter item from the filter field again
+    .click(tagDeleteButton('San Francisco'), { speed: 0.4 })
+    // Expect the filters to still contain the range
+    .expect(getFilterfieldTags())
+    .eql(['Requests per minute5s - 10s'])
+    // Expect the quick filter to have the USA option  not checkt
     .expect(getGroupItemInput('USA', 'San Francisco').checked)
     .notOk();
 });
