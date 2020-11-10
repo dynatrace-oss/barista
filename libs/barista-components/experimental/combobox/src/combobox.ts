@@ -352,8 +352,14 @@ export class DtCombobox<T>
       .pipe(takeUntil(this._destroy))
       .subscribe(() => {
         this._autocomplete._additionalOptions = this._options.toArray();
-        this._setSelectionByValue(this._value, this._initialOptionChange);
+        // To prevent an expression has changed after checked
+        // error in the when setting the value.
+        Promise.resolve().then(() => {
+          this._setSelectionByValue(this._value, this._initialOptionChange);
+        });
+
         if (this._initialOptionChange) {
+          this._initializeSelection();
           this._initialOptionChange = false;
         }
       });
@@ -445,9 +451,15 @@ export class DtCombobox<T>
   }
 
   private _resetInputValue(): void {
+    const value = this._writeValue();
+    this.filterChange.next(new DtComboboxFilterChange(value, true));
+  }
+
+  /** Write the current selected value into the input field */
+  private _writeValue(): string {
     const value = this.selected ? this.displayWith(this.selected.value) : '';
     this._searchInput.nativeElement.value = value;
-    this.filterChange.next(new DtComboboxFilterChange(value, true));
+    return value;
   }
 
   /** Handles the initial value selection */
@@ -458,6 +470,7 @@ export class DtCombobox<T>
       this._setSelectionByValue(
         this.ngControl ? this.ngControl.value : this._value,
       );
+      this._writeValue();
     });
   }
 
@@ -468,9 +481,8 @@ export class DtCombobox<T>
     // Shift focus to the active item
     if (correspondingOption && this._autocomplete?._keyManager) {
       this._autocomplete._keyManager.setActiveItem(correspondingOption);
+      this._changeDetectorRef.markForCheck();
     }
-
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Searches for an option matching the value and selects it if found */

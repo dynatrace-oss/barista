@@ -1,3 +1,15 @@
-<section>
-  <!-- TODO ChMa: write test -->
-</section>
+<dt-combobox
+  placeholder="Start typing or open dropdown for top list"
+  aria-label="A simple combobox example"
+  panelClass="my-demo-overlay-class"
+  [value]="_initialValue"
+  [loading]="_loading"
+  [displayWith]="_displayWith"
+  (openedChange)="openedChanged($event)"
+  (valueChange)="valueChanged($event)"
+  (filterChange)="filterChanged($event)"
+>
+  <dt-option *ngFor="let option of _options" [value]="option">
+    {{ option.name }}
+  </dt-option>
+</dt-combobox>

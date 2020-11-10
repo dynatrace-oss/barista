@@ -14,10 +14,72 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { take } from 'rxjs/operators';
+import { timer } from 'rxjs';
+import {
+  DtCombobox,
+  DtComboboxFilterChange,
+} from '@dynatrace/barista-components/experimental/combobox';
+
+interface ExampleComboboxOption {
+  readonly name: string;
+  readonly value: string;
+}
+
+const allOptions: ExampleComboboxOption[] = [
+  { name: 'Value 1', value: '[value: Value 1]' },
+  { name: 'Value 2', value: '[value: Value 2]' },
+  { name: 'Value 3', value: '[value: Value 3]' },
+];
+
+/**
+ * Factory function for generating a filter function for a given filter string.
+ *
+ * @param filter Text to filter options for
+ */
+function optionFilter(
+  filter: string,
+): (option: ExampleComboboxOption) => boolean {
+  return (option: ExampleComboboxOption): boolean => {
+    return option.value.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+  };
+}
 
 @Component({
   selector: 'dt-e2e-combobox',
   templateUrl: 'combobox.html',
 })
-export class DtE2ECombobox {}
+export class DtE2ECombobox {
+  @ViewChild(DtCombobox) combobox: DtCombobox<any>;
+
+  _initialValue = allOptions[0];
+  _options = [...allOptions];
+  _loading = false;
+  _displayWith = (option: ExampleComboboxOption) => option.name;
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
+
+  openedChanged(event: boolean): void {
+    console.log(`openedChanged: '${event}'`);
+  }
+
+  valueChanged(event: ExampleComboboxOption): void {
+    this._options = [...allOptions].filter(optionFilter(event.value));
+  }
+
+  filterChanged(event: DtComboboxFilterChange): void {
+    if (!event.isResetEvent) {
+      this._loading = true;
+      this._changeDetectorRef.markForCheck();
+    }
+
+    timer(1500)
+      .pipe(take(1))
+      .subscribe(() => {
+        this._options = allOptions.filter(optionFilter(event.filter));
+        this._loading = false;
+        this._changeDetectorRef.markForCheck();
+      });
+  }
+}
