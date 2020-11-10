@@ -106,7 +106,8 @@ export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
       traffic: '32.7 Mbit/s',
     },
   ];
-  dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource(this.data);
+  dataSource: DtTableDataSource<HostUnit> = new DtTableDataSource();
+  tableLoading = true;
 
   private subscription: Subscription = Subscription.EMPTY;
 
@@ -132,6 +133,11 @@ export class TableDemo implements OnInit, OnDestroy, AfterViewInit {
         this.dataSource.pagination = null;
       }
     });
+
+    setTimeout(() => {
+      this.dataSource.data = this.data;
+      this.tableLoading = false;
+    }, 2000);
   }
 
   ngOnDestroy(): void {

@@ -23,6 +23,10 @@ import {
   getDragDistance,
   orderInputs,
   changeOrderButton,
+  setEmptyDataButton,
+  setLoadingButton,
+  loadingDistractor,
+  emptyState,
 } from './table.po';
 
 fixture('Table')
@@ -234,6 +238,29 @@ test('input - should not reorder the table if disabled', async (testController: 
     .eql('I')
     .expect(dataCells.nth(1).textContent)
     .eql('II');
+});
+
+fixture('Default table')
+  .page('http://localhost:4200/table/simple')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
+
+test('should show the empty state when removing the data', async (testController: TestController) => {
+  await testController.click(setEmptyDataButton).expect(emptyState.exists).ok();
+});
+
+test('should not show the empty state, when loading is set', async (testController: TestController) => {
+  await testController
+    .click(setEmptyDataButton)
+    .expect(emptyState.exists)
+    .ok()
+    .click(setLoadingButton)
+    .expect(emptyState.exists)
+    .notOk()
+    .expect(loadingDistractor.exists)
+    .ok();
 });
 
 fixture('Table Order Expandable')

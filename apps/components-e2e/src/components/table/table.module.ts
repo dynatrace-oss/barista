@@ -18,25 +18,31 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
 import { DtTableModule } from '@dynatrace/barista-components/table';
+import { DtEmptyStateModule } from '@dynatrace/barista-components/empty-state';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import {
   DT_UI_TEST_CONFIG,
   DT_DEFAULT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
 import { DtE2ETable } from './table/table';
+import { DtE2ETableSimple } from './table-simple/table-simple';
 import { DtE2ETableExpandable } from './table-order-expandable/table-expandable';
+import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 
 const routes: Route[] = [
   { path: '', component: DtE2ETable },
+  { path: 'simple', component: DtE2ETableSimple },
   { path: 'expandable', component: DtE2ETableExpandable },
 ];
 
 @NgModule({
-  declarations: [DtE2ETable, DtE2ETableExpandable],
+  declarations: [DtE2ETable, DtE2ETableSimple, DtE2ETableExpandable],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     DtTableModule,
+    DtLoadingDistractorModule,
+    DtEmptyStateModule,
     DragDropModule,
   ],
   exports: [],

@@ -5,6 +5,7 @@
 
 <ng-template #emptyStateTemplate>
   <ng-content
+    *ngIf="!loading"
     select="[dtTableEmptyState], dt-empty-state, [dtCustomEmptyState]"
   ></ng-content>
 </ng-template>
