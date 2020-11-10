@@ -18,6 +18,10 @@ import { Selector } from 'testcafe';
 
 export const disableButton = Selector('#disable-toggle');
 export const changeOrderButton = Selector('#change-order');
+export const setEmptyDataButton = Selector('#set-empty-data');
+export const setLoadingButton = Selector('#set-loading');
+export const emptyState = Selector('.dt-empty-state');
+export const loadingDistractor = Selector('dt-loading-distractor');
 export const dragHandles = Selector('.dt-order-cell-icon');
 export const orderInputs = Selector('.dt-order-cell-input');
 export const expandButtons = Selector('.dt-expandable-cell .dt-button');

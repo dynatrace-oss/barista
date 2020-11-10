@@ -1,0 +1,28 @@
+<dt-table [dataSource]="dataSource" [loading]="loading">
+  <dt-simple-text-column name="name" label="Rule name" sortable="false">
+  </dt-simple-text-column>
+
+  <dt-loading-distractor dtTableLoadingState>
+    Loading...
+  </dt-loading-distractor>
+
+  <dt-empty-state role="row">
+    <dt-empty-state-item role="cell">
+      <dt-empty-state-item-title aria-level="1">
+        No data that matches your query
+      </dt-empty-state-item-title>
+      Amend the timefrime you're querying within or review your query to make
+      your statement less restrictive.
+    </dt-empty-state-item>
+  </dt-empty-state>
+
+  <dt-header-row *dtHeaderRowDef="['name']"></dt-header-row>
+  <dt-row *dtRowDef="let row; columns: ['name']"></dt-row>
+</dt-table>
+
+<button dt-button (click)="toggleTableData()" id="set-empty-data">
+  Toggle table data
+</button>
+<button dt-button (click)="loading = !loading" id="set-loading">
+  Set loading
+</button>
