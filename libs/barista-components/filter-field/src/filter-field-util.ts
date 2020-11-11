@@ -365,7 +365,7 @@ export function findFilterValuesForSources<T>(
           const asyncDef = asyncDefs.get(def);
           if (asyncDef) {
             parentDef = asyncDef;
-            foundValues.push(def, asyncDef as DtAutocompleteValue<T>);
+            foundValues.push(def);
           } else {
             parentDef = def;
             foundValues.push(def);

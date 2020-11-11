@@ -21,6 +21,7 @@ import {
   tagDeleteButton,
   clickOption,
   filterFieldRangePanel,
+  options,
 } from '../filter-field/filter-field.po';
 import {
   getGroupItem,
@@ -301,4 +302,50 @@ test('should check the show more with distinct values', async (testController: T
     .click(quickFilterBackButton)
     .expect(getFilterfieldTags())
     .eql(['ValueValue 23']);
+});
+
+fixture('Quick Filter async')
+  .page('http://localhost:4200/quick-filter/async')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
+
+test('should work with async data and handle distincts correctly', async (testController: TestController) => {
+  // Click option Aut (async)
+  await clickOption(1);
+  // wait for the async process to finish
+  await testController.wait(1500);
+  // Click option Linz
+  await clickOption(1);
+
+  // Expect the filter to be set
+  await testController.expect(getFilterfieldTags()).eql(['AUT (async)Linz']);
+
+  // Choose another option in the filter field, which will trigger the
+  // quickfilter to set the filters on the filter-field, previously
+  // breaking the id-mapping.
+  // Click option USA
+  await clickOption(2);
+  // Click option Los Angeles
+  await clickOption(2);
+
+  // Expect the filter to be set
+  await testController
+    .expect(getFilterfieldTags())
+    .eql(['AUT (async)Linz', 'USALos Angeles']);
+
+  // Click option Aut (async)
+  await clickOption(1);
+  await testController
+    // Expect Linz no longer in the options
+    .expect(options.count)
+    .eql(2)
+    // Expect Vienna and Graz to still be in the list.
+    .expect(options.nth(0).textContent)
+    // textContent is duplicated because of the highlight within the option
+    .eql('ViennaVienna')
+    .expect(options.nth(1).textContent)
+    // textContent is duplicated because of the highlight within the option
+    .eql('GrazGraz');
 });
