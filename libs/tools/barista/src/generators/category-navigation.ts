@@ -205,8 +205,9 @@ export const overviewBuilder = async (distDir: string) => {
   const pages = allDirectories.map(async (directory) => {
     const path = join(distDir, directory);
     let overviewPage: BaCategoryNavigation;
-    const files = readdirSync(path);
-
+    const files = readdirSync(path)
+      // Only use files from the list directory and no subfolders
+      .filter((p) => lstatSync(join(path, p)).isFile());
     const capitalizedTitle =
       directory.charAt(0).toUpperCase() + directory.slice(1);
 
