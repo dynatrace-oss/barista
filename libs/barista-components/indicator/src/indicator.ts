@@ -30,7 +30,11 @@ import {
   mixinColor,
 } from '@dynatrace/barista-components/core';
 
-export type DtIndicatorThemePalette = 'error' | 'warning' | undefined;
+export type DtIndicatorThemePalette =
+  | 'error'
+  | 'warning'
+  | 'recovered'
+  | undefined;
 
 // Boilerplate for applying mixins to DtIndicator.
 export class DtIndicatorBase {
@@ -51,7 +55,8 @@ export const _DtIndicatorMixinBase = mixinColor<
     '[class.dt-indicator-active]': 'active',
   },
 })
-export class DtIndicator extends _DtIndicatorMixinBase
+export class DtIndicator
+  extends _DtIndicatorMixinBase
   implements CanColor<DtIndicatorThemePalette>, OnDestroy, OnChanges {
   /**
    * @internal

@@ -23,5 +23,5 @@ import { Component } from '@angular/core';
 export class DtExampleIndicatorDefault {
   shown: boolean = true;
 
-  color: 'warning' | 'error' = 'error';
+  color: 'warning' | 'error' | 'recovered' = 'error';
 }

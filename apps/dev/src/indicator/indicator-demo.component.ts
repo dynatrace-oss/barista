@@ -40,7 +40,7 @@ const TESTDATA: ThreadNode[] = [
         threadlevel: 'S1',
         totalTimeConsumption: 150,
         waiting: 123,
-        running: 20,
+        running: 30,
         blocked: 0,
       },
       {
@@ -139,7 +139,12 @@ const TESTDATA: ThreadNode[] = [
         <dt-tree-table-header-cell *dtHeaderCellDef>
           Running
         </dt-tree-table-header-cell>
-        <dt-cell *dtCellDef="let row">{{ row.running }}ms</dt-cell>
+        <dt-cell
+          *dtCellDef="let row"
+          [dtIndicator]="row.running > 20"
+          dtIndicatorColor="recovered"
+          >{{ row.running }}ms</dt-cell
+        >
       </ng-container>
 
       <ng-container dtColumnDef="waiting">
