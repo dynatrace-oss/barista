@@ -24,6 +24,7 @@ export interface TableData {
   traffic: number;
   errors?: string[];
   warnings?: string[];
+  recovered?: string[];
 }
 
 @Component({
@@ -63,24 +64,28 @@ export class DtExampleTableProblem {
       memoryPerc: 7.86,
       memoryTotal: 16000000000,
       traffic: 987000000,
+      recovered: ['cpuUsage'],
     },
   ];
 
   metricHasProblem(rowData: TableData, metricName: string): boolean {
     return (
       this._metricHasError(rowData, metricName) ||
-      this._metricHasWarning(rowData, metricName)
+      this._metricHasWarning(rowData, metricName) ||
+      this._metricHasRecovered(rowData, metricName)
     );
   }
 
   metricIndicatorColor(
     rowData: TableData,
     metricName: string,
-  ): 'error' | 'warning' | null {
+  ): 'error' | 'warning' | 'recovered' | null {
     return this._metricHasError(rowData, metricName)
       ? 'error'
       : this._metricHasWarning(rowData, metricName)
       ? 'warning'
+      : this._metricHasRecovered(rowData, metricName)
+      ? 'recovered'
       : null;
   }
 
@@ -91,6 +96,12 @@ export class DtExampleTableProblem {
   private _metricHasWarning(rowData: TableData, metricName: string): boolean {
     return (
       rowData.warnings !== undefined && rowData.warnings.includes(metricName)
+    );
+  }
+
+  private _metricHasRecovered(rowData: TableData, metricName: string): boolean {
+    return (
+      rowData.recovered !== undefined && rowData.recovered.includes(metricName)
     );
   }
 

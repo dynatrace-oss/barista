@@ -109,7 +109,7 @@ export class DtColumnDef extends CdkColumnDef implements OnChanges {
   }
 }
 
-type IndicatorType = 'error' | 'warning';
+type IndicatorType = 'error' | 'warning' | 'recovered';
 
 /** Cell template container that adds the right classes and role. */
 @Component({
@@ -138,6 +138,11 @@ export class DtCell implements AfterContentInit, OnDestroy {
   /** Whether the cell has a warning */
   get hasWarning(): boolean {
     return this._hasIndicator('warning');
+  }
+
+  /** Whether the cell has recovered */
+  get hasRecovered(): boolean {
+    return this._hasIndicator('recovered');
   }
 
   /**

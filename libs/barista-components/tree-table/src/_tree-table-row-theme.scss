@@ -1,7 +1,7 @@
 @import '../../core/src/theming/theming';
 
 @mixin dt-theme-tree-table-row($theme) {
-  $palette-names: 'error', 'warning';
+  $palette-names: 'error', 'warning', 'recovered';
 
   @each $name in $palette-names {
     $palette: dt-get-theme-palette($theme, $name);
