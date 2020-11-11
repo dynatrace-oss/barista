@@ -176,12 +176,24 @@ export class DtRow extends CdkRow implements OnDestroy {
   private _applyCssClasses(cells: DtCell[]): void {
     const hasError = !!cells.find((cell) => cell.hasError);
     const hasWarning = !!cells.find((cell) => cell.hasWarning);
-    const hasIndicator = hasError || hasWarning;
+    const hasRecovered = !!cells.find((cell) => cell.hasRecovered);
+    const hasIndicator = hasError || hasWarning || hasRecovered;
     const orderCell = this._getChangedOrderCell();
     if (hasIndicator) {
       _addCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
     } else {
       _removeCssClass(this._elementRef.nativeElement, 'dt-table-row-indicator');
+    }
+
+    if (hasRecovered) {
+      _removeCssClass(this._elementRef.nativeElement, 'dt-color-error');
+      _replaceCssClass(
+        this._elementRef.nativeElement,
+        'dt-color-warning',
+        'dt-color-recovered',
+      );
+    } else {
+      _removeCssClass(this._elementRef.nativeElement, 'dt-color-recovered');
     }
 
     if (hasWarning) {

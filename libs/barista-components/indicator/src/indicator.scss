@@ -4,6 +4,9 @@
 .dt-indicator-active.dt-color-warning {
   --dt-indicator-color: var(--dt-warning-default-color);
 }
+.dt-indicator-active.dt-color-recovered {
+  --dt-indicator-color: var(--dt-recovered-default-color);
+}
 
 .dt-indicator-active {
   color: var(--dt-indicator-color);

@@ -1,6 +1,9 @@
 Indicator: <span [dtIndicator]="shown" [dtIndicatorColor]="color">Color</span>
 <br /><br />
-<button dt-button (click)="color = color === 'warning' ? 'error' : 'warning'">
+<button
+  dt-button
+  (click)="color = { 'recovered': 'warning', 'warning': 'error', 'error': 'recovered' }[color]"
+>
   Toggle color
 </button>
 <button dt-button (click)="shown = !shown">Toggle indicator</button>
