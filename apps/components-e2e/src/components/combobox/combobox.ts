@@ -74,7 +74,7 @@ export class DtE2ECombobox {
       this._changeDetectorRef.markForCheck();
     }
 
-    timer(1500)
+    timer(1000)
       .pipe(take(1))
       .subscribe(() => {
         this._options = allOptions.filter(optionFilter(event.filter));
