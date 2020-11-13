@@ -1,3 +1,31 @@
+## [8.4.0](https://github.com/dynatrace-oss/barista/compare/8.3.0...8.4.0) (2020-11-13)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue with the combobox where the initial value caused
+  a change detection error.
+  ([6de0373](https://github.com/dynatrace-oss/barista/commit/6de03732286cefd08d0ff141dde7419bf10aed02))
+- **drawer:** Fixes an issue of width-drift when closing the drawer.
+  ([0208470](https://github.com/dynatrace-oss/barista/commit/020847004c9f2c2d61f4518f2e7b2e3d37d9d4f3))
+- **filter-field:** Fixes an issue with async data and programmatically set
+  filters.
+  ([64d6ace](https://github.com/dynatrace-oss/barista/commit/64d6ace0dab65034b02079f35cb9f877b9b309a7))
+- **quick-filter:** Fixes an issue where a range could not be set in the filter
+  field.
+  ([960f078](https://github.com/dynatrace-oss/barista/commit/960f07865bcba0ff67fa2540570a162858ba7a21))
+
+### Features
+
+- **context-dialog:** Simplifies overriding the maxWidth of the overlay.You can
+  now set the maxWidth as part of the DT_CONTEXT_DIALOG_CONFIG token and it will
+  properly be reflected on the overlay.
+  ([2c501b6](https://github.com/dynatrace-oss/barista/commit/2c501b67f3ee4cec0c62229761853980e9d6ed6b))
+- **select:** Add custom template for selected value. You can now provide a
+  custom template that will format the displayed selected value.
+  ([7621940](https://github.com/dynatrace-oss/barista/commit/76219407070cb6d6c9f93233a0eaae0f7da81965))
+- **table:** Don't show empty state while loading is active.
+  ([9f0130a](https://github.com/dynatrace-oss/barista/commit/9f0130ae3e3936c8d5364a24a377b1c74702fd2d))
+
 ## [8.3.0](https://github.com/dynatrace-oss/barista/compare/8.2.0...8.3.0) (2020-11-09)
 
 ### Bug Fixes
