@@ -104,7 +104,7 @@
     "@angular/platform-server": "^10.2.0",
     "@angular/router": "^10.2.0",
     "@babel/cli": "^7.10.5",
-    "@bazel/bazelisk": "^1.5.0",
+    "@bazel/bazelisk": "^1.7.3",
     "@bazel/ibazel": "^0.13.2",
     "@bazel/rollup": "^2.2.1",
     "@bazel/terser": "^2.2.1",
