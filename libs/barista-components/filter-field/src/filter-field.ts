@@ -668,7 +668,15 @@ export class DtFilterField<T = any>
       event.preventDefault();
     }
     if ([BACKSPACE, DELETE].includes(keyCode) && !this._inputValue.length) {
-      if (this._currentFilterValues.length) {
+      if (this._editModeStashedValue && this._currentFilterValues.length) {
+        // If an editModeValue is stashed and we are at the first level
+        // of the filter, a backspace would delete the currently editing filter.
+        // When not in edit mode this will simply remove the uncompleted filter,
+        // and the emit function does not emit an incomplete filter.
+        // When in the edit mode, the removal of the previously set filter will
+        // need to be emitted.
+        this._deleteCurrentlyEditingFilter();
+      } else if (this._currentFilterValues.length) {
         this._removeFilterAndEmit(this._currentFilterValues);
       } else if (this._prefixTagData.length) {
         this._removeFilterAndEmit(
@@ -908,6 +916,28 @@ export class DtFilterField<T = any>
       this._isFocused = false;
       this._writeInputValue('');
       this._switchToRootDef(false);
+      this._stateChanges.next();
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  /**
+   * Edge case scenario where the filter is deleted while in edit mode.
+   */
+  private _deleteCurrentlyEditingFilter(): void {
+    if (this._editModeStashedValue) {
+      // Concatenate the removable filter again.
+      const removableFilter = this._peekCurrentFilterValues();
+      removableFilter.push(...this._editModeStashedValue);
+
+      // Reset the edit mode again and switch to the root def
+      // for the filters to update.
+      this._resetEditMode();
+      this._switchToRootDef(false);
+
+      // Remove and emit the filter
+      this._removeFilterAndEmit(removableFilter);
+
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
