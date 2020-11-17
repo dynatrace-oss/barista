@@ -28,7 +28,7 @@ constants with a `dt-`/`dt` prefix.
 
 ## Structure
 
-Tokens are usually stored in some sort of structual data (yml, json,
+Tokens are usually stored in some sort of structural data (yml, json,
 database,...). Which format we are ultimately choosing is still up for
 discussion.
 
@@ -206,7 +206,7 @@ $dt-base-button-customizeable-example: var(--dt-base-button-background-color);
 ### Typescript constants
 
 Sometimes it becomes necessary to use certain design tokens within component
-logic. For some of these usecases, exported typescript constants for the design
+logic. For some of these use cases, exported typescript constants for the design
 tokens could help us keep things in sync between typescript and style.
 
 Potential output could look like this:
