@@ -437,5 +437,34 @@ describe('DtFilterField', () => {
 
       sub.unsubscribe();
     });
+
+    it('should emit a filterchange event when the edited filter is deleted by keyboard input [delete,backspace]', () => {
+      let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
+
+      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
+      const sub = filterField.filterChanges.subscribe(
+        (ev) => (filterChangeEvent = ev),
+      );
+
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[1].nativeElement.click();
+      advanceFilterfieldCycle();
+
+      // Send a backspace key
+      const inputfield = getInput(fixture);
+      dispatchKeyboardEvent(inputfield, 'keydown', BACKSPACE);
+
+      advanceFilterfieldCycle();
+      fixture.detectChanges();
+
+      expect(filterChangeEvent).toBeDefined();
+      expect(filterChangeEvent!.added.length).toBe(0);
+      expect(filterChangeEvent!.removed.length).toBe(1);
+      expect(filterChangeEvent!.filters.length).toBe(2);
+
+      sub.unsubscribe();
+    });
   });
 });
