@@ -1,9 +1,58 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
 @import '../../core/src/style/transition';
-@import '../../core/src/theming/theming';
 @import '../../style/font-mixins';
-@import './switch-theme';
+
+:host {
+  --content-color: #{$default-font-color};
+  --dt-switch-bar-background-radial: #{$gray-700};
+  --dt-switch-bar-border-color: #{$turquoise-600};
+  --dt-switch-bar-background-border-color: transparent;
+  --dt-switch-bar-after-background-color: #{$gray-700};
+  --dt-switch-bar-hover-before-background: #{$gray-100};
+  --dt-switch-bar-hover-before-border: #{$turquoise-700};
+  --dt-switch-bar-before-active-border: #{$turquoise-800};
+  --dt-switch-bar-before-active-background: #{$gray-100};
+  --dt-switch-bar-checked-before-background-color: #{$turquoise-600};
+  --dt-switch-bar-checked-before-border-color: #{$turquoise-600};
+  --dt-switch-bar-checked-hover-before-border-color: #{$turquoise-700};
+  --dt-switch-bar-checked-hover-before-background-color: #{$turquoise-700};
+  --dt-switch-bar-checked-active-before-border: #{$turquoise-800};
+  --dt-switch-bar-checked-active-before-background: #{$turquoise-800};
+  --dt-switch-bar-disabled: #{$disabledcolor};
+  --dt-switch-bar-checked-disabled-before-background: #{$disabledcolor};
+  --dt-switch-bar-checked-disabled-before-border: #{$disabledcolor};
+  --dt-switch-bar-checked-disabled-before-linear: #{$white};
+  --outline-color: #{$gray-400};
+}
+
+:host-context(.dt-theme-dark) {
+  --content-color: #{$white};
+  --dt-switch-bar-background-radial: #{$white};
+  --dt-switch-bar-border-color: #{$white};
+  --dt-switch-bar-background-border-color: transparent;
+  --dt-switch-bar-after-background-color: #{$white};
+  --dt-switch-bar-hover-before-background: rgba(255, 255, 255, 0.2);
+  --dt-switch-bar-hover-before-border: rgba(255, 255, 255, 0.3);
+  --dt-switch-bar-before-active-border: #{$white};
+  --dt-switch-bar-before-active-background: rgba(255, 255, 255, 0.3);
+  --dt-switch-bar-checked-before-background-color: #{$turquoise-500};
+  --dt-switch-bar-checked-before-border-color: #{$white};
+  --dt-switch-bar-checked-hover-before-border-color: #{$white};
+  --dt-switch-bar-checked-hover-before-background-color: rgba(
+    255,
+    255,
+    255,
+    0.2
+  );
+  --dt-switch-bar-checked-active-before-border: #{$white};
+  --dt-switch-bar-checked-active-before-background: #{$turquoise-300};
+  --dt-switch-bar-disabled: #{$gray-500};
+  --dt-switch-bar-checked-disabled-before-background: rgba(255, 255, 255, 0.2);
+  --dt-switch-bar-checked-disabled-before-border: rgba(255, 255, 255, 0.3);
+  --dt-switch-bar-checked-disabled-before-linear: #{$gray-500};
+  --outline-color: #{$gray-100};
+}
 
 .dt-switch-label {
   display: flex;
@@ -18,6 +67,7 @@
 
 .dt-switch-content {
   @include dt-main-font();
+  color: var(--content-color);
   vertical-align: middle;
 }
 
@@ -44,17 +94,17 @@
     left: 0;
     top: -1px;
     box-sizing: border-box;
-    border: solid 1px $turquoise-600;
+    border: solid 1px var(--dt-switch-bar-border-color);
     background-size: 10px 10px;
     background-repeat: no-repeat;
     background-position: 21px 4px;
-    background-color: transparent;
+    background-color: var(--dt-switch-bar-background-border-color);
     @include dt-form-input-color-transition();
     background-image: radial-gradient(
       circle 5px,
       transparent 0,
       transparent 2px,
-      $gray-700 3px,
+      var(--dt-switch-bar-background-radial) 3px,
       transparent 4px
     );
   }
@@ -64,7 +114,7 @@
     height: 12px;
     width: 12px;
     border-radius: 50%;
-    background-color: $gray-700;
+    background-color: var(--dt-switch-bar-after-background-color);
     transition: left 100ms ease-out, right 100ms ease-out;
     margin-top: 3px;
     margin-left: 4px;
@@ -78,13 +128,13 @@
 
 :host {
   &:hover .dt-switch-bar::before {
-    border: 1px solid $turquoise-700;
-    background-color: $gray-100;
+    border: 1px solid var(--dt-switch-bar-checked-hover-before-border-color);
+    background-color: var(--dt-switch-bar-hover-before-background);
   }
 
   &:active .dt-switch-bar::before {
-    border: 1px solid $turquoise-800;
-    background-color: $gray-100;
+    border: 1px solid var(--dt-switch-bar-before-active-border);
+    background-color: var(--dt-switch-bar-before-active-background);
   }
 
   &.dt-switch-checked {
@@ -92,8 +142,8 @@
       background-size: 8px 8px;
       background-repeat: no-repeat;
       background-position: 9px 5px;
-      background-color: $turquoise-600;
-      border-color: $turquoise-600;
+      background-color: var(--dt-switch-bar-checked-before-background-color);
+      border-color: var(--dt-switch-bar-checked-before-border-color);
       background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
     }
 
@@ -103,21 +153,24 @@
 
     &:hover {
       .dt-switch-bar::before {
-        background-color: $turquoise-700;
-        border-color: $turquoise-700;
+        border-color: var(--dt-switch-bar-checked-hover-before-border-color);
+        background-color: var(
+          --dt-switch-bar-checked-hover-before-background-color
+        );
       }
     }
 
     &:active {
       .dt-switch-bar::before {
-        border: 1px solid $turquoise-800;
-        background-color: $turquoise-800;
+        border: 1px solid var(--dt-switch-bar-checked-active-before-border);
+        background-color: var(--dt-switch-bar-checked-active-before-background);
       }
     }
   }
 
   &.dt-switch-focused .dt-switch-bar::before {
     @include dt-focus-style();
+    outline-color: var(--outline-color);
   }
 
   &.dt-switch-disabled {
@@ -126,36 +179,35 @@
     }
 
     .dt-switch-bar::before {
-      border-color: $disabledcolor;
+      border-color: var(--dt-switch-bar-disabled);
       background-image: radial-gradient(
         circle 5px,
         transparent 0,
         transparent 2px,
-        $disabledcolor 3px,
+        var(--dt-switch-bar-disabled) 3px,
         transparent 4px
       );
       background-color: transparent;
     }
 
     .dt-switch-bar::after {
-      background-color: $disabledcolor;
+      background-color: var(--dt-switch-bar-disabled);
     }
   }
 
   &.dt-switch-checked.dt-switch-disabled {
     .dt-switch-bar::before {
-      border-color: $disabledcolor;
-      background-image: linear-gradient(to right, #ffffff 1px, transparent 0);
-      background-color: $disabledcolor;
+      border-color: var(--dt-switch-bar-checked-disabled-before-border);
+      background-image: linear-gradient(
+        to right,
+        var(--dt-switch-bar-checked-disabled-before-linear) 1px,
+        transparent 0
+      );
+      background-color: var(--dt-switch-bar-checked-disabled-before-background);
     }
 
     .dt-switch-bar::after {
       background-color: #ffffff;
     }
   }
-}
-
-// Apply the switch theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-switch($dt-current-theme);
 }

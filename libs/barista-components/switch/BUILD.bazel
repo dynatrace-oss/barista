@@ -1,6 +1,6 @@
 load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -43,15 +43,9 @@ filegroup(
     ]),
 )
 
-sass_library(
-    name = "theme",
-    srcs = ["src/_switch-theme.scss"],
-)
-
 sass_binary(
     name = "styles",
     src = "src/switch.scss",
-    deps = [":theme"],
 )
 
 stylelint(
