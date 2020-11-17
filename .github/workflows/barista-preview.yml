@@ -15,8 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Link the node_modules and the builders in the current working directory
-        run : |
+      - name:
+          Link the node_modules and the builders in the current working
+          directory
+        run: |
           cp -R "$WORKSPACE_DIR/dist" "$PWD/dist"
           ln -s "$WORKSPACE_DIR/node_modules" "$PWD/node_modules"
           ln -s "$WORKSPACE_DIR/package-lock.sha1" "$PWD/package-lock.sha1"
@@ -30,21 +32,22 @@ jobs:
           npm run ng run barista-tools:execute
           npm run ng run barista-design-system:static-pages:production
 
-      - name: ZEIT Now Deployment
-        id: now-deployment
-        uses: amondnet/now-deployment@v2
+      - name: Vercel Deployment
+        id: vercel-action
+        uses: amondnet/vercel-action@v19.0.1+4
         with:
-          zeit-token: ${{ secrets.ZEIT_TOKEN }}
+          vercel-token: ${{ secrets.ZEIT_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          now-org-id: ${{ secrets.VERCEL_ORG_ID}}
-          now-args:
-            '--scope dynatrace-oss --confirm ./dist/apps/barista-design-system/browser'
-          now-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
+          vercel-args:
+            '--scope dynatrace-oss --confirm
+            ./dist/apps/barista-design-system/browser'
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
 
       - name: Generating Lighthouse Report
         uses: jakejarvis/lighthouse-action@master
         with:
-          url: ${{ steps.now-deployment.outputs.preview-url }}
+          url: ${{ steps.vercel-action.outputs.preview-url }}
 
       - name: Save Lighthouse Audit
         uses: actions/upload-artifact@master
