@@ -1,0 +1,27 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "loading-distractor",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "loading-distractor-default-example/loading-distractor-default-example.html",
+        "loading-distractor-input-example/loading-distractor-input-example.html",
+        "loading-distractor-spinner-example/loading-distractor-spinner-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/loading-distractor",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/loading-distractor:compile",
+        "@npm//@angular/core",
+    ],
+)

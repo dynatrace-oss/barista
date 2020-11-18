@@ -1,0 +1,28 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "sunburst-chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "sunburst-chart-custom-color-example/sunburst-chart-custom-color-example.html",
+        "sunburst-chart-default-example/sunburst-chart-default-example.html",
+        "sunburst-chart-relative-values-example/sunburst-chart-relative-values-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/sunburst-chart",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/sunburst-chart:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+    ],
+)

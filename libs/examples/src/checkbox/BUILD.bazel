@@ -1,0 +1,58 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "checkbox",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "checkbox-dark-example/checkbox-dark-example.html",
+        "checkbox-default-example/checkbox-default-example.html",
+        "checkbox-indeterminate-example/checkbox-indeterminate-example.html",
+        "checkbox-responsive-example/checkbox-responsive-example.html",
+        ":styles_dark_example",
+        ":styles_default_example",
+        ":styles_indeterminate_example",
+        ":styles_responsive_example",
+    ],
+    module_name = "@dynatrace/barista-examples/checkbox",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/checkbox:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_dark_example",
+    src = "checkbox-dark-example/checkbox-dark-example.scss",
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "checkbox-default-example/checkbox-default-example.scss",
+)
+
+sass_binary(
+    name = "styles_indeterminate_example",
+    src = "checkbox-indeterminate-example/checkbox-indeterminate-example.scss",
+)
+
+sass_binary(
+    name = "styles_responsive_example",
+    src = "checkbox-responsive-example/checkbox-responsive-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

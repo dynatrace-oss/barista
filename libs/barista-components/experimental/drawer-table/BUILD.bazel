@@ -17,7 +17,7 @@ ng_module_view_engine(
         ":styles",
         "src/drawer-table.html",
     ],
-    module_name = "@dynatrace/barista-components/drawer-table",
+    module_name = "@dynatrace/barista-components/experimental/drawer-table",
     tsconfig = "tsconfig_lib",
     deps = [
         "@npm//@angular/core",

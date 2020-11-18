@@ -32,7 +32,7 @@ interface Row {
 @Component({
   selector: 'dt-example-table-selectable-column',
   templateUrl: './table-selection-example.html',
-  styleUrls: ['./table-selection-example.css'],
+  styleUrls: ['./table-selection-example.scss'],
   providers: [
     {
       provide: DT_TABLE_SELECTION_CONFIG,
@@ -108,6 +108,6 @@ export class DtExampleTableSelection implements AfterViewInit {
     if (isNil(value)) {
       return 'Select hosts';
     }
-    return 'Select ' + value.host;
+    return 'Select ' + value!.host;
   }
 }

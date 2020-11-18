@@ -1,0 +1,31 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "empty-state",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "empty-state-custom-empty-state-table-example/empty-state-custom-empty-state-table-example.html",
+        "empty-state-default-example/empty-state-default-example.html",
+        "empty-state-in-card-example/empty-state-in-card-example.html",
+        "empty-state-multiple-items-example/empty-state-multiple-items-example.html",
+        "empty-state-multiple-items-in-card-example/empty-state-multiple-items-in-card-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/empty-state",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/card:compile",
+        "//libs/barista-components/empty-state:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/table:compile",
+        "@npm//@angular/core",
+    ],
+)

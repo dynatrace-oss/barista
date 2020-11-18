@@ -1,0 +1,57 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "overlay",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "overlay-complex-content-example/overlay-complex-content-example.html",
+        "overlay-default-example/overlay-default-example.html",
+        "overlay-fullscreen-example/overlay-fullscreen-example.html",
+        "overlay-implicit-context-example/overlay-implicit-context-example.html",
+        "overlay-programmatic-example/overlay-programmatic-example.html",
+        "overlay-tile-example/overlay-tile-example.html",
+        ":styles_complex_content_example",
+        ":styles_fullscreen_example",
+        ":styles_tile_example",
+    ],
+    module_name = "@dynatrace/barista-examples/overlay",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/key-value-list:compile",
+        "//libs/barista-components/overlay:compile",
+        "//libs/barista-components/tile:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_complex_content_example",
+    src = "overlay-complex-content-example/overlay-complex-content-example.scss",
+)
+
+sass_binary(
+    name = "styles_fullscreen_example",
+    src = "overlay-fullscreen-example/overlay-fullscreen-example.scss",
+)
+
+sass_binary(
+    name = "styles_tile_example",
+    src = "overlay-tile-example/overlay-tile-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

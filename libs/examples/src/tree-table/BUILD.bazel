@@ -1,0 +1,48 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "tree-table",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "tree-table-async-show-more-example/tree-table-async-show-more-example.html",
+        "tree-table-default-example/tree-table-default-example.html",
+        "tree-table-problem-indicator-example/tree-table-problem-indicator-example.html",
+        "tree-table-simple-example/tree-table-simple-example.html",
+        ":styles_default_example",
+    ],
+    module_name = "@dynatrace/barista-examples/tree-table",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/context-dialog:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/indicator:compile",
+        "//libs/barista-components/info-group:compile",
+        "//libs/barista-components/progress-bar:compile",
+        "//libs/barista-components/tree-table:compile",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@dynatrace/barista-icons",
+    ],
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "tree-table-default-example/tree-table-default-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

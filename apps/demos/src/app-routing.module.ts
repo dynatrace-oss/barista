@@ -326,7 +326,7 @@ import {
   DtExampleSelectCustomValueTemplate,
   DtExampleDatepickerDark,
   DtExampleDatepickerDefault
-} from '@dynatrace/examples';
+} from '@dynatrace/barista-examples';
 
 // The Routing Module replaces the routing configuration in the root or feature module.
 // Either configure routes in the Routing Module or within the module itself but not in both.

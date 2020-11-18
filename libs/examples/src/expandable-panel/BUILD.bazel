@@ -1,0 +1,28 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "expandable-panel",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "expandable-panel-default-example/expandable-panel-default-example.html",
+        "expandable-panel-disabled-example/expandable-panel-disabled-example.html",
+        "expandable-panel-dynamic-trigger-example/expandable-panel-dynamic-trigger-example.html",
+        "expandable-panel-programmatic-example/expandable-panel-programmatic-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/expandable-panel",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/expandable-panel:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)

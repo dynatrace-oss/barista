@@ -1,0 +1,40 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "top-bar-navigation",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "top-bar-navigation-default-example/top-bar-navigation-default-example.html",
+        "top-bar-navigation-drawer-example/top-bar-navigation-drawer-example.html",
+        ":styles_drawer_example",
+    ],
+    module_name = "@dynatrace/barista-examples/top-bar-navigation",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/drawer:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/top-bar-navigation:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//rxjs",
+    ],
+)
+
+sass_binary(
+    name = "styles_drawer_example",
+    src = "top-bar-navigation-drawer-example/top-bar-navigation-drawer-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

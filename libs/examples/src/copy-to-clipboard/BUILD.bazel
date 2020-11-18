@@ -1,0 +1,47 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "copy-to-clipboard",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "copy-to-clipboard-callback-example/copy-to-clipboard-callback-example.html",
+        "copy-to-clipboard-context-example/copy-to-clipboard-context-example.html",
+        "copy-to-clipboard-dark-example/copy-to-clipboard-dark-example.html",
+        "copy-to-clipboard-default-example/copy-to-clipboard-default-example.html",
+        "copy-to-clipboard-error-example/copy-to-clipboard-error-example.html",
+        "copy-to-clipboard-secondary-button-example/copy-to-clipboard-secondary-button-example.html",
+        "copy-to-clipboard-textarea-example/copy-to-clipboard-textarea-example.html",
+        ":styles_error_example",
+    ],
+    module_name = "@dynatrace/barista-examples/copy-to-clipboard",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/alert:compile",
+        "//libs/barista-components/context-dialog:compile",
+        "//libs/barista-components/copy-to-clipboard:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//rxjs",
+    ],
+)
+
+sass_binary(
+    name = "styles_error_example",
+    src = "copy-to-clipboard-error-example/copy-to-clipboard-error-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

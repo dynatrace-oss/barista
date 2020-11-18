@@ -1,0 +1,26 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "key-value-list",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "key-value-list-default-example/key-value-list-default-example.html",
+        "key-value-list-longtext-example/key-value-list-longtext-example.html",
+        "key-value-list-multicolumn-example/key-value-list-multicolumn-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/key-value-list",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/key-value-list:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)

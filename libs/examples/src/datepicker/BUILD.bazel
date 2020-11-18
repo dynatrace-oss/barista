@@ -1,0 +1,46 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "datepicker",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "datepicker-dark-example/datepicker-dark-example.html",
+        "datepicker-default-example/datepicker-default-example.html",
+        ":styles_dark_example",
+        ":styles_default_example",
+    ],
+    module_name = "@dynatrace/barista-examples/datepicker",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/checkbox:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/experimental/datepicker:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+    ],
+)
+
+sass_binary(
+    name = "styles_dark_example",
+    src = "datepicker-dark-example/datepicker-dark-example.scss",
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "datepicker-default-example/datepicker-default-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

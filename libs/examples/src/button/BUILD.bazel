@@ -1,0 +1,88 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "button",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "button-color-example/button-color-example.html",
+        "button-dark-example/button-dark-example.html",
+        "button-default-example/button-default-example.html",
+        "button-disabled-example/button-disabled-example.html",
+        "button-icon-only-example/button-icon-only-example.html",
+        "button-icons-example/button-icons-example.html",
+        "button-interaction-example/button-interaction-example.html",
+        "button-loading-spinner-example/button-loading-spinner-example.html",
+        "button-variant-example/button-variant-example.html",
+        ":styles_color_example",
+        ":styles_dark_example",
+        ":styles_default_example",
+        ":styles_disabled_example",
+        ":styles_icon_only_example",
+        ":styles_icons_example",
+        ":styles_loading_spinner_example",
+        ":styles_variant_example",
+    ],
+    module_name = "@dynatrace/barista-examples/button",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/loading-distractor:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_color_example",
+    src = "button-color-example/button-color-example.scss",
+)
+
+sass_binary(
+    name = "styles_dark_example",
+    src = "button-dark-example/button-dark-example.scss",
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "button-default-example/button-default-example.scss",
+)
+
+sass_binary(
+    name = "styles_disabled_example",
+    src = "button-disabled-example/button-disabled-example.scss",
+)
+
+sass_binary(
+    name = "styles_icon_only_example",
+    src = "button-icon-only-example/button-icon-only-example.scss",
+)
+
+sass_binary(
+    name = "styles_icons_example",
+    src = "button-icons-example/button-icons-example.scss",
+)
+
+sass_binary(
+    name = "styles_loading_spinner_example",
+    src = "button-loading-spinner-example/button-loading-spinner-example.scss",
+)
+
+sass_binary(
+    name = "styles_variant_example",
+    src = "button-variant-example/button-variant-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

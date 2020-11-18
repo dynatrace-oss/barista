@@ -1,0 +1,29 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "tile",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "tile-default-example/tile-default-example.html",
+        "tile-disabled-example/tile-disabled-example.html",
+        "tile-error-example/tile-error-example.html",
+        "tile-main-example/tile-main-example.html",
+        "tile-recovered-example/tile-recovered-example.html",
+        "tile-small-example/tile-small-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/tile",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/tile:compile",
+        "@npm//@angular/core",
+    ],
+)

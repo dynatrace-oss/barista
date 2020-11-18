@@ -1,0 +1,29 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "alert",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "alert-dark-error-example/alert-dark-error-example.html",
+        "alert-dark-example/alert-dark-example.html",
+        "alert-error-example/alert-error-example.html",
+        "alert-interactive-example/alert-interactive-example.html",
+        "alert-warning-example/alert-warning-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/alert",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/alert:compile",
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+    ],
+)

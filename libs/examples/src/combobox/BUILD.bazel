@@ -1,0 +1,40 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "combobox",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "combobox-custom-option-height-example/combobox-custom-option-height-example.html",
+        "combobox-simple-example/combobox-simple-example.html",
+        ":styles_custom_option_height_example",
+    ],
+    module_name = "@dynatrace/barista-examples/combobox",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/autocomplete:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/experimental/combobox:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//rxjs",
+    ],
+)
+
+sass_binary(
+    name = "styles_custom_option_height_example",
+    src = "combobox-custom-option-height-example/combobox-custom-option-height-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)
