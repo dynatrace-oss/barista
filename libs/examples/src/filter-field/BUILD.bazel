@@ -1,13 +1,32 @@
 load("//tools/bazel_rules:index.bzl", "ng_module")
 
-package(default_visibility = ["//:__subpackages__"])
+package(default_visibility = ["//visibility:public"])
 
 ng_module(
     name = "filter-field",
-    srcs = glob(["**/*.ts"]),
-    angular_assets = glob(["**/*.html"]),
-    module_name = "@dynatrace/examples/filter-field",
-    tsconfig = "//libs/examples:tsconfig-lib",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "filter-field-async-example/filter-field-async-example.html",
+        "filter-field-clearall-example/filter-field-clearall-example.html",
+        "filter-field-custom-parser-example/filter-field-custom-parser-example.html",
+        "filter-field-default-example/filter-field-default-example.html",
+        "filter-field-disabled-example/filter-field-disabled-example.html",
+        "filter-field-distinct-example/filter-field-distinct-example.html",
+        "filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example.html",
+        "filter-field-partial-example/filter-field-partial-example.html",
+        "filter-field-programmatic-filters-example/filter-field-programmatic-filters-example.html",
+        "filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example.html",
+        "filter-field-unique-example/filter-field-unique-example.html",
+        "filter-field-validator-example/filter-field-validator-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/filter-field",
+    tsconfig = "//libs/examples:tsconfig_lib",
     deps = [
         "//libs/barista-components/filter-field:compile",
         "//libs/barista-components/input:compile",

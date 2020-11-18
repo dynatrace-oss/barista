@@ -1,0 +1,31 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "formatters",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "formatters-bits-example/formatters-bits-example.html",
+        "formatters-bytes-example/formatters-bytes-example.html",
+        "formatters-count-example/formatters-count-example.html",
+        "formatters-duration-example/formatters-duration-example.html",
+        "formatters-percent-example/formatters-percent-example.html",
+        "formatters-rate-example/formatters-rate-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/formatters",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/input:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+    ],
+)

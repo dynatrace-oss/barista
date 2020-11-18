@@ -1,0 +1,39 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "link",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "link-dark-example/link-dark-example.html",
+        "link-external-example/link-external-example.html",
+        "link-notification-example/link-notification-example.html",
+        "link-simple-example/link-simple-example.html",
+        ":styles_notification_example",
+    ],
+    module_name = "@dynatrace/barista-examples/link",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_notification_example",
+    src = "link-notification-example/link-notification-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

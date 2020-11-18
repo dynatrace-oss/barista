@@ -1,0 +1,45 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "secondary-nav",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "secondary-nav-active-example/secondary-nav-active-example.html",
+        "secondary-nav-default-example/secondary-nav-default-example.html",
+        "secondary-nav-external-example/secondary-nav-external-example.html",
+        "secondary-nav-multi-example/secondary-nav-multi-example.html",
+        "secondary-nav-router-link-active-example/secondary-nav-router-link-active-example.html",
+        "secondary-nav-title-example/secondary-nav-title-example.html",
+        ":styles_title_example",
+    ],
+    module_name = "@dynatrace/barista-examples/secondary-nav",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/secondary-nav:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//@angular/router",
+    ],
+)
+
+sass_binary(
+    name = "styles_title_example",
+    src = "secondary-nav-title-example/secondary-nav-title-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

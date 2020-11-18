@@ -1,0 +1,43 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "radial-chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "radial-chart-custom-colors-example/radial-chart-custom-colors-example.html",
+        "radial-chart-default-donut-example/radial-chart-default-donut-example.html",
+        "radial-chart-default-pie-example/radial-chart-default-pie-example.html",
+        "radial-chart-legend-example/radial-chart-legend-example.html",
+        "radial-chart-max-value-example/radial-chart-max-value-example.html",
+        "radial-chart-overlay-example/radial-chart-overlay-example.html",
+        ":styles_legend_example",
+    ],
+    module_name = "@dynatrace/barista-examples/radial-chart",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/button-group:compile",
+        "//libs/barista-components/radial-chart:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_legend_example",
+    src = "radial-chart-legend-example/radial-chart-legend-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

@@ -1,0 +1,33 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "autocomplete",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "autocomplete-attach-different-element-example/autocomplete-attach-different-element-example.html",
+        "autocomplete-control-values-example/autocomplete-control-values-example.html",
+        "autocomplete-custom-filter-example/autocomplete-custom-filter-example.html",
+        "autocomplete-default-example/autocomplete-default-example.html",
+        "autocomplete-groups-example/autocomplete-groups-example.html",
+        "autocomplete-highlight-first-option-example/autocomplete-highlight-first-option-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/autocomplete",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/autocomplete:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/input:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//rxjs",
+    ],
+)

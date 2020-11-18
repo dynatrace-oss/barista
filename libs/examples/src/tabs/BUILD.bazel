@@ -1,0 +1,28 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "tabs",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "tabs-default-example/tabs-default-example.html",
+        "tabs-dynamic-example/tabs-dynamic-example.html",
+        "tabs-interactive-example/tabs-interactive-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/tabs",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/tabs:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//rxjs",
+    ],
+)

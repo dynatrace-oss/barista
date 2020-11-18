@@ -1,0 +1,30 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "toast",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "toast-default-example/toast-default-example.html",
+        "toast-dynamic-msg-example/toast-dynamic-msg-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/toast",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/toast:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//rxjs",
+    ],
+)

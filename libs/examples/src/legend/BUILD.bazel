@@ -1,0 +1,59 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "legend",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "legend-default-example/legend-default-example.html",
+        "legend-overlay-example/legend-overlay-example.html",
+        "legend-symbol-attribute-example/legend-symbol-attribute-example.html",
+        "legend-timeline-chart-example/legend-timeline-chart-example.html",
+        ":styles_default_example",
+        ":styles_overlay_example",
+        ":styles_symbol_attribute_example",
+        ":styles_timeline_chart_example",
+    ],
+    module_name = "@dynatrace/barista-examples/legend",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/legend:compile",
+        "//libs/barista-components/overlay:compile",
+        "//libs/barista-components/timeline-chart:compile",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "legend-default-example/legend-default-example.scss",
+)
+
+sass_binary(
+    name = "styles_overlay_example",
+    src = "legend-overlay-example/legend-overlay-example.scss",
+)
+
+sass_binary(
+    name = "styles_symbol_attribute_example",
+    src = "legend-symbol-attribute-example/legend-symbol-attribute-example.scss",
+)
+
+sass_binary(
+    name = "styles_timeline_chart_example",
+    src = "legend-timeline-chart-example/legend-timeline-chart-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

@@ -1,0 +1,31 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "micro-chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "micro-chart-columns-example/micro-chart-columns-example.html",
+        "micro-chart-columns-interpolated-example/micro-chart-columns-interpolated-example.html",
+        "micro-chart-default-example/micro-chart-default-example.html",
+        "micro-chart-interpolated-example/micro-chart-interpolated-example.html",
+        "micro-chart-stream-example/micro-chart-stream-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/micro-chart",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/chart:compile",
+        "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/micro-chart:compile",
+        "@npm//@angular/core",
+        "@npm//highcharts",
+        "@npm//rxjs",
+    ],
+)

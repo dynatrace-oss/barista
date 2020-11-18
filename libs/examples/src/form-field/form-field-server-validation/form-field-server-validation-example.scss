@@ -1,13 +1,13 @@
-.form {
+.dt-form {
   display: grid;
   grid-gap: 16px;
 }
 
-.button-wrapper {
+.dt-button-wrapper {
   display: flex;
   justify-content: flex-end;
 }
 
-.button-wrapper button {
+.dt-button-wrapper button {
   margin-left: 8px;
 }

@@ -1,0 +1,42 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "bar-indicator",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "bar-indicator-alignment-example/bar-indicator-alignment-example.html",
+        "bar-indicator-color-example/bar-indicator-color-example.html",
+        "bar-indicator-default-example/bar-indicator-default-example.html",
+        "bar-indicator-dynamic-example/bar-indicator-dynamic-example.html",
+        "bar-indicator-table-example/bar-indicator-table-example.html",
+        ":styles_table_example",
+    ],
+    module_name = "@dynatrace/barista-examples/bar-indicator",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/bar-indicator:compile",
+        "//libs/barista-components/button-group:compile",
+        "//libs/barista-components/table:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_table_example",
+    src = "bar-indicator-table-example/bar-indicator-table-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

@@ -1,0 +1,44 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "switch",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "switch-dark-example/switch-dark-example.html",
+        "switch-default-example/switch-default-example.html",
+        "switch-responsive-example/switch-responsive-example.html",
+        ":styles_dark_example",
+        ":styles_default_example",
+    ],
+    module_name = "@dynatrace/barista-examples/switch",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/switch:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_dark_example",
+    src = "switch-dark-example/switch-dark-example.scss",
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "switch-default-example/switch-default-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

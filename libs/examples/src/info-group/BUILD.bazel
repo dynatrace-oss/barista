@@ -1,0 +1,38 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "info-group",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "info-group-default-example/info-group-default-example.html",
+        "info-group-in-card-example/info-group-in-card-example.html",
+        ":styles_in_card_example",
+    ],
+    module_name = "@dynatrace/barista-examples/info-group",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/card:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/info-group:compile",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_in_card_example",
+    src = "info-group-in-card-example/info-group-in-card-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

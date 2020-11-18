@@ -1,8 +1,8 @@
 <dt-stepper #stepper linear>
   <dt-step label="Type">
     <h2>What type of synthetic monitor do you want to create?</h2>
-    <div class="monitor-type-wrapper">
-      <div class="monitor-type">
+    <div class="dt-monitor-type-wrapper">
+      <div class="dt-monitor-type">
         <img src="/assets/browser-monitor.svg" alt="Browser monitor" />
         <h3>Simulate user behavior in a real browser</h3>
         <p>
@@ -14,7 +14,7 @@
           Create a browser monitor
         </button>
       </div>
-      <div class="monitor-type">
+      <div class="dt-monitor-type">
         <img src="/assets/http-monitor.svg" alt="HTTP monitor" />
         <h3>Create a basic HTTP monitor</h3>
         <p>
@@ -66,9 +66,7 @@
     <p>Finished!</p>
 
     <dt-step-actions>
-      <button variant="secondary" dt-button dtStepperPrevious>
-        Previous
-      </button>
+      <button variant="secondary" dt-button dtStepperPrevious>Previous</button>
       <button dt-button (click)="stepper.reset()">Reset stepper</button>
     </dt-step-actions>
   </dt-step>
