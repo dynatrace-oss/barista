@@ -1,0 +1,46 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "menu",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "menu-default-example/menu-default-example.html",
+        "menu-within-context-dialog-example/menu-within-context-dialog-example.html",
+        "menu-within-drawer-example/menu-within-drawer-example.html",
+        ":styles_default_example",
+        ":styles_within_drawer_example",
+    ],
+    module_name = "@dynatrace/barista-examples/menu",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/checkbox:compile",
+        "//libs/barista-components/context-dialog:compile",
+        "//libs/barista-components/drawer:compile",
+        "//libs/barista-components/menu:compile",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "menu-default-example/menu-default-example.scss",
+)
+
+sass_binary(
+    name = "styles_within_drawer_example",
+    src = "menu-within-drawer-example/menu-within-drawer-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

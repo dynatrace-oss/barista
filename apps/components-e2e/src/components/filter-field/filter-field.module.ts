@@ -22,7 +22,7 @@ import { DtE2EFilterField } from './filter-field';
 import {
   DtExampleFilterFieldAsync,
   DtFilterFieldExamplesModule,
-} from '@dynatrace/examples/filter-field';
+} from '@dynatrace/barista-examples/filter-field';
 
 const routes: Route[] = [
   { path: '', component: DtE2EFilterField },

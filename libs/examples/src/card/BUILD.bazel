@@ -1,0 +1,31 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "card",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "card-action-buttons-example/card-action-buttons-example.html",
+        "card-dark-example/card-dark-example.html",
+        "card-default-example/card-default-example.html",
+        "card-footer-actions-example/card-footer-actions-example.html",
+        "card-icon-example/card-icon-example.html",
+        "card-subtitle-example/card-subtitle-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/card",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/card:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+    ],
+)

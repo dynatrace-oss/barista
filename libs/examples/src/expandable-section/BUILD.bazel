@@ -1,0 +1,29 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "expandable-section",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "expandable-section-dark-example/expandable-section-dark-example.html",
+        "expandable-section-default-example/expandable-section-default-example.html",
+        "expandable-section-disabled-example/expandable-section-disabled-example.html",
+        "expandable-section-interactive-example/expandable-section-interactive-example.html",
+        "expandable-section-open-example/expandable-section-open-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/expandable-section",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/expandable-section:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+    ],
+)

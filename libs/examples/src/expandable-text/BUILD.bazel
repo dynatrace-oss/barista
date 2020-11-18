@@ -1,0 +1,23 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "expandable-text",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "expandable-text-default-example/expandable-text-default-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/expandable-text",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/expandable-text:compile",
+        "@npm//@angular/core",
+    ],
+)

@@ -1,0 +1,41 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "tag",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "tag-default-example/tag-default-example.html",
+        "tag-interactive-example/tag-interactive-example.html",
+        "tag-key-example/tag-key-example.html",
+        "tag-list-with-tag-add-example/tag-list-with-tag-add-example.html",
+        "tag-removable-example/tag-removable-example.html",
+        ":styles_interactive_example",
+    ],
+    module_name = "@dynatrace/barista-examples/tag",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/tag:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_interactive_example",
+    src = "tag-interactive-example/tag-interactive-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

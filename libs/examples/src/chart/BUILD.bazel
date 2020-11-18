@@ -1,0 +1,48 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "chart-area-example/chart-area-example.html",
+        "chart-arearange-example/chart-arearange-example.html",
+        "chart-bar-example/chart-bar-example.html",
+        "chart-behavior-switch-example/chart-behavior-switch-example.html",
+        "chart-categorized-example/chart-categorized-example.html",
+        "chart-default-example/chart-default-example.html",
+        "chart-donut-example/chart-donut-example.html",
+        "chart-heatfield-example/chart-heatfield-example.html",
+        "chart-heatfield-multiple-example/chart-heatfield-multiple-example.html",
+        "chart-line-example/chart-line-example.html",
+        "chart-line-with-gaps-example/chart-line-with-gaps-example.html",
+        "chart-loading-example/chart-loading-example.html",
+        "chart-min-max-example/chart-min-max-example.html",
+        "chart-ordered-colors-example/chart-ordered-colors-example.html",
+        "chart-pie-example/chart-pie-example.html",
+        "chart-selection-area-default-example/chart-selection-area-default-example.html",
+        "chart-single-data-point-example/chart-single-data-point-example.html",
+        "chart-stream-example/chart-stream-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/chart",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/button-group:compile",
+        "//libs/barista-components/chart:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/key-value-list:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//highcharts",
+        "@npm//rxjs",
+    ],
+)

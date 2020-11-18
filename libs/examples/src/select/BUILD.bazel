@@ -1,0 +1,49 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "select",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "select-complex-value-example/select-complex-value-example.html",
+        "select-custom-value-template-example/select-custom-value-template-example.html",
+        "select-default-example/select-default-example.html",
+        "select-disabled-example/select-disabled-example.html",
+        "select-form-field-example/select-form-field-example.html",
+        "select-forms-example/select-forms-example.html",
+        "select-groups-example/select-groups-example.html",
+        "select-value-example/select-value-example.html",
+        "select-with-icons-example/select-with-icons-example.html",
+        ":styles_with_icons_example",
+    ],
+    module_name = "@dynatrace/barista-examples/select",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/checkbox:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/select:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+    ],
+)
+
+sass_binary(
+    name = "styles_with_icons_example",
+    src = "select-with-icons-example/select-with-icons-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

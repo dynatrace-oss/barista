@@ -1,0 +1,29 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "button-group",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "button-group-default-example/button-group-default-example.html",
+        "button-group-disabled-example/button-group-disabled-example.html",
+        "button-group-error-example/button-group-error-example.html",
+        "button-group-interactive-example/button-group-interactive-example.html",
+        "button-group-item-disabled-example/button-group-item-disabled-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/button-group",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/button-group:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)

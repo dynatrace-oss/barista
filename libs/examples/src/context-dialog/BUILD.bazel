@@ -1,0 +1,71 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "context-dialog",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "context-dialog-actions-example/context-dialog-actions-example.html",
+        "context-dialog-custom-icon-example/context-dialog-custom-icon-example.html",
+        "context-dialog-dark-example/context-dialog-dark-example.html",
+        "context-dialog-default-example/context-dialog-default-example.html",
+        "context-dialog-footer-example/context-dialog-footer-example.html",
+        "context-dialog-header-example/context-dialog-header-example.html",
+        "context-dialog-interactive-example/context-dialog-interactive-example.html",
+        "context-dialog-previous-focus-example/context-dialog-previous-focus-example.html",
+        ":styles_actions_example",
+        ":styles_dark_example",
+        ":styles_footer_example",
+        ":styles_header_example",
+        ":styles_previous_focus_example",
+    ],
+    module_name = "@dynatrace/barista-examples/context-dialog",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/card:compile",
+        "//libs/barista-components/context-dialog:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_actions_example",
+    src = "context-dialog-actions-example/context-dialog-actions-example.scss",
+)
+
+sass_binary(
+    name = "styles_dark_example",
+    src = "context-dialog-dark-example/context-dialog-dark-example.scss",
+)
+
+sass_binary(
+    name = "styles_footer_example",
+    src = "context-dialog-footer-example/context-dialog-footer-example.scss",
+)
+
+sass_binary(
+    name = "styles_header_example",
+    src = "context-dialog-header-example/context-dialog-header-example.scss",
+)
+
+sass_binary(
+    name = "styles_previous_focus_example",
+    src = "context-dialog-previous-focus-example/context-dialog-previous-focus-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

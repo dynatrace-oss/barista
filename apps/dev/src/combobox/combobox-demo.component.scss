@@ -1,8 +1,8 @@
-.oversized-option {
+.dt-oversized-option {
   line-height: 40px;
 
   // increase rule specificity
-  &.oversized-option {
+  &.dt-oversized-option {
     &:nth-child(n + 1) {
       background-color: #ff8;
     }

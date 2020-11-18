@@ -1,0 +1,25 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "confirmation-dialog",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "confirmation-dialog-default-example/confirmation-dialog-default-example.html",
+        "confirmation-dialog-show-backdrop-example/confirmation-dialog-show-backdrop-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/confirmation-dialog",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/confirmation-dialog:compile",
+        "@npm//@angular/core",
+    ],
+)

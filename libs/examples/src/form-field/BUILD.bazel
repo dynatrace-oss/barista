@@ -1,0 +1,50 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "form-field",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "form-field-default-example/form-field-default-example.html",
+        "form-field-error-custom-validator-example/form-field-error-custom-validator-example.html",
+        "form-field-error-example/form-field-error-example.html",
+        "form-field-hint-example/form-field-hint-example.html",
+        "form-field-non-box-control-example/form-field-non-box-control-example.html",
+        "form-field-prefix-suffix-example/form-field-prefix-suffix-example.html",
+        "form-field-server-validation/form-field-server-validation-example.html",
+        ":styles_server_validation",
+    ],
+    module_name = "@dynatrace/barista-examples/form-field",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/alert:compile",
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/checkbox:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/loading-distractor:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+    ],
+)
+
+sass_binary(
+    name = "styles_server_validation",
+    src = "form-field-server-validation/form-field-server-validation-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

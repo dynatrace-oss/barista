@@ -1,0 +1,138 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "table",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "table-buttons-example/table-buttons-example.html",
+        "table-column-min-width-example/table-column-min-width-example.html",
+        "table-column-proportion-example/table-column-proportion-example.html",
+        "table-comparators-example/table-comparators-example.html",
+        "table-custom-columns-example/table-custom-columns-example.html",
+        "table-default-example/table-default-example.html",
+        "table-dynamic-columns-example/table-dynamic-columns-example.html",
+        "table-empty-state-example/table-empty-state-example.html",
+        "table-expandable-rows-example/table-expandable-rows-example.html",
+        "table-favorite-column-example/table-favorite-column-example.html",
+        "table-favorite-column-no-header-example/table-favorite-column-no-header-example.html",
+        "table-interactive-rows-example/table-interactive-rows-example.html",
+        "table-loading-example/table-loading-example.html",
+        "table-observable-example/table-observable-example.html",
+        "table-order-column-example/table-order-column-example.html",
+        "table-order-expandable-example/table-order-expandable-example.html",
+        "table-order-observable-example/table-order-observable-example.html",
+        "table-pagination-example/table-pagination-example.html",
+        "table-problem-example/table-problem-example.html",
+        "table-responsive-example/table-responsive-example.html",
+        "table-search-example/table-search-example.html",
+        "table-selection-example/table-selection-example.html",
+        "table-show-more-example/table-show-more-example.html",
+        "table-sorting-example/table-sorting-example.html",
+        "table-sorting-mixed-columns-example/table-sorting-mixed-columns-example.html",
+        "table-sticky-header-example/table-sticky-header-example.html",
+        "table-with-info-group-cell-example/table-with-info-group-cell-example.html",
+        ":styles_empty_state_example",
+        ":styles_expandable_rows_example",
+        ":styles_loading_example",
+        ":styles_observable_example",
+        ":styles_order_column_example",
+        ":styles_order_expandable_example",
+        ":styles_pagination_example",
+        ":styles_problem_example",
+        ":styles_search_example",
+        ":styles_selection_example",
+        ":styles_sorting_example",
+    ],
+    module_name = "@dynatrace/barista-examples/table",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/container-breakpoint-observer:compile",
+        "//libs/barista-components/core:compile",
+        "//libs/barista-components/empty-state:compile",
+        "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/highlight:compile",
+        "//libs/barista-components/indicator:compile",
+        "//libs/barista-components/info-group:compile",
+        "//libs/barista-components/key-value-list:compile",
+        "//libs/barista-components/loading-distractor:compile",
+        "//libs/barista-components/pagination:compile",
+        "//libs/barista-components/show-more:compile",
+        "//libs/barista-components/table:compile",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+        "@npm//lodash-es",
+        "@npm//rxjs",
+    ],
+)
+
+sass_binary(
+    name = "styles_empty_state_example",
+    src = "table-empty-state-example/table-empty-state-example.scss",
+)
+
+sass_binary(
+    name = "styles_expandable_rows_example",
+    src = "table-expandable-rows-example/table-expandable-rows-example.scss",
+)
+
+sass_binary(
+    name = "styles_loading_example",
+    src = "table-loading-example/table-loading-example.scss",
+)
+
+sass_binary(
+    name = "styles_observable_example",
+    src = "table-observable-example/table-observable-example.scss",
+)
+
+sass_binary(
+    name = "styles_order_column_example",
+    src = "table-order-column-example/table-order-column-example.scss",
+)
+
+sass_binary(
+    name = "styles_order_expandable_example",
+    src = "table-order-expandable-example/table-order-expandable-example.scss",
+)
+
+sass_binary(
+    name = "styles_pagination_example",
+    src = "table-pagination-example/table-pagination-example.scss",
+)
+
+sass_binary(
+    name = "styles_problem_example",
+    src = "table-problem-example/table-problem-example.scss",
+)
+
+sass_binary(
+    name = "styles_search_example",
+    src = "table-search-example/table-search-example.scss",
+)
+
+sass_binary(
+    name = "styles_selection_example",
+    src = "table-selection-example/table-selection-example.scss",
+)
+
+sass_binary(
+    name = "styles_sorting_example",
+    src = "table-sorting-example/table-sorting-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

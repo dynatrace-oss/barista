@@ -1,0 +1,51 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "input",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "input-dark-example/input-dark-example.html",
+        "input-default-example/input-default-example.html",
+        "input-disabled-readonly-example/input-disabled-readonly-example.html",
+        "input-form-example/input-form-example.html",
+        "input-ng-model-example/input-ng-model-example.html",
+        "input-optional-example/input-optional-example.html",
+        "input-textarea-example/input-textarea-example.html",
+        ":styles_dark_example",
+        ":styles_form_example",
+    ],
+    module_name = "@dynatrace/barista-examples/input",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/input:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/core",
+        "@npm//@angular/forms",
+    ],
+)
+
+sass_binary(
+    name = "styles_dark_example",
+    src = "input-dark-example/input-dark-example.scss",
+)
+
+sass_binary(
+    name = "styles_form_example",
+    src = "input-form-example/input-form-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

@@ -1,0 +1,24 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "timeline-chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "timeline-chart-default-example/timeline-chart-default-example.html",
+        "timeline-chart-overlay-example/timeline-chart-overlay-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/timeline-chart",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/timeline-chart:compile",
+        "@npm//@angular/core",
+    ],
+)

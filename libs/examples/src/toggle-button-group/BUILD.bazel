@@ -1,0 +1,54 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "toggle-button-group",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "toggle-button-group-default-example/toggle-button-group-default-example.html",
+        "toggle-button-group-dynamic-items-example/toggle-button-group-dynamic-items-example.html",
+        "toggle-button-group-show-more-example/toggle-button-group-show-more-example.html",
+        ":styles_default_example",
+        ":styles_dynamic_items_example",
+        ":styles_show_more_example",
+    ],
+    module_name = "@dynatrace/barista-examples/toggle-button-group",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/expandable-text:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/timeline-chart:compile",
+        "//libs/barista-components/toggle-button-group:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "toggle-button-group-default-example/toggle-button-group-default-example.scss",
+)
+
+sass_binary(
+    name = "styles_dynamic_items_example",
+    src = "toggle-button-group-dynamic-items-example/toggle-button-group-dynamic-items-example.scss",
+)
+
+sass_binary(
+    name = "styles_show_more_example",
+    src = "toggle-button-group-show-more-example/toggle-button-group-show-more-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

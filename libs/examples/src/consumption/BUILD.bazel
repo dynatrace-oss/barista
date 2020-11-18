@@ -1,0 +1,29 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "consumption",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "consumption-default-example/consumption-default-example.html",
+        "consumption-error-example/consumption-error-example.html",
+        "consumption-warning-example/consumption-warning-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/consumption",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/consumption:compile",
+        "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/key-value-list:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)

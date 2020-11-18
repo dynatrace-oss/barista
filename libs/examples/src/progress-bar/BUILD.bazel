@@ -1,0 +1,72 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "progress-bar",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "progress-bar-change-example/progress-bar-change-example.html",
+        "progress-bar-dark-example/progress-bar-dark-example.html",
+        "progress-bar-default-example/progress-bar-default-example.html",
+        "progress-bar-right-aligned-example/progress-bar-right-aligned-example.html",
+        "progress-bar-with-color-example/progress-bar-with-color-example.html",
+        "progress-bar-with-count-and-description-example/progress-bar-with-count-and-description-example.html",
+        "progress-bar-with-count-and-description-indicator-example/progress-bar-with-count-and-description-indicator-example.html",
+        "progress-bar-with-count-example/progress-bar-with-count-example.html",
+        "progress-bar-with-description-example/progress-bar-with-description-example.html",
+        ":styles_change_example",
+        ":styles_with_color_example",
+        ":styles_with_count_and_description_example",
+        ":styles_with_count_and_description_indicator_example",
+        ":styles_with_count_example",
+    ],
+    module_name = "@dynatrace/barista-examples/progress-bar",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/button-group:compile",
+        "//libs/barista-components/indicator:compile",
+        "//libs/barista-components/progress-bar:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_change_example",
+    src = "progress-bar-change-example/progress-bar-change-example.scss",
+)
+
+sass_binary(
+    name = "styles_with_color_example",
+    src = "progress-bar-with-color-example/progress-bar-with-color-example.scss",
+)
+
+sass_binary(
+    name = "styles_with_count_and_description_example",
+    src = "progress-bar-with-count-and-description-example/progress-bar-with-count-and-description-example.scss",
+)
+
+sass_binary(
+    name = "styles_with_count_and_description_indicator_example",
+    src = "progress-bar-with-count-and-description-indicator-example/progress-bar-with-count-and-description-indicator-example.scss",
+)
+
+sass_binary(
+    name = "styles_with_count_example",
+    src = "progress-bar-with-count-example/progress-bar-with-count-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

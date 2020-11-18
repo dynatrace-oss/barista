@@ -87,7 +87,7 @@ import {
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
   DtExampleComplexTestComponent,
-} from '@dynatrace/examples';
+} from '@dynatrace/barista-examples';
 
 const ROUTES: Routes = [
   { path: 'alert-dark-error-example', component: DtExampleAlertDarkError },

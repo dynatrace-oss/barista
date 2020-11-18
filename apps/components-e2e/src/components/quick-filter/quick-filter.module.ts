@@ -24,7 +24,7 @@ import { DtE2EQuickFilterAsync } from './quick-filter-async/quick-filter-async';
 import {
   DtExampleQuickFilterDefault,
   DtExampleQuickFilterCustomShowMore,
-} from '@dynatrace/examples/quick-filter';
+} from '@dynatrace/barista-examples/quick-filter';
 
 const routes: Route[] = [
   { path: '', component: DtE2EQuickFilter },

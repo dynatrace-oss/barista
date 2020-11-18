@@ -1,0 +1,60 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "drawer",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "drawer-default-example/drawer-default-example.html",
+        "drawer-dynamic-example/drawer-dynamic-example.html",
+        "drawer-nested-example/drawer-nested-example.html",
+        "drawer-over-example/drawer-over-example.html",
+        ":styles_default_example",
+        ":styles_dynamic_example",
+        ":styles_nested_example",
+        ":styles_over_example",
+    ],
+    module_name = "@dynatrace/barista-examples/drawer",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/drawer:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/select:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "drawer-default-example/drawer-default-example.scss",
+)
+
+sass_binary(
+    name = "styles_dynamic_example",
+    src = "drawer-dynamic-example/drawer-dynamic-example.scss",
+)
+
+sass_binary(
+    name = "styles_nested_example",
+    src = "drawer-nested-example/drawer-nested-example.scss",
+)
+
+sass_binary(
+    name = "styles_over_example",
+    src = "drawer-over-example/drawer-over-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

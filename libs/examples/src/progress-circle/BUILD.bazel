@@ -1,0 +1,31 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "progress-circle",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "progress-circle-change-example/progress-circle-change-example.html",
+        "progress-circle-default-example/progress-circle-default-example.html",
+        "progress-circle-with-color-example/progress-circle-with-color-example.html",
+        "progress-circle-with-icon-example/progress-circle-with-icon-example.html",
+        "progress-circle-with-text-example/progress-circle-with-text-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/progress-circle",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/button-group:compile",
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/progress-circle:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)

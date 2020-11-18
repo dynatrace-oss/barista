@@ -1,0 +1,47 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "icon",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "icon-all-example/icon-all-example.html",
+        "icon-default-example/icon-default-example.html",
+        ":styles_all_example",
+        ":styles_default_example",
+    ],
+    module_name = "@dynatrace/barista-examples/icon",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/icon:compile",
+        "//libs/barista-components/input:compile",
+        "@npm//@dynatrace/barista-icons",
+        "@npm//@angular/cdk",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+        "@npm//rxjs",
+    ],
+)
+
+sass_binary(
+    name = "styles_all_example",
+    src = "icon-all-example/icon-all-example.scss",
+)
+
+sass_binary(
+    name = "styles_default_example",
+    src = "icon-default-example/icon-default-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

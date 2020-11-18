@@ -1,0 +1,45 @@
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "stacked-series-chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "stacked-series-chart-column-example/stacked-series-chart-column-example.html",
+        "stacked-series-chart-connected-legend-example/stacked-series-chart-connected-legend-example.html",
+        "stacked-series-chart-filled-example/stacked-series-chart-filled-example.html",
+        "stacked-series-chart-generic-example/stacked-series-chart-generic-example.html",
+        "stacked-series-chart-single-example/stacked-series-chart-single-example.html",
+        ":styles_connected_legend_example",
+    ],
+    module_name = "@dynatrace/barista-examples/stacked-series-chart",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button-group:compile",
+        "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/legend:compile",
+        "//libs/barista-components/stacked-series-chart:compile",
+        "//libs/barista-components/table:compile",
+        "//libs/barista-components/theming:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_binary(
+    name = "styles_connected_legend_example",
+    src = "stacked-series-chart-connected-legend-example/stacked-series-chart-connected-legend-example.scss",
+)
+
+stylelint(
+    name = "stylelint",
+    srcs = glob(["**/*.scss"]),
+)

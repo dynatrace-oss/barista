@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
-} from '@dynatrace/examples';
+} from '@dynatrace/barista-examples';
 
 const ROUTES: Routes = [
   { path: 'alert-dark-error-example', component: DtExampleAlertDarkError },

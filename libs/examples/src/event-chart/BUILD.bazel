@@ -1,0 +1,33 @@
+load("//tools/bazel_rules:index.bzl", "ng_module")
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "event-chart",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = [
+            "**/*.spec.ts",
+            "src/test-setup.ts",
+        ],
+    ),
+    angular_assets = [
+        "event-chart-complex-selection-example/event-chart-complex-selection-example.html",
+        "event-chart-custom-color-example/event-chart-custom-color-example.html",
+        "event-chart-default-example/event-chart-default-example.html",
+        "event-chart-legend-example/event-chart-legend-example.html",
+        "event-chart-overlapping-load-example/event-chart-overlapping-load-example.html",
+        "event-chart-overlay-example/event-chart-overlay-example.html",
+        "event-chart-selection-example/event-chart-selection-example.html",
+        "event-chart-session-replay-example/event-chart-session-replay-example.html",
+    ],
+    module_name = "@dynatrace/barista-examples/event-chart",
+    tsconfig = "//libs/examples:tsconfig_lib",
+    deps = [
+        "//libs/barista-components/button:compile",
+        "//libs/barista-components/event-chart:compile",
+        "//libs/barista-components/key-value-list:compile",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
