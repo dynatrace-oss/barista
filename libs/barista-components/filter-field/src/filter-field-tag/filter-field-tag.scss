@@ -26,7 +26,18 @@
   &.dt-filter-field-tag-disabled {
     border-color: $gray-200;
     background-color: #ffffff;
-    color: $gray-300;
+
+    .dt-filter-field-tag-key,
+    .dt-filter-field-tag-value {
+      color: $gray-500;
+    }
+  }
+
+  &.dt-filter-field-tag-read-only {
+    .dt-filter-field-tag-key,
+    .dt-filter-field-tag-value {
+      color: $gray-500;
+    }
   }
 }
 
@@ -75,11 +86,6 @@
 
 .dt-filter-field-tag-container {
   display: flex;
-
-  &.dt-filter-field-tag-value-isfreetext::after {
-    content: '"';
-    color: $turquoise-600;
-  }
 }
 
 .dt-filter-field-tag-value {
@@ -98,6 +104,8 @@
   overflow: hidden;
 }
 
-.dt-filter-field-tag-value-isfreetext .dt-filter-field-tag-value::before {
+.dt-filter-field-tag-value-isfreetext .dt-filter-field-tag-value::before,
+.dt-filter-field-tag-value-isfreetext .dt-filter-field-tag-value::after {
   content: '"';
+  color: currentColor;
 }

@@ -31,6 +31,7 @@
   </button>
 </div>
 <button
+  *ngIf="!(_filterFieldDisabled || disabled) && deletable"
   dt-icon-button
   variant="nested"
   class="dt-filter-field-tag-button"
