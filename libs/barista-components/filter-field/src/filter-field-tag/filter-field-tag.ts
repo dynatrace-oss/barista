@@ -44,6 +44,7 @@ import { Subject } from 'rxjs';
     '[attr.role]': `'option'`,
     class: 'dt-filter-field-tag',
     '[class.dt-filter-field-tag-disabled]': '_filterFieldDisabled || disabled',
+    '[class.dt-filter-field-tag-read-only]': '!editable',
   },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,

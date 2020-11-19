@@ -1210,7 +1210,7 @@ describe('DtFilterField', () => {
       const tags = getFilterTags(fixture);
       const { label, deleteButton } = getTagButtons(tags[0]);
       expect(label.disabled).toBeFalsy();
-      expect(deleteButton.disabled).toBeTruthy();
+      expect(deleteButton).toBeNull();
     });
 
     it('should disable the entire tag when disabled is set to true', () => {
@@ -1220,7 +1220,7 @@ describe('DtFilterField', () => {
       const tags = getFilterTags(fixture);
       const { label, deleteButton } = getTagButtons(tags[0]);
       expect(label.disabled).toBeTruthy();
-      expect(deleteButton.disabled).toBeTruthy();
+      expect(deleteButton).toBeNull();
     });
 
     it('should keep the deletable/editable flags on the tags when a tag is edited', () => {

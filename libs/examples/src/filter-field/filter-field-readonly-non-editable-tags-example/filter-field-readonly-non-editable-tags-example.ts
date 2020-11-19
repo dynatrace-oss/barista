@@ -35,7 +35,12 @@ export class DtExampleFilterFieldReadOnlyTags<T> implements AfterViewInit {
     autocomplete: [
       {
         name: 'AUT',
-        autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
+        autocomplete: [
+          { name: 'Linz' },
+          { name: 'Vienna' },
+          { name: 'Graz' },
+          { name: 'Bregenz' },
+        ],
       },
       {
         name: 'USA',
@@ -65,7 +70,48 @@ export class DtExampleFilterFieldReadOnlyTags<T> implements AfterViewInit {
     this.DATA.autocomplete[0],
     this.DATA.autocomplete[0].autocomplete![0],
   ];
-  _filters = [this._linzFilter];
+  private _viennaFilter = [
+    this.DATA.autocomplete[0],
+    this.DATA.autocomplete[0].autocomplete![1],
+  ];
+  private _grazFilter = [
+    this.DATA.autocomplete[0],
+    this.DATA.autocomplete[0].autocomplete![2],
+  ];
+  private _bregenzFilter = [
+    this.DATA.autocomplete[0],
+    this.DATA.autocomplete[0].autocomplete![3],
+  ];
+  private _miamiFilter = [
+    this.DATA.autocomplete[1],
+    this.DATA.autocomplete[1].autocomplete![3],
+    'Miami',
+  ];
+  private _austinFilter = [
+    this.DATA.autocomplete[1],
+    this.DATA.autocomplete[1].autocomplete![3],
+    'Austin',
+  ];
+  private _sandiegoFilter = [
+    this.DATA.autocomplete[1],
+    this.DATA.autocomplete[1].autocomplete![3],
+    'San Diego',
+  ];
+  private _bendFilter = [
+    this.DATA.autocomplete[1],
+    this.DATA.autocomplete[1].autocomplete![3],
+    'Bend',
+  ];
+  _filters = [
+    this._linzFilter,
+    this._viennaFilter,
+    this._grazFilter,
+    this._bregenzFilter,
+    this._miamiFilter,
+    this._austinFilter,
+    this._sandiegoFilter,
+    this._bendFilter,
+  ];
 
   _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
 
@@ -77,6 +123,49 @@ export class DtExampleFilterFieldReadOnlyTags<T> implements AfterViewInit {
       if (linzTag) {
         linzTag.editable = false;
         linzTag.deletable = false;
+        this._changeDetectorRef.markForCheck();
+      }
+      const viennaTag = this.filterField.getTagForFilter(this._viennaFilter);
+      if (viennaTag) {
+        viennaTag.editable = true;
+        viennaTag.deletable = false;
+        this._changeDetectorRef.markForCheck();
+      }
+      const grazTag = this.filterField.getTagForFilter(this._grazFilter);
+      if (grazTag) {
+        grazTag.editable = false;
+        grazTag.deletable = true;
+        this._changeDetectorRef.markForCheck();
+      }
+      const bregenz = this.filterField.getTagForFilter(this._bregenzFilter);
+      if (bregenz) {
+        bregenz.editable = true;
+        bregenz.deletable = true;
+        this._changeDetectorRef.markForCheck();
+      }
+      // Permutation for free texts as well
+      const miami = this.filterField.getTagForFilter(this._miamiFilter);
+      if (miami) {
+        miami.editable = false;
+        miami.deletable = false;
+        this._changeDetectorRef.markForCheck();
+      }
+      const austin = this.filterField.getTagForFilter(this._austinFilter);
+      if (austin) {
+        austin.editable = true;
+        austin.deletable = false;
+        this._changeDetectorRef.markForCheck();
+      }
+      const sandiego = this.filterField.getTagForFilter(this._sandiegoFilter);
+      if (sandiego) {
+        sandiego.editable = false;
+        sandiego.deletable = true;
+        this._changeDetectorRef.markForCheck();
+      }
+      const bend = this.filterField.getTagForFilter(this._bendFilter);
+      if (bend) {
+        bend.editable = true;
+        bend.deletable = true;
         this._changeDetectorRef.markForCheck();
       }
     });
