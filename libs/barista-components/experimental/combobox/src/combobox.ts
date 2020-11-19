@@ -90,6 +90,10 @@ export class DtComboboxFilterChange {
   constructor(public filter: string, public isResetEvent: boolean = false) {}
 }
 
+// We need to save the instance of the combobox that currently
+// has a flap open, to make sure we can close the old one.
+let currentlyOpenCombobox: DtCombobox<any> | null = null;
+
 export class DtComboboxBase {
   constructor(
     public _elementRef: ElementRef,
@@ -165,9 +169,9 @@ export class DtCombobox<T>
     if (coercedValue !== this._loading) {
       this._loading = coercedValue;
       if (this._loading) {
-        this._autocompleteTrigger.closePanel();
+        this._closePanel();
       } else if (this.focused) {
-        this._autocompleteTrigger.openPanel();
+        this._openPanel();
       }
       this._changeDetectorRef.markForCheck();
     }
@@ -239,6 +243,7 @@ export class DtCombobox<T>
   /** @internal The trigger of the internal autocomplete trigger */
   @ViewChild('autocompleteTrigger', { static: true })
   _autocompleteTrigger: DtAutocompleteTrigger<T>;
+
   /** @internal The elementRef of the input used internally */
   @ViewChild('searchInput', { static: true }) _searchInput: ElementRef;
   /**
@@ -311,7 +316,7 @@ export class DtCombobox<T>
 
     fromEvent(this._searchInput.nativeElement, 'input')
       .pipe(
-        tap(() => this._autocompleteTrigger.openPanel()),
+        tap(() => this._openPanel()),
         debounceTime(100),
         map((event: KeyboardEvent): string => {
           event.stopPropagation();
@@ -422,10 +427,29 @@ export class DtCombobox<T>
     event.preventDefault();
     event.stopPropagation();
 
-    this._panelOpen
-      ? this._autocompleteTrigger.closePanel()
-      : this._autocompleteTrigger.openPanel();
+    this._panelOpen ? this._closePanel() : this._openPanel();
     this._changeDetectorRef.markForCheck();
+  }
+
+  /**
+   * Opens the autocomplete panel and makes sure that all
+   * other combobox panels are closed correctly.
+   */
+  private _openPanel(): void {
+    if (currentlyOpenCombobox && currentlyOpenCombobox !== this) {
+      currentlyOpenCombobox._autocompleteTrigger.closePanel();
+    }
+    this._autocompleteTrigger.openPanel();
+    currentlyOpenCombobox = this;
+  }
+
+  /**
+   * Closes the autocomplete panel and makes sure handles
+   * the global autocomplete panel case correctly.
+   */
+  private _closePanel(): void {
+    this._autocompleteTrigger.openPanel();
+    currentlyOpenCombobox = null;
   }
 
   /** @internal called when dt-autocomplete emits an open event */
