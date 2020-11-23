@@ -28,11 +28,11 @@ component about viewport changes that trigger a reflow of the `dt-chart`.
 
 ## Inputs
 
-| Name           | Type                                                                                                  | Default     | Description                                                                                                                                                       |
-| -------------- | ----------------------------------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `options`      | `Observable<DtChartOptions> | DtChartOptions | undefined`                                             | `undefined` | Sets options for the chart. `DtChartOptions` extends from `Highcharts.Options`, but removes the series property. The series property is passed as separate input. |
-| `series`       | `Observable<Highcharts.IndividualSeriesOptions[]> | Highcharts.IndividualSeriesOptions[] | undefined` | `undefined` | Sets the series of the chart. The type can either be an observable or a static array.                                                                             |
-| `loading-text` | `string`                                                                                              |             | The loading text of the loading distractor.                                                                                                                       |
+| Name           | Type                                                                                                          | Default     | Description                                                                                                                                                       |
+| -------------- | ------------------------------------------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `options`      | Observable<DtChartOptions> &#124; DtChartOptions &#124; undefined>                                            | `undefined` | Sets options for the chart. `DtChartOptions` extends from `Highcharts.Options`, but removes the series property. The series property is passed as separate input. |
+| `series`       | Observable<Highcharts.IndividualSeriesOptions[]> &#124; Highcharts.IndividualSeriesOptions[] &#124; undefined | `undefined` | Sets the series of the chart. The type can either be an observable or a static array.                                                                             |
+| `loading-text` | `string`                                                                                                      |             | The loading text of the loading distractor.                                                                                                                       |
 
 ## Outputs
 
@@ -40,7 +40,7 @@ component about viewport changes that trigger a reflow of the `dt-chart`.
 | ------------------------ | -------------------------------------------------- | -------------------------------------------------------------------------------- |
 | `updated`                | `EventEmitter<void>`                               | Event emitted when the chart options or series are updated.                      |
 | `tooltipOpenChange`      | `EventEmitter<boolean>`                            | Event emitted when the chart tooltip opens or closes.                            |
-| `tooltipDataChange`      | `EventEmitter<DtChartTooltipEvent | null>`         | Event emitted when the tooltip data changes.                                     |
+| `tooltipDataChange`      | EventEmitter<DtChartTooltipEvent &#124; null>      | Event emitted when the tooltip data changes.                                     |
 | `seriesVisibilityChange` | `EventEmitter<DtChartSeriesVisibilityChangeEvent>` | Event emitted when a series visibility changes because a legend item was clicked |
 
 ## Types
@@ -118,12 +118,31 @@ declare the variable for the implicit context on the `ng-template`.
 ```html
 <dt-chart ...>
   <dt-chart-tooltip>
-    <ng-template let-tooltipdata>
-      {{tooltipdata.point.y}}
-    </ng-template>
+    <ng-template let-tooltipdata> {{ tooltipdata.point.y }} </ng-template>
   </dt-chart-tooltip>
 </dt-chart>
 ```
+
+It is possible to provide a custom position function for the `dt-chart-tooltip`
+by providing a `DtChartTooltipConfig` through providers, as it is done in the
+following example:
+
+```javascript
+@Component({
+  selector: 'dt-example-chart-bar',
+  templateUrl: 'chart-bar-example.html',
+  providers: [
+    {
+        provide: DT_CHART_TOOLTIP_CONFIG,
+        useValue: {
+            positionFunction: myCustomPositionFunction,
+        },
+    },
+  ],
+})
+```
+
+<ba-live-example name="DtExampleChartBar" fullwidth></ba-live-example>
 
 ## Selection area
 
@@ -183,7 +202,7 @@ accessibility standards.
 | Name                    | Type               | Default  | Description                                                                                                               |
 | ----------------------- | ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `min`                   | `number`           | `300000` | The minimum range that can be created in milliseconds, by default the minimum range is 5 minutes.                         |
-| `max`                   | `number | null`    | `null`   | The maximum range that can be created in a time format. If not set, the range will be capped at the borders of the chart. |
+| `max`                   | number &#124; null | `null`   | The maximum range that can be created in a time format. If not set, the range will be capped at the borders of the chart. |
 | `value`                 | `[number, number]` | `[0,0]`  | The time frame on the chart's x-axis where the range should be placed.                                                    |
 | `ariaLabelSelectedArea` | `string`           | `''`     | Aria label of the selected area that is created.                                                                          |
 | `ariaLabelLeftHandle`   | `string`           | `''`     | Aria label of the left handle of the selected area that can resize the selected frame.                                    |
@@ -274,14 +293,14 @@ an overload. To indicate this use case, add a heatfield with `color` set to
 
 ### Inputs
 
-| Name              | Type               | Default     | Description                                                                 |
-| ----------------- | ------------------ | ----------- | --------------------------------------------------------------------------- |
-| `start`           | `number`           |             | The start numerical/date value on the x-axis of the chart.                  |
-| `end`             | `number`           |             | The end numerical/date value on the x-axis of the chart.                    |
-| `active`          | `boolean`          | `false`     | Whether the heatfield is active.                                            |
-| `aria-label`      | `string`           | `undefined` | The aria label used for the heatfield button.                               |
-| `aria-labelledby` | `string`           | `undefined` | ARIA reference to a label describing the icon in the consumption component. |
-| `color`           | `'error' | 'main'` | `'error'`   | Sets the color of the heatfield.                                            |
+| Name              | Type                  | Default     | Description                                                                 |
+| ----------------- | --------------------- | ----------- | --------------------------------------------------------------------------- |
+| `start`           | `number`              |             | The start numerical/date value on the x-axis of the chart.                  |
+| `end`             | `number`              |             | The end numerical/date value on the x-axis of the chart.                    |
+| `active`          | `boolean`             | `false`     | Whether the heatfield is active.                                            |
+| `aria-label`      | `string`              | `undefined` | The aria label used for the heatfield button.                               |
+| `aria-labelledby` | `string`              | `undefined` | ARIA reference to a label describing the icon in the consumption component. |
+| `color`           | 'error' &#124; 'main' | `'error'`   | Sets the color of the heatfield.                                            |
 
 To make our components accessible it is obligatory to provide either an
 `aria-label` or `aria-labelledby`.
