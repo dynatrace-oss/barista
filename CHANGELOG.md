@@ -1,3 +1,23 @@
+## [8.5.0](https://github.com/dynatrace-oss/barista/compare/8.4.0...8.5.0) (2020-11-23)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue where the combobox flap did not close.
+  ([a7e133b](https://github.com/dynatrace-oss/barista/commit/a7e133b5541b6b761207a3dc5cf066e01347da4d)),
+  closes [#849](https://github.com/dynatrace-oss/barista/issues/849)
+- **filter-field:** Fixes an issue where the filterChanges event was not
+  triggered.
+  ([bce1785](https://github.com/dynatrace-oss/barista/commit/bce17854413192e65a027a43dd78b56fbc5b4838))
+- **filter-field:** Fixes an issue with confusing disabled styles.
+  ([32ea19d](https://github.com/dynatrace-oss/barista/commit/32ea19d3c4cb0169d7662f9bc35d0181c25f4ec7))
+
+### Features
+
+- **indicator:** Added indicator theme 'recovered'.
+  ([9b3e989](https://github.com/dynatrace-oss/barista/commit/9b3e989cc33f1d9168a399beba13190c80d2a9d9))
+- **timepicker:** Added experimental timepicker and timeinput components.
+  ([8784ec3](https://github.com/dynatrace-oss/barista/commit/8784ec397ca13049cbfbabc733db912b021883be))
+
 ## [8.4.0](https://github.com/dynatrace-oss/barista/compare/8.3.0...8.4.0) (2020-11-13)
 
 ### Bug Fixes
