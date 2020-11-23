@@ -13,14 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {
+  DtChart,
+  DtChartTooltipConfig,
+  DtChartTooltipData,
+  DT_CHART_TOOLTIP_CONFIG,
+} from '../../../../barista-components/chart';
+import { PlotBackgroundInfo } from '../../../../barista-components/chart/src/utils';
+import { Component } from '@angular/core';
+
+const getTooltipPosition = (
+  data: DtChartTooltipData,
+  chart: DtChart,
+  plotBackgroundInfo?: PlotBackgroundInfo,
+): { x: number; y: number } => {
+  const containerElement: HTMLElement = chart._container.nativeElement;
+  const containerElementBB = containerElement.getBoundingClientRect();
+  const { x, y } = verticalPositionFunction(
+    data,
+    plotBackgroundInfo as PlotBackgroundInfo,
+  );
+
+  return {
+    x: containerElementBB.left + x,
+    y: containerElementBB.top + y,
+  };
+};
+
+const verticalPositionFunction = (
+  data: DtChartTooltipData,
+  plotBackgroundInfo: PlotBackgroundInfo,
+): { x: number; y: number } => ({
+  x: plotBackgroundInfo?.width / 2 + plotBackgroundInfo?.left,
+  y: (data.points![0].point as any).tooltipPos![1] + plotBackgroundInfo?.top,
+});
+
+const customTooltipConfig: DtChartTooltipConfig = {
+  positionFunction: getTooltipPosition,
+};
 
 // tslint:disable:no-magic-numbers
-
-import { Component } from '@angular/core';
 
 @Component({
   selector: 'dt-example-chart-bar',
   templateUrl: 'chart-bar-example.html',
+  providers: [
+    { provide: DT_CHART_TOOLTIP_CONFIG, useValue: customTooltipConfig },
+  ],
 })
 export class DtExampleChartBar {
   options: Highcharts.Options = {
@@ -37,6 +76,9 @@ export class DtExampleChartBar {
         'Third item',
         'Fourth item',
         'Fifth item',
+        'Sixth item',
+        'Seventh item',
+        'Eighth item',
       ],
     },
     yAxis: {
@@ -48,10 +90,9 @@ export class DtExampleChartBar {
       },
     },
     plotOptions: {
-      pie: {
+      bar: {
         showInLegend: true,
         shadow: false,
-        innerSize: '80%',
         borderWidth: 0,
       },
     },
@@ -60,7 +101,7 @@ export class DtExampleChartBar {
     {
       type: 'bar',
       name: 'Metric',
-      data: [60, 86, 25, 43, 28],
+      data: [60, 86, 25, 43, 28, 50, 100, 20],
     },
   ];
 }

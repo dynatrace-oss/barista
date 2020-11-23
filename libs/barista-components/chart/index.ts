@@ -20,6 +20,11 @@ export * from './src/chart.interface';
 export * from './src/chart-config';
 export * from './src/heatfield/index';
 export * from './src/tooltip/chart-tooltip';
+export {
+  DtChartTooltipConfig,
+  DtChartTooltipPositionFn,
+  DT_CHART_TOOLTIP_CONFIG,
+} from './src/tooltip/chart-tooltip-position';
 export { DtChartTooltipData } from './src/highcharts/highcharts-tooltip-types';
 
 export { DtChartRange } from './src/range/range';
