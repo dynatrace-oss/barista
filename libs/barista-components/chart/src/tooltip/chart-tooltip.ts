@@ -15,7 +15,7 @@
  */
 
 import {
-  ConnectedPosition,
+  FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayConfig,
   OverlayRef,
@@ -26,47 +26,31 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
+  ElementRef,
+  Inject,
   OnDestroy,
+  Optional,
   TemplateRef,
   ViewContainerRef,
   ViewEncapsulation,
-  ElementRef,
-  Inject,
-  Optional,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 
 import {
-  isDefined,
   DT_UI_TEST_CONFIG,
-  DtUiTestConfiguration,
   dtSetUiTestAttribute,
+  DtUiTestConfiguration,
 } from '@dynatrace/barista-components/core';
 
 import { DtChart } from '../chart';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 import { PlotBackgroundInfo } from '../utils';
-
-/** Default horizontal offset for the tooltip */
-const DT_CHART_TOOLTIP_DEFAULT_OFFSET = 10;
-
-/** Positions for the chart tooltip  */
-const DEFAULT_DT_CHART_TOOLTIP_POSITIONS: ConnectedPosition[] = [
-  {
-    originX: 'start',
-    originY: 'center',
-    overlayX: 'end',
-    overlayY: 'center',
-    offsetX: -DT_CHART_TOOLTIP_DEFAULT_OFFSET,
-  },
-  {
-    originX: 'end',
-    originY: 'center',
-    overlayX: 'start',
-    overlayY: 'center',
-    offsetX: DT_CHART_TOOLTIP_DEFAULT_OFFSET,
-  },
-];
+import {
+  DT_CHART_DEFAULT_TOOLTIP_POSITIONS,
+  DT_CHART_TOOLTIP_CONFIG,
+  DtChartTooltipConfig,
+  getDefaultTooltipPosition,
+} from './chart-tooltip-position';
 
 @Component({
   selector: 'dt-chart-tooltip',
@@ -96,6 +80,9 @@ export class DtChartTooltip implements OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
     @Optional()
+    @Inject(DT_CHART_TOOLTIP_CONFIG)
+    private _chartTooltipConfig?: DtChartTooltipConfig,
+    @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
   ) {}
@@ -114,15 +101,12 @@ export class DtChartTooltip implements OnDestroy {
   ): void {
     // We check for data.points and data.point property since with pie / donut charts we need
     if (parentChart._chartObject && data && (data.points || data.point)) {
-      const positionStrategy = this._overlay
-        .position()
-        .flexibleConnectedTo(
-          this._getTooltipPosition(data, parentChart, plotBackgroundInfo),
-        )
-        .withPositions(DEFAULT_DT_CHART_TOOLTIP_POSITIONS);
-
       const overlayConfig = new OverlayConfig({
-        positionStrategy,
+        positionStrategy: this._getPositionStrategy(
+          data,
+          parentChart,
+          plotBackgroundInfo,
+        ),
         backdropClass: 'dt-no-pointer',
         hasBackdrop: true,
         panelClass: ['dt-chart-tooltip-overlay', 'dt-no-pointer'],
@@ -162,12 +146,11 @@ export class DtChartTooltip implements OnDestroy {
   ): void {
     if (this._portal && this._overlayRef) {
       this._portal.context.$implicit = data;
-      const positionStrategy = this._overlay
-        .position()
-        .flexibleConnectedTo(
-          this._getTooltipPosition(data, parentChart, plotBackgroundInfo),
-        )
-        .withPositions(DEFAULT_DT_CHART_TOOLTIP_POSITIONS);
+      const positionStrategy = this._getPositionStrategy(
+        data,
+        parentChart,
+        plotBackgroundInfo,
+      );
       this._overlayRef.updatePositionStrategy(positionStrategy);
       this._changeDetectorRef.markForCheck();
     }
@@ -181,56 +164,24 @@ export class DtChartTooltip implements OnDestroy {
     }
   }
 
-  /**
-   * Calculate an origin point that can be used to position the tooltip.
-   */
-  private _getTooltipPosition(
+  /** Returns the positionstrategy being used for the tooltip - either the default one or if a config is provided a custom position function */
+  private _getPositionStrategy(
     data: DtChartTooltipData,
-    chart: DtChart,
+    parentChart: DtChart,
     plotBackgroundInfo: PlotBackgroundInfo,
-  ): { x: number; y: number } {
-    const containerElement: HTMLElement = chart._container.nativeElement;
-    const containerElementBB = containerElement.getBoundingClientRect();
-    const { x, y } = getHighchartsTooltipPosition(data, plotBackgroundInfo);
-    return {
-      x: containerElementBB.left + x,
-      y: containerElementBB.top + y,
-    };
-  }
-}
+  ): FlexibleConnectedPositionStrategy {
+    const positioner =
+      this._chartTooltipConfig?.positionFunction !== undefined
+        ? this._chartTooltipConfig.positionFunction(
+            data,
+            parentChart,
+            plotBackgroundInfo,
+          )
+        : getDefaultTooltipPosition(data, parentChart, plotBackgroundInfo);
 
-/**
- * highcharts provides the tooltip position differently depending on the series type
- * Pie chart: data.point.point.tooltipPos[x, y]
- * Category: data.points[0].point.tooltipPos[x, whatever, whatever]
- * Mixed multiple series(line, column): data.points[0].point.tooltipPos[x, whatever, whatever]
- * Area as first: data.points[0].point.x => xAxis.toPixel(x)
- */
-function getHighchartsTooltipPosition(
-  data: DtChartTooltipData,
-  plotBackgroundInfo: PlotBackgroundInfo,
-): { x: number; y: number } {
-  const isPieChart = !isDefined(data.points);
-  const hasAreaFirstSeries =
-    data.points &&
-    data.points[0].point &&
-    !(data.points[0].point as any).tooltipPos;
-  let x: number;
-  // set y position for all charts in the middle of the plotbackground vertically
-  // tslint:disable-next-line:no-magic-numbers
-  let y = plotBackgroundInfo.height / 2 + plotBackgroundInfo.top;
-  if (isPieChart) {
-    const tooltipPos = (data.point!.point as any).tooltipPos;
-    x = tooltipPos![0];
-    // override the y position for pie charts
-    y = tooltipPos![1];
-  } else if (hasAreaFirstSeries) {
-    const point = data.points![0].point;
-    const xAxis = data.points![0].series!.xAxis;
-    x = xAxis.toPixels(point.x as number, false);
-  } else {
-    x = (data.points![0].point as any).tooltipPos![0] + plotBackgroundInfo.left;
+    return this._overlay
+      .position()
+      .flexibleConnectedTo(positioner)
+      .withPositions(DT_CHART_DEFAULT_TOOLTIP_POSITIONS);
   }
-
-  return { x, y };
 }
