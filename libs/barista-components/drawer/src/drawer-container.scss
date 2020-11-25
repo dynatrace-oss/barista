@@ -44,6 +44,7 @@ $dt-backdrop-opacity: 0.4;
   will-change: contents;
 
   :host.dt-drawer-content-transition > & {
-    transition: margin 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: margin 400ms cubic-bezier(0.25, 0.8, 0.25, 1),
+      width 400ms cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 }

@@ -117,6 +117,10 @@ $space: 20px;
   fill: currentColor;
 }
 
+:host ::ng-deep .dt-drawer-body.dt-drawer-body {
+  width: 230px;
+}
+
 :host ::ng-deep cdk-virtual-scroll-viewport {
   margin-right: -$space-right;
 }
