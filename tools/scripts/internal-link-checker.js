@@ -15,12 +15,15 @@ if (internalLinks.length === 0) {
 const results = [];
 
 for (const internalLink of internalLinks) {
-  const execSyncResult = execSync(
-    `grep --include="./dist/**.json" -rl "./dist" -e "${internalLink}"`,
-  ).toString();
-
-  if (execSyncResult.length > 0) {
-    results.push(execSyncResult);
+  try {
+    const execSyncResult = execSync(
+      `grep --include="*.json" -i "${internalLink}" -rl ./dist`,
+    );
+    if (execSyncResult.toString().length > 0) {
+      results.push(execSyncResult);
+    }
+  } catch (err) {
+    // Grep errors if nothing is output, we can ignore this one.
   }
 }
 
