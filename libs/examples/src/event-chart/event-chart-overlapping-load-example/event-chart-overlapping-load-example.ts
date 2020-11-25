@@ -40,7 +40,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386627156,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -50,7 +50,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386643136,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -60,7 +60,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386643190,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -70,7 +70,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386643702,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -80,7 +80,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386659337,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -90,7 +90,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386659787,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -100,7 +100,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386675104,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -110,7 +110,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386675556,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -120,7 +120,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386691235,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -130,7 +130,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386691725,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -140,7 +140,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386707287,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -150,7 +150,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386707739,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -160,7 +160,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386722814,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -170,7 +170,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386723246,
       name: '/easytravel/rest/locations?match=<masked>',
       error: true,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -180,7 +180,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386738266,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -190,7 +190,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386738741,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -200,7 +200,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386753999,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -210,7 +210,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386754469,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -220,7 +220,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386770530,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -230,7 +230,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386770928,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -240,7 +240,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386786078,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -250,7 +250,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386786520,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -260,7 +260,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386801551,
       name: '/easytravel/rest/journeys/?match=<masked>&from=&to=',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -270,7 +270,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386802066,
       name: '/easytravel/rest/locations?match=<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -280,7 +280,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386803293,
       name: '/easytravel/rest/journeys/<masked>',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -290,7 +290,7 @@ export class DtExampleEventChartOverlappingLoad {
       started: 1566386804080,
       name: '/easytravel/rest/login',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: 'Satisfying',
     },
     {
@@ -298,7 +298,7 @@ export class DtExampleEventChartOverlappingLoad {
       name: 'Arrivaldi Apriando',
       type: 'UserTag',
       error: false,
-      application: 'easytravel-ang.lab.dynatrace.org',
+      application: 'easytravel-ang.dynatrace.com',
       apdexRating: '',
     },
   ];
