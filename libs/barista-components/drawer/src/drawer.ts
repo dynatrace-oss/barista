@@ -124,7 +124,7 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
 
   /**
    * Emits when the drawer open state changes. Emits a boolean value for the
-   * open sate (true for open, false for close).
+   * open state (true for open, false for close).
    * Fires after the animation is completed
    */
   @Output() readonly openChange = new EventEmitter<boolean>(true);
