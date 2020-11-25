@@ -59,6 +59,8 @@ import {
   getIsDetailView,
 } from './state/selectors';
 import { createQuickFilterStore, QuickFilterState } from './state/store';
+import { DtDrawer } from '@dynatrace/barista-components/drawer';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Directive that is used to place a title inside the quick filters sidebar */
 @Directive({
@@ -127,11 +129,43 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   );
 
   /**
+   * Emits when the drawer open state changes.
+   * Emits a boolean value for the open state (true for open, false for close).
+   * Fires after the animation is completed.
+   */
+  @Output() readonly sidebarOpenChange: Observable<
+    boolean
+  > = this._zone.onStable.pipe(
+    take(1),
+    switchMap(() => this._drawer.openChange.asObservable()),
+  );
+
+  /**
    * @internal
    * Instance of the filter field that will be controlled by the quick filter
    */
   @ViewChild(DtFilterField, { static: true })
   _filterField: DtFilterField<T>;
+
+  /**
+   * @internal
+   * Instance of the drawer that will be controlled by the quick filter
+   */
+  @ViewChild(DtDrawer, { static: true })
+  _drawer: DtDrawer;
+
+  /**
+   * The sidebarOpened property toggles the sidebar open state.
+   * By default the sidebar is set to be opened.
+   */
+  @Input()
+  get sidebarOpened(): boolean {
+    return this._sidebarOpened;
+  }
+  set sidebarOpened(value: boolean) {
+    this._sidebarOpened = coerceBooleanProperty(value);
+  }
+  _sidebarOpened = true;
 
   /**
    * Label for the filter field (e.g. "Filter by").
@@ -251,6 +285,29 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  /**
+   * Opens the sidebar if it is not already opened.
+   */
+  openSidebar(): void {
+    this.toggleSidebar(true);
+  }
+
+  /**
+   * Closes the sidebar if it is not already closed.
+   */
+  closeSidebar(): void {
+    this.toggleSidebar(false);
+  }
+
+  /**
+   * Toggles the open state of the sidebar.
+   * @param sidebarOpened the state the drawer should be toggled to – `'open' | 'close'`
+   * Default the opposite of the current open state.
+   */
+  toggleSidebar(sidebarOpened: boolean = !this.sidebarOpened): void {
+    this._sidebarOpened = sidebarOpened;
   }
 
   /** @internal Closes the detail view and shows all groups */
