@@ -1,3 +1,11 @@
+## [8.6.0](https://github.com/dynatrace-oss/barista/compare/8.5.0...8.6.0) (2020-11-25)
+
+### Features
+
+- **chart:** Adds a DtChartTooltipConfig to customize the positioning of the
+  tooltip inside the chart.
+  ([8c676d2](https://github.com/dynatrace-oss/barista/commit/8c676d2ceae7d10c0a153f8a284498823e5a0459))
+
 ## [8.5.0](https://github.com/dynatrace-oss/barista/compare/8.4.0...8.5.0) (2020-11-23)
 
 ### Bug Fixes
