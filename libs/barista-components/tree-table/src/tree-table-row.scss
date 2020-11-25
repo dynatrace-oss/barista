@@ -1,12 +1,26 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/table';
-@import '../../core/src/theming/theming';
-@import './tree-table-row-theme';
 
 :host {
   display: table-row;
   position: relative;
   min-height: $dt-table-row-height;
+
+  &.dt-table-row-indicator.dt-color-error
+    ::ng-deep
+    .dt-tree-table-toggle-cell-wrap::before {
+    background-color: var(--dt-error-default-color);
+  }
+  &.dt-table-row-indicator.dt-color-warning
+    ::ng-deep
+    .dt-tree-table-toggle-cell-wrap::before {
+    background-color: var(--dt-warning-default-color);
+  }
+  &.dt-table-row-indicator.dt-color-recovered
+    ::ng-deep
+    .dt-tree-table-toggle-cell-wrap::before {
+    background-color: var(--dt-recovered-default-color);
+  }
 
   &:nth-child(even) ::ng-deep .dt-cell {
     background-color: $dt-table-row-color-even;
@@ -56,9 +70,4 @@
 }
 :host-context(.dt-table-interactive-rows):hover ::ng-deep .dt-tree-toggle-cell {
   border-left: solid 1px $gray-500;
-}
-
-// Apply the row theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-tree-table-row($dt-current-theme);
 }

@@ -1,8 +1,12 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/table';
-@import '../../core/src/theming/theming';
 @import './table-mixins';
-@import './row-theme';
+
+:host {
+  --dt-row-color-even: #{$dt-table-row-color-even};
+  --dt-row-color-odd: #{$white};
+  --interactive-border-color: #{$gray-500};
+}
 
 :host {
   min-height: $dt-table-row-height;
@@ -24,10 +28,17 @@
 }
 
 :host-context(.dt-table-interactive-rows):hover {
-  border: solid 1px $gray-500;
+  border: solid 1px var(--interactive-border-color);
 }
 
-// Apply the row theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-row($dt-current-theme);
+:host.dt-table-row-indicator {
+  &.dt-color-error::before {
+    background-color: var(--dt-error-default-color);
+  }
+  &.dt-color-warning::before {
+    background-color: var(--dt-warning-default-color);
+  }
+  &.dt-color-recovered::before {
+    background-color: var(--dt-recovered-default-color);
+  }
 }

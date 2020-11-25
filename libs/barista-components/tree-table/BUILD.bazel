@@ -1,4 +1,4 @@
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
 load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
@@ -65,12 +65,6 @@ sass_binary(
 sass_binary(
     name = "styles_row",
     src = "src/tree-table-row.scss",
-    deps = ["styles_row_theme"]
-)
-
-sass_library(
-    name = "styles_row_theme",
-    srcs = ["src/_tree-table-row-theme.scss"],
 )
 
 sass_binary(

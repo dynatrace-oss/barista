@@ -1,8 +1,51 @@
 @import '../../../core/src/style/variables';
 @import '../../../core/src/style/table';
-@import '../../../core/src/theming/theming';
 @import '../table-mixins';
-@import './expandable-row-theme';
+
+:host {
+  --dt-expandable-row-border-color: #{$turquoise-500};
+  --dt-expandable-row-background-color: #{$turquoise-100};
+}
+:host-context(.dt-theme-turquoise) {
+  --dt-expandable-row-border-color: #{$turquoise-500};
+  --dt-expandable-row-background-color: #{$turquoise-100};
+}
+:host-context(.dt-theme-blue) {
+  --dt-expandable-row-border-color: #{$blue-500};
+  --dt-expandable-row-background-color: #{$blue-100};
+}
+:host-context(.dt-theme-purple) {
+  --dt-expandable-row-border-color: #{$purple-500};
+  --dt-expandable-row-background-color: #{$purple-100};
+}
+:host-context(.dt-theme-royalblue) {
+  --dt-expandable-row-border-color: #{$royalblue-500};
+  --dt-expandable-row-background-color: #{$royalblue-100};
+}
+
+:host {
+  > .dt-expandable-row-base-expanded {
+    border-top-color: var(--dt-expandable-row-border-color);
+    background-color: var(--dt-expandable-row-background-color);
+  }
+  .dt-expandable-row-expandable-expanded {
+    border-bottom-color: var(--dt-expandable-row-border-color);
+  }
+}
+
+:host.dt-table-row-indicator.dt-color-warning
+  > .dt-expandable-row-base::before {
+  background-color: var(--dt-warning-default-color);
+}
+
+:host.dt-table-row-indicator.dt-color-error > .dt-expandable-row-base::before {
+  background-color: var(--dt-error-default-color);
+}
+
+:host.dt-table-row-indicator.dt-color-recovered
+  > .dt-expandable-row-base::before {
+  background-color: var(--dt-recovered-default-color);
+}
 
 :host.dt-expandable-row {
   &:nth-child(even) {
@@ -71,9 +114,4 @@
     height: calc(100% - 4px);
     left: 4px;
   }
-}
-
-// Apply current theme
-@include dt-apply-theme() {
-  @include dt-theme-expandable-row($dt-current-theme, $dt-current-theme-name);
 }
