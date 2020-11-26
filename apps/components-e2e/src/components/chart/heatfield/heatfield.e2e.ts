@@ -34,7 +34,7 @@ test('should display a heatfield correctly', async (testController: TestControll
     .expect(heatfieldMarker().count)
     .eql(1)
     .expect(heatfieldMarker().getBoundingClientRectProperty('width'))
-    .eql(108)
+    .eql(100)
     .click(chart())
     .click(heatfieldMarker())
     .expect(overlay.textContent)
