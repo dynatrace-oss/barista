@@ -16,17 +16,5 @@
         property
       }}</dt-tag>
     </div>
-    <div *ngIf="_showContributors" class="ba-contributors">
-      <ba-contributors
-        *ngIf="content.contributors.dev"
-        [type]="'dev'"
-        [contributors]="content.contributors.dev"
-      ></ba-contributors>
-      <ba-contributors
-        *ngIf="content.contributors.ux"
-        [type]="'ux'"
-        [contributors]="content.contributors.ux"
-      ></ba-contributors>
-    </div>
   </ng-container>
 </header>

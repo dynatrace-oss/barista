@@ -32,14 +32,4 @@ export class BaPageHeader {
 
   /** Whether the page is the icon overview page */
   @Input() isIconOverviewPage: boolean;
-
-  /** @internal Whether there are contributors to show in the page header */
-  get _showContributors(): boolean {
-    return Boolean(
-      (this.content.contributors?.dev !== undefined &&
-        this.content.contributors?.dev.length > 0) ||
-        (this.content.contributors?.ux !== undefined &&
-          this.content.contributors?.ux.length > 0),
-    );
-  }
 }
