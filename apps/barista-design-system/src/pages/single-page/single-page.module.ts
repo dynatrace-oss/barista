@@ -23,7 +23,6 @@ import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { BaComponentsModule, BA_CONTENT_COMPONENTS } from '../../components';
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
-import { BaContributors } from './components/contributors';
 import { BaIconOverviewContent } from './components/icon-overview-content';
 import { BaLazyIcon } from './components/lazy-icon';
 import { BaPageFooter } from './components/page-footer';
@@ -62,7 +61,6 @@ export const routes: Route[] = [
     BaPageFooter,
     BaPageHeader,
     BaIconOverviewContent,
-    BaContributors,
     BaLazyIcon,
     BaSidenav,
     BaToc,
