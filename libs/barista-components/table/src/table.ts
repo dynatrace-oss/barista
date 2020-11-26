@@ -209,6 +209,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
         this._portalOutlet.attachTemplatePortal(template);
       }
       this._emptyState.first._visible = true;
+      this._changeDetectorRef.markForCheck();
     } else {
       // ned to unset the visibility to have every time the component will be attached a fading animation.
       this._emptyState.first._visible = false;
