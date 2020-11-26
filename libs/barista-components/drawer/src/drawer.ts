@@ -279,7 +279,14 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
     // it's width to the original size to prevent relayout
     // If the drawer would change size during this process,
     // a drift would appear like in APM-266068
-    if (this._opened === false) {
+    // ---
+    // The this._width !== 0 check is necessary, because if the opened
+    // value on the drawer is set via `opened="false"` (meaning without a binding)
+    // this will be evaluated only once, which means there was no render
+    // cycle that could have determined the correct width of the drawer.
+    // As the drawer would be hidden anyway with a width of 0 we do not need
+    // to set a closed widht.
+    if (this._opened === false && this._width !== 0) {
       this._closedWidth = this._width;
     } else {
       this._closedWidth = null;
