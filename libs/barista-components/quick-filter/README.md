@@ -35,6 +35,7 @@ sidebar you can leverage the `<dt-quick-filter-title>` and
 | ------------------- | --------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `dataSource`        | `DtQuickFilterDataSource`                           |                                    | Provide a DataSource to feed data to the filter field and the quick filter. This input is mandatory.                                                                                 |
 | `filters`           | `any[][]`                                           | `[]`                               | The currently selected filters. This input can also be used to programmatically add filters to the quick filter and filter field.                                                    |
+| `sidebarOpened`     | `boolean`                                           | `true`                             | The actual open state of the sidebar.                                                                                                                                                |
 | `label`             | `string`                                            |                                    | The label for the input field. Can be set to something like "Filter by". Will be placed next to the filter icon in the filter field                                                  |
 | `clearAllLabel`     | `string`                                            |                                    | Label for the "Clear all" button in the filter field. Can be set to something like "Clear all".                                                                                      |
 | `aria-label`        | `string`                                            | `''`                               | Sets the value for the Aria-Label attribute.                                                                                                                                         |
@@ -44,11 +45,22 @@ sidebar you can leverage the `<dt-quick-filter-title>` and
 
 ## Outputs
 
-| Name                   | Type                                                  | Description                                                                                                 |
-| ---------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `filterChanges`        | `EventEmitter<DtQuickFilterChangeEvent>`              | Event emitted when filters have been updated by user interaction. Wont be triggered by programmatic changes |
-| `currentFilterChanges` | `EventEmitter<DtQuickFilterCurrentFilterChangeEvent>` | Event emitted when filters in the filter field of the quick filter are edited.                              |
-| `inputChange`          | `EventEmitter<string>`                                | Event emitted when the input value in the filter field of the quick filter changes.                         |
+| Name                   | Type                                                  | Description                                                                                                            |
+| ---------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `filterChanges`        | `EventEmitter<DtQuickFilterChangeEvent>`              | Event emitted when filters have been updated by user interaction. Wont be triggered by programmatic changes            |
+| `currentFilterChanges` | `EventEmitter<DtQuickFilterCurrentFilterChangeEvent>` | Event emitted when filters in the filter field of the quick filter are edited.                                         |
+| `inputChange`          | `EventEmitter<string>`                                | Event emitted when the input value in the filter field of the quick filter changes.                                    |
+| `sidebarOpenChange`    | `EventEmitter<boolean>`                               | Emits when the sidebar open state changes. Emits a boolean value for the open sate _(true for open, false for close)_. |
+
+## Methods
+
+The following methods are on the `DtQuickFilter` class:
+
+| Name            | Descriptio          | Return value |
+| --------------- | ------------------- | ------------ |
+| `openSidebar`   | Opens the sidebar   | `void`       |
+| `closeSidebar`  | Closes the sidebar  | `void`       |
+| `toggleSidebar` | Toggles the sidebar | `void`       |
 
 ## Dealing with long list of items
 
