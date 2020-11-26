@@ -18,8 +18,13 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { HttpClient } from '@angular/common/http';
-import { Component, DebugElement, NgZone } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, NgZone, ViewChild } from '@angular/core';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtCheckbox } from '@dynatrace/barista-components/checkbox';
@@ -35,6 +40,7 @@ import { of } from 'rxjs';
 import { DtQuickFilter, DtQuickFilterChangeEvent } from './quick-filter';
 import { DtQuickFilterDefaultDataSource } from './quick-filter-default-data-source';
 import { DtQuickFilterModule } from './quick-filter.module';
+import { DtDrawer } from '@dynatrace/barista-components/drawer';
 
 describe('dt-quick-filter', () => {
   let instanceDebugElement: DebugElement;
@@ -48,7 +54,12 @@ describe('dt-quick-filter', () => {
         NoopAnimationsModule,
         DtIconModule.forRoot({ svgIconLocation: '{{name}}.svg' }),
       ],
-      declarations: [QuickFilterSimpleComponent, QuickFilterDefaultComponent],
+      declarations: [
+        QuickFilterSimpleComponent,
+        QuickFilterDefaultComponent,
+        QuickFilterSidebarOpen,
+        QuickFilterSidebarClosed,
+      ],
       providers: [
         {
           provide: HttpClient,
@@ -83,6 +94,8 @@ describe('dt-quick-filter', () => {
     let fixture: ComponentFixture<QuickFilterDefaultComponent>;
     let filterFieldDebugElement: DebugElement;
     let filterFieldInstance: DtFilterField;
+    let drawerDebugElement: DebugElement;
+    let drawerInstance: DtDrawer;
 
     beforeEach(() => {
       fixture = createComponent(QuickFilterDefaultComponent);
@@ -99,6 +112,8 @@ describe('dt-quick-filter', () => {
       filterFieldInstance = filterFieldDebugElement.injector.get<DtFilterField>(
         DtFilterField,
       );
+      drawerDebugElement = fixture.debugElement.query(By.directive(DtDrawer));
+      drawerInstance = drawerDebugElement.injector.get<DtDrawer>(DtDrawer);
     });
 
     it('should set the filters on the filter field if they are set on the quick-filter', fakeAsync(() => {
@@ -194,6 +209,18 @@ describe('dt-quick-filter', () => {
       subscription.unsubscribe();
     }));
 
+    it('should propagate sidebarOpenChange event when emitted by the drawer', fakeAsync(() => {
+      const spy = jest.fn();
+      const subscription = quickFilterInstance.sidebarOpenChange.subscribe(spy);
+      zone.simulateZoneExit();
+
+      drawerInstance.openChange.emit(true);
+      flush();
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      subscription.unsubscribe();
+    }));
+
     it('should propagate inputChange event when emitted on the filter field', fakeAsync(() => {
       const spy = jest.fn();
       const subscription = quickFilterInstance.inputChange.subscribe(spy);
@@ -206,6 +233,69 @@ describe('dt-quick-filter', () => {
       expect(spy).toHaveBeenCalledWith('xy');
 
       subscription.unsubscribe();
+    }));
+  });
+
+  describe('Sidebar methods', () => {
+    it('should open the sidebar when the openSidebar function is called', fakeAsync(() => {
+      const fixture = createComponent<QuickFilterSidebarClosed>(
+        QuickFilterSidebarClosed,
+      );
+      const instance = fixture.debugElement.componentInstance;
+      flush();
+
+      expect(instance.quickFilter.sidebarOpened).toBeFalsy();
+      expect(instance.quickFilter._drawer.opened).toBeFalsy();
+
+      instance.quickFilter.openSidebar();
+      fixture.detectChanges();
+      flush();
+
+      expect(instance.quickFilter.sidebarOpened).toBeTruthy();
+      expect(instance.quickFilter._drawer.opened).toBeTruthy();
+    }));
+
+    it('should close the sidebar when the closeSidebar function is called', fakeAsync(() => {
+      const fixture = createComponent<QuickFilterSidebarClosed>(
+        QuickFilterSidebarOpen,
+      );
+      const instance = fixture.debugElement.componentInstance;
+      flush();
+
+      expect(instance.quickFilter.sidebarOpened).toBeTruthy();
+      expect(instance.quickFilter._drawer.opened).toBeTruthy();
+
+      instance.quickFilter.closeSidebar();
+      fixture.detectChanges();
+      flush();
+
+      expect(instance.quickFilter.sidebarOpened).toBeFalsy();
+      expect(instance.quickFilter._drawer.opened).toBeFalsy();
+    }));
+
+    it('should open/close the sidebar when the toggleSidebar function is called', fakeAsync(() => {
+      const fixture = createComponent<QuickFilterSidebarClosed>(
+        QuickFilterSidebarOpen,
+      );
+      const instance = fixture.debugElement.componentInstance;
+      flush();
+
+      expect(instance.quickFilter.sidebarOpened).toBeTruthy();
+      expect(instance.quickFilter._drawer.opened).toBeTruthy();
+
+      instance.quickFilter.toggleSidebar();
+      fixture.detectChanges();
+      flush();
+
+      expect(instance.quickFilter.sidebarOpened).toBeFalsy();
+      expect(instance.quickFilter._drawer.opened).toBeFalsy();
+
+      instance.quickFilter.toggleSidebar();
+      fixture.detectChanges();
+      flush();
+
+      expect(instance.quickFilter.sidebarOpened).toBeTruthy();
+      expect(instance.quickFilter._drawer.opened).toBeTruthy();
     }));
   });
 });
@@ -251,4 +341,20 @@ class QuickFilterDefaultComponent {
   _dataSource = new DtQuickFilterDefaultDataSource(FILTER_FIELD_TEST_DATA, {
     showInSidebar: this.filterFn,
   });
+}
+
+@Component({
+  selector: 'dt-quick-filter-simple',
+  template: `<dt-quick-filter></dt-quick-filter>`,
+})
+class QuickFilterSidebarOpen {
+  @ViewChild(DtQuickFilter) quickFilter: DtQuickFilter;
+}
+
+@Component({
+  selector: 'dt-quick-filter-simple',
+  template: `<dt-quick-filter sidebarOpened="false"></dt-quick-filter>`,
+})
+class QuickFilterSidebarClosed {
+  @ViewChild(DtQuickFilter) quickFilter: DtQuickFilter;
 }
