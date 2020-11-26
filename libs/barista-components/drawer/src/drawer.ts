@@ -62,6 +62,8 @@ export const DT_DRAWER_CONTAINER = new InjectionToken<DtDrawerContainer>(
     '[class.dt-drawer-over]': '_currentMode === "over"',
     '[class.dt-drawer-side]': '_currentMode === "side"',
     '[attr.aria-hidden]': '!opened ? true : null',
+    '[style.min-width.px]': '_closedWidth',
+    '[style.max-width.px]': '_closedWidth',
   },
 })
 export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
