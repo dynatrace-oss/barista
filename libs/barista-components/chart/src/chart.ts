@@ -63,6 +63,7 @@ import {
   Observable,
   Subject,
   Subscription,
+  combineLatest,
 } from 'rxjs';
 import {
   delay,
@@ -436,8 +437,8 @@ export class DtChart
       map(() => this._heatfields.toArray()),
     );
 
-    heatFields$
-      .pipe(withLatestFrom(this._plotBackground$), takeUntil(this._destroy$))
+    combineLatest(heatFields$, this._plotBackground$)
+      .pipe(takeUntil(this._destroy$))
       .subscribe(([heatfields, plotBackground]) => {
         this._initHeatFields(heatfields, plotBackground!);
       });
