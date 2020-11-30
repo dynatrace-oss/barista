@@ -137,7 +137,7 @@
     "@types/jest": "^26.0.15",
     "@types/lodash": "^4.14.165",
     "@types/lodash-es": "^4.17.3",
-    "@types/markdown-it": "^10.0.1",
+    "@types/markdown-it": "^10.0.3",
     "@types/node": "^12.12.29",
     "@types/sass-graph": "^2.1.2",
     "@types/stylelint": "^9.10.0",
