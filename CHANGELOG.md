@@ -1,3 +1,26 @@
+## [8.7.0](https://github.com/dynatrace-oss/barista/compare/8.6.0...8.7.0) (2020-11-30)
+
+### Bug Fixes
+
+- **chart:** Fixes an issue with the heatfield-sizing when resizing the chart.
+  ([f4b9aa9](https://github.com/dynatrace-oss/barista/commit/f4b9aa9d6ba9e6b5cae02f499b4f51ad41e4ab26))
+- **drawer:** Fixes an issue with inital rendering when open was not bound in
+  the template.
+  ([7f25e11](https://github.com/dynatrace-oss/barista/commit/7f25e11b3df1d30c7c79719591f9c08a2535d7aa))
+- **drawer:** Fixes padding issue in drawer when initially closed.
+  ([cab023f](https://github.com/dynatrace-oss/barista/commit/cab023fb9732f6cd31c0fe3b302716015f432b22))
+- **quick-filter:** Fixes an issue with varying width of the quick-filter
+  sidebar.
+  ([c31e3fa](https://github.com/dynatrace-oss/barista/commit/c31e3fa2c863dee1314ebf039166827a33229465))
+- **table:** Fixes an issue with the empty state not showing up without change
+  detection.
+  ([c078532](https://github.com/dynatrace-oss/barista/commit/c0785326a501d548460d6a0bb2f0fbce4f1210c3))
+
+### Features
+
+- **quick-filter:** Expose APIs to interact with the drawer.
+  ([ebcbda1](https://github.com/dynatrace-oss/barista/commit/ebcbda1800387b0b8275b8a92541da18cf661176))
+
 ## [8.6.0](https://github.com/dynatrace-oss/barista/compare/8.5.0...8.6.0) (2020-11-25)
 
 ### Features
