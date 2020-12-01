@@ -380,9 +380,6 @@
     "fluid-core": {
       "tags": ["scope:elements", "type:library"]
     },
-    "fluid-dev": {
-      "tags": ["type:app"]
-    },
     "testing-custom-element": {
       "tags": ["scope:testing", "type:library"]
     },

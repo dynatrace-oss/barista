@@ -86,7 +86,6 @@ The Barista repository has the following structure:
   - **demos**: The preview app that includes all examples that get compiled and
     bundled for the Barista design system.
   - **dev**: local development app to test components.
-  - **fluid-dev**: local development app to test web-components.
   - **universal**: an app to verify that the components can be used in a
     serverside rendered context.
 - **concepts**: describes some of the underlying concepts which are applied or

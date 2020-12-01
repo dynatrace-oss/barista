@@ -15,7 +15,7 @@ module.exports = {
       // Add angular specific parser for all our angular templates
       files: [
         'libs/barista-components/**/*.html',
-        'apps/{barista-design-system,components-e2e,demos,dev,universal,fluid-dev}/**/*.html',
+        'apps/{barista-design-system,components-e2e,demos,dev,universal}/**/*.html',
       ],
       options: { parser: 'angular' },
     },
