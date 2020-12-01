@@ -320,6 +320,9 @@ export class DtFilterField<T = any>
     DtFilterFieldCurrentFilterChangeEvent<T>
   >();
 
+  /** Emits the interaction-state (whether the filter-field is being interacted with or not) */
+  @Output() readonly interactionStateChange = new EventEmitter<Boolean>();
+
   /**
    * List of tags that are the visual representation for selected nodes.
    * This can be used to disable certain tags or change their labeling.
@@ -338,6 +341,9 @@ export class DtFilterField<T = any>
     // when the consumer sets disabled, editable or deletable on the tag instances
     delay(0),
   );
+
+  /** Whether the filter-field is being interacted with */
+  interactionState: boolean = false;
 
   /** @internal Reference to the internal input element */
   @ViewChild('input', { static: true }) _inputEl: ElementRef;
@@ -445,6 +451,12 @@ export class DtFilterField<T = any>
   /** Whether the filter field or one of it's child elements is focused. */
   private _isFocused = false;
 
+  /** Merges the autocomplete and range opened events */
+  private _mergedAutocompleteRangeOpened: Observable<unknown>;
+
+  /** Merges the autocomplete and range closed events */
+  private _mergedAutocompleteRangeClosed: Observable<unknown>;
+
   /** A subject that emits every time the input is reset */
   private _inputReset$ = new Subject<void>();
 
@@ -510,10 +522,35 @@ export class DtFilterField<T = any>
 
   ngOnInit(): void {
     // If a custom parser is set in the input, prioritize the input one over the
-    // privided or default one.
+    // provided or default one.
     if (this.customTagParser) {
       this.tagValuesParser = this.customTagParser;
     }
+
+    this._mergedAutocompleteRangeOpened = merge(
+      this._filterfieldRange.opened,
+      this._autocomplete.opened,
+    );
+
+    this._mergedAutocompleteRangeClosed = merge(
+      this._filterfieldRange.closed,
+      this._autocomplete.closed,
+    );
+
+    this._mergedAutocompleteRangeOpened
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._checkInteractionStateChanged(true);
+      });
+
+    this._mergedAutocompleteRangeClosed
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        if (this._isFocused) {
+          this._checkInteractionStateChanged(true);
+        }
+        this._checkInteractionStateChanged(false);
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -539,6 +576,10 @@ export class DtFilterField<T = any>
           currentlyOpenFilterField._closeFilterPanels();
         }
         this._isFocused = isDefined(origin);
+        // When the filterfield loses focus, we need to check if it was focused before
+        // and manage the interaction state
+        this._checkInteractionStateChanged(this._isFocused);
+
         // Assign the currently open filter field when it is focused.
         if (this._isFocused) {
           currentlyOpenFilterField = this;
@@ -1375,6 +1416,21 @@ export class DtFilterField<T = any>
     }
     if (currentlyOpenFilterField === this) {
       currentlyOpenFilterField = null;
+    }
+  }
+
+  private _checkInteractionStateChanged(interactionState: boolean): void {
+    if (
+      this.interactionState !== interactionState &&
+      this.interactionState !== this._isFocused
+    ) {
+      if (this._isFocused) {
+        this.interactionState = this._isFocused;
+        this.interactionStateChange.emit(this._isFocused);
+      } else {
+        this.interactionState = interactionState;
+        this.interactionStateChange.emit(interactionState);
+      }
     }
   }
 }

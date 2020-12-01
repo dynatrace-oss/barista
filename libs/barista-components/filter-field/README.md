@@ -32,17 +32,19 @@ to understand how to provide the correct data structure for the filter-field._
 
 ## Outputs
 
-| Name                   | Type                                                  | Description                                                                                                              |
-| ---------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `filterChanges`        | `EventEmitter<DtFilterFieldChangeEvent>`              | Event emitted when filters have been added or removed.                                                                   |
-| `currentFilterChanges` | `EventEmitter<DtFilterFieldCurrentFilterChangeEvent>` | Event emitted when a part has been added to the currently selected filter (the filter the user is currently working on). |
-| `inputChange`          | `EventEmitter<string>`                                | Event emitted when the input value changes (e.g. when the user is typing).                                               |
+| Name                     | Type                                                  | Description                                                                                                              |
+| ------------------------ | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `filterChanges`          | `EventEmitter<DtFilterFieldChangeEvent>`              | Event emitted when filters have been added or removed.                                                                   |
+| `currentFilterChanges`   | `EventEmitter<DtFilterFieldCurrentFilterChangeEvent>` | Event emitted when a part has been added to the currently selected filter (the filter the user is currently working on). |
+| `inputChange`            | `EventEmitter<string>`                                | Event emitted when the input value changes (e.g. when the user is typing).                                               |
+| `interactionStateChange` | `EventEmitter<boolean>`                               | Event emitted when the interaction state changes (e.g. when the user interactes with the filter-field).                  |
 
 ## Properties
 
-| Name          | Type                             | Description                                                       |
-| ------------- | -------------------------------- | ----------------------------------------------------------------- |
-| `currentTags` | `Observable<DtFilterFieldTag[]>` | A stream that emits the current tags that the filter field holds. |
+| Name               | Type                             | Description                                                       |
+| ------------------ | -------------------------------- | ----------------------------------------------------------------- |
+| `currentTags`      | `Observable<DtFilterFieldTag[]>` | A stream that emits the current tags that the filter field holds. |
+| `interactionState` | `boolean`                        | Whether the filter-field is being interacted with or not          |
 
 ## Methods
 

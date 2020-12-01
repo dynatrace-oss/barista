@@ -30,6 +30,7 @@ ng_module(
     deps = [
         "//libs/barista-components/filter-field:compile",
         "//libs/barista-components/input:compile",
+        "@npm//rxjs",
         "@npm//@angular/core",
         "@npm//@angular/forms",
     ],

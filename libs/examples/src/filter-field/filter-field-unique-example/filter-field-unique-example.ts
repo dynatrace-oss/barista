@@ -14,18 +14,20 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
-
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import {
+  DtFilterField,
   DtFilterFieldDefaultDataSource,
   DtFilterFieldDefaultDataSourceType,
 } from '@dynatrace/barista-components/filter-field';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'dt-example-filter-field-unique',
   templateUrl: 'filter-field-unique-example.html',
 })
-export class DtExampleFilterFieldUnique {
+export class DtExampleFilterFieldUnique implements AfterViewInit, OnDestroy {
   private DATA: DtFilterFieldDefaultDataSourceType = {
     autocomplete: [
       {
@@ -56,4 +58,25 @@ export class DtExampleFilterFieldUnique {
   };
 
   _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
+
+  @ViewChild(DtFilterField) filterField: DtFilterField;
+
+  private readonly _destroy$ = new Subject<void>();
+
+  ngAfterViewInit(): void {
+    this.filterField.interactionStateChange
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((state) => {
+        console.log('interaction state: ', state);
+        console.log(
+          'interaction state member: ',
+          this.filterField.interactionState,
+        );
+      });
+  }
+
+  ngOnDestroy(): void {
+    this._destroy$.next();
+    this._destroy$.complete();
+  }
 }
