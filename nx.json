@@ -383,9 +383,6 @@
     "testing-custom-element": {
       "tags": ["scope:testing", "type:library"]
     },
-    "next": {
-      "tags": ["scope:design-system", "type:app"]
-    },
     "shared-data-access-strapi": {
       "tags": ["scope:cms", "type:shared", "type:library"]
     },

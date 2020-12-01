@@ -34,7 +34,6 @@
     "barista-tools": "ng build barista-tools && node dist/libs/tools/barista/main.js",
     "shareable-examples": "ng build tools-shareable-examples && node dist/libs/tools/shareable-examples/main.js",
     "barista": "npm run barista-tools && ng run barista-design-system:serve-ssr",
-    "design-system": "npm run barista-tools -- --next=true && ng run next:serve",
     "demos": "ng serve demos",
     "stage-release": "ng run tools-release:build-stage-release && node dist/libs/tools/stage-release/main.js",
     "publish-release": "ng run tools-release:build-publish-release && node dist/libs/tools/publish-release/main.js",
