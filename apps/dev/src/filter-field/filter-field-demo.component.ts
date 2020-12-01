@@ -152,6 +152,10 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
         this._firstTag = tags[0];
       }
     });
+
+    this.filterField.interactionStateChange.subscribe((isInteracted) => {
+      console.log('interactionState: ', isInteracted);
+    });
   }
 
   ngOnDestroy(): void {
