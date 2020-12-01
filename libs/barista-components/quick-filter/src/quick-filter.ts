@@ -224,6 +224,9 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    */
   @Input() maxGroupItems = 5;
 
+  /** Determines the loading state of the filter field */
+  @Input() loading = false;
+
   /** The store where the data flow is managed */
   private _store = createQuickFilterStore(quickFilterReducer);
 
