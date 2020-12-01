@@ -1,0 +1,44 @@
+@import '../../../styles/global/variables.scss';
+
+:host {
+  display: block;
+}
+
+:host ::ng-deep em {
+  background-color: $yellow-200;
+  color: $gray-900;
+}
+
+.ba-search-result-item {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: $gray-200;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 1rem;
+}
+
+.ba-search-result-item:focus {
+  outline: none;
+  background-color: $gray-700;
+}
+
+.ba-search-result-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.ba-search-result-item-title {
+  font-size: 1rem;
+}
+
+.ba-search-result-item-tag {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid $gray-200;
+  border-radius: 12px;
+}

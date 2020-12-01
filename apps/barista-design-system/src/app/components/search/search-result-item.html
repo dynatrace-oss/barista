@@ -1,0 +1,12 @@
+<button
+  #buttonElement
+  [disabled]="disabled"
+  class="ba-search-result-item"
+  (click)="_activate()"
+>
+  <span class="ba-search-result-item-header">
+    <span class="ba-search-result-item-title">{{ title }}</span>
+    <span class="ba-search-result-item-tag">{{ tag }}</span>
+  </span>
+  <ng-content></ng-content>
+</button>

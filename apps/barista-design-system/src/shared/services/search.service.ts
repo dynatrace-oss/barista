@@ -16,10 +16,13 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BaSearchResult } from '@dynatrace/shared/design-system/interfaces';
+import {
+  BaSearchResult,
+  BaSearchResultDTO,
+} from '@dynatrace/shared/design-system/interfaces';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, share } from 'rxjs/operators';
 
 interface BaSearchServiceInterface {
   search(query: string): Observable<BaSearchResult[]>;
@@ -31,10 +34,14 @@ export class BaSearchService implements BaSearchServiceInterface {
 
   search(searchString: string): Observable<BaSearchResult[]> {
     return this._http
-      .get<BaSearchResult[]>(
+      .get<BaSearchResultDTO>(
         `${environment.searchEndpoint}search?q=${searchString}`,
       )
-      .pipe(catchError(() => []));
+      .pipe(
+        share(),
+        map((response) => response.results),
+        catchError(() => []),
+      );
   }
 }
 
