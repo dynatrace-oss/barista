@@ -1,8 +1,6 @@
 @import '../../core/src/style/variables';
 @import '../../style/font-mixins';
 @import '../../core/src/style/interactive-common';
-@import '../../core/src/theming/theming';
-@import './toggle-button-item-theme';
 
 :host {
   @include dt-main-font();
@@ -46,14 +44,39 @@
   align-items: center;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
+  background-color: var(--dt-theme-main-default-color);
+}
+
+/** Hover state of the toggle button */
+:host:hover ::ng-deep .dt-toggle-button-item-icon,
+:host:hover.dt-toggle-button-item-selected
+  ::ng-deep
+  .dt-toggle-button-item-icon {
+  background-color: var(--dt-theme-main-hover-color);
+}
+:host.dt-toggle-button-item-selected:hover {
+  border-color: var(--dt-theme-main-hover-color);
+}
+
+/** Active state of the button */
+:host.dt-toggle-button-item-selected {
+  border-color: var(--dt-theme-main-default-color);
+}
+:host.dt-toggle-button-item-selected ::ng-deep .dt-toggle-button-item-icon {
+  background-color: var(--dt-theme-main-default-color);
+}
+
+/* Disabled state */
+:host.dt-toggle-button-item-disabled {
+  color: $gray-300;
+}
+
+:host.dt-toggle-button-item-disabled ::ng-deep .dt-toggle-button-item-icon {
+  background-color: $gray-300;
 }
 
 :host ::ng-deep .dt-icon {
   fill: #ffffff;
   width: 32px;
   height: 32px;
-}
-
-@include dt-apply-theme() {
-  @include dt-theme-toggle-button-item($dt-current-theme);
 }
