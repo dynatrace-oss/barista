@@ -327,9 +327,6 @@
     "shared-node": {
       "tags": ["type:tooling", "type:shared"]
     },
-    "testing-custom-element": {
-      "tags": ["scope:testing", "type:library"]
-    },
     "shared-data-access-strapi": {
       "tags": ["scope:cms", "type:shared", "type:library"]
     },

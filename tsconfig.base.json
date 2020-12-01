@@ -216,42 +216,6 @@
       "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
       "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
       "@dynatrace/shared/node": ["libs/shared/node/index.ts"],
-      "@dynatrace/fluid-elements/button": [
-        "libs/fluid-elements/button/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/button-group": [
-        "libs/fluid-elements/button-group/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/core": [
-        "libs/fluid-elements/core/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/checkbox": [
-        "libs/fluid-elements/checkbox/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/input": [
-        "libs/fluid-elements/input/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/icon": [
-        "libs/fluid-elements/icon/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/switch": [
-        "libs/fluid-elements/switch/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/popover": [
-        "libs/fluid-elements/popover/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/tab-group": [
-        "libs/fluid-elements/tab-group/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/label": [
-        "libs/fluid-elements/label/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/virtual-scroll-container": [
-        "libs/fluid-elements/virtual-scroll-container/src/index.ts"
-      ],
-      "@dynatrace/testing/custom-element": [
-        "libs/testing/custom-element/src/index.ts"
-      ],
       "@environments/*": ["environments/*"],
       "@dynatrace/shared/data-access-strapi": [
         "libs/shared/data-access-strapi/index.ts"

@@ -2593,34 +2593,6 @@
         }
       }
     },
-    "testing-custom-element": {
-      "root": "libs/testing/custom-element",
-      "sourceRoot": "libs/testing/custom-element/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/testing/custom-element/tsconfig.lib.json",
-              "libs/testing/custom-element/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/testing/custom-element/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/testing/custom-element/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "shared-data-access-strapi": {
       "projectType": "library",
       "root": "libs/shared/data-access-strapi",
