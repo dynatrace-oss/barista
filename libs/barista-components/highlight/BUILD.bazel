@@ -1,4 +1,4 @@
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
 load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
@@ -42,17 +42,10 @@ ng_module_view_engine(
     ],
 )
 
-sass_library(
-    name = "theme",
-    srcs = glob(
-        ["src/**/_*.scss"],
-    ),
-)
-
 sass_binary(
     name = "styles",
     src = "src/highlight.scss",
-    deps = [":theme"],
+    deps = [],
 )
 
 stylelint(
