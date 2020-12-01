@@ -16,21 +16,6 @@
       "schema": "./src/builders/typescript/schema.json",
       "description": "Compile typescript files."
     },
-    "design-tokens-package": {
-      "implementation": "./src/builders/design-tokens/package/index",
-      "schema": "./src/builders/design-tokens/package/schema.json",
-      "description": "Run design tokens packager"
-    },
-    "design-tokens-dependency-tree": {
-      "implementation": "./src/builders/design-tokens/dependency-tree/index",
-      "schema": "./src/builders/design-tokens/dependency-tree/schema.json",
-      "description": "Run design dependency tree generator for the design tokens"
-    },
-    "design-tokens-tailwindcss": {
-      "implementation": "./src/builders/design-tokens/tailwindcss/index",
-      "schema": "./src/builders/design-tokens/tailwindcss/schema.json",
-      "description": "Run design tokens tailwindcss converter"
-    },
     "affected-e2e": {
       "implementation": "./src/builders/affected-e2e/index",
       "schema": "./src/builders/affected-e2e/schema.json",

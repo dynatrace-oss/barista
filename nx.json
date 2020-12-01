@@ -327,9 +327,6 @@
     "shared-node": {
       "tags": ["type:tooling", "type:shared"]
     },
-    "shared-design-tokens": {
-      "tags": ["type:library", "type:shared"]
-    },
     "testing-custom-element": {
       "tags": ["scope:testing", "type:library"]
     },

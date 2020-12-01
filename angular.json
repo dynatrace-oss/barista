@@ -2593,49 +2593,6 @@
         }
       }
     },
-    "shared-design-tokens": {
-      "root": "libs/shared/design-tokens",
-      "sourceRoot": "libs/shared/design-tokens/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "parallel": false,
-            "commands": [
-              {
-                "command": "npm run design-tokens:build"
-              }
-            ]
-          }
-        },
-        "package": {
-          "builder": "./dist/libs/workspace:design-tokens-package",
-          "options": {
-            "releasePackageJson": "libs/shared/design-tokens/package.json",
-            "outputPath": "dist/libs/shared/design-tokens/"
-          }
-        },
-        "dependency-tree": {
-          "builder": "./dist/libs/workspace:design-tokens-dependency-tree",
-          "options": {
-            "tokenEntrypoints": ["global/**.yml", "patterns/**.yml"],
-            "componentFiles": [],
-            "outputPath": "dist/libs/shared/design-tokens-dependency-graph/",
-            "baseDirectory": "libs/shared/design-tokens/src/lib"
-          }
-        },
-        "tailwindcss": {
-          "builder": "./dist/libs/workspace:design-tokens-tailwindcss",
-          "options": {
-            "baseDirectory": "libs/shared/design-tokens/src/lib",
-            "outputPath": "dist/libs/shared/design-tokens/fluid-tailwind.css",
-            "themeFile": "libs/shared/design-tokens/generated/global/theme.scss"
-          }
-        }
-      }
-    },
     "testing-custom-element": {
       "root": "libs/testing/custom-element",
       "sourceRoot": "libs/testing/custom-element/src",
