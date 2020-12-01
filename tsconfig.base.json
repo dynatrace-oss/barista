@@ -268,9 +268,6 @@
         "libs/shared/design-tokens/generated/patterns/*.json"
       ],
       "@environments/*": ["environments/*"],
-      "@dynatrace/design-tokens-ui/input": [
-        "libs/design-tokens-ui/input/src/index.ts"
-      ],
       "@dynatrace/shared/data-access-strapi": [
         "libs/shared/data-access-strapi/index.ts"
       ],
@@ -279,9 +276,6 @@
       ],
       "@dynatrace/shared/design-system/interfaces": [
         "libs/shared/design-system/interfaces/src/index.ts"
-      ],
-      "@dynatrace/design-tokens-ui/shared": [
-        "libs/design-tokens-ui/shared/src/index.ts"
       ],
       "@dynatrace/shared/keycodes": ["libs/shared/keycodes/index.ts"]
     },

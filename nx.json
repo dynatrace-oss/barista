@@ -386,13 +386,6 @@
     "testing-custom-element": {
       "tags": ["scope:testing", "type:library"]
     },
-    "design-tokens-ui": {
-      "tags": ["type:app"],
-      "implicitDependencies": ["shared-design-tokens"]
-    },
-    "design-tokens-ui-input": {
-      "tags": ["type:library"]
-    },
     "next": {
       "tags": ["scope:design-system", "type:app"]
     },
@@ -403,9 +396,6 @@
       "tags": ["type:library", "type:shared"]
     },
     "shared-design-system-interfaces": {
-      "tags": ["type:library", "type:shared"]
-    },
-    "design-tokens-ui-shared": {
       "tags": ["type:library", "type:shared"]
     },
     "shared-keycodes": {
