@@ -1,4 +1,4 @@
-load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary", "sass_library")
+load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
 load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
 
@@ -45,17 +45,11 @@ ng_module_view_engine(
     ],
 )
 
-sass_library(
-    name = "theme",
-    srcs = ["src/_tab-group-theme.scss"],
-)
-
 multi_sass_binary(
     name = "styles",
     srcs = [
         "src/tab-group.scss",
         "src/tab/tab-body.scss",
-        ":theme",
     ],
 )
 
@@ -75,9 +69,9 @@ jest(
         "//libs/barista-components/core:compile",
         "//libs/testing/browser",
         "@npm//@angular/common",
-        "@npm//@angular/router",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
+        "@npm//@angular/router",
         "@npm//rxjs",
     ],
 )

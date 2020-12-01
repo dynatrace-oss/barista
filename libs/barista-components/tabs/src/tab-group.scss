@@ -1,8 +1,24 @@
 @import '../../style/font-mixins';
 @import '../../core/src/style/variables';
-@import '../../core/src/theming/theming';
-@import './tab-group-theme';
 @import '../../core/src/style/interactive-common';
+
+:host .dt-color-main {
+  --dt-tabgroup-default-color: var(--dt-theme-main-default-color);
+}
+
+:host .dt-color-recovered {
+  --dt-tabgroup-default-color: var(--dt-recovered-default-color);
+  &.dt-tab-label {
+    color: var(--dt-tabgroup-default-color);
+  }
+}
+
+:host .dt-color-error {
+  --dt-tabgroup-default-color: var(--dt-error-default-color);
+  &.dt-tab-label {
+    color: var(--dt-tabgroup-default-color);
+  }
+}
 
 :host .dt-tab-header-wrapper {
   display: flex;
@@ -37,10 +53,16 @@
     bottom: 0;
     left: 0;
     transition: height 100ms ease-out;
+    background-color: var(--dt-tabgroup-default-color);
   }
 
   &:hover::after {
     height: 4px;
+  }
+
+  &.dt-tab-label-active {
+    background-color: var(--dt-tabgroup-default-color);
+    color: #ffffff;
   }
 
   @include dt-cdkmonitor-focus-style();
@@ -62,8 +84,4 @@
       height: 1px;
     }
   }
-}
-
-@include dt-apply-theme() {
-  @include dt-theme-tabs($dt-current-theme);
 }
