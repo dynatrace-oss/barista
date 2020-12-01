@@ -1,11 +1,15 @@
 @import '../../core/src/style/variables';
-@import 'highlight-theme';
 
 :host {
   // width and height have to be at least 1px for it to work properly
   min-height: 1px;
   min-width: 1px;
   display: inline-block;
+  --dt-highlight-color: #{$turquoise-100};
+}
+
+:host-context(.dt-theme-dark) {
+  --dt-highlight-color: #{$gray-700};
 }
 
 .dt-highlight-source {
@@ -13,7 +17,7 @@
 }
 
 ::ng-deep .dt-highlight-mark {
-  background-color: $turquoise-100;
+  background-color: var(--dt-highlight-color);
   text-decoration: underline;
   color: currentColor;
 
@@ -32,9 +36,4 @@
   &::after {
     content: ' [highlight end] ';
   }
-}
-
-// Apply the highlight theme to all theme definitions
-@include dt-apply-theme() {
-  @include dt-theme-highlight($dt-current-theme);
 }
