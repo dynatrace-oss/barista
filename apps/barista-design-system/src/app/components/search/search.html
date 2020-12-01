@@ -2,23 +2,23 @@
   class="ba-searchinput"
   type="text"
   #searchInput
-  [dtAutocomplete]="autocomplete"
   placeholder="Search barista..."
   aria-label="Search Barista"
 />
-
-<dt-autocomplete
-  #autocomplete="dtAutocomplete"
-  class="ba-search-autocomplete"
-  (optionSelected)="optionSelected($event)"
-  [displayWith]="displayWith"
+<span> {{ (searchResults$ | async)?.length }}</span>
+<div
+  class="ba-search-results"
+  *ngIf="showResults$ | async"
+  role="listbox"
+  (keydown)="onKeydown($event)"
+  tabindex="0"
 >
-  <dt-option
-    [value]="result"
+  <ba-search-result-item
     *ngFor="let result of searchResults$ | async"
-    class="ba-searchresult"
     [title]="result.title"
+    [tag]="result.categorization"
+    (activated)="navigateTo(result.url)"
   >
-    <span class="ba-searchresult-title">{{ result.title }}</span>
-  </dt-option>
-</dt-autocomplete>
+    <span [innerHTML]="result.highlight"></span>
+  </ba-search-result-item>
+</div>

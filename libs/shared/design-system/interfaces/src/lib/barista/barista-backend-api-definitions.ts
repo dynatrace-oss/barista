@@ -22,8 +22,15 @@ export interface BaSearchResult {
   title: string;
 
   /** Description of the result page. */
-  description: string;
+  highlight: string;
 
-  /** Keywords of the result page. */
-  keywords: string[];
+  categorization: string;
+}
+
+export interface BaSearchResultDTO {
+  /** Number of total results in the query */
+  totalResults: number;
+
+  /** Results in the response */
+  results: BaSearchResult[];
 }

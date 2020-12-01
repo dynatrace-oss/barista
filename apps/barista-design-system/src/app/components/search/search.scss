@@ -8,6 +8,7 @@
   flex-basis: 250px;
   max-width: 300px;
   display: none;
+  position: relative;
 
   @media (min-width: $screen-lg) {
     display: flex;
@@ -23,7 +24,10 @@
   font-size: 1em;
 }
 
-.ba-searchresult-description {
-  white-space: normal;
-  font-size: 0.8em;
+.ba-search-results {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background-color: $gray-900;
+  min-width: 100%;
 }

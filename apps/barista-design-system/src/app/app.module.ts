@@ -36,7 +36,7 @@ import { BaRoutingModule } from './app.routing.module';
 import { BaFooter } from './components/footer';
 import { BaNav } from './components/nav';
 import { BaScrollToTop } from './components/scroll-to-top';
-import { BaSearch } from './components/search';
+import { BaSearch, BaSearchResultItem } from './components/search';
 import {
   BaSearchService,
   BaExternalSearchService,
@@ -60,7 +60,14 @@ import {
     DtBreadcrumbsModule,
     DtAutocompleteModule,
   ],
-  declarations: [BaApp, BaScrollToTop, BaNav, BaFooter, BaSearch],
+  declarations: [
+    BaApp,
+    BaScrollToTop,
+    BaNav,
+    BaFooter,
+    BaSearch,
+    BaSearchResultItem,
+  ],
   providers: [
     DsPageService,
     DsPageGuard,
