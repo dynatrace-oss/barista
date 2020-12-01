@@ -42,6 +42,7 @@ sidebar you can leverage the `<dt-quick-filter-title>` and
 | `groupHeadlineRole` | `number`                                            | `3`                                | The aria-level of the group headlines for the document outline.                                                                                                                      |
 | `maxGroupItems`     | `number`                                            | `5`                                | The maximum amount of items that should be displayed in the quick filter sidebar. If there are more, then they are hidden behind a show more functionality                           |
 | `showMoreTemplate`  | `TemplateRef<{ $implicit: number; group: string }>` | `+145 options in the filter field` | Template for the show more text of the group. The implicit context of the template is the count of the remaining items and the view value can be accessed through the group variable |
+| `loading`           | `boolean`                                           | `false`                            | Defines the loading state of the underlying filter field.                                                                                                                            |
 
 ## Outputs
 
