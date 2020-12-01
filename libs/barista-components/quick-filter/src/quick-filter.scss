@@ -2,7 +2,7 @@
 @import '../../core/src/style/interactive-common';
 @import '../../style/link';
 
-$space-right: 30px;
+$space-right: 20px;
 $space: 20px;
 
 :host {
@@ -119,6 +119,16 @@ $space: 20px;
 
 :host ::ng-deep .dt-drawer-body.dt-drawer-body {
   width: 230px;
+}
+
+:host ::ng-deep .dt-drawer-body {
+  .dt-checkbox-content,
+  .dt-radio-content {
+    max-width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 :host ::ng-deep cdk-virtual-scroll-viewport {
