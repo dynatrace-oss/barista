@@ -31,16 +31,6 @@
       "schema": "./src/builders/design-tokens/tailwindcss/schema.json",
       "description": "Run design tokens tailwindcss converter"
     },
-    "package-all-elements": {
-      "implementation": "./src/builders/elements/package-all-elements/index",
-      "schema": "./src/builders/elements/package-all-elements/schema.json",
-      "description": "Run individual element builds and package tasks, to create publishable libraries"
-    },
-    "package-element": {
-      "implementation": "./src/builders/elements/package/index",
-      "schema": "./src/builders/elements/package/schema.json",
-      "description": "Run individual element bundler and package command"
-    },
     "affected-e2e": {
       "implementation": "./src/builders/affected-e2e/index",
       "schema": "./src/builders/affected-e2e/schema.json",

@@ -12,8 +12,6 @@ const entries = [
   'src/builders/design-tokens/package/index.ts',
   'src/builders/design-tokens/dependency-tree/index.ts',
   'src/builders/design-tokens/tailwindcss/index.ts',
-  'src/builders/elements/package-all-elements/index.ts',
-  'src/builders/elements/package/index.ts',
   'src/builders/affected-e2e/index.ts',
   'src/index.ts',
 ];

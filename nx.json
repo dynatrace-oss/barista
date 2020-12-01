@@ -123,17 +123,6 @@
         "tree-table"
       ]
     },
-    "package-elements": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": [
-        "fluid-button",
-        "fluid-button-group",
-        "fluid-checkbox",
-        "fluid-switch",
-        "fluid-tab-group",
-        "fluid-core"
-      ]
-    },
     "alert": {
       "tags": ["scope:components", "type:library"]
     },
@@ -340,45 +329,6 @@
     },
     "shared-design-tokens": {
       "tags": ["type:library", "type:shared"]
-    },
-    "fluid-button": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-button-group": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-checkbox": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-input": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-icon": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-popover": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-switch": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-tab-group": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-virtual-scroll-container": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-core": {
-      "tags": ["scope:elements", "type:library"]
     },
     "testing-custom-element": {
       "tags": ["scope:testing", "type:library"]
