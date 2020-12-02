@@ -2,6 +2,7 @@
 <dt-progress-bar
   (valueChange)="changed($event)"
   [value]="value"
+  aria-label="Progress between min and max visualized"
 ></dt-progress-bar>
 <div>
   <button dt-button (click)="value = value - 10">decrease by 10</button>
