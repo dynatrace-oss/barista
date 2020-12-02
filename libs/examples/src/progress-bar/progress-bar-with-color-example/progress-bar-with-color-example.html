@@ -1,4 +1,9 @@
-<dt-progress-bar [value]="45" [color]="color"></dt-progress-bar>
+<dt-progress-bar
+  [value]="45"
+  [color]="color"
+  aria-label="Progress of something with changing color hints"
+>
+</dt-progress-bar>
 <div>
   <dt-button-group [value]="color" (valueChange)="changed($event)">
     <dt-button-group-item value="main">main</dt-button-group-item>

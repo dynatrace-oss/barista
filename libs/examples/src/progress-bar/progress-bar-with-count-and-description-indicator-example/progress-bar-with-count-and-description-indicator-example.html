@@ -1,4 +1,8 @@
-<dt-progress-bar (valueChange)="changed($event)" [value]="value">
+<dt-progress-bar
+  (valueChange)="changed($event)"
+  [value]="value"
+  aria-label="Progress for loading a large amount of data"
+>
   <dt-progress-bar-description>
     We found more than 100 results. This may take a while, consider narrowing
     your search.
