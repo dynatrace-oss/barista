@@ -1,27 +1,24 @@
-<dt-consumption [max]="max" [value]="value" color="error">
+<dt-consumption
+  [max]="max"
+  [value]="value"
+  color="error"
+  ariaLabelProgress="Log analytics storage progress"
+>
   <dt-consumption-icon aria-label="Log file">
     <dt-icon name="logfile"></dt-icon>
   </dt-consumption-icon>
-  <dt-consumption-title>
-    Log analytics
-  </dt-consumption-title>
+  <dt-consumption-title> Log analytics </dt-consumption-title>
 
   <dt-consumption-count>
     {{ value | dtMegabytes }}/{{ max | dtMegabytes }}
   </dt-consumption-count>
 
-  <dt-consumption-label>
-    Restricted overages
-  </dt-consumption-label>
+  <dt-consumption-label> Restricted overages </dt-consumption-label>
 
   <dt-consumption-overlay>
     <dt-consumption [max]="max" [value]="value" color="error">
-      <dt-consumption-title>
-        Log analytics
-      </dt-consumption-title>
-      <dt-consumption-subtitle>
-        Quota
-      </dt-consumption-subtitle>
+      <dt-consumption-title> Log analytics </dt-consumption-title>
+      <dt-consumption-subtitle> Quota </dt-consumption-subtitle>
       <dt-consumption-count>
         {{ value | dtMegabytes }}/{{ max | dtMegabytes }}
       </dt-consumption-count>

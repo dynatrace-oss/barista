@@ -1,27 +1,23 @@
-<dt-consumption [max]="max" [value]="value">
+<dt-consumption
+  [max]="max"
+  [value]="value"
+  ariaLabelProgress="Host unit consumption"
+>
   <dt-consumption-icon aria-label="Host">
     <dt-icon name="host"></dt-icon>
   </dt-consumption-icon>
-  <dt-consumption-title>
-    Host units
-  </dt-consumption-title>
+  <dt-consumption-title> Host units </dt-consumption-title>
 
   <dt-consumption-count>
     {{ value | dtCount }}/{{ max | dtCount }}
   </dt-consumption-count>
 
-  <dt-consumption-label>
-    Restricted host unit hours
-  </dt-consumption-label>
+  <dt-consumption-label> Restricted host unit hours </dt-consumption-label>
 
   <dt-consumption-overlay>
     <dt-consumption [max]="max" [value]="value" class="overlay-value-panel">
-      <dt-consumption-title>
-        Host units
-      </dt-consumption-title>
-      <dt-consumption-subtitle>
-        Quota
-      </dt-consumption-subtitle>
+      <dt-consumption-title> Host units </dt-consumption-title>
+      <dt-consumption-subtitle> Quota </dt-consumption-subtitle>
       <dt-consumption-count>
         {{ value | dtCount }}/{{ max | dtCount }}
       </dt-consumption-count>

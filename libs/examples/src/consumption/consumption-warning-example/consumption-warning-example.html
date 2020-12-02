@@ -1,18 +1,19 @@
-<dt-consumption [max]="max" [value]="value" color="warning">
+<dt-consumption
+  [max]="max"
+  [value]="value"
+  color="warning"
+  ariaLabelProgress="DEM unit consumption progress"
+>
   <dt-consumption-icon aria-label="User Group">
     <dt-icon name="usergroup"></dt-icon>
   </dt-consumption-icon>
-  <dt-consumption-title>
-    DEM units
-  </dt-consumption-title>
+  <dt-consumption-title> DEM units </dt-consumption-title>
 
   <dt-consumption-count>
     {{ value | dtCount }}/{{ max | dtCount }}
   </dt-consumption-count>
 
-  <dt-consumption-label>
-    Flexible overages
-  </dt-consumption-label>
+  <dt-consumption-label> Flexible overages </dt-consumption-label>
 
   <dt-consumption-overlay>
     <dt-consumption
@@ -21,12 +22,8 @@
       color="warning"
       class="overlay-value-panel"
     >
-      <dt-consumption-title>
-        DEM units
-      </dt-consumption-title>
-      <dt-consumption-subtitle>
-        Quota
-      </dt-consumption-subtitle>
+      <dt-consumption-title> DEM units </dt-consumption-title>
+      <dt-consumption-subtitle> Quota </dt-consumption-subtitle>
       <dt-consumption-count>
         {{ quota | dtCount }}/{{ quota | dtCount }}
       </dt-consumption-count>
@@ -38,9 +35,7 @@
       color="warning"
       class="overlay-value-panel"
     >
-      <dt-consumption-subtitle>
-        Flexible overages
-      </dt-consumption-subtitle>
+      <dt-consumption-subtitle> Flexible overages </dt-consumption-subtitle>
       <dt-consumption-count>
         {{ flexibleOverages | dtCount }}/unlimited
       </dt-consumption-count>
