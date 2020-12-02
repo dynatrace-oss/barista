@@ -179,7 +179,33 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
    * through an Observable stream (directly or from a DataSource).
    */
   renderRows(): void {
-    super.renderRows();
+    // To prevent an error that was thrown when the the component containing
+    // the table was destroyed. `"Cannot move a destroyed View in a ViewContainer!"`
+    //
+    // This check is necessary because the cdkTable does not check
+    // if the view is already destroyed before moving it
+    // https://github.com/angular/components/blob/c68791db9a0b4107d04fa924c27a087cd00a8989/src/cdk/table/table.ts#L637
+    //
+    // The dependency for the _rowOutlet internal is safe, as we already
+    // depend on this one for the template as well.
+    const rowOutletViewContainer = this._rowOutlet.viewContainer;
+    let shouldRender = false;
+
+    // Figure out if all views within the viewContainer are already
+    // destroyed.
+    for (let i = 0; i < rowOutletViewContainer.length; i += 1) {
+      const view = rowOutletViewContainer.get(i);
+      if (view!.destroyed === false) {
+        shouldRender = true;
+        break;
+      }
+    }
+
+    // Only if not all view containers have been destroyed, or if
+    // there are no viewContainers at all.
+    if (shouldRender || rowOutletViewContainer.length === 0) {
+      super.renderRows();
+    }
 
     // no need if there is no empty state provided via content projection
     if (!this._emptyState.first) {
