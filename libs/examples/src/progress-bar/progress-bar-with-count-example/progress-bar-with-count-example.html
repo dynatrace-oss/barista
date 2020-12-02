@@ -1,4 +1,8 @@
-<dt-progress-bar (valueChange)="changed($event)" [value]="value">
+<dt-progress-bar
+  (valueChange)="changed($event)"
+  [value]="value"
+  aria-label="Progress value for something"
+>
   <dt-progress-bar-count>
     <strong>{{ value }}/{{ max }} days</strong>
   </dt-progress-bar-count>
