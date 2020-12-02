@@ -1,4 +1,9 @@
-<dt-progress-circle [value]="45" [color]="color"></dt-progress-circle>
+<dt-progress-circle
+  [value]="45"
+  [color]="color"
+  aria-label="Progress in circular shape with colored indication"
+>
+</dt-progress-circle>
 <div>
   <dt-button-group [value]="color" (valueChange)="changed($event)">
     <dt-button-group-item value="main">main</dt-button-group-item>
