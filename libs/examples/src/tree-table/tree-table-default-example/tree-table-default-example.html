@@ -23,16 +23,19 @@
         class="dt-thread-progress"
         [value]="row.blocked"
         [max]="row.totalTimeConsumption"
+        aria-label="Blocked resources progress"
       ></dt-progress-bar>
       <dt-progress-bar
         class="dt-thread-progress"
         [value]="row.waiting"
         [max]="row.totalTimeConsumption"
+        aria-label="Waiting resources progress"
       ></dt-progress-bar>
       <dt-progress-bar
         class="dt-thread-progress"
         [value]="row.running"
         [max]="row.totalTimeConsumption"
+        aria-label="Running resources progress"
       ></dt-progress-bar>
     </dt-cell>
   </ng-container>

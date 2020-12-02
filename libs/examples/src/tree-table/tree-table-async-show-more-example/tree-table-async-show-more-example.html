@@ -24,16 +24,19 @@
           class="thread-progress"
           [value]="row.blocked"
           [max]="row.totalTimeConsumption"
+          aria-label="Blocked resources progress"
         ></dt-progress-bar>
         <dt-progress-bar
           class="thread-progress"
           [value]="row.waiting"
           [max]="row.totalTimeConsumption"
+          aria-label="Waiting resources progress"
         ></dt-progress-bar>
         <dt-progress-bar
           class="thread-progress"
           [value]="row.running"
           [max]="row.totalTimeConsumption"
+          aria-label="Running resources progress"
         ></dt-progress-bar>
       </ng-container>
     </dt-cell>
@@ -44,9 +47,7 @@
       Blocked
     </dt-tree-table-header-cell>
     <dt-cell *dtCellDef="let row">
-      <ng-container *ngIf="!row.isShowMore">
-        {{ row.blocked }}ms
-      </ng-container>
+      <ng-container *ngIf="!row.isShowMore"> {{ row.blocked }}ms </ng-container>
     </dt-cell>
   </ng-container>
 
@@ -55,9 +56,7 @@
       Running
     </dt-tree-table-header-cell>
     <dt-cell *dtCellDef="let row">
-      <ng-container *ngIf="!row.isShowMore">
-        {{ row.running }}ms
-      </ng-container>
+      <ng-container *ngIf="!row.isShowMore"> {{ row.running }}ms </ng-container>
     </dt-cell>
   </ng-container>
 
@@ -66,9 +65,7 @@
       Waiting
     </dt-tree-table-header-cell>
     <dt-cell *dtCellDef="let row">
-      <ng-container *ngIf="!row.isShowMore">
-        {{ row.waiting }}ms
-      </ng-container>
+      <ng-container *ngIf="!row.isShowMore"> {{ row.waiting }}ms </ng-container>
     </dt-cell>
   </ng-container>
 
