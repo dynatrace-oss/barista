@@ -103,6 +103,7 @@
           "
           [class.dt-event-chart-event-selected]="_isSelected(renderEvent)"
           role="button"
+          aria-label="Select this event to open the corresponding details panel"
           tabindex="0"
           (click)="_eventSelected($event, renderEvent)"
           (keydown)="_handleEventKeyDown($event, renderEvent)"
