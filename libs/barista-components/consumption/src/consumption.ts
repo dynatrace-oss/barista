@@ -96,7 +96,8 @@ const KEY_RETURN = 13;
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtConsumption extends _DtConsumption
+export class DtConsumption
+  extends _DtConsumption
   implements AfterViewInit, OnDestroy {
   /** Largest possible {@link value} for this consumption component instance. */
   @Input()
@@ -129,6 +130,10 @@ export class DtConsumption extends _DtConsumption
       this._changeDetectorRef.markForCheck();
     }
   }
+
+  /** Defines the aria-label on the progress element. */
+  @Input()
+  ariaLabelProgress: string;
 
   /** @internal Tab index */
   _tabIndex = -1;
