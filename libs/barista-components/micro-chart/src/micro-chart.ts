@@ -91,6 +91,7 @@ export function DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY(
       [options]="_transformedOptions"
       [series]="_transformedSeries"
       (updated)="updated.emit()"
+      [loading-text]="loadingText"
     >
       <ng-content select="dt-chart-tooltip"></ng-content>
     </dt-chart>
@@ -178,6 +179,9 @@ export class DtMicroChart implements OnDestroy {
     this._updateTransformedSeries();
   }
   private _labelFormatter = (input: number) => input.toString();
+
+  /** Loading text displayed in the internal loading distractor. */
+  @Input('loading-text') loadingText: string;
 
   /** Emits when the chart (its options or series) is updated. */
   @Output() readonly updated = new EventEmitter<void>();
