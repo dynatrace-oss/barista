@@ -307,19 +307,7 @@ export class DtContextDialog
   }
 
   private _createOverlay(): void {
-    const positionStrategy = this._overlay
-      .position()
-      .flexibleConnectedTo(this._trigger.elementRef)
-      .withPositions(OVERLAY_POSITIONS)
-      .setOrigin(this._trigger.elementRef)
-      .withFlexibleDimensions(true)
-      .withPush(false)
-      .withGrowAfterOpen(false)
-      .withViewportMargin(0)
-      .withLockedPosition(false);
-
     const defaultConfig: OverlayConfig = {
-      positionStrategy,
       scrollStrategy: this._overlay.scrollStrategies.block(),
       backdropClass: 'cdk-overlay-transparent-backdrop',
       hasBackdrop: true,
@@ -330,6 +318,20 @@ export class DtContextDialog
       ? { ...defaultConfig, ...this._userConfig }
       : defaultConfig;
 
+    const positionStrategy = this._overlay
+      .position()
+      .flexibleConnectedTo(this._trigger.elementRef)
+      .withPositions(OVERLAY_POSITIONS)
+      .setOrigin(this._trigger.elementRef)
+      // We need to falsify the flexibleDimension here in case a maxWidth is set
+      // https://github.com/angular/components/blob/master/src/cdk/overlay/position/flexible-connected-position-strategy.ts#L914
+      .withFlexibleDimensions(overlayConfig.maxWidth === undefined)
+      .withPush(false)
+      .withGrowAfterOpen(false)
+      .withViewportMargin(0)
+      .withLockedPosition(false);
+
+    overlayConfig.positionStrategy = positionStrategy;
     this._overlayRef = this._overlay.create(overlayConfig);
 
     dtSetUiTestAttribute(
