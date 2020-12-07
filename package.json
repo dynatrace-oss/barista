@@ -172,7 +172,7 @@
     "patch-package": "^6.2.2",
     "prettier": "^2.1.2",
     "reflect-metadata": "^0.1.13",
-    "rollup": "^2.33.2",
+    "rollup": "^2.34.2",
     "rollup-plugin-local-resolve": "^1.0.7",
     "sass-graph": "^3.0.5",
     "sass-loader": "^8.0.2",
