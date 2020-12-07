@@ -107,7 +107,7 @@
     "@bazel/bazelisk": "^1.7.3",
     "@bazel/ibazel": "^0.13.2",
     "@bazel/rollup": "^2.2.1",
-    "@bazel/terser": "^2.2.1",
+    "@bazel/terser": "^2.3.1",
     "@bazel/typescript": "^2.2.1",
     "@commitlint/cli": "^9.1.2",
     "@figma/plugin-typings": "^1.18.2",
