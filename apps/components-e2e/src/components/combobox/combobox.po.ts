@@ -27,3 +27,5 @@ export const option = comboboxOverlayPane.find('.dt-option');
 export const loadingIndicator = Selector(
   '.dt-combobox-postfix.dt-combobox-spinner',
 );
+
+export const resetValueButton = Selector('#resetValue');
