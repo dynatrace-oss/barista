@@ -1,0 +1,24 @@
+<dt-quick-filter
+  [dataSource]="_dataSource"
+  [maxGroupItems]="4"
+  [showMoreTemplate]="showMore"
+  aria-label="Filter By Input value"
+  label="Filter by"
+  clearAllLabel="Clear all"
+>
+  <dt-quick-filter-title>Quick-filter</dt-quick-filter-title>
+  <dt-quick-filter-sub-title>
+    All options in the filter field above
+  </dt-quick-filter-sub-title>
+  <div class="quick-demo-filter-content">my content</div>
+</dt-quick-filter>
+<ng-template #showMore let-count let-group="group">
+  <p class="dt-quick-filter-show-more-text">
+    There are {{ count }}
+    <ng-container [ngSwitch]="group">
+      <ng-container *ngSwitchCase="'Country'">States</ng-container>
+      <ng-container *ngSwitchDefault>Options</ng-container>
+    </ng-container>
+    available
+  </p>
+</ng-template>

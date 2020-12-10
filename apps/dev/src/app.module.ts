@@ -99,6 +99,7 @@ import {
   DT_DEFAULT_DARK_THEMING_CONFIG,
 } from '@dynatrace/barista-components/core';
 import { ComboboxDemo } from './combobox/combobox-demo.component';
+import { QuickFilterDemoComponent } from './quick-filter/quick-filter-demo.component';
 
 // tslint:disable-next-line: use-component-selector
 @Component({ template: '' })
@@ -181,6 +182,7 @@ export class NoopRouteComponent {}
     SliderDemo,
     SidenavDemo,
     ContainerBreakpointObserverDemo,
+    QuickFilterDemoComponent,
   ],
   bootstrap: [DevApp],
   providers: [
