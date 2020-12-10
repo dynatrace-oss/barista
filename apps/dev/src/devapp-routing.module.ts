@@ -80,6 +80,7 @@ import { ToggleButtonGroupDemo } from './toggle-button-group/toggle-button-group
 import { TopBarNavigationDemo } from './top-bar-navigation/top-bar-navigation-demo.component';
 import { TreeTableDemo } from './tree-table/tree-table-demo.component';
 import { ComboboxDemo } from './combobox/combobox-demo.component';
+import { QuickFilterDemoComponent } from './quick-filter/quick-filter-demo.component';
 
 const routes: Routes = [
   { path: 'alert', component: AlertDemo },
@@ -152,6 +153,7 @@ const routes: Routes = [
   { path: 'toggle-button-group', component: ToggleButtonGroupDemo },
   { path: 'sidenav', component: SidenavDemo },
   { path: 'tree-table', component: TreeTableDemo },
+  { path: 'quick-filter', component: QuickFilterDemoComponent },
 ];
 
 @NgModule({

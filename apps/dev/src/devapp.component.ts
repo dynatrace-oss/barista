@@ -85,6 +85,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Pagination', route: '/pagination' },
     { name: 'Progress-bar', route: '/progress-bar' },
     { name: 'Progress-circle', route: '/progress-circle' },
+    { name: 'Quick-Filter', route: '/quick-filter' },
     { name: 'Radial-chart', route: '/radial-chart' },
     { name: 'Radio', route: '/radio' },
     { name: 'Secondary-nav', route: '/secondary-nav' },

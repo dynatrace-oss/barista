@@ -235,8 +235,12 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
       );
       if (!this.isDetail && items.length > this.maxGroupItems) {
         this._truncatedGroupItems = true;
-        this._showMoreCount = items.length - this.maxGroupItems;
-        return items.slice(0, this.maxGroupItems);
+        const filteredItems = items.filter(
+          (item, index) => index <= this.maxGroupItems || this._isActive(item),
+        );
+        this._showMoreCount =
+          items.length - Math.max(this.maxGroupItems, filteredItems.length);
+        return filteredItems;
       }
       return items;
     }
