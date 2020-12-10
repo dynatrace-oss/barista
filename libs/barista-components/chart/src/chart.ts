@@ -599,7 +599,7 @@ export class DtChart
               break;
             case TooltipStateType.OPENED:
               tooltip._createOverlay(
-                state.event!.data,
+                state.event?.data,
                 this,
                 plotBackgroundInfo,
               );
@@ -607,7 +607,7 @@ export class DtChart
               break;
             case TooltipStateType.UPDATED:
               tooltip._updateOverlayContext(
-                state.event!.data,
+                state.event?.data,
                 this,
                 plotBackgroundInfo,
               );
