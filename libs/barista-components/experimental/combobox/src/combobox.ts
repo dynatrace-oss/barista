@@ -500,6 +500,17 @@ export class DtCombobox<T>
 
   /** Updates the selection by value using selection model and keymanager to handle the active item */
   private _setSelectionByValue(value: T, triggered: boolean = true): void {
+    // If value is being reset programmatically
+    if (value === null && this._selectionModel) {
+      // Deselect all values in the selection model
+      for (const selected of this._selectionModel.selected) {
+        this._selectionModel.deselect(selected);
+      }
+      this._writeValue();
+      this._changeDetectorRef.markForCheck();
+      return;
+    }
+
     const correspondingOption = this._selectValue(value, triggered);
 
     // Shift focus to the active item
