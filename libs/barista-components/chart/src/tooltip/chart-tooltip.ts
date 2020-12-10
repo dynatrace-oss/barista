@@ -95,7 +95,7 @@ export class DtChartTooltip implements OnDestroy {
 
   /** @internal Create a new overlay for the tooltip (triggered by the chart) */
   _createOverlay(
-    data: DtChartTooltipData,
+    data: DtChartTooltipData | undefined,
     parentChart: DtChart,
     plotBackgroundInfo: PlotBackgroundInfo,
   ): void {
@@ -140,11 +140,11 @@ export class DtChartTooltip implements OnDestroy {
 
   /** @internal Updates the overlay content (triggered by the chart) */
   _updateOverlayContext(
-    data: DtChartTooltipData,
+    data: DtChartTooltipData | undefined,
     parentChart: DtChart,
     plotBackgroundInfo: PlotBackgroundInfo,
   ): void {
-    if (this._portal && this._overlayRef) {
+    if (this._portal && this._overlayRef && data) {
       this._portal.context.$implicit = data;
       const positionStrategy = this._getPositionStrategy(
         data,
