@@ -271,9 +271,9 @@ fixture('Quick Filter with show more')
 test('should check the show more with non distinct values', async (testController: TestController) => {
   await testController
     .expect(getShowMoreText('Country'))
-    .eql('There are 26 States available')
+    .eql('There are 25 States available')
     .expect(getGroupItems('Country').count)
-    .eql(4)
+    .eql(5)
     .click(getShowMoreButton('Country'))
     .expect(getGroupItems('Country').count)
     .eql(30)
@@ -289,9 +289,9 @@ test('should check the show more with non distinct values', async (testControlle
 test('should check the show more with distinct values', async (testController: TestController) => {
   await testController
     .expect(getShowMoreText('Value'))
-    .eql('There are 996 Options available')
+    .eql('There are 995 Options available')
     .expect(getGroupItems('Value').count)
-    .eql(5)
+    .eql(6)
     .click(getGroupItem('Value', 'Value 2'))
     .expect(getFilterfieldTags())
     .eql(['ValueValue 2'])

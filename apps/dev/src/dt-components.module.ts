@@ -77,6 +77,7 @@ import { DtToggleButtonGroupModule } from '@dynatrace/barista-components/toggle-
 import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
 import { DtTreeTableModule } from '@dynatrace/barista-components/tree-table';
 import { DtComboboxModule } from '@dynatrace/barista-components/experimental/combobox';
+import { DtQuickFilterModule } from '@dynatrace/barista-components/quick-filter';
 
 /**
  * NgModule that includes all Dynatrace angular components modules that are required to serve the examples.
@@ -144,6 +145,7 @@ import { DtComboboxModule } from '@dynatrace/barista-components/experimental/com
     DtStepperModule,
     DtSliderModule,
     DtContainerBreakpointObserverModule,
+    DtQuickFilterModule,
   ],
 })
 export class DevAppDynatraceModule {}

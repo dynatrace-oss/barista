@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+}
+
+dt-pagination {
+  align-self: center;
+  margin: 1em 0;
+}
+
+.quick-demo-filter-content {
+  padding: 16px;
+  width: 100%;
+  min-width: 320px;
+}
