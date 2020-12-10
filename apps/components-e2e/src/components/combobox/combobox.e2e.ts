@@ -20,6 +20,7 @@ import {
   comboboxInput,
   option,
   loadingIndicator,
+  resetValueButton,
 } from './combobox.po';
 
 fixture('Combobox')
@@ -125,4 +126,13 @@ test('should not reset the value when hitting continuously typing the backspace 
     // Check all options and rendered values
     .expect(option.nth(2).textContent)
     .contains('Value 3');
+});
+
+test('should reset the value when setting the value programmatically to null', async (testController: TestController) => {
+  await testController
+    .expect(comboboxInput.value)
+    .eql('Value 1')
+    .click(resetValueButton)
+    .expect(comboboxInput.value)
+    .eql('');
 });

@@ -53,7 +53,7 @@ function optionFilter(
 export class DtE2ECombobox {
   @ViewChild(DtCombobox) combobox: DtCombobox<any>;
 
-  _initialValue = allOptions[0];
+  _initialValue: ExampleComboboxOption | null = allOptions[0];
   _options = [...allOptions];
   _loading = false;
   _displayWith = (option: ExampleComboboxOption) => option.name;
