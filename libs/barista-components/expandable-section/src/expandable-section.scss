@@ -73,7 +73,6 @@
     fill: var(--dt-expandable-section-arrow-default-color);
     vertical-align: middle;
     transition: 0.125s;
-    transform: rotate(-90deg);
   }
 }
 
@@ -135,10 +134,21 @@
   }
 }
 
+/** The source order of opened and closed is important here
+ * as both selectors have the same specificity, but when nesting
+ * expandable sections, it is not possible to have a child expanded
+ * that has a collapsed parent.
+ */
 :host.dt-expandable-section-opened
   .dt-expandable-section-header
   .dt-expandable-section-arrow {
   transform: rotate(0deg);
+}
+
+:host.dt-expandable-section-closed
+  .dt-expandable-section-header
+  .dt-expandable-section-arrow {
+  transform: rotate(-90deg);
 }
 
 .dt-expandable-section-container {

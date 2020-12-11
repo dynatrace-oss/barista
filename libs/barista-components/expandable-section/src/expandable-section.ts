@@ -54,6 +54,7 @@ export const _ExpandableSectionBase = mixinId(
   host: {
     class: 'dt-expandable-section',
     '[class.dt-expandable-section-opened]': 'expanded',
+    '[class.dt-expandable-section-closed]': '!expanded',
     '[class.dt-expandable-section-disabled]': 'disabled',
     '[attr.aria-disabled]': 'disabled',
   },
