@@ -1,3 +1,52 @@
+## [8.8.0](https://github.com/dynatrace-oss/barista/compare/8.7.0...8.8.0) (2020-12-11)
+
+### Bug Fixes
+
+- **chart:** Fixes an edge case where the event data from highcharts could be
+  undefined.
+  ([a2f485a](https://github.com/dynatrace-oss/barista/commit/a2f485a5740e6d2c7de7717569388492f6d198b7))
+- **checkbox:** Removes outside spacing on the right of the label.
+  ([b5f4e80](https://github.com/dynatrace-oss/barista/commit/b5f4e80cb1fe15a077fa242e8213749e71e0f712))
+- **combobox:** Fixes an issue with programmatic setting of the value to null.
+  ([d457785](https://github.com/dynatrace-oss/barista/commit/d4577852d1029ce6577eba4965a7c8eed61fc9a5))
+- **consumption:** Added ariaLabelProgress to the consumption.
+  ([5a10dc0](https://github.com/dynatrace-oss/barista/commit/5a10dc0843981f9ef299bf95a8d8db70385b9b46))
+- **context-dialog:** Fixes a weird combination of our interal overlayConfig and
+  how the cdk handles a maxWidth given in the config.
+  ([c22b6ca](https://github.com/dynatrace-oss/barista/commit/c22b6cab75f8fdb35c2911fdc21eeb39bab1f277))
+- **drawer:** Fixes an issue where changeDetection was not triggered.
+  ([41e898a](https://github.com/dynatrace-oss/barista/commit/41e898ad450f47343ba994174370989ce86f77b1))
+- **event-chart:** Added aria-label to rendered event bubble.
+  ([e86b5e3](https://github.com/dynatrace-oss/barista/commit/e86b5e36495e50143e88c8bdc4f576afb4327abf))
+- **expandable-section:** Fixes an issue where nesting expandable sections
+  resulted in wrong visual state.
+  ([79bd478](https://github.com/dynatrace-oss/barista/commit/79bd478d544a6e240a10e6625d3e27bac38c5c9d))
+- **micro-chart:** Add loading-text proxy to the chart.
+  ([6d954fd](https://github.com/dynatrace-oss/barista/commit/6d954fd02e7c192558b4b1cf3d81a96327850f82))
+- **quickfilter:** Adds truncation to checkbox and radio labels inside the
+  quickfilter to avoid overflow issues with long labels.
+  ([28d61f6](https://github.com/dynatrace-oss/barista/commit/28d61f671fc59a297d09026399cbceeaa924fd5c))
+- **table:** Fixes an issue with a ViewContainer error on destroy.
+  ([36728ee](https://github.com/dynatrace-oss/barista/commit/36728ee9b6327c3c21dfbaf11f53dd840eb962d7))
+
+### Features
+
+- **datepicker:** Added experimental datepicker component.
+  ([be6a0e0](https://github.com/dynatrace-oss/barista/commit/be6a0e0721f1cb88f39ae9aea6b5e23e9325a1f0)),
+  closes [#894](https://github.com/dynatrace-oss/barista/issues/894)
+- **form-field:** Switched theming to custom properties.
+  ([68f312b](https://github.com/dynatrace-oss/barista/commit/68f312b4871b4af9ecae68836e09f25f216657f6))
+- **highlight:** Switched theming to custom properties.
+  ([7b6f8f2](https://github.com/dynatrace-oss/barista/commit/7b6f8f24d59f45bf88e129ba4661f533bf3880a7))
+- **quick-filter:** Expose the filter-field loading through the quickfilter.
+  ([c95b604](https://github.com/dynatrace-oss/barista/commit/c95b604c86ba00e334ff725bd440f70756c8b118))
+- **table:** Changed theming of rows to custom properties.
+  ([1b4749a](https://github.com/dynatrace-oss/barista/commit/1b4749a24a8be0589e2be96cca61e3be0c20fbd5))
+- **tabs:** Switched theming to custom properties.
+  ([e8e7484](https://github.com/dynatrace-oss/barista/commit/e8e7484b3f0c4bff2cf28183402659f56a9b408c))
+- **toggle-button-group:** Switched theming to custom properties.
+  ([253e192](https://github.com/dynatrace-oss/barista/commit/253e192123a03e8679361a0253468109f62373aa))
+
 ## [8.7.0](https://github.com/dynatrace-oss/barista/compare/8.6.0...8.7.0) (2020-11-30)
 
 ### Bug Fixes
