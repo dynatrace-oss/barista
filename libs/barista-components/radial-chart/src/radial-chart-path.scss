@@ -1,6 +1,8 @@
 @import '../../core/src/style/variables';
 
 :host:not(.dt-radial-chart-path-selected):hover {
+  cursor: pointer;
+
   .dt-radial-chart-path-hover {
     opacity: 0.3;
   }
