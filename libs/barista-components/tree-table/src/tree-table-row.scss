@@ -52,12 +52,7 @@
 }
 
 :host.dt-table-row-indicator ::ng-deep .dt-tree-table-toggle-cell-wrap::before {
-  width: 2px;
-  height: 100%;
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
+  @include dt-table-row-indicator();
 }
 
 :host-context(.dt-table-interactive-rows):hover ::ng-deep .dt-cell {

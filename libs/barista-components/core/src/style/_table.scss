@@ -10,3 +10,14 @@ $dt-table-row-color-odd: $gray-100;
 // Cell
 $dt-table-cell-vertical-padding: 8px;
 $dt-table-cell-horizontal-padding: 12px;
+
+// Problem indicator
+@mixin dt-table-row-indicator() {
+  width: 4px;
+  height: calc(100% - 4px);
+  content: '';
+  display: block;
+  position: absolute;
+  left: 2px;
+  align-self: center;
+}
