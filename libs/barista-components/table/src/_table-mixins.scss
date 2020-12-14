@@ -71,14 +71,3 @@
   font-weight: 600;
   word-break: normal;
 }
-
-// Problem indicator
-@mixin dt-table-row-indicator() {
-  width: 2px;
-  height: calc(100% - 4px);
-  content: '';
-  display: block;
-  position: absolute;
-  left: 2px;
-  align-self: center;
-}
