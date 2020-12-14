@@ -252,7 +252,7 @@ export class DtCombobox<T>
    */
   @ViewChild('autocompleteContent') _templatePortalContent: TemplateRef<any>;
   /** @internal The autocomplete instance that holds all options */
-  @ViewChild(DtAutocomplete) _autocomplete: DtAutocomplete<T>;
+  @ViewChild(DtAutocomplete, { static: true }) _autocomplete: DtAutocomplete<T>;
 
   /** @internal The options received via ng-content */
   @ContentChildren(DtOption, { descendants: true })
@@ -332,6 +332,10 @@ export class DtCombobox<T>
       .subscribe(() => {
         this._resetInputValue();
       });
+
+    this._autocomplete.opened.pipe(takeUntil(this._destroy)).subscribe(() => {
+      this._closeOtherComboboxInstances();
+    });
   }
 
   ngAfterContentInit(): void {
@@ -431,16 +435,19 @@ export class DtCombobox<T>
     this._changeDetectorRef.markForCheck();
   }
 
+  private _closeOtherComboboxInstances(): void {
+    if (currentlyOpenCombobox && currentlyOpenCombobox !== this) {
+      currentlyOpenCombobox._autocompleteTrigger.closePanel();
+    }
+    currentlyOpenCombobox = this;
+  }
+
   /**
    * Opens the autocomplete panel and makes sure that all
    * other combobox panels are closed correctly.
    */
   private _openPanel(): void {
-    if (currentlyOpenCombobox && currentlyOpenCombobox !== this) {
-      currentlyOpenCombobox._autocompleteTrigger.closePanel();
-    }
     this._autocompleteTrigger.openPanel();
-    currentlyOpenCombobox = this;
   }
 
   /**
@@ -448,7 +455,7 @@ export class DtCombobox<T>
    * the global autocomplete panel case correctly.
    */
   private _closePanel(): void {
-    this._autocompleteTrigger.openPanel();
+    this._autocompleteTrigger.closePanel();
     currentlyOpenCombobox = null;
   }
 
