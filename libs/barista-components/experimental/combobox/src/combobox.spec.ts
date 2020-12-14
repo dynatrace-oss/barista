@@ -64,7 +64,7 @@ describe('Combobox', () => {
         HttpClientTestingModule,
         DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
       ],
-      declarations: [TestComponent],
+      declarations: [TestComponent, TestLoadingComponent],
       providers: [
         //{ provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
       ],
@@ -76,65 +76,79 @@ describe('Combobox', () => {
     overlayContainerElement = oc.getContainerElement();
   }));
 
-  beforeEach(() => {
-    fixture = createComponent(TestComponent);
-    combobox = fixture.debugElement.query(By.directive(DtCombobox))
-      .componentInstance;
-    input = fixture.debugElement.query(By.css('.dt-combobox-input'))
-      .nativeElement;
-    trigger = fixture.debugElement.query(By.css('.dt-combobox-trigger'))
-      .nativeElement;
-  });
-
   afterEach(() => {
     overlayContainer.ngOnDestroy();
     (overlayContainer as any) = null;
     (overlayContainerElement as any) = null;
   });
 
-  it('should not open when the options are empty', fakeAsync(() => {
-    focusInput(input);
-    expect(trigger.classList.contains('dt-combobox-open')).toBeFalsy();
-    expect(
-      overlayContainerElement.querySelectorAll('dt-option').length,
-    ).toEqual(0);
-  }));
+  describe('Basic', () => {
+    beforeEach(() => {
+      fixture = createComponent(TestComponent);
+      combobox = fixture.debugElement.query(By.directive(DtCombobox))
+        .componentInstance;
+      input = fixture.debugElement.query(By.css('.dt-combobox-input'))
+        .nativeElement;
+      trigger = fixture.debugElement.query(By.css('.dt-combobox-trigger'))
+        .nativeElement;
+    });
 
-  it('should return true when options is an empty array', () => {
-    expect(combobox.empty).toBeTruthy();
+    it('should not open when the options are empty', fakeAsync(() => {
+      focusInput(input);
+      expect(trigger.classList.contains('dt-combobox-open')).toBeFalsy();
+      expect(
+        overlayContainerElement.querySelectorAll('dt-option').length,
+      ).toEqual(0);
+    }));
+
+    it('should return true when options is an empty array', () => {
+      expect(combobox.empty).toBeTruthy();
+    });
+
+    it('should emit an event when the panel is opened', fakeAsync(() => {
+      // fixture.componentInstance.setOptions();
+      // fixture.detectChanges();
+      // focusInput(input);
+      // expect(fixture.componentInstance.openedSpy).toHaveBeenCalled();
+    }));
+
+    it('should show options after setting them from a previously empty set of options', fakeAsync(() => {
+      fixture.componentInstance.setOptions();
+      fixture.detectChanges();
+      focusInput(input);
+
+      expect(trigger.classList.contains('dt-combobox-open')).toBeTruthy();
+      expect(
+        overlayContainerElement.querySelectorAll('dt-option').length,
+      ).toEqual(3);
+    }));
+
+    it('should set the value in the input correctly if a value is set at runtime', fakeAsync(() => {
+      fixture.componentInstance.setOptions();
+      fixture.detectChanges();
+      expect(input.value).toBe('');
+      expect(input.placeholder).toBe('My placeholder');
+
+      fixture.componentInstance.value$.next({
+        name: 'Value 2',
+        value: '[value: Value 2]',
+      });
+      fixture.detectChanges();
+      expect(input.value).toBe('Value 2');
+    }));
   });
 
-  it('should emit an event when the panel is opened', fakeAsync(() => {
-    // fixture.componentInstance.setOptions();
-    // fixture.detectChanges();
-    // focusInput(input);
-    // expect(fixture.componentInstance.openedSpy).toHaveBeenCalled();
-  }));
-
-  it('should show options after setting them from a previously empty set of options', fakeAsync(() => {
-    fixture.componentInstance.setOptions();
-    fixture.detectChanges();
-    focusInput(input);
-
-    expect(trigger.classList.contains('dt-combobox-open')).toBeTruthy();
-    expect(
-      overlayContainerElement.querySelectorAll('dt-option').length,
-    ).toEqual(3);
-  }));
-
-  it('should set the value in the input correctly if a value is set at runtime', fakeAsync(() => {
-    fixture.componentInstance.setOptions();
-    fixture.detectChanges();
-    expect(input.value).toBe('');
-    expect(input.placeholder).toBe('My placeholder');
-
-    fixture.componentInstance.value$.next({
-      name: 'Value 2',
-      value: '[value: Value 2]',
-    });
-    fixture.detectChanges();
-    expect(input.value).toBe('Value 2');
-  }));
+  it('should not throw an error when loading is true initially', () => {
+    let loadingFixture;
+    try {
+      loadingFixture = createComponent(TestLoadingComponent);
+    } catch (e) {
+      expect(e.message).toBeTruthy();
+    } finally {
+      expect.assertions(0);
+      loadingFixture.destroy();
+    }
+  });
 });
 
 /** Test component */
@@ -180,4 +194,23 @@ class TestComponent {
       { name: 'Value 3', value: '[value: Value 3]' },
     ];
   }
+}
+
+@Component({
+  selector: 'dt-test',
+  template: `
+    <dt-combobox [loading]="loading">
+      <dt-option *ngFor="let option of options" [value]="option">
+        {{ option.name }}
+      </dt-option>
+    </dt-combobox>
+  `,
+})
+class TestLoadingComponent {
+  options: { name: string; value: string }[] = [
+    { name: 'Value 1', value: '[value: Value 1]' },
+    { name: 'Value 2', value: '[value: Value 2]' },
+    { name: 'Value 3', value: '[value: Value 3]' },
+  ];
+  loading = true;
 }
