@@ -1,3 +1,20 @@
+## [8.9.0](https://github.com/dynatrace-oss/barista/compare/8.8.0...8.9.0) (2020-12-14)
+
+### Bug Fixes
+
+- **quick filter:** Always show selected options in the quickfilter.
+  (APM-266050)
+  ([e1c9a42](https://github.com/dynatrace-oss/barista/commit/e1c9a42fb136fc723764772736985a0cea28e68f))
+- **radial-chart:** Set the correct cursor for selectable parts.
+  ([1ab935b](https://github.com/dynatrace-oss/barista/commit/1ab935bc603419f57616454bb0e85706a60a68df))
+
+### Features
+
+- **core:** Adjusted warning, error and recovered colors to be more accessible.
+  ([1fc35fa](https://github.com/dynatrace-oss/barista/commit/1fc35faa34640ca9dd13c00647762883282f34d1))
+- **table, tree-table:** Increased width of row indicator to improve visibility.
+  ([f5db806](https://github.com/dynatrace-oss/barista/commit/f5db806e8bbf01e62b5328de61711f06a22c767c))
+
 ## [8.8.0](https://github.com/dynatrace-oss/barista/compare/8.7.0...8.8.0) (2020-12-11)
 
 ### Bug Fixes
