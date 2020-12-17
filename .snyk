@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.1
+version: v1.13.5
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-LODASH-567746:
@@ -78,5 +78,5 @@ ignore:
   SNYK-JS-Y18N-1021887:
     - '@angular/localize > yargs > y18n':
         reason: Check again after migration to angular@^11
-        expires: '2020-12-17T13:05:03.302Z'
+        expires: '2021-01-15T13:05:03.302Z'
 patch: {}
