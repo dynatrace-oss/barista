@@ -47,6 +47,8 @@ import {
   DtStackedSeriesChartSeries,
   DtStackedSeriesChartTooltipData,
   DtStackedSeriesChartValueDisplayMode,
+  DtStackedSeriesChartSelectionMode,
+  DtStackedSeriesChartSelection,
   fillSeries,
   getLegends,
   getSeriesWithState,
@@ -95,6 +97,17 @@ export class DtStackedSeriesChart implements OnDestroy {
   private _series: DtStackedSeriesChartSeries[];
   /** Series with filled nodes */
   private _filledSeries: DtStackedSeriesChartFilledSeries[];
+
+  /** Whether to make just the nodes selectable or the whole row/column */
+  @Input() selectionMode: DtStackedSeriesChartSelectionMode = 'node';
+
+  get _isNodeSelectionMode(): boolean {
+    return this.selectionMode === 'node';
+  }
+
+  get _isStackSelectionMode(): boolean {
+    return this.selectionMode === 'stack';
+  }
 
   /** Allow selections to be made on chart */
   @Input()
@@ -201,24 +214,20 @@ export class DtStackedSeriesChart implements OnDestroy {
 
   /** Current selection [series, node] */
   @Input()
-  get selected(): [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] | [] {
+  get selected(): DtStackedSeriesChartSelection | [] {
     return this._selected;
   }
-  set selected([series, node]:
-    | [DtStackedSeriesChartSeries, DtStackedSeriesChartNode]
-    | []) {
+  set selected([series, node]: DtStackedSeriesChartSelection | []) {
     // if selected node is different than current
     if (this._selected[1] !== node) {
       this._toggleSelect(series, node);
     }
   }
-  private _selected:
-    | [DtStackedSeriesChartSeries, DtStackedSeriesChartNode]
-    | [] = [];
+  private _selected: DtStackedSeriesChartSelection | [] = [];
 
   /** Event that fires when a node is clicked with an array of [series, node]  */
   @Output() selectedChange: EventEmitter<
-    [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] | []
+    DtStackedSeriesChartSelection | []
   > = new EventEmitter();
 
   /** @internal Template reference for the DtStackedSeriesChart */
@@ -292,7 +301,13 @@ export class DtStackedSeriesChart implements OnDestroy {
     node?: DtStackedSeriesChartNode,
   ): void {
     if (this._selectable) {
-      if (series && node && this._selected[1] !== node) {
+      if (
+        // Toggle if node or stack are different from current selection
+        series &&
+        (!this._selected[0] ||
+          (this._selected[0] && series.label !== this._selected[0].label) ||
+          this._selected[1] !== node)
+      ) {
         this._selected = [series, node];
       } else {
         this._selected = [];
@@ -303,6 +318,17 @@ export class DtStackedSeriesChart implements OnDestroy {
     } else {
       this._selected = [];
     }
+  }
+
+  _toggleStackSelect(series?: DtStackedSeriesChartSeries): false | void {
+    return this._isStackSelectionMode && this._toggleSelect(series, undefined);
+  }
+
+  _toggleNodeSelect(
+    series?: DtStackedSeriesChartSeries,
+    node?: DtStackedSeriesChartNode,
+  ): false | void {
+    return this._isNodeSelectionMode && this._toggleSelect(series, node);
   }
 
   /** @internal Toggle the visibility of an element */

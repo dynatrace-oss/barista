@@ -24,5 +24,6 @@ export {
   DtStackedSeriesChartNode,
   DtStackedSeriesChartSeries,
   DtStackedSeriesChartTooltipData,
+  DtStackedSeriesChartSelectionMode,
   DtStackedSeriesChartValueDisplayMode,
 } from './src/stacked-series-chart.util';

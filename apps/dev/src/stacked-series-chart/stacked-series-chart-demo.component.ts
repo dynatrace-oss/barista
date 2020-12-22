@@ -19,6 +19,7 @@ import {
   DtStackedSeriesChartFillMode,
   DtStackedSeriesChartMode,
   DtStackedSeriesChartNode,
+  DtStackedSeriesChartSelectionMode,
   DtStackedSeriesChartSeries,
   DtStackedSeriesChartValueDisplayMode,
 } from '@dynatrace/barista-components/stacked-series-chart';
@@ -30,6 +31,7 @@ import { stackedSeriesChartDemoData } from './stacked-series-chart-demo-data';
   styleUrls: ['./stacked-series-chart-demo.component.scss'],
 })
 export class StackedSeriesChartDemo {
+  selectionMode: DtStackedSeriesChartSelectionMode = 'node';
   selectable: boolean = true;
   selected: [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] = [
     stackedSeriesChartDemoData[3],

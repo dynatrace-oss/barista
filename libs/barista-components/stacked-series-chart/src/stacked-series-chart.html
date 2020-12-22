@@ -32,10 +32,14 @@
 
     <div
       class="dt-stacked-series-chart-track"
+      [class.dt-stacked-series-chart-node]="_isNodeSelectionMode"
+      [class.dt-stacked-series-chart-stack]="_isStackSelectionMode"
       [class.dt-stacked-series-chart-track-selectable]="_selectable"
+      [class.dt-stacked-series-chart-track-selected]="track.selected"
       [class.dt-stacked-series-chart-track-background]="visibleTrackBackground"
       [class.dt-stacked-series-chart-track-hoverable]="_overlay"
       [style]="_sanitizeCSS([['--dt-stacked-series-chart-track-index', i + 1]])"
+      (click)="_toggleStackSelect(track.origin)"
     >
       <span
         *ngFor="let slice of track.nodes; trackBy: _trackByFn"
@@ -48,7 +52,7 @@
             ['--dt-stacked-series-chart-length', slice.length]
           ])
         "
-        (click)="_toggleSelect(track.origin, slice.origin)"
+        (click)="_toggleNodeSelect(track.origin, slice.origin)"
         (mouseenter)="_handleOnSeriesMouseEnter($event, slice)"
         (mousemove)="_handleOnSeriesMouseMove($event)"
         (mouseleave)="_handleOnSeriesMouseLeave()"

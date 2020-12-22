@@ -77,13 +77,16 @@ See stacked-series-chart.layout.md
     }
   }
 
-  .dt-stacked-series-chart-slice-selected::before {
-    box-shadow: $selected-size 0 $selected-color inset,
-      -$selected-size 0 $selected-color inset;
-    right: -$selected-size;
-    left: -$selected-size;
-    top: 0;
-    bottom: 0;
+  .dt-stacked-series-chart-node .dt-stacked-series-chart-slice-selected,
+  .dt-stacked-series-chart-track-selected.dt-stacked-series-chart-stack {
+    &::before {
+      box-shadow: $selected-size 0 $selected-color inset,
+        -$selected-size 0 $selected-color inset;
+      right: -$selected-size;
+      left: -$selected-size;
+      top: 0;
+      bottom: 0;
+    }
   }
 }
 

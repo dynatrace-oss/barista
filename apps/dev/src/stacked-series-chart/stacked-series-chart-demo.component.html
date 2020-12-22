@@ -1,6 +1,7 @@
 <dt-stacked-series-chart
   [series]="series"
   [selectable]="selectable"
+  [selectionMode]="selectionMode"
   [(selected)]="selected"
   [valueDisplayMode]="valueDisplayMode"
   [visibleLabel]="visibleLabel"
@@ -27,9 +28,7 @@
       <dt-button-group-item value="column">Column</dt-button-group-item>
     </dt-button-group>
 
-    <h3>
-      Value display mode
-    </h3>
+    <h3>Value display mode</h3>
     <dt-button-group [(value)]="valueDisplayMode">
       <dt-button-group-item value="none">None</dt-button-group-item>
       <dt-button-group-item value="absolute">Absolute</dt-button-group-item>
@@ -76,6 +75,12 @@
   <div>
     <h2>Selection</h2>
     <dt-switch [(ngModel)]="selectable">Selectable</dt-switch>
+
+    <h4>Selection Mode</h4>
+    <dt-button-group [(value)]="selectionMode">
+      <dt-button-group-item value="node">Node</dt-button-group-item>
+      <dt-button-group-item value="stack">Stack</dt-button-group-item>
+    </dt-button-group>
 
     <pre>{{ selected | json }}</pre>
   </div>

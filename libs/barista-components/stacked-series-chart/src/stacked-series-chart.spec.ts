@@ -41,6 +41,7 @@ import {
   DtStackedSeriesChartNode,
   DtStackedSeriesChartSeries,
   DtStackedSeriesChartValueDisplayMode,
+  DtStackedSeriesChartSelectionMode,
 } from './stacked-series-chart.util';
 
 describe('DtStackedSeriesChart', () => {
@@ -78,6 +79,11 @@ describe('DtStackedSeriesChart', () => {
     );
   }
 
+  /** Gets a specific stack at a specific position */
+  function getTrackByPosition(trackIndex: number): DebugElement {
+    return getAllTracks()[trackIndex];
+  }
+
   /** Gets a specific slice at a specific position */
   function getSliceByPositionWithinTrack(
     trackIndex: number,
@@ -85,6 +91,13 @@ describe('DtStackedSeriesChart', () => {
   ): DebugElement {
     const track = getAllTracks()[trackIndex];
     return track.queryAll(By.css('.dt-stacked-series-chart-slice'))[sliceIndex];
+  }
+
+  /** Gets the selected slice */
+  function getSelectedTrack(): DebugElement {
+    return fixture.debugElement.query(
+      By.css('.dt-stacked-series-chart-track-selected'),
+    );
   }
 
   /** Gets the selected slice */
@@ -242,7 +255,7 @@ describe('DtStackedSeriesChart', () => {
       expect(selected).toBe(sliceByPosition);
     });
 
-    it('should make a selection', () => {
+    it('should make a node selection', () => {
       const sliceByPosition = getSliceByPositionWithinTrack(1, 1);
       dispatchFakeEvent(sliceByPosition.nativeElement, 'click');
       fixture.detectChanges();
@@ -254,6 +267,31 @@ describe('DtStackedSeriesChart', () => {
         component._tracks[1].nodes[1].origin,
       ]);
       expect(selected).toBe(sliceByPosition);
+    });
+
+    it('should toggle stack selection', () => {
+      rootComponent.selectionMode = 'stack';
+      fixture.detectChanges();
+
+      let trackByPosition = getTrackByPosition(2);
+      dispatchFakeEvent(trackByPosition.nativeElement, 'click');
+      fixture.detectChanges();
+
+      let selected = getSelectedTrack();
+
+      expect(selectedChangeSpy).toHaveBeenCalledWith([
+        component._tracks[2].origin,
+        undefined,
+      ]);
+      expect(selected).toBe(trackByPosition);
+
+      trackByPosition = getTrackByPosition(1);
+      dispatchFakeEvent(trackByPosition.nativeElement, 'click');
+      fixture.detectChanges();
+
+      selected = getSelectedTrack();
+
+      expect(selected).toBe(trackByPosition);
     });
 
     it('should not allow selection from input if disabled', () => {
@@ -595,6 +633,7 @@ describe('DtStackedSeriesChart', () => {
       [series]="series"
       [selected]="selected"
       [selectable]="selectable"
+      [selectionMode]="selectionMode"
       [valueDisplayMode]="valueDisplayMode"
       [max]="max"
       [fillMode]="fillMode"
@@ -617,6 +656,7 @@ describe('DtStackedSeriesChart', () => {
 class TestApp {
   series: DtStackedSeriesChartSeries[] = stackedSeriesChartDemoDataCoffee;
   selectable: boolean = true;
+  selectionMode: DtStackedSeriesChartSelectionMode = 'node';
   selected: [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] | [] = [];
   valueDisplayMode: DtStackedSeriesChartValueDisplayMode;
   max: number;

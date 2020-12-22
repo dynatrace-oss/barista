@@ -38,6 +38,8 @@ export interface DtStackedSeriesChartFilledSeries {
   origin: DtStackedSeriesChartSeries;
   /** Filled nodes for this series */
   nodes: DtStackedSeriesChartTooltipData[];
+  /** If stack is currently selected */
+  selected: boolean;
 }
 
 /**
@@ -97,6 +99,15 @@ export type DtStackedSeriesChartFillMode = 'full' | 'relative';
 /** Orientation of the chart */
 export type DtStackedSeriesChartMode = 'bar' | 'column';
 
+/** Whether a single node is selectable or the whole row/column */
+export type DtStackedSeriesChartSelectionMode = 'node' | 'stack';
+
+/** Selection events object */
+export type DtStackedSeriesChartSelection = [
+  DtStackedSeriesChartSeries,
+  DtStackedSeriesChartNode?,
+];
+
 /*
  *
  *  NODE PARSING
@@ -117,6 +128,7 @@ export const fillSeries = (
 ): DtStackedSeriesChartFilledSeries[] =>
   series.map((s) => ({
     origin: s,
+    selected: false,
     nodes: s.nodes.map((node) => ({
       origin: node,
       seriesOrigin: s,
@@ -142,13 +154,12 @@ export const fillSeries = (
  */
 export const getSeriesWithState = (
   series: DtStackedSeriesChartFilledSeries[] = [],
-  [selectedSeries, selectedNode]:
-    | [DtStackedSeriesChartSeries, DtStackedSeriesChartNode]
-    | [],
+  [selectedSeries, selectedNode]: DtStackedSeriesChartSelection | [],
   max?: number,
 ): DtStackedSeriesChartFilledSeries[] =>
   series.map((s) => ({
     ...s,
+    selected: s.origin === selectedSeries,
     nodes: s.nodes.map((node) => ({
       ...node,
       // in order to use transitions in the track we cannot hide the element but make it 0
