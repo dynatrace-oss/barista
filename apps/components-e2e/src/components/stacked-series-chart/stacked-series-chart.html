@@ -1,7 +1,8 @@
 <dt-stacked-series-chart
-  style="min-height: 400px; width: 800px;"
+  style="min-height: 400px; width: 800px"
   id="test-stacked-series-chart"
   [selected]="selected"
+  [selectionMode]="selectionMode"
   [selectable]="selectable"
   (selectedChange)="selected = $event"
   [mode]="mode"
@@ -23,18 +24,12 @@
 </dt-stacked-series-chart>
 
 <div>
-  <button (click)="reset()" id="chart-reset">
-    Reset
-  </button>
+  <button (click)="reset()" id="chart-reset">Reset</button>
 </div>
 
 <div>
-  <button (click)="mode = 'bar'" id="chart-mode-bar">
-    Bar
-  </button>
-  <button (click)="mode = 'column'" id="chart-mode-column">
-    Column
-  </button>
+  <button (click)="mode = 'bar'" id="chart-mode-bar">Bar</button>
+  <button (click)="mode = 'column'" id="chart-mode-column">Column</button>
 </div>
 
 <div>
@@ -53,9 +48,7 @@
 </div>
 
 <div>
-  <button (click)="fillMode = 'full'" id="chart-fill-mode-full">
-    Full
-  </button>
+  <button (click)="fillMode = 'full'" id="chart-fill-mode-full">Full</button>
   <button (click)="fillMode = 'relative'" id="chart-fill-mode-relative">
     Relative
   </button>
@@ -122,12 +115,8 @@
 </div>
 
 <div>
-  <button (click)="max = undefined" id="chart-no-max">
-    No max
-  </button>
-  <button (click)="max = 10" id="chart-max-10">
-    Max 10
-  </button>
+  <button (click)="max = undefined" id="chart-no-max">No max</button>
+  <button (click)="max = 10" id="chart-max-10">Max 10</button>
 </div>
 
 <div>
@@ -140,9 +129,7 @@
 </div>
 
 <div>
-  <button (click)="selectable = true" id="chart-selectable">
-    Selectable
-  </button>
+  <button (click)="selectable = true" id="chart-selectable">Selectable</button>
   <button (click)="selectable = false" id="chart-non-selectable">
     Non selectable
   </button>
@@ -155,7 +142,5 @@
   >
     Select
   </button>
-  <button (click)="selected = []" id="chart-unselect">
-    Unselect
-  </button>
+  <button (click)="selected = []" id="chart-unselect">Unselect</button>
 </div>

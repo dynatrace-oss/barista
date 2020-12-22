@@ -32,6 +32,7 @@ import {
   getSeriesWithState,
   getTotalMaxValue,
   updateNodesVisibility,
+  DtStackedSeriesChartFilledSeries,
 } from './stacked-series-chart.util';
 
 describe('StackedSeriesChart util', () => {
@@ -42,7 +43,7 @@ describe('StackedSeriesChart util', () => {
 
   describe('fillSeries', () => {
     it('should fill the series and nodes', () => {
-      const expected = [
+      const expected: DtStackedSeriesChartFilledSeries[] = [
         {
           nodes: [
             {
@@ -56,6 +57,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[0],
+          selected: false,
         },
         {
           nodes: [
@@ -79,6 +81,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[1],
+          selected: false,
         },
         {
           nodes: [
@@ -102,6 +105,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[2],
+          selected: false,
         },
         {
           nodes: [
@@ -134,6 +138,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[3],
+          selected: false,
         },
       ];
       const actual = fillSeries(series, legends);
@@ -144,7 +149,7 @@ describe('StackedSeriesChart util', () => {
 
   describe('getSeriesWithState', () => {
     it('should return the nodes with filled state', () => {
-      const expected = [
+      const expected: DtStackedSeriesChartFilledSeries[] = [
         {
           nodes: [
             {
@@ -159,6 +164,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[0],
+          selected: false,
         },
         {
           nodes: [
@@ -184,6 +190,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[1],
+          selected: false,
         },
         {
           nodes: [
@@ -209,6 +216,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[2],
+          selected: false,
         },
         {
           nodes: [
@@ -244,6 +252,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[3],
+          selected: false,
         },
       ];
       const actual = getSeriesWithState(filledSeries, []);
@@ -252,7 +261,7 @@ describe('StackedSeriesChart util', () => {
     });
 
     it('should return the nodes with filled state WHEN one is selected', () => {
-      const expected = [
+      const expected: DtStackedSeriesChartFilledSeries[] = [
         {
           nodes: [
             {
@@ -267,6 +276,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[0],
+          selected: false,
         },
         {
           nodes: [
@@ -292,6 +302,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[1],
+          selected: true,
         },
         {
           nodes: [
@@ -317,6 +328,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[2],
+          selected: false,
         },
         {
           nodes: [
@@ -352,6 +364,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[3],
+          selected: false,
         },
       ];
       const actual = getSeriesWithState(filledSeries, [
@@ -365,7 +378,7 @@ describe('StackedSeriesChart util', () => {
 
   describe('updateNodesVisibility', () => {
     it('should match legend visibility to nodes visibility', () => {
-      const expected = [
+      const expected: DtStackedSeriesChartFilledSeries[] = [
         {
           nodes: [
             {
@@ -379,6 +392,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[0],
+          selected: false,
         },
         {
           nodes: [
@@ -402,6 +416,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[1],
+          selected: false,
         },
         {
           nodes: [
@@ -425,6 +440,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[2],
+          selected: false,
         },
         {
           nodes: [
@@ -457,6 +473,7 @@ describe('StackedSeriesChart util', () => {
             },
           ],
           origin: series[3],
+          selected: false,
         },
       ];
 

@@ -32,14 +32,17 @@ See stacked-series-chart.layout.md
     width: var(--dt-stacked-series-chart-length);
   }
 
-  .dt-stacked-series-chart-slice-selected::before {
-    box-shadow: 0 $selected-size $selected-color inset,
-      0 #{-$selected-size} $selected-color inset;
-    border: $selected-border-size solid $selected-border-color;
-    top: -$selected-size;
-    bottom: -$selected-size;
-    right: 0;
-    left: 0;
+  .dt-stacked-series-chart-node .dt-stacked-series-chart-slice-selected,
+  .dt-stacked-series-chart-track-selected.dt-stacked-series-chart-stack {
+    &::before {
+      box-shadow: 0 $selected-size $selected-color inset,
+        0 #{-$selected-size} $selected-color inset;
+      border: $selected-border-size solid $selected-border-color;
+      top: -$selected-size;
+      bottom: -$selected-size;
+      right: 0;
+      left: 0;
+    }
   }
 
   /* AXIS */

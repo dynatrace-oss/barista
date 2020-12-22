@@ -22,6 +22,7 @@ import {
   DtStackedSeriesChartValueDisplayMode,
   DtStackedSeriesChartLegend,
   DtStackedSeriesChartMode,
+  DtStackedSeriesChartSelectionMode,
 } from '@dynatrace/barista-components/stacked-series-chart';
 import { DtColors } from '@dynatrace/barista-components/theming';
 
@@ -31,6 +32,7 @@ import { DtColors } from '@dynatrace/barista-components/theming';
 })
 export class DtE2EStackedSeriesChart {
   selected: [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] | [];
+  selectionMode: DtStackedSeriesChartSelectionMode;
   selectable: boolean;
   valueDisplayMode: DtStackedSeriesChartValueDisplayMode;
   mode: DtStackedSeriesChartMode;
@@ -114,6 +116,7 @@ export class DtE2EStackedSeriesChart {
 
   reset() {
     this.selected = [];
+    this.selectionMode = 'node';
     this.selectable;
     this.valueDisplayMode;
     this.mode = 'bar';
