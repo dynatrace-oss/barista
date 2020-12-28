@@ -114,7 +114,7 @@ test('Should throw an error when the github status is not successful', async () 
   const octokitApi = new Octokit();
   jest
     .spyOn(octokitApi.repos, 'getCombinedStatusForRef')
-    .mockImplementation(() => Promise.resolve(errorResponse));
+    .mockImplementation(() => Promise.resolve(errorResponse as any));
 
   expect.assertions(1);
 

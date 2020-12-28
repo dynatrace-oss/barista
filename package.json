@@ -119,7 +119,7 @@
     "@nrwl/node": "^10.0.13",
     "@nrwl/nx-plugin": "^10.0.13",
     "@nrwl/workspace": "^10.0.13",
-    "@octokit/rest": "^18.0.0",
+    "@octokit/rest": "^18.0.12",
     "@politie/angular-testcafe-builder": "^2.0.5",
     "@rollup/plugin-alias": "^3.1.1",
     "@rollup/plugin-commonjs": "^15.0.0",
