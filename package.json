@@ -189,7 +189,7 @@
     "testcafe-browser-provider-browserstack": "^1.13.1",
     "testcafe-reporter-xunit": "^2.1.0",
     "theo": "^8.1.5",
-    "ts-jest": "^26.3.0",
+    "ts-jest": "^26.4.4",
     "ts-node": "^9.0.0",
     "tsickle": "^0.39.1",
     "tslib": "^2.0.0",
