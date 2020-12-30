@@ -34,7 +34,7 @@ export function addImportToSourceFile(
     }
   });
 
-  return ts.updateSourceFileNode(sourceFile, [
+  return ts.factory.updateSourceFile(sourceFile, [
     ...imports,
     createImportDeclaration(symbolNames, modulePath),
     ...nodes,

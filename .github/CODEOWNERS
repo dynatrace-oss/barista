@@ -240,7 +240,7 @@
 
 /libs/tools/** @lukasholzer @ffriedl89 @thomaspink
 
-/tools/schematics/** @lukasholzer
+/tools/generators/** @lukasholzer
 
 /tools/stylelint/** @thomaspink
 

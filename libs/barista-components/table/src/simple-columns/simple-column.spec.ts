@@ -20,7 +20,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { TestBed, async, fakeAsync, flush } from '@angular/core/testing';
+import { TestBed, waitForAsync, fakeAsync, flush } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -44,22 +44,24 @@ import {
 } from '@dynatrace/testing/browser';
 
 describe('DtTable SimpleColumns', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        DtTableModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-        DtLoadingDistractorModule,
-        NoopAnimationsModule,
-        DtFormattersModule,
-        HttpClientTestingModule,
-      ],
-      declarations: [TestSimpleColumnsApp, TestSimpleColumnsErrorApp],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+          DtTableModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+          DtLoadingDistractorModule,
+          NoopAnimationsModule,
+          DtFormattersModule,
+          HttpClientTestingModule,
+        ],
+        declarations: [TestSimpleColumnsApp, TestSimpleColumnsErrorApp],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('rendering', () => {
     let fixture;

@@ -510,7 +510,7 @@ describe('DtSwitch', () => {
       expect(ngModel.touched).toBe(false);
 
       // TODO(alex frass): test that `touched` and `pristine` state are modified appropriately.
-      // This is currently blocked on issues with async() and fakeAsync().
+      // This is currently blocked on issues with waitForAsync() and fakeAsync().
     }));
 
     it('should toggle checked state on click', () => {

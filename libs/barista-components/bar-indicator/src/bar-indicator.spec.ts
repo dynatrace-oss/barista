@@ -18,19 +18,21 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { createComponent } from '@dynatrace/testing/browser';
 import { DtBarIndicatorModule } from './bar-indicator-module';
 
 describe('DtBarIndicator', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtBarIndicatorModule],
-      declarations: [BasicBarIndicator, ValueBarIndicator, ColorBarIndicator],
-    });
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtBarIndicatorModule],
+        declarations: [BasicBarIndicator, ValueBarIndicator, ColorBarIndicator],
+      });
+    }),
+  );
 
   it('should define a default value of zero for the value attribute', () => {
     const fixture = createComponent(BasicBarIndicator);

@@ -27,7 +27,7 @@ import {
 import {
   ComponentFixture,
   TestBed,
-  async,
+  waitForAsync,
   fakeAsync,
   tick,
 } from '@angular/core/testing';
@@ -48,24 +48,26 @@ import {
 import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 
 describe('DtRadio', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtRadioModule, FormsModule, ReactiveFormsModule],
-      declarations: [
-        DisableableRadioButton,
-        FocusableRadioButton,
-        RadiosInsideRadioGroup,
-        RadioGroupWithNgModel,
-        RadioGroupWithFormControl,
-        StandaloneRadioButtons,
-        DoubleRadioGroups,
-        InterleavedRadioGroup,
-        TranscludingWrapper,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtRadioModule, FormsModule, ReactiveFormsModule],
+        declarations: [
+          DisableableRadioButton,
+          FocusableRadioButton,
+          RadiosInsideRadioGroup,
+          RadioGroupWithNgModel,
+          RadioGroupWithFormControl,
+          StandaloneRadioButtons,
+          DoubleRadioGroups,
+          InterleavedRadioGroup,
+          TranscludingWrapper,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('inside of a group', () => {
     let fixture: ComponentFixture<RadiosInsideRadioGroup>;
@@ -77,32 +79,34 @@ describe('DtRadio', () => {
     let radioInstances: Array<DtRadioButton<any>>;
     let testComponent: RadiosInsideRadioGroup;
 
-    beforeEach(async(() => {
-      fixture = createComponent(RadiosInsideRadioGroup);
+    beforeEach(
+      waitForAsync(() => {
+        fixture = createComponent(RadiosInsideRadioGroup);
 
-      testComponent = fixture.debugElement.componentInstance;
+        testComponent = fixture.debugElement.componentInstance;
 
-      groupDebugElement = fixture.debugElement.query(
-        By.directive(DtRadioGroup),
-      );
-      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
-        DtRadioGroup,
-      );
+        groupDebugElement = fixture.debugElement.query(
+          By.directive(DtRadioGroup),
+        );
+        groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
+          DtRadioGroup,
+        );
 
-      radioDebugElements = fixture.debugElement.queryAll(
-        By.directive(DtRadioButton),
-      );
-      radioInstances = radioDebugElements.map(
-        (debugEl) => debugEl.componentInstance,
-      );
+        radioDebugElements = fixture.debugElement.queryAll(
+          By.directive(DtRadioButton),
+        );
+        radioInstances = radioDebugElements.map(
+          (debugEl) => debugEl.componentInstance,
+        );
 
-      radioLabelElements = radioDebugElements.map(
-        (debugEl) => debugEl.query(By.css('label')).nativeElement,
-      );
-      radioInputElements = radioDebugElements.map(
-        (debugEl) => debugEl.query(By.css('input')).nativeElement,
-      );
-    }));
+        radioLabelElements = radioDebugElements.map(
+          (debugEl) => debugEl.query(By.css('label')).nativeElement,
+        );
+        radioInputElements = radioDebugElements.map(
+          (debugEl) => debugEl.query(By.css('input')).nativeElement,
+        );
+      }),
+    );
 
     it('should set individual radio names based on the group name', () => {
       expect(groupInstance.name).toBeTruthy();
@@ -758,22 +762,24 @@ describe('DtRadio', () => {
     let radioDebugElements: DebugElement[];
     let radioInstances: Array<DtRadioButton<any>>;
 
-    beforeEach(async(() => {
-      fixture = createComponent(InterleavedRadioGroup);
+    beforeEach(
+      waitForAsync(() => {
+        fixture = createComponent(InterleavedRadioGroup);
 
-      groupDebugElement = fixture.debugElement.query(
-        By.directive(DtRadioGroup),
-      );
-      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
-        DtRadioGroup,
-      );
-      radioDebugElements = fixture.debugElement.queryAll(
-        By.directive(DtRadioButton),
-      );
-      radioInstances = radioDebugElements.map(
-        (debugEl) => debugEl.componentInstance,
-      );
-    }));
+        groupDebugElement = fixture.debugElement.query(
+          By.directive(DtRadioGroup),
+        );
+        groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
+          DtRadioGroup,
+        );
+        radioDebugElements = fixture.debugElement.queryAll(
+          By.directive(DtRadioButton),
+        );
+        radioInstances = radioDebugElements.map(
+          (debugEl) => debugEl.componentInstance,
+        );
+      }),
+    );
 
     it('should initialize selection of radios based on model value', () => {
       expect(groupInstance.selected).toBe(radioInstances[2]);
@@ -792,12 +798,8 @@ describe('DtRadio', () => {
       <dt-radio-button value="fire" [disabled]="isFirstDisabled">
         Charmander
       </dt-radio-button>
-      <dt-radio-button value="water">
-        Squirtle
-      </dt-radio-button>
-      <dt-radio-button value="leaf">
-        Bulbasaur
-      </dt-radio-button>
+      <dt-radio-button value="water"> Squirtle </dt-radio-button>
+      <dt-radio-button value="leaf"> Bulbasaur </dt-radio-button>
     </dt-radio-group>
   `,
 })

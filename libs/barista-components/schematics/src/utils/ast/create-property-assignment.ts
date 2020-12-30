@@ -20,5 +20,8 @@ export function createPropertyAssignment(
   name: string,
   expression: ts.Expression,
 ): ts.PropertyAssignment {
-  return ts.createPropertyAssignment(ts.createIdentifier(name), expression);
+  return ts.factory.createPropertyAssignment(
+    ts.factory.createIdentifier(name),
+    expression,
+  );
 }

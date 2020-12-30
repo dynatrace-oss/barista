@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-circle';
@@ -26,16 +26,18 @@ import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-c
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtProgressCircle', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtProgressCircleModule],
-      declarations: [
-        BasicProgressCircle,
-        ValueProgressCircle,
-        ColorProgressCircle,
-      ],
-    });
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtProgressCircleModule],
+        declarations: [
+          BasicProgressCircle,
+          ValueProgressCircle,
+          ColorProgressCircle,
+        ],
+      });
+    }),
+  );
 
   it('should define a default value of zero for the value attribute', () => {
     const fixture = createComponent(BasicProgressCircle);

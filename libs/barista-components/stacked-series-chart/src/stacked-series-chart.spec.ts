@@ -18,7 +18,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ViewChild, DebugElement } from '@angular/core';
 import {
-  async,
+  waitForAsync,
   ComponentFixture,
   inject,
   TestBed,
@@ -146,27 +146,29 @@ describe('DtStackedSeriesChart', () => {
     );
   }
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-        DtStackedSeriesChartModule,
-        DtThemingModule,
-      ],
-      declarations: [TestApp, DefaultsTestApp],
-      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+          DtStackedSeriesChartModule,
+          DtThemingModule,
+        ],
+        declarations: [TestApp, DefaultsTestApp],
+        providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
+      });
 
-    TestBed.compileComponents();
-    fixture = createComponent(TestApp);
+      TestBed.compileComponents();
+      fixture = createComponent(TestApp);
 
-    rootComponent = fixture.componentInstance;
-    component = fixture.debugElement.query(By.directive(DtStackedSeriesChart))
-      .componentInstance;
+      rootComponent = fixture.componentInstance;
+      component = fixture.debugElement.query(By.directive(DtStackedSeriesChart))
+        .componentInstance;
 
-    selectedChangeSpy = jest.spyOn(component.selectedChange, 'emit');
-  }));
+      selectedChangeSpy = jest.spyOn(component.selectedChange, 'emit');
+    }),
+  );
 
   describe('should have defaults', () => {
     let defComponent;

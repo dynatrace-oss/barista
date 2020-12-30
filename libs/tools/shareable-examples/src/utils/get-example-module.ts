@@ -29,8 +29,8 @@ import {
   TransformerFactory,
   visitEachChild,
   visitNode,
-  createIdentifier,
-  PropertyAssignment,
+  VisitResult,
+  factory as tsFactory,
   ImportDeclaration,
   isSpreadElement,
   isStringLiteral,
@@ -39,9 +39,6 @@ import {
   ImportSpecifier,
   isObjectLiteralExpression,
   ObjectLiteralExpression,
-  createPropertyAssignment,
-  createArrayLiteral,
-  createNodeArray,
 } from 'typescript';
 import { ExampleAstFile } from './examples.interface';
 
@@ -79,8 +76,8 @@ export function createTransformer(
     ): Node | undefined {
       if (isSpreadElement(node)) {
         return importsFromExampleFile.length
-          ? createIdentifier(importsFromExampleFile.join(', '))
-          : createIdentifier(exampleClassName);
+          ? tsFactory.createIdentifier(importsFromExampleFile.join(', '))
+          : tsFactory.createIdentifier(exampleClassName);
       }
       // If the node is an identifier, includes `DtExample` and is not in the
       // import list, remove it from the declarations
@@ -102,9 +99,7 @@ export function createTransformer(
     }
 
     /** Visit a propertyAssignment and determine which assignments need to be rewritten. */
-    function visitPropertyAssignment(
-      node: PropertyAssignment,
-    ): Node | undefined {
+    function visitPropertyAssignment(node: Node): VisitResult<Node> {
       return visitEachChild(
         node,
         visitDeclarationAndEntryComponentsAndRemoveUnused,
@@ -113,7 +108,9 @@ export function createTransformer(
     }
 
     /** Visit an importDeclaration and remove imports if necessary. */
-    function visitImportDeclaration(node: ImportDeclaration): Node | undefined {
+    function visitImportDeclaration(
+      node: ImportDeclaration,
+    ): VisitResult<Node> {
       const importFrom = isStringLiteral(node.moduleSpecifier)
         ? node.moduleSpecifier.text
         : '';
@@ -151,7 +148,12 @@ export function createTransformer(
     function visit(node: Node): Node | undefined {
       // Remove all import declarations that are not needed anymore.
       if (isImportDeclaration(node)) {
-        return visitNode(node, visitImportDeclaration);
+        return visitNode(
+          node,
+          (visitedNode) =>
+            visitImportDeclaration(visitedNode as ImportDeclaration),
+          () => true,
+        );
       }
 
       // Remove the unnecessary array variable declaration
@@ -163,13 +165,14 @@ export function createTransformer(
       }
 
       if (isNgModuleObject(node)) {
-        node.properties = createNodeArray([
+        // HACK: No idea how to properly fix this since there's no ts.factory.updateNodeArray()
+        (node.properties as any) = tsFactory.createNodeArray([
           ...node.properties,
-          createPropertyAssignment(
-            createIdentifier('exports'),
-            createArrayLiteral(
+          tsFactory.createPropertyAssignment(
+            tsFactory.createIdentifier('exports'),
+            tsFactory.createArrayLiteralExpression(
               importsFromExampleFile.map((exampleImport) =>
-                createIdentifier(exampleImport),
+                tsFactory.createIdentifier(exampleImport),
               ),
             ),
           ),
@@ -184,7 +187,11 @@ export function createTransformer(
           isIdentifier(node.name) &&
           node.name.text === 'declarations'
         ) {
-          const declarations = visitNode(node, visitPropertyAssignment);
+          const declarations = visitNode(
+            node,
+            visitPropertyAssignment,
+            () => true,
+          );
 
           return declarations;
         }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { BaDecisionGraphStartnode } from './ba-decision-graph-start-node';
 import { nodes } from '../ba-decision-graph-test-data';
 
@@ -22,11 +22,13 @@ describe('BaDecisionGraphStartnode', () => {
   let component: BaDecisionGraphStartnode;
   let fixture: ComponentFixture<BaDecisionGraphStartnode>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [BaDecisionGraphStartnode],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [BaDecisionGraphStartnode],
+      }).compileComponents();
+    }),
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BaDecisionGraphStartnode);

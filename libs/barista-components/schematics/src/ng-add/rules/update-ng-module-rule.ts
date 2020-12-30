@@ -47,14 +47,14 @@ export function updateNgModuleRule(options: ExtendedSchema): Rule {
       true,
     );
 
-    const iconModuleForRoot = ts.createCall(
-      ts.createPropertyAccess(
-        ts.createIdentifier('DtIconModule'),
-        ts.createIdentifier('forRoot'),
+    const iconModuleForRoot = ts.factory.createCallExpression(
+      ts.factory.createPropertyAccessExpression(
+        ts.factory.createIdentifier('DtIconModule'),
+        ts.factory.createIdentifier('forRoot'),
       ),
       undefined,
       [
-        ts.createObjectLiteral([
+        ts.factory.createObjectLiteralExpression([
           createPropertyAssignment(
             'svgIconLocation',
             createStringLiteral('/assets/icons/{{name}}.svg', true),
@@ -75,7 +75,7 @@ export function updateNgModuleRule(options: ExtendedSchema): Rule {
         updateNgModuleDecoratorProperties(
           sourceFile,
           NgModuleProperties.Imports,
-          ts.createIdentifier('HttpClientModule'),
+          ts.factory.createIdentifier('HttpClientModule'),
         ),
       (sourceFile) =>
         addImportToSourceFile(
@@ -101,7 +101,7 @@ export function updateNgModuleRule(options: ExtendedSchema): Rule {
       updateNgModuleDecoratorProperties(
         sourceFile,
         NgModuleProperties.Imports,
-        ts.createIdentifier(animationModule),
+        ts.factory.createIdentifier(animationModule),
       ),
     );
     changes.push((sourceFile) =>

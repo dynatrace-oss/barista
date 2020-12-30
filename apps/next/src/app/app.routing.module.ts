@@ -44,8 +44,9 @@ export const nextRoutes: Route[] = [
       scrollPositionRestoration: 'enabled',
       anchorScrolling: 'enabled',
       paramsInheritanceStrategy: 'always',
-      enableTracing: false, // Can be set for debugging the router
+      enableTracing: false,
       initialNavigation: 'enabled',
+      relativeLinkResolution: 'legacy',
     }),
   ],
   exports: [RouterModule],

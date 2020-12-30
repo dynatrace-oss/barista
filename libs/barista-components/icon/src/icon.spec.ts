@@ -22,7 +22,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, waitForAsync, inject } from '@angular/core/testing';
 
 import { DtIconModule } from './icon-module';
 
@@ -61,17 +61,19 @@ function verifyAndGetSingleSvgChild(element: SVGElement): SVGElement {
 }
 
 describe('DtIcon', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [IconWithName, IconWithColor, IconWithAriaHiddenFalse],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        ],
+        declarations: [IconWithName, IconWithColor, IconWithAriaHiddenFalse],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   let http: HttpTestingController;
 
@@ -234,14 +236,16 @@ describe('DtIcon', () => {
 });
 
 describe('DtIcon without config', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtIconModule],
-      declarations: [IconWithName],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtIconModule],
+        declarations: [IconWithName],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   it('should throw an error when trying to load a remote icon', async () => {
     const expectedError = wrappedErrorMessage(getDtIconNoConfigProviderError());
@@ -256,14 +260,16 @@ describe('DtIcon without config', () => {
 });
 
 describe('DtIcon without HttpClientModule', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
-      declarations: [IconWithName],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` })],
+        declarations: [IconWithName],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   it('should throw an error when trying to load a remote icon', async () => {
     const expectedError = wrappedErrorMessage(getDtIconNoHttpProviderError());

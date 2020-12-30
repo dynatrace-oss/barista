@@ -4,7 +4,7 @@
 /apps/demos/src/app-routing.module.template
 /apps/demos/src/nav-items.template
 
-/tools/schematics/*/files/**/*
+/tools/generators/*/files/**/*
 /libs/workspace/src/schematics/*/files/**/*
 /libs/tools/linting/src/test/**/test.ts.lint
 

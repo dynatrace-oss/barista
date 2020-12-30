@@ -20,7 +20,7 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -56,16 +56,18 @@ describe('DtExpandableSection', () => {
     let instanceElement: HTMLElement;
     let expandableSectionInstance: DtExpandableSection;
 
-    beforeEach(async(() => {
-      fixture = createComponent(TestApp);
-      instanceDebugElement = fixture.debugElement.query(
-        By.directive(DtExpandableSection),
-      );
-      instanceElement = instanceDebugElement.nativeElement;
-      expandableSectionInstance = instanceDebugElement.injector.get<
-        DtExpandableSection
-      >(DtExpandableSection);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        fixture = createComponent(TestApp);
+        instanceDebugElement = fixture.debugElement.query(
+          By.directive(DtExpandableSection),
+        );
+        instanceElement = instanceDebugElement.nativeElement;
+        expandableSectionInstance = instanceDebugElement.injector.get<
+          DtExpandableSection
+        >(DtExpandableSection);
+      }),
+    );
 
     // test initial state
     it('should be closed initially', () => {

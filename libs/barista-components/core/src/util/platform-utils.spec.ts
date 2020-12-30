@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, ElementRef } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import {
   _hasCssClass,
@@ -27,13 +27,15 @@ import {
 } from './platform-util';
 
 describe('PlatformUtil', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [TestApp],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [TestApp],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('replaceCssClass', () => {
     it('should replace an old class with a new one', () => {

@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { TestBed, async, fakeAsync } from '@angular/core/testing';
+import { TestBed, waitForAsync, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
@@ -26,14 +26,16 @@ import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtLoadingSpinner', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtLoadingDistractorModule],
-      declarations: [TestApp],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtLoadingDistractorModule],
+        declarations: [TestApp],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   it('should support setting a custom aria-label', fakeAsync(() => {
     const fixture = createComponent(TestApp);

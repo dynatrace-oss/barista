@@ -19,7 +19,7 @@
 // tslint:disable deprecation
 
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -31,17 +31,19 @@ import {
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtExpandablePanel', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtExpandablePanelModule, NoopAnimationsModule],
-      declarations: [
-        ExpandablePanelComponent,
-        ExpandablePanelWithTriggerComponent,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtExpandablePanelModule, NoopAnimationsModule],
+        declarations: [
+          ExpandablePanelComponent,
+          ExpandablePanelWithTriggerComponent,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('dt-expandable-panel', () => {
     let fixture;
@@ -49,16 +51,18 @@ describe('DtExpandablePanel', () => {
     let instanceElement: HTMLElement;
     let expandablePanelInstance: DtExpandablePanel;
 
-    beforeEach(async(() => {
-      fixture = createComponent(ExpandablePanelComponent);
-      instanceDebugElement = fixture.debugElement.query(
-        By.directive(DtExpandablePanel),
-      );
-      instanceElement = instanceDebugElement.nativeElement;
-      expandablePanelInstance = instanceDebugElement.injector.get<
-        DtExpandablePanel
-      >(DtExpandablePanel);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        fixture = createComponent(ExpandablePanelComponent);
+        instanceDebugElement = fixture.debugElement.query(
+          By.directive(DtExpandablePanel),
+        );
+        instanceElement = instanceDebugElement.nativeElement;
+        expandablePanelInstance = instanceDebugElement.injector.get<
+          DtExpandablePanel
+        >(DtExpandablePanel);
+      }),
+    );
 
     // test initial state
     it('should be closed initially', () => {

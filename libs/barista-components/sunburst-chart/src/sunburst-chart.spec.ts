@@ -18,7 +18,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ViewChild } from '@angular/core';
 import {
-  async,
+  waitForAsync,
   ComponentFixture,
   inject,
   TestBed,
@@ -69,26 +69,28 @@ describe('DtSunburstChart', () => {
   };
 
   describe('Default', () => {
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          HttpClientTestingModule,
-          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-          DtSunburstChartModule,
-        ],
-        declarations: [TestApp],
-        providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
-      });
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [
+            HttpClientTestingModule,
+            DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+            DtSunburstChartModule,
+          ],
+          declarations: [TestApp],
+          providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
+        });
 
-      TestBed.compileComponents();
-      fixture = createComponent(TestApp);
-      rootComponent = fixture.componentInstance;
-      component = fixture.debugElement.query(By.directive(DtSunburstChart))
-        .componentInstance;
+        TestBed.compileComponents();
+        fixture = createComponent(TestApp);
+        rootComponent = fixture.componentInstance;
+        component = fixture.debugElement.query(By.directive(DtSunburstChart))
+          .componentInstance;
 
-      selectedChangeSpy = jest.spyOn(component.selectedChange, 'emit');
-      selectSpy = jest.spyOn(component, '_select');
-    }));
+        selectedChangeSpy = jest.spyOn(component.selectedChange, 'emit');
+        selectSpy = jest.spyOn(component, '_select');
+      }),
+    );
 
     describe('Series', () => {
       it('should render after change', () => {
@@ -354,21 +356,23 @@ describe('DtSunburstChart', () => {
   });
 
   describe('Overlay', () => {
-    beforeEach(async(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          HttpClientTestingModule,
-          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-          DtSunburstChartModule,
-          DtOverlayModule,
-          NoopAnimationsModule,
-        ],
-        declarations: [TestWithOverlayApp],
-        providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
-      });
+    beforeEach(
+      waitForAsync(() => {
+        TestBed.configureTestingModule({
+          imports: [
+            HttpClientTestingModule,
+            DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+            DtSunburstChartModule,
+            DtOverlayModule,
+            NoopAnimationsModule,
+          ],
+          declarations: [TestWithOverlayApp],
+          providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
+        });
 
-      TestBed.compileComponents();
-    }));
+        TestBed.compileComponents();
+      }),
+    );
 
     beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {
       overlayContainer = oc;

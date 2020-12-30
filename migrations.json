@@ -1,0 +1,11 @@
+{
+  "migrations": [
+    {
+      "version": "11.0.17",
+      "description": "Update schema versions for executors and generators",
+      "factory": "./src/migrations/update-11-0-0/update-schema-version-for-executors-and-generators",
+      "package": "@nrwl/nx-plugin",
+      "name": "update-schema-version-for-executors-and-generators"
+    }
+  ]
+}

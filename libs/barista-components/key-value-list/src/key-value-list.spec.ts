@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
 
@@ -30,22 +30,24 @@ describe('DtKeyValueList', () => {
   const getValueElement = (element: HTMLElement) =>
     element.querySelector('.dt-key-value-list-item-value span');
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtKeyValueListModule],
-      declarations: [
-        TestAppSingleColumn,
-        TestAppTwoColumns,
-        TestAppThreeColumns,
-        TestAppSixColumns,
-        TestAppTenColumns,
-        TestAppFloatColumns,
-        TestAppNegativColumns,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtKeyValueListModule],
+        declarations: [
+          TestAppSingleColumn,
+          TestAppTwoColumns,
+          TestAppThreeColumns,
+          TestAppSixColumns,
+          TestAppTenColumns,
+          TestAppFloatColumns,
+          TestAppNegativColumns,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('key-value-list', () => {
     it('one column should be used', () => {

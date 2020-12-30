@@ -27,7 +27,7 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagList, DtTagModule } from '@dynatrace/barista-components/tag';
@@ -41,23 +41,27 @@ describe('DtTagList', () => {
   let tagListNativeElement: HTMLElement;
   let zone: MockNgZone;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-        DtTagModule,
-      ],
-      declarations: [DtTagListComponent],
-      providers: [
-        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
-      ],
-    });
-    TestBed.compileComponents();
-    fixture = createComponent(DtTagListComponent);
-    instanceDebugElement = fixture.debugElement.query(By.directive(DtTagList));
-    tagListNativeElement = instanceDebugElement.nativeElement;
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+          DtTagModule,
+        ],
+        declarations: [DtTagListComponent],
+        providers: [
+          { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
+        ],
+      });
+      TestBed.compileComponents();
+      fixture = createComponent(DtTagListComponent);
+      instanceDebugElement = fixture.debugElement.query(
+        By.directive(DtTagList),
+      );
+      tagListNativeElement = instanceDebugElement.nativeElement;
+    }),
+  );
 
   describe('basic behavior', () => {
     it('should add the `dt-tag-list` class', () => {

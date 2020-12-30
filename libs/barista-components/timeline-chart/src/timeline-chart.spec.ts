@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtTimelineChartModule } from '@dynatrace/barista-components/timeline-chart';
@@ -27,16 +27,18 @@ import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtTimelineChart', () => {
   let fixture: ComponentFixture<SimpleTestApp>;
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtTimelineChartModule],
-      declarations: [SimpleTestApp],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtTimelineChartModule],
+        declarations: [SimpleTestApp],
+      });
 
-    TestBed.compileComponents();
-    fixture = createComponent(SimpleTestApp);
-    fixture.detectChanges();
-  }));
+      TestBed.compileComponents();
+      fixture = createComponent(SimpleTestApp);
+      fixture.detectChanges();
+    }),
+  );
 
   describe('marker', () => {
     it('should render timing markers', () => {

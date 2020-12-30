@@ -20,7 +20,7 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {
-  async,
+  waitForAsync,
   ComponentFixture,
   fakeAsync,
   flush,
@@ -110,21 +110,23 @@ const DATA_SET: object[] = [
 ];
 
 describe('DtTableDataSource', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        DtTableModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-        DtLoadingDistractorModule,
-        NoopAnimationsModule,
-        DtFormattersModule,
-        HttpClientTestingModule,
-        DtPaginationModule,
-      ],
-      declarations: [PaginationTestApp, TableSortingMixedTestApp],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+          DtTableModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+          DtLoadingDistractorModule,
+          NoopAnimationsModule,
+          DtFormattersModule,
+          HttpClientTestingModule,
+          DtPaginationModule,
+        ],
+        declarations: [PaginationTestApp, TableSortingMixedTestApp],
+      }).compileComponents();
+    }),
+  );
 
   describe('pagination', () => {
     let fixture: ComponentFixture<PaginationTestApp>;

@@ -16,7 +16,7 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtAlert } from './alert';
@@ -26,18 +26,20 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtAlert', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-        DtAlertModule,
-      ],
-      declarations: [TestApp, TestAppEmpty],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+          DtAlertModule,
+        ],
+        declarations: [TestApp, TestAppEmpty],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   it('expects css class to be present', () => {
     const fixture = createComponent(TestApp);

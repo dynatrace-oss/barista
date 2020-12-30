@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, Type, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtChartModule } from '@dynatrace/barista-components/chart';
 import { DtMicroChartModule } from '@dynatrace/barista-components/micro-chart';
@@ -44,26 +44,28 @@ import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
 import objectContaining = jasmine.objectContaining;
 
 describe('DtMicroChart', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtMicroChartModule, DtThemingModule, DtChartModule],
-      declarations: [
-        Series,
-        DefinedAxis,
-        DefinedAxisArray,
-        DefinedAxisEmptyArray,
-        Formatter,
-        ThemeDynamic,
-        ThemeFixed,
-        NoOptions,
-        NoSeries,
-        Nothing,
-        DynamicSeries,
-        UnsupportedSeriesType,
-        TooltipTest,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtMicroChartModule, DtThemingModule, DtChartModule],
+        declarations: [
+          Series,
+          DefinedAxis,
+          DefinedAxisArray,
+          DefinedAxisEmptyArray,
+          Formatter,
+          ThemeDynamic,
+          ThemeFixed,
+          NoOptions,
+          NoSeries,
+          Nothing,
+          DynamicSeries,
+          UnsupportedSeriesType,
+          TooltipTest,
+        ],
+      }).compileComponents();
+    }),
+  );
 
   const setupTestCase = <T>(
     componentType: Type<T>,
@@ -534,9 +536,7 @@ class UnsupportedSeriesType {
   template: `
     <dt-micro-chart [series]="series" [options]="options">
       <dt-chart-tooltip>
-        <ng-template>
-          tooltip
-        </ng-template>
+        <ng-template> tooltip </ng-template>
       </dt-chart-tooltip>
     </dt-micro-chart>
   `,

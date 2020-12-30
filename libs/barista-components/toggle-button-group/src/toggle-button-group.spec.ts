@@ -21,8 +21,8 @@ import { Component, DebugElement } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
-  async,
   fakeAsync,
+  waitForAsync,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
@@ -35,21 +35,23 @@ import {
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtToggleButtonGroup', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtToggleButtonGroupModule],
-      declarations: [
-        SimpleToggleButtonGroupTestApp,
-        OneSelectedToggleButtonGroupTestApp,
-        OneDisabledToggleButtonGroupTestApp,
-        PropertybindingToggleButtonGroupTestApp,
-        AriaAttributesToggleButtonGroupTestApp,
-        DynamicButtonsToggleButtonGroupTestApp,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtToggleButtonGroupModule],
+        declarations: [
+          SimpleToggleButtonGroupTestApp,
+          OneSelectedToggleButtonGroupTestApp,
+          OneDisabledToggleButtonGroupTestApp,
+          PropertybindingToggleButtonGroupTestApp,
+          AriaAttributesToggleButtonGroupTestApp,
+          DynamicButtonsToggleButtonGroupTestApp,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('with basic behavior', () => {
     let fixture: ComponentFixture<SimpleToggleButtonGroupTestApp>;
