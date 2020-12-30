@@ -84,7 +84,8 @@ export const _DtRadioButtonMixinBase = mixinTabIndex(DtRadioButtonBase);
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
 })
-export class DtRadioButton<T> extends _DtRadioButtonMixinBase
+export class DtRadioButton<T>
+  extends _DtRadioButtonMixinBase
   implements OnInit, AfterViewInit, OnDestroy, CanDisable, HasTabIndex {
   private _uniqueId = `dt-radio-${++nextUniqueId}`;
   private _required: boolean;
