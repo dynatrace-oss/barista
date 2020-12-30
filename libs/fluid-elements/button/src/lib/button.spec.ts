@@ -243,7 +243,7 @@ describe('Fluid button', () => {
     // It works in the browser for native clicks, because the pointer-events styling
     // kicks in. But in the tests it's somehow hard to reproduce
     // with a call to .click()... Doesn't work in lion as well.
-    // it('should not call the handler when clicking on a disabled button', async() => {
+    // it('should not call the handler when clicking on a disabled button', waitForAsync() => {
     //   fixture.disabled = true;
     //   await tick();
     //   fixture.click();

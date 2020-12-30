@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtTileModule } from '@dynatrace/barista-components/tile';
@@ -26,14 +26,16 @@ import { DtTileModule } from '@dynatrace/barista-components/tile';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtTile', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtTileModule],
-      declarations: [TestApp],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtTileModule],
+        declarations: [TestApp],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
   it('should handle a click on the tile', () => {
     const fixture = createComponent(TestApp);
     const testComponent = fixture.debugElement.componentInstance;

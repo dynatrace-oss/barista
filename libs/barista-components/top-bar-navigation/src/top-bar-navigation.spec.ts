@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, Type } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
@@ -43,14 +43,16 @@ export function createFixture<T>(
 }
 
 describe('DtTopBarNavigation', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtTopBarNavigationModule],
-      declarations: [BasicTopBar, TopBarWithAction],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtTopBarNavigationModule],
+        declarations: [BasicTopBar, TopBarWithAction],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('check the content projection', () => {
     it('should project the content in the right order based on the alignment', () => {

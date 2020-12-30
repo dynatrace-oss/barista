@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
@@ -30,17 +30,19 @@ import {
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtBreadcrumbs', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtBreadcrumbsModule],
-      declarations: [
-        TestBreadcrumbs,
-        TestBreadcrumbsWithAriaAttr,
-        TestBreadcrumbsWithItems,
-      ],
-    });
-    TestBed.compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtBreadcrumbsModule],
+        declarations: [
+          TestBreadcrumbs,
+          TestBreadcrumbsWithAriaAttr,
+          TestBreadcrumbsWithItems,
+        ],
+      });
+      TestBed.compileComponents();
+    }),
+  );
 
   it('should make sure aria current is set', () => {
     const fixture = createComponent(TestBreadcrumbs);

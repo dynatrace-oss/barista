@@ -7,6 +7,6 @@
     "target": "es5",
     "types": ["node"]
   },
-  "include": ["**/*.d.ts", "schematics/**/*.ts"],
-  "exclude": ["schematics/*/files", "**/*.spec.ts"]
+  "include": ["**/*.d.ts", "generators/**/*.ts"],
+  "exclude": ["generators/*/files", "**/*.spec.ts"]
 }

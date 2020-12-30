@@ -24,7 +24,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
   ComponentFixture,
   TestBed,
-  async,
+  waitForAsync,
   fakeAsync,
   flush,
   inject,
@@ -89,9 +89,11 @@ describe('DtContextDialog', () => {
   });
 
   describe('core', () => {
-    beforeEach(async(() => {
-      configureDtContextDialogTestingModule([BasicContextDialog]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtContextDialogTestingModule([BasicContextDialog]);
+      }),
+    );
 
     it('should set a class on the overlay panel if a string is set on the input', () => {
       const fixture = createComponent(BasicContextDialog);

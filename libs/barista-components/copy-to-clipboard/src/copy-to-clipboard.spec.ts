@@ -19,7 +19,7 @@
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { TestBed, async, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, waitForAsync, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtButtonModule } from '@dynatrace/barista-components/button';
@@ -30,21 +30,23 @@ import { DtInputModule } from '@dynatrace/barista-components/input';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtCopyToClipboard', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtInputModule,
-        DtButtonModule,
-        DtCopyToClipboardModule,
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [CallbackBehaviorTestApp, DelayedCallbackBehaviorTestApp],
-    });
-    TestBed.compileComponents();
-    // tslint:disable-next-line:no-any
-    document.execCommand = (): boolean => true;
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          DtInputModule,
+          DtButtonModule,
+          DtCopyToClipboardModule,
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        ],
+        declarations: [CallbackBehaviorTestApp, DelayedCallbackBehaviorTestApp],
+      });
+      TestBed.compileComponents();
+      // tslint:disable-next-line:no-any
+      document.execCommand = (): boolean => true;
+    }),
+  );
 
   it('should trigger callback - at least 1 copy must be called', (): void => {
     const fixture = createComponent(CallbackBehaviorTestApp);

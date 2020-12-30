@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtOption, DtOptionModule } from '@dynatrace/barista-components/core';
@@ -26,12 +26,14 @@ import { DtOption, DtOptionModule } from '@dynatrace/barista-components/core';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtOption', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtOptionModule],
-      declarations: [OptionWithDisable],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtOptionModule],
+        declarations: [OptionWithDisable],
+      }).compileComponents();
+    }),
+  );
 
   it('should complete the `stateChanges` stream on destroy', () => {
     const fixture = createComponent(OptionWithDisable);

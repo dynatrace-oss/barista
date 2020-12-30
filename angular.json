@@ -52,16 +52,14 @@
             "production": {
               "budgets": []
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
           "options": {
             "browserTarget": "dev:build",
-            "host": "0.0.0.0",
-            "customWebpackConfig": {
-              "path": "./webpack.config.js"
-            }
+            "host": "0.0.0.0"
           },
           "configurations": {}
         },
@@ -130,12 +128,12 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -224,7 +222,8 @@
           "options": {
             "jestConfig": "apps/components-e2e/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/components-e2e"]
         }
       }
     },
@@ -306,12 +305,12 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "vendorChunk": false,
               "statsJson": true
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -543,7 +542,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "vendorChunk": false,
               "statsJson": true,
@@ -565,7 +563,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "vendorChunk": false,
               "statsJson": true,
@@ -577,7 +574,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "build-server": {
           "builder": "@angular-devkit/build-angular:server",
@@ -630,7 +628,8 @@
           "options": {
             "jestConfig": "apps/barista-design-system/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/barista-design-system"]
         }
       }
     },
@@ -692,14 +691,14 @@
               "commonChunk": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "build-server": {
           "builder": "@angular-devkit/build-angular:server",
@@ -812,7 +811,8 @@
           "options": {
             "jestConfig": "libs/workspace/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/workspace"]
         },
         "build": {
           "builder": "@nrwl/node:build",
@@ -841,7 +841,8 @@
             "watch": {
               "watch": true
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         }
       }
     },
@@ -865,7 +866,8 @@
             "watch": {
               "watch": true
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "execute": {
           "builder": "@nrwl/workspace:run-commands",
@@ -916,7 +918,8 @@
             "outputPath": "dist/libs/tools/publish-release",
             "progress": false,
             "buildLibsFromSource": true
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "build-publish-release-next": {
           "builder": "@nrwl/node:build",
@@ -926,7 +929,8 @@
             "outputPath": "dist/libs/tools/publish-release-next",
             "progress": false,
             "buildLibsFromSource": true
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "build-stage-release": {
           "builder": "@nrwl/node:build",
@@ -943,7 +947,8 @@
               }
             ],
             "buildLibsFromSource": true
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -957,7 +962,8 @@
           "options": {
             "jestConfig": "libs/tools/release/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/tools/release"]
         }
       }
     },
@@ -981,7 +987,8 @@
           "options": {
             "jestConfig": "tools/pull-request-labeler/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/tools/pull-request-labeler"]
         }
       }
     },
@@ -1002,7 +1009,8 @@
           },
           "configurations": {
             "production": {}
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
@@ -1015,7 +1023,8 @@
           "builder": "@nrwl/jest:jest",
           "options": {
             "jestConfig": "libs/tools/shareable-examples/jest.config.js"
-          }
+          },
+          "outputs": ["coverage/libs/tools/shareable-examples"]
         }
       }
     },
@@ -1050,7 +1059,7 @@
       "sourceRoot": "libs/barista-components",
       "architect": {
         "packagr": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "libs/barista-components/tsconfig.lib.json",
             "project": "libs/barista-components/ng-package.json"
@@ -2103,7 +2112,8 @@
           "options": {
             "jestConfig": "libs/barista-components/schematics/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/barista-components/schematics"]
         }
       }
     },
@@ -2528,7 +2538,8 @@
           "options": {
             "jestConfig": "libs/testing/node/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/testing/node"]
         }
       }
     },
@@ -2553,7 +2564,8 @@
           "options": {
             "jestConfig": "libs/testing/browser/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/testing/browser"]
         }
       }
     },
@@ -2578,7 +2590,8 @@
           "options": {
             "jestConfig": "libs/testing/fixtures/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/testing/fixtures"]
         }
       }
     },
@@ -2599,7 +2612,8 @@
           "options": {
             "jestConfig": "libs/shared/node/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/shared/node"]
         }
       }
     },
@@ -2776,13 +2790,6 @@
               "!libs/fluid-elements/checkbox/**"
             ]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/fluid-elements/checkbox/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -2956,13 +2963,6 @@
             ],
             "exclude": ["**/node_modules/**", "!libs/fluid-elements/switch/**"]
           }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/fluid-elements/switch/jest.config.js",
-            "passWithNoTests": true
-          }
         }
       }
     },
@@ -3001,13 +3001,6 @@
               "**/node_modules/**",
               "!libs/fluid-elements/tab-group/**"
             ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/fluid-elements/tab-group/jest.config.js",
-            "passWithNoTests": true
           }
         }
       }
@@ -3077,7 +3070,8 @@
             ],
             "styles": ["apps/fluid-dev/src/styles.scss"],
             "scripts": []
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
@@ -3111,7 +3105,8 @@
           "options": {
             "jestConfig": "apps/fluid-dev/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/fluid-dev"]
         }
       }
     },
@@ -3139,7 +3134,8 @@
           "options": {
             "jestConfig": "libs/testing/custom-element/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/testing/custom-element"]
         }
       }
     },
@@ -3213,7 +3209,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -3226,7 +3221,8 @@
                 }
               ]
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@nrwl/workspace:run-commands",
@@ -3274,7 +3270,8 @@
           "options": {
             "jestConfig": "apps/design-tokens-ui/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/design-tokens-ui"]
         }
       }
     },
@@ -3302,7 +3299,8 @@
           "options": {
             "jestConfig": "libs/design-tokens-ui/input/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/design-tokens-ui/input"]
         }
       },
       "schematics": {
@@ -3354,7 +3352,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -3374,7 +3371,8 @@
               "baseHref": "/next",
               "deployUrl": "/next/"
             }
-          }
+          },
+          "outputs": ["{options.outputPath}"]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -3408,7 +3406,8 @@
           "options": {
             "jestConfig": "apps/next/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/apps/next"]
         }
       }
     },
@@ -3436,7 +3435,8 @@
           "options": {
             "jestConfig": "libs/shared/data-access-strapi/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/shared/data-access-strapi"]
         }
       },
       "schematics": {}
@@ -3465,7 +3465,8 @@
           "options": {
             "jestConfig": "libs/shared/design-system/ui/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/shared/design-system/ui"]
         }
       },
       "schematics": {
@@ -3498,7 +3499,8 @@
           "options": {
             "jestConfig": "libs/shared/design-system/interfaces/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/shared/design-system/interfaces"]
         }
       },
       "schematics": {
@@ -3531,7 +3533,8 @@
           "options": {
             "jestConfig": "libs/design-tokens-ui/shared/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/design-tokens-ui/shared"]
         }
       },
       "schematics": {

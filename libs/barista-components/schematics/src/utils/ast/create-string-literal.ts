@@ -24,7 +24,7 @@ export function createStringLiteral(
   text: string,
   singleQuotes: boolean,
 ): ts.StringLiteral {
-  const literal = ts.createStringLiteral(text);
+  const literal = ts.factory.createStringLiteral(text);
   // See: https://github.com/microsoft/TypeScript/blob/master/src/compiler/utilities.ts#L584-L590
   // tslint:disable-next-line: no-string-literal
   literal['singleQuote'] = singleQuotes;

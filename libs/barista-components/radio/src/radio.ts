@@ -53,8 +53,17 @@ export interface DtRadioChange<T> {
 
 // Boilerplate for applying mixins to DtRadioButton.
 export class DtRadioButtonBase {
+  private _disabled: boolean;
+
+  // These must be properties instead of fields to avoid a TS error
+  // see https://github.com/microsoft/TypeScript/pull/37894
   /** Whether the radio button is disabled */
-  disabled: boolean;
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(value: boolean) {
+    this._disabled = value;
+  }
 }
 export const _DtRadioButtonMixinBase = mixinTabIndex(DtRadioButtonBase);
 
@@ -80,7 +89,6 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   private _uniqueId = `dt-radio-${++nextUniqueId}`;
   private _required: boolean;
   private _checked = false;
-  private _disabled = false;
   private _value: T;
   private _removeUniqueSelectionListener: () => void = () => {};
 
@@ -99,12 +107,12 @@ export class DtRadioButton<T> extends _DtRadioButtonMixinBase
   /** Whether the radio button is disabled. */
   @Input()
   get disabled(): boolean {
-    return this._disabled || (this._radioGroup && this._radioGroup.disabled);
+    return super.disabled || (this._radioGroup && this._radioGroup.disabled);
   }
   set disabled(value: boolean) {
     const newDisabledState = coerceBooleanProperty(value);
-    if (this._disabled !== newDisabledState) {
-      this._disabled = newDisabledState;
+    if (super.disabled !== newDisabledState) {
+      super.disabled = newDisabledState;
       this._changeDetector.markForCheck();
     }
   }

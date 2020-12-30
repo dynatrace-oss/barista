@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, ViewChild } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { _DtTableBase } from '@dynatrace/barista-components/table';
 
@@ -26,14 +26,16 @@ import { _DtTableBaseModule } from './base-table';
 import { DtTableModule } from './table-module';
 
 describe('_DtTableInteractiveRows', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [_DtTableBaseModule, DtTableModule],
-      declarations: [TestApp, AttributeTestApp],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [_DtTableBaseModule, DtTableModule],
+        declarations: [TestApp, AttributeTestApp],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   it('should take the interactiveRows via a binding', () => {
     const fixture = TestBed.createComponent(TestApp);

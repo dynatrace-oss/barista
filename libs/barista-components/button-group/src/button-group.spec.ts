@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import {
@@ -30,18 +30,20 @@ import {
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtButtonGroup', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtButtonGroupModule],
-      declarations: [
-        TestAppButtonGroup,
-        TestAppButtonGroupWithSelection,
-        TestAppButtonGroupWithSelection2,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtButtonGroupModule],
+        declarations: [
+          TestAppButtonGroup,
+          TestAppButtonGroupWithSelection,
+          TestAppButtonGroupWithSelection2,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('button-group', () => {
     let fixture;
@@ -53,24 +55,26 @@ describe('DtButtonGroup', () => {
     let itemDebugElements: DebugElement[];
     let itemHtmlElements: HTMLElement[];
 
-    beforeEach(async(() => {
-      fixture = createComponent(TestAppButtonGroup);
+    beforeEach(
+      waitForAsync(() => {
+        fixture = createComponent(TestAppButtonGroup);
 
-      groupDebugElement = fixture.debugElement.query(
-        By.css('.dt-button-group'),
-      );
-      groupInstance = groupDebugElement.componentInstance;
+        groupDebugElement = fixture.debugElement.query(
+          By.css('.dt-button-group'),
+        );
+        groupInstance = groupDebugElement.componentInstance;
 
-      itemDebugElements = fixture.debugElement.queryAll(
-        By.css('.dt-button-group-item'),
-      );
-      itemHtmlElements = itemDebugElements.map(
-        (debugEl: DebugElement) => debugEl.nativeElement,
-      );
-      itemInstances = itemDebugElements.map(
-        (debugEl: DebugElement) => debugEl.componentInstance,
-      );
-    }));
+        itemDebugElements = fixture.debugElement.queryAll(
+          By.css('.dt-button-group-item'),
+        );
+        itemHtmlElements = itemDebugElements.map(
+          (debugEl: DebugElement) => debugEl.nativeElement,
+        );
+        itemInstances = itemDebugElements.map(
+          (debugEl: DebugElement) => debugEl.componentInstance,
+        );
+      }),
+    );
 
     it('should exist', () => {
       expect(groupInstance).toBeTruthy();
@@ -157,23 +161,25 @@ describe('DtButtonGroup', () => {
 
     let itemDebugElements: DebugElement[];
 
-    beforeEach(async(() => {
-      fixture = createComponent(TestAppButtonGroupWithSelection);
+    beforeEach(
+      waitForAsync(() => {
+        fixture = createComponent(TestAppButtonGroupWithSelection);
 
-      groupDebugElement = fixture.debugElement.query(
-        By.css('.dt-button-group'),
-      );
-      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
-        DtButtonGroup,
-      );
+        groupDebugElement = fixture.debugElement.query(
+          By.css('.dt-button-group'),
+        );
+        groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
+          DtButtonGroup,
+        );
 
-      itemDebugElements = fixture.debugElement.queryAll(
-        By.css('.dt-button-group-item'),
-      );
-      itemInstances = itemDebugElements.map(
-        (debugEl: DebugElement) => debugEl.componentInstance,
-      );
-    }));
+        itemDebugElements = fixture.debugElement.queryAll(
+          By.css('.dt-button-group-item'),
+        );
+        itemInstances = itemDebugElements.map(
+          (debugEl: DebugElement) => debugEl.componentInstance,
+        );
+      }),
+    );
 
     it('should have a value', () => {
       fixture.detectChanges();
@@ -193,23 +199,25 @@ describe('DtButtonGroup', () => {
     let groupInstance: DtButtonGroup<string>;
     let itemInstances: Array<DtButtonGroupItem<string>>;
 
-    beforeEach(async(() => {
-      fixture = createComponent(TestAppButtonGroupWithSelection2);
+    beforeEach(
+      waitForAsync(() => {
+        fixture = createComponent(TestAppButtonGroupWithSelection2);
 
-      groupDebugElement = fixture.debugElement.query(
-        By.directive(DtButtonGroup),
-      );
-      groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
-        DtButtonGroup,
-      );
+        groupDebugElement = fixture.debugElement.query(
+          By.directive(DtButtonGroup),
+        );
+        groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
+          DtButtonGroup,
+        );
 
-      const itemDebugElements = fixture.debugElement.queryAll(
-        By.directive(DtButtonGroupItem),
-      );
-      itemInstances = itemDebugElements.map(
-        (debugEl: DebugElement) => debugEl.componentInstance,
-      );
-    }));
+        const itemDebugElements = fixture.debugElement.queryAll(
+          By.directive(DtButtonGroupItem),
+        );
+        itemInstances = itemDebugElements.map(
+          (debugEl: DebugElement) => debugEl.componentInstance,
+        );
+      }),
+    );
 
     it('should have a value', () => {
       expect(groupInstance.value).toBe('Connectivity');

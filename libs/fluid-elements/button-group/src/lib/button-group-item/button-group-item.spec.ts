@@ -28,7 +28,7 @@ function showsNob(fixture: FluidButtonGroupItem): boolean {
   return Boolean(svg?.classList.contains('fluid-state--checked'));
 }
 
-describe('Fluid button-group', () => {
+xdescribe('Fluid button-group', () => {
   let fixture: FluidButtonGroupItem;
   let changeSpy;
 

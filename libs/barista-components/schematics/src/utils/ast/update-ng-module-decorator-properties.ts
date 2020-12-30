@@ -85,7 +85,9 @@ export function updateNgModuleDecoratorProperties(
           if (prop && propertyValue) {
             // if we found the property append the value to the array if it is an array
             if (ts.isArrayLiteralExpression(prop.initializer)) {
-              prop.initializer = ts.createArrayLiteral(
+              // HACK: prop.initializer is readonly and should not be set, but
+              // ts.factory.updateArrayLiteralExpression(prop.initializer, [...]) seems to be bugged (does nothing)
+              (prop.initializer as any) = ts.factory.createArrayLiteralExpression(
                 [...prop.initializer.elements, propertyValue],
                 true,
               );
@@ -117,15 +119,19 @@ export function updateNgModuleDecoratorProperties(
               );
             }
             // if the property does not exist in the NgModule we have to create it and append it!
-            updatedProperties = ts.createObjectLiteral(propertiesArr, true);
+            updatedProperties = ts.factory.createObjectLiteralExpression(
+              propertiesArr,
+              true,
+            );
           }
         },
       );
 
       // if we have updated properties we have to recreate the call expression
       if (updatedProperties) {
-        decorator.expression = ts.createCall(
-          ts.createIdentifier('NgModule'),
+        ts.factory.updateCallExpression(
+          decorator.expression,
+          ts.factory.createIdentifier('NgModule'),
           undefined,
           [updatedProperties],
         );

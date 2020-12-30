@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, ViewChild } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
@@ -39,23 +39,25 @@ import {
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DtPagination', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtPaginationModule,
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [
-        EmptyPagination,
-        DefaultPagination,
-        PaginationTestComponent,
-        LegacyPagination,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          DtPaginationModule,
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        ],
+        declarations: [
+          EmptyPagination,
+          DefaultPagination,
+          PaginationTestComponent,
+          LegacyPagination,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('initialization without any pages', () => {
     it('should create the pagination element without any pages inside, only with arrows', () => {

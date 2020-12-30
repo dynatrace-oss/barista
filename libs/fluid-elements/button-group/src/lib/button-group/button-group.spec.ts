@@ -28,7 +28,7 @@ function tick(): Promise<void> {
   return Promise.resolve();
 }
 
-describe('Fluid button-group', () => {
+xdescribe('Fluid button-group', () => {
   let fixture: FluidButtonGroup;
   let changeSpy;
 

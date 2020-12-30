@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
@@ -26,25 +26,27 @@ import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtHighlight', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtHighlightModule],
-      declarations: [
-        TestComponentWithoutTerm,
-        TestComponentWithHtmlInText,
-        TestComponentWithStaticQueryAndStaticText,
-        TestComponentWithMultipleHighlights,
-        TestComponentWithStaticCaseSensitive,
-        TestComponentWithHighlightedHtml,
-        TestComponentWithInputBinding,
-        TestComponentWithTextBinding,
-        TestCasingHighlighted,
-        TestComponentWithHtmlChars,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtHighlightModule],
+        declarations: [
+          TestComponentWithoutTerm,
+          TestComponentWithHtmlInText,
+          TestComponentWithStaticQueryAndStaticText,
+          TestComponentWithMultipleHighlights,
+          TestComponentWithStaticCaseSensitive,
+          TestComponentWithHighlightedHtml,
+          TestComponentWithInputBinding,
+          TestComponentWithTextBinding,
+          TestCasingHighlighted,
+          TestComponentWithHtmlChars,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
   describe('with initial behavior', () => {
     it('should show the original text if no term is given', () => {
       const fixture = createComponent(TestComponentWithoutTerm);

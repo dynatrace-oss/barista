@@ -27,7 +27,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import {
-  async,
+  waitForAsync,
   ComponentFixture,
   fakeAsync,
   flush,
@@ -59,24 +59,26 @@ const PLOTMARGIN_RIGHT = 100;
 describe('DtChartHeatfield', () => {
   let overlayContainerElement: HTMLElement;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        NoopAnimationsModule,
-        DtChartModule,
-        DtThemingModule,
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [SingleHeatfield, MultipleHeatfield, DummyChart],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          NoopAnimationsModule,
+          DtChartModule,
+          DtThemingModule,
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        ],
+        declarations: [SingleHeatfield, MultipleHeatfield, DummyChart],
+      });
 
-    inject([OverlayContainer], (oc: OverlayContainer) => {
-      overlayContainerElement = oc.getContainerElement();
-    })();
+      inject([OverlayContainer], (oc: OverlayContainer) => {
+        overlayContainerElement = oc.getContainerElement();
+      })();
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('Single heatfield', () => {
     let chart: DummyChart;

@@ -20,7 +20,7 @@
 import { HttpXhrBackend } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagModule } from '@dynatrace/barista-components/tag';
@@ -28,24 +28,26 @@ import { DtTagModule } from '@dynatrace/barista-components/tag';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtTag', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtTagModule,
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [TestAppSimple, TestAppRemovable],
-      providers: [
-        {
-          provide: HttpXhrBackend,
-          useClass: HttpClientTestingModule,
-        },
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          DtTagModule,
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        ],
+        declarations: [TestAppSimple, TestAppRemovable],
+        providers: [
+          {
+            provide: HttpXhrBackend,
+            useClass: HttpClientTestingModule,
+          },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   it('should not be removable', () => {
     const fixture = createComponent(TestAppSimple);

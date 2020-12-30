@@ -15,7 +15,7 @@
  */
 
 import {
-  async,
+  waitForAsync,
   ComponentFixture,
   TestBed,
   fakeAsync,
@@ -38,23 +38,25 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtSecondaryNav', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtSecondaryNavModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [
-        SingleSection,
-        SingleSectionActive,
-        SingleSectionNoExpand,
-        MultiSection,
-        SingleSectionWithActiveLink,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          DtSecondaryNavModule,
+          HttpClientTestingModule,
+          NoopAnimationsModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        ],
+        declarations: [
+          SingleSection,
+          SingleSectionActive,
+          SingleSectionNoExpand,
+          MultiSection,
+          SingleSectionWithActiveLink,
+        ],
+      }).compileComponents();
+    }),
+  );
 
   describe('single section', () => {
     let fixture: ComponentFixture<SingleSection>;

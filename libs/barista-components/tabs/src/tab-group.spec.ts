@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component, OnDestroy, QueryList, ViewChildren } from '@angular/core';
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
@@ -34,19 +34,21 @@ import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from './tab-group';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtTabs', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [DtTabsModule],
-      declarations: [
-        SimpleTabsTestApp,
-        DynamicTabsTestApp,
-        LazyTabsTestApp,
-        ErrorTabsTestApp,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [DtTabsModule],
+        declarations: [
+          SimpleTabsTestApp,
+          DynamicTabsTestApp,
+          LazyTabsTestApp,
+          ErrorTabsTestApp,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('basic behavior', () => {
     let fixture: ComponentFixture<SimpleTabsTestApp>;
@@ -331,15 +333,11 @@ function checkLabelClass(
     <dt-tab-group (selectionChanged)="handleTabChange($event)">
       <dt-tab id="firstid">
         <ng-template dtTabLabel>Tab one label</ng-template>
-        <ng-template dtTabContent>
-          Tab one content
-        </ng-template>
+        <ng-template dtTabContent> Tab one content </ng-template>
       </dt-tab>
       <dt-tab [id]="dynamicId" color="error">
         <ng-template dtTabLabel>Tab two label</ng-template>
-        <ng-template dtTabContent>
-          Tab two content
-        </ng-template>
+        <ng-template dtTabContent> Tab two content </ng-template>
       </dt-tab>
     </dt-tab-group>
   `,
@@ -362,21 +360,15 @@ class SimpleTabsTestApp {
     <dt-tab-group (selectionChanged)="handleTabChange($event)">
       <dt-tab>
         <ng-template dtTabLabel>Tab one label</ng-template>
-        <ng-template dtTabContent>
-          Tab one content
-        </ng-template>
+        <ng-template dtTabContent> Tab one content </ng-template>
       </dt-tab>
       <dt-tab selected>
         <ng-template dtTabLabel>Tab two label</ng-template>
-        <ng-template dtTabContent>
-          Tab two content
-        </ng-template>
+        <ng-template dtTabContent> Tab two content </ng-template>
       </dt-tab>
       <dt-tab *ngIf="dynamicTab">
         <ng-template dtTabLabel>Tab three label</ng-template>
-        <ng-template dtTabContent>
-          Tab two content
-        </ng-template>
+        <ng-template dtTabContent> Tab two content </ng-template>
       </dt-tab>
     </dt-tab-group>
   `,

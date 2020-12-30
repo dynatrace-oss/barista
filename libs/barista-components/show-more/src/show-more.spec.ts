@@ -19,7 +19,7 @@
 
 import { HttpXhrBackend } from '@angular/common/http';
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
@@ -32,24 +32,26 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtShowMore', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtShowMoreModule,
-        HttpClientTestingModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-      ],
-      declarations: [TestApp],
-      providers: [
-        {
-          provide: HttpXhrBackend,
-          useClass: HttpClientTestingModule,
-        },
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          DtShowMoreModule,
+          HttpClientTestingModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        ],
+        declarations: [TestApp],
+        providers: [
+          {
+            provide: HttpXhrBackend,
+            useClass: HttpClientTestingModule,
+          },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   describe('show-more', () => {
     let fixture;
@@ -57,14 +59,16 @@ describe('DtShowMore', () => {
     let instanceDebugElement: DebugElement;
     let instanceElement: HTMLElement;
 
-    beforeEach(async(() => {
-      fixture = createComponent(TestApp);
-      testComponent = fixture.componentInstance;
-      instanceDebugElement = fixture.debugElement.query(
-        By.directive(DtShowMore),
-      );
-      instanceElement = instanceDebugElement.nativeElement;
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        fixture = createComponent(TestApp);
+        testComponent = fixture.componentInstance;
+        instanceDebugElement = fixture.debugElement.query(
+          By.directive(DtShowMore),
+        );
+        instanceElement = instanceDebugElement.nativeElement;
+      }),
+    );
 
     it('should not contain show-less style', () => {
       expect(instanceElement.classList).not.toContain('dt-show-more-show-less');

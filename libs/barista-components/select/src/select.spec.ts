@@ -40,7 +40,7 @@ import {
 import {
   ComponentFixture,
   TestBed,
-  async,
+  waitForAsync,
   fakeAsync,
   flush,
   inject,
@@ -113,16 +113,18 @@ describe('DtSelect', () => {
   });
 
   describe('core', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([
-        BasicSelect,
-        SelectWithGroups,
-        SelectWithGroupsAndNgContainer,
-        SelectWithFormFieldLabel,
-        SelectWithOptionValueZero,
-        SelectWithCustomTrigger,
-      ]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([
+          BasicSelect,
+          SelectWithGroups,
+          SelectWithGroupsAndNgContainer,
+          SelectWithFormFieldLabel,
+          SelectWithOptionValueZero,
+          SelectWithCustomTrigger,
+        ]);
+      }),
+    );
 
     describe('accessibility', () => {
       describe('for select', () => {
@@ -1539,9 +1541,11 @@ describe('DtSelect', () => {
   });
 
   describe('when initialized without options', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([SelectInitWithoutOptions]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([SelectInitWithoutOptions]);
+      }),
+    );
 
     it('should select the proper option when option list is initialized later', fakeAsync(() => {
       const fixture = createComponent(SelectInitWithoutOptions);
@@ -1613,9 +1617,11 @@ describe('DtSelect', () => {
   });
 
   describe('with ngModel', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([NgModelSelect]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([NgModelSelect]);
+      }),
+    );
 
     it('should disable itself when control is disabled using the property', fakeAsync(() => {
       const fixture = createComponent(NgModelSelect);
@@ -1646,9 +1652,11 @@ describe('DtSelect', () => {
   });
 
   describe('with tabindex', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([SelectWithPlainTabindex]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([SelectWithPlainTabindex]);
+      }),
+    );
 
     it('should be able to set the tabindex via the native attribute', fakeAsync(() => {
       const fixture = createComponent(SelectWithPlainTabindex);
@@ -1660,9 +1668,11 @@ describe('DtSelect', () => {
   });
 
   describe('change events', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([SelectWithPlainTabindex]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([SelectWithPlainTabindex]);
+      }),
+    );
 
     it('should complete the stateChanges stream on destroy', () => {
       const fixture = createComponent(SelectWithPlainTabindex);
@@ -1684,9 +1694,11 @@ describe('DtSelect', () => {
   });
 
   describe('with no placeholder', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([BasicSelectNoPlaceholder]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([BasicSelectNoPlaceholder]);
+      }),
+    );
 
     // tslint:disable-next-line: dt-no-focused-tests
     it.skip('should set the width of the overlay if there is no placeholder', fakeAsync(() => {
@@ -1709,9 +1721,11 @@ describe('DtSelect', () => {
   });
 
   describe('when invalid inside a form', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([InvalidSelectInForm]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([InvalidSelectInForm]);
+      }),
+    );
 
     it('should not throw SelectionModel errors in addition to ngModel errors', fakeAsync(() => {
       const fixture = TestBed.createComponent(InvalidSelectInForm);
@@ -1729,9 +1743,11 @@ describe('DtSelect', () => {
   });
 
   describe('with ngModel using compareWith', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([NgModelCompareWithSelect]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([NgModelCompareWithSelect]);
+      }),
+    );
 
     let fixture: ComponentFixture<NgModelCompareWithSelect>;
     let instance: NgModelCompareWithSelect;
@@ -1787,9 +1803,11 @@ describe('DtSelect', () => {
   });
 
   describe(`when the select's value is accessed on initialization`, () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([SelectEarlyAccessSibling]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([SelectEarlyAccessSibling]);
+      }),
+    );
 
     it('should not throw when trying to access the selected value on init', fakeAsync(() => {
       expect(() => {
@@ -1799,9 +1817,11 @@ describe('DtSelect', () => {
   });
 
   describe('inside of a form group', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([SelectInsideFormGroup]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([SelectInsideFormGroup]);
+      }),
+    );
 
     let fixture: ComponentFixture<SelectInsideFormGroup>;
     let testComponent: SelectInsideFormGroup;
@@ -1906,9 +1926,11 @@ describe('DtSelect', () => {
   });
 
   describe('with custom error behavior', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([CustomErrorBehaviorSelect]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([CustomErrorBehaviorSelect]);
+      }),
+    );
 
     it('should be able to override the error matching behavior via an @Input', fakeAsync(() => {
       const fixture = createComponent(CustomErrorBehaviorSelect);
@@ -1927,9 +1949,13 @@ describe('DtSelect', () => {
   });
 
   describe('with preselected array values', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([SingleSelectWithPreselectedArrayValues]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([
+          SingleSelectWithPreselectedArrayValues,
+        ]);
+      }),
+    );
 
     it('should be able to preselect an array value in single-selection mode', fakeAsync(() => {
       const fixture = createComponent(SingleSelectWithPreselectedArrayValues);
@@ -1947,12 +1973,14 @@ describe('DtSelect', () => {
   });
 
   describe('with OnPush', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([
-        BasicSelectOnPush,
-        BasicSelectOnPushPreselected,
-      ]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([
+          BasicSelectOnPush,
+          BasicSelectOnPushPreselected,
+        ]);
+      }),
+    );
 
     it('should set the trigger text based on the value when initialized', fakeAsync(() => {
       const fixture = createComponent(BasicSelectOnPushPreselected);
@@ -1985,9 +2013,11 @@ describe('DtSelect', () => {
   });
 
   describe('when reseting the value by setting null or undefined', () => {
-    beforeEach(async(() => {
-      configureDtSelectTestingModule([ResetValuesSelect]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureDtSelectTestingModule([ResetValuesSelect]);
+      }),
+    );
 
     let fixture: ComponentFixture<ResetValuesSelect>;
     let trigger: HTMLElement;

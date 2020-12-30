@@ -81,6 +81,7 @@ jest(
         "//libs/testing/browser",
         "@npm//@angular/cdk",
         "@npm//@angular/core",
+        "@npm//@angular/common",
         "@npm//@angular/platform-browser",
         "@npm//rxjs",
     ],

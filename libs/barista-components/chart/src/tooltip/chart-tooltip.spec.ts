@@ -20,7 +20,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
 import {
-  async,
+  waitForAsync,
   ComponentFixture,
   fakeAsync,
   flush,
@@ -62,30 +62,32 @@ describe('DtChartTooltip', () => {
     },
   };
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        DtChartModule,
-        DtThemingModule,
-        DtKeyValueListModule,
-        DtOverlayModule,
-        NoopAnimationsModule,
-      ],
-      declarations: [ChartTest],
-      providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          DtChartModule,
+          DtThemingModule,
+          DtKeyValueListModule,
+          DtOverlayModule,
+          NoopAnimationsModule,
+        ],
+        declarations: [ChartTest],
+        providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],
+      });
 
-    TestBed.compileComponents();
+      TestBed.compileComponents();
 
-    inject([OverlayContainer], (oc: OverlayContainer) => {
-      overlayContainer = oc;
-      overlayContainerElement = oc.getContainerElement();
-    })();
+      inject([OverlayContainer], (oc: OverlayContainer) => {
+        overlayContainer = oc;
+        overlayContainerElement = oc.getContainerElement();
+      })();
 
-    fixture = createComponent(ChartTest);
-    const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
-    chartComponent = chartDebugElement.componentInstance;
-  }));
+      fixture = createComponent(ChartTest);
+      const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
+      chartComponent = chartDebugElement.componentInstance;
+    }),
+  );
 
   afterEach(inject(
     [OverlayContainer],
