@@ -1,3 +1,17 @@
+## [8.10.0](https://github.com/dynatrace-oss/barista/compare/8.9.0...8.10.0) (2021-01-04)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue where an exception was thrown when loading was
+  true initially.
+  ([4bf5d50](https://github.com/dynatrace-oss/barista/commit/4bf5d50545d2af6f3e7d64defd1af5fcaed1bf9a))
+
+### Features
+
+- **filter-field:** Added interaction state handling and notification.
+  ([93f402f](https://github.com/dynatrace-oss/barista/commit/93f402fb58dbb86580c0e3ecf182dc8c3600e5a6)),
+  closes [#1321](https://github.com/dynatrace-oss/barista/issues/1321)
+
 ## [8.9.0](https://github.com/dynatrace-oss/barista/compare/8.8.0...8.9.0) (2020-12-14)
 
 ### Bug Fixes
