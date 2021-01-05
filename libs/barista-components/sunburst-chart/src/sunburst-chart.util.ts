@@ -110,8 +110,8 @@ export interface DtSunburstChartNodeSlice {
 }
 
 const SVG_SETTINGS = {
-  ringWidthRadius: 32,
-  borderWidthRadius: 16,
+  ringWidthRadius: 22,
+  borderWidthRadius: 11,
   // innerRadius: 64,
   // radius for the centroid of label
   labelOffsetRadius: 32,
