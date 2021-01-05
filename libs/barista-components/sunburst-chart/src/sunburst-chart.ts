@@ -60,7 +60,7 @@ import {
 } from './sunburst-chart.util';
 
 /** Minimum width of the chart */
-const MIN_WIDTH = 480;
+const MIN_WIDTH = 340;
 
 /**
  * Sunburst chart is a donut chart with multiple levels that get unfolded on click and show an overlay on hover
@@ -122,9 +122,8 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   @ViewChild('svg') _svgEl;
 
   /** @internal Viewchildren selection for the slices */
-  @ViewChildren(DtSunburstChartSegment) private _segments: QueryList<
-    DtSunburstChartSegment
-  >;
+  @ViewChildren(DtSunburstChartSegment)
+  private _segments: QueryList<DtSunburstChartSegment>;
 
   /** Slices to be painted. Exposed so users can open overlays */
   get slices(): DtSunburstChartNodeSlice[] {
@@ -339,9 +338,10 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
     // TODO: remove this `if` once dtOverlayService is mandatory
     if (this._dtOverlayService) {
       if (this._overlay && !this._overlayRef) {
-        this._overlayRef = this._dtOverlayService.create<
-          DtSunburstChartTooltipData
-        >(target, this._overlay);
+        this._overlayRef = this._dtOverlayService.create<DtSunburstChartTooltipData>(
+          target,
+          this._overlay,
+        );
         this._dtOverlayService._positionStrategy.setOrigin({ x, y });
         this._overlayRef.updateImplicitContext(slice);
       }
