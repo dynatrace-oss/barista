@@ -21,6 +21,8 @@ import {
   ESCAPE,
   TAB,
   UP_ARROW,
+  PAGE_UP,
+  PAGE_DOWN,
 } from '@angular/cdk/keycodes';
 import {
   Overlay,
@@ -476,7 +478,11 @@ export class DtAutocompleteTrigger<T>
       const prevActiveItem = this.autocomplete._keyManager.activeItem;
       const isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
 
-      if (this.panelOpen || keyCode === TAB) {
+      if (this.panelOpen && keyCode === PAGE_UP) {
+        this.autocomplete._scrollPageUp();
+      } else if (this.panelOpen && keyCode === PAGE_DOWN) {
+        this.autocomplete._scrollPageDown();
+      } else if (this.panelOpen || keyCode === TAB) {
         this.autocomplete._keyManager.onKeydown(event);
       } else if (isArrowKey && this._canOpen()) {
         this.openPanel();
