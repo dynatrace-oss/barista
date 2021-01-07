@@ -2,6 +2,7 @@
 @import '../../core/src/style/variables';
 @import '../../core/src/style/interactive-common';
 
+:host,
 :host .dt-color-main {
   --dt-tabgroup-default-color: var(--dt-theme-main-default-color);
 }
