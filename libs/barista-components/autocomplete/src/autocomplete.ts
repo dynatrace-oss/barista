@@ -301,6 +301,30 @@ export class DtAutocomplete<T>
 
   /**
    * @internal
+   * Scrolls the autocomplete up a page.
+   * Default page scroll is 300px
+   */
+  _scrollPageUp(): void {
+    const panelHeight = this._panel.nativeElement.getBoundingClientRect()
+      .height;
+    const newScrollPosition = Math.max(this._getScrollTop() - panelHeight, 0);
+    this._setScrollTop(newScrollPosition);
+  }
+
+  /**
+   * @internal
+   * Scrolls the autocomplete down a page.
+   * Default page scroll is 300px
+   */
+  _scrollPageDown(): void {
+    const panelHeight = this._panel.nativeElement.getBoundingClientRect()
+      .height;
+    const newScrollPosition = this._getScrollTop() + panelHeight;
+    this._setScrollTop(newScrollPosition);
+  }
+
+  /**
+   * @internal
    * Emits the `select` event.
    */
   _emitSelectEvent(option: DtOption<T>): void {
