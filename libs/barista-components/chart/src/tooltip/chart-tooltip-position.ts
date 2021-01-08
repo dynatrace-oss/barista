@@ -15,7 +15,7 @@
  */
 
 import { DtChart, DtChartTooltipData } from '../..';
-import { PlotBackgroundInfo } from '../utils';
+import { DtPlotBackgroundInfo } from '../utils';
 import { ConnectedPosition } from '@angular/cdk/overlay';
 import { InjectionToken } from '@angular/core';
 import { isDefined } from '@dynatrace/barista-components/core';
@@ -33,7 +33,7 @@ export interface DtChartTooltipConfig {
 export type DtChartTooltipPositionFn = (
   data: DtChartTooltipData,
   chart: DtChart,
-  plotBackgroundInfo?: PlotBackgroundInfo,
+  plotBackgroundInfo?: DtPlotBackgroundInfo,
 ) => { x: number; y: number };
 
 /**
@@ -42,7 +42,7 @@ export type DtChartTooltipPositionFn = (
 export const getDefaultTooltipPosition = (
   data: DtChartTooltipData,
   chart: DtChart,
-  plotBackgroundInfo: PlotBackgroundInfo,
+  plotBackgroundInfo: DtPlotBackgroundInfo,
 ): { x: number; y: number } => {
   const containerElement: HTMLElement = chart._container.nativeElement;
   const containerElementBB = containerElement.getBoundingClientRect();
@@ -62,7 +62,7 @@ export const getDefaultTooltipPosition = (
  */
 const getHighchartsTooltipPosition = (
   data: DtChartTooltipData,
-  plotBackgroundInfo: PlotBackgroundInfo,
+  plotBackgroundInfo: DtPlotBackgroundInfo,
 ): { x: number; y: number } => {
   const isPieChart = !isDefined(data.points);
   const hasAreaFirstSeries =

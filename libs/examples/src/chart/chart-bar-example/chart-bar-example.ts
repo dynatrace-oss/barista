@@ -18,21 +18,18 @@ import {
   DtChartTooltipConfig,
   DtChartTooltipData,
   DT_CHART_TOOLTIP_CONFIG,
-} from '../../../../barista-components/chart';
-import { PlotBackgroundInfo } from '../../../../barista-components/chart/src/utils';
+  DtPlotBackgroundInfo,
+} from '@dynatrace/barista-components/chart';
 import { Component } from '@angular/core';
 
 const getTooltipPosition = (
   data: DtChartTooltipData,
   chart: DtChart,
-  plotBackgroundInfo?: PlotBackgroundInfo,
+  plotBackgroundInfo: DtPlotBackgroundInfo,
 ): { x: number; y: number } => {
   const containerElement: HTMLElement = chart._container.nativeElement;
   const containerElementBB = containerElement.getBoundingClientRect();
-  const { x, y } = verticalPositionFunction(
-    data,
-    plotBackgroundInfo as PlotBackgroundInfo,
-  );
+  const { x, y } = verticalPositionFunction(data, plotBackgroundInfo);
 
   return {
     x: containerElementBB.left + x,
@@ -42,7 +39,7 @@ const getTooltipPosition = (
 
 const verticalPositionFunction = (
   data: DtChartTooltipData,
-  plotBackgroundInfo: PlotBackgroundInfo,
+  plotBackgroundInfo: DtPlotBackgroundInfo,
 ): { x: number; y: number } => ({
   x: plotBackgroundInfo?.width / 2 + plotBackgroundInfo?.left,
   y: (data.points![0].point as any).tooltipPos![1] + plotBackgroundInfo?.top,

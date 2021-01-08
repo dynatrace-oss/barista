@@ -31,7 +31,7 @@ import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { DtChartSeries } from './chart.interface';
 
 /** @internal Highcharts plot background dimensions */
-export interface PlotBackgroundInfo {
+export interface DtPlotBackgroundInfo {
   width: number;
   height: number;
   left: number;
@@ -274,7 +274,7 @@ export function chainFocusToNextTrap(
  */
 export function getPlotBackgroundInfo(
   plotBackground: SVGRectElement,
-): PlotBackgroundInfo {
+): DtPlotBackgroundInfo {
   return {
     width: parseInt(plotBackground.getAttribute('width')!, 10) || 0,
     height: parseInt(plotBackground.getAttribute('height')!, 10) || 0,
