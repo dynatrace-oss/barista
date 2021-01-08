@@ -40,7 +40,7 @@ import {
 } from '@dynatrace/barista-components/core';
 import { clamp, round } from 'lodash-es';
 import { Subject } from 'rxjs';
-import { PlotBackgroundInfo } from '../utils';
+import { DtPlotBackgroundInfo } from '../utils';
 
 import {
   DT_HEATFIELD_OVERLAY_POSITIONS,
@@ -122,7 +122,7 @@ export class DtChartHeatfield
    * is called by the chart.
    * Is used to set the height of the heatfield backdrop.
    */
-  _boundingBox: PlotBackgroundInfo;
+  _boundingBox: DtPlotBackgroundInfo;
 
   /**
    * Positions for the overlay that gets created
@@ -184,7 +184,7 @@ export class DtChartHeatfield
    * and the Highcharts chartObject that is needed to calculate the position
    */
   _initHeatfield(
-    boundingBox: PlotBackgroundInfo,
+    boundingBox: DtPlotBackgroundInfo,
     chartObject: Highcharts.Chart,
   ): void {
     this._boundingBox = boundingBox;

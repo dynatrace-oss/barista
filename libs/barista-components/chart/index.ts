@@ -26,6 +26,7 @@ export {
   DT_CHART_TOOLTIP_CONFIG,
 } from './src/tooltip/chart-tooltip-position';
 export { DtChartTooltipData } from './src/highcharts/highcharts-tooltip-types';
+export { DtPlotBackgroundInfo } from './src/utils';
 
 export { DtChartRange } from './src/range/range';
 export { DtChartTimestamp } from './src/timestamp/timestamp';

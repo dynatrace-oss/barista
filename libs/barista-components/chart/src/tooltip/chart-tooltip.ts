@@ -44,7 +44,7 @@ import {
 
 import { DtChart } from '../chart';
 import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
-import { PlotBackgroundInfo } from '../utils';
+import { DtPlotBackgroundInfo } from '../utils';
 import {
   DT_CHART_DEFAULT_TOOLTIP_POSITIONS,
   DT_CHART_TOOLTIP_CONFIG,
@@ -97,7 +97,7 @@ export class DtChartTooltip implements OnDestroy {
   _createOverlay(
     data: DtChartTooltipData | undefined,
     parentChart: DtChart,
-    plotBackgroundInfo: PlotBackgroundInfo,
+    plotBackgroundInfo: DtPlotBackgroundInfo,
   ): void {
     // We check for data.points and data.point property since with pie / donut charts we need
     if (parentChart._chartObject && data && (data.points || data.point)) {
@@ -142,7 +142,7 @@ export class DtChartTooltip implements OnDestroy {
   _updateOverlayContext(
     data: DtChartTooltipData | undefined,
     parentChart: DtChart,
-    plotBackgroundInfo: PlotBackgroundInfo,
+    plotBackgroundInfo: DtPlotBackgroundInfo,
   ): void {
     if (this._portal && this._overlayRef && data) {
       this._portal.context.$implicit = data;
@@ -168,7 +168,7 @@ export class DtChartTooltip implements OnDestroy {
   private _getPositionStrategy(
     data: DtChartTooltipData,
     parentChart: DtChart,
-    plotBackgroundInfo: PlotBackgroundInfo,
+    plotBackgroundInfo: DtPlotBackgroundInfo,
   ): FlexibleConnectedPositionStrategy {
     const positioner =
       this._chartTooltipConfig?.positionFunction !== undefined
