@@ -37,7 +37,6 @@ import {
   ViewEncapsulation,
   OnDestroy,
   NgZone,
-  Optional,
 } from '@angular/core';
 
 import { DtOption } from '@dynatrace/barista-components/core';
@@ -220,11 +219,7 @@ export class DtAutocomplete<T>
     private _viewContainerRef: ViewContainerRef,
     @Inject(DT_AUTOCOMPLETE_DEFAULT_OPTIONS)
     defaults: DtAutocompleteDefaultOptions,
-    /**
-     * @deprecated
-     * @breaking-change Will be mandatory with verion 9.0.0
-     */
-    @Optional() private _ngZone?: NgZone,
+    private _ngZone: NgZone,
   ) {
     this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
   }
@@ -240,7 +235,7 @@ export class DtAutocomplete<T>
         takeUntil(this._destroy$),
       )
       .subscribe((option) => {
-        this._ngZone?.run(() => {
+        this._ngZone.run(() => {
           this._keyManager.setActiveItem(option);
         });
       });
