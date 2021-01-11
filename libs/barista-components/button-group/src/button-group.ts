@@ -205,18 +205,6 @@ export class DtButtonGroupItem<T>
     DtButtonGroupItemCheckedChange<T>
   >();
 
-  /**
-   * @deprecated
-   * @breaking-change will be removed with version 9.0.0 please use the `checked` property instead.
-   */
-  @Input()
-  get selected(): boolean {
-    return this.checked;
-  }
-  set selected(value: boolean) {
-    this.checked = value;
-  }
-
   /** Whether the button-group item is checked. */
   @Input()
   get checked(): boolean {

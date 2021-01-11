@@ -102,14 +102,14 @@ describe('DtButtonGroup', () => {
       item.click();
 
       expect(groupInstance.value).toBe('Connectivity');
-      expect(itemInstances[1].selected).toBe(true);
+      expect(itemInstances[1].checked).toBe(true);
     });
 
     it('should have item selected', () => {
-      expect(itemInstances[1].selected).toBe(false);
+      expect(itemInstances[1].checked).toBe(false);
 
       groupInstance.value = 'Connectivity';
-      expect(itemInstances[1].selected).toBe(true);
+      expect(itemInstances[1].checked).toBe(true);
     });
 
     it('should have item disabled when group disabled', () => {
@@ -125,7 +125,7 @@ describe('DtButtonGroup', () => {
       itemHtmlElements[1].click();
       fixture.detectChanges();
 
-      expect(itemInstances[1].selected).toBe(false);
+      expect(itemInstances[1].checked).toBe(false);
     });
 
     it('should fire valueChange event', () => {
@@ -147,7 +147,7 @@ describe('DtButtonGroup', () => {
 
     it('should clear selections when clearing the group', () => {
       groupInstance.value = 'Connectivity';
-      expect(itemInstances[1].selected).toBe(true);
+      expect(itemInstances[1].checked).toBe(true);
     });
   });
 
@@ -187,7 +187,7 @@ describe('DtButtonGroup', () => {
     });
 
     it('should have item selected', () => {
-      expect(itemInstances[1].selected).toBe(true);
+      expect(itemInstances[1].checked).toBe(true);
     });
   });
 
@@ -225,7 +225,7 @@ describe('DtButtonGroup', () => {
 
     it('should have item selected', () => {
       fixture.detectChanges();
-      expect(itemInstances[1].selected).toBe(true);
+      expect(itemInstances[1].checked).toBe(true);
     });
   });
 });
@@ -252,13 +252,13 @@ class TestAppButtonGroup {}
   selector: 'dt-test-app-selection',
   template: `
     <dt-button-group>
-      <dt-button-group-item [selected]="false" value="Performance">
+      <dt-button-group-item [checked]="false" value="Performance">
         Performance
       </dt-button-group-item>
-      <dt-button-group-item [selected]="true" value="Connectivity">
+      <dt-button-group-item [checked]="true" value="Connectivity">
         Connectivity
       </dt-button-group-item>
-      <dt-button-group-item [selected]="false" value="Failure rate">
+      <dt-button-group-item [checked]="false" value="Failure rate">
         Failure rate
       </dt-button-group-item>
     </dt-button-group>
