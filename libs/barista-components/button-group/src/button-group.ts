@@ -200,14 +200,6 @@ export class DtButtonGroupItem<T>
   private _value: T;
   private _disabled = false;
 
-  /**
-   * @deprecated
-   * @breaking-change will be removed with version 9.0.0 please use the `checkedChange` instead.
-   */
-  @Output() readonly selectionChange = new EventEmitter<
-    DtButtonGroupItemSelectionChange<T>
-  >();
-
   /** Emits a stream when this item is checked or unchecked. */
   @Output() readonly checkedChange = new EventEmitter<
     DtButtonGroupItemCheckedChange<T>
@@ -291,8 +283,6 @@ export class DtButtonGroupItem<T>
     event.stopPropagation();
     const groupValueChanged =
       this._buttonGroup && this.value !== this._buttonGroup.value;
-    // TODO: Version 9.0.0 remove this event emission.
-    this.selectionChange.emit({ source: this, value: this.value });
     this.checkedChange.emit({ source: this, value: this.value });
 
     if (this._buttonGroup && groupValueChanged) {
