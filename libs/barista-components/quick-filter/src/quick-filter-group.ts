@@ -114,6 +114,7 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
   @Input()
   set activeFilters(filters: DtAutocompleteValue<T>[][]) {
     this._activeFilterPaths = buildIdPathsFromFilters(filters || []);
+    this._options = this._getOptions(this._nodeDef);
     this._changeDetectorRef.markForCheck();
   }
 
