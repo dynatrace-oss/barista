@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { FocusTrap, ConfigurableFocusTrapFactory } from '@angular/cdk/a11y';
 import { ENTER } from '@angular/cdk/keycodes';
 import {
   Overlay,
@@ -34,7 +34,6 @@ import {
   Inject,
   NgZone,
   OnDestroy,
-  Optional,
   SkipSelf,
   TemplateRef,
   ViewChild,
@@ -184,7 +183,7 @@ export class DtChartSelectionArea
   constructor(
     @SkipSelf() private _chart: DtChart,
     private _elementRef: ElementRef<HTMLElement>,
-    private _focusTrapFactory: FocusTrapFactory,
+    private _focusTrapFactory: ConfigurableFocusTrapFactory,
     private _overlay: Overlay,
     private _zone: NgZone,
     private _viewportRuler: ViewportRuler,
@@ -193,8 +192,7 @@ export class DtChartSelectionArea
     private _changeDetectorRef: ChangeDetectorRef,
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) private _document: any,
-    //  @breaking-change Will be made mandatory with 9.0.0
-    @Optional() public _viewportResizer: DtViewportResizer,
+    public _viewportResizer: DtViewportResizer,
   ) {
     super(_viewportResizer);
   }
