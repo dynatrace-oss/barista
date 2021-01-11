@@ -29,7 +29,6 @@ import {
   OnInit,
   Output,
   ViewEncapsulation,
-  Optional,
   ChangeDetectorRef,
 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
@@ -198,8 +197,7 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
   constructor(
     private _elementRef: ElementRef,
     private _breakpointObserver: BreakpointObserver,
-    /** @breaking-change 9.0.0 - Make mandatory with version 9.0.0 */
-    @Optional() private _changeDetectorRef?: ChangeDetectorRef,
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     // distinctUntilChanged is needed because the done event fires twice on some browsers
     // and fire if animation is done
@@ -302,9 +300,6 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
         : 'open-instant'
       : (this._animationState = 'closed');
 
-    /** @breaking-change 9.0.0 - remove if check when changeDetectorRef is no longer optional */
-    if (this._changeDetectorRef) {
-      this._changeDetectorRef.markForCheck();
-    }
+    this._changeDetectorRef.markForCheck();
   }
 }
