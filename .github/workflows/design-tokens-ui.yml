@@ -51,8 +51,6 @@ jobs:
 
       - name: Generate Design Tokens
         run: |
-          "${GITHUB_WORKSPACE}/bin/bazel" build //libs/shared/design-tokens:build
-
           npm run copy-generated-tokens
           node tools/shell-helpers/copy-folder.js \
             $(${GITHUB_WORKSPACE}/bin/bazel info bazel-genfiles)/libs/shared/design-tokens/build \
