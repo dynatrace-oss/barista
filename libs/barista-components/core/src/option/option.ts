@@ -130,12 +130,8 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
   constructor(
     private _element: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
+    private _ngZone: NgZone,
     @Optional() readonly group?: DtOptgroup,
-    /**
-     * @deprecated
-     * @breaking-change Will be mandatory with verion 9.0.
-     */
-    @Optional() private _ngZone?: NgZone,
   ) {}
 
   ngAfterViewChecked(): void {
@@ -152,15 +148,13 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
         this._stateChanges.next();
       }
     }
-    if (this._ngZone) {
-      this._ngZone.runOutsideAngular(() => {
-        fromEvent(this._element.nativeElement, 'mouseover')
-          .pipe(takeUntil(this._destroy$))
-          .subscribe(() => {
-            this._handleMouseOver();
-          });
-      });
-    }
+    this._ngZone.runOutsideAngular(() => {
+      fromEvent(this._element.nativeElement, 'mouseover')
+        .pipe(takeUntil(this._destroy$))
+        .subscribe(() => {
+          this._handleMouseOver();
+        });
+    });
   }
 
   ngOnDestroy(): void {
