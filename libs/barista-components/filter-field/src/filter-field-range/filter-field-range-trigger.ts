@@ -22,7 +22,6 @@ import {
   NgZone,
   OnDestroy,
   Inject,
-  Optional,
   Input,
 } from '@angular/core';
 
@@ -75,9 +74,8 @@ export class DtFilterFieldRangeTrigger
     protected _overlayContainer: OverlayContainer,
     _zone: NgZone,
     // tslint:disable-next-line:no-any
-    @Inject(DOCUMENT) protected _document: any,
-    //  @breaking-change Will be made mandatory with 9.0.0
-    @Optional() public _viewportResizer: DtViewportResizer,
+    @Inject(DOCUMENT) _document: any,
+    public _viewportResizer: DtViewportResizer,
   ) {
     super(
       _elementRef,
