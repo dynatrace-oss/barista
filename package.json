@@ -176,7 +176,7 @@
     "rollup-plugin-local-resolve": "^1.0.7",
     "sass-graph": "^3.0.5",
     "sass-loader": "^10.1.0",
-    "semver": "^7.3.2",
+    "semver": "^7.3.4",
     "shelljs": "^0.8.4",
     "stylelint": "^13.7.2",
     "stylelint-checkstyle-formatter": "^0.1.2",
