@@ -149,15 +149,6 @@ export class DtButtonGroup<T>
   }
 }
 
-/**
- * @deprecated
- * @breaking-change Will be removed with version 9.0.0. Please use the `DtButtonGroupItemCheckedChange` instead
- */
-export interface DtButtonGroupItemSelectionChange<T> {
-  source: DtButtonGroupItem<T>;
-  value: T | null;
-}
-
 /** Change event object emitted by DtRadioButton */
 export interface DtButtonGroupItemCheckedChange<T> {
   source: DtButtonGroupItem<T>;
