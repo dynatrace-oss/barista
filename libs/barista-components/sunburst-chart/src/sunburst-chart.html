@@ -9,9 +9,7 @@
   <g
     *ngFor="let slice of _slices"
     dt-sunburst-chart-segment
-    (mouseenter)="_handleOnMouseEnter($event, slice.data)"
-    (mousemove)="_handleOnMouseMove($event)"
-    (mouseleave)="closeOverlay()"
+    [overlayTemplate]="_overlay"
     [slice]="slice"
     [valueAsAbsolute]="_valueAsAbsolute"
     [attr.style]="

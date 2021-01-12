@@ -14,14 +14,28 @@
  * limitations under the License.
  */
 
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
 import {
   Component,
   Input,
-  ElementRef,
   ViewEncapsulation,
   ChangeDetectionStrategy,
+  TemplateRef,
+  ElementRef,
+  NgZone,
+  AfterContentInit,
 } from '@angular/core';
+import {
+  DtOverlay,
+  DtOverlayTrigger,
+} from '@dynatrace/barista-components/overlay';
 import { DtSunburstChartNodeSlice } from './sunburst-chart.util';
+
+export interface DtSunburstChartOverlayData {
+  label: string;
+  value: number;
+}
 
 /**
  * @internal
@@ -36,7 +50,11 @@ import { DtSunburstChartNodeSlice } from './sunburst-chart.util';
   preserveWhitespaces: false,
   exportAs: 'dt-sunburst-chart-segment',
 })
-export class DtSunburstChartSegment {
+export class DtSunburstChartSegment
+  extends DtOverlayTrigger<{
+    $implicit: DtSunburstChartOverlayData;
+  }>
+  implements AfterContentInit {
   /**
    * @internal
    * All data needed to render the path that visualizes
@@ -51,7 +69,39 @@ export class DtSunburstChartSegment {
   @Input() valueAsAbsolute: boolean;
 
   /**
-   * @param elementRef Used by parent to get HTMLElement
+   * @internal
+   * The template ref for the overlay template.
+   * Overlay is displayed when hovering over
+   * the chart series.
    */
-  constructor(public elementRef: ElementRef) {}
+
+  @Input() overlayTemplate: TemplateRef<{
+    $implicit: DtSunburstChartOverlayData;
+  }>;
+
+  elementReference: ElementRef;
+
+  constructor(
+    elementRef: ElementRef,
+    overlay: DtOverlay,
+    zone: NgZone,
+    focusMonitor: FocusMonitor,
+    platform: Platform,
+  ) {
+    super(elementRef, overlay, zone, focusMonitor, '0', platform);
+    this.elementReference = elementRef;
+  }
+
+  ngAfterContentInit(): void {
+    if (this.overlayTemplate) {
+      this.overlay = this.overlayTemplate;
+
+      this.dtOverlayConfig = {
+        data: {
+          label: this.slice.data.origin.label,
+          value: this.slice.value,
+        },
+      };
+    }
+  }
 }
