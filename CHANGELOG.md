@@ -1,3 +1,21 @@
+## [8.11.0](https://github.com/dynatrace-oss/barista/compare/8.10.0...8.11.0) (2021-01-12)
+
+### Bug Fixes
+
+- **chart:** Added DtPlotBackgroundInfo to exported interfaces.
+  ([36f5439](https://github.com/dynatrace-oss/barista/commit/36f5439a6c55166e4e1a0b6f7b271d1eaf0c790d))
+- **quick-filter:** Fixes an issue with initial display of active items in the
+  sidebar.
+  ([45e4ff4](https://github.com/dynatrace-oss/barista/commit/45e4ff407b9371ac683cdcb6bd0aa81f4bde6e87))
+- **tabs:** Fixes an issue where theme custom properties were not applied
+  correctly.
+  ([aab8675](https://github.com/dynatrace-oss/barista/commit/aab8675041c1174ef577c4425dbe194e734c5be4))
+
+### Features
+
+- **filter-field:** Added multiselect feature for autocompletes.
+  ([c29db10](https://github.com/dynatrace-oss/barista/commit/c29db108661327b082c032ecbad87bc82864bdcf))
+
 ## [8.10.0](https://github.com/dynatrace-oss/barista/compare/8.9.0...8.10.0) (2021-01-04)
 
 ### Bug Fixes
