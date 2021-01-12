@@ -1,3 +1,39 @@
+## [9.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/8.0.0...9.0.0-rc.0) (2021-01-12)
+
+This release includes an upgrade to all Angular packages to v11. Typescript was
+also upgraded to a minimum of 4.0.5 and the library now works inside projects
+using the new typescript version.
+
+### BREAKING CHANGES
+
+- **breadcrumbs:** Add properties needed for responsive breadcrumbs to the
+  constructor.
+- **linting:** Removed deprecated library which provided custom barista linting
+  rules.
+- **filter-field:** An injected `DtViewportResizer` is now required for the
+  filter-field component.
+- **drawer:** An injected `ChangeDetectorRef` is now required for the drawer
+  component.
+- **option:** An injected `NgZone` is now required for the option component.
+- **autocomplete:** An injected `DtViewportResizer` is now required for the
+  selection-area component.
+- **button-group:** The `selected` property has been removed. Please use
+  `checked` instead.
+- **button-group:** The `selectionChange` event has been removed. Please use
+  `checkedChange` instead.
+- **button-group:** The `DtButtonGroupItemSelectionChange` interface has been
+  removed. Please use `DtButtonGroupItemCheckedChange` instead.
+- **autocomplete:** The injected `NgZone` is now required for the autocomplete
+  component.
+- **radio:** The field `disabled` in `DtRadioButtonBase` has been changed to a
+  property to avoid an error with TypeScript 4 (see
+  https://github.com/microsoft/TypeScript/pull/37894).
+
+### Features
+
+- **breadcrumbs:** Introduce responsive behavior.
+  ([0ce1b0d](https://github.com/dynatrace-oss/barista/commit/0ce1b0dca5207a2d1340cfa80c8dcae7aab11c15))
+
 ## [8.11.0](https://github.com/dynatrace-oss/barista/compare/8.10.0...8.11.0) (2021-01-12)
 
 ### Bug Fixes
