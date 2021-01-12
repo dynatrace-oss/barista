@@ -24,6 +24,10 @@ import { DtDatePicker } from '@dynatrace/barista-components/experimental/datepic
   styleUrls: ['datepicker-demo.component.scss'],
 })
 export class DatepickerDemo {
+  minHourTimepicker = '';
+  maxHourTimepicker = '';
+  minMinuteTimepicker = '';
+  maxMinuteTimepicker = '';
   startAt = new Date(2020, 7, 31);
   minDate = new Date(2020, 5, 31);
   maxDate = new Date(2020, 11, 31);

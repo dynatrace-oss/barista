@@ -1,0 +1,23 @@
+<dt-form-field>
+  <dt-label>Minimum hour: {{ minHour }}</dt-label>
+  <input dtInput type="text" [(ngModel)]="minHour" />
+</dt-form-field>
+<dt-form-field>
+  <dt-label>Maximum hour: {{ maxHour }}</dt-label>
+  <input dtInput type="text" [(ngModel)]="maxHour" />
+</dt-form-field>
+<dt-form-field>
+  <dt-label>Minimum minute: {{ minMinute }}</dt-label>
+  <input dtInput type="text" [(ngModel)]="minMinute" />
+</dt-form-field>
+<dt-form-field>
+  <dt-label>Maximum minute: {{ maxMinute }}</dt-label>
+  <input dtInput type="text" [(ngModel)]="maxMinute" />
+</dt-form-field>
+
+<dt-timepicker
+  [minHour]="minHour"
+  [maxHour]="maxHour"
+  [minMinute]="minMinute"
+  [maxMinute]="maxMinute"
+></dt-timepicker>

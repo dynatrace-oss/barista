@@ -14,8 +14,16 @@
  * limitations under the License.
  */
 
-export * from './calendar-min-max-example/calendar-min-max-example';
-export * from './timepicker-min-max-example/timepicker-min-max-example';
-export * from './datepicker-dark-example/datepicker-dark-example';
-export * from './datepicker-default-example/datepicker-default-example';
-export * from './datepicker-examples.module';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-example-timepicker-minmax',
+  templateUrl: 'timepicker-min-max-example.html',
+  styleUrls: ['timepicker-min-max-example.scss'],
+})
+export class DtExampleTimepickerMinMax {
+  minHour = '';
+  maxHour = '';
+  minMinute = '';
+  maxMinute = '';
+}

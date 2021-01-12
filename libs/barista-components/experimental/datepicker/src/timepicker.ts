@@ -53,6 +53,18 @@ export class DtTimepicker {
   @Input()
   minute: number | null;
 
+  /** The minimum selectable hour. */
+  @Input() minHour: number | null = null;
+
+  /** The minimum selectable minute. */
+  @Input() minMinute: number | null = null;
+
+  /** The maximum selectable hour. */
+  @Input() maxHour: number | null = null;
+
+  /** The maximum selectable minute. */
+  @Input() maxMinute: number | null = null;
+
   /**
    * @internal
    * Property used for enabling the time range mode.

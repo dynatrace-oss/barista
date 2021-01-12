@@ -2,7 +2,11 @@
   margin-bottom: 20px;
 }
 
-.dt-calendar-limit-wrapper {
+.dt-checkbox + .dt-checkbox {
+  margin-left: 10px;
+}
+
+.dt-limit-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 10px;

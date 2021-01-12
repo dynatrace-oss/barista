@@ -31,7 +31,7 @@
   >Show Calendar Today Button
 </dt-checkbox>
 
-<div class="dt-calendar-limit-wrapper">
+<div class="dt-limit-wrapper">
   <div>Minimum date: {{ formattedMinDate }}</div>
   <div>Maximum date: {{ formattedMaxDate }}</div>
   <dt-datepicker
@@ -93,3 +93,29 @@
   ></dt-timepicker>
   <dt-checkbox [(ngModel)]="isDarkTimepickerDisabled">Disabled</dt-checkbox>
 </div>
+
+<h2>Timepicker with min and max hour and minute</h2>
+
+<dt-form-field>
+  <dt-label>Minimum hour for timepicker: {{ minHourTimepicker }}</dt-label>
+  <input dtInput type="text" [(ngModel)]="minHourTimepicker" />
+</dt-form-field>
+<dt-form-field>
+  <dt-label>Maximum hour for timepicker: {{ maxHourTimepicker }}</dt-label>
+  <input dtInput type="text" [(ngModel)]="maxHourTimepicker" />
+</dt-form-field>
+<dt-form-field>
+  <dt-label>Minimum minute for timepicker: {{ minMinuteTimepicker }}</dt-label>
+  <input dtInput type="text" [(ngModel)]="minMinuteTimepicker" />
+</dt-form-field>
+<dt-form-field>
+  <dt-label>Maximum minute for timepicker: {{ maxMinuteTimepicker }}</dt-label>
+  <input dtInput type="text" [(ngModel)]="maxMinuteTimepicker" />
+</dt-form-field>
+
+<dt-timepicker
+  [minHour]="minHourTimepicker"
+  [maxHour]="maxHourTimepicker"
+  [minMinute]="minMinuteTimepicker"
+  [maxMinute]="maxMinuteTimepicker"
+></dt-timepicker>

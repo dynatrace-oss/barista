@@ -21,6 +21,7 @@
       (keydown)="_handleKeydown($event)"
       (keyup)="_onHourKeyUp($event)"
       (paste)="_onTimePaste($event)"
+      (blur)="_onHourInputBlur()"
       aria-label="Please insert the hour"
     />
   </div>
@@ -45,6 +46,7 @@
       [ngModel]="minute"
       (input)="_handleMinuteInput($event)"
       (keydown)="_handleKeydown($event)"
+      (blur)="_onMinuteInputBlur()"
       aria-label="Please insert the minutes"
     />
   </div>

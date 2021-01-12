@@ -1,6 +1,6 @@
 {
-  "title": "Datepicker",
-  "description": "ToDo",
+  "title": "Datepicker (experimental)",
+  "description": "Datepicker with or without an embedded timepicker for selecting a date with the option of adding a time",
   "postid": "datepicker",
   "identifier": "Da",
   "category": "components",
@@ -28,5 +28,6 @@
     ]
   },
   "properties": ["work in progress", "experimental"],
-  "tags": ["datepicker", "component", "angular"]
+  "tags": ["datepicker", "component", "angular"],
+  "imageUrl": "https://dt-cdn.net/images/barista-preview-datepicker-307-c5c958d02e.png"
 }

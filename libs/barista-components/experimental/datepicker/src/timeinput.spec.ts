@@ -108,6 +108,8 @@ describe('DtTimeInput', () => {
       it('should switch focus from the hour to the minute input when typing in 2 digits in the hour input', fakeAsync(() => {
         component.timeInput.minute = null;
         component.timeInput.hour = 14;
+        component.timeInput._hourInput.nativeElement.value = '14';
+        component.timeInput._minuteInput.nativeElement.value = '';
         fixture.detectChanges();
 
         dispatchKeyboardEvent(hourEl, 'keyup', NUMPAD_ONE);
@@ -120,6 +122,8 @@ describe('DtTimeInput', () => {
       it('should switch focus from the hour to the minute input when typing in 2 digits in the hour input, but the minute input only had a valid 1 digit value', fakeAsync(() => {
         component.timeInput.hour = 15;
         component.timeInput.minute = 3;
+        component.timeInput._hourInput.nativeElement.value = '15';
+        component.timeInput._minuteInput.nativeElement.value = '3';
         fixture.detectChanges();
 
         dispatchKeyboardEvent(hourEl, 'keyup', NUMPAD_ONE);
@@ -132,6 +136,7 @@ describe('DtTimeInput', () => {
       it('should not switch focus from the hour to the minute input when typing in only one digit in the hour input', fakeAsync(() => {
         component.timeInput.minute = null;
         component.timeInput.hour = 1;
+        component.timeInput._hourInput.nativeElement.value = '1';
         fixture.detectChanges();
 
         dispatchKeyboardEvent(hourEl, 'keyup', NUMPAD_ONE);
@@ -143,6 +148,8 @@ describe('DtTimeInput', () => {
 
       it('should not switch focus from the hour to the minute input when typing in 2 digits in the hour input, but the minute input already had a valid 2 digit value', fakeAsync(() => {
         component.timeInput.hour = 15;
+        component.timeInput._hourInput.nativeElement.value = '15';
+        component.timeInput._minuteInput.nativeElement.value = '53';
         fixture.detectChanges();
 
         dispatchKeyboardEvent(hourEl, 'keyup', NUMPAD_ONE);
