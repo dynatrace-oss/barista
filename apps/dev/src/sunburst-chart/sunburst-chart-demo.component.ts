@@ -45,7 +45,7 @@ export class SunburstChartDemo {
   }
 
   openOverlay(): void {
-    this.chart.openOverlay(this.chart._slices[0]);
+    this.chart.openOverlay(this.chart._slices[3]);
   }
   closeOverlay(): void {
     this.chart.closeOverlay();

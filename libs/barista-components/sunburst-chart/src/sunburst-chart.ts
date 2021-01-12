@@ -161,7 +161,7 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   private _filledSeries: DtSunburstChartTooltipData[];
 
   /** Reference to the open overlay. */
-  private _overlayRef: DtOverlayRef<DtSunburstChartTooltipData> | null;
+  private _overlayRef: DtOverlayRef<unknown> | null;
 
   /** @internal Destroy subject to clear subscriptions on component destroy. */
   private readonly _destroy$ = new Subject<void>();
@@ -215,13 +215,16 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
       (segm) => segm.slice.data === node.data,
     );
     if (segment) {
-      const element = segment.elementRef.nativeElement as HTMLElement;
-      this._revealOverlay(
-        element,
-        element.getBoundingClientRect().left,
-        element.getBoundingClientRect().top,
-        node.data,
+      this._overlayRef = this._dtOverlayService.create(
+        segment.elementReference,
+        segment.overlayTemplate,
       );
+
+      this._dtOverlayService._positionStrategy.setOrigin({
+        x: segment.elementReference.nativeElement.getBoundingClientRect().left,
+        y: segment.elementReference.nativeElement.getBoundingClientRect().top,
+      });
+      this._overlayRef.updateImplicitContext(segment.slice.data);
     }
   }
 
@@ -266,41 +269,6 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   }
 
   /**
-   * @internal
-   * Handles the mouseEnter on a slice.
-   * Creates an overlay if it is necessary.
-   */
-  _handleOnMouseEnter(
-    event: MouseEvent,
-    slice: DtSunburstChartTooltipData,
-  ): void {
-    this._revealOverlay(
-      event.target as HTMLElement,
-      event.offsetX,
-      event.offsetY,
-      slice,
-    );
-  }
-
-  /**
-   * @internal
-   * Handles the mouseMove on a slice.
-   * Updates the position of the overlay to create a mouseFollow position
-   */
-  _handleOnMouseMove(event: MouseEvent): void {
-    // TODO: remove this `if` once dtOverlayService is mandatory
-    if (this._dtOverlayService) {
-      if (this._overlayRef) {
-        this._dtOverlayService._positionStrategy.setOrigin({
-          x: event.clientX,
-          y: event.clientY,
-        });
-        this._overlayRef.updatePosition();
-      }
-    }
-  }
-
-  /**
    * Sanitization of the custom property is necessary as, custom property assignments do not work
    * in a viewEngine setup. This can be removed with angular version 10, if ivy is no longer opt out.
    */
@@ -325,26 +293,6 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
       this._selectedLabel = this.noSelectionLabel;
       this._selectedValue = getValue(this._filledSeries);
       this._selectedRelativeValue = 1;
-    }
-  }
-
-  private _revealOverlay(
-    target: HTMLElement,
-    x: number,
-    y: number,
-    slice: DtSunburstChartTooltipData,
-  ): void {
-    this.closeOverlay();
-
-    // TODO: remove this `if` once dtOverlayService is mandatory
-    if (this._dtOverlayService) {
-      if (this._overlay && !this._overlayRef) {
-        this._overlayRef = this._dtOverlayService.create<
-          DtSunburstChartTooltipData
-        >(target, this._overlay);
-        this._dtOverlayService._positionStrategy.setOrigin({ x, y });
-        this._overlayRef.updateImplicitContext(slice);
-      }
     }
   }
 }

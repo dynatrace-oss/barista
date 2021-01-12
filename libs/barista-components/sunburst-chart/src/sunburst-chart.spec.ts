@@ -389,36 +389,25 @@ describe('DtSunburstChart', () => {
       expect(overlayContainer).toBeDefined();
     });
 
-    it('should display an overlay when hovering over a slice', () => {
-      const firstSlice = fixture.debugElement.query(By.css(selectors.segment));
-
-      dispatchFakeEvent(firstSlice.nativeElement, 'mouseenter');
+    it('should display and hide an overlay when calledff', () => {
+      component.openOverlay(component.slices[0]);
       fixture.detectChanges();
 
-      const overlayPane = overlayContainerElement.querySelector(
+      let overlayPane = overlayContainerElement.querySelector(
         selectors.overlay,
       );
       expect(overlayPane).toBeDefined();
 
       const overlayContent = (overlayPane!.textContent ?? '').trim();
       expect(overlayContent).toBe('Purple');
-    });
 
-    it('should remove the overlay when moving the mouse away from the slice', () => {
-      const firstSlice = fixture.debugElement.query(By.css(selectors.slice));
-      let overlayPane = overlayContainerElement.querySelector(
-        selectors.overlay,
-      );
-
-      dispatchFakeEvent(firstSlice.nativeElement, 'mouseenter');
+      component.closeOverlay();
       fixture.detectChanges();
-      overlayPane = overlayContainerElement.querySelector(selectors.overlay);
 
-      dispatchFakeEvent(firstSlice.nativeElement, 'mouseleave');
-      fixture.detectChanges();
-      overlayPane = overlayContainerElement.querySelector(selectors.overlay);
-
-      expect(overlayPane).toBeNull();
+      // we cannot check if it disappeared because of the animation, so let's check for an alternative
+      expect(
+        overlayPane?.attributes.getNamedItem('attr.aria-hidden'),
+      ).toBeTruthy();
     });
   });
 });
