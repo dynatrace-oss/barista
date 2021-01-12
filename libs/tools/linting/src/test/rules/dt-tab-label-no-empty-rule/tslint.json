@@ -1,6 +1,0 @@
-{
-  "rulesDirectory": "../../../../../../../dist/libs/components/tslint/src/rules/tabs",
-  "rules": {
-    "dt-tab-label-no-empty": true
-  }
-}

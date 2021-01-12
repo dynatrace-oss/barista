@@ -1028,31 +1028,6 @@
         }
       }
     },
-    "linting": {
-      "projectType": "library",
-      "root": "libs/tools/linting",
-      "sourceRoot": "libs/tools/linting/src",
-      "architect": {
-        "build": {
-          "builder": "./dist/libs/workspace:typescript",
-          "options": {
-            "tsConfig": "libs/tools/linting/tsconfig.json",
-            "outDir": "dist/libs/components/tslint"
-          },
-          "configurations": {
-            "production": {}
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tslintConfig": "libs/tools/linting/tslint-self.json",
-            "tsConfig": "libs/tools/linting/tsconfig.json",
-            "exclude": ["**/node_modules/**", "!libs/tools/linting/**/*"]
-          }
-        }
-      }
-    },
     "components": {
       "projectType": "library",
       "root": "libs/barista-components",
@@ -1086,7 +1061,7 @@
                 "output": "dist/libs/components/assets"
               }
             ],
-            "additionalTargets": ["schematics:build", "linting:build"]
+            "additionalTargets": ["schematics:build"]
           },
           "configurations": {
             "production": {}
