@@ -16,16 +16,20 @@ ng_module(
         "datepicker-dark-example/datepicker-dark-example.html",
         "datepicker-default-example/datepicker-default-example.html",
         "calendar-min-max-example/calendar-min-max-example.html",
+        "timepicker-min-max-example/timepicker-min-max-example.html",
         ":styles_dark_example",
         ":styles_default_example",
-        ":styles_min_max_example",
+        ":styles_calendar_min_max_example",
+        ":styles_timepicker_min_max_example",
     ],
     module_name = "@dynatrace/barista-examples/datepicker",
     tsconfig = "//libs/examples:tsconfig_lib",
     deps = [
         "//libs/barista-components/checkbox:compile",
+        "//libs/barista-components/input:compile",
         "//libs/barista-components/core:compile",
         "//libs/barista-components/experimental/datepicker:compile",
+        "//libs/barista-components/form-field:compile",
         "//libs/barista-components/theming:compile",
         "@npm//@angular/core",
         "@npm//@angular/forms",
@@ -43,8 +47,13 @@ sass_binary(
 )
 
 sass_binary(
-    name = "styles_min_max_example",
+    name = "styles_calendar_min_max_example",
     src = "calendar-min-max-example/calendar-min-max-example.scss",
+)
+
+sass_binary(
+    name = "styles_timepicker_min_max_example",
+    src = "timepicker-min-max-example/timepicker-min-max-example.scss",
 )
 
 stylelint(

@@ -132,3 +132,7 @@ The following methods are on the `DtDatepicker` class:
 ## Calendar with limited date range
 
 <ba-live-example name="DtExampleCalendarMinMax" fullwidth></ba-live-example>
+
+## Timepicker with limited hour or minutes ranges
+
+<ba-live-example name="DtExampleTimepickerMinMax" fullwidth></ba-live-example>

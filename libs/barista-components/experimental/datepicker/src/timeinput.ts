@@ -29,11 +29,13 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
-  isDefined,
   isEmpty,
+  isString,
   _readKeyCode,
 } from '@dynatrace/barista-components/core';
 import {
+  clampHours,
+  clampMinutes,
   hasMininmumTwoDigits,
   isPastedTimeValid,
   isValidHour,
@@ -90,6 +92,18 @@ export class DtTimeInput {
   }
   private _minute: number | null = null;
 
+  /** The minimum selectable hour. */
+  @Input() minHour: number | null = null;
+
+  /** The minimum selectable minute. */
+  @Input() minMinute: number | null = null;
+
+  /** The maximum selectable hour. */
+  @Input() maxHour: number | null = null;
+
+  /** The maximum selectable minute. */
+  @Input() maxMinute: number | null = null;
+
   /** Binding for the disabled state. */
   @Input()
   get disabled(): boolean {
@@ -128,14 +142,17 @@ export class DtTimeInput {
   /**
    * @internal
    * Add the focus switch from the hour input to the minute input when the user typed in 2 digits.
+   * Note: the nativeElement values are used here because otherwise the number values with leading zeros
+   * would be converted to 1 digit (e.g. 05 would be 5), which would falsely evaluate as 1 digit numbers
+   * and not switch the focus.
    */
   _onHourKeyUp(event: KeyboardEvent): void {
     const keyCode = _readKeyCode(event);
     if (
       keyCode !== SHIFT &&
       keyCode !== TAB &&
-      hasMininmumTwoDigits(this._hour) &&
-      !hasMininmumTwoDigits(this._minute)
+      hasMininmumTwoDigits(this._hourInput.nativeElement.value) &&
+      !hasMininmumTwoDigits(this._minuteInput.nativeElement.value)
     ) {
       this._minuteInput.nativeElement.focus();
     }
@@ -152,6 +169,26 @@ export class DtTimeInput {
   }
 
   /**
+   * @internal
+   * Called on hour input blur and check the min - max limits to validate the hour.
+   */
+  _onHourInputBlur(): void {
+    this._handleHourInputValidation(this.hour, this.minHour, this.maxHour);
+  }
+
+  /**
+   * @internal
+   * Called on minute input blur and check the min - max limits to validate the minute.
+   */
+  _onMinuteInputBlur(): void {
+    this._handleMinuteInputValidation(
+      this.minute,
+      this.minMinute,
+      this.maxMinute,
+    );
+  }
+
+  /**
    * @internal Handler for the user's hour input events.
    * NOTE: If keydown event is used to prevent adding invalid input,
    * we cannot access the whole value, just the last typed character, hence why we use the input event on the input elements
@@ -164,17 +201,21 @@ export class DtTimeInput {
   /**
    * @internal Check if the hour input is valid and set the new value accordingly.
    */
-  _handleHourInputValidation(value: string): void {
-    if (isValidHour(value)) {
-      this._hour = parseInt(value, 10);
+  _handleHourInputValidation(
+    value: string | number | null,
+    min?: number | null,
+    max?: number | null,
+  ): void {
+    if (isValidHour(value, min, max)) {
+      this._hour = isString(value) ? parseInt(value, 10) : value;
     } else {
       // reset the value to something valid - use fallback value if it exists and the new value is not empty, otherwise reset to empty
       if (isEmpty(value)) {
         this._hour = null;
       }
 
-      this._hourInput.nativeElement.value = isDefined(this._hour)
-        ? `${this._hour}`
+      this._hourInput.nativeElement.value = !isEmpty(this._hour)
+        ? clampHours(this._hour, this.minHour, this.maxHour)
         : '';
     }
 
@@ -190,15 +231,20 @@ export class DtTimeInput {
   /**
    * @internal Check if the minute input is valid and set the new value accordingly.
    */
-  _handleMinuteInputValidation(value: string): void {
-    if (isValidMinute(value)) {
-      this._minute = parseInt(value, 10);
+  _handleMinuteInputValidation(
+    value: string | number | null,
+    min?: number | null,
+    max?: number | null,
+  ): void {
+    if (isValidMinute(value, min, max)) {
+      this._minute = isString(value) ? parseInt(value, 10) : value;
     } else {
       if (isEmpty(value)) {
         this._minute = null;
       }
-      this._minuteInput.nativeElement.value = isDefined(this._minute)
-        ? `${this._minute}`
+
+      this._minuteInput.nativeElement.value = !isEmpty(this._minute)
+        ? clampMinutes(this._minute, this.minMinute, this.maxMinute)
         : '';
     }
 

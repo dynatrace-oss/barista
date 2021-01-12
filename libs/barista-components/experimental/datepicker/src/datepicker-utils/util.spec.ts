@@ -21,6 +21,7 @@ import {
   isValid,
   isPastedTimeValid,
   isOutsideMinMaxRange,
+  hasMininmumTwoDigits,
 } from './util';
 import { DtNativeDateAdapter } from '@dynatrace/barista-components/core';
 
@@ -33,6 +34,37 @@ describe('timeinput', () => {
     it('should prepend zeros for numbers smaller than 10', () => {
       expect(valueTo2DigitString(0)).toBe('00');
       expect(valueTo2DigitString(8)).toBe('08');
+    });
+  });
+
+  describe('hasMininmumTwoDigits', () => {
+    it('should return true if a number with at least two digits is passed in', () => {
+      expect(hasMininmumTwoDigits(15)).toBeTruthy();
+      expect(hasMininmumTwoDigits(20)).toBeTruthy();
+      expect(hasMininmumTwoDigits(123)).toBeTruthy();
+    });
+    it('should return false if a number with less than two digits is passed in', () => {
+      expect(hasMininmumTwoDigits(5)).toBeFalsy();
+      expect(hasMininmumTwoDigits(2)).toBeFalsy();
+      expect(hasMininmumTwoDigits(0)).toBeFalsy();
+    });
+    it('should return true if a string representing a number with at least two digits is passed in (e.g. if there is a leading 0)', () => {
+      expect(hasMininmumTwoDigits('15')).toBeTruthy();
+      expect(hasMininmumTwoDigits('20')).toBeTruthy();
+      expect(hasMininmumTwoDigits('02')).toBeTruthy();
+      expect(hasMininmumTwoDigits('05')).toBeTruthy();
+      expect(hasMininmumTwoDigits('00')).toBeTruthy();
+    });
+    it('should return false if a string representing a number with less than two digits is passed in', () => {
+      expect(hasMininmumTwoDigits('5')).toBeFalsy();
+      expect(hasMininmumTwoDigits('2')).toBeFalsy();
+      expect(hasMininmumTwoDigits('0')).toBeFalsy();
+    });
+    it('should return false if empty values are passed in', () => {
+      expect(hasMininmumTwoDigits('')).toBeFalsy();
+      expect(hasMininmumTwoDigits(' ')).toBeFalsy();
+      expect(hasMininmumTwoDigits('  ')).toBeFalsy();
+      expect(hasMininmumTwoDigits(null)).toBeFalsy();
     });
   });
 

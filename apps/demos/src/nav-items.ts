@@ -453,6 +453,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'calendar-min-max-example',
         route: '/calendar-min-max-example',
       },
+      {
+        name: 'timepicker-min-max-example',
+        route: '/timepicker-min-max-example',
+      },
     ],
   },
   {

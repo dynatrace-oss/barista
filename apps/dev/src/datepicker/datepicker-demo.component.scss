@@ -2,13 +2,21 @@
   margin-top: 10px;
 }
 
+.dt-checkbox + .dt-checkbox {
+  margin-left: 10px;
+}
+
 .dt-example-dark h2 {
   color: white;
 }
 
-.dt-calendar-limit-wrapper {
+.dt-limit-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
   row-gap: 10px;
   margin-bottom: 10px;
+}
+
+.dt-timepicker {
+  margin-top: 10px;
 }
