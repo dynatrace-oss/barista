@@ -235,9 +235,6 @@
 /libs/tools/barista/* @thomaspink
 /libs/tools/barista/src/** @NinaKammerlander @rowa-audil @thomaspink
 
-/libs/tools/linting/* @thomaspink @lukasholzer
-/libs/tools/linting/src/** @rowa-audil @heartdisease
-
 /libs/tools/** @lukasholzer @ffriedl89 @thomaspink
 
 /tools/generators/** @lukasholzer

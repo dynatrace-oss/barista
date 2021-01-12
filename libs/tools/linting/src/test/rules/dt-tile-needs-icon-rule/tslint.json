@@ -1,6 +1,0 @@
-{
-  "rulesDirectory": "../../../../../../../dist/libs/components/tslint/src/rules/tile",
-  "rules": {
-    "dt-tile-needs-icon": true
-  }
-}

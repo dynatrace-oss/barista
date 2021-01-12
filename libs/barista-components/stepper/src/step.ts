@@ -35,9 +35,6 @@ import { ErrorStateMatcher } from '@dynatrace/barista-components/core';
 import { DtStepLabel } from './step-label';
 import { DtStepper } from './stepper';
 
-/**
- * TODO ChMa: write linting rule for aria-label
- */
 @Component({
   selector: 'dt-step',
   template: '<ng-template><ng-content></ng-content></ng-template>',
