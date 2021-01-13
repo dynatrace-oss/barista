@@ -60,7 +60,7 @@ import {
 } from './sunburst-chart.util';
 
 /** Minimum width of the chart */
-const MIN_WIDTH = 480;
+const MIN_WIDTH = 340;
 
 /**
  * Sunburst chart is a donut chart with multiple levels that get unfolded on click and show an overlay on hover
@@ -101,6 +101,12 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   }
   private _selected: DtSunburstChartTooltipData[];
 
+  /**
+   * Defines the maxlength for the nodes labels.
+   * If it's set to 0, no truncation is applied.
+   */
+  @Input() truncateLabelBy: number = 10;
+
   /** Defines the default label displayed in the center of the sunburst-chart, if no nodes are selected. */
   @Input() noSelectionLabel: string = 'All';
   /** Sets the display mode for the sunburst-chart values to either 'percent' or 'absolute'.  */
@@ -122,9 +128,8 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   @ViewChild('svg') _svgEl;
 
   /** @internal Viewchildren selection for the slices */
-  @ViewChildren(DtSunburstChartSegment) private _segments: QueryList<
-    DtSunburstChartSegment
-  >;
+  @ViewChildren(DtSunburstChartSegment)
+  private _segments: QueryList<DtSunburstChartSegment>;
 
   /** Slices to be painted. Exposed so users can open overlays */
   get slices(): DtSunburstChartNodeSlice[] {
@@ -310,11 +315,13 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
 
   /** Calculates visible slices based on their state */
   private _render(): void {
+    const containerWidth = this._elementRef.nativeElement.getBoundingClientRect()
+      .width;
     const nodesWithState = getNodesWithState(
       this._filledSeries,
       getSelectedId(this._filledSeries, this._selected),
     );
-    this._slices = getSlices(nodesWithState, this._radius);
+    this._slices = getSlices(nodesWithState, this._radius, containerWidth);
 
     if (this._selected && this._selected.length) {
       this._selectedLabel = this._selected.slice(-1)[0].label ?? '';

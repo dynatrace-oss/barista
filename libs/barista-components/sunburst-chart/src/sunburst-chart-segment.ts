@@ -50,6 +50,9 @@ export class DtSunburstChartSegment {
    */
   @Input() valueAsAbsolute: boolean;
 
+  /** @internal Defines the maxlength for the nodes labels. */
+  @Input() truncateLabelBy: number;
+
   /**
    * @param elementRef Used by parent to get HTMLElement
    */

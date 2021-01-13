@@ -112,14 +112,27 @@ export interface DtSunburstChartNodeSlice {
 const SVG_SETTINGS = {
   ringWidthRadius: 32,
   borderWidthRadius: 16,
-  // innerRadius: 64,
-  // radius for the centroid of label
+  // Value for narrowing labels to the chart's centroid
+  labelTighten: 0,
+
+  // Margin from the chart's external end until the content-box end
   labelOffsetRadius: 32,
   // radius for the centroid of tooltip so it does not overlap the slice causing a possible flickering
   tooltipOffsetRadius: 64,
   // Minimum angle for the label should be 15°, needs to be converted into radians for further processing.
   minAngleForLabel: (15 / 360) * 2 * Math.PI,
 };
+const SVG_SETTINGS_SMALL_VIEW = {
+  ...SVG_SETTINGS,
+  ringWidthRadius: 28,
+  borderWidthRadius: 12,
+  // Value for narrowing labels to the chart's centroid
+  labelTighten: 10,
+
+  // Margen desde el final del exterior chart hasta el límite de la caja componente
+  labelOffsetRadius: 24,
+};
+const MALL_VIEW_WIDTH = 440;
 const IS_SEPARATOR = '.';
 const MAX_LEVELS = 3;
 
@@ -345,7 +358,10 @@ export const getSelectedId = (
 export const getSlices = (
   nodes: DtSunburstChartTooltipData[],
   radius: number,
+  containerWidth: number,
 ): DtSunburstChartNodeSlice[] => {
+  const settings =
+    containerWidth > MALL_VIEW_WIDTH ? SVG_SETTINGS : SVG_SETTINGS_SMALL_VIEW;
   const numLevels = nodes.reduce(
     (maxLevel, node) => Math.max(maxLevel, node.depth),
     0,
@@ -355,8 +371,9 @@ export const getSlices = (
     nodes,
     radius -
       Math.min(numLevels, MAX_LEVELS) *
-        (SVG_SETTINGS.ringWidthRadius + SVG_SETTINGS.borderWidthRadius) -
-      SVG_SETTINGS.labelOffsetRadius,
+        (settings.ringWidthRadius + settings.borderWidthRadius) -
+      settings.labelOffsetRadius,
+    settings,
   );
 };
 
@@ -372,6 +389,7 @@ export const getSlices = (
 const getSlicesByParent = (
   nodes: DtSunburstChartTooltipData[],
   innerRadius: number,
+  svgSettings = SVG_SETTINGS,
   startAngle: number = 0,
   endAngle: number = 2 * Math.PI,
 ): DtSunburstChartNodeSlice[] => {
@@ -389,8 +407,8 @@ const getSlicesByParent = (
         innerRadius,
         outerRadius:
           innerRadius +
-          SVG_SETTINGS.ringWidthRadius +
-          (segment.data.active ? SVG_SETTINGS.borderWidthRadius : 0),
+          svgSettings.ringWidthRadius +
+          (segment.data.active ? svgSettings.borderWidthRadius : 0),
       };
       return [
         ...paths,
@@ -400,24 +418,27 @@ const getSlicesByParent = (
           labelPosition: arc().centroid({
             ...sliceBoundaries,
             innerRadius:
-              sliceBoundaries.outerRadius + SVG_SETTINGS.labelOffsetRadius,
+              sliceBoundaries.outerRadius +
+              svgSettings.labelOffsetRadius -
+              svgSettings.labelTighten,
             outerRadius:
-              sliceBoundaries.outerRadius + SVG_SETTINGS.labelOffsetRadius,
+              sliceBoundaries.outerRadius + svgSettings.labelOffsetRadius,
           }),
           tooltipPosition: arc().centroid({
             ...sliceBoundaries,
             innerRadius:
-              sliceBoundaries.outerRadius + SVG_SETTINGS.tooltipOffsetRadius,
+              sliceBoundaries.outerRadius + svgSettings.tooltipOffsetRadius,
             outerRadius:
-              sliceBoundaries.outerRadius + SVG_SETTINGS.tooltipOffsetRadius,
+              sliceBoundaries.outerRadius + svgSettings.tooltipOffsetRadius,
           }),
           showLabel:
             segment.endAngle - segment.startAngle >
-            SVG_SETTINGS.minAngleForLabel,
+            svgSettings.minAngleForLabel,
         },
         ...getSlicesByParent(
           segment.data.children ?? [],
           sliceBoundaries.outerRadius,
+          svgSettings,
           segment.startAngle,
           segment.endAngle,
         ),

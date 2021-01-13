@@ -17,6 +17,6 @@
     }}
   </text>
   <text class="dt-sunburst-chart-label dt-sunburst-chart-slice-label">
-    {{ slice.data.label }}
+    {{ slice.data.label | truncate: truncateLabelBy }}
   </text>
 </svg:g>

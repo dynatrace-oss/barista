@@ -16,25 +16,11 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { DtSunburstChart } from './sunburst-chart';
-import { DtSunburstChartOverlay } from './sunburst-chart.directive';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
-import { DtSunburstChartSegment } from './sunburst-chart-segment';
-import { SunburstChartPipesModule } from './pipes/sunburst-chart-pipes.module';
+import { TruncatePipe } from './truncate.pipe';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    OverlayModule,
-    SunburstChartPipesModule,
-    DtFormattersModule,
-  ],
-  exports: [DtSunburstChart, DtSunburstChartOverlay],
-  declarations: [
-    DtSunburstChart,
-    DtSunburstChartOverlay,
-    DtSunburstChartSegment,
-  ],
+  imports: [CommonModule],
+  declarations: [TruncatePipe],
+  exports: [TruncatePipe],
 })
-export class DtSunburstChartModule {}
+export class SunburstChartPipesModule {}
