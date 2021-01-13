@@ -67,4 +67,51 @@ export const stackedSeriesChartDemoData = [
       },
     ],
   },
+  {
+    label: 'Caffé latte (Extra latte)',
+    nodes: [
+      {
+        value: 2,
+        label: 'Coffee',
+      },
+      {
+        value: 3,
+        label: 'Milk',
+      },
+    ],
+  },
+  {
+    label: 'Cappuccino',
+    nodes: [
+      {
+        value: 2,
+        label: 'Milk',
+      },
+      {
+        value: 2,
+        label: 'Coffee',
+      },
+    ],
+  },
+  {
+    label: 'Caramel Frappucino',
+    nodes: [
+      {
+        value: 1,
+        label: 'Milk',
+      },
+      {
+        value: 1,
+        label: 'Coffee',
+      },
+      {
+        value: 1,
+        label: 'Caramel',
+      },
+      {
+        value: 1,
+        label: 'Ice',
+      },
+    ],
+  },
 ];

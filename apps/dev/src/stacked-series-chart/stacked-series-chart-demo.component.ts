@@ -42,10 +42,11 @@ export class StackedSeriesChartDemo {
   visibleLegend: boolean = true;
   fillMode: DtStackedSeriesChartFillMode = 'relative';
   multiSeries = true;
-  mode: DtStackedSeriesChartMode = 'bar';
+  mode: DtStackedSeriesChartMode = 'column';
   maxTrackSize: number = 16;
   visibleTrackBackground: boolean = true;
   visibleValueAxis: boolean = true;
+  labelAxisMode = 'auto';
 
   series = stackedSeriesChartDemoData;
 

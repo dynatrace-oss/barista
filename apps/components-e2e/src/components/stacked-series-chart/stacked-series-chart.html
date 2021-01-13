@@ -1,5 +1,6 @@
 <dt-stacked-series-chart
-  style="min-height: 400px; width: 800px"
+  style="min-height: 400px"
+  [style.width]="elementWidth"
   id="test-stacked-series-chart"
   [selected]="selected"
   [selectionMode]="selectionMode"
@@ -12,6 +13,7 @@
   [visibleValueAxis]="visibleValueAxis"
   [visibleLegend]="visibleLegend"
   [visibleLabel]="visibleLabel"
+  [labelAxisMode]="labelAxisMode"
   [visibleTrackBackground]="visibleTrackBackground"
   [maxTrackSize]="maxTrackSize"
   [max]="max"
@@ -91,6 +93,21 @@
 </div>
 
 <div>
+  <button (click)="labelAxisMode = 'full'" id="chart-full-label-axis-mode">
+    Full
+  </button>
+  <button
+    (click)="labelAxisMode = 'compact'"
+    id="chart-compact-label-axis-mode"
+  >
+    Compact
+  </button>
+  <button (click)="labelAxisMode = 'auto'" id="chart-auto-label-axis-mode">
+    Auto
+  </button>
+</div>
+
+<div>
   <button
     (click)="visibleTrackBackground = true"
     id="chart-visible-track-background"
@@ -143,4 +160,9 @@
     Select
   </button>
   <button (click)="selected = []" id="chart-unselect">Unselect</button>
+</div>
+
+<div>
+  <button (click)="setElementWidth('800px')" id="chart-width-800">800px</button>
+  <button (click)="setElementWidth('400px')" id="chart-width-400">400px</button>
 </div>

@@ -1,6 +1,13 @@
 <div
+  #chartContainer
   class="dt-stacked-series-chart-container"
   [class.dt-stacked-series-chart-label-none]="!visibleLabel"
+  [class.dt-stacked-series-chart-series-axis-compact-mode]="
+    _labelAxisCompactModeEnabled
+  "
+  [class.dt-stacked-series-chart-series-axis-auto-mode]="
+    labelAxisMode === 'auto'
+  "
   [style]="
     _sanitizeCSS([
       ['--dt-stacked-series-chart-track-amount', _tracks.length],
@@ -27,7 +34,14 @@
       class="dt-stacked-series-chart-track-label"
       [style]="_sanitizeCSS([['--dt-stacked-series-chart-track-index', i + 1]])"
     >
-      {{ track.origin.label }}
+      <span
+        #label
+        class="dt-stacked-series-chart-track-label-content"
+        [dtOverlay]="_labelAxisCompactModeEnabled && labelOverlay"
+        [dtOverlayConfig]="{ data: track.origin.label }"
+      >
+        {{ track.origin.label }}
+      </span>
     </span>
 
     <div
@@ -74,12 +88,13 @@
           ['--dt-stacked-series-chart-tick-position', tick.pos + '%']
         ])
       "
-      >{{
+    >
+      {{
         valueDisplayMode === 'percent'
           ? (tick.valueRelative * 100 | dtPercent)
           : (tick.value | dtCount)
-      }}</span
-    >
+      }}
+    </span>
   </div>
 </div>
 
@@ -101,3 +116,7 @@
     {{ legend.label }}
   </dt-legend-item>
 </dt-legend>
+
+<ng-template #labelOverlay let-label>
+  {{ label }}
+</ng-template>

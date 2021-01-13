@@ -19,15 +19,18 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChild,
+  ElementRef,
   EventEmitter,
   Input,
   NgZone,
   OnDestroy,
   Optional,
   Output,
+  QueryList,
   SkipSelf,
   TemplateRef,
   ViewChild,
+  ViewChildren,
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
@@ -39,7 +42,7 @@ import { formatCount } from '@dynatrace/barista-components/formatters';
 import { DtColors, DtTheme } from '@dynatrace/barista-components/theming';
 import { scaleLinear } from 'd3-scale';
 import { merge, Subject } from 'rxjs';
-import { first, switchMapTo, takeUntil } from 'rxjs/operators';
+import { first, tap, switchMapTo, takeUntil } from 'rxjs/operators';
 import { DtStackedSeriesChartNode } from '..';
 import { DtStackedSeriesChartOverlay } from './stacked-series-chart-overlay.directive';
 import {
@@ -57,6 +60,7 @@ import {
   getSeriesWithState,
   getTotalMaxValue,
   updateNodesVisibility,
+  DtStackedSeriesChartLabelAxisMode,
 } from './stacked-series-chart.util';
 import { DtOverlayRef, DtOverlay } from '@dynatrace/barista-components/overlay';
 import {
@@ -88,6 +92,7 @@ const TICK_COLUMN_SPACING = 80;
     '[class.dt-stacked-series-chart-with-value-axis]': 'visibleValueAxis',
     '[class.dt-stacked-series-chart-bar]': "mode === 'bar'",
     '[class.dt-stacked-series-chart-column]': "mode === 'column'",
+    '[style.--dt-stacked-series-chart-grid-gap]': '_gridGap',
   },
 })
 export class DtStackedSeriesChart implements OnDestroy {
@@ -263,6 +268,20 @@ export class DtStackedSeriesChart implements OnDestroy {
     relative: 0,
   };
 
+  /** Whether to show the label axis rotated to fit more labels */
+  @Input() labelAxisMode: DtStackedSeriesChartLabelAxisMode = 'full';
+  /** @internal  Support only for mode === 'column', wouldn't make sense for 'row' */
+  get _labelAxisCompactModeEnabled(): boolean {
+    return (
+      this.mode === 'column' &&
+      (this.labelAxisMode === 'compact' ||
+        (this.labelAxisMode === 'auto' && this._isAnyLabelOverflowing()))
+    );
+  }
+
+  /** Gap between cells in the grid */
+  _gridGap = 16;
+
   /** Current selection [series, node] */
   @Input()
   get selected(): DtStackedSeriesChartSelection | [] {
@@ -286,7 +305,13 @@ export class DtStackedSeriesChart implements OnDestroy {
   _overlay: TemplateRef<DtStackedSeriesChartTooltipData>;
 
   /** @internal Reference to the root svgElement. */
-  @ViewChild('valueAxis') _valueAxis;
+  @ViewChild('valueAxis') _valueAxis: ElementRef;
+
+  /** @internal Reference to the root element. */
+  @ViewChild('chartContainer') _chartContainer: ElementRef;
+
+  /** @internal Reference to the elements on the label axis. */
+  @ViewChildren('label') labels: QueryList<ElementRef>;
 
   /** Reference to the open overlay. */
   private _overlayRef: DtOverlayRef<DtStackedSeriesChartTooltipData> | null;
@@ -324,6 +349,11 @@ export class DtStackedSeriesChart implements OnDestroy {
 
     merge(this._shouldUpdateTicks, this._resizer.change())
       .pipe(
+        tap(() => {
+          // Recalculate every time the size changes
+          this._isAnyLabelOverflowing();
+          this._changeDetectorRef.detectChanges();
+        }),
         // Shift the updating/rendering to the next CD cycle,
         // because we need the dimensions of axis first, which is rendered in the main cycle.
         switchMapTo(this._zone.onStable.pipe(first())),
@@ -512,5 +542,28 @@ export class DtStackedSeriesChart implements OnDestroy {
           1.5,
       };
     }
+  }
+  /** Return the width in px of the longest label on the label axis */
+  private _getLongestLabelWidth(): number {
+    return this.labels.reduce((labelCount: number, label: ElementRef) => {
+      return label.nativeElement.scrollWidth > labelCount
+        ? label.nativeElement.scrollWidth
+        : labelCount;
+    }, 0);
+  }
+
+  /** Whether there's a label on the label axis that is overflowing its allocated space on the css grid */
+  private _isAnyLabelOverflowing(): boolean {
+    if (
+      !this.labels ||
+      !this.series?.length ||
+      !this._chartContainer?.nativeElement
+    )
+      return false;
+    return (
+      this._getLongestLabelWidth() >
+      this._chartContainer.nativeElement.offsetWidth / this.series.length -
+        this._gridGap
+    );
   }
 }

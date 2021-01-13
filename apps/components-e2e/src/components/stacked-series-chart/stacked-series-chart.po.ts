@@ -18,6 +18,7 @@ import { Selector } from 'testcafe';
 
 export const body = Selector('body');
 export const chart = Selector('test-stacked-series-chart');
+export const chartContainer = Selector('.dt-stacked-series-chart-container');
 export const overlay = Selector('.dt-overlay-container');
 export const columnChart = Selector('.dt-stacked-series-chart-column');
 export const barChart = Selector('.dt-stacked-series-chart-bar');
@@ -69,6 +70,12 @@ export const nonVisibleLegendBtn = Selector('#chart-non-visible-legend');
 export const visibleLabelBtn = Selector('#chart-visible-label');
 export const nonVisibleLabelBtn = Selector('#chart-non-visible-label');
 
+export const fullLabelAxisModeBtn = Selector('#chart-full-label-axis-mode');
+export const compactLabelAxisModeBtn = Selector(
+  '#chart-compact-label-axis-mode',
+);
+export const autoLabelAxisModeBtn = Selector('#chart-auto-label-axis-mode');
+
 export const visibleTrackBkgBtn = Selector('#chart-visible-track-background');
 export const nonVisibleTrackBkgBtn = Selector(
   '#chart-non-visible-track-background',
@@ -88,3 +95,6 @@ export const nonSelectableBtn = Selector('#chart-non-selectable');
 
 export const selectBtn = Selector('#chart-select');
 export const unselectBtn = Selector('#chart-unselect');
+
+export const chartWidth800Btn = Selector('#chart-width-800');
+export const chartWidth400Btn = Selector('#chart-width-400');

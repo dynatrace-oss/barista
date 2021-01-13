@@ -1,6 +1,6 @@
 @import '../../core/src/style/variables';
 
-$gap: 16px;
+$gap: calc(var(--dt-stacked-series-chart-grid-gap) * 1px);
 $bullet-height: 12px;
 $track-color: $gray-200;
 $selected-size: 4px;
