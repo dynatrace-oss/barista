@@ -81,6 +81,21 @@ See stacked-series-chart.layout.md
   }
 }
 
+.dt-stacked-series-chart-track-label {
+  text-align: center;
+}
+
+.dt-stacked-series-chart-track-label-content {
+  outline: none;
+}
+
+.dt-stacked-series-chart-series-axis-auto-mode {
+  .dt-stacked-series-chart-track-label-content {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
 /** Legend */
 .dt-stacked-series-chart-legend {
   display: flex;

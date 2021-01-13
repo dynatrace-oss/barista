@@ -94,3 +94,33 @@ See stacked-series-chart.layout.md
   .dt-stacked-series-chart-container {
   padding-left: var(--dt-stacked-series-chart-value-axis-size);
 }
+
+.dt-stacked-series-chart-series-axis-compact-mode {
+  .dt-stacked-series-chart-track-label {
+    width: 14px;
+    height: 70px;
+    position: relative;
+
+    &::after {
+      position: absolute;
+      display: block;
+      background: $axis-color;
+      width: 1px;
+      height: 8px;
+      top: -16px;
+      right: 50%;
+      content: ' ';
+    }
+
+    .dt-stacked-series-chart-track-label-content {
+      width: 100px;
+      position: absolute;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transform: translate(-80%, 100%) rotate(-45deg);
+      white-space: nowrap;
+      text-align: right;
+    }
+  }
+}

@@ -17,9 +17,12 @@
 import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
 import { absoluteBtn, percentBtn } from '../sunburst-chart/sunburst-chart.po';
 import {
+  autoLabelAxisModeBtn,
   barBtn,
   barChart,
   body,
+  chartWidth400Btn,
+  chartContainer,
   columnBtn,
   columnChart,
   fullTrackBtn,
@@ -63,6 +66,8 @@ const hover: MouseActionOptions = {
 
 const selectedSliceClassname = 'dt-stacked-series-chart-slice-selected';
 
+const compactModeClassname = 'dt-stacked-series-chart-series-axis-compact-mode';
+
 fixture('Stacked series chart')
   .page('http://localhost:4200/stacked-series-chart')
   .beforeEach(async () => {
@@ -76,11 +81,11 @@ test('should have the defaults', async (testController) => {
     .expect(barChart)
     .ok()
     .expect(tracks.count)
-    .eql(4)
+    .eql(5)
     .expect(labels.count)
-    .eql(4)
+    .eql(5)
     .expect(slices.count)
-    .eql(8)
+    .eql(10)
     .expect(legend)
     .ok()
     .expect(valueAxis)
@@ -90,7 +95,7 @@ test('should have the defaults', async (testController) => {
     .expect(getLabel(0).textContent)
     .match(/Espresso/)
     .expect(getSlice(0, 0).clientWidth)
-    .within(135, 150)
+    .within(125, 140)
     .expect(getSlice(0, 0).clientHeight)
     .eql(16)
     .expect(getSlice(0, 0).getStyleProperty('background-color'))
@@ -107,11 +112,11 @@ test('should change the mode and fillMode', async (testController) => {
     .expect(columnChart)
     .ok()
     .expect(tracks.count)
-    .eql(4)
+    .eql(5)
     .expect(labels.count)
-    .eql(4)
+    .eql(5)
     .expect(slices.count)
-    .eql(8)
+    .eql(10)
     .expect(ticks.count)
     .eql(6)
     .expect(getLabel(0).textContent)
@@ -119,16 +124,16 @@ test('should change the mode and fillMode', async (testController) => {
     .expect(getSlice(0, 0).clientWidth)
     .eql(16)
     .expect(getSlice(0, 0).clientHeight)
-    .within(60, 70)
+    .within(57, 67)
     .expect(legendItems.count)
     .eql(4)
     // fillMode
     .click(fullTrackBtn)
     .expect(getSlice(0, 0).clientHeight)
-    .within(315, 325)
+    .within(290, 300)
     .click(barBtn)
     .expect(getSlice(0, 0).clientWidth)
-    .within(705, 720);
+    .within(635, 650);
 });
 
 test('should change to single and multitrack with corresponding value display modes', async (testController) => {
@@ -227,10 +232,10 @@ test('should accept a max and toggle track background', async (testController) =
     // max
     .click(max10Btn)
     .expect(getSlice(0, 0).clientWidth)
-    .within(68, 75)
+    .within(60, 71)
     .click(noMaxBtn)
     .expect(getSlice(0, 0).clientWidth)
-    .within(135, 150)
+    .within(125, 140)
 
     // track background
     .expect(getTrack(0).getStyleProperty('background-color'))
@@ -251,4 +256,18 @@ test('should show overlay on hover', async (testController: TestController) => {
     .hover(body, { ...hover, offsetX: 10, offsetY: 10 })
     .expect(overlay.exists)
     .notOk();
+});
+
+test('should switch from full to compact on labelAxisMode auto', async (testController: TestController) => {
+  await testController
+    .click(resetBtn)
+    .click(columnBtn)
+    .expect(chartContainer.classNames)
+    .notContains(compactModeClassname)
+    .click(autoLabelAxisModeBtn)
+    .click(chartWidth400Btn)
+    .resizeWindowToFitDevice('ipad')
+    .wait(250) // Wait for the DtViewportResizer event to trigger
+    .expect(chartContainer.classNames)
+    .contains(compactModeClassname);
 });

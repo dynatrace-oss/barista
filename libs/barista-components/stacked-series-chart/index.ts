@@ -26,4 +26,5 @@ export {
   DtStackedSeriesChartTooltipData,
   DtStackedSeriesChartSelectionMode,
   DtStackedSeriesChartValueDisplayMode,
+  DtStackedSeriesChartLabelAxisMode,
 } from './src/stacked-series-chart.util';

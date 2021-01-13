@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import {
   DtStackedSeriesChartNode,
   DtStackedSeriesChartSeries,
@@ -23,6 +23,7 @@ import {
   DtStackedSeriesChartLegend,
   DtStackedSeriesChartMode,
   DtStackedSeriesChartSelectionMode,
+  DtStackedSeriesChartLabelAxisMode,
 } from '@dynatrace/barista-components/stacked-series-chart';
 import { DtColors } from '@dynatrace/barista-components/theming';
 
@@ -40,6 +41,7 @@ export class DtE2EStackedSeriesChart {
   visibleValueAxis: boolean = true;
   visibleLegend: boolean = true;
   visibleLabel: boolean = true;
+  labelAxisMode: DtStackedSeriesChartLabelAxisMode = 'full';
   visibleTrackBackground: boolean = true;
   maxTrackSize: number = 16;
   max: number | undefined;
@@ -99,6 +101,19 @@ export class DtE2EStackedSeriesChart {
         },
       ],
     },
+    {
+      label: 'Caffé latté (Extra latté)',
+      nodes: [
+        {
+          value: 2,
+          label: 'Coffee',
+        },
+        {
+          value: 3,
+          label: 'Milk',
+        },
+      ],
+    },
   ];
 
   legends: DtStackedSeriesChartLegend[] = [
@@ -110,7 +125,9 @@ export class DtE2EStackedSeriesChart {
 
   usedSeries: DtStackedSeriesChartSeries[] = this.series;
 
-  constructor() {
+  elementWidth = '800px';
+
+  constructor(private changeDetector: ChangeDetectorRef) {
     this.reset();
   }
 
@@ -124,11 +141,18 @@ export class DtE2EStackedSeriesChart {
     this.visibleValueAxis = true;
     this.visibleLegend = true;
     this.visibleLabel = true;
+    this.labelAxisMode = 'full';
     this.visibleTrackBackground = true;
     this.maxTrackSize = 16;
     this.max = undefined;
     this.usedLegends = undefined;
     // force recalculation of legends
     this.usedSeries = this.series.slice();
+    this.elementWidth = '800px';
+  }
+
+  setElementWidth(width: string): void {
+    this.elementWidth = width;
+    this.changeDetector.detectChanges();
   }
 }

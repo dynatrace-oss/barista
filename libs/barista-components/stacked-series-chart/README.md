@@ -46,7 +46,7 @@ follow the same order given by the developer
 | `series`                 | `DtStackedSeriesChartSeries[]`                            | -          | Array of series with their nodes.                                                                                                                                                                                     |
 | `selectable`             | `boolean`                                                 | false      | Allow selections to be made on chart                                                                                                                                                                                  |
 | `selected`               | `[DtStackedSeriesChartSeries, DtStackedSeriesChartNode?]` | -          | Current selection [series, node] node will be null if `selectionMode` is `stack`                                                                                                                                      |
-| `selectionMode`          | `DtStackedSeriesChartSelectionMode`                       | 'node'     | Whether to make just the nodes selectable or the whole stack                                                                                                                                                          |
+| `selectionMode`          | `DtStackedSeriesChartSelectionMode`                       | 'node'     | Whether to make just the nodes selectable or the whole stack.                                                                                                                                                         |
 | `max`                    | `number                                                   | undefined` | Max value in the chart. Useful when binding multiple stacked-series-chart.                                                                                                                                            |
 | `fillMode`               | `DtStackedSeriesChartFillMode`                            | -          | Whether each bar should be filled completely or should take into account their siblings and max.                                                                                                                      |
 | `valueDisplayMode`       | `DtStackedSeriesChartValueDisplayMode`                    | `'none'`   | Sets the display mode for the stacked-series-chart values in legend to either 'none' 'percent' or 'absolute'. In single track chart value is displayed also in legend. For axis value 'none' falls back to 'absolute' |
@@ -55,6 +55,7 @@ follow the same order given by the developer
 | `visibleTrackBackground` | `boolean`                                                 | true       | Whether background should be transparent or show a background.                                                                                                                                                        |
 | `visibleLabel`           | `boolean`                                                 | true       | Visibility of series label.                                                                                                                                                                                           |
 | `visibleValueAxis`       | `boolean`                                                 | true       | Visibility of value axis.                                                                                                                                                                                             |
+| `labelAxisMode`          | `DtStackedSeriesChartLabelAxisMode`                       | `full`     | Mode of the label axis, compact would make space for more labels.                                                                                                                                                     |
 | `maxTrackSize`           | `number`                                                  | 16         | Maximum size of the track.                                                                                                                                                                                            |
 
 #### Outputs
@@ -105,6 +106,17 @@ a percentage of the total or not show it.
 | `none`     | Do not display the value in legend                    |
 | `absolute` | Display the value present in DtStackedSeriesChartNode |
 | `percent`  | Display the percentage of the node within that series |
+
+### DtStackedSeriesChartLabelAxisMode
+
+For the `column` mode, it might be interesting to show the labels rotated in
+order that more labels fit in the chart and there is less overlap between them.
+
+| Value     | Description                                                                   |
+| --------- | ----------------------------------------------------------------------------- |
+| `full`    | Labels parallel to the axis                                                   |
+| `compact` | Labels rotated 45º to make space for more                                     |
+| `auto`    | Full mode which turns into compact if a label can fit it's proportional width |
 
 ### DtStackedSeriesChartSeries
 

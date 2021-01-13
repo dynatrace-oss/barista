@@ -7,6 +7,7 @@
   [visibleLabel]="visibleLabel"
   [visibleLegend]="visibleLegend"
   [visibleValueAxis]="visibleValueAxis"
+  [labelAxisMode]="labelAxisMode"
   [fillMode]="fillMode"
   [mode]="mode"
   [maxTrackSize]="maxTrackSize"
@@ -54,6 +55,13 @@
 
     <h3>Label</h3>
     <dt-switch [(ngModel)]="visibleLabel">Visible</dt-switch>
+
+    <h3>Label Axis Mode</h3>
+    <dt-button-group [disabled]="mode === 'bar'" [(value)]="labelAxisMode">
+      <dt-button-group-item value="full">Full</dt-button-group-item>
+      <dt-button-group-item value="compact">Compact</dt-button-group-item>
+      <dt-button-group-item value="auto">Auto</dt-button-group-item>
+    </dt-button-group>
 
     <h3>Track</h3>
     <h4>Background</h4>
