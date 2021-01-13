@@ -39,6 +39,7 @@ describe('SunburstChart util', () => {
   const palette = DT_CHART_COLOR_PALETTE_ORDERED;
   const disabledColor = DtColors.GRAY_300;
   const disabledColorHover = `${disabledColor}99`;
+  const containerWidth = 800;
 
   describe('fillNodes', () => {
     it('should fill and sort the values and children', () => {
@@ -549,7 +550,11 @@ describe('SunburstChart util', () => {
           value: 4,
         },
       ];
-      const actual = getSlices(getNodesWithState(filledNodes), radius);
+      const actual = getSlices(
+        getNodesWithState(filledNodes),
+        radius,
+        containerWidth,
+      );
 
       expect(actual).toEqual(expected);
     });
@@ -664,7 +669,11 @@ describe('SunburstChart util', () => {
           value: 3,
         },
       ];
-      const actual = getSlices(getNodesWithState(filledNodes, '1.0'), radius);
+      const actual = getSlices(
+        getNodesWithState(filledNodes, '1.0'),
+        radius,
+        containerWidth,
+      );
 
       expect(actual).toEqual(expected);
     });

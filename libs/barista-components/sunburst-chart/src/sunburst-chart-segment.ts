@@ -68,6 +68,9 @@ export class DtSunburstChartSegment
    */
   @Input() valueAsAbsolute: boolean;
 
+  /** @internal Defines the maxlength for the nodes labels. */
+  @Input() truncateLabelBy: number;
+
   /**
    * @internal
    * The template ref for the overlay template.
