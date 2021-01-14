@@ -329,7 +329,6 @@ test('should work with async data and handle distincts correctly', async (testCo
   await clickOption(2);
   // Click option Los Angeles
   await clickOption(2);
-
   // Expect the filter to be set
   await testController
     .expect(getFilterfieldTags())

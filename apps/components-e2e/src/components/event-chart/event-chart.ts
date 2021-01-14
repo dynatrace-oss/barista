@@ -30,9 +30,8 @@ export class DtE2EEventChart<T> {
 
   i = 0;
 
-  @ViewChild(DtEventChart, { static: true }) private _eventChart: DtEventChart<
-    T
-  >;
+  @ViewChild(DtEventChart, { static: true })
+  private _eventChart: DtEventChart<T>;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     (window as any).e2eTestInstance = this;

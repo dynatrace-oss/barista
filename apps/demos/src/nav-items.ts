@@ -626,6 +626,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         route: '/filter-field-default-example',
       },
       {
+        name: 'filter-field-default-search-example',
+        route: '/filter-field-default-search-example',
+      },
+      {
         name: 'filter-field-disabled-example',
         route: '/filter-field-disabled-example',
       },

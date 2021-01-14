@@ -6,12 +6,12 @@
       mode="side"
       (opened)="open()"
       (closed)="close()"
-      style="width: 80%; height: 3000px;"
+      style="width: 80%; height: 3000px"
     >
       <dt-chart id="chart" [series]="series$ | async" [options]="options">
         <dt-chart-tooltip>
           <ng-template let-tooltip>
-            <div style="min-width: 100px;">
+            <div style="min-width: 100px">
               <ul *ngFor="let data of tooltip.points">
                 <li>
                   {{ data.series.name }}
@@ -54,18 +54,14 @@
         ></dt-chart-timestamp>
       </dt-chart>
       <br />
-      <span id="trigger" [dtOverlay]="overlay">
-        Hover me
-      </span>
+      <span id="trigger" [dtOverlay]="overlay"> Hover me </span>
       <ng-template #overlay>
         <p>Overlay content</p>
       </ng-template>
     </dt-drawer>
     <span id="open-count">{{ openCount }}</span>
     <span id="close-count">{{ closeCount }}</span>
-    <button id="content-trigger" [dtOverlay]="overlay">
-      Hover me
-    </button>
+    <button id="content-trigger" [dtOverlay]="overlay">Hover me</button>
   </dt-drawer-container>
   <br />
   <button (click)="drawer.open()" id="open" #openButton>open</button>

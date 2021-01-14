@@ -21,6 +21,17 @@ import { Validators } from '@angular/forms';
 export const TEST_DATA = {
   autocomplete: [
     {
+      name: 'DE',
+      defaultSearch: true,
+      suggestions: [{ name: 'Berlin' }, { name: 'Bremen' }, { name: 'Munich' }],
+      validators: [
+        {
+          validatorFn: Validators.minLength(2),
+          error: 'Country code needs at least 2 characters',
+        },
+      ],
+    },
+    {
       name: 'AUT',
       distinct: true,
       autocomplete: [

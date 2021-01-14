@@ -86,6 +86,7 @@ export interface DtFilterFieldDefaultDataSourceFreeText {
   >;
   validators: DtFilterFieldValidator[];
   unique?: boolean;
+  defaultSearch?: boolean;
 }
 
 export interface DtFilterFieldDefaultDataSourceRange {
@@ -333,6 +334,7 @@ export class DtFilterFieldDefaultDataSource
       [],
       data.validators,
       isDefined(data.unique) ? data.unique! : false,
+      !!data.defaultSearch,
     );
     def.freeText!.suggestions = this.transformList(data.suggestions, def);
     return def;
