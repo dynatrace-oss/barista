@@ -30,7 +30,6 @@ import { By } from '@angular/platform-browser';
 import {
   DtFilterField,
   DtFilterFieldChangeEvent,
-  DT_FILTER_FIELD_TYPING_DEBOUNCE,
 } from '@dynatrace/barista-components/filter-field';
 import {
   createComponent,
@@ -299,7 +298,7 @@ describe('DtFilterField', () => {
         expect(filterField._autocomplete.isOpen).toBe(true);
       });
 
-      it('should emit the inputChange event when typing into the input field with autocomplete', fakeAsync(() => {
+      it('should emit the inputChange event when typing into the input field with autocomplete', () => {
         const spy = jest.fn();
         const subscription = filterField.inputChange.subscribe(spy);
 
@@ -313,7 +312,7 @@ describe('DtFilterField', () => {
 
         expect(spy).toHaveBeenCalledWith('xy');
         subscription.unsubscribe();
-      }));
+      });
 
       it('should create the correct options and option groups', () => {
         filterField.focus();
@@ -524,7 +523,7 @@ describe('DtFilterField', () => {
         sub.unsubscribe();
       }));
 
-      it('should switch to free text and on enter fire a filterChanges event and create a tag', fakeAsync(() => {
+      it('should switch to free text and on enter fire a filterChanges event and create a tag', () => {
         const spy = jest.fn();
         const subscription = filterField.filterChanges.subscribe(spy);
         filterField.focus();
@@ -538,7 +537,6 @@ describe('DtFilterField', () => {
         const inputEl = getInput(fixture);
         dispatchKeyboardEvent(inputEl, 'keydown', ENTER);
 
-        tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
         fixture.detectChanges();
 
         const tags = getFilterTags(fixture);
@@ -548,9 +546,9 @@ describe('DtFilterField', () => {
         expect(tags[0].value).toBe('abc');
         expect(spy).toHaveBeenCalledTimes(1);
         subscription.unsubscribe();
-      }));
+      });
 
-      it('should switch to free text with keyboard interaction and on enter fire a filterChanges event and create a tag', fakeAsync(() => {
+      it('should switch to free text with keyboard interaction and on enter fire a filterChanges event and create a tag', () => {
         const spy = jest.fn();
         const subscription = filterField.filterChanges.subscribe(spy);
         filterField.focus();
@@ -571,7 +569,6 @@ describe('DtFilterField', () => {
 
         dispatchKeyboardEvent(inputEl, 'keydown', ENTER);
 
-        tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
         fixture.detectChanges();
 
         const tags = getFilterTags(fixture);
@@ -582,7 +579,7 @@ describe('DtFilterField', () => {
         expect(tags[0].value).toBe('abc');
         expect(spy).toHaveBeenCalledTimes(1);
         subscription.unsubscribe();
-      }));
+      });
 
       it('should fire currentFilterChanges when an option is selected', fakeAsync(() => {
         const spy = jest.fn();

@@ -61,6 +61,29 @@
       panelWidth="400px"
       class="dt-filter-field-panel"
     >
+      <ng-container *ngIf="_defaultSearchDef && _inputValue">
+        <dt-option
+          [value]="{
+            defaultSearchDef: _defaultSearchDef,
+            inputValue: _inputValue
+          }"
+        >
+          {{ _defaultSearchDef.option!.viewValue }}: {{ _inputValue }}
+        </dt-option>
+        <dt-option
+          *ngFor="let suggestionsDef of _defaultSearchDef.freeText.suggestions"
+          [value]="{
+            defaultSearchDef: _defaultSearchDef,
+            inputValue: suggestionsDef.option!.viewValue
+          }"
+          [attr.title]="_getTitle(_defaultSearchDef.option)"
+        >
+          <dt-highlight [term]="_inputValue">
+            {{ _defaultSearchDef.option!.viewValue }}:
+            {{ suggestionsDef.option!.viewValue }}</dt-highlight
+          >
+        </dt-option>
+      </ng-container>
       <ng-container
         *ngFor="let optionOrGroupDef of _autocompleteOptionsOrGroups"
       >

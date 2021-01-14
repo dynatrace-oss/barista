@@ -41,6 +41,8 @@ import {
   isDtRenderType,
   isPartialDtAutocompleteDef,
   isDtMultiSelectValue,
+  DtAutocompleteDef,
+  DtFreeTextDef,
 } from './types';
 
 /**
@@ -549,4 +551,33 @@ export function isDtRangeValueEqual(a: DtRangeValue, b: DtRangeValue): boolean {
       : a === b;
   }
   return false;
+}
+
+export function findDefaultSearch(
+  def: DtNodeDef & { autocomplete: DtAutocompleteDef },
+):
+  | (DtNodeDef<unknown> & {
+      freeText: DtFreeTextDef<unknown>;
+      option: DtOptionDef;
+    })
+  | null {
+  for (const optionOrGroup of def.autocomplete.optionsOrGroups) {
+    if (
+      isDtOptionDef(optionOrGroup) &&
+      isDtFreeTextDef(optionOrGroup) &&
+      optionOrGroup.freeText.defaultSearch
+    ) {
+      return optionOrGroup;
+    } else if (isDtGroupDef(optionOrGroup)) {
+      for (const option of optionOrGroup.group.options) {
+        if (isDtFreeTextDef(option) && option.freeText.defaultSearch) {
+          return option as DtNodeDef<unknown> & {
+            freeText: DtFreeTextDef<unknown>;
+            option: DtOptionDef;
+          };
+        }
+      }
+    }
+  }
+  return null;
 }

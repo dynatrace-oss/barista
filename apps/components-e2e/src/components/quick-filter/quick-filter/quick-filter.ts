@@ -38,9 +38,10 @@ const config: DtQuickFilterDefaultDataSourceConfig = {
   templateUrl: 'quick-filter.html',
 })
 export class DtE2EQuickFilter {
-  _dataSource: DtQuickFilterDefaultDataSource<
-    any
-  > = new DtQuickFilterDefaultDataSource(DATA[1], config);
+  _dataSource: DtQuickFilterDefaultDataSource<any> = new DtQuickFilterDefaultDataSource(
+    DATA[1],
+    config,
+  );
 
   filterChanges(filterEvent: DtQuickFilterChangeEvent<any>): void {
     console.log(filterEvent);

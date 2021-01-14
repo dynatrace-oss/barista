@@ -136,8 +136,10 @@ import {
   DtExampleFilterFieldAsync,
   DtExampleFilterFieldClearall,
   DtExampleFilterFieldDefault,
+  DtExampleFilterFieldDefaultSearch,
   DtExampleFilterFieldDisabled,
   DtExampleFilterFieldDistinct,
+  DtExampleFilterFieldInfiniteDataDepth,
   DtExampleFilterFieldPartial,
   DtExampleFilterFieldProgrammaticFilters,
   DtExampleFilterFieldReadOnlyTags,
@@ -322,7 +324,6 @@ import {
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
   DtExampleComboboxCustomOptionHeight,
-  DtExampleFilterFieldInfiniteDataDepth,
   DtExampleSelectCustomValueTemplate,
   DtExampleCalendarMinMax,
   DtExampleTimepickerMinMax,
@@ -691,6 +692,10 @@ const ROUTES: Routes = [
   {
     path: 'filter-field-default-example',
     component: DtExampleFilterFieldDefault,
+  },
+  {
+    path: 'filter-field-default-search-example',
+    component: DtExampleFilterFieldDefaultSearch,
   },
   {
     path: 'filter-field-disabled-example',

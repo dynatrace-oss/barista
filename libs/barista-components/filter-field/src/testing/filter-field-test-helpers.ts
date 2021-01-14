@@ -21,7 +21,6 @@ import {
   ComponentFixture,
   fakeAsync,
   TestBed,
-  tick,
   inject,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -33,10 +32,7 @@ import {
 } from '@dynatrace/testing/browser';
 import { FILTER_FIELD_TEST_DATA_ASYNC } from '@dynatrace/testing/fixtures';
 import { defaultTagDataForFilterValuesParser } from '../filter-field-util';
-import {
-  DtFilterField,
-  DT_FILTER_FIELD_TYPING_DEBOUNCE,
-} from '../filter-field';
+import { DtFilterField } from '../filter-field';
 import { DT_FILTER_VALUES_PARSER_CONFIG } from '../filter-field-config';
 import { DtFilterFieldDefaultDataSource } from '../filter-field-default-data-source';
 import { DtFilterFieldModule } from '../filter-field-module';
@@ -130,13 +126,11 @@ export function setupFilterFieldTest(): FilterFieldTestContext {
   }
 
   /**
-   * Types the passed value into the filter field input element,
-   * waits for the debounce time.
+   * Types the passed value into the filter field input element
    */
   function typeIntoFilterElement(inputString: string): void {
     const inputEl = fixture!.debugElement.query(By.css('input')).nativeElement;
     typeInElement(inputString, inputEl);
-    tick(DT_FILTER_FIELD_TYPING_DEBOUNCE);
   }
 
   return {

@@ -35,6 +35,11 @@ export enum DtNodeFlags {
     TypeMultiSelect,
 }
 
+export interface DefaultSearchOption<T> {
+  defaultSearchDef: DtAutocompleteValue<T>;
+  inputValue: string;
+}
+
 export interface DtNodeDef<D = unknown> {
   nodeFlags: DtNodeFlags;
   autocomplete: DtAutocompleteDef | null;
@@ -59,6 +64,7 @@ export interface DtFreeTextDef<S = unknown> {
   suggestions: DtNodeDef<S>[];
   validators: DtFilterFieldValidator[];
   unique: boolean;
+  defaultSearch?: boolean;
 }
 
 export interface DtMultiSelectDef<MOpt = unknown, Opr = unknown> {
@@ -191,6 +197,13 @@ export function isAsyncDtMultiSelectDef<D>(
   return !!(isDtMultiSelectDef<D>(def) && isDtOptionDef<D>(def));
 }
 
+/** Whether the provided def object is an object and consists of a DefaultSearchDef */
+export function isDefaultSearchOption<T>(
+  option: any,
+): option is DefaultSearchOption<T> {
+  return isObject(option) && isDtAutocompleteValue(option.defaultSearchDef);
+}
+
 /** Creates a new DtAutocompleteDef onto a provided existing NodeDef or a newly created one. */
 export function dtAutocompleteDef<D = unknown, OG = unknown, Op = unknown>(
   data: D,
@@ -202,7 +215,13 @@ export function dtAutocompleteDef<D = unknown, OG = unknown, Op = unknown>(
 ): DtNodeDef<D> & { autocomplete: DtAutocompleteDef<OG, Op> } {
   const def = {
     ...nodeDef(data, existingNodeDef),
-    autocomplete: { optionsOrGroups, distinct, async, partial, operators: [] },
+    autocomplete: {
+      optionsOrGroups,
+      distinct,
+      async,
+      partial,
+      operators: [],
+    },
   };
   def.nodeFlags |= DtNodeFlags.TypeAutocomplete;
   return def;
@@ -302,10 +321,11 @@ export function dtFreeTextDef<D = unknown, S = unknown>(
   suggestions: DtNodeDef<S>[],
   validators: DtFilterFieldValidator[],
   unique: boolean,
+  defaultSearch: boolean = false,
 ): DtNodeDef<D> & { freeText: DtFreeTextDef<S> } {
   const def = {
     ...nodeDef<D>(data, existingNodeDef),
-    freeText: { suggestions, validators, unique },
+    freeText: { suggestions, validators, unique, defaultSearch },
   };
   def.nodeFlags |= DtNodeFlags.TypeFreeText;
   return def;

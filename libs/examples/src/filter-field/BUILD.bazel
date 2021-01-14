@@ -17,6 +17,7 @@ ng_module(
         "filter-field-custom-parser-example/filter-field-custom-parser-example.html",
         "filter-field-custom-placeholder/filter-field-custom-placeholder.example.html",
         "filter-field-default-example/filter-field-default-example.html",
+        "filter-field-default-search-example/filter-field-default-search-example.html",
         "filter-field-disabled-example/filter-field-disabled-example.html",
         "filter-field-distinct-example/filter-field-distinct-example.html",
         "filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example.html",

@@ -4,7 +4,7 @@
   [series]="series"
   (selectedChange)="selected = $event"
   [valueDisplayMode]="valueDisplayMode"
-  style="max-width: 600px;"
+  style="max-width: 600px"
 >
   <ng-template dtSunburstChartOverlay let-tooltip>
     {{ tooltip.label }}: {{ tooltip.value }}
