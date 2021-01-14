@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { Platform, getSupportedInputTypes } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import {
@@ -88,7 +88,8 @@ export const _DtInputMixinBase = mixinErrorState(DtInputBase);
   },
   providers: [{ provide: DtFormFieldControl, useExisting: DtInput }],
 })
-export class DtInput extends _DtInputMixinBase
+export class DtInput
+  extends _DtInputMixinBase
   implements
     DoCheck,
     OnInit,
@@ -133,6 +134,7 @@ export class DtInput extends _DtInputMixinBase
       this.stateChanges.next();
     }
   }
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Whether the input is required. */
   @Input()
@@ -142,6 +144,7 @@ export class DtInput extends _DtInputMixinBase
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
   }
+  static ngAcceptInputType_required: BooleanInput;
 
   /** The placeholder of the input element. */
   @Input() placeholder = '';
@@ -183,6 +186,7 @@ export class DtInput extends _DtInputMixinBase
   set readonly(value: boolean) {
     this._readonly = coerceBooleanProperty(value);
   }
+  static ngAcceptInputType_readonly: BooleanInput;
 
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;

@@ -15,7 +15,7 @@
  */
 
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -49,7 +49,8 @@ const _DtShowMoreMixinBase = mixinDisabled(DtShowMoreBase);
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtShowMore extends _DtShowMoreMixinBase
+export class DtShowMore
+  extends _DtShowMoreMixinBase
   implements CanDisable, OnDestroy {
   /** Sets the component's show less state when used as an expandable panel trigger. */
   @Input()
@@ -60,6 +61,7 @@ export class DtShowMore extends _DtShowMoreMixinBase
     this._showLess = coerceBooleanProperty(value);
   }
   private _showLess = false;
+  static ngAcceptInputType_showLess: BooleanInput;
 
   /** Aria label for the show less state. */
   @Input()

@@ -70,6 +70,7 @@ import { DtCalendar } from './calendar';
 import { getValidDateOrNull } from './datepicker-utils/util';
 import { DtTimeChangeEvent } from './timeinput';
 import { DtTimepicker } from './timepicker';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 
 /**
  * This position config ensures that the top "start" corner of the overlay
@@ -209,10 +210,26 @@ export class DtDatePicker<T>
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** Property that enables the timepicker, so that a time can be entered as well. */
-  @Input() isTimeEnabled: boolean;
+  @Input()
+  get isTimeEnabled(): boolean {
+    return this._isTimeEnabled;
+  }
+  set isTimeEnabled(value: boolean) {
+    this._isTimeEnabled = coerceBooleanProperty(value);
+  }
+  private _isTimeEnabled = false;
+  static ngAcceptInputType_isTimeEnabled: BooleanInput;
 
   /** Property decides whether or not the today button should be shown. */
-  @Input() showTodayButton = false;
+  @Input()
+  get showTodayButton(): boolean {
+    return this._showTodayButton;
+  }
+  set showTodayButton(value: boolean) {
+    this._showTodayButton = coerceBooleanProperty(value);
+  }
+  private _showTodayButton = false;
+  static ngAcceptInputType_showTodayButton: BooleanInput;
 
   /** Whether or not the overlay panel is open. */
   get panelOpen(): boolean {

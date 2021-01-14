@@ -21,7 +21,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -112,6 +112,7 @@ export class DtExpandablePanel {
     }
   }
   private _expanded = false;
+  static ngAcceptInputType_expanded: BooleanInput;
 
   /** Whether the panel is disabled. */
   @Input()
@@ -127,6 +128,7 @@ export class DtExpandablePanel {
     this._changeDetectorRef.markForCheck();
   }
   private _disabled = false;
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Event emitted when the panel's expandable state changes. */
   @Output() readonly expandChange: EventEmitter<boolean> = new EventEmitter<

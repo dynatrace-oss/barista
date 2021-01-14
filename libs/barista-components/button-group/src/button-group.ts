@@ -15,7 +15,7 @@
  */
 
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import {
   AfterContentInit,
@@ -98,6 +98,7 @@ export class DtButtonGroup<T>
     this._disabled = coerceBooleanProperty(value);
     this._markItemsForCheck();
   }
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Sets the focus to the first button in the buttongroup. */
   focus(): void {
@@ -217,6 +218,7 @@ export class DtButtonGroupItem<T>
       this._changeDetectorRef.markForCheck();
     }
   }
+  static ngAcceptInputType_checked: BooleanInput;
 
   /** Whether the button-group item is disabled. */
   @Input()
@@ -230,6 +232,7 @@ export class DtButtonGroupItem<T>
       this._changeDetectorRef.markForCheck();
     }
   }
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** The bound value. */
   @Input()

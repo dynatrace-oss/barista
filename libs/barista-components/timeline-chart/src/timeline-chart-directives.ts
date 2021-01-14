@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import { CdkPortal } from '@angular/cdk/portal';
 import {
   ChangeDetectionStrategy,
@@ -59,6 +59,7 @@ export class DtTimelineChartMarker {
     this._value = coerceNumberProperty(value);
   }
   private _value = 0;
+  static ngAcceptInputType_value: NumberInput;
 
   /** The identifier character. E.g. "V" */
   @Input() identifier: string;

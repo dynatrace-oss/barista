@@ -31,6 +31,7 @@ import {
   isOutsideMinMaxRange,
 } from './datepicker-utils/util';
 import { DtCalendarBody } from './calendar-body';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 
 let uniqueId = 0;
 
@@ -91,7 +92,15 @@ export class DtCalendar<T> implements AfterContentInit {
   private _maxDate: T | null = null;
 
   /** Property that decides whether or not the today button should be shown. */
-  @Input() showTodayButton = false;
+  @Input()
+  get showTodayButton(): boolean {
+    return this._showTodayButton;
+  }
+  set showTodayButton(value: boolean) {
+    this._showTodayButton = coerceBooleanProperty(value);
+  }
+  private _showTodayButton = false;
+  static ngAcceptInputType_showTodayButton: BooleanInput;
 
   /** Emits when the currently selected date changes. */
   @Output()

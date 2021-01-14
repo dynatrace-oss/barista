@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -77,6 +77,7 @@ export class DtKeyValueList implements AfterContentInit, OnDestroy {
     this._changeDetectorRef.markForCheck();
   }
   private _columns: number;
+  static ngAcceptInputType_columns: NumberInput;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 

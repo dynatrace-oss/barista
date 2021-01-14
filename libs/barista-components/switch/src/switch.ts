@@ -15,7 +15,7 @@
  */
 
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   AfterViewInit,
   Attribute,
@@ -85,7 +85,8 @@ export const _DtSwitchMixinBase = mixinTabIndex(mixinDisabled(DtSwitchBase));
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtSwitch<T> extends _DtSwitchMixinBase
+export class DtSwitch<T>
+  extends _DtSwitchMixinBase
   implements
     CanDisable,
     HasTabIndex,
@@ -107,6 +108,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
       this._changeDetectorRef.markForCheck();
     }
   }
+  static ngAcceptInputType_checked: BooleanInput;
 
   /** Unique id of the element. */
   @Input()
@@ -125,6 +127,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
   }
+  static ngAcceptInputType_required: BooleanInput;
 
   /**
    * Whether the switch is disabled. This fully overrides the implementation provided by
@@ -140,6 +143,7 @@ export class DtSwitch<T> extends _DtSwitchMixinBase
       this._changeDetectorRef.markForCheck();
     }
   }
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Name value will be applied to the input element if present */
   @Input() name: string | null = null;

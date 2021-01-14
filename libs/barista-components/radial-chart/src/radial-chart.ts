@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import {
+  coerceNumberProperty,
+  NumberInput,
+  coerceBooleanProperty,
+  BooleanInput,
+} from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import {
   AfterContentInit,
@@ -104,6 +109,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     }
   }
   private _maxValue: number | null = null;
+  static ngAcceptInputType_maxValue: NumberInput;
 
   /** Where the chart's legend should be placed */
   @Input()
@@ -125,13 +131,14 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   }
   set selectable(value: boolean) {
     if (value !== this._selectable) {
-      this._selectable = value;
+      this._selectable = coerceBooleanProperty(value);
       this._select();
 
       this._updateRenderData();
     }
   }
   _selectable: boolean = false;
+  static ngAcceptInputType_selectable: BooleanInput;
 
   /** @internal Series data, <dt-radial-chart-series> */
   @ContentChildren(DtRadialChartSeries) _radialChartSeries: QueryList<

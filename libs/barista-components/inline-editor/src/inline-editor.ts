@@ -21,7 +21,7 @@ import {
   trigger,
   useAnimation,
 } from '@angular/animations';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import {
   AfterContentInit,
@@ -104,7 +104,8 @@ export const _DtInlineEditorMixinBase = mixinErrorState(DtInlineEditorBase);
     ]),
   ],
 })
-export class DtInlineEditor extends _DtInlineEditorMixinBase
+export class DtInlineEditor
+  extends _DtInlineEditorMixinBase
   implements
     ControlValueAccessor,
     OnDestroy,
@@ -120,6 +121,7 @@ export class DtInlineEditor extends _DtInlineEditorMixinBase
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
   }
+  static ngAcceptInputType_required: BooleanInput;
 
   /** Aria label of the inline-editor's save button. */
   @Input()

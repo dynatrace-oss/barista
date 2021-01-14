@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -69,6 +69,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
     this._updateRenderValues();
   }
   private _value = 0;
+  static ngAcceptInputType_value: NumberInput;
 
   /** @internal The timing markers passed in via ng-content. */
   @ContentChildren(DtTimelineChartTimingMarker)

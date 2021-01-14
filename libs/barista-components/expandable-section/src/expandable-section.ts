@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -76,6 +76,7 @@ export class DtExpandableSection
     this._changeDetectorRef.markForCheck();
   }
   private _expanded = false;
+  static ngAcceptInputType_expanded: BooleanInput;
 
   /** Whether the expandable section is disabled. */
   @Input()
@@ -87,6 +88,7 @@ export class DtExpandableSection
     this._changeDetectorRef.markForCheck();
   }
   private _disabled = false;
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Event emitted when the section's expandable state changes. */
   @Output() readonly expandChange = new EventEmitter<boolean>();

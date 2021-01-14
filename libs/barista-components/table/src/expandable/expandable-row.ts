@@ -21,7 +21,7 @@ import {
   AnimationBuilder,
   AnimationFactory,
 } from '@angular/animations';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import {
   AfterContentInit,
@@ -106,9 +106,9 @@ export class DtExpandableRowContent {}
   encapsulation: ViewEncapsulation.Emulated,
   exportAs: 'dtExpandableRow',
 })
-export class DtExpandableRow extends DtRow
+export class DtExpandableRow
+  extends DtRow
   implements OnDestroy, AfterContentInit {
-  private _expanded = false;
   private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
 
   /** Animation state of the expanded / collapsed row. */
@@ -133,6 +133,8 @@ export class DtExpandableRow extends DtRow
       this._collapse();
     }
   }
+  private _expanded = false;
+  static ngAcceptInputType_expanded: BooleanInput;
 
   /** Event emitted when the row's expandable state changes. */
   @Output() readonly expandChange = new EventEmitter<

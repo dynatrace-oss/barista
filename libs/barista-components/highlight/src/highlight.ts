@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import {
   AfterContentChecked,
@@ -90,6 +90,7 @@ export class DtHighlight
     this._caseSensitive = coerceBooleanProperty(sensitive);
   }
   private _caseSensitive = false;
+  static ngAcceptInputType_caseSensitive: BooleanInput;
 
   /**
    * The term is the string that should be highlighted in the projected content.
