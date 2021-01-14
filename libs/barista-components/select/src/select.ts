@@ -25,7 +25,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { ActiveDescendantKeyManager, FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   DOWN_ARROW,
@@ -342,6 +342,7 @@ export class DtSelect<T>
     this.stateChanges.next();
   }
   private _required = false;
+  static ngAcceptInputType_required: BooleanInput;
 
   /**
    * Function to compare the option values with the selected values. The first argument

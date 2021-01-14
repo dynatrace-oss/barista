@@ -15,7 +15,12 @@
  */
 
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  coerceBooleanProperty,
+  NumberInput,
+  coerceNumberProperty,
+  BooleanInput,
+} from '@angular/cdk/coercion';
 import { SHIFT, TAB } from '@angular/cdk/keycodes';
 import {
   ChangeDetectionStrategy,
@@ -29,6 +34,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {
+  isDefined,
   isEmpty,
   isString,
   _readKeyCode,
@@ -72,10 +78,11 @@ export class DtTimeInput {
       return;
     }
 
-    this._hour = value;
+    this._hour = isDefined(value) ? coerceNumberProperty(value) : null;
     this._changeDetectorRef.markForCheck();
   }
   private _hour: number | null = null;
+  static ngAcceptInputType_hour: NumberInput;
 
   /** Represents the minute value in the minute input element */
   @Input()
@@ -86,23 +93,55 @@ export class DtTimeInput {
     if (value === this._minute) {
       return;
     }
-
-    this._minute = value;
+    this._minute = isDefined(value) ? coerceNumberProperty(value) : null;
     this._changeDetectorRef.markForCheck();
   }
   private _minute: number | null = null;
+  static ngAcceptInputType_minute: NumberInput;
 
   /** The minimum selectable hour. */
-  @Input() minHour: number | null = null;
+  @Input()
+  get minHour(): number | null {
+    return this._minHour;
+  }
+  set minHour(value: number | null) {
+    this._minHour = isDefined(value) ? coerceNumberProperty(value) : null;
+  }
+  private _minHour: number | null = null;
+  static ngAcceptInputType_minHour: NumberInput;
 
   /** The minimum selectable minute. */
-  @Input() minMinute: number | null = null;
+  @Input()
+  get minMinute(): number | null {
+    return this._minMinute;
+  }
+  set minMinute(value: number | null) {
+    this._minMinute = isDefined(value) ? coerceNumberProperty(value) : null;
+  }
+  private _minMinute: number | null = null;
+  static ngAcceptInputType_minMinute: NumberInput;
 
   /** The maximum selectable hour. */
-  @Input() maxHour: number | null = null;
+  @Input()
+  get maxHour(): number | null {
+    return this._maxHour;
+  }
+  set maxHour(value: number | null) {
+    this._maxHour = isDefined(value) ? coerceNumberProperty(value) : null;
+  }
+  private _maxHour: number | null = null;
+  static ngAcceptInputType_maxHour: NumberInput;
 
   /** The maximum selectable minute. */
-  @Input() maxMinute: number | null = null;
+  @Input()
+  get maxMinute(): number | null {
+    return this._maxMinute;
+  }
+  set maxMinute(value: number | null) {
+    this._maxMinute = isDefined(value) ? coerceNumberProperty(value) : null;
+  }
+  private _maxMinute: number | null = null;
+  static ngAcceptInputType_maxMinute: NumberInput;
 
   /** Binding for the disabled state. */
   @Input()
@@ -114,6 +153,7 @@ export class DtTimeInput {
     this._changeDetectorRef.markForCheck();
   }
   private _isDisabled: boolean = false;
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Emits when the hour or minute value changed and the focus is not on the time input elements anymore. */
   @Output() timeChange = new EventEmitter<DtTimeChangeEvent>();

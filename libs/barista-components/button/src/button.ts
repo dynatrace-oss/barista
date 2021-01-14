@@ -39,6 +39,7 @@ import {
   _replaceCssClass,
 } from '@dynatrace/barista-components/core';
 import { DtIcon } from '@dynatrace/barista-components/icon';
+import { BooleanInput } from '@angular/cdk/coercion';
 
 export type DtButtonThemePalette = 'main' | 'warning' | 'cta';
 
@@ -76,13 +77,16 @@ const defaultVariant = 'primary';
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtButton extends _DtButtonMixinBase
+export class DtButton
+  extends _DtButtonMixinBase
   implements
     OnDestroy,
     AfterContentInit,
     CanDisable,
     CanColor<DtButtonThemePalette>,
     HasElementRef {
+  static ngAcceptInputType_disabled: BooleanInput;
+
   /**
    * The variant of the button.
    * It can be either 'primary', 'secondary' or 'nested'.

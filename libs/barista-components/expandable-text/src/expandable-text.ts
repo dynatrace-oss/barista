@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -75,8 +75,8 @@ export class DtExpandableText extends _ExpandableTextBase implements HasId {
       this._changeDetectorRef.markForCheck();
     }
   }
-
   private _expanded = false;
+  static ngAcceptInputType_expanded: BooleanInput;
 
   /** Event emitted when state changes */
   @Output() readonly expandChanged = new EventEmitter<boolean>();

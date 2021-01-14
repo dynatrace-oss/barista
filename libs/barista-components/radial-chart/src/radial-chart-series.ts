@@ -26,6 +26,12 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { _isValidColorHexValue } from '@dynatrace/barista-components/core';
 import { getDtRadialChartInvalidHexColorValueError } from './radial-chart-errors';
+import {
+  coerceNumberProperty,
+  NumberInput,
+  BooleanInput,
+  coerceBooleanProperty,
+} from '@angular/cdk/coercion';
 
 @Directive({
   selector: 'dt-radial-chart-series',
@@ -33,16 +39,40 @@ import { getDtRadialChartInvalidHexColorValueError } from './radial-chart-errors
 })
 export class DtRadialChartSeries implements OnChanges, OnDestroy {
   /** The series value (required) */
-  @Input() value: number;
+  @Input()
+  get value(): number {
+    return this._value;
+  }
+  set value(value: number) {
+    this._value = coerceNumberProperty(value);
+  }
+  private _value: number;
+  static ngAcceptInputType_value: NumberInput;
 
   /** The series name (required) */
   @Input() name: string;
 
   /** Marks series as selected */
-  @Input() selected: boolean = false;
+  @Input()
+  get selected(): boolean {
+    return this._selected;
+  }
+  set selected(value: boolean) {
+    this._selected = coerceBooleanProperty(value);
+  }
+  private _selected = false;
+  static ngAcceptInputType_selected: BooleanInput;
 
   /** Marks series as active according to legend */
-  @Input() active: boolean = true;
+  @Input()
+  get active(): boolean {
+    return this._active;
+  }
+  set active(value: boolean) {
+    this._active = coerceBooleanProperty(value);
+  }
+  private _active = true;
+  static ngAcceptInputType_active: BooleanInput;
 
   /** Emits when event is selected. */
   @Output() selectedChange = new EventEmitter<boolean>();

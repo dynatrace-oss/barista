@@ -32,6 +32,7 @@ import {
   forwardRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 
 /**
  * Wrapper for the contents of a tab.
@@ -67,9 +68,10 @@ export class DtTabBody {
     return this._isActive;
   }
   set active(value: boolean) {
-    this._isActive = value;
+    this._isActive = coerceBooleanProperty(value);
     this._activeChanged.emit(value);
   }
+  static ngAcceptInputType_active: BooleanInput;
 
   /** @internal Emits events whenever the active input changes */
   @Output() readonly _activeChanged: EventEmitter<boolean> = new EventEmitter();
@@ -84,7 +86,8 @@ export class DtTabBody {
   selector: '[dtTabBodyPortalOutlet]',
   exportAs: 'dtTabBodyPortalOutlet',
 })
-export class DtTabBodyPortalOutlet extends CdkPortalOutlet
+export class DtTabBodyPortalOutlet
+  extends CdkPortalOutlet
   implements OnInit, OnDestroy {
   /** Subscription to events for when the active tab changes */
   private _activeChangedSub = Subscription.EMPTY;

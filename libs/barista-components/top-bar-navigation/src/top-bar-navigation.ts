@@ -15,7 +15,7 @@
  */
 
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -97,6 +97,7 @@ export class DtTopBarAction implements OnDestroy {
   }
   /** The current state if an item has a problem */
   private _hasProblem = false;
+  static ngAcceptInputType_hasProblem: BooleanInput;
 
   constructor(
     private _elementRef: ElementRef,

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   Directive,
   Input,
@@ -136,6 +136,7 @@ export abstract class DtSimpleColumnBase<T>
     this._sortable = coerceBooleanProperty(sortable);
   }
   private _sortable = true;
+  static ngAcceptInputType_sortable: BooleanInput;
 
   /**
    * @internal

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
   ChangeDetectionStrategy,
@@ -72,7 +72,8 @@ export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTab extends _DtTabMixinBase
+export class DtTab
+  extends _DtTabMixinBase
   implements OnInit, CanDisable, HasTabIndex {
   /** Content for the tab label */
   @ContentChild(DtTabLabel, { static: true }) label: DtTabLabel;
@@ -107,6 +108,7 @@ export class DtTab extends _DtTabMixinBase
     }
     this._stateChanges.next();
   }
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Whether tab is selected. */
   @Input()
@@ -121,6 +123,7 @@ export class DtTab extends _DtTabMixinBase
       this._changeDetectorRef.markForCheck();
     }
   }
+  static ngAcceptInputType_selected: BooleanInput;
 
   /**
    * Color of the tab

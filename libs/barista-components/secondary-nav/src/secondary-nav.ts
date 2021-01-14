@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -64,6 +64,7 @@ export class DtSecondaryNav implements AfterViewInit, OnDestroy {
     this._multi = coerceBooleanProperty(value);
   }
   private _multi = false;
+  static ngAcceptInputType_multi: BooleanInput;
 
   /** @internal List of all children. */
   @ContentChildren(DtSecondaryNavSection)

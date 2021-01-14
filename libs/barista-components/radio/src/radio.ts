@@ -15,7 +15,7 @@
  */
 
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import {
   AfterViewInit,
@@ -104,6 +104,7 @@ export class DtRadioButton<T>
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
   }
+  static ngAcceptInputType_required: BooleanInput;
 
   /** Whether the radio button is disabled. */
   @Input()
@@ -117,6 +118,7 @@ export class DtRadioButton<T>
       this._changeDetector.markForCheck();
     }
   }
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Whether this radio button is checked. */
   @Input()
@@ -152,6 +154,7 @@ export class DtRadioButton<T>
       this._changeDetector.markForCheck();
     }
   }
+  static ngAcceptInputType_checked: BooleanInput;
 
   /** The value of this radio button. */
   @Input()

@@ -22,7 +22,7 @@ import {
   useAnimation,
 } from '@angular/animations';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   BACKSPACE,
   DELETE,
@@ -258,6 +258,7 @@ export class DtFilterField<T = any>
     this._changeDetectorRef.markForCheck();
   }
   private _loading = false;
+  static ngAcceptInputType_loading: BooleanInput;
 
   /** Currently applied filters */
   @Input()
@@ -309,6 +310,8 @@ export class DtFilterField<T = any>
     }
   }
   private _disabled = false;
+  static ngAcceptInputType_disabled: BooleanInput;
+
   private _previousTagDisabledState: Map<DtFilterFieldTag, boolean> = new Map<
     DtFilterFieldTag,
     boolean

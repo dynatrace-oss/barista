@@ -26,6 +26,12 @@ import {
 } from '@angular/core';
 
 import { DtStepLabel } from './step-label';
+import {
+  coerceNumberProperty,
+  NumberInput,
+  coerceBooleanProperty,
+  BooleanInput,
+} from '@angular/cdk/coercion';
 
 @Component({
   selector: 'dt-step-header',
@@ -49,13 +55,37 @@ export class DtStepHeader extends CdkStepHeader implements OnDestroy {
   @Input() label: DtStepLabel | string;
 
   /** Index of the given step. */
-  @Input() index: number;
+  @Input()
+  get index(): number {
+    return this._index;
+  }
+  set index(value: number) {
+    this._index = coerceNumberProperty(value);
+  }
+  private _index: number;
+  static ngAcceptInputType_index: NumberInput;
 
   /** Whether the given step is selected. */
-  @Input() selected: boolean;
+  @Input()
+  get selected(): boolean {
+    return this._selected;
+  }
+  set selected(value: boolean) {
+    this._selected = coerceBooleanProperty(value);
+  }
+  private _selected: boolean;
+  static ngAcceptInputType_selected: BooleanInput;
 
   /** Whether the given step label is active. */
-  @Input() active: boolean;
+  @Input()
+  get active(): boolean {
+    return this._active;
+  }
+  set active(value: boolean) {
+    this._active = coerceBooleanProperty(value);
+  }
+  private _active: boolean;
+  static ngAcceptInputType_active: BooleanInput;
 
   constructor(
     private readonly _focusMonitor: FocusMonitor,

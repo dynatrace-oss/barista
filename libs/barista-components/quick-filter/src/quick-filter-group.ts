@@ -46,6 +46,12 @@ import {
   unsetFilterGroup,
   updateFilter,
 } from './state/actions';
+import {
+  coerceNumberProperty,
+  BooleanInput,
+  NumberInput,
+  coerceBooleanProperty,
+} from '@angular/cdk/coercion';
 
 /** @internal The DtQuickFilterGroup is an internal component */
 @Component({
@@ -74,10 +80,26 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
   _defaultShowMoreTemplate: TemplateRef<number>;
 
   /** @internal The aria-level of the group headlines for the document outline. */
-  @Input() groupHeadlineRole: number = 3;
+  @Input()
+  get groupHeadlineRole(): number {
+    return this._groupHeadlineRole;
+  }
+  set groupHeadlineRole(value: number) {
+    this._groupHeadlineRole = coerceNumberProperty(value);
+  }
+  private _groupHeadlineRole = 3;
+  static ngAcceptInputType_groupHeadlineRole: NumberInput;
 
   /** @internal The height for the virtual scroll container needs a fixed height */
-  @Input() virtualScrollHeight: number = 0;
+  @Input()
+  get virtualScrollHeight(): number {
+    return this._virtualScrollHeight;
+  }
+  set virtualScrollHeight(value: number) {
+    this._virtualScrollHeight = coerceNumberProperty(value);
+  }
+  private _virtualScrollHeight = 0;
+  static ngAcceptInputType_virtualScrollHeight: NumberInput;
 
   /** @internal Template for the show more text of the group */
   @Input() showMoreTemplate: TemplateRef<{ $implicit: number; group: string }>;
@@ -91,17 +113,26 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
     return this._isDetail;
   }
   set isDetail(detail: boolean) {
-    this._isDetail = detail;
+    this._isDetail = coerceBooleanProperty(detail);
     this._options = this._getOptions(this._nodeDef);
   }
   private _isDetail = false;
+  static ngAcceptInputType_isDetail: BooleanInput;
 
   /**
    * @internal
    * The maximum amount of items that should be displayed in the quick filter
    * sidebar. If there are more they are hidden behind a show more functionality
    */
-  @Input() maxGroupItems: number = Infinity;
+  @Input()
+  get maxGroupItems(): number {
+    return this._maxGroupItems;
+  }
+  set maxGroupItems(value: number) {
+    this._maxGroupItems = coerceNumberProperty(value);
+  }
+  private _maxGroupItems = Infinity;
+  static ngAcceptInputType_maxGroupItems: NumberInput;
 
   /** @internal The nodeDef of the autocomplete that should be rendered */
   @Input()

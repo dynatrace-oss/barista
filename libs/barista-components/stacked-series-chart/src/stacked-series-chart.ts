@@ -31,7 +31,10 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
-import { DtViewportResizer } from '@dynatrace/barista-components/core';
+import {
+  DtViewportResizer,
+  isDefined,
+} from '@dynatrace/barista-components/core';
 import { formatCount } from '@dynatrace/barista-components/formatters';
 import { DtColors, DtTheme } from '@dynatrace/barista-components/theming';
 import { scaleLinear } from 'd3-scale';
@@ -56,6 +59,12 @@ import {
   updateNodesVisibility,
 } from './stacked-series-chart.util';
 import { DtOverlayRef, DtOverlay } from '@dynatrace/barista-components/overlay';
+import {
+  coerceBooleanProperty,
+  coerceNumberProperty,
+  NumberInput,
+  BooleanInput,
+} from '@angular/cdk/coercion';
 
 // horizontal ticks
 const TICK_BAR_SPACING = 160;
@@ -117,10 +126,11 @@ export class DtStackedSeriesChart implements OnDestroy {
   set selectable(value: boolean) {
     if (value !== this._selectable) {
       this._toggleSelect();
-      this._selectable = value ?? false;
+      this._selectable = coerceBooleanProperty(value) ?? false;
     }
   }
   _selectable: boolean = false;
+  static ngAcceptInputType_selectable: BooleanInput;
 
   /** Max value in the chart */
   @Input()
@@ -129,11 +139,12 @@ export class DtStackedSeriesChart implements OnDestroy {
   }
   set max(value: number | undefined) {
     if (value !== this._max) {
-      this._max = value;
+      this._max = isDefined(value) ? coerceNumberProperty(value) : value;
       this._render();
     }
   }
   private _max: number | undefined;
+  static ngAcceptInputType_max: NumberInput;
 
   /** Whether each bar should be filled completely or should take into account their siblings and max  */
   @Input()
@@ -175,13 +186,37 @@ export class DtStackedSeriesChart implements OnDestroy {
   _legends: DtStackedSeriesChartLegend[];
 
   /** Visibility of the legend */
-  @Input() visibleLegend: boolean = true;
+  @Input()
+  get visibleLegend(): boolean {
+    return this._visibleLegend;
+  }
+  set visibleLegend(value: boolean) {
+    this._visibleLegend = coerceBooleanProperty(value);
+  }
+  private _visibleLegend = true;
+  static ngAcceptInputType_visibleLegend: BooleanInput;
 
   /** Whether background should be transparent or show a background. Default: true */
-  @Input() visibleTrackBackground: boolean = true;
+  @Input()
+  get visibleTrackBackground(): boolean {
+    return this._visibleTrackBackground;
+  }
+  set visibleTrackBackground(value: boolean) {
+    this._visibleTrackBackground = coerceBooleanProperty(value);
+  }
+  private _visibleTrackBackground = true;
+  static ngAcceptInputType_visibleTrackBackground: BooleanInput;
 
   /** Visibility of series label */
-  @Input() visibleLabel: boolean = true;
+  @Input()
+  get visibleLabel(): boolean {
+    return this._visibleLabel;
+  }
+  set visibleLabel(value: boolean) {
+    this._visibleLabel = coerceBooleanProperty(value);
+  }
+  private _visibleLabel = true;
+  static ngAcceptInputType_visibleLabel: BooleanInput;
 
   /** Display mode */
   @Input()
@@ -198,10 +233,26 @@ export class DtStackedSeriesChart implements OnDestroy {
   _mode: DtStackedSeriesChartMode = 'bar';
 
   /** Maximum size of the track */
-  @Input() maxTrackSize: number = 16;
+  @Input()
+  get maxTrackSize(): number {
+    return this._maxTrackSize;
+  }
+  set maxTrackSize(value: number) {
+    this._maxTrackSize = coerceNumberProperty(value);
+  }
+  private _maxTrackSize = 16;
+  static ngAcceptInputType_maxTrackSize: NumberInput;
 
   /** Visibility of value axis */
-  @Input() visibleValueAxis: boolean = true;
+  @Input()
+  get visibleValueAxis(): boolean {
+    return this._visibleValueAxis;
+  }
+  set visibleValueAxis(value: boolean) {
+    this._visibleValueAxis = coerceBooleanProperty(value);
+  }
+  private _visibleValueAxis = true;
+  static ngAcceptInputType_visibleValueAxis: BooleanInput;
 
   /** @internal Ticks for value axis */
   _axisTicks: { pos: number; value: number; valueRelative: number }[] = [];

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
   ChangeDetectorRef,
@@ -105,6 +105,7 @@ export class DtRadioGroup<T>
     this._disabled = coerceBooleanProperty(value);
     this._markRadiosForCheck();
   }
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Whether the radio group is required */
   @Input()
@@ -115,6 +116,7 @@ export class DtRadioGroup<T>
     this._required = coerceBooleanProperty(value);
     this._markRadiosForCheck();
   }
+  static ngAcceptInputType_required: BooleanInput;
 
   /** Unique id of the element. */
   @Input()

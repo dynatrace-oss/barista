@@ -15,7 +15,7 @@
  */
 
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import {
   ConnectedPosition,
   Overlay,
@@ -112,6 +112,7 @@ export class DtConsumption
       this._changeDetectorRef.markForCheck();
     }
   }
+  static ngAcceptInputType_max: NumberInput;
 
   /**
    * The currently displayed value for this consumption component instance.
@@ -130,6 +131,7 @@ export class DtConsumption
       this._changeDetectorRef.markForCheck();
     }
   }
+  static ngAcceptInputType_value: NumberInput;
 
   /** Defines the aria-label on the progress element. */
   @Input()

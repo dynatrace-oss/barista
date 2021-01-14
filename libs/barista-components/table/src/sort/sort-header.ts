@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -63,8 +63,11 @@ export const _DtSortHeaderMixinBase = mixinDisabled(DtSortHeaderBase);
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: ['disabled'],
 })
-export class DtSortHeader extends _DtSortHeaderMixinBase
+export class DtSortHeader
+  extends _DtSortHeaderMixinBase
   implements CanDisable, OnDestroy, OnInit {
+  static ngAcceptInputType_disabled: BooleanInput;
+
   private _rerenderSubscription = Subscription.EMPTY;
 
   /**
@@ -88,6 +91,7 @@ export class DtSortHeader extends _DtSortHeaderMixinBase
     }
   }
   private _sortable = true;
+  static ngAcceptInputType_sortable: BooleanInput;
 
   /**
    * Overrides the sort start value of the containing DtSort

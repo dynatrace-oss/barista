@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceNumberProperty, NumberInput } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -72,6 +72,7 @@ export class DtPagination implements OnInit {
     }
   }
   private _length = 0;
+  static ngAcceptInputType_length: NumberInput;
 
   /** Number of items to display on a page. By default set to 50. */
   @Input()
@@ -87,6 +88,7 @@ export class DtPagination implements OnInit {
     }
   }
   private _pageSize: number = DEFAULT_PAGE_SIZE;
+  static ngAcceptInputType_pageSize: NumberInput;
 
   /** The current page of the pagination */
   @Input()
@@ -102,6 +104,7 @@ export class DtPagination implements OnInit {
     }
   }
   private _currentPage = 1;
+  static ngAcceptInputType_currentPage: NumberInput;
 
   /** Aria label for the previous page button. Defaults to "Previous page" */
   @Input()

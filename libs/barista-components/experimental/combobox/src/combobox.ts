@@ -70,7 +70,11 @@ import {
 import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  coerceBooleanProperty,
+  BooleanInput,
+  NumberInput,
+} from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOCUMENT } from '@angular/common';
 
@@ -142,6 +146,9 @@ export class DtCombobox<T>
     CanDisable,
     HasTabIndex,
     DtFormFieldControl<T> {
+  static ngAcceptInputType_disabled: BooleanInput;
+  static ngAcceptInputType_tabIndex: NumberInput;
+
   /** The ID for the combobox. */
   @Input() id: string;
   /** The currently selected value in the combobox. */
@@ -177,9 +184,19 @@ export class DtCombobox<T>
     }
   }
   _loading = false;
+  static ngAcceptInputType_loading: BooleanInput;
 
   /** Whether the control is required. */
-  @Input() required: boolean = false;
+  @Input()
+  get required(): boolean {
+    return this._required;
+  }
+  set required(value: boolean) {
+    this._required = coerceBooleanProperty(value);
+  }
+  private _required = false;
+  static ngAcceptInputType_required: BooleanInput;
+
   /** An arbitrary class name that is added to the combobox dropdown. */
   @Input() panelClass: string = '';
   /** A placeholder text for the input field. */

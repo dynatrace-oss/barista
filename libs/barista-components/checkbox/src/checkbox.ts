@@ -15,7 +15,7 @@
  */
 
 import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import {
   AfterViewInit,
@@ -103,7 +103,8 @@ export const _DtCheckboxMixinBase = mixinTabIndex(
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtCheckbox<T> extends _DtCheckboxMixinBase
+export class DtCheckbox<T>
+  extends _DtCheckboxMixinBase
   implements
     CanDisable,
     HasTabIndex,
@@ -149,6 +150,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
   }
+  static ngAcceptInputType_required: BooleanInput;
 
   /**
    * Whether the checkbox is disabled. This fully overrides the implementation provided by
@@ -165,6 +167,7 @@ export class DtCheckbox<T> extends _DtCheckboxMixinBase
       this._changeDetectorRef.markForCheck();
     }
   }
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Name value will be applied to the input element if present */
   @Input() name: string | null = null;

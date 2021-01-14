@@ -60,7 +60,7 @@ import {
 } from './state/selectors';
 import { createQuickFilterStore, QuickFilterState } from './state/store';
 import { DtDrawer } from '@dynatrace/barista-components/drawer';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 
 /** Directive that is used to place a title inside the quick filters sidebar */
 @Directive({
@@ -166,6 +166,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     this._sidebarOpened = coerceBooleanProperty(value);
   }
   _sidebarOpened = true;
+  static ngAcceptInputType_sidebarOpened: BooleanInput;
 
   /**
    * Label for the filter field (e.g. "Filter by").

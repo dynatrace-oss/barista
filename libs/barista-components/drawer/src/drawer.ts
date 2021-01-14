@@ -15,7 +15,7 @@
  */
 
 import { AnimationEvent } from '@angular/animations';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import {
   AfterContentChecked,
@@ -122,6 +122,7 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
     this.toggle(coerceBooleanProperty(value));
   }
   private _opened = false;
+  static ngAcceptInputType_opened: BooleanInput;
 
   /**
    * Emits when the drawer open state changes. Emits a boolean value for the

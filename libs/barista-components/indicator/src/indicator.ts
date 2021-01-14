@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   Directive,
   ElementRef,
@@ -79,6 +79,7 @@ export class DtIndicator
     }
   }
   private _active = true;
+  static ngAcceptInputType_dtIndicator: BooleanInput;
 
   constructor(elementRef: ElementRef) {
     super(elementRef);
