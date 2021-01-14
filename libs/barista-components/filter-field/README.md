@@ -93,6 +93,20 @@ Multiselection is unique by default.
 
 <ba-live-example name="DtExampleFilterFieldUnique"></ba-live-example>
 
+## Default search
+
+To optimize frequently used labels e.g. `Name`, set a default search option
+(defaultSearch) in your dataSource like shown in the example below. The
+defaultSearch option can then be used similar to a free-text but not quite.
+Instead of selecting a label and then typing, just type the preferred tag e.g
+`Errors` and the filter field will be combine the defaultSearch option name
+(`name: 'Name'`) attribute and the typed text automatically resulting in
+`Name: Errors`.
+
+Type anything while no label is selected to see the Default Search in action.
+
+<ba-live-example name="DtExampleFilterFieldDefaultSearch"></ba-live-example>
+
 ## Filters
 
 Every filter is an array of:

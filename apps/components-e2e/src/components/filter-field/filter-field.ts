@@ -46,9 +46,8 @@ export class DtE2EFilterField implements OnDestroy {
 
   _dataSource = new DtFilterFieldDefaultDataSource(DATA[0]);
 
-  @ViewChild(DtFilterField, { static: true }) _filterfield: DtFilterField<
-    DtFilterFieldDefaultDataSourceType
-  >;
+  @ViewChild(DtFilterField, { static: true })
+  _filterfield: DtFilterField<DtFilterFieldDefaultDataSourceType>;
 
   switchToDatasource(targetIndex: number): void {
     this._dataSource = new DtFilterFieldDefaultDataSource(DATA[targetIndex]);

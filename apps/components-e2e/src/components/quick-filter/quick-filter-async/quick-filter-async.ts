@@ -59,14 +59,13 @@ export class DtE2EQuickFilterAsync {
       isObject(node) && node.name && node.name !== 'AUT (async)',
   };
 
-  _dataSource = new DtQuickFilterDefaultDataSource<
-    DtQuickFilterDefaultDataSourceType
-  >(filterFieldData, this._config);
+  _dataSource = new DtQuickFilterDefaultDataSource<DtQuickFilterDefaultDataSourceType>(
+    filterFieldData,
+    this._config,
+  );
 
   currentFilterChanges(
-    event: DtQuickFilterCurrentFilterChangeEvent<
-      DtQuickFilterDefaultDataSourceType
-    >,
+    event: DtQuickFilterCurrentFilterChangeEvent<DtQuickFilterDefaultDataSourceType>,
   ): void {
     if (event.added[0] === filterFieldData.autocomplete[0]) {
       setTimeout(() => {

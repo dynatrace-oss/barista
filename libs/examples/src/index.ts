@@ -149,6 +149,7 @@ import { DtExampleFilterFieldClearall } from './filter-field/filter-field-cleara
 import { DtExampleFilterFieldCustomParser } from './filter-field/filter-field-custom-parser-example/filter-field-custom-parser-example';
 import { DtExampleFilterFieldCustomPlaceholder } from './filter-field/filter-field-custom-placeholder/filter-field-custom-placeholder.example';
 import { DtExampleFilterFieldDefault } from './filter-field/filter-field-default-example/filter-field-default-example';
+import { DtExampleFilterFieldDefaultSearch } from './filter-field/filter-field-default-search-example/filter-field-default-search-example';
 import { DtExampleFilterFieldDisabled } from './filter-field/filter-field-disabled-example/filter-field-disabled-example';
 import { DtExampleFilterFieldDistinct } from './filter-field/filter-field-distinct-example/filter-field-distinct-example';
 import { DtExampleFilterFieldInfiniteDataDepth } from './filter-field/filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example';
@@ -525,8 +526,10 @@ export {
   DtExampleFilterFieldCustomParser,
   DtExampleFilterFieldCustomPlaceholder as DtExampleFilterFieldCustomPlaceholderExample,
   DtExampleFilterFieldDefault,
+  DtExampleFilterFieldDefaultSearch,
   DtExampleFilterFieldDisabled,
   DtExampleFilterFieldDistinct,
+  DtExampleFilterFieldInfiniteDataDepth,
   DtExampleFilterFieldPartial,
   DtExampleFilterFieldProgrammaticFilters,
   DtExampleFilterFieldReadOnlyTags,
@@ -712,7 +715,6 @@ export {
   DtExampleTreeTableDefault,
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
-  DtExampleFilterFieldInfiniteDataDepth,
   DtExampleSelectCustomValueTemplate,
   DtExampleCalendarMinMax,
   DtExampleTimepickerMinMax,
@@ -882,8 +884,13 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
     DtExampleFilterFieldCustomPlaceholder,
   ],
   ['DtExampleFilterFieldDefault', DtExampleFilterFieldDefault],
+  ['DtExampleFilterFieldDefaultSearch', DtExampleFilterFieldDefaultSearch],
   ['DtExampleFilterFieldDisabled', DtExampleFilterFieldDisabled],
   ['DtExampleFilterFieldDistinct', DtExampleFilterFieldDistinct],
+  [
+    'DtExampleFilterFieldInfiniteDataDepth',
+    DtExampleFilterFieldInfiniteDataDepth,
+  ],
   ['DtExampleFilterFieldPartial', DtExampleFilterFieldPartial],
   [
     'DtExampleFilterFieldProgrammaticFilters',
@@ -1100,8 +1107,4 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTreeTableDefault', DtExampleTreeTableDefault],
   ['DtExampleTreeTableProblemIndicator', DtExampleTreeTableProblemIndicator],
   ['DtExampleTreeTableSimple', DtExampleTreeTableSimple],
-  [
-    'DtExampleFilterFieldInfiniteDataDepth',
-    DtExampleFilterFieldInfiniteDataDepth,
-  ],
 ]);

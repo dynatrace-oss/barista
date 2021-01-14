@@ -22,6 +22,7 @@ import { DtExampleFilterFieldClearall } from './filter-field-clearall-example/fi
 import { DtExampleFilterFieldCustomParser } from './filter-field-custom-parser-example/filter-field-custom-parser-example';
 import { DtExampleFilterFieldCustomPlaceholder } from './filter-field-custom-placeholder/filter-field-custom-placeholder.example';
 import { DtExampleFilterFieldDefault } from './filter-field-default-example/filter-field-default-example';
+import { DtExampleFilterFieldDefaultSearch } from './filter-field-default-search-example/filter-field-default-search-example';
 import { DtExampleFilterFieldDisabled } from './filter-field-disabled-example/filter-field-disabled-example';
 import { DtExampleFilterFieldDistinct } from './filter-field-distinct-example/filter-field-distinct-example';
 import { DtExampleFilterFieldInfiniteDataDepth } from './filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example';
@@ -40,6 +41,7 @@ import { DtExampleFilterFieldValidator } from './filter-field-validator-example/
     DtExampleFilterFieldCustomParser,
     DtExampleFilterFieldCustomPlaceholder,
     DtExampleFilterFieldDefault,
+    DtExampleFilterFieldDefaultSearch,
     DtExampleFilterFieldDistinct,
     DtExampleFilterFieldInfiniteDataDepth,
     DtExampleFilterFieldPartial,

@@ -43,6 +43,7 @@ const BLOCKLIST: string[] = [
   'filter-field-async-example',
   'filter-field-clearall-example',
   'filter-field-default-example',
+  'filter-field-default-search-example',
   'filter-field-disabled-example',
   'filter-field-distinct-example',
   'filter-field-partial-example',

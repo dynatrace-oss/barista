@@ -30,7 +30,11 @@ export class DtExampleFilterFieldValidator {
         autocomplete: [
           {
             name: 'Custom',
-            suggestions: ['Linz', 'Vienna', 'Graz'],
+            suggestions: [
+              { name: 'Linz' },
+              { name: 'Vienna' },
+              { name: 'Graz' },
+            ],
             validators: [
               { validatorFn: Validators.required, error: 'is required' },
             ],
