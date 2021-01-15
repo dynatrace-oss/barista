@@ -11,7 +11,7 @@ $dt-blue-theme-light: dt-theme-light(
       $turquoise-100
     ),
   /* warning */
-    dt-theme-palette($yellow-600, $yellow-700, $yellow-800, $yellow-100),
+    dt-theme-palette($yellow-700, $yellow-800, $yellow-900, $yellow-100),
   /* error */ dt-theme-palette($red-600, $red-700, $red-800, $red-100),
   /* recovered */
     dt-theme-palette($green-600, $green-700, $green-800, $green-100),
@@ -29,7 +29,7 @@ $dt-blue-theme-dark: dt-theme-dark(
       $turquoise-100
     ),
   /* warning */
-    dt-theme-palette($yellow-600, $yellow-500, $yellow-400, $yellow-100),
+    dt-theme-palette($yellow-700, $yellow-600, $yellow-500, $yellow-100),
   /* error */ dt-theme-palette($red-400, $red-300, $red-200, $red-100),
   /* recovered */
     dt-theme-palette($green-500, $green-400, $green-300, $green-100),
