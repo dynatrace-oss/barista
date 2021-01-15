@@ -2,6 +2,12 @@
 
 :host {
   @include dt-option();
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .dt-option-label {
