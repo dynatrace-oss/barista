@@ -265,14 +265,16 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
       const items = nodeDef.autocomplete.optionsOrGroups.filter(
         (def) => isDtOptionDef(def) && !isDtRenderType(def),
       );
-      if (!this.isDetail && items.length > this.maxGroupItems) {
+      const filteredItems = items.filter(
+        (item, index) => index < this.maxGroupItems || this._isActive(item),
+      );
+      this._showMoreCount =
+        items.length - Math.max(this.maxGroupItems, filteredItems.length);
+      if (!this.isDetail && this._showMoreCount > 0) {
         this._truncatedGroupItems = true;
-        const filteredItems = items.filter(
-          (item, index) => index <= this.maxGroupItems || this._isActive(item),
-        );
-        this._showMoreCount =
-          items.length - Math.max(this.maxGroupItems, filteredItems.length);
         return filteredItems;
+      } else {
+        this._truncatedGroupItems = false;
       }
       return items;
     }

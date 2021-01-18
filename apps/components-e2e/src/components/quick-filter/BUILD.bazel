@@ -15,6 +15,7 @@ ng_module(
         "quick-filter/quick-filter.html",
         "quick-filter-async/quick-filter-async.html",
         "quick-filter-initial-data/quick-filter-initial-data.html",
+        "quick-filter-show-more/quick-filter-show-more.html",
     ],
     tsconfig = "//apps/components-e2e:tsconfig-app",
     deps = [

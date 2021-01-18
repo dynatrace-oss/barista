@@ -68,7 +68,7 @@ The following methods are on the `DtQuickFilter` class:
 In general, you should avoid displaying a long list of choices inside the quick
 filter as it should only be a quick solution to apply a small set of filters.
 Nevertheless, if there are more options they will be hidden in a detail view
-that can be accessed through the **View More** Button. The content inside is
+that can be accessed through the **View more** Button. The content inside is
 rendered through a virtual scroll and therefore you don't have to care about
 performance.
 

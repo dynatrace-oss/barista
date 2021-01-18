@@ -120,3 +120,15 @@ export const FILTER_FIELD_TEST_DATA_ASYNC = {
     },
   ],
 };
+
+export const FILTER_FIELD_TEST_DATA_FOR_TRUNCATION = {
+  autocomplete: [
+    {
+      name: 'Country',
+      distinct: false,
+      autocomplete: Array.from(new Array(6), (_, i) => ({
+        name: `State ${i + 1}`,
+      })),
+    },
+  ],
+};

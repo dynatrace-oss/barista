@@ -21,6 +21,7 @@ import { DtQuickFilterModule } from '@dynatrace/barista-components/quick-filter'
 import { DtE2EQuickFilter } from './quick-filter/quick-filter';
 import { DtE2EQuickFilterInitialData } from './quick-filter-initial-data/quick-filter-initial-data';
 import { DtE2EQuickFilterAsync } from './quick-filter-async/quick-filter-async';
+import { DtE2EQuickFilterShowMore } from './quick-filter-show-more/quick-filter-show-more';
 import {
   DtExampleQuickFilterDefault,
   DtExampleQuickFilterCustomShowMore,
@@ -30,6 +31,7 @@ const routes: Route[] = [
   { path: '', component: DtE2EQuickFilter },
   { path: 'initial-data', component: DtE2EQuickFilterInitialData },
   { path: 'async', component: DtE2EQuickFilterAsync },
+  { path: 'show-more', component: DtE2EQuickFilterShowMore },
   { path: 'examples/default', component: DtExampleQuickFilterDefault },
   { path: 'examples/show-more', component: DtExampleQuickFilterCustomShowMore },
 ];
@@ -39,6 +41,7 @@ const routes: Route[] = [
     DtE2EQuickFilter,
     DtE2EQuickFilterInitialData,
     DtE2EQuickFilterAsync,
+    DtE2EQuickFilterShowMore,
   ],
   imports: [CommonModule, DtQuickFilterModule, RouterModule.forChild(routes)],
   exports: [],
