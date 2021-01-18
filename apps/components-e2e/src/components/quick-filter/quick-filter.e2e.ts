@@ -271,9 +271,9 @@ fixture('Quick Filter with show more')
 test('should check the show more with non distinct values', async (testController: TestController) => {
   await testController
     .expect(getShowMoreText('Country'))
-    .eql('There are 25 States available')
+    .eql('There are 26 States available')
     .expect(getGroupItems('Country').count)
-    .eql(5)
+    .eql(4)
     .click(getShowMoreButton('Country'))
     .expect(getGroupItems('Country').count)
     .eql(30)
@@ -289,9 +289,9 @@ test('should check the show more with non distinct values', async (testControlle
 test('should check the show more with distinct values', async (testController: TestController) => {
   await testController
     .expect(getShowMoreText('Value'))
-    .eql('There are 995 Options available')
+    .eql('There are 996 Options available')
     .expect(getGroupItems('Value').count)
-    .eql(6)
+    .eql(5)
     .click(getGroupItem('Value', 'Value 2'))
     .expect(getFilterfieldTags())
     .eql(['ValueValue 2'])
@@ -348,4 +348,26 @@ test('should work with async data and handle distincts correctly', async (testCo
     .expect(options.nth(1).textContent)
     // textContent is duplicated because of the highlight within the option
     .eql('GrazGraz');
+});
+
+fixture('Quick Filter check Show More functionality')
+  .page('http://localhost:4200/quick-filter/show-more')
+  .beforeEach(async () => {
+    await resetWindowSizeToDefault();
+    await waitForAngular();
+  });
+
+test('should render the correct number or checkboxes', async (testController: TestController) => {
+  await testController
+    .expect(getShowMoreText('Country'))
+    .eql('There are 2 States available')
+    .expect(getGroupItems('Country').count)
+    .eql(4)
+    .click(getShowMoreButton('Country'))
+    .expect(getGroupItems('Country').count)
+    .eql(6)
+    .click(getGroupItem('Country', 'State 5'))
+    .click(quickFilterBackButton)
+    .expect(getGroupItems('Country').count)
+    .eql(5);
 });

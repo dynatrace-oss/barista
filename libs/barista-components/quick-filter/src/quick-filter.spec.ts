@@ -28,6 +28,7 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtCheckbox } from '@dynatrace/barista-components/checkbox';
+import { DtDrawer } from '@dynatrace/barista-components/drawer';
 import { DtFilterField } from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
@@ -35,12 +36,15 @@ import {
   dispatchMouseEvent,
   MockNgZone,
 } from '@dynatrace/testing/browser';
-import { FILTER_FIELD_TEST_DATA } from '@dynatrace/testing/fixtures';
+import {
+  FILTER_FIELD_TEST_DATA,
+  FILTER_FIELD_TEST_DATA_FOR_TRUNCATION,
+} from '@dynatrace/testing/fixtures';
 import { of } from 'rxjs';
 import { DtQuickFilter, DtQuickFilterChangeEvent } from './quick-filter';
 import { DtQuickFilterDefaultDataSource } from './quick-filter-default-data-source';
+import { DtQuickFilterGroup } from './quick-filter-group';
 import { DtQuickFilterModule } from './quick-filter.module';
-import { DtDrawer } from '@dynatrace/barista-components/drawer';
 
 describe('dt-quick-filter', () => {
   let instanceDebugElement: DebugElement;
@@ -59,6 +63,7 @@ describe('dt-quick-filter', () => {
         QuickFilterDefaultComponent,
         QuickFilterSidebarOpen,
         QuickFilterSidebarClosed,
+        QuickFilterForTruncation,
       ],
       providers: [
         {
@@ -298,6 +303,35 @@ describe('dt-quick-filter', () => {
       expect(instance.quickFilter._drawer.opened).toBeTruthy();
     }));
   });
+
+  describe('Simple QuickFilterGroup with truncation and see more', () => {
+    let fixture: ComponentFixture<QuickFilterForTruncation>;
+    let groupDebugElement: DebugElement;
+    beforeEach(() => {
+      fixture = createComponent(QuickFilterForTruncation);
+      groupDebugElement = fixture.debugElement.query(
+        By.directive(DtQuickFilterGroup),
+      );
+    });
+
+    it('should have the group truncated', () => {
+      expect(
+        groupDebugElement.queryAll(By.directive(DtCheckbox)).length,
+      ).toEqual(4);
+    });
+
+    it('should have the appropriate texts', () => {
+      expect(
+        (groupDebugElement.query(By.css('.dt-quick-filter-show-more-text'))
+          .nativeElement as HTMLParagraphElement).textContent,
+      ).toEqual(' There are 2 States available ');
+
+      expect(
+        (groupDebugElement.query(By.css('.dt-show-more'))
+          .nativeElement as HTMLButtonElement).textContent,
+      ).toEqual('View more');
+    });
+  });
 });
 
 /** Get all quick filter group item headlines */
@@ -357,4 +391,31 @@ class QuickFilterSidebarOpen {
 })
 class QuickFilterSidebarClosed {
   @ViewChild(DtQuickFilter) quickFilter: DtQuickFilter;
+}
+@Component({
+  selector: 'dt-quick-filter-simple',
+  template: `
+    <dt-quick-filter
+      [dataSource]="_dataSource"
+      [maxGroupItems]="4"
+      [showMoreTemplate]="showMore"
+    >
+    </dt-quick-filter>
+
+    <ng-template #showMore let-count let-group="group">
+      <p class="dt-quick-filter-show-more-text">
+        There are {{ count }}
+        <ng-container [ngSwitch]="group">
+          <ng-container *ngSwitchCase="'Country'">States</ng-container>
+        </ng-container>
+        available
+      </p>
+    </ng-template>
+  `,
+})
+class QuickFilterForTruncation {
+  @ViewChild(DtQuickFilter) quickFilter: DtQuickFilter;
+  _dataSource = new DtQuickFilterDefaultDataSource(
+    FILTER_FIELD_TEST_DATA_FOR_TRUNCATION,
+  );
 }
