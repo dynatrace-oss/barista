@@ -379,9 +379,8 @@ export class DtFilterField<T = any>
   _multiSelectTrigger: DtFilterFieldMultiSelectTrigger<DtNodeDef>;
 
   /** @internal Querylist of the autocompletes provided by ng-content */
-  @ViewChild(DtAutocomplete, { static: true }) _autocomplete: DtAutocomplete<
-    DtNodeDef
-  >;
+  @ViewChild(DtAutocomplete, { static: true })
+  _autocomplete: DtAutocomplete<DtNodeDef>;
 
   /** @internal List of sources of the filter that the user currently works on. */
   _currentFilterValues: DtFilterValue[] = [];

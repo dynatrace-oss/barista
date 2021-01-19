@@ -424,9 +424,10 @@ export class DtStackedSeriesChart implements OnDestroy {
     slice: DtStackedSeriesChartTooltipData,
   ): void {
     if (this._overlay && !this._overlayRef) {
-      this._overlayRef = this._overlayService.create<
-        DtStackedSeriesChartTooltipData
-      >(event.target as HTMLElement, this._overlay);
+      this._overlayRef = this._overlayService.create<DtStackedSeriesChartTooltipData>(
+        event.target as HTMLElement,
+        this._overlay,
+      );
       this._overlayRef.updateImplicitContext(slice);
       this._overlayRef.updatePosition(event.offsetX, event.offsetY);
     }

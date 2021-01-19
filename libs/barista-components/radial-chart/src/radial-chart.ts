@@ -141,9 +141,8 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   static ngAcceptInputType_selectable: BooleanInput;
 
   /** @internal Series data, <dt-radial-chart-series> */
-  @ContentChildren(DtRadialChartSeries) _radialChartSeries: QueryList<
-    DtRadialChartSeries
-  >;
+  @ContentChildren(DtRadialChartSeries)
+  _radialChartSeries: QueryList<DtRadialChartSeries>;
 
   /** @internal Overlay template */
   @ContentChild(DtRadialChartOverlay, { static: false, read: TemplateRef })

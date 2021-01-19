@@ -137,17 +137,15 @@ export class DtExpandableRow
   static ngAcceptInputType_expanded: BooleanInput;
 
   /** Event emitted when the row's expandable state changes. */
-  @Output() readonly expandChange = new EventEmitter<
-    DtExpandableRowChangeEvent
-  >();
+  @Output()
+  readonly expandChange = new EventEmitter<DtExpandableRowChangeEvent>();
   /** @internal Event emitted when the row is expanded. */
   @Output('expanded') readonly _expandedStream = this.expandChange.pipe(
     filter((changeEvent) => changeEvent.row.expanded),
   );
   /** @internal Event emitted when the row is collapsed. */
-  @Output('collapsed') readonly _collapsedStream: Observable<
-    DtExpandableRowChangeEvent
-  > = this.expandChange.pipe(
+  @Output('collapsed')
+  readonly _collapsedStream: Observable<DtExpandableRowChangeEvent> = this.expandChange.pipe(
     filter((changeEvent) => !changeEvent.row.expanded),
   );
 

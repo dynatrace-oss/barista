@@ -173,9 +173,14 @@ describe('DtDrawer', () => {
     }));
 
     it('should close the drawer by calling its close function programmatically', fakeAsync(() => {
-      const { instance, containerEl, fixture } = createFixture<
-        TestAppDrawerOpened
-      >(TestAppDrawerOpened, 'dt-drawer-container');
+      const {
+        instance,
+        containerEl,
+        fixture,
+      } = createFixture<TestAppDrawerOpened>(
+        TestAppDrawerOpened,
+        'dt-drawer-container',
+      );
       fixture.detectChanges();
       flush();
 
@@ -252,9 +257,14 @@ describe('DtDrawer', () => {
     }));
 
     it('should close all drawers when the close function is called on the container', fakeAsync(() => {
-      const { instance, fixture, containerEl } = createFixture<
-        TestAppWithOverAndSideMode
-      >(TestAppWithOverAndSideMode, 'dt-drawer-container');
+      const {
+        instance,
+        fixture,
+        containerEl,
+      } = createFixture<TestAppWithOverAndSideMode>(
+        TestAppWithOverAndSideMode,
+        'dt-drawer-container',
+      );
       fixture.detectChanges();
       flush();
 

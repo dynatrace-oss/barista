@@ -131,19 +131,20 @@ export class DtExpandablePanel {
   static ngAcceptInputType_disabled: BooleanInput;
 
   /** Event emitted when the panel's expandable state changes. */
-  @Output() readonly expandChange: EventEmitter<boolean> = new EventEmitter<
-    boolean
-  >();
+  @Output()
+  readonly expandChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /** @internal Event emitted when the panel is expanded. */
-  @Output('expanded') readonly _panelExpanded: Observable<
-    boolean
-  > = this.expandChange.pipe(filter((v) => v));
+  @Output('expanded')
+  readonly _panelExpanded: Observable<boolean> = this.expandChange.pipe(
+    filter((v) => v),
+  );
 
   /**  @internal Event emitted when the panel is collapsed. */
-  @Output('collapsed') readonly _panelCollapsed: Observable<
-    boolean
-  > = this.expandChange.pipe(filter((v) => !v));
+  @Output('collapsed')
+  readonly _panelCollapsed: Observable<boolean> = this.expandChange.pipe(
+    filter((v) => !v),
+  );
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 

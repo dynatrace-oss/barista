@@ -159,14 +159,12 @@ export class DtTimeInput {
   @Output() timeChange = new EventEmitter<DtTimeChangeEvent>();
 
   /** @internal Reference of the hour input element */
-  @ViewChild('hours', { read: ElementRef }) _hourInput: ElementRef<
-    HTMLInputElement
-  >;
+  @ViewChild('hours', { read: ElementRef })
+  _hourInput: ElementRef<HTMLInputElement>;
 
   /** @internal Reference of the minute input element */
-  @ViewChild('minutes', { read: ElementRef }) _minuteInput: ElementRef<
-    HTMLInputElement
-  >;
+  @ViewChild('minutes', { read: ElementRef })
+  _minuteInput: ElementRef<HTMLInputElement>;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 

@@ -118,9 +118,8 @@ export class DtFilterFieldRange implements AfterViewInit {
   @Output() readonly closed = new EventEmitter<void>();
 
   /** Event that is emitted whenever an option from the list is selected. */
-  @Output() readonly rangeSubmitted = new EventEmitter<
-    DtFilterFieldRangeSubmittedEvent
-  >();
+  @Output()
+  readonly rangeSubmitted = new EventEmitter<DtFilterFieldRangeSubmittedEvent>();
 
   /** Unique ID to be used by filter-field range trigger's "aria-owns" property. */
   id = `dt-filter-field-range-${_uniqueIdCounter++}`;

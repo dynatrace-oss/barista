@@ -66,7 +66,8 @@ export const _DtOrderMixinBase = mixinDisabled(DtOrderBase);
     '[class.dt-order-disabled]': 'disabled',
   },
 })
-export class DtOrder<T> extends _DtOrderMixinBase
+export class DtOrder<T>
+  extends _DtOrderMixinBase
   implements CanDisable, AfterViewInit, OnChanges, OnDestroy {
   /**
    * @internal Event that is emitted whenever the input value of the order column
@@ -78,9 +79,8 @@ export class DtOrder<T> extends _DtOrderMixinBase
    * Event that is emitted whenever the input value of the order column
    * changes due to user input or dragging an item to a new position.
    */
-  @Output('dtOrderChange') readonly orderChange: Observable<
-    DtOrderChangeEvent
-  > = this._reorder.pipe(
+  @Output('dtOrderChange')
+  readonly orderChange: Observable<DtOrderChangeEvent> = this._reorder.pipe(
     filter((event) => !event.userTriggered),
     map((event) => event.data),
   );
