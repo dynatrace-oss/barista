@@ -63,9 +63,9 @@ describe('DtExpandableSection', () => {
           By.directive(DtExpandableSection),
         );
         instanceElement = instanceDebugElement.nativeElement;
-        expandableSectionInstance = instanceDebugElement.injector.get<
-          DtExpandableSection
-        >(DtExpandableSection);
+        expandableSectionInstance = instanceDebugElement.injector.get<DtExpandableSection>(
+          DtExpandableSection,
+        );
       }),
     );
 
@@ -263,9 +263,9 @@ describe('DtExpandableSection', () => {
       const instanceDebugElement = fixture.debugElement.query(
         By.directive(DtExpandableSection),
       );
-      const expandableSectionInstance = instanceDebugElement.injector.get<
-        DtExpandableSection
-      >(DtExpandableSection);
+      const expandableSectionInstance = instanceDebugElement.injector.get<DtExpandableSection>(
+        DtExpandableSection,
+      );
       fixture.detectChanges();
 
       expect(expandableSectionInstance.expanded).toBe(true);
@@ -276,9 +276,9 @@ describe('DtExpandableSection', () => {
       const instanceDebugElement = fixture.debugElement.query(
         By.directive(DtExpandableSection),
       );
-      const expandableSectionInstance = instanceDebugElement.injector.get<
-        DtExpandableSection
-      >(DtExpandableSection);
+      const expandableSectionInstance = instanceDebugElement.injector.get<DtExpandableSection>(
+        DtExpandableSection,
+      );
       fixture.detectChanges();
 
       expect(expandableSectionInstance.disabled).toBe(true);

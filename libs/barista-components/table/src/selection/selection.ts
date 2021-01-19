@@ -39,9 +39,9 @@ export interface DtTableSelectionConfig {
 }
 
 /** Injectiontoken used to the DtTableSelection configuration */
-export const DT_TABLE_SELECTION_CONFIG = new InjectionToken<
-  DtTableSelectionConfig
->('DT_TABLE_SELECTION_CONFIG');
+export const DT_TABLE_SELECTION_CONFIG = new InjectionToken<DtTableSelectionConfig>(
+  'DT_TABLE_SELECTION_CONFIG',
+);
 
 /**
  * Directive for managing selection on a DtTable component

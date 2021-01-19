@@ -281,9 +281,7 @@ export class DtFilterFieldDefaultDataSource
   /** Transforms the provided data into a DtNodeDef which contains a DtOptionDef. */
   transformOption(
     data: DtFilterFieldDefaultDataSourceOption,
-    parentAutocompleteOrOption: DtNodeDef<
-      DtFilterFieldDefaultDataSourceType
-    > | null = null,
+    parentAutocompleteOrOption: DtNodeDef<DtFilterFieldDefaultDataSourceType> | null = null,
     existingDef: DtNodeDef<DtFilterFieldDefaultDataSourceType> | null = null,
   ): DtNodeDef<DtFilterFieldDefaultDataSourceOption> {
     const parentGroup = isDtGroupDef<
@@ -311,18 +309,17 @@ export class DtFilterFieldDefaultDataSource
   /** Transforms the provided data into a DtNodeDef which contains a DtGroupDef. */
   transformGroup(
     data: DtFilterFieldDefaultDataSourceGroup,
-    parentAutocomplete: DtNodeDef<
-      DtFilterFieldDefaultDataSourceType
-    > | null = null,
+    parentAutocomplete: DtNodeDef<DtFilterFieldDefaultDataSourceType> | null = null,
     existingDef: DtNodeDef<DtFilterFieldDefaultDataSourceType> | null = null,
   ): DtNodeDef<DtFilterFieldDefaultDataSourceGroup> {
     const def = dtGroupDef<
       DtFilterFieldDefaultDataSourceGroup,
       DtFilterFieldDefaultDataSourceOption
     >(data, existingDef, data.name, [], parentAutocomplete);
-    def.group.options = this.transformList(data.options, def) as DtNodeDef<
-      DtFilterFieldDefaultDataSourceOption
-    >[];
+    def.group.options = this.transformList(
+      data.options,
+      def,
+    ) as DtNodeDef<DtFilterFieldDefaultDataSourceOption>[];
     return def;
   }
 
@@ -392,8 +389,8 @@ export class DtFilterFieldDefaultDataSource
   ): DtNodeDef<DtFilterFieldDefaultDataSourceType>[] {
     return list
       .map((item) => this.transformObject(item, parent))
-      .filter((item) => item !== null) as DtNodeDef<
-      DtFilterFieldDefaultDataSourceType
-    >[];
+      .filter(
+        (item) => item !== null,
+      ) as DtNodeDef<DtFilterFieldDefaultDataSourceType>[];
   }
 }

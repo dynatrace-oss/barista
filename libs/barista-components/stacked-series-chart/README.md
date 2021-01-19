@@ -121,7 +121,7 @@ This `DtStackedSeriesChartNode` holds the information for every node in a given
 series.
 
 | Name    | Type      | Optional | Description                                 |
-| ------- | --------- | -------- | ------------------------------------------- |
+| ------- | --------- | -------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
 | `label` | `string`  | No       | Name of the node to be shown.               |
 | `value` | `number`  | No       | Numeric value used to calculate the slices. |
 | `color` | `DtColors | string`  | Yes                                         | Color to be used. Fallback to [sorted chart colors](/resources/colors/chartcolors#sorted-chart-colors). |
@@ -132,7 +132,7 @@ The context of the overlay will be set to DtStackedSeriesChartTooltipData object
 containing useful information that can be used inside the overlay's template
 
 | Name            | Type                       | Description                                                      |
-| --------------- | -------------------------- | ---------------------------------------------------------------- |
+| --------------- | -------------------------- | ---------------------------------------------------------------- | ---------------------------------- |
 | `origin`        | `DtStackedSeriesChartNode` | Node passed by user in `series` array.                           |
 | `valueRelative` | `number`                   | Numeric percentage value based on this node vs sum of top level. |
 | `color`         | `DtColors                  | string`                                                          | Color for this node in this state. |
@@ -147,7 +147,7 @@ color and visibility is unified among same chart but also distributed charts
 (i.e. multiple charts in a table).
 
 | Name      | Type      | Description                   |
-| --------- | --------- | ----------------------------- |
+| --------- | --------- | ----------------------------- | ------------------------------------------ |
 | `label`   | `string`  | Label of the node.            |
 | `color`   | `DtColors | string`                       | Color to be used based on nodes and theme. |
 | `visible` | `boolean` | Whether it should be visible. |

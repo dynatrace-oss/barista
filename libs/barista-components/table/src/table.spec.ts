@@ -800,9 +800,8 @@ export class TestStickyHeader {
 })
 class TestAppMultiExpandableTable {
   @Input() multiExpand = false;
-  @ViewChildren(DtExpandableRow) private _expandableRows: QueryList<
-    DtExpandableRow
-  >;
+  @ViewChildren(DtExpandableRow)
+  private _expandableRows: QueryList<DtExpandableRow>;
   dataSource: object[] | null | undefined | DtTableDataSource<any> = [
     { col1: 'test 1', col2: 'test 2', details: 'details1' },
     { col1: 'test 1', col2: 'test 2', details: 'details2', expanded: true },

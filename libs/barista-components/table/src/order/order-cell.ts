@@ -58,7 +58,8 @@ const INPUT_PATTERN = '[0-9]*';
   preserveWhitespaces: false,
   exportAs: 'dtOrderCell',
 })
-export class DtOrderCell<T> extends DtCell
+export class DtOrderCell<T>
+  extends DtCell
   implements AfterViewInit, OnChanges, OnDestroy {
   /** Index of the row to display in the input field */
   @Input() index: string;

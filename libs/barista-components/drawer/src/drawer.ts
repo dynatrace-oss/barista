@@ -135,9 +135,8 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    * @internal
    * Event emitted when the drawer has been opened.
    */
-  @Output('opened') readonly _openedStream: Observable<
-    void
-  > = this.openChange.pipe(
+  @Output('opened')
+  readonly _openedStream: Observable<void> = this.openChange.pipe(
     filter((o) => o),
     map(() => {}),
   );
@@ -146,9 +145,8 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
    * @internal
    * Event emitted when the drawer has been closed.
    */
-  @Output('closed') readonly _closedStream: Observable<
-    void
-  > = this.openChange.pipe(
+  @Output('closed')
+  readonly _closedStream: Observable<void> = this.openChange.pipe(
     filter((o) => !o),
     map(() => {}),
   );

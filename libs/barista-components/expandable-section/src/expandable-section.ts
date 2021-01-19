@@ -94,14 +94,16 @@ export class DtExpandableSection
   @Output() readonly expandChange = new EventEmitter<boolean>();
 
   /** @internal Event emitted when the section is expanded. */
-  @Output('expanded') readonly _sectionExpanded: Observable<
-    boolean
-  > = this.expandChange.pipe(filter((v) => v));
+  @Output('expanded')
+  readonly _sectionExpanded: Observable<boolean> = this.expandChange.pipe(
+    filter((v) => v),
+  );
 
   /** @internal Event emitted when the section is collapsed. */
-  @Output('collapsed') readonly _sectionCollapsed: Observable<
-    boolean
-  > = this.expandChange.pipe(filter((v) => !v));
+  @Output('collapsed')
+  readonly _sectionCollapsed: Observable<boolean> = this.expandChange.pipe(
+    filter((v) => !v),
+  );
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     super();

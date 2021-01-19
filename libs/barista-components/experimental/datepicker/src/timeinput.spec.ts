@@ -288,11 +288,9 @@ class SimpleTimeInputTestApp {
 
   @ViewChild(DtTimeInput) timeInput: DtTimeInput;
 
-  @ViewChild('hours', { read: ElementRef }) _hourInput: ElementRef<
-    HTMLInputElement
-  >;
+  @ViewChild('hours', { read: ElementRef })
+  _hourInput: ElementRef<HTMLInputElement>;
 
-  @ViewChild('minutes', { read: ElementRef }) _minuteInput: ElementRef<
-    HTMLInputElement
-  >;
+  @ViewChild('minutes', { read: ElementRef })
+  _minuteInput: ElementRef<HTMLInputElement>;
 }

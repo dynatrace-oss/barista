@@ -58,9 +58,9 @@ describe('DtExpandablePanel', () => {
           By.directive(DtExpandablePanel),
         );
         instanceElement = instanceDebugElement.nativeElement;
-        expandablePanelInstance = instanceDebugElement.injector.get<
-          DtExpandablePanel
-        >(DtExpandablePanel);
+        expandablePanelInstance = instanceDebugElement.injector.get<DtExpandablePanel>(
+          DtExpandablePanel,
+        );
       }),
     );
 

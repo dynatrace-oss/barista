@@ -133,9 +133,8 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    * Emits a boolean value for the open state (true for open, false for close).
    * Fires after the animation is completed.
    */
-  @Output() readonly sidebarOpenChange: Observable<
-    boolean
-  > = this._zone.onStable.pipe(
+  @Output()
+  readonly sidebarOpenChange: Observable<boolean> = this._zone.onStable.pipe(
     take(1),
     switchMap(() => this._drawer.openChange.asObservable()),
   );

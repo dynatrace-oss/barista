@@ -47,9 +47,9 @@ describe('dt-expandable-text', () => {
     instanceDebugElement = fixture.debugElement.query(
       By.directive(DtExpandableText),
     );
-    expandableTextInstance = instanceDebugElement.injector.get<
-      DtExpandableText
-    >(DtExpandableText);
+    expandableTextInstance = instanceDebugElement.injector.get<DtExpandableText>(
+      DtExpandableText,
+    );
   });
 
   it('should be closed initially', () => {

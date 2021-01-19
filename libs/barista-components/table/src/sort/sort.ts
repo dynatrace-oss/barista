@@ -59,7 +59,8 @@ export const _DtSortMixinBase = mixinDisabled(DtSortBase);
   exportAs: 'dtSort',
   inputs: ['disabled: dtSortDisabled'],
 })
-export class DtSort extends _DtSortMixinBase
+export class DtSort
+  extends _DtSortMixinBase
   implements CanDisable, OnChanges, OnInit, OnDestroy {
   /**
    * Used to notify any child components listening to state changes.
@@ -98,9 +99,8 @@ export class DtSort extends _DtSortMixinBase
   private _direction: DtSortDirection = '';
 
   /** Event emitted when the user changes either the active sort or sort direction. */
-  @Output('dtSortChange') readonly sortChange: EventEmitter<
-    DtSortEvent
-  > = new EventEmitter<DtSortEvent>();
+  @Output('dtSortChange')
+  readonly sortChange: EventEmitter<DtSortEvent> = new EventEmitter<DtSortEvent>();
 
   /** Sets the active sort id and determines the new sort direction. */
   sort(sortable: DtSortHeader): void;
