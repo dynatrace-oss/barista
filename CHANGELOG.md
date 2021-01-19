@@ -1,3 +1,7 @@
+## [9.0.0-rc.2](https://github.com/dynatrace-oss/barista/compare/9.0.0-rc.0...9.0.0-rc.2) (2021-01-19)
+
+Fixes an issue with prettier being broken after a dependency upgrade.
+
 ## [9.0.0-rc.1](https://github.com/dynatrace-oss/barista/compare/9.0.0-rc.0...9.0.0-rc.1) (2021-01-19)
 
 ### Bug Fixes
