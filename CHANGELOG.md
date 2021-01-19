@@ -1,3 +1,24 @@
+## [9.0.0-rc.1](https://github.com/dynatrace-oss/barista/compare/9.0.0-rc.0...9.0.0-rc.1) (2021-01-19)
+
+### Bug Fixes
+
+- **sunburst-chart:** Fix tooltip flicker on click
+  ([cd61537](https://github.com/dynatrace-oss/barista/commit/cd61537cc2891b4c67e0bd8ae48d9440fa7a1c75))
+- **theming:** Fixes an issue with mismatching colors in the error palette.
+  ([5fb1888](https://github.com/dynatrace-oss/barista/commit/5fb188897cd0602f2f07f67e9b85f1bc4ca1c0aa))
+- **theming:** Fixes an issue with mismatching colors in the warning palette.
+  ([839f619](https://github.com/dynatrace-oss/barista/commit/839f619592080280a86e3a458f0221af99b07d1e))
+
+### Features
+
+- **autocomplete:** Added paged keyboard scrolling for autocomplete.
+  ([2804a85](https://github.com/dynatrace-oss/barista/commit/2804a8518df8aa62cbadc73866e4494df099df17))
+- **datepicker:** Add min and max limits to the timepicker/timeinput + disable
+  cursor on disabled dates and update readme.
+  ([46edd75](https://github.com/dynatrace-oss/barista/commit/46edd75f9417a5ea923a3e5716fe12a5bd53b44b))
+- **stacked-series-chart:** Added selection mode for entire row.
+  ([4306fbf](https://github.com/dynatrace-oss/barista/commit/4306fbf6f99aa9b1ea8a2cf1c953a17e527c29fb))
+
 ## [9.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/8.0.0...9.0.0-rc.0) (2021-01-12)
 
 This release includes an upgrade to all Angular packages to v11. Typescript was
