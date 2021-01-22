@@ -1350,18 +1350,25 @@ describe('DtFilterField', () => {
 
     describe('data-source switching', () => {
       it('should cancel the edit mode if the data source is switched', () => {
+        filterField.filters = [
+          [
+            FILTER_FIELD_TEST_DATA_ASYNC.autocomplete[0], // AUT
+            (FILTER_FIELD_TEST_DATA_ASYNC.autocomplete[0] as any)
+              .autocomplete[1], // Vienna
+          ],
+        ];
         filterField.focus();
         advanceFilterfieldCycle();
 
         const options = getOptions(overlayContainerElement);
-        options[0].click();
+        options[1].click(); // USA
         advanceFilterfieldCycle();
 
         let category = fixture.debugElement.query(
           By.css('.dt-filter-field-category'),
         );
 
-        expect(category.nativeElement.textContent.trim()).toBe('AUT');
+        expect(category.nativeElement.textContent.trim()).toBe('USA');
         expect(filterField.filters.length).toBe(1);
         expect(filterField.filters[0][0].name).toBe('AUT');
 
@@ -1373,7 +1380,7 @@ describe('DtFilterField', () => {
         );
 
         expect(category).toBeNull();
-        expect(filterField.filters.length).toBe(0);
+        expect(filterField.filters.length).toBe(1);
       });
 
       it('should not remove the current filter if the data is changed when the filterChanges event fires', () => {
@@ -1640,6 +1647,40 @@ describe('DtFilterField', () => {
         )?.nativeElement as HTMLDivElement)?.textContent;
         expect(placeholder).toBe('Locations.Linz');
       }));
+    });
+    describe('filters public api', () => {
+      beforeEach(() => {
+        fixture.componentInstance.dataSource.data = TEST_DATA_EDITMODE;
+        advanceFilterfieldCycle();
+        fixture.detectChanges();
+      });
+
+      it('should not contain filters currently edited', () => {
+        const autocompleteFilter = [
+          TEST_DATA_EDITMODE.autocomplete[0], // AUT
+          (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[1], // Vienna
+        ];
+        filterField.filters = [autocompleteFilter];
+
+        fixture.detectChanges();
+
+        expect(filterField.filters.length).toBe(1);
+
+        const tags = getFilterTags(fixture);
+        const { label: freeTextLabel } = getTagButtons(tags[0]);
+
+        // enter editmode
+        freeTextLabel.click();
+        advanceFilterfieldCycle();
+
+        expect(filterField.filters.length).toBe(0);
+
+        // cancel editmode
+        dispatchFakeEvent(document, 'click');
+        advanceFilterfieldCycle();
+
+        expect(filterField.filters.length).toBe(1);
+      });
     });
   });
 });

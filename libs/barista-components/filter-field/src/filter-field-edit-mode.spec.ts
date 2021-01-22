@@ -348,9 +348,7 @@ describe('DtFilterField', () => {
       inputfields[0].click();
       advanceFilterfieldCycle();
 
-      expect(filterField.filters).toHaveLength(3);
-      // Range filter should have set only the root filter (range def)
-      expect(filterField.filters[2]).toHaveLength(1);
+      expect(filterField.filters).toHaveLength(2);
     });
 
     it('should make the edit to the first tag', () => {

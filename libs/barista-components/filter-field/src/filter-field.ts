@@ -285,7 +285,9 @@ export class DtFilterField<T = any>
   /** Currently applied filters */
   @Input()
   get filters(): any[][] {
-    return this._filters.map((values) => _getSourcesOfDtFilterValues(values));
+    return this._filterValues.map((values) =>
+      _getSourcesOfDtFilterValues(values),
+    );
   }
   set filters(value: any[][]) {
     this._tryApplyFilters(value);
@@ -293,7 +295,14 @@ export class DtFilterField<T = any>
   }
   /** @internal */
   get _filterValues(): DtFilterValue[][] {
-    return this._filters;
+    const currentSources = _getSourcesOfDtFilterValues(
+      this._currentFilterValues,
+    );
+    // Only filters that are completed should be part oft the filters API.
+    // Filter out the incomplete ones (filters that are currently edited by the user).
+    return this._filters.filter((f) =>
+      _getSourcesOfDtFilterValues(f).every((v, i) => v !== currentSources[i]),
+    );
   }
   private _filters: DtFilterValue[][] = [];
 
@@ -1236,29 +1245,27 @@ export class DtFilterField<T = any>
     added: DtFilterValue[][],
     removed: DtFilterValue[][],
   ): void {
-    this.filterChanges.emit(
-      new DtFilterFieldChangeEvent(
-        this,
-        added.map((values) => _getSourcesOfDtFilterValues(values)),
-        removed.map((values) => _getSourcesOfDtFilterValues(values)),
-        this.filters,
-      ),
+    const e = new DtFilterFieldChangeEvent(
+      this,
+      added.map((values) => _getSourcesOfDtFilterValues(values)),
+      removed.map((values) => _getSourcesOfDtFilterValues(values)),
+      this.filters,
     );
+    this.filterChanges.emit(e);
   }
 
   private _emitCurrentFilterChanges(
     addedValues: DtFilterValue[],
     removedValues: DtFilterValue[],
   ): void {
-    this.currentFilterChanges.emit(
-      new DtFilterFieldCurrentFilterChangeEvent(
-        this,
-        _getSourcesOfDtFilterValues(addedValues),
-        _getSourcesOfDtFilterValues(removedValues),
-        _getSourcesOfDtFilterValues(this._currentFilterValues),
-        this.filters,
-      ),
+    const e = new DtFilterFieldCurrentFilterChangeEvent(
+      this,
+      _getSourcesOfDtFilterValues(addedValues),
+      _getSourcesOfDtFilterValues(removedValues),
+      _getSourcesOfDtFilterValues(this._currentFilterValues),
+      this.filters,
     );
+    this.currentFilterChanges.emit(e);
   }
 
   /** Creates a stream of clicks outside the filter field in free text mode */
