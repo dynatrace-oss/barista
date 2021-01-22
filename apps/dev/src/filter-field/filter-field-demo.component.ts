@@ -153,6 +153,8 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   _useCustomEditorParser: boolean;
 
   ngAfterViewInit(): void {
+    // Hack so we can read and interact with the filter-field
+    (window as any).filterField = this.filterField;
     this.filterField.currentTags.subscribe((tags) => {
       if (tags.length) {
         this._firstTag = tags[0];
@@ -225,6 +227,17 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   setValues(): void {
     if (this._dataSource.data === TEST_DATA) {
       this.filterField.filters = [
+        // AUT Vienna
+        [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
+        // Range
+        [
+          TEST_DATA.autocomplete[6],
+          {
+            operator: 'range',
+            range: [2, 3],
+            unit: 's',
+          },
+        ],
         // // Free text
         // [
         //   TEST_DATA.autocomplete[0],
@@ -238,8 +251,8 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
         // // option as a string
         // [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
 
-        blaFree,
-        blaRange,
+        // blaFree,
+        // blaRange,
 
         // Range
         // [
