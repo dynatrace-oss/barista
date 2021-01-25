@@ -101,7 +101,7 @@
     "@angular/platform-browser-dynamic": "^11.0.5",
     "@angular/platform-server": "^11.0.5",
     "@angular/router": "^11.0.5",
-    "@babel/cli": "^7.10.5",
+    "@babel/cli": "^7.12.10",
     "@bazel/bazelisk": "^1.7.3",
     "@bazel/ibazel": "^0.14.0",
     "@bazel/rollup": "^2.2.1",
