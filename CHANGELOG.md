@@ -1,3 +1,17 @@
+## [9.0.0-rc.3](https://github.com/dynatrace-oss/barista/compare/9.0.0-rc.2...9.0.0-rc.3) (2021-01-25)
+
+### Bug Fixes
+
+- **quick-filter:** Fix truncation.
+  ([eba5df1](https://github.com/dynatrace-oss/barista/commit/eba5df114efd7f052f188963962f2fb73c381984))
+
+### Features
+
+- **stacked-series-chart:** Add compact mode.
+  ([48cc0f1](https://github.com/dynatrace-oss/barista/commit/48cc0f1473fe5cd6d67d62f9966978751400b1a0))
+- **sunburst-chart:** Improving view for small screens.
+  ([7087662](https://github.com/dynatrace-oss/barista/commit/7087662c9a294853c9ea3070bc2142b7b0b3ba13))
+
 ## [9.0.0-rc.2](https://github.com/dynatrace-oss/barista/compare/9.0.0-rc.0...9.0.0-rc.2) (2021-01-19)
 
 Fixes an issue with prettier being broken after a dependency upgrade.
