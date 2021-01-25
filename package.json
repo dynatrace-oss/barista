@@ -115,7 +115,7 @@
     "@nrwl/cli": "^11.0.20",
     "@nrwl/jest": "^11.0.20",
     "@nrwl/linter": "^11.0.20",
-    "@nrwl/node": "^11.0.20",
+    "@nrwl/node": "^11.1.5",
     "@nrwl/nx-plugin": "^11.0.20",
     "@nrwl/tao": "^11.0.20",
     "@nrwl/workspace": "^11.0.20",
