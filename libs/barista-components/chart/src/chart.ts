@@ -259,15 +259,11 @@ export class DtChart
    * Eventemitter that fires every time the data inside the chart tooltip changes
    */
   @Output()
-  readonly tooltipDataChange: EventEmitter<
-    DtChartTooltipEvent
-  > = new EventEmitter();
+  readonly tooltipDataChange: EventEmitter<DtChartTooltipEvent> = new EventEmitter();
 
   /** Eventemitter that fires every time a legend item is clicked and a series visibility changes */
   @Output()
-  readonly seriesVisibilityChange = new EventEmitter<
-    DtChartSeriesVisibilityChangeEvent
-  >();
+  readonly seriesVisibilityChange = new EventEmitter<DtChartSeriesVisibilityChangeEvent>();
 
   /** returns an array of ids for the series data */
   get seriesIds(): Array<string | undefined> | undefined {
@@ -359,20 +355,20 @@ export class DtChart
     );
   }
 
-  private readonly _heatfieldActiveChanges: Observable<
-    DtChartHeatfieldActiveChange
-  > = defer(() => {
-    if (this._heatfields) {
-      return merge<DtChartHeatfieldActiveChange>(
-        ...this._heatfields.map((heatfield) => heatfield.activeChange),
-      );
-    }
+  private readonly _heatfieldActiveChanges: Observable<DtChartHeatfieldActiveChange> = defer(
+    () => {
+      if (this._heatfields) {
+        return merge<DtChartHeatfieldActiveChange>(
+          ...this._heatfields.map((heatfield) => heatfield.activeChange),
+        );
+      }
 
-    return this._ngZone.onStable.asObservable().pipe(
-      take(1),
-      switchMap(() => this._heatfieldActiveChanges),
-    );
-  });
+      return this._ngZone.onStable.asObservable().pipe(
+        take(1),
+        switchMap(() => this._heatfieldActiveChanges),
+      );
+    },
+  );
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -611,7 +607,11 @@ export class DtChart
                 this,
                 plotBackgroundInfo,
               );
-              this.tooltipDataChange.emit();
+              state.event?.data
+                ? this.tooltipDataChange.emit({
+                    data: state.event?.data,
+                  })
+                : this.tooltipDataChange.emit();
               break;
           }
         });
@@ -669,9 +669,9 @@ export class DtChart
   private _notifyAfterRender(): void {
     this._ngZone.runOutsideAngular(() => {
       this._afterRender.next();
-      const plotBackground = this._container.nativeElement.querySelector<
-        SVGRectElement
-      >(HIGHCHARTS_PLOT_BACKGROUND);
+      const plotBackground = this._container.nativeElement.querySelector<SVGRectElement>(
+        HIGHCHARTS_PLOT_BACKGROUND,
+      );
 
       // set the offset of the plotBackground in relation to the chart
       this._setPlotBackgroundOffset(plotBackground);
