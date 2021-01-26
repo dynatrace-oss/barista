@@ -6,6 +6,7 @@
   clearAllLabel="Clear all"
   [filters]="filters"
   [customTagParser]="customParser"
+  [customEditionParser]="_useCustomEditorParser ? customEditionParser : null"
   (inputChange)="inputChange($event)"
   (filterChanges)="filterChanges($event)"
   (currentFilterChanges)="currentFilterChanges($event)"
@@ -46,5 +47,10 @@
       Toggle disabled
     </button>
     <button dt-button (click)="getTagForFilter()">getTagForFilter</button>
+    <button variant="secondary" dt-button (click)="getEditionForFilter()">
+      Custom edition parser ({{
+        _useCustomEditorParser ? 'enabled' : 'disabled'
+      }})
+    </button>
   </div>
 </div>

@@ -371,6 +371,20 @@ export function defaultTagDataForFilterValuesParser(
       )
     : null;
 }
+/** Default function to parse text during the edition of a filed */
+export function defaultEditionDataForFilterValuesParser<T>(
+  filterValues: DtFilterValue[],
+): string {
+  let value = '';
+  if (!filterValues?.length) {
+    return value;
+  }
+  const def = filterValues[0] as DtAutocompleteValue<T>;
+  if (isDtOptionDef(def)) {
+    value = def.option.viewValue;
+  }
+  return value;
+}
 
 export function findFilterValuesForSources<T>(
   sources: T[],

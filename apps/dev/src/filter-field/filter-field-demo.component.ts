@@ -30,6 +30,7 @@ import { COMPLEX_DATA } from './data';
 import { KUBERNETES_DATA } from './kubernetes-data';
 import { MULTI_SELECT_DATA } from './multi-select';
 import { MULTIDIMENSIONAL_ANALYSIS } from './multidimensional-analysis';
+import { THREE_LEVELS_NESTED_DATA } from './three-levels-nested-data';
 import {
   TEST_DATA,
   TEST_DATA_ASYNC,
@@ -46,6 +47,7 @@ const DATA_SETS = new Map<string, any>([
   ['COMPLEX_DATA', COMPLEX_DATA],
   ['MULTI_SELECT_DATA', MULTI_SELECT_DATA],
   ['MULTIDIMENSIONAL_ANALYSIS', MULTIDIMENSIONAL_ANALYSIS],
+  ['THREE_LEVELS_NESTED_DATA', THREE_LEVELS_NESTED_DATA],
 ]);
 
 // Different object reference
@@ -147,6 +149,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   _loading = false;
   _disabled = false;
   _filters;
+  _useCustomEditorParser: boolean;
 
   ngAfterViewInit(): void {
     this.filterField.currentTags.subscribe((tags) => {
@@ -264,6 +267,9 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     const freeTag = this.filterField.getTagForFilter(blaFree);
     freeTag!.editable = false;
   }
+  getEditionForFilter(): void {
+    this._useCustomEditorParser = !this._useCustomEditorParser;
+  }
 
   customParser(
     filterValues: DtFilterValue[],
@@ -279,5 +285,13 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
       tagData.key = '❤ ' + tagData.key;
     }
     return tagData;
+  }
+
+  customEditionParser(filterValues: DtFilterValue[]): string {
+    return (
+      '✏ ' +
+      (filterValues?.map((value: any) => value.data.name).join('.') ??
+        'no data')
+    );
   }
 }

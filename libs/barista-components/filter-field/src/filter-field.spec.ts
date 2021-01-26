@@ -44,11 +44,13 @@ import {
   FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT,
   FILTER_FIELD_TEST_DATA_SINGLE_OPTION,
 } from '@dynatrace/testing/fixtures';
+import { EditionParserFunction } from './filter-field-config';
 import { TEST_DATA_EDITMODE_ASYNC } from './filter-field-edit-mode.spec';
 import {
   TEST_DATA_SUGGESTIONS,
   TEST_DATA_EDITMODE,
   TEST_DATA_RANGE,
+  TEST_DATA_PLACEHOLDER,
 } from './testing/filter-field-test-data';
 import {
   TestApp,
@@ -63,6 +65,7 @@ import {
   getTagButtons,
   isClearAllVisible,
 } from './testing/filter-field-test-helpers';
+import { DtAutocompleteValue, DtFilterValue } from './types';
 
 describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
@@ -1576,6 +1579,67 @@ describe('DtFilterField', () => {
         expect(filterTags[0].separator).toBe(':');
         expect(filterTags[0].value).toBe('Wels');
       });
+    });
+
+    describe('placeholder parse label', () => {
+      let fixtureCustom: ComponentFixture<TestAppCustomParserInput>;
+      const placeholderElement = By.css('.dt-filter-field-infix');
+      const selectFields = () => {
+        filterField.focus();
+        fixtureCustom.detectChanges();
+        // Open first level
+        const firstLevel = getOptions(overlayContainerElement);
+        firstLevel[0].click();
+        advanceFilterfieldCycle();
+        tick();
+
+        // Open second level
+        const secondLevel = getOptions(overlayContainerElement);
+        secondLevel[0].click();
+        advanceFilterfieldCycle();
+
+        // Open third level
+        const thirdLevel = getOptions(overlayContainerElement);
+        thirdLevel[0].click();
+        advanceFilterfieldCycle();
+      };
+
+      beforeEach(() => {
+        fixtureCustom = createComponent(TestAppCustomParserInput);
+        filterField = fixtureCustom.debugElement.query(
+          By.directive(DtFilterField),
+        ).componentInstance;
+
+        fixtureCustom.componentInstance.dataSource.data = TEST_DATA_PLACEHOLDER;
+        advanceFilterfieldCycle();
+
+        fixtureCustom.detectChanges();
+      });
+      it('should display a default (first iterator) value when placeholder is not overwritten', fakeAsync(() => {
+        selectFields();
+
+        const placeholder = (fixtureCustom.debugElement.query(
+          placeholderElement,
+        )?.nativeElement as HTMLDivElement)?.textContent;
+        expect(placeholder).toBe(TEST_DATA_PLACEHOLDER.autocomplete[0].name);
+      }));
+      it('should display a correct value when placeholder is overwrite by input', fakeAsync(() => {
+        const parser: EditionParserFunction | null = (
+          _filterValues: DtFilterValue[],
+        ) =>
+          _filterValues
+            ?.map(({ option }: DtAutocompleteValue<string>) => option.viewValue)
+            .join('.');
+
+        filterField.customEditionParser = parser;
+
+        selectFields();
+
+        const placeholder = (fixtureCustom.debugElement.query(
+          placeholderElement,
+        )?.nativeElement as HTMLDivElement)?.textContent;
+        expect(placeholder).toBe('Locations.Linz');
+      }));
     });
   });
 });
