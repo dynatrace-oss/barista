@@ -128,3 +128,30 @@ export const TEST_DATA_EDITMODE = {
     },
   ],
 };
+
+export const TEST_DATA_PLACEHOLDER = {
+  name: 'Category',
+  value: 'category',
+  autocomplete: [
+    {
+      name: 'Locations',
+      autocomplete: [
+        {
+          name: 'Linz',
+          value: 'linz',
+          autocomplete: [
+            { name: 'Pöstlingberg' },
+            { name: 'Froschgarten' },
+            { name: 'Bachlberg' },
+            { name: 'St. Magdalena' },
+          ],
+        },
+        { name: 'Wels' },
+        { name: 'Steyr' },
+        { name: 'Leonding' },
+        { name: 'Traun' },
+        { name: 'Vöcklabruck' },
+      ],
+    },
+  ],
+};

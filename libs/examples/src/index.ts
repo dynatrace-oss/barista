@@ -42,6 +42,11 @@ import { DtExampleBreadcrumbsColor } from './breadcrumbs/breadcrumbs-color-examp
 import { DtExampleBreadcrumbsDark } from './breadcrumbs/breadcrumbs-dark-example/breadcrumbs-dark-example';
 import { DtExampleBreadcrumbsDefault } from './breadcrumbs/breadcrumbs-default-example/breadcrumbs-default-example';
 import { DtExampleBreadcrumbsObservable } from './breadcrumbs/breadcrumbs-observable-example/breadcrumbs-observable-example';
+import { DtExampleButtonGroupDefault } from './button-group/button-group-default-example/button-group-default-example';
+import { DtExampleButtonGroupDisabled } from './button-group/button-group-disabled-example/button-group-disabled-example';
+import { DtExampleButtonGroupError } from './button-group/button-group-error-example/button-group-error-example';
+import { DtExampleButtonGroupInteractive } from './button-group/button-group-interactive-example/button-group-interactive-example';
+import { DtExampleButtonGroupItemDisabled } from './button-group/button-group-item-disabled-example/button-group-item-disabled-example';
 import { DtExampleButtonColor } from './button/button-color-example/button-color-example';
 import { DtExampleButtonDark } from './button/button-dark-example/button-dark-example';
 import { DtExampleButtonDefault } from './button/button-default-example/button-default-example';
@@ -51,11 +56,6 @@ import { DtExampleButtonIcons } from './button/button-icons-example/button-icons
 import { DtExampleButtonInteraction } from './button/button-interaction-example/button-interaction-example';
 import { DtExampleButtonLoadingSpinner } from './button/button-loading-spinner-example/button-loading-spinner-example';
 import { DtExampleButtonVariant } from './button/button-variant-example/button-variant-example';
-import { DtExampleButtonGroupDefault } from './button-group/button-group-default-example/button-group-default-example';
-import { DtExampleButtonGroupDisabled } from './button-group/button-group-disabled-example/button-group-disabled-example';
-import { DtExampleButtonGroupError } from './button-group/button-group-error-example/button-group-error-example';
-import { DtExampleButtonGroupInteractive } from './button-group/button-group-interactive-example/button-group-interactive-example';
-import { DtExampleButtonGroupItemDisabled } from './button-group/button-group-item-disabled-example/button-group-item-disabled-example';
 import { DtExampleCardActionButtons } from './card/card-action-buttons-example/card-action-buttons-example';
 import { DtExampleCardDark } from './card/card-dark-example/card-dark-example';
 import { DtExampleCardDefault } from './card/card-default-example/card-default-example';
@@ -84,6 +84,7 @@ import { DtExampleCheckboxDark } from './checkbox/checkbox-dark-example/checkbox
 import { DtExampleCheckboxDefault } from './checkbox/checkbox-default-example/checkbox-default-example';
 import { DtExampleCheckboxIndeterminate } from './checkbox/checkbox-indeterminate-example/checkbox-indeterminate-example';
 import { DtExampleCheckboxResponsive } from './checkbox/checkbox-responsive-example/checkbox-responsive-example';
+import { DtExampleComboboxCustomOptionHeight } from './combobox/combobox-custom-option-height-example/combobox-custom-option-height-example';
 import { DtExampleComboboxSimple } from './combobox/combobox-simple-example/combobox-simple-example';
 import { DtExampleConfirmationDialogDefault } from './confirmation-dialog/confirmation-dialog-default-example/confirmation-dialog-default-example';
 import { DtExampleConfirmationDialogShowBackdrop } from './confirmation-dialog/confirmation-dialog-show-backdrop-example/confirmation-dialog-show-backdrop-example';
@@ -108,11 +109,15 @@ import { DtExampleCopyToClipboardDefault } from './copy-to-clipboard/copy-to-cli
 import { DtExampleCopyToClipboardError } from './copy-to-clipboard/copy-to-clipboard-error-example/copy-to-clipboard-error-example';
 import { DtExampleCopyToClipboardSecondaryButton } from './copy-to-clipboard/copy-to-clipboard-secondary-button-example/copy-to-clipboard-secondary-button-example';
 import { DtExampleCopyToClipboardTextarea } from './copy-to-clipboard/copy-to-clipboard-textarea-example/copy-to-clipboard-textarea-example';
+import { DtExampleCalendarMinMax } from './datepicker/calendar-min-max-example/calendar-min-max-example';
+import { DtExampleDatepickerDark } from './datepicker/datepicker-dark-example/datepicker-dark-example';
+import { DtExampleDatepickerDefault } from './datepicker/datepicker-default-example/datepicker-default-example';
+import { DtExampleTimepickerMinMax } from './datepicker/timepicker-min-max-example/timepicker-min-max-example';
+import { DtExampleDrawerTableDefault } from './drawer-table/drawer-table-default-example/drawer-table-default-example';
 import { DtExampleDrawerDefault } from './drawer/drawer-default-example/drawer-default-example';
 import { DtExampleDrawerDynamic } from './drawer/drawer-dynamic-example/drawer-dynamic-example';
 import { DtExampleDrawerNested } from './drawer/drawer-nested-example/drawer-nested-example';
 import { DtExampleDrawerOver } from './drawer/drawer-over-example/drawer-over-example';
-import { DtExampleDrawerTableDefault } from './drawer-table/drawer-table-default-example/drawer-table-default-example';
 import {
   DtExampleCustomEmptyState,
   DtExampleCustomEmptyStateTable,
@@ -142,9 +147,11 @@ import { DtExampleExpandableTextDefault } from './expandable-text/expandable-tex
 import { DtExampleFilterFieldAsync } from './filter-field/filter-field-async-example/filter-field-async-example';
 import { DtExampleFilterFieldClearall } from './filter-field/filter-field-clearall-example/filter-field-clearall-example';
 import { DtExampleFilterFieldCustomParser } from './filter-field/filter-field-custom-parser-example/filter-field-custom-parser-example';
+import { DtExampleFilterFieldCustomPlaceholder } from './filter-field/filter-field-custom-placeholder/filter-field-custom-placeholder.example';
 import { DtExampleFilterFieldDefault } from './filter-field/filter-field-default-example/filter-field-default-example';
 import { DtExampleFilterFieldDisabled } from './filter-field/filter-field-disabled-example/filter-field-disabled-example';
 import { DtExampleFilterFieldDistinct } from './filter-field/filter-field-distinct-example/filter-field-distinct-example';
+import { DtExampleFilterFieldInfiniteDataDepth } from './filter-field/filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example';
 import { DtExampleFilterFieldPartial } from './filter-field/filter-field-partial-example/filter-field-partial-example';
 import { DtExampleFilterFieldProgrammaticFilters } from './filter-field/filter-field-programmatic-filters-example/filter-field-programmatic-filters-example';
 import { DtExampleFilterFieldReadOnlyTags } from './filter-field/filter-field-readonly-non-editable-tags-example/filter-field-readonly-non-editable-tags-example';
@@ -228,8 +235,8 @@ import { DtExampleProgressCircleDefault } from './progress-circle/progress-circl
 import { DtExampleProgressCircleWithColor } from './progress-circle/progress-circle-with-color-example/progress-circle-with-color-example';
 import { DtExampleProgressCircleWithIcon } from './progress-circle/progress-circle-with-icon-example/progress-circle-with-icon-example';
 import { DtExampleProgressCircleWithText } from './progress-circle/progress-circle-with-text-example/progress-circle-with-text-example';
-import { DtExampleQuickFilterDefault } from './quick-filter/quick-filter-default-example/quick-filter-default-example';
 import { DtExampleQuickFilterCustomShowMore } from './quick-filter/quick-filter-custom-show-more-example/quick-filter-custom-show-more-example';
+import { DtExampleQuickFilterDefault } from './quick-filter/quick-filter-default-example/quick-filter-default-example';
 import { DtExampleRadialChartCustomColors } from './radial-chart/radial-chart-custom-colors-example/radial-chart-custom-colors-example';
 import { DtExampleRadialChartDefaultDonut } from './radial-chart/radial-chart-default-donut-example/radial-chart-default-donut-example';
 import { DtExampleRadialChartDefaultPie } from './radial-chart/radial-chart-default-pie-example/radial-chart-default-pie-example';
@@ -331,20 +338,13 @@ import { DtExampleTreeTableAsyncShowMore } from './tree-table/tree-table-async-s
 import { DtExampleTreeTableDefault } from './tree-table/tree-table-default-example/tree-table-default-example';
 import { DtExampleTreeTableProblemIndicator } from './tree-table/tree-table-problem-indicator-example/tree-table-problem-indicator-example';
 import { DtExampleTreeTableSimple } from './tree-table/tree-table-simple-example/tree-table-simple-example';
-import { DtExampleComboboxCustomOptionHeight } from './combobox/combobox-custom-option-height-example/combobox-custom-option-height-example';
-import { DtExampleFilterFieldInfiniteDataDepth } from './filter-field/filter-field-infinite-data-depth-example/filter-field-infinite-data-depth-example';
-import { DtExampleCalendarMinMax } from './datepicker/calendar-min-max-example/calendar-min-max-example';
-import { DtExampleTimepickerMinMax } from './datepicker/timepicker-min-max-example/timepicker-min-max-example';
-import { DtExampleDatepickerDark } from './datepicker/datepicker-dark-example/datepicker-dark-example';
-import { DtExampleDatepickerDefault } from './datepicker/datepicker-default-example/datepicker-default-example';
 
-export { DtExamplesModule } from './examples.module';
 export { DtAlertExamplesModule } from './alert/alert-examples.module';
 export { DtAutocompleteExamplesModule } from './autocomplete/autocomplete-examples.module';
 export { DtBarIndicatorExamplesModule } from './bar-indicator/bar-indicator-examples.module';
 export { DtBreadcrumbsExamplesModule } from './breadcrumbs/breadcrumbs-examples.module';
-export { DtButtonExamplesModule } from './button/button-examples.module';
 export { DtButtonGroupExamplesModule } from './button-group/button-group-examples.module';
+export { DtButtonExamplesModule } from './button/button-examples.module';
 export { DtCardExamplesModule } from './card/card-examples.module';
 export { DtChartExamplesModule } from './chart/chart-examples.module';
 export { DtCheckboxExamplesModule } from './checkbox/checkbox-examples.module';
@@ -354,10 +354,12 @@ export { DtConsumptionExamplesModule } from './consumption/consumption-examples.
 export { DtContainerBreakpointObserverExamplesModule } from './container-breakpoint-observer/container-breakpoint-observer-examples.module';
 export { DtContextDialogExamplesModule } from './context-dialog/context-dialog-examples.module';
 export { DtCopyToClipboardExamplesModule } from './copy-to-clipboard/copy-to-clipboard-examples.module';
-export { DtDrawerExamplesModule } from './drawer/drawer-examples.module';
+export { DtExamplesDatepickerModule } from './datepicker/datepicker-examples.module';
 export { DtDrawerTableExamplesModule } from './drawer-table/drawer-table-examples.module';
+export { DtDrawerExamplesModule } from './drawer/drawer-examples.module';
 export { DtEmptyStateExamplesModule } from './empty-state/empty-state-examples.module';
 export { DtEventChartExamplesModule } from './event-chart/event-chart-examples.module';
+export { DtExamplesModule } from './examples.module';
 export { DtExpandablePanelExamplesModule } from './expandable-panel/expandable-panel-examples.module';
 export { DtExpandableSectionExamplesModule } from './expandable-section/expandable-section-examples.module';
 export { DtExpandableTextExamplesModule } from './expandable-text/expandable-text-examples.module';
@@ -401,7 +403,6 @@ export { DtToastExamplesModule } from './toast/toast-examples.module';
 export { DtToggleButtonGroupExamplesModule } from './toggle-button-group/toggle-button-group-examples.module';
 export { DtExamplesTopBarNavigationModule } from './top-bar-navigation/top-bar-navigation-examples.module';
 export { DtExamplesTreeTableModule } from './tree-table/tree-table-examples.module';
-export { DtExamplesDatepickerModule } from './datepicker/datepicker-examples.module';
 export {
   DtExampleAlertDarkError,
   DtExampleAlertDark,
@@ -522,6 +523,7 @@ export {
   DtExampleFilterFieldAsync,
   DtExampleFilterFieldClearall,
   DtExampleFilterFieldCustomParser,
+  DtExampleFilterFieldCustomPlaceholder as DtExampleFilterFieldCustomPlaceholderExample,
   DtExampleFilterFieldDefault,
   DtExampleFilterFieldDisabled,
   DtExampleFilterFieldDistinct,
@@ -875,6 +877,10 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleFilterFieldAsync', DtExampleFilterFieldAsync],
   ['DtExampleFilterFieldClearall', DtExampleFilterFieldClearall],
   ['DtExampleFilterFieldCustomParser', DtExampleFilterFieldCustomParser],
+  [
+    'DtExampleFilterFieldCustomPlaceholder',
+    DtExampleFilterFieldCustomPlaceholder,
+  ],
   ['DtExampleFilterFieldDefault', DtExampleFilterFieldDefault],
   ['DtExampleFilterFieldDisabled', DtExampleFilterFieldDisabled],
   ['DtExampleFilterFieldDistinct', DtExampleFilterFieldDistinct],

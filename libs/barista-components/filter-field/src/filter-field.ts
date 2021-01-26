@@ -87,8 +87,11 @@ import {
   tap,
 } from 'rxjs/operators';
 import {
+  DT_FILTER_EDITION_VALUES_DEFAULT_PARSER_CONFIG,
+  DT_FILTER_EDITION_VALUES_PARSER_CONFIG,
   DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG,
   DT_FILTER_VALUES_PARSER_CONFIG,
+  EditionParserFunction,
   TagParserFunction,
 } from './filter-field-config';
 import { DtFilterFieldDataSource } from './filter-field-data-source';
@@ -221,7 +224,26 @@ export class DtFilterField<T = any>
     this._updateTagData();
     this._changeDetectorRef.markForCheck();
   }
+
+  /** A function to override the default or injected configuration for edition parsing text */
+
+  @Input()
+  get customEditionParser(): EditionParserFunction | null {
+    return this._customEditionParser;
+  }
+  set customEditionParser(value: EditionParserFunction | null) {
+    this._customEditionParser = value;
+
+    if (value !== null) {
+      this.editionValuesParser = value;
+    }
+
+    this._updateEditionData();
+    this._changeDetectorRef.markForCheck();
+  }
+
   private _customTagParser: TagParserFunction | null = null;
+  private _customEditionParser: EditionParserFunction | null = null;
 
   /** The data source instance that should be connected to the filter field. */
   @Input()
@@ -494,9 +516,17 @@ export class DtFilterField<T = any>
     @Optional()
     @Inject(DT_FILTER_VALUES_PARSER_CONFIG)
     private tagValuesParser: TagParserFunction,
+    @Optional()
+    @Inject(DT_FILTER_EDITION_VALUES_PARSER_CONFIG)
+    private editionValuesParser: EditionParserFunction,
   ) {
     this.tagValuesParser =
       this.tagValuesParser || DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG;
+
+    this.editionValuesParser =
+      this.editionValuesParser ||
+      DT_FILTER_EDITION_VALUES_DEFAULT_PARSER_CONFIG;
+
     this.errorStateMatcher = defaultErrorStateMatcher;
     this._stateChanges
       .pipe(
@@ -1386,6 +1416,11 @@ export class DtFilterField<T = any>
         : [];
     }
   }
+  /** Updates filter by text */
+  private _updateEditionData(): void {
+    const splitIndex = this._filters.indexOf(this._currentFilterValues);
+    this.editionValuesParser(this._filters[splitIndex]);
+  }
 
   /** Updates the list of options or groups displayed in the autocomplete overlay */
   private _updateAutocompleteOptionsOrGroups(): void {
@@ -1441,10 +1476,9 @@ export class DtFilterField<T = any>
       currentFilterNodeDefsOrSources &&
       currentFilterNodeDefsOrSources.length
     ) {
-      const def = currentFilterNodeDefsOrSources[0] as DtAutocompleteValue<T>;
-      if (isDtOptionDef(def)) {
-        this._filterByLabel = def.option.viewValue;
-      }
+      this._filterByLabel = this.editionValuesParser(
+        currentFilterNodeDefsOrSources,
+      );
     }
   }
 

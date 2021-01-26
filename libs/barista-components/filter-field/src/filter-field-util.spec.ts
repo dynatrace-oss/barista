@@ -26,6 +26,7 @@ import {
 } from '@dynatrace/barista-components/filter-field';
 // Import locally because utils are not exported for the public
 import {
+  defaultEditionDataForFilterValuesParser,
   defaultTagDataForFilterValuesParser,
   defDistinctPredicate,
   defUniquePredicate,
@@ -47,6 +48,7 @@ import {
   DtFilterValue,
   dtMultiSelectDef,
   DtNodeDef,
+  DtNodeFlags,
   dtRangeDef,
   DtRangeValue,
   isDtFreeTextDef,
@@ -1453,6 +1455,83 @@ describe('DtFilterField Util', () => {
       ) as DtAutocompleteValue<any>;
       expect(isDtAutocompleteValueEqual(a, b)).toBeFalsy();
       expect(isDtAutocompleteValueEqual(b, a)).toBeFalsy();
+    });
+  });
+
+  describe('defaultEditionDataForFilterValuesParser', () => {
+    it('should return an empty string when filterValues is not defined', () => {
+      // given
+      const filterValues: DtFilterValue[] = (undefined as unknown) as DtFilterValue[];
+      // when
+      const result = defaultEditionDataForFilterValuesParser(filterValues);
+      // then
+      expect(result).toEqual('');
+    });
+    it('should return an empty string when filterValues is an empty array', () => {
+      // given
+      const filterValues: DtFilterValue[] = [];
+      // when
+      const result = defaultEditionDataForFilterValuesParser(filterValues);
+      // then
+      expect(result).toEqual('');
+    });
+    it('should return an empty string when filterValues is not a dtNodeDef', () => {
+      // given
+      const filterValues: DtFilterValue[] = [{}] as DtFilterValue[];
+      // when
+      const result = defaultEditionDataForFilterValuesParser(filterValues);
+      // then
+      expect(result).toEqual('');
+    });
+
+    it.each([
+      DtNodeFlags.None,
+      DtNodeFlags.RenderTypes,
+      DtNodeFlags.TypeAutocomplete,
+      DtNodeFlags.TypeFreeText,
+      DtNodeFlags.TypeMultiSelect,
+      DtNodeFlags.TypeRange,
+    ])(
+      'should return an empty string when filterValues nodeFlags are different than typeOption',
+      (nodeFlags: DtNodeFlags) => {
+        // given
+        const filterValues: DtFilterValue[] = [
+          { nodeFlags, option: { viewValue: 'test it' } },
+        ] as DtFilterValue[];
+        // when
+        const result = defaultEditionDataForFilterValuesParser(filterValues);
+        // then
+        expect(result).toEqual('');
+      },
+    );
+
+    it('should return the value when filterValues is a correct option', () => {
+      // given
+      const filterValues: DtFilterValue[] = [
+        { nodeFlags: DtNodeFlags.TypeOption, option: { viewValue: 'test it' } },
+      ] as DtFilterValue[];
+      // when
+      const result = defaultEditionDataForFilterValuesParser(filterValues);
+      // then
+      expect(result).toEqual('test it');
+    });
+    it('should return the first value when filterValues has multiple filterValues', () => {
+      // given
+      const filterValues: DtFilterValue[] = [
+        { nodeFlags: DtNodeFlags.TypeOption, option: { viewValue: 'test it' } },
+        {
+          nodeFlags: DtNodeFlags.TypeOption,
+          option: { viewValue: 'test it 2' },
+        },
+        {
+          nodeFlags: DtNodeFlags.TypeOption,
+          option: { viewValue: 'test it 3' },
+        },
+      ] as DtFilterValue[];
+      // when
+      const result = defaultEditionDataForFilterValuesParser(filterValues);
+      // then
+      expect(result).toEqual('test it');
     });
   });
 });
