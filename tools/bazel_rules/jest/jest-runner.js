@@ -4,7 +4,7 @@ const { readFileSync, writeFileSync } = require('fs');
 const { argv } = require('yargs');
 
 // Path of the test.sh binary that gets created from the nodejs_test
-const { TEST_BINARY } = process.env;
+const { TEST_BINARY, JEST_MAX_WORKERS } = process.env;
 // Bazels node runfiles helper
 const RUNFILES_HELPER = require(process.env.BAZEL_NODE_RUNFILES_HELPER);
 
@@ -57,26 +57,29 @@ async function main() {
       join(RUNFILES_HELPER.package, source).replace(/ts$/, 'js'),
     );
 
-  const { results } = await runCLI(
-    {
-      /**
-       * This is a hack to avoid using the jest-haste-map fs that does not support symbolic links
-       * https://github.com/facebook/metro/issues/1#issuecomment-641633646
-       */
-      _: resolvedFiles,
-      setupFilesAfterEnv: setupFile
-        ? [resolve(setupFile).replace(/ts$/, 'js')]
-        : [],
-      runTestsByPath: true,
-      verbose: true,
-      expand: true,
-      cache: false,
-      resolver: resolve('tools/bazel_rules/jest/jest-resolver.js'),
-      rootDir: resolve('./'),
-      colors: true,
-    },
-    [jestConfigPath],
-  );
+  const cliArgs = {
+    /**
+     * This is a hack to avoid using the jest-haste-map fs that does not support symbolic links
+     * https://github.com/facebook/metro/issues/1#issuecomment-641633646
+     */
+    _: resolvedFiles,
+    setupFilesAfterEnv: setupFile
+      ? [resolve(setupFile).replace(/ts$/, 'js')]
+      : [],
+    runTestsByPath: true,
+    verbose: true,
+    expand: true,
+    cache: false,
+    resolver: resolve('tools/bazel_rules/jest/jest-resolver.js'),
+    rootDir: resolve('./'),
+    colors: true,
+  };
+
+  if (JEST_MAX_WORKERS) {
+    cliArgs.maxWorkers = JEST_MAX_WORKERS;
+  }
+
+  const { results } = await runCLI(cliArgs, [jestConfigPath]);
 
   if (!results.success) {
     throw new Error(`Failed executing jest tests`);
