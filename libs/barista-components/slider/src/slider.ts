@@ -292,6 +292,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
    * roundToSnap takes care of snapping the values to the steps
    */
   _inputValueChanged(event: Event): void {
+    event.stopPropagation();
     this._inputFieldValue$.next(
       +(event.currentTarget as HTMLInputElement).value,
     );
