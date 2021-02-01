@@ -335,6 +335,9 @@
     },
     "shared-keycodes": {
       "tags": ["type:library", "type:shared"]
+    },
+    "tools-jest-bazel-rule": {
+      "tags": ["type:tooling"]
     }
   },
   "affected": {

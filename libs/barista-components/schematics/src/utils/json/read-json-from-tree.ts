@@ -26,7 +26,7 @@ import { readFileFromTree } from '../read-file-from-tree';
 export function readJsonFromTree<T = {}>(tree: Tree, path: string): T {
   const content = readFileFromTree(tree, path);
   try {
-    return JSON.parse(content);
+    return JSON.parse(content) as T;
   } catch (e) {
     throw new SchematicsException(`Cannot parse ${path}: ${e.message}`);
   }

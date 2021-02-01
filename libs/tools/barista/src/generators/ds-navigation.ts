@@ -62,7 +62,7 @@ export const navigationBuilder = async (distDir: string) => {
       const fileContent = await fs.readFile(join(currentPath, file), {
         encoding: 'utf-8',
       });
-      const content = JSON.parse(fileContent);
+      const content = JSON.parse(fileContent) as any;
       // Keep the file in memory to update after the sidenavs have been built.
       fileMap.set(file, content);
 

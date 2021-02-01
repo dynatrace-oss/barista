@@ -52,7 +52,7 @@ export function app(): express.Express {
       return;
     }
 
-    const file = JSON.parse(readFileSync(assetUrl, 'utf-8'));
+    const file = JSON.parse(readFileSync(assetUrl, 'utf-8')) as any;
     res.json(file);
   });
 

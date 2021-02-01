@@ -14,20 +14,8 @@
  * limitations under the License.
  */
 
-import { promises as fs } from 'fs';
-
-/**
- * Tries to parse a json file and throws an error if parsing fails
- * @throws Will throw if the json cannot be parsed
- */
-export async function tryJsonParse<T>(path: string): Promise<T> {
-  try {
-    return JSON.parse(await fs.readFile(path, { encoding: 'utf-8' })) as T;
-  } catch (err) {
-    throw new Error(`Error while parsing json file at ${path}`);
-  }
-}
-
-export interface NgPackagerJson {
-  dest: string;
-}
+// Dummy test for checking path consistency in jest-snapshot-resolver.ts.
+// Do not delete this file.
+test('a test suite', () => {
+  expect({ name: 'test' }).toMatchObject({ name: 'test' });
+});

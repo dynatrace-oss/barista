@@ -2693,6 +2693,21 @@
           }
         }
       }
+    },
+    "tools-jest-bazel-rule": {
+      "root": "tools/bazel_rules/jest",
+      "sourceRoot": "tools/bazel_rules/jest",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/shared/keycodes/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "dev",

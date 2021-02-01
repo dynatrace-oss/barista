@@ -1,7 +1,7 @@
 # The nodejs rules
-RULES_NODEJS_VERSION = "2.2.1"
+RULES_NODEJS_VERSION = "3.0.0"
 
-RULES_NODEJS_SHA256 = "64a71a64ac58b8969bb19b1c9258a973b6433913e958964da698943fb5521d98"
+RULES_NODEJS_SHA256 = "6142e9586162b179fdd570a55e50d1332e7d9c030efd853453438d607569721d"
 
 # Rules for compiling sass
 RULES_SASS_VERSION = "1.26.3"
@@ -26,8 +26,7 @@ http_archive(
     sha256 = RULES_NODEJS_SHA256,
     url = "https://github.com/bazelbuild/rules_nodejs/releases/download/%s/rules_nodejs-%s.tar.gz" % (RULES_NODEJS_VERSION, RULES_NODEJS_VERSION),
     patches = [
-      "//:rules_nodejs-npm-install+2.2.1.patch",
-      "//:rules_nodejs-launcher+2.2.1.patch",
+      "//:rules_nodejs-npm-install+3.0.0.patch",
     ]
 )
 

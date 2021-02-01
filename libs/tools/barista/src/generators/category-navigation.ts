@@ -81,7 +81,7 @@ function addSidenavToPages(
     const filepath = join(path, file);
     if (!lstatSync(filepath).isDirectory()) {
       let currentSidenav = sidenavContent;
-      const content = JSON.parse(readFileSync(filepath).toString());
+      const content = JSON.parse(readFileSync(filepath).toString()) as any;
       const fileTitle = content.title;
 
       // highlight active item
@@ -113,7 +113,7 @@ function addSidenavToPages(
           const subPagePath = join(pathToSubfolder, subPage);
           const subPageContent = JSON.parse(
             readFileSync(subPagePath).toString(),
-          );
+          ) as any;
           subPageContent.sidenav = currentSidenav;
           fs.writeFile(subPagePath, JSON.stringify(subPageContent, null, 2), {
             flag: 'w', // "w" -> Create file if it does not exist
@@ -232,7 +232,9 @@ export const overviewBuilder = async (distDir: string) => {
       for (const file of files) {
         if (file.indexOf('.') > 0) {
           const filepath = join(directory, file.replace(/\.[^/.]+$/, ''));
-          const content = JSON.parse(readFileSync(join(path, file)).toString());
+          const content = JSON.parse(
+            readFileSync(join(path, file)).toString(),
+          ) as any;
           overviewPage.sections[0].items.push(
             getOverviewSectionItem(content, capitalizedTitle, filepath),
           );
@@ -260,7 +262,9 @@ export const overviewBuilder = async (distDir: string) => {
       };
 
       for (const file of files) {
-        const content = JSON.parse(readFileSync(join(path, file)).toString());
+        const content = JSON.parse(
+          readFileSync(join(path, file)).toString(),
+        ) as any;
         for (const section of overviewPage.sections) {
           const filepath = join(directory, file.replace(/\.[^/.]+$/, ''));
           if (

@@ -1,6 +1,36 @@
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
+
 package(default_visibility = ["//:__subpackages__"])
 
-exports_files([
-    "jest-runner.js",
-    "jest-resolver.js",
-])
+ts_project(
+    name = "jest",
+    srcs = glob(
+        include = ["**/*.ts"],
+        exclude = ["**/*.test.ts"],
+    ),
+    source_map = True,
+    tsconfig = ":tsconfig",
+    deps = [
+        "@npm//@types/node",
+        "@npm//jest",
+        "@npm//yargs",
+    ],
+)
+
+ts_config(
+    name = "tsconfig",
+    src = ":tsconfig.lib.json",
+    deps = [
+        ":tsconfig.json",
+        "//:tsconfig.base.json",
+    ],
+)
+
+ts_config(
+    name = "tsconfig_test",
+    src = ":tsconfig.test.json",
+    deps = [
+        ":tsconfig.json",
+        "//:tsconfig.base.json",
+    ],
+)

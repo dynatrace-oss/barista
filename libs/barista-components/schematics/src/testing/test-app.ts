@@ -141,7 +141,9 @@ export async function createTestCaseSetup(
   });
 
   const testAppTsconfigPath = 'projects/lib-testing/tsconfig.app.json';
-  const testAppTsconfig = JSON.parse(appTree.readContent(testAppTsconfigPath));
+  const testAppTsconfig = JSON.parse(
+    appTree.readContent(testAppTsconfigPath),
+  ) as any;
 
   // include all TypeScript files in the project. Otherwise all test input
   // files won't be part of the program and cannot be migrated.

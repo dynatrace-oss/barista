@@ -25,7 +25,7 @@ export async function getCurrentMinorAndPatchBranches(): Promise<{
   const packageString = readFileSync(
     '/github/workspace/package.json',
   ).toString();
-  const packageJson = JSON.parse(packageString);
+  const packageJson = JSON.parse(packageString) as any;
   const version = packageJson.version;
 
   const [major, minor] = version.split('.');

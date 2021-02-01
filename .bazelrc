@@ -69,11 +69,17 @@ build --nolegacy_external_runfiles
 run --nolegacy_external_runfiles
 test --nolegacy_external_runfiles
 
+# Enable runfiles generation on Windows. This requires running under elevated privileges (Admin rights),
+# Windows 10 Creators Update (1703) or later system version, and enabling developer mode.
+# More in the DEVELOPMENT.md
+build --enable_runfiles
+run --enable_runfiles
+test --enable_runfiles
+
 # Do not build runfile forests by default. If an execution strategy relies on runfile
 # forests, the forest is created on-demand. See: https://github.com/bazelbuild/bazel/issues/6627
 # and https://github.com/bazelbuild/bazel/commit/03246077f948f2790a83520e7dccc2625650e6df
 build --nobuild_runfile_links
-
 
 # Turn on --incompatible_strict_action_env which was on by default
 # in Bazel 0.21.0 but turned off again in 0.22.0. Follow

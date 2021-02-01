@@ -92,7 +92,9 @@ async function createExampleInlineSourcesTransformer(
     encoding: 'utf8',
   });
 
-  return exampleInlineSourcesTransformerFactory(JSON.parse(examplesMetadata));
+  return exampleInlineSourcesTransformerFactory(
+    JSON.parse(examplesMetadata) as any,
+  );
 }
 /** Defines the paths for our DS's */
 const nextDataDistDir = 'next-data';
