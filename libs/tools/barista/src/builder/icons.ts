@@ -76,7 +76,7 @@ function getChangelogTemplate(): BaIconsChangelog {
   const changelogContent = readFileSync(environment.iconsChangelogFileName, {
     encoding: 'utf-8',
   });
-  return JSON.parse(changelogContent);
+  return JSON.parse(changelogContent) as BaIconsChangelog;
 }
 
 /**
@@ -158,7 +158,9 @@ export const iconsBuilder: BaPageBuilder = async () => {
     }
 
     const iconData: BaIcon = {
-      ...JSON.parse(readFileSync(metadataPath, { encoding: 'utf-8' })),
+      ...(JSON.parse(
+        readFileSync(metadataPath, { encoding: 'utf-8' }),
+      ) as BaIcon),
       name: iconName,
     };
 

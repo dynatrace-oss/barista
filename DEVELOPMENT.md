@@ -56,6 +56,8 @@ on the official website to install additional compilers and runtimes.
 - Install
   [Visual Studio Build C++ tools](https://visualstudio.microsoft.com/de/thank-you-downloading-visual-studio/?sku=BuildTools)
 
+- Enable Developer Mode (in Settings - Update & Security - For developers)
+
 Furthermore you have to add a `.bazelrc.user` file where the following option
 must be specified, to avoid the
 [Maximum Path Length Limitation](https://docs.bazel.build/versions/3.5.0/windows.html#avoid-long-path-issues)

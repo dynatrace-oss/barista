@@ -62,7 +62,7 @@ export class BaRecentlyOrderedService {
     const stored = this._platform.isBrowser
       ? localStorage.getItem(LOCAL_STORAGE_KEY) || '[]'
       : '[]';
-    return new Map<string, BaRecentlyOrderedItem>(JSON.parse(stored));
+    return new Map<string, BaRecentlyOrderedItem>(JSON.parse(stored) as any);
   }
 
   /** Store the pages in the local storage */
