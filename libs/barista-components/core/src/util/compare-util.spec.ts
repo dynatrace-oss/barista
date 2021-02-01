@@ -36,13 +36,13 @@ describe('CompareUtil', () => {
     it('should sort numbers and null values ascending', () => {
       const numbers = [8, 27, 5000, null, 17, 123, null, 591, 182];
       numbers.sort((a, b) => compareValues(a, b, 'asc'));
-      expect(numbers).toEqual([8, 17, 27, 123, 182, 591, 5000, null, null]);
+      expect(numbers).toEqual([null, null, 8, 17, 27, 123, 182, 591, 5000]);
     });
 
     it('should sort number and null values descending', () => {
       const numbers = [8, 27, 5000, null, 17, 123, null, 591, 182];
       numbers.sort((a, b) => compareValues(a, b, 'desc'));
-      expect(numbers).toEqual([null, null, 5000, 591, 182, 123, 27, 17, 8]);
+      expect(numbers).toEqual([5000, 591, 182, 123, 27, 17, 8, null, null]);
     });
 
     it('should sort string values ascending', () => {
@@ -104,7 +104,7 @@ describe('CompareUtil', () => {
     it('should sort number and null values by descending default', () => {
       const numbers = [8, 27, 5000, null, 17, 123, null, 591, 182];
       numbers.sort((a, b) => compareNumbers(a, b));
-      expect(numbers).toEqual([null, null, 5000, 591, 182, 123, 27, 17, 8]);
+      expect(numbers).toEqual([5000, 591, 182, 123, 27, 17, 8, null, null]);
     });
   });
 
