@@ -1,25 +1,44 @@
-## [9.0.0-rc.3](https://github.com/dynatrace-oss/barista/compare/9.0.0-rc.2...9.0.0-rc.3) (2021-01-25)
+## [9.0.0](https://github.com/dynatrace-oss/barista/compare/8.11.0...9.0.0) (2021-02-01)
+
+This release includes an upgrade to all Angular packages to v11. Typescript was
+also upgraded to a minimum of 4.0.5 and the library now works inside projects
+using the new typescript version.
+
+### BREAKING CHANGES
+
+- **autocomplete:** An injected `DtViewportResizer` is now required for the
+  selection-area component.
+- **autocomplete:** The injected `NgZone` is now required for the autocomplete
+  component.
+- **breadcrumbs:** Add properties needed for responsive breadcrumbs to the
+  constructor.
+- **button-group:** The `selected` property has been removed. Please use
+  `checked` instead.
+- **button-group:** The `selectionChange` event has been removed. Please use
+  `checkedChange` instead.
+- **button-group:** The `DtButtonGroupItemSelectionChange` interface has been
+  removed. Please use `DtButtonGroupItemCheckedChange` instead.
+- **drawer:** An injected `ChangeDetectorRef` is now required for the drawer
+  component.
+- **filter-field:** An injected `DtViewportResizer` is now required for the
+  filter-field component.
+- **linting:** Removed deprecated library which provided custom barista linting
+  rules.
+- **option:** An injected `NgZone` is now required for the option component.
+- **radio:** The field `disabled` in `DtRadioButtonBase` has been changed to a
+  property to avoid an error with TypeScript 4 (see
+  https://github.com/microsoft/TypeScript/pull/37894).
 
 ### Bug Fixes
 
+- **chart:** Fixes an issue where tooltipDataChange event did not carry tooltip
+  data.
+  ([d482ef5](https://github.com/dynatrace-oss/barista/commit/d482ef5d431bef01414c9aed493b7bac20daa47d))
 - **quick-filter:** Fix truncation.
   ([eba5df1](https://github.com/dynatrace-oss/barista/commit/eba5df114efd7f052f188963962f2fb73c381984))
-
-### Features
-
-- **stacked-series-chart:** Add compact mode.
-  ([48cc0f1](https://github.com/dynatrace-oss/barista/commit/48cc0f1473fe5cd6d67d62f9966978751400b1a0))
-- **sunburst-chart:** Improving view for small screens.
-  ([7087662](https://github.com/dynatrace-oss/barista/commit/7087662c9a294853c9ea3070bc2142b7b0b3ba13))
-
-## [9.0.0-rc.2](https://github.com/dynatrace-oss/barista/compare/9.0.0-rc.0...9.0.0-rc.2) (2021-01-19)
-
-Fixes an issue with prettier being broken after a dependency upgrade.
-
-## [9.0.0-rc.1](https://github.com/dynatrace-oss/barista/compare/9.0.0-rc.0...9.0.0-rc.1) (2021-01-19)
-
-### Bug Fixes
-
+- **slider:** Fixes an issue with the change event of the input bleeding to the
+  root component.
+  ([788ec62](https://github.com/dynatrace-oss/barista/commit/788ec62927d38a1534d071c58bd7859ae42b6807))
 - **sunburst-chart:** Fix tooltip flicker on click
   ([cd61537](https://github.com/dynatrace-oss/barista/commit/cd61537cc2891b4c67e0bd8ae48d9440fa7a1c75))
 - **theming:** Fixes an issue with mismatching colors in the error palette.
@@ -31,47 +50,19 @@ Fixes an issue with prettier being broken after a dependency upgrade.
 
 - **autocomplete:** Added paged keyboard scrolling for autocomplete.
   ([2804a85](https://github.com/dynatrace-oss/barista/commit/2804a8518df8aa62cbadc73866e4494df099df17))
+- **breadcrumbs:** Introduce responsive behavior.
+  ([0ce1b0d](https://github.com/dynatrace-oss/barista/commit/0ce1b0dca5207a2d1340cfa80c8dcae7aab11c15))
 - **datepicker:** Add min and max limits to the timepicker/timeinput + disable
   cursor on disabled dates and update readme.
   ([46edd75](https://github.com/dynatrace-oss/barista/commit/46edd75f9417a5ea923a3e5716fe12a5bd53b44b))
+- **filter-field:** Added custom parser for a incomplete input
+  ([de69b3d](https://github.com/dynatrace-oss/barista/commit/de69b3d58acf2fa3d69accc48ad7dd0e7540959b))
+- **stacked-series-chart:** Add compact mode.
+  ([48cc0f1](https://github.com/dynatrace-oss/barista/commit/48cc0f1473fe5cd6d67d62f9966978751400b1a0))
 - **stacked-series-chart:** Added selection mode for entire row.
   ([4306fbf](https://github.com/dynatrace-oss/barista/commit/4306fbf6f99aa9b1ea8a2cf1c953a17e527c29fb))
-
-## [9.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/8.0.0...9.0.0-rc.0) (2021-01-12)
-
-This release includes an upgrade to all Angular packages to v11. Typescript was
-also upgraded to a minimum of 4.0.5 and the library now works inside projects
-using the new typescript version.
-
-### BREAKING CHANGES
-
-- **breadcrumbs:** Add properties needed for responsive breadcrumbs to the
-  constructor.
-- **linting:** Removed deprecated library which provided custom barista linting
-  rules.
-- **filter-field:** An injected `DtViewportResizer` is now required for the
-  filter-field component.
-- **drawer:** An injected `ChangeDetectorRef` is now required for the drawer
-  component.
-- **option:** An injected `NgZone` is now required for the option component.
-- **autocomplete:** An injected `DtViewportResizer` is now required for the
-  selection-area component.
-- **button-group:** The `selected` property has been removed. Please use
-  `checked` instead.
-- **button-group:** The `selectionChange` event has been removed. Please use
-  `checkedChange` instead.
-- **button-group:** The `DtButtonGroupItemSelectionChange` interface has been
-  removed. Please use `DtButtonGroupItemCheckedChange` instead.
-- **autocomplete:** The injected `NgZone` is now required for the autocomplete
-  component.
-- **radio:** The field `disabled` in `DtRadioButtonBase` has been changed to a
-  property to avoid an error with TypeScript 4 (see
-  https://github.com/microsoft/TypeScript/pull/37894).
-
-### Features
-
-- **breadcrumbs:** Introduce responsive behavior.
-  ([0ce1b0d](https://github.com/dynatrace-oss/barista/commit/0ce1b0dca5207a2d1340cfa80c8dcae7aab11c15))
+- **sunburst-chart:** Improving view for small screens.
+  ([7087662](https://github.com/dynatrace-oss/barista/commit/7087662c9a294853c9ea3070bc2142b7b0b3ba13))
 
 ## [8.11.0](https://github.com/dynatrace-oss/barista/compare/8.10.0...8.11.0) (2021-01-12)
 
