@@ -342,12 +342,11 @@ describe('DtTable SimpleColumns', () => {
       const cells = fixture.debugElement.queryAll(
         By.css('.dt-cell.dt-table-column-cpu'),
       );
-      expect(cells[0].nativeElement.textContent).toBe('');
-      expect(cells[1].nativeElement.textContent).toBe('30');
-      expect(cells[2].nativeElement.textContent).toBe('26');
-      expect(cells[3].nativeElement.textContent).toBe('24');
-      expect(cells[4].nativeElement.textContent).toBe('23');
-      expect(cells[4].nativeElement.textContent).toBe('23');
+      expect(cells[0].nativeElement.textContent).toBe('30');
+      expect(cells[1].nativeElement.textContent).toBe('26');
+      expect(cells[2].nativeElement.textContent).toBe('24');
+      expect(cells[3].nativeElement.textContent).toBe('23');
+      expect(cells[4].nativeElement.textContent).toBe('');
     });
   });
 
@@ -423,10 +422,10 @@ describe('DtTable SimpleColumns', () => {
       const cells = fixture.debugElement.queryAll(
         By.css('.dt-cell.dt-table-column-cpu'),
       );
-      expect(cells[0].nativeElement.textContent).toBe('');
-      expect(cells[1].nativeElement.textContent).toBe('30');
-      expect(cells[2].nativeElement.textContent).toBe('26');
-      expect(cells[3].nativeElement.textContent).toBe('23');
+      expect(cells[0].nativeElement.textContent).toBe('30');
+      expect(cells[1].nativeElement.textContent).toBe('26');
+      expect(cells[2].nativeElement.textContent).toBe('23');
+      expect(cells[3].nativeElement.textContent).toBe('');
     });
 
     it('should sort the number column correctly ascending (alternate)', () => {
@@ -449,10 +448,10 @@ describe('DtTable SimpleColumns', () => {
       const cells = fixture.debugElement.queryAll(
         By.css('.dt-cell.dt-table-column-cpu'),
       );
-      expect(cells[0].nativeElement.textContent).toBe('23');
-      expect(cells[1].nativeElement.textContent).toBe('26');
-      expect(cells[2].nativeElement.textContent).toBe('30');
-      expect(cells[3].nativeElement.textContent).toBe('');
+      expect(cells[0].nativeElement.textContent).toBe('');
+      expect(cells[1].nativeElement.textContent).toBe('23');
+      expect(cells[2].nativeElement.textContent).toBe('26');
+      expect(cells[3].nativeElement.textContent).toBe('30');
     });
 
     it('should sort the text column correctly ascending (start)', () => {

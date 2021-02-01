@@ -82,9 +82,11 @@ export function compareValues(
       }
     }
   } else if (isDefined(valueA)) {
-    comparatorResult = -1;
+    // For strings, we still want to sort undefined/null values
+    // to the end in ASC order and to the start in the DESC order
+    comparatorResult = isString(valueA) ? -1 : 1;
   } else if (isDefined(valueB)) {
-    comparatorResult = 1;
+    comparatorResult = isString(valueB) ? 1 : -1;
   }
   return comparatorResult * (direction === 'asc' ? 1 : -1);
 }
