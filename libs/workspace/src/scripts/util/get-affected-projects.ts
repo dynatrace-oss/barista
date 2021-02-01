@@ -29,7 +29,7 @@ export function getAffectedProjects(
 
   const affected = execSync(command.join(' ')).toString().trim();
 
-  const parsed = JSON.parse(affected);
+  const parsed = JSON.parse(affected) as any;
 
   return target
     ? parsed.tasks.map((task) => task.target.project).sort()

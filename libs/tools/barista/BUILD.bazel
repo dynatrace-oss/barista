@@ -38,6 +38,7 @@ ts_library(
 nodejs_binary(
     name = "barista_tools_binary",
     data = [":compile"],
+    templated_args = ["--bazel_patch_module_resolver"],
     entry_point = "src/main.ts",
 )
 

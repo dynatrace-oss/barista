@@ -44,5 +44,5 @@ def stylelint_macro(
             "//tools/bazel_rules/stylelint",
         ],
         entry_point = "//tools/bazel_rules/stylelint:run-stylelint.ts",
-        templated_args = args,
+        templated_args = args + ["--bazel_patch_module_resolver"],
     )

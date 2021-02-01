@@ -173,7 +173,7 @@ export const componentsBuilder: BaPageBuilder = async (
     const relativeOutFile = join('components', `${basename(dir)}.json`);
     const baristaMetadata = JSON.parse(
       readFileSync(join(dir, 'barista.json'), { encoding: 'utf-8' }),
-    );
+    ) as any;
     // Filter draft pages
     if (!baristaMetadata.draft) {
       const pageContent = await transformPage(
@@ -197,11 +197,11 @@ export const componentsBuilder: BaPageBuilder = async (
     const fileDir = dirname(filepath);
 
     const baristaMetadata = existsSync(join(fileDir, `${fileBasename}.json`))
-      ? JSON.parse(
+      ? (JSON.parse(
           readFileSync(join(fileDir, `${fileBasename}.json`), {
             encoding: 'utf-8',
           }),
-        )
+        ) as any)
       : undefined;
 
     // Filter pages without metadata or set to draft

@@ -102,8 +102,8 @@ export async function getBoilerplateFiles(
     /{{EXAMPLE_NAME}}/g,
     exampleClassName,
   );
-  const parsedPackageJson: PackageJson = JSON.parse(packageJson);
-  const parsedRootPackageJson: PackageJson = JSON.parse(rootPackageJson);
+  const parsedPackageJson = JSON.parse(packageJson) as PackageJson;
+  const parsedRootPackageJson = JSON.parse(rootPackageJson) as PackageJson;
 
   // Sync the dependency versions from root over to the example.
   for (const dependency of Object.keys(parsedPackageJson.dependencies || {})) {
