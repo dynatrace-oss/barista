@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -1981,9 +1981,8 @@ class ProgrammaticOptions implements AfterViewInit {
 
   @ViewChild(TemplateRef) templateRef: TemplateRef<unknown>;
 
-  @ViewChild(DtAutocomplete, { static: true }) autocomplete: DtAutocomplete<
-    number
-  >;
+  @ViewChild(DtAutocomplete, { static: true })
+  autocomplete: DtAutocomplete<number>;
 
   @ViewChildren(DtOption) options: QueryList<DtOption<any>>;
 

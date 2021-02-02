@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -83,7 +83,8 @@ export const getKeyColor = (palette: Palette) =>
 @Injectable({
   providedIn: 'root',
 })
-export class PaletteSourceService extends StatefulServiceBase<State>
+export class PaletteSourceService
+  extends StatefulServiceBase<State>
   implements OnDestroy {
   /** Observable with all themes */
   themes$ = this.state$.pipe(map((state) => state.themes));

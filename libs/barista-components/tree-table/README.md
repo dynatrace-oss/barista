@@ -144,9 +144,7 @@ A normal column could like the following example
   <dt-tree-table-header-cell *dtHeaderCellDef>
     Waiting
   </dt-tree-table-header-cell>
-  <dt-cell *dtCellDef="let row">
-    {{row.waiting}}
-  </dt-cell>
+  <dt-cell *dtCellDef="let row"> {{row.waiting}} </dt-cell>
 </ng-container>
 ```
 
@@ -226,13 +224,13 @@ It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 
 ## DtTreeControl
 
-| Name             | Type                                                     | Default | Description                                                                                      |
-| ---------------- | -------------------------------------------------------- | ------- | ------------------------------------------------------------------------------------------------ |
-| `dataNodes`      | `T[]`                                                    |         | Saved row data for expandAll action                                                              |
-| `expansionModel` | `SelectionModel<T>`                                      |         | A selection model to track expansion status                                                      |
-| `getChildren`    | `(row: T) => (Observable<T[]> | T[] | undefined | null)` |         | function that returns an observable containing the child rows, the child rows, undefined or null |
-| `getLevel`       | `(row: T) => number`                                     |         | accessor fn for the level of the row                                                             |
-| `isExpandable`   | `(dataNode: T) => boolean`                               |         | function that returns wether a node is expandable                                                |
+| Name             | Type                          | Default | Description                                        |
+| ---------------- | ----------------------------- | ------- | -------------------------------------------------- | ------ | --- | ------------------------------------------------------------------------------------------------ |
+| `dataNodes`      | `T[]`                         |         | Saved row data for expandAll action                |
+| `expansionModel` | `SelectionModel<T>`           |         | A selection model to track expansion status        |
+| `getChildren`    | `(row: T) => (Observable<T[]> | T[]     | undefined                                          | null)` |     | function that returns an observable containing the child rows, the child rows, undefined or null |
+| `getLevel`       | `(row: T) => number`          |         | accessor fn for the level of the row               |
+| `isExpandable`   | `(dataNode: T) => boolean`    |         | function that returns wether a node is expandable  |
 
 ### Methods
 
@@ -251,12 +249,12 @@ It is obligatory to provide either an `aria-label` or `aria-labelledby`.
 
 ## DtTreeFlattener<T, F>
 
-| Parameters          | Type                                                     | Description                                                                                      |
-| ------------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `getChildren`       | `(row: T) => (Observable<T[]> | T[] | undefined | null)` | function that returns an observable containing the child rows, the child rows, undefined or null |
-| `getLevel`          | `(row: T) => number`                                     | accessor fn for the level of the row                                                             |
-| `isExpandable`      | `(row: T) => boolean`                                    | function that returns wether a node is expandable                                                |
-| `transformFunction` | `(row: T, level: number) => F`                           |  function that transforms from type T to flat type F                                             |
+| Parameters          | Type                           | Description                                           |
+| ------------------- | ------------------------------ | ----------------------------------------------------- | --------- | ------ | ------------------------------------------------------------------------------------------------ |
+| `getChildren`       | `(row: T) => (Observable<T[]>  | T[]                                                   | undefined | null)` | function that returns an observable containing the child rows, the child rows, undefined or null |
+| `getLevel`          | `(row: T) => number`           | accessor fn for the level of the row                  |
+| `isExpandable`      | `(row: T) => boolean`          | function that returns wether a node is expandable     |
+| `transformFunction` | `(row: T, level: number) => F` |  function that transforms from type T to flat type F  |
 
 ## Tree table in use
 

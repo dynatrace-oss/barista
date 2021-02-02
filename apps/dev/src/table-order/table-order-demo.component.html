@@ -29,9 +29,7 @@
   <button dt-button (click)="changeOrder()" id="change-order">
     Change order
   </button>
-  <button dt-button (click)="switchData()" id="switch-data">
-    Switch data
-  </button>
+  <button dt-button (click)="switchData()" id="switch-data">Switch data</button>
 </div>
 
 <h2>Table with expandable rows and reorder</h2>
@@ -80,8 +78,6 @@
     "
     [expanded]="row.expanded"
   >
-    <ng-template dtExpandableRowContent>
-      Expandable content
-    </ng-template>
+    <ng-template dtExpandableRowContent> Expandable content </ng-template>
   </dt-expandable-row>
 </dt-table>

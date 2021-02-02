@@ -17,13 +17,13 @@ class MyModule {}
 
 ## Inputs
 
-| Name    | Type                             | Default | Description                                                                                                        |
-| ------- | -------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------ |
-| `align` | `'start' | 'end'`                | `start` | Alignment of the bar-indicator defining if increasing percentage values let the bar grow to the left or the right. |
-| `color` | `'main' | 'recovered' | 'error'` | `main`  | Current variation of the theme color which is applied to the color of the bar-indicator .                          |
-| `max`   | `number`                         | `100`   | Sets the maximum value of the bar-indicator. Inherited from `HasProgressValues`.                                   |
-| `min`   | `number`                         | `0`     | Sets the minimum value of the bar-indicator. Inherited from `HasProgressValues`.                                   |
-| `value` | `number`                         | -       | Sets the current value of the bar-indicator. Inherited from `HasProgressValues`.                                   |
+| Name    | Type     | Default     | Description                                                                      |
+| ------- | -------- | ----------- | -------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| `align` | `'start' | 'end'`      | `start`                                                                          | Alignment of the bar-indicator defining if increasing percentage values let the bar grow to the left or the right. |
+| `color` | `'main'  | 'recovered' | 'error'`                                                                         | `main`                                                                                                             | Current variation of the theme color which is applied to the color of the bar-indicator . |
+| `max`   | `number` | `100`       | Sets the maximum value of the bar-indicator. Inherited from `HasProgressValues`. |
+| `min`   | `number` | `0`         | Sets the minimum value of the bar-indicator. Inherited from `HasProgressValues`. |
+| `value` | `number` | -           | Sets the current value of the bar-indicator. Inherited from `HasProgressValues`. |
 
 ## Outputs
 

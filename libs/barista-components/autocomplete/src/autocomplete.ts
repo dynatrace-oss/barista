@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -62,12 +62,13 @@ export interface DtAutocompleteDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `dt-autocomplete`. */
-export const DT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<
-  DtAutocompleteDefaultOptions
->('dt-autocomplete-default-options', {
-  providedIn: 'root',
-  factory: DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
-});
+export const DT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<DtAutocompleteDefaultOptions>(
+  'dt-autocomplete-default-options',
+  {
+    providedIn: 'root',
+    factory: DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
+  },
+);
 
 /** @docs-private */
 export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefaultOptions {

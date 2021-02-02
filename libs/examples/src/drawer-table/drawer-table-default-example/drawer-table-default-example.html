@@ -1,7 +1,5 @@
 <dt-drawer-table [openColumns]="['col2']">
-  <ng-template dtDrawerContent let-row>
-    {{ row.col1 }}
-  </ng-template>
+  <ng-template dtDrawerContent let-row> {{ row.col1 }} </ng-template>
   <dt-table [dataSource]="dataSource" dtSort #sortable>
     <dt-simple-text-column name="col1" label="Column1"></dt-simple-text-column>
     <dt-simple-text-column name="col2" label="Column2"></dt-simple-text-column>

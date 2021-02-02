@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -55,7 +55,8 @@ const DT_TREE_TABLE_INDENT_PX = 16;
   preserveWhitespaces: false,
   exportAs: 'dtTreeTableToggleCell',
 })
-export class DtTreeTableToggleCell<T> extends DtCell
+export class DtTreeTableToggleCell<T>
+  extends DtCell
   implements OnDestroy, AfterViewInit {
   /** The aria label for the toggle button */
   @Input('aria-label') ariaLabel: string;
@@ -64,9 +65,7 @@ export class DtTreeTableToggleCell<T> extends DtCell
 
   /** Event emitted when the cell's expandable state changes. */
   @Output()
-  readonly expandChange: Observable<
-    boolean
-  > = this._treeControl.expansionModel.changed.pipe(
+  readonly expandChange: Observable<boolean> = this._treeControl.expansionModel.changed.pipe(
     filter(
       (changed: SelectionChange<T>) =>
         (changed.added.includes(this._rowData) ||

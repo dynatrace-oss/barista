@@ -35,8 +35,6 @@
   </dt-event-chart-legend-item>
 
   <ng-template dtEventChartOverlay let-tooltip>
-    <div *ngFor="let t of tooltip">
-      {{ t.data }}
-    </div>
+    <div *ngFor="let t of tooltip">{{ t.data }}</div>
   </ng-template>
 </dt-event-chart>

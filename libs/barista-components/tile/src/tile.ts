@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -98,7 +98,8 @@ export const _DtTileMixinBase = mixinTabIndex(
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtTile extends _DtTileMixinBase
+export class DtTile
+  extends _DtTileMixinBase
   implements
     CanDisable,
     HasElementRef,

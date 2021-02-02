@@ -9,17 +9,13 @@
       <dt-consumption-icon aria-label="Host">
         <dt-icon name="host"></dt-icon>
       </dt-consumption-icon>
-      <dt-consumption-title>
-        Host units
-      </dt-consumption-title>
+      <dt-consumption-title> Host units </dt-consumption-title>
 
       <dt-consumption-count>
         {{ value | dtCount }}/{{ max | dtCount }}
       </dt-consumption-count>
 
-      <dt-consumption-label>
-        Restricted host unit hours
-      </dt-consumption-label>
+      <dt-consumption-label> Restricted host unit hours </dt-consumption-label>
 
       <dt-consumption-overlay>
         <dt-consumption
@@ -27,12 +23,8 @@
           [value]="100000000"
           class="overlay-value-panel"
         >
-          <dt-consumption-title>
-            Host units
-          </dt-consumption-title>
-          <dt-consumption-subtitle>
-            Quota
-          </dt-consumption-subtitle>
+          <dt-consumption-title> Host units </dt-consumption-title>
+          <dt-consumption-subtitle> Quota </dt-consumption-subtitle>
           <dt-consumption-count>
             {{ 100000000 | dtCount }}/{{ 100000000 | dtCount }}
           </dt-consumption-count>
@@ -90,17 +82,13 @@
       <dt-consumption-icon aria-label="User Group">
         <dt-icon name="usergroup"></dt-icon>
       </dt-consumption-icon>
-      <dt-consumption-title>
-        DEM units
-      </dt-consumption-title>
+      <dt-consumption-title> DEM units </dt-consumption-title>
 
       <dt-consumption-count>
         {{ warningValue | dtCount }}/{{ warningMax | dtCount }}
       </dt-consumption-count>
 
-      <dt-consumption-label>
-        Flexible overages
-      </dt-consumption-label>
+      <dt-consumption-label> Flexible overages </dt-consumption-label>
 
       <dt-consumption-overlay>
         <dt-consumption
@@ -109,12 +97,8 @@
           color="warning"
           class="overlay-value-panel"
         >
-          <dt-consumption-title>
-            DEM units
-          </dt-consumption-title>
-          <dt-consumption-subtitle>
-            Quota
-          </dt-consumption-subtitle>
+          <dt-consumption-title> DEM units </dt-consumption-title>
+          <dt-consumption-subtitle> Quota </dt-consumption-subtitle>
           <dt-consumption-count>
             {{ 100000000 | dtCount }}/{{ 100000000 | dtCount }}
           </dt-consumption-count>
@@ -126,9 +110,7 @@
           color="warning"
           class="overlay-value-panel"
         >
-          <dt-consumption-subtitle>
-            Flexible overages
-          </dt-consumption-subtitle>
+          <dt-consumption-subtitle> Flexible overages </dt-consumption-subtitle>
           <dt-consumption-count>
             {{ 10500000 | dtCount }}/unlimited
           </dt-consumption-count>
@@ -191,26 +173,18 @@
       <dt-consumption-icon aria-label="Log file">
         <dt-icon name="logfile"></dt-icon>
       </dt-consumption-icon>
-      <dt-consumption-title>
-        Log analytics
-      </dt-consumption-title>
+      <dt-consumption-title> Log analytics </dt-consumption-title>
 
       <dt-consumption-count>
         {{ errorValue | dtMegabytes }}/{{ errorMax | dtMegabytes }}
       </dt-consumption-count>
 
-      <dt-consumption-label>
-        Restricted host unit hours
-      </dt-consumption-label>
+      <dt-consumption-label> Restricted host unit hours </dt-consumption-label>
 
       <dt-consumption-overlay>
         <dt-consumption [max]="errorMax" [value]="errorValue" color="error">
-          <dt-consumption-title>
-            Log analytics
-          </dt-consumption-title>
-          <dt-consumption-subtitle>
-            Quota
-          </dt-consumption-subtitle>
+          <dt-consumption-title> Log analytics </dt-consumption-title>
+          <dt-consumption-subtitle> Quota </dt-consumption-subtitle>
           <dt-consumption-count>
             {{ errorValue | dtMegabytes }}/{{ errorMax | dtMegabytes }}
           </dt-consumption-count>
@@ -247,17 +221,13 @@
       <dt-consumption-icon aria-label="Chart">
         <dt-icon name="chart"></dt-icon>
       </dt-consumption-icon>
-      <dt-consumption-title>
-        Custom metrics
-      </dt-consumption-title>
+      <dt-consumption-title> Custom metrics </dt-consumption-title>
 
       <dt-consumption-count>
         {{ noOverlayValue | dtCount }}/{{ noOverlayMax | dtCount }}
       </dt-consumption-count>
 
-      <dt-consumption-label>
-        Restricted overages
-      </dt-consumption-label>
+      <dt-consumption-label> Restricted overages </dt-consumption-label>
     </dt-consumption>
   </div>
   <div class="demo-settings">

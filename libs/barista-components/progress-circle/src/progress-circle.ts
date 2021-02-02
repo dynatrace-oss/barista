@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -71,7 +71,8 @@ export const _DtProgressCircle = mixinHasProgress(
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressCircle extends _DtProgressCircle
+export class DtProgressCircle
+  extends _DtProgressCircle
   implements CanColor<DtProgressCircleThemePalette>, HasProgressValues {
   /** @internal Dash offset base on the values percentage */
   _dashOffset: number = CIRCLE_CIRCUMFERENCE;

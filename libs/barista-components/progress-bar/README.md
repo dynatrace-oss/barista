@@ -18,12 +18,12 @@ class MyModule {}
 
 ## Inputs
 
-| Name    | Type              | Default | Description                                                           |
-| ------- | ----------------- | ------- | --------------------------------------------------------------------- |
-| `value` | `number`          | `0`     | Gets and sets the value on the progress-bar.                          |
-| `min`   | `number`          | `0`     | Gets and sets the minimum value on the progress bar                   |
-| `max`   | `number`          | `100`   | Gets and sets the maximum value on the progress bar                   |
-| `align` | `'start' | 'end'` | `start` | Sets the alignment of the progress element to the star or to the end. |
+| Name    | Type     | Default | Description                                         |
+| ------- | -------- | ------- | --------------------------------------------------- | --------------------------------------------------------------------- |
+| `value` | `number` | `0`     | Gets and sets the value on the progress-bar.        |
+| `min`   | `number` | `0`     | Gets and sets the minimum value on the progress bar |
+| `max`   | `number` | `100`   | Gets and sets the maximum value on the progress bar |
+| `align` | `'start' | 'end'`  | `start`                                             | Sets the alignment of the progress element to the star or to the end. |
 
 Using the `align` input the alignment of the progress bar can be changed to
 `end`.

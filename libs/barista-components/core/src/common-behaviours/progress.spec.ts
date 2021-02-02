@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -62,7 +62,8 @@ describe('MixinProgress', () => {
     class EmptyClass {}
 
     const classWithProgress = mixinHasProgress(EmptyClass);
-    class EmptyClassImpl extends classWithProgress
+    class EmptyClassImpl
+      extends classWithProgress
       implements HasProgressValues {}
 
     const spy = jest.fn();

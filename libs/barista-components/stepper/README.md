@@ -72,17 +72,17 @@ changed after they are set to completed.
 
 ### Inputs
 
-| Name              | Type              | Default                                         | Description                                             |
-| ----------------- | ----------------- | ----------------------------------------------- | ------------------------------------------------------- |
-| `aria-label`      | `string`          |                                                 | The aria label used for the step                        |
-| `aria-labelledby` | `string`          |                                                 | The id of the element the step is labelled by           |
-| `completed`       | `boolean`         | `false`                                         | Whether the step is completed                           |
-| `editable`        | `boolean`         | `true`                                          | Whether a user can return to an already completed step  |
-| `label`           | `string`          |                                                 | A string only label used for the step                   |
-| `completed`       | `boolean`         | `false`                                         | Whether the step is completed                           |
-| `optional`        | `boolean`         | `false`                                         | Whether completion of the step is optional              |
-| `state`           | `StepState`       | `'number' | 'edit' | 'done' | 'error' | string` | State of the step                                       |
-| `stepControl`     | `FormControlLike` |                                                 | Control of the step that is used to validate completion |
+| Name              | Type              | Default   | Description                                             |
+| ----------------- | ----------------- | --------- | ------------------------------------------------------- | ------ | ------- | ------- | ----------------- |
+| `aria-label`      | `string`          |           | The aria label used for the step                        |
+| `aria-labelledby` | `string`          |           | The id of the element the step is labelled by           |
+| `completed`       | `boolean`         | `false`   | Whether the step is completed                           |
+| `editable`        | `boolean`         | `true`    | Whether a user can return to an already completed step  |
+| `label`           | `string`          |           | A string only label used for the step                   |
+| `completed`       | `boolean`         | `false`   | Whether the step is completed                           |
+| `optional`        | `boolean`         | `false`   | Whether completion of the step is optional              |
+| `state`           | `StepState`       | `'number' | 'edit'                                                  | 'done' | 'error' | string` | State of the step |
+| `stepControl`     | `FormControlLike` |           | Control of the step that is used to validate completion |
 
 ### Methods
 

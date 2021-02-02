@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -94,14 +94,16 @@ export class DtSecondaryNavSection implements AfterContentInit, OnDestroy {
   @Output() readonly expandChange = new EventEmitter<boolean>();
 
   /** @internal Event emitted when the section is expanded. */
-  @Output('expanded') readonly _sectionExpand: Observable<
-    boolean
-  > = this.expandChange.pipe(filter((v) => v));
+  @Output('expanded')
+  readonly _sectionExpand: Observable<boolean> = this.expandChange.pipe(
+    filter((v) => v),
+  );
 
   /** @internal Event emitted when the section is collapsed. */
-  @Output('collapsed') readonly _sectionCollapse: Observable<
-    boolean
-  > = this.expandChange.pipe(filter((v) => !v));
+  @Output('collapsed')
+  readonly _sectionCollapse: Observable<boolean> = this.expandChange.pipe(
+    filter((v) => !v),
+  );
 
   /** @internal Subject used to communicate programmatic change of section opening and closing */
   _sectionExpandChange$: Subject<DtSecondaryNavSection> = new Subject();

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -75,7 +75,8 @@ export const _DtProgressBar = mixinHasProgress(
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtProgressBar extends _DtProgressBar
+export class DtProgressBar
+  extends _DtProgressBar
   implements CanColor<DtProgressBarThemePalette>, HasProgressValues {
   /** Defines the alignment of the bar. */
   @Input() align: 'start' | 'end' = 'start';

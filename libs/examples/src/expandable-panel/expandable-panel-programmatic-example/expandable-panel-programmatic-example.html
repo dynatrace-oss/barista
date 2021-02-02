@@ -1,6 +1,4 @@
-<dt-expandable-panel #panel [expanded]="true">
-  {{ text }}
-</dt-expandable-panel>
+<dt-expandable-panel #panel [expanded]="true"> {{ text }} </dt-expandable-panel>
 <button dt-button (click)="panel.toggle()">Toggle panel</button>
 <button dt-button (click)="panel.open()" [disabled]="panel.expanded">
   Open panel
