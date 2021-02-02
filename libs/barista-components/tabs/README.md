@@ -38,14 +38,14 @@ To use the Dynatrace tabs, add the following components/directives:
 
 ## DtTabGroup inputs
 
-| Name         | Type                  | Default     | Description                                                                                                                           |
-| ------------ | --------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `selected`   | `boolean | undefined` | `undefined` | Sets the selected state if property is set and the value is truthy or undefined                                                       |
-| `disabled`   | `boolean | undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined                                                            |
-| `color`      | `string | undefined`  | `main`      | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>recovered</code></li><li><code>error</code></li></ul> |
-| `tabindex`   | `number`              | 0           | Tabindexof the tab.                                                                                                                   |
-| `id`         | `string`              |             | The id of the tab.                                                                                                                    |
-| `aria-label` | `string`              |             | Aria label of the tab.                                                                                                                |
+| Name         | Type     | Default    | Description            |
+| ------------ | -------- | ---------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `selected`   | `boolean | undefined` | `undefined`            | Sets the selected state if property is set and the value is truthy or undefined                                                       |
+| `disabled`   | `boolean | undefined` | `undefined`            | Sets disable state if property is set and the value is truthy or undefined                                                            |
+| `color`      | `string  | undefined` | `main`                 | Sets color. Possible options: <ul><li><code>main</code> (default)</li><li><code>recovered</code></li><li><code>error</code></li></ul> |
+| `tabindex`   | `number` | 0          | Tabindexof the tab.    |
+| `id`         | `string` |            | The id of the tab.     |
+| `aria-label` | `string` |            | Aria label of the tab. |
 
 ## Navigation
 

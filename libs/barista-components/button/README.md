@@ -28,11 +28,11 @@ To use the button component, add one of the following attributes to the
 
 ## Inputs
 
-| Name       | Type                  | Default     | Description                                                                                                                                                                                              |
-| ---------- | --------------------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `disabled` | `boolean | undefined` | `undefined` | Whether the button is disabled.                                                                                                                                                                          |
-| `color`    | `string`              | `main`      | Sets the button color. Possible options: <ul><li><code>main</code> (default)</li><li><code>warning</code></li><li><code>cta</code></li></ul>                                                             |
-| `variant`  | `string`              | `primary`   | Sets the button variant. Possible options: <ul><li><code>primary</code> (default)</li><li><code>secondary</code></li><li><code>nested</code> (Only available for <code>dt-icon-button</code>.)</li></ul> |
+| Name       | Type     | Default    | Description                                                                                                                                                                                              |
+| ---------- | -------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------- |
+| `disabled` | `boolean | undefined` | `undefined`                                                                                                                                                                                              | Whether the button is disabled. |
+| `color`    | `string` | `main`     | Sets the button color. Possible options: <ul><li><code>main</code> (default)</li><li><code>warning</code></li><li><code>cta</code></li></ul>                                                             |
+| `variant`  | `string` | `primary`  | Sets the button variant. Possible options: <ul><li><code>primary</code> (default)</li><li><code>secondary</code></li><li><code>nested</code> (Only available for <code>dt-icon-button</code>.)</li></ul> |
 
 ## States
 

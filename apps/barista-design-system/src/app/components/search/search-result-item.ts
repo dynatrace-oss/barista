@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -33,9 +33,8 @@ import { FocusableOption } from '@angular/cdk/a11y';
   },
 })
 export class BaSearchResultItem implements FocusableOption {
-  @ViewChild('buttonElement', { static: true }) buttonElement: ElementRef<
-    HTMLButtonElement
-  >;
+  @ViewChild('buttonElement', { static: true })
+  buttonElement: ElementRef<HTMLButtonElement>;
 
   focus(): void {
     this.buttonElement.nativeElement.focus();

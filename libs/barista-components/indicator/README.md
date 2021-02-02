@@ -32,6 +32,6 @@ component or HTML element.
 ## Inputs
 
 | Name               | Type      | Default   | Description                      |
-| ------------------ | --------- | --------- | -------------------------------- |
+| ------------------ | --------- | --------- | -------------------------------- | ------- | --------------- |
 | `dtIndicator`      | `boolean` | `true`    | Whether the indicator is active. |
 | `dtIndicatorColor` | `'error'  | 'warning' | 'recovered'`                     | `error` | Sets the color. |

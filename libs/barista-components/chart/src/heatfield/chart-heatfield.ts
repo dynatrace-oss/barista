@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -81,9 +81,8 @@ export class DtChartHeatfield
   extends _DtHeatfieldMixinBase
   implements CanColor<DtChartHeatfieldThemePalette>, OnChanges, OnDestroy {
   /** Event emitted when the option is selected or deselected. */
-  @Output() readonly activeChange = new EventEmitter<
-    DtChartHeatfieldActiveChange
-  >();
+  @Output()
+  readonly activeChange = new EventEmitter<DtChartHeatfieldActiveChange>();
 
   /** @internal The current state of the animation. */
   _overlayAnimationState: 'void' | 'fadeIn' = 'void';

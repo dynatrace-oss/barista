@@ -51,11 +51,11 @@ various states required:
 
 ### dt-confirmation-dialog
 
-| Name           | Type            | Default | Description                                                                                    |
-| -------------- | --------------- | ------- | ---------------------------------------------------------------------------------------------- |
-| `state`        | `string | null` | `null`  | The name of the currently active state, or a falsey value if none are active.                  |
-| `aria-label`   | `string`        |         | Accessibility label describing the dialog.                                                     |
-| `showBackdrop` | `boolean`       | `false` | Whether or not to show the backdrop disabling all other page functionality besides the dialog. |
+| Name           | Type      | Default | Description                                                                                    |
+| -------------- | --------- | ------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `state`        | `string   | null`   | `null`                                                                                         | The name of the currently active state, or a falsey value if none are active. |
+| `aria-label`   | `string`  |         | Accessibility label describing the dialog.                                                     |
+| `showBackdrop` | `boolean` | `false` | Whether or not to show the backdrop disabling all other page functionality besides the dialog. |
 
 The dialog is created by supplying markup to the component, and associating each
 piece of markup to particular "states" in which to display them. The component
@@ -71,21 +71,21 @@ the user to save or discard a change.
 The `dt-confirmation-dialog-actions` directive can be used to properly group
 action buttons used within a `dt-confirmation-dialog-state`.
 
-| Name              | Type            | Default     | Description                                                                                    |
-| ----------------- | --------------- | ----------- | ---------------------------------------------------------------------------------------------- |
-| `state`           | `string | null` | `null`      | The name of the currently active state, or a falsey value if none are active.                  |
-| `aria-label`      | `string`        | `undefined` | Accessibility label describing the dialog.                                                     |
-| `aria-labelledby` | `string`        | `undefined` | ARIA reference to a label describing the confirmation dialog                                   |
-| `showBackdrop`    | `boolean`       | `false`     | Whether or not to show the backdrop disabling all other page functionality besides the dialog. |
+| Name              | Type      | Default     | Description                                                                                    |
+| ----------------- | --------- | ----------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `state`           | `string   | null`       | `null`                                                                                         | The name of the currently active state, or a falsey value if none are active. |
+| `aria-label`      | `string`  | `undefined` | Accessibility label describing the dialog.                                                     |
+| `aria-labelledby` | `string`  | `undefined` | ARIA reference to a label describing the confirmation dialog                                   |
+| `showBackdrop`    | `boolean` | `false`     | Whether or not to show the backdrop disabling all other page functionality besides the dialog. |
 
 To make our components accessible it is obligatory to provide either an
 `aria-label` or `aria-labelledby`.
 
 ### dt-confirmation-dialog-state
 
-| Name   | Type            | Default | Description                                                                            |
-| ------ | --------------- | ------- | -------------------------------------------------------------------------------------- |
-| `name` | `string | null` | `null`  | The name of the state that corresponds to this `dt-confirmation-dialog-state` element. |
+| Name   | Type    | Default | Description |
+| ------ | ------- | ------- | ----------- | -------------------------------------------------------------------------------------- |
+| `name` | `string | null`   | `null`      | The name of the state that corresponds to this `dt-confirmation-dialog-state` element. |
 
 ## Methods
 

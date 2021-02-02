@@ -32,9 +32,9 @@ This can be achieved with the `align` property.
 
 ### Inputs
 
-| Name    | Type              | Default   | Description                                                                     |
-| ------- | ----------------- | --------- | ------------------------------------------------------------------------------- |
-| `align` | `'start' | 'end'` | `'start'` | If the item is placed on the left side or right side of the top navigation bar. |
+| Name    | Type     | Default | Description |
+| ------- | -------- | ------- | ----------- | ------------------------------------------------------------------------------- |
+| `align` | `'start' | 'end'`  | `'start'`   | If the item is placed on the left side or right side of the top navigation bar. |
 
 ## DtTopBarAction
 
@@ -63,9 +63,7 @@ navigation, omitting the term "navigation", as the screen reader will read the
 role and the contents of the label.
 
 ```html
-<dt-top-bar-navigation aria-label="Main">
-  ...
-</dt-top-bar-navigation>
+<dt-top-bar-navigation aria-label="Main"> ... </dt-top-bar-navigation>
 ```
 
 ## Top Bar Navigation in use

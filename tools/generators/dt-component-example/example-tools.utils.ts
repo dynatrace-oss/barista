@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -84,9 +84,7 @@ export function changeRoutingModule(options: DtExampleExtendedOptions): Rule {
       ).pop() as ts.ImportDeclaration;
       const namedImports = (lastImport.importClause as ts.ImportClause)
         .namedBindings as ts.NamedImports;
-      const importElements = namedImports.elements as ts.NodeArray<
-        ts.ImportSpecifier
-      >;
+      const importElements = namedImports.elements as ts.NodeArray<ts.ImportSpecifier>;
       const lastImportElement = importElements[importElements.length - 1];
       const end = lastImportElement.end + 1;
       const toInsertImport = `${options.exampleComponent.component},
@@ -146,9 +144,7 @@ export function changeNavigation(
       const exampleString = `${options.exampleId}-example`;
 
       if (isNewComponent) {
-        const navElementsArray = navElements as ts.NodeArray<
-          ts.ObjectLiteralExpression
-        >;
+        const navElementsArray = navElements as ts.NodeArray<ts.ObjectLiteralExpression>;
         const lastNavElement = navElementsArray[navElementsArray.length - 1];
 
         const componentExampleString = `,
@@ -168,14 +164,13 @@ export function changeNavigation(
           componentExampleString,
         );
       } else {
-        const componentNavElement = (navElements as ts.NodeArray<
-          ts.ObjectLiteralExpression
-        >).find((element) =>
-          (element.properties as ts.NodeArray<ts.PropertyAssignment>).find(
-            (assignment) =>
-              (assignment.initializer as ts.StringLiteral).getText() ===
-              `'${options.dashName}'`,
-          ),
+        const componentNavElement = (navElements as ts.NodeArray<ts.ObjectLiteralExpression>).find(
+          (element) =>
+            (element.properties as ts.NodeArray<ts.PropertyAssignment>).find(
+              (assignment) =>
+                (assignment.initializer as ts.StringLiteral).getText() ===
+                `'${options.dashName}'`,
+            ),
         );
 
         // get example assignment

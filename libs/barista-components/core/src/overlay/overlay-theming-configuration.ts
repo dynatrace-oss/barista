@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,9 +25,9 @@ export const DT_DEFAULT_DARK_THEMING_CONFIG: DtOverlayThemingConfiguration = {
   className: 'dt-theme-dark',
 };
 
-export const DT_OVERLAY_THEMING_CONFIG = new InjectionToken<
-  DtOverlayThemingConfiguration
->('DT_OVERLAY_THEMING_CONFIGURATION');
+export const DT_OVERLAY_THEMING_CONFIG = new InjectionToken<DtOverlayThemingConfiguration>(
+  'DT_OVERLAY_THEMING_CONFIGURATION',
+);
 
 export function dtSetOverlayThemeAttribute(
   overlayElement: Element,

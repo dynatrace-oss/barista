@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -59,7 +59,8 @@ export const DT_OVERLAY_FADE_TIME = 150;
 export const DT_OVERLAY_DELAY = 100;
 
 // Boilerplate for applying mixins to DtOverlayContainer.
-export class DtOverlayContainerBase extends BasePortalOutlet
+export class DtOverlayContainerBase
+  extends BasePortalOutlet
   implements HasNgZone {
   constructor(public _ngZone: NgZone) {
     super();
@@ -107,7 +108,8 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DtOverlayContainer extends _DtOverlayContainerMixin
+export class DtOverlayContainer
+  extends _DtOverlayContainerMixin
   implements CanNotifyOnExit {
   /** @internal */
   @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet: CdkPortalOutlet;

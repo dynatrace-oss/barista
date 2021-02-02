@@ -72,10 +72,10 @@ constructor(private _dtOverlay: DtOverlay) {}
 
 The `DtOverlay` service has the following two methods:
 
-| Method      | Parameters                                                                                                        | Return value                       | Description                                                                                                          |
-| ----------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `create()`  | `origin: ElementRef`<br>`componentOrTemplateRef: ComponentType<T> | TemplateRef<T>`<br>`config?: DtOverlayConfig` | `DtOverlayRef` (see details below) | Creates a overlay connected to the origin and containing the given component or templateRef.                         |
-| `dismiss()` |  -                                                                                                                |  `void`                            |  Dismisses the currently open overlay. This method can be used if the overlay needs to be dismissed programatically. |
+| Method      | Parameters                                                        | Return value                                  | Description                                                                                                          |
+| ----------- | ----------------------------------------------------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `create()`  | `origin: ElementRef`<br>`componentOrTemplateRef: ComponentType<T> | TemplateRef<T>`<br>`config?: DtOverlayConfig` | `DtOverlayRef` (see details below)                                                                                   | Creates a overlay connected to the origin and containing the given component or templateRef. |
+| `dismiss()` |  -                                                                |  `void`                                       |  Dismisses the currently open overlay. This method can be used if the overlay needs to be dismissed programatically. |
 
 <ba-live-example name="DtExampleOverlayProgrammatic"></ba-live-example>
 
@@ -97,11 +97,11 @@ This configuration is optional and can be passed to the service's `create`
 method or as an input to the trigger directive. The `DtOverlayConfig` class has
 the following properties:
 
-| Name                 | Type             | Default  | Description                                                                                                                                                                                                                                         |
-| -------------------- | ---------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pinnable`           | `boolean`        | `-`      | enables pinning of the overlay on click or by keyboard when the trigger is focused.                                                                                                                                                                 |
-| `originY`            | `center | edge`  | `center` | The originY defines the vertical attachment point for the overlay. By default `center` is set. `edge` defines that the vertical attachment point is set to the bottom edge if the overlay fits below the origin element and the top edge otherwise. |
-| `movementConstraint` |  `xAxis | yAxis` | -        | The movementConstraint locks the movement of the overlay to a given axis. No constraint is set by default.                                                                                                                                          |
+| Name                 | Type      | Default | Description                                                                         |
+| -------------------- | --------- | ------- | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pinnable`           | `boolean` | `-`     | enables pinning of the overlay on click or by keyboard when the trigger is focused. |
+| `originY`            | `center   | edge`   | `center`                                                                            | The originY defines the vertical attachment point for the overlay. By default `center` is set. `edge` defines that the vertical attachment point is set to the bottom edge if the overlay fits below the origin element and the top edge otherwise. |
+| `movementConstraint` |  `xAxis   | yAxis`  | -                                                                                   | The movementConstraint locks the movement of the overlay to a given axis. No constraint is set by default.                                                                                                                                          |
 
 ## Fullscreen support
 

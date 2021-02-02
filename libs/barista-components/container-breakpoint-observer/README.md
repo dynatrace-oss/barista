@@ -36,9 +36,9 @@ class MyModule {}
 
 ## Methods
 
-| Name    | Params             | Return type                     | Description                                                                                                                                                                                                                                                  |
-| ------- | ------------------ | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| observe | `string |string[]` | `Observable<DtBreakpointState>` | Start observing the container with the provided media query/queries. The observable will provide you a `DtBreakpointState` object which tells you if all media queries are currently matching (or not) and which of the individual breakpoints are matching. |
+| Name    | Params  | Return type | Description                     |
+| ------- | ------- | ----------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| observe | `string | string[]`   | `Observable<DtBreakpointState>` | Start observing the container with the provided media query/queries. The observable will provide you a `DtBreakpointState` object which tells you if all media queries are currently matching (or not) and which of the individual breakpoints are matching. |
 
 ## `dtIfContainerBreakpoint` directive
 
@@ -53,11 +53,11 @@ every-time the observed query changes state.
 
 ## Inputs
 
-| Name                          | Type                                                 | Description                                                                |
-| ----------------------------- | ---------------------------------------------------- | -------------------------------------------------------------------------- |
-| `dtIfContainerBreakpoint`     | `query: string | string[]`                           | The query to observe and evaluate as the condition for showing a template. |
-| `dtIfContainerBreakpointThen` | `TemplateRef<DtIfContainerBreakpointContext> | null` | A template to show if the breakpoint does match.                           |
-| `dtIfContainerBreakpointElse` | `TemplateRef<DtIfContainerBreakpointContext> | null` | A template to show if the breakpoint does not match.                       |
+| Name                          | Type                                         | Description |
+| ----------------------------- | -------------------------------------------- | ----------- | -------------------------------------------------------------------------- |
+| `dtIfContainerBreakpoint`     | `query: string                               | string[]`   | The query to observe and evaluate as the condition for showing a template. |
+| `dtIfContainerBreakpointThen` | `TemplateRef<DtIfContainerBreakpointContext> | null`       | A template to show if the breakpoint does match.                           |
+| `dtIfContainerBreakpointElse` | `TemplateRef<DtIfContainerBreakpointContext> | null`       | A template to show if the breakpoint does not match.                       |
 
 Example:
 <ba-live-example name="DtExampleContainerBreakpointObserverIf"></ba-live-example>

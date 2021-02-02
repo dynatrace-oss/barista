@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -168,9 +168,7 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
   private _previousPushAmount: { x: number; y: number } | null;
 
   /** Observable sequence of position changes. */
-  positionChanges: Observable<
-    ConnectedOverlayPositionChange
-  > = this._positionChanges.asObservable();
+  positionChanges: Observable<ConnectedOverlayPositionChange> = this._positionChanges.asObservable();
 
   /** Ordered list of preferred positions, from most to least desirable. */
   get positions(): ConnectionPositionPair[] {

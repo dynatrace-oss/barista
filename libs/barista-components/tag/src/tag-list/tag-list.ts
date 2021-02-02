@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -74,9 +74,8 @@ export class DtTagList implements AfterContentInit, OnDestroy {
   _tagElements: QueryList<ElementRef>;
 
   /** @internal List of Tag Add references */
-  @ContentChildren(DtTagAdd, { read: DtTagAdd }) _tagAddElements: QueryList<
-    DtTagAdd
-  >;
+  @ContentChildren(DtTagAdd, { read: DtTagAdd })
+  _tagAddElements: QueryList<DtTagAdd>;
 
   /** @internal List of Tag Add subcriptions */
   _tagAddSubscriptions: Subscription[] = [];

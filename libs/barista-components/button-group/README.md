@@ -33,8 +33,8 @@ To apply the button group component, use the `<dt-button-group>` and
 ## Inputs
 
 | Name       | Type     | Default    | Description                         |
-| ---------- | -------- | ---------- | ----------------------------------- |
-| `value`    | `T       | undefined` | `undefined`                         | Gets and sets the current value |
+| ---------- | -------- | ---------- | ----------------------------------- | --------------------------------------------------------------------------- |
+| `value`    | `T       | undefined` | `undefined`                         | Gets and sets the current value                                             |
 | `disabled` | `boolean | undefined` | `undefined`                         | Sets disabled state if property is set and the value is truthy or undefined |
 | `tabIndex` | `number` | `0`        | Sets and gets the tabIndex property |
 
@@ -55,10 +55,10 @@ To apply the button group component, use the `<dt-button-group>` and
 ## Button group item inputs
 
 | Name                    | Type      | Default    | Description                                                                  |
-| ----------------------- | --------- | ---------- | ---------------------------------------------------------------------------- |
+| ----------------------- | --------- | ---------- | ---------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `<ng-content>`          |           |            | The content which is displayed inside of the item. This should only be text. |
-| `value`                 | `T        | undefined` | `undefined`                                                                  | The associated value of this item |
-| `disabled`              | `boolean  | undefined` | `undefined`                                                                  | Sets disabled state if property is set and the value is truthy or undefined |
+| `value`                 | `T        | undefined` | `undefined`                                                                  | The associated value of this item                                                                      |
+| `disabled`              | `boolean  | undefined` | `undefined`                                                                  | Sets disabled state if property is set and the value is truthy or undefined                            |
 | `tabIndex`              | `number`  | `0`        | Sets and gets the tabIndex property                                          |
 | _deprecated_ `selected` | `boolean` | `false`    | Sets or gets the selected state of this item                                 |
 | `checked`               | `boolean` | `false`    | Sets or gets the checked state of this item                                  |

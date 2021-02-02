@@ -26,9 +26,9 @@ Using `<dt-copy-to-clipboard-label>` defines the button content (e.g. text like
 
 ## Inputs
 
-| Name      | Type                      | Default   | Description                                                   |
-| --------- | ------------------------- | --------- | ------------------------------------------------------------- |
-| `variant` | `'primary' | 'secondary'` | `primary` | Defines the variant of the embedded copy-to-clipboard button. |
+| Name      | Type       | Default      | Description |
+| --------- | ---------- | ------------ | ----------- | ------------------------------------------------------------- |
+| `variant` | `'primary' | 'secondary'` | `primary`   | Defines the variant of the embedded copy-to-clipboard button. |
 
 ## Outputs
 

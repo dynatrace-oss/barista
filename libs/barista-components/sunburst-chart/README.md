@@ -33,12 +33,12 @@ moment
 
 #### Inputs
 
-| Name               | Type                     | Default      | Description                                                     |
-| ------------------ | ------------------------ | ------------ | --------------------------------------------------------------- |
-| `series`           | `DtSunburstChartNode[]`  | -            | Array of nodes with their children (i.e [A,B,C]).               |
-| `selected`         | `DtSunburstChartNode[]`  | -            | Array of selected nodes (i.e [A, A.1, A.1.a]).                  |
-| `noSelectionLabel` | `string`                 | `All`        | Label to be shown when there's no selection.                    |
-| `valueDisplayMode` | `'absolute' | 'percent'` | `'absolute'` | Mode of value visualization. It can be `percent` or `absolute`. |
+| Name               | Type                    | Default    | Description                                       |
+| ------------------ | ----------------------- | ---------- | ------------------------------------------------- | --------------------------------------------------------------- |
+| `series`           | `DtSunburstChartNode[]` | -          | Array of nodes with their children (i.e [A,B,C]). |
+| `selected`         | `DtSunburstChartNode[]` | -          | Array of selected nodes (i.e [A, A.1, A.1.a]).    |
+| `noSelectionLabel` | `string`                | `All`      | Label to be shown when there's no selection.      |
+| `valueDisplayMode` | `'absolute'             | 'percent'` | `'absolute'`                                      | Mode of value visualization. It can be `percent` or `absolute`. |
 
 #### Outputs
 
@@ -71,10 +71,10 @@ a user hovers the slice in sunburst-chart. `tooltip` is a
 This `DtSunburstChartNode` holds the information for every slice in the chart.
 
 | Name       | Type                    | Optional               | Description                                                                                                             |
-| ---------- | ----------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| ---------- | ----------------------- | ---------------------- | ----------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
 | `label`    | `string`                | No                     | Name of the node to be shown.                                                                                           |
 | `value`    | `number`                | Yes if it has children | Numeric value used to calculate the slices. If it has children you can skip it and it will be calculated based on them. |
-| `color`    | `DtColors | string`     | Yes                    | Color to be used. Fallback to [sorted chart colors](/resources/colors/chartcolors#sorted-chart-colors).                 |
+| `color`    | `DtColors               | string`                | Yes                                                                                                                     | Color to be used. Fallback to [sorted chart colors](/resources/colors/chartcolors#sorted-chart-colors).  |
 | `children` | `DtSunburstChartNode[]` | Yes                    | Array of nodes belonging to this parent.                                                                                |
 
 ## DtSunburstChartTooltipData
@@ -83,7 +83,7 @@ The context of the overlay will be set to DtSunburstChartTooltipData object
 containing useful information that can be used inside the overlay's template
 
 | Name                      | Type                           | Description                                                                     |
-| ------------------------- | ------------------------------ | ------------------------------------------------------------------------------- |
+| ------------------------- | ------------------------------ | ------------------------------------------------------------------------------- | ------------------------------------------------ |
 | `origin`                  | `DtSunburstChartNode`          | Node passed by user in `series` array.                                          |
 | `id`                      | `string`                       | Internal identifier.                                                            |
 | `label`                   | `string`                       | Name of the node to be shown. Copied from `origin.label`.                       |
@@ -91,8 +91,8 @@ containing useful information that can be used inside the overlay's template
 | `valueRelative`           | `number`                       | Numeric percentage value based on this node vs sum of top level.                |
 | `children`                | `DtSunburstChartTooltipData[]` | Array of nodes belonging to this parent.                                        |
 | `depth`                   | `number`                       | Number of levels of children.                                                   |
-| `color`                   | `DtColors | string`            | Color for this node in this state.                                              |
-| `colorHover` (deprecated) | `DtColors | string`            | Color for this node when hovering in this state.                                |
+| `color`                   | `DtColors                      | string`                                                                         | Color for this node in this state.               |
+| `colorHover` (deprecated) | `DtColors                      | string`                                                                         | Color for this node when hovering in this state. |
 | `isCurrent`               | `boolean`                      | If node is the deepest selected one.                                            |
 | `visible`                 | `boolean`                      | If node is visible in the sunburst-chart.                                       |
 | `active`                  | `boolean`                      | If node or child are selected.                                                  |
