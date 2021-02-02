@@ -27,10 +27,10 @@ To use a micro chart, add the `<dt-micro-chart>` element to the view and set
 ## Inputs
 
 | Name             | Type                       | Default       | Description |
-| ---------------- | -------------------------- | ------------- | ----------- |
+| ---------------- | -------------------------- | ------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | `options`        | `DtChartOptions            | undefined`    | `undefined` | Sets options for the chart. `DtChartOptions` extends from `Highcharts.Options`, but removes the series property. The series property is passed as its own input. |
-| `series`         | `Observable<DtChartSeries> | DtChartSeries | undefined`  | `undefined` | Sets the series of the chart. The type can either be a stream of series data for continuous updates or a static array. |
-| `labelFormatter` | `(input: number) => string | undefined`    | `undefined` | Sets the label formatter function for the min and max data point. |
+| `series`         | `Observable<DtChartSeries> | DtChartSeries | undefined`  | `undefined`                                                                                                                                                      | Sets the series of the chart. The type can either be a stream of series data for continuous updates or a static array. |
+| `labelFormatter` | `(input: number) => string | undefined`    | `undefined` | Sets the label formatter function for the min and max data point.                                                                                                |
 
 ## Outputs
 
@@ -41,7 +41,7 @@ To use a micro chart, add the `<dt-micro-chart>` element to the view and set
 ## Getter
 
 | Name                | Return value | Description                                            |
-| ------------------- | ------------ | ------------------------------------------------------ |
+| ------------------- | ------------ | ------------------------------------------------------ | ------------------------------------------------------------- |
 | `seriesId`          | `string      | undefined`                                             | Gets the series ID of the series currently used in the chart. |
 | `highchartsOptions` | `Options`    | Returns highchart options which are used in the chart. |
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -72,9 +72,8 @@ export class BaSearch implements OnInit, AfterViewInit, OnDestroy {
 
   @ViewChild('searchInput', { static: true }) _searchInput: ElementRef;
 
-  @ViewChildren(BaSearchResultItem) _searchResultOptions: QueryList<
-    BaSearchResultItem
-  >;
+  @ViewChildren(BaSearchResultItem)
+  _searchResultOptions: QueryList<BaSearchResultItem>;
 
   /** Defines if the overlay / results are shown */
   searchResults$ = new BehaviorSubject<BaSearchResult[]>([]);

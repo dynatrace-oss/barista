@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -38,9 +38,10 @@ const config: DtQuickFilterDefaultDataSourceConfig = {
   templateUrl: 'quick-filter.html',
 })
 export class DtE2EQuickFilter {
-  _dataSource: DtQuickFilterDefaultDataSource<
-    any
-  > = new DtQuickFilterDefaultDataSource(DATA[1], config);
+  _dataSource: DtQuickFilterDefaultDataSource<any> = new DtQuickFilterDefaultDataSource(
+    DATA[1],
+    config,
+  );
 
   filterChanges(filterEvent: DtQuickFilterChangeEvent<any>): void {
     console.log(filterEvent);

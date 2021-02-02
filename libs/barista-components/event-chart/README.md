@@ -91,8 +91,8 @@ below the EventChart.
 #### Inputs
 
 | Name      | Type                 | Default   | Description                                                        |
-| --------- | -------------------- | --------- | ------------------------------------------------------------------ |
-| `lanes`   | `string | string[]`  | -         | Defines for which lanes this legend item can be used for.          |
+| --------- | -------------------- | --------- | ------------------------------------------------------------------ | --------------------------------------------------------- |
+| `lanes`   | `string              | string[]` | -                                                                  | Defines for which lanes this legend item can be used for. |
 | `pattern` | `boolean`            | false     | Defines that this legend item is used for pattern events.          |
 | `color`   | `DtEventChartColors` | `default` | Defines that this legend item is only usable for the passed color. |
 

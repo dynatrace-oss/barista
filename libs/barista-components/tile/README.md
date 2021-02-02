@@ -33,11 +33,11 @@ be rendered in a smaller version.
 
 ## Inputs
 
-| Name       | Type                  | Default     | Description                                                                                |
-| ---------- | --------------------- | ----------- | ------------------------------------------------------------------------------------------ |
-| `disabled` | `boolean | undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined.                |
-| `color`    | `string | undefined`  | `undefined` | Sets color. Possible options: <ul><li>`main`</li><li>`error`</li><li>`recovered`</li></ul> |
-| `tabindex` | `number`              | `0`         | Sets tabindex on the tile.                                                                 |
+| Name       | Type     | Default    | Description                |
+| ---------- | -------- | ---------- | -------------------------- | ------------------------------------------------------------------------------------------ |
+| `disabled` | `boolean | undefined` | `undefined`                | Sets disable state if property is set and the value is truthy or undefined.                |
+| `color`    | `string  | undefined` | `undefined`                | Sets color. Possible options: <ul><li>`main`</li><li>`error`</li><li>`recovered`</li></ul> |
+| `tabindex` | `number` | `0`        | Sets tabindex on the tile. |
 
 ## States
 

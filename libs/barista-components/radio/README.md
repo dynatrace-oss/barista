@@ -60,13 +60,13 @@ name of the group.
 
 ### Inputs
 
-| Name       | Type                      | Default                              | Description                                       |
-| ---------- | ------------------------- | ------------------------------------ | ------------------------------------------------- |
-| `name`     | `string`                  | `dt-radio-group-{consecutiveNumber}` | The unique ID for the radio group button.         |
-| `value`    | `T | null`                |                                      | Currently selected value of the radio group.      |
-| `selected` | `DtRadioButton<T> | null` |                                      | Currently selected radio button within the group. |
-| `disabled` | `boolean`                 | `false`                              | Whether the radio group is disabled.              |
-| `required` | `boolean`                 | `false`                              | Whether the radio group is required.              |
+| Name       | Type              | Default                              | Description                               |
+| ---------- | ----------------- | ------------------------------------ | ----------------------------------------- | ------------------------------------------------- |
+| `name`     | `string`          | `dt-radio-group-{consecutiveNumber}` | The unique ID for the radio group button. |
+| `value`    | `T                | null`                                |                                           | Currently selected value of the radio group.      |
+| `selected` | `DtRadioButton<T> | null`                                |                                           | Currently selected radio button within the group. |
+| `disabled` | `boolean`         | `false`                              | Whether the radio group is disabled.      |
+| `required` | `boolean`         | `false`                              | Whether the radio group is required.      |
 
 ### Outputs
 

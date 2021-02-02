@@ -4,19 +4,15 @@
   [max]="max"
   (valueChange)="changed($event)"
 ></dt-bar-indicator>
-<div style="margin-top: 16px;">
-  <button dt-button (click)="value = value - 10">
-    decrease value by 10
-  </button>
-  <button dt-button (click)="value = value + 10">
-    increase value by 10
-  </button>
+<div style="margin-top: 16px">
+  <button dt-button (click)="value = value - 10">decrease value by 10</button>
+  <button dt-button (click)="value = value + 10">increase value by 10</button>
 </div>
-<div style="margin-top: 16px;">
+<div style="margin-top: 16px">
   <button dt-button (click)="min = min - 10">decrease min by 10</button>
   <button dt-button (click)="min = min + 10">increase min by 10</button>
 </div>
-<div style="margin-top: 16px;">
+<div style="margin-top: 16px">
   <button dt-button (click)="max = max - 10">decrease max by 10</button>
   <button dt-button (click)="max = max + 10">increase max by 10</button>
 </div>

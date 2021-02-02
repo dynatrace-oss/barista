@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -88,24 +88,16 @@ export class DtIfContainerBreakpoint implements OnDestroy {
 
   private _context = new DtIfContainerBreakpointContext();
   /** TemplateRef that is rendered if  the query matches. */
-  private _thenTemplateRef: TemplateRef<
-    DtIfContainerBreakpointContext
-  > | null = null;
+  private _thenTemplateRef: TemplateRef<DtIfContainerBreakpointContext> | null = null;
 
   /** TemplateRef that is rendered if  the query does not match. */
-  private _elseTemplateRef: TemplateRef<
-    DtIfContainerBreakpointContext
-  > | null = null;
+  private _elseTemplateRef: TemplateRef<DtIfContainerBreakpointContext> | null = null;
 
   /** ViewRef of the rendered thenTemplateRef. */
-  private _thenViewRef: EmbeddedViewRef<
-    DtIfContainerBreakpointContext
-  > | null = null;
+  private _thenViewRef: EmbeddedViewRef<DtIfContainerBreakpointContext> | null = null;
 
   /** ViewRef of the rendered elseTemplateRef. */
-  private _elseViewRef: EmbeddedViewRef<
-    DtIfContainerBreakpointContext
-  > | null = null;
+  private _elseViewRef: EmbeddedViewRef<DtIfContainerBreakpointContext> | null = null;
 
   /** Subscription of the observed query on the container-breakpoint-observer. */
   private _breakpointSubscription = Subscription.EMPTY;

@@ -57,23 +57,23 @@ functions return `DtFormattedValue`.
 `DtFormattedValue` stores source values and also contains ready-to-display
 fields, which are described in a table below:
 
-| Name              | Type                 | Default     | Description                                                                                   |
-| ----------------- | -------------------- | ----------- | --------------------------------------------------------------------------------------------- |
-| `displayValue`    | `string | undefined` | `undefined` | value to be displayed                                                                         |
-| `displayUnit`     | `string | undefined` | `undefined` | unit representation to be displayed                                                           |
-| `displayRateUnit` | `string | undefined` | `undefined` | rate unit representation to be displayed                                                      |
-| `toString()`      |                      | `-`         | method returning formatted combination of `displayValue`, `displayUnit` and `displayRateUnit` |
+| Name              | Type    | Default    | Description                                                                                   |
+| ----------------- | ------- | ---------- | --------------------------------------------------------------------------------------------- | ---------------------------------------- |
+| `displayValue`    | `string | undefined` | `undefined`                                                                                   | value to be displayed                    |
+| `displayUnit`     | `string | undefined` | `undefined`                                                                                   | unit representation to be displayed      |
+| `displayRateUnit` | `string | undefined` | `undefined`                                                                                   | rate unit representation to be displayed |
+| `toString()`      |         | `-`        | method returning formatted combination of `displayValue`, `displayUnit` and `displayRateUnit` |
 
 ### Count
 
 The `formatCount` function provides a way to format numbers as abbreviations
 outside the template. The function takes the following parameters:
 
-| Name           | Type                        | Default      | Description                                                                                                                     |
-| -------------- | --------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| `input`        | `DtFormattedValue | number` |              | numeric value to be transformed by the pipe                                                                                     |
-| `inputUnit`    | `DtUnit | string`           | `Unit.COUNT` | input unit, if not default - displayed together with the formatted value; does not yet support plurals and internationalization |
-| `maxPrecision` | `number`                    | 3            | maximum amount of digits to be used                                                                                             |
+| Name           | Type              | Default | Description                         |
+| -------------- | ----------------- | ------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `input`        | `DtFormattedValue | number` |                                     | numeric value to be transformed by the pipe                                                                                     |
+| `inputUnit`    | `DtUnit           | string` | `Unit.COUNT`                        | input unit, if not default - displayed together with the formatted value; does not yet support plurals and internationalization |
+| `maxPrecision` | `number`          | 3       | maximum amount of digits to be used |
 
 ### Percent
 
@@ -93,10 +93,10 @@ options for the function can be passed as a `DtNumberFormaterOption`. The
 options passed are internally merged with default options. The function takes
 the following parameters:
 
-| Name      | Type                        | Default | Description                                 |
-| --------- | --------------------------- | ------- | ------------------------------------------- |
-| `input`   | `DtFormattedValue | number` |         | numeric value to be transformed by the pipe |
-| `options` | `DtNumberFormatterOption`   |         | options for the util function               |
+| Name      | Type                      | Default | Description                   |
+| --------- | ------------------------- | ------- | ----------------------------- | ------------------------------------------- |
+| `input`   | `DtFormattedValue         | number` |                               | numeric value to be transformed by the pipe |
+| `options` | `DtNumberFormatterOption` |         | options for the util function |
 
 You can specify the following properties on your options:
 
@@ -114,11 +114,11 @@ Optional options for the function can be passed as a `DtNumberFormaterOption`.
 The options passed are internally merged with default options. The function
 takes the following parameters:
 
-| Name        | Type                        | Default | Description                                                                                                 |
-| ----------- | --------------------------- | ------- | ----------------------------------------------------------------------------------------------------------- |
-| `input`     | `DtFormattedValue | number` |         | numeric value to be transformed by the pipe                                                                 |
-| `factor`    | `number`                    |         | determines whether to use KILO (default) or KIBI multiplier in calculations; does not affect displayed unit |
-| `inputUnit` | `DtUnit`                    |         | input unit, typically defined unit of type DtUnit (DtUnit.BYTES by default)                                 |
+| Name        | Type              | Default | Description                                                                                                 |
+| ----------- | ----------------- | ------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| `input`     | `DtFormattedValue | number` |                                                                                                             | numeric value to be transformed by the pipe |
+| `factor`    | `number`          |         | determines whether to use KILO (default) or KIBI multiplier in calculations; does not affect displayed unit |
+| `inputUnit` | `DtUnit`          |         | input unit, typically defined unit of type DtUnit (DtUnit.BYTES by default)                                 |
 
 You can specify the following properties on your options:
 
@@ -133,10 +133,10 @@ You can specify the following properties on your options:
 The `formatRate` function enables you to format a number or a FormattedValue
 from a previous pipe with a rate. The function takes the following parameters:
 
-| Name       | Type                        | Default | Description                                 |
-| ---------- | --------------------------- | ------- | ------------------------------------------- |
-| `input`    | `DtFormattedValue | number` |         | numeric value to be transformed by the pipe |
-| `rateUnit` | `DtRateUnit | string`       |         | rate unit                                   |
+| Name       | Type              | Default | Description |
+| ---------- | ----------------- | ------- | ----------- | ------------------------------------------- |
+| `input`    | `DtFormattedValue | number` |             | numeric value to be transformed by the pipe |
+| `rateUnit` | `DtRateUnit       | string` |             | rate unit                                   |
 
 ### Time (deprecated - Will be removed with version 7.0.0)
 
@@ -166,13 +166,13 @@ consumes a formatMethod which configures how the output is built.
 
 You can specify the following properties on your options:
 
-| Name           | Type                            | Default        | Description                                      |
-| -------------- | ------------------------------- | -------------- | ------------------------------------------------ |
-| `input`        | `number`                        |                | Numeric value to be transformed                  |
-| `formatMethod` | `'DEFAULT | 'PRECISE' | number` | `'DEFAULT'`    | Formatting/Precision mode configuring the output |
-| `outputUnit`   | `DtTimeUnit`                    | `undefined`    | Which unit to transform the input to             |
-| `inputUnit`    | `DtTimeUnit`                    | `Milliseconds` | Which timeunit is used for the input             |
-| `maxDecimals`  | `number`                        | 5              | Max amount of decimals                           |
+| Name           | Type         | Default        | Description                          |
+| -------------- | ------------ | -------------- | ------------------------------------ | ----------- | ------------------------------------------------ |
+| `input`        | `number`     |                | Numeric value to be transformed      |
+| `formatMethod` | `'DEFAULT    | 'PRECISE'      | number`                              | `'DEFAULT'` | Formatting/Precision mode configuring the output |
+| `outputUnit`   | `DtTimeUnit` | `undefined`    | Which unit to transform the input to |
+| `inputUnit`    | `DtTimeUnit` | `Milliseconds` | Which timeunit is used for the input |
+| `maxDecimals`  | `number`     | 5              | Max amount of decimals               |
 
 #### Examples
 

@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -106,28 +106,24 @@ export class DtFormField<T>
   @ContentChild(DtLabel) _labelChild: DtLabel;
 
   /** @internal References to the hints */
-  @ContentChildren(DtHint, { descendants: true }) _hintChildren: QueryList<
-    DtHint
-  >;
+  @ContentChildren(DtHint, { descendants: true })
+  _hintChildren: QueryList<DtHint>;
 
   /** @internal References to the errors */
-  @ContentChildren(DtError, { descendants: true }) _errorChildren: QueryList<
-    DtError
-  >;
+  @ContentChildren(DtError, { descendants: true })
+  _errorChildren: QueryList<DtError>;
 
   /** @internal Reference to the control */
   @ContentChild(DtFormFieldControl)
   _control: DtFormFieldControl<T>;
 
   /** @internal References to the prefixes */
-  @ContentChildren(DtPrefix, { descendants: true }) _prefixChildren: QueryList<
-    DtPrefix
-  >;
+  @ContentChildren(DtPrefix, { descendants: true })
+  _prefixChildren: QueryList<DtPrefix>;
 
   /** @internal References to the suffixes */
-  @ContentChildren(DtSuffix, { descendants: true }) _suffixChildren: QueryList<
-    DtSuffix
-  >;
+  @ContentChildren(DtSuffix, { descendants: true })
+  _suffixChildren: QueryList<DtSuffix>;
 
   /** Subject used for unsubscribing */
   private _destroy$ = new Subject<void>();

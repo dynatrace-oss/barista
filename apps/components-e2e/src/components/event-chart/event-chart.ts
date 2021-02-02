@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,9 +30,8 @@ export class DtE2EEventChart<T> {
 
   i = 0;
 
-  @ViewChild(DtEventChart, { static: true }) private _eventChart: DtEventChart<
-    T
-  >;
+  @ViewChild(DtEventChart, { static: true })
+  private _eventChart: DtEventChart<T>;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
     (window as any).e2eTestInstance = this;

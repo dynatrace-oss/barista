@@ -1,15 +1,9 @@
 <!-- Tab-List -->
 <fluid-tab-group (activeTabChanged)="handleChange($event)">
   <!-- Tabs -->
-  <fluid-tab tabid="section1" active="active">
-    Build
-  </fluid-tab>
-  <fluid-tab tabid="section2">
-    Type
-  </fluid-tab>
-  <fluid-tab tabid="section3">
-    History
-  </fluid-tab>
+  <fluid-tab tabid="section1" active="active"> Build </fluid-tab>
+  <fluid-tab tabid="section2"> Type </fluid-tab>
+  <fluid-tab tabid="section3"> History </fluid-tab>
   <fluid-tab tabid="section4" *ngIf="showLastTab" [disabled]="disabled">
     Saved Queries
   </fluid-tab>
@@ -66,9 +60,7 @@
   </section>
 </div>
 
-<p>
-  Tab A is set active and the Tab-groups activetabid is B
-</p>
+<p>Tab A is set active and the Tab-groups activetabid is B</p>
 <fluid-tab-group activeTabId="b">
   <fluid-tab tabid="a" active>A</fluid-tab>
   <fluid-tab tabid="b">B</fluid-tab>

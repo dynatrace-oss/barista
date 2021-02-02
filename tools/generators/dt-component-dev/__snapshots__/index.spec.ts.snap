@@ -3,7 +3,7 @@
 exports[`Add Dev Component should change files appropriately 1`] = `
 "/**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the \\"License\\");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -24,7 +24,7 @@ import {
   DT_DEFAULT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
 import { AlertDemo } from './alert/alert-demo.component';
-  
+
 @Component({ template: '' })
 export class NoopRouteComponent {}
 
@@ -43,7 +43,7 @@ export class AppModule {}
 exports[`Add Dev Component should change files appropriately 2`] = `
 "/**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the \\"License\\");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -60,7 +60,7 @@ exports[`Add Dev Component should change files appropriately 2`] = `
 import { RouterModule, Routes } from '@angular/router';
 import { AlertDemo } from './alert/alert-demo.component';
 import { AlertDemo } from './alert/alert-demo.component';
-  
+
 const routes: Routes = [
   { path: 'sidenav', component: SidenavDemo },
   { path: 'tree-table', component: TreeTableDemo },
@@ -78,7 +78,7 @@ export class DevAppRoutingModule {}
 exports[`Add Dev Component should change files appropriately 3`] = `
 "/**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the \\"License\\");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -121,7 +121,7 @@ exports[`Add Dev Component should generate files with the appropriate content 2`
 exports[`Add Dev Component should generate files with the appropriate content 3`] = `
 "/**
  * @license
- * Copyright 2020 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the \\"License\\");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
