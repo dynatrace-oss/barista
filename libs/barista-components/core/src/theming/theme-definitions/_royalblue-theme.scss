@@ -20,7 +20,7 @@ $dt-royalblue-theme-light: dt-theme-light(
     dt-theme-palette($yellow-700, $yellow-800, $yellow-900, $yellow-100),
   /* error */ dt-theme-palette($red-500, $red-600, $red-700, $red-100),
   /* recovered */
-    dt-theme-palette($green-600, $green-700, $green-800, $green-100),
+    dt-theme-palette($green-700, $green-800, $green-900, $green-100),
   /* cta */ dt-theme-palette($green-600, $green-700, $green-800, $green-100),
   /* neutral */ dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100)
 );
@@ -44,7 +44,7 @@ $dt-royalblue-theme-dark: dt-theme-dark(
     dt-theme-palette($yellow-700, $yellow-600, $yellow-500, $yellow-100),
   /* error */ dt-theme-palette($red-500, $red-400, $red-300, $red-100),
   /* recovered */
-    dt-theme-palette($green-500, $green-400, $green-300, $green-100),
+    dt-theme-palette($green-700, $green-600, $green-500, $green-100),
   /* cta */ dt-theme-palette($green-500, $green-400, $green-300, $green-100),
   /* neutral */ dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100)
 );
