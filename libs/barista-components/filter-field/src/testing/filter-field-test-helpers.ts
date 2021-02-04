@@ -337,6 +337,7 @@ interface FilterTagTestData {
   separator: string;
   value: string;
   removeButton: HTMLElement;
+  deletable?: boolean;
 }
 
 // tslint:disable-next-line:no-any

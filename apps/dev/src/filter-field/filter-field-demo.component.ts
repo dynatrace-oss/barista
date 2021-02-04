@@ -314,4 +314,18 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
         'no data')
     );
   }
+
+  setDeletableFirstTag(): void {
+    if (this._firstTag) {
+      this._firstTag.deletable = !this._firstTag.deletable;
+    }
+  }
+
+  toggleDeletableAll(): void {
+    this.filterField.currentTags.forEach((tags) => {
+      tags.forEach((tag) => {
+        tag.deletable = !tag.deletable;
+      });
+    });
+  }
 }
