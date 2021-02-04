@@ -7,12 +7,19 @@
   box-sizing: border-box;
   border: 1px solid $gray-300;
   border-radius: 0 0 3px 3px;
+}
 
-  min-width: 200px;
+.dt-filter-field-multi-select-list {
+  max-height: 350px;
+  overflow: auto;
+}
+
+.dt-filter-field-multi-select-cta {
+  padding: 16px;
 }
 
 .dt-filter-field-multi-select-apply {
-  margin: 16px;
+  width: 100%;
 }
 
 .dt-checkbox {

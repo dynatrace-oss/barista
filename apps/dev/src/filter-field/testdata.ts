@@ -122,6 +122,18 @@ export const TEST_DATA_ASYNC_2 = {
   ],
 };
 
+export const MULTI_SELECT_DATA_ASYNC = {
+  name: 'Years (async)',
+  multiOptions: [
+    { name: '2018' },
+    { name: '2019' },
+    { name: '2020' },
+    { name: '2021' },
+    { name: '2022' },
+    { name: '2023' },
+  ],
+};
+
 export const TEST_DATA_PARTIAL = {
   name: 'CH (async, partial)',
   autocomplete: [

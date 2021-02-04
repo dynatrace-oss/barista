@@ -1331,6 +1331,7 @@ export class DtFilterField<T = any>
         (def) => {
           if (
             (isAsyncDtAutocompleteDef(this._currentDef) ||
+              isAsyncDtMultiSelectDef(this._currentDef) ||
               isPartialDtAutocompleteDef(this._currentDef)) &&
             def
           ) {
@@ -1544,7 +1545,9 @@ export class DtFilterField<T = any>
   }
 
   private _updateLoading(): void {
-    this._loading = isAsyncDtAutocompleteDef(this._currentDef);
+    this._loading =
+      isAsyncDtAutocompleteDef(this._currentDef) ||
+      isAsyncDtMultiSelectDef(this._currentDef);
   }
 
   private _getSelectedOptionIds(): Set<string> {

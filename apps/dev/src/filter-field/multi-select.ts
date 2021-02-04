@@ -17,6 +17,11 @@
 export const MULTI_SELECT_DATA = {
   autocomplete: [
     {
+      name: 'Years (async)',
+      multiOptions: [],
+      async: true,
+    },
+    {
       name: 'Months',
       multiOptions: [
         { name: 'All' },
