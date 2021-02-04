@@ -252,7 +252,7 @@ export class DtFilterFieldMultiSelect<T>
 
   /** @internal Set pre selected options for the multiSelect input fields. */
   _setInitialSelection(values: T[]): void {
-    if (Array.isArray(values)) {
+    if (Array.isArray(values) && values.length) {
       this._initialSelection = values;
       for (const value of values) {
         this._currentSelection.select(value);
