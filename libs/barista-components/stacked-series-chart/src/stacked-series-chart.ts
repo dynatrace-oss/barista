@@ -350,9 +350,22 @@ export class DtStackedSeriesChart implements OnDestroy {
     merge(this._shouldUpdateTicks, this._resizer.change())
       .pipe(
         tap(() => {
-          // Recalculate every time the size changes
-          this._isAnyLabelOverflowing();
-          this._changeDetectorRef.detectChanges();
+          // HOTFIX: This If-statement is there to limit the error/exeption for now
+          // that would normally happen here.
+          // A deeper look into the root cause should be done
+          //
+          // Reproduce:
+          // Remove this if statement, run the demos app (`npm run demos `) and
+          // got the "stacked-series-chart-column-example".
+          //
+          // PR that initially introduced this issue:
+          // https://github.com/dynatrace-oss/barista/pull/1916/files
+          // Issue on angular: https://github.com/angular/angular/issues/32756
+          if (this.labelAxisMode === 'auto' && this.mode === 'column') {
+            // Recalculate every time the size changes
+            this._isAnyLabelOverflowing();
+            this._changeDetectorRef.detectChanges();
+          }
         }),
         // Shift the updating/rendering to the next CD cycle,
         // because we need the dimensions of axis first, which is rendered in the main cycle.
