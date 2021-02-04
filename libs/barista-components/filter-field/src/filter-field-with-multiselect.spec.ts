@@ -37,6 +37,7 @@ import {
 import {
   getFilterFieldRange,
   getFilterTags,
+  getInput,
   getMultiSelect,
   getMultiselectApplyButton,
   getMultiselectCheckboxInputs,
@@ -234,6 +235,89 @@ describe('DtFilterField', () => {
 
         // expect the values to be filled
         expect(checkboxes[1].checked).toBeTruthy();
+      });
+
+      it('should mark the input as readonly while loading async data', () => {
+        const DATA = {
+          autocomplete: [
+            {
+              name: 'AUT',
+              multiOptions: [],
+              async: true,
+            },
+          ],
+        };
+        const ASYNC_DATA = {
+          name: 'AUT',
+          multiOptions: [
+            {
+              name: 'Linz',
+            },
+          ],
+        };
+
+        const input = getInput(fixture);
+
+        fixture.componentInstance.dataSource.data = DATA;
+        fixture.detectChanges();
+        filterField.focus();
+        advanceFilterfieldCycle();
+
+        // No readonly attribute should be present at the beginning.
+        expect(input.readOnly).toBeFalsy();
+
+        getAndClickOption(overlayContainerElement, 0);
+
+        // readonly should be added while waiting for the data to be loaded
+        expect(input.readOnly).toBeTruthy();
+
+        fixture.componentInstance.dataSource.data = ASYNC_DATA;
+        fixture.detectChanges();
+        advanceFilterfieldCycle(true, true);
+
+        // readonly should be removed after the async data is loaded
+        expect(input.readOnly).toBeFalsy();
+      });
+
+      it('should load data for async fields', () => {
+        const DATA = {
+          autocomplete: [
+            {
+              name: 'AUT',
+              multiOptions: [],
+              async: true,
+            },
+          ],
+        };
+        const ASYNC_DATA = {
+          name: 'AUT',
+          multiOptions: [
+            {
+              name: 'Linz',
+            },
+          ],
+        };
+
+        fixture.componentInstance.dataSource.data = DATA;
+        fixture.detectChanges();
+        filterField.focus();
+        advanceFilterfieldCycle();
+
+        let options = getMultiselectCheckboxInputs(overlayContainerElement);
+
+        // TODO
+        expect(options.length).toBe(0);
+
+        getAndClickOption(overlayContainerElement, 0);
+
+        fixture.componentInstance.dataSource.data = ASYNC_DATA;
+        fixture.detectChanges();
+        advanceFilterfieldCycle(true, true);
+
+        options = getMultiselectCheckboxInputs(overlayContainerElement);
+
+        // TODO
+        expect(options.length).toBe(1);
       });
     });
 

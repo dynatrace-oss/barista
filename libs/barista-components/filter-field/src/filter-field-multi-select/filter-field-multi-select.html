@@ -2,54 +2,58 @@
   <form
     class="dt-filter-field-multi-select-panel"
     role="listbox"
+    [hidden]="!_filteredOptionsOrGroups?.length"
     [id]="id"
     (submit)="_handleSubmit($event)"
   >
-    <ng-container *ngFor="let optionOrGroupDef of _filteredOptionsOrGroups">
-      <dt-optgroup
-        *ngIf="optionOrGroupDef.group; else options"
-        [label]="optionOrGroupDef.group!.label"
-      >
-        <dt-option
-          *ngFor="let optionDef of optionOrGroupDef.group!.options"
-          [value]="optionDef"
+    <div class="dt-filter-field-multi-select-list">
+      <ng-container *ngFor="let optionOrGroupDef of _filteredOptionsOrGroups">
+        <dt-optgroup
+          *ngIf="optionOrGroupDef.group; else options"
+          [label]="optionOrGroupDef.group!.label"
         >
-          <dt-checkbox
-            class="dt-filter-field-multi-select-checkbox"
-            (change)="_toggleOptionFromTemplate(optionDef)"
-            [checked]="_isOptionSelected(optionDef)"
+          <dt-option
+            *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
           >
-            <dt-highlight [term]="inputValue">{{
-              optionDef.option!.viewValue
-            }}</dt-highlight>
-          </dt-checkbox>
-        </dt-option>
-      </dt-optgroup>
-      <ng-template #options>
-        <dt-option [value]="optionOrGroupDef">
-          <dt-checkbox
-            class="dt-filter-field-multi-select-checkbox"
-            (change)="_toggleOptionFromTemplate(optionOrGroupDef)"
-            [checked]="_isOptionSelected(optionOrGroupDef)"
-            [value]="optionOrGroupDef"
-          >
-            <dt-highlight [term]="inputValue">{{
-              optionOrGroupDef.option!.viewValue
-            }}</dt-highlight>
-          </dt-checkbox>
-        </dt-option>
-      </ng-template>
-    </ng-container>
-
-    <button
-      dt-button
-      type="submit"
-      class="dt-filter-field-multi-select-apply"
-      i18n
-      [disabled]="_applyDisabled"
-    >
-      Apply
-    </button>
+            <dt-checkbox
+              class="dt-filter-field-multi-select-checkbox"
+              (change)="_toggleOptionFromTemplate(optionDef)"
+              [checked]="_isOptionSelected(optionDef)"
+              [value]="optionDef"
+            >
+              <dt-highlight [term]="inputValue">{{
+                optionDef.option!.viewValue
+              }}</dt-highlight>
+            </dt-checkbox>
+          </dt-option>
+        </dt-optgroup>
+        <ng-template #options>
+          <dt-option [value]="optionOrGroupDef">
+            <dt-checkbox
+              class="dt-filter-field-multi-select-checkbox"
+              (change)="_toggleOptionFromTemplate(optionOrGroupDef)"
+              [checked]="_isOptionSelected(optionOrGroupDef)"
+              [value]="optionOrGroupDef"
+            >
+              <dt-highlight [term]="inputValue">{{
+                optionOrGroupDef.option!.viewValue
+              }}</dt-highlight>
+            </dt-checkbox>
+          </dt-option>
+        </ng-template>
+      </ng-container>
+    </div>
+    <div class="dt-filter-field-multi-select-cta">
+      <button
+        dt-button
+        type="submit"
+        class="dt-filter-field-multi-select-apply"
+        i18n
+        [disabled]="_applyDisabled"
+      >
+        Apply
+      </button>
+    </div>
   </form>
 </ng-template>

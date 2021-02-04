@@ -194,7 +194,11 @@ export function isAsyncDtMultiSelectDef<D>(
   multiSelect: DtMultiSelectDef;
   option: DtOptionDef;
 } {
-  return !!(isDtMultiSelectDef<D>(def) && isDtOptionDef<D>(def));
+  return (
+    isDtMultiSelectDef<D>(def) &&
+    isDtOptionDef<D>(def) &&
+    Boolean(def.multiSelect?.async)
+  );
 }
 
 /** Whether the provided def object is an object and consists of a DefaultSearchDef */
