@@ -28,6 +28,7 @@ import {
   DELETE,
   ENTER,
   ESCAPE,
+  LEFT_ARROW,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
@@ -516,6 +517,18 @@ export class DtFilterField<T = any>
   /** Whether the filter field or one of it's child elements is focused. */
   private _isFocused = false;
 
+  /** Whether to allow focusing the tags when navigating in the input element using arrow keys */
+  private _allowArrowKeyFocusOnTags = false;
+
+  private _currentFocusState: 'none' | 'input' | 'inputboundary' = 'none';
+
+  private _currentlyFocusedTag:
+    | 'none'
+    | 'editButton'
+    | 'deleteButton'
+    | 'last'
+    | 'first' = 'none';
+
   /** Merges the autocomplete and range opened events */
   private _mergedAutocompleteRangeOpened: Observable<unknown>;
 
@@ -770,7 +783,7 @@ export class DtFilterField<T = any>
     this._changeDetectorRef.markForCheck();
   }
 
-  /** @internal */
+  /** @internal Handles keydown on the input */
   _handleInputKeyDown(event: KeyboardEvent): void {
     if (this._loading) {
       return;
@@ -825,6 +838,214 @@ export class DtFilterField<T = any>
       }
       this._changeDetectorRef.markForCheck();
     }
+  }
+
+  /** @internal Handles keyup on the input */
+  _handleInputKeyUp(event: KeyboardEvent): void {
+    const keyCode = _readKeyCode(event);
+    this._getCurrentFocusState();
+
+    if (
+      !this._tags.length ||
+      this._currentFocusState !== 'inputboundary' ||
+      keyCode !== LEFT_ARROW
+    ) {
+      return;
+    }
+
+    // The input element moves the cursor on keydown but the navigation with arrow keys is on keyup,
+    // causing the cursor to jump over position 0 in the input and focuses the first focusable tag element.
+    // For that, allowArrowKeyFocusOnTags retains getting to position 0 before focusing a tag element.
+    if (this._allowArrowKeyFocusOnTags || !this._inputValue.length) {
+      this._handleArrowKeyNavigation({ direction: 'left' });
+    } else {
+      this._allowArrowKeyFocusOnTags = this._getAllowArrowKeyFocusOnTags();
+    }
+  }
+
+  /** @internal Handles the navigation through the list of tags when using arrow keys */
+  _handleArrowKeyNavigation(navigationEvent: {
+    /** Contains the currently focused tag from which the event was fired from */
+    currentTag?: DtFilterFieldTag;
+    /** Whether to step back */
+    direction: 'left' | 'right';
+  }): void {
+    const { currentTag, direction } = navigationEvent;
+
+    // Step focus out of input element and into tag list and early exit
+    if (currentTag === undefined) {
+      this._getFirstTagFromInput(direction)?.nativeElement.focus();
+      return;
+    }
+
+    const focusedTagIndex = this._tags
+      .toArray()
+      .findIndex((tag) => tag.editButton === currentTag?.editButton);
+
+    this._getCurrentlyFocusedTagType(currentTag!);
+
+    if (direction === 'left') {
+      this._findPreviousTagDefaultMode(
+        currentTag,
+        focusedTagIndex,
+      )?.nativeElement.focus();
+    } else if (direction === 'right') {
+      this._findNextTagDefaultMode(
+        currentTag,
+        focusedTagIndex,
+      )?.nativeElement.focus();
+    }
+  }
+
+  /**
+   * @internal Moves the focus from the input to an available tag
+   */
+  private _getFirstTagFromInput(
+    direction: string,
+  ): ElementRef<HTMLElement> | undefined {
+    const toPreviousTag =
+      this._currentFocusState === 'inputboundary' &&
+      direction === 'left' &&
+      this._prefixTagData.length;
+
+    if (toPreviousTag) {
+      return this._getNextFocusableTagButton(
+        this._tags.toArray()[this._prefixTagData.length - 1],
+        true,
+      );
+    }
+  }
+
+  /** @internal Finds the previous tag in default mode */
+  private _findPreviousTagDefaultMode(
+    currentTag: DtFilterFieldTag,
+    focusedTagIndex: number,
+  ): ElementRef<HTMLElement> | undefined {
+    const toEditButton =
+      this._currentlyFocusedTag === 'deleteButton' ||
+      (this._currentlyFocusedTag === 'last' &&
+        this._hasDeleteButton(currentTag));
+    const toPreviousFocusableTag =
+      (this._currentlyFocusedTag !== 'first' &&
+        this._currentlyFocusedTag === 'editButton') ||
+      this._currentlyFocusedTag === 'last';
+
+    if (toEditButton) {
+      return currentTag.editButton;
+    } else if (toPreviousFocusableTag) {
+      return this._getNextFocusableTagButton(
+        this._tags.toArray()[focusedTagIndex - 1],
+        true,
+      );
+    }
+  }
+
+  /** @internal Finds the next (subsequent) tag or input in default mode. */
+  private _findNextTagDefaultMode(
+    currentTag: DtFilterFieldTag,
+    focusedTagIndex: number,
+  ): ElementRef<HTMLElement> | undefined {
+    const toInputElement =
+      this._currentlyFocusedTag === 'last' ||
+      (this._currentlyFocusedTag === 'first' &&
+        this._tags.length === 1 &&
+        !this._hasDeleteButton(currentTag));
+    const toDeleteButton =
+      (this._currentlyFocusedTag === 'editButton' ||
+        this._currentlyFocusedTag === 'first') &&
+      this._hasDeleteButton(currentTag);
+    const toNextFocusableTag =
+      this._currentlyFocusedTag === 'editButton' ||
+      this._currentlyFocusedTag === 'deleteButton' ||
+      this._currentlyFocusedTag === 'first';
+
+    if (toInputElement) {
+      this._currentFocusState = 'input';
+      return this._inputEl;
+    } else if (toDeleteButton) {
+      return currentTag?.deleteButton;
+    } else if (toNextFocusableTag) {
+      return this._getNextFocusableTagButton(
+        this._tags.toArray()[focusedTagIndex + 1],
+        false,
+      );
+    }
+  }
+
+  /** @internal Sets the type based on the currently focused tag */
+  private _getCurrentlyFocusedTagType(currentTag: DtFilterFieldTag): void {
+    const firstTagHasFocus =
+      this._tags.first.editButton.nativeElement === document.activeElement;
+    const lastTagHasFocus =
+      this._getNextFocusableTagButton(this._tags.last, true).nativeElement ===
+      document.activeElement;
+    const editButtonHasFocus =
+      currentTag.editButton.nativeElement === document.activeElement;
+    const deleteButtonHasFocus =
+      this._getNextFocusableTagButton(currentTag, true).nativeElement ===
+      document.activeElement;
+
+    if (firstTagHasFocus) {
+      this._currentlyFocusedTag = 'first';
+    } else if (lastTagHasFocus) {
+      this._currentlyFocusedTag = 'last';
+    } else if (editButtonHasFocus) {
+      this._currentlyFocusedTag = 'editButton';
+    } else if (deleteButtonHasFocus) {
+      this._currentlyFocusedTag = 'deleteButton';
+    }
+  }
+
+  /**
+   * @internal Returns a focusable tag element.
+   * The member deleteButtonFirst determines whether to check for the delete button first or not
+   */
+  _getNextFocusableTagButton(
+    tag: DtFilterFieldTag,
+    deleteButtonFirst: boolean,
+  ): ElementRef<HTMLButtonElement> {
+    if (deleteButtonFirst) {
+      if (tag.deleteButton) {
+        return tag.deleteButton;
+      }
+      return tag.editButton;
+    } else {
+      if (tag.editButton) {
+        return tag.editButton;
+      }
+      return tag.deleteButton;
+    }
+  }
+
+  /** @internal Whether a DtFilterFieldTag has a deleteButton */
+  _hasDeleteButton(tag: DtFilterFieldTag): boolean {
+    return tag.deleteButton !== undefined;
+  }
+
+  /** @internal Checks where the focus is inside the input element */
+  private _getCurrentFocusState(): void {
+    const isStart = this._inputEl.nativeElement.selectionStart === 0;
+    const isEnd =
+      this._inputEl.nativeElement.selectionStart === this._inputValue.length;
+    const isInput = document.activeElement === this._inputEl.nativeElement;
+
+    if (isStart || isEnd) {
+      this._currentFocusState = 'inputboundary';
+    } else if (isInput) {
+      this._allowArrowKeyFocusOnTags = this._getAllowArrowKeyFocusOnTags();
+      this._currentFocusState = 'input';
+    }
+  }
+
+  /** @internal Checks whether to allow navigation to the tag elements */
+  private _getAllowArrowKeyFocusOnTags(): boolean {
+    // The selectionStart attribute of the input element holds the current position of the cursor.
+    // selectionEnd is the same value, but differs when a text is selected, then holding the end position of the selection.
+    // We only allow the keyup event handler to start the keyboard tag navigation when the focus was once at position zero or the end.
+    return this._inputEl.nativeElement.selectionStart !== 0 &&
+      this._inputEl.nativeElement.selectionStart !== this._inputValue.length
+      ? false
+      : true;
   }
 
   /**

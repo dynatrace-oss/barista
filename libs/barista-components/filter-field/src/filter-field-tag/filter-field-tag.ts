@@ -34,6 +34,8 @@ import { DtOverlayConfig } from '@dynatrace/barista-components/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { take, takeUntil, switchMap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { _readKeyCode } from '@dynatrace/barista-components/core';
+import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'dt-filter-field-tag',
@@ -75,6 +77,12 @@ export class DtFilterFieldTag implements OnDestroy {
 
   /** Emits when the filter should be made editable (usually by clicking the edit button). */
   @Output() readonly edit = new EventEmitter<DtFilterFieldTag>();
+
+  /** Emits when the left or right arrow key is pressed */
+  @Output() readonly navigateTags = new EventEmitter<{
+    currentTag: DtFilterFieldTag;
+    direction: 'left' | 'right';
+  }>();
 
   /** Whether the tag is disabled. */
   // Note: The disabled mixin can not be used here because the CD needs to be triggerd after it has been set
@@ -121,6 +129,14 @@ export class DtFilterFieldTag implements OnDestroy {
       this._changeDetectorRef.markForCheck();
     }
   }
+
+  /** Element refrence to the edit button */
+  @ViewChild('editButton', { read: ElementRef })
+  editButton: ElementRef<HTMLButtonElement>;
+
+  /** Element refrence to the delete button */
+  @ViewChild('deleteButton', { read: ElementRef })
+  deleteButton: ElementRef<HTMLButtonElement>;
 
   /** @internal Element reference to the tag that holds the value. */
   @ViewChild('valueSpan', { read: ElementRef })
@@ -171,6 +187,19 @@ export class DtFilterFieldTag implements OnDestroy {
 
     if (!this.disabled) {
       this.edit.emit(this);
+    }
+  }
+
+  /** @internal Handles the arrowkey navigation */
+  _handleKeyUp(event: KeyboardEvent): void {
+    const keyCode = _readKeyCode(event);
+    if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+      event.stopImmediatePropagation();
+
+      this.navigateTags.emit({
+        currentTag: this,
+        direction: keyCode === LEFT_ARROW ? 'left' : 'right',
+      });
     }
   }
 

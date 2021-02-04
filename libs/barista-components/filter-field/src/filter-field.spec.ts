@@ -17,7 +17,14 @@
 // tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
-import { BACKSPACE, DOWN_ARROW, ENTER, ESCAPE } from '@angular/cdk/keycodes';
+import {
+  BACKSPACE,
+  DOWN_ARROW,
+  ENTER,
+  ESCAPE,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+} from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import {
   ComponentFixture,
@@ -50,6 +57,7 @@ import {
   TEST_DATA_EDITMODE,
   TEST_DATA_RANGE,
   TEST_DATA_PLACEHOLDER,
+  TEST_DATA_KEYBOARD_NAVIGATION,
 } from './testing/filter-field-test-data';
 import {
   TestApp,
@@ -253,6 +261,351 @@ describe('DtFilterField', () => {
         By.css('.dt-filter-field-label'),
       );
       expect(label.nativeElement.textContent).toEqual('Something else');
+    });
+  });
+
+  describe('keyboard navigation', () => {
+    beforeEach(() => {
+      fixture.componentInstance.dataSource.data = TEST_DATA_KEYBOARD_NAVIGATION;
+      advanceFilterfieldCycle();
+    });
+
+    describe('with deletable', () => {
+      it('should focus first editButton. Focus: Input -> LEFT_ARROW x2', fakeAsync(() => {
+        const autocompleteFilter = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        filterField.filters = [autocompleteFilter];
+        fixture.detectChanges();
+
+        filterField.focus();
+        const inputEl = getInput(fixture);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        const tags = getFilterTags(fixture);
+        const tag = getTagButtons(tags[0]);
+
+        dispatchKeyboardEvent(tag.deleteButton, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(tag.label);
+      }));
+
+      it('should keep focus on first editButton. Focus: Input -> LEFT_ARROW x3', fakeAsync(() => {
+        const autocompleteFilter = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        filterField.filters = [autocompleteFilter];
+        fixture.detectChanges();
+
+        filterField.focus();
+        const inputEl = getInput(fixture);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        const tags = getFilterTags(fixture);
+        const tag = getTagButtons(tags[0]);
+
+        dispatchKeyboardEvent(tag.deleteButton, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tag.label, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(tag.label);
+      }));
+
+      it('should focus second editButton. Focus: Input -> LEFT_ARROW x4', fakeAsync(() => {
+        const autocompleteFilterUA = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        const autocompleteFilterLA = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[1],
+        ];
+        filterField.filters = [autocompleteFilterUA, autocompleteFilterLA];
+        fixture.detectChanges();
+
+        filterField.focus();
+        const inputEl = getInput(fixture);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        const tags = getFilterTags(fixture);
+        const tagLA = getTagButtons(tags[1]);
+        const tagUA = getTagButtons(tags[0]);
+
+        dispatchKeyboardEvent(tagLA.deleteButton, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tagLA.label, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tagUA.deleteButton, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(tagUA.label);
+      }));
+
+      it('should focus input element. Focus: Input -> LEFT_ARROW -> RIGHT_ARROW', fakeAsync(() => {
+        const autocompleteFilter = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        filterField.filters = [autocompleteFilter];
+        fixture.detectChanges();
+
+        const inputEl = getInput(fixture);
+        const tags = getFilterTags(fixture);
+        const tag = getTagButtons(tags[0]);
+
+        filterField.focus();
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tag.deleteButton, 'keyup', RIGHT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(inputEl);
+      }));
+
+      it('should focus input element. Focus: Input -> LEFT_ARROW x3 -> RIGHT_ARROW x3', fakeAsync(() => {
+        const autocompleteFilterUA = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        const autocompleteFilterLA = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[1],
+        ];
+        filterField.filters = [autocompleteFilterUA, autocompleteFilterLA];
+        fixture.detectChanges();
+
+        const inputEl = getInput(fixture);
+        const tags = getFilterTags(fixture);
+        const tagUA = getTagButtons(tags[0]);
+        const tagLA = getTagButtons(tags[1]);
+
+        filterField.focus();
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tagUA.deleteButton, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+        dispatchKeyboardEvent(tagUA.label, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tagLA.deleteButton, 'keyup', RIGHT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tagUA.label, 'keyup', RIGHT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tagUA.deleteButton, 'keyup', RIGHT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(inputEl);
+      }));
+    });
+
+    describe('without deletable', () => {
+      it('should focus first editButton. Focus: Input -> LEFT_ARROW', fakeAsync(() => {
+        const autocompleteFilter = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        filterField.filters = [autocompleteFilter];
+        filterField.tagData[0].deletable = false;
+        fixture.detectChanges();
+
+        const inputEl = getInput(fixture);
+        const tags = getFilterTags(fixture);
+        const tag = getTagButtons(tags[0]);
+
+        filterField.focus();
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(tag.label);
+      }));
+
+      it('should keep focus on first editButton. Focus: Input -> LEFT_ARROW x2', fakeAsync(() => {
+        const autocompleteFilter = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        filterField.filters = [autocompleteFilter];
+        filterField.tagData[0].deletable = false;
+        fixture.detectChanges();
+
+        const inputEl = getInput(fixture);
+        const tags = getFilterTags(fixture);
+        const tag = getTagButtons(tags[0]);
+
+        filterField.focus();
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tag.label, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(tag.label);
+      }));
+
+      it('should focus second editButton. Focus: Input -> LEFT_ARROW x2', fakeAsync(() => {
+        const autocompleteFilterUA = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        const autocompleteFilterLA = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[1],
+        ];
+        filterField.filters = [
+          [...autocompleteFilterUA],
+          [...autocompleteFilterLA],
+        ];
+        filterField.tagData[0].deletable = false;
+        filterField.tagData[1].deletable = false;
+        fixture.detectChanges();
+
+        const inputEl = getInput(fixture);
+        const tags = getFilterTags(fixture);
+        const tagUA = getTagButtons(tags[0]);
+        const tagLA = getTagButtons(tags[1]);
+
+        filterField.focus();
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tagUA.label, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(tagLA.label);
+      }));
+
+      it('should focus input element. Focus: Input -> LEFT_ARROW -> RIGHT_ARROW', fakeAsync(() => {
+        const autocompleteFilter = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        filterField.filters = [autocompleteFilter];
+        filterField.tagData[0].deletable = false;
+        fixture.detectChanges();
+
+        const inputEl = getInput(fixture);
+        const tags = getFilterTags(fixture);
+        const tag = getTagButtons(tags[0]);
+
+        filterField.focus();
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(tag.label, 'keyup', RIGHT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(inputEl);
+      }));
+
+      it('should focus input element. Focus: Input -> LEFT_ARROW x2 -> RIGHT_ARROW x2', fakeAsync(() => {
+        const autocompleteFilterUA = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[0],
+        ];
+        const autocompleteFilterLA = [
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0],
+          TEST_DATA_KEYBOARD_NAVIGATION.autocomplete[0].autocomplete[1],
+        ];
+        filterField.filters = [
+          [...autocompleteFilterUA],
+          [...autocompleteFilterLA],
+        ];
+        filterField.tagData[0].deletable = false;
+        filterField.tagData[1].deletable = false;
+        fixture.detectChanges();
+
+        const inputEl = getInput(fixture);
+        const tags = getFilterTags(fixture);
+        const firstTag = getTagButtons(tags[0]);
+        const secondTag = getTagButtons(tags[1]);
+
+        filterField.focus();
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(inputEl, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(firstTag.label, 'keyup', LEFT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(secondTag.label, 'keyup', RIGHT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        dispatchKeyboardEvent(firstTag.label, 'keyup', RIGHT_ARROW);
+        tick();
+        fixture.detectChanges();
+
+        expect(document.activeElement).toBe(inputEl);
+      }));
     });
   });
 

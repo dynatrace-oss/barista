@@ -26,6 +26,8 @@
     class="dt-filter-field-tag-label"
     [disabled]="_temporarilyDisabled || !editable"
     (click)="_handleEdit($event)"
+    (keyup)="_handleKeyUp($event)"
+    #editButton
   >
     <ng-container *ngTemplateOutlet="tagContent"></ng-container>
   </button>
@@ -37,6 +39,8 @@
   class="dt-filter-field-tag-button"
   [disabled]="_temporarilyDisabled || !deletable"
   (click)="_handleRemove($event)"
+  (keyup)="_handleKeyUp($event)"
+  #deleteButton
 >
   <dt-icon name="abort" class="dt-filter-field-tag-icon"></dt-icon>
 </button>
