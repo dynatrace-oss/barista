@@ -43,7 +43,7 @@ import { Subject } from 'rxjs';
   host: {
     '[attr.role]': `'option'`,
     class: 'dt-filter-field-tag',
-    '[class.dt-filter-field-tag-disabled]': '_filterFieldDisabled || disabled',
+    '[class.dt-filter-field-tag-disabled]': '_temporarilyDisabled || disabled',
     '[class.dt-filter-field-tag-read-only]': '!editable',
   },
   encapsulation: ViewEncapsulation.Emulated,
@@ -91,14 +91,14 @@ export class DtFilterFieldTag implements OnDestroy {
   }
 
   @Input()
-  get _filterFieldDisabled(): boolean {
-    return this._parentFilterFieldDisabled;
+  get _temporarilyDisabled(): boolean {
+    return this._temporarilyDisabledState;
   }
-  set _filterFieldDisabled(value: boolean) {
-    this._parentFilterFieldDisabled = value;
+  set _temporarilyDisabled(value: boolean) {
+    this._temporarilyDisabledState = value;
     this._changeDetectorRef.markForCheck();
   }
-  private _parentFilterFieldDisabled: boolean = false;
+  private _temporarilyDisabledState: boolean = false;
 
   /** Whether the tag is editable. */
   get editable(): boolean {

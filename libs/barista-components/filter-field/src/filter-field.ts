@@ -494,6 +494,11 @@ export class DtFilterField<T = any>
     );
   }
 
+  /** Whether we are currently in the edit mode of a filter */
+  get _isInFilterEditMode(): boolean {
+    return this._currentDef !== null && this._currentDef !== this._rootDef;
+  }
+
   /** Emits whenever the component is destroyed. */
   private readonly _destroy$ = new Subject<void>();
 
@@ -1245,27 +1250,27 @@ export class DtFilterField<T = any>
     added: DtFilterValue[][],
     removed: DtFilterValue[][],
   ): void {
-    const e = new DtFilterFieldChangeEvent(
+    const event = new DtFilterFieldChangeEvent(
       this,
       added.map((values) => _getSourcesOfDtFilterValues(values)),
       removed.map((values) => _getSourcesOfDtFilterValues(values)),
       this.filters,
     );
-    this.filterChanges.emit(e);
+    this.filterChanges.emit(event);
   }
 
   private _emitCurrentFilterChanges(
     addedValues: DtFilterValue[],
     removedValues: DtFilterValue[],
   ): void {
-    const e = new DtFilterFieldCurrentFilterChangeEvent(
+    const event = new DtFilterFieldCurrentFilterChangeEvent(
       this,
       _getSourcesOfDtFilterValues(addedValues),
       _getSourcesOfDtFilterValues(removedValues),
       _getSourcesOfDtFilterValues(this._currentFilterValues),
       this.filters,
     );
-    this.currentFilterChanges.emit(e);
+    this.currentFilterChanges.emit(event);
   }
 
   /** Creates a stream of clicks outside the filter field in free text mode */
