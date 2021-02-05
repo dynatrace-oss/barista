@@ -52,7 +52,7 @@ const DATA_SETS = new Map<string, any>([
 ]);
 
 // Different object reference
-const blaFree = [
+const usFree = [
   {
     name: 'US',
     autocomplete: [
@@ -75,7 +75,7 @@ const blaFree = [
   { name: 'philly' },
 ] as any;
 
-// const blaOption = [
+// const usOption = [
 //   {
 //     name: 'US',
 //     autocomplete: [
@@ -96,7 +96,7 @@ const blaFree = [
 //   },
 // ] as any;
 
-const blaRange = [
+const range = [
   {
     name: 'Requests per minute',
     range: {
@@ -155,6 +155,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     // Hack so we can read and interact with the filter-field
     (window as any).filterField = this.filterField;
+
     this.filterField.currentTags.subscribe((tags) => {
       if (tags.length) {
         this._firstTag = tags[0];
@@ -251,8 +252,8 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
         // // option as a string
         // [TEST_DATA.autocomplete[0], TEST_DATA.autocomplete[0].autocomplete![1]],
 
-        // blaFree,
-        // blaRange,
+        // usFree,
+        // range,
 
         // Range
         // [
@@ -281,9 +282,9 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
   ];
 
   getTagForFilter(): void {
-    const rangeTag = this.filterField.getTagForFilter(blaRange);
+    const rangeTag = this.filterField.getTagForFilter(range);
     rangeTag!.deletable = false;
-    const freeTag = this.filterField.getTagForFilter(blaFree);
+    const freeTag = this.filterField.getTagForFilter(usFree);
     freeTag!.editable = false;
   }
   getEditionForFilter(): void {

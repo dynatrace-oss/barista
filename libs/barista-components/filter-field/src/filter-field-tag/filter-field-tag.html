@@ -24,18 +24,18 @@
     dt-button
     variant="nested"
     class="dt-filter-field-tag-label"
-    [disabled]="_filterFieldDisabled || !editable"
+    [disabled]="_temporarilyDisabled || !editable"
     (click)="_handleEdit($event)"
   >
     <ng-container *ngTemplateOutlet="tagContent"></ng-container>
   </button>
 </div>
 <button
-  *ngIf="!(_filterFieldDisabled || disabled) && deletable"
+  *ngIf="!(_temporarilyDisabled || disabled) && deletable"
   dt-icon-button
   variant="nested"
   class="dt-filter-field-tag-button"
-  [disabled]="_filterFieldDisabled || !deletable"
+  [disabled]="_temporarilyDisabled || !deletable"
   (click)="_handleRemove($event)"
 >
   <dt-icon name="abort" class="dt-filter-field-tag-icon"></dt-icon>
