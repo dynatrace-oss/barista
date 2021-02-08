@@ -14,8 +14,5 @@
  * limitations under the License.
  */
 
-export * from './lib/next-definitions';
-export * from './lib/design-tokens-definitions';
-
-// Legacy Barista interfaces
+// Barista interfaces
 export * from './lib/barista';

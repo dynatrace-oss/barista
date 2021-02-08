@@ -120,17 +120,6 @@
         "tree-table"
       ]
     },
-    "package-elements": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": [
-        "fluid-button",
-        "fluid-button-group",
-        "fluid-checkbox",
-        "fluid-switch",
-        "fluid-tab-group",
-        "fluid-core"
-      ]
-    },
     "alert": {
       "tags": ["scope:components", "type:library"]
     },
@@ -335,64 +324,6 @@
     "shared-node": {
       "tags": ["type:tooling", "type:shared"]
     },
-    "shared-design-tokens": {
-      "tags": ["type:library", "type:shared"]
-    },
-    "fluid-button": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-button-group": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-checkbox": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-input": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-icon": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-popover": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-switch": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-tab-group": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-virtual-scroll-container": {
-      "tags": ["scope:elements", "type:library"],
-      "implicitDependencies": ["shared-design-tokens", "testing-custom-element"]
-    },
-    "fluid-core": {
-      "tags": ["scope:elements", "type:library"]
-    },
-    "fluid-dev": {
-      "tags": ["type:app"]
-    },
-    "testing-custom-element": {
-      "tags": ["scope:testing", "type:library"]
-    },
-    "design-tokens-ui": {
-      "tags": ["type:app"],
-      "implicitDependencies": ["shared-design-tokens"]
-    },
-    "design-tokens-ui-input": {
-      "tags": ["type:library"]
-    },
-    "next": {
-      "tags": ["scope:design-system", "type:app"]
-    },
     "shared-data-access-strapi": {
       "tags": ["scope:cms", "type:shared", "type:library"]
     },
@@ -400,9 +331,6 @@
       "tags": ["type:library", "type:shared"]
     },
     "shared-design-system-interfaces": {
-      "tags": ["type:library", "type:shared"]
-    },
-    "design-tokens-ui-shared": {
       "tags": ["type:library", "type:shared"]
     },
     "shared-keycodes": {
