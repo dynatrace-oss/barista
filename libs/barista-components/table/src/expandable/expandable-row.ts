@@ -61,7 +61,7 @@ const COLLAPSE_ANIMATE = [
       style({ height: 'auto', visibility: 'hidden', offset: 0 }),
       style({
         height: '0px',
-        minHeight: '0',
+        minHeight: '0px',
         visibility: 'hidden',
         offset: 1,
       }),
