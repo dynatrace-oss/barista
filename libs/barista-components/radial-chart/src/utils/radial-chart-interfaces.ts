@@ -29,7 +29,7 @@ export interface DtRadialChartRenderData {
   selectionPath: string;
   color: string;
   value: number;
-  valueRelative: number;
+  valuePercentage: number;
   ariaLabel: string;
   origin: DtRadialChartSeries;
 }

@@ -31,7 +31,7 @@
       <strong>{{
         valueDisplayMode === 'absolute'
           ? series.value
-          : (series.valueRelative * 100 | dtPercent)
+          : (series.valuePercentage | dtPercent: precision)
       }}</strong>
       {{ series.name }}
     </dt-legend-item>
