@@ -51,6 +51,7 @@ import { DtRadialChartRenderData } from './utils/radial-chart-interfaces';
 import {
   generatePathData,
   generatePieArcData,
+  getPercentages,
   getSum,
 } from './utils/radial-chart-utils';
 
@@ -123,6 +124,9 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
 
   /** Sets the display mode for the radial-chart values to either 'percent' or 'absolute'.  */
   @Input() valueDisplayMode: 'absolute' | 'percent' = 'absolute';
+
+  /** Sets the decimal precision for the percentage values */
+  @Input() precision: number = 1;
 
   /** Sets the display mode for the radial-chart values to either 'percent' or 'absolute'.  */
   @Input()
@@ -276,13 +280,25 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
       const arcs = generatePieArcData(seriesValues, this.maxValue);
       this._totalSeriesValue = getSum(seriesValues);
 
+      const max =
+        this.maxValue && this.maxValue >= this._totalSeriesValue
+          ? this.maxValue
+          : this._totalSeriesValue;
+
+      const seriesPercentages = getPercentages(
+        seriesValues,
+        max,
+        this.precision,
+      );
+
       this._renderData = this._radialChartSeries.map((series, i) => {
         const colorIdx = i % DT_CHART_COLOR_PALETTE_ORDERED.length;
         return this._getSeriesRenderData(
           series,
           arcs[i],
           DT_CHART_COLOR_PALETTE_ORDERED[colorIdx],
-          this._totalSeriesValue,
+          max,
+          seriesPercentages[i],
         );
       });
 
@@ -304,7 +320,8 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     series: DtRadialChartSeries,
     arcData: PieArcDatum<number>,
     chartColor: string,
-    totalSeriesValue: number,
+    max: number,
+    valuePercentage: number,
   ): DtRadialChartRenderData {
     const path =
       generatePathData(
@@ -333,11 +350,6 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
     // The series' color overrides the given color from the chart color palette.
     const color = series.color ? series.color : chartColor;
 
-    const max =
-      this.maxValue && this.maxValue >= totalSeriesValue
-        ? this.maxValue
-        : totalSeriesValue;
-
     // The path's aria label consists of the series' name, value and the chart's max-value
     const ariaLabel = `${series.name}: ${series.value} of ${max}`;
 
@@ -349,7 +361,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
       ariaLabel,
       name: series.name,
       value: series.value,
-      valueRelative: series.value / max,
+      valuePercentage,
       origin: series,
     };
   }

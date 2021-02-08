@@ -52,14 +52,14 @@ You can specify the position of the radial chart by adjusting the value of the
 
 ## DtRadialChartSeries inputs
 
-| Name            | Type      | Default                             | Description                                                      |
-| --------------- | --------- | ----------------------------------- | ---------------------------------------------------------------- |
-| `value`         | `number`  | -                                   | The series value (required).                                     |
-| `name`          | `string`  | -                                   | The series name (required).                                      |
-| `color`         | `string`  | `DT_CHART_COLOR_PALETTE_ORDERED[i]` | The color in which the series is displayed within the chart.     |
-| `valueRelative` | `number`  | -                                   | Numeric percentage value based on this node vs sum of top level. |
-| `selected`      | `boolean` | false                               | Marks series as selected.                                        |
-| `active`        | `boolean` | true                                | Marks series as activated through legend.                        |
+| Name              | Type      | Default                             | Description                                                      |
+| ----------------- | --------- | ----------------------------------- | ---------------------------------------------------------------- |
+| `value`           | `number`  | -                                   | The series value (required).                                     |
+| `name`            | `string`  | -                                   | The series name (required).                                      |
+| `color`           | `string`  | `DT_CHART_COLOR_PALETTE_ORDERED[i]` | The color in which the series is displayed within the chart.     |
+| `valuePercentage` | `number`  | -                                   | Numeric percentage value based on this node vs sum of top level. |
+| `selected`        | `boolean` | false                               | Marks series as selected.                                        |
+| `active`          | `boolean` | true                                | Marks series as activated through legend.                        |
 
 #### Outputs
 

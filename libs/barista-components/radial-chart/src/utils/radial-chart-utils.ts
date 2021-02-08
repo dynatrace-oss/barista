@@ -85,3 +85,63 @@ export function generatePathData(
     endAngle,
   });
 }
+
+/**
+ * Returns an array of percentages with decimal precision.
+ */
+export function getPercentages(
+  values: number[],
+  total: number,
+  precision: number,
+): number[] {
+  const sumAllValues = getSum(values);
+  if (total > sumAllValues) {
+    return values.map((value) => +((value / total) * 100).toFixed(precision));
+  }
+
+  return getRoundedPercentages(values, precision);
+}
+
+/**
+ * Returns an array of rounded percentages so that the sum of
+ * all values is equal to 100.
+ */
+export function getRoundedPercentages(
+  values: number[],
+  precision: number,
+): number[] {
+  const sumAllValues = getSum(values);
+  const precisionPower = Math.pow(10, precision);
+
+  // Temp object to keep the percentage with precision decimals and initial position.
+  const tempPercentages = values.map((value, i) => ({
+    percentage: (value / sumAllValues) * 100 * precisionPower,
+    position: i,
+  }));
+
+  // Difference between the total and the sum of the rounded values.
+  const diff =
+    Math.pow(10, precision + 2) -
+    tempPercentages.reduce((sum, x) => sum + Math.floor(x.percentage), 0);
+
+  // Sorting the items in decimal decreasing order.
+  tempPercentages.sort(
+    (x, y) =>
+      Math.floor(x.percentage) -
+      x.percentage -
+      (Math.floor(y.percentage) - y.percentage),
+  );
+
+  // Distributing the difference to the first items.
+  const distributedPercentages = tempPercentages.map((x, i) => ({
+    percentage:
+      i < diff ? Math.floor(x.percentage) + 1 : Math.floor(x.percentage),
+    position: x.position,
+  }));
+
+  // Sorting the items in the initial position.
+  distributedPercentages.sort((x, y) => x.position - y.position);
+
+  // Returning the array of percentages taking into account the precision.
+  return distributedPercentages.map((x) => x.percentage / precisionPower);
+}

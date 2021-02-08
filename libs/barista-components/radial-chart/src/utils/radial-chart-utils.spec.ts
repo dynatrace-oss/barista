@@ -15,7 +15,13 @@
  */
 
 // tslint:disable: no-magic-numbers
-import { getSum, getEndAngle, generatePieArcData } from './radial-chart-utils';
+import {
+  getSum,
+  getEndAngle,
+  generatePieArcData,
+  getPercentages,
+  getRoundedPercentages,
+} from './radial-chart-utils';
 
 const FULL_CIRCLE = Math.PI * 2;
 
@@ -90,6 +96,30 @@ describe('DtRadialChart util functions', () => {
       expect(arcData[0].value).toBe(20);
       expect(arcData[1].value).toBe(11);
       expect(arcData[2].value).toBe(35);
+    });
+  });
+
+  describe('getPercentages', () => {
+    it('should return percentages with precision 2 when total is higher than the sum of values', () => {
+      const values = [10, 21, 8];
+      const total = 75;
+      const percentages = getPercentages(values, total, 2);
+      expect(percentages).toEqual([13.33, 28, 10.67]);
+    });
+
+    it('should return percentages with precision 2 when total is equal to sum of values', () => {
+      const values = [10, 21, 8];
+      const total = 39;
+      const percentages = getPercentages(values, total, 2);
+      expect(percentages).toEqual([25.64, 53.85, 20.51]);
+    });
+  });
+
+  describe('getRoundedPercentages', () => {
+    it('should return rounded percentages with precision 0', () => {
+      const values = [10, 21, 8];
+      const percentages = getRoundedPercentages(values, 0);
+      expect(percentages).toEqual([26, 54, 20]);
     });
   });
 });
