@@ -89,6 +89,16 @@
       <dt-button-group-item value="node">Node</dt-button-group-item>
       <dt-button-group-item value="stack">Stack</dt-button-group-item>
     </dt-button-group>
+    <br />
+    <br />
+    <!-- TODO: APM-282124 Allow clearing the selection on stack mode from the outside -->
+    <button
+      dt-button
+      (click)="clearSelection()"
+      [disabled]="selectionMode === 'stack'"
+    >
+      Clear selection
+    </button>
 
     <pre>{{ selected | json }}</pre>
   </div>
