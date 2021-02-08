@@ -24,6 +24,7 @@ import {
   Input,
   NgZone,
   OnDestroy,
+  OnInit,
   Optional,
   Output,
   QueryList,
@@ -95,7 +96,7 @@ const TICK_COLUMN_SPACING = 80;
     '[style.--dt-stacked-series-chart-grid-gap]': '_gridGap',
   },
 })
-export class DtStackedSeriesChart implements OnDestroy {
+export class DtStackedSeriesChart implements OnDestroy, OnInit {
   /** Array of series with their nodes. */
   @Input()
   get series(): DtStackedSeriesChartSeries[] {
@@ -336,7 +337,9 @@ export class DtStackedSeriesChart implements OnDestroy {
      */
     private readonly _sanitizer: DomSanitizer,
     @Optional() @SkipSelf() private readonly _theme: DtTheme,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     if (this._theme) {
       this._theme._stateChanges
         .pipe(takeUntil(this._destroy$))
@@ -350,19 +353,8 @@ export class DtStackedSeriesChart implements OnDestroy {
     merge(this._shouldUpdateTicks, this._resizer.change())
       .pipe(
         tap(() => {
-          // HOTFIX: This If-statement is there to limit the error/exeption for now
-          // that would normally happen here.
-          // A deeper look into the root cause should be done
-          //
-          // Reproduce:
-          // Remove this if statement, run the demos app (`npm run demos `) and
-          // got the "stacked-series-chart-column-example".
-          //
-          // PR that initially introduced this issue:
-          // https://github.com/dynatrace-oss/barista/pull/1916/files
-          // Issue on angular: https://github.com/angular/angular/issues/32756
           if (this.labelAxisMode === 'auto' && this.mode === 'column') {
-            // Recalculate every time the size changes
+            // Recalculate every time the size changes only if we are on these modes
             this._isAnyLabelOverflowing();
             this._changeDetectorRef.detectChanges();
           }
