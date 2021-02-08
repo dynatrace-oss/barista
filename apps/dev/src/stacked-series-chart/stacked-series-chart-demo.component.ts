@@ -33,7 +33,7 @@ import { stackedSeriesChartDemoData } from './stacked-series-chart-demo-data';
 export class StackedSeriesChartDemo {
   selectionMode: DtStackedSeriesChartSelectionMode = 'node';
   selectable: boolean = true;
-  selected: [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] = [
+  selected: [DtStackedSeriesChartSeries?, DtStackedSeriesChartNode?] = [
     stackedSeriesChartDemoData[3],
     stackedSeriesChartDemoData[3].nodes[1],
   ];
@@ -55,5 +55,9 @@ export class StackedSeriesChartDemo {
     this.series = multi
       ? stackedSeriesChartDemoData
       : [stackedSeriesChartDemoData[3]];
+  }
+
+  clearSelection(): void {
+    this.selected = [];
   }
 }
