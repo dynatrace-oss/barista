@@ -83,6 +83,14 @@
   background-color: $gray-200;
 }
 
+/*
+ * Hide the collapsible section completely to prevent flashing,
+ * while the table redraws certain columns.
+ */
+.dt-expandable-row-base-collapsed + .dt-expandable-row-collapsible {
+  display: none;
+}
+
 .dt-expandable-row-expandable {
   background-color: #ffffff;
   padding: 16px 12px 16px 14px;
