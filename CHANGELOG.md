@@ -1,3 +1,37 @@
+## [9.1.0](https://github.com/dynatrace-oss/barista/compare/9.0.0...9.1.0) (2021-02-09)
+
+### Bug Fixes
+
+- **breadcrumbs:** Fixes an ExpressionChangedAfterChecked error on the
+  breadcrumbs in non OnPush environments.
+  ([f8d173e](https://github.com/dynatrace-oss/barista/commit/f8d173e8150e1fb8b10f9dc86d4c82518bc37486))
+- **filter-field:** Fixes and issue where users could interact with other
+  filters while editing one. The other filters will now be disabled.
+  ([eeafe6c](https://github.com/dynatrace-oss/barista/commit/eeafe6c6796c3ac381810ef80701384e3c098c36))
+- **filter-field:** Handling asynchronous fetching for multiselect fields.
+  ([896617e](https://github.com/dynatrace-oss/barista/commit/896617e889f847f1f289d0f77c408e150476ceaf))
+- **filter-field, quick-filter:** Fixes an issue when removing a filter while in
+  edit mode for another one caused an error in the filter-field.
+  ([9533c0e](https://github.com/dynatrace-oss/barista/commit/9533c0e1d38864301388ab2cf1e641aee01c5013))
+- **stacked-series-chart:** Temporarily fixes an issue where this component
+  would throw an assertion error in certain cases.
+  ([4c47dae](https://github.com/dynatrace-oss/barista/commit/4c47dae926aa0d1a34c7cbe0620e867b1772784e))
+- **table:** Fixes an issue with partial keyframes on expandable row.
+  ([bb02100](https://github.com/dynatrace-oss/barista/commit/bb02100dac2a98a71a6ad079cab1ca1072a037a9))
+- **table:** Fixes an issue with the expandable row flashing when paginating a
+  table.
+  ([2f106ff](https://github.com/dynatrace-oss/barista/commit/2f106ff95a67bd899d290f872d76f23705615f32))
+- **theming:** Fixes an issue with out of sync recovered colors.
+  ([56f4005](https://github.com/dynatrace-oss/barista/commit/56f400515259450f9b38764bd63d88ee3eabf8dc))
+
+### Features
+
+- **core,table:** Introduces a new sorting behaviour which treats undefined/null
+  values in number compares as ASC first/DESC last.
+  ([7ae439d](https://github.com/dynatrace-oss/barista/commit/7ae439ddfd3ac4ed61011c6ab3aa952dcd76e66a))
+- **filter-field:** Adds a default search option for increased filtering speed.
+  ([43f9d7a](https://github.com/dynatrace-oss/barista/commit/43f9d7a04896b6ebf1b3f55e973228803593415a))
+
 ## [9.0.0](https://github.com/dynatrace-oss/barista/compare/8.11.0...9.0.0) (2021-02-01)
 
 This release includes an upgrade to all Angular packages to v11. Typescript was
