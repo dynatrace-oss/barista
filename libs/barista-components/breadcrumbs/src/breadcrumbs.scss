@@ -138,7 +138,7 @@ $dt-breadcrumbs-panel-min-width: 112px !default;
     outline: none;
   }
 
-  &.dt-breadcrumbs-item-non-interactive {
+  &:not([href]) {
     color: $disabledcolor;
     background-color: inherit;
     cursor: default;
