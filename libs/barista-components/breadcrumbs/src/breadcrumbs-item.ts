@@ -31,23 +31,24 @@ const BREADCRUMBS_ITEM_ELLIPSIS_CLASS = `dt-breadcrumbs-item-ellipsis`;
   exportAs: 'dtBreadcrumbsItem',
   host: {
     class: 'dt-breadcrumbs-item',
-    '[class.dt-breadcrumbs-item-non-interactive]': '!_isFocusable',
     '(keydown)': '_onKeyDown($event)',
   },
 })
 export class DtBreadcrumbsItem2 implements Highlightable {
-  constructor(
-    readonly _elementRef: ElementRef<HTMLAnchorElement>,
-    private _interactivityChecker: InteractivityChecker,
-  ) {}
-
+  /** @internal Whether the breadcrumb is focusable - determined by the interactivity checker */
   get _isFocusable(): boolean {
     return this._interactivityChecker.isFocusable(
       this._elementRef.nativeElement,
     );
   }
 
+  /** @internal Stream of keydown events on the breadcrumb item */
   _onKeyDown$ = new Subject<KeyboardEvent>();
+
+  constructor(
+    readonly _elementRef: ElementRef<HTMLAnchorElement>,
+    private _interactivityChecker: InteractivityChecker,
+  ) {}
 
   /** Applies the styles for an active item to this item. Part of the Highlightable interface */
   setActiveStyles(): void {
