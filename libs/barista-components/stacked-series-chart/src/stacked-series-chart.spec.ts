@@ -101,7 +101,7 @@ describe('DtStackedSeriesChart', () => {
     return track.queryAll(By.css('.dt-stacked-series-chart-slice'))[sliceIndex];
   }
 
-  /** Gets the selected slice */
+  /** Gets the selected track */
   function getSelectedTrack(): DebugElement {
     return fixture.debugElement.query(
       By.css('.dt-stacked-series-chart-track-selected'),
@@ -325,6 +325,33 @@ describe('DtStackedSeriesChart', () => {
       dispatchFakeEvent(sliceByPosition.nativeElement, 'click');
 
       expect(selectedChangeSpy).not.toHaveBeenCalled();
+    });
+
+    it('should unhighlight the node when clearing the selection', () => {
+      rootComponent.selected = [
+        stackedSeriesChartDemoDataCoffee[1],
+        stackedSeriesChartDemoDataCoffee[1].nodes[1],
+      ];
+      fixture.detectChanges();
+
+      expect(getSelectedSlice()).toBeTruthy();
+
+      rootComponent.selected = [];
+      fixture.detectChanges();
+
+      expect(getSelectedSlice()).toBeFalsy();
+    });
+
+    it('should unhighlight the stack when clearing the selection', () => {
+      rootComponent.selected = [stackedSeriesChartDemoDataCoffee[1], undefined];
+      fixture.detectChanges();
+
+      expect(getSelectedTrack()).toBeTruthy();
+
+      rootComponent.selected = [];
+      fixture.detectChanges();
+
+      expect(getSelectedTrack()).toBeFalsy();
     });
   });
 
@@ -688,7 +715,7 @@ class TestApp {
   series: DtStackedSeriesChartSeries[] = stackedSeriesChartDemoDataCoffee;
   selectable: boolean = true;
   selectionMode: DtStackedSeriesChartSelectionMode = 'node';
-  selected: [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] | [] = [];
+  selected: [DtStackedSeriesChartSeries?, DtStackedSeriesChartNode?] | [] = [];
   valueDisplayMode: DtStackedSeriesChartValueDisplayMode;
   max: number;
   fillMode: DtStackedSeriesChartFillMode = 'relative';

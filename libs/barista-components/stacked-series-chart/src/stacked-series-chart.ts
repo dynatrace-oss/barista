@@ -289,10 +289,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     return this._selected;
   }
   set selected([series, node]: DtStackedSeriesChartSelection | []) {
-    // if selected node is different than current
-    if (this._selected[1] !== node) {
-      this._toggleSelect(series, node);
-    }
+    this._toggleSelect(series, node);
   }
   private _selected: DtStackedSeriesChartSelection | [] = [];
 
