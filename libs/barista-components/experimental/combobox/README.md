@@ -77,3 +77,10 @@ configured using the `DT_OPTION_CONFIG` injection token. Note that the
 automatically change the height of the options.
 
 <ba-live-example name="DtExampleComboboxCustomOptionHeight"></ba-live-example>
+
+## Combobox bound to a form control
+
+For now, in case the combobox needs to be bound to a form control, you can add
+the DefaultValueAccessor directive as in the following example:
+
+<ba-live-example name="DtExampleComboboxFormControl"></ba-live-example>

@@ -275,6 +275,9 @@ export class DtCombobox<T>
   @ContentChildren(DtOption, { descendants: true })
   _options: QueryList<DtOption<T>>;
 
+  /** @internal `View -> model callback called when value changes` */
+  _onChange: (value: T) => void = () => {};
+
   /** Whether the selection is currently empty. */
   get empty(): boolean {
     return !this._selectionModel || this._selectionModel.isEmpty();
@@ -520,6 +523,14 @@ export class DtCombobox<T>
       );
       this._writeValue();
     });
+  }
+
+  /**
+   * Saves a callback function to be invoked when the select's value
+   * changes from user input. Part of the ControlValueAccessor.
+   */
+  registerOnChange(fn: (value: T) => void): void {
+    this._onChange = fn;
   }
 
   /** Updates the selection by value using selection model and keymanager to handle the active item */
