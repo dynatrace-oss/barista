@@ -1,0 +1,17 @@
+<dt-combobox
+  placeholder="Start typing or open dropdown for top list"
+  aria-label="A simple combobox example with form control"
+  panelClass="my-demo-overlay-class"
+  [value]="_initialValue"
+  [loading]="_loading"
+  [displayWith]="_displayWith"
+  [formControl]="reporterCtrl"
+  ngDefaultControl
+  (openedChange)="openedChanged($event)"
+  (valueChange)="valueChanged($event)"
+  (filterChange)="filterChanged($event)"
+>
+  <dt-option *ngFor="let option of _options" [value]="option">
+    {{ option.name }}
+  </dt-option>
+</dt-combobox>
