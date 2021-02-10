@@ -86,6 +86,7 @@ import {
   DtExampleConsumptionError,
   DtExampleConsumptionWarning,
   DtExampleComboboxSimple,
+  DtExampleComboboxFormControl,
   DtExampleContainerBreakpointObserverDefault,
   DtExampleContainerBreakpointObserverIfElse,
   DtExampleContainerBreakpointObserverIf,
@@ -488,6 +489,10 @@ const ROUTES: Routes = [
   {
     path: 'combobox-simple-example',
     component: DtExampleComboboxSimple,
+  },
+  {
+    path: 'combobox-form-control-example',
+    component: DtExampleComboboxFormControl,
   },
   {
     path: 'combobox-custom-option-height-example',

@@ -86,6 +86,7 @@ import { DtExampleCheckboxIndeterminate } from './checkbox/checkbox-indeterminat
 import { DtExampleCheckboxResponsive } from './checkbox/checkbox-responsive-example/checkbox-responsive-example';
 import { DtExampleComboboxCustomOptionHeight } from './combobox/combobox-custom-option-height-example/combobox-custom-option-height-example';
 import { DtExampleComboboxSimple } from './combobox/combobox-simple-example/combobox-simple-example';
+import { DtExampleComboboxFormControl } from './combobox/combobox-form-control-example/combobox-form-control-example';
 import { DtExampleConfirmationDialogDefault } from './confirmation-dialog/confirmation-dialog-default-example/confirmation-dialog-default-example';
 import { DtExampleConfirmationDialogShowBackdrop } from './confirmation-dialog/confirmation-dialog-show-backdrop-example/confirmation-dialog-show-backdrop-example';
 import { DtExampleConsumptionDefault } from './consumption/consumption-default-example/consumption-default-example';
@@ -468,6 +469,7 @@ export {
   DtExampleCheckboxIndeterminate,
   DtExampleCheckboxResponsive,
   DtExampleComboboxSimple,
+  DtExampleComboboxFormControl,
   DtExampleComboboxCustomOptionHeight,
   DtExampleConfirmationDialogDefault,
   DtExampleConfirmationDialogShowBackdrop,
@@ -792,6 +794,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleCheckboxIndeterminate', DtExampleCheckboxIndeterminate],
   ['DtExampleCheckboxResponsive', DtExampleCheckboxResponsive],
   ['DtExampleComboboxSimple', DtExampleComboboxSimple],
+  ['DtExampleComboboxFormControl', DtExampleComboboxFormControl],
   ['DtExampleComboboxCustomOptionHeight', DtExampleComboboxCustomOptionHeight],
   ['DtExampleConfirmationDialogDefault', DtExampleConfirmationDialogDefault],
   [

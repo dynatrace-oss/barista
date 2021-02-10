@@ -15,6 +15,7 @@ ng_module(
     angular_assets = [
         "combobox-custom-option-height-example/combobox-custom-option-height-example.html",
         "combobox-simple-example/combobox-simple-example.html",
+        "combobox-form-control-example/combobox-form-control-example.html",
         ":styles_custom_option_height_example",
     ],
     module_name = "@dynatrace/barista-examples/combobox",
@@ -25,6 +26,7 @@ ng_module(
         "//libs/barista-components/experimental/combobox:compile",
         "@npm//@angular/common",
         "@npm//@angular/core",
+        "@npm//@angular/forms",
         "@npm//rxjs",
     ],
 )

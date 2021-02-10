@@ -316,6 +316,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         route: '/combobox-simple-example',
       },
       {
+        name: 'combobox-form-control-example',
+        route: '/combobox-form-control-example',
+      },
+      {
         name: 'combobox-custom-option-height-example',
         route: '/combobox-custom-option-height-example',
       },
