@@ -36,7 +36,7 @@ import { DtExpandablePanel } from './expandable-panel';
     '[attr.aria-expanded]': 'dtExpandablePanel && dtExpandablePanel.expanded',
     '[attr.aria-controls]': 'dtExpandablePanel && dtExpandablePanel.id',
     '[tabindex]': 'dtExpandablePanel && dtExpandablePanel.disabled ? -1 : 0',
-    '(click)': '_handleClick()',
+    '(click)': '_handleClick($event)',
     '(keydown)': '_handleKeydown($event)',
   },
 })
@@ -66,7 +66,9 @@ export class DtExpandablePanelTrigger implements OnDestroy {
   }
 
   /** @internal Handles the trigger's click event. */
-  _handleClick(): void {
+  _handleClick(event: MouseEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
     if (this.dtExpandablePanel && !this.dtExpandablePanel.disabled) {
       this.dtExpandablePanel.toggle();
     }
