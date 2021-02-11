@@ -45,7 +45,7 @@ import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
   host: {
     '[attr.role]': `'option'`,
     class: 'dt-filter-field-tag',
-    '[class.dt-filter-field-tag-disabled]': '_temporarilyDisabled || disabled',
+    '[class.dt-filter-field-tag-disabled]': 'filterFieldDisabled || disabled',
     '[class.dt-filter-field-tag-read-only]': '!editable',
   },
   encapsulation: ViewEncapsulation.Emulated,
@@ -84,29 +84,40 @@ export class DtFilterFieldTag implements OnDestroy {
     direction: 'left' | 'right';
   }>();
 
-  /** Whether the tag is disabled. */
-  // Note: The disabled mixin can not be used here because the CD needs to be triggerd after it has been set
-  // to reflect the state when programatically setting the property.
+  /** Whether the tag is disabled or not */
   @Input()
   get disabled(): boolean {
-    return !this.editable && !this.deletable;
+    return this._disabled;
   }
   set disabled(value: boolean) {
     const coercedValue = coerceBooleanProperty(value);
+    this._disabled = coercedValue;
     this.editable = !coercedValue;
-    this.deletable = !coercedValue;
     this._changeDetectorRef.markForCheck();
   }
+  private _disabled = false;
 
+  /** @internal Whether the tag is temporarily disabled or not. Based on editmode state */
   @Input()
-  get _temporarilyDisabled(): boolean {
+  get temporarilyDisabled(): boolean {
     return this._temporarilyDisabledState;
   }
-  set _temporarilyDisabled(value: boolean) {
+  set temporarilyDisabled(value: boolean) {
     this._temporarilyDisabledState = value;
     this._changeDetectorRef.markForCheck();
   }
   private _temporarilyDisabledState: boolean = false;
+
+  /** @internal Whether the whole filter-field is disabled or not */
+  @Input()
+  get filterFieldDisabled(): boolean {
+    return this._parentFilterFieldDisabled;
+  }
+  set filterFieldDisabled(value: boolean) {
+    this._parentFilterFieldDisabled = value;
+    this._changeDetectorRef.markForCheck();
+  }
+  private _parentFilterFieldDisabled: boolean = false;
 
   /** Whether the tag is editable. */
   get editable(): boolean {
@@ -174,8 +185,7 @@ export class DtFilterFieldTag implements OnDestroy {
   _handleRemove(event: MouseEvent): void {
     // Prevent click from bubbling up, so it does not interfere with autocomplete
     event.stopImmediatePropagation();
-
-    if (!this.disabled) {
+    if (!this.disabled && !this.temporarilyDisabled) {
       this.remove.emit(this);
     }
   }
@@ -185,21 +195,23 @@ export class DtFilterFieldTag implements OnDestroy {
     // Prevent click from bubbling up, so it does not interfere with autocomplete
     event.stopImmediatePropagation();
 
-    if (!this.disabled) {
+    if (!this.disabled && !this.temporarilyDisabled) {
       this.edit.emit(this);
     }
   }
 
   /** @internal Handles the arrowkey navigation */
   _handleKeyUp(event: KeyboardEvent): void {
-    const keyCode = _readKeyCode(event);
-    if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
-      event.stopImmediatePropagation();
+    if (!this.temporarilyDisabled) {
+      const keyCode = _readKeyCode(event);
+      if (keyCode === LEFT_ARROW || keyCode === RIGHT_ARROW) {
+        event.stopImmediatePropagation();
 
-      this.navigateTags.emit({
-        currentTag: this,
-        direction: keyCode === LEFT_ARROW ? 'left' : 'right',
-      });
+        this.navigateTags.emit({
+          currentTag: this,
+          direction: keyCode === LEFT_ARROW ? 'left' : 'right',
+        });
+      }
     }
   }
 

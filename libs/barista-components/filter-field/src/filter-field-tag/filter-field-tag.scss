@@ -49,7 +49,7 @@
   color: $gray-500;
 
   &[disabled] {
-    color: $gray-300;
+    background-color: $white;
   }
 
   .dt-button-icon {
@@ -58,11 +58,22 @@
     height: 22px;
     vertical-align: baseline;
   }
+}
 
+.dt-filter-field-tag-button-nested.dt-button.dt-button-nested {
   &:hover:not([disabled]),
   &:active:not([disabled]) {
     background-color: $gray-200 !important;
   }
+}
+
+.dt-filter-field-tag-button-temporarily-disabled.dt-button.dt-button-nested {
+  background-color: transparent;
+  cursor: not-allowed;
+}
+
+.dt-filter-field-tag-button-icon-temporarily-disabled ::ng-deep svg {
+  fill: $turquoise-600 !important;
 }
 
 :host ::ng-deep .dt-button.dt-icon-button.dt-filter-field-tag-button {

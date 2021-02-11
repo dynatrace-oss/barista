@@ -225,6 +225,18 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     }
   }
 
+  toggledDisableEditableFirstTag(): void {
+    if (this._firstTag) {
+      this._firstTag.editable = !this._firstTag.editable;
+    }
+  }
+
+  toggledDisableDeletableFirstTag(): void {
+    if (this._firstTag) {
+      this._firstTag.deletable = !this._firstTag.deletable;
+    }
+  }
+
   setValues(): void {
     if (this._dataSource.data === TEST_DATA) {
       this.filterField.filters = [
@@ -327,5 +339,12 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
         tag.deletable = !tag.deletable;
       });
     });
+  }
+
+  addTagProgramatically(): void {
+    const filters = [
+      [TEST_DATA.autocomplete[1], TEST_DATA.autocomplete[1].autocomplete![0]],
+    ];
+    this.filterField.filters = filters;
   }
 }
