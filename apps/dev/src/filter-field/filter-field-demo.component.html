@@ -34,6 +34,24 @@
     </button>
     <button
       dt-button
+      class="disable-tag-button"
+      variant="secondary"
+      [disabled]="!_firstTag"
+      (click)="toggledDisableEditableFirstTag()"
+    >
+      Toggle disabled editable on first tag
+    </button>
+    <button
+      dt-button
+      class="disable-tag-button"
+      variant="secondary"
+      [disabled]="!_firstTag"
+      (click)="toggledDisableDeletableFirstTag()"
+    >
+      Toggle disabled deletable on first tag
+    </button>
+    <button
+      dt-button
       (click)="setValues()"
       variant="secondary"
       [disabled]="!canSetValues"
@@ -57,6 +75,9 @@
     </button>
     <button variant="secondary" dt-button (click)="toggleDeletableAll()">
       Toggle deletable all
+    </button>
+    <button variant="secondary" dt-button (click)="addTagProgramatically()">
+      Add Tag
     </button>
   </div>
 </div>
