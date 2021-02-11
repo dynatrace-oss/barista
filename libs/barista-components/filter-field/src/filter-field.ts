@@ -977,12 +977,12 @@ export class DtFilterField<T = any>
     const firstTagHasFocus =
       this._tags.first.editButton.nativeElement === document.activeElement;
     const lastTagHasFocus =
-      this._getNextFocusableTagButton(this._tags.last, true).nativeElement ===
+      this._getNextFocusableTagButton(this._tags.last, true)?.nativeElement ===
       document.activeElement;
     const editButtonHasFocus =
       currentTag.editButton.nativeElement === document.activeElement;
     const deleteButtonHasFocus =
-      this._getNextFocusableTagButton(currentTag, true).nativeElement ===
+      this._getNextFocusableTagButton(currentTag, true)?.nativeElement ===
       document.activeElement;
 
     if (firstTagHasFocus) {
@@ -1003,17 +1003,19 @@ export class DtFilterField<T = any>
   _getNextFocusableTagButton(
     tag: DtFilterFieldTag,
     deleteButtonFirst: boolean,
-  ): ElementRef<HTMLButtonElement> {
-    if (deleteButtonFirst) {
-      if (tag.deleteButton) {
+  ): ElementRef<HTMLButtonElement> | undefined {
+    if (!tag.temporarilyDisabled) {
+      if (deleteButtonFirst) {
+        if (tag.deleteButton) {
+          return tag.deleteButton;
+        }
+        return tag.editButton;
+      } else {
+        if (tag.editButton) {
+          return tag.editButton;
+        }
         return tag.deleteButton;
       }
-      return tag.editButton;
-    } else {
-      if (tag.editButton) {
-        return tag.editButton;
-      }
-      return tag.deleteButton;
     }
   }
 

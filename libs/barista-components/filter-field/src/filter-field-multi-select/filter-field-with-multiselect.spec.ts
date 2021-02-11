@@ -33,7 +33,7 @@ import { FILTER_FIELD_TEST_DATA_SINGLE_OPTION } from '@dynatrace/testing/fixture
 import {
   TEST_DATA_MULTI_SELECT,
   TEST_DATA_MULTI_SELECT_EDIT_MODE,
-} from './testing/filter-field-test-data';
+} from '../testing/filter-field-test-data';
 import {
   getFilterFieldRange,
   getFilterTags,
@@ -45,7 +45,7 @@ import {
   getOptions,
   setupFilterFieldTest,
   TestApp,
-} from './testing/filter-field-test-helpers';
+} from '../testing/filter-field-test-helpers';
 
 describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;

@@ -28,8 +28,8 @@ import {
   typeInElement,
   dispatchKeyboardEvent,
 } from '@dynatrace/testing/browser';
-import { DtFilterField } from './filter-field';
-import { TEST_DATA_RANGE } from './testing/filter-field-test-data';
+import { DtFilterField } from '../filter-field';
+import { TEST_DATA_RANGE } from '../testing/filter-field-test-data';
 import {
   dtRangeDef,
   getDtFilterFieldRangeNoOperatorsError,
@@ -43,7 +43,7 @@ import {
   getRangeApplyButton,
   getFilterTags,
   getOptions,
-} from './testing/filter-field-test-helpers';
+} from '../testing/filter-field-test-helpers';
 
 describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
