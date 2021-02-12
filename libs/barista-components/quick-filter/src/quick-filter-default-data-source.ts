@@ -208,6 +208,7 @@ export class DtQuickFilterDefaultDataSource<
       [],
       data.validators,
       isDefined(data.unique) ? data.unique! : false,
+      data.defaultSearch,
     );
     def.freeText!.suggestions = this.transformList(data.suggestions, def);
     return def;
