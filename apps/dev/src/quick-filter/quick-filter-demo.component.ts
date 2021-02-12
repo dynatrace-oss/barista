@@ -31,6 +31,11 @@ export class QuickFilterDemoComponent
     autocomplete: [
       {
         name: 'Value',
+        defaultSearch: true,
+        suggestions: [{ name: '1' }, { name: '2' }, { name: '3' }],
+      },
+      {
+        name: 'Value',
         distinct: true,
         autocomplete: Array.from(new Array(1000), (_, i) => ({
           name: `Value ${i + 1}`,
