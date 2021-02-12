@@ -72,7 +72,6 @@ startup --output_user_root=C:/tmp
    npm install
    ```
 2. Build the Barista components library
-
    ```
    npm run build
    ```
@@ -118,15 +117,53 @@ npm run dev
 
 ## Tests and stylelint
 
-| COMMAND                                                        | NPM & NG            | BAZEL                                     |
-| -------------------------------------------------------------- | ------------------- | ----------------------------------------- |
-| Run unit tests for the parts that are affected by your changes | `npm run test`      | `bazel test //<filepath from root>:test`  |
-| Unit tests with watcher for local testing                      | `ng test --watch`   | `ibazel test //<filepath from root>:test` |
-| UI Tests                                                       | `npm run e2e`       |                                           |
-| Universal build                                                | `npm run universal` |                                           |
-| Lint                                                           | `npm run lint`      |                                           |
-| Stylelint                                                      |                     | `npm run bazel:stylelint`                 |
-| a11y                                                           | `nx run demos:a11y` |                                           |
+Run unit tests for the parts that are affected by your changes
+
+```
+# Runs all test files:
+bazel test //...
+
+# Runs specific test files:
+bazel test //<filepath>:test
+
+# <filepath> example: //libs/barista-components/button:test
+```
+
+Unit tests with watcher for local testing
+
+```
+ibazel test //<filepath>:test
+```
+
+UI Tests
+
+```
+npm run e2e
+```
+
+Universal build
+
+```
+npm run universal
+```
+
+Lint
+
+```
+npm run lint
+```
+
+Stylelint
+
+```
+npm run bazel:stylelint
+```
+
+A11y
+
+```
+nx run demos:a11y
+```
 
 ## Barista examples app & Barista
 
