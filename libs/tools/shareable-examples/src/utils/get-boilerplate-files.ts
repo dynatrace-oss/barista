@@ -69,8 +69,21 @@ export async function getBoilerplateFiles(
     { encoding: 'utf-8' },
   );
   files.push({
-    path: resolve(environment.examplesLibDir, '../.angular-cli.json'),
+    path: resolve(environment.examplesLibDir, '../angular.json'),
     content: angularJson,
+  });
+
+  // tsconfig.json
+  const tsconfigJson = await fs.readFile(
+    resolve(
+      environment.shareableExamplesToolsDir,
+      'templates/tsconfig.json.template',
+    ),
+    { encoding: 'utf-8' },
+  );
+  files.push({
+    path: resolve(environment.examplesLibDir, '../tsconfig.json'),
+    content: tsconfigJson,
   });
 
   // package.json
@@ -98,8 +111,20 @@ export async function getBoilerplateFiles(
     if (dependency.startsWith('@dynatrace/')) {
       parsedPackageJson.dependencies![dependency] = 'latest';
     } else {
-      // console.log(dependency, parsedRootPackageJson.dependencies[])
       parsedPackageJson.dependencies![dependency] =
+        parsedRootPackageJson.dependencies![dependency] ||
+        parsedRootPackageJson.devDependencies![dependency];
+    }
+  }
+  // Sync the devDependency versions from root over to the example.
+  for (const dependency of Object.keys(
+    parsedPackageJson.devDependencies || {},
+  )) {
+    // For packages within barista, we want to keet the latest version installed.
+    if (dependency.startsWith('@dynatrace/')) {
+      parsedPackageJson.dependencies![dependency] = 'latest';
+    } else {
+      parsedPackageJson.devDependencies![dependency] =
         parsedRootPackageJson.dependencies![dependency] ||
         parsedRootPackageJson.devDependencies![dependency];
     }
