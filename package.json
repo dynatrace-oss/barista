@@ -113,7 +113,7 @@
     "@nrwl/workspace": "^11.0.20",
     "@octokit/rest": "^18.0.14",
     "@politie/angular-testcafe-builder": "^2.0.5",
-    "@rollup/plugin-alias": "^3.1.1",
+    "@rollup/plugin-alias": "^3.1.2",
     "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-replace": "^2.3.4",
