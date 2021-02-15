@@ -22,7 +22,7 @@ import { load as loadWithCheerio } from 'cheerio';
  */
 export function runWithCheerio(
   content: string,
-  transformFunction: ($: CheerioStatic) => void,
+  transformFunction: ($: cheerio.Root) => void,
 ): string {
   const $ = loadWithCheerio(content);
   transformFunction($);
