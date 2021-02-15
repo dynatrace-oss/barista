@@ -6,6 +6,10 @@
   --dt-tile-default-color: var(--dt-theme-main-default-color);
 }
 
+.dt-tile.dt-color-warning {
+  --dt-tile-default-color: var(--dt-warning-default-color);
+}
+
 .dt-tile.dt-color-error {
   --dt-tile-default-color: var(--dt-error-default-color);
 }

@@ -22,6 +22,7 @@ import { DtExampleTileDisabled } from './tile-disabled-example/tile-disabled-exa
 import { DtExampleTileError } from './tile-error-example/tile-error-example';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtExampleTileMain } from './tile-main-example/tile-main-example';
+import { DtExampleTileWarning } from './tile-warning-example/tile-warning-example';
 
 @NgModule({
   imports: [DtTileModule, DtIconModule],
@@ -30,6 +31,7 @@ import { DtExampleTileMain } from './tile-main-example/tile-main-example';
     DtExampleTileDisabled,
     DtExampleTileError,
     DtExampleTileMain,
+    DtExampleTileWarning,
     DtExampleTileRecovered,
     DtExampleTileSmall,
   ],

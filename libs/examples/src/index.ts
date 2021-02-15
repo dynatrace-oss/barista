@@ -324,6 +324,7 @@ import { DtExampleTileDefault } from './tile/tile-default-example/tile-default-e
 import { DtExampleTileDisabled } from './tile/tile-disabled-example/tile-disabled-example';
 import { DtExampleTileError } from './tile/tile-error-example/tile-error-example';
 import { DtExampleTileMain } from './tile/tile-main-example/tile-main-example';
+import { DtExampleTileWarning } from './tile/tile-warning-example/tile-warning-example';
 import { DtExampleTileRecovered } from './tile/tile-recovered-example/tile-recovered-example';
 import { DtExampleTileSmall } from './tile/tile-small-example/tile-small-example';
 import { DtExampleTimelineChartDefault } from './timeline-chart/timeline-chart-default-example/timeline-chart-default-example';
@@ -700,6 +701,7 @@ export {
   DtExampleTileDisabled,
   DtExampleTileError,
   DtExampleTileMain,
+  DtExampleTileWarning,
   DtExampleTileRecovered,
   DtExampleTileSmall,
   DtExampleTimelineChartDefault,
@@ -1089,6 +1091,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTileDisabled', DtExampleTileDisabled],
   ['DtExampleTileError', DtExampleTileError],
   ['DtExampleTileMain', DtExampleTileMain],
+  ['DtExampleTileWarning', DtExampleTileWarning],
   ['DtExampleTileRecovered', DtExampleTileRecovered],
   ['DtExampleTileSmall', DtExampleTileSmall],
   ['DtExampleTimelineChartDefault', DtExampleTimelineChartDefault],

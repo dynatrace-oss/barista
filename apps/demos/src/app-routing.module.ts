@@ -308,6 +308,7 @@ import {
   DtExampleTileDisabled,
   DtExampleTileError,
   DtExampleTileMain,
+  DtExampleTileWarning,
   DtExampleTileRecovered,
   DtExampleTileSmall,
   DtExampleTimelineChartDefault,
@@ -1129,6 +1130,7 @@ const ROUTES: Routes = [
   { path: 'tile-disabled-example', component: DtExampleTileDisabled },
   { path: 'tile-error-example', component: DtExampleTileError },
   { path: 'tile-main-example', component: DtExampleTileMain },
+  { path: 'tile-warning-example', component: DtExampleTileWarning },
   { path: 'tile-recovered-example', component: DtExampleTileRecovered },
   { path: 'tile-small-example', component: DtExampleTileSmall },
   {

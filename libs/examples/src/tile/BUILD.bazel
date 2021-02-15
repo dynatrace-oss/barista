@@ -16,6 +16,7 @@ ng_module(
         "tile-disabled-example/tile-disabled-example.html",
         "tile-error-example/tile-error-example.html",
         "tile-main-example/tile-main-example.html",
+        "tile-warning-example/tile-warning-example.html",
         "tile-recovered-example/tile-recovered-example.html",
         "tile-small-example/tile-small-example.html",
     ],
