@@ -118,7 +118,7 @@
     "@rollup/plugin-node-resolve": "^11.0.1",
     "@rollup/plugin-replace": "^2.3.4",
     "@types/chalk": "^2.2.0",
-    "@types/cheerio": "^0.22.21",
+    "@types/cheerio": "^0.22.24",
     "@types/d3-array": "^2.0.0",
     "@types/d3-color": "^2.0.1",
     "@types/d3-scale": "^3.2.1",
