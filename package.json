@@ -84,7 +84,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^11.0.0",
-    "@angular-devkit/architect-cli": "^0.1100.5",
+    "@angular-devkit/architect-cli": "^0.1102.0",
     "@angular-devkit/build-angular": "0.1100.5",
     "@angular/bazel": "^11.0.5",
     "@angular/cli": "^11.0.5",
