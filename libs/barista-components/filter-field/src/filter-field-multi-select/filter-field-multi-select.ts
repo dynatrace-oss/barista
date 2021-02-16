@@ -277,8 +277,11 @@ export class DtFilterFieldMultiSelect<T>
   }
 
   /** Check if option is selected */
-  _isOptionSelected(option: T): boolean {
-    return this._currentSelection.isSelected(option);
+  _isOptionSelected(option: T & DtNodeDef): boolean {
+    return this._currentSelection.selected.some(
+      (selected) =>
+        ((selected as unknown) as DtNodeDef).option?.uid === option.option?.uid,
+    );
   }
 
   private _checkApplyDisable(): void {

@@ -319,6 +319,70 @@ describe('DtFilterField', () => {
         // TODO
         expect(options.length).toBe(1);
       });
+
+      it('should load keep checked already selected options for async fields', () => {
+        const DATA = {
+          autocomplete: [
+            {
+              name: 'AUT',
+              multiOptions: [],
+              async: true,
+            },
+          ],
+        };
+        const ASYNC_DATA = {
+          name: 'AUT',
+          multiOptions: [
+            {
+              name: 'Linz',
+            },
+            {
+              name: 'Vienna',
+            },
+          ],
+        };
+
+        fixture.componentInstance.dataSource.data = DATA;
+        fixture.detectChanges();
+        filterField.focus();
+        advanceFilterfieldCycle();
+
+        let options = getMultiselectCheckboxInputs(overlayContainerElement);
+
+        getAndClickOption(overlayContainerElement, 0);
+
+        // Fetching data
+        fixture.componentInstance.dataSource.data = ASYNC_DATA;
+        fixture.detectChanges();
+        advanceFilterfieldCycle(true, true);
+
+        options = getMultiselectCheckboxInputs(overlayContainerElement);
+
+        // Check the first option
+        options[0].click();
+
+        expect(options[0].checked).toBe(true);
+
+        // Close multiselect overlay
+        dispatchFakeEvent(document, 'click');
+        advanceFilterfieldCycle();
+
+        // Fetching the same data
+        fixture.componentInstance.dataSource.data = ASYNC_DATA;
+        fixture.detectChanges();
+        filterField.focus();
+        advanceFilterfieldCycle(true, true);
+
+        const multiSelect = getMultiSelect(overlayContainerElement);
+
+        // Multiselect overlay must be open
+        expect(multiSelect.length).toBe(1);
+
+        options = getMultiselectCheckboxInputs(overlayContainerElement);
+
+        // Previosly selected option should be kept selected
+        expect(options[0].checked).toBe(true);
+      });
     });
 
     describe('edit mode', () => {
