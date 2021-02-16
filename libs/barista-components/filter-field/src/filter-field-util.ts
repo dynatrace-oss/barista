@@ -520,7 +520,11 @@ export function applyDtOptionIds(
     // tslint:disable-next-line: no-parameter-reassignment
     prefix = peekOptionId(def, prefix, skipRootDef);
   }
-  if (isDtAutocompleteDef(def)) {
+  if (isDtMultiSelectDef(def)) {
+    for (const multiOption of def.multiSelect?.multiOptions ?? []) {
+      applyDtOptionIds(multiOption, prefix);
+    }
+  } else if (isDtAutocompleteDef(def)) {
     for (const optionOrGroup of def.autocomplete.optionsOrGroups) {
       applyDtOptionIds(optionOrGroup, prefix);
     }
