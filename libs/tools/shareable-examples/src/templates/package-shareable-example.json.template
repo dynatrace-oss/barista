@@ -22,5 +22,10 @@
     "@dynatrace/barista-icons": "",
     "highcharts": "",
     "lodash-es": ""
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "",
+    "@angular/cli": "",
+    "@angular/compiler-cli": ""
   }
 }

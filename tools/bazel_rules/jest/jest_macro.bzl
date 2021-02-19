@@ -51,11 +51,6 @@ def jest_macro(
             "@npm//jest-preset-angular",
             "@npm//jest-junit",
             "@npm//lodash-es:lodash-es__umd",
-            "@npm//lit-html",
-            # umd modules for fluid elements
-            "//tools/bazel_rules/jest:lit-html",
-            "//tools/bazel_rules/jest:lit-element",
-            "//tools/bazel_rules/jest:popperjs",
 
             # needed by the runner and resolver
             "//tools/bazel_rules/jest:jest-runner.js",

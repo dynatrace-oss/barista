@@ -120,13 +120,19 @@ npm run dev
 Run unit tests for the parts that are affected by your changes
 
 ```
-npm run test
+# Runs all test files:
+bazel test //...
+
+# Runs specific test files:
+bazel test //<filepath>:test
+
+# <filepath> example: //libs/barista-components/button:test
 ```
 
 Unit tests with watcher for local testing
 
 ```
-ng test --watch
+ibazel test //<filepath>:test
 ```
 
 UI Tests
@@ -145,6 +151,18 @@ Lint
 
 ```
 npm run lint
+```
+
+Stylelint
+
+```
+npm run bazel:stylelint
+```
+
+A11y
+
+```
+nx run demos:a11y
 ```
 
 ## Barista examples app & Barista

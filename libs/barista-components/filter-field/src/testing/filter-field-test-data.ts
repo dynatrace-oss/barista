@@ -129,6 +129,28 @@ export const TEST_DATA_EDITMODE = {
   ],
 };
 
+export const TEST_DATA_KEYBOARD_NAVIGATION = {
+  autocomplete: [
+    {
+      name: 'AUT',
+      autocomplete: [
+        {
+          name: 'Upper Austria',
+        },
+        {
+          name: 'Lower Austria',
+        },
+        {
+          name: 'Vienna',
+        },
+        {
+          name: 'Salzburg',
+        },
+      ],
+    },
+  ],
+};
+
 export const TEST_DATA_PLACEHOLDER = {
   name: 'Category',
   value: 'category',

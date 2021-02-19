@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.13.5
+version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-LODASH-567746:
@@ -79,4 +79,144 @@ ignore:
     - '@angular/localize > yargs > y18n':
         reason: Check again after migration to angular@^11
         expires: '2021-01-15T13:05:03.302Z'
+  SNYK-JS-LODASH-1018905:
+    - '@angular/localize > @babel/core > lodash':
+        reason: No patch or upgrade path available
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/types > lodash':
+        reason: No patch or upgrade path available
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/generator > lodash':
+        reason: No patch or upgrade path available.
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/generator > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/template > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/generator > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/generator > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/template > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.018Z'
+  SNYK-JS-LODASH-1040724:
+    - '@angular/localize > @babel/core > lodash':
+        reason: No patch or upgrade path available
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/types > lodash':
+        reason: No patch or upgrade path available.
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/generator > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/generator > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/template > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/generator > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/generator > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.016Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/template > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/generator > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-split-export-declaration > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/template > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.017Z'
+    - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
+        reason: ' No patch or upgrade path available.'
+        expires: '2021-03-17T15:20:08.018Z'
 patch: {}

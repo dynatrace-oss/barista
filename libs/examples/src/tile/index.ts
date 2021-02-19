@@ -19,5 +19,6 @@ export * from './tile-disabled-example/tile-disabled-example';
 export * from './tile-error-example/tile-error-example';
 export * from './tile-examples.module';
 export * from './tile-main-example/tile-main-example';
+export * from './tile-warning-example/tile-warning-example';
 export * from './tile-recovered-example/tile-recovered-example';
 export * from './tile-small-example/tile-small-example';

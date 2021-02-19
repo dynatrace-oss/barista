@@ -18,6 +18,7 @@
     [_temporarilyDisabled]="disabled || _isInFilterEditMode"
     (remove)="_handleTagRemove($event)"
     (edit)="_handleTagEdit($event)"
+    (navigateTags)="_handleArrowKeyNavigation($event)"
   ></dt-filter-field-tag>
 
   <button
@@ -52,6 +53,7 @@
         !(_currentDef && !!_currentDef!.multiSelect) || loading
       "
       (keydown)="_handleInputKeyDown($event)"
+      (keyup)="_handleInputKeyUp($event)"
       [value]="_inputValue"
       [disabled]="disabled"
     />
@@ -143,6 +145,7 @@
     [_temporarilyDisabled]="disabled || _isInFilterEditMode"
     (remove)="_handleTagRemove($event)"
     (edit)="_handleTagEdit($event)"
+    (navigateTags)="_handleArrowKeyNavigation($event)"
   ></dt-filter-field-tag>
 </div>
 

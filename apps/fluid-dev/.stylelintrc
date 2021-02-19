@@ -1,6 +1,0 @@
-{
-   "extends": ["../../.stylelintrc"],
-   "rules": {
-     "selector-class-pattern": null
-   }
-}

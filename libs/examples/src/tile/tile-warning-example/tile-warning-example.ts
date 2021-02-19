@@ -14,5 +14,10 @@
  * limitations under the License.
  */
 
-// Barista interfaces
-export * from './lib/barista';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-example-tile-warning',
+  templateUrl: './tile-warning-example.html',
+})
+export class DtExampleTileWarning {}

@@ -86,6 +86,7 @@ import { DtExampleCheckboxIndeterminate } from './checkbox/checkbox-indeterminat
 import { DtExampleCheckboxResponsive } from './checkbox/checkbox-responsive-example/checkbox-responsive-example';
 import { DtExampleComboboxCustomOptionHeight } from './combobox/combobox-custom-option-height-example/combobox-custom-option-height-example';
 import { DtExampleComboboxSimple } from './combobox/combobox-simple-example/combobox-simple-example';
+import { DtExampleComboboxFormControl } from './combobox/combobox-form-control-example/combobox-form-control-example';
 import { DtExampleConfirmationDialogDefault } from './confirmation-dialog/confirmation-dialog-default-example/confirmation-dialog-default-example';
 import { DtExampleConfirmationDialogShowBackdrop } from './confirmation-dialog/confirmation-dialog-show-backdrop-example/confirmation-dialog-show-backdrop-example';
 import { DtExampleConsumptionDefault } from './consumption/consumption-default-example/consumption-default-example';
@@ -324,6 +325,7 @@ import { DtExampleTileDefault } from './tile/tile-default-example/tile-default-e
 import { DtExampleTileDisabled } from './tile/tile-disabled-example/tile-disabled-example';
 import { DtExampleTileError } from './tile/tile-error-example/tile-error-example';
 import { DtExampleTileMain } from './tile/tile-main-example/tile-main-example';
+import { DtExampleTileWarning } from './tile/tile-warning-example/tile-warning-example';
 import { DtExampleTileRecovered } from './tile/tile-recovered-example/tile-recovered-example';
 import { DtExampleTileSmall } from './tile/tile-small-example/tile-small-example';
 import { DtExampleTimelineChartDefault } from './timeline-chart/timeline-chart-default-example/timeline-chart-default-example';
@@ -468,6 +470,7 @@ export {
   DtExampleCheckboxIndeterminate,
   DtExampleCheckboxResponsive,
   DtExampleComboboxSimple,
+  DtExampleComboboxFormControl,
   DtExampleComboboxCustomOptionHeight,
   DtExampleConfirmationDialogDefault,
   DtExampleConfirmationDialogShowBackdrop,
@@ -700,6 +703,7 @@ export {
   DtExampleTileDisabled,
   DtExampleTileError,
   DtExampleTileMain,
+  DtExampleTileWarning,
   DtExampleTileRecovered,
   DtExampleTileSmall,
   DtExampleTimelineChartDefault,
@@ -792,6 +796,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleCheckboxIndeterminate', DtExampleCheckboxIndeterminate],
   ['DtExampleCheckboxResponsive', DtExampleCheckboxResponsive],
   ['DtExampleComboboxSimple', DtExampleComboboxSimple],
+  ['DtExampleComboboxFormControl', DtExampleComboboxFormControl],
   ['DtExampleComboboxCustomOptionHeight', DtExampleComboboxCustomOptionHeight],
   ['DtExampleConfirmationDialogDefault', DtExampleConfirmationDialogDefault],
   [
@@ -1089,6 +1094,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTileDisabled', DtExampleTileDisabled],
   ['DtExampleTileError', DtExampleTileError],
   ['DtExampleTileMain', DtExampleTileMain],
+  ['DtExampleTileWarning', DtExampleTileWarning],
   ['DtExampleTileRecovered', DtExampleTileRecovered],
   ['DtExampleTileSmall', DtExampleTileSmall],
   ['DtExampleTimelineChartDefault', DtExampleTimelineChartDefault],

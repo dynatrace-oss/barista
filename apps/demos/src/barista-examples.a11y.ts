@@ -59,6 +59,7 @@ const BLOCKLIST: string[] = [
   // for similar reasons as the select and filter field
   // are disabled.
   'combobox-simple-example',
+  'combobox-form-control-example',
   'combobox-custom-option-height-example',
 ];
 

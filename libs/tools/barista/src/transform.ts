@@ -190,7 +190,7 @@ export const headlineClassTransformer: BaPageTransformer = async (source) => {
   if (source.content && source.content.length) {
     transformed.content = runWithCheerio(source.content, ($) => {
       const headlines = $('h1, h2, h3, h4, h5, h6');
-      headlines.each((_, headline) => {
+      headlines.each((_: number, headline: cheerio.TagElement) => {
         $(headline).addClass(headline.tagName);
       });
     });
@@ -222,7 +222,7 @@ export const relativeUrlTransformer: BaPageTransformer = async (source) => {
   if (source.content && source.content.length) {
     transformed.content = runWithCheerio(source.content, ($) => {
       const links = $('a');
-      links.each((_, link) => {
+      links.each((_: number, link: cheerio.TagElement) => {
         const linkValue = $(link).attr('href');
         if (linkValue && !isQualifiedLink(linkValue)) {
           let url = parse(linkValue);
@@ -262,29 +262,31 @@ export const tableOfContentGenerator: BaPageTransformer = async (source) => {
       transformed.content = runWithCheerio(source.content, ($) => {
         const headlines = $('h2, h3');
 
-        headlines.each((_index, headlineElement) => {
-          const id = `${$(headlineElement).attr('id')}`;
-          const headline = `${$(headlineElement).text()}`;
-          const item: TableOfContents = {
-            level: parseInt(headlineElement.tagName.slice(1), 10),
-            id,
-            headline,
-            children: [],
-          };
+        headlines.each(
+          (_index: number, headlineElement: cheerio.TagElement) => {
+            const id = `${$(headlineElement).attr('id')}`;
+            const headline = `${$(headlineElement).text()}`;
+            const item: TableOfContents = {
+              level: parseInt(headlineElement.tagName.slice(1), 10),
+              id,
+              headline,
+              children: [],
+            };
 
-          const lastItemIndex = items.length - 1;
-          if (lastItemIndex < 0 || items[lastItemIndex].level >= item.level) {
-            items.push(item);
-          } else {
-            // find the next parent headline to put the children in
-            for (let i = items.length - 1; i >= 0; i--) {
-              if (items[i].level < item.level) {
-                items[i].children.push(item);
-                break;
+            const lastItemIndex = items.length - 1;
+            if (lastItemIndex < 0 || items[lastItemIndex].level >= item.level) {
+              items.push(item);
+            } else {
+              // find the next parent headline to put the children in
+              for (let i = items.length - 1; i >= 0; i--) {
+                if (items[i].level < item.level) {
+                  items[i].children.push(item);
+                  break;
+                }
               }
             }
-          }
-        });
+          },
+        );
       });
     } catch (error) {
       console.error(`Failed to generate TOC for: ${source.title}`);
@@ -309,7 +311,7 @@ export function internalLinksTransformerFactory(
       .map((selector) => `a[href*="${selector}"]`)
       .join(',');
 
-    transformed.content = runWithCheerio(source.content, ($: CheerioStatic) => {
+    transformed.content = runWithCheerio(source.content, ($: cheerio.Root) => {
       const internalLinksElements = $(internalLinkSelectors);
       if (internalLinksElements.length) {
         internalLinksElements.each((_, link) => {
@@ -326,7 +328,7 @@ export function exampleInlineSourcesTransformerFactory(
   metadata: BaAllExamplesMetadata,
 ): BaPageTransformer {
   return async (source) => {
-    source.content = runWithCheerio(source.content, ($: CheerioStatic) => {
+    source.content = runWithCheerio(source.content, ($: cheerio.Root) => {
       $('ba-live-example').each((_index, element) => {
         const name = $(element).attr('name') || '';
         const demoMetadata = metadata[name];
@@ -371,7 +373,7 @@ export function internalContentTransformerFactory(
 
     transformed.content = runWithCheerio(
       sanitizedContent,
-      ($: CheerioStatic) => {
+      ($: cheerio.Root) => {
         $('ba-internal-content').each((_, content) => {
           if (isPublic) {
             $(content).remove();
