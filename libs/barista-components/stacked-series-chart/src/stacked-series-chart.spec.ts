@@ -326,6 +326,22 @@ describe('DtStackedSeriesChart', () => {
 
       expect(selectedChangeSpy).not.toHaveBeenCalled();
     });
+
+    it('should clear the selection from the outside on stack mode', () => {
+      rootComponent.selectionMode = 'stack';
+      rootComponent.selected = [
+        stackedSeriesChartDemoDataCoffee[1],
+        stackedSeriesChartDemoDataCoffee[1].nodes[1],
+      ];
+      fixture.detectChanges();
+
+      expect(getSelectedSlice() !== null).toBe(true);
+
+      rootComponent.selected = [];
+      fixture.detectChanges();
+
+      expect(getSelectedSlice()).toBe(null);
+    });
   });
 
   describe('Value Display Mode', () => {
