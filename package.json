@@ -105,7 +105,7 @@
     "@nguniversal/express-engine": "^11.0.1",
     "@nrwl/angular": "^11.0.20",
     "@nrwl/cli": "^11.0.20",
-    "@nrwl/jest": "^11.0.20",
+    "@nrwl/jest": "^11.3.0",
     "@nrwl/linter": "^11.2.10",
     "@nrwl/node": "^11.0.20",
     "@nrwl/nx-plugin": "^11.0.20",
