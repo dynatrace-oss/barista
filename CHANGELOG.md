@@ -1,3 +1,33 @@
+## [9.2.0](https://github.com/dynatrace-oss/barista/compare/9.1.0...9.2.0) (2021-02-23)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue with the arrow positioning on safari.
+  ([a3f2535](https://github.com/dynatrace-oss/barista/commit/a3f25352e67c48b124a6999ec8dd299820216bf4))
+- **expandable-section:** Fixes an issue where toggling the expandable section
+  was triggering a form submission.
+  ([8388bd0](https://github.com/dynatrace-oss/barista/commit/8388bd02875e436bbe8ab26c006edada49a4a5cb))
+- **filter-field:** Improving isOptionSelected method for async values.
+  ([8e352fa](https://github.com/dynatrace-oss/barista/commit/8e352fa61173307a56b42c1646ee33c18e17cc73))
+- **filter-field:** Fixes jumping of filters when the edit state changes.
+  ([54dff6e](https://github.com/dynatrace-oss/barista/commit/54dff6e11eff75001c30bc44f8c42f5de77d1d3d))
+- **quick-filter:** Fixes default search in the quick-filter
+  ([69cd791](https://github.com/dynatrace-oss/barista/commit/69cd79147c87382c433b92b5106806a0bf9d0be5))
+- **radial-chart:** Display of rounded percentage with precision
+  ([d08b808](https://github.com/dynatrace-oss/barista/commit/d08b8085643ce3461b90f3804eb369bd9459a4eb))
+- **stacked-series-chart:** Clearing selection when using stack mode.
+  ([87764fa](https://github.com/dynatrace-oss/barista/commit/87764fa074d03ccc9cf02be735fadf1f6077c663))
+- **stacked-series-chart:** Show stack mode tooltip highlight + proper fix of
+  console error on init.
+  ([70ba2b7](https://github.com/dynatrace-oss/barista/commit/70ba2b75323bb2c63e0ba3cb8aeb49fa93f26ead))
+
+### Features
+
+- **filter-field:** Adds navigation via arrow keys over current filter tags
+  ([c24b85c](https://github.com/dynatrace-oss/barista/commit/c24b85cc6cb5d9f6aa99ea98c4f91eb36519fa88))
+- **tile:** Added warning color to tile component
+  ([ad1b1e6](https://github.com/dynatrace-oss/barista/commit/ad1b1e662a51a1c58b2a8b3101e7a2a190cb74e2))
+
 ## [9.1.0](https://github.com/dynatrace-oss/barista/compare/9.0.0...9.1.0) (2021-02-09)
 
 ### Bug Fixes
