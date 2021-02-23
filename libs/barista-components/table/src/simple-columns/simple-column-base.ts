@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
+import {
+  coerceBooleanProperty,
+  BooleanInput,
+  NumberInput,
+  coerceNumberProperty,
+} from '@angular/cdk/coercion';
 import {
   Directive,
   Input,
@@ -86,7 +91,15 @@ export abstract class DtSimpleColumnBase<T>
   /**
    * Exposes the dtColumnProportion of the dtCell directive for use with simple columns
    */
-  @Input('dtColumnProportion') proportion: number;
+  @Input('dtColumnProportion')
+  get proportion(): number {
+    return this._proportion;
+  }
+  set proportion(value: number) {
+    this._proportion = coerceNumberProperty(value);
+  }
+  private _proportion: number;
+  static ngAcceptInputType_proportion: NumberInput;
 
   /**
    * Text label that should be used for the column header. If this property is not

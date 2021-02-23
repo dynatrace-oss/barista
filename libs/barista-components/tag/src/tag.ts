@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -63,6 +63,7 @@ export class DtTag<T> {
     this._removable = coerceBooleanProperty(value);
   }
   private _removable = false;
+  static ngAcceptInputType_removable: BooleanInput;
 
   /** Emits events when the tag gets removed. */
   @Output()
