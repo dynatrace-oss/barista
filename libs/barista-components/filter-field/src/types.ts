@@ -70,6 +70,7 @@ export interface DtFreeTextDef<S = unknown> {
 
 export interface DtMultiSelectDef<MOpt = unknown, Opr = unknown> {
   async: boolean;
+  partial?: boolean;
   multiOptions: DtNodeDef<MOpt>[];
   operators: DtNodeDef<Opr>[];
 }
@@ -174,10 +175,11 @@ export function dtMultiSelectDef<D = unknown, OG = unknown, Op = unknown>(
   existingNodeDef: DtNodeDef | null,
   multiOptions: DtNodeDef<OG>[],
   async: boolean,
+  partial: boolean = false,
 ): DtNodeDef<D> & { multiSelect: DtMultiSelectDef<OG, Op> } {
   const def = {
     ...nodeDef(data, existingNodeDef),
-    multiSelect: { multiOptions, async, operators: [] },
+    multiSelect: { multiOptions, async, partial, operators: [] },
   };
   def.nodeFlags |= DtNodeFlags.TypeMultiSelect;
   return def;
@@ -189,6 +191,7 @@ export function isDtMultiSelectDef<D = unknown>(
 ): def is DtNodeDef<D> & DtMultiSelectDef {
   return isDtNodeDef(def) && !!(def.nodeFlags & DtNodeFlags.TypeMultiSelect);
 }
+
 export function isAsyncDtMultiSelectDef<D>(
   def: DtNodeDef<D> | null,
 ): def is DtNodeDef<D> & {
@@ -199,6 +202,17 @@ export function isAsyncDtMultiSelectDef<D>(
     isDtMultiSelectDef<D>(def) &&
     isDtOptionDef<D>(def) &&
     Boolean(def.multiSelect?.async)
+  );
+}
+
+export function isPartialDtMultiSelectDef(
+  def: any,
+): def is DtNodeDef & {
+  multiSelect: DtMultiSelectDef;
+  option: DtOptionDef;
+} {
+  return (
+    isDtMultiSelectDef(def) && isDtOptionDef(def) && !!def.multiSelect?.partial
   );
 }
 
@@ -367,8 +381,18 @@ export function isAsyncDtOptionDef<D>(
   return (
     isAsyncDtAutocompleteDef(def) ||
     isAsyncDtMultiSelectDef(def) ||
+    isAsyncDtMultiSelectDef(def) ||
     isAsyncDtFreeTextDef(def)
   );
+}
+
+/** Whether the provided def object is a valid NodeDef type, and has the partial option enabled. */
+export function isPartialDtOptionDef<D>(
+  def: DtNodeDef<D> | null,
+): def is DtNodeDef<D> & {
+  option: DtOptionDef;
+} {
+  return isPartialDtAutocompleteDef(def) || isPartialDtMultiSelectDef(def);
 }
 
 /** Whether the provided def object is of type RenderType */

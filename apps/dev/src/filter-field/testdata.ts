@@ -147,6 +147,17 @@ export const MULTI_SELECT_DATA_ASYNC = {
   ],
 };
 
+export const MULTI_SELECT_DATA_ASYNC_PARTIAL = {
+  name: 'CH (async, partial)',
+  autocomplete: [
+    { name: 'Zürich' },
+    { name: 'Genf' },
+    { name: 'Basel' },
+    { name: 'Bern' },
+  ],
+  partial: true,
+};
+
 export const TEST_DATA_PARTIAL = {
   name: 'CH (async, partial)',
   autocomplete: [

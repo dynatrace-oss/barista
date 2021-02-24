@@ -77,5 +77,10 @@ export const MULTI_SELECT_DATA = {
         },
       ],
     },
+    {
+      name: 'CH (async, partial)',
+      multiOptions: [],
+      async: true,
+    },
   ],
 };
