@@ -33,6 +33,7 @@ import { MULTIDIMENSIONAL_ANALYSIS } from './multidimensional-analysis';
 import { THREE_LEVELS_NESTED_DATA } from './three-levels-nested-data';
 import {
   MULTI_SELECT_DATA_ASYNC,
+  MULTI_SELECT_DATA_ASYNC_PARTIAL,
   TEST_DATA,
   TEST_DATA_ASYNC,
   TEST_DATA_ASYNC_2,
@@ -182,6 +183,7 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     // Cancel current timer if running
     clearTimeout(this._timerHandle);
 
+    this._partialFilter = false;
     if (event.currentFilter[0] === TEST_DATA.autocomplete[3]) {
       // Simulate async data loading
       this._timerHandle = setTimeout(() => {
@@ -207,6 +209,12 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
       // Simulate async data loading
       this._timerHandle = setTimeout(() => {
         this._dataSource.data = MULTI_SELECT_DATA_ASYNC;
+      }, 2000);
+    } else if (event.currentFilter[0] === MULTI_SELECT_DATA.autocomplete[3]) {
+      this._partialFilter = true;
+      // Simulate async data loading
+      this._timerHandle = setTimeout(() => {
+        this._dataSource.data = MULTI_SELECT_DATA_ASYNC_PARTIAL;
       }, 2000);
     }
   }

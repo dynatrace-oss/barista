@@ -275,7 +275,7 @@ export class DtFilterFieldDefaultDataSource
   transformMultiSelect(
     data: DtFilterFieldDefaultDataSourceMultiSelect,
   ): DtNodeDef<DtFilterFieldDefaultDataSourceMultiSelect> {
-    const def = dtMultiSelectDef(data, null, [], !!data.async);
+    const def = dtMultiSelectDef(data, null, [], !!data.async, !!data.partial);
     def.multiSelect!.multiOptions = this.transformList(data.multiOptions, def);
     return def;
   }
