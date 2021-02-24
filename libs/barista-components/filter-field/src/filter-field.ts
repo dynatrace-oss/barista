@@ -146,7 +146,7 @@ import {
   isDtOptionDef,
   isDtRangeDef,
   isDtRangeValue,
-  isPartialDtAutocompleteDef,
+  isPartialDtOptionDef,
   _getSourcesOfDtFilterValues,
 } from './types';
 
@@ -1568,7 +1568,7 @@ export class DtFilterField<T = any>
         (def) => {
           if (
             (isAsyncDtOptionDef(this._currentDef) ||
-              isPartialDtAutocompleteDef(this._currentDef)) &&
+              isPartialDtOptionDef(this._currentDef)) &&
             def
           ) {
             this._asyncDefs.set(this._currentDef, def);

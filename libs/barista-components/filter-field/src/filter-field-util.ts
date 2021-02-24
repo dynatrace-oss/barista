@@ -39,10 +39,10 @@ import {
   isDtRangeDef,
   isDtRangeValue,
   isDtRenderType,
-  isPartialDtAutocompleteDef,
   isDtMultiSelectValue,
   DtAutocompleteDef,
   DtFreeTextDef,
+  isPartialDtOptionDef,
 } from './types';
 
 /**
@@ -156,7 +156,13 @@ export function filterMultiSelectDef(
     )
     .filter((optionOrGroup) => optionOrGroup !== null) as DtNodeDef[];
   return def.multiSelect!.async || multiOptions.length
-    ? dtMultiSelectDef(def.data, def, multiOptions, def.multiSelect!.async)
+    ? dtMultiSelectDef(
+        def.data,
+        def,
+        multiOptions,
+        def.multiSelect!.async,
+        def.multiSelect!.partial,
+      )
     : null;
 }
 
@@ -420,7 +426,7 @@ export function findFilterValuesForSources<T>(
         if (isLastSource) {
           return null;
         }
-        if (isAsyncDtOptionDef(def) || isPartialDtAutocompleteDef(def)) {
+        if (isAsyncDtOptionDef(def) || isPartialDtOptionDef(def)) {
           const asyncDef = asyncDefs.get(def);
           if (asyncDef) {
             parentDef = asyncDef;

@@ -19,7 +19,12 @@
 
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { ComponentFixture, inject } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  inject,
+  tick,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
   DtFilterField,
@@ -384,6 +389,82 @@ describe('DtFilterField', () => {
         expect(options[0].checked).toBe(true);
       });
     });
+
+    it('should add partial update to the multiOptions', fakeAsync(() => {
+      const DATA = {
+        autocomplete: [
+          {
+            name: 'AUT',
+            autocomplete: [
+              { name: 'Linz' },
+              { name: 'Vienna' },
+              { name: 'Graz' },
+            ],
+          },
+          {
+            name: 'CH (async, partial)',
+            async: true,
+            multiOptions: [],
+          },
+        ],
+      };
+
+      const DATA_PARTIAL = {
+        name: 'CH (async, partial)',
+        multiOptions: [
+          { name: 'Zürich' },
+          { name: 'Genf' },
+          { name: 'Basel' },
+          { name: 'Bern' },
+        ],
+        partial: true,
+      };
+
+      const DATA_PARTIAL_2 = {
+        name: 'CH (async, partial)',
+        multiOptions: [
+          { name: 'Zug' },
+          { name: 'Schaffhausen' },
+          { name: 'Luzern' },
+          { name: 'St. Gallen' },
+        ],
+        partial: true,
+      };
+
+      fixture.componentInstance.dataSource.data = DATA;
+      fixture.detectChanges();
+      filterField.focus();
+      advanceFilterfieldCycle(true, true);
+
+      getAndClickOption(overlayContainerElement, 1);
+
+      let options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(0);
+
+      fixture.componentInstance.dataSource.data = DATA_PARTIAL;
+      fixture.detectChanges();
+      advanceFilterfieldCycle(true, true);
+      tick();
+
+      options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(4);
+      expect(options[0].textContent).toContain('Zürich');
+      expect(options[1].textContent).toContain('Genf');
+      expect(options[2].textContent).toContain('Basel');
+      expect(options[3].textContent).toContain('Bern');
+
+      fixture.componentInstance.dataSource.data = DATA_PARTIAL_2;
+      fixture.detectChanges();
+      advanceFilterfieldCycle(true, true);
+      tick();
+
+      options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(4);
+      expect(options[0].textContent).toContain('Zug');
+      expect(options[1].textContent).toContain('Schaffhausen');
+      expect(options[2].textContent).toContain('Luzern');
+      expect(options[3].textContent).toContain('St. Gallen');
+    }));
 
     describe('edit mode', () => {
       beforeEach(() => {
