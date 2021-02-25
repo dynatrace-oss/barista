@@ -36,6 +36,7 @@ import {
   TEST_DATA,
   TEST_DATA_ASYNC,
   TEST_DATA_ASYNC_2,
+  TEST_DATA_ASYNC_FREETEXT,
   TEST_DATA_PARTIAL,
   TEST_DATA_PARTIAL_2,
 } from './testdata';
@@ -181,17 +182,22 @@ export class FilterFieldDemo implements AfterViewInit, OnDestroy {
     // Cancel current timer if running
     clearTimeout(this._timerHandle);
 
-    if (event.currentFilter[0] === TEST_DATA.autocomplete[2]) {
+    if (event.currentFilter[0] === TEST_DATA.autocomplete[3]) {
       // Simulate async data loading
       this._timerHandle = setTimeout(() => {
         this._dataSource.data = TEST_DATA_ASYNC;
       }, 2000);
-    } else if (event.currentFilter[0] === TEST_DATA.autocomplete[3]) {
+    } else if (event.currentFilter[0] === TEST_DATA.autocomplete[4]) {
       // Simulate async data loading
       this._timerHandle = setTimeout(() => {
         this._dataSource.data = TEST_DATA_ASYNC_2;
       }, 2000);
-    } else if (event.currentFilter[0] === TEST_DATA.autocomplete[4]) {
+    } else if (event.currentFilter[0] === TEST_DATA.autocomplete[5]) {
+      // Simulate async data loading
+      this._timerHandle = setTimeout(() => {
+        this._dataSource.data = TEST_DATA_ASYNC_FREETEXT;
+      }, 2000);
+    } else if (event.currentFilter[0] === TEST_DATA.autocomplete[6]) {
       this._partialFilter = true;
       // Simulate async data loading
       this._timerHandle = setTimeout(() => {

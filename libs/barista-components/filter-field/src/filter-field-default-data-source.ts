@@ -85,6 +85,7 @@ export interface DtFilterFieldDefaultDataSourceFreeText {
     | DtFilterFieldDefaultDataSourceSimpleGroup
   >;
   validators: DtFilterFieldValidator[];
+  async?: boolean;
   unique?: boolean;
   defaultSearch?: boolean;
 }
@@ -335,6 +336,7 @@ export class DtFilterFieldDefaultDataSource
       data.validators,
       isDefined(data.unique) ? data.unique! : false,
       !!data.defaultSearch,
+      !!data.async,
     );
     def.freeText!.suggestions = this.transformList(data.suggestions, def);
     return def;
