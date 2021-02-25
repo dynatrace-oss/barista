@@ -28,7 +28,7 @@ import {
   DtNodeDef,
   DtOptionDef,
   DtRangeValue,
-  isAsyncDtAutocompleteDef,
+  isAsyncDtOptionDef,
   isDtAutocompleteDef,
   isDtAutocompleteValue,
   isDtFreeTextDef,
@@ -43,7 +43,6 @@ import {
   isDtMultiSelectValue,
   DtAutocompleteDef,
   DtFreeTextDef,
-  isAsyncDtMultiSelectDef,
 } from './types';
 
 /**
@@ -79,20 +78,24 @@ export function filterAutocompleteDef(
 export function filterFreeTextDef(
   def: DtNodeDef,
   filterText?: string,
-): DtNodeDef {
+): DtNodeDef | null {
   const suggestions = def.freeText!.suggestions
     ? def.freeText!.suggestions.filter((option) =>
         filterOptionDef(option, new Set(), filterText),
       )
     : [];
 
-  return dtFreeTextDef(
-    def.data,
-    def,
-    suggestions,
-    def.freeText!.validators || [],
-    isDefined(def.freeText!.unique) ? def.freeText!.unique! : false,
-  );
+  return def.freeText!.async || suggestions.length
+    ? dtFreeTextDef(
+        def.data,
+        def,
+        suggestions,
+        def.freeText!.validators || [],
+        isDefined(def.freeText!.unique) ? def.freeText!.unique! : false,
+        false,
+        !!def.freeText!.async,
+      )
+    : null;
 }
 
 /**
@@ -417,11 +420,7 @@ export function findFilterValuesForSources<T>(
         if (isLastSource) {
           return null;
         }
-        if (
-          isAsyncDtAutocompleteDef(def) ||
-          isAsyncDtMultiSelectDef(def) ||
-          isPartialDtAutocompleteDef(def)
-        ) {
+        if (isAsyncDtOptionDef(def) || isPartialDtAutocompleteDef(def)) {
           const asyncDef = asyncDefs.get(def);
           if (asyncDef) {
             parentDef = asyncDef;

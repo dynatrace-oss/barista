@@ -63,6 +63,7 @@ export interface DtAutocompleteDef<OpGr = unknown, Op = unknown> {
 export interface DtFreeTextDef<S = unknown> {
   suggestions: DtNodeDef<S>[];
   validators: DtFilterFieldValidator[];
+  async?: boolean;
   unique: boolean;
   defaultSearch?: boolean;
 }
@@ -326,10 +327,11 @@ export function dtFreeTextDef<D = unknown, S = unknown>(
   validators: DtFilterFieldValidator[],
   unique: boolean,
   defaultSearch: boolean = false,
+  async: boolean = false,
 ): DtNodeDef<D> & { freeText: DtFreeTextDef<S> } {
   const def = {
     ...nodeDef<D>(data, existingNodeDef),
-    freeText: { suggestions, validators, unique, defaultSearch },
+    freeText: { suggestions, validators, unique, async, defaultSearch },
   };
   def.nodeFlags |= DtNodeFlags.TypeFreeText;
   return def;
@@ -340,6 +342,33 @@ export function isDtFreeTextDef<D = unknown, S = unknown>(
   def: DtNodeDef<D> | null,
 ): def is DtNodeDef<D> & { freeText: DtFreeTextDef<S> } {
   return isDtNodeDef<D>(def) && !!(def.nodeFlags & DtNodeFlags.TypeFreeText);
+}
+
+/** Whether the provided def object is of type NodeDef, consists of an FreeTextDef, and has the async option enabled. */
+export function isAsyncDtFreeTextDef<D>(
+  def: DtNodeDef<D> | null,
+): def is DtNodeDef<D> & {
+  freeText: DtFreeTextDef;
+  option: DtOptionDef;
+} {
+  return (
+    isDtFreeTextDef<D>(def) &&
+    isDtOptionDef<D>(def) &&
+    Boolean(def.freeText?.async)
+  );
+}
+
+/** Whether the provided def object is a valid NodeDef type, and has the async option enabled. */
+export function isAsyncDtOptionDef<D>(
+  def: DtNodeDef<D> | null,
+): def is DtNodeDef<D> & {
+  option: DtOptionDef;
+} {
+  return (
+    isAsyncDtAutocompleteDef(def) ||
+    isAsyncDtMultiSelectDef(def) ||
+    isAsyncDtFreeTextDef(def)
+  );
 }
 
 /** Whether the provided def object is of type RenderType */
