@@ -79,7 +79,7 @@ export class DtIndicator
     }
   }
   private _active = true;
-  static ngAcceptInputType_dtIndicator: BooleanInput;
+  static ngAcceptInputType_active: BooleanInput;
 
   constructor(elementRef: ElementRef) {
     super(elementRef);
