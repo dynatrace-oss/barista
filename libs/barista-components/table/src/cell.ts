@@ -102,7 +102,7 @@ export class DtColumnDef extends CdkColumnDef implements OnChanges {
     this._proportion = coerceNumberProperty(name);
   }
   private _proportion: number;
-  static ngAcceptInputType_dtColumnProportion: NumberInput;
+  static ngAcceptInputType_proportion: NumberInput;
 
   /** The min width of the column. */
   // TODO: Consider switching to ngStyle syntax in the future - value.unit
