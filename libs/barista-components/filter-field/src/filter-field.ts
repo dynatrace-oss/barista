@@ -133,7 +133,9 @@ import {
   DtNodeDef,
   DtOptionDef,
   isAsyncDtAutocompleteDef,
+  isAsyncDtFreeTextDef,
   isAsyncDtMultiSelectDef,
+  isAsyncDtOptionDef,
   isDefaultSearchOption,
   isDtAutocompleteDef,
   isDtAutocompleteValue,
@@ -1565,8 +1567,7 @@ export class DtFilterField<T = any>
       .subscribe(
         (def) => {
           if (
-            (isAsyncDtAutocompleteDef(this._currentDef) ||
-              isAsyncDtMultiSelectDef(this._currentDef) ||
+            (isAsyncDtOptionDef(this._currentDef) ||
               isPartialDtAutocompleteDef(this._currentDef)) &&
             def
           ) {
@@ -1707,7 +1708,10 @@ export class DtFilterField<T = any>
       this._autocompleteOptionsOrGroups = def
         ? def.autocomplete!.optionsOrGroups
         : [];
-    } else if (isDtFreeTextDef(currentDef)) {
+    } else if (
+      isDtFreeTextDef(currentDef) &&
+      !isAsyncDtFreeTextDef(currentDef)
+    ) {
       const def = filterFreeTextDef(currentDef, this._inputValue);
       this._autocompleteOptionsOrGroups = def ? def.freeText!.suggestions : [];
     } else {
@@ -1780,9 +1784,7 @@ export class DtFilterField<T = any>
   }
 
   private _updateLoading(): void {
-    this._loading =
-      isAsyncDtAutocompleteDef(this._currentDef) ||
-      isAsyncDtMultiSelectDef(this._currentDef);
+    this._loading = isAsyncDtOptionDef(this._currentDef);
   }
 
   private _getSelectedOptionIds(): Set<string> {

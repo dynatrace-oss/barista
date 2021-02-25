@@ -35,6 +35,11 @@ export class DtExampleFilterFieldAsync {
         autocomplete: [],
       },
       {
+        name: 'ITA (async, free-text)',
+        async: true,
+        suggestions: [],
+      },
+      {
         name: 'USA',
         autocomplete: [
           { name: 'San Francisco' },
@@ -50,6 +55,11 @@ export class DtExampleFilterFieldAsync {
     autocomplete: [{ name: 'Linz' }, { name: 'Vienna' }, { name: 'Graz' }],
   };
 
+  private ASYNC_DATA_2 = {
+    name: 'ITA (async, free-text)',
+    suggestions: [{ name: 'Rome' }, { name: 'Venice' }],
+  };
+
   _dataSource = new DtFilterFieldDefaultDataSource(this.DATA);
 
   currentFilterChanged(
@@ -62,6 +72,15 @@ export class DtExampleFilterFieldAsync {
       // Emulate a http request
       setTimeout(() => {
         this._dataSource.data = this.ASYNC_DATA;
+      }, 1000);
+    }
+    if (
+      event.added[0] === this.DATA.autocomplete[1] ||
+      this.ASYNC_DATA_2.suggestions.find((name) => name === event.removed[0])
+    ) {
+      // Emulate a http request
+      setTimeout(() => {
+        this._dataSource.data = this.ASYNC_DATA_2;
       }, 1000);
     }
   }

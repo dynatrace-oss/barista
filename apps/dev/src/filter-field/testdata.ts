@@ -67,6 +67,12 @@ export const TEST_DATA = {
       autocomplete: [],
     },
     {
+      name: 'DE (async, freeText)',
+      async: true,
+      unique: true,
+      suggestions: [],
+    },
+    {
       name: 'CH (async, partial)',
       async: true,
       autocomplete: [],
@@ -120,6 +126,12 @@ export const TEST_DATA_ASYNC_2 = {
       validators: [{ validatorFn: Validators.required, error: 'is required' }],
     },
   ],
+};
+
+export const TEST_DATA_ASYNC_FREETEXT = {
+  name: 'DE (async, freeText)',
+  unique: true,
+  suggestions: [{ name: 'Berlin' }, { name: 'München' }],
 };
 
 export const MULTI_SELECT_DATA_ASYNC = {
