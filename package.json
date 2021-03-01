@@ -160,7 +160,7 @@
     "markdown-it-deflist": "^2.1.0",
     "memfs": "^3.2.0",
     "ng-packagr": "^11.1.4",
-    "patch-package": "^6.2.2",
+    "patch-package": "^6.4.0",
     "prettier": "^2.2.1",
     "reflect-metadata": "^0.1.13",
     "rollup": "^2.39.0",
