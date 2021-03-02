@@ -111,8 +111,6 @@ export const DT_CONTEXT_DIALOG_CONFIG = new InjectionToken<OverlayConfig>(
   'dt-context-dialog-config',
 );
 
-const DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH = 328;
-
 @Component({
   selector: 'dt-context-dialog',
   templateUrl: 'context-dialog.html',
@@ -310,12 +308,15 @@ export class DtContextDialog
       scrollStrategy: this._overlay.scrollStrategies.block(),
       backdropClass: 'cdk-overlay-transparent-backdrop',
       hasBackdrop: true,
-      maxWidth: DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH,
     };
 
     const overlayConfig = this._userConfig
       ? { ...defaultConfig, ...this._userConfig }
       : defaultConfig;
+
+    const hasFlexibleDimensions =
+      this._userConfig?.maxWidth === undefined &&
+      this._userConfig?.maxHeight === undefined;
 
     const positionStrategy = this._overlay
       .position()
@@ -324,7 +325,7 @@ export class DtContextDialog
       .setOrigin(this._trigger.elementRef)
       // We need to falsify the flexibleDimension here in case a maxWidth is set
       // https://github.com/angular/components/blob/master/src/cdk/overlay/position/flexible-connected-position-strategy.ts#L914
-      .withFlexibleDimensions(overlayConfig.maxWidth === undefined)
+      .withFlexibleDimensions(hasFlexibleDimensions)
       .withPush(false)
       .withGrowAfterOpen(false)
       .withViewportMargin(0)
