@@ -129,6 +129,21 @@ export const TEST_DATA_EDITMODE = {
   ],
 };
 
+export const TEST_DEFAULT_SEARCH_UNIQUE = {
+  autocomplete: [
+    {
+      name: 'DE',
+      defaultSearch: true,
+      autocomplete: [{ name: 'Berlin' }],
+      unique: true,
+    },
+    {
+      name: 'AUT',
+      autocomplete: [{ name: 'Vienna' }],
+    },
+  ],
+};
+
 export const TEST_DATA_KEYBOARD_NAVIGATION = {
   autocomplete: [
     {
