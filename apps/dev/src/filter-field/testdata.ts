@@ -24,6 +24,7 @@ export const TEST_DATA = {
       name: 'DE',
       defaultSearch: true,
       suggestions: [{ name: 'Berlin' }, { name: 'Bremen' }, { name: 'Munich' }],
+      unique: true,
       validators: [
         {
           validatorFn: Validators.minLength(2),
