@@ -58,6 +58,7 @@ import {
   TEST_DATA_RANGE,
   TEST_DATA_PLACEHOLDER,
   TEST_DATA_KEYBOARD_NAVIGATION,
+  TEST_DEFAULT_SEARCH_UNIQUE,
 } from './testing/filter-field-test-data';
 import {
   TestApp,
@@ -1211,6 +1212,38 @@ describe('DtFilterField', () => {
       // readonly should be removed after the async data is loaded
       expect(input.readOnly).toBeFalsy();
     });
+  });
+
+  describe('default search', () => {
+    it('should not show the default search option when it is unique and used', fakeAsync(() => {
+      fixture.componentInstance.dataSource.data = TEST_DEFAULT_SEARCH_UNIQUE;
+      fixture.detectChanges();
+      advanceFilterfieldCycle();
+
+      filterField.focus();
+      advanceFilterfieldCycle();
+
+      let options = getOptions(overlayContainerElement);
+      expect(options[0].innerHTML.includes('DE')).toBeTruthy();
+
+      options[0].click();
+      advanceFilterfieldCycle();
+
+      options = getOptions(overlayContainerElement);
+
+      zone.simulateZoneExit();
+
+      options[0].click();
+      advanceFilterfieldCycle();
+
+      expect(filterField.filters.length).toBe(1);
+
+      options = getOptions(overlayContainerElement);
+
+      zone.simulateZoneExit();
+
+      expect(options[0].innerHTML.includes('DE')).toBeFalsy();
+    }));
   });
 
   describe('programmatic setting', () => {

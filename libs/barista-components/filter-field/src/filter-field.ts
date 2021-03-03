@@ -113,6 +113,7 @@ import { DtFilterFieldRangeTrigger } from './filter-field-range/filter-field-ran
 import { DtFilterFieldTag } from './filter-field-tag/filter-field-tag';
 import {
   applyDtOptionIds,
+  defUniquePredicate,
   filterAutocompleteDef,
   filterFreeTextDef,
   filterMultiSelectDef,
@@ -1727,12 +1728,18 @@ export class DtFilterField<T = any>
       !isAsyncDtAutocompleteDef(currentDef) &&
       this._inputValue.length
     ) {
-      if (this._defaultSearchDef === null) {
-        this._defaultSearchDef = findDefaultSearch(currentDef);
-        this._updateControl();
-        this._writeControlValue(this._inputValue);
-      } else {
-        this._defaultSearchDef = findDefaultSearch(currentDef);
+      const defaultSearchDef = findDefaultSearch(currentDef);
+      if (
+        defaultSearchDef &&
+        defUniquePredicate(defaultSearchDef, this._getSelectedOptionIds())
+      ) {
+        if (this._defaultSearchDef === null) {
+          this._defaultSearchDef = defaultSearchDef;
+          this._updateControl();
+          this._writeControlValue(this._inputValue);
+        } else {
+          this._defaultSearchDef = findDefaultSearch(currentDef);
+        }
       }
       if (this._defaultSearchDef)
         this._defaultSearchDef = filterFreeTextDef(
