@@ -16,7 +16,12 @@
 
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { isDefined, isObject } from '@dynatrace/barista-components/core';
+import {
+  isDefined,
+  isNumber,
+  isObject,
+  isString,
+} from '@dynatrace/barista-components/core';
 import { DtFilterFieldValidator } from './filter-field-validation';
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
@@ -34,6 +39,7 @@ import {
 /** The simple Shape of an object to be usable as a option in an autocomplete or free-text */
 export interface DtFilterFieldDefaultDataSourceSimpleOption {
   name: string;
+  id?: string | number;
 }
 
 export type DtFilterFieldDefaultDataSourceOption =
@@ -302,7 +308,7 @@ export class DtFilterFieldDefaultDataSource
       data,
       existingDef,
       data.name,
-      null,
+      isNumber(data.id) || isString(data.id) ? `${data.id}` : null,
       parentAutocomplete,
       parentGroup,
     );

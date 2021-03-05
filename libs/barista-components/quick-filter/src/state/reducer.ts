@@ -20,7 +20,7 @@ import {
 } from '@dynatrace/barista-components/core';
 import { DtAutocompleteValue } from '@dynatrace/barista-components/filter-field';
 import { Action, ActionType } from './actions';
-import { initialState, QuickFilterState } from './store';
+import { QuickFilterState } from './store';
 
 const logger: DtLogger = DtLoggerFactory.create('DtQuickFilter State');
 
@@ -49,11 +49,10 @@ export function quickFilterReducer(
       if (state.dataSource) {
         state.dataSource.disconnect();
       }
-      return { ...initialState, dataSource: action.payload };
+      return { ...state, dataSource: action.payload };
     case ActionType.UPDATE_DATA_SOURCE:
       return {
         ...state,
-        filters: [],
         nodeDef: action.payload,
       };
     case ActionType.SET_FILTERS:

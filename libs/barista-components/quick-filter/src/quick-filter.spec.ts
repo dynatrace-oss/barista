@@ -136,28 +136,6 @@ describe('dt-quick-filter', () => {
       expect(filterFieldInstance.filters).toMatchObject(filters);
     }));
 
-    it('should reset the filters if the data source gets switched', () => {
-      quickFilterInstance.filters = [
-        [
-          FILTER_FIELD_TEST_DATA.autocomplete[0],
-          FILTER_FIELD_TEST_DATA.autocomplete[0].autocomplete![0],
-        ],
-      ];
-      zone.simulateZoneExit();
-      fixture.detectChanges();
-
-      fixture.componentInstance._dataSource = new DtQuickFilterDefaultDataSource(
-        FILTER_FIELD_TEST_DATA,
-        {
-          showInSidebar: () => true,
-        },
-      );
-      zone.simulateZoneExit();
-      fixture.detectChanges();
-      expect(filterFieldInstance.filters).toMatchObject([]);
-      expect(quickFilterInstance.filters).toMatchObject([]);
-    });
-
     it('should filter the groups that should be displayed in the sidebar dynamically', () => {
       let groups = getGroupHeadlines(fixture.debugElement);
       expect(groups).toHaveLength(3);
