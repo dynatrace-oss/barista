@@ -1,3 +1,20 @@
+## [9.3.0](https://github.com/dynatrace-oss/barista/compare/9.2.0...9.3.0) (2021-03-05)
+
+### Bug Fixes
+
+- **context-dialog:** Fixes an issue that the scroll container of the
+  context-dialog did not properly resize for large content.
+  ([63d06b7](https://github.com/dynatrace-oss/barista/commit/63d06b7041d0a82431374e0d8a4d1c34b93b5d6b))
+- **filter-field:** Fixes freeTexts set as defaultSearch and unique.
+  ([00532db](https://github.com/dynatrace-oss/barista/commit/00532db76441469995686d5c917be719a06e2df8))
+
+### Features
+
+- **filter-field:** Allow freeText suggestions to be async.
+  ([73bdeea](https://github.com/dynatrace-oss/barista/commit/73bdeea2ee5529381b69652b0c4eddb73be24ae2))
+- **filter-field:** Allow partial suggestions for async multiselect.
+  ([b916dab](https://github.com/dynatrace-oss/barista/commit/b916dab8690c572277964f3305e7284bb28efde8))
+
 ## [9.2.0](https://github.com/dynatrace-oss/barista/compare/9.1.0...9.2.0) (2021-02-23)
 
 ### Bug Fixes
