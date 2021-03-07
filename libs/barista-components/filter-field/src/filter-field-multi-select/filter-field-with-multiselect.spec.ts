@@ -320,7 +320,7 @@ describe('DtFilterField', () => {
         expect(options.length).toBe(1);
       });
 
-      it('should load keep checked already selected options for async fields', () => {
+      it('should keep checked already selected options for async fields', () => {
         const DATA = {
           autocomplete: [
             {
@@ -367,15 +367,17 @@ describe('DtFilterField', () => {
         dispatchFakeEvent(document, 'click');
         advanceFilterfieldCycle();
 
+        let multiSelect = getMultiSelect(overlayContainerElement);
+        expect(multiSelect.length).toBe(0);
+
         // Fetching the same data
         fixture.componentInstance.dataSource.data = ASYNC_DATA;
         fixture.detectChanges();
         filterField.focus();
-        advanceFilterfieldCycle(true, true);
-
-        const multiSelect = getMultiSelect(overlayContainerElement);
+        advanceFilterfieldCycle();
 
         // Multiselect overlay must be open
+        multiSelect = getMultiSelect(overlayContainerElement);
         expect(multiSelect.length).toBe(1);
 
         options = getMultiselectCheckboxInputs(overlayContainerElement);

@@ -16,7 +16,6 @@
 
 import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { SelectionModel } from '@angular/cdk/collections';
 import { TemplatePortal } from '@angular/cdk/portal';
 // tslint:disable: template-cyclomatic-complexity
 import {
@@ -94,6 +93,10 @@ export class DtFilterFieldMultiSelect<T>
   }
   set optionsOrGroups(opts: Array<T & DtNodeDef>) {
     this._optionsOrGroups = !!opts ? opts : [];
+
+    if (this._optionsOrGroups.length === 0) {
+      this._currentSelection.clear();
+    }
     this._filterOptions();
   }
   _optionsOrGroups: Array<T & DtNodeDef> = [];
@@ -157,7 +160,7 @@ export class DtFilterFieldMultiSelect<T>
   _initialSelection: T[] = [];
 
   /** @internal Holds the current values of the input field for the from value */
-  _currentSelection: SelectionModel<T> = new SelectionModel<T>(true, []);
+  _currentSelection = new Map<string | null | undefined, T>();
 
   /** @internal Holds the current values of the input field for the from value */
   _applyDisabled: boolean;
@@ -242,7 +245,7 @@ export class DtFilterFieldMultiSelect<T>
     this.multiSelectSubmitted.emit(
       new DtFilterFieldMultiSelectSubmittedEvent(
         this,
-        this._currentSelection.selected,
+        Array.from(this._currentSelection.values()),
       ),
     );
     // After emission we need to reset the multiSelect state, to have a fresh one
@@ -251,11 +254,11 @@ export class DtFilterFieldMultiSelect<T>
   }
 
   /** @internal Set pre selected options for the multiSelect input fields. */
-  _setInitialSelection(values: T[]): void {
+  _setInitialSelection(values: Array<T & DtNodeDef>): void {
     if (Array.isArray(values) && values.length) {
       this._initialSelection = values;
       for (const value of values) {
-        this._currentSelection.select(value);
+        this._currentSelection.set(value.option?.uid, value);
       }
     } else {
       this._initialSelection = [];
@@ -266,28 +269,35 @@ export class DtFilterFieldMultiSelect<T>
 
   /** Toggle option */
   _toggleOption(option: Highlightable & DtOption<T>): void {
-    this._currentSelection.toggle(option.value);
+    this._toggleValue((option as DtOption<T & DtNodeDef>).value);
     this._checkApplyDisable();
   }
 
   /** @internal Toggle option from template */
-  _toggleOptionFromTemplate(option: T): void {
-    this._currentSelection.toggle(option);
+  _toggleOptionFromTemplate(option: T & DtNodeDef): void {
+    this._toggleValue(option);
     this._checkApplyDisable();
   }
 
   /** Check if option is selected */
   _isOptionSelected(option: T & DtNodeDef): boolean {
-    return this._currentSelection.selected.some(
-      (selected) =>
-        ((selected as unknown) as DtNodeDef).option?.uid === option.option?.uid,
-    );
+    return this._currentSelection.has(option.option?.uid);
+  }
+
+  /** Toggle value from current selection list */
+  private _toggleValue(option: T & DtNodeDef): void {
+    if (this._currentSelection.has(option.option?.uid)) {
+      this._currentSelection.delete(option.option?.uid);
+    } else {
+      this._currentSelection.set(option.option?.uid, option);
+    }
   }
 
   private _checkApplyDisable(): void {
     this._applyDisabled =
-      this._currentSelection.selected.length === 0 ||
-      xor(this._currentSelection.selected, this._initialSelection).length === 0;
+      this._currentSelection.size === 0 ||
+      xor(Array.from(this._currentSelection.values()), this._initialSelection)
+        .length === 0;
   }
 
   private _filterOptions(): void {
