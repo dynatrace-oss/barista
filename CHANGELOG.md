@@ -1,3 +1,11 @@
+## [9.3.1](https://github.com/dynatrace-oss/barista/compare/9.3.0...9.3.1) (2021-03-17)
+
+### Bug Fixes
+
+- **quick-filter:** Fixes tracking issue for programmatically set filters by
+  adding an id to the DefaultDataSource.
+  ([01c2dec](https://github.com/dynatrace-oss/barista/commit/01c2dec831c6f5de769c1fc7423d04ca8979da67))
+
 ## [9.3.0](https://github.com/dynatrace-oss/barista/compare/9.2.0...9.3.0) (2021-03-05)
 
 ### Bug Fixes
