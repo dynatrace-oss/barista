@@ -78,6 +78,7 @@ export class DtTableSearch implements ControlValueAccessor {
     const change = this._value !== actualValue;
 
     this._value = actualValue;
+    this._filterValueChanged.emit({ source: this, value });
 
     if (change && this._handleChange !== undefined) {
       this._handleChange(actualValue);
@@ -100,6 +101,10 @@ export class DtTableSearch implements ControlValueAccessor {
   @Output()
   readonly valueChange = new EventEmitter<DtTableSearchChangeEvent>();
 
+  /** @internal Event emitted when the search term is changed. */
+  @Output()
+  readonly _filterValueChanged = new EventEmitter<DtTableSearchChangeEvent>();
+
   private _handleTouched?: () => void;
   private _handleChange?: (value: string) => void;
 
@@ -113,7 +118,6 @@ export class DtTableSearch implements ControlValueAccessor {
   /** @internal Emits a change event */
   _handleInputChange(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
-
     this.value = value;
     this.valueChange.emit({ source: this, value });
   }
