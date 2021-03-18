@@ -26,7 +26,7 @@ import {
   Subject,
   Subscription,
 } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import { DtTableSearch } from './search';
 import {
   DtSimpleColumnComparatorFunction,
@@ -152,11 +152,14 @@ export class DtTableDataSource<T> extends DataSource<T> {
     this._searchChangeSubscription.unsubscribe();
 
     if (this._search !== null) {
-      this._searchChangeSubscription = this._search.valueChange.subscribe(
-        (event) => {
-          this._filter.next(event.value);
-        },
-      );
+      this._searchChangeSubscription = this._search._filterValueChanged
+        .pipe(
+          map((event) => event.value),
+          distinctUntilChanged(),
+        )
+        .subscribe((value) => {
+          this._filter.next(value);
+        });
     } else {
       this._searchChangeSubscription = Subscription.EMPTY;
     }

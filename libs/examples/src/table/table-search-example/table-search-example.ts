@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 
 import {
   formatBytes,
@@ -30,7 +30,7 @@ import {
   styleUrls: ['./table-search-example.scss'],
   templateUrl: './table-search-example.html',
 })
-export class DtExampleTableSearch implements OnInit {
+export class DtExampleTableSearch implements AfterViewInit {
   data: object[] = [
     {
       host: 'et-demo-2-win4',
@@ -86,14 +86,14 @@ export class DtExampleTableSearch implements OnInit {
   @ViewChild(DtTableSearch, { static: true })
   tableSearch: DtTableSearch;
 
-  searchValue = '';
+  searchValue = 'docker';
   dataSource: DtTableDataSource<object>;
 
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);
   }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.dataSource.search = this.tableSearch;
   }
 
