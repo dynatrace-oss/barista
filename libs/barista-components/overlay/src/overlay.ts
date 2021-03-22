@@ -141,11 +141,13 @@ export class DtOverlay implements OnDestroy {
     let originPoint: { x: number; y: number };
     // We need to get the x & y values of the origin
     if (origin instanceof Element) {
-      originPoint = { x: origin.clientTop, y: origin.clientLeft };
+      const { x, y } = origin.getBoundingClientRect();
+      originPoint = { x, y };
     } else if (origin instanceof ElementRef) {
+      const { x, y } = origin.nativeElement.getBoundingClientRect();
       originPoint = {
-        x: origin.nativeElement.clientTop,
-        y: origin.nativeElement.clientLeft,
+        x,
+        y,
       };
     } else {
       originPoint = origin;
