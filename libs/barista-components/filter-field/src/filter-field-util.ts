@@ -78,24 +78,22 @@ export function filterAutocompleteDef(
 export function filterFreeTextDef(
   def: DtNodeDef,
   filterText?: string,
-): DtNodeDef | null {
+): DtNodeDef {
   const suggestions = def.freeText!.suggestions
     ? def.freeText!.suggestions.filter((option) =>
         filterOptionDef(option, new Set(), filterText),
       )
     : [];
 
-  return def.freeText!.async || suggestions.length
-    ? dtFreeTextDef(
-        def.data,
-        def,
-        suggestions,
-        def.freeText!.validators || [],
-        isDefined(def.freeText!.unique) ? def.freeText!.unique! : false,
-        false,
-        !!def.freeText!.async,
-      )
-    : null;
+  return dtFreeTextDef(
+    def.data,
+    def,
+    suggestions,
+    def.freeText!.validators || [],
+    isDefined(def.freeText!.unique) ? def.freeText!.unique! : false,
+    false,
+    !!def.freeText!.async,
+  );
 }
 
 /**
