@@ -111,7 +111,7 @@
     "@nrwl/jest": "^11.4.0",
     "@nrwl/linter": "^11.2.10",
     "@nrwl/node": "^11.0.20",
-    "@nrwl/nx-plugin": "^11.0.20",
+    "@nrwl/nx-plugin": "^11.5.2",
     "@nrwl/tao": "^11.4.0",
     "@nrwl/workspace": "^11.0.20",
     "@octokit/rest": "^18.0.14",
