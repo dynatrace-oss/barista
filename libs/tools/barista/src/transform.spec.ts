@@ -134,7 +134,7 @@ describe('Barista transformers', () => {
         content,
       });
       expect(transformed.content).toBe(
-        '<h2 id="what-s-new">What&apos;s new?</h2>' +
+        '<h2 id="what-s-new">What\'s new?</h2>' +
           '<h3 id="coffee-tea">Coffee &amp; tea</h3>' +
           '<h3 id="awesome">Awesome!</h3>',
       );

@@ -143,7 +143,7 @@
     "axe-testcafe": "^3.0.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.0",
-    "cheerio": "^1.0.0-rc.3",
+    "cheerio": "^1.0.0-rc.5",
     "codelyzer": "^6.0.1",
     "conventional-changelog": "^3.1.24",
     "conventional-changelog-angular": "^5.0.12",
