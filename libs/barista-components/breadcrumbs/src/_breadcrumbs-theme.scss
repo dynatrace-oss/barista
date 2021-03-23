@@ -22,53 +22,35 @@
 
 :host ::ng-deep a.dt-breadcrumbs-item:not(:last-child),
 :host button.dt-breadcrumb-collapsed-trigger {
+  background-color: var(--dt-breadcrumbs-item-active-color);
   &::before {
-    border-top-color: var(--dt-breadcrumbs-item-active-color);
-    border-right-color: var(--dt-breadcrumbs-item-active-color);
-    border-bottom-color: var(--dt-breadcrumbs-item-active-color);
-  }
-
-  &::after {
-    border-left-color: var(--dt-breadcrumbs-item-active-color);
+    background-color: var(--dt-breadcrumbs-item-active-color);
   }
 }
 
 :host ::ng-deep a.dt-breadcrumbs-item:not(:last-child):hover,
 :host ::ng-deep a.dt-breadcrumbs-item:not(:last-child):focus {
+  background-color: var(--dt-breadcrumbs-item-hover-color);
   &::before {
-    border-top-color: var(--dt-breadcrumbs-item-hover-color);
-    border-right-color: var(--dt-breadcrumbs-item-hover-color);
-    border-bottom-color: var(--dt-breadcrumbs-item-hover-color);
-  }
-
-  &::after {
-    border-left-color: var(--dt-breadcrumbs-item-hover-color);
+    background-color: var(--dt-breadcrumbs-item-hover-color);
   }
 }
 
 :host button.dt-breadcrumb-collapsed-trigger:hover,
 :host button.dt-breadcrumb-collapsed-trigger:focus,
 :host button.dt-breadcrumb-collapsed-trigger:active {
+  background-color: var(--dt-breadcrumbs-item-hover-color);
   &::before {
-    border-color: var(--dt-breadcrumbs-item-hover-color);
-  }
-
-  &::after {
-    border-left-color: var(--dt-breadcrumbs-item-hover-color);
+    background-color: var(--dt-breadcrumbs-item-hover-color);
   }
 }
 
 :host
   ::ng-deep
   a.dt-breadcrumbs-item.dt-breadcrumbs-item-non-interactive:not(:last-child) {
+  background-color: var(--dt-breadcrumbs-item-default-color);
   &::before {
-    border-top-color: var(--dt-breadcrumbs-item-default-color);
-    border-right-color: var(--dt-breadcrumbs-item-default-color);
-    border-bottom-color: var(--dt-breadcrumbs-item-default-color);
-  }
-
-  &::after {
-    border-left-color: var(--dt-breadcrumbs-item-default-color);
+    background-color: var(--dt-breadcrumbs-item-default-color);
   }
 }
 
@@ -78,17 +60,17 @@
   ::ng-deep
   .dt-breadcrumbs-item:first-child:not(:only-child):not(.dt-breadcrumbs-item-non-interactive)::before,
 :host button.dt-breadcrumb-collapsed-trigger::before {
-  border-left-color: var(--dt-breadcrumbs-item-active-color);
+  background-color: var(--dt-breadcrumbs-item-active-color);
 
   &.dt-breadcrumbs-item-non-interactive {
-    border-left-color: var(--dt-breadcrumbs-item-default-color);
+    background-color: var(--dt-breadcrumbs-item-default-color);
   }
 }
 
 :host
   ::ng-deep
   .dt-breadcrumbs-item:first-child:not(:only-child):not(.dt-breadcrumbs-item-non-interactive):hover::before {
-  border-left-color: var(--dt-breadcrumbs-item-hover-color);
+  background-color: var(--dt-breadcrumbs-item-hover-color);
 }
 /* stylelint-enable max-line-length */
 
@@ -96,8 +78,6 @@
 :host ::ng-deep a.dt-breadcrumbs-item.dt-breadcrumbs-item-non-interactive,
 :host ::ng-deep a.dt-breadcrumbs-item:last-child {
   &::before {
-    border-top-color: var(--dt-breadcrumbs-item-default-color);
-    border-right-color: var(--dt-breadcrumbs-item-default-color);
-    border-bottom-color: var(--dt-breadcrumbs-item-default-color);
+    background-color: var(--dt-breadcrumbs-item-default-color);
   }
 }

@@ -5,9 +5,6 @@
 @import './breadcrumbs-theme';
 
 $height: 32px;
-$arrow-width: 8px;
-$arrow-padding: 2px;
-
 $dt-breadcrumb-max-width: 250px;
 $dt-breadcrumbs-panel-max-height: 256px;
 $dt-breadcrumbs-panel-max-width: 400px !default;
@@ -26,12 +23,10 @@ $dt-breadcrumbs-panel-min-width: 112px !default;
     position: relative;
     height: $height;
     margin-top: 0;
-    margin-left: #{-$arrow-width + $arrow-padding};
-    padding: 0 #{$arrow-width + 8px};
+    padding: 0 10px;
     color: $white;
     white-space: nowrap;
     text-decoration: none;
-    z-index: 1;
   }
 
   &.dt-breadcrumbs-item-ellipsis {
@@ -43,45 +38,54 @@ $dt-breadcrumbs-panel-min-width: 112px !default;
     outline: none;
   }
 
-  &:first-child {
+  &:not(:first-child) {
     margin-left: 0;
-    padding-left: 12px;
+    padding-left: 16px;
   }
 
   &:last-child {
+    &::before,
     &::after {
       display: none;
     }
   }
 
-  &::before,
   &::after {
     content: '';
+    width: 10px;
+    height: 100%;
     position: absolute;
-    display: block;
     top: 0;
-    width: $arrow-width * 2;
-    height: $height;
-    box-sizing: border-box;
-    border-color: $white $white $white transparent;
-    border-style: solid;
-    border-width: #{$height / 2} $arrow-width;
-    z-index: -2;
+    right: -9px;
+    display: block;
+    background: #fff;
+    clip-path: polygon(0 0, 20% 0, 100% 50%, 20% 100%, 0 100%);
+    z-index: 3;
   }
 
   &::before {
-    left: 0;
-    width: calc(100% - #{$arrow-width});
+    content: '';
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: -7px;
+    display: block;
+    background-color: var(--dt-breadcrumbs-item-default-color);
+    clip-path: polygon(0 0, 20% 0, 100% 50%, 20% 100%, 0 100%);
+    z-index: 5;
   }
 
-  &::after {
-    left: calc(100% - #{$arrow-width});
-    z-index: -1;
+  &:hover::before {
+    background-color: var(--dt-breadcrumbs-item-hover-color);
+  }
+  &:focus::before {
+    background-color: var(--dt-breadcrumbs-item-active-color);
   }
 }
 
 .dt-breadcrumb-collapsed-trigger {
-  padding: 0 8px 0 #{$arrow-width};
+  padding: 0 8px;
   line-height: $height;
   @include dt-interactive-reset();
 
