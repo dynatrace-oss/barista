@@ -1076,6 +1076,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'quick-filter-custom-show-more-example',
         route: '/quick-filter-custom-show-more-example',
       },
+      {
+        name: 'quick-filter-custom-parser-example',
+        route: '/quick-filter-custom-parser-example',
+      },
     ],
   },
   {

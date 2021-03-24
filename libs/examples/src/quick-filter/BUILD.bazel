@@ -14,11 +14,13 @@ ng_module(
     angular_assets = [
         "quick-filter-custom-show-more-example/quick-filter-custom-show-more-example.html",
         "quick-filter-default-example/quick-filter-default-example.html",
+        "quick-filter-custom-parser-example/quick-filter-custom-parser-example.html",
     ],
     module_name = "@dynatrace/barista-examples/quick-filter",
     tsconfig = "//libs/examples:tsconfig_lib",
     deps = [
         "//libs/barista-components/core:compile",
+        "//libs/barista-components/filter-field:compile",
         "//libs/barista-components/quick-filter:compile",
         "@npm//@angular/common",
         "@npm//@angular/core",

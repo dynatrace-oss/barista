@@ -54,6 +54,7 @@ const BLOCKLIST: string[] = [
   'filter-field-infinite-data-depth-example',
   'quick-filter-default-example',
   'quick-filter-custom-show-more-example',
+  'quick-filter-custom-parser-example',
 
   // Combobox a11y test are also disabled
   // for similar reasons as the select and filter field

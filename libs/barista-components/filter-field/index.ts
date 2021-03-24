@@ -59,4 +59,7 @@ export {
   DtAutocompleteValue,
   _getSourcesOfDtFilterValues,
 } from './src/types';
-export { DT_FILTER_VALUES_PARSER_CONFIG } from './src/filter-field-config';
+export {
+  DT_FILTER_VALUES_PARSER_CONFIG,
+  TagParserFunction,
+} from './src/filter-field-config';
