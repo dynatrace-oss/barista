@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+export * from './quick-filter-custom-parser-example/quick-filter-custom-parser-example';
 export * from './quick-filter-custom-show-more-example/quick-filter-custom-show-more-example';
 export * from './quick-filter-default-example/quick-filter-default-example';
 export * from './quick-filter-examples.module';
