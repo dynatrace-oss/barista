@@ -14,6 +14,9 @@ const NGCC_BINARY = resolve(
 const NGC_BINARY = resolve('./node_modules/@angular/compiler-cli/src/main.js');
 
 async function main() {
+  // Apply the husky configuration
+  await execCommand(`npm run prepare-husky`);
+
   // Applying all the patches to the packages
   await execCommand(`node ${require.resolve('patch-package')}`);
   // when running with bazel we need to perform a ngcc to compile
