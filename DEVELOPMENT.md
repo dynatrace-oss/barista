@@ -119,6 +119,10 @@ npm run dev
 
 ## Tests and stylelint
 
+Preferrably, let the CI run all of the checks for consistency. If you really
+need to run these locally make sure if it needs to be run with nx / bazel by
+investigating the library package.
+
 Run unit tests for the parts that are affected by your changes
 
 ```
@@ -158,7 +162,8 @@ npm run lint
 Stylelint
 
 ```
-npm run bazel:stylelint
+bazel run //path/to/package:stylelint
+i.e. bazel run //libs/barista-components/quick-filter:stylelint
 ```
 
 A11y
