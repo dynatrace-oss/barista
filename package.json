@@ -41,7 +41,10 @@
     "bazel": "bazelisk",
     "bazel:test": "bazelisk query \"attr(generator_function, jest, //...)\" | xargs bazelisk test",
     "bazel:stylelint": "node tools/scripts/stylelint.js",
-    "workspace-generator": "nx workspace-generator"
+    "workspace-generator": "nx workspace-generator",
+    "prepare-husky": "husky install",
+    "pre-commit": "nx format:write && git update-index --again",
+    "commit-msg": "npx commitlint --edit"
   },
   "author": "Dynatrace",
   "license": "SEE LICENSE IN LICENSE",
@@ -55,12 +58,6 @@
   ],
   "engines": {
     "node": ">=12.10"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "nx format:write && git update-index --again",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "dependencies": {
     "@angular/animations": "^11.2.4",
