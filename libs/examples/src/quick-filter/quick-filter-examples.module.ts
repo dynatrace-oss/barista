@@ -17,6 +17,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DtQuickFilterModule } from '@dynatrace/barista-components/quick-filter';
+import { DtExampleQuickFilterCustomParser } from './quick-filter-custom-parser-example/quick-filter-custom-parser-example';
 import { DtExampleQuickFilterCustomShowMore } from './quick-filter-custom-show-more-example/quick-filter-custom-show-more-example';
 import { DtExampleQuickFilterDefault } from './quick-filter-default-example/quick-filter-default-example';
 
@@ -25,6 +26,7 @@ import { DtExampleQuickFilterDefault } from './quick-filter-default-example/quic
   declarations: [
     DtExampleQuickFilterDefault,
     DtExampleQuickFilterCustomShowMore,
+    DtExampleQuickFilterCustomParser,
   ],
 })
 export class DtQuickFilterExamplesModule {}

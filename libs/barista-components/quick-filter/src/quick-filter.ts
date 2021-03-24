@@ -38,6 +38,7 @@ import {
   _getSourcesOfDtFilterValues,
   isDtFreeTextValue,
   isDtRangeValue,
+  TagParserFunction,
 } from '@dynatrace/barista-components/filter-field';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
@@ -211,6 +212,15 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   }
   set filters(filters: T[][]) {
     this._store.dispatch(addInitialFilters(filters));
+  }
+
+  /** A function to override the default or injected configuration for tag parsing */
+  @Input()
+  get customTagParser(): TagParserFunction | null {
+    return this._filterField.customTagParser;
+  }
+  set customTagParser(value: TagParserFunction | null) {
+    this._filterField.customTagParser = value;
   }
 
   /**
