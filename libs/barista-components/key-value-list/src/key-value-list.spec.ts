@@ -149,18 +149,18 @@ describe('DtKeyValueList', () => {
     });
 
     it('should display 1st item data properly', () => {
-      expect(getKeyElement(items[0])!.textContent).toBe('Temp');
-      expect(getValueElement(items[0])!.textContent).toBe('1');
+      expect(getKeyElement(items[0])!.textContent).toContain('Temp');
+      expect(getValueElement(items[0])!.textContent).toContain('1');
     });
 
     it('should display 2nd item data properly', () => {
-      expect(getKeyElement(items[1])!.textContent).toBe('Temp1');
-      expect(getValueElement(items[1])!.textContent).toBe('13');
+      expect(getKeyElement(items[1])!.textContent).toContain('Temp1');
+      expect(getValueElement(items[1])!.textContent).toContain('13');
     });
 
     it('should display 3rd item data properly', () => {
-      expect(getKeyElement(items[2])!.textContent).toBe('Temp2');
-      expect(getValueElement(items[2])!.textContent).toBe('28');
+      expect(getKeyElement(items[2])!.textContent).toContain('Temp2');
+      expect(getValueElement(items[2])!.textContent).toContain('28');
     });
   });
 });
