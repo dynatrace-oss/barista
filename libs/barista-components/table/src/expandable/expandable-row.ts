@@ -165,6 +165,8 @@ export class DtExpandableRow
   // tslint:disable-next-line: no-any
   _expandableContentTemplate: TemplateRef<any> | null;
 
+  private _selectionDispatchCleanup: () => void;
+
   constructor(
     // tslint:disable-next-line:no-any
     private _table: DtTable<any>,
@@ -175,20 +177,22 @@ export class DtExpandableRow
   ) {
     super(elementRef);
     this._table._hasExpandableRows = true;
-    this._expansionDispatcher.listen((rowId, tableId) => {
-      /**
-       * If the table does not allow multiple rows to be expanded at a time,
-       * the currently expanded row is collapsed.
-       */
-      if (
-        this._table &&
-        !this._table.multiExpand &&
-        this._table._uniqueId === tableId &&
-        this._uniqueId !== rowId
-      ) {
-        this._collapse();
-      }
-    });
+    this._selectionDispatchCleanup = this._expansionDispatcher.listen(
+      (rowId, tableId) => {
+        /**
+         * If the table does not allow multiple rows to be expanded at a time,
+         * the currently expanded row is collapsed.
+         */
+        if (
+          this._table &&
+          !this._table.multiExpand &&
+          this._table._uniqueId === tableId &&
+          this._uniqueId !== rowId
+        ) {
+          this._collapse();
+        }
+      },
+    );
 
     this._collapseAnimation = _animationBuilder.build(COLLAPSE_ANIMATE);
     this._expandAnimation = _animationBuilder.build(EXPAND_ANIMATE);
@@ -226,6 +230,9 @@ export class DtExpandableRow
   ngOnDestroy(): void {
     super.ngOnDestroy();
     this._templateSubscription.unsubscribe();
+    if (this._selectionDispatchCleanup) {
+      this._selectionDispatchCleanup();
+    }
   }
 
   private _expand(): void {
