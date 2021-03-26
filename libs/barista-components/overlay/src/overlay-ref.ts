@@ -66,6 +66,7 @@ export class DtOverlayRef<T> {
     private _config: DtOverlayConfig,
   ) {
     containerInstance._onDomExit.pipe(take(1)).subscribe(() => {
+      this.dismiss();
       this._overlayRef.dispose();
       this._pinned = false;
       this._afterExit.next();
