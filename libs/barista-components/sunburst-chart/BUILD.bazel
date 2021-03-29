@@ -31,6 +31,7 @@ ng_module_view_engine(
         "@npm//@angular/cdk",
         "@npm//@angular/common",
         "@npm//@angular/platform-browser",
+        "@npm//lodash-es",
         "@npm//rxjs",
         "@npm//@types/d3-shape",
         "@npm//d3-shape",
