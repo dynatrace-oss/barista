@@ -19,6 +19,7 @@ import {
   DT_CHART_COLOR_PALETTE_ORDERED,
 } from '@dynatrace/barista-components/theming';
 import { pie, arc } from 'd3-shape';
+import { isEqual } from 'lodash-es';
 
 /**
  * DtSunburstChartNode represents a single node within the sunburst datastructure.
@@ -297,8 +298,8 @@ export const getSelectedNodesFromOutside = (
       },
       selected,
     ) => {
-      const currentNode = tree.currentLevel.find(
-        (current) => current.origin === selected,
+      const currentNode = tree.currentLevel.find((current) =>
+        isEqual(current.origin, selected),
       );
       // TODO: this is assuming the values are correct. Otherwise we should provide an error
       if (currentNode) {
