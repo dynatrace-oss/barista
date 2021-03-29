@@ -28,7 +28,7 @@ import { sunburstChartDemoData } from './sunburst-chart-demo-data';
   styleUrls: ['./sunburst-chart-demo.component.scss'],
 })
 export class SunburstChartDemo {
-  selectedInitial: DtSunburstChartNode[] = [sunburstChartDemoData[4]];
+  selectedInitial: DtSunburstChartNode[] = [{ ...sunburstChartDemoData[4] }];
   selected: string[];
   valueDisplayMode: 'absolute' | 'percent' = 'absolute';
 
