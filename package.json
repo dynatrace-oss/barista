@@ -82,7 +82,7 @@
     "@angular-builders/custom-webpack": "^11.1.0",
     "@angular-devkit/architect": "^0.1101.2",
     "@angular-devkit/architect-cli": "^0.1102.3",
-    "@angular-devkit/build-angular": "0.1100.5",
+    "@angular-devkit/build-angular": "0.1102.6",
     "@angular-devkit/core": "^11.0.5",
     "@angular/bazel": "^11.0.5",
     "@angular/cli": "^11.0.5",
