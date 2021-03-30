@@ -1,3 +1,31 @@
+## [9.3.2](https://github.com/dynatrace-oss/barista/compare/9.3.1...9.3.2) (2021-03-30)
+
+### Bug Fixes
+
+- **breadcrumbs:** Fixes an issue with breadcrumbs and browser zoom level.
+  ([29d435a](https://github.com/dynatrace-oss/barista/commit/29d435ab17ac8c142cfec856cce591d6417da6cd))
+- **filter-field:** Avoid duplicity for multiselect edit mode.
+  ([43305d7](https://github.com/dynatrace-oss/barista/commit/43305d725bd73e4a890b70979add2fa447e692cf))
+- **filter-field:** Fixes the defaultSearch not being displayed anymore
+  ([a2e1f32](https://github.com/dynatrace-oss/barista/commit/a2e1f32e93b0f53eac0791e0aa0591798eb6236c))
+- **key-value-list:** Adds a zero-width white space to split the key from the
+  value.
+  ([918cf72](https://github.com/dynatrace-oss/barista/commit/918cf72ba7bf43e05c2c1103fd1fe5a9e6b18d1a))
+- **overlay:** Fixes an issue with the overlay origin positioning.
+  ([5c60e29](https://github.com/dynatrace-oss/barista/commit/5c60e294c64e6439b0305b25c370536eba366d10))
+- **overlay:** Overlay never reopens if closed via scrolling.
+  ([c241eaa](https://github.com/dynatrace-oss/barista/commit/c241eaaf85b3890e4eed4114b0cf649393d72852))
+- **sunburst-chart:** Solving object comparison for initial selection.
+  ([d8d72dd](https://github.com/dynatrace-oss/barista/commit/d8d72dd8311bec988c3e6075ab98fe216194440a))
+- **table:** Fixes an issue where the expandable row did not clean up after
+  itself.
+  ([80c6477](https://github.com/dynatrace-oss/barista/commit/80c64774cf5dcb82f3a5dbf5e86d29cbb40c99eb))
+- **table:** Fixes an issue where the inital search value was not applied to the
+  filter.
+  ([ef4f95f](https://github.com/dynatrace-oss/barista/commit/ef4f95fbff10db7571a627f4afb5401985cfe2cc))
+- **workspace:** Update husky configuration for husky5.
+  ([a0599ab](https://github.com/dynatrace-oss/barista/commit/a0599abe00d98d701ab415c8febe16733a25e7c4))
+
 ## [9.3.1](https://github.com/dynatrace-oss/barista/compare/9.3.0...9.3.1) (2021-03-17)
 
 ### Bug Fixes
