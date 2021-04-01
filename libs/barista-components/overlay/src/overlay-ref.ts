@@ -18,7 +18,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 import {
@@ -66,7 +66,6 @@ export class DtOverlayRef<T> {
     private _config: DtOverlayConfig,
   ) {
     containerInstance._onDomExit.pipe(take(1)).subscribe(() => {
-      this.dismiss();
       this._overlayRef.dispose();
       this._pinned = false;
       this._afterExit.next();
@@ -98,9 +97,14 @@ export class DtOverlayRef<T> {
           this._overlayRef.backdropElement,
           DT_OVERLAY_NO_POINTER_CLASS,
         );
-        this._overlayRef.backdropClick().subscribe(() => {
-          this.dismiss();
-        });
+        merge(
+          this._overlayRef.backdropClick(),
+          this._overlayRef.detachments().pipe(filter(() => this._pinned)), // emits when closed via scrolling
+        )
+          .pipe(take(1))
+          .subscribe(() => {
+            this.dismiss();
+          });
       } else {
         _addCssClass(
           this._overlayRef.backdropElement,
