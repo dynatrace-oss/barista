@@ -1,3 +1,16 @@
+## [9.4.0](https://github.com/dynatrace-oss/barista/compare/9.3.2...9.4.0) (2021-04-02)
+
+### Bug Fixes
+
+- **overlay:** Overlays get stuck open due to
+  [#2037](https://github.com/dynatrace-oss/barista/issues/2037).
+  ([c142ddf](https://github.com/dynatrace-oss/barista/commit/c142ddf3d1b6e4ef72a8897de184ddbf63a1f66a))
+
+### Features
+
+- **quick-filter:** Expose customTagParser input.
+  ([e4fb2e3](https://github.com/dynatrace-oss/barista/commit/e4fb2e3ec2acbb5849ca1baacbe57b0f66100d28))
+
 ## [9.3.2](https://github.com/dynatrace-oss/barista/compare/9.3.1...9.3.2) (2021-03-30)
 
 ### Bug Fixes
