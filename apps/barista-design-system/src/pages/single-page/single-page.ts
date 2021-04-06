@@ -15,8 +15,8 @@
  */
 
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { AfterViewInit, Component, Inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   BaPageLayoutType,
   BaSinglePageContent,
@@ -28,6 +28,7 @@ import {
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
 import { Platform } from '@angular/cdk/platform';
+import { map, tap } from 'rxjs/operators';
 @Component({
   selector: 'ba-single-page',
   templateUrl: 'single-page.html',
@@ -36,9 +37,16 @@ import { Platform } from '@angular/cdk/platform';
     class: 'ba-page',
   },
 })
-export class BaSinglePage implements OnInit, AfterViewInit {
+export class BaSinglePage implements AfterViewInit {
   /** @internal The current page content from the cms */
-  _pageContent = this._pageService._getCurrentPage();
+  _pageContent$ = this._activatedRoute.url.pipe(
+    map(() => this._pageService._getCurrentPage()),
+    tap((content) => {
+      if (content && content.layout !== BaPageLayoutType.Icon) {
+        this._recentlyOrderedService.savePage(content, this._router.url);
+      }
+    }),
+  );
 
   /** @internal Whether the page is the icon overview page */
   _isIconOverview = this._isIconOverviewPage();
@@ -48,20 +56,9 @@ export class BaSinglePage implements OnInit, AfterViewInit {
     private _pageService: DsPageService<BaSinglePageContent>,
     private _recentlyOrderedService: BaRecentlyOrderedService,
     private _platform: Platform,
+    private _activatedRoute: ActivatedRoute,
     @Inject(DOCUMENT) private _document: Document,
   ) {}
-
-  ngOnInit(): void {
-    if (
-      this._pageContent &&
-      this._pageContent.layout !== BaPageLayoutType.Icon
-    ) {
-      this._recentlyOrderedService.savePage(
-        this._pageContent,
-        this._router.url,
-      );
-    }
-  }
 
   ngAfterViewInit(): void {
     if (this._platform.isBrowser) {
