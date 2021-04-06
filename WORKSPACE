@@ -53,9 +53,10 @@ check_bazel_version("3.1.0")
 npm_install(
     name = "npm",
     data = [
-        "//:patches/@bazel+typescript+2.0.3.patch",
-        "//:patches/jest-haste-map+26.1.0.patch",
-        "//:patches/stylelint+13.2.1.patch",
+        "//:patches/@bazel+typescript+3.0.0.patch",
+        "//:patches/jest-haste-map+26.6.2.patch",
+        "//:patches/stylelint+13.12.0.patch",
+        "//:patches/symbol-observable+3.0.0.patch",
         "//:postinstall.js",
         "//:view-engine-tsconfig.json"
     ],
