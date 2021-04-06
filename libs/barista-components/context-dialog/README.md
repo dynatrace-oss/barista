@@ -57,6 +57,16 @@ your own maxWidth, it can be configured using the `DT_CONTEXT_DIALOG_CONFIG`
 injection token. Only the settings you provide will be overwritten, the others
 will fall back to the default configuration.
 
+In order to have a context-dialog that has no max-width set please provide a the
+`DT_CONTEXT_DIALOG_CONFIG` with the maxWidth property specifically set to
+`undefined`. This is necessary to have a defaultValue but still be able to
+override it in cases where the user does not want to have a maxWidth assigned to
+the overlay.
+
+```js
+[{ provide: DT_CONTEXT_DIALOG_CONFIG, useValue: { maxWidth: undefined } }];
+```
+
 ## Accessibility
 
 Context dialogs should be given a meaningful label via `aria-label` for the open
