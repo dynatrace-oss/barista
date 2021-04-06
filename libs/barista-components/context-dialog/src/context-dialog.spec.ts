@@ -47,7 +47,10 @@ import {
   DT_UI_TEST_CONFIG,
   DtUiTestConfiguration,
 } from '@dynatrace/barista-components/core';
-import { DT_CONTEXT_DIALOG_CONFIG } from './context-dialog';
+import {
+  DT_CONTEXT_DIALOG_CONFIG,
+  _DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH,
+} from './context-dialog';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;
@@ -64,7 +67,10 @@ describe('DtContextDialog', () => {
   };
 
   // tslint:disable-next-line:no-any
-  function configureDtContextDialogTestingModule(declarations: any[]): void {
+  function configureDtContextDialogTestingModule(
+    declarations: any[],
+    providers: any[] = [],
+  ): void {
     TestBed.configureTestingModule({
       imports: [
         DtContextDialogModule,
@@ -75,6 +81,7 @@ describe('DtContextDialog', () => {
       providers: [
         { provide: DT_UI_TEST_CONFIG, useValue: overlayConfig },
         { provide: DT_CONTEXT_DIALOG_CONFIG, useValue: overlayCustomConfig },
+        ...providers,
       ],
     }).compileComponents();
 
@@ -395,6 +402,50 @@ describe('DtContextDialog', () => {
         );
       }));
     });
+  });
+
+  describe('config', () => {
+    it(
+      'should have no maxWidth set if it is explicitly removed from the config',
+      waitForAsync(() => {
+        configureDtContextDialogTestingModule(
+          [BasicContextDialog],
+          [
+            {
+              provide: DT_CONTEXT_DIALOG_CONFIG,
+              useValue: { maxWidth: undefined },
+            },
+          ],
+        );
+
+        const fixture = createComponent(BasicContextDialog);
+        fixture.componentInstance.contextDialog.open();
+        fixture.detectChanges();
+        const cdkOverlayPane = overlayContainer
+          .getContainerElement()
+          .querySelector('.cdk-overlay-pane');
+        expect(cdkOverlayPane?.getAttribute('style')).not.toContain(
+          `max-width: ${_DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH}px`,
+        );
+      }),
+    );
+
+    it(
+      'should have no maxWidth set if it is explicitly removed from the config',
+      waitForAsync(() => {
+        configureDtContextDialogTestingModule([BasicContextDialog]);
+
+        const fixture = createComponent(BasicContextDialog);
+        fixture.componentInstance.contextDialog.open();
+        fixture.detectChanges();
+        const cdkOverlayPane = overlayContainer
+          .getContainerElement()
+          .querySelector('.cdk-overlay-pane');
+        expect(cdkOverlayPane?.getAttribute('style')).toContain(
+          `max-width: ${_DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH}px`,
+        );
+      }),
+    );
   });
 });
 
