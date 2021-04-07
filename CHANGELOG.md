@@ -1,3 +1,16 @@
+## [9.4.1](https://github.com/dynatrace-oss/barista/compare/9.4.0...9.4.1) (2021-04-07)
+
+### Bug Fixes
+
+- **barista:** Fixes an issue that the router upgrade to 11.2.4 broke the
+  routing and currentPage handling in singlePage fallback routes.
+  ([a45c2f8](https://github.com/dynatrace-oss/barista/commit/a45c2f82ab8dbc99a5451b380d8975eeb453ab70))
+- **context-dialog:** Fixes an issue that the default behavior of the context
+  dialog changed to not have a maxWidth assigned anymore. **Be aware that this
+  might break the size for context-dialogs that should not have a maxWidth set.
+  By default it is now 328px again as it was previously.**
+  ([ad40a85](https://github.com/dynatrace-oss/barista/commit/ad40a85260afbd417175d52adcfcf6cf899baba1))
+
 ## [9.4.0](https://github.com/dynatrace-oss/barista/compare/9.3.2...9.4.0) (2021-04-02)
 
 ### Bug Fixes
