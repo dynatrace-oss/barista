@@ -1,35 +1,36 @@
-<ng-container *ngIf="_pageContent$ | async as content">
-  <div class="ba-page-grid">
-    <nav
-      ba-sidenav
-      *ngIf="content.sidenav"
-      [sidenavData]="content.sidenav"
-    ></nav>
+<div class="ba-page-grid" *ngIf="_pageContent">
+  <nav
+    ba-sidenav
+    *ngIf="_pageContent.sidenav"
+    [sidenavData]="_pageContent.sidenav"
+  ></nav>
 
-    <ba-page-header
-      [content]="content"
-      [isIconOverviewPage]="_isIconOverview"
-    ></ba-page-header>
+  <ba-page-header
+    [content]="_pageContent"
+    [isIconOverviewPage]="_isIconOverview"
+  ></ba-page-header>
 
-    <main class="ba-page-main" id="main" role="main">
-      <article class="ba-single-page-content">
-        <ba-icon-overview-content
-          *ngIf="_isIconOverview; else elseBlock"
-          [icons]="content.icons"
-        ></ba-icon-overview-content>
-        <ng-template #elseBlock>
-          <ds-page-content [data]="content.content"></ds-page-content>
-        </ng-template>
-      </article>
-    </main>
+  <main class="ba-page-main" id="main" role="main">
+    <article class="ba-single-page-content">
+      <ba-icon-overview-content
+        *ngIf="_isIconOverview; else elseBlock"
+        [icons]="_pageContent.icons"
+      ></ba-icon-overview-content>
+      <ng-template #elseBlock>
+        <ds-page-content [data]="_pageContent.content"></ds-page-content>
+      </ng-template>
+    </article>
+  </main>
 
-    <ba-toc
-      id="toc"
-      *ngIf="!_isIconOverview && content.toc !== false"
-      [tocItems]="content.tocitems"
-    ></ba-toc>
+  <ba-toc
+    id="toc"
+    *ngIf="!_isIconOverview && _pageContent.toc !== false"
+    [tocItems]="_pageContent.tocitems"
+  ></ba-toc>
 
-    <ba-page-footer [tags]="content.tags" [relatedTopics]="content.related">
-    </ba-page-footer>
-  </div>
-</ng-container>
+  <ba-page-footer
+    [tags]="_pageContent.tags"
+    [relatedTopics]="_pageContent.related"
+  >
+  </ba-page-footer>
+</div>
