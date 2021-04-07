@@ -1,3 +1,14 @@
+## [9.4.1](https://github.com/dynatrace-oss/barista/compare/9.4.0...9.4.1) (2021-04-07)
+
+### Bug Fixes
+
+- **context-dialog:** Fixes an issue that the default behavior of the context
+  dialog changed to not have a maxWidth assigned anymore. **Be aware that this
+  reverts to a maxWidth of 328px for the overlay. If you need to have an overlay
+  without a maxWidth that grows with its content - provide a
+  `maxWidth: undefined` inside the `DT_CONTEXT_DIALOG_CONFIG` token.**
+  ([ad40a85](https://github.com/dynatrace-oss/barista/commit/ad40a85260afbd417175d52adcfcf6cf899baba1))
+
 ## [9.4.0](https://github.com/dynatrace-oss/barista/compare/9.3.2...9.4.0) (2021-04-02)
 
 ### Bug Fixes
