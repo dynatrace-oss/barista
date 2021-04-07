@@ -15,8 +15,8 @@
  */
 
 import { DOCUMENT } from '@angular/common';
-import { AfterViewInit, Component, Inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AfterViewInit, Component, Inject, OnDestroy } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import {
   BaPageLayoutType,
   BaSinglePageContent,
@@ -28,7 +28,9 @@ import {
 import { BaRecentlyOrderedService } from '../../shared/services/recently-ordered.service';
 import { applyTableDefinitionHeadingAttr } from '../../utils/apply-table-definition-headings';
 import { Platform } from '@angular/cdk/platform';
-import { map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, pluck } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'ba-single-page',
   templateUrl: 'single-page.html',
@@ -37,28 +39,41 @@ import { map, tap } from 'rxjs/operators';
     class: 'ba-page',
   },
 })
-export class BaSinglePage implements AfterViewInit {
+export class BaSinglePage implements AfterViewInit, OnDestroy {
   /** @internal The current page content from the cms */
-  _pageContent$ = this._activatedRoute.url.pipe(
-    map(() => this._pageService._getCurrentPage()),
-    tap((content) => {
-      if (content && content.layout !== BaPageLayoutType.Icon) {
-        this._recentlyOrderedService.savePage(content, this._router.url);
-      }
-    }),
-  );
+  _pageContent: BaSinglePageContent | null;
 
   /** @internal Whether the page is the icon overview page */
   _isIconOverview = this._isIconOverviewPage();
+
+  private _contentSubscription = Subscription.EMPTY;
 
   constructor(
     private _router: Router,
     private _pageService: DsPageService<BaSinglePageContent>,
     private _recentlyOrderedService: BaRecentlyOrderedService,
     private _platform: Platform,
-    private _activatedRoute: ActivatedRoute,
     @Inject(DOCUMENT) private _document: Document,
-  ) {}
+  ) {
+    this._contentSubscription = this._router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        pluck('url'),
+        distinctUntilChanged(),
+      )
+      .subscribe(() => {
+        this._pageContent = this._pageService._getCurrentPage();
+        if (
+          this._pageContent &&
+          this._pageContent.layout !== BaPageLayoutType.Icon
+        ) {
+          this._recentlyOrderedService.savePage(
+            this._pageContent,
+            this._router.url,
+          );
+        }
+      });
+  }
 
   ngAfterViewInit(): void {
     if (this._platform.isBrowser) {
@@ -69,6 +84,10 @@ export class BaSinglePage implements AfterViewInit {
         applyTableDefinitionHeadingAttr(table);
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this._contentSubscription.unsubscribe();
   }
 
   /**
