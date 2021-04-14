@@ -63,6 +63,7 @@ export class BaSinglePage implements AfterViewInit, OnDestroy {
       )
       .subscribe(() => {
         this._pageContent = this._pageService._getCurrentPage();
+        this._isIconOverview = this._isIconOverviewPage();
         if (
           this._pageContent &&
           this._pageContent.layout !== BaPageLayoutType.Icon
