@@ -92,7 +92,7 @@ export class DtOrder<T>
   _disabledChange = new BehaviorSubject<boolean>(false);
 
   /** Subscription of the drop list dropped event emitter */
-  private _dropListSubscription: Subscription;
+  private _dropListSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
     @Host() readonly _dropList: CdkDropList<T[]>,
