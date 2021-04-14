@@ -20,4 +20,8 @@ import { Component } from '@angular/core';
   selector: 'dt-example-select-default',
   templateUrl: './select-default-example.html',
 })
-export class DtExampleSelectDefault {}
+export class DtExampleSelectDefault {
+  entries = Array.from(new Array(2300))
+    .map(() => Math.random().toString(36).substring(7))
+    .sort();
+}
