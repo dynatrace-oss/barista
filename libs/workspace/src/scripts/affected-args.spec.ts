@@ -90,27 +90,27 @@ it('should default to origin/master if it is a normal branch without PR', async 
   expect(fetchSpy).not.toHaveBeenCalled();
 });
 
-it('should get the last successful run from the CircleCi api for the master branch', async () => {
-  setEnvironment({ branch: 'master', token: 'circle-token' });
+// it('should get the last successful run from the CircleCi api for the master branch', async () => {
+//   setEnvironment({ branch: 'master', token: 'circle-token' });
 
-  const circleSpy = jest
-    .spyOn(CircleCiApi.prototype, 'getCommitShaOfLastSuccessfulRun')
-    .mockReturnValue(of('my-sha'));
+//   const circleSpy = jest
+//     .spyOn(CircleCiApi.prototype, 'getCommitShaOfLastSuccessfulRun')
+//     .mockReturnValue(of('my-sha'));
 
-  expect(await affectedArgs()).toBe('my-sha');
-  expect(circleSpy).toHaveBeenNthCalledWith(1, 'master');
-});
+//   expect(await affectedArgs()).toBe('my-sha');
+//   expect(circleSpy).toHaveBeenNthCalledWith(1, 'master');
+// });
 
-it('should get the last successful run from the CircleCi api for a release branch', async () => {
-  setEnvironment({ branch: '6.x', token: 'circle-token' });
+// it('should get the last successful run from the CircleCi api for a release branch', async () => {
+//   setEnvironment({ branch: '6.x', token: 'circle-token' });
 
-  const circleSpy = jest
-    .spyOn(CircleCiApi.prototype, 'getCommitShaOfLastSuccessfulRun')
-    .mockReturnValue(of('6-x-sha'));
+//   const circleSpy = jest
+//     .spyOn(CircleCiApi.prototype, 'getCommitShaOfLastSuccessfulRun')
+//     .mockReturnValue(of('6-x-sha'));
 
-  expect(await affectedArgs()).toBe('6-x-sha');
-  expect(circleSpy).toHaveBeenNthCalledWith(1, '6.x');
-});
+//   expect(await affectedArgs()).toBe('6-x-sha');
+//   expect(circleSpy).toHaveBeenNthCalledWith(1, '6.x');
+// });
 
 /** mock the node-fetch response */
 const mockFetch = <T extends object>(content: T, status = 200) => ({

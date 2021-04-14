@@ -1,3 +1,10 @@
+## [9.2.1](https://github.com/dynatrace-oss/barista/compare/9.2.0...9.2.1) (2021-04-14)
+
+### Bug Fixes
+
+- **select:** Remove scrollIntoView on hover, which caused endless scrolling in
+  edge cases with zoom enabled.
+
 ## [9.2.0](https://github.com/dynatrace-oss/barista/compare/9.1.0...9.2.0) (2021-02-23)
 
 ### Bug Fixes

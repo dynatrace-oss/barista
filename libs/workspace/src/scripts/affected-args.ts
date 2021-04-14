@@ -72,6 +72,8 @@ export async function affectedArgs(): Promise<string> {
   if (isMasterOrReleaseBranch(CIRCLE_BRANCH!)) {
     try {
       const circleApi = new CircleCiApi(CIRCLE_API_TOKEN);
+      return 'HEAD~10';
+
       return await circleApi
         .getCommitShaOfLastSuccessfulRun(CIRCLE_BRANCH!)
         .toPromise();
