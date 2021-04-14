@@ -532,21 +532,6 @@ export class DtSelect<T>
         this._initializeSelection();
         this._resetOptions();
       });
-
-    // We need to check for changes in the options when the user is hovering
-    this.options.changes
-      .pipe(
-        startWith(null),
-        switchMap(() =>
-          merge(...this.options.map((option) => option._optionHovered)),
-        ),
-        takeUntil(this._destroy),
-      )
-      .subscribe((option) => {
-        this._ngZone.run(() => {
-          this._keyManager.setActiveItem(option);
-        });
-      });
   }
 
   ngDoCheck(): void {
