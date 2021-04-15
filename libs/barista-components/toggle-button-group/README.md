@@ -38,9 +38,9 @@ the left hand side:
 
 ### Outputs
 
-| Name     | Type                                    | Description                                                                                                                                                                     |
-| -------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| `change` | `EventEmitter<DtToggleButtonChange<T>>` | EventEmitter that fires every time the selection changes. `DtToggleButtonChange` is an interface for the following object signature: `{ source: DtToggleButtonItem<T>, value: T | null, isUserInput: boolean }`. |
+| Name     | Type                                    | Description                                                                                                                                                                                                       |
+| -------- | --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `change` | `EventEmitter<DtToggleButtonChange<T>>` | EventEmitter that fires every time the selection changes. `DtToggleButtonChange` is an interface for the following object signature: `{ source: DtToggleButtonItem<T>, value: T \| null, isUserInput: boolean }`. |
 
 ### Methods
 

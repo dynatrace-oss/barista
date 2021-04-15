@@ -109,7 +109,7 @@ The Overlay component uses Angular CDK's `FullscreenOverlayContainer` in order
 to supports correct displaying of overlays in DOM elements in fullscreen mode.
 [Fullscreen API](https://developer.mozilla.org/en-US/docs/Web/API/Element/requestFullScreen)
 
-<ba-live-example name="DtExampleOverlayFullscreen"></ba-live-example> |
+<ba-live-example name="DtExampleOverlayFullscreen"></ba-live-example>
 
 ## Overlays in use
 
