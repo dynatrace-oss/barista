@@ -214,6 +214,22 @@ export class DtPagination implements OnInit {
 
   /**
    * @internal
+   * Track by function for the outer part of the _pages array loop
+   */
+  _blockTrackBy(_index: number, block: number[]): number {
+    return block.reduce((sum, pageNumber) => sum + pageNumber, 0);
+  }
+
+  /**
+   * @internal
+   * Track by function for the inner part of the _pages array loop
+   */
+  _pageTrackBy(_index: number, page: number): number {
+    return page;
+  }
+
+  /**
+   * @internal
    * sets the current page and emits the changed event with the current page
    * only triggered by user interaction.
    */
