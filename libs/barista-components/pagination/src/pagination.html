@@ -13,12 +13,17 @@
     </button>
   </li>
 
-  <ng-container *ngFor="let block of _pages; let i = index">
+  <ng-container
+    *ngFor="let block of _pages; let i = index; trackBy: _blockTrackBy"
+  >
     <li *ngIf="i > 0" class="dt-pagination-item">
       <span [attr.aria-label]="_ariaLabelEllipsis">…</span>
     </li>
 
-    <li *ngFor="let page of block" class="dt-pagination-item">
+    <li
+      *ngFor="let page of block; trackBy: _pageTrackBy"
+      class="dt-pagination-item"
+    >
       <button
         *ngIf="page !== currentPage"
         dt-button
