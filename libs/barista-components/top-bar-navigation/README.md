@@ -32,9 +32,9 @@ This can be achieved with the `align` property.
 
 ### Inputs
 
-| Name    | Type     | Default | Description |
-| ------- | -------- | ------- | ----------- | ------------------------------------------------------------------------------- |
-| `align` | `'start' | 'end'`  | `'start'`   | If the item is placed on the left side or right side of the top navigation bar. |
+| Name    | Type               | Default   | Description                                                                     |
+| ------- | ------------------ | --------- | ------------------------------------------------------------------------------- |
+| `align` | `'start' \| 'end'` | `'start'` | If the item is placed on the left side or right side of the top navigation bar. |
 
 ## DtTopBarAction
 
