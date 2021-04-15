@@ -133,23 +133,10 @@ You can specify the following properties on your options:
 The `formatRate` function enables you to format a number or a FormattedValue
 from a previous pipe with a rate. The function takes the following parameters:
 
-| Name       | Type              | Default | Description |
-| ---------- | ----------------- | ------- | ----------- | ------------------------------------------- |
-| `input`    | `DtFormattedValue | number` |             | numeric value to be transformed by the pipe |
-| `rateUnit` | `DtRateUnit       | string` |             | rate unit                                   |
-
-### Time (deprecated - Will be removed with version 7.0.0)
-
-The `formatTime` function converts a number to a timestamp. Default behaviour
-will print the first available value/unit and only the next two descending
-steps. Optionally you can set the input unit and which unit you want to set as
-the lower limit.
-
-| Name        | Type         | Default     | Description                                                                                                    |
-| ----------- | ------------ | ----------- | -------------------------------------------------------------------------------------------------------------- |
-| `input`     | `number`     | `ms`        | numeric value to be transformed by the pipe                                                                    |
-| `inputUnit` | `DtTimeUnit` | `undefined` | Which timeunit is used for the input                                                                           |
-| `toUnit`    | `DtTimeUnit` | `undefined` | Which timeunit is the smallest possible output (Pipe disregards toUnit when unit is bigger than the inputUnit) |
+| Name       | Type                         | Default | Description                                 |
+| ---------- | ---------------------------- | ------- | ------------------------------------------- |
+| `input`    | `DtFormattedValue \| number` |         | numeric value to be transformed by the pipe |
+| `rateUnit` | `DtRateUnit \| string`       |         | rate unit                                   |
 
 ### Duration
 
@@ -166,13 +153,13 @@ consumes a formatMethod which configures how the output is built.
 
 You can specify the following properties on your options:
 
-| Name           | Type         | Default        | Description                          |
-| -------------- | ------------ | -------------- | ------------------------------------ | ----------- | ------------------------------------------------ |
-| `input`        | `number`     |                | Numeric value to be transformed      |
-| `formatMethod` | `'DEFAULT    | 'PRECISE'      | number`                              | `'DEFAULT'` | Formatting/Precision mode configuring the output |
-| `outputUnit`   | `DtTimeUnit` | `undefined`    | Which unit to transform the input to |
-| `inputUnit`    | `DtTimeUnit` | `Milliseconds` | Which timeunit is used for the input |
-| `maxDecimals`  | `number`     | 5              | Max amount of decimals               |
+| Name           | Type                              | Default        | Description                                      |
+| -------------- | --------------------------------- | -------------- | ------------------------------------------------ |
+| `input`        | `number`                          |                | Numeric value to be transformed                  |
+| `formatMethod` | `'DEFAULT \| 'PRECISE' \| number` | `'DEFAULT'`    | Formatting/Precision mode configuring the output |
+| `outputUnit`   | `DtTimeUnit`                      | `undefined`    | Which unit to transform the input to             |
+| `inputUnit`    | `DtTimeUnit`                      | `Milliseconds` | Which timeunit is used for the input             |
+| `maxDecimals`  | `number`                          | 5              | Max amount of decimals                           |
 
 #### Examples
 
