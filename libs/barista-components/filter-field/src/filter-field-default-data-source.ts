@@ -36,10 +36,12 @@ import {
   dtMultiSelectDef,
 } from './types';
 
+// TODO: add disabled optional property
 /** The simple Shape of an object to be usable as a option in an autocomplete or free-text */
 export interface DtFilterFieldDefaultDataSourceSimpleOption {
   name: string;
   id?: string | number;
+  disabled?: boolean;
 }
 
 export type DtFilterFieldDefaultDataSourceOption =
@@ -311,6 +313,7 @@ export class DtFilterFieldDefaultDataSource
       isNumber(data.id) || isString(data.id) ? `${data.id}` : null,
       parentAutocomplete,
       parentGroup,
+      data.disabled,
     );
   }
 
