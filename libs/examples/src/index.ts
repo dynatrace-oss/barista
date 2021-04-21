@@ -148,7 +148,7 @@ import { DtExampleExpandableTextDefault } from './expandable-text/expandable-tex
 import { DtExampleFilterFieldAsync } from './filter-field/filter-field-async-example/filter-field-async-example';
 import { DtExampleFilterFieldClearall } from './filter-field/filter-field-clearall-example/filter-field-clearall-example';
 import { DtExampleFilterFieldCustomParser } from './filter-field/filter-field-custom-parser-example/filter-field-custom-parser-example';
-import { DtExampleFilterFieldCustomPlaceholder } from './filter-field/filter-field-custom-placeholder/filter-field-custom-placeholder.example';
+import { DtExampleFilterFieldCustomPlaceholder } from './filter-field/filter-field-custom-placeholder-example/filter-field-custom-placeholder-example';
 import { DtExampleFilterFieldDefault } from './filter-field/filter-field-default-example/filter-field-default-example';
 import { DtExampleFilterFieldDefaultSearch } from './filter-field/filter-field-default-search-example/filter-field-default-search-example';
 import { DtExampleFilterFieldDisabled } from './filter-field/filter-field-disabled-example/filter-field-disabled-example';
@@ -528,7 +528,7 @@ export {
   DtExampleFilterFieldAsync,
   DtExampleFilterFieldClearall,
   DtExampleFilterFieldCustomParser,
-  DtExampleFilterFieldCustomPlaceholder as DtExampleFilterFieldCustomPlaceholderExample,
+  DtExampleFilterFieldCustomPlaceholder,
   DtExampleFilterFieldDefault,
   DtExampleFilterFieldDefaultSearch,
   DtExampleFilterFieldDisabled,
