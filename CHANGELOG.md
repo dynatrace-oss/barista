@@ -1,3 +1,23 @@
+## [9.4.3](https://github.com/dynatrace-oss/barista/compare/9.4.2...9.4.3) (2021-04-21)
+
+### Bug Fixes
+
+- **confirmation-dialog:** Fixes an issue with blocking space above the
+  confirmation dialog.
+  ([c6a15bb](https://github.com/dynatrace-oss/barista/commit/c6a15bb68611d6c6f6284844187de01c7d618a97))
+- **context-dialog:** Fixes an overflow issue with long content when positioning
+  moved to bottom.
+  ([c84fac5](https://github.com/dynatrace-oss/barista/commit/c84fac5b2bec56f9a4faf0c66c466646257cf3ee))
+- **table:** Fixes an issue with rapid unsubscription if the dtOrder is
+  immediately destroyed.
+  ([9dbf1a2](https://github.com/dynatrace-oss/barista/commit/9dbf1a2f816cc4cd8212ced6c54ea2fb2c2fa106))
+
+### Performance Improvements
+
+- **pagination:** Loops in the dt-pagination are now trackedBy for better
+  performance.
+  ([a312ea2](https://github.com/dynatrace-oss/barista/commit/a312ea29bc6c984cbe1925e6f521e3befbe5602f))
+
 ## [9.4.2](https://github.com/dynatrace-oss/barista/compare/9.4.1...9.4.2) (2021-04-14)
 
 ### Bug Fixes
