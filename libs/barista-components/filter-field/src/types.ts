@@ -82,6 +82,7 @@ export interface DtGroupDef<O = unknown> {
 }
 
 export interface DtOptionDef {
+  disabled?: boolean;
   viewValue: string;
   uid: string | null;
   parentGroup: DtNodeDef<unknown> | null;
@@ -285,10 +286,12 @@ export function dtOptionDef<D = unknown>(
   uid: string | null,
   parentAutocomplete: DtNodeDef<unknown> | null,
   parentGroup: DtNodeDef<unknown> | null,
+  disabled: boolean = false,
 ): DtNodeDef<D> & { option: DtOptionDef } {
   const def = {
     ...nodeDef(data, existingNodeDef),
     option: {
+      disabled,
       viewValue,
       uid,
       parentAutocomplete,

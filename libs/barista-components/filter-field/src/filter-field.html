@@ -97,6 +97,7 @@
           <dt-option
             *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
+            [disabled]="optionDef.option!.disabled"
             [attr.title]="_getTitle(optionDef.option)"
           >
             <dt-highlight [term]="_inputValue">{{
