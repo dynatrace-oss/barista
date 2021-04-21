@@ -79,7 +79,7 @@ $context-dialog-top-header-padding: 8px;
 // and there is no footer, adjust the padding and margin of the content.
 ::ng-deep.dt-context-dialog-panel-bottom
   .dt-context-dialog-panel
-  .dt-context-dialog-content:not(:last-child) {
+  .dt-context-dialog-content:not(:nth-last-child(2)) {
   margin: 0;
   padding: $panel-padding;
 }
