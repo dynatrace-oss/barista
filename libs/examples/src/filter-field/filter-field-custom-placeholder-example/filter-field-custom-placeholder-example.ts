@@ -21,8 +21,8 @@ import {
 } from '@dynatrace/barista-components/filter-field';
 
 @Component({
-  selector: 'dt-example-filter-field-read-only-placeholder-edition',
-  templateUrl: 'filter-field-custom-placeholder.example.html',
+  selector: 'dt-example-filter-field-filter-field-custom-placeholder',
+  templateUrl: 'filter-field-custom-placeholder-example.html',
 })
 export class DtExampleFilterFieldCustomPlaceholder {
   private DATA = {
