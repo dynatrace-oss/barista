@@ -36,7 +36,6 @@ import {
   dtMultiSelectDef,
 } from './types';
 
-// TODO: add disabled optional property
 /** The simple Shape of an object to be usable as a option in an autocomplete or free-text */
 export interface DtFilterFieldDefaultDataSourceSimpleOption {
   name: string;
