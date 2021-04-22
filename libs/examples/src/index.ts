@@ -133,6 +133,7 @@ import { DtExampleEventChartDefault } from './event-chart/event-chart-default-ex
 import { DtExampleEventChartLegend } from './event-chart/event-chart-legend-example/event-chart-legend-example';
 import { DtExampleEventChartOverlappingLoad } from './event-chart/event-chart-overlapping-load-example/event-chart-overlapping-load-example';
 import { DtExampleEventChartOverlay } from './event-chart/event-chart-overlay-example/event-chart-overlay-example';
+import { DtExampleEventChartHeatfield } from './event-chart/event-chart-heatfield-example/event-chart-heatfield-example';
 import { DtExampleEventChartSelection } from './event-chart/event-chart-selection-example/event-chart-selection-example';
 import { DtExampleEventChartSessionReplay } from './event-chart/event-chart-session-replay-example/event-chart-session-replay-example';
 import { DtExampleExpandablePanelDefault } from './expandable-panel/expandable-panel-default-example/expandable-panel-default-example';
@@ -513,6 +514,7 @@ export {
   DtExampleEventChartLegend,
   DtExampleEventChartOverlappingLoad,
   DtExampleEventChartOverlay,
+  DtExampleEventChartHeatfield,
   DtExampleEventChartSelection,
   DtExampleEventChartSessionReplay,
   DtExampleExpandablePanelDefault,
@@ -862,6 +864,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleEventChartLegend', DtExampleEventChartLegend],
   ['DtExampleEventChartOverlappingLoad', DtExampleEventChartOverlappingLoad],
   ['DtExampleEventChartOverlay', DtExampleEventChartOverlay],
+  ['DtExampleEventChartHeatfield', DtExampleEventChartHeatfield],
   ['DtExampleEventChartSelection', DtExampleEventChartSelection],
   ['DtExampleEventChartSessionReplay', DtExampleEventChartSessionReplay],
   ['DtExampleExpandablePanelDefault', DtExampleExpandablePanelDefault],

@@ -70,25 +70,45 @@
   }
 }
 
-.dt-event-chart-event-selectedoutline {
+// Single chart field
+.dt-event-chart-field {
+  stroke-width: 4;
+  paint-order: stroke fill;
+  stroke: #ffffff;
+  fill: $dt-event-chart-default-color;
+  cursor: pointer;
+
+  &:focus {
+    @include dt-interactive-reset();
+  }
+}
+
+.dt-event-chart-rect {
+  paint-order: fill;
+  fill: $dt-event-chart-default-color;
+  opacity: 0.125;
+  z-index: 200;
+}
+
+.dt-event-chart-style-selectedoutline {
   stroke: $dt-event-chart-select-color;
   stroke-width: 2;
   fill: #ffffff;
 }
 
-.dt-event-chart-event-error {
+.dt-event-chart-style-error {
   fill: $dt-event-chart-error-color;
 }
 
-.dt-event-chart-event-filtered {
+.dt-event-chart-style-filtered {
   fill: $dt-event-chart-filtered-color;
 }
 
-.dt-event-chart-event-conversion {
+.dt-event-chart-style-conversion {
   fill: $dt-event-chart-conversion-color;
 }
 
-.dt-event-chart-event-mergednumber {
+.dt-event-chart-style-mergednumber {
   fill: #ffffff;
   pointer-events: none;
   font-size: 10;

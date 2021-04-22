@@ -65,6 +65,27 @@ metadata for this event.
 | ---------- | ------------------------------------------- | -------------------------------------------------- |
 | `selected` | `EventEmitter<DtEventChartSelectedEvent<T>` | Event that fires when a an eventBubble is clicked. |
 
+### DtEventChartHeatfield<T>
+
+The `DtEventChartHeatfield` component is used to provide heatfield data to the
+parent event chart. It will also accept an arbitrary `data` input, which can
+hold metadata for this field.
+
+#### Inputs
+
+| Name    | Type                 | Default   | Description                                                                       |
+| ------- | -------------------- | --------- | --------------------------------------------------------------------------------- |
+| `start` | `number`             |           | The start numerical/date value on the x-axis of the chart.                        |
+| `end`   | `number`             |           | LThe end numerical/date value on the x-axis of the chart.                         |
+| `color` | `DtEventChartColors` | `default` | Color of the heatfield.                                                           |
+| `data`  | `T`                  | -         | Any data for this heatfield. This data will be emitted when an event is selected. |
+
+#### Outputs
+
+| Name       | Type                                        | Description                                      |
+| ---------- | ------------------------------------------- | ------------------------------------------------ |
+| `selected` | `EventEmitter<DtEventChartSelectedEvent<T>` | Event that fires when a an heatfield is clicked. |
+
 ### DtEventChartLane
 
 The `dtEventChartLane` defines a lane, on which an event will be rendered. The
@@ -112,6 +133,22 @@ context to the overlay template, which can be used as following:
 </ng-template>
 ```
 
+### DtEventChartHeatfieldOverlay
+
+The `dtEventChartHeatfieldOverlay` directive applies to an `ng-template` element
+lets you provide a template for the rendered overlay. The overlay will be shown
+when a user hovers the heatfield. The EventChart will expose the hovered events
+(this is always an array, as the events could be clustered) as `$implicit`
+context to the overlay template, which can be used as following:
+
+```html
+<ng-template dtEventChartHeatfieldOverlay let-tooltip>
+  <div *ngFor="let t of tooltip">
+    <!-- Insert your template for one event here. -->
+  </div>
+</ng-template>
+```
+
 ## DtEventChartColors
 
 Currently, there are only four different colors which are applicable to a
@@ -139,6 +176,10 @@ Currently, there are only four different colors which are applicable to a
 ### Defining the overlay template
 
 <ba-live-example name="DtExampleEventChartOverlay" fullwidth></ba-live-example>
+
+### Setting heatfields and heatfield overlay template
+
+<ba-live-example name="DtExampleEventChartHeatfield" fullwidth></ba-live-example>
 
 ### Handling event selection via click
 
