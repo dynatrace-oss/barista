@@ -18,15 +18,16 @@ class MyModule {}
 
 ## Inputs
 
-| Name                  | Type                      | Default                               | Description                                                                                                      |
-| --------------------- | ------------------------- | ------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `dataSource`          | `DtFilterFieldDataSource` |                                       | Provide a DataSource to feed data to the filter-field. This input is mandatory.                                  |
-| `filters`             | `any[][]`                 |                                       | The currently selected filters. This input can also be used to programmatically add filters to the filter-field. |
-| `label`               | `string`                  |                                       | The label for the input field. Can be set to something like "Filter by".                                         |
-| `loading`             | `boolean`                 | `false`                               | Whether the filter-field is loading data and should show a loading spinner.                                      |
-| `disabled`            | `boolean`                 | `false`                               | Whether the filter-field is disabled.                                                                            |
-| `aria-label`          | `string`                  |                                       | Sets the value for the Aria-Label attribute.                                                                     |
-| `customEditionParser` | `EditionParserFunction`   | `defaultTagDataForFilterValuesParser` | Default function to parse text during the edition of a filed                                                     |
+| Name                  | Type                      | Default                                   | Description                                                                                                      |
+| --------------------- | ------------------------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `dataSource`          | `DtFilterFieldDataSource` |                                           | Provide a DataSource to feed data to the filter-field. This input is mandatory.                                  |
+| `filters`             | `any[][]`                 |                                           | The currently selected filters. This input can also be used to programmatically add filters to the filter-field. |
+| `label`               | `string`                  |                                           | The label for the input field. Can be set to something like "Filter by".                                         |
+| `loading`             | `boolean`                 | `false`                                   | Whether the filter-field is loading data and should show a loading spinner.                                      |
+| `disabled`            | `boolean`                 | `false`                                   | Whether the filter-field is disabled.                                                                            |
+| `aria-label`          | `string`                  |                                           | Sets the value for the Aria-Label attribute.                                                                     |
+| `customTagParser`     | `TagParserFunction`       | `defaultTagDataForFilterValuesParser`     | A function to override the default or injected configuration for tag parsing.                                    |
+| `customEditionParser` | `EditionParserFunction`   | `defaultEditionDataForFilterValuesParser` | A function to override the default or injected configuration for edition parsing text.                           |
 
 _Note: Check out the [Data source](components/filter-field#data-source) section
 to understand how to provide the correct data structure for the filter-field._
@@ -260,13 +261,13 @@ instance.
 
 ### Changing the default parsing of filter edition placeholder
 
-The filter field exposes a `defaultTagDataForFilterValuesParser` function,
+The filter field exposes a `defaultEditionDataForFilterValuesParser` function,
 describing how the placehoder during selection should be parsed. However, this
 function can be extended and replaced through the
-`DT_FILTER_EDITION_VALUES_DEFAULT_PARSER_CONFIG` token, which can be injected in
-the parent component and assigned a function of your own. In addition, this
-token can also be overriden with an input function specific to the component
-using that filter instance.
+`DT_FILTER_EDITION_VALUES_PARSER_CONFIG` token, which can be injected in the
+parent component and assigned a function of your own. In addition, this token
+can also be overriden with an input function specific to the component using
+that filter instance.
 
 <ba-live-example name="DtExampleFilterFieldCustomPlaceholder"></ba-live-example>
 

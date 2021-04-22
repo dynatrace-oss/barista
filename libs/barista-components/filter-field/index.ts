@@ -28,6 +28,7 @@ export {
   applyDtOptionIds,
   DELIMITER,
   defaultTagDataForFilterValuesParser,
+  defaultEditionDataForFilterValuesParser,
 } from './src/filter-field-util';
 export {
   DtNodeFlags,
@@ -61,5 +62,7 @@ export {
 } from './src/types';
 export {
   DT_FILTER_VALUES_PARSER_CONFIG,
+  DT_FILTER_EDITION_VALUES_PARSER_CONFIG,
   TagParserFunction,
+  EditionParserFunction,
 } from './src/filter-field-config';
