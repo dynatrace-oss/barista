@@ -21,6 +21,7 @@ import {
   EventChartDemoEvent,
   EventChartDemoLane,
   EventChartDemoLegendItem,
+  EventChartDemoHeatfield,
 } from './event-chart-demo-data';
 
 // tslint:disable: max-file-line-count
@@ -455,6 +456,10 @@ const TEST_DATA = [
 ];
 
 export class MobileActionDataSource implements EventChartDemoDataSource {
+  getHeatfields(): EventChartDemoHeatfield[] {
+    return [];
+  }
+
   getEvents(): EventChartDemoEvent[] {
     const events: EventChartDemoEvent[] = [];
     TEST_DATA.forEach((event) => {

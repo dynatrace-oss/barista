@@ -23,6 +23,14 @@ export interface EventChartDemoEvent {
   data?: any;
 }
 
+export interface EventChartDemoHeatfield {
+  start?: number;
+  end?: number;
+  color?: 'default' | 'error' | 'filtered';
+  // tslint:disable-next-line: no-any
+  data?: any;
+}
+
 export interface EventChartDemoLane {
   name: string;
   label: string;
@@ -38,4 +46,5 @@ export interface EventChartDemoDataSource {
   getEvents(): EventChartDemoEvent[];
   getLanes(): EventChartDemoLane[];
   getLegendItems(): EventChartDemoLegendItem[];
+  getHeatfields(): EventChartDemoHeatfield[];
 }

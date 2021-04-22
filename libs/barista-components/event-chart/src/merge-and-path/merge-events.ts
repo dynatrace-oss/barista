@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { RenderEvent } from '../render-event.interface';
+import { RenderEvent, RenderField } from '../render-event.interface';
 
 /** Determines whether two events overlap. */
 export function dtEventChartIsOverlappingEvent(
   // tslint:disable-next-line: no-any
-  eventA: RenderEvent<any>,
+  eventA: RenderEvent<any> | RenderField<any>,
   // tslint:disable-next-line: no-any
-  eventB: RenderEvent<any>,
+  eventB: RenderEvent<any> | RenderField<any>,
   overlapThreshold: number,
 ): boolean {
   // Either eventA or eventB have a duration, in which case they should not overlap
@@ -32,6 +32,7 @@ export function dtEventChartIsOverlappingEvent(
 }
 
 type MergedRenderEvent<T> = RenderEvent<T> & { merged?: boolean };
+type MergedRenderField<T> = RenderField<T> & { merged?: boolean };
 
 export function dtEventChartMergeEvents<T>(
   renderEvents: MergedRenderEvent<T>[],
@@ -107,6 +108,82 @@ export function dtEventChartMergeEvents<T>(
     }
 
     // Save the original index of the event to have a reference value between merged
+    // and not merged elements (originalIndex, mergedWith should be on the same basis).
+    currentEvent.originalIndex = index;
+  }
+
+  // Filter out the renderEvents that have been merged in the process.
+  return renderEvents.filter((renderEvent) => renderEvent.merged !== true);
+}
+
+export function dtEventChartMergeFields<T>(
+  renderEvents: MergedRenderField<T>[],
+  overlapThreshold: number,
+): RenderField<T>[] {
+  // Loop over the rendered fields to merge points if necessary.
+  for (let index = 0; index < renderEvents.length; index += 1) {
+    const currentEvent: MergedRenderField<T> = renderEvents[index];
+    // If the currentEvent is already a merged point
+    // we should not consider it as new origin point for merging.
+    if (currentEvent.merged) {
+      continue;
+    }
+
+    // From the current point forward, find the merge points that are eligable
+    // for merge. Points are eligable for merging if:
+    // - They are on the same lane
+    // - Have the same color
+    // - Do not have a duration
+    // - Overlap with the current point
+    const mergableEvents = new Map<number, MergedRenderField<T>>();
+    for (
+      let eligableIndex = index + 1;
+      eligableIndex < renderEvents.length;
+      eligableIndex += 1
+    ) {
+      const eligableEvent: MergedRenderField<T> = renderEvents[eligableIndex];
+      const isOverlapping = dtEventChartIsOverlappingEvent(
+        currentEvent,
+        eligableEvent,
+        overlapThreshold,
+      );
+      const hasSameColor = currentEvent.color === eligableEvent.color;
+
+      // If the lane is the same, but the fields do not overlap, there will be no more overlaps
+      // after that. We can break the loop right there.
+      if (!isOverlapping) {
+        break;
+      }
+
+      // if there is another colored field on the same lane, do not look any further, as this stops
+      // the merging chain.
+      if (!hasSameColor) {
+        break;
+      }
+
+      // If the two fields meet all criteria to be merged, record the original index
+      // and the field.
+      if (isOverlapping && hasSameColor && eligableEvent.merged !== true) {
+        mergableEvents.set(eligableIndex, eligableEvent);
+      }
+    }
+
+    // Merge the fields in the list.
+    if (mergableEvents.size > 0) {
+      currentEvent.mergedWith = [];
+      for (const [mergedEventIndex, mergedRenderEvent] of Array.from(
+        mergableEvents.entries(),
+      )) {
+        currentEvent.mergedWith.push(mergedEventIndex);
+        currentEvent.fields = [
+          ...currentEvent.fields,
+          ...mergedRenderEvent.fields,
+        ];
+        mergedRenderEvent.merged = true;
+      }
+    }
+
+    // Save the original index of the field to have a reference value between merged
     // and not merged elements (originalIndex, mergedWith should be on the same basis).
     currentEvent.originalIndex = index;
   }

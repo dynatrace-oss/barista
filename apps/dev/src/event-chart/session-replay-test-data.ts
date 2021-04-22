@@ -19,6 +19,7 @@ import {
   EventChartDemoEvent,
   EventChartDemoLane,
   EventChartDemoLegendItem,
+  EventChartDemoHeatfield,
 } from './event-chart-demo-data';
 
 // tslint:disable: max-file-line-count
@@ -3285,5 +3286,9 @@ export class SessionReplayDataSource implements EventChartDemoDataSource {
       }
     }
     return Array.from(lanesPerColor.values());
+  }
+
+  getHeatfields(): EventChartDemoHeatfield[] {
+    return [];
   }
 }
