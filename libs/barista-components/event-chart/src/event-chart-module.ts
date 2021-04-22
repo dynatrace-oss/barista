@@ -26,6 +26,8 @@ import {
   DtEventChartLane,
   DtEventChartLegendItem,
   DtEventChartOverlay,
+  DtEventChartHeatfieldOverlay,
+  DtEventChartField,
 } from './event-chart-directives';
 import { DtEventChartLegend } from './event-chart-legend';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
@@ -36,6 +38,8 @@ export const DT_EVENT_CHART_DIRECTIVES = [
   DtEventChartLane,
   DtEventChartLegendItem,
   DtEventChartOverlay,
+  DtEventChartHeatfieldOverlay,
+  DtEventChartField,
 ];
 
 @NgModule({

@@ -18,6 +18,7 @@ ng_module(
         "event-chart-legend-example/event-chart-legend-example.html",
         "event-chart-overlapping-load-example/event-chart-overlapping-load-example.html",
         "event-chart-overlay-example/event-chart-overlay-example.html",
+        "event-chart-heatfield-example/event-chart-heatfield-example.html",
         "event-chart-selection-example/event-chart-selection-example.html",
         "event-chart-session-replay-example/event-chart-session-replay-example.html",
     ],

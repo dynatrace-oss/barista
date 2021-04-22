@@ -26,6 +26,7 @@ import { DtExampleEventChartOverlay } from './event-chart-overlay-example/event-
 import { DtExampleEventChartSelection } from './event-chart-selection-example/event-chart-selection-example';
 import { DtExampleEventChartSessionReplay } from './event-chart-session-replay-example/event-chart-session-replay-example';
 import { DtExampleEventChartComplexSelection } from './event-chart-complex-selection-example/event-chart-complex-selection-example';
+import { DtExampleEventChartHeatfield } from './event-chart-heatfield-example/event-chart-heatfield-example';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { DtExampleEventChartComplexSelection } from './event-chart-complex-selec
     DtExampleEventChartLegend,
     DtExampleEventChartOverlappingLoad,
     DtExampleEventChartOverlay,
+    DtExampleEventChartHeatfield,
     DtExampleEventChartSelection,
     DtExampleEventChartSessionReplay,
     DtExampleEventChartComplexSelection,

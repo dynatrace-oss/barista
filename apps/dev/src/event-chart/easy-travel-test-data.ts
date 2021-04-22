@@ -19,6 +19,7 @@ import {
   EventChartDemoEvent,
   EventChartDemoLane,
   EventChartDemoLegendItem,
+  EventChartDemoHeatfield,
 } from './event-chart-demo-data';
 
 export const EASY_TRAVEL_TEST_DATA = [
@@ -178,5 +179,41 @@ export class EasyTravelDataSource implements EventChartDemoDataSource {
       }
     }
     return Array.from(lanesPerColor.values());
+  }
+
+  getHeatfields(): EventChartDemoHeatfield[] {
+    return [
+      {
+        end: 1250,
+        data: {
+          page: '/home',
+          pageGroup: '/home',
+        },
+      },
+      {
+        start: 1250,
+        end: 2000,
+        data: {
+          page: '/booking/asdf',
+          pageGroup: '/booking',
+        },
+        color: 'error',
+      },
+      {
+        start: 2000,
+        end: 3000,
+        data: {
+          page: '/cart/asdf2',
+          pageGroup: '/cart',
+        },
+      },
+      {
+        start: 3000,
+        data: {
+          page: '/finish',
+          pageGroup: '/finish',
+        },
+      },
+    ];
   }
 }
