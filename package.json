@@ -94,7 +94,7 @@
     "@angular/router": "11.2.8",
     "@babel/cli": "^7.12.10",
     "@bazel/bazelisk": "^1.7.5",
-    "@bazel/ibazel": "^0.14.0",
+    "@bazel/ibazel": "^0.15.10",
     "@bazel/rollup": "^3.2.3",
     "@bazel/terser": "^3.2.3",
     "@bazel/typescript": "^3.2.3",
