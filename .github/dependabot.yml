@@ -1,0 +1,43 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+  ignore:
+  - dependency-name: d3-shape
+    versions:
+    - ">= 2.a, < 3"
+  - dependency-name: highcharts
+    versions:
+    - "> 7.2.1"
+  - dependency-name: "@types/highcharts"
+    versions:
+    - "> 5.0.39"
+  - dependency-name: "@types/node"
+    versions:
+    - "> 12.12.30"
+  - dependency-name: "@angular-devkit/core"
+    versions:
+    - 11.2.10
+  - dependency-name: "@angular-builders/custom-webpack"
+    versions:
+    - 11.1.1
+  - dependency-name: "@nguniversal/express-engine"
+    versions:
+    - 11.2.1
+  - dependency-name: husky
+    versions:
+    - 6.0.0
+  - dependency-name: "@angular-devkit/build-angular"
+    versions:
+    - 0.1102.6
+  - dependency-name: "@bazel/ibazel"
+    versions:
+    - 0.15.6
+  - dependency-name: "@nrwl/nx-plugin"
+    versions:
+    - 11.5.2
+  - dependency-name: "@angular/language-service"
+    versions:
+    - 11.1.1
