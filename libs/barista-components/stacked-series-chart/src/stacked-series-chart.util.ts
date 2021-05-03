@@ -19,6 +19,7 @@ import {
   DtTheme,
   getDtChartColorPalette,
 } from '@dynatrace/barista-components/theming';
+import { isEqual } from 'lodash-es';
 
 /**
  * Definition a series with all its nodes
@@ -162,7 +163,7 @@ export const getSeriesWithState = (
 ): DtStackedSeriesChartFilledSeries[] =>
   series.map((s) => ({
     ...s,
-    selected: s.origin === selectedSeries,
+    selected: isEqual(s.origin, selectedSeries),
     nodes: s.nodes.map((node) => ({
       ...node,
       // in order to use transitions in the track we cannot hide the element but make it 0
@@ -174,7 +175,8 @@ export const getSeriesWithState = (
               : getValueForFilled(s.nodes.filter((n) => n.visible)))
           }%`
         : '0',
-      selected: s.origin === selectedSeries && node.origin === selectedNode,
+      selected:
+        isEqual(s.origin, selectedSeries) && isEqual(node.origin, selectedNode),
     })),
   }));
 
