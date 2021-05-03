@@ -30,8 +30,10 @@ import {
   ContentChildren,
   Directive,
   ElementRef,
+  EventEmitter,
   Input,
   OnDestroy,
+  Output,
   QueryList,
   TemplateRef,
   ViewEncapsulation,
@@ -54,6 +56,15 @@ import {
   getPercentages,
   getSum,
 } from './utils/radial-chart-utils';
+
+export type DtChartHoverData = {
+  value: number;
+  name: string;
+  color: string;
+  selected: boolean;
+  active: boolean;
+  hoveredIn: 'legend' | 'pie';
+};
 
 /** Size of the inner (empty) circle in proportion to the circle's radius. */
 const DONUT_INNER_CIRCLE_FRACTION = 0.8;
@@ -143,6 +154,10 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   }
   _selectable: boolean = false;
   static ngAcceptInputType_selectable: BooleanInput;
+
+  /* Notifies the component container of the start and end of hover events per series  */
+  @Output() hoverStart = new EventEmitter<DtChartHoverData>();
+  @Output() hoverEnd = new EventEmitter<DtChartHoverData>();
 
   /** @internal Series data, <dt-radial-chart-series> */
   @ContentChildren(DtRadialChartSeries)
@@ -408,5 +423,47 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
 
       this._updateRenderData();
     }
+  }
+
+  /** @internal Notify the component container of the start of a hover event on a specific series */
+
+  _hoverStart(
+    {
+      value,
+      name,
+      color,
+      origin: { selected, active },
+    }: DtRadialChartRenderData,
+    hoveredIn: 'legend' | 'pie',
+  ): void {
+    this.hoverStart.emit({
+      value,
+      name,
+      color,
+      selected,
+      active,
+      hoveredIn,
+    });
+  }
+
+  /** @internal Notify the component container of the end of a hover event on a specific series */
+
+  _hoverEnd(
+    {
+      value,
+      name,
+      color,
+      origin: { selected, active },
+    }: DtRadialChartRenderData,
+    hoveredIn: 'legend' | 'pie',
+  ): void {
+    this.hoverEnd.emit({
+      value,
+      name,
+      color,
+      selected,
+      active,
+      hoveredIn,
+    });
   }
 }
