@@ -417,6 +417,7 @@ describe('SunburstChart util', () => {
               id: '0.0',
               label: 'Blue',
               origin: {
+                description: 'Blue item',
                 label: 'Blue',
                 value: 1,
               },
@@ -430,6 +431,7 @@ describe('SunburstChart util', () => {
               id: '0.1',
               label: 'Red',
               origin: {
+                description: 'Red item',
                 label: 'Red',
                 value: 3,
               },
@@ -445,10 +447,12 @@ describe('SunburstChart util', () => {
           origin: {
             children: [
               {
+                description: 'Red item',
                 label: 'Red',
                 value: 3,
               },
               {
+                description: 'Blue item',
                 label: 'Blue',
                 value: 1,
               },

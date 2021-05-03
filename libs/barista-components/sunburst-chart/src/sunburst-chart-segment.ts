@@ -49,10 +49,14 @@ export interface DtSunburstChartOverlayData {
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
   exportAs: 'dt-sunburst-chart-segment',
+  host: {
+    '(mouseenter)': 'overlayTemplate && _handleMouseEnter($event)',
+    '(mouseleave)': 'overlayTemplate && _handleMouseLeave($event)',
+  },
 })
 export class DtSunburstChartSegment
   extends DtOverlayTrigger<{
-    $implicit: DtSunburstChartOverlayData;
+    $implicit: Partial<DtSunburstChartOverlayData>;
   }>
   implements AfterContentInit {
   /**
@@ -79,7 +83,7 @@ export class DtSunburstChartSegment
    */
 
   @Input() overlayTemplate: TemplateRef<{
-    $implicit: DtSunburstChartOverlayData;
+    $implicit: Partial<DtSunburstChartOverlayData>;
   }>;
 
   elementReference: ElementRef;
@@ -98,9 +102,9 @@ export class DtSunburstChartSegment
   ngAfterContentInit(): void {
     if (this.overlayTemplate) {
       this.overlay = this.overlayTemplate;
-
       this.dtOverlayConfig = {
         data: {
+          ...this.slice.data,
           label: this.slice.data.origin.label,
           value: this.slice.value,
         },
