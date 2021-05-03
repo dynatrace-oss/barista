@@ -393,7 +393,7 @@ describe('DtSunburstChart', () => {
       expect(overlayContainer).toBeDefined();
     });
 
-    it('should display and hide an overlay when calledff', () => {
+    it('should display and hide an overlay when called', () => {
       component.openOverlay(component.slices[0]);
       fixture.detectChanges();
 
