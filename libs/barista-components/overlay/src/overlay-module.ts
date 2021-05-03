@@ -45,7 +45,7 @@ const EXPORTED_DECLARATIONS = [DtOverlayContainer, DtOverlayTrigger];
   declarations: [...EXPORTED_DECLARATIONS],
   entryComponents: [DtOverlayContainer],
   providers: [
-    { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
+    { provide: OverlayContainer, useExisting: FullscreenOverlayContainer },
   ],
 })
 export class DtOverlayModule {}
