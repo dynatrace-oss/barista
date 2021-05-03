@@ -135,7 +135,7 @@
     "@types/stylelint": "^9.10.0",
     "@types/xml2js": "^0.4.7",
     "@types/yaml": "^1.9.7",
-    "axe-core": "^4.1.1",
+    "axe-core": "^4.2.0",
     "axe-testcafe": "^3.0.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.0",

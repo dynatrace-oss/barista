@@ -9,6 +9,10 @@
     "listitem": { "enabled": false },
     "aria-hidden-focus": { "enabled": false },
     "aria-required-parent": { "enabled": false },
-    "link-name": { "enabled": false }
+    "link-name": { "enabled": false },
+    "aria-allowed-attr": {
+      "enabled": false,
+      "comment": "This rule has been disabled because it conflicts with our way of proxying aria attributes from an component-api layer to an actual rendered element. I.e. the aria-label on the dt-confirmation-dialog public api would violate this rule, because the <dt-confirmation-dialog> element does not accept aria-label per w3c specification."
+    }
   }
 }
