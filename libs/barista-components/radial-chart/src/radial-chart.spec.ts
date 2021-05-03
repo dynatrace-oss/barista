@@ -21,6 +21,7 @@ import { Component, QueryList, ViewChildren } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DT_CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/barista-components/theming';
 import {
+  DtRadialChartHoverData,
   DtRadialChartModule,
   DtRadialChartSeries,
 } from '@dynatrace/barista-components/radial-chart';
@@ -37,6 +38,7 @@ describe('DtRadialChart', () => {
   const selectors = {
     pathGroup: 'g[dt-radial-chart-path]',
     series: '.dt-radial-chart-series',
+    legend: 'dt-legend-item',
   };
 
   beforeEach(
@@ -216,6 +218,44 @@ describe('DtRadialChart', () => {
       });
     });
 
+    describe('hovering', () => {
+      it('should emit hoverStart with hovered series data upon mouseenter event', () => {
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[0],
+          'mouseenter',
+        );
+
+        expect(chartComponent.hoverStart).toMatchObject({
+          ...chartComponent._chartSeries[0],
+          hoveredIn: 'pie',
+        });
+      });
+
+      it('should emit hoverEnd with hovered series data upon mouseleave event', () => {
+        dispatchFakeEvent(
+          chartSVG.querySelectorAll(selectors.pathGroup)[0],
+          'mouseleave',
+        );
+
+        expect(chartComponent.hoverEnd).toMatchObject({
+          ...chartComponent._chartSeries[0],
+          hoveredIn: 'pie',
+        });
+      });
+    });
+
+    it('should emit hoveredIn as "legend" upon hovering the legend and not the pie', () => {
+      dispatchFakeEvent(
+        fixtureNative.querySelectorAll(selectors.legend)[0],
+        'mouseenter',
+      );
+
+      expect(chartComponent.hoverStart).toMatchObject({
+        ...chartComponent._chartSeries[0],
+        hoveredIn: 'legend',
+      });
+    });
+
     describe('Series', () => {
       describe('colors', () => {
         it('should use the sorted chart colors when no color is given', () => {
@@ -301,7 +341,12 @@ describe('DtRadialChart', () => {
 @Component({
   selector: 'dt-pie-chart',
   template: `
-    <dt-radial-chart [maxValue]="_maxValue" [selectable]="_selectable">
+    <dt-radial-chart
+      [maxValue]="_maxValue"
+      [selectable]="_selectable"
+      (hoverStart)="hoverStart = $event"
+      (hoverEnd)="hoverEnd = $event"
+    >
       <dt-radial-chart-series
         *ngFor="let s of _chartSeries"
         [value]="s.value"
@@ -339,4 +384,8 @@ class PieChart {
   _maxValue: number | null = null;
 
   _selectable: boolean = true;
+
+  hoverStart: DtRadialChartHoverData;
+
+  hoverEnd: DtRadialChartHoverData;
 }

@@ -13,12 +13,16 @@
       [totalValue]="_totalSeriesValue"
       [overlayTemplate]="_overlay"
       (click)="_select(series)"
+      (mouseenter)="_hoverStart(series, 'pie')"
+      (mouseleave)="_hoverEnd(series, 'pie')"
     ></svg:g>
   </svg>
   <dt-legend class="dt-radial-chart-legend">
     <dt-legend-item
       *ngFor="let series of _renderData"
       (click)="_toggleLegend(series)"
+      (mouseenter)="_hoverStart(series, 'legend')"
+      (mouseleave)="_hoverEnd(series, 'legend')"
       [class.dt-radial-chart-legend-item-inactive]="!series.origin.active"
     >
       <dt-legend-symbol
