@@ -21,7 +21,7 @@ import { Component, QueryList, ViewChildren } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DT_CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/barista-components/theming';
 import {
-  DtChartHoverData,
+  DtRadialChartHoverData,
   DtRadialChartModule,
   DtRadialChartSeries,
 } from '@dynatrace/barista-components/radial-chart';
@@ -385,7 +385,7 @@ class PieChart {
 
   _selectable: boolean = true;
 
-  hoverStart: DtChartHoverData;
+  hoverStart: DtRadialChartHoverData;
 
-  hoverEnd: DtChartHoverData;
+  hoverEnd: DtRadialChartHoverData;
 }

@@ -57,7 +57,11 @@ import {
   getSum,
 } from './utils/radial-chart-utils';
 
-export type DtChartHoverData = {
+/**
+ * Output type for hoverStart abnd hoverEnd attributes.
+ * Contains the main data of the hovered series, and wether it was hovered in the pie or on the legend.
+ *  */
+export type DtRadialChartHoverData = {
   value: number;
   name: string;
   color: string;
@@ -155,9 +159,11 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   _selectable: boolean = false;
   static ngAcceptInputType_selectable: BooleanInput;
 
-  /* Notifies the component container of the start and end of hover events per series  */
-  @Output() hoverStart = new EventEmitter<DtChartHoverData>();
-  @Output() hoverEnd = new EventEmitter<DtChartHoverData>();
+  /* Notifies the component container of the start of hover events per series, both in the pie and on the legend  */
+  @Output() hoverStart = new EventEmitter<DtRadialChartHoverData>();
+
+  /* Notifies the component container of the end of hover events per series, both in the pie and on the legend */
+  @Output() hoverEnd = new EventEmitter<DtRadialChartHoverData>();
 
   /** @internal Series data, <dt-radial-chart-series> */
   @ContentChildren(DtRadialChartSeries)
@@ -426,7 +432,6 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   }
 
   /** @internal Notify the component container of the start of a hover event on a specific series */
-
   _hoverStart(
     {
       value,
@@ -447,7 +452,6 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   }
 
   /** @internal Notify the component container of the end of a hover event on a specific series */
-
   _hoverEnd(
     {
       value,
