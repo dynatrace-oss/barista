@@ -53,7 +53,7 @@ const DT_TAG_LIST_LAST_TAG_SPACING = 4;
   styleUrls: ['tag-list.scss'],
   host: {
     class: 'dt-tag-list',
-    role: 'listbox',
+    role: 'list',
     '[attr.aria-label]': 'ariaLabel',
   },
   preserveWhitespaces: false,
