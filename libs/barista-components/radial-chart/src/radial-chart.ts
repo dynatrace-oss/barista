@@ -58,7 +58,7 @@ import {
 } from './utils/radial-chart-utils';
 
 /**
- * Output type for hoverStart abnd hoverEnd attributes.
+ * @internal Output type for hoverStart abnd hoverEnd attributes.
  * Contains the main data of the hovered series, and wether it was hovered in the pie or on the legend.
  *  */
 export type DtRadialChartHoverData = {
