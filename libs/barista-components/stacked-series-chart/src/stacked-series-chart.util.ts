@@ -72,7 +72,6 @@ export interface DtStackedSeriesChartTooltipData {
   origin: DtStackedSeriesChartNode;
   /** Original parent series */
   seriesOrigin: DtStackedSeriesChartSeries;
-
   /** Numeric percentage value based on this node vs sum of top level */
   valueRelative: number;
   /** Color for this node in this state */
@@ -86,6 +85,53 @@ export interface DtStackedSeriesChartTooltipData {
   /** Text for a11y */
   ariaLabel?: string;
 }
+
+/** Format from which to extend for hover event outputs, detailing the origin inside the component where the hover event took place. */
+type HoverTrackableData = {
+  /** Possible origins for hover events on the stacked series chart component. */
+  hoveredIn: 'legend' | 'stack';
+};
+
+/** Output data extracted from hovered series. */
+type DtStackedSeriesSeriesTrackableData = {
+  /** Label of the node hovered upon */
+  seriesName: string;
+  /** Color used for this node. */
+  color: string;
+  /** If node is visible. */
+  visible: boolean;
+};
+
+/** Output data extracted from hovered stacks. */
+type DtStackedSeriesStackTrackableData = {
+  stackName: string;
+  /** Numeric percentage value based on this node vs sum of top level. */
+  value: number;
+  /** If node is currently selected. */
+  selected: boolean;
+  /** If node was hovered over the legend or the stack. */
+  hoveredIn: 'stack';
+};
+
+/** Output data for hover events taking place on the chart legend, containing only information of the hovered series. */
+export interface DtStackedSeriesLegendHoverData
+  extends DtStackedSeriesSeriesTrackableData,
+    HoverTrackableData {
+  hoveredIn: 'legend';
+}
+
+/** Output data for hover events taking place on the chart itself, containing information of both the hovered stack and the specific hovered series. */
+export interface DtStackedSeriesStackHoverData
+  extends DtStackedSeriesSeriesTrackableData,
+    DtStackedSeriesStackTrackableData,
+    HoverTrackableData {
+  hoveredIn: 'stack';
+}
+
+/** Output type for hovent output events, providing information on the hovered series and, when applicable, the hovered stack to the container component. */
+export type DtStackedSeriesHoverData =
+  | DtStackedSeriesLegendHoverData
+  | DtStackedSeriesStackHoverData;
 
 /** For single track only, format of value to be displayed in legend */
 export type DtStackedSeriesChartValueDisplayMode =

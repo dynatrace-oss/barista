@@ -25,7 +25,6 @@
     class="dt-stacked-series-chart-series-axis"
     *ngIf="mode === 'column'"
   ></div>
-
   <ng-container
     *ngFor="let track of _tracks; let i = index; trackBy: _trackByFn"
   >
@@ -69,7 +68,7 @@
         (click)="_toggleNodeSelect(track.origin, slice.origin)"
         (mouseenter)="_handleOnSeriesMouseEnter($event, slice)"
         (mousemove)="_handleOnSeriesMouseMove($event)"
-        (mouseleave)="_handleOnSeriesMouseLeave()"
+        (mouseleave)="_handleOnSeriesMouseLeave(slice)"
       >
       </span>
     </div>
@@ -103,6 +102,8 @@
     *ngFor="let legend of _legends; let i = index"
     [class.dt-stacked-series-chart-legend-item-hidden]="!legend.visible"
     (click)="_toggleLegend(legend)"
+    (mouseenter)="_handleOnLegendMouseEnter(legend)"
+    (mouseleave)="_handleOnLegendMouseLeave(legend)"
     [style]="_sanitizeCSS([['--dt-stacked-series-chart-color', legend.color]])"
   >
     <dt-legend-symbol class="dt-stacked-series-chart-legend-symbol">
