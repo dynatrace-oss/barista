@@ -62,6 +62,9 @@ import {
   getTotalMaxValue,
   updateNodesVisibility,
   DtStackedSeriesChartLabelAxisMode,
+  DtStackedSeriesStackHoverData,
+  DtStackedSeriesLegendHoverData,
+  DtStackedSeriesHoverData,
 } from './stacked-series-chart.util';
 import { DtOverlayRef, DtOverlay } from '@dynatrace/barista-components/overlay';
 import {
@@ -301,6 +304,12 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     DtStackedSeriesChartSelection | []
   > = new EventEmitter();
 
+  /** Notifies the component container of the start of hover events on legend and stacks  */
+  @Output() hoverStart = new EventEmitter<DtStackedSeriesHoverData>();
+
+  /** Notifies the component container of the end of hover events per on legend and stacks */
+  @Output() hoverEnd = new EventEmitter<DtStackedSeriesHoverData>();
+
   /** @internal Template reference for the DtStackedSeriesChart */
   @ContentChild(DtStackedSeriesChartOverlay, { read: TemplateRef })
   _overlay: TemplateRef<DtStackedSeriesChartTooltipData>;
@@ -458,6 +467,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     event: MouseEvent,
     slice: DtStackedSeriesChartTooltipData,
   ): void {
+    this.hoverStart.emit(this._trackStackHoverEvents(slice));
     if (this._overlay && !this._overlayRef) {
       this._overlayRef = this._overlayService.create<DtStackedSeriesChartTooltipData>(
         event.target as HTMLElement,
@@ -466,6 +476,14 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
       this._overlayRef.updateImplicitContext(slice);
       this._overlayRef.updatePosition(event.offsetX, event.offsetY);
     }
+  }
+
+  /**
+   * @internal
+   * Handles the mouseEnter on a series slice.
+   */
+  _handleOnLegendMouseEnter(legend: DtStackedSeriesChartLegend): void {
+    this.hoverStart.emit(this._trackLegendHoverEvents(legend));
   }
 
   /**
@@ -487,11 +505,47 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
    * Handles the mouseLeave on a series slice.
    * Dismisses the overlay if there is one defined.
    */
-  _handleOnSeriesMouseLeave(): void {
+  _handleOnSeriesMouseLeave(slice: DtStackedSeriesChartTooltipData): void {
+    this.hoverEnd.emit(this._trackStackHoverEvents(slice));
     if (this._overlayRef) {
       this._overlayRef.dismiss();
       this._overlayRef = null;
     }
+  }
+
+  /**
+   * @internal
+   * Handles the mouseLeave on a legend.
+   */
+  _handleOnLegendMouseLeave(legend: DtStackedSeriesChartLegend): void {
+    this.hoverEnd.emit(this._trackLegendHoverEvents(legend));
+  }
+
+  /** Returns an object with output data type for hover events on the stack */
+  private _trackStackHoverEvents(
+    slice: DtStackedSeriesChartTooltipData,
+  ): DtStackedSeriesStackHoverData {
+    return {
+      value: slice.valueRelative,
+      stackName: slice.origin.label,
+      seriesName: slice.seriesOrigin.label,
+      color: slice.color,
+      selected: slice.selected,
+      visible: slice.visible,
+      hoveredIn: 'stack',
+    };
+  }
+
+  /** Returns an object with output data type for hover events on the legend */
+  private _trackLegendHoverEvents(
+    legend: DtStackedSeriesChartLegend,
+  ): DtStackedSeriesLegendHoverData {
+    return {
+      seriesName: legend.label,
+      color: legend.color,
+      visible: legend.visible,
+      hoveredIn: 'legend',
+    };
   }
 
   /** Calculate current state */
