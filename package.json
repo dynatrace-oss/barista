@@ -148,7 +148,7 @@
     "express": "^4.17.1",
     "glob": "^7.1.6",
     "gonzales-pe": "^4.3.0",
-    "highcharts": "^7.2.1",
+    "highcharts": "^9.0.0",
     "husky": "^5.2.0",
     "identity-obj-proxy": "^3.0.0",
     "inquirer": "^8.0.0",
