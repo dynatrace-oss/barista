@@ -1,3 +1,18 @@
+## [9.6.0](https://github.com/dynatrace-oss/barista/compare/9.5.0...9.6.0) (2021-05-10)
+
+### Bug Fixes
+
+- **filter-field:** Improving multiselect uid generation and clearing selected
+  list on delete.
+  ([94ffa9a](https://github.com/dynatrace-oss/barista/commit/94ffa9a4b60d7dcf359553c736f277e50db7ac25))
+
+### Features
+
+- **radial-chart:** Added series-specific hover output for pie & legend.
+  ([87268d8](https://github.com/dynatrace-oss/barista/commit/87268d8fe93ef60aabf8a3ed519f2f40b0f241b7))
+- **stacked-series-chart:** Added hover output for stacks & legend.
+  ([70a298a](https://github.com/dynatrace-oss/barista/commit/70a298a806fb6826428ddd55c0d7f24e69171a44))
+
 ## [9.5.0](https://github.com/dynatrace-oss/barista/compare/9.4.3...9.5.0) (2021-05-04)
 
 ### Bug Fixes
