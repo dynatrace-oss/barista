@@ -36,6 +36,7 @@ import { DtSunburstChart } from './sunburst-chart';
 import { sunburstChartMock } from './sunburst-chart.mock';
 import { DtSunburstChartModule } from './sunburst-chart.module';
 import {
+  DtSunburstChartHoverData,
   DtSunburstChartNode,
   DtSunburstChartNodeSlice,
 } from './sunburst-chart.util';
@@ -353,6 +354,38 @@ describe('DtSunburstChart', () => {
         expect(actual.length).toBe(4);
       });
     });
+    describe('Hover events', () => {
+      beforeEach(function (): void {
+        rootComponent.series = sunburstChartMock;
+        fixture.detectChanges();
+      });
+      it('Should emit hover info when hover events start on a slice', () => {
+        const firstSegment = fixture.debugElement.query(
+          By.css(selectors.segment),
+        );
+        dispatchFakeEvent(firstSegment.nativeElement, 'mouseenter');
+        expect(rootComponent.hoverStart).toMatchObject({
+          name: sunburstChartMock[0].label,
+          color: '#fff29a',
+          isCurrent: false,
+          active: false,
+          value: 0.5,
+        });
+      });
+      it('Should emit hover info when hover events end on a slice', () => {
+        const firstSegment = fixture.debugElement.query(
+          By.css(selectors.segment),
+        );
+        dispatchFakeEvent(firstSegment.nativeElement, 'mouseleave');
+        expect(rootComponent.hoverEnd).toMatchObject({
+          name: sunburstChartMock[0].label,
+          color: '#fff29a',
+          isCurrent: false,
+          active: false,
+          value: 0.5,
+        });
+      });
+    });
   });
 
   describe('Overlay', () => {
@@ -425,6 +458,8 @@ describe('DtSunburstChart', () => {
       [selected]="selected"
       [valueDisplayMode]="valueDisplayMode"
       [noSelectionLabel]="noSelectionLabel"
+      (hoverStart)="hoverStart = $event"
+      (hoverEnd)="hoverEnd = $event"
     >
     </dt-sunburst-chart>
   `,
@@ -436,6 +471,9 @@ class TestApp {
   valueDisplayMode;
 
   @ViewChild(DtSunburstChart) sunburstChart: DtSunburstChart;
+
+  hoverStart: DtSunburstChartHoverData;
+  hoverEnd: DtSunburstChartHoverData;
 }
 
 /** Test component that contains an DtSunburstChart with overlay. */
@@ -447,6 +485,8 @@ class TestApp {
       [selected]="selected"
       [valueDisplayMode]="valueDisplayMode"
       [noSelectionLabel]="noSelectionLabel"
+      (hoverStart)="hoverStart = $event"
+      (hoverEnd)="hoverEnd = $event"
     >
       <ng-template dtSunburstChartOverlay let-tooltip>
         <div>
@@ -463,4 +503,7 @@ class TestWithOverlayApp {
   valueDisplayMode;
 
   @ViewChild(DtSunburstChart) sunburstChart: DtSunburstChart;
+
+  hoverStart: DtSunburstChartHoverData;
+  hoverEnd: DtSunburstChartHoverData;
 }
