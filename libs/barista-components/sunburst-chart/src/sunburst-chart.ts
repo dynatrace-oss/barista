@@ -47,6 +47,7 @@ import { takeUntil } from 'rxjs/operators';
 import { DtSunburstChartSegment } from './sunburst-chart-segment';
 import { DtSunburstChartOverlay } from './sunburst-chart.directive';
 import {
+  DtSunburstChartHoverData,
   DtSunburstChartNode,
   DtSunburstChartNodeSlice,
   DtSunburstChartTooltipData,
@@ -119,6 +120,12 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   @Output() selectedChange: EventEmitter<
     DtSunburstChartNode[]
   > = new EventEmitter();
+
+  /* Notifies the component container of the start of hover events per series, both in the pie and on the legend  */
+  @Output() hoverStart = new EventEmitter<DtSunburstChartHoverData>();
+
+  /* Notifies the component container of the end of hover events per series, both in the pie and on the legend */
+  @Output() hoverEnd = new EventEmitter<DtSunburstChartHoverData>();
 
   /** @internal Overlay template */
   @ContentChild(DtSunburstChartOverlay, { static: false, read: TemplateRef })
@@ -279,6 +286,35 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
    */
   _sanitizeCSS(prop: string, value: string | number | DtColors): SafeStyle {
     return this._sanitizer.bypassSecurityTrustStyle(`${prop}: ${value}`);
+  }
+
+  /**
+   * @internal
+   * Handles the mouseEnter on a series slice.
+   */
+  onMouseEnter(slice: { data: DtSunburstChartTooltipData }): void {
+    this.hoverStart.emit(this._trackSunburstChartHoverEvents(slice.data));
+  }
+
+  /**
+   * @internal
+   * Handles the mouseLeave on a series slice.
+   */
+  onMouseLeave(slice: { data: DtSunburstChartTooltipData }): void {
+    this.hoverEnd.emit(this._trackSunburstChartHoverEvents(slice.data));
+  }
+
+  /** Returns an object with output data type for hover events on the legend */
+  private _trackSunburstChartHoverEvents(
+    slice: DtSunburstChartTooltipData,
+  ): DtSunburstChartHoverData {
+    return {
+      color: slice.color,
+      active: slice.active,
+      name: slice.label,
+      value: slice.valueRelative,
+      isCurrent: slice.isCurrent,
+    };
   }
 
   /** Calculates visible slices based on their state */

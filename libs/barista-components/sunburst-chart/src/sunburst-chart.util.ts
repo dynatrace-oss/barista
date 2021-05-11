@@ -110,6 +110,18 @@ export interface DtSunburstChartNodeSlice {
   showLabel: boolean;
 }
 
+/**
+ * Output type for hoverStart and hoverEnd attributes.
+ * Contains the main data of the hovered series.
+ */
+export type DtSunburstChartHoverData = {
+  name: string;
+  value: number;
+  color: string;
+  active: boolean;
+  isCurrent: boolean;
+};
+
 const SVG_SETTINGS = {
   ringWidthRadius: 32,
   borderWidthRadius: 16,
