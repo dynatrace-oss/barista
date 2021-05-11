@@ -17,6 +17,8 @@
       _sanitizeCSS('--dt-sunburst-chart-slice-color', slice.data.color)
     "
     (click)="_select($event, slice)"
+    (mouseenter)="onMouseEnter(slice)"
+    (mouseleave)="onMouseLeave(slice)"
   ></g>
 </svg>
 
