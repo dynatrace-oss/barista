@@ -43,6 +43,7 @@ import {
   DtStackedSeriesChartValueDisplayMode,
   DtStackedSeriesChartSelectionMode,
   DtStackedSeriesChartLabelAxisMode,
+  DtStackedSeriesHoverData,
 } from './stacked-series-chart.util';
 
 describe('DtStackedSeriesChart', () => {
@@ -668,6 +669,55 @@ describe('DtStackedSeriesChart', () => {
       expect(overlayPane).toBeNull();
     });
   });
+
+  describe('Hover events reporting', () => {
+    it('should emit hoverStart with hovered series data upon mouseenter event', () => {
+      const firstSlice = getAllSlices()[0];
+
+      dispatchFakeEvent(firstSlice.nativeElement, 'mouseenter');
+      fixture.detectChanges();
+
+      expect(rootComponent.hoverStart).toMatchObject({
+        value: stackedSeriesChartDemoDataCoffee[0].nodes[0].value,
+        stackName: stackedSeriesChartDemoDataCoffee[0].nodes[0].label,
+        seriesName: stackedSeriesChartDemoDataCoffee[0].label,
+        color: '#7c38a1',
+        selected: false,
+        visible: true,
+        hoveredIn: 'stack',
+      });
+    });
+
+    it('should emit hoverEnd with hovered series data upon mouseleave event', () => {
+      const firstSlice = getAllSlices()[0];
+
+      dispatchFakeEvent(firstSlice.nativeElement, 'mouseleave');
+      fixture.detectChanges();
+
+      expect(rootComponent.hoverEnd).toMatchObject({
+        value: stackedSeriesChartDemoDataCoffee[0].nodes[0].value,
+        stackName: stackedSeriesChartDemoDataCoffee[0].nodes[0].label,
+        seriesName: stackedSeriesChartDemoDataCoffee[0].label,
+        color: '#7c38a1',
+        selected: false,
+        visible: true,
+        hoveredIn: 'stack',
+      });
+    });
+    it('should emit hoveredIn as "legend" upon hovering the legend and not the stacks', () => {
+      const firstLegendItem = getAllLegendItems()[0];
+
+      dispatchFakeEvent(firstLegendItem.nativeElement, 'mouseenter');
+      fixture.detectChanges();
+
+      expect(rootComponent.hoverStart).toMatchObject({
+        seriesName: stackedSeriesChartDemoDataCoffee[0].nodes[0].label,
+        color: '#7c38a1',
+        visible: true,
+        hoveredIn: 'legend',
+      });
+    });
+  });
 });
 
 /** Test component that contains an DtStackedSeriesChart. */
@@ -691,6 +741,8 @@ describe('DtStackedSeriesChart', () => {
       [visibleValueAxis]="visibleValueAxis"
       [mode]="mode"
       [maxTrackSize]="maxTrackSize"
+      (hoverStart)="hoverStart = $event"
+      (hoverEnd)="hoverEnd = $event"
     >
       <ng-template dtStackedSeriesChartOverlay let-tooltip *ngIf="hasOverlay">
         <div>
@@ -720,6 +772,9 @@ class TestApp {
   theme = 'blue';
   hasOverlay: boolean = true;
   @ViewChild(DtStackedSeriesChart) stackedSeriesChart: DtStackedSeriesChart;
+
+  hoverStart: DtStackedSeriesHoverData;
+  hoverEnd: DtStackedSeriesHoverData;
 }
 
 /** Test component that contains an DtStackedSeriesChart. */

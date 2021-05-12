@@ -21,6 +21,7 @@ ng_module(
     deps = [
         "//libs/barista-components/button:compile",
         "//libs/barista-components/formatters:compile",
+        "//libs/barista-components/overlay:compile",
         "//libs/barista-components/sunburst-chart:compile",
         "//libs/barista-components/theming:compile",
         "@npm//@angular/core",

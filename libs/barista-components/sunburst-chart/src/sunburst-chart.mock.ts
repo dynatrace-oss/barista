@@ -22,10 +22,12 @@ export const sunburstChartMock = [
       {
         value: 3,
         label: 'Red',
+        description: 'Red item',
       },
       {
         value: 1,
         label: 'Blue',
+        description: 'Blue item',
       },
     ],
   },
@@ -36,10 +38,12 @@ export const sunburstChartMock = [
       {
         value: 3,
         label: 'Yellow',
+        description: 'Yellow item',
       },
       {
         value: 1,
         label: 'Blue',
+        description: 'Blue item',
       },
     ],
   },

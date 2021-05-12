@@ -17,6 +17,7 @@
 import {
   DtEventChartColors,
   DtEventChartEvent,
+  DtEventChartField,
 } from './event-chart-directives';
 
 /**
@@ -33,3 +34,24 @@ export interface RenderEvent<T> {
   mergedWith?: number[];
   originalIndex?: number;
 }
+
+/**
+ * Interface for the RenderField of the Event Chart
+ */
+export interface RenderField<T> {
+  x1: number;
+  x2: number;
+  y: number;
+  color: DtEventChartColors;
+  fields: DtEventChartField<T>[];
+  mergedWith?: number[];
+  originalIndex?: number;
+}
+
+export const isRenderEvent = (object: RenderEvent<any> | RenderField<any>) => {
+  return (<RenderEvent<any>>object).events !== undefined;
+};
+
+export const isRenderField = (object: RenderEvent<any> | RenderField<any>) => {
+  return (<RenderField<any>>object).fields !== undefined;
+};

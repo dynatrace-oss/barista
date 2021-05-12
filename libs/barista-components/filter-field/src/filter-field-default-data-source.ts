@@ -40,6 +40,7 @@ import {
 export interface DtFilterFieldDefaultDataSourceSimpleOption {
   name: string;
   id?: string | number;
+  disabled?: boolean;
 }
 
 export type DtFilterFieldDefaultDataSourceOption =
@@ -311,6 +312,7 @@ export class DtFilterFieldDefaultDataSource
       isNumber(data.id) || isString(data.id) ? `${data.id}` : null,
       parentAutocomplete,
       parentGroup,
+      data.disabled,
     );
   }
 

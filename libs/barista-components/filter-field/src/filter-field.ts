@@ -1478,6 +1478,8 @@ export class DtFilterField<T = any>
       }
       this._resetEditMode();
       this._closeFilterPanels();
+
+      this._multiSelect._setInitialSelection([]);
       this._stateChanges.next();
       this._changeDetectorRef.markForCheck();
     }
@@ -1798,11 +1800,17 @@ export class DtFilterField<T = any>
     const ids = new Set<string>();
     for (const currentFilter of this._filters) {
       let currentId = '';
-      for (const value of currentFilter) {
+
+      for (const [index, value] of currentFilter.entries()) {
         if (isDtAutocompleteValue(value)) {
           const id = peekOptionId(value, currentId);
           ids.add(id);
-          currentId = id;
+
+          // In case of multiSelect filter type, the id must not be concatenated.
+          // So it'll only use the first value which is the parent
+          if (!isDtMultiSelectValue(currentFilter[0]) || index === 0) {
+            currentId = id;
+          }
         }
       }
     }

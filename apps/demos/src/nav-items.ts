@@ -550,6 +550,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         route: '/event-chart-overlay-example',
       },
       {
+        name: 'event-chart-heatfield-example',
+        route: '/event-chart-heatfield-example',
+      },
+      {
         name: 'event-chart-selection-example',
         route: '/event-chart-selection-example',
       },

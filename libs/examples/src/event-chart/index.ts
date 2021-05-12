@@ -21,5 +21,6 @@ export * from './event-chart-examples.module';
 export * from './event-chart-legend-example/event-chart-legend-example';
 export * from './event-chart-overlapping-load-example/event-chart-overlapping-load-example';
 export * from './event-chart-overlay-example/event-chart-overlay-example';
+export * from './event-chart-heatfield-example/event-chart-heatfield-example';
 export * from './event-chart-selection-example/event-chart-selection-example';
 export * from './event-chart-session-replay-example/event-chart-session-replay-example';

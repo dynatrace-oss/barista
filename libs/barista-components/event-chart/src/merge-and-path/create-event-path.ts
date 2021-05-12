@@ -17,7 +17,13 @@
 import { isDefined } from '@dynatrace/barista-components/core';
 import { RenderEvent } from '../render-event.interface';
 
-export function dtCreateEventPath<T>(renderEvents: RenderEvent<T>[]): string {
+export function dtCreateEventPath<T>(
+  renderEvents: RenderEvent<T>[],
+): string | null {
+  if (renderEvents.length === 0) {
+    return null;
+  }
+
   const svgPath: string[] = [];
 
   // Move to the start point

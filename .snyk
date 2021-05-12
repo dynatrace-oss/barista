@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.14.1
+version: v1.19.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-LODASH-567746:
@@ -219,4 +219,8 @@ ignore:
     - '@angular/localize > @babel/core > @babel/helpers > @babel/traverse > @babel/helper-function-name > @babel/helper-get-function-arity > @babel/types > lodash':
         reason: ' No patch or upgrade path available.'
         expires: '2021-03-17T15:20:08.018Z'
+  SNYK-JS-PATHPARSE-1077067:
+    - '@angular/localize > @babel/core > resolve > path-parse':
+        reason: Transitive dependency outside of our control
+        expires: '2021-06-03T09:28:32.360Z'
 patch: {}

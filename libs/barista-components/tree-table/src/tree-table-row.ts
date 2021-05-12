@@ -26,7 +26,7 @@ import { DtTreeTable } from './tree-table';
   templateUrl: 'tree-table-row.html',
   host: {
     '[attr.aria-expanded]': '_isExpanded',
-    '[attr.aria-level]': '_level',
+    '[attr.aria-level]': '_level + 1',
     role: 'row',
     class: 'dt-tree-table-row',
   },

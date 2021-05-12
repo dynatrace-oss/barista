@@ -1,3 +1,45 @@
+## [9.6.0](https://github.com/dynatrace-oss/barista/compare/9.5.0...9.6.0) (2021-05-10)
+
+### Bug Fixes
+
+- **filter-field:** Improving multiselect uid generation and clearing selected
+  list on delete.
+  ([94ffa9a](https://github.com/dynatrace-oss/barista/commit/94ffa9a4b60d7dcf359553c736f277e50db7ac25))
+
+### Features
+
+- **radial-chart:** Added series-specific hover output for pie & legend.
+  ([87268d8](https://github.com/dynatrace-oss/barista/commit/87268d8fe93ef60aabf8a3ed519f2f40b0f241b7))
+- **stacked-series-chart:** Added hover output for stacks & legend.
+  ([70a298a](https://github.com/dynatrace-oss/barista/commit/70a298a806fb6826428ddd55c0d7f24e69171a44))
+
+## [9.5.0](https://github.com/dynatrace-oss/barista/compare/9.4.3...9.5.0) (2021-05-04)
+
+### Bug Fixes
+
+- **filter-field:** Export EditionParser from module.
+  ([477802e](https://github.com/dynatrace-oss/barista/commit/477802eb9f886ba7b4bd97273f02b7075f563b82))
+- **overlay:** Fixes an issue where multiple overlay container were created when
+  lazyloading the module.
+  ([b9f2e10](https://github.com/dynatrace-oss/barista/commit/b9f2e10c0d07ab97dcc1d71b8bc653c88d051047))
+- **stacked-series-chart:** Mark series selected given outside series object
+  ([92c40cd](https://github.com/dynatrace-oss/barista/commit/92c40cdfbe20c5cc8d7d77e3884af022523bdfe2))
+- **stepper:** Fixes an issue where active stepper icon was oddly shaped.
+  ([f65bae4](https://github.com/dynatrace-oss/barista/commit/f65bae49a8ea6f2883aefada63c6a0d124d979c2))
+- **tag:** Fixes an issue with the aria roles on the tag-list.
+  ([fe15ef4](https://github.com/dynatrace-oss/barista/commit/fe15ef446d25fb0d72d249803d87d9c298e9a429))
+- **tree-table:** Fixes an issue where aria-level should start counting at 1.
+  ([94440e1](https://github.com/dynatrace-oss/barista/commit/94440e1207e71594b0fd134613dbeeacc7cb381a))
+
+### Features
+
+- **event-chart:** APM-295388 Implemented "heatfield" into event-chart
+  ([73219a8](https://github.com/dynatrace-oss/barista/commit/73219a8d6ea3cba6ee82d9a032f2fb984d11d8d8))
+- **filter-field:** Added possibility to disable autocomplete option.
+  ([a81cdcc](https://github.com/dynatrace-oss/barista/commit/a81cdcc6edd61b00750ec48c9055a80621693707))
+- **sunburst-chart:** Exposing sunburst node data in tooltip config.
+  ([1fb9c13](https://github.com/dynatrace-oss/barista/commit/1fb9c13a8fb16a78827d18a449a0a824b6aa6138))
+
 ## [9.4.3](https://github.com/dynatrace-oss/barista/compare/9.4.2...9.4.3) (2021-04-21)
 
 ### Bug Fixes

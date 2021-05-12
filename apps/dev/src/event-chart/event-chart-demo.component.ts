@@ -28,6 +28,7 @@ import {
   EventChartDemoEvent,
   EventChartDemoLane,
   EventChartDemoLegendItem,
+  EventChartDemoHeatfield,
 } from './event-chart-demo-data';
 import { MobileActionDataSource } from './mobile-actions-test-data';
 import { SessionReplayDataSource } from './session-replay-test-data';
@@ -56,6 +57,7 @@ export class EventChartDemo {
   _events: EventChartDemoEvent[] = [];
   _lanes: EventChartDemoLane[] = [];
   _legendItems: EventChartDemoLegendItem[] = [];
+  _heatfields: EventChartDemoHeatfield[] = [];
 
   get _selectedDataSet(): DataSet {
     return this._ds;
@@ -65,6 +67,7 @@ export class EventChartDemo {
     this._events = value.dataSource.getEvents();
     this._lanes = value.dataSource.getLanes();
     this._legendItems = value.dataSource.getLegendItems();
+    this._heatfields = value.dataSource.getHeatfields();
     this._changeDetectorRef.markForCheck();
   }
   private _ds = DATA_SETS[1];
