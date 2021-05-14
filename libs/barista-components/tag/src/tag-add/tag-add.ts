@@ -17,14 +17,12 @@
 import { CdkTrapFocus } from '@angular/cdk/a11y';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   Input,
-  NgZone,
   OnDestroy,
   Output,
   QueryList,
@@ -33,16 +31,21 @@ import {
   ViewEncapsulation,
   Optional,
   Inject,
+  ContentChild,
+  AfterContentInit,
 } from '@angular/core';
-import { Subject } from 'rxjs';
-import { switchMap, take, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 import { DtInput } from '@dynatrace/barista-components/input';
 import {
   DtUiTestConfiguration,
   DT_UI_TEST_CONFIG,
   dtSetUiTestAttribute,
+  isDefined,
+  isEmpty,
 } from '@dynatrace/barista-components/core';
+import { DtTagAddForm } from './tag-add-form/tag-add-form';
 
 @Component({
   selector: 'dt-tag-add',
@@ -56,7 +59,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtTagAdd implements AfterViewInit, OnDestroy {
+export class DtTagAdd implements OnDestroy, AfterContentInit {
   private readonly _destroy$ = new Subject<void>();
 
   /** @internal Status whether the Overlay is visible */
@@ -68,7 +71,7 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
   /** Used to set the 'aria-label' attribute on the underlying input element. */
   @Input('aria-label') ariaLabel: string;
 
-  /** Event emitted when tag is added */
+  /** Event emitted when tag is added. Emits the value of first input field in the add tag overlay. */
   @Output() readonly tagAdded = new EventEmitter<string>();
 
   /** @internal Panel containing the select options. */
@@ -82,6 +85,9 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
   /** @internal */
   @ViewChild('tagAddButton', { static: true })
   _tagAddButton: ElementRef<HTMLElement>;
+
+  /** @internal Custom form for adding tags. */
+  @ContentChild(DtTagAddForm) _customAddForm: DtTagAddForm;
 
   /** @internal Overlay pane containing the fields. */
   @ViewChild(CdkConnectedOverlay, { static: true })
@@ -130,27 +136,28 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
     },
   ];
 
+  private readonly _validSubject = new BehaviorSubject<boolean>(false);
+
+  /** @internal Emits whether the current input/tag-add-form value is valid. */
+  readonly _valid$: Observable<boolean> = this._validSubject.asObservable();
+
+  private get _firstInput(): HTMLInputElement {
+    const inputRef = this._customAddForm?._inputs.first ?? this._inputs.first;
+    return inputRef.nativeElement;
+  }
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    private _zone: NgZone,
     private _elementRef: ElementRef<HTMLElement>,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     private _config?: DtUiTestConfiguration,
   ) {}
 
-  ngAfterViewInit(): void {
-    this._inputs.changes
-      .pipe(
-        switchMap(() => this._zone.onMicrotaskEmpty.pipe(take(1))),
-        takeUntil(this._destroy$),
-      )
-      .subscribe(() => {
-        const inputEl = this._inputs.first;
-        if (inputEl) {
-          inputEl.nativeElement.focus();
-        }
-      });
+  ngAfterContentInit(): void {
+    this._customAddForm?.valid$
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(this._validSubject);
   }
 
   ngOnDestroy(): void {
@@ -163,6 +170,15 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
     this._overlayDir.positionChange.pipe(take(1)).subscribe(() => {
       this._panel.nativeElement.scrollTop = 0;
     });
+    setTimeout(() => {
+      // Wait for first input to be rendered (either default input or first input in tag-add-form)
+      // It's intentional that the close button is in the focus trap, but it shouldn't have initial focus
+      // CDK's initial focus directive doesn't work for tag-add-form w/o warning logs
+      this._firstInput.focus();
+    });
+    if (!isDefined(this._customAddForm)) {
+      this._validSubject.next(false);
+    }
     dtSetUiTestAttribute(
       this._overlayDir.overlayRef.overlayElement,
       this._overlayDir.overlayRef.overlayElement.id,
@@ -185,17 +201,23 @@ export class DtTagAdd implements AfterViewInit, OnDestroy {
     }
   }
 
-  /** @internal Checks whether user tag is empty or not and then calls 'addTag()' when not empty. */
-  _addTagFromOverlayInput(event: KeyboardEvent): void {
-    const target = event.target as HTMLInputElement;
-    if (target.value.length > 0) {
-      this._addTag(target.value);
+  /**
+   * Submits the current value of the input/form if it is valid,
+   * by emitting the value of the first input field and closing the overlay.
+   */
+  submit(): void {
+    if (this._validSubject.getValue()) {
+      const tag = this._firstInput.value;
+      this.tagAdded.emit(tag);
+      this.close();
+      this._customAddForm?._reset();
     }
   }
 
-  /** @internal Emits the parameter which is the tag label, then closes the overlay. */
-  _addTag(tag: string): void {
-    this.tagAdded.emit(tag);
-    this.close();
+  /** @internal Updates the validity of the input/form based on the current value. */
+  _onTagValueChange(): void {
+    if (!isDefined(this._customAddForm)) {
+      this._validSubject.next(!isEmpty(this._firstInput.value));
+    }
   }
 }

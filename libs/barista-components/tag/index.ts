@@ -18,3 +18,4 @@ export * from './src/tag-module';
 export * from './src/tag';
 export * from './src/tag-list/tag-list';
 export * from './src/tag-add/tag-add';
+export * from './src/tag-add/tag-add-form/tag-add-form';
