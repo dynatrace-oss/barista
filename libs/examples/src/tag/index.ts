@@ -20,3 +20,4 @@ export * from './tag-interactive-example/tag-interactive-example';
 export * from './tag-key-example/tag-key-example';
 export * from './tag-list-with-tag-add-example/tag-list-with-tag-add-example';
 export * from './tag-removable-example/tag-removable-example';
+export * from './tag-custom-add-form-example/tag-custom-add-form-example';

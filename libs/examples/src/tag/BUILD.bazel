@@ -1,4 +1,4 @@
-load("@io_bazel_rules_sass//:defs.bzl", "sass_binary")
+load("@io_bazel_rules_sass//:defs.bzl", "multi_sass_binary")
 load("//tools/bazel_rules:index.bzl", "ng_module", "stylelint")
 
 package(default_visibility = ["//visibility:public"])
@@ -18,21 +18,28 @@ ng_module(
         "tag-key-example/tag-key-example.html",
         "tag-list-with-tag-add-example/tag-list-with-tag-add-example.html",
         "tag-removable-example/tag-removable-example.html",
-        ":styles_interactive_example",
+        "tag-custom-add-form-example/tag-custom-add-form-example.html",
+        ":styles",
     ],
     module_name = "@dynatrace/barista-examples/tag",
     tsconfig = "//libs/examples:tsconfig_lib",
     deps = [
         "//libs/barista-components/button:compile",
         "//libs/barista-components/tag:compile",
+        "//libs/barista-components/form-field:compile",
+        "//libs/barista-components/input:compile",
         "@npm//@angular/common",
         "@npm//@angular/core",
+        "@npm//@angular/forms",
     ],
 )
 
-sass_binary(
-    name = "styles_interactive_example",
-    src = "tag-interactive-example/tag-interactive-example.scss",
+multi_sass_binary(
+    name = "styles",
+    srcs = [
+        "tag-interactive-example/tag-interactive-example.scss",
+        "tag-custom-add-form-example/tag-custom-add-form-example.scss",
+    ],
 )
 
 stylelint(

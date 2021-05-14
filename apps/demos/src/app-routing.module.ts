@@ -331,7 +331,8 @@ import {
   DtExampleCalendarMinMax,
   DtExampleTimepickerMinMax,
   DtExampleDatepickerDark,
-  DtExampleDatepickerDefault
+  DtExampleDatepickerDefault,
+  DtExampleCustomAddFormTag,
 } from '@dynatrace/barista-examples';
 
 // The Routing Module replaces the routing configuration in the root or feature module.
@@ -593,10 +594,10 @@ const ROUTES: Routes = [
   { path: 'drawer-dynamic-example', component: DtExampleDrawerDynamic },
   { path: 'drawer-nested-example', component: DtExampleDrawerNested },
   { path: 'drawer-over-example', component: DtExampleDrawerOver },
-  { path: 'calendar-min-max-example', component: DtExampleCalendarMinMax},
-  { path: 'timepicker-min-max-example', component: DtExampleTimepickerMinMax},
-  { path: 'datepicker-dark-example', component: DtExampleDatepickerDark},
-  { path: 'datepicker-default-example', component: DtExampleDatepickerDefault},
+  { path: 'calendar-min-max-example', component: DtExampleCalendarMinMax },
+  { path: 'timepicker-min-max-example', component: DtExampleTimepickerMinMax },
+  { path: 'datepicker-dark-example', component: DtExampleDatepickerDark },
+  { path: 'datepicker-default-example', component: DtExampleDatepickerDefault },
   {
     path: 'drawer-table-default-example',
     component: DtExampleDrawerTableDefault,
@@ -1187,6 +1188,7 @@ const ROUTES: Routes = [
     path: 'select-custom-value-template-example',
     component: DtExampleSelectCustomValueTemplate,
   },
+  { path: 'tag-custom-add-form-example', component: DtExampleCustomAddFormTag },
 ];
 
 @NgModule({

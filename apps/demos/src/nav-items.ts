@@ -1474,6 +1474,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'tag-removable-example',
         route: '/tag-removable-example',
       },
+      {
+        name: 'tag-custom-add-form-example',
+        route: '/tag-custom-add-form-example',
+      },
     ],
   },
   {

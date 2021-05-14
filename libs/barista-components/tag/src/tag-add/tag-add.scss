@@ -47,12 +47,15 @@
 
 .dt-tag-add-overlay {
   width: 320px;
-  height: 80px;
   border: 1px solid $gray-700;
   border-radius: 3px;
   background-color: $gray-700;
   padding: 8px;
   padding-top: 5px;
+
+  &:not(.dt-custom-add-form) {
+    height: 80px;
+  }
 }
 
 .dt-tag-add-header {
@@ -87,13 +90,22 @@
 .dt-tag-add-submit-button {
   flex-grow: 0;
   flex-shrink: 0;
+  align-self: flex-end;
 }
 
 .dt-tag-add-fields {
   display: flex;
   margin-top: 12px;
-}
 
-.dt-tag-add-input {
-  margin-right: 8px;
+  &:not(.dt-custom-add-form) .dt-tag-add-submit-button {
+    margin-left: 8px;
+  }
+
+  &.dt-custom-add-form {
+    flex-direction: column;
+
+    .dt-tag-add-submit-button {
+      margin-top: 8px;
+    }
+  }
 }

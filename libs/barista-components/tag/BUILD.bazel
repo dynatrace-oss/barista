@@ -32,6 +32,7 @@ ng_module_view_engine(
         ":src/tag.html",
         ":src/tag-add/tag-add.html",
         ":src/tag-list/tag-list.html",
+        ":src/tag-add/tag-add-form/tag-add-form.html",
     ],
     module_name = "@dynatrace/barista-components/tag",
     tsconfig = "tsconfig_lib",
@@ -44,7 +45,9 @@ ng_module_view_engine(
         "@npm//@angular/cdk",
         "@npm//@angular/common",
         "@npm//@angular/core",
+        "@npm//@angular/forms",
         "@npm//rxjs",
+        "@npm//lodash-es",
     ],
 )
 
@@ -54,6 +57,7 @@ multi_sass_binary(
         "src/tag.scss",
         "src/tag-add/tag-add.scss",
         "src/tag-list/tag-list.scss",
+        "src/tag-add/tag-add-form/tag-add-form.scss",
     ],
 )
 
@@ -72,11 +76,13 @@ jest(
         ":compile",
         "//libs/barista-components/core:compile",
         "//libs/barista-components/icon:compile",
+        "//libs/barista-components/input:compile",
         "//libs/testing/browser",
         "@npm//@angular/cdk",
         "@npm//@angular/common",
         "@npm//@angular/core",
         "@npm//@angular/platform-browser",
+        "@npm//@angular/forms",
     ],
 )
 

@@ -342,7 +342,7 @@ import { DtExampleTreeTableAsyncShowMore } from './tree-table/tree-table-async-s
 import { DtExampleTreeTableDefault } from './tree-table/tree-table-default-example/tree-table-default-example';
 import { DtExampleTreeTableProblemIndicator } from './tree-table/tree-table-problem-indicator-example/tree-table-problem-indicator-example';
 import { DtExampleTreeTableSimple } from './tree-table/tree-table-simple-example/tree-table-simple-example';
-
+import { DtExampleCustomAddFormTag } from '././tag/tag-custom-add-form-example/tag-custom-add-form-example';
 export { DtAlertExamplesModule } from './alert/alert-examples.module';
 export { DtAutocompleteExamplesModule } from './autocomplete/autocomplete-examples.module';
 export { DtBarIndicatorExamplesModule } from './bar-indicator/bar-indicator-examples.module';
@@ -726,6 +726,7 @@ export {
   DtExampleTimepickerMinMax,
   DtExampleDatepickerDark,
   DtExampleDatepickerDefault,
+  DtExampleCustomAddFormTag,
 };
 
 export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
@@ -1116,4 +1117,5 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTreeTableDefault', DtExampleTreeTableDefault],
   ['DtExampleTreeTableProblemIndicator', DtExampleTreeTableProblemIndicator],
   ['DtExampleTreeTableSimple', DtExampleTreeTableSimple],
+  ['DtExampleCustomAddFormTag', DtExampleCustomAddFormTag],
 ]);

@@ -22,30 +22,38 @@
     (attach)="_onAttached()"
     (detach)="close()"
   >
-    <div #panel class="dt-tag-add-overlay">
+    <div
+      #panel
+      class="dt-tag-add-overlay"
+      [class.dt-custom-add-form]="_customAddForm"
+    >
       <div cdkTrapFocus cdkTrapFocusAutoCapture>
-        <button
-          class="dt-tag-add-header"
-          (click)="close()"
-          cdkMonitorElementFocus
-        >
+        <button class="dt-tag-add-header" (click)="close()">
           <dt-icon class="dt-tag-add-icon" name="plus-add"></dt-icon> Add Tag
         </button>
-        <div class="dt-tag-add-fields" dtTheme=":dark">
-          <input
-            class="dt-tag-add-input"
-            type="text"
-            #input
-            dtInput
-            [placeholder]="placeholder"
-            [attr.aria-label]="ariaLabel"
-            (keyup.enter)="_addTagFromOverlayInput($event)"
-          />
+        <div
+          class="dt-tag-add-fields"
+          [class.dt-custom-add-form]="_customAddForm"
+          dtTheme=":dark"
+        >
+          <ng-content select="dt-tag-add-form"></ng-content>
+          <ng-container *ngIf="!_customAddForm">
+            <input
+              class="dt-tag-add-input"
+              type="text"
+              #input
+              dtInput
+              [placeholder]="placeholder"
+              [attr.aria-label]="ariaLabel"
+              (input)="_onTagValueChange()"
+              (keyup.enter)="submit()"
+            />
+          </ng-container>
           <button
             class="dt-tag-add-submit-button"
             dt-button
-            (click)="_addTag(input.value)"
-            [disabled]="input.value.length == 0"
+            (click)="submit()"
+            [disabled]="(_valid$ | async) === false"
           >
             Add
           </button>
