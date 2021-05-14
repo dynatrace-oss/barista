@@ -25,6 +25,7 @@ import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import { DtTag, DtTagKey } from './tag';
+import { DtTagAddForm } from './tag-add/tag-add-form/tag-add-form';
 import { DtTagAdd } from './tag-add/tag-add';
 import { DtTagList } from './tag-list/tag-list';
 
@@ -38,7 +39,7 @@ import { DtTagList } from './tag-list/tag-list';
     A11yModule,
     DtThemingModule,
   ],
-  exports: [DtTag, DtTagKey, DtTagAdd, DtTagList],
-  declarations: [DtTag, DtTagKey, DtTagAdd, DtTagList],
+  exports: [DtTag, DtTagKey, DtTagAdd, DtTagList, DtTagAddForm],
+  declarations: [DtTag, DtTagKey, DtTagAdd, DtTagList, DtTagAddForm],
 })
 export class DtTagModule {}
