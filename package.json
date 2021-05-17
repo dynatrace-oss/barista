@@ -108,7 +108,7 @@
     "@nrwl/linter": "11.6.1",
     "@nrwl/node": "11.6.1",
     "@nrwl/nx-plugin": "11.6.1",
-    "@nrwl/tao": "12.3.3",
+    "@nrwl/tao": "11.6.1",
     "@nrwl/workspace": "11.6.1",
     "@octokit/rest": "^18.5.2",
     "@politie/angular-testcafe-builder": "^2.0.5",
