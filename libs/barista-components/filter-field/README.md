@@ -2,7 +2,11 @@
 
 <ba-ux-snippet name="filter-field-intro"></ba-ux-snippet>
 
-<ba-live-example name="DtExampleFilterFieldDefault"></ba-live-example>
+<ba-live-example name="DtExampleFilterFieldDefaultSearch"></ba-live-example>
+
+The example above uses the defaultSearch option in the Datasource to provide the
+best experience for the user. See the [section](#default-search) on
+defaultSearch for more details.
 
 ## Imports
 
