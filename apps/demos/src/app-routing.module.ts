@@ -137,7 +137,6 @@ import {
   DtExampleExpandableTextDefault,
   DtExampleFilterFieldAsync,
   DtExampleFilterFieldClearall,
-  DtExampleFilterFieldDefault,
   DtExampleFilterFieldDefaultSearch,
   DtExampleFilterFieldDisabled,
   DtExampleFilterFieldDistinct,
@@ -700,10 +699,6 @@ const ROUTES: Routes = [
   {
     path: 'filter-field-clearall-example',
     component: DtExampleFilterFieldClearall,
-  },
-  {
-    path: 'filter-field-default-example',
-    component: DtExampleFilterFieldDefault,
   },
   {
     path: 'filter-field-default-search-example',

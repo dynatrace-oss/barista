@@ -42,7 +42,6 @@ const BLOCKLIST: string[] = [
   // https://github.com/dynatrace-oss/barista/issues/567
   'filter-field-async-example',
   'filter-field-clearall-example',
-  'filter-field-default-example',
   'filter-field-default-search-example',
   'filter-field-disabled-example',
   'filter-field-distinct-example',
