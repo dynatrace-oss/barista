@@ -89,8 +89,11 @@ import {
 import {
   DT_FILTER_EDITION_VALUES_DEFAULT_PARSER_CONFIG,
   DT_FILTER_EDITION_VALUES_PARSER_CONFIG,
+  DT_FILTER_FIELD_CONFIG,
+  DT_FILTER_FIELD_DEFAULT_CONFIG,
   DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG,
   DT_FILTER_VALUES_PARSER_CONFIG,
+  DtFilterFieldConfig,
   EditionParserFunction,
   TagParserFunction,
 } from './filter-field-config';
@@ -557,7 +560,13 @@ export class DtFilterField<T = any>
     @Optional()
     @Inject(DT_FILTER_EDITION_VALUES_PARSER_CONFIG)
     private editionValuesParser: EditionParserFunction,
+    @Optional()
+    @Inject(DT_FILTER_FIELD_CONFIG)
+    readonly _filterFieldConfig: DtFilterFieldConfig,
   ) {
+    this._filterFieldConfig =
+      this._filterFieldConfig || DT_FILTER_FIELD_DEFAULT_CONFIG;
+
     this.tagValuesParser =
       this.tagValuesParser || DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG;
 

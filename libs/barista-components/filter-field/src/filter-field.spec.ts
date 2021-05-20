@@ -72,6 +72,7 @@ import {
   getInput,
   getTagButtons,
   isClearAllVisible,
+  getPartialResultsHintPanel,
 } from './testing/filter-field-test-helpers';
 import { DtAutocompleteValue, DtFilterValue } from './types';
 
@@ -1146,10 +1147,16 @@ describe('DtFilterField', () => {
       let options = getOptions(overlayContainerElement);
       expect(options).toHaveLength(0);
 
+      let hintPanel = getPartialResultsHintPanel(overlayContainerElement);
+      expect(hintPanel).toBeNull();
+
       fixture.componentInstance.dataSource.data = DATA_PARTIAL;
       fixture.detectChanges();
       advanceFilterfieldCycle(true, true);
       tick();
+
+      hintPanel = getPartialResultsHintPanel(overlayContainerElement);
+      expect(hintPanel).not.toBeNull();
 
       options = getOptions(overlayContainerElement);
       expect(options).toHaveLength(4);
