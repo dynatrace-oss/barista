@@ -87,34 +87,42 @@
           >
         </dt-option>
       </ng-container>
-      <ng-container
-        *ngFor="let optionOrGroupDef of _autocompleteOptionsOrGroups"
-      >
-        <dt-optgroup
-          *ngIf="optionOrGroupDef.group; else options"
-          [label]="optionOrGroupDef.group!.label"
+      <ng-container>
+        <div
+          class="dt-filter-field-hint-partial"
+          *ngIf="_currentDef?.autocomplete?.partial"
         >
-          <dt-option
-            *ngFor="let optionDef of optionOrGroupDef.group!.options"
-            [value]="optionDef"
-            [disabled]="optionDef.option!.disabled"
-            [attr.title]="_getTitle(optionDef.option)"
+          {{ _filterFieldConfig.partialHintMessage }}
+        </div>
+        <ng-container
+          *ngFor="let optionOrGroupDef of _autocompleteOptionsOrGroups"
+        >
+          <dt-optgroup
+            *ngIf="optionOrGroupDef.group; else options"
+            [label]="optionOrGroupDef.group!.label"
           >
-            <dt-highlight [term]="_inputValue">{{
-              optionDef.option!.viewValue
-            }}</dt-highlight>
-          </dt-option>
-        </dt-optgroup>
-        <ng-template #options>
-          <dt-option
-            [value]="optionOrGroupDef"
-            [attr.title]="_getTitle(optionOrGroupDef.option)"
-          >
-            <dt-highlight [term]="_inputValue">{{
-              optionOrGroupDef.option!.viewValue
-            }}</dt-highlight>
-          </dt-option>
-        </ng-template>
+            <dt-option
+              *ngFor="let optionDef of optionOrGroupDef.group!.options"
+              [value]="optionDef"
+              [disabled]="optionDef.option!.disabled"
+              [attr.title]="_getTitle(optionDef.option)"
+            >
+              <dt-highlight [term]="_inputValue">{{
+                optionDef.option!.viewValue
+              }}</dt-highlight>
+            </dt-option>
+          </dt-optgroup>
+          <ng-template #options>
+            <dt-option
+              [value]="optionOrGroupDef"
+              [attr.title]="_getTitle(optionOrGroupDef.option)"
+            >
+              <dt-highlight [term]="_inputValue">{{
+                optionOrGroupDef.option!.viewValue
+              }}</dt-highlight>
+            </dt-option>
+          </ng-template>
+        </ng-container>
       </ng-container>
     </dt-autocomplete>
 
