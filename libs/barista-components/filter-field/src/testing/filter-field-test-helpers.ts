@@ -239,6 +239,12 @@ export function customParser(
   return tagData;
 }
 
+export function getPartialResultsHintPanel(
+  overlayContainerElement: HTMLElement,
+): HTMLElement | null {
+  return overlayContainerElement.querySelector('.dt-filter-field-hint-partial');
+}
+
 export function getOptions(
   overlayContainerElement: HTMLElement,
 ): HTMLElement[] {

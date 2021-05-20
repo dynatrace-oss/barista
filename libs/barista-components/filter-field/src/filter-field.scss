@@ -67,6 +67,7 @@ $dt-filter-field-inner-height: 30px;
   height: $dt-filter-field-inner-height;
   align-items: center;
   margin-right: 8px;
+
   ::ng-deep svg {
     width: 16px;
     height: 16px;
@@ -177,6 +178,17 @@ button.dt-filter-field-clear-all-button-hidden {
 
 .dt-filter-field-error p {
   margin: 0;
+}
+
+::ng-deep .dt-filter-field-panel .dt-filter-field-hint-partial {
+  @include dt-text-ellipsis();
+  @include dt-custom-font-styles(
+    $custom-color: $gray-500,
+    $custom-font-size: 12px
+  );
+  text-align: center;
+  border-bottom: solid 1px $gray-200;
+  padding: 0 2px;
 }
 
 ::ng-deep .dt-filter-field-panel .dt-option {

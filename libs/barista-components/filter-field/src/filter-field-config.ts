@@ -21,6 +21,21 @@ import {
 } from './filter-field-util';
 import { DtFilterValue, DtFilterFieldTagData } from './types';
 
+/** InjectionToken of the Filter Field options. */
+export const DT_FILTER_FIELD_CONFIG = new InjectionToken<string>(
+  'DT_FILTER_FIELD_CONFIG',
+);
+
+/** The config that can be passed to the dt-filter-field component for customization */
+export interface DtFilterFieldConfig {
+  /** Message displayed in the options panel when partial results are listed */
+  partialHintMessage: string;
+}
+
+export const DT_FILTER_FIELD_DEFAULT_CONFIG: DtFilterFieldConfig = {
+  partialHintMessage: 'Pick or provide free text',
+};
+
 /** User defined parser function for tag key:values, overrides default parser function */
 export type TagParserFunction = (
   filterValues: DtFilterValue[],
