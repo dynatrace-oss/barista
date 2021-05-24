@@ -177,7 +177,7 @@
     "stylelint-scss": "^3.19.0",
     "tailwindcss": "^1.9.6",
     "terser": "^4.8.0",
-    "testcafe": "^1.9.4",
+    "testcafe": "^1.14.2",
     "testcafe-browser-provider-browserstack": "^1.13.1",
     "testcafe-reporter-xunit": "^2.1.0",
     "ts-jest": "^26.5.5",
