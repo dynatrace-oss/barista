@@ -23,12 +23,15 @@ export const TEST_DATA = {
     {
       name: 'DE',
       defaultSearch: true,
-      suggestions: [{ name: 'Berlin' }, { name: 'Bremen' }, { name: 'Munich' }],
+      autocomplete: [
+        { name: 'Berlin', options: [{ name: 'test1', disabled: true }] },
+        { name: 'Bremen' },
+        { name: 'Munich' },
+      ],
       unique: true,
       validators: [
         {
           validatorFn: Validators.minLength(2),
-          error: 'Country code needs at least 2 characters',
         },
       ],
     },
@@ -37,7 +40,7 @@ export const TEST_DATA = {
       distinct: true,
       autocomplete: [
         { name: 'Vienna' },
-        { name: 'Linz' },
+        { name: 'Linz', disabled: true },
         {
           name: 'custom',
           suggestions: [],
@@ -138,6 +141,7 @@ export const TEST_DATA_ASYNC_FREETEXT = {
 export const MULTI_SELECT_DATA_ASYNC = {
   name: 'Years (async)',
   multiOptions: [
+    { name: '1999 (disabled)', disabled: true },
     { name: '2018' },
     { name: '2019' },
     { name: '2020' },
@@ -149,8 +153,8 @@ export const MULTI_SELECT_DATA_ASYNC = {
 
 export const MULTI_SELECT_DATA_ASYNC_PARTIAL = {
   name: 'CH (async, partial)',
-  autocomplete: [
-    { name: 'Zürich' },
+  multiOptions: [
+    { name: 'Zürich (disabled)', disabled: true },
     { name: 'Genf' },
     { name: 'Basel' },
     { name: 'Bern' },
@@ -160,8 +164,8 @@ export const MULTI_SELECT_DATA_ASYNC_PARTIAL = {
 
 export const TEST_DATA_PARTIAL = {
   name: 'CH (async, partial)',
-  autocomplete: [
-    { name: 'Zürich' },
+  multiOptions: [
+    { name: 'Zürich (disabled)', disabled: true },
     { name: 'Genf' },
     { name: 'Basel' },
     { name: 'Bern' },

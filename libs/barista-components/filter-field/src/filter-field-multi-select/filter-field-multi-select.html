@@ -15,12 +15,14 @@
           <dt-option
             *ngFor="let optionDef of optionOrGroupDef.group!.options"
             [value]="optionDef"
+            [disabled]="optionDef.option!.disabled"
           >
             <dt-checkbox
               class="dt-filter-field-multi-select-checkbox"
               (change)="_toggleOptionFromTemplate(optionDef)"
               [checked]="_isOptionSelected(optionDef)"
               [value]="optionDef"
+              [disabled]="optionDef.option!.disabled"
             >
               <dt-highlight [term]="inputValue">{{
                 optionDef.option!.viewValue
@@ -29,12 +31,16 @@
           </dt-option>
         </dt-optgroup>
         <ng-template #options>
-          <dt-option [value]="optionOrGroupDef">
+          <dt-option
+            [value]="optionOrGroupDef"
+            [disabled]="optionOrGroupDef.option!.disabled"
+          >
             <dt-checkbox
               class="dt-filter-field-multi-select-checkbox"
               (change)="_toggleOptionFromTemplate(optionOrGroupDef)"
               [checked]="_isOptionSelected(optionOrGroupDef)"
               [value]="optionOrGroupDef"
+              [disabled]="optionOrGroupDef.option!.disabled"
             >
               <dt-highlight [term]="inputValue">{{
                 optionOrGroupDef.option!.viewValue
