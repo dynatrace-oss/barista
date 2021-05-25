@@ -972,16 +972,20 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
         color = field.color;
       }
 
+      const length = x2 - x1;
+
       renderFields.push({
-        x1,
-        x2,
+        x1: length >= 3 ? x1 : x1 - (3 - length),
+        x2: length >= 3 ? x2 : x2 + (3 - length),
         y: FIELD_BUBBLE_SIZE,
         color,
         fields: [field],
       });
     }
 
-    this._renderFields = dtEventChartMergeFields<T>(renderFields, 0);
+    this._renderFields = dtEventChartMergeFields<T>(renderFields).sort(
+      (a, b) => b.x2 - b.x1 - (a.x2 - a.x1),
+    );
   }
 
   /** Generates and updates the path that connects all the render events. */
