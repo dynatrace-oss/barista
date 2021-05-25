@@ -25,12 +25,14 @@ export const MULTI_SELECT_DATA = {
       name: 'Months',
       multiOptions: [
         { name: 'All' },
+        { name: 'None (disabled)', disabled: true },
         {
           name: 'Winter',
           options: [
             { name: 'January' },
             { name: 'February' },
             { name: 'March' },
+            { name: 'April (disabled)', disabled: true },
           ],
         },
         {
@@ -61,6 +63,7 @@ export const MULTI_SELECT_DATA = {
         { name: 'All' },
         { name: 'All work days' },
         { name: 'All weekends' },
+        { name: 'None (disabled)', disabled: true },
         {
           name: 'Work days',
           options: [
@@ -69,6 +72,7 @@ export const MULTI_SELECT_DATA = {
             { name: 'Wednesday' },
             { name: 'Thursday' },
             { name: 'Friday' },
+            { name: 'Sunday (disabled)', disabled: true },
           ],
         },
         {

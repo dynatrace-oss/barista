@@ -114,11 +114,25 @@ describe('DtFilterField', () => {
         );
         const applyButton = getMultiselectApplyButton(overlayContainerElement);
 
-        expect(checkboxes.length).toBe(4);
+        expect(checkboxes.length).toBe(5);
         expect(checkboxes[0].textContent?.trim()).toBe('NoneNone');
         expect(checkboxes[1].textContent?.trim()).toBe('KetchupKetchup');
         expect(checkboxes[2].textContent?.trim()).toBe('MustardMustard');
         expect(checkboxes[3].textContent?.trim()).toBe('MayoMayo');
+        expect(applyButton).toBeDefined();
+      });
+
+      it('should have set a checkbox as "disabled"', () => {
+        const checkboxInputs = getMultiselectCheckboxInputs(
+          overlayContainerElement,
+        );
+        const checkboxLabels = getMultiselectCheckboxLabels(
+          overlayContainerElement,
+        );
+        const applyButton = getMultiselectApplyButton(overlayContainerElement);
+
+        expect(checkboxLabels[4].textContent?.trim()).toBe('ImportedImported');
+        expect(checkboxInputs[4].disabled).toBeTruthy();
         expect(applyButton).toBeDefined();
       });
 
@@ -558,7 +572,7 @@ describe('DtFilterField', () => {
 
         const options = getMultiselectCheckboxInputs(overlayContainerElement);
         // Make sure that the autocomplete actually opened.
-        expect(options.length).toBe(4);
+        expect(options.length).toBe(5);
 
         // Unselect Ketchup
         options[1].click();
@@ -595,7 +609,7 @@ describe('DtFilterField', () => {
 
         const options = getMultiselectCheckboxInputs(overlayContainerElement);
         // Make sure that the autocomplete actually opened.
-        expect(options.length).toBe(4);
+        expect(options.length).toBe(5);
 
         // Unselect ketchup
         options[1].click();
