@@ -201,6 +201,22 @@ export class EasyTravelDataSource implements EventChartDemoDataSource {
       },
       {
         start: 2000,
+        end: 2000,
+        data: {
+          page: '/cart/asdf3',
+          pageGroup: '/cart',
+        },
+      },
+      {
+        start: 2000,
+        end: 2000,
+        data: {
+          page: '/cart/asdf1',
+          pageGroup: '/cart',
+        },
+      },
+      {
+        start: 2000,
         end: 3000,
         data: {
           page: '/cart/asdf2',
