@@ -3,7 +3,7 @@
 <div class="dt-event-chart-container">
   <div
     class="dt-event-chart-lane-labels"
-    [style.margin-top]="hasHeatfields ? FIELDS_OFFSET : 0"
+    [style.margin-top.px]="hasHeatfields ? FIELDS_OFFSET : 0"
     #laneLabels
   >
     <div *ngFor="let lane of _lanesReversed" class="dt-event-chart-lane-label">

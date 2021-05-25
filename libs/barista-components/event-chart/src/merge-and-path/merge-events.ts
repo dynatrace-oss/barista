@@ -118,7 +118,6 @@ export function dtEventChartMergeEvents<T>(
 
 export function dtEventChartMergeFields<T>(
   renderEvents: MergedRenderField<T>[],
-  overlapThreshold: number,
 ): RenderField<T>[] {
   // Loop over the rendered fields to merge points if necessary.
   for (let index = 0; index < renderEvents.length; index += 1) {
@@ -142,11 +141,9 @@ export function dtEventChartMergeFields<T>(
       eligableIndex += 1
     ) {
       const eligableEvent: MergedRenderField<T> = renderEvents[eligableIndex];
-      const isOverlapping = dtEventChartIsOverlappingEvent(
-        currentEvent,
-        eligableEvent,
-        overlapThreshold,
-      );
+      const isOverlapping =
+        currentEvent.x1 === eligableEvent.x1 &&
+        currentEvent.x2 === eligableEvent.x2;
       const hasSameColor = currentEvent.color === eligableEvent.color;
 
       // If the lane is the same, but the fields do not overlap, there will be no more overlaps
