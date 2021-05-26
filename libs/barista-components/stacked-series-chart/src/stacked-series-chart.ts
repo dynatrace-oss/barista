@@ -42,7 +42,7 @@ import {
 import { formatCount } from '@dynatrace/barista-components/formatters';
 import { DtColors, DtTheme } from '@dynatrace/barista-components/theming';
 import { scaleLinear } from 'd3-scale';
-import { merge, Subject } from 'rxjs';
+import { merge, ReplaySubject, Subject } from 'rxjs';
 import { first, tap, switchMapTo, takeUntil } from 'rxjs/operators';
 import { DtStackedSeriesChartNode } from '..';
 import { DtStackedSeriesChartOverlay } from './stacked-series-chart-overlay.directive';
@@ -330,7 +330,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   _tracks: DtStackedSeriesChartFilledSeries[] = [];
 
   /** Indicates when ticks should be recalculated */
-  private _shouldUpdateTicks = new Subject();
+  private _shouldUpdateTicks = new ReplaySubject();
 
   /** Subject to be called upon component destroy to remove pending subscriptions */
   private readonly _destroy$ = new Subject<void>();
