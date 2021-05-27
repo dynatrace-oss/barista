@@ -424,6 +424,9 @@ export function findFilterValuesForSources<T>(
         if (isLastSource) {
           return null;
         }
+        if (isDtMultiSelectDef(def)) {
+          applyDtOptionIds(def);
+        }
         if (isAsyncDtOptionDef(def) || isPartialDtOptionDef(def)) {
           const asyncDef = asyncDefs.get(def);
           if (asyncDef) {
