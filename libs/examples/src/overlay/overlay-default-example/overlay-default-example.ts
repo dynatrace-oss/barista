@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
-import { DtOverlayConfig } from '@dynatrace/barista-components/overlay';
+import {
+  DtOverlayConfig,
+  DtOverlay,
+} from '@dynatrace/barista-components/overlay';
 
 @Component({
   selector: 'dt-example-overlay-default',
@@ -27,4 +30,10 @@ export class DtExampleOverlayDefault {
     pinnable: true,
     originY: 'center',
   };
+
+  @ViewChild(DtOverlay, { static: false }) overlay;
+
+  handle(event): void {
+    console.log(event, this.overlay);
+  }
 }

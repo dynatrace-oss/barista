@@ -1,4 +1,9 @@
-<span [dtOverlay]="overlay" style="cursor: pointer" [dtOverlayConfig]="config">
+<span
+  [dtOverlay]="overlay"
+  style="cursor: pointer"
+  [dtOverlayConfig]="config"
+  (pinnedChanged)="handle($event)"
+>
   Hover me
 </span>
 <ng-template #overlay>
