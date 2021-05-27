@@ -145,6 +145,55 @@ describe('DtOverlayTrigger', () => {
     expect(overlay).not.toBeNull();
   }));
 
+  it('should fire pinnedChanged when pinned', fakeAsync(() => {
+    fixture.componentInstance.config = { pinnable: true };
+    fixture.detectChanges();
+    initOverlay(fixture, trigger);
+
+    dispatchMouseEvent(trigger, 'click');
+    fixture.detectChanges();
+    flush();
+
+    expect(fixture.componentInstance.pinned).toBeTruthy();
+  }));
+
+  it('should not fire pinnedChanged on subsequent mouseenter', fakeAsync(() => {
+    fixture.componentInstance.config = { pinnable: true };
+    fixture.detectChanges();
+    initOverlay(fixture, trigger);
+
+    dispatchMouseEvent(trigger, 'click');
+    fixture.detectChanges();
+    flush();
+
+    expect(fixture.componentInstance.pinned).toBeTruthy();
+
+    dispatchMouseEvent(trigger, 'mouseleave');
+    dispatchMouseEvent(trigger, 'mouseenter');
+    dispatchMouseEvent(trigger, 'mousemove');
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.pinned).toBeTruthy();
+  }));
+
+  it('should fire pinnedChanged when pinned then overlay is dismissed', fakeAsync(() => {
+    fixture.componentInstance.config = { pinnable: true };
+    fixture.detectChanges();
+    initOverlay(fixture, trigger);
+
+    dispatchMouseEvent(trigger, 'click');
+    fixture.detectChanges();
+    flush();
+
+    expect(fixture.componentInstance.pinned).toBeTruthy();
+
+    fixture.componentInstance.showTrigger = false;
+    fixture.detectChanges();
+    flush();
+
+    expect(fixture.componentInstance.pinned).toBeFalsy();
+  }));
+
   it('should stay pinned on subsequent mouseenter', fakeAsync(() => {
     fixture.componentInstance.config = { pinnable: true };
     fixture.detectChanges();
@@ -337,6 +386,7 @@ function getOverlayPane(overlayContainerElement: HTMLElement): HTMLElement {
       [dtOverlay]="overlay"
       [dtOverlayConfig]="config"
       [disabled]="disabled"
+      (pinnedChanged)="handlePinnedChanged($event)"
     >
       trigger
     </div>
@@ -348,4 +398,9 @@ class TestComponent {
   config: DtOverlayConfig = {};
   disabled = false;
   showTrigger = true;
+  pinned: boolean = false;
+
+  handlePinnedChanged(event: boolean): void {
+    this.pinned = event;
+  }
 }

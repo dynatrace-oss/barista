@@ -21,12 +21,14 @@ import {
   Attribute,
   Directive,
   ElementRef,
+  EventEmitter,
   Input,
   NgZone,
   OnDestroy,
+  Output,
   TemplateRef,
 } from '@angular/core';
-import { Subscription, fromEvent } from 'rxjs';
+import { Subscription, fromEvent, EMPTY } from 'rxjs';
 
 import {
   CanDisable,
@@ -84,6 +86,17 @@ export class DtOverlayTrigger<T>
     this._config = value;
   }
 
+  /** Emits on every pinned state change */
+  @Output()
+  pinnedChanged = new EventEmitter<boolean>();
+
+  /** Whether the underlying overlay is pinned or not */
+  get isOverlayPinned(): boolean | undefined {
+    return this._dtOverlayRef?.pinned;
+  }
+
+  private _pinnedChangedSubscribtion: Subscription = EMPTY.subscribe();
+
   constructor(
     private elementRef: ElementRef<Element>,
     private _dtOverlayService: DtOverlay,
@@ -101,7 +114,7 @@ export class DtOverlayTrigger<T>
   ngOnDestroy(): void {
     this._moveSub.unsubscribe();
     if (this._dtOverlayRef) {
-      this._dtOverlayRef.dismiss();
+      this._dismissOverlay();
     }
   }
 
@@ -133,7 +146,7 @@ export class DtOverlayTrigger<T>
     event.stopPropagation();
     this._moveSub.unsubscribe();
     if (this._dtOverlayRef && !this._dtOverlayRef.pinned) {
-      this._dtOverlayRef.dismiss();
+      this._dismissOverlay();
     }
   }
 
@@ -190,6 +203,16 @@ export class DtOverlayTrigger<T>
         this._dtOverlayRef = null;
       });
       this._dtOverlayRef = ref;
+      this._pinnedChangedSubscribtion = this._dtOverlayRef.pinnedChanged.subscribe(
+        (pinnedChanged) => {
+          this.pinnedChanged.emit(pinnedChanged);
+        },
+      );
     }
+  }
+
+  private _dismissOverlay(): void {
+    this._dtOverlayRef?.dismiss();
+    this._pinnedChangedSubscribtion.unsubscribe();
   }
 }

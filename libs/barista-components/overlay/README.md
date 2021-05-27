@@ -51,6 +51,12 @@ dismissed as well.
 | `dtOverlay`       | `TemplateRef`      | -       | Overlay pane containing the content.                             |
 | `dtOverlayConfig` | `DtOverlayConfig`  | -       | Overlay configuration; see properties below.                     |
 
+## Outputs
+
+| Name            | Type                 | Description                                               |
+| --------------- | -------------------- | --------------------------------------------------------- |
+| `pinnedChanged` | `EventEmitter<void>` | Will notify by firing every time the pinned state changes |
+
 ### Methods
 
 | Name    | Type   | Description           |
@@ -72,24 +78,27 @@ constructor(private _dtOverlay: DtOverlay) {}
 
 The `DtOverlay` service has the following two methods:
 
-| Method      | Parameters                                                                                                         | Return value                       | Description                                                                                                          |
-| ----------- | ------------------------------------------------------------------------------------------------------------------ | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| `create()`  | `origin: ElementRef`<br>`componentOrTemplateRef: ComponentType<T> \| TemplateRef<T>`<br>`config?: DtOverlayConfig` | `DtOverlayRef` (see details below) | Creates a overlay connected to the origin and containing the given component or templateRef.                         |
-| `dismiss()` |  -                                                                                                                 |  `void`                            |  Dismisses the currently open overlay. This method can be used if the overlay needs to be dismissed programatically. |
+| Method      | Parameters                                                                                                              | Return value                       | Description                                                                                                          |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `create()`  | `origin: DtOverlayOrigin`<br>`componentOrTemplateRef: ComponentType<T> \| TemplateRef<T>`<br>`config?: DtOverlayConfig` | `DtOverlayRef` (see details below) | Creates a overlay connected to the origin and containing the given component or templateRef.                         |
+| `dismiss()` |  -                                                                                                                      |  `void`                            |  Dismisses the currently open overlay. This method can be used if the overlay needs to be dismissed programatically. |
 
 <ba-live-example name="DtExampleOverlayProgrammatic"></ba-live-example>
 
-### DtOverlayRef
+## DtOverlayRef
 
 The DtOverlay service `create` method returns an instance of `DtOverlayRef`.
 This reference can be used to perform updates on the position, pinning the
 overlay or dismissing it.
 
-| Method             | Parameters                               | Return value | Description                                                                                                                                          |
-| ------------------ | ---------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pin()`            | `value: boolean`                         |  `void`      | Either pins or unpins the overlay.                                                                                                                   |
-| `dismiss()`        | -                                        |  `void`      | Dismisses the overlay.                                                                                                                               |
-| `updatePosition()` | `offsetX: number` <br> `offsetY: number` |  `void`      | Sets an offset to the overlay's position. Can be used e.g. in a mousemove eventhandler to update the overlays position depending on the MouseEvent.  |
+### Methods
+
+| Method                    | Parameters                               | Return value | Description                                                                                                                                          |
+| ------------------------- | ---------------------------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pin()`                   | `value: boolean`                         |  `void`      | Either pins or unpins the overlay.                                                                                                                   |
+| `dismiss()`               | -                                        |  `void`      | Dismisses the overlay.                                                                                                                               |
+| `updatePosition()`        | `offsetX: number` <br> `offsetY: number` |  `void`      | Sets an offset to the overlay's position. Can be used e.g. in a mousemove eventhandler to update the overlays position depending on the MouseEvent.  |
+| `updateImplicitContext()` | `data: any`                              | `void`       | Updates the implicit context on the template portal if one exists                                                                                    |
 
 ## DtOverlayConfig
 
@@ -99,9 +108,10 @@ the following properties:
 
 | Name                 | Type              | Default  | Description                                                                                                                                                                                                                                         |
 | -------------------- | ----------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pinnable`           | `boolean`         | `-`      | enables pinning of the overlay on click or by keyboard when the trigger is focused.                                                                                                                                                                 |
+| `pinnable`           | `boolean`         | -        | enables pinning of the overlay on click or by keyboard when the trigger is focused.                                                                                                                                                                 |
 | `originY`            | `center \| edge`  | `center` | The originY defines the vertical attachment point for the overlay. By default `center` is set. `edge` defines that the vertical attachment point is set to the bottom edge if the overlay fits below the origin element and the top edge otherwise. |
 | `movementConstraint` |  `xAxis \| yAxis` | -        | The movementConstraint locks the movement of the overlay to a given axis. No constraint is set by default.                                                                                                                                          |
+| `data`               | `any`             | -        | The data passed to the overlay as the $implicit context object                                                                                                                                                                                      |
 
 ## Fullscreen support
 
