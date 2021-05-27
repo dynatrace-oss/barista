@@ -32,6 +32,8 @@ import {
   multiSelectApply,
   multiSelectPanel,
   switchToSecondDatasource,
+  setupMultiselectEditScenario,
+  options,
 } from './filter-field.po';
 import { Selector } from 'testcafe';
 import { resetWindowSizeToDefault, waitForAngular } from '../../utils';
@@ -404,6 +406,22 @@ test('should choose a multiselect node with the mouse and submit the correct val
     .eql(1)
     .expect(tags[0])
     .match(/SeasoningMustard/);
+});
+
+test('should keep selected an option as it was previously set by default', async (testController: TestController) => {
+  // Switch to second datasource.
+  await testController
+    .click(setupMultiselectEditScenario)
+    // Wait for the filterfield to catch up.
+    .wait(500);
+
+  const tag = await filterTags();
+
+  await testController.click(tag);
+
+  const currentOptionsCount = await options().find('input:checked').count;
+
+  await testController.expect(currentOptionsCount).eql(1);
 });
 
 test('should not apply an empty multiselect node with the mouse', async (testController: TestController) => {
