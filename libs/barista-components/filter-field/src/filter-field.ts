@@ -1328,6 +1328,10 @@ export class DtFilterField<T = any>
       this._updateAutocompleteOptionsOrGroups();
       this._updateDefaultSearchDef();
       this._emitCurrentFilterChanges([submittedOption], []);
+
+      if (isDtMultiSelectDef(submittedOption)) {
+        this._multiSelect._setInitialSelection([]);
+      }
     } else {
       this._peekCurrentFilterValues().push(submittedOption);
       this._switchToRootDef(true);

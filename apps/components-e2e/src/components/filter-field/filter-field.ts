@@ -80,6 +80,16 @@ export class DtE2EFilterField implements OnDestroy {
       });
   }
 
+  setupMultiselectEditScenario(): void {
+    this._dataSource = new DtFilterFieldDefaultDataSource(DATA[1]);
+    const multiselectNoneFilter = [
+      DATA[1].autocomplete[3],
+      (DATA[1].autocomplete[3] as any).multiOptions![0],
+    ];
+
+    this._filterfield.filters = [multiselectNoneFilter];
+  }
+
   formSubmitted = false;
   onSubmit(event: Event): void {
     event.preventDefault();

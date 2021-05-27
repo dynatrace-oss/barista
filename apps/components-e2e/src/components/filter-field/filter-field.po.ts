@@ -40,6 +40,9 @@ export const input = Selector('input');
 export const switchToFirstDatasource = Selector('#switchToFirstDatasource');
 export const switchToSecondDatasource = Selector('#switchToSecondDatasource');
 export const setupSecondTestScenario = Selector('#setupSecondTestScenario');
+export const setupMultiselectEditScenario = Selector(
+  '#setupMultiselectEditScenario',
+);
 export function clickOption(
   nth: number,
   testController?: TestController,
