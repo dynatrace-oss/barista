@@ -158,10 +158,12 @@ export class DtSort
     }
 
     // If active is bound and being changed after initialization
-    // we need to update the sorter.
-    if (isDefined(changes.active) && !changes.active.firstChange) {
+    // we need to update the sorter. We also need to initially sort
+    // the active column if a direction has been provided.
+    if (isDefined(changes.active) && this.active && this.direction) {
       this.sort(this.active, this.direction);
     }
+
     this._stateChanges.next();
   }
 

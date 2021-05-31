@@ -141,6 +141,26 @@ describe('DtSort', () => {
       expect(checkCellsSorted(component.cells, false, 'column_c')).toBeTruthy();
     });
 
+    it('should initially sort using the given sort direction', () => {
+      component.dataSource = DATA_SOURCE;
+      component.start = 'asc';
+      component.active = 'column_a';
+      component.direction = 'desc';
+      fixture.detectChanges();
+
+      let sortHeaderElement = fixture.nativeElement.querySelector('#column_a');
+      expect(checkCellsSorted(component.cells, true, 'column_a')).toBeTruthy();
+      expect(sortHeaderElement.getAttribute('aria-sort')).toBe('descending');
+
+      component.active = 'column_b';
+      component.direction = 'asc';
+      fixture.detectChanges();
+
+      sortHeaderElement = fixture.nativeElement.querySelector('#column_b');
+      expect(checkCellsSorted(component.cells, true, 'column_b')).toBeTruthy();
+      expect(sortHeaderElement.getAttribute('aria-sort')).toBe('ascending');
+    });
+
     it('should apply the isSorted to appended rows as well', () => {
       component.dataSource = DATA_SOURCE;
       fixture.detectChanges();
@@ -431,6 +451,7 @@ function checkCellsSorted(
 
   return filteredCells.every((cell) => cell._isSorted === sorted);
 }
+
 /**
  * Performs a sequence of sorting on a single column to see if the sort directions are
  * consistent with expectations. Detects any changes in the fixture to reflect any changes in
