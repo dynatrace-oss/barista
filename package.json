@@ -121,7 +121,7 @@
     "@types/cheerio": "^0.22.29",
     "@types/d3-array": "^2.9.0",
     "@types/d3-color": "^2.0.1",
-    "@types/d3-scale": "^3.2.1",
+    "@types/d3-scale": "^3.3.0",
     "@types/d3-shape": "^2.0.0",
     "@types/express": "^4.17.11",
     "@types/glob": "^7.1.3",
