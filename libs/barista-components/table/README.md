@@ -206,12 +206,12 @@ You can set the following inputs and outputs on the `dtSort` directive.
 
 #### Inputs
 
-| Name              | Type              | Default | Description                                                                                              |
-| ----------------- | ----------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| `dtSortActive`    | `string`          |         | The ID of the most recent active column.                                                                 |
-| `dtSortDirection` | `DtSortDirection` | `asc`   | The sort direction of the currently active column.                                                       |
-| `dtSortDisabled`  | `boolean`         | `false` | Whether sorting is disabled for the entire table.                                                        |
-| `dtSortStart`     | `DtSortDirection` |         | Sort direction in which a column is initially sorted. May be overriden by the DtSortHeader's sort start. |
+| Name              | Type              | Default | Description                                                                                                                              |
+| ----------------- | ----------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `dtSortActive`    | `string`          |         | The ID of the most recent active column.                                                                                                 |
+| `dtSortDirection` | `DtSortDirection` | `asc`   | The sort direction of the currently active colum, which can be used for initially sorting it.                                            |
+| `dtSortDisabled`  | `boolean`         | `false` | Whether sorting is disabled for the entire table.                                                                                        |
+| `dtSortStart`     | `DtSortDirection` |         | Sort direction in which a column is initially sorted when the user interacts with it. May be overriden by the DtSortHeader's sort start. |
 
 #### Outputs
 

@@ -28,18 +28,18 @@ export class DtExampleTableSorting {
 
   dataSource = [
     {
-      host: 'et-demo-2-win4',
-      cpu: 30,
-      memoryPerc: 38,
-      memoryTotal: 5830000000,
-      traffic: 98700000,
-    },
-    {
       host: 'et-demo-2-win3',
       cpu: 26,
       memoryPerc: 46,
       memoryTotal: 6000000000,
       traffic: 62500000,
+    },
+    {
+      host: 'et-demo-2-win4',
+      cpu: 30,
+      memoryPerc: 38,
+      memoryTotal: 5830000000,
+      traffic: 98700000,
     },
     {
       host: 'docker-host2',
