@@ -31,7 +31,7 @@ See stacked-series-chart.layout.md
   background: $track-color;
 }
 
-.dt-stacked-series-chart-track-selectable .dt-stacked-series-chart-slice {
+.dt-stacked-series-chart-track-selectable {
   cursor: pointer;
 }
 
@@ -43,6 +43,10 @@ See stacked-series-chart.layout.md
 }
 
 .dt-stacked-series-chart-track-hoverable {
+  .dt-stacked-series-chart-slice-selectable {
+    cursor: pointer;
+  }
+
   .dt-stacked-series-chart-slice:hover {
     opacity: $hover-opacity;
   }
@@ -51,7 +55,6 @@ See stacked-series-chart.layout.md
 /** Slice **/
 .dt-stacked-series-chart-node .dt-stacked-series-chart-slice-selected,
 .dt-stacked-series-chart-track-selected.dt-stacked-series-chart-stack {
-  cursor: default;
   position: relative;
 
   &::before {
@@ -64,10 +67,6 @@ See stacked-series-chart.layout.md
 }
 
 /** Axis */
-.dt-stacked-series-chart-value-axis {
-  position: relative;
-}
-
 .dt-stacked-series-chart-axis-tick {
   position: absolute;
 

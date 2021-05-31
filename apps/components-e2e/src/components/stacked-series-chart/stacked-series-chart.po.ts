@@ -98,3 +98,6 @@ export const unselectBtn = Selector('#chart-unselect');
 
 export const chartWidth800Btn = Selector('#chart-width-800');
 export const chartWidth400Btn = Selector('#chart-width-400');
+
+export const selectionModeNode = Selector('#chart-selection-mode-node');
+export const selectionModeStack = Selector('#chart-selection-mode-stack');

@@ -1,0 +1,13 @@
+@import '../../core/src/style/colors';
+
+.dt-theme-dark :host {
+  .dt-stacked-series-chart-value-axis.dt-stacked-series-chart-value-axis {
+    background-color: $gray-860;
+  }
+}
+
+.dt-theme-dark .dt-card :host {
+  .dt-stacked-series-chart-value-axis.dt-stacked-series-chart-value-axis {
+    background-color: #505050;
+  }
+}

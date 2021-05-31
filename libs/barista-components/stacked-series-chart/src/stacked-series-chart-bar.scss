@@ -55,6 +55,7 @@ See stacked-series-chart.layout.md
     border-top: 1px solid $axis-color;
     grid-row: calc(1 + var(--dt-stacked-series-chart-track-amount));
     height: 40px;
+    position: relative;
   }
 
   .dt-stacked-series-chart-label-none .dt-stacked-series-chart-value-axis {
