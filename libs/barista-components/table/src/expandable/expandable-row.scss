@@ -47,6 +47,11 @@
   background-color: var(--dt-recovered-default-color);
 }
 
+:host.dt-table-row-indicator.dt-color-critical
+  > .dt-expandable-row-base::before {
+  background-color: var(--dt-critical-default-color);
+}
+
 :host.dt-expandable-row {
   &:nth-child(even) {
     background-color: #ffffff;

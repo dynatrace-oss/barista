@@ -22,7 +22,8 @@ $dt-royalblue-theme-light: dt-theme-light(
   /* recovered */
     dt-theme-palette($green-700, $green-800, $green-900, $green-100),
   /* cta */ dt-theme-palette($green-600, $green-700, $green-800, $green-100),
-  /* neutral */ dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100)
+  /* neutral */ dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100),
+  /* critical */ dt-theme-palette($red-700, $red-800, $red-900, $red-200)
 );
 
 $dt-royalblue-theme-dark: dt-theme-dark(
@@ -46,7 +47,8 @@ $dt-royalblue-theme-dark: dt-theme-dark(
   /* recovered */
     dt-theme-palette($green-700, $green-600, $green-500, $green-100),
   /* cta */ dt-theme-palette($green-500, $green-400, $green-300, $green-100),
-  /* neutral */ dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100)
+  /* neutral */ dt-theme-palette($gray-600, $gray-700, $gray-800, $gray-100),
+  /* critical */ dt-theme-palette($red-700, $red-600, $red-500, $red-200)
 );
 
 @include dt-register-theme(

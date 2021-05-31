@@ -36,6 +36,7 @@ describe('DtIndicator without table', () => {
         DtIndicatorColor,
         DtIndicatorWarning,
         DtIndicatorRecovered,
+        DtIndicatorCritical,
       ],
     });
 
@@ -91,6 +92,18 @@ describe('DtIndicator without table', () => {
 
     expect(indicator.classList.contains('dt-indicator-active')).toBe(true);
     expect(indicator.classList.contains('dt-color-recovered')).toBe(true);
+  });
+
+  it('should set the color to critical', () => {
+    const fixture = TestBed.createComponent(DtIndicatorCritical);
+    fixture.detectChanges();
+
+    const indicator: HTMLSpanElement = fixture.debugElement.query(
+      By.css('.dt-indicator'),
+    ).nativeElement;
+
+    expect(indicator.classList.contains('dt-indicator-active')).toBe(true);
+    expect(indicator.classList.contains('dt-color-critical')).toBe(true);
   });
 
   it('should set the color on a binding', () => {
@@ -160,4 +173,10 @@ class DtIndicatorColor {
 })
 class DtIndicatorRecovered {
   color = 'recovered';
+}
+@Component({
+  template: ` <span dtIndicator [dtIndicatorColor]="color"></span> `,
+})
+class DtIndicatorCritical {
+  color = 'critical';
 }

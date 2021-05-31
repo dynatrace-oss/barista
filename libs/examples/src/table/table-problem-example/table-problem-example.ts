@@ -25,6 +25,7 @@ export interface TableData {
   errors?: string[];
   warnings?: string[];
   recovered?: string[];
+  critical?: string[];
 }
 
 @Component({
@@ -51,6 +52,14 @@ export class DtExampleTableProblem {
       traffic: 6250000000,
     },
     {
+      name: 'docker-host1',
+      cpuUsage: 75.2,
+      memoryPerc: 77,
+      memoryTotal: 17250000000,
+      traffic: 6190000000,
+      critical: ['cpuUsage', 'memoryTotal'],
+    },
+    {
       name: 'docker-host2',
       cpuUsage: 25.4,
       memoryPerc: 38,
@@ -72,20 +81,23 @@ export class DtExampleTableProblem {
     return (
       this._metricHasError(rowData, metricName) ||
       this._metricHasWarning(rowData, metricName) ||
-      this._metricHasRecovered(rowData, metricName)
+      this._metricHasRecovered(rowData, metricName) ||
+      this._metricIsCritical(rowData, metricName)
     );
   }
 
   metricIndicatorColor(
     rowData: TableData,
     metricName: string,
-  ): 'error' | 'warning' | 'recovered' | null {
+  ): 'error' | 'warning' | 'recovered' | 'critical' | null {
     return this._metricHasError(rowData, metricName)
       ? 'error'
       : this._metricHasWarning(rowData, metricName)
       ? 'warning'
       : this._metricHasRecovered(rowData, metricName)
       ? 'recovered'
+      : this._metricIsCritical(rowData, metricName)
+      ? 'critical'
       : null;
   }
 
@@ -102,6 +114,12 @@ export class DtExampleTableProblem {
   private _metricHasRecovered(rowData: TableData, metricName: string): boolean {
     return (
       rowData.recovered !== undefined && rowData.recovered.includes(metricName)
+    );
+  }
+
+  private _metricIsCritical(rowData: TableData, metricName: string): boolean {
+    return (
+      rowData.critical !== undefined && rowData.critical.includes(metricName)
     );
   }
 

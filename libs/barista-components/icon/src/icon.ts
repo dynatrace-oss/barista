@@ -42,7 +42,8 @@ export type DtIconColorPalette =
   | 'cta'
   | 'recovered'
   | 'light'
-  | 'dark';
+  | 'dark'
+  | 'critical';
 
 const iconLogger = DtLoggerFactory.create('DtIcon');
 

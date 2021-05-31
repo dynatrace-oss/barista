@@ -29,6 +29,11 @@
   --dt-cta-hover-color: #{$green-700};
   --dt-cta-active-color: #{$green-800};
   --dt-cta-active-background-color: #{$green-100};
+
+  --dt-critical-default-color: #{$red-700};
+  --dt-critical-hover-color: #{$red-800};
+  --dt-critical-active-color: #{$red-900};
+  --dt-critical-active-background-color: #{$red-200};
 }
 
 /* Accent, warning, error and cta colors for dark theme */
@@ -57,6 +62,11 @@
   --dt-cta-hover-color: #{$green-400};
   --dt-cta-active-color: #{$green-300};
   --dt-cta-active-background-color: #{$green-100};
+
+  --dt-critical-default-color: #{$red-700};
+  --dt-critical-hover-color: #{$red-600};
+  --dt-critical-active-color: #{$red-500};
+  --dt-critical-active-background-color: #{$red-200};
 }
 
 /* theme turquoise */

@@ -7,6 +7,9 @@
 .dt-indicator-active.dt-color-recovered {
   --dt-indicator-color: var(--dt-recovered-default-color);
 }
+.dt-indicator-active.dt-color-critical {
+  --dt-indicator-color: var(--dt-critical-default-color);
+}
 
 .dt-indicator-active {
   color: var(--dt-indicator-color);

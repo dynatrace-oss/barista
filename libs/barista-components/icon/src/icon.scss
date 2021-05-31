@@ -31,6 +31,9 @@
 .dt-icon.dt-color-dark {
   --dt-icon-color: #{$gray-300};
 }
+.dt-icon.dt-color-critical {
+  --dt-icon-color: var(--dt-critical-default-color);
+}
 
 .dt-theme-dark {
   .dt-icon.dt-color-main,
@@ -39,7 +42,8 @@
   .dt-icon.dt-color-error,
   .dt-icon.dt-color-cta,
   .dt-icon.dt-color-light,
-  .dt-icon.dt-color-dark {
+  .dt-icon.dt-color-dark,
+  .dt-icon.dt-color-critical {
     --dt-icon-color: #{$white};
   }
 }
