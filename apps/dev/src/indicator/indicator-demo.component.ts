@@ -55,6 +55,15 @@ const TESTDATA: ThreadNode[] = [
     ],
   },
   {
+    name: 'hz.hzInstance_2_cluster.thread',
+    icon: 'process',
+    threadlevel: 'S0',
+    totalTimeConsumption: 250,
+    waiting: 157,
+    running: 20,
+    blocked: 30,
+  },
+  {
     name: 'jetty',
     icon: 'process',
     threadlevel: 'S0',
@@ -129,7 +138,7 @@ const TESTDATA: ThreadNode[] = [
         <dt-cell
           *dtCellDef="let row"
           [dtIndicator]="row.blocked > 0"
-          dtIndicatorColor="error"
+          [dtIndicatorColor]="indicatorColor(row.blocked)"
         >
           {{ row.blocked }}ms
         </dt-cell>
@@ -214,6 +223,10 @@ export class IndicatorDemo {
       this.treeFlattener,
     );
     this.dataSource.data = TESTDATA;
+  }
+
+  indicatorColor(blocked: number): 'error' | 'critical' | null {
+    return blocked > 20 ? 'critical' : blocked > 0 ? 'error' : null;
   }
 
   hasChild = (_: number, _nodeData: ThreadFlatNode) => _nodeData.expandable;

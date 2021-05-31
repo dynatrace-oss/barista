@@ -37,6 +37,7 @@ export type DtThemePalette =
   | 'cta'
   | 'recovered'
   | 'neutral'
+  | 'critical'
   | undefined;
 
 /** Mixin to augment a directive with a `color` property. */

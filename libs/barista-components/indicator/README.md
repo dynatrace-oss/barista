@@ -4,7 +4,7 @@ The `dtIndicator` directive adds the capability to add styling to indicate a
 warning or an error.
 
 This directive was introduced to add indicators in the `<dt-table>`, but can be
-used in other components as well to handle error, warning or recovered
+used in other components as well to handle error, warning, recovered or critical
 indications.
 
 <ba-live-example name="DtExampleIndicatorDefault" fullwidth></ba-live-example>
@@ -31,7 +31,7 @@ component or HTML element.
 
 ## Inputs
 
-| Name               | Type                                  | Default | Description                      |
-| ------------------ | ------------------------------------- | ------- | -------------------------------- |
-| `dtIndicator`      | `boolean`                             | `true`  | Whether the indicator is active. |
-| `dtIndicatorColor` | `'error' \| 'warning' \| 'recovered'` | `error` | Sets the color.                  |
+| Name               | Type                                                | Default | Description                      |
+| ------------------ | --------------------------------------------------- | ------- | -------------------------------- |
+| `dtIndicator`      | `boolean`                                           | `true`  | Whether the indicator is active. |
+| `dtIndicatorColor` | `'error' \| 'warning' \| 'recovered' \| 'critical'` | `error` | Sets the color.                  |

@@ -41,4 +41,7 @@
   &.dt-color-recovered::before {
     background-color: var(--dt-recovered-default-color);
   }
+  &.dt-color-critical::before {
+    background-color: var(--dt-critical-default-color);
+  }
 }

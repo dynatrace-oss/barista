@@ -117,7 +117,7 @@ export class DtColumnDef extends CdkColumnDef implements OnChanges {
   }
 }
 
-type IndicatorType = 'error' | 'warning' | 'recovered';
+type IndicatorType = 'error' | 'warning' | 'recovered' | 'critical';
 
 /** Cell template container that adds the right classes and role. */
 @Component({
@@ -151,6 +151,11 @@ export class DtCell implements AfterContentInit, OnDestroy {
   /** Whether the cell has recovered */
   get hasRecovered(): boolean {
     return this._hasIndicator('recovered');
+  }
+
+  /** Whether the cell is critical */
+  get isCritical(): boolean {
+    return this._hasIndicator('critical');
   }
 
   /**

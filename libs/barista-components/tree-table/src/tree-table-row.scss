@@ -21,6 +21,11 @@
     .dt-tree-table-toggle-cell-wrap::before {
     background-color: var(--dt-recovered-default-color);
   }
+  &.dt-table-row-indicator.dt-color-critical
+    ::ng-deep
+    .dt-tree-table-toggle-cell-wrap::before {
+    background-color: var(--dt-critical-default-color);
+  }
 
   &:nth-child(even) ::ng-deep .dt-cell {
     background-color: $dt-table-row-color-even;
