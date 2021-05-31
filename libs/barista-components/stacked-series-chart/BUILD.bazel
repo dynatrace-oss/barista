@@ -68,12 +68,22 @@ sass_binary(
 sass_binary(
     name = "styles_column",
     src = "src/stacked-series-chart-column.scss",
-    deps = [":styles_shared"],
+    deps = [
+        ":styles_shared",
+        ":theme",
+    ],
 )
 
 sass_library(
     name = "styles_shared",
     srcs = ["src/_stacked-series-chart-shared.scss"],
+)
+
+sass_library(
+    name = "theme",
+    srcs = glob(
+        ["src/_stacked-series-chart-theme.scss"],
+    ),
 )
 
 stylelint(

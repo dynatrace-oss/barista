@@ -47,7 +47,9 @@
       class="dt-stacked-series-chart-track"
       [class.dt-stacked-series-chart-node]="_isNodeSelectionMode"
       [class.dt-stacked-series-chart-stack]="_isStackSelectionMode"
-      [class.dt-stacked-series-chart-track-selectable]="_selectable"
+      [class.dt-stacked-series-chart-track-selectable]="
+        _selectable && _isStackSelectionMode
+      "
       [class.dt-stacked-series-chart-track-selected]="track.selected"
       [class.dt-stacked-series-chart-track-background]="visibleTrackBackground"
       [class.dt-stacked-series-chart-track-hoverable]="_overlay"
@@ -57,6 +59,7 @@
       <span
         *ngFor="let slice of track.nodes; trackBy: _trackByFn"
         class="dt-stacked-series-chart-slice"
+        [class.dt-stacked-series-chart-slice-selectable]="_selectable"
         [class.dt-stacked-series-chart-slice-selected]="slice.selected"
         [attr.aria-label]="slice.ariaLabel"
         [style]="
