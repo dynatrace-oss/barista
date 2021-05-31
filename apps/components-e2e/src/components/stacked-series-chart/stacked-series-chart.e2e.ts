@@ -21,8 +21,8 @@ import {
   barBtn,
   barChart,
   body,
-  chartWidth400Btn,
   chartContainer,
+  chartWidth400Btn,
   columnBtn,
   columnChart,
   fullTrackBtn,
@@ -46,6 +46,8 @@ import {
   resetBtn,
   selectableBtn,
   selectBtn,
+  selectionModeNode,
+  selectionModeStack,
   setLegendsBtn,
   singleTrackBtn,
   slices,
@@ -63,6 +65,9 @@ const hover: MouseActionOptions = {
   // The issue #646 is opened for this.
   speed: 0.6,
 };
+
+const selectableTrackClassname = 'dt-stacked-series-chart-track-selectable';
+const selectableSliceClassname = 'dt-stacked-series-chart-slice-selectable';
 
 const selectedSliceClassname = 'dt-stacked-series-chart-slice-selected';
 
@@ -130,7 +135,7 @@ test('should change the mode and fillMode', async (testController) => {
     // fillMode
     .click(fullTrackBtn)
     .expect(getSlice(0, 0).clientHeight)
-    .within(290, 300)
+    .within(285, 300)
     .click(barBtn)
     .expect(getSlice(0, 0).clientWidth)
     .within(635, 650);
@@ -270,4 +275,27 @@ test('should switch from full to compact on labelAxisMode auto', async (testCont
     .wait(250) // Wait for the DtViewportResizer event to trigger
     .expect(chartContainer.classNames)
     .contains(compactModeClassname);
+});
+
+test('should be selectable depending on the selection mode', async (testController: TestController) => {
+  await testController
+    // non selectable
+    .click(resetBtn)
+    .expect(getTrack(0).classNames)
+    .notContains(selectableTrackClassname)
+    .expect(getSlice(0, 0).classNames)
+    .notContains(selectableSliceClassname)
+    // selectable slice
+    .click(selectableBtn)
+    .click(selectionModeNode)
+    .expect(getTrack(0).classNames)
+    .notContains(selectableTrackClassname)
+    .expect(getSlice(0, 0).classNames)
+    .contains(selectableSliceClassname)
+    // selectable stack
+    .click(selectionModeStack)
+    .expect(getTrack(0).classNames)
+    .contains(selectableTrackClassname)
+    .expect(getSlice(0, 0).classNames)
+    .contains(selectableSliceClassname);
 });
