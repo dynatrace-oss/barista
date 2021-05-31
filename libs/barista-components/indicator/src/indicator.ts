@@ -34,6 +34,7 @@ export type DtIndicatorThemePalette =
   | 'error'
   | 'warning'
   | 'recovered'
+  | 'critical'
   | undefined;
 
 // Boilerplate for applying mixins to DtIndicator.

@@ -2,7 +2,7 @@ Indicator: <span [dtIndicator]="shown" [dtIndicatorColor]="color">Color</span>
 <br /><br />
 <button
   dt-button
-  (click)="color = { 'recovered': 'warning', 'warning': 'error', 'error': 'recovered' }[color]"
+  (click)="color = { 'recovered': 'warning', 'warning': 'error', 'error': 'critical', 'critical': 'recovered'}[color]"
 >
   Toggle color
 </button>

@@ -105,6 +105,9 @@ describe('DtIcon', () => {
     testComponent.iconColor = 'cta';
     fixture.detectChanges();
     expect(iconElement.classList).toContain('dt-color-cta');
+    testComponent.iconColor = 'critical';
+    fixture.detectChanges();
+    expect(iconElement.classList).toContain('dt-color-critical');
   });
 
   it('colors from the extended color palette', () => {
