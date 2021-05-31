@@ -1,3 +1,27 @@
+## [9.7.0](https://github.com/dynatrace-oss/barista/compare/9.6.0...9.7.0) (2021-05-31)
+
+### Bug Fixes
+
+- **event-chart:** Fixes various issues with the legend and heatfields.
+  ([c617d0a](https://github.com/dynatrace-oss/barista/commit/c617d0a1daa0b90c6e657da42b135702be22ff73))
+- **filter-field:** Fixing default checked options in multiselect dropdown.
+  ([ec5b53e](https://github.com/dynatrace-oss/barista/commit/ec5b53e3b4e4b8b1181e68ae4b57f3e085730023))
+- **stacked-series-chart:** Fixes the initial display of the Y axis.
+  ([a3ed931](https://github.com/dynatrace-oss/barista/commit/a3ed931ed14f0e47a33dd7e26eab73109513e8bc))
+
+### Features
+
+- **filter-field:** Adding 'disabled' handling for multiselect options.
+  ([c8d61aa](https://github.com/dynatrace-oss/barista/commit/c8d61aa5d5f255877db5d2c055e15749ca49ab07))
+- **filter-field:** Display a hint when partial options are loaded.
+  ([f08b4a9](https://github.com/dynatrace-oss/barista/commit/f08b4a914008fd2f96a06c9b3e28bb3790f04bfb)),
+  closes
+  [#APM-277597](https://github.com/dynatrace-oss/barista/issues/APM-277597)
+- **sunburst-chart:** Added hover output for slices.
+  ([4e23408](https://github.com/dynatrace-oss/barista/commit/4e23408132d04d3abf4b8f2476cc042c13205e97))
+- **tag:** Add tag-add-form for custom forms.
+  ([757b4b1](https://github.com/dynatrace-oss/barista/commit/757b4b157c0af9b997f9991e985e353379f738ba))
+
 ## [9.6.0](https://github.com/dynatrace-oss/barista/compare/9.5.0...9.6.0) (2021-05-10)
 
 ### Bug Fixes
