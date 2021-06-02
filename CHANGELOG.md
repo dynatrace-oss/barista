@@ -1,3 +1,21 @@
+## [9.8.0](https://github.com/dynatrace-oss/barista/compare/9.7.0...9.8.0) (2021-06-02)
+
+### Bug Fixes
+
+- **sort:** Fix default table sorting when the sort direction is set. Closes
+  APM-305714.
+  ([37e5cab](https://github.com/dynatrace-oss/barista/commit/37e5cab233ab006a2fed9530559f704039d1b8d2))
+
+### Features
+
+- **overlay:** Adds pinnedChanged output and isOverlayPinned property.
+  ([bbadf67](https://github.com/dynatrace-oss/barista/commit/bbadf67ed965dd72dfb3b26290588b37ce6ad2aa))
+- **stacked-series-chart:** Adding auto scrolling on horizontal overflow for
+  column mode
+  ([7432a29](https://github.com/dynatrace-oss/barista/commit/7432a29724dc5415f58d2f0fd2980b1e8744035f))
+- **theming:** Add critical color to theme. Closes APM-304694.
+  ([2537701](https://github.com/dynatrace-oss/barista/commit/2537701831a6b7cb57cf6cccf010915647766e95))
+
 ## [9.7.0](https://github.com/dynatrace-oss/barista/compare/9.6.0...9.7.0) (2021-05-31)
 
 ### Bug Fixes
