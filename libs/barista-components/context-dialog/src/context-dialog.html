@@ -13,7 +13,13 @@
   <dt-icon name="more"></dt-icon>
 </button>
 <ng-template>
-  <div class="dt-context-dialog-panel" #panel role="dialog" dtTheme=":dark">
+  <div
+    class="dt-context-dialog-panel"
+    #panel
+    role="dialog"
+    dtTheme=":dark"
+    [style]="_overlayConstraints"
+  >
     <ng-content select="dt-context-dialog-header"></ng-content>
     <div class="dt-context-dialog-content" [ngClass]="overlayPanelClass">
       <ng-content></ng-content>

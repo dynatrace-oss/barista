@@ -49,7 +49,7 @@ import {
 } from '@dynatrace/barista-components/core';
 import {
   DT_CONTEXT_DIALOG_CONFIG,
-  _DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH,
+  _DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS,
 } from './context-dialog';
 
 describe('DtContextDialog', () => {
@@ -425,24 +425,7 @@ describe('DtContextDialog', () => {
           .getContainerElement()
           .querySelector('.cdk-overlay-pane');
         expect(cdkOverlayPane?.getAttribute('style')).not.toContain(
-          `max-width: ${_DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH}px`,
-        );
-      }),
-    );
-
-    it(
-      'should have no maxWidth set if it is explicitly removed from the config',
-      waitForAsync(() => {
-        configureDtContextDialogTestingModule([BasicContextDialog]);
-
-        const fixture = createComponent(BasicContextDialog);
-        fixture.componentInstance.contextDialog.open();
-        fixture.detectChanges();
-        const cdkOverlayPane = overlayContainer
-          .getContainerElement()
-          .querySelector('.cdk-overlay-pane');
-        expect(cdkOverlayPane?.getAttribute('style')).toContain(
-          `max-width: ${_DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH}px`,
+          `max-width: ${_DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS.maxWidth}`,
         );
       }),
     );
