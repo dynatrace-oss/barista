@@ -59,9 +59,20 @@ import {
   DT_UI_TEST_CONFIG,
   DtUiTestConfiguration,
   dtSetUiTestAttribute,
+  isDefined,
 } from '@dynatrace/barista-components/core';
-
 import { DtContextDialogTrigger } from './context-dialog-trigger';
+import { coerceCssPixelValue } from '@angular/cdk/coercion';
+
+/** Controls the sizing of the overlay element within the cdk overlay */
+type DtContextDialogOverlayConstraint = {
+  maxWidth?: string;
+  minWidth?: string;
+  width?: string;
+  maxHeight?: string;
+  minHeight?: string;
+  height?: string;
+};
 
 const LOG: DtLogger = DtLoggerFactory.create('ContextDialog');
 const OVERLAY_POSITIONS: ConnectedPosition[] = [
@@ -111,8 +122,9 @@ export const DT_CONTEXT_DIALOG_CONFIG = new InjectionToken<OverlayConfig>(
   'dt-context-dialog-config',
 );
 
-/** The default max-width for the context dialogs overlay */
-export const _DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH = 328;
+export const _DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS = {
+  maxWidth: '328px',
+};
 
 @Component({
   selector: 'dt-context-dialog',
@@ -199,6 +211,8 @@ export class DtContextDialog
     return this._trigger && this._trigger !== this._defaultTrigger;
   }
 
+  _overlayConstraints: DtContextDialogOverlayConstraint = _DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS;
+
   constructor(
     private _overlay: Overlay,
     private _viewContainerRef: ViewContainerRef,
@@ -217,6 +231,34 @@ export class DtContextDialog
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
+
+    if (this._userConfig) {
+      const customConstraints: DtContextDialogOverlayConstraint = {
+        maxWidth: isDefined(this._userConfig.maxWidth)
+          ? coerceCssPixelValue(this._userConfig.maxWidth)
+          : undefined,
+        minWidth: isDefined(this._userConfig.minWidth)
+          ? coerceCssPixelValue(this._userConfig.minWidth)
+          : undefined,
+        width: isDefined(this._userConfig.width)
+          ? coerceCssPixelValue(this._userConfig.width)
+          : undefined,
+        maxHeight: isDefined(this._userConfig.maxHeight)
+          ? coerceCssPixelValue(this._userConfig.maxHeight)
+          : undefined,
+        minHeight: isDefined(this._userConfig.minHeight)
+          ? coerceCssPixelValue(this._userConfig.minHeight)
+          : undefined,
+        height: isDefined(this._userConfig.height)
+          ? coerceCssPixelValue(this._userConfig.height)
+          : undefined,
+      };
+
+      this._overlayConstraints = {
+        ..._DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS,
+        ...JSON.parse(JSON.stringify(customConstraints)),
+      };
+    }
   }
 
   ngAfterViewInit(): void {
@@ -311,32 +353,39 @@ export class DtContextDialog
       scrollStrategy: this._overlay.scrollStrategies.block(),
       backdropClass: 'cdk-overlay-transparent-backdrop',
       hasBackdrop: true,
-      maxWidth: _DT_CONTEXT_DIALOG_DEFAULT_MAX_WIDTH,
     };
 
     const overlayConfig = this._userConfig
       ? { ...defaultConfig, ...this._userConfig }
       : defaultConfig;
 
-    const hasFlexibleDimensions =
-      overlayConfig?.maxWidth === undefined &&
-      overlayConfig?.maxHeight === undefined;
-
     const positionStrategy = this._overlay
       .position()
       .flexibleConnectedTo(this._trigger.elementRef)
       .withPositions(OVERLAY_POSITIONS)
       .setOrigin(this._trigger.elementRef)
-      // We need to falsify the flexibleDimension here in case a maxWidth is set
-      // https://github.com/angular/components/blob/master/src/cdk/overlay/position/flexible-connected-position-strategy.ts#L914
-      .withFlexibleDimensions(hasFlexibleDimensions)
+      .withFlexibleDimensions(true)
       .withPush(false)
       .withGrowAfterOpen(false)
       .withViewportMargin(0)
       .withLockedPosition(false);
 
     overlayConfig.positionStrategy = positionStrategy;
-    this._overlayRef = this._overlay.create(overlayConfig);
+    /**
+     * Remove the constraint properties from the config passed to the overlay create
+     * method since setting one of these properties disables the flexibleDimensions and we
+     * actually want that to still be the case.
+     */
+    const {
+      width,
+      height,
+      minWidth,
+      maxWidth,
+      minHeight,
+      maxHeight,
+      ...remainingConfig
+    } = overlayConfig;
+    this._overlayRef = this._overlay.create(remainingConfig);
 
     dtSetUiTestAttribute(
       this._overlayRef.overlayElement,
