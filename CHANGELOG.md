@@ -1,3 +1,10 @@
+## [9.8.1](https://github.com/dynatrace-oss/barista/compare/9.8.0...9.8.1) (2021-06-07)
+
+### Bug Fixes
+
+- **context-dialog:** Fixes flexible dimensions being applied correctly.
+  ([dc405c8](https://github.com/dynatrace-oss/barista/commit/dc405c8a0d2711aafccab6b726b9ced053d5bea7))
+
 ## [9.8.0](https://github.com/dynatrace-oss/barista/compare/9.7.0...9.8.0) (2021-06-02)
 
 ### Bug Fixes
