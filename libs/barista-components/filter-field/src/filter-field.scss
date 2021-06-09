@@ -77,9 +77,13 @@ $dt-filter-field-inner-height: 30px;
 
 .dt-filter-field-infix {
   display: flex;
-  flex-grow: 0;
+  flex-grow: 1;
   flex-shrink: 1;
   margin-left: 8px;
+}
+
+.dt-filter-field-infix-edit {
+  max-width: 300px;
 }
 
 .dt-filter-field-category {
@@ -96,7 +100,6 @@ $dt-filter-field-inner-height: 30px;
   display: block;
   min-width: 112px; // Minimum with of the autocomplete
   width: 100%;
-  max-width: 300px;
   flex-grow: 1;
   flex-shrink: 1;
   position: relative;

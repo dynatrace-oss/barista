@@ -33,7 +33,10 @@
     {{ clearAllLabel }}
   </button>
 
-  <div class="dt-filter-field-infix">
+  <div
+    class="dt-filter-field-infix"
+    [ngClass]="{ 'dt-filter-field-infix-edit': _isInFilterEditMode }"
+  >
     <span class="dt-filter-field-category" *ngIf="_filterByLabel">{{
       _filterByLabel
     }}</span>
