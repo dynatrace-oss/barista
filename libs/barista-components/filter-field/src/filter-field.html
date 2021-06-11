@@ -93,9 +93,15 @@
       <ng-container>
         <div
           class="dt-filter-field-hint-partial"
-          *ngIf="_currentDef?.autocomplete?.partial"
+          *ngIf="
+            _currentDef?.autocomplete?.partial &&
+            _currentDef?.autocomplete?.partialHintMessage !== ''
+          "
         >
-          {{ _filterFieldConfig.partialHintMessage }}
+          {{
+            _currentDef?.autocomplete?.partialHintMessage ||
+              _filterFieldConfig.partialHintMessage
+          }}
         </div>
         <ng-container
           *ngFor="let optionOrGroupDef of _autocompleteOptionsOrGroups"

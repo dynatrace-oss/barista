@@ -56,6 +56,7 @@ export interface DtAutocompleteDef<OpGr = unknown, Op = unknown> {
   distinct: boolean;
   async: boolean;
   partial?: boolean;
+  partialHintMessage?: string;
   operators: DtNodeDef<Op>[];
   optionsOrGroups: DtNodeDef<OpGr>[];
 }
@@ -232,6 +233,7 @@ export function dtAutocompleteDef<D = unknown, OG = unknown, Op = unknown>(
   distinct: boolean,
   async: boolean,
   partial: boolean = false,
+  partialHintMessage?: string,
 ): DtNodeDef<D> & { autocomplete: DtAutocompleteDef<OG, Op> } {
   const def = {
     ...nodeDef(data, existingNodeDef),
@@ -240,6 +242,7 @@ export function dtAutocompleteDef<D = unknown, OG = unknown, Op = unknown>(
       distinct,
       async,
       partial,
+      partialHintMessage,
       operators: [],
     },
   };
