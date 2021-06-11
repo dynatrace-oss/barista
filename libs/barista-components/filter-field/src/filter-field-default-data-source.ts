@@ -74,6 +74,7 @@ export interface DtFilterFieldDefaultDataSourceAutocomplete {
   distinct?: boolean;
   async?: boolean;
   partial?: boolean;
+  partialHintMessage?: string;
 }
 
 /** Shape of an object to be usable as an multiselect */
@@ -270,6 +271,7 @@ export class DtFilterFieldDefaultDataSource
       !!data.distinct,
       !!data.async,
       !!data.partial,
+      data.partialHintMessage,
     );
     def.autocomplete!.optionsOrGroups = this.transformList(
       data.autocomplete,
