@@ -573,9 +573,15 @@ describe('StackedSeriesChart util', () => {
   });
 
   describe('getTotalMaxValue', () => {
-    it("should return sum of values for node's nodes", () => {
-      const expected = 5;
-      const actual = getTotalMaxValue(series);
+    it("should return rounded sum of values for node's nodes higher to the max value", () => {
+      const legendList = getLegends(stackedSeriesChartDemoDataShows);
+      const seriesList = fillSeries(
+        stackedSeriesChartDemoDataShows,
+        legendList,
+      );
+
+      const expected = 200;
+      const actual = getTotalMaxValue(seriesList);
 
       expect(actual).toEqual(expected);
     });

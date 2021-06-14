@@ -144,7 +144,9 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   /** Max value in the chart */
   @Input()
   get max(): number | undefined {
-    return this._max !== undefined ? this._max : getTotalMaxValue(this.series);
+    return this._max !== undefined
+      ? this._max
+      : getTotalMaxValue(this._filledSeries);
   }
   set max(value: number | undefined) {
     if (value !== this._max) {
@@ -436,6 +438,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
       slice.visible = !slice.visible;
       updateNodesVisibility(this._filledSeries, this._legends);
 
+      this._updateTicks();
       this._render();
     }
   }
@@ -596,12 +599,17 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
             0.6 +
           1.5,
         relative:
-          (this._axisTicks.slice(-1)[0].valueRelative.toString().length + 1) *
+          // `valueRelative` needs to be formatted to a percentage scale (0-100)
+          // in order to compute the axis size
+          ((this._axisTicks.slice(-1)[0].valueRelative * 100).toString()
+            .length +
+            1) *
             0.6 +
           1.5,
       };
     }
   }
+
   /** Return the width in px of the longest label on the label axis */
   private _getLongestLabelWidth(): number {
     return this.labels.reduce((labelCount: number, label: ElementRef) => {

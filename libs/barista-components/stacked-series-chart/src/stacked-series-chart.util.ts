@@ -309,12 +309,31 @@ const getValueForFilled = (nodes: DtStackedSeriesChartTooltipData[]): number =>
   nodes.reduce((total, p) => total + (p?.origin.value ?? 0), 0);
 
 /**
- * @description Get max of all bars sum of values
+ * @description Get sum of visible values for filled nodes
+ *
+ * @param nodes whole set of filled nodes
+ *
+ * @returns sum of visible nodes values
+ */
+const getVisibleValueForFilled = (
+  nodes: DtStackedSeriesChartTooltipData[],
+): number =>
+  nodes.reduce((total, p) => total + (p.visible ? p?.origin.value ?? 0 : 0), 0);
+
+/**
+ * @description Get max of all visible bars sum of values rounded up to the next scaled largest integer.
+ * E.g.: max=3.8 returns 4, max=67 returns 100.
  *
  * @param series whole set of filled series
  *
- * @returns sum of series values
+ * @returns next scaled largest integer of the max bars sum
  */
 export const getTotalMaxValue = (
-  series: DtStackedSeriesChartSeries[],
-): number => Math.max(...series.map((s) => getValue(s.nodes)));
+  series: DtStackedSeriesChartFilledSeries[],
+): number => {
+  const max = Math.max(...series.map((s) => getVisibleValueForFilled(s.nodes)));
+  const length = Math.ceil(max).toString().length;
+  const power = Math.pow(10, length - 1);
+
+  return Math.ceil(max / power) * power;
+};
