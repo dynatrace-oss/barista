@@ -15,8 +15,8 @@
  */
 
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, Optional, SkipSelf } from '@angular/core';
+import { merge, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /** Default timeout used to throttle window resize events */
@@ -43,6 +43,40 @@ export class DtDefaultViewportResizer implements DtViewportResizer {
   /** Event emitted when the viewport size changes with the updated value */
   get offset$(): Observable<{ left: number; top: number }> {
     return this.change().pipe(map(() => this.getOffset()));
+  }
+}
+
+@Injectable()
+export class DtTriggerableViewportResizer implements DtViewportResizer {
+  constructor(
+    @SkipSelf() @Optional() private _originalViewportResizer: DtViewportResizer,
+  ) {}
+
+  private _resizerSubject$ = new Subject<any>();
+
+  /** Returns a stream that emits whenever the size of the viewport changes. */
+  change(): Observable<void> {
+    if (this._originalViewportResizer) {
+      return merge(
+        this._originalViewportResizer.change(),
+        this._resizerSubject$.asObservable(),
+      );
+    }
+    return this._resizerSubject$.asObservable();
+  }
+
+  /** Retrieves the current offset of the viewport */
+  getOffset(): { left: number; top: number } {
+    return { left: 0, top: 0 };
+  }
+
+  /** Event emitted when the viewport size changes with the updated value */
+  get offset$(): Observable<{ left: number; top: number }> {
+    return this.change().pipe(map(() => this.getOffset()));
+  }
+
+  trigger(): void {
+    this._resizerSubject$.next();
   }
 }
 
