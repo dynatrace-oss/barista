@@ -194,7 +194,8 @@ class TooltipState {
   ],
 })
 export class DtChart
-  implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit {
+  implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit
+{
   /** Options to configure the chart. */
   @Input()
   get options(): Observable<DtChartOptions> | DtChartOptions {
@@ -355,8 +356,8 @@ export class DtChart
     );
   }
 
-  private readonly _heatfieldActiveChanges: Observable<DtChartHeatfieldActiveChange> = defer(
-    () => {
+  private readonly _heatfieldActiveChanges: Observable<DtChartHeatfieldActiveChange> =
+    defer(() => {
       if (this._heatfields) {
         return merge<DtChartHeatfieldActiveChange>(
           ...this._heatfields.map((heatfield) => heatfield.activeChange),
@@ -367,8 +368,7 @@ export class DtChart
         take(1),
         switchMap(() => this._heatfieldActiveChanges),
       );
-    },
-  );
+    });
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -474,16 +474,15 @@ export class DtChart
 
     this._heatfieldSelectionModelSubscription.unsubscribe();
     this._heatfieldSelectionModel = new SelectionModel<DtChartHeatfield>();
-    this._heatfieldSelectionModelSubscription = this._heatfieldSelectionModel.changed.subscribe(
-      (event) => {
+    this._heatfieldSelectionModelSubscription =
+      this._heatfieldSelectionModel.changed.subscribe((event) => {
         event.added.forEach((heatfield) => {
           heatfield.active = true;
         });
         event.removed.forEach((heatfield) => {
           heatfield.active = false;
         });
-      },
-    );
+      });
   }
 
   ngOnDestroy(): void {
@@ -669,9 +668,10 @@ export class DtChart
   private _notifyAfterRender(): void {
     this._ngZone.runOutsideAngular(() => {
       this._afterRender.next();
-      const plotBackground = this._container.nativeElement.querySelector<SVGRectElement>(
-        HIGHCHARTS_PLOT_BACKGROUND,
-      );
+      const plotBackground =
+        this._container.nativeElement.querySelector<SVGRectElement>(
+          HIGHCHARTS_PLOT_BACKGROUND,
+        );
 
       // set the offset of the plotBackground in relation to the chart
       this._setPlotBackgroundOffset(plotBackground);
