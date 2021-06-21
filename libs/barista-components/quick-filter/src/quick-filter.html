@@ -11,7 +11,11 @@
   class="dt-quick-filter-drawer"
   [class.dt-quick-filter-detail]="_isDetailView$ | async"
 >
-  <dt-drawer #drawer [opened]="_sidebarOpened">
+  <dt-drawer
+    #drawer
+    [opened]="_sidebarOpened"
+    (openChange)="_onOpenChange($event)"
+  >
     <button
       *ngIf="drawer.opened"
       class="dt-quick-filter-close"

@@ -27,13 +27,7 @@
     "no-var-keyword": true,
     "member-access": [true, "no-public"],
     "no-debugger": true,
-    "one-line": [
-      true,
-      "check-catch",
-      "check-else",
-      "check-open-brace",
-      "check-whitespace"
-    ],
+    "one-line": [true, "check-catch", "check-else", "check-whitespace"],
     "variable-name": [
       true,
       "ban-keywords",

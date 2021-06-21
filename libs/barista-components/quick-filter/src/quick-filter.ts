@@ -62,6 +62,10 @@ import {
 import { createQuickFilterStore, QuickFilterState } from './state/store';
 import { DtDrawer } from '@dynatrace/barista-components/drawer';
 import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
+import {
+  DtTriggerableViewportResizer,
+  DtViewportResizer,
+} from '@dynatrace/barista-components/core';
 
 /** Directive that is used to place a title inside the quick filters sidebar */
 @Directive({
@@ -94,7 +98,7 @@ export class DtQuickFilterChangeEvent<T> extends DtFilterFieldChangeEvent<T> {}
  * It contains the partially added or removed filters of the filter field.
  */
 export class DtQuickFilterCurrentFilterChangeEvent<
-  T
+  T,
 > extends DtFilterFieldCurrentFilterChangeEvent<T> {}
 
 @Component({
@@ -257,6 +261,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   constructor(
     private _zone: NgZone,
     private _elementRef: ElementRef<HTMLElement>,
+    private _viewportResizer: DtViewportResizer,
   ) {}
 
   /** Angular life-cycle hook that will be called after the view is initialized */
@@ -353,6 +358,12 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     // Filter only autocomplete filters as we don't use free-text and range in the quick-filter
     this._store.dispatch(setFilters(this._getFilteredValues()));
     this.filterChanges.emit(change);
+  }
+
+  _onOpenChange(_event: boolean): void {
+    if (this._viewportResizer instanceof DtTriggerableViewportResizer) {
+      (<DtTriggerableViewportResizer>this._viewportResizer).trigger();
+    }
   }
 
   /** Get the filter Values from the Filter Field with only the displayable autocompletes */
