@@ -340,11 +340,11 @@ test('should choose a multiselect node with the keyboard and submit the correct 
   await testController
     // Select the multiselect node
     .pressKey('down down down enter')
-    // Wait for a certain amout fo time to let the filterfield refresh
+    // Wait for a certain amount of time to let the filterfield refresh
     .wait(250)
     // Select the desired option
     .pressKey('down space enter')
-    // Wait for a certain amout fo time to let the filterfield refresh
+    // Wait for a certain amount of time to let the filterfield refresh
     .wait(250);
 
   const tags = await getFilterfieldTags();

@@ -22,13 +22,14 @@ import {
   useAnimation,
 } from '@angular/animations';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   BACKSPACE,
   DELETE,
   ENTER,
   ESCAPE,
   LEFT_ARROW,
+  SPACE,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
@@ -59,12 +60,12 @@ import {
   DtAutocompleteTrigger,
 } from '@dynatrace/barista-components/autocomplete';
 import {
+  _readKeyCode,
   CanDisable,
   DT_ERROR_ENTER_ANIMATION,
   DT_ERROR_ENTER_DELAYED_ANIMATION,
   ErrorStateMatcher,
   isDefined,
-  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 import {
   fromEvent,
@@ -129,6 +130,7 @@ import {
 } from './filter-field-util';
 import { DtFilterFieldControl } from './filter-field-validation';
 import {
+  _getSourcesOfDtFilterValues,
   DefaultSearchOption,
   DtAutocompleteValue,
   DtFilterFieldTagData,
@@ -151,7 +153,6 @@ import {
   isDtRangeDef,
   isDtRangeValue,
   isPartialDtOptionDef,
-  _getSourcesOfDtFilterValues,
 } from './types';
 
 // tslint:disable:no-any
@@ -207,7 +208,8 @@ let currentlyOpenFilterField: DtFilterField<any> | null = null;
   ],
 })
 export class DtFilterField<T = any>
-  implements CanDisable, OnInit, AfterViewInit, OnDestroy, OnChanges {
+  implements CanDisable, OnInit, AfterViewInit, OnDestroy, OnChanges
+{
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
 
@@ -610,6 +612,7 @@ export class DtFilterField<T = any>
             return;
           } else if (isDtMultiSelectDef(this._currentDef)) {
             this._multiSelectTrigger.openPanel();
+            this._multiSelectTrigger.element.focus();
           }
           // It is necessary to restore the focus back to the input field
           // so the user can directly continue creating more filter nodes.
@@ -826,6 +829,8 @@ export class DtFilterField<T = any>
       }
     } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
       this._closeFilterPanels();
+    } else if (isDtMultiSelectDef(this._currentDef) && keyCode === SPACE) {
+      event.preventDefault();
     } else {
       if (this._inputFieldKeyboardLocked) {
         return;
@@ -1107,7 +1112,8 @@ export class DtFilterField<T = any>
           const recentRangeValue = removed[0];
           if (isDtRangeValue(recentRangeValue) && this._currentDef.range) {
             // Needed to set this in typescript, because template binding of input would be evaluated to late.
-            this._filterfieldRange.enabledOperators = this._currentDef.range.operatorFlags;
+            this._filterfieldRange.enabledOperators =
+              this._currentDef.range.operatorFlags;
             this._filterfieldRange._setValues(recentRangeValue.range);
             this._filterfieldRange._setOperator(
               recentRangeValue.operator as DtFilterFieldRangeOperator,
@@ -1545,7 +1551,7 @@ export class DtFilterField<T = any>
       return observableOf();
     }
 
-    return (merge(
+    return merge(
       fromEvent<MouseEvent>(this._document, 'click'),
       fromEvent<TouchEvent>(this._document, 'touchend'),
     ).pipe(
@@ -1558,7 +1564,7 @@ export class DtFilterField<T = any>
           (!filterField || !filterField.contains(clickTarget))
         );
       }),
-    ) as any) as Observable<void>;
+    ) as any as Observable<void>;
   }
 
   /**
