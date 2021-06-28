@@ -541,9 +541,8 @@ describe('StackedSeriesChart util', () => {
         imports: [DtThemingModule],
         declarations: [TestApp],
       }).compileComponents();
-      const fixture: ComponentFixture<TestApp> = TestBed.createComponent(
-        TestApp,
-      );
+      const fixture: ComponentFixture<TestApp> =
+        TestBed.createComponent(TestApp);
       fixture.detectChanges();
 
       const expected = [

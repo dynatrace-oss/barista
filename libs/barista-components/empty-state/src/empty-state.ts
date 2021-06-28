@@ -152,7 +152,8 @@ export class DtEmptyStateFooterActions {}
   ],
 })
 export class DtEmptyState
-  implements AfterContentInit, AfterViewInit, OnDestroy {
+  implements AfterContentInit, AfterViewInit, OnDestroy
+{
   /** @internal Empty state items (1..n) */
   @ContentChildren(DtEmptyStateItem)
   _items: QueryList<DtEmptyStateItem>;

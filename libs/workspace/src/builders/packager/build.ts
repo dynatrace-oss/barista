@@ -183,9 +183,10 @@ export async function packager(
   return { success: false };
 }
 
-function parseAdditionalTargets(
-  targetRef: string,
-): { target: string; project: string } {
+function parseAdditionalTargets(targetRef: string): {
+  target: string;
+  project: string;
+} {
   const [project, target] = targetRef.split(':');
   return { project, target };
 }

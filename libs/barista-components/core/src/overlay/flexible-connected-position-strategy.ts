@@ -168,7 +168,8 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
   private _previousPushAmount: { x: number; y: number } | null;
 
   /** Observable sequence of position changes. */
-  positionChanges: Observable<ConnectedOverlayPositionChange> = this._positionChanges.asObservable();
+  positionChanges: Observable<ConnectedOverlayPositionChange> =
+    this._positionChanges.asObservable();
 
   /** Ordered list of preferred positions, from most to least desirable. */
   get positions(): ConnectionPositionPair[] {
@@ -805,9 +806,8 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
       return;
     }
 
-    const elements: NodeListOf<HTMLElement> = this._boundingBox!.querySelectorAll(
-      this._transformOriginSelector,
-    );
+    const elements: NodeListOf<HTMLElement> =
+      this._boundingBox!.querySelectorAll(this._transformOriginSelector);
     let xOrigin: 'left' | 'right' | 'center';
     const yOrigin: 'top' | 'bottom' | 'center' = position.overlayY;
 

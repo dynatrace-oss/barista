@@ -84,9 +84,8 @@ describe('DtDatePicker', () => {
     beforeEach(fakeAsync(() => {
       fixture = createComponent(SimpleDatepickerTestApp);
       component = fixture.componentInstance;
-      buttonTrigger = fixture.debugElement.nativeElement.querySelector(
-        'button[dt-button]',
-      );
+      buttonTrigger =
+        fixture.debugElement.nativeElement.querySelector('button[dt-button]');
 
       inject([OverlayContainer], (oc: OverlayContainer) => {
         overlayContainer = oc;
@@ -406,9 +405,8 @@ describe('DtDatePicker', () => {
 
     describe('datepicker time selection', () => {
       it('should correctly display the time label and set the hour/minute if time mode is enabled and a valid time is set', fakeAsync(() => {
-        const label = fixture.debugElement.nativeElement.querySelector(
-          '.dt-button-label',
-        );
+        const label =
+          fixture.debugElement.nativeElement.querySelector('.dt-button-label');
         expect(label.textContent).toContain('Select date');
 
         component.datePicker.open();
@@ -434,9 +432,8 @@ describe('DtDatePicker', () => {
         expect(component.datePicker._isTimeLabelAvailable()).toBeTruthy();
         expect(label.textContent.trim()).toContain('8/31/2020');
 
-        const timeLabelElement = fixture.debugElement.nativeElement.querySelector(
-          '.dt-time-label',
-        );
+        const timeLabelElement =
+          fixture.debugElement.nativeElement.querySelector('.dt-time-label');
         expect(timeLabelElement.textContent.replace(/\s+/g, '')).toContain(
           '23:12',
         );
@@ -464,9 +461,8 @@ describe('DtDatePicker', () => {
 
         expect(component.datePicker._isTimeLabelAvailable).toBeTruthy();
 
-        let timeLabelElement = fixture.debugElement.nativeElement.querySelector(
-          '.dt-time-label',
-        );
+        let timeLabelElement =
+          fixture.debugElement.nativeElement.querySelector('.dt-time-label');
         expect(timeLabelElement.textContent.replace(/\s+/g, '')).toContain(
           '15:50',
         );
@@ -487,9 +483,8 @@ describe('DtDatePicker', () => {
 
         expect(component.datePicker._isTimeLabelAvailable()).toBeFalsy();
 
-        timeLabelElement = fixture.debugElement.nativeElement.querySelector(
-          '.dt-time-label',
-        );
+        timeLabelElement =
+          fixture.debugElement.nativeElement.querySelector('.dt-time-label');
         expect(timeLabelElement).toBeNull();
         expect(
           component.datePicker._timeLabel.replace(/\s+/g, ''),

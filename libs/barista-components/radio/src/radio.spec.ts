@@ -88,9 +88,8 @@ describe('DtRadio', () => {
         groupDebugElement = fixture.debugElement.query(
           By.directive(DtRadioGroup),
         );
-        groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
-          DtRadioGroup,
-        );
+        groupInstance =
+          groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
 
         radioDebugElements = fixture.debugElement.queryAll(
           By.directive(DtRadioButton),
@@ -378,9 +377,8 @@ describe('DtRadio', () => {
       groupDebugElement = fixture.debugElement.query(
         By.directive(DtRadioGroup),
       );
-      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
-        DtRadioGroup,
-      );
+      groupInstance =
+        groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
       groupNgModel = groupDebugElement.injector.get<NgModel>(NgModel);
 
       radioDebugElements = fixture.debugElement.queryAll(
@@ -493,9 +491,8 @@ describe('DtRadio', () => {
       groupDebugElement = fixture.debugElement.query(
         By.directive(DtRadioGroup),
       );
-      groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
-        DtRadioGroup,
-      );
+      groupInstance =
+        groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
     });
 
     it('should toggle the disabled state', () => {
@@ -526,12 +523,10 @@ describe('DtRadio', () => {
       const radioDebugElement = fixture.debugElement.query(
         By.directive(DtRadioButton),
       );
-      radioInstance = radioDebugElement.injector.get<DtRadioButton<any>>(
-        DtRadioButton,
-      );
-      radioNativeElement = radioDebugElement.nativeElement.querySelector(
-        'input',
-      );
+      radioInstance =
+        radioDebugElement.injector.get<DtRadioButton<any>>(DtRadioButton);
+      radioNativeElement =
+        radioDebugElement.nativeElement.querySelector('input');
     });
 
     it('should toggle the disabled state', () => {
@@ -711,9 +706,8 @@ describe('DtRadio', () => {
     });
 
     it('should not add the "name" attribute if it is not passed in', () => {
-      const radio = fixture.debugElement.nativeElement.querySelector(
-        '#nameless input',
-      );
+      const radio =
+        fixture.debugElement.nativeElement.querySelector('#nameless input');
       expect(radio.hasAttribute('name')).toBe(false);
     });
   });
@@ -729,8 +723,9 @@ describe('DtRadio', () => {
       const radioButtonEl = fixture.debugElement.query(
         By.css('.dt-radio-button'),
       ).nativeElement;
-      const inputEl = fixture.debugElement.query(By.css('.dt-radio-input'))
-        .nativeElement;
+      const inputEl = fixture.debugElement.query(
+        By.css('.dt-radio-input'),
+      ).nativeElement;
 
       radioButtonEl.focus();
       // Focus events don't always fire in tests, so we need to fake it.
@@ -769,9 +764,8 @@ describe('DtRadio', () => {
         groupDebugElement = fixture.debugElement.query(
           By.directive(DtRadioGroup),
         );
-        groupInstance = groupDebugElement.injector.get<DtRadioGroup<any>>(
-          DtRadioGroup,
-        );
+        groupInstance =
+          groupDebugElement.injector.get<DtRadioGroup<any>>(DtRadioGroup);
         radioDebugElements = fixture.debugElement.queryAll(
           By.directive(DtRadioButton),
         );

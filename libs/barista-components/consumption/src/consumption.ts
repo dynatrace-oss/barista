@@ -98,7 +98,8 @@ const KEY_RETURN = 13;
 })
 export class DtConsumption
   extends _DtConsumption
-  implements AfterViewInit, OnDestroy {
+  implements AfterViewInit, OnDestroy
+{
   /** Largest possible {@link value} for this consumption component instance. */
   @Input()
   get max(): number {

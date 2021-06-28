@@ -321,8 +321,8 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
     // to prevent scrolling on page up and down
     event.preventDefault();
 
-    const maxWidth = this._elementRef.nativeElement.getBoundingClientRect()
-      .width;
+    const maxWidth =
+      this._elementRef.nativeElement.getBoundingClientRect().width;
 
     this._position = updateTimestampWithKeyboardEvent(
       event,
@@ -344,8 +344,8 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
   /** Reflects the position of the timestamp to the element */
   private _reflectStyleToDom(): void {
     if (this._timestampElementRef && this._timestampElementRef.first) {
-      const element: HTMLElement = this._timestampElementRef.first
-        .nativeElement;
+      const element: HTMLElement =
+        this._timestampElementRef.first.nativeElement;
       if (element.style) {
         element.style.transform = `translateX(${this._positionX}px)`;
       }

@@ -160,8 +160,9 @@ describe('DtInlineEditor', () => {
     instance.enterEditing();
     fixture.detectChanges();
 
-    const inputElement = fixture.debugElement.query(By.css('input'))
-      .nativeElement;
+    const inputElement = fixture.debugElement.query(
+      By.css('input'),
+    ).nativeElement;
 
     expect(inputElement.getAttribute('aria-required')).toBe('true');
     expect(inputElement.getAttribute('aria-invalid')).toBe('false');
@@ -184,8 +185,9 @@ describe('DtInlineEditor', () => {
     instance.enterEditing();
     fixture.detectChanges();
 
-    const inputElement = fixture.debugElement.query(By.css('input'))
-      .nativeElement;
+    const inputElement = fixture.debugElement.query(
+      By.css('input'),
+    ).nativeElement;
 
     expect(inputElement.getAttribute('aria-invalid')).toBe('false');
 
@@ -259,8 +261,9 @@ describe('DtInlineEditor', () => {
     instance.enterEditing();
     fixture.detectChanges();
 
-    const inputReferenceElement = fixture.debugElement.query(By.css('input'))
-      .nativeElement;
+    const inputReferenceElement = fixture.debugElement.query(
+      By.css('input'),
+    ).nativeElement;
 
     dispatchKeyboardEvent(inputReferenceElement, 'keydown', ENTER);
     fixture.detectChanges();
@@ -277,8 +280,9 @@ describe('DtInlineEditor', () => {
     instance.enterEditing();
     fixture.detectChanges();
 
-    const inputReferenceElement = fixture.debugElement.query(By.css('input'))
-      .nativeElement;
+    const inputReferenceElement = fixture.debugElement.query(
+      By.css('input'),
+    ).nativeElement;
 
     dispatchKeyboardEvent(inputReferenceElement, 'keydown', ESCAPE);
 
@@ -316,8 +320,9 @@ describe('DtInlineEditor', () => {
     instance.enterEditing();
     fixture.detectChanges();
 
-    const inputElement = fixture.debugElement.query(By.css('input'))
-      .nativeElement;
+    const inputElement = fixture.debugElement.query(
+      By.css('input'),
+    ).nativeElement;
 
     // Expected zero error messages to have been rendered.
     expect(getErrorHtmlElement(fixture)).toBe(null);

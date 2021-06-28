@@ -67,34 +67,42 @@ export function prepareTooltipData(
  * Wraps the reset function of the pointer class to have events that we can listen to
  */
 export function addTooltipEvents(): boolean {
-  highcharts.wrap(highcharts.Pointer.prototype, 'reset', function (
-    proceed: any, // tslint:disable-line:no-any
-  ): void {
-    /**
-     * Now apply the original function with the original arguments,
-     * which are sliced off this function's arguments
-     */
-    const args = Array.prototype.slice.call(arguments, 1);
-    proceed.apply(this, args);
-    highcharts.fireEvent(this.chart, 'tooltipClosed');
-  });
+  highcharts.wrap(
+    highcharts.Pointer.prototype,
+    'reset',
+    function (
+      proceed: any, // tslint:disable-line:no-any
+    ): void {
+      /**
+       * Now apply the original function with the original arguments,
+       * which are sliced off this function's arguments
+       */
+      const args = Array.prototype.slice.call(arguments, 1);
+      proceed.apply(this, args);
+      highcharts.fireEvent(this.chart, 'tooltipClosed');
+    },
+  );
 
-  highcharts.wrap(highcharts.Tooltip.prototype, 'refresh', function (
-    proceed: any, // tslint:disable-line:no-any
-  ): void {
-    const args = Array.prototype.slice.call(arguments, 1);
-    proceed.apply(this, args);
-    /**
-     * Extract data that would be passed to the formatter function due to a
-     * weird issue that highcharts reuses the bound context to the formatter function
-     */
-    const pointOrPoints = args[0];
+  highcharts.wrap(
+    highcharts.Tooltip.prototype,
+    'refresh',
+    function (
+      proceed: any, // tslint:disable-line:no-any
+    ): void {
+      const args = Array.prototype.slice.call(arguments, 1);
+      proceed.apply(this, args);
+      /**
+       * Extract data that would be passed to the formatter function due to a
+       * weird issue that highcharts reuses the bound context to the formatter function
+       */
+      const pointOrPoints = args[0];
 
-    const data = prepareTooltipData(pointOrPoints);
+      const data = prepareTooltipData(pointOrPoints);
 
-    const eventPayload: DtHcTooltipEventPayload = { data };
-    highcharts.fireEvent(this.chart, 'tooltipRefreshed', eventPayload);
-  });
+      const eventPayload: DtHcTooltipEventPayload = { data };
+      highcharts.fireEvent(this.chart, 'tooltipRefreshed', eventPayload);
+    },
+  );
 
   // this has to return something otherwise when running a build with the prod flag enabled
   // uglify throws away this code because it does not produce side effects

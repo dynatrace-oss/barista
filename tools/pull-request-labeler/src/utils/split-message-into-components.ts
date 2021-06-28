@@ -56,9 +56,10 @@ export function splitStringIntoCommitMessage(original: string): CommitMessage {
     original.toLowerCase(),
   );
 
-  const releaseCommit = /chore: bump version to ([\d|\.].*?) w\/ changelog/gim.test(
-    original.toLowerCase(),
-  );
+  const releaseCommit =
+    /chore: bump version to ([\d|\.].*?) w\/ changelog/gim.test(
+      original.toLowerCase(),
+    );
 
   return {
     type,

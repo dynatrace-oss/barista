@@ -44,9 +44,7 @@ import { CommitTypes } from '../interfaces/commit-message';
  *                                       *target:minor*            *target:patch*
  *
  */
-export function processCommitMessages(
-  commitMessages: string[],
-): {
+export function processCommitMessages(commitMessages: string[]): {
   targets: string[];
   errors: string[];
 } {

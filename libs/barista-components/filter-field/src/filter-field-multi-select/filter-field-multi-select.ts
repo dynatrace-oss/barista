@@ -63,7 +63,8 @@ export class DtFilterFieldMultiSelectSubmittedEvent<T> {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtFilterFieldMultiSelect<T>
-  implements DtFilterFieldElement<T>, AfterViewInit {
+  implements DtFilterFieldElement<T>, AfterViewInit
+{
   /**
    * Whether the first option should be highlighted when the multi-select panel is opened.
    * Can be configured globally through the `DT_MULTI_SELECT_DEFAULT_OPTIONS` token.

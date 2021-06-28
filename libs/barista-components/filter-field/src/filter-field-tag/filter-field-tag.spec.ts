@@ -69,8 +69,9 @@ describe('DtFilterFieldTag', () => {
     }).compileComponents();
 
     fixture = createComponent(TestApp);
-    filterFieldTag = fixture.debugElement.query(By.directive(DtFilterFieldTag))
-      .componentInstance;
+    filterFieldTag = fixture.debugElement.query(
+      By.directive(DtFilterFieldTag),
+    ).componentInstance;
     filterFieldTagHost = fixture.debugElement.query(
       By.css('.dt-filter-field-tag'),
     ).nativeElement;

@@ -65,7 +65,8 @@ export const _ExpandableSectionBase = mixinId(
 })
 export class DtExpandableSection
   extends _ExpandableSectionBase
-  implements CanDisable, HasId {
+  implements CanDisable, HasId
+{
   /** Whether the expandable section is expanded. */
   @Input()
   get expanded(): boolean {

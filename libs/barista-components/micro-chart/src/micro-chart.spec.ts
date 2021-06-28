@@ -74,7 +74,8 @@ describe('DtMicroChart', () => {
     const microChartDebugElement = fixture.debugElement.query(
       By.directive(DtMicroChart),
     );
-    const microChartComponent = microChartDebugElement.componentInstance as DtMicroChart;
+    const microChartComponent =
+      microChartDebugElement.componentInstance as DtMicroChart;
 
     return {
       fixture,
@@ -154,8 +155,9 @@ describe('DtMicroChart', () => {
       const { fixture, microChartComponent } = setupTestCase(ThemeDynamic);
       fixture.detectChanges();
 
-      let data = (microChartComponent.highchartsOptions
-        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
+      let data = (
+        microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
+      ).data as SeriesLineDataOptions[];
       expect(data[0].marker).toEqual(
         objectContaining({ lineColor: DtColors.BLUE_600 }),
       );
@@ -163,8 +165,9 @@ describe('DtMicroChart', () => {
       fixture.componentInstance.theme = 'purple';
       fixture.detectChanges();
 
-      data = (microChartComponent.highchartsOptions
-        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
+      data = (
+        microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
+      ).data as SeriesLineDataOptions[];
       expect(data[0].marker).toEqual(
         objectContaining({ lineColor: DtColors.PURPLE_600 }),
       );
@@ -216,8 +219,9 @@ describe('DtMicroChart', () => {
       const { fixture, microChartComponent } = setupTestCase(Series);
       fixture.detectChanges();
 
-      const data = (microChartComponent.highchartsOptions
-        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
+      const data = (
+        microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
+      ).data as SeriesLineDataOptions[];
 
       expect(data[0].dataLabels).toEqual(
         objectContaining({ verticalAlign: 'bottom', enabled: true }),
@@ -231,8 +235,9 @@ describe('DtMicroChart', () => {
       const { fixture, microChartComponent } = setupTestCase(Formatter);
       fixture.detectChanges();
 
-      const seriesData = (microChartComponent.highchartsOptions
-        .series![0] as SeriesLineOptions).data!;
+      const seriesData = (
+        microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
+      ).data!;
       expect(seriesData[0]).not.toHaveProperty('dataLabels');
       expect((seriesData[1] as any).dataLabels.formatter).toBeDefined();
       expect(seriesData[2]).not.toHaveProperty('dataLabels');
@@ -251,15 +256,17 @@ describe('DtMicroChart', () => {
 
       fixture.detectChanges();
       expect(microChartComponent.seriesId).toEqual('someId');
-      let data = (microChartComponent.highchartsOptions
-        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
+      let data = (
+        microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
+      ).data as SeriesLineDataOptions[];
       expect(data[0]).toEqual(objectContaining({ x: 1, y: 0 }));
       expect(data[1]).toEqual(objectContaining({ x: 2, y: 10 }));
 
       fixture.componentInstance.emitTestData();
       expect(microChartComponent.seriesId).toEqual('someOtherId');
-      data = (microChartComponent.highchartsOptions
-        .series![0] as SeriesLineOptions).data as SeriesLineDataOptions[];
+      data = (
+        microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
+      ).data as SeriesLineDataOptions[];
       expect(data[0]).toEqual(objectContaining({ x: 1, y: 20 }));
       expect(data[1]).toEqual(objectContaining({ x: 2, y: 30 }));
     });

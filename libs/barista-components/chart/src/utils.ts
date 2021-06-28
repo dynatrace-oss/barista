@@ -71,7 +71,7 @@ export function getKeyboardNavigationOffset(event: KeyboardEvent): number {
  */
 export function captureAndMergeEvents<
   E extends Element,
-  T extends keyof WindowEventMap
+  T extends keyof WindowEventMap,
 >(
   type: T,
   elements: E[],

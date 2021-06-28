@@ -117,9 +117,8 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   }
 
   /** Event that fires when a node is clicked with an array of selected nodes (i.e [A, A.1, A.1.a])  */
-  @Output() selectedChange: EventEmitter<
-    DtSunburstChartNode[]
-  > = new EventEmitter();
+  @Output() selectedChange: EventEmitter<DtSunburstChartNode[]> =
+    new EventEmitter();
 
   /* Notifies the component container of the start of hover events per series, both in the pie and on the legend  */
   @Output() hoverStart = new EventEmitter<DtSunburstChartHoverData>();
@@ -319,8 +318,8 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
 
   /** Calculates visible slices based on their state */
   private _render(): void {
-    const containerWidth = this._elementRef.nativeElement.getBoundingClientRect()
-      .width;
+    const containerWidth =
+      this._elementRef.nativeElement.getBoundingClientRect().width;
     const nodesWithState = getNodesWithState(
       this._filledSeries,
       getSelectedId(this._filledSeries, this._selected),

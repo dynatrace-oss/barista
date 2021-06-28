@@ -81,7 +81,8 @@ export class DtTabGroup
     AfterContentInit,
     OnDestroy,
     CanColor<DtTabGroupThemePalette>,
-    CanDisable {
+    CanDisable
+{
   /** @internal List of all the tabs of this group */
   @ContentChildren(DtTab) _tabs: QueryList<DtTab>;
 

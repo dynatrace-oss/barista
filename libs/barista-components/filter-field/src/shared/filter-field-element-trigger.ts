@@ -79,10 +79,11 @@ export const _DtFilterFieldElementTriggerMixinBase = mixinViewportBoundaries<
   },
 })
 export class DtFilterFieldElementTrigger<
-    T extends DtFilterFieldElement<unknown>
+    T extends DtFilterFieldElement<unknown>,
   >
   extends _DtFilterFieldElementTriggerMixinBase
-  implements OnDestroy {
+  implements OnDestroy
+{
   protected _optionHeight: number;
   protected _maxPanelHeight: number;
 

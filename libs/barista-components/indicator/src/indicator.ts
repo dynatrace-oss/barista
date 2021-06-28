@@ -58,7 +58,8 @@ export const _DtIndicatorMixinBase = mixinColor<
 })
 export class DtIndicator
   extends _DtIndicatorMixinBase
-  implements CanColor<DtIndicatorThemePalette>, OnDestroy, OnChanges {
+  implements CanColor<DtIndicatorThemePalette>, OnDestroy, OnChanges
+{
   /**
    * @internal
    * Emits whenever some inputs change on the indicator so the row can reevaluate the indicator

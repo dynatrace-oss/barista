@@ -116,8 +116,9 @@ describe('DtPagination', () => {
 
       instance.length = 100;
       fixture.detectChanges();
-      containerEl = fixture.debugElement.query(By.css('.dt-pagination-list'))
-        .nativeElement;
+      containerEl = fixture.debugElement.query(
+        By.css('.dt-pagination-list'),
+      ).nativeElement;
       items = containerEl.querySelectorAll('.dt-pagination-item > *');
 
       expect(items.length).toBe(2);
@@ -214,9 +215,8 @@ describe('DtPagination', () => {
       instance.pageSize = 10;
       fixture.detectChanges();
 
-      const buttons = fixture.debugElement.nativeElement.querySelectorAll(
-        '[dt-icon-button]',
-      );
+      const buttons =
+        fixture.debugElement.nativeElement.querySelectorAll('[dt-icon-button]');
       expect(buttons[0].getAttribute('aria-disabled')).toBeTruthy();
       expect(buttons[1].getAttribute('aria-disabled')).toBe('false');
 

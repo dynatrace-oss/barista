@@ -207,7 +207,8 @@ let currentlyOpenFilterField: DtFilterField<any> | null = null;
   ],
 })
 export class DtFilterField<T = any>
-  implements CanDisable, OnInit, AfterViewInit, OnDestroy, OnChanges {
+  implements CanDisable, OnInit, AfterViewInit, OnDestroy, OnChanges
+{
   /** Label for the filter field (e.g. "Filter by"). Will be placed next to the filter icon. */
   @Input() label = '';
 
@@ -1107,7 +1108,8 @@ export class DtFilterField<T = any>
           const recentRangeValue = removed[0];
           if (isDtRangeValue(recentRangeValue) && this._currentDef.range) {
             // Needed to set this in typescript, because template binding of input would be evaluated to late.
-            this._filterfieldRange.enabledOperators = this._currentDef.range.operatorFlags;
+            this._filterfieldRange.enabledOperators =
+              this._currentDef.range.operatorFlags;
             this._filterfieldRange._setValues(recentRangeValue.range);
             this._filterfieldRange._setOperator(
               recentRangeValue.operator as DtFilterFieldRangeOperator,
@@ -1545,7 +1547,7 @@ export class DtFilterField<T = any>
       return observableOf();
     }
 
-    return (merge(
+    return merge(
       fromEvent<MouseEvent>(this._document, 'click'),
       fromEvent<TouchEvent>(this._document, 'touchend'),
     ).pipe(
@@ -1558,7 +1560,7 @@ export class DtFilterField<T = any>
           (!filterField || !filterField.contains(clickTarget))
         );
       }),
-    ) as any) as Observable<void>;
+    ) as any as Observable<void>;
   }
 
   /**

@@ -219,7 +219,8 @@ export class DtSelect<T>
     CanDisable,
     HasTabIndex,
     DtFormFieldControl<T>,
-    CanUpdateErrorState {
+    CanUpdateErrorState
+{
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
@@ -407,20 +408,19 @@ export class DtSelect<T>
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** Combined stream of all of the child options' change events. */
-  readonly optionSelectionChanges: Observable<
-    DtOptionSelectionChange<T>
-  > = defer(() => {
-    if (this.options) {
-      return merge<DtOptionSelectionChange<T>>(
-        ...this.options.map((option) => option.selectionChange),
-      );
-    }
+  readonly optionSelectionChanges: Observable<DtOptionSelectionChange<T>> =
+    defer(() => {
+      if (this.options) {
+        return merge<DtOptionSelectionChange<T>>(
+          ...this.options.map((option) => option.selectionChange),
+        );
+      }
 
-    return this._ngZone.onStable.asObservable().pipe(
-      take(1),
-      switchMap(() => this.optionSelectionChanges),
-    );
-  });
+      return this._ngZone.onStable.asObservable().pipe(
+        take(1),
+        switchMap(() => this.optionSelectionChanges),
+      );
+    });
 
   /** Event emitted when the select panel has been toggled. */
   @Output() readonly openedChange = new EventEmitter<boolean>();

@@ -73,9 +73,10 @@ const EXAMPLES_SOURCE_PATH = 'libs/examples/src/';
  * Function to generate util options for the component level generation.
  * @param options
  */
-function generateComponentOptions(
-  options: DtComponentExampleOptions,
-): { name: string; package: string } {
+function generateComponentOptions(options: DtComponentExampleOptions): {
+  name: string;
+  package: string;
+} {
   return {
     name: `Dt${strings.classify(options.component)}Module`,
     package: `@dynatrace/barista-components/${strings.dasherize(
@@ -88,9 +89,7 @@ function generateComponentOptions(
  * Function to generate util options to be used during example generation.
  * @param options
  */
-function generateExampleComponentOptions(
-  options: DtComponentExampleOptions,
-): {
+function generateExampleComponentOptions(options: DtComponentExampleOptions): {
   component: string;
   module: string;
   modulesConstant: string;
@@ -168,8 +167,9 @@ function updateModules(options: DtExampleExtendedOptions): Rule {
       ).find(
         (node: ts.PropertyAssignment) => node.name.getText() === 'declarations',
       ) as ts.PropertyAssignment;
-      const modulesElements = (modulesDeclaration.initializer as ts.ArrayLiteralExpression)
-        .elements;
+      const modulesElements = (
+        modulesDeclaration.initializer as ts.ArrayLiteralExpression
+      ).elements;
       const lastElement = modulesElements[modulesElements.length - 1];
       const end = modulesElements.hasTrailingComma
         ? lastElement.getEnd() + 1

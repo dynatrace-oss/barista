@@ -26,9 +26,8 @@ export const DT_ERROR_ENTER_ANIMATION: AnimationReferenceMetadata = animation([
   animate('150ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
 ]);
 
-export const DT_ERROR_ENTER_DELAYED_ANIMATION: AnimationReferenceMetadata = animation(
-  [
+export const DT_ERROR_ENTER_DELAYED_ANIMATION: AnimationReferenceMetadata =
+  animation([
     style({ opacity: 0, transform: 'scaleY(0)' }),
     animate(`250ms 150ms cubic-bezier(0.55, 0, 0.55, 0.2)`),
-  ],
-);
+  ]);

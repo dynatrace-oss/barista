@@ -413,7 +413,7 @@ describe('DtChart', () => {
       const chartDebugElement = fixture.debugElement.query(By.css('dt-chart'));
       const chartComponent = chartDebugElement.componentInstance as DtChart;
       chartComponent._plotBackground$ = new BehaviorSubject(
-        (rect as unknown) as SVGRectElement,
+        rect as unknown as SVGRectElement,
       );
       try {
         fixture.detectChanges();
@@ -427,9 +427,8 @@ describe('DtChart', () => {
       // This was the only solution to clear the pending timers in the queue.
       // If I would do a tick or flush it would trigger the error again and then it fails with the
       // getDtHeatfieldUnsupportedChartError twice.
-      (global as any).Zone.current.get(
-        'FakeAsyncTestZoneSpec',
-      ).pendingTimers = [];
+      (global as any).Zone.current.get('FakeAsyncTestZoneSpec').pendingTimers =
+        [];
     }));
   });
 

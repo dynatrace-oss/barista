@@ -25,9 +25,10 @@ export const DT_DEFAULT_DARK_THEMING_CONFIG: DtOverlayThemingConfiguration = {
   className: 'dt-theme-dark',
 };
 
-export const DT_OVERLAY_THEMING_CONFIG = new InjectionToken<DtOverlayThemingConfiguration>(
-  'DT_OVERLAY_THEMING_CONFIGURATION',
-);
+export const DT_OVERLAY_THEMING_CONFIG =
+  new InjectionToken<DtOverlayThemingConfiguration>(
+    'DT_OVERLAY_THEMING_CONFIGURATION',
+  );
 
 export function dtSetOverlayThemeAttribute(
   overlayElement: Element,

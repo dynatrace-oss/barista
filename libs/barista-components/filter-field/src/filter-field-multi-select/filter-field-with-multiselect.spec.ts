@@ -485,7 +485,8 @@ describe('DtFilterField', () => {
 
     describe('edit mode', () => {
       beforeEach(() => {
-        fixture.componentInstance.dataSource.data = TEST_DATA_MULTI_SELECT_EDIT_MODE;
+        fixture.componentInstance.dataSource.data =
+          TEST_DATA_MULTI_SELECT_EDIT_MODE;
         advanceFilterfieldCycle();
 
         let multiSelectFilter = [
@@ -595,7 +596,8 @@ describe('DtFilterField', () => {
       it('should emit a filterchange event when the edit of a multiSelect is completed', () => {
         let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
-        fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
+        fixture.componentInstance.dataSource.data =
+          FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
         const sub = filterField.filterChanges.subscribe(
           (ev) => (filterChangeEvent = ev),
         );
@@ -631,7 +633,8 @@ describe('DtFilterField', () => {
 
     describe('programmatic setting', () => {
       beforeEach(() => {
-        fixture.componentInstance.dataSource.data = TEST_DATA_MULTI_SELECT_EDIT_MODE;
+        fixture.componentInstance.dataSource.data =
+          TEST_DATA_MULTI_SELECT_EDIT_MODE;
         advanceFilterfieldCycle();
       });
 

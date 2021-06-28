@@ -47,11 +47,11 @@ export function mixinColor<T extends Constructor<HasElementRef>>(
 ): Constructor<CanColor<DtThemePalette>> & T;
 export function mixinColor<
   T extends Constructor<HasElementRef>,
-  P extends Partial<DtThemePalette>
+  P extends Partial<DtThemePalette>,
 >(base: T, defaultColor?: P): Constructor<CanColor<P>> & T;
 export function mixinColor<
   T extends Constructor<HasElementRef>,
-  P extends Partial<DtThemePalette>
+  P extends Partial<DtThemePalette>,
 >(base: T, defaultColor?: P): Constructor<CanColor<P>> & T {
   return class extends base {
     private _color: P;
@@ -78,7 +78,7 @@ export function mixinColor<
 }
 
 export function setComponentColorClasses<
-  T extends { color?: string } & HasElementRef
+  T extends { color?: string } & HasElementRef,
 >(component: T, color?: string): void {
   if (color !== component.color) {
     _replaceCssClass(
@@ -109,7 +109,8 @@ export const _DtColorMixinBase = mixinColor(DtColorBase);
 })
 export class DtColor
   extends _DtColorMixinBase
-  implements CanColor<DtThemePalette> {
+  implements CanColor<DtThemePalette>
+{
   constructor(elementRef: ElementRef) {
     super(elementRef);
   }

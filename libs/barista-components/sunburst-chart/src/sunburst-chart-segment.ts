@@ -58,7 +58,8 @@ export class DtSunburstChartSegment
   extends DtOverlayTrigger<{
     $implicit: Partial<DtSunburstChartOverlayData>;
   }>
-  implements AfterContentInit {
+  implements AfterContentInit
+{
   /**
    * @internal
    * All data needed to render the path that visualizes

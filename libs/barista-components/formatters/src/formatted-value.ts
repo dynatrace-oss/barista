@@ -52,11 +52,8 @@ export class DtFormattedValue {
 
   /** Formatted display unit composed by unit and rate unit */
   get formattedDisplayUnit(): string {
-    const {
-      displayUnit,
-      displayWhiteSpace,
-      displayRateUnit,
-    } = this._formattedData;
+    const { displayUnit, displayWhiteSpace, displayRateUnit } =
+      this._formattedData;
 
     if (displayUnit !== undefined && displayRateUnit !== undefined) {
       return `${displayUnit}${displayWhiteSpace ? ' ' : ''}/${displayRateUnit}`;

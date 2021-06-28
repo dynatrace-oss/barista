@@ -64,8 +64,9 @@ describe('DtChart Range', () => {
 
     beforeEach(() => {
       fixture = TestBed.createComponent<RangeTestComponent>(RangeTestComponent);
-      range = fixture.debugElement.query(By.css('dt-chart-range'))
-        .componentInstance;
+      range = fixture.debugElement.query(
+        By.css('dt-chart-range'),
+      ).componentInstance;
       range._maxWidth = 400;
       fixture.detectChanges();
     });
@@ -145,7 +146,7 @@ describe('DtChart Range', () => {
       expect(container).not.toBeNull();
 
       // imitate falsy values
-      range.value = ([100, undefined] as unknown) as [number, number];
+      range.value = [100, undefined] as unknown as [number, number];
       fixture.detectChanges();
 
       container = fixture.debugElement.query(
@@ -367,8 +368,9 @@ describe('DtChart Range', () => {
     });
 
     it('should have default aria-labels on left handle', () => {
-      const handle = fixture.debugElement.query(By.css('.dt-chart-left-handle'))
-        .nativeElement;
+      const handle = fixture.debugElement.query(
+        By.css('.dt-chart-left-handle'),
+      ).nativeElement;
 
       expect(handle.getAttribute('aria-role')).toBe('slider');
       expect(handle.getAttribute('aria-label')).toBe(

@@ -121,12 +121,8 @@ export async function createTestCaseSetup(
   let logOutput = '';
   runner.logger.subscribe((entry) => (logOutput += `${entry.message}\n`));
 
-  const {
-    appTree,
-    tempPath,
-    writeFile,
-    removeTempDir,
-  } = await createFileSystemTestApp(runner);
+  const { appTree, tempPath, writeFile, removeTempDir } =
+    await createFileSystemTestApp(runner);
 
   _patchTypeScriptDefaultLib(appTree);
 

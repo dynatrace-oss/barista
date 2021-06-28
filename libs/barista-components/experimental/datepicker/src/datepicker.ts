@@ -170,7 +170,8 @@ export const _DtDatepickerBase = mixinTabIndex(mixinDisabled(DtDatepickerBase));
 })
 export class DtDatePicker<T>
   extends _DtDatepickerBase
-  implements ControlValueAccessor, CanDisable, HasTabIndex, OnDestroy {
+  implements ControlValueAccessor, CanDisable, HasTabIndex, OnDestroy
+{
   /** Unique id of the element. */
   @Input()
   get id(): string {

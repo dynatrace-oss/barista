@@ -32,8 +32,7 @@ const TESTDATA: ThreadNode[] = [
     blocked: 0,
     children: [
       {
-        name:
-          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
+        name: 'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
         waiting: 123,
         running: 20,
         blocked: 0,

@@ -83,8 +83,9 @@ export function addRoute(options: DtDevExtendedOptions): Rule {
       (node: ts.VariableDeclaration) => node.name.getText() === 'routes',
     ) as ts.VariableDeclaration;
 
-    const routesElements = (routesDeclaration.initializer as ts.ArrayLiteralExpression)
-      .elements;
+    const routesElements = (
+      routesDeclaration.initializer as ts.ArrayLiteralExpression
+    ).elements;
     const lastElement = routesElements[routesElements.length - 1];
     const endRoutes = routesElements.hasTrailingComma
       ? lastElement.getEnd() + 1
@@ -116,8 +117,9 @@ export function addNavItem(options: DtDevExtendedOptions): Rule {
       (node: ts.PropertyDeclaration) => node.name.getText() === 'navItems',
     ) as ts.PropertyDeclaration;
 
-    const navItems = (navItemDeclaration.initializer as ts.ArrayLiteralExpression)
-      .elements;
+    const navItems = (
+      navItemDeclaration.initializer as ts.ArrayLiteralExpression
+    ).elements;
     const lastNavItem = navItems[
       navItems.length - 1
     ] as ts.ObjectLiteralExpression;
@@ -153,7 +155,8 @@ export function addModule(options: DtDevExtendedOptions): Rule {
       (node: ts.PropertyAssignment) => node.name.getText() === 'declarations',
     ) as ts.PropertyAssignment;
 
-    const moduleDeclarationArray = moduleDeclarations.initializer as ts.ArrayLiteralExpression;
+    const moduleDeclarationArray =
+      moduleDeclarations.initializer as ts.ArrayLiteralExpression;
     const moduleElements = moduleDeclarationArray.elements;
     const lastModule = moduleElements[moduleElements.length - 1];
     const modulesEnd = moduleElements.hasTrailingComma

@@ -85,8 +85,9 @@ describe('DtSunburstChart', () => {
         TestBed.compileComponents();
         fixture = createComponent(TestApp);
         rootComponent = fixture.componentInstance;
-        component = fixture.debugElement.query(By.directive(DtSunburstChart))
-          .componentInstance;
+        component = fixture.debugElement.query(
+          By.directive(DtSunburstChart),
+        ).componentInstance;
 
         selectedChangeSpy = jest.spyOn(component.selectedChange, 'emit');
         selectSpy = jest.spyOn(component, '_select');
@@ -413,8 +414,9 @@ describe('DtSunburstChart', () => {
 
       fixture = createComponent(TestWithOverlayApp);
       rootComponent = fixture.componentInstance;
-      component = fixture.debugElement.query(By.directive(DtSunburstChart))
-        .componentInstance;
+      component = fixture.debugElement.query(
+        By.directive(DtSunburstChart),
+      ).componentInstance;
 
       selectedChangeSpy = jest.spyOn(component.selectedChange, 'emit');
       selectSpy = jest.spyOn(component, '_select');

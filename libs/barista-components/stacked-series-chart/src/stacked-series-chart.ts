@@ -300,9 +300,8 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   private _selected: DtStackedSeriesChartSelection | [] = [];
 
   /** Event that fires when a node is clicked with an array of [series, node]  */
-  @Output() selectedChange: EventEmitter<
-    DtStackedSeriesChartSelection | []
-  > = new EventEmitter();
+  @Output() selectedChange: EventEmitter<DtStackedSeriesChartSelection | []> =
+    new EventEmitter();
 
   /** Notifies the component container of the start of hover events on legend and stacks  */
   @Output() hoverStart = new EventEmitter<DtStackedSeriesHoverData>();
@@ -469,10 +468,11 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   ): void {
     this.hoverStart.emit(this._trackStackHoverEvents(slice));
     if (this._overlay && !this._overlayRef) {
-      this._overlayRef = this._overlayService.create<DtStackedSeriesChartTooltipData>(
-        event.target as HTMLElement,
-        this._overlay,
-      );
+      this._overlayRef =
+        this._overlayService.create<DtStackedSeriesChartTooltipData>(
+          event.target as HTMLElement,
+          this._overlay,
+        );
       this._overlayRef.updateImplicitContext(slice);
       this._overlayRef.updatePosition(event.offsetX, event.offsetY);
     }

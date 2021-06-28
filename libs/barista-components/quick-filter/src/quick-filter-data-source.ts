@@ -18,7 +18,8 @@ import { DtFilterFieldDataSource } from '@dynatrace/barista-components/filter-fi
 
 export abstract class DtQuickFilterDataSource<T = any>
   extends DtFilterFieldDataSource<T>
-  implements DtFilterFieldDataSource<T> {
+  implements DtFilterFieldDataSource<T>
+{
   /** Function that evaluates if a node should be displayed in the quick filter sidebar */
   showInSidebarFunction: (node: any) => boolean;
 }

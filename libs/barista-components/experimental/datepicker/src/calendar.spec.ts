@@ -134,25 +134,22 @@ describe('DtCalendar', () => {
 
     describe('calendar today button', () => {
       it("should show the today button if 'showTodayButton' is set to false ", () => {
-        const todayBtn = fixture.debugElement.nativeElement.querySelector(
-          '.dt-today-button',
-        );
+        const todayBtn =
+          fixture.debugElement.nativeElement.querySelector('.dt-today-button');
         expect(todayBtn).not.toBeNull();
       });
 
       it("should not show the today button if 'showTodayButton' is set to false", () => {
         component.showTodayButton = false;
         fixture.detectChanges();
-        const todayBtn = fixture.debugElement.nativeElement.querySelector(
-          '.dt-today-button',
-        );
+        const todayBtn =
+          fixture.debugElement.nativeElement.querySelector('.dt-today-button');
         expect(todayBtn).toBeNull();
       });
 
       it("should correctly set today's date if the today button is clicked", fakeAsync(() => {
-        const todayBtn = fixture.debugElement.nativeElement.querySelector(
-          '.dt-today-button',
-        );
+        const todayBtn =
+          fixture.debugElement.nativeElement.querySelector('.dt-today-button');
         todayBtn.click();
         fixture.detectChanges();
         tick();
@@ -173,9 +170,8 @@ describe('DtCalendar', () => {
       });
 
       it('should emit a selectedChange event if the today button is clicked', () => {
-        const todayBtn = fixture.debugElement.nativeElement.querySelector(
-          '.dt-today-button',
-        );
+        const todayBtn =
+          fixture.debugElement.nativeElement.querySelector('.dt-today-button');
         const changeSpy = jest.fn();
         component.calendar.selectedChange.subscribe(changeSpy);
 

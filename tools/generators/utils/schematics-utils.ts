@@ -16,9 +16,10 @@
 
 import { strings } from '@angular-devkit/core';
 
-export function generateComponentOptions(
-  name: string,
-): { name: string; package: string } {
+export function generateComponentOptions(name: string): {
+  name: string;
+  package: string;
+} {
   return {
     name: `Dt${strings.classify(name)}Module`,
     package: `@dynatrace/barista-components/${strings.dasherize(name)}`,

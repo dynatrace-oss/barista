@@ -34,8 +34,7 @@ const TESTDATA: ThreadNode[] = [
     blocked: 0,
     children: [
       {
-        name:
-          'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
+        name: 'hz.hzInstance_1_cluster.thread_1_hz.hzInstance_1_cluster.thread-1',
         icon: 'process',
         threadlevel: 'S1',
         totalTimeConsumption: 150,

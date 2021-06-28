@@ -105,7 +105,8 @@ export class DtTile
     HasElementRef,
     CanColor<DtTileThemePalette>,
     HasTabIndex,
-    OnDestroy {
+    OnDestroy
+{
   /** @internal The tiles subtitle */
   @ContentChild(DtTileSubtitle, { static: true }) _subTitle: DtTileSubtitle;
 

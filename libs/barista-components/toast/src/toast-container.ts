@@ -79,7 +79,8 @@ export const _DtToastContainerMixin = mixinNotifyDomExit(DtToastContainerBase);
 })
 export class DtToastContainer
   extends _DtToastContainerMixin
-  implements OnDestroy, CanNotifyOnExit {
+  implements OnDestroy, CanNotifyOnExit
+{
   private _destroyed = false;
 
   /** @internal Stream that emits when a toast enters the view. */

@@ -159,8 +159,8 @@ export class DtTagList implements AfterContentInit, OnDestroy {
     this._hiddenTagCount = tagArray.length - index;
     // Reapplying wrapper height because changing the viewsize might result in tags being rendered on multiple lines
     // but we only want to show the first row
-    const wrapperLeft = this._wrapperTagList.nativeElement.getBoundingClientRect()
-      .left;
+    const wrapperLeft =
+      this._wrapperTagList.nativeElement.getBoundingClientRect().left;
     this._wrapperWidth = getWrapperWidth(
       tagArray.map((elRef) => elRef.nativeElement)[index - 1],
       wrapperLeft,

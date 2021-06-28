@@ -136,7 +136,8 @@ export const _DtChartSelectionAreaMixinBase = mixinViewportBoundaries<
 })
 export class DtChartSelectionArea
   extends _DtChartSelectionAreaMixinBase
-  implements AfterContentInit, OnDestroy {
+  implements AfterContentInit, OnDestroy
+{
   /** @internal The timestamp that follows the mouse */
   @ViewChild('hairline', { static: true })
   _hairline: ElementRef<HTMLDivElement>;
@@ -254,19 +255,20 @@ export class DtChartSelectionArea
             range._pixelsToValue = xAxis.toValue.bind(xAxis);
             range._maxValue = xAxis.max;
             range._minValue = xAxis.min;
-            range._maxWidth = _getElementBoundingClientRect(
-              plotBackground,
-            ).width;
+            range._maxWidth =
+              _getElementBoundingClientRect(plotBackground).width;
             range._reflectToDom();
           }
         }
 
         if (timestamp) {
-          timestamp._plotBackgroundChartOffset = this._chart._plotBackgroundChartOffset;
+          timestamp._plotBackgroundChartOffset =
+            this._chart._plotBackgroundChartOffset;
         }
 
         if (range) {
-          range._plotBackgroundChartOffset = this._chart._plotBackgroundChartOffset;
+          range._plotBackgroundChartOffset =
+            this._chart._plotBackgroundChartOffset;
         }
 
         //  resize the selection area to the size of the Highcharts plot background.

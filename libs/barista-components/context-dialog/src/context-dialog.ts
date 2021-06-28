@@ -142,7 +142,8 @@ export const _DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS = {
 })
 export class DtContextDialog
   extends _DtContextDialogMixinBase
-  implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit {
+  implements CanDisable, HasTabIndex, OnDestroy, AfterViewInit
+{
   /** The class that traps and manages focus within the overlay. */
   private _focusTrap: FocusTrap | null;
 
@@ -211,7 +212,8 @@ export class DtContextDialog
     return this._trigger && this._trigger !== this._defaultTrigger;
   }
 
-  _overlayConstraints: DtContextDialogOverlayConstraint = _DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS;
+  _overlayConstraints: DtContextDialogOverlayConstraint =
+    _DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS;
 
   constructor(
     private _overlay: Overlay,

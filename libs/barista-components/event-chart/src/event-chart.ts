@@ -837,9 +837,10 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
    * Calculates the origin for the overlay based on the target of the
    * event passed into it.
    */
-  private getOriginFromInteractionEvent(
-    event: KeyboardEvent | MouseEvent,
-  ): { x: number; y: number } {
+  private getOriginFromInteractionEvent(event: KeyboardEvent | MouseEvent): {
+    x: number;
+    y: number;
+  } {
     // Update the position for the overlay.
     const originBB = (event.target as SVGElement).getBoundingClientRect();
     return {

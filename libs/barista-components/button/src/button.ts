@@ -84,7 +84,8 @@ export class DtButton
     AfterContentInit,
     CanDisable,
     CanColor<DtButtonThemePalette>,
-    HasElementRef {
+    HasElementRef
+{
   static ngAcceptInputType_disabled: BooleanInput;
 
   /**
