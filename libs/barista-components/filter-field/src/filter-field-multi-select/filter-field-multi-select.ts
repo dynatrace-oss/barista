@@ -63,7 +63,8 @@ export class DtFilterFieldMultiSelectSubmittedEvent<T> {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtFilterFieldMultiSelect<T>
-  implements DtFilterFieldElement<T>, AfterViewInit {
+  implements DtFilterFieldElement<T>, AfterViewInit
+{
   /**
    * Whether the first option should be highlighted when the multi-select panel is opened.
    * Can be configured globally through the `DT_MULTI_SELECT_DEFAULT_OPTIONS` token.
@@ -190,9 +191,11 @@ export class DtFilterFieldMultiSelect<T>
         takeUntil(this._destroy$),
       )
       .subscribe((option) => {
-        this._ngZone?.run(() => {
-          this._keyManager.setActiveItem(option);
-        });
+        if (!option.disabled) {
+          this._ngZone?.run(() => {
+            this._keyManager.setActiveItem(option);
+          });
+        }
       });
   }
 
@@ -330,6 +333,9 @@ export class DtFilterFieldMultiSelect<T>
   }
 
   focus(): void {
-    this._keyManager.setActiveItem(this._options.first);
+    const firstOption = this._options.find((option) => !option.disabled);
+    if (firstOption) {
+      this._keyManager.setActiveItem(firstOption);
+    }
   }
 }

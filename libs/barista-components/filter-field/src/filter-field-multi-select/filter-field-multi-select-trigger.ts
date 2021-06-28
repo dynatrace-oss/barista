@@ -55,7 +55,8 @@ import { DtFilterFieldMultiSelect } from './filter-field-multi-select';
 })
 export class DtFilterFieldMultiSelectTrigger<T>
   extends DtFilterFieldElementTrigger<DtFilterFieldMultiSelect<T>>
-  implements OnDestroy {
+  implements OnDestroy
+{
   /** The filter-field multiSelect panel to be attached to this trigger. */
   @Input('dtFilterFieldMultiSelect')
   get element(): DtFilterFieldMultiSelect<T> {
@@ -106,7 +107,6 @@ export class DtFilterFieldMultiSelectTrigger<T>
   openPanel(): void {
     if (!this.element._isOpen) {
       super.openPanel();
-      this._element.focus();
     }
   }
 
