@@ -38,10 +38,11 @@ export async function generateShareableExampleProject(
     componentClassFile.ast,
   );
   //Get the template and styles files from the component file
-  const exampleTemplatesAndStyles = await getTemplateAndStyleFilesFromComponentSourceFiles(
-    componentClassFile.ast,
-    exampleRoot,
-  );
+  const exampleTemplatesAndStyles =
+    await getTemplateAndStyleFilesFromComponentSourceFiles(
+      componentClassFile.ast,
+      exampleRoot,
+    );
   // Get files that are relatively imported from the example class file.
   const relativeImports = await getRelativeImportsFromSourceFile(
     componentClassFile.ast,

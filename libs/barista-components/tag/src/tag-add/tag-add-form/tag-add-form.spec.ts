@@ -42,8 +42,9 @@ describe('DtTagAddForm', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DtTagAddFormComponent);
     component = fixture.componentInstance;
-    addTagFormInstance = fixture.debugElement.query(By.directive(DtTagAddForm))
-      .componentInstance;
+    addTagFormInstance = fixture.debugElement.query(
+      By.directive(DtTagAddForm),
+    ).componentInstance;
     fixture.detectChanges();
   });
 

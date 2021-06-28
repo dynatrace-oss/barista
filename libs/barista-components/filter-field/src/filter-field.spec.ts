@@ -122,8 +122,9 @@ describe('DtFilterField', () => {
 
   describe('focus on input', () => {
     it('should focus the input field when focusing the host', () => {
-      const input = fixture.debugElement.query(By.css('.dt-filter-field-input'))
-        .nativeElement;
+      const input = fixture.debugElement.query(
+        By.css('.dt-filter-field-input'),
+      ).nativeElement;
       filterField.focus();
       expect(document.activeElement).toBe(input);
     });
@@ -144,7 +145,8 @@ describe('DtFilterField', () => {
 
     it('should disable all tags if filter field is disabled', fakeAsync(() => {
       // given
-      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
+      fixture.componentInstance.dataSource.data =
+        FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
 
       filterField.focus();
@@ -218,7 +220,8 @@ describe('DtFilterField', () => {
 
     it('should disable programmatically set tags when they are set during a disabled state', fakeAsync(() => {
       // given
-      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
+      fixture.componentInstance.dataSource.data =
+        FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
 
       // when
@@ -829,7 +832,8 @@ describe('DtFilterField', () => {
     it('should emit filterChanges when adding an option', fakeAsync(() => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
-      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
+      fixture.componentInstance.dataSource.data =
+        FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
         (ev) => (filterChangeEvent = ev),
       );
@@ -854,7 +858,8 @@ describe('DtFilterField', () => {
     it('should emit filterChanges when removing an option', fakeAsync(() => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
-      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
+      fixture.componentInstance.dataSource.data =
+        FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
         (ev) => (filterChangeEvent = ev),
       );
@@ -996,7 +1001,8 @@ describe('DtFilterField', () => {
     });
 
     it('should show option again after adding all possible options and removing this option from the filters', () => {
-      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
+      fixture.componentInstance.dataSource.data =
+        FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
 
       filterField.focus();
@@ -1052,7 +1058,8 @@ describe('DtFilterField', () => {
     });
 
     it('should remove a parent from an autocomplete if it is distinct and an option has been selected', () => {
-      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
+      fixture.componentInstance.dataSource.data =
+        FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT;
       fixture.detectChanges();
       filterField.focus();
       advanceFilterfieldCycle();
@@ -1622,17 +1629,13 @@ describe('DtFilterField', () => {
       freeTextTagInst!.deletable = false;
       fixture.detectChanges();
       const tags = getFilterTags(fixture);
-      const {
-        label: autoLabel,
-        deleteButton: autoDeleteButton,
-      } = getTagButtons(tags[0]);
+      const { label: autoLabel, deleteButton: autoDeleteButton } =
+        getTagButtons(tags[0]);
       expect(autoLabel.disabled).toBeTruthy();
       expect(autoDeleteButton.disabled).toBeFalsy();
 
-      const {
-        label: freeTextLabel,
-        deleteButton: freeTextDeleteButton,
-      } = getTagButtons(tags[0]);
+      const { label: freeTextLabel, deleteButton: freeTextDeleteButton } =
+        getTagButtons(tags[0]);
       expect(freeTextLabel.disabled).toBeTruthy();
       expect(freeTextDeleteButton.disabled).toBeFalsy();
 
@@ -1666,17 +1669,13 @@ describe('DtFilterField', () => {
       freeTextTagInst!.deletable = false;
       fixture.detectChanges();
       const tags = getFilterTags(fixture);
-      const {
-        label: autoLabel,
-        deleteButton: autoDeleteButton,
-      } = getTagButtons(tags[0]);
+      const { label: autoLabel, deleteButton: autoDeleteButton } =
+        getTagButtons(tags[0]);
       expect(autoLabel.disabled).toBeTruthy();
       expect(autoDeleteButton.disabled).toBeFalsy();
 
-      const {
-        label: freeTextLabel,
-        deleteButton: freeTextDeleteButton,
-      } = getTagButtons(tags[0]);
+      const { label: freeTextLabel, deleteButton: freeTextDeleteButton } =
+        getTagButtons(tags[0]);
       expect(freeTextLabel.disabled).toBeTruthy();
       expect(freeTextDeleteButton.disabled).toBeFalsy();
 
@@ -1738,7 +1737,8 @@ describe('DtFilterField', () => {
     it('should not remove the current filter if the data is changed when the filterChanges event fires', () => {
       const filterChangesSubscription = filterField.filterChanges.subscribe(
         () => {
-          fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_ASYNC;
+          fixture.componentInstance.dataSource.data =
+            FILTER_FIELD_TEST_DATA_ASYNC;
         },
       );
 
@@ -1977,8 +1977,10 @@ describe('DtFilterField', () => {
     it('should display a default (first iterator) value when placeholder is not overwritten', fakeAsync(() => {
       selectFields();
 
-      const placeholder = (fixtureCustom.debugElement.query(placeholderElement)
-        ?.nativeElement as HTMLDivElement)?.textContent;
+      const placeholder = (
+        fixtureCustom.debugElement.query(placeholderElement)
+          ?.nativeElement as HTMLDivElement
+      )?.textContent;
       expect(placeholder).toBe(TEST_DATA_PLACEHOLDER.autocomplete[0].name);
     }));
     it('should display a correct value when placeholder is overwrite by input', fakeAsync(() => {
@@ -1993,8 +1995,10 @@ describe('DtFilterField', () => {
 
       selectFields();
 
-      const placeholder = (fixtureCustom.debugElement.query(placeholderElement)
-        ?.nativeElement as HTMLDivElement)?.textContent;
+      const placeholder = (
+        fixtureCustom.debugElement.query(placeholderElement)
+          ?.nativeElement as HTMLDivElement
+      )?.textContent;
       expect(placeholder).toBe('Locations.Linz');
     }));
   });

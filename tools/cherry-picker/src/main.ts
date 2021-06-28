@@ -85,10 +85,8 @@ async function run(): Promise<void> {
 
   // Get the current minor and patch branches based on the version of the
   // master package json.
-  const {
-    currentMinorBranch,
-    currentPatchBranch,
-  } = await getCurrentMinorAndPatchBranches();
+  const { currentMinorBranch, currentPatchBranch } =
+    await getCurrentMinorAndPatchBranches();
 
   const cherryPickMessages: string[] = [];
   if (pullRequestHasLabel(pullRequestDetails, 'target: minor')) {

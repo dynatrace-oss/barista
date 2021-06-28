@@ -68,7 +68,8 @@ export const _DtOrderMixinBase = mixinDisabled(DtOrderBase);
 })
 export class DtOrder<T>
   extends _DtOrderMixinBase
-  implements CanDisable, AfterViewInit, OnChanges, OnDestroy {
+  implements CanDisable, AfterViewInit, OnChanges, OnDestroy
+{
   /**
    * @internal Event that is emitted whenever the input value of the order column
    * changes due to user input or dragging an item to a new position.

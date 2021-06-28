@@ -77,7 +77,8 @@ export const _DtProgressBar = mixinHasProgress(
 })
 export class DtProgressBar
   extends _DtProgressBar
-  implements CanColor<DtProgressBarThemePalette>, HasProgressValues {
+  implements CanColor<DtProgressBarThemePalette>, HasProgressValues
+{
   /** Defines the alignment of the bar. */
   @Input() align: 'start' | 'end' = 'start';
 

@@ -28,7 +28,8 @@ import { takeUntil } from 'rxjs/operators';
   templateUrl: 'filter-field-default-search-example.html',
 })
 export class DtExampleFilterFieldDefaultSearch
-  implements AfterViewInit, OnDestroy {
+  implements AfterViewInit, OnDestroy
+{
   private DATA: DtFilterFieldDefaultDataSourceType = {
     autocomplete: [
       {

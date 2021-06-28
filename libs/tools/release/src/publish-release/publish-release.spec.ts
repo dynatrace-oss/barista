@@ -221,8 +221,7 @@ describe('publish release', () => {
           {
             path: 'barista-components',
             node_index: 0,
-            url:
-              'https://6560-218540919-gh.circle-artifacts.com/0/barista-components',
+            url: 'https://6560-218540919-gh.circle-artifacts.com/0/barista-components',
           },
         ]),
       );

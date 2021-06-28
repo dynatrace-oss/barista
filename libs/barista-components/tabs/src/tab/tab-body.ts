@@ -88,7 +88,8 @@ export class DtTabBody {
 })
 export class DtTabBodyPortalOutlet
   extends CdkPortalOutlet
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy
+{
   /** Subscription to events for when the active tab changes */
   private _activeChangedSub = Subscription.EMPTY;
 

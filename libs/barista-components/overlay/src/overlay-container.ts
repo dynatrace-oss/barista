@@ -61,7 +61,8 @@ export const DT_OVERLAY_DELAY = 100;
 // Boilerplate for applying mixins to DtOverlayContainer.
 export class DtOverlayContainerBase
   extends BasePortalOutlet
-  implements HasNgZone {
+  implements HasNgZone
+{
   constructor(public _ngZone: NgZone) {
     super();
   }
@@ -110,7 +111,8 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(
 })
 export class DtOverlayContainer
   extends _DtOverlayContainerMixin
-  implements CanNotifyOnExit {
+  implements CanNotifyOnExit
+{
   /** @internal */
   @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet: CdkPortalOutlet;
 

@@ -77,7 +77,8 @@ function escapeRegExp(text: string): string {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtHighlight
-  implements AfterContentChecked, AfterViewInit, OnChanges, OnDestroy {
+  implements AfterContentChecked, AfterViewInit, OnChanges, OnDestroy
+{
   /**
    * The caseSensitive input can be set to search for case sensitive occurrences.
    * Per default the search is case insensitive.

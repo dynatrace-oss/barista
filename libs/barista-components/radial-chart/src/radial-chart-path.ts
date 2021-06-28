@@ -37,7 +37,8 @@ export interface DtRadialChartOverlayData {
 })
 export class DtRadialChartPath
   extends DtOverlayTrigger<{ $implicit: DtRadialChartOverlayData }>
-  implements AfterContentInit {
+  implements AfterContentInit
+{
   /**
    * @internal
    * All data needed to render the path that visualizes

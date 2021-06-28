@@ -94,7 +94,8 @@ export class DtSwitch<T>
     OnChanges,
     AfterViewInit,
     ControlValueAccessor,
-    DtFormFieldControl<T> {
+    DtFormFieldControl<T>
+{
   /** Whether or not the switch is checked. */
   @Input()
   get checked(): boolean {

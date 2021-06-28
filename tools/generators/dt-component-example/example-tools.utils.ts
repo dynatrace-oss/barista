@@ -44,8 +44,9 @@ export function updateExamplesModule(options: DtExampleExtendedOptions): Rule {
       ).find(
         (node: ts.PropertyAssignment) => node.name.getText() === 'imports',
       ) as ts.PropertyAssignment;
-      const modulesElements = (modulesDeclaration.initializer as ts.ArrayLiteralExpression)
-        .elements;
+      const modulesElements = (
+        modulesDeclaration.initializer as ts.ArrayLiteralExpression
+      ).elements;
       const lastElement = modulesElements[modulesElements.length - 1];
       const end = modulesElements.hasTrailingComma
         ? lastElement.getEnd() + 1
@@ -84,7 +85,8 @@ export function changeRoutingModule(options: DtExampleExtendedOptions): Rule {
       ).pop() as ts.ImportDeclaration;
       const namedImports = (lastImport.importClause as ts.ImportClause)
         .namedBindings as ts.NamedImports;
-      const importElements = namedImports.elements as ts.NodeArray<ts.ImportSpecifier>;
+      const importElements =
+        namedImports.elements as ts.NodeArray<ts.ImportSpecifier>;
       const lastImportElement = importElements[importElements.length - 1];
       const end = lastImportElement.end + 1;
       const toInsertImport = `${options.exampleComponent.component},
@@ -99,8 +101,10 @@ export function changeRoutingModule(options: DtExampleExtendedOptions): Rule {
         (declaration) =>
           (declaration as ts.VariableDeclaration).name.getText() === 'ROUTES',
       );
-      const paths = ((pathsVariables as ts.VariableDeclaration)
-        .initializer as ts.ArrayLiteralExpression).elements;
+      const paths = (
+        (pathsVariables as ts.VariableDeclaration)
+          .initializer as ts.ArrayLiteralExpression
+      ).elements;
       const lastPath = paths[paths.length - 1];
       const toInsertPath = `{ path: '${options.exampleId}-example', component: ${options.exampleComponent.component} },`;
       const pathChange = new InsertChange(path, lastPath.end + 1, toInsertPath); // +1 is because of the comma at the end
@@ -137,14 +141,17 @@ export function changeNavigation(
           (declaration as ts.VariableDeclaration).name.getText() ===
           'DT_DEMOS_EXAMPLE_NAV_ITEMS',
       );
-      const navElements = ((navigationObject as ts.VariableDeclaration)
-        .initializer as ts.ArrayLiteralExpression).elements;
+      const navElements = (
+        (navigationObject as ts.VariableDeclaration)
+          .initializer as ts.ArrayLiteralExpression
+      ).elements;
 
       let change;
       const exampleString = `${options.exampleId}-example`;
 
       if (isNewComponent) {
-        const navElementsArray = navElements as ts.NodeArray<ts.ObjectLiteralExpression>;
+        const navElementsArray =
+          navElements as ts.NodeArray<ts.ObjectLiteralExpression>;
         const lastNavElement = navElementsArray[navElementsArray.length - 1];
 
         const componentExampleString = `,
@@ -164,23 +171,24 @@ export function changeNavigation(
           componentExampleString,
         );
       } else {
-        const componentNavElement = (navElements as ts.NodeArray<ts.ObjectLiteralExpression>).find(
-          (element) =>
-            (element.properties as ts.NodeArray<ts.PropertyAssignment>).find(
-              (assignment) =>
-                (assignment.initializer as ts.StringLiteral).getText() ===
-                `'${options.dashName}'`,
-            ),
+        const componentNavElement = (
+          navElements as ts.NodeArray<ts.ObjectLiteralExpression>
+        ).find((element) =>
+          (element.properties as ts.NodeArray<ts.PropertyAssignment>).find(
+            (assignment) =>
+              (assignment.initializer as ts.StringLiteral).getText() ===
+              `'${options.dashName}'`,
+          ),
         );
 
         // get example assignment
-        const exampleAssignment = (componentNavElement!
-          .properties as ts.NodeArray<ts.PropertyAssignment>).find(
-          (assignment) => assignment.name.getText() === 'examples',
-        );
+        const exampleAssignment = (
+          componentNavElement!.properties as ts.NodeArray<ts.PropertyAssignment>
+        ).find((assignment) => assignment.name.getText() === 'examples');
 
-        const exampleAssignmentArray = (exampleAssignment!
-          .initializer as ts.ArrayLiteralExpression).elements;
+        const exampleAssignmentArray = (
+          exampleAssignment!.initializer as ts.ArrayLiteralExpression
+        ).elements;
         const lastExampleAssignment =
           exampleAssignmentArray[exampleAssignmentArray.length - 1];
 
@@ -265,9 +273,9 @@ export function updateExamplesBarrel(
             'EXAMPLES_MAP',
         )
         .pop();
-      const mapArray = ((exampleMap as ts.VariableDeclaration)
-        .initializer as ts.NewExpression)
-        .arguments![0] as ts.ArrayLiteralExpression;
+      const mapArray = (
+        (exampleMap as ts.VariableDeclaration).initializer as ts.NewExpression
+      ).arguments![0] as ts.ArrayLiteralExpression;
       const mapArrayElements = mapArray.elements;
       const lastArrayElement = mapArrayElements[mapArrayElements.length - 1];
       const mapEnd = mapArrayElements.hasTrailingComma

@@ -93,7 +93,8 @@ export function updateWorkspaceRule(options: ExtendedSchema): Rule {
           const buildTarget = angularApp.targets.get('build');
 
           if (buildTarget && buildTarget.options) {
-            const builderOptions = (buildTarget.options as unknown) as BuildAngularSchema;
+            const builderOptions =
+              buildTarget.options as unknown as BuildAngularSchema;
 
             // include the index for styles with typography (headlines, text-styles...)
             // or the main for only the component base styles

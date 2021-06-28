@@ -164,9 +164,8 @@ describe('DtTable SimpleColumns', () => {
       const cells = fixture.debugElement.queryAll(
         By.css('.dt-cell.dt-table-column-memoryConsumption'),
       );
-      const transformFunction = fixture.componentInstance.combineMemory.bind(
-        this,
-      );
+      const transformFunction =
+        fixture.componentInstance.combineMemory.bind(this);
       expect(cells[0].nativeElement.textContent).toBe(
         transformFunction(fixture.componentInstance.data[0]),
       );

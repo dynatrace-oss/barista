@@ -168,9 +168,8 @@ describe('DtButtonGroup', () => {
         groupDebugElement = fixture.debugElement.query(
           By.css('.dt-button-group'),
         );
-        groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
-          DtButtonGroup,
-        );
+        groupInstance =
+          groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);
 
         itemDebugElements = fixture.debugElement.queryAll(
           By.css('.dt-button-group-item'),
@@ -206,9 +205,8 @@ describe('DtButtonGroup', () => {
         groupDebugElement = fixture.debugElement.query(
           By.directive(DtButtonGroup),
         );
-        groupInstance = groupDebugElement.injector.get<DtButtonGroup<string>>(
-          DtButtonGroup,
-        );
+        groupInstance =
+          groupDebugElement.injector.get<DtButtonGroup<string>>(DtButtonGroup);
 
         const itemDebugElements = fixture.debugElement.queryAll(
           By.directive(DtButtonGroupItem),

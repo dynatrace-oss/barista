@@ -63,8 +63,9 @@ describe('DtOverlayTrigger', () => {
 
   beforeEach(() => {
     fixture = createComponent(TestComponent);
-    trigger = fixture.debugElement.query(By.css('.dt-overlay-trigger'))
-      .nativeElement;
+    trigger = fixture.debugElement.query(
+      By.css('.dt-overlay-trigger'),
+    ).nativeElement;
   });
 
   afterEach(() => {

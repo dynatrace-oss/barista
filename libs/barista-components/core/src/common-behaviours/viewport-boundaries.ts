@@ -35,7 +35,7 @@ export interface HasDtViewportResizer {
 
 /** Mixin to augment a directive with a `viewportBoundaries$` property. */
 export function mixinViewportBoundaries<
-  T extends Constructor<HasDtViewportResizer>
+  T extends Constructor<HasDtViewportResizer>,
 >(
   base: T,
 ): Constructor<HasViewportBoundaries> & Constructor<HasDestroySubject> & T {

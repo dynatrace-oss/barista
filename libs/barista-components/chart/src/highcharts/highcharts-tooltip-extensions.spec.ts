@@ -50,10 +50,10 @@ describe('highcharts-tooltip-extensions', () => {
     key: 0,
   };
 
-  const dummyArr = ([
+  const dummyArr = [
     { category: 0, y: 0, getLabelConfig: () => dummyConfig },
     { category: 1, y: 1, getLabelConfig: () => dummyConfig1 },
-  ] as unknown) as Point[];
+  ] as unknown as Point[];
 
   it('should return the correct data for multiple metrics', () => {
     const tooltipData = prepareTooltipData(dummyArr);
@@ -64,7 +64,7 @@ describe('highcharts-tooltip-extensions', () => {
   });
 
   it('should return the correct data for single metrics or pie charts', () => {
-    const dummyConfigSingle = ({
+    const dummyConfigSingle = {
       x: 0,
       y: 0,
       getLabelConfig: () => ({
@@ -78,7 +78,7 @@ describe('highcharts-tooltip-extensions', () => {
         series: {},
         key: 0,
       }),
-    } as unknown) as Point;
+    } as unknown as Point;
 
     const tooltipData = prepareTooltipData(dummyConfigSingle);
     expect(tooltipData.x).toBe(0);

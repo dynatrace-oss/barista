@@ -196,8 +196,9 @@ describe('DtChart Selection Area', () => {
 
       fixture.componentInstance.hasRange = true;
       fixture.detectChanges();
-      range = fixture.debugElement.query(By.css('.dt-chart-range'))
-        .componentInstance;
+      range = fixture.debugElement.query(
+        By.css('.dt-chart-range'),
+      ).componentInstance;
       const start = new Date('2019/06/01 20:40:00').getTime();
       const end = new Date('2019/06/01 20:55:00').getTime();
       range.value = [start, end];

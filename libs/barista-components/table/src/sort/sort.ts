@@ -61,7 +61,8 @@ export const _DtSortMixinBase = mixinDisabled(DtSortBase);
 })
 export class DtSort
   extends _DtSortMixinBase
-  implements CanDisable, OnChanges, OnInit, OnDestroy {
+  implements CanDisable, OnChanges, OnInit, OnDestroy
+{
   /**
    * Used to notify any child components listening to state changes.
    * @internal

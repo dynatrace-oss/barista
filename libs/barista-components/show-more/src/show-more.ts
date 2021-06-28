@@ -51,7 +51,8 @@ const _DtShowMoreMixinBase = mixinDisabled(DtShowMoreBase);
 })
 export class DtShowMore
   extends _DtShowMoreMixinBase
-  implements CanDisable, OnDestroy {
+  implements CanDisable, OnDestroy
+{
   /** Sets the component's show less state when used as an expandable panel trigger. */
   @Input()
   get showLess(): boolean {

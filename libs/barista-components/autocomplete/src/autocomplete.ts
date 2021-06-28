@@ -62,13 +62,14 @@ export interface DtAutocompleteDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `dt-autocomplete`. */
-export const DT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<DtAutocompleteDefaultOptions>(
-  'dt-autocomplete-default-options',
-  {
-    providedIn: 'root',
-    factory: DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
-  },
-);
+export const DT_AUTOCOMPLETE_DEFAULT_OPTIONS =
+  new InjectionToken<DtAutocompleteDefaultOptions>(
+    'dt-autocomplete-default-options',
+    {
+      providedIn: 'root',
+      factory: DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
+    },
+  );
 
 /** @docs-private */
 export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefaultOptions {
@@ -88,7 +89,8 @@ export function DT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): DtAutocompleteDefault
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtAutocomplete<T>
-  implements AfterContentInit, AfterViewInit, OnDestroy {
+  implements AfterContentInit, AfterViewInit, OnDestroy
+{
   /**
    * Whether the first option should be highlighted when the autocomplete panel is opened.
    * Can be configured globally through the `DT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
@@ -251,12 +253,11 @@ export class DtAutocomplete<T>
     ).withWrap();
     // Set the initial visibility state.
     this._setVisibility();
-    this._projectedOptionsChangeSubscription = this._projectedOptions.changes.subscribe(
-      () => {
+    this._projectedOptionsChangeSubscription =
+      this._projectedOptions.changes.subscribe(() => {
         this._combineOptions();
         this._options.notifyOnChanges();
-      },
-    );
+      });
     // We need this property here so we don't emit a change event on the first changes for programmatic actions
     // similar to what the querylist does
     this._initialized = true;
@@ -301,8 +302,8 @@ export class DtAutocomplete<T>
    * Default page scroll is 300px
    */
   _scrollPageUp(): void {
-    const panelHeight = this._panel.nativeElement.getBoundingClientRect()
-      .height;
+    const panelHeight =
+      this._panel.nativeElement.getBoundingClientRect().height;
     const newScrollPosition = Math.max(this._getScrollTop() - panelHeight, 0);
     this._setScrollTop(newScrollPosition);
   }
@@ -313,8 +314,8 @@ export class DtAutocomplete<T>
    * Default page scroll is 300px
    */
   _scrollPageDown(): void {
-    const panelHeight = this._panel.nativeElement.getBoundingClientRect()
-      .height;
+    const panelHeight =
+      this._panel.nativeElement.getBoundingClientRect().height;
     const newScrollPosition = this._getScrollTop() + panelHeight;
     this._setScrollTop(newScrollPosition);
   }

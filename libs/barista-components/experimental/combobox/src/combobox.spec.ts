@@ -85,12 +85,15 @@ describe('Combobox', () => {
   describe('Basic', () => {
     beforeEach(() => {
       fixture = createComponent(TestComponent);
-      combobox = fixture.debugElement.query(By.directive(DtCombobox))
-        .componentInstance;
-      input = fixture.debugElement.query(By.css('.dt-combobox-input'))
-        .nativeElement;
-      trigger = fixture.debugElement.query(By.css('.dt-combobox-trigger'))
-        .nativeElement;
+      combobox = fixture.debugElement.query(
+        By.directive(DtCombobox),
+      ).componentInstance;
+      input = fixture.debugElement.query(
+        By.css('.dt-combobox-input'),
+      ).nativeElement;
+      trigger = fixture.debugElement.query(
+        By.css('.dt-combobox-trigger'),
+      ).nativeElement;
     });
 
     it('should not open when the options are empty', fakeAsync(() => {

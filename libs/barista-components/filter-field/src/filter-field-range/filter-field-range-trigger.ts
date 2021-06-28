@@ -41,7 +41,8 @@ import { DOCUMENT } from '@angular/common';
 })
 export class DtFilterFieldRangeTrigger
   extends DtFilterFieldElementTrigger<DtFilterFieldRange>
-  implements OnDestroy {
+  implements OnDestroy
+{
   protected elementSelector = 'dtFilterFieldElement';
 
   /** The filter-field range panel to be attached to this trigger. */

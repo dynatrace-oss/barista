@@ -185,9 +185,13 @@ describe('DtTagAdd', () => {
       fixture.detectChanges();
       flush();
 
-      const tag = ((fixture.debugElement.nativeElement.querySelectorAll(
-        'dt-tag',
-      ) as HTMLCollection).item(3) as HTMLElement).innerHTML;
+      const tag = (
+        (
+          fixture.debugElement.nativeElement.querySelectorAll(
+            'dt-tag',
+          ) as HTMLCollection
+        ).item(3) as HTMLElement
+      ).innerHTML;
       expect(tag).toContain('test');
       expect(spy).toHaveBeenCalled();
       expect(fixture.componentInstance.tags.size).toBe(4);
@@ -196,9 +200,8 @@ describe('DtTagAdd', () => {
     }));
 
     it('should open Overlay when `add-tag` button is pressed', () => {
-      const addTagBtn = fixture.debugElement.nativeElement.querySelector(
-        'button',
-      );
+      const addTagBtn =
+        fixture.debugElement.nativeElement.querySelector('button');
       let panel = overlayContainerElement.querySelector('.dt-tag-add-overlay');
 
       expect(panel).toBeNull();

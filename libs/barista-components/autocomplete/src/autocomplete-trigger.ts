@@ -123,9 +123,10 @@ export const AUTOCOMPLETE_PANEL_MAX_HEIGHT = 256;
  *
  * @param preferredOptionHeight The intended option height
  */
-export function calculateOptionHeight(
-  preferredOptionHeight: number,
-): { height: number; maxPanelHeight: number } {
+export function calculateOptionHeight(preferredOptionHeight: number): {
+  height: number;
+  maxPanelHeight: number;
+} {
   const height =
     preferredOptionHeight > AUTOCOMPLETE_OPTION_HEIGHT
       ? preferredOptionHeight
@@ -171,7 +172,8 @@ export const _DtAutocompleteTriggerMixinBase = mixinViewportBoundaries<
 })
 export class DtAutocompleteTrigger<T>
   extends _DtAutocompleteTriggerMixinBase
-  implements ControlValueAccessor, OnDestroy {
+  implements ControlValueAccessor, OnDestroy
+{
   private _optionHeight: number;
   private _maxPanelHeight: number;
 

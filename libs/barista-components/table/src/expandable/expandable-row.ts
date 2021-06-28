@@ -108,7 +108,8 @@ export class DtExpandableRowContent {}
 })
 export class DtExpandableRow
   extends DtRow
-  implements OnDestroy, AfterContentInit {
+  implements OnDestroy, AfterContentInit
+{
   private _uniqueId = `dt-expandable-row-${nextUniqueId++}`;
 
   /** Animation state of the expanded / collapsed row. */
@@ -271,8 +272,9 @@ export class DtExpandableRow
   /** Sets the style of the expandable cell. */
   private _setExpandableCell(expanded: boolean): void {
     // Somehow a hack, a better solution would be appreciated.
-    const cells = (this._rowRef
-      .nativeElement as HTMLDivElement).querySelectorAll('dt-expandable-cell');
+    const cells = (
+      this._rowRef.nativeElement as HTMLDivElement
+    ).querySelectorAll('dt-expandable-cell');
     [].slice.call(cells).forEach((cell) => {
       (expanded ? _addCssClass : _removeCssClass)(
         cell,

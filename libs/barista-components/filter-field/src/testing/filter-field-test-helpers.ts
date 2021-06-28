@@ -89,8 +89,9 @@ export function setupFilterFieldTest(): FilterFieldTestContext {
     })();
 
     fixture = createComponent(TestApp);
-    filterField = fixture.debugElement.query(By.directive(DtFilterField))
-      .componentInstance;
+    filterField = fixture.debugElement.query(
+      By.directive(DtFilterField),
+    ).componentInstance;
   });
   configureTestModule();
 
@@ -380,9 +381,10 @@ export function getFilterTags(
   });
 }
 
-export function getTagButtons(
-  tag: FilterTagTestData,
-): { label: HTMLButtonElement; deleteButton: HTMLButtonElement } {
+export function getTagButtons(tag: FilterTagTestData): {
+  label: HTMLButtonElement;
+  deleteButton: HTMLButtonElement;
+} {
   const tagNative = tag.ele.nativeElement;
   const label = tagNative.querySelector('.dt-filter-field-tag-label');
   const deleteButton = tagNative.querySelector('.dt-filter-field-tag-button');

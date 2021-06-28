@@ -47,9 +47,8 @@ describe('dt-expandable-text', () => {
     instanceDebugElement = fixture.debugElement.query(
       By.directive(DtExpandableText),
     );
-    expandableTextInstance = instanceDebugElement.injector.get<DtExpandableText>(
-      DtExpandableText,
-    );
+    expandableTextInstance =
+      instanceDebugElement.injector.get<DtExpandableText>(DtExpandableText);
   });
 
   it('should be closed initially', () => {
@@ -143,9 +142,8 @@ describe('dt-expandable-text', () => {
     const collapsedSpy = jest.fn();
     const changedSpy = jest.fn();
     const instance: DtExpandableText = instanceDebugElement.componentInstance;
-    const collapsedSubscription = instance._textCollapsed.subscribe(
-      collapsedSpy,
-    );
+    const collapsedSubscription =
+      instance._textCollapsed.subscribe(collapsedSpy);
     const changedSubscription = instance.expandChanged.subscribe(changedSpy);
 
     expandableTextInstance.close();

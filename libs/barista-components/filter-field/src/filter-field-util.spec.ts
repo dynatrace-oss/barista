@@ -599,7 +599,8 @@ describe('DtFilterField Util', () => {
         false,
         false,
       );
-      outerOptionAutocompleteDef.option!.parentAutocomplete = rootAutocompleteDef;
+      outerOptionAutocompleteDef.option!.parentAutocomplete =
+        rootAutocompleteDef;
 
       const values = [outerOptionDef, innerOptionDef] as DtFilterValue[];
       const tagData = defaultTagDataForFilterValuesParser(values);
@@ -1461,7 +1462,8 @@ describe('DtFilterField Util', () => {
   describe('defaultEditionDataForFilterValuesParser', () => {
     it('should return an empty string when filterValues is not defined', () => {
       // given
-      const filterValues: DtFilterValue[] = (undefined as unknown) as DtFilterValue[];
+      const filterValues: DtFilterValue[] =
+        undefined as unknown as DtFilterValue[];
       // when
       const result = defaultEditionDataForFilterValuesParser(filterValues);
       // then

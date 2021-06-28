@@ -413,7 +413,8 @@ describe('DtFilterField', () => {
     it('should emit a filterchange event when the edit of a range is completed', () => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
-      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
+      fixture.componentInstance.dataSource.data =
+        FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
         (ev) => (filterChangeEvent = ev),
       );
@@ -439,7 +440,8 @@ describe('DtFilterField', () => {
     it('should emit a filterchange event when the edited filter is deleted by keyboard input [delete,backspace]', () => {
       let filterChangeEvent: DtFilterFieldChangeEvent<any> | undefined;
 
-      fixture.componentInstance.dataSource.data = FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
+      fixture.componentInstance.dataSource.data =
+        FILTER_FIELD_TEST_DATA_SINGLE_OPTION;
       const sub = filterField.filterChanges.subscribe(
         (ev) => (filterChangeEvent = ev),
       );

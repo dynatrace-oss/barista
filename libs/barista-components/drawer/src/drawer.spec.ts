@@ -99,9 +99,8 @@ describe('DtDrawer', () => {
 
   describe('validate drawers', () => {
     it('should throw if there are two drawers with the same mode in the container', () => {
-      const { instance, fixture } = createFixture<FailingTestApp>(
-        FailingTestApp,
-      );
+      const { instance, fixture } =
+        createFixture<FailingTestApp>(FailingTestApp);
 
       expect(
         fakeAsync(() => {
@@ -132,9 +131,8 @@ describe('DtDrawer', () => {
 
   describe('drawer methods', () => {
     it('should fire the open event when open on init', fakeAsync(() => {
-      const { fixture, instance } = createFixture<TestAppDrawerOpened>(
-        TestAppDrawerOpened,
-      );
+      const { fixture, instance } =
+        createFixture<TestAppDrawerOpened>(TestAppDrawerOpened);
       fixture.detectChanges();
       flush();
 
@@ -173,14 +171,11 @@ describe('DtDrawer', () => {
     }));
 
     it('should close the drawer by calling its close function programmatically', fakeAsync(() => {
-      const {
-        instance,
-        containerEl,
-        fixture,
-      } = createFixture<TestAppDrawerOpened>(
-        TestAppDrawerOpened,
-        'dt-drawer-container',
-      );
+      const { instance, containerEl, fixture } =
+        createFixture<TestAppDrawerOpened>(
+          TestAppDrawerOpened,
+          'dt-drawer-container',
+        );
       fixture.detectChanges();
       flush();
 
@@ -257,14 +252,11 @@ describe('DtDrawer', () => {
     }));
 
     it('should close all drawers when the close function is called on the container', fakeAsync(() => {
-      const {
-        instance,
-        fixture,
-        containerEl,
-      } = createFixture<TestAppWithOverAndSideMode>(
-        TestAppWithOverAndSideMode,
-        'dt-drawer-container',
-      );
+      const { instance, fixture, containerEl } =
+        createFixture<TestAppWithOverAndSideMode>(
+          TestAppWithOverAndSideMode,
+          'dt-drawer-container',
+        );
       fixture.detectChanges();
       flush();
 
@@ -329,8 +321,9 @@ describe('DtDrawer', () => {
 
       expect(containerEl.classList.contains(DT_DRAWER_OPEN_CLASS)).toBeTruthy();
 
-      const backdrop = fixture.debugElement.query(By.css('.dt-drawer-backdrop'))
-        .nativeElement;
+      const backdrop = fixture.debugElement.query(
+        By.css('.dt-drawer-backdrop'),
+      ).nativeElement;
       // click on backdrop to close drawer
       backdrop.click();
       fixture.detectChanges();

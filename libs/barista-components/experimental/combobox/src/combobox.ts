@@ -145,7 +145,8 @@ export class DtCombobox<T>
     OnDestroy,
     CanDisable,
     HasTabIndex,
-    DtFormFieldControl<T> {
+    DtFormFieldControl<T>
+{
   static ngAcceptInputType_disabled: BooleanInput;
   static ngAcceptInputType_tabIndex: NumberInput;
 
@@ -242,20 +243,19 @@ export class DtCombobox<T>
   @Output() openedChange = new EventEmitter<boolean>();
 
   /** Combined stream of all of the child options' change events. */
-  readonly optionSelectionChanges: Observable<
-    DtOptionSelectionChange<T>
-  > = defer(() => {
-    if (this._options) {
-      return merge<DtOptionSelectionChange<T>>(
-        ...this._options.map((option) => option.selectionChange),
-      );
-    }
+  readonly optionSelectionChanges: Observable<DtOptionSelectionChange<T>> =
+    defer(() => {
+      if (this._options) {
+        return merge<DtOptionSelectionChange<T>>(
+          ...this._options.map((option) => option.selectionChange),
+        );
+      }
 
-    return this._ngZone.onStable.asObservable().pipe(
-      take(1),
-      switchMap(() => this.optionSelectionChanges),
-    );
-  });
+      return this._ngZone.onStable.asObservable().pipe(
+        take(1),
+        switchMap(() => this.optionSelectionChanges),
+      );
+    });
 
   /** @internal The trigger of the internal autocomplete trigger */
   @ViewChild('autocompleteTrigger', { static: true })

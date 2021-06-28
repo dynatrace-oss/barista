@@ -112,7 +112,8 @@ export class DtInlineEditor
     DoCheck,
     AfterContentInit,
     AfterViewInit,
-    CanUpdateErrorState {
+    CanUpdateErrorState
+{
   /** Wether the inline editor is required */
   @Input()
   get required(): boolean {

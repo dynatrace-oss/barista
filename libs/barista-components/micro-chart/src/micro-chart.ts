@@ -158,9 +158,9 @@ export class DtMicroChart implements OnDestroy {
   ) {
     this._transformedSeries =
       series instanceof Observable
-        ? (series as Observable<
-            DtMicroChartSeries[] | DtMicroChartSeries
-          >).pipe(
+        ? (
+            series as Observable<DtMicroChartSeries[] | DtMicroChartSeries>
+          ).pipe(
             map((s: DtMicroChartSeries[] | DtMicroChartSeries) =>
               this._transformSeries(s),
             ),
@@ -340,9 +340,8 @@ function applyMinMaxOptions(
   chartType?: string,
 ): void {
   const palette = getDtMicrochartColorPalette(theme);
-  const minMaxDefaultOptions = createDtMicrochartMinMaxDataPointOptions(
-    palette,
-  );
+  const minMaxDefaultOptions =
+    createDtMicrochartMinMaxDataPointOptions(palette);
   if (chartType === 'column') {
     lodashMerge(
       min,

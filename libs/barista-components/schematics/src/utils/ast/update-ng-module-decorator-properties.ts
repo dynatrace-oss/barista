@@ -87,10 +87,11 @@ export function updateNgModuleDecoratorProperties(
             if (ts.isArrayLiteralExpression(prop.initializer)) {
               // HACK: prop.initializer is readonly and should not be set, but
               // ts.factory.updateArrayLiteralExpression(prop.initializer, [...]) seems to be bugged (does nothing)
-              (prop.initializer as any) = ts.factory.createArrayLiteralExpression(
-                [...prop.initializer.elements, propertyValue],
-                true,
-              );
+              (prop.initializer as any) =
+                ts.factory.createArrayLiteralExpression(
+                  [...prop.initializer.elements, propertyValue],
+                  true,
+                );
             } else {
               // TODO: lukas.holzer@dynatrace.com implement different initializer kinds.
               console.warn(

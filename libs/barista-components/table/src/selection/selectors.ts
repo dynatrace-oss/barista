@@ -73,11 +73,10 @@ export class DtTableRowSelector<T> implements OnDestroy {
     private _changeDetectorRef: ChangeDetectorRef,
     private _selector: DtTableSelection<T>,
   ) {
-    this._selectionChangedSubscription = this._selector.selectionChange.subscribe(
-      () => {
+    this._selectionChangedSubscription =
+      this._selector.selectionChange.subscribe(() => {
         this._changeDetectorRef.markForCheck();
-      },
-    );
+      });
   }
 
   ngOnDestroy(): void {
