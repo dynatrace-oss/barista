@@ -65,7 +65,8 @@ export const _DtButtonGroup = mixinTabIndex(
 })
 export class DtButtonGroup<T>
   extends _DtButtonGroup
-  implements CanDisable, HasTabIndex, AfterContentInit {
+  implements CanDisable, HasTabIndex, AfterContentInit
+{
   private _value: T | null = null;
   private _disabled = false;
 
@@ -196,7 +197,8 @@ export class DtButtonGroupItem<T>
     CanColor<DtButtonGroupThemePalette>,
     HasTabIndex,
     AfterContentInit,
-    OnDestroy {
+    OnDestroy
+{
   private _checked = false;
   private _value: T;
   private _disabled = false;

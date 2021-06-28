@@ -295,9 +295,10 @@ function isOptionSelected(def: DtNodeDef, selectedIds: Set<string>): boolean {
 }
 
 /** Transforms a RangeSource to the Tag data values. */
-function transformRangeSourceToTagData(
-  result: DtRangeValue,
-): { separator: string; value: string } {
+function transformRangeSourceToTagData(result: DtRangeValue): {
+  separator: string;
+  value: string;
+} {
   if (result.operator === 'range') {
     return {
       separator: ':',

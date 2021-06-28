@@ -53,9 +53,8 @@ describe('DtTag', () => {
     const fixture = createComponent(TestAppSimple);
     fixture.detectChanges();
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-tag dt-icon',
-    );
+    const tileNativeElement =
+      fixture.debugElement.nativeElement.querySelector('dt-tag dt-icon');
     expect(tileNativeElement).toBeFalsy();
   });
 
@@ -63,9 +62,8 @@ describe('DtTag', () => {
     const fixture = createComponent(TestAppRemovable);
     fixture.detectChanges();
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-tag dt-icon',
-    );
+    const tileNativeElement =
+      fixture.debugElement.nativeElement.querySelector('dt-tag dt-icon');
     expect(tileNativeElement).toBeTruthy();
   });
 

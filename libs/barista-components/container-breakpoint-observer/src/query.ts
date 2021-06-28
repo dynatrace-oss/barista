@@ -26,7 +26,8 @@ export interface ElementQuery {
   value: string;
 }
 
-const QUERY_REGEX = /^(?:\s*all\sand)*\s*\(\s*(min|max)-(width|height)\s*:\s*([\w\d]+)\s*\)\s*$/;
+const QUERY_REGEX =
+  /^(?:\s*all\sand)*\s*\(\s*(min|max)-(width|height)\s*:\s*([\w\d]+)\s*\)\s*$/;
 
 /** @internal */
 // tslint:disable-next-line: interface-over-type-literal

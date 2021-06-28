@@ -109,9 +109,10 @@ describe('DtTagList', () => {
     });
 
     it('should show an "add tag" button at the correct position if tags are added dynamically', () => {
-      let tagElements: HTMLCollection = fixture.debugElement.nativeElement.querySelectorAll(
-        '.dt-tag, .dt-tag-add',
-      );
+      let tagElements: HTMLCollection =
+        fixture.debugElement.nativeElement.querySelectorAll(
+          '.dt-tag, .dt-tag-add',
+        );
       expect(tagElements.item(3)!.innerHTML).toContain('Add Tag');
       fixture.componentInstance.addTag('Health');
       fixture.componentInstance.addTag('Juice');

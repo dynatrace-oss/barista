@@ -88,9 +88,8 @@ describe('DtTopBarNavigation', () => {
       const fixture = TestBed.createComponent(TopBarWithAction);
       fixture.detectChanges();
 
-      const item: HTMLButtonElement = fixture.debugElement.nativeElement.querySelector(
-        'button',
-      );
+      const item: HTMLButtonElement =
+        fixture.debugElement.nativeElement.querySelector('button');
       expect(item.classList).toContain('dt-top-bar-action-has-problem');
     });
   });
@@ -100,8 +99,9 @@ describe('DtTopBarNavigation', () => {
       const fixture = TestBed.createComponent(BasicTopBar);
       fixture.detectChanges();
 
-      const nav: HTMLElement = fixture.debugElement.query(By.css('nav'))
-        .nativeElement;
+      const nav: HTMLElement = fixture.debugElement.query(
+        By.css('nav'),
+      ).nativeElement;
 
       expect(nav.getAttribute('aria-label')).toBe('Main');
     });
@@ -110,8 +110,9 @@ describe('DtTopBarNavigation', () => {
       const fixture = TestBed.createComponent(TopBarWithAction);
       fixture.detectChanges();
 
-      const button: HTMLElement = fixture.debugElement.query(By.css('button'))
-        .nativeElement;
+      const button: HTMLElement = fixture.debugElement.query(
+        By.css('button'),
+      ).nativeElement;
       button.focus();
 
       expect(button.classList).toContain('cdk-program-focused');

@@ -96,7 +96,8 @@ export class DtInput
     OnChanges,
     OnDestroy,
     CanUpdateErrorState,
-    DtFormFieldControl<string> {
+    DtFormFieldControl<string>
+{
   /** Implemented as part of DtFormFieldControl. */
   focused = false;
 

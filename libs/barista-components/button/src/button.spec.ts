@@ -69,9 +69,8 @@ describe('DtButton', () => {
 
     it('should disable the native button element', () => {
       const fixture = createComponent(TestApp);
-      const buttonNativeElement = fixture.debugElement.nativeElement.querySelector(
-        'button',
-      );
+      const buttonNativeElement =
+        fixture.debugElement.nativeElement.querySelector('button');
 
       // Expected button not to be disabled
       expect(buttonNativeElement.disabled).toBeFalsy();

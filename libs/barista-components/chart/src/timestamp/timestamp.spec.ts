@@ -104,8 +104,9 @@ describe('DtChart Timestamp', () => {
       timestamp._position = 100;
       fixture.detectChanges();
 
-      container = fixture.debugElement.query(By.css(TIMESTAMP_SELECTOR))
-        .nativeElement;
+      container = fixture.debugElement.query(
+        By.css(TIMESTAMP_SELECTOR),
+      ).nativeElement;
       expect(container.style.transform).toBe('translateX(100px)');
     });
 
@@ -122,8 +123,9 @@ describe('DtChart Timestamp', () => {
 
       timestamp.value = 100;
       fixture.detectChanges();
-      container = fixture.debugElement.query(By.css(TIMESTAMP_SELECTOR))
-        .nativeElement;
+      container = fixture.debugElement.query(
+        By.css(TIMESTAMP_SELECTOR),
+      ).nativeElement;
       expect(container.style.transform).toBe('translateX(200px)');
     });
 
@@ -139,7 +141,7 @@ describe('DtChart Timestamp', () => {
       expect(container).not.toBeNull();
 
       // imitate falsy values
-      timestamp.value = (undefined as unknown) as number;
+      timestamp.value = undefined as unknown as number;
       fixture.detectChanges();
 
       container = fixture.debugElement.query(By.css(TIMESTAMP_SELECTOR));
@@ -189,14 +191,16 @@ describe('DtChart Timestamp', () => {
 
     it('should have initial values from binding and update them', () => {
       expect(timestamp._hidden).toBe(false);
-      let container = fixture.debugElement.query(By.css(TIMESTAMP_SELECTOR))
-        .nativeElement;
+      let container = fixture.debugElement.query(
+        By.css(TIMESTAMP_SELECTOR),
+      ).nativeElement;
       expect(container.style.transform).toBe('translateX(10px)');
 
       fixture.componentInstance.value = 100;
       fixture.detectChanges();
-      container = fixture.debugElement.query(By.css(TIMESTAMP_SELECTOR))
-        .nativeElement;
+      container = fixture.debugElement.query(
+        By.css(TIMESTAMP_SELECTOR),
+      ).nativeElement;
       expect(container.style.transform).toBe('translateX(100px)');
     });
 

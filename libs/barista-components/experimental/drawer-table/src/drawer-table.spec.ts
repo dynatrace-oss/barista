@@ -77,9 +77,8 @@ describe('DtDrawerTable', () => {
   });
 
   it('should show the selected row in drawer', () => {
-    const lastRow = fixture.debugElement.nativeElement.querySelector(
-      'dt-row:last-child',
-    );
+    const lastRow =
+      fixture.debugElement.nativeElement.querySelector('dt-row:last-child');
     lastRow.click();
     fixture.detectChanges();
     expect(component.drawerTable.isOpen).toBe(true);

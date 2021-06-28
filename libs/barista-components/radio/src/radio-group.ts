@@ -52,7 +52,8 @@ export class DtRadioGroup<T>
     AfterContentInit,
     CanDisable,
     ControlValueAccessor,
-    DtFormFieldControl<T> {
+    DtFormFieldControl<T>
+{
   private _value: T | null = null;
   private _name = `dt-radio-group-${nextUniqueId++}`;
   private _selected: DtRadioButton<T> | null = null;

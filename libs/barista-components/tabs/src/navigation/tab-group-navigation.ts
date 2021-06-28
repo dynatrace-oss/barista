@@ -33,7 +33,8 @@ import {
   exportAs: 'dtTabGroupNavigation',
 })
 export class DtTabGroupNavigation
-  implements DtTabGroupNavigationControl, OnDestroy, AfterContentInit {
+  implements DtTabGroupNavigationControl, OnDestroy, AfterContentInit
+{
   private _destroyed = new Subject<void>();
 
   constructor(

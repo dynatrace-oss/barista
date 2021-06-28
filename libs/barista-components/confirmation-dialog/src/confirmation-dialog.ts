@@ -112,7 +112,8 @@ const LOG: DtLogger = DtLoggerFactory.create('DtConfirmationDialog');
   ],
 })
 export class DtConfirmationDialog
-  implements AfterContentChecked, AfterContentInit, OnDestroy {
+  implements AfterContentChecked, AfterContentInit, OnDestroy
+{
   /** Input for the aria-label on the confirmation dialog */
   @Input('aria-label') ariaLabel: string;
   /** Aria reference to a label describing the confirmation dialog */
@@ -268,7 +269,8 @@ export class DtConfirmationDialog
   private _updateBackdropVisibility(): void {
     if (this._overlayRef && this._overlayRef.backdropElement) {
       if (this._showBackdrop) {
-        this._overlayRef.backdropElement.style.opacity = DT_CONFIRMATION_BACKDROP_ACTIVE_OPACITY;
+        this._overlayRef.backdropElement.style.opacity =
+          DT_CONFIRMATION_BACKDROP_ACTIVE_OPACITY;
         this._overlayRef.backdropElement.style.pointerEvents = 'auto';
       } else {
         this._overlayRef.backdropElement.style.opacity = '0';

@@ -60,7 +60,8 @@ const INPUT_PATTERN = '[0-9]*';
 })
 export class DtOrderCell<T>
   extends DtCell
-  implements AfterViewInit, OnChanges, OnDestroy {
+  implements AfterViewInit, OnChanges, OnDestroy
+{
   /** Index of the row to display in the input field */
   @Input() index: string;
 

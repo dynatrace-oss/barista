@@ -23,7 +23,8 @@ import { DtQuickFilterDefaultDataSource } from '@dynatrace/barista-components/qu
   styleUrls: ['./quick-filter-demo.component.scss'],
 })
 export class QuickFilterDemoComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, AfterViewInit
+{
   show = true;
   pageSize = 6;
   searchValue = '';

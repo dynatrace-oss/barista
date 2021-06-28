@@ -240,9 +240,9 @@ class ChartTest {
   ];
 }
 
-const FAKE_AXIS: Axis = ({
+const FAKE_AXIS: Axis = {
   toPixels: (x) => x * 2,
-} as unknown) as Axis;
+} as unknown as Axis;
 
 const FAKE_SERIES: Series = {
   name: 'Actions/min',
@@ -250,11 +250,11 @@ const FAKE_SERIES: Series = {
   yAxis: FAKE_AXIS,
 } as Series;
 
-const FAKE_POINT: Point = ({
+const FAKE_POINT: Point = {
   x: 1,
   y: 1000,
   tooltipPos: [1, 2, 3],
-} as unknown) as Point;
+} as unknown as Point;
 
 const DUMMY_TOOLTIP_DATA_LINE_SERIES: DtChartTooltipData = {
   x: 0,

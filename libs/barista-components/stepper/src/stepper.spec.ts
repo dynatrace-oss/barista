@@ -49,8 +49,9 @@ describe('DtStepper', () => {
     beforeEach(() => {
       preselectedFixture = createComponent(SimplePreselectedDtStepperApp);
       preselectedFixture.detectChanges();
-      stepper = preselectedFixture.debugElement.query(By.directive(DtStepper))
-        .componentInstance;
+      stepper = preselectedFixture.debugElement.query(
+        By.directive(DtStepper),
+      ).componentInstance;
     });
 
     it('should not throw', () => {
@@ -131,8 +132,9 @@ describe('DtStepper', () => {
       const fixture = createComponent(SimpleDtStepperApp);
       fixture.detectChanges();
 
-      const stepperEl = fixture.debugElement.query(By.css('dt-stepper'))
-        .nativeElement;
+      const stepperEl = fixture.debugElement.query(
+        By.css('dt-stepper'),
+      ).nativeElement;
       expect(stepperEl.getAttribute('aria-orientation')).toBe('horizontal');
     });
 
@@ -157,8 +159,9 @@ describe('DtStepper', () => {
       fixture.detectChanges();
 
       testComponent = fixture.componentInstance;
-      stepper = fixture.debugElement.query(By.css('dt-stepper'))
-        .componentInstance;
+      stepper = fixture.debugElement.query(
+        By.css('dt-stepper'),
+      ).componentInstance;
     });
 
     it('must be visited if not optional', () => {
@@ -233,8 +236,9 @@ function assertCorrectKeyboardInteraction(
   stepHeaders: DebugElement[],
   orientation: StepperOrientation,
 ): void {
-  const stepperComponent = fixture.debugElement.query(By.directive(DtStepper))
-    .componentInstance;
+  const stepperComponent = fixture.debugElement.query(
+    By.directive(DtStepper),
+  ).componentInstance;
   const nextKey = orientation === 'vertical' ? DOWN_ARROW : RIGHT_ARROW;
   const prevKey = orientation === 'vertical' ? UP_ARROW : LEFT_ARROW;
 

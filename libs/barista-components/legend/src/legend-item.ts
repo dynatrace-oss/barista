@@ -68,7 +68,8 @@ export class DtLegendOverlay {}
 })
 export class DtLegendItem
   extends DtOverlayTrigger<{}>
-  implements AfterContentInit, OnDestroy {
+  implements AfterContentInit, OnDestroy
+{
   /** @internal The template ref that will be rendered as an overlay. */
   @Input() _overlayTemplateRef?: TemplateRef<{}>;
 

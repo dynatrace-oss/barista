@@ -74,7 +74,8 @@ export type DtSimpleColumnFormatFunction = (
 
 @Directive({})
 export abstract class DtSimpleColumnBase<T>
-  implements OnInit, OnChanges, OnDestroy {
+  implements OnInit, OnChanges, OnDestroy
+{
   /** Input for the name with which the columnDefinition will register itself to the table. */
   @Input()
   get name(): string {

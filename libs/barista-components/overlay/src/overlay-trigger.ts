@@ -62,7 +62,8 @@ export const _DtOverlayTriggerMixin = mixinTabIndex(
 })
 export class DtOverlayTrigger<T>
   extends _DtOverlayTriggerMixin
-  implements CanDisable, HasTabIndex, OnDestroy {
+  implements CanDisable, HasTabIndex, OnDestroy
+{
   private _content: TemplateRef<T>;
   private _config: DtOverlayConfig = new DtOverlayConfig();
   private _dtOverlayRef: DtOverlayRef<T> | null = null;
@@ -203,11 +204,10 @@ export class DtOverlayTrigger<T>
         this._dtOverlayRef = null;
       });
       this._dtOverlayRef = ref;
-      this._pinnedChangedSubscribtion = this._dtOverlayRef.pinnedChanged.subscribe(
-        (pinnedChanged) => {
+      this._pinnedChangedSubscribtion =
+        this._dtOverlayRef.pinnedChanged.subscribe((pinnedChanged) => {
           this.pinnedChanged.emit(pinnedChanged);
-        },
-      );
+        });
     }
   }
 

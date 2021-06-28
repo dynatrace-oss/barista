@@ -65,7 +65,8 @@ export const _DtSortHeaderMixinBase = mixinDisabled(DtSortHeaderBase);
 })
 export class DtSortHeader
   extends _DtSortHeaderMixinBase
-  implements CanDisable, OnDestroy, OnInit {
+  implements CanDisable, OnDestroy, OnInit
+{
   static ngAcceptInputType_disabled: BooleanInput;
 
   private _rerenderSubscription = Subscription.EMPTY;

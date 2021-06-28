@@ -180,9 +180,8 @@ describe('DtInput without forms', () => {
   it('supports textarea', fakeAsync(() => {
     const fixture = createComponent(DtInputTextareaWithBindings);
 
-    const textarea: HTMLTextAreaElement = fixture.debugElement.nativeElement.querySelector(
-      'textarea',
-    );
+    const textarea: HTMLTextAreaElement =
+      fixture.debugElement.nativeElement.querySelector('textarea');
     expect(textarea).not.toBeNull();
   }));
 });
@@ -266,8 +265,9 @@ describe('DtFormField without forms', () => {
 
     if (platform.TRIDENT || (platform.SAFARI && !platform.IOS)) {
       const fixture = createComponent(DtInputDateTestController);
-      const el = fixture.debugElement.query(By.css('dt-form-field'))
-        .nativeElement;
+      const el = fixture.debugElement.query(
+        By.css('dt-form-field'),
+      ).nativeElement;
       expect(el).not.toBeNull();
       expect(el.classList.contains('dt-form-field-empty')).toBe(true);
     }
@@ -275,8 +275,9 @@ describe('DtFormField without forms', () => {
 
   it('should treat text input type as empty at init', fakeAsync(() => {
     const fixture = createComponent(DtInputTextTestController);
-    const el = fixture.debugElement.query(By.css('dt-form-field'))
-      .nativeElement;
+    const el = fixture.debugElement.query(
+      By.css('dt-form-field'),
+    ).nativeElement;
     expect(el).not.toBeNull();
     expect(el.classList.contains('dt-form-field-empty')).toBe(true);
   }));
@@ -284,8 +285,9 @@ describe('DtFormField without forms', () => {
   it('should not be empty after input entered', fakeAsync(() => {
     const fixture = createComponent(DtInputTextTestController);
     const inputEl = fixture.debugElement.query(By.css('input'));
-    const el = fixture.debugElement.query(By.css('dt-form-field'))
-      .nativeElement;
+    const el = fixture.debugElement.query(
+      By.css('dt-form-field'),
+    ).nativeElement;
 
     inputEl.nativeElement.value = 'hello';
     // Simulate input event.
@@ -298,8 +300,9 @@ describe('DtFormField without forms', () => {
 
   it('should not be empty when the value set before view init', fakeAsync(() => {
     const fixture = createComponent(DtInputWithValueBinding);
-    const el = fixture.debugElement.query(By.css('dt-form-field'))
-      .nativeElement;
+    const el = fixture.debugElement.query(
+      By.css('dt-form-field'),
+    ).nativeElement;
 
     expect(el.classList).not.toContain('dt-form-field-empty');
 
@@ -437,8 +440,9 @@ describe('DtFormField without forms', () => {
 
   it('supports the disabled attribute as binding', fakeAsync(() => {
     const fixture = createComponent(DtFormFieldWithDisabled);
-    const formFieldEl = fixture.debugElement.query(By.css('.dt-form-field'))
-      .nativeElement;
+    const formFieldEl = fixture.debugElement.query(
+      By.css('.dt-form-field'),
+    ).nativeElement;
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
     // Expected form field not to start out disabled
@@ -486,8 +490,9 @@ describe('DtFormField without forms', () => {
   it('should update empty class when value changes programmatically and OnPush', fakeAsync(() => {
     const fixture = createComponent(DtInputOnPush);
     const component = fixture.componentInstance;
-    const el = fixture.debugElement.query(By.css('.dt-form-field'))
-      .nativeElement;
+    const el = fixture.debugElement.query(
+      By.css('.dt-form-field'),
+    ).nativeElement;
 
     // Input initially empty
     expect(el.classList).toContain('dt-form-field-empty');
@@ -504,8 +509,9 @@ describe('DtFormField without forms', () => {
     const input = fixture.debugElement
       .query(By.directive(DtInput))
       .injector.get<DtInput>(DtInput);
-    const container = fixture.debugElement.query(By.css('dt-form-field'))
-      .nativeElement;
+    const container = fixture.debugElement.query(
+      By.css('dt-form-field'),
+    ).nativeElement;
 
     // Call the focus handler directly to avoid flakyness where
     // browsers don't focus elements if the window is minimized.
@@ -520,8 +526,9 @@ describe('DtFormField without forms', () => {
     const input = fixture.debugElement
       .query(By.directive(DtInput))
       .injector.get(DtInput);
-    const container = fixture.debugElement.query(By.css('dt-form-field'))
-      .nativeElement;
+    const container = fixture.debugElement.query(
+      By.css('dt-form-field'),
+    ).nativeElement;
 
     // Call the focus handler directly to avoid flakyness where
     // browsers don't focus elements if the window is minimized.
@@ -541,8 +548,9 @@ describe('DtFormField without forms', () => {
     const input = fixture.debugElement
       .query(By.directive(DtInput))
       .injector.get<DtInput>(DtInput);
-    const container = fixture.debugElement.query(By.css('dt-form-field'))
-      .nativeElement;
+    const container = fixture.debugElement.query(
+      By.css('dt-form-field'),
+    ).nativeElement;
 
     // Call the focus handler directly to avoid flakyness where
     // browsers don't focus elements if the window is minimized.
@@ -565,8 +573,9 @@ describe('DtFormField with forms', () => {
       fixture = createComponentWithCutomProviders(DtInputWithFormErrorMessages);
       fixture.detectChanges();
       testComponent = fixture.componentInstance;
-      containerEl = fixture.debugElement.query(By.css('dt-form-field'))
-        .nativeElement;
+      containerEl = fixture.debugElement.query(
+        By.css('dt-form-field'),
+      ).nativeElement;
       inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
     }));
 
@@ -635,8 +644,9 @@ describe('DtFormField with forms', () => {
 
       groupFixture.detectChanges();
       component = groupFixture.componentInstance;
-      containerEl = groupFixture.debugElement.query(By.css('dt-form-field'))
-        .nativeElement;
+      containerEl = groupFixture.debugElement.query(
+        By.css('dt-form-field'),
+      ).nativeElement;
       inputEl = groupFixture.debugElement.query(By.css('input')).nativeElement;
 
       // Expected form control to be invalid
@@ -725,8 +735,9 @@ describe('DtFormField with forms', () => {
       fixture.detectChanges();
 
       const component = fixture.componentInstance;
-      const containerEl = fixture.debugElement.query(By.css('dt-form-field'))
-        .nativeElement;
+      const containerEl = fixture.debugElement.query(
+        By.css('dt-form-field'),
+      ).nativeElement;
 
       // tslint:disable-next-line:no-unnecessary-type-assertion
       const control = component.formGroup.get('name')!;
@@ -761,8 +772,9 @@ describe('DtFormField with forms', () => {
 
       fixture.detectChanges();
 
-      const containerEl = fixture.debugElement.query(By.css('dt-form-field'))
-        .nativeElement;
+      const containerEl = fixture.debugElement.query(
+        By.css('dt-form-field'),
+      ).nativeElement;
       const testComponent = fixture.componentInstance;
 
       // Expect the control to still be untouched but the error to show due to the global setting
@@ -792,8 +804,9 @@ describe('DtFormField with forms', () => {
     const fixture = createComponentWithCutomProviders(DtInputWithFormControl);
     fixture.detectChanges();
 
-    const formFieldEl = fixture.debugElement.query(By.css('.dt-form-field'))
-      .nativeElement;
+    const formFieldEl = fixture.debugElement.query(
+      By.css('.dt-form-field'),
+    ).nativeElement;
     const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
     // Expected form field not to start out disabled.
     expect(formFieldEl.classList).not.toContain('dt-form-field-disabled');

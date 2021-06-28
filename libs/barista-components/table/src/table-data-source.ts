@@ -56,10 +56,8 @@ export class DtTableDataSource<T> extends DataSource<T> {
   filteredData: T[];
 
   /** @internal DisplayAccessorMap for SimpleColumn displayAccessor functions. */
-  _displayAccessorMap: Map<
-    string,
-    DtSimpleColumnDisplayAccessorFunction<T>
-  > = new Map();
+  _displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>> =
+    new Map();
 
   /**
    * @internal SortAccessorMap for SimpleColumn sortAccessor functions. This sortAccessorMap

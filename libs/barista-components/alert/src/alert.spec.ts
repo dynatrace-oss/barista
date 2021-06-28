@@ -44,18 +44,16 @@ describe('DtAlert', () => {
   it('expects css class to be present', () => {
     const fixture = createComponent(TestApp);
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-alert',
-    );
+    const tileNativeElement =
+      fixture.debugElement.nativeElement.querySelector('dt-alert');
     expect(tileNativeElement.classList.contains('dt-alert')).toBeTruthy();
   });
 
   it('expects correct css class after change', () => {
     const fixture = createComponent(TestApp);
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-alert',
-    );
+    const tileNativeElement =
+      fixture.debugElement.nativeElement.querySelector('dt-alert');
 
     const groupDebugElement = fixture.debugElement.query(By.directive(DtAlert));
     const groupInstance = groupDebugElement.injector.get<DtAlert>(DtAlert);
@@ -73,9 +71,8 @@ describe('DtAlert', () => {
   it('expects no css class to be present by default', () => {
     const fixture = createComponent(TestAppEmpty);
 
-    const tileNativeElement = fixture.debugElement.nativeElement.querySelector(
-      'dt-alert',
-    );
+    const tileNativeElement =
+      fixture.debugElement.nativeElement.querySelector('dt-alert');
     expect(tileNativeElement.classList.contains('dt-alert-error')).toBeFalsy();
     expect(
       tileNativeElement.classList.contains('dt-alert-warning'),

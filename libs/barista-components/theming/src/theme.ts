@@ -162,9 +162,10 @@ export class DtTheme implements OnDestroy {
     }
   }
 
-  private _parseThemeValue(
-    value: string,
-  ): { name: string; variant: DtThemeVariant } {
+  private _parseThemeValue(value: string): {
+    name: string;
+    variant: DtThemeVariant;
+  } {
     const result = !!value ? value.match(THEME_VALIDATION_RX) : null;
     if (result === null) {
       throw getDtThemeNotValidError(value);

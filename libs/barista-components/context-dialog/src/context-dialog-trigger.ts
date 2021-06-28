@@ -36,7 +36,8 @@ import { DtContextDialog } from './context-dialog';
 })
 export class DtContextDialogTrigger
   extends CdkOverlayOrigin
-  implements OnDestroy {
+  implements OnDestroy
+{
   private _dialog?: DtContextDialog;
 
   /** The dialog the trigger will be connected to. */

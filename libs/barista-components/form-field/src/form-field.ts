@@ -95,7 +95,8 @@ let nextUniqueId = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DtFormField<T>
-  implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
+  implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy
+{
   /** @internal Unique id for the internal form field label. */
   _labelId = `dt-form-field-label-${nextUniqueId++}`;
 

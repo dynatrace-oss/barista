@@ -289,8 +289,11 @@ export class BaLiveExample implements OnInit, OnDestroy {
     // highlight-ts needs 'xml' as type instead of 'html'
     const highlightType = type === 'html' ? 'xml' : type;
     // Add syntax highlighting using highlight-ts
-    transformedCode = process(this._highlighter, transformedCode, highlightType)
-      .value;
+    transformedCode = process(
+      this._highlighter,
+      transformedCode,
+      highlightType,
+    ).value;
 
     return wrapCodeLines(transformedCode, 'ba-live-example-code-line');
   }

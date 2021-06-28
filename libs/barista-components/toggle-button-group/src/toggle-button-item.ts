@@ -73,7 +73,8 @@ export const _DtToggleButtonMixinBase = mixinTabIndex(
 })
 export class DtToggleButtonItem<T>
   extends _DtToggleButtonMixinBase
-  implements CanDisable, HasTabIndex {
+  implements CanDisable, HasTabIndex
+{
   static ngAcceptInputType_disabled: BooleanInput;
 
   private _selected = false;

@@ -49,9 +49,7 @@ function getRenderedEventsPath(fixture: ComponentFixture<any>): string {
 }
 
 /** Get legend items from the fixture. */
-function getLegendItems(
-  fixture: ComponentFixture<any>,
-): {
+function getLegendItems(fixture: ComponentFixture<any>): {
   label: string;
   hasErrorColor: boolean;
   hasConversionColor: boolean;
@@ -206,20 +204,24 @@ describe('DtEventChart', () => {
         .replace(/ ([M,L,C,A])/gim, ' *$1')
         .split('*')
         .map((pathInstruction) => pathInstruction.trim())
-        .map((pathInstruction: string): {
-          key: string;
-          x: number;
-          y: number;
-        } => {
-          const key = pathInstruction[0];
-          const [x, y] = pathInstruction
-            .slice(1)
-            .split(' ')
-            .map((directionInstruction: string): number =>
-              parseFloat(directionInstruction),
-            );
-          return { key, x, y };
-        });
+        .map(
+          (
+            pathInstruction: string,
+          ): {
+            key: string;
+            x: number;
+            y: number;
+          } => {
+            const key = pathInstruction[0];
+            const [x, y] = pathInstruction
+              .slice(1)
+              .split(' ')
+              .map((directionInstruction: string): number =>
+                parseFloat(directionInstruction),
+              );
+            return { key, x, y };
+          },
+        );
 
       // Expect instructions to be correct
       expect(splitPath.map((e) => e.key)).toEqual([

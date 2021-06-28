@@ -107,7 +107,8 @@ export const _DtBreadcrumbMixinBase = mixinColor<
 })
 export class DtBreadcrumbs
   extends _DtBreadcrumbMixinBase
-  implements AfterContentInit, AfterViewInit, OnDestroy {
+  implements AfterContentInit, AfterViewInit, OnDestroy
+{
   @ContentChildren(DtBreadcrumbsItem2)
   private _items: QueryList<DtBreadcrumbsItem2>;
 

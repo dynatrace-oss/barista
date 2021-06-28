@@ -92,8 +92,9 @@ describe('DtChartHeatfield', () => {
       const chartDebug = fixture.debugElement.query(By.directive(DummyChart));
       chart = chartDebug.componentInstance as DummyChart;
       fixture.detectChanges();
-      marker = chartDebug.query(By.css('.dt-chart-heatfield-marker'))
-        .nativeElement;
+      marker = chartDebug.query(
+        By.css('.dt-chart-heatfield-marker'),
+      ).nativeElement;
     });
 
     describe('Positioning', () => {
@@ -258,9 +259,8 @@ describe('DtChartHeatfield', () => {
         By.directive(DtChartHeatfield),
       ).componentInstance;
       const activeChangeSpy = jest.fn();
-      const sub: Subscription = heatfield.activeChange.subscribe(
-        activeChangeSpy,
-      );
+      const sub: Subscription =
+        heatfield.activeChange.subscribe(activeChangeSpy);
       expect(activeChangeSpy).not.toHaveBeenCalled();
       instance.isActive = true;
       fixture.detectChanges();

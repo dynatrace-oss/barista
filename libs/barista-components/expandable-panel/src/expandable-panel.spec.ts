@@ -58,9 +58,10 @@ describe('DtExpandablePanel', () => {
           By.directive(DtExpandablePanel),
         );
         instanceElement = instanceDebugElement.nativeElement;
-        expandablePanelInstance = instanceDebugElement.injector.get<DtExpandablePanel>(
-          DtExpandablePanel,
-        );
+        expandablePanelInstance =
+          instanceDebugElement.injector.get<DtExpandablePanel>(
+            DtExpandablePanel,
+          );
       }),
     );
 
@@ -130,9 +131,8 @@ describe('DtExpandablePanel', () => {
       const expandedSpy = jest.fn();
       const changedSpy = jest.fn();
       const instance = instanceDebugElement.componentInstance;
-      const expandedSubscription = instance._panelExpanded.subscribe(
-        expandedSpy,
-      );
+      const expandedSubscription =
+        instance._panelExpanded.subscribe(expandedSpy);
       const changedSubscription = instance.expandChange.subscribe(changedSpy);
 
       expandablePanelInstance.open();
@@ -150,9 +150,8 @@ describe('DtExpandablePanel', () => {
       const collapsedSpy = jest.fn();
       const changedSpy = jest.fn();
       const instance = instanceDebugElement.componentInstance;
-      const collapsedSubscription = instance._panelCollapsed.subscribe(
-        collapsedSpy,
-      );
+      const collapsedSubscription =
+        instance._panelCollapsed.subscribe(collapsedSpy);
       const changedSubscription = instance.expandChange.subscribe(changedSpy);
 
       expandablePanelInstance.close();

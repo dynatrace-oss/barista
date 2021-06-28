@@ -46,12 +46,12 @@ export type TagParserFunction = (
 export type EditionParserFunction = (filterValues: DtFilterValue[]) => string;
 
 /** Injection token for the external configuration of the filter-field component */
-export const DT_FILTER_VALUES_PARSER_CONFIG = new InjectionToken<TagParserFunction>(
-  'dt-filter-value-config',
-);
-export const DT_FILTER_EDITION_VALUES_PARSER_CONFIG = new InjectionToken<EditionParserFunction>(
-  'dt-filter-edition-value-config',
-);
+export const DT_FILTER_VALUES_PARSER_CONFIG =
+  new InjectionToken<TagParserFunction>('dt-filter-value-config');
+export const DT_FILTER_EDITION_VALUES_PARSER_CONFIG =
+  new InjectionToken<EditionParserFunction>('dt-filter-edition-value-config');
 
-export const DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG: TagParserFunction = defaultTagDataForFilterValuesParser;
-export const DT_FILTER_EDITION_VALUES_DEFAULT_PARSER_CONFIG: EditionParserFunction = defaultEditionDataForFilterValuesParser;
+export const DT_FILTER_VALUES_DEFAULT_PARSER_CONFIG: TagParserFunction =
+  defaultTagDataForFilterValuesParser;
+export const DT_FILTER_EDITION_VALUES_DEFAULT_PARSER_CONFIG: EditionParserFunction =
+  defaultEditionDataForFilterValuesParser;

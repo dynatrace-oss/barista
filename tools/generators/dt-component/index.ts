@@ -97,8 +97,9 @@ export function modifyBazelConfig(schema): Rule {
       (node: ts.BinaryExpression) => node.left.getText() === 'COMPONENTS',
     ) as ts.BinaryExpression;
 
-    const bazelArrayElements = (componentsDeclaration.right as ts.ArrayLiteralExpression)
-      .elements;
+    const bazelArrayElements = (
+      componentsDeclaration.right as ts.ArrayLiteralExpression
+    ).elements;
     const lastElement = bazelArrayElements[
       bazelArrayElements.length - 1
     ] as ts.StringLiteral;

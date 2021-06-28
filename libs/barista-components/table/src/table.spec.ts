@@ -104,11 +104,9 @@ describe('DtTable', () => {
       const dataSourceRows = (fixture.componentInstance.dataSource as object[])
         .length;
       const tableRows = fixture.debugElement.queryAll(By.directive(DtRow));
-      const dataSourceCells = (fixture.componentInstance
-        .dataSource as object[]).reduce(
-        (prev, cur) => Object.keys(cur).length + prev,
-        0,
-      );
+      const dataSourceCells = (
+        fixture.componentInstance.dataSource as object[]
+      ).reduce((prev, cur) => Object.keys(cur).length + prev, 0);
       const tableCells = fixture.debugElement.queryAll(By.directive(DtCell));
 
       expect(tableRows.length).toBe(dataSourceRows);
@@ -321,8 +319,9 @@ describe('DtTable', () => {
     it('should complete the `stateChanges` stream for the dtCells on destroy', () => {
       const fixture = createComponent(TestIndicatorApp);
 
-      const instance: DtCell = fixture.debugElement.query(By.directive(DtCell))
-        .componentInstance;
+      const instance: DtCell = fixture.debugElement.query(
+        By.directive(DtCell),
+      ).componentInstance;
       const completeSpy = jest.fn();
       const subscription = instance._stateChanges.subscribe(
         () => {},
@@ -338,8 +337,9 @@ describe('DtTable', () => {
     it('should have the correct values for hasError and hasWarning', () => {
       const fixture = createComponent(TestIndicatorApp);
 
-      const instance: DtCell = fixture.debugElement.query(By.directive(DtCell))
-        .componentInstance;
+      const instance: DtCell = fixture.debugElement.query(
+        By.directive(DtCell),
+      ).componentInstance;
 
       expect(instance.hasError).toBeTruthy();
       expect(instance.hasWarning).toBeFalsy();
@@ -354,8 +354,9 @@ describe('DtTable', () => {
     it('should have the correct classes on the row', fakeAsync(() => {
       const fixture = createComponent(TestIndicatorApp);
       tick();
-      let rowNative = fixture.debugElement.query(By.directive(DtRow))
-        .nativeElement;
+      let rowNative = fixture.debugElement.query(
+        By.directive(DtRow),
+      ).nativeElement;
 
       expect(
         rowNative.classList.contains('dt-table-row-indicator'),
@@ -615,8 +616,9 @@ describe('DtTable', () => {
   describe('Cell - Row registraion', () => {
     it('should register a cell with the row after creation', () => {
       const fixture = createComponent(TestIndicatorApp);
-      const row: DtRow = fixture.debugElement.query(By.directive(DtRow))
-        .componentInstance;
+      const row: DtRow = fixture.debugElement.query(
+        By.directive(DtRow),
+      ).componentInstance;
 
       expect(row._registeredCells.length).toBe(2);
     });
@@ -626,8 +628,9 @@ describe('DtTable', () => {
 
       fixture.componentInstance.columns = ['col1', 'col2', 'col3'];
       fixture.detectChanges();
-      const row: DtRow = fixture.debugElement.query(By.directive(DtRow))
-        .componentInstance;
+      const row: DtRow = fixture.debugElement.query(
+        By.directive(DtRow),
+      ).componentInstance;
       expect(row._registeredCells.length).toBe(3);
     });
 
@@ -636,15 +639,17 @@ describe('DtTable', () => {
 
       fixture.componentInstance.columns = ['col1'];
       fixture.detectChanges();
-      const row: DtRow = fixture.debugElement.query(By.directive(DtRow))
-        .componentInstance;
+      const row: DtRow = fixture.debugElement.query(
+        By.directive(DtRow),
+      ).componentInstance;
       expect(row._registeredCells.length).toBe(1);
     });
 
     it('should unregister each cell with the row after destroy', () => {
       const fixture = createComponent(TestIndicatorApp);
-      const row = fixture.debugElement.query(By.directive(DtRow))
-        .componentInstance;
+      const row = fixture.debugElement.query(
+        By.directive(DtRow),
+      ).componentInstance;
       jest.spyOn(row, '_unregisterCell').mockImplementation(() => {});
       fixture.destroy();
       expect(row._unregisterCell).toHaveBeenCalledTimes(2);
@@ -654,8 +659,9 @@ describe('DtTable', () => {
   describe('Sticky Header', () => {
     it('should add the sticky class to the header', () => {
       const fixture = createComponent(TestStickyHeader);
-      const headerRow = fixture.debugElement.query(By.css('dt-header-row'))
-        .nativeElement;
+      const headerRow = fixture.debugElement.query(
+        By.css('dt-header-row'),
+      ).nativeElement;
       expect(headerRow.classList.contains('dt-table-sticky')).toBe(true);
     });
   });

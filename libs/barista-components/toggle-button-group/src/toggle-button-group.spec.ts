@@ -64,8 +64,9 @@ describe('DtToggleButtonGroup', () => {
       fixture = createComponent(SimpleToggleButtonGroupTestApp);
       fixture.detectChanges();
       element = fixture.nativeElement;
-      component = fixture.debugElement.query(By.css('.dt-toggle-button-group'))
-        .componentInstance;
+      component = fixture.debugElement.query(
+        By.css('.dt-toggle-button-group'),
+      ).componentInstance;
       itemElements = fixture.debugElement.queryAll(
         By.css('.dt-toggle-button-item'),
       );
@@ -219,8 +220,9 @@ describe('DtToggleButtonGroup', () => {
     beforeEach(() => {
       fixture = createComponent(OneSelectedToggleButtonGroupTestApp);
       fixture.detectChanges();
-      component = fixture.debugElement.query(By.css('.dt-toggle-button-group'))
-        .componentInstance;
+      component = fixture.debugElement.query(
+        By.css('.dt-toggle-button-group'),
+      ).componentInstance;
     });
 
     it('should have a value on the group already', () => {
@@ -239,8 +241,9 @@ describe('DtToggleButtonGroup', () => {
     beforeEach(() => {
       fixture = createComponent(DynamicButtonsToggleButtonGroupTestApp);
       fixture.detectChanges();
-      component = fixture.debugElement.query(By.css('.dt-toggle-button-group'))
-        .componentInstance;
+      component = fixture.debugElement.query(
+        By.css('.dt-toggle-button-group'),
+      ).componentInstance;
     });
 
     it('should have a value on the group already', () => {
@@ -281,8 +284,9 @@ describe('DtToggleButtonGroup', () => {
     beforeEach(() => {
       fixture = createComponent(OneDisabledToggleButtonGroupTestApp);
       fixture.detectChanges();
-      component = fixture.debugElement.query(By.css('.dt-toggle-button-group'))
-        .componentInstance;
+      component = fixture.debugElement.query(
+        By.css('.dt-toggle-button-group'),
+      ).componentInstance;
     });
 
     it('should disable the first item', () => {
@@ -353,8 +357,9 @@ describe('DtToggleButtonGroup', () => {
     beforeEach(() => {
       fixture = createComponent(PropertybindingToggleButtonGroupTestApp);
       fixture.detectChanges();
-      component = fixture.debugElement.query(By.css('.dt-toggle-button-group'))
-        .componentInstance;
+      component = fixture.debugElement.query(
+        By.css('.dt-toggle-button-group'),
+      ).componentInstance;
     });
 
     it('should have the second item disabled on bound property initially', () => {

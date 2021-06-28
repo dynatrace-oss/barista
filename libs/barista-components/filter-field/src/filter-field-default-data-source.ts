@@ -185,7 +185,8 @@ export type DtFilterFieldDefaultDataSourceType =
  * }
  */
 export class DtFilterFieldDefaultDataSource
-  implements DtFilterFieldDataSource<DtFilterFieldDefaultDataSourceType> {
+  implements DtFilterFieldDataSource<DtFilterFieldDefaultDataSourceType>
+{
   private readonly _data$: BehaviorSubject<DtFilterFieldDefaultDataSourceType | null>;
 
   /** Structure of data that is used, transformed and rendered by the filter-field. */
@@ -197,9 +198,10 @@ export class DtFilterFieldDefaultDataSource
   }
 
   constructor(initialData?: DtFilterFieldDefaultDataSourceType) {
-    this._data$ = new BehaviorSubject<DtFilterFieldDefaultDataSourceType | null>(
-      initialData ? initialData : null,
-    );
+    this._data$ =
+      new BehaviorSubject<DtFilterFieldDefaultDataSourceType | null>(
+        initialData ? initialData : null,
+      );
   }
 
   /**

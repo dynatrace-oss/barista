@@ -124,12 +124,8 @@ describe('DtSlider', () => {
 
     it('should set the value of 2', () => {
       testComponent.slider.value = 2;
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(2);
       expect(inputField.value).toBe('2');
@@ -140,12 +136,8 @@ describe('DtSlider', () => {
 
     it('should snap to rounded value', () => {
       testComponent.slider.value = 1.5;
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(2);
       expect(inputField.value).toBe('2');
@@ -156,12 +148,8 @@ describe('DtSlider', () => {
 
     it('should snap to max value if given value is bigger than max', () => {
       testComponent.slider.value = 15;
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(10);
       expect(inputField.value).toBe('10');
@@ -172,12 +160,8 @@ describe('DtSlider', () => {
 
     it('should snap to min value if given value is smaller than min', () => {
       testComponent.slider.value = -1;
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(0);
       expect(inputField.value).toBe('0');
@@ -188,12 +172,8 @@ describe('DtSlider', () => {
 
     it('should update slider position in case the min is changed', () => {
       testComponent.slider.min = 1;
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(1);
       expect(inputField.value).toBe('1');
@@ -206,12 +186,8 @@ describe('DtSlider', () => {
     it('should update slider position in case the value and max is changed', () => {
       testComponent.slider.value = 5;
       testComponent.slider.max = 5;
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(5);
       expect(inputField.value).toBe('5');
@@ -222,12 +198,8 @@ describe('DtSlider', () => {
     });
 
     it('should update the value from input field value change', () => {
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(1);
       expect(inputField.value).toBe('1');
@@ -372,12 +344,8 @@ describe('DtSlider', () => {
     });
 
     it('should update value if new min is set that is bigger than value', () => {
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       testComponent.slider.min = 5;
 
@@ -390,12 +358,8 @@ describe('DtSlider', () => {
     });
 
     it('should update value if new max is set that is smaller than value', () => {
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       testComponent.slider.value = 9;
       testComponent.slider.max = 5;
@@ -409,12 +373,8 @@ describe('DtSlider', () => {
     });
 
     it('should update slider position if new max or min is given', () => {
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       testComponent.slider.value = 6;
       testComponent.slider.min = 2;
@@ -533,12 +493,8 @@ describe('DtSlider', () => {
     });
 
     it('should have a value of 50.5', () => {
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(50.5);
       expect(inputField.value).toBe('50.5');
@@ -549,12 +505,8 @@ describe('DtSlider', () => {
 
     it('should set the value of 40.5', () => {
       testComponent.slider.value = 40.3;
-      const {
-        inputField,
-        sliderThumb,
-        sliderFill,
-        sliderBackground,
-      } = getElements(fixture);
+      const { inputField, sliderThumb, sliderFill, sliderBackground } =
+        getElements(fixture);
 
       expect(testComponent.slider.value).toBe(40.5);
       expect(inputField.value).toBe('40.5');

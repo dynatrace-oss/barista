@@ -29,11 +29,16 @@ export interface DtQuickFilterDefaultDataSourceSimpleOption {
   id?: string | number;
 }
 
-export type DtQuickFilterDefaultDataSourceRange = DtFilterFieldDefaultDataSourceRange;
-export type DtQuickFilterDefaultDataSourceFreeText = DtFilterFieldDefaultDataSourceFreeText;
-export type DtQuickFilterDefaultDataSourceAutocomplete = DtFilterFieldDefaultDataSourceAutocomplete;
-export type DtQuickFilterDefaultDataSourceGroup = DtFilterFieldDefaultDataSourceGroup;
-export type DtQuickFilterDefaultDataSourceSimpleGroup = DtFilterFieldDefaultDataSourceSimpleGroup;
+export type DtQuickFilterDefaultDataSourceRange =
+  DtFilterFieldDefaultDataSourceRange;
+export type DtQuickFilterDefaultDataSourceFreeText =
+  DtFilterFieldDefaultDataSourceFreeText;
+export type DtQuickFilterDefaultDataSourceAutocomplete =
+  DtFilterFieldDefaultDataSourceAutocomplete;
+export type DtQuickFilterDefaultDataSourceGroup =
+  DtFilterFieldDefaultDataSourceGroup;
+export type DtQuickFilterDefaultDataSourceSimpleGroup =
+  DtFilterFieldDefaultDataSourceSimpleGroup;
 export type DtQuickFilterDefaultDataSourceType =
   | DtQuickFilterDefaultDataSourceOption
   | DtQuickFilterDefaultDataSourceGroup
@@ -53,12 +58,13 @@ export interface DtQuickFilterDefaultDataSourceConfig {
 }
 
 export class DtQuickFilterDefaultDataSource<
-    T extends DtQuickFilterDefaultDataSourceType
+    T extends DtQuickFilterDefaultDataSourceType,
   >
   extends DtFilterFieldDefaultDataSource
-  implements DtQuickFilterDataSource {
+  implements DtQuickFilterDataSource
+{
   constructor(
-    initialData: T = (null as unknown) as T,
+    initialData: T = null as unknown as T,
     config: DtQuickFilterDefaultDataSourceConfig = {},
   ) {
     super(initialData);

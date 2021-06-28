@@ -185,8 +185,9 @@ describe('DtStackedSeriesChart', () => {
       fixture = createComponent(TestApp);
 
       rootComponent = fixture.componentInstance;
-      component = fixture.debugElement.query(By.directive(DtStackedSeriesChart))
-        .componentInstance;
+      component = fixture.debugElement.query(
+        By.directive(DtStackedSeriesChart),
+      ).componentInstance;
 
       selectedChangeSpy = jest.spyOn(component.selectedChange, 'emit');
     }),

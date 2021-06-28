@@ -56,9 +56,10 @@ export function dtCreateEventPath<T>(
       // By getting the distance between the originalIndex and the
       // last index in the mergedWith array, we can determine if there are
       // events between the merged events that we need to draw lines to.
-      const indexOfLastMergedEvent = currentRenderEvent.mergedWith![
-        currentRenderEvent.mergedWith!.length - 1
-      ];
+      const indexOfLastMergedEvent =
+        currentRenderEvent.mergedWith![
+          currentRenderEvent.mergedWith!.length - 1
+        ];
       const mergedIndicesDistance =
         indexOfLastMergedEvent - currentRenderEvent.originalIndex!;
       const hasForkedEvents =

@@ -113,7 +113,8 @@ export class DtCheckbox<T>
     OnInit,
     OnChanges,
     ControlValueAccessor,
-    DtFormFieldControl<T> {
+    DtFormFieldControl<T>
+{
   /** Whether or not the checkbox is checked. */
   @Input()
   get checked(): boolean {

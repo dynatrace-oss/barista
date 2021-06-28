@@ -74,7 +74,8 @@ export const _DtTabMixinBase = mixinTabIndex(mixinDisabled(DtTabBase));
 })
 export class DtTab
   extends _DtTabMixinBase
-  implements OnInit, CanDisable, HasTabIndex {
+  implements OnInit, CanDisable, HasTabIndex
+{
   /** Content for the tab label */
   @ContentChild(DtTabLabel, { static: true }) label: DtTabLabel;
 

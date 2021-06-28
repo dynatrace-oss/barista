@@ -88,16 +88,20 @@ export class DtIfContainerBreakpoint implements OnDestroy {
 
   private _context = new DtIfContainerBreakpointContext();
   /** TemplateRef that is rendered if  the query matches. */
-  private _thenTemplateRef: TemplateRef<DtIfContainerBreakpointContext> | null = null;
+  private _thenTemplateRef: TemplateRef<DtIfContainerBreakpointContext> | null =
+    null;
 
   /** TemplateRef that is rendered if  the query does not match. */
-  private _elseTemplateRef: TemplateRef<DtIfContainerBreakpointContext> | null = null;
+  private _elseTemplateRef: TemplateRef<DtIfContainerBreakpointContext> | null =
+    null;
 
   /** ViewRef of the rendered thenTemplateRef. */
-  private _thenViewRef: EmbeddedViewRef<DtIfContainerBreakpointContext> | null = null;
+  private _thenViewRef: EmbeddedViewRef<DtIfContainerBreakpointContext> | null =
+    null;
 
   /** ViewRef of the rendered elseTemplateRef. */
-  private _elseViewRef: EmbeddedViewRef<DtIfContainerBreakpointContext> | null = null;
+  private _elseViewRef: EmbeddedViewRef<DtIfContainerBreakpointContext> | null =
+    null;
 
   /** Subscription of the observed query on the container-breakpoint-observer. */
   private _breakpointSubscription = Subscription.EMPTY;
