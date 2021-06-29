@@ -65,23 +65,21 @@ export class DtExampleFilterFieldAsync {
   currentFilterChanged(
     event: DtFilterFieldCurrentFilterChangeEvent<any>,
   ): void {
-    if (
-      event.added[0] === this.DATA.autocomplete[0] ||
-      this.ASYNC_DATA.autocomplete.find((name) => name === event.removed[0])
-    ) {
+    if (event.added[0] === this.DATA.autocomplete[0]) {
       // Emulate a http request
       setTimeout(() => {
         this._dataSource.data = this.ASYNC_DATA;
       }, 1000);
+    } else if (this.ASYNC_DATA.name === event.currentFilter[0].name) {
+      this._dataSource.data = this.ASYNC_DATA;
     }
-    if (
-      event.added[0] === this.DATA.autocomplete[1] ||
-      this.ASYNC_DATA_2.suggestions.find((name) => name === event.removed[0])
-    ) {
+    if (event.added[0] === this.DATA.autocomplete[1]) {
       // Emulate a http request
       setTimeout(() => {
         this._dataSource.data = this.ASYNC_DATA_2;
       }, 1000);
+    } else if (this.ASYNC_DATA_2.name === event.currentFilter[0].name) {
+      this._dataSource.data = this.ASYNC_DATA_2;
     }
   }
 }
