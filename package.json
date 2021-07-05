@@ -105,7 +105,7 @@
     "@nrwl/angular": "11.6.1",
     "@nrwl/cli": "11.6.1",
     "@nrwl/jest": "11.6.1",
-    "@nrwl/linter": "11.6.1",
+    "@nrwl/linter": "12.5.5",
     "@nrwl/node": "11.6.1",
     "@nrwl/nx-plugin": "11.6.1",
     "@nrwl/tao": "11.6.1",
