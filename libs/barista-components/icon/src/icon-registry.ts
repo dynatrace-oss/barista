@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable, Optional } from '@angular/core';
 import { DtIconType } from '@dynatrace/barista-icons';
 import { Observable, of } from 'rxjs';
-import { finalize, map, share, tap } from 'rxjs/operators';
+import { finalize, map, retry, share, tap } from 'rxjs/operators';
 
 import { sanitizeSvg } from '@dynatrace/barista-components/core';
 
@@ -137,6 +137,7 @@ export class DtIconRegistry {
     }
 
     const req = this._httpClient.get(url, { responseType: 'text' }).pipe(
+      retry(3),
       finalize(() => this._inProgressUrlFetches.delete(url)),
       share(),
     );
