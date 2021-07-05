@@ -224,6 +224,46 @@ describe('DtIcon', () => {
 
     expect(svgElement.querySelector('script')).toBeNull();
   });
+
+  it('should retry when resources arent available', () => {
+    const fixture = createComponent(IconWithName);
+
+    fixture.componentInstance.iconName = 'xssInter';
+    fixture.detectChanges();
+    http.expectOne('xssInter.svg').error(new ErrorEvent('network error'), {});
+    // 1st retry
+    fixture.detectChanges();
+    http.expectOne('xssInter.svg').flush(FAKE_SVGS.xssMulti);
+
+    const iconElement =
+      fixture.debugElement.nativeElement.querySelector('dt-icon');
+    const svgElement = verifyAndGetSingleSvgChild(iconElement);
+
+    expect(svgElement.querySelector('script')).toBeNull();
+  });
+
+  it('should not show anything after 3 failed retries', () => {
+    const fixture = createComponent(IconWithName);
+
+    fixture.componentInstance.iconName = 'xssInter';
+    fixture.detectChanges();
+    http.expectOne('xssInter.svg').error(new ErrorEvent('network error'), {});
+    // 1st retry
+    fixture.detectChanges();
+    http.expectOne('xssInter.svg').error(new ErrorEvent('network error'), {});
+    // 2st retry
+    fixture.detectChanges();
+    http.expectOne('xssInter.svg').error(new ErrorEvent('network error'), {});
+    // 3st retry
+    fixture.detectChanges();
+    http.expectOne('xssInter.svg').error(new ErrorEvent('network error'), {});
+    fixture.detectChanges();
+
+    const iconElement =
+      fixture.debugElement.nativeElement.querySelector('dt-icon');
+
+    expect(iconElement.childNodes.length).toBe(0);
+  });
 });
 
 describe('DtIcon without config', () => {
