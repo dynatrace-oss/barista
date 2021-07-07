@@ -68,7 +68,7 @@
     "@angular/platform-browser": "^11.2.8",
     "@dynatrace/barista-fonts": "^1.0.0",
     "@dynatrace/barista-icons": "^7.15.0",
-    "@nguniversal/common": "^11.0.1",
+    "@nguniversal/common": "^11.2.1",
     "ansi-colors": "^4.1.1",
     "core-js": "^3.9.1",
     "d3-scale": "^3.2.3",
