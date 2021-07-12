@@ -5,6 +5,8 @@
   padding: 8px 0;
   display: flex;
   flex-flow: column;
+  margin-left: 3px;
+  transform: translateX(-3px);
 }
 
 .dt-quick-filter-group-headline {
@@ -19,6 +21,7 @@
   ::ng-deep .dt-radio-button,
   ::ng-deep .dt-checkbox {
     margin-bottom: 8px;
+    margin-left: 3px;
     display: block;
   }
 }
