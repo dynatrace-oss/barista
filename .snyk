@@ -223,4 +223,10 @@ ignore:
     - '@angular/localize > @babel/core > resolve > path-parse':
         reason: Transitive dependency outside of our control
         expires: '2021-06-03T09:28:32.360Z'
+  SNYK-JS-D3COLOR-1076592:
+    - d3-scale > d3-interpolate > d3-color:
+        reason: >-
+          transitive dependency, d3-scale should be updated but includes a
+          breaking change.
+        expires: '2021-08-12T05:58:44.210Z'
 patch: {}
