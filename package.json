@@ -110,7 +110,7 @@
     "@nrwl/nx-plugin": "11.6.1",
     "@nrwl/tao": "11.6.1",
     "@nrwl/workspace": "11.6.1",
-    "@octokit/rest": "^18.5.2",
+    "@octokit/rest": "^18.6.7",
     "@politie/angular-testcafe-builder": "^2.0.5",
     "@rollup/plugin-alias": "^3.1.2",
     "@rollup/plugin-commonjs": "^19.0.0",
