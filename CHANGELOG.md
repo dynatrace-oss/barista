@@ -1,3 +1,26 @@
+## [9.9.0](https://github.com/dynatrace-oss/barista/compare/9.8.0...9.9.0) (2021-07-20)
+
+### Bug Fixes
+
+- **filter-field:** Fixes the async example when using freeText
+  ([b26def9](https://github.com/dynatrace-oss/barista/commit/b26def9b0b0d93d82044d410e69f6a0a3c710f1b))
+- **filter-field:** Multiselect keyboard interaction not working correctly
+  ([f599832](https://github.com/dynatrace-oss/barista/commit/f599832c18a8c9f75cc7c0faf032002ca544fa67))
+- **quick-filter:** Give the radio and checkbox in the quickfilter space for
+  their focus styles.
+  ([af124f5](https://github.com/dynatrace-oss/barista/commit/af124f5aa394b2dc65093d9b00fa0757f19d391f))
+- **quick-filter:** Trigger resize event when sidebar open state changes.
+  ([d1b1e70](https://github.com/dynatrace-oss/barista/commit/d1b1e70d9080745b9d4615d23deb982fc43956a6))
+
+### Features
+
+- **filter-field:** Added partial hint message flexible configuration
+  ([5b615de](https://github.com/dynatrace-oss/barista/commit/5b615dec33f61f104f4114f348c32968eb9eb24c))
+- **icon:** Retry loading hiccup resources.
+  ([266afc5](https://github.com/dynatrace-oss/barista/commit/266afc56ed45744e880a73431c6fa13c79d823bf))
+- **stacked-series-chart:** Show highest value in Y axis.
+  ([4c34219](https://github.com/dynatrace-oss/barista/commit/4c34219fa6927275e226ac8e494ded7cc0b9a400))
+
 ## [9.8.1](https://github.com/dynatrace-oss/barista/compare/9.8.0...9.8.1) (2021-06-07)
 
 ### Bug Fixes
