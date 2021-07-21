@@ -104,6 +104,7 @@ import { DtChartRange } from './range/range';
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { getPlotBackgroundInfo, retainSeriesVisibility } from './utils';
+import { DtChartFocusTarget } from './chart-focus-anchor';
 
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
@@ -304,6 +305,8 @@ export class DtChart
   /** @internal Instance of the Chart timestamp used by the selection area */
   @ContentChild(DtChartTimestamp)
   _timestamp?: DtChartTimestamp;
+
+  _focusTargets = new Set<DtChartFocusTarget>();
 
   private _series?: Observable<DtChartSeries[]> | DtChartSeries[];
   private _currentSeries?: DtChartSeries[];

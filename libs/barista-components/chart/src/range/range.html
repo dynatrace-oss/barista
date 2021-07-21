@@ -1,4 +1,9 @@
 <ng-template let-range>
+  <dt-chart-focus-anchor
+    dtChartFocusTarget="overlayStart"
+    nextTarget=""
+    prevTarget="rangeNextButton"
+  ></dt-chart-focus-anchor>
   <span class="dt-selection-area-overlay-text">{{ range | dtDateRange }}</span>
   <ng-content select="[dtChartSelectionAreaAction]"></ng-content>
   <button
@@ -6,16 +11,19 @@
     variant="secondary"
     (click)="_handleOverlayClose()"
     [attr.aria-label]="_ariaLabelClose"
-    cdkFocusInitial
+    dtChartFocusTarget="overlayClose"
   >
     <dt-icon name="abort"></dt-icon>
   </button>
+  <dt-chart-focus-anchor
+    nextTarget="rangeEndAnchor"
+    prevTarget="overlayClose"
+  ></dt-chart-focus-anchor>
 </ng-template>
 
 <div
   *ngIf="!_hidden"
   #range
-  cdkTrapFocus
   class="dt-chart-range-container"
   tabindex="0"
   aria-role="slider"
@@ -41,6 +49,7 @@
   <button
     class="dt-chart-right-handle"
     aria-role="slider"
+    dtChartFocusTarget="rangeNextButton"
     [attr.aria-valuemin]="_minValue"
     [attr.aria-valuemax]="_maxValue"
     [attr.aria-label]="_ariaLabelRightHandle"
@@ -50,4 +59,12 @@
   >
     <dt-icon name="handle"></dt-icon>
   </button>
+  <dt-chart-focus-anchor
+    nextTarget="overlayStart"
+    prevTarget="overlayClose"
+  ></dt-chart-focus-anchor>
+  <dt-chart-focus-anchor
+    dtChartFocusTarget="rangeEndAnchor"
+    prevTarget="overlayClose"
+  ></dt-chart-focus-anchor>
 </div>

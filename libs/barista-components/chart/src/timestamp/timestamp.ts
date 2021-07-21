@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { CdkTrapFocus } from '@angular/cdk/a11y';
 import {
   BACKSPACE,
   DELETE,
@@ -68,7 +67,6 @@ export class TimestampStateChangedEvent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'dt-chart-timestamp',
-    cdkTrapFocus: 'true',
   },
 })
 export class DtChartTimestamp implements AfterViewInit, OnDestroy {
@@ -123,13 +121,6 @@ export class DtChartTimestamp implements AfterViewInit, OnDestroy {
    */
   @ViewChild(TemplateRef, { static: true })
   _overlayTemplate: TemplateRef<unknown>;
-
-  /**
-   * @internal The focus trap for the selected timestamp,
-   * used by the selection area to chain the focus group of the timestamp and the overlay.
-   */
-  @ViewChild(CdkTrapFocus)
-  _selectedFocusTrap: CdkTrapFocus;
 
   /**
    * @internal

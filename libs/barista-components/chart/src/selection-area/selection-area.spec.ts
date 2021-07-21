@@ -236,22 +236,6 @@ describe('DtChart Selection Area', () => {
         );
         expect(document.activeElement).toEqual(rangeContainer.nativeElement);
       });
-
-      it('should be in a focus trap after the chart range container was focused', () => {
-        range.focus();
-        const rangeContainer = fixture.debugElement.query(
-          By.css('.dt-chart-range-container'),
-        );
-
-        const next = rangeContainer.nativeElement.nextSibling;
-        const prev = rangeContainer.nativeElement.previousSibling;
-
-        expect(prev.classList.contains('cdk-focus-trap-anchor')).toBe(true);
-        expect(prev.getAttribute('tabindex')).toBe('0');
-
-        expect(next.classList.contains('cdk-focus-trap-anchor')).toBe(true);
-        expect(next.getAttribute('tabindex')).toBe('0');
-      });
     });
   });
 
