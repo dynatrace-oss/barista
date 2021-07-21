@@ -23,6 +23,7 @@ import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+  DtChart,
   DtChartModule,
   DtChartRange,
 } from '@dynatrace/barista-components/chart';
@@ -31,6 +32,7 @@ import {
   dispatchFakeEvent,
   createKeyboardEvent,
 } from '@dynatrace/testing/browser';
+import { DtChartFocusTarget } from '../chart-focus-anchor';
 import {
   ARIA_DEFAULT_LEFT_HANDLE_LABEL,
   ARIA_DEFAULT_RIGHT_HANDLE_LABEL,
@@ -40,6 +42,10 @@ import {
 import { RangeStateChangedEvent } from './range';
 
 // tslint:disable:no-magic-numbers no-unbound-method no-use-before-declare
+
+export class MockChart {
+  _focusTargets = new Set<DtChartFocusTarget>();
+}
 
 describe('DtChart Range', () => {
   beforeEach(() => {
@@ -54,6 +60,7 @@ describe('DtChart Range', () => {
         RangeTestBindingValuesComponent,
         RangeA11yTestComponent,
       ],
+      providers: [{ provide: DtChart, useClass: MockChart }],
     });
     TestBed.compileComponents();
   });
