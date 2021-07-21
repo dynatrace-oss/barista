@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { CdkTrapFocus } from '@angular/cdk/a11y';
 import {
   coerceBooleanProperty,
   coerceNumberProperty,
@@ -193,13 +192,6 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    */
   @ViewChild(TemplateRef, { static: true })
   _overlayTemplate: TemplateRef<{}>;
-
-  /**
-   * @internal The focus trap for the selected area,
-   * used by the selection area to chain the focus group of the area and the overlay.
-   */
-  @ViewChild(CdkTrapFocus)
-  _selectedAreaFocusTrap: CdkTrapFocus;
 
   /**
    * @internal

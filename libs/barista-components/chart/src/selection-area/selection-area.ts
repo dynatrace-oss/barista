@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import { FocusTrap, ConfigurableFocusTrapFactory } from '@angular/cdk/a11y';
 import { ENTER } from '@angular/cdk/keycodes';
 import {
   Overlay,
@@ -84,7 +83,6 @@ import {
 } from '../timestamp/timestamp';
 import {
   captureAndMergeEvents,
-  chainFocusTraps,
   getElementRef,
   getRelativeMousePosition,
   setPosition,
@@ -160,9 +158,6 @@ export class DtChartSelectionArea
   /** The ref of the selection area overlay */
   private _overlayRef: OverlayRef | null;
 
-  /** The focus trap inside the overlay */
-  private _overlayFocusTrap: FocusTrap | null;
-
   /** Template portal of the selection area overlay */
   private _portal: TemplatePortal | null;
 
@@ -184,7 +179,6 @@ export class DtChartSelectionArea
   constructor(
     @SkipSelf() private _chart: DtChart,
     private _elementRef: ElementRef<HTMLElement>,
-    private _focusTrapFactory: ConfigurableFocusTrapFactory,
     private _overlay: Overlay,
     private _zone: NgZone,
     private _viewportRuler: ViewportRuler,
@@ -426,13 +420,6 @@ export class DtChartSelectionArea
     overlayRef.attach(this._portal);
 
     this._overlayRef = overlayRef;
-
-    if (!this._overlayFocusTrap) {
-      this._overlayFocusTrap = this._focusTrapFactory.create(
-        this._overlayRef.overlayElement,
-      );
-      this._attachFocusTrapListeners();
-    }
   }
 
   /** Updates or creates an overlay for the range or timestamp. */
@@ -468,12 +455,6 @@ export class DtChartSelectionArea
       this._overlayRef.dispose();
     }
 
-    // if we have a focus trap we have to destroy it
-    if (this._overlayFocusTrap) {
-      this._overlayFocusTrap.destroy();
-    }
-
-    this._overlayFocusTrap = null;
     this._overlayRef = null;
     this._portal = null;
   }
@@ -939,33 +920,6 @@ export class DtChartSelectionArea
       .subscribe((x: number) => {
         this._reflectHairlinePositionToDom(x);
       });
-  }
-
-  /** Attaches the event listeners for the focus traps connected to each other */
-  private _attachFocusTrapListeners(): void {
-    if (!this._overlayFocusTrap || !this._overlayRef) {
-      return;
-    }
-
-    const traps = [this._overlayFocusTrap];
-    const anchors = [this._overlayRef.hostElement];
-
-    if (this._chart._range && this._chart._range._rangeElementRef.first) {
-      traps.push(this._chart._range._selectedAreaFocusTrap.focusTrap);
-      anchors.push(this._chart._range._viewContainerRef.element.nativeElement);
-    }
-
-    if (
-      this._chart._timestamp &&
-      this._chart._timestamp._timestampElementRef.first
-    ) {
-      traps.push(this._chart._timestamp._selectedFocusTrap.focusTrap);
-      anchors.push(
-        this._chart._timestamp._viewContainerRef.element.nativeElement,
-      );
-    }
-
-    chainFocusTraps(traps, anchors);
   }
 
   /** Filter function to check if the created range meets the maximum constraints */

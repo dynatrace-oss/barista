@@ -8,7 +8,6 @@
     variant="secondary"
     (click)="_handleOverlayClose()"
     [attr.aria-label]="_ariaLabelClose"
-    cdkFocusInitial
   >
     <dt-icon name="abort"></dt-icon>
   </button>
@@ -17,7 +16,6 @@
 <div
   #selector
   *ngIf="!_hidden"
-  cdkTrapFocus
   class="dt-chart-timestamp-selector"
   tabindex="0"
   aria-role="slider"
