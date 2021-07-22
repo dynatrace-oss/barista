@@ -711,7 +711,7 @@ describe('DtStackedSeriesChart', () => {
       fixture.detectChanges();
 
       expect(rootComponent.hoverStart).toMatchObject({
-        seriesName: stackedSeriesChartDemoDataCoffee[0].nodes[0].label,
+        stackName: stackedSeriesChartDemoDataCoffee[0].nodes[0].label,
         color: '#7c38a1',
         visible: true,
         hoveredIn: 'legend',

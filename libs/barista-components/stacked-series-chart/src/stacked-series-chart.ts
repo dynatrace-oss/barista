@@ -541,7 +541,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     legend: DtStackedSeriesChartLegend,
   ): DtStackedSeriesLegendHoverData {
     return {
-      seriesName: legend.label,
+      stackName: legend.label,
       color: legend.color,
       visible: legend.visible,
       hoveredIn: 'legend',
