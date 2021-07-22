@@ -41,7 +41,7 @@ export class DtTagKey {}
   styleUrls: ['tag.scss'],
   host: {
     class: 'dt-tag',
-    role: 'option',
+    role: 'listitem',
     '[class.dt-tag-removable]': 'removable',
   },
   preserveWhitespaces: false,

@@ -123,6 +123,7 @@ import {
   DtExampleEventChartOverlappingLoad,
   DtExampleEventChartOverlay,
   DtExampleEventChartSelection,
+  DtExampleEventChartHeatfield,
   DtExampleEventChartSessionReplay,
   DtExampleExpandablePanelDefault,
   DtExampleExpandablePanelDisabled,
@@ -642,6 +643,10 @@ const ROUTES: Routes = [
   {
     path: 'event-chart-overlay-example',
     component: DtExampleEventChartOverlay,
+  },
+  {
+    path: 'event-chart-heatfield-example',
+    component: DtExampleEventChartHeatfield,
   },
   {
     path: 'event-chart-selection-example',

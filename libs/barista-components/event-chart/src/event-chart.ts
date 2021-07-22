@@ -73,20 +73,32 @@ import {
   DtEventChartEvent,
   DtEventChartLane,
   DtEventChartLegendItem,
+  DtEventChartField,
   DtEventChartOverlay,
+  DtEventChartHeatfieldOverlay,
   DtEventChartSelectedEvent,
   DT_EVENT_CHART_COLORS,
+  DtEventChartSelectedField,
 } from './event-chart-directives';
 import { DtEventChartLegend } from './event-chart-legend';
 import { dtCreateEventPath } from './merge-and-path/create-event-path';
-import { dtEventChartMergeEvents } from './merge-and-path/merge-events';
-import { RenderEvent } from './render-event.interface';
+import {
+  dtEventChartMergeEvents,
+  dtEventChartMergeFields,
+} from './merge-and-path/merge-events';
+import {
+  RenderEvent,
+  RenderField,
+  isRenderField,
+  isRenderEvent,
+} from './render-event.interface';
 import {
   DtTimeUnit,
   DtFormattedValue,
   formatDuration,
 } from '@dynatrace/barista-components/formatters';
 
+const FIELD_BUBBLE_SIZE = 4;
 const EVENT_BUBBLE_SIZE = 16;
 const EVENT_BUBBLE_SPACING = 4;
 
@@ -95,6 +107,8 @@ const TICK_HEIGHT = 24;
 const TICK_WIDTH = 140;
 
 const LANE_HEIGHT = EVENT_BUBBLE_SIZE * 3;
+
+const HEATFIELD_OFFSET = 16;
 
 let patternDefsOutlet: PortalOutlet;
 
@@ -144,6 +158,46 @@ const OVERLAY_POSITIONS: ConnectedPosition[] = [
   },
 ];
 
+const DT_EVENT_CHART_HEATFIELD_OVERLAY_POSITIONS: ConnectedPosition[] = [
+  {
+    originX: 'center',
+    originY: 'top',
+    overlayX: 'center',
+    overlayY: 'bottom',
+    offsetY: -8,
+  },
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'bottom',
+    offsetY: -8,
+    offsetX: 8,
+  },
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'bottom',
+    offsetY: -8,
+    offsetX: -8,
+  },
+  {
+    originX: 'end',
+    originY: 'top',
+    overlayX: 'start',
+    overlayY: 'top',
+    offsetX: 8,
+  },
+  {
+    originX: 'start',
+    originY: 'top',
+    overlayX: 'end',
+    overlayY: 'top',
+    offsetX: -8,
+  },
+];
+
 @Component({
   selector: 'dt-event-chart, dt-sausage-chart',
   exportAs: 'dtEventChart',
@@ -162,9 +216,19 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   // tslint:disable-next-line: no-any
   private _overlay: TemplateRef<any>;
 
+  /** @internal Template reference for the DtEventChart overlay. */
+  @ContentChild(DtEventChartHeatfieldOverlay, { read: TemplateRef })
+  // tslint:disable-next-line: no-any
+  private _overlayHeatfield: TemplateRef<any>;
+
   /** @internal Selection of events passed into the DtEventChart via child components. */
   @ContentChildren(DtEventChartEvent)
   _events: QueryList<DtEventChartEvent<T>>;
+
+  //TODO
+  /** @internal Selection of events passed into the DtEventChart via child components. */
+  @ContentChildren(DtEventChartField)
+  _heatFields: QueryList<DtEventChartField<T>>;
 
   /** @internal Selection of lanes passed into the DtEventChart via child components. */
   @ContentChildren(DtEventChartLane)
@@ -192,6 +256,8 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   @ViewChild('canvas', { static: true })
   _canvasEl: ElementRef;
 
+  @ViewChild('container', { static: true }) _container: ElementRef<HTMLElement>;
+
   /**
    * @internal
    * Reference to the rendered lane labels.
@@ -214,6 +280,9 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** @internal Events that are being rendered in the svgCanvas. */
   _renderEvents: RenderEvent<T>[] = [];
 
+  /** @internal Events that are being rendered in the svgCanvas. */
+  _renderFields: RenderField<T>[] = [];
+
   /** @internal Svg path definition, which connects all renderEvents. */
   _renderPath: string | null = null;
 
@@ -234,6 +303,13 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
   /** @internal Selected event index. */
   _selectedEventIndex: number | undefined;
+
+  /** @internal Selected event index. */
+  _selectedFieldIndex: number | undefined;
+
+  readonly FIELDS_OFFSET = HEATFIELD_OFFSET;
+
+  hasHeatfields = false;
 
   /** Template portal for the default overlay */
   // tslint:disable-next-line: use-default-type-parameter no-any
@@ -270,6 +346,14 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   }
 
   ngAfterContentInit(): void {
+    const heatFieldChanges$ = this._heatFields.changes.pipe(
+      takeUntil(this._destroy$),
+      switchMap(() =>
+        merge(...this._heatFields.map((e) => e._stateChanges$)).pipe(
+          startWith(null),
+        ),
+      ),
+    );
     // Get all state-changes events from the dt-event-chart-event content children.
     const eventChanges$ = this._events.changes.pipe(
       takeUntil(this._destroy$),
@@ -302,10 +386,11 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
     // Combine all state-changes events from events and lanes to be notified
     // about all value or configuration changes in the content children.
-    const contentChanges$ = merge(eventChanges$, laneChanges$).pipe(
-      startWith(null),
-      takeUntil(this._destroy$),
-    );
+    const contentChanges$ = merge(
+      eventChanges$,
+      laneChanges$,
+      heatFieldChanges$,
+    ).pipe(startWith(null), takeUntil(this._destroy$));
 
     // As we need to render the lane labels, which are content children,
     // before the actual render of the SVG we need make angular recognize
@@ -340,21 +425,23 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   }
 
   /**
-   * Select an event based on its index in the event data list.
+   * Select an event or field based on its index in the event data list.
    */
-  select(index: number): void {
+  select(index: number, type: 'event' | 'heatfield' = 'event'): void {
     // If the index is outside the selectable range
     // do not select anything.
     if (index < 0 || index > this._events.length) {
       return;
     }
-    this._selectedEventIndex = index;
+    this._selectedEventIndex = type === 'event' ? index : undefined;
+    this._selectedFieldIndex = type === 'heatfield' ? index : undefined;
     this._changeDetectorRef.markForCheck();
   }
 
   /** Deselect events, which effectively clears the selection on the event chart. */
   deselect(): void {
     this._selectedEventIndex = undefined;
+    this._selectedFieldIndex = undefined;
     this._changeDetectorRef.markForCheck();
   }
 
@@ -363,10 +450,17 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     this._dismissOverlay();
   }
 
-  _isSelected(renderEvent: RenderEvent<T>): boolean {
+  _isSelectedEvent(renderEvent: RenderEvent<T>): boolean {
     return (
       renderEvent.originalIndex === this._selectedEventIndex ||
       (renderEvent.mergedWith || []).includes(this._selectedEventIndex!)
+    );
+  }
+
+  _isSelectedField(renderField: RenderField<T>): boolean {
+    return (
+      renderField.originalIndex === this._selectedFieldIndex ||
+      (renderField.mergedWith || []).includes(this._selectedFieldIndex!)
     );
   }
 
@@ -398,6 +492,8 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
     // Select the rendered event
     this._selectedEventIndex = renderEvent.originalIndex;
+    // Unselect the rendered field
+    this._selectedFieldIndex = undefined;
 
     // Pin the overlay
     const origin = this.getOriginFromInteractionEvent(event);
@@ -410,6 +506,39 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** @internal Reset the event selection and unpins the overlay */
   _resetEventSelection(): void {
     this._selectedEventIndex = undefined;
+  }
+
+  /**
+   * @internal Emits the data of the selected field and
+   * registers the field as selected.
+   */
+  _fieldSelected(
+    field: MouseEvent | KeyboardEvent,
+    renderField: RenderField<T>,
+  ): void {
+    const sources = new DtEventChartSelectedField(renderField.fields);
+    // If merged events are in the list, the selected field is only triggered on the
+    // first (and hence displayed) field bubble.
+    const representingField = this._getRepresentingField(renderField);
+    representingField.selected.emit(sources);
+
+    // Select the rendered field
+    this._selectedFieldIndex = renderField.originalIndex;
+
+    // Unselect the rendered field
+    this._selectedEventIndex = undefined;
+
+    // Pin the overlay
+    const origin = this.getOriginFromInteractionEvent(field);
+    this._pinOverlay(origin, renderField);
+
+    // Update the renderEventsArray to force a repaint
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** @internal Reset the field selection and unpins the overlay */
+  _resetFieldSelection(): void {
+    this._selectedFieldIndex = undefined;
   }
 
   /**
@@ -460,15 +589,110 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     return path.join(' ');
   }
 
+  _calculateFieldOutline(
+    renderEvent: RenderField<T>,
+    offset: number = 0,
+  ): string {
+    const eventBubbleRadius = FIELD_BUBBLE_SIZE + offset;
+    const eventBubbleRadiusArcV = FIELD_BUBBLE_SIZE / 2;
+    const eventBubbleRadiusArcH = eventBubbleRadiusArcV + offset / 2;
+    const path: string[] = [];
+    const duration: number =
+      renderEvent.x2 - renderEvent.x1 - FIELD_BUBBLE_SIZE - 2;
+    path.push(`M ${renderEvent.x1},${renderEvent.y - FIELD_BUBBLE_SIZE}`);
+
+    path.push(`h${duration}`);
+
+    path.push(
+      `a${eventBubbleRadiusArcV},${eventBubbleRadiusArcH} 0 0 1 ${eventBubbleRadiusArcV},${eventBubbleRadiusArcH}`,
+    );
+
+    path.push(`v${eventBubbleRadius}`);
+
+    path.push(
+      `a${eventBubbleRadiusArcV},${eventBubbleRadiusArcH} 0 0 1 -${eventBubbleRadiusArcV},${eventBubbleRadiusArcH}`,
+    );
+
+    path.push(`h-${duration}`);
+
+    path.push(
+      `a${eventBubbleRadiusArcV},${eventBubbleRadiusArcH} 0 0 1 -${eventBubbleRadiusArcV},-${eventBubbleRadiusArcH}`,
+    );
+
+    path.push(`v-${eventBubbleRadius}`);
+
+    path.push(
+      `a${eventBubbleRadiusArcV},${eventBubbleRadiusArcH} 0 0 1 ${eventBubbleRadiusArcV},-${eventBubbleRadiusArcH}`,
+    );
+
+    path.push('z');
+
+    return path.join(' ');
+  }
+
+  _calculateRects(renderEvent: RenderField<T>): string {
+    const field_bubble_half = FIELD_BUBBLE_SIZE / 2;
+    const field_bubble_quarter = field_bubble_half / 2;
+
+    const path: string[] = [];
+
+    const y =
+      this._lanes.length * LANE_HEIGHT - (renderEvent.y - field_bubble_half);
+
+    const duration: number =
+      renderEvent.x2 - renderEvent.x1 - field_bubble_half * 2;
+    path.push(
+      `M ${renderEvent.x1 - field_bubble_half / 2},${
+        renderEvent.y - field_bubble_half
+      }`,
+    );
+
+    path.push(`h${duration}`);
+
+    path.push(
+      `a${field_bubble_quarter},${field_bubble_quarter} 0 0 1 ${field_bubble_quarter},${field_bubble_quarter}`,
+    );
+
+    path.push(`v${y}`);
+
+    path.push(
+      `a${field_bubble_quarter},${field_bubble_quarter} 0 0 1 -${field_bubble_quarter},${field_bubble_quarter}`,
+    );
+
+    path.push(`h-${duration}`);
+
+    path.push(
+      `a${field_bubble_quarter},${field_bubble_quarter} 0 0 1 -${field_bubble_quarter},-${field_bubble_quarter}`,
+    );
+
+    path.push(`v-${y}`);
+
+    path.push(
+      `a${field_bubble_quarter},${field_bubble_quarter} 0 0 1 ${field_bubble_quarter},-${field_bubble_quarter}`,
+    );
+
+    path.push('z');
+
+    return path.join(' ');
+  }
+
   /** @internal Returns the primary DtEventChartEvent of a list of DtEventChartEvents. */
   _getRepresentingEvent(renderEvent: RenderEvent<T>): DtEventChartEvent<T> {
     return renderEvent.events[0];
   }
 
-  /** @internal Handles the mouseEnter event on a svg RenderEvent bubble. */
-  _handleEventMouseEnter(event: MouseEvent, renderEvent: RenderEvent<T>): void {
+  /** @internal Returns the primary DtEventChartEvent of a list of DtEventChartEvents. */
+  _getRepresentingField(renderEvent: RenderField<T>): DtEventChartField<T> {
+    return renderEvent.fields[0];
+  }
+
+  /** @internal Handles the mouseEnter event or field on a svg RenderEvent bubble. */
+  _handleEventMouseEnter(
+    event: MouseEvent,
+    renderEvent: RenderEvent<T> | RenderField<T>,
+  ): void {
     if (!this._overlayPinned) {
-      this._createOverlay();
+      this._createOverlay(isRenderField(renderEvent));
       const origin = this.getOriginFromInteractionEvent(event);
       this._updateOverlay(origin, renderEvent);
     }
@@ -485,22 +709,31 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
    * Track by function for the renderEvents – speeds up performance
    * and prevent deletion of mouseout
    */
-  _renderEventTrackByFn(index: number, _item: RenderEvent<T>): number {
+  _renderEventTrackByFn(
+    index: number,
+    _item: RenderEvent<T> | RenderField<T>,
+  ): number {
     return index;
   }
 
   /** Creates the overlay and attaches it. */
-  private _createOverlay(pin: boolean = false): void {
+  private _createOverlay(isField: boolean, pin: boolean = false): void {
     // If we do not have an overlay defined, we do not need to attach it
-    if (!this._overlay) {
-      return;
+    if (isField) {
+      if (!this._overlayHeatfield) {
+        return;
+      }
+    } else {
+      if (!this._overlay) {
+        return;
+      }
     }
 
     // Create the template portal
     if (!this._portal) {
       // tslint:disable-next-line: no-any
       this._portal = new TemplatePortal<any>(
-        this._overlay,
+        isField ? this._overlayHeatfield : this._overlay,
         this._viewContainerRef,
         { $implicit: [] },
       );
@@ -510,6 +743,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       panelClass: OVERLAY_PANEL_CLASS,
       hasBackdrop: pin,
       backdropClass: 'cdk-overlay-transparent-backdrop',
+      scrollStrategy: this._overlayService.scrollStrategies.close(),
     });
     this._overlayRef = this._overlayService.create(overlayConfig);
     this._overlayPinned = pin;
@@ -521,6 +755,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
         .subscribe(() => {
           this._dismissOverlay();
           this._resetEventSelection();
+          this._resetFieldSelection();
           this._changeDetectorRef.markForCheck();
         });
     }
@@ -540,11 +775,19 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** Update the overlay position and the implicit context. */
   private _updateOverlay(
     origin: { x: number; y: number },
-    renderEvent: RenderEvent<T>,
+    renderEvent: RenderEvent<T> | RenderField<T>,
   ): void {
     // If there is no overlay defined, we don't need
     // to run the update call.
-    if (!this._overlay) {
+    if (isRenderEvent(renderEvent)) {
+      if (!this._overlay) {
+        return;
+      }
+    } else if (isRenderField(renderEvent)) {
+      if (!this._overlayHeatfield) {
+        return;
+      }
+    } else {
       return;
     }
 
@@ -552,7 +795,11 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       .position()
       .flexibleConnectedTo(origin)
       .setOrigin(origin)
-      .withPositions(OVERLAY_POSITIONS)
+      .withPositions(
+        isRenderField(renderEvent)
+          ? DT_EVENT_CHART_HEATFIELD_OVERLAY_POSITIONS
+          : OVERLAY_POSITIONS,
+      )
       .withFlexibleDimensions(true)
       .withPush(false)
       .withGrowAfterOpen(true)
@@ -560,18 +807,20 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       .withLockedPosition(false);
     this._overlayRef.updatePositionStrategy(updatedPositionStrategy);
 
-    if (this._portal) {
-      this._portal.context.$implicit = renderEvent.events;
+    if (this._portal && isRenderEvent(renderEvent)) {
+      this._portal.context.$implicit = (renderEvent as RenderEvent<T>).events;
+    } else if (this._portal && isRenderField(renderEvent)) {
+      this._portal.context.$implicit = (renderEvent as RenderField<T>).fields;
     }
   }
 
   /** Pins the overlay in place. */
   private _pinOverlay(
     origin: { x: number; y: number },
-    renderEvent: RenderEvent<T>,
+    renderEvent: RenderEvent<T> | RenderField<T>,
   ): void {
     this._dismissOverlay();
-    this._createOverlay(true);
+    this._createOverlay(isRenderField(renderEvent), true);
     this._updateOverlay(origin, renderEvent);
   }
 
@@ -607,11 +856,14 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
    */
   private _update(): void {
     const [min, max] = this._getMinMaxValuesOfEvents();
+    this.hasHeatfields = this._heatFields?.length > 0;
+
     // Note: Do not move update calls.
     // The call order is important!
     this._updateDimensions();
     this._updateRenderLanes();
     this._updateRenderEvents(min, max);
+    this._updateRenderFields(min, max);
     this._updateRenderPath();
     this._updateTicks(min, max);
     this._changeDetectorRef.detectChanges();
@@ -625,7 +877,10 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
       // tslint:disable-next-line: no-magic-numbers
       this._svgPlotHeight = this._lanes.length * LANE_HEIGHT + 3;
       // We need to make sure we are in the browser, before updating the dimensions
-      this._svgHeight = this._svgPlotHeight + TICK_HEIGHT;
+      this._svgHeight =
+        this._svgPlotHeight +
+        TICK_HEIGHT +
+        (this.hasHeatfields ? HEATFIELD_OFFSET : 0);
       this._svgWidth = canvasWidth;
       this._svgViewBox = `0 0 ${canvasWidth} ${this._svgHeight}`;
     }
@@ -698,6 +953,37 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     );
   }
 
+  /** Updates the field objects that are actually used for rendering. */
+  private _updateRenderFields(min: number, max: number): void {
+    const fields = this._heatFields
+      .toArray()
+      .sort((a, b) => (a.start ?? min) - (b.start ?? min));
+    const scale = this._getScaleForFields(min, max);
+
+    const renderFields: RenderField<T>[] = [];
+    for (const field of fields) {
+      const x1 = scale(field.start ?? min)!;
+
+      const x2 = scale(field.end ?? max)!;
+
+      let color = isValidColor(field.color) ? field.color : 'default';
+
+      if (isValidColor(field.color)) {
+        color = field.color;
+      }
+
+      renderFields.push({
+        x1,
+        x2,
+        y: FIELD_BUBBLE_SIZE,
+        color,
+        fields: [field],
+      });
+    }
+
+    this._renderFields = dtEventChartMergeFields<T>(renderFields, 0);
+  }
+
   /** Generates and updates the path that connects all the render events. */
   private _updateRenderPath(): void {
     this._renderPath = dtCreateEventPath<T>(this._renderEvents);
@@ -736,6 +1022,22 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
         bubbleRadius + 1 + EVENT_BUBBLE_SPACING,
         this._svgWidth - 1 - EVENT_BUBBLE_SPACING - bubbleRadius,
       ]);
+  }
+
+  /**
+   * Generate a time based scale function based on the field values.
+   * This scale function should only be used for the time based x-axis.
+   * Use the _getScaleForEvents for all the other use cases
+   */
+  private _getScaleForFields(
+    min: number,
+    max: number,
+  ): ScaleLinear<number, number> {
+    const bubbleRadius = FIELD_BUBBLE_SIZE / 2;
+
+    return scaleLinear()
+      .domain([min, max])
+      .range([bubbleRadius + 1, this._svgWidth]);
   }
 
   /**

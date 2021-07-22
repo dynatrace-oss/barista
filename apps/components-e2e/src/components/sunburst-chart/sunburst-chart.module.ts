@@ -17,6 +17,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { Route, RouterModule } from '@angular/router';
+import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 import { DtSunburstChartModule } from '@dynatrace/barista-components/sunburst-chart';
 import { DtE2ESunburstChart } from './sunburst-chart';
 
@@ -24,7 +25,12 @@ const routes: Route[] = [{ path: '', component: DtE2ESunburstChart }];
 
 @NgModule({
   declarations: [DtE2ESunburstChart],
-  imports: [CommonModule, RouterModule.forChild(routes), DtSunburstChartModule],
+  imports: [
+    CommonModule,
+    DtOverlayModule,
+    RouterModule.forChild(routes),
+    DtSunburstChartModule,
+  ],
   exports: [],
   providers: [],
 })

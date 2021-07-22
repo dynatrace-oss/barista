@@ -35,7 +35,7 @@ import {
 /** Gets the rendered merged numbering. */
 function getRenderedMergedTextLabels(fixture: ComponentFixture<any>): string[] {
   const texts = fixture.debugElement.queryAll(
-    By.css('.dt-event-chart-event-mergednumber'),
+    By.css('.dt-event-chart-style-mergednumber'),
   );
   return texts.map((text) => text.nativeElement.innerHTML.trim());
 }
@@ -148,6 +148,12 @@ describe('DtEventChart', () => {
 
     it('should create the dt-event-chart', () => {
       expect(fixture).toBeDefined();
+    });
+
+    it('should render the heatfields correctly', () => {
+      const renderedFields =
+        fixture.componentInstance._eventChartInstance._renderFields;
+      expect(renderedFields).toHaveLength(3);
     });
 
     it('should render the events correctly', () => {
@@ -648,7 +654,7 @@ describe('DtEventChart', () => {
 
     it('should not have anything selected initially', () => {
       const selectedEvent = fixture.debugElement.query(
-        By.css('.dt-event-chart-event-selected'),
+        By.css('.dt-event-chart-style-selected'),
       );
       expect(selectedEvent).toBeNull();
     });
@@ -670,7 +676,7 @@ describe('DtEventChart', () => {
       fixture.componentInstance._eventChartInstance.deselect();
       fixture.detectChanges();
       const selectedEvent = fixture.debugElement.query(
-        By.css('.dt-event-chart-event-selected'),
+        By.css('.dt-event-chart-style-selected'),
       );
       expect(selectedEvent).toBeNull();
     });
@@ -726,6 +732,23 @@ describe('DtEventChart', () => {
   selector: 'dt-test-app',
   template: `
     <dt-event-chart>
+      <dt-event-chart-field
+        start="0"
+        end="35000"
+        color="default"
+        [data]="1"
+      ></dt-event-chart-field>
+      <dt-event-chart-field
+        start="45000"
+        end="65000"
+        color="error"
+        [data]="2"
+      ></dt-event-chart-field>
+      <dt-event-chart-field
+        start="65000"
+        color="default"
+        [data]="3"
+      ></dt-event-chart-field>
       <dt-event-chart-event value="0" lane="xhr"></dt-event-chart-event>
       <dt-event-chart-event value="15000" lane="xhr"></dt-event-chart-event>
       <dt-event-chart-event
@@ -844,6 +867,14 @@ class EventChartStaticDataWithLegendAndOverlay {
   selector: 'dt-test-app',
   template: `
     <dt-event-chart>
+      <dt-event-chart-field
+        *ngFor="let field of _heatfields"
+        [start]="field.start"
+        [end]="field.end"
+        [color]="field.color"
+        [data]="field.data"
+      ></dt-event-chart-field>
+
       <dt-event-chart-event
         *ngFor="let event of _events"
         [value]="event.value"
@@ -880,6 +911,12 @@ class EventChartStaticDataWithLegendAndOverlay {
       </dt-event-chart-legend-item>
 
       <ng-template dtEventChartOverlay let-tooltip>
+        <div *ngFor="let t of tooltip">
+          {{ t.data }}
+        </div>
+      </ng-template>
+
+      <ng-template dtEventChartHeatfieldOverlay let-tooltip>
         <div *ngFor="let t of tooltip">
           {{ t.data }}
         </div>
@@ -951,6 +988,26 @@ class EventChartDynamicData {
       lane: 'xhr',
       color: 'default',
       data: 7,
+    },
+  ];
+
+  _heatfields = [
+    {
+      start: 0,
+      end: 35,
+      color: 'default',
+      data: 1,
+    },
+    {
+      start: 45,
+      end: 65,
+      color: 'error',
+      data: 2,
+    },
+    {
+      start: 65,
+      color: 'default',
+      data: 3,
     },
   ];
 }
