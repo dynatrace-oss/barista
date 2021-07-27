@@ -12,7 +12,7 @@
 
   .dt-tag-add-button {
     height: 24px;
-    width: 88px;
+    min-width: 88px;
     font-size: 12px;
     display: inline-flex;
     color: $turquoise-700;
@@ -42,6 +42,7 @@
     vertical-align: middle;
     line-height: 16px;
     margin-left: 4px;
+    margin-right: 4px;
   }
 }
 

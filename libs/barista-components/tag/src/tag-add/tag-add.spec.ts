@@ -239,6 +239,29 @@ describe('DtTagAdd', () => {
       expect(overlayContainerElement.innerHTML).toContain('dt-ui-test-id');
     }));
 
+    it('should have `Add Tag` as button title', () => {
+      const title = 'Add Tag';
+      const addButtonSpan = addTagNativeElement.querySelector(
+        '.dt-tag-add-button-text',
+      ) as HTMLSpanElement;
+
+      expect(addTagInstance.title).toBe(title);
+      expect(addButtonSpan.textContent).toMatch(title);
+    });
+
+    it('should have `Add Tag` as form title', () => {
+      addTagInstance.open();
+      fixture.detectChanges();
+
+      const title = 'Add Tag';
+      const formHeader = overlayContainerElement.querySelector(
+        '.dt-tag-add-header',
+      ) as HTMLButtonElement;
+
+      expect(addTagInstance.title).toBe(title);
+      expect(formHeader.textContent).toMatch(title);
+    });
+
     describe('keyevent tests', () => {
       it('should close Overlay when ESCAPE is pressed', () => {
         addTagInstance.open();
@@ -301,6 +324,41 @@ describe('DtTagAdd', () => {
       fixture.componentInstance.keyFormControl.setValue('1234');
       fixture.detectChanges();
       expect(panelAddButton.disabled).toBe(false);
+    });
+  });
+
+  describe('with custom title', () => {
+    let fixture: ComponentFixture<DtTagComponentCustomTitle>;
+
+    beforeEach(() => {
+      fixture = configureTestingModule(DtTagComponentCustomTitle);
+    });
+
+    afterEach(() => {
+      overlayContainer.ngOnDestroy();
+    });
+
+    it('should have a custom button title', () => {
+      const customTitle = 'custom';
+      const addButtonSpan = addTagNativeElement.querySelector(
+        '.dt-tag-add-button-text',
+      ) as HTMLSpanElement;
+
+      expect(addTagInstance.title).toBe(customTitle);
+      expect(addButtonSpan.textContent).toMatch(customTitle);
+    });
+
+    it('should have a custom form title', () => {
+      addTagInstance.open();
+      fixture.detectChanges();
+
+      const customTitle = 'custom';
+      const formHeader = overlayContainerElement.querySelector(
+        '.dt-tag-add-header',
+      ) as HTMLButtonElement;
+
+      expect(addTagInstance.title).toBe(customTitle);
+      expect(formHeader.textContent).toMatch(customTitle);
     });
   });
 });
@@ -373,5 +431,30 @@ class DtTagCustomFormComponent implements OnInit {
   addTag(tag: string): void {
     this.tags.add(tag);
     this.form.reset();
+  }
+}
+
+/** Test component that contains an DtTagAdd with a custom title. */
+@Component({
+  selector: 'dt-test-app',
+  template: `
+    <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
+    <dt-tag-add
+      placeholder="insert tag here"
+      title="custom"
+      (tagAdded)="addTag($event)"
+      dt-ui-test-id="tag-add"
+    ></dt-tag-add>
+  `,
+})
+class DtTagComponentCustomTitle implements OnInit {
+  tags = new Set<string>();
+
+  ngOnInit(): void {
+    this.tags.add('Window').add('Managed').add('Errors');
+  }
+
+  addTag(tag: string): void {
+    this.tags.add(tag);
   }
 }
