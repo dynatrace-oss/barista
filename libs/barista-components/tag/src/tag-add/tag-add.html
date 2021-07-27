@@ -7,7 +7,7 @@
     #origin="cdkOverlayOrigin"
   >
     <dt-icon class="dt-tag-add-icon-button" name="plus-add"></dt-icon>
-    <span class="dt-tag-add-button-text">Add Tag</span>
+    <span class="dt-tag-add-button-text">{{ title }}</span>
   </button>
   <ng-template
     #overlay
@@ -29,7 +29,8 @@
     >
       <div cdkTrapFocus cdkTrapFocusAutoCapture>
         <button class="dt-tag-add-header" (click)="close()">
-          <dt-icon class="dt-tag-add-icon" name="plus-add"></dt-icon> Add Tag
+          <dt-icon class="dt-tag-add-icon" name="plus-add"></dt-icon>
+          {{ title }}
         </button>
         <div
           class="dt-tag-add-fields"

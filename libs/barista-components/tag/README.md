@@ -69,6 +69,7 @@ elements.
 | ------------- | -------- | ------------ | ----------------------------------------------------------------------- |
 | `placeholder` | `string` | `undefined`  | Placeholder string for the add tag input overlay.                       |
 | `aria-label`  | `string` | `undefinded` | Used to set the 'aria-label' attribute on the underlying input element. |
+| `title`       | `string` | `Add Tag`    | Title of the 'Add' button and overlay.                                  |
 
 ### Outputs
 

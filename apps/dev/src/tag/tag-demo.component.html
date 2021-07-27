@@ -62,3 +62,14 @@
     ></dt-tag-add>
   </dt-tag-list>
 </div>
+<br /><br />
+
+<dt-tag-list>
+  <dt-tag *ngFor="let user of users">{{ user }}</dt-tag>
+  <dt-tag-add
+    placeholder="Name"
+    title="Add User"
+    (tagAdded)="addUser($event)"
+    dt-ui-test-id="tag-add"
+  ></dt-tag-add>
+</dt-tag-list>

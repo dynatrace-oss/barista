@@ -68,6 +68,9 @@ export class DtTagAdd implements OnDestroy, AfterContentInit {
   /** Placeholder for the input of the add-tag overlay input. */
   @Input() placeholder: string;
 
+  /** Title of the button and the add-tag overlay input. */
+  @Input() title = 'Add Tag';
+
   /** Used to set the 'aria-label' attribute on the underlying input element. */
   @Input('aria-label') ariaLabel: string;
 
