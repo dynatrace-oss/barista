@@ -25,6 +25,7 @@ import { DtTag } from '@dynatrace/barista-components/tag';
 })
 export class TagDemo implements OnInit {
   tags = new Set<string>();
+  users = new Set<string>();
 
   value1 = 'My value 1';
   value2 = 'My value 2';
@@ -82,10 +83,16 @@ export class TagDemo implements OnInit {
       .add('Pine456')
       .add('Pine421')
       .add('Pine1233');
+
+    this.users.add('John').add('Jane').add('Max');
   }
 
   addTag(tag: string): void {
     this.tags.add(tag);
+  }
+
+  addUser(user: string): void {
+    this.users.add(user);
   }
 
   doRemove(tag: DtTag<string>): void {
