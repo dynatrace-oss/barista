@@ -1,3 +1,10 @@
+## [9.10.0](https://github.com/dynatrace-oss/barista/compare/9.9.0...9.10.0) (2021-07-28)
+
+### Features
+
+- **dt-tag-add:** Added custom button and form title
+  ([6ee6f25](https://github.com/dynatrace-oss/barista/commit/6ee6f253f60f0d62b1d8c1d94323637e601b136a))
+
 ## [9.9.0](https://github.com/dynatrace-oss/barista/compare/9.8.0...9.9.0) (2021-07-20)
 
 ### Bug Fixes
