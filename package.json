@@ -64,7 +64,7 @@
     "@angular/common": "^11.2.8",
     "@angular/core": "^11.2.8",
     "@angular/forms": "^11.2.8",
-    "@angular/localize": "^11.2.4",
+    "@angular/localize": "^12.1.4",
     "@angular/platform-browser": "^11.2.8",
     "@dynatrace/barista-fonts": "^1.0.0",
     "@dynatrace/barista-icons": "^7.15.0",
