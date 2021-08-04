@@ -1109,15 +1109,22 @@ export class DtFilterField<T = any>
         // previously set values.
         if (removed.length === 1) {
           // Needed to reassign in order for typescript to understand the type.
-          const recentRangeValue = removed[0];
-          if (isDtRangeValue(recentRangeValue) && this._currentDef.range) {
+          const initialRecentlyRemoved = removed[0];
+          if (
+            isDtRangeValue(initialRecentlyRemoved) &&
+            this._currentDef.range
+          ) {
             // Needed to set this in typescript, because template binding of input would be evaluated to late.
             this._filterfieldRange.enabledOperators =
               this._currentDef.range.operatorFlags;
-            this._filterfieldRange._setValues(recentRangeValue.range);
+            this._filterfieldRange._setValues(initialRecentlyRemoved.range);
             this._filterfieldRange._setOperator(
-              recentRangeValue.operator as DtFilterFieldRangeOperator,
+              initialRecentlyRemoved.operator as DtFilterFieldRangeOperator,
             );
+          }
+          if (isDtFreeTextDef(this._currentDef)) {
+            this._inputValue = initialRecentlyRemoved.toString();
+            this._emitFilterChanges([], [removed]);
           }
         }
         if (isDtMultiSelectValue<T>(value)) {
