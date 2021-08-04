@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import { ESCAPE, BACKSPACE } from '@angular/cdk/keycodes';
+import { BACKSPACE, ESCAPE } from '@angular/cdk/keycodes';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  typeInElement,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
+  typeInElement,
 } from '@dynatrace/testing/browser';
 import { FILTER_FIELD_TEST_DATA_SINGLE_OPTION } from '@dynatrace/testing/fixtures';
 import { DtFilterField, DtFilterFieldChangeEvent } from './filter-field';
 import { TEST_DATA_EDITMODE } from './testing/filter-field-test-data';
 import {
-  TestApp,
+  getFilterFieldRange,
   getFilterTags,
   getInput,
-  getFilterFieldRange,
-  getRangeInputFields,
-  getRangeApplyButton,
-  setupFilterFieldTest,
   getOptions,
+  getRangeApplyButton,
+  getRangeInputFields,
+  setupFilterFieldTest,
+  TestApp,
 } from './testing/filter-field-test-helpers';
 
 export const TEST_DATA_EDITMODE_ASYNC = {
@@ -79,8 +79,14 @@ describe('DtFilterField', () => {
           .autocomplete[0].options[0],
       ];
       // Custom free text for Free -> Custom free text
-      const freeTextFilter = [
+      const firstLayerfreeTextFilter = [
         TEST_DATA_EDITMODE.autocomplete[2],
+        'Custom free text',
+      ];
+
+      const secondLayerFreeTextFilter = [
+        TEST_DATA_EDITMODE.autocomplete[1],
+        (TEST_DATA_EDITMODE as any).autocomplete[1].autocomplete[0],
         'Custom free text',
       ];
 
@@ -90,7 +96,12 @@ describe('DtFilterField', () => {
       ];
 
       // Set filters as a starting point
-      filterField.filters = [autocompleteFilter, freeTextFilter, rangeFilter];
+      filterField.filters = [
+        autocompleteFilter,
+        firstLayerfreeTextFilter,
+        rangeFilter,
+        secondLayerFreeTextFilter,
+      ];
       fixture.detectChanges();
     });
 
@@ -348,7 +359,7 @@ describe('DtFilterField', () => {
       inputfields[0].click();
       advanceFilterfieldCycle();
 
-      expect(filterField.filters).toHaveLength(2);
+      expect(filterField.filters).toHaveLength(3);
     });
 
     it('should make the edit to the first tag', () => {
@@ -368,7 +379,6 @@ describe('DtFilterField', () => {
 
       // Read the filters again and make expectations
       const filterTags = getFilterTags(fixture);
-
       expect(filterTags[0].key).toBe('AUT');
       expect(filterTags[0].separator).toBe(':');
       expect(filterTags[0].value).toBe('Vienna');
@@ -387,7 +397,7 @@ describe('DtFilterField', () => {
         By.css('.dt-filter-field-tag-label'),
       );
 
-      expect(tags.length).toBe(3);
+      expect(tags.length).toBe(4);
 
       tags[0].nativeElement.click();
       advanceFilterfieldCycle();
@@ -399,7 +409,7 @@ describe('DtFilterField', () => {
         By.css('.dt-filter-field-tag-label'),
       );
 
-      expect(tags.length).toBe(2);
+      expect(tags.length).toBe(3);
 
       dispatchFakeEvent(document, 'click');
       fixture.detectChanges();
@@ -407,7 +417,7 @@ describe('DtFilterField', () => {
         By.css('.dt-filter-field-tag-label'),
       );
 
-      expect(tags.length).toBe(2);
+      expect(tags.length).toBe(3);
     });
 
     it('should emit a filterchange event when the edit of a range is completed', () => {
@@ -462,9 +472,33 @@ describe('DtFilterField', () => {
       expect(filterChangeEvent).toBeDefined();
       expect(filterChangeEvent!.added.length).toBe(0);
       expect(filterChangeEvent!.removed.length).toBe(1);
-      expect(filterChangeEvent!.filters.length).toBe(2);
+      expect(filterChangeEvent!.filters.length).toBe(3);
 
       sub.unsubscribe();
+    });
+
+    it('should prefill the input on edit of a first layer free-text filter', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[1].nativeElement.click();
+      advanceFilterfieldCycle();
+
+      const inputField = getInput(fixture);
+
+      expect(inputField.value).toBe('Custom free text');
+    });
+
+    it('should not prefill the input on edit of a second layer free-text filter', () => {
+      const tags = fixture.debugElement.queryAll(
+        By.css('.dt-filter-field-tag-label'),
+      );
+      tags[3].nativeElement.click();
+      advanceFilterfieldCycle();
+
+      const inputField = getInput(fixture);
+
+      expect(inputField.value).toBe('');
     });
   });
 });
