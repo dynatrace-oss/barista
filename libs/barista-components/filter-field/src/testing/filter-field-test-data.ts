@@ -104,7 +104,10 @@ export const TEST_DATA_EDITMODE = {
     },
     {
       name: 'USA',
-      autocomplete: [{ name: 'Los Angeles' }, { name: 'San Fran' }],
+      autocomplete: [
+        { name: 'Los Angeles', suggestions: [] },
+        { name: 'San Fran' },
+      ],
     },
     {
       name: 'Free',
