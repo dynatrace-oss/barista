@@ -1185,6 +1185,51 @@ describe('DtFilterField', () => {
       expect(options[3].textContent).toContain('St. Gallen');
     }));
 
+    it('should disable partial autocomplete option without a group', fakeAsync(() => {
+      const DATA = {
+        autocomplete: [
+          {
+            name: 'CH (async, partial)',
+            async: true,
+            autocomplete: [],
+          },
+        ],
+      };
+
+      const DATA_PARTIAL = {
+        name: 'CH (async, partial)',
+        autocomplete: [{ name: 'Zürich', disabled: true }],
+        partial: true,
+      };
+
+      fixture.componentInstance.dataSource.data = DATA;
+      fixture.detectChanges();
+      filterField.focus();
+      advanceFilterfieldCycle(true, true);
+
+      getAndClickOption(overlayContainerElement, 0);
+
+      let options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(0);
+
+      let hintPanel = getPartialResultsHintPanel(overlayContainerElement);
+      expect(hintPanel).toBeNull();
+
+      fixture.componentInstance.dataSource.data = DATA_PARTIAL;
+      fixture.detectChanges();
+      advanceFilterfieldCycle(true, true);
+      tick();
+
+      hintPanel = getPartialResultsHintPanel(overlayContainerElement);
+      expect(hintPanel).not.toBeNull();
+
+      options = getOptions(overlayContainerElement);
+      expect(options).toHaveLength(1);
+
+      // dt-option-disabled
+      expect(options[0].getAttribute('class')).toContain('dt-option-disabled');
+    }));
+
     it('should mark the input as readonly while loading async data', () => {
       const DATA = {
         autocomplete: [

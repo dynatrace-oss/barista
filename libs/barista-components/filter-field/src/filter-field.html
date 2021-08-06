@@ -124,6 +124,7 @@
           <ng-template #options>
             <dt-option
               [value]="optionOrGroupDef"
+              [disabled]="optionOrGroupDef.option!.disabled"
               [attr.title]="_getTitle(optionOrGroupDef.option)"
             >
               <dt-highlight [term]="_inputValue">{{
