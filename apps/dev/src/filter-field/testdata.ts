@@ -179,7 +179,7 @@ export const TEST_DATA_PARTIAL_2 = {
     { name: 'Zug' },
     { name: 'Schaffhausen' },
     { name: 'Luzern' },
-    { name: 'St. Gallen' },
+    { name: 'St. Gallen (disabled)', disabled: true },
   ],
   partial: true,
 };
