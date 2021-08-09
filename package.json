@@ -131,7 +131,7 @@
     "@types/lodash-es": "^4.17.4",
     "@types/markdown-it": "^12.0.1",
     "@types/node": "^12.12.29",
-    "@types/sass-graph": "^2.1.2",
+    "@types/sass-graph": "^2.1.3",
     "@types/stylelint": "^13.13.0",
     "@types/xml2js": "^0.4.8",
     "@types/yaml": "^1.9.7",
