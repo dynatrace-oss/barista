@@ -22,6 +22,7 @@ import {
   SeriesAreaOptions,
   SeriesArearangeOptions,
   SeriesPieOptions,
+  SeriesHeatmapOptions,
 } from 'highcharts';
 
 /** DtChartOptions extending the highcharts options with the series */
@@ -36,4 +37,5 @@ export type DtChartSeries =
   | SeriesLineOptions
   | SeriesAreaOptions
   | SeriesArearangeOptions
-  | SeriesPieOptions;
+  | SeriesPieOptions
+  | SeriesHeatmapOptions;
