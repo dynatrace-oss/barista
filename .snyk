@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.19.0
+version: v1.22.0
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   SNYK-JS-LODASH-567746:
@@ -228,5 +228,5 @@ ignore:
         reason: >-
           transitive dependency, d3-scale should be updated but includes a
           breaking change.
-        expires: '2021-08-12T05:58:44.210Z'
+        expires: '2021-10-12T05:58:44.210Z'
 patch: {}
