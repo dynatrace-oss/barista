@@ -12,7 +12,7 @@
 /libs/barista-components/card/** @ffriedl89 @NinaKammerlander
 /libs/barista-components/chart/** @ffriedl89 @lukasholzer
 /libs/barista-components/checkbox/** @thomaspink
-/libs/barista-components/confirmation-dialog/** @toddbaert @ffriedl89 @thomaspink
+/libs/barista-components/confirmation-dialog/** @ffriedl89 @thomaspink
 /libs/barista-components/consumption/** @ffriedl89 @thomaspink
 /libs/barista-components/container-breakpoint-observer/** @thomaspink
 /libs/barista-components/context-dialog/** @ffriedl89 @NinaKammerlander
@@ -44,7 +44,7 @@
 /libs/barista-components/radial-chart/** @tomheller @subarroca
 /libs/barista-components/radio/** @thomaspink
 /libs/barista-components/schematics/** @lukasholzer
-/libs/barista-components/secondary-nav/** @areknow @thomaspink
+/libs/barista-components/secondary-nav/** @thomaspink
 /libs/barista-components/select/** @thomaspink
 /libs/barista-components/selection-area/** @ffriedl89 @lukasholzer
 /libs/barista-components/show-more/** @rowa-audil
@@ -110,7 +110,7 @@
 /apps/dev/src/card/** @ffriedl89 @NinaKammerlander
 /apps/dev/src/chart/** @ffriedl89 @lukasholzer
 /apps/dev/src/checkbox/** @thomaspink
-/apps/dev/src/confirmation-dialog/** @toddbaert @ffriedl89 @thomaspink
+/apps/dev/src/confirmation-dialog/** @ffriedl89 @thomaspink
 /apps/dev/src/consumption/** @ffriedl89 @thomaspink
 /apps/dev/src/container-breakpoint-observer/** @thomaspink
 /apps/dev/src/context-dialog/** @ffriedl89 @NinaKammerlander
@@ -141,7 +141,7 @@
 /apps/dev/src/progress-circle/** @ffriedl89 @tomheller
 /apps/dev/src/radial-chart/** @tomheller @subarroca
 /apps/dev/src/radio/** @thomaspink
-/apps/dev/src/secondary-nav/** @areknow @thomaspink
+/apps/dev/src/secondary-nav/** @thomaspink
 /apps/dev/src/select/** @thomaspink
 /apps/dev/src/selection-area/** @ffriedl89 @lukasholzer
 /apps/dev/src/show-more/** @rowa-audil
@@ -182,7 +182,7 @@
 /libs/examples/src/card/** @ffriedl89 @NinaKammerlander
 /libs/examples/src/chart/** @ffriedl89 @lukasholzer
 /libs/examples/src/checkbox/** @thomaspink
-/libs/examples/src/confirmation-dialog/** @toddbaert @ffriedl89 @thomaspink
+/libs/examples/src/confirmation-dialog/** @ffriedl89 @thomaspink
 /libs/examples/src/consumption/** @ffriedl89 @thomaspink
 /libs/examples/src/container-breakpoint-observer/** @thomaspink
 /libs/examples/src/context-dialog/** @ffriedl89 @NinaKammerlander
@@ -213,7 +213,7 @@
 /libs/examples/src/progress-circle/** @ffriedl89 @tomheller
 /libs/examples/src/radial-chart/** @tomheller
 /libs/examples/src/radio/** @thomaspink
-/libs/examples/src/secondary-nav/** @areknow @thomaspink
+/libs/examples/src/secondary-nav/** @thomaspink
 /libs/examples/src/select/** @thomaspink
 /libs/examples/src/selection-area/** @ffriedl89 @lukasholzer
 /libs/examples/src/show-more/** @rowa-audil
