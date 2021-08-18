@@ -421,7 +421,7 @@ test('should keep selected an option as it was previously set by default', async
 
   const currentOptionsCount = await options().find('input:checked').count;
 
-  await testController.expect(currentOptionsCount).eql(1);
+  await testController.expect(currentOptionsCount).eql(2);
 });
 
 test('should not apply an empty multiselect node with the mouse', async (testController: TestController) => {
