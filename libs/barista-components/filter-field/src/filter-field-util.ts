@@ -18,13 +18,17 @@ import { isDefined } from '@dynatrace/barista-components/core';
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
   dtAutocompleteDef,
+  DtAutocompleteDef,
   DtAutocompleteValue,
   DtFilterFieldTagData,
   DtFilterValue,
   dtFreeTextDef,
+  DtFreeTextDef,
   DtFreeTextValue,
   dtGroupDef,
+  DtGroupDef,
   dtMultiSelectDef,
+  DtMultiSelectDef,
   DtNodeDef,
   DtOptionDef,
   DtRangeValue,
@@ -35,13 +39,11 @@ import {
   isDtFreeTextValue,
   isDtGroupDef,
   isDtMultiSelectDef,
+  isDtMultiSelectValue,
   isDtOptionDef,
   isDtRangeDef,
   isDtRangeValue,
   isDtRenderType,
-  isDtMultiSelectValue,
-  DtAutocompleteDef,
-  DtFreeTextDef,
   isPartialDtOptionDef,
 } from './types';
 
@@ -444,7 +446,16 @@ export function findFilterValuesForSources<T>(
           return null;
         }
       } else {
-        foundValues.push(def);
+        if (isDtGroupDef(def) && isDtMultiSelectDef(parentDef)) {
+          const groupOptions = getGroupOptionsFromMultiSelect(def, parentDef);
+
+          groupOptions?.forEach((option) => {
+            foundValues.push(option as DtFilterValue);
+          });
+        } else {
+          foundValues.push(def);
+        }
+
         if (isLastSource) {
           return foundValues;
         }
@@ -476,6 +487,23 @@ export function findDefForSource<D>(
     }
   }
   return null;
+}
+
+/** Given a group definition, gets a list of all group options from the parent definition */
+export function getGroupOptionsFromMultiSelect<D>(
+  groupDef: DtNodeDef<D> & { group: DtGroupDef },
+  parentDef: DtNodeDef<D> & DtMultiSelectDef,
+): DtNodeDef[] | undefined {
+  const multiOption = parentDef.multiSelect?.multiOptions.find(
+    (option) => option.group?.label === groupDef.group.label,
+  );
+
+  return multiOption?.group?.options?.filter((parentDefOption) =>
+    groupDef.group.options.some(
+      (groupDefOption) =>
+        groupDefOption.option?.viewValue === parentDefOption.option?.viewValue,
+    ),
+  );
 }
 
 /**

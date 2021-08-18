@@ -84,7 +84,8 @@ export class DtE2EFilterField implements OnDestroy {
     this._dataSource = new DtFilterFieldDefaultDataSource(DATA[1]);
     const multiselectNoneFilter = [
       DATA[1].autocomplete[3],
-      (DATA[1].autocomplete[3] as any).multiOptions![0],
+      { name: 'None' },
+      { name: 'Homemade', options: [{ name: 'Ketchup' }] },
     ];
 
     this._filterfield.filters = [multiselectNoneFilter];
