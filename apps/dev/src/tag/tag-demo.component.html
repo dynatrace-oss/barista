@@ -1,75 +1,24 @@
-<dt-tag-list>
-  <dt-tag
-    [removable]="canRemove"
-    [value]="value1"
-    (removed)="doRemove(tag1)"
-    #tag1
-    title="My custom tooltip"
-  >
-    <dt-tag-key *ngIf="hasKey">[AWS]OSType:</dt-tag-key>
-    Windows
+<dt-tag-list aria-label="A list of tags.">
+  <dt-tag *ngFor="let tag of tags">
+    <dt-tag-key *ngIf="tag.key">{{tag.key}}</dt-tag-key>
+    {{ tag.value }}
   </dt-tag>
-
-  <dt-tag
-    [removable]="canRemove"
-    [value]="value2"
-    (removed)="doRemove(tag2)"
-    #tag2
-    title="Another tooltip"
-  >
-    <dt-tag-key *ngIf="hasKey">[AWS]Category:</dt-tag-key>
-    Managed
-  </dt-tag>
-
-  <dt-tag
-    [removable]="canRemove"
-    [value]="value3"
-    (removed)="doRemove(tag3)"
-    #tag3
-    title="A really really long tooltip"
-  >
-    <dt-tag-key *ngIf="hasKey">[AWS]Category:</dt-tag-key>
-    Super duper long tag that is very long and has to be abbreviated
-  </dt-tag>
-</dt-tag-list>
-
-<div class="control-buttons">
-  <button
-    dt-button
-    (click)="canRemove = !canRemove"
-    [variant]="canRemove ? 'primary' : 'secondary'"
-  >
-    Toggle removable
-  </button>
-
-  <button
-    dt-button
-    (click)="hasKey = !hasKey"
-    [variant]="hasKey ? 'primary' : 'secondary'"
-  >
-    Toggle key
-  </button>
-</div>
-<br /><br />
-
-<div class="listing">
-  <dt-tag-list>
-    <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
-    <dt-tag-add
-      placeholder="insert tag here"
-      (tagAdded)="addTag($event)"
-      dt-ui-test-id="tag-add"
-    ></dt-tag-add>
-  </dt-tag-list>
-</div>
-<br /><br />
-
-<dt-tag-list>
-  <dt-tag *ngFor="let user of users">{{ user }}</dt-tag>
-  <dt-tag-add
-    placeholder="Name"
-    title="Add User"
-    (tagAdded)="addUser($event)"
-    dt-ui-test-id="tag-add"
-  ></dt-tag-add>
+  <dt-tag-add #tagAdd (tagAdded)="addTag($event)">
+    <dt-tag-add-form>
+      <form [formGroup]="inputForm">
+        <dt-form-field>
+          <dt-label>Bitbucket user name</dt-label>
+          <dt-combobox ngDefaultControl formControlName="value"
+            placeholder="Start typing for suggestions"
+            [loading]="userSuggestionsLoading"
+            [formControl]="usernameFormControl"
+            (filterChange)="comboboxFilterChanged($event)">
+            <dt-option *ngFor="let user of userSuggestions" [value]="user">
+              {{ user }}
+            </dt-option>
+          </dt-combobox>
+        </dt-form-field>
+      </form>
+    </dt-tag-add-form>
+  </dt-tag-add>
 </dt-tag-list>

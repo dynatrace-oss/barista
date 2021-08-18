@@ -23,7 +23,7 @@ import {
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DevAppRoutingModule } from './devapp-routing.module';
@@ -111,6 +111,7 @@ export class NoopRouteComponent {}
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     DevAppRoutingModule,
     DtIconModule.forRoot({ svgIconLocation: '/assets/icons/{{name}}.svg' }),
     DevAppDynatraceModule,

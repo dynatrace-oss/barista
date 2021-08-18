@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DtComboboxFilterChange } from '@dynatrace/barista-components/experimental/combobox';
+import { timer } from 'rxjs';
+import { take } from 'rxjs/operators';
 
-import { DtTag } from '@dynatrace/barista-components/tag';
+interface Tag {
+  key: string;
+  value?: string;
+}
 
 @Component({
   selector: 'tag-dev-app-demo',
@@ -24,78 +31,52 @@ import { DtTag } from '@dynatrace/barista-components/tag';
   styleUrls: ['./tag-demo.component.scss'],
 })
 export class TagDemo implements OnInit {
-  tags = new Set<string>();
-  users = new Set<string>();
+  readonly tags = new Set<Tag>();
 
-  value1 = 'My value 1';
-  value2 = 'My value 2';
-  value3 = 'My value 3';
-  isDisabled = false;
-  canRemove = false;
-  hasKey = false;
+  userSuggestions: string[] = [];
+  userSuggestionsLoading = false;
+
+  usernameFormControl = new FormControl('', Validators.required);
+  inputForm = new FormGroup({
+    value: this.usernameFormControl,
+  });
+
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.tags
-      .add('Jelly')
-      .add('Fish')
-      .add('Pear')
-      .add('Oreo')
-      .add('KitKat')
-      .add('Beer')
-      .add('Raphaelo')
-      .add('Bean')
-      .add('Bean1')
-      .add('Bean2')
-      .add('Bean3')
-      .add('Bean4')
-      .add('Bean5')
-      .add('Bean6')
-      .add('Bean7')
-      .add('Bean8')
-      .add('Bean9')
-      .add('Bean12')
-      .add('Bean23')
-      .add('Bean34')
-      .add('Pine')
-      .add('Pine1')
-      .add('Pine2')
-      .add('Pine3')
-      .add('Pine4')
-      .add('Pine5')
-      .add('Pine6')
-      .add('Pine7')
-      .add('Pine8')
-      .add('Pine9')
-      .add('Pine0')
-      .add('Pine11')
-      .add('Pine22')
-      .add('Pine33')
-      .add('Pine44')
-      .add('Pine55')
-      .add('Pine66')
-      .add('Pine77')
-      .add('Pine88')
-      .add('Pine99')
-      .add('Pine00')
-      .add('Pine111')
-      .add('Pine222')
-      .add('Pine343')
-      .add('Pine456')
-      .add('Pine421')
-      .add('Pine1233');
-
-    this.users.add('John').add('Jane').add('Max');
+    this.addTag('.NetTest');
+    this.addTag('193.168.4.3:80');
+    this.addTag('window', '[b00m]');
+    this.addTag('deploy', 'my-key');
   }
 
-  addTag(tag: string): void {
-    this.tags.add(tag);
+  addTag(key: string, value?: string): void {
+    console.log(key, value);
+    this.tags.add({ key, value });
   }
 
-  addUser(user: string): void {
-    this.users.add(user);
+  comboboxFilterChanged(event: DtComboboxFilterChange) {
+    if (event.isResetEvent) {
+      return;
+    }
+    this.loadUserSuggestions(event.filter);
   }
 
-  doRemove(tag: DtTag<string>): void {
-    window.alert(`Tag removed: ${tag.value}`);
+  private loadUserSuggestions(filter: string) {
+    if (filter.length <= 0) {
+      return;
+    }
+    this.userSuggestionsLoading = true;
+    this.userSuggestions = [];
+
+    timer(500)
+      .pipe(take(1))
+      .subscribe(() => {
+        this.userSuggestionsLoading = false;
+        this.userSuggestions.push('user1');
+        this.userSuggestions.push('user2');
+        this.userSuggestions.push('user3');
+        this._changeDetectorRef.markForCheck();
+      });
   }
 }

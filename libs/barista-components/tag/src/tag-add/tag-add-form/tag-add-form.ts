@@ -18,12 +18,12 @@ import {
   Component,
   ContentChild,
   ContentChildren,
-  ElementRef,
   NgZone,
   QueryList,
 } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
-import { DtInput } from '@dynatrace/barista-components/input';
+import { DtFormField } from '@dynatrace/barista-components/form-field';
+
 import { Observable, of } from 'rxjs';
 import { map, share, startWith, switchMap, take } from 'rxjs/operators';
 
@@ -34,8 +34,8 @@ import { map, share, startWith, switchMap, take } from 'rxjs/operators';
 })
 export class DtTagAddForm {
   /** @internal ElementRef of Add Tag Input */
-  @ContentChildren(DtInput, { read: ElementRef, descendants: true })
-  _inputs: QueryList<ElementRef<HTMLInputElement>>;
+  @ContentChildren(DtFormField, { descendants: true })
+  _inputs: QueryList<DtFormField<string>>;
 
   /** @internal The FormGroup of the custom form for adding tags */
   @ContentChild(FormGroupDirective) _form: FormGroupDirective;

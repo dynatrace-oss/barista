@@ -46,6 +46,7 @@ import {
   isEmpty,
 } from '@dynatrace/barista-components/core';
 import { DtTagAddForm } from './tag-add-form/tag-add-form';
+import { DtFormField } from '@dynatrace/barista-components/form-field';
 
 @Component({
   selector: 'dt-tag-add',
@@ -144,9 +145,9 @@ export class DtTagAdd implements OnDestroy, AfterContentInit {
   /** @internal Emits whether the current input/tag-add-form value is valid. */
   readonly _valid$: Observable<boolean> = this._validSubject.asObservable();
 
-  private get _firstInput(): HTMLInputElement {
+  private get _firstFormControl(): DtFormField<string> {
     const inputRef = this._customAddForm?._inputs.first ?? this._inputs.first;
-    return inputRef.nativeElement;
+    return inputRef;
   }
 
   constructor(
@@ -177,7 +178,7 @@ export class DtTagAdd implements OnDestroy, AfterContentInit {
       // Wait for first input to be rendered (either default input or first input in tag-add-form)
       // It's intentional that the close button is in the focus trap, but it shouldn't have initial focus
       // CDK's initial focus directive doesn't work for tag-add-form w/o warning logs
-      this._firstInput.focus();
+      this._firstFormControl._elementRef.nativeElement.focus();
     });
     if (!isDefined(this._customAddForm)) {
       this._validSubject.next(false);
@@ -210,8 +211,10 @@ export class DtTagAdd implements OnDestroy, AfterContentInit {
    */
   submit(): void {
     if (this._validSubject.getValue()) {
-      const tag = this._firstInput.value;
-      this.tagAdded.emit(tag);
+      const tag = this._firstFormControl._control.value;
+      if (tag) {
+        this.tagAdded.emit(tag);
+      }
       this.close();
       this._customAddForm?._reset();
     }
@@ -220,7 +223,7 @@ export class DtTagAdd implements OnDestroy, AfterContentInit {
   /** @internal Updates the validity of the input/form based on the current value. */
   _onTagValueChange(): void {
     if (!isDefined(this._customAddForm)) {
-      this._validSubject.next(!isEmpty(this._firstInput.value));
+      this._validSubject.next(!isEmpty(this._firstFormControl._control.value));
     }
   }
 }
