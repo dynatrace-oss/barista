@@ -36,7 +36,6 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { DtOption } from '@dynatrace/barista-components/core';
-import { xor } from 'lodash-es';
 import { merge, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { DtFilterFieldElement } from '../shared/filter-field-element';
@@ -292,10 +291,7 @@ export class DtFilterFieldMultiSelect<T>
   }
 
   private _checkApplyDisable(): void {
-    this._applyDisabled =
-      this._currentSelection.size === 0 ||
-      xor(Array.from(this._currentSelection.values()), this._initialSelection)
-        .length === 0;
+    this._applyDisabled = this._currentSelection.size === 0;
   }
 
   private _filterOptions(): void {
