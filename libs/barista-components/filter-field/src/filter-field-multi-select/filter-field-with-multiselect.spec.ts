@@ -564,6 +564,36 @@ describe('DtFilterField', () => {
         expect(filterTags[0].value).toBe('Ketchup, Mustard');
       });
 
+      it('should reset the multiSelect filter when not changing anything and clicking on apply', () => {
+        const tags = fixture.debugElement.queryAll(
+          By.css('.dt-filter-field-tag-label'),
+        );
+        tags[0].nativeElement.click();
+        advanceFilterfieldCycle();
+
+        // Expect the multiSelect filter to be open
+        let multiSelect = getMultiSelect(overlayContainerElement);
+        expect(multiSelect.length).toBe(1);
+
+        // Click the apply button
+        const applyButton = getMultiselectApplyButton(
+          overlayContainerElement,
+        )[0];
+        applyButton.click();
+        fixture.detectChanges();
+
+        // Expect the multiSelect filter to be closed again
+        multiSelect = getMultiSelect(overlayContainerElement);
+        expect(multiSelect.length).toBe(0);
+
+        // Read the filters again and make expectations
+        const filterTags = getFilterTags(fixture);
+
+        expect(filterTags[0].key).toBe('Seasoning');
+        expect(filterTags[0].separator).toBe(':');
+        expect(filterTags[0].value).toBe('Ketchup, Mustard');
+      });
+
       it('should make the edit to the first tag', () => {
         const tags = fixture.debugElement.queryAll(
           By.css('.dt-filter-field-tag-label'),

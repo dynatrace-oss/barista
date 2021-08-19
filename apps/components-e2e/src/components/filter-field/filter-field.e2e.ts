@@ -473,3 +473,27 @@ test('should close the multiselect when blurring the filter field mid filter, re
     .expect(multiSelectPanel.exists)
     .notOk();
 });
+
+test('should be able to apply without editing any selection when an option was previously selected', async (testController: TestController) => {
+  // Switch to second datasource.
+  await testController
+    .click(setupMultiselectEditScenario)
+    // Wait for the filterfield to catch up.
+    .wait(500);
+
+  const tag = await filterTags();
+
+  await testController
+    // Click on tag to open the panel
+    .click(tag)
+    .wait(250)
+    // Panel should be open
+    .expect(multiSelectPanel.exists)
+    .ok()
+    // Click on apply button
+    .click(multiSelectApply)
+    .wait(250)
+    // Panel should be closed
+    .expect(multiSelectPanel.exists)
+    .notOk();
+});
