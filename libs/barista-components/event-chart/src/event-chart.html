@@ -102,7 +102,7 @@
         <text
           *ngFor="let tick of _renderTicks; let last = last"
           [attr.x]="tick.x"
-          [attr.y]="_svgPlotHeight + 12"
+          [attr.y]="_svgPlotHeight + 24"
           [attr.text-anchor]="last ? 'end' : 'middle'"
           [attr.dx]="last ? 10 : 0"
           class="dt-event-chart-tick-label"
