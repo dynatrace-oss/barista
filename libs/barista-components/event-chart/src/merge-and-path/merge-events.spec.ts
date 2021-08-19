@@ -50,7 +50,7 @@ function createRenderEvent<T = any>(
 
 // Assuming a sizing for the event bubbles.
 const EVENT_BUBBLE_SIZE = 16;
-const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE / 2;
+const EVENT_BUBBLE_OVERLAP_THRESHOLD = EVENT_BUBBLE_SIZE;
 
 describe('DtEventChart RenderEvent overlap', () => {
   it('should report overlapping events as overlapping', () => {
@@ -80,46 +80,8 @@ describe('DtEventChart RenderEvent overlap', () => {
     const eventB = createRenderEvent(
       'default',
       '1',
-      10,
-      10,
-      0,
-      'event 2',
-      false,
-    );
-    const isOverlapping = dtEventChartIsOverlappingEvent(
-      eventA,
-      eventB,
-      EVENT_BUBBLE_OVERLAP_THRESHOLD,
-    );
-    expect(isOverlapping).toBe(false);
-  });
-
-  it('should report the event as not overlapping if eventA has a duration', () => {
-    const eventA = createRenderEvent('default', '1', 0, 5, 0, 'event 1', false);
-    const eventB = createRenderEvent(
-      'default',
-      '1',
-      10,
-      10,
-      0,
-      'event 2',
-      false,
-    );
-    const isOverlapping = dtEventChartIsOverlappingEvent(
-      eventA,
-      eventB,
-      EVENT_BUBBLE_OVERLAP_THRESHOLD,
-    );
-    expect(isOverlapping).toBe(false);
-  });
-
-  it('should report the event as not overlapping if eventB has a duration', () => {
-    const eventA = createRenderEvent('default', '1', 0, 0, 0, 'event 1', false);
-    const eventB = createRenderEvent(
-      'default',
-      '1',
-      5,
-      10,
+      20,
+      20,
       0,
       'event 2',
       false,
@@ -244,10 +206,10 @@ describe('DtEventChart RenderEvent merging', () => {
         createRenderEvent('default', '2', 3, 3, 2, 'event 3', false),
         createRenderEvent('default', '1', 4, 4, 0, 'event 4', false),
         createRenderEvent('default', '1', 5, 5, 0, 'event 5', false),
-        createRenderEvent('default', '2', 15, 15, 2, 'event 6', false),
-        createRenderEvent('default', '1', 25, 25, 0, 'event 7', false),
-        createRenderEvent('default', '2', 35, 35, 2, 'event 8', false),
-        createRenderEvent('default', '1', 45, 45, 0, 'event 9', false),
+        createRenderEvent('default', '2', 25, 25, 2, 'event 6', false),
+        createRenderEvent('default', '1', 30, 30, 0, 'event 7', false),
+        createRenderEvent('default', '2', 45, 45, 2, 'event 8', false),
+        createRenderEvent('default', '1', 55, 55, 0, 'event 9', false),
       ];
       const mergedEvents = dtEventChartMergeEvents<any>(
         renderEvents,
@@ -303,22 +265,6 @@ describe('DtEventChart RenderEvent merging', () => {
       expect(mergedEvents).toHaveLength(2);
       expect(mergedEvents[0]).toMatchObject(renderEvents[0]);
       expect(mergedEvents[1]).toMatchObject(renderEvents[1]);
-    });
-
-    it('two points separated by a duration event', () => {
-      const renderEvents = [
-        createRenderEvent('default', '1', 0, 0, 0, 'event 1', false),
-        createRenderEvent('default', '1', 2, 5, 0, 'event 2', false),
-        createRenderEvent('default', '1', 5, 5, 0, 'event 3', false),
-      ];
-      const mergedEvents = dtEventChartMergeEvents<any>(
-        renderEvents,
-        EVENT_BUBBLE_OVERLAP_THRESHOLD,
-      );
-      expect(mergedEvents).toHaveLength(3);
-      expect(mergedEvents[0]).toMatchObject(renderEvents[0]);
-      expect(mergedEvents[1]).toMatchObject(renderEvents[1]);
-      expect(mergedEvents[2]).toMatchObject(renderEvents[2]);
     });
 
     it('two points separated by another color event', () => {

@@ -24,10 +24,6 @@ export function dtEventChartIsOverlappingEvent(
   eventB: RenderEvent<any> | RenderField<any>,
   overlapThreshold: number,
 ): boolean {
-  // Either eventA or eventB have a duration, in which case they should not overlap
-  if (eventA.x1 !== eventA.x2 || eventB.x1 !== eventB.x2) {
-    return false;
-  }
   return Math.abs(eventA.x1 - eventB.x1) < overlapThreshold;
 }
 
