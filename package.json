@@ -102,7 +102,7 @@
     "@commitlint/cli": "^11.0.0",
     "@nguniversal/builders": "^11.0.1",
     "@nguniversal/express-engine": "^11.2.0",
-    "@nrwl/angular": "11.6.1",
+    "@nrwl/angular": "12.7.2",
     "@nrwl/cli": "11.6.1",
     "@nrwl/jest": "11.6.1",
     "@nrwl/linter": "11.6.1",
