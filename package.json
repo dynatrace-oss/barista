@@ -80,7 +80,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^11.1.0",
-    "@angular-devkit/architect": "^0.1101.2",
+    "@angular-devkit/architect": "^0.1202.2",
     "@angular-devkit/architect-cli": "^0.1102.3",
     "@angular-devkit/build-angular": "0.1102.7",
     "@angular-devkit/core": "^11.0.5",
