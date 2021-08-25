@@ -1,3 +1,28 @@
+## [9.11.0](https://github.com/dynatrace-oss/barista/compare/9.10.0...9.11.0) (2021-08-25)
+
+### Bug Fixes
+
+- **chart:** Fixed chart selection area focus.
+  ([7ef96a5](https://github.com/dynatrace-oss/barista/commit/7ef96a56f83be44874e88113ce57ee580259ef55))
+- **event-chart:** Fix overlap for multiple elements
+  ([e15882c](https://github.com/dynatrace-oss/barista/commit/e15882ca228844f149f4417e69fb22efb1ff860d))
+- **filter-field:** Fix multiselect apply button disabled
+  ([00a2911](https://github.com/dynatrace-oss/barista/commit/00a29117ce3977929e632280123ec278934e24e8))
+- **filter-field:** Multiselect with programmatically defined filters is not
+  stable
+  ([54a56e3](https://github.com/dynatrace-oss/barista/commit/54a56e3d04bb95ff53087698f9326c3ce91f4007))
+- **workspace:** Remove codeowner.
+  ([0630758](https://github.com/dynatrace-oss/barista/commit/063075858b3469ab01bcf28d5deabe4bcb5b42b1))
+
+### Features
+
+- **chart:** Added series heatmaps options to dt chart series type
+  ([8b95369](https://github.com/dynatrace-oss/barista/commit/8b95369993345fed442eac1bc407d4b975191b00))
+- **filter-field:** Add disable state to the option without group
+  ([d25f2ad](https://github.com/dynatrace-oss/barista/commit/d25f2adce2a2d0523f55f4dde6a9371145f7b0df))
+- **filter-field:** Prefills text of first level freeText node on edit
+  ([089f301](https://github.com/dynatrace-oss/barista/commit/089f301130b1214e257b705ab42aa79c20119794))
+
 ## [9.10.0](https://github.com/dynatrace-oss/barista/compare/9.9.0...9.10.0) (2021-07-28)
 
 ### Features
