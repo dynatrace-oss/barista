@@ -15,11 +15,23 @@
  */
 
 import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
+import {
+  _DisposeViewRepeaterStrategy,
+  _ViewRepeater,
+  _VIEW_REPEATER_STRATEGY,
+} from '@angular/cdk/collections';
 import { Platform } from '@angular/cdk/platform';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import {
   CDK_TABLE_TEMPLATE,
   CdkTable,
   CdkTableModule,
+  RowContext,
+  RenderRow,
+  _CoalescedStyleScheduler,
+  StickyPositioningListener,
+  _COALESCED_STYLE_SCHEDULER,
+  STICKY_POSITIONING_LISTENER,
 } from '@angular/cdk/table';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -31,11 +43,20 @@ import {
   Input,
   IterableDiffers,
   NgModule,
+  Optional,
+  SkipSelf,
 } from '@angular/core';
 
 @Component({
   selector: 'dt-table-base',
   template: CDK_TABLE_TEMPLATE,
+  providers: [
+    { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
+    {
+      provide: _VIEW_REPEATER_STRATEGY,
+      useClass: _DisposeViewRepeaterStrategy,
+    },
+  ],
 })
 // tslint:disable-next-line: class-name
 export class _DtTableBase<T> extends CdkTable<T> {
@@ -58,7 +79,16 @@ export class _DtTableBase<T> extends CdkTable<T> {
     // tslint:disable-next-line: no-any
     @Inject(DOCUMENT) document: any,
     platform: Platform,
+    @Inject(_VIEW_REPEATER_STRATEGY)
+    _viewRepeater: _ViewRepeater<T, RenderRow<T>, RowContext<T>>,
+    @Inject(_COALESCED_STYLE_SCHEDULER)
+    _coalescedStyleScheduler: _CoalescedStyleScheduler,
+    _viewportRuler: ViewportRuler,
     @Attribute('role') protected _role: string,
+    @Optional()
+    @SkipSelf()
+    @Inject(STICKY_POSITIONING_LISTENER)
+    _stickyPositioningListener: StickyPositioningListener,
     @Attribute('interactiveRows') interactiveRows?: boolean,
   ) {
     // tslint:disable-next-line: no-any
@@ -70,6 +100,10 @@ export class _DtTableBase<T> extends CdkTable<T> {
       null as unknown as any, // tslint:disable-line:no-any
       document,
       platform,
+      _viewRepeater,
+      _coalescedStyleScheduler,
+      _viewportRuler,
+      _stickyPositioningListener,
     );
     this.interactiveRows = interactiveRows!;
   }

@@ -45,7 +45,7 @@ export class DtExampleTableComparators implements AfterViewInit, OnDestroy {
 
   @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
 
-  dataSource: DtTableDataSource<object>;
+  dataSource: DtTableDataSource<{ host: string; namespace: string }>;
   constructor() {
     this.dataSource = new DtTableDataSource(this.data);
   }
