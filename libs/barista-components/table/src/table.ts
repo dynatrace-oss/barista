@@ -29,7 +29,9 @@ import {
   Input,
   IterableDiffers,
   OnDestroy,
+  Optional,
   QueryList,
+  SkipSelf,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
@@ -46,6 +48,20 @@ import {
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,
 } from './simple-columns/simple-column-base';
+import {
+  _DisposeViewRepeaterStrategy,
+  _ViewRepeater,
+  _VIEW_REPEATER_STRATEGY,
+} from '@angular/cdk/collections';
+import {
+  RenderRow,
+  RowContext,
+  StickyPositioningListener,
+  STICKY_POSITIONING_LISTENER,
+  _CoalescedStyleScheduler,
+  _COALESCED_STYLE_SCHEDULER,
+} from '@angular/cdk/table';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
@@ -67,6 +83,13 @@ let nextUniqueId = 0;
     '[class.dt-table-interactive-rows]': 'interactiveRows',
     '[class.dt-table-expandable-rows]': '_hasExpandableRows',
   },
+  providers: [
+    { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
+    {
+      provide: _VIEW_REPEATER_STRATEGY,
+      useClass: _DisposeViewRepeaterStrategy,
+    },
+  ],
 })
 export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
@@ -162,8 +185,28 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     @Inject(DOCUMENT) document: any,
     platform: Platform,
     private _viewContainerRef: ViewContainerRef,
+    @Inject(_VIEW_REPEATER_STRATEGY)
+    _viewRepeater: _ViewRepeater<T, RenderRow<T>, RowContext<T>>,
+    @Inject(_COALESCED_STYLE_SCHEDULER)
+    _coalescedStyleScheduler: _CoalescedStyleScheduler,
+    _viewportRuler: ViewportRuler,
+    @Optional()
+    @SkipSelf()
+    @Inject(STICKY_POSITIONING_LISTENER)
+    _stickyPositioningListener: StickyPositioningListener,
   ) {
-    super(differs, changeDetectorRef, elementRef, document, platform, role);
+    super(
+      differs,
+      changeDetectorRef,
+      elementRef,
+      document,
+      platform,
+      _viewRepeater,
+      _coalescedStyleScheduler,
+      _viewportRuler,
+      role,
+      _stickyPositioningListener,
+    );
   }
 
   ngOnDestroy(): void {

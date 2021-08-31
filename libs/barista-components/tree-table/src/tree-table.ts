@@ -14,7 +14,21 @@
  * limitations under the License.
  */
 
+import {
+  _DisposeViewRepeaterStrategy,
+  _ViewRepeater,
+  _VIEW_REPEATER_STRATEGY,
+} from '@angular/cdk/collections';
 import { Platform } from '@angular/cdk/platform';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import {
+  RenderRow,
+  RowContext,
+  StickyPositioningListener,
+  STICKY_POSITIONING_LISTENER,
+  _CoalescedStyleScheduler,
+  _COALESCED_STYLE_SCHEDULER,
+} from '@angular/cdk/table';
 import { DOCUMENT } from '@angular/common';
 import {
   Attribute,
@@ -25,6 +39,8 @@ import {
   Inject,
   Input,
   IterableDiffers,
+  Optional,
+  SkipSelf,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -44,6 +60,13 @@ import { _DtTableBase } from '@dynatrace/barista-components/table';
   encapsulation: ViewEncapsulation.Emulated,
   changeDetection: ChangeDetectionStrategy.OnPush,
   preserveWhitespaces: false,
+  providers: [
+    { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
+    {
+      provide: _VIEW_REPEATER_STRATEGY,
+      useClass: _DisposeViewRepeaterStrategy,
+    },
+  ],
 })
 export class DtTreeTable<T> extends _DtTableBase<T> {
   /** The tree control that handles expanding/collapsing or rows */
@@ -57,8 +80,28 @@ export class DtTreeTable<T> extends _DtTableBase<T> {
     @Inject(DOCUMENT) document: any,
     platform: Platform,
     @Attribute('role') role: string,
+    @Inject(_VIEW_REPEATER_STRATEGY)
+    _viewRepeater: _ViewRepeater<T, RenderRow<T>, RowContext<T>>,
+    @Inject(_COALESCED_STYLE_SCHEDULER)
+    _coalescedStyleScheduler: _CoalescedStyleScheduler,
+    _viewportRuler: ViewportRuler,
+    @Optional()
+    @SkipSelf()
+    @Inject(STICKY_POSITIONING_LISTENER)
+    _stickyPositioningListener: StickyPositioningListener,
   ) {
-    super(differs, changeDetectorRef, elementRef, document, platform, role);
+    super(
+      differs,
+      changeDetectorRef,
+      elementRef,
+      document,
+      platform,
+      _viewRepeater,
+      _coalescedStyleScheduler,
+      _viewportRuler,
+      role,
+      _stickyPositioningListener,
+    );
     if (!role) {
       // We need this setAttribute here to override the attribute set in the constructor of the cdkTable
       this._elementRef.nativeElement.setAttribute('role', 'treegrid');
