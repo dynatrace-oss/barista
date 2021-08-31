@@ -16,6 +16,7 @@
 
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkTableModule } from '@angular/cdk/table';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -93,6 +94,7 @@ const EXPORTED_DECLARATIONS = [
   imports: [
     CommonModule,
     PortalModule,
+    ScrollingModule,
     CdkTableModule,
     DragDropModule,
     DtIconModule,
