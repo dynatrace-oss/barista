@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../core/src/style/variables';
 
 $dt-timeline-chart-tick-color: $gray-300;
@@ -96,8 +97,8 @@ $dt-timeline-chart-marker-stroke-width-size: 2px;
 .dt-timeline-chart-timing-marker-bubble {
   position: absolute;
   bottom: 0;
-  left: ($dt-timeline-chart-marker-bubble-size / -2) +
-    ($dt-timeline-chart-marker-stroke-width-size / 2);
+  left: math.div($dt-timeline-chart-marker-bubble-size, -2) +
+    math.div($dt-timeline-chart-marker-stroke-width-size, 2);
 }
 
 .dt-timeline-chart-key-timing-marker-container {
@@ -120,8 +121,8 @@ $dt-timeline-chart-marker-stroke-width-size: 2px;
   background: $dt-timeline-chart-key-timing-marker-color;
   position: absolute;
   top: 0;
-  left: ($dt-timeline-chart-marker-bubble-size / -2) -
-    ($dt-timeline-chart-marker-stroke-width-size / 2);
+  left: math.div($dt-timeline-chart-marker-bubble-size, -2) -
+    math.div($dt-timeline-chart-marker-stroke-width-size, 2);
 }
 
 .dt-timeline-chart-key-timing-marker-label {

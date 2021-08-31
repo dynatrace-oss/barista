@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../core/src/style/variables';
 @import '../../style/font-mixins';
 @import '../../core/src/style/form-control';
@@ -123,8 +124,8 @@ $dt-filter-field-inner-height: 30px;
 }
 
 dt-filter-field-tag {
-  margin-top: ($dt-filter-field-inner-height - 24) / 2;
-  margin-bottom: ($dt-filter-field-inner-height - 24) / 2;
+  margin-top: math.div($dt-filter-field-inner-height - 24, 2);
+  margin-bottom: math.div($dt-filter-field-inner-height - 24, 2);
   margin-left: 8px;
 }
 
