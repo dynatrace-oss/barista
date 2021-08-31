@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../core/src/style/variables';
 @import '../../style/font-mixins';
 
@@ -84,7 +85,7 @@
   margin: 4px;
   width: $dt-step-icon-circle-diameter;
   height: $dt-step-icon-circle-diameter;
-  border-radius: ($dt-step-icon-circle-diameter / 2);
+  border-radius: math.div($dt-step-icon-circle-diameter, 2);
   background-color: $gray-400;
 }
 
