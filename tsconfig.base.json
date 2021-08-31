@@ -47,9 +47,6 @@
       "@dynatrace/barista-components/checkbox": [
         "libs/barista-components/checkbox/index.ts"
       ],
-      "@dynatrace/barista-components/experimental/combobox": [
-        "libs/barista-components/experimental/combobox/index.ts"
-      ],
       "@dynatrace/barista-components/confirmation-dialog": [
         "libs/barista-components/confirmation-dialog/index.ts"
       ],
@@ -67,9 +64,6 @@
       ],
       "@dynatrace/barista-components/core": [
         "libs/barista-components/core/index.ts"
-      ],
-      "@dynatrace/barista-components/experimental/datepicker": [
-        "libs/barista-components/experimental/datepicker/index.ts"
       ],
       "@dynatrace/barista-components/drawer": [
         "libs/barista-components/drawer/index.ts"
@@ -89,11 +83,14 @@
       "@dynatrace/barista-components/expandable-text": [
         "libs/barista-components/expandable-text/index.ts"
       ],
+      "@dynatrace/barista-components/experimental/combobox": [
+        "libs/barista-components/experimental/combobox/index.ts"
+      ],
+      "@dynatrace/barista-components/experimental/datepicker": [
+        "libs/barista-components/experimental/datepicker/index.ts"
+      ],
       "@dynatrace/barista-components/experimental/drawer-table": [
         "libs/barista-components/experimental/drawer-table/index.ts"
-      ],
-      "@dynatrace/barista-components/quick-filter": [
-        "libs/barista-components/quick-filter/index.ts"
       ],
       "@dynatrace/barista-components/filter-field": [
         "libs/barista-components/filter-field/index.ts"
@@ -149,11 +146,14 @@
       "@dynatrace/barista-components/progress-circle": [
         "libs/barista-components/progress-circle/index.ts"
       ],
-      "@dynatrace/barista-components/radio": [
-        "libs/barista-components/radio/index.ts"
+      "@dynatrace/barista-components/quick-filter": [
+        "libs/barista-components/quick-filter/index.ts"
       ],
       "@dynatrace/barista-components/radial-chart": [
         "libs/barista-components/radial-chart/index.ts"
+      ],
+      "@dynatrace/barista-components/radio": [
+        "libs/barista-components/radio/index.ts"
       ],
       "@dynatrace/barista-components/secondary-nav": [
         "libs/barista-components/secondary-nav/index.ts"
@@ -161,11 +161,11 @@
       "@dynatrace/barista-components/select": [
         "libs/barista-components/select/index.ts"
       ],
-      "@dynatrace/barista-components/slider": [
-        "libs/barista-components/slider/index.ts"
-      ],
       "@dynatrace/barista-components/show-more": [
         "libs/barista-components/show-more/index.ts"
+      ],
+      "@dynatrace/barista-components/slider": [
+        "libs/barista-components/slider/index.ts"
       ],
       "@dynatrace/barista-components/stacked-series-chart": [
         "libs/barista-components/stacked-series-chart/index.ts"
@@ -209,54 +209,16 @@
       "@dynatrace/barista-components/tree-table": [
         "libs/barista-components/tree-table/index.ts"
       ],
-      "@dynatrace/workspace": ["libs/workspace/src/index.ts"],
       "@dynatrace/barista-examples": ["libs/examples/src/index.ts"],
       "@dynatrace/barista-examples/*": ["libs/examples/src/*/index.ts"],
-      "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
-      "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
-      "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
-      "@dynatrace/shared/node": ["libs/shared/node/index.ts"],
-      "@dynatrace/shared/design-tokens": [
-        "libs/shared/design-tokens/src/index.ts"
+      "@dynatrace/design-tokens-ui/input": [
+        "libs/design-tokens-ui/input/src/index.ts"
+      ],
+      "@dynatrace/design-tokens-ui/shared": [
+        "libs/design-tokens-ui/shared/src/index.ts"
       ],
       "@dynatrace/fluid-design-tokens": [
         "libs/shared/design-tokens/generated/index.ts"
-      ],
-      "@dynatrace/fluid-elements/button": [
-        "libs/fluid-elements/button/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/button-group": [
-        "libs/fluid-elements/button-group/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/core": [
-        "libs/fluid-elements/core/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/checkbox": [
-        "libs/fluid-elements/checkbox/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/input": [
-        "libs/fluid-elements/input/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/icon": [
-        "libs/fluid-elements/icon/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/switch": [
-        "libs/fluid-elements/switch/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/popover": [
-        "libs/fluid-elements/popover/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/tab-group": [
-        "libs/fluid-elements/tab-group/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/label": [
-        "libs/fluid-elements/label/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/virtual-scroll-container": [
-        "libs/fluid-elements/virtual-scroll-container/src/index.ts"
-      ],
-      "@dynatrace/testing/custom-element": [
-        "libs/testing/custom-element/src/index.ts"
       ],
       "@dynatrace/fluid-design-tokens-meta/aliases/*": [
         "libs/shared/design-tokens/generated/aliases/*.json"
@@ -267,23 +229,61 @@
       "@dynatrace/fluid-design-tokens-meta/patterns/*": [
         "libs/shared/design-tokens/generated/patterns/*.json"
       ],
-      "@environments/*": ["environments/*"],
-      "@dynatrace/design-tokens-ui/input": [
-        "libs/design-tokens-ui/input/src/index.ts"
+      "@dynatrace/fluid-elements/button": [
+        "libs/fluid-elements/button/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/button-group": [
+        "libs/fluid-elements/button-group/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/checkbox": [
+        "libs/fluid-elements/checkbox/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/core": [
+        "libs/fluid-elements/core/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/icon": [
+        "libs/fluid-elements/icon/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/input": [
+        "libs/fluid-elements/input/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/label": [
+        "libs/fluid-elements/label/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/popover": [
+        "libs/fluid-elements/popover/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/switch": [
+        "libs/fluid-elements/switch/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/tab-group": [
+        "libs/fluid-elements/tab-group/src/index.ts"
+      ],
+      "@dynatrace/fluid-elements/virtual-scroll-container": [
+        "libs/fluid-elements/virtual-scroll-container/src/index.ts"
       ],
       "@dynatrace/shared/data-access-strapi": [
         "libs/shared/data-access-strapi/index.ts"
       ],
-      "@dynatrace/shared/design-system/ui": [
-        "libs/shared/design-system/ui/src/index.ts"
-      ],
       "@dynatrace/shared/design-system/interfaces": [
         "libs/shared/design-system/interfaces/src/index.ts"
       ],
-      "@dynatrace/design-tokens-ui/shared": [
-        "libs/design-tokens-ui/shared/src/index.ts"
+      "@dynatrace/shared/design-system/ui": [
+        "libs/shared/design-system/ui/src/index.ts"
       ],
-      "@dynatrace/shared/keycodes": ["libs/shared/keycodes/index.ts"]
+      "@dynatrace/shared/design-tokens": [
+        "libs/shared/design-tokens/src/index.ts"
+      ],
+      "@dynatrace/shared/keycodes": ["libs/shared/keycodes/index.ts"],
+      "@dynatrace/shared/node": ["libs/shared/node/index.ts"],
+      "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
+      "@dynatrace/testing/custom-element": [
+        "libs/testing/custom-element/src/index.ts"
+      ],
+      "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
+      "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
+      "@dynatrace/workspace": ["libs/workspace/src/index.ts"],
+      "@environments/*": ["environments/*"]
     },
     "plugins": [
       {
