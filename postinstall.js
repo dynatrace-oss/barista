@@ -25,13 +25,13 @@ async function main() {
 
   // Generate Angular ngfactory.js, ngsummary.js files for the dependencies,
   // that are needed for ViewEngine
-  await execCommand(`node ${NGC_BINARY} -p view-engine-tsconfig.json`);
+  // await execCommand(`node ${NGC_BINARY} -p view-engine-tsconfig.json`);
   // Generate Ivy entry points
-  await execCommand(
-    `node ${NGCC_BINARY} --properties es2015 browser module main --first-only --create-ivy-entry-points`,
-  );
+  // await execCommand(
+  //   `node ${NGCC_BINARY} --properties es2015 browser module main --first-only --create-ivy-entry-points`,
+  // );
   // link the ivy entry points
-  updateNgccMainFields();
+  // updateNgccMainFields();
   // remove man page path to get rid of bazel cache error while running tests
   removeManPagePath();
 
