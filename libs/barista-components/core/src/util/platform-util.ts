@@ -167,6 +167,6 @@ export function _getElementBoundingClientRect(
     left: clientRect.left,
     right: clientRect.right,
     width: clientRect.width,
-    isNativeRect: element.getBoundingClientRect && !!window,
+    isNativeRect: 'getBoundingClientRect' in element && !!window,
   };
 }
