@@ -66,3 +66,4 @@ export {
   TagParserFunction,
   EditionParserFunction,
 } from './src/filter-field-config';
+export { DtFilterFieldValidator } from './src/filter-field-validation';
