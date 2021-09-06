@@ -24,5 +24,6 @@ ng_module(
         "//libs/barista-components/quick-filter:compile",
         "@npm//@angular/common",
         "@npm//@angular/core",
+        "@npm//@angular/forms",
     ],
 )

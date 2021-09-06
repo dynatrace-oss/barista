@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import { FormControl, ValidationErrors } from '@angular/forms';
+import { FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export type DtFilterFieldValidatorFn = (
   control: DtFilterFieldControl,
 ) => ValidationErrors | null;
 
 export interface DtFilterFieldValidator {
-  validatorFn: DtFilterFieldValidatorFn;
+  validatorFn: DtFilterFieldValidatorFn | ValidatorFn;
   error: string;
 }
 
