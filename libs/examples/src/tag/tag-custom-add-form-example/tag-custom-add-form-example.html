@@ -1,40 +1,38 @@
 <dt-tag-list aria-label="A list of tags.">
   <dt-tag *ngFor="let tag of tags">
-    <dt-tag-key *ngIf="tag.key">{{tag.key}}</dt-tag-key>
+    <dt-tag-key *ngIf="tag.key">[{{tag.key}}]:</dt-tag-key>
     {{ tag.value }}
   </dt-tag>
   <dt-tag-add
     placeholder="insert tag name here"
     aria-label="tag input"
     #tagAdd
-    (tagAdded)="addTag(key.value, value.value)"
+    (submitted)="addTag($event)"
   >
-    <dt-tag-add-form>
-      <form [formGroup]="keyValueForm" class="ba-key-value-form">
-        <dt-form-field class="ba-key-form-field">
-          <dt-label>Key (Required)</dt-label>
-          <input
-            #key
-            type="text"
-            dtInput
-            aria-label="Tag key"
-            required
-            formControlName="key"
-            (keyup.enter)="tagAdd.submit()"
-          />
-        </dt-form-field>
-        <dt-form-field>
-          <dt-label>Value</dt-label>
-          <input
-            #value
-            type="text"
-            dtInput
-            aria-label="Tag value"
-            formControlName="value"
-            (keyup.enter)="tagAdd.submit()"
-          />
-        </dt-form-field>
-      </form>
-    </dt-tag-add-form>
+    <form [formGroup]="keyValueForm" class="ba-key-value-form">
+      <dt-form-field class="ba-key-form-field">
+        <dt-label>Key (Required)</dt-label>
+        <input
+          #key
+          type="text"
+          dtInput
+          aria-label="Tag key"
+          required
+          formControlName="key"
+          (keyup.enter)="tagAdd.submit()"
+        />
+      </dt-form-field>
+      <dt-form-field>
+        <dt-label>Value</dt-label>
+        <input
+          #value
+          type="text"
+          dtInput
+          aria-label="Tag value"
+          formControlName="value"
+          (keyup.enter)="tagAdd.submit()"
+        />
+      </dt-form-field>
+    </form>
   </dt-tag-add>
 </dt-tag-list>

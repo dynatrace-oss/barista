@@ -187,7 +187,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
   private _subscribeToTagAddElements(): void {
     this._tagAddElements.map((el) =>
       this._tagAddSubscriptions.push(
-        el.tagAdded.pipe(takeUntil(this._destroy$)).subscribe(() => {
+        el.submitted.pipe(takeUntil(this._destroy$)).subscribe(() => {
           this._expand();
           this._changeDetectorRef.markForCheck();
         }),

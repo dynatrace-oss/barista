@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DtTagAddSubmittedCustomFormEvent } from '@dynatrace/barista-components/tag';
 
 interface Tag {
   key: string;
@@ -27,8 +28,13 @@ interface Tag {
   templateUrl: './tag-custom-add-form-example.html',
   styleUrls: ['./tag-custom-add-form-example.scss'],
 })
-export class DtExampleCustomAddFormTag implements OnInit {
-  readonly tags = new Set<Tag>();
+export class DtExampleCustomAddFormTag {
+  readonly tags = new Set<Tag>([
+    { key: '.NetTest' },
+    { key: '193.168.4.3:80' },
+    { key: 'window', value: 'b00m' },
+    { key: 'key', value: 'value' },
+  ]);
 
   keyFormControl = new FormControl('', [
     // tslint:disable-next-line: no-unbound-method
@@ -42,14 +48,7 @@ export class DtExampleCustomAddFormTag implements OnInit {
     value: this.valueFormControl,
   });
 
-  ngOnInit(): void {
-    this.addTag('.NetTest');
-    this.addTag('193.168.4.3:80');
-    this.addTag('window', '[b00m]');
-    this.addTag('deploy', 'my-key');
-  }
-
-  addTag(key: string, value?: string): void {
-    this.tags.add({ key, value });
+  addTag(event: DtTagAddSubmittedCustomFormEvent): void {
+    this.tags.add({ key: event.key, value: event.value });
   }
 }

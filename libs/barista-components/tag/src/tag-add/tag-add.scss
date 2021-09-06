@@ -48,26 +48,28 @@
 
 .dt-tag-add-overlay {
   width: 320px;
+  display: grid;
+  gap: 4px;
+  grid-template-columns: 1fr 32px;
+  grid-template-rows: 32px 1fr;
+  grid-template-areas:
+    'header close'
+    'form form';
   border: 1px solid $gray-700;
   border-radius: 3px;
   background-color: $gray-700;
   padding: 8px;
-  padding-top: 5px;
-
-  &:not(.dt-custom-add-form) {
-    height: 80px;
-  }
+  position: relative;
 }
 
 .dt-tag-add-header {
-  height: 20px;
   color: #ffffff;
+  grid-area: header;
   font-size: 14px;
-  background: none;
-  padding: 0;
-  border: none;
-  cursor: pointer;
   outline: inherit;
+  display: flex;
+  gap: 8px;
+  align-items: center;
 
   @include dt-cdkmonitor-focus-style(true);
 }
@@ -89,24 +91,20 @@
 }
 
 .dt-tag-add-submit-button {
-  flex-grow: 0;
-  flex-shrink: 0;
-  align-self: flex-end;
+  grid-area: form;
+  justify-self: flex-end;
 }
 
-.dt-tag-add-fields {
+.dt-tag-add-custom-form {
+  grid-area: form;
+}
+
+.dt-tag-add-close-button {
+  grid-area: close;
+}
+
+.dt-tag-add-default-form {
+  grid-area: form;
   display: flex;
-  margin-top: 12px;
-
-  &:not(.dt-custom-add-form) .dt-tag-add-submit-button {
-    margin-left: 8px;
-  }
-
-  &.dt-custom-add-form {
-    flex-direction: column;
-
-    .dt-tag-add-submit-button {
-      margin-top: 8px;
-    }
-  }
+  gap: 8px;
 }

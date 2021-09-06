@@ -18,6 +18,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
@@ -25,8 +26,8 @@ import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 
 import { DtTag, DtTagKey } from './tag';
-import { DtTagAddForm } from './tag-add/tag-add-form/tag-add-form';
 import { DtTagAdd } from './tag-add/tag-add';
+import { DtTagAddButton } from './tag-add/tag-add-button';
 import { DtTagList } from './tag-list/tag-list';
 
 @NgModule({
@@ -38,8 +39,10 @@ import { DtTagList } from './tag-list/tag-list';
     OverlayModule,
     A11yModule,
     DtThemingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  exports: [DtTag, DtTagKey, DtTagAdd, DtTagList, DtTagAddForm],
-  declarations: [DtTag, DtTagKey, DtTagAdd, DtTagList, DtTagAddForm],
+  exports: [DtTag, DtTagKey, DtTagAdd, DtTagList],
+  declarations: [DtTag, DtTagKey, DtTagAdd, DtTagList, DtTagAddButton],
 })
 export class DtTagModule {}

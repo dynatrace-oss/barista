@@ -91,8 +91,8 @@ export class TagDemo implements OnInit {
     this.tags.add(tag);
   }
 
-  addUser(user: string): void {
-    this.users.add(user);
+  addUser(event: { tag: string }): void {
+    this.users.add(event.tag);
   }
 
   doRemove(tag: DtTag<string>): void {

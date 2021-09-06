@@ -25,41 +25,50 @@
     <div
       #panel
       class="dt-tag-add-overlay"
-      [class.dt-custom-add-form]="_customAddForm"
+      [class.dt-custom-add-form]="_hasCustomForm$ | async"
+      cdkTrapFocus
+      cdkTrapFocusAutoCapture
+      dtTheme=":dark"
     >
-      <div cdkTrapFocus cdkTrapFocusAutoCapture>
-        <button class="dt-tag-add-header" (click)="close()">
-          <dt-icon class="dt-tag-add-icon" name="plus-add"></dt-icon>
-          {{ title }}
-        </button>
-        <div
-          class="dt-tag-add-fields"
-          [class.dt-custom-add-form]="_customAddForm"
-          dtTheme=":dark"
-        >
-          <ng-content select="dt-tag-add-form"></ng-content>
-          <ng-container *ngIf="!_customAddForm">
-            <input
-              class="dt-tag-add-input"
-              type="text"
-              #input
-              dtInput
-              [placeholder]="placeholder"
-              [attr.aria-label]="ariaLabel"
-              (input)="_onTagValueChange()"
-              (keyup.enter)="submit()"
-            />
-          </ng-container>
-          <button
-            class="dt-tag-add-submit-button"
-            dt-button
-            (click)="submit()"
-            [disabled]="(_valid$ | async) === false"
-          >
-            Add
-          </button>
-        </div>
+      <div class="dt-tag-add-header">
+        <dt-icon class="dt-tag-add-icon" name="plus-add"></dt-icon>
+        {{ title }}
       </div>
+      <div *ngIf="_hasCustomForm$ | async" class="dt-tag-add-custom-form">
+        <ng-content></ng-content>
+      </div>
+      <ng-container *ngIf="(_hasCustomForm$ | async) === false">
+        <form [formGroup]="_defaultFormControl" class="dt-tag-add-default-form">
+          <input
+            class="dt-tag-add-input"
+            type="text"
+            formControlName="tag"
+            required
+            #input
+            dtInput
+            [placeholder]="placeholder"
+            [attr.aria-label]="ariaLabel"
+            (keyup.enter)="submit()"
+          />
+          <dt-tag-add-button
+            [valid]="_currentFormValid$ | async"
+            (click)="submit()"
+          ></dt-tag-add-button>
+        </form>
+      </ng-container>
+      <dt-tag-add-button
+        *ngIf="_hasCustomForm$ | async"
+        [valid]="_currentFormValid$ | async"
+        (click)="submit()"
+      ></dt-tag-add-button>
+      <button
+        class="dt-tag-add-close-button"
+        dt-icon-button
+        variant="secondary"
+        (click)="close()"
+      >
+        <dt-icon name="abort"></dt-icon>
+      </button>
     </div>
   </ng-template>
 </div>
