@@ -14,25 +14,36 @@
  * limitations under the License.
  */
 
+import { Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { isObject } from '@dynatrace/barista-components/core';
 import {
   DtQuickFilterDefaultDataSource,
   DtQuickFilterDefaultDataSourceConfig,
+  DtQuickFilterDefaultDataSourceType,
 } from '@dynatrace/barista-components/quick-filter';
 
-const filterFieldData = {
+const filterFieldData: DtQuickFilterDefaultDataSourceType = {
   autocomplete: [
+    {
+      name: 'Free text',
+      suggestions: [],
+      unique: true,
+      validators: [
+        {
+          validatorFn: Validators.maxLength(5),
+          error: 'Maximum length of 5 reached',
+        },
+      ],
+    },
     {
       name: 'Locations',
       options: [
         {
           name: 'State',
-          value: 'state',
           autocomplete: [
             {
               name: 'Oberösterreich',
-              value: 'OOE',
               autocomplete: [
                 { name: 'Linz' },
                 { name: 'Wels' },
@@ -41,7 +52,7 @@ const filterFieldData = {
             },
             {
               name: 'Niederösterreich',
-              value: 'NOE',
+
               autocomplete: [
                 { name: 'St. Pölten' },
                 { name: 'Melk' },
@@ -50,21 +61,17 @@ const filterFieldData = {
             },
             {
               name: 'Wien',
-              value: 'W',
             },
             {
               name: 'Tirol',
-              value: 'TRL',
             },
             {
               name: 'Salzburg',
-              value: 'SBZ',
             },
           ],
         },
         {
           name: 'Custom',
-          value: 'custom-location',
           suggestions: [],
         },
       ],
@@ -92,8 +99,8 @@ const filterFieldData = {
           greaterThanEqual: true,
           lessThanEqual: true,
         },
+        unit: 's',
       },
-      unit: 's',
     },
     {
       name: 'Not in Quickfilter',
@@ -107,7 +114,6 @@ const filterFieldData = {
       name: 'Long Array',
       async: true,
       distinct: true,
-      totalCount: 50000,
       autocomplete: Array.from(new Array(150), (_, i) => ({
         name: `Option${i + 1}`,
       })),
