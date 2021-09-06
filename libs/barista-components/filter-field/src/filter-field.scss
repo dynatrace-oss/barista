@@ -165,7 +165,9 @@ button.dt-filter-field-clear-all-button-hidden {
   color: $error-color;
 
   // Make sure the error is not overlapped by other elements
-  z-index: 1;
+  // This needs to be higher than the drawer in order to
+  // allow the error message to be over the drawer's content
+  z-index: 4;
 
   &::before {
     content: '';
