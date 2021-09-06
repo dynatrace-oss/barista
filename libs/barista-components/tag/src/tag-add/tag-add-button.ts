@@ -14,7 +14,27 @@
  * limitations under the License.
  */
 
-export * from './src/tag-module';
-export * from './src/tag';
-export * from './src/tag-list/tag-list';
-export * from './src/tag-add/tag-add';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+@Component({
+  selector: 'dt-tag-add-button',
+  template: `
+    <button
+      class="dt-tag-add-submit-button"
+      dt-button
+      (click)="handleClick($event)"
+      [disabled]="!this.valid"
+    >
+      Add
+    </button>
+  `,
+})
+export class DtTagAddButton {
+  @Output() readonly click = new EventEmitter<Event>();
+
+  @Input() valid: boolean;
+
+  handleClick(event: Event): void {
+    this.click.emit(event);
+  }
+}

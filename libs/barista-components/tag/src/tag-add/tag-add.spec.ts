@@ -32,10 +32,16 @@ import { By } from '@angular/platform-browser';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagModule } from '../tag-module';
-import { DtTagAdd } from './tag-add';
+import {
+  DtTagAdd,
+  DtTagAddSubmittedCustomFormEvent,
+  DtTagAddSubmittedDefaultEvent,
+} from './tag-add';
+import { DtTag } from '../tag';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import {
   createComponent,
+  dispatchFakeEvent,
   dispatchKeyboardEvent,
 } from '@dynatrace/testing/browser';
 import {
@@ -97,7 +103,7 @@ describe('DtTagAdd', () => {
     return componentFixture;
   };
 
-  describe('with default add-form', () => {
+  describe('with default form', () => {
     let fixture: ComponentFixture<DtTagComponent>;
 
     beforeEach(() => {
@@ -126,7 +132,7 @@ describe('DtTagAdd', () => {
 
     it('should add tags when submit is called, but only if valid', fakeAsync(() => {
       const addSpy = jest.fn();
-      const sub = addTagInstance.tagAdded.subscribe(addSpy);
+      const sub = addTagInstance.submitted.subscribe(addSpy);
 
       addTagInstance.open();
       fixture.detectChanges();
@@ -137,12 +143,12 @@ describe('DtTagAdd', () => {
       ) as HTMLInputElement;
 
       panelInput.value = '';
-      addTagInstance._onTagValueChange();
+      dispatchFakeEvent(panelInput, 'input');
       addTagInstance.submit();
       expect(addSpy).not.toHaveBeenCalled();
 
       panelInput.value = 'valid-tag';
-      addTagInstance._onTagValueChange();
+      dispatchFakeEvent(panelInput, 'input');
       addTagInstance.submit();
       expect(addSpy).toHaveBeenCalledTimes(1);
 
@@ -160,14 +166,14 @@ describe('DtTagAdd', () => {
 
       expect(fixture.componentInstance.tags.size).toBe(3);
       panelInput.value = 'Health';
-      addTagInstance._onTagValueChange();
+      dispatchFakeEvent(panelInput, 'input');
       addTagInstance.submit();
       expect(fixture.componentInstance.tags.size).toBe(4);
     }));
 
     it('should add tag when `add` button in dt-tag-add is clicked', fakeAsync(() => {
       const spy = jest.fn();
-      const sub = addTagInstance.tagAdded.subscribe(spy);
+      const sub = addTagInstance.submitted.subscribe(spy);
 
       addTagInstance.open();
       fixture.detectChanges();
@@ -180,22 +186,16 @@ describe('DtTagAdd', () => {
         '.dt-tag-add-input',
       ) as HTMLInputElement;
       panelInput.value = 'test';
-      addTagInstance._onTagValueChange();
+      dispatchFakeEvent(panelInput, 'input');
       fixture.detectChanges();
       panelAddButton.click();
       fixture.detectChanges();
       flush();
+      const debugTags = fixture.debugElement.queryAll(By.directive(DtTag));
+      expect(debugTags.length).toBe(4);
 
-      const tag = (
-        (
-          fixture.debugElement.nativeElement.querySelectorAll(
-            'dt-tag',
-          ) as HTMLCollection
-        ).item(3) as HTMLElement
-      ).innerHTML;
-      expect(tag).toContain('test');
+      expect(debugTags[3].nativeElement.textContent).toContain('test');
       expect(spy).toHaveBeenCalled();
-      expect(fixture.componentInstance.tags.size).toBe(4);
 
       sub.unsubscribe();
     }));
@@ -279,7 +279,7 @@ describe('DtTagAdd', () => {
     });
   });
 
-  describe('with custom dt-tag-add-form', () => {
+  describe('with custom form', () => {
     let fixture: ComponentFixture<DtTagCustomFormComponent>;
 
     beforeEach(() => {
@@ -292,7 +292,7 @@ describe('DtTagAdd', () => {
 
     it('should add tags when submit is called, but only if valid', () => {
       const addSpy = jest.fn();
-      const sub = addTagInstance.tagAdded.subscribe(addSpy);
+      const sub = addTagInstance.submitted.subscribe(addSpy);
 
       addTagInstance.open();
       fixture.detectChanges();
@@ -371,20 +371,16 @@ describe('DtTagAdd', () => {
     <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
     <dt-tag-add
       placeholder="insert tag here"
-      (tagAdded)="addTag($event)"
+      (submitted)="addTag($event)"
       dt-ui-test-id="tag-add"
     ></dt-tag-add>
   `,
 })
-class DtTagComponent implements OnInit {
-  tags = new Set<string>();
+class DtTagComponent {
+  tags = new Set<string>(['Window', 'Managed', 'Errors']);
 
-  ngOnInit(): void {
-    this.tags.add('Window').add('Managed').add('Errors');
-  }
-
-  addTag(tag: string): void {
-    this.tags.add(tag);
+  addTag(event: DtTagAddSubmittedDefaultEvent): void {
+    this.tags.add(event.tag);
   }
 }
 
@@ -395,21 +391,19 @@ class DtTagComponent implements OnInit {
     <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
     <dt-tag-add
       placeholder="insert tag here"
-      (tagAdded)="addTag($event)"
+      (submitted)="addTag($event)"
       dt-ui-test-id="tag-add"
     >
-      <dt-tag-add-form>
-        <form [formGroup]="form" class="key-value-form">
-          <input
-            #key
-            type="text"
-            dtInput
-            aria-label="Tag key"
-            required
-            formControlName="key"
-          />
-        </form>
-      </dt-tag-add-form>
+      <form [formGroup]="form" class="key-value-form">
+        <input
+          #key
+          type="text"
+          dtInput
+          aria-label="Tag key"
+          required
+          formControlName="key"
+        />
+      </form>
     </dt-tag-add>
   `,
 })
@@ -429,8 +423,8 @@ class DtTagCustomFormComponent implements OnInit {
     this.tags.add('Window').add('Managed').add('Errors');
   }
 
-  addTag(tag: string): void {
-    this.tags.add(tag);
+  addTag(event: DtTagAddSubmittedCustomFormEvent): void {
+    this.tags.add(event.key);
     this.form.reset();
   }
 }
@@ -443,7 +437,7 @@ class DtTagCustomFormComponent implements OnInit {
     <dt-tag-add
       placeholder="insert tag here"
       title="custom"
-      (tagAdded)="addTag($event)"
+      (submitted)="addTag($event)"
       dt-ui-test-id="tag-add"
     ></dt-tag-add>
   `,
@@ -455,7 +449,7 @@ class DtTagComponentCustomTitle implements OnInit {
     this.tags.add('Window').add('Managed').add('Errors');
   }
 
-  addTag(tag: string): void {
-    this.tags.add(tag);
+  addTag(event: DtTagAddSubmittedDefaultEvent): void {
+    this.tags.add(event.tag);
   }
 }

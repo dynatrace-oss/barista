@@ -73,24 +73,23 @@ elements.
 
 ### Outputs
 
-| Name       | Type                  | Description                      |
-| ---------- | --------------------- | -------------------------------- |
-| `tagAdded` | `EventEmitter<event>` | Emits event when a tag is added. |
+| Name        | Type                  | Description                                                                                                                    |
+| ----------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `submitted` | `EventEmitter<event>` | Emits event when the form is submitted. With the default form the event contains a `tag` key that holds the value of the input |
 
 ### Methods
 
-| Name       | Type   | Description                                         |
-| ---------- | ------ | --------------------------------------------------- |
-| `open()`   | `void` | Opens the input overlay.                            |
-| `close()`  | `void` | Closes the input overlay.                           |
-| `submit()` | `void` | Triggers `tagAdded` **if** the input/form is valid. |
+| Name       | Type   | Description                                    |
+| ---------- | ------ | ---------------------------------------------- |
+| `open()`   | `void` | Opens the input overlay.                       |
+| `close()`  | `void` | Closes the input overlay.                      |
+| `submit()` | `void` | Triggers `submitted` **if** the form is valid. |
 
 ## Custom tag add form
 
-A `dt-tag-add-form` can be used inside `dt-tag-add` to use a custom form inside
-the Add tag overlay. If the `dt-tag-add-form` contains a `FormGroupDirective`
-(from `@angular/forms`) its validity will be used to enable/disable submitting
-the form.
+A custom form can be passed to the `dt-tag-add` component. You need to include a
+`FormGroupDirective` (from `@angular/forms`) inside the ng-content and the
+form's value will be used when the form is submitted in the output.
 
 <ba-live-example name="DtExampleCustomAddFormTag"></ba-live-example>
 

@@ -31,13 +31,14 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtTagModule } from '../tag-module';
-import { createComponent, MockNgZone } from '@dynatrace/testing/browser';
-import { DtTag } from '../tag';
 import {
   DtTagList,
   getIndexForFirstHiddenTag,
   getWrapperWidth,
 } from './tag-list';
+import { DtTagAddSubmittedDefaultEvent } from '../tag-add/tag-add';
+import { createComponent, MockNgZone } from '@dynatrace/testing/browser';
+import { DtTag } from '../tag';
 
 describe('DtTagList', () => {
   let fixture: ComponentFixture<DtTagListComponent>;
@@ -94,7 +95,7 @@ describe('DtTagList', () => {
     });
 
     it('should show 1 more button when a tag does not fit into viewport', () => {
-      fixture.componentInstance.addTag('Test');
+      fixture.componentInstance.tags.add('Test');
       fixture.detectChanges();
       mockBoundingClientRectOnTagList();
       zone.simulateZoneExit();
@@ -118,9 +119,9 @@ describe('DtTagList', () => {
           '.dt-tag, .dt-tag-add',
         );
       expect(tagElements.item(3)!.innerHTML).toContain('Add Tag');
-      fixture.componentInstance.addTag('Health');
-      fixture.componentInstance.addTag('Juice');
-      fixture.componentInstance.addTag('Tick');
+      fixture.componentInstance.tags.add('Health');
+      fixture.componentInstance.tags.add('Juice');
+      fixture.componentInstance.tags.add('Tick');
       fixture.detectChanges();
       tagElements = fixture.debugElement.nativeElement.querySelectorAll(
         '.dt-tag, .dt-tag-add',
@@ -197,7 +198,7 @@ describe('DtTagList', () => {
   template: `
     <dt-tag-list>
       <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
-      <dt-tag-add (tagAdded)="addTag($event)"></dt-tag-add>
+      <dt-tag-add (submitted)="addTag($event)"></dt-tag-add>
     </dt-tag-list>
   `,
 })
@@ -211,7 +212,7 @@ class DtTagListComponent implements OnInit {
     this.tags.add('Window').add('Managed').add('Errors');
   }
 
-  addTag(tag: string): void {
-    this.tags.add(tag);
+  addTag(event: DtTagAddSubmittedDefaultEvent): void {
+    this.tags.add(event.tag);
   }
 }

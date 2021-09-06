@@ -14,29 +14,28 @@
  * limitations under the License.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { DtTagAddSubmittedDefaultEvent } from '@dynatrace/barista-components/tag';
 
 @Component({
   selector: 'dt-example-tag-list-with-tag-add',
   templateUrl: './tag-list-with-tag-add-example.html',
 })
-export class DtExampleTagListWithTagAdd implements OnInit {
-  tags = new Set<string>();
+export class DtExampleTagListWithTagAdd {
+  tags = new Set<string>([
+    'window',
+    'deploy',
+    '.NetTest',
+    '193.168.4.3:80',
+    'loadtest',
+    'sdk-showroom',
+    'requests',
+    'cluster',
+    'server',
+    'node',
+  ]);
 
-  ngOnInit(): void {
-    this.tags.add('window');
-    this.tags.add('deploy');
-    this.tags.add('.NetTest');
-    this.tags.add('193.168.4.3:80');
-    this.tags.add('loadtest');
-    this.tags.add('sdk-showroom');
-    this.tags.add('requests');
-    this.tags.add('cluster');
-    this.tags.add('server');
-    this.tags.add('node');
-  }
-
-  addTag(tag: string): void {
-    this.tags.add(tag);
+  addTag(event: DtTagAddSubmittedDefaultEvent): void {
+    this.tags.add(event.tag);
   }
 }
