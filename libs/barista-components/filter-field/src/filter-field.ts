@@ -1326,53 +1326,61 @@ export class DtFilterField<T = any>
   private _handleAutocompleteSelected(
     event: DtAutocompleteSelectedEvent<DtNodeDef>,
   ): void {
-    const submittedOption = event.option.value as
-      | DtAutocompleteValue<T>
-      | DefaultSearchOption<T>;
-    if (isDefaultSearchOption(submittedOption)) {
-      this._peekCurrentFilterValues().push(submittedOption.defaultSearchDef);
-      this._writeInputValue(submittedOption.inputValue);
-      this._handleFreeTextSubmitted();
-      this._switchToRootDef(true);
-    } else if (
-      isDtAutocompleteDef(submittedOption) ||
-      isDtFreeTextDef(submittedOption) ||
-      isDtRangeDef(submittedOption) ||
-      isDtMultiSelectDef(submittedOption)
+    if (
+      isDtFreeTextDef(this._currentDef) &&
+      isDtOptionDef(event.option.value)
     ) {
-      this._peekCurrentFilterValues().push(submittedOption);
-      this._currentDef = submittedOption;
-      this._updateControl();
-      this._updateLoading();
-      this._updateFilterByLabel();
-      this._updateAutocompleteOptionsOrGroups();
-      this._updateDefaultSearchDef();
-      this._emitCurrentFilterChanges([submittedOption], []);
-
-      if (isDtMultiSelectDef(submittedOption)) {
-        this._multiSelect._setInitialSelection([]);
-      }
+      this._inputValue = event.option.value.option.viewValue;
+      this._handleFreeTextSubmitted();
     } else {
-      this._peekCurrentFilterValues().push(submittedOption);
-      this._switchToRootDef(true);
-    }
-    // Reset input value to empty string after handling the value provided by the autocomplete.
-    // Otherwise the value of the autocomplete would be in the input elements and the next options
-    // would be filtered by the input value
-    this._writeInputValue('');
+      const submittedOption = event.option.value as
+        | DtAutocompleteValue<T>
+        | DefaultSearchOption<T>;
+      if (isDefaultSearchOption(submittedOption)) {
+        this._peekCurrentFilterValues().push(submittedOption.defaultSearchDef);
+        this._writeInputValue(submittedOption.inputValue);
+        this._handleFreeTextSubmitted();
+        this._switchToRootDef(true);
+      } else if (
+        isDtAutocompleteDef(submittedOption) ||
+        isDtFreeTextDef(submittedOption) ||
+        isDtRangeDef(submittedOption) ||
+        isDtMultiSelectDef(submittedOption)
+      ) {
+        this._peekCurrentFilterValues().push(submittedOption);
+        this._currentDef = submittedOption;
+        this._updateControl();
+        this._updateLoading();
+        this._updateFilterByLabel();
+        this._updateAutocompleteOptionsOrGroups();
+        this._updateDefaultSearchDef();
+        this._emitCurrentFilterChanges([submittedOption], []);
 
-    // Clear any previous selected option.
-    this._autocomplete._options.forEach((option) => {
-      if (option.selected) {
-        option.deselect();
+        if (isDtMultiSelectDef(submittedOption)) {
+          this._multiSelect._setInitialSelection([]);
+        }
+      } else {
+        this._peekCurrentFilterValues().push(submittedOption);
+        this._switchToRootDef(true);
       }
-    });
+      // Reset input value to empty string after handling the value provided by the autocomplete.
+      // Otherwise the value of the autocomplete would be in the input elements and the next options
+      // would be filtered by the input value
+      this._writeInputValue('');
 
-    // if any changes happen, cancel the edit-mode.
-    this._resetEditMode();
+      // Clear any previous selected option.
+      this._autocomplete._options.forEach((option) => {
+        if (option.selected) {
+          option.deselect();
+        }
+      });
 
-    this._stateChanges.next();
-    this._changeDetectorRef.markForCheck();
+      // if any changes happen, cancel the edit-mode.
+      this._resetEditMode();
+
+      this._stateChanges.next();
+      this._changeDetectorRef.markForCheck();
+    }
   }
 
   /**
