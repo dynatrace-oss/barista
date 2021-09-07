@@ -334,16 +334,15 @@ export class DtFilterField<T = any>
 
       if (this._disabled) {
         this._closeFilterPanels();
+      }
 
-        this._tags.forEach((item) => {
-          this._previousTagDisabledState.set(item, item.disabled);
-          item.disabled = this._disabled;
-        });
-      } else {
-        this._tags.forEach(
-          (item) =>
-            (item.disabled = !!this._previousTagDisabledState.get(item)),
-        );
+      for (const tag of this._tags) {
+        if (this._disabled) {
+          this._previousTagDisabledState.set(tag, tag.disabled);
+          tag.disabled = this._disabled;
+        } else {
+          tag.disabled = !!this._previousTagDisabledState.get(tag);
+        }
       }
 
       this._changeDetectorRef.markForCheck();
@@ -1134,7 +1133,6 @@ export class DtFilterField<T = any>
         this._updateTagData();
         this._isFocused = true;
         this._stateChanges.next();
-        this._emitCurrentFilterChanges([], removed);
         this._changeDetectorRef.markForCheck();
       } else {
         this._removeFilterAndEmit(event.data.filterValues);

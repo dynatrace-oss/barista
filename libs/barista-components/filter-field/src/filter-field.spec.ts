@@ -1743,6 +1743,56 @@ describe('DtFilterField', () => {
       const tags = getFilterTags(fixture);
       expect(tags.length).toBe(1);
     });
+
+    it('should not emit the current filter change event when the edit button is clicked', fakeAsync(() => {
+      const freeTextFilter = [
+        TEST_DATA_EDITMODE.autocomplete[2],
+        'Custom free text',
+      ];
+      filterField.filters = [autocompleteFilter, freeTextFilter];
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+      const { label: freeTextLabel } = getTagButtons(tags[0]);
+      const spy = jest.fn();
+      const subscription = filterField.currentFilterChanges.subscribe(spy);
+
+      // enter editmode
+      freeTextLabel.click();
+      advanceFilterfieldCycle();
+
+      filterField.focus();
+      advanceFilterfieldCycle();
+
+      expect(spy).not.toHaveBeenCalled();
+
+      subscription.unsubscribe();
+    }));
+
+    it('should not emit the current filter change event when the edit button is clicked', fakeAsync(() => {
+      const freeTextFilter = [
+        TEST_DATA_EDITMODE.autocomplete[2],
+        'Custom free text',
+      ];
+      filterField.filters = [autocompleteFilter, freeTextFilter];
+      fixture.detectChanges();
+
+      const tags = getFilterTags(fixture);
+      const { label: freeTextLabel } = getTagButtons(tags[0]);
+      const spy = jest.fn();
+      const subscription = filterField.currentFilterChanges.subscribe(spy);
+
+      // enter editmode
+      freeTextLabel.click();
+      advanceFilterfieldCycle();
+
+      filterField.focus();
+      advanceFilterfieldCycle();
+
+      expect(spy).not.toHaveBeenCalled();
+
+      subscription.unsubscribe();
+    }));
   });
 
   describe('data-source switching', () => {
