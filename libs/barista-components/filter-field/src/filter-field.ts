@@ -1122,8 +1122,9 @@ export class DtFilterField<T = any>
             );
           }
           if (isDtFreeTextDef(this._currentDef)) {
-            this._inputValue = initialRecentlyRemoved.toString();
-            this._emitFilterChanges([], [removed]);
+            this._inputValue = isDtAutocompleteValue(initialRecentlyRemoved)
+              ? initialRecentlyRemoved.option.viewValue
+              : initialRecentlyRemoved.toString();
           }
         }
         if (isDtMultiSelectValue<T>(value)) {
@@ -1133,6 +1134,7 @@ export class DtFilterField<T = any>
         this._updateTagData();
         this._isFocused = true;
         this._stateChanges.next();
+        this._emitCurrentFilterChanges([], removed);
         this._changeDetectorRef.markForCheck();
       } else {
         this._removeFilterAndEmit(event.data.filterValues);
