@@ -137,7 +137,7 @@
     "@types/yaml": "^1.9.7",
     "axe-core": "^4.3.2",
     "axe-testcafe": "^3.0.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "chalk": "^4.1.0",
     "cheerio": "^1.0.0-rc.5",
     "codelyzer": "^6.0.2",
