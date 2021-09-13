@@ -1745,7 +1745,7 @@ describe('DtFilterField', () => {
       expect(tags.length).toBe(1);
     });
 
-    it('should not emit the current filter change event when the edit button is clicked', fakeAsync(() => {
+    it('should not emit the filter change event when the edit button is clicked', fakeAsync(() => {
       const freeTextFilter = [
         TEST_DATA_EDITMODE.autocomplete[2],
         'Custom free text',
@@ -1756,7 +1756,7 @@ describe('DtFilterField', () => {
       const tags = getFilterTags(fixture);
       const { label: freeTextLabel } = getTagButtons(tags[0]);
       const spy = jest.fn();
-      const subscription = filterField.currentFilterChanges.subscribe(spy);
+      const subscription = filterField.filterChanges.subscribe(spy);
 
       // enter editmode
       freeTextLabel.click();
