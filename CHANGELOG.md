@@ -1,3 +1,11 @@
+## [9.11.2](https://github.com/dynatrace-oss/barista/compare/9.11.1...9.11.2) (2021-09-15)
+
+### Bug Fixes
+
+- **filter-field:** Fixes an issue where the filter-changes event instead of the
+  current-filter-change event is emitted when editing a free-text.
+  ([447e8a2](https://github.com/dynatrace-oss/barista/commit/447e8a2ea7c60f1fd5d5bc8acbc543927ef640ae))
+
 ## [9.11.1](https://github.com/dynatrace-oss/barista/compare/9.11.0...9.11.1) (2021-09-08)
 
 ### Bug Fixes
