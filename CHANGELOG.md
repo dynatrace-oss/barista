@@ -1,3 +1,28 @@
+## [9.11.2](https://github.com/dynatrace-oss/barista/compare/9.11.1...9.11.2) (2021-09-15)
+
+### Bug Fixes
+
+- **filter-field:** Fixes an issue where the filter-changes event instead of the
+  current-filter-change event is emitted when editing a free-text.
+  ([447e8a2](https://github.com/dynatrace-oss/barista/commit/447e8a2ea7c60f1fd5d5bc8acbc543927ef640ae))
+
+## [9.11.1](https://github.com/dynatrace-oss/barista/compare/9.11.0...9.11.1) (2021-09-08)
+
+### Bug Fixes
+
+- **filter-field:** Export validator type.
+  ([bd3bf23](https://github.com/dynatrace-oss/barista/commit/bd3bf23aa4627c318e340655d6a9d95df03f2d92))
+- **filter-field:** Fixes an issue where the current-filter-change event was
+  emitted incorrectly when editing a free-text.
+  ([940b3c0](https://github.com/dynatrace-oss/barista/commit/940b3c017f363b635aa745957aa5cbecf38292af))
+- **filter-field:** Fixes an issue where the input showed "[object Object]" when
+  editing a free text selected via a suggestion.
+  ([a1e002e](https://github.com/dynatrace-oss/barista/commit/a1e002ebd3c422a4bd677d2a21bfbd940f8100c6))
+- **icon:** Adds recovered color styles.
+  ([cd179e7](https://github.com/dynatrace-oss/barista/commit/cd179e76c757ef03d1fb8e538846610cc84c6936))
+- **quickfilter:** Fixes z-index issues with the error message.
+  ([9842e44](https://github.com/dynatrace-oss/barista/commit/9842e445e07bd2b731677ab6a374af7220e0ae41))
+
 ## [9.11.0](https://github.com/dynatrace-oss/barista/compare/9.10.0...9.11.0) (2021-08-25)
 
 ### Bug Fixes
