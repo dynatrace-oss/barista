@@ -405,6 +405,63 @@ describe('DtFilterField', () => {
         // Previosly selected option should be kept selected
         expect(options[0].checked).toBe(true);
       });
+
+      it('should apply multiselect values after a selecting a complex filter field', () => {
+        const DATA = {
+          name: 'State',
+          autocomplete: [
+            {
+              name: 'Oberösterreich',
+              multiOptions: [
+                { name: 'Linz' },
+                { name: 'Wels' },
+                { name: 'Steyr' },
+                { name: 'Leonding' },
+                { name: 'Traun' },
+                { name: 'Vöcklabruck' },
+              ],
+            },
+          ],
+        };
+
+        fixture.componentInstance.dataSource.data = DATA;
+        fixture.detectChanges();
+        filterField.focus();
+        advanceFilterfieldCycle();
+
+        getAndClickOption(overlayContainerElement, 0);
+
+        // Fetching data
+        fixture.detectChanges();
+        advanceFilterfieldCycle();
+
+        getAndClickOption(overlayContainerElement, 0);
+
+        // Fetching data
+        fixture.detectChanges();
+        advanceFilterfieldCycle();
+
+        let options = getMultiselectCheckboxInputs(overlayContainerElement);
+        const applyButton = getMultiselectApplyButton(overlayContainerElement);
+
+        // Apply firs
+        Array.of(1, 2, 3).forEach((_, index) => {
+          options[index].click();
+          expect(options[index].checked).toBe(true);
+        });
+
+        fixture.detectChanges();
+        applyButton[0].click();
+        fixture.detectChanges();
+
+        const tags = getFilterTags(fixture);
+
+        expect(tags[0].key).toBe('Oberösterreich');
+        expect(tags[0].separator).toBe(':');
+        expect(tags[0].value.trim()).toBe('Linz, Wels, Steyr');
+
+        expect(options[0].checked).toBe(true);
+      });
     });
 
     it('should add partial update to the multiOptions', fakeAsync(() => {

@@ -338,16 +338,25 @@ export function defaultTagDataForFilterValuesParser(
   let separator: string | null = null;
   let isFreeText = false;
   let isFirstValue = true;
+  let isMultiSelectValue = false;
 
   for (const filterValue of filterValues) {
     // For multiselect, first value is of multiselect type, subsequent are options
-    if (isDtMultiSelectValue(filterValues[0])) {
+    if (filterValues.some((filterV) => isDtMultiSelectValue(filterV))) {
+      const currentValue = (filterValue as DtAutocompleteValue<any>).option
+        ?.viewValue;
       if (isFirstValue && filterValues.length > 1) {
-        key = (filterValue as DtAutocompleteValue<any>).option?.viewValue ?? '';
+        key = currentValue ?? '';
       }
-      multiValues.push(
-        (filterValue as DtAutocompleteValue<any>).option?.viewValue ?? '',
-      );
+
+      const mustPushValue =
+        currentValue && currentValue !== key && isMultiSelectValue;
+
+      multiValues.push(mustPushValue ? currentValue : '');
+
+      if (isDtMultiSelectValue(filterValue)) {
+        isMultiSelectValue = true;
+      }
     } else if (isDtAutocompleteValue(filterValue)) {
       if (isFirstValue && filterValues.length > 1) {
         key = filterValue.option.viewValue;
@@ -369,7 +378,7 @@ export function defaultTagDataForFilterValuesParser(
   }
 
   if (multiValues.length) {
-    value = multiValues.slice(1).join(valueSeparator);
+    value = multiValues.filter(Boolean).join(valueSeparator);
   }
 
   return filterValues.length && value !== null

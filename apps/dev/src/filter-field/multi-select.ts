@@ -86,5 +86,31 @@ export const MULTI_SELECT_DATA = {
       multiOptions: [],
       async: true,
     },
+    {
+      name: 'Season',
+      autocomplete: [
+        {
+          name: 'Winter',
+          multiOptions: [
+            { name: 'January' },
+            { name: 'February' },
+            { name: 'March' },
+            { name: 'April (disabled)' },
+          ],
+        },
+        {
+          name: 'Spring',
+          multiOptions: [{ name: 'April' }, { name: 'May' }, { name: 'June' }],
+        },
+        {
+          name: 'Summer',
+          multiOptions: [
+            { name: 'July' },
+            { name: 'August' },
+            { name: 'September' },
+          ],
+        },
+      ],
+    },
   ],
 };

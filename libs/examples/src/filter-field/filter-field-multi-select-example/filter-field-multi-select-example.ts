@@ -42,6 +42,21 @@ export class DtExampleFilterFieldMultiSelect {
           },
         ],
       },
+      {
+        name: 'Locations',
+        autocomplete: [
+          {
+            name: 'Linz',
+            multiOptions: [
+              { name: 'Pöstlingberg' },
+              { name: 'Froschgarten' },
+              { name: 'Bachlberg' },
+              { name: 'St. Magdalena' },
+            ],
+          },
+          { name: 'Wels' },
+        ],
+      },
     ],
   };
 
