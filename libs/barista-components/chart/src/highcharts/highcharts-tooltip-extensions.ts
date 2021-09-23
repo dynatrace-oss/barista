@@ -55,7 +55,7 @@ export function prepareTooltipData(
   } else {
     const label = pointOrPoints.getLabelConfig();
     data = {
-      x: label.x,
+      x: label.x ?? pointOrPoints.x,
       y: label.y,
       point: label,
     };
