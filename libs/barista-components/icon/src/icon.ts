@@ -106,7 +106,7 @@ export class DtIcon implements OnChanges {
             // We do not break the app when an icon could not be loaded
             // so do only a log here
             (err: Error) => {
-              iconLogger.warn(
+              iconLogger.info(
                 `Error retrieving icon: ${this.name} ${err.message}`,
               );
             },
