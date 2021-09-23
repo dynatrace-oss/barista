@@ -191,6 +191,21 @@ describe('DtChartTooltip', () => {
       );
     }));
   });
+  describe('heatmap content', () => {
+    beforeEach(() => {
+      mockIntersectionObserver.mockAllIsIntersecting(true);
+      chartComponent._highChartsTooltipOpened$.next({
+        data: DUMMY_TOOLTIP_HEATMAP,
+      });
+      fixture.detectChanges();
+    });
+
+    it('should be a key value list with the data', () => {
+      expect(overlayContainerElement.textContent).toContain('9');
+      expect(overlayContainerElement.textContent).toContain('1632300180000');
+      expect(overlayContainerElement.innerHTML).toContain('dt-key-value-list');
+    });
+  });
 });
 
 @Component({
@@ -199,16 +214,37 @@ describe('DtChartTooltip', () => {
     <dt-chart [series]="series" [options]="options">
       <dt-chart-tooltip dt-ui-test-id="tooltip">
         <ng-template let-series>
-          <dt-key-value-list style="min-width: 100px">
-            <dt-key-value-list-item *ngFor="let data of series.points">
-              <dt-key-value-list-key>
-                {{ data.series.name }}
-              </dt-key-value-list-key>
-              <dt-key-value-list-value>
-                {{ data.point.y }}
-              </dt-key-value-list-value>
-            </dt-key-value-list-item>
-          </dt-key-value-list>
+          <div *ngIf="!!series?.point; else chart">
+            <dt-key-value-list *ngIf="series?.point?.point?.options as data">
+              <dt-key-value-list-item>
+                <dt-key-value-list-key>Y Bucket:</dt-key-value-list-key>
+                <dt-key-value-list-value>{{ data.y }}</dt-key-value-list-value>
+              </dt-key-value-list-item>
+              <dt-key-value-list-item>
+                <dt-key-value-list-key>X Bucket:</dt-key-value-list-key>
+                <dt-key-value-list-value>{{ data.x }}</dt-key-value-list-value>
+              </dt-key-value-list-item>
+              <dt-key-value-list-item>
+                <dt-key-value-list-key>Value:</dt-key-value-list-key>
+                <dt-key-value-list-value>{{
+                  data.value
+                }}</dt-key-value-list-value>
+              </dt-key-value-list-item>
+            </dt-key-value-list>
+          </div>
+
+          <ng-template #chart>
+            <dt-key-value-list style="min-width: 100px">
+              <dt-key-value-list-item *ngFor="let data of series.points">
+                <dt-key-value-list-key>
+                  {{ data.series.name }}
+                </dt-key-value-list-key>
+                <dt-key-value-list-value>
+                  {{ data.point.y }}
+                </dt-key-value-list-value>
+              </dt-key-value-list-item>
+            </dt-key-value-list>
+          </ng-template>
         </ng-template>
       </dt-chart-tooltip>
     </dt-chart>
@@ -272,3 +308,21 @@ const DUMMY_TOOLTIP_DATA_LINE_SERIES: DtChartTooltipData = {
     },
   ],
 };
+
+const DUMMY_TOOLTIP_HEATMAP: DtChartTooltipData = {
+  x: undefined,
+  y: 152.5,
+  point: {
+    point: {
+      plotX: 605.5,
+      plotY: 11.5,
+      x: 1632300180000,
+      y: 9,
+      options: {
+        x: 1632300180000,
+        y: 9,
+        value: 1,
+      },
+    },
+  },
+} as unknown as DtChartTooltipData;

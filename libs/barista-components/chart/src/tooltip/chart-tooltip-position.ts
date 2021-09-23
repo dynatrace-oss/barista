@@ -64,7 +64,8 @@ const getHighchartsTooltipPosition = (
   data: DtChartTooltipData,
   plotBackgroundInfo: DtPlotBackgroundInfo,
 ): { x: number; y: number } => {
-  const isPieChart = !isDefined(data.points);
+  const isHeatmap = isHeatmapChart(data);
+  const isPieChart = !isDefined(data.points) && !isHeatmap;
   const hasAreaFirstSeries =
     data.points &&
     data.points[0].point &&
@@ -82,12 +83,24 @@ const getHighchartsTooltipPosition = (
     const point = data.points![0].point;
     const xAxis = data.points![0].series!.xAxis;
     x = xAxis.toPixels(point.x as number, false);
+  } else if (isHeatmap) {
+    x = (data.point!.point as any).plotX;
+    y = (data.point!.point as any).plotY;
   } else {
     x = (data.points![0].point as any).tooltipPos![0] + plotBackgroundInfo.left;
   }
 
   return { x, y };
 };
+
+const isHeatmapChart = (data: DtChartTooltipData) =>
+  isDefined(data.point) &&
+  isDefined(data.point.point) &&
+  isDefined(data.point.point.options) &&
+  isDefined(data.point.point.options.x) &&
+  isDefined(data.point.point.options.y) &&
+  (isDefined((data.point.point.options as any).value) ||
+    (data.point.point.options as any).value === null);
 
 /** Default horizontal offset for the tooltip */
 export const DT_CHART_TOOLTIP_DEFAULT_OFFSET = 10;
