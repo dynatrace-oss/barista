@@ -43,7 +43,8 @@ a.dt-button-primary:visited {
   color: #ffffff;
 }
 
-.dt-button-primary[disabled] {
+.dt-button-primary[disabled],
+a.dt-button-primary[disabled] {
   background: $disabledcolor;
   border-color: $disabledcolor;
   color: #ffffff;
@@ -61,7 +62,8 @@ a.dt-button-primary:visited {
     border-color: #ffffff;
   }
 
-  .dt-button-primary[disabled] {
+  .dt-button-primary[disabled],
+  a.dt-button-primary[disabled] {
     background: rgba(255, 255, 255, 0.2);
     border-color: rgba(255, 255, 255, 0.2);
     color: rgba(255, 255, 255, 0.6);
