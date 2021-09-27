@@ -97,7 +97,7 @@
     "@bazel/ibazel": "^0.15.10",
     "@bazel/rollup": "^3.2.3",
     "@bazel/terser": "^3.2.3",
-    "@bazel/typescript": "^3.2.3",
+    "@bazel/typescript": "^4.2.0",
     "@bazel/worker": "^3.2.3",
     "@commitlint/cli": "^11.0.0",
     "@nguniversal/builders": "^11.0.1",
