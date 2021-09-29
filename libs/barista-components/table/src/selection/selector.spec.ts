@@ -30,9 +30,6 @@ import { DtTableSelection, DT_TABLE_SELECTION_CONFIG } from './selection';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtTableSelection', () => {
-  let component: DtTableSelectionComponentForTesting;
-  let fixture: ComponentFixture<DtTableSelectionComponentForTesting>;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -53,11 +50,42 @@ describe('DtTableSelection', () => {
           useValue: {},
         },
       ],
-      declarations: [DtTableSelectionComponentForTesting],
+      declarations: [
+        DtTableSelectionComponentForTesting,
+        DtTableSelectionComponentEmptyForTesting,
+      ],
+    });
+  });
+
+  describe('with empty table', () => {
+    let fixture: ComponentFixture<DtTableSelectionComponentEmptyForTesting>;
+
+    beforeEach(() => {
+      TestBed.compileComponents();
+      fixture = createComponent(DtTableSelectionComponentEmptyForTesting);
+    });
+
+    it('should disable the global checkbox when table is empty', () => {
+      const headerCheckbox = fixture.debugElement.queryAll(
+        By.css('dt-header-row dt-checkbox'),
+      );
+      expect(headerCheckbox.length).toBe(1);
+      expect(headerCheckbox[0].componentInstance.disabled).toBe(true);
+    });
+
+    it('should not check the global checkbox when the table is empty', () => {
+      const headerCheckbox = fixture.debugElement.queryAll(
+        By.css('dt-header-row dt-checkbox'),
+      );
+      expect(headerCheckbox.length).toBe(1);
+      expect(headerCheckbox[0].componentInstance.checked).toBe(false);
     });
   });
 
   describe('without limit', () => {
+    let component: DtTableSelectionComponentForTesting;
+    let fixture: ComponentFixture<DtTableSelectionComponentForTesting>;
+
     beforeEach(() => {
       TestBed.compileComponents();
       fixture = createComponent(DtTableSelectionComponentForTesting);
@@ -204,6 +232,9 @@ describe('DtTableSelection', () => {
   });
 
   describe('with selectionLimit', () => {
+    let component: DtTableSelectionComponentForTesting;
+    let fixture: ComponentFixture<DtTableSelectionComponentForTesting>;
+
     beforeEach(() => {
       TestBed.overrideProvider(DT_TABLE_SELECTION_CONFIG, {
         useValue: { selectionLimit: 2 },
@@ -282,8 +313,39 @@ interface Row {
 }
 
 @Component({
+  selector: 'dt-test-table-selectable-column-empty',
+  template: `<dt-table
+    [dataSource]="dataSource"
+    dtTableSelection
+    [dtTableSelectionInitial]="dataSource.slice(3)"
+    dtSort
+  >
+    <ng-container dtColumnDef="select">
+      <dt-table-header-selector *dtHeaderCellDef></dt-table-header-selector>
+      <dt-table-row-selector
+        *dtCellDef="let row"
+        [row]="row"
+      ></dt-table-row-selector>
+    </ng-container>
+    <dt-simple-text-column name="host"></dt-simple-text-column>
+    <dt-header-row *dtHeaderRowDef="['select', 'host']"></dt-header-row>
+    <dt-row *dtRowDef="let row; columns: ['select', 'host']"></dt-row>
+  </dt-table>`,
+})
+class DtTableSelectionComponentEmptyForTesting {
+  @ViewChild(DtTableSelection, { static: true })
+  tableSelection: DtTableSelection<Row>;
+
+  dataSource: Row[] = [];
+
+  disabledPredicate: Predicate<Row> = (value) => {
+    return value.host === 'host3';
+  };
+}
+
+@Component({
   selector: 'dt-test-table-selectable-column',
-  template: ` <dt-table
+  template: `<dt-table
     [dataSource]="dataSource"
     dtTableSelection
     [dtTableSelectionInitial]="dataSource.slice(3)"

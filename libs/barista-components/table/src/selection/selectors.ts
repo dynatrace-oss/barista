@@ -108,6 +108,7 @@ export class DtTableRowSelector<T> implements OnDestroy {
             ? 'dt-selectable-header-for-expandable-rows'
             : 'dt-selectable-header'
         "
+        [disabled]="_isTableEmpty"
         (change)="_toggleAllSelection($event)"
         [checked]="_isAllSelected"
         [indeterminate]="_isAnySelected"
@@ -124,6 +125,10 @@ export class DtTableHeaderSelector<T> implements OnDestroy {
 
   /** @internal Whether all rows are currently selected */
   get _isAllSelected(): boolean {
+    // If there are no rows in the snapshot, this needs to be always false
+    if (this._table._dataSnapshot.length === 0) {
+      return false;
+    }
     const allRowsSelected = this._table._dataSnapshot
       .filter((row) => !this._selector.disabled(row))
       .every((row) => this._selector.isSelected(row));
@@ -135,6 +140,10 @@ export class DtTableHeaderSelector<T> implements OnDestroy {
     return this._selector.selected.length > 0 && !this._isAllSelected;
   }
 
+  /** @internal Determines wheter or not the table dataset is empty */
+  get _isTableEmpty(): boolean {
+    return this._table._dataSnapshot.length === 0;
+  }
   /** Subscription for selectionChanges stored for cleanup */
   private readonly _destroy$ = new Subject<void>();
 

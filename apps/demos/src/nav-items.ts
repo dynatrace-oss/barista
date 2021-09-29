@@ -1381,6 +1381,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         route: '/table-loading-example',
       },
       {
+        name: 'table-selection',
+        route: '/table-selection',
+      },
+      {
         name: 'table-observable-example',
         route: '/table-observable-example',
       },
