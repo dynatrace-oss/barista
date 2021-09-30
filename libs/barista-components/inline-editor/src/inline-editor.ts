@@ -183,6 +183,9 @@ export class DtInlineEditor
     return this._mode === MODES.SAVING;
   }
 
+  /** @internal Measured input width to match it for the error overlay width */
+  _inputWidth: number = 0;
+
   /** @internal Wether the input is focused or not */
   _inputFocused = false;
 
@@ -193,6 +196,8 @@ export class DtInlineEditor
   @ViewChildren(DtInput) _input: QueryList<DtInput>;
   /** @internal the edit button */
   @ViewChild('edit') _editButtonReference: ElementRef;
+  /** @internal Root of the error overlay */
+  @ViewChild('origin', { read: ElementRef }) origin: ElementRef;
   /** @internal list of all errors passed as content children */
   @ContentChildren(DtError) _errorChildren: QueryList<DtError>;
 
@@ -287,8 +292,14 @@ export class DtInlineEditor
     this._mode = MODES.EDITING;
     this._onTouched();
     this._focusWhenStable();
-
     this._changeDetectorRef.markForCheck();
+    this._executeOnStable(() => {
+      if (this.origin) {
+        this._inputWidth =
+          this.origin.nativeElement.getBoundingClientRect().width;
+        this._changeDetectorRef.markForCheck();
+      }
+    });
   }
 
   /** Saves and quits the edit mode */

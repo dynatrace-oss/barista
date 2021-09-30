@@ -22,12 +22,7 @@ import { PlatformModule } from '@angular/cdk/platform';
 import { HttpXhrBackend } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ViewChild } from '@angular/core';
-import {
-  TestBed,
-  tick,
-  fakeAsync,
-  ComponentFixture,
-} from '@angular/core/testing';
+import { TestBed, tick, fakeAsync, inject } from '@angular/core/testing';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -51,8 +46,11 @@ import {
   dispatchFakeEvent,
   dispatchKeyboardEvent,
 } from '@dynatrace/testing/browser';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 describe('DtInlineEditor', () => {
+  let overlayContainerElement: HTMLElement;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -81,6 +79,10 @@ describe('DtInlineEditor', () => {
     });
 
     TestBed.compileComponents();
+
+    inject([OverlayContainer], (oc: OverlayContainer) => {
+      overlayContainerElement = oc.getContainerElement();
+    })();
   });
 
   it('should create controls', fakeAsync(() => {
@@ -192,9 +194,7 @@ describe('DtInlineEditor', () => {
     expect(inputElement.getAttribute('aria-invalid')).toBe('false');
 
     // Expected zero error messages to have been rendered.
-    expect(
-      fixture.debugElement.nativeElement.querySelectorAll('dt-error').length,
-    ).toBe(0);
+    expect(overlayContainerElement.querySelectorAll('dt-error').length).toBe(0);
 
     component.errorState = true;
     dispatchFakeEvent(inputElement, 'input');
@@ -203,9 +203,7 @@ describe('DtInlineEditor', () => {
     expect(inputElement.getAttribute('aria-invalid')).toBe('true');
 
     // Expected one error messages to have been rendered.
-    expect(
-      fixture.debugElement.nativeElement.querySelectorAll('dt-error').length,
-    ).toBe(1);
+    expect(overlayContainerElement.querySelectorAll('dt-error').length).toBe(1);
   }));
 
   it('should call save method and apply changes', fakeAsync(() => {
@@ -325,30 +323,30 @@ describe('DtInlineEditor', () => {
     ).nativeElement;
 
     // Expected zero error messages to have been rendered.
-    expect(getErrorHtmlElement(fixture)).toBe(null);
+    expect(getErrorHtmlElement(overlayContainerElement)).toBe(null);
 
     inputElement.value = 'bar';
     dispatchFakeEvent(inputElement, 'input');
     fixture.detectChanges();
 
     // Expected one error messages to have been rendered.
-    expect(getErrorHtmlElement(fixture)!.textContent!.trim()).toBe(
-      "Value must include the string 'barista'",
-    );
+    expect(
+      getErrorHtmlElement(overlayContainerElement)!.textContent!.trim(),
+    ).toBe("Value must include the string 'barista'");
 
     inputElement.value = 'barista';
     dispatchFakeEvent(inputElement, 'input');
     fixture.detectChanges();
 
     // Expected one error messages to have been rendered.
-    expect(getErrorHtmlElement(fixture)).toBe(null);
+    expect(getErrorHtmlElement(overlayContainerElement)).toBe(null);
   }));
 });
 
-function getErrorHtmlElement<T>(
-  fixture: ComponentFixture<T>,
+function getErrorHtmlElement(
+  overlayContainerElement: HTMLElement,
 ): HTMLElement | null {
-  return fixture.debugElement.nativeElement.querySelector('dt-error');
+  return overlayContainerElement.querySelector('dt-error');
 }
 
 @Component({

@@ -14,7 +14,11 @@
 <dt-loading-spinner *ngIf="saving"></dt-loading-spinner>
 
 <div *ngIf="editing || saving">
-  <div class="dt-inline-editor-edit-body">
+  <div
+    class="dt-inline-editor-edit-body"
+    cdkOverlayOrigin
+    #origin="cdkOverlayOrigin"
+  >
     <div class="dt-inline-editor-infix">
       <input
         dtInput
@@ -48,13 +52,22 @@
       </button>
     </div>
   </div>
-  <div class="dt-inline-editor-errors-subscript">
+  <ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="_getDisplayedError()"
+  >
     <div
-      class="dt-inline-editor-errors"
-      *ngIf="_getDisplayedError()"
-      [@transitionErrors]="_errorAnimationState"
+      class="dt-inline-editor-errors-subscript"
+      [style.width.px]="_inputWidth"
     >
-      <ng-content select="dt-error"></ng-content>
+      <div
+        class="dt-inline-editor-errors"
+        *ngIf="_getDisplayedError()"
+        [@transitionErrors]="_errorAnimationState"
+      >
+        <ng-content select="dt-error"></ng-content>
+      </div>
     </div>
-  </div>
+  </ng-template>
 </div>
