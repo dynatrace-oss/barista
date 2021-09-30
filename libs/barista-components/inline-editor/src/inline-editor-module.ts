@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -31,6 +32,7 @@ import { DtInlineEditor } from './inline-editor';
 @NgModule({
   imports: [
     CommonModule,
+    OverlayModule,
     DtLoadingDistractorModule,
     DtButtonModule,
     DtInputModule,
