@@ -1,3 +1,25 @@
+## [9.12.0](https://github.com/dynatrace-oss/barista/compare/9.11.0...9.12.0) (2021-09-30)
+
+### Bug Fixes
+
+- **button:** Fixes anchor button disabled styles not being applied on visited
+  links.
+  ([05e6248](https://github.com/dynatrace-oss/barista/commit/05e6248447b0fa776fc336309484f6abf72e2d86))
+- **inline-editor:** Move the error-state hints to a cdk overlay to escape
+  overflow handling.
+  ([3a499eb](https://github.com/dynatrace-oss/barista/commit/3a499eb4505d0ad51b9382248cbc8831601cd882))
+- **table:** Fixes an issue where the global selection checkbox was wrongfully
+  checked on empty tables.
+  ([ec28e83](https://github.com/dynatrace-oss/barista/commit/ec28e83a1f5aa4f3f07dc942689390af10fdce1b))
+
+### Features
+
+- **filter-field:** Adding multiselect capabilities to complex filter type.
+  ([69351d5](https://github.com/dynatrace-oss/barista/commit/69351d5757ecb3593db040b9622c3abee45a64b3))
+- **icon:** Remove log for missing loading resources.
+  ([5c5e4f3](https://github.com/dynatrace-oss/barista/commit/5c5e4f38d433893f8090e2a93ec986cd4b66f85a)),
+  closes [#2172](https://github.com/dynatrace-oss/barista/issues/2172)
+
 ## [9.11.2](https://github.com/dynatrace-oss/barista/compare/9.11.1...9.11.2) (2021-09-15)
 
 ### Bug Fixes
