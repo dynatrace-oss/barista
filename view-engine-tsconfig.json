@@ -10,15 +10,19 @@
   "compilerOptions": {
     "module": "umd",
     "moduleResolution": "node",
-    "lib": ["dom", "es2015"],
+    "lib": [
+      "dom",
+      "es2015"
+    ],
     "experimentalDecorators": true,
     "types": []
   },
-  "include": ["node_modules/@angular/**/*"],
+  "include": [
+    "node_modules/@angular/**/*"
+  ],
   "exclude": [
     "node_modules/@angular/**/schematics/**",
     "node_modules/@angular/**/testing/**",
-    "node_modules/@angular/bazel/**",
     "node_modules/@angular/common/upgrade*",
     "node_modules/@angular/compiler-cli/**",
     "node_modules/@angular/dev-infra-private/**",

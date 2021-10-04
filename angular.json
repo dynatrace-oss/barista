@@ -53,7 +53,9 @@
               "budgets": []
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-builders/custom-webpack:dev-server",
@@ -72,8 +74,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/dev/tsconfig.app.json"],
-            "exclude": ["**/node_modules/**", "!apps/dev/**/*"]
+            "tsConfig": [
+              "apps/dev/tsconfig.app.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/dev/**/*"
+            ]
           }
         }
       }
@@ -133,7 +140,9 @@
               "vendorChunk": false
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -152,7 +161,9 @@
             "devServerTarget": "components-e2e:serve",
             "src": "apps/components-e2e/src/**/*.{e2e,po}.ts",
             "stopOnFirstFail": false,
-            "browsers": ["chrome"],
+            "browsers": [
+              "chrome"
+            ],
             "screenshots": {
               "path": "./dist/components-e2e/screenshots",
               "takeOnFails": true,
@@ -180,15 +191,21 @@
               "concurrency": 2
             },
             "remote-pr": {
-              "browsers": ["browserstack:edge@18:windows"],
+              "browsers": [
+                "browserstack:edge@18:windows"
+              ],
               "concurrency": 4
             },
             "ci": {
-              "browsers": ["chrome:headless"],
+              "browsers": [
+                "chrome:headless"
+              ],
               "concurrency": 5
             },
             "watch": {
-              "browsers": ["chrome"],
+              "browsers": [
+                "chrome"
+              ],
               "stopOnFirstFail": false,
               "live": true,
               "concurrency": 1
@@ -213,8 +230,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/components-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/components-e2e/**/*"]
+            "tsConfig": [
+              "apps/components-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/components-e2e/**/*"
+            ]
           }
         },
         "test": {
@@ -223,7 +245,9 @@
             "jestConfig": "apps/components-e2e/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/components-e2e"]
+          "outputs": [
+            "coverage/apps/components-e2e"
+          ]
         }
       }
     },
@@ -310,7 +334,9 @@
               "statsJson": true
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -326,7 +352,10 @@
               "apps/demos/tsconfig.app.json",
               "apps/demos/tsconfig.a11y.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/demos/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/demos/**/*"
+            ]
           }
         },
         "a11y-tests": {
@@ -335,7 +364,9 @@
             "devServerTarget": "demos:serve",
             "src": "apps/demos/src/**/*.a11y.ts",
             "stopOnFirstFail": false,
-            "browsers": ["chrome"],
+            "browsers": [
+              "chrome"
+            ],
             "reporters": [
               {
                 "name": "spec"
@@ -350,11 +381,15 @@
           },
           "configurations": {
             "ci": {
-              "browsers": ["chrome:headless"],
+              "browsers": [
+                "chrome:headless"
+              ],
               "concurrency": 5
             },
             "watch": {
-              "browsers": ["chrome"],
+              "browsers": [
+                "chrome"
+              ],
               "live": true,
               "concurrency": 1
             }
@@ -398,8 +433,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/examples/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/examples/**/*"]
+            "tsConfig": [
+              "libs/examples/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/examples/**/*"
+            ]
           }
         }
       }
@@ -528,7 +568,9 @@
               "apps/barista-design-system/src/main.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/barista-components/core/src/style/"]
+              "includePaths": [
+                "libs/barista-components/core/src/style/"
+              ]
             }
           },
           "configurations": {
@@ -575,7 +617,9 @@
               ]
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "build-server": {
           "builder": "@angular-devkit/build-angular:server",
@@ -584,7 +628,9 @@
             "main": "apps/barista-design-system/src/server.ts",
             "tsConfig": "apps/barista-design-system/tsconfig.server.json",
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/barista-components/core/src/style/"]
+              "includePaths": [
+                "libs/barista-components/core/src/style/"
+              ]
             },
             "preserveSymlinks": true,
             "progress": false
@@ -629,7 +675,9 @@
             "jestConfig": "apps/barista-design-system/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/barista-design-system"]
+          "outputs": [
+            "coverage/apps/barista-design-system"
+          ]
         }
       }
     },
@@ -681,7 +729,9 @@
                 "output": "/fonts"
               }
             ],
-            "styles": ["libs/barista-components/style/index.scss"],
+            "styles": [
+              "libs/barista-components/style/index.scss"
+            ],
             "scripts": [],
             "aot": true
           },
@@ -698,7 +748,9 @@
               "buildOptimizer": true
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "build-server": {
           "builder": "@angular-devkit/build-angular:server",
@@ -729,7 +781,10 @@
               "apps/universal/tsconfig.app.json",
               "apps/universal/tsconfig.server.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/universal/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/universal/**/*"
+            ]
           }
         },
         "serve-ssr": {
@@ -751,7 +806,9 @@
           "options": {
             "browserTarget": "universal:build-frontend:production",
             "serverTarget": "universal:build-server:production",
-            "routes": ["/"]
+            "routes": [
+              "/"
+            ]
           },
           "configurations": {
             "production": {}
@@ -762,7 +819,9 @@
           "options": {
             "devServerTarget": "universal:serve-ssr",
             "src": "apps/universal/src/**/*.{e2e,po}.ts",
-            "browsers": ["chrome"],
+            "browsers": [
+              "chrome"
+            ],
             "reporters": [
               {
                 "name": "spec"
@@ -777,10 +836,14 @@
           },
           "configurations": {
             "remote-pr": {
-              "browsers": ["browserstack:chrome"]
+              "browsers": [
+                "browserstack:chrome"
+              ]
             },
             "ci": {
-              "browsers": ["chrome:headless"],
+              "browsers": [
+                "chrome:headless"
+              ],
               "concurrency": 5
             },
             "watch": {
@@ -803,7 +866,10 @@
               "libs/workspace/tsconfig.lib.json",
               "libs/workspace/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/workspace/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/workspace/**/*"
+            ]
           }
         },
         "test": {
@@ -812,7 +878,9 @@
             "jestConfig": "libs/workspace/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/workspace"]
+          "outputs": [
+            "coverage/libs/workspace"
+          ]
         },
         "build": {
           "builder": "@nrwl/node:build",
@@ -842,7 +910,9 @@
               "watch": true
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         }
       }
     },
@@ -867,7 +937,9 @@
               "watch": true
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "execute": {
           "builder": "@nrwl/workspace:run-commands",
@@ -886,7 +958,10 @@
               "libs/tools/barista/tsconfig.json",
               "libs/tools/barista/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!tools/barista/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!tools/barista/**"
+            ]
           }
         },
         "test": {
@@ -895,7 +970,9 @@
             "jestConfig": "libs/tools/barista/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/tools/barista"]
+          "outputs": [
+            "coverage/libs/tools/barista"
+          ]
         }
       }
     },
@@ -927,7 +1004,9 @@
             "progress": false,
             "buildLibsFromSource": true
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "build-stage-release": {
           "builder": "@nrwl/node:build",
@@ -945,13 +1024,20 @@
             ],
             "buildLibsFromSource": true
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/tools/release/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/release/**"]
+            "tsConfig": [
+              "libs/tools/release/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!tools/release/**"
+            ]
           }
         },
         "test": {
@@ -960,7 +1046,9 @@
             "jestConfig": "libs/tools/release/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/tools/release"]
+          "outputs": [
+            "coverage/libs/tools/release"
+          ]
         }
       }
     },
@@ -972,7 +1060,9 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tools/pull-request-labeler/tsconfig.json"],
+            "tsConfig": [
+              "tools/pull-request-labeler/tsconfig.json"
+            ],
             "exclude": [
               "**/node_modules/**",
               "!tools/pull-request-labeler/**/*"
@@ -985,7 +1075,9 @@
             "jestConfig": "tools/pull-request-labeler/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/tools/pull-request-labeler"]
+          "outputs": [
+            "coverage/tools/pull-request-labeler"
+          ]
         }
       }
     },
@@ -1007,13 +1099,20 @@
           "configurations": {
             "production": {}
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/tools/shareable-examples/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/shareable-examples/**"]
+            "tsConfig": [
+              "libs/tools/shareable-examples/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!tools/shareable-examples/**"
+            ]
           }
         },
         "test": {
@@ -1021,7 +1120,9 @@
           "options": {
             "jestConfig": "libs/tools/shareable-examples/jest.config.js"
           },
-          "outputs": ["coverage/libs/tools/shareable-examples"]
+          "outputs": [
+            "coverage/libs/tools/shareable-examples"
+          ]
         }
       }
     },
@@ -1058,7 +1159,9 @@
                 "output": "dist/libs/components/assets"
               }
             ],
-            "additionalTargets": ["schematics:build"]
+            "additionalTargets": [
+              "schematics:build"
+            ]
           },
           "configurations": {
             "production": {}
@@ -1087,7 +1190,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/alert"],
+          "outputs": [
+            "coverage/libs/barista-components/alert"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/alert/jest.config.js",
             "passWithNoTests": true
@@ -1117,7 +1222,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/autocomplete"],
+          "outputs": [
+            "coverage/libs/barista-components/autocomplete"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/autocomplete/jest.config.js",
             "passWithNoTests": true
@@ -1147,7 +1254,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/bar-indicator"],
+          "outputs": [
+            "coverage/libs/barista-components/bar-indicator"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/bar-indicator/jest.config.js",
             "passWithNoTests": true
@@ -1177,7 +1286,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/breadcrumbs"],
+          "outputs": [
+            "coverage/libs/barista-components/breadcrumbs"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/breadcrumbs/jest.config.js",
             "passWithNoTests": true
@@ -1207,7 +1318,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/button"],
+          "outputs": [
+            "coverage/libs/barista-components/button"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/button/jest.config.js",
             "passWithNoTests": true
@@ -1237,7 +1350,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/button-group"],
+          "outputs": [
+            "coverage/libs/barista-components/button-group"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/button-group/jest.config.js",
             "passWithNoTests": true
@@ -1267,7 +1382,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/card"],
+          "outputs": [
+            "coverage/libs/barista-components/card"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/card/jest.config.js",
             "passWithNoTests": true
@@ -1297,7 +1414,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/chart"],
+          "outputs": [
+            "coverage/libs/barista-components/chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/chart/jest.config.js",
             "passWithNoTests": true
@@ -1327,7 +1446,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/checkbox"],
+          "outputs": [
+            "coverage/libs/barista-components/checkbox"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/checkbox/jest.config.js",
             "passWithNoTests": true
@@ -1357,7 +1478,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/experimental/combobox"],
+          "outputs": [
+            "coverage/libs/barista-components/experimental/combobox"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/experimental/combobox/jest.config.js",
             "passWithNoTests": true
@@ -1387,7 +1510,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/confirmation-dialog"],
+          "outputs": [
+            "coverage/libs/barista-components/confirmation-dialog"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/confirmation-dialog/jest.config.js",
             "passWithNoTests": true
@@ -1417,7 +1542,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/consumption"],
+          "outputs": [
+            "coverage/libs/barista-components/consumption"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/consumption/jest.config.js",
             "passWithNoTests": true
@@ -1479,7 +1606,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/context-dialog"],
+          "outputs": [
+            "coverage/libs/barista-components/context-dialog"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/context-dialog/jest.config.js",
             "passWithNoTests": true
@@ -1509,7 +1638,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/copy-to-clipboard"],
+          "outputs": [
+            "coverage/libs/barista-components/copy-to-clipboard"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/copy-to-clipboard/jest.config.js",
             "passWithNoTests": true
@@ -1539,7 +1670,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/core"],
+          "outputs": [
+            "coverage/libs/barista-components/core"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/core/jest.config.js",
             "passWithNoTests": true
@@ -1601,7 +1734,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/drawer"],
+          "outputs": [
+            "coverage/libs/barista-components/drawer"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/drawer/jest.config.js",
             "passWithNoTests": true
@@ -1663,7 +1798,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/empty-state"],
+          "outputs": [
+            "coverage/libs/barista-components/empty-state"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/empty-state/jest.config.js",
             "passWithNoTests": true
@@ -1693,7 +1830,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/event-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/event-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/event-chart/jest.config.js",
             "passWithNoTests": true
@@ -1723,7 +1862,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/expandable-panel"],
+          "outputs": [
+            "coverage/libs/barista-components/expandable-panel"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/expandable-panel/jest.config.js",
             "passWithNoTests": true
@@ -1753,7 +1894,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/expandable-section"],
+          "outputs": [
+            "coverage/libs/barista-components/expandable-section"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/expandable-section/jest.config.js",
             "passWithNoTests": true
@@ -1783,7 +1926,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/expandable-text"],
+          "outputs": [
+            "coverage/libs/barista-components/expandable-text"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/expandable-text/jest.config.js",
             "passWithNoTests": true
@@ -1813,7 +1958,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/filter-field"],
+          "outputs": [
+            "coverage/libs/barista-components/filter-field"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/filter-field/jest.config.js",
             "passWithNoTests": true
@@ -1842,7 +1989,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/form-field"],
+          "outputs": [
+            "coverage/libs/barista-components/form-field"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/form-field/jest.config.js",
             "passWithNoTests": true
@@ -1872,7 +2021,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/formatters"],
+          "outputs": [
+            "coverage/libs/barista-components/formatters"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/formatters/jest.config.js",
             "passWithNoTests": true
@@ -1902,7 +2053,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/highlight"],
+          "outputs": [
+            "coverage/libs/barista-components/highlight"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/highlight/jest.config.js",
             "passWithNoTests": true
@@ -1932,7 +2085,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/icon"],
+          "outputs": [
+            "coverage/libs/barista-components/icon"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/icon/jest.config.js",
             "passWithNoTests": true
@@ -1962,7 +2117,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/indicator"],
+          "outputs": [
+            "coverage/libs/barista-components/indicator"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/indicator/jest.config.js",
             "passWithNoTests": true
@@ -1992,7 +2149,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/info-group"],
+          "outputs": [
+            "coverage/libs/barista-components/info-group"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/info-group/jest.config.js",
             "passWithNoTests": true
@@ -2022,7 +2181,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/inline-editor"],
+          "outputs": [
+            "coverage/libs/barista-components/inline-editor"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/inline-editor/jest.config.js",
             "passWithNoTests": true
@@ -2052,7 +2213,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/input"],
+          "outputs": [
+            "coverage/libs/barista-components/input"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/input/jest.config.js",
             "passWithNoTests": true
@@ -2082,7 +2245,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/key-value-list"],
+          "outputs": [
+            "coverage/libs/barista-components/key-value-list"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/key-value-list/jest.config.js",
             "passWithNoTests": true
@@ -2112,7 +2277,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/legend"],
+          "outputs": [
+            "coverage/libs/barista-components/legend"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/legend/jest.config.js",
             "passWithNoTests": true
@@ -2142,7 +2309,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/loading-distractor"],
+          "outputs": [
+            "coverage/libs/barista-components/loading-distractor"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/loading-distractor/jest.config.js",
             "passWithNoTests": true
@@ -2172,7 +2341,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/menu"],
+          "outputs": [
+            "coverage/libs/barista-components/menu"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/menu/jest.config.js",
             "passWithNoTests": true
@@ -2202,7 +2373,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/micro-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/micro-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/micro-chart/jest.config.js",
             "passWithNoTests": true
@@ -2232,7 +2405,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/overlay"],
+          "outputs": [
+            "coverage/libs/barista-components/overlay"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/overlay/jest.config.js",
             "passWithNoTests": true
@@ -2262,7 +2437,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/pagination"],
+          "outputs": [
+            "coverage/libs/barista-components/pagination"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/pagination/jest.config.js",
             "passWithNoTests": true
@@ -2292,7 +2469,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/progress-bar"],
+          "outputs": [
+            "coverage/libs/barista-components/progress-bar"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/progress-bar/jest.config.js",
             "passWithNoTests": true
@@ -2322,7 +2501,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/progress-circle"],
+          "outputs": [
+            "coverage/libs/barista-components/progress-circle"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/progress-circle/jest.config.js",
             "passWithNoTests": true
@@ -2352,7 +2533,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/quick-filter"],
+          "outputs": [
+            "coverage/libs/barista-components/quick-filter"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/quick-filter/jest.config.js",
             "passWithNoTests": true
@@ -2381,7 +2564,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/radial-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/radial-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/radial-chart/jest.config.js",
             "passWithNoTests": true
@@ -2411,7 +2596,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/radio"],
+          "outputs": [
+            "coverage/libs/barista-components/radio"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/radio/jest.config.js",
             "passWithNoTests": true
@@ -2451,7 +2638,9 @@
             "jestConfig": "libs/barista-components/schematics/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/barista-components/schematics"]
+          "outputs": [
+            "coverage/libs/barista-components/schematics"
+          ]
         }
       }
     },
@@ -2476,7 +2665,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/secondary-nav"],
+          "outputs": [
+            "coverage/libs/barista-components/secondary-nav"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/secondary-nav/jest.config.js",
             "passWithNoTests": true
@@ -2506,7 +2697,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/select"],
+          "outputs": [
+            "coverage/libs/barista-components/select"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/select/jest.config.js",
             "passWithNoTests": true
@@ -2536,7 +2729,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/slider"],
+          "outputs": [
+            "coverage/libs/barista-components/slider"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/slider/jest.config.js",
             "passWithNoTests": true
@@ -2566,7 +2761,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/show-more"],
+          "outputs": [
+            "coverage/libs/barista-components/show-more"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/show-more/jest.config.js",
             "passWithNoTests": true
@@ -2596,7 +2793,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/stacked-series-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/stacked-series-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/stacked-series-chart/jest.config.js",
             "passWithNoTests": true
@@ -2626,7 +2825,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/stepper"],
+          "outputs": [
+            "coverage/libs/barista-components/stepper"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/stepper/jest.config.js",
             "passWithNoTests": true
@@ -2656,7 +2857,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/sunburst-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/sunburst-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/sunburst-chart/jest.config.js",
             "passWithNoTests": true
@@ -2690,7 +2893,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/switch"],
+          "outputs": [
+            "coverage/libs/barista-components/switch"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/switch/jest.config.js",
             "passWithNoTests": true
@@ -2720,7 +2925,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/table"],
+          "outputs": [
+            "coverage/libs/barista-components/table"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/table/jest.config.js",
             "passWithNoTests": true
@@ -2750,7 +2957,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/tabs"],
+          "outputs": [
+            "coverage/libs/barista-components/tabs"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/tabs/jest.config.js",
             "passWithNoTests": true
@@ -2780,7 +2989,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/tag"],
+          "outputs": [
+            "coverage/libs/barista-components/tag"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/tag/jest.config.js",
             "passWithNoTests": true
@@ -2810,7 +3021,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/theming"],
+          "outputs": [
+            "coverage/libs/barista-components/theming"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/theming/jest.config.js",
             "passWithNoTests": true
@@ -2840,7 +3053,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/tile"],
+          "outputs": [
+            "coverage/libs/barista-components/tile"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/tile/jest.config.js",
             "passWithNoTests": true
@@ -2870,7 +3085,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/timeline-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/timeline-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/timeline-chart/jest.config.js",
             "passWithNoTests": true
@@ -2900,7 +3117,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/toast"],
+          "outputs": [
+            "coverage/libs/barista-components/toast"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/toast/jest.config.js",
             "passWithNoTests": true
@@ -2930,7 +3149,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/toggle-button-group"],
+          "outputs": [
+            "coverage/libs/barista-components/toggle-button-group"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/toggle-button-group/jest.config.js",
             "passWithNoTests": true
@@ -2960,7 +3181,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/top-bar-navigation"],
+          "outputs": [
+            "coverage/libs/barista-components/top-bar-navigation"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/top-bar-navigation/jest.config.js",
             "passWithNoTests": true
@@ -2990,7 +3213,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/tree-table"],
+          "outputs": [
+            "coverage/libs/barista-components/tree-table"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/tree-table/jest.config.js",
             "passWithNoTests": true
@@ -3012,7 +3237,10 @@
               "libs/testing/node/tsconfig.lib.json",
               "libs/testing/node/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/testing/node/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/testing/node/**/*"
+            ]
           }
         },
         "test": {
@@ -3021,7 +3249,9 @@
             "jestConfig": "libs/testing/node/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/testing/node"]
+          "outputs": [
+            "coverage/libs/testing/node"
+          ]
         }
       }
     },
@@ -3038,7 +3268,10 @@
               "libs/testing/browser/tsconfig.lib.json",
               "libs/testing/browser/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/testing/browser/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/testing/browser/**/*"
+            ]
           }
         },
         "test": {
@@ -3047,7 +3280,9 @@
             "jestConfig": "libs/testing/browser/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/testing/browser"]
+          "outputs": [
+            "coverage/libs/testing/browser"
+          ]
         }
       }
     },
@@ -3064,7 +3299,10 @@
               "libs/testing/fixtures/tsconfig.lib.json",
               "libs/testing/fixtures/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/testing/fixtures/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/testing/fixtures/**/*"
+            ]
           }
         },
         "test": {
@@ -3073,7 +3311,9 @@
             "jestConfig": "libs/testing/fixtures/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/testing/fixtures"]
+          "outputs": [
+            "coverage/libs/testing/fixtures"
+          ]
         }
       }
     },
@@ -3085,8 +3325,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/shared/node/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/shared/**"]
+            "tsConfig": [
+              "libs/shared/node/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!tools/shared/**"
+            ]
           }
         },
         "test": {
@@ -3095,7 +3340,9 @@
             "jestConfig": "libs/shared/node/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/shared/node"]
+          "outputs": [
+            "coverage/libs/shared/node"
+          ]
         }
       }
     },
@@ -3124,7 +3371,9 @@
             "jestConfig": "libs/shared/data-access-strapi/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/shared/data-access-strapi"]
+          "outputs": [
+            "coverage/libs/shared/data-access-strapi"
+          ]
         }
       },
       "schematics": {}
@@ -3154,7 +3403,9 @@
             "jestConfig": "libs/shared/design-system/ui/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/shared/design-system/ui"]
+          "outputs": [
+            "coverage/libs/shared/design-system/ui"
+          ]
         }
       },
       "schematics": {
@@ -3188,7 +3439,9 @@
             "jestConfig": "libs/shared/design-system/interfaces/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/shared/design-system/interfaces"]
+          "outputs": [
+            "coverage/libs/shared/design-system/interfaces"
+          ]
         }
       },
       "schematics": {
@@ -3206,23 +3459,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/shared/keycodes/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/shared/keycodes/**/*"]
-          }
-        }
-      }
-    },
-    "tools-jest-bazel-rule": {
-      "root": "tools/bazel_rules/jest",
-      "sourceRoot": "tools/bazel_rules/jest",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/shared/keycodes/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "libs/shared/keycodes/tsconfig.lib.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/keycodes/**/*"
+            ]
           }
         }
       }

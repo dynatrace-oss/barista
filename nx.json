@@ -12,49 +12,84 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "test", "lint", "e2e", "lint-styles"]
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e",
+          "lint-styles"
+        ]
       }
     }
   },
   "projects": {
     "barista-design-system": {
-      "tags": ["type:app"],
+      "tags": [
+        "type:app"
+      ],
       "//": "The order of the properties does matter! they are executed at build time from last to first.",
-      "implicitDependencies": ["barista-tools"]
+      "implicitDependencies": [
+        "barista-tools"
+      ]
     },
     "demos": {
-      "tags": ["type:app"]
+      "tags": [
+        "type:app"
+      ]
     },
     "components-e2e": {
-      "tags": ["type:e2e"],
-      "implicitDependencies": ["components"]
+      "tags": [
+        "type:e2e"
+      ],
+      "implicitDependencies": [
+        "components"
+      ]
     },
     "universal": {
-      "tags": ["type:app"]
+      "tags": [
+        "type:app"
+      ]
     },
     "dev": {
-      "tags": ["type:app"]
+      "tags": [
+        "type:app"
+      ]
     },
     "workspace": {
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "barista-tools": {
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "tools-release": {
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "tools-pull-request-labeler": {
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "tools-shareable-examples": {
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "examples": {
-      "tags": ["scope:examples", "type:library"]
+      "tags": [
+        "scope:examples",
+        "type:library"
+      ]
     },
     "components": {
-      "tags": ["scope:components"],
+      "tags": [
+        "scope:components"
+      ],
       "implicitDependencies": [
         "alert",
         "autocomplete",
@@ -121,223 +156,439 @@
       ]
     },
     "alert": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "autocomplete": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "bar-indicator": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "breadcrumbs": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "button": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "button-group": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "card": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "chart": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "checkbox": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "combobox": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "confirmation-dialog": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "consumption": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "container-breakpoint-observer": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "context-dialog": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "copy-to-clipboard": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "core": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "datepicker": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "drawer": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "drawer-table": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "empty-state": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "event-chart": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "expandable-panel": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "expandable-section": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "expandable-text": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "filter-field": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "form-field": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "formatters": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "highlight": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "icon": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "indicator": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "info-group": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "inline-editor": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "input": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "key-value-list": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "legend": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "loading-distractor": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "menu": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "micro-chart": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "overlay": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "pagination": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "progress-bar": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "progress-circle": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "quick-filter": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "radial-chart": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "radio": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "schematics": {
-      "tags": ["scope:schematics", "type:library"]
+      "tags": [
+        "scope:schematics",
+        "type:library"
+      ]
     },
     "secondary-nav": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "select": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "slider": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "show-more": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "stacked-series-chart": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "stepper": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "sunburst-chart": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "switch": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "table": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tabs": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tag": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "theming": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tile": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "timeline-chart": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "toast": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "toggle-button-group": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "top-bar-navigation": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tree-table": {
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "testing-node": {
-      "tags": ["scope:testing", "scope:node", "type:library"]
+      "tags": [
+        "scope:testing",
+        "scope:node",
+        "type:library"
+      ]
     },
     "testing-browser": {
-      "tags": ["scope:testing", "scope:browser", "type:library"]
+      "tags": [
+        "scope:testing",
+        "scope:browser",
+        "type:library"
+      ]
     },
     "testing-fixtures": {
-      "tags": ["scope:testing", "type:library"]
+      "tags": [
+        "scope:testing",
+        "type:library"
+      ]
     },
     "shared-node": {
-      "tags": ["type:tooling", "type:shared"]
+      "tags": [
+        "type:tooling",
+        "type:shared"
+      ]
     },
     "shared-data-access-strapi": {
-      "tags": ["scope:cms", "type:shared", "type:library"]
+      "tags": [
+        "scope:cms",
+        "type:shared",
+        "type:library"
+      ]
     },
     "shared-design-system-ui": {
-      "tags": ["type:library", "type:shared"]
+      "tags": [
+        "type:library",
+        "type:shared"
+      ]
     },
     "shared-design-system-interfaces": {
-      "tags": ["type:library", "type:shared"]
+      "tags": [
+        "type:library",
+        "type:shared"
+      ]
     },
     "shared-keycodes": {
-      "tags": ["type:library", "type:shared"]
-    },
-    "tools-jest-bazel-rule": {
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:library",
+        "type:shared"
+      ]
     }
   },
   "affected": {

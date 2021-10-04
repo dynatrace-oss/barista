@@ -25,12 +25,7 @@
 !/dist/apps/barista-design-system/browser
 !/dist/apps/next/
 
-!/tools/bazel_build_cache
 
 !/WORKSPACE
-!/BUILD.bazel
 !/libs
 !/tools
-!.bazelrc
-!.bazelversion
-!.bazelignore

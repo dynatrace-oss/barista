@@ -7,8 +7,7 @@ needed for getting started.
 ## TLDR;
 
 1. install [Node.js](https://nodejs.org/en/)
-2. install [Bazel](https://docs.bazel.build/versions/3.5.0/install.html)
-3. start coding 🚀
+1. start coding 🚀
 
 ## Create a local development setup
 
@@ -20,52 +19,6 @@ your machine. For macOS users, we recommend doing that with
 should go with the LTS version of Node.js.
 
 **npm** (Node Package Manager) is shipped with Node.js.
-
-### Install Bazel
-
-[Bazel](https://www.bazel.build/) is a build tool for incremental and hermetic
-builds. We use it to build our Monorepository. Currently, we are in a transition
-from the AngularCli to Bazel so it is currently not fully migrated.
-
-To install Bazel you can perform a global `npm install -g @bazel/bazelisk`. This
-will install a version manager for bazel that downloads always the needed Bazel
-version.
-
-#### Windows
-
-For Windows users, it is very important to follow the
-[instruction](https://docs.bazel.build/versions/3.5.0/install-windows.html#installing-compilers-and-language-runtimes)
-on the official website to install additional compilers and runtimes.
-
-##### You need additionally to perform those steps
-
-- Install
-  [MSYS2](http://repo.msys2.org/distrib/x86_64/msys2-x86_64-20200629.exe)
-- Run the MSYS2 prompt, update its package manager and install these packages:
-
-  ```bash
-  pacman -Syu
-
-  # You might need to restart the terminal at this point
-  pacman -S zip unzip patch diffutils git
-  ```
-
-- Add `C:\msys64\usr\bin` (or your custom installation path) to your `PATH`. Pay
-  attention that this might overlap with other shells you have!
-
-- Install
-  [Visual Studio Build C++ tools](https://visualstudio.microsoft.com/de/thank-you-downloading-visual-studio/?sku=BuildTools)
-
-- Enable Developer Mode (in Settings - Update & Security - For developers)
-
-Furthermore you have to add a `.bazelrc.user` file where the following option
-must be specified, to avoid the
-[Maximum Path Length Limitation](https://docs.bazel.build/versions/3.5.0/windows.html#avoid-long-path-issues)
-on Windows.
-
-```
-startup --output_user_root=C:/tmp
-```
 
 ### Building
 
@@ -120,25 +73,20 @@ npm run dev
 ## Tests and stylelint
 
 Preferrably, let the CI run all of the checks for consistency. If you really
-need to run these locally make sure if it needs to be run with nx / bazel by
+need to run these locally make sure if it needs to be run with nx by
 investigating the library package.
 
 Run unit tests for the parts that are affected by your changes
 
 ```
-# Runs all test files:
-bazel test //...
-
-# Runs specific test files:
-bazel test //<filepath>:test
-
-# <filepath> example: //libs/barista-components/button:test
+# Runs affected test files:
+npm run test
 ```
 
 Unit tests with watcher for local testing
 
 ```
-ibazel test //<filepath>:test
+npm run nx run alert:test -- --watch
 ```
 
 UI Tests
@@ -157,13 +105,6 @@ Lint
 
 ```
 npm run lint
-```
-
-Stylelint
-
-```
-bazel run //path/to/package:stylelint
-i.e. bazel run //libs/barista-components/quick-filter:stylelint
 ```
 
 A11y

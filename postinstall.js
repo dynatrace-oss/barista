@@ -1,6 +1,4 @@
-// This script will be executed on npm postinstall and is a
-// migration script for the phase where we support building with bazel
-// and without.
+// This script will be executed on npm postinstall
 const { exec } = require('child_process');
 
 async function main() {
