@@ -134,7 +134,7 @@ function getSvgWithoutFill(filePath: string): string {
   svg.removeAttr('fill');
   svg.find('[fill]').removeAttr('fill');
 
-  return html(svg) || '';
+  return svg.html() || '';
 }
 
 export const iconsBuilder: BaPageBuilder = async () => {

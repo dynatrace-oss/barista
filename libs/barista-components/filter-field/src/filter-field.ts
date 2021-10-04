@@ -1020,7 +1020,7 @@ export class DtFilterField<T = any>
     tag: DtFilterFieldTag,
     deleteButtonFirst: boolean,
   ): ElementRef<HTMLButtonElement> | undefined {
-    if (!tag.temporarilyDisabled) {
+    if (tag && !tag.temporarilyDisabled) {
       if (deleteButtonFirst) {
         if (tag.deleteButton) {
           return tag.deleteButton;
