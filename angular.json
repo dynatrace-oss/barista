@@ -888,6 +888,14 @@
             ],
             "exclude": ["**/node_modules/**", "!tools/barista/**"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tools/barista/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/tools/barista"]
         }
       }
     },
@@ -1076,6 +1084,14 @@
               "!libs/barista-components/alert/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/alert"],
+          "options": {
+            "jestConfig": "libs/barista-components/alert/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1097,6 +1113,14 @@
               "**/node_modules/**",
               "!libs/barista-components/autocomplete/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/autocomplete"],
+          "options": {
+            "jestConfig": "libs/barista-components/autocomplete/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1120,6 +1144,14 @@
               "!libs/barista-components/bar-indicator/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/bar-indicator"],
+          "options": {
+            "jestConfig": "libs/barista-components/bar-indicator/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1141,6 +1173,14 @@
               "**/node_modules/**",
               "!libs/barista-components/breadcrumbs/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/breadcrumbs"],
+          "options": {
+            "jestConfig": "libs/barista-components/breadcrumbs/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1164,6 +1204,14 @@
               "!libs/barista-components/button/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/button"],
+          "options": {
+            "jestConfig": "libs/barista-components/button/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1185,6 +1233,14 @@
               "**/node_modules/**",
               "!libs/barista-components/button-group/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/button-group"],
+          "options": {
+            "jestConfig": "libs/barista-components/button-group/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1208,6 +1264,14 @@
               "!libs/barista-components/card/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/card"],
+          "options": {
+            "jestConfig": "libs/barista-components/card/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1229,6 +1293,14 @@
               "**/node_modules/**",
               "!libs/barista-components/chart/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/chart"],
+          "options": {
+            "jestConfig": "libs/barista-components/chart/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1252,6 +1324,14 @@
               "!libs/barista-components/checkbox/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/checkbox"],
+          "options": {
+            "jestConfig": "libs/barista-components/checkbox/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1273,6 +1353,14 @@
               "**/node_modules/**",
               "!libs/barista-components/experimental/combobox/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/experimental/combobox"],
+          "options": {
+            "jestConfig": "libs/barista-components/experimental/combobox/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1296,6 +1384,14 @@
               "!libs/barista-components/confirmation-dialog/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/confirmation-dialog"],
+          "options": {
+            "jestConfig": "libs/barista-components/confirmation-dialog/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1317,6 +1413,14 @@
               "**/node_modules/**",
               "!libs/barista-components/consumption/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/consumption"],
+          "options": {
+            "jestConfig": "libs/barista-components/consumption/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1340,6 +1444,16 @@
               "!libs/barista-components/container-breakpoint-observer/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/barista-components/container-breakpoint-observer"
+          ],
+          "options": {
+            "jestConfig": "libs/barista-components/container-breakpoint-observer/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1361,6 +1475,14 @@
               "**/node_modules/**",
               "!libs/barista-components/context-dialog/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/context-dialog"],
+          "options": {
+            "jestConfig": "libs/barista-components/context-dialog/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1384,6 +1506,14 @@
               "!libs/barista-components/copy-to-clipboard/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/copy-to-clipboard"],
+          "options": {
+            "jestConfig": "libs/barista-components/copy-to-clipboard/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1405,6 +1535,14 @@
               "**/node_modules/**",
               "!libs/barista-components/core/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/core"],
+          "options": {
+            "jestConfig": "libs/barista-components/core/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1428,6 +1566,16 @@
               "!libs/barista-components/experimantal/datepicker/**"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/barista-components/experimental/datepicker"
+          ],
+          "options": {
+            "jestConfig": "libs/barista-components/experimental/datepicker/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1449,6 +1597,14 @@
               "**/node_modules/**",
               "!libs/barista-components/drawer/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/drawer"],
+          "options": {
+            "jestConfig": "libs/barista-components/drawer/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1472,6 +1628,16 @@
               "!libs/barista-components/experimental/drawer-table/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/barista-components/experimental/drawer-table"
+          ],
+          "options": {
+            "jestConfig": "libs/barista-components/experimental/drawer-table/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1493,6 +1659,14 @@
               "**/node_modules/**",
               "!libs/barista-components/empty-state/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/empty-state"],
+          "options": {
+            "jestConfig": "libs/barista-components/empty-state/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1516,6 +1690,14 @@
               "!libs/barista-components/event-chart/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/event-chart"],
+          "options": {
+            "jestConfig": "libs/barista-components/event-chart/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1537,6 +1719,14 @@
               "**/node_modules/**",
               "!libs/barista-components/expandable-panel/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/expandable-panel"],
+          "options": {
+            "jestConfig": "libs/barista-components/expandable-panel/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1560,6 +1750,14 @@
               "!libs/barista-components/expandable-section/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/expandable-section"],
+          "options": {
+            "jestConfig": "libs/barista-components/expandable-section/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1581,6 +1779,14 @@
               "**/node_modules/**",
               "!libs/barista-components/expandable-text/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/expandable-text"],
+          "options": {
+            "jestConfig": "libs/barista-components/expandable-text/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1604,6 +1810,14 @@
               "!libs/barista-components/filter-field/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/filter-field"],
+          "options": {
+            "jestConfig": "libs/barista-components/filter-field/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1624,6 +1838,14 @@
               "**/node_modules/**",
               "!libs/barista-components/form-field/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/form-field"],
+          "options": {
+            "jestConfig": "libs/barista-components/form-field/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1647,6 +1869,14 @@
               "!libs/barista-components/formatters/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/formatters"],
+          "options": {
+            "jestConfig": "libs/barista-components/formatters/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1668,6 +1898,14 @@
               "**/node_modules/**",
               "!libs/barista-components/highlight/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/highlight"],
+          "options": {
+            "jestConfig": "libs/barista-components/highlight/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1691,6 +1929,14 @@
               "!libs/barista-components/icon/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/icon"],
+          "options": {
+            "jestConfig": "libs/barista-components/icon/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1712,6 +1958,14 @@
               "**/node_modules/**",
               "!libs/barista-components/indicator/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/indicator"],
+          "options": {
+            "jestConfig": "libs/barista-components/indicator/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1735,6 +1989,14 @@
               "!libs/barista-components/info-group/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/info-group"],
+          "options": {
+            "jestConfig": "libs/barista-components/info-group/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1756,6 +2018,14 @@
               "**/node_modules/**",
               "!libs/barista-components/inline-editor/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/inline-editor"],
+          "options": {
+            "jestConfig": "libs/barista-components/inline-editor/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1779,6 +2049,14 @@
               "!libs/barista-components/input/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/input"],
+          "options": {
+            "jestConfig": "libs/barista-components/input/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1800,6 +2078,14 @@
               "**/node_modules/**",
               "!libs/barista-components/key-value-list/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/key-value-list"],
+          "options": {
+            "jestConfig": "libs/barista-components/key-value-list/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1823,6 +2109,14 @@
               "!libs/barista-components/legend/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/legend"],
+          "options": {
+            "jestConfig": "libs/barista-components/legend/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1844,6 +2138,14 @@
               "**/node_modules/**",
               "!libs/barista-components/loading-distractor/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/loading-distractor"],
+          "options": {
+            "jestConfig": "libs/barista-components/loading-distractor/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1867,6 +2169,14 @@
               "!libs/barista-components/menu/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/menu"],
+          "options": {
+            "jestConfig": "libs/barista-components/menu/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1888,6 +2198,14 @@
               "**/node_modules/**",
               "!libs/barista-components/micro-chart/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/micro-chart"],
+          "options": {
+            "jestConfig": "libs/barista-components/micro-chart/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1911,6 +2229,14 @@
               "!libs/barista-components/overlay/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/overlay"],
+          "options": {
+            "jestConfig": "libs/barista-components/overlay/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1932,6 +2258,14 @@
               "**/node_modules/**",
               "!libs/barista-components/pagination/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/pagination"],
+          "options": {
+            "jestConfig": "libs/barista-components/pagination/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1955,6 +2289,14 @@
               "!libs/barista-components/progress-bar/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/progress-bar"],
+          "options": {
+            "jestConfig": "libs/barista-components/progress-bar/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -1976,6 +2318,14 @@
               "**/node_modules/**",
               "!libs/barista-components/progress-circle/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/progress-circle"],
+          "options": {
+            "jestConfig": "libs/barista-components/progress-circle/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -1999,6 +2349,14 @@
               "!libs/barista-components/quick-filter/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/quick-filter"],
+          "options": {
+            "jestConfig": "libs/barista-components/quick-filter/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       }
     },
@@ -2019,6 +2377,14 @@
               "**/node_modules/**",
               "!libs/barista-components/radial-chart/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/radial-chart"],
+          "options": {
+            "jestConfig": "libs/barista-components/radial-chart/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2041,6 +2407,14 @@
               "**/node_modules/**",
               "!libs/barista-components/radio/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/radio"],
+          "options": {
+            "jestConfig": "libs/barista-components/radio/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2099,6 +2473,14 @@
               "!libs/barista-components/secondary-nav/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/secondary-nav"],
+          "options": {
+            "jestConfig": "libs/barista-components/secondary-nav/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2120,6 +2502,14 @@
               "**/node_modules/**",
               "!libs/barista-components/select/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/select"],
+          "options": {
+            "jestConfig": "libs/barista-components/select/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2143,6 +2533,14 @@
               "!libs/barista-components/slider/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/slider"],
+          "options": {
+            "jestConfig": "libs/barista-components/slider/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2164,6 +2562,14 @@
               "**/node_modules/**",
               "!libs/barista-components/show-more/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/show-more"],
+          "options": {
+            "jestConfig": "libs/barista-components/show-more/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2187,6 +2593,14 @@
               "!libs/barista-components/stacked-series-chart/**"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/stacked-series-chart"],
+          "options": {
+            "jestConfig": "libs/barista-components/stacked-series-chart/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2209,6 +2623,14 @@
               "!libs/barista-components/stepper/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/stepper"],
+          "options": {
+            "jestConfig": "libs/barista-components/stepper/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2230,6 +2652,14 @@
               "**/node_modules/**",
               "!libs/barista-components/sunburst-chart/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/sunburst-chart"],
+          "options": {
+            "jestConfig": "libs/barista-components/sunburst-chart/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2257,6 +2687,14 @@
               "!libs/barista-components/switch/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/switch"],
+          "options": {
+            "jestConfig": "libs/barista-components/switch/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2278,6 +2716,14 @@
               "**/node_modules/**",
               "!libs/barista-components/table/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/table"],
+          "options": {
+            "jestConfig": "libs/barista-components/table/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2301,6 +2747,14 @@
               "!libs/barista-components/tabs/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/tabs"],
+          "options": {
+            "jestConfig": "libs/barista-components/tabs/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2322,6 +2776,14 @@
               "**/node_modules/**",
               "!libs/barista-components/tag/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/tag"],
+          "options": {
+            "jestConfig": "libs/barista-components/tag/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2345,6 +2807,14 @@
               "!libs/barista-components/theming/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/theming"],
+          "options": {
+            "jestConfig": "libs/barista-components/theming/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2366,6 +2836,14 @@
               "**/node_modules/**",
               "!libs/barista-components/tile/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/tile"],
+          "options": {
+            "jestConfig": "libs/barista-components/tile/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2389,6 +2867,14 @@
               "!libs/barista-components/timeline-chart/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/timeline-chart"],
+          "options": {
+            "jestConfig": "libs/barista-components/timeline-chart/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2410,6 +2896,14 @@
               "**/node_modules/**",
               "!libs/barista-components/toast/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/toast"],
+          "options": {
+            "jestConfig": "libs/barista-components/toast/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
@@ -2433,6 +2927,14 @@
               "!libs/barista-components/toggle-button-group/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/toggle-button-group"],
+          "options": {
+            "jestConfig": "libs/barista-components/toggle-button-group/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2455,6 +2957,14 @@
               "!libs/barista-components/top-bar-navigation/**/*"
             ]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/top-bar-navigation"],
+          "options": {
+            "jestConfig": "libs/barista-components/top-bar-navigation/jest.config.js",
+            "passWithNoTests": true
+          }
         }
       },
       "schematics": {}
@@ -2476,6 +2986,14 @@
               "**/node_modules/**",
               "!libs/barista-components/tree-table/**/*"
             ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/tree-table"],
+          "options": {
+            "jestConfig": "libs/barista-components/tree-table/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },

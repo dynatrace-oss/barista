@@ -1,6 +1,6 @@
 load("@io_bazel_rules_sass//:defs.bzl", "sass_binary", "sass_library")
 load("@npm//@bazel/typescript:index.bzl", "ts_config")
-load("//tools/bazel_rules:index.bzl", "jest", "ng_module_view_engine", "stylelint")
+load("//tools/bazel_rules:index.bzl", "ng_module_view_engine", "stylelint")
 
 package(default_visibility = ["//visibility:public"])
 
@@ -23,9 +23,9 @@ ng_module_view_engine(
     tsconfig = "tsconfig_lib",
     deps = [
         "//libs/barista-components/core:compile",
-        "@npm//@angular/core",
         "@npm//@angular/cdk",
         "@npm//@angular/common",
+        "@npm//@angular/core",
         "@npm//@angular/forms",
         "@npm//rxjs",
     ],
@@ -46,15 +46,15 @@ filegroup(
 )
 
 sass_binary(
-  name = "styles",
-  src = "src/stepper.scss",
-  deps = [':styles_mixins'],
+    name = "styles",
+    src = "src/stepper.scss",
+    deps = [":styles_mixins"],
 )
 
 sass_binary(
     name = "styles_step_header",
     src = "src/step-header.scss",
-    deps = [':styles_mixins'],
+    deps = [":styles_mixins"],
 )
 
 sass_library(
@@ -67,37 +67,9 @@ stylelint(
     srcs = glob(["**/*.scss"]),
 )
 
-jest(
-    name = "test",
-    srcs = glob(include = ["**/*.spec.ts"]),
-    jest_config = ":jest.config.json",
-    setup_file = ":src/test-setup.ts",
-    ts_config = ":tsconfig_test",
-    deps = [
-        ":compile",
-        "//libs/testing/browser",
-        "//libs/barista-components/core:compile",
-        "@npm//@angular/platform-browser",
-        "@npm//@angular/core",
-        "@npm//@angular/cdk",
-        "@npm//@angular/common",
-        "@npm//@angular/forms",
-        "@npm//rxjs",
-    ],
-)
-
 ts_config(
     name = "tsconfig_lib",
     src = "tsconfig.lib.json",
-    deps = [
-        "tsconfig.json",
-        "//libs/barista-components:tsconfig",
-    ],
-)
-
-ts_config(
-    name = "tsconfig_test",
-    src = "tsconfig.spec.json",
     deps = [
         "tsconfig.json",
         "//libs/barista-components:tsconfig",
