@@ -17,3 +17,6 @@
 /node_modules/**/*
 /coverage/**/*
 /tmp/**/*‚‚
+
+# Added file by the CI to detect BaseSHA
+index.js
