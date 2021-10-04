@@ -17,6 +17,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, ViewChild, DebugElement } from '@angular/core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   waitForAsync,
   ComponentFixture,
@@ -176,6 +177,7 @@ describe('DtStackedSeriesChart', () => {
           DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
           DtStackedSeriesChartModule,
           DtThemingModule,
+          NoopAnimationsModule,
         ],
         declarations: [TestApp, DefaultsTestApp],
         providers: [{ provide: DT_UI_TEST_CONFIG, useValue: overlayConfig }],

@@ -46,6 +46,27 @@ export class DtDefaultViewportResizer implements DtViewportResizer {
   }
 }
 
+/** Abstract class so the consumer can implement there own ViewportResizer */
+@Injectable({
+  providedIn: 'root',
+  useClass: DtDefaultViewportResizer,
+  deps: [ViewportRuler],
+})
+export abstract class DtViewportResizer {
+  /** Event emitted when the viewport size changes. */
+  abstract change(): Observable<void>;
+
+  /**
+   * Retrieves the current offset of the viewport
+   */
+  abstract getOffset(): { left: number; top: number };
+
+  /**
+   * Event emitted when the viewport size changes with the updated value
+   */
+  abstract get offset$(): Observable<{ left: number; top: number }>;
+}
+
 @Injectable()
 export class DtTriggerableViewportResizer implements DtViewportResizer {
   constructor(
@@ -78,25 +99,4 @@ export class DtTriggerableViewportResizer implements DtViewportResizer {
   trigger(): void {
     this._resizerSubject$.next();
   }
-}
-
-/** Abstract class so the consumer can implement there own ViewportResizer */
-@Injectable({
-  providedIn: 'root',
-  useClass: DtDefaultViewportResizer,
-  deps: [ViewportRuler],
-})
-export abstract class DtViewportResizer {
-  /** Event emitted when the viewport size changes. */
-  abstract change(): Observable<void>;
-
-  /**
-   * Retrieves the current offset of the viewport
-   */
-  abstract getOffset(): { left: number; top: number };
-
-  /**
-   * Event emitted when the viewport size changes with the updated value
-   */
-  abstract get offset$(): Observable<{ left: number; top: number }>;
 }
