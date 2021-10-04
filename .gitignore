@@ -63,10 +63,6 @@ Thumbs.db
 
 .now
 
-# bazel
-bazel-*
-.bazelrc.user
-repocache
 
 /build_event_file.json
 
