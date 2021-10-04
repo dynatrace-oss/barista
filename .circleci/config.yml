@@ -6,6 +6,7 @@ version: 2.1
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.1
   snyk: snyk/snyk@0.0.8
+  nx: nrwl/nx@1.1.1
   # win: circleci/windows@2.2.0
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -17,15 +18,6 @@ orbs:
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 executors:
-  # Base image for publishing
-  docker-publisher:
-    working_directory: ~/barista
-    environment:
-      WORKSPACE_IMAGE: designops/workspace-base
-      BAZEL_IMAGE: designops/workspace-bazel
-    docker:
-      - image: circleci/buildpack-deps:stretch
-
   # Base image for workspace agnostic topics
   buildpack:
     working_directory: ~/barista
@@ -36,19 +28,13 @@ executors:
   barista:
     working_directory: ~/barista
     docker:
-      - image: circleci/node:lts-buster
+      - image: cimg/node:14.17-browsers
 
   # Base image for building workspace topics
   barista-browsers:
     working_directory: ~/barista
     docker:
       - image: circleci/node:lts-browsers
-
-  bazel:
-    working_directory: ~/barista
-    docker:
-      # Also check build-docker-image if you want to bump Bazel bersion
-      - image: designops/workspace-bazel:bazel-3.3.1
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -58,13 +44,6 @@ executors:
 #   This is a yml feature to reduce redundancy.
 #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-bazel_cache:
-  &bazel_cache v1-dt-barista-{{ checksum ".bazelversion" }}-{{ checksum
-  "WORKSPACE" }}-{{ checksum "package-lock.json" }}
-bazel_cache_fallback:
-  &bazel_cache_fallback v1-dt-barista-{{ checksum ".bazelversion" }}
-
 filter_forks: &filter_forks
   filters:
     branches:
@@ -87,11 +66,6 @@ npm_cache: &npm_cache
     - npm-packages-v1-{{ checksum "package-lock.json" }}
     - npm-packages-v1-
 
-# npm_cache_win: &npm_cache_win
-#   keys:
-#     - win-npm-packages-v1-{{ checksum "package-lock.json" }}
-#     - win-npm-packages-v1-
-
 # The last sha of the branch that holds the previous commit sha.
 # could be either master, 4.x or 4.10.x
 sha_branch_cache: &sha_branch_cache
@@ -110,16 +84,6 @@ set_env: &set_env
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 commands:
-  prepare_job:
-    description: >-
-      Prepares the workspace with the correct working directory and sets the
-      affected arguments in the bash environment.
-    steps:
-      - attach_workspace:
-          at: ~/barista
-      - run:
-          name: Setup Environment Variables
-          command: node dist/libs/workspace/src/scripts/affected-args.js
   prepare_job_win:
     description: >-
       Prepares the workspace with the correct working directory and sets the
@@ -145,73 +109,6 @@ commands:
               circleci step halt
             fi
 
-  setup_bazel_ci:
-    description: >-
-      Sets up the CI to use Bazel
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - *bazel_cache
-            - *bazel_cache_fallback
-      - run:
-          name: Setting up Bazel configuration for CI
-          command: echo "import %workspace%/.circleci/bazel.rc" >> ./.bazelrc
-      - run:
-          name: Setup Bazel Build Cache
-          command: cd ./tools/bazel_build_cache && ./setup_ci_build_cache.sh
-
-  run_bazel_stylelint:
-    description: >-
-      Runs stylelint via Bazel
-    steps:
-      - run:
-          when: always
-          name: Bazel styleint
-          command: |
-            shopt -s expand_aliases
-            source ~/.bashrc
-            bazel test $(bazel query "attr(generator_function, stylelint, //...)") --profile=./profile.gz --record_full_profiler_data
-
-  run_bazel_jest:
-    description: >-
-      Runs Jest unit tests via Bazel
-    steps:
-      - run:
-          when: always
-          name: Bazel Jest
-          command: |
-            shopt -s expand_aliases
-            source ~/.bashrc
-            bazel test $(bazel query "attr(generator_function, jest, //...)") --profile=./profile.gz --record_full_profiler_data
-
-  run_bazel_build:
-    description: >-
-      Builds all build targets via Bazel
-    steps:
-      - run:
-          when: always
-          name: Bazel Build
-          command: |
-            shopt -s expand_aliases
-            source ~/.bashrc
-            bazel build //... --profile=./profile.gz --record_full_profiler_data
-
-  get_bazel_testlogs:
-    description: >-
-      Stores the Bazel Testlogs
-    steps:
-      - run:
-          when: always
-          name: Gather Bazel Testlogs
-          command: |
-            shopt -s expand_aliases
-            source ~/.bashrc
-            BAZEL_TESTLOGS="$(bazel info bazel-testlogs)"
-            cp -R $BAZEL_TESTLOGS ./testlogs
-      - store_test_results:
-          path: ./testlogs
-
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
 #   J O B S:
@@ -221,29 +118,6 @@ commands:
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 jobs:
-  # - Builds docker image for workspace
-  build-docker-image:
-    executor: docker-publisher
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - run:
-          name: Login to Docker Registry
-          command: docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PASSWORD
-      - run:
-          name: Build Docker Image
-          # Don't forget to adapt push command and bazel executor if you want to bump the Bazel version
-          command: |
-            docker build -t $WORKSPACE_IMAGE:latest ./ -f ./.deployment/workspace-base.Dockerfile
-            docker build -t $BAZEL_IMAGE:bazel-3.3.1 ./ -f ./.deployment/workspace-bazel.Dockerfile --build-arg bazel_version=3.3.1
-
-      - run:
-          name: Publish Docker Image to Docker Hub
-          command: |
-            docker push $WORKSPACE_IMAGE:latest
-            docker push $BAZEL_IMAGE:bazel-3.3.1
-
   # - install npm dependencies
   install:
     executor: barista
@@ -255,49 +129,15 @@ jobs:
           name: Install npm dependencies 🐍
           command: |
             npm ci --ignore-scripts
-            node ./node_modules/.bin/ngcc
       - run:
           name: Build Workspace package 📦
           command: |
             npm run ng run workspace:build
             npm run ng run barista-tools:build
-      - save_cache:
-          key: npm-packages-v1-{{ checksum "package-lock.json" }}
-          paths:
-            - node_modules
       - persist_to_workspace:
           root: ~/barista
           paths:
             - .
-
-  # - install npm dependencies on a windows machine
-  # install-win:
-  #   executor:
-  #     name: win/default
-  #     size: "medium"
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         <<: *npm_cache_win
-  #     - run:
-  #         name: Install npm dependencies 🦎
-  #         command: |
-  #           npm ci --ignore-scripts *>$null
-  #           .\node_modules\.bin\ngcc
-  #     - run:
-  #         name: Build Workspace package 📦
-  #         command: |
-  #           npm run ng run workspace:build
-  #           npm run ng run examples-tools:build
-  #           npm run ng run barista-tools:build
-  #     - save_cache:
-  #         key: win-npm-packages-v1-{{ checksum "package-lock.json" }}
-  #         paths:
-  #           - node_modules
-  #     - persist_to_workspace:
-  #         root: C:\Users\circleci\project\
-  #         paths:
-  #           - .
 
   # - sonar checks
   sonar:
@@ -325,60 +165,54 @@ jobs:
   check-formatting:
     executor: barista
     steps:
-      - prepare_job
-      - run: yarn nx format:check ${AFFECTED_ARGS} --parallel
+      - attach_workspace:
+          at: ~/barista
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
+      - run: yarn nx format:check --base=$NX_BASE --parallel
 
   # - static codeanalysis of the workspace
   lint-workspace:
     executor: barista
     steps:
-      - prepare_job
+      - attach_workspace:
+          at: ~/barista
       - run: ./node_modules/.bin/nx workspace-lint
 
   # - static codeanalysis of the files
   lint:
     executor: barista
-    parallelism: 2
     steps:
-      - prepare_job
-      - run: yarn run-many --target lint
+      - attach_workspace:
+          at: ~/barista
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
+      - run: yarn nx affected --target=lint --base=$NX_BASE
 
   # - build all the packages
   build:
     executor: barista
     resource_class: xlarge
-    parallelism: 4
     steps:
-      - prepare_job
+      - attach_workspace:
+          at: ~/barista
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
       - run:
-          yarn run-many --target build --configuration production
-          --increasedMemory 8192 --withDeps
+          yarn nx affected --target build  --base=$NX_BASE --configuration
+          production --withDeps
       - persist_to_workspace:
           root: ~/barista
           paths:
             - .
-  # - build all the packages on windows
-  # build-win:
-  #   executor:
-  #     name: win/default
-  #     size: "medium"
-  #   parallelism: 4
-  #   steps:
-  #     - prepare_job_win
-  #     - run:
-  #         name: Run parallel build
-  #         command: |
-  #           node dist\libs\workspace\src\scripts\run-parallel.js --target build --configuration production --increasedMemory 8192 --withDeps
-  #     - persist_to_workspace:
-  #         root: C:\Users\circleci\project\
-  #         paths:
-  #           - .
 
   # - pack and upload the build artifacts of the components library
   store-build-artifacts:
     executor: barista
     steps:
-      - prepare_job
       - run:
           name: Create components package if it exists
           command: |
@@ -395,24 +229,15 @@ jobs:
   unit-test:
     executor: barista
     resource_class: large
-    parallelism: 3
     steps:
-      - prepare_job
-      - run: yarn run-many --target test --args="--runInBand"
+      - attach_workspace:
+          at: ~/barista
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
+      - run: yarn nx affected --target=test --base=$NX_BASE
       - store_test_results:
           path: dist/test-results
-
-  # - run unit tests on windows
-  # unit-test-win:
-  #   executor:
-  #     name: win/default
-  #     size: "medium"
-  #   parallelism: 3
-  #   steps:
-  #     - prepare_job_win
-  #     - run: node dist\libs\workspace\src\scripts\run-parallel.js --target test --args="--runInBand"
-  #     - store_test_results:
-  #         path: dist\test-results
 
   # - run end to end tests
   e2e-test-browserstack:
@@ -423,8 +248,12 @@ jobs:
       BROWSERSTACK_DISPLAY_RESOLUTION: 1920x1080
       BROWSERSTACK_TIMEZONE: UTC+1
     steps:
-      - prepare_job
-      - run: yarn nx affected:e2e ${AFFECTED_ARGS} --configuration=remote-pr
+      - attach_workspace:
+          at: ~/barista
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
+      - run: yarn nx affected:e2e --base=$NX_BASE --configuration=remote-pr
       - store_test_results:
           path: dist/components-e2e
 
@@ -433,8 +262,12 @@ jobs:
     executor: barista-browsers
     resource_class: large
     steps:
-      - prepare_job
-      - run: yarn nx affected:e2e ${AFFECTED_ARGS} --configuration=ci
+      - attach_workspace:
+          at: ~/barista
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
+      - run: yarn nx affected:e2e --base=$NX_BASE --configuration=ci
       - store_test_results:
           path: dist/components-e2e
 
@@ -443,47 +276,16 @@ jobs:
     executor: barista-browsers
     resource_class: large
     steps:
-      - prepare_job
+      - attach_workspace:
+          at: ~/barista
+      - nx/set-shas:
+          error-on-no-successful-workflow: true
+          main-branch-name: master
       - run:
-          yarn nx affected --target=a11y ${AFFECTED_ARGS} --parallel
+          yarn nx affected --target=a11y --base=$NX_BASE --parallel
           --configuration=ci
       - store_test_results:
           path: dist/demos-a11y
-
-  # - static codeanalysis of the style files
-  bazel_stylelint:
-    executor: bazel
-    resource_class: xlarge
-    steps:
-      - setup_bazel_ci
-      - run_bazel_stylelint
-      - get_bazel_testlogs
-      - store_artifacts:
-          path: ./profile.gz
-          destination: bazel-performance-profile
-
-  # - unit testing with jest
-  bazel_unit_test:
-    executor: bazel
-    resource_class: xlarge
-    steps:
-      - setup_bazel_ci
-      - run_bazel_jest
-      - get_bazel_testlogs
-      - store_artifacts:
-          path: ./profile.gz
-          destination: bazel-performance-profile
-
-  # - build all targets with bazel
-  bazel_build:
-    executor: bazel
-    resource_class: xlarge
-    steps:
-      - setup_bazel_ci
-      - run_bazel_build
-      - store_artifacts:
-          path: ./profile.gz
-          destination: bazel-performance-profile
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #
@@ -497,25 +299,8 @@ jobs:
 workflows:
   version: 2.1
 
-  # - Publish the workspace image on every master build
-  # workspace-build:
-  #   jobs:
-  # - build-docker-image:
-  #     filters:
-  #       branches:
-  #         only: master
-  #     # DOCKERHUB_USER is used for publishing
-  #     # DOCKERHUB_PASSWORD is used for publishing
-  #     context: barista
-
   fork-check:
     jobs:
-      - bazel_stylelint:
-          <<: *filter_forks
-      - bazel_unit_test:
-          <<: *filter_forks
-      - bazel_build:
-          <<: *filter_forks
       - install:
           <<: *filter_forks
       - check-formatting:
@@ -543,15 +328,6 @@ workflows:
   # - Runs on every PR check
   pr-check:
     jobs:
-      - bazel_stylelint:
-          <<: *filter_branches
-          context: barista
-      - bazel_unit_test:
-          <<: *filter_branches
-          context: barista
-      - bazel_build:
-          <<: *filter_branches
-          context: barista
       - install:
           <<: *filter_branches
           context: barista
@@ -581,12 +357,6 @@ workflows:
           context: barista
           requires:
             - install
-      # - e2e-test-browserstack:
-      # BROWSERSTACK_ACCESS_KEY is needed for browserstack automation
-      # BROWSERSTACK_USERNAME is needed for browserstack automation
-      # context: barista
-      # requires:
-      # - install
       - e2e-test-local:
           context: barista
           requires:
@@ -606,18 +376,3 @@ workflows:
           context: barista
           requires:
             - build
-
-  # Workflow for running build and test on windows
-  # win-check:
-  #   jobs:
-  #     - install-win:
-  #         <<: *filter_branches
-  #         context: barista
-  #     - build-win:
-  #         context: barista
-  #         requires:
-  #           - install-win
-  #     - unit-test-win:
-  #         context: barista
-  #         requires:
-  #           - install-win
