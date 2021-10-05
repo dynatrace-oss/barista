@@ -1,3 +1,10 @@
+## [9.13.0](https://github.com/dynatrace-oss/barista/compare/9.12.0...9.13.0) (2021-10-05)
+
+### Features
+
+- **chart:** Added support on tooltip services for heatmap.
+  ([aed7dc4](https://github.com/dynatrace-oss/barista/commit/aed7dc44c4c2e021e63001c316201b9de1181df1))
+
 ## [9.12.0](https://github.com/dynatrace-oss/barista/compare/9.11.0...9.12.0) (2021-09-30)
 
 ### Bug Fixes
