@@ -1,6 +1,6 @@
 module.exports = {
   name: 'components-e2e',
-  preset: '../../jest.config.js',
+  preset: '../../jest.preset.js',
   coverageDirectory: '../../coverage/apps/components-e2e',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],

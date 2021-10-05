@@ -1,6 +1,6 @@
 module.exports = {
   name: 'shared-data-access-strapi',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/libs/shared/data-access-strapi',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],

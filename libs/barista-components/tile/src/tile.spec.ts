@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtTileModule } from '@dynatrace/barista-components/tile';
+import { DtTileModule } from './tile-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

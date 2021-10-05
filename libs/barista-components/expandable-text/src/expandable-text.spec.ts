@@ -21,10 +21,8 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import {
-  DtExpandableText,
-  DtExpandableTextModule,
-} from '@dynatrace/barista-components/expandable-text';
+import { DtExpandableTextModule } from './expandable-text-module';
+import { DtExpandableText } from './expandable-text';
 
 import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 

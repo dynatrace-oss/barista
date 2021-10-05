@@ -35,18 +35,15 @@ import { map } from 'rxjs/operators';
 import { DtSortDirection } from '@dynatrace/barista-components/core';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
-  DtCell,
-  DtSort,
-  DtSortEvent,
-  DtSortHeader,
-  DtTableModule,
-  getDtSortHeaderNotContainedWithinSortError,
-} from '@dynatrace/barista-components/table';
-import {
   createComponent,
   dispatchMouseEvent,
   wrappedErrorMessage,
 } from '@dynatrace/testing/browser';
+import { DtTableModule } from '../table-module';
+import { getDtSortHeaderNotContainedWithinSortError } from './sort-errors';
+import { DtCell } from '../cell';
+import { DtSort, DtSortEvent } from './sort';
+import { DtSortHeader } from './sort-header';
 
 describe('DtSort', () => {
   let fixture: ComponentFixture<DtTableSortApp>;

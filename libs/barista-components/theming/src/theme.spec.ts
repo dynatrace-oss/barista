@@ -21,10 +21,8 @@ import { Component, ViewChild } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import {
-  DtTheme,
-  DtThemingModule,
-} from '@dynatrace/barista-components/theming';
+import { DtThemingModule } from './theming-module';
+import { DtTheme } from './theme';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

@@ -29,13 +29,13 @@ import {
   QueryList,
   DebugElement,
 } from '@angular/core';
-import { DtSecondaryNavModule } from '@dynatrace/barista-components/secondary-nav';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { createComponent } from '@dynatrace/testing/browser';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { By } from '@angular/platform-browser';
+import { DtSecondaryNavModule } from './secondary-nav-module';
 import { DtSecondaryNavSection } from './section/secondary-nav-section';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtSecondaryNav', () => {
   beforeEach(

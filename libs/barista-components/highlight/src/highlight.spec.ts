@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
+import { DtHighlightModule } from './highlight-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

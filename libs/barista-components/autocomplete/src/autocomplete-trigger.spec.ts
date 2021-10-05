@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { calculateOptionHeight } from '@dynatrace/barista-components/autocomplete';
+import { calculateOptionHeight } from './autocomplete-trigger';
 
 describe('calculateOptionHeight()', () => {
   function expectCalculatedHeight(

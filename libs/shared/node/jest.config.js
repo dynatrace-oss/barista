@@ -1,6 +1,6 @@
 module.exports = {
   name: 'shared-node',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/tools/shared',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],

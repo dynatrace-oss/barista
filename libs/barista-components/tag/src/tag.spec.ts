@@ -23,7 +23,7 @@ import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtTagModule } from '@dynatrace/barista-components/tag';
+import { DtTagModule } from './tag-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

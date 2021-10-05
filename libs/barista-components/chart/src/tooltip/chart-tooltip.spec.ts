@@ -31,12 +31,6 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
-  DtChart,
-  DtChartModule,
-  DtChartOptions,
-  DtChartTooltipData,
-} from '@dynatrace/barista-components/chart';
-import {
   DtUiTestConfiguration,
   DT_UI_TEST_CONFIG,
 } from '@dynatrace/barista-components/core';
@@ -48,6 +42,10 @@ import {
   MockIntersectionObserver,
 } from '@dynatrace/testing/browser';
 import { Axis, Point, Series, SeriesLineOptions } from 'highcharts';
+import { DtChart } from '../chart';
+import { DtChartModule } from '../chart-module';
+import { DtChartOptions } from '../chart.interface';
+import { DtChartTooltipData } from '../highcharts/highcharts-tooltip-types';
 
 describe('DtChartTooltip', () => {
   let overlayContainer: OverlayContainer;

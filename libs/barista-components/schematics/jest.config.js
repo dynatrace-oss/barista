@@ -1,6 +1,6 @@
 module.exports = {
   name: 'schematics',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/components/schematics',
 
   globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },

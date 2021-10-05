@@ -42,18 +42,16 @@ import {
   DtLoadingDistractor,
   DtLoadingDistractorModule,
 } from '@dynatrace/barista-components/loading-distractor';
-import {
-  DtCell,
-  DtExpandableCell,
-  DtExpandableRow,
-  DtHeaderCell,
-  DtRow,
-  DtTable,
-  DtTableDataSource,
-  DtTableLoadingState,
-  DtTableModule,
-} from '@dynatrace/barista-components/table';
+
 import { createComponent } from '@dynatrace/testing/browser';
+import { DtCell } from './cell';
+import { DtExpandableCell, DtExpandableRow } from './expandable';
+import { DtHeaderCell } from './header';
+import { DtRow } from './row';
+import { DtTableLoadingState } from './states';
+import { DtTable } from './table';
+import { DtTableDataSource } from './table-data-source';
+import { DtTableModule } from './table-module';
 
 describe('DtTable', () => {
   beforeEach(
@@ -205,12 +203,12 @@ describe('DtTable', () => {
     it('Should render a emptystate component when a datasource is set to empty twice', () => {
       const fixture = createComponent(TestApp);
 
-      fixture.componentInstance.dataSource = new DtTableDataSource([]);
+      fixture.componentInstance.dataSource = new DtTableDataSource<any>([]);
       fixture.detectChanges();
 
       expect(fixture.debugElement.query(By.css('dt-empty-state'))).toBeTruthy();
 
-      fixture.componentInstance.dataSource = new DtTableDataSource([]);
+      fixture.componentInstance.dataSource = new DtTableDataSource<any>([]);
       fixture.detectChanges();
 
       expect(fixture.debugElement.query(By.css('dt-empty-state'))).toBeTruthy();

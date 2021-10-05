@@ -23,7 +23,7 @@ import { TestBed, waitForAsync, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtButtonModule } from '@dynatrace/barista-components/button';
-import { DtCopyToClipboardModule } from '@dynatrace/barista-components/copy-to-clipboard';
+import { DtCopyToClipboardModule } from './copy-to-clipboard-module';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 

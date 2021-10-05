@@ -1,6 +1,6 @@
 module.exports = {
   name: 'testing-fixtures',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },

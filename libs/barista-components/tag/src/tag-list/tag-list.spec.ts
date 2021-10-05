@@ -30,10 +30,14 @@ import {
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtTagList, DtTagModule } from '@dynatrace/barista-components/tag';
+import { DtTagModule } from '../tag-module';
 import { createComponent, MockNgZone } from '@dynatrace/testing/browser';
 import { DtTag } from '../tag';
-import { getIndexForFirstHiddenTag, getWrapperWidth } from './tag-list';
+import {
+  DtTagList,
+  getIndexForFirstHiddenTag,
+  getWrapperWidth,
+} from './tag-list';
 
 describe('DtTagList', () => {
   let fixture: ComponentFixture<DtTagListComponent>;

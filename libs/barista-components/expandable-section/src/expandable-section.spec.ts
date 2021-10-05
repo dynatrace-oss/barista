@@ -24,13 +24,11 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {
-  DtExpandableSection,
-  DtExpandableSectionModule,
-} from '@dynatrace/barista-components/expandable-section';
+import { DtExpandableSectionModule } from './expandable-section-module';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { createComponent } from '@dynatrace/testing/browser';
+import { DtExpandableSection } from './expandable-section';
 
 describe('DtExpandableSection', () => {
   beforeEach(() => {

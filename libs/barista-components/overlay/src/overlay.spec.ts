@@ -35,10 +35,8 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {
-  DtOverlay,
-  DtOverlayModule,
-} from '@dynatrace/barista-components/overlay';
+import { DtOverlayModule } from './overlay-module';
+import { DtOverlay } from './overlay';
 
 import {
   createComponent,

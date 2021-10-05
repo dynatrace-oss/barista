@@ -22,7 +22,7 @@ import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtButtonModule } from '@dynatrace/barista-components/button';
+import { DtButtonModule } from './button-module';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { createComponent } from '@dynatrace/testing/browser';

@@ -20,9 +20,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 
-import { _DtTableBase } from '@dynatrace/barista-components/table';
-
-import { _DtTableBaseModule } from './base-table';
+import { _DtTableBaseModule, _DtTableBase } from './base-table';
 import { DtTableModule } from './table-module';
 
 describe('_DtTableInteractiveRows', () => {

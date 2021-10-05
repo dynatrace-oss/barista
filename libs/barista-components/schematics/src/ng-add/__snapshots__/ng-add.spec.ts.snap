@@ -277,36 +277,38 @@ Object {
         "build": Object {
           "builder": "@angular-devkit/build-angular:browser",
           "configurations": Object {
+            "development": Object {
+              "buildOptimizer": false,
+              "extractLicenses": false,
+              "namedChunks": true,
+              "optimization": false,
+              "sourceMap": true,
+              "vendorChunk": true,
+            },
             "production": Object {
               "budgets": Array [
                 Object {
-                  "maximumError": "5mb",
-                  "maximumWarning": "2mb",
+                  "maximumError": "1mb",
+                  "maximumWarning": "500kb",
                   "type": "initial",
                 },
                 Object {
-                  "maximumError": "10kb",
-                  "maximumWarning": "6kb",
+                  "maximumError": "4kb",
+                  "maximumWarning": "2kb",
                   "type": "anyComponentStyle",
                 },
               ],
-              "buildOptimizer": true,
-              "extractLicenses": true,
               "fileReplacements": Array [
                 Object {
                   "replace": "apps/myapp/src/environments/environment.ts",
                   "with": "apps/myapp/src/environments/environment.prod.ts",
                 },
               ],
-              "namedChunks": false,
-              "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
-              "vendorChunk": false,
             },
           },
+          "defaultConfiguration": "production",
           "options": Object {
-            "aot": true,
             "assets": Array [
               "apps/myapp/src/favicon.ico",
               "apps/myapp/src/assets",
@@ -327,6 +329,7 @@ Object {
               },
             ],
             "index": "apps/myapp/src/index.html",
+            "inlineStyleLanguage": "scss",
             "main": "apps/myapp/src/main.ts",
             "outputPath": "dist/myapp",
             "polyfills": "apps/myapp/src/polyfills.ts",
@@ -339,47 +342,23 @@ Object {
             "tsConfig": "apps/myapp/tsconfig.app.json",
           },
         },
-        "e2e": Object {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "configurations": Object {
-            "production": Object {
-              "devServerTarget": "myapp:serve:production",
-            },
-          },
-          "options": Object {
-            "devServerTarget": "myapp:serve",
-            "protractorConfig": "apps/myapp/e2e/protractor.conf.js",
-          },
-        },
         "extract-i18n": Object {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": Object {
             "browserTarget": "myapp:build",
           },
         },
-        "lint": Object {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": Object {
-            "exclude": Array [
-              "**/node_modules/**",
-            ],
-            "tsConfig": Array [
-              "apps/myapp/tsconfig.app.json",
-              "apps/myapp/tsconfig.spec.json",
-              "apps/myapp/e2e/tsconfig.json",
-            ],
-          },
-        },
         "serve": Object {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": Object {
+            "development": Object {
+              "browserTarget": "myapp:build:development",
+            },
             "production": Object {
               "browserTarget": "myapp:build:production",
             },
           },
-          "options": Object {
-            "browserTarget": "myapp:build",
-          },
+          "defaultConfiguration": "development",
         },
         "test": Object {
           "builder": "@angular-devkit/build-angular:karma",
@@ -388,6 +367,7 @@ Object {
               "apps/myapp/src/favicon.ico",
               "apps/myapp/src/assets",
             ],
+            "inlineStyleLanguage": "scss",
             "karmaConfig": "apps/myapp/karma.conf.js",
             "main": "apps/myapp/src/test.ts",
             "polyfills": "apps/myapp/src/polyfills.ts",
@@ -403,6 +383,9 @@ Object {
       "projectType": "application",
       "root": "apps/myapp",
       "schematics": Object {
+        "@schematics/angular:application": Object {
+          "strict": true,
+        },
         "@schematics/angular:class": Object {
           "skipTests": true,
         },
@@ -417,9 +400,6 @@ Object {
           "skipTests": true,
         },
         "@schematics/angular:interceptor": Object {
-          "skipTests": true,
-        },
-        "@schematics/angular:module": Object {
           "skipTests": true,
         },
         "@schematics/angular:pipe": Object {
@@ -467,12 +447,12 @@ Object {
     "@angular/animations": "^8.2.12",
     "@angular/cdk": "^8.2.12",
     "@angular/common": "^8.2.12",
-    "@angular/compiler": "~11.2.8",
+    "@angular/compiler": "~12.2.0",
     "@angular/core": "^8.2.12",
-    "@angular/forms": "~11.2.8",
-    "@angular/platform-browser": "~11.2.8",
-    "@angular/platform-browser-dynamic": "~11.2.8",
-    "@angular/router": "~11.2.8",
+    "@angular/forms": "~12.2.0",
+    "@angular/platform-browser": "~12.2.0",
+    "@angular/platform-browser-dynamic": "~12.2.0",
+    "@angular/router": "~12.2.0",
     "@dynatrace/barista-components": "^5.0.0",
     "@dynatrace/barista-fonts": ">= 1.0.0 < 2",
     "@dynatrace/barista-icons": ">= 3.0.0 < 4",
@@ -481,37 +461,31 @@ Object {
     "d3-shape": "^1.3.5",
     "highcharts": "^6.0.7",
     "rxjs": "~6.6.0",
-    "tslib": "^2.0.0",
-    "zone.js": "~0.11.3",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.11.4",
   },
   "devDependencies": Object {
-    "@angular-devkit/build-angular": "~0.1102.7",
+    "@angular-devkit/build-angular": "~12.2.8",
     "@angular/cli": "~8.0.0",
-    "@angular/compiler-cli": "~11.2.8",
-    "@types/jasmine": "~3.6.0",
+    "@angular/compiler-cli": "~12.2.0",
+    "@types/jasmine": "~3.8.0",
     "@types/node": "^12.11.1",
-    "codelyzer": "^6.0.0",
-    "jasmine-core": "~3.6.0",
-    "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~6.1.0",
+    "jasmine-core": "~3.8.0",
+    "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
-    "ts-node": "~8.3.0",
-    "tslint": "~6.1.0",
-    "typescript": "~4.1.5",
+    "karma-jasmine-html-reporter": "~1.7.0",
+    "typescript": "~4.3.5",
   },
   "name": "workspace",
   "private": true,
   "scripts": Object {
     "build": "ng build",
-    "e2e": "ng e2e",
-    "lint": "ng lint",
     "ng": "ng",
     "start": "ng serve",
     "test": "ng test",
+    "watch": "ng build --watch --configuration development",
   },
   "version": "0.0.0",
 }

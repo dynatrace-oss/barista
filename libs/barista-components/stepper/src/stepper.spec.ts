@@ -34,10 +34,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {
-  DtStepper,
-  DtStepperModule,
-} from '@dynatrace/barista-components/stepper';
+import { DtStepperModule } from './stepper-module';
+import { DtStepper } from './stepper';
 
 import { dispatchKeyboardEvent } from '@dynatrace/testing/browser';
 

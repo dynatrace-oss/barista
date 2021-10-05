@@ -21,7 +21,7 @@ import { Component, Type } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtTopBarNavigationModule } from '@dynatrace/barista-components/top-bar-navigation';
+import { DtTopBarNavigationModule } from './top-bar-navigation-module';
 
 export function createFixture<T>(
   component: Type<T>,

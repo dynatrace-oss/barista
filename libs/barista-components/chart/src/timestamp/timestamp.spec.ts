@@ -32,10 +32,7 @@ import {
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  DtChartModule,
-  DtChartTimestamp,
-} from '@dynatrace/barista-components/chart';
+import { DtChartModule } from '../chart-module';
 import {
   dispatchEvent,
   dispatchKeyboardEvent,
@@ -44,6 +41,7 @@ import {
 } from '@dynatrace/testing/browser';
 import {
   ARIA_DEFAULT_SELECTED_LABEL,
+  DtChartTimestamp,
   TimestampStateChangedEvent,
 } from './timestamp';
 

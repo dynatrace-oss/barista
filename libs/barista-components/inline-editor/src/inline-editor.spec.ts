@@ -36,10 +36,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import {
-  DtInlineEditor,
-  DtInlineEditorModule,
-} from '@dynatrace/barista-components/inline-editor';
+import { DtInlineEditorModule } from './inline-editor-module';
 
 import {
   createComponent,
@@ -47,6 +44,7 @@ import {
   dispatchKeyboardEvent,
 } from '@dynatrace/testing/browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { DtInlineEditor } from './inline-editor';
 
 describe('DtInlineEditor', () => {
   let overlayContainerElement: HTMLElement;
