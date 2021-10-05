@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import 'zone.js/dist/zone-node';
+import 'zone.js/node';
 
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';

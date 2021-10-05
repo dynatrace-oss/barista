@@ -1,1071 +1,6 @@
 {
   "version": 1,
   "projects": {
-    "dev": {
-      "root": "apps/dev",
-      "sourceRoot": "apps/dev/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "aot": true,
-            "outputPath": "dist/apps/dev",
-            "tsConfig": "apps/dev/tsconfig.app.json",
-            "index": "apps/dev/src/index.html",
-            "main": "apps/dev/src/main.ts",
-            "polyfills": "apps/dev/src/polyfills.ts",
-            "progress": false,
-            "assets": [
-              {
-                "glob": "**",
-                "input": "libs/barista-components/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**",
-                "input": "apps/dev/src/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "*.svg",
-                "input": "node_modules/@dynatrace/barista-icons",
-                "output": "/assets/icons"
-              },
-              {
-                "glob": "metadata.json",
-                "input": "node_modules/@dynatrace/barista-icons",
-                "output": "/assets/icons"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/fonts"
-              }
-            ],
-            "styles": [
-              "apps/dev/src/main.scss",
-              "libs/barista-components/style/index.scss"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "budgets": []
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "serve": {
-          "builder": "@angular-builders/custom-webpack:dev-server",
-          "options": {
-            "browserTarget": "dev:build",
-            "host": "0.0.0.0"
-          },
-          "configurations": {}
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "dev:build"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/dev/tsconfig.app.json"],
-            "exclude": ["**/node_modules/**", "!apps/dev/**/*"]
-          }
-        }
-      }
-    },
-    "components-e2e": {
-      "root": "apps/components-e2e",
-      "sourceRoot": "apps/components-e2e/src",
-      "projectType": "application",
-      "prefix": "dt",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/components-e2e",
-            "tsConfig": "apps/components-e2e/tsconfig.app.json",
-            "index": "apps/components-e2e/src/index.html",
-            "main": "apps/components-e2e/src/main.ts",
-            "aot": true,
-            "polyfills": "apps/components-e2e/src/polyfills.ts",
-            "progress": false,
-            "assets": [
-              {
-                "glob": "**",
-                "input": "libs/barista-components/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**",
-                "input": "apps/components-e2e/src/fixtures",
-                "output": "/fixtures"
-              },
-              {
-                "glob": "*.svg",
-                "input": "node_modules/@dynatrace/barista-icons",
-                "output": "/assets/icons"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/fonts"
-              }
-            ],
-            "styles": [
-              "apps/components-e2e/src/main.scss",
-              "libs/barista-components/style/index.scss"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "budgets": [],
-              "buildOptimizer": true,
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "extractLicenses": true,
-              "vendorChunk": false
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "components-e2e:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "components-e2e:build:production"
-            }
-          }
-        },
-        "e2e-all": {
-          "builder": "@politie/angular-testcafe-builder:testcafe",
-          "options": {
-            "devServerTarget": "components-e2e:serve",
-            "src": "apps/components-e2e/src/**/*.{e2e,po}.ts",
-            "stopOnFirstFail": false,
-            "browsers": ["chrome"],
-            "screenshots": {
-              "path": "./dist/components-e2e/screenshots",
-              "takeOnFails": true,
-              "pathPattern": "test-${TEST_INDEX}-${FILE_INDEX}_${QUARANTINE_ATTEMPT}",
-              "fullPage": true
-            },
-            "reporters": [
-              {
-                "name": "spec"
-              },
-              {
-                "name": "xunit",
-                "output": "dist/components-e2e/report.xml"
-              }
-            ],
-            "concurrency": 1,
-            "skipJsErrors": false
-          },
-          "configurations": {
-            "remote": {
-              "browsers": [
-                "browserstack:chrome",
-                "browserstack:edge@18:windows"
-              ],
-              "concurrency": 2
-            },
-            "remote-pr": {
-              "browsers": ["browserstack:edge@18:windows"],
-              "concurrency": 4
-            },
-            "ci": {
-              "browsers": ["chrome:headless"],
-              "concurrency": 5
-            },
-            "watch": {
-              "browsers": ["chrome"],
-              "stopOnFirstFail": false,
-              "live": true,
-              "concurrency": 1
-            }
-          }
-        },
-        "e2e": {
-          "builder": "./dist/libs/workspace:affected-e2e",
-          "options": {
-            "e2eTarget": "components-e2e:e2e-all",
-            "testAppSourceFolder": "./apps/components-e2e/src/"
-          },
-          "configurations": {
-            "remote-pr": {
-              "e2eTarget": "components-e2e:e2e-all:remote-pr"
-            },
-            "ci": {
-              "e2eTarget": "components-e2e:e2e-all:ci"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["apps/components-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/components-e2e/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/components-e2e/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/apps/components-e2e"]
-        }
-      }
-    },
-    "demos": {
-      "root": "apps/demos",
-      "sourceRoot": "apps/demos/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "parallel": false,
-            "commands": [
-              {
-                "command": "npx ng run demos:build-frontend"
-              }
-            ]
-          },
-          "configurations": {
-            "production": {
-              "commands": [
-                {
-                  "command": "npx ng run demos:build-frontend:production"
-                }
-              ]
-            }
-          }
-        },
-        "build-frontend": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/demos",
-            "tsConfig": "apps/demos/tsconfig.app.json",
-            "index": "apps/demos/src/index.html",
-            "main": "apps/demos/src/main.ts",
-            "aot": true,
-            "progress": false,
-            "polyfills": "apps/demos/src/polyfills.ts",
-            "assets": [
-              {
-                "glob": "**",
-                "input": "libs/barista-components/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**",
-                "input": "libs/examples/src/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**",
-                "input": "apps/demos/src/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "*.svg",
-                "input": "node_modules/@dynatrace/barista-icons",
-                "output": "/assets/icons"
-              },
-              {
-                "glob": "metadata.json",
-                "input": "node_modules/@dynatrace/barista-icons",
-                "output": "/assets/icons"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/fonts"
-              }
-            ],
-            "styles": [
-              "apps/demos/src/main.scss",
-              "libs/barista-components/style/index.scss"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "budgets": [],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "vendorChunk": false,
-              "statsJson": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "demos:build-frontend",
-            "host": "localhost"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/demos/tsconfig.app.json",
-              "apps/demos/tsconfig.a11y.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/demos/**/*"]
-          }
-        },
-        "a11y-tests": {
-          "builder": "@politie/angular-testcafe-builder:testcafe",
-          "options": {
-            "devServerTarget": "demos:serve",
-            "src": "apps/demos/src/**/*.a11y.ts",
-            "stopOnFirstFail": false,
-            "browsers": ["chrome"],
-            "reporters": [
-              {
-                "name": "spec"
-              },
-              {
-                "name": "xunit",
-                "output": "dist/demos-a11y/report.xml"
-              }
-            ],
-            "concurrency": 1,
-            "skipJsErrors": false
-          },
-          "configurations": {
-            "ci": {
-              "browsers": ["chrome:headless"],
-              "concurrency": 5
-            },
-            "watch": {
-              "browsers": ["chrome"],
-              "live": true,
-              "concurrency": 1
-            }
-          }
-        },
-        "a11y": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "parallel": false,
-            "commands": [
-              {
-                "command": "npx ng run demos:a11y-tests"
-              }
-            ]
-          },
-          "configurations": {
-            "ci": {
-              "commands": [
-                {
-                  "command": "npx ng run demos:a11y-tests:ci"
-                }
-              ]
-            },
-            "watch": {
-              "commands": [
-                {
-                  "command": "npx ng run demos:a11y-tests:watch"
-                }
-              ]
-            }
-          }
-        }
-      }
-    },
-    "examples": {
-      "projectType": "library",
-      "root": "libs/examples",
-      "sourceRoot": "libs/examples/src",
-      "prefix": "dynatrace",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/examples/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/examples/**/*"]
-          }
-        }
-      }
-    },
-    "barista-design-system": {
-      "root": "apps/barista-design-system",
-      "sourceRoot": "apps/barista-design-system/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "parallel": false,
-            "commands": [
-              {
-                "command": "npx ng run barista-tools:execute"
-              },
-              {
-                "command": "npx ng run barista-design-system:static-pages"
-              }
-            ]
-          },
-          "configurations": {
-            "production": {
-              "commands": [
-                {
-                  "command": "npx ng run barista-tools:execute"
-                },
-                {
-                  "command": "npx ng run barista-design-system:static-pages:production"
-                }
-              ]
-            },
-            "production-internal": {
-              "commands": [
-                {
-                  "command": "npx ng run barista-tools:execute"
-                },
-                {
-                  "command": "npx ng run barista-design-system:static-pages:production-internal"
-                }
-              ]
-            }
-          }
-        },
-        "static-pages": {
-          "builder": "./dist/libs/workspace:build-barista",
-          "options": {
-            "browserTarget": "barista-design-system:build-frontend",
-            "serverTarget": "barista-design-system:build-server",
-            "outputPath": "dist/apps/barista-design-system/browser",
-            "routesFile": "dist/barista-data/routes.txt"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "barista-design-system:build-frontend:production",
-              "serverTarget": "barista-design-system:build-server:production"
-            },
-            "production-internal": {
-              "browserTarget": "barista-design-system:build-frontend:production-internal",
-              "serverTarget": "barista-design-system:build-server:production"
-            }
-          }
-        },
-        "build-frontend": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/apps/barista-design-system/browser",
-            "tsConfig": "apps/barista-design-system/tsconfig.app.json",
-            "index": "apps/barista-design-system/src/index.html",
-            "main": "apps/barista-design-system/src/main.ts",
-            "polyfills": "apps/barista-design-system/src/polyfills.ts",
-            "progress": false,
-            "aot": true,
-            "preserveSymlinks": true,
-            "assets": [
-              {
-                "glob": "**",
-                "input": "apps/barista-design-system/src/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**",
-                "input": "libs/barista-components/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**",
-                "input": "libs/examples/src/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "**",
-                "input": "apps/barista-design-system/src/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "*.svg",
-                "input": "node_modules/@dynatrace/barista-icons",
-                "output": "/assets/icons"
-              },
-              {
-                "glob": "metadata.json",
-                "input": "node_modules/@dynatrace/barista-icons",
-                "output": "/assets/icons"
-              },
-              {
-                "glob": "**/*.json",
-                "input": "dist/barista-data",
-                "output": "/data"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/assets/fonts"
-              },
-              {
-                "glob": "**",
-                "input": "libs/barista-components/assets/fonts/bitstream/",
-                "output": "/assets/fonts/bitstream"
-              }
-            ],
-            "styles": [
-              "node_modules/highlight-ts/styles/github-gist.css",
-              "libs/barista-components/style/main.scss",
-              "apps/barista-design-system/src/main.scss"
-            ],
-            "stylePreprocessorOptions": {
-              "includePaths": ["libs/barista-components/core/src/style/"]
-            }
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/barista-design-system/src/environments/environment.ts",
-                  "with": "apps/barista-design-system/src/environments/environment.public.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "vendorChunk": false,
-              "statsJson": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            },
-            "production-internal": {
-              "fileReplacements": [
-                {
-                  "replace": "apps/barista-design-system/src/environments/environment.ts",
-                  "with": "apps/barista-design-system/src/environments/environment.internal.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "vendorChunk": false,
-              "statsJson": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "build-server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/apps/barista-design-system/server",
-            "main": "apps/barista-design-system/src/server.ts",
-            "tsConfig": "apps/barista-design-system/tsconfig.server.json",
-            "stylePreprocessorOptions": {
-              "includePaths": ["libs/barista-components/core/src/style/"]
-            },
-            "preserveSymlinks": true,
-            "progress": false
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "sourceMap": false,
-              "optimization": true
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "barista-design-system:build-frontend"
-          }
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "options": {
-            "browserTarget": "barista-design-system:build-frontend",
-            "serverTarget": "barista-design-system:build-server"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/barista-design-system/tsconfig.app.json",
-              "apps/barista-design-system/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/barista-design-system/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "apps/barista-design-system/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/apps/barista-design-system"]
-        }
-      }
-    },
-    "universal": {
-      "root": "apps/universal",
-      "sourceRoot": "apps/universal/src",
-      "projectType": "application",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "parallel": true,
-            "commands": [
-              {
-                "command": "npx ng run universal:build-frontend:production"
-              },
-              {
-                "command": "npx ng run universal:build-server"
-              }
-            ]
-          },
-          "configurations": {
-            "production": {}
-          }
-        },
-        "build-frontend": {
-          "builder": "@angular-devkit/build-angular:browser",
-          "options": {
-            "outputPath": "dist/universal/browser",
-            "index": "apps/universal/src/index.html",
-            "main": "apps/universal/src/main.ts",
-            "polyfills": "apps/universal/src/polyfills.ts",
-            "tsConfig": "apps/universal/tsconfig.app.json",
-            "progress": false,
-            "assets": [
-              {
-                "glob": "**",
-                "input": "libs/barista-components/assets",
-                "output": "/assets"
-              },
-              {
-                "glob": "*.svg",
-                "input": "node_modules/@dynatrace/barista-icons",
-                "output": "/assets/icons"
-              },
-              {
-                "glob": "**/*",
-                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
-                "output": "/fonts"
-              }
-            ],
-            "styles": ["libs/barista-components/style/index.scss"],
-            "scripts": [],
-            "aot": true
-          },
-          "configurations": {
-            "production": {
-              "optimization": true,
-              "commonChunk": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "build-server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/universal/server",
-            "main": "apps/universal/src/server.ts",
-            "tsConfig": "apps/universal/tsconfig.server.json",
-            "progress": false
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "sourceMap": false,
-              "optimization": true
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "universal:build-frontend"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "apps/universal/tsconfig.app.json",
-              "apps/universal/tsconfig.server.json"
-            ],
-            "exclude": ["**/node_modules/**", "!apps/universal/**/*"]
-          }
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "options": {
-            "browserTarget": "universal:build-frontend",
-            "serverTarget": "universal:build-server",
-            "progress": false
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "universal:build-frontend:production",
-              "serverTarget": "universal:build-server:production"
-            }
-          }
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "browserTarget": "universal:build-frontend:production",
-            "serverTarget": "universal:build-server:production",
-            "routes": ["/"]
-          },
-          "configurations": {
-            "production": {}
-          }
-        },
-        "e2e": {
-          "builder": "@politie/angular-testcafe-builder:testcafe",
-          "options": {
-            "devServerTarget": "universal:serve-ssr",
-            "src": "apps/universal/src/**/*.{e2e,po}.ts",
-            "browsers": ["chrome"],
-            "reporters": [
-              {
-                "name": "spec"
-              },
-              {
-                "name": "xunit",
-                "output": "dist/universal/report.xml"
-              }
-            ],
-            "concurrency": 1,
-            "skipJsErrors": false
-          },
-          "configurations": {
-            "remote-pr": {
-              "browsers": ["browserstack:chrome"]
-            },
-            "ci": {
-              "browsers": ["chrome:headless"],
-              "concurrency": 5
-            },
-            "watch": {
-              "live": true
-            }
-          }
-        }
-      }
-    },
-    "workspace": {
-      "root": "libs/workspace",
-      "sourceRoot": "libs/workspace",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/workspace/tsconfig.lib.json",
-              "libs/workspace/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/workspace/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/workspace/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/workspace"]
-        },
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/libs/workspace",
-            "main": "libs/workspace/src/index.ts",
-            "tsConfig": "libs/workspace/tsconfig.lib.json",
-            "webpackConfig": "libs/workspace/webpack.config.js",
-            "maxWorkers": 6,
-            "progress": false,
-            "assets": [
-              {
-                "input": "./libs/workspace/src",
-                "glob": "**/*.{json,md}",
-                "output": "./src"
-              },
-              {
-                "input": "./libs/workspace",
-                "glob": "{package,builders,collection}.json",
-                "output": "."
-              }
-            ],
-            "buildLibsFromSource": true
-          },
-          "configurations": {
-            "watch": {
-              "watch": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        }
-      }
-    },
-    "barista-tools": {
-      "root": "libs/tools/barista",
-      "sourceRoot": "libs/tools/barista/src",
-      "projectType": "library",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/libs/tools/barista",
-            "main": "libs/tools/barista/src/main.ts",
-            "tsConfig": "libs/tools/barista/tsconfig.json",
-            "progress": false,
-            "optimization": true,
-            "maxWorkers": 6,
-            "buildLibsFromSource": true
-          },
-          "configurations": {
-            "watch": {
-              "watch": true
-            }
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "execute": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "commands": [
-              {
-                "command": "node dist/libs/tools/barista/main.js"
-              }
-            ]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/tools/barista/tsconfig.json",
-              "libs/tools/barista/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!tools/barista/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tools/barista/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/tools/barista"]
-        }
-      }
-    },
-    "tools-release": {
-      "root": "libs/tools/release",
-      "sourceRoot": "libs/tools/release/src",
-      "projectType": "library",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/workspace:run-commands",
-          "options": {
-            "parallel": true,
-            "commands": [
-              {
-                "command": "npx ng run tools-release:build-publish-release"
-              },
-              {
-                "command": "npx ng run tools-release:build-publish-release"
-              }
-            ]
-          }
-        },
-        "build-publish-release": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "main": "libs/tools/release/src/publish-release-cli.ts",
-            "tsConfig": "libs/tools/release/tsconfig.json",
-            "outputPath": "dist/libs/tools/publish-release",
-            "progress": false,
-            "buildLibsFromSource": true
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "build-stage-release": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "main": "libs/tools/release/src/stage-release-cli.ts",
-            "tsConfig": "libs/tools/release/tsconfig.json",
-            "outputPath": "dist/libs/tools/stage-release",
-            "progress": false,
-            "assets": [
-              {
-                "glob": "*",
-                "input": "libs/tools/release/src/assets",
-                "output": "assets"
-              }
-            ],
-            "buildLibsFromSource": true
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/tools/release/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/release/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tools/release/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/tools/release"]
-        }
-      }
-    },
-    "tools-pull-request-labeler": {
-      "root": "tools/pull-request-labeler",
-      "sourceRoot": "tools/pull-request-labeler/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["tools/pull-request-labeler/tsconfig.json"],
-            "exclude": [
-              "**/node_modules/**",
-              "!tools/pull-request-labeler/**/*"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "tools/pull-request-labeler/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/tools/pull-request-labeler"]
-        }
-      }
-    },
-    "tools-shareable-examples": {
-      "root": "libs/tools/shareable-examples",
-      "sourceRoot": "libs/tools/shareable-examples/src",
-      "projectType": "library",
-      "architect": {
-        "build": {
-          "builder": "@nrwl/node:build",
-          "options": {
-            "outputPath": "dist/libs/tools/shareable-examples",
-            "main": "libs/tools/shareable-examples/src/main.ts",
-            "tsConfig": "libs/tools/shareable-examples/tsconfig.json",
-            "progress": false,
-            "maxWorkers": 6,
-            "buildLibsFromSource": true
-          },
-          "configurations": {
-            "production": {}
-          },
-          "outputs": ["{options.outputPath}"]
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/tools/shareable-examples/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/shareable-examples/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/tools/shareable-examples/jest.config.js"
-          },
-          "outputs": ["coverage/libs/tools/shareable-examples"]
-        }
-      }
-    },
-    "components": {
-      "projectType": "library",
-      "root": "libs/barista-components",
-      "sourceRoot": "libs/barista-components",
-      "architect": {
-        "packagr": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
-          "options": {
-            "tsConfig": "libs/barista-components/tsconfig.lib.json",
-            "project": "libs/barista-components/ng-package.json"
-          }
-        },
-        "build": {
-          "builder": "./dist/libs/workspace:packager",
-          "options": {
-            "buildTarget": "packagr",
-            "releasePackageJson": "libs/barista-components/package.json",
-            "versionPlaceholder": "{{VERSION}}",
-            "ngVersionPlaceholder": "{{NG_VERSION}}",
-            "styles": [
-              {
-                "glob": "style/*.scss",
-                "input": "libs/barista-components",
-                "output": "dist/libs/components"
-              }
-            ],
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "libs/barista-components/assets",
-                "output": "dist/libs/components/assets"
-              }
-            ],
-            "additionalTargets": ["schematics:build"]
-          },
-          "configurations": {
-            "production": {}
-          }
-        }
-      }
-    },
     "alert": {
       "projectType": "library",
       "root": "libs/barista-components/alert",
@@ -1155,6 +90,298 @@
         }
       },
       "schematics": {}
+    },
+    "barista-design-system": {
+      "root": "apps/barista-design-system",
+      "sourceRoot": "apps/barista-design-system/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              {
+                "command": "npx ng run barista-tools:execute"
+              },
+              {
+                "command": "npx ng run barista-design-system:static-pages"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "commands": [
+                {
+                  "command": "npx ng run barista-tools:execute"
+                },
+                {
+                  "command": "npx ng run barista-design-system:static-pages:production"
+                }
+              ]
+            },
+            "production-internal": {
+              "commands": [
+                {
+                  "command": "npx ng run barista-tools:execute"
+                },
+                {
+                  "command": "npx ng run barista-design-system:static-pages:production-internal"
+                }
+              ]
+            }
+          }
+        },
+        "static-pages": {
+          "builder": "./dist/libs/workspace:build-barista",
+          "options": {
+            "browserTarget": "barista-design-system:build-frontend",
+            "serverTarget": "barista-design-system:build-server",
+            "outputPath": "dist/apps/barista-design-system/browser",
+            "routesFile": "dist/barista-data/routes.txt"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "barista-design-system:build-frontend:production",
+              "serverTarget": "barista-design-system:build-server:production"
+            },
+            "production-internal": {
+              "browserTarget": "barista-design-system:build-frontend:production-internal",
+              "serverTarget": "barista-design-system:build-server:production"
+            }
+          }
+        },
+        "build-frontend": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/barista-design-system/browser",
+            "tsConfig": "apps/barista-design-system/tsconfig.app.json",
+            "index": "apps/barista-design-system/src/index.html",
+            "main": "apps/barista-design-system/src/main.ts",
+            "polyfills": "apps/barista-design-system/src/polyfills.ts",
+            "progress": false,
+            "preserveSymlinks": true,
+            "assets": [
+              {
+                "glob": "**",
+                "input": "apps/barista-design-system/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "libs/barista-components/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "libs/examples/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "apps/barista-design-system/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "metadata.json",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*.json",
+                "input": "dist/barista-data",
+                "output": "/data"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/assets/fonts"
+              },
+              {
+                "glob": "**",
+                "input": "libs/barista-components/assets/fonts/bitstream/",
+                "output": "/assets/fonts/bitstream"
+              }
+            ],
+            "styles": [
+              "node_modules/highlight-ts/styles/github-gist.css",
+              "libs/barista-components/style/main.scss",
+              "apps/barista-design-system/src/main.scss"
+            ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/barista-components/core/src/style/"]
+            },
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/barista-design-system/src/environments/environment.ts",
+                  "with": "apps/barista-design-system/src/environments/environment.public.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "statsJson": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            },
+            "production-internal": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/barista-design-system/src/environments/environment.ts",
+                  "with": "apps/barista-design-system/src/environments/environment.internal.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "statsJson": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          },
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": ""
+        },
+        "build-server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/apps/barista-design-system/server",
+            "main": "apps/barista-design-system/src/server.ts",
+            "tsConfig": "apps/barista-design-system/tsconfig.server.json",
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/barista-components/core/src/style/"]
+            },
+            "preserveSymlinks": true,
+            "progress": false,
+            "sourceMap": true,
+            "optimization": false
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "barista-design-system:build-frontend"
+          }
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "barista-design-system:build-frontend",
+            "serverTarget": "barista-design-system:build-server"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/barista-design-system/tsconfig.app.json",
+              "apps/barista-design-system/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/barista-design-system/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/barista-design-system/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/apps/barista-design-system"]
+        }
+      },
+      "//": "The order of the properties does matter! they are executed at build time from last to first."
+    },
+    "barista-tools": {
+      "root": "libs/tools/barista",
+      "sourceRoot": "libs/tools/barista/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/libs/tools/barista",
+            "main": "libs/tools/barista/src/main.ts",
+            "tsConfig": "libs/tools/barista/tsconfig.json",
+            "progress": false,
+            "optimization": true,
+            "maxWorkers": 6,
+            "buildLibsFromSource": true
+          },
+          "configurations": {
+            "watch": {
+              "watch": true
+            }
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "execute": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "node dist/libs/tools/barista/main.js"
+              }
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/tools/barista/tsconfig.json",
+              "libs/tools/barista/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!tools/barista/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tools/barista/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/tools/barista"]
+        }
+      }
     },
     "breadcrumbs": {
       "projectType": "library",
@@ -1365,6 +592,202 @@
         }
       },
       "schematics": {}
+    },
+    "components": {
+      "projectType": "library",
+      "root": "libs/barista-components",
+      "sourceRoot": "libs/barista-components",
+      "architect": {
+        "packagr": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "tsConfig": "libs/barista-components/tsconfig.lib.json",
+            "project": "libs/barista-components/ng-package.json"
+          }
+        },
+        "build": {
+          "builder": "./dist/libs/workspace:packager",
+          "options": {
+            "buildTarget": "packagr",
+            "releasePackageJson": "libs/barista-components/package.json",
+            "versionPlaceholder": "{{VERSION}}",
+            "ngVersionPlaceholder": "{{NG_VERSION}}",
+            "styles": [
+              {
+                "glob": "style/*.scss",
+                "input": "libs/barista-components",
+                "output": "dist/libs/components"
+              }
+            ],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "libs/barista-components/assets",
+                "output": "dist/libs/components/assets"
+              }
+            ],
+            "additionalTargets": ["schematics:build"]
+          },
+          "configurations": {
+            "production": {}
+          }
+        }
+      }
+    },
+    "components-e2e": {
+      "root": "apps/components-e2e",
+      "sourceRoot": "apps/components-e2e/src",
+      "projectType": "application",
+      "prefix": "dt",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/components-e2e",
+            "tsConfig": "apps/components-e2e/tsconfig.app.json",
+            "index": "apps/components-e2e/src/index.html",
+            "main": "apps/components-e2e/src/main.ts",
+            "polyfills": "apps/components-e2e/src/polyfills.ts",
+            "progress": false,
+            "assets": [
+              {
+                "glob": "**",
+                "input": "libs/barista-components/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "apps/components-e2e/src/fixtures",
+                "output": "/fixtures"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/fonts"
+              }
+            ],
+            "styles": [
+              "apps/components-e2e/src/main.scss",
+              "libs/barista-components/style/index.scss"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "budgets": [],
+              "buildOptimizer": true,
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false
+            }
+          },
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "components-e2e:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "components-e2e:build:production"
+            }
+          }
+        },
+        "e2e-all": {
+          "builder": "@politie/angular-testcafe-builder:testcafe",
+          "options": {
+            "devServerTarget": "components-e2e:serve",
+            "src": "apps/components-e2e/src/**/*.{e2e,po}.ts",
+            "stopOnFirstFail": false,
+            "browsers": ["chrome"],
+            "screenshots": {
+              "path": "./dist/components-e2e/screenshots",
+              "takeOnFails": true,
+              "pathPattern": "test-${TEST_INDEX}-${FILE_INDEX}_${QUARANTINE_ATTEMPT}",
+              "fullPage": true
+            },
+            "reporters": [
+              {
+                "name": "spec"
+              },
+              {
+                "name": "xunit",
+                "output": "dist/components-e2e/report.xml"
+              }
+            ],
+            "concurrency": 1,
+            "skipJsErrors": false
+          },
+          "configurations": {
+            "remote": {
+              "browsers": [
+                "browserstack:chrome",
+                "browserstack:edge@18:windows"
+              ],
+              "concurrency": 2
+            },
+            "remote-pr": {
+              "browsers": ["browserstack:edge@18:windows"],
+              "concurrency": 4
+            },
+            "ci": {
+              "browsers": ["chrome:headless"],
+              "concurrency": 5
+            },
+            "watch": {
+              "browsers": ["chrome"],
+              "stopOnFirstFail": false,
+              "live": true,
+              "concurrency": 1
+            }
+          }
+        },
+        "e2e": {
+          "builder": "./dist/libs/workspace:affected-e2e",
+          "options": {
+            "e2eTarget": "components-e2e:e2e-all",
+            "testAppSourceFolder": "./apps/components-e2e/src/"
+          },
+          "configurations": {
+            "remote-pr": {
+              "e2eTarget": "components-e2e:e2e-all:remote-pr"
+            },
+            "ci": {
+              "e2eTarget": "components-e2e:e2e-all:ci"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/components-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/components-e2e/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/components-e2e/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/apps/components-e2e"]
+        }
+      }
     },
     "confirmation-dialog": {
       "projectType": "library",
@@ -1580,6 +1003,257 @@
       },
       "schematics": {}
     },
+    "demos": {
+      "root": "apps/demos",
+      "sourceRoot": "apps/demos/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              {
+                "command": "npx ng run demos:build-frontend"
+              }
+            ]
+          },
+          "configurations": {
+            "production": {
+              "commands": [
+                {
+                  "command": "npx ng run demos:build-frontend:production"
+                }
+              ]
+            }
+          }
+        },
+        "build-frontend": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/demos",
+            "tsConfig": "apps/demos/tsconfig.app.json",
+            "index": "apps/demos/src/index.html",
+            "main": "apps/demos/src/main.ts",
+            "progress": false,
+            "polyfills": "apps/demos/src/polyfills.ts",
+            "assets": [
+              {
+                "glob": "**",
+                "input": "libs/barista-components/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "libs/examples/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "apps/demos/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "metadata.json",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/fonts"
+              }
+            ],
+            "styles": [
+              "apps/demos/src/main.scss",
+              "libs/barista-components/style/index.scss"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "budgets": [],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "vendorChunk": false,
+              "statsJson": true
+            }
+          },
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "demos:build-frontend",
+            "host": "localhost"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/demos/tsconfig.app.json",
+              "apps/demos/tsconfig.a11y.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/demos/**/*"]
+          }
+        },
+        "a11y-tests": {
+          "builder": "@politie/angular-testcafe-builder:testcafe",
+          "options": {
+            "devServerTarget": "demos:serve",
+            "src": "apps/demos/src/**/*.a11y.ts",
+            "stopOnFirstFail": false,
+            "browsers": ["chrome"],
+            "reporters": [
+              {
+                "name": "spec"
+              },
+              {
+                "name": "xunit",
+                "output": "dist/demos-a11y/report.xml"
+              }
+            ],
+            "concurrency": 1,
+            "skipJsErrors": false
+          },
+          "configurations": {
+            "ci": {
+              "browsers": ["chrome:headless"],
+              "concurrency": 5
+            },
+            "watch": {
+              "browsers": ["chrome"],
+              "live": true,
+              "concurrency": 1
+            }
+          }
+        },
+        "a11y": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": false,
+            "commands": [
+              {
+                "command": "npx ng run demos:a11y-tests"
+              }
+            ]
+          },
+          "configurations": {
+            "ci": {
+              "commands": [
+                {
+                  "command": "npx ng run demos:a11y-tests:ci"
+                }
+              ]
+            },
+            "watch": {
+              "commands": [
+                {
+                  "command": "npx ng run demos:a11y-tests:watch"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "dev": {
+      "root": "apps/dev",
+      "sourceRoot": "apps/dev/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/dev",
+            "tsConfig": "apps/dev/tsconfig.app.json",
+            "index": "apps/dev/src/index.html",
+            "main": "apps/dev/src/main.ts",
+            "polyfills": "apps/dev/src/polyfills.ts",
+            "progress": false,
+            "assets": [
+              {
+                "glob": "**",
+                "input": "libs/barista-components/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**",
+                "input": "apps/dev/src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "metadata.json",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/fonts"
+              }
+            ],
+            "styles": [
+              "apps/dev/src/main.scss",
+              "libs/barista-components/style/index.scss"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "budgets": []
+            }
+          },
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "dev:build",
+            "host": "0.0.0.0"
+          },
+          "configurations": {}
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "dev:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/dev/tsconfig.app.json"],
+            "exclude": ["**/node_modules/**", "!apps/dev/**/*"]
+          }
+        }
+      }
+    },
     "drawer": {
       "projectType": "library",
       "root": "libs/barista-components/drawer",
@@ -1701,6 +1375,21 @@
         }
       },
       "schematics": {}
+    },
+    "examples": {
+      "projectType": "library",
+      "root": "libs/examples",
+      "sourceRoot": "libs/examples/src",
+      "prefix": "dynatrace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/examples/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/examples/**/*"]
+          }
+        }
+      }
     },
     "expandable-panel": {
       "projectType": "library",
@@ -2515,35 +2204,140 @@
       },
       "schematics": {}
     },
-    "slider": {
+    "shared-data-access-strapi": {
       "projectType": "library",
-      "root": "libs/barista-components/slider",
-      "sourceRoot": "libs/barista-components/slider/src",
-      "prefix": "dt",
+      "root": "libs/shared/data-access-strapi",
+      "sourceRoot": "libs/shared/data-access-strapi",
+      "prefix": "dynatrace",
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/barista-components/slider/tsconfig.lib.json",
-              "libs/barista-components/slider/tsconfig.spec.json"
+              "libs/shared/data-access-strapi/tsconfig.lib.json",
+              "libs/shared/data-access-strapi/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**",
-              "!libs/barista-components/slider/**/*"
+              "!libs/shared/data-access-strapi/**"
             ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/slider"],
           "options": {
-            "jestConfig": "libs/barista-components/slider/jest.config.js",
+            "jestConfig": "libs/shared/data-access-strapi/jest.config.js",
             "passWithNoTests": true
-          }
+          },
+          "outputs": ["coverage/libs/shared/data-access-strapi"]
         }
       },
       "schematics": {}
+    },
+    "shared-design-system-interfaces": {
+      "projectType": "library",
+      "root": "libs/shared/design-system/interfaces",
+      "sourceRoot": "libs/shared/design-system/interfaces/src",
+      "prefix": "dynatrace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/design-system/interfaces/tsconfig.lib.json",
+              "libs/shared/design-system/interfaces/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/design-system/interfaces/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/design-system/interfaces/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/shared/design-system/interfaces"]
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-design-system-ui": {
+      "projectType": "library",
+      "root": "libs/shared/design-system/ui",
+      "sourceRoot": "libs/shared/design-system/ui/src",
+      "prefix": "ds",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/shared/design-system/ui/tsconfig.lib.json",
+              "libs/shared/design-system/ui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/shared/design-system/ui/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/design-system/ui/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/shared/design-system/ui"]
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "style": "scss"
+        }
+      }
+    },
+    "shared-keycodes": {
+      "root": "libs/shared/keycodes",
+      "sourceRoot": "libs/shared/keycodes",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/shared/keycodes/tsconfig.lib.json"],
+            "exclude": ["**/node_modules/**", "!libs/shared/keycodes/**/*"]
+          }
+        }
+      }
+    },
+    "shared-node": {
+      "root": "libs/shared/node",
+      "sourceRoot": "libs/shared/node",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/shared/node/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/shared/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/shared/node/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/shared/node"]
+        }
+      }
     },
     "show-more": {
       "projectType": "library",
@@ -2569,6 +2363,36 @@
           "outputs": ["coverage/libs/barista-components/show-more"],
           "options": {
             "jestConfig": "libs/barista-components/show-more/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "schematics": {}
+    },
+    "slider": {
+      "projectType": "library",
+      "root": "libs/barista-components/slider",
+      "sourceRoot": "libs/barista-components/slider/src",
+      "prefix": "dt",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/barista-components/slider/tsconfig.lib.json",
+              "libs/barista-components/slider/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/barista-components/slider/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/barista-components/slider"],
+          "options": {
+            "jestConfig": "libs/barista-components/slider/jest.config.js",
             "passWithNoTests": true
           }
         }
@@ -2789,6 +2613,84 @@
       },
       "schematics": {}
     },
+    "testing-browser": {
+      "root": "libs/testing/browser",
+      "sourceRoot": "libs/testing/browser/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/testing/browser/tsconfig.lib.json",
+              "libs/testing/browser/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/testing/browser/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/testing/browser/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/testing/browser"]
+        }
+      }
+    },
+    "testing-fixtures": {
+      "root": "libs/testing/fixtures",
+      "sourceRoot": "libs/testing/fixtures/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/testing/fixtures/tsconfig.lib.json",
+              "libs/testing/fixtures/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/testing/fixtures/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/testing/fixtures/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/testing/fixtures"]
+        }
+      }
+    },
+    "testing-node": {
+      "root": "libs/testing/node",
+      "sourceRoot": "libs/testing/node/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/testing/node/tsconfig.lib.json",
+              "libs/testing/node/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/testing/node/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/testing/node/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/testing/node"]
+        }
+      }
+    },
     "theming": {
       "projectType": "library",
       "root": "libs/barista-components/theming",
@@ -2939,6 +2841,132 @@
       },
       "schematics": {}
     },
+    "tools-pull-request-labeler": {
+      "root": "tools/pull-request-labeler",
+      "sourceRoot": "tools/pull-request-labeler/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["tools/pull-request-labeler/tsconfig.json"],
+            "exclude": [
+              "**/node_modules/**",
+              "!tools/pull-request-labeler/**/*"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "tools/pull-request-labeler/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/tools/pull-request-labeler"]
+        }
+      }
+    },
+    "tools-release": {
+      "root": "libs/tools/release",
+      "sourceRoot": "libs/tools/release/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "parallel": true,
+            "commands": [
+              {
+                "command": "npx ng run tools-release:build-publish-release"
+              },
+              {
+                "command": "npx ng run tools-release:build-publish-release"
+              }
+            ]
+          }
+        },
+        "build-publish-release": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "main": "libs/tools/release/src/publish-release-cli.ts",
+            "tsConfig": "libs/tools/release/tsconfig.json",
+            "outputPath": "dist/libs/tools/publish-release",
+            "progress": false,
+            "buildLibsFromSource": true
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "build-stage-release": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "main": "libs/tools/release/src/stage-release-cli.ts",
+            "tsConfig": "libs/tools/release/tsconfig.json",
+            "outputPath": "dist/libs/tools/stage-release",
+            "progress": false,
+            "assets": [
+              {
+                "glob": "*",
+                "input": "libs/tools/release/src/assets",
+                "output": "assets"
+              }
+            ],
+            "buildLibsFromSource": true
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/tools/release/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/release/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tools/release/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/tools/release"]
+        }
+      }
+    },
+    "tools-shareable-examples": {
+      "root": "libs/tools/shareable-examples",
+      "sourceRoot": "libs/tools/shareable-examples/src",
+      "projectType": "library",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/libs/tools/shareable-examples",
+            "main": "libs/tools/shareable-examples/src/main.ts",
+            "tsConfig": "libs/tools/shareable-examples/tsconfig.json",
+            "progress": false,
+            "maxWorkers": 6,
+            "buildLibsFromSource": true
+          },
+          "configurations": {
+            "production": {}
+          },
+          "outputs": ["{options.outputPath}"]
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/tools/shareable-examples/tsconfig.json"],
+            "exclude": ["**/node_modules/**", "!tools/shareable-examples/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/tools/shareable-examples/jest.config.js"
+          },
+          "outputs": ["coverage/libs/tools/shareable-examples"]
+        }
+      }
+    },
     "top-bar-navigation": {
       "projectType": "library",
       "root": "libs/barista-components/top-bar-navigation",
@@ -2999,216 +3027,224 @@
       },
       "schematics": {}
     },
-    "testing-node": {
-      "root": "libs/testing/node",
-      "sourceRoot": "libs/testing/node/src",
-      "projectType": "library",
-      "schematics": {},
+    "universal": {
+      "root": "apps/universal",
+      "sourceRoot": "apps/universal/src",
+      "projectType": "application",
       "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+        "build": {
+          "builder": "@nrwl/workspace:run-commands",
           "options": {
-            "tsConfig": [
-              "libs/testing/node/tsconfig.lib.json",
-              "libs/testing/node/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/testing/node/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/testing/node/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/testing/node"]
-        }
-      }
-    },
-    "testing-browser": {
-      "root": "libs/testing/browser",
-      "sourceRoot": "libs/testing/browser/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/testing/browser/tsconfig.lib.json",
-              "libs/testing/browser/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/testing/browser/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/testing/browser/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/testing/browser"]
-        }
-      }
-    },
-    "testing-fixtures": {
-      "root": "libs/testing/fixtures",
-      "sourceRoot": "libs/testing/fixtures/src",
-      "projectType": "library",
-      "schematics": {},
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/testing/fixtures/tsconfig.lib.json",
-              "libs/testing/fixtures/tsconfig.spec.json"
-            ],
-            "exclude": ["**/node_modules/**", "!libs/testing/fixtures/**/*"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/testing/fixtures/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/testing/fixtures"]
-        }
-      }
-    },
-    "shared-node": {
-      "root": "libs/shared/node",
-      "sourceRoot": "libs/shared/node",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/shared/node/tsconfig.json"],
-            "exclude": ["**/node_modules/**", "!tools/shared/**"]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/node/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/shared/node"]
-        }
-      }
-    },
-    "shared-data-access-strapi": {
-      "projectType": "library",
-      "root": "libs/shared/data-access-strapi",
-      "sourceRoot": "libs/shared/data-access-strapi",
-      "prefix": "dynatrace",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/shared/data-access-strapi/tsconfig.lib.json",
-              "libs/shared/data-access-strapi/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/shared/data-access-strapi/**"
+            "parallel": true,
+            "commands": [
+              {
+                "command": "npx ng run universal:build-frontend:production"
+              },
+              {
+                "command": "npx ng run universal:build-server"
+              }
             ]
+          },
+          "configurations": {
+            "production": {}
           }
         },
-        "test": {
-          "builder": "@nrwl/jest:jest",
+        "build-frontend": {
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "jestConfig": "libs/shared/data-access-strapi/jest.config.js",
-            "passWithNoTests": true
+            "outputPath": "dist/universal/browser",
+            "index": "apps/universal/src/index.html",
+            "main": "apps/universal/src/main.ts",
+            "polyfills": "apps/universal/src/polyfills.ts",
+            "tsConfig": "apps/universal/tsconfig.app.json",
+            "progress": false,
+            "assets": [
+              {
+                "glob": "**",
+                "input": "libs/barista-components/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "*.svg",
+                "input": "node_modules/@dynatrace/barista-icons",
+                "output": "/assets/icons"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dynatrace/barista-fonts/fonts/",
+                "output": "/fonts"
+              }
+            ],
+            "styles": ["libs/barista-components/style/index.scss"],
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
-          "outputs": ["coverage/libs/shared/data-access-strapi"]
-        }
-      },
-      "schematics": {}
-    },
-    "shared-design-system-ui": {
-      "projectType": "library",
-      "root": "libs/shared/design-system/ui",
-      "sourceRoot": "libs/shared/design-system/ui/src",
-      "prefix": "ds",
-      "architect": {
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "commonChunk": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+            }
+          },
+          "outputs": ["{options.outputPath}"],
+          "defaultConfiguration": ""
+        },
+        "build-server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/universal/server",
+            "main": "apps/universal/src/server.ts",
+            "tsConfig": "apps/universal/tsconfig.server.json",
+            "progress": false,
+            "sourceMap": true,
+            "optimization": false
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
+            }
+          },
+          "defaultConfiguration": ""
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "universal:build-frontend"
+          }
+        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "libs/shared/design-system/ui/tsconfig.lib.json",
-              "libs/shared/design-system/ui/tsconfig.spec.json"
+              "apps/universal/tsconfig.app.json",
+              "apps/universal/tsconfig.server.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/shared/design-system/ui/**"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/universal/**/*"]
           }
         },
-        "test": {
-          "builder": "@nrwl/jest:jest",
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
           "options": {
-            "jestConfig": "libs/shared/design-system/ui/jest.config.js",
-            "passWithNoTests": true
+            "browserTarget": "universal:build-frontend",
+            "serverTarget": "universal:build-server",
+            "progress": false
           },
-          "outputs": ["coverage/libs/shared/design-system/ui"]
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
+          "configurations": {
+            "production": {
+              "browserTarget": "universal:build-frontend:production",
+              "serverTarget": "universal:build-server:production"
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "browserTarget": "universal:build-frontend:production",
+            "serverTarget": "universal:build-server:production",
+            "routes": ["/"]
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "e2e": {
+          "builder": "@politie/angular-testcafe-builder:testcafe",
+          "options": {
+            "devServerTarget": "universal:serve-ssr",
+            "src": "apps/universal/src/**/*.{e2e,po}.ts",
+            "browsers": ["chrome"],
+            "reporters": [
+              {
+                "name": "spec"
+              },
+              {
+                "name": "xunit",
+                "output": "dist/universal/report.xml"
+              }
+            ],
+            "concurrency": 1,
+            "skipJsErrors": false
+          },
+          "configurations": {
+            "remote-pr": {
+              "browsers": ["browserstack:chrome"]
+            },
+            "ci": {
+              "browsers": ["chrome:headless"],
+              "concurrency": 5
+            },
+            "watch": {
+              "live": true
+            }
+          }
         }
       }
     },
-    "shared-design-system-interfaces": {
-      "projectType": "library",
-      "root": "libs/shared/design-system/interfaces",
-      "sourceRoot": "libs/shared/design-system/interfaces/src",
-      "prefix": "dynatrace",
-      "architect": {
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/shared/design-system/interfaces/tsconfig.lib.json",
-              "libs/shared/design-system/interfaces/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/shared/design-system/interfaces/**"
-            ]
-          }
-        },
-        "test": {
-          "builder": "@nrwl/jest:jest",
-          "options": {
-            "jestConfig": "libs/shared/design-system/interfaces/jest.config.js",
-            "passWithNoTests": true
-          },
-          "outputs": ["coverage/libs/shared/design-system/interfaces"]
-        }
-      },
-      "schematics": {
-        "@nrwl/angular:component": {
-          "style": "scss"
-        }
-      }
-    },
-    "shared-keycodes": {
-      "root": "libs/shared/keycodes",
-      "sourceRoot": "libs/shared/keycodes",
+    "workspace": {
+      "root": "libs/workspace",
+      "sourceRoot": "libs/workspace",
       "projectType": "library",
       "schematics": {},
       "architect": {
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["libs/shared/keycodes/tsconfig.lib.json"],
-            "exclude": ["**/node_modules/**", "!libs/shared/keycodes/**/*"]
+            "tsConfig": [
+              "libs/workspace/tsconfig.lib.json",
+              "libs/workspace/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/workspace/**/*"]
           }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/workspace/jest.config.js",
+            "passWithNoTests": true
+          },
+          "outputs": ["coverage/libs/workspace"]
+        },
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/libs/workspace",
+            "main": "libs/workspace/src/index.ts",
+            "tsConfig": "libs/workspace/tsconfig.lib.json",
+            "webpackConfig": "libs/workspace/webpack.config.js",
+            "maxWorkers": 6,
+            "progress": false,
+            "assets": [
+              {
+                "input": "./libs/workspace/src",
+                "glob": "**/*.{json,md}",
+                "output": "./src"
+              },
+              {
+                "input": "./libs/workspace",
+                "glob": "{package,builders,collection}.json",
+                "output": "."
+              }
+            ],
+            "buildLibsFromSource": true
+          },
+          "configurations": {
+            "watch": {
+              "watch": true
+            }
+          },
+          "outputs": ["{options.outputPath}"]
         }
       }
     }

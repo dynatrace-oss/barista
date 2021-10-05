@@ -17,41 +17,42 @@
     }
   },
   "projects": {
+    "alert": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "autocomplete": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "bar-indicator": {
+      "tags": ["scope:components", "type:library"]
+    },
     "barista-design-system": {
       "tags": ["type:app"],
-      "//": "The order of the properties does matter! they are executed at build time from last to first.",
       "implicitDependencies": ["barista-tools"]
-    },
-    "demos": {
-      "tags": ["type:app"]
-    },
-    "components-e2e": {
-      "tags": ["type:e2e"],
-      "implicitDependencies": ["components"]
-    },
-    "universal": {
-      "tags": ["type:app"]
-    },
-    "dev": {
-      "tags": ["type:app"]
-    },
-    "workspace": {
-      "tags": ["type:tooling"]
     },
     "barista-tools": {
       "tags": ["type:tooling"]
     },
-    "tools-release": {
-      "tags": ["type:tooling"]
+    "breadcrumbs": {
+      "tags": ["scope:components", "type:library"]
     },
-    "tools-pull-request-labeler": {
-      "tags": ["type:tooling"]
+    "button": {
+      "tags": ["scope:components", "type:library"]
     },
-    "tools-shareable-examples": {
-      "tags": ["type:tooling"]
+    "button-group": {
+      "tags": ["scope:components", "type:library"]
     },
-    "examples": {
-      "tags": ["scope:examples", "type:library"]
+    "card": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "chart": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "checkbox": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "combobox": {
+      "tags": ["scope:components", "type:library"]
     },
     "components": {
       "tags": ["scope:components"],
@@ -120,35 +121,9 @@
         "tree-table"
       ]
     },
-    "alert": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "autocomplete": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "bar-indicator": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "breadcrumbs": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "button": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "button-group": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "card": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "chart": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "checkbox": {
-      "tags": ["scope:components", "type:library"]
-    },
-    "combobox": {
-      "tags": ["scope:components", "type:library"]
+    "components-e2e": {
+      "tags": ["type:e2e"],
+      "implicitDependencies": ["components"]
     },
     "confirmation-dialog": {
       "tags": ["scope:components", "type:library"]
@@ -171,6 +146,12 @@
     "datepicker": {
       "tags": ["scope:components", "type:library"]
     },
+    "demos": {
+      "tags": ["type:app"]
+    },
+    "dev": {
+      "tags": ["type:app"]
+    },
     "drawer": {
       "tags": ["scope:components", "type:library"]
     },
@@ -182,6 +163,9 @@
     },
     "event-chart": {
       "tags": ["scope:components", "type:library"]
+    },
+    "examples": {
+      "tags": ["scope:examples", "type:library"]
     },
     "expandable-panel": {
       "tags": ["scope:components", "type:library"]
@@ -264,10 +248,25 @@
     "select": {
       "tags": ["scope:components", "type:library"]
     },
-    "slider": {
-      "tags": ["scope:components", "type:library"]
+    "shared-data-access-strapi": {
+      "tags": ["scope:cms", "type:shared", "type:library"]
+    },
+    "shared-design-system-interfaces": {
+      "tags": ["type:library", "type:shared"]
+    },
+    "shared-design-system-ui": {
+      "tags": ["type:library", "type:shared"]
+    },
+    "shared-keycodes": {
+      "tags": ["type:library", "type:shared"]
+    },
+    "shared-node": {
+      "tags": ["type:tooling", "type:shared"]
     },
     "show-more": {
+      "tags": ["scope:components", "type:library"]
+    },
+    "slider": {
       "tags": ["scope:components", "type:library"]
     },
     "stacked-series-chart": {
@@ -291,6 +290,15 @@
     "tag": {
       "tags": ["scope:components", "type:library"]
     },
+    "testing-browser": {
+      "tags": ["scope:testing", "scope:browser", "type:library"]
+    },
+    "testing-fixtures": {
+      "tags": ["scope:testing", "type:library"]
+    },
+    "testing-node": {
+      "tags": ["scope:testing", "scope:node", "type:library"]
+    },
     "theming": {
       "tags": ["scope:components", "type:library"]
     },
@@ -306,38 +314,37 @@
     "toggle-button-group": {
       "tags": ["scope:components", "type:library"]
     },
+    "tools-pull-request-labeler": {
+      "tags": ["type:tooling"]
+    },
+    "tools-release": {
+      "tags": ["type:tooling"]
+    },
+    "tools-shareable-examples": {
+      "tags": ["type:tooling"]
+    },
     "top-bar-navigation": {
       "tags": ["scope:components", "type:library"]
     },
     "tree-table": {
       "tags": ["scope:components", "type:library"]
     },
-    "testing-node": {
-      "tags": ["scope:testing", "scope:node", "type:library"]
+    "universal": {
+      "tags": ["type:app"]
     },
-    "testing-browser": {
-      "tags": ["scope:testing", "scope:browser", "type:library"]
-    },
-    "testing-fixtures": {
-      "tags": ["scope:testing", "type:library"]
-    },
-    "shared-node": {
-      "tags": ["type:tooling", "type:shared"]
-    },
-    "shared-data-access-strapi": {
-      "tags": ["scope:cms", "type:shared", "type:library"]
-    },
-    "shared-design-system-ui": {
-      "tags": ["type:library", "type:shared"]
-    },
-    "shared-design-system-interfaces": {
-      "tags": ["type:library", "type:shared"]
-    },
-    "shared-keycodes": {
-      "tags": ["type:library", "type:shared"]
+    "workspace": {
+      "tags": ["type:tooling"]
     }
   },
   "affected": {
     "defaultBase": "master"
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   }
 }
