@@ -8,7 +8,7 @@ async function main() {
   // Applying all the patches to the packages
   await execCommand(`node ${require.resolve('patch-package')}`);
 
-  await execCommand(`npm run ng build workspace`);
+  await execCommand(`npm run nx run workspace:build`);
 }
 
 /**
