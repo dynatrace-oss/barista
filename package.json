@@ -74,7 +74,7 @@
     "highlight-ts": "^9.12.1-2",
     "lodash-es": "^4.17.21",
     "rxjs": "^6.6.7",
-    "zone.js": "0.11.4"
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^12.1.3",
