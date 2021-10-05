@@ -8,4 +8,5 @@ module.exports = {
   coverageDirectory: '../../coverage/libs/workspace',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: { 'ts-jest': { tsconfig: '<rootDir>/tsconfig.spec.json' } },
+  testEnvironment: 'node',
 };
