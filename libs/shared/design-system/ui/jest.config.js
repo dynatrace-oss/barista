@@ -1,6 +1,6 @@
 module.exports = {
   name: 'shared-design-system-ui',
-  preset: '../../../../jest.config.js',
+  preset: '../../../../jest.preset.js',
   coverageDirectory: '../../../../coverage/libs/shared/design-system/ui',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],

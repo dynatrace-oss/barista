@@ -20,14 +20,9 @@
 import { Component, DebugElement } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import {
-  DtButtonGroup,
-  DtButtonGroupItem,
-  DtButtonGroupModule,
-} from '@dynatrace/barista-components/button-group';
-
+import { DtButtonGroupModule } from './button-group-module';
 import { createComponent } from '@dynatrace/testing/browser';
+import { DtButtonGroup, DtButtonGroupItem } from './button-group';
 
 describe('DtButtonGroup', () => {
   beforeEach(

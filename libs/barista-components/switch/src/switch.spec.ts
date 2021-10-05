@@ -32,11 +32,8 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import {
-  DtSwitch,
-  DtSwitchChange,
-  DtSwitchModule,
-} from '@dynatrace/barista-components/switch';
+import { DtSwitchModule } from './switch-module';
+import { DtSwitch, DtSwitchChange } from './switch';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

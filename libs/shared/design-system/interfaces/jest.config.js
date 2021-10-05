@@ -1,6 +1,6 @@
 module.exports = {
   name: 'shared-design-system-interfaces',
-  preset: '../../../../jest.config.js',
+  preset: '../../../../jest.preset.js',
   coverageDirectory:
     '../../../../coverage/libs/shared/design-system/interfaces',
 

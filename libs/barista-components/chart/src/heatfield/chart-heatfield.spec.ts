@@ -37,13 +37,13 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { DtChartModule } from '../chart-module';
 import {
-  DtChart,
   DtChartHeatfield,
   DtChartHeatfieldActiveChange,
-  DtChartModule,
-  DtChartOptions,
-} from '@dynatrace/barista-components/chart';
+} from './chart-heatfield';
+import { DtChart } from '../chart';
+import { DtChartOptions } from '../chart.interface';
 import {
   createComponent,
   dispatchKeyboardEvent,

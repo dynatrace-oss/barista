@@ -27,14 +27,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  DtFilterField,
-  DtFilterFieldChangeEvent,
-} from '@dynatrace/barista-components/filter-field';
-import {
   dispatchFakeEvent,
   dispatchKeyboardEvent,
 } from '@dynatrace/testing/browser';
 import { FILTER_FIELD_TEST_DATA_SINGLE_OPTION } from '@dynatrace/testing/fixtures';
+import { DtFilterField, DtFilterFieldChangeEvent } from '../filter-field';
 import {
   TEST_DATA_MULTI_SELECT,
   TEST_DATA_MULTI_SELECT_EDIT_MODE,

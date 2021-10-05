@@ -21,7 +21,8 @@ import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtOption, DtOptionModule } from '@dynatrace/barista-components/core';
+import { DtOptionModule } from './option-module';
+import { DtOption } from './option';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

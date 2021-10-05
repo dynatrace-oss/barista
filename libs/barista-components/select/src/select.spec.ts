@@ -67,7 +67,7 @@ import {
 } from '@dynatrace/barista-components/core';
 import { DtFormFieldModule } from '@dynatrace/barista-components/form-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtSelect, DtSelectModule } from '@dynatrace/barista-components/select';
+import { DtSelectModule } from './select-module';
 import {
   dispatchEvent,
   dispatchFakeEvent,
@@ -76,6 +76,7 @@ import {
   createKeyboardEvent,
 } from '@dynatrace/testing/browser';
 import { DtSelectValueTemplate } from './select-value-template';
+import { DtSelect } from './select';
 
 describe('DtSelect', () => {
   let overlayContainer: OverlayContainer;

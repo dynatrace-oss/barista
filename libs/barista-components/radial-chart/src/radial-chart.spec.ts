@@ -20,11 +20,9 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DT_CHART_COLOR_PALETTE_ORDERED } from '@dynatrace/barista-components/theming';
-import {
-  DtRadialChartHoverData,
-  DtRadialChartModule,
-  DtRadialChartSeries,
-} from '@dynatrace/barista-components/radial-chart';
+import { DtRadialChartModule } from './radial-chart-module';
+import { DtRadialChartSeries } from './radial-chart-series';
+import { DtRadialChartHoverData } from './radial-chart';
 import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 
 interface DemoChartData {

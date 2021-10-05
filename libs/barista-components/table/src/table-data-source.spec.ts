@@ -34,12 +34,7 @@ import {
   DtPagination,
   DtPaginationModule,
 } from '@dynatrace/barista-components/pagination';
-import {
-  DtSimpleColumnComparatorFunction,
-  DtSort,
-  DtTableDataSource,
-  DtTableModule,
-} from '@dynatrace/barista-components/table';
+
 import {
   createComponent,
   dispatchMouseEvent,
@@ -47,6 +42,10 @@ import {
 import { CommonModule } from '@angular/common';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
+import { DtTableModule } from './table-module';
+import { DtTableDataSource } from './table-data-source';
+import { DtSimpleColumnComparatorFunction } from './simple-columns';
+import { DtSort } from './sort/sort';
 
 const PAGE_SIZE = 2;
 

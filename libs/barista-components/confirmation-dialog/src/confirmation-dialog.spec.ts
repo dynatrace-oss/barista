@@ -186,7 +186,7 @@ describe('ConfirmationDialogComponent', () => {
 
     it('should react to viewport changes', fakeAsync(() => {
       const leftOffset = 321;
-      spyOn(resizer, 'getOffset').and.returnValue({
+      jest.spyOn(resizer, 'getOffset').mockReturnValue({
         left: leftOffset,
         top: 987,
       });

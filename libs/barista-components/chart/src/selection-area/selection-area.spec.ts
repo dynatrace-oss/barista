@@ -30,7 +30,7 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { DtChartModule } from '@dynatrace/barista-components/chart';
+import { DtChartModule } from '../chart-module';
 // We have to import from the file directly as barrel files only expose getters no setters.
 // To mock the specific function of the file we have to import the file and disable the
 // module boundaries linting rule.

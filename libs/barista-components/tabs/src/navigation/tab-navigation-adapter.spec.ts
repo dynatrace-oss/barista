@@ -28,11 +28,11 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
+import { DtTabsModule } from '../tabs-module';
 import {
   DtTabNavigationAdapter,
   DtTabRouterFragmentAdapter,
-  DtTabsModule,
-} from '@dynatrace/barista-components/tabs';
+} from './tab-navigation-adapter';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

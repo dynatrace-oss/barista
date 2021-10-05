@@ -1,6 +1,6 @@
 module.exports = {
   name: 'tools-shareable-examples',
-  preset: '../../../jest.config.js',
+  preset: '../../../jest.preset.js',
   coverageDirectory: '../../../coverage/tools/shareable-examples',
   moduleFileExtensions: ['ts', 'js', 'html', 'hbs', 'json'],
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],

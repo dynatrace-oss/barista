@@ -39,12 +39,9 @@ import {
 } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import {
-  DtRadioButton,
-  DtRadioChange,
-  DtRadioGroup,
-  DtRadioModule,
-} from '@dynatrace/barista-components/radio';
+import { DtRadioModule } from './radio-module';
+import { DtRadioGroup } from './radio-group';
+import { DtRadioButton, DtRadioChange } from './radio';
 import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 
 describe('DtRadio', () => {

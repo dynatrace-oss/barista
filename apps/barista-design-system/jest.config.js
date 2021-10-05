@@ -1,7 +1,7 @@
 module.exports = {
-  name: 'barista',
-  preset: '../../jest.config.js',
-  coverageDirectory: '../../coverage/apps/barista',
+  displayName: 'barista-design-system',
+  preset: '../../jest.preset.js',
+  coverageDirectory: '../../coverage/apps/barista-design-system',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -16,4 +16,8 @@ module.exports = {
     'jest-preset-angular/build/serializers/html-comment',
   ],
   transform: { '^.+\\.(ts|js|html)$': 'jest-preset-angular' },
+  moduleNameMapper: {
+    // map lodash-es to lodash bundle since jest needs commonjs
+    '^lodash-es$': 'node_modules/lodash/index.js',
+  },
 };

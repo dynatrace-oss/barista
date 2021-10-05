@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtProgressCircleModule } from '@dynatrace/barista-components/progress-circle';
+import { DtProgressCircleModule } from './progress-circle-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

@@ -20,13 +20,10 @@
 import { Component } from '@angular/core';
 import { fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import {
-  DtChart,
-  DtChartModule,
-  DtChartOptions,
-  DtChartSeries,
-  getDtHeatfieldUnsupportedChartError,
-} from '@dynatrace/barista-components/chart';
+import { DtChartModule } from './chart-module';
+import { DtChart } from './chart';
+import { DtChartOptions, DtChartSeries } from './chart.interface';
+import { getDtHeatfieldUnsupportedChartError } from './heatfield';
 import {
   DtThemingModule,
   DT_CHART_COLOR_PALETTES,

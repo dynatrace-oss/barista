@@ -20,11 +20,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { DtIndicator } from './indicator';
 
-import {
-  DtIndicator,
-  DtIndicatorModule,
-} from '@dynatrace/barista-components/indicator';
+import { DtIndicatorModule } from './indicator-module';
 
 describe('DtIndicator without table', () => {
   beforeEach(fakeAsync(() => {

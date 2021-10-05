@@ -55,13 +55,6 @@ import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import {
-  DT_AUTOCOMPLETE_DEFAULT_OPTIONS,
-  DtAutocomplete,
-  DtAutocompleteModule,
-  DtAutocompleteTrigger,
-  getDtAutocompleteMissingPanelError,
-} from '@dynatrace/barista-components/autocomplete';
-import {
   DtOption,
   DtOptionSelectionChange,
   DT_UI_TEST_CONFIG,
@@ -82,6 +75,13 @@ import {
   typeInElement,
 } from '@dynatrace/testing/browser';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { DtAutocompleteModule } from './autocomplete-module';
+import {
+  DtAutocomplete,
+  DT_AUTOCOMPLETE_DEFAULT_OPTIONS,
+} from './autocomplete';
+import { DtAutocompleteTrigger } from './autocomplete-trigger';
+import { getDtAutocompleteMissingPanelError } from './autocomplete-errors';
 
 describe('DtAutocomplete', () => {
   let overlayContainer: OverlayContainer;

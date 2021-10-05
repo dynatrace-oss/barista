@@ -20,7 +20,7 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-list';
+import { DtKeyValueListModule } from './key-value-list-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

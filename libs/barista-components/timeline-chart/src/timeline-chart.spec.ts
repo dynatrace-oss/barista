@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtTimelineChartModule } from '@dynatrace/barista-components/timeline-chart';
+import { DtTimelineChartModule } from './timeline-chart-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

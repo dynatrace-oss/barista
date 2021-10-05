@@ -31,12 +31,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import {
-  DtContextDialog,
-  DtContextDialogModule,
-  DtContextDialogTrigger,
-} from '@dynatrace/barista-components/context-dialog';
+import { DtContextDialogModule } from './context-dialog-module';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import {
@@ -48,9 +43,11 @@ import {
   DtUiTestConfiguration,
 } from '@dynatrace/barista-components/core';
 import {
+  DtContextDialog,
   DT_CONTEXT_DIALOG_CONFIG,
   _DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS,
 } from './context-dialog';
+import { DtContextDialogTrigger } from './context-dialog-trigger';
 
 describe('DtContextDialog', () => {
   let overlayContainer: OverlayContainer;

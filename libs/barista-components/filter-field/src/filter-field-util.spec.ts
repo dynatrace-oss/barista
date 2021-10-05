@@ -18,12 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Validators } from '@angular/forms';
-import {
-  dtAutocompleteDef,
-  dtFreeTextDef,
-  dtGroupDef,
-  dtOptionDef,
-} from '@dynatrace/barista-components/filter-field';
+
 // Import locally because utils are not exported for the public
 import {
   defaultEditionDataForFilterValuesParser,
@@ -44,11 +39,15 @@ import {
   peekOptionId,
 } from './filter-field-util';
 import {
+  dtAutocompleteDef,
   DtAutocompleteValue,
   DtFilterValue,
+  dtFreeTextDef,
+  dtGroupDef,
   dtMultiSelectDef,
   DtNodeDef,
   DtNodeFlags,
+  dtOptionDef,
   dtRangeDef,
   DtRangeValue,
   isDtFreeTextDef,
