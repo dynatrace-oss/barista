@@ -26,13 +26,11 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import {
-  DtToggleButtonGroup,
-  DtToggleButtonGroupModule,
-  DtToggleButtonItem,
-} from '@dynatrace/barista-components/toggle-button-group';
+import { DtToggleButtonGroupModule } from './toggle-button-group-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
+import { DtToggleButtonGroup } from './toggle-button-group';
+import { DtToggleButtonItem } from './toggle-button-item';
 
 describe('DtToggleButtonGroup', () => {
   beforeEach(

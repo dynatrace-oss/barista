@@ -23,13 +23,12 @@ import { By } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 
 import { DtLogConsumer, DtLogEntry } from '@dynatrace/barista-components/core';
+import { DtTabsModule } from './tabs-module';
+import { DtTab, DtTabChange } from './tab/tab';
 import {
+  DT_TABGROUP_NO_ENABLED_TABS_ERROR,
   DT_TABGROUP_SINGLE_TAB_ERROR,
-  DtTab,
-  DtTabChange,
-  DtTabsModule,
-} from '@dynatrace/barista-components/tabs';
-import { DT_TABGROUP_NO_ENABLED_TABS_ERROR } from './tab-group';
+} from './tab-group';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

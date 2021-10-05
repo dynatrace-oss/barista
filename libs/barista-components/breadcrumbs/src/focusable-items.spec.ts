@@ -17,11 +17,9 @@
 import { Component, QueryList, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 
-import {
-  DtBreadcrumbsItem2,
-  DtBreadcrumbsModule,
-} from '@dynatrace/barista-components/breadcrumbs';
 import { createComponent } from '@dynatrace/testing/browser';
+import { DtBreadcrumbsItem2 } from './breadcrumbs-item';
+import { DtBreadcrumbsModule } from './breadcrumbs-module';
 
 import { findFirstFocusableItem } from './focusable-items';
 

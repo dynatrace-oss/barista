@@ -1,7 +1,5 @@
 const { getJestProjects } = require('@nrwl/jest');
 
-const { join } = require('path');
-
 module.exports = {
   testMatch: ['**/*.spec.ts'],
   transform: {

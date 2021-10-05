@@ -43,7 +43,6 @@ import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { MockNgZone } from '@dynatrace/testing/browser';
-import { ConnectedOverlayPositionChange } from './connected-position';
 import { DtFlexibleConnectedPositionStrategy } from './flexible-connected-position-strategy';
 
 window.scroll = jest.fn();
@@ -982,18 +981,32 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
         },
       ]);
 
-      const positionChangeHandler = jasmine.createSpy('positionChangeHandler');
+      const positionChangeHandler = jest.fn();
       const subscription = positionStrategy.positionChanges.subscribe(
         positionChangeHandler,
       );
 
       attachOverlay({ positionStrategy });
 
-      const latestCall = positionChangeHandler.calls.mostRecent();
-
       expect(positionChangeHandler).toHaveBeenCalled();
-      expect(latestCall.args[0] instanceof ConnectedOverlayPositionChange).toBe(
-        true,
+      // expect(latestCall.args[0] instanceof ConnectedOverlayPositionChange).toBe(
+      //   true,
+      // );
+      expect(positionChangeHandler).toHaveBeenCalledWith(
+        expect.objectContaining({
+          connectionPair: {
+            originX: 'end',
+            originY: 'center',
+            overlayX: 'start',
+            overlayY: 'center',
+          },
+          scrollableViewProperties: {
+            isOriginClipped: false,
+            isOriginOutsideView: false,
+            isOverlayClipped: false,
+            isOverlayOutsideView: false,
+          },
+        }),
       );
 
       // If the strategy is re-applied and the initial position would now fit,
@@ -1027,7 +1040,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
         },
       ]);
 
-      const positionChangeHandler = jasmine.createSpy('positionChangeHandler');
+      const positionChangeHandler = jest.fn();
       const subscription = positionStrategy.positionChanges.subscribe(
         positionChangeHandler,
       );
@@ -1091,7 +1104,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
         ])
         .withLockedPosition();
 
-      const recalcSpy = spyOn(positionStrategy, 'reapplyLastPosition');
+      const recalcSpy = jest.spyOn(positionStrategy, 'reapplyLastPosition');
 
       attachOverlay({ positionStrategy });
 
@@ -2304,7 +2317,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
 
   describe('onPositionChange with scrollable view properties', () => {
     let scrollable: HTMLDivElement;
-    let positionChangeHandler: jasmine.Spy;
+    let positionChangeHandler: jest.Mock;
     let onPositionChangeSubscription: Subscription;
 
     beforeEach(() => {
@@ -2339,7 +2352,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
         ),
       ]);
 
-      positionChangeHandler = jasmine.createSpy('positionChange handler');
+      positionChangeHandler = jest.fn();
       onPositionChangeSubscription = strategy.positionChanges
         .pipe(map((event) => event.scrollableViewProperties))
         .subscribe(positionChangeHandler);
@@ -2354,7 +2367,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
 
     it('should not have origin or overlay clipped or out of view without scroll', () => {
       expect(positionChangeHandler).toHaveBeenCalledWith(
-        jasmine.objectContaining({
+        expect.objectContaining({
           isOriginClipped: false,
           isOriginOutsideView: false,
           isOverlayClipped: false,
@@ -2368,7 +2381,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
       overlayRef.updatePosition();
 
       expect(positionChangeHandler).toHaveBeenCalledWith(
-        jasmine.objectContaining({
+        expect.objectContaining({
           isOriginClipped: true,
           isOriginOutsideView: false,
           isOverlayClipped: false,
@@ -2382,7 +2395,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
       overlayRef.updatePosition();
 
       expect(positionChangeHandler).toHaveBeenCalledWith(
-        jasmine.objectContaining({
+        expect.objectContaining({
           isOriginClipped: true,
           isOriginOutsideView: true,
           isOverlayClipped: true,
@@ -2396,7 +2409,7 @@ describe('DtFlexibleConnectedPositionStrategy', () => {
       overlayRef.updatePosition();
 
       expect(positionChangeHandler).toHaveBeenCalledWith(
-        jasmine.objectContaining({
+        expect.objectContaining({
           isOriginClipped: true,
           isOriginOutsideView: true,
           isOverlayClipped: true,

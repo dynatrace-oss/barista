@@ -27,10 +27,6 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import {
-  DtFilterFieldModule,
-  DtFilterFieldTag,
-} from '@dynatrace/barista-components/filter-field';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 
 import { Platform } from '@angular/cdk/platform';
@@ -45,6 +41,8 @@ import { mockObjectProperty } from '@dynatrace/testing/node';
 
 import { DtFilterFieldTagData } from '../types';
 import { DtOverlayTrigger } from '@dynatrace/barista-components/overlay';
+import { DtFilterFieldTag } from './filter-field-tag';
+import { DtFilterFieldModule } from '../filter-field-module';
 
 describe('DtFilterFieldTag', () => {
   let fixture: ComponentFixture<TestApp>;

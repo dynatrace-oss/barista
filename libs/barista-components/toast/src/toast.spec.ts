@@ -30,13 +30,13 @@ import {
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DtToastModule } from './toast-module';
+import { DtToast } from './toast';
 import {
   DT_TOAST_CHAR_LIMIT,
   DT_TOAST_FADE_TIME,
   DT_TOAST_MIN_DURATION,
-  DtToast,
-  DtToastModule,
-} from '@dynatrace/barista-components/toast';
+} from './toast-config';
 
 import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 

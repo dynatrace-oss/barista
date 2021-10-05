@@ -21,7 +21,7 @@ import { Component, Type, ViewChild } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtChartModule } from '@dynatrace/barista-components/chart';
-import { DtMicroChartModule } from '@dynatrace/barista-components/micro-chart';
+import { DtMicroChartModule } from './micro-chart-module';
 import {
   DtColors,
   DtTheme,
@@ -40,8 +40,6 @@ import {
   DtMicroChartSeries,
 } from './micro-chart';
 import { getDtMicroChartUnsupportedChartTypeError } from './micro-chart-errors';
-
-import objectContaining = jasmine.objectContaining;
 
 describe('DtMicroChart', () => {
   beforeEach(
@@ -158,9 +156,7 @@ describe('DtMicroChart', () => {
       let data = (
         microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
       ).data as SeriesLineDataOptions[];
-      expect(data[0].marker).toEqual(
-        objectContaining({ lineColor: DtColors.BLUE_600 }),
-      );
+      expect(data[0].marker).toMatchObject({ lineColor: DtColors.BLUE_600 });
 
       fixture.componentInstance.theme = 'purple';
       fixture.detectChanges();
@@ -168,9 +164,7 @@ describe('DtMicroChart', () => {
       data = (
         microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
       ).data as SeriesLineDataOptions[];
-      expect(data[0].marker).toEqual(
-        objectContaining({ lineColor: DtColors.PURPLE_600 }),
-      );
+      expect(data[0].marker).toMatchObject({ lineColor: DtColors.PURPLE_600 });
     });
   });
 
@@ -211,8 +205,8 @@ describe('DtMicroChart', () => {
       expect(series.length).toEqual(1);
       expect(series[0].data).toBeDefined();
       expect(series[0].data!.length).toBe(2);
-      expect(series[0].data![0]).toEqual(objectContaining({ x: 1, y: 140 }));
-      expect(series[0].data![1]).toEqual(objectContaining({ x: 2, y: 120 }));
+      expect(series[0].data![0]).toMatchObject({ x: 1, y: 140 });
+      expect(series[0].data![1]).toMatchObject({ x: 2, y: 120 });
     });
 
     it('should mark highest and lowest point', () => {
@@ -223,12 +217,14 @@ describe('DtMicroChart', () => {
         microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
       ).data as SeriesLineDataOptions[];
 
-      expect(data[0].dataLabels).toEqual(
-        objectContaining({ verticalAlign: 'bottom', enabled: true }),
-      );
-      expect(data[1].dataLabels).toEqual(
-        objectContaining({ verticalAlign: 'top', enabled: true }),
-      );
+      expect(data[0].dataLabels).toMatchObject({
+        verticalAlign: 'bottom',
+        enabled: true,
+      });
+      expect(data[1].dataLabels).toMatchObject({
+        verticalAlign: 'top',
+        enabled: true,
+      });
     });
 
     it('should apply a formatter function for formatting minmax datapoint labels', () => {
@@ -259,16 +255,16 @@ describe('DtMicroChart', () => {
       let data = (
         microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
       ).data as SeriesLineDataOptions[];
-      expect(data[0]).toEqual(objectContaining({ x: 1, y: 0 }));
-      expect(data[1]).toEqual(objectContaining({ x: 2, y: 10 }));
+      expect(data[0]).toMatchObject({ x: 1, y: 0 });
+      expect(data[1]).toMatchObject({ x: 2, y: 10 });
 
       fixture.componentInstance.emitTestData();
       expect(microChartComponent.seriesId).toEqual('someOtherId');
       data = (
         microChartComponent.highchartsOptions.series![0] as SeriesLineOptions
       ).data as SeriesLineDataOptions[];
-      expect(data[0]).toEqual(objectContaining({ x: 1, y: 20 }));
-      expect(data[1]).toEqual(objectContaining({ x: 2, y: 30 }));
+      expect(data[0]).toMatchObject({ x: 1, y: 20 });
+      expect(data[1]).toMatchObject({ x: 2, y: 30 });
     });
   });
 

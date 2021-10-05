@@ -35,10 +35,6 @@ import {
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
-  DtFilterField,
-  DtFilterFieldChangeEvent,
-} from '@dynatrace/barista-components/filter-field';
-import {
   createComponent,
   dispatchFakeEvent,
   dispatchKeyboardEvent,
@@ -50,6 +46,7 @@ import {
   FILTER_FIELD_TEST_DATA_SINGLE_DISTINCT,
   FILTER_FIELD_TEST_DATA_SINGLE_OPTION,
 } from '@dynatrace/testing/fixtures';
+import { DtFilterField, DtFilterFieldChangeEvent } from './filter-field';
 import { EditionParserFunction } from './filter-field-config';
 import { TEST_DATA_EDITMODE_ASYNC } from './filter-field-edit-mode.spec';
 import {

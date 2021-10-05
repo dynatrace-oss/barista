@@ -22,7 +22,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtEventChartModule } from '@dynatrace/barista-components/event-chart';
+import { DtEventChartModule } from './event-chart-module';
 
 import { dispatchFakeEvent } from '@dynatrace/testing/browser';
 import { DtEventChart } from './event-chart';

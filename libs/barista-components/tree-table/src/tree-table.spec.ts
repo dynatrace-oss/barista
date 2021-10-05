@@ -37,12 +37,10 @@ import {
 } from '@dynatrace/barista-components/core';
 import { DtIndicatorModule } from '@dynatrace/barista-components/indicator';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import {
-  DtTreeTable,
-  DtTreeTableModule,
-} from '@dynatrace/barista-components/tree-table';
+import { DtTreeTableModule } from './tree-table-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
+import { DtTreeTable } from './tree-table';
 
 describe('DtTreeTable', () => {
   let treeTableElement: HTMLElement;

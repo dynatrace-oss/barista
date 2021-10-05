@@ -31,7 +31,8 @@ import {
 import { By } from '@angular/platform-browser';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import { DtTagAdd, DtTagModule } from '@dynatrace/barista-components/tag';
+import { DtTagModule } from '../tag-module';
+import { DtTagAdd } from './tag-add';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import {
   createComponent,

@@ -17,7 +17,7 @@
 /* tslint:disable:no-unused-variable */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ViewChild, Predicate } from '@angular/core';
-import { DtTableModule } from '@dynatrace/barista-components/table';
+import { DtTableModule } from '../table-module';
 import { CommonModule } from '@angular/common';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';

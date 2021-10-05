@@ -30,11 +30,9 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-import {
-  DT_OVERLAY_DEFAULT_OFFSET,
-  DtOverlayConfig,
-  DtOverlayModule,
-} from '@dynatrace/barista-components/overlay';
+import { DtOverlayModule } from './overlay-module';
+import { DT_OVERLAY_DEFAULT_OFFSET } from './overlay';
+import { DtOverlayConfig } from './overlay-config';
 
 import {
   createComponent,

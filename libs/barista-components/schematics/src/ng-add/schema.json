@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "barista-components-ng-add",
+  "$id": "barista-components-ng-add",
   "type": "object",
   "description": "Barista components ng-add schematic",
   "properties": {

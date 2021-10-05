@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
 import { TestBed, waitForAsync, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import { DtLoadingDistractorModule } from './loading-distractor-module';
 
 import { createComponent } from '@dynatrace/testing/browser';
 

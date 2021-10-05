@@ -23,10 +23,8 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import {
-  DtShowMore,
-  DtShowMoreModule,
-} from '@dynatrace/barista-components/show-more';
+import { DtShowMoreModule } from './show-more-module';
+import { DtShowMore } from './show-more';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { createComponent } from '@dynatrace/testing/browser';

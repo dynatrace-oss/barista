@@ -42,13 +42,13 @@ import {
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
+import { DtDrawerModule } from './drawer-module';
 import {
-  DT_DRAWER_OPEN_CLASS,
-  DtDrawer,
   DtDrawerContainer,
-  DtDrawerModule,
+  DT_DRAWER_OPEN_CLASS,
   getDtDuplicateDrawerError,
-} from '@dynatrace/barista-components/drawer';
+} from './drawer-container';
+import { DtDrawer } from './drawer';
 
 import { dispatchKeyboardEvent } from '@dynatrace/testing/browser';
 

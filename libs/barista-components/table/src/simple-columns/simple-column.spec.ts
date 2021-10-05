@@ -34,14 +34,12 @@ import {
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
 import {
-  DtSort,
-  DtTableDataSource,
-  DtTableModule,
-} from '@dynatrace/barista-components/table';
-import {
   createComponent,
   dispatchMouseEvent,
 } from '@dynatrace/testing/browser';
+import { DtTableModule } from '../table-module';
+import { DtTableDataSource } from '../table-data-source';
+import { DtSort } from '../sort/sort';
 
 describe('DtTable SimpleColumns', () => {
   beforeEach(
@@ -837,9 +835,23 @@ class TestSimpleColumnsApp implements AfterViewInit {
 
   // Get the viewChild to pass the sorter reference to the datasource.
   @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
-  dataSource: DtTableDataSource<object>;
+  dataSource: DtTableDataSource<{
+    favorite: boolean;
+    host?: string;
+    cpu?: number;
+    memoryPerc: number;
+    memoryTotal: number;
+    traffic: number;
+  }>;
   constructor() {
-    this.dataSource = new DtTableDataSource(this.data);
+    this.dataSource = new DtTableDataSource<{
+      favorite: boolean;
+      host?: string;
+      cpu?: number;
+      memoryPerc: number;
+      memoryTotal: number;
+      traffic: number;
+    }>(this.data);
   }
 
   ngAfterViewInit(): void {
@@ -987,9 +999,23 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
 
   // Get the viewChild to pass the sorter reference to the datasource.
   @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
-  dataSource: DtTableDataSource<object>;
+  dataSource: DtTableDataSource<{
+    favorite: boolean;
+    host?: string;
+    cpu?: number;
+    memoryPerc: number;
+    memoryTotal: number;
+    traffic: number;
+  }>;
   constructor() {
-    this.dataSource = new DtTableDataSource(this.data);
+    this.dataSource = new DtTableDataSource<{
+      favorite: boolean;
+      host?: string;
+      cpu?: number;
+      memoryPerc: number;
+      memoryTotal: number;
+      traffic: number;
+    }>(this.data);
   }
 
   ngAfterViewInit(): void {

@@ -22,10 +22,8 @@ import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtIconModule } from '@dynatrace/barista-components/icon';
-import {
-  DtPagination,
-  DtPaginationModule,
-} from '@dynatrace/barista-components/pagination';
+import { DtPaginationModule } from './pagination-module';
+import { DtPagination } from './pagination';
 
 import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 import {
