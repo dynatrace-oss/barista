@@ -73,6 +73,7 @@ import {
   NumberInput,
   BooleanInput,
 } from '@angular/cdk/coercion';
+import { Platform } from '@angular/cdk/platform';
 
 // horizontal ticks
 const TICK_BAR_SPACING = 160;
@@ -341,6 +342,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     private _resizer: DtViewportResizer,
     private _zone: NgZone,
     private _overlayService: DtOverlay,
+    private _platform: Platform,
     /**
      * @deprecated Remove the sanitizer when we don't have to support ivy anymore.
      * @breaking-change Remove the DomSanitizer. (Version: TBD)
@@ -571,6 +573,10 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
 
   /** Calculate the ticks used for values */
   private _updateTicks(): void {
+    if (!this._platform.isBrowser) {
+      return;
+    }
+
     if (this._valueAxis) {
       const axisBox = this._valueAxis.nativeElement.getBoundingClientRect();
       const axisLength = this.mode === 'bar' ? axisBox.width : axisBox.height;
