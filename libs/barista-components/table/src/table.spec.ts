@@ -28,7 +28,13 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { waitForAsync, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import {
+  waitForAsync,
+  fakeAsync,
+  TestBed,
+  tick,
+  flushMicrotasks,
+} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -655,13 +661,15 @@ describe('DtTable', () => {
   });
 
   describe('Sticky Header', () => {
-    it('should add the sticky class to the header', () => {
+    it('should add the sticky class to the header', fakeAsync(() => {
       const fixture = createComponent(TestStickyHeader);
+      flushMicrotasks();
+
       const headerRow = fixture.debugElement.query(
         By.css('dt-header-row'),
       ).nativeElement;
       expect(headerRow.classList.contains('dt-table-sticky')).toBe(true);
-    });
+    }));
   });
 });
 
