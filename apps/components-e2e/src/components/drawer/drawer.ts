@@ -34,7 +34,7 @@ import { options as chartOptions } from '../chart/chart-options';
         position: absolute;
         top: 0;
         right: 0;
-        // this is the highest possible z-index (integer max range)
+        /* this is the highest possible z-index (integer max range) */
         z-index: 2147483647;
       }
     `,
