@@ -78,16 +78,3 @@ test('should enable selection and select with relative values', async (testContr
     .expect(centralValue.textContent)
     .match(/100 %/);
 });
-
-test('should show overlay on hover', async (testController: TestController) => {
-  await testController
-    .hover(sliceShephard, { ...mouseInteraction, offsetY: -20 })
-    .wait(200)
-    .expect(overlay.exists)
-    .ok()
-    .expect(overlay.textContent)
-    .match(/Shephard: 23/)
-    .hover(root, { ...mouseInteraction, offsetX: 10, offsetY: 10 })
-    .expect(overlay.exists)
-    .notOk();
-});
