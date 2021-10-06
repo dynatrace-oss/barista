@@ -1,25 +1,28 @@
 {
-  "plugins": ["stylelint-prettier", "stylelint-scss"],
-  "extends": ["stylelint-prettier/recommended"],
+  "plugins": [
+    "stylelint-prettier",
+    "stylelint-scss"
+  ],
+  "extends": [
+    "stylelint-prettier/recommended"
+  ],
   "rules": {
     "color-hex-case": "lower",
     "color-no-invalid-hex": true,
-
     "function-calc-no-unspaced-operator": true,
     "function-comma-space-after": "always-single-line",
     "function-comma-space-before": "never",
     "function-name-case": "lower",
     "function-url-quotes": "always",
-    "function-url-scheme-blacklist": ["data"],
+    "function-url-scheme-blacklist": [
+      "data"
+    ],
     "function-whitespace-after": "always",
-
     "number-leading-zero": "always",
     "number-no-trailing-zeros": true,
     "length-zero-no-unit": true,
-
     "string-no-newline": true,
     "string-quotes": "single",
-
     "unit-case": "lower",
     "unit-no-unknown": true,
     "unit-whitelist": [
@@ -36,19 +39,17 @@
       "s",
       "fr"
     ],
-
     "value-list-comma-space-after": "always-single-line",
     "value-list-comma-space-before": "never",
-
     "shorthand-property-no-redundant-values": true,
-
     "property-case": "lower",
     "no-duplicate-at-import-rules": true,
-
     "declaration-block-no-duplicate-properties": [
       true,
       {
-        "ignore": ["consecutive-duplicates-with-different-values"]
+        "ignore": [
+          "consecutive-duplicates-with-different-values"
+        ]
       }
     ],
     "declaration-block-trailing-semicolon": "always",
@@ -58,20 +59,27 @@
     "declaration-block-semicolon-newline-before": "never-multi-line",
     "declaration-block-semicolon-newline-after": "always-multi-line",
     "declaration-property-value-blacklist": [
-      { "/.*/": ["initial"] },
-      { "message": "The `initial` value is not supported in IE." }
+      {
+        "/.*/": [
+          "initial"
+        ]
+      },
+      {
+        "message": "The `initial` value is not supported in IE."
+      }
     ],
-
     "block-closing-brace-newline-after": [
       "always",
       {
-        "ignoreAtRules": ["if", "else"]
+        "ignoreAtRules": [
+          "if",
+          "else"
+        ]
       }
     ],
     "block-closing-brace-newline-before": "always-multi-line",
     "block-opening-brace-newline-after": "always-multi-line",
     "block-opening-brace-space-before": "always-multi-line",
-
     "selector-attribute-brackets-space-inside": "never",
     "selector-attribute-operator-space-after": "never",
     "selector-attribute-operator-space-before": "never",
@@ -83,7 +91,9 @@
     "selector-pseudo-element-no-unknown": [
       true,
       {
-        "ignorePseudoElements": ["ng-deep"]
+        "ignorePseudoElements": [
+          "ng-deep"
+        ]
       }
     ],
     "selector-type-case": "lower",
@@ -98,11 +108,9 @@
         "resolveNestedSelectors": true
       }
     ],
-
     "property-no-vendor-prefix": true,
     "value-no-vendor-prefix": true,
     "selector-no-vendor-prefix": true,
-
     "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
     "scss/at-else-closing-brace-space-after": "always-intermediate",
     "scss/at-else-empty-line-before": "never",
