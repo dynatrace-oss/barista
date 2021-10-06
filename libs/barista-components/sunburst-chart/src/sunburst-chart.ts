@@ -318,6 +318,9 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
 
   /** Calculates visible slices based on their state */
   private _render(): void {
+    if (!this._platform.isBrowser) {
+      return;
+    }
     const containerWidth =
       this._elementRef.nativeElement.getBoundingClientRect().width;
     const nodesWithState = getNodesWithState(
