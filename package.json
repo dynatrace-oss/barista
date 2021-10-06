@@ -152,6 +152,7 @@
     "memfs": "^3.2.2",
     "ng-packagr": "12.2.2",
     "patch-package": "^6.4.7",
+    "postcss": "^8.3.9",
     "prettier": "2.4.1",
     "reflect-metadata": "^0.1.13",
     "rollup": "^2.56.3",
