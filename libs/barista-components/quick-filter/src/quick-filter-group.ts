@@ -52,6 +52,7 @@ import {
   NumberInput,
   coerceBooleanProperty,
 } from '@angular/cdk/coercion';
+import { Platform } from '@angular/cdk/platform';
 
 /** @internal The DtQuickFilterGroup is an internal component */
 @Component({
@@ -193,6 +194,7 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
     private _zone: NgZone,
+    private _platform: Platform,
   ) {}
 
   ngAfterViewInit(): void {
@@ -200,7 +202,11 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
       const item = this._elementRef.nativeElement.querySelector(
         '.dt-radio-button,.dt-checkbox',
       ) as HTMLElement;
-      this._itemSize = item?.getBoundingClientRect().height || 22;
+      if (this._platform.isBrowser) {
+        this._itemSize = item?.getBoundingClientRect().height || 22;
+      } else {
+        this._itemSize = 22;
+      }
     });
   }
 
