@@ -66,6 +66,7 @@ import {
   DtTriggerableViewportResizer,
   DtViewportResizer,
 } from '@dynatrace/barista-components/core';
+import { Platform } from '@angular/cdk/platform';
 
 /** Directive that is used to place a title inside the quick filters sidebar */
 @Directive({
@@ -262,6 +263,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     private _zone: NgZone,
     private _elementRef: ElementRef<HTMLElement>,
     private _viewportResizer: DtViewportResizer,
+    private _platform: Platform,
   ) {}
 
   /** Angular life-cycle hook that will be called after the view is initialized */
@@ -387,11 +389,15 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
         ),
       ) || [];
 
-    return (
-      groups.reduce(
-        (height, group) => (height += group.getBoundingClientRect().height),
-        0,
-      ) - 28
-    ); // the 28 is the height of a group headline;
+    if (this._platform.isBrowser) {
+      return (
+        groups.reduce(
+          (height, group) => (height += group.getBoundingClientRect().height),
+          0,
+        ) - 28
+      ); // the 28 is the height of a group headline;
+    }
+
+    return 0;
   }
 }
