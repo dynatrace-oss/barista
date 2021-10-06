@@ -19,7 +19,7 @@ import {
   BuilderOutput,
   Target,
 } from '@angular-devkit/architect';
-import { Schema as AngularJson } from '@angular/cli/lib/config/schema';
+import { Schema as AngularJson } from '@angular/cli/lib/config/workspace-schema';
 import { writeFileSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { green } from 'chalk';
