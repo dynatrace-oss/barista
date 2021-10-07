@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import { DtColors } from '@dynatrace/barista-components/theming';
 import { DtStackedSeriesChartSeries } from '@dynatrace/barista-components/stacked-series-chart';
+import { DtColors } from '@dynatrace/barista-components/theming';
 
-export const stackedSeriesChartDemoDataCoffee = [
+export const stackedSeriesChartCoffeeMock: DtStackedSeriesChartSeries[] = [
   {
     label: 'Espresso',
     nodes: [
       {
         value: 1,
+        color: DtColors.SHAMROCKGREEN_700,
         label: 'Coffee',
       },
     ],
@@ -70,87 +70,16 @@ export const stackedSeriesChartDemoDataCoffee = [
       },
     ],
   },
-];
-
-export const stackedSeriesChartDemoDataShows: DtStackedSeriesChartSeries[] = [
   {
-    label: 'Lost',
+    label: 'Caffé latté (Extra latté)',
     nodes: [
       {
-        value: 25,
-        label: 'Season 1',
-        color: DtColors.RED_500,
+        value: 2,
+        label: 'Coffee',
       },
       {
-        value: 24,
-        label: 'Season 2',
-        color: DtColors.ORANGE_400,
-      },
-      {
-        value: 23,
-        label: 'Season 3',
-        color: DtColors.YELLOW_500,
-      },
-      {
-        value: 14,
-        label: 'Season 4',
-        color: DtColors.GREEN_500,
-      },
-      {
-        value: 17,
-        label: 'Season 5',
-        color: DtColors.BLUE_500,
-      },
-      {
-        value: 18,
-        label: 'Season 6',
-        color: DtColors.PURPLE_500,
-      },
-    ],
-  },
-  {
-    label: 'Six feet under',
-    nodes: [
-      {
-        value: 13,
-        label: 'Season 1',
-      },
-      {
-        value: 13,
-        label: 'Season 2',
-      },
-      {
-        value: 13,
-        label: 'Season 3',
-      },
-      {
-        value: 12,
-        label: 'Season 4',
-      },
-      {
-        value: 12,
-        label: 'Season 5',
-      },
-    ],
-  },
-  {
-    label: 'Halt and catch fire',
-    nodes: [
-      {
-        value: 10,
-        label: 'Season 1',
-      },
-      {
-        value: 10,
-        label: 'Season 2',
-      },
-      {
-        value: 10,
-        label: 'Season 3',
-      },
-      {
-        value: 10,
-        label: 'Season 4',
+        value: 3,
+        label: 'Milk',
       },
     ],
   },

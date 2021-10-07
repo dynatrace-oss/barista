@@ -278,6 +278,8 @@ import { DtExampleStackedSeriesChartConnectedLegend } from './stacked-series-cha
 import { DtExampleStackedSeriesChartFilled } from './stacked-series-chart/stacked-series-chart-filled-example/stacked-series-chart-filled-example';
 import { DtExampleStackedSeriesChartGeneric } from './stacked-series-chart/stacked-series-chart-generic-example/stacked-series-chart-generic-example';
 import { DtExampleStackedSeriesChartSingle } from './stacked-series-chart/stacked-series-chart-single-example/stacked-series-chart-single-example';
+import { DtExampleStackedSeriesChartLinear } from './stacked-series-chart/stacked-series-chart-linear-example/stacked-series-chart-linear-example';
+import { DtExampleStackedSeriesChartDate } from './stacked-series-chart/stacked-series-chart-date-example/stacked-series-chart-date-example';
 import { DtExampleStepperDefault } from './stepper/stepper-default-example/stepper-default-example';
 import { DtExampleStepperEditable } from './stepper/stepper-editable-example/stepper-editable-example';
 import { DtExampleStepperLinear } from './stepper/stepper-linear-example/stepper-linear-example';
@@ -343,6 +345,7 @@ import { DtExampleTreeTableDefault } from './tree-table/tree-table-default-examp
 import { DtExampleTreeTableProblemIndicator } from './tree-table/tree-table-problem-indicator-example/tree-table-problem-indicator-example';
 import { DtExampleTreeTableSimple } from './tree-table/tree-table-simple-example/tree-table-simple-example';
 import { DtExampleCustomAddFormTag } from '././tag/tag-custom-add-form-example/tag-custom-add-form-example';
+
 export { DtAlertExamplesModule } from './alert/alert-examples.module';
 export { DtAutocompleteExamplesModule } from './autocomplete/autocomplete-examples.module';
 export { DtBarIndicatorExamplesModule } from './bar-indicator/bar-indicator-examples.module';
@@ -657,6 +660,8 @@ export {
   DtExampleStackedSeriesChartFilled,
   DtExampleStackedSeriesChartGeneric,
   DtExampleStackedSeriesChartSingle,
+  DtExampleStackedSeriesChartLinear,
+  DtExampleStackedSeriesChartDate,
   DtExampleStepperDefault,
   DtExampleStepperEditable,
   DtExampleStepperLinear,
@@ -1044,6 +1049,8 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleStackedSeriesChartFilled', DtExampleStackedSeriesChartFilled],
   ['DtExampleStackedSeriesChartGeneric', DtExampleStackedSeriesChartGeneric],
   ['DtExampleStackedSeriesChartSingle', DtExampleStackedSeriesChartSingle],
+  ['DtExampleStackedSeriesChartLinear', DtExampleStackedSeriesChartLinear],
+  ['DtExampleStackedSeriesChartDate', DtExampleStackedSeriesChartDate],
   ['DtExampleStepperDefault', DtExampleStepperDefault],
   ['DtExampleStepperEditable', DtExampleStepperEditable],
   ['DtExampleStepperLinear', DtExampleStepperLinear],
