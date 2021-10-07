@@ -74,7 +74,7 @@ import {
   throttleTime,
   withLatestFrom,
 } from 'rxjs/operators';
-import { DtChart } from '../chart';
+import { DtChartBase } from '../chart-base';
 import { clampRange } from '../range/clamp-range';
 import { DtChartRange, RangeStateChangedEvent } from '../range/range';
 import {
@@ -177,7 +177,7 @@ export class DtChartSelectionArea
   private _selectionAreaBcr$: Observable<ClientRect> = EMPTY;
 
   constructor(
-    @SkipSelf() private _chart: DtChart,
+    @SkipSelf() private _chart: DtChartBase,
     private _elementRef: ElementRef<HTMLElement>,
     private _overlay: Overlay,
     private _zone: NgZone,

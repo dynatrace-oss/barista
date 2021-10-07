@@ -24,7 +24,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DtChartModule } from '../chart-module';
 import { DtChartRange, RangeStateChangedEvent } from './range';
-import { DtChart } from '../chart';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import {
   dispatchFakeEvent,
@@ -37,6 +36,7 @@ import {
   ARIA_DEFAULT_SELECTED_AREA_LABEL,
   DT_RANGE_RELEASED_CLASS,
 } from './constants';
+import { DtChartBase } from '../chart-base';
 
 // tslint:disable:no-magic-numbers no-unbound-method no-use-before-declare
 
@@ -57,7 +57,7 @@ describe('DtChart Range', () => {
         RangeTestBindingValuesComponent,
         RangeA11yTestComponent,
       ],
-      providers: [{ provide: DtChart, useClass: MockChart }],
+      providers: [{ provide: DtChartBase, useClass: MockChart }],
     });
     TestBed.compileComponents();
   });

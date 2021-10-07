@@ -24,7 +24,7 @@ import { Component, Provider } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { createComponent } from '@dynatrace/testing/browser';
-import { DtChart } from './chart';
+import { DtChartBase } from './chart-base';
 import { DtChartFocusAnchor, DtChartFocusTarget } from './chart-focus-anchor';
 
 /** Mock Chart so the targets have a place to register themselves */
@@ -55,7 +55,7 @@ describe('DtChartFocusAnchor', () => {
       TestBed.configureTestingModule({
         imports: [CommonModule],
         providers: [
-          { provide: DtChart, useClass: MockChart },
+          { provide: DtChartBase, useClass: MockChart },
           TEST_INTERACTIVITY_CHECKER_PROVIDER,
         ],
         declarations: [
