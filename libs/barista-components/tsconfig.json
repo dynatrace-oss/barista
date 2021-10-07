@@ -7,7 +7,6 @@
     "strictInjectionParameters": true,
     "enableResourceInlining": true,
     "enableSummariesForJit": true,
-    "enableIvy": false,
     "trace": true
   },
   "compilerOptions": {

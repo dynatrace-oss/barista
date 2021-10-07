@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "packager",
+  "$id": "packager",
   "type": "object",
   "properties": {
     "buildTarget": {
