@@ -5,15 +5,71 @@
 See stacked-series-chart.layout.md
 */
 
+$track-wrapper-height: calc(
+  (var(--dt-stacked-series-chart-max-bar-size) + #{$gap}) *
+    var(--dt-stacked-series-chart-track-amount)
+);
+$track-wrapper-margin-top: $gap;
+$track-wrapper-margin-bottom: calc(#{$gap} / 2);
+
 :host(.dt-stacked-series-chart-bar) {
+  .dt-stacked-series-chart-track-label-wrapper,
+  .dt-stacked-series-chart-track-wrapper {
+    position: relative;
+    min-height: $track-wrapper-height;
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .dt-stacked-series-chart-track-axis-container {
+    grid-column: 2;
+    grid-row: 1;
+    height: $track-wrapper-height;
+  }
+
+  .dt-stacked-series-chart-container:not(.dt-stacked-series-chart-scale-point) {
+    .dt-stacked-series-chart-track-label-wrapper,
+    .dt-stacked-series-chart-track-wrapper {
+      margin-top: $track-wrapper-margin-top;
+      margin-bottom: $track-wrapper-margin-bottom;
+    }
+
+    .dt-stacked-series-chart-track-axis-container {
+      @include trackAxisContainerMinSize(
+        min-height,
+        $track-wrapper-height,
+        $track-wrapper-margin-top,
+        $track-wrapper-margin-bottom
+      );
+    }
+  }
+
+  .dt-stacked-series-chart-track-label-wrapper {
+    display: grid;
+    grid-column: 1;
+  }
+
+  .dt-stacked-series-chart-track-label {
+    @include fullWidthAxis();
+  }
+
+  .dt-stacked-series-chart-track {
+    position: absolute;
+    top: var(--dt-stacked-series-chart-tick-position);
+    transform: translate(0%, -50%);
+    width: 100%;
+
+    grid-row: 1;
+  }
+
   .dt-stacked-series-chart-container {
     align-items: center;
     grid-template-columns: auto 1fr;
-    @include gridPosition('grid-column', 1, 2);
   }
 
   .dt-stacked-series-chart-label-none.dt-stacked-series-chart-container {
     grid-template-columns: 1fr;
+    gap: 0;
   }
 
   /* TRACK */
@@ -23,7 +79,8 @@ See stacked-series-chart.layout.md
     grid-column: 2;
   }
 
-  .dt-stacked-series-chart-label-none .dt-stacked-series-chart-track {
+  .dt-stacked-series-chart-label-none .dt-stacked-series-chart-track-wrapper,
+  .dt-stacked-series-chart-label-none .dt-stacked-series-chart-value-axis {
     grid-column: 1;
   }
 
@@ -51,25 +108,27 @@ See stacked-series-chart.layout.md
   }
 
   .dt-stacked-series-chart-value-axis {
-    grid-column: 2;
-    border-top: 1px solid $axis-color;
-    grid-row: calc(1 + var(--dt-stacked-series-chart-track-amount));
-    height: 40px;
     position: relative;
-  }
-
-  .dt-stacked-series-chart-label-none .dt-stacked-series-chart-value-axis {
-    grid-column: 1;
+    display: grid;
+    grid-column: 2;
+    border-top: $axis-width solid $axis-color;
   }
 
   .dt-stacked-series-chart-axis-tick {
+    position: relative;
     padding-top: $tick-gutter;
-    text-align: center;
-    width: 100px;
-    left: (calc(var(--dt-stacked-series-chart-tick-position) - 50px));
+    left: var(--dt-stacked-series-chart-tick-position);
+    transform: translateX(-50%);
+    grid-row: 1;
+    grid-column: 1;
+
+    display: flex;
+    justify-content: center;
+    width: 0;
+    white-space: nowrap;
 
     &::after {
-      top: -1px;
+      top: -$axis-width;
       left: 50%;
       height: $tick-length;
     }

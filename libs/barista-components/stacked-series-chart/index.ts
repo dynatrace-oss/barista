@@ -27,4 +27,8 @@ export {
   DtStackedSeriesChartSelectionMode,
   DtStackedSeriesChartValueDisplayMode,
   DtStackedSeriesChartLabelAxisMode,
+  DtStackedSeriesChartValueContinuousAxisMap,
+  DtStackedSeriesChartValueContinuousAxisType,
+  TimeInterval,
+  CountableTimeInterval,
 } from './src/stacked-series-chart.util';

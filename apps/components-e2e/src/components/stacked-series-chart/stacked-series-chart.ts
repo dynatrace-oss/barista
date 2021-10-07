@@ -24,8 +24,15 @@ import {
   DtStackedSeriesChartMode,
   DtStackedSeriesChartSelectionMode,
   DtStackedSeriesChartLabelAxisMode,
+  DtStackedSeriesChartValueContinuousAxisMap,
+  DtStackedSeriesChartValueContinuousAxisType,
+  TimeInterval,
 } from '@dynatrace/barista-components/stacked-series-chart';
-import { DtColors } from '@dynatrace/barista-components/theming';
+import {
+  stackedSeriesChartCoffeeMock,
+  stackedSeriesChartDemoDataConvertedBouncedDates,
+} from './stacked-series-chart.mocks';
+import { timeHour, timeMinute } from 'd3-time';
 
 @Component({
   selector: 'dt-e2e-stacked-series-chart',
@@ -34,6 +41,10 @@ import { DtColors } from '@dynatrace/barista-components/theming';
 export class DtE2EStackedSeriesChart {
   selected: [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] | [];
   selectionMode: DtStackedSeriesChartSelectionMode;
+  continuousAxisType: DtStackedSeriesChartValueContinuousAxisType;
+  continuousAxisInterval: TimeInterval | null;
+  continuousAxisFormat: string | undefined;
+  continuousAxisMap: DtStackedSeriesChartValueContinuousAxisMap | undefined;
   selectable: boolean;
   valueDisplayMode: DtStackedSeriesChartValueDisplayMode;
   mode: DtStackedSeriesChartMode;
@@ -47,74 +58,25 @@ export class DtE2EStackedSeriesChart {
   max: number | undefined;
   usedLegends: DtStackedSeriesChartLegend[] | undefined;
 
-  series: DtStackedSeriesChartSeries[] = [
-    {
-      label: 'Espresso',
-      nodes: [
-        {
-          value: 1,
-          color: DtColors.SHAMROCKGREEN_700,
-          label: 'Coffee',
-        },
-      ],
-    },
-    {
-      label: 'Macchiato',
-      nodes: [
-        {
-          value: 2,
-          label: 'Coffee',
-        },
-        {
-          value: 1,
-          label: 'Milk',
-        },
-      ],
-    },
-    {
-      label: 'Americano',
-      nodes: [
-        {
-          value: 2,
-          label: 'Coffee',
-        },
-        {
-          value: 3,
-          label: 'Water',
-        },
-      ],
-    },
-    {
-      label: 'Mocha',
-      nodes: [
-        {
-          value: 2,
-          label: 'Coffee',
-        },
-        {
-          value: 2,
-          label: 'Chocolate',
-        },
-        {
-          value: 1,
-          label: 'Milk',
-        },
-      ],
-    },
-    {
-      label: 'Caffé latté (Extra latté)',
-      nodes: [
-        {
-          value: 2,
-          label: 'Coffee',
-        },
-        {
-          value: 3,
-          label: 'Milk',
-        },
-      ],
-    },
+  continuousAxisIntervals = [
+    timeMinute.every(5),
+    timeMinute.every(30),
+    timeHour.every(1),
   ];
+  continuousAxisFormatsByType = {
+    linear: ['$.2f', '$.7f'],
+    date: ['%H:%M', '%H:%M:%S:%L%p'],
+  };
+  continuousAxisMapByType = {
+    linear: (_, index) => index * 0.5,
+    date: ({ origin }) => {
+      const [hours, minutes] = origin.label.split(':').map(Number);
+      return new Date(0, 0, 0, hours, minutes, 0, 0);
+    },
+  };
+
+  series: DtStackedSeriesChartSeries[] = stackedSeriesChartCoffeeMock;
+  usedSeries: DtStackedSeriesChartSeries[] = this.series;
 
   legends: DtStackedSeriesChartLegend[] = [
     { label: 'Coffee', color: '#7c38a1', visible: false },
@@ -123,19 +85,17 @@ export class DtE2EStackedSeriesChart {
     { label: 'Chocolate', color: '#debbf3', visible: true },
   ];
 
-  usedSeries: DtStackedSeriesChartSeries[] = this.series;
-
   elementWidth = '800px';
 
   constructor(private changeDetector: ChangeDetectorRef) {
     this.reset();
   }
 
-  reset() {
+  reset(): void {
     this.selected = [];
     this.selectionMode = 'node';
-    this.selectable;
-    this.valueDisplayMode;
+    this.selectable = false;
+    this.valueDisplayMode = 'none';
     this.mode = 'bar';
     this.fillMode = 'relative';
     this.visibleValueAxis = true;
@@ -147,12 +107,33 @@ export class DtE2EStackedSeriesChart {
     this.max = undefined;
     this.usedLegends = undefined;
     // force recalculation of legends
-    this.usedSeries = this.series.slice();
     this.elementWidth = '800px';
+    this.changeContinuousAxisType('none');
+    this.continuousAxisInterval = null;
+    this.continuousAxisFormat = undefined;
   }
 
   setElementWidth(width: string): void {
     this.elementWidth = width;
     this.changeDetector.detectChanges();
+  }
+
+  changeContinuousAxisType(
+    type: DtStackedSeriesChartValueContinuousAxisType,
+  ): void {
+    this.continuousAxisType = type;
+
+    this.continuousAxisMap = this.continuousAxisMapByType[type];
+    if (type === 'date') {
+      this.series = stackedSeriesChartDemoDataConvertedBouncedDates;
+    } else {
+      this.series = stackedSeriesChartCoffeeMock;
+    }
+    const continuousAxisFormats = this.continuousAxisFormatsByType[type] || [];
+    if (!continuousAxisFormats.includes(this.continuousAxisFormat)) {
+      this.continuousAxisFormat = continuousAxisFormats[0];
+    }
+
+    this.usedSeries = this.series.slice();
   }
 }

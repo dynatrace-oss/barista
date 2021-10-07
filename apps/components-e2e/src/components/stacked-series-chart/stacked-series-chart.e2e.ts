@@ -22,9 +22,17 @@ import {
   barChart,
   body,
   chartContainer,
+  chartWidth1200Btn,
   chartWidth400Btn,
   columnBtn,
   columnChart,
+  continuousAxisFormat7f,
+  continuousAxisFormatLong,
+  continuousAxisIntervalFiveMin,
+  continuousAxisIntervalHalfHour,
+  continuousAxisIntervalHour,
+  continuousAxisTypeDate,
+  continuousAxisTypeLinear,
   fullTrackBtn,
   getLabel,
   getLegendItem,
@@ -135,7 +143,7 @@ test('should change the mode and fillMode', async (testController) => {
     // fillMode
     .click(fullTrackBtn)
     .expect(getSlice(0, 0).clientHeight)
-    .within(285, 300)
+    .within(295, 315)
     .click(barBtn)
     .expect(getSlice(0, 0).clientWidth)
     .within(635, 650);
@@ -298,4 +306,151 @@ test('should be selectable depending on the selection mode', async (testControll
     .contains(selectableTrackClassname)
     .expect(getSlice(0, 0).classNames)
     .contains(selectableSliceClassname);
+});
+
+test('should render linear chart with format and auto-fitting ticks', async (testController: TestController) => {
+  await testController
+    // Select date type
+    .click(resetBtn)
+    .click(continuousAxisTypeLinear)
+
+    // Check format to two decimals
+    .expect(labels.count)
+    .eql(5)
+    .expect(getLabel(0).textContent)
+    .match(/\$0.00/)
+    .expect(getLabel(1).textContent)
+    .match(/\$0.50/)
+    .expect(getLabel(2).textContent)
+    .match(/\$1.00/)
+
+    // select column so that auto fit can be applied
+    .click(autoLabelAxisModeBtn)
+    .click(columnBtn)
+    .click(chartWidth400Btn)
+    .click(continuousAxisFormat7f)
+
+    // Check auto fitting ticks
+    .expect(chartContainer.classNames)
+    .contains(compactModeClassname)
+    .click(chartWidth1200Btn)
+    .click(continuousAxisTypeLinear)
+    .expect(chartContainer.classNames)
+    .notContains(compactModeClassname)
+
+    // Check format to seven decimals
+    .expect(labels.count)
+    .eql(5)
+    .expect(getLabel(0).textContent)
+    .match(/\$0.0000000/)
+    .expect(getLabel(1).textContent)
+    .match(/\$0.5000000/)
+    .expect(getLabel(2).textContent)
+    .match(/\$1.0000000/);
+});
+
+test('should render date chart with format and auto-fitting ticks', async (testController: TestController) => {
+  await testController
+    // Select date type
+    .click(resetBtn)
+    .click(continuousAxisTypeDate)
+
+    // Check track ticks
+    .expect(labels.count)
+    .eql(28)
+    .expect(getLabel(0).textContent)
+    .match(/11:35/)
+    .expect(getLabel(1).textContent)
+    .match(/11:40/)
+    .expect(getLabel(2).textContent)
+    .match(/11:45/)
+
+    // select column so that auto fit can be applied
+    .click(autoLabelAxisModeBtn)
+    .click(columnBtn)
+    .expect(chartContainer.classNames)
+    .contains(compactModeClassname)
+
+    // Check track ticks again
+    .expect(labels.count)
+    .eql(28)
+    .expect(getLabel(0).textContent)
+    .match(/11:35/)
+    .expect(getLabel(1).textContent)
+    .match(/11:40/)
+    .expect(getLabel(2).textContent)
+    .match(/11:45/)
+
+    // Check auto fitting ticks with long time format
+    .click(continuousAxisFormatLong)
+    .expect(chartContainer.classNames)
+    .contains(compactModeClassname)
+
+    // Check track ticks
+    .expect(labels.count)
+    .eql(9)
+    .expect(getLabel(0).textContent)
+    .match(/11:45:00:000AM/)
+    .expect(getLabel(1).textContent)
+    .match(/12:00:00:000PM/)
+    .expect(getLabel(2).textContent)
+    .match(/12:15:00:000PM/)
+
+    // Check no compact mode with long width
+    .click(chartWidth1200Btn)
+    .click(continuousAxisTypeDate)
+    .expect(chartContainer.classNames)
+    .notContains(compactModeClassname);
+});
+
+test('should render date chart with format and auto-fitting ticks', async (testController: TestController) => {
+  await testController
+    // Select date type and ticks per 5 mins
+    .click(resetBtn)
+    .click(continuousAxisTypeDate)
+    .click(continuousAxisIntervalFiveMin)
+
+    // select column so that auto fit can be applied
+    .click(autoLabelAxisModeBtn)
+    .click(columnBtn)
+    .expect(chartContainer.classNames)
+    .contains(compactModeClassname)
+
+    // Check track ticks
+    .expect(labels.count)
+    .eql(28)
+    .expect(getLabel(0).textContent)
+    .match(/11:35/)
+    .expect(getLabel(1).textContent)
+    .match(/11:40/)
+    .expect(getLabel(2).textContent)
+    .match(/11:45/)
+
+    // Check auto fitting ticks per half hour
+    .click(continuousAxisIntervalHalfHour)
+    .expect(chartContainer.classNames)
+    .notContains(compactModeClassname)
+
+    // Check track ticks
+    .expect(labels.count)
+    .eql(4)
+    .expect(getLabel(0).textContent)
+    .match(/12:00/)
+    .expect(getLabel(1).textContent)
+    .match(/12:30/)
+    .expect(getLabel(2).textContent)
+    .match(/13:00/)
+
+    // Check auto fitting ticks per hour
+    .click(continuousAxisIntervalHour)
+    .expect(chartContainer.classNames)
+    .notContains(compactModeClassname)
+
+    // Check track ticks
+    .expect(labels.count)
+    .eql(2)
+    .expect(getLabel(0).textContent)
+    .match(/12:00/)
+    .expect(getLabel(1).textContent)
+    .match(/13:00/);
 });

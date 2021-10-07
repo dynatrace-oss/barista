@@ -57,6 +57,10 @@ follow the same order given by the developer
 | `visibleValueAxis`       | `boolean`                                                 | true     | Visibility of value axis.                                                                                                                                                                                             |
 | `labelAxisMode`          | `DtStackedSeriesChartLabelAxisMode`                       | `full`   | Mode of the label axis, compact would make space for more labels.                                                                                                                                                     |
 | `maxTrackSize`           | `number`                                                  | 16       | Maximum size of the track.                                                                                                                                                                                            |
+| `continuousAxisType`     | `DtStackedSeriesChartValueContinuousAxisType`             | `'none'` | Sets the type for continuous axis scale calculation to 'none', 'date' or 'linear'. Depending on the type, scale is created in specific way.                                                                           |
+| `continuousAxisInterval` | `TimeInterval`                                            | -        | In case we want a specific interval for ticks (every 5 mins, per day...). You can create custom intervals or install D3-time and use its built-in ones. If used, auto fitting ticks will be discarded                 |
+| `continuousAxisFormat`   | `string`                                                  | -        | Specific format for tick label. It follows d3-format (https://github.com/d3/d3-format) for linear type and d3-time-format (https://github.com/d3/d3-time-format) for date type                                        |
+| `continuousAxisMap`      | `DtStackedSeriesChartValueContinuousAxisMap`              | -        | Mapping function to create d3 domain. It is used for d3 understand the domain and build scales properly. If not defined, it will use an "Identity" function to return the label for every node                        |
 
 #### Outputs
 
@@ -174,6 +178,28 @@ selection should be processed at node level or at stack level
 | `node`  | The nodes within a stack are selectable                                                           |
 | `stack` | Only the whole stack is selectable, without holding the information of the specific node selected |
 
+### DtStackedSeriesChartValueContinuousAxisType
+
+This `DtStackedSeriesChartValueContinuousAxisType` holds the information about
+the type that will be used for the scale to be processed. As it is not the same
+to create a scale for linear and date values
+
+| Value    | Description                                                                                                                               |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `none`   | Scale will be created as ScalePoint. That is, every node is its own tick (No continuous axis)                                             |
+| `linear` | Scale will be created as ScaleLinear. This works for real numbers but could also work for non-numeric values like color scales            |
+| `date`   | Scale will be created as ScaleTime. This works for date-time values. It can be user with intervals to show ticks every X minutes/hours... |
+
+### DtStackedSeriesChartValueContinuousAxisMap
+
+This `DtStackedSeriesChartValueContinuousAxisMap` holds the function that will
+receive the node's label and transform it to the desired value. If not defined,
+an "identity function" will be used ((({origin}) => origin.label)) Any mapping
+function can be applied but needs to be synced with ContinuousAxisType. Example:
+if using ContinuousAxisType: 'date', for labels like "HH:MM:SS", the map
+function will parse this value into a new Date() value, so that d3 builds scale
+properly
+
 ## Examples
 
 ### Fill mode
@@ -190,3 +216,11 @@ When needed legend can be set outside and linked to distributed stacked bar
 charts. Color for each node should be set in legend object
 
 <ba-live-example name="DtExampleStackedSeriesChartConnectedLegend" fullwidth></ba-live-example>
+
+### Stacked bar chart, continuous axis - Linear
+
+<ba-live-example name="DtExampleStackedSeriesChartLinear" fullwidth></ba-live-example>
+
+### Stacked bar chart, continuous axis - Date
+
+<ba-live-example name="DtExampleStackedSeriesChartDate" fullwidth></ba-live-example>

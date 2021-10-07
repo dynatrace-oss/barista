@@ -23,6 +23,12 @@ See stacked-series-chart.layout.md
   gap: $gap;
 }
 
+/** Chart orientation */
+.dt-stacked-series-chart-track-axis-container {
+  grid-column: 2;
+  grid-row: 1;
+}
+
 /** Track */
 .dt-stacked-series-chart-track {
   display: flex;
@@ -74,8 +80,8 @@ See stacked-series-chart.layout.md
     position: absolute;
     display: block;
     background: $axis-color;
-    width: 1px;
-    height: 1px;
+    width: $axis-width;
+    height: $axis-width;
     content: ' ';
   }
 }
@@ -88,11 +94,8 @@ See stacked-series-chart.layout.md
   outline: none;
 }
 
-.dt-stacked-series-chart-series-axis-auto-mode {
-  .dt-stacked-series-chart-track-label-content {
-    display: block;
-    white-space: nowrap;
-  }
+.dt-stacked-series-chart-track-label-default {
+  opacity: 0;
 }
 
 /** Legend */

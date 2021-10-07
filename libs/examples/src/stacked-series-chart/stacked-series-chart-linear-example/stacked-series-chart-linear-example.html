@@ -1,0 +1,28 @@
+<dt-stacked-series-chart
+  [series]="series"
+  [mode]="mode"
+  [continuousAxisMap]="continuousAxisMap"
+  [continuousAxisFormat]="continuousAxisFormat"
+  continuousAxisType="linear"
+  style="min-height: 200px"
+>
+  <ng-template dtStackedSeriesChartOverlay let-tooltip>
+    <strong>{{ tooltip.seriesOrigin.label }}</strong>
+    <br />
+    {{ tooltip.origin.label }}: {{ tooltip.origin.value }}
+  </ng-template>
+</dt-stacked-series-chart>
+
+<h6>Mode</h6>
+<dt-button-group [(value)]="mode">
+  <dt-button-group-item value="column">Column</dt-button-group-item>
+  <dt-button-group-item value="bar">Bar</dt-button-group-item>
+</dt-button-group>
+
+<h6>Continuous Axis Format</h6>
+<input
+  dtInput
+  [(ngModel)]="continuousAxisFormat"
+  placeholder="Start typing"
+  aria-label="Start typing"
+/>
