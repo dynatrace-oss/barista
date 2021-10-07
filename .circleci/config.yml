@@ -128,7 +128,7 @@ jobs:
       - run:
           name: Install npm dependencies 🐍
           command: |
-            npm ci --ignore-scripts
+            npm ci
       - run:
           name: Build Workspace package 📦
           command: |
