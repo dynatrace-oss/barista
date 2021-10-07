@@ -1255,6 +1255,14 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'stacked-series-chart-column-example',
         route: '/stacked-series-chart-column-example',
       },
+      {
+        name: 'stacked-series-chart-linear-example',
+        route: '/stacked-series-chart-linear-example',
+      },
+      {
+        name: 'stacked-series-chart-date-example',
+        route: '/stacked-series-chart-date-example',
+      },
     ],
   },
   {

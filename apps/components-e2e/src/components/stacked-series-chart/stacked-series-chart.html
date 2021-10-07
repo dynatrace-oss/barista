@@ -16,6 +16,10 @@
   [labelAxisMode]="labelAxisMode"
   [visibleTrackBackground]="visibleTrackBackground"
   [maxTrackSize]="maxTrackSize"
+  [continuousAxisType]="continuousAxisType"
+  [continuousAxisInterval]="continuousAxisInterval"
+  [continuousAxisFormat]="continuousAxisFormat"
+  [continuousAxisMap]="continuousAxisMap"
   [max]="max"
   [legends]="usedLegends"
 >
@@ -163,6 +167,9 @@
 </div>
 
 <div>
+  <button (click)="setElementWidth('1200px')" id="chart-width-1200">
+    1200px
+  </button>
   <button (click)="setElementWidth('800px')" id="chart-width-800">800px</button>
   <button (click)="setElementWidth('400px')" id="chart-width-400">400px</button>
 </div>
@@ -173,5 +180,89 @@
   </button>
   <button (click)="selectionMode = 'stack'" id="chart-selection-mode-stack">
     Stack
+  </button>
+</div>
+
+<div>
+  <button
+    (click)="changeContinuousAxisType('none')"
+    id="chart-continuous-axis-type-none"
+  >
+    None
+  </button>
+  <button
+    (click)="changeContinuousAxisType('linear')"
+    id="chart-continuous-axis-type-linear"
+  >
+    Linear
+  </button>
+  <button
+    (click)="changeContinuousAxisType('date')"
+    id="chart-continuous-axis-type-date"
+  >
+    Date
+  </button>
+</div>
+
+<div>
+  <button
+    (click)="continuousAxisInterval = continuousAxisIntervals[0]"
+    id="chart-continuous-axis-interval-five-min"
+  >
+    Every 5 mins
+  </button>
+  <button
+    (click)="continuousAxisInterval = continuousAxisIntervals[1]"
+    id="chart-continuous-axis-interval-half-hour"
+  >
+    Every half an hour
+  </button>
+  <button
+    (click)="continuousAxisInterval = continuousAxisIntervals[2]"
+    id="chart-continuous-axis-interval-hour"
+  >
+    Every hour
+  </button>
+</div>
+
+<div>
+  <button
+    (click)="
+      continuousAxisType === 'linear' &&
+        (continuousAxisFormat = continuousAxisFormatsByType.linear[0])
+    "
+    id="chart-continuous-axis-format-2f"
+  >
+    2 decimals
+  </button>
+  <button
+    (click)="
+      continuousAxisType === 'linear' &&
+        (continuousAxisFormat = continuousAxisFormatsByType.linear[1])
+    "
+    id="chart-continuous-axis-format-7f"
+  >
+    7 decimals
+  </button>
+</div>
+
+<div>
+  <button
+    (click)="
+      continuousAxisType === 'date' &&
+        (continuousAxisFormat = continuousAxisFormatsByType.date[0])
+    "
+    id="chart-continuous-axis-format-short"
+  >
+    10:45
+  </button>
+  <button
+    (click)="
+      continuousAxisType === 'date' &&
+        (continuousAxisFormat = continuousAxisFormatsByType.date[1])
+    "
+    id="chart-continuous-axis-format-long"
+  >
+    10:45:00:000AM
   </button>
 </div>

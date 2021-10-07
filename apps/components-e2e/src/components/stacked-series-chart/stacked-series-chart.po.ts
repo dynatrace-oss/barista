@@ -25,21 +25,18 @@ export const barChart = Selector('.dt-stacked-series-chart-bar');
 
 export const tracks = Selector('.dt-stacked-series-chart-track');
 export const slices = Selector('.dt-stacked-series-chart-slice');
-export const labels = Selector('.dt-stacked-series-chart-track-label');
+export const labels = Selector(
+  '.dt-stacked-series-chart-track-label:not(.dt-stacked-series-chart-track-label-default)',
+);
 export const valueAxis = Selector('.dt-stacked-series-chart-value-axis');
 export const ticks = Selector('.dt-stacked-series-chart-axis-tick');
 export const legend = Selector('.dt-stacked-series-chart-legend');
 export const legendItems = Selector('dt-legend-item');
 
-export const getTrack = (track: number) =>
-  Selector(`.dt-stacked-series-chart-track `).nth(track);
+export const getTrack = (track: number) => tracks.nth(track);
 export const getSlice = (track: number, slice: number) =>
-  Selector('.dt-stacked-series-chart-track')
-    .nth(track)
-    .child('.dt-stacked-series-chart-slice')
-    .nth(slice);
-export const getLabel = (label: number) =>
-  Selector(`.dt-stacked-series-chart-track-label`).nth(label);
+  getTrack(track).child('.dt-stacked-series-chart-slice').nth(slice);
+export const getLabel = (label: number) => labels.nth(label);
 export const getLegendItem = (item: number) =>
   Selector(`dt-legend-item`).nth(item);
 export const getTick = (tick: number) =>
@@ -96,8 +93,43 @@ export const nonSelectableBtn = Selector('#chart-non-selectable');
 export const selectBtn = Selector('#chart-select');
 export const unselectBtn = Selector('#chart-unselect');
 
+export const chartWidth1200Btn = Selector('#chart-width-1200');
 export const chartWidth800Btn = Selector('#chart-width-800');
 export const chartWidth400Btn = Selector('#chart-width-400');
 
 export const selectionModeNode = Selector('#chart-selection-mode-node');
 export const selectionModeStack = Selector('#chart-selection-mode-stack');
+
+export const continuousAxisTypeNone = Selector(
+  '#chart-continuous-axis-type-none',
+);
+export const continuousAxisTypeLinear = Selector(
+  '#chart-continuous-axis-type-linear',
+);
+export const continuousAxisTypeDate = Selector(
+  '#chart-continuous-axis-type-date',
+);
+
+export const continuousAxisIntervalFiveMin = Selector(
+  '#chart-continuous-axis-interval-five-min',
+);
+export const continuousAxisIntervalHalfHour = Selector(
+  '#chart-continuous-axis-interval-half-hour',
+);
+export const continuousAxisIntervalHour = Selector(
+  '#chart-continuous-axis-interval-hour',
+);
+
+export const continuousAxisFormatShort = Selector(
+  '#chart-continuous-axis-format-short',
+);
+export const continuousAxisFormatLong = Selector(
+  '#chart-continuous-axis-format-long',
+);
+
+export const continuousAxisFormat2f = Selector(
+  '#chart-continuous-axis-format-2f',
+);
+export const continuousAxisFormat7f = Selector(
+  '#chart-continuous-axis-format-7f',
+);
