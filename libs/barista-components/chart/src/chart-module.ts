@@ -33,18 +33,6 @@ import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { DtChartFocusAnchor, DtChartFocusTarget } from './chart-focus-anchor';
 
-/** components that should be declared and exported */
-const COMPONENTS = [
-  DtChart,
-  DtChartHeatfield,
-  DtChartRange,
-  DtChartTimestamp,
-  DtChartTooltip,
-  DtChartSelectionAreaAction,
-  DtChartFocusAnchor,
-  DtChartFocusTarget,
-];
-
 @NgModule({
   imports: [
     CommonModule,
@@ -55,7 +43,24 @@ const COMPONENTS = [
     DtButtonModule,
     DtFormattersModule,
   ],
-  exports: [...COMPONENTS],
-  declarations: [...COMPONENTS, DtChartSelectionArea],
+  exports: [
+    DtChart,
+    DtChartHeatfield,
+    DtChartRange,
+    DtChartTimestamp,
+    DtChartTooltip,
+    DtChartSelectionAreaAction,
+  ],
+  declarations: [
+    DtChart,
+    DtChartHeatfield,
+    DtChartRange,
+    DtChartTimestamp,
+    DtChartTooltip,
+    DtChartSelectionAreaAction,
+    DtChartFocusAnchor,
+    DtChartFocusTarget,
+    DtChartSelectionArea,
+  ],
 })
 export class DtChartModule {}

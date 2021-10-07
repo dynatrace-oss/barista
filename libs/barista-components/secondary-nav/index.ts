@@ -17,4 +17,5 @@
 export * from './src/secondary-nav-module';
 export * from './src/secondary-nav';
 export * from './src/section/secondary-nav-group';
+export * from './src/section/secondary-nav-link';
 export * from './src/section/secondary-nav-section';

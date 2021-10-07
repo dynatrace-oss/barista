@@ -113,6 +113,10 @@ export async function packager(
 
     const buildResult = await build.result;
 
+    if (buildResult.error) {
+      console.error(buildResult.error);
+    }
+
     // Path to the package json file that we are going to ship with the library
     const releasePackageJsonPath = join(libraryDestination, 'package.json');
     let releasePackageJson = await tryJsonParse<PackageJson>(
