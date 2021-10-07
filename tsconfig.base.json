@@ -211,57 +211,6 @@
       ],
       "@dynatrace/barista-examples": ["libs/examples/src/index.ts"],
       "@dynatrace/barista-examples/*": ["libs/examples/src/*/index.ts"],
-      "@dynatrace/design-tokens-ui/input": [
-        "libs/design-tokens-ui/input/src/index.ts"
-      ],
-      "@dynatrace/design-tokens-ui/shared": [
-        "libs/design-tokens-ui/shared/src/index.ts"
-      ],
-      "@dynatrace/fluid-design-tokens": [
-        "libs/shared/design-tokens/generated/index.ts"
-      ],
-      "@dynatrace/fluid-design-tokens-meta/aliases/*": [
-        "libs/shared/design-tokens/generated/aliases/*.json"
-      ],
-      "@dynatrace/fluid-design-tokens-meta/global/*": [
-        "libs/shared/design-tokens/generated/global/*.json"
-      ],
-      "@dynatrace/fluid-design-tokens-meta/patterns/*": [
-        "libs/shared/design-tokens/generated/patterns/*.json"
-      ],
-      "@dynatrace/fluid-elements/button": [
-        "libs/fluid-elements/button/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/button-group": [
-        "libs/fluid-elements/button-group/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/checkbox": [
-        "libs/fluid-elements/checkbox/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/core": [
-        "libs/fluid-elements/core/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/icon": [
-        "libs/fluid-elements/icon/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/input": [
-        "libs/fluid-elements/input/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/label": [
-        "libs/fluid-elements/label/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/popover": [
-        "libs/fluid-elements/popover/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/switch": [
-        "libs/fluid-elements/switch/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/tab-group": [
-        "libs/fluid-elements/tab-group/src/index.ts"
-      ],
-      "@dynatrace/fluid-elements/virtual-scroll-container": [
-        "libs/fluid-elements/virtual-scroll-container/src/index.ts"
-      ],
       "@dynatrace/shared/data-access-strapi": [
         "libs/shared/data-access-strapi/index.ts"
       ],

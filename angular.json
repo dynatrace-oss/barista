@@ -3553,7 +3553,7 @@
           "options": {
             "outputPath": "dist/libs/tools/shareable-examples",
             "main": "libs/tools/shareable-examples/src/main.ts",
-            "tsConfig": "libs/tools/shareable-examples/tsconfig.json",
+            "tsConfig": "libs/tools/shareable-examples/tsconfig.lib.json",
             "progress": false,
             "maxWorkers": 6,
             "buildLibsFromSource": true
