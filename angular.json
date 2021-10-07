@@ -129,10 +129,10 @@
             "parallel": false,
             "commands": [
               {
-                "command": "npx ng run barista-tools:execute"
+                "command": "npx nx run barista-tools:execute"
               },
               {
-                "command": "npx ng run barista-design-system:static-pages"
+                "command": "npx nx run barista-design-system:static-pages"
               }
             ]
           },
@@ -140,20 +140,20 @@
             "production": {
               "commands": [
                 {
-                  "command": "npx ng run barista-tools:execute"
+                  "command": "npx nx run barista-tools:execute"
                 },
                 {
-                  "command": "npx ng run barista-design-system:static-pages:production"
+                  "command": "npx nx run barista-design-system:static-pages:production"
                 }
               ]
             },
             "production-internal": {
               "commands": [
                 {
-                  "command": "npx ng run barista-tools:execute"
+                  "command": "npx nx run barista-tools:execute"
                 },
                 {
-                  "command": "npx ng run barista-design-system:static-pages:production-internal"
+                  "command": "npx nx run barista-design-system:static-pages:production-internal"
                 }
               ]
             }

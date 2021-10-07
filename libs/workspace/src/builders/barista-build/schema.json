@@ -1,6 +1,6 @@
 {
-  "$schema": "https://json-schema.org/draft-07/schema",
-  "$id": "https://json-schema.org/draft-07/schema",
+  "$schema": "http://json-schema.org/schema",
+  "$id": "barista-builder",
   "title": "Workspace builder",
   "description": "",
   "type": "object",
