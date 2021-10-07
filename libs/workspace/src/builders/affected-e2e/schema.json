@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "affected-e2e",
+  "$id": "affected-e2e",
   "type": "object",
   "properties": {
     "e2eTarget": {
