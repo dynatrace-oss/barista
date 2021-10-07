@@ -17,7 +17,7 @@
 import { InteractivityChecker } from '@angular/cdk/a11y';
 import { TAB } from '@angular/cdk/keycodes';
 import { Directive, ElementRef, Input, OnDestroy } from '@angular/core';
-import { DtChart } from './chart';
+import { DtChartBase } from './chart-base';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 
 type NativeFocusTarget = Element & { focus: () => void };
@@ -47,7 +47,7 @@ export class DtChartFocusAnchor {
   @Input() prevTarget: string | undefined;
 
   constructor(
-    private _chart: DtChart,
+    private _chart: DtChartBase,
     private _elementRef: ElementRef,
     private _checker: InteractivityChecker,
   ) {}
@@ -146,7 +146,7 @@ export class DtChartFocusAnchor {
 export class DtChartFocusTarget implements OnDestroy {
   @Input() dtChartFocusTarget: string;
 
-  constructor(private _chart: DtChart, private _element: ElementRef) {
+  constructor(private _chart: DtChartBase, private _element: ElementRef) {
     this._chart._focusTargets.add(this);
   }
 

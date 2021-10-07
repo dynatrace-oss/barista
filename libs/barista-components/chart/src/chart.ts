@@ -105,7 +105,7 @@ import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { getPlotBackgroundInfo, retainSeriesVisibility } from './utils';
 import { DtChartFocusTarget } from './chart-focus-anchor';
-
+import { DtChartBase } from './chart-base';
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
 // tslint:disable-next-line:no-any
@@ -192,9 +192,14 @@ class TooltipState {
       useFactory: DT_CHART_RESOVER_PROVIDER_FACTORY,
       deps: [[new Self(), DtChart]],
     },
+    {
+      provide: DtChartBase,
+      useExisting: DtChart,
+    },
   ],
 })
 export class DtChart
+  extends DtChartBase
   implements AfterViewInit, OnDestroy, OnChanges, AfterContentInit
 {
   /** Options to configure the chart. */
@@ -385,6 +390,7 @@ export class DtChart
     /** @internal used for the selection area to calculate the bounding client rect */
     public _elementRef: ElementRef,
   ) {
+    super();
     this._config = this._config || DT_CHART_DEFAULT_CONFIG;
 
     if (this._viewportResizer) {
