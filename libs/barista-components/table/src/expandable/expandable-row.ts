@@ -20,6 +20,7 @@ import {
   style,
   AnimationBuilder,
   AnimationFactory,
+  AnimationPlayer,
 } from '@angular/animations';
 import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
@@ -116,10 +117,17 @@ export class DtExpandableRow
   private _animationState = new BehaviorSubject<'collapsed' | 'expanded'>(
     'collapsed',
   );
+  private _animationStateSubscription = Subscription.EMPTY;
+
   /** AnimationFactory for the collapse animation. */
   private _collapseAnimation: AnimationFactory;
   /** AnimationFactory for the expand animation. */
   private _expandAnimation: AnimationFactory;
+
+  /** AnimationPlayer reference for the expand animation. */
+  private _expandPlayer: AnimationPlayer;
+  /** AnimationPlayer reference for the collapse animation. */
+  private _collapsePlayer: AnimationPlayer;
 
   /** The expanded state of the row. */
   @Input()
@@ -208,28 +216,37 @@ export class DtExpandableRow
         this._changeDetectorRef.markForCheck();
       });
 
-    this._animationState.pipe(distinctUntilChanged()).subscribe((state) => {
-      if (state === 'collapsed') {
-        // We need to recreate the player connected to the native element
-        // as the table recycles the elements internally and
-        // the angular decorator animation did not pick up on that change.
-        const collapsePlayer = this._collapseAnimation.create(
-          this._animationContainerRef.nativeElement,
-        );
-        collapsePlayer.play();
-      }
+    this._animationStateSubscription = this._animationState
+      .pipe(distinctUntilChanged())
+      .subscribe((state) => {
+        if (state === 'collapsed') {
+          // We need to recreate the player connected to the native element
+          // as the table recycles the elements internally and
+          // the angular decorator animation did not pick up on that change.
+          this._collapsePlayer = this._collapseAnimation.create(
+            this._animationContainerRef.nativeElement,
+          );
+          this._collapsePlayer.play();
+        }
 
-      if (state === 'expanded') {
-        const expandPlayer = this._expandAnimation.create(
-          this._animationContainerRef.nativeElement,
-        );
-        expandPlayer.play();
-      }
-    });
+        if (state === 'expanded') {
+          this._expandPlayer = this._expandAnimation.create(
+            this._animationContainerRef.nativeElement,
+          );
+          this._expandPlayer.play();
+        }
+      });
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+    if (this._expandPlayer) {
+      this._expandPlayer.destroy();
+    }
+    if (this._collapsePlayer) {
+      this._collapsePlayer.destroy();
+    }
+    this._animationStateSubscription.unsubscribe();
     this._templateSubscription.unsubscribe();
     if (this._selectionDispatchCleanup) {
       this._selectionDispatchCleanup();
