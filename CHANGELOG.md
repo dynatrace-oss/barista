@@ -1,3 +1,10 @@
+## [9.13.1](https://github.com/dynatrace-oss/barista/compare/9.13.0...9.13.1) (2021-10-12)
+
+### Bug Fixes
+
+- **table:** Fix an animation memory leak in the expandable row.
+  ([5324252](https://github.com/dynatrace-oss/barista/commit/53242523c006b912ccc91ea2a4930c1c5f308890))
+
 ## [9.13.0](https://github.com/dynatrace-oss/barista/compare/9.12.0...9.13.0) (2021-10-05)
 
 ### Features
