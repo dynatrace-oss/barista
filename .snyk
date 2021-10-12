@@ -228,7 +228,7 @@ ignore:
         reason: >-
           transitive dependency, d3-scale should be updated but includes a
           breaking change.
-        expires: '2021-10-12T05:58:44.210Z'
+        expires: '2021-11-12T05:58:44.210Z'
   SNYK-JS-ANSIREGEX-1583908:
     - '@angular/localize > yargs > string-width > strip-ansi > ansi-regex':
         reason: 'transient dependency, angular upgrade in progress'
