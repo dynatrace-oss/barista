@@ -1,3 +1,29 @@
+## [10.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/9.13.1...10.0.0-rc.0) (2021-10-13)
+
+### Features
+
+- **components:** Update d3-shape and d3-scale dependencies.
+  ([128b0c5](https://github.com/dynatrace-oss/barista/commit/128b0c533e4eeecfad59bbaf3c01f35016f50374))
+- **tag:** Add tag-add-form for custom forms.
+  ([253a065](https://github.com/dynatrace-oss/barista/commit/253a065043167a2cab76223256255ceea48ff40e))
+
+### BREAKING CHANGES
+
+- Update all Angular packages to version 12 and switched library compilation to
+  parital ivy according to
+  [angulars recommendation](https://angular.io/guide/creating-libraries#transitioning-libraries-to-partial-ivy-format)
+- Updated peerDependency d3-shape from ^1.3.5 to ^3.0.1
+- Updated peerDependency d3-scale from ^3.0.0 to ^4.0.0
+- **stacked-series-chart:** Added `Platform` as a required contructor parameter.
+- **tag:** The `DtTagAdd` class now requires `NgZone` within it's contructor.
+- **tag:** Removed `dt-tag-add-form` compont. It is no longer required to wrap
+  your custom form into a `dt-tag-add-form`. Pass the form as a content child
+  directly to the `dt-tag-add` component.
+- **tag:** Removed `tagAdded` output on the `dt-tag-add` component. The
+  `submitted` output now emits for the default and for custom forms.
+- **table:**: Adjusted `DtTable` constructor to match CDK.
+- **tree-table:**: Adjusted `DtTreeTable` constructor to match CDK.
+
 ## [9.13.1](https://github.com/dynatrace-oss/barista/compare/9.13.0...9.13.1) (2021-10-12)
 
 ### Bug Fixes
