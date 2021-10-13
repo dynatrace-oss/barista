@@ -224,6 +224,8 @@ jobs:
   store-build-artifacts:
     executor: barista
     steps:
+      - attach_workspace:
+          at: ~/barista
       - run:
           name: Create components package if it exists
           command: |
