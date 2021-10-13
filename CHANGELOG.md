@@ -1,4 +1,4 @@
-## [10.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/9.13.1...10.0.0-rc.0) (2021-10-13)
+## [10.0.0-rc.1](https://github.com/dynatrace-oss/barista/compare/9.13.1...10.0.0-rc.1) (2021-10-13)
 
 ### Features
 
