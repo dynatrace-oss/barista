@@ -231,18 +231,18 @@ ignore:
         expires: '2021-11-12T05:58:44.210Z'
   SNYK-JS-ANSIREGEX-1583908:
     - '@angular/localize > yargs > string-width > strip-ansi > ansi-regex':
-        reason: 'transient dependency, angular upgrade in progress'
-        expires: '2021-10-14T11:16:51.822Z'
+        reason: Transient dependency and still an issue
+        expires: '2021-11-17T11:35:40.242Z'
     - '@angular/localize > yargs > cliui > strip-ansi > ansi-regex':
-        reason: 'transient dependency, angular upgrade in progress'
-        expires: '2021-10-14T11:16:51.822Z'
+        reason: Transient dependency and still an issue
+        expires: '2021-11-17T11:35:40.242Z'
     - '@angular/localize > yargs > cliui > string-width > strip-ansi > ansi-regex':
-        reason: None given
-        expires: '2021-10-14T11:16:51.822Z'
+        reason: Transient dependency and still an issue
+        expires: '2021-11-17T11:35:40.242Z'
     - '@angular/localize > yargs > cliui > wrap-ansi > strip-ansi > ansi-regex':
-        reason: None given
-        expires: '2021-10-14T11:16:51.822Z'
+        reason: Transient dependency and still an issue
+        expires: '2021-11-17T11:35:40.242Z'
     - '@angular/localize > yargs > cliui > wrap-ansi > string-width > strip-ansi > ansi-regex':
-        reason: None given
-        expires: '2021-10-14T11:16:51.822Z'
+        reason: Transient dependency and still an issue
+        expires: '2021-11-17T11:35:40.242Z'
 patch: {}
