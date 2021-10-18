@@ -123,7 +123,7 @@
     "@types/node": "^12.12.29",
     "@types/sass-graph": "^2.1.3",
     "@types/stylelint": "^13.13.0",
-    "@types/xml2js": "^0.4.8",
+    "@types/xml2js": "^0.4.9",
     "@types/yaml": "^1.9.7",
     "axe-core": "^4.3.2",
     "axe-testcafe": "^3.0.0",
