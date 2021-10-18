@@ -48,7 +48,7 @@ pipeline {
               // this has to be done as ngcc has to reprocess the entries and it will fail with the symlink
               sh '''
                 rm -rf node_modules
-                npm ci --ignore-scripts
+                npm ci
               '''
             }
           }
@@ -72,7 +72,7 @@ pipeline {
       steps {
         dir(BARISTA_PATH) {
           sh '''
-            npm run ng run barista-tools:build
+            npm run nx run barista-tools:build
 
             node dist/libs/tools/barista/main.js
 
@@ -80,7 +80,7 @@ pipeline {
 
             node \
               --max_old_space_size=8192 \
-              ./node_modules/.bin/ng run barista-design-system:static-pages:production
+              ./node_modules/.bin/nx run barista-design-system:static-pages:production
           '''
 
           configFileProvider([
