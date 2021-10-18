@@ -133,8 +133,7 @@ function getSvgWithoutFill(filePath: string): string {
   const svg = cheerioIcon('svg');
   svg.removeAttr('fill');
   svg.find('[fill]').removeAttr('fill');
-
-  return svg.html() || '';
+  return svg.parent().html() || '';
 }
 
 export const iconsBuilder: BaPageBuilder = async () => {
