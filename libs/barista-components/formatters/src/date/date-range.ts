@@ -101,7 +101,10 @@ export function dtFormatDateRange(
       dateString1 = 'y MMM d HH:mm';
     }
 
-    if (date1.getDate() === date2.getDate()) {
+    if (
+      date1.getUTCMonth() === date2.getUTCMonth() &&
+      date1.getDate() === date2.getDate()
+    ) {
       dateString2 = 'HH:mm';
     }
   } else {
