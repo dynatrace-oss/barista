@@ -16,7 +16,6 @@
 
 import { formatDate } from '@angular/common';
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
-
 import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 /**
@@ -102,10 +101,7 @@ export function dtFormatDateRange(
       dateString1 = 'y MMM d HH:mm';
     }
 
-    if (
-      date1.getUTCMonth() === date2.getUTCMonth() &&
-      date1.getUTCDay() === date2.getUTCDay()
-    ) {
+    if (date1.getDate() === date2.getDate()) {
       dateString2 = 'HH:mm';
     }
   } else {
