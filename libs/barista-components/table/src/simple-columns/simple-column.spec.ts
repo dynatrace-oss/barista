@@ -218,7 +218,7 @@ describe('DtTable SimpleColumns', () => {
       expect(newlyAddedCells[2].nativeElement.textContent).toBe('24');
       expect(newlyAddedCells[3].nativeElement.textContent).toBe('23 %');
       expect(newlyAddedCells[4].nativeElement.textContent).toBe(
-        '23 % of 5.42 GB',
+        '23 % of 5.42 GiB',
       );
     });
 
@@ -863,7 +863,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
     const memoryPercentage = formatPercent(row.memoryPerc);
     const memoryTotal = formatBytes(row.memoryTotal, {
       inputUnit: 'byte',
-      outputUnit: 'GB',
+      outputUnit: 'GiB',
       factor: 1024,
     });
     return `${memoryPercentage} of ${memoryTotal}`;
@@ -875,7 +875,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
   trafficFormatter = (value) =>
     formatBytes(formatRate(value, 's'), {
       inputUnit: 'byte',
-      outputUnit: 'MB',
+      outputUnit: 'MiB',
       factor: 1024,
     });
 
@@ -1028,7 +1028,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
     const memoryPercentage = formatPercent(row.memoryPerc);
     const memoryTotal = formatBytes(row.memoryTotal, {
       inputUnit: 'byte',
-      outputUnit: 'GB',
+      outputUnit: 'GiB',
       factor: 1024,
     });
     return `${memoryPercentage} of ${memoryTotal}`;
@@ -1040,7 +1040,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
   trafficFormatter = (value) =>
     formatBytes(formatRate(value, 's'), {
       inputUnit: 'byte',
-      outputUnit: 'MB',
+      outputUnit: 'MiB',
       factor: 1024,
     });
 }
