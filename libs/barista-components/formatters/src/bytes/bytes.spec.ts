@@ -15,7 +15,7 @@
  */
 
 import { NO_DATA } from '../formatted-value';
-import { KILO_MULTIPLIER } from '../number-formatter';
+import { KIBI_MULTIPLIER, KILO_MULTIPLIER } from '../number-formatter';
 import { DtUnit } from '../unit';
 import { DtBytes } from './bytes';
 
@@ -109,6 +109,79 @@ describe('DtBytes', () => {
         factor: KILO_MULTIPLIER,
         inputUnit: DtUnit.PETA_BYTES,
         output: '1,000 PB',
+      },
+    ].forEach((testCase: TestCase) => {
+      it(`should display different result (${testCase.output})`, () => {
+        expect(
+          pipe
+            .transform(testCase.input, testCase.factor, testCase.inputUnit)
+            .toString(),
+        ).toEqual(testCase.output);
+      });
+    });
+  });
+
+  describe('Transforming input with binary factor', () => {
+    [
+      {
+        input: 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.BYTES,
+        output: '1 kiB',
+      },
+      {
+        input: 1024 * 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.BYTES,
+        output: '1 MiB',
+      },
+      {
+        input: 1024 * 1024 * 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.BYTES,
+        output: '1 GiB',
+      },
+      {
+        input: 1024 * 1024 * 1024 * 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.BYTES,
+        output: '1 TiB',
+      },
+      {
+        input: 1024 * 1024 * 1024 * 1024 * 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.BYTES,
+        output: '1 PiB',
+      },
+      {
+        input: 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.KIBI_BYTES,
+        output: '1 MiB',
+      },
+      {
+        input: 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.MEBI_BYTES,
+        output: '1 GiB',
+      },
+      {
+        input: 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.GIBI_BYTES,
+        output: '1 TiB',
+      },
+      {
+        input: 1024,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.TEBI_BYTES,
+        output: '1 PiB',
+      },
+      {
+        input: 1000,
+        factor: KIBI_MULTIPLIER,
+        inputUnit: DtUnit.PEBI_BYTES,
+        output: '1,000 PiB',
       },
     ].forEach((testCase: TestCase) => {
       it(`should display different result (${testCase.output})`, () => {
