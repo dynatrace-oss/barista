@@ -1,5 +1,62 @@
+/* Disclaimer: When using in a library, this region can be imported by
+ * @import '~@dynatrace/barista-components/style/index.scss';
+ * This is a workaround to get this working with stackblitz
+ */
+@use '~@angular/cdk/overlay/_index.scss' as cdkOverlay;
+@use '~@angular/cdk/a11y/_index.scss' as cdkA11y;
+
+@import '~@dynatrace/barista-components/core/src/style/variables';
+
 $fonts-dir: 'https://unpkg.com/@dynatrace/barista-fonts/';
-@import "~@dynatrace/barista-components/style/index";
+@import '~@dynatrace/barista-components/style/font-mixins';
+@import '~@dynatrace/barista-components/input/src/input';
+@import '~@dynatrace/barista-components/indicator/src/indicator';
+
+@import '~@dynatrace/barista-components/style/link';
+
+@import '~@dynatrace/barista-components/core/src/style/overlay';
+
+@import '~@dynatrace/barista-components/style/themes';
+
+@include cdkA11y.a11y();
+@include cdkOverlay.overlay();
+
+.dt-no-pointer {
+   pointer-events: none;
+}
+
+ :root {
+   --dt-theme-main-default-color: #{$turquoise-600};
+   --dt-theme-main-hover-color: #{$turquoise-700};
+   --dt-theme-main-active-color: #{$turquoise-800};
+   --dt-theme-main-background-color: #{$turquoise-100};
+   --dt-warning-default-color: #{$yellow-700};
+   --dt-warning-hover-color: #{$yellow-800};
+   --dt-warning-active-color: #{$yellow-900};
+   --dt-error-default-color: #{$red-500};
+   --dt-error-hover-color: #{$red-600};
+   --dt-error-active-color: #{$red-700};
+   --dt-recovered-default-color: #{$green-700};
+   --dt-recovered-hover-color: #{$green-800};
+   --dt-recovered-active-color: #{$green-900};
+   --dt-neutral-default-color: #{$gray-600};
+   --dt-neutral-hover-color: #{$gray-700};
+   --dt-neutral-active-color: #{$gray-800};
+   --dt-cta-default-color: #{$green-600};
+   --dt-cta-hover-color: #{$green-700};
+   --dt-cta-active-color: #{$green-800};
+   --dt-critical-default-color: #{$red-700};
+   --dt-critical-hover-color: #{$red-800};
+   --dt-critical-active-color: #{$red-900};
+   --dt-critical-background-color: #{$red-200};
+ }
+
+@import '~@dynatrace/barista-components/style/font-styles';
+@import '~@dynatrace/barista-fonts/typography';
+
+/*
+ * END OF WORKAROUND
+ */
 
 // from "* { Box-sizing: Border-box }
 // FTW" @ https://www.paulirish.com/2012/box-sizing-border-box-ftw/
