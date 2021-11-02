@@ -16,7 +16,7 @@
 
 import { Component } from '@angular/core';
 import { stackedSeriesChartDemoDataCoffee } from '../stacked-series-chart-demo-data';
-import { DtStackedSeriesChartValueContinuousAxisMap } from '../../../../barista-components/stacked-series-chart/src/stacked-series-chart.util';
+import { DtStackedSeriesChartValueContinuousAxisMap } from '@dynatrace/barista-components/stacked-series-chart';
 
 @Component({
   selector: 'dt-example-stacked-series-chart-date-barista',
