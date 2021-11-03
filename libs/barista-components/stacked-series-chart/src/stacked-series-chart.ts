@@ -36,7 +36,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import {
-  DtDefaultViewportResizer,
+  DtViewportResizer,
   isDefined,
 } from '@dynatrace/barista-components/core';
 import { formatCount } from '@dynatrace/barista-components/formatters';
@@ -429,7 +429,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     private _zone: NgZone,
     private _overlayService: DtOverlay,
     private _platform: Platform,
-    private _resizer: DtDefaultViewportResizer,
+    private _resizer: DtViewportResizer,
     /**
      * @deprecated Remove the sanitizer when we don't have to support ivy anymore.
      * @breaking-change Remove the DomSanitizer. (Version: TBD)
