@@ -1,3 +1,18 @@
+## [10.1.0](https://github.com/dynatrace-oss/barista/compare/10.0.0...10.1.0) (2021-11-03)
+
+### Bug Fixes
+
+- **formatters:** Fixes range-selection date formatting.
+  ([7a8173b](https://github.com/dynatrace-oss/barista/commit/7a8173b56ac9ec46c2dc8c54e307434bed35acf8))
+
+### Features
+
+- **formatters:** Use binary bytes prefixes for bytes formatted using binary
+  factor.
+  ([5ab0ffb](https://github.com/dynatrace-oss/barista/commit/5ab0ffb9c2664014f025ba9ccbd7594f1b47f888))
+- **stacked-series-chart:** Adding continuous axis and improve scrollability
+  ([d153797](https://github.com/dynatrace-oss/barista/commit/d1537972192e83cbc1f119f899dad185c89988af))
+
 ## [10.0.0](https://github.com/dynatrace-oss/barista/compare/9.13.1...10.0.0) (2021-10-27)
 
 ### Features
