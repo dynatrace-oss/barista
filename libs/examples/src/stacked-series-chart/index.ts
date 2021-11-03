@@ -15,7 +15,10 @@
  */
 
 export * from './stacked-series-chart-single-example/stacked-series-chart-single-example';
+export * from './stacked-series-chart-column-example/stacked-series-chart-column-example';
 export * from './stacked-series-chart-connected-legend-example/stacked-series-chart-connected-legend-example';
 export * from './stacked-series-chart-generic-example/stacked-series-chart-generic-example';
 export * from './stacked-series-chart-filled-example/stacked-series-chart-filled-example';
+export * from './stacked-series-chart-linear-example/stacked-series-chart-linear-example';
+export * from './stacked-series-chart-date-example/stacked-series-chart-date-example';
 export * from './stacked-series-chart-examples.module';
