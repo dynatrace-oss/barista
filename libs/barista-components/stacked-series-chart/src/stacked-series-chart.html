@@ -1,6 +1,7 @@
 <div
   class="dt-stacked-series-chart-container"
   [class.dt-stacked-series-chart-label-none]="!visibleLabel"
+  [class.dt-stacked-series-chart-value-axis-none]="!visibleValueAxis"
   [class.dt-stacked-series-chart-scale-point]="_isScalePoint"
   [class.dt-stacked-series-chart-series-axis-compact-mode]="
     _labelAxisCompactModeEnabled
@@ -103,7 +104,10 @@
   </div>
 
   <ng-template [ngIf]="visibleValueAxis">
-    <div class="dt-stacked-series-chart-value-axis-background"></div>
+    <div
+      class="dt-stacked-series-chart-value-axis-background"
+      *ngIf="visibleLabel"
+    ></div>
     <div class="dt-stacked-series-chart-value-axis" #valueAxis>
       <span
         *ngFor="let tick of _axisTicks"

@@ -24,12 +24,11 @@ import {
 } from '@dynatrace/barista-components/formatters';
 import { DtLegendModule } from '@dynatrace/barista-components/legend';
 import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
-import { DtDefaultViewportResizer } from '@dynatrace/barista-components/core';
 
 @NgModule({
   imports: [CommonModule, DtFormattersModule, DtLegendModule, DtOverlayModule],
   exports: [DtStackedSeriesChart, DtStackedSeriesChartOverlay],
   declarations: [DtStackedSeriesChart, DtStackedSeriesChartOverlay],
-  providers: [DtCount, DtDefaultViewportResizer],
+  providers: [DtCount],
 })
 export class DtStackedSeriesChartModule {}
