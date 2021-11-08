@@ -41,14 +41,6 @@ pipeline {
               noTags: false,
               reference: '',
               shallow: true
-            ],
-            [
-              $class: 'SparseCheckoutPaths',
-              sparseCheckoutPaths: [
-                [path: '.deployment/k8s-barista-builder'],
-                [path: 'package.json'],
-                [path: 'package-lock.json']
-              ]
             ]
           ],
           submoduleCfg: [],
@@ -81,7 +73,7 @@ pipeline {
             -t ${env.DOCKER_REGISTRY}/${IMAGE_NAME_INTERNAL}:latest \
             . \
             -f ${DOCKERFILE} \
-            --build-arg BASE_IMAGE_REGISTRY='${env.LEGACY_DOCKER_REGISTRY}'
+            --build-arg BASE_IMAGE_REGISTRY='${env.DOCKER_REGISTRY}'
         """
       }
     }
@@ -96,7 +88,7 @@ pipeline {
             -t ${env.DOCKER_REGISTRY}/${IMAGE_NAME_PUBLIC}:latest \
             . \
             -f ${DOCKERFILE} \
-            --build-arg BASE_IMAGE_REGISTRY='${env.LEGACY_DOCKER_REGISTRY}'
+            --build-arg BASE_IMAGE_REGISTRY='${env.DOCKER_REGISTRY}'
         """
       }
     }
