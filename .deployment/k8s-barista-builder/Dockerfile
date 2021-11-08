@@ -3,18 +3,81 @@ ARG BASE_VERSION=latest
 # Will be set on Jenkins
 ARG BASE_IMAGE_REGISTRY
 
+FROM node:12-alpine as base
+
+# The root of the monorepo
+WORKDIR /dynatrace
+
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh
+
+COPY ./package.json ./package.json
+COPY ./package-lock.json ./package-lock.json
+
+# Create shasum from package.json to compare
+# later if a further install have to be done.
+RUN sha1sum ./package-lock.json > package-lock.sha1
+
+# install dependencies without postinstall script
+RUN npm ci
+
+COPY ./tsconfig.base.json \
+     ./angular.json \
+     ./nx.json \
+     # to
+     ./
+
+#------------------------------------------------------------
+# Temporary layer to build the workspace builder
+# - Output under: node_modules/@dynatrace/barista-builders
+#------------------------------------------------------------
+FROM base as workspace-builders
+
+COPY ./libs/workspace ./libs/workspace
+COPY ./libs/shared ./libs/shared
+
+# Build our custom angular builders for the workspace
+RUN npm run nx build workspace
+
+#------------------------------------------------------------
+# The base image for the angular workspace with the builted
+# builders for the angular.json
+#------------------------------------------------------------
+FROM base as angular-base
+
+LABEL maintainer="Dynatrace DesignOps Team <designops@dynatrace.com>" \
+      description="This image is used to have a build setup for our monorepo."
+
+COPY --from=workspace-builders \
+     /dynatrace/dist \
+     ./dist
+
+# Cleanup image that only the files that are ignored by git are persisted.
+RUN rm -rf \
+  tsconfig.base.json \
+  angular.json \
+  nx.json \
+  package.json \
+  package-lock.json
+
+COPY  ./.deployment/k8s-barista-builder/entrypoint.sh /dynatrace/entrypoint.sh
+
+ENTRYPOINT [ "/dynatrace/entrypoint.sh" ]
+
+CMD [ "/bin/sh" ]
+
 
 #------------------------------------------------------------
 # Temporary layer to build the public image
 #------------------------------------------------------------
-FROM designops/workspace-base:${BASE_VERSION} as workspace-public
+FROM angular-base as workspace-public
 
 # No actions required only for the copy from statement
 
 #------------------------------------------------------------
 # Temporary layer to build the internal image with icons
 #------------------------------------------------------------
-FROM designops/workspace-base:${BASE_VERSION} as workspace-internal
+FROM angular-base as workspace-internal
 
 COPY .npmrc \
      package-lock.json \
@@ -26,7 +89,7 @@ RUN npm install @dynatrace/barista-icons @dynatrace/barista-fonts
 #------------------------------------------------------------
 # Temporary layer as base for a jenkins agent
 #------------------------------------------------------------
-FROM ${BASE_IMAGE_REGISTRY}/library/jenkins-slave-cluster-docker-image:5.2 as jenkins-agent
+FROM ${BASE_IMAGE_REGISTRY}/jci/jenkins-slave-cluster-docker-image:5.2 as jenkins-agent
 
 LABEL maintainer="Dynatrace DesignOps Team <designops@dynatrace.com>" \
       description="This image is used as build agent for our Jenkins build"
