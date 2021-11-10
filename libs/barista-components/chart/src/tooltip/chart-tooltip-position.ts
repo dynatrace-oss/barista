@@ -84,8 +84,8 @@ const getHighchartsTooltipPosition = (
     const xAxis = data.points![0].series!.xAxis;
     x = xAxis.toPixels(point.x as number, false);
   } else if (isHeatmap) {
-    x = (data.point!.point as any).plotX;
-    y = (data.point!.point as any).plotY;
+    x = (data.point!.point as any).plotX + plotBackgroundInfo.left;
+    y = (data.point!.point as any).plotY + plotBackgroundInfo.top;
   } else {
     x = (data.points![0].point as any).tooltipPos![0] + plotBackgroundInfo.left;
   }
