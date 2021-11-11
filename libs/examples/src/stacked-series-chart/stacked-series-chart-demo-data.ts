@@ -15,7 +15,10 @@
  */
 
 import { DtColors } from '@dynatrace/barista-components/theming';
-import { DtStackedSeriesChartSeries } from '@dynatrace/barista-components/stacked-series-chart';
+import {
+  DtStackedSeriesChartSeries,
+  DtStackedSeriesHeatField,
+} from '@dynatrace/barista-components/stacked-series-chart';
 
 export const stackedSeriesChartDemoDataCoffee = [
   {
@@ -71,6 +74,61 @@ export const stackedSeriesChartDemoDataCoffee = [
     ],
   },
 ];
+
+export const stackedSeriesChartDemoDataCoffeeHeatFields: DtStackedSeriesHeatField[] =
+  [
+    {
+      start: 'Espresso',
+      end: 'Macchiato',
+      data: {
+        name: 'HeatField 1',
+      },
+    },
+    {
+      start: 'Macchiato',
+      data: {
+        name: 'HeatField 2',
+      },
+    },
+  ];
+
+export const stackedSeriesChartDemoDataCoffeeOverlapHeatFields: DtStackedSeriesHeatField[] =
+  [
+    {
+      start: 'Espresso',
+      end: 'Macchiato',
+      data: {
+        name: 'HeatField 1',
+      },
+    },
+    {
+      start: 'Espresso',
+      data: {
+        name: 'HeatField 2',
+      },
+    },
+    {
+      start: 'Americano',
+      end: 'Mocha',
+      data: {
+        name: 'HeatField 3',
+      },
+    },
+    {
+      start: 'Macchiato',
+      end: 'Americano',
+      data: {
+        name: 'HeatField 4',
+      },
+    },
+    {
+      start: 'Americano',
+      end: 'Americano',
+      data: {
+        name: 'HeatField 5',
+      },
+    },
+  ];
 
 export const stackedSeriesChartDemoDataShows: DtStackedSeriesChartSeries[] = [
   {

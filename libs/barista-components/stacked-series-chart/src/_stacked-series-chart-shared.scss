@@ -1,6 +1,18 @@
 @import '../../core/src/style/variables';
 
 $gap: calc(var(--dt-stacked-series-chart-grid-gap) * 1px);
+$heat-field-gap: 1px;
+$heat-field-size: 8px;
+$heat-field-size-selected: 12px;
+$hf-size-selected-margin: #{$heat-field-size-selected + 2px};
+$heat-field-size-by-levels: calc(
+  var(--dt-stacked-series-chart-heat-field-levels) * #{$hf-size-selected-margin}
+);
+$heat-field-margin-by-level: calc(
+  var(--dt-stacked-series-chart-heat-field-level) * #{$hf-size-selected-margin}
+);
+$heat-field-border-radius: 2px;
+$heat-field-margin: 4px;
 $bullet-height: 12px;
 $track-color: $gray-200;
 $selected-size: 4px;

@@ -23,6 +23,7 @@ export const overlay = Selector('.dt-overlay-container');
 export const columnChart = Selector('.dt-stacked-series-chart-column');
 export const barChart = Selector('.dt-stacked-series-chart-bar');
 
+export const trackWrapper = Selector('.dt-stacked-series-chart-track-wrapper');
 export const tracks = Selector('.dt-stacked-series-chart-track');
 export const slices = Selector('.dt-stacked-series-chart-slice');
 export const labels = Selector(
@@ -32,6 +33,13 @@ export const valueAxis = Selector('.dt-stacked-series-chart-value-axis');
 export const ticks = Selector('.dt-stacked-series-chart-axis-tick');
 export const legend = Selector('.dt-stacked-series-chart-legend');
 export const legendItems = Selector('dt-legend-item');
+export const heatFieldWrapper = Selector(
+  '.dt-stacked-series-chart-heat-field-wrapper',
+);
+export const getHeatFieldArea = trackWrapper.child(
+  '.dt-stacked-series-chart-heat-field-area',
+);
+export const getHeatFieldTooltip = Selector('dt-overlay-container div');
 
 export const getTrack = (track: number) => tracks.nth(track);
 export const getSlice = (track: number, slice: number) =>
@@ -41,6 +49,10 @@ export const getLegendItem = (item: number) =>
   Selector(`dt-legend-item`).nth(item);
 export const getTick = (tick: number) =>
   Selector(`.dt-stacked-series-chart-axis-tick`).nth(tick);
+export const getHeatFieldLevel = (level: number) =>
+  heatFieldWrapper.child(`.dt-stacked-series-chart-heat-field-level-${level}`);
+export const getHeatFieldItemByLevel = (level: number, item: number) =>
+  getHeatFieldLevel(level).nth(item);
 
 // controls
 export const resetBtn = Selector('#chart-reset');
@@ -133,3 +145,7 @@ export const continuousAxisFormat2f = Selector(
 export const continuousAxisFormat7f = Selector(
   '#chart-continuous-axis-format-7f',
 );
+
+export const heatFieldTypeNone = Selector('#chart-heat-field-none');
+export const heatFieldTypeNormal = Selector('#chart-heat-field-normal');
+export const heatFieldTypeOverlap = Selector('#chart-heat-field-overlap');

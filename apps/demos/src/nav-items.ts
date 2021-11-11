@@ -1263,6 +1263,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'stacked-series-chart-date-example',
         route: '/stacked-series-chart-date-example',
       },
+      {
+        name: 'stacked-series-chart-heat-field-example',
+        route: '/stacked-series-chart-heat-field-example',
+      },
     ],
   },
   {
