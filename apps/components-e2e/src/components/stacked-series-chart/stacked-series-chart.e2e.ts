@@ -34,11 +34,16 @@ import {
   continuousAxisTypeDate,
   continuousAxisTypeLinear,
   fullTrackBtn,
+  getHeatFieldArea,
+  getHeatFieldTooltip,
+  getHeatFieldItemByLevel,
+  getHeatFieldLevel,
   getLabel,
   getLegendItem,
   getSlice,
   getTick,
   getTrack,
+  heatFieldTypeNormal,
   labels,
   legend,
   legendItems,
@@ -63,6 +68,7 @@ import {
   tracks,
   unselectBtn,
   valueAxis,
+  heatFieldTypeOverlap,
 } from './stacked-series-chart.po';
 
 // Reduced speed of hovering should get our e2e tests stable.
@@ -78,6 +84,8 @@ const selectableTrackClassname = 'dt-stacked-series-chart-track-selectable';
 const selectableSliceClassname = 'dt-stacked-series-chart-slice-selectable';
 
 const selectedSliceClassname = 'dt-stacked-series-chart-slice-selected';
+const selectedHeatFieldClassname =
+  'dt-stacked-series-chart-heat-field-selected';
 
 const compactModeClassname = 'dt-stacked-series-chart-series-axis-compact-mode';
 
@@ -453,4 +461,106 @@ test('should render date chart with format and auto-fitting ticks', async (testC
     .match(/12:00/)
     .expect(getLabel(1).textContent)
     .match(/13:00/);
+});
+
+test('should render Heat Fields, even with overlaps, and show tooltip', async (testController: TestController) => {
+  const checkHeatFieldWrapper = async (
+    selectedHeatField: Selector,
+    isColumn: boolean,
+    heatFieldsByLevel: number[],
+    heatFieldTooltipText: RegExp,
+  ) => {
+    const getLineWidth = () =>
+      isColumn ? selectedHeatField.clientHeight : selectedHeatField.clientWidth;
+    const getAreaSize = (selector) =>
+      isColumn ? selector.clientWidth : selector.clientHeight;
+
+    await testController
+      .expect(getHeatFieldLevel(0).count)
+      .eql(heatFieldsByLevel[0])
+      .expect(getHeatFieldLevel(1).count)
+      .eql(heatFieldsByLevel[1])
+      .expect(getHeatFieldLevel(2).count)
+      .eql(heatFieldsByLevel[2])
+      .expect(getLineWidth())
+      .eql(8)
+      .expect(selectedHeatField.classNames)
+      .notContains(selectedHeatFieldClassname)
+
+      // Select first heat field and check tooltip
+      .click(selectedHeatField)
+      .expect(selectedHeatField.classNames)
+      .contains(selectedHeatFieldClassname)
+      .expect(getLineWidth())
+      .eql(12)
+
+      // Check expected text in tooltip
+      .expect(getHeatFieldTooltip.textContent)
+      .match(heatFieldTooltipText);
+
+    await testController
+      .expect(getAreaSize(selectedHeatField))
+      .eql(await getAreaSize(getHeatFieldArea));
+
+    await testController
+      .click(selectedHeatField)
+      .expect(getLineWidth())
+      .eql(8)
+      .expect(getHeatFieldTooltip.count)
+      .eql(0);
+  };
+
+  await testController
+    // maximize window so that overlay is not closed due to scroll
+    .maximizeWindow()
+    // Select heat fields
+    .click(resetBtn)
+    .click(heatFieldTypeNormal);
+
+  await checkHeatFieldWrapper(
+    getHeatFieldItemByLevel(0, 0),
+    false,
+    [2, 0, 0],
+    /HeatField 1/,
+  );
+
+  // Try overlap
+  await testController.click(heatFieldTypeOverlap);
+
+  await checkHeatFieldWrapper(
+    getHeatFieldItemByLevel(1, 1),
+    false,
+    [1, 3, 1],
+    /HeatField 4/,
+  );
+
+  // Check that everything works in column mode as well
+  await testController.click(columnBtn);
+
+  await checkHeatFieldWrapper(
+    getHeatFieldItemByLevel(1, 1),
+    true,
+    [1, 3, 1],
+    /HeatField 4/,
+  );
+
+  // Try the same for date data
+  await testController.click(continuousAxisTypeDate).click(heatFieldTypeNormal);
+
+  await checkHeatFieldWrapper(
+    getHeatFieldItemByLevel(0, 0),
+    true,
+    [2, 0, 0],
+    /HeatField 1/,
+  );
+
+  // Try overlap for date data
+  await testController.click(heatFieldTypeOverlap);
+
+  await checkHeatFieldWrapper(
+    getHeatFieldItemByLevel(1, 0),
+    true,
+    [1, 1, 0],
+    /HeatField 2/,
+  );
 });

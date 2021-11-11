@@ -40,7 +40,11 @@ import {
   isDefined,
 } from '@dynatrace/barista-components/core';
 import { formatCount } from '@dynatrace/barista-components/formatters';
-import { DtColors, DtTheme } from '@dynatrace/barista-components/theming';
+import {
+  DtColors,
+  DtTheme,
+  getDtChartColorPalette,
+} from '@dynatrace/barista-components/theming';
 import {
   NumberValue,
   ScaleLinear,
@@ -57,9 +61,14 @@ import {
   switchMapTo,
   takeUntil,
   debounceTime,
+  pairwise,
+  filter,
 } from 'rxjs/operators';
 import { DtStackedSeriesChartNode } from '..';
-import { DtStackedSeriesChartOverlay } from './stacked-series-chart-overlay.directive';
+import {
+  DtStackedSeriesChartOverlay,
+  DtStackedSeriesChartHeatFieldOverlay,
+} from './stacked-series-chart-overlay.directive';
 import {
   DtStackedSeriesChartFilledSeries,
   DtStackedSeriesChartFillMode,
@@ -82,8 +91,9 @@ import {
   DtStackedSeriesChartValueContinuousAxisType,
   DtStackedSeriesChartValueContinuousAxisMap,
   TimeInterval,
+  DtStackedSeriesHeatField,
+  DtStackedSeriesHeatFieldLevel,
 } from './stacked-series-chart.util';
-import { DtOverlayRef, DtOverlay } from '@dynatrace/barista-components/overlay';
 import {
   coerceBooleanProperty,
   coerceNumberProperty,
@@ -343,7 +353,23 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     relative: 0,
   };
 
-  /** Whether to show the label axis rotated to fit more labels */
+  /**
+   * Heat Fields, they will be place at the top or left part of the chart
+   * Overlap supported
+   */
+  @Input()
+  get heatFields(): DtStackedSeriesHeatField[] {
+    return this._heatFields;
+  }
+  set heatFields(value: DtStackedSeriesHeatField[]) {
+    this._selectedHeatFieldIndex = -1;
+    this._heatFields = value;
+    this._render();
+  }
+  _heatFieldLevels: DtStackedSeriesHeatFieldLevel[];
+  _heatFields: DtStackedSeriesHeatField[];
+  _selectedHeatFieldIndex: number = -1;
+
   @Input() labelAxisMode: DtStackedSeriesChartLabelAxisMode = 'full';
   /** @internal  Support only for mode === 'column', wouldn't make sense for 'row' */
   get _labelAxisCompactModeEnabled(): boolean {
@@ -382,7 +408,11 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
 
   /** @internal Template reference for the DtStackedSeriesChart */
   @ContentChild(DtStackedSeriesChartOverlay, { read: TemplateRef })
-  _overlay: TemplateRef<DtStackedSeriesChartTooltipData>;
+  _overlay: DtStackedSeriesChartOverlay;
+
+  /** @internal Template reference for the DtStackedSeriesChartHeatField */
+  @ContentChild(DtStackedSeriesChartHeatFieldOverlay, { read: TemplateRef })
+  _heatFieldOverlay: DtStackedSeriesChartHeatFieldOverlay;
 
   /** @internal Reference to the root svgElement. */
   @ViewChild('valueAxis') _valueAxis: ElementRef;
@@ -392,9 +422,6 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
 
   /** @internal Reference to the elements on the label axis. */
   @ViewChildren('label') labels: QueryList<ElementRef>;
-
-  /** Reference to the open overlay. */
-  private _overlayRef: DtOverlayRef<DtStackedSeriesChartTooltipData> | null;
 
   /** @internal Slices to be painted */
   _tracks: DtStackedSeriesChartFilledSeries[] = [];
@@ -414,8 +441,18 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
       // We don't want the subject to be cancelled due to errors
       try {
         this._renderInner();
-      } catch (_) {}
+      } catch (_) {
+        console.error(_);
+      }
     }),
+  );
+
+  /** Indicates when unpin is done so that we unselect heatfield item */
+  onUnpinInner$ = new Subject<boolean>();
+  onUnpin$ = this.onUnpinInner$.pipe(
+    pairwise(),
+    filter(([prev, next]) => prev && !next),
+    tap(() => (this._selectedHeatFieldIndex = -1)),
   );
 
   /** Indicates when ticks should be recalculated */
@@ -427,7 +464,6 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   constructor(
     private readonly _changeDetectorRef: ChangeDetectorRef,
     private _zone: NgZone,
-    private _overlayService: DtOverlay,
     private _platform: Platform,
     private _resizer: DtViewportResizer,
     /**
@@ -550,57 +586,25 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   /**
    * @internal
    * Handles the mouseEnter on a series slice.
-   * Creates an overlay if it is necessary.
    */
-  _handleOnSeriesMouseEnter(
-    event: MouseEvent,
-    slice: DtStackedSeriesChartTooltipData,
-  ): void {
+  _handleOnSeriesMouseEnter(slice: DtStackedSeriesChartTooltipData): void {
     this.hoverStart.emit(this._trackStackHoverEvents(slice));
-    if (this._overlay && !this._overlayRef) {
-      this._overlayRef =
-        this._overlayService.create<DtStackedSeriesChartTooltipData>(
-          event.target as HTMLElement,
-          this._overlay,
-        );
-      this._overlayRef.updateImplicitContext(slice);
-      this._overlayRef.updatePosition(event.offsetX, event.offsetY);
-    }
   }
 
-  /**
-   * @internal
-   * Handles the mouseEnter on a series slice.
-   */
-  _handleOnLegendMouseEnter(legend: DtStackedSeriesChartLegend): void {
-    this.hoverStart.emit(this._trackLegendHoverEvents(legend));
-  }
-
-  /**
-   * @internal
-   * Handles the mouseMove on a series slice.
-   * Updates the position of the overlay to create a mouseFollow position
-   */
-  _handleOnSeriesMouseMove(event: MouseEvent): void {
-    if (this._overlayRef) {
-      this._overlayService._positionStrategy.setOrigin({
-        x: event.clientX,
-        y: event.clientY,
-      });
-      this._overlayRef.updatePosition();
-    }
-  }
   /**
    * @internal
    * Handles the mouseLeave on a series slice.
-   * Dismisses the overlay if there is one defined.
    */
   _handleOnSeriesMouseLeave(slice: DtStackedSeriesChartTooltipData): void {
     this.hoverEnd.emit(this._trackStackHoverEvents(slice));
-    if (this._overlayRef) {
-      this._overlayRef.dismiss();
-      this._overlayRef = null;
-    }
+  }
+
+  /**
+   * @internal
+   * Handles the mouseEnter on a legend.
+   */
+  _handleOnLegendMouseEnter(legend: DtStackedSeriesChartLegend): void {
+    this.hoverStart.emit(this._trackLegendHoverEvents(legend));
   }
 
   /**
@@ -609,6 +613,22 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
    */
   _handleOnLegendMouseLeave(legend: DtStackedSeriesChartLegend): void {
     this.hoverEnd.emit(this._trackLegendHoverEvents(legend));
+  }
+
+  /**
+   * Track by function for the renderEvents – speeds up performance
+   * and prevent deletion of mouseout
+   */
+  _renderEventTrackByFn(
+    _: number,
+    _heatFieldLevel: { index: number }[],
+  ): string {
+    return _heatFieldLevel.map(({ index }) => index).join('_');
+  }
+
+  selectHeatField(selectedIndex: number): void {
+    this._selectedHeatFieldIndex =
+      this._selectedHeatFieldIndex === selectedIndex ? -1 : selectedIndex;
   }
 
   /** Returns an object with output data type for hover events on the stack */
@@ -705,6 +725,68 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     this._isScalePoint = this.continuousAxisType === 'none';
   }
 
+  private _renderHeatFields(
+    getPosition: (value: DtStackedSeriesChartFilledSeries) => number,
+  ): void {
+    let bounds = [0, 100];
+    this._applyFnForContinuousAxisType([
+      [
+        'none',
+        () =>
+          (bounds = [
+            getPosition(this._tracks[0]),
+            getPosition(this._tracks.slice(-1)[0]),
+          ]),
+      ],
+    ]);
+    const defaultColor = getDtChartColorPalette(1, this._theme)[0];
+
+    const heatFieldRenderData: DtStackedSeriesHeatFieldLevel = (
+      this.heatFields || []
+    )
+      .map((heatField, index) => {
+        let [start, end] = [heatField.start, heatField.end]
+          .map((label) => label && { origin: { label } })
+          .map((value, i) => (value ? getPosition(value) : bounds[i]));
+        // If a heat field is a specific point -instead of a range, we add some
+        // min width so that overlapping could be detected
+        if (start === end && start != null) {
+          start -= 0.001;
+          end += 0.001;
+        }
+        return {
+          index,
+          start,
+          end,
+          position: (end - start) / 2 + start,
+          size: Math.abs(end - start),
+          config: { ...heatField, color: heatField.color || defaultColor },
+        };
+      })
+      .filter(({ start, end }) => start != null && end != null)
+      .sort((a, b) => a.start - b.start || b.size - a.size);
+
+    const hasOverlap = ({ end }, { start }) => end > start;
+
+    this._heatFieldLevels =
+      heatFieldRenderData[0] &&
+      heatFieldRenderData.slice(1).reduce(
+        (arr, heatField) => {
+          const heatFieldLevel = arr.find(
+            (_heatFieldLevel) =>
+              !hasOverlap(_heatFieldLevel.slice(-1)[0], heatField),
+          );
+          if (heatFieldLevel) {
+            heatFieldLevel.push(heatField);
+            return arr;
+          } else {
+            return [...arr, [heatField]];
+          }
+        },
+        [[heatFieldRenderData[0]]] as DtStackedSeriesHeatFieldLevel[],
+      );
+  }
+
   /** Calculate current state */
   private _render(): void {
     this._shouldRenderInner.next();
@@ -713,53 +795,42 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   private _renderInner(): void {
     this._setScale();
 
+    let getPosition;
     this._applyFnForContinuousAxisType([
       [
         'none',
-        () => {
-          this._tracks = getSeriesWithState(
-            this._filledSeries,
-            this._selected,
-            this._fillMode === 'relative' ? this.max : undefined,
-          ).map((track, index) => ({
-            ...track,
-            position: (this._scale as ScalePoint<string>)(
-              this.continuousAxisMap(track, index) as string,
-            ),
-          }));
-        },
+        () =>
+          (getPosition = (value) =>
+            (this._scale as ScalePoint<string>)(
+              this.continuousAxisMap(value) as string,
+            )),
       ],
       [
         'linear',
-        () => {
-          this._tracks = getSeriesWithState(
-            this._filledSeries,
-            this._selected,
-            this._fillMode === 'relative' ? this.max : undefined,
-          ).map((track, index) => ({
-            ...track,
-            position: (this._scale as ScaleLinear<number, number>)(
-              this.continuousAxisMap(track, index) as NumberValue,
-            ),
-          }));
-        },
+        () =>
+          (getPosition = (value) =>
+            (this._scale as ScaleLinear<number, number>)(
+              this.continuousAxisMap(value) as NumberValue,
+            )),
       ],
       [
         'date',
-        () => {
-          this._tracks = getSeriesWithState(
-            this._filledSeries,
-            this._selected,
-            this._fillMode === 'relative' ? this.max : undefined,
-          ).map((track, index) => ({
-            ...track,
-            position: (this._scale as ScaleTime<number, number>)(
-              this.continuousAxisMap(track, index) as Date,
-            ),
-          }));
-        },
+        () =>
+          (getPosition = (value) =>
+            (this._scale as ScaleTime<number, number>)(
+              this.continuousAxisMap(value) as Date,
+            )),
       ],
     ]);
+
+    this._tracks = getSeriesWithState(
+      this._filledSeries,
+      this._selected,
+      this._fillMode === 'relative' ? this.max : undefined,
+    ).map((track) => ({
+      ...track,
+      position: getPosition(track),
+    }));
 
     // Calculating number of tracks (columns or bars) by their position
     // If there are <= 1 tracks, calculation is not possible so use track length
@@ -769,6 +840,8 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     } catch (e) {
       this._trackAmount = this._tracks.length;
     }
+
+    this._renderHeatFields(getPosition);
 
     this._shouldUpdateTicks.next();
   }
@@ -903,7 +976,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   /** Whether there's a label on the label axis that is overflowing its allocated space on the css grid */
   private _isAnyLabelOverflowing(): boolean {
     if (
-      !this.labels ||
+      !this.labels?.first ||
       !this._trackTicks?.length ||
       !this._chartContainer?.nativeElement
     )

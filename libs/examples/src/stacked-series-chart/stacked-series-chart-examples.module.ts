@@ -32,7 +32,7 @@ import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group'
 import { DtInputModule } from '../../../barista-components/input';
 import { FormsModule } from '@angular/forms';
 import { DtSwitchModule } from '../../../barista-components/switch';
-
+import { DtExampleStackedSeriesChartHeatField } from './stacked-series-chart-heat-field-example/stacked-series-chart-heat-field-example';
 @NgModule({
   imports: [
     CommonModule,
@@ -53,6 +53,7 @@ import { DtSwitchModule } from '../../../barista-components/switch';
     DtExampleStackedSeriesChartColumn,
     DtExampleStackedSeriesChartLinear,
     DtExampleStackedSeriesChartDate,
+    DtExampleStackedSeriesChartHeatField,
   ],
 })
 export class DtExamplesStackedSeriesChartModule {}

@@ -21,4 +21,5 @@ export * from './stacked-series-chart-generic-example/stacked-series-chart-gener
 export * from './stacked-series-chart-filled-example/stacked-series-chart-filled-example';
 export * from './stacked-series-chart-linear-example/stacked-series-chart-linear-example';
 export * from './stacked-series-chart-date-example/stacked-series-chart-date-example';
+export * from './stacked-series-chart-heat-field-example/stacked-series-chart-heat-field-example';
 export * from './stacked-series-chart-examples.module';
