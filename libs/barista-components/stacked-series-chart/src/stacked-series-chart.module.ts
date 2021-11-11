@@ -17,7 +17,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DtStackedSeriesChart } from './stacked-series-chart';
-import { DtStackedSeriesChartOverlay } from './stacked-series-chart-overlay.directive';
+import {
+  DtStackedSeriesChartHeatFieldOverlay,
+  DtStackedSeriesChartOverlay,
+} from './stacked-series-chart-overlay.directive';
 import {
   DtFormattersModule,
   DtCount,
@@ -27,8 +30,16 @@ import { DtOverlayModule } from '@dynatrace/barista-components/overlay';
 
 @NgModule({
   imports: [CommonModule, DtFormattersModule, DtLegendModule, DtOverlayModule],
-  exports: [DtStackedSeriesChart, DtStackedSeriesChartOverlay],
-  declarations: [DtStackedSeriesChart, DtStackedSeriesChartOverlay],
+  exports: [
+    DtStackedSeriesChart,
+    DtStackedSeriesChartOverlay,
+    DtStackedSeriesChartHeatFieldOverlay,
+  ],
+  declarations: [
+    DtStackedSeriesChart,
+    DtStackedSeriesChartOverlay,
+    DtStackedSeriesChartHeatFieldOverlay,
+  ],
   providers: [DtCount],
 })
 export class DtStackedSeriesChartModule {}

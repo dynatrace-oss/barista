@@ -93,7 +93,6 @@ export interface DtStackedSeriesChartTooltipData {
 /** Continuous Axis map, to parse data into a format D3 can build a scale from */
 export type DtStackedSeriesChartValueContinuousAxisMap = (
   value: DtStackedSeriesChartFilledSeries,
-  index: number,
 ) => string | NumberValue | Date;
 
 /** Format from which to extend for hover event outputs, detailing the origin inside the component where the hover event took place. */
@@ -137,6 +136,25 @@ export interface DtStackedSeriesStackHoverData
     HoverTrackableData {
   hoveredIn: 'stack';
 }
+
+/** Output data for heatFields */
+export interface DtStackedSeriesHeatField {
+  start?: any;
+  end?: any;
+  color?: string;
+  data?: any;
+}
+
+/** Output level data for heatFields */
+export interface DtStackedSeriesHeatFieldLevelItem {
+  index: number;
+  start: number;
+  end: number;
+  position: number;
+  size: number;
+  config: DtStackedSeriesHeatField;
+}
+export type DtStackedSeriesHeatFieldLevel = DtStackedSeriesHeatFieldLevelItem[];
 
 /** Output type for hovent output events, providing information on the hovered series and, when applicable, the hovered stack to the container component. */
 export type DtStackedSeriesHoverData =

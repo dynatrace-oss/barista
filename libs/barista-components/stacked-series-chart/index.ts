@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-export * from './/src/stacked-series-chart-overlay.directive';
+export * from './src/stacked-series-chart-overlay.directive';
 export * from './src/stacked-series-chart';
 export * from './src/stacked-series-chart.module';
 export {
@@ -22,6 +22,7 @@ export {
   DtStackedSeriesChartLegend,
   DtStackedSeriesChartMode,
   DtStackedSeriesChartNode,
+  DtStackedSeriesHeatField,
   DtStackedSeriesChartSeries,
   DtStackedSeriesChartTooltipData,
   DtStackedSeriesChartSelectionMode,

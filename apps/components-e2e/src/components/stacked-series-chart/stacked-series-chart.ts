@@ -30,7 +30,11 @@ import {
 } from '@dynatrace/barista-components/stacked-series-chart';
 import {
   stackedSeriesChartCoffeeMock,
-  stackedSeriesChartDemoDataConvertedBouncedDates,
+  stackedSeriesChartConvertedBouncedDateHeatFieldMock,
+  stackedSeriesChartConvertedBouncedDateHeatFieldOverlapMock,
+  stackedSeriesChartConvertedBouncedDatesMock,
+  stackedSeriesCoffeeHeatFieldMock,
+  stackedSeriesCoffeeHeatFieldOverlapMock,
 } from './stacked-series-chart.mocks';
 import { timeHour, timeMinute } from 'd3-time';
 
@@ -67,13 +71,33 @@ export class DtE2EStackedSeriesChart {
     linear: ['$.2f', '$.7f'],
     date: ['%H:%M', '%H:%M:%S:%L%p'],
   };
+
   continuousAxisMapByType = {
-    linear: (_, index) => index * 0.5,
+    linear: ({ origin }) =>
+      this.usedSeries.reduce(
+        (obj, { label }, index) => ({ ...obj, [label]: index * 0.5 }),
+        {},
+      )[origin.label],
     date: ({ origin }) => {
       const [hours, minutes] = origin.label.split(':').map(Number);
       return new Date(0, 0, 0, hours, minutes, 0, 0);
     },
   };
+  heatFieldsByType = {
+    none: {
+      normal: stackedSeriesCoffeeHeatFieldMock,
+      overlap: stackedSeriesCoffeeHeatFieldOverlapMock,
+    },
+    linear: {
+      normal: stackedSeriesCoffeeHeatFieldMock,
+      overlap: stackedSeriesCoffeeHeatFieldOverlapMock,
+    },
+    date: {
+      normal: stackedSeriesChartConvertedBouncedDateHeatFieldMock,
+      overlap: stackedSeriesChartConvertedBouncedDateHeatFieldOverlapMock,
+    },
+  };
+  heatFieldType = 'none';
 
   series: DtStackedSeriesChartSeries[] = stackedSeriesChartCoffeeMock;
   usedSeries: DtStackedSeriesChartSeries[] = this.series;
@@ -111,6 +135,7 @@ export class DtE2EStackedSeriesChart {
     this.changeContinuousAxisType('none');
     this.continuousAxisInterval = null;
     this.continuousAxisFormat = undefined;
+    this.heatFieldType = 'none';
   }
 
   setElementWidth(width: string): void {
@@ -125,10 +150,11 @@ export class DtE2EStackedSeriesChart {
 
     this.continuousAxisMap = this.continuousAxisMapByType[type];
     if (type === 'date') {
-      this.series = stackedSeriesChartDemoDataConvertedBouncedDates;
+      this.series = stackedSeriesChartConvertedBouncedDatesMock;
     } else {
       this.series = stackedSeriesChartCoffeeMock;
     }
+
     const continuousAxisFormats = this.continuousAxisFormatsByType[type] || [];
     if (!continuousAxisFormats.includes(this.continuousAxisFormat)) {
       this.continuousAxisFormat = continuousAxisFormats[0];

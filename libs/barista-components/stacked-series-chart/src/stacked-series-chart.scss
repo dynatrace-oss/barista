@@ -98,6 +98,22 @@ See stacked-series-chart.layout.md
   opacity: 0;
 }
 
+/** Heat fields */
+.dt-stacked-series-chart-heat-field {
+  position: absolute;
+  border-radius: $heat-field-border-radius;
+  background-color: var(--dt-stacked-series-chart-heat-field-color);
+
+  cursor: pointer;
+}
+
+.dt-stacked-series-chart-heat-field-area {
+  position: absolute;
+  border-radius: $heat-field-border-radius;
+  background-color: var(--dt-stacked-series-chart-heat-field-color);
+  opacity: 0.125;
+}
+
 /** Legend */
 .dt-stacked-series-chart-legend {
   display: flex;
