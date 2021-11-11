@@ -3,6 +3,7 @@
   [class.dt-stacked-series-chart-label-none]="!visibleLabel"
   [class.dt-stacked-series-chart-value-axis-none]="!visibleValueAxis"
   [class.dt-stacked-series-chart-scale-point]="_isScalePoint"
+  [class.dt-stacked-series-chart-has-heat-field]="_heatFieldLevels?.length > 0"
   [class.dt-stacked-series-chart-series-axis-compact-mode]="
     _labelAxisCompactModeEnabled
   "
@@ -12,7 +13,11 @@
   [style]="
     _sanitizeCSS([
       ['--dt-stacked-series-chart-track-amount', _trackAmount],
-      ['--dt-stacked-series-chart-max-bar-size', maxTrackSize + 'px']
+      ['--dt-stacked-series-chart-max-bar-size', maxTrackSize + 'px'],
+      [
+        '--dt-stacked-series-chart-heat-field-levels',
+        _heatFieldLevels?.length || 0
+      ]
     ])
   "
 >
@@ -25,6 +30,9 @@
     class="dt-stacked-series-chart-track-axis-container"
     #chartContainer
   ></div>
+  <div class="dt-stacked-series-chart-heat-field-wrapper">
+    <ng-container *ngTemplateOutlet="heatFieldTemp"></ng-container>
+  </div>
   <div class="dt-stacked-series-chart-track-wrapper">
     <ng-container
       *ngFor="let track of _tracks; let i = index; trackBy: _trackByFn"
@@ -51,6 +59,8 @@
         <span
           *ngFor="let slice of track.nodes; trackBy: _trackByFn"
           class="dt-stacked-series-chart-slice"
+          [dtOverlay]="_overlay"
+          [dtOverlayConfig]="{ data: slice }"
           [class.dt-stacked-series-chart-slice-selectable]="_selectable"
           [class.dt-stacked-series-chart-slice-selected]="slice.selected"
           [attr.aria-label]="slice.ariaLabel"
@@ -61,13 +71,15 @@
             ])
           "
           (click)="_toggleNodeSelect(track.origin, slice.origin)"
-          (mouseenter)="_handleOnSeriesMouseEnter($event, slice)"
-          (mousemove)="_handleOnSeriesMouseMove($event)"
+          (mouseenter)="_handleOnSeriesMouseEnter(slice)"
           (mouseleave)="_handleOnSeriesMouseLeave(slice)"
         >
         </span>
       </div>
     </ng-container>
+    <ng-container
+      *ngTemplateOutlet="heatFieldTemp; context: { $implicit: true }"
+    ></ng-container>
   </div>
 
   <div *ngIf="visibleLabel" class="dt-stacked-series-chart-track-label-wrapper">
@@ -93,7 +105,6 @@
       "
     >
       <span
-        #label
         class="dt-stacked-series-chart-track-label-content"
         [dtOverlay]="_labelAxisCompactModeEnabled && labelOverlay"
         [dtOverlayConfig]="{ data: tick.value }"
@@ -152,4 +163,53 @@
 <ng-template #labelOverlay let-label>
   {{ label }}
 </ng-template>
+
+<ng-template #heatFieldTemp let-isArea>
+  <ng-container
+    *ngFor="
+      let heatFieldLevel of _heatFieldLevels;
+      let level = index;
+      trackBy: _renderEventTrackByFn
+    "
+  >
+    <ng-container *ngFor="let renderField of heatFieldLevel">
+      <span
+        *ngIf="!isArea || _selectedHeatFieldIndex === renderField.index"
+        [dtOverlay]="!isArea && _heatFieldOverlay"
+        [dtOverlayConfig]="{
+          pinnable: true,
+          data: renderField.config.data
+        }"
+        [ngClass]="[
+          'dt-stacked-series-chart-heat-field' + (isArea ? '-area' : ''),
+          isArea ? '' : 'dt-stacked-series-chart-heat-field-level-' + level
+        ]"
+        [class.dt-stacked-series-chart-heat-field-selected]="
+          !isArea && _selectedHeatFieldIndex === renderField.index
+        "
+        [style]="
+          _sanitizeCSS([
+            [
+              '--dt-stacked-series-chart-heat-field-color',
+              renderField.config.color
+            ],
+            [
+              '--dt-stacked-series-chart-heat-field-position',
+              renderField.position + '%'
+            ],
+            [
+              '--dt-stacked-series-chart-heat-field-size',
+              renderField.size + '%'
+            ],
+            [isArea ? '' : '--dt-stacked-series-chart-heat-field-level', level]
+          ])
+        "
+        (click)="selectHeatField(renderField.index)"
+        (pinnedChanged)="onUnpinInner$.next($event)"
+      ></span>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
 <ng-container *ngIf="_shouldRender | async"></ng-container>
+<ng-container *ngIf="onUnpin$ | async"></ng-container>

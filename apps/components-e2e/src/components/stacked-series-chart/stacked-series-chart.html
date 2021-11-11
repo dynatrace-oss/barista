@@ -8,6 +8,7 @@
   (selectedChange)="selected = $event"
   [mode]="mode"
   [series]="usedSeries"
+  [heatFields]="heatFieldsByType[continuousAxisType][heatFieldType]"
   [valueDisplayMode]="valueDisplayMode"
   [fillMode]="fillMode"
   [visibleValueAxis]="visibleValueAxis"
@@ -26,6 +27,11 @@
   <ng-template dtStackedSeriesChartOverlay let-tooltip>
     <strong>{{ tooltip.seriesOrigin.label }}</strong>
     <div>{{ tooltip.origin.label }}: {{ tooltip.origin.value }}</div>
+  </ng-template>
+
+  <ng-template dtStackedSeriesChartHeatFieldOverlay let-heatField>
+    <h6>HeatField data</h6>
+    <div>{{ heatField.name }}</div>
   </ng-template>
 </dt-stacked-series-chart>
 
@@ -264,5 +270,17 @@
     id="chart-continuous-axis-format-long"
   >
     10:45:00:000AM
+  </button>
+</div>
+
+<div>
+  <button (click)="heatFieldType = 'none'" id="chart-heat-field-none">
+    None
+  </button>
+  <button (click)="heatFieldType = 'normal'" id="chart-heat-field-normal">
+    Normal
+  </button>
+  <button (click)="heatFieldType = 'overlap'" id="chart-heat-field-overlap">
+    Overlap
   </button>
 </div>

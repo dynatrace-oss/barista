@@ -53,6 +53,7 @@ export const _DtOverlayTriggerMixin = mixinTabIndex(
   host: {
     '(mouseenter)': '_handleMouseEnter($event)',
     '(mouseleave)': '_handleMouseLeave($event)',
+    '(mouseover)': '!disabled && _handleMouseMove($event, $event)',
     '(keydown)': '_handleKeydown($event)',
     '(click)': '_handleClick()',
     class: 'dt-overlay-trigger',

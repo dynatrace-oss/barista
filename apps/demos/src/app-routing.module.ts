@@ -271,6 +271,7 @@ import {
   DtExampleStackedSeriesChartColumn,
   DtExampleStackedSeriesChartLinear,
   DtExampleStackedSeriesChartDate,
+  DtExampleStackedSeriesChartHeatField,
   DtExampleSwitchDark,
   DtExampleSwitchDefault,
   DtExampleSwitchResponsive,
@@ -1053,6 +1054,10 @@ const ROUTES: Routes = [
   {
     path: 'stacked-series-chart-date-example',
     component: DtExampleStackedSeriesChartDate,
+  },
+  {
+    path: 'stacked-series-chart-heat-field-example',
+    component: DtExampleStackedSeriesChartHeatField
   },
   { path: 'stepper-default-example', component: DtExampleStepperDefault },
   { path: 'stepper-editable-example', component: DtExampleStepperEditable },
