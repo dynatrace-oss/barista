@@ -29,3 +29,16 @@ import { Directive } from '@angular/core';
   exportAs: 'dtStackedSeriesChartOverlay',
 })
 export class DtStackedSeriesChartOverlay {}
+
+/**
+ * Overlay directive to be used alongside with StackedSeriesChart.
+ *
+ * @example
+ * <ng-template dtStackedSeriesChartHeatFieldOverlay let-heatField>
+ *   <!-- [content of overlay here] -->
+ * </ng-template>
+ */
+@Directive({
+  selector: 'ng-template[dtStackedSeriesChartHeatFieldOverlay]',
+})
+export class DtStackedSeriesChartHeatFieldOverlay {}

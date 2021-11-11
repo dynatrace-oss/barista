@@ -16,17 +16,26 @@
 
 import { Component } from '@angular/core';
 import { stackedSeriesChartDemoDataCoffee } from '../stacked-series-chart-demo-data';
-import { DtStackedSeriesChartValueContinuousAxisMap } from '@dynatrace/barista-components/stacked-series-chart';
+import {
+  DtStackedSeriesChartSeries,
+  DtStackedSeriesChartValueContinuousAxisMap,
+} from '@dynatrace/barista-components/stacked-series-chart';
 
 @Component({
   selector: 'dt-example-stacked-series-chart-date-barista',
   templateUrl: './stacked-series-chart-linear-example.html',
 })
 export class DtExampleStackedSeriesChartLinear {
-  series = stackedSeriesChartDemoDataCoffee;
+  series: DtStackedSeriesChartSeries[] = stackedSeriesChartDemoDataCoffee;
   mode: 'bar' | 'column' = 'column';
 
-  continuousAxisFormat = '$,f';
-  continuousAxisMap: DtStackedSeriesChartValueContinuousAxisMap = (_, index) =>
-    index * 0.5;
+  linearDictionary = this.series.reduce(
+    (obj, { label }, index) => ({ ...obj, [label]: index * 0.5 }),
+    {},
+  );
+
+  continuousAxisFormat = '$.2f';
+  continuousAxisMap: DtStackedSeriesChartValueContinuousAxisMap = ({
+    origin,
+  }) => this.linearDictionary[origin.label];
 }

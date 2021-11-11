@@ -44,6 +44,7 @@ follow the same order given by the developer
 | ------------------------ | --------------------------------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `mode`                   | `DtStackedSeriesChartMode`                                | `'bar'`  | Display mode.                                                                                                                                                                                                         |
 | `series`                 | `DtStackedSeriesChartSeries[]`                            | -        | Array of series with their nodes.                                                                                                                                                                                     |
+| `heatFields`             | `DtStackedSeriesHeatField[]`                              | -        | Array of heat fields to be shown at the top -for columns- or at the left-side -for bars-.                                                                                                                             |
 | `selectable`             | `boolean`                                                 | false    | Allow selections to be made on chart                                                                                                                                                                                  |
 | `selected`               | `[DtStackedSeriesChartSeries, DtStackedSeriesChartNode?]` | -        | Current selection [series, node] node will be null if `selectionMode` is `stack`                                                                                                                                      |
 | `selectionMode`          | `DtStackedSeriesChartSelectionMode`                       | 'node'   | Whether to make just the nodes selectable or the whole stack.                                                                                                                                                         |
@@ -77,6 +78,20 @@ passed to the template follows the `DtStackedSeriesChartTooltipData` interface.
 
 ```html
 <ng-template dtStackedSeriesChartOverlay let-tooltip>
+  <!-- Insert your template for one event here. -->
+</ng-template>
+```
+
+### DtStackedSeriesChartHeatFieldOverlay
+
+The `dtStackedSeriesChartHeatFieldOverlay` directive applies to an `ng-template`
+element lets you provide a template for the heat field overlay. The overlay will
+be shown when a user hovers -or selects- the heat field in stacked-series-chart.
+The implicit context passed to the template follows `data` property from
+`DtStackedSeriesHeatField` interface.
+
+```html
+<ng-template dtStackedSeriesChartHeatFieldOverlay let-heatField>
   <!-- Insert your template for one event here. -->
 </ng-template>
 ```
@@ -217,10 +232,14 @@ charts. Color for each node should be set in legend object
 
 <ba-live-example name="DtExampleStackedSeriesChartConnectedLegend" fullwidth></ba-live-example>
 
-### Stacked bar chart, continuous axis - Linear
+### Continuous axis - Linear
 
 <ba-live-example name="DtExampleStackedSeriesChartLinear" fullwidth></ba-live-example>
 
-### Stacked bar chart, continuous axis - Date
+### Continuous axis - Date
 
 <ba-live-example name="DtExampleStackedSeriesChartDate" fullwidth></ba-live-example>
+
+### Heat Fields
+
+<ba-live-example name="DtExampleStackedSeriesChartHeatField" fullwidth></ba-live-example>

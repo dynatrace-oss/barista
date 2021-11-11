@@ -16,7 +16,8 @@ $track-wrapper-margin-right: calc(#{$gap} * 2);
 
 :host(.dt-stacked-series-chart-column) {
   .dt-stacked-series-chart-track-label-wrapper,
-  .dt-stacked-series-chart-track-wrapper {
+  .dt-stacked-series-chart-track-wrapper,
+  .dt-stacked-series-chart-heat-field-wrapper {
     position: relative;
     min-width: $track-wrapper-width;
     grid-column: 2;
@@ -39,9 +40,20 @@ $track-wrapper-margin-right: calc(#{$gap} * 2);
     display: grid;
   }
 
-  .dt-stacked-series-chart-track-wrapper {
+  .dt-stacked-series-chart-track-wrapper,
+  .dt-stacked-series-chart-heat-field-wrapper {
     grid-row: 1;
+  }
+
+  .dt-stacked-series-chart-track-wrapper {
     height: calc(100% - #{math.div($axis-width, 2)});
+  }
+
+  .dt-stacked-series-chart-heat-field-wrapper {
+    height: $heat-field-size-by-levels;
+    margin-top: calc(
+      (#{$heat-field-size-by-levels} + #{$heat-field-margin}) * -1
+    );
   }
 
   .dt-stacked-series-chart-track-label {
@@ -61,23 +73,26 @@ $track-wrapper-margin-right: calc(#{$gap} * 2);
     left: var(--dt-stacked-series-chart-tick-position);
     transform: translate(-50%, 0%);
     width: 100%;
+    max-width: var(--dt-stacked-series-chart-max-bar-size);
     height: 100%;
 
     grid-row: 1;
     flex-direction: column-reverse;
-    max-width: var(--dt-stacked-series-chart-max-bar-size);
   }
 
   .dt-stacked-series-chart-container {
+    $padding-top: 8px;
     grid-template-rows: 1fr auto;
-    grid-template-columns: 0fr calc(
-        100% - var(--dt-stacked-series-chart-max-bar-size) * 4
-      );
-    padding-top: 8px;
+    grid-template-columns: 0fr 1fr;
+    padding-top: $padding-top;
     overflow-x: auto;
 
     &.dt-stacked-series-chart-scale-point {
       grid-template-columns: 0fr 1fr;
+    }
+
+    &.dt-stacked-series-chart-has-heat-field {
+      padding-top: calc(#{$heat-field-size-by-levels} + #{$padding-top});
     }
 
     &.dt-stacked-series-chart-series-axis-auto-mode,
@@ -184,11 +199,36 @@ $track-wrapper-margin-right: calc(#{$gap} * 2);
     @include fullWidthAxis();
 
     padding-right: $tick-gutter;
-    justify-content: end;
+    justify-content: flex-end;
 
     &::after {
       right: -$axis-width;
       width: $tick-length;
     }
+  }
+
+  /** Heat fields */
+  .dt-stacked-series-chart-heat-field,
+  .dt-stacked-series-chart-heat-field-area {
+    left: var(--dt-stacked-series-chart-heat-field-position);
+    width: calc(
+      var(--dt-stacked-series-chart-heat-field-size) - #{$heat-field-gap}
+    );
+
+    transform: translate(-50%, 0%);
+  }
+
+  .dt-stacked-series-chart-heat-field {
+    top: $heat-field-margin-by-level;
+    height: $heat-field-size;
+    min-width: $heat-field-size;
+
+    &.dt-stacked-series-chart-heat-field-selected {
+      height: $heat-field-size-selected;
+    }
+  }
+
+  .dt-stacked-series-chart-heat-field-area {
+    height: 100%;
   }
 }
