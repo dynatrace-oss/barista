@@ -1,4 +1,4 @@
-# Barista components and design system
+# Barista components FORK and design system
 
 [![CircleCI](https://circleci.com/gh/dynatrace-oss/barista/tree/master.svg?style=svg)](https://circleci.com/gh/dynatrace-oss/barista/tree/master)
 [![Build status](https://badge.buildkite.com/804634c49653559b831d816cc5f6f51f96050aa360f4dd0460.svg?branch=master)](https://buildkite.com/dynatrace/barista)
