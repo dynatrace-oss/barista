@@ -1,10 +1,4 @@
-<dt-table
-  [dataSource]="dataSource"
-  dtSort
-  #sortable
-  [showExportButton]="true"
-  [exportBlackList]="['action']"
->
+<dt-table [dataSource]="dataSource" dtSort #sortable [showExportButton]="true">
   <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
   <dt-simple-number-column name="cpu" label="CPU"></dt-simple-number-column>
   <dt-simple-number-column
@@ -25,25 +19,6 @@
     sortable="false"
     [formatter]="trafficFormatter"
   ></dt-simple-number-column>
-  <ng-container dtColumnDef="action" dtColumnAlign="text">
-    <dt-header-cell *dtHeaderCellDef>Action</dt-header-cell>
-    <dt-cell *dtCellDef="let row">
-      <span>
-        <a dt-icon-button href="/filterstuff"
-          ><dt-icon variant="secondary" name="filter"></dt-icon
-        ></a>
-        <dt-context-dialog
-          aria-label="Analyze"
-          ariaLabelClose="Close context dialog"
-        >
-          <ul>
-            <li><a href="/drilldown1">PurePaths</a></li>
-            <li><a href="/drilldown2">ServiceFlow</a></li>
-          </ul>
-        </dt-context-dialog>
-      </span>
-    </dt-cell>
-  </ng-container>
 
   <dt-header-row
     *dtHeaderRowDef="[
@@ -51,14 +26,13 @@
         'cpu',
         'memoryPerc',
         'memoryConsumption',
-        'traffic',
-        'action'
+        'traffic'
       ]"
   ></dt-header-row>
   <dt-row
     *dtRowDef="
         let row;
-        columns: ['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic', 'action']
+        columns: ['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic']
       "
   ></dt-row>
 </dt-table>
