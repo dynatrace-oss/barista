@@ -30,6 +30,7 @@ import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtInputModule } from '@dynatrace/barista-components/input';
 import { DtCheckboxModule } from '@dynatrace/barista-components/checkbox';
+import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
 
 import { DtCell, DtCellDef, DtColumnDef } from './cell';
 import {
@@ -106,6 +107,7 @@ const EXPORTED_DECLARATIONS = [
     DtEmptyStateModule,
     ReactiveFormsModule,
     DtCheckboxModule,
+    DtContextDialogModule,
   ],
   exports: [...EXPORTED_DECLARATIONS, DtIndicatorModule],
   declarations: [...EXPORTED_DECLARATIONS],

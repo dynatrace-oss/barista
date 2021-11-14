@@ -29,3 +29,21 @@
 .dt-table-search + :host {
   margin-top: 8px;
 }
+
+.dt-context-dialog {
+  position: relative;
+  margin-top: 14px;
+  margin-bottom: -46px;
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row;
+}
+
+::ng-deep .dt-exportMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .dt-exportMenu button {
+  margin-bottom: 8px;
+}

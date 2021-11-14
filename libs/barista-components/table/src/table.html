@@ -1,13 +1,36 @@
 <ng-container headerRowOutlet></ng-container>
 <ng-container rowOutlet></ng-container>
 <ng-container noDataRowOutlet></ng-container>
+<dt-context-dialog
+  *ngIf="showExportButton && !isEmptyDataSource"
+  aria-label="Show export menu"
+  ariaLabelClose="Close export menu"
+  overlayPanelClass="dt-exportMenu"
+>
+  <button dt-button variant="secondary" (click)="_exportDisplayData()">
+    Export table data
+  </button>
+  <button dt-button variant="secondary" (click)="_exportFilteredData()">
+    Export visible data
+  </button>
+  <button
+    *ngIf="_selectionEnabledAndConnected"
+    [disabled]="!numSelectedRows"
+    dt-button
+    variant="secondary"
+    (click)="_exportSelection()"
+  >
+    Export {{ numSelectedRows }} rows
+  </button>
+</dt-context-dialog>
 <ng-container footerRowOutlet></ng-container>
 
 <ng-template #emptyStateTemplate>
   <ng-content
     *ngIf="!loading"
     select="[dtTableEmptyState], dt-empty-state, [dtCustomEmptyState]"
-  ></ng-content>
+  >
+  </ng-content>
 </ng-template>
 
 <ng-container cdkPortalOutlet></ng-container>
