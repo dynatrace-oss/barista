@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -62,6 +62,7 @@ import {
   _COALESCED_STYLE_SCHEDULER,
 } from '@angular/cdk/table';
 import { ViewportRuler } from '@angular/cdk/scrolling';
+import { DtTableSelection } from './selection/selection';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
@@ -95,6 +96,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
+  private _showExportButton: boolean = false; //Revert to opt-in instead of opt-out per request
 
   /** Sort accessor map that holds all sort accessor functions from the registered simple columns. */
   private _sortAccessorMap = new Map<
@@ -118,6 +120,32 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /** @internal Whether a expandable row is registered with the table */
   _hasExpandableRows = false;
 
+  /** @internal Reference to filteredData in table-data-source */
+  _filteredData: T[];
+
+  /** @internal Reference to exportable data. */
+  _exporter: {
+    filteredData: T[];
+    selection: DtTableSelection<T> | null;
+  };
+
+  /** @internal Determine if selection is enabled and properly connected. */
+  get _selectionEnabledAndConnected(): boolean {
+    if (this._exporter && this._exporter.selection) return true;
+    else return false;
+  }
+
+  /** The number of rows that have been selected by the user. */
+  get numSelectedRows(): number {
+    if (
+      this._exporter &&
+      this._exporter.selection != null &&
+      this._exporter.selection.selected
+    )
+      return this._exporter.selection.selected.length;
+    else return 0;
+  }
+
   /** Whether the loading state should be displayed. */
   @Input()
   get loading(): boolean {
@@ -140,6 +168,20 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   get isEmptyDataSource(): boolean {
     return !(this._data && this._data.length);
   }
+
+  /**
+   * Experimental!
+   * Opt-in to the possibility to export all table data, visible table data or
+   * selected table data into a csv file.
+   */
+  @Input()
+  get showExportButton(): boolean {
+    return this._showExportButton;
+  }
+  set showExportButton(value: boolean) {
+    this._showExportButton = coerceBooleanProperty(value);
+  }
+  static ngAcceptInputType_showExportButton: BooleanInput;
 
   /** @internal The snapshot of the current data */
   get _dataSnapshot(): T[] | readonly T[] {
@@ -321,4 +363,156 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
 
   /** CSS class added to any row or cell that has sticky positioning applied. */
   protected stickyCssClass = 'dt-table-sticky';
+
+  /** @internal Exports the filtered source data from the dataSource. */
+  // Note: this is different from the display text, see instead _exportDisplayData().
+  _exportFilteredData(): void {
+    const exportData = this._filteredData;
+    if (this.isEmptyDataSource || typeof exportData[0] != 'object') {
+      return;
+    }
+
+    const csvObj = { csv: '' };
+    const keys: string[] = Object.keys(exportData[0]);
+
+    if (!keys.length) {
+      return;
+    }
+
+    //check for objects, expand properties into new columns
+    for (let i = keys.length - 1; i > -1; i--) {
+      const key = keys[i];
+      const val = exportData[0][key];
+      if (typeof val == 'object') {
+        const subkeys = Object.keys(val).map((sk) => `${key}.${sk}`);
+        keys.splice(i, 1, ...subkeys);
+      }
+    }
+    // header row
+    csvObj.csv += keys.join(',') + '\n';
+
+    for (const row of exportData) {
+      for (let idx = 0; idx < keys.length; idx++) {
+        const key = keys[idx];
+        let val: any;
+        if (key.includes('.') && typeof row[key] == 'undefined') {
+          //derived key object.property
+          const keyArr = key.split('.');
+          const objKey = keyArr[0];
+          const prop = keyArr[1];
+          const obj = row[objKey] || {};
+          val = obj[prop];
+        } else {
+          val = row[key];
+        }
+        this._appendValToCSV(csvObj, val, idx, keys.length);
+      }
+      csvObj.csv += '\n';
+    }
+    this._downloadCSV(csvObj.csv);
+  }
+
+  /** @internal Exports the filtered display data from the dataSource after being formatted by a displayAccessor. */
+  _exportDisplayData(exportData: T[] = this._filteredData): void {
+    if (this.isEmptyDataSource || typeof exportData[0] != 'object') {
+      return;
+    }
+
+    const csvObj = { csv: '' };
+    const keys: string[] = [...this._contentHeaderRowDefs.first.columns].filter(
+      (h: string) => h !== 'checkbox',
+    );
+    //skip selection column
+    if (!keys.length) {
+      return;
+    }
+
+    //get column names
+    const headerList = this._elementRef.nativeElement.querySelectorAll(
+      'dt-header-row dt-header-cell',
+    );
+    const headersArr = Array.from(headerList);
+    const headers = headersArr
+      .map((h: HTMLElement): String => {
+        const txt = h.innerText;
+        if (txt.includes(',')) return `"${txt}"`;
+        else return txt;
+      })
+      .filter((h: string) => h !== '');
+
+    //skip selection column
+    if (headers.length !== keys.length) {
+      console.warn(
+        '_exportDisplayData: mismatched column count. Data may be shifted.',
+      );
+    }
+
+    // header row
+    csvObj.csv += headers.join(',') + '\n';
+
+    for (const row of exportData) {
+      for (let idx = 0; idx < keys.length; idx++) {
+        const key = keys[idx];
+        const accessor = this._displayAccessorMap.get(key);
+        const val = accessor ? accessor(row, key) : row[key];
+        this._appendValToCSV(csvObj, val, idx, keys.length);
+      }
+      csvObj.csv += '\n';
+    }
+
+    this._downloadCSV(csvObj.csv);
+  }
+
+  /** Assemble the CSV while safely handling types. */
+  private _appendValToCSV(
+    csvObj: { csv: string },
+    val: any,
+    idx: number,
+    len: number,
+  ): void {
+    switch (typeof val) {
+      case 'string':
+        break;
+      case 'object': //if it's still complex, just convert to JSON and move on
+        val = JSON.stringify(val);
+        break;
+      case 'undefined':
+        val = '';
+        break;
+      default:
+        val = val.toString();
+    }
+
+    if (val.includes(',')) {
+      val = val.replace(/"/g, '""'); //escape any existing double quotes
+      csvObj.csv += `"${val}"`; //
+    } else {
+      csvObj.csv += val;
+    }
+    if (idx < len) {
+      csvObj.csv += ',';
+    }
+  }
+
+  /** @internal Export only the rows which are currently selected. */
+  _exportSelection(): void {
+    if (this._exporter.selection) {
+      this._exportDisplayData(this._exporter.selection.selected);
+    } else {
+      console.log('no selection');
+    }
+  }
+
+  /** Take a CSV string and trigger a download in browser */
+  private _downloadCSV(csv: string): void {
+    //make csv document
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.target = '_blank';
+    link.download = 'table-' + new Date().getTime() + '.csv';
+    link.click();
+    link.remove();
+  }
 }
