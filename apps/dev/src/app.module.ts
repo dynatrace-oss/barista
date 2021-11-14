@@ -82,6 +82,7 @@ import { SliderDemo } from './slider/slider-demo.component';
 import { SunburstChartDemo } from './sunburst-chart/sunburst-chart-demo.component';
 import { SwitchDemo } from './switch/switch-demo.component';
 import { TableDemo } from './table/table-demo.component';
+import { TableExportDemo } from './table-export/table-demo.component';
 import { TableOrderDemo } from './table-order/table-order-demo.component';
 import { TabsDemo } from './tabs/tabs-demo.component';
 import { TagDemo } from './tag/tag-demo.component';
@@ -159,6 +160,7 @@ export class NoopRouteComponent {}
     SunburstChartDemo,
     SwitchDemo,
     TableDemo,
+    TableExportDemo,
     TableOrderDemo,
     TabsDemo,
     TagDemo,
