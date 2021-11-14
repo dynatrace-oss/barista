@@ -34,6 +34,7 @@ import {
   DtSimpleColumnSortAccessorFunction,
 } from './simple-columns';
 import { DtSort, DtSortEvent } from './sort/sort';
+import { DtTableSelection } from './selection/selection';
 import { DtTable } from './table';
 
 export type DtSortAccessorFunction<T> = (data: T) => any; // tslint:disable-line:no-any
@@ -54,6 +55,17 @@ export class DtTableDataSource<T> extends DataSource<T> {
    * shown to the user rather than all the data.
    */
   filteredData: T[];
+
+  /**
+   * Data structure to expose exportable data to the table.
+   */
+  exporter: {
+    filteredData: T[];
+    selection: DtTableSelection<T> | null;
+  } = {
+    filteredData: [],
+    selection: null,
+  };
 
   /** @internal DisplayAccessorMap for SimpleColumn displayAccessor functions. */
   _displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>> =
@@ -134,6 +146,16 @@ export class DtTableDataSource<T> extends DataSource<T> {
     this._updateChangeSubscription();
   }
   private _sort: DtSort | null;
+
+  /**
+   * Instance of the DtTableSelection directive used by the table to provide selected data.
+   */
+  get selection(): DtTableSelection<T> | null {
+    return this.exporter.selection;
+  }
+  set selection(selection: DtTableSelection<T> | null) {
+    this.exporter.selection = selection;
+  }
 
   /**
    * Instance of the DtTableSearch directive used by the table to control which
@@ -453,6 +475,8 @@ export class DtTableDataSource<T> extends DataSource<T> {
         this._simpleComparatorMap = comparatorMap;
         this._updateChangeSubscription();
       });
+    _table._filteredData = this.filteredData;
+    _table._exporter = this.exporter;
     return this._renderData;
   }
 

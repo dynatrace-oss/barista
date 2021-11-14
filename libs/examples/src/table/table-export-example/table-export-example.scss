@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+dt-pagination {
+  align-self: center;
+  margin: 1em 0;
+}
