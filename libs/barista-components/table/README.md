@@ -40,11 +40,12 @@ class MyModule {}
 The `DtTable` component supports the following inputs. Find details about the
 usage of each input below.
 
-| Name          | Type                                   | Default | Description                                                          |
-| ------------- | -------------------------------------- | ------- | -------------------------------------------------------------------- |
-| `dataSource`  | `object[] \| Observable \| DataSource` |         | Data to be shown in the table.                                       |
-| `loading`     | `boolean`                              | `false` | Whether the table is [loading](#loading) or not.                     |
-| `multiExpand` | `boolean`                              | `false` | Whether the table allows [multiple rows to be expanded]() at a time. |
+| Name           | Type                                   | Default | Description                                                          |
+| -------------- | -------------------------------------- | ------- | -------------------------------------------------------------------- |
+| `dataSource`   | `object[] \| Observable \| DataSource` |         | Data to be shown in the table.                                       |
+| `loading`      | `boolean`                              | `false` | Whether the table is [loading](#loading) or not.                     |
+| `multiExpand`  | `boolean`                              | `false` | Whether the table allows [multiple rows to be expanded]() at a time. |
+| `exportButton` | `boolean`                              | `false` | Whether the table includes an export button.                         |
 
 ## Simple columns for basic use cases
 
@@ -675,3 +676,28 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
 ```
 
 <ba-ux-snippet name="table-in-use"></ba-ux-snippet>
+
+## Exporting
+
+### Simple
+
+By setting the `showExportButton` input to `true`, an `dtContextDialog` button
+is added just below the table, or in line with pagination if present. This
+dialog contains at least 2 buttons:
+
+- **Export table data** which triggers a download of the currently filtered data
+  as shown, without regard for pagination.
+- **Export visible data** which triggers a download of the filtered data from
+  the datasource and does not use a displayAccessor.
+
+<ba-live-example name="DtExampleTableExport" fullwidth></ba-live-example>
+
+### Selection
+
+If `dtTableSelection` is enabled and you have connected `dtTableSelection` to
+`dtTableDataSource` (similar to `dtSort`), you also will have a third button:
+
+- **Export selected rows** which triggers a download of the display data, but
+  just for selected rows.
+
+<ba-live-example name="DtExampleTableExportSelection" fullwidth></ba-live-example>
