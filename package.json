@@ -109,7 +109,7 @@
     "@rollup/plugin-node-resolve": "^11.2.1",
     "@rollup/plugin-replace": "^2.4.2",
     "@types/chalk": "^2.2.0",
-    "@types/d3-array": "^3.0.0",
+    "@types/d3-array": "^3.0.2",
     "@types/d3-color": "^3.0.2",
     "@types/d3-scale": "^4.0.1",
     "@types/d3-shape": "^3.0.2",
