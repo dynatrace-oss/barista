@@ -94,7 +94,7 @@
     "@nguniversal/builders": "^12.1.1",
     "@nguniversal/express-engine": "^12.1.1",
     "@nrwl/angular": "12.9.0",
-    "@nrwl/cli": "12.9.0",
+    "@nrwl/cli": "13.1.4",
     "@nrwl/jest": "12.9.0",
     "@nrwl/linter": "12.9.0",
     "@nrwl/node": "12.9.0",
