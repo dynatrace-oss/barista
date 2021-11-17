@@ -170,7 +170,9 @@ export class CircleCiApi extends ContinuosIntegrationApi {
           }
         }),
         filterResponse<CirclePipeline>(
-          (pipeline) => pipeline.vcs!.revision === commitSha,
+          (pipeline) =>
+            pipeline.vcs!.branch !== undefined &&
+            pipeline.vcs!.revision === commitSha,
           NO_PIPELINE_FOUND_ERROR(commitSha),
         ),
       );

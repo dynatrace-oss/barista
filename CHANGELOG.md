@@ -1,3 +1,15 @@
+## [10.2.0](https://github.com/dynatrace-oss/barista/compare/10.1.0...10.2.0) (2021-11-17)
+
+### Bug Fixes
+
+- **tooltip:** Fixed positioning of heatmaps tooltip.
+  ([5b2e75f](https://github.com/dynatrace-oss/barista/commit/5b2e75f888bbfc7d14c00aea5f95044e6b9fccc7))
+
+### Features
+
+- **stacked-series-chart:** Adding heat fields
+  ([a36cf83](https://github.com/dynatrace-oss/barista/commit/a36cf832170308e8a87db16d90f73d6e1530102c))
+
 ## [10.1.0](https://github.com/dynatrace-oss/barista/compare/10.0.0...10.1.0) (2021-11-03)
 
 ### Bug Fixes
