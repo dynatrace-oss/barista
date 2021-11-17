@@ -124,5 +124,6 @@ const pipeline = (commitSha: string, id: string) => ({
   id,
   vcs: {
     revision: commitSha,
+    branch: '10.x',
   },
 });
