@@ -29,6 +29,7 @@ import { startWith } from 'rxjs/operators';
 
 import { DtPagination } from '@dynatrace/barista-components/pagination';
 import {
+  //DtTable,
   DtTableDataSource,
   DtTableSearch,
   DT_TABLE_SELECTION_CONFIG,
@@ -225,40 +226,6 @@ export class TableExportDemo implements OnInit, OnDestroy, AfterViewInit {
       ],
     },
   ];
-
-  exportCSV(exportData: object[]): boolean {
-    let csv = '';
-    let keys: string[] = [];
-    //get list of keys
-    if (typeof exportData[0] == 'object') {
-      keys = Object.keys(exportData[0]);
-    }
-    if (!keys.length) return false;
-    csv += keys.join(',') + '\n';
-
-    exportData.forEach((row) => {
-      let vals = Object.values(row);
-      keys.forEach((key, idx) => {
-        let val = row[key];
-        if (val.includes(',')) csv += `"${val}"`;
-        else csv += val;
-        if (idx < vals.length) csv += ',';
-      });
-      csv += '\n';
-    });
-
-    //make csv document
-    let o = new Blob([csv], { type: 'text/csv' });
-    let u = URL.createObjectURL(o);
-    let link = document.createElement('a');
-    link.href = u;
-    link.target = '_blank';
-    link.download = 'table-' + Date() + '.csv';
-    link.click();
-    link.remove();
-
-    return true;
-  }
 
   exportXLS(exportData: object[]): boolean {
     alert(`not implemented: ${exportData[0]}`);

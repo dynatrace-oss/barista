@@ -1,3 +1,12 @@
+<dt-context-dialog
+  aria-label="Show more actions"
+  ariaLabelClose="Close context dialog"
+  overlayPanelClass="dt-exportMenu"
+>
+  <button dt-button variant="secondary" (click)="exportCSV()">
+    Export CSV
+  </button>
+</dt-context-dialog>
 <ng-container headerRowOutlet></ng-container>
 <ng-container rowOutlet></ng-container>
 <ng-container noDataRowOutlet></ng-container>
