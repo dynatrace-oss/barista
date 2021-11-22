@@ -97,7 +97,6 @@ export class DevApp implements AfterContentInit, OnDestroy {
     { name: 'Sunburst-chart', route: '/sunburst-chart' },
     { name: 'Switch', route: '/switch' },
     { name: 'Table', route: '/table' },
-    { name: 'Table-export', route: '/table-export' },
     { name: 'Table Order', route: '/table-order' },
     { name: 'Tabs', route: '/tabs' },
     { name: 'Tag', route: '/tag' },
