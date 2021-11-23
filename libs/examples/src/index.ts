@@ -298,8 +298,7 @@ import { DtExampleTableDefault } from './table/table-default-example/table-defau
 import { DtExampleTableDynamicColumns } from './table/table-dynamic-columns-example/table-dynamic-columns-example';
 import { DtExampleTableEmptyState } from './table/table-empty-state-example/table-empty-state-example';
 import { DtExampleTableExpandableRows } from './table/table-expandable-rows-example/table-expandable-rows-example';
-import { DtExampleTableExport } from './table/table-export-example/table-export-example';
-import { DtExampleTableExportSelection } from './table/table-export-selection-example/table-export-selection-example';
+import { DtExampleTableExportOptOut } from './table/table-export-optout-example/table-export-optout-example';
 import { DtExampleTableFavoriteColumn } from './table/table-favorite-column-example/table-favorite-column-example';
 import { DtExampleTableFavoriteColumnNoHeader } from './table/table-favorite-column-no-header-example/table-favorite-column-no-header-example';
 import { DtExampleTableInteractiveRows } from './table/table-interactive-rows-example/table-interactive-rows-example';
@@ -683,8 +682,7 @@ export {
   DtExampleTableDynamicColumns,
   DtExampleTableEmptyState,
   DtExampleTableExpandableRows,
-  DtExampleTableExport,
-  DtExampleTableExportSelection,
+  DtExampleTableExportOptOut,
   DtExampleTableFavoriteColumn,
   DtExampleTableFavoriteColumnNoHeader,
   DtExampleTableInteractiveRows,
@@ -1081,7 +1079,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTableDynamicColumns', DtExampleTableDynamicColumns],
   ['DtExampleTableEmptyState', DtExampleTableEmptyState],
   ['DtExampleTableExpandableRows', DtExampleTableExpandableRows],
-  ['DtExampleTableExport', DtExampleTableExport],
+  ['DtExampleTableExportOptOut', DtExampleTableExportOptOut],
   ['DtExampleTableFavoriteColumn', DtExampleTableFavoriteColumn],
   [
     'DtExampleTableFavoriteColumnNoHeader',
