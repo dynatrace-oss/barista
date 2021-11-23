@@ -96,7 +96,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
-  private _showExportButton: boolean = false; //Revert to opt-in instead of opt-out per request
+  private _exportButton: boolean = true;
 
   /** Sort accessor map that holds all sort accessor functions from the registered simple columns. */
   private _sortAccessorMap = new Map<
@@ -169,19 +169,14 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     return !(this._data && this._data.length);
   }
 
-  /**
-   * Experimental!
-   * Opt-in to the possibility to export all table data, visible table data or
-   * selected table data into a csv file.
-   */
+  /** Whether the export button should be displayed. */
   @Input()
-  get showExportButton(): boolean {
-    return this._showExportButton;
+  get exportButton(): boolean {
+    return this._exportButton;
   }
-  set showExportButton(value: boolean) {
-    this._showExportButton = coerceBooleanProperty(value);
+  set exportButton(value: boolean) {
+    this._exportButton = coerceBooleanProperty(value);
   }
-  static ngAcceptInputType_showExportButton: BooleanInput;
 
   /** @internal The snapshot of the current data */
   get _dataSnapshot(): T[] | readonly T[] {
