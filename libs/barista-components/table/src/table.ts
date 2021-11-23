@@ -374,6 +374,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
       let vals = Object.values(row);
       keys.forEach((key, idx) => {
         let val = row[key];
+        if (typeof val != 'string') val = val.toString();
         if (val.includes(',')) csv += `"${val}"`;
         else csv += val;
         if (idx < vals.length) csv += ',';
