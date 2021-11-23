@@ -340,6 +340,7 @@ import {
   DtExampleDatepickerDefault,
   DtExampleCustomAddFormTag,
 } from '@dynatrace/barista-examples';
+import { DtExampleTableExportOptOut } from 'libs/examples/src/table/table-export-optout-example/table-export-optout-example';
 
 // The Routing Module replaces the routing configuration in the root or feature module.
 // Either configure routes in the Routing Module or within the module itself but not in both.
@@ -1104,12 +1105,8 @@ const ROUTES: Routes = [
     component: DtExampleTableExpandableRows,
   },
   {
-    path: 'table-export-example',
-    component: DtExampleTableExport,
-  },
-  {
-    path: 'table-export-selection-example',
-    component: DtExampleTableExportSelection,
+    path: 'table-export-optout-example',
+    component: DtExampleTableExportOptOut,
   },
   {
     path: 'table-favorite-column-example',
