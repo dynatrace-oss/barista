@@ -2,7 +2,7 @@
 <ng-container rowOutlet></ng-container>
 <ng-container noDataRowOutlet></ng-container>
 <dt-context-dialog
-  *ngIf="exportButton"
+  *ngIf="exportButton && !isEmptyDataSource"
   aria-label="Show more actions"
   ariaLabelClose="Close context dialog"
   overlayPanelClass="dt-exportMenu"
