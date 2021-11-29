@@ -37,22 +37,6 @@ export class DtExampleTableExport implements OnInit {
       memoryPerc: 38,
       memoryTotal: 5830000000,
       traffic: 98700000,
-      diskLatency: {
-        diskRead: 100,
-        diskWrite: 200,
-      },
-      diskUsage: [
-        {
-          mount: '/',
-          diskPerc: 38,
-          diskTotal: 12345678,
-        },
-        {
-          mount: '/mnt',
-          diskPerc: 45,
-          diskTotal: 12345,
-        },
-      ],
     },
     {
       host: 'et-demo-2-win3',
@@ -60,10 +44,6 @@ export class DtExampleTableExport implements OnInit {
       memoryPerc: 46,
       memoryTotal: 6000000000,
       traffic: 62500000,
-      diskLatency: {
-        diskRead: 101,
-        diskWrite: 201,
-      },
     },
     {
       host: 'docker-host2',
@@ -71,10 +51,6 @@ export class DtExampleTableExport implements OnInit {
       memoryPerc: 35,
       memoryTotal: 5810000000,
       traffic: 41900000,
-      diskLatency: {
-        diskRead: 102,
-        diskWrite: 202,
-      },
     },
     {
       host: 'et-demo-2-win1',
@@ -82,10 +58,6 @@ export class DtExampleTableExport implements OnInit {
       memoryPerc: 7.86,
       memoryTotal: 5820000000,
       traffic: 98700000,
-      diskLatency: {
-        diskRead: 103,
-        diskWrite: 203,
-      },
     },
     {
       host: 'et-demo-2-win8',
@@ -93,10 +65,6 @@ export class DtExampleTableExport implements OnInit {
       memoryPerc: 21,
       memoryTotal: 3520000000,
       traffic: 91870000,
-      diskLatency: {
-        diskRead: 104,
-        diskWrite: 204,
-      },
     },
     {
       host: 'et-demo-2-macOS',
@@ -104,10 +72,6 @@ export class DtExampleTableExport implements OnInit {
       memoryPerc: 34,
       memoryTotal: 3200000000,
       traffic: 1200000,
-      diskLatency: {
-        diskRead: 105,
-        diskWrite: 205,
-      },
     },
     {
       host: 'kyber-host6',
@@ -115,17 +79,6 @@ export class DtExampleTableExport implements OnInit {
       memoryPerc: 12,
       memoryTotal: 2120000000,
       traffic: 4500000,
-      diskLatency: {
-        diskRead: 106,
-        diskWrite: 206,
-      },
-      diskUsage: [
-        {
-          mount: '/',
-          diskPerc: 38,
-          diskTotal: 12345678,
-        },
-      ],
     },
     {
       host: 'dev-demo-5-macOS',
@@ -133,10 +86,6 @@ export class DtExampleTableExport implements OnInit {
       memoryPerc: 8.6,
       memoryTotal: 4670000000,
       traffic: 3270000,
-      diskLatency: {
-        diskRead: 107,
-        diskWrite: 207,
-      },
     },
   ];
 

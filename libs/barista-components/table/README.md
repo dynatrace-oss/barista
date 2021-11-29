@@ -45,7 +45,7 @@ usage of each input below.
 | `dataSource`   | `object[] \| Observable \| DataSource` |         | Data to be shown in the table.                                       |
 | `loading`      | `boolean`                              | `false` | Whether the table is [loading](#loading) or not.                     |
 | `multiExpand`  | `boolean`                              | `false` | Whether the table allows [multiple rows to be expanded]() at a time. |
-| `exportButton` | `boolean`                              | `true`  | Whether the table includes an export button.                         |
+| `exportButton` | `boolean`                              | `false` | Whether the table includes an export button.                         |
 
 ## Simple columns for basic use cases
 

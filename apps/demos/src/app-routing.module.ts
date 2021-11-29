@@ -283,7 +283,7 @@ import {
   DtExampleTableDynamicColumns,
   DtExampleTableEmptyState,
   DtExampleTableExpandableRows,
-  DtExampleTableExportOptOut,
+  DtExampleTableExport,
   DtExampleTableFavoriteColumn,
   DtExampleTableFavoriteColumnNoHeader,
   DtExampleTableInteractiveRows,
@@ -1103,8 +1103,8 @@ const ROUTES: Routes = [
     component: DtExampleTableExpandableRows,
   },
   {
-    path: 'table-export-optout-example',
-    component: DtExampleTableExportOptOut,
+    path: 'table-export-example',
+    component: DtExampleTableExport,
   },
   {
     path: 'table-favorite-column-example',

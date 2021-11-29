@@ -62,7 +62,7 @@ import {
   _COALESCED_STYLE_SCHEDULER,
 } from '@angular/cdk/table';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { DtTableSelection } from './selection/selection';
+import { DtTableDataSource } from '..';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
@@ -96,7 +96,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
-  private _exportButton: boolean = true;
+  private _exportButton: boolean = false; //Revert to opt-in instead of opt-out per request
 
   /** Sort accessor map that holds all sort accessor functions from the registered simple columns. */
   private _sortAccessorMap = new Map<
@@ -360,7 +360,8 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   protected stickyCssClass = 'dt-table-sticky';
 
   exportCSV(): void {
-    let exportData = this._data;
+    let ds = this.dataSource as DtTableDataSource<T>;
+    let exportData = ds.filteredData;
     let csv = '';
     let keys: string[] = [];
     //get list of keys

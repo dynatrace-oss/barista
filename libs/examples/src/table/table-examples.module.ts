@@ -37,7 +37,7 @@ import { DtExampleTableCustomColumns } from './table-custom-columns-example/tabl
 import { DtExampleTableDefault } from './table-default-example/table-default-example';
 import { DtExampleTableDynamicColumns } from './table-dynamic-columns-example/table-dynamic-columns-example';
 import { DtExampleTableEmptyState } from './table-empty-state-example/table-empty-state-example';
-import { DtExampleTableExportOptOut } from './table-export-optout-example/table-export-optout-example';
+import { DtExampleTableExport } from './table-export-example/table-export-example';
 import { DtExampleTableFavoriteColumn } from './table-favorite-column-example/table-favorite-column-example';
 import { DtExampleTableFavoriteColumnNoHeader } from './table-favorite-column-no-header-example/table-favorite-column-no-header-example';
 import { DtExampleTableInteractiveRows } from './table-interactive-rows-example/table-interactive-rows-example';
@@ -86,7 +86,7 @@ import { FormsModule } from '@angular/forms';
     DtExampleTableDefault,
     DtExampleTableDynamicColumns,
     DtExampleTableEmptyState,
-    DtExampleTableExportOptOut,
+    DtExampleTableExport,
     DtExampleTableExpandableRows,
     DtExampleTableFavoriteColumn,
     DtExampleTableFavoriteColumnNoHeader,

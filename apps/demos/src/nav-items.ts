@@ -1381,8 +1381,8 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         route: '/table-expandable-rows-example',
       },
       {
-        name: 'table-export-optout-example',
-        route: '/table-export-optout-example',
+        name: 'table-export-example',
+        route: '/table-export-example',
       },
       {
         name: 'table-favorite-column-example',
