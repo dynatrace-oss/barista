@@ -62,7 +62,6 @@ import {
   _COALESCED_STYLE_SCHEDULER,
 } from '@angular/cdk/table';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { DtTableDataSource } from '..';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
@@ -96,7 +95,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
-  private _exportButton: boolean = false; //Revert to opt-in instead of opt-out per request
+  private _showExportButton: boolean = false; //Revert to opt-in instead of opt-out per request
 
   /** Sort accessor map that holds all sort accessor functions from the registered simple columns. */
   private _sortAccessorMap = new Map<
@@ -123,29 +122,6 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /** @internal Reference to filteredData in table-data-source */
   _filteredData: T[];
 
-  /** @internal Reference to exportable data. */
-  _exporter: {
-    filteredData: T[];
-    selection: DtTableSelection<T> | null;
-  };
-
-  /** @internal Determine if selection is enabled and properly connected. */
-  get _selectionEnabledAndConnected(): boolean {
-    if (this._exporter && this._exporter.selection) return true;
-    else return false;
-  }
-
-  /** The number of rows that have been selected by the user. */
-  get numSelectedRows(): number {
-    if (
-      this._exporter &&
-      this._exporter.selection != null &&
-      this._exporter.selection.selected
-    )
-      return this._exporter.selection.selected.length;
-    else return 0;
-  }
-
   /** Whether the loading state should be displayed. */
   @Input()
   get loading(): boolean {
@@ -171,11 +147,11 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
 
   /** Whether the export button should be displayed. */
   @Input()
-  get exportButton(): boolean {
-    return this._exportButton;
+  get showExportButton(): boolean {
+    return this._showExportButton;
   }
-  set exportButton(value: boolean) {
-    this._exportButton = coerceBooleanProperty(value);
+  set showExportButton(value: boolean) {
+    this._showExportButton = coerceBooleanProperty(value);
   }
 
   /** @internal The snapshot of the current data */
@@ -359,40 +335,120 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /** CSS class added to any row or cell that has sticky positioning applied. */
   protected stickyCssClass = 'dt-table-sticky';
 
-  exportCSV(): void {
-    let ds = this.dataSource as DtTableDataSource<T>;
-    let exportData = ds.filteredData;
+  /** @internal Exports the filtered source data from the dataSource. */
+  // Note: this is different from the display text, see instead exportDisplayData().
+  exportFilteredData(): void {
+    const exportData = this._filteredData;
+    if (this.isEmptyDataSource || typeof exportData[0] != 'object') return;
+
     let csv = '';
-    let keys: string[] = [];
-    //get list of keys
-    if (typeof exportData[0] == 'object') {
-      keys = Object.keys(exportData[0]);
-    }
+    let keys: string[] = Object.keys(exportData[0]);
     if (!keys.length) return;
+    //check for objects
+    for (let i = keys.length - 1; i > -1; i--) {
+      const key = keys[i];
+      const val = exportData[0][key];
+      if (typeof val == 'object') {
+        const subkeys = Object.keys(val).map((sk) => `${key}.${sk}`);
+        keys.splice(i, 1, ...subkeys);
+      }
+    }
+    // header row
     csv += keys.join(',') + '\n';
 
-    exportData.forEach((row) => {
-      let vals = Object.values(row);
-      keys.forEach((key, idx) => {
-        let val = row[key];
-        if (typeof val != 'string') val = val.toString();
-        if (val.includes(',')) csv += `"${val}"`;
-        else csv += val;
-        if (idx < vals.length) csv += ',';
-      });
+    for (const row of exportData) {
+      for (let idx = 0; idx < keys.length; idx++) {
+        const key = keys[idx];
+        let val: any;
+        if (key.includes('.') && typeof row[key] == 'undefined') {
+          const keyArr = key.split('.');
+          const parent = keyArr[0];
+          const prop = keyArr[1];
+          const obj = row[parent] || {};
+          val = obj[prop];
+        } else {
+          val = row[key];
+        }
+        appendValToCSV(val, idx);
+      }
       csv += '\n';
+    }
+    this._downloadCSV(csv);
+    return;
+
+    function appendValToCSV(val: any, idx: number): void {
+      switch (typeof val) {
+        case 'string':
+          break;
+        case 'object': //if it's still complex, just convert to JSON and move on
+          val = JSON.stringify(val);
+          break;
+        case 'undefined':
+          val = '';
+          break;
+        default:
+          val = val.toString();
+      }
+
+      if (val.includes(',')) {
+        val = val.replace(/"/g, '""'); //escape any existing double quotes
+        csv += `"${val}"`; //
+      } else csv += val;
+      if (idx < keys.length) csv += ',';
+    }
+  }
+
+  /** @internal Exports the filtered source data from the dataSource after being formatted by a displayAccessor. */
+  exportDisplayData(): void {
+    const exportData = this._filteredData;
+    if (this.isEmptyDataSource || typeof exportData[0] != 'object') return;
+
+    let csv = '';
+    const keys: string[] = [...this._contentHeaderRowDefs.first.columns];
+    if (!keys.length) return;
+
+    //get column names
+    const headerList = this._elementRef.nativeElement.querySelectorAll(
+      'dt-header-row dt-header-cell',
+    );
+    const headersArr = Array.from(headerList);
+    const headers = headersArr.map((h: HTMLElement): String => {
+      const txt = h.innerText;
+      if (txt.includes(',')) return `"${txt}"`;
+      else return txt;
     });
 
+    // header row
+    csv += headers.join(',') + '\n';
+
+    for (const row of exportData) {
+      for (let idx = 0; idx < keys.length; idx++) {
+        const key = keys[idx];
+        const accessor = this._displayAccessorMap.get(key);
+        let val = accessor ? accessor(row, key) : row[key];
+        if (typeof val != 'string') val = val.toString();
+
+        if (val.includes(',')) csv += `"${val}"`;
+        else csv += val;
+        if (idx < keys.length) csv += ',';
+      }
+      csv += '\n';
+    }
+
+    this._downloadCSV(csv);
+    return;
+  }
+
+  /** Take a CSV string and trigger a download in browser */
+  private _downloadCSV(csv: string): void {
     //make csv document
-    let o = new Blob([csv], { type: 'text/csv' });
-    let u = URL.createObjectURL(o);
-    let link = document.createElement('a');
-    link.href = u;
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
     link.target = '_blank';
     link.download = 'table-' + new Date().getTime() + '.csv';
     link.click();
     link.remove();
-
-    return;
   }
 }

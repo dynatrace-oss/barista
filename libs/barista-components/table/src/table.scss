@@ -38,3 +38,12 @@
   justify-content: flex-end;
   flex-direction: row;
 }
+
+::ng-deep .dt-exportMenu {
+  display: flex;
+  flex-direction: column;
+}
+
+::ng-deep .dt-exportMenu button {
+  margin-bottom: 8px;
+}
