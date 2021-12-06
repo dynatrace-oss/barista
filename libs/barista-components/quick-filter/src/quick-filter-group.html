@@ -13,7 +13,7 @@
     [name]="_nodeDef.option?.uid"
     (change)="_unsetGroup()"
   >
-    Any
+    <ng-container i18n>Any</ng-container>
   </dt-radio-button>
 
   <ng-container *ngIf="!isDetail; else virtualScroll">
@@ -49,7 +49,7 @@
     }"
   ></ng-container>
 
-  <button class="dt-show-more" (click)="_showMore()">View more</button>
+  <button class="dt-show-more" (click)="_showMore()" i18n>View more</button>
 </ng-container>
 
 <ng-template #checkBox let-item>
@@ -74,7 +74,7 @@
 </ng-template>
 
 <ng-template #defaultShowMoreText let-count>
-  <p class="dt-quick-filter-show-more-text">
+  <p class="dt-quick-filter-show-more-text" i18n>
     +{{ count }} options in the filter field
   </p>
 </ng-template>

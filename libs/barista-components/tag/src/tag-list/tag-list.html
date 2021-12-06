@@ -7,7 +7,9 @@
     ></ng-template>
   </div>
   <div class="dt-tag-list-more-btn" *ngIf="_toDisplayMoreButton()" #moreBtn>
-    <a (click)="_expand()" class="dt-link">{{ _hiddenTagCount }} More...</a>
+    <a (click)="_expand()" class="dt-link" i18n
+      >{{ _hiddenTagCount }} More...</a
+    >
   </div>
   <ng-template
     [ngTemplateOutlet]="dtAddTag"
