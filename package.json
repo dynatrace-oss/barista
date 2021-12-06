@@ -81,7 +81,7 @@
     "@angular-devkit/architect": "^0.1202.8",
     "@angular-devkit/architect-cli": "^0.1202.8",
     "@angular-devkit/build-angular": "^12.2.8",
-    "@angular-devkit/core": "^12.2.8",
+    "@angular-devkit/core": "^13.0.4",
     "@angular/cli": "^12.2.8",
     "@angular/compiler": "^12.2.8",
     "@angular/compiler-cli": "^12.2.8",
