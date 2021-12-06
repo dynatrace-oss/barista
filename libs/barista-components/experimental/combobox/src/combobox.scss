@@ -25,6 +25,11 @@
     border-color: $gray-500;
     cursor: pointer;
   }
+
+  .dt-form-field-infix > & {
+    border: none;
+    min-height: 30px;
+  }
 }
 
 .dt-combobox-open .dt-combobox-arrow {
@@ -92,8 +97,6 @@
   justify-content: center;
   transform: rotate(0);
   transition: transform 150ms ease-out;
-  width: 30px;
-  height: 30px;
 
   // Override the icon size to 16px as defined in the styleguide
   ::ng-deep svg {
