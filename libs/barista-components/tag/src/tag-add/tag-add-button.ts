@@ -24,6 +24,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       dt-button
       (click)="handleClick($event)"
       [disabled]="!this.valid"
+      i18n
     >
       Add
     </button>

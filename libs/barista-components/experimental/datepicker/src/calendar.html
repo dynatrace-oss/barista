@@ -6,6 +6,7 @@
     (click)="_addMonths(-12)"
     class="dt-calendar-header-button dt-calendar-header-button-prev-year"
     aria-label="Previous Year"
+    i18n-aria-label
   >
     <dt-icon name="learn-more"></dt-icon>
   </button>
@@ -16,6 +17,7 @@
     (click)="_addMonths(-1)"
     class="dt-calendar-header-button dt-calendar-header-button-prev-month"
     aria-label="Previous Month"
+    i18n-aria-label
   >
     <dt-icon name="dropdownclosed"></dt-icon>
   </button>
@@ -34,6 +36,7 @@
     [disabled]="_isNextMonthOutsideMinMaxRange()"
     class="dt-calendar-header-button dt-calendar-header-button-next-month"
     aria-label="Next Month"
+    i18n-aria-label
   >
     <dt-icon name="dropdownclosed"></dt-icon>
   </button>
@@ -44,6 +47,7 @@
     (click)="_addMonths(12)"
     class="dt-calendar-header-button dt-calendar-header-button-next-year"
     aria-label="Next Year"
+    i18n-aria-label
   >
     <dt-icon name="learn-more"></dt-icon>
   </button>
@@ -64,6 +68,7 @@
   *ngIf="showTodayButton"
   variant="secondary"
   (click)="_setTodayDate()"
+  i18n
 >
   Today
 </button>
