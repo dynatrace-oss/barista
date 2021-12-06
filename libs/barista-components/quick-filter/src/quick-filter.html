@@ -28,7 +28,7 @@
     <ng-container *ngIf="_isDetailView$ | async; else quickFilterHeader">
       <button class="dt-back-to-quick-filter" (click)="_goBackFromDetail()">
         <dt-icon name="left"></dt-icon>
-        Back to quick filters
+        <ng-container i18n>Back to quick filters</ng-container>
       </button>
     </ng-container>
 
