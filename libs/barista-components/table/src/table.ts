@@ -62,6 +62,7 @@ import {
   _COALESCED_STYLE_SCHEDULER,
 } from '@angular/cdk/table';
 import { ViewportRuler } from '@angular/cdk/scrolling';
+import { DtTableSelection } from './selection/selection';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
@@ -121,6 +122,29 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
 
   /** @internal Reference to filteredData in table-data-source */
   _filteredData: T[];
+
+  /** @internal Reference to exportable data. */
+  _exporter: {
+    filteredData: T[];
+    selection: DtTableSelection<T> | null;
+  };
+
+  /** @internal Determine if selection is enabled and properly connected. */
+  get _selectionEnabledAndConnected(): boolean {
+    if (this._exporter && this._exporter.selection) return true;
+    else return false;
+  }
+
+  /** The number of rows that have been selected by the user. */
+  get numSelectedRows(): number {
+    if (
+      this._exporter &&
+      this._exporter.selection != null &&
+      this._exporter.selection.selected
+    )
+      return this._exporter.selection.selected.length;
+    else return 0;
+  }
 
   /** Whether the loading state should be displayed. */
   @Input()
@@ -336,15 +360,15 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   protected stickyCssClass = 'dt-table-sticky';
 
   /** @internal Exports the filtered source data from the dataSource. */
-  // Note: this is different from the display text, see instead exportDisplayData().
-  exportFilteredData(): void {
+  // Note: this is different from the display text, see instead _exportDisplayData().
+  _exportFilteredData(): void {
     const exportData = this._filteredData;
     if (this.isEmptyDataSource || typeof exportData[0] != 'object') return;
 
-    let csv = '';
+    const csvObj = { csv: '' };
     let keys: string[] = Object.keys(exportData[0]);
     if (!keys.length) return;
-    //check for objects
+    //check for objects, expand properties into new columns
     for (let i = keys.length - 1; i > -1; i--) {
       const key = keys[i];
       const val = exportData[0][key];
@@ -354,57 +378,38 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
       }
     }
     // header row
-    csv += keys.join(',') + '\n';
+    csvObj.csv += keys.join(',') + '\n';
 
     for (const row of exportData) {
       for (let idx = 0; idx < keys.length; idx++) {
         const key = keys[idx];
         let val: any;
         if (key.includes('.') && typeof row[key] == 'undefined') {
+          //derived key object.property
           const keyArr = key.split('.');
-          const parent = keyArr[0];
+          const objKey = keyArr[0];
           const prop = keyArr[1];
-          const obj = row[parent] || {};
+          const obj = row[objKey] || {};
           val = obj[prop];
         } else {
           val = row[key];
         }
-        appendValToCSV(val, idx);
+        this._appendValToCSV(csvObj, val, idx, keys.length);
       }
-      csv += '\n';
+      csvObj.csv += '\n';
     }
-    this._downloadCSV(csv);
+    this._downloadCSV(csvObj.csv);
     return;
-
-    function appendValToCSV(val: any, idx: number): void {
-      switch (typeof val) {
-        case 'string':
-          break;
-        case 'object': //if it's still complex, just convert to JSON and move on
-          val = JSON.stringify(val);
-          break;
-        case 'undefined':
-          val = '';
-          break;
-        default:
-          val = val.toString();
-      }
-
-      if (val.includes(',')) {
-        val = val.replace(/"/g, '""'); //escape any existing double quotes
-        csv += `"${val}"`; //
-      } else csv += val;
-      if (idx < keys.length) csv += ',';
-    }
   }
 
-  /** @internal Exports the filtered source data from the dataSource after being formatted by a displayAccessor. */
-  exportDisplayData(): void {
-    const exportData = this._filteredData;
+  /** @internal Exports the filtered display data from the dataSource after being formatted by a displayAccessor. */
+  _exportDisplayData(exportData: T[] = this._filteredData): void {
     if (this.isEmptyDataSource || typeof exportData[0] != 'object') return;
 
-    let csv = '';
-    const keys: string[] = [...this._contentHeaderRowDefs.first.columns];
+    const csvObj = { csv: '' };
+    const keys: string[] = [...this._contentHeaderRowDefs.first.columns].filter(
+      (h: string) => h !== 'checkbox',
+    ); //skip selection column
     if (!keys.length) return;
 
     //get column names
@@ -412,31 +417,70 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
       'dt-header-row dt-header-cell',
     );
     const headersArr = Array.from(headerList);
-    const headers = headersArr.map((h: HTMLElement): String => {
-      const txt = h.innerText;
-      if (txt.includes(',')) return `"${txt}"`;
-      else return txt;
-    });
+    let headers = headersArr
+      .map((h: HTMLElement): String => {
+        const txt = h.innerText;
+        if (txt.includes(',')) return `"${txt}"`;
+        else return txt;
+      })
+      .filter((h: string) => h !== ''); //skip selection column
+    if (headers.length !== keys.length)
+      console.warn(
+        '_exportDisplayData: mismatched column count. Data may be shifted.',
+      );
 
     // header row
-    csv += headers.join(',') + '\n';
+    csvObj.csv += headers.join(',') + '\n';
 
     for (const row of exportData) {
       for (let idx = 0; idx < keys.length; idx++) {
         const key = keys[idx];
         const accessor = this._displayAccessorMap.get(key);
-        let val = accessor ? accessor(row, key) : row[key];
-        if (typeof val != 'string') val = val.toString();
-
-        if (val.includes(',')) csv += `"${val}"`;
-        else csv += val;
-        if (idx < keys.length) csv += ',';
+        const val = accessor ? accessor(row, key) : row[key];
+        this._appendValToCSV(csvObj, val, idx, keys.length);
       }
-      csv += '\n';
+      csvObj.csv += '\n';
     }
 
-    this._downloadCSV(csv);
+    this._downloadCSV(csvObj.csv);
     return;
+  }
+
+  /** @internal Assemble the CSV while safely handling types. */
+  _appendValToCSV(
+    csvObj: { csv: string },
+    val: any,
+    idx: number,
+    len: number,
+  ): void {
+    switch (typeof val) {
+      case 'string':
+        break;
+      case 'object': //if it's still complex, just convert to JSON and move on
+        val = JSON.stringify(val);
+        break;
+      case 'undefined':
+        val = '';
+        break;
+      default:
+        val = val.toString();
+    }
+
+    if (val.includes(',')) {
+      val = val.replace(/"/g, '""'); //escape any existing double quotes
+      csvObj.csv += `"${val}"`; //
+    } else csvObj.csv += val;
+    if (idx < len) csvObj.csv += ',';
+  }
+
+  /** @internal Export only the rows which are currently selected. */
+  _exportSelection(): void {
+    if (this._exporter.selection) {
+      //console.log(this._exporter.selection.selected);
+      this._exportDisplayData(this._exporter.selection.selected);
+    } else {
+      console.log('no selection');
+    }
   }
 
   /** Take a CSV string and trigger a download in browser */

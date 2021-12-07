@@ -7,19 +7,21 @@
   ariaLabelClose="Close export menu"
   overlayPanelClass="dt-exportMenu"
 >
-  <button dt-button variant="secondary" (click)="exportDisplayData()">
+  <button dt-button variant="secondary" (click)="_exportDisplayData()">
     Export CSV
   </button>
-  <button dt-button variant="secondary" (click)="exportFilteredData()">
+  <button dt-button variant="secondary" (click)="_exportFilteredData()">
     Export Data
   </button>
-  <!-- Add another button to just export the selection
   <button
-    *ngIf="dtTableSelection"
-    dt-button variant="secondary" (click)="exportSelection()">
-    Export Selection
+    *ngIf="_selectionEnabledAndConnected"
+    [disabled]="!numSelectedRows"
+    dt-button
+    variant="secondary"
+    (click)="_exportSelection()"
+  >
+    Export {{ numSelectedRows }} Rows
   </button>
-  -->
 </dt-context-dialog>
 <ng-container footerRowOutlet></ng-container>
 

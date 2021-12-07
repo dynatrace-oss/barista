@@ -1385,6 +1385,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         route: '/table-export-example',
       },
       {
+        name: 'table-export-selection-example',
+        route: '/table-export-selection-example',
+      },
+      {
         name: 'table-favorite-column-example',
         route: '/table-favorite-column-example',
       },

@@ -25,6 +25,7 @@ export * from './table-empty-state-example/table-empty-state-example';
 export * from './table-examples.module';
 export * from './table-expandable-rows-example/table-expandable-rows-example';
 export * from './table-export-example/table-export-example';
+export * from './table-export-selection-example/table-export-selection-example';
 export * from './table-favorite-column-example/table-favorite-column-example';
 export * from './table-favorite-column-no-header-example/table-favorite-column-no-header-example';
 export * from './table-interactive-rows-example/table-interactive-rows-example';
