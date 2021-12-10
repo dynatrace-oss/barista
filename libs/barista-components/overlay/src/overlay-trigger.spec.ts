@@ -24,8 +24,8 @@ import {
   ComponentFixture,
   TestBed,
   fakeAsync,
-  flush,
   inject,
+  tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -81,7 +81,7 @@ describe('DtOverlayTrigger', () => {
 
     dispatchMouseEvent(trigger, 'mouseleave');
     fixture.detectChanges();
-    flush();
+    tick();
 
     overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeNull();
@@ -99,7 +99,7 @@ describe('DtOverlayTrigger', () => {
       trigger.getBoundingClientRect().top + offset,
     );
     fixture.detectChanges();
-    flush();
+    tick();
 
     const overlayPane = overlayContainerElement.querySelector(
       '.cdk-overlay-pane',
@@ -135,10 +135,10 @@ describe('DtOverlayTrigger', () => {
 
     dispatchMouseEvent(trigger, 'click');
     fixture.detectChanges();
-    flush();
+    tick();
 
     dispatchMouseEvent(trigger, 'mouseleave');
-    flush();
+    tick();
 
     const overlay = getContainerElement(overlayContainerElement);
     expect(overlay).not.toBeNull();
@@ -151,7 +151,7 @@ describe('DtOverlayTrigger', () => {
 
     dispatchMouseEvent(trigger, 'click');
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(fixture.componentInstance.pinned).toBeTruthy();
   }));
@@ -163,7 +163,7 @@ describe('DtOverlayTrigger', () => {
 
     dispatchMouseEvent(trigger, 'click');
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(fixture.componentInstance.pinned).toBeTruthy();
 
@@ -171,6 +171,7 @@ describe('DtOverlayTrigger', () => {
     dispatchMouseEvent(trigger, 'mouseenter');
     dispatchMouseEvent(trigger, 'mousemove');
     fixture.detectChanges();
+    tick();
 
     expect(fixture.componentInstance.pinned).toBeTruthy();
   }));
@@ -182,13 +183,13 @@ describe('DtOverlayTrigger', () => {
 
     dispatchMouseEvent(trigger, 'click');
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(fixture.componentInstance.pinned).toBeTruthy();
 
     fixture.componentInstance.showTrigger = false;
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(fixture.componentInstance.pinned).toBeFalsy();
   }));
@@ -200,17 +201,19 @@ describe('DtOverlayTrigger', () => {
 
     dispatchMouseEvent(trigger, 'click');
     fixture.detectChanges();
-    flush();
+    tick();
 
     dispatchMouseEvent(trigger, 'mouseleave');
     fixture.detectChanges();
+    tick();
 
     let overlay = getOverlayPane(overlayContainerElement);
+    expect(overlay).not.toBeNull();
 
     dispatchMouseEvent(trigger, 'mouseenter');
     dispatchMouseEvent(trigger, 'mousemove');
     fixture.detectChanges();
-    flush();
+    tick();
 
     overlay = getOverlayPane(overlayContainerElement);
 
@@ -230,7 +233,7 @@ describe('DtOverlayTrigger', () => {
       trigger.getBoundingClientRect().top + offset,
     );
     fixture.detectChanges();
-    flush();
+    tick();
 
     const overlayPane = overlayContainerElement.querySelector(
       '.cdk-overlay-pane',
@@ -256,7 +259,7 @@ describe('DtOverlayTrigger', () => {
       trigger.getBoundingClientRect().top + offset,
     );
     fixture.detectChanges();
-    flush();
+    tick();
 
     const overlayPane = overlayContainerElement.querySelector(
       '.cdk-overlay-pane',
@@ -294,7 +297,7 @@ describe('DtOverlayTrigger', () => {
 
     dispatchMouseEvent(trigger, 'click');
     fixture.detectChanges();
-    flush();
+    tick();
 
     expect(document.activeElement).not.toBe(previouslyFocused);
   }));
@@ -322,7 +325,7 @@ describe('DtOverlayTrigger', () => {
     expect(overlay).not.toBeNull();
     dispatchKeyboardEvent(trigger, 'keydown', ESCAPE);
     fixture.detectChanges();
-    flush();
+    tick();
     overlay = getContainerElement(overlayContainerElement);
 
     expect(overlay).toBeNull();
@@ -346,7 +349,7 @@ describe('DtOverlayTrigger', () => {
 
     fixture.componentInstance.showTrigger = false;
     fixture.detectChanges();
-    flush();
+    tick();
 
     overlay = getContainerElement(overlayContainerElement);
     expect(overlay).toBeNull();
@@ -360,7 +363,7 @@ function initOverlay(
   dispatchMouseEvent(trigger, 'mouseenter');
   dispatchMouseEvent(trigger, 'mousemove');
   fixture.detectChanges();
-  flush();
+  tick();
 }
 
 function getContainerElement(
