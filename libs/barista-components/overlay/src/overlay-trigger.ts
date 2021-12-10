@@ -28,7 +28,8 @@ import {
   Output,
   TemplateRef,
 } from '@angular/core';
-import { Subscription, fromEvent, EMPTY } from 'rxjs';
+import { Subscription, fromEvent, EMPTY, merge, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
 import {
   CanDisable,
@@ -53,7 +54,6 @@ export const _DtOverlayTriggerMixin = mixinTabIndex(
   host: {
     '(mouseenter)': '_handleMouseEnter($event)',
     '(mouseleave)': '_handleMouseLeave($event)',
-    '(mouseover)': '!disabled && _handleMouseMove($event, $event)',
     '(keydown)': '_handleKeydown($event)',
     '(click)': '_handleClick()',
     class: 'dt-overlay-trigger',
@@ -134,11 +134,12 @@ export class DtOverlayTrigger<T>
       enterEvent.stopPropagation();
       this._moveSub.unsubscribe();
       this._moveSub = this._ngZone.runOutsideAngular(() =>
-        fromEvent(this.elementRef.nativeElement, 'mousemove').subscribe(
-          (ev: MouseEvent) => {
-            this._handleMouseMove(ev, enterEvent);
-          },
-        ),
+        merge(
+          of(enterEvent).pipe(delay(0)),
+          fromEvent(this.elementRef.nativeElement, 'mousemove'),
+        ).subscribe((ev: MouseEvent) => {
+          this._handleMouseMove(ev, enterEvent);
+        }),
       );
     }
   }
