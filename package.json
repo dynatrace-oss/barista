@@ -118,7 +118,7 @@
     "@types/inquirer": "^7.3.3",
     "@types/jest": "^26.0.23",
     "@types/lodash": "^4.14.172",
-    "@types/lodash-es": "^4.17.4",
+    "@types/lodash-es": "^4.17.5",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^12.12.29",
     "@types/sass-graph": "^2.1.3",
