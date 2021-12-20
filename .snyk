@@ -226,7 +226,7 @@ ignore:
   SNYK-JS-D3COLOR-1076592:
     - d3-scale > d3-interpolate > d3-color:
         reason: transitive-dependency
-        expires: '2021-12-16T07:01:50.622Z'
+        expires: '2022-01-19T08:40:14.038Z'
   SNYK-JS-ANSIREGEX-1583908:
     - '@angular/localize > yargs > string-width > strip-ansi > ansi-regex':
         reason: Transient dependency and still an issue
@@ -243,4 +243,15 @@ ignore:
     - '@angular/localize > yargs > cliui > wrap-ansi > string-width > strip-ansi > ansi-regex':
         reason: Transient dependency and still an issue
         expires: '2021-11-17T11:35:40.242Z'
+  SNYK-JS-TRIMNEWLINES-1298042:
+    - '@commitlint/cli > @commitlint/read > git-raw-commits > meow > trim-newlines':
+        reason: None given
+        expires: '2022-01-19T08:40:14.038Z'
+    - '@commitlint/cli > @commitlint/lint > @commitlint/parse > conventional-commits-parser > meow > trim-newlines':
+        reason: None given
+        expires: '2022-01-19T08:40:14.038Z'
+  SNYK-JS-LODASHTEMPLATE-1088054:
+    - '@commitlint/cli > @commitlint/read > git-raw-commits > lodash.template':
+        reason: None given
+        expires: '2022-01-19T08:40:14.038Z'
 patch: {}
