@@ -1,3 +1,17 @@
+## [10.3.0](https://github.com/dynatrace-oss/barista/compare/10.2.0...10.3.0) (2021-12-21)
+
+### Bug Fixes
+
+- **overlay:** Fixing overflow bug in overlay
+  ([0da13cd](https://github.com/dynatrace-oss/barista/commit/0da13cd07613803cbf77e3e1ae23921e1c4e4ca5))
+
+### Features
+
+- **components:** Increase coverage of translatable messages.
+  ([ac5320f](https://github.com/dynatrace-oss/barista/commit/ac5320f51244c13026e1b2e580feeb27717dc382))
+- **table:** Added experimental export as CSV functionality.
+  ([9034a8b](https://github.com/dynatrace-oss/barista/commit/9034a8be7aec7b7e43f3a50f711c561015da8d4f))
+
 ## [10.2.0](https://github.com/dynatrace-oss/barista/compare/10.1.0...10.2.0) (2021-11-17)
 
 ### Bug Fixes
