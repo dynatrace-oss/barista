@@ -334,12 +334,12 @@ workflows:
       - build:
           requires:
             - install
-      - e2e-test-local:
-          requires:
-            - install
-      - a11y:
-          requires:
-            - install
+      # - e2e-test-local:
+      #     requires:
+      #       - install
+      # - a11y:
+      #     requires:
+      #       - install
 
   # - Runs on every PR check
   pr-check:
@@ -376,14 +376,14 @@ workflows:
           context: barista
           requires:
             - install
-      - e2e-test-local:
-          context: barista
-          requires:
-            - install
-      - a11y:
-          context: barista
-          requires:
-            - install
+      # - e2e-test-local:
+      #     context: barista
+      #     requires:
+      #       - install
+      # - a11y:
+      #     context: barista
+      #     requires:
+      #       - install
       - build:
           context: barista
           requires:
