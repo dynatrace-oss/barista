@@ -37,6 +37,7 @@ import {
   DT_CHART_CONFIG,
   DT_CHART_RESOLVER,
 } from '@dynatrace/barista-components/chart';
+import { sanitize } from '@dynatrace/barista-components/core';
 import { DtTheme } from '@dynatrace/barista-components/theming';
 import {
   Options,
@@ -138,8 +139,9 @@ export class DtMicroChart implements OnDestroy {
     if (isDevMode()) {
       checkUnsupportedOptions(options);
     }
-    this._options = options;
-    this._transformedOptions = this._transformOptions(options);
+    const sanitized = sanitize(options);
+    this._options = sanitized;
+    this._transformedOptions = this._transformOptions(sanitized);
   }
 
   /** Series of data points or a stream rendered in this chart */
