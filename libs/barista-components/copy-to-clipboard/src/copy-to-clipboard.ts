@@ -91,9 +91,14 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
 
   private _timer: Subscription;
 
+  /** @internal returns the current value from the projected input */
+  get _inputValue(): string | undefined {
+    return this._input?.nativeElement.value;
+  }
+
   /** Copies the provided content to the clipboard. */
   copyToClipboard(): void {
-    const value = this._input.nativeElement.value;
+    const value = this._inputValue;
     if (this._input && isDefined(value)) {
       this._cdkClipboard.copy(value);
     } else {
