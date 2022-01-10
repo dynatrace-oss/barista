@@ -7,7 +7,7 @@
   class="dt-copy-to-clipboard-btn-button"
   [variant]="variant"
   #copyButton
-  [cdkCopyToClipboard]="copyToClipboard()"
+  [cdkCopyToClipboard]="_inputValue"
   (cdkCopyToClipboardCopied)="_copiedToClipboard()"
 >
   <dt-icon *ngIf="showIcon" name="checkmark"></dt-icon>
