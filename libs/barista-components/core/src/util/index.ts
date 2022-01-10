@@ -17,6 +17,7 @@
 export * from './platform-util';
 export * from './type-util';
 export * from './sanitize-svg';
+export * from './sanitize';
 export * from './number-util';
 export * from './compare-util';
 export * from './zone-scheduler';
