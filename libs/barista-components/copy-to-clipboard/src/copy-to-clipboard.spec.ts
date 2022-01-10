@@ -30,6 +30,8 @@ import { DtInputModule } from '@dynatrace/barista-components/input';
 import { createComponent } from '@dynatrace/testing/browser';
 
 describe('DtCopyToClipboard', () => {
+  const execCommandMock = jest.fn().mockReturnValue(true);
+
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
@@ -44,9 +46,14 @@ describe('DtCopyToClipboard', () => {
       });
       TestBed.compileComponents();
       // tslint:disable-next-line:no-any
-      document.execCommand = (): boolean => true;
+      document.execCommand = execCommandMock;
     }),
   );
+
+  it('should not trigger a copy action on render', (): void => {
+    createComponent(CallbackBehaviorTestApp);
+    expect(execCommandMock).not.toHaveBeenCalled();
+  });
 
   it('should trigger callback - at least 1 copy must be called', (): void => {
     const fixture = createComponent(CallbackBehaviorTestApp);
