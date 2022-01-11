@@ -39,6 +39,12 @@ $dt-select-panel-min-width: 112px !default;
   .dt-form-field-infix > & {
     border: none;
     min-height: 30px;
+    &.cdk-focused.cdk-keyboard-focused,
+    &.cdk-focused.cdk-program-focused {
+      /** since the select is 2px smaller we need to move the offset out
+        1px to have the same outline position */
+      outline-offset: 2px;
+    }
   }
 
   @include dt-cdkmonitor-focus-style();
