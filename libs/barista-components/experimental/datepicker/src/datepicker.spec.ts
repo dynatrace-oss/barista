@@ -505,6 +505,13 @@ describe('DtDatePicker', () => {
       fixture.detectChanges();
     }));
 
+    it('should correctly initialize the value label if a value is set', fakeAsync(() => {
+      expect(component.datePicker.value).toEqual(new Date(2020, 2, 25));
+      const label =
+        fixture.debugElement.nativeElement.querySelector('.dt-button-label');
+      expect(label.textContent).toContain('3/25/2020');
+    }));
+
     it('should correctly set a value if it is passed to the datepicker', fakeAsync(() => {
       component.datePicker.open();
       tick();
