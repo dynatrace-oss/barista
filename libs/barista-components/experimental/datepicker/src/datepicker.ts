@@ -322,6 +322,16 @@ export class DtDatePicker<T>
     this.id = this.id;
   }
 
+  ngOnInit(): void {
+    this._valueLabel = this.value
+      ? this._dateAdapter.format(this.value, {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+        })
+      : 'Select date';
+  }
+
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
@@ -451,7 +461,7 @@ export class DtDatePicker<T>
           month: 'numeric',
           day: 'numeric',
         })
-      : '';
+      : 'Select date';
     this._changeDetectorRef.markForCheck();
   }
 
