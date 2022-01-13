@@ -254,4 +254,8 @@ ignore:
     - '@commitlint/cli > @commitlint/read > git-raw-commits > lodash.template':
         reason: None given
         expires: '2022-01-19T08:40:14.038Z'
+  SNYK-JS-NANOID-2332193:
+    - '@nguniversal/common > critters > postcss > nanoid':
+        reason: will be resolved hopefully by upgrading to angular 13
+        expires: '2022-02-12T07:26:38.912Z'
 patch: {}
