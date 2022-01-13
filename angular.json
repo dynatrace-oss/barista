@@ -252,6 +252,7 @@
           },
           "configurations": {
             "production": {
+              "index": "apps/barista-design-system/src/environments/production/index.html",
               "fileReplacements": [
                 {
                   "replace": "apps/barista-design-system/src/environments/environment.ts",
