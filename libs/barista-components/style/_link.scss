@@ -5,8 +5,6 @@
 $dark-link-hover-bg: rgba(255, 255, 255, 0.2);
 $dark-link-active-bg: rgba(255, 255, 255, 0.3);
 
-$external-link-icon-size: 1.06em;
-
 @mixin dt-link-base() {
   cursor: pointer;
   text-decoration: none;
@@ -16,7 +14,8 @@ $external-link-icon-size: 1.06em;
     text-decoration: underline;
   }
   &.dt-external:hover::after {
-    background: dt-external-link-icon($turquoise-700);
+    text-decoration: none;
+    background-image: dt-external-link-icon($turquoise-700);
   }
 
   &:active {
@@ -24,7 +23,7 @@ $external-link-icon-size: 1.06em;
     text-decoration: underline;
   }
   &.dt-external:active::after {
-    background: dt-external-link-icon($turquoise-800);
+    background-image: dt-external-link-icon($turquoise-800);
   }
 
   &:focus {
@@ -46,7 +45,7 @@ $external-link-icon-size: 1.06em;
     background-color: $dark-link-hover-bg;
   }
   &.dt-external:hover::after {
-    background: dt-external-link-icon(#ffffff);
+    background-image: dt-external-link-icon(#ffffff);
   }
 
   &:active {
@@ -55,7 +54,7 @@ $external-link-icon-size: 1.06em;
     background-color: $dark-link-active-bg;
   }
   &.dt-external:active::after {
-    background: dt-external-link-icon(#ffffff);
+    background-image: dt-external-link-icon(#ffffff);
   }
 
   &:focus {
@@ -74,14 +73,13 @@ a.dt-link {
 
   &.dt-external::after {
     content: ' ';
-    display: inline-block;
-    position: relative;
-    bottom: -0.05em;
-    margin-left: 4px;
-    background: dt-external-link-icon();
-    vertical-align: -0.1em;
-    width: $external-link-icon-size;
-    height: $external-link-icon-size;
+    display: inline;
+    margin-left: 8px;
+    background-image: dt-external-link-icon();
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-left: 1em;
+    vertical-align: -0.05em;
     background-size: 100% 100%;
   }
 }
