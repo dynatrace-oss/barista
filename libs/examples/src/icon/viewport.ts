@@ -19,6 +19,15 @@ import { ElementRef, Injectable } from '@angular/core';
 import { Observable, Subject, merge } from 'rxjs';
 import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
+interface ViewportRect {
+  top: number;
+  left: number;
+  bottom: number;
+  right: number;
+  height: number;
+  width: number;
+}
+
 @Injectable({ providedIn: 'root' })
 export class Viewport {
   private _refresher = new Subject<undefined | Element | ElementRef>();
@@ -32,7 +41,7 @@ export class Viewport {
    * Stream that emits the ClientRect for the
    * viewport's bounds on every change (includes scroll)
    */
-  change(): Observable<ClientRect> {
+  change(): Observable<ViewportRect> {
     return this._change();
   }
 
@@ -65,7 +74,7 @@ export class Viewport {
   }
 
   // tslint:disable-next-line:no-any
-  private _change(context?: any): Observable<ClientRect> {
+  private _change(context?: any): Observable<ViewportRect> {
     return merge(
       this._scrollDispatcher.scrolled(),
       this._viewportRuler.change(200),
@@ -79,7 +88,7 @@ export class Viewport {
 /** Calculates if the element is visible in the viewports Client Rect */
 export function isElementVisible(
   element: Element,
-  viewportRect: ClientRect,
+  viewportRect: ViewportRect,
 ): boolean {
   const { bottom, top } = element.getBoundingClientRect();
   return bottom >= 0 && top <= viewportRect.height;

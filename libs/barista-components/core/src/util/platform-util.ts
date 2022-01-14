@@ -142,13 +142,13 @@ export function _parseCssValue(
  */
 export function _getElementBoundingClientRect(
   el: Element | ElementRef,
-): ClientRect & {
+): DOMRect & {
   /** Whether the returned client rect is provided by the platform or is shimmed. */
   isNativeRect: boolean;
 } {
   const element: Element = coerceElement(el);
 
-  const clientRect: ClientRect | DOMRect =
+  const clientRect: DOMRect =
     element && element.getBoundingClientRect
       ? element.getBoundingClientRect()
       : {
@@ -158,15 +158,25 @@ export function _getElementBoundingClientRect(
           right: 0,
           top: 0,
           width: 0,
+          x: 0,
+          y: 0,
+          toJSON: () => '',
         };
 
-  return {
+  const rect = {
+    x: clientRect.x,
+    y: clientRect.y,
     top: clientRect.top,
     height: clientRect.height,
     bottom: clientRect.bottom,
     left: clientRect.left,
     right: clientRect.right,
     width: clientRect.width,
+  };
+
+  return {
+    ...rect,
+    toJSON: () => JSON.stringify(rect),
     isNativeRect: 'getBoundingClientRect' in element && !!window,
   };
 }

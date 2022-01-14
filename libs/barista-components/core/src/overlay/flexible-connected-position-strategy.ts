@@ -1235,7 +1235,7 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
   }
 
   /** Narrows the given viewport rect by the current _viewportMargin. */
-  private _getNarrowedViewportRect(): ClientRect {
+  private _getNarrowedViewportRect(): DOMRect {
     // We recalculate the viewport rect here ourselves, rather than using the ViewportRuler,
     // because we want to use the `clientWidth` and `clientHeight` as the base. The difference
     // being that the client properties don't include the scrollbar, as opposed to `innerWidth`
@@ -1244,14 +1244,19 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
     const width = this._document.documentElement!.clientWidth;
     const height = this._document.documentElement!.clientHeight;
     const scrollPosition = this._viewportRuler.getViewportScrollPosition();
-
-    return {
+    const rect = {
+      x: scrollPosition.left + this._viewportMargin,
+      y: scrollPosition.top + this._viewportMargin,
       top: scrollPosition.top + this._viewportMargin,
       left: scrollPosition.left + this._viewportMargin,
       right: scrollPosition.left + width - this._viewportMargin,
       bottom: scrollPosition.top + height - this._viewportMargin,
       width: width - 2 * this._viewportMargin,
       height: height - 2 * this._viewportMargin,
+    };
+    return {
+      ...rect,
+      toJSON: () => JSON.stringify(rect),
     };
   }
 
@@ -1320,7 +1325,7 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
   }
 
   /** Returns the ClientRect of the current origin. */
-  private _getOriginRect(): ClientRect {
+  private _getOriginRect(): DOMRect {
     const origin = this._origin;
 
     if (origin instanceof ElementRef) {
@@ -1335,13 +1340,19 @@ export class DtFlexibleConnectedPositionStrategy implements PositionStrategy {
     const height = origin.height || 0;
 
     // If the origin is a point, return a client rect as if it was a 0x0 element at the point.
-    return {
+    const rect = {
+      x: origin.x,
+      y: origin.y,
       top: origin.y,
       bottom: origin.y + height,
       left: origin.x,
       right: origin.x + width,
       height,
       width,
+    };
+    return {
+      ...rect,
+      toJSON: () => JSON.stringify(rect),
     };
   }
 }
