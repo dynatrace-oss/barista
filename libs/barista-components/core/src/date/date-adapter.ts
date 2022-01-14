@@ -314,7 +314,7 @@ export abstract class DtDateAdapter<T> {
   /** A stream that emits when the locale changes. */
   abstract get localeChanges(): Observable<void>;
 
-  abstract _localeChanges = new Subject<void>();
+  abstract _localeChanges: Subject<void>;
 
   /** Sets the locale used for all dates. */
   abstract setLocale(locale: any): void;
