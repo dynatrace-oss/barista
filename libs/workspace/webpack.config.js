@@ -25,9 +25,13 @@ module.exports = (config) => {
     config.entry[name] = [join(__dirname, entry)];
   }
 
+  // cacheUnaffected is enabled by default, but cannot be used with optimization
+  // useExports true/global.
+  config.experiments.cacheUnaffected = false;
+
   // Add tree shaking with terser
   config.optimization = {
-    usedExports: true,
+    usedExports: 'global',
     minimizer: [new TerserPlugin()],
   };
 
