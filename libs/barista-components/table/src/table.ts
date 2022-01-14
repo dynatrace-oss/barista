@@ -28,6 +28,7 @@ import {
   Inject,
   Input,
   IterableDiffers,
+  NgZone,
   OnDestroy,
   Optional,
   QueryList,
@@ -236,6 +237,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     @SkipSelf()
     @Inject(STICKY_POSITIONING_LISTENER)
     _stickyPositioningListener: StickyPositioningListener,
+    @Optional() protected readonly _ngZone: NgZone,
   ) {
     super(
       differs,
@@ -248,6 +250,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
       _viewportRuler,
       role,
       _stickyPositioningListener,
+      _ngZone,
     );
   }
 

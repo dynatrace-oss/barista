@@ -43,6 +43,7 @@ import {
   Input,
   IterableDiffers,
   NgModule,
+  NgZone,
   Optional,
   SkipSelf,
 } from '@angular/core';
@@ -89,6 +90,7 @@ export class _DtTableBase<T> extends CdkTable<T> {
     @SkipSelf()
     @Inject(STICKY_POSITIONING_LISTENER)
     _stickyPositioningListener: StickyPositioningListener,
+    @Optional() protected readonly _ngZone: NgZone,
     @Attribute('interactiveRows') interactiveRows?: boolean,
   ) {
     // tslint:disable-next-line: no-any
@@ -104,6 +106,7 @@ export class _DtTableBase<T> extends CdkTable<T> {
       _coalescedStyleScheduler,
       _viewportRuler,
       _stickyPositioningListener,
+      _ngZone,
     );
     this.interactiveRows = interactiveRows!;
   }
