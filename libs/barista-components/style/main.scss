@@ -1,3 +1,5 @@
+@use '@angular/cdk' as cdk;
+
 /*
  * core styles for the component library
  */
@@ -12,11 +14,9 @@
 
 @import './themes';
 
-@import '~@angular/cdk/overlay';
-@import '~@angular/cdk/a11y';
-
-@include cdk-a11y();
-@include cdk-overlay();
+@include cdk.overlay();
+@include cdk.a11y-visually-hidden();
+@include cdk.high-contrast();
 
 .dt-no-pointer {
   pointer-events: none;
