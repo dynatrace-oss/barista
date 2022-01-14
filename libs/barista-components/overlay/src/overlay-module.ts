@@ -43,7 +43,6 @@ const EXPORTED_DECLARATIONS = [DtOverlayContainer, DtOverlayTrigger];
   ],
   exports: [...EXPORTED_DECLARATIONS],
   declarations: [...EXPORTED_DECLARATIONS],
-  entryComponents: [DtOverlayContainer],
   providers: [
     { provide: OverlayContainer, useExisting: FullscreenOverlayContainer },
   ],

@@ -22,6 +22,5 @@ import { DtToastContainer } from './toast-container';
 @NgModule({
   imports: [OverlayModule],
   declarations: [DtToastContainer],
-  entryComponents: [DtToastContainer],
 })
 export class DtToastModule {}

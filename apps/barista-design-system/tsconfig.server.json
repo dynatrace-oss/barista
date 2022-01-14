@@ -14,6 +14,7 @@
     "./src/polyfills.ts",
     "./src/test-setup.ts",
     "**/*.spec.ts",
+    "**/*.test.ts",
     "**/*.a11y.ts",
     "**/*.e2e.ts",
     "**/*.po.ts"
