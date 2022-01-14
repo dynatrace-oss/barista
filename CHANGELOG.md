@@ -1,3 +1,18 @@
+## [10.3.1](https://github.com/dynatrace-oss/barista/compare/10.3.0...10.3.1) (2022-01-14)
+
+### Bug Fixes
+
+- **copy-to-clipboard:** Fixes an issue that the copy to clipboard was called on
+  initial render.
+  ([48eb87d](https://github.com/dynatrace-oss/barista/commit/48eb87dd79f45a1dd510f4f3f3a74a7a9096a824))
+- **datepicker:** Fix button label initialization. Label now immediately shows
+  the provided value.
+  ([067c1c8](https://github.com/dynatrace-oss/barista/commit/067c1c8ef2578a0d46c7c4b276145cd01633a17c))
+- **link:** Adjust external link icon styling to prevent line-breaks.
+  ([dc2071a](https://github.com/dynatrace-oss/barista/commit/dc2071abf601a89906d183f2dd03da1adaa0a33d))
+- **select:** Fixes outline position within formfield.
+  ([9a55d80](https://github.com/dynatrace-oss/barista/commit/9a55d804a2a6c6bbb8c00f1115b2fa7b49842c15))
+
 ## [10.3.0](https://github.com/dynatrace-oss/barista/compare/10.2.0...10.3.0) (2021-12-21)
 
 ### Bug Fixes
