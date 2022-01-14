@@ -38,7 +38,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "autocomplete": {
       "projectType": "library",
@@ -77,7 +78,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "bar-indicator": {
       "projectType": "library",
@@ -116,7 +118,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "barista-design-system": {
       "root": "apps/barista-design-system",
@@ -365,7 +368,9 @@
           "outputs": ["coverage/apps/barista-design-system"]
         }
       },
-      "//": "The order of the properties does matter! they are executed at build time from last to first."
+      "//": "The order of the properties does matter! they are executed at build time from last to first.",
+      "tags": ["type:app"],
+      "implicitDependencies": ["barista-tools"]
     },
     "barista-tools": {
       "root": "libs/tools/barista",
@@ -418,7 +423,8 @@
           },
           "outputs": ["coverage/libs/tools/barista"]
         }
-      }
+      },
+      "tags": ["type:tooling"]
     },
     "breadcrumbs": {
       "projectType": "library",
@@ -457,7 +463,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "button": {
       "projectType": "library",
@@ -496,7 +503,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "button-group": {
       "projectType": "library",
@@ -535,7 +543,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "card": {
       "projectType": "library",
@@ -574,7 +583,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "chart": {
       "projectType": "library",
@@ -613,7 +623,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "checkbox": {
       "projectType": "library",
@@ -652,7 +663,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "combobox": {
       "projectType": "library",
@@ -693,7 +705,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "components": {
       "projectType": "library",
@@ -734,7 +747,72 @@
             "production": {}
           }
         }
-      }
+      },
+      "tags": ["scope:components"],
+      "implicitDependencies": [
+        "alert",
+        "autocomplete",
+        "bar-indicator",
+        "breadcrumbs",
+        "button",
+        "button-group",
+        "card",
+        "chart",
+        "checkbox",
+        "combobox",
+        "confirmation-dialog",
+        "consumption",
+        "container-breakpoint-observer",
+        "context-dialog",
+        "copy-to-clipboard",
+        "core",
+        "datepicker",
+        "drawer",
+        "drawer-table",
+        "empty-state",
+        "event-chart",
+        "expandable-panel",
+        "expandable-section",
+        "expandable-text",
+        "filter-field",
+        "form-field",
+        "formatters",
+        "highlight",
+        "icon",
+        "indicator",
+        "info-group",
+        "inline-editor",
+        "input",
+        "key-value-list",
+        "legend",
+        "loading-distractor",
+        "menu",
+        "micro-chart",
+        "overlay",
+        "pagination",
+        "progress-bar",
+        "progress-circle",
+        "radio",
+        "schematics",
+        "secondary-nav",
+        "select",
+        "slider",
+        "show-more",
+        "stacked-series-chart",
+        "stepper",
+        "sunburst-chart",
+        "switch",
+        "table",
+        "tabs",
+        "tag",
+        "theming",
+        "tile",
+        "timeline-chart",
+        "toast",
+        "toggle-button-group",
+        "top-bar-navigation",
+        "tree-table"
+      ]
     },
     "components-e2e": {
       "root": "apps/components-e2e",
@@ -898,7 +976,9 @@
           },
           "outputs": ["coverage/apps/components-e2e"]
         }
-      }
+      },
+      "tags": ["type:e2e"],
+      "implicitDependencies": ["components"]
     },
     "confirmation-dialog": {
       "projectType": "library",
@@ -939,7 +1019,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "consumption": {
       "projectType": "library",
@@ -978,7 +1059,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "container-breakpoint-observer": {
       "projectType": "library",
@@ -1021,7 +1103,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "context-dialog": {
       "projectType": "library",
@@ -1060,7 +1143,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "copy-to-clipboard": {
       "projectType": "library",
@@ -1099,7 +1183,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "core": {
       "projectType": "library",
@@ -1138,7 +1223,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "datepicker": {
       "projectType": "library",
@@ -1181,7 +1267,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "demos": {
       "root": "apps/demos",
@@ -1358,7 +1445,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["type:app"]
     },
     "dev": {
       "root": "apps/dev",
@@ -1441,7 +1529,8 @@
             "exclude": ["**/node_modules/**", "!apps/dev/**/*"]
           }
         }
-      }
+      },
+      "tags": ["type:app"]
     },
     "drawer": {
       "projectType": "library",
@@ -1480,7 +1569,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "drawer-table": {
       "projectType": "library",
@@ -1523,7 +1613,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "empty-state": {
       "projectType": "library",
@@ -1562,7 +1653,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "event-chart": {
       "projectType": "library",
@@ -1601,7 +1693,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "examples": {
       "projectType": "library",
@@ -1625,7 +1718,8 @@
             "files": ["libs/examples/src/**/*.scss"]
           }
         }
-      }
+      },
+      "tags": ["scope:examples", "type:library"]
     },
     "expandable-panel": {
       "projectType": "library",
@@ -1664,7 +1758,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "expandable-section": {
       "projectType": "library",
@@ -1705,7 +1800,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "expandable-text": {
       "projectType": "library",
@@ -1744,7 +1840,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "filter-field": {
       "projectType": "library",
@@ -1783,7 +1880,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "form-field": {
       "projectType": "library",
@@ -1821,7 +1919,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "formatters": {
       "projectType": "library",
@@ -1860,7 +1959,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "highlight": {
       "projectType": "library",
@@ -1899,7 +1999,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "icon": {
       "projectType": "library",
@@ -1938,7 +2039,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "indicator": {
       "projectType": "library",
@@ -1977,7 +2079,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "info-group": {
       "projectType": "library",
@@ -2016,7 +2119,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "inline-editor": {
       "projectType": "library",
@@ -2055,7 +2159,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "input": {
       "projectType": "library",
@@ -2094,7 +2199,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "key-value-list": {
       "projectType": "library",
@@ -2133,7 +2239,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "legend": {
       "projectType": "library",
@@ -2172,7 +2279,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "loading-distractor": {
       "projectType": "library",
@@ -2213,7 +2321,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "menu": {
       "projectType": "library",
@@ -2252,7 +2361,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "micro-chart": {
       "projectType": "library",
@@ -2291,7 +2401,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "overlay": {
       "projectType": "library",
@@ -2330,7 +2441,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "pagination": {
       "projectType": "library",
@@ -2369,7 +2481,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "progress-bar": {
       "projectType": "library",
@@ -2408,7 +2521,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "progress-circle": {
       "projectType": "library",
@@ -2447,7 +2561,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "quick-filter": {
       "projectType": "library",
@@ -2485,7 +2600,8 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "tags": ["scope:components", "type:library"]
     },
     "radial-chart": {
       "projectType": "library",
@@ -2524,7 +2640,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "radio": {
       "projectType": "library",
@@ -2563,7 +2680,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "schematics": {
       "projectType": "library",
@@ -2607,7 +2725,8 @@
           },
           "outputs": ["coverage/libs/barista-components/schematics"]
         }
-      }
+      },
+      "tags": ["scope:schematics", "type:library"]
     },
     "secondary-nav": {
       "projectType": "library",
@@ -2646,7 +2765,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "select": {
       "projectType": "library",
@@ -2685,7 +2805,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "shared-data-access-strapi": {
       "projectType": "library",
@@ -2715,7 +2836,8 @@
           "outputs": ["coverage/libs/shared/data-access-strapi"]
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:cms", "type:shared", "type:library"]
     },
     "shared-design-system-interfaces": {
       "projectType": "library",
@@ -2749,7 +2871,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": ["type:library", "type:shared"]
     },
     "shared-design-system-ui": {
       "projectType": "library",
@@ -2783,7 +2906,8 @@
         "@nrwl/angular:component": {
           "style": "scss"
         }
-      }
+      },
+      "tags": ["type:library", "type:shared"]
     },
     "shared-keycodes": {
       "root": "libs/shared/keycodes",
@@ -2798,7 +2922,8 @@
             "exclude": ["**/node_modules/**", "!libs/shared/keycodes/**/*"]
           }
         }
-      }
+      },
+      "tags": ["type:library", "type:shared"]
     },
     "shared-node": {
       "root": "libs/shared/node",
@@ -2820,7 +2945,8 @@
           },
           "outputs": ["coverage/libs/shared/node"]
         }
-      }
+      },
+      "tags": ["type:tooling", "type:shared"]
     },
     "show-more": {
       "projectType": "library",
@@ -2859,7 +2985,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "slider": {
       "projectType": "library",
@@ -2898,7 +3025,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "stacked-series-chart": {
       "projectType": "library",
@@ -2939,7 +3067,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "stepper": {
       "projectType": "library",
@@ -2978,7 +3107,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "sunburst-chart": {
       "projectType": "library",
@@ -3021,7 +3151,8 @@
         "@nrwl/angular:component": {
           "styleext": "scss"
         }
-      }
+      },
+      "tags": ["scope:components", "type:library"]
     },
     "switch": {
       "projectType": "library",
@@ -3060,7 +3191,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "table": {
       "projectType": "library",
@@ -3099,7 +3231,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "tabs": {
       "projectType": "library",
@@ -3138,7 +3271,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "tag": {
       "projectType": "library",
@@ -3177,7 +3311,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "testing-browser": {
       "root": "libs/testing/browser",
@@ -3203,7 +3338,8 @@
           },
           "outputs": ["coverage/libs/testing/browser"]
         }
-      }
+      },
+      "tags": ["scope:testing", "scope:browser", "type:library"]
     },
     "testing-fixtures": {
       "root": "libs/testing/fixtures",
@@ -3229,7 +3365,8 @@
           },
           "outputs": ["coverage/libs/testing/fixtures"]
         }
-      }
+      },
+      "tags": ["scope:testing", "type:library"]
     },
     "testing-node": {
       "root": "libs/testing/node",
@@ -3255,7 +3392,8 @@
           },
           "outputs": ["coverage/libs/testing/node"]
         }
-      }
+      },
+      "tags": ["scope:testing", "scope:node", "type:library"]
     },
     "theming": {
       "projectType": "library",
@@ -3294,7 +3432,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "tile": {
       "projectType": "library",
@@ -3333,7 +3472,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "timeline-chart": {
       "projectType": "library",
@@ -3372,7 +3512,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "toast": {
       "projectType": "library",
@@ -3411,7 +3552,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "toggle-button-group": {
       "projectType": "library",
@@ -3452,7 +3594,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "tools-pull-request-labeler": {
       "root": "tools/pull-request-labeler",
@@ -3477,7 +3620,8 @@
           },
           "outputs": ["coverage/tools/pull-request-labeler"]
         }
-      }
+      },
+      "tags": ["type:tooling"]
     },
     "tools-release": {
       "root": "libs/tools/release",
@@ -3542,7 +3686,8 @@
           },
           "outputs": ["coverage/libs/tools/release"]
         }
-      }
+      },
+      "tags": ["type:tooling"]
     },
     "tools-shareable-examples": {
       "root": "libs/tools/shareable-examples",
@@ -3578,7 +3723,8 @@
           },
           "outputs": ["coverage/libs/tools/shareable-examples"]
         }
-      }
+      },
+      "tags": ["type:tooling"]
     },
     "top-bar-navigation": {
       "projectType": "library",
@@ -3619,7 +3765,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "tree-table": {
       "projectType": "library",
@@ -3658,7 +3805,8 @@
           }
         }
       },
-      "schematics": {}
+      "schematics": {},
+      "tags": ["scope:components", "type:library"]
     },
     "universal": {
       "root": "apps/universal",
@@ -3832,7 +3980,8 @@
             }
           }
         }
-      }
+      },
+      "tags": ["type:app"]
     },
     "workspace": {
       "root": "libs/workspace",
@@ -3888,10 +4037,10 @@
           },
           "outputs": ["{options.outputPath}"]
         }
-      }
+      },
+      "tags": ["type:tooling"]
     }
   },
-  "defaultProject": "dev",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": ""
@@ -3906,10 +4055,5 @@
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
     }
-  },
-  "cli": {
-    "packageManager": "npm",
-    "analytics": false,
-    "defaultCollection": "@nrwl/angular"
   }
 }
