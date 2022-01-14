@@ -39,6 +39,7 @@ import {
   Inject,
   Input,
   IterableDiffers,
+  NgZone,
   Optional,
   SkipSelf,
   ViewEncapsulation,
@@ -89,6 +90,7 @@ export class DtTreeTable<T> extends _DtTableBase<T> {
     @SkipSelf()
     @Inject(STICKY_POSITIONING_LISTENER)
     _stickyPositioningListener: StickyPositioningListener,
+    @Optional() protected readonly _ngZone: NgZone,
   ) {
     super(
       differs,
@@ -101,6 +103,7 @@ export class DtTreeTable<T> extends _DtTableBase<T> {
       _viewportRuler,
       role,
       _stickyPositioningListener,
+      _ngZone,
     );
     if (!role) {
       // We need this setAttribute here to override the attribute set in the constructor of the cdkTable
