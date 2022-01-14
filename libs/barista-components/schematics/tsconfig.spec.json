@@ -6,6 +6,6 @@
     "types": ["jest", "node"]
   },
   "exclude": [],
-  "include": ["**/*.spec.ts", "**/*.d.ts"],
+  "include": ["**/*.spec.ts", "**/*.test.ts", "**/*.d.ts"],
   "files": ["collection.json", "migrations.json"]
 }
