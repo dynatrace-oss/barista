@@ -162,7 +162,7 @@
     "sass-graph": "^3.0.5",
     "sass-loader": "^10.1.1",
     "semver": "^7.3.5",
-    "shelljs": "^0.8.4",
+    "shelljs": "^0.8.5",
     "stylelint": "^13.13.1",
     "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^8.0.2",
