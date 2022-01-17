@@ -184,7 +184,7 @@
     "typescript-tslint-plugin": "^1.0.1",
     "unionfs": "^4.4.0",
     "vrsource-tslint-rules": "^6.0.0",
-    "webpack": "^5.64.0",
+    "webpack": "^5.66.0",
     "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0",
     "xml2js": "^0.4.22",
