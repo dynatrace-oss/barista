@@ -71,8 +71,11 @@ export class DtTabGroupNavigation
       const matchingTab = tabs.find((tab) => !!ids.find((id) => tab.id === id));
       if (matchingTab && !matchingTab.disabled) {
         tabs.forEach((tab) => {
-          // tslint:disable-next-line no-void-expression
-          ids.includes(tab.id) ? tab._select(false) : tab._deselect();
+          if (ids.includes(tab.id)) {
+            tab._select(false);
+          } else {
+            tab._deselect();
+          }
         });
       } else {
         this._tabGroup._selectTab();

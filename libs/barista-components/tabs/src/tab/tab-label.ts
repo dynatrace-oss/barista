@@ -26,7 +26,7 @@ import { Directive, TemplateRef, ViewContainerRef } from '@angular/core';
 })
 export class DtTabLabel extends CdkPortal {
   constructor(
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     templateRef: TemplateRef<any>,
     viewContainerRef: ViewContainerRef,
   ) {
