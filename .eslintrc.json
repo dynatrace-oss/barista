@@ -56,6 +56,13 @@
       }
     },
     {
+      "files": ["*.ts", ".js"],
+      "plugins": ["eslint-plugin-header"],
+      "rules": {
+        "header/header": ["error", "tools/license-header.js"]
+      }
+    },
+    {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
       "rules": {}
