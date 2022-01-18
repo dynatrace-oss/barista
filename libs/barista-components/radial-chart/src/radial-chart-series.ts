@@ -34,7 +34,7 @@ import {
 } from '@angular/cdk/coercion';
 
 @Directive({
-  selector: 'dt-radial-chart-series',
+  selector: 'dt-radial-chart-series, [dtRadialChartSeries]',
   exportAs: 'dtRadialChartSeries',
 })
 export class DtRadialChartSeries implements OnChanges, OnDestroy {

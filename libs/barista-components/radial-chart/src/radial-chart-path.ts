@@ -26,6 +26,7 @@ export interface DtRadialChartOverlayData {
 }
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg:g[dt-radial-chart-path]',
   templateUrl: 'radial-chart-path.html',
   styleUrls: ['radial-chart-path.scss'],
