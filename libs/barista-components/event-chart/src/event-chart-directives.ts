@@ -149,7 +149,7 @@ export class DtEventChartEvent<T> implements OnChanges, OnDestroy {
 }
 
 @Directive({
-  selector: 'dt-event-chart-lane, dt-sausage-chart-lane',
+  selector: 'dt-event-chart-lane, dt-sausage-chart-lane, [dtEventChartLane]',
   exportAs: 'dtEventChartLane',
 })
 export class DtEventChartLane implements OnChanges, OnDestroy {

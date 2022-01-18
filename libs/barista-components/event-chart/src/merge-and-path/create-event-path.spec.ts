@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* tslint:disable no-magic-numbers no-any */
+/* eslint-disable  no-magic-numbers, @typescript-eslint/no-explicit-any */
 import { RenderEvent } from '../render-event.interface';
 import {
   DtEventChartColors,
@@ -31,7 +31,7 @@ function createRenderEvent<T = any>(
   y: number,
   eventValue: T,
   pattern: boolean,
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): RenderEvent<T> {
   const event = new DtEventChartEvent<T>();
   event.data = eventValue;

@@ -48,10 +48,14 @@ export interface RenderField<T> {
   originalIndex?: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isRenderEvent = (object: RenderEvent<any> | RenderField<any>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (<RenderEvent<any>>object).events !== undefined;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isRenderField = (object: RenderEvent<any> | RenderField<any>) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (<RenderField<any>>object).fields !== undefined;
 };

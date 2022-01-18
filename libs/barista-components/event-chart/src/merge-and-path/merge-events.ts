@@ -18,9 +18,9 @@ import { RenderEvent, RenderField } from '../render-event.interface';
 
 /** Determines whether two events overlap. */
 export function dtEventChartIsOverlappingEvent(
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   eventA: RenderEvent<any> | RenderField<any>,
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   eventB: RenderEvent<any> | RenderField<any>,
   overlapThreshold: number,
 ): boolean {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable: template-cyclomatic-complexity
+/* eslint-disable @angular-eslint/template/cyclomatic-complexity */
 import { ENTER } from '@angular/cdk/keycodes';
 import {
   ConnectedPosition,
@@ -213,12 +213,12 @@ const DT_EVENT_CHART_HEATFIELD_OVERLAY_POSITIONS: ConnectedPosition[] = [
 export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   /** @internal Template reference for the DtEventChart overlay. */
   @ContentChild(DtEventChartOverlay, { read: TemplateRef })
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _overlay: TemplateRef<any>;
 
   /** @internal Template reference for the DtEventChart overlay. */
   @ContentChild(DtEventChartHeatfieldOverlay, { read: TemplateRef })
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _overlayHeatfield: TemplateRef<any>;
 
   /** @internal Selection of events passed into the DtEventChart via child components. */
@@ -312,7 +312,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   hasHeatfields = false;
 
   /** Template portal for the default overlay */
-  // tslint:disable-next-line: use-default-type-parameter no-any
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-arguments, @typescript-eslint/no-explicit-any
   private _portal: TemplatePortal<any> | null;
 
   /** Reference to the open overlay. */
@@ -333,6 +333,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     private _appRef: ApplicationRef,
     private _injector: Injector,
     private _overlayService: Overlay,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) private _document: any,
     private _platform: Platform,
     private _elementRef: ElementRef<HTMLElement>,
@@ -453,6 +454,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   _isSelectedEvent(renderEvent: RenderEvent<T>): boolean {
     return (
       renderEvent.originalIndex === this._selectedEventIndex ||
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       (renderEvent.mergedWith || []).includes(this._selectedEventIndex!)
     );
   }
@@ -460,6 +462,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
   _isSelectedField(renderField: RenderField<T>): boolean {
     return (
       renderField.originalIndex === this._selectedFieldIndex ||
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       (renderField.mergedWith || []).includes(this._selectedFieldIndex!)
     );
   }
@@ -552,7 +555,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     renderEvent: RenderEvent<T>,
     offset: number = 0,
   ): string {
-    // tslint:disable-next-line: no-magic-numbers
+    // eslint-disable-next-line no-magic-numbers
     const eventBubbleRadius = EVENT_BUBBLE_SIZE / 2 + offset;
 
     const path: string[] = [];
@@ -731,7 +734,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
     // Create the template portal
     if (!this._portal) {
-      // tslint:disable-next-line: no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this._portal = new TemplatePortal<any>(
         isField ? this._overlayHeatfield : this._overlay,
         this._viewContainerRef,
@@ -844,9 +847,9 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     // Update the position for the overlay.
     const originBB = (event.target as SVGElement).getBoundingClientRect();
     return {
-      // tslint:disable-next-line: no-magic-numbers
+      // eslint-disable-next-line no-magic-numbers
       x: originBB.left + originBB.width / 2,
-      // tslint:disable-next-line: no-magic-numbers
+      // eslint-disable-next-line no-magic-numbers
       y: originBB.top + originBB.height / 2,
     };
   }
@@ -875,7 +878,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     const canvasEl = this._canvasEl.nativeElement as HTMLElement;
     if (canvasEl && this._platform.isBrowser) {
       const canvasWidth = canvasEl.clientWidth;
-      // tslint:disable-next-line: no-magic-numbers
+      // eslint-disable-next-line no-magic-numbers
       this._svgPlotHeight = this._lanes.length * LANE_HEIGHT + 3;
       // We need to make sure we are in the browser, before updating the dimensions
       this._svgHeight =
@@ -915,9 +918,10 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
           // The Y of a bubble is the sum of all lane heights
           // before the lane where the bubble is located
           // plus half of the height of the current lane.
-          // tslint:disable-next-line: no-magic-numbers
+          // eslint-disable-next-line no-magic-numbers
           const y = lanePos * (LANE_HEIGHT + 1) + LANE_HEIGHT / 2;
 
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           const x1 = scale(event.value)!;
           let x2 = x1;
 
@@ -925,6 +929,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
           // single point, which means we need to calculate the x value
           // of the events end.
           if (event.duration) {
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             x2 = scale(event.value + event.duration)!;
           }
 
@@ -963,8 +968,10 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 
     const renderFields: RenderField<T>[] = [];
     for (const field of fields) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const x1 = scale(field.start ?? min)!;
 
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       const x2 = scale(field.end ?? max)!;
 
       let color = isValidColor(field.color) ? field.color : 'default';
@@ -1005,6 +1012,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
     this._renderTicks = dateTicks.map((date) => {
       const timestamp = date.getTime();
       return {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         x: timeScale(timestamp)!,
         value: this._formatRelativeTimestamp(timestamp),
       };
@@ -1159,7 +1167,7 @@ export class DtEventChart<T> implements AfterContentInit, OnInit, OnDestroy {
 }
 
 /** Determines if a passed parameter is part of the DtEventChartColors. */
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isValidColor(color: any): color is DtEventChartColors {
   return isDefined(color) && DT_EVENT_CHART_COLORS.indexOf(color) !== -1;
 }

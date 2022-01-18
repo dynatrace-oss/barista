@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, ViewChild } from '@angular/core';
@@ -76,7 +76,7 @@ function getLegendItems(fixture: ComponentFixture<any>): {
       .nativeElement.classList.toString()
       .includes('filtered');
     const hasPattern =
-      // tslint:disable-next-line: strict-type-predicates
+      // eslint-disable-next-line
       element.query(
         By.css(
           '.dt-event-chart-legend-symbol .dt-event-chart-legend-symbol-pattern',
