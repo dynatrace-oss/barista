@@ -181,20 +181,20 @@ export class DtRadioButton<T>
   @Input() name: string;
 
   /** Used to set the 'aria-label' attribute on the underlying input element. */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('aria-label') ariaLabel: string;
 
   /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('aria-labelledby') ariaLabelledby: string;
 
   /** The 'aria-describedby' attribute is read after the element's label and field type. */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('aria-describedby') ariaDescribedby: string;
 
   /** Emits when this radio button becomes selected or not. */
   // Disabling no-output-native rule because we want to keep a similar API to the native radio button
-  // tslint:disable-next-line: no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
 
   /** @internal ID of the native input element */
