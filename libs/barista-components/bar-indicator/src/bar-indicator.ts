@@ -78,6 +78,7 @@ export class DtBarIndicator
 
   /**
    * Updates all view parameters
+   *
    * @internal
    */
   _updateValues(): void {
