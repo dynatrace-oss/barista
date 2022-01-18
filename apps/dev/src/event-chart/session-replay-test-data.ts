@@ -22,7 +22,7 @@ import {
   EventChartDemoHeatfield,
 } from './event-chart-demo-data';
 
-// tslint:disable: max-file-line-count
+/* eslint-disable max-lines */
 
 const TEST_DATA = [
   {

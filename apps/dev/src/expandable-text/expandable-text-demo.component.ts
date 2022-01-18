@@ -18,7 +18,7 @@ import { Component, ViewChild } from '@angular/core';
 
 import { DtExpandableText } from '@dynatrace/barista-components/expandable-text';
 
-// tslint:disable-next-line: use-component-selector
+// eslint-disable-next-line @angular-eslint/use-component-selector
 @Component({
   templateUrl: './expandable-text-demo.component.html',
 })

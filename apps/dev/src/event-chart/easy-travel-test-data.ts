@@ -154,7 +154,7 @@ export class EasyTravelDataSource implements EventChartDemoDataSource {
     for (const event of EASY_TRAVEL_TEST_DATA[0].data) {
       const name = event.y.toString();
       if (!lanes.find((l) => l.name === name)) {
-        // tslint:disable-next-line: no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let color: any = 'default';
         if (event.marker.fillColor === '#dc172a') {
           color = 'error';

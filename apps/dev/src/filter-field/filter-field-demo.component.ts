@@ -42,7 +42,7 @@ import {
   TEST_DATA_PARTIAL_2,
 } from './testdata';
 
-// tslint:disable:no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 const DATA_SETS = new Map<string, any>([
   ['TEST_DATA', TEST_DATA],

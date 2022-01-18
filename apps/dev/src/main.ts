@@ -20,7 +20,7 @@ import { AppModule } from './app.module';
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
-  // tslint:disable-next-line:no-console typedef
+  // eslint-disable-next-line no-console
   .catch((err): void => {
     console.log(err);
   });

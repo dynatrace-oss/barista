@@ -32,11 +32,11 @@ export class ContainerBreakpointObserverDemo implements OnInit {
   _tableBreakpointObserver2: DtContainerBreakpointObserver;
 
   @ViewChild(DtTable, { static: true })
-  _table: DtTable<any>; // tslint:disable-line: no-any
+  _table: DtTable<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   _matches = false;
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource: any[] = [
     {
       host: 'et-demo-2-win4',
