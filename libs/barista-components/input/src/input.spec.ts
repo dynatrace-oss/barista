@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import {
@@ -640,10 +640,10 @@ describe('DtFormField with forms', () => {
       const groupFixture = createComponentWithCutomProviders(
         DtInputWithFormGroupErrorMessages,
       );
-      let component: DtInputWithFormGroupErrorMessages;
 
       groupFixture.detectChanges();
-      component = groupFixture.componentInstance;
+      const component: DtInputWithFormGroupErrorMessages =
+        groupFixture.componentInstance;
       containerEl = groupFixture.debugElement.query(
         By.css('dt-form-field'),
       ).nativeElement;
@@ -739,7 +739,7 @@ describe('DtFormField with forms', () => {
         By.css('dt-form-field'),
       ).nativeElement;
 
-      // tslint:disable-next-line:no-unnecessary-type-assertion
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const control = component.formGroup.get('name')!;
 
       // Expected form control to be invalid
@@ -823,7 +823,7 @@ describe('DtFormField with forms', () => {
 function createComponentWithCutomProviders<T>(
   component: Type<T>,
   providers: Provider[] = [],
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   imports: any[] = [],
 ): ComponentFixture<T> {
   TestBed.configureTestingModule({
