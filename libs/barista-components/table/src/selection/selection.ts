@@ -95,6 +95,7 @@ export class DtTableSelection<T> implements OnInit {
   get selectionLimitReached(): boolean {
     return (
       isNumber(this._config?.selectionLimit) &&
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this._config!.selectionLimit <= this._selectionModel.selected.length
     );
   }

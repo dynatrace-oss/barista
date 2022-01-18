@@ -42,7 +42,7 @@ export interface DtTableSearchChangeEvent {
  */
 export const DT_TABLE_SEARCH_CONTROL_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line: no-use-before-declare no-forward-ref
+  // eslint-disable-next-line no-use-before-define, @typescript-eslint/no-use-before-define, @angular-eslint/no-forward-ref
   useExisting: forwardRef(() => DtTableSearch),
   multi: true,
 };

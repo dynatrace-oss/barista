@@ -59,7 +59,7 @@ import {
     },
   ],
 })
-// tslint:disable-next-line: class-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class _DtTableBase<T> extends CdkTable<T> {
   private _interactiveRows = false;
 
@@ -77,7 +77,7 @@ export class _DtTableBase<T> extends CdkTable<T> {
     differs: IterableDiffers,
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) document: any,
     platform: Platform,
     @Inject(_VIEW_REPEATER_STRATEGY)
@@ -93,13 +93,13 @@ export class _DtTableBase<T> extends CdkTable<T> {
     @Optional() protected readonly _ngZone: NgZone,
     @Attribute('interactiveRows') interactiveRows?: boolean,
   ) {
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     super(
       differs,
       changeDetectorRef,
       elementRef,
       _role,
-      null as unknown as any, // tslint:disable-line:no-any
+      null as unknown as any, // eslint-disable-line @typescript-eslint/no-explicit-any
       document,
       platform,
       _viewRepeater,
@@ -108,6 +108,7 @@ export class _DtTableBase<T> extends CdkTable<T> {
       _stickyPositioningListener,
       _ngZone,
     );
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.interactiveRows = interactiveRows!;
   }
 }
@@ -117,5 +118,5 @@ export class _DtTableBase<T> extends CdkTable<T> {
   exports: [_DtTableBase],
   declarations: [_DtTableBase],
 })
-// tslint:disable-next-line: class-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class _DtTableBaseModule {}

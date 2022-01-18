@@ -38,7 +38,7 @@ import { DtSimpleColumnBase } from './simple-column-base';
   providers: [{ provide: DtSimpleColumnBase, useExisting: DtSimpleTextColumn }],
 })
 export class DtSimpleTextColumn<T> extends DtSimpleColumnBase<T> {
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(@Optional() table: DtTable<T>) {
     super(table);
   }

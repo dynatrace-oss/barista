@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* tslint:disable:no-unused-variable */
+/* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ViewChild, Predicate } from '@angular/core';
 import { DtTableModule } from '../table-module';

@@ -105,9 +105,11 @@ export class DtOrderCell<T>
     this._order._disabledChange
       .pipe(startWith(false), takeUntil(this._destroy$))
       .subscribe((value) => {
-        value
-          ? this._orderFormControl.disable()
-          : this._orderFormControl.enable();
+        if (value) {
+          this._orderFormControl.disable();
+        } else {
+          this._orderFormControl.enable();
+        }
       });
   }
 

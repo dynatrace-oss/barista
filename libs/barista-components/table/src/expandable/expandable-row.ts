@@ -165,19 +165,19 @@ export class DtExpandableRow
 
   /** Querylist of content templates */
   @ContentChildren(DtExpandableRowContent, { read: TemplateRef })
-  // tslint:disable-next-line: no-any
-  private _expandableContentTemplates: QueryList<TemplateRef<{}>>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private _expandableContentTemplates: QueryList<TemplateRef<any>>;
 
   private _templateSubscription = Subscription.EMPTY;
 
   /** @internal the single reference that gets used in the template outlet */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _expandableContentTemplate: TemplateRef<any> | null;
 
   private _selectionDispatchCleanup: () => void;
 
   constructor(
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private _table: DtTable<any>,
     private _changeDetectorRef: ChangeDetectorRef,
     private _expansionDispatcher: UniqueSelectionDispatcher,
