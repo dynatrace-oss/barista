@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -732,7 +732,7 @@ describe('DtTable SimpleColumns', () => {
 
 @Component({
   selector: 'dt-test-table-simple-columns',
-  // tslint:disable
+  /* eslint-disable */
   template: `
     <dt-table [dataSource]="dataSource" dtSort #sortable>
       <dt-favorite-column
@@ -786,7 +786,7 @@ describe('DtTable SimpleColumns', () => {
       ></dt-row>
     </dt-table>
   `,
-  // tslint:enable
+  /* eslint-enable */
 })
 class TestSimpleColumnsApp implements AfterViewInit {
   data: Array<{
@@ -902,7 +902,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
 
 @Component({
   selector: 'dt-test-table-simple-columns',
-  // tslint:disable
+  /* eslint-disable */
   template: `
     <dt-table [dataSource]="dataSource">
       <dt-favorite-column
@@ -952,7 +952,7 @@ class TestSimpleColumnsApp implements AfterViewInit {
       ></dt-row>
     </dt-table>
   `,
-  // tslint:enable
+  /* eslint-enable */
 })
 class TestSimpleColumnsErrorApp implements AfterViewInit {
   data: Array<{
@@ -1023,7 +1023,7 @@ class TestSimpleColumnsErrorApp implements AfterViewInit {
     this.dataSource.sort = this.sortable;
   }
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   combineMemory(row: any): string {
     const memoryPercentage = formatPercent(row.memoryPerc);
     const memoryTotal = formatBytes(row.memoryTotal, {

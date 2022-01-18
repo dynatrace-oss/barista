@@ -78,7 +78,7 @@ export class DtCellDef extends CdkCellDef {}
 })
 export class DtColumnDef extends CdkColumnDef implements OnChanges {
   /** Unique name for this column. */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('dtColumnDef')
   get name(): string {
     return this._name;
@@ -88,12 +88,12 @@ export class DtColumnDef extends CdkColumnDef implements OnChanges {
   }
 
   /** The alignment of the colums */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('dtColumnAlign') align: DtTableColumnTypedAlign | DtTableColumnAlign =
     'left';
 
   /** The proportion of the column compared to the others. */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('dtColumnProportion')
   get proportion(): number {
     return this._proportion;
@@ -106,7 +106,7 @@ export class DtColumnDef extends CdkColumnDef implements OnChanges {
 
   /** The min width of the column. */
   // TODO: Consider switching to ngStyle syntax in the future - value.unit
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('dtColumnMinWidth') minWidth: string | number;
 
   /** @internal Alignment subject which fires with changes to the alignment input. */

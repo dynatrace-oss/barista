@@ -48,6 +48,7 @@ export interface DtSortEvent {
 
 /**
  * Boilerplate for applying mixins to DtSort.
+ *
  * @internal
  */
 export class DtSortBase {}
@@ -65,6 +66,7 @@ export class DtSort
 {
   /**
    * Used to notify any child components listening to state changes.
+   *
    * @internal
    */
   readonly _stateChanges = new Subject<void>();
@@ -114,6 +116,7 @@ export class DtSort
   ): void {
     if (typeof sortableOrActive === 'string') {
       this.active = sortableOrActive;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.direction = direction!;
     } else {
       const sortable = sortableOrActive;

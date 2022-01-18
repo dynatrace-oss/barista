@@ -43,7 +43,7 @@ import { DtSimpleColumnBase } from './simple-column-base';
   ],
 })
 export class DtSimpleNumberColumn<T> extends DtSimpleColumnBase<T> {
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(@Optional() table: DtTable<T>) {
     super(table);
   }
@@ -52,11 +52,11 @@ export class DtSimpleNumberColumn<T> extends DtSimpleColumnBase<T> {
    * @internal Get data either returns a data access with the given name or calls the
    * displayAccessor function to get the simpleData for display.
    */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _getData(data: T): any {
     const output = this.displayAccessor
       ? this.displayAccessor(data, this.name)
-      : (data as any)[this.name]; // tslint:disable-line:no-any
+      : (data as any)[this.name]; // eslint-disable-line @typescript-eslint/no-explicit-any
 
     if (isNumberLike(output) && !isDefined(this.formatter)) {
       return formatCount(output);

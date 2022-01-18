@@ -52,6 +52,7 @@ export interface DtOrderReorderEvent {
 
 /**
  * Boilerplate for applying mixins to DtOrder.
+ *
  * @internal
  */
 export class DtOrderBase {}

@@ -53,7 +53,7 @@ export class DtFavoriteColumn<T> extends DtSimpleColumnBase<T> {
   _isFavorite(data: T): boolean {
     return this.displayAccessor
       ? this.displayAccessor(data, this.name)
-      : (data as any)[this.name]; // tslint:disable-line:no-any
+      : (data as any)[this.name]; // eslint-disable-line @typescript-eslint/no-explicit-any
   }
 
   /**

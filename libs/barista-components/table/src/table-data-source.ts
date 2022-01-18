@@ -37,7 +37,7 @@ import { DtSort, DtSortEvent } from './sort/sort';
 import { DtTableSelection } from './selection/selection';
 import { DtTable } from './table';
 
-export type DtSortAccessorFunction<T> = (data: T) => any; // tslint:disable-line:no-any
+export type DtSortAccessorFunction<T> = (data: T) => any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 /**
  * Signature type for the comparision function, which can be passed to the DtTableDataSource.
@@ -219,6 +219,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
   set pageSize(pageSize: number) {
     this._pageSize = pageSize;
 
+    // eslint-disable-next-line no-extra-boolean-cast
     if (!!this._pagination) {
       this._pagination.pageSize = pageSize;
       this._internalPageChanges.next();
@@ -244,16 +245,19 @@ export class DtTableDataSource<T> extends DataSource<T> {
   ): string | number | null => {
     let value;
     if (this._customSortAccessorMap.has(sortHeaderId)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       value = this._customSortAccessorMap.get(sortHeaderId)!(data);
     } else if (this._simpleColumnSortAccessorMap.has(sortHeaderId)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       value = this._simpleColumnSortAccessorMap.get(sortHeaderId)!(
         data,
         sortHeaderId,
       );
     } else if (this._displayAccessorMap.has(sortHeaderId)) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       value = this._displayAccessorMap.get(sortHeaderId)!(data, sortHeaderId);
     } else {
-      // tslint:disable-next-line: no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value = (data as { [key: string]: any })[sortHeaderId];
     }
 
@@ -302,6 +306,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
    * at least one occurrence in that string. By default, the filter string has its whitespace
    * trimmed and the match is case-insensitive. May be overridden for a custom implementation of
    * filter matching.
+   *
    * @param data Data object used to check against the filter.
    * @param filter Filter string that has been set on the data source.
    * @returns Whether the filter matches against the data
@@ -320,7 +325,7 @@ export class DtTableDataSource<T> extends DataSource<T> {
           // that has a very low chance of being typed in by somebody in a text field. This one in
           // particular is "White up-pointing triangle with dot" from
           // https://en.wikipedia.org/wiki/List_of_Unicode_characters
-          // tslint:disable-next-line
+          // eslint-disable-next-line
           `${currentTerm}${(data as { [key: string]: any })[key]}◬`,
         '',
       )

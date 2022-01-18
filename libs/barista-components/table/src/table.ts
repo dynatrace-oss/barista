@@ -97,7 +97,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
-  private _showExportButton: boolean = false; //Revert to opt-in instead of opt-out per request
+  private _showExportButton = false;
 
   /** Sort accessor map that holds all sort accessor functions from the registered simple columns. */
   private _sortAccessorMap = new Map<
@@ -224,7 +224,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
     @Attribute('role') role: string,
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) document: any,
     platform: Platform,
     private _viewContainerRef: ViewContainerRef,
@@ -283,6 +283,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     // destroyed.
     for (let i = 0; i < rowOutletViewContainer.length; i += 1) {
       const view = rowOutletViewContainer.get(i);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (view!.destroyed === false) {
         shouldRender = true;
         break;
@@ -397,6 +398,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     for (const row of exportData) {
       for (let idx = 0; idx < keys.length; idx++) {
         const key = keys[idx];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let val: any;
         if (key.includes('.') && typeof row[key] == 'undefined') {
           //derived key object.property
@@ -436,7 +438,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     );
     const headersArr = Array.from(headerList);
     const headers = headersArr
-      .map((h: HTMLElement): String => {
+      .map((h: HTMLElement): string => {
         const txt = h.innerText;
         if (txt.includes(',')) return `"${txt}"`;
         else return txt;
@@ -469,6 +471,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /** Assemble the CSV while safely handling types. */
   private _appendValToCSV(
     csvObj: { csv: string },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     val: any,
     idx: number,
     len: number,

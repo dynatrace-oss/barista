@@ -39,6 +39,7 @@ import { getDtSortHeaderNotContainedWithinSortError } from './sort-errors';
 
 /**
  * Boilerplate for applying mixins to the sort header.
+ *
  * @internal
  */
 export class DtSortHeaderBase {}
@@ -73,6 +74,7 @@ export class DtSortHeader
 
   /**
    * The direction the arrow should be facing according to the current state.
+   *
    * @internal
    */
   _sortIconName: 'sorter2-down' | 'sorter2-up' | 'sorter-double' =
@@ -112,6 +114,7 @@ export class DtSortHeader
 
   /**
    * Wether the entire table sorting is disabled or the column is disabled
+   *
    * @internal
    */
   get _isDisabled(): boolean {
@@ -120,6 +123,7 @@ export class DtSortHeader
 
   /**
    * Whether this DtSortHeader is currently sorted in either ascending or descending order.
+   *
    * @internal
    */
   get _isSorted(): boolean {
@@ -167,6 +171,7 @@ export class DtSortHeader
 
   /**
    * Triggers the sort on this sort header
+   *
    * @internal
    */
   _handleClick(): void {
@@ -181,6 +186,7 @@ export class DtSortHeader
    * is not sorted, returns null so that the attribute is removed from the host element. Aria spec
    * says that the aria-sort property should only be present on one header at a time, so removing
    * ensures this is true.
+   *
    * @internal
    */
   _getAriaSortAttribute(): string | null {
