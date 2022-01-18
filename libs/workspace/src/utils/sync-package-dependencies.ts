@@ -18,6 +18,7 @@ import { PackageJson } from '@dynatrace/shared/node';
 
 /**
  * Syncs versions from the source to the target package.json
+ *
  * @param sourcePackageJson - Package.json that contains all currently used
  * dependencies, devDependecies and peerDependencies that are used in the
  * project.

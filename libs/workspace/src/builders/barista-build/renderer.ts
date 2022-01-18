@@ -35,6 +35,7 @@ export function generateFileName(route: string): string {
  *
  * This function will be executed via the self executed function in the bottom of this file
  * and this file will be spawned via a fork!
+ *
  * @param outputPath The path where the rendered files should be written to
  * @param baseUrl The base url where the routes should be appended
  * @param routes The list of routes that should be rendered

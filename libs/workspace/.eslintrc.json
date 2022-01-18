@@ -1,0 +1,33 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*", "test-setup.ts"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["libs/workspace/tsconfig.lib.json"]
+      },
+      "rules": {
+        "no-duplicate-imports": "off",
+        "no-restricted-imports": "off"
+      },
+      "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["*.spec.ts"],
+      "parserOptions": {
+        "project": ["libs/workspace/tsconfig.spec.json"]
+      },
+      "rules": {
+        "no-duplicate-imports": "off",
+        "no-restricted-imports": "off"
+      },
+      "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@nrwl/nx/angular-template"],
+      "rules": {}
+    }
+  ]
+}
