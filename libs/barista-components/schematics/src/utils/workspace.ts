@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 /**
  * @license
  * Copyright 2021 Dynatrace LLC
@@ -39,7 +40,7 @@ function createHost(tree: Tree): workspaces.WorkspaceHost {
 /** Get the angular workspace out of the tree */
 export async function getWorkspace(
   tree: Tree,
-  path: string = '/',
+  path = '/',
 ): Promise<workspaces.WorkspaceDefinition> {
   const host = createHost(tree);
   const { workspace } = await workspaces.readWorkspace(path, host);
@@ -69,7 +70,7 @@ export function updateWorkspace(
 
       const result = updaterOrWorkspace(workspace);
       if (result !== undefined) {
-        // tslint:disable-next-line: await-promise
+        // eslint-disable-next-line @typescript-eslint/await-thenable
         await result;
       }
 

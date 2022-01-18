@@ -25,6 +25,7 @@ import {
 
 /**
  * Prints a typescript node and returns the result
+ *
  * @param node The node to print.
  * @param sourceFile A source file that provides context for the node
  */

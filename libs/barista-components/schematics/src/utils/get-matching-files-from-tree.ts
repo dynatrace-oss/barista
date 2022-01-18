@@ -18,6 +18,7 @@ import { Tree } from '@angular-devkit/schematics/src/tree/interface';
 
 /**
  * Returns a set of matched files in a tree by a provided matcher function
+ *
  * @param tree The tree where we have to search for the files
  * @param matcher A function that gets a file path and check if the path matches
  */

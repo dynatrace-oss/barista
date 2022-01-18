@@ -169,9 +169,9 @@ export async function createTestCaseSetup(
  * type checking within migration rules is not working as in real applications.
  */
 export function _patchTypeScriptDefaultLib(tree: Tree): void {
-  // tslint:disable-next-line: no-unbound-method
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   const _originalRead = tree.read;
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   tree.read = function (filePath: string): Buffer | any {
     // In case a file within the TypeScript package is requested, we read the file from
     // the real file system. This is necessary because within unit tests, the "typeScript"
@@ -180,6 +180,7 @@ export function _patchTypeScriptDefaultLib(tree: Tree): void {
     if (filePath.match(/node_modules[/\\]typescript/)) {
       return readFileSync(filePath);
     } else {
+      // eslint-disable-next-line prefer-rest-params
       return _originalRead.apply(this, arguments);
     }
   };

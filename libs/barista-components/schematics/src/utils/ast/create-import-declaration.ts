@@ -19,6 +19,7 @@ import { createStringLiteral } from './create-string-literal';
 
 /**
  * Creates typescript import declaration
+ *
  * @param symbolName Name of the item that is imported
  * @param path Path to the module
  * @param named Default true whether the import is a named import or not
@@ -26,7 +27,7 @@ import { createStringLiteral } from './create-string-literal';
 export function createImportDeclaration(
   symbolName: string[],
   path: string,
-  named: boolean = true,
+  named = true,
 ): ts.ImportDeclaration {
   const importSpecifiers = symbolName.map((n) =>
     ts.factory.createImportSpecifier(undefined, ts.factory.createIdentifier(n)),

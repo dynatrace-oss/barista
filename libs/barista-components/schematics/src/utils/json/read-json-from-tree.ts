@@ -19,10 +19,12 @@ import { readFileFromTree } from '../read-file-from-tree';
 
 /**
  * This method is specifically for reading JSON files in a Tree
+ *
  * @param tree The tree tree
  * @param path The path to the JSON file
  * @returns The JSON data in the file.
  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function readJsonFromTree<T = {}>(tree: Tree, path: string): T {
   const content = readFileFromTree(tree, path);
   try {

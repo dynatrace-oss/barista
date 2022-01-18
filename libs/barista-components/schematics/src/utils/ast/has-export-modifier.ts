@@ -21,6 +21,7 @@ import * as ts from 'typescript';
  * exported nodes (types, interfaces, classes, etc…)
  *
  * Look if the `export` keyword exist on node
+ *
  * @example
  * ```typescript
  * export class SampleClassname { … }
@@ -29,6 +30,6 @@ import * as ts from 'typescript';
  * @returns {boolean}
  */
 export function hasExportModifier(node: ts.Declaration): boolean {
-  // tslint:disable-next-line: no-bitwise
+  // eslint-disable-next-line no-bitwise
   return (ts.getCombinedModifierFlags(node) & ts.ModifierFlags.Export) !== 0;
 }

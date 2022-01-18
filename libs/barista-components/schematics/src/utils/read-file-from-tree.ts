@@ -18,6 +18,7 @@ import { Tree } from '@angular-devkit/schematics';
 
 /**
  * This method reads a file from a host tree
+ *
  * @param host The host tree
  * @param path The path to the file
  */
