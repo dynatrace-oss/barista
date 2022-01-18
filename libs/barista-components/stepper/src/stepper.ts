@@ -61,7 +61,7 @@ export class DtStepper extends CdkStepper implements AfterContentInit {
   @ViewChildren(DtStepHeader) _stepHeader: QueryList<DtStepHeader>;
 
   /** @internal Steps that the stepper holds. */
-  // tslint:disable-next-line: no-forward-ref
+  // eslint-disable-next-line @angular-eslint/no-forward-ref
   @ContentChildren(forwardRef(() => DtStep)) _steps: QueryList<DtStep>;
 
   ngAfterContentInit(): void {
