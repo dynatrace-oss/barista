@@ -17,6 +17,7 @@
 /**
  * Colors Enumeration used in typescript
  */
+// eslint-disable-next-line no-shadow
 export enum DtColors {
   WHITE = '#ffffff',
 

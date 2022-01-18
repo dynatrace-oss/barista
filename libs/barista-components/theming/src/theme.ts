@@ -166,6 +166,7 @@ export class DtTheme implements OnDestroy {
     name: string;
     variant: DtThemeVariant;
   } {
+    // eslint-disable-next-line no-extra-boolean-cast
     const result = !!value ? value.match(THEME_VALIDATION_RX) : null;
     if (result === null) {
       throw getDtThemeNotValidError(value);
