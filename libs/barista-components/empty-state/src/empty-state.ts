@@ -45,6 +45,7 @@ const ITEMS_HORIZONTAL_BREAKPOINT = 540;
 /** The min-width from which the empty state items are aligned next to each other. */
 const LAYOUT_HORIZONTAL_BREAKPOINT = 760;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const window: any;
 
 /**
@@ -115,7 +116,7 @@ export class DtEmptyStateItemTitle {}
  *   </dt-empty-state-footer-actions>
  */
 @Directive({
-  selector: 'dt-empty-state-footer-actions',
+  selector: 'dt-empty-state-footer-actions, [dtEmptyStateFooterActions]',
   host: {
     class: 'dt-empty-state-footer-actions',
   },
@@ -160,6 +161,7 @@ export class DtEmptyState
 
   private readonly _destroy$ = new Subject<void>();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _containerSizeObserver: any;
 
   /**
