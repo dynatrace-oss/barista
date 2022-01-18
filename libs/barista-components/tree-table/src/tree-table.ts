@@ -77,7 +77,7 @@ export class DtTreeTable<T> extends _DtTableBase<T> {
     differs: IterableDiffers,
     changeDetectorRef: ChangeDetectorRef,
     elementRef: ElementRef,
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) document: any,
     platform: Platform,
     @Attribute('role') role: string,
