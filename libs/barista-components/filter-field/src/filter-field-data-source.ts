@@ -29,27 +29,27 @@ export abstract class DtFilterFieldDataSource<T> {
   abstract disconnect(): void;
 
   /** Whether the provided data object can be transformed into an DtAutocompleteDef. */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   abstract isAutocomplete(data: any): boolean;
 
   /** Whether the provided data object can be transformed into an DtOptionDef. */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   abstract isOption(data: any): boolean;
 
   /** Whether the provided data object can be transformed into an DtGroupDef. */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   abstract isGroup(data: any): boolean;
 
   /** Whether the provided data object can be transformed into an DtFreeTextDef. */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   abstract isFreeText(data: any): boolean;
 
   /** Whether the provided data object can be transformed into an DtRangeDef. */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   abstract isRange(data: any): boolean;
 
   /** Whether the provided data object can be transformed into an DtMultiSelectDef. */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   abstract isMultiSelect(data: any): boolean;
 
   /** Transforms the provided data into a DtNodeDef which contains a DtAutocompleteDef. */
@@ -82,6 +82,7 @@ export abstract class DtFilterFieldDataSource<T> {
 
   /** Transforms the provided data into a DtNodeDef which contains a DtRangeDef. */
   abstract transformRange(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any,
     parent: DtNodeDef<T> | null,
     existingDef: DtNodeDef<T> | null,
@@ -89,6 +90,7 @@ export abstract class DtFilterFieldDataSource<T> {
 
   /** Transforms the provided data into a DtNodeDef which contains a DtMultiSelectDef. */
   abstract transformMultiSelect(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any,
     parent: DtNodeDef<T> | null,
     existingDef: DtNodeDef<T> | null,
@@ -102,6 +104,7 @@ export abstract class DtFilterFieldDataSource<T> {
 
   /** Transforms the provided list of data objects into an array of DtNodeDefs. */
   abstract transformList(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
     list: any[],
     parent: DtNodeDef<T> | null,
   ): DtNodeDef<T>[];

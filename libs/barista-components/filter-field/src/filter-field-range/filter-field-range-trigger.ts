@@ -74,7 +74,7 @@ export class DtFilterFieldRangeTrigger
     protected _platform: Platform,
     protected _overlayContainer: OverlayContainer,
     _zone: NgZone,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) _document: any,
     public _viewportResizer: DtViewportResizer,
   ) {

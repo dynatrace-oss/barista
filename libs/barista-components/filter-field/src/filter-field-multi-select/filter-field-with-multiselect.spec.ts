@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -438,7 +438,7 @@ describe('DtFilterField', () => {
         fixture.detectChanges();
         advanceFilterfieldCycle();
 
-        let options = getMultiselectCheckboxInputs(overlayContainerElement);
+        const options = getMultiselectCheckboxInputs(overlayContainerElement);
         const applyButton = getMultiselectApplyButton(overlayContainerElement);
 
         // Apply firs
@@ -543,7 +543,7 @@ describe('DtFilterField', () => {
           TEST_DATA_MULTI_SELECT_EDIT_MODE;
         advanceFilterfieldCycle();
 
-        let multiSelectFilter = [
+        const multiSelectFilter = [
           TEST_DATA_MULTI_SELECT_EDIT_MODE.autocomplete[0],
           (TEST_DATA_MULTI_SELECT_EDIT_MODE as any).autocomplete[0]
             .multiOptions[1].options[0],

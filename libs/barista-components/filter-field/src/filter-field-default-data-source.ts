@@ -119,7 +119,7 @@ export type DtFilterFieldDefaultDataSourceType =
   | DtFilterFieldDefaultDataSourceFreeText
   | DtFilterFieldDefaultDataSourceRange;
 
-// tslint:disable: no-bitwise
+/* eslint-disable no-bitwise */
 
 /**
  * DataSource that accepts a client side data object with a specific structure (described below)
@@ -220,20 +220,20 @@ export class DtFilterFieldDefaultDataSource
 
   /** Whether the provided data object is of type AutocompleteData */
   isAutocomplete(
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any,
   ): data is DtFilterFieldDefaultDataSourceAutocomplete {
     return isObject(data) && Array.isArray(data.autocomplete);
   }
 
   /** Whether the provided data object is of type OptionData */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   isOption(data: any): data is DtFilterFieldDefaultDataSourceOption {
     return isObject(data) && typeof data.name === 'string';
   }
 
   /** Whether the provided data object is of type GroupData */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   isGroup(data: any): data is DtFilterFieldDefaultDataSourceGroup {
     return (
       isObject(data) &&
@@ -243,21 +243,21 @@ export class DtFilterFieldDefaultDataSource
   }
 
   /** Whether the provided data object is of type FreeTextData */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   isFreeText(data: any): data is DtFilterFieldDefaultDataSourceFreeText {
     return isObject(data) && Array.isArray(data.suggestions);
   }
 
   /** Whether the provided data object is of type MultiSelectData */
   isMultiSelect(
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data: any,
   ): data is DtFilterFieldDefaultDataSourceMultiSelect {
     return isObject(data) && Array.isArray(data.multiOptions);
   }
 
   /** Whether the provided data object is of type RangeData */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   isRange(data: any): data is DtFilterFieldDefaultDataSourceRange {
     return isObject(data) && isObject(data.range);
   }
@@ -275,6 +275,7 @@ export class DtFilterFieldDefaultDataSource
       !!data.partial,
       data.partialHintMessage,
     );
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     def.autocomplete!.optionsOrGroups = this.transformList(
       data.autocomplete,
       def,
@@ -287,6 +288,7 @@ export class DtFilterFieldDefaultDataSource
     data: DtFilterFieldDefaultDataSourceMultiSelect,
   ): DtNodeDef<DtFilterFieldDefaultDataSourceMultiSelect> {
     const def = dtMultiSelectDef(data, null, [], !!data.async, !!data.partial);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     def.multiSelect!.multiOptions = this.transformList(data.multiOptions, def);
     return def;
   }
@@ -300,12 +302,14 @@ export class DtFilterFieldDefaultDataSource
     const parentGroup = isDtGroupDef<
       DtFilterFieldDefaultDataSourceGroup,
       DtFilterFieldDefaultDataSourceOption
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     >(parentAutocompleteOrOption as any)
       ? parentAutocompleteOrOption
       : null;
     const parentAutocomplete =
       parentGroup !== null
-        ? parentGroup.group!.parentAutocomplete
+        ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          parentGroup.group!.parentAutocomplete
         : isDtAutocompleteDef(parentAutocompleteOrOption)
         ? (parentAutocompleteOrOption as DtNodeDef)
         : null;
@@ -346,10 +350,12 @@ export class DtFilterFieldDefaultDataSource
       null,
       [],
       data.validators,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       isDefined(data.unique) ? data.unique! : false,
       !!data.defaultSearch,
       !!data.async,
     );
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     def.freeText!.suggestions = this.transformList(data.suggestions, def);
     return def;
   }
@@ -366,6 +372,7 @@ export class DtFilterFieldDefaultDataSource
       !!data.range.operators.greaterThanEqual,
       !!data.range.operators.lessThanEqual,
       data.range.unit,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       isDefined(data.unique) ? data.unique! : false,
     );
   }

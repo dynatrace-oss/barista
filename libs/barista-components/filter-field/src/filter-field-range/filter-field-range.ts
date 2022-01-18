@@ -16,7 +16,7 @@
 
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { TemplatePortal } from '@angular/cdk/portal';
-// tslint:disable: template-cyclomatic-complexity
+/* eslint-disable @angular-eslint/template/cyclomatic-complexity */
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -80,19 +80,19 @@ export class DtFilterFieldRange implements AfterViewInit {
     this._enabledOperators = value;
 
     this._hasRangeOperator = !!(
-      // tslint:disable-next-line: no-bitwise
+      // eslint-disable-next-line no-bitwise
       (this._enabledOperators & DtRangeOperatorFlags.Range)
     );
     this._hasEqualOperator = !!(
-      // tslint:disable-next-line: no-bitwise
+      // eslint-disable-next-line no-bitwise
       (this._enabledOperators & DtRangeOperatorFlags.Equal)
     );
     this._hasLowerEqualOperator = !!(
-      // tslint:disable-next-line: no-bitwise
+      // eslint-disable-next-line no-bitwise
       (this._enabledOperators & DtRangeOperatorFlags.LowerEqual)
     );
     this._hasGreaterEqualOperator = !!(
-      // tslint:disable-next-line: no-bitwise
+      // eslint-disable-next-line no-bitwise
       (this._enabledOperators & DtRangeOperatorFlags.GreatEqual)
     );
     this._setOperator();
@@ -135,7 +135,8 @@ export class DtFilterFieldRange implements AfterViewInit {
   _selectedOperator: DtFilterFieldRangeOperator | null;
 
   /** @internal */
-  @ViewChild(TemplateRef, { static: true }) _template: TemplateRef<{}>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @ViewChild(TemplateRef, { static: true }) _template: TemplateRef<any>;
 
   /** @internal */
   @ViewChild(DtButtonGroup) _operatorGroup: DtButtonGroup<DtFilterFieldRange>;
@@ -155,7 +156,8 @@ export class DtFilterFieldRange implements AfterViewInit {
   ) {}
 
   ngAfterViewInit(): void {
-    this._portal = new TemplatePortal<{}>(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    this._portal = new TemplatePortal<any>(
       this._template,
       this._viewContainerRef,
     );

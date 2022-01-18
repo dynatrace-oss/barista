@@ -119,7 +119,7 @@ export class DtFilterFieldElementTrigger<
   protected _elementDisabled = false;
 
   /** `View -> model callback called when value changes` */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   protected _onChange: (value: any) => void = () => {};
 
   /** `View -> model callback called when autocomplete has been touched` */
@@ -192,14 +192,14 @@ export class DtFilterFieldElementTrigger<
     protected _viewportRuler: ViewportRuler,
     protected _platform: Platform,
     protected _overlayContainer: OverlayContainer,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Optional() @Inject(DOCUMENT) protected _document?: any,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
     protected _config?: DtUiTestConfiguration,
   ) {
     super(_viewportResizer);
-    // tslint:disable-next-line:strict-type-predicates
+    // eslint-disable-next-line
     if (typeof window !== 'undefined') {
       _zone.runOutsideAngular(() => {
         fromEvent(window, 'blur')
@@ -310,11 +310,11 @@ export class DtFilterFieldElementTrigger<
   }
 
   /** @internal Handler for the users key down events. */
-  // tslint:disable:no-unused-expression
+  /* eslint-disable no-unused-expressions,@typescript-eslint/no-unused-expressions */
   _handleKeydown(event: KeyboardEvent): void {
     void event;
   }
-  // tslint:enable:no-unused-expression
+  /* eslint-enable no-unused-expressions, @typescript-eslint/no-unused-expressions */
 
   /** Determines whether the panel can be opened. */
   protected _canOpen(): boolean {

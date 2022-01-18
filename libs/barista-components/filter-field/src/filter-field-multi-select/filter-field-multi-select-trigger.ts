@@ -86,7 +86,7 @@ export class DtFilterFieldMultiSelectTrigger<T>
     protected _platform: Platform,
     protected _overlayContainer: OverlayContainer,
     protected _zone: NgZone,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) protected _document: any,
     @Optional() public _viewportResizer: DtViewportResizer,
   ) {

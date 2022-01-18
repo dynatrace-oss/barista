@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { isDefined } from '@dynatrace/barista-components/core';
 import { DtFilterFieldDataSource } from './filter-field-data-source';
 import {
@@ -333,8 +335,8 @@ export function defaultTagDataForFilterValuesParser(
 ): DtFilterFieldTagData | null {
   const valueSeparator = ', ';
   let key: string | null = null;
-  let value: string = '';
-  let multiValues: string[] = [];
+  let value = '';
+  const multiValues: string[] = [];
   let separator: string | null = null;
   let isFreeText = false;
   let isFirstValue = true;
@@ -343,6 +345,7 @@ export function defaultTagDataForFilterValuesParser(
   for (const filterValue of filterValues) {
     // For multiselect, first value is of multiselect type, subsequent are options
     if (filterValues.some((filterV) => isDtMultiSelectValue(filterV))) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const currentValue = (filterValue as DtAutocompleteValue<any>).option
         ?.viewValue;
       if (isFirstValue && filterValues.length > 1) {
@@ -561,7 +564,7 @@ export function applyDtOptionIds(
 ): void {
   if (isDtOptionDef(def)) {
     // Reassigning is ok here as the prefix param is of type string
-    // tslint:disable-next-line: no-parameter-reassignment
+    // eslint-disable-next-line no-param-reassign
     prefix = peekOptionId(def, prefix, skipRootDef);
   }
   if (isDtMultiSelectDef(def)) {
