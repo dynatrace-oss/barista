@@ -85,7 +85,7 @@ export class DtTab
    * with a dtTabContent directive for lazy loading
    */
   @ContentChild(DtTabContent, { read: TemplateRef, static: true })
-  _lazyContentRef: TemplateRef<any>; // tslint:disable-line:no-any
+  _lazyContentRef: TemplateRef<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   /** Unique id of the element. */
   @Input()
@@ -173,6 +173,7 @@ export class DtTab
   ) {
     super(elementRef);
     // Force setter to be called in case id was not specified.
+    // eslint-disable-next-line no-self-assign
     this.id = this.id;
   }
 

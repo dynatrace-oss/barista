@@ -96,7 +96,7 @@ export class DtTabBodyPortalOutlet
   constructor(
     componentFactoryResolver: ComponentFactoryResolver,
     viewContainerRef: ViewContainerRef,
-    // tslint:disable-next-line:no-forward-ref
+    // eslint-disable-next-line @angular-eslint/no-forward-ref
     @Inject(forwardRef(() => DtTabBody)) private _host: DtTabBody,
   ) {
     super(componentFactoryResolver, viewContainerRef);
@@ -111,7 +111,7 @@ export class DtTabBodyPortalOutlet
     });
   }
 
-  /**  Attaches the content to the portal outlet if necessary */
+  /** Attaches the content to the portal outlet if necessary */
   private _handleActiveTabChange(active: boolean): void {
     if (active && !this.hasAttached() && this._host && this._host.content) {
       this.attach(this._host.content);
