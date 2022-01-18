@@ -15,7 +15,8 @@
  */
 
 /**
- * MOch the getComputedStyle property on an object, preferrably an jsDOM Node element.
+ * Mock the getComputedStyle property on an object, preferrably an jsDOM Node element.
+ *
  * @param value - Value that should be used as a return value for the mocked function.
  */
 export function mockGetComputedStyle(value: string | undefined): void {

@@ -15,6 +15,7 @@
  */
 
 /** Mocks an object property with the provided value */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const mockObjectProperty = <T extends {}, K extends keyof T>(
   object: T,
   property: K,
