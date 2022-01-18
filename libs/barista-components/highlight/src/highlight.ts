@@ -114,7 +114,7 @@ export class DtHighlight
   constructor(
     private _zone: NgZone,
     private _elementRef: ElementRef,
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Optional() @Inject(DOCUMENT) private _document?: any,
   ) {}
 
