@@ -30,11 +30,11 @@ export class DtExampleStepperLinear implements OnInit {
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      // tslint:disable-next-line: no-unbound-method
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       firstCtrl: ['', Validators.required],
     });
     this.secondFormGroup = this._formBuilder.group({
-      // tslint:disable-next-line: no-unbound-method
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       secondCtrl: ['', Validators.required],
     });
   }

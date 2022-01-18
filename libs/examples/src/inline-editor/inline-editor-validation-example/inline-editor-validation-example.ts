@@ -29,7 +29,7 @@ import {
 })
 export class DtExampleInlineEditorValidation {
   queryTitleControl = new FormControl('', [
-    // tslint:disable-next-line: no-unbound-method
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     Validators.minLength(4),
     this.baristaValidator(),
   ]);
@@ -47,7 +47,7 @@ export class DtExampleInlineEditorValidation {
    * exporting/importing this function is preferred since it increases reusability
    */
   baristaValidator(): ValidatorFn {
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return (control: AbstractControl): { [key: string]: any } | null => {
       const required = !control.value.includes('barista');
       return required ? { barista: { value: control.value } } : null;

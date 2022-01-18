@@ -25,7 +25,7 @@ import { DtEventChartSelectedEvent } from '@dynatrace/barista-components/event-c
 export class DtExampleEventChartSelection {
   _lastSelected: DtEventChartSelectedEvent<string>;
   triggerSelection(event: DtEventChartSelectedEvent<string>): void {
-    // tslint:disable-next-line: no-console
+    // eslint-disable-next-line no-console
     console.log(event);
   }
 }

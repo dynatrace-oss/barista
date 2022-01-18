@@ -16,5 +16,5 @@
     "strictInjectionParameters": true,
     "enableResourceInlining": true
   },
-  "include": ["**/*.d.ts"]
+  "include": ["**/*.ts"]
 }

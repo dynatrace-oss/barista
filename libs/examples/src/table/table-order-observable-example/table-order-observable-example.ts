@@ -35,7 +35,7 @@ export class DtExampleTableOrderObservable implements OnInit {
   dataSource = new DtTableOrderDataSource<any>(this.dataObservable.value);
   cancelSubscriptionSource = new Subject<void>();
 
-  // tslint:disable-next-line:no-magic-numbers
+  // eslint-disable-next-line no-magic-numbers
   private source = interval(1000);
   subscription: Subscription;
   isSubscribed = false;
@@ -69,7 +69,7 @@ export class DtExampleTableOrderObservable implements OnInit {
   }
 
   getAnotherRow(): void {
-    // tslint:disable
+    /* eslint-disable */
     this.dataObservable.next([
       ...this.dataObservable.value,
       {
@@ -81,7 +81,7 @@ export class DtExampleTableOrderObservable implements OnInit {
         traffic: `${(Math.random() * 100).toFixed(2)} Mbit/s`,
       },
     ]);
-    // tslint:enable
+    /* eslint-enable */
     this.dataSource.data = this.dataObservable.value;
   }
 }

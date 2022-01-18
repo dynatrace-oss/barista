@@ -57,7 +57,7 @@ export class DtExampleTableComparators implements AfterViewInit, OnDestroy {
     );
   }
 
-  // tslint:disable: no-any
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   readonly compareStringLengths = (
     left: any,
     right: any,
@@ -72,7 +72,7 @@ export class DtExampleTableComparators implements AfterViewInit, OnDestroy {
 
     return compareStrings(left[name], right[name], 'asc');
   };
-  // tslint:enable: no-any
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   ngOnDestroy(): void {
     // Not necessary but possible

@@ -49,7 +49,7 @@ const customTooltipConfig: DtChartTooltipConfig = {
   positionFunction: getTooltipPosition,
 };
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 
 @Component({
   selector: 'dt-example-chart-bar',

@@ -39,7 +39,7 @@ export class DtExampleBreadcrumbsObservable {
         href: 'first/second',
       },
       {
-        // tslint:disable-next-line no-magic-numbers
+        // eslint-disable-next-line  no-magic-numbers
         label: `Current view ${i + 2}`,
       },
     ]),

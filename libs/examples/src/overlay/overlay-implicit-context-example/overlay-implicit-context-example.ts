@@ -36,7 +36,7 @@ export class DtExampleOverlayImplicitContext implements OnInit, OnDestroy {
   @ViewChild('origin', { static: true }) origin: ElementRef;
 
   @ViewChild('overlay', { static: true, read: TemplateRef })
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   overlayTemplate: TemplateRef<any>;
 
   /** Interval reference to clear up the interval on destroy */
@@ -57,7 +57,7 @@ export class DtExampleOverlayImplicitContext implements OnInit, OnDestroy {
     clearInterval(this._interval);
   }
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   overlayRef: DtOverlayRef<any> | null;
 
   createOverlay(): void {

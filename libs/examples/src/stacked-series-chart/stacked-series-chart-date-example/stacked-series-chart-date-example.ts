@@ -19,6 +19,7 @@ import { stackedSeriesChartDemoDataConvertedBouncedDates } from '../stacked-seri
 import { timeMinute, timeHour } from 'd3-time';
 import { TimeInterval } from '@dynatrace/barista-components/stacked-series-chart';
 
+// eslint-disable-next-line no-shadow
 enum TimeIntervalKey {
   fiveMin,
   halfHour,

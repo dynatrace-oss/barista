@@ -20,7 +20,7 @@ import {
   DtFilterFieldDefaultDataSource,
 } from '@dynatrace/barista-components/filter-field';
 
-// tslint:disable: no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 @Component({
   selector: 'dt-example-filter-field-async',

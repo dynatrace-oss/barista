@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable: dt-icon-names
+/* eslint-disable */
 
 import { Component, OnInit } from '@angular/core';
 

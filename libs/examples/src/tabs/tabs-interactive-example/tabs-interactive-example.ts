@@ -32,9 +32,9 @@ export class DtExampleTabsInteractive {
     this.simulatedColor = 'error';
     this.simulationRunning = true;
     this.connectivity = '30%';
-    // tslint:disable-next-line:no-magic-numbers
+    // eslint-disable-next-line no-magic-numbers
     timer(1000, 1000)
-      // tslint:disable-next-line:no-magic-numbers
+      // eslint-disable-next-line no-magic-numbers
       .pipe(take(2))
       .subscribe(
         () => {

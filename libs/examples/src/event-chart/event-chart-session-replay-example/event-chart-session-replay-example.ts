@@ -16,13 +16,13 @@
 
 import { Component } from '@angular/core';
 
-// tslint:disable: max-file-line-count
+/* eslint-disable max-lines */
 interface EventChartDemoEvent {
   lane: string;
   value: number;
   duration: number;
   color?: 'default' | 'error' | 'filtered';
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
 }
 

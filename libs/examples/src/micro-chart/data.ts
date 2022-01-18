@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 export function randomize(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min) + min);
 }
@@ -34,4 +34,4 @@ export function generateData(
       ],
   );
 }
-// tslint:enable:no-magic-numbers
+/* eslint-enable no-magic-numbers */

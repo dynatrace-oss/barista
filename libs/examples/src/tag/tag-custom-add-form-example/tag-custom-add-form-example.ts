@@ -37,7 +37,7 @@ export class DtExampleCustomAddFormTag {
   ]);
 
   keyFormControl = new FormControl('', [
-    // tslint:disable-next-line: no-unbound-method
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     Validators.required,
   ]);
 

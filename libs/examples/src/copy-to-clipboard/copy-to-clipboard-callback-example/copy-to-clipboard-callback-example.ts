@@ -29,7 +29,7 @@ export class DtExampleCopyToClipboardCallback {
 
   copyCallback(): void {
     this._copyHint = `Copied "${this._value}" to clipboard.`;
-    // tslint:disable-next-line:no-magic-numbers
+    // eslint-disable-next-line no-magic-numbers
     timer(2500).subscribe((): void => {
       this._copyHint = 'Will change after copy.';
       this._changeDetectorRef.markForCheck();

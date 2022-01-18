@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable no-magic-numbers no-any max-file-line-count
+// eslint-disable  no-magic-numbers, @typescript-eslint/no-explicit-any, max-lines
 
 import { SeriesArearangeDataOptions, PointOptionsObject } from 'highcharts';
 

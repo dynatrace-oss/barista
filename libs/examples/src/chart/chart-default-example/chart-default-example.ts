@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 
 import { Component } from '@angular/core';
 
@@ -85,4 +85,4 @@ export class DtExampleChartDefault {
   }
 }
 
-// tslint:enable:no-magic-numbers
+/* eslint-enable no-magic-numbers */
