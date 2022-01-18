@@ -106,10 +106,10 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
    * Defines the maxlength for the nodes labels.
    * If it's set to 0, no truncation is applied.
    */
-  @Input() truncateLabelBy: number = 10;
+  @Input() truncateLabelBy = 10;
 
   /** Defines the default label displayed in the center of the sunburst-chart, if no nodes are selected. */
-  @Input() noSelectionLabel: string = 'All';
+  @Input() noSelectionLabel = 'All';
   /** Sets the display mode for the sunburst-chart values to either 'percent' or 'absolute'.  */
   @Input()
   set valueDisplayMode(value: 'absolute' | 'percent') {
@@ -167,7 +167,7 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
   /** @internal Relative value of selected element to be displayed */
   _selectedRelativeValue: number;
   /** @internal Marks if absolute value should be shown or percent instead */
-  _valueAsAbsolute: boolean = true;
+  _valueAsAbsolute = true;
 
   private _filledSeries: DtSunburstChartTooltipData[];
 
@@ -263,10 +263,6 @@ export class DtSunburstChart implements AfterContentInit, OnDestroy {
     event?.stopPropagation();
 
     if (slice) {
-      //  TODO: lukas.holzer
-      // Bazel cannot resolve the extends of the interface properly and
-      // throws error: Property 'data' does not exist on type 'DtSunburstChartSlice'.
-      // @ts-ignore
       this._selected = getSelectedNodes(this._filledSeries, slice.data);
 
       this.selectedChange.emit(this._selected.map((node) => node.origin));

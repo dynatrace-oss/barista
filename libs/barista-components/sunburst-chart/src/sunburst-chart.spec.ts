@@ -432,7 +432,7 @@ describe('DtSunburstChart', () => {
       component.openOverlay(component.slices[0]);
       fixture.detectChanges();
 
-      let overlayPane = overlayContainerElement.querySelector(
+      const overlayPane = overlayContainerElement.querySelector(
         selectors.overlay,
       );
       expect(overlayPane).toBeDefined();

@@ -42,6 +42,7 @@ export interface DtSunburstChartOverlayData {
  * Slice, label, value and selection for sunburst-chart
  */
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'svg:g[dt-sunburst-chart-segment]',
   templateUrl: 'sunburst-chart-segment.html',
   styleUrls: ['sunburst-chart-segment.scss'],

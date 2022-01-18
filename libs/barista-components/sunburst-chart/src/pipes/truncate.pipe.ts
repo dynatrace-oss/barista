@@ -18,6 +18,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 /**
  * Truncate string and an ellipsis at the end
+ *
  * @param value - Value to be truncated
  * @param limit - Limit of characters before being truncated
  */

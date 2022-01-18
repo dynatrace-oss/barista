@@ -187,7 +187,8 @@ const fillUpAndSortNodes = (node: DtSunburstChartNode) => {
     children,
     value: children ? getValue(children) : node.value ?? 0,
     depth: children
-      ? 1 + Math.max(...children?.map((child) => child.depth ?? 0))
+      ? // eslint-disable-next-line no-unsafe-optional-chaining
+        1 + Math.max(...children?.map((child) => child.depth ?? 0))
       : 1,
   };
 };
