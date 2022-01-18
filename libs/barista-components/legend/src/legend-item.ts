@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 /**
  * @license
  * Copyright 2021 Dynatrace LLC
