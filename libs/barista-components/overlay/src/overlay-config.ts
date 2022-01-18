@@ -16,7 +16,7 @@
 
 export class DtOverlayConfig {
   /** enables pinning the overlay */
-  // tslint:disable-next-line:no-inferrable-types
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   pinnable?: boolean = false;
 
   /** Constrains movement along an axis */
@@ -30,6 +30,6 @@ export class DtOverlayConfig {
   originY?: 'edge' | 'center' = 'center';
 
   /** Data passed to the overlay as the $implicit context object */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
 }

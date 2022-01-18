@@ -130,7 +130,7 @@ export class DtOverlayContainer
     private _elementRef: ElementRef,
     private _focusTrapFactory: FocusTrapFactory,
     private _viewContainerRef: ViewContainerRef,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Optional() @Inject(DOCUMENT) private _document: any,
   ) {
     super(_ngZone);
@@ -198,7 +198,7 @@ export class DtOverlayContainer
   private _restoreFocus(): void {
     const toFocus = this._elementFocusedBeforeDialogWasOpened;
 
-    // tslint:disable-next-line: strict-type-predicates no-unbound-method
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     if (toFocus && typeof toFocus.focus === 'function') {
       toFocus.focus();
     }

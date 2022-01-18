@@ -105,7 +105,6 @@ export class DtOverlayTrigger<T>
     private _ngZone: NgZone,
     private _focusMonitor: FocusMonitor,
     @Attribute('tabindex') tabIndex: string,
-    // @ts-ignore
     private _platform: Platform,
   ) {
     super();
@@ -189,6 +188,7 @@ export class DtOverlayTrigger<T>
       if (keyCode === ENTER || keyCode === SPACE) {
         event.preventDefault();
         this._createOverlay();
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         this._dtOverlayRef!.pin(true);
       }
     }

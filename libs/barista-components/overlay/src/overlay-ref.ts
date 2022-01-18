@@ -121,7 +121,7 @@ export class DtOverlayRef<T> {
   }
 
   /** Update the implicit context on the template portal if one exists. */
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   updateImplicitContext(data: any): void {
     if (this._templatePortal) {
       this._templatePortal.context.$implicit = data;

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { ENTER, ESCAPE, SPACE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -220,7 +220,7 @@ describe('DtOverlayTrigger', () => {
     expect(overlay).not.toBeNull();
   }));
 
-  // tslint:disable-next-line: dt-no-focused-tests
+  // eslint-disable-next-line
   it.skip('should lock movement to xAxis', fakeAsync(() => {
     const offset = 1;
     fixture.componentInstance.config = { movementConstraint: 'xAxis' };
@@ -246,7 +246,7 @@ describe('DtOverlayTrigger', () => {
     );
   }));
 
-  // tslint:disable-next-line: dt-no-focused-tests
+  // eslint-disable-next-line
   it.skip('should lock movement to yAxis', fakeAsync(() => {
     const offset = 1;
     fixture.componentInstance.config = { movementConstraint: 'yAxis' };
@@ -288,7 +288,7 @@ describe('DtOverlayTrigger', () => {
     expect(document.activeElement).toBe(previouslyFocused);
   }));
 
-  // tslint:disable-next-line: dt-no-focused-tests
+  // eslint-disable-next-line
   it.skip('should change the focus if the overlay pinned', fakeAsync(() => {
     const previouslyFocused = document.activeElement;
     fixture.componentInstance.config = { pinnable: true };
@@ -400,7 +400,7 @@ class TestComponent {
   config: DtOverlayConfig = {};
   disabled = false;
   showTrigger = true;
-  pinned: boolean = false;
+  pinned = false;
 
   handlePinnedChanged(event: boolean): void {
     this.pinned = event;
