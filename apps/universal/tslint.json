@@ -1,9 +1,0 @@
-{
-  "extends": "../../tslint.json",
-  "rules": {
-    "i18n": false
-  },
-  "linterOptions": {
-    "exclude": ["!**/*"]
-  }
-}
