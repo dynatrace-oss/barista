@@ -131,29 +131,28 @@ describe('DtTabRouterFragmentAdapter', () => {
   });
 
   describe('with initial fragment', () => {
-    beforeEach(fakeAsync(() => {
+    it('should set the selected tab to the tab that matches the fragment', fakeAsync(() => {
       location.go('/#packets');
       router.initialNavigation();
       tick();
       fixture.detectChanges();
-      tabGroupDebug = fixture.debugElement.query(By.directive(DtTabGroup));
-      tabsDebug = tabGroupDebug.queryAll(By.css('.dt-tab-label'));
-    }));
-
-    it('should set the selected tab to the tab that matches the fragment', fakeAsync(() => {
       checkSelected(1, fixture);
     }));
 
     it('should set the selected tab to the tab that matches the fragment with multiple ids', fakeAsync(() => {
       location.go('/#packets,cpu-ready-time');
+      router.initialNavigation();
       tick();
+      fixture.detectChanges();
       checkSelected(1, fixture);
       checkSelected(5, fixture);
     }));
 
     it('should set the first found id within a tabgroup and ingore the second', fakeAsync(() => {
       location.go('/#packets,traffic');
+      router.initialNavigation();
       tick();
+      fixture.detectChanges();
       checkSelected(1, fixture);
       checkSelected(0, fixture, false);
     }));
