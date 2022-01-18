@@ -16,7 +16,7 @@
 
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { readJsonInTree, serializeJson } from '@nrwl/workspace';
+import { readJsonInTree } from '@nrwl/workspace';
 import { createEmptyWorkspace } from '@nrwl/workspace/testing';
 import * as path from 'path';
 
@@ -34,7 +34,7 @@ describe('Update 8.0.0', () => {
 
     initialTree.overwrite(
       'package.json',
-      serializeJson({
+      JSON.stringify({
         dependencies: {
           '@angular/core': '^10.0.0',
           '@dynatrace/barista-components': '^7.5.0',
@@ -62,7 +62,7 @@ describe('Update 8.0.0', () => {
   it('should not update anything if it is already up to date', async () => {
     initialTree.overwrite(
       'package.json',
-      serializeJson({
+      JSON.stringify({
         dependencies: {
           '@angular/core': '^10.0.0',
           '@dynatrace/barista-components': '^8.0.0',
@@ -85,7 +85,7 @@ describe('Update 8.0.0', () => {
   it('should not update the angular version', async () => {
     initialTree.overwrite(
       'package.json',
-      serializeJson({
+      JSON.stringify({
         dependencies: {
           '@angular/core': '^9.5.0',
           '@dynatrace/barista-components': '^7.6.0',

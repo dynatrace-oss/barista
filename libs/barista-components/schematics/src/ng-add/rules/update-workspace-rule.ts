@@ -18,7 +18,7 @@ import {
   AssetPattern,
   Schema as BuildAngularSchema,
   // Schema.json is only importable via the src files
-} from '@angular-devkit/build-angular/src/browser/schema';
+} from '@angular-devkit/build-angular/src/builders/browser/schema';
 import {
   chain,
   Rule,

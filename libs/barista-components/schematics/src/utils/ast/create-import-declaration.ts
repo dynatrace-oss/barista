@@ -30,7 +30,11 @@ export function createImportDeclaration(
   named = true,
 ): ts.ImportDeclaration {
   const importSpecifiers = symbolName.map((n) =>
-    ts.factory.createImportSpecifier(undefined, ts.factory.createIdentifier(n)),
+    ts.factory.createImportSpecifier(
+      false,
+      undefined,
+      ts.factory.createIdentifier(n),
+    ),
   );
 
   let importClause: ts.ImportClause;
