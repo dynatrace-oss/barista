@@ -21,8 +21,8 @@ import { DtDemosAppModule } from './app.module';
 platformBrowserDynamic()
   .bootstrapModule(DtDemosAppModule, { preserveWhitespaces: true })
   .catch(
-    // tslint:disable-next-line:typedef
+    // eslint-disable-next-line
     (err): void => {
-      console.log(err); // tslint:disable-line:no-console
+      console.log(err); // eslint-disable-line no-console
     },
   );
