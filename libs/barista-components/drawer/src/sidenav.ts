@@ -29,7 +29,7 @@ import { DtDrawer } from './drawer';
 import { dtDrawerAnimation } from './drawer-animation';
 
 @Directive({
-  selector: 'dt-sidenav-header',
+  selector: 'dt-sidenav-header, [dtSidenavHeader]',
   exportAs: 'dtSidenavHeader',
   host: {
     class: 'dt-sidenav-header-title',
