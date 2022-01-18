@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import {
   DOWN_ARROW,
@@ -650,7 +650,7 @@ describe('DtSelect', () => {
           expect(options[1].getAttribute('aria-disabled')).toEqual('false');
           expect(options[2].getAttribute('aria-disabled')).toEqual('true');
 
-          // tslint:disable-next-line:no-string-literal
+          // eslint-disable-next-line dot-notation, @typescript-eslint/dot-notation
           fixture.componentInstance.foods[2]['disabled'] = false;
           fixture.detectChanges();
 
@@ -1296,7 +1296,7 @@ describe('DtSelect', () => {
 
       //   expect(spy).toHaveBeenCalledWith(jasmine.any(DtOptionSelectionChange));
 
-      //   // tslint:disable-next-line:no-unnecessary-type-assertion
+      // eslint-disable-next-line
       //   subscription!.unsubscribe();
       // }));
     });
@@ -1599,7 +1599,7 @@ describe('DtSelect', () => {
       trigger.click();
       fixture.detectChanges();
 
-      // tslint:disable-next-line: no-unnecessary-type-assertion
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       (
         overlayContainerElement.querySelector('dt-option') as HTMLElement
       ).click();
@@ -1718,7 +1718,7 @@ describe('DtSelect', () => {
       }),
     );
 
-    // tslint:disable-next-line: dt-no-focused-tests
+    // eslint-disable-next-line
     it.skip('should set the width of the overlay if there is no placeholder', fakeAsync(() => {
       const fixture = createComponent(BasicSelectNoPlaceholder);
 
@@ -1801,7 +1801,7 @@ describe('DtSelect', () => {
       }));
 
       it('should use the comparator', fakeAsync(() => {
-        // tslint:disable-next-line:no-unbound-method
+        // eslint-disable-next-line @typescript-eslint/unbound-method
         expect(instance.compareByReference).toHaveBeenCalled();
       }));
 
@@ -2407,7 +2407,7 @@ class NgModelCompareWithSelect {
     { value: 'tacos-2', viewValue: 'Tacos' },
   ];
   selectedFood = { value: 'pizza-1', viewValue: 'Pizza' };
-  // tslint:disable-next-line:no-unbound-method
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   comparator: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
   @ViewChild(DtSelect) select: DtSelect<any>;
@@ -2466,7 +2466,7 @@ class SelectInsideFormGroup {
   @ViewChild(FormGroupDirective)
   formGroupDirective: FormGroupDirective;
   @ViewChild(DtSelect) select: DtSelect<any>;
-  // tslint:disable-next-line:no-unbound-method
+  // eslint-disable-next-line @typescript-eslint/unbound-method
   formControl = new FormControl('', Validators.required);
   formGroup = new FormGroup({
     food: this.formControl,
@@ -2624,7 +2624,7 @@ class SelectWithCustomTrigger {
     { value: 'cloud-storage', viewValue: 'Cloud Storage' },
   ];
   control = new FormControl();
-  _customTemplate: boolean = false;
+  _customTemplate = false;
 
   @ViewChild(DtSelect) select: DtSelect<any>;
 }
