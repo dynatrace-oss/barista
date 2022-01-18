@@ -37,6 +37,7 @@ export class DtDuration implements PipeTransform {
    * @param maxDecimals max amount of decimals
    */
   transform(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     duration: any,
     formatMethod: DurationMode,
     outputUnit: DtTimeUnit | undefined,

@@ -28,7 +28,7 @@ const DEFAULT_BITS_OPTIONS: DtNumberFormatOptions = {
   inputUnit: DtUnit.BITS,
 };
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 const KILO_CONVERSIONS = [
   { multiplier: Math.pow(KILO_MULTIPLIER, 5), unit: DtUnit.PETA_BITS },
   { multiplier: Math.pow(KILO_MULTIPLIER, 4), unit: DtUnit.TERA_BITS },
@@ -44,9 +44,10 @@ const KIBI_CONVERSIONS = [
   { multiplier: Math.pow(KIBI_MULTIPLIER, 2), unit: DtUnit.MEGA_BITS },
   { multiplier: KIBI_MULTIPLIER, unit: DtUnit.KILO_BITS },
 ];
-// tslint:enable:no-magic-numbers
+/* eslint-enable no-magic-numbers */
 /**
  * Util function that formats given number as bits
+ *
  * @param input - value that gets formatted
  * @param [options] - includes factor for conversion, inputUnit and outputUnit
  * these options are merged with default options (factor: 1000, inputUnit: bits)
@@ -54,7 +55,7 @@ const KIBI_CONVERSIONS = [
  * if you specify an outputUnit like kilobits - the input will be presented in kilobits regardless how big the input is
  */
 export function formatBits(
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   input: any,
   options?: DtNumberFormatOptions,
 ): DtFormattedValue {

@@ -24,6 +24,7 @@ import { dtConvertToUnit } from './convert-to-unit';
 
 /**
  * Calculates the duration precisely. Will convert duration to the inputUnit or to the outputUnit if set. (floating point number for its corelated unit)
+ *
  * @param duration numeric time value
  * @param inputUnit dtTimeUnit value describing which unit the duration is in
  * @param outputUnit dtTimeUnit | undefined value describing the unit to which it should format
@@ -40,8 +41,10 @@ export function dtTransformResultPrecise(
 ): Map<DtTimeUnit, string> | undefined {
   const amount = dtConvertToUnit(duration, inputUnit);
   return outputUnit !== undefined
-    ? calcResult(amount!, formatMethod, outputUnit, maxDecimals)
-    : calcResult(amount!, formatMethod, inputUnit, maxDecimals);
+    ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      calcResult(amount!, formatMethod, outputUnit, maxDecimals)
+    : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      calcResult(amount!, formatMethod, inputUnit, maxDecimals);
 }
 
 function calcResult(
@@ -51,16 +54,22 @@ function calcResult(
   maxDecimals: number | undefined,
 ): Map<DtTimeUnit, string> {
   conversionFactorSetup();
-  let result = new Map<DtTimeUnit, string>();
+  const result = new Map<DtTimeUnit, string>();
   if (formatMethod === 'PRECISE') {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     amount = amount / CONVERSION_FACTORS_TO_MS.get(unit)!;
     if (maxDecimals) {
       amount = Math.round(amount * 10 ** maxDecimals) / 10 ** maxDecimals;
     }
     result.set(unit, amount.toString());
   } else {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     amount = Math.trunc(amount / CONVERSION_FACTORS_TO_MS.get(unit)!);
-    amount < 1 ? result.set(unit, '< 1') : result.set(unit, amount.toString());
+    if (amount < 1) {
+      result.set(unit, '< 1');
+    } else {
+      result.set(unit, amount.toString());
+    }
   }
   return result;
 }

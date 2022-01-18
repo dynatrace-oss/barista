@@ -25,7 +25,7 @@ import { DtUnit } from '../unit';
  *
  * @param input - numeric value to be transformed
  * @param inputUnit - input unit, typically defined unit of type DtUnit (DtUnit.COUNT by default), custom strings are also allowed
- *    value is used only as a reference in case an additional rate pipe is used
+ * value is used only as a reference in case an additional rate pipe is used
  * @param maxPrecision - The maximum amount of digits to be used, if provided
  */
 export function formatCount(
