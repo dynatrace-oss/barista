@@ -61,6 +61,7 @@ import { ESCAPE, hasModifierKey, TAB } from '@angular/cdk/keycodes';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { findFirstFocusableItem } from './focusable-items';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const window: any;
 
 const COLLAPSED_BUTTON_WIDTH = 36;
@@ -115,6 +116,7 @@ export class DtBreadcrumbs
   _transplantedItemsString = ``;
 
   /** Observes the container size */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _containerSizeObserver: any;
 
   private _destroy$ = new Subject<void>();
@@ -151,6 +153,7 @@ export class DtBreadcrumbs
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _appRef: ApplicationRef,
     private _injector: Injector,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) private _document: any,
     private _overlay: Overlay,
     private _changeDetectorRef: ChangeDetectorRef,
@@ -231,6 +234,7 @@ export class DtBreadcrumbs
         // moved to the overlay and attach it to the portal outlet
         for (const item of toTransplant) {
           const portalOutlet = new DomPortalOutlet(
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             this._collapsedContainer!,
             this._componentFactoryResolver,
             this._appRef,
@@ -452,6 +456,7 @@ export class DtBreadcrumbs
 
   /**
    * Returns an array of items that need to be moved to the overlay
+   *
    * @param containerRect Bounds of the breadcrumbs container
    */
   private _determineItemsToTransplant(

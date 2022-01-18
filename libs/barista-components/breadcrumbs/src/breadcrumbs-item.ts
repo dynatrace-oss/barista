@@ -23,8 +23,8 @@ const BREADCRUMBS_ITEM_ELLIPSIS_CLASS = `dt-breadcrumbs-item-ellipsis`;
 /**
  * A breadcrumbs item that can be used within the `<dt-breadcrumbs>`.
  *
- *  @example
- *  <a dtBreadcrumbsItem href="/hosts">Hosts</a>
+ * @example
+ * <a dtBreadcrumbsItem href="/hosts">Hosts</a>
  */
 @Directive({
   selector: 'a[dt-breadcrumbs-item], a[dtBreadcrumbsItem]',
