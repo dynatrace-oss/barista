@@ -140,7 +140,7 @@ export class DtExpandablePanel {
     filter((v) => v),
   );
 
-  /**  @internal Event emitted when the panel is collapsed. */
+  /** @internal Event emitted when the panel is collapsed. */
   @Output('collapsed')
   readonly _panelCollapsed: Observable<boolean> = this.expandChange.pipe(
     filter((v) => !v),
