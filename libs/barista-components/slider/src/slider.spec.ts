@@ -804,10 +804,10 @@ class TestApp {
 })
 class TestBindingApp {
   disabled = false;
-  value: number = 0;
-  step: number = 1;
-  min: number = 0;
-  max: number = 10;
+  value = 0;
+  step = 1;
+  min = 0;
+  max = 10;
 }
 
 @Component({
@@ -840,7 +840,7 @@ class TestDefaultSliderApp {
   `,
 })
 class TestListenerSliderApp {
-  value: number = 0;
+  value = 0;
   @ViewChild(DtSlider, { static: true })
   slider: DtSlider;
 
