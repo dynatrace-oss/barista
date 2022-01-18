@@ -69,7 +69,7 @@ export class DtExampleTableResponsive implements OnInit {
   _tableBreakpointObserver: DtContainerBreakpointObserver;
 
   @ViewChild(DtTable, { static: true })
-  _table: DtTable<any>; // tslint:disable-line: no-any
+  _table: DtTable<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
 
   private _tableNarrow = false;
   private _baseColumns = ['host', 'cpu'];

@@ -97,7 +97,7 @@ export class DtExampleTableSearch implements AfterViewInit {
     this.dataSource.search = this.tableSearch;
   }
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   combineMemory(row: any): string {
     const memoryPercentage = formatPercent(row.memoryPerc);
     const memoryTotal = formatBytes(row.memoryTotal, {

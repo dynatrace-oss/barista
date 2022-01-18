@@ -29,7 +29,7 @@ export class DtExampleTableObservable {
   dataSource = new BehaviorSubject<object[]>([]);
   cancelSubscriptionSource = new Subject<void>();
 
-  // tslint:disable-next-line:no-magic-numbers
+  // eslint-disable-next-line no-magic-numbers
   private source = interval(1000);
   subscription: Subscription;
   isSubscribed = false;
@@ -58,7 +58,7 @@ export class DtExampleTableObservable {
   }
 
   getAnotherRow(): void {
-    // tslint:disable
+    /* eslint-disable */
     this.dataSource.next([
       ...this.dataSource.value,
       {
@@ -70,6 +70,6 @@ export class DtExampleTableObservable {
         traffic: `${(Math.random() * 100).toFixed(2)} Mbit/s`,
       },
     ]);
-    // tslint:enable
+    /* eslint-enable */
   }
 }

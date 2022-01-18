@@ -21,7 +21,7 @@ import { Component } from '@angular/core';
   templateUrl: 'indicator-default-example.html',
 })
 export class DtExampleIndicatorDefault {
-  shown: boolean = true;
+  shown = true;
 
   color: 'warning' | 'error' | 'recovered' | 'critical' = 'error';
 }

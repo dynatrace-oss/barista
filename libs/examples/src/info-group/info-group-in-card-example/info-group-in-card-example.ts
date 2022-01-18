@@ -15,7 +15,7 @@
  */
 
 import { Component } from '@angular/core';
-// tslint:disable: dt-card-needs-title dt-icon-names
+/* eslint-disable */
 
 @Component({
   selector: 'dt-example-info-group-in-card',

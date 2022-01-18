@@ -73,7 +73,7 @@ export class Viewport {
       .pipe(map(() => void 0));
   }
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _change(context?: any): Observable<ViewportRect> {
     return merge(
       this._scrollDispatcher.scrolled(),

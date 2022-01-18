@@ -34,7 +34,7 @@ export class DtExampleEventChartComplexSelection<T> {
   private _eventChart: DtEventChart<T>;
 
   triggerSelection(event: DtEventChartSelectedEvent<string>): void {
-    // tslint:disable-next-line: no-console
+    // eslint-disable-next-line no-console
     console.log(event);
   }
 

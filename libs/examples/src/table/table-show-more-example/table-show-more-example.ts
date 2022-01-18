@@ -40,7 +40,7 @@ export class DtExampleTableShowMore implements OnInit, OnDestroy {
   }> = new DtTableDataSource();
   @ViewChild(DtShowMore, { static: true }) showMore: DtShowMore;
   private destroy$ = new Subject<void>();
-  // tslint:disable-next-line:max-line-length
+  // eslint-disable-next-line max-len
   private fakeBackend = new BehaviorSubject<
     Array<{
       host: string;

@@ -29,9 +29,9 @@ import { DtExampleStackedSeriesChartDate } from './stacked-series-chart-date-exa
 import { CommonModule } from '@angular/common';
 import { DtTableModule } from '@dynatrace/barista-components/table';
 import { DtButtonGroupModule } from '@dynatrace/barista-components/button-group';
-import { DtInputModule } from '../../../barista-components/input';
+import { DtInputModule } from '@dynatrace/barista-components/input';
+import { DtSwitchModule } from '@dynatrace/barista-components/switch';
 import { FormsModule } from '@angular/forms';
-import { DtSwitchModule } from '../../../barista-components/switch';
 import { DtExampleStackedSeriesChartHeatField } from './stacked-series-chart-heat-field-example/stacked-series-chart-heat-field-example';
 @NgModule({
   imports: [

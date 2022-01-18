@@ -117,7 +117,7 @@ export class DtExampleTablePagination implements OnInit {
       factor: 1024,
     });
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   combineMemory(row: any): string {
     const memoryPercentage = formatPercent(row.memoryPerc);
     const memoryTotal = formatBytes(row.memoryTotal, {
@@ -128,7 +128,7 @@ export class DtExampleTablePagination implements OnInit {
     return `${memoryPercentage} of ${memoryTotal}`;
   }
 
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   memorySortAccessor(row: any): number {
     return row.memoryPerc;
   }

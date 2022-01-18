@@ -18,7 +18,7 @@
 // file to change something in the module definition file or generate by running
 // npm run examples-tools
 
-// tslint:disable: max-file-line-count
+/* eslint-disable max-lines */
 
 import { NgModule } from '@angular/core';
 import { DtAlertExamplesModule } from './alert/alert-examples.module';

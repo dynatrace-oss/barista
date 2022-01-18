@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 
 import { Injectable } from '@angular/core';
 import { Observable, timer } from 'rxjs';
@@ -47,4 +47,4 @@ export class DtChartExampleDataService {
   }
 }
 
-// tslint:enable:no-magic-numbers
+/* eslint-enable no-magic-numbers */
