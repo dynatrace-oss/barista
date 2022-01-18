@@ -105,7 +105,7 @@ describe('DtDrawerTable', () => {
  */
 @Component({
   selector: 'dt-test-component',
-  // tslint:disable-next-line:component-max-inline-declarations
+  // eslint-disable-next-line @angular-eslint/component-max-inline-declarations
   template: `
     <dt-drawer-table>
       <ng-template dtDrawerContent let-row>
