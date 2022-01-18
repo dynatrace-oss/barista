@@ -101,7 +101,7 @@ import {
 import { ComboboxDemo } from './combobox/combobox-demo.component';
 import { QuickFilterDemoComponent } from './quick-filter/quick-filter-demo.component';
 
-// tslint:disable-next-line: use-component-selector
+// eslint-disable-next-line @angular-eslint/use-component-selector
 @Component({ template: '' })
 export class NoopRouteComponent {}
 

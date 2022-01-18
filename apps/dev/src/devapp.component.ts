@@ -187,7 +187,7 @@ export class DevApp implements AfterContentInit, OnDestroy {
   private _increaseZoneStable(): void {
     let el = this._zoneCounterEl;
     if (!el) {
-      // tslint:disable-next-line: ban
+      // eslint-disable-next-line
       el = document.createElement('code');
       el.className = 'dev-app-zone-counter';
       document.body.appendChild(el);
