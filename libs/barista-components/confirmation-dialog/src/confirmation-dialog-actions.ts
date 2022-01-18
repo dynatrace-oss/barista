@@ -17,7 +17,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: 'dt-confirmation-dialog-actions',
+  selector: 'dt-confirmation-dialog-actions, [dtConfirmationDialogActions]',
   host: {
     class: 'dt-confirmation-dialog-actions',
   },
