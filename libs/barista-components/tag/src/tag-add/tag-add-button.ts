@@ -31,6 +31,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   `,
 })
 export class DtTagAddButton {
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() readonly click = new EventEmitter<Event>();
 
   @Input() valid: boolean;

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
@@ -161,7 +161,7 @@ describe('DtTagList', () => {
     const elements: HTMLElement[] = [];
     for (let i = 0; i < tagCount; i++) {
       const mockedTop = i < 3 ? 0 : 40;
-      // tslint:disable-next-line: no-object-literal-type-assertion
+      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const mockedElement = {
         getBoundingClientRect: () => ({
           top: mockedTop,
