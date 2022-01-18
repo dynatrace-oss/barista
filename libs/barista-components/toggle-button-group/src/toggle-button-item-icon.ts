@@ -18,7 +18,7 @@ import { Directive } from '@angular/core';
 
 /** Icon wrapper for the DtToggleButtonItemIcon */
 @Directive({
-  selector: `dt-toggle-button-item-icon`,
+  selector: 'dt-toggle-button-item-icon, [dtToggleButtonItemIcon]',
   exportAs: 'dtToggleButtonItemIcon',
   host: {
     class: 'dt-toggle-button-item-icon',

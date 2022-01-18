@@ -49,6 +49,7 @@ export const _DtToggleButtonMixinBase = mixinTabIndex(
 
 /** ToggleButtonItem as a building part of the DtToggleButtonGroup */
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'button[dt-toggle-button-item]',
   exportAs: 'dtToggleButtonItem',
   templateUrl: 'toggle-button-item.html',
@@ -120,7 +121,7 @@ export class DtToggleButtonItem<T>
 
   /** Change event that fires if an toggle button item is selected or deselected. */
   // Disabling no-output-native rule because we want to keep a similar API to the radio button
-  // tslint:disable-next-line: no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() readonly change = new EventEmitter<DtToggleButtonChange<T>>();
 
   constructor(
