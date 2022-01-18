@@ -114,7 +114,7 @@ export class DtChartTooltip implements OnDestroy {
       });
 
       const overlayRef = this._overlay.create(overlayConfig);
-      // tslint:disable-next-line:no-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this._portal = new TemplatePortal<any>(
         this._overlayTemplate,
         this._viewContainerRef,

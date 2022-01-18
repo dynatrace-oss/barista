@@ -18,13 +18,13 @@ import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 const logger: DtLogger = DtLoggerFactory.create('DtChart');
 
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, no-var
 declare var require: any;
-// tslint:disable-next-line: no-require-imports no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const highcharts = require('highcharts');
 
 export function applyHighchartsErrorHandler(): void {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   highcharts.error = function (code: number, stop: boolean): void {
     const message = `HighCharts Error: www.highcharts.com/errors/${code}`;
     logger.error(message);

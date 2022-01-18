@@ -58,6 +58,7 @@ import {
 
 /**
  * Creates a Mousedown stream on the provided elements and removes the pointer events class
+ *
  * @param target The HTMLElement that should used to calculate the relative position
  * @param mousedownElements Array of Elements that is used as event targets
  * to capture the mouse move event
@@ -79,6 +80,7 @@ export function getMouseDownStream(
  * Creates a Mouseup stream on the Window. Used to end other streams and actions.
  * In case it is used to end our actions we want to dispatch a side effect that adds the pointer
  * events back on the target. Starting actions remove the pointer events class.
+ *
  * @param target The HTMLElement where the no pointer events class should be toggled.
  * @param mouseUpStream$ Optional stream that emits the start
  */
@@ -100,6 +102,7 @@ export function getMouseUpStream(
 
 /**
  * Creates a touch start stream on the provided elements and removes the pointer events class
+ *
  * @param target The HTMLElement where the class should be toggled
  * @param mousedownElements Array of elements that is used as event targets
  * to capture the mouse move event
@@ -120,6 +123,7 @@ export function getTouchStartStream(
  * Creates a touch end stream on the window. Used to end other streams and actions.
  * In case it is used to end our actions we want to dispatch a side effect that adds the pointer
  * events back on the target. Starting actions remove the pointer events class.
+ *
  * @param target The HTMLElement where the no pointer events class should be toggled.
  * @param touchEnd$ A stream that emits a touch end event
  */
@@ -142,6 +146,7 @@ export function getTouchEndStream(
 /**
  * Creates a mouse out stream on the provided elements filters out the mouse out between the elements
  * if the event is not outside the provided bounding client rect.
+ *
  * @param target The HTMLElement that should used to calculate the relative position
  * @param mousedownElements Array of Elements that is used as event targets
  * to capture the mouse out event
@@ -167,6 +172,7 @@ export function getMouseOutStream(
 /**
  * Creates a stream that provides relative position for a click. We have to check if it is not only
  * a click in case we have to separate from a drag as well.
+ *
  * @param target The HTMLElement that should used to calculate the relative position
  * And capture the move events so that we can check if it is not a drag
  * @param clickStart$ A mousedown stream that indicates a click
@@ -195,6 +201,7 @@ export function getClickStream(
 /**
  * Creates a stream that provides relative position for a click.
  * It is the similar function like the `getClickStream` only optimized for touch support
+ *
  * @param target The HTMLElement that should used to calculate the relative position
  * And capture the move events so that we can check if it is not a drag
  * @param touchStart$ A touch start stream that indicates a click
@@ -222,6 +229,7 @@ export function getTouchStream(
 /**
  * Creates a Stream that emits a touch move on one to n event targets.
  * Uses the animationFrameScheduler to throttle the move by default.
+ *
  * @param mousedownElements Array of Elements that is used as event targets
  * to capture the mouse move event
  * @param scheduler A scheduler to throttle the mouse move per default the
@@ -240,6 +248,7 @@ export function getTouchMove(
 /**
  * Creates a Stream that emits a mouse move on one to n event targets.
  * Uses the animationFrameScheduler to throttle the move by default.
+ *
  * @param target The HTMLElement that should used to calculate the relative position
  * @param mousedownElements Array of Elements that is used as event targets
  * to capture the mouse move event
@@ -260,6 +269,7 @@ export function getMouseMove(
 
 /**
  * Creates a Stream that emits a drag on a provided element.
+ *
  * @param target The HTMLElement that should used to calculate the relative position
  * @param dragStart$ Any Stream that emits the start of the drag. (mostly a mousedown or touchstart)
  * @param dragEnd$  The Stream that triggers the end of a drag. (mostly a mouseup or touchend)
@@ -290,6 +300,7 @@ export function getDragStream(
 /**
  * Creates a stream that gathers the first ElementRef from a query list every time the
  * provided changes stream fires and the zone has no micro tasks anymore.
+ *
  * @param changes$ The stream that is used for re-querying the new ElementRef.
  * @param destroy$ A Stream that is responsible for completing this stream.
  * @param queryList The QueryList wit the HTMLElement to look for.
@@ -316,6 +327,7 @@ export function getElementRefStream<T>(
 
 /**
  * Creates a stream that creates a range out of a start and move stream.
+ *
  * @param dragStart$ The stream that emits the start of creating a range.
  * @param dragMove$ The event that provides the updated coordinates of the range.
  * @param targetWidth The width of the target where the selection area is drawn.
@@ -344,6 +356,7 @@ export function getRangeCreateStream(
 /**
  * Creates a stream that listens for resizing of an existing range.
  * Important notice: if the existing selection area is in a disabled state it can only grow and not shrink in width.
+ *
  * @param dragMove$ The stream that emits the current position of the resize.
  * @param dragOrigin$ The origin that triggers the resize of the range
  * @param previousArea The old area that should be updated with the move

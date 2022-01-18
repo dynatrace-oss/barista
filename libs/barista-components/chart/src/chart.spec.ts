@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { Component } from '@angular/core';
 import { fakeAsync, flush, TestBed } from '@angular/core/testing';
@@ -126,7 +126,7 @@ describe('DtChart', () => {
       fixture.detectChanges();
       const tooltip = chartComponent.highchartsOptions.tooltip;
       expect(tooltip).toBeDefined();
-      // tslint:disable-next-line: no-unbound-method
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
       expect(
@@ -187,7 +187,7 @@ describe('DtChart', () => {
       fixture.detectChanges();
       const tooltip = chartComponent.highchartsOptions.tooltip;
       expect(tooltip).toBeDefined();
-      // tslint:disable-next-line: no-unbound-method
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       expect(tooltip!.formatter).toBeDefined();
       // bind dummy seriespoint to be able to call the formatter function
       expect(
@@ -970,7 +970,7 @@ class EmptySeries {
   template: ` <dt-chart [series]="series" [options]="options"></dt-chart> `,
 })
 class Loading {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   series?: any[];
   options: DtChartOptions = {};
 }

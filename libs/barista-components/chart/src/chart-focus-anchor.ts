@@ -30,7 +30,7 @@ export interface DtChartFocusAnchorFocusEvent {
 
 /** Element that redirects focus when received to a next or previous target depending on the tab-direction. */
 @Directive({
-  selector: 'dt-chart-focus-anchor',
+  selector: 'dt-chart-focus-anchor, [dtChartFocusAnchor]',
   host: {
     class: 'cdk-visually-hidden',
     tabindex: '0',
@@ -173,6 +173,7 @@ function findNextFocusableElement(
     }
     if (startingElement.children.length > 0) {
       const focusableElement = findNextFocusableElement(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         startingElement.children.item(0)!,
         isFocusable,
         shouldStop,

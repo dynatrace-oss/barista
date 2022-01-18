@@ -191,7 +191,8 @@ export class DtChartRange implements AfterViewInit, OnDestroy {
    * Used by the selection area as content to project into the overlay with a portal.
    */
   @ViewChild(TemplateRef, { static: true })
-  _overlayTemplate: TemplateRef<{}>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _overlayTemplate: TemplateRef<any>;
 
   /**
    * @internal

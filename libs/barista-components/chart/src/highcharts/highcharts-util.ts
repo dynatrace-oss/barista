@@ -77,6 +77,7 @@ function mergeAxis(options: HighchartsOptions): HighchartsOptions {
  * to receive the data every time the formatter function is called by highcharts
  */
 function wrapTooltipFormatterFn(options: HighchartsOptions): HighchartsOptions {
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   options.tooltip!.formatter = function (): string | false {
     return false;
   };
@@ -91,7 +92,7 @@ function mergeHighchartsColorOptions(
   let nrOfMetrics: number;
   // Number of metrics is different depending on the chart type.
   if (isPieChartOptions(options)) {
-    const pieSeries = options.series![0] as SeriesPieOptions;
+    const pieSeries = options.series?.[0] as SeriesPieOptions;
     nrOfMetrics = pieSeries.data ? pieSeries.data.length : 0;
   } else {
     nrOfMetrics = options.series ? options.series.length : 0;

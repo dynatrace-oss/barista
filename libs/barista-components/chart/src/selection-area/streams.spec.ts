@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { ElementRef, NgZone, QueryList } from '@angular/core';
 import { Subject, interval, of, timer } from 'rxjs';
@@ -25,7 +25,7 @@ import { TestScheduler } from 'rxjs/testing';
 // We have to import from the file directly as barrel files only expose getters no setters.
 // To mock the specific function of the file we have to import the file and disable the
 // module boundaries linting rule.
-// tslint:disable-next-line: nx-enforce-module-boundaries
+// eslint-disable-next-line
 import * as platformUtil from '../../../core/src/util/platform-util';
 
 import { createMouseEvent, MockNgZone } from '@dynatrace/testing/browser';
@@ -66,7 +66,7 @@ describe('Selection Area Streams', () => {
   let relativeMousePositionSpy: any; // jest.SpyInstance;
 
   beforeEach(() => {
-    // tslint:disable ban
+    // eslint-disable
     selectionArea = document.createElement('div');
 
     relativeMousePositionSpy = jest

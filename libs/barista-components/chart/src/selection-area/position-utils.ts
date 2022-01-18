@@ -31,6 +31,7 @@ import { clamp } from '@dynatrace/barista-components/core';
 const DT_SELECTION_AREA_KEYBOARD_BIG_STEP = 10;
 
 /** @internal Event-target for the mouse events on the selection area */
+// eslint-disable-next-line no-shadow
 export const enum DtSelectionAreaEventTarget {
   SelectedArea = 'selected-area',
   LeftHandle = 'left',
@@ -77,7 +78,7 @@ export function calculatePosition(
 ): { left: number; width: number } {
   let left = 0;
   let width = 0;
-  // tslint:disable-next-line:switch-default
+  // eslint-disable-next-line default-case
   switch (target) {
     case DtSelectionAreaEventTarget.SelectedArea: {
       left = clamp(
