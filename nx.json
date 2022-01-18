@@ -12,7 +12,13 @@
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "test", "lint", "e2e", "lint-styles"],
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e",
+          "lint-styles"
+        ],
         "parallel": 3
       }
     }
