@@ -97,7 +97,7 @@ export class DtProgressCircle
 
   /** Calculates the dash offset of the progress circle based on the calculated percent */
   private _calculateDashOffset(percent: number): number {
-    // tslint:disable-next-line: no-magic-numbers
+    // eslint-disable-next-line no-magic-numbers
     return CIRCLE_CIRCUMFERENCE - (CIRCLE_CIRCUMFERENCE / 100) * percent;
   }
 }
