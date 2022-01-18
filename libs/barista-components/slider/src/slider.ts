@@ -94,6 +94,7 @@ const KEY_CODES_ARRAY: Array<number> = [
   PAGE_DOWN,
 ];
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const window: any;
 
 @Component({
@@ -125,7 +126,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
       }
     }
   }
-  private _min: number = 0;
+  private _min = 0;
   static ngAcceptInputType_min: NumberInput;
 
   /**
@@ -145,7 +146,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
       }
     }
   }
-  private _max: number = 10;
+  private _max = 10;
   static ngAcceptInputType_max: NumberInput;
 
   /**
@@ -170,7 +171,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
     }
   }
   /** Holds the value of step internally */
-  private _step: number = 1;
+  private _step = 1;
   static ngAcceptInputType_step: NumberInput;
 
   /** Binding for the disabled state. */
@@ -184,7 +185,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
       this._changeDetectorRef.markForCheck();
     }
   }
-  private _isDisabled: boolean = false;
+  private _isDisabled = false;
   static ngAcceptInputType_disabled: BooleanInput;
 
   /**
@@ -199,10 +200,11 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
       this._updateValue(coerceNumberProperty(value));
     }
   }
-  private _value: number = 0;
+  private _value = 0;
   static ngAcceptInputType_value: NumberInput;
 
   /** Provides event for value change */
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() change = new EventEmitter<number>();
 
   /** @internal Holds the track wrapper */
@@ -232,7 +234,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
    * Holds the value, the rounding is shifted with.
    * Calculated based in the step, to avoid JS rounding problems.
    */
-  private _roundShift: number = 0;
+  private _roundShift = 0;
   /** Holds the value of the slider. */
   private _value$ = new BehaviorSubject<number>(0);
   /** Holds the description of the size of the slider. */
@@ -240,6 +242,7 @@ export class DtSlider implements AfterViewInit, OnDestroy, OnInit {
   /** Observer that gets triggered if the slider is resized on the screen. */
   private _resizeObserver$ = new Subject<void>();
   /** Variable to hold the ResizeObserver */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _observer: any;
   /** Observer that gets triggered if the input field value is changed. */
   private _inputFieldValue$ = new Subject<number>();

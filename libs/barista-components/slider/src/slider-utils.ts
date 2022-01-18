@@ -29,6 +29,7 @@ import {
 /**
  * Returns the value that is represented by a coordinate on the slider.
  * This calculation needs all the values on the config parameter in order to work properly.
+ *
  * @param config Holds the values representing the slider, and is properties on the view.
  */
 export function getSliderValueForCoordinate(config: {
@@ -56,6 +57,7 @@ export function getSliderValueForCoordinate(config: {
 /**
  * The function calculates the proper value on the slider. It adds the
  * snapping behavior by rounding the value. It also clamps the value between min and max.
+ *
  * @param inputValue the value that needs to be rounded
  * @param step the step value
  * @param min the minimum value
@@ -73,6 +75,7 @@ export function roundToSnap(
 /**
  * If we already have a value for the slider, this function is able to provide
  * the position of the thumb for that value.
+ *
  * @param config
  */
 export function getSliderPositionBasedOnValue(config: {
@@ -86,6 +89,7 @@ export function getSliderPositionBasedOnValue(config: {
 /**
  * This function returns how the value should change based on
  * what key was pressed on the slider.
+ *
  * @param max maximum value for the slider
  * @param step step value of the slider
  * @param keyCode the keyCode of the pressed key
