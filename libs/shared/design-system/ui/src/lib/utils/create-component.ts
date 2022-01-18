@@ -43,6 +43,7 @@ export function createComponent<T>(
 
   // At this point the component has been instantiated,
   // so we move it to the location in the DOM of the placeholder element.
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   const inserted = placeholderElement.parentElement!.insertBefore(
     getComponentRootNode(componentRef),
     placeholderElement,
@@ -74,6 +75,7 @@ export function createComponent<T>(
 
   // Now we can safely remove to placeholder element.
   if (shouldRemovePlaceholder) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     placeholderElement.parentElement!.removeChild(placeholderElement);
   }
 

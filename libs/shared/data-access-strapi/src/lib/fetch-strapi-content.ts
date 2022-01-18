@@ -22,7 +22,8 @@ interface FetchContentOptions {
 
 async function getStrapiContent<T>(
   requestPath: string,
-  params: {},
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  params: Record<string, any>,
   endpoint: string,
 ): Promise<T> {
   const host = `${endpoint}${requestPath}`;
