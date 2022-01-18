@@ -16,7 +16,7 @@
 
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { readJsonInTree, serializeJson } from '@nrwl/workspace';
+import { readJsonInTree } from '@nrwl/workspace';
 import { createEmptyWorkspace } from '@nrwl/workspace/testing';
 import * as path from 'path';
 import { readFileFromTree } from '../../utils';
@@ -35,7 +35,7 @@ describe('Update 7.0.0', () => {
 
     initialTree.overwrite(
       'package.json',
-      serializeJson({
+      JSON.stringify({
         dependencies: {
           '@dynatrace/barista-components': '6.0.0',
           '@dynatrace/barista-fonts': '1.0.1',
@@ -52,7 +52,7 @@ describe('Update 7.0.0', () => {
   it('should update the dpendencies without highcharts', async () => {
     initialTree.overwrite(
       'package.json',
-      serializeJson({
+      JSON.stringify({
         dependencies: {},
       }),
     );
