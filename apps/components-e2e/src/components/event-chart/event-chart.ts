@@ -38,7 +38,7 @@ export class DtE2EEventChart<T> {
   }
 
   triggerSelection(event: DtEventChartSelectedEvent<string>): void {
-    // tslint:disable-next-line: no-console
+    // eslint-disable-next-line no-console
     console.log(event);
   }
 

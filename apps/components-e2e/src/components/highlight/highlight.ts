@@ -21,9 +21,9 @@ import { Component } from '@angular/core';
   templateUrl: 'highlight.html',
 })
 export class DtE2EHighlight {
-  content: string = 'content';
-  term: string = 'term';
-  caseSensitive: boolean = false;
+  content = 'content';
+  term = 'term';
+  caseSensitive = false;
 
   constructor() {}
 

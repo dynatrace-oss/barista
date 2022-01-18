@@ -53,12 +53,12 @@ export class DtE2EStackedSeriesChart {
   valueDisplayMode: DtStackedSeriesChartValueDisplayMode;
   mode: DtStackedSeriesChartMode;
   fillMode: DtStackedSeriesChartFillMode;
-  visibleValueAxis: boolean = true;
-  visibleLegend: boolean = true;
-  visibleLabel: boolean = true;
+  visibleValueAxis = true;
+  visibleLegend = true;
+  visibleLabel = true;
   labelAxisMode: DtStackedSeriesChartLabelAxisMode = 'full';
-  visibleTrackBackground: boolean = true;
-  maxTrackSize: number = 16;
+  visibleTrackBackground = true;
+  maxTrackSize = 16;
   max: number | undefined;
   usedLegends: DtStackedSeriesChartLegend[] | undefined;
 
