@@ -72,7 +72,7 @@ const defaultVariant = 'primary';
   styleUrls: ['button.scss'],
   inputs: ['disabled', 'color'],
   // Removing view encapsulation so we can style tags like <sup> inside the ng-content
-  // tslint:disable-next-line:use-view-encapsulation
+  // eslint-disable-next-line
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -162,7 +162,7 @@ export class DtButton
 
 /**
  * Dynatrace design button.
- * TODO: lukas.holzer, thomas.pink rethink naming of props (UX-8947)
+ *
  * @design-unrelated
  */
 @Component({
