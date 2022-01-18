@@ -124,7 +124,7 @@ function setMetadataDefaults(baristaMetadata: any): BaSinglePageMeta {
  * a barista.json metadata file recursively.
  */
 function getBaristaContentDirectoryPaths(path: string): string[] {
-  let fileList: string[] = [];
+  const fileList: string[] = [];
 
   // Only grab those dirs that include a README.md and a barista.json
   if (
@@ -134,7 +134,7 @@ function getBaristaContentDirectoryPaths(path: string): string[] {
     fileList.push(path);
   }
 
-  let files = readdirSync(path);
+  const files = readdirSync(path);
 
   for (const file of files) {
     const filePath = join(path, file);

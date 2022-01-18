@@ -168,7 +168,7 @@ export async function getExamplePackageMetadata(
   dir: string,
 ): Promise<ExamplePackageMetadata | null> {
   let moduleFile: string | null = null;
-  let exampleDirs: string[] = [];
+  const exampleDirs: string[] = [];
 
   const fileOrDirs = readdirSync(dir).map((name) => join(dir, name));
 
@@ -209,7 +209,7 @@ export async function getExamplePackageMetadata(
 async function getExampleMetadataInDirs(
   exampleDirs: string[],
 ): Promise<ExampleMetadata[]> {
-  let examples: ExampleMetadata[] = [];
+  const examples: ExampleMetadata[] = [];
   for (const exampleDir of exampleDirs) {
     const tsFiles = readdirSync(exampleDir)
       .map((name) => join(exampleDir, name))

@@ -18,6 +18,7 @@ import { executeCommand } from '@dynatrace/shared/node';
 
 /**
  * Unpacks a tar file
+ *
  * @param tarFile Path to the tar file
  * @param destination Location where the tar file should be unpacked in
  *

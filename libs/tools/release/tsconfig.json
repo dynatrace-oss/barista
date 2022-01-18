@@ -7,7 +7,7 @@
     "module": "commonjs"
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
-  "include": [],
+  "include": ["**/*.ts"],
   "files": [],
   "references": [
     {

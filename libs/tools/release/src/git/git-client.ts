@@ -144,7 +144,7 @@ export class GitClient {
    */
   private _spawnGitProcess(
     args: string[],
-    printStderr: boolean = true,
+    printStderr = true,
   ): SpawnSyncReturns<string> {
     return spawnSync('git', args, {
       cwd: this.projectDir,

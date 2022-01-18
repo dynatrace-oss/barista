@@ -30,6 +30,7 @@ import {
 
 /**
  * Verifies that the github status for the latest local commit passed
+ *
  * @throws Will throw if the state is not successful
  */
 export async function verifyPassingGithubStatus(
@@ -61,6 +62,7 @@ export async function verifyPassingGithubStatus(
 
 /**
  * Verifies that all commits have been pushed to the upstream
+ *
  * @throws Will throw an error if the local commit does not match the latest
  * upstream commit
  */
@@ -78,6 +80,7 @@ export function verifyLocalCommitsMatchUpstream(
 
 /**
  * Verifies that there are no uncommited changes
+ *
  * @throws Will throw an error if there are uncommited changes
  */
 export function verifyNoUncommittedChanges(git: GitClient): void {

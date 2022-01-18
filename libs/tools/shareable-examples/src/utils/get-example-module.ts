@@ -166,6 +166,7 @@ export function createTransformer(
 
       if (isNgModuleObject(node)) {
         // HACK: No idea how to properly fix this since there's no ts.factory.updateNodeArray()
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (node.properties as any) = tsFactory.createNodeArray([
           ...node.properties,
           tsFactory.createPropertyAssignment(

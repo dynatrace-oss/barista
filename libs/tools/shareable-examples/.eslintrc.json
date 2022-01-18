@@ -1,0 +1,51 @@
+{
+  "extends": ["../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["libs/tools/shareable-examples/tsconfig.lib.json"]
+      },
+      "extends": [],
+      "rules": {
+        "@angular-eslint/directive-selector": [
+          "error",
+          {
+            "type": "attribute",
+            "prefix": "app",
+            "style": "camelCase"
+          }
+        ],
+        "@angular-eslint/component-selector": [
+          "error",
+          {
+            "type": "element",
+            "prefix": "app",
+            "style": "kebab-case"
+          }
+        ],
+        "no-console": "off"
+      },
+      "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["*.spec.ts"],
+      "parserOptions": {
+        "project": ["libs/tools/shareable-examples/tsconfig.spec.json"]
+      },
+      "extends": [],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "no-console": "off"
+      },
+      "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@nrwl/nx/angular-template"],
+      "rules": {}
+    }
+  ]
+}

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { html, load as loadWithCheerio } from 'cheerio';
+import { load as loadWithCheerio } from 'cheerio';
 import { existsSync, readdirSync, readFileSync } from 'fs';
 import { basename, extname, join } from 'path';
 

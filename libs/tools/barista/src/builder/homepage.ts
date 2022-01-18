@@ -71,7 +71,7 @@ const TILES_MOSTORDERED = [
   },
 ];
 
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type BaHomepageBuilder = (...args: any[]) => BaPageBuildResult;
 
 /** Page-builder for the homepage of Barista. */

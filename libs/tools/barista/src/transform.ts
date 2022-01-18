@@ -225,7 +225,7 @@ export const relativeUrlTransformer: BaPageTransformer = async (source) => {
       links.each((_: number, link) => {
         const linkValue = $(link).attr('href');
         if (linkValue && !isQualifiedLink(linkValue)) {
-          let url = parse(linkValue);
+          const url = parse(linkValue);
           // Link Value
           $(link)
             .removeAttr('href')
@@ -372,9 +372,11 @@ export function internalContentTransformerFactory(
           if (innerHtml) {
             // If the innerHtml starts with < we can assume that it's HTML content.
             // If not it's probably a string that can be wrapped in a paragraph.
-            innerHtml.trim().startsWith('<')
-              ? $(content).replaceWith($(innerHtml))
-              : $(content).replaceWith($(`<p>${innerHtml}</p>`));
+            if (innerHtml.trim().startsWith('<')) {
+              $(content).replaceWith($(innerHtml));
+            } else {
+              $(content).replaceWith($(`<p>${innerHtml}</p>`));
+            }
           }
         }
       });

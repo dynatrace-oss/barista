@@ -80,7 +80,7 @@ function addSidenavToPages(
   for (const file of files) {
     const filepath = join(path, file);
     if (!lstatSync(filepath).isDirectory()) {
-      let currentSidenav = sidenavContent;
+      const currentSidenav = sidenavContent;
       const content = JSON.parse(readFileSync(filepath).toString()) as any;
       const fileTitle = content.title;
 
@@ -160,7 +160,7 @@ function getOverviewSectionItem(
   section: string,
   filepath: string,
 ): BaCategoryNavigationSectionItem {
-  let properties =
+  const properties =
     filecontent.properties && filecontent.properties.length > 0
       ? [...filecontent.properties]
       : [];
@@ -198,7 +198,7 @@ export const overviewBuilder = async (distDir: string) => {
     isDirectory(join(distDir, dirPath)),
   );
 
-  let nav: BaNav = {
+  const nav: BaNav = {
     navItems: [],
   };
 

@@ -22,6 +22,7 @@ import { GET_TAG_PUSH_ERROR } from './release-errors';
 /**
  * Creates a tag if it does not already exist and checks whether the commit
  * message is a bump version message
+ *
  * @throws Will throw if the tag would be created on a non bump message
  */
 export async function createReleaseTag(
