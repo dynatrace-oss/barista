@@ -82,6 +82,7 @@ export async function runParallel(): Promise<string | null> {
   if (withDeps) {
     // The nx meta gets generated through the print-affected command
     // that is executed via the `getAffectedProjects`
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const nxMeta = await tryJsonParse<any>(NX_META);
     const nxDependencies = nxMeta.dependencies;
 

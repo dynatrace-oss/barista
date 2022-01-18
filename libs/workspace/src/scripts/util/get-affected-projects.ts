@@ -29,6 +29,7 @@ export function getAffectedProjects(
 
   const affected = execSync(command.join(' ')).toString().trim();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const parsed = JSON.parse(affected) as any;
 
   return target

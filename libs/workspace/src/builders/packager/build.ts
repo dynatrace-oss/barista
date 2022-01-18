@@ -52,6 +52,7 @@ export async function packager(
   let ngPackagrBuilderOptions;
   try {
     // Read the options of the build target options set up with the ng-packagr builder
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ngPackagrBuilderOptions = (await context.getTargetOptions(target)) as any;
 
     if (ngPackagrBuilderOptions.project === undefined) {

@@ -22,6 +22,7 @@ import { splitArrayIntoChunks } from './split-array-into-chunks';
  * To run the projects with the same dependencies on the same node.
  * The components are always run on the last node to avoid building two heavy tasks on the same node.
  * Because the last node always consists out of the dependency less projects.
+ *
  * @param arr The array of affected projects with their dependencies
  * @param chunkSize The size of the chunks
  */
