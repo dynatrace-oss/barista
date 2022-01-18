@@ -33,7 +33,7 @@ import { filter } from 'rxjs/operators';
 import { DtSecondaryNavLinkActive } from './secondary-nav-link';
 
 @Directive({
-  selector: 'dt-secondary-nav-section-title',
+  selector: 'dt-secondary-nav-section-title, [dtSecondaryNavSectionTitle]',
   host: {
     class: 'dt-secondary-nav-section-title',
   },
@@ -42,7 +42,8 @@ import { DtSecondaryNavLinkActive } from './secondary-nav-link';
 export class DtSecondaryNavSectionTitle {}
 
 @Directive({
-  selector: 'dt-secondary-nav-section-description',
+  selector:
+    'dt-secondary-nav-section-description, [dtSecondaryNavSectionDescription]',
   host: {
     class: 'dt-secondary-nav-section-description',
   },
