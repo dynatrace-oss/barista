@@ -64,6 +64,7 @@ import {
 import { DtError } from '@dynatrace/barista-components/form-field';
 import { DtInput } from '@dynatrace/barista-components/input';
 
+// eslint-disable-next-line no-shadow
 const enum MODES {
   IDLE,
   EDITING,
@@ -83,6 +84,7 @@ export const _DtInlineEditorMixinBase = mixinErrorState(DtInlineEditorBase);
 
 @Component({
   preserveWhitespaces: false,
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[dt-inline-editor]',
   exportAs: 'dt-inline-editor',
   encapsulation: ViewEncapsulation.Emulated,
@@ -184,7 +186,7 @@ export class DtInlineEditor
   }
 
   /** @internal Measured input width to match it for the error overlay width */
-  _inputWidth: number = 0;
+  _inputWidth = 0;
 
   /** @internal Wether the input is focused or not */
   _inputFocused = false;
@@ -220,7 +222,7 @@ export class DtInlineEditor
   ) {
     super(defaultErrorStateMatcher, parentForm, parentFormGroup, ngControl);
     // Replace the provider from above with this.
-    // tslint:disable-next-line: strict-type-predicates
+    // eslint-disable-next-line
     if (this.ngControl !== null) {
       // Setting the value accessor directly (instead of using
       // the providers) to avoid running into a circular import.
@@ -365,8 +367,10 @@ export class DtInlineEditor
     switch (_readKeyCode(event)) {
       case ESCAPE:
         this.cancelAndQuitEditing();
+      // eslint-disable-next-line no-fallthrough
       case ENTER:
         this.saveAndQuitEditing();
+        break;
       default:
     }
   }
@@ -390,7 +394,7 @@ export class DtInlineEditor
     this._changeDetectorRef.markForCheck();
   }
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _emitError(error: any): void {
     this._mode = MODES.EDITING;
     this.saved.error(error);
