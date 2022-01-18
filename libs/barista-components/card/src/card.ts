@@ -63,7 +63,8 @@ export class DtCardSubtitle {}
 export class DtCardTitleActions {}
 
 @Directive({
-  selector: 'dt-card-footer-actions',
+  selector:
+    'dt-card-footer-actions, [dt-card-footer-actions], [dtCardFooterActions]',
   exportAs: 'dtCardFooterActions',
   host: {
     class: 'dt-card-footer-actions',
@@ -81,7 +82,6 @@ export class DtCardFooterActions {}
     // We know that a header is present when the card has at least a title
     '[class.dt-card-has-header]': '!!_title',
   },
-  // tslint:disable-next-line: use-view-encapsulation
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
