@@ -88,6 +88,7 @@ const DT_OVERLAY_POSITIONS: ConnectedPosition[] = [
 
 /**
  * Css class that is used to disable pointerevents on the backdrop
+ *
  * @internal
  */
 export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-no-pointer';
@@ -96,14 +97,14 @@ export const DT_OVERLAY_NO_POINTER_CLASS = 'dt-no-pointer';
 
 @Injectable({ providedIn: 'root' })
 export class DtOverlay implements OnDestroy {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _dtOverlayRef: DtOverlayRef<any> | null;
 
   /** @internal The strategy used to position the overlay */
   _positionStrategy: FlexibleConnectedPositionStrategy;
 
   /** The reference of the currently open overlay */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get overlayRef(): DtOverlayRef<any> | null {
     return this._dtOverlayRef;
   }
@@ -111,14 +112,10 @@ export class DtOverlay implements OnDestroy {
   constructor(
     private _injector: Injector,
     private _overlay: Overlay,
-    // @ts-ignore unused variable
     private _viewportRuler: ViewportRuler,
-    // tslint:disable-next-line:no-any
-    // @ts-ignore unused variable
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) private _document: any,
-    // @ts-ignore unused variable
     private _platform: Platform,
-    // @ts-ignore unused variable
     private _overlayContainer: OverlayContainer,
   ) {}
 
@@ -222,7 +219,7 @@ export class DtOverlay implements OnDestroy {
 
     if (componentOrTemplateRef instanceof TemplateRef) {
       const templatePortal =
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion
         new TemplatePortal<any>(componentOrTemplateRef, null!, {
           $implicit: config.data,
         });
