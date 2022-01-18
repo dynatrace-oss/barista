@@ -29,7 +29,7 @@ import {
 
 /** Element to define a title for a marker that will be rendered inside the legends overlay. */
 @Directive({
-  selector: 'dt-timeline-chart-overlay-title',
+  selector: 'dt-timeline-chart-overlay-title, [dtTimelineChartOverlayTitle]',
   exportAs: 'dtTimelineChartOverlayTitle',
   host: {
     class: 'dt-timeline-chart-overlay-title',
@@ -39,7 +39,7 @@ export class DtTimelineChartOverlayTitle {}
 
 /** Element to define an info text for a marker that will be rendered inside the legends overlay. */
 @Directive({
-  selector: 'dt-timeline-chart-overlay-text',
+  selector: 'dt-timeline-chart-overlay-text, [dtTimelineChartOverlayText]',
   exportAs: 'dtTimelineChartOverlayText',
   host: {
     class: 'dt-timeline-chart-overlay-text',
@@ -70,7 +70,8 @@ export class DtTimelineChartMarker {
 
   /** @internal Portal for projecting the overlay title and text into the overlay. */
   @ViewChild('overlayTemplate', { read: TemplateRef, static: true })
-  _overlayTemplate: TemplateRef<{}>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  _overlayTemplate: TemplateRef<any>;
 
   /** @internal The title that should be rendered in the overlay. */
   @ContentChild(DtTimelineChartOverlayTitle, { static: true })

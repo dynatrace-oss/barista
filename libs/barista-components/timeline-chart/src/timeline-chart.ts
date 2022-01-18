@@ -128,7 +128,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   private _updateRenderValues(): void {
     const tickAmount = this._getTickAmount();
 
-    // tslint:disable: no-magic-numbers
+    /* eslint-disable no-magic-numbers */
     const scale = scaleLinear()
       .domain([0, this._value])
       .range([0, POSITION_PRECISION])
@@ -139,7 +139,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
       scale.domain([0, last + ticks[1]]);
       ticks = scale.ticks(tickAmount);
     }
-    // tslint:enable: no-magic-numbers
+    /* eslint-enable no-magic-numbers */
 
     this._updateRenderBars(scale);
     this._updateRenderTicks(scale, ticks);
@@ -190,7 +190,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
   /** Returns the amount of ticks based on the component with. More space means more ticks. */
   private _getTickAmount(): number {
     const el = this._elementRef.nativeElement as HTMLElement;
-    // tslint:disable: no-magic-numbers
+    /* eslint-disable no-magic-numbers */
     if (el && el.clientWidth) {
       const width = el.clientWidth;
       if (width > 1200) {
@@ -201,7 +201,7 @@ export class DtTimelineChart implements AfterContentInit, OnDestroy {
       }
     }
     return 4;
-    // tslint:enable: no-magic-numbers
+    /* eslint-enable no-magic-numbers */
   }
 }
 
@@ -210,7 +210,7 @@ function valueToPercentage(
   scale: ScaleLinear<number, number>,
 ): number {
   return (
-    // tslint:disable-next-line: no-magic-numbers
+    // eslint-disable-next-line no-magic-numbers, @typescript-eslint/no-non-null-assertion
     Math.round((scale(value)! / 100) * POSITION_PRECISION) / POSITION_PRECISION
   );
 }
