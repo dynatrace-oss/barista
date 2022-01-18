@@ -16,6 +16,7 @@
 import { sanitize as DOMPurifySanitize } from 'dompurify';
 
 /** Sanitizes a nested object or string from malicious html code  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const sanitize = <T extends {} | string>(option: T): T => {
   if (typeof option === 'string') {
     return DOMPurifySanitize(option);

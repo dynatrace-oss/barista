@@ -24,7 +24,7 @@ const DEFAULT_WINDOW_EVENT_TIMEOUT = 150;
 
 /** Default ViewportResizer implementation that will only react to window size changes */
 @Injectable()
-// tslint:disable-next-line
+// eslint-disable-next-line
 export class DtDefaultViewportResizer implements DtViewportResizer {
   constructor(private _viewportRuler: ViewportRuler) {}
 
@@ -73,6 +73,7 @@ export class DtTriggerableViewportResizer implements DtViewportResizer {
     @SkipSelf() @Optional() private _originalViewportResizer: DtViewportResizer,
   ) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private _resizerSubject$ = new Subject<any>();
 
   /** Returns a stream that emits whenever the size of the viewport changes. */

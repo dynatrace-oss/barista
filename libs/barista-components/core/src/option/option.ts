@@ -185,7 +185,7 @@ export class DtOption<T> implements Highlightable, AfterViewChecked, OnDestroy {
   focus(): void {
     const element = this._getHostElement();
 
-    // tslint:disable-next-line:strict-type-predicates no-unbound-method
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     if (typeof element.focus === 'function') {
       element.focus();
     }
@@ -289,7 +289,9 @@ export function _countGroupLabelsBeforeOption<T>(
     const groups = new Set<DtOptgroup>();
 
     for (let i = 0; i < optionIndex + 1; i++) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (optionsArray[i].group && !groups.has(optionsArray[i].group!)) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         groups.add(optionsArray[i].group!);
       }
     }

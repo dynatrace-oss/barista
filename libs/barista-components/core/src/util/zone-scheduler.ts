@@ -35,6 +35,7 @@ class RunOutsideZoneScheduler extends ZoneScheduler {
   /** Wraps the execution context to run outside the Angular zone */
   schedule(...args: unknown[]): Subscription {
     return this._ngZone.runOutsideAngular(() =>
+      // eslint-disable-next-line prefer-spread
       this._scheduler.schedule.apply(this._scheduler, args),
     );
   }
@@ -45,6 +46,7 @@ class RunInsideZoneScheduler extends ZoneScheduler {
   /** Wraps the execution context to run inside the angular zone */
   schedule(...args: unknown[]): Subscription {
     return this._ngZone.run(() =>
+      // eslint-disable-next-line prefer-spread
       this._scheduler.schedule.apply(this._scheduler, args),
     );
   }
@@ -52,6 +54,7 @@ class RunInsideZoneScheduler extends ZoneScheduler {
 
 /**
  * Scheduler that runs the provided execution task outside the Angular zone
+ *
  * @param ngZone The Angular Zone that has to be provided
  * @param scheduler A scheduler that should be taken to schedule the execution Context.
  * Default it uses the async scheduler.
@@ -87,6 +90,7 @@ export function runOutsideZone(
 
 /**
  * Scheduler that runs the provided execution task inside the Angular zone
+ *
  * @param ngZone The Angular Zone that has to be provided
  * @param scheduler A scheduler that should be taken to schedule the execution Context.
  * Default it uses the async scheduler.

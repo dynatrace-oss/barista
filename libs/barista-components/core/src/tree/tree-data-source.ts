@@ -26,6 +26,8 @@ import { isDefined } from '../util';
  * Transform nested nodes of type `T` to flattened nodes of type `F`.
  *
  * For example, the input data of type `T` is nested, and contains its children data:
+ *
+ * @example
  *   SomeNode: {
  *     key: 'Fruits',
  *     children: [
@@ -78,6 +80,7 @@ export class DtTreeFlattener<T, F> {
         if (Array.isArray(childrenNodes)) {
           this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
         } else {
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           childrenNodes!.pipe(take(1)).subscribe((children) => {
             this._flattenChildren(children, level, resultNodes, parentMap);
           });

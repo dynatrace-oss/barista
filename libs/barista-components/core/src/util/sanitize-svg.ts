@@ -16,13 +16,14 @@
 
 /** function that sanitizes svg input as string - it removes script tags within */
 export function sanitizeSvg(svgString: string): SVGElement {
-  // tslint:disable-next-line ban
+  // eslint-disable-next-line
   const div = document.createElement('div');
-  // tslint:disable-next-line dt-ban-inner-html
+  // eslint-disable-next-line
   div.innerHTML = svgString;
   [].slice
     .call(div.getElementsByTagName('script'))
     .forEach((script: HTMLScriptElement) => {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       script.parentNode!.removeChild(script);
     });
 

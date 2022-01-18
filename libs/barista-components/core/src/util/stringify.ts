@@ -24,7 +24,7 @@ import { isDefined } from './type-util';
  * found in the LICENSE file at https://angular.io/license
  */
 
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function stringify(token: any): string {
   if (typeof token === 'string') {
     return token;

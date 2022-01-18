@@ -24,9 +24,9 @@ export function createInViewportStream(
   element: ElementRef | Element,
   threshold: number | number[] = 1,
 ): Observable<boolean> {
-  // tslint:disable-next-line: strict-type-predicates
+  // eslint-disable-next-line
   return typeof window !== 'undefined' &&
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (window as Window & { IntersectionObserver: any }).IntersectionObserver
     ? new Observable<IntersectionObserverEntry[]>((observer) => {
         const intersectionObserver = new IntersectionObserver(

@@ -40,7 +40,7 @@ describe('MixinDisabled', () => {
     // Expected the mixed-into class to have a disabled property
     expect(instance.disabled).toBe(false);
 
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     instance.disabled = 'disabled' as any;
     // Expected the mixed-into class to have an updated disabled property
     expect(instance.disabled).toBe(true);
