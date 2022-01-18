@@ -1,3 +1,4 @@
+/* eslint-disable no-redeclare */
 /**
  * @license
  * Copyright 2021 Dynatrace LLC
@@ -68,7 +69,7 @@ export function mixinColor<
       }
     }
 
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(...args: any[]) {
       super(...args);
       // Set the default color that can be specified from the mixin.

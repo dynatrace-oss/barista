@@ -29,6 +29,7 @@ export interface HasId {
 }
 
 /** Mixin to augment a directive with a `id` property. */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function mixinId<T extends Constructor<{}>>(
   base: T,
   idPreset: string,
@@ -47,9 +48,9 @@ export function mixinId<T extends Constructor<{}>>(
     }
     private _id = `${idPreset}-${uniqueId++}`;
 
-    // tslint:disable-next-line
+    // eslint-disable-next-line
     constructor(...args: any[]) {
-      super(...args); // tslint:disable-line:no-inferred-empty-object-type
+      super(...args); // eslint-disable-line
     }
   };
 }

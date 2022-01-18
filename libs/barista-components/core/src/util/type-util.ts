@@ -20,7 +20,7 @@ export function isDefined<T>(value: T): value is NonNullable<T> {
 }
 
 /** Checks if the provided value is not empty and not null */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isEmpty(value: any): value is null | undefined | '' {
   return value === null || value === undefined || value === '';
 }
@@ -30,7 +30,7 @@ export function isEmpty(value: any): value is null | undefined | '' {
  * This function can be used to check for numbers instead of coerceNumberProperty from the cdk
  * because coerceNumberProperty returns 0 for invalid values
  */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isNumber(value: any): value is number {
   return Number.isFinite(value);
 }
@@ -39,7 +39,7 @@ export function isNumber(value: any): value is number {
  * Checks if the provided value is number like,
  * which includes numbers or strings that can be easily converted to numbers.
  */
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isNumberLike(value: any): boolean {
   // parsefloat handles null, '', NaN, undefined - for everything else we check with Number
   return (
@@ -50,13 +50,13 @@ export function isNumberLike(value: any): boolean {
 }
 
 /** Checks if the provided value is a real object. */
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isObject(value: any): value is { [key: string]: any } {
   return isDefined(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
 /** Helper function which evaluates if the passed value is a string. */
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isString(value: any): value is string {
   return typeof value === 'string';
 }

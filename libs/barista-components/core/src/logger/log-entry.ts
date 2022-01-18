@@ -16,7 +16,7 @@
 
 import { DtLogLevel } from './log-level.enum';
 
-// tslint:disable-next-line:no-any (Log-appender should handle type recognition)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DtLogEntryParam = any;
 
 export interface DtLogEntry {

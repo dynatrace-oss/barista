@@ -44,7 +44,7 @@ export function mixinViewportBoundaries<
 
     _destroy$ = new Subject<void>();
 
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(...args: any[]) {
       super(...args);
 

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { Component, ElementRef } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
@@ -140,7 +140,7 @@ describe('PlatformUtil', () => {
 })
 class TestApp {
   testElement: HTMLElement = document.createElement('div');
-  // tslint:disable-next-line: ban
+  // eslint-disable-next-line
   testSvgElement: SVGElement = document.createElementNS(
     'http://www.w3.org/2000/svg',
     'svg',

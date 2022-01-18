@@ -24,6 +24,7 @@ export interface CanDisable {
 }
 
 /** Mixin to augment a directive with a `disabled` property. */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function mixinDisabled<T extends Constructor<{}>>(
   base: T,
 ): Constructor<CanDisable> & T {
@@ -37,9 +38,9 @@ export function mixinDisabled<T extends Constructor<{}>>(
       this._disabled = coerceBooleanProperty(value);
     }
 
-    // tslint:disable-next-line
+    // eslint-disable-next-line
     constructor(...args: any[]) {
-      super(...args); // tslint:disable-line:no-inferred-empty-object-type
+      super(...args); // eslint-disable-line
     }
   };
 }

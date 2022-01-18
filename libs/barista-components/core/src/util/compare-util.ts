@@ -24,6 +24,7 @@ export type DtSortDirection = 'asc' | 'desc' | '';
  * sort function.
  * Null or undefined values are being handled and sorted to the start/end based on the sort direction.
  * Sort direction is defaulted to 'asc' but can be passed as well.
+ *
  * @example
  * const stringValues = ['host', 'memory', 'metric', 'center'];
  * const sortedStrings = stringValues.sort((a, b) => compareStrings(a, b));
@@ -41,6 +42,7 @@ export function compareStrings(
  * sort function.
  * Null or undefined values are being handled and sorted to the start/end based on the sort direction.
  * Sort direction is defaulted to 'desc' but can be passed as well.
+ *
  * @example
  * const numberValues = [1, 15, 8, 19, 23];
  * const sortednumbers = numberValues.sort((a, b) => compareStrings(a, b));
@@ -57,6 +59,7 @@ export function compareNumbers(
  * Compares two values and returns a comparison value (-1, 0 or 1) which can be used within a
  * sort function.
  * Null or undefined values are being handled and sorted to the start/end based on the sort direction.
+ *
  * @example
  * const numberValues = [1, 15, 8, 19, 23];
  * const sortedNumbers = numberValues.sort((a, b) => compareValues(a, b, 'asc'));
@@ -75,8 +78,10 @@ export function compareValues(
       comparatorResult = (valueA as string).localeCompare(valueB as string);
     } else {
       // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (valueA! > valueB!) {
         comparatorResult = 1;
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       } else if (valueA! < valueB!) {
         comparatorResult = -1;
       }

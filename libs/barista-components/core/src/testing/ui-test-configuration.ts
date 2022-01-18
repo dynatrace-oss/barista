@@ -26,7 +26,7 @@ export interface DtUiTestConfiguration {
 /** Default configuration for setting the UI-test attribute */
 export const DT_DEFAULT_UI_TEST_CONFIG: DtUiTestConfiguration = {
   attributeName: 'dt-ui-test-id',
-  // tslint:disable-next-line: typedef
+  // eslint-disable-next-line
   constructOverlayAttributeValue(uiTestId: string, id = 0): string {
     return `${uiTestId}-overlay-${id}`;
   },
@@ -52,6 +52,7 @@ export function dtSetUiTestAttribute(
       overlay.setAttribute(
         config.attributeName,
         config.constructOverlayAttributeValue(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           element.getAttribute(config.attributeName)!,
           index,
         ),

@@ -32,7 +32,7 @@
  * TODO: Try to contribute this feature to the material library
  */
 
-// tslint:disable
+/* eslint-disable */
 import { coerceArray, coerceCssPixelValue } from '@angular/cdk/coercion';
 import { OverlayContainer, PositionStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';

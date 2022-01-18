@@ -27,7 +27,7 @@ import { isNumber, isString } from './type-util';
  * If the optional Renderer is not provided it uses the browser specific classList.
  */
 export function _replaceCssClass(
-  elOrRef: any, // tslint:disable-line:no-any
+  elOrRef: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   oldClass: string | null,
   newClass: string | null,
 ): void {
@@ -51,7 +51,7 @@ export function _replaceCssClass(
  */
 export function _toggleCssClass(
   condition: boolean,
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   el: any,
   name: string,
 ): void {
@@ -63,7 +63,7 @@ export function _toggleCssClass(
 }
 
 /** @internal */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function _addCssClass(el: any, name: string): void {
   if (el.classList) {
     el.classList.add(name);
@@ -71,7 +71,7 @@ export function _addCssClass(el: any, name: string): void {
 }
 /** @internal */
 export function _removeCssClass(
-  el: any, // tslint:disable-line:no-any
+  el: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   name: string,
 ): void {
   if (el.classList) {
@@ -85,7 +85,7 @@ export function _removeCssClass(
  * Helper function to safely check if an element has a class
  * Also works with elements in svgs
  */
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function _hasCssClass(el: any, name: string): boolean {
   // classList cant be used safely for elements in svgs - thats why we are using getAttribute
   const classes = el.getAttribute('class') || '';
@@ -100,7 +100,6 @@ export function _hasCssClass(el: any, name: string): boolean {
  * This function will move the the event.keyKode to a single point where we disable the tslint rule.
  */
 export function _readKeyCode(event: KeyboardEvent): number {
-  // tslint:disable-next-line:deprecation
   return event.keyCode;
 }
 
@@ -110,13 +109,14 @@ export function _readKeyCode(event: KeyboardEvent): number {
  * Parses a value and a unit from a string / number if possible
  */
 export function _parseCssValue(
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   input: any,
 ): { value: number; unit: string } | null {
   if (isNumber(input)) {
     return { value: input, unit: 'px' };
   }
   if (isString(input)) {
+    // eslint-disable-next-line no-useless-escape
     const result = input.match(/^[\d\.]+/);
     let unit = 'px';
     let value: number;

@@ -46,6 +46,7 @@ export interface HasProgressValues {
 }
 
 /** Mixin to augment a directive with a `disabled` property. */
+// eslint-disable-next-line @typescript-eslint/ban-types
 export function mixinHasProgress<T extends Constructor<{}>>(
   base: T,
 ): Constructor<HasProgressValues> & T {
@@ -108,14 +109,14 @@ export function mixinHasProgress<T extends Constructor<{}>>(
     /** Emits valueChange event if the value of the progress is updated */
     readonly valueChange = new EventEmitter<DtProgressChange>();
 
-    // tslint:disable-next-line
+    // eslint-disable-next-line
     constructor(...args: any[]) {
-      super(...args); // tslint:disable-line:no-inferred-empty-object-type
+      super(...args); // eslint-disable-line
     }
 
     /** Calculates the percentage of the progress component that a value is. */
     private _calculatePercentage(value: number | null): number {
-      // tslint:disable-next-line: no-magic-numbers
+      // eslint-disable-next-line no-magic-numbers
       return clamp((((value || 0) - this.min) / (this.max - this.min)) * 100);
     }
 

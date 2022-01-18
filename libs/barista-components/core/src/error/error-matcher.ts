@@ -24,6 +24,6 @@ export class ErrorStateMatcher {
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null,
   ): boolean {
-    return Boolean(control?.invalid && (control!.dirty || form?.submitted));
+    return Boolean(control?.invalid && (control?.dirty || form?.submitted));
   }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable: no-unbound-method no-magic-numbers
+/* eslint-disable @typescript-eslint/unbound-method, no-magic-numbers */
 
 import { NgZone } from '@angular/core';
 import { TestBed, waitForAsync, fakeAsync, tick } from '@angular/core/testing';

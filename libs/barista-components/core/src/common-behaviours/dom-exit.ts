@@ -46,7 +46,7 @@ export function mixinNotifyDomExit<T extends Constructor<HasNgZone>>(
         });
     }
 
-    // tslint:disable-next-line
+    // eslint-disable-next-line
     constructor(...args: any[]) {
       super(...args);
     }
