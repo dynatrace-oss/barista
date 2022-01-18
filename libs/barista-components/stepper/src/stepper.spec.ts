@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import {
   DOWN_ARROW,
@@ -229,7 +229,7 @@ describe('DtStepper', () => {
 
 /** Asserts that keyboard interaction works correctly. */
 function assertCorrectKeyboardInteraction(
-  // tslint:disable-next-line: no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fixture: ComponentFixture<any>,
   stepHeaders: DebugElement[],
   orientation: StepperOrientation,

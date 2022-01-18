@@ -51,7 +51,7 @@ export class DtStep extends CdkStep implements ErrorStateMatcher {
   errorMessage: string;
 
   constructor(
-    // tslint:disable-next-line: no-forward-ref
+    // eslint-disable-next-line @angular-eslint/no-forward-ref
     stepper: DtStepper,
     @SkipSelf() private _errorStateMatcher: ErrorStateMatcher,
     @Optional() @Inject(STEPPER_GLOBAL_OPTIONS) stepperOptions: StepperOptions,
