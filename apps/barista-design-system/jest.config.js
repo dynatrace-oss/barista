@@ -19,7 +19,6 @@ module.exports = {
     '^.+.(ts|mjs|js|html)$': 'jest-preset-angular',
   },
   transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
-  transformIgnorePatterns: ['node_modules/(?!.*.mjs$)'],
   moduleNameMapper: {
     // map lodash-es to lodash bundle since jest needs commonjs
     '^lodash-es$': 'node_modules/lodash/index.js',
