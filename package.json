@@ -144,6 +144,7 @@
     "dotenv": "10.0.0",
     "eslint": "8.2.0",
     "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-header": "^3.1.1",
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prefer-arrow": "latest",
     "eslint-plugin-react": "latest",
