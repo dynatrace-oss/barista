@@ -1,0 +1,206 @@
+{
+  "root": true,
+  "ignorePatterns": ["**/*"],
+  "plugins": ["@nrwl/nx"],
+  "extends": ["prettier"],
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "rules": {
+        "@nrwl/nx/enforce-module-boundaries": [
+          "error",
+          {
+            "allow": ["@dynatrace/barista-icons"],
+            "depConstraints": [
+              {
+                "sourceTag": "scope:components",
+                "onlyDependOnLibsWithTags": [
+                  "scope:components",
+                  "scope:testing"
+                ]
+              },
+              {
+                "sourceTag": "type:app",
+                "onlyDependOnLibsWithTags": ["type:library"]
+              },
+              {
+                "sourceTag": "type:e2e",
+                "onlyDependOnLibsWithTags": ["type:library"]
+              },
+              {
+                "sourceTag": "scope:examples",
+                "onlyDependOnLibsWithTags": [
+                  "scope:components",
+                  "scope:testing"
+                ]
+              },
+              {
+                "sourceTag": "type:tooling",
+                "onlyDependOnLibsWithTags": [
+                  "type:tooling",
+                  "type:shared",
+                  "type:types"
+                ]
+              },
+              {
+                "sourceTag": "type:shared",
+                "onlyDependOnLibsWithTags": ["type:shared"]
+              },
+              {
+                "sourceTag": "type:library",
+                "onlyDependOnLibsWithTags": ["type:library", "type:shared"]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": ["plugin:@nrwl/nx/typescript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.js", "*.jsx"],
+      "extends": ["plugin:@nrwl/nx/javascript"],
+      "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "no-prototype-builtins": "warn",
+        "@typescript-eslint/no-empty-function": "off",
+        "@angular-eslint/contextual-decorator": "error",
+        "@angular-eslint/contextual-lifecycle": "error",
+        "@angular-eslint/no-output-on-prefix": "error",
+        "@angular-eslint/use-lifecycle-interface": "error",
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/no-explicit-any": "error",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "no-public"
+          }
+        ],
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/member-delimiter-style": [
+          "off",
+          {
+            "multiline": {
+              "delimiter": "none",
+              "requireLast": true
+            },
+            "singleline": {
+              "delimiter": "semi",
+              "requireLast": false
+            }
+          }
+        ],
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-namespace": "error",
+        "@typescript-eslint/no-shadow": [
+          "error",
+          {
+            "hoist": "all"
+          }
+        ],
+        "@typescript-eslint/no-unused-expressions": "error",
+        "@typescript-eslint/prefer-namespace-keyword": "error",
+        "@typescript-eslint/quotes": "off",
+        "@typescript-eslint/semi": ["off", null],
+        "@typescript-eslint/type-annotation-spacing": "off",
+        "arrow-parens": ["off", "always"],
+        "comma-dangle": "off",
+        "eol-last": "off",
+        "id-denylist": [
+          "error",
+          "any",
+          "Number",
+          "number",
+          "String",
+          "string",
+          "Boolean",
+          "boolean",
+          "Undefined",
+          "undefined"
+        ],
+        "id-match": "error",
+        "indent": "off",
+        "jsdoc/check-alignment": "error",
+        "jsdoc/check-indentation": "error",
+        "jsdoc/newline-after-description": "error",
+        "linebreak-style": "off",
+        "max-len": "off",
+        "new-parens": "off",
+        "newline-per-chained-call": "off",
+        "no-bitwise": "error",
+        "no-caller": "error",
+        "no-debugger": "error",
+        "no-duplicate-imports": "error",
+        "no-eval": "error",
+        "no-extra-semi": "off",
+        "no-irregular-whitespace": "off",
+        "no-multiple-empty-lines": "off",
+        "no-new-wrappers": "error",
+        "no-redeclare": "error",
+        "no-restricted-imports": [
+          "error",
+          "@dynatrace/barista-components",
+          "lodash"
+        ],
+        "no-shadow": "error",
+        "no-trailing-spaces": "off",
+        "no-underscore-dangle": "off",
+        "no-unused-expressions": "error",
+        "no-var": "error",
+        "padded-blocks": [
+          "off",
+          {
+            "blocks": "never"
+          },
+          {
+            "allowSingleLineBlocks": true
+          }
+        ],
+        "quote-props": "off",
+        "quotes": "off",
+        "react/jsx-curly-spacing": "off",
+        "react/jsx-equals-spacing": "off",
+        "react/jsx-tag-spacing": [
+          "off",
+          {
+            "afterOpening": "allow",
+            "closingSlash": "allow"
+          }
+        ],
+        "react/jsx-wrap-multilines": "off",
+        "semi": "off",
+        "space-before-function-paren": "off",
+        "space-in-parens": ["off", "never"]
+      },
+      "plugins": [
+        "eslint-plugin-react",
+        "eslint-plugin-jsdoc",
+        "@angular-eslint/eslint-plugin",
+        "@typescript-eslint"
+      ]
+    },
+    {
+      "files": ["*.html"],
+      "rules": {
+        "@angular-eslint/template/banana-in-box": "error",
+        "@angular-eslint/template/eqeqeq": "error",
+        "@angular-eslint/template/no-negated-async": "error"
+      },
+      "plugins": ["@angular-eslint/eslint-plugin-template"]
+    },
+    {
+      "files": ["*.spec.ts"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
+      },
+      "plugins": ["@angular-eslint/eslint-plugin", "@typescript-eslint"]
+    }
+  ]
+}

@@ -4,6 +4,7 @@
     "esbenp.prettier-vscode",
     "ms-vscode.vscode-typescript-tslint-plugin",
     "angular.ng-template",
-    "hex-ci.stylelint-plus"
+    "hex-ci.stylelint-plus",
+    "dbaeumer.vscode-eslint"
   ]
 }

@@ -46,13 +46,6 @@
     },
     "@nrwl/angular:library": {
       "unitTestRunner": "jest"
-    },
-    "@nrwl/angular": {
-      "convert-tslint-to-eslint": {
-        "ignoreExistingTslintConfig": false,
-        "removeTSLintIfNoMoreTSLintTargets": true,
-        "skipFormat": false
-      }
     }
   },
   "defaultProject": "dev"
