@@ -39,7 +39,7 @@ export class BaIndexPage {
   /** @internal array of recently visited pages */
   _orderedItems: (BaRecentlyOrderedItem | undefined)[] = [];
   /** @internal whether recently ordered items should be displayed */
-  _showOrderedItems: boolean = false;
+  _showOrderedItems = false;
 
   constructor(
     private _pageService: DsPageService<BaSinglePageContent>,

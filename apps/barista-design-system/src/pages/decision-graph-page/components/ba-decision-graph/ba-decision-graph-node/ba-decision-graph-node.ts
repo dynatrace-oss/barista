@@ -62,7 +62,7 @@ export class BaDecisionGraphNode implements AfterViewInit {
   _decisionGraphSteps: BaUxdNode[] = [];
 
   /** @internal Whether the Undo button in template is displayed */
-  _started: boolean = false;
+  _started = false;
 
   constructor(private _sanitizer: DomSanitizer) {}
 
@@ -74,6 +74,7 @@ export class BaDecisionGraphNode implements AfterViewInit {
 
   /**
    * Pushes the next node into the decisionGraphSteps array
+   *
    * @param nextNodeId Next node id to be displayed
    */
   setNextNode(selectedEdge: BaUxdEdge): void {
@@ -133,6 +134,7 @@ export class BaDecisionGraphNode implements AfterViewInit {
 
   /**
    * Converts a string to SafeHtml using the DomSanitizer
+   *
    * @param nodeText string to be converted to SafeHtml
    */
   getSanitizedNodeText(nodeText: string): SafeHtml | undefined {
