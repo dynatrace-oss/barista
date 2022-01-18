@@ -19,6 +19,7 @@ import { CommitMessage, CommitTypes } from '../interfaces/commit-message';
 /**
  * Splits the commit message string into its own components. This helps for
  * further processing of the commit messages.
+ *
  * @param original Original string of the commit message.
  */
 export function splitStringIntoCommitMessage(original: string): CommitMessage {
