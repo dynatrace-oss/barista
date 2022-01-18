@@ -37,7 +37,7 @@ import { DtRadioButton, DtRadioChange } from './radio';
 let nextUniqueId = 0;
 
 @Directive({
-  selector: 'dt-radio-group',
+  selector: 'dt-radio-group, [dtRadioGroup]',
   exportAs: 'dtRadioGroup',
   providers: [{ provide: DtFormFieldControl, useExisting: DtRadioGroup }],
   host: {
@@ -131,7 +131,7 @@ export class DtRadioGroup<T>
 
   /** Emits when a radio of this group is changed. */
   // Disabling no-output-native rule because we want to keep a similar API to the native radio group
-  // tslint:disable-next-line: no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() readonly change = new EventEmitter<DtRadioChange<T>>();
 
   /** Implemented as part of DtFormFieldControl. */
@@ -161,7 +161,7 @@ export class DtRadioGroup<T>
   _controlValueAccessorChangeFn: (value: T) => void = () => {};
 
   /** @internal References to the radio buttons of this group. */
-  // tslint:disable-next-line:no-forward-ref
+  // eslint-disable-next-line @angular-eslint/no-forward-ref
   @ContentChildren(forwardRef(() => DtRadioButton), { descendants: true })
   _radios: QueryList<DtRadioButton<T>>;
 
@@ -176,6 +176,7 @@ export class DtRadioGroup<T>
     }
 
     // Force setter to be called in case id was not specified.
+    // eslint-disable-next-line no-self-assign
     this.id = this.id;
   }
 
@@ -209,6 +210,7 @@ export class DtRadioGroup<T>
   /** @internal Dispatch change event with current selection and group value. */
   _emitChangeEvent(): void {
     if (this._isInitialized) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.change.emit({ source: this._selected!, value: this._value });
     }
   }
