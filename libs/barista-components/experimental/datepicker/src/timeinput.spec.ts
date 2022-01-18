@@ -29,10 +29,8 @@ import {
   tick,
   waitForAsync,
 } from '@angular/core/testing';
-import {
-  DtDatepickerModule,
-  DtTimeInput,
-} from '@dynatrace/barista-components/experimental/datepicker';
+import { DtDatepickerModule } from './datepicker-module';
+import { DtTimeInput } from './timeinput';
 import {
   createComponent,
   dispatchFakeEvent,

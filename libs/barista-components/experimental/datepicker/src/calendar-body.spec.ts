@@ -244,7 +244,7 @@ describe('DtCalendarBody', () => {
       });
 
       it("should set the 'dt-calendar-active' class on the cell containing the active date", () => {
-        let selectedCell = {
+        const selectedCell = {
           displayValue: '1',
           value: 1,
           rawValue: new Date(2020, 7, 1),
@@ -269,7 +269,7 @@ describe('DtCalendarBody', () => {
       it('should emit a selectedChange event a date is selected date', () => {
         const changeSpy = jest.fn();
         component.calendarBody.selectedChange.subscribe(changeSpy);
-        let selectedCell = {
+        const selectedCell = {
           displayValue: '1',
           value: 1,
           rawValue: new Date(2020, 7, 1),
@@ -283,7 +283,7 @@ describe('DtCalendarBody', () => {
       it('should emit an activeDateChange event if the active date is changed', () => {
         const changeSpy = jest.fn();
         component.calendarBody.activeDateChange.subscribe(changeSpy);
-        let selectedCell = {
+        const selectedCell = {
           displayValue: '5',
           value: 5,
           rawValue: new Date(2020, 7, 5),
@@ -300,7 +300,7 @@ describe('DtCalendarBody', () => {
 
         const changeSpy = jest.fn();
         component.calendarBody.activeDateChange.subscribe(changeSpy);
-        let selectedCell = {
+        const selectedCell = {
           displayValue: '5',
           value: 5,
           rawValue: new Date(2020, 7, 5),

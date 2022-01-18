@@ -207,7 +207,7 @@ export class DtDatePicker<T>
   private _startAt: T | null;
 
   /** Classes to be passed to the datepicker panel. Supports the same syntax as `ngClass`. */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** Property that enables the timepicker, so that a time can be entered as well. */
@@ -319,6 +319,7 @@ export class DtDatePicker<T>
     this.tabIndex = parseInt(tabIndex, 10) || 0;
 
     // Force setter to be called in case id was not specified.
+    // eslint-disable-next-line no-self-assign
     this.id = this.id;
   }
 
@@ -380,6 +381,7 @@ export class DtDatePicker<T>
    * Saves a callback function to be invoked when the datepicker is blurred
    * by the user. Part of the ControlValueAccessor.
    */
+  // eslint-disable-next-line @typescript-eslint/ban-types
   registerOnTouched(fn: () => {}): void {
     this._onTouched = fn;
   }

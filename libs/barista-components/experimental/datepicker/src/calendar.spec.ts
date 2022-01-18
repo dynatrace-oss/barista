@@ -185,7 +185,7 @@ describe('DtCalendar', () => {
       it('should emit a selectedChange event if a date is selected', () => {
         const changeSpy = jest.fn();
         component.calendar.selectedChange.subscribe(changeSpy);
-        let selectedCell = {
+        const selectedCell = {
           displayValue: '19',
           value: 19,
           rawValue: new Date(2020, 7, 19),
@@ -207,7 +207,7 @@ describe('DtCalendar', () => {
       );
       expect(component.calendar._label).toEqual(formattedStartDate);
 
-      let selectedCell = {
+      const selectedCell = {
         displayValue: '15',
         value: 15,
         rawValue: new Date(2020, 6, 15),

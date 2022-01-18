@@ -32,6 +32,7 @@ const HOURMIN_REGEX = /^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$/g;
 /** Checks whether the provided object is a valid date and returns it; null otherwise. */
 export function getValidDateOrNull<T>(
   dateAdapter: DtDateAdapter<T>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   obj: any,
 ): T | null {
   return dateAdapter.isDateInstance(obj) && dateAdapter.isValid(obj)
@@ -41,6 +42,7 @@ export function getValidDateOrNull<T>(
 
 /**
  * Check if the given date is outside the min and max dates.
+ *
  * @param date
  * The date that need to be checked.
  * @param dateAdapter
@@ -78,23 +80,25 @@ export function isOutsideMinMaxRange<T>(
 
 /** Check if the hour value is valid. */
 export function isValidHour(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any,
   min?: string | number | null,
   max?: string | number | null,
 ): boolean {
-  let minHour = getParsedMinHour(min);
-  let maxHour = getParsedMaxHour(max);
+  const minHour = getParsedMinHour(min);
+  const maxHour = getParsedMaxHour(max);
   return isValid(value, minHour, maxHour);
 }
 
 /** Check if the minute value is valid. */
 export function isValidMinute(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any,
   min?: string | number | null,
   max?: string | number | null,
 ): boolean {
-  let minMinute = getParsedMinMinute(min);
-  let maxMinute = getParsedMaxMinute(max);
+  const minMinute = getParsedMinMinute(min);
+  const maxMinute = getParsedMaxMinute(max);
   return isValid(value, minMinute, maxMinute);
 }
 
@@ -104,6 +108,7 @@ export function isValidMinute(
  * However, this cannot happen with the input event, since it will be passed as a string. Also, typing '.' is prevented on keydown.
  */
 export function isValid(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   value: any,
   min: string | number,
   max: string | number,
