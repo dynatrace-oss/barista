@@ -112,7 +112,7 @@ export function DT_MICROCHART_CHART_RESOVER_PROVIDER_FACTORY(
 })
 export class DtMicroChart implements OnDestroy {
   /** @internal DtChart instance that is needed for the tooltip */
-  // tslint:disable-next-line no-forward-ref
+  // eslint-disable-next-line  @angular-eslint/no-forward-ref
   @ViewChild(forwardRef(() => DtChart), { static: true })
   _dtChart: DtChart;
 
@@ -239,7 +239,8 @@ export class DtMicroChart implements OnDestroy {
 
     this._currentSeries = singleSeries;
     const dataPoints = singleSeries.data
-      ? convertToDataPoints(singleSeries.data!)
+      ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        convertToDataPoints(singleSeries.data!)
       : [];
     const { min, max } = getMinMaxDataPoints(dataPoints);
     applyMinMaxOptions(
@@ -247,6 +248,7 @@ export class DtMicroChart implements OnDestroy {
       max,
       this.labelFormatter,
       this._theme,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this._transformedOptions.chart!.type,
     );
 
@@ -316,21 +318,23 @@ function getMinMaxDataPoints(
   min: SeriesColumnDataOptions | SeriesLineDataOptions;
   max: SeriesColumnDataOptions | SeriesLineDataOptions;
 } {
-  // tslint:disable:align
+  /* eslint-disable indent,@typescript-eslint/indent */
   return dataPoints.reduce(
     (accumulator, currentDataPoint) => ({
       min:
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         currentDataPoint.y! < accumulator.min.y
           ? currentDataPoint
           : accumulator.min,
       max:
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         currentDataPoint.y! > accumulator.max.y
           ? currentDataPoint
           : accumulator.max,
     }),
     { min: { y: Infinity }, max: { y: -Infinity } },
   );
-  // tslint:enable:align
+  /* eslint-enable indent, @typescript-eslint/indent */
 }
 
 /** Apply default micro chart options to min & max data points, taking into account the given chart type */
@@ -393,12 +397,14 @@ function addDataLabelFormatter(
   if (dataPoint && dataPoint.dataLabels) {
     if (Array.isArray(dataPoint.dataLabels)) {
       dataPoint.dataLabels[0].formatter = () =>
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         dataPoint.y !== undefined ? formatter(dataPoint.y!) : '';
       for (let i = 1; i < dataPoint.dataLabels.length; i++) {
         dataPoint.dataLabels[i].formatter = () => '';
       }
     } else {
       dataPoint.dataLabels.formatter = () =>
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         dataPoint.y !== undefined ? formatter(dataPoint.y!) : '';
     }
   }
@@ -407,6 +413,7 @@ function addDataLabelFormatter(
 /**
  * Extracts a series of data points from the given series that contains data points interpolating missing data. The
  * interpolation is done differently for line and column charts, and is based on the chart type of the given options.
+ *
  * @param series The DtMicroChartSeries containing data points with or without gaps
  * @param options The DtMicroChartOptions containing information about the chart type and coloring
  */

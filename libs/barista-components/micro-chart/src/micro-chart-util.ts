@@ -20,6 +20,7 @@ import { isDefined } from '@dynatrace/barista-components/core';
 
 /**
  * Checks whether or not data at the given index is missing.
+ *
  * @param idx The position within the data
  * @param data The data points
  */
@@ -33,6 +34,7 @@ export function isDataMissing(
 /**
  * Checks whether or not the given index position is the start of a gap. The start of a gap is defined by missing data
  * at the index, and either existing data or no data point (out of bounds) at the left of index.
+ *
  * @param idx The position within the data
  * @param data The data points
  */
@@ -45,6 +47,7 @@ export function isGapStart(idx: number, data: PointOptionsObject[]): boolean {
 /**
  * Checks whether or not the given index position is the end of a gap. The end of a gap is defined by missing data
  * at the index, and either existing data or no data point (out of bounds) at the right of index.
+ *
  * @param idx The position within the data
  * @param data The data points
  */
@@ -57,6 +60,7 @@ export function isGapEnd(idx: number, data: PointOptionsObject[]): boolean {
 /**
  * Extracts a list of gaps of form [startIndex, endIndex] from the given data points. A single data point with existing
  * data is needed to return a gap list, otherwise the list will be empty.
+ *
  * @param data The data points
  */
 export function extractGaps(
@@ -88,6 +92,7 @@ export function extractGaps(
  * Extracts a list of interpolated data points from the gaps of the given data points. Line interpolations will be a
  * list of data points that match the following pattern: (x|y) (x|y) {(x) (x|y) (x|y)}*, where (x) disconnects two lines
  * in the graph (missing data).
+ *
  * @param data The data points
  */
 export function extractLineGapDataPoints(
@@ -124,6 +129,7 @@ export function extractLineGapDataPoints(
 /**
  * Extracts a list of interpolated data points from the gaps of the given data points. Column interpolations will be a
  * list of data points that match the following pattern: (x|y)*
+ *
  * @param data The data points
  */
 export function extractColumnGapDataPoints(
