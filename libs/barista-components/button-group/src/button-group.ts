@@ -70,7 +70,7 @@ export class DtButtonGroup<T>
   private _value: T | null = null;
   private _disabled = false;
 
-  // tslint:disable-next-line: no-use-before-declare no-forward-ref
+  // eslint-disable-next-line no-use-before-define, @typescript-eslint/no-use-before-define, @angular-eslint/no-forward-ref
   @ContentChildren(forwardRef(() => DtButtonGroupItem), { descendants: true })
   private _items: QueryList<DtButtonGroupItem<T>>;
 
