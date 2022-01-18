@@ -873,19 +873,21 @@ class RadioGroupWithFormControl {
 
 @Component({
   template: `
-    <dt-radio-group>
-      <dt-radio-button value="Group1-Option1" checked>One</dt-radio-button>
+    <dt-radio-group [value]="value1">
+      <dt-radio-button value="Group1-Option1">One</dt-radio-button>
       <dt-radio-button value="Group1-Option2">Two</dt-radio-button>
       <dt-radio-button value="Group1-Option3">Three</dt-radio-button>
     </dt-radio-group>
-    <dt-radio-group>
-      <dt-radio-button value="Group2-Option1" checked>One</dt-radio-button>
+    <dt-radio-group [value]="value2">
+      <dt-radio-button value="Group2-Option1">One</dt-radio-button>
       <dt-radio-button value="Group2-Option2">Two</dt-radio-button>
       <dt-radio-button value="Group2-Option3">Three</dt-radio-button>
     </dt-radio-group>
   `,
 })
 class DoubleRadioGroups {
+  value1 = 'Group1-Option1';
+  value2 = 'Group2-Option1';
   @ViewChildren(DtRadioGroup) groups: QueryList<DtRadioGroup<any>>;
 }
 
