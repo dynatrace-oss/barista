@@ -7,7 +7,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "lib": ["es2018", "dom"],
+    "lib": [
+      "es2018",
+      "dom"
+    ],
     "module": "esnext",
     "moduleResolution": "node",
     "noUnusedLocals": true,
@@ -18,7 +21,9 @@
     "sourceMap": true,
     "strictNullChecks": true,
     "target": "es2015",
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "paths": {
       "@dynatrace/barista-components/alert": [
         "libs/barista-components/alert/index.ts"
@@ -209,8 +214,12 @@
       "@dynatrace/barista-components/tree-table": [
         "libs/barista-components/tree-table/index.ts"
       ],
-      "@dynatrace/barista-examples": ["libs/examples/src/index.ts"],
-      "@dynatrace/barista-examples/*": ["libs/examples/src/*/index.ts"],
+      "@dynatrace/barista-examples": [
+        "libs/examples/src/index.ts"
+      ],
+      "@dynatrace/barista-examples/*": [
+        "libs/examples/src/*/index.ts"
+      ],
       "@dynatrace/shared/data-access-strapi": [
         "libs/shared/data-access-strapi/index.ts"
       ],
@@ -223,16 +232,30 @@
       "@dynatrace/shared/design-tokens": [
         "libs/shared/design-tokens/src/index.ts"
       ],
-      "@dynatrace/shared/keycodes": ["libs/shared/keycodes/index.ts"],
-      "@dynatrace/shared/node": ["libs/shared/node/index.ts"],
-      "@dynatrace/testing/browser": ["libs/testing/browser/src/index.ts"],
+      "@dynatrace/shared/keycodes": [
+        "libs/shared/keycodes/index.ts"
+      ],
+      "@dynatrace/shared/node": [
+        "libs/shared/node/index.ts"
+      ],
+      "@dynatrace/testing/browser": [
+        "libs/testing/browser/src/index.ts"
+      ],
       "@dynatrace/testing/custom-element": [
         "libs/testing/custom-element/src/index.ts"
       ],
-      "@dynatrace/testing/fixtures": ["libs/testing/fixtures/src/index.ts"],
-      "@dynatrace/testing/node": ["libs/testing/node/src/index.ts"],
-      "@dynatrace/workspace": ["libs/workspace/src/index.ts"],
-      "@environments/*": ["environments/*"]
+      "@dynatrace/testing/fixtures": [
+        "libs/testing/fixtures/src/index.ts"
+      ],
+      "@dynatrace/testing/node": [
+        "libs/testing/node/src/index.ts"
+      ],
+      "@dynatrace/workspace": [
+        "libs/workspace/src/index.ts"
+      ],
+      "@environments/*": [
+        "environments/*"
+      ]
     },
     "plugins": [
       {
@@ -246,5 +269,8 @@
       }
     ]
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

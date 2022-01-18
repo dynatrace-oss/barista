@@ -44,13 +44,16 @@ import {
   getRangeResizeStream,
 } from './streams';
 
-const MOCK_BOUNDING_CLIENT_RECT: ClientRect = {
+const MOCK_BOUNDING_CLIENT_RECT: DOMRect = {
   top: 50,
   left: 50,
   height: 200,
   width: 400,
   bottom: 250,
   right: 450,
+  x: 50,
+  y: 50,
+  toJSON: () => '',
 };
 
 const MOVE_VALUES = {
