@@ -90,12 +90,12 @@ export class DtKeyValueList implements AfterContentInit, OnDestroy {
             this._items.length >
             DT_KEY_VALUE_LIST_THREE_COLUMNS_LAYOUT_MIN_ITEMS
           ) {
-            // tslint:disable:no-any no-magic-numbers
+            /* eslint-disable @typescript-eslint/no-explicit-any, no-magic-numbers */
             this._calculatedColumns = 3;
           } else if (
             this._items.length > DT_KEY_VALUE_LIST_TWO_COLUMNS_LAYOUT_MIN_ITEMS
           ) {
-            // tslint:disable:no-any no-magic-numbers
+            /* eslint-disable @typescript-eslint/no-explicit-any, no-magic-numbers */
             this._calculatedColumns = 2;
           } else {
             this._calculatedColumns = 1;
