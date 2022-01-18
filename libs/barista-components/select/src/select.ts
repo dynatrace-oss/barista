@@ -356,7 +356,7 @@ export class DtSelect<T>
     return this._compareWith;
   }
   set compareWith(fn: (v1: T, v2: T) => boolean) {
-    // tslint:disable-next-line:strict-type-predicates
+    // eslint-disable-next-line
     if (typeof fn !== 'function') {
       LOG.error(DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG);
     } else {
@@ -404,7 +404,7 @@ export class DtSelect<T>
   @Input() errorStateMatcher: ErrorStateMatcher;
 
   /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** Combined stream of all of the child options' change events. */
@@ -485,6 +485,7 @@ export class DtSelect<T>
     this.tabIndex = parseInt(tabIndex, 10) || 0;
 
     // Force setter to be called in case id was not specified.
+    // eslint-disable-next-line no-self-assign
     this.id = this.id;
 
     this._focusMonitor.monitor(this._elementRef, false);
@@ -617,6 +618,7 @@ export class DtSelect<T>
    * Saves a callback function to be invoked when the select is blurred
    * by the user. Part of the ControlValueAccessor.
    */
+  // eslint-disable-next-line @typescript-eslint/ban-types
   registerOnTouched(fn: () => {}): void {
     this._onTouched = fn;
   }
@@ -754,9 +756,12 @@ export class DtSelect<T>
   /** Emits change event to set the model value. */
   private _propagateChanges(fallbackValue?: T): void {
     const valueToEmit = this.selected ? this.selected.value : fallbackValue;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this._value = valueToEmit!;
     this.valueChange.emit(valueToEmit);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this._onChange(valueToEmit!);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.selectionChange.emit(new DtSelectChange(this, valueToEmit!));
     this._changeDetectorRef.markForCheck();
   }
@@ -886,7 +891,8 @@ export class DtSelect<T>
     // If no value is selected we open the popup to the first item.
     let selectedOptionOffset = this.empty
       ? 0
-      : this._getOptionIndex(this._selectionModel.selected[0])!;
+      : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        this._getOptionIndex(this._selectionModel.selected[0])!;
     selectedOptionOffset += _countGroupLabelsBeforeOption(
       selectedOptionOffset,
       this.options.toArray(),
@@ -894,7 +900,7 @@ export class DtSelect<T>
 
     // We must maintain a scroll buffer so the selected option will be scrolled to the
     // center of the overlay panel rather than the top.
-    // tslint:disable-next-line:no-magic-numbers
+    // eslint-disable-next-line no-magic-numbers
     const scrollBuffer = panelHeight / 2;
     this._scrollTop = this._calculateOverlayScroll(
       selectedOptionOffset,
@@ -910,7 +916,7 @@ export class DtSelect<T>
     maxScroll: number,
   ): number {
     const optionOffsetFromScrollTop = SELECT_ITEM_HEIGHT * selectedIndex;
-    // tslint:disable-next-line:no-magic-numbers
+    // eslint-disable-next-line no-magic-numbers
     const halfOptionHeight = SELECT_ITEM_HEIGHT / 2;
 
     // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
@@ -976,6 +982,7 @@ export class DtSelect<T>
         this._keyManager.setFirstItemActive();
       } else {
         this._keyManager.setActiveItem(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           this._getOptionIndex(this._selectionModel.selected[0])!,
         );
       }
