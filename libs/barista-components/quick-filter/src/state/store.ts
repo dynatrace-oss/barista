@@ -32,8 +32,10 @@ export interface QuickFilterState {
   /** The dataSource that is connected with the QuickFilter */
   dataSource?: DtQuickFilterDataSource;
   /** Array of all active filter values (internal filter representation of the filter field) */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filters: DtAutocompleteValue<any>[][];
   /** Initial Filter array that might be added via a binding to the quick filter */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   initialFilters?: any[][];
   /** The group that is displayed in detail through the show more */
   groupInDetailView?: string;
@@ -57,12 +59,12 @@ const effects: Effect[] = [switchDataSourceEffect];
  *
  * 1. Action gets dispatched (An action indicates a change in the store)
  * 2. The reducer gets an action and the current state, and according to the action
- *    modifies the state.
+ * modifies the state.
  * 3. A Selector can always read the latest value from the store and displays it in
- *    a template. So the only way to modify the state is dispatching an action.
+ * a template. So the only way to modify the state is dispatching an action.
  * 4. If some async work has to be done the effect is responsible for that.
- *    Effects are listening for actions then doing some async work and dispatching some
- *    Other actions with the payload of the async stuff.
+ * Effects are listening for actions then doing some async work and dispatching some
+ * Other actions with the payload of the async stuff.
  */
 class QuickFilterStore {
   /** The current action that got dispatched */

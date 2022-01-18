@@ -18,6 +18,7 @@ import { DtAutocompleteValue } from '@dynatrace/barista-components/filter-field'
 
 /** @internal Build an array of uids from the options without the groups */
 export function buildIdPathsFromFilters(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   filters: DtAutocompleteValue<any>[][],
 ): string[] {
   return filters.map((group) => group[group.length - 1].option?.uid || '');

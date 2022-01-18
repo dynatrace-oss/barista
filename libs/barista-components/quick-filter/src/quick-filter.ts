@@ -70,7 +70,7 @@ import { Platform } from '@angular/cdk/platform';
 
 /** Directive that is used to place a title inside the quick filters sidebar */
 @Directive({
-  selector: 'dt-quick-filter-title',
+  selector: 'dt-quick-filter-title, [dtQuickFilterTitle]',
   exportAs: 'dtQuickFilterTitle',
   host: {
     class: 'dt-quick-filter-title',
@@ -80,7 +80,7 @@ export class DtQuickFilterTitle {}
 
 /** Directive that is used to place a subtitle inside the quick filters sidebar */
 @Directive({
-  selector: 'dt-quick-filter-sub-title',
+  selector: 'dt-quick-filter-sub-title, [dtQuickFilterSubTitle]',
   exportAs: 'dtQuickFilterSubTitle',
   host: {
     class: 'dt-quick-filter-sub-title',
@@ -114,6 +114,7 @@ export class DtQuickFilterCurrentFilterChangeEvent<
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   /** Emits an event with the current value of the input field every time the user types. */
   @Output() readonly inputChange: Observable<string> = this._zone.onStable.pipe(
@@ -201,6 +202,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   /** The data source instance that should be connected to the filter field. */
   @Input()
   get dataSource(): DtQuickFilterDataSource {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const dataSource = this._store.select(
       (state: BehaviorSubject<QuickFilterState>) => state.value.dataSource,
     )!;
@@ -231,7 +233,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   /**
    * The aria-level of the group headlines for the document outline.
    */
-  @Input() groupHeadlineRole: number = 3;
+  @Input() groupHeadlineRole = 3;
 
   /**
    * The maximum amount of items that should be displayed in the quick filter
@@ -292,6 +294,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     stable$
       .pipe(
         switchMap(() => this._store.select(getInitialFilters)),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         filter<any[][]>(Boolean),
         takeUntil(this._destroy$),
       )
@@ -323,6 +326,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
 
   /**
    * Toggles the open state of the sidebar.
+   *
    * @param sidebarOpened the state the drawer should be toggled to – `'open' | 'close'`
    * Default the opposite of the current open state.
    */

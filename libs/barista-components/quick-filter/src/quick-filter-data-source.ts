@@ -16,10 +16,12 @@
 
 import { DtFilterFieldDataSource } from '@dynatrace/barista-components/filter-field';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export abstract class DtQuickFilterDataSource<T = any>
   extends DtFilterFieldDataSource<T>
   implements DtFilterFieldDataSource<T>
 {
   /** Function that evaluates if a node should be displayed in the quick filter sidebar */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   showInSidebarFunction: (node: any) => boolean;
 }

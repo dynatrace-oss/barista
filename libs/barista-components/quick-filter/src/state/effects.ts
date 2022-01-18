@@ -38,7 +38,9 @@ export const ofType = <T>(
 /** @internal Connects to a new Data dataSource */
 export const switchDataSourceEffect: Effect = (action$: Observable<Action>) =>
   action$.pipe(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ofType<DtFilterFieldDataSource<any>>(ActionType.SWITCH_DATA_SOURCE),
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     switchMap((action) => action.payload!.connect().pipe(take(1))),
     map((nodeDef: DtNodeDef) => updateDataSource(nodeDef)),
   );

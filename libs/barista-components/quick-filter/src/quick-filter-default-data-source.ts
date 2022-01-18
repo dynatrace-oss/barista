@@ -54,6 +54,7 @@ export type DtQuickFilterDefaultDataSourceOption =
   | (DtQuickFilterDefaultDataSourceRange &
       DtQuickFilterDefaultDataSourceSimpleOption);
 export interface DtQuickFilterDefaultDataSourceConfig {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   showInSidebar?: (node: any) => boolean;
 }
 
@@ -72,5 +73,6 @@ export class DtQuickFilterDefaultDataSource<
   }
 
   /** Function that evaluates if a node should be displayed in the quick filter sidebar */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   showInSidebarFunction: (node: any) => boolean;
 }

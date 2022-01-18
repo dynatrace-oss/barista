@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   DtFilterFieldDataSource,
   DtFilterValue,
@@ -20,6 +22,7 @@ import {
 } from '@dynatrace/barista-components/filter-field';
 
 /** @internal Enum for all the possible action types */
+// eslint-disable-next-line no-shadow
 export enum ActionType {
   INIT = '@@actions init',
   ADD_FILTER = '@@actions add filter',
