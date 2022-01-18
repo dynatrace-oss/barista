@@ -9,7 +9,6 @@ const entries = [
   'src/builders/barista-build/renderer.ts',
   'src/builders/typescript/index.ts',
   'src/builders/packager/index.ts',
-  'src/builders/affected-e2e/index.ts',
   'src/builders/stylelint/index.ts',
   'src/index.ts',
 ];
