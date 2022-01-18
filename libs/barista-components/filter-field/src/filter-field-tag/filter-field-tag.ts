@@ -106,7 +106,7 @@ export class DtFilterFieldTag implements OnDestroy {
     this._temporarilyDisabledState = value;
     this._changeDetectorRef.markForCheck();
   }
-  private _temporarilyDisabledState: boolean = false;
+  private _temporarilyDisabledState = false;
 
   /** @internal Whether the whole filter-field is disabled or not */
   @Input()
@@ -117,7 +117,7 @@ export class DtFilterFieldTag implements OnDestroy {
     this._parentFilterFieldDisabled = value;
     this._changeDetectorRef.markForCheck();
   }
-  private _parentFilterFieldDisabled: boolean = false;
+  private _parentFilterFieldDisabled = false;
 
   /** Whether the tag is editable. */
   get editable(): boolean {

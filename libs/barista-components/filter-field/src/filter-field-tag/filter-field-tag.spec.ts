@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, NgZone } from '@angular/core';
@@ -103,7 +103,7 @@ describe('DtFilterFieldTag', () => {
   it('should also accept string values to handle disabled', () => {
     expect(filterFieldTag.disabled).toBe(false);
 
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     filterFieldTag.disabled = 'disabled' as any;
 
     expect(filterFieldTag.disabled).toBe(true);
@@ -158,6 +158,7 @@ describe('DtFilterFieldTag', () => {
     /** Get the overlay trigger directive from the fixture. */
     function getOverlayTriggerDirective(
       passedFixture: ComponentFixture<TestApp>,
+      // eslint-disable-next-line @typescript-eslint/ban-types
     ): DtOverlayTrigger<{}> {
       return passedFixture.debugElement
         .query(By.directive(DtOverlayTrigger))

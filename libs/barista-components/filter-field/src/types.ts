@@ -18,7 +18,7 @@ import { isDefined, isObject } from '@dynatrace/barista-components/core';
 import { getDtFilterFieldRangeNoOperatorsError } from './filter-field-errors';
 import { DtFilterFieldValidator } from './filter-field-validation';
 
-// tslint:disable:no-bitwise no-magic-numbers no-any
+/* eslint-disable no-bitwise, no-magic-numbers, @typescript-eslint/no-explicit-any, no-shadow */
 export enum DtNodeFlags {
   None = 0,
   TypeAutocomplete = 1 << 0,
@@ -430,7 +430,7 @@ export function isDtNodeDef<D = unknown>(def: any): def is DtNodeDef<D> {
 }
 
 /** Holds all the view values and the original filter source for providing it to the DtFilterFieldTag to display. */
-// tslint:disable-next-line: class-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export class DtFilterFieldTagData {
   constructor(
     public key: string | null,
@@ -469,7 +469,7 @@ export function isDtAutocompleteValue<T>(
 }
 
 /** One of the categories of values that one filter tag can be */
-// tslint:disable-next-line: class-name
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export interface DtRangeValue {
   range: number | [number, number];
   operator: string;

@@ -20,7 +20,9 @@ import { EventEmitter } from '@angular/core';
 import { DtOption } from '@dynatrace/barista-components/core';
 
 export interface DtFilterFieldElement<T> {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   focus: Function;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   _markForCheck: Function;
 
   _isOpen: boolean;

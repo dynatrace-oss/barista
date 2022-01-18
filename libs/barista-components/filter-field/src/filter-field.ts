@@ -155,7 +155,7 @@ import {
   isPartialDtOptionDef,
 } from './types';
 
-// tslint:disable:no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 export class DtFilterFieldChangeEvent<T> {
   constructor(
@@ -370,7 +370,7 @@ export class DtFilterField<T = any>
   >();
 
   /** Emits the interaction-state (whether the filter-field is being interacted with or not) */
-  @Output() readonly interactionStateChange = new EventEmitter<Boolean>();
+  @Output() readonly interactionStateChange = new EventEmitter<boolean>();
 
   /**
    * List of tags that are the visual representation for selected nodes.
@@ -392,7 +392,7 @@ export class DtFilterField<T = any>
   );
 
   /** Whether the filter-field is being interacted with */
-  interactionState: boolean = false;
+  interactionState = false;
 
   /** @internal Reference to the internal input element */
   @ViewChild('input', { static: true }) _inputEl: ElementRef;
@@ -551,7 +551,7 @@ export class DtFilterField<T = any>
     private _focusMonitor: FocusMonitor,
     private _elementRef: ElementRef,
     defaultErrorStateMatcher: ErrorStateMatcher,
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Optional()
     @Inject(DOCUMENT)
     private _document: any,
@@ -688,7 +688,7 @@ export class DtFilterField<T = any>
         }
       });
 
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this._autocomplete.optionSelected
       .pipe(takeUntil(this._destroy$))
       .subscribe((event: DtAutocompleteSelectedEvent<any>) => {
@@ -898,6 +898,7 @@ export class DtFilterField<T = any>
       .toArray()
       .findIndex((tag) => tag.editButton === currentTag?.editButton);
 
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this._getCurrentlyFocusedTagType(currentTag!);
 
     if (direction === 'left') {
@@ -1431,7 +1432,7 @@ export class DtFilterField<T = any>
   _handleMultiSelectSubmitted(
     event: DtFilterFieldMultiSelectSubmittedEvent<T>,
   ): void {
-    for (let option of event.multiSelect) {
+    for (const option of event.multiSelect) {
       this._peekCurrentFilterValues().push(
         option as T & DtNodeDef<DtOptionDef> & { option: DtOptionDef },
       );
@@ -1451,7 +1452,7 @@ export class DtFilterField<T = any>
 
   /** Write a value to the native input elements and set _inputValue property  */
   private _writeInputValue(value: string): void {
-    // tslint:disable-next-line:no-unused-expression
+    // eslint-disable-next-line no-unused-expressions, @typescript-eslint/no-unused-expressions
     this._inputEl && (this._inputEl.nativeElement.value = value);
     if (value === '') {
       this._inputReset$.next();
@@ -1743,13 +1744,15 @@ export class DtFilterField<T = any>
         this._inputValue,
       );
       this._autocompleteOptionsOrGroups = def
-        ? def.autocomplete!.optionsOrGroups
+        ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          def.autocomplete!.optionsOrGroups
         : [];
     } else if (
       isDtFreeTextDef(currentDef) &&
       !isAsyncDtFreeTextDef(currentDef)
     ) {
       const def = filterFreeTextDef(currentDef, this._inputValue);
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this._autocompleteOptionsOrGroups = def ? def.freeText!.suggestions : [];
     } else {
       this._autocompleteOptionsOrGroups = [];
@@ -1806,7 +1809,8 @@ export class DtFilterField<T = any>
         this._inputValue,
       );
       this._multiSelectOptionsOrGroups = def
-        ? def.multiSelect!.multiOptions
+        ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          def.multiSelect!.multiOptions
         : [];
     } else {
       this._multiSelectOptionsOrGroups = [];
@@ -1898,4 +1902,4 @@ export class DtFilterField<T = any>
     }
   }
 }
-// tslint:disable:max-file-line-count
+/* eslint-disable max-lines */

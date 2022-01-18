@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Component, DebugElement, NgZone, ViewChild } from '@angular/core';
@@ -120,7 +122,7 @@ export function setupFilterFieldTest(): FilterFieldTestContext {
     optionOverlayContainer: HTMLElement,
     nthOption: number,
   ): void {
-    let options = getOptions(optionOverlayContainer);
+    const options = getOptions(optionOverlayContainer);
     const selectedOption = options[nthOption];
     selectedOption.click();
     advanceFilterfieldCycle();
@@ -147,7 +149,7 @@ export function setupFilterFieldTest(): FilterFieldTestContext {
 }
 
 @Component({
-  selector: 'test-app',
+  selector: 'dt-test-app',
   template: `
     <dt-filter-field
       [dataSource]="dataSource"
@@ -157,17 +159,18 @@ export function setupFilterFieldTest(): FilterFieldTestContext {
   `,
 })
 export class TestApp {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource = new DtFilterFieldDefaultDataSource(FILTER_FIELD_TEST_DATA_ASYNC);
 
   label = 'Filter by';
   clearAllLabel = 'Clear all';
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @ViewChild(DtFilterField) filterField: DtFilterField<any>;
 }
 
 @Component({
-  selector: 'test-app',
+  selector: 'dt-test-app',
   template: `
     <dt-filter-field
       [dataSource]="dataSource"
@@ -183,17 +186,18 @@ export class TestApp {
   ],
 })
 export class TestAppCustomParserConfig {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource = new DtFilterFieldDefaultDataSource(FILTER_FIELD_TEST_DATA_ASYNC);
 
   label = 'Filter by';
   clearAllLabel = 'Clear all';
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @ViewChild(DtFilterField) filterField: DtFilterField<any>;
 }
 
 @Component({
-  selector: 'test-app',
+  selector: 'dt-test-app',
   template: `
     <dt-filter-field
       [dataSource]="dataSource"
@@ -204,13 +208,14 @@ export class TestAppCustomParserConfig {
   `,
 })
 export class TestAppCustomParserInput {
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataSource = new DtFilterFieldDefaultDataSource(FILTER_FIELD_TEST_DATA_ASYNC);
 
   label = 'Filter by';
   clearAllLabel = 'Clear all';
   parserFn = customParser;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @ViewChild(DtFilterField) filterField: DtFilterField<any>;
 }
 
@@ -347,8 +352,9 @@ interface FilterTagTestData {
   deletable?: boolean;
 }
 
-// tslint:disable-next-line:no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getFilterTags(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fixture: ComponentFixture<any>,
 ): Array<FilterTagTestData> {
   return Array.from(
@@ -391,6 +397,7 @@ export function getTagButtons(tag: FilterTagTestData): {
   return { label, deleteButton };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getInput(fixture: ComponentFixture<any>): HTMLInputElement {
   return fixture.debugElement.query(By.css('.dt-filter-field-input'))
     .nativeElement;
@@ -398,6 +405,7 @@ export function getInput(fixture: ComponentFixture<any>): HTMLInputElement {
 
 /** Get the clearAll button. */
 export function getClearAll(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   fixture: ComponentFixture<any>,
 ): HTMLButtonElement | null {
   const dbgEl = fixture.debugElement.query(
@@ -407,6 +415,7 @@ export function getClearAll(
 }
 
 /** Get the clearAll button and evaluate if it is visible or not. */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isClearAllVisible(fixture: ComponentFixture<any>): boolean {
   const clearAll = getClearAll(fixture);
   return (
