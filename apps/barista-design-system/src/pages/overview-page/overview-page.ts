@@ -97,9 +97,11 @@ export class BaOverviewPage implements AfterViewInit, OnDestroy {
   _switchOverviewPageDisplay(): void {
     this._listViewActive = !this._listViewActive;
     if (this._platform.isBrowser && 'localStorage' in window) {
-      this._listViewActive
-        ? localStorage.setItem(LOCALSTORAGEKEY, 'list')
-        : localStorage.setItem(LOCALSTORAGEKEY, 'tiles');
+      if (this._listViewActive) {
+        localStorage.setItem(LOCALSTORAGEKEY, 'list');
+      } else {
+        localStorage.setItem(LOCALSTORAGEKEY, 'tiles');
+      }
     }
   }
 

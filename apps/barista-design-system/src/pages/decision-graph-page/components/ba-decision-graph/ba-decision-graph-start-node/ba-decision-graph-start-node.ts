@@ -39,6 +39,7 @@ export class BaDecisionGraphStartnode {
 
   /**
    * Converts a string to SafeHtml using the DomSanitizer
+   *
    * @param nodeText string to be converted to SafeHtml
    */
   getSanitizedNodeText(nodeText: string): SafeHtml | undefined {

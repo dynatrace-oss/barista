@@ -24,11 +24,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class BaDecisiongraphNodeNavigation {
   /** Whether the show back button should be displayed */
   @Input()
-  showBackButton: boolean = false;
+  showBackButton = false;
 
   /** Whether navigation is in a tasknode */
   @Input()
-  inTasknode: boolean = false;
+  inTasknode = false;
 
   /** Eventemitter which undos last step */
   @Output()
