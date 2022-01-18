@@ -15,6 +15,7 @@
  */
 
 import 'jest-preset-angular/setup-jest';
+import '@angular/localize/init';
 
 import { getTestBed } from '@angular/core/testing';
 import {
