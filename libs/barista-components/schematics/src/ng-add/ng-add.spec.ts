@@ -212,6 +212,7 @@ describe('New workspace', () => {
 
     // check if the angular animations package is used more than once
     expect(
+      // eslint-disable-next-line no-useless-escape
       readFileFromTree(tree, '/package.json').match(/\@angular\/animations/gim),
     ).toHaveLength(1);
     expect(readJsonFromTree(tree, '/package.json')).toMatchSnapshot();

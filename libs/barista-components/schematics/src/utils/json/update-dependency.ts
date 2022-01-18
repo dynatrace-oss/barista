@@ -29,7 +29,7 @@ export function updateDependency(
   packageJson: PackageJson,
   dependencyName: string,
   version: string,
-  addIfNotExists: boolean = true,
+  addIfNotExists = true,
 ): PackageJson {
   if (packageJson.dependencies?.hasOwnProperty(dependencyName)) {
     packageJson.dependencies[dependencyName] = version;

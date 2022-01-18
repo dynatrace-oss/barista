@@ -20,11 +20,11 @@ import { hasExportModifier } from './has-export-modifier';
 import { getSymbolName } from './get-symbol-name';
 import { createPropertyAssignment } from './create-property-assignment';
 
-// tslint:disable-next-line:max-line-length
+// eslint-disable-next-line max-len
 const NO_DECORATORS_ERROR = (name: string, filename: string) =>
   `The <${name}> property cannot be updated, in case there is no @NgModule in this file!\n${filename}`;
 
-// tslint:disable:max-line-length
+/* eslint-disable max-len */
 export const enum NgModuleProperties {
   Providers = 'providers', // The set of injectable objects that are available in the injector of this module.
   declarations = 'declarations', // The set of components, directives, and pipes (declarables) that belong to this module.
@@ -35,10 +35,11 @@ export const enum NgModuleProperties {
   Id = 'id', // A name or path that uniquely identifies this NgModule in getModuleFactory. If left undefined, the NgModule is not registered with getModuleFactory.
   Jit = 'jit', // If true, this module will be skipped by the AOT compiler and so will always be compiled using JIT.
 }
-// tslint:enable: max-line-length
+/* eslint-enable max-len */
 
 /**
  * Update properties of NgModules
+ *
  * @see https://angular.io/guide/ngmodules
  * @see https://angular.io/api/core/NgModule
  * @param sourceFile The sourceFile that should be modified

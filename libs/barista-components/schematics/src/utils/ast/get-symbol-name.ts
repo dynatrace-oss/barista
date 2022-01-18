@@ -18,6 +18,7 @@ import * as ts from 'typescript';
 
 /**
  * Get the name from any node
+ *
  * @param node Any Node
  */
 export function getSymbolName(node: any): string | undefined {

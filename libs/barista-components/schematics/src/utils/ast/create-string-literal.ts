@@ -17,6 +17,7 @@ import * as ts from 'typescript';
 
 /**
  * Creates a string literal from the specified text.
+ *
  * @param text Text of the string literal.
  * @param singleQuotes Whether single quotes should be used when printing the literal node.
  */
@@ -26,7 +27,7 @@ export function createStringLiteral(
 ): ts.StringLiteral {
   const literal = ts.factory.createStringLiteral(text);
   // See: https://github.com/microsoft/TypeScript/blob/master/src/compiler/utilities.ts#L584-L590
-  // tslint:disable-next-line: no-string-literal
+  // eslint-disable-next-line dot-notation, @typescript-eslint/dot-notation
   literal['singleQuote'] = singleQuotes;
   return literal;
 }

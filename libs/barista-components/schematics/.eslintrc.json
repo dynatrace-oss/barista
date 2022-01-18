@@ -1,0 +1,26 @@
+{
+  "extends": ["../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "excludedFiles": ["*.spec.ts"],
+      "parserOptions": {
+        "project": ["libs/barista-components/schematics/tsconfig.lib.json"]
+      },
+      "rules": {
+        "no-shadow": "off",
+        "@typescript-eslint/no-unnecessary-type-constraint": "warn",
+        "@typescript-eslint/member-ordering": "off",
+        "@typescript-eslint/no-explicit-any": "warn"
+      },
+      "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["*.spec.ts"],
+      "parserOptions": {
+        "project": ["libs/barista-components/schematics/tsconfig.spec.json"]
+      }
+    }
+  ]
+}

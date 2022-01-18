@@ -17,6 +17,7 @@ import * as ts from 'typescript';
 
 /**
  * Find all nodes from the AST in the subtree of node of SyntaxKind kind.
+ *
  * @param node
  * @param kind
  * @param maxItems The maximum number of items to return.
@@ -25,7 +26,7 @@ import * as ts from 'typescript';
 export function findNodes(
   node: ts.Node,
   kind: ts.SyntaxKind,
-  maxItems: number = Infinity,
+  maxItems = Infinity,
 ): ts.Node[] {
   let max = maxItems;
 
