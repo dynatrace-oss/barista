@@ -41,7 +41,7 @@ export function generateData(
     data[i] = {
       x: timestampStart + timestampTick * i,
       y:
-        // tslint:disable-next-line: no-magic-numbers
+        // eslint-disable-next-line no-magic-numbers
         generateGaps === true && Math.random() > 0.75
           ? undefined
           : randomize(min, max),

@@ -1,0 +1,24 @@
+{
+  "extends": ["../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "extends": [],
+      "parserOptions": {
+        "project": ["libs/testing/node/tsconfig.lib.json"]
+      },
+      "rules": {
+        "no-redeclare": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-non-null-assertion": "off"
+      },
+      "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@nrwl/nx/angular-template"],
+      "rules": {}
+    }
+  ]
+}

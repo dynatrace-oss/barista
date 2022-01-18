@@ -15,7 +15,7 @@
  */
 import { DtIconType } from '@dynatrace/barista-icons';
 
-// tslint:disable: dt-document-public-fields
+/* eslint-disable */
 
 export const TREE_TABLE_TEST_DATA: ThreadNode[] = [
   {

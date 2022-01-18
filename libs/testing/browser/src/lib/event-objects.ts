@@ -100,13 +100,14 @@ export function createKeyboardEvent(
     initializer.code = keycodeOrCode;
   }
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const event = new KeyboardEvent(type, initializer);
   const originalPreventDefault = event.preventDefault;
 
   // IE won't set `defaultPrevented` on synthetic events so we need to do it manually.
   event.preventDefault = function (): void {
     Object.defineProperty(event, 'defaultPrevented', { get: () => true });
+    // eslint-disable-next-line prefer-rest-params
     return originalPreventDefault.apply(this, arguments);
   };
 
