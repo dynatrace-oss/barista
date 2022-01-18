@@ -139,9 +139,12 @@ export interface DtStackedSeriesStackHoverData
 
 /** Output data for heatFields */
 export interface DtStackedSeriesHeatField {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   start?: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   end?: any;
   color?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   data?: any;
 }
 

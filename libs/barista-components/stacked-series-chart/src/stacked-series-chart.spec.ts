@@ -790,23 +790,23 @@ describe('DtStackedSeriesChart', () => {
 })
 class TestApp {
   series: DtStackedSeriesChartSeries[] = stackedSeriesChartDemoDataCoffee;
-  selectable: boolean = true;
+  selectable = true;
   selectionMode: DtStackedSeriesChartSelectionMode = 'node';
   selected: [DtStackedSeriesChartSeries, DtStackedSeriesChartNode] | [] = [];
   valueDisplayMode: DtStackedSeriesChartValueDisplayMode;
   max: number;
   fillMode: DtStackedSeriesChartFillMode = 'relative';
   legends: DtStackedSeriesChartLegend[];
-  visibleLegend: boolean = true;
-  visibleTrackBackground: boolean = true;
-  visibleLabel: boolean = true;
+  visibleLegend = true;
+  visibleTrackBackground = true;
+  visibleLabel = true;
   labelAxisMode: DtStackedSeriesChartLabelAxisMode = 'full';
-  visibleValueAxis: boolean = true;
+  visibleValueAxis = true;
   mode: DtStackedSeriesChartMode;
   maxTrackSize: number;
 
   theme = 'blue';
-  hasOverlay: boolean = true;
+  hasOverlay = true;
   @ViewChild(DtStackedSeriesChart) stackedSeriesChart: DtStackedSeriesChart;
 
   hoverStart: DtStackedSeriesHoverData;
