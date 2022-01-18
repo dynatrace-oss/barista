@@ -167,7 +167,7 @@ describe('ConfirmationDialogComponent', () => {
     }));
 
     it('should wiggle', fakeAsync(() => {
-      let componentInstance: TestComponent = fixture.componentInstance;
+      const componentInstance: TestComponent = fixture.componentInstance;
       expect(componentInstance.dialog._wiggleState).toEqual(false);
       componentInstance.dialog.focusAttention();
       expect(componentInstance.dialog._wiggleState).toEqual(true);
@@ -194,7 +194,7 @@ describe('ConfirmationDialogComponent', () => {
       window.dispatchEvent(new Event('resize'));
       tick(DT_CONFIRMATION_POP_DURATION);
       fixture.detectChanges();
-      let overlayPane = overlayContainerElement.querySelector(
+      const overlayPane = overlayContainerElement.querySelector(
         '.cdk-overlay-pane',
       ) as HTMLElement;
       expect(overlayPane.style.marginLeft).toBe(`${leftOffset}px`);

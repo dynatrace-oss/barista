@@ -146,7 +146,8 @@ export class DtConfirmationDialog
 
   /** The template that will become the overlay. */
   @ViewChild(TemplateRef, { static: true })
-  private readonly _templateRef: TemplateRef<{}>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private readonly _templateRef: TemplateRef<any>;
   /** All the "state" child elements. */
   @ContentChildren(DtConfirmationDialogState)
   private readonly _stateChildren: QueryList<DtConfirmationDialogState>;
@@ -158,7 +159,7 @@ export class DtConfirmationDialog
   private _viewportChangesSubscription: Subscription = Subscription.EMPTY;
 
   /** @internal holds the state for the wiggle animation */
-  _wiggleState: boolean = false;
+  _wiggleState = false;
 
   /** @internal holds the current position state for the animation */
   _positionState: 'down' | 'up' = 'down';
@@ -330,7 +331,8 @@ export class DtConfirmationDialog
       this._elementRef,
       this._config,
     );
-    const containerPortal = new TemplatePortal<{}>(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const containerPortal = new TemplatePortal<any>(
       this._templateRef,
       this._viewContainerRef,
     );
