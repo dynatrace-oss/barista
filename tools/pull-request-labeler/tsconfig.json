@@ -7,9 +7,9 @@
     "noImplicitAny": false,
     "esModuleInterop": true
   },
-  "exclude": ["node_modules", "**/*.test.ts"],
+  "exclude": ["node_modules", "**/*.test.ts", "src/test-setup.ts"],
   "files": [],
-  "include": [],
+  "include": ["src/**/*.ts"],
   "references": [
     {
       "path": "./tsconfig.spec.json"

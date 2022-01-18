@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
+/* eslint-disable jsdoc/check-indentation  */
+
 import { splitStringIntoCommitMessage } from './split-message-into-components';
 import { CommitTypes } from '../interfaces/commit-message';
 
 /**
- *  Rules for cherrypicking labels for pull requests targeting master
+ * Rules for cherrypicking labels for pull requests targeting master
  *
  *                         PR contains
  *                    BREAKING CHANGE COMMITS?

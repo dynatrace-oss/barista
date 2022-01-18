@@ -15,7 +15,7 @@
  */
 
 import { context, GitHub } from '@actions/github';
-import { PullsGetResponse, PullsListReviewsResponse } from '@octokit/rest';
+import { PullsListReviewsResponse } from '@octokit/rest';
 /**
  * Get the Reviews from the pull request.
  */

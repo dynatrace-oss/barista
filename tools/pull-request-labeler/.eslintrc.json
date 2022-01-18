@@ -1,0 +1,134 @@
+{
+  "extends": ["../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*", "test-setup.ts"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tools/pull-request-labeler/tsconfig.json"]
+      },
+      "rules": {
+        "no-useless-escape": "off",
+        "@typescript-eslint/await-thenable": "error",
+        "@typescript-eslint/consistent-type-assertions": "off",
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "no-public"
+          }
+        ],
+        "@typescript-eslint/indent": "off",
+        "@typescript-eslint/member-delimiter-style": [
+          "off",
+          {
+            "multiline": {
+              "delimiter": "none",
+              "requireLast": true
+            },
+            "singleline": {
+              "delimiter": "semi",
+              "requireLast": false
+            }
+          }
+        ],
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-namespace": "error",
+        "@typescript-eslint/no-require-imports": "off",
+        "@typescript-eslint/no-shadow": [
+          "warn",
+          {
+            "hoist": "all"
+          }
+        ],
+        "@typescript-eslint/no-unused-expressions": "error",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/prefer-namespace-keyword": "error",
+        "@typescript-eslint/quotes": "off",
+        "@typescript-eslint/semi": ["off", null],
+        "@typescript-eslint/type-annotation-spacing": "off",
+        "arrow-parens": ["off", "always"],
+        "brace-style": ["error", "1tbs"],
+        "comma-dangle": "off",
+        "eol-last": "off",
+        "id-denylist": [
+          "error",
+          "any",
+          "Number",
+          "number",
+          "String",
+          "string",
+          "Boolean",
+          "boolean",
+          "Undefined",
+          "undefined"
+        ],
+        "id-match": "error",
+        "import/no-unassigned-import": "off",
+        "indent": "off",
+        "jsdoc/check-alignment": "error",
+        "jsdoc/check-indentation": "error",
+        "jsdoc/newline-after-description": "error",
+        "linebreak-style": "off",
+        "max-len": "off",
+        "new-parens": "off",
+        "newline-per-chained-call": "off",
+        "no-bitwise": "error",
+        "no-caller": "error",
+        "no-console": "off",
+        "no-debugger": "error",
+        "no-duplicate-imports": "error",
+        "no-eval": "error",
+        "no-extra-semi": "off",
+        "no-irregular-whitespace": "off",
+        "no-magic-numbers": "off",
+        "no-multiple-empty-lines": "off",
+        "no-new-wrappers": "error",
+        "no-param-reassign": "off",
+        "no-redeclare": "error",
+        "no-restricted-imports": [
+          "error",
+          "@dynatrace/barista-components",
+          "lodash"
+        ],
+        "no-shadow": "warn",
+        "no-trailing-spaces": "off",
+        "no-underscore-dangle": "error",
+        "no-unused-expressions": "error",
+        "no-var": "error",
+        "padded-blocks": [
+          "off",
+          {
+            "blocks": "never"
+          },
+          {
+            "allowSingleLineBlocks": true
+          }
+        ],
+        "prefer-arrow/prefer-arrow-functions": "off",
+        "quote-props": "off",
+        "quotes": "off",
+        "react/jsx-curly-spacing": "off",
+        "react/jsx-equals-spacing": "off",
+        "react/jsx-tag-spacing": [
+          "off",
+          {
+            "afterOpening": "allow",
+            "closingSlash": "allow"
+          }
+        ],
+        "react/jsx-wrap-multilines": "off",
+        "semi": "off",
+        "space-before-function-paren": "off",
+        "space-in-parens": ["off", "never"]
+      },
+      "plugins": [
+        "eslint-plugin-react",
+        "eslint-plugin-jsdoc",
+        "@angular-eslint/eslint-plugin",
+        "eslint-plugin-prefer-arrow",
+        "@typescript-eslint"
+      ]
+    }
+  ]
+}
