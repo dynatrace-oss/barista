@@ -66,6 +66,7 @@ import { Platform } from '@angular/cdk/platform';
     class: 'dt-quick-filter-group',
   },
 })
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class DtQuickFilterGroup<T = any> implements AfterViewInit {
   /** @internal Emits a new action that changes the filter  */
   @Output() readonly filterChange = new EventEmitter<Action>();
@@ -185,7 +186,7 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
    * The item size of one item for the virtual scroll container
    * Default 22 as it is a standard height of a checkbox
    */
-  _itemSize: number = 22;
+  _itemSize = 22;
 
   /** A list of active filter ids */
   private _activeFilterPaths: string[] = [];
@@ -233,7 +234,8 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
   _selectCheckBox(change: DtCheckboxChange<DtNodeDef>): void {
     const action = change.checked
       ? addFilter([this._nodeDef, change.source.value])
-      : removeFilter(change.source.value.option!.uid!);
+      : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        removeFilter(change.source.value.option!.uid!);
     this.filterChange.emit(action);
   }
 
@@ -241,6 +243,7 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
   _isNothingSelected(): boolean {
     if (this._nodeDef.option && this._nodeDef.option.uid) {
       const index = this._activeFilterPaths.findIndex((path) =>
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         path.startsWith(this._nodeDef.option!.uid!),
       );
       return index === -1;
