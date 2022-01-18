@@ -180,7 +180,7 @@ export class DtContextDialog
     | string
     | string[]
     | Set<string>
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     | { [key: string]: any };
 
   /** Event emitted when the select has been opened. */
@@ -222,7 +222,7 @@ export class DtContextDialog
     private _focusTrapFactory: FocusTrapFactory,
     private _elementRef: ElementRef<HTMLElement>,
     @Attribute('tabindex') tabIndex: string,
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Optional() @Inject(DOCUMENT) private _document: any,
     @Optional()
     @Inject(DT_UI_TEST_CONFIG)
@@ -329,7 +329,7 @@ export class DtContextDialog
     const toFocus = this._elementFocusedBeforeDialogWasOpened;
 
     // We need the extra check, because IE can set the `activeElement` to null in some cases.
-    // tslint:disable-next-line: strict-type-predicates no-unbound-method
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     if (toFocus && typeof toFocus.focus === 'function') {
       toFocus.focus();
     }

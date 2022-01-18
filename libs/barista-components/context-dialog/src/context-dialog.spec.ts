@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer, OverlayConfig } from '@angular/cdk/overlay';
@@ -63,7 +63,7 @@ describe('DtContextDialog', () => {
     panelClass: 'my-fancy-panel-class',
   };
 
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function configureDtContextDialogTestingModule(
     declarations: any[],
     providers: any[] = [],
@@ -325,7 +325,7 @@ describe('DtContextDialog', () => {
           expect(panel).toBeNull();
         });
 
-        // tslint:disable-next-line: dt-no-focused-tests
+        // eslint-disable-next-line
         it.skip('should focus the first interactive element when opening', fakeAsync(() => {
           // TODO: [e2e] focus can not be tested in jsdom environment
           document.body.focus(); // ensure that focus isn't on the trigger already
@@ -388,7 +388,7 @@ describe('DtContextDialog', () => {
         fixture = TestBed.createComponent(BasicContextDialog);
         fixture.detectChanges();
       }));
-      // tslint:disable-next-line: dt-no-focused-tests
+      // eslint-disable-next-line
       it('should propagate attribute to overlay when `dt-ui-test-id` is provided', fakeAsync(() => {
         const contextDialog = fixture.componentInstance.contextDialog;
         contextDialog.open();
