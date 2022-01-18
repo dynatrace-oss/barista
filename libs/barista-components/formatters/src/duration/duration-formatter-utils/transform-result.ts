@@ -27,6 +27,7 @@ import { dtConvertToUnit } from './convert-to-unit';
  * Calculates output duration in either "DEFAULT" or "CUSTOM" mode.
  * If precision is DEFAULT then displays a maximum of three units, but
  * if precision is a number, then displays that amount of units.
+ *
  * @param duration numeric time value
  * @param inputUnit dtTimeUnit value describing which unit the duration is in
  * @param formatMethod the formatting method
@@ -55,6 +56,7 @@ export function dtTransformResult(
   }
 
   for (const key of Array.from(CONVERSION_FACTORS_TO_MS.keys())) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     amount = Math.trunc(rest / CONVERSION_FACTORS_TO_MS.get(key)!);
     if (displayedUnits < unitsToDisplay) {
       if (amount > 0) {
@@ -65,6 +67,7 @@ export function dtTransformResult(
         displayedUnits++;
       }
     }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     rest = rest - amount * CONVERSION_FACTORS_TO_MS.get(key)!;
   }
   return result;

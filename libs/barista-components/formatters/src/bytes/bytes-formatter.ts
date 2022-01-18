@@ -28,7 +28,7 @@ const DEFAULT_BYTES_OPTIONS: DtNumberFormatOptions = {
   inputUnit: DtUnit.BYTES,
 };
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 const KILO_CONVERSIONS = [
   { multiplier: Math.pow(KILO_MULTIPLIER, 5), unit: DtUnit.PETA_BYTES },
   { multiplier: Math.pow(KILO_MULTIPLIER, 4), unit: DtUnit.TERA_BYTES },
@@ -44,10 +44,11 @@ const KIBI_CONVERSIONS = [
   { multiplier: Math.pow(KIBI_MULTIPLIER, 2), unit: DtUnit.MEBI_BYTES },
   { multiplier: KIBI_MULTIPLIER, unit: DtUnit.KIBI_BYTES },
 ];
-// tslint:enable:no-magic-numbers
+/* eslint-enable no-magic-numbers */
 
 /**
  * Util function that formats given number as bytes
+ *
  * @param input - value that gets formatted
  * @param [options] - includes factor for conversion, inputUnit and outputUnit
  * these options are merged with default options (factor: 1000, inputUnit: bytes)
@@ -59,7 +60,7 @@ const KIBI_CONVERSIONS = [
  * specify inputUnit=MiB, the factor should be KIBI_MULTIPLIER.
  */
 export function formatBytes(
-  input: any, // tslint:disable-line:no-any
+  input: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   options?: DtNumberFormatOptions,
 ): DtFormattedValue {
   const mergedOptions: DtNumberFormatOptions = {

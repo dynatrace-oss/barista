@@ -27,6 +27,7 @@ import {
 
 /**
  * Formats a numeric value to a duration string
+ *
  * @param duration numeric time value
  * @param formatMethod the formatting method
  * @param outputUnit dtTimeUnit | undefined value describing the unit to which it should format e.g to seconds

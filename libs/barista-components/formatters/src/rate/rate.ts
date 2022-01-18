@@ -33,7 +33,7 @@ export class DtRate implements PipeTransform {
    * @param rateUnit - The unit for the rate of the input
    */
   transform(
-    input: any, // tslint:disable-line:no-any
+    input: any, // eslint-disable-line @typescript-eslint/no-explicit-any
     rateUnit: DtRateUnit | string,
   ): DtFormattedValue | string {
     if (isEmpty(input)) {

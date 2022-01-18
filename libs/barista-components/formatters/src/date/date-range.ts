@@ -20,6 +20,7 @@ import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 /**
  * Error message that should be logged if no numbers are provided to the dateRange formatter.
+ *
  * @internal
  */
 export const ERROR_MESSAGE_NO_NUMBERS_PROVIDED =
@@ -27,6 +28,7 @@ export const ERROR_MESSAGE_NO_NUMBERS_PROVIDED =
 
 /**
  * Error message that should be logged if not 2 numbers are provided.
+ *
  * @internal
  */
 export const ERROR_MESSAGE_WRONG_FORMAT =
@@ -59,7 +61,7 @@ export class DtDateRange implements PipeTransform {
    * `{{ [startUtcTimestamp, endUtcTimestamp] | dtDateRange }}`
    */
   transform(value: [number, number]): string {
-    // tslint:disable-next-line no-magic-numbers
+    // eslint-disable-next-line  no-magic-numbers
     if (!Array.isArray(value) || value.length !== 2) {
       logger.error(ERROR_MESSAGE_WRONG_FORMAT);
       return PLACEHOLDER;
@@ -71,6 +73,7 @@ export class DtDateRange implements PipeTransform {
 
 /**
  * Formats two provided dates (start and end) to reflect a range.
+ *
  * @param start The start timestamp.
  * @param end The end timestamp.
  * @param locale The locale to format with – default: *en-US*

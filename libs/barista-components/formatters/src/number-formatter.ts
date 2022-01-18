@@ -18,7 +18,7 @@ import { formatNumber } from '@angular/common';
 
 import { DtUnit } from './unit';
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 export const KILO_MULTIPLIER = 1000;
 export const KIBI_MULTIPLIER = 1024;
 
@@ -56,7 +56,7 @@ export function adjustNumber(
 }
 
 function adjustPrecision(value: number, maxPrecision?: number): string {
-  // tslint:disable:no-magic-numbers
+  /* eslint-disable no-magic-numbers */
   const calcValue = Math.abs(value);
   const minValue =
     1 /

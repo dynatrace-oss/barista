@@ -35,7 +35,7 @@ export class DtBits implements PipeTransform {
    * @param inputUnit - The unit for the input number. Default is DtUnit.BITS
    */
   transform(
-    // tslint:disable-next-line:no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     input: any,
     factor: number = KILO_MULTIPLIER,
     inputUnit: DtUnit = DtUnit.BITS,

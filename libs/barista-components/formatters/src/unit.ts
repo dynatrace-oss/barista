@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /**
  * @license
  * Copyright 2021 Dynatrace LLC

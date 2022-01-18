@@ -22,7 +22,7 @@ import { DtRateUnit, DtUnit } from '../unit';
  *
  * @param input - numeric value or DtFormattedValue to be transformed
  * @param rateUnit - rate unit connected and displayed with the value,
- *  typically defined rate unit of type DtRateUnit, custom strings are also allowed
+ * typically defined rate unit of type DtRateUnit, custom strings are also allowed
  */
 export function formatRate(
   input: DtFormattedValue | number,

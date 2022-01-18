@@ -23,6 +23,7 @@ import {
 
 /**
  * Converts any duration to a Unit
+ *
  * @param duration numeric time value
  * @param inputUnit dtTimeUnit value describing which unit the duration is in
  */
@@ -33,8 +34,10 @@ export function dtConvertToUnit(
   conversionFactorSetup();
   const convertedDuration =
     duration < 1
-      ? (duration * MOVE_COMMA * CONVERSION_FACTORS_TO_MS.get(inputUnit)!) /
+      ? // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        (duration * MOVE_COMMA * CONVERSION_FACTORS_TO_MS.get(inputUnit)!) /
         MOVE_COMMA
-      : duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!;
+      : // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        duration * CONVERSION_FACTORS_TO_MS.get(inputUnit)!;
   return convertedDuration;
 }

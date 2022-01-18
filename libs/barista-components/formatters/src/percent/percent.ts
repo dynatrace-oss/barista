@@ -30,7 +30,7 @@ export class DtPercent implements PipeTransform {
    * @param input - The value to be formatted as a percentage
    * @param maxPrecision - The maximum amount of digits to be used, if provided
    */
-  // tslint:disable-next-line:no-any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   transform(input: any, maxPrecision?: number): DtFormattedValue | string {
     if (isEmpty(input)) {
       return NO_DATA;

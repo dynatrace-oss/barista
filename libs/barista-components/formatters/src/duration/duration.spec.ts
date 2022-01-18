@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable: no-magic-numbers
+/* eslint-disable no-magic-numbers */
 import { NO_DATA } from '../formatted-value';
 import { DtTimeUnit } from '../unit';
 import { DtDuration } from './duration';
