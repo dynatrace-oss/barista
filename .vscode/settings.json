@@ -4,4 +4,5 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.tsdk": "node_modules/typescript/lib",
   "prettier.stylelintIntegration": true,
+  "angular.enable-strict-mode-prompt": false,
 }
