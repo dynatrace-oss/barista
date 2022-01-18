@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -411,7 +411,7 @@ class DtTagCustomFormComponent implements OnInit {
   readonly tags = new Set<string>();
 
   readonly keyFormControl = new FormControl('', [
-    // tslint:disable-next-line: no-unbound-method
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     Validators.minLength(4),
   ]);
 

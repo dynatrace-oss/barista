@@ -53,6 +53,7 @@ import {
 /** Type for the default event emitted whenever there is NO custom form passed tot the tag-add component */
 export type DtTagAddSubmittedDefaultEvent = { tag: string };
 /** Type for the event emitted whenever there is a custom form passed to the tag-add component */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type DtTagAddSubmittedCustomFormEvent = Record<string, any>;
 
 @Component({

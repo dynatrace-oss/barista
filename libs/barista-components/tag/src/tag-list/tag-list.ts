@@ -171,8 +171,10 @@ export class DtTagList implements AfterContentInit, OnDestroy {
   /** @internal Sets the wrappers height and width properties */
   _setWrapperBoundingProperties(isCollapsed: boolean): void {
     if (isCollapsed) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this._wrapperTagList.nativeElement.style.maxWidth = `${this
         ._wrapperWidth!}px`;
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this._wrapperTagList.nativeElement.style.minWidth = `${this
         ._wrapperWidth!}px`;
       this._wrapperTagList.nativeElement.style.height = `${DT_TAG_LIST_HEIGHT}px`;
