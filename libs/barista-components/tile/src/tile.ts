@@ -93,7 +93,7 @@ export const _DtTileMixinBase = mixinTabIndex(
     '[class.dt-tile-disabled]': 'disabled',
     '(click)': '_haltDisabledEvents($event)',
   },
-  // tslint:disable-next-line:use-view-encapsulation
+  // eslint-disable-next-line
   encapsulation: ViewEncapsulation.None,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
