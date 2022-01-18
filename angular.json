@@ -843,7 +843,7 @@
             }
           }
         },
-        "e2e-all": {
+        "e2e": {
           "builder": "@politie/angular-testcafe-builder:testcafe",
           "options": {
             "devServerTarget": "components-e2e:serve",
@@ -889,21 +889,6 @@
               "stopOnFirstFail": false,
               "live": true,
               "concurrency": 1
-            }
-          }
-        },
-        "e2e": {
-          "builder": "./dist/libs/workspace:affected-e2e",
-          "options": {
-            "e2eTarget": "components-e2e:e2e-all",
-            "testAppSourceFolder": "./apps/components-e2e/src/"
-          },
-          "configurations": {
-            "remote-pr": {
-              "e2eTarget": "components-e2e:e2e-all:remote-pr"
-            },
-            "ci": {
-              "e2eTarget": "components-e2e:e2e-all:ci"
             }
           }
         },

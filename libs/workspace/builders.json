@@ -20,11 +20,6 @@
       "implementation": "./src/builders/typescript/index",
       "schema": "./src/builders/typescript/schema.json",
       "description": "Compile typescript files."
-    },
-    "affected-e2e": {
-      "implementation": "./src/builders/affected-e2e/index",
-      "schema": "./src/builders/affected-e2e/schema.json",
-      "description": "Run affected e2e tests for components"
     }
   }
 }
