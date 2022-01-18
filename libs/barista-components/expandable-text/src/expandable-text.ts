@@ -82,14 +82,14 @@ export class DtExpandableText extends _ExpandableTextBase implements HasId {
   @Output() readonly expandChanged = new EventEmitter<boolean>();
 
   /** @internal Event emitted when text is expanded */
-  // tslint:disable-next-line: dt-annotate-internal-fields
+  // eslint-disable-next-line
   @Output('expanded')
   readonly _textExpanded: Observable<boolean> = this.expandChanged.pipe(
     filter((v) => v),
   );
 
   /** @internal Event emitted when text is collapsed */
-  // tslint:disable-next-line: dt-annotate-internal-fields
+  // eslint-disable-next-line
   @Output('collapsed')
   readonly _textCollapsed: Observable<boolean> = this.expandChanged.pipe(
     filter((v) => !v),
