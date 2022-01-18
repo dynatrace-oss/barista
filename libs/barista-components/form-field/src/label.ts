@@ -17,7 +17,7 @@
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: 'dt-label',
+  selector: 'dt-label, [dtLabel]',
   exportAs: 'dtLabel',
 })
 export class DtLabel {}
