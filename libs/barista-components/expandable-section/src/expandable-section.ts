@@ -31,7 +31,7 @@ import { Observable } from 'rxjs';
 
 @Directive({
   exportAs: 'dtExpandableSectionHeader',
-  selector: 'dt-expandable-section-header',
+  selector: 'dt-expandable-section-header, [dtExpandableSectionHeader]',
 })
 export class DtExpandableSectionHeader {}
 
