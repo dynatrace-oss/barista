@@ -196,7 +196,7 @@ describe('DtDatePicker', () => {
         buttonTrigger.click();
         fixture.detectChanges();
 
-        let selectedCell = {
+        const selectedCell = {
           displayValue: '23',
           value: 23,
           rawValue: new Date(2020, 7, 23),

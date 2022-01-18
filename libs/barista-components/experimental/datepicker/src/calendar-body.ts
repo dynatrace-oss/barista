@@ -204,7 +204,7 @@ export class DtCalendarBody<T> {
    */
   _onHostKeydown(event: KeyboardEvent): void {
     const keyCode = _readKeyCode(event);
-    let keysToPrevent = [
+    const keysToPrevent = [
       UP_ARROW,
       DOWN_ARROW,
       LEFT_ARROW,
@@ -320,7 +320,7 @@ export class DtCalendarBody<T> {
         this._dateAdapter.getFirstDayOfWeek()) %
       DAYS_PER_WEEK;
 
-    let weeks: DtCalendarCell<T>[][] = [[]];
+    const weeks: DtCalendarCell<T>[][] = [[]];
     for (let i = 0, cell = firstWeekOffset; i < daysInMonth; i++, cell++) {
       if (cell == DAYS_PER_WEEK) {
         weeks.push([]);

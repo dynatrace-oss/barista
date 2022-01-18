@@ -152,7 +152,7 @@ export class DtTimeInput {
     this._isDisabled = coerceBooleanProperty(disabled);
     this._changeDetectorRef.markForCheck();
   }
-  private _isDisabled: boolean = false;
+  private _isDisabled = false;
   static ngAcceptInputType_disabled: BooleanInput;
 
   /** Emits when the hour or minute value changed and the focus is not on the time input elements anymore. */

@@ -134,7 +134,7 @@ export class DtTimepicker {
     this._isDisabled = coerceBooleanProperty(disabled);
     this._changeDetectorRef.markForCheck();
   }
-  private _isDisabled: boolean = false;
+  private _isDisabled = false;
   static ngAcceptInputType_disabled: BooleanInput;
 
   /** @internal Reference to the timeInput component */
