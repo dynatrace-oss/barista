@@ -105,6 +105,8 @@ export class DtOverlayTrigger<T>
     private _ngZone: NgZone,
     private _focusMonitor: FocusMonitor,
     @Attribute('tabindex') tabIndex: string,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     private _platform: Platform,
   ) {
     super();

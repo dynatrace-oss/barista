@@ -112,10 +112,17 @@ export class DtOverlay implements OnDestroy {
   constructor(
     private _injector: Injector,
     private _overlay: Overlay,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     private _viewportRuler: ViewportRuler,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    @Inject(DOCUMENT) private _document: any,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    @Inject(DOCUMENT) private _document: any, // eslint-disable-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     private _platform: Platform,
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     private _overlayContainer: OverlayContainer,
   ) {}
 
