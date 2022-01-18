@@ -165,7 +165,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
       this._selectable = coerceBooleanProperty(value) ?? false;
     }
   }
-  _selectable: boolean = false;
+  _selectable = false;
   static ngAcceptInputType_selectable: BooleanInput;
 
   /** Max value in the chart */
@@ -368,7 +368,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   }
   _heatFieldLevels: DtStackedSeriesHeatFieldLevel[];
   _heatFields: DtStackedSeriesHeatField[];
-  _selectedHeatFieldIndex: number = -1;
+  _selectedHeatFieldIndex = -1;
 
   @Input() labelAxisMode: DtStackedSeriesChartLabelAxisMode = 'full';
   /** @internal  Support only for mode === 'column', wouldn't make sense for 'row' */
@@ -659,10 +659,11 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   }
 
   /**
-   *  Wrapper function that applies different callbacks
-   *  depending on the Continuous Axis Type
+   * Wrapper function that applies different callbacks
+   * depending on the Continuous Axis Type
    */
   private _applyFnForContinuousAxisType(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     callbacks: [DtStackedSeriesChartValueContinuousAxisType, () => any][],
   ): void {
     callbacks
@@ -898,6 +899,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
           'linear',
           () => {
             this._trackTicks = (this._scale as ScaleTime<number, number>)
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               .ticks(<any>tickAmount)
               .map((value) => {
                 return {
@@ -916,11 +918,13 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
           'date',
           () => {
             this._trackTicks = (this._scale as ScaleTime<number, number>)
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               .ticks(<any>tickAmount)
               .map((value) => {
                 return {
                   position: (this._scale as ScaleTime<number, number>)(value),
                   value: (this._scale as ScaleTime<number, number>).tickFormat(
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     <any>tickAmount,
                     this.continuousAxisFormat,
                   )(value),
@@ -950,6 +954,7 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
       this._axisTicks = scale.ticks(tickAmount).map((value) => {
         return {
           // for column scale must be inverted but d3 does not allow a reverse scale
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           position: this.mode === 'bar' ? scale(value)! : 100 - scale(value)!,
           value: value,
           valueRelative: this.max ? value / this.max : 0,
