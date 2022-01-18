@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable: no-magic-numbers
+/* eslint-disable no-magic-numbers */
 import {
   getSum,
   getEndAngle,
@@ -124,4 +124,4 @@ describe('DtRadialChart util functions', () => {
   });
 });
 
-// tslint:enable: no-magic-numbers
+/* eslint-enable no-magic-numbers */

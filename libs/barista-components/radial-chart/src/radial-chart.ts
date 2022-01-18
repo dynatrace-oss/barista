@@ -141,7 +141,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
   @Input() valueDisplayMode: 'absolute' | 'percent' = 'absolute';
 
   /** Sets the decimal precision for the percentage values */
-  @Input() precision: number = 1;
+  @Input() precision = 1;
 
   /** Sets the display mode for the radial-chart values to either 'percent' or 'absolute'.  */
   @Input()
@@ -156,7 +156,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
       this._updateRenderData();
     }
   }
-  _selectable: boolean = false;
+  _selectable = false;
   static ngAcceptInputType_selectable: BooleanInput;
 
   /* Notifies the component container of the start of hover events per series, both in the pie and on the legend  */
@@ -324,6 +324,7 @@ export class DtRadialChart implements AfterContentInit, OnDestroy {
       });
 
       this._hasBackground =
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         isNumber(this.maxValue) && this._totalSeriesValue < this.maxValue!;
       this._backgroundPath =
         generatePathData(this._radius, this._innerRadius, 0, Math.PI * 2) || '';
