@@ -72,6 +72,7 @@ export class DsPageService<T = any> {
 
   /**
    * Gets page from cache.
+   *
    * @param url - path to page
    */
   _getPage(url: string): Observable<T> {
@@ -80,6 +81,7 @@ export class DsPageService<T = any> {
     if (!this._cache.has(key)) {
       return this._fetchPage(key);
     }
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     return of(this._cache.get(key)!);
   }
 
@@ -96,6 +98,7 @@ export class DsPageService<T = any> {
 
   /**
    * Fetches page from data source.
+   *
    * @param id - page id (path).
    */
   private _fetchPage(id: string): Observable<T> {
@@ -116,6 +119,7 @@ export function getPageKeyFromUrl(document: Document, url: string): string {
 /**
  * Normalizes a url and removes hashes and parameters,
  * returns the current pathname
+ *
  * @param document - the document used for creating an element
  * @param url - the url where the path should be retrieved
  */

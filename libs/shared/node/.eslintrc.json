@@ -1,0 +1,29 @@
+{
+  "extends": ["../../../.eslintrc.json"],
+  "ignorePatterns": ["!**/*", "test-setup.ts"],
+  "overrides": [
+    {
+      "files": ["**/*.ts"],
+      "excludedFiles": ["*.spec.ts"],
+      "parserOptions": {
+        "project": ["libs/shared/node/tsconfig.lib.json"]
+      },
+      "rules": {
+        "no-shadow": "off",
+        "@typescript-eslint/no-shadow": "off",
+        "@typescript-eslint/member-ordering": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "no-redeclare": "off"
+      },
+      "plugins": ["@typescript-eslint"]
+    },
+    {
+      "files": ["*.spec.ts"],
+      "parserOptions": {
+        "project": ["libs/shared/node/tsconfig.spec.json"]
+      }
+    }
+  ]
+}

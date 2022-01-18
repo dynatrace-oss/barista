@@ -18,6 +18,7 @@ import { promises as fs } from 'fs';
 
 /**
  * Tries to parse a json file and throws an error if parsing fails
+ *
  * @throws Will throw if the json cannot be parsed
  */
 export async function tryJsonParse<T>(path: string): Promise<T> {

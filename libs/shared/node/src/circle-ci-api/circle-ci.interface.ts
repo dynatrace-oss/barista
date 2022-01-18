@@ -28,13 +28,14 @@ export interface CircleResponse<T> {
 export type CirclePipelineState = 'errored' | 'created';
 
 export interface CirclePipeline {
-  /** 	The unique ID of the pipeline. */
+  /** The unique ID of the pipeline. */
   id: string;
   /** A sequence of errors that have occurred within the pipeline. */
   errors: CirclePipelineError[];
   /** The project-slug for the pipeline. */
   project_slug: string;
   /** The number of the pipeline. */
+  // eslint-disable-next-line id-denylist
   number: number;
   /** The current state of the pipeline. */
   state: 'errored' | 'created' | string;
