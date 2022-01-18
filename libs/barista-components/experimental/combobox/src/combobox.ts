@@ -105,6 +105,7 @@ export class DtComboboxFilterChange {
 
 // We need to save the instance of the combobox that currently
 // has a flap open, to make sure we can close the old one.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let currentlyOpenCombobox: DtCombobox<any> | null = null;
 
 export class DtComboboxBase {
@@ -235,7 +236,7 @@ export class DtCombobox<T>
   static ngAcceptInputType_required: BooleanInput;
 
   /** An arbitrary class name that is added to the combobox dropdown. */
-  @Input() panelClass: string = '';
+  @Input() panelClass = '';
   /** A function returning a display name for a given object that represents an option from the combobox. */
   @Input() displayWith: (value: T) => string = (value: T) => `${value}`;
   /** Aria label of the combobox. */
@@ -258,7 +259,7 @@ export class DtCombobox<T>
   }
 
   set compareWith(fn: (v1: T, v2: T) => boolean) {
-    // tslint:disable-next-line:strict-type-predicates
+    // eslint-disable-next-line
     if (typeof fn !== 'function') {
       LOG.error(DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG);
     } else {
@@ -305,6 +306,7 @@ export class DtCombobox<T>
    * @internal The templateRef used to capture the options passed via ng-content
    * to pass through to the autocomplete
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @ViewChild('autocompleteContent') _templatePortalContent: TemplateRef<any>;
   /** @internal The autocomplete instance that holds all options */
   @ViewChild(DtAutocomplete, { static: true }) _autocomplete: DtAutocomplete<T>;
@@ -346,7 +348,7 @@ export class DtCombobox<T>
   private readonly _destroy = new Subject<void>();
 
   /** @internal Helps determine if the selection happened programmatically, or the first time. */
-  private _initialOptionChange: boolean = true;
+  private _initialOptionChange = true;
 
   constructor(
     public _elementRef: ElementRef,
@@ -358,6 +360,7 @@ export class DtCombobox<T>
     private _viewContainerRef: ViewContainerRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) private _document: any,
   ) {
     super(
@@ -377,6 +380,7 @@ export class DtCombobox<T>
     }
 
     // Force setter to be called in case id was not specified.
+    // eslint-disable-next-line no-self-assign
     this.id = this.id;
   }
 
@@ -554,7 +558,11 @@ export class DtCombobox<T>
     event.preventDefault();
     event.stopPropagation();
 
-    this._panelOpen ? this._closePanel() : this._openPanel();
+    if (this._panelOpen) {
+      this._closePanel();
+    } else {
+      this._openPanel();
+    }
     this._changeDetectorRef.markForCheck();
   }
 
@@ -600,7 +608,9 @@ export class DtCombobox<T>
   /** Emits change event to set the model value. */
   private _propagateChanges(): void {
     const valueToEmit = this.selected ? this.selected.value : null;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this._value = valueToEmit!;
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.valueChange.emit(valueToEmit!);
     this._onChange(valueToEmit!);
     this._changeDetectorRef.markForCheck();
