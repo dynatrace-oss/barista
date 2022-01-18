@@ -139,7 +139,7 @@ export class DtAutocomplete<T>
           classList[className.trim()] = true;
           return classList;
         },
-        // tslint:disable-next-line: no-object-literal-type-assertion
+        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
         {} as { [key: string]: boolean },
       );
     } else {
@@ -176,6 +176,7 @@ export class DtAutocomplete<T>
   /**
    * @internal Reference to the template that will be rendered into the panel once it is open.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   @ViewChild(TemplateRef, { static: true }) _template: TemplateRef<any>;
 
   /**
