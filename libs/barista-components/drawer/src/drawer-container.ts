@@ -51,6 +51,7 @@ interface DtDrawerMargin {
 
 /**
  * Throws an error when two DtDrawer are matching the same position
+ *
  * @param position the position of the drawer
  */
 export function getDtDuplicateDrawerError(position: 'start' | 'end'): Error {
@@ -189,6 +190,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
   /**
    * Watches a drawer on the `_animationStarted` to toggle the transition class,
    * for smooth content transition in side mode and updating the content size.
+   *
    * @param drawer The drawer that should be watched
    */
   private _watchDrawerToggle(drawer: DtDrawer): void {
