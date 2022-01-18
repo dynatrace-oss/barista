@@ -127,7 +127,7 @@ export class DtContainerBreakpointObserver implements OnDestroy {
 
   constructor(
     private _zone: NgZone,
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) private _document: any,
   ) {}
 
@@ -156,6 +156,7 @@ export class DtContainerBreakpointObserver implements OnDestroy {
     const observables = queries
       .map(
         (query) =>
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           this._registerQuery(query) && this._registerQuery(query)!.observable!,
       )
       .filter(Boolean) as Observable<InternalBreakpointState>[];
@@ -227,9 +228,9 @@ export class DtContainerBreakpointObserver implements OnDestroy {
   private _getIntersectionObserver(): IntersectionObserver | null {
     this._zone.runOutsideAngular(() => {
       if (
-        // tslint:disable-next-line: strict-type-predicates
+        // eslint-disable-next-line
         typeof window !== 'undefined' &&
-        // tslint:disable-next-line: no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (window as any).IntersectionObserver &&
         this._placeholderContainer
       ) {
@@ -245,10 +246,13 @@ export class DtContainerBreakpointObserver implements OnDestroy {
                   query.elementQuery
                 ) {
                   this._zone.run(() => {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     query.observer!.next({
                       matches:
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         (query.elementQuery!.range === 'min' &&
                           entry.isIntersecting) ||
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         (query.elementQuery!.range === 'max' &&
                           !entry.isIntersecting),
                       query: queryString,

@@ -30,13 +30,13 @@ const QUERY_REGEX =
   /^(?:\s*all\sand)*\s*\(\s*(min|max)-(width|height)\s*:\s*([\w\d]+)\s*\)\s*$/;
 
 /** @internal */
-// tslint:disable-next-line: interface-over-type-literal
+// eslint-disable-next-line @typescript-eslint/ban-types
 export type QueryResultToken = {};
 export const QUERY_INVALID_TOKEN = {};
 export const QUERY_NON_BROWSER_PLATFORM_TOKEN = {};
 
 /** @internal Whether the provided value is of type ElementQuery. */
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isElementQuery(value: any): value is ElementQuery {
   return (
     isObject(value) &&
@@ -51,7 +51,7 @@ export function isElementQuery(value: any): value is ElementQuery {
  * Returns null if a convert is not possible or the query is not supported.
  */
 export function convertQuery(query: string): ElementQuery | QueryResultToken {
-  // tslint:disable-next-line: strict-type-predicates
+  // eslint-disable-next-line
   if (typeof window !== 'undefined' && window.matchMedia) {
     // First we make sure the provided media query is valid
     // by using the browser native matchMedia function.
@@ -69,8 +69,8 @@ export function convertQuery(query: string): ElementQuery | QueryResultToken {
     return parts
       ? {
           range: parts[1] as Range,
-          feature: parts[2] as Feature, // tslint:disable-line: no-magic-numbers
-          value: parts[3], // tslint:disable-line: no-magic-numbers
+          feature: parts[2] as Feature, // eslint-disable-line no-magic-numbers
+          value: parts[3], // eslint-disable-line no-magic-numbers
         }
       : QUERY_INVALID_TOKEN;
   }

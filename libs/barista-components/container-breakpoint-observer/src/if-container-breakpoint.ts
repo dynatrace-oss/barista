@@ -32,9 +32,9 @@ import { DtContainerBreakpointObserver } from './container-breakpoint-observer';
 import { getNoDtContainerBreakpointObserverError } from './container-breakpoint-observer-errors';
 
 export class DtIfContainerBreakpointContext {
-  // tslint:disable-next-line: dt-document-public-fields
+  // eslint-disable-next-line
   $implicit: boolean | null = null;
-  // tslint:disable-next-line: dt-document-public-fields
+  // eslint-disable-next-line
   dtIfContainerBreakpoint: boolean | null = null;
 }
 
@@ -124,6 +124,7 @@ export class DtIfContainerBreakpoint implements OnDestroy {
   }
 
   private _updateView(): void {
+    // eslint-disable-next-line no-extra-boolean-cast
     if (Boolean(this._context.$implicit)) {
       if (!this._thenViewRef) {
         this._viewContainer.clear();
@@ -156,11 +157,11 @@ function assertTemplate(
   property: string,
   templateRef: TemplateRef<DtIfContainerBreakpointContext> | null,
 ): void {
-  // tslint:disable: no-unbound-method
+  /* eslint-disable @typescript-eslint/unbound-method */
   const isTemplateRefOrNull = !!(
     !templateRef || templateRef.createEmbeddedView
   );
-  // tslint:enable: no-unbound-method
+  /* eslint-enable @typescript-eslint/unbound-method */
   if (!isTemplateRefOrNull) {
     throw new Error(
       `${property} must be a TemplateRef, but received '${stringify(

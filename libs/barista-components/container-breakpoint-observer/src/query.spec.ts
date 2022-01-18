@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// tslint:disable: no-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { QUERY_INVALID_TOKEN, convertQuery } from './query';
 
