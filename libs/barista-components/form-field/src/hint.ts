@@ -20,7 +20,7 @@ let nextUniqueId = 0;
 
 /** Hint text to be shown underneath the form field control. */
 @Directive({
-  selector: 'dt-hint',
+  selector: 'dt-hint, [dtHint]',
   exportAs: 'dtHint',
   host: {
     class: 'dt-hint',

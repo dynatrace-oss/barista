@@ -38,6 +38,7 @@ import { DtFormFieldControl } from './form-field-control';
     DtSuffix,
     // @breaking-change Will be removed with upgrade to ivy for libraries
     // can be removed once `DtFormFieldControl` is turned into a selector-less directive.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     DtFormFieldControl as any,
   ],
 })

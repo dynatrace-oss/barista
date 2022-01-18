@@ -20,7 +20,7 @@ let nextUniqueId = 0;
 
 /** Single error message to be shown underneath the form field. */
 @Directive({
-  selector: 'dt-error',
+  selector: 'dt-error, [dtError]',
   exportAs: 'dtError',
   host: {
     class: 'dt-error',
