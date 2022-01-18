@@ -94,7 +94,7 @@ export function createVersionChoice(
   currentVersion: SemVer,
   releaseType: ReleaseType,
   message: string,
-  recommended: boolean = false,
+  recommended = false,
 ): { value: string; name: string; releaseType: ReleaseType } {
   const versionName = inc(currentVersion.raw, releaseType);
   return {

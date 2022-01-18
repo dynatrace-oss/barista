@@ -102,7 +102,7 @@ const baristaDataDistDir = 'barista-data';
 
 /** Builds pages using all registered builders. */
 async function buildPages(): Promise<void[]> {
-  let { next, distRoot } = options({
+  const { next, distRoot } = options({
     next: { type: 'boolean', alias: 'n', default: false },
     distRoot: { type: 'string' },
   }).argv;
@@ -166,7 +166,7 @@ async function buildPages(): Promise<void[]> {
     mkdirSync(dirname(outFile), { recursive: true });
 
     // Write file with page content to disc.
-    // tslint:disable-next-line: no-magic-numbers
+    // eslint-disable-next-line no-magic-numbers
     return fs.writeFile(outFile, JSON.stringify(result.pageContent, null, 2), {
       flag: 'w', // "w" -> Create file if it does not exist
       encoding: 'utf8',

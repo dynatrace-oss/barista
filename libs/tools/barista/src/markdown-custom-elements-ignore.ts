@@ -72,6 +72,7 @@ export const baElementBlockIgnore = (state, startLine, endLine, silent) => {
 
   state.line = nextLine;
 
+  // eslint-disable-next-line prefer-const
   token = state.push('html_block', '', 0);
   token.map = [startLine, nextLine];
   token.content = state.getLines(startLine, nextLine, state.blkIndent, true);

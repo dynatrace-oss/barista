@@ -23,7 +23,7 @@ function addNavSection(
   sideNav: DsSideNavContent,
   navGroup: string,
 ): DsSideNavContent {
-  let newSideNav = { ...sideNav };
+  const newSideNav = { ...sideNav };
   for (const section of newSideNav.sections) {
     if (section.title && navGroup == section.title) {
       return newSideNav;

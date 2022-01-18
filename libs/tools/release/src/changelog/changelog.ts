@@ -24,7 +24,7 @@ export const CHANGELOG_FILE_NAME = 'CHANGELOG.md';
 export async function prependChangelogFromLatestTag(
   changelogPath: string,
   headerPartialPath: string,
-  releaseName: string = '',
+  releaseName = '',
 ): Promise<void> {
   const headerPartial = await fs.readFile(headerPartialPath, {
     encoding: 'utf-8',

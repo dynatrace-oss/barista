@@ -22,16 +22,15 @@ import { GET_INVALID_PACKAGE_JSON_VERSION_ERROR } from './release-errors';
 /**
  * Reads the package json in the given baseDir
  * and tries to parse the version as a semantic version
+ *
  * @throws Will throw if no package.json is found or the version cannot be parsed
  */
 export async function parsePackageVersion(baseDir: string): Promise<SemVer> {
   const packageJsonPath = join(baseDir, 'package.json');
 
-  let parsedVersion: SemVer | null;
-
   const packageJson = await tryJsonParse<PackageJson>(packageJsonPath);
 
-  parsedVersion = parse(packageJson.version || '');
+  const parsedVersion: SemVer | null = parse(packageJson.version || '');
 
   if (!parsedVersion) {
     throw new Error(GET_INVALID_PACKAGE_JSON_VERSION_ERROR(packageJson));

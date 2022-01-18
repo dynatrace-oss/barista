@@ -29,7 +29,7 @@ export type BaPageTransformer = (
   source: BaSinglePageContent,
 ) => Promise<BaSinglePageContent>;
 
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type BaPageBuilder = (
   globalTransformers: BaPageTransformer[],
   ...args: any[]
@@ -57,6 +57,7 @@ export interface BaIconsChangelog {
 }
 
 /** Strapi content */
+// eslint-disable-next-line no-shadow
 export enum BaStrapiContentType {
   Pages = 'pages',
   Snippets = 'snippets',
@@ -147,6 +148,7 @@ export interface BaStrapiDecisionGraphEdge {
   uxd_node: BaStrapiDecisionGraphNodeBase;
 }
 
+// eslint-disable-next-line no-shadow
 export enum NextContentType {
   NextPages = 'nextpages',
 }
