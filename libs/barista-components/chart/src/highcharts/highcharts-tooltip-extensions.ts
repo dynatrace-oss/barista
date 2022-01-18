@@ -21,9 +21,9 @@ import {
 } from './highcharts-tooltip-types';
 import { Point, PointLabelObject } from 'highcharts';
 
-// tslint:disable-next-line: no-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, no-var
 declare var require: any;
-// tslint:disable-next-line: no-require-imports no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
 const highcharts = require('highcharts');
 
 export interface DtHcTooltipEventPayload {
@@ -37,7 +37,7 @@ export function prepareTooltipData(
   let data: DtChartTooltipData;
   if (Array.isArray(pointOrPoints)) {
     const pointConfig: PointLabelObject[] = [];
-    let hoveredIndex: number = -1;
+    let hoveredIndex = -1;
 
     highcharts.each(pointOrPoints, function (item: Point, index: number): void {
       const labelConfig = item.getLabelConfig();
@@ -71,12 +71,13 @@ export function addTooltipEvents(): boolean {
     highcharts.Pointer.prototype,
     'reset',
     function (
-      proceed: any, // tslint:disable-line:no-any
+      proceed: any, // eslint-disable-line @typescript-eslint/no-explicit-any
     ): void {
       /**
        * Now apply the original function with the original arguments,
        * which are sliced off this function's arguments
        */
+      // eslint-disable-next-line prefer-rest-params
       const args = Array.prototype.slice.call(arguments, 1);
       proceed.apply(this, args);
       highcharts.fireEvent(this.chart, 'tooltipClosed');
@@ -87,8 +88,9 @@ export function addTooltipEvents(): boolean {
     highcharts.Tooltip.prototype,
     'refresh',
     function (
-      proceed: any, // tslint:disable-line:no-any
+      proceed: any, // eslint-disable-line @typescript-eslint/no-explicit-any
     ): void {
+      // eslint-disable-next-line prefer-rest-params
       const args = Array.prototype.slice.call(arguments, 1);
       proceed.apply(this, args);
       /**

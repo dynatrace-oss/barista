@@ -126,6 +126,7 @@ export class DtChartHeatfield
 
   /**
    * Positions for the overlay that gets created
+   *
    * @internal
    */
   _positions: ConnectedPosition[] = DT_HEATFIELD_OVERLAY_POSITIONS;
@@ -134,6 +135,7 @@ export class DtChartHeatfield
    * Wether the input is a valid range. Input range is valid as long there is a
    * start value given. If there is a distinct end value given, it needs to be
    * larger than the start.
+   *
    * @internal
    */
   get _isValidStartEndRange(): boolean {
@@ -198,6 +200,7 @@ export class DtChartHeatfield
 
   /**
    * Toggles the active state
+   *
    * @internal
    */
   _toggleActive(): void {
@@ -206,6 +209,7 @@ export class DtChartHeatfield
 
   /**
    * Keydown handler
+   *
    * @internal
    */
   _handleKeydown(event: KeyboardEvent): void {
@@ -233,13 +237,13 @@ export class DtChartHeatfield
               pxPerUnit -
             left
           : (extremes.max - extremes.min) * pxPerUnit - left;
-        // tslint:disable:no-magic-numbers
+        /* eslint-disable no-magic-numbers */
         this._relativeBoundingBox = {
           left: round(left + this._boundingBox.left, 2),
           width: round(width, 2),
           top: round(this._boundingBox.top - DT_HEATFIELD_TOP_OFFSET, 2),
         };
-        // tslint:enable:no-magic-numbers
+        /* eslint-enable no-magic-numbers */
         // It is not possible to set this on the ref nativelement and not in the marker and the backdrop,
         // because we need to have the backdrop behind the chart and the marker in front.
         this._updateMarkerPosition();

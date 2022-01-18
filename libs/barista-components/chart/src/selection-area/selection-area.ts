@@ -185,7 +185,7 @@ export class DtChartSelectionArea
     private _platform: Platform,
     private _overlayContainer: OverlayContainer,
     private _changeDetectorRef: ChangeDetectorRef,
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     @Inject(DOCUMENT) private _document: any,
     public _viewportResizer: DtViewportResizer,
   ) {
@@ -289,6 +289,7 @@ export class DtChartSelectionArea
   /**
    * Is used to create a selection that is triggered
    * by keyboard interaction on hitting enter
+   *
    * @param selectionAreaBcr The bounding client rect of the selection area
    */
   private _createSelection(selectionAreaBcr: ClientRect): void {
@@ -297,12 +298,12 @@ export class DtChartSelectionArea
       this._chart._timestamp
     ) {
       // place the timestamp in the middle
-      // tslint:disable-next-line: no-magic-numbers
+      // eslint-disable-next-line no-magic-numbers
       this._setTimestamp(selectionAreaBcr.width / 2);
     } else {
-      // tslint:disable-next-line: no-magic-numbers
+      // eslint-disable-next-line no-magic-numbers
       const quarter = selectionAreaBcr.width / 4;
-      // tslint:disable-next-line: no-magic-numbers
+      // eslint-disable-next-line no-magic-numbers
       this._setRange(quarter, quarter * 2);
     }
   }
@@ -368,6 +369,7 @@ export class DtChartSelectionArea
 
   /**
    * Creates a flexible position strategy for the selection area overlay.
+   *
    * @param ref ElementRef of the timestamp or range to center the overlay
    */
   private _calculateOverlayPosition(
@@ -412,7 +414,7 @@ export class DtChartSelectionArea
     const overlayRef = this._overlay.create(overlayConfig);
 
     // create the portal out of the template and the containerRef
-    // tslint:disable-next-line: no-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     this._portal = new TemplatePortal<any>(template, viewRef, {
       $implicit: data,
     });
@@ -529,6 +531,7 @@ export class DtChartSelectionArea
       this._click$
         .pipe(
           filter(() => Boolean(this._chart._timestamp)),
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           switchMap(() => this._chart._timestamp!._timestampElementRef.changes),
           takeUntil(this._destroy$),
         )
@@ -628,10 +631,13 @@ export class DtChartSelectionArea
             this._dragHandle$,
             dragHandleStart$,
             bcr.width,
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             () => this._chart._range!._area,
             (start: number, end: number) =>
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               this._chart._range!._isRangeValid(start, end),
             (left: number, width: number) =>
+              // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               this._chart._range!._getRangeValuesFromPixels(left, width),
           ),
         ),
@@ -713,6 +719,7 @@ export class DtChartSelectionArea
 
     // If we only have a range it should be only closed on overlay close.
     if (this._chart._range && !this._chart._timestamp) {
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       hideTimestampAndRange$ = this._chart._range!._closeOverlay.pipe(
         mapTo(false),
       );
@@ -771,6 +778,7 @@ export class DtChartSelectionArea
     // when it is not hidden
     if (!this._chart._range && this._chart._timestamp) {
       closeOverlay$ = touchStartAndMouseDown$.pipe(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         filter(() => this._chart._timestamp!._hidden),
       );
     }
@@ -954,6 +962,7 @@ export class DtChartSelectionArea
       // only run if we have a range
       this._zone.run(() => {
         // needs to run in the zon in case of the hidden has a binding
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         this._chart._range!._hidden = !show;
       });
     }
@@ -965,6 +974,7 @@ export class DtChartSelectionArea
       // only run if we have a timestamp
       this._zone.run(() => {
         // needs to run in the zon in case of the hidden has a binding
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         this._chart._timestamp!._hidden = !show;
       });
     }
@@ -996,4 +1006,4 @@ export class DtChartSelectionArea
     });
   }
 }
-// tslint:disable:max-file-line-count
+/* eslint-disable max-lines */

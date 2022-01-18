@@ -33,5 +33,5 @@ export const ARIA_DEFAULT_CLOSE_LABEL = 'close';
 export const ARIA_DEFAULT_SELECTED_AREA_LABEL = 'the selected area';
 
 /** @internal The Default minimum is 5 minutes */
-// tslint:disable-next-line no-magic-numbers
+// eslint-disable-next-line  no-magic-numbers
 export const DT_RANGE_DEFAULT_MIN = 5 * 60 * 1000;

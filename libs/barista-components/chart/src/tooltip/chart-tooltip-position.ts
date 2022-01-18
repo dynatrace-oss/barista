@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+/* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-non-null-assertion */
+
 import { DtChart, DtChartTooltipData } from '../..';
 import { DtPlotBackgroundInfo } from '../utils';
 import { ConnectedPosition } from '@angular/cdk/overlay';
@@ -72,7 +74,7 @@ const getHighchartsTooltipPosition = (
     !(data.points[0].point as any).tooltipPos;
   let x: number;
   // set y position for all charts in the middle of the plotbackground vertically
-  // tslint:disable-next-line:no-magic-numbers
+  // eslint-disable-next-line no-magic-numbers
   let y = plotBackgroundInfo.height / 2 + plotBackgroundInfo.top;
   if (isPieChart) {
     const tooltipPos = (data.point!.point as any).tooltipPos;

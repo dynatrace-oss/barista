@@ -96,6 +96,7 @@ export function captureAndMergeEvents<
  */
 export function getElementRef<T>(
   queryList: QueryList<ElementRef<T>>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): OperatorFunction<any, ElementRef<T>> {
   return (input$) =>
     input$.pipe(
@@ -194,7 +195,7 @@ export function getRelativeMousePosition(
   const boundingClientRect = container.getBoundingClientRect();
   const scroll = getScrollOffset();
 
-  // tslint:disable-next-line no-magic-numbers
+  // eslint-disable-next-line  no-magic-numbers
   const borderSize = (boundingClientRect.width - container.clientWidth) / 2;
   const offsetLeft = boundingClientRect.left + scroll.x;
   const offsetTop = boundingClientRect.top + scroll.y;
@@ -223,10 +224,10 @@ export function getPlotBackgroundInfo(
   plotBackground: SVGRectElement,
 ): DtPlotBackgroundInfo {
   return {
-    width: parseInt(plotBackground.getAttribute('width')!, 10) || 0,
-    height: parseInt(plotBackground.getAttribute('height')!, 10) || 0,
-    left: parseInt(plotBackground.getAttribute('x')!, 10) || 0,
-    top: parseInt(plotBackground.getAttribute('y')!, 10) || 0,
+    width: parseInt(plotBackground.getAttribute('width') ?? '0', 10),
+    height: parseInt(plotBackground.getAttribute('height') ?? '0', 10),
+    left: parseInt(plotBackground.getAttribute('x') ?? '0', 10),
+    top: parseInt(plotBackground.getAttribute('y') ?? '0', 10),
   };
 }
 

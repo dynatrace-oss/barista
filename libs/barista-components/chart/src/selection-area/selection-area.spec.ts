@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
-// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
+// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
+// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
 
 import { ENTER } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -34,7 +34,7 @@ import { DtChartModule } from '../chart-module';
 // We have to import from the file directly as barrel files only expose getters no setters.
 // To mock the specific function of the file we have to import the file and disable the
 // module boundaries linting rule.
-// tslint:disable-next-line: nx-enforce-module-boundaries
+// eslint-disable-next-line
 import * as formatters from '../../../formatters/src/date/date-range';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
@@ -158,7 +158,7 @@ describe('DtChart Selection Area', () => {
       );
     });
 
-    // tslint:disable-next-line: dt-no-focused-tests
+    // eslint-disable-next-line
     it.skip('should have a hairline that should be visible on mousemove', () => {
       expect(hairline.nativeElement).toBeDefined();
       // initial display none is from styles
@@ -172,7 +172,7 @@ describe('DtChart Selection Area', () => {
       expect(hairline.styles.transform).toMatch(/translateX\(.+px\)/);
     });
 
-    // tslint:disable-next-line: dt-no-focused-tests
+    // eslint-disable-next-line
     it.skip('should hide the hairline on mouseout', () => {
       // TODO: [e2e] getCpmputedStyle is not available in jsdom
       expect(getComputedStyle(hairline.nativeElement).display).toBe('none');

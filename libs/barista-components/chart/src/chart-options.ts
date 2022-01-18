@@ -24,7 +24,7 @@ import { DtColors } from '@dynatrace/barista-components/theming';
 
 import { DtChartOptions } from './chart.interface';
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 /** Custom highcharts easing function */
 const DT_CHART_EASEINOUT = (pos: number): number => {
   if (pos === 0) {
@@ -38,7 +38,7 @@ const DT_CHART_EASEINOUT = (pos: number): number => {
   }
   return (-Math.pow(2, (pos * 2 - 1) * -10) + 2) * 0.5;
 };
-// tslint:enable:no-magic-numbers
+/* eslint-enable no-magic-numbers */
 
 export const DT_CHART_DEFAULT_OPTIONS: DtChartOptions = {
   chart: {

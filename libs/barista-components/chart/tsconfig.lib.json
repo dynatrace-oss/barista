@@ -9,5 +9,5 @@
     "lib": ["dom", "es2018"]
   },
   "exclude": ["src/test-setup.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.d.ts"]
+  "include": ["**/*.ts"]
 }

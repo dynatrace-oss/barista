@@ -19,7 +19,7 @@ import {
   calculatePosition,
 } from './position-utils';
 
-// tslint:disable:no-magic-numbers
+/* eslint-disable no-magic-numbers */
 
 describe('PositioningUtils', () => {
   describe('calculatePosition', () => {
