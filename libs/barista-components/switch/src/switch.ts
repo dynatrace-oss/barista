@@ -153,16 +153,16 @@ export class DtSwitch<T>
   @Input() value: T;
 
   /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('aria-label') ariaLabel = '';
 
   /** The 'aria-describedby' attribute is read after the element's label and field type. */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('aria-labelledby') ariaLabelledby: string | null = null;
 
   /** Event emitted when the switch's `checked` value changes. */
   // Disabling no-output-native rule because we want to keep a similar API to the checkbox
-  // tslint:disable-next-line: no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() readonly change = new EventEmitter<DtSwitchChange<T>>();
 
   /** @internal The native switch input element */
@@ -217,6 +217,7 @@ export class DtSwitch<T>
     }
 
     // Force setter to be called in case id was not specified.
+    // eslint-disable-next-line no-self-assign
     this.id = this.id;
     this.tabIndex = parseInt(tabIndex, 10) || 0;
   }
@@ -332,7 +333,7 @@ export class DtSwitch<T>
 
 export const DT_SWITCH_REQUIRED_VALIDATOR: Provider = {
   provide: NG_VALIDATORS,
-  // tslint:disable-next-line: no-use-before-declare no-forward-ref
+  // eslint-disable-next-line no-use-before-define, @typescript-eslint/no-use-before-define, @angular-eslint/no-forward-ref
   useExisting: forwardRef(() => DtSwitchRequiredValidator),
   multi: true,
 };
@@ -342,6 +343,7 @@ export const DT_SWITCH_REQUIRED_VALIDATOR: Provider = {
  * TODO @alexfrasst: Remove once CheckboxRequiredValidator supports custom checkbox
  */
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `dt-switch[required][formControlName],
              dt-switch[required][formControl], dt-switch[required][ngModel]`,
   exportAs: 'dtSwitchRequiredValidator',
