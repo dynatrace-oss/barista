@@ -75,7 +75,7 @@ export class DtToggleButtonGroup<T> implements AfterContentInit, OnDestroy {
 
   /** Output observable that fires every time the selection on the ToggleButtonGroup changes. */
   // Disabling no-output-native rule because we want to keep a similar API to the radio group
-  // tslint:disable-next-line: no-output-native
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() readonly change: Observable<DtToggleButtonChange<T>> =
     this._itemSelectionChanges;
 
