@@ -32,6 +32,7 @@ export class DtShowMoreBase {}
 const _DtShowMoreMixinBase = mixinDisabled(DtShowMoreBase);
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'button[dt-show-more]',
   exportAs: 'dtShowMore',
   templateUrl: 'show-more.html',
