@@ -102,7 +102,8 @@ const baristaDataDistDir = 'barista-data';
 
 /** Builds pages using all registered builders. */
 async function buildPages(): Promise<void[]> {
-  const { next, distRoot } = options({
+  // eslint-disable-next-line prefer-const
+  let { next, distRoot } = options({
     next: { type: 'boolean', alias: 'n', default: false },
     distRoot: { type: 'string' },
   }).argv;
