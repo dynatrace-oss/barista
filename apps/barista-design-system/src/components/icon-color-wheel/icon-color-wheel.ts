@@ -213,7 +213,7 @@ export class BaIconColorWheel {
       context.drawImage(img, 0, 0);
       const name = `${iconName}-${colorName}.png`;
       const data = canvas.toDataURL('image/png');
-      if (!window.navigator.msSaveOrOpenBlob) {
+      if (!(window.navigator as any).msSaveOrOpenBlob) {
         // get the dataURI as PNG
         this._downloadData(name, data);
       } else {
@@ -242,7 +242,7 @@ export class BaIconColorWheel {
     colorName: string,
   ): void {
     const name = `${iconName}-${colorName}.svg`;
-    if (!window.navigator.msSaveOrOpenBlob) {
+    if (!(window.navigator as any).msSaveOrOpenBlob) {
       const data = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(
         svgSource,
       )}`;
@@ -269,6 +269,6 @@ export class BaIconColorWheel {
   }
 
   private _downloadEdgeData(name: string, blob: object): void {
-    window.navigator.msSaveOrOpenBlob(blob, name);
+    (window.navigator as any).msSaveOrOpenBlob(blob, name);
   }
 }
