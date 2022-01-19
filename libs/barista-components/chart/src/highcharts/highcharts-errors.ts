@@ -18,14 +18,14 @@ import { DtLogger, DtLoggerFactory } from '@dynatrace/barista-components/core';
 
 const logger: DtLogger = DtLoggerFactory.create('DtChart');
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, no-var
-declare var require: any;
-// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-const highcharts = require('highcharts');
+import * as highcharts from 'highcharts';
 
 export function applyHighchartsErrorHandler(): void {
+  // ng-packagr starting with v13 is outputting mjs files. We needed to replace
+  // the require with an import. To override these read only functions properly,
+  // we needed to cast highcharts as any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  highcharts.error = function (code: number, stop: boolean): void {
+  (highcharts as any).error = function (code: number, stop: boolean): void {
     const message = `HighCharts Error: www.highcharts.com/errors/${code}`;
     logger.error(message);
     if (stop) {

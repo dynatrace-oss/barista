@@ -107,15 +107,14 @@ import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { getPlotBackgroundInfo, retainSeriesVisibility } from './utils';
 import { DtChartFocusTarget } from './chart-focus-anchor';
 import { DtChartBase } from './chart-base';
+import highchartsMore from 'highcharts/highcharts-more';
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 declare const window: any;
-// eslint-disable-next-line @typescript-eslint/no-explicit-any,no-var
-declare var require: any;
+
 /* DANGER ZONE - this function needs to be self executing so uglify does not drop the call */
-// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
-window.highchartsMore = require('highcharts/highcharts-more')(Highcharts);
+window.highchartsMore = highchartsMore(Highcharts);
 // Override Highcharts prototypes
 // added to the window so uglify does not drop this from the bundle
 window.configureLegendSymbols = configureLegendSymbols;
