@@ -21,7 +21,7 @@ export const waitForAngular = ClientFunction((waitTimeout = 10000) => {
   /** Interval in milliseconds where to ping angular */
   const PING_INTERVAL = 500;
 
-  return new Promise((resolve, reject) => {
+  return new Promise<void | Error>((resolve, reject) => {
     let pingIntervalId: number;
     let pingTimeoutId: number;
 
