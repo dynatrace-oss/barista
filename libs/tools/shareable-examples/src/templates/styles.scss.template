@@ -2,7 +2,9 @@
  * @import '~@dynatrace/barista-components/style/index.scss';
  * This is a workaround to get this working with stackblitz
  */
-@use '@angular/cdk' as cdk;
+@use '~@angular/cdk/overlay/_index.scss' as cdkOverlay;
+@use '~@angular/cdk/a11y/_index.scss' as cdkA11y;
+
 
 @import '~@dynatrace/barista-components/core/src/style/variables';
 
@@ -17,9 +19,8 @@ $fonts-dir: 'https://unpkg.com/@dynatrace/barista-fonts/';
 
 @import '~@dynatrace/barista-components/style/themes';
 
-@include cdk.overlay();
-@include cdk.a11y-visually-hidden();
-@include cdk.high-contrast();
+@include cdkA11y.a11y();
+@include cdkOverlay.overlay();
 
 .dt-no-pointer {
    pointer-events: none;
