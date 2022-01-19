@@ -50,7 +50,7 @@ test('should hide first two breadcrumbs if the overlay toggle needs more space',
     .eql(4)
     .expect(btnToggleOverlay.exists)
     .notOk()
-    .resizeWindow(900, 800)
+    .resizeWindow(850, 800)
     .expect(btnToggleOverlay.exists)
     .ok()
     .expect(visibleBreadcrumbs.count)
@@ -75,7 +75,7 @@ test('should open and close the overlay with transplanted breadcrumbs', async (t
   await testController
     .expect(btnToggleOverlay.exists)
     .notOk()
-    .resizeWindow(900, 800)
+    .resizeWindow(850, 800)
     .expect(btnToggleOverlay.exists)
     .ok()
     .click(btnToggleOverlay)
@@ -120,10 +120,10 @@ test('should hide breadcrumbs if none are left to render', async (testController
 test('should focus the next focusable breadcrumb item if the overlay is closed', async (testController: TestController) => {
   await testController
     .click(btnChangeBreadcrumbs)
-    .resizeWindow(900, 800)
+    .resizeWindow(850, 800)
     .click(btnToggleOverlay)
     .click(btnToggleOverlay)
-    .pressKey(`tab`)
+    .pressKey('tab')
     .expect(visibleBreadcrumbs.nth(0).focused)
     .ok();
 });
