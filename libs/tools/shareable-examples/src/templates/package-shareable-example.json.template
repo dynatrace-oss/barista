@@ -5,6 +5,7 @@
     "@angular/cdk": "",
     "@angular/common": "",
     "@angular/compiler": "",
+    "@angular/compiler-cli": "",
     "@angular/core": "",
     "@angular/forms": "",
     "@angular/localize": "",
@@ -21,11 +22,12 @@
     "@dynatrace/barista-fonts": "",
     "@dynatrace/barista-icons": "",
     "highcharts": "",
-    "lodash-es": ""
+    "lodash-es": "",
+    "dompurify":""
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "",
     "@angular/cli": "",
-    "@angular/compiler-cli": ""
+    "typescript": ""
   }
 }
