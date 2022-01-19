@@ -226,7 +226,7 @@ ignore:
   SNYK-JS-D3COLOR-1076592:
     - d3-scale > d3-interpolate > d3-color:
         reason: transitive-dependency
-        expires: '2022-01-19T08:40:14.038Z'
+        expires: '2022-02-18T09:22:25.582Z'
   SNYK-JS-ANSIREGEX-1583908:
     - '@angular/localize > yargs > string-width > strip-ansi > ansi-regex':
         reason: Transient dependency and still an issue
