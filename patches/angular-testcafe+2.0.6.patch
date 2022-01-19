@@ -1,0 +1,11 @@
+diff --git a/node_modules/angular-testcafe/src/testcafe/schema.json b/node_modules/angular-testcafe/src/testcafe/schema.json
+index a7824a0..1b9ba85 100644
+--- a/node_modules/angular-testcafe/src/testcafe/schema.json
++++ b/node_modules/angular-testcafe/src/testcafe/schema.json
+@@ -1,5 +1,5 @@
+ {
+-  "id": "TestcafeBuilderOptions",
++  "$id": "TestcafeBuilderOptions",
+   "title": "TestCafe builder",
+   "description": "TestCafe builder options",
+   "type": "object",

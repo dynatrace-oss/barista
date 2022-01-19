@@ -844,7 +844,7 @@
           }
         },
         "e2e": {
-          "builder": "@politie/angular-testcafe-builder:testcafe",
+          "builder": "angular-testcafe:testcafe",
           "options": {
             "devServerTarget": "components-e2e:serve",
             "src": "apps/components-e2e/src/**/*.{e2e,po}.ts",
