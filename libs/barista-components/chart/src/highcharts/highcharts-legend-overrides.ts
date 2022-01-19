@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, no-var
-declare var require: any;
-// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-const highcharts = require('highcharts');
+import * as highcharts from 'highcharts';
 
 /**
  * Sets the Legend Symbols to our custom legend symbols
@@ -26,11 +23,19 @@ const highcharts = require('highcharts');
  */
 // eslint-disable-next-line no-void
 export const configureLegendSymbols = ((): void => {
-  if (!highcharts.seriesTypes) {
+  // ng-packagr starting with v13 is outputting mjs files. We needed to replace
+  // the require with an import. To override these read only functions properly,
+  // we needed to cast highcharts as any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  if (!(highcharts as any).seriesTypes) {
     return;
   }
 
-  highcharts.seriesTypes.area.prototype.drawLegendSymbol = function (
+  // ng-packagr starting with v13 is outputting mjs files. We needed to replace
+  // the require with an import. To override these read only functions properly,
+  // we needed to cast highcharts as any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  (highcharts as any).seriesTypes.area.prototype.drawLegendSymbol = function (
     _legend: any, // eslint-disable-line @typescript-eslint/no-explicit-any
     item: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   ): void {
@@ -39,8 +44,11 @@ export const configureLegendSymbols = ((): void => {
       .addClass('highcharts-point')
       .add(item.legendGroup);
   };
+  // ng-packagr starting with v13 is outputting mjs files. We needed to replace
+  // the require with an import. To override these read only functions properly,
+  // we needed to cast highcharts as any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  highcharts.seriesTypes.line.prototype.drawLegendSymbol = function (
+  (highcharts as any).seriesTypes.line.prototype.drawLegendSymbol = function (
     _legend: any, // eslint-disable-line @typescript-eslint/no-explicit-any
     item: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   ): void {
@@ -50,8 +58,11 @@ export const configureLegendSymbols = ((): void => {
       .add(item.legendGroup);
   };
 
+  // ng-packagr starting with v13 is outputting mjs files. We needed to replace
+  // the require with an import. To override these read only functions properly,
+  // we needed to cast highcharts as any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  highcharts.seriesTypes.column.prototype.drawLegendSymbol = function (
+  (highcharts as any).seriesTypes.column.prototype.drawLegendSymbol = function (
     _legend: any, // eslint-disable-line @typescript-eslint/no-explicit-any
     item: any, // eslint-disable-line @typescript-eslint/no-explicit-any
   ): void {

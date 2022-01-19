@@ -21,10 +21,7 @@ import {
 } from './highcharts-tooltip-types';
 import { Point, PointLabelObject } from 'highcharts';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, no-var
-declare var require: any;
-// eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires
-const highcharts = require('highcharts');
+import * as highcharts from 'highcharts';
 
 export interface DtHcTooltipEventPayload {
   data: DtChartTooltipData;
