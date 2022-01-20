@@ -248,7 +248,11 @@ jobs:
       - nx/set-shas:
           error-on-no-successful-workflow: true
           main-branch-name: master
-      - run: yarn nx affected --target=test --base=$NX_BASE
+      # Limit the parallel runs to 1 for now as nx has a bug open that
+      # will fail the run with some stream error when running too many things
+      # in parallel. https://github.com/nrwl/nx/issues/8565
+      # TODO: Can be removed when linked issue is resolved.
+      - run: yarn nx affected --target=test --base=$NX_BASE --parallel=1
       - store_test_results:
           path: dist/test-results
 
