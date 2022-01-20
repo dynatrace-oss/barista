@@ -619,6 +619,19 @@ export class DtAutocompleteTrigger<T>
           overlayY: 'bottom',
           panelClass: 'dt-autocomplete-panel-above',
         },
+        {
+          originX: 'end',
+          originY: 'bottom',
+          overlayX: 'end',
+          overlayY: 'top',
+        },
+        {
+          originX: 'end',
+          originY: 'top',
+          overlayX: 'end',
+          overlayY: 'bottom',
+          panelClass: 'dt-autocomplete-panel-above',
+        },
         // tslint:disable-next-line:no-any
       ] as any[]);
 
