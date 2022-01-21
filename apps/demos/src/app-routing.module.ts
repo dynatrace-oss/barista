@@ -86,7 +86,6 @@ import {
   DtExampleConsumptionError,
   DtExampleConsumptionWarning,
   DtExampleComboboxSimple,
-  DtExampleComboboxFormControl,
   DtExampleContainerBreakpointObserverDefault,
   DtExampleContainerBreakpointObserverIfElse,
   DtExampleContainerBreakpointObserverIf,
@@ -333,6 +332,7 @@ import {
   DtExampleTreeTableProblemIndicator,
   DtExampleTreeTableSimple,
   DtExampleComboboxCustomOptionHeight,
+  DtExampleComboboxFormField,
   DtExampleSelectCustomValueTemplate,
   DtExampleCalendarMinMax,
   DtExampleTimepickerMinMax,
@@ -500,12 +500,12 @@ const ROUTES: Routes = [
     component: DtExampleComboboxSimple,
   },
   {
-    path: 'combobox-form-control-example',
-    component: DtExampleComboboxFormControl,
-  },
-  {
     path: 'combobox-custom-option-height-example',
     component: DtExampleComboboxCustomOptionHeight,
+  },
+  {
+    path: 'combobox-form-field-example',
+    component: DtExampleComboboxFormField,
   },
   {
     path: 'confirmation-dialog-default-example',
@@ -1059,7 +1059,7 @@ const ROUTES: Routes = [
   },
   {
     path: 'stacked-series-chart-heat-field-example',
-    component: DtExampleStackedSeriesChartHeatField
+    component: DtExampleStackedSeriesChartHeatField,
   },
   { path: 'stepper-default-example', component: DtExampleStepperDefault },
   { path: 'stepper-editable-example', component: DtExampleStepperEditable },
@@ -1123,7 +1123,7 @@ const ROUTES: Routes = [
     path: 'table-interactive-rows-example',
     component: DtExampleTableInteractiveRows,
   },
-  { path: 'table-selection', component: DtExampleTableSelection},
+  { path: 'table-selection', component: DtExampleTableSelection },
   { path: 'table-loading-example', component: DtExampleTableLoading },
   { path: 'table-observable-example', component: DtExampleTableObservable },
   { path: 'table-order-column-example', component: DtExampleTableOrderColumn },

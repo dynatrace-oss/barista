@@ -15,6 +15,6 @@
  */
 
 export * from './combobox-simple-example/combobox-simple-example';
-export * from './combobox-form-control-example/combobox-form-control-example';
+export * from './combobox-form-field-example/combobox-form-field-example';
 export * from './combobox-custom-option-height-example/combobox-custom-option-height-example';
 export * from './combobox-examples.module';

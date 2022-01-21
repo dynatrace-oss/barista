@@ -18,12 +18,12 @@ import { Directive } from '@angular/core';
 import { NgControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 
-/** An interface which allows a control to work inside of a `DtFormField`. */
+/** An interface which allows a control to work inside a `DtFormField`. */
 @Directive({
   // The @Directive with selector is required here because we're still running a lot of things
   // against ViewEngine where directives without selectors are not allowed.
   // @breaking-change Will be removed with switch to ivy.
-  // convert to a selectorless Directive after we switch to Ivy.
+  // convert to a selector-less Directive after we switch to Ivy.
   selector: 'do-not-use-abstract-dt-form-field-control',
 })
 export abstract class DtFormFieldControl<T> {

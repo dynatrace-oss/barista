@@ -28,8 +28,6 @@ import { PortalModule } from '@angular/cdk/portal';
 import { DtOptionModule } from '@dynatrace/barista-components/core';
 
 @NgModule({
-  exports: [DtCombobox, DtOptionModule],
-  declarations: [DtCombobox],
   imports: [
     CommonModule,
     PortalModule,
@@ -40,5 +38,7 @@ import { DtOptionModule } from '@dynatrace/barista-components/core';
     DtLoadingDistractorModule,
     PortalModule,
   ],
+  exports: [DtCombobox, DtOptionModule],
+  declarations: [DtCombobox],
 })
 export class DtComboboxModule {}
