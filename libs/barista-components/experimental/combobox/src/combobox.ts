@@ -37,6 +37,9 @@ import {
   AfterContentInit,
   NgZone,
   Inject,
+  DoCheck,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import {
   DtAutocomplete,
@@ -66,9 +69,15 @@ import {
   DtLogger,
   DtLoggerFactory,
   DT_COMPARE_WITH_NON_FUNCTION_VALUE_ERROR_MSG,
+  CanUpdateErrorState,
 } from '@dynatrace/barista-components/core';
 import { DtFormFieldControl } from '@dynatrace/barista-components/form-field';
-import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import {
+  ControlValueAccessor,
+  FormGroupDirective,
+  NgControl,
+  NgForm,
+} from '@angular/forms';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
   coerceBooleanProperty,
@@ -107,6 +116,7 @@ export class DtComboboxBase {
     public ngControl: NgControl,
   ) {}
 }
+
 export const _DtComboboxMixinBase = mixinTabIndex(
   mixinDisabled(mixinErrorState(DtComboboxBase)),
 );
@@ -130,6 +140,7 @@ export const _DtComboboxMixinBase = mixinTabIndex(
     '[attr.aria-required]': 'required.toString()',
     '[attr.aria-disabled]': 'disabled.toString()',
     '[attr.aria-invalid]': 'errorState',
+    '[attr.aria-describedby]': '_ariaDescribedby || null',
   },
   inputs: ['disabled', 'tabIndex'],
   providers: [{ provide: DtFormFieldControl, useExisting: DtCombobox }],
@@ -143,20 +154,26 @@ export class DtCombobox<T>
     AfterContentInit,
     AfterViewInit,
     OnDestroy,
+    OnChanges,
+    DoCheck,
     CanDisable,
     HasTabIndex,
-    DtFormFieldControl<T>
+    ControlValueAccessor,
+    DtFormFieldControl<T>,
+    CanUpdateErrorState
 {
   static ngAcceptInputType_disabled: BooleanInput;
   static ngAcceptInputType_tabIndex: NumberInput;
 
   /** The ID for the combobox. */
   @Input() id: string;
+
   /** The currently selected value in the combobox. */
   @Input()
   get value(): T {
     return this._value;
   }
+
   set value(newValue: T) {
     if (newValue !== this._value) {
       this._value = newValue;
@@ -164,6 +181,7 @@ export class DtCombobox<T>
       this._resetInputValue();
     }
   }
+
   private _value: T;
 
   /** When set to true, a loading indicator is shown to show to the user that data is currently being loaded/filtered. */
@@ -171,6 +189,7 @@ export class DtCombobox<T>
   get loading(): boolean {
     return this._loading;
   }
+
   set loading(value: boolean) {
     const coercedValue = coerceBooleanProperty(value);
 
@@ -184,30 +203,47 @@ export class DtCombobox<T>
       this._changeDetectorRef.markForCheck();
     }
   }
+
   _loading = false;
   static ngAcceptInputType_loading: BooleanInput;
+
+  /** Placeholder to be shown if no value has been selected. */
+  @Input()
+  get placeholder(): string {
+    return this._placeholder;
+  }
+
+  set placeholder(value: string) {
+    this._placeholder = value;
+    this.stateChanges.next();
+  }
+
+  private _placeholder: string;
 
   /** Whether the control is required. */
   @Input()
   get required(): boolean {
     return this._required;
   }
+
   set required(value: boolean) {
     this._required = coerceBooleanProperty(value);
+    this.stateChanges.next();
   }
+
   private _required = false;
   static ngAcceptInputType_required: BooleanInput;
 
   /** An arbitrary class name that is added to the combobox dropdown. */
   @Input() panelClass: string = '';
-  /** A placeholder text for the input field. */
-  @Input() placeholder: string | undefined;
   /** A function returning a display name for a given object that represents an option from the combobox. */
   @Input() displayWith: (value: T) => string = (value: T) => `${value}`;
   /** Aria label of the combobox. */
   @Input('aria-label') ariaLabel: string;
   /** Input that can be used to specify the `aria-labelledby` attribute. */
   @Input('aria-labelledby') ariaLabelledBy: string;
+  /** Object used to control when error messages are shown. */
+  @Input() errorStateMatcher: ErrorStateMatcher;
 
   /**
    * Function to compare the option values with the selected values. The first argument
@@ -220,6 +256,7 @@ export class DtCombobox<T>
   get compareWith(): (v1: T, v2: T) => boolean {
     return this._compareWith;
   }
+
   set compareWith(fn: (v1: T, v2: T) => boolean) {
     // tslint:disable-next-line:strict-type-predicates
     if (typeof fn !== 'function') {
@@ -233,6 +270,7 @@ export class DtCombobox<T>
       this._initializeSelection();
     }
   }
+
   private _compareWith = (v1: T, v2: T) => v1 === v2;
 
   /** Event emitted when a new value has been selected. */
@@ -242,7 +280,7 @@ export class DtCombobox<T>
   /** Event emitted when the combobox panel has been toggled. */
   @Output() openedChange = new EventEmitter<boolean>();
 
-  /** Combined stream of all of the child options' change events. */
+  /** Combined stream of all the child options' change events. */
   readonly optionSelectionChanges: Observable<DtOptionSelectionChange<T>> =
     defer(() => {
       if (this._options) {
@@ -278,6 +316,9 @@ export class DtCombobox<T>
   /** @internal `View -> model callback called when value changes` */
   _onChange: (value: T) => void = () => {};
 
+  /** @internal `View -> model callback called when combobox has been touched` */
+  _onTouched = () => {};
+
   /** Whether the selection is currently empty. */
   get empty(): boolean {
     return !this._selectionModel || this._selectionModel.isEmpty();
@@ -294,6 +335,9 @@ export class DtCombobox<T>
 
   /** @internal whether the autocomplete panel is shown. Initially false. */
   _panelOpen = false;
+
+  /** @internal The aria-describedby attribute on the combobox for improved a11y. */
+  _ariaDescribedby: string;
 
   /** @internal Deals with the selection logic. */
   _selectionModel: SelectionModel<DtOption<T>>;
@@ -325,6 +369,12 @@ export class DtCombobox<T>
     );
 
     this.tabIndex = parseInt(tabIndex, 10) || 0;
+
+    if (this.ngControl) {
+      // Note: we provide the value accessor through here, instead of
+      // the `providers` to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
@@ -382,7 +432,7 @@ export class DtCombobox<T>
       .subscribe(() => {
         this._autocomplete._additionalOptions = this._options.toArray();
         // To prevent an expression has changed after checked
-        // error in the when setting the value.
+        // error when setting the value.
         Promise.resolve().then(() => {
           this._setSelectionByValue(this._value, this._initialOptionChange);
         });
@@ -404,19 +454,71 @@ export class DtCombobox<T>
     this._resetInputValue();
   }
 
+  ngDoCheck(): void {
+    if (this.ngControl) {
+      this.updateErrorState();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let
+    // the parent form field know to run change detection when the disabled state changes.
+    if (changes.disabled) {
+      this.stateChanges.next();
+    }
+  }
+
   ngOnDestroy(): void {
     this._destroy.next();
     this._destroy.complete();
+    this.stateChanges.complete();
   }
 
-  // /** Sets the list of element IDs that currently describe this control. Part of the FormFieldControl */
-  setDescribedByIds(_: string[]): void {
-    // TODO ChMa: implement (what does this even do?)
+  /** Sets the combobox's value. Part of the ControlValueAccessor. */
+  writeValue(value: T): void {
+    if (this._options) {
+      this.value = value;
+    }
   }
 
-  // /** Handles a click on the control's container.Part of the FormFieldControl */
+  /**
+   * Saves a callback function to be invoked when the combobox's value
+   * changes from user input. Part of the ControlValueAccessor.
+   */
+  registerOnChange(fn: (value: T) => void): void {
+    this._onChange = fn;
+  }
+
+  /**
+   * Saves a callback function to be invoked when the combobox is blurred
+   * by the user. Part of the ControlValueAccessor.
+   */
+  registerOnTouched(fn: () => {}): void {
+    this._onTouched = fn;
+  }
+
+  /** Disables the combobox. Part of the ControlValueAccessor. */
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    this._changeDetectorRef.markForCheck();
+    this.stateChanges.next();
+  }
+
+  /**
+   * Sets the list of element IDs that currently describe this control.
+   * Part of the FormFieldControl
+   */
+  setDescribedByIds(ids: string[]): void {
+    this._ariaDescribedby = ids.join(' ');
+  }
+
+  /**
+   * Handles a click on the control's container.
+   * Part of the FormFieldControl
+   */
   onContainerClick(_: MouseEvent): void {
-    // TODO ChMa: implement (do we even need this handler?)
+    this._openPanel();
+    this._changeDetectorRef.markForCheck();
   }
 
   /** @internal called when the user selects a different option */
@@ -440,6 +542,7 @@ export class DtCombobox<T>
       this._propagateChanges();
     }
 
+    this.stateChanges.next();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -490,6 +593,7 @@ export class DtCombobox<T>
   _closed(): void {
     this._panelOpen = false;
     this.openedChange.emit(false);
+    this._onTouched();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -498,6 +602,7 @@ export class DtCombobox<T>
     const valueToEmit = this.selected ? this.selected.value : null;
     this._value = valueToEmit!;
     this.valueChange.emit(valueToEmit!);
+    this._onChange(valueToEmit!);
     this._changeDetectorRef.markForCheck();
   }
 
@@ -523,14 +628,6 @@ export class DtCombobox<T>
       );
       this._writeValue();
     });
-  }
-
-  /**
-   * Saves a callback function to be invoked when the select's value
-   * changes from user input. Part of the ControlValueAccessor.
-   */
-  registerOnChange(fn: (value: T) => void): void {
-    this._onChange = fn;
   }
 
   /** Updates the selection by value using selection model and keymanager to handle the active item */

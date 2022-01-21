@@ -28,11 +28,12 @@ class MyModule {}
 
 The following barista form-controls are compatible with the form-field.
 
-- [Input](https://barista.dynatrace.com/components/input)
-- [Select](https://barista.dynatrace.com/components/select)
-- [Checkbox](https://barista.dynatrace.com/components/checkbox)
-- [Switch](https://barista.dynatrace.com/components/switch)
-- [Radio-group](https://barista.dynatrace.com/components/radio#radio-groups)
+- [Input](/components/input)
+- [Select](/components/select)
+- [Checkbox](/components/checkbox)
+- [Switch](/components/switch)
+- [Radio-group](/components/radio#radio-groups)
+- [Combobox](/components/combobox)
 
 ## Custom form-control
 

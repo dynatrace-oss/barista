@@ -36,7 +36,8 @@ $dt-loading-spinner-ease: cubic-bezier(0.645, 0.045, 0.355, 1);
     infinite;
 }
 
-:host-context(.dt-form-field) .dt-loading-spinner-svg,
+:host-context(.dt-form-field) .dt-loading-spinner-svg[dtPrefix],
+:host-context(.dt-form-field) .dt-loading-spinner-svg[dtSuffix],
 :host-context(.dt-filter-field) .dt-loading-spinner-svg {
   stroke: $gray-500;
 }
