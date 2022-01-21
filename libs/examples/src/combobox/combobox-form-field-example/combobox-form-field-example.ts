@@ -1,4 +1,3 @@
-import { FormControl, Validators } from '@angular/forms';
 /**
  * @license
  * Copyright 2021 Dynatrace LLC
@@ -16,6 +15,7 @@ import { FormControl, Validators } from '@angular/forms';
  */
 
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import { FormControl, ValidatorFn } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { timer } from 'rxjs';
 import {
@@ -29,40 +29,36 @@ interface ExampleComboboxOption {
 }
 
 const allOptions: ExampleComboboxOption[] = [
-  { name: 'Value 1', value: '[value: Value 1]' },
-  { name: 'Value 2', value: '[value: Value 2]' },
-  { name: 'Value 3', value: '[value: Value 3]' },
+  { name: 'Espresso', value: 'espresso' },
+  { name: 'Cappuccino', value: 'cappuccino' },
+  { name: 'Americano', value: 'americano' },
+  { name: 'No Coffee (Triggers an error)', value: 'noCoffee' },
 ];
 
-/**
- * Factory function for generating a filter function for a given filter string.
- *
- * @param filter Text to filter options for
- */
-function optionFilter(
-  filter: string,
-): (option: ExampleComboboxOption) => boolean {
-  return (option: ExampleComboboxOption): boolean => {
-    return option.value.toLowerCase().indexOf(filter.toLowerCase()) >= 0;
+function coffeeValidator(): ValidatorFn {
+  return (control: FormControl): { [key: string]: boolean } | null => {
+    const isCoffee = control.value ? control.value.value !== 'noCoffee' : true;
+    return isCoffee ? null : { noCoffee: true };
   };
 }
 
 @Component({
-  selector: 'dt-example-form-control-combobox',
-  templateUrl: './combobox-form-control-example.html',
+  selector: 'dt-example-form-field-combobox',
+  templateUrl: './combobox-form-field-example.html',
 })
-export class DtExampleComboboxFormControl {
+export class DtExampleComboboxFormField {
   @ViewChild(DtCombobox) combobox: DtCombobox<any>;
 
-  reporterCtrl: FormControl;
+  coffeeControl: FormControl;
 
-  _initialValue = allOptions[0];
   _options = [...allOptions];
   _loading = false;
-  _displayWith = (option: ExampleComboboxOption) => option.name;
+
+  _displayCoffee = (value: ExampleComboboxOption) =>
+    value.value === 'noCoffee' ? '' : value.name;
 
   constructor(private _changeDetectorRef: ChangeDetectorRef) {
-    this.reporterCtrl = new FormControl('Value 1', Validators.required);
+    this.coffeeControl = new FormControl(null, coffeeValidator());
   }
 
   openedChanged(event: boolean): void {
@@ -70,7 +66,9 @@ export class DtExampleComboboxFormControl {
   }
 
   valueChanged(event: ExampleComboboxOption): void {
-    this._options = [...allOptions].filter(optionFilter(event.value));
+    this._options = [...allOptions].filter(
+      (option) => option.value === event.value,
+    );
   }
 
   filterChanged(event: DtComboboxFilterChange): void {
@@ -82,7 +80,9 @@ export class DtExampleComboboxFormControl {
     timer(1500)
       .pipe(take(1))
       .subscribe(() => {
-        this._options = allOptions.filter(optionFilter(event.filter));
+        this._options = allOptions.filter((option) =>
+          option.name.toLowerCase().includes(event.filter.toLowerCase()),
+        );
         this._loading = false;
         this._changeDetectorRef.markForCheck();
       });

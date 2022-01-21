@@ -78,9 +78,10 @@ automatically change the height of the options.
 
 <ba-live-example name="DtExampleComboboxCustomOptionHeight"></ba-live-example>
 
-## Combobox bound to a form control
+## Form field
 
-For now, in case the combobox needs to be bound to a form control, you can add
-the DefaultValueAccessor directive as in the following example:
+The combobox component supports the `<dt-form-field>`. These include error
+messages, hint text, prefix & suffix. For additional information about these
+features, see the [form field documentation](/components/form-field).
 
-<ba-live-example name="DtExampleComboboxFormControl"></ba-live-example>
+<ba-live-example name="DtExampleComboboxFormField"></ba-live-example>
