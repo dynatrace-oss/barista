@@ -7,7 +7,7 @@ See stacked-series-chart.layout.md
 
 $track-wrapper-height: calc(
   (var(--dt-stacked-series-chart-max-bar-size) + #{$gap}) *
-    var(--dt-stacked-series-chart-track-amount)
+    calc(var(--dt-stacked-series-chart-track-amount) - 1)
 );
 $track-wrapper-margin-top: $gap;
 $track-wrapper-margin-bottom: calc(#{$gap} / 2);
@@ -19,35 +19,14 @@ $track-wrapper-margin-bottom: calc(#{$gap} / 2);
     position: relative;
   }
 
-  .dt-stacked-series-chart-track-axis-container,
   .dt-stacked-series-chart-track-label-wrapper,
   .dt-stacked-series-chart-track-wrapper,
   .dt-stacked-series-chart-heat-field-wrapper {
     min-height: $track-wrapper-height;
-    height: 100%;
     grid-column: 2;
     grid-row: 1;
-  }
-
-  .dt-stacked-series-chart-container:not(.dt-stacked-series-chart-scale-point) {
-    .dt-stacked-series-chart-track-label-wrapper,
-    .dt-stacked-series-chart-track-wrapper,
-    .dt-stacked-series-chart-heat-field-wrapper {
-      margin-top: $track-wrapper-margin-top;
-      margin-bottom: $track-wrapper-margin-bottom;
-      height: calc(
-        100% - #{$track-wrapper-margin-top} - #{$track-wrapper-margin-bottom}
-      );
-    }
-
-    .dt-stacked-series-chart-track-axis-container {
-      @include trackAxisContainerMinSize(
-        min-height,
-        $track-wrapper-height,
-        $track-wrapper-margin-top,
-        $track-wrapper-margin-bottom
-      );
-    }
+    margin: calc(var(--dt-stacked-series-chart-max-bar-size) / 2) 0;
+    height: calc(100% - var(--dt-stacked-series-chart-max-bar-size));
   }
 
   .dt-stacked-series-chart-heat-field-wrapper {
@@ -72,15 +51,11 @@ $track-wrapper-margin-bottom: calc(#{$gap} / 2);
     grid-template-columns: auto 1fr;
 
     &.dt-stacked-series-chart-has-heat-field {
-      column-gap: calc(#{$gap} + #{$heat-field-size-by-levels});
+      column-gap: calc(#{$tick-gutter} + #{$heat-field-size-by-levels});
     }
 
     &:not(.dt-stacked-series-chart-value-axis-none) {
       grid-template-rows: 1fr auto;
-    }
-
-    &.dt-stacked-series-chart-scale-point {
-      row-gap: calc(#{$gap} / 2);
     }
   }
 
@@ -102,7 +77,6 @@ $track-wrapper-margin-bottom: calc(#{$gap} / 2);
   }
 
   .dt-stacked-series-chart-label-none {
-    .dt-stacked-series-chart-track-axis-container,
     .dt-stacked-series-chart-track-wrapper,
     .dt-stacked-series-chart-value-axis,
     .dt-stacked-series-chart-heat-field-wrapper {
