@@ -22,7 +22,7 @@ import {
 } from '@dynatrace/barista-components/stacked-series-chart';
 
 @Component({
-  selector: 'dt-example-stacked-series-chart-date-barista',
+  selector: 'dt-example-stacked-series-chart-linear-barista',
   templateUrl: './stacked-series-chart-linear-example.html',
 })
 export class DtExampleStackedSeriesChartLinear {

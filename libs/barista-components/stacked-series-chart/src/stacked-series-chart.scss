@@ -6,12 +6,15 @@ See stacked-series-chart.layout.md
 */
 
 :host {
+  --dt-stacked-series-chart-grid-gap: #{$gap-default};
+  --dt-stacked-series-chart-max-bar-size: #{$bar-track-size-default};
+
   display: grid;
   align-items: center;
   grid-template-rows: 1fr auto;
 
   &.dt-stacked-series-chart-with-legend {
-    gap: $gap;
+    gap: $tick-gutter;
   }
 }
 
@@ -20,13 +23,7 @@ See stacked-series-chart.layout.md
   display: grid;
   grid-auto-flow: dense;
   align-self: stretch;
-  gap: $gap;
-}
-
-/** Chart orientation */
-.dt-stacked-series-chart-track-axis-container {
-  grid-column: 2;
-  grid-row: 1;
+  gap: $tick-gutter;
 }
 
 /** Track */

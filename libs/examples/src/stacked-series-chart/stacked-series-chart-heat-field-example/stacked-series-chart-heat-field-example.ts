@@ -23,6 +23,7 @@ import {
 
 @Component({
   selector: 'dt-example-heat-field-stacked-series-chart',
+  styleUrls: ['./stacked-series-chart-heat-field-example.scss'],
   templateUrl: './stacked-series-chart-heat-field-example.html',
 })
 export class DtExampleStackedSeriesChartHeatField {

@@ -23,7 +23,7 @@ import {
   body,
   chartContainer,
   chartWidth1200Btn,
-  chartWidth400Btn,
+  chartWidth300Btn,
   columnBtn,
   columnChart,
   continuousAxisFormat7f,
@@ -69,6 +69,7 @@ import {
   unselectBtn,
   valueAxis,
   heatFieldTypeOverlap,
+  continuousAxisTypeNone,
 } from './stacked-series-chart.po';
 
 // Reduced speed of hovering should get our e2e tests stable.
@@ -286,7 +287,8 @@ test('should switch from full to compact on labelAxisMode auto', async (testCont
     .expect(chartContainer.classNames)
     .notContains(compactModeClassname)
     .click(autoLabelAxisModeBtn)
-    .click(chartWidth400Btn)
+    .click(chartWidth300Btn)
+    .click(continuousAxisTypeNone)
     .resizeWindowToFitDevice('ipad')
     .wait(250) // Wait for the DtViewportResizer event to trigger
     .expect(chartContainer.classNames)
@@ -335,7 +337,7 @@ test('should render linear chart with format and auto-fitting ticks', async (tes
     // select column so that auto fit can be applied
     .click(autoLabelAxisModeBtn)
     .click(columnBtn)
-    .click(chartWidth400Btn)
+    .click(chartWidth300Btn)
     .click(continuousAxisFormat7f)
 
     // Check auto fitting ticks
@@ -377,17 +379,17 @@ test('should render date chart with format and auto-fitting ticks', async (testC
     .click(autoLabelAxisModeBtn)
     .click(columnBtn)
     .expect(chartContainer.classNames)
-    .contains(compactModeClassname)
+    .notContains(compactModeClassname)
 
     // Check track ticks again
     .expect(labels.count)
-    .eql(28)
+    .eql(9)
     .expect(getLabel(0).textContent)
-    .match(/11:35/)
-    .expect(getLabel(1).textContent)
-    .match(/11:40/)
-    .expect(getLabel(2).textContent)
     .match(/11:45/)
+    .expect(getLabel(1).textContent)
+    .match(/12:00/)
+    .expect(getLabel(2).textContent)
+    .match(/12:15/)
 
     // Check auto fitting ticks with long time format
     .click(continuousAxisFormatLong)
@@ -396,13 +398,13 @@ test('should render date chart with format and auto-fitting ticks', async (testC
 
     // Check track ticks
     .expect(labels.count)
-    .eql(9)
+    .eql(4)
     .expect(getLabel(0).textContent)
-    .match(/11:45:00:000AM/)
+    .match(/ Dec, 31 \/ 12:00:00:000-------- /)
     .expect(getLabel(1).textContent)
-    .match(/12:00:00:000PM/)
+    .match(/ Dec, 31 \/ 12:30:00:000-------- /)
     .expect(getLabel(2).textContent)
-    .match(/12:15:00:000PM/)
+    .match(/ Dec, 31 \/ 13:00:00:000-------- /)
 
     // Check no compact mode with long width
     .click(chartWidth1200Btn)

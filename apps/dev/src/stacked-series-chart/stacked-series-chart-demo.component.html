@@ -10,7 +10,7 @@
   [labelAxisMode]="labelAxisMode"
   [fillMode]="fillMode"
   [mode]="mode"
-  [maxTrackSize]="maxTrackSize"
+  [style.--dt-stacked-series-chart-max-bar-size]="maxTrackSize + 'px'"
   [visibleTrackBackground]="visibleTrackBackground"
   [class]="mode"
 >
@@ -69,7 +69,7 @@
 
     <h4>Max size</h4>
     <dt-button-group [(value)]="maxTrackSize">
-      <dt-button-group-item value="">None</dt-button-group-item>
+      <dt-button-group-item value="0">None</dt-button-group-item>
       <dt-button-group-item value="8">8</dt-button-group-item>
       <dt-button-group-item value="16">16</dt-button-group-item>
       <dt-button-group-item value="32">32</dt-button-group-item>

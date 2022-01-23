@@ -15,9 +15,17 @@
  */
 
 import { Component } from '@angular/core';
-import { stackedSeriesChartDemoDataConvertedBouncedDates } from '../stacked-series-chart-demo-data';
+import {
+  stackedSeriesChartDemoData_2h,
+  stackedSeriesChartDemoData_30m,
+  stackedSeriesChartDemoData_7d,
+} from '../stacked-series-chart-demo-data';
 import { timeMinute, timeHour } from 'd3-time';
-import { TimeInterval } from '@dynatrace/barista-components/stacked-series-chart';
+import {
+  DtStackedSeriesChartSeries,
+  DtStackedSeriesChartValueContinuousAxisMap,
+  TimeInterval,
+} from '@dynatrace/barista-components/stacked-series-chart';
 
 // eslint-disable-next-line no-shadow
 enum TimeIntervalKey {
@@ -25,12 +33,24 @@ enum TimeIntervalKey {
   halfHour,
   hour,
 }
+// eslint-disable-next-line no-shadow
+enum DataKey {
+  conversionBounces,
+  histogramThirtyMin,
+  histogramSevenDays,
+}
+
+const conversionBouncesMap = ({ origin }) => {
+  const [hours, minutes] = origin.label.split(':').map(Number);
+  return new Date(0, 0, 0, hours, minutes, 0, 0);
+};
+const histogramMap = ({ origin }) => new Date(origin.timeDate);
+
 @Component({
   selector: 'dt-example-stacked-series-chart-date-barista',
   templateUrl: './stacked-series-chart-date-example.html',
 })
 export class DtExampleStackedSeriesChartDate {
-  series = stackedSeriesChartDemoDataConvertedBouncedDates;
   mode: 'bar' | 'column' = 'column';
 
   enableTimeInterval = false;
@@ -40,13 +60,29 @@ export class DtExampleStackedSeriesChartDate {
     [TimeIntervalKey.halfHour]: timeMinute.every(30),
     [TimeIntervalKey.hour]: timeHour.every(1),
   };
+  dataKey = DataKey.conversionBounces;
+  dataByKey: {
+    [key: string]: {
+      series: DtStackedSeriesChartSeries[];
+      continuousAxisMap: DtStackedSeriesChartValueContinuousAxisMap;
+    };
+  } = {
+    [DataKey.conversionBounces]: {
+      series: stackedSeriesChartDemoData_2h,
+      continuousAxisMap: conversionBouncesMap,
+    },
+    [DataKey.histogramThirtyMin]: {
+      series: stackedSeriesChartDemoData_30m,
+      continuousAxisMap: histogramMap,
+    },
+    [DataKey.histogramSevenDays]: {
+      series: stackedSeriesChartDemoData_7d,
+      continuousAxisMap: histogramMap,
+    },
+  };
   continuousAxisInterval = timeMinute.every(5);
   continuousAxisFormat = '%H:%M';
 
+  DataKey = DataKey;
   TimeIntervalKey = TimeIntervalKey;
-
-  continuousAxisMap = ({ origin }) => {
-    const [hours, minutes] = origin.label.split(':').map(Number);
-    return new Date(0, 0, 0, hours, minutes, 0, 0);
-  };
 }

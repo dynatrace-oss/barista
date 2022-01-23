@@ -13,7 +13,6 @@
   [style]="
     _sanitizeCSS([
       ['--dt-stacked-series-chart-track-amount', _trackAmount],
-      ['--dt-stacked-series-chart-max-bar-size', maxTrackSize + 'px'],
       [
         '--dt-stacked-series-chart-heat-field-levels',
         _heatFieldLevels?.length || 0
@@ -26,14 +25,10 @@
     class="dt-stacked-series-chart-series-axis"
   ></div>
 
-  <div
-    class="dt-stacked-series-chart-track-axis-container"
-    #chartContainer
-  ></div>
   <div class="dt-stacked-series-chart-heat-field-wrapper">
     <ng-container *ngTemplateOutlet="heatFieldTemp"></ng-container>
   </div>
-  <div class="dt-stacked-series-chart-track-wrapper">
+  <div class="dt-stacked-series-chart-track-wrapper" #chartContainer>
     <ng-container
       *ngFor="let track of _tracks; let i = index; trackBy: _trackByFn"
     >
