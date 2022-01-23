@@ -69,7 +69,7 @@ export class DtE2EStackedSeriesChart {
   ];
   continuousAxisFormatsByType = {
     linear: ['$.2f', '$.7f'],
-    date: ['%H:%M', '%H:%M:%S:%L%p'],
+    date: ['%H:%M', '%b, %d / %H:%M:%S:%L--------'],
   };
 
   continuousAxisMapByType = {
