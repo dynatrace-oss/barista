@@ -1,7 +1,7 @@
 <dt-stacked-series-chart
-  [series]="series"
+  [series]="dataByKey[dataKey].series"
   [mode]="mode"
-  [continuousAxisMap]="continuousAxisMap"
+  [continuousAxisMap]="dataByKey[dataKey].continuousAxisMap"
   [continuousAxisFormat]="continuousAxisFormat"
   [continuousAxisInterval]="enableTimeInterval && timeIntervalEvery[timeIntervalKey]"
   labelAxisMode="auto"
@@ -14,6 +14,19 @@
     {{ tooltip.origin.label }}: {{ tooltip.origin.value }}
   </ng-template>
 </dt-stacked-series-chart>
+
+<h6>Data</h6>
+<dt-button-group [(value)]="dataKey">
+  <dt-button-group-item [value]="DataKey.conversionBounces"
+    >Conversion/Bounces</dt-button-group-item
+  >
+  <dt-button-group-item [value]="DataKey.histogramThirtyMin"
+    >Histogram - 30 min</dt-button-group-item
+  >
+  <dt-button-group-item [value]="DataKey.histogramSevenDays"
+    >Histogram - 7 days</dt-button-group-item
+  >
+</dt-button-group>
 
 <h6>Mode</h6>
 <dt-button-group [(value)]="mode">

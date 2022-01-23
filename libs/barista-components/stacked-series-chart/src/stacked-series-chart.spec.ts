@@ -220,7 +220,6 @@ describe('DtStackedSeriesChart', () => {
       visibleTrackBackground: true,
       visibleLabel: true,
       mode: 'bar',
-      maxTrackSize: 16,
       visibleValueAxis: true,
     };
 
@@ -776,7 +775,6 @@ describe('DtStackedSeriesChart', () => {
       [labelAxisMode]="labelAxisMode"
       [visibleValueAxis]="visibleValueAxis"
       [mode]="mode"
-      [maxTrackSize]="maxTrackSize"
       (hoverStart)="hoverStart = $event"
       (hoverEnd)="hoverEnd = $event"
     >
@@ -803,7 +801,6 @@ class TestApp {
   labelAxisMode: DtStackedSeriesChartLabelAxisMode = 'full';
   visibleValueAxis: boolean = true;
   mode: DtStackedSeriesChartMode;
-  maxTrackSize: number;
 
   theme = 'blue';
   hasOverlay: boolean = true;
