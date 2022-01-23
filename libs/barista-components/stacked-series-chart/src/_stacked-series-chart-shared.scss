@@ -1,6 +1,10 @@
 @import '../../core/src/style/variables';
 
-$gap: calc(var(--dt-stacked-series-chart-grid-gap) * 1px);
+$gap-default: 16px;
+$bar-track-size-default: 16px;
+$column-extra-margin-default: 0;
+
+$gap: var(--dt-stacked-series-chart-grid-gap);
 $heat-field-gap: 1px;
 $heat-field-size: 8px;
 $heat-field-size-selected: 12px;

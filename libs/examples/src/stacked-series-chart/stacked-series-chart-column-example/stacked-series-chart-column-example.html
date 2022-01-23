@@ -1,9 +1,4 @@
-<dt-stacked-series-chart
-  [series]="series"
-  mode="column"
-  maxTrackSize="32"
-  style="height: 200px"
->
+<dt-stacked-series-chart [series]="series" mode="column" style="height: 200px">
   <ng-template dtStackedSeriesChartOverlay let-tooltip>
     <strong>{{ tooltip.seriesOrigin.label }}</strong>
     <br />

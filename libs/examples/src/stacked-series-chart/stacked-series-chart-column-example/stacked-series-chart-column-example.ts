@@ -19,6 +19,7 @@ import { stackedSeriesChartDemoDataCoffee } from '../stacked-series-chart-demo-d
 
 @Component({
   selector: 'dt-example-stacked-series-chart-column-barista',
+  styleUrls: ['./stacked-series-chart-column-example.scss'],
   templateUrl: './stacked-series-chart-column-example.html',
 })
 export class DtExampleStackedSeriesChartColumn {

@@ -214,22 +214,476 @@ export const stackedSeriesChartDemoDataShows: DtStackedSeriesChartSeries[] = [
   },
 ];
 
-export const stackedSeriesChartDemoDataConvertedBouncedDates = [
+export const stackedSeriesChartDemoData_7d = [
+  {
+    label: 'Jan, 08  / 24:00',
+    timeDate: '2022-01-07T23:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4977536,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 08  / 12:00',
+    timeDate: '2022-01-08T11:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4935872,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 09  / 24:00',
+    timeDate: '2022-01-08T23:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4967168,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 09  / 12:00',
+    timeDate: '2022-01-09T11:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4985472,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 10  / 24:00',
+    timeDate: '2022-01-09T23:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4960000,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 10  / 12:00',
+    timeDate: '2022-01-10T11:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4932160,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 11  / 24:00',
+    timeDate: '2022-01-10T23:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4998400,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 11  / 12:00',
+    timeDate: '2022-01-11T11:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4954048,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 12  / 24:00',
+    timeDate: '2022-01-11T23:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4950720,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 12  / 12:00',
+    timeDate: '2022-01-12T11:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4917568,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 13  / 24:00',
+    timeDate: '2022-01-12T23:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4960640,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 13  / 12:00',
+    timeDate: '2022-01-13T11:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 0,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 4977920,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 14  / 24:00',
+    timeDate: '2022-01-13T23:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 1,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 5019712,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: 'Jan, 14  / 12:00',
+    timeDate: '2022-01-14T11:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 242808,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 1568960,
+        color: '#612c85',
+      },
+    ],
+  },
+];
+
+export const stackedSeriesChartDemoData_30m = [
+  {
+    label: '14:56',
+    timeDate: '2022-01-14T13:56:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13448,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 119,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:00',
+    timeDate: '2022-01-14T14:00:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13604,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 121,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:02',
+    timeDate: '2022-01-14T14:02:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13018,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 128,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:04',
+    timeDate: '2022-01-14T14:04:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13909,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 117,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:06',
+    timeDate: '2022-01-14T14:06:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13860,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 126,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:08',
+    timeDate: '2022-01-14T14:08:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13634,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 122,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:10',
+    timeDate: '2022-01-14T14:10:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13499,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 121,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:12',
+    timeDate: '2022-01-14T14:12:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13780,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 119,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:14',
+    timeDate: '2022-01-14T14:14:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13722,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 118,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:16',
+    timeDate: '2022-01-14T14:16:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13732,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 78,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:18',
+    timeDate: '2022-01-14T14:18:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 13642,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 38,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:20',
+    timeDate: '2022-01-14T14:20:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 12890,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 20,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:22',
+    timeDate: '2022-01-14T14:22:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 11422,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 0,
+        color: '#612c85',
+      },
+    ],
+  },
+  {
+    label: '15:24',
+    timeDate: '2022-01-14T14:24:00.000Z',
+    nodes: [
+      {
+        label: 'Espresso',
+        value: 617,
+        color: '#debbf3',
+      },
+      {
+        label: 'Americano',
+        value: 0,
+        color: '#612c85',
+      },
+    ],
+  },
+];
+
+export const stackedSeriesChartDemoData_2h = [
   {
     label: '11:35',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 5,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 3,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 2,
       },
@@ -239,17 +693,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '11:40',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 0,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 34,
       },
@@ -259,17 +713,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '11:45',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 0,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 991,
       },
@@ -279,17 +733,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '11:50',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 3880,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 16550,
       },
@@ -299,17 +753,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '11:55',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9048,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24252,
       },
@@ -319,17 +773,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:00',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9178,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24130,
       },
@@ -339,17 +793,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:05',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9283,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24197,
       },
@@ -359,17 +813,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:10',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9240,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 23464,
       },
@@ -379,17 +833,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:15',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9113,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 22858,
       },
@@ -399,17 +853,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:20',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9346,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24407,
       },
@@ -419,17 +873,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:25',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9234,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 22962,
       },
@@ -439,17 +893,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:30',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9139,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24191,
       },
@@ -459,17 +913,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:35',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9100,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24208,
       },
@@ -479,17 +933,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:40',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9000,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24396,
       },
@@ -499,17 +953,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:45',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 8970,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24362,
       },
@@ -519,17 +973,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:50',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9121,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24001,
       },
@@ -539,17 +993,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '12:55',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9116,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24342,
       },
@@ -559,17 +1013,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:00',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9083,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 23997,
       },
@@ -579,17 +1033,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:05',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9073,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 24192,
       },
@@ -599,17 +1053,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:10',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 9119,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 21318,
       },
@@ -619,17 +1073,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:15',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 2760,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 2793,
       },
@@ -639,17 +1093,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:20',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 134,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 72,
       },
@@ -659,17 +1113,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:25',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 142,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 71,
       },
@@ -679,17 +1133,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:30',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 147,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 70,
       },
@@ -699,17 +1153,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:35',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 132,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 68,
       },
@@ -719,17 +1173,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:40',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 141,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 69,
       },
@@ -739,17 +1193,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:45',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 96,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 43,
       },
@@ -759,17 +1213,17 @@ export const stackedSeriesChartDemoDataConvertedBouncedDates = [
     label: '13:50',
     nodes: [
       {
-        label: 'Converted',
+        label: 'Espresso',
         color: '#612c85',
         value: 0,
       },
       {
-        label: 'Bounced',
+        label: 'Americano',
         color: '#a972cc',
         value: 0,
       },
       {
-        label: 'Neither converted or bounced',
+        label: 'Mocha',
         color: '#debbf3',
         value: 0,
       },

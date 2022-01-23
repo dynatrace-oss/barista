@@ -6,13 +6,22 @@
 
 See stacked-series-chart.layout.md
 */
-
 $track-wrapper-width: calc(
   (var(--dt-stacked-series-chart-max-bar-size) + #{$gap}) *
-    var(--dt-stacked-series-chart-track-amount)
+    calc(var(--dt-stacked-series-chart-track-amount) - 1)
 );
-$track-wrapper-margin-left: $gap;
-$track-wrapper-margin-right: calc(#{$gap} * 2);
+$track-wrapper-margin-left: calc(
+  #{$gap} + var(--dt-stacked-series-chart-extra-margin)
+);
+$track-wrapper-margin-right: calc(
+  (#{$gap} * 1) + #{$tick-gutter} + var(--dt-stacked-series-chart-extra-margin)
+);
+
+:host {
+  --dt-stacked-series-chart-extra-margin: calc(
+    #{$column-extra-margin-default} * 1px
+  );
+}
 
 :host(.dt-stacked-series-chart-column) {
   .dt-stacked-series-chart-track-label-wrapper,
@@ -23,17 +32,6 @@ $track-wrapper-margin-right: calc(#{$gap} * 2);
     grid-column: 2;
     margin-left: $track-wrapper-margin-left;
     margin-right: $track-wrapper-margin-right;
-  }
-
-  .dt-stacked-series-chart-track-axis-container {
-    grid-column: 2;
-    grid-row: 1;
-    @include trackAxisContainerMinSize(
-      min-width,
-      $track-wrapper-width,
-      $track-wrapper-margin-left,
-      $track-wrapper-margin-right
-    );
   }
 
   .dt-stacked-series-chart-track-label-wrapper {
@@ -66,6 +64,17 @@ $track-wrapper-margin-right: calc(#{$gap} * 2);
     grid-column: 1;
 
     white-space: nowrap;
+
+    &::after {
+      position: absolute;
+      display: block;
+      background: $axis-color;
+      width: 1px;
+      height: $tick-length;
+      top: -$tick-gutter;
+      right: 50%;
+      content: ' ';
+    }
   }
 
   .dt-stacked-series-chart-track {
@@ -100,7 +109,7 @@ $track-wrapper-margin-right: calc(#{$gap} * 2);
       .dt-stacked-series-chart-track-label-content {
         display: block;
         white-space: nowrap;
-        padding: 0 4px;
+        padding: 0 math.div($tick-gutter, 2);
       }
     }
 
@@ -118,24 +127,14 @@ $track-wrapper-margin-right: calc(#{$gap} * 2);
         width: 14px;
         height: 72px;
 
-        &::after {
-          position: absolute;
-          display: block;
-          background: $axis-color;
-          width: 1px;
-          height: 8px;
-          top: -16px;
-          right: 50%;
-          content: ' ';
-        }
-
         .dt-stacked-series-chart-track-label-content {
           width: 85px;
           position: absolute;
           display: block;
           overflow: hidden;
           text-overflow: ellipsis;
-          transform: translate(-15%, 100%) rotate(45deg);
+          transform: translate(10%, -30%) rotate(45deg);
+          transform-origin: top left;
           white-space: nowrap;
           text-align: left;
         }
