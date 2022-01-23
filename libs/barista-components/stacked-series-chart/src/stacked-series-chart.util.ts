@@ -20,7 +20,7 @@ import {
   getDtChartColorPalette,
 } from '@dynatrace/barista-components/theming';
 import { isEqual } from 'lodash-es';
-import { NumberValue } from 'd3-scale';
+import { NumberValue, ScaleLinear, ScaleTime } from 'd3-scale';
 
 /**
  * Definition a series with all its nodes
@@ -38,6 +38,10 @@ export interface DtStackedSeriesChartSeries {
 export interface DtStackedSeriesChartFilledSeries {
   /** Original series */
   origin: DtStackedSeriesChartSeries;
+  /** Distance to next item */
+  mappedValue?: string | NumberValue | Date;
+  /** Distance to next item */
+  distanceToNext?: number;
   /** Position in % */
   position?: number;
   /** Filled nodes for this series */
@@ -155,6 +159,10 @@ export interface DtStackedSeriesHeatFieldLevelItem {
   config: DtStackedSeriesHeatField;
 }
 export type DtStackedSeriesHeatFieldLevel = DtStackedSeriesHeatFieldLevelItem[];
+export type DtStackedSeriesContinuousScale =
+  | ScaleTime<number, number>
+  | ScaleLinear<number, number>;
+export type DtStackedSeriesContinuousTick = Date | number;
 
 /** Output type for hovent output events, providing information on the hovered series and, when applicable, the hovered stack to the container component. */
 export type DtStackedSeriesHoverData =

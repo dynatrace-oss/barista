@@ -16,7 +16,18 @@
   [visibleLabel]="visibleLabel"
   [labelAxisMode]="labelAxisMode"
   [visibleTrackBackground]="visibleTrackBackground"
-  [maxTrackSize]="maxTrackSize"
+  [style.--dt-stacked-series-chart-grid-gap]="
+    !continuousAxisFormat ? '40px' : null
+  "
+  [style.--dt-stacked-series-chart-max-bar-size]="maxTrackSize + 'px'"
+  [style.--dt-stacked-series-chart-extra-margin]="
+    (!continuousAxisType ||
+    continuousAxisType === 'none' ||
+    continuousAxisFormat === continuousAxisFormatsByType.linear[1] ||
+    continuousAxisFormat === continuousAxisFormatsByType.date[1]
+      ? 32
+      : 0) + 'px'
+  "
   [continuousAxisType]="continuousAxisType"
   [continuousAxisInterval]="continuousAxisInterval"
   [continuousAxisFormat]="continuousAxisFormat"
@@ -177,7 +188,7 @@
     1200px
   </button>
   <button (click)="setElementWidth('800px')" id="chart-width-800">800px</button>
-  <button (click)="setElementWidth('400px')" id="chart-width-400">400px</button>
+  <button (click)="setElementWidth('300px')" id="chart-width-300">300px</button>
 </div>
 
 <div>
