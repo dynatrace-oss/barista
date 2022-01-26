@@ -1,3 +1,16 @@
+## [10.4.0](https://github.com/dynatrace-oss/barista/compare/10.3.0...10.4.0) (2022-01-26)
+
+### Bug Fixes
+
+- **autocomplete:** Fixed alignment for autocomplete-overlay if not enough space
+  is available on the right.
+  ([080cb9e](https://github.com/dynatrace-oss/barista/commit/080cb9e94c262d1929dca9d7cdd26f6e5d15a1aa))
+
+### Features
+
+- **combobox:** Add form control support for combobox.
+  ([1fe41cc](https://github.com/dynatrace-oss/barista/commit/1fe41cc5708dc14a5775036425f771ff038d9ea0))
+
 ## [10.3.1](https://github.com/dynatrace-oss/barista/compare/10.3.0...10.3.1) (2022-01-14)
 
 ### Bug Fixes
