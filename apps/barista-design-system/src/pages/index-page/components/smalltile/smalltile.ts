@@ -35,7 +35,7 @@ export class BaSmallTile {
   get _theme(): string {
     if (this.data) {
       switch (this.data.category) {
-        case 'Brand':
+        case 'Content':
           return 'purple';
         case 'Resources':
           return 'blue';
