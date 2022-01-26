@@ -38,7 +38,7 @@ import {
 } from '@dynatrace/shared/design-system/ui';
 
 const PAGE_THEME_MAP = new Map<string, string>([
-  ['brand', 'purple'],
+  ['content', 'purple'],
   ['resources', 'blue'],
   ['components', 'royalblue'],
   ['patterns', 'turquoise'],

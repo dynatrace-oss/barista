@@ -221,7 +221,7 @@ describe('Barista transformers', () => {
         <a href="//resources/guides">Resource</a>
         <a href="resources/guides">Resource</a>
         <a href="/resources/bundle">Resource</a>
-        <a href="/brand/guides#headline1">Resource</a>
+        <a href="/content/guides#headline1">Resource</a>
         <a href="#headline1">Resource</a>
         <a href="#submitting-a-pull-request">submit a pull request</a>
         <a href="/patterns/button-alignment?sort=ASC">Resource</a>
@@ -244,7 +244,7 @@ describe('Barista transformers', () => {
         <a href="//resources/guides">Resource</a>
         <a contentLink="resources/guides">Resource</a>
         <a contentLink="/resources/bundle">Resource</a>
-        <a contentLink="/brand/guides" fragment="headline1">Resource</a>
+        <a contentLink="/content/guides" fragment="headline1">Resource</a>
         <a contentLink="/" fragment="headline1">Resource</a>
         <a contentLink="/" fragment="submitting-a-pull-request">submit a pull request</a>
         <a contentLink="/patterns/button-alignment" queryParams="{sort: ASC}">Resource</a>
