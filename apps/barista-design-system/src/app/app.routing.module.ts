@@ -28,7 +28,7 @@ export const baristaRoutes: Route[] = [
     redirectTo: '',
   },
   {
-    path: 'brand',
+    path: 'content',
     loadChildren: () =>
       import('../pages/overview-page/overview-page.module').then(
         (module) => module.BaOverviewPageModule,

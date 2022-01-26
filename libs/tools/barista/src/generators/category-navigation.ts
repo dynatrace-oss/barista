@@ -49,7 +49,7 @@ const highlightedItems = [
 ];
 
 const navigationOrder = [
-  'Brand',
+  'Content',
   'Resources',
   'Guidelines',
   'Components',
