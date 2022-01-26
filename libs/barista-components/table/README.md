@@ -690,6 +690,9 @@ dialogue contains at least 2 buttons:
 - **Export Data** which triggers a download of the filtered data from the
   datasource and does not use a displayAccessor.
 
+If certain columns should not be exported, add `exportBlackList` with an array
+of column names. These will be excluded from both CSV and Data exports.
+
 <ba-live-example name="DtExampleTableExport" fullwidth></ba-live-example>
 
 ### Selection

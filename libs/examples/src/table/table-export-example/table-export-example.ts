@@ -32,7 +32,7 @@ import { DtSort, DtTableDataSource } from '@dynatrace/barista-components/table';
 export class DtExampleTableExport implements OnInit {
   private data: object[] = [
     {
-      host: 'et-demo-2-win4',
+      host: 'et-demo-3-win4',
       cpu: 30,
       memoryPerc: 38,
       memoryTotal: 5830000000,

@@ -14,7 +14,7 @@
 >
   Clear
 </button>
-<dt-table [dataSource]="dataSource">
+<dt-table [dataSource]="dataSource" [showExportButton]="true">
   <ng-container dtColumnDef="host" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>
     <dt-cell *dtCellDef="let row">{{ row.host }}</dt-cell>
