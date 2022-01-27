@@ -22,6 +22,7 @@
         "@angular-eslint/no-outputs-metadata-property": "off",
         "@angular-eslint/no-input-rename": "off",
         "@angular-eslint/no-output-rename": "off",
+        "@angular-eslint/no-conflicting-lifecycle": "off",
         "@typescript-eslint/member-ordering": "off",
         "@typescript-eslint/no-explicit-any": "error",
         "@angular-eslint/directive-selector": [

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { FormControl, Validators } from '@angular/forms';
 import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormControl, ValidatorFn } from '@angular/forms';
 import { take } from 'rxjs/operators';

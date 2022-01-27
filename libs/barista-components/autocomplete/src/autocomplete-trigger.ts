@@ -632,7 +632,7 @@ export class DtAutocompleteTrigger<T>
           overlayY: 'bottom',
           panelClass: 'dt-autocomplete-panel-above',
         },
-        // tslint:disable-next-line:no-any
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
       ] as any[]);
 
     return this._positionStrategy;
