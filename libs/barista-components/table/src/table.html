@@ -8,10 +8,10 @@
   overlayPanelClass="dt-exportMenu"
 >
   <button dt-button variant="secondary" (click)="_exportDisplayData()">
-    Export table data
+    Export CSV
   </button>
   <button dt-button variant="secondary" (click)="_exportFilteredData()">
-    Export visible data
+    Export Data
   </button>
   <button
     *ngIf="_selectionEnabledAndConnected"
@@ -20,7 +20,7 @@
     variant="secondary"
     (click)="_exportSelection()"
   >
-    Export {{ numSelectedRows }} rows
+    Export {{ numSelectedRows }} Rows
   </button>
 </dt-context-dialog>
 <ng-container footerRowOutlet></ng-container>

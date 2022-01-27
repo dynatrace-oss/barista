@@ -681,14 +681,17 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
 
 ### Simple
 
-By setting the `showExportButton` input to `true`, an `dtContextDialog` button
+By setting the `showExportButton` input to `true`, an `dtContextDialogue` button
 is added just below the table, or in line with pagination if present. This
-dialog contains at least 2 buttons:
+dialogue contains at least 2 buttons:
 
-- **Export table data** which triggers a download of the currently filtered data
-  as shown, without regard for pagination.
-- **Export visible data** which triggers a download of the filtered data from
-  the datasource and does not use a displayAccessor.
+- **Export CSV** which triggers a download of the currently filtered data as
+  shown, without regard for pagination.
+- **Export Data** which triggers a download of the filtered data from the
+  datasource and does not use a displayAccessor.
+
+If certain columns should not be exported, add `exportBlackList` with an array
+of column names. These will be excluded from both CSV and Data exports.
 
 <ba-live-example name="DtExampleTableExport" fullwidth></ba-live-example>
 
@@ -697,7 +700,7 @@ dialog contains at least 2 buttons:
 If `dtTableSelection` is enabled and you have connected `dtTableSelection` to
 `dtTableDataSource` (similar to `dtSort`), you also will have a third button:
 
-- **Export selected rows** which triggers a download of the display data, but
-  just for selected rows.
+- **Export Rows** which triggers a download of the display data, but just for
+  selected rows.
 
 <ba-live-example name="DtExampleTableExportSelection" fullwidth></ba-live-example>
