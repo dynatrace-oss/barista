@@ -497,6 +497,7 @@ export class DtCombobox<T>
    * Saves a callback function to be invoked when the combobox is blurred
    * by the user. Part of the ControlValueAccessor.
    */
+  // eslint-disable-next-line @typescript-eslint/ban-types
   registerOnTouched(fn: () => {}): void {
     this._onTouched = fn;
   }
@@ -612,6 +613,7 @@ export class DtCombobox<T>
     this._value = valueToEmit!;
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.valueChange.emit(valueToEmit!);
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this._onChange(valueToEmit!);
     this._changeDetectorRef.markForCheck();
   }
