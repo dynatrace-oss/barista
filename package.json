@@ -121,7 +121,7 @@
     "@types/glob": "^7.2.0",
     "@types/inquirer": "^7.3.3",
     "@types/jest": "27.0.2",
-    "@types/lodash": "^4.14.172",
+    "@types/lodash": "^4.14.178",
     "@types/lodash-es": "^4.17.4",
     "@types/markdown-it": "^12.2.3",
     "@types/node": "^12.12.29",
