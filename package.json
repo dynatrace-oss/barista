@@ -96,7 +96,7 @@
     "@babel/cli": "^7.12.10",
     "@commitlint/cli": "^15.0.0",
     "@nguniversal/builders": "^13.0.1",
-    "@nguniversal/express-engine": "^13.0.1",
+    "@nguniversal/express-engine": "^13.0.2",
     "@nrwl/angular": "13.4.4",
     "@nrwl/cli": "13.4.4",
     "@nrwl/eslint-plugin-nx": "13.4.4",
