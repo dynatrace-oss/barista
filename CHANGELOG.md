@@ -1,3 +1,13 @@
+## [11.0.0-rc.0](https://github.com/dynatrace-oss/barista/compare/10.0.0...11.0.0-rc.0) (2022-01-31)
+
+### BREAKING CHANGES
+
+- Update all Angular packages to version 13
+- Table and TreeTable constructor parameters have changed. Previously optional
+  parameters are now required.
+- Added `dompurify` as a peerDependency for sanitization calls.
+- Refactored ClientRect types to DOMRect type.
+
 ## [10.4.0](https://github.com/dynatrace-oss/barista/compare/10.3.0...10.4.0) (2022-01-26)
 
 ### Bug Fixes
