@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "dt-component-dev",
+  "$id": "dt-component-dev",
   "title": "Create component in our dev app.",
   "type": "object",
   "properties": {
