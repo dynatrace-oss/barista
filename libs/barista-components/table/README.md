@@ -690,6 +690,9 @@ dialog contains at least 2 buttons:
 - **Export visible data** which triggers a download of the filtered data from
   the datasource and does not use a displayAccessor.
 
+To exclude certain columns from export, set `exportExcludeList` to a string
+array of column names to exclude.
+
 <ba-live-example name="DtExampleTableExport" fullwidth></ba-live-example>
 
 ### Selection
