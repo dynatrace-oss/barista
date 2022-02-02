@@ -27,6 +27,7 @@ import { DtKeyValueListModule } from '@dynatrace/barista-components/key-value-li
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 import { DtContainerBreakpointObserverModule } from '@dynatrace/barista-components/container-breakpoint-observer';
 import { DtHighlightModule } from '@dynatrace/barista-components/highlight';
+import { DtContextDialogModule } from '@dynatrace/barista-components/context-dialog';
 
 import { DtExampleTableColumnProportion } from './table-column-proportion-example/table-column-proportion-example';
 import { DtExampleTableExpandableRows } from './table-expandable-rows-example/table-expandable-rows-example';
@@ -77,6 +78,7 @@ import { FormsModule } from '@angular/forms';
     DtFormattersModule,
     DtContainerBreakpointObserverModule,
     DtHighlightModule,
+    DtContextDialogModule,
   ],
   declarations: [
     DtExampleTableButtons,
