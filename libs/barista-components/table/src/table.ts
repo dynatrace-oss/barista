@@ -47,6 +47,7 @@ import {
   DtSimpleColumnComparatorFunction,
   DtSimpleColumnDisplayAccessorFunction,
   DtSimpleColumnSortAccessorFunction,
+  DtSimpleColumnBase,
 } from './simple-columns/simple-column-base';
 import {
   _DisposeViewRepeaterStrategy,
@@ -63,6 +64,7 @@ import {
 } from '@angular/cdk/table';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DtTableSelection } from './selection/selection';
+import { isObject } from '@dynatrace/barista-components/core';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
@@ -96,7 +98,9 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
+
   private _showExportButton: boolean = false; //Revert to opt-in instead of opt-out per request
+  private _exportExcludeList: string[] = [];
 
   /** Sort accessor map that holds all sort accessor functions from the registered simple columns. */
   private _sortAccessorMap = new Map<
@@ -183,6 +187,15 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   }
   static ngAcceptInputType_showExportButton: BooleanInput;
 
+  /** Do not export certain columns, e.g. for confidentiality or problematic data */
+  @Input()
+  get exportExcludeList(): string[] {
+    return this._exportExcludeList;
+  }
+  set exportExcludeList(value: string[]) {
+    this._exportExcludeList = value ? value : [];
+  }
+
   /** @internal The snapshot of the current data */
   get _dataSnapshot(): T[] | readonly T[] {
     return this._data;
@@ -198,6 +211,11 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /** @internal The portal where the component will be projected in when we have to show the empty state. */
   @ViewChild(CdkPortalOutlet, { static: true })
   _portalOutlet: CdkPortalOutlet;
+
+  /** @internal A list of columns */
+  @ContentChildren(DtSimpleColumnBase) _childColumns: QueryList<
+    DtSimpleColumnBase<T>
+  >;
 
   /** @internal Stream of all simple dataAccessor functions for all SimpleColumns */
   _dataAccessors = new BehaviorSubject<SimpleColumnsAccessorMaps<T>>({
@@ -366,14 +384,26 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
 
   /** @internal Exports the filtered source data from the dataSource. */
   // Note: this is different from the display text, see instead _exportDisplayData().
-  _exportFilteredData(): void {
-    const exportData = this._filteredData;
-    if (this.isEmptyDataSource || typeof exportData[0] != 'object') {
+  _exportFilteredData(selectedData?: T[]): void {
+    //nothing to export
+    if (this.isEmptyDataSource) {
       return;
+    }
+    //not using DTDataSource, fallback to this._data instead of this._filteredData
+    let exportData: readonly T[];
+    if (selectedData) {
+      exportData = selectedData;
+    } else {
+      exportData =
+        Array.isArray(this._filteredData) && isObject(this._filteredData[0])
+          ? this._filteredData
+          : this._data;
     }
 
     const csvObj = { csv: '' };
-    const keys: string[] = Object.keys(exportData[0]);
+    const keys: string[] = Object.keys(exportData[0]).filter(
+      (h: string) => !this.exportExcludeList.includes(h),
+    );
 
     if (!keys.length) {
       return;
@@ -413,39 +443,29 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   }
 
   /** @internal Exports the filtered display data from the dataSource after being formatted by a displayAccessor. */
-  _exportDisplayData(exportData: T[] = this._filteredData): void {
-    if (this.isEmptyDataSource || typeof exportData[0] != 'object') {
+  _exportDisplayData(selectedData?: T[]): void {
+    //nothing to export
+    if (this.isEmptyDataSource) {
       return;
+    }
+    //not using DTDataSource, fallback to this._data instead of this._filteredData
+    let exportData: readonly T[];
+    if (selectedData) {
+      exportData = selectedData;
+    } else {
+      exportData =
+        Array.isArray(this._filteredData) && isObject(this._filteredData[0])
+          ? this._filteredData
+          : this._data;
     }
 
     const csvObj = { csv: '' };
-    const keys: string[] = [...this._contentHeaderRowDefs.first.columns].filter(
-      (h: string) => h !== 'checkbox',
+    const columns = this._childColumns.filter(
+      (col) => !this.exportExcludeList.includes(col.name),
     );
-    //skip selection column
-    if (!keys.length) {
-      return;
-    }
 
-    //get column names
-    const headerList = this._elementRef.nativeElement.querySelectorAll(
-      'dt-header-row dt-header-cell',
-    );
-    const headersArr = Array.from(headerList);
-    const headers = headersArr
-      .map((h: HTMLElement): String => {
-        const txt = h.innerText;
-        if (txt.includes(',')) return `"${txt}"`;
-        else return txt;
-      })
-      .filter((h: string) => h !== '');
-
-    //skip selection column
-    if (headers.length !== keys.length) {
-      console.warn(
-        '_exportDisplayData: mismatched column count. Data may be shifted.',
-      );
-    }
+    const keys = columns.map((col) => col.name);
+    const headers = columns.map((col) => col.label);
 
     // header row
     csvObj.csv += headers.join(',') + '\n';
