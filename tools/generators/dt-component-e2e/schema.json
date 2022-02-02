@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/schema",
-  "id": "dt-component-e2e",
+  "$id": "dt-component-e2e",
   "title": "Generate e2e testing component.",
   "type": "object",
   "properties": {
