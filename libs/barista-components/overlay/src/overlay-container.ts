@@ -43,6 +43,7 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
   isDevMode,
+  OnDestroy,
 } from '@angular/core';
 
 import {
@@ -111,7 +112,7 @@ export const _DtOverlayContainerMixin = mixinNotifyDomExit(
 })
 export class DtOverlayContainer
   extends _DtOverlayContainerMixin
-  implements CanNotifyOnExit
+  implements CanNotifyOnExit, OnDestroy
 {
   /** @internal */
   @ViewChild(CdkPortalOutlet, { static: true }) _portalOutlet: CdkPortalOutlet;
@@ -134,6 +135,10 @@ export class DtOverlayContainer
     @Optional() @Inject(DOCUMENT) private _document: any,
   ) {
     super(_ngZone);
+  }
+
+  ngOnDestroy(): void {
+    this._notifyDomExit();
   }
 
   /**
