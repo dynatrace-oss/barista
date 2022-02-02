@@ -339,6 +339,7 @@ import {
   DtExampleDatepickerDark,
   DtExampleDatepickerDefault,
   DtExampleCustomAddFormTag,
+  DtExampleSelectionSelectAllTable,
 } from '@dynatrace/barista-examples';
 
 // The Routing Module replaces the routing configuration in the root or feature module.
@@ -1216,6 +1217,10 @@ const ROUTES: Routes = [
     component: DtExampleSelectCustomValueTemplate,
   },
   { path: 'tag-custom-add-form-example', component: DtExampleCustomAddFormTag },
+  {
+    path: 'table-selection-select-all-example',
+    component: DtExampleSelectionSelectAllTable,
+  },
 ];
 
 @NgModule({

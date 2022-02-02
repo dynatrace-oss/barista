@@ -16,11 +16,16 @@
 
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Component, ViewChild, Predicate } from '@angular/core';
+import { Component, ViewChild, OnInit, Predicate } from '@angular/core';
+import { DtTableDataSource } from '../table-data-source';
 import { DtTableModule } from '../table-module';
 import { CommonModule } from '@angular/common';
 import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtLoadingDistractorModule } from '@dynatrace/barista-components/loading-distractor';
+import {
+  DtPagination,
+  DtPaginationModule,
+} from '@dynatrace/barista-components/pagination';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { DtFormattersModule } from '@dynatrace/barista-components/formatters';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -40,6 +45,7 @@ describe('DtTableSelection', () => {
         NoopAnimationsModule,
         DtFormattersModule,
         HttpClientTestingModule,
+        DtPaginationModule,
       ],
       // The providers are necessary here - because otherwise the TestBed does not allow
       // overriding the providers in a different setup below
@@ -53,6 +59,7 @@ describe('DtTableSelection', () => {
       declarations: [
         DtTableSelectionComponentForTesting,
         DtTableSelectionComponentEmptyForTesting,
+        DtTableSelectionComponentWithPaginationForTesting,
       ],
     });
   });
@@ -306,6 +313,50 @@ describe('DtTableSelection', () => {
       });
     });
   });
+
+  describe('with globalSelection', () => {
+    let component: DtTableSelectionComponentWithPaginationForTesting;
+    let fixture: ComponentFixture<DtTableSelectionComponentWithPaginationForTesting>;
+
+    beforeEach(() => {
+      TestBed.overrideProvider(DT_TABLE_SELECTION_CONFIG, {
+        useValue: { globalSelection: true },
+      });
+      TestBed.compileComponents();
+      fixture = createComponent(
+        DtTableSelectionComponentWithPaginationForTesting,
+      );
+      component = fixture.componentInstance;
+    });
+
+    it('should select all rows, even if they are not currently visible due to pagination', () => {
+      const headerCheckbox: DtCheckbox<any> = fixture.debugElement.query(
+        By.css('dt-header-row dt-checkbox'),
+      ).componentInstance;
+      headerCheckbox._onInputClick(new Event('click'));
+      fixture.detectChanges();
+
+      const rowCheckboxesFirstPage = fixture.debugElement.queryAll(
+        By.css('dt-row dt-checkbox'),
+      );
+
+      expect(rowCheckboxesFirstPage.length).toBe(3); // ensure pagination works as expected
+      rowCheckboxesFirstPage.forEach((checkbox) => {
+        expect(checkbox.componentInstance.checked).toBeTruthy();
+      });
+      expect(component.tableSelection.selected.length).toBe(5);
+
+      component.pagination.next();
+
+      const rowCheckboxesSecondPage = fixture.debugElement.queryAll(
+        By.css('dt-row dt-checkbox'),
+      );
+      expect(rowCheckboxesSecondPage.length).toBe(2); // ensure pagination works as expected
+      rowCheckboxesFirstPage.forEach((checkbox) => {
+        expect(checkbox.componentInstance.checked).toBeTruthy();
+      });
+    });
+  });
 });
 
 interface Row {
@@ -386,4 +437,49 @@ class DtTableSelectionComponentForTesting {
   disabledPredicate: Predicate<Row> = (value) => {
     return value.host === 'host3';
   };
+}
+
+@Component({
+  selector: 'dt-test-table-selectable-column',
+  template: `<dt-table [dataSource]="dataSource" dtTableSelection dtSort>
+      <ng-container dtColumnDef="select">
+        <dt-table-header-selector *dtHeaderCellDef></dt-table-header-selector>
+        <dt-table-row-selector
+          *dtCellDef="let row"
+          [row]="row"
+        ></dt-table-row-selector>
+      </ng-container>
+      <dt-simple-text-column name="host"></dt-simple-text-column>
+      <dt-header-row *dtHeaderRowDef="['select', 'host']"></dt-header-row>
+      <dt-row *dtRowDef="let row; columns: ['select', 'host']"></dt-row>
+    </dt-table>
+    <dt-pagination></dt-pagination>`,
+})
+class DtTableSelectionComponentWithPaginationForTesting implements OnInit {
+  @ViewChild(DtTableSelection, { static: true })
+  tableSelection: DtTableSelection<Row>;
+  @ViewChild(DtPagination, { static: true }) pagination: DtPagination;
+
+  dataSource: DtTableDataSource<Row> = new DtTableDataSource([
+    {
+      host: 'host1',
+    },
+    {
+      host: 'host2',
+    },
+    {
+      host: 'host3',
+    },
+    {
+      host: 'host4',
+    },
+    {
+      host: 'host5',
+    },
+  ]);
+
+  ngOnInit(): void {
+    this.dataSource.pagination = this.pagination;
+    this.dataSource.pageSize = 3;
+  }
 }

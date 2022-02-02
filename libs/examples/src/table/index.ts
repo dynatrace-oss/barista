@@ -44,3 +44,4 @@ export * from './table-sorting-example/table-sorting-example';
 export * from './table-sorting-mixed-columns-example/table-sorting-mixed-columns-example';
 export * from './table-sticky-header-example/table-sticky-header-example';
 export * from './table-with-info-group-cell-example/table-with-info-group-cell-example';
+export * from './table-selection-select-all-example/table-selection-select-all-example';

@@ -59,7 +59,7 @@ import { DtExampleTableStickyHeader } from './table-sticky-header-example/table-
 import { DtExampleTableWithInfoGroupCell } from './table-with-info-group-cell-example/table-with-info-group-cell-example';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FormsModule } from '@angular/forms';
-
+import { DtExampleSelectionSelectAllTable } from './table-selection-select-all-example/table-selection-select-all-example';
 @NgModule({
   imports: [
     CommonModule,
@@ -108,6 +108,7 @@ import { FormsModule } from '@angular/forms';
     DtExampleTableSortingMixedColumns,
     DtExampleTableStickyHeader,
     DtExampleTableWithInfoGroupCell,
+    DtExampleSelectionSelectAllTable,
   ],
 })
 export class DtExamplesTableModule {}

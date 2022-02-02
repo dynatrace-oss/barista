@@ -1409,6 +1409,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         route: '/table-selection',
       },
       {
+        name: 'table-selection-select-all-example',
+        route: '/table-selection-select-all-example',
+      },
+      {
         name: 'table-observable-example',
         route: '/table-observable-example',
       },

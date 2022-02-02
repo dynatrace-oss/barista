@@ -125,11 +125,10 @@ export class DtTableHeaderSelector<T> implements OnDestroy {
 
   /** @internal Whether all rows are currently selected */
   get _isAllSelected(): boolean {
-    // If there are no rows in the snapshot, this needs to be always false
-    if (this._table._dataSnapshot.length === 0) {
+    if (this._isTableEmpty) {
       return false;
     }
-    const allRowsSelected = this._table._dataSnapshot
+    const allRowsSelected = this._getTableData()
       .filter((row) => !this._selector.disabled(row))
       .every((row) => this._selector.isSelected(row));
     return this._selector.selectionLimitReached || allRowsSelected;
@@ -183,17 +182,31 @@ export class DtTableHeaderSelector<T> implements OnDestroy {
   }
 
   private _getRowsToSelect(): T[] {
-    const data = this._table._dataSnapshot;
-    const selectionSize =
-      (this._selector._config?.selectionLimit ?? data.length) -
-      this._selector.selected.length;
-    return this._table._dataSnapshot
+    const data = this._getTableData();
+    const selectionLimit =
+      this._selector._config?.selectionLimit ?? data.length;
+    const remainingSelectionSize =
+      selectionLimit - this._selector.selected.length;
+    return data
       .filter(
         (row) =>
           !this._selector.disabled(row) &&
           !this._selector.selected.includes(row),
       )
-      .slice(0, selectionSize)
+      .slice(0, remainingSelectionSize)
       .concat(this._selector.selected);
+  }
+
+  private _getTableData(): T[] | readonly T[] {
+    const globalSelectionEnabled =
+      this._selector._config?.globalSelection ?? false;
+    if (
+      globalSelectionEnabled &&
+      this._table.dataSource instanceof DtTableDataSource
+    ) {
+      return this._table.dataSource.data;
+    } else {
+      return this._table._dataSnapshot;
+    }
   }
 }
