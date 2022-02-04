@@ -38,9 +38,9 @@ export interface DtTableSelectionConfig {
   selectionLimit?: number;
 
   /**
-   * When set to true and data source is of type DtTableDataSource, master checkbox
+   * When set to true and data source is of type DtTableDataSource, global checkbox
    * selects rows across all pages (respecting selectionLimit if specified).
-   * By default, master checkbox selection is limited to current page.
+   * By default, global checkbox selection is limited to current page.
    */
   globalSelection?: boolean;
 }
