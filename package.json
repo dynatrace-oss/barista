@@ -148,7 +148,7 @@
     "eslint-plugin-jsdoc": "latest",
     "eslint-plugin-prefer-arrow": "latest",
     "eslint-plugin-react": "latest",
-    "express": "^4.17.1",
+    "express": "^4.17.2",
     "glob": "^7.2.0",
     "gonzales-pe": "^4.3.0",
     "highcharts": "^7.2.1",
