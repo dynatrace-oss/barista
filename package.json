@@ -94,7 +94,7 @@
     "@angular/platform-server": "13.1.2",
     "@angular/router": "13.1.2",
     "@babel/cli": "^7.12.10",
-    "@commitlint/cli": "^15.0.0",
+    "@commitlint/cli": "^16.1.0",
     "@nguniversal/builders": "^13.0.1",
     "@nguniversal/express-engine": "^13.0.1",
     "@nrwl/angular": "13.4.4",
