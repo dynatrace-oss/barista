@@ -1,3 +1,16 @@
+## [10.5.0](https://github.com/dynatrace-oss/barista/compare/10.4.0...10.5.0) (2022-02-08)
+
+### Bug Fixes
+
+- **overlay:** Fixes an issue with afterExit not being called when the overlay
+  closes on scroll.
+  ([ddd567b](https://github.com/dynatrace-oss/barista/commit/ddd567bb2fea9f4dbe998e750b05fde82396b7be))
+
+### Features
+
+- **table:** Update experimental export as CSV functionality.
+  ([d0f9a64](https://github.com/dynatrace-oss/barista/commit/d0f9a64184495fc541c7b557795ce47ee2d26dfd))
+
 ## [10.4.0](https://github.com/dynatrace-oss/barista/compare/10.3.0...10.4.0) (2022-01-26)
 
 ### Bug Fixes
