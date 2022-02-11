@@ -19,6 +19,7 @@ import {
   fakeAsync,
   inject,
   flush,
+  tick,
 } from '@angular/core/testing';
 import {
   Component,
@@ -156,6 +157,25 @@ describe('Combobox', () => {
       });
       fixture.detectChanges();
       expect(input.value).toBe('Value 2');
+    }));
+
+    it('should emit a filterChange event when the input value changes', fakeAsync(() => {
+      fixture.componentInstance.setOptions();
+      fixture.detectChanges();
+      focusInput(input);
+
+      jest.spyOn(combobox.filterChange, 'emit');
+
+      input.value = 'espresso';
+      dispatchFakeEvent(input, 'input');
+
+      // Wait for debounce
+      tick(200);
+
+      expect(combobox.filterChange.emit).toHaveBeenCalledWith({
+        filter: 'espresso',
+        isResetEvent: false,
+      });
     }));
   });
 
