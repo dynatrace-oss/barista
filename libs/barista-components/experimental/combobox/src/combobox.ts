@@ -638,7 +638,11 @@ export class DtCombobox<T>
       for (const selected of this._selectionModel.selected) {
         this._selectionModel.deselect(selected);
       }
-      this._writeValue();
+      // Only write value if the user has not entered anything yet,
+      // otherwise this would immediately clear their input anytime they enter something
+      if (this._searchInput.nativeElement.value === '') {
+        this._writeValue();
+      }
       this._changeDetectorRef.markForCheck();
       return;
     }
