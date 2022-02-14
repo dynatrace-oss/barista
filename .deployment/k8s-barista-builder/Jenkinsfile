@@ -31,7 +31,7 @@ pipeline {
         checkout([
           $class: 'GitSCM',
           branches: [
-            [name: '*/master']
+            [name: '*/10.x']
           ],
           doGenerateSubmoduleConfigurations: false,
           extensions: [
