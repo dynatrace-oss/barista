@@ -22,8 +22,7 @@
     "@dynatrace/barista-fonts": "",
     "@dynatrace/barista-icons": "",
     "highcharts": "",
-    "lodash-es": "",
-    "dompurify":""
+    "lodash-es": ""
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "",

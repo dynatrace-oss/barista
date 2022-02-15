@@ -13,24 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { sanitize as DOMPurifySanitize } from 'dompurify';
+import { SecurityContext } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /** Sanitizes a nested object or string from malicious html code  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const sanitize = <T extends {} | string>(option: T): T => {
+export const sanitize = <T extends {} | string>(
+  option: T,
+  sanitizer: DomSanitizer,
+): T => {
   if (typeof option === 'string') {
-    return DOMPurifySanitize(option);
+    return sanitizer.sanitize(SecurityContext.HTML, option) as T;
   }
 
   Object.keys(option).forEach((key) => {
     if (typeof option[key] === 'string') {
-      option[key] = DOMPurifySanitize(option[key]);
+      option[key] = sanitizer.sanitize(SecurityContext.HTML, option[key]);
     } else if (Array.isArray(option[key])) {
       option[key].forEach((item, i) => {
-        option[key][i] = sanitize(item);
+        option[key][i] = sanitize(item, sanitizer);
       });
     } else if (typeof option[key] === 'object') {
-      option[key] = sanitize(option[key]);
+      option[key] = sanitize(option[key], sanitizer);
     }
   });
   return option;

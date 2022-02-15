@@ -30,6 +30,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   DtChart,
   DtChartOptions,
@@ -139,7 +140,7 @@ export class DtMicroChart implements OnDestroy {
     if (isDevMode()) {
       checkUnsupportedOptions(options);
     }
-    const sanitized = sanitize(options);
+    const sanitized = sanitize(options, this._sanitizer);
     this._options = sanitized;
     this._transformedOptions = this._transformOptions(sanitized);
   }
@@ -201,6 +202,7 @@ export class DtMicroChart implements OnDestroy {
   }
 
   constructor(
+    private _sanitizer: DomSanitizer,
     @Optional() @SkipSelf() private readonly _theme: DtTheme,
     private _changeDetectorRef: ChangeDetectorRef,
   ) {

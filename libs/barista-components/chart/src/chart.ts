@@ -108,6 +108,7 @@ import { getPlotBackgroundInfo, retainSeriesVisibility } from './utils';
 import { DtChartFocusTarget } from './chart-focus-anchor';
 import { DtChartBase } from './chart-base';
 import highchartsMore from 'highcharts/highcharts-more';
+import { DomSanitizer } from '@angular/platform-browser';
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -215,12 +216,12 @@ export class DtChart
     }
     if (options instanceof Observable) {
       this._optionsSub = options.subscribe((o: DtChartOptions) => {
-        this._currentOptions = sanitize(o);
+        this._currentOptions = sanitize(o, this._sanitizer);
         this._update();
       });
       this._options = options;
     } else {
-      const sanitized = sanitize(options);
+      const sanitized = sanitize(options, this._sanitizer);
       this._currentOptions = sanitized;
       this._options = sanitized;
     }
@@ -384,6 +385,7 @@ export class DtChart
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
+    private _sanitizer: DomSanitizer,
     @Optional() private _viewportResizer: DtViewportResizer,
     @Optional() @SkipSelf() private _theme: DtTheme,
     @Optional()
