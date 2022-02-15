@@ -52,6 +52,7 @@ export async function render(
     try {
       const { data } = await axios.get<string>(route, {
         baseURL: baseUrl,
+        timeout: 4_000,
       });
 
       mkdirSync(dirname(filePath), { recursive: true });
@@ -77,7 +78,15 @@ export async function render(
 }
 
 /** Renders each route that is provided via the process args */
-(async () => {
+async function main() {
   const [outputPath, baseUrl, ...routes] = process.argv.slice(2);
   await render(outputPath, baseUrl, routes);
-})().catch();
+}
+
+main()
+  .then(() => {
+    console.log('Done rendering routes');
+  })
+  .catch(() => {
+    process.exit(1);
+  });
