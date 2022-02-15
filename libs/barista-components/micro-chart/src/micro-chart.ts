@@ -30,6 +30,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   DtChart,
   DtChartOptions,
@@ -139,7 +140,10 @@ export class DtMicroChart implements OnDestroy {
     if (isDevMode()) {
       checkUnsupportedOptions(options);
     }
-    const sanitized = sanitize(options);
+    // TODO: breaking-change 11.0.0 Remove ternary because _sanitizer is no longer optional
+    const sanitized = this._sanitizer
+      ? sanitize(options, this._sanitizer)
+      : options;
     this._options = sanitized;
     this._transformedOptions = this._transformOptions(sanitized);
   }
@@ -203,6 +207,8 @@ export class DtMicroChart implements OnDestroy {
   constructor(
     @Optional() @SkipSelf() private readonly _theme: DtTheme,
     private _changeDetectorRef: ChangeDetectorRef,
+    /** @breaking-change 11.0.0 DomSanitizer will be made mandatory */
+    @Optional() private _sanitizer?: DomSanitizer,
   ) {
     this._transformedOptions = this._transformOptions({});
 
