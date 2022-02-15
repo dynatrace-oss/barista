@@ -5,7 +5,7 @@
   "scripts": {
     "build": "ng build",
     "dev": "nx serve dev",
-    "test": "npm run affected:test -- --parallel",
+    "test": "snyk test && npm run affected:test -- --parallel",
     "lint": "nx workspace-lint && npm run affected:lint -- --parallel",
     "e2e": "nx run components-e2e:e2e-all",
     "universal": "nx build universal",
@@ -162,6 +162,7 @@
     "sass-loader": "^10.1.1",
     "semver": "^7.3.5",
     "shelljs": "^0.8.4",
+    "snyk": "^1.852.0",
     "stylelint": "^13.13.1",
     "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^8.0.2",
