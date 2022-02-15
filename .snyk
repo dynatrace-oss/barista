@@ -256,6 +256,6 @@ ignore:
         expires: '2022-01-19T08:40:14.038Z'
   SNYK-JS-NANOID-2332193:
     - '@nguniversal/common > critters > postcss > nanoid':
-        reason: will be resolved hopefully by upgrading to angular 13
-        expires: '2022-02-12T07:26:38.912Z'
+        reason: Will hopefully be resolved by a future version of @nguniversal/common
+        expires: '2022-03-17T11:48:17.695Z'
 patch: {}

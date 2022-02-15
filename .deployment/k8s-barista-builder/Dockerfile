@@ -1,9 +1,9 @@
-ARG NODE_VERSION=12
+ARG NODE_VERSION=14
 ARG BASE_VERSION=latest
 # Will be set on Jenkins
 ARG BASE_IMAGE_REGISTRY
 
-FROM node:12-alpine as base
+FROM node:14-alpine as base
 
 # The root of the monorepo
 WORKDIR /dynatrace

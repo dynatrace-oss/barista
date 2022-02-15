@@ -19,6 +19,13 @@ import { fork } from 'child_process';
 import { chunk } from 'lodash';
 import { cpus } from 'os';
 
+interface Message {
+  success: boolean;
+  filePath?: string;
+  size?: string;
+  message?: string;
+}
+
 /** Collects a list of routes and get the html code of it */
 export async function renderRoutes(options: {
   outputPath: string;
@@ -35,20 +42,20 @@ export async function renderRoutes(options: {
   let renderCount = 0;
 
   const childProcesses = chunks.map(
-    (chunkRoutes) =>
+    (chunkRoutes, index, array) =>
       new Promise((resolve, reject) => {
         fork(renderModule, [
           outputPath,
           `http://localhost:${port}`,
           ...chunkRoutes,
         ])
-          .on('message', (data) => {
+          .on('message', (data: Message) => {
             if (data.success) {
               logger.info(grey(`CREATE ${data.filePath} (${data.size} bytes)`));
               renderCount++;
             } else {
-              logger.error(`Error: ${data.error.message}`);
-              logger.error(`Unable to render ${data.path}`);
+              logger.error(`Error: ${data.message}`);
+              logger.error(`Unable to render ${data.filePath}`);
             }
           })
           .on('exit', resolve)

@@ -20,8 +20,13 @@ import { Route, RouterModule } from '@angular/router';
 import { DtButtonModule } from '@dynatrace/barista-components/button';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { BaDecisionGraphPage } from './decision-graph-page';
-import { DsPageGuard } from '@dynatrace/shared/design-system/ui';
-import { BaDecisionGraphModule } from './components/ba-decision-graph/ba-decision-graph.module';
+import { DsPageGuard, DsPageService } from '@dynatrace/shared/design-system/ui';
+import {
+  BaDecisionGraph,
+  BaDecisionGraphNode,
+  BaDecisiongraphNodeNavigation,
+  BaDecisionGraphStartnode,
+} from './components/ba-decision-graph';
 
 export const routes: Route[] = [
   {
@@ -37,8 +42,20 @@ export const routes: Route[] = [
     DtButtonModule,
     DtThemingModule,
     RouterModule.forChild(routes),
-    BaDecisionGraphModule,
   ],
-  declarations: [BaDecisionGraphPage],
+  providers: [DsPageService],
+  declarations: [
+    BaDecisionGraphPage,
+    BaDecisionGraph,
+    BaDecisionGraphStartnode,
+    BaDecisionGraphNode,
+    BaDecisiongraphNodeNavigation,
+  ],
+  exports: [
+    BaDecisionGraph,
+    BaDecisionGraphStartnode,
+    BaDecisionGraphNode,
+    BaDecisiongraphNodeNavigation,
+  ],
 })
 export class DecisionGraphPageModule {}

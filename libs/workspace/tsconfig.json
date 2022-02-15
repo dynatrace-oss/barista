@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "types": ["node", "jest"],
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
   },
   "include": [],
   "exclude": [],
