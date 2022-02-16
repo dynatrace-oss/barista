@@ -15,6 +15,7 @@
  */
 import { SecurityContext } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { isObject } from './type-util';
 
 /** Sanitizes a nested object or string from malicious html code  */
 export const sanitize = <T extends {} | string>(
@@ -25,16 +26,18 @@ export const sanitize = <T extends {} | string>(
     return sanitizer.sanitize(SecurityContext.HTML, option) as T;
   }
 
-  Object.keys(option).forEach((key) => {
-    if (typeof option[key] === 'string') {
-      option[key] = sanitizer.sanitize(SecurityContext.HTML, option[key]);
-    } else if (Array.isArray(option[key])) {
-      option[key].forEach((item, i) => {
-        option[key][i] = sanitize(item, sanitizer);
-      });
-    } else if (typeof option[key] === 'object') {
-      option[key] = sanitize(option[key], sanitizer);
-    }
-  });
+  if (option && isObject(option)) {
+    Object.keys(option).forEach((key) => {
+      if (typeof option[key] === 'string') {
+        option[key] = sanitizer.sanitize(SecurityContext.HTML, option[key]);
+      } else if (Array.isArray(option[key])) {
+        option[key].forEach((item, i) => {
+          option[key][i] = sanitize(item, sanitizer);
+        });
+      } else if (typeof option[key] === 'object') {
+        option[key] = sanitize(option[key], sanitizer);
+      }
+    });
+  }
   return option;
 };
