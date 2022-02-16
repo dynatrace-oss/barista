@@ -1,3 +1,10 @@
+## [10.5.1](https://github.com/dynatrace-oss/barista/compare/10.5.0...10.5.1) (2022-02-16)
+
+### Bug Fixes
+
+- **charts:** Removed dependency of dompurify in favor of angular sanitizer.
+  ([053dde1](https://github.com/dynatrace-oss/barista/commit/053dde1f7d8424ae9ed3619353b0398519db0475))
+
 ## [10.5.0](https://github.com/dynatrace-oss/barista/compare/10.4.0...10.5.0) (2022-02-08)
 
 ### Bug Fixes
