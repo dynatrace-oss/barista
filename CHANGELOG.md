@@ -1,3 +1,10 @@
+## [10.5.2](https://github.com/dynatrace-oss/barista/compare/10.5.1...10.5.2) (2022-02-17)
+
+### Bug Fixes
+
+- **core:** Improved null check for sanitizer.
+  ([b14bbac](https://github.com/dynatrace-oss/barista/commit/b14bbac0d28044b48e9c8b8828378a285606fa36))
+
 ## [10.5.1](https://github.com/dynatrace-oss/barista/compare/10.5.0...10.5.1) (2022-02-16)
 
 ### Bug Fixes
