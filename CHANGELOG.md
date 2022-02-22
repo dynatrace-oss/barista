@@ -1,3 +1,31 @@
+## [10.6.0](https://github.com/dynatrace-oss/barista/compare/10.5.0...10.6.0) (2022-02-22)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue with input being reset if selection is null
+  ([eb0f8f9](https://github.com/dynatrace-oss/barista/commit/eb0f8f93d11808ceeae5f7eeed99ce771452700b))
+- **core:** Improved null check for sanitizer.
+  ([d86c24f](https://github.com/dynatrace-oss/barista/commit/d86c24f2afa416dd1e294e0f6264d6e49b5cbf25))
+
+### Features
+
+- **stacked-series-chart:** Improvements
+  ([347c3fe](https://github.com/dynatrace-oss/barista/commit/347c3fe1912ab87423d63d38d8d49a1be644e4a7))
+
+## [10.5.2](https://github.com/dynatrace-oss/barista/compare/10.5.1...10.5.2) (2022-02-17)
+
+### Bug Fixes
+
+- **core:** Improved null check for sanitizer.
+  ([b14bbac](https://github.com/dynatrace-oss/barista/commit/b14bbac0d28044b48e9c8b8828378a285606fa36))
+
+## [10.5.1](https://github.com/dynatrace-oss/barista/compare/10.5.0...10.5.1) (2022-02-16)
+
+### Bug Fixes
+
+- **charts:** Removed dependency of dompurify in favor of angular sanitizer.
+  ([053dde1](https://github.com/dynatrace-oss/barista/commit/053dde1f7d8424ae9ed3619353b0398519db0475))
+
 ## [10.5.0](https://github.com/dynatrace-oss/barista/compare/10.4.0...10.5.0) (2022-02-08)
 
 ### Bug Fixes
