@@ -1,3 +1,17 @@
+## [10.6.0](https://github.com/dynatrace-oss/barista/compare/10.5.0...10.6.0) (2022-02-22)
+
+### Bug Fixes
+
+- **combobox:** Fixes an issue with input being reset if selection is null
+  ([eb0f8f9](https://github.com/dynatrace-oss/barista/commit/eb0f8f93d11808ceeae5f7eeed99ce771452700b))
+- **core:** Improved null check for sanitizer.
+  ([d86c24f](https://github.com/dynatrace-oss/barista/commit/d86c24f2afa416dd1e294e0f6264d6e49b5cbf25))
+
+### Features
+
+- **stacked-series-chart:** Improvements
+  ([347c3fe](https://github.com/dynatrace-oss/barista/commit/347c3fe1912ab87423d63d38d8d49a1be644e4a7))
+
 ## [10.5.2](https://github.com/dynatrace-oss/barista/compare/10.5.1...10.5.2) (2022-02-17)
 
 ### Bug Fixes
