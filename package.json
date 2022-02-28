@@ -186,7 +186,7 @@
     "terser": "^4.8.0",
     "testcafe": "^1.14.2",
     "testcafe-browser-provider-browserstack": "^1.13.1",
-    "testcafe-reporter-xunit": "^2.1.0",
+    "testcafe-reporter-xunit": "^2.2.1",
     "ts-jest": "27.0.5",
     "ts-node": "^10.5.0",
     "tsickle": "^0.39.1",
