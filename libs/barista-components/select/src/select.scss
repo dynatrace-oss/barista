@@ -39,11 +39,14 @@ $dt-select-panel-min-width: 112px !default;
   .dt-form-field-infix > & {
     border: none;
     min-height: 30px;
+
     &.cdk-focused.cdk-keyboard-focused,
     &.cdk-focused.cdk-program-focused {
       /** since the select is 2px smaller we need to move the offset out
         1px to have the same outline position */
       outline-offset: 2px;
+      /** Modified the outline width to look better in combination with the offset of 2px set above */
+      outline-width: 1px;
     }
   }
 
@@ -97,6 +100,7 @@ $dt-select-panel-min-width: 112px !default;
     fill: $turquoise-600;
   }
 }
+
 :host.dt-select-disabled .dt-select-arrow ::ng-deep svg {
   fill: $disabledcolor;
 }
