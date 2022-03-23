@@ -88,7 +88,7 @@ a.dt-link {
 a.dt-link.dt-theme-dark {
   @include dt-link-dark();
 
-  &::after {
-    background: dt-external-link-icon(#ffffff);
+  &.dt-external::after {
+    background-image: dt-external-link-icon(#ffffff);
   }
 }
