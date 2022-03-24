@@ -252,7 +252,7 @@ export class DtChart
     this._changeDetectorRef.markForCheck();
   }
 
-  /** The loading text of the loading distractor. */
+  /** The loading text of the loading distractor.*/
   @Input('loading-text') loadingText: string;
 
   /** Eventemitter that fires every time the chart is updated */
