@@ -30,7 +30,6 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import {
   DtChart,
   DtChartOptions,
@@ -38,7 +37,6 @@ import {
   DT_CHART_CONFIG,
   DT_CHART_RESOLVER,
 } from '@dynatrace/barista-components/chart';
-import { sanitize } from '@dynatrace/barista-components/core';
 import { DtTheme } from '@dynatrace/barista-components/theming';
 import {
   Options,
@@ -140,12 +138,8 @@ export class DtMicroChart implements OnDestroy {
     if (isDevMode()) {
       checkUnsupportedOptions(options);
     }
-    // TODO: breaking-change 11.0.0 Remove ternary because _sanitizer is no longer optional
-    const sanitized = this._sanitizer
-      ? sanitize(options, this._sanitizer)
-      : options;
-    this._options = sanitized;
-    this._transformedOptions = this._transformOptions(sanitized);
+    this._options = options;
+    this._transformedOptions = this._transformOptions(options);
   }
 
   /** Series of data points or a stream rendered in this chart */
@@ -207,8 +201,6 @@ export class DtMicroChart implements OnDestroy {
   constructor(
     @Optional() @SkipSelf() private readonly _theme: DtTheme,
     private _changeDetectorRef: ChangeDetectorRef,
-    /** @breaking-change 11.0.0 DomSanitizer will be made mandatory */
-    @Optional() private _sanitizer?: DomSanitizer,
   ) {
     this._transformedOptions = this._transformOptions({});
 
