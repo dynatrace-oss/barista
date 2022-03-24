@@ -43,7 +43,6 @@ import {
 import {
   DtViewportResizer,
   isDefined,
-  sanitize,
 } from '@dynatrace/barista-components/core';
 import { DtTheme } from '@dynatrace/barista-components/theming';
 // eslint-disable-next-line no-duplicate-imports
@@ -215,15 +214,13 @@ export class DtChart
     }
     if (options instanceof Observable) {
       this._optionsSub = options.subscribe((o: DtChartOptions) => {
-        this._currentOptions = sanitize(o);
+        this._currentOptions = o;
         this._update();
       });
-      this._options = options;
     } else {
-      const sanitized = sanitize(options);
-      this._currentOptions = sanitized;
-      this._options = sanitized;
+      this._currentOptions = options;
     }
+    this._options = options;
     this._changeDetectorRef.markForCheck();
   }
 
