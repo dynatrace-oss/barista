@@ -43,7 +43,6 @@ import {
 import {
   DtViewportResizer,
   isDefined,
-  sanitize,
 } from '@dynatrace/barista-components/core';
 import { DtTheme } from '@dynatrace/barista-components/theming';
 // tslint:disable-next-line:no-duplicate-imports
@@ -107,7 +106,6 @@ import { DtChartTooltip } from './tooltip/chart-tooltip';
 import { getPlotBackgroundInfo, retainSeriesVisibility } from './utils';
 import { DtChartFocusTarget } from './chart-focus-anchor';
 import { DtChartBase } from './chart-base';
-import { DomSanitizer } from '@angular/platform-browser';
 const HIGHCHARTS_PLOT_BACKGROUND = '.highcharts-plot-background';
 
 // tslint:disable-next-line:no-any
@@ -216,18 +214,12 @@ export class DtChart
     }
     if (options instanceof Observable) {
       this._optionsSub = options.subscribe((o: DtChartOptions) => {
-        // TODO: breaking-change 11.0.0 Remove ternary because _sanitizer is no longer optional
-        this._currentOptions = this._sanitizer
-          ? sanitize(o, this._sanitizer)
-          : o;
+        this._currentOptions = o;
         this._update();
       });
       this._options = options;
     } else {
-      // TODO: breaking-change 11.0.0 Remove ternary because _sanitizer is no longer optional
-      const sanitized = this._sanitizer
-        ? sanitize(options, this._sanitizer)
-        : options;
+      const sanitized = options;
       this._currentOptions = sanitized;
       this._options = sanitized;
     }
@@ -399,8 +391,6 @@ export class DtChart
     private _config: DtChartConfig,
     /** @internal used for the selection area to calculate the bounding client rect */
     public _elementRef: ElementRef,
-    /** @breaking-change 11.0.0 DomSanitizer will be made mandatory */
-    @Optional() private _sanitizer?: DomSanitizer,
   ) {
     super();
     this._config = this._config || DT_CHART_DEFAULT_CONFIG;
