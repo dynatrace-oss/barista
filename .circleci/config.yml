@@ -5,7 +5,7 @@ version: 2.1
 
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.1
-  snyk: snyk/snyk@0.0.8
+  snyk: snyk/snyk@1.1.2
   nx: nrwl/nx@1.1.1
   # win: circleci/windows@2.2.0
 
