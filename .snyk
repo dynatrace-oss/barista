@@ -226,7 +226,7 @@ ignore:
   SNYK-JS-D3COLOR-1076592:
     - d3-scale > d3-interpolate > d3-color:
         reason: No patch available yet.
-        expires: '2022-03-24T09:12:46.449Z'
+        expires: '2022-04-27T13:48:07.548Z'
   SNYK-JS-ANSIREGEX-1583908:
     - '@angular/localize > yargs > string-width > strip-ansi > ansi-regex':
         reason: Transient dependency and still an issue
@@ -257,5 +257,9 @@ ignore:
   SNYK-JS-NANOID-2332193:
     - '@nguniversal/common > critters > postcss > nanoid':
         reason: will be resolved hopefully by upgrading to angular 13
-        expires: '2022-03-17T11:45:15.406Z'
+        expires: '2022-04-27T13:48:07.548Z'
+  SNYK-JS-MINIMIST-2429795:
+    - '@angular/localize > @babel/core > json5 > minimist':
+        reason: None given
+        expires: '2022-04-27T13:48:07.548Z'
 patch: {}
