@@ -45,12 +45,19 @@ export class DtHeaderCell implements OnDestroy {
   /** Destroy subject which will fire when the component gets destroyed. */
   private _destroy = new Subject<void>();
 
+  /** @internal Keep reference to element so it can be accessed as needed. */
+  _elemRef: ElementRef;
+  /** @internal Keep reference to columnDef so it can be accessed as needed. */
+  _colDef: DtColumnDef;
+
   constructor(columnDef: DtColumnDef, elem: ElementRef) {
     columnDef._stateChanges
       .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
         _updateDtColumnStyles(columnDef, elem);
       });
+    this._elemRef = elem;
+    this._colDef = columnDef;
   }
 
   ngOnDestroy(): void {
