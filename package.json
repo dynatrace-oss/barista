@@ -180,7 +180,7 @@
     "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-prettier": "^1.2.0",
-    "stylelint-scss": "^3.19.0",
+    "stylelint-scss": "^3.21.0",
     "tailwindcss": "^1.9.6",
     "terser": "^4.8.0",
     "testcafe": "^1.14.2",
