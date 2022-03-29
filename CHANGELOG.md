@@ -1,3 +1,12 @@
+## [10.6.1](https://github.com/dynatrace-oss/barista/compare/10.6.0...10.6.1) (2022-03-29)
+
+### Bug Fixes
+
+- **link:** Fixed external link icon in dark mode
+  ([b610adc](https://github.com/dynatrace-oss/barista/commit/b610adc0081b3b9c331579dee86887f85ecc0fca))
+- **select:** Updated outline width when inside a form field
+  ([76cfda7](https://github.com/dynatrace-oss/barista/commit/76cfda7fc13d4e7a4bbb837188d448aec9fdaf43))
+
 ## [10.6.0](https://github.com/dynatrace-oss/barista/compare/10.5.0...10.6.0) (2022-02-22)
 
 ### Bug Fixes
