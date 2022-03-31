@@ -27,9 +27,10 @@ import {
   AfterContentInit,
   QueryList,
   OnDestroy,
+  NgZone,
 } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Subject, Observable, defer, merge } from 'rxjs';
+import { filter, switchMap, take, takeUntil } from 'rxjs/operators';
 import { DtSecondaryNavLinkActive } from './secondary-nav-link';
 
 @Directive({
@@ -109,10 +110,32 @@ export class DtSecondaryNavSection implements AfterContentInit, OnDestroy {
   /** @internal Subject used to communicate programmatic change of section opening and closing */
   _sectionExpandChange$: Subject<DtSecondaryNavSection> = new Subject();
 
-  constructor(private readonly _changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private readonly _changeDetectorRef: ChangeDetectorRef,
+    private _ngZone: NgZone,
+  ) {}
+
+  /** Combined stream of all of the child dtSecondaryNavLinkActive change events. */
+  readonly activeChildLinkChanges: Observable<boolean> = defer(() => {
+    if (this._activeLinks) {
+      return merge<boolean>(
+        ...this._activeLinks.map((activeLink) => activeLink.activeChange),
+      );
+    }
+
+    return this._ngZone.onStable.asObservable().pipe(
+      take(1),
+      switchMap(() => this.activeChildLinkChanges),
+    );
+  });
 
   ngAfterContentInit(): void {
     this._checkForActiveStates();
+    this.activeChildLinkChanges
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(() => {
+        this._checkForActiveStates();
+      });
   }
 
   ngOnDestroy(): void {
@@ -126,12 +149,13 @@ export class DtSecondaryNavSection implements AfterContentInit, OnDestroy {
     // Includes a setTimeout((), 0) because the RouterLinkActive directive uses Promise.resolve().then(())
     // https://github.com/angular/angular/blob/master/packages/router/src/directives/router_link_active.ts#L125
     setTimeout(() => {
-      if (
-        this._activeLinks.some(
-          (activeLink) => activeLink.dtSecondaryNavLinkActive,
-        )
-      ) {
+      const childrenActiveLinks = this._activeLinks.some(
+        (activeLink) => activeLink.dtSecondaryNavLinkActive,
+      );
+      if (childrenActiveLinks) {
         this._activateAndExpandSection();
+      } else {
+        this._active = false;
       }
       this._changeDetectorRef.markForCheck();
     }, 0);

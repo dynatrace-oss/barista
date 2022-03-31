@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { Directive, Input } from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Directive({
@@ -34,13 +34,20 @@ export class DtSecondaryNavLink {}
   exportAs: 'dtSecondaryNavLinkActive',
 })
 export class DtSecondaryNavLinkActive {
+  /** EventEmitter firing when the active state of the navlink changes. */
+  @Output() activeChange: EventEmitter<boolean> = new EventEmitter();
+
   /** Whether the link is active. */
   @Input()
   get dtSecondaryNavLinkActive(): boolean {
     return this._active;
   }
   set dtSecondaryNavLinkActive(value: boolean) {
-    this._active = coerceBooleanProperty(value);
+    const newValue = coerceBooleanProperty(value);
+    if (this._active !== newValue) {
+      this._active = newValue;
+      this.activeChange.emit(newValue);
+    }
   }
   private _active = true;
 }
