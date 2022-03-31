@@ -25,19 +25,24 @@ $remove-icon-size: 16px;
   }
 
   .dt-tag-remove-button {
-    width: 22px;
-    height: 22px;
-    margin-left: 8px;
-    padding-right: 24px;
+    display: flex;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin: 0 4px;
+    align-items: center;
+    justify-content: center;
 
     ::ng-deep {
-      .dt-icon {
+      .dt-button-icon {
         height: $remove-icon-size;
         width: $remove-icon-size;
-      }
-
-      .dt-button-icon {
         margin-top: 0;
+
+        .dt-icon,
+        svg {
+          vertical-align: top;
+        }
       }
     }
   }
