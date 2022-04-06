@@ -72,14 +72,15 @@ a.dt-link {
   );
 
   &.dt-external::after {
-    content: ' ';
+    /* EM-width white space to scale the external link icon correctly */
+    content: '\2003';
     display: inline;
-    margin-left: 8px;
+    margin-left: 0.35ch;
     background-image: dt-external-link-icon();
     background-repeat: no-repeat;
     background-size: contain;
-    padding-left: 1em;
-    vertical-align: -0.05em;
+    width: 1em;
+    vertical-align: 0;
     background-size: 100% 100%;
   }
 }
