@@ -1,3 +1,13 @@
+## [10.6.2](https://github.com/dynatrace-oss/barista/compare/10.6.1...10.6.2) (2022-04-07)
+
+### Bug Fixes
+
+- **link:** Fixes a regression in the placement of the external link icon.
+  ([07c76ba](https://github.com/dynatrace-oss/barista/commit/07c76ba1d8b2204c6cfcfd866ece227baa192669))
+- **secondary-nav:** Fixes an issue with updated active links in sections not
+  applying section active class correctly.
+  ([b358222](https://github.com/dynatrace-oss/barista/commit/b358222a073273dc582c10f2635d7db5c0efc032))
+
 ## [10.6.1](https://github.com/dynatrace-oss/barista/compare/10.6.0...10.6.1) (2022-03-29)
 
 ### Bug Fixes
