@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-// eslint-disable  @angular-eslint/no-lifecycle-call, no-use-before-define, @typescript-eslint/no-use-before-define, no-magic-numbers
-// eslint-disable  @typescript-eslint/no-explicit-any, max-lines, @typescript-eslint/unbound-method, @angular-eslint/use-component-selector
+// tslint:disable no-lifecycle-call no-use-before-declare no-magic-numbers
+// tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { CommonModule } from '@angular/common';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -60,35 +60,33 @@ import { DtTableDataSource } from './table-data-source';
 import { DtTableModule } from './table-module';
 
 describe('DtTable', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          CommonModule,
-          DtTableModule,
-          DtEmptyStateModule,
-          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-          DtLoadingDistractorModule,
-          HttpClientTestingModule,
-          NoopAnimationsModule,
-          TestExpandableComponentModule,
-          DtIndicatorModule,
-        ],
-        declarations: [
-          TestApp,
-          TestDynamicApp,
-          TestAppMultiExpandableTable,
-          TestStickyHeader,
-          TestIndicatorApp,
-          CustomEmptyState,
-          TestCustomEmptyStateApp,
-          TestExportApp,
-        ],
-      });
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        CommonModule,
+        DtTableModule,
+        DtEmptyStateModule,
+        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+        DtLoadingDistractorModule,
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        TestExpandableComponentModule,
+        DtIndicatorModule,
+      ],
+      declarations: [
+        TestApp,
+        TestDynamicApp,
+        TestAppMultiExpandableTable,
+        TestStickyHeader,
+        TestIndicatorApp,
+        CustomEmptyState,
+        TestCustomEmptyStateApp,
+        TestExportApp,
+      ],
+    });
 
-      TestBed.compileComponents();
-    }),
-  );
+    TestBed.compileComponents();
+  }));
 
   // Regular table tests
   describe('Table Rendering', () => {

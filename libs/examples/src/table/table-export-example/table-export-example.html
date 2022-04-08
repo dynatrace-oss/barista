@@ -24,21 +24,19 @@
     dtColumnProportion="1"
   >
     <dt-header-cell start="asc" *dtHeaderCellDef dt-sort-header i18n
-      >Technology</dt-header-cell
-    >
+      >Technology
+    </dt-header-cell>
     <dt-cell *dtCellDef="let row"> {{techType(row)}} </dt-cell>
   </ng-container>
-  <dt-simple-number-column
-    name="cpu"
-    label="CPU"
-    dtColumnProportion="1"
-  ></dt-simple-number-column>
+  <dt-simple-number-column name="cpu" label="CPU" dtColumnProportion="1">
+  </dt-simple-number-column>
   <dt-simple-number-column
     name="memoryPerc"
     label="Memory"
     [formatter]="percentageFormatter"
     dtColumnProportion="1"
-  ></dt-simple-number-column>
+  >
+  </dt-simple-number-column>
   <dt-simple-number-column
     name="memoryConsumption"
     label="Memory combined"
@@ -52,7 +50,8 @@
     sortable="false"
     [formatter]="trafficFormatter"
     dtColumnProportion="2"
-  ></dt-simple-number-column>
+  >
+  </dt-simple-number-column>
   <ng-container dtColumnDef="action" dtColumnAlign="text">
     <dt-header-cell *dtHeaderCellDef>Action</dt-header-cell>
     <dt-cell *dtCellDef="let row">
