@@ -25,6 +25,7 @@ import {
   Component,
   ContentChildren,
   ElementRef,
+  EmbeddedViewRef,
   Inject,
   Input,
   IterableDiffers,
@@ -50,6 +51,8 @@ import {
   DtSimpleColumnSortAccessorFunction,
   DtSimpleColumnBase,
 } from './simple-columns/simple-column-base';
+import { DtHeaderCell } from './header/header-cell';
+import { DtRow } from './row';
 import {
   _DisposeViewRepeaterStrategy,
   _ViewRepeater,
@@ -99,7 +102,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
-  private _showExportButton = false;
+  private _showExportButton: boolean | 'visible' | 'table' = false; //Display button for Visible, Table, both (true), or neither (false)
   private _exportExcludeList: string[] = [];
 
   /** Sort accessor map that holds all sort accessor functions from the registered simple columns. */
@@ -179,11 +182,13 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
    * selected table data into a csv file.
    */
   @Input()
-  get showExportButton(): boolean {
+  get showExportButton(): boolean | 'visible' | 'table' {
     return this._showExportButton;
   }
-  set showExportButton(value: boolean) {
-    this._showExportButton = coerceBooleanProperty(value);
+  set showExportButton(value: boolean | 'visible' | 'table') {
+    if (value === 'visible' || value === 'table')
+      this._showExportButton = value;
+    else this._showExportButton = coerceBooleanProperty(value);
   }
   static ngAcceptInputType_showExportButton: BooleanInput;
 
@@ -212,8 +217,11 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   @ViewChild(CdkPortalOutlet, { static: true })
   _portalOutlet: CdkPortalOutlet;
 
-  /** @internal A list of columns */
-  @ContentChildren(DtSimpleColumnBase) _childColumns: QueryList<
+  /** @internal A list of complex columns */
+  @ContentChildren(DtHeaderCell, { descendants: true })
+  _childNonSimpleColumns: QueryList<DtHeaderCell>;
+  /** @internal A list of simple columns */
+  @ContentChildren(DtSimpleColumnBase) _childSimpleColumns: QueryList<
     DtSimpleColumnBase<T>
   >;
 
@@ -388,9 +396,15 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /** @internal Exports the filtered source data from the dataSource. */
   // Note: this is different from the display text, see instead _exportDisplayData().
   _exportFilteredData(selectedData?: T[]): void {
+    const csvObj = this._generateFilteredCSV(selectedData);
+    if (csvObj) this._downloadCSV(csvObj.csv);
+  }
+
+  /** @internal Generate filtered CSV. Seperated from _exportFilteredData to facilitate unit testing. */
+  _generateFilteredCSV(selectedData?: T[]): { csv: string } | null {
     //nothing to export
     if (this.isEmptyDataSource) {
-      return;
+      return null;
     }
     //not using DTDataSource, fallback to this._data instead of this._filteredData
     let exportData: readonly T[];
@@ -409,18 +423,10 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     );
 
     if (!keys.length) {
-      return;
+      return null;
     }
 
-    //check for objects, expand properties into new columns
-    for (let i = keys.length - 1; i > -1; i--) {
-      const key = keys[i];
-      const val = exportData[0][key];
-      if (typeof val == 'object') {
-        const subkeys = Object.keys(val).map((sk) => `${key}.${sk}`);
-        keys.splice(i, 1, ...subkeys);
-      }
-    }
+    recurseSubkeys(exportData[0], keys);
     // header row
     csvObj.csv += keys.join(',') + '\n';
 
@@ -430,12 +436,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         let val: any;
         if (key.includes('.') && typeof row[key] == 'undefined') {
-          //derived key object.property
-          const keyArr = key.split('.');
-          const objKey = keyArr[0];
-          const prop = keyArr[1];
-          const obj = row[objKey] || {};
-          val = obj[prop];
+          val = deepObjectAccess(row, key);
         } else {
           val = row[key];
         }
@@ -443,14 +444,69 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
       }
       csvObj.csv += '\n';
     }
-    this._downloadCSV(csvObj.csv);
+    return csvObj;
+
+    /** @internal Recursively traverse an object structure while building out a deep access key list */
+    function recurseSubkeys(
+      obj: T,
+      keyList: string[],
+      prefix: string = '',
+      maxLevels: number = 5,
+    ): void {
+      //check for objects, expand properties into new columns
+      for (let i = keyList.length - 1; i > -1; i--) {
+        const key = keyList[i];
+        const val = obj[key];
+        if (typeof val == 'object') {
+          const subkeys = [] as string[];
+          for (const subkey of Object.keys(val)) {
+            const subval = val[subkey];
+            const subprefix = prefix.length
+              ? `${prefix}.${key}.${subkey}`
+              : `${key}.${subkey}`;
+            if (maxLevels && typeof subval == 'object') {
+              const subsubkeys = Object.keys(subval);
+              recurseSubkeys(subval, subsubkeys, subprefix, maxLevels - 1);
+              for (const subsubkey of subsubkeys)
+                if (['object', 'undefined'].includes(typeof subval[subsubkey]))
+                  subkeys.push(subsubkey);
+                else subkeys.push(`${subprefix}.${subsubkey}`);
+            } else {
+              subkeys.push(subprefix);
+            }
+          }
+          keyList.splice(i, 1, ...subkeys);
+        }
+      }
+    }
+
+    /** @internal Access a deep property from an object structure using a dotted key, as built by recurseSubkeys() */
+    function deepObjectAccess(obj: T, key: string): string {
+      if (key.includes('.')) {
+        const keyArr = key.split('.');
+        const first = keyArr.shift() || '';
+        const subObj = obj[first];
+        if (typeof subObj == 'object')
+          return deepObjectAccess(subObj, keyArr.join('.'));
+        else if (typeof subObj == 'undefined') return '';
+        else return subObj.toString();
+      } else {
+        return obj[key];
+      }
+    }
   }
 
   /** @internal Exports the filtered display data from the dataSource after being formatted by a displayAccessor. */
   _exportDisplayData(selectedData?: T[]): void {
+    let csvObj = this._generateDisplayCSV(selectedData);
+    if (csvObj) this._downloadCSV(csvObj.csv);
+  }
+
+  /** @internal Generate display data for _exportDisplayData. Seperated out to facilitate unit testing. */
+  _generateDisplayCSV(selectedData?: T[]): { csv: string } | null {
     //nothing to export
     if (this.isEmptyDataSource) {
-      return;
+      return null;
     }
     //not using DTDataSource, fallback to this._data instead of this._filteredData
     let exportData: readonly T[];
@@ -463,27 +519,63 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
           : this._data;
     }
 
+    //Determine column keys and labels
     const csvObj = { csv: '' };
-    const columns = this._childColumns.filter(
-      (col) => !this.exportExcludeList.includes(col.name),
+    const simpleColumns = this._childSimpleColumns
+      .filter((col) => !this.exportExcludeList.includes(col.name))
+      .map((col) => ({ name: col.name, label: col.label }));
+    const complexColumns = this._childNonSimpleColumns
+      .filter((col) => !this.exportExcludeList.includes(col._colDef.name))
+      .map((col) => ({
+        name: col._colDef.name,
+        label: col._elemRef.nativeElement.textContent,
+      }));
+    const headerMap = simpleColumns.concat(complexColumns);
+    const columns = [...this._contentHeaderRowDefs.first.columns];
+    const keys = columns.filter((c) => !this.exportExcludeList.includes(c));
+    const headers = keys.map(
+      (col) => (headerMap.find((h) => h.name == col) || { label: '' }).label,
     );
-    const keys = columns.map((col) => col.name);
-    const headers = columns.map((col) => col.label);
 
     // header row
     csvObj.csv += headers.join(',') + '\n';
 
-    for (const row of exportData) {
-      for (let idx = 0; idx < keys.length; idx++) {
-        const key = keys[idx];
-        const accessor = this._displayAccessorMap.get(key);
-        const val = accessor ? accessor(row, key) : row[key];
-        this._appendValToCSV(csvObj, val, idx, keys.length);
+    //Determine if data not included in data source
+    const tempRow = exportData[0];
+    const missingColumns = keys.filter((k) => typeof tempRow[k] == 'undefined');
+    if (missingColumns.length) {
+      /* Data has been put directly into table instead of dataSource
+         Fallback and extract visable data from rows
+         Note: only extracts visible rows
+      */
+      const rowCount = this._rowOutlet.viewContainer.length;
+      for (let i = 0; i < rowCount; i++) {
+        const rowEl = (
+          this._rowOutlet.viewContainer.get(i) as EmbeddedViewRef<DtRow>
+        ).rootNodes[0];
+        const cells = rowEl.childNodes;
+        for (let j = 0; j < cells.length; j++) {
+          //if excluded, skip
+          if (!keys.includes(columns[j])) continue;
+          const txt = cells[j].innerText;
+          this._appendValToCSV(csvObj, txt, j, cells.length);
+        }
+        this._appendNLtoCSV(csvObj, keys, columns);
       }
-      csvObj.csv += '\n';
+    } else {
+      //Prefer data from dataSource as it gets all pages
+      // data rows
+      for (const row of exportData) {
+        for (let idx = 0; idx < keys.length; idx++) {
+          const key = keys[idx];
+          const accessor = this._displayAccessorMap.get(key);
+          const val = accessor ? accessor(row, key) : row[key];
+          this._appendValToCSV(csvObj, val, idx, keys.length);
+        }
+        this._appendNLtoCSV(csvObj, keys, columns);
+      }
     }
-
-    this._downloadCSV(csvObj.csv);
+    return csvObj;
   }
 
   /** Assemble the CSV while safely handling types. */
@@ -516,6 +608,23 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     if (idx < len) {
       csvObj.csv += ',';
     }
+  }
+
+  /** Append newline to CSV safely */
+  private _appendNLtoCSV(
+    csvObj: { csv: string },
+    keys: string[],
+    columns: string[],
+  ): void {
+    //handle excluded last column
+    if (
+      !keys.includes(columns[columns.length - 1]) &&
+      csvObj.csv.charAt(csvObj.csv.length - 1) === ','
+    )
+      csvObj.csv = csvObj.csv.substring(0, csvObj.csv.length - 1);
+
+    //next line
+    csvObj.csv += '\n';
   }
 
   /** @internal Export only the rows which are currently selected. */
