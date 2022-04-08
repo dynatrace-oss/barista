@@ -1426,61 +1426,6 @@ describe('DtFilterField', () => {
       advanceFilterfieldCycle(false);
     });
 
-    it('should not display the clear all button if no filters are set', () => {
-      // Check if the clear all is initially not visible.
-      expect(isClearAllVisible(fixture)).toBe(false);
-
-      const autocompleteFilter = [
-        TEST_DATA_EDITMODE.autocomplete[0],
-        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
-        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
-          .autocomplete[0].options[0],
-      ];
-      filterField.filters = [autocompleteFilter];
-      fixture.detectChanges();
-
-      // After setting the filters, there should be a clear all button visible.
-      expect(isClearAllVisible(fixture)).toBe(true);
-    });
-
-    // the user is in the edit mode of a filter
-    it('should not display the clear all button if the filter field is focused', () => {
-      const autocompleteFilter = [
-        TEST_DATA_EDITMODE.autocomplete[0],
-        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
-        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
-          .autocomplete[0].options[0],
-      ];
-      filterField.filters = [autocompleteFilter];
-      fixture.detectChanges();
-
-      filterField.focus();
-      advanceFilterfieldCycle();
-
-      expect(isClearAllVisible(fixture)).toBe(false);
-    });
-
-    // the user is in the edit mode of a filter
-    it('should not display the clear all button if the current def is not the root def or a panel is open', () => {
-      const autocompleteFilter = [
-        TEST_DATA_EDITMODE.autocomplete[0],
-        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
-        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
-          .autocomplete[0].options[0],
-      ];
-      filterField.filters = [autocompleteFilter];
-      fixture.detectChanges();
-
-      filterField.focus();
-      advanceFilterfieldCycle();
-
-      const options = getOptions(overlayContainerElement);
-      const autOption = options[0];
-      autOption.click();
-
-      expect(isClearAllVisible(fixture)).toBe(false);
-    });
-
     it('should not display the clear all button if no label is provided', () => {
       const autocompleteFilter = [
         TEST_DATA_EDITMODE.autocomplete[0],
