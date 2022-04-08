@@ -682,8 +682,12 @@ simpleColumn could look like this (example from the `dt-simple-number-column`).
 ### Simple
 
 By setting the `showExportButton` input to `true`, an `dtContextDialog` button
-is added just below the table, or in line with pagination if present. This
-dialog contains at least 2 buttons:
+is added just below the table, or in line with pagination if present.
+Alternatively, you may set it to `visible` or `table` to only show those
+buttons. Developers should prefer `true` over the alternatives as it gives the
+user the most value; however, limiting the output may be desirable if there are,
+for example, many columns in the table data which should not be exported. This
+dialog can contain up to 2 buttons:
 
 - **Export table data** which triggers a download of the currently filtered data
   as shown, without regard for pagination.
@@ -703,4 +707,6 @@ If `dtTableSelection` is enabled and you have connected `dtTableSelection` to
 - **Export selected rows** which triggers a download of the display data, but
   just for selected rows.
 
+Note: in this example `showExportButton` is set to `visible` to demonstrate the
+suppression of the **Export table data** button.
 <ba-live-example name="DtExampleTableExportSelection" fullwidth></ba-live-example>

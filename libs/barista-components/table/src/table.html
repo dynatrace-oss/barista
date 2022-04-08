@@ -7,10 +7,20 @@
   ariaLabelClose="Close export menu"
   overlayPanelClass="dt-exportMenu"
 >
-  <button dt-button variant="secondary" (click)="_exportDisplayData()">
+  <button
+    *ngIf="showExportButton === true || showExportButton === 'visible'"
+    dt-button
+    variant="secondary"
+    (click)="_exportDisplayData()"
+  >
     Export visible data
   </button>
-  <button dt-button variant="secondary" (click)="_exportFilteredData()">
+  <button
+    *ngIf="showExportButton === true || showExportButton === 'table'"
+    dt-button
+    variant="secondary"
+    (click)="_exportFilteredData()"
+  >
     Export table data
   </button>
   <button

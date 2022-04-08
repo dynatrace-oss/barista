@@ -156,7 +156,7 @@ export class DtExampleTableExport implements OnInit {
     // Set the dtPagination reference on the dataSource, so it can page the data.
     this.dataSource.pagination = this.pagination;
     // Set the pageSize to override the default page size.
-    this.dataSource.pageSize = 2;
+    this.dataSource.pageSize = 4;
   }
 
   percentageFormatter = formatPercent;
@@ -182,5 +182,9 @@ export class DtExampleTableExport implements OnInit {
   // tslint:disable-next-line: no-any
   memorySortAccessor(row: any): number {
     return row.memoryPerc;
+  }
+
+  techType(row: any): string {
+    return row.host.length % 2 ? 'Linux' : 'Windows';
   }
 }

@@ -82,6 +82,7 @@ describe('DtTable', () => {
           TestIndicatorApp,
           CustomEmptyState,
           TestCustomEmptyStateApp,
+          TestExportApp,
         ],
       });
 
@@ -671,6 +672,71 @@ describe('DtTable', () => {
       expect(headerRow.classList.contains('dt-table-sticky')).toBe(true);
     }));
   });
+
+  describe('Table Exporting', () => {
+    it('Should show ellipsis if true', fakeAsync(() => {
+      let dialogs: DebugElement[];
+      const fixture = TestBed.createComponent(TestExportApp);
+      fixture.componentInstance.showExportButton = true;
+      fixture.detectChanges();
+      // Expected 1 and only 1 DtContextDialog if enabled
+      dialogs = fixture.debugElement.queryAll(By.css('dt-context-dialog'));
+      expect(dialogs.length).toBe(1);
+    }));
+
+    it('Should show ellipsis if visible', fakeAsync(() => {
+      let dialogs: DebugElement[];
+      const fixture = TestBed.createComponent(TestExportApp);
+      //Show ellipsis if visible
+      fixture.componentInstance.showExportButton = 'visible';
+      fixture.detectChanges();
+      dialogs = fixture.debugElement.queryAll(By.css('dt-context-dialog'));
+      expect(dialogs.length).toBe(1);
+    }));
+
+    it('Should  show ellipsis if table', fakeAsync(() => {
+      let dialogs: DebugElement[];
+      const fixture = TestBed.createComponent(TestExportApp);
+      //Show ellipsis if table
+      fixture.componentInstance.showExportButton = 'table';
+      fixture.detectChanges();
+      dialogs = fixture.debugElement.queryAll(By.css('dt-context-dialog'));
+      expect(dialogs.length).toBe(1);
+    }));
+
+    it('Should not show ellipsis if false', fakeAsync(() => {
+      let dialogs: DebugElement[];
+      const fixture = TestBed.createComponent(TestExportApp);
+      //Disable export and wait for component to update
+      fixture.componentInstance.showExportButton = false;
+      fixture.detectChanges();
+      dialogs = fixture.debugElement.queryAll(By.css('dt-context-dialog'));
+      // Expected the DtContextDialog not rendered if not enabled
+      expect(dialogs.length).toBe(0);
+    }));
+
+    it('Should export visible data', fakeAsync(() => {
+      const fixture = TestBed.createComponent(TestExportApp);
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      const displayData =
+        fixture.componentInstance.tableComponent._generateDisplayCSV();
+      console.log('displayData:' + displayData?.csv);
+      expect(displayData).toHaveProperty('csv');
+      expect(displayData?.csv).toMatch(/Simple,Complex/);
+      expect(displayData?.csv).toMatch(/(test 1,".+",?\n){4}/m);
+      const filteredData =
+        fixture.componentInstance.tableComponent._generateFilteredCSV();
+      console.log('filteredData:' + filteredData?.csv);
+      expect(filteredData).toHaveProperty('csv');
+      expect(filteredData?.csv).toMatch(
+        /simple,complex.obj.subobj.keyA,complex.obj.keyB/,
+      );
+      expect(filteredData?.csv).toMatch(/(test 1,val1,val2,?\n){4}/m);
+    }));
+  });
 });
 
 /**
@@ -727,10 +793,26 @@ class TestApp {
   @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   loading = false;
   dataSource: object[] | null | undefined | DtTableDataSource<any> = [
-    { col1: 'test 1', col2: 'test 2', col3: 'test 3' },
-    { col1: 'test 1', col2: 'test 2', col3: 'test 3' },
-    { col1: 'test 1', col2: 'test 2', col3: 'test 3' },
-    { col1: 'test 1', col2: 'test 2', col3: 'test 3' },
+    {
+      col1: 'test 1',
+      col2: 'test 2',
+      col3: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
+    {
+      col1: 'test 1',
+      col2: 'test 2',
+      col3: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
+    {
+      col1: 'test 1',
+      col2: 'test 2',
+      col3: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
+    {
+      col1: 'test 1',
+      col2: 'test 2',
+      col3: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
   ];
 
   constructor() {}
@@ -861,7 +943,13 @@ export class TestExpandableComponentModule {}
 class TestIndicatorApp {
   @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
   columns = ['col1', 'col2'];
-  dataSource: object[] = [{ col1: 'test 1', col2: 'test 2', col3: 'test 3' }];
+  dataSource: object[] = [
+    {
+      col1: 'test 1',
+      col2: 'test 2',
+      col3: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
+  ];
   color: 'error' | 'warning' = 'error';
   active = true;
 }
@@ -903,3 +991,72 @@ export class TestCustomEmptyStateApp {
   `,
 })
 export class CustomEmptyState {}
+
+@Component({
+  selector: 'dt-test-export-app',
+  template: `
+    <dt-table
+      [dataSource]="dataSource"
+      dtSort
+      [showExportButton]="showExportButton"
+      [exportExcludeList]="['excludeMe']"
+    >
+      <dt-simple-text-column
+        name="simple"
+        label="Simple"
+      ></dt-simple-text-column>
+
+      <ng-container
+        dtColumnDef="excludeMe"
+        dtColumnMinWidth="50"
+        dtColumnAlign="no-align-type"
+      >
+        <dt-header-cell *dtHeaderCellDef>Excluded</dt-header-cell>
+        <dt-cell *dtCellDef="let row">{{ row.excludeMe }}</dt-cell>
+      </ng-container>
+
+      <ng-container
+        dtColumnDef="complex"
+        dtColumnMinWidth="50"
+        dtColumnProportion="2"
+      >
+        <dt-header-cell *dtHeaderCellDef>Complex</dt-header-cell>
+        <dt-cell *dtCellDef="let row">{{ row.complex.obj.keyB }}</dt-cell>
+      </ng-container>
+
+      <dt-header-row
+        *dtHeaderRowDef="['simple', 'excludeMe', 'complex']"
+      ></dt-header-row>
+      <dt-row
+        *dtRowDef="let row; columns: ['simple', 'excludeMe', 'complex']"
+      ></dt-row>
+    </dt-table>
+  `,
+})
+class TestExportApp {
+  @ViewChild(DtTable, { static: true }) tableComponent: DtTable<object[]>;
+  loading = false;
+  showExportButton: boolean | 'visible' | 'table' = true;
+  dataSource: object[] | null | undefined | DtTableDataSource<any> = [
+    {
+      simple: 'test 1',
+      excludeMe: 'test 2',
+      complex: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
+    {
+      simple: 'test 1',
+      excludeMe: 'test 2',
+      complex: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
+    {
+      simple: 'test 1',
+      excludeMe: 'test 2',
+      complex: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
+    {
+      simple: 'test 1',
+      excludeMe: 'test 2',
+      complex: { obj: { subobj: { keyA: 'val1' }, keyB: 'val2' } },
+    },
+  ];
+}
