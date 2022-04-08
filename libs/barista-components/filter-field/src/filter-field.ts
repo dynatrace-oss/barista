@@ -489,28 +489,6 @@ export class DtFilterField<T = any>
    */
   _errors: string[] = [];
 
-  /** @internal Whether the clear all button is shown. */
-  get _showClearAll(): boolean {
-    return Boolean(
-      // If the filterfield itself is disabled, don't show the clear all
-      !this._disabled &&
-        // Show button only if we are not in the edit mode
-        this._rootDef === this._currentDef &&
-        // and only if there are actual filters that can be cleared
-        this._filters.length &&
-        // The button should also only be visible if the filter field is not focused
-        !this._isFocused &&
-        // and as the filter field can not be focused but a panel
-        // from the autocomplete or range can be open,
-        // we also need to check for those.
-        !this._autocomplete.isOpen &&
-        !this._filterfieldRange.isOpen &&
-        !this._multiSelect.isOpen &&
-        // A label has to be provided to show the button.
-        this.clearAllLabel,
-    );
-  }
-
   /** Whether we are currently in the edit mode of a filter */
   get _isInFilterEditMode(): boolean {
     return this._currentDef !== null && this._currentDef !== this._rootDef;
