@@ -6,6 +6,16 @@
   [exportExcludeList]="['action']"
 >
   <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
+  <ng-container
+    dtColumnDef="techType"
+    dtColumnAlign="text"
+    dtColumnProportion="2"
+  >
+    <dt-header-cell start="asc" *dtHeaderCellDef dt-sort-header i18n
+      >Technology</dt-header-cell
+    >
+    <dt-cell *dtCellDef="let row"> {{techType(row)}} </dt-cell>
+  </ng-container>
   <dt-simple-number-column name="cpu" label="CPU"></dt-simple-number-column>
   <dt-simple-number-column
     name="memoryPerc"
@@ -43,6 +53,7 @@
   <dt-header-row
     *dtHeaderRowDef="[
         'host',
+        'techType',
         'cpu',
         'memoryPerc',
         'memoryConsumption',
@@ -53,7 +64,7 @@
   <dt-row
     *dtRowDef="
         let row;
-        columns: ['host', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic', 'action']
+        columns: ['host', 'techType', 'cpu', 'memoryPerc', 'memoryConsumption', 'traffic', 'action']
       "
   ></dt-row>
 </dt-table>
