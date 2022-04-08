@@ -385,6 +385,11 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     this._store.dispatch(showGroupInDetailView(undefined));
   }
 
+  /** @internal Returns true if drawer is closed. */
+  _isDrawerClosed(): boolean {
+    return !this._drawer.opened;
+  }
+
   /**
    * @internal
    * When the user selects an option in the quick filter an action gets passed
