@@ -104,6 +104,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   private _multiExpand: boolean; // TODO: discuss default value with UX, should maybe change from false to true
   private _loading: boolean;
   private _destroy$ = new Subject<void>();
+
   private _showExportButton: boolean | 'visible' | 'table' = false; //Display button for Visible, Table, both (true), or neither (false)
   private _exportExcludeList: string[] = [];
 
@@ -310,8 +311,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     // destroyed.
     for (let i = 0; i < rowOutletViewContainer.length; i += 1) {
       const view = rowOutletViewContainer.get(i);
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      if (view!.destroyed === false) {
+      if (view?.destroyed === false) {
         shouldRender = true;
         break;
       }
@@ -410,10 +410,13 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     }
 
     const exportData = determineDataToExport(this, selectedData);
-    if (!exportData) return null;
+    if (!exportData) {
+      return null;
+    }
 
     const csvObj = { csv: '' };
-    const keys: string[] = Object.keys(exportData[0]).filter(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const keys: string[] = Object.keys(exportData[0] as any).filter(
       (h: string) => !this.exportExcludeList.includes(h),
     );
 
@@ -428,8 +431,7 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     for (const row of exportData) {
       for (let idx = 0; idx < keys.length; idx++) {
         const key = keys[idx];
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        let val: any;
+        let val: unknown;
         if (key.includes('.') && typeof row[key] == 'undefined') {
           val = deepObjectAccess(row, key);
         } else {
@@ -532,7 +534,9 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   /** @internal Exports the filtered display data from the dataSource after being formatted by a displayAccessor. */
   _exportDisplayData(selectedData?: T[]): void {
     const csvObj = this._generateDisplayCSV(selectedData);
-    if (csvObj) this._downloadCSV(csvObj.csv);
+    if (csvObj) {
+      this._downloadCSV(csvObj.csv);
+    }
   }
 
   /** @internal Generate display data for _exportDisplayData. Seperated out to facilitate unit testing. */
@@ -578,9 +582,9 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     const missingColumns = keys.filter((k) => typeof tempRow[k] == 'undefined');
     if (missingColumns.length) {
       /* Data has been put directly into table instead of dataSource
-         Fallback and extract visable data from rows
-         Note: only extracts visible rows
-      */
+          Fallback and extract visable data from rows
+          Note: only extracts visible rows
+       */
       const rowCount = this._rowOutlet.viewContainer.length;
       for (let i = 0; i < rowCount; i++) {
         const rowEl = (
