@@ -22,17 +22,6 @@
     (navigateTags)="_handleArrowKeyNavigation($event)"
   ></dt-filter-field-tag>
 
-  <button
-    dt-button
-    variant="secondary"
-    class="dt-filter-field-clear-all-button"
-    (click)="_clearAll($event)"
-    *ngIf="clearAllLabel"
-    [class.dt-filter-field-clear-all-button-hidden]="!_showClearAll"
-  >
-    {{ clearAllLabel }}
-  </button>
-
   <div
     class="dt-filter-field-infix"
     [ngClass]="{ 'dt-filter-field-infix-edit': _isInFilterEditMode }"
@@ -170,6 +159,17 @@
     (edit)="_handleTagEdit($event)"
     (navigateTags)="_handleArrowKeyNavigation($event)"
   ></dt-filter-field-tag>
+
+  <button
+    dt-button
+    variant="secondary"
+    class="dt-filter-field-clear-all-button"
+    *ngIf="clearAllLabel"
+    (click)="_clearAll($event)"
+    [disabled]="disabled"
+  >
+    {{ clearAllLabel }}
+  </button>
 </div>
 
 <div class="dt-filter-field-subscript-wrapper" *ngIf="_errors.length">
