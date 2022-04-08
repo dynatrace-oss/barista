@@ -61,6 +61,11 @@ $space: 20px;
   border-top: 1px solid $gray-200;
 }
 
+.dt-quick-filter-group-hidden {
+  /* Prevents tabbing into the filter group */
+  visibility: hidden;
+}
+
 .dt-quick-filter-open,
 .dt-quick-filter-close {
   appearance: none;
