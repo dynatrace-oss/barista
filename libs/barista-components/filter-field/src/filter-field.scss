@@ -60,6 +60,12 @@ $dt-filter-field-inner-height: 30px;
   @include dt-main-font();
   line-height: $dt-filter-field-inner-height;
   color: $gray-500;
+
+  label {
+    font-size: inherit;
+    color: inherit;
+    line-height: inherit;
+  }
 }
 
 .dt-filter-field-icon {
