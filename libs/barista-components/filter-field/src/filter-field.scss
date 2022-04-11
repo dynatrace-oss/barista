@@ -95,6 +95,10 @@ $dt-filter-field-inner-height: 30px;
   @include dt-main-font();
   line-height: $dt-filter-field-inner-height;
   color: $gray-500;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dt-filter-field-input {
