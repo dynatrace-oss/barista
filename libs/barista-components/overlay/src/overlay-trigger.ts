@@ -111,6 +111,8 @@ export class DtOverlayTrigger<T>
   ) {
     super();
     this.tabIndex = parseInt(tabIndex, 10) || 0;
+
+    this._focusMonitor.monitor(elementRef.nativeElement as HTMLElement, false);
   }
 
   /** On destroy hook to react to trigger being destroyed. */
@@ -119,6 +121,10 @@ export class DtOverlayTrigger<T>
     if (this._dtOverlayRef) {
       this._dismissOverlay();
     }
+
+    this._focusMonitor.stopMonitoring(
+      this.elementRef.nativeElement as HTMLElement,
+    );
   }
 
   /** Focuses the trigger. */
