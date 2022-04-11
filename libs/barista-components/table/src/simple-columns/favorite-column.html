@@ -30,6 +30,7 @@
     (click)="_toggleFavorite(data)"
     i18n-aria-label
     aria-label="Mark current row as favorite"
+    [attr.aria-pressed]="favorite"
   >
     <dt-icon
       [name]="favorite ? 'favorite' : 'star-empty'"
