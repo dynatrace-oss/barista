@@ -1,4 +1,4 @@
-name: "Slack release notifications"
+name: 'Slack release notifications'
 on:
   release:
     types: [published]
@@ -10,6 +10,6 @@ jobs:
         uses: actions/checkout@v1
       - uses: ./tools/slack-release-notifier/
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_RELEASE_BOT_TEST }}
