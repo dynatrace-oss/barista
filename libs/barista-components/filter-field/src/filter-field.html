@@ -1,15 +1,10 @@
 <div class="dt-filter-field-body">
-  <dt-loading-spinner
-    class="dt-filter-field-spinner"
-    *ngIf="loading"
-  ></dt-loading-spinner>
+  <dt-loading-spinner class="dt-filter-field-spinner" *ngIf="loading">
+  </dt-loading-spinner>
   <div class="dt-filter-field-label">
-    <dt-icon
-      *ngIf="!loading"
-      name="filter"
-      class="dt-filter-field-icon"
-    ></dt-icon>
-    <span>{{ label }}</span>
+    <dt-icon *ngIf="!loading" name="filter" class="dt-filter-field-icon">
+    </dt-icon>
+    <label [for]="_id">{{ label }}</label>
   </div>
 
   <dt-filter-field-tag
@@ -33,6 +28,8 @@
       #input
       type="text"
       class="dt-filter-field-input"
+      [id]="_id"
+      [readonly]="loading"
       [attr.aria-label]="ariaLabel"
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length || loading"
