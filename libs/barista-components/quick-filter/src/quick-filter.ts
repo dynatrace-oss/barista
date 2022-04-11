@@ -65,8 +65,10 @@ import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   DtTriggerableViewportResizer,
   DtViewportResizer,
+  _readKeyCode,
 } from '@dynatrace/barista-components/core';
 import { Platform } from '@angular/cdk/platform';
+import { ENTER } from '@angular/cdk/keycodes';
 
 /** Directive that is used to place a title inside the quick filters sidebar */
 @Directive({
@@ -158,6 +160,20 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    */
   @ViewChild(DtDrawer, { static: true })
   _drawer: DtDrawer;
+
+  /**
+   * @internal
+   * Instance of the drawer close button
+   */
+  @ViewChild('drawerCloseButton', { static: false })
+  _drawerCloseButton: ElementRef;
+
+  /**
+   * @internal
+   * Instance of the drawer close button
+   */
+  @ViewChild('drawerOpenButton', { static: false })
+  _drawerOpenButton: ElementRef;
 
   /**
    * The sidebarOpened property toggles the sidebar open state.
@@ -305,6 +321,36 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this._destroy$.next();
     this._destroy$.complete();
+  }
+
+  /**
+   * @internal
+   * Click handler for the close drawer button.
+   */
+  _closeDrawerKeyboardHandler(event: KeyboardEvent): void {
+    const keyCode = _readKeyCode(event);
+    if (keyCode === ENTER) {
+      event.preventDefault();
+      this._drawer.close();
+      this._zone.onStable.pipe(take(1)).subscribe(() => {
+        this._drawerOpenButton.nativeElement.focus();
+      });
+    }
+  }
+
+  /**
+   * @internal
+   * Click handler for the open drawer button.
+   */
+  _openDrawerKeyboardHandler(event: KeyboardEvent): void {
+    const keyCode = _readKeyCode(event);
+    if (keyCode === ENTER) {
+      event.preventDefault();
+      this._drawer.open();
+      this._zone.onStable.pipe(take(1)).subscribe(() => {
+        this._drawerCloseButton.nativeElement.focus();
+      });
+    }
   }
 
   /**

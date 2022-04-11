@@ -19,8 +19,10 @@
     <button
       *ngIf="drawer.opened"
       class="dt-quick-filter-close"
+      #drawerCloseButton
       aria-label="Closes the quick filter bar"
       (click)="drawer.close()"
+      (keydown)="_closeDrawerKeyboardHandler($event)"
     >
       ◀︎
     </button>
@@ -49,8 +51,10 @@
     <button
       *ngIf="!drawer.opened"
       class="dt-quick-filter-open"
+      #drawerOpenButton
       aria-label="Opens the quick filter bar"
       (click)="drawer.open()"
+      (keydown)="_openDrawerKeyboardHandler($event)"
     >
       ▶︎
     </button>
