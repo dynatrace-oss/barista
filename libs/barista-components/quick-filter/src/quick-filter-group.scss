@@ -9,6 +9,11 @@
   transform: translateX(-3px);
 }
 
+:host fieldset {
+  border: 0;
+  padding: 0;
+}
+
 .dt-quick-filter-group-headline {
   @include dt-h3-font();
   margin: 0 0 8px;
