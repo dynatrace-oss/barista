@@ -26,6 +26,7 @@ import {
   fakeAsync,
   inject,
   tick,
+  flush,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -329,6 +330,7 @@ describe('DtOverlayTrigger', () => {
     overlay = getContainerElement(overlayContainerElement);
 
     expect(overlay).toBeNull();
+    flush();
   }));
 
   it('should not open an overlay when disabled', fakeAsync(() => {
