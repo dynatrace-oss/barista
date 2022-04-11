@@ -184,6 +184,7 @@ export class DtFilterFieldCurrentFilterChangeEvent<T> {
 // has a flap open, to make sure we can close the old one.
 let currentlyOpenFilterField: DtFilterField<any> | null = null;
 
+let _uniqueId = 0;
 @Component({
   selector: 'dt-filter-field',
   exportAs: 'dtFilterField',
@@ -391,6 +392,9 @@ export class DtFilterField<T = any>
     // when the consumer sets disabled, editable or deletable on the tag instances
     delay(0),
   );
+
+  /** @internal Unique id for the filter field */
+  _id = `dt-filter-field-${_uniqueId++}`;
 
   /** Whether the filter-field is being interacted with */
   interactionState = false;
