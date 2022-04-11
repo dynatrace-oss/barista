@@ -1,4 +1,4 @@
-name: "Pull Request Labeler"
+name: 'Pull Request Labeler'
 on:
   pull_request:
     types: [labeled]
@@ -11,4 +11,4 @@ jobs:
         uses: actions/checkout@v1
       - uses: ./tools/pull-request-labeler
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'

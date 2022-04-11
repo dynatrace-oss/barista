@@ -60,33 +60,35 @@ import { DtTableDataSource } from './table-data-source';
 import { DtTableModule } from './table-module';
 
 describe('DtTable', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        DtTableModule,
-        DtEmptyStateModule,
-        DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
-        DtLoadingDistractorModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
-        TestExpandableComponentModule,
-        DtIndicatorModule,
-      ],
-      declarations: [
-        TestApp,
-        TestDynamicApp,
-        TestAppMultiExpandableTable,
-        TestStickyHeader,
-        TestIndicatorApp,
-        CustomEmptyState,
-        TestCustomEmptyStateApp,
-        TestExportApp,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          CommonModule,
+          DtTableModule,
+          DtEmptyStateModule,
+          DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
+          DtLoadingDistractorModule,
+          HttpClientTestingModule,
+          NoopAnimationsModule,
+          TestExpandableComponentModule,
+          DtIndicatorModule,
+        ],
+        declarations: [
+          TestApp,
+          TestDynamicApp,
+          TestAppMultiExpandableTable,
+          TestStickyHeader,
+          TestIndicatorApp,
+          CustomEmptyState,
+          TestCustomEmptyStateApp,
+          TestExportApp,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    }),
+  );
 
   // Regular table tests
   describe('Table Rendering', () => {
@@ -725,7 +727,6 @@ describe('DtTable', () => {
 
       const displayData =
         fixture.componentInstance.tableComponent._generateDisplayCSV();
-      console.log('displayData:' + displayData?.csv);
       expect(displayData).toHaveProperty('csv');
       expect(displayData?.csv).toMatch(/Simple,Complex/);
       expect(displayData?.csv).toMatch(/(test 1,".+",?\n){4}/m);
@@ -739,7 +740,6 @@ describe('DtTable', () => {
 
       const filteredData =
         fixture.componentInstance.tableComponent._generateFilteredCSV();
-      console.log('filteredData:' + filteredData?.csv);
       expect(filteredData).toHaveProperty('csv');
       expect(filteredData?.csv).toMatch(
         /simple,complex.obj.subobj.keyA,complex.obj.keyB/,

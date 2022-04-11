@@ -1,3 +1,4 @@
+// prettier-ignore
 :host.dt-color-main {
   --dt-breadcrumbs-item-default-color: var(--dt-theme-main-default-color);
   --dt-breadcrumbs-item-hover-color: var(--dt-theme-main-hover-color);
@@ -53,8 +54,8 @@
     background-color: var(--dt-breadcrumbs-item-default-color);
   }
 }
-
-/* stylelint-disable max-line-length */
+// prettier-ignore-start
+/* stylelint-disable max-line-length, prettier/prettier */
 // For whatever reason, stylelint-disable-next-line does not work...
 :host
   ::ng-deep
@@ -72,7 +73,8 @@
   .dt-breadcrumbs-item:first-child:not(:only-child):not(.dt-breadcrumbs-item-non-interactive):hover::before {
   background-color: var(--dt-breadcrumbs-item-hover-color);
 }
-/* stylelint-enable max-line-length */
+/* stylelint-enable max-line-length, prettier/prettier*/
+// prettier-ignore-end
 
 :host ::ng-deep .dt-breadcrumbs-item .dt-breadcrumb-non-clickable,
 :host ::ng-deep a.dt-breadcrumbs-item.dt-breadcrumbs-item-non-interactive,

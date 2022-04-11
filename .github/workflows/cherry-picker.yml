@@ -1,4 +1,4 @@
-name: "Cherry picker"
+name: 'Cherry picker'
 on:
   pull_request:
     types: [closed]
@@ -7,11 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        if:
+          github.event_name == 'pull_request' && github.event.action == 'closed'
+          && github.event.pull_request.merged == true
         uses: actions/checkout@v1
         with:
           ref: master
       - uses: ./tools/cherry-picker/
-        if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        if:
+          github.event_name == 'pull_request' && github.event.action == 'closed'
+          && github.event.pull_request.merged == true
         with:
-          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
