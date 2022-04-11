@@ -1,10 +1,18 @@
 @import '../../style/font-mixins';
 @import '../../core/src/style/variables';
+@import '../../core/src/style/interactive-common';
 
 :host {
   display: block;
   box-sizing: border-box;
   position: relative;
+}
+
+:host-context(.cdk-focused.cdk-keyboard-focused) :host,
+:host-context(.cdk-focused.cdk-program-focused) :host {
+  outline: none;
+
+  @include dt-focus-style();
 }
 
 // Bar styling.
