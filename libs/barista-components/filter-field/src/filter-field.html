@@ -9,7 +9,7 @@
       name="filter"
       class="dt-filter-field-icon"
     ></dt-icon>
-    <span>{{ label }}</span>
+    <label [for]="_id">{{ label }}</label>
   </div>
 
   <dt-filter-field-tag
@@ -33,6 +33,7 @@
       #input
       type="text"
       class="dt-filter-field-input"
+      [id]="_id"
       [readonly]="loading"
       [attr.aria-label]="ariaLabel"
       [dtAutocomplete]="autocomplete"
