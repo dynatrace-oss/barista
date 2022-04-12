@@ -160,7 +160,7 @@ export const _DtAutocompleteTriggerMixinBase = mixinViewportBoundaries<
     '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
     '[attr.aria-activedescendant]': 'activeOption?.id',
     '[attr.aria-expanded]':
-      'autocompleteDisabled ? null : panelOpen.toString()',
+      'autocompleteDisabled ? false : panelOpen.toString()',
     '[attr.aria-owns]':
       '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
     '(focusin)': '_handleFocus()',
