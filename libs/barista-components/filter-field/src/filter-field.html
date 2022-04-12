@@ -12,15 +12,17 @@
     <span>{{ label }}</span>
   </div>
 
-  <dt-filter-field-tag
-    *ngFor="let tagData of _prefixTagData"
-    [data]="tagData"
-    [filterFieldDisabled]="disabled"
-    [temporarilyDisabled]="_isInFilterEditMode"
-    (remove)="_handleTagRemove($event)"
-    (edit)="_handleTagEdit($event)"
-    (navigateTags)="_handleArrowKeyNavigation($event)"
-  ></dt-filter-field-tag>
+  <div role="list" style="display: contents">
+    <dt-filter-field-tag
+      *ngFor="let tagData of _prefixTagData"
+      [data]="tagData"
+      [filterFieldDisabled]="disabled"
+      [temporarilyDisabled]="_isInFilterEditMode"
+      (remove)="_handleTagRemove($event)"
+      (edit)="_handleTagEdit($event)"
+      (navigateTags)="_handleArrowKeyNavigation($event)"
+    ></dt-filter-field-tag>
+  </div>
 
   <div
     class="dt-filter-field-infix"
@@ -148,15 +150,17 @@
     </dt-filter-field-multi-select>
   </div>
 
-  <dt-filter-field-tag
-    *ngFor="let tagData of _suffixTagData"
-    [data]="tagData"
-    [filterFieldDisabled]="disabled"
-    [temporarilyDisabled]="_isInFilterEditMode"
-    (remove)="_handleTagRemove($event)"
-    (edit)="_handleTagEdit($event)"
-    (navigateTags)="_handleArrowKeyNavigation($event)"
-  ></dt-filter-field-tag>
+  <div role="list" style="display: contents">
+    <dt-filter-field-tag
+      *ngFor="let tagData of _suffixTagData"
+      [data]="tagData"
+      [filterFieldDisabled]="disabled"
+      [temporarilyDisabled]="_isInFilterEditMode"
+      (remove)="_handleTagRemove($event)"
+      (edit)="_handleTagEdit($event)"
+      (navigateTags)="_handleArrowKeyNavigation($event)"
+    ></dt-filter-field-tag>
+  </div>
 
   <button
     dt-button
