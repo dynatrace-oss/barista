@@ -70,7 +70,7 @@ export const _DtFilterFieldElementTriggerMixinBase = mixinViewportBoundaries<
 @Directive({
   host: {
     class: 'dt-element-trigger',
-    '[attr.aria-expanded]': 'elementDisabled ? null : panelOpen.toString()',
+    '[attr.aria-expanded]': 'elementDisabled ? false : panelOpen.toString()',
     '[attr.aria-owns]': '(elementDisabled || !panelOpen) ? null : element?.id',
     '(focusin)': '_handleFocus()',
     '(blur)': '_handleBlur()',
