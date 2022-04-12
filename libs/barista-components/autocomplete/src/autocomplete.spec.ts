@@ -1183,7 +1183,7 @@ describe('DtAutocomplete', () => {
 
       expect(input.getAttribute('role')).toBeFalsy();
       expect(input.getAttribute('aria-autocomplete')).toBeFalsy();
-      expect(input.getAttribute('aria-expanded')).toBeFalsy();
+      expect(input.getAttribute('aria-expanded')).toBe('false');
       expect(input.getAttribute('aria-owns')).toBeFalsy();
     });
   });
