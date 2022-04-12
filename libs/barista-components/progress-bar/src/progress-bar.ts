@@ -66,6 +66,8 @@ export const _DtProgressBar = mixinHasProgress(
     class: 'dt-progress-bar',
     role: 'progressbar',
     '[class.dt-progress-bar-end]': 'align == "end"',
+    '[attr.aria-label]': 'ariaLabel || null',
+    '[attr.aria-labelledby]': 'ariaLabelledby',
     '[attr.aria-valuemin]': 'min',
     '[attr.aria-valuemax]': 'max',
     '[attr.aria-valuenow]': 'value',
@@ -81,6 +83,14 @@ export class DtProgressBar
 {
   /** Defines the alignment of the bar. */
   @Input() align: 'start' | 'end' = 'start';
+
+  /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
+  // tslint:disable-next-line:no-input-rename
+  @Input('aria-label') ariaLabel = '';
+
+  /** The 'aria-describedby' attribute is read after the element's label and field type. */
+  // tslint:disable-next-line:no-input-rename
+  @Input('aria-labelledby') ariaLabelledby: string | null = null;
 
   /** @internal Reference to the description sub-component */
   @ContentChild(DtProgressBarDescription, { static: true })
