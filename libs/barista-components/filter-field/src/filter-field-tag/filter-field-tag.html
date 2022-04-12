@@ -28,7 +28,7 @@
       'dt-filter-field-tag-button-temporarily-disabled': temporarilyDisabled,
       'dt-filter-field-tag-button-nested': !temporarilyDisabled
     }"
-    [title]="temporarilyDisabled ? 'currently in edit mode' : 'edit'"
+    [title]="temporarilyDisabled ? 'currently in edit mode' : _getTagTitle"
     [disabled]="filterFieldDisabled || !editable"
     (click)="_handleEdit($event)"
     (keyup)="_handleKeyUp($event)"
@@ -46,7 +46,7 @@
     'dt-filter-field-tag-button-temporarily-disabled': temporarilyDisabled,
     'dt-filter-field-tag-button-nested': !temporarilyDisabled
   }"
-  [title]="temporarilyDisabled ? 'currently in edit mode' : 'delete'"
+  [title]="temporarilyDisabled ? 'currently in edit mode' : _getTagDeleteTitle"
   [disabled]="filterFieldDisabled || disabled"
   (click)="_handleRemove($event)"
   (keyup)="_handleKeyUp($event)"
