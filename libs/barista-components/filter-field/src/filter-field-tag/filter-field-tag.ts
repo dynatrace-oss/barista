@@ -141,6 +141,22 @@ export class DtFilterFieldTag implements OnDestroy {
     }
   }
 
+  /**
+   * @internal
+   * Get a unique title for the edit button of the tag.
+   */
+  get _getTagTitle(): string {
+    return `Edit ${this._data.key} - ${this._data.value}`;
+  }
+
+  /**
+   * @internal
+   * Get a unique title for the delete button of the tag.
+   */
+  get _getTagDeleteTitle(): string {
+    return `Delete ${this._data.key} - ${this._data.value}`;
+  }
+
   /** Element refrence to the edit button */
   @ViewChild('editButton', { read: ElementRef })
   editButton: ElementRef<HTMLButtonElement>;
