@@ -24,7 +24,13 @@
 </ng-container>
 
 <ng-template #favoriteTemplate let-favorite="favorite" let-data="data">
-  <button dt-icon-button variant="nested" (click)="_toggleFavorite(data)">
+  <button
+    dt-icon-button
+    variant="nested"
+    (click)="_toggleFavorite(data)"
+    i18n-aria-label
+    aria-label="Mark current row as favorite"
+  >
     <dt-icon
       [name]="favorite ? 'favorite' : 'star-empty'"
       [class.dt-favorite-column-filled-star]="favorite"
