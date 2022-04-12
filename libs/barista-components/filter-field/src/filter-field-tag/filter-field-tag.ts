@@ -43,7 +43,7 @@ import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
   templateUrl: 'filter-field-tag.html',
   styleUrls: ['filter-field-tag.scss'],
   host: {
-    '[attr.role]': `'option'`,
+    '[attr.role]': `'listitem'`,
     class: 'dt-filter-field-tag',
     '[class.dt-filter-field-tag-disabled]': 'filterFieldDisabled || disabled',
     '[class.dt-filter-field-tag-read-only]': '!editable',
