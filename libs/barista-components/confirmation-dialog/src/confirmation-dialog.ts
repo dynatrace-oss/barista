@@ -73,6 +73,7 @@ const LOG: DtLogger = DtLoggerFactory.create('DtConfirmationDialog');
   preserveWhitespaces: false,
   host: {
     class: 'dt-confirmation-dialog',
+    role: 'dialog',
   },
   animations: [
     trigger('pop', [
