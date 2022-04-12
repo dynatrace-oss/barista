@@ -45,7 +45,7 @@ export class DtHeaderRowDef extends CdkHeaderRowDef {}
   styleUrls: ['./header-row.scss'],
   host: {
     class: 'dt-header-row',
-    role: 'rowheader',
+    role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
