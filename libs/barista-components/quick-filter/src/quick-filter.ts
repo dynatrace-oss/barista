@@ -261,6 +261,9 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   /** Subject that is used for bulk unsubscribing */
   private _destroy$ = new Subject<void>();
 
+  private _oldContentFocusedElement: HTMLElement | undefined;
+  private _oldDrawerFocusedElement: HTMLElement | undefined;
+
   constructor(
     private _zone: NgZone,
     private _elementRef: ElementRef<HTMLElement>,
@@ -322,6 +325,41 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    */
   closeSidebar(): void {
     this.toggleSidebar(false);
+  }
+
+  /**
+   * 1) Saves the content focused element, and
+   * 2) Sets the focus to the old drawer focused element if there was one.
+   */
+  _onOpenDrawerMouseDown(): void {
+    this._saveFocusedElement();
+    const focusOptions = { preventScroll: false };
+    setTimeout(() => {
+      if (this._oldDrawerFocusedElement) {
+        this._oldDrawerFocusedElement.focus(focusOptions);
+      } else if (this._oldContentFocusedElement) {
+        this._oldContentFocusedElement.focus(focusOptions);
+      }
+    }, 0);
+  }
+
+  /**
+   * 1) Saves the currently focused element, and
+   * 2) Sets the focus to the old content focused element
+   * (or if there was no old one then to the first content element).
+   */
+  _onCloseDrawerMouseDown(): void {
+    this._saveFocusedElement();
+
+    setTimeout(() => {
+      const focusOptions = { preventScroll: false };
+      if (this._oldContentFocusedElement) {
+        this._oldContentFocusedElement.focus(focusOptions);
+      } else {
+        const firstElementInContent = this._findFirstElementInContent();
+        firstElementInContent.focus(focusOptions);
+      }
+    }, 0);
   }
 
   /**
@@ -403,5 +441,35 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
     }
 
     return 0;
+  }
+
+  /**
+   *
+   * @returns first element in the content area. if there is no element, then
+   * the drawer button element (child at index 0) is returned.
+   */
+  private _findFirstElementInContent(): HTMLElement {
+    const contentElement = this._elementRef.nativeElement.querySelector(
+      '.dt-quick-filter-content',
+    ) as HTMLElement;
+    if (contentElement.childElementCount > 0) {
+      return contentElement.childNodes[1] as HTMLElement;
+    }
+    return contentElement.childNodes[0] as HTMLElement;
+  }
+
+  /**
+   * Saves activeElement to either '_oldContentFocusedElement' or
+   * '_oldDrawerFocusedElement' if it is located in the content area or drawer area.
+   */
+  private _saveFocusedElement(): void {
+    const activeElement = document.activeElement as HTMLElement;
+    const closestDrawer = activeElement.closest('.dt-drawer');
+    const closestContent = activeElement.closest('.dt-quick-filter-content');
+    if (closestContent) {
+      this._oldContentFocusedElement = activeElement;
+    } else if (closestDrawer) {
+      this._oldDrawerFocusedElement = activeElement;
+    }
   }
 }
