@@ -170,7 +170,7 @@
     "postcss-url": "^10.1.1",
     "prettier": "^2.4.1",
     "reflect-metadata": "^0.1.13",
-    "rollup": "^2.56.3",
+    "rollup": "^2.70.2",
     "rollup-plugin-local-resolve": "^1.0.7",
     "sass-graph": "^4.0.0",
     "sass-loader": "^12.4.0",
