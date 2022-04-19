@@ -1,5 +1,6 @@
 <button
   class="dt-chart-heatfield-marker"
+  [class.dt-chart-heatfield-expanded]="active || alwaysExpanded"
   [class.dt-chart-heatfield-active]="active"
   [style.visibility]="_isValidStartEndRange ? 'visible' : 'hidden'"
   #marker="cdkOverlayOrigin"

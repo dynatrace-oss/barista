@@ -94,6 +94,8 @@ export class DtChartHeatfield
   @Input() end: number;
   /** Optional text to be displayed inside heatfield button */
   @Input() text = '';
+  /** Flag to force the size of the marker */
+  @Input() alwaysExpanded = false;
 
   private _active = false;
 

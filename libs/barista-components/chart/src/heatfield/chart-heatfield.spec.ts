@@ -160,10 +160,12 @@ describe('DtChartHeatfield', () => {
       it('should set correct classes on click', () => {
         marker.click();
         fixture.detectChanges();
+        expect(marker.classList).toContain('dt-chart-heatfield-expanded');
         expect(marker.classList).toContain('dt-chart-heatfield-active');
 
         marker.click();
         fixture.detectChanges();
+        expect(marker.classList).not.toContain('dt-chart-heatfield-expanded');
         expect(marker.classList).not.toContain('dt-chart-heatfield-active');
       });
 
@@ -188,6 +190,7 @@ describe('DtChartHeatfield', () => {
         marker.focus();
         dispatchKeyboardEvent(marker, 'click', ENTER);
         fixture.detectChanges();
+        expect(marker.classList).toContain('dt-chart-heatfield-expanded');
         expect(marker.classList).toContain('dt-chart-heatfield-active');
         expect(overlayContainerElement.textContent).toContain('Problem 1');
       }));
@@ -195,6 +198,7 @@ describe('DtChartHeatfield', () => {
       it('should handle programmatic activation', () => {
         instance.isActive = true;
         fixture.detectChanges();
+        expect(marker.classList).toContain('dt-chart-heatfield-expanded');
         expect(marker.classList).toContain('dt-chart-heatfield-active');
         expect(overlayContainerElement.textContent).toContain('Problem 1');
       });
@@ -217,6 +221,7 @@ describe('DtChartHeatfield', () => {
       it('clicking on x button should close overlay', () => {
         closeOverlayButton.click();
         fixture.detectChanges();
+        expect(marker.classList).not.toContain('dt-chart-heatfield-expanded');
         expect(marker.classList).not.toContain('dt-chart-heatfield-active');
       });
 
@@ -224,6 +229,7 @@ describe('DtChartHeatfield', () => {
         dispatchKeyboardEvent(overlayContainerElement, 'keydown', ESCAPE);
         tick();
         fixture.detectChanges();
+        expect(marker.classList).not.toContain('dt-chart-heatfield-expanded');
         expect(marker.classList).not.toContain('dt-chart-heatfield-active');
       }));
     });
@@ -261,6 +267,17 @@ describe('DtChartHeatfield', () => {
         instance.text = 'Text to be displayed';
         fixture.detectChanges();
         expect(heatfieldNative.textContent).toContain('Text to be displayed');
+      });
+    });
+
+    describe('alwaysExpanded', () => {
+      it('should always expand the marker no matter if it is active or not', () => {
+        expect(marker.classList).not.toContain('dt-chart-heatfield-expanded');
+        expect(marker.classList).not.toContain('dt-chart-heatfield-active');
+        instance.alwaysExpanded = true;
+        fixture.detectChanges();
+        expect(marker.classList).toContain('dt-chart-heatfield-expanded');
+        expect(marker.classList).not.toContain('dt-chart-heatfield-active');
       });
     });
 
@@ -349,6 +366,7 @@ function validatePosition(
         [color]="color"
         [active]="isActive"
         [text]="text"
+        [alwaysExpanded]="alwaysExpanded"
       >
         Problem 1:
         <button>focus</button>
@@ -362,6 +380,7 @@ class SingleHeatfield {
   color: string;
   text = '';
   isActive: boolean;
+  alwaysExpanded = false;
 }
 
 /** Test component that contains an two heatfields */
