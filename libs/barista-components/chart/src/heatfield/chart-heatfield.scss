@@ -29,14 +29,15 @@ $animation-delay: 40ms;
   color: white;
 }
 
-.dt-chart-heatfield-marker.dt-chart-heatfield-active .dt-chart-heatfield-text {
+.dt-chart-heatfield-marker.dt-chart-heatfield-expanded
+  .dt-chart-heatfield-text {
   font-size: 8px;
   transform: scaleY(0.666666); // The parent it's scaled to 1.5 when active
   transform-origin: top;
   transition: transform 50ms ease-in-out;
 }
 
-.dt-chart-heatfield-marker.dt-chart-heatfield-active {
+.dt-chart-heatfield-marker.dt-chart-heatfield-expanded {
   transform: scaleY(1.5);
   transition: transform 50ms ease-in-out;
 }

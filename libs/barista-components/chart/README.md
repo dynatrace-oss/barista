@@ -302,6 +302,7 @@ an overload. To indicate this use case, add a heatfield with `color` set to
 | `aria-labelledby` | `string`              | `undefined` | ARIA reference to a label describing the icon in the consumption component. |
 | `color`           | 'error' &#124; 'main' | `'error'`   | Sets the color of the heatfield.                                            |
 | `text`            | `string`              | `''`        | The text displayed inside the heat field.                                   |
+| `alwaysExpanded`  | `boolean`             | `false`     | Flag to force the size of the marker.                                       |
 
 To make our components accessible it is obligatory to provide either an
 `aria-label` or `aria-labelledby`.
