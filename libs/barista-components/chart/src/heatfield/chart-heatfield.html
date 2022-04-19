@@ -7,7 +7,9 @@
   (click)="_toggleActive()"
   [attr.aria-label]="ariaLabel"
   [attr.aria-labelledby]="ariaLabelledBy"
-></button>
+>
+  <span class="dt-chart-heatfield-text">{{ text }}</span>
+</button>
 <ng-template
   cdkConnectedOverlay
   [cdkConnectedOverlayOrigin]="marker"

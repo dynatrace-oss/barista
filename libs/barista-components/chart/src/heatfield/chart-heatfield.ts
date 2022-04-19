@@ -92,6 +92,8 @@ export class DtChartHeatfield
   @Input() start: number;
   /** End on the xAxis of the chart for the heatfield */
   @Input() end: number;
+  /** Optional text to be displayed inside heatfield button */
+  @Input() text = '';
 
   private _active = false;
 

@@ -248,6 +248,22 @@ describe('DtChartHeatfield', () => {
       });
     });
 
+    describe('text', () => {
+      let heatfieldNative: HTMLElement;
+
+      beforeEach(() => {
+        heatfieldNative = fixture.debugElement.query(
+          By.css('.dt-chart-heatfield-text'),
+        ).nativeElement;
+      });
+
+      it('should display the text received as input', () => {
+        instance.text = 'Text to be displayed';
+        fixture.detectChanges();
+        expect(heatfieldNative.textContent).toContain('Text to be displayed');
+      });
+    });
+
     it('should focus the marker when tab clicked', () => {
       marker.focus();
       fixture.detectChanges();
@@ -332,6 +348,7 @@ function validatePosition(
         [end]="end"
         [color]="color"
         [active]="isActive"
+        [text]="text"
       >
         Problem 1:
         <button>focus</button>
@@ -343,6 +360,7 @@ class SingleHeatfield {
   start: number | undefined = 10000;
   end: number | undefined = 20000;
   color: string;
+  text = '';
   isActive: boolean;
 }
 
