@@ -1,3 +1,34 @@
+## [10.7.0](https://github.com/dynatrace-oss/barista/compare/10.6.0...10.7.0) (2022-04-20)
+
+### Bug Fixes
+
+- **expandable-section:** Fix issue where input focus was truncated if inside
+  expandable-section.
+  ([b6df10a](https://github.com/dynatrace-oss/barista/commit/b6df10ac3fcf2f37d51d07620e3376d84fc41460))
+- **filter-field:** Fixes an issue where the displayed label in edit mode might
+  overflow in certain cases.
+  ([e2d9e41](https://github.com/dynatrace-oss/barista/commit/e2d9e41cf83e797dfad135ab4affe1fa4868ed30))
+- **filter-field:** Make clear all filter keyboard accessible.
+  ([4099d69](https://github.com/dynatrace-oss/barista/commit/4099d696367f55f742ec22bf79c40874abdf5541))
+- **link:** Fixed external link icon in dark mode
+  ([eec1750](https://github.com/dynatrace-oss/barista/commit/eec175048270989dce2dc928aec5d01c2487bf02))
+- **link:** Fixes a regression in the placement of the external link icon.
+  ([a2a3fd8](https://github.com/dynatrace-oss/barista/commit/a2a3fd86c9e777b0d271b0ff12ac28dd53c75d40))
+- **progress-bar,overlay:** Fix focus monitoring on overlay trigger.
+  ([59d3281](https://github.com/dynatrace-oss/barista/commit/59d3281a32bac7e3f7997f89dc199475098a796b))
+- **quick-filter:** Keep focus on toggle when triggered with keyboard.
+  ([0034b7c](https://github.com/dynatrace-oss/barista/commit/0034b7cc437f72ca4c1dad4356e9f480ffdb232a))
+- **secondary-nav:** Fixes an issue with updated active links in sections not
+  applying section active class correctly.
+  ([7b7becc](https://github.com/dynatrace-oss/barista/commit/7b7becce8c8aef58158bbf3af3bbf6fa22dad37a))
+- **select:** Updated outline width when inside a form field
+  ([845e959](https://github.com/dynatrace-oss/barista/commit/845e959158d54b033c062b8c1ca168871d5efb63))
+
+### Features
+
+- **table:** Further updates to export as CSV
+  ([484572b](https://github.com/dynatrace-oss/barista/commit/484572bfb8cd9ad45beec6ad0c2bdd59f3f160c1))
+
 ## [10.6.2](https://github.com/dynatrace-oss/barista/compare/10.6.1...10.6.2) (2022-04-07)
 
 ### Bug Fixes
