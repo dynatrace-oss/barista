@@ -96,6 +96,8 @@ export class DtChartHeatfield
   @Input() text = '';
   /** Flag to force the size of the marker */
   @Input() alwaysExpanded = false;
+  /** Flag to prevent the backdrop to be displayed when active */
+  @Input() hideBackdrop = false;
 
   private _active = false;
 

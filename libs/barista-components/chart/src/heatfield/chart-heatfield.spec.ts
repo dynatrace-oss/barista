@@ -85,6 +85,7 @@ describe('DtChartHeatfield', () => {
     let fixture: ComponentFixture<SingleHeatfield>;
     let instance: SingleHeatfield;
     let marker: HTMLElement;
+    let backdrop: HTMLElement;
 
     beforeEach(() => {
       fixture = createComponent(SingleHeatfield);
@@ -95,11 +96,14 @@ describe('DtChartHeatfield', () => {
       marker = chartDebug.query(
         By.css('.dt-chart-heatfield-marker'),
       ).nativeElement;
+      backdrop = fixture.debugElement.query(
+        By.css('.dt-chart-heatfield-backdrop'),
+      ).nativeElement;
     });
 
     describe('Positioning', () => {
       it('should scale the heatfield correctly', () => {
-        validatePosition(fixture, 150, 50);
+        validatePosition(backdrop, fixture, 150, 50);
       });
 
       it('should rescale the heatfield correctly on container resize', () => {
@@ -107,7 +111,7 @@ describe('DtChartHeatfield', () => {
         fixture.detectChanges();
         chart._afterRender.next();
         chart.initHeatfield();
-        validatePosition(fixture, 200, 100);
+        validatePosition(backdrop, fixture, 200, 100);
       });
 
       it('should clamp the heatfield to the axisMin', () => {
@@ -117,7 +121,7 @@ describe('DtChartHeatfield', () => {
         chart.axisMax = 200000;
         fixture.detectChanges();
         chart._afterRender.next();
-        validatePosition(fixture, 100, 50);
+        validatePosition(backdrop, fixture, 100, 50);
       });
 
       it('should clamp the heatfield to the axisMax', () => {
@@ -125,7 +129,7 @@ describe('DtChartHeatfield', () => {
         instance.end = 150000;
         fixture.detectChanges();
         chart._afterRender.next();
-        validatePosition(fixture, 550, 50);
+        validatePosition(backdrop, fixture, 550, 50);
       });
 
       it('should clamp the heatfield to the axisMin and axisMax at the same time', () => {
@@ -135,7 +139,7 @@ describe('DtChartHeatfield', () => {
         chart.axisMax = 200000;
         fixture.detectChanges();
         chart._afterRender.next();
-        validatePosition(fixture, 100, 500);
+        validatePosition(backdrop, fixture, 100, 500);
       });
 
       it('should stretch the heatfield to the axisMax when end is undefined', () => {
@@ -144,7 +148,7 @@ describe('DtChartHeatfield', () => {
         chart.axisMax = 200000;
         fixture.detectChanges();
         chart._afterRender.next();
-        validatePosition(fixture, 100, 500);
+        validatePosition(backdrop, fixture, 100, 500);
       });
 
       it('should not render heatfield when start and end are undefined ', () => {
@@ -255,17 +259,13 @@ describe('DtChartHeatfield', () => {
     });
 
     describe('text', () => {
-      let heatfieldNative: HTMLElement;
-
-      beforeEach(() => {
-        heatfieldNative = fixture.debugElement.query(
-          By.css('.dt-chart-heatfield-text'),
-        ).nativeElement;
-      });
-
       it('should display the text received as input', () => {
         instance.text = 'Text to be displayed';
         fixture.detectChanges();
+
+        const heatfieldNative: HTMLElement = fixture.debugElement.query(
+          By.css('.dt-chart-heatfield-text'),
+        ).nativeElement;
         expect(heatfieldNative.textContent).toContain('Text to be displayed');
       });
     });
@@ -278,6 +278,17 @@ describe('DtChartHeatfield', () => {
         fixture.detectChanges();
         expect(marker.classList).toContain('dt-chart-heatfield-expanded');
         expect(marker.classList).not.toContain('dt-chart-heatfield-active');
+      });
+    });
+
+    describe('hideBackdrop', () => {
+      it('should prevent the backdrop to be displayed when the marker is active', () => {
+        instance.hideBackdrop = true;
+        marker.click();
+        fixture.detectChanges();
+        expect(backdrop.classList).toContain(
+          'dt-chart-heatfield-backdrop-hidden',
+        );
       });
     });
 
@@ -335,6 +346,7 @@ describe('DtChartHeatfield', () => {
 });
 
 function validatePosition(
+  backDrop: HTMLElement,
   fixture: ComponentFixture<SingleHeatfield>,
   expectedLeft: number,
   expectedWidth: number,
@@ -343,14 +355,11 @@ function validatePosition(
   const chartMarkerDebugElement = fixture.debugElement.query(
     By.css('.dt-chart-heatfield-marker'),
   );
-  const chartBackdropDebugElement = fixture.debugElement.query(
-    By.css('.dt-chart-heatfield-backdrop'),
-  );
   // cannot select svg subelements with By.css see - https://github.com/angular/angular/issues/15164
   const styleMarker = chartMarkerDebugElement.nativeElement.style;
   expect(styleMarker.left).toEqual(`${expectedLeft}px`);
   expect(styleMarker.width).toEqual(`${expectedWidth}px`);
-  const styleBackdrop = chartBackdropDebugElement.nativeElement.style;
+  const styleBackdrop = backDrop.style;
   expect(styleBackdrop.left).toEqual(`${expectedLeft}px`);
   expect(styleBackdrop.width).toEqual(`${expectedWidth}px`);
 }
@@ -367,6 +376,7 @@ function validatePosition(
         [active]="isActive"
         [text]="text"
         [alwaysExpanded]="alwaysExpanded"
+        [hideBackdrop]="hideBackdrop"
       >
         Problem 1:
         <button>focus</button>
@@ -381,6 +391,7 @@ class SingleHeatfield {
   text = '';
   isActive: boolean;
   alwaysExpanded = false;
+  hideBackdrop = false;
 }
 
 /** Test component that contains an two heatfields */

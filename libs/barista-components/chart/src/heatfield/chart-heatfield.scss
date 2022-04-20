@@ -20,7 +20,7 @@ $animation-delay: 40ms;
 }
 
 .dt-chart-heatfield-marker .dt-chart-heatfield-text {
-  font-size: 6px;
+  font-size: 7.5px;
   font-weight: bold;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -31,7 +31,7 @@ $animation-delay: 40ms;
 
 .dt-chart-heatfield-marker.dt-chart-heatfield-expanded
   .dt-chart-heatfield-text {
-  font-size: 8px;
+  font-size: 10px;
   transform: scaleY(0.666666); // The parent it's scaled to 1.5 when active
   transform-origin: top;
   transition: transform 50ms ease-in-out;
@@ -47,6 +47,10 @@ $animation-delay: 40ms;
   transform-origin: top;
   transform: scaleY(0);
   transition: transform $animation-duration ease-out;
+}
+
+.dt-chart-heatfield-backdrop-hidden {
+  display: none;
 }
 
 .dt-chart-heatfield-active + .dt-chart-heatfield-backdrop {
