@@ -303,6 +303,7 @@ an overload. To indicate this use case, add a heatfield with `color` set to
 | `color`           | 'error' &#124; 'main' | `'error'`   | Sets the color of the heatfield.                                            |
 | `text`            | `string`              | `''`        | The text displayed inside the heat field.                                   |
 | `alwaysExpanded`  | `boolean`             | `false`     | Flag to force the size of the marker.                                       |
+| `hideBackdrop`    | `boolean`             | `false`     | Flag to prevent the backdrop to be displayed when active.                   |
 
 To make our components accessible it is obligatory to provide either an
 `aria-label` or `aria-labelledby`.

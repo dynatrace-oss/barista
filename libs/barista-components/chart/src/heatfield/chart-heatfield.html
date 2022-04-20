@@ -9,7 +9,9 @@
   [attr.aria-label]="ariaLabel"
   [attr.aria-labelledby]="ariaLabelledBy"
 >
-  <span class="dt-chart-heatfield-text">{{ text }}</span>
+  <span class="dt-chart-heatfield-text" *ngIf="text?.length > 0">{{
+    text
+  }}</span>
 </button>
 <ng-template
   cdkConnectedOverlay
@@ -44,6 +46,7 @@
 
 <div
   class="dt-chart-heatfield-backdrop"
+  [class.dt-chart-heatfield-backdrop-hidden]="hideBackdrop"
   #backdrop
   [style.height.px]="_boundingBox && _boundingBox.height"
 ></div>
