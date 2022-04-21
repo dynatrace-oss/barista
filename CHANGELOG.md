@@ -1,3 +1,28 @@
+## [10.7.1](https://github.com/dynatrace-oss/barista/compare/10.7.0...10.7.1) (2022-04-21)
+
+### Bug Fixes
+
+- **confirmation-dialog:** Apply correct aria-role to confirmation dialog.
+  ([da430a7](https://github.com/dynatrace-oss/barista/commit/da430a768834262a12713f44c028e79ec16afc96))
+- **filter-field:** Add represenative titles to filter-field-tag buttons.
+  ([f858d1a](https://github.com/dynatrace-oss/barista/commit/f858d1a13e3fb1d1f542d4878456564ae06487a5))
+- **filter-field:** Connect visible label and form-element for accessibility.
+  ([14bf135](https://github.com/dynatrace-oss/barista/commit/14bf1356e1e65553d1f7c3cfc99e17462538f0d0))
+- **filter-field:** Fixes an issue with aria-expanded on autocompletes.
+  ([f97c4f6](https://github.com/dynatrace-oss/barista/commit/f97c4f633a9e1784959e48c2856ed2b8f95c0c43))
+- **filter-field:** Fixes an issue with roles on the filter-field-tag.
+  ([e430ca9](https://github.com/dynatrace-oss/barista/commit/e430ca93c7fa458610cf74a37916c1fa9742b602))
+- **progress-bar:** Expose aria-label and aria-labelledby props.
+  ([7199b45](https://github.com/dynatrace-oss/barista/commit/7199b45b074deb5f9548e83f6c7a3ff9676d1e42))
+- **quick-filter:** Add fieldsets to selection groups for accessibility.
+  ([cf5e561](https://github.com/dynatrace-oss/barista/commit/cf5e561328b3c09f4813df1f8cd29f16135f4db7))
+- **table:** Favorite column button now announces pressed state.
+  ([15f5f9a](https://github.com/dynatrace-oss/barista/commit/15f5f9a34b5132af81714d7f46ed8a0b84cfde6c))
+- **table:** Fixed role of the header row.
+  ([b2a269e](https://github.com/dynatrace-oss/barista/commit/b2a269ec4a27776c5ebc91829809a51ee04687e3))
+- **table:** Provide aria-label text for favorite column button.
+  ([3b06ec9](https://github.com/dynatrace-oss/barista/commit/3b06ec976292b793f9c16a99221717e0289878a7))
+
 ## [10.7.0](https://github.com/dynatrace-oss/barista/compare/10.6.0...10.7.0) (2022-04-20)
 
 ### Bug Fixes
