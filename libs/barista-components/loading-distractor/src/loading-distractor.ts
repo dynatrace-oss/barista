@@ -27,6 +27,9 @@ let nextUniqueId = 0;
   exportAs: 'dtLoadingDistractor',
   templateUrl: 'loading-distractor.html',
   styleUrls: ['loading-distractor.scss'],
+  host: {
+    role: 'alert',
+  },
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
