@@ -55,6 +55,7 @@ const iconLogger = DtLoggerFactory.create('DtIcon');
   host: {
     role: 'img',
     class: 'dt-icon',
+    '[attr.aria-label]': 'ariaLabel',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   // Disabled view encapsulation because we need to access and style
@@ -79,6 +80,9 @@ export class DtIcon implements OnChanges {
       this._color = value;
     }
   }
+
+  @Input('aria-label') ariaLabel?: string;
+
   private _color: DtIconColorPalette;
 
   constructor(

@@ -67,7 +67,12 @@ describe('DtIcon', () => {
           HttpClientTestingModule,
           DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
         ],
-        declarations: [IconWithName, IconWithColor, IconWithAriaHiddenFalse],
+        declarations: [
+          IconWithName,
+          IconWithColor,
+          IconWithAriaHiddenFalse,
+          IconWithAriaLabel,
+        ],
       });
 
       TestBed.compileComponents();
@@ -264,6 +269,20 @@ describe('DtIcon', () => {
 
     expect(iconElement.childNodes.length).toBe(0);
   });
+
+  it('should support setting a custom aria-label', () => {
+    const fixture = createComponent(IconWithAriaLabel);
+    const iconElement =
+      fixture.debugElement.nativeElement.querySelector('dt-icon');
+    expect(iconElement.getAttribute('aria-label')).toBe('spy');
+  });
+
+  it('should not have an aria-label by default', () => {
+    const fixture = createComponent(IconWithName);
+    const iconElement =
+      fixture.debugElement.nativeElement.querySelector('dt-icon');
+    expect(iconElement.hasAttribute('aria-label')).toBe(false);
+  });
 });
 
 describe('DtIcon without config', () => {
@@ -335,3 +354,9 @@ class IconWithColor {
   template: '<dt-icon name="agent" aria-hidden="false">face</dt-icon>',
 })
 class IconWithAriaHiddenFalse {}
+
+@Component({
+  template:
+    '<dt-icon name="agent" aria-hidden="false" aria-label="spy">face</dt-icon>',
+})
+class IconWithAriaLabel {}

@@ -8,7 +8,11 @@
   >
     <ng-container *ngTemplateOutlet="content"></ng-container>
     <div class="dt-sort-header-arrow" *ngIf="!_isDisabled">
-      <dt-icon [name]="_sortIconName"></dt-icon>
+      <dt-icon
+        [name]="_sortIconName"
+        [aria-label]="_sortAriaLabel"
+        aria-hidden="false"
+      ></dt-icon>
     </div>
   </button>
   <ng-container *ngIf="!sortable">

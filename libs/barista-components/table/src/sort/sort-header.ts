@@ -43,6 +43,7 @@ import { getDtSortHeaderNotContainedWithinSortError } from './sort-errors';
  * @internal
  */
 export class DtSortHeaderBase {}
+
 export const _DtSortHeaderMixinBase = mixinDisabled(DtSortHeaderBase);
 
 /**
@@ -81,18 +82,27 @@ export class DtSortHeader
     'sorter-double';
 
   /**
+   * The aria label for the sort icon based on the state.
+   * @internal
+   */
+  _sortAriaLabel: 'Sorted descending' | 'Sorted ascending' | 'Not sorted' =
+    'Not sorted';
+
+  /**
    * Enables sorting on the dt-sort-header by applying the directive or not.
    */
   @Input('dt-sort-header')
   get sortable(): boolean {
     return this._sortable;
   }
+
   set sortable(value: boolean) {
     this._sortable = coerceBooleanProperty(value);
     if (this.sortable && !this._sort) {
       throw getDtSortHeaderNotContainedWithinSortError();
     }
   }
+
   private _sortable = true;
   static ngAcceptInputType_sortable: BooleanInput;
 
@@ -167,6 +177,11 @@ export class DtSortHeader
         ? 'sorter2-up'
         : 'sorter2-down'
       : 'sorter-double';
+    this._sortAriaLabel = this._isSorted
+      ? this._sort.direction === 'asc'
+        ? 'Sorted ascending'
+        : 'Sorted descending'
+      : 'Not sorted';
   }
 
   /**
