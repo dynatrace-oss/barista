@@ -74,32 +74,43 @@ describe('DtSort', () => {
   });
 
   describe('checking correct icon for its various states', () => {
-    let expectedStates: Map<string, { iconName: string }>;
+    let expectedStates: Map<string, { iconName: string; ariaLabel: string }>;
 
     beforeEach(() => {
       // Starting state for the view and directions
-      expectedStates = new Map<string, { iconName: string }>([
-        ['column_a', { iconName: 'sorter-double' }],
-        ['column_b', { iconName: 'sorter-double' }],
-        ['column_c', { iconName: 'sorter-double' }],
-      ]);
+      expectedStates = new Map<string, { iconName: string; ariaLabel: string }>(
+        [
+          ['column_a', { iconName: 'sorter-double', ariaLabel: 'Not sorted' }],
+          ['column_b', { iconName: 'sorter-double', ariaLabel: 'Not sorted' }],
+          ['column_c', { iconName: 'sorter-double', ariaLabel: 'Not sorted' }],
+        ],
+      );
       component.expectIconStates(expectedStates);
     });
 
     it('should be correct when cycling through a default sort header', () => {
       // Sort the header to set it to the active start state
       component.sort('column_a');
-      expectedStates.set('column_a', { iconName: 'sorter2-up' });
+      expectedStates.set('column_a', {
+        iconName: 'sorter2-up',
+        ariaLabel: 'Sorted ascending',
+      });
       component.expectIconStates(expectedStates);
 
       // Sorting again will reverse its direction
       component.dispatchMouseEvent('column_a', 'click');
-      expectedStates.set('column_a', { iconName: 'sorter2-down' });
+      expectedStates.set('column_a', {
+        iconName: 'sorter2-down',
+        ariaLabel: 'Sorted descending',
+      });
       component.expectIconStates(expectedStates);
 
       // Sorting again continue the cycle
       component.dispatchMouseEvent('column_a', 'click');
-      expectedStates.set('column_a', { iconName: 'sorter2-up' });
+      expectedStates.set('column_a', {
+        iconName: 'sorter2-up',
+        ariaLabel: 'Sorted ascending',
+      });
       component.expectIconStates(expectedStates);
     });
 
@@ -495,6 +506,7 @@ class FakeDataSource extends DataSource<any> {
   connect(collectionViewer: CollectionViewer): Observable<any[]> {
     return collectionViewer.viewChange.pipe(map(() => []));
   }
+
   disconnect(): void {}
 }
 
@@ -593,7 +605,9 @@ class DtTableSortApp {
     dispatchMouseEvent(sortElement, event);
   }
 
-  expectIconStates(viewStates: Map<string, { iconName: string }>): void {
+  expectIconStates(
+    viewStates: Map<string, { iconName: string; ariaLabel: string }>,
+  ): void {
     const sortHeaders = new Map([
       ['column_a', this.sortHeaderA],
       ['column_b', this.sortHeaderB],
@@ -602,6 +616,7 @@ class DtTableSortApp {
 
     viewStates.forEach((viewState, id) => {
       expect(sortHeaders.get(id)!._sortIconName).toEqual(viewState.iconName);
+      expect(sortHeaders.get(id)!._sortAriaLabel).toEqual(viewState.ariaLabel);
     });
   }
 }
