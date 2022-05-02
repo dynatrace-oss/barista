@@ -4,6 +4,8 @@
     role="listbox"
     [id]="id"
     [ngClass]="_classList"
+    [attr.aria-label]="ariaLabel"
+    [attr.aria-labelledby]="ariaLabelledBy"
     #panel
   >
     <ng-content></ng-content>

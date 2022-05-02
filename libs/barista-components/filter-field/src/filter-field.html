@@ -58,6 +58,7 @@
       [autoActiveFirstOption]="_currentDef && !!_currentDef!.autocomplete"
       panelWidth="400px"
       class="dt-filter-field-panel"
+      [aria-label]="label"
     >
       <ng-container *ngIf="_defaultSearchDef && _inputValue">
         <dt-option

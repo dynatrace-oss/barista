@@ -113,6 +113,11 @@ export class DtAutocomplete<T>
   /** Function that maps an option's control value to its display value in the trigger. */
   @Input() displayWith: ((value: T) => string) | null = null;
 
+  /** Aria label of the autocomplete. */
+  @Input('aria-label') ariaLabel: string;
+  /** Input that can be used to specify the `aria-labelledby` attribute. */
+  @Input('aria-labelledby') ariaLabelledBy: string | null = null;
+
   /** Event that is emitted whenever an option from the list is selected. */
   @Output() readonly optionSelected = new EventEmitter<
     DtAutocompleteSelectedEvent<T>
