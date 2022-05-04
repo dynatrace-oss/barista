@@ -1,3 +1,19 @@
+## [10.7.2](https://github.com/dynatrace-oss/barista/compare/10.7.1...10.7.2) (2022-05-04)
+
+### Bug Fixes
+
+- **autocomplete,filter-field:** Add aria label to the autocomplete. Closes
+  APM-357936
+  ([5f12795](https://github.com/dynatrace-oss/barista/commit/5f1279534ad26a866ec517abde4f5600109068a6))
+- **card:** Reflow of title actions is now possible at small screen sizes.
+  Closes APM-358314
+  ([abeb9be](https://github.com/dynatrace-oss/barista/commit/abeb9beab92ac34e1f4e536574f74d834398500a))
+- **loading-distractor:** Loading distractor text is now announced by screen
+  readers.
+  ([9181d8e](https://github.com/dynatrace-oss/barista/commit/9181d8e1b3cc6793af9b62ddae95a4f5e3432a88))
+- **table,icon:** Added aria-label to the sort icon. Closes 358137
+  ([2f49c4c](https://github.com/dynatrace-oss/barista/commit/2f49c4c98156c239bf7c2b1fc37c8ad687d33bfc))
+
 ## [10.7.1](https://github.com/dynatrace-oss/barista/compare/10.7.0...10.7.1) (2022-04-21)
 
 ### Bug Fixes
@@ -3078,7 +3094,7 @@ Bernd Farka
 - **logger:** The value `WARN` for the enum DtLogLevel has been renamed to
   `WARNING`.
 - **micro-chart:** Uniontype `DtMicroChartSeries` is no longer available for the
-  series input. Use `Observable<DtChartSeries[]>`, `Observable<DtChartSeries>`,
+  series input. Use `Observable<DtChartSeries[]>` , `Observable<DtChartSeries>`,
   `DtChartSeries[]` or `DtChartSeries` instead.
 - **table:** `<dt-expandable-cell>` is now required if you use a
   `<dt-expandable-row>`.
