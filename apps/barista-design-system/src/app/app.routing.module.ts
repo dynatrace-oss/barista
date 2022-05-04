@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { Route, RouterModule } from '@angular/router';
+import { Route, RouterModule, Router, Scroll } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { BaErrorPage } from '../pages/error-page/error-page';
 
 export const baristaRoutes: Route[] = [
@@ -101,4 +102,22 @@ export const baristaRoutes: Route[] = [
   exports: [RouterModule],
   providers: [],
 })
-export class BaRoutingModule {}
+export class BaRoutingModule {
+  constructor(
+    private router: Router,
+    private viewportScroller: ViewportScroller,
+  ) {
+    // A workaround due to an issue with scrolling on navigation as stated here:
+    // https://github.com/angular/angular/issues/24547
+    this.router.events
+      .pipe(filter((e): e is Scroll => e instanceof Scroll))
+      .subscribe((e) => {
+        if (e.anchor !== null) {
+          // Navigate to an anchor if it exists after a delay
+          setTimeout(() => {
+            viewportScroller.scrollToAnchor(e.anchor!);
+          }, 500);
+        }
+      });
+  }
+}
