@@ -147,7 +147,10 @@ export const _DtSelectMixinBase = mixinTabIndex(
   styleUrls: ['select.scss'],
   inputs: ['disabled', 'tabIndex'],
   host: {
-    role: 'listbox',
+    // Due to the nature of the select having an overlay containing the options,
+    // a role of listbox can't be used here since a11y expects the options to be descendants
+    // of the select overlay trigger (which isn't the case).
+    role: 'combobox',
     class: 'dt-select',
     '[class.dt-select-disabled]': 'disabled',
     '[class.dt-select-invalid]': 'errorState',
@@ -160,6 +163,8 @@ export const _DtSelectMixinBase = mixinTabIndex(
     '[attr.aria-required]': 'required.toString()',
     '[attr.aria-disabled]': 'disabled.toString()',
     '[attr.aria-invalid]': 'errorState',
+    '[attr.aria-expanded]': 'panelOpen',
+    '[aria-haspopup]': 'true',
     '[attr.aria-owns]': 'panelOpen ? _optionIds : null',
     '[attr.aria-describedby]': '_ariaDescribedby || null',
     '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
