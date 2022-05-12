@@ -33,6 +33,7 @@ export class DtExampleTableExport implements OnInit {
   private data: object[] = [
     {
       host: 'et-demo-2-win4',
+      uptime: '4 days',
       cpu: 30,
       memoryPerc: 38,
       memoryTotal: 5830000000,
@@ -56,6 +57,7 @@ export class DtExampleTableExport implements OnInit {
     },
     {
       host: 'et-demo-2-win3',
+      uptime: '4 hours',
       cpu: 26,
       memoryPerc: 46,
       memoryTotal: 6000000000,
@@ -67,6 +69,7 @@ export class DtExampleTableExport implements OnInit {
     },
     {
       host: 'docker-host2',
+      uptime: '4 seconds',
       cpu: 25.4,
       memoryPerc: 35,
       memoryTotal: 5810000000,
@@ -78,6 +81,7 @@ export class DtExampleTableExport implements OnInit {
     },
     {
       host: 'et-demo-2-win1',
+      uptime: '4 years',
       cpu: 23,
       memoryPerc: 7.86,
       memoryTotal: 5820000000,
@@ -89,6 +93,7 @@ export class DtExampleTableExport implements OnInit {
     },
     {
       host: 'et-demo-2-win8',
+      uptime: '44 days',
       cpu: 78,
       memoryPerc: 21,
       memoryTotal: 3520000000,
@@ -99,7 +104,8 @@ export class DtExampleTableExport implements OnInit {
       },
     },
     {
-      host: 'et-demo-2-macOS',
+      host: 'et-demo-2-macOS\n(my favorite host)',
+      uptime: '14 days',
       cpu: 21,
       memoryPerc: 34,
       memoryTotal: 3200000000,
@@ -111,6 +117,7 @@ export class DtExampleTableExport implements OnInit {
     },
     {
       host: 'kyber-host6',
+      uptime: '24 days',
       cpu: 12.3,
       memoryPerc: 12,
       memoryTotal: 2120000000,
@@ -129,6 +136,7 @@ export class DtExampleTableExport implements OnInit {
     },
     {
       host: 'dev-demo-5-macOS',
+      uptime: '47 days',
       cpu: 24,
       memoryPerc: 8.6,
       memoryTotal: 4670000000,
