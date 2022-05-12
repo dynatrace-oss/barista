@@ -4,8 +4,9 @@
   dtTableSelection
   showExportButton="visible"
   [dtTableIsRowDisabled]="isDisabled"
+  exportExcludeList="'details','checkbox'"
 >
-  <ng-container dtColumnDef="checkbox">
+  <ng-container dtColumnDef="checkbox" dtColumnProportion="1">
     <dt-table-header-selector
       *dtHeaderCellDef
       aria-label="Toggle all hosts"
@@ -16,10 +17,35 @@
       [aria-label]="'Toggle ' + row.host"
     ></dt-table-row-selector>
   </ng-container>
-  <dt-simple-text-column name="host" label="Host"></dt-simple-text-column>
-  <dt-simple-number-column name="cpu" label="CPU"></dt-simple-number-column>
-  <dt-header-row *dtHeaderRowDef="['checkbox', 'host', 'cpu']"></dt-header-row>
-  <dt-row *dtRowDef="let row; columns: ['checkbox', 'host', 'cpu']"></dt-row>
+  <dt-simple-text-column
+    name="host"
+    label="Host"
+    dtColumnProportion="2"
+  ></dt-simple-text-column>
+  <dt-simple-number-column
+    name="cpu"
+    label="CPU"
+    dtColumnProportion="1"
+  ></dt-simple-number-column>
+  <ng-container dtColumnDef="details" dtColumnAlign="number">
+    <dt-header-cell *dtHeaderCellDef dtColumnProportion="1"
+      >Details</dt-header-cell
+    >
+    <dt-expandable-cell
+      *dtCellDef
+      ariaLabel="Expand the row"
+    ></dt-expandable-cell>
+  </ng-container>
+  <dt-header-row
+    *dtHeaderRowDef="['checkbox', 'details', 'host', 'cpu']"
+  ></dt-header-row>
+  <dt-expandable-row
+    *dtRowDef="let row; columns: ['checkbox', 'details', 'host', 'cpu']"
+  >
+    <ng-template dtExpandableRowContent>
+      Expandable section for {{ row.host }}
+    </ng-template>
+  </dt-expandable-row>
 </dt-table>
 
 Current selection: {{ getCurrentSelection() }}
