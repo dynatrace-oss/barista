@@ -549,11 +549,14 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
         const rowEl = (
           this._rowOutlet.viewContainer.get(i) as EmbeddedViewRef<DtRow>
         ).rootNodes[0];
-        const cells = rowEl.childNodes;
+        const cells = rowEl.querySelectorAll('.dt-cell');
         for (let j = 0; j < cells.length; j++) {
           //if excluded, skip
           if (!keys.includes(columns[j])) continue;
-          const txt = cells[j].innerText;
+          //if an expandable cell, treat as blank, otherwise get text from cell
+          const txt = cells[j].matches('.dt-expandable-cell')
+            ? ''
+            : cells[j].innerText;
           this._appendValToCSV(csvObj, txt, j, cells.length);
         }
         this._appendNLtoCSV(csvObj, keys, columns);
@@ -583,6 +586,8 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
   ): void {
     switch (typeof val) {
       case 'string':
+        //replace newlines and tabs with spaces to avoid breaking CSV format
+        val = val.replace(/[\n\r\t]/g, ' ');
         break;
       case 'object': //if it's still complex, just convert to JSON and move on
         val = JSON.stringify(val);
