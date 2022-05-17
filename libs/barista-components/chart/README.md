@@ -293,17 +293,17 @@ an overload. To indicate this use case, add a heatfield with `color` set to
 
 ### Inputs
 
-| Name              | Type                  | Default     | Description                                                                 |
-| ----------------- | --------------------- | ----------- | --------------------------------------------------------------------------- |
-| `start`           | `number`              |             | The start numerical/date value on the x-axis of the chart.                  |
-| `end`             | `number`              |             | The end numerical/date value on the x-axis of the chart.                    |
-| `active`          | `boolean`             | `false`     | Whether the heatfield is active.                                            |
-| `aria-label`      | `string`              | `undefined` | The aria label used for the heatfield button.                               |
-| `aria-labelledby` | `string`              | `undefined` | ARIA reference to a label describing the icon in the consumption component. |
-| `color`           | 'error' &#124; 'main' | `'error'`   | Sets the color of the heatfield.                                            |
-| `text`            | `string`              | `''`        | The text displayed inside the heat field.                                   |
-| `alwaysExpanded`  | `boolean`             | `false`     | Flag to force the size of the marker.                                       |
-| `hideBackdrop`    | `boolean`             | `false`     | Flag to prevent the backdrop to be displayed when active.                   |
+| Name               | Type                  | Default     | Description                                                                 |
+| ------------------ | --------------------- | ----------- | --------------------------------------------------------------------------- |
+| `start`            | `number`              |             | The start numerical/date value on the x-axis of the chart.                  |
+| `end`              | `number`              |             | The end numerical/date value on the x-axis of the chart.                    |
+| `active`           | `boolean`             | `false`     | Whether the heatfield is active.                                            |
+| `aria-label`       | `string`              | `undefined` | The aria label used for the heatfield button.                               |
+| `aria-labelledby`  | `string`              | `undefined` | ARIA reference to a label describing the icon in the consumption component. |
+| `color`            | 'error' &#124; 'main' | `'error'`   | Sets the color of the heatfield.                                            |
+| `text`             | `string`              | `''`        | The text displayed inside the heat field.                                   |
+| `alwaysExpanded`   | `boolean`             | `false`     | Flag to force the size of the marker.                                       |
+| `isBackdropHidden` | `boolean`             | `false`     | Flag to prevent the backdrop to be displayed when active.                   |
 
 To make our components accessible it is obligatory to provide either an
 `aria-label` or `aria-labelledby`.

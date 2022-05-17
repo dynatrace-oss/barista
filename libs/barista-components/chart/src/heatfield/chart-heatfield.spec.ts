@@ -281,9 +281,9 @@ describe('DtChartHeatfield', () => {
       });
     });
 
-    describe('hideBackdrop', () => {
+    describe('isBackdropHidden', () => {
       it('should prevent the backdrop to be displayed when the marker is active', () => {
-        instance.hideBackdrop = true;
+        instance.isBackdropHidden = true;
         marker.click();
         fixture.detectChanges();
         expect(backdrop.classList).toContain(
@@ -376,7 +376,7 @@ function validatePosition(
         [active]="isActive"
         [text]="text"
         [alwaysExpanded]="alwaysExpanded"
-        [hideBackdrop]="hideBackdrop"
+        [isBackdropHidden]="isBackdropHidden"
       >
         Problem 1:
         <button>focus</button>
@@ -391,7 +391,7 @@ class SingleHeatfield {
   text = '';
   isActive: boolean;
   alwaysExpanded = false;
-  hideBackdrop = false;
+  isBackdropHidden = false;
 }
 
 /** Test component that contains an two heatfields */
