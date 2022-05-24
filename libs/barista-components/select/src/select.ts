@@ -164,7 +164,7 @@ export const _DtSelectMixinBase = mixinTabIndex(
     '[attr.aria-disabled]': 'disabled.toString()',
     '[attr.aria-invalid]': 'errorState',
     '[attr.aria-expanded]': 'panelOpen',
-    '[aria-haspopup]': 'true',
+    '[attr.aria-haspopup]': 'true',
     '[attr.aria-owns]': 'panelOpen ? _optionIds : null',
     '[attr.aria-describedby]': '_ariaDescribedby || null',
     '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
