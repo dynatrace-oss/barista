@@ -139,8 +139,8 @@ describe('DtSelect', () => {
           ).nativeElement;
         }));
 
-        it('should set the role of the select to listbox', fakeAsync(() => {
-          expect(select.getAttribute('role')).toEqual('listbox');
+        it('should set the role of the select to combobox', fakeAsync(() => {
+          expect(select.getAttribute('role')).toEqual('combobox');
         }));
 
         it('should set the aria label of the select to the placeholder', fakeAsync(() => {
