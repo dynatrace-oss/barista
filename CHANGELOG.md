@@ -1,3 +1,21 @@
+## [10.7.3](https://github.com/dynatrace-oss/barista/compare/10.7.2...10.7.3) (2022-05-30)
+
+### Bug Fixes
+
+- **barista:** Fixed scrolling to link anchor on page load. Closes APM-366476
+  ([c36de5d](https://github.com/dynatrace-oss/barista/commit/c36de5dd581620e740d2df4609de52eb0a615a31))
+- **link:** External link icon is scaled correctly in Safari.
+  ([0995646](https://github.com/dynatrace-oss/barista/commit/099564651e6bfb5a252fff94e9d8030323c73910))
+- **quick-filter:** Quick filter no longer get tabbed through when drawer is
+  closed. Fixes APM-358368
+  ([b2aa145](https://github.com/dynatrace-oss/barista/commit/b2aa145303c4d219bdc6fc161e8d107fdb23b8dc))
+- **select:** Fixed incorrect aria-haspopup attribute on host.
+  ([28f35d0](https://github.com/dynatrace-oss/barista/commit/28f35d03a0e22fa987671f5be85353ad2c4d0705))
+- **select:** Fixes an issue with role on select.
+  ([e5c13c5](https://github.com/dynatrace-oss/barista/commit/e5c13c5a6a4b6ef7aaee8c534966dff9c7f72a17))
+- **table:** Export handles newlines & expand rows.
+  ([4a06d1a](https://github.com/dynatrace-oss/barista/commit/4a06d1add9869a7f437430a274e656ea4ee547ce))
+
 ## [10.7.2](https://github.com/dynatrace-oss/barista/compare/10.7.1...10.7.2) (2022-05-04)
 
 ### Bug Fixes
