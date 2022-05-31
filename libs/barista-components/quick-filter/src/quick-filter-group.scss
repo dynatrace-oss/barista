@@ -12,6 +12,9 @@
 :host fieldset {
   border: 0;
   padding: 0;
+  // To prevent fieldset from overflowing flex container
+  min-width: 0;
+  max-width: 100%;
 }
 
 .dt-quick-filter-group-headline {
