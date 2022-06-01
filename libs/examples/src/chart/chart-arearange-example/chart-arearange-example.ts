@@ -18,12 +18,14 @@
 
 import { Component } from '@angular/core';
 
+import { DtChartOptions } from '@dynatrace/barista-components/chart';
+
 @Component({
   selector: 'dt-example-chart-arearange',
   templateUrl: 'chart-arearange-example.html',
 })
 export class DtExampleChartAreaRange {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     chart: {
       type: 'arearange',
     },
