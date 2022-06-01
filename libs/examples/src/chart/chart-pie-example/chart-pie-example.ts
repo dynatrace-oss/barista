@@ -17,13 +17,17 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-pie',
   templateUrl: 'chart-pie-example.html',
 })
 export class DtExampleChartPie {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     chart: {
       type: 'pie',
     },
@@ -48,7 +52,7 @@ export class DtExampleChartPie {
     },
   };
 
-  series: Highcharts.SeriesPieOptions[] = [
+  series: DtChartSeries[] = [
     {
       type: 'pie',
       name: 'Browsers',

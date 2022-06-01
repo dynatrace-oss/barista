@@ -19,14 +19,17 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { DtChartExampleDataService } from '../chart-example-data.service';
-import { DtChartSeries } from '@dynatrace/barista-components/chart';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-stream',
   templateUrl: 'chart-stream-example.html',
 })
 export class DtExampleChartStream {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     xAxis: {
       type: 'datetime',
     },

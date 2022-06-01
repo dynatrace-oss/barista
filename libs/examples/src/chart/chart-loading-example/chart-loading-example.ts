@@ -18,18 +18,20 @@
 
 import { Component } from '@angular/core';
 
-import { DtChartSeries } from '@dynatrace/barista-components/chart';
-import { DtColors } from '@dynatrace/barista-components/theming';
-
 import { generateData } from '../chart-data-utils';
-import { SeriesLineOptions } from 'highcharts';
+
+import { DtColors } from '@dynatrace/barista-components/theming';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-loading',
   templateUrl: 'chart-loading-example.html',
 })
 export class DtExampleChartLoading {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     xAxis: {
       type: 'datetime',
     },
@@ -47,7 +49,7 @@ export class DtExampleChartLoading {
   series: DtChartSeries[] | null;
 
   toggleData(): void {
-    const dummyData: SeriesLineOptions[] = [
+    const dummyData: DtChartSeries[] = [
       {
         name: 'Failure rate',
         type: 'line',

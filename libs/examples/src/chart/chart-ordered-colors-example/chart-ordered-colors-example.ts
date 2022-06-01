@@ -19,13 +19,17 @@
 import { Component } from '@angular/core';
 
 import { generateData } from '../chart-data-utils';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-ordered-colors',
   templateUrl: 'chart-ordered-colors-example.html',
 })
 export class DtExampleChartOrderedColors {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     xAxis: {
       type: 'datetime',
     },
@@ -58,7 +62,7 @@ export class DtExampleChartOrderedColors {
     },
   };
 
-  series: Highcharts.SeriesOptionsType[] = [
+  series: DtChartSeries[] = [
     {
       name: 'Requests',
       type: 'column',

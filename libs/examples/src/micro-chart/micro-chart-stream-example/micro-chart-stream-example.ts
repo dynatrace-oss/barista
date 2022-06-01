@@ -20,22 +20,23 @@ import { Component } from '@angular/core';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { DtChartOptions } from '@dynatrace/barista-components/chart';
-
 import { generateData } from '../data';
-import { SeriesOptionsType } from 'highcharts';
+import {
+  DtMicroChartOptions,
+  DtMicroChartSeries,
+} from '@dynatrace/barista-components/micro-chart';
 
 @Component({
   selector: 'dt-example-micro-chart-stream',
   templateUrl: 'micro-chart-stream-example.html',
 })
 export class DtExampleMicroChartStream {
-  options: DtChartOptions = {
+  options: DtMicroChartOptions = {
     chart: {
       type: 'column',
     },
   };
-  series$: Observable<SeriesOptionsType> = timer(1000, 5000).pipe(
+  series$: Observable<DtMicroChartSeries> = timer(1000, 5000).pipe(
     map(() => ({
       name: 'Requests',
       type: 'column',

@@ -18,15 +18,15 @@
 
 import { Component } from '@angular/core';
 import { formatCount } from '@dynatrace/barista-components/formatters';
-import { SeriesLineOptions } from 'highcharts';
 import { generateData } from '../data';
+import { DtMicroChartSeries } from '@dynatrace/barista-components/micro-chart';
 
 @Component({
   selector: 'dt-example-micro-chart-default',
   templateUrl: 'micro-chart-default-example.html',
 })
 export class DtExampleMicroChartDefault {
-  series: SeriesLineOptions = {
+  series: DtMicroChartSeries = {
     type: 'line',
     name: 'Requests',
     data: generateData(40, 1000, 2000, 1370304000000, 900000),

@@ -15,13 +15,14 @@
  */
 
 import { Component } from '@angular/core';
+import { DtChartOptions } from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-single-data-point',
   templateUrl: 'chart-single-data-point-example.html',
 })
 export class DtExampleChartSinglePointData {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     chart: {
       type: 'line',
     },
