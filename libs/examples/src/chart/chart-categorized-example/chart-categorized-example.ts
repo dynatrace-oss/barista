@@ -17,13 +17,17 @@
 // tslint:disable:no-magic-numbers
 
 import { Component } from '@angular/core';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-categorized',
   templateUrl: 'chart-categorized-example.html',
 })
 export class DtExampleChartCategorized {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     xAxis: {
       categories: [
         'Jan',
@@ -66,7 +70,7 @@ export class DtExampleChartCategorized {
     },
   };
 
-  series: Highcharts.SeriesOptionsType[] = [
+  series: DtChartSeries[] = [
     {
       name: 'Requests',
       type: 'column',

@@ -19,6 +19,10 @@
 import { Component } from '@angular/core';
 
 import { generateAreaRangeData, generateData } from '../chart-data-utils';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-min-max',
@@ -33,7 +37,7 @@ export class DtExampleChartMinMax {
     900000,
   );
 
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     xAxis: {
       type: 'datetime',
     },
@@ -54,7 +58,7 @@ export class DtExampleChartMinMax {
       },
     },
   };
-  series: Highcharts.SeriesOptionsType[] = [
+  series: DtChartSeries[] = [
     {
       name: 'Bar 1',
       type: 'column',
@@ -69,7 +73,7 @@ export class DtExampleChartMinMax {
       // types do not match up with the currently barista-supported version
       // of Highcharts.
       lineWidth: 0,
-    } as Highcharts.SeriesOptionsType,
+    } as DtChartSeries,
     {
       name: 'Line 1',
       type: 'line',

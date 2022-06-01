@@ -19,13 +19,17 @@
 import { Component } from '@angular/core';
 
 import { generateData } from '../chart-data-utils';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-heatfield',
   templateUrl: 'chart-heatfield-example.html',
 })
 export class DtExampleChartHeatfield {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     chart: {
       spacingLeft: 100,
       spacingRight: 100,
@@ -56,7 +60,7 @@ export class DtExampleChartHeatfield {
     },
   };
 
-  series: Highcharts.SeriesOptionsType[] = [
+  series: DtChartSeries[] = [
     {
       name: 'Requests',
       type: 'line',

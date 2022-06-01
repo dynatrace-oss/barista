@@ -19,13 +19,17 @@
 import { Component } from '@angular/core';
 
 import { generateData } from '../chart-data-utils';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-line-with-gaps',
   templateUrl: 'chart-line-with-gaps-example.html',
 })
 export class DtExampleChartLineWithGaps {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     chart: {
       type: 'line',
     },
@@ -51,7 +55,7 @@ export class DtExampleChartLineWithGaps {
     },
   };
 
-  series: Highcharts.SeriesLineOptions[] = [
+  series: DtChartSeries[] = [
     {
       type: 'line',
       name: 'Requests',

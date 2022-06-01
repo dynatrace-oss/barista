@@ -17,6 +17,10 @@
 // tslint:disable no-magic-numbers
 import { Component } from '@angular/core';
 import { generateData } from '../chart-data-utils';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-selection-area-default',
@@ -24,6 +28,7 @@ import { generateData } from '../chart-data-utils';
 })
 export class DtExampleChartSelectionAreaDefault {
   validRange = false;
+
   rangeValidChanges(valid: boolean): void {
     this.validRange = valid;
   }
@@ -37,7 +42,7 @@ export class DtExampleChartSelectionAreaDefault {
   }
 
   /** Chart options and series */
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     xAxis: {
       type: 'datetime',
     },
@@ -69,7 +74,7 @@ export class DtExampleChartSelectionAreaDefault {
       },
     },
   };
-  series: Highcharts.SeriesOptionsType[] = [
+  series: DtChartSeries[] = [
     {
       name: 'Requests',
       type: 'column',

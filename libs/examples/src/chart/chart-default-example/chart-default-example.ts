@@ -18,16 +18,20 @@
 
 import { Component } from '@angular/core';
 
-import { DtChartSeriesVisibilityChangeEvent } from '@dynatrace/barista-components/chart';
+import {
+  DtChartSeries,
+  DtChartSeriesVisibilityChangeEvent,
+} from '@dynatrace/barista-components/chart';
 
 import { generateData } from '../chart-data-utils';
+import { DtChartOptions } from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-default',
   templateUrl: 'chart-default-example.html',
 })
 export class DtExampleChartDefault {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     xAxis: {
       type: 'datetime',
     },
@@ -60,7 +64,7 @@ export class DtExampleChartDefault {
     },
   };
 
-  series: Highcharts.SeriesOptionsType[] = [
+  series: DtChartSeries[] = [
     {
       name: 'Requests',
       type: 'column',

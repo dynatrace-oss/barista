@@ -19,6 +19,8 @@ import {
   DtChartTooltipData,
   DT_CHART_TOOLTIP_CONFIG,
   DtPlotBackgroundInfo,
+  DtChartSeries,
+  DtChartOptions,
 } from '@dynatrace/barista-components/chart';
 import { Component } from '@angular/core';
 
@@ -59,7 +61,7 @@ const customTooltipConfig: DtChartTooltipConfig = {
   ],
 })
 export class DtExampleChartBar {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     chart: {
       type: 'bar',
     },
@@ -94,7 +96,7 @@ export class DtExampleChartBar {
       },
     },
   };
-  series: Highcharts.SeriesBarOptions[] = [
+  series: DtChartSeries[] = [
     {
       type: 'bar',
       name: 'Metric',

@@ -16,13 +16,17 @@
 
 import { Component } from '@angular/core';
 import { generateData } from '../chart-data-utils';
+import {
+  DtChartOptions,
+  DtChartSeries,
+} from '@dynatrace/barista-components/chart';
 
 @Component({
   selector: 'dt-example-chart-behavior-switch',
   templateUrl: 'chart-behavior-switch-example.html',
 })
 export class DtExampleChartBehaviorSwitch {
-  options: Highcharts.Options = {
+  options: DtChartOptions = {
     xAxis: {
       type: 'datetime',
     },
@@ -55,7 +59,7 @@ export class DtExampleChartBehaviorSwitch {
     },
   };
 
-  cpuUsageSeries: Highcharts.SeriesOptionsType[] = [
+  cpuUsageSeries: DtChartSeries[] = [
     {
       name: 'CPU usage',
       type: 'line',
@@ -71,7 +75,7 @@ export class DtExampleChartBehaviorSwitch {
     },
   ];
 
-  retransmissionSeries: Highcharts.SeriesOptionsType[] = [
+  retransmissionSeries: DtChartSeries[] = [
     {
       name: 'Number of retransmissions',
       type: 'column',
@@ -87,7 +91,7 @@ export class DtExampleChartBehaviorSwitch {
     },
   ];
 
-  connectivitySeries: Highcharts.SeriesOptionsType[] = [
+  connectivitySeries: DtChartSeries[] = [
     {
       name: 'Network utilization',
       type: 'area',
@@ -104,7 +108,7 @@ export class DtExampleChartBehaviorSwitch {
   ];
 
   // Initialize chart series
-  series: Highcharts.SeriesOptionsType[] = this.cpuUsageSeries;
+  series: DtChartSeries[] = this.cpuUsageSeries;
 
   switchMetric(event: any): void {
     switch (event) {
