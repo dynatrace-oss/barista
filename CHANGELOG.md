@@ -1,3 +1,9 @@
+## [10.7.4](https://github.com/dynatrace-oss/barista/compare/10.7.3...10.7.4) (2022-06-07)
+
+### Bug Fixes
+
+- **quick-filter:** Fixes issue where long text overflowed container. ([84b0493](https://github.com/dynatrace-oss/barista/commit/84b0493b476ccf5ff9b085bdc8c3f07b788502c6))
+
 ## [10.7.3](https://github.com/dynatrace-oss/barista/compare/10.7.2...10.7.3) (2022-05-30)
 
 ### Bug Fixes
