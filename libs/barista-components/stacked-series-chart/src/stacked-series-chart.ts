@@ -138,13 +138,13 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   }
   set series(value: DtStackedSeriesChartSeries[]) {
     if (value !== this._series) {
-      this._series = value;
+      this._series = value || [];
       this._updateFilledSeries();
     }
   }
   private _series: DtStackedSeriesChartSeries[];
   /** Series with filled nodes */
-  private _filledSeries: DtStackedSeriesChartFilledSeries[];
+  private _filledSeries: DtStackedSeriesChartFilledSeries[] = [];
 
   /** Whether to make just the nodes selectable or the whole row/column */
   @Input() selectionMode: DtStackedSeriesChartSelectionMode = 'node';
@@ -722,63 +722,76 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   private _renderHeatFields(
     getPosition: (value: DtStackedSeriesChartFilledSeries) => number,
   ): void {
-    let bounds = [0, 100];
-    this._applyFnForContinuousAxisType([
-      [
-        'none',
-        () =>
-          (bounds = [
-            this._tracks[0].position || 0,
-            this._tracks.slice(-1)[0].position || 0,
-          ]),
-      ],
-    ]);
-    const defaultColor = getDtChartColorPalette(1, this._theme)[0];
+    if (this._filledSeries?.length > 0) {
+      let bounds = [0, 100];
+      this._applyFnForContinuousAxisType([
+        [
+          'none',
+          () =>
+            (bounds = [
+              this._tracks[0]?.position || 0,
+              this._tracks.slice(-1)?.[0]?.position || 0,
+            ]),
+        ],
+      ]);
+      const defaultColor = getDtChartColorPalette(1, this._theme)[0];
 
-    const heatFieldRenderData: DtStackedSeriesHeatFieldLevel = (
-      this.heatFields || []
-    )
-      .map((heatField, index) => {
-        let [start, end] = [heatField.start, heatField.end]
-          .map((label) => label && { origin: { label } })
-          .map((value, i) => (value ? getPosition(value) : bounds[i]));
-        // If a heat field is a specific point -instead of a range, we add some
-        // min width so that overlapping could be detected
-        if (start === end && start != null) {
-          start -= 0.001;
-          end += 0.001;
-        }
-        return {
-          index,
-          start,
-          end,
-          position: (end - start) / 2 + start,
-          size: Math.abs(end - start),
-          config: { ...heatField, color: heatField.color || defaultColor },
-        };
-      })
-      .filter(({ start, end }) => start != null && end != null)
-      .sort((a, b) => a.start - b.start || b.size - a.size);
+      const heatFieldRenderData: DtStackedSeriesHeatFieldLevel = (
+        this.heatFields || []
+      )
+        .map((heatField, index) => {
+          let [start, end] = [heatField.start, heatField.end]
+            .map(
+              (value) =>
+                (value && {
+                  origin: value,
+                }) as DtStackedSeriesChartFilledSeries,
+            )
+            .map((value, i) => (value && getPosition(value)) ?? bounds[i])
+            // We constrain heat fields to min and max bounds
+            .map((value, i) =>
+              i === 0 ? Math.max(value, bounds[i]) : Math.min(value, bounds[i]),
+            );
 
-    const hasOverlap = ({ end }, { start }) => end > start;
-
-    this._heatFieldLevels =
-      heatFieldRenderData[0] &&
-      heatFieldRenderData.slice(1).reduce(
-        (arr, heatField) => {
-          const heatFieldLevel = arr.find(
-            (_heatFieldLevel) =>
-              !hasOverlap(_heatFieldLevel.slice(-1)[0], heatField),
-          );
-          if (heatFieldLevel) {
-            heatFieldLevel.push(heatField);
-            return arr;
-          } else {
-            return [...arr, [heatField]];
+          // If a heat field is a specific point -instead of a range, we add some
+          // min width so that overlapping could be detected
+          if (start === end && start != null) {
+            start -= 0.001;
+            end += 0.001;
           }
-        },
-        [[heatFieldRenderData[0]]] as DtStackedSeriesHeatFieldLevel[],
-      );
+
+          return {
+            index,
+            start,
+            end,
+            position: (end - start) / 2 + start,
+            size: Math.abs(end - start),
+            config: { ...heatField, color: heatField.color || defaultColor },
+          };
+        })
+        .filter(({ start, end }) => start != null && end != null)
+        .sort((a, b) => a.start - b.start || b.size - a.size);
+
+      const hasOverlap = ({ end }, { start }) => end > start;
+
+      this._heatFieldLevels =
+        heatFieldRenderData[0] &&
+        heatFieldRenderData.slice(1).reduce(
+          (arr, heatField) => {
+            const heatFieldLevel = arr.find(
+              (_heatFieldLevel) =>
+                !hasOverlap(_heatFieldLevel.slice(-1)[0], heatField),
+            );
+            if (heatFieldLevel) {
+              heatFieldLevel.push(heatField);
+              return arr;
+            } else {
+              return [...arr, [heatField]];
+            }
+          },
+          [[heatFieldRenderData[0]]] as DtStackedSeriesHeatFieldLevel[],
+        );
+    }
   }
 
   /** Calculate current state */
@@ -892,7 +905,8 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
   private _getTickGapWidth(): number {
     return (
       (Math.abs(
-        (this._trackTicks[1]?.position || 0) - this._trackTicks[0].position,
+        (this._trackTicks[1]?.position ?? 0) -
+          (this._trackTicks[0]?.position ?? 0),
       ) *
         this._getAxisContainerWidth()) /
       100
@@ -1021,17 +1035,15 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
         };
       });
 
+      const lastAxisTick = this._axisTicks.slice(-1)?.[0];
+
       this._valueAxisSize = {
         absolute:
-          formatCount(this._axisTicks.slice(-1)[0].value).toString().length *
-            0.6 +
-          1.5,
+          formatCount(lastAxisTick?.value ?? 0).toString().length * 0.6 + 1.5,
         relative:
           // `valueRelative` needs to be formatted to a percentage scale (0-100)
           // in order to compute the axis size
-          ((this._axisTicks.slice(-1)[0].valueRelative * 100).toString()
-            .length +
-            1) *
+          (((lastAxisTick?.valueRelative ?? 0) * 100).toString().length + 1) *
             0.6 +
           1.5,
       };
