@@ -90,14 +90,20 @@ export const stackedSeriesChartCoffeeMock: DtStackedSeriesChartSeries[] = [
 
 export const stackedSeriesCoffeeHeatFieldMock: DtStackedSeriesHeatField[] = [
   {
-    start: 'Espresso',
-    end: 'Macchiato',
+    start: {
+      label: 'Espresso',
+    },
+    end: {
+      label: 'Macchiato',
+    },
     data: {
       name: 'HeatField 1',
     },
   },
   {
-    start: 'Macchiato',
+    start: {
+      label: 'Macchiato',
+    },
     data: {
       name: 'HeatField 2',
     },
@@ -107,35 +113,53 @@ export const stackedSeriesCoffeeHeatFieldMock: DtStackedSeriesHeatField[] = [
 export const stackedSeriesCoffeeHeatFieldOverlapMock: DtStackedSeriesHeatField[] =
   [
     {
-      start: 'Espresso',
-      end: 'Macchiato',
+      start: {
+        label: 'Espresso',
+      },
+      end: {
+        label: 'Macchiato',
+      },
       data: {
         name: 'HeatField 1',
       },
     },
     {
-      start: 'Espresso',
+      start: {
+        label: 'Espresso',
+      },
       data: {
         name: 'HeatField 2',
       },
     },
     {
-      start: 'Americano',
-      end: 'Mocha',
+      start: {
+        label: 'Americano',
+      },
+      end: {
+        label: 'Mocha',
+      },
       data: {
         name: 'HeatField 3',
       },
     },
     {
-      start: 'Macchiato',
-      end: 'Americano',
+      start: {
+        label: 'Macchiato',
+      },
+      end: {
+        label: 'Americano',
+      },
       data: {
         name: 'HeatField 4',
       },
     },
     {
-      start: 'Americano',
-      end: 'Americano',
+      start: {
+        label: 'Americano',
+      },
+      end: {
+        label: 'Americano',
+      },
       data: {
         name: 'HeatField 5',
       },
@@ -707,15 +731,23 @@ export const stackedSeriesChartConvertedBouncedDatesMock = [
 
 export const stackedSeriesChartConvertedBouncedDateHeatFieldMock = [
   {
-    start: '11:35',
-    end: '12:00',
+    start: {
+      label: '11:35',
+    },
+    end: {
+      label: '12:00',
+    },
     data: {
       name: 'HeatField 1',
     },
   },
   {
-    start: '12:35',
-    end: '13:50',
+    start: {
+      label: '12:35',
+    },
+    end: {
+      label: '13:50',
+    },
     data: {
       name: 'HeatField 2',
     },
@@ -724,15 +756,23 @@ export const stackedSeriesChartConvertedBouncedDateHeatFieldMock = [
 
 export const stackedSeriesChartConvertedBouncedDateHeatFieldOverlapMock = [
   {
-    start: '12:00',
-    end: '12:55',
+    start: {
+      label: '12:00',
+    },
+    end: {
+      label: '12:55',
+    },
     data: {
       name: 'HeatField 1',
     },
   },
   {
-    start: '12:35',
-    end: '13:50',
+    start: {
+      label: '12:35',
+    },
+    end: {
+      label: '13:50',
+    },
     data: {
       name: 'HeatField 2',
     },
