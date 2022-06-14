@@ -16,6 +16,7 @@ $track-wrapper-margin-left: calc(
 $track-wrapper-margin-right: calc(
   (#{$gap} * 1) + #{$tick-gutter} + var(--dt-stacked-series-chart-extra-margin)
 );
+$heat-field-height: calc(#{$heat-field-size-by-levels} + #{$heat-field-margin});
 
 :host {
   --dt-stacked-series-chart-extra-margin: calc(
@@ -49,9 +50,7 @@ $track-wrapper-margin-right: calc(
 
   .dt-stacked-series-chart-heat-field-wrapper {
     height: $heat-field-size-by-levels;
-    margin-top: calc(
-      (#{$heat-field-size-by-levels} + #{$heat-field-margin}) * -1
-    );
+    margin-top: calc(#{$heat-field-height} * -1);
   }
 
   .dt-stacked-series-chart-track-label {
@@ -177,7 +176,8 @@ $track-wrapper-margin-right: calc(
     position: sticky;
     grid-row: 1/3;
     grid-column: 1;
-    height: 100%;
+    height: calc(100% + #{$heat-field-height});
+    margin-top: calc(#{$heat-field-height} * -1);
     left: 0;
     background-color: $white;
   }

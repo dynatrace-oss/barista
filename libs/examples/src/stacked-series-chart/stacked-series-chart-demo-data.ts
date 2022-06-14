@@ -78,14 +78,20 @@ export const stackedSeriesChartDemoDataCoffee = [
 export const stackedSeriesChartDemoDataCoffeeHeatFields: DtStackedSeriesHeatField[] =
   [
     {
-      start: 'Espresso',
-      end: 'Macchiato',
+      start: {
+        label: 'Espresso',
+      },
+      end: {
+        label: 'Macchiato',
+      },
       data: {
         name: 'HeatField 1',
       },
     },
     {
-      start: 'Macchiato',
+      start: {
+        label: 'Macchiato',
+      },
       data: {
         name: 'HeatField 2',
       },
@@ -95,35 +101,53 @@ export const stackedSeriesChartDemoDataCoffeeHeatFields: DtStackedSeriesHeatFiel
 export const stackedSeriesChartDemoDataCoffeeOverlapHeatFields: DtStackedSeriesHeatField[] =
   [
     {
-      start: 'Espresso',
-      end: 'Macchiato',
+      start: {
+        label: 'Espresso',
+      },
+      end: {
+        label: 'Macchiato',
+      },
       data: {
         name: 'HeatField 1',
       },
     },
     {
-      start: 'Espresso',
+      start: {
+        label: 'Espresso',
+      },
       data: {
         name: 'HeatField 2',
       },
     },
     {
-      start: 'Americano',
-      end: 'Mocha',
+      start: {
+        label: 'Americano',
+      },
+      end: {
+        label: 'Mocha',
+      },
       data: {
         name: 'HeatField 3',
       },
     },
     {
-      start: 'Macchiato',
-      end: 'Americano',
+      start: {
+        label: 'Macchiato',
+      },
+      end: {
+        label: 'Americano',
+      },
       data: {
         name: 'HeatField 4',
       },
     },
     {
-      start: 'Americano',
-      end: 'Americano',
+      start: {
+        label: 'Americano',
+      },
+      end: {
+        label: 'Americano',
+      },
       data: {
         name: 'HeatField 5',
       },
