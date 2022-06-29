@@ -14,6 +14,10 @@
   --dt-tile-default-color: var(--dt-error-default-color);
 }
 
+.dt-tile.dt-color-critical {
+  --dt-tile-default-color: var(--dt-critical-default-color);
+}
+
 .dt-tile.dt-color-recovered {
   --dt-tile-default-color: var(--dt-recovered-default-color);
 }

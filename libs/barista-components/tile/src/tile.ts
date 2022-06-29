@@ -66,7 +66,12 @@ export class DtTileIcon {}
 })
 export class DtTileSubtitle {}
 
-export type DtTileThemePalette = 'main' | 'warning' | 'error' | 'recovered';
+export type DtTileThemePalette =
+  | 'main'
+  | 'warning'
+  | 'error'
+  | 'critical'
+  | 'recovered';
 
 // Boilerplate for applying mixins to DtTile.
 export class DtTileBase {
