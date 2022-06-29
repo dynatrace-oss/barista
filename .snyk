@@ -262,4 +262,8 @@ ignore:
     - '@angular/localize > @babel/core > json5 > minimist':
         reason: 'transitive dependency, no update available'
         expires: '2022-07-08T11:14:11.066Z'
+  SNYK-JS-NWSAPI-2841516:
+    - '@nguniversal/common > jsdom > nwsapi':
+        reason: None given
+        expires: '2022-07-29T09:29:52.921Z'
 patch: {}
