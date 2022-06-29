@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-export * from './tile-default-example/tile-default-example';
-export * from './tile-disabled-example/tile-disabled-example';
-export * from './tile-error-example/tile-error-example';
-export * from './tile-critical-example/tile-critical-example';
-export * from './tile-examples.module';
-export * from './tile-main-example/tile-main-example';
-export * from './tile-warning-example/tile-warning-example';
-export * from './tile-recovered-example/tile-recovered-example';
-export * from './tile-small-example/tile-small-example';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-example-tile-critical',
+  templateUrl: './tile-critical-example.html',
+})
+export class DtExampleTileCritical {}
