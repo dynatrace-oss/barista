@@ -84,7 +84,7 @@ COPY .npmrc \
      package.json \
      ./
 
-RUN npm install @dynatrace/barista-icons @dynatrace/barista-fonts
+RUN npm install --silent @dynatrace/barista-icons @dynatrace/barista-fonts
 
 #------------------------------------------------------------
 # Temporary layer as base for a jenkins agent
