@@ -65,7 +65,7 @@ pipeline {
                   // Install the icons as they have a different shasum and the integrity check will fail
                   // this is due to the .npmrc file.
                   // This will install the other dependencies as well in the updated version
-                  sh 'npm install @dynatrace/barista-icons @dynatrace/barista-fonts'
+                  sh 'npm install --silent @dynatrace/barista-icons @dynatrace/barista-fonts'
                 }
               }
               configFileProvider([
