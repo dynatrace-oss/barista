@@ -33,11 +33,11 @@ be rendered in a smaller version.
 
 ## Inputs
 
-| Name       | Type                   | Default     | Description                                                                                                  |
-| ---------- | ---------------------- | ----------- | ------------------------------------------------------------------------------------------------------------ |
-| `disabled` | `boolean \| undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined.                                  |
-| `color`    | `string \| undefined`  | `undefined` | Sets color. Possible options: <ul><li>`main`</li><li>`warning`</li><li>`error`</li><li>`recovered`</li></ul> |
-| `tabindex` | `number`               | `0`         | Sets tabindex on the tile.                                                                                   |
+| Name       | Type                   | Default     | Description                                                                                                                     |
+| ---------- | ---------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `disabled` | `boolean \| undefined` | `undefined` | Sets disable state if property is set and the value is truthy or undefined.                                                     |
+| `color`    | `string \| undefined`  | `undefined` | Sets color. Possible options: <ul><li>`main`</li><li>`warning`</li><li>`error`</li><li>`critical`</li><li>`recovered`</li></ul> |
+| `tabindex` | `number`               | `0`         | Sets tabindex on the tile.                                                                                                      |
 
 ## States
 
@@ -56,10 +56,14 @@ The tile component can be colored according to the page's theme.
 
 <ba-live-example name="DtExampleTileWarning"></ba-live-example>
 
-### Recovered Tile
-
-<ba-live-example name="DtExampleTileRecovered"></ba-live-example>
-
 ### Error Tile
 
 <ba-live-example name="DtExampleTileError"></ba-live-example>
+
+### Critical Tile
+
+<ba-live-example name="DtExampleTileCritical"></ba-live-example>
+
+### Recovered Tile
+
+<ba-live-example name="DtExampleTileRecovered"></ba-live-example>
