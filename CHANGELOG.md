@@ -1,3 +1,10 @@
+## [10.7.5](https://github.com/dynatrace-oss/barista/compare/10.7.4...10.7.5) (2022-06-29)
+
+### Bug Fixes
+
+- **stacked-series-chart:** No data support and heat fields fix
+  ([ad227a5](https://github.com/dynatrace-oss/barista/commit/ad227a54fa44da26bdf7b7834b368b547d094abe))
+
 ## [10.7.4](https://github.com/dynatrace-oss/barista/compare/10.7.3...10.7.4) (2022-06-08)
 
 ### Bug Fixes
