@@ -114,7 +114,8 @@ WORKDIR /home/dynatrace
 #------------------------------------------------------------
 FROM jenkins-agent as public
 
-RUN npm i -g vercel
+# Latest version that supports node v12
+RUN npm i -g vercel@24.2.5
 
 COPY --from=workspace-public /dynatrace/ ./
 
