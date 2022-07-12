@@ -57,13 +57,13 @@
     "node": ">=12.15"
   },
   "dependencies": {
-    "@angular/animations": "13.1.2",
+    "@angular/animations": "13.3.11",
     "@angular/cdk": "13.1.2",
-    "@angular/common": "13.1.2",
-    "@angular/core": "13.1.2",
-    "@angular/forms": "13.1.2",
+    "@angular/common": "13.3.11",
+    "@angular/core": "13.3.11",
+    "@angular/forms": "13.3.11",
     "@angular/localize": "13.1.2",
-    "@angular/platform-browser": "13.1.2",
+    "@angular/platform-browser": "13.3.11",
     "@dynatrace/barista-fonts": "^1.0.0",
     "@dynatrace/barista-icons": "^7.17.0",
     "@nguniversal/common": "^13.0.2",
