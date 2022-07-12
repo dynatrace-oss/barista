@@ -65,7 +65,7 @@
     "@angular/localize": "13.1.2",
     "@angular/platform-browser": "13.1.2",
     "@dynatrace/barista-fonts": "^1.0.0",
-    "@dynatrace/barista-icons": "^7.17.0",
+    "@dynatrace/barista-icons": "^7.21.1",
     "@nguniversal/common": "^13.0.2",
     "ansi-colors": "^4.1.1",
     "core-js": "^3.9.1",
