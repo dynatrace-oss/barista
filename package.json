@@ -62,7 +62,7 @@
     "@angular/common": "13.1.2",
     "@angular/core": "13.1.2",
     "@angular/forms": "13.1.2",
-    "@angular/localize": "13.1.2",
+    "@angular/localize": "13.3.11",
     "@angular/platform-browser": "13.1.2",
     "@dynatrace/barista-fonts": "^1.0.0",
     "@dynatrace/barista-icons": "^7.17.0",
