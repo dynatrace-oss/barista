@@ -79,7 +79,7 @@ function getAutoUnitConversion(
   conversions: DtUnitConversion[],
   valueInUnit: number,
 ): DtUnitConversion | undefined {
-  return conversions.find((m) => valueInUnit >= m.multiplier);
+  return conversions.find((m) => Math.abs(valueInUnit) >= m.multiplier);
 }
 
 function getFixedUnitConversion(
