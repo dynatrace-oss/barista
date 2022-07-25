@@ -1426,6 +1426,21 @@ describe('DtFilterField', () => {
       advanceFilterfieldCycle(false);
     });
 
+    it('should not display the clear all button if no filters are selected', () => {
+      filterField.filters = [];
+      fixture.detectChanges();
+
+      expect(isClearAllVisible(fixture)).toBe(false);
+    });
+
+    it('should not display the clear all button if neither a label is provided nor filters are selected', () => {
+      filterField.filters = [];
+      fixture.componentInstance.clearAllLabel = '';
+      fixture.detectChanges();
+
+      expect(isClearAllVisible(fixture)).toBe(false);
+    });
+
     it('should not display the clear all button if no label is provided', () => {
       const autocompleteFilter = [
         TEST_DATA_EDITMODE.autocomplete[0],
@@ -1438,6 +1453,19 @@ describe('DtFilterField', () => {
       fixture.detectChanges();
 
       expect(isClearAllVisible(fixture)).toBe(false);
+    });
+
+    it('should display the clear all button if any filters are selected', () => {
+      const autocompleteFilter = [
+        TEST_DATA_EDITMODE.autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0],
+        (TEST_DATA_EDITMODE as any).autocomplete[0].autocomplete[0]
+          .autocomplete[0].options[0],
+      ];
+      filterField.filters = [autocompleteFilter];
+      fixture.detectChanges();
+
+      expect(isClearAllVisible(fixture)).toBe(true);
     });
 
     it('should reset the entire filter field', () => {
@@ -1456,6 +1484,7 @@ describe('DtFilterField', () => {
       expect(tagsBefore[0].key).toBe('AUT');
       expect(tagsBefore[0].separator).toBe(':');
       expect(tagsBefore[0].value).toBe('Linz');
+      expect(isClearAllVisible(fixture)).toBe(true);
 
       const clearAllButtonEl = getClearAll(fixture);
       clearAllButtonEl!.click();
@@ -1463,6 +1492,7 @@ describe('DtFilterField', () => {
 
       const tagsAfter = getFilterTags(fixture);
       expect(tagsAfter.length).toBe(0);
+      expect(isClearAllVisible(fixture)).toBe(false);
     });
 
     it('should emit a filter-changed event with all removed filters in the removed array', () => {
