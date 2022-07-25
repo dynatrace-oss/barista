@@ -217,6 +217,10 @@ export class DtFilterField<T = any>
 
   /** Label for the "Clear all" button in the filter field (e.g. "Clear all"). */
   @Input() clearAllLabel = '';
+  /** @internal `true` if the "Clear all" button should be displayed. */
+  get _showClearAll(): boolean {
+    return !!this.clearAllLabel && this._filters.length > 0;
+  }
 
   /** An object used to control when error messages are shown. */
   @Input() errorStateMatcher: ErrorStateMatcher;
