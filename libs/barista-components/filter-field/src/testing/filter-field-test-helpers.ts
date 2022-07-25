@@ -417,9 +417,5 @@ export function getClearAll(
 /** Get the clearAll button and evaluate if it is visible or not. */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isClearAllVisible(fixture: ComponentFixture<any>): boolean {
-  const clearAll = getClearAll(fixture);
-  return (
-    clearAll !== null &&
-    !clearAll.classList.contains('dt-filter-field-clear-all-button-hidden')
-  );
+  return getClearAll(fixture) !== null;
 }

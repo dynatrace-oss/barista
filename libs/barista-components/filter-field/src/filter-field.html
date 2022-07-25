@@ -168,7 +168,7 @@
     dt-button
     variant="secondary"
     class="dt-filter-field-clear-all-button"
-    *ngIf="clearAllLabel"
+    *ngIf="_showClearAll"
     (click)="_clearAll($event)"
     [disabled]="disabled"
   >
