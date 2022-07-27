@@ -46,16 +46,11 @@
 }
 
 .dt-card-heading {
-  flex: 1 0 12px;
+  flex: 1 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
-
-  // Allow reflow of elements when under a specific screen width
-  @media (max-width: 460px) {
-    overflow: unset;
-  }
 }
 
 .dt-card-title {
@@ -81,5 +76,6 @@
 .dt-card-footer-actions {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
   margin-top: 16px;
 }
