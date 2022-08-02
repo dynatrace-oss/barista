@@ -1,3 +1,14 @@
+## [10.7.6](https://github.com/dynatrace-oss/barista/compare/10.7.5...10.7.6) (2022-08-02)
+
+### Bug Fixes
+
+- **card:** Headings are no longer cut off on Safari on iOS.
+  ([1500176](https://github.com/dynatrace-oss/barista/commit/15001761c88b97c50368d50beeb7955417f4b0d9))
+- **filter-field:** Clear-all button is now hidden when no filters are applied.
+  ([aeb7356](https://github.com/dynatrace-oss/barista/commit/aeb73564ee971a164e40ba3fd0936316512d699d))
+- **formatters:** Ensured auto-unit conversion also work for negative values.
+  ([a17c6c4](https://github.com/dynatrace-oss/barista/commit/a17c6c40cc0437bf19fa3578fd2ebb1a2f1901bb))
+
 ## [10.7.5](https://github.com/dynatrace-oss/barista/compare/10.7.4...10.7.5) (2022-06-29)
 
 ### Bug Fixes
