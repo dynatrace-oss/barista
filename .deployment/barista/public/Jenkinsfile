@@ -109,7 +109,7 @@ pipeline {
           ]) {
             sh '''
               mv ./dist/apps/barista-design-system/browser ./dist/apps/barista-design-system/barista
-              mkdir ./dist/apps/barista-design-system/barista/.vercel
+              mkdir -p ./dist/apps/barista-design-system/barista/.vercel
               mv "$NOW_PROJECT" ./dist/apps/barista-design-system/barista/.vercel/project.json
             '''
           }
