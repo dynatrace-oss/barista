@@ -7,6 +7,7 @@
   dt-icon-button
   variant="nested"
   class="dt-tag-remove-button"
+  [attr.aria-label]="_ariaLabelRemove"
   (click)="_removeTag()"
   *ngIf="removable"
 >

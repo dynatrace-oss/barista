@@ -25,6 +25,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 
+/** @internal Aria label for the remove button in tag. */
+const ARIA_DEFAULT_REMOVE_LABEL = 'remove tag';
+
 /** Key of a tag, needed as it's used as a selector in the API. */
 @Directive({
   selector: `dt-tag-key, [dtTagKey]`,
@@ -64,6 +67,17 @@ export class DtTag<T> {
   }
   private _removable = false;
   static ngAcceptInputType_removable: BooleanInput;
+
+  /** Aria label for the remove button in the tag */
+  @Input()
+  get ariaLabelRemove(): string {
+    return this._ariaLabelRemove;
+  }
+  set ariaLabelRemove(value: string) {
+    this._ariaLabelRemove = value;
+  }
+  /** @internal  Aria label for the remove button in the tag */
+  _ariaLabelRemove = ARIA_DEFAULT_REMOVE_LABEL;
 
   /** Emits events when the tag gets removed. */
   @Output()
