@@ -65,10 +65,16 @@
 <br /><br />
 
 <dt-tag-list>
-  <dt-tag *ngFor="let user of users">{{ user }}</dt-tag>
+  <dt-tag
+    *ngFor="let user of users"
+    removable="true"
+    [ariaLabelRemove]="'Remove user \'' + user + '\''"
+    >{{ user }}</dt-tag
+  >
   <dt-tag-add
     placeholder="Name"
     title="Add User"
+    aria-label="Add user"
     (submitted)="addUser($event)"
     dt-ui-test-id="tag-add"
   ></dt-tag-add>
