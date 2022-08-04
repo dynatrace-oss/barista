@@ -1,3 +1,10 @@
+## [10.7.7](https://github.com/dynatrace-oss/barista/compare/10.7.6...10.7.7) (2022-08-04)
+
+### Bug Fixes
+
+- **filter-field:** ClearAll button is now only shown with completed filters.
+  ([97463c5](https://github.com/dynatrace-oss/barista/commit/97463c54897e9c35a7b09c48a6ba3d3caa89fb41))
+
 ## [10.7.6](https://github.com/dynatrace-oss/barista/compare/10.7.5...10.7.6) (2022-08-02)
 
 ### Bug Fixes
