@@ -45,6 +45,8 @@ import {
   getMultiselectCheckboxInputs,
   getMultiselectCheckboxLabels,
   getOptions,
+  moveKeyDown,
+  moveKeyUp,
   setupFilterFieldTest,
   TestApp,
 } from '../testing/filter-field-test-helpers';
@@ -53,6 +55,7 @@ describe('DtFilterField', () => {
   let fixture: ComponentFixture<TestApp>;
   let overlayContainerElement: HTMLElement;
   let filterField: DtFilterField<any>;
+  let inputElement: HTMLInputElement;
   let advanceFilterfieldCycle: (
     simulateMicrotasks?: boolean,
     simulateZoneExit?: boolean,
@@ -62,10 +65,14 @@ describe('DtFilterField', () => {
     nthOption: number,
   ) => void;
 
+  const scrollIntoViewMock = jest.fn();
+  window.HTMLElement.prototype.scrollIntoView = scrollIntoViewMock;
+
   beforeEach(() => {
     ({
       fixture,
       filterField,
+      inputElement: inputElement,
       overlayContainerElement,
       advanceFilterfieldCycle,
       getAndClickOption,
@@ -97,6 +104,85 @@ describe('DtFilterField', () => {
       filterFieldMultiSelectElements = getMultiSelect(overlayContainerElement);
 
       expect(filterFieldMultiSelectElements.length).toBe(1);
+    });
+
+    describe('custom keyboard navigation', () => {
+      it('should have selected the last active item (ignore disabled ones) on panel after using up arrow', () => {
+        getAndClickOption(overlayContainerElement, 0);
+
+        inputElement.dispatchEvent(moveKeyUp());
+        fixture.detectChanges();
+        const options = getOptions(overlayContainerElement);
+        const lastActiveOption = options[3];
+        const lastOptionButDisabled = options[4];
+        expect(lastActiveOption.className).toContain('dt-option-active');
+        expect(lastOptionButDisabled.className).toContain('dt-option');
+      });
+
+      it('should have selected the first active item on panel after using down arrow', () => {
+        inputElement.dispatchEvent(moveKeyDown());
+        fixture.detectChanges();
+        const firstActiveOption = getOptions(overlayContainerElement)[0];
+        expect(firstActiveOption.className).toContain('dt-option-active');
+      });
+
+      it('should not have active items on panel after updating filter field input value', () => {
+        // previously the focus must be on some item of the panel
+        inputElement.dispatchEvent(moveKeyDown());
+        fixture.detectChanges();
+        const firstActiveOption = getOptions(overlayContainerElement)[0];
+        expect(firstActiveOption.className).toContain('dt-option-active');
+
+        // update input value to trigger input value change
+        inputElement.value = 'Mayo';
+        fixture.detectChanges();
+        const options = getOptions(overlayContainerElement);
+        options.forEach((option) => {
+          expect(option.className).toContain('dt-option');
+        });
+      });
+
+      it('should not have active items on panel after updating filter field input value', () => {
+        // previously the focus must be on some item of the panel
+        inputElement.dispatchEvent(moveKeyDown());
+        fixture.detectChanges();
+        const firstActiveOption = getOptions(overlayContainerElement)[0];
+        expect(firstActiveOption.className).toContain('dt-option-active');
+
+        // update input value to trigger input value change
+        inputElement.value = 'Mayo';
+        fixture.detectChanges();
+        const options = getOptions(overlayContainerElement);
+        options.forEach((option) => {
+          expect(option.className).toContain('dt-option');
+        });
+      });
+
+      it('should focus on input after having first active option selected and then use up arrow', () => {
+        inputElement.dispatchEvent(moveKeyDown());
+        fixture.detectChanges();
+        const firstActiveOption = getOptions(overlayContainerElement)[0];
+        expect(firstActiveOption.className).toContain('dt-option-active');
+
+        inputElement.dispatchEvent(moveKeyUp());
+        fixture.detectChanges();
+        expect(inputElement.getAttribute('readonly')).not.toBe('');
+      });
+
+      it('should focus on input after having last active option selected and then use down arrow', async () => {
+        getAndClickOption(overlayContainerElement, 0);
+
+        inputElement.dispatchEvent(moveKeyUp());
+        fixture.detectChanges();
+        const options = getOptions(overlayContainerElement);
+        const lastActiveOption = options[3];
+        expect(lastActiveOption.className).toContain('dt-option-active');
+        expect(inputElement.getAttribute('readonly')).toBe('');
+
+        inputElement.dispatchEvent(moveKeyDown());
+        fixture.detectChanges();
+        expect(inputElement.getAttribute('readonly')).not.toBe('');
+      });
     });
 
     describe('opened', () => {
@@ -131,12 +217,6 @@ describe('DtFilterField', () => {
         expect(checkboxLabels[4].textContent?.trim()).toBe('ImportedImported');
         expect(checkboxInputs[4].disabled).toBeTruthy();
         expect(applyButton).toBeDefined();
-      });
-
-      it('should set the focus onto the first checkbox by default', () => {
-        const firstOption = getOptions(overlayContainerElement)[0];
-
-        expect(firstOption.className).toContain('dt-option-active');
       });
 
       it('should keep the apply button disabled until something is selected', () => {

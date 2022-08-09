@@ -15,7 +15,6 @@
  */
 
 import { ActiveDescendantKeyManager, Highlightable } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { TemplatePortal } from '@angular/cdk/portal';
 /* eslint-disable @angular-eslint/template/cyclomatic-complexity */
 import {
@@ -65,19 +64,6 @@ export class DtFilterFieldMultiSelectSubmittedEvent<T> {
 export class DtFilterFieldMultiSelect<T>
   implements DtFilterFieldElement<T>, AfterViewInit
 {
-  /**
-   * Whether the first option should be highlighted when the multi-select panel is opened.
-   * Can be configured globally through the `DT_MULTI_SELECT_DEFAULT_OPTIONS` token.
-   */
-  @Input()
-  get autoActiveFirstOption(): boolean {
-    return this._autoActiveFirstOption;
-  }
-  set autoActiveFirstOption(value: boolean) {
-    this._autoActiveFirstOption = coerceBooleanProperty(value);
-  }
-  private _autoActiveFirstOption: boolean;
-
   /**
    * Specify the width of the multi-select panel.  Can be any CSS sizing value, otherwise it will
    * match the width of its host.
@@ -183,7 +169,7 @@ export class DtFilterFieldMultiSelect<T>
     // init keymanager with options
     this._keyManager = new ActiveDescendantKeyManager<DtOption<T>>(
       this._options,
-    ).withWrap();
+    );
 
     this._options.changes
       .pipe(
