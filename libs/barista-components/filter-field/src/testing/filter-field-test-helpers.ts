@@ -43,10 +43,12 @@ import {
   DtFilterValue,
   isDtAutocompleteValue,
 } from '../types';
+import { DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 
 export interface FilterFieldTestContext {
   fixture: ComponentFixture<TestApp>;
   filterField: DtFilterField;
+  inputEl: HTMLInputElement;
   zone: MockNgZone;
   overlayContainer: OverlayContainer;
   overlayContainerElement: HTMLElement;
@@ -64,6 +66,7 @@ export interface FilterFieldTestContext {
 export function setupFilterFieldTest(): FilterFieldTestContext {
   let fixture: ComponentFixture<TestApp> | undefined;
   let filterField: DtFilterField | undefined;
+  let inputEl: HTMLInputElement | undefined;
   let zone: MockNgZone | undefined;
   let overlayContainer: OverlayContainer | undefined;
   let overlayContainerElement: HTMLElement | undefined;
@@ -94,6 +97,7 @@ export function setupFilterFieldTest(): FilterFieldTestContext {
     filterField = fixture.debugElement.query(
       By.directive(DtFilterField),
     ).componentInstance;
+    inputEl = fixture!.debugElement.query(By.css('input')).nativeElement;
   });
   configureTestModule();
 
@@ -132,13 +136,13 @@ export function setupFilterFieldTest(): FilterFieldTestContext {
    * Types the passed value into the filter field input element
    */
   function typeIntoFilterElement(inputString: string): void {
-    const inputEl = fixture!.debugElement.query(By.css('input')).nativeElement;
-    typeInElement(inputString, inputEl);
+    typeInElement(inputString, inputEl!);
   }
 
   return {
     fixture: fixture!,
     filterField: filterField!,
+    inputEl: inputEl!,
     zone: zone!,
     overlayContainer: overlayContainer!,
     overlayContainerElement: overlayContainerElement!,
@@ -298,9 +302,7 @@ export function getRangeApplyButton(
 export function getMultiSelectTrigger(
   overlayContainerElement: HTMLElement,
 ): HTMLElement[] {
-  return Array.from(
-    overlayContainerElement.querySelectorAll('input[dtFilterFieldMultiSelect]'),
-  );
+  return Array.from(overlayContainerElement.querySelectorAll('input'));
 }
 
 export function getMultiSelect(
@@ -422,4 +424,12 @@ export function isClearAllVisible(fixture: ComponentFixture<any>): boolean {
     clearAll !== null &&
     !clearAll.classList.contains('dt-filter-field-clear-all-button-hidden')
   );
+}
+
+export function moveKeyUp(): KeyboardEvent {
+  return new KeyboardEvent('keydown', { keyCode: UP_ARROW });
+}
+
+export function moveKeyDown(): KeyboardEvent {
+  return new KeyboardEvent('keydown', { keyCode: DOWN_ARROW });
 }

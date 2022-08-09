@@ -120,6 +120,10 @@ $dt-filter-field-inner-height: 30px;
   outline: none;
   background: transparent;
   z-index: 1;
+  &.dt-not-blinking {
+    color: transparent;
+    text-shadow: 0 0 0 $default-font-color;
+  }
 }
 
 .dt-filter-field-spinner {

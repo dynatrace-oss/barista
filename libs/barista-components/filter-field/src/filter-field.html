@@ -44,7 +44,11 @@
       #input
       type="text"
       class="dt-filter-field-input"
-      [readonly]="loading"
+      [class.dt-not-blinking]="
+        _currentDef &&
+        _currentDef.multiSelect &&
+        _multiSelectTrigger.element._keyManager.activeItemIndex !== -1
+      "
       [attr.aria-label]="ariaLabel"
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length || loading"
@@ -58,8 +62,16 @@
       "
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
+      (focus)="_handleFocus()"
+      (mousemove)="_handleMouseMove()"
       [value]="_inputValue"
       [disabled]="disabled"
+      [readonly]="
+        loading ||
+        (_currentDef &&
+          _currentDef.multiSelect &&
+          _multiSelectTrigger.element._keyManager.activeItemIndex !== -1)
+      "
     />
     <dt-autocomplete
       #autocomplete="dtAutocomplete"
