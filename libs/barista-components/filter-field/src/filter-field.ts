@@ -30,6 +30,7 @@ import {
   ESCAPE,
   LEFT_ARROW,
   SPACE,
+  TAB,
   UP_ARROW,
 } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
@@ -503,6 +504,17 @@ export class DtFilterField<T = any>
     return this._currentDef !== null && this._currentDef !== this._rootDef;
   }
 
+  /**
+   * Check if there is any option focused with keymanager on the opened multiselect panel
+   */
+  get isOptionOnMultiSelectSelected(): boolean {
+    return (
+      this._currentDef !== null &&
+      isDtMultiSelectDef(this._currentDef) &&
+      this._multiSelectTrigger.element._keyManager.activeItemIndex !== -1
+    );
+  }
+
   /** Emits whenever the component is destroyed. */
   private readonly _destroy$ = new Subject<void>();
 
@@ -599,7 +611,6 @@ export class DtFilterField<T = any>
             return;
           } else if (isDtMultiSelectDef(this._currentDef)) {
             this._multiSelectTrigger.openPanel();
-            this._multiSelectTrigger.element.focus();
           }
           // It is necessary to restore the focus back to the input field
           // so the user can directly continue creating more filter nodes.
@@ -782,6 +793,7 @@ export class DtFilterField<T = any>
     this.inputChange.emit(value);
 
     this._validateInput();
+    this._resetFocusOnMultiSelectDef();
     this._changeDetectorRef.markForCheck();
   }
 
@@ -816,8 +828,20 @@ export class DtFilterField<T = any>
       }
     } else if (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey)) {
       this._closeFilterPanels();
-    } else if (isDtMultiSelectDef(this._currentDef) && keyCode === SPACE) {
-      event.preventDefault();
+    } else if (isDtMultiSelectDef(this._currentDef)) {
+      if (keyCode === TAB) {
+        this._multiSelectTrigger.closePanel();
+        return;
+      }
+      // if there is any option focused dont allow typing on input, but allow the use of space to mark/unmarked the checkbox
+      if (
+        keyCode === SPACE &&
+        this._multiSelectTrigger.element._keyManager.activeItemIndex !== null &&
+        this._multiSelectTrigger.element._keyManager.activeItemIndex > -1
+      ) {
+        event.preventDefault();
+      }
+      this._multiSelectTrigger.handleCustomArrowKeyNavigation(keyCode);
     } else {
       if (this._inputFieldKeyboardLocked) {
         return;
@@ -865,6 +889,16 @@ export class DtFilterField<T = any>
     } else {
       this._allowArrowKeyFocusOnTags = this._getAllowArrowKeyFocusOnTags();
     }
+  }
+
+  /** @internal Handles focus on the input */
+  _handleFocus(): void {
+    this._resetFocusOnMultiSelectDef();
+  }
+
+  /** @internal Handles mousemove on the input */
+  _handleMouseMove(): void {
+    this._resetFocusOnMultiSelectDef(false);
   }
 
   /** @internal Handles the navigation through the list of tags when using arrow keys */
@@ -1884,6 +1918,16 @@ export class DtFilterField<T = any>
         this.interactionStateChange.emit(interactionState);
       }
     }
+  }
+
+  private _resetFocusOnMultiSelectDef(doScroll: boolean = true): void {
+    if (
+      isDtMultiSelectDef(this._currentDef) &&
+      this._multiSelect._keyManager.activeItemIndex !== -1
+    )
+      this._multiSelectTrigger.resetActiveItemAndKeyManagerLimitsOnPanel(
+        doScroll,
+      );
   }
 }
 // tslint:disable:max-file-line-count

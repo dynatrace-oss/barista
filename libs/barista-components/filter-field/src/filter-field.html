@@ -36,7 +36,6 @@
       type="text"
       class="dt-filter-field-input"
       [id]="_id"
-      [readonly]="loading"
       [attr.aria-label]="ariaLabel"
       [dtAutocomplete]="autocomplete"
       [dtAutocompleteDisabled]="!_autocompleteOptionsOrGroups.length || loading"
@@ -50,8 +49,11 @@
       "
       (keydown)="_handleInputKeyDown($event)"
       (keyup)="_handleInputKeyUp($event)"
+      (focus)="_handleFocus()"
+      (mousemove)="_handleMouseMove()"
       [value]="_inputValue"
       [disabled]="disabled"
+      [readonly]="loading || isOptionOnMultiSelectSelected"
     />
     <dt-autocomplete
       #autocomplete="dtAutocomplete"
