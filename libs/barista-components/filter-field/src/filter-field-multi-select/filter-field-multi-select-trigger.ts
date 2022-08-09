@@ -78,6 +78,15 @@ export class DtFilterFieldMultiSelectTrigger<T>
     super.elementDisabled = value;
   }
 
+  /**
+   * It will allow to check if the key manager is already focused on the first active item on multi select panel
+   */
+  isKeyManagerFocusAlreadyOnTop = false;
+  /**
+   * It will allow to check if the key manager is already focused on the last active item on multi select panel
+   */
+  isKeyManagerFocusAlreadyOnBottom = false;
+
   constructor(
     protected _elementRef: ElementRef,
     protected _overlay: Overlay,
@@ -106,7 +115,102 @@ export class DtFilterFieldMultiSelectTrigger<T>
   /** Opens the filter-field multiSelect panel. */
   openPanel(): void {
     if (!this.element._isOpen) {
+      // As now there is no autofocus anymore, the key manager and its boundaries must be reset after opening the panel
+      this.resetActiveItemAndKeyManagerLimitsOnPanel();
       super.openPanel();
+    }
+  }
+
+  /** Closes the filter-field multiSelect panel. */
+  closePanel(shouldEmit: boolean = true): void {
+    if (this.element._isOpen) {
+      // As now there is no autofocus anymore, the key manager and its boundaries must be reset after closing the panel
+      this.resetActiveItemAndKeyManagerLimitsOnPanel();
+      super.closePanel(shouldEmit);
+    }
+  }
+
+  /** Reset the focus of keymanager and limits on panel */
+  resetActiveItemAndKeyManagerLimitsOnPanel(doScroll: boolean = true): void {
+    this._resetActiveItem();
+    this._resetBoundariesOnKeyManager(doScroll);
+  }
+
+  /** Before, navigation was done via wrapping the keymanager, now is done checking current active indexes and key event */
+  handleCustomArrowKeyNavigation(keyCode: number): void {
+    if (keyCode === DOWN_ARROW || keyCode === UP_ARROW) {
+      // Identify valid indexes of active items as key manager cant provide list
+      const activeItemIndexes: number[] = [];
+      this.element._options.toArray().forEach((element, index) => {
+        if (!element.disabled) {
+          activeItemIndexes.push(index);
+        }
+      });
+
+      // if is the first active element
+      if (
+        keyCode == UP_ARROW &&
+        this.element._keyManager.activeItemIndex == activeItemIndexes[0] &&
+        activeItemIndexes.length > 1
+      ) {
+        // if has limit set, go to input focus
+        if (this.isKeyManagerFocusAlreadyOnTop) {
+          this.resetActiveItemAndKeyManagerLimitsOnPanel();
+          // set limit on top
+        } else {
+          this.isKeyManagerFocusAlreadyOnTop = true;
+          this.isKeyManagerFocusAlreadyOnBottom =
+            activeItemIndexes.length === 1;
+        }
+        // from input focus, go to the last active item
+      } else if (
+        keyCode == UP_ARROW &&
+        this.element._keyManager.activeItemIndex == -1 &&
+        activeItemIndexes.length > 0
+      ) {
+        this.element._keyManager.setLastItemActive();
+        this.isKeyManagerFocusAlreadyOnTop = activeItemIndexes.length === 1;
+        this.isKeyManagerFocusAlreadyOnBottom = true;
+        // update limit on first active item
+      } else if (
+        keyCode == DOWN_ARROW &&
+        this.element._keyManager.activeItemIndex == activeItemIndexes[0] &&
+        activeItemIndexes.length > 1
+      ) {
+        this.isKeyManagerFocusAlreadyOnTop = true;
+        this.isKeyManagerFocusAlreadyOnBottom = false;
+        // if is the last active element
+      } else if (
+        keyCode == DOWN_ARROW &&
+        this.element._keyManager.activeItemIndex ==
+          activeItemIndexes[activeItemIndexes.length - 1]
+      ) {
+        // if has limit set, go to input focus
+        if (this.isKeyManagerFocusAlreadyOnBottom) {
+          this.resetActiveItemAndKeyManagerLimitsOnPanel();
+          // set limit on bottom
+        } else {
+          this.isKeyManagerFocusAlreadyOnTop = activeItemIndexes.length === 1;
+          this.isKeyManagerFocusAlreadyOnBottom = true;
+        }
+        // if unique option, reset to input focus
+      } else if (activeItemIndexes.length === 1) {
+        this.resetActiveItemAndKeyManagerLimitsOnPanel();
+        // in any other case, reset
+      } else {
+        this.isKeyManagerFocusAlreadyOnTop = false;
+        this.isKeyManagerFocusAlreadyOnBottom = false;
+      }
+      // do scroll, specially when jumping from panel to input and viceversa
+      if (
+        this.isKeyManagerFocusAlreadyOnTop ||
+        this.isKeyManagerFocusAlreadyOnBottom
+      ) {
+        // When selecting the first active or last active element from list, scroll will take place
+        this.element._keyManager.activeItem
+          ?._getHostElement()
+          ?.scrollIntoView();
+      }
     }
   }
 
@@ -124,7 +228,7 @@ export class DtFilterFieldMultiSelectTrigger<T>
 
     if (!this.element._applyDisabled && keyCode === ENTER && this.panelOpen) {
       this.element._handleSubmit(event);
-      this._resetActiveItem();
+      this.resetActiveItemAndKeyManagerLimitsOnPanel();
 
       event.preventDefault();
     } else if (this.element && this.element._keyManager) {
@@ -147,15 +251,16 @@ export class DtFilterFieldMultiSelectTrigger<T>
         this.element._keyManager.activeItem !== prevActiveItem
       ) {
         this._scrollToOption();
+        this.element._keyManager.activeItem
+          ?._getHostElement()
+          ?.scrollIntoView();
       }
     }
   }
 
-  /** Resets the active item to -1 so arrow events will activate the correct options, or to 0 if the consumer opted into it. */
+  /** Resets the active item to -1 so arrow events will activate the correct options. */
   protected _resetActiveItem(): void {
-    this.element._keyManager.setActiveItem(
-      this.element.autoActiveFirstOption ? 0 : -1,
-    );
+    this.element._keyManager.setActiveItem(-1);
   }
 
   /** The currently active option, coerced to DtOption type. */
@@ -164,6 +269,17 @@ export class DtFilterFieldMultiSelectTrigger<T>
       return this.element._keyManager.activeItem;
     }
     return null;
+  }
+
+  /**
+   * After doing use of key navigation, it will reset boundary controls on multi select panel
+   * @param doScroll if true, does scroll into view for the current focused element, on the key manager
+   */
+  private _resetBoundariesOnKeyManager(doScroll: boolean): void {
+    this.isKeyManagerFocusAlreadyOnTop = false;
+    this.isKeyManagerFocusAlreadyOnBottom = false;
+    if (doScroll)
+      this.element._options.get(0)?._getHostElement().scrollIntoView();
   }
 
   protected _scrollToOption(): void {
