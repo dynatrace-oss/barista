@@ -353,7 +353,7 @@ test('should choose a multiselect node with the keyboard and submit the correct 
     .expect(tags.length)
     .eql(1)
     .expect(tags[0])
-    .eql('SeasoningKetchup');
+    .eql('SeasoningNone');
 });
 
 test('should not apply an empty multiselect node with the keyboard', async (testController: TestController) => {
