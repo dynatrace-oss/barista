@@ -1,8 +1,8 @@
-/* @thomaspink @tomheller @ffriedl89
-/** @thomaspink @tomheller @ffriedl89
+/* @thomaspink @tomheller @ffriedl89 @Sherif-Elhefnawy
+/** @thomaspink @tomheller @ffriedl89 @Sherif-Elhefnawy
 
 # Components
-/libs/barista-components/* @tomheller @thomaspink
+/libs/barista-components/* @tomheller @thomaspink @Sherif-Elhefnawy
 /libs/barista-components/alert/** @ffriedl89 @NinaKammerlander
 /libs/barista-components/autocomplete/** @thomaspink
 /libs/barista-components/bar-indicator/** @tomheller
@@ -17,25 +17,25 @@
 /libs/barista-components/container-breakpoint-observer/** @thomaspink
 /libs/barista-components/context-dialog/** @ffriedl89 @NinaKammerlander
 /libs/barista-components/copy-to-clipboard/** @ffriedl89 @moertenschlag
-/libs/barista-components/drawer/** @tomheller @rowa-audil
+/libs/barista-components/drawer/** @tomheller
 /libs/barista-components/empty-state/** @tomheller @heartdisease
 /libs/barista-components/event-chart/** @thomaspink @tomheller
-/libs/barista-components/expandable-panel/** @rowa-audil
-/libs/barista-components/expandable-section/** @rowa-audil
-/libs/barista-components/expandable-text/** @rowa-audil @ffriedl89
+/libs/barista-components/expandable-panel/** @Sherif-Elhefnawy
+/libs/barista-components/expandable-section/** @Sherif-Elhefnawy
+/libs/barista-components/expandable-text/** @ffriedl89
 /libs/barista-components/filter-field/** @thomaspink @tomheller
 /libs/barista-components/form-field/** @thomaspink
-/libs/barista-components/formatters/** @ffriedl89 @rowa-audil
+/libs/barista-components/formatters/** @ffriedl89
 /libs/barista-components/highlight/** @tomheller @thomaspink
 /libs/barista-components/icon/** @thomaspink
-/libs/barista-components/indicator/** @ffriedl89 @rowa-audil
+/libs/barista-components/indicator/** @ffriedl89
 /libs/barista-components/info-group/** @ffriedl89 @NinaKammerlander
 /libs/barista-components/inline-editor/** @thomaspink
 /libs/barista-components/input/** @thomaspink
 /libs/barista-components/key-value-list/** @ffriedl89 @moertenschlag
 /libs/barista-components/legend/** @thomaspink
 /libs/barista-components/loading-distractor/** @thomaspink
-/libs/barista-components/menu/** @heartdisease @rowa-audil
+/libs/barista-components/menu/** @heartdisease
 /libs/barista-components/micro-chart/** @ffriedl89 @dlaubi-dt @tomheller
 /libs/barista-components/overlay/** @ffriedl89 @thomaspink @tomheller
 /libs/barista-components/pagination/** @tomheller
@@ -47,14 +47,14 @@
 /libs/barista-components/secondary-nav/** @thomaspink
 /libs/barista-components/select/** @thomaspink
 /libs/barista-components/selection-area/** @ffriedl89 @tomheller
-/libs/barista-components/show-more/** @rowa-audil
+/libs/barista-components/show-more/** @Sherif-Elhefnawy
 /libs/barista-components/stacked-series-chart/** @subarroca @airime
 /libs/barista-components/stepper/** @ffriedl89 @thomaspink
 /libs/barista-components/sunburst-chart/** @subarroca @PedroMosquera
 /libs/barista-components/switch/** @thomaspink
 /libs/barista-components/table/** @ffriedl89 @tomheller
 /libs/barista-components/tabs/** @ffriedl89 @thomaspink
-/libs/barista-components/tag/** @rowa-audil
+/libs/barista-components/tag/** @Sherif-Elhefnawy
 /libs/barista-components/tile/** @ffriedl89 @NinaKammerlander
 /libs/barista-components/timeline-chart/** @thomaspink
 /libs/barista-components/toast/** @ffriedl89 @tomheller
@@ -66,26 +66,26 @@
 /apps/* @tomheller @thomaspink
 
 # Barista
-/apps/barista-design-system/* @thomaspink @tomheller
-/apps/barista-design-system/src/** @NinaKammerlander @thomaspink @rowa-audil
+/apps/barista-design-system/* @thomaspink @tomheller @Sherif-Elhefnawy
+/apps/barista-design-system/src/** @NinaKammerlander @thomaspink @Sherif-Elhefnawy
 
 # Demos app
-/apps/demos/* @thomaspink @tomheller
-/apps/demos/src/** @thomaspink @tomheller
+/apps/demos/* @thomaspink @tomheller @Sherif-Elhefnawy
+/apps/demos/src/** @thomaspink @tomheller @Sherif-Elhefnawy
 
 # e2e
-/apps/components-e2e/* @tomheller
-/apps/components-e2e/src/** @tomheller
+/apps/components-e2e/* @tomheller @Sherif-Elhefnawy
+/apps/components-e2e/src/** @tomheller @Sherif-Elhefnawy
 /apps/components-e2e/src/components/button @thomaspink
 /apps/components-e2e/src/components/button-group @tomheller
 /apps/components-e2e/src/components/chart @ffriedl89 @tomheller
 /apps/components-e2e/src/components/checkbox @thomaspink
 /apps/components-e2e/src/components/consumption @ffriedl89 @thomaspink
 /apps/components-e2e/src/components/context-dialog @ffriedl89 @NinaKammerlander
-/apps/components-e2e/src/components/drawer @tomheller @rowa-audil
+/apps/components-e2e/src/components/drawer @tomheller
 /apps/components-e2e/src/components/event-chart @thomaspink @tomheller
-/apps/components-e2e/src/components/expandable-panel @rowa-audil
-/apps/components-e2e/src/components/expandable-section @rowa-audil
+/apps/components-e2e/src/components/expandable-panel
+/apps/components-e2e/src/components/expandable-section
 /apps/components-e2e/src/components/filter-field @thomaspink @tomheller
 /apps/components-e2e/src/components/key-value-list @ffriedl89 @moertenschlag
 /apps/components-e2e/src/components/overlay @ffriedl89 @thomaspink @tomheller
@@ -93,13 +93,13 @@
 /apps/components-e2e/src/components/progress-bar @tomheller
 /apps/components-e2e/src/components/radial-chart @tomheller
 /apps/components-e2e/src/components/radio @thomaspink
-/apps/components-e2e/src/components/show-more @rowa-audil
+/apps/components-e2e/src/components/show-more @Sherif-Elhefnawy
 /apps/components-e2e/src/components/switch @thomaspink
 /apps/components-e2e/src/components/tabs @ffriedl89 @thomaspink
 /apps/components-e2e/src/components/tile @ffriedl89 @NinaKammerlander
 
 # Dev app
-/apps/dev/* @thomaspink @tomheller
+/apps/dev/* @thomaspink @tomheller @Sherif-Elhefnawy
 /apps/dev/src/* @thomaspink @tomheller
 /apps/dev/src/alert/** @ffriedl89 @NinaKammerlander
 /apps/dev/src/autocomplete/** @thomaspink
@@ -115,25 +115,25 @@
 /apps/dev/src/container-breakpoint-observer/** @thomaspink
 /apps/dev/src/context-dialog/** @ffriedl89 @NinaKammerlander
 /apps/dev/src/copy-to-clipboard/** @ffriedl89 @moertenschlag
-/apps/dev/src/drawer/** @tomheller @rowa-audil
+/apps/dev/src/drawer/** @tomheller
 /apps/dev/src/empty-state/** @tomheller @heartdisease
 /apps/dev/src/event-chart/** @thomaspink @tomheller
-/apps/dev/src/expandable-panel/** @rowa-audil
-/apps/dev/src/expandable-section/** @rowa-audil
-/apps/dev/src/expandable-text/** @rowa-audil @ffriedl89
+/apps/dev/src/expandable-panel/** @Sherif-Elhefnawy
+/apps/dev/src/expandable-section/** @Sherif-Elhefnawy
+/apps/dev/src/expandable-text/** @ffriedl89
 /apps/dev/src/filter-field/** @thomaspink @tomheller
 /apps/dev/src/form-field/** @thomaspink
-/apps/dev/src/formatters/** @ffriedl89 @rowa-audil
+/apps/dev/src/formatters/** @ffriedl89
 /apps/dev/src/highlight/** @tomheller @thomaspink
 /apps/dev/src/icon/** @thomaspink
-/apps/dev/src/indicator/** @ffriedl89 @rowa-audil
+/apps/dev/src/indicator/** @ffriedl89
 /apps/dev/src/info-group/** @ffriedl89 @NinaKammerlander
 /apps/dev/src/inline-editor/** @thomaspink
 /apps/dev/src/input/** @thomaspink
 /apps/dev/src/key-value-list/** @ffriedl89 @moertenschlag
 /apps/dev/src/legend/** @thomaspink
 /apps/dev/src/loading-distractor/** @thomaspink
-/apps/dev/src/menu/** @heartdisease @rowa-audil
+/apps/dev/src/menu/** @heartdisease
 /apps/dev/src/micro-chart/** @ffriedl89 @dlaubi-dt @tomheller
 /apps/dev/src/overlay/** @ffriedl89 @thomaspink @tomheller
 /apps/dev/src/pagination/** @tomheller
@@ -144,14 +144,14 @@
 /apps/dev/src/secondary-nav/** @thomaspink
 /apps/dev/src/select/** @thomaspink
 /apps/dev/src/selection-area/** @ffriedl89 @tomheller
-/apps/dev/src/show-more/** @rowa-audil
+/apps/dev/src/show-more/** @Sherif-Elhefnawy
 /apps/dev/src/stacked-series-chart/** @subarroca @airime
 /apps/dev/src/stepper/** @ffriedl89 @thomaspink
 /apps/dev/src/sunburst-chart/** @subarroca @PedroMosquera
 /apps/dev/src/switch/** @thomaspink
 /apps/dev/src/table/** @ffriedl89 @tomheller
 /apps/dev/src/tabs/** @ffriedl89 @thomaspink
-/apps/dev/src/tag/** @rowa-audil
+/apps/dev/src/tag/** @Sherif-Elhefnawy
 /apps/dev/src/tile/** @ffriedl89 @NinaKammerlander
 /apps/dev/src/timeline-chart/** @thomaspink
 /apps/dev/src/toast/** @ffriedl89 @tomheller
@@ -160,19 +160,19 @@
 /apps/dev/src/tree-table/** @ffriedl89 @tomheller
 
 # Universal
-/apps/universal/* @thomaspink @tomheller
+/apps/universal/* @thomaspink @tomheller @Sherif-Elhefnawy
 /apps/universal/src/** @thomaspink @tomheller
 
 # Documentation
-/documentation/** @tomheller
+/documentation/** @tomheller @Sherif-Elhefnawy
 
 # Libs
-/libs/* @ffriedl89 @thomaspink @tomheller
+/libs/* @ffriedl89 @thomaspink @tomheller @Sherif-Elhefnawy
 /libs/testing/** @thomaspink
 
 # Examples
-/libs/examples/* @thomaspink
-/libs/examples/src/* @thomaspink
+/libs/examples/* @thomaspink @Sherif-Elhefnawy
+/libs/examples/src/* @thomaspink @Sherif-Elhefnawy
 /libs/examples/src/alert/** @ffriedl89 @NinaKammerlander
 /libs/examples/src/autocomplete/** @thomaspink
 /libs/examples/src/bar-indicator/** @tomheller
@@ -187,25 +187,25 @@
 /libs/examples/src/container-breakpoint-observer/** @thomaspink
 /libs/examples/src/context-dialog/** @ffriedl89 @NinaKammerlander
 /libs/examples/src/copy-to-clipboard/** @ffriedl89 @moertenschlag
-/libs/examples/src/drawer/** @tomheller @rowa-audil
+/libs/examples/src/drawer/** @tomheller
 /libs/examples/src/empty-state/** @tomheller @heartdisease
 /libs/examples/src/event-chart/** @thomaspink @tomheller
-/libs/examples/src/expandable-panel/** @rowa-audil
-/libs/examples/src/expandable-section/** @rowa-audil
-/libs/examples/src/expandable-text/** @rowa-audil @ffriedl89
+/libs/examples/src/expandable-panel/** @Sherif-Elhefnawy
+/libs/examples/src/expandable-section/** @Sherif-Elhefnawy
+/libs/examples/src/expandable-text/** @ffriedl89
 /libs/examples/src/filter-field/** @thomaspink @tomheller
 /libs/examples/src/form-field/** @thomaspink
-/libs/examples/src/formatters/** @ffriedl89 @rowa-audil
+/libs/examples/src/formatters/** @ffriedl89
 /libs/examples/src/highlight/** @tomheller @thomaspink
 /libs/examples/src/icon/** @thomaspink
-/libs/examples/src/indicator/** @ffriedl89 @rowa-audil
+/libs/examples/src/indicator/** @ffriedl89
 /libs/examples/src/info-group/** @ffriedl89 @NinaKammerlander
 /libs/examples/src/inline-editor/** @thomaspink
 /libs/examples/src/input/** @thomaspink
 /libs/examples/src/key-value-list/** @ffriedl89 @moertenschlag
 /libs/examples/src/legend/** @thomaspink
 /libs/examples/src/loading-distractor/** @thomaspink
-/libs/examples/src/menu/** @heartdisease @rowa-audil
+/libs/examples/src/menu/** @heartdisease
 /libs/examples/src/micro-chart/** @ffriedl89 @dlaubi-dt @tomheller
 /libs/examples/src/overlay/** @ffriedl89 @thomaspink @tomheller
 /libs/examples/src/pagination/** @tomheller
@@ -216,12 +216,12 @@
 /libs/examples/src/secondary-nav/** @thomaspink
 /libs/examples/src/select/** @thomaspink
 /libs/examples/src/selection-area/** @ffriedl89 @tomheller
-/libs/examples/src/show-more/** @rowa-audil
+/libs/examples/src/show-more/**
 /libs/examples/src/stepper/** @ffriedl89 @thomaspink
 /libs/examples/src/switch/** @thomaspink
 /libs/examples/src/table/** @ffriedl89 @tomheller
 /libs/examples/src/tabs/** @ffriedl89 @thomaspink
-/libs/examples/src/tag/** @rowa-audil
+/libs/examples/src/tag/** @Sherif-Elhefnawy
 /libs/examples/src/tile/** @ffriedl89 @NinaKammerlander
 /libs/examples/src/timeline-chart/** @thomaspink
 /libs/examples/src/toast/** @ffriedl89 @tomheller
@@ -230,14 +230,14 @@
 /libs/examples/src/tree-table/** @ffriedl89 @tomheller
 
 # Tools
-/tools/* @tomheller @thomaspink
+/tools/* @tomheller @thomaspink @Sherif-Elhefnawy
 
-/libs/tools/barista/* @thomaspink
-/libs/tools/barista/src/** @NinaKammerlander @rowa-audil @thomaspink
+/libs/tools/barista/* @thomaspink @Sherif-Elhefnawy
+/libs/tools/barista/src/** @NinaKammerlander @thomaspink
 
 /libs/tools/** @tomheller @ffriedl89 @thomaspink
 
-/tools/generators/** @tomheller
+/tools/generators/** @tomheller @Sherif-Elhefnawy
 
 /tools/stylelint/** @thomaspink
 
