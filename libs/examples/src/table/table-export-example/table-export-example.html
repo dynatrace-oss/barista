@@ -4,6 +4,7 @@
   #sortable
   [showExportButton]="true"
   [exportExcludeList]="['action']"
+  [loading]="tableLoading"
 >
   <ng-container dtColumnDef="host" dtColumnAlign="text" dtColumnProportion="3">
     <dt-header-cell *dtHeaderCellDef>Host</dt-header-cell>

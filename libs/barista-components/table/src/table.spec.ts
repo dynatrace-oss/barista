@@ -727,6 +727,14 @@ describe('DtTable', () => {
       expect(displayData).toHaveProperty('csv');
       expect(displayData?.csv).toMatch(/Simple,Complex/);
       expect(displayData?.csv).toMatch(/(test 1,".+",?\n){4}/m);
+    }));
+
+    it('Should export all table data', fakeAsync(() => {
+      const fixture = TestBed.createComponent(TestExportApp);
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
       const filteredData =
         fixture.componentInstance.tableComponent._generateFilteredCSV();
       console.log('filteredData:' + filteredData?.csv);
@@ -735,6 +743,13 @@ describe('DtTable', () => {
         /simple,complex.obj.subobj.keyA,complex.obj.keyB/,
       );
       expect(filteredData?.csv).toMatch(/(test 1,val1,val2,?\n){4}/m);
+
+      const DS = fixture.componentInstance.tableComponent
+        .dataSource as object[];
+      for (let i = 0; i < 10; i++) DS.push(DS[0]);
+      const moreFilteredData =
+        fixture.componentInstance.tableComponent._generateFilteredCSV();
+      expect(moreFilteredData?.csv).toMatch(/(test 1,val1,val2,?\n){14}/m);
     }));
   });
 });
