@@ -675,42 +675,46 @@ describe('DtTable', () => {
 
   describe('Table Exporting', () => {
     it('Should show ellipsis if true', fakeAsync(() => {
-      let dialogs: DebugElement[];
       const fixture = TestBed.createComponent(TestExportApp);
       fixture.componentInstance.showExportButton = true;
       fixture.detectChanges();
       // Expected 1 and only 1 DtContextDialog if enabled
-      dialogs = fixture.debugElement.queryAll(By.css('dt-context-dialog'));
+      const dialogs = fixture.debugElement.queryAll(
+        By.css('dt-context-dialog'),
+      );
       expect(dialogs.length).toBe(1);
     }));
 
     it('Should show ellipsis if visible', fakeAsync(() => {
-      let dialogs: DebugElement[];
       const fixture = TestBed.createComponent(TestExportApp);
       //Show ellipsis if visible
       fixture.componentInstance.showExportButton = 'visible';
       fixture.detectChanges();
-      dialogs = fixture.debugElement.queryAll(By.css('dt-context-dialog'));
+      const dialogs = fixture.debugElement.queryAll(
+        By.css('dt-context-dialog'),
+      );
       expect(dialogs.length).toBe(1);
     }));
 
     it('Should  show ellipsis if table', fakeAsync(() => {
-      let dialogs: DebugElement[];
       const fixture = TestBed.createComponent(TestExportApp);
       //Show ellipsis if table
       fixture.componentInstance.showExportButton = 'table';
       fixture.detectChanges();
-      dialogs = fixture.debugElement.queryAll(By.css('dt-context-dialog'));
+      const dialogs = fixture.debugElement.queryAll(
+        By.css('dt-context-dialog'),
+      );
       expect(dialogs.length).toBe(1);
     }));
 
     it('Should not show ellipsis if false', fakeAsync(() => {
-      let dialogs: DebugElement[];
       const fixture = TestBed.createComponent(TestExportApp);
       //Disable export and wait for component to update
       fixture.componentInstance.showExportButton = false;
       fixture.detectChanges();
-      dialogs = fixture.debugElement.queryAll(By.css('dt-context-dialog'));
+      const dialogs = fixture.debugElement.queryAll(
+        By.css('dt-context-dialog'),
+      );
       // Expected the DtContextDialog not rendered if not enabled
       expect(dialogs.length).toBe(0);
     }));
@@ -727,6 +731,14 @@ describe('DtTable', () => {
       expect(displayData).toHaveProperty('csv');
       expect(displayData?.csv).toMatch(/Simple,Complex/);
       expect(displayData?.csv).toMatch(/(test 1,".+",?\n){4}/m);
+    }));
+
+    it('Should export all table data', fakeAsync(() => {
+      const fixture = TestBed.createComponent(TestExportApp);
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
       const filteredData =
         fixture.componentInstance.tableComponent._generateFilteredCSV();
       console.log('filteredData:' + filteredData?.csv);
@@ -735,6 +747,13 @@ describe('DtTable', () => {
         /simple,complex.obj.subobj.keyA,complex.obj.keyB/,
       );
       expect(filteredData?.csv).toMatch(/(test 1,val1,val2,?\n){4}/m);
+
+      const DS = fixture.componentInstance.tableComponent
+        .dataSource as object[];
+      for (let i = 0; i < 10; i++) DS.push(DS[0]);
+      const moreFilteredData =
+        fixture.componentInstance.tableComponent._generateFilteredCSV();
+      expect(moreFilteredData?.csv).toMatch(/(test 1,val1,val2,?\n){14}/m);
     }));
   });
 });
