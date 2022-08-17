@@ -53,6 +53,7 @@ import {
 import { DtHeaderCell } from './header/header-cell';
 import { DtRow } from './row';
 import {
+  isDataSource,
   _DisposeViewRepeaterStrategy,
   _ViewRepeater,
   _VIEW_REPEATER_STRATEGY,
@@ -68,6 +69,7 @@ import {
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DtTableSelection } from './selection/selection';
 import { isObject } from '@dynatrace/barista-components/core';
+import { DtTableDataSource } from './table-data-source';
 
 interface SimpleColumnsAccessorMaps<T> {
   displayAccessorMap: Map<string, DtSimpleColumnDisplayAccessorFunction<T>>;
@@ -403,16 +405,9 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
     if (this.isEmptyDataSource) {
       return null;
     }
-    //not using DTDataSource, fallback to this._data instead of this._filteredData
-    let exportData: readonly T[];
-    if (selectedData) {
-      exportData = selectedData;
-    } else {
-      exportData =
-        Array.isArray(this._filteredData) && isObject(this._filteredData[0])
-          ? this._filteredData
-          : this._data;
-    }
+
+    let exportData = determineDataToExport(this, selectedData);
+    if (!exportData) return null;
 
     const csvObj = { csv: '' };
     const keys: string[] = Object.keys(exportData[0]).filter(
@@ -441,6 +436,44 @@ export class DtTable<T> extends _DtTableBase<T> implements OnDestroy {
       csvObj.csv += '\n';
     }
     return csvObj;
+
+    /**
+     * @internal Data can end up in a table many ways, figure out the best to use for exporting table data
+     * @param table {DtTable<T>} - pass 'this' to inner function
+     * @param selectedData {T[]} - pass parent's param down simply for clarity
+     */
+    function determineDataToExport(
+      table: DtTable<T>,
+      _selectedData?: T[],
+    ): T[] | null {
+      let _exportData: T[] | null = null;
+      let DS = isDataSource(table.dataSource)
+        ? (table.dataSource as DtTableDataSource<T>)
+        : null;
+
+      //Prefer selected data if available
+      if (_selectedData) _exportData = _selectedData;
+
+      //Next prefer data from dataSource
+      if (!_exportData && DS) {
+        if (Array.isArray(DS.filteredData) && isObject(DS.filteredData[0]))
+          _exportData = DS.filteredData;
+        else if (Array.isArray(DS.data) && isObject(DS.data[0]))
+          _exportData = DS.data;
+      }
+
+      //Lastly look for data directly in the table
+      if (!_exportData) {
+        if (
+          Array.isArray(table._filteredData) &&
+          isObject(table._filteredData[0])
+        )
+          _exportData = table._filteredData;
+        else if (Array.isArray(table._data) && isObject(table._data[0]))
+          _exportData = table._data;
+      }
+      return _exportData;
+    }
 
     /** @internal Recursively traverse an object structure while building out a deep access key list */
     function recurseSubkeys(

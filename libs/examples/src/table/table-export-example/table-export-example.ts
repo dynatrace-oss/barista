@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewChildren,
+  QueryList,
+} from '@angular/core';
+import { startWith } from 'rxjs/operators';
 
 import {
   formatBytes,
@@ -147,10 +154,13 @@ export class DtExampleTableExport implements OnInit {
       },
     },
   ];
+  tableLoading = true;
+  pageSize = 6;
 
   // Get the viewChild to pass the sorter reference to the data-source.
   @ViewChild('sortable', { read: DtSort, static: true }) sortable: DtSort;
-  @ViewChild(DtPagination, { static: true }) pagination: DtPagination;
+  @ViewChildren(DtPagination)
+  paginationList: QueryList<DtPagination>;
 
   dataSource: DtTableDataSource<object>;
 
@@ -162,9 +172,9 @@ export class DtExampleTableExport implements OnInit {
     // Set the dtSort reference on the dataSource, so it can react to sorting.
     this.dataSource.sort = this.sortable;
     // Set the dtPagination reference on the dataSource, so it can page the data.
-    this.dataSource.pagination = this.pagination;
+    // this.dataSource.pagination = this.pagination;
     // Set the pageSize to override the default page size.
-    this.dataSource.pageSize = 4;
+    this.dataSource.pageSize = this.pageSize;
   }
 
   percentageFormatter = formatPercent;
@@ -194,5 +204,26 @@ export class DtExampleTableExport implements OnInit {
 
   techType(row: any): string {
     return row.host.length % 2 ? 'Linux' : 'Windows';
+  }
+
+  ngAfterViewInit(): void {
+    this.paginationList.changes.pipe(startWith(null)).subscribe(() => {
+      if (this.paginationList.first) {
+        this.dataSource.pagination = this.paginationList.first;
+        this.dataSource.pageSize = this.pageSize;
+      } else {
+        this.dataSource.pagination = null;
+      }
+    });
+
+    setTimeout(() => {
+      //make data bigger to test export w/ pagination
+      let newData = [...this.data];
+      for (let i = 0; i < 6; i++) {
+        newData = newData.concat(newData);
+      }
+      this.dataSource.data = newData;
+      this.tableLoading = false;
+    }, 2000);
   }
 }
