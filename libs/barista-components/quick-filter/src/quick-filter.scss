@@ -106,13 +106,12 @@ $space: 20px;
   font-family: inherit;
   font-size: 14px;
   font-weight: normal;
-  padding: 8px 0 0;
 }
 
 .dt-back-to-quick-filter {
   display: inline-flex;
   align-items: center;
-  margin-right: $space-right;
+  margin: 2px 0 0 2px; // prevents focus outline from being cut off
 }
 
 .dt-back-to-quick-filter ::ng-deep .dt-icon {
