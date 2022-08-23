@@ -73,7 +73,7 @@ export function quickFilterReducer(
       return { ...state, filters: updateFilter(state.filters, action.payload) };
     case ActionType.REMOVE_FILTER:
       return { ...state, filters: removeFilter(state.filters, action.payload) };
-    case ActionType.HIGHLIGHT_GROUP:
+    case ActionType.VIEW_GROUP:
       return { ...state, groupInDetailView: action.payload };
     default:
       // Default return the same state as it was passed so don't modify anything
