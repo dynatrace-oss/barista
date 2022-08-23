@@ -21,14 +21,18 @@
       class="dt-quick-filter-close"
       #drawerCloseButton
       aria-label="Closes the quick filter bar"
-      (click)="drawer.close()"
+      (click)="_closeDrawer()"
       (keydown)="_closeDrawerKeyboardHandler($event)"
     >
       ◀︎
     </button>
 
     <ng-container *ngIf="_isDetailView$ | async; else quickFilterHeader">
-      <button class="dt-back-to-quick-filter" (click)="_goBackFromDetail()">
+      <button
+        #backToQuickFilterButton
+        class="dt-back-to-quick-filter"
+        (click)="_goBackFromDetail()"
+      >
         <dt-icon name="left"></dt-icon>
         <ng-container i18n>Back to quick filters</ng-container>
       </button>
@@ -54,7 +58,7 @@
       class="dt-quick-filter-open"
       #drawerOpenButton
       aria-label="Opens the quick filter bar"
-      (click)="drawer.open()"
+      (click)="_openDrawer()"
       (keydown)="_openDrawerKeyboardHandler($event)"
     >
       ▶︎

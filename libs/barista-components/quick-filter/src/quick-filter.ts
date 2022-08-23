@@ -45,6 +45,7 @@ import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
 import { DtQuickFilterDataSource } from './quick-filter-data-source';
 import {
   Action,
+  ActionType,
   addInitialFilters,
   isFilterChangeAction,
   setFilters,
@@ -175,6 +176,13 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    */
   @ViewChild('drawerOpenButton', { static: false })
   _drawerOpenButton: ElementRef;
+
+  /**
+   * @internal
+   * Instance of the back-to-quick-filter button
+   */
+  @ViewChild('backToQuickFilterButton', { static: false })
+  _backToQuickFilterButton: ElementRef;
 
   /**
    * The sidebarOpened property toggles the sidebar open state.
@@ -332,12 +340,10 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    */
   _closeDrawerKeyboardHandler(event: KeyboardEvent): void {
     const keyCode = _readKeyCode(event);
+
     if (keyCode === ENTER) {
       event.preventDefault();
-      this._drawer.close();
-      this._zone.onStable.pipe(take(1)).subscribe(() => {
-        this._drawerOpenButton.nativeElement.focus();
-      });
+      this._closeDrawer();
     }
   }
 
@@ -347,13 +353,33 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    */
   _openDrawerKeyboardHandler(event: KeyboardEvent): void {
     const keyCode = _readKeyCode(event);
+
     if (keyCode === ENTER) {
       event.preventDefault();
-      this._drawer.open();
-      this._zone.onStable.pipe(take(1)).subscribe(() => {
-        this._drawerCloseButton.nativeElement.focus();
-      });
+      this._openDrawer();
     }
+  }
+
+  /**
+   * @internal
+   * Opens the drawer and then sets the focus on the close drawer button.
+   */
+  _openDrawer(): void {
+    this._drawer.open();
+    this._zone.onStable.pipe(take(1)).subscribe(() => {
+      this._drawerCloseButton.nativeElement.focus();
+    });
+  }
+
+  /**
+   * @internal
+   * Closes the drawer and then sets the focus on the open drawer button.
+   */
+  _closeDrawer(): void {
+    this._drawer.close();
+    this._zone.onStable.pipe(take(1)).subscribe(() => {
+      this._drawerOpenButton.nativeElement.focus();
+    });
   }
 
   /**
@@ -398,6 +424,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   _changeFilter(action: Action): void {
     this._virtualScrollHeight = this._getVirtualScrollContainerHeight();
     this._store.dispatch(action);
+
     if (isFilterChangeAction(action)) {
       this.filterChanges.emit(
         new DtQuickFilterChangeEvent(
@@ -407,6 +434,13 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
           this._filterField.filters,
         ),
       );
+    }
+
+    // triggered by clicking a "View more" button
+    if (action.type === ActionType.VIEW_GROUP) {
+      this._zone.onStable.pipe(take(1)).subscribe(() => {
+        this._backToQuickFilterButton.nativeElement.focus();
+      });
     }
   }
 
