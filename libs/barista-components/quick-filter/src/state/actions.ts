@@ -28,8 +28,8 @@ export enum ActionType {
   SET_FILTERS = '@@actions set filters',
   ADD_INITIAL_FILTERS = '@@actions add initial filters',
   UNSET_FILTER_GROUP = '@@actions unset filter group',
-  HIGHLIGHT_GROUP = '@@actions highlight filter group',
-  SWITCH_DATA_SOURCE = '@@actions  switch dataSource',
+  VIEW_GROUP = '@@actions view filter group',
+  SWITCH_DATA_SOURCE = '@@actions switch dataSource',
   UPDATE_DATA_SOURCE = '@@actions update dataSource',
 }
 
@@ -58,7 +58,7 @@ export const unsetFilterGroup = (group: DtNodeDef) =>
 
 /** @internal Highlights a filter group */
 export const showGroupInDetailView = (id: string | undefined) =>
-  action<string | undefined>(ActionType.HIGHLIGHT_GROUP, id);
+  action<string | undefined>(ActionType.VIEW_GROUP, id);
 
 /** @internal Action that adds a filter */
 export const addFilter = (filter: DtNodeDef[]) =>
