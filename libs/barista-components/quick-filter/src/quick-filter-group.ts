@@ -79,6 +79,9 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
   /** @internal Default template for the show more context */
   @ViewChild('defaultShowMoreText', { static: true })
   _defaultShowMoreTemplate: TemplateRef<number>;
+  /** @internal Instance of the view-more button */
+  @ViewChild('viewMoreButton', { static: false })
+  _viewMoreButton: ElementRef | null;
 
   /** @internal The aria-level of the group headlines for the document outline. */
   @Input()
@@ -166,6 +169,27 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
     }
     return this._checkBoxTemplate;
   }
+
+  /** @internal Whether the "View more" button of this filter group should be focused. */
+  @Input()
+  get focusViewMoreButton(): boolean {
+    return this._focusViewMoreButton;
+  }
+  set focusViewMoreButton(value: boolean) {
+    console.log('set focusViewMoreButton', value);
+    this._focusViewMoreButton = coerceBooleanProperty(value);
+
+    if (this._focusViewMoreButton) {
+      this._zone.onStable.pipe(take(1)).subscribe(() => {
+        console.log('put focus on view more button again!');
+
+        if (this._viewMoreButton) {
+          this._viewMoreButton.nativeElement.focus();
+        }
+      });
+    }
+  }
+  private _focusViewMoreButton = false;
 
   /** @internal The nodeDef of the autocomplete that should be rendered */
   _nodeDef: DtNodeDef;

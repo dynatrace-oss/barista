@@ -47,8 +47,11 @@
       [activeFilters]="_activeFilters$ | async"
       [isDetail]="_isDetailView$ | async"
       [nodeDef]="nodeDef"
+      [focusViewMoreButton]="
+        nodeDef.option?.uid === _activeFilterGroupNode?.option?.uid
+      "
       [class.dt-quick-filter-group-hidden]="_isDrawerClosed()"
-      (filterChange)="_changeFilter($event)"
+      (filterChange)="_changeFilter($event, nodeDef)"
     ></dt-quick-filter-group>
   </dt-drawer>
 

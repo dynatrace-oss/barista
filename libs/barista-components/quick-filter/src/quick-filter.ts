@@ -39,6 +39,7 @@ import {
   isDtFreeTextValue,
   isDtRangeValue,
   TagParserFunction,
+  DtNodeDef,
 } from '@dynatrace/barista-components/filter-field';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map, switchMap, take, takeUntil } from 'rxjs/operators';
@@ -176,10 +177,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   @ViewChild('drawerOpenButton', { static: false })
   _drawerOpenButton: ElementRef;
 
-  /**
-   * @internal
-   * Instance of the back-to-quick-filter button
-   */
+  /** @internal Instance of the back-to-quick-filter button */
   @ViewChild('backToQuickFilterButton', { static: false })
   _backToQuickFilterButton: ElementRef;
 
@@ -279,6 +277,8 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
   readonly _isDetailView$ = this._store.select(getIsDetailView);
   /** @internal The height of the virtual scroll container */
   _virtualScrollHeight = 0;
+  /** @internal node def of the filter group that currently has focus */
+  _activeFilterGroupNode: DtNodeDef<unknown> | null = null;
 
   /** Subject that is used for bulk unsubscribing */
   private _destroy$ = new Subject<void>();
@@ -417,7 +417,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
    * When the user selects an option in the quick filter an action gets passed
    * to this function that will be dispatched to the store
    */
-  _changeFilter(action: Action): void {
+  _changeFilter(action: Action, nodeDef: DtNodeDef<unknown>): void {
     this._virtualScrollHeight = this._getVirtualScrollContainerHeight();
     this._store.dispatch(action);
 
@@ -434,6 +434,7 @@ export class DtQuickFilter<T = any> implements AfterViewInit, OnDestroy {
 
     // triggered by clicking a "View more" button
     if (action.type === ActionType.VIEW_GROUP) {
+      this._activeFilterGroupNode = nodeDef;
       this._zone.onStable.pipe(take(1)).subscribe(() => {
         this._backToQuickFilterButton.nativeElement.focus();
       });
