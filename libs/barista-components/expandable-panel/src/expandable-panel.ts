@@ -14,13 +14,6 @@
  * limitations under the License.
  */
 
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger,
-} from '@angular/animations';
 import { coerceBooleanProperty, BooleanInput } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
@@ -34,6 +27,7 @@ import {
 import { filter } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { isDefined } from '@dynatrace/barista-components/core';
+import { dtExpandablePanelAnimation } from './expandable-panel-animations';
 
 /**
  * UniqueId counter, will be incremented with every
@@ -52,28 +46,7 @@ let uniqueId = 0;
     '[attr.aria-disabled]': 'disabled',
     '[attr.id]': 'id',
   },
-  animations: [
-    trigger('animationState', [
-      state(
-        'false',
-        style({
-          height: '0px',
-          visibility: 'hidden',
-        }),
-      ),
-      state(
-        'true',
-        style({
-          height: '*',
-          visibility: 'visible',
-          overflow: 'visible',
-        }),
-      ),
-      transition('true <=> false', [
-        animate('225ms cubic-bezier(0.4,0.0,0.2,1)'),
-      ]),
-    ]),
-  ],
+  animations: [dtExpandablePanelAnimation],
   encapsulation: ViewEncapsulation.Emulated,
   preserveWhitespaces: false,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -104,6 +77,7 @@ export class DtExpandablePanel {
     // Only update expanded state if it actually changed.
     if (this._expanded !== newValue) {
       this._expanded = newValue;
+      this._animationState = newValue ? 'expanded' : 'collapsed';
       this.expandChange.emit(newValue);
 
       // Ensures that the animation will run when the value is set outside of an `@Input`.
@@ -111,6 +85,10 @@ export class DtExpandablePanel {
       this._changeDetectorRef.markForCheck();
     }
   }
+
+  /** @internal The current state of the animation. */
+  _animationState: 'expanded' | 'collapsed' = 'collapsed';
+
   private _expanded = false;
   static ngAcceptInputType_expanded: BooleanInput;
 
@@ -119,11 +97,13 @@ export class DtExpandablePanel {
   get disabled(): boolean {
     return this._disabled;
   }
+
   set disabled(value: boolean) {
     this._disabled = coerceBooleanProperty(value);
     // When panel gets disabled it will also close when expanded.
     if (this._disabled && this._expanded) {
       this._expanded = false;
+      this._animationState = 'collapsed';
     }
     this._changeDetectorRef.markForCheck();
   }
