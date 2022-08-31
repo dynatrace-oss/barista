@@ -84,7 +84,7 @@ $dt-filter-field-inner-height: 30px;
 }
 
 .dt-filter-field-infix-edit {
-  max-width: 300px;
+  max-width: 400px;
 }
 
 .dt-filter-field-category {
@@ -103,7 +103,7 @@ $dt-filter-field-inner-height: 30px;
 
 .dt-filter-field-input {
   display: block;
-  min-width: 112px; // Minimum with of the autocomplete
+  min-width: 100px; // Minimum width of the autocomplete
   width: 100%;
   flex-grow: 1;
   flex-shrink: 1;
