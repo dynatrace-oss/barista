@@ -265,5 +265,5 @@ ignore:
   SNYK-JS-NWSAPI-2841516:
     - '@nguniversal/common > jsdom > nwsapi':
         reason: None given
-        expires: '2022-09-01T12:54:51.021Z'
+        expires: '2022-10-05T12:25:05.930Z'
 patch: {}
