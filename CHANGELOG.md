@@ -1,3 +1,27 @@
+## [10.8.0](https://github.com/dynatrace-oss/barista/compare/10.7.0...10.8.0) (2022-09-05)
+
+### Bug Fixes
+
+- **expandable-panel:** Fixed animation state issue when panel is inside a
+  container that gets removed from the DOM.
+  ([efa711a](https://github.com/dynatrace-oss/barista/commit/efa711abb7682174f0c8590501a753e02f51c7e4))
+- **filter-field:** Fixed issue where autocomplete would get out of bounds for
+  nested filters.
+  ([65457c9](https://github.com/dynatrace-oss/barista/commit/65457c98cf43a20cf7a40dffc261634f336a9a6a))
+- **quick-filter:** Move focus to correct element after View more is triggered.
+  ([6e7b332](https://github.com/dynatrace-oss/barista/commit/6e7b33245ddaf93e42a864354fad337ac6d21772))
+- **table:** Table export prefers data in DS.
+  ([b2d4413](https://github.com/dynatrace-oss/barista/commit/b2d4413c24215e50a05a033b915d041c95dc5c7a))
+
+### Features
+
+- **filter-field:** Added keyboard functionality to multiselect dropdown.
+  ([939fb17](https://github.com/dynatrace-oss/barista/commit/939fb174ae8df43990ecac86ecf43e738f9f5da2))
+- **tag:** Add aria-label to remove button in dt-tag.
+  ([0278ac7](https://github.com/dynatrace-oss/barista/commit/0278ac70ac4096d6e9af1fbaf01947dffca43258))
+- **tile:** Add critical color to tile component
+  ([a3f03a2](https://github.com/dynatrace-oss/barista/commit/a3f03a25ae2de158682895add71f8f5541526500))
+
 ## [10.7.7](https://github.com/dynatrace-oss/barista/compare/10.7.6...10.7.7) (2022-08-04)
 
 ### Bug Fixes
