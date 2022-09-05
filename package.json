@@ -1,6 +1,6 @@
 {
   "name": "@dynatrace-oss/barista",
-  "version": "10.7.7",
+  "version": "10.8.0",
   "description": "The design system repository at Dynatrace",
   "scripts": {
     "build": "ng build",
