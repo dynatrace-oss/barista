@@ -247,3 +247,31 @@ export function retainSeriesVisibility(
     return singleSeries;
   };
 }
+
+/**
+ * Creates a string which can be used as an aria-label for a chart.
+ *
+ * @param series series for which you want to generate an aria-label
+ * @returns a string which can be used as an aria-label for a chart
+ */
+export function createChartAriaLabel(
+  series: DtChartSeries[] | undefined,
+): string {
+  const seriesCount = series ? series.length : 0;
+  if (series && seriesCount > 0) {
+    let seriesSummary = '';
+    for (let i = 0; i < seriesCount; i++) {
+      const current = series[i];
+      const seriesWord = i === 0 ? 'Series' : 'series';
+      const optionalName = current.name ? `'${current.name}' ` : '';
+      seriesSummary += `${seriesWord} ${optionalName}of type '${current.type}'`;
+      if (seriesCount > 1 && i < seriesCount - 1) {
+        seriesSummary += ', ';
+      } else if (i === seriesCount - 1) {
+        seriesSummary += '.';
+      }
+    }
+    return `Showing ${seriesCount} series. ${seriesSummary}`;
+  }
+  return `Showing empty chart.`;
+}
