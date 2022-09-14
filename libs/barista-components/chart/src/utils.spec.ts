@@ -26,7 +26,8 @@ import {
 } from '@angular/cdk/keycodes';
 
 import { createKeyboardEvent } from '@dynatrace/testing/browser';
-import { getKeyboardNavigationOffset } from './utils';
+import { DtChartSeries } from './chart.interface';
+import { getKeyboardNavigationOffset, createChartAriaLabel } from './utils';
 
 describe('DtChart utils', () => {
   describe('getKeyboardNavigationOffset', () => {
@@ -64,6 +65,128 @@ describe('DtChart utils', () => {
       const event = createKeyboardEvent('keydown', PAGE_UP);
 
       expect(getKeyboardNavigationOffset(event)).toBe(10);
+    });
+  });
+
+  describe('createChartAriaLabel', () => {
+    it('should return message for undefined series', () => {
+      // given
+      const series = undefined;
+
+      // when
+      const result = createChartAriaLabel(series);
+
+      // then
+      expect(result).toEqual('Showing empty chart.');
+    });
+
+    it('should return message for series array of length 0', () => {
+      // given
+      const series = [];
+
+      // when
+      const result = createChartAriaLabel(series);
+
+      // then
+      expect(result).toEqual('Showing empty chart.');
+    });
+
+    it('should return message for series array of length 1', () => {
+      // given
+      const series: DtChartSeries[] = [
+        {
+          name: 'CPU usage',
+          type: 'line',
+          data: [],
+          color: '#92d9f8',
+        },
+      ];
+
+      // when
+      const result = createChartAriaLabel(series);
+
+      // then
+      expect(result).toEqual(
+        "Showing 1 series. Series 'CPU usage' of type 'line'.",
+      );
+    });
+
+    it('should return message for series array of length 2', () => {
+      // given
+      const series: DtChartSeries[] = [
+        {
+          name: 'CPU usage',
+          type: 'line',
+          data: [],
+          color: '#92d9f8',
+        },
+        {
+          name: 'Number of process group instances',
+          type: 'column',
+          yAxis: 1,
+          data: [],
+          color: '#006bba',
+        },
+      ];
+
+      // when
+      const result = createChartAriaLabel(series);
+
+      // then
+      expect(result).toEqual(
+        "Showing 2 series. Series 'CPU usage' of type 'line', series 'Number of process group instances' of type 'column'.",
+      );
+    });
+
+    it('should return message for series array of length 3', () => {
+      // given
+      const series: DtChartSeries[] = [
+        {
+          name: 'CPU usage',
+          type: 'line',
+          data: [],
+          color: '#92d9f8',
+        },
+        {
+          name: 'Number of process group instances',
+          type: 'column',
+          yAxis: 1,
+          data: [],
+          color: '#006bba',
+        },
+        {
+          name: 'Another series',
+          type: 'bar',
+          yAxis: 1,
+          data: [],
+          color: '#006bbc',
+        },
+      ];
+
+      // when
+      const result = createChartAriaLabel(series);
+
+      // then
+      expect(result).toEqual(
+        "Showing 3 series. Series 'CPU usage' of type 'line', series 'Number of process group instances' of type 'column', series 'Another series' of type 'bar'.",
+      );
+    });
+
+    it('should return message for series with no name', () => {
+      // given
+      const series: DtChartSeries[] = [
+        {
+          type: 'line',
+          data: [],
+          color: '#92d9f8',
+        },
+      ];
+
+      // when
+      const result = createChartAriaLabel(series);
+
+      // then
+      expect(result).toEqual("Showing 1 series. Series of type 'line'.");
     });
   });
 });
