@@ -23,7 +23,9 @@ import {
   EventEmitter,
   Input,
   NgZone,
+  OnChanges,
   Output,
+  SimpleChanges,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -67,7 +69,7 @@ import { Platform } from '@angular/cdk/platform';
   },
 })
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export class DtQuickFilterGroup<T = any> implements AfterViewInit {
+export class DtQuickFilterGroup<T = any> implements AfterViewInit, OnChanges {
   /** @internal Emits a new action that changes the filter  */
   @Output() readonly filterChange = new EventEmitter<Action>();
 
@@ -80,15 +82,20 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
   /** @internal Default template for the show more context */
   @ViewChild('defaultShowMoreText', { static: true })
   _defaultShowMoreTemplate: TemplateRef<number>;
+  /** @internal Instance of the view more button */
+  @ViewChild('viewMoreButton', { static: false })
+  _viewMoreButton: ElementRef | null;
 
   /** @internal The aria-level of the group headlines for the document outline. */
   @Input()
   get groupHeadlineRole(): number {
     return this._groupHeadlineRole;
   }
+
   set groupHeadlineRole(value: number) {
     this._groupHeadlineRole = coerceNumberProperty(value);
   }
+
   private _groupHeadlineRole = 3;
   static ngAcceptInputType_groupHeadlineRole: NumberInput;
 
@@ -209,6 +216,16 @@ export class DtQuickFilterGroup<T = any> implements AfterViewInit {
         this._itemSize = 22;
       }
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Check if the filter group was in detail view
+    if (changes.isDetail?.previousValue && !changes.isDetail?.currentValue) {
+      this._zone.onStable.pipe(take(1)).subscribe(() => {
+        // focus back on the view more button when exiting detail view
+        this._viewMoreButton?.nativeElement.focus();
+      });
+    }
   }
 
   /** @internal Show all items from the group */
