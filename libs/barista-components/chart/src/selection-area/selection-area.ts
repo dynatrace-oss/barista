@@ -130,6 +130,7 @@ export const _DtChartSelectionAreaMixinBase = mixinViewportBoundaries<
   host: {
     class: 'dt-chart-selection-area dt-no-pointer-events',
     '[attr.tabindex]': '0',
+    '[attr.aria-label]': '"Chart selection area"',
   },
 })
 export class DtChartSelectionArea
