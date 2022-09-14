@@ -10,7 +10,10 @@
   <div
     class="dt-chart-pane"
     #container
+    role="img"
     [style.visibility]="_isLoading ? 'hidden' : 'visible'"
+    tabindex="0"
+    [attr.aria-label]="ariaLabel"
   ></div>
 
   <dt-loading-distractor

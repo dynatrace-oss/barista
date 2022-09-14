@@ -103,7 +103,11 @@ import {
 import { DtChartRange } from './range/range';
 import { DtChartTimestamp } from './timestamp/timestamp';
 import { DtChartTooltip } from './tooltip/chart-tooltip';
-import { getPlotBackgroundInfo, retainSeriesVisibility } from './utils';
+import {
+  getPlotBackgroundInfo,
+  retainSeriesVisibility,
+  createChartAriaLabel,
+} from './utils';
 import { DtChartFocusTarget } from './chart-focus-anchor';
 import { DtChartBase } from './chart-base';
 import highchartsMore from 'highcharts/highcharts-more';
@@ -255,6 +259,17 @@ export class DtChart
   /** The loading text of the loading distractor. */
   @Input('loading-text') loadingText: string;
 
+  @Input('aria-label')
+  get ariaLabel(): string {
+    if (this._ariaLabel) {
+      return this._ariaLabel;
+    }
+    return this._fallbackAriaLabel;
+  }
+  set ariaLabel(value: string) {
+    this._ariaLabel = value;
+  }
+
   /** Eventemitter that fires every time the chart is updated */
   @Output() readonly updated: EventEmitter<void> = new EventEmitter();
 
@@ -313,6 +328,8 @@ export class DtChart
 
   _focusTargets = new Set<DtChartFocusTarget>();
 
+  private _ariaLabel: string;
+  private _fallbackAriaLabel: string;
   private _series?: Observable<DtChartSeries[]> | DtChartSeries[];
   private _currentSeries?: DtChartSeries[];
   private _currentOptions: DtChartOptions;
@@ -539,6 +556,7 @@ export class DtChart
     this._highchartsOptions = highchartsOptions;
     this._updateColorOptions();
     this._updateChart();
+    this._fallbackAriaLabel = createChartAriaLabel(this._currentSeries);
     this._changeDetectorRef.markForCheck();
   }
 
