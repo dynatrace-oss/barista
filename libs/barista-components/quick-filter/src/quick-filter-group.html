@@ -50,7 +50,9 @@
       }"
     ></ng-container>
 
-    <button class="dt-show-more" (click)="_showMore()" i18n>View more</button>
+    <button #viewMoreButton class="dt-show-more" (click)="_showMore()" i18n>
+      <span>View more</span>
+    </button>
   </ng-container>
 
   <ng-template #checkBox let-item>
