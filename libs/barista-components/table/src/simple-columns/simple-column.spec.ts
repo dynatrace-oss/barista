@@ -40,6 +40,7 @@ import {
 import { DtTableModule } from '../table-module';
 import { DtTableDataSource } from '../table-data-source';
 import { DtSort } from '../sort/sort';
+import '@angular/localize/init';
 
 describe('DtTable SimpleColumns', () => {
   beforeEach(
