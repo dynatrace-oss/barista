@@ -83,6 +83,7 @@ export class DtSortHeader
 
   /**
    * The aria label for the sort icon based on the state.
+   *
    * @internal
    */
   _sortAriaLabel: 'Sorted descending' | 'Sorted ascending' | 'Not sorted' =
