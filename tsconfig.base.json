@@ -210,7 +210,7 @@
         "libs/barista-components/tree-table/index.ts"
       ],
       "@dynatrace/barista-examples": ["libs/examples/src/index.ts"],
-      "@dynatrace/barista-examples/*": ["libs/examples/src/*/index.ts"],
+      "@dynatrace/barista-examples/*": ["libs/examples/src/*"],
       "@dynatrace/shared/data-access-strapi": [
         "libs/shared/data-access-strapi/index.ts"
       ],
