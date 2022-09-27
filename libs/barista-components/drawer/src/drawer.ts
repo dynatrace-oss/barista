@@ -115,14 +115,19 @@ export class DtDrawer implements OnInit, AfterContentChecked, OnDestroy {
   get opened(): boolean {
     return this._opened;
   }
+
   set opened(value: boolean) {
     // we hav to coerce the value in case that we always want a boolean value
     // if the property `opened` is set on the element it the value will not be true
     // but it is a truthy value
     this.toggle(coerceBooleanProperty(value));
   }
+
   private _opened = false;
   static ngAcceptInputType_opened: BooleanInput;
+
+  /** Whether the drawer can be closed with the escape key. */
+  @Input() disableClose: boolean;
 
   /**
    * Emits when the drawer open state changes. Emits a boolean value for the
