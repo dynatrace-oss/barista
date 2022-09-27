@@ -357,6 +357,34 @@ describe('DtDrawer', () => {
       // Expected one close event.
       expect(instance.closeCount).toBe(1);
     }));
+
+    it('should not close drawer with disableClose set to true when pressing escape', fakeAsync(() => {
+      const { instance, fixture, containerEl } =
+        createFixture<TestAppWithOverAndSideMode>(
+          TestAppWithOverAndSideMode,
+          'dt-drawer-container',
+        );
+      fixture.detectChanges();
+      flush();
+
+      instance.container.open();
+      fixture.detectChanges();
+      flush();
+
+      expect(instance.drawer1.opened).toBeTruthy();
+      expect(instance.drawer2.opened).toBeTruthy();
+      expect(containerEl.classList.contains(DT_DRAWER_OPEN_CLASS)).toBeTruthy();
+
+      instance.drawer1.disableClose = true;
+      fixture.detectChanges();
+
+      dispatchKeyboardEvent(containerEl, 'keydown', ESCAPE);
+      fixture.detectChanges();
+      flush();
+
+      expect(instance.drawer1.opened).toBeTruthy();
+      expect(instance.drawer2.opened).toBeFalsy();
+    }));
   });
 
   describe('accessibility', () => {

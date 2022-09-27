@@ -58,6 +58,9 @@ export function getDtDuplicateDrawerError(position: 'start' | 'end'): Error {
   return Error(`A drawer was already declared for 'position="${position}"'`);
 }
 
+/** The origin of the closing of the drawer container */
+type ClosingOrigin = 'backdrop' | 'escape';
+
 @Component({
   selector: 'dt-drawer-container',
   exportAs: 'dtDrawerContainer',
@@ -136,10 +139,15 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
     });
   }
 
-  /** close all drawers in the container. */
-  close(): void {
+  /** Close all drawers in the container. */
+  close(closingOrigin?: ClosingOrigin): void {
     this._drawers.forEach((drawer) => {
-      drawer.close();
+      // We wanted to distinguish between backdrop clicking and escape pressing for our disableClose override.
+      // Thus, the drawer's closing behavior should only be disabled if escape was pressed and disableClose was set to true.
+      // This may change in the future to allow for disabling the closing behavior of the backdrop as well.
+      if (!(closingOrigin === 'escape' && drawer.disableClose)) {
+        drawer.close();
+      }
     });
   }
 
@@ -148,7 +156,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
    * function that gets called when the backdrop is clicked.
    */
   _handleBackdropClick(): void {
-    this.close();
+    this.close('backdrop');
   }
 
   /**
@@ -157,7 +165,7 @@ export class DtDrawerContainer implements AfterContentInit, OnDestroy {
    */
   _handleKeyboardEvent(event: KeyboardEvent): void {
     if (_readKeyCode(event) === ESCAPE) {
-      this.close();
+      this.close('escape');
     }
   }
 
