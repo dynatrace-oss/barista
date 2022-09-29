@@ -64,6 +64,14 @@ function escapeRegExp(text: string): string {
   return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 }
 
+/** Creates regexp for given terms */
+function createTermsRegExp(terms: string[], caseSensitive: boolean): RegExp {
+  const flags = caseSensitive ? 'gm' : 'gmi';
+  const escapedTerms = terms.map((term) => escapeRegExp(term));
+
+  return new RegExp(`(${escapedTerms.join('|')})`, flags);
+}
+
 @Component({
   selector: 'dt-highlight, [dt-highlight]',
   exportAs: 'dtHighlight',
@@ -94,10 +102,10 @@ export class DtHighlight
   static ngAcceptInputType_caseSensitive: BooleanInput;
 
   /**
-   * The term is the string that should be highlighted in the projected content.
-   * Every occurrence of the string is going to be highlighted.
+   * The term is the string or array of the strings that should be highlighted in the projected content.
+   * Every occurrence of the string(s) is going to be highlighted.
    */
-  @Input() term = '';
+  @Input() term: string | string[] = '';
 
   /** @internal */
   @ViewChild('source', { static: true })
@@ -190,15 +198,21 @@ export class DtHighlight
 
       // Remove the old nodes.
       removeNodeChildren(transformedEl);
-      if (textContent !== null && Boolean(term && term.length)) {
-        const flags = this._caseSensitive ? 'gm' : 'gmi';
-        const regExp = new RegExp(`(${escapeRegExp(term)})`, flags);
+      const hasTermDefined = Array.isArray(term)
+        ? term.length > 0
+        : Boolean(term && term.length);
+
+      if (textContent !== null && hasTermDefined) {
+        const terms = Array.isArray(term) ? [...term] : [term];
+        const normalizedTerms = terms.map((val) => val.toLowerCase());
+
+        const regExp = createTermsRegExp(terms, this._caseSensitive);
         const textTokens = textContent.split(regExp).filter((s) => s.length);
 
         for (const token of textTokens) {
           const text = this._document.createTextNode(token);
 
-          if (token.toLowerCase() === term.toLowerCase()) {
+          if (normalizedTerms.indexOf(token.toLowerCase()) > -1) {
             const span = this._document.createElement(HIGHLIGHTED_ELEMENT);
             _addCssClass(span, HIGHLIGHTED_CLASS);
             span.appendChild(text);

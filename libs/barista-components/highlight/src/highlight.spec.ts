@@ -18,7 +18,7 @@
 // tslint:disable no-any max-file-line-count no-unbound-method use-component-selector
 
 import { Component } from '@angular/core';
-import { TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { DtHighlightModule } from './highlight-module';
@@ -41,6 +41,7 @@ describe('DtHighlight', () => {
           TestComponentWithTextBinding,
           TestCasingHighlighted,
           TestComponentWithHtmlChars,
+          TestComponentWithMultipleTerms,
         ],
       });
 
@@ -299,6 +300,79 @@ describe('DtHighlight', () => {
     });
   });
 
+  describe('with multiple terms', () => {
+    let fixture: ComponentFixture<TestComponentWithMultipleTerms>;
+    let instance: TestComponentWithMultipleTerms;
+
+    beforeEach(() => {
+      fixture = createComponent(TestComponentWithMultipleTerms);
+      instance = fixture.componentInstance;
+    });
+
+    it('should highlight found terms', () => {
+      instance.term = ['nibh', 'vel'];
+      fixture.detectChanges();
+
+      const containerEl = fixture.debugElement.query(
+        By.css('.dt-highlight'),
+      ).nativeElement;
+
+      const transformed = containerEl.lastChild as HTMLElement;
+      const highlights = transformed.querySelectorAll('.dt-highlight-mark');
+      expect(highlights.length).toBe(8);
+      expect(highlights[0].innerHTML).toMatch('nibh');
+      expect(highlights[1].innerHTML).toMatch('vel');
+      expect(highlights[2].innerHTML).toMatch('vel');
+      expect(highlights[3].innerHTML).toMatch('vel');
+      expect(highlights[4].innerHTML).toMatch('vel');
+      expect(highlights[5].innerHTML).toMatch('vel');
+      expect(highlights[6].innerHTML).toMatch('vel');
+      expect(highlights[7].innerHTML).toMatch('nibh');
+    });
+
+    it('should highlight found 1st and 2nd terms even when they are a part of 3rd term', () => {
+      instance.term = ['vel', 'porta', 'vel porta'];
+      fixture.detectChanges();
+
+      const containerEl = fixture.debugElement.query(
+        By.css('.dt-highlight'),
+      ).nativeElement;
+
+      const transformed = containerEl.lastChild as HTMLElement;
+      const highlights = transformed.querySelectorAll('.dt-highlight-mark');
+      expect(highlights.length).toBe(8);
+      expect(highlights[0].innerHTML).toMatch('vel');
+      expect(highlights[1].innerHTML).toMatch('vel');
+      expect(highlights[2].innerHTML).toMatch('vel');
+      expect(highlights[3].innerHTML).toMatch('vel');
+      expect(highlights[4].innerHTML).toMatch('vel');
+      expect(highlights[5].innerHTML).toMatch('porta');
+      expect(highlights[6].innerHTML).toMatch('vel');
+      expect(highlights[7].innerHTML).toMatch('porta');
+    });
+
+    it('should highlight found 3rd combined term', () => {
+      instance.term = ['vel', 'porta', 'vel porta'];
+      fixture.detectChanges();
+
+      const containerEl = fixture.debugElement.query(
+        By.css('.dt-highlight'),
+      ).nativeElement;
+
+      const transformed = containerEl.lastChild as HTMLElement;
+      const highlights = transformed.querySelectorAll('.dt-highlight-mark');
+      expect(highlights.length).toBe(8);
+      expect(highlights[0].innerHTML).toMatch('vel');
+      expect(highlights[1].innerHTML).toMatch('vel');
+      expect(highlights[2].innerHTML).toMatch('vel');
+      expect(highlights[3].innerHTML).toMatch('vel');
+      expect(highlights[4].innerHTML).toMatch('vel');
+      expect(highlights[5].innerHTML).toMatch('porta');
+      expect(highlights[6].innerHTML).toMatch('vel');
+      expect(highlights[7].innerHTML).toMatch('porta');
+    });
+  });
+
   describe('accessibility', () => {
     it('should hide the source container from screen readers', () => {
       const fixture = createComponent(TestComponentWithHtmlInText);
@@ -431,3 +505,26 @@ class TestComponentWithTextBinding {
   `,
 })
 class TestComponentWithHtmlChars {}
+
+@Component({
+  template: `
+    <dt-highlight [term]="term" [caseSensitive]="caseSensitive">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi id ultrices
+      eros. Integer viverra tempor lacinia. Aliquam ac nibh consectetur, auctor
+      mauris gravida, efficitur ex. Sed ultrices velit vel sem congue, sed
+      scelerisque magna pretium. Suspendisse lectus orci, consequat vitae orci
+      vel, faucibus rutrum libero. Nulla est tellus, auctor vel efficitur id,
+      rhoncus ut arcu. Praesent volutpat neque quis libero dapibus maximus. Cras
+      eget scelerisque turpis, vel porta ipsum. Donec turpis lectus, tincidunt
+      eget sem et, aliquet blandit erat. Sed ac diam id arcu tincidunt placerat
+      at ac velit. Curabitur rhoncus, nibh quis porta gravida, arcu metus
+      commodo urna, nec egestas urna magna et justo. Sed imperdiet porttitor mi
+      et semper. Ut molestie augue in lorem hendrerit, et dapibus dolor mollis.
+      Sed elit sapien, bibendum a aliquet quis, interdum id leo.
+    </dt-highlight>
+  `,
+})
+class TestComponentWithMultipleTerms {
+  term: string[];
+  caseSensitive = false;
+}

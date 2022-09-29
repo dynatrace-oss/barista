@@ -349,6 +349,7 @@ import { DtExampleTreeTableProblemIndicator } from './tree-table/tree-table-prob
 import { DtExampleTreeTableSimple } from './tree-table/tree-table-simple-example/tree-table-simple-example';
 import { DtExampleCustomAddFormTag } from '././tag/tag-custom-add-form-example/tag-custom-add-form-example';
 import { DtExampleStackedSeriesChartHeatField } from '././stacked-series-chart/stacked-series-chart-heat-field-example/stacked-series-chart-heat-field-example';
+import { DtExampleHighlightTermArray } from './highlight';
 export { DtAlertExamplesModule } from './alert/alert-examples.module';
 export { DtAutocompleteExamplesModule } from './autocomplete/autocomplete-examples.module';
 export { DtBarIndicatorExamplesModule } from './bar-indicator/bar-indicator-examples.module';
@@ -560,6 +561,7 @@ export {
   DtExampleFormattersRate,
   DtExampleHighlightCaseSensitive,
   DtExampleHighlightDefault,
+  DtExampleHighlightTermArray,
   DtExampleIconAll,
   DtExampleIconDefault,
   DtExampleIndicatorDefault,
@@ -937,6 +939,7 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleFormattersRate', DtExampleFormattersRate],
   ['DtExampleHighlightCaseSensitive', DtExampleHighlightCaseSensitive],
   ['DtExampleHighlightDefault', DtExampleHighlightDefault],
+  ['DtExampleHighlightTermArray', DtExampleHighlightTermArray],
   ['DtExampleIconAll', DtExampleIconAll],
   ['DtExampleIconDefault', DtExampleIconDefault],
   ['DtExampleIndicatorDefault', DtExampleIndicatorDefault],
