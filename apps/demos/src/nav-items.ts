@@ -740,6 +740,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'highlight-default-example',
         route: '/highlight-default-example',
       },
+      {
+        name: 'highlight-term-array-example',
+        route: '/highlight-term-array-example',
+      },
     ],
   },
   {

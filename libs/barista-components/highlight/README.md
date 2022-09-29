@@ -21,10 +21,10 @@ class MyModule {}
 
 ## Inputs
 
-| Name            | Type      | Default | Description                                                                  |
-| --------------- | --------- | ------- | ---------------------------------------------------------------------------- |
-| `caseSensitive` | `boolean` | `false` | The caseSensitive input can be set to search for case sensitive occurrences. |
-| `term`          | `string`  | `''`    | The term is the string that should be highlighted in the projected content.  |
+| Name            | Type                 | Default | Description                                                                                         |
+| --------------- | -------------------- | ------- | --------------------------------------------------------------------------------------------------- |
+| `caseSensitive` | `boolean`            | `false` | The caseSensitive input can be set to search for case sensitive occurrences.                        |
+| `term`          | `string \| string[]` | `''`    | The term is the string or array of the strings that should be highlighted in the projected content. |
 
 ## Usage
 
@@ -55,3 +55,7 @@ be escaped! You have to avoid any HTML Tags inside this component!
 ### A case sensitive highlight example
 
 <ba-live-example name="DtExampleHighlightCaseSensitive"></ba-live-example>
+
+### Multiple terms example
+
+<ba-live-example name="DtExampleHighlightTermArray"></ba-live-example>
