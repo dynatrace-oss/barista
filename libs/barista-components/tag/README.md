@@ -73,9 +73,10 @@ elements.
 
 ### Outputs
 
-| Name        | Type                  | Description                                                                                                                    |
-| ----------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `submitted` | `EventEmitter<event>` | Emits event when the form is submitted. With the default form the event contains a `tag` key that holds the value of the input |
+| Name        | Type                  | Description                                                                                                                     |
+| ----------- | --------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `submitted` | `EventEmitter<event>` | Emits event when the form is submitted. With the default form the event contains a `tag` key that holds the value of the input. |
+| `closed`    | `EventEmitter<void>`  | Emits event when the input overlay is closed.                                                                                   |
 
 ### Methods
 
