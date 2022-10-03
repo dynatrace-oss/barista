@@ -91,6 +91,11 @@ export class DtTagAdd implements OnDestroy, AfterContentInit {
     DtTagAddSubmittedDefaultEvent | DtTagAddSubmittedCustomFormEvent
   >();
 
+  /**
+   * Event emitted when form is closed.
+   */
+  @Output() readonly closed = new EventEmitter<void>();
+
   /** @internal Custom form for adding tags. */
   @ContentChildren(FormGroupDirective, { descendants: true })
   _customFormQueryList: QueryList<FormGroupDirective>;
@@ -234,6 +239,7 @@ export class DtTagAdd implements OnDestroy, AfterContentInit {
   close(): void {
     if (this._showOverlay) {
       this._showOverlay = false;
+      this.closed.emit();
       this._changeDetectorRef.markForCheck();
     }
   }

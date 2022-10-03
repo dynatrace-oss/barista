@@ -215,6 +215,9 @@ describe('DtTagAdd', () => {
     });
 
     it('should close Overlay when backdrop is clicked', fakeAsync(() => {
+      const closedSpy = jest.fn();
+      const sub = addTagInstance.closed.subscribe(closedSpy);
+
       addTagInstance.open();
       fixture.detectChanges();
       flush();
@@ -229,6 +232,9 @@ describe('DtTagAdd', () => {
       flush();
 
       expect(addTagInstance._showOverlay).toBe(false);
+      expect(closedSpy).toBeCalled();
+
+      sub.unsubscribe();
     }));
 
     it('should propagate attribute to overlay if `dt-ui-test-id` is provided', fakeAsync(() => {
@@ -265,6 +271,9 @@ describe('DtTagAdd', () => {
 
     describe('keyevent tests', () => {
       it('should close Overlay when ESCAPE is pressed', () => {
+        const closedSpy = jest.fn();
+        const sub = addTagInstance.closed.subscribe(closedSpy);
+
         addTagInstance.open();
         fixture.detectChanges();
         const panel = overlayContainerElement.querySelector(
@@ -275,6 +284,9 @@ describe('DtTagAdd', () => {
         fixture.detectChanges();
 
         expect(addTagInstance._showOverlay).toBeFalsy();
+        expect(closedSpy).toBeCalled();
+
+        sub.unsubscribe();
       });
     });
   });
