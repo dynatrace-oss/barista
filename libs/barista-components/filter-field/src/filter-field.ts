@@ -191,6 +191,10 @@ let _uniqueId = 0;
   templateUrl: 'filter-field.html',
   styleUrls: ['filter-field.scss'],
   host: {
+    // Note: setting `role` to `presentation` should prevent screenreaders from
+    // accessing the `aria-label` attribute which is accidentally set directly
+    // on this component as well as the intended input field.
+    role: 'presentation',
     class: 'dt-filter-field',
     '[class.dt-filter-field-disabled]': 'disabled',
     '(click)': '_handleHostClick($event)',
