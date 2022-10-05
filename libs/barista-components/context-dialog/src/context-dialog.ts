@@ -132,6 +132,7 @@ export const _DT_CONTEXT_DIALOG_DEFAULT_CONSTRAINTS = {
   styleUrls: ['context-dialog.scss'],
   host: {
     class: 'dt-context-dialog',
+    role: 'presentation',
     '[attr.aria-disabled]': 'disabled.toString()',
     'attr.aria-hidden': 'true',
   },
