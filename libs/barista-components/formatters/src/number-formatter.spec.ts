@@ -89,20 +89,24 @@ describe('FormatterUtil', () => {
   describe('Adjusting number with abbreviation', () => {
     [
       {
+        input: 1234567890000,
+        output: '1.23T',
+      },
+      {
         input: 1234567890,
-        output: '1.23bil',
+        output: '1.23G',
       },
       {
         input: 123456789,
-        output: '123mil',
+        output: '123M',
       },
       {
         input: 12345678,
-        output: '12.3mil',
+        output: '12.3M',
       },
       {
         input: 1234567,
-        output: '1.23mil',
+        output: '1.23M',
       },
       {
         input: 123456,
@@ -129,20 +133,24 @@ describe('FormatterUtil', () => {
         output: '< 0.001',
       },
       {
+        input: -1234567890000,
+        output: '-1.23T',
+      },
+      {
         input: -1234567890,
-        output: '-1.23bil',
+        output: '-1.23G',
       },
       {
         input: -123456789,
-        output: '-123mil',
+        output: '-123M',
       },
       {
         input: -12345678,
-        output: '-12.3mil',
+        output: '-12.3M',
       },
       {
         input: -1234567,
-        output: '-1.23mil',
+        output: '-1.23M',
       },
       {
         input: -123456,

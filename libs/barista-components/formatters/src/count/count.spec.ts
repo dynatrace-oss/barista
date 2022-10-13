@@ -42,12 +42,17 @@ describe('DtCount', () => {
       {
         input: 20000000,
         inputUnit: DtUnit.COUNT,
-        output: '20mil',
+        output: '20M',
       },
       {
         input: 3000000000,
         inputUnit: DtUnit.COUNT,
-        output: '3bil',
+        output: '3G',
+      },
+      {
+        input: 4000000000000,
+        inputUnit: DtUnit.COUNT,
+        output: '4T',
       },
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} without unit`, () => {
@@ -68,12 +73,12 @@ describe('DtCount', () => {
       {
         input: 20000000,
         inputUnit: 'host units',
-        output: '20mil host units',
+        output: '20M host units',
       },
       {
         input: 3000000000,
         inputUnit: 'u.',
-        output: '3bil u.',
+        output: '3G u.',
       },
     ].forEach((testCase: TestCase) => {
       it(`should display ${testCase.input} together with custom unit`, () => {
@@ -135,7 +140,7 @@ describe('DtCount', () => {
         input: 20000001,
         inputUnit: DtUnit.COUNT,
         maxPrecision: 0,
-        output: '20mil',
+        output: '20M',
       },
       {
         input: 0.50234,
