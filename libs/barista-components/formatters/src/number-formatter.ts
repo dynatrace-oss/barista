@@ -29,8 +29,9 @@ export interface DtNumberFormatOptions {
 }
 
 const ABBREVIATION_LEVELS = [
-  { multiplier: Math.pow(KILO_MULTIPLIER, 3), postfix: 'bil' },
-  { multiplier: Math.pow(KILO_MULTIPLIER, 2), postfix: 'mil' },
+  { multiplier: Math.pow(KILO_MULTIPLIER, 4), postfix: 'T' },
+  { multiplier: Math.pow(KILO_MULTIPLIER, 3), postfix: 'G' },
+  { multiplier: Math.pow(KILO_MULTIPLIER, 2), postfix: 'M' },
   { multiplier: KILO_MULTIPLIER, postfix: 'k' },
 ];
 

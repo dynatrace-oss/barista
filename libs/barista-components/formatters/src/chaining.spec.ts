@@ -80,11 +80,11 @@ describe('PIPES: Chaining order', () => {
 
   it('should create correct outcome for dtRate | dtCount', () => {
     const rateResult = ratePipe.transform(3000000, 'm');
-    expect(countPipe.transform(rateResult).toString()).toEqual('3mil /m');
+    expect(countPipe.transform(rateResult).toString()).toEqual('3M /m');
   });
 
   it('should create correct outcome for dtCount | dtRate', () => {
     const countResult = countPipe.transform(3000000);
-    expect(ratePipe.transform(countResult, 'm').toString()).toEqual('3mil /m');
+    expect(ratePipe.transform(countResult, 'm').toString()).toEqual('3M /m');
   });
 });
