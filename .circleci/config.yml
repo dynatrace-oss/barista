@@ -357,6 +357,9 @@ workflows:
           requires:
             - install
       - security-checks:
+          filters:
+            branches:
+              only: /^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$/
           # SNYK_TOKEN is needed for security checking
           context: barista
           requires:
