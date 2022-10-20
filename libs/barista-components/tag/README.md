@@ -65,11 +65,13 @@ elements.
 
 ### Inputs
 
-| Name          | Type     | Default      | Description                                                             |
-| ------------- | -------- | ------------ | ----------------------------------------------------------------------- |
-| `placeholder` | `string` | `undefined`  | Placeholder string for the add tag input overlay.                       |
-| `aria-label`  | `string` | `undefinded` | Used to set the 'aria-label' attribute on the underlying input element. |
-| `title`       | `string` | `Add Tag`    | Title of the 'Add' button and overlay.                                  |
+| Name          | Type     | Default     | Description                                                             |
+| ------------- | -------- | ----------- | ----------------------------------------------------------------------- |
+| `placeholder` | `string` | `undefined` | Placeholder string for the add tag input overlay.                       |
+| `aria-label`  | `string` | `undefined` | Used to set the 'aria-label' attribute on the underlying input element. |
+| `title`       | `string` | `Add Tag`   | Title of the overlay and 'Add Tag' button.                              |
+| `submitLabel` | `string` | `Add`       | Title of the 'Add' submit button.                                       |
+| `label`       | `string` | `undefined` | Title of the 'Add Tag' button. Used to overwrite the default label.     |
 
 ### Outputs
 

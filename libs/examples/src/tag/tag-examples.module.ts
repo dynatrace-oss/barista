@@ -26,6 +26,7 @@ import { DtExampleTagListWithTagAdd } from './tag-list-with-tag-add-example/tag-
 import { DtExampleTagRemovable } from './tag-removable-example/tag-removable-example';
 import { DtExampleCustomAddFormTag } from './tag-custom-add-form-example/tag-custom-add-form-example';
 import { DtInputModule } from '@dynatrace/barista-components/input';
+import { DtExampleOverrideLabelsTag } from './tag-override-labels-example/tag-override-labels-example';
 
 @NgModule({
   imports: [
@@ -44,6 +45,7 @@ import { DtInputModule } from '@dynatrace/barista-components/input';
     DtExampleTagListWithTagAdd,
     DtExampleTagRemovable,
     DtExampleCustomAddFormTag,
+    DtExampleOverrideLabelsTag,
   ],
 })
 export class DtExamplesTagModule {}

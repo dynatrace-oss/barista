@@ -17,6 +17,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { DtTag } from '@dynatrace/barista-components/tag';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'tag-dev-app-demo',
@@ -26,6 +27,18 @@ import { DtTag } from '@dynatrace/barista-components/tag';
 export class TagDemo implements OnInit {
   tags = new Set<string>();
   users = new Set<string>();
+  zones = new Set<string>();
+
+  tagsWithKeys = new Set<{ key: string; value?: string }>([
+    { key: 'someKey', value: 'someValue' },
+    { key: 'anotherKey', value: 'anotherValue' },
+    { key: 'onlyKey' },
+  ]);
+
+  keyValueForm = new FormGroup({
+    key: new FormControl('', [Validators.required]),
+    value: new FormControl(''),
+  });
 
   value1 = 'My value 1';
   value2 = 'My value 2';
@@ -85,6 +98,8 @@ export class TagDemo implements OnInit {
       .add('Pine1233');
 
     this.users.add('John').add('Jane').add('Max');
+
+    this.zones.add('[Kubernetes] Google Kubernetes Engine').add('casp-test');
   }
 
   addTag(tag: string): void {
@@ -93,6 +108,10 @@ export class TagDemo implements OnInit {
 
   addUser(event: { tag: string }): void {
     this.users.add(event.tag);
+  }
+
+  addZone(event: { tag: string }): void {
+    this.zones.add(event.tag);
   }
 
   doRemove(tag: DtTag<string>): void {
