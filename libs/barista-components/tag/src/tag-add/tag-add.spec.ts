@@ -374,6 +374,66 @@ describe('DtTagAdd', () => {
       expect(formHeader.textContent).toMatch(customTitle);
     });
   });
+
+  describe('with custom button label', () => {
+    let fixture: ComponentFixture<DtTagComponentCustomButtonLabel>;
+
+    beforeEach(() => {
+      fixture = configureTestingModule(DtTagComponentCustomButtonLabel);
+    });
+
+    afterEach(() => {
+      overlayContainer.ngOnDestroy();
+    });
+
+    it('should have a custom button title', () => {
+      const customLabel = 'custom';
+      const addButtonSpan = addTagNativeElement.querySelector(
+        '.dt-tag-add-button-text',
+      ) as HTMLSpanElement;
+
+      expect(addTagInstance.label).toBe(customLabel);
+      expect(addButtonSpan.textContent).toMatch(customLabel);
+    });
+
+    it('should not change form title', () => {
+      addTagInstance.open();
+      fixture.detectChanges();
+
+      const formHeader = overlayContainerElement.querySelector(
+        '.dt-tag-add-header',
+      ) as HTMLButtonElement;
+      const title = 'Add Tag';
+
+      expect(addTagInstance.title).toBe(title);
+      expect(formHeader.textContent).toMatch(title);
+    });
+  });
+
+  describe('with custom submit button label', () => {
+    let fixture: ComponentFixture<DtTagComponentCustomSubmitButtonLabel>;
+
+    beforeEach(() => {
+      fixture = configureTestingModule(DtTagComponentCustomSubmitButtonLabel);
+    });
+
+    afterEach(() => {
+      overlayContainer.ngOnDestroy();
+    });
+
+    it('should have custom submit button label', () => {
+      addTagInstance.open();
+      fixture.detectChanges();
+
+      const customLabel = 'custom';
+      const submitButtonSpan = overlayContainerElement.querySelector(
+        '.dt-tag-add-submit-button',
+      ) as HTMLSpanElement;
+
+      expect(addTagInstance.submitLabel).toBe(customLabel);
+      expect(submitButtonSpan.textContent).toMatch(customLabel);
+    });
+  });
 });
 
 /** Test component that contains an DtTagAdd. */
@@ -455,6 +515,56 @@ class DtTagCustomFormComponent implements OnInit {
   `,
 })
 class DtTagComponentCustomTitle implements OnInit {
+  tags = new Set<string>();
+
+  ngOnInit(): void {
+    this.tags.add('Window').add('Managed').add('Errors');
+  }
+
+  addTag(event: DtTagAddSubmittedDefaultEvent): void {
+    this.tags.add(event.tag);
+  }
+}
+
+/** Test component that contains an DtTagAdd with a custom button label. */
+@Component({
+  selector: 'dt-test-app',
+  template: `
+    <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
+    <dt-tag-add
+      placeholder="insert tag here"
+      label="custom"
+      (submitted)="addTag($event)"
+      dt-ui-test-id="tag-add"
+    ></dt-tag-add>
+  `,
+})
+class DtTagComponentCustomButtonLabel implements OnInit {
+  tags = new Set<string>();
+
+  ngOnInit(): void {
+    this.tags.add('Window').add('Managed').add('Errors');
+  }
+
+  addTag(event: DtTagAddSubmittedDefaultEvent): void {
+    this.tags.add(event.tag);
+  }
+}
+
+/** Test component that contains an DtTagAdd with a custom submit button label. */
+@Component({
+  selector: 'dt-test-app',
+  template: `
+    <dt-tag *ngFor="let tag of tags">{{ tag }}</dt-tag>
+    <dt-tag-add
+      placeholder="insert tag here"
+      submitLabel="custom"
+      (submitted)="addTag($event)"
+      dt-ui-test-id="tag-add"
+    ></dt-tag-add>
+  `,
+})
+class DtTagComponentCustomSubmitButtonLabel implements OnInit {
   tags = new Set<string>();
 
   ngOnInit(): void {

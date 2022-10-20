@@ -1,0 +1,11 @@
+<dt-tag-list>
+  <dt-tag *ngFor="let zone of zones">{{ zone }}</dt-tag>
+  <dt-tag-add
+    placeholder="Name"
+    title="Add Custom Management Zone"
+    label="Add Zone"
+    submitLabel="Save"
+    (submitted)="addZone($event)"
+    dt-ui-test-id="tag-add"
+  ></dt-tag-add>
+</dt-tag-list>
