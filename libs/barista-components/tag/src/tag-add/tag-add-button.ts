@@ -24,9 +24,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
       dt-button
       (click)="handleClick($event)"
       [disabled]="!this.valid"
-      i18n
     >
-      Add
+      {{ label }}
     </button>
   `,
 })
@@ -35,6 +34,8 @@ export class DtTagAddButton {
   @Output() readonly click = new EventEmitter<Event>();
 
   @Input() valid: boolean;
+
+  @Input() label: string;
 
   handleClick(event: Event): void {
     this.click.emit(event);

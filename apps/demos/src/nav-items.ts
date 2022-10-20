@@ -1510,6 +1510,10 @@ export const DT_DEMOS_EXAMPLE_NAV_ITEMS = [
         name: 'tag-custom-add-form-example',
         route: '/tag-custom-add-form-example',
       },
+      {
+        name: 'tag-override-labels-example',
+        route: '/tag-override-labels-example',
+      },
     ],
   },
   {

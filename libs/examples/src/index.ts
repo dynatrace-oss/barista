@@ -349,6 +349,7 @@ import { DtExampleTreeTableProblemIndicator } from './tree-table/tree-table-prob
 import { DtExampleTreeTableSimple } from './tree-table/tree-table-simple-example/tree-table-simple-example';
 import { DtExampleCustomAddFormTag } from '././tag/tag-custom-add-form-example/tag-custom-add-form-example';
 import { DtExampleStackedSeriesChartHeatField } from '././stacked-series-chart/stacked-series-chart-heat-field-example/stacked-series-chart-heat-field-example';
+import { DtExampleOverrideLabelsTag } from '././tag/tag-override-labels-example/tag-override-labels-example';
 import { DtExampleHighlightTermArray } from './highlight';
 export { DtAlertExamplesModule } from './alert/alert-examples.module';
 export { DtAutocompleteExamplesModule } from './autocomplete/autocomplete-examples.module';
@@ -741,6 +742,7 @@ export {
   DtExampleDatepickerDark,
   DtExampleDatepickerDefault,
   DtExampleCustomAddFormTag,
+  DtExampleOverrideLabelsTag,
 };
 
 export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
@@ -1141,4 +1143,5 @@ export const EXAMPLES_MAP = new Map<string, Type<unknown>>([
   ['DtExampleTreeTableProblemIndicator', DtExampleTreeTableProblemIndicator],
   ['DtExampleTreeTableSimple', DtExampleTreeTableSimple],
   ['DtExampleCustomAddFormTag', DtExampleCustomAddFormTag],
+  ['DtExampleOverrideLabelsTag', DtExampleOverrideLabelsTag],
 ]);

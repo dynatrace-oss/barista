@@ -1,6 +1,6 @@
 /**
  * @license
- * Copyright 2022 Dynatrace LLC
+ * Copyright 2021 Dynatrace LLC
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,11 +14,16 @@
  * limitations under the License.
  */
 
-export * from './tag-default-example/tag-default-example';
-export * from './tag-examples.module';
-export * from './tag-interactive-example/tag-interactive-example';
-export * from './tag-key-example/tag-key-example';
-export * from './tag-list-with-tag-add-example/tag-list-with-tag-add-example';
-export * from './tag-removable-example/tag-removable-example';
-export * from './tag-custom-add-form-example/tag-custom-add-form-example';
-export * from './tag-override-labels-example/tag-override-labels-example';
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'dt-example-override-labels-tag',
+  templateUrl: './tag-override-labels-example.html',
+})
+export class DtExampleOverrideLabelsTag {
+  zones = new Set(['[Kubernetes] Google Kubernetes Engine', 'casp-test']);
+
+  addZone(event: { tag: string }): void {
+    this.zones.add(event.tag);
+  }
+}
