@@ -51,10 +51,11 @@
   display: grid;
   gap: 4px;
   grid-template-columns: 1fr 32px;
-  grid-template-rows: 32px 1fr;
+  grid-template-rows: 32px 1fr fit-content(32px);
   grid-template-areas:
     'header close'
-    'form form';
+    'form form'
+    'submit submit';
   border: 1px solid $gray-700;
   border-radius: 3px;
   background-color: $gray-700;
@@ -71,6 +72,7 @@
   gap: 8px;
   align-items: center;
 
+  @include dt-text-ellipsis();
   @include dt-cdkmonitor-focus-style(true);
 }
 
@@ -78,6 +80,7 @@
 .dt-tag-add-icon-button {
   width: 16px;
   height: 16px;
+  min-width: 16px;
   vertical-align: text-top;
   fill: #ffffff;
 
@@ -90,9 +93,15 @@
   fill: $turquoise-600;
 }
 
-.dt-tag-add-submit-button {
-  grid-area: form;
-  justify-self: flex-end;
+dt-tag-add-button {
+  grid-area: submit;
+  max-width: 100%;
+
+  ::ng-deep .dt-tag-add-submit-button {
+    max-width: 100%;
+
+    @include dt-text-ellipsis();
+  }
 }
 
 .dt-tag-add-custom-form {
@@ -106,5 +115,15 @@
 .dt-tag-add-default-form {
   grid-area: form;
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
+
+  .dt-tag-add-input {
+    flex-grow: 1;
+    flex-basis: max-content;
+  }
+}
+
+.dt-tag-add-header-text {
+  @include dt-text-ellipsis();
 }

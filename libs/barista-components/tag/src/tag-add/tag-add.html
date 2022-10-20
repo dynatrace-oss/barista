@@ -5,9 +5,10 @@
     cdk-overlay-origin
     (click)="open()"
     #origin="cdkOverlayOrigin"
+    [title]="label ?? title"
   >
     <dt-icon class="dt-tag-add-icon-button" name="plus-add"></dt-icon>
-    <span class="dt-tag-add-button-text">{{ title }}</span>
+    <span class="dt-tag-add-button-text">{{ label ?? title }}</span>
   </button>
   <ng-template
     #overlay
@@ -32,7 +33,7 @@
     >
       <div class="dt-tag-add-header">
         <dt-icon class="dt-tag-add-icon" name="plus-add"></dt-icon>
-        {{ title }}
+        <span class="dt-tag-add-header-text">{{ title }}</span>
       </div>
       <div *ngIf="_hasCustomForm$ | async" class="dt-tag-add-custom-form">
         <ng-content></ng-content>
@@ -53,6 +54,7 @@
           <dt-tag-add-button
             [valid]="_currentFormValid$ | async"
             (click)="submit()"
+            [label]="submitLabel"
           ></dt-tag-add-button>
         </form>
       </ng-container>
@@ -60,6 +62,7 @@
         *ngIf="_hasCustomForm$ | async"
         [valid]="_currentFormValid$ | async"
         (click)="submit()"
+        [label]="submitLabel"
       ></dt-tag-add-button>
       <button
         class="dt-tag-add-close-button"
