@@ -1,3 +1,11 @@
+## [10.9.1](https://github.com/dynatrace-oss/barista/compare/10.9.0...10.9.1) (2022-10-27)
+
+### Features
+
+- **tag-add:** Add possibility to customise add tag button label and overlay
+  header independently.
+  ([67e399b](https://github.com/dynatrace-oss/barista/commit/67e399be3b86d86ac229128a8918e397c7a33a27))
+
 ## [10.9.0](https://github.com/dynatrace-oss/barista/compare/10.8.0...10.9.0) (2022-10-27)
 
 ### Bug Fixes
