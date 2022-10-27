@@ -5,7 +5,7 @@ version: 2.1
 
 orbs:
   sonarcloud: sonarsource/sonarcloud@1.0.1
-  snyk: snyk/snyk@1.1.2
+  # snyk: snyk/snyk@1.1.2
   nx: nrwl/nx@1.1.1
   # win: circleci/windows@2.2.0
 
@@ -152,14 +152,14 @@ jobs:
       - sonarcloud/scan
 
   # - snyk security checks
-  security-checks:
-    executor: buildpack
-    steps:
-      - skip_for_forked_pull_requests
-      - attach_workspace:
-          at: ~/barista
-      - snyk/scan:
-          organization: dynatrace-oss
+  # security-checks:
+  #   executor: buildpack
+  #   steps:
+  #     - skip_for_forked_pull_requests
+  #     - attach_workspace:
+  #         at: ~/barista
+  #     - snyk/scan:
+  #         organization: dynatrace-oss
 
   # - check formatting if all files are formatted with prettier
   check-formatting:
@@ -356,14 +356,14 @@ workflows:
           context: barista
           requires:
             - install
-      - security-checks:
-          filters:
-            branches:
-              only: /^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$/
-          # SNYK_TOKEN is needed for security checking
-          context: barista
-          requires:
-            - install
+      # - security-checks:
+      #     filters:
+      #       branches:
+      #         only: /^([0-9]{1,}\.x|[0-9]{1,}\.[0-9]{1,}\.x|master)$/
+      #     # SNYK_TOKEN is needed for security checking
+      #     context: barista
+      #     requires:
+      #       - install
       - lint:
           context: barista
           requires:
