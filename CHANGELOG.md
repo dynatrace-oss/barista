@@ -1,3 +1,27 @@
+## [10.9.0](https://github.com/dynatrace-oss/barista/compare/10.8.0...10.9.0) (2022-10-27)
+
+### Bug Fixes
+
+- **context-dialog:** Fixed lack of role for context-dialog host element.
+  ([96f5a55](https://github.com/dynatrace-oss/barista/commit/96f5a55363ba4097d290a10f347443f8a1cd269f))
+- **drawer:** Drawer's close behavior via pressing ESCAPE can now be disabled
+  via 'disableClose' boolean flag.
+  ([03ec177](https://github.com/dynatrace-oss/barista/commit/03ec177139e1632097fecb0b5480ef80ed8ada6c))
+- **filter-field:** Focus is now placed on 'view more' button after exiting
+  filter-field-group detail view.
+  ([ef4b3b8](https://github.com/dynatrace-oss/barista/commit/ef4b3b8dc054b4b499fb19aa810c21de2779cd2d))
+
+### Features
+
+- **chart:** Add default aria-label and ability to override it.
+  ([f045ad2](https://github.com/dynatrace-oss/barista/commit/f045ad2b23c2565972a3a7a2bee6581255292afe))
+- **formatters:** Aligned number formatters with defined patterns
+  ([5e9c845](https://github.com/dynatrace-oss/barista/commit/5e9c8454f8f12e1ee3d55bf900467f113ed54f31))
+- **highlight:** Allow highlighting multiple terms in one go
+  ([152826b](https://github.com/dynatrace-oss/barista/commit/152826b1ce0d0f6520623c269ced94c4d7311504))
+- **tag-add:** Add closed output that emits event when input overlay is closed.
+  ([e2837b8](https://github.com/dynatrace-oss/barista/commit/e2837b87a4f5d9e904a8bfa1e9d196cc5453b4b4))
+
 ## [10.8.0](https://github.com/dynatrace-oss/barista/compare/10.7.0...10.8.0) (2022-09-05)
 
 ### Bug Fixes
