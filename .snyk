@@ -226,7 +226,7 @@ ignore:
   SNYK-JS-D3COLOR-1076592:
     - d3-scale > d3-interpolate > d3-color:
         reason: transitive-dependency
-        expires: '2022-08-24T09:36:16.859Z'
+        expires: '2022-12-11T08:34:51.463Z'
   SNYK-JS-ANSIREGEX-1583908:
     - '@angular/localize > yargs > string-width > strip-ansi > ansi-regex':
         reason: Transient dependency and still an issue
@@ -257,13 +257,17 @@ ignore:
   SNYK-JS-NANOID-2332193:
     - '@nguniversal/common > critters > postcss > nanoid':
         reason: Will hopefully be resolved by a future version of @nguniversal/common
-        expires: '2022-08-24T09:36:16.858Z'
+        expires: '2022-12-11T08:34:51.463Z'
   SNYK-JS-MINIMIST-2429795:
     - '@angular/localize > @babel/core > json5 > minimist':
         reason: Transient dependency
-        expires: '2022-08-24T09:36:16.858Z'
+        expires: '2022-12-11T08:34:51.463Z'
   SNYK-JS-NWSAPI-2841516:
     - '@nguniversal/common > jsdom > nwsapi':
         reason: Will hopefully be resolved by a future version of @nguniversal/common
-        expires: '2022-08-24T09:36:16.859Z'
+        expires: '2022-12-11T08:34:51.463Z'
+  SNYK-JS-MINIMATCH-3050818:
+    - '@angular/localize > glob > minimatch':
+        reason: Transient dependency
+        expires: '2022-12-11T08:34:51.463Z'
 patch: {}
