@@ -283,12 +283,16 @@ export function optionFilterTextPredicate(
   def: DtNodeDef,
   filterText: string,
 ): boolean {
-  // Transform the filter and viewValue by converting it to lowercase and removing whitespace.
-  const transformedFilter = filterText.trim().toLowerCase();
-  const transformedViewValue = def.option!.viewValue.trim().toLowerCase();
-  return (
-    !transformedFilter.length ||
-    transformedViewValue.indexOf(transformedFilter) !== -1
+  // Transform the filter and viewValue by converting it to lowercase and removing trailing whitespace.
+  const transformedFilters = filterText
+    .trim()
+    .toLocaleLowerCase()
+    .split(/\s+/)
+    .filter((f) => f !== '');
+  const transformedViewValue = def.option!.viewValue.trim().toLocaleLowerCase();
+
+  return transformedFilters.every((filter) =>
+    transformedViewValue.includes(filter),
   );
 }
 
