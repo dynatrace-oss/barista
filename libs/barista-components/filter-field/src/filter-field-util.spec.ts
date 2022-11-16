@@ -841,6 +841,32 @@ describe('DtFilterField Util', () => {
       );
       expect(optionFilterTextPredicate(optionDef, 'ion 2')).toBe(false);
     });
+
+    it('should return true if the viewValue of the option does contain all terms in the filter', () => {
+      const optionSource = { name: 'Very Long Option 1' };
+      const optionDef = dtOptionDef(
+        optionSource,
+        null,
+        optionSource.name,
+        null,
+        null,
+        null,
+      );
+      expect(optionFilterTextPredicate(optionDef, 'Very Option 1')).toBe(true);
+    });
+
+    it('should return false if the viewValue of the option not does contain all terms in the filter', () => {
+      const optionSource = { name: 'Very Long Option 1' };
+      const optionDef = dtOptionDef(
+        optionSource,
+        null,
+        optionSource.name,
+        null,
+        null,
+        null,
+      );
+      expect(optionFilterTextPredicate(optionDef, 'Very Item 1')).toBe(false);
+    });
   });
 
   describe('optionSelectedPredicate', () => {
