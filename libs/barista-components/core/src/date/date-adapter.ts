@@ -144,7 +144,9 @@ export class DtNativeDateAdapter implements DtDateAdapter<Date> {
     const result = createDateWithOverflow(year, month, date);
 
     if (result.getMonth() !== month) {
-      throw Error(`Invalid date "${date}" for month with index "${month}".`);
+      throw Error(
+        `Invalid date "${result.toString()}" for given params y:${year}, m:${month}, d:${date}`,
+      );
     }
 
     return result;
