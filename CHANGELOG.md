@@ -1,3 +1,13 @@
+## [10.10.0](https://github.com/dynatrace-oss/barista/compare/10.9.0...10.10.0) (2022-11-28)
+
+### Features
+
+- **filter-field:** Tokenize search term before filtering.
+  ([6b73811](https://github.com/dynatrace-oss/barista/commit/6b73811ea4a53b6619a6b4535e173c655ffa1f13))
+- **tag-add:** Add possibility to customise add tag button label and overlay
+  header independently.
+  ([09b725f](https://github.com/dynatrace-oss/barista/commit/09b725f0fb7ede3fb0e068800e26566e568101bd))
+
 ## [10.9.0](https://github.com/dynatrace-oss/barista/compare/10.8.0...10.9.0) (2022-10-27)
 
 ### Bug Fixes
