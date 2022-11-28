@@ -182,7 +182,7 @@
     "stylelint-prettier": "^1.2.0",
     "stylelint-scss": "^3.19.0",
     "tailwindcss": "^1.9.6",
-    "terser": "^4.8.0",
+    "terser": "^5.16.0",
     "testcafe": "^1.14.2",
     "testcafe-browser-provider-browserstack": "^1.13.1",
     "testcafe-reporter-xunit": "^2.1.0",
