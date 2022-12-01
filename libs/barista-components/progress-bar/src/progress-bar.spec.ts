@@ -92,6 +92,58 @@ describe('DtProgressBar', () => {
     expect(progressComponent.value).toBe(0);
   });
 
+  it('should set progress to 0 if min is greater than max', () => {
+    const fixture = createComponent(BasicProgressBar);
+    const progressElement = fixture.debugElement.query(
+      By.css('dt-progress-bar'),
+    );
+    const progressComponent = progressElement.componentInstance;
+
+    progressComponent.min = 11;
+    progressComponent.max = 10;
+
+    progressComponent.value = 6;
+    expect(progressComponent.percent).toBe(0);
+
+    progressComponent.value = 1;
+    expect(progressComponent.percent).toBe(0);
+
+    progressComponent.value = 4;
+    expect(progressComponent.percent).toBe(0);
+  });
+
+  it('should set progress to 0 if min is equal to max', () => {
+    const fixture = createComponent(BasicProgressBar);
+    const progressElement = fixture.debugElement.query(
+      By.css('dt-progress-bar'),
+    );
+    const progressComponent = progressElement.componentInstance;
+
+    progressComponent.min = 0;
+    progressComponent.max = 0;
+
+    progressComponent.value = 6;
+    expect(progressComponent.percent).toBe(0);
+
+    progressComponent.value = 0;
+    expect(progressComponent.percent).toBe(0);
+
+    progressComponent.value = -2;
+    expect(progressComponent.percent).toBe(0);
+
+    progressComponent.min = 10;
+    progressComponent.max = 10;
+
+    progressComponent.value = 15;
+    expect(progressComponent.percent).toBe(0);
+
+    progressComponent.value = 10;
+    expect(progressComponent.percent).toBe(0);
+
+    progressComponent.value = 0;
+    expect(progressComponent.percent).toBe(0);
+  });
+
   it('should accept the value, min and max attribute as an input', () => {
     const fixture = createComponent(ValueProgressBar);
 

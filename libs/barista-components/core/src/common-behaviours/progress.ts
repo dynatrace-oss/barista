@@ -115,8 +115,12 @@ export function mixinHasProgress<T extends Constructor<{}>>(
 
     /** Calculates the percentage of the progress component that a value is. */
     private _calculatePercentage(value: number | null): number {
-      // tslint:disable-next-line: no-magic-numbers
-      return clamp((((value || 0) - this.min) / (this.max - this.min)) * 100);
+      const { min, max } = this;
+      const actualValue = value ?? 0;
+
+      return max > min
+        ? clamp(Math.abs((actualValue - min) / (max - min)) * 100) // tslint:disable-line: no-magic-numbers
+        : 0;
     }
 
     /** @internal Updates all parameters */
