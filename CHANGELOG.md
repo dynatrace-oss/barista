@@ -1,3 +1,12 @@
+##
+
+[11.0.0-rc.2](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.2)
+(2022-12-05)
+
+### Features
+
+- Updated release candidate to have feature parity with 10.x release
+
 ## [10.10.0](https://github.com/dynatrace-oss/barista/compare/10.9.0...10.10.0) (2022-11-28)
 
 ### Features
