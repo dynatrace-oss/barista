@@ -97,7 +97,7 @@
     "@nguniversal/builders": "^13.0.1",
     "@nguniversal/express-engine": "^13.0.1",
     "@nrwl/angular": "13.4.4",
-    "@nrwl/cli": "13.4.4",
+    "@nrwl/cli": "15.4.1",
     "@nrwl/eslint-plugin-nx": "13.4.4",
     "@nrwl/jest": "13.4.4",
     "@nrwl/linter": "13.4.4",
