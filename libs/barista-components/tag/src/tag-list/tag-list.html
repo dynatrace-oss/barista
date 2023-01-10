@@ -1,6 +1,9 @@
 <div class="dt-tag-list-container" [attr.aria-label]="ariaLabel">
   <div class="dt-tag-list-wrapper" #wrapper>
     <ng-content select="dt-tag"></ng-content>
+    <div class="dt-tag-list-less-btn" *ngIf="_toDisplayLessButton()" #lessBtn>
+      <a (click)="_hide()" class="dt-link" i18n>Less...</a>
+    </div>
     <ng-template
       [ngTemplateOutlet]="dtAddTag"
       *ngIf="_showAllTags"
