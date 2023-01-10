@@ -24,11 +24,16 @@
   overflow: hidden;
 }
 
-.dt-tag-list-more-btn {
+.dt-tag-list-more-btn,
+.dt-tag-list-less-btn {
   font-variant: tabular-nums;
   height: 32px;
   line-height: 32px;
   text-align: left;
   vertical-align: middle;
   white-space: nowrap;
+}
+
+.dt-tag-list-less-btn {
+  margin-left: 4px;
 }

@@ -106,6 +106,52 @@ describe('DtTagList', () => {
       expect(moreBtn.nativeElement.textContent).toBe('1 More...');
     });
 
+    it('should not show a less button when all tags fit into the viewport', () => {
+      const lessBtn = fixture.debugElement.query(
+        By.css('.dt-tag-list-less-btn'),
+      );
+      expect(lessBtn).toBeNull();
+    });
+
+    it('should show less button when a tag does not fit into viewport and list is expanded', () => {
+      fixture.componentInstance.tags.add('Test');
+      fixture.componentInstance.showMore();
+      fixture.detectChanges();
+      mockBoundingClientRectOnTagList();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+      const lessBtn = fixture.debugElement.query(
+        By.css('.dt-tag-list-less-btn'),
+      );
+      expect(lessBtn).toBeDefined();
+    });
+
+    it('should show correct tags quantity in show more button after collapsing tags list', () => {
+      fixture.componentInstance.tags.add('Test 1');
+      fixture.componentInstance.showMore();
+      fixture.detectChanges();
+      mockBoundingClientRectOnTagList();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      fixture.componentInstance.tags.add('Test 2');
+      fixture.detectChanges();
+      mockBoundingClientRectOnTagList();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      fixture.componentInstance.showLess();
+      fixture.detectChanges();
+      mockBoundingClientRectOnTagList();
+      zone.simulateZoneExit();
+      fixture.detectChanges();
+
+      const moreBtn = fixture.debugElement.query(
+        By.css('.dt-tag-list-more-btn'),
+      );
+      expect(moreBtn.nativeElement.textContent).toBe('2 More...');
+    });
+
     it('should show an "add tag" button at the end if provided', () => {
       const addTagBtn = fixture.debugElement.query(
         By.css('.dt-tag-add-button'),
@@ -206,6 +252,9 @@ class DtTagListComponent implements OnInit {
   @ViewChildren(DtTag, { read: ElementRef })
   _tagElementRefs: QueryList<ElementRef>;
 
+  @ViewChildren(DtTagList, { read: DtTagList })
+  _tagListRefs: QueryList<DtTagList>;
+
   tags = new Set<string>();
 
   ngOnInit(): void {
@@ -214,5 +263,13 @@ class DtTagListComponent implements OnInit {
 
   addTag(event: DtTagAddSubmittedDefaultEvent): void {
     this.tags.add(event.tag);
+  }
+
+  showMore(): void {
+    this._tagListRefs.first._expand();
+  }
+
+  showLess(): void {
+    this._tagListRefs.first._hide();
   }
 }
