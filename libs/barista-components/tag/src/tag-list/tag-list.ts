@@ -29,7 +29,7 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { merge, Subject, Subscription } from 'rxjs';
 import {
   startWith,
   switchMap,
@@ -65,6 +65,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
   @Input('aria-label') ariaLabel: string;
 
   private readonly _destroy$ = new Subject<void>();
+  private readonly _triggerTagsChange$ = new Subject<void>();
 
   /** @internal Reference to wrapper directives */
   @ViewChild('wrapper', { static: true }) _wrapperTagList: ElementRef;
@@ -105,7 +106,7 @@ export class DtTagList implements AfterContentInit, OnDestroy {
   ngAfterContentInit(): void {
     if (this._platform.isBrowser) {
       // Changes need to be re-evaluated if
-      this._tagElements.changes
+      merge(this._tagElements.changes, this._triggerTagsChange$)
         .pipe(
           startWith(null),
           switchMapTo(this._zone.onStable.pipe(take(1))),
@@ -151,6 +152,14 @@ export class DtTagList implements AfterContentInit, OnDestroy {
     this._showAllTags = true;
     this._isOneLine = true;
     this._setWrapperBoundingProperties(false);
+  }
+
+  /** @internal Collapses the wrapper directive. */
+  _hide(): void {
+    this._showAllTags = false;
+    this._isOneLine = false;
+    /** Triggering tags change is required, because show more count is not updated after adding a tag and showing less */
+    this._triggerTagsChange$.next();
   }
 
   /** @internal Calculates bounding of wrapper and show more value */
@@ -208,6 +217,13 @@ export class DtTagList implements AfterContentInit, OnDestroy {
    */
   _toDisplayMoreButton(): boolean {
     return !this._isOneLine && !this._showAllTags;
+  }
+
+  /**
+   * @internal evaluates whether to display the show less button
+   */
+  _toDisplayLessButton(): boolean {
+    return this._showAllTags && this._hiddenTagCount !== 0;
   }
 }
 
