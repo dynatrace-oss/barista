@@ -1,3 +1,20 @@
+## [10.11.0](https://github.com/dynatrace-oss/barista/compare/10.10.0...10.11.0) (2023-01-19)
+
+### Bug Fixes
+
+- **filter-field:** Add sanity check for element in case of opening/closing
+  panel.
+  ([9f4f06d](https://github.com/dynatrace-oss/barista/commit/9f4f06d5bd7befc8ef8a8319eb723e7bb329c118))
+- **progress-bar:** Fix faulty progress calculation when min and max are equal.
+  ([2f5487e](https://github.com/dynatrace-oss/barista/commit/2f5487e9aedc6e2a3aafd2d100af2d34d205038d))
+- **table:** Select all in table headers now aligns correctly in multi-lines.
+  ([cc83b3d](https://github.com/dynatrace-oss/barista/commit/cc83b3da34cdd148b322fd670ae26007fa865b66))
+
+### Features
+
+- **tag-list:** Add show less button.
+  ([3314eb4](https://github.com/dynatrace-oss/barista/commit/3314eb43007dcd04cc6b34ef35af57f65adeb11d))
+
 ## [10.10.0](https://github.com/dynatrace-oss/barista/compare/10.9.0...10.10.0) (2022-11-28)
 
 ### Features
