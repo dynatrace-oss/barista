@@ -129,6 +129,7 @@ export class DtFilterFieldElementTrigger<
   get panelOpen(): boolean {
     return (
       !!(this._overlayRef && this._overlayRef.hasAttached()) &&
+      this._element &&
       this._element._isOpen
     );
   }
