@@ -114,7 +114,7 @@ export class DtFilterFieldMultiSelectTrigger<T>
 
   /** Opens the filter-field multiSelect panel. */
   openPanel(): void {
-    if (!this.element._isOpen) {
+    if (this.element && !this.element._isOpen) {
       // As now there is no autofocus anymore, the key manager and its boundaries must be reset after opening the panel
       this.resetActiveItemAndKeyManagerLimitsOnPanel();
       super.openPanel();
@@ -123,7 +123,7 @@ export class DtFilterFieldMultiSelectTrigger<T>
 
   /** Closes the filter-field multiSelect panel. */
   closePanel(shouldEmit: boolean = true): void {
-    if (this.element._isOpen) {
+    if (this.element && this.element._isOpen) {
       // As now there is no autofocus anymore, the key manager and its boundaries must be reset after closing the panel
       this.resetActiveItemAndKeyManagerLimitsOnPanel();
       super.closePanel(shouldEmit);
