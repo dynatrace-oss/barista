@@ -270,4 +270,8 @@ ignore:
     - '@angular/localize > glob > minimatch':
         reason: Transient dependency
         expires: '2023-12-11T08:34:51.463Z'
+  SNYK-JS-JSON5-3182856:
+    - '@angular/localize > @babel/core > json5':
+        reason: transitive dependency
+        expires: '2023-03-18T11:46:35.202Z'
 patch: {}
