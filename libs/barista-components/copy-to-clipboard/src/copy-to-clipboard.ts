@@ -100,7 +100,12 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
   copyToClipboard(): void {
     const value = this._inputValue;
     if (this._input && isDefined(value)) {
-      this._cdkClipboard.copy(value);
+      const didCopyCorrectly = this._cdkClipboard.copy(value);
+      if (didCopyCorrectly) {
+        this._copiedToClipboard();
+      } else {
+        this.copyFailed.emit();
+      }
     } else {
       this.copyFailed.emit();
     }
