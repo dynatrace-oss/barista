@@ -258,7 +258,9 @@ export class DtContainerBreakpointObserver implements OnDestroy {
               }
             }
           },
-          { root: this._placeholderContainer.nativeElement, threshold: 1 },
+          // Decreased threshold from 1 to 0.99 to account for subpixel
+          // rendering/snapping issues on Microsoft Edge
+          { root: this._placeholderContainer.nativeElement, threshold: 0.99 },
         );
       }
     });
