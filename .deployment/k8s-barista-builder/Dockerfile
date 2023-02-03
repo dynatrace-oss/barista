@@ -89,13 +89,15 @@ RUN npm install --silent @dynatrace/barista-icons @dynatrace/barista-fonts
 #------------------------------------------------------------
 # Temporary layer as base for a jenkins agent
 #------------------------------------------------------------
-FROM ${BASE_IMAGE_REGISTRY}/jci/jenkins-slave-cluster-docker-image:5.2 as jenkins-agent
+FROM ${BASE_IMAGE_REGISTRY}/jci/ubuntu20-amd64-base:latest as jenkins-agent
 
 LABEL maintainer="Dynatrace DesignOps Team <designops@dynatrace.com>" \
       description="This image is used as build agent for our Jenkins build"
 
 USER root
 ARG NODE_VERSION
+
+RUN apt-get -y update; apt-get -y install curl
 
 RUN  curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
   && apt-get update \
