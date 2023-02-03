@@ -19,9 +19,11 @@ pipeline {
 
     stage("Build Barista") {
       agent {
-        node {
-          label "k8s-barista-builder-internal"
-        }
+          kubernetes {
+            cloud 'rancher-lab-kubernetes'
+            namespace 'do-webkins-slaves-ni'
+            inheritFrom "barista-builder-pod-internal"
+          }
       }
 
       stages {
@@ -121,10 +123,10 @@ pipeline {
     stage("Deploy Barista Internal") {
 
       agent {
-        node {
-          label "k8s-docker"
-        }
-      }
+    node {
+      label 'default'
+    }
+  }
 
       options {
         skipDefaultCheckout true
