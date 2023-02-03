@@ -2,8 +2,10 @@
 
 pipeline {
   agent {
-    node {
-      label "k8s-docker"
+    kubernetes {
+      cloud "rancher-lab-kubernetes"
+      namespace "do-webkins-slaves-ni"
+      inheritFrom "k8s-docker"
     }
   }
 
