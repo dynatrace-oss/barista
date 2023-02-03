@@ -246,11 +246,7 @@ export class DtContainerBreakpointObserver implements OnDestroy {
                 ) {
                   this._zone.run(() => {
                     query.observer!.next({
-                      matches:
-                        (query.elementQuery!.range === 'min' &&
-                          entry.isIntersecting) ||
-                        (query.elementQuery!.range === 'max' &&
-                          !entry.isIntersecting),
+                      matches: this._isQueryMatching(query, entry),
                       query: queryString,
                     });
                   });
@@ -258,13 +254,39 @@ export class DtContainerBreakpointObserver implements OnDestroy {
               }
             }
           },
-          // Decreased threshold from 1 to 0.99 to account for subpixel
-          // rendering/snapping issues on Microsoft Edge
-          { root: this._placeholderContainer.nativeElement, threshold: 0.99 },
+          { root: this._placeholderContainer.nativeElement, threshold: 1 },
         );
       }
     });
     return this._intersectionObserver;
+  }
+
+  /**
+   *  Checks if the query matches the entry's width or height based on the placeholder and container measurements returned by the IntersectionObserverEntry.
+   * @param query query
+   * @param entry intersection observer entry
+   * @private
+   */
+  private _isQueryMatching(
+    query: Query,
+    entry: IntersectionObserverEntry,
+  ): boolean {
+    // Check the width of the placeholder span (boundingClientRect) vs container div (rootBounds)
+    const isWidthMatchingQuery =
+      query.elementQuery!.feature === 'width' &&
+      ((query.elementQuery!.range === 'min' &&
+        entry.rootBounds!.width > entry.boundingClientRect.width) ||
+        (query.elementQuery!.range === 'max' &&
+          entry.rootBounds!.width < entry.boundingClientRect.width));
+    // Check the height of the placeholder span (boundingClientRect) vs container div (rootBounds)
+    const isHeightMatchingQuery =
+      query.elementQuery!.feature === 'height' &&
+      ((query.elementQuery!.range === 'min' &&
+        entry.rootBounds!.height > entry.boundingClientRect.height) ||
+        (query.elementQuery!.range === 'max' &&
+          entry.rootBounds!.height < entry.boundingClientRect.height));
+
+    return isHeightMatchingQuery || isWidthMatchingQuery;
   }
 
   /** Creates a placeholder element for a given element query. */
