@@ -1,7 +1,9 @@
 pipeline {
   agent {
-    node {
-      label "k8s-barista-builder-public"
+    kubernetes {
+      cloud "rancher-lab-kubernetes"
+      namespace "do-webkins-slaves-ni"
+      inheritFrom "k8s-barista-builder-public"
     }
   }
 
