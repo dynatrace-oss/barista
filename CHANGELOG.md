@@ -1,3 +1,13 @@
+## [10.11.1](https://github.com/dynatrace-oss/barista/compare/10.11.0...10.11.1) (2023-02-06)
+
+### Bug Fixes
+
+- **container-breakpoint-observer:** Changed the calculation of breakpoint to
+  rely on measurements returned by the IntersectionObserverEntry.
+  ([d591ee9](https://github.com/dynatrace-oss/barista/commit/d591ee989da7776792f271b100fc5a80b5640bf2))
+- **copy-to-clipboard:** Fixes an issue where clipboard value was not updated.
+  ([ae1fa41](https://github.com/dynatrace-oss/barista/commit/ae1fa41ee3603b958d319028aeebdbee9e810d37))
+
 ## [10.11.0](https://github.com/dynatrace-oss/barista/compare/10.10.0...10.11.0) (2023-01-19)
 
 ### Bug Fixes
