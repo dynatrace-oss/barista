@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -35,6 +36,7 @@ import {
   _addCssClass,
   _removeCssClass,
   isDefined,
+  CanDisable,
 } from '@dynatrace/barista-components/core';
 import { DtInput } from '@dynatrace/barista-components/input';
 import { ButtonVariant } from '@dynatrace/barista-components/button';
@@ -54,7 +56,9 @@ const DT_COPY_TO_CLIPBOARD_SUCCESSFUL = 'dt-copy-to-clipboard-successful';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.Emulated,
 })
-export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
+export class DtCopyToClipboard
+  implements AfterContentInit, CanDisable, OnDestroy
+{
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _cdkClipboard: Clipboard,
@@ -62,6 +66,18 @@ export class DtCopyToClipboard implements AfterContentInit, OnDestroy {
 
   /** Defines the button variant of the copy button. */
   @Input() variant: ButtonVariant = 'primary';
+
+  /** Defines if the copy button should be disabled */
+  @Input()
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(disabled: boolean) {
+    this._disabled = coerceBooleanProperty(disabled);
+    this._changeDetectorRef.markForCheck();
+  }
+  private _disabled: boolean = false;
+  static ngAcceptInputType_disabled: BooleanInput;
 
   /** Emits a stream when the content has been copied. */
   @Output() readonly copied: EventEmitter<void> = new EventEmitter();

@@ -42,7 +42,11 @@ describe('DtCopyToClipboard', () => {
           HttpClientTestingModule,
           DtIconModule.forRoot({ svgIconLocation: `{{name}}.svg` }),
         ],
-        declarations: [CallbackBehaviorTestApp, DelayedCallbackBehaviorTestApp],
+        declarations: [
+          CallbackBehaviorTestApp,
+          DelayedCallbackBehaviorTestApp,
+          DisableCopyButtonTestApp,
+        ],
       });
       TestBed.compileComponents();
       // tslint:disable-next-line:no-any
@@ -97,6 +101,15 @@ describe('DtCopyToClipboard', () => {
     fixture.detectChanges();
     expect(fixture.debugElement.query(By.css('.dt-button-icon'))).toBeNull();
   }));
+
+  it('should disable copy button', (): void => {
+    const fixture = createComponent(DisableCopyButtonTestApp);
+    const buttonNativeElement =
+      fixture.debugElement.nativeElement.querySelector('button');
+
+    fixture.detectChanges();
+    expect(buttonNativeElement.disabled).toBe(true);
+  });
 });
 
 /** Test component that contains an DtCopyComponent. */
@@ -134,3 +147,15 @@ class DelayedCallbackBehaviorTestApp {
     this.copyEventCount++;
   }
 }
+
+/** Test component that contains an DtCopyComponent. */
+@Component({
+  selector: 'dt-disable-button-test-app',
+  template: `
+    <dt-copy-to-clipboard [disabled]="true">
+      <input dtInput value="https://context.dynatrace.com" />
+      <dt-copy-to-clipboard-label>Copy</dt-copy-to-clipboard-label>
+    </dt-copy-to-clipboard>
+  `,
+})
+class DisableCopyButtonTestApp {}
