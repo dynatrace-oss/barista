@@ -1,3 +1,26 @@
+## [10.12.0](https://github.com/dynatrace-oss/barista/compare/10.11.0...10.12.0) (2023-02-20)
+
+### Bug Fixes
+
+- **container-breakpoint-observer:** Changed the calculation of breakpoint to
+  rely on measurements returned by the IntersectionObserverEntry.
+  ([c94dde1](https://github.com/dynatrace-oss/barista/commit/c94dde1e0464f1ddd6697e740db0465d51bff68f))
+- **container-breakpoint-observer:** Decreased threshold by a small amount to
+  account for subpixel rendering issues.
+  ([e6377f5](https://github.com/dynatrace-oss/barista/commit/e6377f5ccb6f806e5eed0a09fa673b08c9c3d614))
+- **copy-to-clipboard:** Fixes an issue where clipboard value was not update.
+  ([4ed465d](https://github.com/dynatrace-oss/barista/commit/4ed465dd23bb551dc2e28c81ca2fdce0a6d5b094))
+- **core:** Fixes an issue with access to group of undefined in the Options.
+  ([24328cd](https://github.com/dynatrace-oss/barista/commit/24328cd1d81af10897dd6d65098d3db2e65911e1))
+
+### Features
+
+- **copy-to-clipboard:** Made it possible to disable the copy button
+  ([f7132ed](https://github.com/dynatrace-oss/barista/commit/f7132edf5d3557143aaf3aa676ccd27962cf8ea2))
+- **form-field:** DtHint Directive can now be applied by attribute selectors as
+  well.
+  ([368ca24](https://github.com/dynatrace-oss/barista/commit/368ca24fa18764a433afaebe6bf91a0de2fa9e90))
+
 ## [10.11.0](https://github.com/dynatrace-oss/barista/compare/10.10.0...10.11.0) (2023-01-19)
 
 ### Bug Fixes
