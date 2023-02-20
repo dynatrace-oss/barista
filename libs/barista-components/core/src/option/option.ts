@@ -291,8 +291,10 @@ export function _countGroupLabelsBeforeOption<T>(
     for (let i = 0; i < optionIndex + 1; i++) {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       if (optionsArray[i].group && !groups.has(optionsArray[i].group!)) {
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        groups.add(optionsArray[i].group!);
+        const group = optionsArray[i].group;
+        if (group !== undefined) {
+          groups.add(group);
+        }
       }
     }
     return groups.size;
