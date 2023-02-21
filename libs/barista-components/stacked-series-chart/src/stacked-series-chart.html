@@ -59,7 +59,9 @@
           class="dt-stacked-series-chart-slice"
           [dtOverlay]="_overlay"
           [dtOverlayConfig]="{ data: slice }"
-          [class.dt-stacked-series-chart-slice-selectable]="_selectable"
+          [class.dt-stacked-series-chart-slice-selectable]="
+            _selectable && !slice.origin.disabled
+          "
           [class.dt-stacked-series-chart-slice-selected]="slice.selected"
           [attr.aria-label]="slice.ariaLabel"
           [style]="

@@ -35,7 +35,10 @@ import { DtIconModule } from '@dynatrace/barista-components/icon';
 import { DtThemingModule } from '@dynatrace/barista-components/theming';
 import { createComponent, dispatchFakeEvent } from '@dynatrace/testing/browser';
 import { DtStackedSeriesChart } from './stacked-series-chart';
-import { stackedSeriesChartDemoDataCoffee } from './stacked-series-chart.mock';
+import {
+  stackedSeriesChartDemoDataCoffee,
+  stackedSeriesChartDemoDataWithDisableNode,
+} from './stacked-series-chart.mock';
 import { DtStackedSeriesChartModule } from './stacked-series-chart.module';
 import {
   DtStackedSeriesChartFillMode,
@@ -365,6 +368,20 @@ describe('DtStackedSeriesChart', () => {
       tick();
 
       expect(getSelectedSlice()).toBe(null);
+    }));
+    it('should not select disabled node', fakeAsync(() => {
+      rootComponent.series = stackedSeriesChartDemoDataWithDisableNode;
+      fixture.detectChanges();
+
+      const sliceByPosition = getSliceByPositionWithinTrack(0, 0);
+      dispatchFakeEvent(sliceByPosition.nativeElement, 'click');
+      fixture.detectChanges();
+
+      tick();
+
+      const selected = getSelectedSlice();
+
+      expect(selected).toBeNull();
     }));
   });
 
