@@ -72,6 +72,28 @@ export const stackedSeriesChartDemoDataCoffee: DtStackedSeriesChartSeries[] = [
   },
 ];
 
+export const stackedSeriesChartDemoDataWithDisableNode: DtStackedSeriesChartSeries[] =
+  [
+    {
+      label: 'Mocha',
+      nodes: [
+        {
+          value: 2,
+          label: 'Coffee (disabled)',
+          disabled: true,
+        },
+        {
+          value: 2,
+          label: 'Chocolate',
+        },
+        {
+          value: 1,
+          label: 'Milk',
+        },
+      ],
+    },
+  ];
+
 export const stackedSeriesChartDemoDataShows: DtStackedSeriesChartSeries[] = [
   {
     label: 'Lost',

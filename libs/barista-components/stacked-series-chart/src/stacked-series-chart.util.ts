@@ -72,6 +72,8 @@ export interface DtStackedSeriesChartNode {
   value: number;
   /** Color to be used */
   color?: DtColors | string;
+  /** Whether node is not selectable */
+  disabled?: boolean;
 }
 
 /** Extended information of DtStackedSeriesChartNode containing useful information that can be used inside the overlay's template */
