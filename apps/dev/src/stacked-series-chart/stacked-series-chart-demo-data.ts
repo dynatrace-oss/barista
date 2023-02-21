@@ -98,7 +98,9 @@ export const stackedSeriesChartDemoData = [
     nodes: [
       {
         value: 1,
-        label: 'Milk',
+        label: 'Non-active milk',
+        disabled: true,
+        color: '#606060',
       },
       {
         value: 1,

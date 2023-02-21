@@ -552,7 +552,11 @@ export class DtStackedSeriesChart implements OnDestroy, OnInit {
     series?: DtStackedSeriesChartSeries,
     node?: DtStackedSeriesChartNode,
   ): false | void {
-    return this._isNodeSelectionMode && this._toggleSelect(series, node);
+    return (
+      this._isNodeSelectionMode &&
+      node?.disabled !== true &&
+      this._toggleSelect(series, node)
+    );
   }
 
   /** @internal Toggle the visibility of an element */
