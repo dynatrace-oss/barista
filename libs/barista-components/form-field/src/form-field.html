@@ -35,9 +35,13 @@
       <ng-content select="dt-error"></ng-content>
     </div>
     <div class="dt-form-field-hint-wrapper" *ngIf="_hintChildren.length">
-      <ng-content select="dt-hint:not([align='end'])"></ng-content>
+      <ng-content
+        select="dt-hint:not([align='end']),[dt-hint]:not([align='end']),[dtHint]:not([align='end'])"
+      ></ng-content>
       <span class="dt-form-field-hint-spacer"></span>
-      <ng-content select="dt-hint[align='end']"></ng-content>
+      <ng-content
+        select="dt-hint[align='end'],[dt-hint][align='end'],[dtHint][align='end']"
+      ></ng-content>
     </div>
   </div>
 </div>
