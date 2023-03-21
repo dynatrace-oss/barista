@@ -1,3 +1,16 @@
+## [10.13.0](https://github.com/dynatrace-oss/barista/compare/10.12.0...10.13.0) (2023-02-27)
+
+### Bug Fixes
+
+- **form-field:** Fixes an issue with the form field not picking up the DtHint
+  directive correctly.
+  ([c798bd8](https://github.com/dynatrace-oss/barista/commit/c798bd87fbeffc6f2c93e54f6d118c5b82545164))
+
+### Features
+
+- **stacked-series-chart:** Disabled node.
+  ([169d3e9](https://github.com/dynatrace-oss/barista/commit/169d3e971dc417f57949b5c95b422735ad85a712))
+
 ## [10.12.0](https://github.com/dynatrace-oss/barista/compare/10.11.0...10.12.0) (2023-02-20)
 
 ### Bug Fixes
