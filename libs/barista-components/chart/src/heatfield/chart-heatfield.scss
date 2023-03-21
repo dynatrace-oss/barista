@@ -17,6 +17,7 @@ $animation-delay: 40ms;
   z-index: 1;
   transform-origin: top;
   transition: transform $animation-duration ease-in-out $animation-delay;
+  min-width: 8px;
 }
 
 .dt-chart-heatfield-marker.dt-chart-heatfield-active {
