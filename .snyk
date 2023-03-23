@@ -273,5 +273,10 @@ ignore:
   SNYK-JS-JSON5-3182856:
     - '@angular/localize > @babel/core > json5':
         reason: transitive dependency
-        expires: '2023-03-18T11:46:35.202Z'
+        expires: '2023-12-18T11:46:35.202Z'
+  SNYK-JS-WORDWRAP-3149973:
+    - '@nguniversal/common@13.0.2 > jsdom@19.0.0 > escodegen@2.0.0 > optionator@0.8.3 > word-wrap@1.2.3':
+        reason: transient dependency
+        expires: 2023-12-18T11:46:35.202Z
+        created: 2023-03-23T08:12:17.096Z
 patch: {}
