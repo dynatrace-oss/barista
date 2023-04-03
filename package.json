@@ -88,7 +88,7 @@
     "@angular/cli": "13.1.2",
     "@angular/compiler": "13.1.2",
     "@angular/compiler-cli": "13.1.2",
-    "@angular/language-service": "13.1.2",
+    "@angular/language-service": "15.2.5",
     "@angular/platform-browser-dynamic": "13.1.2",
     "@angular/platform-server": "13.1.2",
     "@angular/router": "13.1.2",
