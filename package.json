@@ -184,7 +184,7 @@
     "tailwindcss": "^1.9.6",
     "terser": "^4.8.0",
     "testcafe": "^1.14.2",
-    "testcafe-browser-provider-browserstack": "^1.13.1",
+    "testcafe-browser-provider-browserstack": "^1.14.2",
     "testcafe-reporter-xunit": "^2.1.0",
     "ts-jest": "27.0.5",
     "ts-node": "^10.5.0",
