@@ -145,7 +145,10 @@ export class DtFilterFieldTag implements OnDestroy {
    * @internal
    * Get a unique title for the edit button of the tag.
    */
-  get _getTagTitle(): string {
+  get _getTagTitle(): string | null {
+    if (!this._tooltipDisabled) {
+      return '';
+    }
     return `Edit ${this._data.key} - ${this._data.value}`;
   }
 
