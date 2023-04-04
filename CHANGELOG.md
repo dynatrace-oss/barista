@@ -1,3 +1,17 @@
+## [10.14.0](https://github.com/dynatrace-oss/barista/compare/10.13.0...10.14.0) (2023-04-04)
+
+### Bug Fixes
+
+- **chart-heatfield:** Set min-width for marker heatfield.
+  ([55350a9](https://github.com/dynatrace-oss/barista/commit/55350a929234d5f42562ce84d68e6fb285506661))
+- **filter-field:** Fixes an issue where two overlays were shown.
+  ([ce12e8c](https://github.com/dynatrace-oss/barista/commit/ce12e8c21fd257f9c3ae2f1956e2b9a2b8b10e5a))
+
+### Features
+
+- **icon:** Aligned default color for icons when no color is given.
+  ([effb5f5](https://github.com/dynatrace-oss/barista/commit/effb5f5ce6d3aecaadc953da8050ef45608a5bef))
+
 ## [10.13.0](https://github.com/dynatrace-oss/barista/compare/10.12.0...10.13.0) (2023-02-27)
 
 ### Bug Fixes
