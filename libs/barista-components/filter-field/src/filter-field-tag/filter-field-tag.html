@@ -15,11 +15,7 @@
   </div>
 </ng-template>
 
-<div
-  [dtOverlay]="tagContent"
-  [dtOverlayConfig]="_overlayConfig"
-  [disabled]="_tooltipDisabled"
->
+<div>
   <button
     dt-button
     variant="nested"
@@ -28,7 +24,7 @@
       'dt-filter-field-tag-button-temporarily-disabled': temporarilyDisabled,
       'dt-filter-field-tag-button-nested': !temporarilyDisabled
     }"
-    [title]="temporarilyDisabled ? 'currently in edit mode' : _getTagTitle"
+    [title]="temporarilyDisabled ? 'Currently in edit mode' : _getTagTitle"
     [disabled]="filterFieldDisabled || !editable"
     (click)="_handleEdit($event)"
     (keyup)="_handleKeyUp($event)"
