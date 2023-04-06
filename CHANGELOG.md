@@ -1,3 +1,11 @@
+## [10.14.1](https://github.com/dynatrace-oss/barista/compare/10.14.0...10.14.1) (2023-04-06)
+
+### Bug Fixes
+
+- **filter-field:** Fixes an issue where title overlays are now consistently
+  shown.
+  ([1523133](https://github.com/dynatrace-oss/barista/commit/15231336a2e2e749479def2a9579adfdac304fdc))
+
 ## [10.14.0](https://github.com/dynatrace-oss/barista/compare/10.13.0...10.14.0) (2023-04-04)
 
 ### Bug Fixes
