@@ -134,7 +134,7 @@
     "axe-core": "^4.4.3",
     "axe-testcafe": "^3.0.0",
     "axios": "^0.21.3",
-    "chalk": "^4.1.2",
+    "chalk": "^5.2.0",
     "cheerio": "^1.0.0-rc.10",
     "conventional-changelog": "^3.1.24",
     "conventional-changelog-angular": "^5.0.13",
