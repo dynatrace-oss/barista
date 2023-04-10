@@ -113,7 +113,7 @@
     "@rollup/plugin-replace": "^3.0.1",
     "@types/chalk": "^2.2.0",
     "@types/d3-array": "^3.0.2",
-    "@types/d3-color": "^3.0.2",
+    "@types/d3-color": "^3.1.0",
     "@types/d3-scale": "^4.0.1",
     "@types/d3-shape": "^3.0.2",
     "@types/express": "^4.17.13",
