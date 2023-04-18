@@ -34,7 +34,7 @@ import { DtIndicatorThemePalette } from '@dynatrace/barista-components/indicator
 import { DtFormattedValue } from '@dynatrace/barista-components/formatters';
 import { DtCellDef, DtColumnDef } from '../cell';
 import { DtHeaderCellDef } from '../header/header-cell';
-import { DtTable } from '../table';
+import type { DtTable } from '../table';
 
 /** Signature type for the dataAccessor function which can be passed to the simpleColumn. */
 export type DtSimpleColumnDisplayAccessorFunction<T> = (
