@@ -1,5 +1,10 @@
 ##
 
+[11.0.0-rc.4](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.4)
+(2023-04-18)
+
+##
+
 [11.0.0-rc.3](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.3)
 (2023-03-27)
 
