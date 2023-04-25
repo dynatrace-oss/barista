@@ -199,7 +199,7 @@
     "webpack-node-externals": "^3.0.0",
     "xml2js": "^0.4.22",
     "xmlbuilder": "^15.1.1",
-    "yaml": "^1.10.2",
+    "yaml": "^2.2.2",
     "yargs": "^17.2.1"
   }
 }
