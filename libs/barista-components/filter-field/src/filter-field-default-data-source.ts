@@ -101,6 +101,7 @@ export interface DtFilterFieldDefaultDataSourceFreeText {
 export interface DtFilterFieldDefaultDataSourceRange {
   range: {
     unit: string;
+    pattern?: string;
     operators: {
       range?: boolean;
       equal?: boolean;
@@ -374,6 +375,7 @@ export class DtFilterFieldDefaultDataSource
       data.range.unit,
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       isDefined(data.unique) ? data.unique! : false,
+      data.range.pattern,
     );
   }
 

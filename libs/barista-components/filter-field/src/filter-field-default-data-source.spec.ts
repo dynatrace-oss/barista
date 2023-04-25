@@ -87,9 +87,16 @@ describe('DtFilterFieldDefaultDataSource', () => {
   });
 
   describe('transformRange', () => {
-    it('should transform a data object into a range node', () => {
+    it('should transform a data object without pattern property into a range node', () => {
       const transformedNode = dataSource.transformRange({
         range: { operators: { equal: true }, unit: 'ms' },
+      });
+      expect(isDtRangeDef(transformedNode)).toBe(true);
+    });
+
+    it('should transform a data object with pattern property into a range node', () => {
+      const transformedNode = dataSource.transformRange({
+        range: { operators: { equal: true }, unit: 'ms', pattern: '/d' },
       });
       expect(isDtRangeDef(transformedNode)).toBe(true);
     });

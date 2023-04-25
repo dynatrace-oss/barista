@@ -111,6 +111,7 @@ export const enum DtRangeOperatorFlags {
 
 export interface DtRangeDef {
   operatorFlags: DtRangeOperatorFlags;
+  pattern?: string;
   unit: string;
   unique: boolean;
 }
@@ -125,6 +126,7 @@ export function dtRangeDef<D = unknown>(
   hasLowerEqualOperator: boolean,
   unit: string,
   unique: boolean,
+  pattern?: string,
 ): DtNodeDef<D> & { range: DtRangeDef } {
   // if none of the operators are defined, throw an error.
   if (
@@ -157,6 +159,7 @@ export function dtRangeDef<D = unknown>(
     range: {
       operatorFlags,
       unit,
+      pattern,
       unique,
     },
   };
