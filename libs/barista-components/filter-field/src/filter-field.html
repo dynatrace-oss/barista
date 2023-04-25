@@ -131,6 +131,9 @@
       [enabledOperators]="
         _currentDef && !!_currentDef!.range && _currentDef!.range!.operatorFlags
       "
+      [pattern]="
+        _currentDef && !!_currentDef!.range && _currentDef!.range!.pattern
+      "
       [unit]="_currentDef && !!_currentDef!.range && _currentDef!.range!.unit"
       (rangeSubmitted)="_handleRangeSubmitted($event)"
     ></dt-filter-field-range>

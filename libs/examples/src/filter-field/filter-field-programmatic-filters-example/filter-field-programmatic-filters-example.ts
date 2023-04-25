@@ -51,6 +51,7 @@ export class DtExampleFilterFieldProgrammaticFilters {
             lessThanEqual: true,
           },
           unit: 's',
+          pattern: '-?\\d+\\.?\\d*',
         },
       },
       {
