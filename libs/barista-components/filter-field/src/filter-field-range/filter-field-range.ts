@@ -32,11 +32,13 @@ import {
 } from '@angular/core';
 
 import { DtButtonGroup } from '@dynatrace/barista-components/button-group';
-import { isDefined } from '@dynatrace/barista-components/core';
+import { isDefined, isString } from '@dynatrace/barista-components/core';
 
 import { DtRangeOperatorFlags } from '../types';
 
 let _uniqueIdCounter = 0;
+
+const DEFAULT_PATTERN = '\\d+\\.?\\d*';
 
 export class DtFilterFieldRangeSubmittedEvent {
   constructor(
@@ -70,6 +72,13 @@ export type DtFilterFieldRangeOperator =
 export class DtFilterFieldRange implements AfterViewInit {
   /** Unit for the range values */
   @Input() unit: string;
+
+  /** Pattern range values */
+  @Input() set pattern(value: string) {
+    if (isString(value)) {
+      this._pattern = value;
+    }
+  }
 
   /** Operators that are enabled in the range. */
   @Input()
@@ -148,6 +157,9 @@ export class DtFilterFieldRange implements AfterViewInit {
 
   /** @internal Holds the current value of the input field for the to value */
   _valueTo = '';
+
+  /** @internal Pattern for range inputs */
+  _pattern = DEFAULT_PATTERN;
 
   constructor(
     private _viewContainerRef: ViewContainerRef,
