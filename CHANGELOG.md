@@ -1,3 +1,10 @@
+## [10.15.0](https://github.com/dynatrace-oss/barista/compare/10.14.0...10.15.0) (2023-04-27)
+
+## Features
+
+- **filter-field:** Allow to define custom 'pattern' for `range` inputs.
+  ([cb2a0df](https://github.com/dynatrace-oss/barista/commit/cb2a0df3cf04da8d71f521b4c5c285bb72c12530))
+
 ## [10.14.2](https://github.com/dynatrace-oss/barista/compare/10.14.1...10.14.2) (2023-04-13)
 
 ### Bug Fixes
