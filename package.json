@@ -159,7 +159,7 @@
     "jest-preset-angular": "11.0.0",
     "jest-serializer-path": "^0.1.15",
     "lodash": "^4.17.21",
-    "markdown-it": "^12.3.2",
+    "markdown-it": "^13.0.1",
     "markdown-it-deflist": "^2.1.0",
     "memfs": "^3.4.1",
     "ng-packagr": "13.1.3",
