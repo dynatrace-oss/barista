@@ -77,7 +77,7 @@ describe('DtDateRange', () => {
 
       expect(loggerSpy).toHaveBeenNthCalledWith(
         1,
-        ERROR_MESSAGE_NO_NUMBERS_PROVIDED,
+        ERROR_MESSAGE_NO_NUMBERS_PROVIDED + ` Start: NaN, End: NaN`,
       );
       expect(transformed).toEqual(PLACEHOLDER);
     });

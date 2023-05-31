@@ -88,7 +88,8 @@ export function dtFormatDateRange(
   locale: string = 'en-US',
 ): string {
   if (isNaN(start) || isNaN(end)) {
-    logger.error(ERROR_MESSAGE_NO_NUMBERS_PROVIDED);
+    const startAndEnd = ` Start: ${start}, End: ${end}`;
+    logger.error(ERROR_MESSAGE_NO_NUMBERS_PROVIDED + startAndEnd);
     return PLACEHOLDER;
   }
 
