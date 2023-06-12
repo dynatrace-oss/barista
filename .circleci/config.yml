@@ -213,8 +213,8 @@ jobs:
           error-on-no-successful-workflow: true
           main-branch-name: master
       - run:
-          yarn nx affected --target build --base=$NX_BASE --configuration
-          production --withDeps
+          yarn nx run-many -- --target build --all --configuration production
+          --withDeps
       - persist_to_workspace:
           root: ~/barista
           paths:
