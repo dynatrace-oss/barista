@@ -1,6 +1,5 @@
-##
+## [11.0.0](https://github.com/dynatrace-oss/barista/compare/10.0.0...11.0.0)
 
-[11.0.0](https://github.com/dynatrace-oss/barista/compare/10.0.0...11.0.0)
 (2023-06-12)
 
 ### BREAKING CHANGES
@@ -10,23 +9,20 @@
   parameters are now required.
 - Refactored ClientRect types to DOMRect type.
 
-##
+## [11.0.0-rc.4](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.4)
 
-[11.0.0-rc.4](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.4)
 (2023-04-18)
 
-##
+## [11.0.0-rc.3](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.3)
 
-[11.0.0-rc.3](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.3)
 (2023-03-27)
 
 ### Bug Fixes
 
 - **workspace:** Angular peerDependency versions have been updated.
 
-##
+## [11.0.0-rc.2](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.2)
 
-[11.0.0-rc.2](https://github.com/dynatrace-oss/barista/compare/11.0.0-rc.1...11.0.0-rc.2)
 (2022-12-05)
 
 ### Features
