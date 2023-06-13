@@ -90,7 +90,7 @@ export interface DtOptionDef {
   parentAutocomplete: DtNodeDef<unknown> | null;
 }
 
-export const enum DtOperatorTypes {
+export enum DtOperatorTypes {
   And = 0,
   Or = 1,
   Not = 2,
@@ -101,7 +101,7 @@ export interface DtOperatorDef {
   type: DtOperatorTypes;
 }
 
-export const enum DtRangeOperatorFlags {
+export enum DtRangeOperatorFlags {
   Equal = 1 << 0,
   LowerEqual = 1 << 1,
   GreatEqual = 1 << 2,
