@@ -31,7 +31,7 @@ import { clamp } from '@dynatrace/barista-components/core';
 const DT_SELECTION_AREA_KEYBOARD_BIG_STEP = 10;
 
 /** @internal Event-target for the mouse events on the selection area */
-export const enum DtSelectionAreaEventTarget {
+export enum DtSelectionAreaEventTarget {
   SelectedArea = 'selected-area',
   LeftHandle = 'left',
   RightHandle = 'right',

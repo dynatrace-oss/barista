@@ -17,7 +17,7 @@
 /**
  * Enumeration for the different basic units
  */
-export const enum DtUnit {
+export enum DtUnit {
   PERCENT = '%',
   COUNT = 'count',
   BYTES = 'B',

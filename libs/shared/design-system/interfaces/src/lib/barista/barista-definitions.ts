@@ -15,7 +15,7 @@
  */
 
 /** Possible layout types for pages in Barista. */
-export const enum BaPageLayoutType {
+export enum BaPageLayoutType {
   Default = 'default',
   Overview = 'overview',
   IconOverview = 'iconOverview',
