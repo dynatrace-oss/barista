@@ -25,7 +25,7 @@ const NO_DECORATORS_ERROR = (name: string, filename: string) =>
   `The <${name}> property cannot be updated, in case there is no @NgModule in this file!\n${filename}`;
 
 // tslint:disable:max-line-length
-export const enum NgModuleProperties {
+export enum NgModuleProperties {
   Providers = 'providers', // The set of injectable objects that are available in the injector of this module.
   declarations = 'declarations', // The set of components, directives, and pipes (declarables) that belong to this module.
   Imports = 'imports', // The set of NgModules whose exported declarables are available to templates in this module.
