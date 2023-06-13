@@ -32,7 +32,7 @@ const DT_SELECTION_AREA_KEYBOARD_BIG_STEP = 10;
 
 /** @internal Event-target for the mouse events on the selection area */
 // eslint-disable-next-line no-shadow
-export const enum DtSelectionAreaEventTarget {
+export enum DtSelectionAreaEventTarget {
   SelectedArea = 'selected-area',
   LeftHandle = 'left',
   RightHandle = 'right',
