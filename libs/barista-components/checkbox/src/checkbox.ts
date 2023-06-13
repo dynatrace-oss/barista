@@ -62,7 +62,7 @@ let nextUniqueId = 0;
 
 /** Represents the different states that require custom transitions between them. */
 // eslint-disable-next-line no-shadow
-export const enum TransitionCheckState {
+export enum TransitionCheckState {
   /** The initial state of the component before any user interaction. */
   Init,
   /** The state representing the component when it's becoming checked. */
