@@ -21,13 +21,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/alert/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/alert/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/alert"],
+          "outputs": [
+            "coverage/libs/barista-components/alert"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/alert/jest.config.js",
             "passWithNoTests": true
@@ -35,7 +41,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "autocomplete": {
       "projectType": "library",
@@ -57,13 +66,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/autocomplete/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/autocomplete/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/autocomplete"],
+          "outputs": [
+            "coverage/libs/barista-components/autocomplete"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/autocomplete/jest.config.js",
             "passWithNoTests": true
@@ -71,7 +86,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "bar-indicator": {
       "projectType": "library",
@@ -93,13 +111,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/bar-indicator/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/bar-indicator/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/bar-indicator"],
+          "outputs": [
+            "coverage/libs/barista-components/bar-indicator"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/bar-indicator/jest.config.js",
             "passWithNoTests": true
@@ -107,7 +131,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "barista-design-system": {
       "root": "apps/barista-design-system",
@@ -232,7 +259,9 @@
               "apps/barista-design-system/src/main.scss"
             ],
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/barista-components/core/src/style/"]
+              "includePaths": [
+                "libs/barista-components/core/src/style/"
+              ]
             },
             "vendorChunk": true,
             "extractLicenses": false,
@@ -286,7 +315,9 @@
               ]
             }
           },
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "defaultConfiguration": ""
         },
         "build-server": {
@@ -296,7 +327,9 @@
             "main": "apps/barista-design-system/src/server.ts",
             "tsConfig": "apps/barista-design-system/tsconfig.server.json",
             "stylePreprocessorOptions": {
-              "includePaths": ["libs/barista-components/core/src/style/"]
+              "includePaths": [
+                "libs/barista-components/core/src/style/"
+              ]
             },
             "preserveSymlinks": true,
             "progress": false,
@@ -339,8 +372,12 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["apps/barista-design-system/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "apps/barista-design-system/src/**/*.scss"
+            ]
           }
         },
         "test": {
@@ -349,12 +386,18 @@
             "jestConfig": "apps/barista-design-system/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/barista-design-system"]
+          "outputs": [
+            "coverage/apps/barista-design-system"
+          ]
         }
       },
       "//": "The order of the properties does matter! they are executed at build time from last to first.",
-      "tags": ["type:app"],
-      "implicitDependencies": ["barista-tools"]
+      "tags": [
+        "type:app"
+      ],
+      "implicitDependencies": [
+        "barista-tools"
+      ]
     },
     "barista-tools": {
       "root": "libs/tools/barista",
@@ -377,7 +420,9 @@
               "watch": true
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "execute": {
           "builder": "@nrwl/workspace:run-commands",
@@ -404,10 +449,14 @@
             "jestConfig": "libs/tools/barista/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/tools/barista"]
+          "outputs": [
+            "coverage/libs/tools/barista"
+          ]
         }
       },
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "breadcrumbs": {
       "projectType": "library",
@@ -429,13 +478,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/breadcrumbs/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/breadcrumbs/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/breadcrumbs"],
+          "outputs": [
+            "coverage/libs/barista-components/breadcrumbs"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/breadcrumbs/jest.config.js",
             "passWithNoTests": true
@@ -443,7 +498,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "button": {
       "projectType": "library",
@@ -465,13 +523,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/button/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/button/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/button"],
+          "outputs": [
+            "coverage/libs/barista-components/button"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/button/jest.config.js",
             "passWithNoTests": true
@@ -479,7 +543,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "button-group": {
       "projectType": "library",
@@ -501,13 +568,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/button-group/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/button-group/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/button-group"],
+          "outputs": [
+            "coverage/libs/barista-components/button-group"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/button-group/jest.config.js",
             "passWithNoTests": true
@@ -515,7 +588,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "card": {
       "projectType": "library",
@@ -537,13 +613,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/card/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/card/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/card"],
+          "outputs": [
+            "coverage/libs/barista-components/card"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/card/jest.config.js",
             "passWithNoTests": true
@@ -551,7 +633,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "chart": {
       "projectType": "library",
@@ -573,13 +658,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/chart/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/chart/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/chart"],
+          "outputs": [
+            "coverage/libs/barista-components/chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/chart/jest.config.js",
             "passWithNoTests": true
@@ -587,7 +678,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "checkbox": {
       "projectType": "library",
@@ -609,13 +703,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/checkbox/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/checkbox/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/checkbox"],
+          "outputs": [
+            "coverage/libs/barista-components/checkbox"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/checkbox/jest.config.js",
             "passWithNoTests": true
@@ -623,7 +723,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "combobox": {
       "projectType": "library",
@@ -645,7 +748,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/experimental/combobox/src/**/*.scss"
             ]
@@ -653,7 +758,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/experimental/combobox"],
+          "outputs": [
+            "coverage/libs/barista-components/experimental/combobox"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/experimental/combobox/jest.config.js",
             "passWithNoTests": true
@@ -661,7 +768,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "components": {
       "projectType": "library",
@@ -696,14 +806,18 @@
                 "output": "dist/libs/components/assets"
               }
             ],
-            "additionalTargets": ["schematics:build"]
+            "additionalTargets": [
+              "schematics:build"
+            ]
           },
           "configurations": {
             "production": {}
           }
         }
       },
-      "tags": ["scope:components"],
+      "tags": [
+        "scope:components"
+      ],
       "implicitDependencies": [
         "alert",
         "autocomplete",
@@ -829,7 +943,9 @@
               "vendorChunk": false
             }
           },
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -849,7 +965,9 @@
             "devServerTarget": "components-e2e:serve",
             "src": "apps/components-e2e/src/**/*.{e2e,po}.ts",
             "stopOnFirstFail": false,
-            "browsers": ["chrome"],
+            "browsers": [
+              "chrome"
+            ],
             "screenshots": {
               "path": "./dist/components-e2e/screenshots",
               "takeOnFails": true,
@@ -877,15 +995,21 @@
               "concurrency": 2
             },
             "remote-pr": {
-              "browsers": ["browserstack:edge@18:windows"],
+              "browsers": [
+                "browserstack:edge@18:windows"
+              ],
               "concurrency": 4
             },
             "ci": {
-              "browsers": ["chrome:headless"],
+              "browsers": [
+                "chrome:headless"
+              ],
               "concurrency": 5
             },
             "watch": {
-              "browsers": ["chrome"],
+              "browsers": [
+                "chrome"
+              ],
               "stopOnFirstFail": false,
               "live": true,
               "concurrency": 1
@@ -906,8 +1030,12 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["apps/components-e2e/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "apps/components-e2e/src/**/*.scss"
+            ]
           }
         },
         "test": {
@@ -916,11 +1044,17 @@
             "jestConfig": "apps/components-e2e/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/apps/components-e2e"]
+          "outputs": [
+            "coverage/apps/components-e2e"
+          ]
         }
       },
-      "tags": ["type:e2e"],
-      "implicitDependencies": ["components"]
+      "tags": [
+        "type:e2e"
+      ],
+      "implicitDependencies": [
+        "components"
+      ]
     },
     "confirmation-dialog": {
       "projectType": "library",
@@ -942,7 +1076,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/confirmation-dialog/src/**/*.scss"
             ]
@@ -950,7 +1086,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/confirmation-dialog"],
+          "outputs": [
+            "coverage/libs/barista-components/confirmation-dialog"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/confirmation-dialog/jest.config.js",
             "passWithNoTests": true
@@ -958,7 +1096,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "consumption": {
       "projectType": "library",
@@ -980,13 +1121,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/consumption/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/consumption/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/consumption"],
+          "outputs": [
+            "coverage/libs/barista-components/consumption"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/consumption/jest.config.js",
             "passWithNoTests": true
@@ -994,7 +1141,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "container-breakpoint-observer": {
       "projectType": "library",
@@ -1016,7 +1166,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/container-breakpoint-observer/src/**/*.scss"
             ]
@@ -1034,7 +1186,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "context-dialog": {
       "projectType": "library",
@@ -1056,13 +1211,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/context-dialog/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/context-dialog/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/context-dialog"],
+          "outputs": [
+            "coverage/libs/barista-components/context-dialog"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/context-dialog/jest.config.js",
             "passWithNoTests": true
@@ -1070,7 +1231,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "copy-to-clipboard": {
       "projectType": "library",
@@ -1092,13 +1256,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/copy-to-clipboard/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/copy-to-clipboard/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/copy-to-clipboard"],
+          "outputs": [
+            "coverage/libs/barista-components/copy-to-clipboard"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/copy-to-clipboard/jest.config.js",
             "passWithNoTests": true
@@ -1106,7 +1276,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "core": {
       "projectType": "library",
@@ -1128,13 +1301,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/core/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/core/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/core"],
+          "outputs": [
+            "coverage/libs/barista-components/core"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/core/jest.config.js",
             "passWithNoTests": true
@@ -1142,7 +1321,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "datepicker": {
       "projectType": "library",
@@ -1164,7 +1346,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/experimental/datepicker/src/**/*.scss"
             ]
@@ -1182,7 +1366,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "demos": {
       "root": "apps/demos",
@@ -1272,7 +1459,9 @@
               "statsJson": true
             }
           },
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -1296,8 +1485,12 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["apps/demos/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "apps/demos/src/**/*.scss"
+            ]
           }
         },
         "a11y-tests": {
@@ -1306,7 +1499,9 @@
             "devServerTarget": "demos:serve",
             "src": "apps/demos/src/**/*.a11y.ts",
             "stopOnFirstFail": false,
-            "browsers": ["chrome"],
+            "browsers": [
+              "chrome"
+            ],
             "reporters": [
               {
                 "name": "spec"
@@ -1321,11 +1516,15 @@
           },
           "configurations": {
             "ci": {
-              "browsers": ["chrome:headless"],
+              "browsers": [
+                "chrome:headless"
+              ],
               "concurrency": 5
             },
             "watch": {
-              "browsers": ["chrome"],
+              "browsers": [
+                "chrome"
+              ],
               "live": true,
               "concurrency": 1
             }
@@ -1359,7 +1558,9 @@
           }
         }
       },
-      "tags": ["type:app"]
+      "tags": [
+        "type:app"
+      ]
     },
     "dev": {
       "root": "apps/dev",
@@ -1418,7 +1619,9 @@
               "budgets": []
             }
           },
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "defaultConfiguration": ""
         },
         "serve": {
@@ -1445,7 +1648,9 @@
           }
         }
       },
-      "tags": ["type:app"]
+      "tags": [
+        "type:app"
+      ]
     },
     "drawer": {
       "projectType": "library",
@@ -1467,13 +1672,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/drawer/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/drawer/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/drawer"],
+          "outputs": [
+            "coverage/libs/barista-components/drawer"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/drawer/jest.config.js",
             "passWithNoTests": true
@@ -1481,7 +1692,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "drawer-table": {
       "projectType": "library",
@@ -1503,7 +1717,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/experimental/drawer-table/src/**/*.scss"
             ]
@@ -1521,7 +1737,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "empty-state": {
       "projectType": "library",
@@ -1543,13 +1762,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/empty-state/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/empty-state/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/empty-state"],
+          "outputs": [
+            "coverage/libs/barista-components/empty-state"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/empty-state/jest.config.js",
             "passWithNoTests": true
@@ -1557,7 +1782,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "event-chart": {
       "projectType": "library",
@@ -1579,13 +1807,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/event-chart/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/event-chart/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/event-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/event-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/event-chart/jest.config.js",
             "passWithNoTests": true
@@ -1593,7 +1827,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "examples": {
       "projectType": "library",
@@ -1615,12 +1852,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/examples/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/examples/src/**/*.scss"
+            ]
           }
         }
       },
-      "tags": ["scope:examples", "type:library"]
+      "tags": [
+        "scope:examples",
+        "type:library"
+      ]
     },
     "expandable-panel": {
       "projectType": "library",
@@ -1642,13 +1886,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/expandable-panel/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/expandable-panel/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/expandable-panel"],
+          "outputs": [
+            "coverage/libs/barista-components/expandable-panel"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/expandable-panel/jest.config.js",
             "passWithNoTests": true
@@ -1656,7 +1906,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "expandable-section": {
       "projectType": "library",
@@ -1678,7 +1931,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/expandable-section/src/**/*.scss"
             ]
@@ -1686,7 +1941,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/expandable-section"],
+          "outputs": [
+            "coverage/libs/barista-components/expandable-section"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/expandable-section/jest.config.js",
             "passWithNoTests": true
@@ -1694,7 +1951,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "expandable-text": {
       "projectType": "library",
@@ -1716,13 +1976,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/expandable-text/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/expandable-text/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/expandable-text"],
+          "outputs": [
+            "coverage/libs/barista-components/expandable-text"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/expandable-text/jest.config.js",
             "passWithNoTests": true
@@ -1730,7 +1996,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "filter-field": {
       "projectType": "library",
@@ -1752,13 +2021,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/filter-field/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/filter-field/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/filter-field"],
+          "outputs": [
+            "coverage/libs/barista-components/filter-field"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/filter-field/jest.config.js",
             "passWithNoTests": true
@@ -1766,7 +2041,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "form-field": {
       "projectType": "library",
@@ -1788,13 +2066,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/form-field/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/form-field/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/form-field"],
+          "outputs": [
+            "coverage/libs/barista-components/form-field"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/form-field/jest.config.js",
             "passWithNoTests": true
@@ -1802,7 +2086,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "formatters": {
       "projectType": "library",
@@ -1824,13 +2111,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/formatters/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/formatters/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/formatters"],
+          "outputs": [
+            "coverage/libs/barista-components/formatters"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/formatters/jest.config.js",
             "passWithNoTests": true
@@ -1838,7 +2131,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "highlight": {
       "projectType": "library",
@@ -1860,13 +2156,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/highlight/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/highlight/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/highlight"],
+          "outputs": [
+            "coverage/libs/barista-components/highlight"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/highlight/jest.config.js",
             "passWithNoTests": true
@@ -1874,7 +2176,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "icon": {
       "projectType": "library",
@@ -1896,13 +2201,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/icon/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/icon/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/icon"],
+          "outputs": [
+            "coverage/libs/barista-components/icon"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/icon/jest.config.js",
             "passWithNoTests": true
@@ -1910,7 +2221,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "indicator": {
       "projectType": "library",
@@ -1932,13 +2246,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/indicator/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/indicator/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/indicator"],
+          "outputs": [
+            "coverage/libs/barista-components/indicator"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/indicator/jest.config.js",
             "passWithNoTests": true
@@ -1946,7 +2266,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "info-group": {
       "projectType": "library",
@@ -1968,13 +2291,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/info-group/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/info-group/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/info-group"],
+          "outputs": [
+            "coverage/libs/barista-components/info-group"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/info-group/jest.config.js",
             "passWithNoTests": true
@@ -1982,7 +2311,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "inline-editor": {
       "projectType": "library",
@@ -2004,13 +2336,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/inline-editor/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/inline-editor/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/inline-editor"],
+          "outputs": [
+            "coverage/libs/barista-components/inline-editor"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/inline-editor/jest.config.js",
             "passWithNoTests": true
@@ -2018,7 +2356,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "input": {
       "projectType": "library",
@@ -2040,13 +2381,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/input/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/input/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/input"],
+          "outputs": [
+            "coverage/libs/barista-components/input"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/input/jest.config.js",
             "passWithNoTests": true
@@ -2054,7 +2401,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "key-value-list": {
       "projectType": "library",
@@ -2076,13 +2426,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/key-value-list/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/key-value-list/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/key-value-list"],
+          "outputs": [
+            "coverage/libs/barista-components/key-value-list"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/key-value-list/jest.config.js",
             "passWithNoTests": true
@@ -2090,7 +2446,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "legend": {
       "projectType": "library",
@@ -2112,13 +2471,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/legend/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/legend/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/legend"],
+          "outputs": [
+            "coverage/libs/barista-components/legend"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/legend/jest.config.js",
             "passWithNoTests": true
@@ -2126,7 +2491,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "loading-distractor": {
       "projectType": "library",
@@ -2148,7 +2516,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/loading-distractor/src/**/*.scss"
             ]
@@ -2156,7 +2526,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/loading-distractor"],
+          "outputs": [
+            "coverage/libs/barista-components/loading-distractor"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/loading-distractor/jest.config.js",
             "passWithNoTests": true
@@ -2164,7 +2536,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "menu": {
       "projectType": "library",
@@ -2186,13 +2561,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/menu/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/menu/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/menu"],
+          "outputs": [
+            "coverage/libs/barista-components/menu"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/menu/jest.config.js",
             "passWithNoTests": true
@@ -2200,7 +2581,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "micro-chart": {
       "projectType": "library",
@@ -2222,13 +2606,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/micro-chart/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/micro-chart/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/micro-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/micro-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/micro-chart/jest.config.js",
             "passWithNoTests": true
@@ -2236,7 +2626,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "overlay": {
       "projectType": "library",
@@ -2258,13 +2651,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/overlay/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/overlay/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/overlay"],
+          "outputs": [
+            "coverage/libs/barista-components/overlay"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/overlay/jest.config.js",
             "passWithNoTests": true
@@ -2272,7 +2671,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "pagination": {
       "projectType": "library",
@@ -2294,13 +2696,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/pagination/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/pagination/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/pagination"],
+          "outputs": [
+            "coverage/libs/barista-components/pagination"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/pagination/jest.config.js",
             "passWithNoTests": true
@@ -2308,7 +2716,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "progress-bar": {
       "projectType": "library",
@@ -2330,13 +2741,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/progress-bar/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/progress-bar/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/progress-bar"],
+          "outputs": [
+            "coverage/libs/barista-components/progress-bar"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/progress-bar/jest.config.js",
             "passWithNoTests": true
@@ -2344,7 +2761,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "progress-circle": {
       "projectType": "library",
@@ -2366,13 +2786,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/progress-circle/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/progress-circle/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/progress-circle"],
+          "outputs": [
+            "coverage/libs/barista-components/progress-circle"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/progress-circle/jest.config.js",
             "passWithNoTests": true
@@ -2380,7 +2806,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "quick-filter": {
       "projectType": "library",
@@ -2402,20 +2831,29 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/quick-filter/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/quick-filter/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/quick-filter"],
+          "outputs": [
+            "coverage/libs/barista-components/quick-filter"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/quick-filter/jest.config.js",
             "passWithNoTests": true
           }
         }
       },
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "radial-chart": {
       "projectType": "library",
@@ -2437,13 +2875,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/radial-chart/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/radial-chart/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/radial-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/radial-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/radial-chart/jest.config.js",
             "passWithNoTests": true
@@ -2451,7 +2895,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "radio": {
       "projectType": "library",
@@ -2473,13 +2920,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/radio/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/radio/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/radio"],
+          "outputs": [
+            "coverage/libs/barista-components/radio"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/radio/jest.config.js",
             "passWithNoTests": true
@@ -2487,7 +2940,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "schematics": {
       "projectType": "library",
@@ -2515,8 +2971,12 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/schematics/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/schematics/src/**/*.scss"
+            ]
           }
         },
         "test": {
@@ -2525,10 +2985,15 @@
             "jestConfig": "libs/barista-components/schematics/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/barista-components/schematics"]
+          "outputs": [
+            "coverage/libs/barista-components/schematics"
+          ]
         }
       },
-      "tags": ["scope:schematics", "type:library"]
+      "tags": [
+        "scope:schematics",
+        "type:library"
+      ]
     },
     "secondary-nav": {
       "projectType": "library",
@@ -2550,13 +3015,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/secondary-nav/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/secondary-nav/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/secondary-nav"],
+          "outputs": [
+            "coverage/libs/barista-components/secondary-nav"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/secondary-nav/jest.config.js",
             "passWithNoTests": true
@@ -2564,7 +3035,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "select": {
       "projectType": "library",
@@ -2586,13 +3060,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/select/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/select/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/select"],
+          "outputs": [
+            "coverage/libs/barista-components/select"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/select/jest.config.js",
             "passWithNoTests": true
@@ -2600,7 +3080,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "shared-data-access-strapi": {
       "projectType": "library",
@@ -2623,11 +3106,17 @@
             "jestConfig": "libs/shared/data-access-strapi/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/shared/data-access-strapi"]
+          "outputs": [
+            "coverage/libs/shared/data-access-strapi"
+          ]
         }
       },
       "schematics": {},
-      "tags": ["scope:cms", "type:shared", "type:library"]
+      "tags": [
+        "scope:cms",
+        "type:shared",
+        "type:library"
+      ]
     },
     "shared-design-system-interfaces": {
       "projectType": "library",
@@ -2650,7 +3139,9 @@
             "jestConfig": "libs/shared/design-system/interfaces/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/shared/design-system/interfaces"]
+          "outputs": [
+            "coverage/libs/shared/design-system/interfaces"
+          ]
         }
       },
       "schematics": {
@@ -2658,7 +3149,10 @@
           "style": "scss"
         }
       },
-      "tags": ["type:library", "type:shared"]
+      "tags": [
+        "type:library",
+        "type:shared"
+      ]
     },
     "shared-design-system-ui": {
       "projectType": "library",
@@ -2681,7 +3175,9 @@
             "jestConfig": "libs/shared/design-system/ui/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/shared/design-system/ui"]
+          "outputs": [
+            "coverage/libs/shared/design-system/ui"
+          ]
         }
       },
       "schematics": {
@@ -2689,7 +3185,10 @@
           "style": "scss"
         }
       },
-      "tags": ["type:library", "type:shared"]
+      "tags": [
+        "type:library",
+        "type:shared"
+      ]
     },
     "shared-keycodes": {
       "root": "libs/shared/keycodes",
@@ -2707,7 +3206,10 @@
           }
         }
       },
-      "tags": ["type:library", "type:shared"]
+      "tags": [
+        "type:library",
+        "type:shared"
+      ]
     },
     "shared-node": {
       "root": "libs/shared/node",
@@ -2729,10 +3231,15 @@
             "jestConfig": "libs/shared/node/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/shared/node"]
+          "outputs": [
+            "coverage/libs/shared/node"
+          ]
         }
       },
-      "tags": ["type:tooling", "type:shared"]
+      "tags": [
+        "type:tooling",
+        "type:shared"
+      ]
     },
     "show-more": {
       "projectType": "library",
@@ -2754,13 +3261,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/show-more/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/show-more/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/show-more"],
+          "outputs": [
+            "coverage/libs/barista-components/show-more"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/show-more/jest.config.js",
             "passWithNoTests": true
@@ -2768,7 +3281,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "slider": {
       "projectType": "library",
@@ -2790,13 +3306,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/slider/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/slider/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/slider"],
+          "outputs": [
+            "coverage/libs/barista-components/slider"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/slider/jest.config.js",
             "passWithNoTests": true
@@ -2804,7 +3326,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "stacked-series-chart": {
       "projectType": "library",
@@ -2826,7 +3351,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/stacked-series-chart/src/**/*.scss"
             ]
@@ -2834,7 +3361,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/stacked-series-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/stacked-series-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/stacked-series-chart/jest.config.js",
             "passWithNoTests": true
@@ -2842,7 +3371,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "stepper": {
       "projectType": "library",
@@ -2864,13 +3396,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/stepper/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/stepper/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/stepper"],
+          "outputs": [
+            "coverage/libs/barista-components/stepper"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/stepper/jest.config.js",
             "passWithNoTests": true
@@ -2878,7 +3416,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "sunburst-chart": {
       "projectType": "library",
@@ -2900,13 +3441,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/sunburst-chart/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/sunburst-chart/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/sunburst-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/sunburst-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/sunburst-chart/jest.config.js",
             "passWithNoTests": true
@@ -2918,7 +3465,10 @@
           "styleext": "scss"
         }
       },
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "switch": {
       "projectType": "library",
@@ -2940,13 +3490,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/switch/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/switch/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/switch"],
+          "outputs": [
+            "coverage/libs/barista-components/switch"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/switch/jest.config.js",
             "passWithNoTests": true
@@ -2954,7 +3510,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "table": {
       "projectType": "library",
@@ -2976,13 +3535,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/table/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/table/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/table"],
+          "outputs": [
+            "coverage/libs/barista-components/table"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/table/jest.config.js",
             "passWithNoTests": true
@@ -2990,7 +3555,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tabs": {
       "projectType": "library",
@@ -3012,13 +3580,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/tabs/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/tabs/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/tabs"],
+          "outputs": [
+            "coverage/libs/barista-components/tabs"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/tabs/jest.config.js",
             "passWithNoTests": true
@@ -3026,7 +3600,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tag": {
       "projectType": "library",
@@ -3048,13 +3625,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/tag/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/tag/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/tag"],
+          "outputs": [
+            "coverage/libs/barista-components/tag"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/tag/jest.config.js",
             "passWithNoTests": true
@@ -3062,7 +3645,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "testing-browser": {
       "root": "libs/testing/browser",
@@ -3085,10 +3671,16 @@
             "jestConfig": "libs/testing/browser/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/testing/browser"]
+          "outputs": [
+            "coverage/libs/testing/browser"
+          ]
         }
       },
-      "tags": ["scope:testing", "scope:browser", "type:library"]
+      "tags": [
+        "scope:testing",
+        "scope:browser",
+        "type:library"
+      ]
     },
     "testing-fixtures": {
       "root": "libs/testing/fixtures",
@@ -3111,10 +3703,15 @@
             "jestConfig": "libs/testing/fixtures/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/testing/fixtures"]
+          "outputs": [
+            "coverage/libs/testing/fixtures"
+          ]
         }
       },
-      "tags": ["scope:testing", "type:library"]
+      "tags": [
+        "scope:testing",
+        "type:library"
+      ]
     },
     "testing-node": {
       "root": "libs/testing/node",
@@ -3137,10 +3734,16 @@
             "jestConfig": "libs/testing/node/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/testing/node"]
+          "outputs": [
+            "coverage/libs/testing/node"
+          ]
         }
       },
-      "tags": ["scope:testing", "scope:node", "type:library"]
+      "tags": [
+        "scope:testing",
+        "scope:node",
+        "type:library"
+      ]
     },
     "theming": {
       "projectType": "library",
@@ -3162,13 +3765,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/theming/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/theming/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/theming"],
+          "outputs": [
+            "coverage/libs/barista-components/theming"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/theming/jest.config.js",
             "passWithNoTests": true
@@ -3176,7 +3785,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tile": {
       "projectType": "library",
@@ -3198,13 +3810,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/tile/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/tile/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/tile"],
+          "outputs": [
+            "coverage/libs/barista-components/tile"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/tile/jest.config.js",
             "passWithNoTests": true
@@ -3212,7 +3830,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "timeline-chart": {
       "projectType": "library",
@@ -3234,13 +3855,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/timeline-chart/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/timeline-chart/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/timeline-chart"],
+          "outputs": [
+            "coverage/libs/barista-components/timeline-chart"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/timeline-chart/jest.config.js",
             "passWithNoTests": true
@@ -3248,7 +3875,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "toast": {
       "projectType": "library",
@@ -3270,13 +3900,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/toast/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/toast/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/toast"],
+          "outputs": [
+            "coverage/libs/barista-components/toast"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/toast/jest.config.js",
             "passWithNoTests": true
@@ -3284,7 +3920,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "toggle-button-group": {
       "projectType": "library",
@@ -3306,7 +3945,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/toggle-button-group/src/**/*.scss"
             ]
@@ -3314,7 +3955,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/toggle-button-group"],
+          "outputs": [
+            "coverage/libs/barista-components/toggle-button-group"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/toggle-button-group/jest.config.js",
             "passWithNoTests": true
@@ -3322,7 +3965,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tools-pull-request-labeler": {
       "root": "tools/pull-request-labeler",
@@ -3344,10 +3990,14 @@
             "jestConfig": "tools/pull-request-labeler/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/tools/pull-request-labeler"]
+          "outputs": [
+            "coverage/tools/pull-request-labeler"
+          ]
         }
       },
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "tools-release": {
       "root": "libs/tools/release",
@@ -3377,7 +4027,9 @@
             "progress": false,
             "buildLibsFromSource": true
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "build-stage-release": {
           "builder": "@nrwl/node:build",
@@ -3395,7 +4047,9 @@
             ],
             "buildLibsFromSource": true
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
@@ -3412,10 +4066,14 @@
             "jestConfig": "libs/tools/release/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/tools/release"]
+          "outputs": [
+            "coverage/libs/tools/release"
+          ]
         }
       },
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "tools-shareable-examples": {
       "root": "libs/tools/shareable-examples",
@@ -3435,7 +4093,9 @@
           "configurations": {
             "production": {}
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
@@ -3451,10 +4111,14 @@
           "options": {
             "jestConfig": "libs/tools/shareable-examples/jest.config.js"
           },
-          "outputs": ["coverage/libs/tools/shareable-examples"]
+          "outputs": [
+            "coverage/libs/tools/shareable-examples"
+          ]
         }
       },
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     },
     "top-bar-navigation": {
       "projectType": "library",
@@ -3476,7 +4140,9 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
+            "exclude": [
+              "**/node_modules/**"
+            ],
             "files": [
               "libs/barista-components/top-bar-navigation/src/**/*.scss"
             ]
@@ -3484,7 +4150,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/top-bar-navigation"],
+          "outputs": [
+            "coverage/libs/barista-components/top-bar-navigation"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/top-bar-navigation/jest.config.js",
             "passWithNoTests": true
@@ -3492,7 +4160,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "tree-table": {
       "projectType": "library",
@@ -3514,13 +4185,19 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["libs/barista-components/tree-table/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "libs/barista-components/tree-table/src/**/*.scss"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/barista-components/tree-table"],
+          "outputs": [
+            "coverage/libs/barista-components/tree-table"
+          ],
           "options": {
             "jestConfig": "libs/barista-components/tree-table/jest.config.js",
             "passWithNoTests": true
@@ -3528,7 +4205,10 @@
         }
       },
       "schematics": {},
-      "tags": ["scope:components", "type:library"]
+      "tags": [
+        "scope:components",
+        "type:library"
+      ]
     },
     "universal": {
       "root": "apps/universal",
@@ -3578,7 +4258,9 @@
                 "output": "/fonts"
               }
             ],
-            "styles": ["libs/barista-components/style/index.scss"],
+            "styles": [
+              "libs/barista-components/style/index.scss"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -3599,7 +4281,9 @@
               "buildOptimizer": true
             }
           },
-          "outputs": ["{options.outputPath}"],
+          "outputs": [
+            "{options.outputPath}"
+          ],
           "defaultConfiguration": ""
         },
         "build-server": {
@@ -3641,8 +4325,12 @@
           "options": {
             "stylelintConfig": ".stylelintrc",
             "reportFile": "dist/stylelint/report.xml",
-            "exclude": ["**/node_modules/**"],
-            "files": ["apps/universal/src/**/*.scss"]
+            "exclude": [
+              "**/node_modules/**"
+            ],
+            "files": [
+              "apps/universal/src/**/*.scss"
+            ]
           }
         },
         "serve-ssr": {
@@ -3664,7 +4352,9 @@
           "options": {
             "browserTarget": "universal:build-frontend:production",
             "serverTarget": "universal:build-server:production",
-            "routes": ["/"]
+            "routes": [
+              "/"
+            ]
           },
           "configurations": {
             "production": {}
@@ -3675,7 +4365,9 @@
           "options": {
             "devServerTarget": "universal:serve-ssr",
             "src": "apps/universal/src/**/*.{e2e,po}.ts",
-            "browsers": ["chrome"],
+            "browsers": [
+              "chrome"
+            ],
             "reporters": [
               {
                 "name": "spec"
@@ -3690,10 +4382,14 @@
           },
           "configurations": {
             "remote-pr": {
-              "browsers": ["browserstack:chrome"]
+              "browsers": [
+                "browserstack:chrome"
+              ]
             },
             "ci": {
-              "browsers": ["chrome:headless"],
+              "browsers": [
+                "chrome:headless"
+              ],
               "concurrency": 5
             },
             "watch": {
@@ -3702,7 +4398,9 @@
           }
         }
       },
-      "tags": ["type:app"]
+      "tags": [
+        "type:app"
+      ]
     },
     "workspace": {
       "root": "libs/workspace",
@@ -3725,7 +4423,9 @@
             "jestConfig": "libs/workspace/jest.config.js",
             "passWithNoTests": true
           },
-          "outputs": ["coverage/libs/workspace"]
+          "outputs": [
+            "coverage/libs/workspace"
+          ]
         },
         "build": {
           "builder": "@nrwl/node:build",
@@ -3755,10 +4455,14 @@
               "watch": true
             }
           },
-          "outputs": ["{options.outputPath}"]
+          "outputs": [
+            "{options.outputPath}"
+          ]
         }
       },
-      "tags": ["type:tooling"]
+      "tags": [
+        "type:tooling"
+      ]
     }
   }
 }

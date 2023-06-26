@@ -1,5 +1,15 @@
 ##
 
+[11.0.1](https://github.com/dynatrace-oss/barista/compare/11.0.0...11.0.1)
+(2023-06-26)
+
+## Refactors
+
+- **workspace:** Moved all const enum to regular
+  enums.([ad33e0e](https://github.com/dynatrace-oss/barista/commit/ad33e0e265cbe0dbfcfd6bfa5668dd96c36d0b8b))
+
+##
+
 [11.0.0](https://github.com/dynatrace-oss/barista/compare/10.0.0...11.0.0)
 (2023-06-12)
 
