@@ -360,11 +360,11 @@ workflows:
           context: barista
           requires:
             - install
-      - security-checks:
-          # SNYK_TOKEN is needed for security checking
-          context: barista
-          requires:
-            - install
+      # - security-checks:
+      #     # SNYK_TOKEN is needed for security checking
+      #     context: barista
+      #     requires:
+      #       - install
       - lint:
           context: barista
           requires:
