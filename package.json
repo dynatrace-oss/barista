@@ -78,7 +78,7 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "13.1.0",
-    "@angular-devkit/architect": "0.1301.2",
+    "@angular-devkit/architect": "0.1601.4",
     "@angular-devkit/architect-cli": "0.1301.2",
     "@angular-devkit/build-angular": "13.1.2",
     "@angular-devkit/core": "13.1.2",
