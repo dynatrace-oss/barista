@@ -54,7 +54,7 @@
     "last 2 and_chr version"
   ],
   "engines": {
-    "node": ">=12.15"
+    "node": ">=14.15"
   },
   "dependencies": {
     "@angular/animations": "14.2.12",
