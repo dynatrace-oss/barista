@@ -25,12 +25,10 @@ import {
   ViewEncapsulation,
   ViewChild,
   ElementRef,
-  NgZone,
   OnDestroy,
 } from '@angular/core';
 
 import { DtFilterFieldTagData } from '../types';
-import { Platform } from '@angular/cdk/platform';
 import { Subject } from 'rxjs';
 import { _readKeyCode } from '@dynatrace/barista-components/core';
 import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
@@ -170,13 +168,7 @@ export class DtFilterFieldTag implements OnDestroy {
   /** @internal Flag that determines if the tooltip needs to be shown. */
   _tooltipDisabled = false;
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    /** @breaking-change _Platform constructor parameter will be removed with version 12.0.0 */
-    _platform: Platform,
-    /** @breaking-change _zone constructor parameter will be removed with version 12.0.0 */
-    _zone: NgZone,
-  ) {}
+  constructor(private _changeDetectorRef: ChangeDetectorRef) {}
 
   ngOnDestroy(): void {
     this._destroy$.next();
